@@ -27,6 +27,7 @@ import technology.rocketjump.undermount.entities.model.Entity;
 import technology.rocketjump.undermount.entities.model.physical.LocationComponent;
 import technology.rocketjump.undermount.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.undermount.entities.model.physical.creature.Gender;
+import technology.rocketjump.undermount.entities.model.physical.creature.Race;
 import technology.rocketjump.undermount.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.undermount.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.undermount.entities.model.physical.item.*;
@@ -59,6 +60,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
@@ -148,9 +150,14 @@ public class I18NTranslatorTest {
 	@Test
 	public void describeHumanoid() throws IOException {
 		NorseNameGenerator nameGenerator = new NorseNameGenerator();
+		Race dwarfStub = new Race();
+		dwarfStub.setName("Dwarf");
+		dwarfStub.setBodyShapes(List.of());
+		dwarfStub.setI18nKey("RACE.DWARF");
+		when(mockRaceDictionary.getByName(anyString())).thenReturn(dwarfStub);
 		CreatureEntityAttributes attributes = new SettlerCreatureAttributesFactory(
 				new DwarvenNameGenerator(new NorseNameGenerator()),
-				mockUserPreferences, mockTwitchDataStore, mockMaterialDictionary, mockRaceDictionary).create(new GameContext());
+				mockUserPreferences, mockTwitchDataStore, mockRaceDictionary).create(new GameContext());
 		attributes.setName(nameGenerator.create(88L, Gender.MALE));
 
 		Profession profession = new Profession();

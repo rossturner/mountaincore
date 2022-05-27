@@ -107,7 +107,7 @@ public class I18nText implements I18nString {
 	public I18nText tidy(boolean firstInvocation) {
 		if (firstInvocation && textElements.size() > 1 && textElements.stream().allMatch(e -> e.getTooltipI18nKey() == null)) {
 			// no tooltips, merge all text together
-			String combinedText = textElements.stream().map(I18nTextElement::getText).collect(Collectors.joining());
+			String combinedText = textElements.stream().map(I18nTextElement::getText).collect(Collectors.joining()).replaceAll(" +", " ");
 			textElements.clear();
 			textElements.add(new I18nTextElement(combinedText, null));
 		}

@@ -16,6 +16,8 @@ import technology.rocketjump.undermount.entities.behaviour.creature.SettlerBehav
 import technology.rocketjump.undermount.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.undermount.entities.factories.SettlerFactory;
 import technology.rocketjump.undermount.entities.model.Entity;
+import technology.rocketjump.undermount.entities.model.physical.creature.Race;
+import technology.rocketjump.undermount.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.undermount.environment.GameClock;
 import technology.rocketjump.undermount.gamecontext.GameContext;
 import technology.rocketjump.undermount.mapping.model.TiledMap;
@@ -25,6 +27,9 @@ import technology.rocketjump.undermount.materials.model.GameMaterial;
 import technology.rocketjump.undermount.rooms.RoomStore;
 import technology.rocketjump.undermount.ui.i18n.I18nTranslator;
 
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static technology.rocketjump.undermount.assets.model.FloorType.NULL_FLOOR;
@@ -49,12 +54,16 @@ public class AssignedGoalTest {
 	private MapTile mockTile;
 	@Mock
 	private ItemEntityAttributesFactory mockItemEntityAttributesFactory;
+	@Mock
+	private RaceDictionary mockRaceDictionary;
+	private Race stubRace;
 
 	@Before
 	public void setUp() throws Exception {
 		Injector injector = Guice.createInjector((binder) -> {
 			binder.bind(EntityAssetUpdater.class).toInstance(mockAssetUpdater);
 			binder.bind(ItemEntityAttributesFactory.class).toInstance(mockItemEntityAttributesFactory);
+			binder.bind(RaceDictionary.class).toInstance(mockRaceDictionary);
 		});
 
 		gameContext = new GameContext();
@@ -66,6 +75,9 @@ public class AssignedGoalTest {
 		when(mockMap.getTile(any(Vector2.class))).thenReturn(mockTile);
 
 		when(mockTile.getFloor()).thenReturn(new TileFloor(NULL_FLOOR, GameMaterial.NULL_MATERIAL));
+		stubRace = new Race();
+		stubRace.setBodyShapes(List.of());
+		when(mockRaceDictionary.getByName(anyString())).thenReturn(stubRace);
 
 		this.goalDictionary = injector.getInstance(GoalDictionary.class);
 		this.i18nTranslator = injector.getInstance(I18nTranslator.class);

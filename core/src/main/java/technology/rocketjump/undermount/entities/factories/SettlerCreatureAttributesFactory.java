@@ -7,7 +7,6 @@ import technology.rocketjump.undermount.entities.model.physical.creature.Creatur
 import technology.rocketjump.undermount.entities.model.physical.creature.Race;
 import technology.rocketjump.undermount.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.undermount.gamecontext.GameContext;
-import technology.rocketjump.undermount.materials.GameMaterialDictionary;
 import technology.rocketjump.undermount.misc.twitch.TwitchDataStore;
 import technology.rocketjump.undermount.misc.twitch.model.TwitchViewer;
 import technology.rocketjump.undermount.persistence.UserPreferences;
@@ -26,7 +25,7 @@ public class SettlerCreatureAttributesFactory {
 	@Inject
 	public SettlerCreatureAttributesFactory(DwarvenNameGenerator nameGenerator,
 											UserPreferences userPreferences, TwitchDataStore twitchDataStore,
-											GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary) {
+											RaceDictionary raceDictionary) {
 		this.nameGenerator = nameGenerator;
 		this.userPreferences = userPreferences;
 		this.twitchDataStore = twitchDataStore;

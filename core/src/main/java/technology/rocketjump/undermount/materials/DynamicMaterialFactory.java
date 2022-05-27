@@ -43,7 +43,7 @@ public class DynamicMaterialFactory implements I18nUpdatable, GameContextAware {
 		} else {
 			Color combinedColor = null;
 			Set<GameMaterial> materialSet = new TreeSet<>();
-			boolean isPoisonous = false;
+			boolean isPoisonous = inputMaterials.stream().anyMatch(GameMaterial::isPoisonous);
 			for (GameMaterial inputMaterial : inputMaterials) {
 				if (combinedColor == null) {
 					combinedColor = inputMaterial.getColor();
@@ -51,9 +51,6 @@ public class DynamicMaterialFactory implements I18nUpdatable, GameContextAware {
 					combinedColor = ColorMixer.average(combinedColor, inputMaterial.getColor());
 				}
 				materialSet.add(inputMaterial);
-				if (inputMaterial.isPoisonous()) {
-					isPoisonous = true;
-				}
 			}
 			GameMaterial created = new GameMaterial(combinedId,
 					"Combined " + StringUtils.join(materialSet, " "), SequentialIdGenerator.nextId(),

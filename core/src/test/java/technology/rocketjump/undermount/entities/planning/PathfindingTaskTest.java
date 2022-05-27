@@ -139,6 +139,11 @@ public class PathfindingTaskTest implements PathfindingCallback {
 	}
 
 	@Override
+	public void pathfindingStarted(PathfindingTask task) {
+
+	}
+
+	@Override
 	public void pathfindingComplete(GraphPath<Vector2> path, long relatedId) {
 		this.resultPath = path;
 	}

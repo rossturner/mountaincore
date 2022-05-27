@@ -51,6 +51,8 @@ public class StockpileComponentTest {
 	private MapTile mockTile2;
 	@Mock
 	private MessageDispatcher mockMessageDispatcher;
+	@Mock
+	private ItemAllocationComponent mockItemAllocationComponent;
 
 	@Before
 	public void setUp() throws Exception {
@@ -73,6 +75,8 @@ public class StockpileComponentTest {
 		itemAttributes.setMaterial(NULL_MATERIAL);
 		itemAttributes.setQuantity(10);
 		when(mockPhysicalComponent.getAttributes()).thenReturn(itemAttributes);
+		when(mockItem.getComponent(ItemAllocationComponent.class)).thenReturn(mockItemAllocationComponent);
+		when(mockItemAllocationComponent.getNumUnallocated()).thenReturn(itemAttributes.getQuantity());
 
 		when(mockItemType.getMaxStackSize()).thenReturn(100);
 		when(mockItemType.getMaxHauledAtOnce()).thenReturn(100);
@@ -87,7 +91,6 @@ public class StockpileComponentTest {
 		when(mockItem.getType()).thenReturn(EntityType.ITEM);
 		ItemAllocationComponent itemAllocationComponent = new ItemAllocationComponent();
 		itemAllocationComponent.init(mockItem, mockMessageDispatcher, null);
-		when(mockItem.getOrCreateComponent(ItemAllocationComponent.class)).thenReturn(itemAllocationComponent);
 	}
 
 	@Test
