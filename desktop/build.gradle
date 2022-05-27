@@ -3,7 +3,7 @@ apply plugin: "java"
 sourceCompatibility = 11
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-project.ext.mainClassName = "technology.rocketjump.undermount.launcher.DesktopLauncher"
+project.ext.mainClassName = "technology.rocketjump.saul.launcher.DesktopLauncher"
 project.ext.assetsDir = new File("../core/assets");
 
 task run(dependsOn: classes, type: JavaExec) {

@@ -1,0 +1,155 @@
+package technology.rocketjump.saul.gamecontext;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.RandomXS128;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.constants.ConstantsRepo;
+import technology.rocketjump.saul.constants.SettlementConstants;
+import technology.rocketjump.saul.entities.model.physical.creature.Race;
+import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
+import technology.rocketjump.saul.entities.model.physical.item.ItemType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
+import technology.rocketjump.saul.environment.DailyWeatherTypeDictionary;
+import technology.rocketjump.saul.environment.GameClock;
+import technology.rocketjump.saul.environment.WeatherTypeDictionary;
+import technology.rocketjump.saul.mapping.model.MapEnvironment;
+import technology.rocketjump.saul.mapping.model.TiledMap;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
+import technology.rocketjump.saul.materials.model.GameMaterial;
+import technology.rocketjump.saul.persistence.UserPreferences;
+import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+import technology.rocketjump.saul.settlement.SettlementState;
+import technology.rocketjump.saul.settlement.production.ProductionQuota;
+
+import java.util.HashMap;
+
+import static technology.rocketjump.saul.environment.WeatherManager.selectDailyWeather;
+import static technology.rocketjump.saul.gamecontext.GameState.SELECT_SPAWN_LOCATION;
+import static technology.rocketjump.saul.screens.ScreenManager.chooseSpawnLocation;
+
+@Singleton
+public class GameContextFactory {
+
+	private final ItemTypeDictionary itemTypeDictionary;
+	private final GameMaterialDictionary gameMaterialDictionary;
+	private final WeatherTypeDictionary weatherTypeDictionary;
+	private final DailyWeatherTypeDictionary dailyWeatherTypeDictionary;
+	private final JSONObject itemProductionDefaultsJson;
+	private final JSONObject liquidProductionDefaultsJson;
+	private final SettlementConstants settlementConstants;
+	private final UserPreferences userPreferences;
+	private Race settlerRace;
+
+	@Inject
+	public GameContextFactory(ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary gameMaterialDictionary,
+							  WeatherTypeDictionary weatherTypeDictionary, DailyWeatherTypeDictionary dailyWeatherTypeDictionary,
+							  ConstantsRepo constantsRepo, UserPreferences userPreferences, RaceDictionary raceDictionary) {
+		this.itemTypeDictionary = itemTypeDictionary;
+		this.gameMaterialDictionary = gameMaterialDictionary;
+		this.weatherTypeDictionary = weatherTypeDictionary;
+		this.dailyWeatherTypeDictionary = dailyWeatherTypeDictionary;
+		this.userPreferences = userPreferences;
+		FileHandle itemProductionDefaultsFile = new FileHandle("assets/definitions/crafting/itemProductionDefaults.json");
+		itemProductionDefaultsJson = JSON.parseObject(itemProductionDefaultsFile.readString());
+		FileHandle liquidProductionDefaultsFile = new FileHandle("assets/definitions/crafting/liquidProductionDefaults.json");
+		liquidProductionDefaultsJson = JSON.parseObject(liquidProductionDefaultsFile.readString());
+		settlementConstants = constantsRepo.getSettlementConstants();
+		this.settlerRace = raceDictionary.getByName("Dwarf"); // MODDING expose and test this
+	}
+
+	public GameContext create(String settlementName, TiledMap areaMap, long worldSeed, GameClock clock) {
+		GameContext context = new GameContext();
+		context.getSettlementState().setSettlementName(settlementName);
+		context.getSettlementState().setSettlerRace(settlerRace);
+
+		if (chooseSpawnLocation(userPreferences)) {
+			context.getSettlementState().setGameState(SELECT_SPAWN_LOCATION);
+			clock.setPaused(true);
+		} else {
+			context.getSettlementState().setGameState(GameState.NORMAL);
+		}
+
+		context.getSettlementState().setFishRemainingInRiver(settlementConstants.getNumAnnualFish());
+		context.setAreaMap(areaMap);
+		context.setRandom(new RandomXS128(worldSeed));
+		context.setGameClock(clock);
+		context.setMapEnvironment(new MapEnvironment());
+		initialise(context.getSettlementState());
+		initialise(context.getMapEnvironment(), context);
+		return context;
+	}
+
+	public GameContext create(SavedGameStateHolder stateHolder) {
+		GameContext context = new GameContext();
+
+		context.getJobs().putAll(stateHolder.jobs);
+		for (int cursor = 0; cursor < stateHolder.entityIdsToLoad.size(); cursor++) {
+			Long entityId = stateHolder.entityIdsToLoad.getLong(cursor);
+			context.getEntities().put(entityId, stateHolder.entities.get(entityId));
+		}
+
+		context.getConstructions().putAll(stateHolder.constructions);
+		context.getRooms().putAll(stateHolder.rooms);
+		context.getJobRequestQueue().addAll(stateHolder.jobRequests.values());
+		context.getDynamicallyCreatedMaterialsByCombinedId().putAll(stateHolder.dynamicMaterials);
+		context.setSettlementState(stateHolder.getSettlementState());
+
+		context.setAreaMap(stateHolder.getMap());
+		context.setMapEnvironment(stateHolder.getMapEnvironment());
+		context.setRandom(new RandomXS128()); // Not yet maintaining world seed
+		context.setGameClock(stateHolder.getGameClock());
+
+		return context;
+	}
+
+	private void initialise(MapEnvironment mapEnvironment, GameContext context) {
+		mapEnvironment.setDailyWeather(selectDailyWeather(context, dailyWeatherTypeDictionary));
+		mapEnvironment.setCurrentWeather(weatherTypeDictionary.getByName("Perfect"));
+	}
+
+	private void initialise(SettlementState settlementState) {
+		for (String itemTypeString : itemProductionDefaultsJson.keySet()) {
+			ItemType itemType = itemTypeDictionary.getByName(itemTypeString);
+			if (itemType != null) {
+				JSONObject quotaJson = itemProductionDefaultsJson.getJSONObject(itemTypeString);
+				ProductionQuota quota = new ProductionQuota();
+				quota.setFixedAmount(quotaJson.getInteger("fixedAmount"));
+				quota.setPerSettler(quotaJson.getFloat("perSettler"));
+
+				if (quota.getFixedAmount() == null && quota.getPerSettler() == null) {
+					Logger.error("Can not parse " + quotaJson.toString() + " from productionDefaults for " + itemTypeString);
+				} else {
+					settlementState.itemTypeProductionQuotas.put(itemType, quota);
+					settlementState.itemTypeProductionAssignments.put(itemType, new HashMap<>());
+					settlementState.requiredItemCounts.put(itemType, 0);
+				}
+			} else {
+				Logger.error("Unrecognised item type name from itemProductionDefaults.json: " + itemTypeString);
+			}
+		}
+
+		for (String liquidMaterialName : liquidProductionDefaultsJson.keySet()) {
+			GameMaterial liquidMaterial = gameMaterialDictionary.getByName(liquidMaterialName);
+			if (liquidMaterial != null) {
+				JSONObject quotaJson = liquidProductionDefaultsJson.getJSONObject(liquidMaterialName);
+				ProductionQuota quota = new ProductionQuota();
+				quota.setFixedAmount(quotaJson.getInteger("fixedAmount"));
+				quota.setPerSettler(quotaJson.getFloat("perSettler"));
+
+				if (quota.getFixedAmount() == null && quota.getPerSettler() == null) {
+					Logger.error("Can not parse " + quotaJson.toString() + " from productionDefaults for " + liquidMaterialName);
+				} else {
+					settlementState.liquidProductionQuotas.put(liquidMaterial, quota);
+					settlementState.liquidProductionAssignments.put(liquidMaterial, new HashMap<>());
+					settlementState.requiredLiquidCounts.put(liquidMaterial, 0f);
+				}
+			} else {
+				Logger.error("Unrecognised material name from liquidProductionDefaults.json: " + liquidMaterialName);
+			}
+		}
+	}
+}

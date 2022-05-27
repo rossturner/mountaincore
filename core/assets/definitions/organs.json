@@ -10,7 +10,8 @@
     "other" : {
       "LIGHT" : "STUNNED"
     }
-  }
+  },
+  "i18nKey" : "BODY_STRUCTURE.ORGAN.BRAIN"
 }, {
   "name" : "Eye",
   "function" : "Sight",
@@ -25,7 +26,8 @@
       "HEAVY" : "BLEEDING",
       "DESTROYED" : "VISION_IMPAIRED"
     }
-  }
+  },
+  "i18nKey" : "BODY_STRUCTURE.ORGAN.EYE"
 }, {
   "name" : "Heart",
   "function" : "BloodCirculation",
@@ -40,7 +42,8 @@
       "HEAVY" : "INTERNAL_BLEEDING",
       "DESTROYED" : "INTERNAL_BLEEDING"
     }
-  }
+  },
+  "i18nKey" : "BODY_STRUCTURE.ORGAN.HEART"
 }, {
   "name" : "Lung",
   "function" : "Breathing",
@@ -55,7 +58,8 @@
       "HEAVY" : "INTERNAL_BLEEDING",
       "DESTROYED" : "INTERNAL_BLEEDING"
     }
-  }
+  },
+  "i18nKey" : "BODY_STRUCTURE.ORGAN.LUNG"
 }, {
   "name" : "Kidney",
   "function" : "BloodCirculation",
@@ -70,7 +74,8 @@
       "HEAVY" : "BLEEDING",
       "DESTROYED" : "INTERNAL_BLEEDING"
     }
-  }
+  },
+  "i18nKey" : "BODY_STRUCTURE.ORGAN.KIDNEY"
 }, {
   "name" : "Intestines",
   "function" : "BloodCirculation",
@@ -81,5 +86,6 @@
       "DESTROYED" : "DEAD"
     },
     "other" : { }
-  }
+  },
+  "i18nKey" : "BODY_STRUCTURE.ORGAN.INTESTINES"
 } ]
