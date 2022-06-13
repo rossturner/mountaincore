@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class Version {
 
-	public final Qualifier qualifier; // e.g. Alpha, Beta, Other
+	public final Qualifier qualifier; // e.g. Early Access
 	public final int major;
 	public final int minor;
 	public final int revision;
@@ -23,7 +23,7 @@ public class Version {
 		Qualifier qualifier = Qualifier.Unspecified;
 		if (!StringUtils.isNumeric(versionText.substring(0, 1))) {
 			for (Qualifier qualifierInstance : Qualifier.values()) {
-				if (StringUtils.startsWith(versionText.toUpperCase(), qualifierInstance.name().toUpperCase())) {
+				if (StringUtils.startsWith(versionText.toUpperCase(), qualifierInstance.name().toUpperCase().replace('_', ' '))) {
 					qualifier = qualifierInstance;
 					versionText = versionText.substring(qualifier.name().length() + 1);
 					break;
@@ -67,7 +67,7 @@ public class Version {
 	public String toString() {
 		StringBuilder result = new StringBuilder();
 		if (!qualifier.equals(Qualifier.Unspecified)) {
-			result.append(qualifier.name()).append(" ");
+			result.append(qualifier.name().replace('_', ' ')).append(" ");
 		}
 		result.append(major);
 		if (minor > 0 || revision > 0) {
@@ -100,7 +100,7 @@ public class Version {
 		Unknown(-1),
 
 		Alpha(0),
-		Beta(1),
+		Early_Access(1),
 		Unspecified(2);
 
 		public final int modifier;

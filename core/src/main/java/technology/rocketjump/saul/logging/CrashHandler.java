@@ -24,7 +24,8 @@ public class CrashHandler implements Telegraph {
 
 	private static boolean reportingEnabled;
 	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-	private static final String CRASH_LOG_URL = "https://undermount-api.herokuapp.com/api/crash";
+	private static final String CRASH_LOG_URL = "https://saul-api.herokuapp.com/api/crash";
+//	private static final String CRASH_LOG_URL = "http://localhost:8080/api/crash";
 
 	private final UserPreferences userPreferences;
 
