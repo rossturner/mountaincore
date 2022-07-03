@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.entities.components.humanoid;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.google.common.collect.Sets;
@@ -17,133 +18,131 @@ import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSI
 public class ProfessionsComponent implements EntityComponent {
 
 	public static final int MAX_PROFESSIONS = 3;
-	private Map<Profession, Float> activeProfessions = new HashMap<>();
-	private Map<Profession, Float> inactiveProfessions = new HashMap<>();
+	private List<Profession> activeProfessions = new ArrayList<>(); // Note this is in priority order
+	private Map<Profession, Float> skillLevels = new HashMap<>();
 
 	public ProfessionsComponent() {
-		activeProfessions.put(NULL_PROFESSION, 0f); // NULL_PROFESSION acts as default "Villager" profession
+		clear();
 	}
 
 	@Override
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
 		ProfessionsComponent cloned = new ProfessionsComponent();
-		for (Map.Entry<Profession, Float> entry : this.activeProfessions.entrySet()) {
-			cloned.activeProfessions.put(entry.getKey(), entry.getValue());
-		}
+
+		cloned.activeProfessions.addAll(this.activeProfessions);
+		cloned.skillLevels.putAll(this.skillLevels);
 
 		return cloned;
 	}
 
-	public void activate(Profession profession) {
-		Float skillLevel = inactiveProfessions.remove(profession);
-		if (skillLevel != null) {
-			activeProfessions.put(profession, skillLevel);
+	public void add(Profession profession) {
+		if (!activeProfessions.contains(profession)) {
+			// Insert new active profession before last entry (which is NULL_PROFESSION)
+			activeProfessions.add(activeProfessions.size() - 1, profession);
 		}
+		if (!skillLevels.containsKey(profession)) {
+			skillLevels.put(profession, 0f);
+		}
+	}
+
+	public void setSkillLevel(Profession profession, float skillLevel) {
+		add(profession);
+		skillLevels.put(profession, skillLevel);
 	}
 
 	public void deactivate(Profession profession) {
 		if (profession.equals(NULL_PROFESSION)) {
 			throw new IllegalArgumentException("Can not deactivate " + NULL_PROFESSION.getName());
 		}
-		Float skillLevel = activeProfessions.remove(profession);
-		if (skillLevel != null) {
-			inactiveProfessions.put(profession, skillLevel);
-		}
+		activeProfessions.remove(profession);
 	}
 
 	public boolean hasActiveProfession(Profession profession) {
-		return activeProfessions.containsKey(profession);
+		return activeProfessions.contains(profession);
 	}
 
 	public boolean hasInactiveProfession(Profession profession) {
-		return inactiveProfessions.containsKey(profession);
+		return skillLevels.containsKey(profession) && !activeProfessions.contains(profession);
 	}
 
 	public boolean hasAnyActiveProfession(Set<Profession> professionSet) {
-		return !Sets.intersection(professionSet, activeProfessions.keySet()).isEmpty();
+		return !Sets.intersection(professionSet, Set.of(activeProfessions)).isEmpty();
 	}
 
-	public void add(Profession profession, float skillLevel) {
-		activeProfessions.put(profession, skillLevel);
-	}
 
 	public List<QuantifiedProfession> getActiveProfessions() {
 		List<QuantifiedProfession> quantifiedProfessions = new ArrayList<>();
-		for (Map.Entry<Profession, Float> entry : activeProfessions.entrySet()) {
-			quantifiedProfessions.add(new QuantifiedProfession(entry.getKey(), entry.getValue()));
+		for (Profession profession : activeProfessions) {
+			quantifiedProfessions.add(new QuantifiedProfession(profession, skillLevels.get(profession)));
 		}
-		quantifiedProfessions.sort((o1, o2) -> (int)((o2.skillLevel * 10000f) - (o1.skillLevel * 10000f)));
 		return quantifiedProfessions;
 	}
 
 	public Profession getPrimaryProfession(Profession defaultProfession) {
-		List<QuantifiedProfession> quantifiedProfessions = getActiveProfessions();
-		QuantifiedProfession highestProfession = quantifiedProfessions.get(0);
-		if (highestProfession.profession.equals(NULL_PROFESSION)) {
+		if (activeProfessions.get(0).equals(NULL_PROFESSION)) {
 			return defaultProfession;
 		} else {
-			return highestProfession.profession;
+			return activeProfessions.get(0);
 		}
 	}
 
 	public float getSkillLevel(Profession profession) {
-		Float skillLevel = activeProfessions.get(profession);
-		if (skillLevel == null || skillLevel <= 0) {
-			return 0.2f; // Assume low skill level so unskilled jobs e.g. clearContextRelatedState plants can be completed
+		if (profession.equals(NULL_PROFESSION)) {
+			return 0.5f;
 		} else {
-			return skillLevel;
+			return skillLevels.getOrDefault(profession, 0f);
 		}
 	}
 
 	public void clear() {
 		activeProfessions.clear();
-		activeProfessions.put(NULL_PROFESSION, 0f);
+		skillLevels.put(NULL_PROFESSION, 0f);
+		activeProfessions.add(NULL_PROFESSION); // NULL_PROFESSION acts as default "Villager" profession
 	}
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-		JSONObject activeProfessionsJson = new JSONObject(true);
-		for (Map.Entry<Profession, Float> entry : activeProfessions.entrySet()) {
-			if (entry.getKey().equals(NULL_PROFESSION)) {
-				continue;
+		JSONArray activeProfessionsJson = new JSONArray();
+		for (Profession activeProfession : activeProfessions) {
+			if (!activeProfession.equals(NULL_PROFESSION)) {
+				activeProfessionsJson.add(activeProfession.getName());
 			}
-			activeProfessionsJson.put(entry.getKey().getName(), entry.getValue());
 		}
 		asJson.put("active", activeProfessionsJson);
 
-
-		JSONObject inactiveProfessionsJson = new JSONObject(true);
-		for (Map.Entry<Profession, Float> entry : inactiveProfessions.entrySet()) {
-			inactiveProfessionsJson.put(entry.getKey().getName(), entry.getValue());
+		JSONObject skillLevelsJson = new JSONObject(true);
+		for (Map.Entry<Profession, Float> entry : skillLevels.entrySet()) {
+			if (entry.getValue() > 0f) {
+				skillLevelsJson.put(entry.getKey().getName(), entry.getValue());
+			}
 		}
-		asJson.put("inactive", inactiveProfessionsJson);
+		asJson.put("skillLevels", skillLevelsJson);
 	}
 
 
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-		JSONObject activeProfessionsJson = asJson.getJSONObject("active");
-		JSONObject inactiveProfessionsJson = asJson.getJSONObject("inactive");
-		if (activeProfessionsJson == null || inactiveProfessionsJson == null) {
+		JSONArray activeProfessionsJson = asJson.getJSONArray("active");
+		JSONObject skillLevelsJson = asJson.getJSONObject("skillLevels");
+		if (activeProfessionsJson == null || skillLevelsJson == null) {
 			throw new InvalidSaveException("Unrecognised professions json");
 		}
 
-		for (String professionName: activeProfessionsJson.keySet()) {
-			Profession profession = relatedStores.professionDictionary.getByName(professionName);
+		for (Object professionName: activeProfessionsJson) {
+			Profession profession = relatedStores.professionDictionary.getByName(professionName.toString());
 			if (profession == null) {
 				throw new InvalidSaveException("Could not find profession with name " + professionName);
 			}
-			Float skillLevel = activeProfessionsJson.getFloatValue(professionName);
-			activeProfessions.put(profession, skillLevel);
+			activeProfessions.add(profession);
 		}
 
-		for (String professionName: inactiveProfessionsJson.keySet()) {
+		for (String professionName: skillLevelsJson.keySet()) {
 			Profession profession = relatedStores.professionDictionary.getByName(professionName);
 			if (profession == null) {
 				throw new InvalidSaveException("Could not find profession with name " + professionName);
 			}
-			Float skillLevel = inactiveProfessionsJson.getFloatValue(professionName);
-			inactiveProfessions.put(profession, skillLevel);
+			Float skillLevel = skillLevelsJson.getFloatValue(professionName);
+			skillLevels.put(profession, skillLevel);
 		}
 	}
 

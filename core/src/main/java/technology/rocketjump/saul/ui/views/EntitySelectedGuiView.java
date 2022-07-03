@@ -2,7 +2,10 @@ package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.VisProgressBar;
@@ -107,11 +110,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	private final Map<EntityNeed, I18nLabel> needLabels;
 	private final ImageButtonFactory imageButtonFactory;
+	private final List<ImageButton> cancelButtons;
 
 	@Inject
 	public EntitySelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
 								 GameInteractionStateContainer gameInteractionStateContainer, IconButtonFactory iconButtonFactory,
-								 EntityStore entityStore, ExampleItemDictionary exampleItemDictionary, JobStore jobStore, I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary, ImageButtonFactory imageButtonFactory) {
+								 EntityStore entityStore, ExampleItemDictionary exampleItemDictionary, JobStore jobStore,
+								 I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary, ImageButtonFactory imageButtonFactory) {
 		uiSkin = guiSkinRepository.getDefault();
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
@@ -144,6 +149,11 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 		});
 
+		cancelButtons = new ArrayList<>();
+		for (int i = 0; i <= 4; i++) {
+			cancelButtons.add(imageButtonFactory.getOrCreate("cancel", true).clone());
+		}
+
 		deconstructButton = iconButtonFactory.create("GUI.REMOVE_LABEL", "cancel", HexColors.NEGATIVE_COLOR, ButtonStyle.SMALL);
 		final EntitySelectedGuiView This = this;
 		deconstructButton.setAction(() -> {
@@ -173,6 +183,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		nameTable = new Table(uiSkin);
 		professionsTable = new Table(uiSkin);
+		professionsTable.setDebug(true);
 		weaponsTable = new Table(uiSkin);
 		needsTable = new Table(uiSkin);
 		happinessTable = new Table(uiSkin);
@@ -476,54 +487,46 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		if (professionsComponent == null) {
 			return;
 		}
-		int numProfessionsDisplayed = 0;
+		int rowCounter = 0;
 		List<ProfessionsComponent.QuantifiedProfession> activeProfessions = professionsComponent.getActiveProfessions();
+		List<Table> professionRows = new ArrayList<>();
 
 		for (ProfessionsComponent.QuantifiedProfession quantifiedProfession : activeProfessions) {
-			if (!quantifiedProfession.getProfession().equals(NULL_PROFESSION) || activeProfessions.size() == 1) {
-				ImageButton imageButton = quantifiedProfession.getProfession().getImageButton();
-				imageButton.setAction(() -> {
-					gameInteractionStateContainer.setProfessionToReplace(quantifiedProfession.getProfession());
-					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.CHANGE_PROFESSION);
+			if (!quantifiedProfession.getProfession().equals(NULL_PROFESSION)) {
+				rowCounter++;
+
+				Table professionRow = new Table(uiSkin);
+				professionRow.add(new Label(rowCounter +". ", uiSkin));
+				professionRow.add(i18nWidgetFactory.createLabel(quantifiedProfession.getProfession().getI18nKey()));
+				professionsTable.add(professionRow).align(Align.left).pad(5);
+				professionRows.add(professionRow);
+
+				ImageButton cancelButton = cancelButtons.get(rowCounter);
+				cancelButton.setAction(() -> {
+					professionsComponent.deactivate(quantifiedProfession.getProfession());
+					messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
+					update();
 				});
-				professionsTable.add(imageButton).pad(5);
-				numProfessionsDisplayed++;
+				professionsTable.add(cancelButton).pad(5);
+
+				professionsTable.row();
+
+
 			}
 		}
-		if (!professionsComponent.getPrimaryProfession(NULL_PROFESSION).equals(NULL_PROFESSION)) {
-			int nullProfessionButtonsShown = 0;
-			while (numProfessionsDisplayed < ProfessionsComponent.MAX_PROFESSIONS) {
-				ImageButton imageButton;
-				if (nullProfessionButtonsShown == 0) {
-					imageButton = nullProfessionButton1;
-				} else {
-					imageButton = nullProfessionButton2;
-				}
-				imageButton.setAction(() -> {
+
+		if (rowCounter < 3) {
+			I18nTextButton addAnotherButton = i18nWidgetFactory.createTextButton("ADD.ANOTHER");
+			addAnotherButton.addListener(new ClickListener() {
+				@Override
+				public void clicked (InputEvent event, float x, float y) {
 					gameInteractionStateContainer.setProfessionToReplace(null);
 					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.CHANGE_PROFESSION);
-				});
-				professionsTable.add(imageButton).pad(5);
-				numProfessionsDisplayed++;
-				nullProfessionButtonsShown++;
-			}
+				}
+			});
+			professionsTable.add(addAnotherButton).pad(5).align(Align.left).row();
 		}
 
-		professionsTable.row();
-		numProfessionsDisplayed = 0;
-
-		for (ProfessionsComponent.QuantifiedProfession quantifiedProfession : activeProfessions) {
-			if (!quantifiedProfession.getProfession().equals(NULL_PROFESSION) || activeProfessions.size() == 1) {
-				professionsTable.add(i18nWidgetFactory.createLabel(quantifiedProfession.getProfession().getI18nKey())).pad(5);
-				numProfessionsDisplayed++;
-			}
-		}
-		if (!professionsComponent.getPrimaryProfession(NULL_PROFESSION).equals(NULL_PROFESSION)) {
-			while (numProfessionsDisplayed < ProfessionsComponent.MAX_PROFESSIONS) {
-				professionsTable.add(new Container<>()).pad(5); // Pad out
-				numProfessionsDisplayed++;
-			}
-		}
 	}
 
 	private void populateWeaponsTable(Entity entity) {
