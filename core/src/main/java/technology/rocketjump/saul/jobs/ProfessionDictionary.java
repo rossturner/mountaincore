@@ -39,7 +39,7 @@ public class ProfessionDictionary {
 		}
 	}
 
-	public Profession getByName(String name) {
+	public Profession getByName(Object name) {
 		return byName.get(name);
 	}
 

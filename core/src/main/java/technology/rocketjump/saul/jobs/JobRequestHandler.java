@@ -82,9 +82,10 @@ public class JobRequestHandler implements Updatable, Telegraph, Disposable {
 		Vector2 entityWorldPosition = jobRequestMessage.getRequestingEntity().getLocationComponent().getWorldPosition();
 		GridPoint2 requesterLocation = new GridPoint2((int)Math.floor(entityWorldPosition.x), (int)Math.floor(entityWorldPosition.y));
 
-		List<PotentialJob> potentialJobs = new ArrayList<>();
+		List<PotentialJob> allPotentialJobs = new ArrayList<>();
 
 		for (ProfessionsComponent.QuantifiedProfession professionToFindJobFor : professionsComponent.getActiveProfessions()) {
+			List<PotentialJob> potentialJobsThisProfession = new ArrayList<>();
 			Collection<Job> byProfession = jobStore.getCollectionByState(JobState.ASSIGNABLE).getByProfession(professionToFindJobFor.getProfession()).values();
 			if (byProfession.isEmpty()) {
 				continue;
@@ -93,16 +94,16 @@ public class JobRequestHandler implements Updatable, Telegraph, Disposable {
 			for (Job job : byProfession) {
 				if (job.getAssignedToEntityId() == null && !job.getJobPriority().equals(JobPriority.DISABLED)) {
 					float distanceToJob = job.getJobLocation().dst(requesterLocation);
-					potentialJobs.add(new PotentialJob(job, distanceToJob));
+					potentialJobsThisProfession.add(new PotentialJob(job, distanceToJob));
 				}
 			}
+			potentialJobsThisProfession.sort(potentialJobSorter);
+			allPotentialJobs.addAll(potentialJobsThisProfession);
 		}
-
-		potentialJobs.sort(potentialJobSorter);
 
 		// FIXME Should maybe prioritise jobs that need equipment so they are worked on when a settler has the item,
 		// rather than picking up the item and then going and working on something else
-		jobRequestMessage.getCallback().jobCallback(potentialJobs.stream().map(p -> p.job).collect(Collectors.toList()), gameContext);
+		jobRequestMessage.getCallback().jobCallback(allPotentialJobs.stream().map(p -> p.job).collect(Collectors.toList()), gameContext);
 		return true;
 	}
 

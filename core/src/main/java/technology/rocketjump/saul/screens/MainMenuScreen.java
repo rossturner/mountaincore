@@ -397,7 +397,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			versionTable.add(twitchLabel).colspan(3).left().pad(5).row();
 		}
 
-		versionTable.add(viewRoadmapButton).colspan(3).left().pad(5).row();
+//		versionTable.add(viewRoadmapButton).colspan(3).left().pad(5).row();
 
 		String versionText = VERSION.toString();
 		if (GlobalSettings.DEV_MODE) {

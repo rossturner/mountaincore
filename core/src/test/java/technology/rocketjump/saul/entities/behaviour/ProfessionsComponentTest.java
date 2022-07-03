@@ -33,9 +33,9 @@ public class ProfessionsComponentTest {
 	public void add() throws Exception {
 		ProfessionsComponent component = new ProfessionsComponent();
 
-		component.add(profB, 0.5f);
-		component.add(profA, 0.2f);
-		component.add(profC,0.8f);
+		component.setSkillLevel(profB, 0.5f);
+		component.setSkillLevel(profA, 0.2f);
+		component.setSkillLevel(profC,0.8f);
 
 		assertThat(component.getActiveProfessions()).hasSize(4);
 		assertThat(component.getActiveProfessions().get(0).getSkillLevel()).isEqualTo(0.8f);

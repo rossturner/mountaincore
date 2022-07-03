@@ -45,6 +45,13 @@ public class IconOnlyButton extends Table {
 		resetChildren();
 	}
 
+	public IconOnlyButton scale(float scale) {
+		this.scale = scale;
+		currentIcon.setSize(currentIcon.getWidth() * scale, currentIcon.getHeight() * scale);
+		resetChildren();
+		return this;
+	}
+
 	public void setHighlighted(boolean highlight) {
 		if (highlight) {
 			currentForegroundColor = defaultBackgroundColor;

@@ -156,7 +156,7 @@ public class CreatureViewerUI implements Disposable {
 				Profession selected = professionSelect.getSelected();
 				ProfessionsComponent professionsComponent = currentEntity.getComponent(ProfessionsComponent.class);
 				professionsComponent.clear();
-				professionsComponent.add(selected, 0.5f);
+				professionsComponent.setSkillLevel(selected, 0.5f);
 				entityAssetUpdater.updateEntityAssets(currentEntity);
 				resetAssetSelections();
 //				persistentSettings.reloadFromSettings(currentEntity);

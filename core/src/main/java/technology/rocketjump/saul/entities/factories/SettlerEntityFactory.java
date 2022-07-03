@@ -60,9 +60,9 @@ public class SettlerEntityFactory {
 		if (primaryProfession == null) {
 			primaryProfession = professionDictionary.getDefault();
 		}
-		professionsComponent.add(primaryProfession, 0.5f);
+		professionsComponent.setSkillLevel(primaryProfession, 0.5f);
 		if (secondaryProfession != null && !secondaryProfession.equals(primaryProfession)) {
-			professionsComponent.add(secondaryProfession, 0.25f);
+			professionsComponent.setSkillLevel(secondaryProfession, 0.25f);
 		}
 		entity.addComponent(professionsComponent);
 
