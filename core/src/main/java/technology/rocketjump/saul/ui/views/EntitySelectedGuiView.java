@@ -64,6 +64,7 @@ import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.CONTENTS_TO_BE_DUMPED;
 import static technology.rocketjump.saul.entities.components.humanoid.HappinessComponent.MAX_HAPPINESS_VALUE;
+import static technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent.MAX_PROFESSIONS;
 import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
 import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
@@ -540,11 +541,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				professionsTable.row();
 
-
 			}
 		}
 
-		if (rowCounter < 3) {
+		if (rowCounter < MAX_PROFESSIONS) {
 			I18nTextButton addAnotherButton = i18nWidgetFactory.createTextButton("ADD.ANOTHER");
 			addAnotherButton.addListener(new ClickListener() {
 				@Override
