@@ -133,7 +133,7 @@ public class ProfessionsComponent implements EntityComponent {
 			if (profession == null) {
 				throw new InvalidSaveException("Could not find profession with name " + professionName);
 			}
-			activeProfessions.add(profession);
+			activeProfessions.add(activeProfessions.size() -1 , profession);
 		}
 
 		for (String professionName: skillLevelsJson.keySet()) {
@@ -146,8 +146,22 @@ public class ProfessionsComponent implements EntityComponent {
 		}
 	}
 
+	public void swapActivePositions(int a, int b) {
+		List<Profession> reordered = new ArrayList<>();
+		for (int cursor = 0; cursor < activeProfessions.size(); cursor++) {
+			if (cursor == a) {
+				reordered.add(activeProfessions.get(b));
+			} else  if (cursor == b) {
+				reordered.add(activeProfessions.get(a));
+			} else {
+				reordered.add(activeProfessions.get(cursor));
+			}
+		}
+		activeProfessions = reordered;
+	}
 
-    public static class QuantifiedProfession {
+
+	public static class QuantifiedProfession {
 
 		private final Profession profession;
 		private float skillLevel;

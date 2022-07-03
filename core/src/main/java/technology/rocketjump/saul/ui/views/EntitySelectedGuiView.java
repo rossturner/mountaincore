@@ -110,13 +110,16 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	private final Map<EntityNeed, I18nLabel> needLabels;
 	private final ImageButtonFactory imageButtonFactory;
-	private final List<ImageButton> cancelButtons;
+	private final IconButtonFactory iconButtonFactory;
+	private final List<ImageButton> cancelButtons = new ArrayList<>();
+	private final List<IconOnlyButton> upButtons = new ArrayList<>();
+	private final List<IconOnlyButton> downButtons = new ArrayList<>();
 
 	@Inject
 	public EntitySelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
 								 GameInteractionStateContainer gameInteractionStateContainer, IconButtonFactory iconButtonFactory,
 								 EntityStore entityStore, ExampleItemDictionary exampleItemDictionary, JobStore jobStore,
-								 I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary, ImageButtonFactory imageButtonFactory) {
+								 I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary, ImageButtonFactory imageButtonFactory, IconButtonFactory iconButtonFactory1) {
 		uiSkin = guiSkinRepository.getDefault();
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
@@ -126,6 +129,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;
 		this.imageButtonFactory = imageButtonFactory;
+		this.iconButtonFactory = iconButtonFactory1;
 
 		outerTable = new Table(uiSkin);
 		outerTable.background("default-rect");
@@ -149,9 +153,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 		});
 
-		cancelButtons = new ArrayList<>();
 		for (int i = 0; i <= 4; i++) {
 			cancelButtons.add(imageButtonFactory.getOrCreate("cancel", true).clone());
+			upButtons.add(iconButtonFactory.create("arrow-up").scale(0.5f));
+			downButtons.add(iconButtonFactory.create("arrow-down").scale(0.5f));
 		}
 
 		deconstructButton = iconButtonFactory.create("GUI.REMOVE_LABEL", "cancel", HexColors.NEGATIVE_COLOR, ButtonStyle.SMALL);
@@ -183,7 +188,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		nameTable = new Table(uiSkin);
 		professionsTable = new Table(uiSkin);
-		professionsTable.setDebug(true);
 		weaponsTable = new Table(uiSkin);
 		needsTable = new Table(uiSkin);
 		happinessTable = new Table(uiSkin);
@@ -495,6 +499,31 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			if (!quantifiedProfession.getProfession().equals(NULL_PROFESSION)) {
 				rowCounter++;
 
+				if (professionsComponent.getActiveProfessions().size() > 2) {
+					Table orderingTable = new Table(uiSkin);
+					final int rowIndex = rowCounter - 1;
+
+					if (rowIndex > 0) {
+						IconOnlyButton upButton = upButtons.get(rowIndex);
+						upButton.setAction(() -> {
+							professionsComponent.swapActivePositions(rowIndex - 1, rowIndex);
+							update();
+						});
+						orderingTable.add(upButton).pad(2).row();
+					}
+
+					if (rowIndex < activeProfessions.size() - 2) {
+						IconOnlyButton downButton = downButtons.get(rowIndex);
+						downButton.setAction(() -> {
+							professionsComponent.swapActivePositions(rowIndex, rowIndex + 1);
+							update();
+						});
+						orderingTable.add(downButton).pad(2);
+					}
+
+					professionsTable.add(orderingTable).pad(3);
+				}
+
 				Table professionRow = new Table(uiSkin);
 				professionRow.add(new Label(rowCounter +". ", uiSkin));
 				professionRow.add(i18nWidgetFactory.createLabel(quantifiedProfession.getProfession().getI18nKey()));
@@ -524,7 +553,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.CHANGE_PROFESSION);
 				}
 			});
-			professionsTable.add(addAnotherButton).pad(5).align(Align.left).row();
+			professionsTable.add(addAnotherButton).colspan(3).pad(5).align(Align.left).row();
 		}
 
 	}
