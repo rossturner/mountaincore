@@ -49,6 +49,20 @@ public class AssetEditorUI  {
 		viewArea.setFillParent(true);
 		topLevelTable.add(viewArea).expandX();
 
+
+		VisTable editorTable = new VisTable();
+		editorTable.add(new VisLabel("TODO: Put stuff here")).pad(5);
+		VisScrollPane editorScrollPane = new VisScrollPane(editorTable);
+
+		VisWindow editorWindow = new VisWindow("Property Editor");
+		VisTable editorWindowTable = new VisTable();
+		editorWindowTable.setDebug(true);
+		editorWindowTable.add(editorScrollPane).top().row();
+		editorWindowTable.add(new VisTable()).expandY();
+		editorWindow.add(editorWindowTable).expandY().fillY();
+
+		topLevelTable.add(editorWindow).top().right().expandY().fillY();
+
 		stage.addActor(topLevelTable);
 	}
 
