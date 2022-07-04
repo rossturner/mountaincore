@@ -19,7 +19,6 @@ public class AssetEditorUI  {
 	private final VisTree navigatorTree;
 
 	private final VisTable viewArea;
-	private final VisWindow navigatorWindow;
 
 	@Inject
 	public AssetEditorUI() {
@@ -28,8 +27,26 @@ public class AssetEditorUI  {
 		topLevelTable = new VisTable();
 		topLevelTable.setFillParent(true);
 
+		MenuBar topLevelMenu = new MenuBar();
+		topLevelMenu.setMenuListener(new MenuBar.MenuBarListener() {
+			@Override
+			public void menuOpened (Menu menu) {
+				System.out.println("Opened menu: " + menu.getTitle());
+			}
 
-		navigatorWindow = new VisWindow("Navigator");
+			@Override
+			public void menuClosed (Menu menu) {
+				System.out.println("Closed menu: " + menu.getTitle());
+			}
+		});
+
+		Menu fileMenu = new Menu("File");
+		fileMenu.addItem(new MenuItem("TODO #1"));
+		topLevelMenu.addMenu(fileMenu);
+
+		topLevelTable.add(topLevelMenu.getTable()).expandX().fillX().colspan(3).row();
+
+
 		navigatorTree = new VisTree();
 		for (EntityType entityType : EntityType.values()) {
 			TreeNode entityTypeNode = new TreeNode(new VisLabel(entityType.name()));
@@ -39,11 +56,12 @@ public class AssetEditorUI  {
 
 		VisTable navigatorWindowTable = new VisTable();
 		navigatorWindowTable.setDebug(true);
+		navigatorWindowTable.background("window-bg");
+		navigatorWindowTable.add(new VisLabel("Navigator")).left().row();
 		navigatorWindowTable.add(navigatorScrollPane).top().row();
 		navigatorWindowTable.add(new VisTable()).expandY();
-		navigatorWindow.add(navigatorWindowTable).expandY().fillY();
 
-		topLevelTable.add(navigatorWindow).top().left().expandY().fillY();
+		topLevelTable.add(navigatorWindowTable).top().left().expandY().fillY();
 
 		viewArea = new VisTable();
 		viewArea.setFillParent(true);
@@ -54,14 +72,14 @@ public class AssetEditorUI  {
 		editorTable.add(new VisLabel("TODO: Put stuff here")).pad(5);
 		VisScrollPane editorScrollPane = new VisScrollPane(editorTable);
 
-		VisWindow editorWindow = new VisWindow("Property Editor");
 		VisTable editorWindowTable = new VisTable();
 		editorWindowTable.setDebug(true);
+		editorWindowTable.background("window-bg");
+		editorWindowTable.add(new VisLabel("Property Editor")).left().row();
 		editorWindowTable.add(editorScrollPane).top().row();
 		editorWindowTable.add(new VisTable()).expandY();
-		editorWindow.add(editorWindowTable).expandY().fillY();
 
-		topLevelTable.add(editorWindow).top().right().expandY().fillY();
+		topLevelTable.add(editorWindowTable).top().right().expandY().fillY();
 
 		stage.addActor(topLevelTable);
 	}
