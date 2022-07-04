@@ -1,6 +1,8 @@
 package technology.rocketjump.saul.assets.editor;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.*;
@@ -60,6 +62,9 @@ public class AssetEditorUI  {
 	}
 
 	public void onResize(int width, int height) {
+		ScreenViewport viewport = new ScreenViewport(new OrthographicCamera(width, height));
+		viewport.setUnitsPerPixel(1);
+		stage.setViewport(viewport);
 		stage.getViewport().update(width, height, true);
 	}
 }
