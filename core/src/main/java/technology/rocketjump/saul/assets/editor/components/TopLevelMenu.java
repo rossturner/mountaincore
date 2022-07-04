@@ -9,17 +9,17 @@ public class TopLevelMenu extends MenuBar {
 
 	@Inject
 	public TopLevelMenu() {
-		this.setMenuListener(new MenuBar.MenuBarListener() {
-			@Override
-			public void menuOpened (Menu menu) {
-				System.out.println("Opened menu: " + menu.getTitle());
-			}
-
-			@Override
-			public void menuClosed (Menu menu) {
-				System.out.println("Closed menu: " + menu.getTitle());
-			}
-		});
+//		this.setMenuListener(new MenuBar.MenuBarListener() {
+//			@Override
+//			public void menuOpened (Menu menu) {
+//				System.out.println("Opened menu: " + menu.getTitle());
+//			}
+//
+//			@Override
+//			public void menuClosed (Menu menu) {
+//				System.out.println("Closed menu: " + menu.getTitle());
+//			}
+//		});
 
 		Menu fileMenu = new Menu("mods/base");
 		fileMenu.addItem(new MenuItem("Select other mod"));

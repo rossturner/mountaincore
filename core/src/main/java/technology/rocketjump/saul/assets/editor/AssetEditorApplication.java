@@ -7,8 +7,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.kotcrab.vis.ui.VisUI;
+import technology.rocketjump.saul.assets.editor.model.EditorState;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
+
+import java.nio.file.Paths;
 
 public class AssetEditorApplication extends ApplicationAdapter {
 
@@ -22,6 +25,8 @@ public class AssetEditorApplication extends ApplicationAdapter {
 	public void create () {
 		VisUI.load();
 		Injector injector = Guice.createInjector(new SaulGuiceModule());
+
+		injector.getInstance(EditorState.class).setModDir(Paths.get("mods", "base"));
 
 		this.cameraManager = injector.getInstance(PrimaryCameraWrapper.class);
 		ui = injector.getInstance(AssetEditorUI.class);

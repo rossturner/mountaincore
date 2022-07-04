@@ -15,7 +15,7 @@ public class EditorPane extends VisTable {
 		editorTable.add(new VisLabel("TODO: Put stuff here")).pad(5);
 		VisScrollPane editorScrollPane = new VisScrollPane(editorTable);
 
-		this.setDebug(true);
+//		this.setDebug(true);
 		this.background("window-bg");
 		this.add(new VisLabel("Property Editor")).left().row();
 		this.add(editorScrollPane).top().row();

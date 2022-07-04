@@ -7,8 +7,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.assets.editor.components.EditorPane;
-import technology.rocketjump.saul.assets.editor.components.NavigatorPane;
 import technology.rocketjump.saul.assets.editor.components.TopLevelMenu;
+import technology.rocketjump.saul.assets.editor.components.navigator.NavigatorPane;
 
 @Singleton
 public class AssetEditorUI  {
