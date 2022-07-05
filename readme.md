@@ -27,5 +27,3 @@ The source contains two classes with runnable main methods, `DesktopLauncher` an
 This process has already been run and this repository contains the output files, it only needs to be re-run when there is a change to asset files.
 
 `DesktopLauncher` is the game launcher. Run this with `./core` as the working directory.
-
-
