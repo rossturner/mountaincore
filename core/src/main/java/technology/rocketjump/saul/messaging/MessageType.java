@@ -264,4 +264,7 @@ public class MessageType {
 	public static final int CREATURE_DAMAGE_APPLIED = 1903;
 	public static final int CREATURE_ORGAN_DAMAGE_APPLIED = 1904;
 
+	// Asset Editor messages
+	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;
+
 }

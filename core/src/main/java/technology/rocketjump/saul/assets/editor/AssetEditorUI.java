@@ -1,5 +1,8 @@
 package technology.rocketjump.saul.assets.editor;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -8,18 +11,23 @@ import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.assets.editor.components.EditorPane;
 import technology.rocketjump.saul.assets.editor.components.TopLevelMenu;
+import technology.rocketjump.saul.assets.editor.components.navigator.NavigatorContextMenu;
 import technology.rocketjump.saul.assets.editor.components.navigator.NavigatorPane;
+import technology.rocketjump.saul.assets.editor.components.navigator.NavigatorTreeMessage;
+import technology.rocketjump.saul.messaging.MessageType;
 
 @Singleton
-public class AssetEditorUI  {
+public class AssetEditorUI implements Telegraph {
 
 	private final Stage stage;
 
 	private VisTable topLevelTable;
 	private final VisTable viewArea;
+	private final NavigatorContextMenu navigatorContextMenu;
 
 	@Inject
-	public AssetEditorUI(TopLevelMenu topLevelMenu, NavigatorPane navigatorPane, EditorPane editorPane) {
+	public AssetEditorUI(TopLevelMenu topLevelMenu, NavigatorPane navigatorPane, EditorPane editorPane,
+						 MessageDispatcher messageDispatcher) {
 
 		stage = new Stage();
 		topLevelTable = new VisTable();
@@ -36,7 +44,26 @@ public class AssetEditorUI  {
 		topLevelTable.add(editorPane).top().right().expandY().fillY();
 
 		stage.addActor(topLevelTable);
+
+		navigatorContextMenu = new NavigatorContextMenu();
+
+		messageDispatcher.addListener(this, MessageType.EDITOR_NAVIGATOR_TREE_RIGHT_CLICK);
 	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.EDITOR_NAVIGATOR_TREE_RIGHT_CLICK: {
+				NavigatorTreeMessage message = (NavigatorTreeMessage) msg.extraInfo;
+				navigatorContextMenu.setContext(message.value);
+				navigatorContextMenu.showMenu(stage, message.actor);
+				return true;
+			}
+			default:
+				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
+		}
+	}
+
 
 	public Stage getStage() {
 		return stage;

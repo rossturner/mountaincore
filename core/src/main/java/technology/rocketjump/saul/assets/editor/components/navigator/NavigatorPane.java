@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.assets.editor.components.navigator;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.google.inject.Inject;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
@@ -21,9 +22,11 @@ public class NavigatorPane extends VisTable {
 
 	private final VisTree navigatorTree;
 	private final EditorState editorState;
+	private MessageDispatcher messageDispatcher;
 
 	@Inject
-	public NavigatorPane(EditorState editorState) {
+	public NavigatorPane(EditorState editorState, MessageDispatcher messageDispatcher) {
+		this.messageDispatcher = messageDispatcher;
 		navigatorTree = new VisTree();
 		this.editorState = editorState;
 		reloadTree();
@@ -40,7 +43,7 @@ public class NavigatorPane extends VisTable {
 		navigatorTree.clearChildren();
 
 		for (EntityType entityType : EntityType.values()) {
-			NavigatorTreeNode treeNode = new NavigatorTreeNode();
+			NavigatorTreeNode treeNode = new NavigatorTreeNode(messageDispatcher);
 			treeNode.setValue(NavigatorTreeValue.forEntityType(entityType, editorState.getModDir()));
 
 			try {
@@ -59,7 +62,7 @@ public class NavigatorPane extends VisTable {
 					.filter(Files::isDirectory)
 					.forEach(childDir -> {
 						try {
-							NavigatorTreeNode node = new NavigatorTreeNode();
+							NavigatorTreeNode node = new NavigatorTreeNode(messageDispatcher);
 							if (hasEntityTypeDescriptor(childDir, parentNode.getValue().entityType)) {
 								node.setValue(forEntityDir(parentNode.getValue().entityType, childDir));
 							} else {
