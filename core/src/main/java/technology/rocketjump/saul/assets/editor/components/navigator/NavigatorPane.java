@@ -7,7 +7,7 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTree;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.assets.editor.model.EditorState;
+import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.entities.model.EntityType;
 
 import java.io.IOException;
@@ -21,14 +21,14 @@ import static technology.rocketjump.saul.assets.editor.components.navigator.Navi
 public class NavigatorPane extends VisTable {
 
 	private final VisTree navigatorTree;
-	private final EditorState editorState;
+	private final EditorStateProvider editorStateProvider;
 	private MessageDispatcher messageDispatcher;
 
 	@Inject
-	public NavigatorPane(EditorState editorState, MessageDispatcher messageDispatcher) {
+	public NavigatorPane(EditorStateProvider editorStateProvider, MessageDispatcher messageDispatcher) {
 		this.messageDispatcher = messageDispatcher;
 		navigatorTree = new VisTree();
-		this.editorState = editorState;
+		this.editorStateProvider = editorStateProvider;
 		reloadTree();
 		VisScrollPane navigatorScrollPane = new VisScrollPane(navigatorTree);
 
@@ -43,8 +43,8 @@ public class NavigatorPane extends VisTable {
 		navigatorTree.clearChildren();
 
 		for (EntityType entityType : EntityType.values()) {
-			NavigatorTreeNode treeNode = new NavigatorTreeNode(messageDispatcher);
-			treeNode.setValue(NavigatorTreeValue.forEntityType(entityType, editorState.getModDir()));
+			NavigatorTreeNode treeNode = new NavigatorTreeNode(messageDispatcher, editorStateProvider);
+			treeNode.setValue(NavigatorTreeValue.forEntityType(entityType, editorStateProvider.getState().getModDirPath()));
 
 			try {
 				populateChildren(treeNode);
@@ -62,7 +62,7 @@ public class NavigatorPane extends VisTable {
 					.filter(Files::isDirectory)
 					.forEach(childDir -> {
 						try {
-							NavigatorTreeNode node = new NavigatorTreeNode(messageDispatcher);
+							NavigatorTreeNode node = new NavigatorTreeNode(messageDispatcher, editorStateProvider);
 							if (hasEntityTypeDescriptor(childDir, parentNode.getValue().entityType)) {
 								node.setValue(forEntityDir(parentNode.getValue().entityType, childDir));
 							} else {

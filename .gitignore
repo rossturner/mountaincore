@@ -22,6 +22,7 @@ out/
 ## Game specific
 
 core/assets/temp
+core/assets/editor-state.json
 
 ## Release stuff
 

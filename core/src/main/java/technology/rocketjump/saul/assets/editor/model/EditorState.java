@@ -1,19 +1,37 @@
 package technology.rocketjump.saul.assets.editor.model;
 
-import com.google.inject.Singleton;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Set;
 
-@Singleton
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EditorState {
 
-	private Path modDir;
+	private String modDir;
+	private Set<String> expandedNavigatorNodes = new HashSet<>();
 
-	public Path getModDir() {
+	public String getModDir() {
 		return modDir;
 	}
 
-	public void setModDir(Path modDir) {
+	@JsonIgnore
+	public Path getModDirPath() {
+		return Paths.get(modDir);
+	}
+
+	public void setModDir(String modDir) {
 		this.modDir = modDir;
+	}
+
+	public Set<String> getExpandedNavigatorNodes() {
+		return expandedNavigatorNodes;
+	}
+
+	public void setExpandedNavigatorNodes(Set<String> expandedNavigatorNodes) {
+		this.expandedNavigatorNodes = expandedNavigatorNodes;
 	}
 }
