@@ -1,5 +1,7 @@
 package technology.rocketjump.saul.assets.editor.components.entitybrowser;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -9,6 +11,7 @@ import com.kotcrab.vis.ui.widget.*;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -17,9 +20,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,13 +30,17 @@ public class EntityBrowserPane extends VisTable {
 	private final EditorStateProvider editorStateProvider;
 	private final VisLabel titleLabel;
 	private final ObjectMapper objectMapper;
-	private MessageDispatcher messageDispatcher;
+	private final MessageDispatcher messageDispatcher;
+	private final CompleteAssetDictionary assetDictionary;
+
+	private final Map<String, Path> descriptorPathsByAssetName = new HashMap<>();
 
 	@Inject
 	public EntityBrowserPane(EditorStateProvider editorStateProvider, ObjectMapper objectMapper,
-							 MessageDispatcher messageDispatcher) {
+							 MessageDispatcher messageDispatcher, CompleteAssetDictionary assetDictionary) {
 		this.objectMapper = objectMapper;
 		this.messageDispatcher = messageDispatcher;
+		this.assetDictionary = assetDictionary;
 		assetTree = new VisTree();
 		this.editorStateProvider = editorStateProvider;
 		VisScrollPane scrollPane = new VisScrollPane(assetTree);
@@ -44,20 +49,28 @@ public class EntityBrowserPane extends VisTable {
 		this.background("window-bg");
 		titleLabel = new VisLabel("Entity Browser");
 		this.add(titleLabel).left().row();
-		this.add(scrollPane).top().row();
+		this.add(scrollPane).top().left().row();
+
+		VisTextButton saveButton = new VisTextButton("Save changes");
+		saveButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// TODO persist state of everything displayed back to mods
+			}
+		});
 
 
 		VisTextButton cancelButton = new VisTextButton("Cancel");
 		cancelButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				// TODO clear all state changes i.e. reload all (or just these) assets and types
 				messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, null);
 			}
 		});
 
 		VisTable controlsTable = new VisTable();
-		controlsTable.add(new VisTextButton("Add new asset")).pad(5).colspan(2).row();
-		controlsTable.add(new VisTextButton("Save changes")).pad(5);
+		controlsTable.add(saveButton).pad(5);
 		controlsTable.add(cancelButton).pad(5).row();
 		this.add(controlsTable).top().row();
 
@@ -71,6 +84,7 @@ public class EntityBrowserPane extends VisTable {
 
 	private void reloadTree() {
 		EditorEntitySelection selection = editorStateProvider.getState().getEntitySelection();
+		descriptorPathsByAssetName.clear();
 		assetTree.clearChildren();
 
 		try {
@@ -78,37 +92,54 @@ public class EntityBrowserPane extends VisTable {
 			typeDescriptorNode.setValue(EntityBrowserValue.forTypeDescriptor(selection.getEntityType(), Paths.get(selection.getBasePath())));
 			assetTree.add(typeDescriptorNode);
 
-			List<EntityBrowserValue> descriptors = new ArrayList<>();
-			loadDescriptors(Path.of(selection.getBasePath()), selection.getEntityType(), descriptors);
-			descriptors.sort(Comparator.comparing(a -> a.label));
-			descriptors.stream().map(value -> {
-				EntityBrowserTreeNode node = new EntityBrowserTreeNode(messageDispatcher, editorStateProvider);
-				node.setValue(value);
-				return node;
-			}).forEach(assetTree::add);
-
+			addNodesForDirectory(Path.of(selection.getBasePath()), selection.getEntityType(), null);
 		} catch (IOException e) {
 			Logger.error("Error while loading " + selection.getTypeName(), e);
 		}
 	}
 
-	private void loadDescriptors(Path directory, EntityType entityType, List<EntityBrowserValue> descriptors) throws IOException {
-		Path descriptorsFile = directory.resolve("descriptors.json");
-
-		if (Files.exists(descriptorsFile)) {
-			List<? extends EntityAsset> assetList = objectMapper.readValue(Files.readString(descriptorsFile),
-					objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, entityType.entityAssetClass));
-			for (EntityAsset entityAsset : assetList) {
-				descriptors.add(EntityBrowserValue.forAsset(entityType, descriptorsFile, entityAsset));
-			}
-		}
-
-		try (Stream<Path> paths = Files.list(directory)) {
+	private void addNodesForDirectory(Path directoryPath, EntityType entityType, EntityBrowserTreeNode parentNode) throws IOException {
+		try (Stream<Path> paths = Files.list(directoryPath)) {
 			List<Path> subdirectories = paths.filter(Files::isDirectory)
 					.collect(Collectors.toList());
 			for (Path subDirectory : subdirectories) {
-				loadDescriptors(subDirectory, entityType, descriptors);
+				EntityBrowserTreeNode subDirNode = new EntityBrowserTreeNode(messageDispatcher, editorStateProvider);
+				subDirNode.setValue(EntityBrowserValue.forSubDirectory(entityType, subDirectory));
+				if (parentNode == null) {
+					assetTree.add(subDirNode);
+				} else {
+					parentNode.add(subDirNode);
+				}
+				addNodesForDirectory(subDirectory, entityType, subDirNode);
 			}
+		}
+
+		Path descriptorsFile = directoryPath.resolve("descriptors.json");
+		if (Files.exists(descriptorsFile)) {
+			JSONArray descriptorsJson = JSON.parseArray(Files.readString(descriptorsFile));
+			List<EntityAsset> referencedAssets = new ArrayList<>();
+			for (int cursor = 0; cursor < descriptorsJson.size(); cursor++) {
+				String assetName = descriptorsJson.getJSONObject(cursor).getString("uniqueName");
+				// Ensuring use of asset references from CompleteAssetDictionary so any data changes are reflected in rendering
+				EntityAsset entityAsset = assetDictionary.getByUniqueName(assetName);
+				if (entityAsset == null) {
+					Logger.error("Could not find asset with unique name " + assetName);
+				} else {
+					referencedAssets.add(entityAsset);
+					descriptorPathsByAssetName.put(assetName, descriptorsFile);
+				}
+			}
+			referencedAssets.sort(Comparator.comparing(EntityAsset::getUniqueName));
+
+			referencedAssets.forEach(asset -> {
+				EntityBrowserTreeNode assetNode = new EntityBrowserTreeNode(messageDispatcher, editorStateProvider);
+				assetNode.setValue(EntityBrowserValue.forAsset(entityType, descriptorsFile, asset));
+				if (parentNode == null) {
+					assetTree.add(assetNode);
+				} else {
+					parentNode.add(assetNode);
+				}
+			});
 		}
 	}
 

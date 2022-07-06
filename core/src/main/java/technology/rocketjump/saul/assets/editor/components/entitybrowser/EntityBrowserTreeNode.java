@@ -7,6 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Tree;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.messaging.MessageType;
+
+import static technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_ASSET_DESCRIPTOR;
+import static technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_TYPE_DESCRIPTOR;
 
 public class EntityBrowserTreeNode extends Tree.Node<EntityBrowserTreeNode, EntityBrowserValue, VisLabel> {
 
@@ -19,6 +23,18 @@ public class EntityBrowserTreeNode extends Tree.Node<EntityBrowserTreeNode, Enti
 	}
 
 	@Override
+	public void setExpanded(boolean expanded) {
+		super.setExpanded(expanded);
+
+		if (expanded) {
+			editorStateProvider.getState().getExpandedNavigatorNodes().add(getValue().label);
+		} else {
+			editorStateProvider.getState().getExpandedNavigatorNodes().remove(getValue().label);
+		}
+		editorStateProvider.stateChanged();
+	}
+
+	@Override
 	public void setValue(EntityBrowserValue value) {
 		super.setValue(value);
 		VisLabel actor = new VisLabel(value.label);
@@ -26,12 +42,25 @@ public class EntityBrowserTreeNode extends Tree.Node<EntityBrowserTreeNode, Enti
 		actor.addListener(new ClickListener(Input.Buttons.LEFT) {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				if (value.treeValueType.equals(ENTITY_TYPE_DESCRIPTOR)) {
+					messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, value.getTypeDescriptor());
+				} else if (value.treeValueType.equals(ENTITY_ASSET_DESCRIPTOR)) {
+					messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, value.getEntityAsset());
+				} else {
+					messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, null);
+				}
 			}
 		});
 		actor.addListener(new ClickListener(Input.Buttons.RIGHT) {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_RIGHT_CLICK,
+						new EntityBrowserTreeMessage(value, actor));
 			}
 		});
+
+		if (editorStateProvider.getState().getExpandedNavigatorNodes().contains(value.label)) {
+			super.setExpanded(true);
+		}
 	}
 }

@@ -35,7 +35,7 @@ public class NavigatorPane extends VisTable {
 //		this.setDebug(true);
 		this.background("window-bg");
 		this.add(new VisLabel("Navigator")).left().row();
-		this.add(navigatorScrollPane).top().row();
+		this.add(navigatorScrollPane).top().left().row();
 		this.add(new VisTable()).expandY();
 	}
 

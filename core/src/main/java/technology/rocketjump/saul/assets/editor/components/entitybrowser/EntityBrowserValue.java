@@ -33,6 +33,10 @@ public class EntityBrowserValue extends Tree.Node {
 		return value;
 	}
 
+	public static EntityBrowserValue forSubDirectory(EntityType entityType, Path dirPath) {
+		return new EntityBrowserValue(TreeValueType.SUBDIR, entityType, dirPath, dirPath.getFileName().toString());
+	}
+
 	public static EntityBrowserValue forAsset(EntityType entityType, Path descriptorsFile, EntityAsset entityAsset) {
 		EntityBrowserValue value = new EntityBrowserValue(TreeValueType.ENTITY_ASSET_DESCRIPTOR, entityType, descriptorsFile, entityAsset.getUniqueName());
 		value.setEntityAsset(entityAsset);
@@ -57,6 +61,7 @@ public class EntityBrowserValue extends Tree.Node {
 	public enum TreeValueType {
 
 		ENTITY_TYPE_DESCRIPTOR,
+		SUBDIR,
 		ENTITY_ASSET_DESCRIPTOR
 
 	}

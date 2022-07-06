@@ -40,11 +40,13 @@ public class NavigatorTreeNode extends Tree.Node<NavigatorTreeNode, NavigatorTre
 		actor.addListener(new ClickListener(Input.Buttons.LEFT) {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				EditorEntitySelection selection = new EditorEntitySelection();
-				selection.setEntityType(value.entityType);
-				selection.setTypeName(value.label);
-				selection.setBasePath(value.path.toString());
-				messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, selection);
+				if (value.treeValueType.equals(NavigatorTreeValue.TreeValueType.ENTITY_DIR)) {
+					EditorEntitySelection selection = new EditorEntitySelection();
+					selection.setEntityType(value.entityType);
+					selection.setTypeName(value.label);
+					selection.setBasePath(value.path.toString());
+					messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, selection);
+				}
 			}
 		});
 		actor.addListener(new ClickListener(Input.Buttons.RIGHT) {
