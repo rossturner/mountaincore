@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Tree;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
+import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.messaging.MessageType;
 
@@ -36,6 +37,16 @@ public class NavigatorTreeNode extends Tree.Node<NavigatorTreeNode, NavigatorTre
 		super.setValue(value);
 		VisLabel actor = new VisLabel(value.label);
 		this.setActor(actor);
+		actor.addListener(new ClickListener(Input.Buttons.LEFT) {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				EditorEntitySelection selection = new EditorEntitySelection();
+				selection.setEntityType(value.entityType);
+				selection.setTypeName(value.label);
+				selection.setBasePath(value.path.toString());
+				messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, selection);
+			}
+		});
 		actor.addListener(new ClickListener(Input.Buttons.RIGHT) {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {

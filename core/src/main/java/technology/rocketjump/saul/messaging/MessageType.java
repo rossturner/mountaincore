@@ -266,5 +266,6 @@ public class MessageType {
 
 	// Asset Editor messages
 	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;
+	public static final int EDITOR_ENTITY_SELECTION = 99002;
 
 }

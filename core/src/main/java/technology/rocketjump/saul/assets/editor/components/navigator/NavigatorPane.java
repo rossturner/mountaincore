@@ -43,6 +43,10 @@ public class NavigatorPane extends VisTable {
 		navigatorTree.clearChildren();
 
 		for (EntityType entityType : EntityType.values()) {
+			if (entityType.equals(EntityType.ONGOING_EFFECT)) {
+				// Not adding ongoing effects to asset editor (yet)
+				continue;
+			}
 			NavigatorTreeNode treeNode = new NavigatorTreeNode(messageDispatcher, editorStateProvider);
 			treeNode.setValue(NavigatorTreeValue.forEntityType(entityType, editorStateProvider.getState().getModDirPath()));
 

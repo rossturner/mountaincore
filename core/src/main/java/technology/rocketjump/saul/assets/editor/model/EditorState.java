@@ -13,6 +13,7 @@ public class EditorState {
 
 	private String modDir;
 	private Set<String> expandedNavigatorNodes = new HashSet<>();
+	private EditorEntitySelection entitySelection;
 
 	public String getModDir() {
 		return modDir;
@@ -33,5 +34,13 @@ public class EditorState {
 
 	public void setExpandedNavigatorNodes(Set<String> expandedNavigatorNodes) {
 		this.expandedNavigatorNodes = expandedNavigatorNodes;
+	}
+
+	public EditorEntitySelection getEntitySelection() {
+		return entitySelection;
+	}
+
+	public void setEntitySelection(EditorEntitySelection entitySelection) {
+		this.entitySelection = entitySelection;
 	}
 }
