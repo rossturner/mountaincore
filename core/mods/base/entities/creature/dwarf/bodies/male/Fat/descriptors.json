@@ -1,306 +1,245 @@
-[{
-  "uniqueName": "Dwarf-Male-Fat-Nude",
-  "type": "CREATURE_BODY",
-  "raceName": "Dwarf",
-  "bodyShape": "FAT",
-  "gender": "MALE",
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "Dwarf-Male-Fat-Nude-F.png",
-      "scale": 1.0,
-      "coloringLayer": "SKIN_COLOR",
-      "childAssets": [
-        {
-          "type": "CREATURE_HEAD",
-          "offsetPixels": {
-            "x": 0,
-            "y": 13
-          }
-        },
-        {
-          "type": "BODY_OUTLINE"
-        },
-        {
-          "type": "BODY_CLOTHING"
+[ {
+  "uniqueName" : "Dwarf-Male-Fat-Nude",
+  "type" : "CREATURE_BODY",
+  "raceName" : "Dwarf",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Male-Fat-Nude-F.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "offsetPixels" : {
+          "y" : 13.0
         }
-      ],
-      "attachmentPoints": [
-        {
-          "type": "ATTACHMENT_FRONT_OF_BODY",
-          "offsetPixels": {
-            "x": 0,
-            "y": 6
-          }
-        },
-        {
-          "type": "ATTACHMENT_ON_RIGHT_SHOULDER",
-          "offsetPixels": {
-            "x": -20,
-            "y": 12
-          }
-        },
-        {
-          "type": "ATTACHMENT_RIGHT_HAND",
-          "offsetPixels": {
-            "x": -18,
-            "y": -4
-          }
-        },
-        {
-          "type": "ATTACHMENT_LEFT_HAND",
-          "offsetPixels": {
-            "x": 18,
-            "y": -4
-          }
+      }, {
+        "type" : "BODY_OUTLINE"
+      }, {
+        "type" : "BODY_CLOTHING"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "y" : 6.0
         }
-      ]
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -20.0,
+          "y" : 12.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -18.0,
+          "y" : -4.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : -4.0
+        }
+      } ]
     },
-    "DOWN_RIGHT": {
-      "filename": "Dwarf-Male-Fat-Nude-F34.png",
-      "coloringLayer": "SKIN_COLOR",
-      "childAssets": [
-        {
-          "type": "CREATURE_HEAD",
-          "offsetPixels": {
-            "x": 9,
-            "y": 13
-          }
-        },
-        {
-          "type": "BODY_OUTLINE"
-        },
-        {
-          "type": "BODY_CLOTHING"
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Male-Fat-Nude-F34.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "offsetPixels" : {
+          "x" : 9.0,
+          "y" : 13.0
         }
-      ],
-      "attachmentPoints": [
-        {
-          "type": "ATTACHMENT_FRONT_OF_BODY",
-          "offsetPixels": {
-            "x": 25,
-            "y": 6
-          }
-        },
-        {
-          "type": "ATTACHMENT_ON_RIGHT_SHOULDER",
-          "offsetPixels": {
-            "x": -10,
-            "y": 10
-          }
-        },
-        {
-          "type": "ATTACHMENT_RIGHT_HAND",
-          "offsetPixels": {
-            "x": 0,
-            "y": -2
-          }
-        },
-        {
-          "type": "ATTACHMENT_LEFT_HAND",
-          "offsetPixels": {
-            "x": 24,
-            "y": -2
-          }
+      }, {
+        "type" : "BODY_OUTLINE"
+      }, {
+        "type" : "BODY_CLOTHING"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 25.0,
+          "y" : 6.0
         }
-      ]
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -10.0,
+          "y" : 10.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "y" : -2.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 24.0,
+          "y" : -2.0
+        }
+      } ]
     },
-    "DOWN_LEFT": {
-      "filename": "Dwarf-Male-Fat-Nude-F34.png",
-      "flipX": true,
-      "coloringLayer": "SKIN_COLOR",
-      "childAssets": [
-        {
-          "type": "CREATURE_HEAD",
-          "offsetPixels": {
-            "x": -9,
-            "y": 13
-          }
-        },
-        {
-          "type": "BODY_OUTLINE"
-        },
-        {
-          "type": "BODY_CLOTHING"
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Male-Fat-Nude-F34.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "offsetPixels" : {
+          "x" : -9.0,
+          "y" : 13.0
         }
-      ],
-      "attachmentPoints": [
-        {
-          "type": "ATTACHMENT_FRONT_OF_BODY",
-          "offsetPixels": {
-            "x": -25,
-            "y": 6
-          }
-        },
-        {
-          "type": "ATTACHMENT_ON_RIGHT_SHOULDER",
-          "offsetPixels": {
-            "x": -16,
-            "y": 12
-          }
-        },
-        {
-          "type": "ATTACHMENT_RIGHT_HAND",
-          "offsetPixels": {
-            "x": -20,
-            "y": -2
-          }
-        },
-        {
-          "type": "ATTACHMENT_LEFT_HAND",
-          "offsetPixels": {
-            "x": 0,
-            "y": -2
-          }
+      }, {
+        "type" : "BODY_OUTLINE"
+      }, {
+        "type" : "BODY_CLOTHING"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 6.0
         }
-      ]
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : 12.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -20.0,
+          "y" : -2.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "y" : -2.0
+        }
+      } ]
     },
-    "UP_RIGHT": {
-      "filename": "Dwarf-Male-Fat-Nude-B34.png",
-      "coloringLayer": "SKIN_COLOR",
-      "childAssets": [
-        {
-          "type": "CREATURE_HEAD",
-          "offsetPixels": {
-            "x": 9,
-            "y": 13
-          }
-        },
-        {
-          "type": "BODY_OUTLINE"
-        },
-        {
-          "type": "BODY_CLOTHING"
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Male-Fat-Nude-B34.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "offsetPixels" : {
+          "x" : 9.0,
+          "y" : 13.0
         }
-      ],
-      "attachmentPoints": [
-        {
-          "type": "ATTACHMENT_FRONT_OF_BODY",
-          "offsetPixels": {
-            "x": 25,
-            "y": 10
-          }
-        },
-        {
-          "type": "ATTACHMENT_ON_RIGHT_SHOULDER",
-          "offsetPixels": {
-            "x": 16,
-            "y": 14
-          }
-        },
-        {
-          "type": "ATTACHMENT_RIGHT_HAND",
-          "offsetPixels": {
-            "x": 18,
-            "y": 4
-          }
-        },
-        {
-          "type": "ATTACHMENT_LEFT_HAND",
-          "offsetPixels": {
-            "x": -10,
-            "y": 4
-          }
+      }, {
+        "type" : "BODY_OUTLINE"
+      }, {
+        "type" : "BODY_CLOTHING"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 25.0,
+          "y" : 10.0
         }
-      ]
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : 14.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : 4.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -10.0,
+          "y" : 4.0
+        }
+      } ]
     },
-    "UP_LEFT": {
-      "filename": "Dwarf-Male-Fat-Nude-B34.png",
-      "flipX": true,
-      "coloringLayer": "SKIN_COLOR",
-      "childAssets": [
-        {
-          "type": "CREATURE_HEAD",
-          "offsetPixels": {
-            "x": -9,
-            "y": 13
-          }
-        },
-        {
-          "type": "BODY_OUTLINE"
-        },
-        {
-          "type": "BODY_CLOTHING"
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Male-Fat-Nude-B34.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "offsetPixels" : {
+          "x" : -9.0,
+          "y" : 13.0
         }
-      ],
-      "attachmentPoints": [
-        {
-          "type": "ATTACHMENT_FRONT_OF_BODY",
-          "offsetPixels": {
-            "x": -25,
-            "y": 10
-          }
-        },
-        {
-          "type": "ATTACHMENT_ON_RIGHT_SHOULDER",
-          "offsetPixels": {
-            "x": 14,
-            "y": 14
-          }
-        },
-        {
-          "type": "ATTACHMENT_RIGHT_HAND",
-          "offsetPixels": {
-            "x": -18,
-            "y": 4
-          }
-        },
-        {
-          "type": "ATTACHMENT_LEFT_HAND",
-          "offsetPixels": {
-            "x": -24,
-            "y": 4
-          }
+      }, {
+        "type" : "BODY_OUTLINE"
+      }, {
+        "type" : "BODY_CLOTHING"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 10.0
         }
-      ]
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 14.0,
+          "y" : 14.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -18.0,
+          "y" : 4.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -24.0,
+          "y" : 4.0
+        }
+      } ]
     },
-    "UP": {
-      "filename": "Dwarf-Male-Fat-Nude-B.png",
-      "coloringLayer": "SKIN_COLOR",
-      "childAssets": [
-        {
-          "type": "CREATURE_HEAD",
-          "offsetPixels": {
-            "x": 0,
-            "y": 13
-          }
-        },
-        {
-          "type": "BODY_OUTLINE"
-        },
-        {
-          "type": "BODY_CLOTHING"
+    "UP" : {
+      "filename" : "Dwarf-Male-Fat-Nude-B.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "offsetPixels" : {
+          "y" : 13.0
         }
-      ],
-      "attachmentPoints": [
-        {
-          "type": "ATTACHMENT_FRONT_OF_BODY",
-          "offsetPixels": {
-            "x": 0,
-            "y": 10
-          }
-        },
-        {
-          "type": "ATTACHMENT_ON_RIGHT_SHOULDER",
-          "offsetPixels": {
-            "x": 20,
-            "y": 14
-          }
-        },
-        {
-          "type": "ATTACHMENT_RIGHT_HAND",
-          "offsetPixels": {
-            "x": 14,
-            "y": 4
-          }
-        },
-        {
-          "type": "ATTACHMENT_LEFT_HAND",
-          "offsetPixels": {
-            "x": -20,
-            "y": 4
-          }
+      }, {
+        "type" : "BODY_OUTLINE"
+      }, {
+        "type" : "BODY_CLOTHING"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "y" : 10.0
         }
-      ]
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 20.0,
+          "y" : 14.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 14.0,
+          "y" : 4.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -20.0,
+          "y" : 4.0
+        }
+      } ]
     }
   }
-}]
+} ]

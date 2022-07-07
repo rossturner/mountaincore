@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.assets.entities.model;
 
 import com.badlogic.gdx.math.Vector2;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -20,6 +21,11 @@ public class StorableVector2 extends Vector2 {
 
 	public void setY(float y) {
 		this.y = y;
+	}
+
+	@JsonIgnore
+	public boolean isZero() {
+		return super.isZero();
 	}
 
 }

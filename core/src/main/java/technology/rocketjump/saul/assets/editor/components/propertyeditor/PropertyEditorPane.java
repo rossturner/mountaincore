@@ -193,6 +193,7 @@ public class PropertyEditorPane extends VisTable {
 		}
 		if (creatureAsset.getConsciousness() != null && !creatureAsset.getConsciousnessList().contains(creatureAsset.getConsciousness())) {
 			creatureAsset.getConsciousnessList().add(creatureAsset.getConsciousness());
+			creatureAsset.setConsciousness(null);
 		}
 		VisLabel consciousnessLabel = new VisLabel("Consciousness (click to show)");
 		VisTable consciousnessTable = new VisTable();
@@ -359,24 +360,30 @@ public class PropertyEditorPane extends VisTable {
 			orientationTable.add(new OffsetPixelsComponent(spriteDescriptor.getOffsetPixels())).left().colspan(2).row();
 
 
-			VisLabel childAssetsLabel = new VisLabel("Child assets (click to show)");
-			ChildAssetsComponent childAssetsComponent = new ChildAssetsComponent(spriteDescriptor.getChildAssets(),
-					entityAssetTypeDictionary.getByEntityType(entityType));
-			CollapsibleWidget collapsibleChildAssets = new CollapsibleWidget(childAssetsComponent);
-			collapsibleChildAssets.setCollapsed(spriteDescriptor.getChildAssets().isEmpty());
-			childAssetsLabel.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					collapsibleChildAssets.setCollapsed(!collapsibleChildAssets.isCollapsed());
-				}
-			});
-			orientationTable.add(childAssetsLabel).left().colspan(2).row();
-			orientationTable.add(collapsibleChildAssets).padLeft(20).left().expandX().fillX().colspan(2).row();
+			addChildAssetsComponents("Child assets (click to show)", spriteDescriptor.getChildAssets(), entityType, orientationTable);
+			addChildAssetsComponents("Attachment points (click to show)", spriteDescriptor.getAttachmentPoints(), entityType, orientationTable);
+			addChildAssetsComponents("Parent entity assets (click to show)", spriteDescriptor.getParentEntityAssets(), entityType, orientationTable);
 
 			spriteDescriptorsTable.addSeparator().row();
 			spriteDescriptorsTable.add(orientationTable).expandX().fillX().row();
 		}
 
+	}
+
+	private void addChildAssetsComponents(String labelText, List<EntityChildAssetDescriptor> childAssets, EntityType entityType, VisTable orientationTable) {
+		VisLabel label = new VisLabel(labelText);
+		ChildAssetsComponent childAssetsComponent = new ChildAssetsComponent(childAssets,
+				entityAssetTypeDictionary.getByEntityType(entityType));
+		CollapsibleWidget collapsibleChildAssets = new CollapsibleWidget(childAssetsComponent);
+		collapsibleChildAssets.setCollapsed(childAssets.isEmpty());
+		label.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				collapsibleChildAssets.setCollapsed(!collapsibleChildAssets.isCollapsed());
+			}
+		});
+		orientationTable.add(label).left().colspan(2).row();
+		orientationTable.add(collapsibleChildAssets).padLeft(20).left().expandX().fillX().colspan(2).row();
 	}
 
 	private void showEditorControls(Race race) {

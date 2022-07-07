@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.kotcrab.vis.ui.widget.*;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.assets.editor.EntityEditorPersistence;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
@@ -32,15 +33,17 @@ public class EntityBrowserPane extends VisTable {
 	private final ObjectMapper objectMapper;
 	private final MessageDispatcher messageDispatcher;
 	private final CompleteAssetDictionary assetDictionary;
+	private final EntityEditorPersistence entityEditorPersistence;
 
-	private final Map<String, Path> descriptorPathsByAssetName = new HashMap<>();
+	private final Map<String, Path> descriptorPathsByAssetName = new TreeMap<>();
 
 	@Inject
 	public EntityBrowserPane(EditorStateProvider editorStateProvider, ObjectMapper objectMapper,
-							 MessageDispatcher messageDispatcher, CompleteAssetDictionary assetDictionary) {
+							 MessageDispatcher messageDispatcher, CompleteAssetDictionary assetDictionary, EntityEditorPersistence entityEditorPersistence) {
 		this.objectMapper = objectMapper;
 		this.messageDispatcher = messageDispatcher;
 		this.assetDictionary = assetDictionary;
+		this.entityEditorPersistence = entityEditorPersistence;
 		assetTree = new VisTree();
 		this.editorStateProvider = editorStateProvider;
 		VisScrollPane scrollPane = new VisScrollPane(assetTree);
@@ -55,7 +58,12 @@ public class EntityBrowserPane extends VisTable {
 		saveButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				// TODO persist state of everything displayed back to mods
+				try {
+					EntityBrowserPane.this.entityEditorPersistence.saveChanges(descriptorPathsByAssetName);
+					messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, null);
+				} catch (Exception e) {
+					Logger.error("An error occurred while saving", e);
+				}
 			}
 		});
 

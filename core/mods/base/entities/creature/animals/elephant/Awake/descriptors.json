@@ -1,223 +1,202 @@
-[
-  {
-    "uniqueName": "Elephant-Body-Awake",
-    "type": "CREATURE_BODY",
-    "raceName": "Elephant",
-    "bodyShape": "AVERAGE",
-    "consciousness": "AWAKE",
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "ElephantFrontColour.png",
-        "coloringLayer": "SKIN_COLOR",
-        "childAssets": [
-          {
-            "type": "BODY_OUTLINE",
-            "offsetPixels": {
-              "x": -1.5,
-              "y": 14.0
-            }
-          },
-          {
-            "type": "CREATURE_HAIR",
-            "offsetPixels": {
-              "x": -1.5,
-              "y": 14.0
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": 1.5,
-          "y": 12.0
-        }
+[ {
+  "uniqueName" : "Elephant-Body-Awake",
+  "type" : "CREATURE_BODY",
+  "raceName" : "Elephant",
+  "bodyShape" : "AVERAGE",
+  "consciousness" : "AWAKE",
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "ElephantFrontColour.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : 1.5,
+        "y" : 12.0
       },
-      "DOWN_RIGHT": {
-        "filename": "ElephantFrontSideColour.png",
-        "coloringLayer": "SKIN_COLOR",
-        "childAssets": [
-          {
-            "type": "BODY_OUTLINE",
-            "offsetPixels": {
-              "x": 1.5,
-              "y": 14.0
-            }
-          },
-          {
-            "type": "CREATURE_HAIR",
-            "offsetPixels": {
-              "x": 1.5,
-              "y": 14.0
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": -1.5,
-          "y": 12.0
+      "childAssets" : [ {
+        "type" : "BODY_OUTLINE",
+        "offsetPixels" : {
+          "x" : -1.5,
+          "y" : 14.0
         }
+      }, {
+        "type" : "CREATURE_HAIR",
+        "offsetPixels" : {
+          "x" : -1.5,
+          "y" : 14.0
+        }
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "ElephantFrontSideColour.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : 12.0
       },
-      "DOWN_LEFT": {
-        "filename": "ElephantFrontSideColour.png",
-        "flipX": true,
-        "coloringLayer": "SKIN_COLOR",
-        "childAssets": [
-          {
-            "type": "BODY_OUTLINE",
-            "offsetPixels": {
-              "x": -1.5,
-              "y": 14.0
-            }
-          },
-          {
-            "type": "CREATURE_HAIR",
-            "offsetPixels": {
-              "x": -1.5,
-              "y": 14.0
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": 1.5,
-          "y": 12.0
+      "childAssets" : [ {
+        "type" : "BODY_OUTLINE",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : 14.0
         }
+      }, {
+        "type" : "CREATURE_HAIR",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : 14.0
+        }
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "ElephantFrontSideColour.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : 1.5,
+        "y" : 12.0
       },
-      "UP_RIGHT": {
-        "filename": "ElephantBackSideColour.png",
-        "flipX": true,
-        "coloringLayer": "SKIN_COLOR",
-        "childAssets": [
-          {
-            "type": "BODY_OUTLINE",
-            "offsetPixels": {
-              "x": 0.5,
-              "y": 6.5
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": -0.5,
-          "y": 19.5
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "BODY_OUTLINE",
+        "offsetPixels" : {
+          "x" : -1.5,
+          "y" : 14.0
         }
+      }, {
+        "type" : "CREATURE_HAIR",
+        "offsetPixels" : {
+          "x" : -1.5,
+          "y" : 14.0
+        }
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "ElephantBackSideColour.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 19.5
       },
-      "UP_LEFT": {
-        "filename": "ElephantBackSideColour.png",
-        "coloringLayer": "SKIN_COLOR",
-        "childAssets": [
-          {
-            "type": "BODY_OUTLINE",
-            "offsetPixels": {
-              "x": -0.5,
-              "y": 6.5
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": 0.5,
-          "y": 19.5
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "BODY_OUTLINE",
+        "offsetPixels" : {
+          "x" : 0.5,
+          "y" : 6.5
         }
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "ElephantBackSideColour.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : 19.5
       },
-      "UP": {
-        "filename": "ElephantBackColour.png",
-        "coloringLayer": "SKIN_COLOR",
-        "childAssets": [
-          {
-            "type": "BODY_OUTLINE",
-            "offsetPixels": {
-              "x": 1.0,
-              "y": 14.0
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": -1.0,
-          "y": 12.0
+      "childAssets" : [ {
+        "type" : "BODY_OUTLINE",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 6.5
         }
-      }
+      } ]
+    },
+    "UP" : {
+      "filename" : "ElephantBackColour.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : 12.0
+      },
+      "childAssets" : [ {
+        "type" : "BODY_OUTLINE",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "y" : 14.0
+        }
+      } ]
     }
-  },
-  {
-    "uniqueName": "Elephant-BodyOutline-Awake",
-    "type": "BODY_OUTLINE",
-    "raceName": "Elephant",
-    "bodyShape": "AVERAGE",
-    "consciousness": "AWAKE",
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "ElephantFrontLines.png",
-        "offsetPixels": {
-          "x": 0.5,
-          "y": -13.0
-        }
-      },
-      "DOWN_RIGHT": {
-        "filename": "ElephantFrontSideLines.png",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": -13.0
-        }
-      },
-      "DOWN_LEFT": {
-        "filename": "ElephantFrontSideLines.png",
-        "flipX": true,
-        "offsetPixels": {
-          "x": 0.0,
-          "y": -13.0
-        }
-      },
-      "UP_RIGHT": {
-        "filename": "ElephantBackSideLines.png",
-        "flipX": true,
-        "offsetPixels": {
-          "x": -0.5,
-          "y": -6.0
-        }
-      },
-      "UP_LEFT": {
-        "filename": "ElephantBackSideLines.png",
-        "offsetPixels": {
-          "x": 0.5,
-          "y": -6.0
-        }
-      },
-      "UP": {
-        "filename": "ElephantBackLines.png",
-        "offsetPixels": {
-          "x": 0.5,
-          "y": -13.0
-        }
+  }
+}, {
+  "uniqueName" : "Elephant-BodyOutline-Awake",
+  "type" : "BODY_OUTLINE",
+  "raceName" : "Elephant",
+  "bodyShape" : "AVERAGE",
+  "consciousness" : "AWAKE",
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "ElephantFrontLines.png",
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : -13.0
       }
-    }
-  },
-  {
-    "uniqueName": "Elephant-Tusks-Awake",
-    "type": "CREATURE_HAIR",
-    "raceName": "Elephant",
-    "bodyShape": "AVERAGE",
-    "consciousness": "AWAKE",
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "ElephantFrontTusks.png",
-        "coloringLayer": "BONE_COLOR",
-        "offsetPixels": {
-          "x": 1.0,
-          "y": -22.5
-        }
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "ElephantFrontSideLines.png",
+      "offsetPixels" : {
+        "y" : -13.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "ElephantFrontSideLines.png",
+      "offsetPixels" : {
+        "y" : -13.0
       },
-      "DOWN_RIGHT": {
-        "filename": "ElephantFrontSideTusks.png",
-        "coloringLayer": "BONE_COLOR",
-        "offsetPixels": {
-          "x": 34.0,
-          "y": -31.0
-        }
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "ElephantBackSideLines.png",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -6.0
       },
-      "DOWN_LEFT": {
-        "filename": "ElephantFrontSideTusks.png",
-        "flipX": true,
-        "coloringLayer": "BONE_COLOR",
-        "offsetPixels": {
-          "x": -34.0,
-          "y": -31.0
-        }
+      "flipX" : true
+    },
+    "UP_LEFT" : {
+      "filename" : "ElephantBackSideLines.png",
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : -6.0
+      }
+    },
+    "UP" : {
+      "filename" : "ElephantBackLines.png",
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : -13.0
       }
     }
   }
-]
+}, {
+  "uniqueName" : "Elephant-Tusks-Awake",
+  "type" : "CREATURE_HAIR",
+  "raceName" : "Elephant",
+  "bodyShape" : "AVERAGE",
+  "consciousness" : "AWAKE",
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "ElephantFrontTusks.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : -22.5
+      }
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "ElephantFrontSideTusks.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 34.0,
+        "y" : -31.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "ElephantFrontSideTusks.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -34.0,
+        "y" : -31.0
+      },
+      "flipX" : true
+    }
+  }
+} ]
