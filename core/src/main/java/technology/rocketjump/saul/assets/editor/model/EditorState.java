@@ -14,6 +14,7 @@ public class EditorState {
 	private String modDir;
 	private Set<String> expandedNavigatorNodes = new HashSet<>();
 	private EditorEntitySelection entitySelection;
+	private EditorAssetSelection assetSelection;
 
 	public String getModDir() {
 		return modDir;
@@ -42,5 +43,13 @@ public class EditorState {
 
 	public void setEntitySelection(EditorEntitySelection entitySelection) {
 		this.entitySelection = entitySelection;
+	}
+
+	public EditorAssetSelection getAssetSelection() {
+		return assetSelection;
+	}
+
+	public void setAssetSelection(EditorAssetSelection assetSelection) {
+		this.assetSelection = assetSelection;
 	}
 }

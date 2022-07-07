@@ -13,13 +13,18 @@ import technology.rocketjump.saul.assets.editor.components.TopLevelMenu;
 import technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserContextMenu;
 import technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserPane;
 import technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserTreeMessage;
+import technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserValue;
 import technology.rocketjump.saul.assets.editor.components.navigator.NavigatorContextMenu;
 import technology.rocketjump.saul.assets.editor.components.navigator.NavigatorPane;
 import technology.rocketjump.saul.assets.editor.components.navigator.NavigatorTreeMessage;
 import technology.rocketjump.saul.assets.editor.components.propertyeditor.PropertyEditorPane;
+import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.messaging.MessageType;
+
+import static technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_ASSET_DESCRIPTOR;
+import static technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_TYPE_DESCRIPTOR;
 
 @Singleton
 public class AssetEditorUI implements Telegraph {
@@ -109,8 +114,18 @@ public class AssetEditorUI implements Telegraph {
 				return true;
 			}
 			case MessageType.EDITOR_BROWSER_TREE_SELECTION: {
-				Object selected = msg.extraInfo;
-				propertyEditorPane.showControlsFor(selected);
+				EntityBrowserValue value = (EntityBrowserValue) msg.extraInfo;
+
+				EditorAssetSelection selection = new EditorAssetSelection();
+				selection.setBasePath(value.path.toString());
+				selection.setUniqueName(value.label);
+				editorStateProvider.getState().setAssetSelection(selection);
+				editorStateProvider.stateChanged();
+				if (value.treeValueType.equals(ENTITY_TYPE_DESCRIPTOR)) {
+					propertyEditorPane.showControlsFor(value.getTypeDescriptor());
+				} else if (value.treeValueType.equals(ENTITY_ASSET_DESCRIPTOR)) {
+					propertyEditorPane.showControlsFor(value.getEntityAsset());
+				}
 				return true;
 			}
 			default:

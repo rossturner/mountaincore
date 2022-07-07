@@ -19,6 +19,18 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
 
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        options.compilerArgs += "--enable-preview"
+    }
+    tasks.withType(Test) {
+        jvmArgs += "--enable-preview"
+    }
+    tasks.withType(JavaExec) {
+        jvmArgs += '--enable-preview'
+    }
+
     version = 'Early Access 1.0'
     ext {
         appName = 'saul'
@@ -40,14 +52,13 @@ allprojects {
 
 project(":desktop") {
     apply plugin: "java-library"
-    sourceCompatibility = 17
-
 
     dependencies {
         implementation project(":core")
 //        implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion" // Now part of core module (code smell)
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+        api "games.spooky.gdx:gdx-nativefilechooser-desktop:1.0.0"
         api group: 'com.amazonaws', name: 'aws-java-sdk-translate', version: '1.11.708'
 
 
@@ -127,8 +138,6 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java-library"
-    sourceCompatibility = 17
-
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -138,6 +147,7 @@ project(":core") {
         api ("com.badlogicgames.gdx:gdx-tools:$gdxVersion") {
             exclude group: 'com.badlogicgames.gdx', module: 'gdx-backend-lwjgl'
         }
+        api "games.spooky.gdx:gdx-nativefilechooser:1.0.0"
         api 'com.google.inject:guice:4.2.3:no_aop'
         api "com.kotcrab.vis:vis-ui:$visUiVersion"
 

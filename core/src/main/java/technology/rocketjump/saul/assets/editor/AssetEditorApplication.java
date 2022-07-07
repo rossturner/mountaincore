@@ -5,8 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.kotcrab.vis.ui.VisUI;
+import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 
@@ -17,11 +19,23 @@ public class AssetEditorApplication extends ApplicationAdapter {
 	private PrimaryCameraWrapper cameraManager;
 	private ShapeRenderer shapeRenderer;
 
+	private NativeFileChooser fileChooser;
+
+	@Inject
+	public AssetEditorApplication(NativeFileChooser fileChooser) {
+		this.fileChooser = fileChooser;
+	}
 
 	@Override
 	public void create () {
 		VisUI.load();
-		Injector injector = Guice.createInjector(new SaulGuiceModule());
+		Injector injector = Guice.createInjector(new SaulGuiceModule() {
+			@Override
+			public void configure() {
+				super.configure();
+				bind(NativeFileChooser.class).toInstance(fileChooser);
+			}
+		});
 
 		this.cameraManager = injector.getInstance(PrimaryCameraWrapper.class);
 		ui = injector.getInstance(AssetEditorUI.class);

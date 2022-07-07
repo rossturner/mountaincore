@@ -42,10 +42,8 @@ public class EntityBrowserTreeNode extends Tree.Node<EntityBrowserTreeNode, Enti
 		actor.addListener(new ClickListener(Input.Buttons.LEFT) {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (value.treeValueType.equals(ENTITY_TYPE_DESCRIPTOR)) {
-					messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, value.getTypeDescriptor());
-				} else if (value.treeValueType.equals(ENTITY_ASSET_DESCRIPTOR)) {
-					messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, value.getEntityAsset());
+				if (value.treeValueType.equals(ENTITY_TYPE_DESCRIPTOR) || value.treeValueType.equals(ENTITY_ASSET_DESCRIPTOR)) {
+					messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, value);
 				} else {
 					messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, null);
 				}

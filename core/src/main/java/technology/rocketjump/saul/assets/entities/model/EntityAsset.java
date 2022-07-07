@@ -11,7 +11,6 @@ public interface EntityAsset {
 
 	Map<String, List<String>> getTags();
 
-
 	String getUniqueName();
 
 	// Passed on from EntityChildAssetDescriptor to adjust render layering

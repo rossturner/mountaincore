@@ -33,7 +33,6 @@ public class TagsComponent extends VisTable {
 	private void reload() {
 		this.clearChildren();
 
-
 		for (Map.Entry<String, List<String>> entry : sourceTags.entrySet()) {
 			TagComponent tagComponent = new TagComponent(entry.getKey(), entry.getValue(), sourceTags);
 			this.add(tagComponent).left().expandX().row();

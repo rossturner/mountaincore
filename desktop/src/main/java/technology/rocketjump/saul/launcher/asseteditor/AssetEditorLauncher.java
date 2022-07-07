@@ -3,7 +3,10 @@ package technology.rocketjump.saul.launcher.asseteditor;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
+import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
+import net.spookygames.gdx.nativefilechooser.desktop.DesktopFileChooser;
 import technology.rocketjump.saul.AssetsPackager;
 import technology.rocketjump.saul.assets.editor.AssetEditorApplication;
 
@@ -22,7 +25,13 @@ public class AssetEditorLauncher {
 		// On launch repackage assets into relevant folders
 		AssetsPackager.main();
 
-		AssetEditorApplication gameInstance = Guice.createInjector().getInstance(AssetEditorApplication.class);
+		AbstractModule launcherModule = new AbstractModule() {
+			@Override
+			protected void configure() {
+				bind(NativeFileChooser.class).to(DesktopFileChooser.class);
+			}
+		};
+		AssetEditorApplication gameInstance = Guice.createInjector(launcherModule).getInstance(AssetEditorApplication.class);
 		new LwjglApplication(gameInstance, config);
 	}
 
