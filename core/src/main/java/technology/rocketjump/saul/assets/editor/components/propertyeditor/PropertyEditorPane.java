@@ -26,6 +26,8 @@ import technology.rocketjump.saul.entities.model.physical.creature.Consciousness
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.Sanity;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructure;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructureDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.jobs.ProfessionDictionary;
 import technology.rocketjump.saul.jobs.model.Profession;
@@ -49,14 +51,16 @@ public class PropertyEditorPane extends VisTable {
 	private final VisTable spriteDescriptorsTable;
 	private final EntityAssetTypeDictionary entityAssetTypeDictionary;
 	private final ProfessionDictionary professionDictionary;
+	private final BodyStructureDictionary bodyStructureDictionary;
 
 	@Inject
 	public PropertyEditorPane(NativeFileChooser fileChooser, EditorStateProvider editorStateProvider, EntityAssetTypeDictionary entityAssetTypeDictionary,
-							  ProfessionDictionary professionDictionary) {
+							  ProfessionDictionary professionDictionary, BodyStructureDictionary bodyStructureDictionary) {
 		this.fileChooser = fileChooser;
 		this.editorStateProvider = editorStateProvider;
 		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
 		this.professionDictionary = professionDictionary;
+		this.bodyStructureDictionary = bodyStructureDictionary;
 		editorTable = new VisTable();
 		spriteDescriptorsTable = new VisTable();
 		VisScrollPane editorScrollPane = new VisScrollPane(editorTable);
@@ -88,6 +92,78 @@ public class PropertyEditorPane extends VisTable {
 
 	}
 
+	private void showEditorControls(Race race) {
+		VisTextField raceNameTextField = new VisTextField(race.getName());
+		raceNameTextField.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				race.setName(raceNameTextField.getText());
+			}
+		});
+		editorTable.add(new VisLabel("Race name:")).left();
+		editorTable.add(raceNameTextField).left().expandX().fillX().row();
+
+		VisTextField i18nKeyField = new VisTextField(race.getI18nKey());
+		i18nKeyField.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				race.setI18nKey(i18nKeyField.getText());
+			}
+		});
+		editorTable.add(new VisLabel("I18N key:")).left();
+		editorTable.add(i18nKeyField).left().expandX().fillX().row();
+
+		VisTextField minStrengthField = new VisTextField(String.valueOf(race.getMinStrength()));
+		minStrengthField.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				try {
+					Float newValue = Float.valueOf(minStrengthField.getText());
+					if (newValue != null) {
+						race.setMinStrength(newValue);
+					}
+				} catch (NumberFormatException e) {
+
+				}
+			}
+		});
+		editorTable.add(new VisLabel("Minimum strength:")).left();
+		editorTable.add(minStrengthField).left().expandX().fillX().row();
+
+
+		VisTextField maxStrengthField = new VisTextField(String.valueOf(race.getMaxStrength()));
+		maxStrengthField.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				try {
+					Float newValue = Float.valueOf(maxStrengthField.getText());
+					if (newValue != null) {
+						race.setMaxStrength(newValue);
+					}
+				} catch (NumberFormatException e) {
+
+				}
+			}
+		});
+		editorTable.add(new VisLabel("Maximum strength:")).left();
+		editorTable.add(maxStrengthField).left().expandX().fillX().row();
+
+		VisSelectBox<BodyStructure> bodyStructureSelect = new VisSelectBox<>();
+		bodyStructureSelect.setItems(orderedArray(bodyStructureDictionary.getAll()));
+		if (race.getBodyStructure() != null) {
+			bodyStructureSelect.setSelected(race.getBodyStructure());
+		}
+		bodyStructureSelect.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				race.setBodyStructure(bodyStructureSelect.getSelected());
+				race.setBodyStructureName(bodyStructureSelect.getSelected().getName());
+			}
+		});
+		editorTable.add(new VisLabel("Body structure:")).left();
+		editorTable.add(bodyStructureSelect).left().row();
+	}
+
 	private void showEditorControls(CreatureEntityAsset creatureAsset) {
 
 		VisTextField uniqueNameField = new VisTextField(creatureAsset.getUniqueName());
@@ -111,19 +187,6 @@ public class PropertyEditorPane extends VisTable {
 		});
 		editorTable.add(new VisLabel("Asset type:")).left().row();
 		editorTable.add(assetTypeSelectBox).left().row();
-
-		// TODO default race based on selected entity
-//		VisSelectBox<Race> raceSelectBox = new VisSelectBox<>();
-//		raceSelectBox.setItems(orderedArray(raceDictionary.getAll()));
-//		raceSelectBox.setSelected(creatureAsset.getRace());
-//		raceSelectBox.addListener(new ChangeListener() {
-//			@Override
-//			public void changed(ChangeEvent event, Actor actor) {
-//				creatureAsset.setRace(raceSelectBox.getSelected());
-//			}
-//		});
-//		editorTable.add(new VisLabel("Race:")).left().row();
-//		editorTable.add(raceSelectBox).left().row();
 
 		VisSelectBox<CreatureBodyShape> bodyShapeSelect = new VisSelectBox<>();
 		bodyShapeSelect.setItems(new Array<>(CreatureBodyShape.values()));
@@ -384,10 +447,6 @@ public class PropertyEditorPane extends VisTable {
 		});
 		orientationTable.add(label).left().colspan(2).row();
 		orientationTable.add(collapsibleChildAssets).padLeft(20).left().expandX().fillX().colspan(2).row();
-	}
-
-	private void showEditorControls(Race race) {
-
 	}
 
 	private void showEditorControls(PlantSpecies species) {

@@ -13,6 +13,7 @@ import technology.rocketjump.saul.assets.editor.EntityEditorPersistence;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
+import technology.rocketjump.saul.assets.entities.CompleteEntityDefinitionDictionary;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -34,16 +35,19 @@ public class EntityBrowserPane extends VisTable {
 	private final MessageDispatcher messageDispatcher;
 	private final CompleteAssetDictionary assetDictionary;
 	private final EntityEditorPersistence entityEditorPersistence;
+	private final CompleteEntityDefinitionDictionary entityDefinitionDictionary;
 
 	private final Map<String, Path> descriptorPathsByAssetName = new TreeMap<>();
 
 	@Inject
 	public EntityBrowserPane(EditorStateProvider editorStateProvider, ObjectMapper objectMapper,
-							 MessageDispatcher messageDispatcher, CompleteAssetDictionary assetDictionary, EntityEditorPersistence entityEditorPersistence) {
+							 MessageDispatcher messageDispatcher, CompleteAssetDictionary assetDictionary,
+							 EntityEditorPersistence entityEditorPersistence, CompleteEntityDefinitionDictionary entityDefinitionDictionary) {
 		this.objectMapper = objectMapper;
 		this.messageDispatcher = messageDispatcher;
 		this.assetDictionary = assetDictionary;
 		this.entityEditorPersistence = entityEditorPersistence;
+		this.entityDefinitionDictionary = entityDefinitionDictionary;
 		assetTree = new VisTree();
 		this.editorStateProvider = editorStateProvider;
 		VisScrollPane scrollPane = new VisScrollPane(assetTree);
@@ -97,7 +101,8 @@ public class EntityBrowserPane extends VisTable {
 
 		try {
 			EntityBrowserTreeNode typeDescriptorNode = new EntityBrowserTreeNode(messageDispatcher, editorStateProvider);
-			typeDescriptorNode.setValue(EntityBrowserValue.forTypeDescriptor(selection.getEntityType(), Paths.get(selection.getBasePath())));
+			typeDescriptorNode.setValue(EntityBrowserValue.forTypeDescriptor(selection.getEntityType(), Paths.get(selection.getBasePath()),
+					entityDefinitionDictionary.get(selection.getEntityType(), selection.getTypeName())));
 			assetTree.add(typeDescriptorNode);
 
 			addNodesForDirectory(Path.of(selection.getBasePath()), selection.getEntityType(), null);

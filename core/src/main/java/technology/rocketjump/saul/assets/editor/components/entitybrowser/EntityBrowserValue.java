@@ -1,14 +1,11 @@
 package technology.rocketjump.saul.assets.editor.components.entitybrowser;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.scenes.scene2d.ui.Tree;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.entities.model.EntityType;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class EntityBrowserValue extends Tree.Node {
@@ -23,13 +20,10 @@ public class EntityBrowserValue extends Tree.Node {
 	private Object typeDescriptor;
 	private EntityAsset entityAsset;
 
-	public static EntityBrowserValue forTypeDescriptor(EntityType entityType, Path baseDir) throws IOException {
+	public static EntityBrowserValue forTypeDescriptor(EntityType entityType, Path baseDir, Object typeDescriptorInstance) throws IOException {
 		Path typeDescriptorFile = baseDir.resolve(entityType.descriptorFilename);
-
-		JSONObject typeDescriptorJson = JSON.parseObject(Files.readString(typeDescriptorFile));
-
 		EntityBrowserValue value = new EntityBrowserValue(TreeValueType.ENTITY_TYPE_DESCRIPTOR, entityType, typeDescriptorFile, entityType.descriptorFilename);
-		value.setTypeDescriptor(objectMapper.readValue(typeDescriptorJson.toString(), entityType.typeDescriptorClass));
+		value.setTypeDescriptor(typeDescriptorInstance);
 		return value;
 	}
 

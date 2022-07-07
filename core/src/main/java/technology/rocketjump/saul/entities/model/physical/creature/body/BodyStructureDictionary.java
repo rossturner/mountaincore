@@ -10,10 +10,7 @@ import technology.rocketjump.saul.materials.GameMaterialDictionary;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Singleton
 public class BodyStructureDictionary {
@@ -58,4 +55,7 @@ public class BodyStructureDictionary {
 		return byName.get(organDefinitionName);
 	}
 
+	public Collection<BodyStructure> getAll() {
+		return byName.values();
+	}
 }

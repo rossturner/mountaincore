@@ -11,7 +11,7 @@ import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismTyp
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 
 @Singleton
-public class CompleteEntityTypeDictionary {
+public class CompleteEntityDefinitionDictionary {
 
 	private final RaceDictionary raceDictionary;
 	private final PlantSpeciesDictionary plantSpeciesDictionary;
@@ -20,9 +20,9 @@ public class CompleteEntityTypeDictionary {
 	private final MechanismTypeDictionary mechanismTypeDictionary;
 
 	@Inject
-	public CompleteEntityTypeDictionary(RaceDictionary raceDictionary, PlantSpeciesDictionary plantSpeciesDictionary,
-										ItemTypeDictionary itemTypeDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
-										MechanismTypeDictionary mechanismTypeDictionary) {
+	public CompleteEntityDefinitionDictionary(RaceDictionary raceDictionary, PlantSpeciesDictionary plantSpeciesDictionary,
+											  ItemTypeDictionary itemTypeDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
+											  MechanismTypeDictionary mechanismTypeDictionary) {
 		this.raceDictionary = raceDictionary;
 		this.plantSpeciesDictionary = plantSpeciesDictionary;
 		this.itemTypeDictionary = itemTypeDictionary;
