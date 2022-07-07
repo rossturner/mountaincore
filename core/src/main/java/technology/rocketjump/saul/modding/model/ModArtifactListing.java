@@ -104,7 +104,7 @@ public class ModArtifactListing {
 						"entities/wallCap", "**/descriptors", JSON_ARRAY, ADDITIVE,
 						GenericClassTypeProcessor.class, ReferencedImagesExist.class, UniqueNames.class),
 				def("definitions/entityAssets", "mechanismEntityAssets", SINGLE_FILE, JSON_ARRAY, MechanismEntityAsset.class,
-						"entities/mechanisms", "**/descriptors", JSON_ARRAY, ADDITIVE,
+						"entities/mechanism", "**/descriptors", JSON_ARRAY, ADDITIVE,
 						GenericClassTypeProcessor.class, ReferencedImagesExist.class, UniqueNames.class),
 
 				def("definitions/crafting", "cookingRecipes", SINGLE_FILE, JSON_ARRAY, CookingRecipe.class,
