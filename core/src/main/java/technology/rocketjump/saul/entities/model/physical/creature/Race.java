@@ -118,6 +118,9 @@ public class Race {
 
 	public void setBodyStructure(BodyStructure bodyStructure) {
 		this.bodyStructure = bodyStructure;
+		if (bodyStructure != null) {
+			setBodyStructureName(bodyStructure.getName());
+		}
 	}
 
 	public Map<ColoringLayer, SpeciesColor> getColors() {

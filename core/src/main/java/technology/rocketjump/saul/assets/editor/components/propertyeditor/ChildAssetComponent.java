@@ -11,20 +11,21 @@ import technology.rocketjump.saul.assets.entities.model.EntityChildAssetDescript
 
 import java.util.Collection;
 
-import static technology.rocketjump.saul.assets.editor.components.propertyeditor.PropertyEditorPane.orderedArray;
+import static technology.rocketjump.saul.assets.editor.components.propertyeditor.ComponentBuilder.orderedArray;
 
 public class ChildAssetComponent extends VisTable {
 
 	public ChildAssetComponent(EntityChildAssetDescriptor childDescriptor, Collection<EntityAssetType> applicableTypes) {
 		VisSelectBox<EntityAssetType> assetTypeSelectBox = new VisSelectBox<>();
 		assetTypeSelectBox.setItems(orderedArray(applicableTypes));
-		if (childDescriptor.getType() != null) {
-			assetTypeSelectBox.setSelected(childDescriptor.getType());
+		if (childDescriptor.getType() == null) {
+			childDescriptor.setType(applicableTypes.iterator().next());
 		}
+		assetTypeSelectBox.setSelected(childDescriptor.getType());
 		assetTypeSelectBox.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-			childDescriptor.setType(assetTypeSelectBox.getSelected());
+				childDescriptor.setType(assetTypeSelectBox.getSelected());
 			}
 		});
 		this.add(new VisLabel("Asset type:")).left();

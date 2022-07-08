@@ -69,8 +69,10 @@ public class CreatureEntityAssetDictionaryProvider implements Provider<CreatureE
 				}
 
 				for (SpriteDescriptor spriteDescriptor : asset.getSpriteDescriptors().values()) {
-					addSprite(spriteDescriptor, diffuseTextureAtlas, RenderMode.DIFFUSE);
-					addSprite(spriteDescriptor, normalTextureAtlas, RenderMode.NORMALS);
+					if (spriteDescriptor.getFilename() != null) {
+						addSprite(spriteDescriptor, diffuseTextureAtlas, RenderMode.DIFFUSE);
+						addSprite(spriteDescriptor, normalTextureAtlas, RenderMode.NORMALS);
+					}
 				}
 			}
 

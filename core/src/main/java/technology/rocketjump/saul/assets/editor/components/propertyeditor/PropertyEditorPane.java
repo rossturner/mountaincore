@@ -1,18 +1,19 @@
 package technology.rocketjump.saul.assets.editor.components.propertyeditor;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.kotcrab.vis.ui.widget.*;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooserCallback;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooserConfiguration;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.assets.editor.components.propertyeditor.creature.BodyShapesComponent;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
@@ -26,16 +27,20 @@ import technology.rocketjump.saul.entities.model.physical.creature.Consciousness
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.Sanity;
-import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructure;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructureDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.jobs.ProfessionDictionary;
 import technology.rocketjump.saul.jobs.model.Profession;
 
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
+import static technology.rocketjump.saul.assets.editor.components.propertyeditor.ComponentBuilder.*;
 import static technology.rocketjump.saul.assets.entities.item.model.ItemPlacement.BEING_CARRIED;
 import static technology.rocketjump.saul.assets.entities.model.ColoringLayer.*;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
@@ -52,15 +57,18 @@ public class PropertyEditorPane extends VisTable {
 	private final EntityAssetTypeDictionary entityAssetTypeDictionary;
 	private final ProfessionDictionary professionDictionary;
 	private final BodyStructureDictionary bodyStructureDictionary;
+	private final MessageDispatcher messageDispatcher;
 
 	@Inject
 	public PropertyEditorPane(NativeFileChooser fileChooser, EditorStateProvider editorStateProvider, EntityAssetTypeDictionary entityAssetTypeDictionary,
-							  ProfessionDictionary professionDictionary, BodyStructureDictionary bodyStructureDictionary) {
+							  ProfessionDictionary professionDictionary, BodyStructureDictionary bodyStructureDictionary,
+							  MessageDispatcher messageDispatcher) {
 		this.fileChooser = fileChooser;
 		this.editorStateProvider = editorStateProvider;
 		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
 		this.professionDictionary = professionDictionary;
 		this.bodyStructureDictionary = bodyStructureDictionary;
+		this.messageDispatcher = messageDispatcher;
 		editorTable = new VisTable();
 		spriteDescriptorsTable = new VisTable();
 		VisScrollPane editorScrollPane = new VisScrollPane(editorTable);
@@ -82,159 +90,54 @@ public class PropertyEditorPane extends VisTable {
 			return;
 		}
 
-		switch (instance) {
-			case CreatureEntityAsset a -> showEditorControls(a);
-			case Race race -> showEditorControls(race);
-			case PlantSpecies plantSpecies -> showEditorControls(plantSpecies);
-			default ->
-					Logger.warn("Not yet implemented: Contrls for " + instance.getClass().getSimpleName() + " in " + getClass().getSimpleName());
+		try {
+			switch (instance) {
+				case CreatureEntityAsset a -> showEditorControls(a);
+				case Race race -> showEditorControls(race);
+				case PlantSpecies plantSpecies -> showEditorControls(plantSpecies);
+				default ->
+						Logger.warn("Not yet implemented: Contrls for " + instance.getClass().getSimpleName() + " in " + getClass().getSimpleName());
+			}
+		} catch (Exception e) {
+			Logger.error("Unexpected exception setting up controls for " + instance, e);
 		}
 
 	}
 
-	private void showEditorControls(Race race) {
-		VisTextField raceNameTextField = new VisTextField(race.getName());
-		raceNameTextField.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				race.setName(raceNameTextField.getText());
-			}
-		});
-		editorTable.add(new VisLabel("Race name:")).left();
-		editorTable.add(raceNameTextField).left().expandX().fillX().row();
+	private void showEditorControls(Race race) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+		addTextField("Name:", "name", race, editorTable);
+		addTextField("I18N key:", "i18nKey", race, editorTable);
 
-		VisTextField i18nKeyField = new VisTextField(race.getI18nKey());
-		i18nKeyField.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				race.setI18nKey(i18nKeyField.getText());
-			}
-		});
-		editorTable.add(new VisLabel("I18N key:")).left();
-		editorTable.add(i18nKeyField).left().expandX().fillX().row();
+		addFloatField("Minimum strength:", "minStrength", race, editorTable);
+		addFloatField("Maximum strength:", "maxStrength", race, editorTable);
 
-		VisTextField minStrengthField = new VisTextField(String.valueOf(race.getMinStrength()));
-		minStrengthField.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				try {
-					Float newValue = Float.valueOf(minStrengthField.getText());
-					if (newValue != null) {
-						race.setMinStrength(newValue);
-					}
-				} catch (NumberFormatException e) {
+		addSelectField("Body structure:", "bodyStructure", bodyStructureDictionary.getAll(), null, race, editorTable);
 
-				}
-			}
-		});
-		editorTable.add(new VisLabel("Minimum strength:")).left();
-		editorTable.add(minStrengthField).left().expandX().fillX().row();
+		VisLabel bodyShapesLabel = new VisLabel("Body shapes:");
+		VisTable bodyShapesTable = new VisTable();
+		bodyShapesTable.add(new VisTable()).width(20).left();
+		bodyShapesTable.add(new BodyShapesComponent(race.getBodyShapes())).expandX().fillX().row();
+		editorTable.add(bodyShapesLabel).left().colspan(2).row();
+		editorTable.add(bodyShapesTable).colspan(2).left().row();
+
+		editorTable.add(new VisLabel("Colors:")).left().colspan(2).row();
+		editorTable.add(new ColorsComponent(race.getColors(), getApplicableColoringLayerValues(EntityType.CREATURE),
+				EntityType.CREATURE, Path.of(editorStateProvider.getState().getAssetSelection().getDescriptorsPath()), fileChooser, messageDispatcher)).left().colspan(2).row();
 
 
-		VisTextField maxStrengthField = new VisTextField(String.valueOf(race.getMaxStrength()));
-		maxStrengthField.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				try {
-					Float newValue = Float.valueOf(maxStrengthField.getText());
-					if (newValue != null) {
-						race.setMaxStrength(newValue);
-					}
-				} catch (NumberFormatException e) {
-
-				}
-			}
-		});
-		editorTable.add(new VisLabel("Maximum strength:")).left();
-		editorTable.add(maxStrengthField).left().expandX().fillX().row();
-
-		VisSelectBox<BodyStructure> bodyStructureSelect = new VisSelectBox<>();
-		bodyStructureSelect.setItems(orderedArray(bodyStructureDictionary.getAll()));
-		if (race.getBodyStructure() != null) {
-			bodyStructureSelect.setSelected(race.getBodyStructure());
-		}
-		bodyStructureSelect.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				race.setBodyStructure(bodyStructureSelect.getSelected());
-				race.setBodyStructureName(bodyStructureSelect.getSelected().getName());
-			}
-		});
-		editorTable.add(new VisLabel("Body structure:")).left();
-		editorTable.add(bodyStructureSelect).left().row();
 	}
 
-	private void showEditorControls(CreatureEntityAsset creatureAsset) {
+	private void showEditorControls(CreatureEntityAsset creatureAsset) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+		addTextField("Unique name:", "uniqueName", creatureAsset, editorTable);
 
-		VisTextField uniqueNameField = new VisTextField(creatureAsset.getUniqueName());
-		uniqueNameField.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				creatureAsset.setUniqueName(uniqueNameField.getText());
-			}
-		});
-		editorTable.add(new VisLabel("Unique name:")).left().row();
-		editorTable.add(uniqueNameField).left().fillX().row();
+		addSelectField("Asset type:", "type", entityAssetTypeDictionary.getByEntityType(EntityType.CREATURE), null, creatureAsset, editorTable);
 
-		VisSelectBox<EntityAssetType> assetTypeSelectBox = new VisSelectBox<>();
-		assetTypeSelectBox.setItems(orderedArray(entityAssetTypeDictionary.getByEntityType(EntityType.CREATURE)));
-		assetTypeSelectBox.setSelected(creatureAsset.getType());
-		assetTypeSelectBox.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				creatureAsset.setType(assetTypeSelectBox.getSelected());
-			}
-		});
-		editorTable.add(new VisLabel("Asset type:")).left().row();
-		editorTable.add(assetTypeSelectBox).left().row();
+		addSelectField("Body shape:", "bodyShape", List.of(CreatureBodyShape.values()), CreatureBodyShape.ANY, creatureAsset, editorTable);
+		addSelectField("Gender:", "gender", List.of(Gender.values()), Gender.ANY, creatureAsset, editorTable);
 
-		VisSelectBox<CreatureBodyShape> bodyShapeSelect = new VisSelectBox<>();
-		bodyShapeSelect.setItems(new Array<>(CreatureBodyShape.values()));
-		if (creatureAsset.getBodyShape() == null) {
-			bodyShapeSelect.setSelected(CreatureBodyShape.ANY);
-		} else {
-			bodyShapeSelect.setSelected(creatureAsset.getBodyShape());
-		}
-		bodyShapeSelect.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				creatureAsset.setBodyShape(bodyShapeSelect.getSelected());
-			}
-		});
-		editorTable.add(new VisLabel("Body shape:")).left().row();
-		editorTable.add(bodyShapeSelect).left().row();
-
-		VisSelectBox<Gender> genderSelect = new VisSelectBox<>();
-		genderSelect.setItems(new Array<>(Gender.values()));
-		if (creatureAsset.getGender() == null) {
-			genderSelect.setSelected(Gender.ANY);
-		} else {
-			genderSelect.setSelected(creatureAsset.getGender());
-		}
-		genderSelect.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				creatureAsset.setGender(genderSelect.getSelected());
-			}
-		});
-		editorTable.add(new VisLabel("Gender:")).left().row();
-		editorTable.add(genderSelect).left().row();
-
-		VisSelectBox<Profession> professionSelect = new VisSelectBox<>();
-		professionSelect.setItems(orderedArray(professionDictionary.getAll(), NULL_PROFESSION));
-		if (creatureAsset.getProfession() == null) {
-			professionSelect.setSelected(NULL_PROFESSION);
-		} else {
-			professionSelect.setSelected(professionDictionary.getByName(creatureAsset.getProfession()));
-		}
-		professionSelect.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				creatureAsset.setProfession(professionSelect.getSelected().getName());
-			}
-		});
-		editorTable.add(new VisLabel("Profession:")).left().row();
-		editorTable.add(professionSelect).left().row();
+		List<String> allProfessions = professionDictionary.getAll().stream().map(Profession::getName).collect(Collectors.toList());
+		allProfessions.add(0, NULL_PROFESSION.getName());
+		addSelectField("Profession:", "profession", allProfessions, NULL_PROFESSION.getName(), creatureAsset, editorTable);
 
 		VisSelectBox<String> sanitySelect = new VisSelectBox<>();
 		sanitySelect.setItems(orderedArray(
@@ -248,7 +151,7 @@ public class PropertyEditorPane extends VisTable {
 				creatureAsset.setSanity(selected.equals(NOT_APPLICABLE) ? null : Sanity.valueOf(selected));
 			}
 		});
-		editorTable.add(new VisLabel("Sanity:")).left().row();
+		editorTable.add(new VisLabel("Sanity:")).left();
 		editorTable.add(sanitySelect).left().row();
 
 		if (creatureAsset.getConsciousnessList() == null) {
@@ -283,8 +186,8 @@ public class PropertyEditorPane extends VisTable {
 				consciousnessCollapsible.setCollapsed(!consciousnessCollapsible.isCollapsed());
 			}
 		});
-		editorTable.add(consciousnessLabel).left().row();
-		editorTable.add(consciousnessCollapsible).left().row();
+		editorTable.add(consciousnessLabel).left().colspan(2).row();
+		editorTable.add(consciousnessCollapsible).left().colspan(2).row();
 
 
 		VisLabel tagsLabel = new VisLabel("Tags (click to show)");
@@ -297,11 +200,11 @@ public class PropertyEditorPane extends VisTable {
 				tagsCollapsible.setCollapsed(!tagsCollapsible.isCollapsed());
 			}
 		});
-		editorTable.add(tagsLabel).left().expandX().fillX().row();
-		editorTable.add(tagsCollapsible).expandX().fillX().left().row();
+		editorTable.add(tagsLabel).left().expandX().fillX().colspan(2).row();
+		editorTable.add(tagsCollapsible).expandX().fillX().left().colspan(2).row();
 
 		showSpriteDescriptorControls(creatureAsset, EntityType.CREATURE);
-		editorTable.add(spriteDescriptorsTable).expandX().fillX().left().row();
+		editorTable.add(spriteDescriptorsTable).expandX().fillX().colspan(2).left().row();
 	}
 
 	private void showSpriteDescriptorControls(EntityAsset entityAsset, EntityType entityType) {
@@ -453,20 +356,6 @@ public class PropertyEditorPane extends VisTable {
 
 	}
 
-	public static <T> Array<T> orderedArray(Collection<T> items) {
-		return orderedArray(items, null);
-	}
-
-	public static <T> Array<T> orderedArray(Collection<T> items, T nullItem) {
-		Array<T> array = new Array<>();
-		items.forEach(array::add);
-		array.sort(Comparator.comparing(Object::toString));
-		if (nullItem != null) {
-			array.insert(0, nullItem);
-		}
-		return array;
-	}
-
 	private NativeFileChooserConfiguration buildConfig() {
 		EditorAssetSelection assetSelection = editorStateProvider.getState().getAssetSelection();
 		NativeFileChooserConfiguration config = new NativeFileChooserConfiguration();
@@ -493,8 +382,8 @@ public class PropertyEditorPane extends VisTable {
 		}
 	}
 
-	private Collection<String> getApplicableColoringLayers(EntityType entityType) {
-		List<ColoringLayer> layers = switch (entityType) {
+	private List<ColoringLayer> getApplicableColoringLayerValues(EntityType entityType) {
+		return switch (entityType) {
 			case CREATURE -> List.of(HAIR_COLOR, SKIN_COLOR, EYE_COLOR, ACCESSORY_COLOR, MARKING_COLOR, BONE_COLOR, OTHER_COLOR);
 			case PLANT -> List.of(BRANCHES_COLOR, LEAF_COLOR, FRUIT_COLOR, FLOWER_COLOR, WOOD_COLOR, OTHER_COLOR, VEGETABLE_COLOR);
 			// furniture and items and mechanisms under default
@@ -502,7 +391,9 @@ public class PropertyEditorPane extends VisTable {
 					BONE_COLOR, SEED_COLOR, VEGETABLE_COLOR, CLOTH_COLOR, ROPE_COLOR, EARTH_COLOR, STONE_COLOR,
 					ORE_COLOR, GEM_COLOR, METAL_COLOR, WOOD_COLOR, VITRIOL_COLOR, FOODSTUFF_COLOR, LIQUID_COLOR, OTHER_COLOR);
 		};
+	}
 
-		return layers.stream().map(Enum::name).collect(Collectors.toList());
+	private List<String> getApplicableColoringLayers(EntityType entityType) {
+		return getApplicableColoringLayerValues(entityType).stream().map(Enum::name).collect(Collectors.toList());
 	}
 }

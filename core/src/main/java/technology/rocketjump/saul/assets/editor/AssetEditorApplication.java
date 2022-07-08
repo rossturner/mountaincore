@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.kotcrab.vis.ui.VisUI;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
+import technology.rocketjump.saul.assets.editor.components.propertyeditor.ComponentBuilder;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 
@@ -29,6 +30,7 @@ public class AssetEditorApplication extends ApplicationAdapter {
 	@Override
 	public void create () {
 		VisUI.load();
+		ComponentBuilder.staticShapeRenderer = new ShapeRenderer();
 		Injector injector = Guice.createInjector(new SaulGuiceModule() {
 			@Override
 			public void configure() {

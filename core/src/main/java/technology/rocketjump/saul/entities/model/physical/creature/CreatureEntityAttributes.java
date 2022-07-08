@@ -27,8 +27,6 @@ import static technology.rocketjump.saul.entities.model.physical.creature.Sanity
 
 public class CreatureEntityAttributes implements EntityAttributes {
 
-	public static Color DEFAULT_BONE_COLOR = HexColors.get("#fbfbf9");
-
 	private long seed;
 	private Race race;
 	private Gender gender;
