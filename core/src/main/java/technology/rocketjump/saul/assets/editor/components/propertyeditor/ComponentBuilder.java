@@ -1,6 +1,5 @@
 package technology.rocketjump.saul.assets.editor.components.propertyeditor;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
@@ -15,8 +14,6 @@ import java.util.Collection;
 import java.util.Comparator;
 
 public class ComponentBuilder {
-
-	public static ShapeRenderer staticShapeRenderer; // needs initialising
 
 	public static void addTextField(String labelText, String propertyName, Object instance, VisTable table) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
 		VisTextField textField = new VisTextField(PropertyUtils.getProperty(instance, propertyName).toString());

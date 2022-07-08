@@ -125,6 +125,10 @@ public class ColorsComponent extends VisTable {
 
 			if (typeSelect.getSelected().equals(ColorValueType.colorCode)) {
 				VisTextField colorCodeField = new VisTextField(entry.getValue().getColorCode());
+				VisTextField.VisTextFieldStyle colorCodeStyle = new VisTextField.VisTextFieldStyle(colorCodeField.getStyle());
+				colorCodeStyle.fontColor = entry.getValue().getSpecificColor();
+				colorCodeField.setStyle(colorCodeStyle);
+
 				colorCodeField.setText(entry.getValue().getColorCode());
 				colorCodeField.addListener(new ChangeListener() {
 					@Override
@@ -133,12 +137,12 @@ public class ColorsComponent extends VisTable {
 						if (validatedColor != null) {
 							entry.getValue().setColorCode(colorCodeField.getText());
 							initialiseSpeciesColor(entityType, entry.getValue());
+							colorCodeStyle.fontColor = entry.getValue().getSpecificColor();
 						}
 					}
 				});
 				this.add(colorCodeField).expandX().fillX();
 
-//				ColorDrawable colorDrawable = new ColorDrawable(entry.getValue().getSpecificColor());
 				VisTextButton colorPickerButton = new VisTextButton("Picker");
 				colorPickerButton.addListener(new ClickListener() {
 					@Override
@@ -147,8 +151,8 @@ public class ColorsComponent extends VisTable {
 								new ColorPickerMessage(entry.getValue().getColorCode(), (color) -> {
 									entry.getValue().setColorCode(HexColors.toHexString(color));
 									entry.getValue().setSpecificColor(color);
+									colorCodeStyle.fontColor = color;
 									colorCodeField.setText(entry.getValue().getColorCode());
-//									colorDrawable.setColor(color);
 								}));
 					}
 				});
