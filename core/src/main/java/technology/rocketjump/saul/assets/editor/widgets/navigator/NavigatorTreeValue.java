@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.navigator;
+package technology.rocketjump.saul.assets.editor.widgets.navigator;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

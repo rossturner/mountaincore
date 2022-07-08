@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.navigator;
+package technology.rocketjump.saul.assets.editor.widgets.navigator;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.google.inject.Inject;
@@ -7,8 +7,8 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTree;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.assets.editor.components.ClickThroughVisTree;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.editor.widgets.ClickThroughVisTree;
 import technology.rocketjump.saul.entities.model.EntityType;
 
 import java.io.IOException;
@@ -16,8 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-import static technology.rocketjump.saul.assets.editor.components.navigator.NavigatorTreeValue.forEntityDir;
-import static technology.rocketjump.saul.assets.editor.components.navigator.NavigatorTreeValue.forSubDir;
+import static technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeValue.forEntityDir;
+import static technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeValue.forSubDir;
 
 public class NavigatorPane extends VisTable {
 

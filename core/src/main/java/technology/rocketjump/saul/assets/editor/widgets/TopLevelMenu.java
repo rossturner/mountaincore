@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components;
+package technology.rocketjump.saul.assets.editor.widgets;
 
 import com.google.inject.Inject;
 import com.kotcrab.vis.ui.widget.Menu;

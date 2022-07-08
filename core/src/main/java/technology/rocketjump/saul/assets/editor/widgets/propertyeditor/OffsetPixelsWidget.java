@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.propertyeditor;
+package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -7,10 +7,10 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import technology.rocketjump.saul.assets.entities.model.StorableVector2;
 
-public class OffsetPixelsComponent extends VisTable {
+public class OffsetPixelsWidget extends VisTable {
 
 
-	public OffsetPixelsComponent(StorableVector2 sourceVector) {
+	public OffsetPixelsWidget(StorableVector2 sourceVector) {
 		this.add(new VisLabel("Offset:")).left();
 
 		this.add(new VisLabel("x")).right();

@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.propertyeditor;
+package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Comparator;
 
-public class ComponentBuilder {
+public class WidgetBuilder {
 
 	public static void addTextField(String labelText, String propertyName, Object instance, VisTable table) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
 		VisTextField textField = new VisTextField(PropertyUtils.getProperty(instance, propertyName).toString());

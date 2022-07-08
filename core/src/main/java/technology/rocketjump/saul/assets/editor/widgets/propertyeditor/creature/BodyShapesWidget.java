@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.propertyeditor.creature;
+package technology.rocketjump.saul.assets.editor.widgets.propertyeditor.creature;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -9,12 +9,12 @@ import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodySha
 
 import java.util.List;
 
-public class BodyShapesComponent extends VisTable {
+public class BodyShapesWidget extends VisTable {
 
 	private final List<CreatureBodyShapeDescriptor> sourceData;
 	private final VisTextButton addButton;
 
-	public BodyShapesComponent(List<CreatureBodyShapeDescriptor> sourceData) {
+	public BodyShapesWidget(List<CreatureBodyShapeDescriptor> sourceData) {
 		this.sourceData = sourceData;
 
 		addButton = new VisTextButton("Add another");
@@ -36,7 +36,7 @@ public class BodyShapesComponent extends VisTable {
 		this.clearChildren();
 
 		for (CreatureBodyShapeDescriptor bodyShapeDescriptor : sourceData) {
-			this.add(new BodyShapeComponent(bodyShapeDescriptor)).left().expandX().fillX().row();
+			this.add(new BodyShapeWidget(bodyShapeDescriptor)).left().expandX().fillX().row();
 		}
 
 		this.add(addButton).left().row();

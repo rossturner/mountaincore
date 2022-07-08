@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.propertyeditor;
+package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
@@ -25,10 +25,10 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-import static technology.rocketjump.saul.assets.editor.components.propertyeditor.ComponentBuilder.orderedArray;
+import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.orderedArray;
 import static technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary.initialiseSpeciesColor;
 
-public class ColorsComponent extends VisTable {
+public class ColorsWidget extends VisTable {
 
 	private final Map<ColoringLayer, SpeciesColor> sourceData;
 	private final VisTextButton addButton;
@@ -38,8 +38,8 @@ public class ColorsComponent extends VisTable {
 	private final NativeFileChooser fileChooser;
 	private final MessageDispatcher messageDispatcher;
 
-	public ColorsComponent(Map<ColoringLayer, SpeciesColor> sourceData, List<ColoringLayer> applicableColoringLayers,
-						   EntityType entityType, Path filePath, NativeFileChooser fileChooser, MessageDispatcher messageDispatcher) {
+	public ColorsWidget(Map<ColoringLayer, SpeciesColor> sourceData, List<ColoringLayer> applicableColoringLayers,
+						EntityType entityType, Path filePath, NativeFileChooser fileChooser, MessageDispatcher messageDispatcher) {
 		this.sourceData = sourceData;
 		this.applicableColoringLayers = applicableColoringLayers;
 		this.entityType = entityType;

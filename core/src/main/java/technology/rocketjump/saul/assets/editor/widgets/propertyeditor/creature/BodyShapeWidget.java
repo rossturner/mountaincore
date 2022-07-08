@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.propertyeditor.creature;
+package technology.rocketjump.saul.assets.editor.widgets.propertyeditor.creature;
 
 import com.kotcrab.vis.ui.widget.VisTable;
 import org.pmw.tinylog.Logger;
@@ -8,12 +8,12 @@ import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodySha
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import static technology.rocketjump.saul.assets.editor.components.propertyeditor.ComponentBuilder.addFloatField;
-import static technology.rocketjump.saul.assets.editor.components.propertyeditor.ComponentBuilder.addSelectField;
+import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.addFloatField;
+import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.addSelectField;
 
-public class BodyShapeComponent extends VisTable {
+public class BodyShapeWidget extends VisTable {
 
-	public BodyShapeComponent(CreatureBodyShapeDescriptor bodyShapeDescriptor) {
+	public BodyShapeWidget(CreatureBodyShapeDescriptor bodyShapeDescriptor) {
 		try {
 			addSelectField("Value:", "value", List.of(CreatureBodyShape.values()),
 					CreatureBodyShape.AVERAGE, bodyShapeDescriptor, this);

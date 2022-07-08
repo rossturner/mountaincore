@@ -16,24 +16,24 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
-import technology.rocketjump.saul.assets.editor.components.TopLevelMenu;
-import technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserContextMenu;
-import technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserPane;
-import technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserTreeMessage;
-import technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserValue;
-import technology.rocketjump.saul.assets.editor.components.navigator.NavigatorContextMenu;
-import technology.rocketjump.saul.assets.editor.components.navigator.NavigatorPane;
-import technology.rocketjump.saul.assets.editor.components.navigator.NavigatorTreeMessage;
-import technology.rocketjump.saul.assets.editor.components.propertyeditor.PropertyEditorPane;
 import technology.rocketjump.saul.assets.editor.model.ColorPickerMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.editor.widgets.TopLevelMenu;
+import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserContextMenu;
+import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserPane;
+import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserTreeMessage;
+import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
+import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorContextMenu;
+import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorPane;
+import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeMessage;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.PropertyEditorPane;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
-import static technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_ASSET_DESCRIPTOR;
-import static technology.rocketjump.saul.assets.editor.components.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_TYPE_DESCRIPTOR;
+import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_ASSET_DESCRIPTOR;
+import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_TYPE_DESCRIPTOR;
 
 @Singleton
 public class AssetEditorUI implements Telegraph {

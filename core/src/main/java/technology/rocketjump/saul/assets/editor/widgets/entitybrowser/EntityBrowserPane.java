@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.entitybrowser;
+package technology.rocketjump.saul.assets.editor.widgets.entitybrowser;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -10,9 +10,9 @@ import com.google.inject.Inject;
 import com.kotcrab.vis.ui.widget.*;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.editor.EntityEditorPersistence;
-import technology.rocketjump.saul.assets.editor.components.ClickThroughVisTree;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.editor.widgets.ClickThroughVisTree;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.CompleteEntityDefinitionDictionary;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;

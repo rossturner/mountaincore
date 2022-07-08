@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.propertyeditor.creature;
+package technology.rocketjump.saul.assets.editor.widgets.propertyeditor.creature;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -14,15 +14,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
-import static technology.rocketjump.saul.assets.editor.components.propertyeditor.ComponentBuilder.addFloatField;
-import static technology.rocketjump.saul.assets.editor.components.propertyeditor.ComponentBuilder.orderedArray;
+import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.addFloatField;
+import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.orderedArray;
 
-public class GenderComponent extends VisTable {
+public class GenderWidget extends VisTable {
 
 	private final Map<Gender, RaceGenderDescriptor> sourceData;
 	private final VisTextButton addButton;
 
-	public GenderComponent(Map<Gender, RaceGenderDescriptor> sourceData) {
+	public GenderWidget(Map<Gender, RaceGenderDescriptor> sourceData) {
 		this.sourceData = sourceData;
 
 		addButton = new VisTextButton("Add another");

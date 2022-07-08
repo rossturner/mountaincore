@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.propertyeditor;
+package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
@@ -13,10 +13,10 @@ import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooserCallback;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooserConfiguration;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.assets.editor.components.propertyeditor.creature.BodyShapesComponent;
-import technology.rocketjump.saul.assets.editor.components.propertyeditor.creature.GenderComponent;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.creature.BodyShapesWidget;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.creature.GenderWidget;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShape;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
@@ -41,7 +41,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static technology.rocketjump.saul.assets.editor.components.propertyeditor.ComponentBuilder.*;
+import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.*;
 import static technology.rocketjump.saul.assets.entities.item.model.ItemPlacement.BEING_CARRIED;
 import static technology.rocketjump.saul.assets.entities.model.ColoringLayer.*;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
@@ -122,12 +122,12 @@ public class PropertyEditorPane extends VisTable {
 		VisLabel bodyShapesLabel = new VisLabel("Body shapes:");
 		VisTable bodyShapesTable = new VisTable();
 		bodyShapesTable.add(new VisTable()).width(20).left();
-		bodyShapesTable.add(new BodyShapesComponent(race.getBodyShapes())).expandX().fillX().row();
+		bodyShapesTable.add(new BodyShapesWidget(race.getBodyShapes())).expandX().fillX().row();
 		editorTable.add(bodyShapesLabel).left().colspan(2).row();
 		editorTable.add(bodyShapesTable).colspan(2).left().row();
 
 		editorTable.add(new VisLabel("Colors:")).left().colspan(2).row();
-		editorTable.add(new ColorsComponent(race.getColors(), getApplicableColoringLayerValues(EntityType.CREATURE),
+		editorTable.add(new ColorsWidget(race.getColors(), getApplicableColoringLayerValues(EntityType.CREATURE),
 				EntityType.CREATURE, Path.of(editorStateProvider.getState().getAssetSelection().getDescriptorsPath()), fileChooser, messageDispatcher)).left().colspan(2).row();
 
 		addSelectField("Behaviour:", "behaviourName", creatureBehaviourDictionary.getAllNames(), "", race.getBehaviour(), editorTable);
@@ -177,10 +177,10 @@ public class PropertyEditorPane extends VisTable {
 				null, race.getBehaviour(), editorTable);
 
 		editorTable.add(new VisLabel("Gender settings:")).left().colspan(2).row();
-		editorTable.add(new GenderComponent(race.getGenders())).left().colspan(2).row();
+		editorTable.add(new GenderWidget(race.getGenders())).left().colspan(2).row();
 
 
-		// Features component
+		// Features widget
 
 	}
 
@@ -189,7 +189,7 @@ public class PropertyEditorPane extends VisTable {
 			addIntegerField("Behaviour group min size:", "minSize", group, groupControlsTable);
 			addIntegerField("Behaviour group max size:", "maxSize", group, groupControlsTable);
 		} catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
-			Logger.error("Error creating components", e);
+			Logger.error("Error creating widgets", e);
 		}
 	}
 
@@ -257,8 +257,8 @@ public class PropertyEditorPane extends VisTable {
 
 
 		VisLabel tagsLabel = new VisLabel("Tags (click to show)");
-		TagsComponent tagsComponent = new TagsComponent(creatureAsset.getTags());
-		CollapsibleWidget tagsCollapsible = new CollapsibleWidget(tagsComponent);
+		TagsWidget tagsWidget = new TagsWidget(creatureAsset.getTags());
+		CollapsibleWidget tagsCollapsible = new CollapsibleWidget(tagsWidget);
 		tagsCollapsible.setCollapsed(creatureAsset.getTags().isEmpty());
 		tagsLabel.addListener(new ClickListener() {
 			@Override
@@ -389,12 +389,12 @@ public class PropertyEditorPane extends VisTable {
 			orientationTable.add(flipYCheckbox).left().row();
 
 
-			orientationTable.add(new OffsetPixelsComponent(spriteDescriptor.getOffsetPixels())).left().colspan(2).row();
+			orientationTable.add(new OffsetPixelsWidget(spriteDescriptor.getOffsetPixels())).left().colspan(2).row();
 
 
-			addChildAssetsComponents("Child assets (click to show)", spriteDescriptor.getChildAssets(), entityType, orientationTable);
-			addChildAssetsComponents("Attachment points (click to show)", spriteDescriptor.getAttachmentPoints(), entityType, orientationTable);
-			addChildAssetsComponents("Parent entity assets (click to show)", spriteDescriptor.getParentEntityAssets(), entityType, orientationTable);
+			addChildAssetsWidgets("Child assets (click to show)", spriteDescriptor.getChildAssets(), entityType, orientationTable);
+			addChildAssetsWidgets("Attachment points (click to show)", spriteDescriptor.getAttachmentPoints(), entityType, orientationTable);
+			addChildAssetsWidgets("Parent entity assets (click to show)", spriteDescriptor.getParentEntityAssets(), entityType, orientationTable);
 
 			spriteDescriptorsTable.addSeparator().row();
 			spriteDescriptorsTable.add(orientationTable).expandX().fillX().row();
@@ -402,11 +402,11 @@ public class PropertyEditorPane extends VisTable {
 
 	}
 
-	private void addChildAssetsComponents(String labelText, List<EntityChildAssetDescriptor> childAssets, EntityType entityType, VisTable orientationTable) {
+	private void addChildAssetsWidgets(String labelText, List<EntityChildAssetDescriptor> childAssets, EntityType entityType, VisTable orientationTable) {
 		VisLabel label = new VisLabel(labelText);
-		ChildAssetsComponent childAssetsComponent = new ChildAssetsComponent(childAssets,
+		ChildAssetsWidget childAssetsWidget = new ChildAssetsWidget(childAssets,
 				entityAssetTypeDictionary.getByEntityType(entityType));
-		CollapsibleWidget collapsibleChildAssets = new CollapsibleWidget(childAssetsComponent);
+		CollapsibleWidget collapsibleChildAssets = new CollapsibleWidget(childAssetsWidget);
 		collapsibleChildAssets.setCollapsed(childAssets.isEmpty());
 		label.addListener(new ClickListener() {
 			@Override

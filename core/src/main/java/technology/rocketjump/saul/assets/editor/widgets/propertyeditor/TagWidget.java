@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.propertyeditor;
+package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class TagComponent extends VisTable {
+public class TagWidget extends VisTable {
 
 	private String key;
 	private ArrayList<String> values;
@@ -20,13 +20,13 @@ public class TagComponent extends VisTable {
 
 	private final VisTextField keyField;
 
-	public TagComponent(String key, List<String> values, Map<String, List<String>> sourceMap) {
+	public TagWidget(String key, List<String> values, Map<String, List<String>> sourceMap) {
 		this.key = key;
 		this.values = new ArrayList<>(values);
 		this.sourceMap = sourceMap;
 
 
-		TagComponent This = this;
+		TagWidget This = this;
 		keyField = new VisTextField(key);
 		keyField.addListener(new ChangeListener() {
 			@Override

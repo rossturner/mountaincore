@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.propertyeditor;
+package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -10,13 +10,13 @@ import technology.rocketjump.saul.assets.entities.model.EntityChildAssetDescript
 import java.util.Collection;
 import java.util.List;
 
-public class ChildAssetsComponent extends VisTable {
+public class ChildAssetsWidget extends VisTable {
 
 	private final List<EntityChildAssetDescriptor> sourceData;
 	private Collection<EntityAssetType> applicableTypes;
 	private final VisTextButton addButton;
 
-	public ChildAssetsComponent(List<EntityChildAssetDescriptor> sourceData, Collection<EntityAssetType> applicableTypes) {
+	public ChildAssetsWidget(List<EntityChildAssetDescriptor> sourceData, Collection<EntityAssetType> applicableTypes) {
 		this.sourceData = sourceData;
 		this.applicableTypes = applicableTypes;
 
@@ -37,7 +37,7 @@ public class ChildAssetsComponent extends VisTable {
 		this.clearChildren();
 
 		for (EntityChildAssetDescriptor childDescriptor : sourceData) {
-			this.add(new ChildAssetComponent(childDescriptor, applicableTypes)).left().expandX().fillX().row();
+			this.add(new ChildAssetWidget(childDescriptor, applicableTypes)).left().expandX().fillX().row();
 		}
 
 		this.add(addButton).left().row();

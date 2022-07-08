@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.entitybrowser;
+package technology.rocketjump.saul.assets.editor.widgets.entitybrowser;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;

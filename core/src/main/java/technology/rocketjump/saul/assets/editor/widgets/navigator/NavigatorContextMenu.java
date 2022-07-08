@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.navigator;
+package technology.rocketjump.saul.assets.editor.widgets.navigator;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;

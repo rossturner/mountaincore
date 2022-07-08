@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components.propertyeditor;
+package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -11,11 +11,11 @@ import technology.rocketjump.saul.assets.entities.model.EntityChildAssetDescript
 
 import java.util.Collection;
 
-import static technology.rocketjump.saul.assets.editor.components.propertyeditor.ComponentBuilder.orderedArray;
+import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.orderedArray;
 
-public class ChildAssetComponent extends VisTable {
+public class ChildAssetWidget extends VisTable {
 
-	public ChildAssetComponent(EntityChildAssetDescriptor childDescriptor, Collection<EntityAssetType> applicableTypes) {
+	public ChildAssetWidget(EntityChildAssetDescriptor childDescriptor, Collection<EntityAssetType> applicableTypes) {
 		VisSelectBox<EntityAssetType> assetTypeSelectBox = new VisSelectBox<>();
 		assetTypeSelectBox.setItems(orderedArray(applicableTypes));
 		if (childDescriptor.getType() == null) {
@@ -31,7 +31,7 @@ public class ChildAssetComponent extends VisTable {
 		this.add(new VisLabel("Asset type:")).left();
 		this.add(assetTypeSelectBox).expandX().fillX().row();
 
-		this.add(new OffsetPixelsComponent(childDescriptor.getOffsetPixels())).colspan(2).left().row();
+		this.add(new OffsetPixelsWidget(childDescriptor.getOffsetPixels())).colspan(2).left().row();
 
 		this.add(new VisLabel("Override Render Layer (optional)")).left();
 		VisTextField renderLayerField = new VisTextField(childDescriptor.getOverrideRenderLayer() == null ? "" : String.valueOf(childDescriptor.getOverrideRenderLayer()));

@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.components;
+package technology.rocketjump.saul.assets.editor.widgets;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
