@@ -10,6 +10,7 @@ import com.google.inject.Inject;
 import com.kotcrab.vis.ui.widget.*;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.editor.EntityEditorPersistence;
+import technology.rocketjump.saul.assets.editor.components.ClickThroughVisTree;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
@@ -48,7 +49,7 @@ public class EntityBrowserPane extends VisTable {
 		this.assetDictionary = assetDictionary;
 		this.entityEditorPersistence = entityEditorPersistence;
 		this.entityDefinitionDictionary = entityDefinitionDictionary;
-		assetTree = new VisTree();
+		assetTree = new ClickThroughVisTree();
 		this.editorStateProvider = editorStateProvider;
 		VisScrollPane scrollPane = new VisScrollPane(assetTree);
 

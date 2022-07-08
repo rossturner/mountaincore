@@ -3,7 +3,7 @@
   "type" : "CREATURE_BODY",
   "raceName" : "Boar",
   "bodyShape" : "AVERAGE",
-  "consciousness" : "AWAKE",
+  "consciousnessList" : [ "AWAKE" ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "BoarBodyColourFront.png",

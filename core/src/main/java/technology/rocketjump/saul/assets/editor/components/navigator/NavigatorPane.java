@@ -7,6 +7,7 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTree;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.assets.editor.components.ClickThroughVisTree;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.entities.model.EntityType;
 
@@ -27,7 +28,7 @@ public class NavigatorPane extends VisTable {
 	@Inject
 	public NavigatorPane(EditorStateProvider editorStateProvider, MessageDispatcher messageDispatcher) {
 		this.messageDispatcher = messageDispatcher;
-		navigatorTree = new VisTree();
+		navigatorTree = new ClickThroughVisTree();
 		this.editorStateProvider = editorStateProvider;
 		reloadTree();
 		VisScrollPane navigatorScrollPane = new VisScrollPane(navigatorTree);

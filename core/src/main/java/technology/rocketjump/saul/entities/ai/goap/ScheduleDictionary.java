@@ -6,10 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Singleton
 public class ScheduleDictionary {
@@ -40,4 +37,7 @@ public class ScheduleDictionary {
 		return byName.get(name);
 	}
 
+	public Collection<String> getAllNames() {
+		return byName.keySet();
+	}
 }

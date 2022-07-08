@@ -31,6 +31,22 @@ public class ComponentBuilder {
 		table.add(textField).left().expandX().fillX().row();
 	}
 
+	public static void addIntegerField(String labelText, String propertyName, Object instance, VisTable table) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+		VisTextField textField = new VisTextField(String.valueOf(PropertyUtils.getProperty(instance, propertyName)));
+		textField.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				try {
+					Integer newValue = Integer.valueOf(textField.getText());
+					PropertyUtils.setProperty(instance, propertyName, newValue);
+				} catch (NumberFormatException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+				}
+			}
+		});
+		table.add(new VisLabel(labelText)).left();
+		table.add(textField).left().expandX().fillX().row();
+	}
+
 	public static void addFloatField(String labelText, String propertyName, Object instance, VisTable table) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
 		VisTextField textField = new VisTextField(String.valueOf(PropertyUtils.getProperty(instance, propertyName)));
 		textField.addListener(new ChangeListener() {
@@ -39,11 +55,13 @@ public class ComponentBuilder {
 
 				try {
 					Float newValue = Float.valueOf(textField.getText());
-					if (newValue != null) {
-						PropertyUtils.setProperty(instance, propertyName, newValue);
-					}
-				} catch (NumberFormatException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ignored) {
+					PropertyUtils.setProperty(instance, propertyName, newValue);
+				} catch (NumberFormatException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+					try {
+						PropertyUtils.setProperty(instance, propertyName, null);
+					} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ignored) {
 
+					}
 				}
 			}
 		});

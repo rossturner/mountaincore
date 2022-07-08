@@ -170,7 +170,17 @@ public class ColorsComponent extends VisTable {
 					entry.getValue().setHidden(hiddenCheckbox.isChecked());
 				}
 			});
-			this.add(hiddenCheckbox).left().colspan(4).row();
+			this.add(hiddenCheckbox).left();
+
+			VisTextButton removeButton = new VisTextButton("Remove");
+			removeButton.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					sourceData.remove(entry.getKey());
+					reload();
+				}
+			});
+			this.add(removeButton).colspan(3).row();
 
 			this.addSeparator().colspan(4).row();
 		}

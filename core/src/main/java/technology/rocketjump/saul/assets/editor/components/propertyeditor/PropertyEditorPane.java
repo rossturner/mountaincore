@@ -14,6 +14,7 @@ import net.spookygames.gdx.nativefilechooser.NativeFileChooserCallback;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooserConfiguration;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.editor.components.propertyeditor.creature.BodyShapesComponent;
+import technology.rocketjump.saul.assets.editor.components.propertyeditor.creature.GenderComponent;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
@@ -22,11 +23,11 @@ import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityA
 import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.*;
+import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
+import technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviourDictionary;
 import technology.rocketjump.saul.entities.model.EntityType;
-import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
-import technology.rocketjump.saul.entities.model.physical.creature.Gender;
-import technology.rocketjump.saul.entities.model.physical.creature.Race;
-import technology.rocketjump.saul.entities.model.physical.creature.Sanity;
+import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructureDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.jobs.ProfessionDictionary;
@@ -58,17 +59,22 @@ public class PropertyEditorPane extends VisTable {
 	private final ProfessionDictionary professionDictionary;
 	private final BodyStructureDictionary bodyStructureDictionary;
 	private final MessageDispatcher messageDispatcher;
+	private final CreatureBehaviourDictionary creatureBehaviourDictionary;
+	private final ScheduleDictionary scheduleDictionary;
 
 	@Inject
 	public PropertyEditorPane(NativeFileChooser fileChooser, EditorStateProvider editorStateProvider, EntityAssetTypeDictionary entityAssetTypeDictionary,
 							  ProfessionDictionary professionDictionary, BodyStructureDictionary bodyStructureDictionary,
-							  MessageDispatcher messageDispatcher) {
+							  MessageDispatcher messageDispatcher, CreatureBehaviourDictionary creatureBehaviourDictionary,
+							  ScheduleDictionary scheduleDictionary) {
 		this.fileChooser = fileChooser;
 		this.editorStateProvider = editorStateProvider;
 		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
 		this.professionDictionary = professionDictionary;
 		this.bodyStructureDictionary = bodyStructureDictionary;
 		this.messageDispatcher = messageDispatcher;
+		this.creatureBehaviourDictionary = creatureBehaviourDictionary;
+		this.scheduleDictionary = scheduleDictionary;
 		editorTable = new VisTable();
 		spriteDescriptorsTable = new VisTable();
 		VisScrollPane editorScrollPane = new VisScrollPane(editorTable);
@@ -124,7 +130,67 @@ public class PropertyEditorPane extends VisTable {
 		editorTable.add(new ColorsComponent(race.getColors(), getApplicableColoringLayerValues(EntityType.CREATURE),
 				EntityType.CREATURE, Path.of(editorStateProvider.getState().getAssetSelection().getDescriptorsPath()), fileChooser, messageDispatcher)).left().colspan(2).row();
 
+		addSelectField("Behaviour:", "behaviourName", creatureBehaviourDictionary.getAllNames(), "", race.getBehaviour(), editorTable);
+		addSelectField("Schedule:", "scheduleName", scheduleDictionary.getAllNames(), "", race.getBehaviour(), editorTable);
 
+		editorTable.add(new VisLabel("Needs:")).left();
+		VisTable needTable = new VisTable();
+		for (EntityNeed need : EntityNeed.values()) {
+			VisCheckBox needCheckbox = new VisCheckBox(need.name());
+			needCheckbox.setChecked(race.getBehaviour().getNeeds().contains(need));
+			needCheckbox.addListener(new ChangeListener() {
+				@Override
+				public void changed(ChangeEvent event, Actor actor) {
+					if (needCheckbox.isChecked()) {
+						race.getBehaviour().getNeeds().add(need);
+					} else {
+						race.getBehaviour().getNeeds().remove(need);
+					}
+				}
+			});
+			needTable.add(needCheckbox).left().padLeft(10);
+		}
+		editorTable.add(needTable).left().row();
+
+		VisTable groupControlsTable = new VisTable();
+		VisCheckBox behaviourGroupCheckbox = new VisCheckBox("Behaviour Group:");
+		if (race.getBehaviour().getGroup() != null) {
+			behaviourGroupCheckbox.setChecked(true);
+			addBehaviourGroupControls(race.getBehaviour().getGroup(), groupControlsTable);
+		}
+		behaviourGroupCheckbox.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if (behaviourGroupCheckbox.isChecked()) {
+					race.getBehaviour().setGroup(new RaceBehaviourGroup());
+					addBehaviourGroupControls(race.getBehaviour().getGroup(), groupControlsTable);
+				} else {
+					groupControlsTable.clearChildren();
+					race.getBehaviour().setGroup(null);
+				}
+			}
+		});
+		editorTable.add(behaviourGroupCheckbox).left().colspan(2).row();
+		editorTable.add(groupControlsTable).left().expandX().colspan(2).row();
+
+		addSelectField("Aggression response:", "aggressionResponse", List.of(AggressionResponse.values()),
+				null, race.getBehaviour(), editorTable);
+
+		editorTable.add(new VisLabel("Gender settings:")).left().colspan(2).row();
+		editorTable.add(new GenderComponent(race.getGenders())).left().colspan(2).row();
+
+
+		// Features component
+
+	}
+
+	private void addBehaviourGroupControls(RaceBehaviourGroup group, VisTable groupControlsTable) {
+		try {
+			addIntegerField("Behaviour group min size:", "minSize", group, groupControlsTable);
+			addIntegerField("Behaviour group max size:", "maxSize", group, groupControlsTable);
+		} catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+			Logger.error("Error creating components", e);
+		}
 	}
 
 	private void showEditorControls(CreatureEntityAsset creatureAsset) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
