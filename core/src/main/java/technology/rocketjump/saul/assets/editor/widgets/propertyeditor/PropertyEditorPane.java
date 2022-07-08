@@ -17,6 +17,7 @@ import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.creature.BodyShapesWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.creature.GenderWidget;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.creature.RaceFeaturesWidget;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShape;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
@@ -32,6 +33,7 @@ import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStru
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.jobs.ProfessionDictionary;
 import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
 
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
@@ -61,12 +63,13 @@ public class PropertyEditorPane extends VisTable {
 	private final MessageDispatcher messageDispatcher;
 	private final CreatureBehaviourDictionary creatureBehaviourDictionary;
 	private final ScheduleDictionary scheduleDictionary;
+	private final GameMaterialDictionary gameMaterialDictionary;
 
 	@Inject
 	public PropertyEditorPane(NativeFileChooser fileChooser, EditorStateProvider editorStateProvider, EntityAssetTypeDictionary entityAssetTypeDictionary,
 							  ProfessionDictionary professionDictionary, BodyStructureDictionary bodyStructureDictionary,
 							  MessageDispatcher messageDispatcher, CreatureBehaviourDictionary creatureBehaviourDictionary,
-							  ScheduleDictionary scheduleDictionary) {
+							  ScheduleDictionary scheduleDictionary, GameMaterialDictionary gameMaterialDictionary) {
 		this.fileChooser = fileChooser;
 		this.editorStateProvider = editorStateProvider;
 		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
@@ -75,6 +78,7 @@ public class PropertyEditorPane extends VisTable {
 		this.messageDispatcher = messageDispatcher;
 		this.creatureBehaviourDictionary = creatureBehaviourDictionary;
 		this.scheduleDictionary = scheduleDictionary;
+		this.gameMaterialDictionary = gameMaterialDictionary;
 		editorTable = new VisTable();
 		spriteDescriptorsTable = new VisTable();
 		VisScrollPane editorScrollPane = new VisScrollPane(editorTable);
@@ -180,7 +184,8 @@ public class PropertyEditorPane extends VisTable {
 		editorTable.add(new GenderWidget(race.getGenders())).left().colspan(2).row();
 
 
-		// Features widget
+		editorTable.add(new VisLabel("Features:")).left().colspan(2).row();
+		editorTable.add(new RaceFeaturesWidget(race.getFeatures(), gameMaterialDictionary)).left().colspan(2).row();
 
 	}
 
