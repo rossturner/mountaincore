@@ -90,10 +90,10 @@ public class RaceDictionary {
 			initialiseSpeciesColor(CREATURE, speciesColor);
 		}
 
-		if (race.getFeatures().getSkin() != null && race.getFeatures().getSkin().getSkinMaterialName() != null) {
-			race.getFeatures().getSkin().setSkinMaterial(gameMaterialDictionary.getByName(race.getFeatures().getSkin().getSkinMaterialName()));
-			if (race.getFeatures().getSkin().getSkinMaterial() == null) {
-				Logger.error("Could not find material " + race.getFeatures().getSkin().getSkinMaterialName() +
+		if (race.getFeatures().getSkin() != null && race.getFeatures().getSkin().getMaterialName() != null) {
+			race.getFeatures().getSkin().setMaterial(gameMaterialDictionary.getByName(race.getFeatures().getSkin().getMaterialName()));
+			if (race.getFeatures().getSkin().getMaterial() == null) {
+				Logger.error("Could not find material " + race.getFeatures().getSkin().getMaterialName() +
 						" for skin as part of race " + race.getName());
 			}
 		}

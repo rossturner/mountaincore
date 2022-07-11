@@ -2,10 +2,10 @@ package technology.rocketjump.saul.assets.editor.widgets.propertyeditor.creature
 
 import com.kotcrab.vis.ui.widget.VisTable;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShape;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShapeDescriptor;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.addFloatField;
@@ -22,7 +22,7 @@ public class BodyShapeWidget extends VisTable {
 			addFloatField("Max Strength:", "maxStrength", bodyShapeDescriptor, this);
 
 			this.addSeparator().colspan(2).row();
-		} catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+		} catch (WidgetBuilder.PropertyReflectionException e) {
 			Logger.error("Error with reflection in " + getClass().getSimpleName(), e);
 		}
 

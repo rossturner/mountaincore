@@ -30,6 +30,7 @@ import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviourD
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructureDictionary;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.jobs.ProfessionDictionary;
 import technology.rocketjump.saul.jobs.model.Profession;
@@ -64,12 +65,14 @@ public class PropertyEditorPane extends VisTable {
 	private final CreatureBehaviourDictionary creatureBehaviourDictionary;
 	private final ScheduleDictionary scheduleDictionary;
 	private final GameMaterialDictionary gameMaterialDictionary;
+	//TODO: discuss refactor to reduce dependencies here
+	private final ItemTypeDictionary itemTypeDictionary;
 
 	@Inject
 	public PropertyEditorPane(NativeFileChooser fileChooser, EditorStateProvider editorStateProvider, EntityAssetTypeDictionary entityAssetTypeDictionary,
 							  ProfessionDictionary professionDictionary, BodyStructureDictionary bodyStructureDictionary,
 							  MessageDispatcher messageDispatcher, CreatureBehaviourDictionary creatureBehaviourDictionary,
-							  ScheduleDictionary scheduleDictionary, GameMaterialDictionary gameMaterialDictionary) {
+							  ScheduleDictionary scheduleDictionary, GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary) {
 		this.fileChooser = fileChooser;
 		this.editorStateProvider = editorStateProvider;
 		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
@@ -79,6 +82,7 @@ public class PropertyEditorPane extends VisTable {
 		this.creatureBehaviourDictionary = creatureBehaviourDictionary;
 		this.scheduleDictionary = scheduleDictionary;
 		this.gameMaterialDictionary = gameMaterialDictionary;
+		this.itemTypeDictionary = itemTypeDictionary;
 		editorTable = new VisTable();
 		spriteDescriptorsTable = new VisTable();
 		VisScrollPane editorScrollPane = new VisScrollPane(editorTable);
@@ -114,7 +118,7 @@ public class PropertyEditorPane extends VisTable {
 
 	}
 
-	private void showEditorControls(Race race) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+	private void showEditorControls(Race race) {
 		addTextField("Name:", "name", race, editorTable);
 		addTextField("I18N key:", "i18nKey", race, editorTable);
 
@@ -185,7 +189,7 @@ public class PropertyEditorPane extends VisTable {
 
 
 		editorTable.add(new VisLabel("Features:")).left().colspan(2).row();
-		editorTable.add(new RaceFeaturesWidget(race.getFeatures(), gameMaterialDictionary)).left().colspan(2).row();
+		editorTable.add(new RaceFeaturesWidget(race.getFeatures(), gameMaterialDictionary, itemTypeDictionary)).left().colspan(2).row();
 
 	}
 
@@ -193,12 +197,12 @@ public class PropertyEditorPane extends VisTable {
 		try {
 			addIntegerField("Behaviour group min size:", "minSize", group, groupControlsTable);
 			addIntegerField("Behaviour group max size:", "maxSize", group, groupControlsTable);
-		} catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+		} catch (PropertyReflectionException e) {
 			Logger.error("Error creating widgets", e);
 		}
 	}
 
-	private void showEditorControls(CreatureEntityAsset creatureAsset) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+	private void showEditorControls(CreatureEntityAsset creatureAsset) throws InvocationTargetException {
 		addTextField("Unique name:", "uniqueName", creatureAsset, editorTable);
 
 		addSelectField("Asset type:", "type", entityAssetTypeDictionary.getByEntityType(EntityType.CREATURE), null, creatureAsset, editorTable);

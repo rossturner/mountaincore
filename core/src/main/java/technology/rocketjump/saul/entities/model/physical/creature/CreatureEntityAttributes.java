@@ -95,8 +95,8 @@ public class CreatureEntityAttributes implements EntityAttributes {
 
 	@Override
 	public Map<GameMaterialType, GameMaterial> getMaterials() {
-		if (race.getFeatures().getSkin() != null && race.getFeatures().getSkin().getSkinMaterial() != null) {
-			return Map.of(race.getFeatures().getSkin().getSkinMaterial().getMaterialType(), race.getFeatures().getSkin().getSkinMaterial());
+		if (race.getFeatures().getSkin() != null && race.getFeatures().getSkin().getMaterial() != null) {
+			return Map.of(race.getFeatures().getSkin().getMaterial().getMaterialType(), race.getFeatures().getSkin().getMaterial());
 		} else {
 			return Map.of();
 		}

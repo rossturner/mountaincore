@@ -15,31 +15,27 @@ import java.util.Comparator;
 
 public class WidgetBuilder {
 
-	public static void addTextField(String labelText, String propertyName, Object instance, VisTable table) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-		VisTextField textField = new VisTextField(PropertyUtils.getProperty(instance, propertyName).toString());
+	public static void addTextField(String labelText, String propertyName, Object instance, VisTable table) {
+		VisTextField textField = new VisTextField(getProperty(instance, propertyName).toString());
 		textField.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				try {
-					PropertyUtils.setProperty(instance, propertyName, textField.getText());
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ignored) {
-
-				}
+				setProperty(instance, propertyName, textField.getText());
 			}
 		});
 		table.add(new VisLabel(labelText)).left();
 		table.add(textField).left().expandX().fillX().row();
 	}
 
-	public static void addIntegerField(String labelText, String propertyName, Object instance, VisTable table) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-		VisTextField textField = new VisTextField(String.valueOf(PropertyUtils.getProperty(instance, propertyName)));
+	public static void addIntegerField(String labelText, String propertyName, Object instance, VisTable table) {
+		VisTextField textField = new VisTextField(String.valueOf(getProperty(instance, propertyName)));
 		textField.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				try {
 					Integer newValue = Integer.valueOf(textField.getText());
-					PropertyUtils.setProperty(instance, propertyName, newValue);
-				} catch (NumberFormatException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+					setProperty(instance, propertyName, newValue);
+				} catch (NumberFormatException e) {
 				}
 			}
 		});
@@ -47,21 +43,16 @@ public class WidgetBuilder {
 		table.add(textField).left().expandX().fillX().row();
 	}
 
-	public static void addFloatField(String labelText, String propertyName, Object instance, VisTable table) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-		VisTextField textField = new VisTextField(String.valueOf(PropertyUtils.getProperty(instance, propertyName)));
+	public static void addFloatField(String labelText, String propertyName, Object instance, VisTable table) {
+		VisTextField textField = new VisTextField(String.valueOf(getProperty(instance, propertyName)));
 		textField.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-
 				try {
 					Float newValue = Float.valueOf(textField.getText());
-					PropertyUtils.setProperty(instance, propertyName, newValue);
-				} catch (NumberFormatException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-					try {
-						PropertyUtils.setProperty(instance, propertyName, null);
-					} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ignored) {
-
-					}
+					setProperty(instance, propertyName, newValue);
+				} catch (NumberFormatException e) {
+					setProperty(instance, propertyName, null);
 				}
 			}
 		});
@@ -70,10 +61,10 @@ public class WidgetBuilder {
 	}
 
 	public static <T> void addSelectField(String labelText, String propertyName, Collection<T> items, T valueIfNull,
-										  Object instance, VisTable table) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+										  Object instance, VisTable table) {
 		VisSelectBox<T> selectBox = new VisSelectBox<>();
-		selectBox.setItems(orderedArray(items));
-		T initialValue = (T) PropertyUtils.getProperty(instance, propertyName);
+		selectBox.setItems(orderedArray(items, valueIfNull)); //TODO: chat with Ross, added the valueIfNull for null-material to show, but was worried about duplicates like Gender or bodyType, but duplicates are sorted?
+		T initialValue = (T) getProperty(instance, propertyName);
 		if (initialValue == null) {
 			if (valueIfNull != null) {
 				selectBox.setSelected(valueIfNull);
@@ -84,15 +75,35 @@ public class WidgetBuilder {
 		selectBox.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				try {
-					PropertyUtils.setProperty(instance, propertyName, selectBox.getSelected());
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ignored) {
-
-				}
+				setProperty(instance, propertyName, selectBox.getSelected());
 			}
 		});
 		table.add(new VisLabel(labelText)).left();
 		table.add(selectBox).left().row();
+	}
+
+	//TODO: Consider moving to custom bean utils for exception handling
+	private static Object getProperty(Object instance, String propertyName) {
+		try {
+			return PropertyUtils.getProperty(instance, propertyName);
+		} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+			throw new PropertyReflectionException("Error reading field " + propertyName + " on object type " + instance.getClass(), ex);
+		}
+	}
+
+	private static void setProperty(Object instance, String propertyName, Object value) {
+		try {
+			PropertyUtils.setProperty(instance, propertyName, value);
+		} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+			throw new PropertyReflectionException("Error writing field " + propertyName + " on object type " + instance.getClass() + " with value " + value, ex);
+		}
+	}
+
+
+	public static class PropertyReflectionException extends RuntimeException {
+		public PropertyReflectionException(String message, Throwable cause) {
+			super(message, cause);
+		}
 	}
 
 	public static <T> Array<T> orderedArray(Collection<T> items) {
