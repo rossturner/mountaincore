@@ -35,6 +35,7 @@ import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.jobs.ProfessionDictionary;
 import technology.rocketjump.saul.jobs.model.Profession;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
+import technology.rocketjump.saul.misc.ReflectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
@@ -189,7 +190,7 @@ public class PropertyEditorPane extends VisTable {
 
 
 		editorTable.add(new VisLabel("Features:")).left().colspan(2).row();
-		editorTable.add(new RaceFeaturesWidget(race.getFeatures(), gameMaterialDictionary, itemTypeDictionary)).left().colspan(2).row();
+		editorTable.add(new RaceFeaturesWidget(race.getFeatures(), gameMaterialDictionary, itemTypeDictionary, messageDispatcher)).left().colspan(2).row();
 
 	}
 
@@ -197,7 +198,7 @@ public class PropertyEditorPane extends VisTable {
 		try {
 			addIntegerField("Behaviour group min size:", "minSize", group, groupControlsTable);
 			addIntegerField("Behaviour group max size:", "maxSize", group, groupControlsTable);
-		} catch (PropertyReflectionException e) {
+		} catch (ReflectionUtils.PropertyReflectionException e) {
 			Logger.error("Error creating widgets", e);
 		}
 	}

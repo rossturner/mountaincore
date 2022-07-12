@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceGenderDescriptor;
+import technology.rocketjump.saul.misc.ReflectionUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -81,7 +81,7 @@ public class GenderWidget extends VisTable {
 				this.add(removeButton);
 
 				addFloatField("% with hair:", "hasHair", entry.getValue(), this);
-			} catch (WidgetBuilder.PropertyReflectionException ignored) {
+			} catch (ReflectionUtils.PropertyReflectionException ignored) {
 			}
 
 			this.addSeparator().colspan(3).row();
