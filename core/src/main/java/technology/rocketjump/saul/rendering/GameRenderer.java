@@ -40,7 +40,7 @@ public class GameRenderer implements AssetDisposable {
 
 	private FrameBuffer diffuseFrameBuffer;
 	private TextureRegion diffuseTextureRegion;
-	private FrameBuffer bumpMapFrameBuffer;
+	private FrameBuffer normalMapFrameBuffer;
 	private TextureRegion bumpMapTextureRegion;
 	private FrameBuffer lightingFrameBuffer;
 	private TextureRegion lightingTextureRegion;
@@ -116,9 +116,6 @@ public class GameRenderer implements AssetDisposable {
 
 		// TODO move the below to an update method not in a renderer
 
-		int tileX = (int) Math.floor(unprojected.x);
-		int tileY = (int) Math.floor(unprojected.y);
-
 		Vector2 cursorLightPosition = new Vector2(unprojected.x, unprojected.y);
 		cursorLight.setWorldPosition(cursorLightPosition);
 		lightsToRenderThisFrame.clear();
@@ -138,9 +135,9 @@ public class GameRenderer implements AssetDisposable {
 		worldRenderer.renderWorld(worldMap, camera, diffuseSpriteCache, RenderMode.DIFFUSE, lightsToRenderThisFrame, particlesToRenderAsUI);
 		diffuseFrameBuffer.end();
 
-		bumpMapFrameBuffer.begin();
+		normalMapFrameBuffer.begin();
 		worldRenderer.renderWorld(worldMap, camera, normalSpriteCache, RenderMode.NORMALS, null, null);
-		bumpMapFrameBuffer.end();
+		normalMapFrameBuffer.end();
 
 		/////// Draw lighting info ///
 
@@ -193,8 +190,8 @@ public class GameRenderer implements AssetDisposable {
 		diffuseTextureRegion = new TextureRegion(diffuseFrameBuffer.getColorBufferTexture(), width, height);
 		diffuseTextureRegion.flip(false, true);
 
-		bumpMapFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, /* hasDepth */ false, /* hasStencil */ false);
-		bumpMapTextureRegion = new TextureRegion(bumpMapFrameBuffer.getColorBufferTexture(), width, height);
+		normalMapFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, /* hasDepth */ false, /* hasStencil */ false);
+		bumpMapTextureRegion = new TextureRegion(normalMapFrameBuffer.getColorBufferTexture(), width, height);
 		bumpMapTextureRegion.flip(false, true);
 
 		lightingFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, /* hasDepth */ false, /* hasStencil */ false);
@@ -208,7 +205,7 @@ public class GameRenderer implements AssetDisposable {
 
 	private void disposeFrameBuffers() {
 		diffuseFrameBuffer.dispose();
-		bumpMapFrameBuffer.dispose();
+		normalMapFrameBuffer.dispose();
 		lightingFrameBuffer.dispose();
 		combinedFrameBuffer.dispose();
 	}

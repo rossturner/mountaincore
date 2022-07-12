@@ -161,7 +161,7 @@
       "sameAs": "DOWN_LEFT"
     },
     "RIGHT": {
-      "sameAs": "DOWN"
+      "sameAs": "DOWN_RIGHT"
     }
   },
   "PLANT": {
