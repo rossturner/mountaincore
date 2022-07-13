@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
@@ -41,6 +42,7 @@ public class AssetEditorUI implements Telegraph {
 	private final Stage stage;
 
 	private final VisTable topLevelTable;
+	private final VisTable viewEditor;
 	private final VisTable viewArea;
 	private final NavigatorContextMenu navigatorContextMenu;
 	private final EntityBrowserContextMenu browserContextMenu;
@@ -67,9 +69,11 @@ public class AssetEditorUI implements Telegraph {
 		topLevelTable = new VisTable();
 		topLevelTable.setFillParent(true);
 
+		viewEditor = new VisTable();
+		viewEditor.setBackground("window-bg");
+		viewEditor.add(new VisLabel("View Editor")).row();
 
 		viewArea = new VisTable();
-		viewArea.setFillParent(true);
 
 		reload();
 
@@ -136,18 +140,28 @@ public class AssetEditorUI implements Telegraph {
 	private void reload() {
 		topLevelTable.clearChildren();
 
-		topLevelTable.add(topLevelMenu.getTable()).expandX().fillX().colspan(3).row();
-
-
+		Actor leftPane;
 		if (editorStateProvider.getState().getEntitySelection() == null) {
-			topLevelTable.add(navigatorPane).top().left().expandY().fillY();
+			leftPane = navigatorPane;
 		} else {
 			entityBrowserPane.reload();
-			topLevelTable.add(entityBrowserPane).top().left().expandY().fillY();
+			leftPane = entityBrowserPane;
 		}
 
-		topLevelTable.add(viewArea).expandX();
+		// 3 Cols wide
+		// Menu
+		topLevelTable.add(topLevelMenu.getTable()).expandX().fillX().colspan(3).row();
 
+		//Body
+		float viewEditorHeight = stage.getViewport().getWorldHeight() * 0.3f; //bit of a fudge as the viewArea lacks components
+		float viewAreaHeight = stage.getViewport().getWorldHeight() - viewEditorHeight;
+		VisTable viewSpace = new VisTable();
+		viewSpace.add(viewArea).prefHeight(viewAreaHeight).row(); //TODO: rethink dimensions here
+		viewSpace.add(viewEditor).prefHeight(viewEditorHeight).expand().fillX().fillY();
+		viewEditor.debug();
+
+		topLevelTable.add(leftPane).top().left().expandY().fillY();
+		topLevelTable.add(viewSpace).top().expand().fillY().fillX();
 		topLevelTable.add(propertyEditorPane).top().right().expandY().fillY();
 	}
 
