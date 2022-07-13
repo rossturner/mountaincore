@@ -19,8 +19,8 @@ public class AssetEditorLauncher {
 		config.title = "Asset Editor";
 
 		Graphics.DisplayMode desktopMode = LwjglApplicationConfiguration.getDesktopDisplayMode();
-		config.width = desktopMode.width - 100;
-		config.height = desktopMode.height - 80;
+		config.width = desktopMode.width - 300;
+		config.height = desktopMode.height - 280;
 
 		// On launch repackage assets into relevant folders
 		AssetsPackager.main();

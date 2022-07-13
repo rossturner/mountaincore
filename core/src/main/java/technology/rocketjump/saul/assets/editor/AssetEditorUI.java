@@ -73,47 +73,56 @@ public class AssetEditorUI implements Telegraph {
 
 		reload();
 
+		stage.addListener(new InputListener() {
+			@Override
+			public boolean scrolled(InputEvent event, float x, float y, int amount) {
+				// Setting scrollfocus when scrolling over a scrollpane as this is not default behaviour
+				if (stage.getScrollFocus() == null) {
+					Actor hitActor = stage.hit(x, y, false);
+					while (hitActor != null) {
+						if (hitActor instanceof VisScrollPane) {
+							break;
+						}
+						hitActor = hitActor.getParent();
+					}
+					if (hitActor != null) {
+						// Over a parent scrollpane
+						stage.setScrollFocus(hitActor);
+						return true;
+					}
+				}
+
+				return false;
+			}
+
+			@Override
+			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				while (toActor != null) {
+					if (toActor instanceof VisScrollPane) {
+						break;
+					}
+					toActor = toActor.getParent();
+				}
+
+				if (stage.getScrollFocus() != null && toActor == null) {
+					stage.setScrollFocus(null);
+				}
+
+			}
+
+		});
+
 		stage.addActor(topLevelTable);
 
 		navigatorContextMenu = new NavigatorContextMenu();
 
 		colorPicker = new ColorPicker(new ColorPickerAdapter() {
 			@Override
-			public void finished (Color color) {
+			public void finished(Color color) {
 				if (colorPickerCallback != null) {
 					colorPickerCallback.colorPicked(color);
 				}
 			}
-		});
-
-		stage.addListener(new InputListener() {
-			@Override
-			public boolean scrolled(InputEvent event, float x, float y, int amount) {
-				// Setting scrollfocus when scrolling over a scrollpane as this is not default behaviour
-				Actor hitActor = stage.hit(x, y, false);
-				while (hitActor != null) {
-					if (hitActor instanceof VisScrollPane) {
-						break;
-					}
-					hitActor = hitActor.getParent();
-				}
-				if (hitActor != null) {
-					// Over a parent scrollpane
-					stage.setScrollFocus(hitActor);
-				}
-
-				return super.scrolled(event, x, y, amount);
-			}
-
-			@Override
-			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				// Removing scroll focus when exiting actor with that focus to avoid weird behaviour
-				if (stage.getScrollFocus() != null && toActor != null && toActor.equals(stage.getScrollFocus())) {
-					stage.setScrollFocus(null);
-				}
-				super.exit(event, x, y, pointer, toActor);
-			}
-
 		});
 
 		messageDispatcher.addListener(this, MessageType.EDITOR_NAVIGATOR_TREE_RIGHT_CLICK);
@@ -121,6 +130,7 @@ public class AssetEditorUI implements Telegraph {
 		messageDispatcher.addListener(this, MessageType.EDITOR_ENTITY_SELECTION);
 		messageDispatcher.addListener(this, MessageType.EDITOR_BROWSER_TREE_SELECTION);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_COLOR_PICKER);
+		messageDispatcher.addListener(this, MessageType.CAMERA_MOVED);
 	}
 
 	private void reload() {
@@ -190,6 +200,9 @@ public class AssetEditorUI implements Telegraph {
 				this.colorPickerCallback = message.callback;
 				colorPicker.setColor(HexColors.get(message.initialHexCode));
 				getStage().addActor(colorPicker.fadeIn());
+				return true;
+			}
+			case MessageType.CAMERA_MOVED: {
 				return true;
 			}
 			default:
