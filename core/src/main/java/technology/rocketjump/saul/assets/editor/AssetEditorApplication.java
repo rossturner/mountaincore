@@ -18,6 +18,7 @@ import com.google.inject.Injector;
 import com.kotcrab.vis.ui.VisUI;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
+import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -48,10 +49,11 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 	private RaceDictionary raceDictionary;
 	private CreatureEntityFactory creatureEntityFactory;
 
-	private Entity entity;
 	private Random random;
 	private GameContext gameContext;
 
+	private Entity entity;
+	private EditorStateProvider editorStateProvider;
 
 	@Inject
 	public AssetEditorApplication(NativeFileChooser fileChooser) {
@@ -61,6 +63,11 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 	@Override
 	public void create() {
 		VisUI.load();
+		this.random = new Random();
+		this.gameContext = new GameContext();
+		this.spriteBatch = new SpriteBatch();
+		this.shapeRenderer = new ShapeRenderer();
+		gameContext.setRandom(new RandomXS128());
 
 		this.camera = new OrthographicCamera(Gdx.graphics.getWidth() / 100f, Gdx.graphics.getHeight() / 100f);
 		camera.zoom = 0.5f;
@@ -75,26 +82,24 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			}
 		});
 
-		messageDispatcher = injector.getInstance(MessageDispatcher.class);
-		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED);
-		messageDispatcher.addListener(this, MessageType.EDITOR_ENTITY_SELECTION);
-
-		ui = injector.getInstance(AssetEditorUI.class);
-		raceDictionary = injector.getInstance(RaceDictionary.class);
-		creatureEntityFactory = injector.getInstance(CreatureEntityFactory.class); //TODO: speak to ross about abstract parent factory
-
-		ViewAreaInputHandler viewAreaInputHandler = injector.getInstance(ViewAreaInputHandler.class);
-		spriteBatch = new SpriteBatch();
-		shapeRenderer = new ShapeRenderer();
 		entityRenderer = injector.getInstance(EntityRenderer.class);
+		raceDictionary = injector.getInstance(RaceDictionary.class);
+		creatureEntityFactory = injector.getInstance(CreatureEntityFactory.class);
+		messageDispatcher = injector.getInstance(MessageDispatcher.class);
+		editorStateProvider = injector.getInstance(EditorStateProvider.class);
+		ui = injector.getInstance(AssetEditorUI.class);
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(ui.getStage());
-		inputMultiplexer.addProcessor(viewAreaInputHandler);
+		inputMultiplexer.addProcessor(injector.getInstance(ViewAreaInputHandler.class));
 		Gdx.input.setInputProcessor(inputMultiplexer);
-		this.random = new Random();
-		this.gameContext = new GameContext();
-		gameContext.setRandom(new RandomXS128());
+
+		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED);
+		messageDispatcher.addListener(this, MessageType.EDITOR_ENTITY_SELECTION);
+
+		if (editorStateProvider.getState().getEntitySelection() != null) {
+			createEntity(editorStateProvider.getState().getEntitySelection());
+		}
 	}
 
 	@Override
@@ -110,14 +115,13 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			//TODO: switch based on available orientations
 			Vector2 originalPosition = entity.getLocationComponent().getWorldPosition().cpy();
 
-			RenderMode renderMode = RenderMode.DIFFUSE;
-
-			renderEntityWithOrientation(originalPosition, DOWN.toVector2(), 0, 0, renderMode);
-			renderEntityWithOrientation(originalPosition, DOWN_LEFT.toVector2(), -1, 0, renderMode);
-			renderEntityWithOrientation(originalPosition, DOWN_RIGHT.toVector2(), 1, 0, renderMode);
-			renderEntityWithOrientation(originalPosition, UP.toVector2(), 0, 1, renderMode);
-			renderEntityWithOrientation(originalPosition, UP_LEFT.toVector2(), -1, 1, renderMode);
-			renderEntityWithOrientation(originalPosition, UP_RIGHT.toVector2(), 1, 1, renderMode);
+			RenderMode currentRenderMode = editorStateProvider.getState().getRenderMode();
+			renderEntityWithOrientation(originalPosition, DOWN.toVector2(), 0, 0, currentRenderMode);
+			renderEntityWithOrientation(originalPosition, DOWN_LEFT.toVector2(), -1, 0, currentRenderMode);
+			renderEntityWithOrientation(originalPosition, DOWN_RIGHT.toVector2(), 1, 0, currentRenderMode);
+			renderEntityWithOrientation(originalPosition, UP.toVector2(), 0, 1, currentRenderMode);
+			renderEntityWithOrientation(originalPosition, UP_LEFT.toVector2(), -1, 1, currentRenderMode);
+			renderEntityWithOrientation(originalPosition, UP_RIGHT.toVector2(), 1, 1, currentRenderMode);
 
 
 			spriteBatch.end();
@@ -196,28 +200,33 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			}
 			case MessageType.EDITOR_ENTITY_SELECTION: {
 				if (msg.extraInfo instanceof EditorEntitySelection entitySelection) {
-					switch (entitySelection.getEntityType()) {
-						case CREATURE -> {
-							Race race = raceDictionary.getByName(entitySelection.getTypeName());
-							Vector2 facing = new Vector2(0, 0f);
-							Vector2 position = new Vector2((int)Math.floor(camera.viewportWidth * 0.5f) + 0.5f, (int)Math.floor(camera.viewportHeight * 0.4f) + 0.5f);
-							CreatureEntityAttributes attributes = new CreatureEntityAttributes(race, random.nextLong());
-							entity = creatureEntityFactory.create(attributes, position, facing, gameContext);
-						}
-						case PLANT -> {
-						}
-						case ITEM -> {
-						}
-						case FURNITURE -> {
-						}
-						case ONGOING_EFFECT -> {
-						}
-						case MECHANISM -> {
-						}
-					}
+					createEntity(entitySelection);
 				}
 			}
 		}
 		return true;
+	}
+
+	private void createEntity(EditorEntitySelection entitySelection) {
+		switch (entitySelection.getEntityType()) {
+			case CREATURE -> {
+				Race race = raceDictionary.getByName(entitySelection.getTypeName());
+				CreatureEntityAttributes attributes = new CreatureEntityAttributes(race, random.nextLong()); //TODO: persistable too?
+
+				Vector2 facing = new Vector2(0, 0f);
+				Vector2 position = new Vector2((int)Math.floor(camera.viewportWidth * 0.5f) + 0.5f, (int)Math.floor(camera.viewportHeight * 0.4f) + 0.5f);
+				entity = creatureEntityFactory.create(attributes, position, facing, gameContext);
+			}
+			case PLANT -> {
+			}
+			case ITEM -> {
+			}
+			case FURNITURE -> {
+			}
+			case ONGOING_EFFECT -> {
+			}
+			case MECHANISM -> {
+			}
+		}
 	}
 }

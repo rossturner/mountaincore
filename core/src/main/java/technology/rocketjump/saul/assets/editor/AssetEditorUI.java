@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -32,6 +34,7 @@ import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorPane;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeMessage;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.PropertyEditorPane;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
 import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_ASSET_DESCRIPTOR;
@@ -76,8 +79,22 @@ public class AssetEditorUI implements Telegraph {
 		viewEditor.setBackground("window-bg");
 		viewEditor.add(new VisLabel("View Editor")).top().expandX().fillX().row();
 		viewEditor.add(new VisLabel("Render Mode"));
-		viewEditor.add(new VisRadioButton("Diffuse"));
-		viewEditor.add(new VisRadioButton("Normal"));
+		ButtonGroup<VisRadioButton> renderModeButtonGroup = new ButtonGroup<>();
+		for (RenderMode renderMode : RenderMode.values()) {
+			VisRadioButton radioButton = new VisRadioButton(renderMode.name());
+			renderModeButtonGroup.add(radioButton);
+			radioButton.setChecked(renderMode == editorStateProvider.getState().getRenderMode());
+			radioButton.addListener(new ChangeListener() {
+				@Override
+				public void changed(ChangeEvent event, Actor actor) {
+					if (radioButton.isChecked()) {
+						editorStateProvider.getState().setRenderMode(renderMode);
+						editorStateProvider.stateChanged();
+					}
+				}
+			});
+			viewEditor.add(radioButton);
+		}
 		viewEditor.row();
 
 		viewArea = new VisTable();
