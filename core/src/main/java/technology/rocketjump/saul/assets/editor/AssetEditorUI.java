@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisRadioButton;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
@@ -69,9 +70,15 @@ public class AssetEditorUI implements Telegraph {
 		topLevelTable = new VisTable();
 		topLevelTable.setFillParent(true);
 
+		//TODO: data drive
 		viewEditor = new VisTable();
+		viewEditor.debug();
 		viewEditor.setBackground("window-bg");
-		viewEditor.add(new VisLabel("View Editor")).row();
+		viewEditor.add(new VisLabel("View Editor")).top().expandX().fillX().row();
+		viewEditor.add(new VisLabel("Render Mode"));
+		viewEditor.add(new VisRadioButton("Diffuse"));
+		viewEditor.add(new VisRadioButton("Normal"));
+		viewEditor.row();
 
 		viewArea = new VisTable();
 
@@ -153,12 +160,9 @@ public class AssetEditorUI implements Telegraph {
 		topLevelTable.add(topLevelMenu.getTable()).expandX().fillX().colspan(3).row();
 
 		//Body
-		float viewEditorHeight = stage.getViewport().getWorldHeight() * 0.3f; //bit of a fudge as the viewArea lacks components
-		float viewAreaHeight = stage.getViewport().getWorldHeight() - viewEditorHeight;
 		VisTable viewSpace = new VisTable();
-		viewSpace.add(viewArea).prefHeight(viewAreaHeight).row(); //TODO: rethink dimensions here
-		viewSpace.add(viewEditor).prefHeight(viewEditorHeight).expand().fillX().fillY();
-		viewEditor.debug();
+		viewSpace.add(viewArea).expand().row(); //View area has no components, so let it take as much as possible
+		viewSpace.add(viewEditor).expandX().fillX().fillY(); //sizes dynamically based on components
 
 		topLevelTable.add(leftPane).top().left().expandY().fillY();
 		topLevelTable.add(viewSpace).top().expand().fillY().fillX();

@@ -110,12 +110,14 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			//TODO: switch based on available orientations
 			Vector2 originalPosition = entity.getLocationComponent().getWorldPosition().cpy();
 
-			renderEntityWithOrientation(originalPosition, DOWN.toVector2(), 0, 0, RenderMode.DIFFUSE);
-			renderEntityWithOrientation(originalPosition, DOWN_LEFT.toVector2(), -1, 0, RenderMode.DIFFUSE);
-			renderEntityWithOrientation(originalPosition, DOWN_RIGHT.toVector2(), 1, 0, RenderMode.DIFFUSE);
-			renderEntityWithOrientation(originalPosition, UP.toVector2(), 0, 1, RenderMode.DIFFUSE);
-			renderEntityWithOrientation(originalPosition, UP_LEFT.toVector2(), -1, 1, RenderMode.DIFFUSE);
-			renderEntityWithOrientation(originalPosition, UP_RIGHT.toVector2(), 1, 1, RenderMode.DIFFUSE);
+			RenderMode renderMode = RenderMode.DIFFUSE;
+
+			renderEntityWithOrientation(originalPosition, DOWN.toVector2(), 0, 0, renderMode);
+			renderEntityWithOrientation(originalPosition, DOWN_LEFT.toVector2(), -1, 0, renderMode);
+			renderEntityWithOrientation(originalPosition, DOWN_RIGHT.toVector2(), 1, 0, renderMode);
+			renderEntityWithOrientation(originalPosition, UP.toVector2(), 0, 1, renderMode);
+			renderEntityWithOrientation(originalPosition, UP_LEFT.toVector2(), -1, 1, renderMode);
+			renderEntityWithOrientation(originalPosition, UP_RIGHT.toVector2(), 1, 1, renderMode);
 
 
 			spriteBatch.end();
