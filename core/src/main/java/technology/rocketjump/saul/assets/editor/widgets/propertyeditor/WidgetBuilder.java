@@ -15,6 +15,31 @@ import java.util.function.Consumer;
 
 public class WidgetBuilder {
 
+	//Composite components
+	public static <T> VisTable selectField(String labelText, T initialValue, Collection<T> items, T valueIfNull, Consumer<T> changeListener) {
+		VisTable visTable = new VisTable();
+		VisLabel label = new VisLabel(labelText);
+		VisSelectBox<T> selectBox = new VisSelectBox<>();
+		selectBox.setItems(orderedArray(items, valueIfNull));
+		if (initialValue == null) {
+			if (valueIfNull != null) {
+				selectBox.setSelected(valueIfNull);
+			}
+		} else {
+			selectBox.setSelected(initialValue);
+		}
+		selectBox.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				changeListener.accept(selectBox.getSelected());
+			}
+		});
+		visTable.add(label).left();
+		visTable.add(selectBox).left();
+		return visTable;
+	}
+
+	//Reflective Java Bean components
 	public static void addTextField(String labelText, String propertyName, Object instance, VisTable table) {
 		VisTextField textField = new VisTextField(ReflectionUtils.getProperty(instance, propertyName).toString());
 		textField.addListener(new ChangeListener() {
@@ -60,51 +85,14 @@ public class WidgetBuilder {
 		table.add(textField).left().expandX().fillX().row();
 	}
 
-	public static <T> VisTable selectField(String labelText, T initialValue, Collection<T> items, T valueIfNull, Consumer<T> changeListener) {
-		VisTable visTable = new VisTable();
-		VisLabel label = new VisLabel(labelText);
-		VisSelectBox<T> selectBox = new VisSelectBox<>();
-		selectBox.setItems(orderedArray(items, valueIfNull));
-		if (initialValue == null) {
-			if (valueIfNull != null) {
-				selectBox.setSelected(valueIfNull);
-			}
-		} else {
-			selectBox.setSelected(initialValue);
-		}
-		selectBox.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				changeListener.accept(selectBox.getSelected());
-			}
-		});
-		visTable.add(label).left();
-		visTable.add(selectBox).left();
-		return visTable;
-	}
 
 	public static <T> void addSelectField(String labelText, String propertyName, Collection<T> items, T valueIfNull,
 										  Object instance, VisTable table) {
-		VisSelectBox<T> selectBox = new VisSelectBox<>();
-		selectBox.setItems(orderedArray(items, valueIfNull));
 		T initialValue = (T) ReflectionUtils.getProperty(instance, propertyName);
-		if (initialValue == null) {
-			if (valueIfNull != null) {
-				selectBox.setSelected(valueIfNull);
-			}
-		} else {
-			selectBox.setSelected(initialValue);
-		}
-		selectBox.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				ReflectionUtils.setProperty(instance, propertyName, selectBox.getSelected());
-			}
-		});
-		table.add(new VisLabel(labelText)).left();
-		table.add(selectBox).left().row();
+		Consumer<T> reflectionPropertySetter = selected -> ReflectionUtils.setProperty(instance, propertyName, selected);
+		VisTable visTable = selectField(labelText, initialValue, items, valueIfNull, reflectionPropertySetter);
+		table.add(visTable).left().row();
 	}
-
 
 	public static <T> Array<T> orderedArray(Collection<T> items) {
 		return orderedArray(items, null);
