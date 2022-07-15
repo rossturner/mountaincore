@@ -46,6 +46,8 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+
 @Singleton
 public class EntityAssetUpdater implements GameContextAware {
 
@@ -55,7 +57,6 @@ public class EntityAssetUpdater implements GameContextAware {
 	private final PlantEntityAssetDictionary plantEntityAssetDictionary;
 	private final MechanismEntityAssetDictionary mechanismEntityAssetDictionary;
 	private final TagProcessor tagProcessor;
-	private final Profession defaultProfession;
 
 	public final EntityAssetType branchAssetType;
 	public final EntityAssetType leafAssetType;
@@ -88,7 +89,6 @@ public class EntityAssetUpdater implements GameContextAware {
 		this.furnitureEntityAssetDictionary = furnitureEntityAssetDictionary;
 		this.mechanismEntityAssetDictionary = mechanismEntityAssetDictionary;
 
-		this.defaultProfession = professionDictionary.getByName("VILLAGER");
 		CREATURE_BODY = entityAssetTypeDictionary.getByName("CREATURE_BODY");
 
 		branchAssetType = entityAssetTypeDictionary.getByName("PLANT_BRANCHES");
@@ -146,9 +146,9 @@ public class EntityAssetUpdater implements GameContextAware {
 	private void updateCreatureAssets(Entity entity) {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 		ProfessionsComponent professionsComponent = entity.getComponent(ProfessionsComponent.class);
-		Profession primaryProfession = defaultProfession;
+		Profession primaryProfession = NULL_PROFESSION;
 		if (professionsComponent != null) {
-			primaryProfession = professionsComponent.getPrimaryProfession(defaultProfession);
+			primaryProfession = professionsComponent.getPrimaryProfession();
 		}
 
 

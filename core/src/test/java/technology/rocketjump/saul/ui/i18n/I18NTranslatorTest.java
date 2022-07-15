@@ -126,9 +126,6 @@ public class I18NTranslatorTest {
 
 	@Before
 	public void setup() throws IOException {
-		Profession defaultProfession = new Profession();
-		defaultProfession.setI18nKey("PROFESSION.VILLAGER");
-		when(mockProfessionDictionary.getDefault()).thenReturn(defaultProfession);
 		when(mockUserPreferences.getPreference(eq(LANGUAGE), any())).thenReturn("en-gb");
 
 		when(mockCraftingTypeDictionary.getByName(Mockito.anyString())).thenReturn(mockCraftingType);

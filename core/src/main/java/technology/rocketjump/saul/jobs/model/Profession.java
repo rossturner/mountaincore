@@ -1,6 +1,8 @@
 package technology.rocketjump.saul.jobs.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import technology.rocketjump.saul.misc.Name;
 import technology.rocketjump.saul.ui.widgets.ImageButton;
 
@@ -48,5 +50,18 @@ public class Profession {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Profession that = (Profession) o;
+		return new EqualsBuilder().append(name, that.name).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).append(name).toHashCode();
 	}
 }

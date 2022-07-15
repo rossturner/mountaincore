@@ -39,7 +39,6 @@ import static technology.rocketjump.saul.assets.entities.creature.CreatureEntity
 
 public class CreatureViewerUI implements Disposable {
 
-	private final Profession defaultProfession;
 	private Skin uiSkin = new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")); // MODDING expose this or change uiskin.json
 	private Stage stage;
 	private Table containerTable;
@@ -59,7 +58,7 @@ public class CreatureViewerUI implements Disposable {
 
 	@Inject
 	public CreatureViewerUI(CreatureEntityAssetDictionary assetDictionary,
-							EntityAssetTypeDictionary assetTypeDictionary, ProfessionDictionary professionDictionary,
+							EntityAssetTypeDictionary assetTypeDictionary,
 							EntityAssetUpdater entityAssetUpdater, RaceDictionary raceDictionary,
 							ProfessionDictionary professionDictionary1) {
 		this.assetDictionary = assetDictionary;
@@ -72,8 +71,6 @@ public class CreatureViewerUI implements Disposable {
 		containerTable = new Table(uiSkin);
 		containerTable.setFillParent(true);
 		stage.addActor(containerTable);
-
-		defaultProfession = professionDictionary.getByName("VILLAGER");
 
 //		containerTable.setDebug(true);
 		containerTable.pad(20f); // Table edge padding
@@ -149,14 +146,14 @@ public class CreatureViewerUI implements Disposable {
 
 		professionSelect.setItems(professionArray);
 		ProfessionsComponent component = currentEntity.getComponent(ProfessionsComponent.class);
-		professionSelect.setSelected(component.getPrimaryProfession(professionDictionary.getDefault()));
+		professionSelect.setSelected(component.getPrimaryProfession());
 		professionSelect.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				Profession selected = professionSelect.getSelected();
 				ProfessionsComponent professionsComponent = currentEntity.getComponent(ProfessionsComponent.class);
 				professionsComponent.clear();
-				professionsComponent.setSkillLevel(selected, 0.5f);
+				professionsComponent.setSkillLevel(selected, 50);
 				entityAssetUpdater.updateEntityAssets(currentEntity);
 				resetAssetSelections();
 //				persistentSettings.reloadFromSettings(currentEntity);
@@ -166,7 +163,7 @@ public class CreatureViewerUI implements Disposable {
 	}
 
 	private void resetAssetSelections() {
-		Profession primaryProfession = currentEntity.getComponent(ProfessionsComponent.class).getPrimaryProfession(defaultProfession);
+		Profession primaryProfession = currentEntity.getComponent(ProfessionsComponent.class).getPrimaryProfession();
 		for (Map.Entry<EntityAssetType, SelectBox> entry : assetSelectWidgets.entrySet()) {
 			Array<String> newItems = new Array<>();
 			for (CreatureEntityAsset entityAsset : assetDictionary.getAllMatchingAssets(entry.getKey(), entityAttributes, primaryProfession)) {
@@ -189,7 +186,7 @@ public class CreatureViewerUI implements Disposable {
 		SelectBox<String> widget = new SelectBox<>(uiSkin);
 		Array<String> assetNames = new Array<>();
 
-		Profession primaryProfession = currentEntity.getComponent(ProfessionsComponent.class).getPrimaryProfession(defaultProfession);
+		Profession primaryProfession = currentEntity.getComponent(ProfessionsComponent.class).getPrimaryProfession();
 		List<CreatureEntityAsset> matchingAssetsWithSameType = assetDictionary.getAllMatchingAssets(assetType, entityAttributes, primaryProfession);
 		for (CreatureEntityAsset asset : matchingAssetsWithSameType) {
 			assetNames.add(asset.getUniqueName());

@@ -2,6 +2,8 @@ package technology.rocketjump.saul.jobs.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.entities.ai.goap.SpecialGoal;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
@@ -23,8 +25,10 @@ public class JobType {
 	private boolean requiresWeapon;
 	private boolean usesWorkstationTool;
 	private SpecialGoal switchToSpecialGoal;
-	private Float defaultTimeToCompleteJob;
+	private Float minimumTimeToCompleteJob;
+	private Float maximumTimeToCompleteJob;
 	private Float mightStartFire;
+	private Integer experienceAwardedOnCompletion;
 
 	private String requiredProfessionName;
 	@JsonIgnore
@@ -174,17 +178,13 @@ public class JobType {
 		this.workOnJobParticleEffectTypes = workOnJobParticleEffectTypes;
 	}
 
-	@Override
-	public String toString() {
-		return name;
+
+	public Float getMinimumTimeToCompleteJob() {
+		return minimumTimeToCompleteJob;
 	}
 
-	public Float getDefaultTimeToCompleteJob() {
-		return defaultTimeToCompleteJob;
-	}
-
-	public void setDefaultTimeToCompleteJob(Float defaultTimeToCompleteJob) {
-		this.defaultTimeToCompleteJob = defaultTimeToCompleteJob;
+	public void setMinimumTimeToCompleteJob(Float minimumTimeToCompleteJob) {
+		this.minimumTimeToCompleteJob = minimumTimeToCompleteJob;
 	}
 
 	public Float getMightStartFire() {
@@ -209,5 +209,42 @@ public class JobType {
 
 	public void setUsesWorkstationTool(boolean usesWorkstationTool) {
 		this.usesWorkstationTool = usesWorkstationTool;
+	}
+
+	public Float getMaximumTimeToCompleteJob() {
+		return maximumTimeToCompleteJob;
+	}
+
+	public void setMaximumTimeToCompleteJob(Float maximumTimeToCompleteJob) {
+		this.maximumTimeToCompleteJob = maximumTimeToCompleteJob;
+	}
+
+	public int getExperienceAwardedOnCompletion() {
+		return experienceAwardedOnCompletion != null ? experienceAwardedOnCompletion : 1;
+	}
+
+	public void setExperienceAwardedOnCompletion(Integer experienceAwardedOnCompletion) {
+		this.experienceAwardedOnCompletion = experienceAwardedOnCompletion;
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+
+		if (o == null || getClass() != o.getClass()) return false;
+
+		JobType jobType = (JobType) o;
+
+		return new EqualsBuilder().append(name, jobType.name).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).append(name).toHashCode();
 	}
 }

@@ -185,8 +185,8 @@ public class I18nTranslator implements I18nUpdatable {
 					description = dictionary.getWord(job.getType().getOverrideI18nKey());
 				}
 				Profession requiredProfession = job.getRequiredProfession();
-				if (requiredProfession == null || NULL_PROFESSION.equals(requiredProfession)) {
-					requiredProfession = professionDictionary.getDefault();
+				if (requiredProfession == null) {
+					requiredProfession = NULL_PROFESSION;
 				}
 				replacements.put("profession", dictionary.getWord(requiredProfession.getI18nKey()));
 
@@ -471,7 +471,7 @@ public class I18nTranslator implements I18nUpdatable {
 		} else {
 			ProfessionsComponent professionsComponent = entity.getComponent(ProfessionsComponent.class);
 			if (professionsComponent != null) {
-				Profession primaryProfession = professionsComponent.getPrimaryProfession(professionDictionary.getDefault());
+				Profession primaryProfession = professionsComponent.getPrimaryProfession();
 				replacements.put("profession", dictionary.getWord(primaryProfession.getI18nKey()));
 			} else {
 				replacements.put("profession", I18nWord.BLANK);
