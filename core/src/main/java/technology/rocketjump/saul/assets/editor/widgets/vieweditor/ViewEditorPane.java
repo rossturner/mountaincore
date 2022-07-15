@@ -11,6 +11,7 @@ import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.jobs.ProfessionDictionary;
 import technology.rocketjump.saul.rendering.RenderMode;
 
 import javax.inject.Inject;
@@ -19,17 +20,18 @@ public class ViewEditorPane extends VisTable {
 
     private final EditorStateProvider editorStateProvider;
     private final EntityAssetUpdater entityAssetUpdater;
+    private final ProfessionDictionary professionDictionary;
 
     @Inject
-    public ViewEditorPane(EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater) {
+    public ViewEditorPane(EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater, ProfessionDictionary professionDictionary) {
         super();
         this.editorStateProvider = editorStateProvider;
         this.entityAssetUpdater = entityAssetUpdater;
+        this.professionDictionary = professionDictionary;
     }
 
     public void reload() {
         this.clearChildren();
-        debug();
         setBackground("window-bg");
 
         add(new VisLabel("View Editor")).expandX().left().row();
@@ -40,7 +42,7 @@ public class ViewEditorPane extends VisTable {
             EntityAttributes entityAttributes = currentEntity.getPhysicalEntityComponent().getAttributes();
             VisTable entityAttributesPane = null;
             if (entityAttributes instanceof CreatureEntityAttributes creatureAttributes) {
-                entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater);
+                entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater, professionDictionary);
             }
             if (entityAttributesPane != null) {
                 add(entityAttributesPane).left().row();

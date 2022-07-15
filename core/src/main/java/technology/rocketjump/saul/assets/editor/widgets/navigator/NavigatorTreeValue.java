@@ -1,7 +1,9 @@
 package technology.rocketjump.saul.assets.editor.widgets.navigator;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.model.EntityType;
 
 import java.io.IOException;
@@ -28,13 +30,21 @@ public class NavigatorTreeValue {
 	}
 
 	public static NavigatorTreeValue forEntityDir(EntityType entityType, Path directory) throws IOException {
-		JSONObject descriptorJson = JSON.parseObject(Files.readString(directory.resolve(entityType.descriptorFilename)));
-		String name = descriptorJson.getString("name");
+		Path path = directory.resolve(entityType.descriptorFilename);
+		String fileText = Files.readString(path);
+		try {
+			JSONObject descriptorJson = JSON.parseObject(fileText);
+			String name = descriptorJson.getString("name");
+			return new NavigatorTreeValue(TreeValueType.ENTITY_DIR,
+					entityType,
+					directory,
+					name);
 
-		return new NavigatorTreeValue(TreeValueType.ENTITY_DIR,
-				entityType,
-				directory,
-				name);
+		} catch (JSONException jsonException) {
+			Logger.error("Error parsing json at file " + path + " due to " + jsonException.getMessage(), jsonException);
+			throw jsonException;
+		}
+
 	}
 
 	public NavigatorTreeValue(TreeValueType type, EntityType entityType, Path path, String label) {
