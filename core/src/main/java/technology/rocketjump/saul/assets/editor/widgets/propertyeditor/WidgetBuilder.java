@@ -11,6 +11,7 @@ import technology.rocketjump.saul.misc.ReflectionUtils;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.function.Consumer;
 
 public class WidgetBuilder {
 
@@ -57,6 +58,29 @@ public class WidgetBuilder {
 		});
 		table.add(new VisLabel(labelText)).left();
 		table.add(textField).left().expandX().fillX().row();
+	}
+
+	public static <T> VisTable selectField(String labelText, T initialValue, Collection<T> items, T valueIfNull, Consumer<T> changeListener) {
+		VisTable visTable = new VisTable();
+		VisLabel label = new VisLabel(labelText);
+		VisSelectBox<T> selectBox = new VisSelectBox<>();
+		selectBox.setItems(orderedArray(items, valueIfNull));
+		if (initialValue == null) {
+			if (valueIfNull != null) {
+				selectBox.setSelected(valueIfNull);
+			}
+		} else {
+			selectBox.setSelected(initialValue);
+		}
+		selectBox.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				changeListener.accept(selectBox.getSelected());
+			}
+		});
+		visTable.add(label).left();
+		visTable.add(selectBox).left();
+		return visTable;
 	}
 
 	public static <T> void addSelectField(String labelText, String propertyName, Collection<T> items, T valueIfNull,

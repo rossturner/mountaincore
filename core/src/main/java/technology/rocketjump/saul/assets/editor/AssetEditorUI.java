@@ -16,10 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisRadioButton;
-import com.kotcrab.vis.ui.widget.VisScrollPane;
-import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.*;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
 import technology.rocketjump.saul.assets.editor.model.ColorPickerMessage;
@@ -35,6 +32,10 @@ import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorConte
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorPane;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeMessage;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.PropertyEditorPane;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
+import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShape;
+import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShapeDescriptor;
+import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -45,6 +46,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
+import java.util.List;
 import java.util.Random;
 
 import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_ASSET_DESCRIPTOR;
@@ -70,13 +72,14 @@ public class AssetEditorUI implements Telegraph {
 
 	private CreatureEntityFactory creatureEntityFactory;
 	//TODO: move
+	private EntityAssetUpdater entityAssetUpdater;
 	private RaceDictionary raceDictionary;
 
 	@Inject
 	public AssetEditorUI(EntityBrowserContextMenu browserContextMenu, TopLevelMenu topLevelMenu, NavigatorPane navigatorPane,
 						 EntityBrowserPane entityBrowserPane, PropertyEditorPane propertyEditorPane,
 						 MessageDispatcher messageDispatcher, EditorStateProvider editorStateProvider,
-						 CreatureEntityFactory creatureEntityFactory, RaceDictionary raceDictionary) {
+						 CreatureEntityFactory creatureEntityFactory, EntityAssetUpdater entityAssetUpdater, RaceDictionary raceDictionary) {
 		this.browserContextMenu = browserContextMenu;
 		this.topLevelMenu = topLevelMenu;
 		this.navigatorPane = navigatorPane;
@@ -84,18 +87,22 @@ public class AssetEditorUI implements Telegraph {
 		this.propertyEditorPane = propertyEditorPane;
 		this.editorStateProvider = editorStateProvider;
 		this.creatureEntityFactory = creatureEntityFactory;
+		this.entityAssetUpdater = entityAssetUpdater;
 		this.raceDictionary = raceDictionary;
 
 		stage = new Stage();
 		topLevelTable = new VisTable();
 		topLevelTable.setFillParent(true);
 
-		//TODO: data drive
+		//TODO: Refactor into own class
 		viewEditor = new VisTable();
 		viewEditor.debug();
 		viewEditor.setBackground("window-bg");
-		viewEditor.add(new VisLabel("View Editor")).top().expandX().fillX().row();
-		viewEditor.add(new VisLabel("Render Mode"));
+		viewEditor.add(new VisLabel("View Editor")).expandX().left().row();
+
+		//Render row
+		VisTable renderModeRow = new VisTable();
+		renderModeRow.add(new VisLabel("Render Mode"));
 		ButtonGroup<VisRadioButton> renderModeButtonGroup = new ButtonGroup<>();
 		for (RenderMode renderMode : RenderMode.values()) {
 			VisRadioButton radioButton = new VisRadioButton(renderMode.name());
@@ -110,9 +117,54 @@ public class AssetEditorUI implements Telegraph {
 					}
 				}
 			});
-			viewEditor.add(radioButton);
+			renderModeRow.add(radioButton);
 		}
-		viewEditor.row();
+		viewEditor.add(renderModeRow).left().row();
+		//TODO: do properly with data and right components
+
+		//Creature Attribute Row
+		if (editorStateProvider.getState().getCurrentEntity() != null) {
+			if (editorStateProvider.getState().getCurrentEntity().getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureAttributes) {
+
+		//		entityAssetUpdater.updateEntityAssets(currentEntity);//todo: do we be lazy and do this every render loop?
+
+				VisTable creatureAttributeRow = new VisTable();
+				creatureAttributeRow.add(
+					WidgetBuilder.selectField("Gender:", creatureAttributes.getGender(), creatureAttributes.getRace().getGenders().keySet(), null, gender -> {
+							creatureAttributes.setGender(gender);
+							entityAssetUpdater.updateEntityAssets(editorStateProvider.getState().getCurrentEntity());
+							editorStateProvider.stateChanged();
+						})
+				);
+				List<CreatureBodyShape> bodyShapes = creatureAttributes.getRace().getBodyShapes().stream().map(CreatureBodyShapeDescriptor::getValue).toList();
+				creatureAttributeRow.add(
+						WidgetBuilder.selectField("Body Shape:", creatureAttributes.getBodyShape(), bodyShapes, null, bodyShape -> {
+							creatureAttributes.setBodyShape(bodyShape);
+							entityAssetUpdater.updateEntityAssets(editorStateProvider.getState().getCurrentEntity());
+							editorStateProvider.stateChanged();
+						})
+				);
+				creatureAttributeRow.add(new VisLabel("Consciousness:"));
+				creatureAttributeRow.add(new VisSelectBox<>());
+				creatureAttributeRow.add(new VisLabel("Profession:"));
+				creatureAttributeRow.add(new VisSelectBox<>());
+				viewEditor.add(creatureAttributeRow).left().row();
+
+		//		HorizontalFlowGroup assetTypeFlowGroup = new HorizontalFlowGroup(5); //TODO: not 100% is right separate flow groups
+		//		assetTypeFlowGroup.addActor(new VisLabel("Hair:"));
+		//		assetTypeFlowGroup.addActor(new VisSelectBox<>());
+		//		assetTypeFlowGroup.addActor(new VisLabel("Eyebrows:"));
+		//		assetTypeFlowGroup.addActor(new VisSelectBox<>());
+		//		assetTypeFlowGroup.addActor(new VisLabel("Beard:"));
+		//		assetTypeFlowGroup.addActor(new VisSelectBox<>());
+		//		assetTypeFlowGroup.addActor(new VisLabel("Clothing:"));
+		//		assetTypeFlowGroup.addActor(new VisSelectBox<>());
+		//		viewEditor.add(assetTypeFlowGroup).expandX().fillX();
+
+
+			}
+		}
+
 
 		viewArea = new VisTable();
 
@@ -196,7 +248,7 @@ public class AssetEditorUI implements Telegraph {
 		//Body
 		VisTable viewSpace = new VisTable();
 		viewSpace.add(viewArea).expand().row(); //View area has no components, so let it take as much as possible
-		viewSpace.add(viewEditor).expandX().fillX().fillY(); //sizes dynamically based on components
+		viewSpace.add(viewEditor).left().top().expandX().fill();
 
 		topLevelTable.add(leftPane).top().left().expandY().fillY();
 		topLevelTable.add(viewSpace).top().expand().fillY().fillX();
@@ -290,8 +342,6 @@ public class AssetEditorUI implements Telegraph {
 		gameContext.setRandom(new RandomXS128());
 		switch (entitySelection.getEntityType()) {
 			case CREATURE -> {
-//				Vector2 position = new Vector2((int)Math.floor(camera.viewportWidth * 0.5f) + 0.5f, (int)Math.floor(camera.viewportHeight * 0.4f) + 0.5f);
-
 				Race race = raceDictionary.getByName(entitySelection.getTypeName());
 				CreatureEntityAttributes attributes = new CreatureEntityAttributes(race, random.nextLong()); //TODO: persistable too?
 				Vector2 origin = new Vector2(0, 0f);
