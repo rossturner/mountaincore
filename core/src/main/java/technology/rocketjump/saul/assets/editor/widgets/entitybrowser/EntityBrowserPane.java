@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.kotcrab.vis.ui.widget.*;
 import org.pmw.tinylog.Logger;
@@ -32,7 +31,6 @@ public class EntityBrowserPane extends VisTable {
 	private final VisTree assetTree;
 	private final EditorStateProvider editorStateProvider;
 	private final VisLabel titleLabel;
-	private final ObjectMapper objectMapper;
 	private final MessageDispatcher messageDispatcher;
 	private final CompleteAssetDictionary assetDictionary;
 	private final EntityEditorPersistence entityEditorPersistence;
@@ -41,10 +39,9 @@ public class EntityBrowserPane extends VisTable {
 	private final Map<String, Path> descriptorPathsByAssetName = new TreeMap<>();
 
 	@Inject
-	public EntityBrowserPane(EditorStateProvider editorStateProvider, ObjectMapper objectMapper,
+	public EntityBrowserPane(EditorStateProvider editorStateProvider,
 							 MessageDispatcher messageDispatcher, CompleteAssetDictionary assetDictionary,
 							 EntityEditorPersistence entityEditorPersistence, CompleteEntityDefinitionDictionary entityDefinitionDictionary) {
-		this.objectMapper = objectMapper;
 		this.messageDispatcher = messageDispatcher;
 		this.assetDictionary = assetDictionary;
 		this.entityEditorPersistence = entityEditorPersistence;
