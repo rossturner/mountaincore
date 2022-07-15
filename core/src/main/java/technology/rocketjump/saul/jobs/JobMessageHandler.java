@@ -77,6 +77,7 @@ import java.util.stream.Collectors;
 import static technology.rocketjump.saul.entities.behaviour.furniture.InnoculationLogBehaviour.InnoculationLogState.INNOCULATING;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.HELD_IN_INVENTORY;
 import static technology.rocketjump.saul.entities.model.EntityType.*;
+import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.ROOM;
@@ -259,6 +260,9 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 
 	private boolean handleJobCompleted(JobCompletedMessage jobCompletedMessage) {
 		Job completedJob = jobCompletedMessage.getJob();
+		if (!NULL_PROFESSION.equals(completedJob.getRequiredProfession())) {
+			jobCompletedMessage.getCompletedBy().experienceGained(completedJob.getType().getExperienceAwardedOnCompletion(), completedJob.getRequiredProfession());
+		}
 		float skillLevelOfCompletion = 0f;
 		if (jobCompletedMessage.getCompletedBy() != null) {
 			skillLevelOfCompletion = jobCompletedMessage.getCompletedBy().getSkillLevel(completedJob.getRequiredProfession());
