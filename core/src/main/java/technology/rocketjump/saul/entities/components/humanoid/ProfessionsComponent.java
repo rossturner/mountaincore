@@ -86,7 +86,7 @@ public class ProfessionsComponent implements EntityComponent {
 		int currentExperience = experiencePoints.getOrDefault(profession, 0);
 		currentExperience += experiencePointsAmount;
 
-		while (currentExperience >= currentSkillLevel + 1) {
+		while (currentExperience >= currentSkillLevel + 1 && currentSkillLevel < 100) {
 			currentSkillLevel++;
 			currentExperience -= currentSkillLevel;
 		}
