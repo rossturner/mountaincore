@@ -25,10 +25,7 @@ import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.factories.names.NorseNameGenerator;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
-import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.Gender;
-import technology.rocketjump.saul.entities.model.physical.creature.Race;
-import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
+import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.*;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
@@ -151,6 +148,9 @@ public class I18NTranslatorTest {
 		dwarfStub.setName("Dwarf");
 		dwarfStub.setBodyShapes(List.of());
 		dwarfStub.setI18nKey("RACE.DWARF");
+		RaceBehaviour behaviour = new RaceBehaviour();
+		behaviour.setIsSapient(true);
+		dwarfStub.setBehaviour(behaviour);
 		when(mockRaceDictionary.getByName(anyString())).thenReturn(dwarfStub);
 		CreatureEntityAttributes attributes = new SettlerCreatureAttributesFactory(
 				new DwarvenNameGenerator(new NorseNameGenerator()),
@@ -165,7 +165,7 @@ public class I18NTranslatorTest {
 
 		I18nText description = translator.getDescription(entity);
 
-		assertThat(description.toString()).isEqualTo("Olin Olinson, dwarven blacksmith");
+		assertThat(description.toString()).isEqualTo("Olin Olinson, journeyman blacksmith");
 	}
 
 	@Test
