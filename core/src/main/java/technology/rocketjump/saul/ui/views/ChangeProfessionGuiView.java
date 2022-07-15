@@ -12,6 +12,7 @@ import technology.rocketjump.saul.jobs.model.Profession;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.ChangeProfessionMessage;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 import technology.rocketjump.saul.ui.widgets.ImageButton;
@@ -32,6 +33,7 @@ public class ChangeProfessionGuiView implements GuiView {
 	private final GameInteractionStateContainer gameInteractionStateContainer;
 	private final I18nWidgetFactory i18nWidgetFactory;
 	private final MessageDispatcher messageDispatcher;
+	private final I18nTranslator i18nTranslator;
 
 	private Table viewTable;
 	private Table professionTable;
@@ -44,13 +46,14 @@ public class ChangeProfessionGuiView implements GuiView {
 	@Inject
 	public ChangeProfessionGuiView(ProfessionDictionary professionDictionary, I18nWidgetFactory i18nWidgetFactory,
 								   GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-								   GameInteractionStateContainer gameInteractionStateContainer) {
+								   GameInteractionStateContainer gameInteractionStateContainer, I18nTranslator i18nTranslator) {
 		this.professionDictionary = professionDictionary;
 		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;
 
 		this.uiSkin = guiSkinRepository.getDefault();
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
+		this.i18nTranslator = i18nTranslator;
 
 		viewTable = new Table(uiSkin);
 		viewTable.background("default-rect");
@@ -105,9 +108,12 @@ public class ChangeProfessionGuiView implements GuiView {
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ENTITY_SELECTED);
 			});
 			innerTable.add(imageButton).pad(10).row();
+			String skillLevelText = i18nTranslator.getSkillLevelDescription(professionsComponent.getSkillLevel(profession)).toString();
+			skillLevelText += " (" + professionsComponent.getSkillLevel(profession) + ")";
+			innerTable.add(new Label(skillLevelText, uiSkin)).row();
 			innerTable.add(i18nWidgetFactory.createLabel(profession.getI18nKey()));
 
-			professionTable.add(innerTable);
+			professionTable.add(innerTable).pad(3);
 			numAdded++;
 
 			if (numAdded % ITEMS_PER_ROW == 0) {

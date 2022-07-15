@@ -16,6 +16,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class JobType {
 
+	private static final Float DEFAULT_JOB_TIME = 5f;
 	@Name
 	private String name;
 	private String overrideI18nKey;
@@ -180,7 +181,7 @@ public class JobType {
 
 
 	public Float getMinimumTimeToCompleteJob() {
-		return minimumTimeToCompleteJob;
+		return minimumTimeToCompleteJob != null ? minimumTimeToCompleteJob : DEFAULT_JOB_TIME;
 	}
 
 	public void setMinimumTimeToCompleteJob(Float minimumTimeToCompleteJob) {
@@ -212,7 +213,7 @@ public class JobType {
 	}
 
 	public Float getMaximumTimeToCompleteJob() {
-		return maximumTimeToCompleteJob;
+		return maximumTimeToCompleteJob != null ? maximumTimeToCompleteJob : DEFAULT_JOB_TIME;
 	}
 
 	public void setMaximumTimeToCompleteJob(Float maximumTimeToCompleteJob) {
