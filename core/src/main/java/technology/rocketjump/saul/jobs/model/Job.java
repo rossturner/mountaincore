@@ -155,7 +155,7 @@ public class Job implements Persistable {
 		} else if (cookingRecipe != null) {
 			return cookingRecipe.getTimeToCompleteCooking(skillLevelForProfession);
 		} else {
-			if (type.getRequiredProfession().equals(CONTEXT_DEPENDENT_PROFESSION_REQUIRED)) {
+			if (CONTEXT_DEPENDENT_PROFESSION_REQUIRED.equals(type.getRequiredProfession())) {
 				Logger.error("Calculating time with " + CONTEXT_DEPENDENT_PROFESSION_REQUIRED.getName());
 			}
 			float timeMultiplier = ((100f - (float)skillLevelForProfession) / 100f);
