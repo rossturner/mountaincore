@@ -64,6 +64,7 @@ import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.CONTENTS_TO_BE_DUMPED;
 import static technology.rocketjump.saul.entities.components.humanoid.HappinessComponent.MAX_HAPPINESS_VALUE;
+import static technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent.MAX_PROFESSIONS;
 import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
 import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
@@ -526,7 +527,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				Table professionRow = new Table(uiSkin);
 				professionRow.add(new Label(rowCounter +". ", uiSkin));
-				professionRow.add(i18nWidgetFactory.createLabel(quantifiedProfession.getProfession().getI18nKey()));
+				professionRow.add(new I18nTextWidget(i18nTranslator.getSkilledProfessionDescription(quantifiedProfession.getProfession(),
+						quantifiedProfession.getSkillLevel(), ((CreatureEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getGender()),
+						uiSkin, messageDispatcher));
+				professionRow.add(new Label(" (" + quantifiedProfession.getSkillLevel() + ")", uiSkin));
 				professionsTable.add(professionRow).align(Align.left).pad(5);
 				professionRows.add(professionRow);
 
@@ -540,12 +544,11 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				professionsTable.row();
 
-
 			}
 		}
 
-		if (rowCounter < 3) {
-			I18nTextButton addAnotherButton = i18nWidgetFactory.createTextButton("ADD.ANOTHER");
+		if (rowCounter < MAX_PROFESSIONS) {
+			I18nTextButton addAnotherButton = i18nWidgetFactory.createTextButton("PROFESSION.GUI.ADD_ANOTHER");
 			addAnotherButton.addListener(new ClickListener() {
 				@Override
 				public void clicked (InputEvent event, float x, float y) {

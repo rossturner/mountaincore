@@ -2,11 +2,13 @@ package technology.rocketjump.saul.jobs.model;
 
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.GridPoint2;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.cooking.model.CookingRecipe;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
+import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
@@ -23,11 +25,11 @@ import technology.rocketjump.saul.rooms.HaulingAllocation;
 
 import java.util.Objects;
 
+import static technology.rocketjump.saul.jobs.ProfessionDictionary.CONTEXT_DEPENDENT_PROFESSION_REQUIRED;
 import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
 
 public class Job implements Persistable {
 
-	private static final float TIME_TO_COMPLETE_JOB_WHEN_UNSPECIFIED = 3f;
 	private long jobId;
 	private JobType type;
 
@@ -42,7 +44,7 @@ public class Job implements Persistable {
 	private Long assignedToEntityId;
 
 	private float workDoneSoFar;
-	private Float overrideWorkDuration;
+	private Float workDurationMultiplier;
 
 	private GridPoint2 jobLocation;
 	private GridPoint2 secondaryLocation; // Used in crafting where jobLocation is position to stand, secondary is workspace
@@ -143,20 +145,22 @@ public class Job implements Persistable {
 		this.assignedToEntityId = assignedToEntityId;
 	}
 
-	public float getJobTypeTotalWorkToDo() {
-		Float defaultTime = null;
-		if (craftingRecipe != null) {
-			defaultTime = craftingRecipe.getDefaultTimeToCompleteCrafting();
-		} else if (cookingRecipe != null) {
-			defaultTime = cookingRecipe.getDefaultTimeToCompleteCooking();
-		} else {
-			defaultTime = type.getDefaultTimeToCompleteJob();
-		}
+	public float getJobTypeTotalWorkToDo(ProfessionsComponent professionsComponent) {
+		return getJobTypeTotalWorkToDo(professionsComponent.getSkillLevel(type.getRequiredProfession()));
+	}
 
-		if (defaultTime != null) {
-			return defaultTime;
+	private float getJobTypeTotalWorkToDo(int skillLevelForProfession) {
+		if (craftingRecipe != null) {
+			return craftingRecipe.getTimeToCompleteCrafting(skillLevelForProfession);
+		} else if (cookingRecipe != null) {
+			return cookingRecipe.getTimeToCompleteCooking(skillLevelForProfession);
 		} else {
-			return TIME_TO_COMPLETE_JOB_WHEN_UNSPECIFIED;
+			if (type.getRequiredProfession().equals(CONTEXT_DEPENDENT_PROFESSION_REQUIRED)) {
+				Logger.error("Calculating time with " + CONTEXT_DEPENDENT_PROFESSION_REQUIRED.getName());
+			}
+			float timeMultiplier = ((100f - (float)skillLevelForProfession) / 100f);
+			float variableTime = type.getMaximumTimeToCompleteJob() - type.getMinimumTimeToCompleteJob();
+			return type.getMinimumTimeToCompleteJob() + (timeMultiplier * variableTime);
 		}
 	}
 
@@ -168,16 +172,13 @@ public class Job implements Persistable {
 		this.workDoneSoFar = workDoneSoFar;
 	}
 
-	public float getTotalWorkToDo() {
-		if (overrideWorkDuration != null) {
-			return overrideWorkDuration;
+	public float getTotalWorkToDo(ProfessionsComponent professionsComponent) {
+		float totalWorkToDo = getJobTypeTotalWorkToDo(professionsComponent);
+		if (workDurationMultiplier != null) {
+			return workDurationMultiplier * totalWorkToDo;
 		} else {
-			return getJobTypeTotalWorkToDo();
+			return totalWorkToDo;
 		}
-	}
-
-	public void setOverrideWorkDuration(Float overrideWorkDuration) {
-		this.overrideWorkDuration = overrideWorkDuration;
 	}
 
 	public GridPoint2 getJobLocation() {
@@ -453,5 +454,13 @@ public class Job implements Persistable {
 		}
 
 		savedGameStateHolder.jobs.put(this.jobId, this);
+	}
+
+	public Float getWorkDurationMultiplier() {
+		return workDurationMultiplier;
+	}
+
+	public void setWorkDurationMultiplier(Float workDurationMultiplier) {
+		this.workDurationMultiplier = workDurationMultiplier;
 	}
 }

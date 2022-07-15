@@ -5,7 +5,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 5.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 9.25,
+  "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "MINER",
   "requiredItemTypeName" : "Tool-Pickaxe",
   "activeSoundAssetName" : "Mining",
@@ -18,7 +20,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 5.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 5.25,
+  "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "MINER",
   "requiredItemTypeName" : "Tool-Pickaxe",
   "activeSoundAssetName" : "Tilling",
@@ -31,7 +35,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 5.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 8.25,
+  "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "LUMBERJACK",
   "requiredItemTypeName" : "Tool-Axe",
   "activeSoundAssetName" : "ChoppingTree",
@@ -45,7 +51,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 5.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 9.25,
+  "experienceAwardedOnCompletion" : 1,
   "activeSoundAssetName" : "Tilling",
   "accessedFromAdjacentTile" : false
 }, {
@@ -55,8 +63,10 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 5.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 9.25,
   "mightStartFire" : 0.05,
+  "experienceAwardedOnCompletion" : 1,
   "activeSoundAssetName" : "Tilling",
   "accessedFromAdjacentTile" : false
 }, {
@@ -66,7 +76,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 4.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 6.25,
+  "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "FARMER",
   "activeSoundAssetName" : "Tilling",
   "workOnJobParticleEffectNames" : [ "Digging ground same tile" ],
@@ -78,7 +90,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 5.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 9.25,
+  "experienceAwardedOnCompletion" : 1,
   "activeSoundAssetName" : "Tilling",
   "workOnJobParticleEffectNames" : [ "Digging ground offset tile" ],
   "accessedFromAdjacentTile" : true
@@ -89,7 +103,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 5.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 7.25,
+  "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "MINER",
   "requiredItemTypeName" : "Tool-Pickaxe",
   "activeSoundAssetName" : "Tilling",
@@ -102,7 +118,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 2.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 5.25,
+  "experienceAwardedOnCompletion" : 2,
   "requiredProfessionName" : "FARMER",
   "workOnJobParticleEffectNames" : [ "Digging ground same tile" ],
   "accessedFromAdjacentTile" : false
@@ -113,7 +131,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 5.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 7.25,
+  "experienceAwardedOnCompletion" : 2,
   "requiredProfessionName" : "FARMER",
   "workOnJobParticleEffectNames" : [ "Small leaf explosion" ],
   "accessedFromAdjacentTile" : false
@@ -124,7 +144,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 5.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 7.25,
+  "experienceAwardedOnCompletion" : 2,
   "requiredProfessionName" : "FARMER",
   "accessedFromAdjacentTile" : true
 }, {
@@ -134,7 +156,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 4.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 5.25,
+  "experienceAwardedOnCompletion" : 1,
   "activeSoundAssetName" : "HarvestingCrops",
   "workOnJobParticleEffectNames" : [ "Small leaf explosion" ],
   "accessedFromAdjacentTile" : false
@@ -145,7 +169,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 4.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 5.25,
+  "experienceAwardedOnCompletion" : 1,
   "activeSoundAssetName" : "HarvestingCrops",
   "accessedFromAdjacentTile" : true
 }, {
@@ -155,7 +181,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 3.0,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 5.25,
+  "experienceAwardedOnCompletion" : 1,
   "workOnJobParticleEffectNames" : [ "Small leaf explosion" ],
   "accessedFromAdjacentTile" : false
 }, {
@@ -165,7 +193,10 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 9.25,
   "mightStartFire" : 0.01,
+  "experienceAwardedOnCompletion" : 4,
   "requiredProfessionName" : "CHEF",
   "accessedFromAdjacentTile" : true
 }, {
@@ -175,7 +206,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 38.0,
+  "minimumTimeToCompleteJob" : 15.0,
+  "maximumTimeToCompleteJob" : 40.0,
+  "experienceAwardedOnCompletion" : 3,
   "requiredProfessionName" : "FISHER",
   "requiredItemTypeName" : "Tool-Fishing-Rod",
   "activeSoundAssetName" : "Fishing_Cast",
@@ -188,6 +221,7 @@
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
   "switchToSpecialGoal" : "HAUL_ITEM",
+  "experienceAwardedOnCompletion" : 1,
   "accessedFromAdjacentTile" : false
 }, {
   "name" : "COLLECT_ITEM",
@@ -197,6 +231,7 @@
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
   "switchToSpecialGoal" : "HAUL_ITEM",
+  "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
   "accessedFromAdjacentTile" : false
 }, {
@@ -207,7 +242,9 @@
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
   "switchToSpecialGoal" : "TRANSFER_LIQUID",
-  "defaultTimeToCompleteJob" : 0.7,
+  "minimumTimeToCompleteJob" : 0.65,
+  "maximumTimeToCompleteJob" : 0.75,
+  "experienceAwardedOnCompletion" : 1,
   "onCompletionSoundAssetName" : "WaterDump",
   "accessedFromAdjacentTile" : true
 }, {
@@ -218,7 +255,9 @@
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
   "switchToSpecialGoal" : "MOVE_LIQUID_IN_ITEM",
-  "defaultTimeToCompleteJob" : 0.7,
+  "minimumTimeToCompleteJob" : 0.65,
+  "maximumTimeToCompleteJob" : 0.75,
+  "experienceAwardedOnCompletion" : 1,
   "onCompletionSoundAssetName" : "WaterDump",
   "accessedFromAdjacentTile" : true
 }, {
@@ -229,7 +268,9 @@
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
   "switchToSpecialGoal" : "REMOVE_LIQUID",
-  "defaultTimeToCompleteJob" : 0.7,
+  "minimumTimeToCompleteJob" : 0.65,
+  "maximumTimeToCompleteJob" : 0.75,
+  "experienceAwardedOnCompletion" : 1,
   "accessedFromAdjacentTile" : false
 }, {
   "name" : "DUMP_LIQUID_FROM_CONTAINER",
@@ -239,7 +280,9 @@
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
   "switchToSpecialGoal" : "DUMP_LIQUID",
-  "defaultTimeToCompleteJob" : 0.3,
+  "minimumTimeToCompleteJob" : 0.65,
+  "maximumTimeToCompleteJob" : 0.75,
+  "experienceAwardedOnCompletion" : 1,
   "onCompletionSoundAssetName" : "WaterDump",
   "accessedFromAdjacentTile" : false
 }, {
@@ -249,6 +292,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 8.25,
+  "experienceAwardedOnCompletion" : 4,
   "requiredProfessionName" : "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
   "activeSoundAssetName" : "Metallic Hammering",
   "accessedFromAdjacentTile" : false
@@ -259,6 +305,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 8.25,
+  "experienceAwardedOnCompletion" : 4,
   "requiredProfessionName" : "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
   "accessedFromAdjacentTile" : false
 }, {
@@ -268,6 +317,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 8.25,
+  "experienceAwardedOnCompletion" : 4,
   "requiredProfessionName" : "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
   "accessedFromAdjacentTile" : false
 }, {
@@ -277,6 +329,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 8.25,
+  "experienceAwardedOnCompletion" : 4,
   "requiredProfessionName" : "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
   "accessedFromAdjacentTile" : false
 }, {
@@ -286,7 +341,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 6.0,
+  "minimumTimeToCompleteJob" : 3.75,
+  "maximumTimeToCompleteJob" : 9.25,
+  "experienceAwardedOnCompletion" : 3,
   "requiredProfessionName" : "CARPENTER",
   "requiredItemTypeName" : "Tool-Plane",
   "workOnJobParticleEffectNames" : [ "Wood shavings" ],
@@ -298,7 +355,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 6.0,
+  "minimumTimeToCompleteJob" : 3.75,
+  "maximumTimeToCompleteJob" : 9.25,
+  "experienceAwardedOnCompletion" : 3,
   "requiredProfessionName" : "STONEMASON",
   "requiredItemTypeName" : "Tool-Chisel",
   "workOnJobParticleEffectNames" : [ "Chipping stone" ],
@@ -310,7 +369,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 6.0,
+  "minimumTimeToCompleteJob" : 3.75,
+  "maximumTimeToCompleteJob" : 9.25,
+  "experienceAwardedOnCompletion" : 3,
   "requiredProfessionName" : "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
   "accessedFromAdjacentTile" : true
 }, {
@@ -320,7 +381,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 6.0,
+  "minimumTimeToCompleteJob" : 3.75,
+  "maximumTimeToCompleteJob" : 9.25,
+  "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
   "accessedFromAdjacentTile" : true
 }, {
@@ -330,7 +393,9 @@
   "haulItemWhileWorking" : true,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 4.0,
+  "minimumTimeToCompleteJob" : 1.75,
+  "maximumTimeToCompleteJob" : 6.25,
+  "experienceAwardedOnCompletion" : 2,
   "requiredProfessionName" : "CARPENTER",
   "requiredItemTypeName" : "Resource-Planks",
   "activeSoundAssetName" : "Sawing",
@@ -344,7 +409,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 4.0,
+  "minimumTimeToCompleteJob" : 1.75,
+  "maximumTimeToCompleteJob" : 6.25,
+  "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "CARPENTER",
   "onCompletionSoundAssetName" : "ImpactPlank",
   "accessedFromAdjacentTile" : true
@@ -355,7 +422,9 @@
   "haulItemWhileWorking" : true,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 4.0,
+  "minimumTimeToCompleteJob" : 1.75,
+  "maximumTimeToCompleteJob" : 6.25,
+  "experienceAwardedOnCompletion" : 2,
   "requiredItemTypeName" : "Product-Stone-Pipe",
   "workOnJobParticleEffectNames" : [ "Digging ground same tile" ],
   "accessedFromAdjacentTile" : true
@@ -366,7 +435,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 4.0,
+  "minimumTimeToCompleteJob" : 1.75,
+  "maximumTimeToCompleteJob" : 6.25,
+  "experienceAwardedOnCompletion" : 1,
   "workOnJobParticleEffectNames" : [ "Digging ground same tile" ],
   "accessedFromAdjacentTile" : true
 }, {
@@ -376,7 +447,9 @@
   "haulItemWhileWorking" : true,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 4.0,
+  "minimumTimeToCompleteJob" : 1.75,
+  "maximumTimeToCompleteJob" : 6.25,
+  "experienceAwardedOnCompletion" : 2,
   "requiredProfessionName" : "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
   "workOnJobParticleEffectNames" : [ "Digging ground same tile" ],
   "accessedFromAdjacentTile" : true
@@ -387,7 +460,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 4.0,
+  "minimumTimeToCompleteJob" : 1.75,
+  "maximumTimeToCompleteJob" : 6.25,
+  "experienceAwardedOnCompletion" : 1,
   "workOnJobParticleEffectNames" : [ "Digging ground same tile" ],
   "accessedFromAdjacentTile" : true
 }, {
@@ -397,7 +472,9 @@
   "haulItemWhileWorking" : true,
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
-  "defaultTimeToCompleteJob" : 3.0,
+  "minimumTimeToCompleteJob" : 1.75,
+  "maximumTimeToCompleteJob" : 6.25,
+  "experienceAwardedOnCompletion" : 2,
   "requiredProfessionName" : "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
   "onCompletionSoundAssetName" : "ImpactPlank",
   "accessedFromAdjacentTile" : true
@@ -409,7 +486,9 @@
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
   "switchToSpecialGoal" : "EXTINGUISH_FIRE",
-  "defaultTimeToCompleteJob" : 0.5,
+  "minimumTimeToCompleteJob" : 0.5,
+  "maximumTimeToCompleteJob" : 0.5,
+  "experienceAwardedOnCompletion" : 1,
   "onCompletionSoundAssetName" : "WaterSizzle",
   "accessedFromAdjacentTile" : true
 }, {
@@ -419,6 +498,7 @@
   "requiresWeapon" : true,
   "usesWorkstationTool" : false,
   "switchToSpecialGoal" : "HUNT_CREATURE",
+  "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "HUNTER",
   "accessedFromAdjacentTile" : false
 }, {
@@ -428,6 +508,9 @@
   "haulItemWhileWorking" : false,
   "requiresWeapon" : false,
   "usesWorkstationTool" : true,
+  "minimumTimeToCompleteJob" : 1.75,
+  "maximumTimeToCompleteJob" : 8.25,
+  "experienceAwardedOnCompletion" : 2,
   "requiredProfessionName" : "CHEF",
   "workOnJobParticleEffectNames" : [ "Bleeding" ],
   "accessedFromAdjacentTile" : false

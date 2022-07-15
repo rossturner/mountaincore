@@ -47,14 +47,8 @@ public class WorkOnJobAction extends Action {
 
 		if (completionType == null && inPositionToWorkOnJob()) {
 			Job assignedJob = parent.getAssignedJob();
-			float skillLevel = 0f;
 			ProfessionsComponent professionsComponent = parent.parentEntity.getComponent(ProfessionsComponent.class);
-			if (professionsComponent != null) {
-				skillLevel = professionsComponent.getSkillLevel(assignedJob.getRequiredProfession());
-			}
-			float timeModifier = Math.min(1f, skillLevel * 1.5f);
-			float workDone = deltaTime * timeModifier;
-			assignedJob.applyWorkDone(workDone);
+			assignedJob.applyWorkDone(deltaTime);
 
 			if (!activeSoundTriggered) {
 				SoundAsset jobSoundAsset = getJobSoundAsset();
@@ -112,7 +106,7 @@ public class WorkOnJobAction extends Action {
 				}
 			}
 
-			float workCompletionFraction = Math.min(assignedJob.getWorkDoneSoFar() / assignedJob.getTotalWorkToDo(), 1f);
+			float workCompletionFraction = Math.min(assignedJob.getWorkDoneSoFar() / assignedJob.getTotalWorkToDo(professionsComponent), 1f);
 
 			spawnedParticles.removeIf(p -> p == null || !p.isActive());
 
@@ -124,7 +118,7 @@ public class WorkOnJobAction extends Action {
 				}
 			}
 
-			if (assignedJob.getTotalWorkToDo() <= assignedJob.getWorkDoneSoFar()) {
+			if (assignedJob.getTotalWorkToDo(professionsComponent) <= assignedJob.getWorkDoneSoFar()) {
 				parent.messageDispatcher.dispatchMessage(MessageType.JOB_COMPLETED, new JobCompletedMessage(assignedJob, professionsComponent, parent.parentEntity));
 				completionType = SUCCESS;
 			}

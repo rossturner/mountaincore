@@ -21,6 +21,8 @@ import technology.rocketjump.saul.jobs.ProfessionDictionary;
 import technology.rocketjump.saul.jobs.model.Profession;
 import technology.rocketjump.saul.rooms.RoomStore;
 
+import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+
 @Singleton
 public class SettlerEntityFactory {
 
@@ -58,11 +60,11 @@ public class SettlerEntityFactory {
 
 		ProfessionsComponent professionsComponent = new ProfessionsComponent();
 		if (primaryProfession == null) {
-			primaryProfession = professionDictionary.getDefault();
+			primaryProfession = NULL_PROFESSION;
 		}
-		professionsComponent.setSkillLevel(primaryProfession, 0.5f);
+		professionsComponent.setSkillLevel(primaryProfession, 50);
 		if (secondaryProfession != null && !secondaryProfession.equals(primaryProfession)) {
-			professionsComponent.setSkillLevel(secondaryProfession, 0.25f);
+			professionsComponent.setSkillLevel(secondaryProfession, 30);
 		}
 		entity.addComponent(professionsComponent);
 

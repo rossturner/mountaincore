@@ -86,7 +86,7 @@ public class CreatureViewerApplication extends ApplicationAdapter {
 		currentEntity = creatureEntityFactory.create(attributes, position, facing, gameContext);
 
 		ProfessionsComponent professionsComponent = currentEntity.getOrCreateComponent(ProfessionsComponent.class);
-		professionsComponent.setSkillLevel(injector.getInstance(ProfessionDictionary.class).getByName("CARPENTER"), 0.8f);
+		professionsComponent.setSkillLevel(injector.getInstance(ProfessionDictionary.class).getByName("CARPENTER"), 80);
 
 		injector.getInstance(EntityAssetUpdater.class).updateEntityAssets(currentEntity);
 

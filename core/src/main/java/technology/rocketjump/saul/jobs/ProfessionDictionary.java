@@ -36,6 +36,12 @@ public class ProfessionDictionary {
 
 		for (Profession profession : professions) {
 			byName.put(profession.getName(), profession);
+
+			if (profession.getName().equals("VILLAGER")) {
+				NULL_PROFESSION.setName(profession.getName());
+				NULL_PROFESSION.setI18nKey(profession.getI18nKey());
+				NULL_PROFESSION.setIcon(profession.getIcon());
+			}
 		}
 	}
 
@@ -47,7 +53,4 @@ public class ProfessionDictionary {
 		return byName.values();
 	}
 
-	public Profession getDefault() {
-		return byName.get("VILLAGER");
-	}
 }

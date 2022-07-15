@@ -44,7 +44,8 @@ public class CookingRecipe {
 	private String onCompletionSoundAssetName;
 	@JsonIgnore
 	private SoundAsset onCompletionSoundAsset;
-	private Float defaultTimeToCompleteCooking;
+	private Float minimumTimeToCompleteCooking;
+	private Float maximumTimeToCompleteCooking;
 
 	public String getOutputDescriptionI18nKey() {
 		return outputDescriptionI18nKey;
@@ -62,12 +63,26 @@ public class CookingRecipe {
 		this.verbOverrideI18nKey = verbOverrideI18nKey;
 	}
 
-	public Float getDefaultTimeToCompleteCooking() {
-		return defaultTimeToCompleteCooking;
+	public Float getMinimumTimeToCompleteCooking() {
+		return minimumTimeToCompleteCooking;
 	}
 
-	public void setDefaultTimeToCompleteCooking(Float defaultTimeToCompleteCooking) {
-		this.defaultTimeToCompleteCooking = defaultTimeToCompleteCooking;
+	public void setMinimumTimeToCompleteCooking(Float minimumTimeToCompleteCooking) {
+		this.minimumTimeToCompleteCooking = minimumTimeToCompleteCooking;
+	}
+
+	public float getTimeToCompleteCooking(int skillLevelForProfession) {
+		float timeMultiplier = ((100f - (float)skillLevelForProfession) / 100f);
+		float variableTime = getMaximumTimeToCompleteCooking() - getMinimumTimeToCompleteCooking();
+		return getMinimumTimeToCompleteCooking() + (timeMultiplier * variableTime);
+	}
+
+	public Float getMaximumTimeToCompleteCooking() {
+		return maximumTimeToCompleteCooking;
+	}
+
+	public void setMaximumTimeToCompleteCooking(Float maximumTimeToCompleteCooking) {
+		this.maximumTimeToCompleteCooking = maximumTimeToCompleteCooking;
 	}
 
 	public enum CookingProcess {
