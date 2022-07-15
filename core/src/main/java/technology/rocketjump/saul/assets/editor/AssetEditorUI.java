@@ -5,6 +5,8 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.RandomXS128;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -33,9 +35,17 @@ import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorConte
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorPane;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeMessage;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.PropertyEditorPane;
+import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
+import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.Race;
+import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
+import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.utils.HexColors;
+
+import java.util.Random;
 
 import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_ASSET_DESCRIPTOR;
 import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_TYPE_DESCRIPTOR;
@@ -58,16 +68,23 @@ public class AssetEditorUI implements Telegraph {
 	private final ColorPicker colorPicker;
 	private ColorPickerMessage.ColorPickerCallback colorPickerCallback;
 
+	private CreatureEntityFactory creatureEntityFactory;
+	//TODO: move
+	private RaceDictionary raceDictionary;
+
 	@Inject
 	public AssetEditorUI(EntityBrowserContextMenu browserContextMenu, TopLevelMenu topLevelMenu, NavigatorPane navigatorPane,
 						 EntityBrowserPane entityBrowserPane, PropertyEditorPane propertyEditorPane,
-						 MessageDispatcher messageDispatcher, EditorStateProvider editorStateProvider) {
+						 MessageDispatcher messageDispatcher, EditorStateProvider editorStateProvider,
+						 CreatureEntityFactory creatureEntityFactory, RaceDictionary raceDictionary) {
 		this.browserContextMenu = browserContextMenu;
 		this.topLevelMenu = topLevelMenu;
 		this.navigatorPane = navigatorPane;
 		this.entityBrowserPane = entityBrowserPane;
 		this.propertyEditorPane = propertyEditorPane;
 		this.editorStateProvider = editorStateProvider;
+		this.creatureEntityFactory = creatureEntityFactory;
+		this.raceDictionary = raceDictionary;
 
 		stage = new Stage();
 		topLevelTable = new VisTable();
@@ -203,7 +220,12 @@ public class AssetEditorUI implements Telegraph {
 			}
 			case MessageType.EDITOR_ENTITY_SELECTION: {
 				EditorEntitySelection selection = (EditorEntitySelection) msg.extraInfo;
+				Entity entity = null;
+				if (selection != null) {
+					entity = createEntity(selection);
+				}
 				propertyEditorPane.showControlsFor(null);
+				editorStateProvider.getState().setCurrentEntity(entity);
 				editorStateProvider.getState().setEntitySelection(selection);
 				editorStateProvider.stateChanged();
 				reload();
@@ -260,5 +282,32 @@ public class AssetEditorUI implements Telegraph {
 		viewport.setUnitsPerPixel(1);
 		stage.setViewport(viewport);
 		stage.getViewport().update(width, height, true);
+	}
+
+	private Entity createEntity(EditorEntitySelection entitySelection) {
+		Random random = new Random();
+		GameContext gameContext = new GameContext();
+		gameContext.setRandom(new RandomXS128());
+		switch (entitySelection.getEntityType()) {
+			case CREATURE -> {
+//				Vector2 position = new Vector2((int)Math.floor(camera.viewportWidth * 0.5f) + 0.5f, (int)Math.floor(camera.viewportHeight * 0.4f) + 0.5f);
+
+				Race race = raceDictionary.getByName(entitySelection.getTypeName());
+				CreatureEntityAttributes attributes = new CreatureEntityAttributes(race, random.nextLong()); //TODO: persistable too?
+				Vector2 origin = new Vector2(0, 0f);
+				return creatureEntityFactory.create(attributes, origin, origin, gameContext);
+			}
+			case PLANT -> {
+			}
+			case ITEM -> {
+			}
+			case FURNITURE -> {
+			}
+			case ONGOING_EFFECT -> {
+			}
+			case MECHANISM -> {
+			}
+		}
+		return null;
 	}
 }

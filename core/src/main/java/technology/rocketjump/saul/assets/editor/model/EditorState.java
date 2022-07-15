@@ -1,7 +1,7 @@
 package technology.rocketjump.saul.assets.editor.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.alibaba.fastjson.annotation.JSONField;
+import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.rendering.RenderMode;
 
 import java.nio.file.Path;
@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class EditorState {
 
 	private String modDir;
@@ -17,12 +16,14 @@ public class EditorState {
 	private EditorEntitySelection entitySelection;
 	private EditorAssetSelection assetSelection;
 	private RenderMode renderMode = RenderMode.DIFFUSE;
+	@JSONField(serialize = false, deserialize = false)
+	private Entity currentEntity;
 
 	public String getModDir() {
 		return modDir;
 	}
 
-	@JsonIgnore
+	@JSONField(serialize = false)
 	public Path getModDirPath() {
 		return Paths.get(modDir);
 	}
@@ -61,5 +62,13 @@ public class EditorState {
 
 	public void setRenderMode(RenderMode renderMode) {
 		this.renderMode = renderMode;
+	}
+
+	public Entity getCurrentEntity() {
+		return currentEntity;
+	}
+
+	public void setCurrentEntity(Entity currentEntity) {
+		this.currentEntity = currentEntity;
 	}
 }
