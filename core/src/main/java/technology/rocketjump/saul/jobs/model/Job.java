@@ -30,7 +30,6 @@ import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSI
 
 public class Job implements Persistable {
 
-	private static final float TIME_TO_COMPLETE_JOB_WHEN_UNSPECIFIED = 3f;
 	private long jobId;
 	private JobType type;
 
@@ -155,15 +154,13 @@ public class Job implements Persistable {
 			return craftingRecipe.getTimeToCompleteCrafting(skillLevelForProfession);
 		} else if (cookingRecipe != null) {
 			return cookingRecipe.getTimeToCompleteCooking(skillLevelForProfession);
-		} else if (type.getMinimumTimeToCompleteJob() != null && type.getMaximumTimeToCompleteJob() != null) {
+		} else {
 			if (type.getRequiredProfession().equals(CONTEXT_DEPENDENT_PROFESSION_REQUIRED)) {
 				Logger.error("Calculating time with " + CONTEXT_DEPENDENT_PROFESSION_REQUIRED.getName());
 			}
 			float timeMultiplier = ((100f - (float)skillLevelForProfession) / 100f);
 			float variableTime = type.getMaximumTimeToCompleteJob() - type.getMinimumTimeToCompleteJob();
 			return type.getMinimumTimeToCompleteJob() + (timeMultiplier * variableTime);
-		} else {
-			return TIME_TO_COMPLETE_JOB_WHEN_UNSPECIFIED;
 		}
 	}
 

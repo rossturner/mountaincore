@@ -63,7 +63,6 @@ import static technology.rocketjump.saul.ui.i18n.I18nText.BLANK;
 @Singleton
 public class I18nTranslator implements I18nUpdatable {
 
-	public static final I18nWord PROFESSION_DESCRIPTION_REPLACEMENTS = new I18nWord("{{skillLevelDescription}} {{profession}}");
 	public static DecimalFormat oneDecimalFormat = new DecimalFormat("#.#");
 
 	private final I18nRepo repo;

@@ -16,7 +16,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class JobType {
 
-	private static final Float DEFAULT_JOB_TIME = 5f;
+	private static final Float DEFAULT_JOB_TIME = 4f;
 	@Name
 	private String name;
 	private String overrideI18nKey;
