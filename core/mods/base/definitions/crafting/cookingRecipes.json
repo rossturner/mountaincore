@@ -96,7 +96,8 @@
     "inputLiquidQuantity": 1,
 
     "cookedInFurnitureName": "CHEFS_CAULDRON",
-    "defaultTimeToCompleteCooking": 13,
+    "minimumTimeToCompleteCooking": 5,
+    "maximumTimeToCompleteCooking": 20,
 
     "outputDescriptionI18nKey": "COOKING.SOUP.DESCRIPTION",
     "outputMaterialType": "LIQUID",
@@ -117,7 +118,8 @@
     "inputLiquidQuantity": 0,
 
     "cookedInFurnitureName": "BAKING_OVEN",
-    "defaultTimeToCompleteCooking": 15,
+    "minimumTimeToCompleteCooking": 5,
+    "maximumTimeToCompleteCooking": 20,
 
     "verbOverrideI18nKey": "PROFESSION.BAKER",
     "outputDescriptionI18nKey": "COOKING.BREAD.DESCRIPTION",

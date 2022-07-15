@@ -33,7 +33,8 @@
       "minSize" : 2,
       "maxSize" : 5
     },
-    "aggressionResponse" : "ATTACK"
+    "aggressionResponse" : "ATTACK",
+    "isSapient" : false
   },
   "genders" : {
     "MALE" : {
@@ -96,7 +97,8 @@
       "minSize" : 2,
       "maxSize" : 4
     },
-    "aggressionResponse" : "FLEE"
+    "aggressionResponse" : "FLEE",
+    "isSapient" : false
   },
   "genders" : {
     "MALE" : {
@@ -151,7 +153,8 @@
       "minSize" : 3,
       "maxSize" : 5
     },
-    "aggressionResponse" : "ATTACK"
+    "aggressionResponse" : "ATTACK",
+    "isSapient" : false
   },
   "genders" : {
     "MALE" : {
@@ -206,7 +209,8 @@
     "behaviourName" : "SolitaryAnimal",
     "scheduleName" : "Diurnal animal",
     "needs" : [ "SLEEP" ],
-    "aggressionResponse" : "MIXED"
+    "aggressionResponse" : "MIXED",
+    "isSapient" : false
   },
   "genders" : {
     "MALE" : {
@@ -275,7 +279,8 @@
     "behaviourName" : "Settler",
     "scheduleName" : "Default Settler Schedule",
     "needs" : [ "FOOD", "DRINK", "SLEEP" ],
-    "aggressionResponse" : "FLEE"
+    "aggressionResponse" : "FLEE",
+    "isSapient" : true
   },
   "genders" : {
     "MALE" : {
@@ -314,7 +319,8 @@
   "colors" : { },
   "behaviour" : {
     "behaviourName" : "Fish",
-    "needs" : [ ]
+    "needs" : [ ],
+    "isSapient" : false
   },
   "genders" : {
     "MALE" : {
@@ -354,7 +360,8 @@
   "colors" : { },
   "behaviour" : {
     "behaviourName" : "Fish",
-    "needs" : [ ]
+    "needs" : [ ],
+    "isSapient" : false
   },
   "genders" : {
     "MALE" : {
@@ -394,7 +401,8 @@
   "colors" : { },
   "behaviour" : {
     "behaviourName" : "Fish",
-    "needs" : [ ]
+    "needs" : [ ],
+    "isSapient" : false
   },
   "genders" : {
     "MALE" : {

@@ -23,6 +23,7 @@ public class RaceBehaviour {
 	private List<EntityNeed> needs = new ArrayList<>();
 	private RaceBehaviourGroup group;
 	private AggressionResponse aggressionResponse;
+	private boolean isSapient;
 
 	public String getBehaviourName() {
 		return behaviourName;
@@ -78,5 +79,13 @@ public class RaceBehaviour {
 
 	public void setAggressionResponse(AggressionResponse aggressionResponse) {
 		this.aggressionResponse = aggressionResponse;
+	}
+
+	public boolean getIsSapient() {
+		return isSapient;
+	}
+
+	public void setIsSapient(boolean sapient) {
+		isSapient = sapient;
 	}
 }

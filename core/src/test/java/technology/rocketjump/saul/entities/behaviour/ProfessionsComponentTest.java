@@ -33,15 +33,15 @@ public class ProfessionsComponentTest {
 	public void add() throws Exception {
 		ProfessionsComponent component = new ProfessionsComponent();
 
-		component.setSkillLevel(profB, 0.5f);
-		component.setSkillLevel(profA, 0.2f);
-		component.setSkillLevel(profC,0.8f);
+		component.setSkillLevel(profB, 50);
+		component.setSkillLevel(profA, 20);
+		component.setSkillLevel(profC,80);
 
 		assertThat(component.getActiveProfessions()).hasSize(4);
-		assertThat(component.getActiveProfessions().get(0).getSkillLevel()).isEqualTo(0.8f);
-		assertThat(component.getActiveProfessions().get(1).getSkillLevel()).isEqualTo(0.5f);
-		assertThat(component.getActiveProfessions().get(2).getSkillLevel()).isEqualTo(0.2f);
-		assertThat(component.getActiveProfessions().get(3).getSkillLevel()).isEqualTo(0f);
+		assertThat(component.getActiveProfessions().get(0).getSkillLevel()).isEqualTo(50);
+		assertThat(component.getActiveProfessions().get(1).getSkillLevel()).isEqualTo(20);
+		assertThat(component.getActiveProfessions().get(2).getSkillLevel()).isEqualTo(80);
+		assertThat(component.getActiveProfessions().get(3).getSkillLevel()).isEqualTo(50); // NULL_PROFESSION
 	}
 
 }

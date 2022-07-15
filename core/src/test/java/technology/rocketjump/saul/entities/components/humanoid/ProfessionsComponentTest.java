@@ -22,8 +22,8 @@ public class ProfessionsComponentTest {
 	@Test
 	public void hasAnyActiveProfession() {
 		ProfessionsComponent professionsComponent = new ProfessionsComponent();
-		professionsComponent.setSkillLevel(mockProfA, 0.5f);
-		professionsComponent.setSkillLevel(mockProfB, 0.3f);
+		professionsComponent.setSkillLevel(mockProfA, 50);
+		professionsComponent.setSkillLevel(mockProfB, 30);
 
 		assertThat(professionsComponent.hasAnyActiveProfession(Sets.newHashSet(mockProfA))).isTrue();
 		assertThat(professionsComponent.hasAnyActiveProfession(Sets.newHashSet(mockProfC))).isFalse();

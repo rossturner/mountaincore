@@ -20,7 +20,8 @@
       }
     ],
     "materialTypesToCopyOver": ["METAL", "WOOD"],
-    "defaultTimeToCompleteCrafting": 5
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 8.5
   },
   {
     "recipeName": "Craft wooden bow",
@@ -38,6 +39,7 @@
       }
     ],
     "materialTypesToCopyOver": ["WOOD"],
-    "defaultTimeToCompleteCrafting": 8
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 11.5
   }
 ]

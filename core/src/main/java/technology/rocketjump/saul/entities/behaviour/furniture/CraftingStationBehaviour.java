@@ -173,10 +173,13 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			if (poweredFurnitureComponent != null) {
 				if (poweredFurnitureComponent.isPowered(poweredFurnitureComponent.getParentUnderTile(gameContext))) {
 					// powered, job should take normal length of time
-					craftingJob.setOverrideWorkDuration(null);
+					craftingJob.setWorkDurationMultiplier(null);
 				} else {
 					// not powered, make job take longer
-					craftingJob.setOverrideWorkDuration(craftingJob.getJobTypeTotalWorkToDo() * poweredFurnitureComponent.getAnimationSpeed());
+
+					// MODDING It's a bit of a hack that the work duration multiplier is using the animation speed, better
+					// to separate this out to another variable passed into the PoweredFurnitureComponent
+					craftingJob.setWorkDurationMultiplier(poweredFurnitureComponent.getAnimationSpeed());
 				}
 			}
 

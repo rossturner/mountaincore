@@ -614,10 +614,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 
 		if (!changeProfessionMessage.newProfession.getName().equals("VILLAGER")) {
-			if (professionsComponent.hasInactiveProfession(changeProfessionMessage.newProfession)) {
-				professionsComponent.add(changeProfessionMessage.newProfession);
-			} else {
-				professionsComponent.setSkillLevel(changeProfessionMessage.newProfession, 0.01f);
+			if (!professionsComponent.hasActiveProfession(changeProfessionMessage.newProfession)) {
+				professionsComponent.activate(changeProfessionMessage.newProfession);
 			}
 		}
 

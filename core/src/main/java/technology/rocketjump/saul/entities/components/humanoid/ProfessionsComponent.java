@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.google.common.collect.Sets;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.model.Profession;
@@ -19,7 +20,8 @@ public class ProfessionsComponent implements EntityComponent {
 
 	public static final int MAX_PROFESSIONS = 3;
 	private List<Profession> activeProfessions = new ArrayList<>(); // Note this is in priority order
-	private Map<Profession, Float> skillLevels = new HashMap<>();
+	private Map<Profession, Integer> skillLevels = new HashMap<>();
+	private Map<Profession, Integer> experiencePoints = new HashMap<>();
 
 	public ProfessionsComponent() {
 		clear();
@@ -35,68 +37,56 @@ public class ProfessionsComponent implements EntityComponent {
 		return cloned;
 	}
 
-	public void add(Profession profession) {
+	public void activate(Profession profession) {
 		if (!activeProfessions.contains(profession)) {
 			// Insert new active profession before last entry (which is NULL_PROFESSION)
 			activeProfessions.add(activeProfessions.size() - 1, profession);
 		}
-		if (!skillLevels.containsKey(profession)) {
-			skillLevels.put(profession, 0f);
-		}
-	}
-
-	public void setSkillLevel(Profession profession, float skillLevel) {
-		add(profession);
-		skillLevels.put(profession, skillLevel);
 	}
 
 	public void deactivate(Profession profession) {
 		if (profession.equals(NULL_PROFESSION)) {
-			throw new IllegalArgumentException("Can not deactivate " + NULL_PROFESSION.getName());
+			Logger.warn("Can not deactivate " + NULL_PROFESSION.getName());
+		} else {
+			activeProfessions.remove(profession);
 		}
-		activeProfessions.remove(profession);
+	}
+
+	public void setSkillLevel(Profession profession, int skillLevel) {
+		activate(profession);
+		skillLevels.put(profession, skillLevel);
 	}
 
 	public boolean hasActiveProfession(Profession profession) {
 		return activeProfessions.contains(profession);
 	}
 
-	public boolean hasInactiveProfession(Profession profession) {
-		return skillLevels.containsKey(profession) && !activeProfessions.contains(profession);
-	}
-
 	public boolean hasAnyActiveProfession(Set<Profession> professionSet) {
-		return !Sets.intersection(professionSet, Set.of(activeProfessions)).isEmpty();
+		return !Sets.intersection(professionSet, Sets.newHashSet(activeProfessions)).isEmpty();
 	}
-
 
 	public List<QuantifiedProfession> getActiveProfessions() {
 		List<QuantifiedProfession> quantifiedProfessions = new ArrayList<>();
 		for (Profession profession : activeProfessions) {
-			quantifiedProfessions.add(new QuantifiedProfession(profession, skillLevels.get(profession)));
+			quantifiedProfessions.add(new QuantifiedProfession(profession, skillLevels.getOrDefault(profession, 0)));
 		}
 		return quantifiedProfessions;
 	}
 
-	public Profession getPrimaryProfession(Profession defaultProfession) {
-		if (activeProfessions.get(0).equals(NULL_PROFESSION)) {
-			return defaultProfession;
-		} else {
-			return activeProfessions.get(0);
-		}
+	public Profession getPrimaryProfession() {
+		return activeProfessions.get(0);
 	}
 
-	public float getSkillLevel(Profession profession) {
-		if (profession.equals(NULL_PROFESSION)) {
-			return 0.5f;
-		} else {
-			return skillLevels.getOrDefault(profession, 0f);
-		}
+	public int getSkillLevel(Profession profession) {
+		return skillLevels.getOrDefault(profession, 0);
 	}
 
 	public void clear() {
 		activeProfessions.clear();
-		skillLevels.put(NULL_PROFESSION, 0f);
+		skillLevels.clear();
+		experiencePoints.clear();
+
+		skillLevels.put(NULL_PROFESSION, 50); // always 50 for null/none profession so will take medium time
 		activeProfessions.add(NULL_PROFESSION); // NULL_PROFESSION acts as default "Villager" profession
 	}
 
@@ -111,12 +101,21 @@ public class ProfessionsComponent implements EntityComponent {
 		asJson.put("active", activeProfessionsJson);
 
 		JSONObject skillLevelsJson = new JSONObject(true);
-		for (Map.Entry<Profession, Float> entry : skillLevels.entrySet()) {
-			if (entry.getValue() > 0f) {
+		for (Map.Entry<Profession, Integer> entry : skillLevels.entrySet()) {
+			if (entry.getValue() > 0) {
 				skillLevelsJson.put(entry.getKey().getName(), entry.getValue());
 			}
 		}
 		asJson.put("skillLevels", skillLevelsJson);
+
+
+		JSONObject experienceJson = new JSONObject(true);
+		for (Map.Entry<Profession, Integer> entry : experiencePoints.entrySet()) {
+			if (entry.getValue() > 0) {
+				experienceJson.put(entry.getKey().getName(), entry.getValue());
+			}
+		}
+		asJson.put("experience", experienceJson);
 	}
 
 
@@ -124,7 +123,8 @@ public class ProfessionsComponent implements EntityComponent {
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
 		JSONArray activeProfessionsJson = asJson.getJSONArray("active");
 		JSONObject skillLevelsJson = asJson.getJSONObject("skillLevels");
-		if (activeProfessionsJson == null || skillLevelsJson == null) {
+		JSONObject experienceJson = asJson.getJSONObject("experience");
+		if (activeProfessionsJson == null || skillLevelsJson == null || experienceJson == null) {
 			throw new InvalidSaveException("Unrecognised professions json");
 		}
 
@@ -141,8 +141,22 @@ public class ProfessionsComponent implements EntityComponent {
 			if (profession == null) {
 				throw new InvalidSaveException("Could not find profession with name " + professionName);
 			}
-			Float skillLevel = skillLevelsJson.getFloatValue(professionName);
-			skillLevels.put(profession, skillLevel);
+			Integer skillLevel = skillLevelsJson.getInteger(professionName);
+			if (skillLevel != null) {
+				skillLevels.put(profession, skillLevel);
+			}
+		}
+
+
+		for (String professionName: experienceJson.keySet()) {
+			Profession profession = relatedStores.professionDictionary.getByName(professionName);
+			if (profession == null) {
+				throw new InvalidSaveException("Could not find profession with name " + professionName);
+			}
+			Integer points = experienceJson.getInteger(professionName);
+			if (points != null) {
+				experiencePoints.put(profession, points);
+			}
 		}
 	}
 
@@ -164,9 +178,9 @@ public class ProfessionsComponent implements EntityComponent {
 	public static class QuantifiedProfession {
 
 		private final Profession profession;
-		private float skillLevel;
+		private final int skillLevel;
 
-		public QuantifiedProfession(Profession profession, float skillLevel) {
+		public QuantifiedProfession(Profession profession, int skillLevel) {
 			this.profession = profession;
 			this.skillLevel = skillLevel;
 		}
@@ -175,7 +189,7 @@ public class ProfessionsComponent implements EntityComponent {
 			return profession;
 		}
 
-		public float getSkillLevel() {
+		public int getSkillLevel() {
 			return skillLevel;
 		}
 

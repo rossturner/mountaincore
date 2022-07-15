@@ -1,7 +1,9 @@
 [
   {
     "name": "MINING",
-    "defaultTimeToCompleteJob": 5,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 9.25,
+    "experienceAwardedOnCompletion": 1,
     "overrideI18nKey": "ACTION.JOB.GENERIC",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "MINER",
@@ -11,7 +13,9 @@
   },
   {
     "name": "DIGGING",
-    "defaultTimeToCompleteJob": 5,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 5.25,
+    "experienceAwardedOnCompletion": 1,
     "overrideI18nKey": "ACTION.JOB.DIGGING",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "MINER",
@@ -21,7 +25,9 @@
   },
   {
     "name": "LOGGING",
-    "defaultTimeToCompleteJob": 5,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 8.25,
+    "experienceAwardedOnCompletion": 1,
     "overrideI18nKey": "ACTION.JOB.LOGGING",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "LUMBERJACK",
@@ -34,20 +40,24 @@
 
   {
     "name": "SHOVELLING",
-    "defaultTimeToCompleteJob": 5,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 9.25,
     "overrideI18nKey": "ACTION.JOB.SHOVELLING",
     "activeSoundAssetName": "Tilling"
   },
   {
     "name": "LIGHT_CHARCOAL_CLAMP",
-    "defaultTimeToCompleteJob": 5,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 9.25,
     "overrideI18nKey": "ACTION.JOB.SHOVELLING",
     "activeSoundAssetName": "Tilling",
     "mightStartFire": 0.05
   },
   {
     "name": "TILLING",
-    "defaultTimeToCompleteJob": 4,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 6.25,
+    "experienceAwardedOnCompletion": 1,
     "overrideI18nKey": "ACTION.JOB.TILLING",
     "requiredProfessionName": "FARMER",
     "activeSoundAssetName": "Tilling",
@@ -55,7 +65,8 @@
   },
   {
     "name": "FILL_GRAVE",
-    "defaultTimeToCompleteJob": 5,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 9.25,
     "overrideI18nKey": "ACTION.JOB.FILL_GRAVE",
     "accessedFromAdjacentTile": true,
     "activeSoundAssetName": "Tilling",
@@ -63,7 +74,9 @@
   },
   {
     "name": "DIG_CHANNEL",
-    "defaultTimeToCompleteJob": 5,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 7.25,
+    "experienceAwardedOnCompletion": 1,
     "overrideI18nKey": "ACTION.JOB.SHOVELLING",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "MINER",
@@ -73,48 +86,60 @@
   },
   {
     "name": "PLANTING",
-    "defaultTimeToCompleteJob": 2,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 5.25,
+    "experienceAwardedOnCompletion": 2,
     "overrideI18nKey": "ACTION.JOB.PLANTING",
     "requiredProfessionName": "FARMER",
     "workOnJobParticleEffectNames": ["Digging ground same tile"]
   },
   {
     "name": "REMOVE_PESTS_FROM_CROP",
-    "defaultTimeToCompleteJob": 5,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 7.25,
+    "experienceAwardedOnCompletion": 2,
     "overrideI18nKey": "ACTION.JOB.REMOVE_PESTS_FROM_CROP",
     "requiredProfessionName": "FARMER",
     "workOnJobParticleEffectNames": ["Small leaf explosion"]
   },
   {
     "name": "MUSHROOM_INNOCULATION",
-    "defaultTimeToCompleteJob": 5,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 7.25,
+    "experienceAwardedOnCompletion": 2,
     "overrideI18nKey": "ACTION.JOB.INNOCULATE_MUSHROOM_LOG",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "FARMER"
   },
   {
     "name": "HARVESTING",
-    "defaultTimeToCompleteJob": 4,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 5.25,
     "overrideI18nKey": "ACTION.JOB.HARVESTING",
     "activeSoundAssetName": "HarvestingCrops",
     "workOnJobParticleEffectNames": ["Small leaf explosion"]
   },
   {
     "name": "HARVEST_FROM_FURNITURE",
-    "defaultTimeToCompleteJob": 4,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 5.25,
     "overrideI18nKey": "ACTION.JOB.HARVESTING",
     "activeSoundAssetName": "HarvestingCrops",
     "accessedFromAdjacentTile": true
   },
   {
     "name": "CLEAR_GROUND",
-    "defaultTimeToCompleteJob": 3,
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 5.25,
     "overrideI18nKey": "ACTION.JOB.CLEAR_GROUND",
     "accessedFromAdjacentTile": false,
     "workOnJobParticleEffectNames": ["Small leaf explosion"]
   },
   {
     "name": "COOKING",
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 9.25,
+    "experienceAwardedOnCompletion": 4,
     "overrideI18nKey": "ACTION.JOB.GENERIC",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "CHEF",
@@ -122,7 +147,9 @@
   },
   {
     "name": "FISHING",
-    "defaultTimeToCompleteJob": 38,
+    "minimumTimeToCompleteJob": 15,
+    "maximumTimeToCompleteJob": 40,
+    "experienceAwardedOnCompletion": 3,
     "overrideI18nKey": "ACTION.JOB.FISHING",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "FISHER",
@@ -145,7 +172,8 @@
   },
   {
     "name": "TRANSFER_LIQUID",
-    "defaultTimeToCompleteJob": 0.7,
+    "minimumTimeToCompleteJob": 0.65,
+    "maximumTimeToCompleteJob": 0.75,
     "overrideI18nKey": "ACTION.JOB.TRANSFER_LIQUID",
     "accessedFromAdjacentTile": true,
     "haulItemWhileWorking": true,
@@ -155,7 +183,8 @@
   },
   {
     "name": "MOVE_LIQUID_IN_ITEM",
-    "defaultTimeToCompleteJob": 0.7,
+    "minimumTimeToCompleteJob": 0.65,
+    "maximumTimeToCompleteJob": 0.75,
     "overrideI18nKey": "ACTION.JOB.TRANSFER_LIQUID",
     "accessedFromAdjacentTile": true,
     "haulItemWhileWorking": true,
@@ -165,7 +194,8 @@
   },
   {
     "name": "REMOVE_LIQUID",
-    "defaultTimeToCompleteJob": 0.7,
+    "minimumTimeToCompleteJob": 0.65,
+    "maximumTimeToCompleteJob": 0.75,
     "overrideI18nKey": "ACTION.JOB.TRANSFER_LIQUID",
     "accessedFromAdjacentTile": false,
     "haulItemWhileWorking": true,
@@ -174,7 +204,8 @@
   },
   {
     "name": "DUMP_LIQUID_FROM_CONTAINER",
-    "defaultTimeToCompleteJob": 0.3,
+    "minimumTimeToCompleteJob": 0.65,
+    "maximumTimeToCompleteJob": 0.75,
     "overrideI18nKey": "ACTION.JOB.DUMP_LIQUID_FROM_CONTAINER",
     "accessedFromAdjacentTile": false,
     "haulItemWhileWorking": true,
@@ -186,28 +217,42 @@
 
   {
     "name": "FORGE_ITEM",
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 8.25,
+    "experienceAwardedOnCompletion": 4,
     "overrideI18nKey": "ACTION.JOB.GENERIC",
     "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
     "activeSoundAssetName": "Metallic Hammering"
   },
   {
     "name": "CRAFT_ITEM",
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 8.25,
+    "experienceAwardedOnCompletion": 4,
     "overrideI18nKey": "ACTION.JOB.GENERIC",
     "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED"
   },
   {
     "name": "PRODUCE_ITEM",
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 8.25,
+    "experienceAwardedOnCompletion": 4,
     "overrideI18nKey": "ACTION.JOB.CREATE_GENERIC",
     "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED"
   },
   {
     "name": "PRODUCE_LIQUID",
+    "minimumTimeToCompleteJob": 0.75,
+    "maximumTimeToCompleteJob": 8.25,
+    "experienceAwardedOnCompletion": 4,
     "overrideI18nKey": "ACTION.JOB.GENERIC",
     "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED"
   },
   {
     "name": "CONSTRUCT_WOODEN_FURNITURE",
-    "defaultTimeToCompleteJob": 6,
+    "minimumTimeToCompleteJob": 3.75,
+    "maximumTimeToCompleteJob": 9.25,
+    "experienceAwardedOnCompletion": 3,
     "overrideI18nKey": "ACTION.JOB.CONSTRUCT_FURNITURE",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "CARPENTER",
@@ -216,7 +261,9 @@
   },
   {
     "name": "CONSTRUCT_STONE_FURNITURE",
-    "defaultTimeToCompleteJob": 6,
+    "minimumTimeToCompleteJob": 3.75,
+    "maximumTimeToCompleteJob": 9.25,
+    "experienceAwardedOnCompletion": 3,
     "overrideI18nKey": "ACTION.JOB.CONSTRUCT_FURNITURE",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "STONEMASON",
@@ -225,21 +272,27 @@
   },
   {
     "name": "CONSTRUCT",
-    "defaultTimeToCompleteJob": 6,
+    "minimumTimeToCompleteJob": 3.75,
+    "maximumTimeToCompleteJob": 9.25,
+    "experienceAwardedOnCompletion": 3,
     "overrideI18nKey": "ACTION.JOB.GENERIC",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED"
   },
   {
     "name": "DECONSTRUCT",
-    "defaultTimeToCompleteJob": 6,
+    "minimumTimeToCompleteJob": 3.75,
+    "maximumTimeToCompleteJob": 9.25,
+    "experienceAwardedOnCompletion": 1,
     "overrideI18nKey": "ACTION.JOB.DECONSTRUCT",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED"
   },
   {
     "name": "CONSTRUCT_ROOFING",
-    "defaultTimeToCompleteJob": 4,
+    "minimumTimeToCompleteJob": 1.75,
+    "maximumTimeToCompleteJob": 6.25,
+    "experienceAwardedOnCompletion": 2,
     "overrideI18nKey": "ACTION.JOB.CONSTRUCT_ROOFING",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "CARPENTER",
@@ -251,7 +304,9 @@
   },
   {
     "name": "DECONSTRUCT_ROOFING",
-    "defaultTimeToCompleteJob": 4,
+    "minimumTimeToCompleteJob": 1.75,
+    "maximumTimeToCompleteJob": 6.25,
+    "experienceAwardedOnCompletion": 1,
     "overrideI18nKey": "ACTION.JOB.DECONSTRUCT_ROOFING",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "CARPENTER",
@@ -259,7 +314,9 @@
   },
   {
     "name": "CONSTRUCT_PIPING",
-    "defaultTimeToCompleteJob": 4,
+    "minimumTimeToCompleteJob": 1.75,
+    "maximumTimeToCompleteJob": 6.25,
+    "experienceAwardedOnCompletion": 2,
     "overrideI18nKey": "ACTION.JOB.CONSTRUCT_PIPING",
     "accessedFromAdjacentTile": true,
     "requiredItemTypeName": "Product-Stone-Pipe",
@@ -268,14 +325,18 @@
   },
   {
     "name": "DECONSTRUCT_PIPING",
-    "defaultTimeToCompleteJob": 4,
+    "minimumTimeToCompleteJob": 1.75,
+    "maximumTimeToCompleteJob": 6.25,
+    "experienceAwardedOnCompletion": 1,
     "overrideI18nKey": "ACTION.JOB.DECONSTRUCT_PIPING",
     "accessedFromAdjacentTile": true,
     "workOnJobParticleEffectNames": ["Digging ground same tile"]
   },
   {
     "name": "CONSTRUCT_MECHANISM",
-    "defaultTimeToCompleteJob": 4,
+    "minimumTimeToCompleteJob": 1.75,
+    "maximumTimeToCompleteJob": 6.25,
+    "experienceAwardedOnCompletion": 2,
     "overrideI18nKey": "ACTION.JOB.CONSTRUCT_MECHANISM",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
@@ -284,14 +345,18 @@
   },
   {
     "name": "DECONSTRUCT_MECHANISM",
-    "defaultTimeToCompleteJob": 4,
+    "minimumTimeToCompleteJob": 1.75,
+    "maximumTimeToCompleteJob": 6.25,
+    "experienceAwardedOnCompletion": 1,
     "overrideI18nKey": "ACTION.JOB.DECONSTRUCT_PIPING",
     "accessedFromAdjacentTile": true,
     "workOnJobParticleEffectNames": ["Digging ground same tile"]
   },
   {
     "name": "CONSTRUCT_FLOORING",
-    "defaultTimeToCompleteJob": 3,
+    "minimumTimeToCompleteJob": 1.75,
+    "maximumTimeToCompleteJob": 6.25,
+    "experienceAwardedOnCompletion": 2,
     "overrideI18nKey": "ACTION.JOB.CONSTRUCT_FLOORING",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
@@ -300,7 +365,8 @@
   },
   {
     "name": "EXTINGUISH_FLAMES",
-    "defaultTimeToCompleteJob": 0.5,
+    "minimumTimeToCompleteJob": 0.5,
+    "maximumTimeToCompleteJob": 0.5,
     "overrideI18nKey": "ACTION.JOB.EXTINGUISH_FLAMES",
     "accessedFromAdjacentTile": true,
     "haulItemWhileWorking": true,
@@ -317,6 +383,9 @@
   },
   {
     "name": "BUTCHER_CREATURE",
+    "minimumTimeToCompleteJob": 1.75,
+    "maximumTimeToCompleteJob": 8.25,
+    "experienceAwardedOnCompletion": 2,
     "overrideI18nKey": "ACTION.JOB.BUTCHER_CREATURE",
     "requiredProfessionName": "CHEF",
     "usesWorkstationTool": true,

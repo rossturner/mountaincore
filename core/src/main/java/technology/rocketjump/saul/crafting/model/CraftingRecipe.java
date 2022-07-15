@@ -28,7 +28,8 @@ public class CraftingRecipe {
 
 	private List<GameMaterialType> materialTypesToCopyOver;
 	private Double extraGameHoursToComplete; // Only used in automated conversion process (for now)
-	private Float defaultTimeToCompleteCrafting;
+	private Float minimumTimeToCompleteCrafting;
+	private Float maximumTimeToCompleteCrafting;
 
 	public String getRecipeName() {
 		return recipeName;
@@ -123,11 +124,25 @@ public class CraftingRecipe {
 		this.extraGameHoursToComplete = extraGameHoursToComplete;
 	}
 
-	public Float getDefaultTimeToCompleteCrafting() {
-		return defaultTimeToCompleteCrafting;
+	public Float getMinimumTimeToCompleteCrafting() {
+		return minimumTimeToCompleteCrafting;
 	}
 
-	public void setDefaultTimeToCompleteCrafting(Float defaultTimeToCompleteCrafting) {
-		this.defaultTimeToCompleteCrafting = defaultTimeToCompleteCrafting;
+	public void setMinimumTimeToCompleteCrafting(Float minimumTimeToCompleteCrafting) {
+		this.minimumTimeToCompleteCrafting = minimumTimeToCompleteCrafting;
+	}
+
+	public Float getMaximumTimeToCompleteCrafting() {
+		return maximumTimeToCompleteCrafting;
+	}
+
+	public void setMaximumTimeToCompleteCrafting(Float maximumTimeToCompleteCrafting) {
+		this.maximumTimeToCompleteCrafting = maximumTimeToCompleteCrafting;
+	}
+
+	public float getTimeToCompleteCrafting(int skillLevelForProfession) {
+		float timeMultiplier = ((100f - (float)skillLevelForProfession) / 100f);
+		float variableTime = getMaximumTimeToCompleteCrafting() - getMinimumTimeToCompleteCrafting();
+		return getMinimumTimeToCompleteCrafting() + (timeMultiplier * variableTime);
 	}
 }

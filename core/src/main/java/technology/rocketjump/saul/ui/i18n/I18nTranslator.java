@@ -112,8 +112,8 @@ public class I18nTranslator implements I18nUpdatable {
 		switch (entity.getType()) {
 			case CREATURE:
 				CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-				if (attributes.getRace().getName().equals("Dwarf")) { // TODO Replace this with sapient race or something
-					return getSettlerDescription(entity, (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
+				if (attributes.getRace().getBehaviour().getIsSapient()) {
+					return getSapientCreatureDescription(entity, (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
 				} else {
 					return getCreatureDescription(entity, (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
 				}
@@ -185,8 +185,8 @@ public class I18nTranslator implements I18nUpdatable {
 					description = dictionary.getWord(job.getType().getOverrideI18nKey());
 				}
 				Profession requiredProfession = job.getRequiredProfession();
-				if (requiredProfession == null || NULL_PROFESSION.equals(requiredProfession)) {
-					requiredProfession = professionDictionary.getDefault();
+				if (requiredProfession == null) {
+					requiredProfession = NULL_PROFESSION;
 				}
 				replacements.put("profession", dictionary.getWord(requiredProfession.getI18nKey()));
 
@@ -458,11 +458,10 @@ public class I18nTranslator implements I18nUpdatable {
 		return applyReplacements(dictionary.getWord("CONSTRUCTION.DESCRIPTION"), replacements, Gender.ANY);
 	}
 
-	private I18nText getSettlerDescription(Entity entity, CreatureEntityAttributes attributes) {
+	private I18nText getSapientCreatureDescription(Entity entity, CreatureEntityAttributes attributes) {
 		Map<String, I18nString> replacements = new HashMap<>();
 		replacements.put("name", new I18nWord(attributes.getName().toString()));
 		replacements.put("race", dictionary.getWord(attributes.getRace().getI18nKey()));
-
 
 		if (attributes.getSanity().equals(Sanity.BROKEN)) {
 			// TODO Other kinds of madness
@@ -471,7 +470,13 @@ public class I18nTranslator implements I18nUpdatable {
 		} else {
 			ProfessionsComponent professionsComponent = entity.getComponent(ProfessionsComponent.class);
 			if (professionsComponent != null) {
-				Profession primaryProfession = professionsComponent.getPrimaryProfession(professionDictionary.getDefault());
+				Profession primaryProfession = professionsComponent.getPrimaryProfession();
+				if (primaryProfession.equals(NULL_PROFESSION)) {
+					replacements.put("skillLevelDescription", BLANK);
+				} else {
+					replacements.put("race", I18nWord.BLANK);
+					replacements.put("skillLevelDescription", getSkillLevelDescription(professionsComponent.getSkillLevel(primaryProfession)));
+				}
 				replacements.put("profession", dictionary.getWord(primaryProfession.getI18nKey()));
 			} else {
 				replacements.put("profession", I18nWord.BLANK);
@@ -479,6 +484,37 @@ public class I18nTranslator implements I18nUpdatable {
 
 			return applyReplacements(dictionary.getWord("HUMANOID.DESCRIPTION"), replacements, attributes.getGender());
 		}
+	}
+
+	public I18nText getSkilledProfessionDescription(Profession profession, int skillLevel, Gender gender) {
+		Map<String, I18nString> replacements = new HashMap<>();
+		replacements.put("profession", dictionary.getWord(profession.getI18nKey()));
+		replacements.put("skillLevelDescription", getSkillLevelDescription(skillLevel));
+		return applyReplacements(dictionary.getWord("PROFESSION.DESCRIPTION"), replacements, gender);
+	}
+
+	public I18nString getSkillLevelDescription(int skillLevel) {
+		int skillLevelDescriptionIndex;
+		if (skillLevel <= 19) {
+			skillLevelDescriptionIndex = 1;
+		} else  if (skillLevel <= 39) {
+			skillLevelDescriptionIndex = 2;
+		} else if (skillLevel <= 49) {
+			skillLevelDescriptionIndex = 3;
+		} else if (skillLevel <= 59) {
+			skillLevelDescriptionIndex = 4;
+		} else if (skillLevel <= 69) {
+			skillLevelDescriptionIndex = 5;
+		} else if (skillLevel <= 79) {
+			skillLevelDescriptionIndex = 6;
+		} else if (skillLevel <= 89) {
+			skillLevelDescriptionIndex = 7;
+		} else if (skillLevel <= 99) {
+			skillLevelDescriptionIndex = 8;
+		} else {
+			skillLevelDescriptionIndex = 9;
+		}
+		return dictionary.getWord("PROFESSION.SKILL_LEVEL." + skillLevelDescriptionIndex);
 	}
 
 
