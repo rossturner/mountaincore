@@ -30,7 +30,7 @@ public class CreatureAttributesPane extends VisTable {
         this.entityAssetUpdater = entityAssetUpdater;
         this.professionDictionary = professionDictionary;
 
-        //TODO: Move to reload pattern
+        //TODO: Move to reload pattern?
         Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
         Collection<Gender> genders = creatureAttributes.getRace().getGenders().keySet();
         Collection<CreatureBodyShape> bodyShapes = creatureAttributes.getRace().getBodyShapes().stream().map(CreatureBodyShapeDescriptor::getValue).toList();
@@ -39,24 +39,14 @@ public class CreatureAttributesPane extends VisTable {
 
         ProfessionsComponent professionsComponent = currentEntity.getOrCreateComponent(ProfessionsComponent.class);
 
-
+        //Attributes components
         add(WidgetBuilder.selectField("Gender:", creatureAttributes.getGender(), genders, null, update(creatureAttributes::setGender)));
         add(WidgetBuilder.selectField("Body Shape:", creatureAttributes.getBodyShape(), bodyShapes, null, update(creatureAttributes::setBodyShape)));
         add(WidgetBuilder.selectField("Consciousness:", creatureAttributes.getConsciousness(), consciousnesses, null, update(creatureAttributes::setConsciousness)));
-        add(WidgetBuilder.selectField("Profession:", ProfessionDictionary.NULL_PROFESSION, professions, null, update(profession -> {
+        add(WidgetBuilder.selectField("Profession:", professionsComponent.getPrimaryProfession(), professions, null, update(profession -> {
             professionsComponent.clear();
             professionsComponent.setSkillLevel(profession, 50);
         })));
-        //		HorizontalFlowGroup assetTypeFlowGroup = new HorizontalFlowGroup(5); //TODO: not 100% is right separate flow groups
-        //		assetTypeFlowGroup.addActor(new VisLabel("Hair:"));
-        //		assetTypeFlowGroup.addActor(new VisSelectBox<>());
-        //		assetTypeFlowGroup.addActor(new VisLabel("Eyebrows:"));
-        //		assetTypeFlowGroup.addActor(new VisSelectBox<>());
-        //		assetTypeFlowGroup.addActor(new VisLabel("Beard:"));
-        //		assetTypeFlowGroup.addActor(new VisSelectBox<>());
-        //		assetTypeFlowGroup.addActor(new VisLabel("Clothing:"));
-        //		assetTypeFlowGroup.addActor(new VisSelectBox<>());
-        //		viewEditor.add(assetTypeFlowGroup).expandX().fillX();
     }
 
     private <T> Consumer<T> update(Consumer<T> input) {

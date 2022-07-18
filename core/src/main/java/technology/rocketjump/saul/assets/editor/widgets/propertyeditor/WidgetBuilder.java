@@ -18,7 +18,7 @@ public class WidgetBuilder {
 	//Composite components
 	public static <T> VisTable selectField(String labelText, T initialValue, Collection<T> items, T valueIfNull, Consumer<T> changeListener) {
 		VisTable visTable = new VisTable();
-		VisLabel label = new VisLabel(labelText);
+		VisLabel label = new VisLabel(labelText.endsWith(":") ? labelText : labelText + ":");
 		VisSelectBox<T> selectBox = new VisSelectBox<>();
 		selectBox.setItems(orderedArray(items, valueIfNull));
 		if (initialValue == null) {

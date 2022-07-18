@@ -7,6 +7,8 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisRadioButton;
 import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
+import technology.rocketjump.saul.assets.entities.creature.CreatureEntityAssetDictionary;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
@@ -21,14 +23,23 @@ public class ViewEditorPane extends VisTable {
     private final EditorStateProvider editorStateProvider;
     private final EntityAssetUpdater entityAssetUpdater;
     private final ProfessionDictionary professionDictionary;
+    private final EntityAssetTypeDictionary entityAssetTypeDictionary;
+    private final CreatureEntityAssetDictionary creatureEntityAssetDictionary;
 
     @Inject
-    public ViewEditorPane(EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater, ProfessionDictionary professionDictionary) {
+    public ViewEditorPane(EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater, ProfessionDictionary professionDictionary, EntityAssetTypeDictionary entityAssetTypeDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary) {
         super();
         this.editorStateProvider = editorStateProvider;
         this.entityAssetUpdater = entityAssetUpdater;
         this.professionDictionary = professionDictionary;
+        this.entityAssetTypeDictionary = entityAssetTypeDictionary;
+        this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
     }
+
+    //TODO: Subscribe to this to update the asset type drop downs
+//            case MessageType.EDITOR_BROWSER_TREE_SELECTION: {
+//                EntityBrowserValue value = (EntityBrowserValue) msg.extraInfo;
+    //EntityAsset comes from EDITOR_BROWSER_TREE_SELECTION
 
     public void reload() {
         this.clearChildren();
@@ -39,16 +50,25 @@ public class ViewEditorPane extends VisTable {
 
         Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
         if (currentEntity != null) {
+
             EntityAttributes entityAttributes = currentEntity.getPhysicalEntityComponent().getAttributes();
             VisTable entityAttributesPane = null;
+            VisTable entityAssetPane = null;
             if (entityAttributes instanceof CreatureEntityAttributes creatureAttributes) {
                 entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater, professionDictionary);
+                entityAssetPane = new CreatureAssetPane(creatureAttributes, entityAssetTypeDictionary, creatureEntityAssetDictionary, editorStateProvider);
             }
             if (entityAttributesPane != null) {
                 add(entityAttributesPane).left().row();
             }
+            if (entityAssetPane != null) {
+                add(entityAssetPane).left().row();
+            }
         }
+
     }
+
+
 
     private VisTable buildRenderModeRow() {
         VisTable renderModeRow = new VisTable();

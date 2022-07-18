@@ -139,4 +139,9 @@ public class CreatureEntityAssetDescriptor {
 	public void setConsciousnessList(List<Consciousness> consciousnessList) {
 		this.consciousnessList = consciousnessList;
 	}
+
+	@Override
+	public String toString() {
+		return getUniqueName();
+	}
 }
