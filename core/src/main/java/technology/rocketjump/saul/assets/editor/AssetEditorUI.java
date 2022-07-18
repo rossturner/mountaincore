@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.assets.editor;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
@@ -252,7 +253,6 @@ public class AssetEditorUI implements Telegraph {
 							if (doAdd) {
 								try {
 									Files.createDirectory(Paths.get(parentPath.toString(), folderTextBox.getText()));
-									//reload navigator pane
 									reload();
 								} catch (IOException e) {
 									Logger.error(e, "Failed to create directory " + folderTextBox.getText() + " due to " + e.getMessage());
@@ -265,7 +265,10 @@ public class AssetEditorUI implements Telegraph {
 				dialog.getContentTable().add(folderTextBox);
 				dialog.button("Ok", true);
 				dialog.button("Cancel", false);
+				dialog.key(Input.Keys.ENTER, true);
 				dialog.show(stage);
+				stage.setKeyboardFocus(folderTextBox);
+				folderTextBox.selectAll();
 				return true;
 			}
 			default:
