@@ -270,5 +270,6 @@ public class MessageType {
 	public static final int EDITOR_ENTITY_SELECTION = 99003;
 	public static final int EDITOR_BROWSER_TREE_SELECTION = 99004;
 	public static final int EDITOR_SHOW_COLOR_PICKER = 99005;
+	public static final int EDITOR_SHOW_CREATE_DIRECTORY_DIALOG = 99006;
 
 }

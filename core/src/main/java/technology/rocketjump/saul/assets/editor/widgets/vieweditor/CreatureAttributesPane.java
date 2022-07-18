@@ -30,7 +30,6 @@ public class CreatureAttributesPane extends VisTable {
         this.entityAssetUpdater = entityAssetUpdater;
         this.professionDictionary = professionDictionary;
 
-        //TODO: Move to reload pattern?
         Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
         Collection<Gender> genders = creatureAttributes.getRace().getGenders().keySet();
         Collection<CreatureBodyShape> bodyShapes = creatureAttributes.getRace().getBodyShapes().stream().map(CreatureBodyShapeDescriptor::getValue).toList();

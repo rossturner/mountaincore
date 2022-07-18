@@ -14,10 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.kotcrab.vis.ui.widget.VisScrollPane;
-import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.*;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.editor.model.ColorPickerMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
@@ -41,6 +41,10 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Random;
 
 import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_ASSET_DESCRIPTOR;
@@ -132,7 +136,7 @@ public class AssetEditorUI implements Telegraph {
 
 		stage.addActor(topLevelTable);
 
-		navigatorContextMenu = new NavigatorContextMenu();
+		navigatorContextMenu = new NavigatorContextMenu(messageDispatcher);
 
 		colorPicker = new ColorPicker(new ColorPickerAdapter() {
 			@Override
@@ -148,6 +152,7 @@ public class AssetEditorUI implements Telegraph {
 		messageDispatcher.addListener(this, MessageType.EDITOR_ENTITY_SELECTION);
 		messageDispatcher.addListener(this, MessageType.EDITOR_BROWSER_TREE_SELECTION);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_COLOR_PICKER);
+		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_DIRECTORY_DIALOG);
 		messageDispatcher.addListener(this, MessageType.CAMERA_MOVED);
 	}
 
@@ -234,6 +239,33 @@ public class AssetEditorUI implements Telegraph {
 				return true;
 			}
 			case MessageType.CAMERA_MOVED: {
+				return true;
+			}
+			case MessageType.EDITOR_SHOW_CREATE_DIRECTORY_DIALOG: {
+				Path parentPath = (Path) msg.extraInfo;
+				VisTextField folderTextBox = new VisTextField();
+				VisDialog dialog = new VisDialog("Create subdirectory under " + parentPath) {
+					@Override
+					protected void result(Object result) {
+						super.result(result);
+						if (result instanceof Boolean doAdd) {
+							if (doAdd) {
+								try {
+									Files.createDirectory(Paths.get(parentPath.toString(), folderTextBox.getText()));
+									//reload navigator pane
+									reload();
+								} catch (IOException e) {
+									Logger.error(e, "Failed to create directory " + folderTextBox.getText() + " due to " + e.getMessage());
+								}
+							}
+						}
+					}
+				};
+				dialog.getContentTable().add(new VisLabel("Folder"));
+				dialog.getContentTable().add(folderTextBox);
+				dialog.button("Ok", true);
+				dialog.button("Cancel", false);
+				dialog.show(stage);
 				return true;
 			}
 			default:

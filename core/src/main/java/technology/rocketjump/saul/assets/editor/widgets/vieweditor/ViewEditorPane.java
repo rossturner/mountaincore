@@ -1,5 +1,8 @@
 package technology.rocketjump.saul.assets.editor.widgets.vieweditor;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -14,11 +17,12 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.RenderMode;
 
 import javax.inject.Inject;
 
-public class ViewEditorPane extends VisTable {
+public class ViewEditorPane extends VisTable implements Telegraph {
 
     private final EditorStateProvider editorStateProvider;
     private final EntityAssetUpdater entityAssetUpdater;
@@ -27,19 +31,16 @@ public class ViewEditorPane extends VisTable {
     private final CreatureEntityAssetDictionary creatureEntityAssetDictionary;
 
     @Inject
-    public ViewEditorPane(EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater, ProfessionDictionary professionDictionary, EntityAssetTypeDictionary entityAssetTypeDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary) {
+    public ViewEditorPane(EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater, ProfessionDictionary professionDictionary, EntityAssetTypeDictionary entityAssetTypeDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary, MessageDispatcher messageDispatcher) {
         super();
         this.editorStateProvider = editorStateProvider;
         this.entityAssetUpdater = entityAssetUpdater;
         this.professionDictionary = professionDictionary;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
+        messageDispatcher.addListener(this, MessageType.EDITOR_BROWSER_TREE_SELECTION);
     }
 
-    //TODO: Subscribe to this to update the asset type drop downs
-//            case MessageType.EDITOR_BROWSER_TREE_SELECTION: {
-//                EntityBrowserValue value = (EntityBrowserValue) msg.extraInfo;
-    //EntityAsset comes from EDITOR_BROWSER_TREE_SELECTION
 
     public void reload() {
         this.clearChildren();
@@ -58,17 +59,14 @@ public class ViewEditorPane extends VisTable {
                 entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater, professionDictionary);
                 entityAssetPane = new CreatureAssetPane(creatureAttributes, entityAssetTypeDictionary, creatureEntityAssetDictionary, editorStateProvider);
             }
+
             if (entityAttributesPane != null) {
                 add(entityAttributesPane).left().row();
-            }
-            if (entityAssetPane != null) {
                 add(entityAssetPane).left().row();
             }
         }
 
     }
-
-
 
     private VisTable buildRenderModeRow() {
         VisTable renderModeRow = new VisTable();
@@ -90,6 +88,18 @@ public class ViewEditorPane extends VisTable {
             });
             renderModeRow.add(radioButton);
         }
+        //TODO: spacing of sprite control for elephant
+
         return renderModeRow;
+    }
+
+    @Override
+    public boolean handleMessage(Telegram msg) {
+
+        //TODO: Subscribe to this to update the asset type drop downs
+//            case MessageType.EDITOR_BROWSER_TREE_SELECTION: {
+//                EntityBrowserValue value = (EntityBrowserValue) msg.extraInfo;
+        //EntityAsset comes from EDITOR_BROWSER_TREE_SELECTION
+        return true;
     }
 }
