@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.entities.model.EntityType;
 
-import java.io.IOException;
 import java.nio.file.Path;
 
 public class EntityBrowserValue extends Tree.Node {
@@ -20,7 +19,7 @@ public class EntityBrowserValue extends Tree.Node {
 	private Object typeDescriptor;
 	private EntityAsset entityAsset;
 
-	public static EntityBrowserValue forTypeDescriptor(EntityType entityType, Path baseDir, Object typeDescriptorInstance) throws IOException {
+	public static EntityBrowserValue forTypeDescriptor(EntityType entityType, Path baseDir, Object typeDescriptorInstance) {
 		Path typeDescriptorFile = baseDir.resolve(entityType.descriptorFilename);
 		EntityBrowserValue value = new EntityBrowserValue(TreeValueType.ENTITY_TYPE_DESCRIPTOR, entityType, typeDescriptorFile, entityType.descriptorFilename);
 		value.setTypeDescriptor(typeDescriptorInstance);

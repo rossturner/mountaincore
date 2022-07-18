@@ -55,6 +55,15 @@ public class RaceDictionary {
 		return byName.get(name);
 	}
 
+	public void add(Race newRace) {
+		String name = newRace.getName();
+		if (byName.containsKey(name)) {
+			throw new RuntimeException("Cannot add duplicate race: " + name);
+		}
+		initialise(newRace);
+		byName.put(name, newRace);
+	}
+
 	public Collection<Race> getAll() {
 		return byName.values();
 	}

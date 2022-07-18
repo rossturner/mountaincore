@@ -33,8 +33,7 @@ public class NavigatorContextMenu extends PopupMenu {
 			createEntityDefinition.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-					//TODO: start the adding new asset type here
-					System.out.println("Clicked createEntityDefinition at " + value.path.toAbsolutePath());
+					messageDispatcher.dispatchMessage(MessageType.EDITOR_SHOW_CREATE_ENTITY_DIALOG, value);
 				}
 			});
 			this.addItem(createEntityDefinition);
@@ -43,7 +42,6 @@ public class NavigatorContextMenu extends PopupMenu {
 			subDirItem.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-					System.out.println("Clicked create subdirectory for " + value.path.toAbsolutePath());
 					messageDispatcher.dispatchMessage(MessageType.EDITOR_SHOW_CREATE_DIRECTORY_DIALOG, value.path);
 				}
 			});

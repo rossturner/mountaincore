@@ -8,16 +8,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.*;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
+import org.apache.commons.lang3.StringUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.editor.model.ColorPickerMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
@@ -31,6 +29,7 @@ import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrow
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorContextMenu;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorPane;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeMessage;
+import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeValue;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.PropertyEditorPane;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.ViewEditorPane;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
@@ -46,7 +45,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 import java.util.Random;
+import java.util.function.Function;
 
 import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_ASSET_DESCRIPTOR;
 import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_TYPE_DESCRIPTOR;
@@ -58,6 +59,7 @@ public class AssetEditorUI implements Telegraph {
 
 	private final VisTable topLevelTable;
 	private final VisTable viewArea;
+	private final MessageDispatcher messageDispatcher;
 	private final ViewEditorPane viewEditor;
 	private final NavigatorContextMenu navigatorContextMenu;
 	private final EntityBrowserContextMenu browserContextMenu;
@@ -83,6 +85,7 @@ public class AssetEditorUI implements Telegraph {
 		this.navigatorPane = navigatorPane;
 		this.entityBrowserPane = entityBrowserPane;
 		this.propertyEditorPane = propertyEditorPane;
+		this.messageDispatcher = messageDispatcher;
 		this.viewEditor = viewEditor;
 		this.editorStateProvider = editorStateProvider;
 		this.creatureEntityFactory = creatureEntityFactory;
@@ -154,6 +157,7 @@ public class AssetEditorUI implements Telegraph {
 		messageDispatcher.addListener(this, MessageType.EDITOR_BROWSER_TREE_SELECTION);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_COLOR_PICKER);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_DIRECTORY_DIALOG);
+		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_ENTITY_DIALOG);
 		messageDispatcher.addListener(this, MessageType.CAMERA_MOVED);
 	}
 
@@ -266,9 +270,106 @@ public class AssetEditorUI implements Telegraph {
 				dialog.button("Ok", true);
 				dialog.button("Cancel", false);
 				dialog.key(Input.Keys.ENTER, true);
+				dialog.key(Input.Keys.ESCAPE, false);
 				dialog.show(stage);
 				stage.setKeyboardFocus(folderTextBox);
 				folderTextBox.selectAll();
+				return true;
+			}
+			case MessageType.EDITOR_SHOW_CREATE_ENTITY_DIALOG: {
+				NavigatorTreeValue navigatorValue = (NavigatorTreeValue) msg.extraInfo;
+				//TODO: refactor common widget
+				//Todo: switch on entity type
+				Function<String, Boolean> validRace = new Function<>() {
+					@Override
+					public Boolean apply(String input) {
+						//TODO: define rules
+						if (StringUtils.length(input) < 2) {
+							return false;
+						}
+						Race existing = raceDictionary.getByName(input);
+						if (existing != null) {
+							return false;
+						}
+						return true;
+					}
+				};
+				VisValidatableTextField typeDescriptorName = new VisValidatableTextField();
+				typeDescriptorName.addValidator(validRace::apply);
+
+				//TODO: think how to disable the form
+				VisDialog dialog = new VisDialog("Create new " + navigatorValue.entityType) {
+					@Override
+					protected void result(Object result) {
+						super.result(result);
+						if (result instanceof Boolean doAdd) {
+							if (doAdd) {
+//								todo: not keen on this creating a file, but probably makes ui much easier
+								Path directoryToCreate = Paths.get(navigatorValue.path.toString(), typeDescriptorName.getText().toLowerCase(Locale.ROOT));
+								try {
+									Files.createDirectory(directoryToCreate);
+//
+//									Files.createFile(directoryToCreate);
+//
+//									reload();
+								} catch (IOException e) {
+									Logger.error(e, "Failed to create directory " + typeDescriptorName.getText() + " due to " + e.getMessage());
+								}
+
+
+								//todo: switch behaviour based on entity type
+								//TODO: maybe a nice function to setup required defaults
+								String name = typeDescriptorName.getText();
+								Race newRace = new Race();
+								newRace.setName(name);
+								newRace.setI18nKey("RACE." + name.toUpperCase());
+								newRace.setBodyStructureName("pawed-quadruped"); //TODO: Present user with options
+								raceDictionary.add(newRace);
+
+								EditorEntitySelection editorEntitySelection = new EditorEntitySelection();
+								editorEntitySelection.setEntityType(navigatorValue.entityType);
+								editorEntitySelection.setTypeName(name);
+								editorEntitySelection.setBasePath(directoryToCreate.toString());
+								messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, editorEntitySelection);
+								messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forTypeDescriptor(navigatorValue.entityType, directoryToCreate, newRace));
+
+//								try {
+//									Object instance = navigatorValue.entityType.typeDescriptorClass.getDeclaredConstructor().newInstance();//todo: reflection utils
+//
+//								} catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+//										 NoSuchMethodException e) {
+//									throw new RuntimeException(e);
+//								}
+
+
+							}
+						}
+					}
+
+				};
+
+				dialog.getContentTable().add(new VisLabel(navigatorValue.entityType.typeDescriptorClass.getSimpleName()));
+				dialog.getContentTable().add(typeDescriptorName);
+				VisTextButton okButton = new VisTextButton("Ok") {
+					@Override
+					public Touchable getTouchable() {
+						if (typeDescriptorName.isInputValid()) { //todo: brittle, nicer if this had a list of children to check
+							setDisabled(false);
+							return Touchable.enabled;
+						} else {
+							setDisabled(true);
+							return Touchable.disabled;
+						}
+					}
+				};
+				dialog.button(okButton, true);
+				dialog.button("Cancel", false);
+//				dialog.key(Input.Keys.ENTER, true); //TODO: needs clever event handler to ignore event if form invalid
+				dialog.key(Input.Keys.ESCAPE, false);
+
+				dialog.show(stage);
+				stage.setKeyboardFocus(typeDescriptorName);
+				typeDescriptorName.selectAll();
 				return true;
 			}
 			default:
