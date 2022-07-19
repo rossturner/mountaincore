@@ -20,6 +20,7 @@ import technology.rocketjump.saul.assets.editor.model.ColorPickerMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.TopLevelMenu;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserContextMenu;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserPane;
@@ -252,25 +253,19 @@ public class AssetEditorUI implements Telegraph {
 			case MessageType.EDITOR_SHOW_CREATE_DIRECTORY_DIALOG: {
 				final Path directory = FileUtils.getDirectory((Path) msg.extraInfo);
 
-				VisTextField folderTextBox = new VisTextField();
-				VisDialog dialog = new VisDialog("Create subdirectory under " + directory) {
+				VisLabel label = new VisLabel("Folder");
+				VisValidatableTextField folderTextBox = new VisValidatableTextField();
+				folderTextBox.addValidator(StringUtils::isNotBlank);
+
+				OkCancelDialog dialog = new OkCancelDialog("Create subdirectory under " + directory) {
 					@Override
-					protected void result(Object result) {
-						super.result(result);
-						if (result instanceof Boolean doAdd) {
-							if (doAdd) {
-								FileUtils.createDirectory(directory, folderTextBox.getText());
-								reload();
-							}
-						}
+					public void onOk() {
+						FileUtils.createDirectory(directory, folderTextBox.getText());
+						reload();
 					}
 				};
-				dialog.getContentTable().add(new VisLabel("Folder"));
-				dialog.getContentTable().add(folderTextBox);
-				dialog.button("Ok", true);
-				dialog.button("Cancel", false);
-				dialog.key(Input.Keys.ENTER, true);
-				dialog.key(Input.Keys.ESCAPE, false);
+				dialog.add(label);
+				dialog.add(folderTextBox);
 				dialog.show(stage);
 				stage.setKeyboardFocus(folderTextBox);
 				folderTextBox.selectAll();
