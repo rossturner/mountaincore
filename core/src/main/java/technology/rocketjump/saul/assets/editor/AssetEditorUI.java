@@ -1,6 +1,5 @@
 package technology.rocketjump.saul.assets.editor;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
@@ -8,11 +7,17 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.kotcrab.vis.ui.widget.*;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisScrollPane;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
 import org.apache.commons.lang3.StringUtils;
@@ -266,9 +271,7 @@ public class AssetEditorUI implements Telegraph {
 				};
 				dialog.add(label);
 				dialog.add(folderTextBox);
-				dialog.show(stage);
-				stage.setKeyboardFocus(folderTextBox);
-				folderTextBox.selectAll();
+				dialog.show(stage, folderTextBox);
 				return true;
 			}
 			case MessageType.EDITOR_SHOW_CREATE_ENTITY_DIALOG: {
@@ -292,62 +295,35 @@ public class AssetEditorUI implements Telegraph {
 				VisValidatableTextField typeDescriptorName = new VisValidatableTextField();
 				typeDescriptorName.addValidator(validRace::apply);
 
-				//TODO: think how to disable the form
-				VisDialog dialog = new VisDialog("Create new " + navigatorValue.entityType) {
+				OkCancelDialog dialog = new OkCancelDialog("Create new " + navigatorValue.entityType) {
 					@Override
-					protected void result(Object result) {
-						super.result(result);
-						if (result instanceof Boolean doAdd) {
-							if (doAdd) {
-								String folderName = typeDescriptorName.getText().toLowerCase(Locale.ROOT);
-								Path basePath = FileUtils.createDirectory(navigatorValue.path, folderName);
-								//todo: switch behaviour based on entity type
-								//TODO: maybe a nice function to setup required defaults
-								String name = typeDescriptorName.getText();
-								CreatureBodyShapeDescriptor bodyShape = new CreatureBodyShapeDescriptor();
-								bodyShape.setValue(CreatureBodyShape.AVERAGE);
-								Race newRace = new Race();
-								newRace.setName(name);
-								newRace.setI18nKey("RACE." + name.toUpperCase());
-								newRace.setBodyStructureName("pawed-quadruped"); //TODO: Present user with options?
-								newRace.setBodyShapes(List.of(bodyShape));
-								raceDictionary.add(newRace);
-								completeAssetDictionary.rebuild();
+					public void onOk() {
+						String folderName = typeDescriptorName.getText().toLowerCase(Locale.ROOT);
+						Path basePath = FileUtils.createDirectory(navigatorValue.path, folderName);
+						//todo: switch behaviour based on entity type
+						//TODO: maybe a nice function to setup required defaults
+						String name = typeDescriptorName.getText();
+						CreatureBodyShapeDescriptor bodyShape = new CreatureBodyShapeDescriptor();
+						bodyShape.setValue(CreatureBodyShape.AVERAGE);
+						Race newRace = new Race();
+						newRace.setName(name);
+						newRace.setI18nKey("RACE." + name.toUpperCase());
+						newRace.setBodyStructureName("pawed-quadruped"); //TODO: Present user with options?
+						newRace.setBodyShapes(List.of(bodyShape));
+						raceDictionary.add(newRace);
+						completeAssetDictionary.rebuild();
 
-								EditorEntitySelection editorEntitySelection = new EditorEntitySelection();
-								editorEntitySelection.setEntityType(navigatorValue.entityType);
-								editorEntitySelection.setTypeName(name);
-								editorEntitySelection.setBasePath(basePath.toString());
-								messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, editorEntitySelection);
-								messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forTypeDescriptor(navigatorValue.entityType, basePath, newRace));
-							}
-						}
-					}
-
-				};
-
-				dialog.getContentTable().add(new VisLabel(navigatorValue.entityType.typeDescriptorClass.getSimpleName()));
-				dialog.getContentTable().add(typeDescriptorName);
-				VisTextButton okButton = new VisTextButton("Ok") {
-					@Override
-					public Touchable getTouchable() {
-						if (typeDescriptorName.isInputValid()) { //todo: brittle, nicer if this had a list of children to check
-							setDisabled(false);
-							return Touchable.enabled;
-						} else {
-							setDisabled(true);
-							return Touchable.disabled;
-						}
+						EditorEntitySelection editorEntitySelection = new EditorEntitySelection();
+						editorEntitySelection.setEntityType(navigatorValue.entityType);
+						editorEntitySelection.setTypeName(name);
+						editorEntitySelection.setBasePath(basePath.toString());
+						messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, editorEntitySelection);
+						messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forTypeDescriptor(navigatorValue.entityType, basePath, newRace));
 					}
 				};
-				dialog.button(okButton, true);
-				dialog.button("Cancel", false);
-//				dialog.key(Input.Keys.ENTER, true); //TODO: needs clever event handler to ignore event if form invalid
-				dialog.key(Input.Keys.ESCAPE, false);
-
-				dialog.show(stage);
-				stage.setKeyboardFocus(typeDescriptorName);
-				typeDescriptorName.selectAll();
+				dialog.add(new VisLabel(navigatorValue.entityType.typeDescriptorClass.getSimpleName()));
+				dialog.add(typeDescriptorName);
+				dialog.show(stage, typeDescriptorName);
 				return true;
 			}
 			default:
