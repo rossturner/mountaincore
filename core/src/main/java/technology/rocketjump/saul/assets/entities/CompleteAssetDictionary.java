@@ -19,11 +19,29 @@ import static technology.rocketjump.saul.assets.entities.model.NullEntityAsset.N
 public class CompleteAssetDictionary {
 
 	private final Map<String, EntityAsset> allAssetsByName = new HashMap<>();
+	private final CreatureEntityAssetDictionary creatureEntityAssetDictionary;
+	private final FurnitureEntityAssetDictionary furnitureEntityAssetDictionary;
+	private final PlantEntityAssetDictionary plantEntityAssetDictionary;
+	private final ItemEntityAssetDictionary itemEntityAssetDictionary;
+	private final WallCapAssetDictionary wallCapAssetDictionary;
+	private final MechanismEntityAssetDictionary mechanismEntityAssetDictionary;
 
 	@Inject
 	public CompleteAssetDictionary(CreatureEntityAssetDictionary creatureEntityAssetDictionary, FurnitureEntityAssetDictionary furnitureEntityAssetDictionary,
 								   PlantEntityAssetDictionary plantEntityAssetDictionary, ItemEntityAssetDictionary itemEntityAssetDictionary,
 								   WallCapAssetDictionary wallCapAssetDictionary, MechanismEntityAssetDictionary mechanismEntityAssetDictionary) {
+		this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
+		this.furnitureEntityAssetDictionary = furnitureEntityAssetDictionary;
+		this.plantEntityAssetDictionary = plantEntityAssetDictionary;
+		this.itemEntityAssetDictionary = itemEntityAssetDictionary;
+		this.wallCapAssetDictionary = wallCapAssetDictionary;
+		this.mechanismEntityAssetDictionary = mechanismEntityAssetDictionary;
+
+		rebuild();
+	}
+
+	public void rebuild() {
+		allAssetsByName.clear();
 		allAssetsByName.putAll(creatureEntityAssetDictionary.getAll());
 		allAssetsByName.putAll(plantEntityAssetDictionary.getAll());
 		allAssetsByName.putAll(itemEntityAssetDictionary.getAll());
@@ -36,6 +54,4 @@ public class CompleteAssetDictionary {
 	public EntityAsset getByUniqueName(String uniqueAssetName) {
 		return allAssetsByName.get(uniqueAssetName);
 	}
-
-
 }

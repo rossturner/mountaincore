@@ -28,4 +28,32 @@ public class ProfessionsComponentTest {
 		assertThat(professionsComponent.hasAnyActiveProfession(Sets.newHashSet(mockProfA))).isTrue();
 		assertThat(professionsComponent.hasAnyActiveProfession(Sets.newHashSet(mockProfC))).isFalse();
 	}
+
+	@Test
+	public void addExperience_increasesLevel_whenNoSkillLevelExists() {
+		ProfessionsComponent professionsComponent = new ProfessionsComponent();
+
+		assertThat(professionsComponent.getSkillLevel(mockProfA)).isEqualTo(0);
+
+		professionsComponent.experienceGained(1, mockProfA);
+
+		assertThat(professionsComponent.getSkillLevel(mockProfA)).isEqualTo(1);
+
+		professionsComponent.experienceGained(5, mockProfA);
+
+		assertThat(professionsComponent.getSkillLevel(mockProfA)).isEqualTo(3);
+
+	}
+
+	@Test
+	public void addExperience_limitsLevel_to100() {
+		ProfessionsComponent professionsComponent = new ProfessionsComponent();
+
+		assertThat(professionsComponent.getSkillLevel(mockProfA)).isEqualTo(0);
+
+		professionsComponent.experienceGained(9999, mockProfA);
+
+		assertThat(professionsComponent.getSkillLevel(mockProfA)).isEqualTo(100);
+
+	}
 }
