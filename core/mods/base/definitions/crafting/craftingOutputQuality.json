@@ -4,8 +4,8 @@
     "minSkillLevel": 0,
     "maxSkillLevel": 19,
     "outputQuality": {
-      "Awful": 0.35,
-      "Poor": 0.65
+      "AWFUL": 0.35,
+      "POOR": 0.65
     }
   },
   {
@@ -13,9 +13,9 @@
     "minSkillLevel": 20,
     "maxSkillLevel": 39,
     "outputQuality": {
-      "Awful": 0.1,
-      "Poor": 0.5,
-      "Standard": 0.4
+      "AWFUL": 0.1,
+      "POOR": 0.5,
+      "STANDARD": 0.4
     }
   },
   {
@@ -23,8 +23,8 @@
     "minSkillLevel": 40,
     "maxSkillLevel": 49,
     "outputQuality": {
-      "Poor": 0.25,
-      "Standard": 0.75
+      "POOR": 0.25,
+      "STANDARD": 0.75
     }
   },
   {
@@ -32,9 +32,9 @@
     "minSkillLevel": 50,
     "maxSkillLevel": 59,
     "outputQuality": {
-      "Poor": 0.1,
-      "Standard": 0.7,
-      "Superior": 0.2
+      "POOR": 0.1,
+      "STANDARD": 0.7,
+      "SUPERIOR": 0.2
     }
   },
   {
@@ -42,9 +42,9 @@
     "minSkillLevel": 60,
     "maxSkillLevel": 69,
     "outputQuality": {
-      "Poor": 0.05,
-      "Standard": 0.45,
-      "Superior": 0.5
+      "POOR": 0.05,
+      "STANDARD": 0.45,
+      "SUPERIOR": 0.5
     }
   },
   {
@@ -52,9 +52,9 @@
     "minSkillLevel": 70,
     "maxSkillLevel": 79,
     "outputQuality": {
-      "Standard": 0.35,
-      "Superior": 0.6,
-      "Masterwork": 0.05
+      "STANDARD": 0.35,
+      "SUPERIOR": 0.6,
+      "MASTERWORK": 0.05
     }
   },
   {
@@ -62,9 +62,9 @@
     "minSkillLevel": 80,
     "maxSkillLevel": 89,
     "outputQuality": {
-      "Standard": 0.25,
-      "Superior": 0.65,
-      "Masterwork": 0.1
+      "STANDARD": 0.25,
+      "SUPERIOR": 0.65,
+      "MASTERWORK": 0.1
     }
   },
   {
@@ -72,9 +72,9 @@
     "minSkillLevel": 90,
     "maxSkillLevel": 99,
     "outputQuality": {
-      "Standard": 0.15,
-      "Superior": 0.5,
-      "Masterwork": 0.35
+      "STANDARD": 0.15,
+      "SUPERIOR": 0.5,
+      "MASTERWORK": 0.35
     }
   },
   {
@@ -82,8 +82,8 @@
     "minSkillLevel": 100,
     "maxSkillLevel": 100,
     "outputQuality": {
-      "Superior": 0.55,
-      "Masterwork": 0.45
+      "SUPERIOR": 0.55,
+      "MASTERWORK": 0.45
     }
   }
 ]
