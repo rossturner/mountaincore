@@ -63,9 +63,11 @@ public abstract class OkCancelDialog {
 
     public abstract void onOk();
 
-    public void show(Stage stage, Actor keyboardFocusOn) {
+    public void show(Stage stage) {
         visDialog.show(stage);
-        stage.setKeyboardFocus(keyboardFocusOn);
+        if (!validatedFields.isEmpty()) {
+            stage.setKeyboardFocus(validatedFields.get(0));
+        }
     }
 
     private boolean isFormValid() {

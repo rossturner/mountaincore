@@ -5,8 +5,6 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.RandomXS128;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -21,6 +19,7 @@ import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
 import org.apache.commons.lang3.StringUtils;
+import technology.rocketjump.saul.assets.editor.factory.UIFactory;
 import technology.rocketjump.saul.assets.editor.model.ColorPickerMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
@@ -34,26 +33,14 @@ import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeM
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeValue;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.PropertyEditorPane;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.ViewEditorPane;
-import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
-import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShape;
-import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShapeDescriptor;
-import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
-import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
-import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.Race;
-import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
-import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-import java.util.function.Function;
+import java.util.Map;
 
 import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_ASSET_DESCRIPTOR;
 import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_TYPE_DESCRIPTOR;
@@ -65,7 +52,6 @@ public class AssetEditorUI implements Telegraph {
 
 	private final VisTable topLevelTable;
 	private final VisTable viewArea;
-	private final MessageDispatcher messageDispatcher;
 	private final ViewEditorPane viewEditor;
 	private final NavigatorContextMenu navigatorContextMenu;
 	private final EntityBrowserContextMenu browserContextMenu;
@@ -75,29 +61,23 @@ public class AssetEditorUI implements Telegraph {
 	private final PropertyEditorPane propertyEditorPane;
 	private final EditorStateProvider editorStateProvider;
 	private final ColorPicker colorPicker;
+	private final Map<EntityType, UIFactory> uiFactories;
 	private ColorPickerMessage.ColorPickerCallback colorPickerCallback;
-
-	//TODO: move
-	private CreatureEntityFactory creatureEntityFactory;
-	private RaceDictionary raceDictionary;
-	private final CompleteAssetDictionary completeAssetDictionary;
+	private UIFactory currentUiFactory;
 
 	@Inject
 	public AssetEditorUI(EntityBrowserContextMenu browserContextMenu, TopLevelMenu topLevelMenu, NavigatorPane navigatorPane,
 						 EntityBrowserPane entityBrowserPane, PropertyEditorPane propertyEditorPane,
 						 MessageDispatcher messageDispatcher, ViewEditorPane viewEditor, EditorStateProvider editorStateProvider,
-						 CreatureEntityFactory creatureEntityFactory, RaceDictionary raceDictionary, CompleteAssetDictionary completeAssetDictionary) {
+						 Map<EntityType, UIFactory> uiFactories) {
 		this.browserContextMenu = browserContextMenu;
 		this.topLevelMenu = topLevelMenu;
 		this.navigatorPane = navigatorPane;
 		this.entityBrowserPane = entityBrowserPane;
 		this.propertyEditorPane = propertyEditorPane;
-		this.messageDispatcher = messageDispatcher;
 		this.viewEditor = viewEditor;
 		this.editorStateProvider = editorStateProvider;
-		this.creatureEntityFactory = creatureEntityFactory;
-		this.raceDictionary = raceDictionary;
-		this.completeAssetDictionary = completeAssetDictionary;
+		this.uiFactories = uiFactories;
 
 		stage = new Stage();
 		topLevelTable = new VisTable();
@@ -178,6 +158,7 @@ public class AssetEditorUI implements Telegraph {
 		if (editorStateProvider.getState().getEntitySelection() == null) {
 			leftPane = navigatorPane;
 		} else {
+			currentUiFactory = uiFactories.get(editorStateProvider.getState().getEntitySelection().getEntityType());
 			entityBrowserPane.reload();
 			leftPane = entityBrowserPane;
 		}
@@ -215,7 +196,8 @@ public class AssetEditorUI implements Telegraph {
 				EditorEntitySelection selection = (EditorEntitySelection) msg.extraInfo;
 				Entity entity = null;
 				if (selection != null) {
-					entity = createEntity(selection);
+					currentUiFactory = uiFactories.get(selection.getEntityType());
+					entity = currentUiFactory.createEntityForRendering(selection.getTypeName());
 				}
 				propertyEditorPane.showControlsFor(null);
 				editorStateProvider.getState().setCurrentEntity(entity);
@@ -269,85 +251,20 @@ public class AssetEditorUI implements Telegraph {
 				};
 				dialog.add(new VisLabel("Folder"));
 				dialog.add(folderTextBox);
-				dialog.show(stage, folderTextBox);
+				dialog.show(stage);
 				return true;
 			}
 			case MessageType.EDITOR_SHOW_CREATE_ENTITY_DIALOG: {
 				NavigatorTreeValue navigatorValue = (NavigatorTreeValue) msg.extraInfo;
-				EntityType entityType = navigatorValue.entityType;
 				Path path = navigatorValue.path;
-
-
-
-				//Todo: switch on entity type -- factory
-				Function<String, Boolean> validRace = new Function<>() {
-					@Override
-					public Boolean apply(String input) {
-						//TODO: define rules
-						if (StringUtils.length(input) < 2) {
-							return false;
-						}
-						Race existing = raceDictionary.getByName(input);
-						return existing == null;
-					}
-				};
-				VisValidatableTextField typeDescriptorName = new VisValidatableTextField();
-				typeDescriptorName.addValidator(validRace::apply);
-
-				OkCancelDialog dialog = new OkCancelDialog("Create new " + entityType) {
-					@Override
-					public void onOk() {
-						String folderName = typeDescriptorName.getText().toLowerCase(Locale.ROOT);
-						Path basePath = FileUtils.createDirectory(path, folderName);
-						//todo: switch behaviour based on entity type
-						//TODO: maybe a nice function to setup required defaults
-						String name = typeDescriptorName.getText();
-						CreatureBodyShapeDescriptor bodyShape = new CreatureBodyShapeDescriptor();
-						bodyShape.setValue(CreatureBodyShape.AVERAGE);
-						Race newRace = new Race();
-						newRace.setName(name);
-						newRace.setI18nKey("RACE." + name.toUpperCase());
-						newRace.setBodyStructureName("pawed-quadruped"); //TODO: Present user with options?
-						newRace.setBodyShapes(List.of(bodyShape));
-						raceDictionary.add(newRace);
-						completeAssetDictionary.rebuild();
-
-						EditorEntitySelection editorEntitySelection = new EditorEntitySelection();
-						editorEntitySelection.setEntityType(entityType);
-						editorEntitySelection.setTypeName(name);
-						editorEntitySelection.setBasePath(basePath.toString());
-						messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, editorEntitySelection);
-						messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forTypeDescriptor(entityType, basePath, newRace));
-					}
-				};
-				dialog.add(new VisLabel(entityType.typeDescriptorClass.getSimpleName()));
-				dialog.add(typeDescriptorName);
-				dialog.show(stage, typeDescriptorName);
+				OkCancelDialog dialog = currentUiFactory.createEntityDialog(path);
+				dialog.show(stage);
 				return true;
 			}
 			case MessageType.EDITOR_SHOW_CREATE_ASSET_DIALOG: {
-				//TODO: Open new asset dialog
 				ShowCreateAssetDialogMessage message = (ShowCreateAssetDialogMessage) msg.extraInfo;
-
-				//TODO: -- factory
-				VisLabel label = new VisLabel("Folder");
-				VisValidatableTextField assetNameTextBox = new VisValidatableTextField();
-				assetNameTextBox.addValidator(StringUtils::isNotBlank);
-
-				OkCancelDialog dialog = new OkCancelDialog("Create asset under " + message.path()) {
-					@Override
-					public void onOk() {
-						//TODO: add to complete asset dictionary and rebuild or just to creatureEntityAssetDictionary and hit rebuildComplete
-						CreatureEntityAsset asset = new CreatureEntityAsset();
-//						asset.set
-
-					}
-				};
-
-//				dialog.add(label);
-//				dialog.add(assetNameTextBox);
-//				dialog.add(WidgetBuilder.selectField());
-				dialog.show(stage, assetNameTextBox);
+				OkCancelDialog dialog = currentUiFactory.createAssetDialog(message);
+				dialog.show(stage);
 				return true;
 			}
 			default:
@@ -370,31 +287,5 @@ public class AssetEditorUI implements Telegraph {
 		viewport.setUnitsPerPixel(1);
 		stage.setViewport(viewport);
 		stage.getViewport().update(width, height, true);
-	}
-
-	//TODO: consider moving me too -- factory
-	private Entity createEntity(EditorEntitySelection entitySelection) {
-		Random random = new Random();
-		GameContext gameContext = new GameContext();
-		gameContext.setRandom(new RandomXS128());
-		switch (entitySelection.getEntityType()) {
-			case CREATURE -> {
-				Race race = raceDictionary.getByName(entitySelection.getTypeName());
-				CreatureEntityAttributes attributes = new CreatureEntityAttributes(race, random.nextLong());
-				Vector2 origin = new Vector2(0, 0f);
-				return creatureEntityFactory.create(attributes, origin, origin, gameContext);
-			}
-			case PLANT -> {
-			}
-			case ITEM -> {
-			}
-			case FURNITURE -> {
-			}
-			case ONGOING_EFFECT -> {
-			}
-			case MECHANISM -> {
-			}
-		}
-		return null;
 	}
 }
