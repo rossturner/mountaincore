@@ -191,7 +191,8 @@ public class ItemEntityAttributesFactory {
 		ItemEntityAssetsBySize sizeMap = itemEntityAssetDictionary.getQuantityMap()
 				.getAssetTypeMapByQuantity(newItemAttributes.getQuantity())
 				.getItemTypeMapByAssetType(entityAssetUpdater.ITEM_BASE_LAYER)
-				.getSizeMapByItemType(newItemAttributes.getItemType());
+				.getQualityMapByItemType(newItemAttributes.getItemType())
+				.getSizeMapByQuality(newItemAttributes.getItemQuality());
 		boolean sizeAndStyleMatched = false;
 
 		for (ItemSize itemSize : sizesToCheckInOrder) {

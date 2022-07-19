@@ -11,11 +11,11 @@ import java.util.Map;
 
 public class ItemEntityAssetsByItemType {
 
-	private Map<ItemType, ItemEntityAssetsBySize> typeMap = new HashMap<>();
+	private Map<ItemType, ItemEntityAssetsByQuality> typeMap = new HashMap<>();
 
 	public ItemEntityAssetsByItemType(ItemTypeDictionary itemTypeDictionary) {
 		for (ItemType itemType : itemTypeDictionary.getAll()) {
-			typeMap.put(itemType, new ItemEntityAssetsBySize());
+			typeMap.put(itemType, new ItemEntityAssetsByQuality());
 		}
 	}
 
@@ -32,7 +32,7 @@ public class ItemEntityAssetsByItemType {
 		return typeMap.get(attributes.getItemType()).getAll(attributes);
 	}
 
-	public ItemEntityAssetsBySize getSizeMapByItemType(ItemType itemType) {
+	public ItemEntityAssetsByQuality getQualityMapByItemType(ItemType itemType) {
 		return typeMap.get(itemType);
 	}
 }
