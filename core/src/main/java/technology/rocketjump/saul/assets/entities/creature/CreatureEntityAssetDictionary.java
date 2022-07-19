@@ -2,7 +2,6 @@ package technology.rocketjump.saul.assets.entities.creature;
 
 import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.ProvidedBy;
-import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
@@ -24,26 +23,32 @@ import static technology.rocketjump.saul.assets.entities.creature.CreatureEntity
 @ProvidedBy(CreatureEntityAssetDictionaryProvider.class)
 public class CreatureEntityAssetDictionary {
 
-	private final CreatureEntityAssetsByType typeMap;
 	private final Map<String, CreatureEntityAsset> assetsByName = new HashMap<>();
+	private final EntityAssetTypeDictionary entityAssetTypeDictionary;
+	private final RaceDictionary raceDictionary;
+	private CreatureEntityAssetsByType typeMap;
 
-	public CreatureEntityAssetDictionary(List<CreatureEntityAsset> completeAssetList,
-										 EntityAssetTypeDictionary entityAssetTypeDictionary, RaceDictionary raceDictionary) {
-		this.typeMap = new CreatureEntityAssetsByType(entityAssetTypeDictionary, raceDictionary);
+	public CreatureEntityAssetDictionary(List<CreatureEntityAsset> completeAssetList, EntityAssetTypeDictionary entityAssetTypeDictionary, RaceDictionary raceDictionary) {
+		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
+		this.raceDictionary = raceDictionary;
 		for (CreatureEntityAsset asset : completeAssetList) {
-			typeMap.add(asset);
 			assetsByName.put(asset.getUniqueName(), asset);
 		}
 		assetsByName.put(NULL_ENTITY_ASSET.getUniqueName(), NULL_ENTITY_ASSET);
+		rebuild();
 	}
 
-	public CreatureEntityAsset getByUniqueName(String uniqueAssetName) {
-		CreatureEntityAsset asset = assetsByName.get(uniqueAssetName);
-		if (asset != null) {
-			return asset;
-		} else {
-			Logger.error("Could not find asset by name " + uniqueAssetName);
-			return NULL_ENTITY_ASSET;
+	public void add(CreatureEntityAsset creatureEntityAsset) {
+		assetsByName.put(creatureEntityAsset.getUniqueName(), creatureEntityAsset);
+		rebuild();
+	}
+
+	public void rebuild() {
+		this.typeMap = new CreatureEntityAssetsByType(entityAssetTypeDictionary, raceDictionary);
+		for (CreatureEntityAsset asset : assetsByName.values()) {
+			if (!NULL_ENTITY_ASSET.equals(asset)) {
+				typeMap.add(asset);
+			}
 		}
 	}
 
