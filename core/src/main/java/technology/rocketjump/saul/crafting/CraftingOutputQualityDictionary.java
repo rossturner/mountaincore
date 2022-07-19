@@ -21,7 +21,7 @@ public class CraftingOutputQualityDictionary {
 
 	private static final CraftingOutputQuality DEFAULT_OUTPUT = new CraftingOutputQuality();
 	static {
-		DEFAULT_OUTPUT.setOutputQuality(Map.of(ItemQuality.Standard, 1f));
+		DEFAULT_OUTPUT.setOutputQuality(Map.of(ItemQuality.STANDARD, 1f));
 	}
 
 	@Inject

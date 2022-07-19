@@ -55,7 +55,7 @@ import java.util.*;
 import static technology.rocketjump.saul.entities.behaviour.furniture.FillLiquidContainerBehaviour.relatedContainerCapacity;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.AllocationState.CANCELLED;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.HELD_IN_INVENTORY;
-import static technology.rocketjump.saul.entities.model.physical.item.ItemQuality.Standard;
+import static technology.rocketjump.saul.entities.model.physical.item.ItemQuality.STANDARD;
 import static technology.rocketjump.saul.entities.tags.CraftingOverrideTag.CraftingOverrideSetting.DO_NOT_HAUL_OUTPUT;
 import static technology.rocketjump.saul.jobs.model.JobState.ASSIGNABLE;
 import static technology.rocketjump.saul.jobs.model.JobState.REMOVED;
@@ -697,7 +697,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	private ItemQuality determineItemQuality(Entity completedByEntity, Random random) {
-		ItemQuality result = Standard;
+		ItemQuality result = STANDARD;
 		if (craftingType.getProfessionRequired() != null) {
 			ProfessionsComponent professionsComponent = completedByEntity.getComponent(ProfessionsComponent.class);
 			if (professionsComponent != null) {
