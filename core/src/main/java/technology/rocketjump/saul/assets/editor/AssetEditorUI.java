@@ -16,7 +16,6 @@ import com.kotcrab.vis.ui.widget.*;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
 import org.apache.commons.lang3.StringUtils;
-import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.editor.model.ColorPickerMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
@@ -42,12 +41,10 @@ import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.persistence.FileUtils;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -253,30 +250,17 @@ public class AssetEditorUI implements Telegraph {
 				return true;
 			}
 			case MessageType.EDITOR_SHOW_CREATE_DIRECTORY_DIALOG: {
-				Path parentPath = (Path) msg.extraInfo;
-
-				final Path pathToUse;
-				//TODO: Refactor into common util
-				boolean isDirectory = Files.isDirectory(parentPath);
-				if (!isDirectory) {
-					pathToUse = parentPath.getParent();
-				} else {
-					pathToUse = parentPath;
-				}
+				final Path directory = FileUtils.getDirectory((Path) msg.extraInfo);
 
 				VisTextField folderTextBox = new VisTextField();
-				VisDialog dialog = new VisDialog("Create subdirectory under " + pathToUse) {
+				VisDialog dialog = new VisDialog("Create subdirectory under " + directory) {
 					@Override
 					protected void result(Object result) {
 						super.result(result);
 						if (result instanceof Boolean doAdd) {
 							if (doAdd) {
-								try {
-									Files.createDirectory(Paths.get(pathToUse.toString(), folderTextBox.getText()));
-									reload();
-								} catch (IOException e) {
-									Logger.error(e, "Failed to create directory " + folderTextBox.getText() + " due to " + e.getMessage());
-								}
+								FileUtils.createDirectory(directory, folderTextBox.getText());
+								reload();
 							}
 						}
 					}
@@ -320,15 +304,8 @@ public class AssetEditorUI implements Telegraph {
 						super.result(result);
 						if (result instanceof Boolean doAdd) {
 							if (doAdd) {
-//								todo: not keen on this creating a folder, but probably makes ui much easier
-								Path directoryToCreate = Paths.get(navigatorValue.path.toString(), typeDescriptorName.getText().toLowerCase(Locale.ROOT));
-								try {
-									Files.createDirectory(directoryToCreate); //TODO: skip if already exists?
-								} catch (IOException e) {
-									Logger.error(e, "Failed to create directory " + typeDescriptorName.getText() + " due to " + e.getMessage());
-								}
-
-
+								String folderName = typeDescriptorName.getText().toLowerCase(Locale.ROOT);
+								Path basePath = FileUtils.createDirectory(navigatorValue.path, folderName);
 								//todo: switch behaviour based on entity type
 								//TODO: maybe a nice function to setup required defaults
 								String name = typeDescriptorName.getText();
@@ -337,7 +314,7 @@ public class AssetEditorUI implements Telegraph {
 								Race newRace = new Race();
 								newRace.setName(name);
 								newRace.setI18nKey("RACE." + name.toUpperCase());
-								newRace.setBodyStructureName("pawed-quadruped"); //TODO: Present user with options
+								newRace.setBodyStructureName("pawed-quadruped"); //TODO: Present user with options?
 								newRace.setBodyShapes(List.of(bodyShape));
 								raceDictionary.add(newRace);
 								completeAssetDictionary.rebuild();
@@ -345,9 +322,9 @@ public class AssetEditorUI implements Telegraph {
 								EditorEntitySelection editorEntitySelection = new EditorEntitySelection();
 								editorEntitySelection.setEntityType(navigatorValue.entityType);
 								editorEntitySelection.setTypeName(name);
-								editorEntitySelection.setBasePath(directoryToCreate.toString());
+								editorEntitySelection.setBasePath(basePath.toString());
 								messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, editorEntitySelection);
-								messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forTypeDescriptor(navigatorValue.entityType, directoryToCreate, newRace));
+								messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forTypeDescriptor(navigatorValue.entityType, basePath, newRace));
 							}
 						}
 					}

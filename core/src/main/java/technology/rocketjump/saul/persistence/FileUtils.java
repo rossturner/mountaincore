@@ -1,0 +1,46 @@
+package technology.rocketjump.saul.persistence;
+
+import org.pmw.tinylog.Logger;
+
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class FileUtils {
+    /**
+     * Get directory ignoring the file
+     * @param input Path to a file or directory
+     * @return directory if input is file
+     */
+    public static Path getDirectory(Path input) {
+        boolean isDirectory = Files.isDirectory(input);
+        if (!isDirectory) {
+            return input.getParent();
+        } else {
+            return input;
+        }
+    }
+
+    /**
+     * Creates a directory if one doesn't exist
+     * @throws UncheckedIOException when something has gone wrong creating the directory
+     * @param parent the parent folder for the new directory
+     * @param folder name of the directory you want to create
+     * @return full path of the new directory
+     */
+    public static Path createDirectory(Path parent, String folder) {
+        Path directoryToCreate = Paths.get(parent.toString(), folder);
+        if (!Files.exists(directoryToCreate)) {
+            try {
+                Files.createDirectory(directoryToCreate);
+            } catch (IOException e) {
+                String message = "Failed to create directory " + folder + " due to " + e.getMessage();
+                Logger.error(e, message);
+                throw new UncheckedIOException(message, e);
+            }
+        }
+        return directoryToCreate;
+    }
+}
