@@ -272,5 +272,6 @@ public class MessageType {
 	public static final int EDITOR_SHOW_COLOR_PICKER = 99005;
 	public static final int EDITOR_SHOW_CREATE_DIRECTORY_DIALOG = 99006;
 	public static final int EDITOR_SHOW_CREATE_ENTITY_DIALOG = 99007;
+	public static final int EDITOR_SHOW_CREATE_ASSET_DIALOG = 99008;
 
 }

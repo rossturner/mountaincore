@@ -27,10 +27,7 @@ import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.TopLevelMenu;
-import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserContextMenu;
-import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserPane;
-import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserTreeMessage;
-import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
+import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.*;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorContextMenu;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorPane;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeMessage;
@@ -40,8 +37,10 @@ import technology.rocketjump.saul.assets.editor.widgets.vieweditor.ViewEditorPan
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShape;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShapeDescriptor;
+import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
@@ -167,6 +166,7 @@ public class AssetEditorUI implements Telegraph {
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_COLOR_PICKER);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_DIRECTORY_DIALOG);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_ENTITY_DIALOG);
+		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_ASSET_DIALOG);
 		messageDispatcher.addListener(this, MessageType.CAMERA_MOVED);
 	}
 
@@ -258,10 +258,8 @@ public class AssetEditorUI implements Telegraph {
 			case MessageType.EDITOR_SHOW_CREATE_DIRECTORY_DIALOG: {
 				final Path directory = FileUtils.getDirectory((Path) msg.extraInfo);
 
-				VisLabel label = new VisLabel("Folder");
 				VisValidatableTextField folderTextBox = new VisValidatableTextField();
 				folderTextBox.addValidator(StringUtils::isNotBlank);
-
 				OkCancelDialog dialog = new OkCancelDialog("Create subdirectory under " + directory) {
 					@Override
 					public void onOk() {
@@ -269,15 +267,19 @@ public class AssetEditorUI implements Telegraph {
 						reload();
 					}
 				};
-				dialog.add(label);
+				dialog.add(new VisLabel("Folder"));
 				dialog.add(folderTextBox);
 				dialog.show(stage, folderTextBox);
 				return true;
 			}
 			case MessageType.EDITOR_SHOW_CREATE_ENTITY_DIALOG: {
 				NavigatorTreeValue navigatorValue = (NavigatorTreeValue) msg.extraInfo;
-				//TODO: refactor common widget
-				//Todo: switch on entity type
+				EntityType entityType = navigatorValue.entityType;
+				Path path = navigatorValue.path;
+
+
+
+				//Todo: switch on entity type -- factory
 				Function<String, Boolean> validRace = new Function<>() {
 					@Override
 					public Boolean apply(String input) {
@@ -286,20 +288,17 @@ public class AssetEditorUI implements Telegraph {
 							return false;
 						}
 						Race existing = raceDictionary.getByName(input);
-						if (existing != null) {
-							return false;
-						}
-						return true;
+						return existing == null;
 					}
 				};
 				VisValidatableTextField typeDescriptorName = new VisValidatableTextField();
 				typeDescriptorName.addValidator(validRace::apply);
 
-				OkCancelDialog dialog = new OkCancelDialog("Create new " + navigatorValue.entityType) {
+				OkCancelDialog dialog = new OkCancelDialog("Create new " + entityType) {
 					@Override
 					public void onOk() {
 						String folderName = typeDescriptorName.getText().toLowerCase(Locale.ROOT);
-						Path basePath = FileUtils.createDirectory(navigatorValue.path, folderName);
+						Path basePath = FileUtils.createDirectory(path, folderName);
 						//todo: switch behaviour based on entity type
 						//TODO: maybe a nice function to setup required defaults
 						String name = typeDescriptorName.getText();
@@ -314,16 +313,41 @@ public class AssetEditorUI implements Telegraph {
 						completeAssetDictionary.rebuild();
 
 						EditorEntitySelection editorEntitySelection = new EditorEntitySelection();
-						editorEntitySelection.setEntityType(navigatorValue.entityType);
+						editorEntitySelection.setEntityType(entityType);
 						editorEntitySelection.setTypeName(name);
 						editorEntitySelection.setBasePath(basePath.toString());
 						messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, editorEntitySelection);
-						messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forTypeDescriptor(navigatorValue.entityType, basePath, newRace));
+						messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forTypeDescriptor(entityType, basePath, newRace));
 					}
 				};
-				dialog.add(new VisLabel(navigatorValue.entityType.typeDescriptorClass.getSimpleName()));
+				dialog.add(new VisLabel(entityType.typeDescriptorClass.getSimpleName()));
 				dialog.add(typeDescriptorName);
 				dialog.show(stage, typeDescriptorName);
+				return true;
+			}
+			case MessageType.EDITOR_SHOW_CREATE_ASSET_DIALOG: {
+				//TODO: Open new asset dialog
+				ShowCreateAssetDialogMessage message = (ShowCreateAssetDialogMessage) msg.extraInfo;
+
+				//TODO: -- factory
+				VisLabel label = new VisLabel("Folder");
+				VisValidatableTextField assetNameTextBox = new VisValidatableTextField();
+				assetNameTextBox.addValidator(StringUtils::isNotBlank);
+
+				OkCancelDialog dialog = new OkCancelDialog("Create asset under " + message.path()) {
+					@Override
+					public void onOk() {
+						//TODO: add to complete asset dictionary and rebuild or just to creatureEntityAssetDictionary and hit rebuildComplete
+						CreatureEntityAsset asset = new CreatureEntityAsset();
+//						asset.set
+
+					}
+				};
+
+//				dialog.add(label);
+//				dialog.add(assetNameTextBox);
+//				dialog.add(WidgetBuilder.selectField());
+				dialog.show(stage, assetNameTextBox);
 				return true;
 			}
 			default:
@@ -348,7 +372,7 @@ public class AssetEditorUI implements Telegraph {
 		stage.getViewport().update(width, height, true);
 	}
 
-	//TODO: consider moving me too
+	//TODO: consider moving me too -- factory
 	private Entity createEntity(EditorEntitySelection entitySelection) {
 		Random random = new Random();
 		GameContext gameContext = new GameContext();

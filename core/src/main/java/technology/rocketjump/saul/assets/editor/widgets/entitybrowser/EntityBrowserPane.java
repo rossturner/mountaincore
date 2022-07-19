@@ -99,29 +99,29 @@ public class EntityBrowserPane extends VisTable {
 
 		try {
 			EntityBrowserTreeNode typeDescriptorNode = new EntityBrowserTreeNode(messageDispatcher, editorStateProvider);
-			typeDescriptorNode.setValue(EntityBrowserValue.forTypeDescriptor(selection.getEntityType(), Paths.get(selection.getBasePath()),
-					entityDefinitionDictionary.get(selection.getEntityType(), selection.getTypeName())));
+			Object typeDescriptorInstance = entityDefinitionDictionary.get(selection.getEntityType(), selection.getTypeName());
+			typeDescriptorNode.setValue(EntityBrowserValue.forTypeDescriptor(selection.getEntityType(), Paths.get(selection.getBasePath()), typeDescriptorInstance));
 			assetTree.add(typeDescriptorNode);
 
-			addNodesForDirectory(Path.of(selection.getBasePath()), selection.getEntityType(), null);
+			addNodesForDirectory(Path.of(selection.getBasePath()), selection.getEntityType(), null, typeDescriptorInstance);
 		} catch (IOException e) {
 			Logger.error("Error while loading " + selection.getTypeName(), e);
 		}
 	}
 
-	private void addNodesForDirectory(Path directoryPath, EntityType entityType, EntityBrowserTreeNode parentNode) throws IOException {
+	private void addNodesForDirectory(Path directoryPath, EntityType entityType, EntityBrowserTreeNode parentNode, Object typeDescriptorInstance) throws IOException {
 		try (Stream<Path> paths = Files.list(directoryPath)) {
 			List<Path> subdirectories = paths.filter(Files::isDirectory)
 					.collect(Collectors.toList());
 			for (Path subDirectory : subdirectories) {
 				EntityBrowserTreeNode subDirNode = new EntityBrowserTreeNode(messageDispatcher, editorStateProvider);
-				subDirNode.setValue(EntityBrowserValue.forSubDirectory(entityType, subDirectory));
+				subDirNode.setValue(EntityBrowserValue.forSubDirectory(entityType, subDirectory, typeDescriptorInstance));
 				if (parentNode == null) {
 					assetTree.add(subDirNode);
 				} else {
 					parentNode.add(subDirNode);
 				}
-				addNodesForDirectory(subDirectory, entityType, subDirNode);
+				addNodesForDirectory(subDirectory, entityType, subDirNode, typeDescriptorInstance);
 			}
 		}
 
@@ -144,7 +144,7 @@ public class EntityBrowserPane extends VisTable {
 
 			referencedAssets.forEach(asset -> {
 				EntityBrowserTreeNode assetNode = new EntityBrowserTreeNode(messageDispatcher, editorStateProvider);
-				assetNode.setValue(EntityBrowserValue.forAsset(entityType, descriptorsFile, asset));
+				assetNode.setValue(EntityBrowserValue.forAsset(entityType, descriptorsFile, asset, typeDescriptorInstance));
 				if (parentNode == null) {
 					assetTree.add(assetNode);
 				} else {
