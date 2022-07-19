@@ -930,6 +930,9 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					ItemEntityAttributes attributes = (ItemEntityAttributes) entityAttributes;
 					attributes.removeMaterial(message.oxidisedMaterial.getMaterialType());
 					attributes.setMaterial(newMaterial);
+					if (message.oxidisedMaterial.getOxidisation().getSetsItemQualityTo() != null) {
+						attributes.setItemQuality(message.oxidisedMaterial.getOxidisation().getSetsItemQualityTo());
+					}
 					itemTracker.itemAdded(message.targetEntity);
 				} else if (entityAttributes instanceof FurnitureEntityAttributes) {
 					furnitureTracker.furnitureRemoved(message.targetEntity);
