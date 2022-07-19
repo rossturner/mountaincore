@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.entities.model.physical.item;
 
+// MODDING expose this as a data-driven class
 public enum ItemQuality {
 
 	Awful(0.35f, 1.3f),

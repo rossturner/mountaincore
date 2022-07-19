@@ -18,6 +18,7 @@
   "definitions/crafting/craftingTypes.json" : "Alpha 3",
   "definitions/crafting/itemProductionDefaults.json" : "Alpha 4.1",
   "definitions/crafting/liquidProductionDefaults.json" : "Alpha 4.1",
+  "definitions/crafting/craftingOutputQuality.json" : "Early Access 1",
   "definitions/types/wallTypes.json" : "Alpha 3",
   "definitions/types/channelTypes.json" : "Alpha 7",
   "definitions/types/bridgeTypes.json" : "Alpha 3",
