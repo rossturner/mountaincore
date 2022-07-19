@@ -32,6 +32,9 @@ import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeM
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeValue;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.PropertyEditorPane;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.ViewEditorPane;
+import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
+import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShape;
+import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShapeDescriptor;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -45,6 +48,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.function.Function;
@@ -74,12 +78,13 @@ public class AssetEditorUI implements Telegraph {
 	//TODO: move
 	private CreatureEntityFactory creatureEntityFactory;
 	private RaceDictionary raceDictionary;
+	private final CompleteAssetDictionary completeAssetDictionary;
 
 	@Inject
 	public AssetEditorUI(EntityBrowserContextMenu browserContextMenu, TopLevelMenu topLevelMenu, NavigatorPane navigatorPane,
 						 EntityBrowserPane entityBrowserPane, PropertyEditorPane propertyEditorPane,
 						 MessageDispatcher messageDispatcher, ViewEditorPane viewEditor, EditorStateProvider editorStateProvider,
-						 CreatureEntityFactory creatureEntityFactory, RaceDictionary raceDictionary) {
+						 CreatureEntityFactory creatureEntityFactory, RaceDictionary raceDictionary, CompleteAssetDictionary completeAssetDictionary) {
 		this.browserContextMenu = browserContextMenu;
 		this.topLevelMenu = topLevelMenu;
 		this.navigatorPane = navigatorPane;
@@ -90,6 +95,7 @@ public class AssetEditorUI implements Telegraph {
 		this.editorStateProvider = editorStateProvider;
 		this.creatureEntityFactory = creatureEntityFactory;
 		this.raceDictionary = raceDictionary;
+		this.completeAssetDictionary = completeAssetDictionary;
 
 		stage = new Stage();
 		topLevelTable = new VisTable();
@@ -248,15 +254,25 @@ public class AssetEditorUI implements Telegraph {
 			}
 			case MessageType.EDITOR_SHOW_CREATE_DIRECTORY_DIALOG: {
 				Path parentPath = (Path) msg.extraInfo;
+
+				final Path pathToUse;
+				//TODO: Refactor into common util
+				boolean isDirectory = Files.isDirectory(parentPath);
+				if (!isDirectory) {
+					pathToUse = parentPath.getParent();
+				} else {
+					pathToUse = parentPath;
+				}
+
 				VisTextField folderTextBox = new VisTextField();
-				VisDialog dialog = new VisDialog("Create subdirectory under " + parentPath) {
+				VisDialog dialog = new VisDialog("Create subdirectory under " + pathToUse) {
 					@Override
 					protected void result(Object result) {
 						super.result(result);
 						if (result instanceof Boolean doAdd) {
 							if (doAdd) {
 								try {
-									Files.createDirectory(Paths.get(parentPath.toString(), folderTextBox.getText()));
+									Files.createDirectory(Paths.get(pathToUse.toString(), folderTextBox.getText()));
 									reload();
 								} catch (IOException e) {
 									Logger.error(e, "Failed to create directory " + folderTextBox.getText() + " due to " + e.getMessage());
@@ -304,14 +320,10 @@ public class AssetEditorUI implements Telegraph {
 						super.result(result);
 						if (result instanceof Boolean doAdd) {
 							if (doAdd) {
-//								todo: not keen on this creating a file, but probably makes ui much easier
+//								todo: not keen on this creating a folder, but probably makes ui much easier
 								Path directoryToCreate = Paths.get(navigatorValue.path.toString(), typeDescriptorName.getText().toLowerCase(Locale.ROOT));
 								try {
-									Files.createDirectory(directoryToCreate);
-//
-//									Files.createFile(directoryToCreate);
-//
-//									reload();
+									Files.createDirectory(directoryToCreate); //TODO: skip if already exists?
 								} catch (IOException e) {
 									Logger.error(e, "Failed to create directory " + typeDescriptorName.getText() + " due to " + e.getMessage());
 								}
@@ -320,11 +332,15 @@ public class AssetEditorUI implements Telegraph {
 								//todo: switch behaviour based on entity type
 								//TODO: maybe a nice function to setup required defaults
 								String name = typeDescriptorName.getText();
+								CreatureBodyShapeDescriptor bodyShape = new CreatureBodyShapeDescriptor();
+								bodyShape.setValue(CreatureBodyShape.AVERAGE);
 								Race newRace = new Race();
 								newRace.setName(name);
 								newRace.setI18nKey("RACE." + name.toUpperCase());
 								newRace.setBodyStructureName("pawed-quadruped"); //TODO: Present user with options
+								newRace.setBodyShapes(List.of(bodyShape));
 								raceDictionary.add(newRace);
+								completeAssetDictionary.rebuild();
 
 								EditorEntitySelection editorEntitySelection = new EditorEntitySelection();
 								editorEntitySelection.setEntityType(navigatorValue.entityType);
@@ -332,16 +348,6 @@ public class AssetEditorUI implements Telegraph {
 								editorEntitySelection.setBasePath(directoryToCreate.toString());
 								messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, editorEntitySelection);
 								messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forTypeDescriptor(navigatorValue.entityType, directoryToCreate, newRace));
-
-//								try {
-//									Object instance = navigatorValue.entityType.typeDescriptorClass.getDeclaredConstructor().newInstance();//todo: reflection utils
-//
-//								} catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-//										 NoSuchMethodException e) {
-//									throw new RuntimeException(e);
-//								}
-
-
 							}
 						}
 					}

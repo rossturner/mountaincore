@@ -49,6 +49,7 @@ public class CompleteAssetDictionary {
 		allAssetsByName.putAll(wallCapAssetDictionary.getAll());
 		allAssetsByName.putAll(mechanismEntityAssetDictionary.getAll());
 		allAssetsByName.put(NULL_ASSET.getUniqueName(), NULL_ASSET);
+		creatureEntityAssetDictionary.rebuild();
 	}
 
 	public EntityAsset getByUniqueName(String uniqueAssetName) {

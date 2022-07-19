@@ -17,6 +17,7 @@ import com.google.inject.Injector;
 import com.kotcrab.vis.ui.VisUI;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -83,17 +84,21 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			spriteBatch.begin();
 			spriteBatch.setProjectionMatrix(camera.combined);
 
-			//TODO: switch based on available orientations
-			Vector2 originalPosition = new Vector2((int)Math.floor(camera.viewportWidth * 0.5f) + 0.5f, (int)Math.floor(camera.viewportHeight * 0.4f) + 0.5f);
-//			Vector2 originalPosition = currentEntity.getLocationComponent().getWorldPosition().cpy();
+			EntityAsset baseAsset = currentEntity.getPhysicalEntityComponent().getBaseAsset();
+			if (baseAsset != null) { //Don't render without the base asset, this can be for newly created entities
+				//TODO: switch based on available orientations
+				Vector2 originalPosition = new Vector2((int)Math.floor(camera.viewportWidth * 0.5f) + 0.5f, (int)Math.floor(camera.viewportHeight * 0.4f) + 0.5f);
+	//			Vector2 originalPosition = currentEntity.getLocationComponent().getWorldPosition().cpy();
 
-			RenderMode currentRenderMode = editorStateProvider.getState().getRenderMode();
-			renderEntityWithOrientation(currentEntity, originalPosition, DOWN.toVector2(), 0, 0, currentRenderMode);
-			renderEntityWithOrientation(currentEntity, originalPosition, DOWN_LEFT.toVector2(), -1, 0, currentRenderMode);
-			renderEntityWithOrientation(currentEntity, originalPosition, DOWN_RIGHT.toVector2(), 1, 0, currentRenderMode);
-			renderEntityWithOrientation(currentEntity, originalPosition, UP.toVector2(), 0, 1, currentRenderMode);
-			renderEntityWithOrientation(currentEntity, originalPosition, UP_LEFT.toVector2(), -1, 1, currentRenderMode);
-			renderEntityWithOrientation(currentEntity, originalPosition, UP_RIGHT.toVector2(), 1, 1, currentRenderMode);
+				RenderMode currentRenderMode = editorStateProvider.getState().getRenderMode();
+				renderEntityWithOrientation(currentEntity, originalPosition, DOWN.toVector2(), 0, 0, currentRenderMode);
+				renderEntityWithOrientation(currentEntity, originalPosition, DOWN_LEFT.toVector2(), -1, 0, currentRenderMode);
+				renderEntityWithOrientation(currentEntity, originalPosition, DOWN_RIGHT.toVector2(), 1, 0, currentRenderMode);
+				renderEntityWithOrientation(currentEntity, originalPosition, UP.toVector2(), 0, 1, currentRenderMode);
+				renderEntityWithOrientation(currentEntity, originalPosition, UP_LEFT.toVector2(), -1, 1, currentRenderMode);
+				renderEntityWithOrientation(currentEntity, originalPosition, UP_RIGHT.toVector2(), 1, 1, currentRenderMode);
+			}
+
 
 			spriteBatch.end();
 		}
