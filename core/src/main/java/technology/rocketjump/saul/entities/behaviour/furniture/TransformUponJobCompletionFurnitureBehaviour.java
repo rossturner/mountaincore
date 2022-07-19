@@ -71,7 +71,7 @@ public class TransformUponJobCompletionFurnitureBehaviour extends FurnitureBehav
 	}
 
 	@Override
-	public void jobCompleted(GameContext gameContext) {
+	public void jobCompleted(GameContext gameContext, Entity completedByEntity) {
 		messageDispatcher.dispatchMessage(MessageType.TRANSFORM_FURNITURE_TYPE, new TransformFurnitureMessage(parentEntity, relatedFurnitureTypes.get(0)));
 	}
 

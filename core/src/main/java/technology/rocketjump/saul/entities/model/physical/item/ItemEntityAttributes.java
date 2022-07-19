@@ -176,6 +176,14 @@ public class ItemEntityAttributes implements EntityAttributes {
 		this.itemPlacement = itemPlacement;
 	}
 
+	public ItemQuality getItemQuality() {
+		return itemQuality;
+	}
+
+	public void setItemQuality(ItemQuality itemQuality) {
+		this.itemQuality = itemQuality;
+	}
+
 	public boolean isDestroyed() {
 		return destructionCause != null;
 	}
