@@ -6,6 +6,8 @@ import technology.rocketjump.saul.ui.widgets.tooltips.I18nTextElement;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static technology.rocketjump.saul.ui.widgets.tooltips.I18nTextElement.singleSpace;
+
 /**
  * This class represents an already-translated string split into parts, with each part potentially having tooltip text (also translated)
  */
@@ -155,6 +157,18 @@ public class I18nText implements I18nString {
 				return this;
 			}
 		}
+
+		// Remove first and last element if they are just a space
+		if (singleSpace.equals(textElements.get(0))) {
+			textElements.remove(0);
+		}
+		if (singleSpace.equals(textElements.get(textElements.size() - 1))) {
+			textElements.remove(textElements.size() - 1);
+		}
+		if (!textElements.isEmpty()) {
+			textElements.get(0).setText(StringUtils.capitalize(textElements.get(0).getText()));
+		}
+
 
 //		string = string.replaceAll(" +", " ");
 		return this;
