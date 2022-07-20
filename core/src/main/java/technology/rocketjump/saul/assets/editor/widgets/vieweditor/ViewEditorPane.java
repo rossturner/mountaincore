@@ -30,6 +30,7 @@ public class ViewEditorPane extends VisTable implements Telegraph {
     private final ProfessionDictionary professionDictionary;
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
     private final CreatureEntityAssetDictionary creatureEntityAssetDictionary;
+    private final MessageDispatcher messageDispatcher;
 
     @Inject
     public ViewEditorPane(EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater, ProfessionDictionary professionDictionary, EntityAssetTypeDictionary entityAssetTypeDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary, MessageDispatcher messageDispatcher) {
@@ -39,6 +40,7 @@ public class ViewEditorPane extends VisTable implements Telegraph {
         this.professionDictionary = professionDictionary;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
+        this.messageDispatcher = messageDispatcher;
         messageDispatcher.addListener(this, MessageType.EDITOR_BROWSER_TREE_SELECTION);
     }
 
@@ -60,7 +62,7 @@ public class ViewEditorPane extends VisTable implements Telegraph {
             VisTable entityAssetPane = null;
             //TODO: Move to UI Factory
             if (entityAttributes instanceof CreatureEntityAttributes creatureAttributes) {
-                entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater, professionDictionary);
+                entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater, professionDictionary, messageDispatcher);
                 entityAssetPane = new CreatureAssetPane(creatureAttributes, entityAssetTypeDictionary, creatureEntityAssetDictionary, editorStateProvider);
             }
 
@@ -99,12 +101,12 @@ public class ViewEditorPane extends VisTable implements Telegraph {
     private VisTable buildSpritePaddingRow() {
         VisTable spritePaddingRow = new VisTable();
         spritePaddingRow.add(new VisLabel("Sprite padding")).left();
-        VisSlider slider = new VisSlider(1, 3, 0.1f, false);
+        VisSlider slider = new VisSlider(1, 3, 1, false);
         slider.setValue(editorStateProvider.getState().getSpritePadding());
         slider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                editorStateProvider.getState().setSpritePadding(slider.getValue());
+                editorStateProvider.getState().setSpritePadding((int) slider.getValue());
             }
         });
         spritePaddingRow.add(slider).left();

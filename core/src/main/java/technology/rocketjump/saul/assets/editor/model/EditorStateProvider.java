@@ -32,6 +32,17 @@ public class EditorStateProvider {
 			this.stateInstance = JSON.parseObject(fileText, EditorState.class);
 			JSONObject asJson = JSONObject.parseObject(fileText);
 			//todo: refactor me?
+			loadEntity(dictionaries, asJson);
+
+		} else {
+			this.stateInstance = new EditorState();
+			this.stateInstance.setModDir("mods/base");
+		}
+	}
+
+	private void loadEntity(SavedGameDependentDictionaries dictionaries, JSONObject asJson) {
+		try {
+			this.stateInstance.setCurrentEntity(null);
 			if (asJson.containsKey(STATE_ENTITY_KEY)) {
 				JSONObject entityJson = asJson.getJSONObject(STATE_ENTITY_KEY);
 				SavedGameStateHolder savedGameStateHolder = new SavedGameStateHolder();
@@ -42,10 +53,8 @@ public class EditorStateProvider {
 
 				this.stateInstance.setCurrentEntity(persistable);
 			}
-
-		} else {
-			this.stateInstance = new EditorState();
-			this.stateInstance.setModDir("mods/base");
+		} catch (Exception ex) {
+			Logger.warn(ex, "Failed to load entity, will continue");
 		}
 	}
 

@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.assets.editor.widgets.vieweditor;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
@@ -13,6 +14,7 @@ import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntit
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.jobs.ProfessionDictionary;
 import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.messaging.MessageType;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,12 +25,14 @@ public class CreatureAttributesPane extends VisTable {
     private final EditorStateProvider editorStateProvider;
     private final EntityAssetUpdater entityAssetUpdater;
     private final ProfessionDictionary professionDictionary;
+    private final MessageDispatcher messageDispatcher;
 
-    public CreatureAttributesPane(CreatureEntityAttributes creatureAttributes, EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater, ProfessionDictionary professionDictionary) {
+    public CreatureAttributesPane(CreatureEntityAttributes creatureAttributes, EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater, ProfessionDictionary professionDictionary, MessageDispatcher messageDispatcher) {
         super();
         this.editorStateProvider = editorStateProvider;
         this.entityAssetUpdater = entityAssetUpdater;
         this.professionDictionary = professionDictionary;
+        this.messageDispatcher = messageDispatcher;
 
         Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
         Collection<Gender> genders = creatureAttributes.getRace().getGenders().keySet();
@@ -50,7 +54,7 @@ public class CreatureAttributesPane extends VisTable {
 
     private <T> Consumer<T> update(Consumer<T> input) {
         Consumer<T> consumer = x -> {
-            entityAssetUpdater.updateEntityAssets(editorStateProvider.getState().getCurrentEntity());
+            messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, editorStateProvider.getState().getCurrentEntity());
             editorStateProvider.stateChanged();
         };
 

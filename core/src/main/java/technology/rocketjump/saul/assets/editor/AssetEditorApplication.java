@@ -21,14 +21,14 @@ import technology.rocketjump.saul.assets.editor.factory.CreatureUIFactory;
 import technology.rocketjump.saul.assets.editor.factory.UIFactory;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
+import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
+import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
-
-import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 
 public class AssetEditorApplication extends ApplicationAdapter implements Telegraph {
 
@@ -40,6 +40,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 
 	private NativeFileChooser fileChooser;
 	private EditorStateProvider editorStateProvider;
+	private EntityAssetUpdater entityAssetUpdater;
 
 	@Inject
 	public AssetEditorApplication(NativeFileChooser fileChooser) {
@@ -66,7 +67,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				uiFactoryMapBinder.addBinding(EntityType.CREATURE).to(CreatureUIFactory.class);
 			}
 		});
-
+		entityAssetUpdater = injector.getInstance(EntityAssetUpdater.class);
 		entityRenderer = injector.getInstance(EntityRenderer.class);
 		editorStateProvider = injector.getInstance(EditorStateProvider.class);
 		ui = injector.getInstance(AssetEditorUI.class);
@@ -78,6 +79,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 
 		MessageDispatcher messageDispatcher = injector.getInstance(MessageDispatcher.class);
 		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED);
+		messageDispatcher.addListener(this, MessageType.ENTITY_ASSET_UPDATE_REQUIRED);
 	}
 
 	@Override
@@ -96,14 +98,29 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				Vector2 originalPosition = new Vector2((int)Math.floor(camera.viewportWidth * 0.5f) + 0.5f, (int)Math.floor(camera.viewportHeight * 0.4f) + 0.5f);
 	//			Vector2 originalPosition = currentEntity.getLocationComponent().getWorldPosition().cpy();
 
-				float padding = editorStateProvider.getState().getSpritePadding();
+
+
+				int padding = editorStateProvider.getState().getSpritePadding();
 				RenderMode currentRenderMode = editorStateProvider.getState().getRenderMode();
-				renderEntityWithOrientation(currentEntity, originalPosition, DOWN.toVector2(), 0, 0, currentRenderMode);
-				renderEntityWithOrientation(currentEntity, originalPosition, DOWN_LEFT.toVector2(), -padding, 0, currentRenderMode);
-				renderEntityWithOrientation(currentEntity, originalPosition, DOWN_RIGHT.toVector2(), padding, 0, currentRenderMode);
-				renderEntityWithOrientation(currentEntity, originalPosition, UP.toVector2(), 0, padding, currentRenderMode);
-				renderEntityWithOrientation(currentEntity, originalPosition, UP_LEFT.toVector2(), -padding, padding, currentRenderMode);
-				renderEntityWithOrientation(currentEntity, originalPosition, UP_RIGHT.toVector2(), padding, padding, currentRenderMode);
+
+
+				for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
+					if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
+						Vector2 vector2 = orientation.asOriginalVector;
+
+						float offsetY = Math.max(vector2.y, 0) * padding;
+
+						renderEntityWithOrientation(currentEntity, originalPosition, vector2, vector2.x * padding, offsetY, currentRenderMode);
+					}
+
+				}
+//				renderEntityWithOrientation(currentEntity, originalPosition, DOWN_LEFT.toVector2(), -padding, 0, currentRenderMode);
+//				renderEntityWithOrientation(currentEntity, originalPosition, DOWN_RIGHT.toVector2(), padding, 0, currentRenderMode);
+//				renderEntityWithOrientation(currentEntity, originalPosition, UP.toVector2(), 0, padding, currentRenderMode);
+//				renderEntityWithOrientation(currentEntity, originalPosition, UP_LEFT.toVector2(), -padding, padding, currentRenderMode);
+//				renderEntityWithOrientation(currentEntity, originalPosition, UP_RIGHT.toVector2(), padding, padding, currentRenderMode);
+
+
 			}
 
 
@@ -180,6 +197,11 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		switch (msg.message) {
 			case MessageType.ENTITY_CREATED: {
 				//do nothing
+				return true;
+			}
+			case MessageType.ENTITY_ASSET_UPDATE_REQUIRED: {
+				entityAssetUpdater.updateEntityAssets((Entity) msg.extraInfo);
+				return true;
 			}
 		}
 		return true;

@@ -20,7 +20,15 @@ public class WidgetBuilder {
 		VisTable visTable = new VisTable();
 		VisLabel label = new VisLabel(labelText.endsWith(":") ? labelText : labelText + ":");
 		VisSelectBox<T> selectBox = new VisSelectBox<>();
+		selectBox.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				changeListener.accept(selectBox.getSelected());
+			}
+		});
+
 		selectBox.setItems(orderedArray(items, valueIfNull));
+
 		if (initialValue == null) {
 			if (valueIfNull != null) {
 				selectBox.setSelected(valueIfNull);
@@ -28,12 +36,7 @@ public class WidgetBuilder {
 		} else {
 			selectBox.setSelected(initialValue);
 		}
-		selectBox.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				changeListener.accept(selectBox.getSelected());
-			}
-		});
+
 		visTable.add(label).left();
 		visTable.add(selectBox).left();
 		return visTable;
@@ -90,8 +93,11 @@ public class WidgetBuilder {
 										  Object instance, VisTable table) {
 		T initialValue = (T) ReflectionUtils.getProperty(instance, propertyName);
 		Consumer<T> reflectionPropertySetter = selected -> ReflectionUtils.setProperty(instance, propertyName, selected);
+
 		VisTable visTable = selectField(labelText, initialValue, items, valueIfNull, reflectionPropertySetter);
-		table.add(visTable).left().row();
+//		visTable.getChildren().forEach(child -> table.add(child).left());
+		table.add(visTable).colspan(2).left().row();
+//		table.row();
 	}
 
 	public static <T> Array<T> orderedArray(Collection<T> items) {

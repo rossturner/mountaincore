@@ -22,6 +22,7 @@ import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShape;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShapeDescriptor;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
+import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -149,7 +150,9 @@ public class CreatureUIFactory implements UIFactory {
         dialog.add(WidgetBuilder.selectField("Body Shape:", asset.getBodyShape(), bodyShapes, null, asset::setBodyShape)).left();
         dialog.row();
         //todo:profession
-        dialog.add(WidgetBuilder.selectField("Type", asset.getType(), entityAssetTypeDictionary.getByEntityType(getEntityType()), null, asset::setType)).left();
+        Collection<EntityAssetType> assetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType()).stream().filter(assetType -> !assetType.getName().startsWith("ATTACH")).toList();
+
+        dialog.add(WidgetBuilder.selectField("Type", asset.getType(), assetTypes, null, asset::setType)).left();
         dialog.row();
 
         VisTable consciousnessRow = new VisTable();
@@ -175,6 +178,7 @@ public class CreatureUIFactory implements UIFactory {
         dialog.add(consciousnessRow);
         dialog.row();
 
+        //TODO: Autogenerate name
         //Race-[Gender]-[BodyShape]-[Profession]-Type-Consciousness
         VisTable nameRow = new VisTable();
         nameRow.add(new VisLabel("Unique Name:")).left();
