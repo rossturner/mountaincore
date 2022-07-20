@@ -145,7 +145,9 @@ public class CreatureUIFactory implements UIFactory {
             public void onOk() {
                 asset.setUniqueName(uniqueNameTextBox.getText());
                 completeAssetDictionary.add(asset);
-                messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forAsset(getEntityType(), descriptorsFile, asset, race));
+                EntityBrowserValue value = EntityBrowserValue.forAsset(getEntityType(), descriptorsFile, asset, race);
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_ASSET_CREATED, value);
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, value);
             }
         };
 

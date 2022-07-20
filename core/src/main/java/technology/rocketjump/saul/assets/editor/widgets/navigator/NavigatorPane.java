@@ -40,7 +40,7 @@ public class NavigatorPane extends VisTable {
 		this.add(new VisTable()).expandY();
 	}
 
-	private void reloadTree() {
+	public void reloadTree() {
 		navigatorTree.clearChildren();
 
 		for (EntityType entityType : EntityType.values()) {

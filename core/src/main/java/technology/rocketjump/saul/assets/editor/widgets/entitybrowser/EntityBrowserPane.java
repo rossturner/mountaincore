@@ -3,8 +3,11 @@ package technology.rocketjump.saul.assets.editor.widgets.entitybrowser;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.kotcrab.vis.ui.widget.*;
 import org.pmw.tinylog.Logger;
@@ -17,6 +20,7 @@ import technology.rocketjump.saul.assets.entities.CompleteEntityDefinitionDictio
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,7 +30,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class EntityBrowserPane extends VisTable {
+public class EntityBrowserPane extends VisTable implements Telegraph {
 
 	private final VisTree assetTree;
 	private final EditorStateProvider editorStateProvider;
@@ -85,6 +89,8 @@ public class EntityBrowserPane extends VisTable {
 		this.add(controlsTable).top().row();
 
 		this.add(new VisTable()).expandY().row();
+
+		messageDispatcher.addListener(this, MessageType.EDITOR_ASSET_CREATED);
 	}
 
 	public void reload() {
@@ -154,4 +160,46 @@ public class EntityBrowserPane extends VisTable {
 		}
 	}
 
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.EDITOR_ASSET_CREATED -> newAssetCreated((EntityBrowserValue)msg.extraInfo);
+			default -> Logger.error("Unexpected message type handled: " + msg.message);
+		}
+		return true;
+	}
+
+	private void newAssetCreated(EntityBrowserValue value) {
+		Path targetDirectory = FileUtils.getDirectory(value.path);
+		EntityBrowserTreeNode targetParentNode = findSubDirNode(targetDirectory);
+
+
+		EntityBrowserTreeNode assetNode = new EntityBrowserTreeNode(messageDispatcher, editorStateProvider);
+		assetNode.setValue(value);
+		descriptorPathsByAssetName.put(value.label, value.path);
+		targetParentNode.add(assetNode);
+	}
+
+	private EntityBrowserTreeNode findSubDirNode(Path targetDirectory) {
+		Array<EntityBrowserTreeNode> nodes = assetTree.getNodes();
+		Deque<EntityBrowserTreeNode> frontier = new ArrayDeque<>();
+		for (EntityBrowserTreeNode node : nodes) {
+			frontier.add(node);
+		}
+
+		while (!frontier.isEmpty()) {
+			EntityBrowserTreeNode node = frontier.pop();
+
+			if (node.getValue().treeValueType.equals(EntityBrowserValue.TreeValueType.SUBDIR)) {
+				if (targetDirectory.equals(node.getValue().path)) {
+					return node;
+				}
+				for (EntityBrowserTreeNode child : node.getChildren()) {
+					frontier.add(child);
+				}
+			}
+		}
+
+		throw new IllegalArgumentException("Could not find valid parent node for descriptor at " + targetDirectory);
+	}
 }

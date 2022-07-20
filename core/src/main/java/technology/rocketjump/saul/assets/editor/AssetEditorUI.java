@@ -157,6 +157,7 @@ public class AssetEditorUI implements Telegraph {
 		Actor leftPane;
 		if (editorStateProvider.getState().getEntitySelection() == null) {
 			leftPane = navigatorPane;
+			navigatorPane.reloadTree();
 		} else {
 			currentUiFactory = uiFactories.get(editorStateProvider.getState().getEntitySelection().getEntityType());
 			entityBrowserPane.reload();
