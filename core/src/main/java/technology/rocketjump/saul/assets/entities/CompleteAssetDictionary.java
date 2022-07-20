@@ -3,6 +3,7 @@ package technology.rocketjump.saul.assets.entities;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.entities.creature.CreatureEntityAssetDictionary;
+import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.assets.entities.furniture.FurnitureEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.item.ItemEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.mechanism.MechanismEntityAssetDictionary;
@@ -50,6 +51,11 @@ public class CompleteAssetDictionary {
 		allAssetsByName.putAll(mechanismEntityAssetDictionary.getAll());
 		allAssetsByName.put(NULL_ASSET.getUniqueName(), NULL_ASSET);
 		creatureEntityAssetDictionary.rebuild();
+	}
+
+	public void add(CreatureEntityAsset asset) {
+		creatureEntityAssetDictionary.add(asset);
+		rebuild();
 	}
 
 	public EntityAsset getByUniqueName(String uniqueAssetName) {

@@ -3,45 +3,49 @@ package technology.rocketjump.saul.assets.editor.factory;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.ShowCreateAssetDialogMessage;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
+import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShape;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShapeDescriptor;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
-import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.Race;
-import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
+import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
 
 @Singleton
 public class CreatureUIFactory implements UIFactory {
     private final MessageDispatcher messageDispatcher;
+    private final EntityAssetTypeDictionary entityAssetTypeDictionary;
     private final CompleteAssetDictionary completeAssetDictionary;
     private final RaceDictionary raceDictionary;
     private final CreatureEntityFactory creatureEntityFactory;
 
     @Inject
-    public CreatureUIFactory(MessageDispatcher messageDispatcher, CompleteAssetDictionary completeAssetDictionary, RaceDictionary raceDictionary, CreatureEntityFactory creatureEntityFactory) {
+    public CreatureUIFactory(MessageDispatcher messageDispatcher, EntityAssetTypeDictionary entityAssetTypeDictionary, CompleteAssetDictionary completeAssetDictionary, RaceDictionary raceDictionary, CreatureEntityFactory creatureEntityFactory) {
         this.messageDispatcher = messageDispatcher;
+        this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.completeAssetDictionary = completeAssetDictionary;
         this.raceDictionary = raceDictionary;
         this.creatureEntityFactory = creatureEntityFactory;
@@ -113,21 +117,70 @@ public class CreatureUIFactory implements UIFactory {
 
     @Override
     public OkCancelDialog createAssetDialog(ShowCreateAssetDialogMessage message) {
-        VisValidatableTextField assetNameTextBox = new VisValidatableTextField();
-        assetNameTextBox.addValidator(StringUtils::isNotBlank);
+        final Path directory = FileUtils.getDirectory(message.path());
+        Path descriptorsFile = directory.resolve("descriptors.json");
+        //TODO: consider Widget builder for validating text fields
+        VisValidatableTextField uniqueNameTextBox = new VisValidatableTextField();
+        uniqueNameTextBox.addValidator(StringUtils::isNotBlank);
+        uniqueNameTextBox.addValidator(input -> completeAssetDictionary.getByUniqueName(input) == null);
 
-        OkCancelDialog dialog = new OkCancelDialog("Create asset under " + message.path()) {
+        Race race = (Race) message.typeDescriptor();
+        Collection<Gender> genders = new HashSet<>(race.getGenders().keySet());
+        genders.add(Gender.ANY);
+        Collection<CreatureBodyShape> bodyShapes = race.getBodyShapes().stream().map(CreatureBodyShapeDescriptor::getValue).toList();
+
+        CreatureEntityAsset asset = new CreatureEntityAsset();
+        asset.setRace(race);
+        asset.setConsciousness(null);
+        asset.setConsciousnessList(new ArrayList<>());
+
+        OkCancelDialog dialog = new OkCancelDialog("Create asset under " + directory) {
             @Override
             public void onOk() {
-                //TODO: add to complete asset dictionary and rebuild or just to creatureEntityAssetDictionary and hit rebuildComplete
-                CreatureEntityAsset asset = new CreatureEntityAsset();
-//						asset.set
-
+                asset.setUniqueName(uniqueNameTextBox.getText());
+                completeAssetDictionary.add(asset);
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forAsset(getEntityType(), descriptorsFile, asset, race));
             }
         };
-        dialog.add(new VisLabel("Asset Name"));
-        dialog.add(assetNameTextBox);
-        return dialog;
 
+
+        dialog.add(WidgetBuilder.selectField("Gender:", asset.getGender(), genders, null, asset::setGender)).left();
+        dialog.row();
+        dialog.add(WidgetBuilder.selectField("Body Shape:", asset.getBodyShape(), bodyShapes, null, asset::setBodyShape)).left();
+        dialog.row();
+        //todo:profession
+        dialog.add(WidgetBuilder.selectField("Type", asset.getType(), entityAssetTypeDictionary.getByEntityType(getEntityType()), null, asset::setType)).left();
+        dialog.row();
+
+        VisTable consciousnessRow = new VisTable();
+        VisLabel consciousnessLabel = new VisLabel("Consciousness");
+        VisTable consciousnessTable = new VisTable();
+        for (Consciousness value : Consciousness.values()) {
+            VisCheckBox valueCheckbox = new VisCheckBox(value.name());
+            valueCheckbox.setChecked(asset.getConsciousnessList().contains(value));
+            valueCheckbox.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    if (valueCheckbox.isChecked()) {
+                        asset.getConsciousnessList().add(value);
+                    } else {
+                        asset.getConsciousnessList().remove(value);
+                    }
+                }
+            });
+            consciousnessTable.add(valueCheckbox).left().padLeft(20).row();
+        }
+        consciousnessRow.add(consciousnessLabel).left().row();
+        consciousnessRow.add(consciousnessTable).left();
+        dialog.add(consciousnessRow);
+        dialog.row();
+
+        //Race-[Gender]-[BodyShape]-[Profession]-Type-Consciousness
+        VisTable nameRow = new VisTable();
+        nameRow.add(new VisLabel("Unique Name:")).left();
+        nameRow.add(uniqueNameTextBox).left();
+        dialog.add(nameRow);
+        return dialog;
     }
+
 }

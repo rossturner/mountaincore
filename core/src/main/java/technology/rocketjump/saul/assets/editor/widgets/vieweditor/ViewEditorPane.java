@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisRadioButton;
+import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
@@ -47,7 +48,9 @@ public class ViewEditorPane extends VisTable implements Telegraph {
         setBackground("window-bg");
 
         add(new VisLabel("View Editor")).expandX().left().row();
-        add(buildRenderModeRow()).left().row();
+        add(buildRenderModeRow()).left();
+        add(buildSpritePaddingRow()).left();
+        row();
 
         Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
         if (currentEntity != null) {
@@ -55,6 +58,7 @@ public class ViewEditorPane extends VisTable implements Telegraph {
             EntityAttributes entityAttributes = currentEntity.getPhysicalEntityComponent().getAttributes();
             VisTable entityAttributesPane = null;
             VisTable entityAssetPane = null;
+            //TODO: Move to UI Factory
             if (entityAttributes instanceof CreatureEntityAttributes creatureAttributes) {
                 entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater, professionDictionary);
                 entityAssetPane = new CreatureAssetPane(creatureAttributes, entityAssetTypeDictionary, creatureEntityAssetDictionary, editorStateProvider);
@@ -67,6 +71,7 @@ public class ViewEditorPane extends VisTable implements Telegraph {
         }
 
     }
+
 
     private VisTable buildRenderModeRow() {
         VisTable renderModeRow = new VisTable();
@@ -88,9 +93,22 @@ public class ViewEditorPane extends VisTable implements Telegraph {
             });
             renderModeRow.add(radioButton);
         }
-        //TODO: spacing of sprite control for elephant
-
         return renderModeRow;
+    }
+
+    private VisTable buildSpritePaddingRow() {
+        VisTable spritePaddingRow = new VisTable();
+        spritePaddingRow.add(new VisLabel("Sprite padding")).left();
+        VisSlider slider = new VisSlider(1, 3, 0.1f, false);
+        slider.setValue(editorStateProvider.getState().getSpritePadding());
+        slider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                editorStateProvider.getState().setSpritePadding(slider.getValue());
+            }
+        });
+        spritePaddingRow.add(slider).left();
+        return spritePaddingRow;
     }
 
     @Override

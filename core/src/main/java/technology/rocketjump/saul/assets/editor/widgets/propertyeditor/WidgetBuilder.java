@@ -102,8 +102,12 @@ public class WidgetBuilder {
 		Array<T> array = new Array<>();
 		items.forEach(array::add);
 		array.sort(Comparator.comparing(Object::toString));
+
+
 		if (nullItem != null) {
-			array.insert(0, nullItem);
+			if (items.stream().noneMatch(item -> item.toString().equals(nullItem.toString()))) {
+				array.insert(0, nullItem);
+			}
 		}
 		return array;
 	}

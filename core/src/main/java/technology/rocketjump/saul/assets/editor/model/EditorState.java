@@ -16,6 +16,7 @@ public class EditorState {
 	private EditorEntitySelection entitySelection;
 	private EditorAssetSelection assetSelection;
 	private RenderMode renderMode = RenderMode.DIFFUSE;
+	private float spritePadding = 1;
 	@JSONField(serialize = false, deserialize = false)
 	private Entity currentEntity;
 
@@ -70,5 +71,13 @@ public class EditorState {
 
 	public void setCurrentEntity(Entity currentEntity) {
 		this.currentEntity = currentEntity;
+	}
+
+	public float getSpritePadding() {
+		return spritePadding;
+	}
+
+	public void setSpritePadding(float spritePadding) {
+		this.spritePadding = spritePadding;
 	}
 }
