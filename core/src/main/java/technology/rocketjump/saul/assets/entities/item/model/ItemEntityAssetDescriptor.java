@@ -2,6 +2,7 @@ package technology.rocketjump.saul.assets.entities.item.model;
 
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 import technology.rocketjump.saul.misc.Name;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class ItemEntityAssetDescriptor {
 	private int maxQuantity = 1; // The largest amount that this asset can represent
 	private ItemSize itemSize;
 	private ItemStyle itemStyle;
+	private List<ItemQuality> itemQualities;
 	private List<ItemPlacement> itemPlacements = new ArrayList<>();
 
 	public boolean matches(ItemEntityAttributes entityAttributes) {
@@ -34,6 +36,9 @@ public class ItemEntityAssetDescriptor {
 			return false;
 		}
 		if (itemStyle != null && entityAttributes.getItemStyle() != null && !itemStyle.equals(entityAttributes.getItemStyle())) {
+			return false;
+		}
+		if (itemQualities != null && !itemQualities.isEmpty() && entityAttributes.getItemQuality() != null && !itemQualities.contains(entityAttributes.getItemQuality())) {
 			return false;
 		}
 		return true;
@@ -77,6 +82,14 @@ public class ItemEntityAssetDescriptor {
 
 	public void setItemSize(ItemSize itemSize) {
 		this.itemSize = itemSize;
+	}
+
+	public List<ItemQuality> getItemQualities() {
+		return itemQualities;
+	}
+
+	public void setItemQualities(List<ItemQuality> itemQualities) {
+		this.itemQualities = itemQualities;
 	}
 
 	public int getMinQuantity() {

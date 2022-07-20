@@ -44,6 +44,17 @@ public class I18nTextTest {
 	}
 
 	@Test
+	public void tidy_addsInitialUppercase_onFirstWord() {
+		I18nText original = new I18nText("{{adjective1}} {{adjective2}} thing");
+
+		original.replace("{{adjective1}}", I18nText.BLANK);
+		original.replace("{{adjective2}}", "nice", "TOOLTIP.KEY");
+		original.tidy(true);
+
+		assertThat(original.toString()).isEqualTo("Nice thing");
+	}
+
+	@Test
 	public void breakAfterLength_doesNotBreakLessThan5CharsToNewLine() {
 		I18nText original = new I18nText("A lightly-coloured sedimentary rock which makes for a good building material. It is also used as a flux in the production of {{STEEL}}.");
 		original.replace("{{STEEL}}", "steel", "TOOLTIP.KEY");

@@ -1,0 +1,89 @@
+[
+  {
+    "name": "Neophyte level",
+    "minSkillLevel": 0,
+    "maxSkillLevel": 19,
+    "outputQuality": {
+      "AWFUL": 0.35,
+      "POOR": 0.65
+    }
+  },
+  {
+    "name": "Novice level",
+    "minSkillLevel": 20,
+    "maxSkillLevel": 39,
+    "outputQuality": {
+      "AWFUL": 0.1,
+      "POOR": 0.5,
+      "STANDARD": 0.4
+    }
+  },
+  {
+    "name": "Apprentice level",
+    "minSkillLevel": 40,
+    "maxSkillLevel": 49,
+    "outputQuality": {
+      "POOR": 0.25,
+      "STANDARD": 0.75
+    }
+  },
+  {
+    "name": "Journeyman level",
+    "minSkillLevel": 50,
+    "maxSkillLevel": 59,
+    "outputQuality": {
+      "POOR": 0.1,
+      "STANDARD": 0.7,
+      "SUPERIOR": 0.2
+    }
+  },
+  {
+    "name": "Adept level",
+    "minSkillLevel": 60,
+    "maxSkillLevel": 69,
+    "outputQuality": {
+      "POOR": 0.05,
+      "STANDARD": 0.45,
+      "SUPERIOR": 0.5
+    }
+  },
+  {
+    "name": "Skilled level",
+    "minSkillLevel": 70,
+    "maxSkillLevel": 79,
+    "outputQuality": {
+      "STANDARD": 0.35,
+      "SUPERIOR": 0.6,
+      "MASTERWORK": 0.05
+    }
+  },
+  {
+    "name": "Expert level",
+    "minSkillLevel": 80,
+    "maxSkillLevel": 89,
+    "outputQuality": {
+      "STANDARD": 0.25,
+      "SUPERIOR": 0.65,
+      "MASTERWORK": 0.1
+    }
+  },
+  {
+    "name": "Master level",
+    "minSkillLevel": 90,
+    "maxSkillLevel": 99,
+    "outputQuality": {
+      "STANDARD": 0.15,
+      "SUPERIOR": 0.5,
+      "MASTERWORK": 0.35
+    }
+  },
+  {
+    "name": "Grandmaster level",
+    "minSkillLevel": 100,
+    "maxSkillLevel": 100,
+    "outputQuality": {
+      "SUPERIOR": 0.55,
+      "MASTERWORK": 0.45
+    }
+  }
+]

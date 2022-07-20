@@ -47,6 +47,8 @@ public class ItemTrackerTest {
 	private ItemEntityAssetsByAssetType mockAssetTypeMap;
 	@Mock
 	private ItemEntityAssetsByItemType mockItemTypeMap;
+	@Mock
+	private ItemEntityAssetsByQuality mockQualityMap;
 	private ItemEntityAssetsBySize blankMap;
 	@Mock
 	private ItemEntityAttributesFactory mockItemEntityAttributesFactory;
@@ -63,7 +65,8 @@ public class ItemTrackerTest {
 		when(mockItemEntityAssetDictionary.getQuantityMap()).thenReturn(mockQuantityMap);
 		when(mockQuantityMap.getAssetTypeMapByQuantity(anyInt())).thenReturn(mockAssetTypeMap);
 		when(mockAssetTypeMap.getItemTypeMapByAssetType(any())).thenReturn(mockItemTypeMap);
-		when(mockItemTypeMap.getSizeMapByItemType(any())).thenReturn(blankMap);
+		when(mockItemTypeMap.getQualityMapByItemType(any())).thenReturn(mockQualityMap);
+		when(mockQualityMap.getSizeMapByQuality(any())).thenReturn(blankMap);
 	}
 
 	@Test

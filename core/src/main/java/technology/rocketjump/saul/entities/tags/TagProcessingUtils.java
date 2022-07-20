@@ -6,6 +6,7 @@ import technology.rocketjump.saul.assets.FloorTypeDictionary;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.cooking.CookingRecipeDictionary;
+import technology.rocketjump.saul.crafting.CraftingOutputQualityDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
@@ -24,6 +25,7 @@ public class TagProcessingUtils {
 	public final FloorTypeDictionary floorTypeDictionary;
 	public final ItemTypeDictionary itemTypeDictionary;
 	public final GameMaterialDictionary materialDictionary;
+	public final CraftingOutputQualityDictionary craftingOutputQualityDictionary;
 	public final PlantSpeciesDictionary plantSpeciesDictionary;
 	public final StockpileGroupDictionary stockpileGroupDictionary;
 	public final CookingRecipeDictionary cookingRecipeDictionary;
@@ -37,7 +39,7 @@ public class TagProcessingUtils {
 
 	@Inject
 	public TagProcessingUtils(MessageDispatcher messageDispatcher, EntityAssetTypeDictionary entityAssetTypeDictionary, FloorTypeDictionary floorTypeDictionary,
-							  ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary materialDictionary, PlantSpeciesDictionary plantSpeciesDictionary,
+							  ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary materialDictionary, CraftingOutputQualityDictionary craftingOutputQualityDictionary, PlantSpeciesDictionary plantSpeciesDictionary,
 							  StockpileGroupDictionary stockpileGroupDictionary, CookingRecipeDictionary cookingRecipeDictionary,
 							  ProfessionDictionary professionDictionary, JobTypeDictionary jobTypeDictionary,
 							  CraftingTypeDictionary craftingTypeDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
@@ -47,6 +49,7 @@ public class TagProcessingUtils {
 		this.floorTypeDictionary = floorTypeDictionary;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.materialDictionary = materialDictionary;
+		this.craftingOutputQualityDictionary = craftingOutputQualityDictionary;
 		this.plantSpeciesDictionary = plantSpeciesDictionary;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.cookingRecipeDictionary = cookingRecipeDictionary;

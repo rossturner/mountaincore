@@ -284,4 +284,10 @@ public class ItemType {
 	public void setIsAmmoType(AmmoType isAmmoType) {
 		this.isAmmoType = isAmmoType;
 	}
+
+	@JsonIgnore
+	public boolean isStackable() {
+		return maxStackSize > 1 || maxHauledAtOnce > 1;
+	}
+
 }

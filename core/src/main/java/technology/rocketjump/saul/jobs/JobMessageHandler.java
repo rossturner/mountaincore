@@ -647,7 +647,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 			case "CRAFT_ITEM":
 			case "FORGE_ITEM":
 				// Hoping targetEntity is a furniture such as crafting station
-				notifyTargetEntityJobCompleted(completedJob);
+				notifyTargetEntityJobCompleted(completedJob, jobCompletedMessage.getCompletedByEntity());
 				break;
 			case "DECONSTRUCT":
 				targetTile = gameContext.getAreaMap().getTile(completedJob.getJobLocation());
@@ -1031,10 +1031,10 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 		return true;
 	}
 
-	private void notifyTargetEntityJobCompleted(Job completedJob) {
+	private void notifyTargetEntityJobCompleted(Job completedJob, Entity completedByEntity) {
 		Entity craftingCompleteTargetEntity = entityStore.getById(completedJob.getTargetId());
 		if (craftingCompleteTargetEntity != null && craftingCompleteTargetEntity.getBehaviourComponent() instanceof OnJobCompletion) {
-			((OnJobCompletion)craftingCompleteTargetEntity.getBehaviourComponent()).jobCompleted(gameContext);
+			((OnJobCompletion)craftingCompleteTargetEntity.getBehaviourComponent()).jobCompleted(gameContext, completedByEntity);
 		}
 	}
 

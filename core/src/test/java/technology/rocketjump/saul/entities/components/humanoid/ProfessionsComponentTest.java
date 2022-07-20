@@ -37,11 +37,15 @@ public class ProfessionsComponentTest {
 
 		professionsComponent.experienceGained(1, mockProfA);
 
-		assertThat(professionsComponent.getSkillLevel(mockProfA)).isEqualTo(1);
+		assertThat(professionsComponent.getSkillLevel(mockProfA)).isEqualTo(0);
 
 		professionsComponent.experienceGained(5, mockProfA);
 
-		assertThat(professionsComponent.getSkillLevel(mockProfA)).isEqualTo(3);
+		assertThat(professionsComponent.getSkillLevel(mockProfA)).isEqualTo(1);
+
+		professionsComponent.experienceGained(20, mockProfA);
+
+		assertThat(professionsComponent.getSkillLevel(mockProfA)).isEqualTo(5);
 
 	}
 

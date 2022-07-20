@@ -31,6 +31,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 	private ItemSize itemSize = ItemSize.AVERAGE; // Used for displaying larger or smaller than normal item types
 	private ItemStyle itemStyle = ItemStyle.DEFAULT;
 	private ItemPlacement itemPlacement = ItemPlacement.ON_GROUND;
+	private ItemQuality itemQuality = ItemQuality.STANDARD;
 
 	private int quantity;
 	private EntityDestructionCause destructionCause;
@@ -57,6 +58,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 		cloned.itemSize = this.itemSize;
 		cloned.itemStyle = this.itemStyle;
 		cloned.itemPlacement = this.itemPlacement;
+		cloned.itemQuality = this.itemQuality;
 
 		cloned.quantity = this.quantity;
 		cloned.destructionCause = this.destructionCause;
@@ -174,6 +176,14 @@ public class ItemEntityAttributes implements EntityAttributes {
 		this.itemPlacement = itemPlacement;
 	}
 
+	public ItemQuality getItemQuality() {
+		return itemQuality;
+	}
+
+	public void setItemQuality(ItemQuality itemQuality) {
+		this.itemQuality = itemQuality;
+	}
+
 	public boolean isDestroyed() {
 		return destructionCause != null;
 	}
@@ -193,6 +203,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 				", itemSize=" + itemSize +
 				", itemStyle=" + itemStyle +
 				", itemPlacement=" + itemPlacement +
+				", itemQuality=" + itemQuality +
 				", quantity=" + quantity +
 				'}';
 	}
@@ -221,6 +232,9 @@ public class ItemEntityAttributes implements EntityAttributes {
 		}
 		if (!itemPlacement.equals(ItemPlacement.ON_GROUND)) {
 			asJson.put("placement", itemPlacement.name());
+		}
+		if (!itemQuality.equals(ItemQuality.STANDARD)) {
+			asJson.put("quality", itemQuality.name());
 		}
 		if (quantity != 1) {
 			asJson.put("quantity", quantity);
@@ -261,6 +275,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 		itemSize = EnumParser.getEnumValue(asJson, "size", ItemSize.class, ItemSize.AVERAGE);
 		itemStyle = EnumParser.getEnumValue(asJson, "style", ItemStyle.class, ItemStyle.DEFAULT);
 		itemPlacement = EnumParser.getEnumValue(asJson, "placement", ItemPlacement.class, ItemPlacement.ON_GROUND);
+		itemQuality = EnumParser.getEnumValue(asJson, "quality", ItemQuality.class, ItemQuality.STANDARD);
 		Integer quantity = asJson.getInteger("quantity");
 		if (quantity == null) {
 			this.quantity = 1;

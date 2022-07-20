@@ -14,6 +14,7 @@ public class I18nTextElement {
 	}
 
 	public static final I18nTextElement lineBreak = new I18nTextElement(null, null);
+	public static final I18nTextElement singleSpace = new I18nTextElement(" ", null);
 	static {
 		lineBreak.isLineBreak = true;
 	}

@@ -166,7 +166,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				return true;
 			}
 			default:
-				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
+				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this + ", " + msg);
 		}
 	}
 
