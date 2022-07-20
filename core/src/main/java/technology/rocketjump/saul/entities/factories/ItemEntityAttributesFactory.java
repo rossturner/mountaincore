@@ -193,7 +193,6 @@ public class ItemEntityAttributesFactory {
 				.getItemTypeMapByAssetType(entityAssetUpdater.ITEM_BASE_LAYER)
 				.getQualityMapByItemType(newItemAttributes.getItemType())
 				.getSizeMapByQuality(newItemAttributes.getItemQuality());
-		boolean sizeAndStyleMatched = false;
 
 		for (ItemSize itemSize : sizesToCheckInOrder) {
 			ItemEntityAssetsByPlacement bySize = sizeMap.getBySize(itemSize);

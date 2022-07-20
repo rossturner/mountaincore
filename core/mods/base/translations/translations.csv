@@ -606,7 +606,7 @@ ITEM.QUALITY.PREFIX.POOR.TOOLTIP,,"This item is poorly made and will slightly im
 ITEM.QUALITY.PREFIX.SUPERIOR.ADJECTIVE,,Superior,,,,,,,,,,,,,
 ITEM.QUALITY.PREFIX.SUPERIOR.TOOLTIP,,"This item has been crafted with great skill, making it more valuable and easier to use",,,,,,,,,,,,,
 ITEM.QUALITY.PREFIX.MASTERWORK.ADJECTIVE,,Masterwork,,,,,,,,,,,,,
-ITEM.QUALITY.PREFIX.MASTERWORK.ADJECTIVE,,"This item has clearly been made by a master craftsman, it is ideal in every way",,,,,,,,,,,,,
+ITEM.QUALITY.PREFIX.MASTERWORK.TOOLTIP,,"This item has clearly been made by a master craftsman, it is ideal in every way",,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,
 LANGUAGE.LABEL,,Language,Langue,Idioma,Sprache,Lingua,Idioma,Idioma,Язык,Język,Taal,Språk,Språk,Nyelv,Kieli
 ,,,,,,,,,,,,,,,

@@ -6,6 +6,8 @@ import technology.rocketjump.saul.misc.Name;
 
 import java.util.Map;
 
+// MODDING Might want to change this away from having a @Name property to it being the entire JSONArray of CraftingOutputQuality entries that are modded
+// i.e. so you can replace them all without having to match the same names
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CraftingOutputQuality {
 
