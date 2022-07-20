@@ -99,6 +99,11 @@ public class CreatureUIFactory implements UIFactory {
                 newRace.setI18nKey("RACE." + raceName.toUpperCase());
                 newRace.setBodyStructureName("pawed-quadruped"); //TODO: Present user with options?
                 newRace.setBodyShapes(List.of(bodyShape));
+                newRace.setGenders(new HashMap<>(Map.of(
+                        Gender.MALE, new RaceGenderDescriptor(),
+                        Gender.FEMALE, new RaceGenderDescriptor()
+                )));
+                newRace.getGenders().values().forEach(v -> v.setWeighting(0.5f));
                 raceDictionary.add(newRace);
                 completeAssetDictionary.rebuild();
 
@@ -152,7 +157,8 @@ public class CreatureUIFactory implements UIFactory {
         //todo:profession
         Collection<EntityAssetType> assetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType()).stream().filter(assetType -> !assetType.getName().startsWith("ATTACH")).toList();
 
-        dialog.add(WidgetBuilder.selectField("Type", asset.getType(), assetTypes, null, asset::setType)).left();
+        dialog.add(WidgetBuilder.selectField("Type", asset.getType(), assetTypes,
+                entityAssetTypeDictionary.getByName("CREATURE_BODY"), asset::setType)).left();
         dialog.row();
 
         VisTable consciousnessRow = new VisTable();

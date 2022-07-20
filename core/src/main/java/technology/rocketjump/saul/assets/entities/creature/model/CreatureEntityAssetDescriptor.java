@@ -43,7 +43,7 @@ public class CreatureEntityAssetDescriptor {
 		if (consciousness != null && entityAttributes.getConsciousness() != consciousness) {
 			return false;
 		}
-		if (consciousnessList != null && !consciousnessList.contains(entityAttributes.getConsciousness())) {
+		if (consciousnessList != null && !consciousnessList.isEmpty() && !consciousnessList.contains(entityAttributes.getConsciousness())) {
 			return false;
 		}
 		if (sanity != null && entityAttributes.getSanity() != sanity) {
@@ -74,6 +74,9 @@ public class CreatureEntityAssetDescriptor {
 
 	public void setRace(Race race) {
 		this.race = race;
+		if (race != null) {
+			this.raceName = race.getName();
+		}
 	}
 
 	public CreatureBodyShape getBodyShape() {

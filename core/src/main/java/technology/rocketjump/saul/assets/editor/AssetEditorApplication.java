@@ -29,6 +29,7 @@ import technology.rocketjump.saul.guice.SaulGuiceModule;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
+import technology.rocketjump.saul.rendering.utils.HexColors;
 
 public class AssetEditorApplication extends ApplicationAdapter implements Telegraph {
 
@@ -89,8 +90,6 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		renderBackground();
 		Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
 		if (currentEntity != null) {
-			spriteBatch.begin();
-			spriteBatch.setProjectionMatrix(camera.combined);
 
 			EntityAsset baseAsset = currentEntity.getPhysicalEntityComponent().getBaseAsset();
 			if (baseAsset != null) { //Don't render without the base asset, this can be for newly created entities
@@ -106,25 +105,18 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 
 				for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
 					if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
-						Vector2 vector2 = orientation.asOriginalVector;
+						Vector2 orientationVector = orientation.asOriginalVector;
+						float offsetY = Math.max(orientationVector.y, 0) * padding;
 
-						float offsetY = Math.max(vector2.y, 0) * padding;
-
-						renderEntityWithOrientation(currentEntity, originalPosition, vector2, vector2.x * padding, offsetY, currentRenderMode);
+						renderEntityWithOrientation(currentEntity, originalPosition, orientationVector, orientationVector.x * padding, offsetY, currentRenderMode);
 					}
 
 				}
-//				renderEntityWithOrientation(currentEntity, originalPosition, DOWN_LEFT.toVector2(), -padding, 0, currentRenderMode);
-//				renderEntityWithOrientation(currentEntity, originalPosition, DOWN_RIGHT.toVector2(), padding, 0, currentRenderMode);
-//				renderEntityWithOrientation(currentEntity, originalPosition, UP.toVector2(), 0, padding, currentRenderMode);
-//				renderEntityWithOrientation(currentEntity, originalPosition, UP_LEFT.toVector2(), -padding, padding, currentRenderMode);
-//				renderEntityWithOrientation(currentEntity, originalPosition, UP_RIGHT.toVector2(), padding, padding, currentRenderMode);
 
 
 			}
 
 
-			spriteBatch.end();
 		}
 
 
@@ -156,8 +148,18 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		entity.getLocationComponent().setWorldPosition(originalPosition.cpy().add(orientation), true, false);
 		// Set position
 		entity.getLocationComponent().setWorldPosition(originalPosition.cpy().add(offsetX, offsetY), false, false);
+		// Render outling around actual entity position
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+		shapeRenderer.setColor(HexColors.get("#3355BB"));
+		shapeRenderer.rect(entity.getLocationComponent().getWorldPosition().x - 0.5f, entity.getLocationComponent().getWorldPosition().y - 0.5f,
+				1, 1);
+		shapeRenderer.end();
+
 		// Render
+		spriteBatch.begin();
+		spriteBatch.setProjectionMatrix(camera.combined);
 		entityRenderer.render(entity, spriteBatch, renderMode, null, null, null);
+		spriteBatch.end();
 		// Reset position
 		entity.getLocationComponent().setWorldPosition(originalPosition, false, false);
 	}

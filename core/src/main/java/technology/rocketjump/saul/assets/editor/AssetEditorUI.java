@@ -257,7 +257,7 @@ public class AssetEditorUI implements Telegraph {
 			case MessageType.EDITOR_SHOW_CREATE_ENTITY_DIALOG: {
 				NavigatorTreeValue navigatorValue = (NavigatorTreeValue) msg.extraInfo;
 				Path path = navigatorValue.path;
-				OkCancelDialog dialog = currentUiFactory.createEntityDialog(path);
+				OkCancelDialog dialog = uiFactories.get(navigatorValue.entityType).createEntityDialog(path);
 				dialog.show(stage);
 				return true;
 			}

@@ -31,7 +31,7 @@ public class CreatureEntityAssetsByGender {
 			}
 		} else {
 			// Specific gender only
-			genderMap.get(gender).add(asset);
+			genderMap.computeIfAbsent(gender, a -> new CreatureEntityAssetsByProfession()).add(asset);
 			genderMap.get(Gender.ANY).add(asset);
 		}
 	}

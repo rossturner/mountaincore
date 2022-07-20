@@ -403,6 +403,12 @@ public class PropertyEditorPane extends VisTable {
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
 					spriteDescriptor.setFlipX(flipXCheckbox.isChecked());
+					for (RenderMode renderMode : RenderMode.values()) {
+						Sprite sprite = spriteDescriptor.getSprite(renderMode);
+						if (sprite != null) {
+							sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
+						}
+					}
 				}
 			});
 			orientationTable.add(flipXCheckbox).left();
@@ -412,6 +418,12 @@ public class PropertyEditorPane extends VisTable {
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
 					spriteDescriptor.setFlipY(flipYCheckbox.isChecked());
+					for (RenderMode renderMode : RenderMode.values()) {
+						Sprite sprite = spriteDescriptor.getSprite(renderMode);
+						if (sprite != null) {
+							sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
+						}
+					}
 				}
 			});
 			orientationTable.add(flipYCheckbox).left().row();
