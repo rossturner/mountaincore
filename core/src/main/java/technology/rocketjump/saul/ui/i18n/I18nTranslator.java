@@ -24,6 +24,7 @@ import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart
 import technology.rocketjump.saul.entities.model.physical.creature.body.organs.OrganDamageLevel;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismEntityAttributes;
@@ -119,7 +120,8 @@ public class I18nTranslator implements I18nUpdatable {
 				}
 			case ITEM:
 				ItemEntityAttributes itemAttributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-				return getItemDescription(itemAttributes.getQuantity(), itemAttributes.getMaterial(itemAttributes.getItemType().getPrimaryMaterialType()), itemAttributes.getItemType());
+				return getItemDescription(itemAttributes.getQuantity(), itemAttributes.getPrimaryMaterial(),
+						itemAttributes.getItemType(), itemAttributes.getItemQuality());
 			case MECHANISM:
 				MechanismEntityAttributes mechanismEntityAttributes = (MechanismEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 				return getMechanismDescription(mechanismEntityAttributes.getMechanismType(), mechanismEntityAttributes.getPrimaryMaterial());
@@ -152,7 +154,7 @@ public class I18nTranslator implements I18nUpdatable {
 				if (currentGoal.getFoodAllocation().getTargetEntity().getType().equals(EntityType.ITEM)) {
 					ItemEntityAttributes itemAttributes = (ItemEntityAttributes) currentGoal.getFoodAllocation().getTargetEntity().getPhysicalEntityComponent().getAttributes();
 					GameMaterial material = itemAttributes.getMaterial(itemAttributes.getItemType().getPrimaryMaterialType());
-					replacements.put("targetDescription", getItemDescription(1, material, itemAttributes.getItemType()));
+					replacements.put("targetDescription", getItemDescription(1, material, itemAttributes.getItemType(), itemAttributes.getItemQuality()));
 				}
 			} else if (currentGoal.getLiquidAllocation() != null) {
 				if (currentGoal.getLiquidAllocation().getType().equals(LiquidAllocation.LiquidAllocationType.FROM_RIVER)) {
@@ -167,7 +169,7 @@ public class I18nTranslator implements I18nUpdatable {
 				if (hauledEntity != null && hauledEntity.getType().equals(EntityType.ITEM)) {
 					// Override item description to use hauled quantity
 					ItemEntityAttributes hauledEntityAttributes = (ItemEntityAttributes) hauledEntity.getPhysicalEntityComponent().getAttributes();
-					targetDescription = getItemDescription(haulingAllocation.getItemAllocation().getAllocationAmount(), hauledEntityAttributes.getPrimaryMaterial(), hauledEntityAttributes.getItemType());
+					targetDescription = getItemDescription(haulingAllocation.getItemAllocation().getAllocationAmount(), hauledEntityAttributes.getPrimaryMaterial(), hauledEntityAttributes.getItemType(), hauledEntityAttributes.getItemQuality());
 				}
 
 				replacements.put("targetDescription", targetDescription);
@@ -231,7 +233,7 @@ public class I18nTranslator implements I18nUpdatable {
 							} else {
 								targetDescription = getItemDescription(output.getQuantity(),
 										output.getMaterial(),
-										output.getItemType());
+										output.getItemType(), null);
 							}
 							replacements.put("targetDescription", targetDescription);
 
@@ -523,13 +525,18 @@ public class I18nTranslator implements I18nUpdatable {
 		return new I18nText(raceWord.get(I18nWordClass.NOUN, attributes.getGender()), raceWord.hasTooltip() ? raceWord.getKey() : null);
 	}
 
-	public I18nText getItemDescription(int quantity, GameMaterial material, ItemType itemType) {
+	public I18nText getItemDescription(int quantity, GameMaterial material, ItemType itemType, ItemQuality itemQuality) {
 		Map<String, I18nString> replacements = new HashMap<>();
 		replacements.put("quantity", new I18nWord(String.valueOf(quantity)));
 		if (material == null) {
 			replacements.put("materialType", I18nWord.BLANK);
 		} else {
 			replacements.put("materialType", material.getI18nValue());
+		}
+		if (itemQuality == null || itemQuality.i18nKey == null) {
+			replacements.put("quality", I18nWord.BLANK);
+		} else {
+			replacements.put("quality", dictionary.getWord(itemQuality.i18nKey));
 		}
 		if (itemType == null) {
 			replacements.put("itemType", I18nWord.BLANK);
@@ -571,7 +578,7 @@ public class I18nTranslator implements I18nUpdatable {
 		Map<String, I18nString> replacements = new HashMap<>();
 		replacements.put("quantity", new I18nWord(String.valueOf(numberAllocated)));
 		replacements.put("total", new I18nWord(String.valueOf(requirement.getQuantity())));
-		replacements.put("itemDescription", getItemDescription(requirement.getQuantity(), requirement.getMaterial(), requirement.getItemType()));
+		replacements.put("itemDescription", getItemDescription(requirement.getQuantity(), requirement.getMaterial(), requirement.getItemType(), null));
 
 		return applyReplacements(dictionary.getWord("CONSTRUCTION.ITEM_ALLOCATION"), replacements, Gender.ANY);
 	}

@@ -8,6 +8,7 @@ import technology.rocketjump.saul.assets.WallTypeDictionary;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.cooking.CookingRecipeDictionary;
+import technology.rocketjump.saul.crafting.CraftingOutputQualityDictionary;
 import technology.rocketjump.saul.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.saul.entities.ai.goap.GoalDictionary;
 import technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary;
@@ -48,6 +49,7 @@ public class SavedGameDependentDictionaries {
 
 	public final DynamicMaterialFactory dynamicMaterialFactory;
 	public final GameMaterialDictionary gameMaterialDictionary;
+	public final CraftingOutputQualityDictionary craftingOutputQualityDictionary;
 	public final MessageDispatcher messageDispatcher;
 	public final ProfessionDictionary professionDictionary;
 	public final JobTypeDictionary jobTypeDictionary;
@@ -86,6 +88,7 @@ public class SavedGameDependentDictionaries {
 
 	@Inject
 	public SavedGameDependentDictionaries(DynamicMaterialFactory dynamicMaterialFactory, GameMaterialDictionary gameMaterialDictionary,
+										  CraftingOutputQualityDictionary craftingOutputQualityDictionary,
 										  MessageDispatcher messageDispatcher, ProfessionDictionary professionDictionary,
 										  JobTypeDictionary jobTypeDictionary, ItemTypeDictionary itemTypeDictionary, FloorTypeDictionary floorTypeDictionary,
 										  CookingRecipeDictionary cookingRecipeDictionary, ComponentDictionary componentDictionary,
@@ -105,6 +108,7 @@ public class SavedGameDependentDictionaries {
 										  OrganDefinitionDictionary organDefinitionDictionary, RaceDictionary raceDictionary) {
 		this.dynamicMaterialFactory = dynamicMaterialFactory;
 		this.gameMaterialDictionary = gameMaterialDictionary;
+		this.craftingOutputQualityDictionary = craftingOutputQualityDictionary;
 		this.messageDispatcher = messageDispatcher;
 		this.professionDictionary = professionDictionary;
 		this.jobTypeDictionary = jobTypeDictionary;

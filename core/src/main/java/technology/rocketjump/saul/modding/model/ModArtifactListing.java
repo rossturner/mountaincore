@@ -15,6 +15,7 @@ import technology.rocketjump.saul.assets.model.OverlapType;
 import technology.rocketjump.saul.assets.model.WallType;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.cooking.model.CookingRecipe;
+import technology.rocketjump.saul.crafting.model.CraftingOutputQuality;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
 import technology.rocketjump.saul.entities.ai.goap.Goal;
 import technology.rocketjump.saul.entities.ai.goap.Schedule;
@@ -117,6 +118,8 @@ public class ModArtifactListing {
 						"definitions/crafting", "itemProductionDefaults.json", JSON_MAP, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/crafting", "liquidProductionDefaults", SINGLE_FILE, JSON_MAP, ProductionQuota.class,
 						"definitions/crafting", "liquidProductionDefaults.json", JSON_MAP, ADDITIVE, GenericClassTypeProcessor.class),
+				def("definitions/crafting", "craftingOutputQuality", SINGLE_FILE, JSON_ARRAY, CraftingOutputQuality.class,
+						"definitions/crafting", "craftingOutputQuality", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
 
 				def("definitions/types", "wallTypes", SINGLE_FILE, JSON_ARRAY, WallType.class,
 						"terrain/walls", "**/definition.json", JSON_OBJECT, ADDITIVE, GenericClassTypeProcessor.class),

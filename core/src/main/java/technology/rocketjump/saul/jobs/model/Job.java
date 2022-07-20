@@ -146,18 +146,18 @@ public class Job implements Persistable {
 	}
 
 	public float getJobTypeTotalWorkToDo(ProfessionsComponent professionsComponent) {
-		return getJobTypeTotalWorkToDo(professionsComponent.getSkillLevel(type.getRequiredProfession()));
+		return getJobTypeTotalWorkToDo(professionsComponent.getSkillLevel(requiredProfession));
 	}
 
 	private float getJobTypeTotalWorkToDo(int skillLevelForProfession) {
+		if (CONTEXT_DEPENDENT_PROFESSION_REQUIRED.equals(requiredProfession)) {
+			Logger.error("Calculating time with " + CONTEXT_DEPENDENT_PROFESSION_REQUIRED.getName());
+		}
 		if (craftingRecipe != null) {
 			return craftingRecipe.getTimeToCompleteCrafting(skillLevelForProfession);
 		} else if (cookingRecipe != null) {
 			return cookingRecipe.getTimeToCompleteCooking(skillLevelForProfession);
 		} else {
-			if (CONTEXT_DEPENDENT_PROFESSION_REQUIRED.equals(type.getRequiredProfession())) {
-				Logger.error("Calculating time with " + CONTEXT_DEPENDENT_PROFESSION_REQUIRED.getName());
-			}
 			float timeMultiplier = ((100f - (float)skillLevelForProfession) / 100f);
 			float variableTime = type.getMaximumTimeToCompleteJob() - type.getMinimumTimeToCompleteJob();
 			return type.getMinimumTimeToCompleteJob() + (timeMultiplier * variableTime);

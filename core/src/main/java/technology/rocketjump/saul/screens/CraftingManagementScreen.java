@@ -437,7 +437,8 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 			QuantifiedItemTypeWithMaterial inputRequirement = craftingRecipe.getInput().get(inputCursor);
 			EntityDrawable itemDrawable = new EntityDrawable(getExampleEntity(inputRequirement.getItemType(), inputRequirement.getMaterial()), entityRenderer);
 			clickableRow.add(new Image(itemDrawable)).left().pad(5);
-			I18nText description = i18nTranslator.getItemDescription(inputRequirement.getQuantity(), inputRequirement.getMaterial(), inputRequirement.getItemType());
+			I18nText description = i18nTranslator.getItemDescription(inputRequirement.getQuantity(), inputRequirement.getMaterial(),
+					inputRequirement.getItemType(), null);
 			I18nTextWidget descriptionWidget = new I18nTextWidget(description, uiSkin, messageDispatcher);
 
 			VerticalGroup descriptionGroup = new VerticalGroup();
@@ -462,7 +463,8 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 			QuantifiedItemTypeWithMaterial outputRequirement = craftingRecipe.getOutput().get(outputCursor);
 			EntityDrawable entityDrawable = new EntityDrawable(getExampleEntity(outputRequirement.getItemType(), outputRequirement.getMaterial()), entityRenderer);
 			clickableRow.add(new Image(entityDrawable)).left().pad(5);
-			I18nText description = i18nTranslator.getItemDescription(outputRequirement.getQuantity(), outputRequirement.getMaterial(), outputRequirement.getItemType());
+			I18nText description = i18nTranslator.getItemDescription(outputRequirement.getQuantity(), outputRequirement.getMaterial(),
+					outputRequirement.getItemType(), null);
 			clickableRow.add(new I18nTextWidget(description, uiSkin, messageDispatcher)).pad(5);
 
 			if (outputCursor < craftingRecipe.getOutput().size() - 1) {

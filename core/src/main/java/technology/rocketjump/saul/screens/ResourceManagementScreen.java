@@ -119,7 +119,7 @@ public class ResourceManagementScreen extends ManagementScreen {
 
 							Entity firstMaterialEntity = gameMaterialMapEntry.getValue().values().iterator().next();
 
-							I18nText materialDescription = i18nTranslator.getItemDescription(1, material, itemType);
+							I18nText materialDescription = i18nTranslator.getItemDescription(1, material, itemType, null);
 
 							int totalMaterialQuantity = 0;
 							int totalMaterialUnallocated = 0;

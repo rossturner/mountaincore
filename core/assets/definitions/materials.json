@@ -694,7 +694,8 @@
   "oxidisation" : {
     "effect" : "CONVERT_MATERIAL",
     "changesTo" : "Rusted Iron",
-    "hoursToConvert" : 380.0
+    "hoursToConvert" : 380.0,
+    "setsItemQualityTo" : "AWFUL"
   },
   "i18nKey" : "METAL.IRON",
   "useMaterialTypeAsAdjective" : false,
@@ -732,7 +733,7 @@
   "oxidisation" : {
     "effect" : "DESTROY_PARENT",
     "changesTo" : "Rusted scrap",
-    "hoursToConvert" : 248.0
+    "hoursToConvert" : 448.0
   },
   "i18nKey" : "METAL.RUSTED_IRON",
   "useMaterialTypeAsAdjective" : false,

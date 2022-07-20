@@ -8,6 +8,8 @@ import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.NotImplementedException;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
+import technology.rocketjump.saul.crafting.CraftingOutputQualityDictionary;
+import technology.rocketjump.saul.crafting.model.CraftingOutputQuality;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
 import technology.rocketjump.saul.crafting.model.CraftingRecipeMaterialSelection;
 import technology.rocketjump.saul.entities.ItemEntityMessageHandler;
@@ -18,12 +20,14 @@ import technology.rocketjump.saul.entities.components.ParentDependentEntityCompo
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureParticleEffectsComponent;
 import technology.rocketjump.saul.entities.components.furniture.PoweredFurnitureComponent;
+import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
 import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
 import technology.rocketjump.saul.entities.tags.CraftingOverrideTag;
@@ -51,6 +55,7 @@ import java.util.*;
 import static technology.rocketjump.saul.entities.behaviour.furniture.FillLiquidContainerBehaviour.relatedContainerCapacity;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.AllocationState.CANCELLED;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.HELD_IN_INVENTORY;
+import static technology.rocketjump.saul.entities.model.physical.item.ItemQuality.STANDARD;
 import static technology.rocketjump.saul.entities.tags.CraftingOverrideTag.CraftingOverrideSetting.DO_NOT_HAUL_OUTPUT;
 import static technology.rocketjump.saul.jobs.model.JobState.ASSIGNABLE;
 import static technology.rocketjump.saul.jobs.model.JobState.REMOVED;
@@ -72,11 +77,13 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	private JobType craftItemJobType;
 	private JobType haulingJobType;
 	private GameMaterialDictionary gameMaterialDictionary;
+	private CraftingOutputQualityDictionary craftingOutputQualityDictionary;
 
 	private ProductionAssignment currentProductionAssignment;
 	private Job craftingJob;
 	private boolean requiresExtraTime;
 	private Double extraTimeToProcess;
+	private Entity jobCompletedByEntity;
 	private double lastUpdateGameTime;
 	private final List<HaulingAllocation> haulingInputAllocations = new ArrayList<>();
 	private final List<Job> liquidTransferJobs = new ArrayList<>();
@@ -87,11 +94,12 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	public CraftingStationBehaviour(CraftingType craftingType, JobType craftItemJobType, JobType haulingJobType,
-									GameMaterialDictionary gameMaterialDictionary) {
+									GameMaterialDictionary gameMaterialDictionary, CraftingOutputQualityDictionary craftingOutputQualityDictionary) {
 		this.craftingType = craftingType;
 		this.craftItemJobType = craftItemJobType;
 		this.haulingJobType = haulingJobType;
 		this.gameMaterialDictionary = gameMaterialDictionary;
+		this.craftingOutputQualityDictionary = craftingOutputQualityDictionary;
 	}
 
 	@Override
@@ -148,7 +156,8 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			if (extraTimeToProcess < 0) {
 				requiresExtraTime = false;
 				extraTimeToProcess = null;
-				jobCompleted(gameContext);
+				jobCompleted(gameContext, jobCompletedByEntity);
+				jobCompletedByEntity = null;
 
 				if (particleEffectsComponent != null) {
 					particleEffectsComponent.releaseParticles();
@@ -563,9 +572,10 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	@Override
-	public void jobCompleted(GameContext gameContext) {
+	public void jobCompleted(GameContext gameContext, Entity completedByEntity) {
 		if (requiresExtraTime) {
 			extraTimeToProcess = currentProductionAssignment.targetRecipe.getExtraGameHoursToComplete();
+			jobCompletedByEntity = completedByEntity;
 			return;
 		}
 
@@ -586,7 +596,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 					liquidContainerComponent.setLiquidQuantity(outputRequirement.getQuantity());
 					liquidContainerComponent.setTargetLiquidMaterial(outputRequirement.getMaterial());
 				} else {
-					addOutputItemToList(outputRequirement, gameContext, output);
+					addOutputItemToList(outputRequirement, gameContext, output, completedByEntity);
 				}
 			}
 		}
@@ -639,11 +649,14 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		}
 	}
 
-	private void addOutputItemToList(QuantifiedItemTypeWithMaterial outputRequirement, GameContext gameContext, List<Entity> output) {
+	private void addOutputItemToList(QuantifiedItemTypeWithMaterial outputRequirement, GameContext gameContext, List<Entity> output, Entity completedByEntity) {
 		InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
 		ItemEntityAttributes outputAttributes = new ItemEntityAttributes(gameContext.getRandom().nextLong());
 		outputAttributes.setItemType(outputRequirement.getItemType());
 		outputAttributes.setItemPlacement(ItemPlacement.ON_GROUND);
+		if (!outputAttributes.getItemType().isStackable() && completedByEntity != null) {
+			outputAttributes.setItemQuality(determineItemQuality(completedByEntity, gameContext.getRandom()));
+		}
 
 
 		if (currentProductionAssignment.targetRecipe.getMaterialTypesToCopyOver() != null) {
@@ -681,6 +694,27 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		messageDispatcher.dispatchMessage(MessageType.ITEM_CREATION_REQUEST, new ItemCreationRequestMessage(outputAttributes, (outputItem) -> {
 			output.add(outputItem);
 		}));
+	}
+
+	private ItemQuality determineItemQuality(Entity completedByEntity, Random random) {
+		ItemQuality result = STANDARD;
+		if (craftingType.getProfessionRequired() != null) {
+			ProfessionsComponent professionsComponent = completedByEntity.getComponent(ProfessionsComponent.class);
+			if (professionsComponent != null) {
+				int skillLevel = professionsComponent.getSkillLevel(craftingType.getProfessionRequired());
+				CraftingOutputQuality outputQuality = craftingOutputQualityDictionary.getForSkillLevel(skillLevel);
+
+				float roll = random.nextFloat();
+				for (Map.Entry<ItemQuality, Float> entry : outputQuality.getOutputQuality().entrySet()) {
+					result = entry.getKey();
+					roll -= entry.getValue();
+					if (roll <= 0) {
+						break;
+					}
+				}
+			}
+		}
+		return result;
 	}
 
 	private boolean outputHaulingAllowed() {
@@ -821,7 +855,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				targetDescription = i18nTranslator.getItemDescription(
 						output.getQuantity(),
 						output.getMaterial(),
-						output.getItemType());
+						output.getItemType(), null);
 			}
 			descriptions.add(i18nTranslator.getTranslatedWordWithReplacements("ACTION.JOB.CREATE_GENERIC",
 					ImmutableMap.of("targetDescription", targetDescription)));
@@ -851,6 +885,10 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		}
 		if (extraTimeToProcess != null) {
 			asJson.put("extraTimeToProcess", extraTimeToProcess);
+		}
+		if (jobCompletedByEntity != null) {
+			jobCompletedByEntity.writeTo(savedGameStateHolder);
+			asJson.put("jobCompletedByEntity", jobCompletedByEntity.getId());
 		}
 
 		if (currentProductionAssignment != null) {
@@ -900,8 +938,16 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		}
 		this.requiresExtraTime = asJson.getBooleanValue("requiresExtraTime");
 		this.extraTimeToProcess = asJson.getDouble("extraTimeToProcess");
+		Long jobCompletedByEntityId = asJson.getLong("jobCompletedByEntity");
+		if (jobCompletedByEntityId != null) {
+			jobCompletedByEntity = savedGameStateHolder.entities.get(jobCompletedByEntityId);
+			if (jobCompletedByEntity == null) {
+				throw new InvalidSaveException("Could not find entity with ID " + jobCompletedByEntityId + " for jobCompletedByEntity in " + getClass().getSimpleName());
+			}
+		}
 
 		this.gameMaterialDictionary = relatedStores.gameMaterialDictionary;
+		this.craftingOutputQualityDictionary = relatedStores.craftingOutputQualityDictionary;
 
 		Long productionAssignmentId = asJson.getLong("currentProductionAssignment");
 		if (productionAssignmentId != null) {

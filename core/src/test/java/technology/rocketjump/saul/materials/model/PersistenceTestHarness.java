@@ -8,6 +8,7 @@ import technology.rocketjump.saul.assets.WallTypeDictionary;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.cooking.CookingRecipeDictionary;
+import technology.rocketjump.saul.crafting.CraftingOutputQualityDictionary;
 import technology.rocketjump.saul.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.saul.entities.ai.goap.GoalDictionary;
 import technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary;
@@ -121,6 +122,8 @@ public class PersistenceTestHarness {
 	private RaceDictionary mockRaceDictionary;
 	@Mock
 	private OrganDefinitionDictionary mockOrganDefinitionDictionary;
+	@Mock
+	private CraftingOutputQualityDictionary mockCraftingOutputQualityDictionary;
 
 	@Before
 	public void setup() {
@@ -129,6 +132,7 @@ public class PersistenceTestHarness {
 		dictionaries = new SavedGameDependentDictionaries(
 				mockDynamicMaterialFactory,
 				mockMaterialDictionary,
+				mockCraftingOutputQualityDictionary,
 				mockMessageDispatcher,
 				mockProfessionDictionary,
 				mockJobTypeDictionary,

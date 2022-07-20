@@ -29,8 +29,8 @@ import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static technology.rocketjump.saul.assets.model.FloorType.NULL_FLOOR;
 import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
