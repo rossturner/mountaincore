@@ -1,0 +1,19 @@
+{
+  "name": "SARCOPHAGUS",
+  "i18nKey": "FURNITURE.SARCOPHAGUS",
+  "blocksMovement": true,
+  "defaultLayoutName": "1x2N",
+  "colorCode": "#665a5a",
+  "iconName": "sarcophagus",
+  "requirements": {
+    "STONE": [
+      {
+        "itemTypeName": "Resource-Stone-Block",
+        "quantity": 8
+      }
+    ]
+  },
+  "tags": {
+    "DECEASED_CONTAINER": []
+  }
+}

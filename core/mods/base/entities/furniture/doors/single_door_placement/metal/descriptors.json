@@ -1,0 +1,19 @@
+[
+  {
+    "uniqueName": "door-placement-metal-single-ew",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "SINGLE_DOOR_PLACEMENT",
+    "furnitureLayoutName": "1x1EW",
+    "validMaterialTypes": ["METAL"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "door_metal_EW_anim_0.png",
+        "coloringLayer": "METAL_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    }
+  }
+]

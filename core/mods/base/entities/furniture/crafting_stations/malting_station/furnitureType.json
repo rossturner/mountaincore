@@ -1,0 +1,39 @@
+{
+  "name": "MALTING_STATION",
+  "i18nKey": "FURNITURE.MALTING_STATION",
+  "blocksMovement": true,
+  "defaultLayoutName": "4x1 WE",
+  "colorCode": "#e29a39",
+  "iconName": "powder",
+  "requirements": {
+    "WOOD": [
+      {
+        "itemTypeName": "Resource-Stone-Block",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Product-Liquid-Tank",
+        "quantity": 1
+      }
+    ],
+    "STONE": [
+      {
+        "itemTypeName": "Resource-Stone-Block",
+        "quantity": 8
+      },
+      {
+        "itemTypeName": "Product-Liquid-Tank",
+        "quantity": 1
+      }
+    ]
+  },
+  "tags": {
+    "CRAFTING_STATION_BEHAVIOUR": ["MALTING", "PRODUCE_ITEM", "HAULING"],
+    "PARTICLE_EFFECTS_WHILE_IN_USE": ["Milling"],
+    "DECORATION_FROM_INPUT": ["Product-Liquid-Tank"]
+  }
+}

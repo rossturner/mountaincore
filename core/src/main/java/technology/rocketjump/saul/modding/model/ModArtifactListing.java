@@ -24,7 +24,6 @@ import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructure;
 import technology.rocketjump.saul.entities.model.physical.creature.body.organs.OrganDefinition;
 import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectType;
-import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureCategory;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
@@ -141,14 +140,10 @@ public class ModArtifactListing {
 						"rooms", "stockpileGroups.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/types", "races", SINGLE_FILE, JSON_ARRAY, Race.class,
 						"entities/creature", "**/race.json", JSON_OBJECT, ADDITIVE, GenericClassTypeProcessor.class),
-				def("definitions/types", "furnitureCategories", SINGLE_FILE, JSON_ARRAY, FurnitureCategory.class,
-						"entities/furniture", "furnitureCategories.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
-				def("definitions/types", "furnitureCategories", SINGLE_FILE, JSON_ARRAY, FurnitureCategory.class,
-						"entities/furniture", "furnitureCategories.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/types", "furnitureLayouts", SINGLE_FILE, JSON_ARRAY, FurnitureLayout.class,
 						"entities/furniture", "furnitureLayouts.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/types", "furnitureTypes", SINGLE_FILE, JSON_ARRAY, FurnitureType.class,
-						"entities/furniture", "**/furnitureTypes.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
+						"entities/furniture", "**/furnitureType.json", JSON_OBJECT, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/types", "itemTypes", SINGLE_FILE, JSON_ARRAY, ItemType.class,
 						"entities/item", "**/itemTypes.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/types", "plantSpecies", SINGLE_FILE, JSON_ARRAY, PlantSpecies.class,

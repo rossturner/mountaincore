@@ -203,7 +203,7 @@ public class MapTile implements Persistable {
 						continue;
 					}
 					FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-					if (attributes.getFurnitureType().getFurnitureCategory().isBlocksMovement()) {
+					if (attributes.getFurnitureType().isBlocksMovement()) {
 						// This piece of furniture blocks movement but if it is also in the startingPoint, ignore it
 						if (startingPoint != null) {
 							boolean startingPointHasSameEntity = startingPoint.getEntity(entity.getId()) != null;

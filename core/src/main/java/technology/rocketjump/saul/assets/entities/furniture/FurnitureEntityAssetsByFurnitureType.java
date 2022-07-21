@@ -24,13 +24,7 @@ public class FurnitureEntityAssetsByFurnitureType {
 	}
 
 	public void add(FurnitureEntityAsset asset) {
-		if (asset.getFurnitureTypeNames() != null && !asset.getFurnitureTypeNames().isEmpty()) {
-			for (String furnitureTypeName : asset.getFurnitureTypeNames()) {
-				add(furnitureTypeName, asset);
-			}
-		} else {
-			add(asset.getFurnitureTypeName(), asset);
-		}
+		add(asset.getFurnitureTypeName(), asset);
 	}
 
 	private void add(String furnitureTypeName, FurnitureEntityAsset asset) {

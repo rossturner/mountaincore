@@ -1,0 +1,26 @@
+{
+  "name": "WATER_PUMP",
+  "i18nKey": "FURNITURE.WATER_PUMP",
+  "blocksMovement": true,
+  "defaultLayoutName": "Water Pump WE Layout",
+  "colorCode": "#26e1ed",
+  "iconName": "tap",
+  "placeAnywhere": true,
+  "requirements": {
+    "METAL": [
+      {
+        "itemTypeName": "Resource-Metal-Plate",
+        "quantity": 3
+      },
+      {
+        "itemTypeName": "Product-Stone-Gear",
+        "quantity": 2
+      }
+    ]
+  },
+  "tags": {
+    "FURNITURE_BEHAVIOUR": ["WATER_PUMP"],
+    "POWERED_FURNITURE": [-10, 0.8]
+  }
+
+}

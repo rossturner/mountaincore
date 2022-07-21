@@ -1,0 +1,19 @@
+[
+  {
+    "uniqueName": "Charcoal-Clamp-Covered",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "CHARCOAL_CLAMP_COVERED",
+    "furnitureLayoutName": "2x2 with lower workspaces",
+    "validMaterialTypes": ["WOOD"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Charcoal Clamp Earth.png",
+        "coloringLayer": "EARTH_COLOR",
+        "offsetPixels": {
+          "x": 32,
+          "y": 32
+        }
+      }
+    }
+  }
+]

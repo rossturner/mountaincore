@@ -1,0 +1,19 @@
+[
+  {
+    "uniqueName": "Charcoal-Clamp-Base",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "CHARCOAL_CLAMP",
+    "furnitureLayoutName": "2x2 with lower workspaces",
+    "validMaterialTypes": ["WOOD"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Charcoal Clamp Wood.png",
+        "coloringLayer": "WOOD_COLOR",
+        "offsetPixels": {
+          "x": 32,
+          "y": 32
+        }
+      }
+    }
+  }
+]

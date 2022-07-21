@@ -175,7 +175,7 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 			}
 
 			FurnitureEntityAttributes attributes = (FurnitureEntityAttributes)assignedFurniture.getPhysicalEntityComponent().getAttributes();
-			if (attributes.getFurnitureType().getFurnitureCategory().isBlocksMovement()) {
+			if (attributes.getFurnitureType().isBlocksMovement()) {
 				// Blocks movement
 				if (attributes.getCurrentLayout().getWorkspaces().isEmpty()) {
 					// No workspaces

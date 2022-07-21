@@ -2,9 +2,7 @@
   {
     "uniqueName": "Windmill-Base",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": [
-      "WINDMILL"
-    ],
+    "furnitureTypeName": "WINDMILL",
     "furnitureLayoutName": "2x2",
     "validMaterialTypes": [
       "WOOD"
@@ -46,9 +44,7 @@
   {
     "uniqueName": "Windmill-Wood-Section",
     "type": "FURNITURE_ABOVE_LAYER_1",
-    "furnitureTypeNames": [
-      "WINDMILL"
-    ],
+    "furnitureTypeName": "WINDMILL",
     "furnitureLayoutName": "2x2",
     "validMaterialTypes": [
       "WOOD"
@@ -67,9 +63,7 @@
   {
     "uniqueName": "Windmill-Roof-Section",
     "type": "FURNITURE_ABOVE_LAYER_2",
-    "furnitureTypeNames": [
-      "WINDMILL"
-    ],
+    "furnitureTypeName": "WINDMILL",
     "furnitureLayoutName": "2x2",
     "validMaterialTypes": [
       "WOOD"
@@ -88,9 +82,7 @@
   {
     "uniqueName": "Windmill-Blades-Section",
     "type": "FURNITURE_ABOVE_LAYER_3",
-    "furnitureTypeNames": [
-      "WINDMILL"
-    ],
+    "furnitureTypeName": "WINDMILL",
     "furnitureLayoutName": "2x2",
     "validMaterialTypes": [
       "WOOD"

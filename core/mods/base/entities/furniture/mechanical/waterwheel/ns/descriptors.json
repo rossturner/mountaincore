@@ -2,7 +2,7 @@
   {
     "uniqueName": "Waterwheel-S-Building",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": ["WATERWHEEL"],
+    "furnitureTypeName": "WATERWHEEL",
     "furnitureLayoutName": "Waterwheel S side",
     "validMaterialTypes": ["WOOD"],
     "spriteDescriptors": {
@@ -35,7 +35,7 @@
   {
     "uniqueName": "Waterwheel-S-Base",
     "type": "FURNITURE_BELOW_LAYER_1",
-    "furnitureTypeNames": ["WATERWHEEL"],
+    "furnitureTypeName": "WATERWHEEL",
     "furnitureLayoutName": "Waterwheel S side",
     "validMaterialTypes": ["WOOD"],
     "spriteDescriptors": {
@@ -52,7 +52,7 @@
   {
     "uniqueName": "Waterwheel-S-Wheel",
     "type": "FURNITURE_ABOVE_LAYER_1",
-    "furnitureTypeNames": ["WATERWHEEL"],
+    "furnitureTypeName": "WATERWHEEL",
     "furnitureLayoutName": "Waterwheel S side",
     "validMaterialTypes": ["WOOD"],
     "spriteDescriptors": {
@@ -71,7 +71,7 @@
   {
     "uniqueName": "Waterwheel-N-Building",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": ["WATERWHEEL"],
+    "furnitureTypeName": "WATERWHEEL",
     "furnitureLayoutName": "Waterwheel N side",
     "validMaterialTypes": ["WOOD"],
     "spriteDescriptors": {
@@ -104,7 +104,7 @@
   {
     "uniqueName": "Waterwheel-N-Base",
     "type": "FURNITURE_BELOW_LAYER_1",
-    "furnitureTypeNames": ["WATERWHEEL"],
+    "furnitureTypeName": "WATERWHEEL",
     "furnitureLayoutName": "Waterwheel N side",
     "validMaterialTypes": ["WOOD"],
     "spriteDescriptors": {
@@ -121,7 +121,7 @@
   {
     "uniqueName": "Waterwheel-N-Wheel",
     "type": "FURNITURE_BELOW_LAYER_2",
-    "furnitureTypeNames": ["WATERWHEEL"],
+    "furnitureTypeName": "WATERWHEEL",
     "furnitureLayoutName": "Waterwheel N side",
     "validMaterialTypes": ["WOOD"],
     "spriteDescriptors": {

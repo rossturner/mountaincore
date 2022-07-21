@@ -1,0 +1,25 @@
+{
+  "name": "BEER_TAPPER",
+  "i18nKey": "FURNITURE.BEER_TAPPER",
+  "blocksMovement": true,
+  "defaultLayoutName": "2x1 with workspaces",
+  "colorCode": "#e3e369",
+  "iconName": "beer-stein",
+  "requirements": {
+    "WOOD": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Product-Barrel-Hoops",
+        "quantity": 2
+      }
+    ]
+  },
+  "tags": {
+    "LIQUID_CONTAINER": ["6", "Beer"],
+    "FURNITURE_BEHAVIOUR": ["BEER_TAPPER", "Material_Beer", "ItemType_Product-Barrel", "JobType_HAULING"]
+  }
+
+}

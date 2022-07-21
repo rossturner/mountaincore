@@ -16,7 +16,6 @@ public class FurnitureEntityAssetDescriptor {
 	private EntityAssetType type;
 
 	private String furnitureTypeName;
-	private List<String> furnitureTypeNames;
 	private String furnitureLayoutName;
 	private List<GameMaterialType> validMaterialTypes;
 
@@ -24,9 +23,6 @@ public class FurnitureEntityAssetDescriptor {
 
 	public boolean matches(FurnitureEntityAttributes entityAttributes) {
 		if (furnitureTypeName != null && !furnitureTypeName.equals(entityAttributes.getFurnitureType().getName())) {
-			return false;
-		}
-		if (furnitureTypeNames != null && !furnitureTypeNames.contains(entityAttributes.getFurnitureType().getName())) {
 			return false;
 		}
 		if (furnitureLayoutName != null && !furnitureLayoutName.equals(entityAttributes.getCurrentLayout().getUniqueName())) {
@@ -60,14 +56,6 @@ public class FurnitureEntityAssetDescriptor {
 
 	public void setFurnitureTypeName(String furnitureTypeName) {
 		this.furnitureTypeName = furnitureTypeName;
-	}
-
-	public List<String> getFurnitureTypeNames() {
-		return furnitureTypeNames;
-	}
-
-	public void setFurnitureTypeNames(List<String> furnitureTypeNames) {
-		this.furnitureTypeNames = furnitureTypeNames;
 	}
 
 	public String getFurnitureLayoutName() {
