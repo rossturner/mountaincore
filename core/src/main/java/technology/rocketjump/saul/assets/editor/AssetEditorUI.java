@@ -241,6 +241,7 @@ public class AssetEditorUI implements Telegraph {
 			case MessageType.EDITOR_SHOW_CREATE_DIRECTORY_DIALOG: {
 				final Path directory = FileUtils.getDirectory((Path) msg.extraInfo);
 
+				//TODO: add magic text listener to remove spaces and force lowercase
 				VisValidatableTextField folderTextBox = new VisValidatableTextField();
 				folderTextBox.addValidator(StringUtils::isNotBlank);
 				OkCancelDialog dialog = new OkCancelDialog("Create subdirectory under " + directory) {

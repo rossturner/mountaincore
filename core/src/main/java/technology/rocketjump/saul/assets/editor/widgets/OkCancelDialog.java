@@ -67,7 +67,7 @@ public abstract class OkCancelDialog {
         if (actor instanceof VisValidatableTextField f) {
             validatedFields.add(f);
         }
-        return visDialog.getContentTable().add(actor);
+        return visDialog.getContentTable().add(actor).fillX().expandX();
     }
 
     public void row() {

@@ -90,18 +90,13 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		renderBackground();
 		Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
 		if (currentEntity != null) {
-
 			EntityAsset baseAsset = currentEntity.getPhysicalEntityComponent().getBaseAsset();
 			if (baseAsset != null) { //Don't render without the base asset, this can be for newly created entities
-				//TODO: switch based on available orientations
 				Vector2 originalPosition = new Vector2((int)Math.floor(camera.viewportWidth * 0.5f) + 0.5f, (int)Math.floor(camera.viewportHeight * 0.4f) + 0.5f);
 	//			Vector2 originalPosition = currentEntity.getLocationComponent().getWorldPosition().cpy();
 
-
-
 				int padding = editorStateProvider.getState().getSpritePadding();
 				RenderMode currentRenderMode = editorStateProvider.getState().getRenderMode();
-
 
 				for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
 					if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
@@ -110,16 +105,9 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 
 						renderEntityWithOrientation(currentEntity, originalPosition, orientationVector, orientationVector.x * padding, offsetY, currentRenderMode);
 					}
-
 				}
-
-
 			}
-
-
 		}
-
-
 		ui.render();
 	}
 

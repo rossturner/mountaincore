@@ -31,7 +31,6 @@ public class EditorStateProvider {
 			String fileText = Files.readString(stateFile);
 			this.stateInstance = JSON.parseObject(fileText, EditorState.class);
 			JSONObject asJson = JSONObject.parseObject(fileText);
-			//todo: refactor me?
 			loadEntity(dictionaries, asJson);
 
 		} else {

@@ -40,7 +40,7 @@ public class EntityBrowserContextMenu extends PopupMenu {
 		createEntityDefinition.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.EDITOR_SHOW_CREATE_ASSET_DIALOG, new ShowCreateAssetDialogMessage(value.entityType, value.path, value.getTypeDescriptor())); //TODO: am lazy by not constructing new message type for this
+				messageDispatcher.dispatchMessage(MessageType.EDITOR_SHOW_CREATE_ASSET_DIALOG, new ShowCreateAssetDialogMessage(value.entityType, value.path, value.getTypeDescriptor()));
 				System.out.println("Clicked createEntityDefinition at " + value.path.toAbsolutePath());
 			}
 		});

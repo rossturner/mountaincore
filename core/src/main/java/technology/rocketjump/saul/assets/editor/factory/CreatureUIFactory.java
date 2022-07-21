@@ -4,14 +4,14 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.kotcrab.vis.ui.widget.VisCheckBox;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisValidatableTextField;
+import com.kotcrab.vis.ui.widget.*;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
@@ -33,7 +33,9 @@ import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Singleton
 public class CreatureUIFactory implements UIFactory {
@@ -73,7 +75,6 @@ public class CreatureUIFactory implements UIFactory {
         Function<String, Boolean> validRace = new Function<>() {
             @Override
             public Boolean apply(String input) {
-                //TODO: define rules
                 if (StringUtils.length(input) < 2) {
                     return false;
                 }
@@ -84,20 +85,29 @@ public class CreatureUIFactory implements UIFactory {
 
         VisValidatableTextField raceNameTextField = new VisValidatableTextField();
         raceNameTextField.addValidator(validRace::apply);
+        raceNameTextField.addListener(new InputListener() {
+            @Override
+            public boolean keyTyped(InputEvent event, char character) {
+                if (event.getListenerActor() instanceof VisTextField vtf) {
+                    vtf.setText(WordUtils.capitalize(vtf.getText()));
+                    vtf.setCursorAtTextEnd();
+                }
+                return true;
+            }
+        });
 
         OkCancelDialog dialog = new OkCancelDialog("Create new " + getEntityType()) {
             @Override
             public void onOk() {
                 String folderName = raceNameTextField.getText().toLowerCase(Locale.ROOT);
                 Path basePath = FileUtils.createDirectory(path, folderName);
-                //TODO: maybe a nice function to setup required defaults
                 String raceName = raceNameTextField.getText();
                 CreatureBodyShapeDescriptor bodyShape = new CreatureBodyShapeDescriptor();
                 bodyShape.setValue(CreatureBodyShape.AVERAGE);
                 Race newRace = new Race();
                 newRace.setName(raceName);
                 newRace.setI18nKey("RACE." + raceName.toUpperCase());
-                newRace.setBodyStructureName("pawed-quadruped"); //TODO: Present user with options?
+                newRace.setBodyStructureName("pawed-quadruped");
                 newRace.setBodyShapes(List.of(bodyShape));
                 newRace.setGenders(new HashMap<>(Map.of(
                         Gender.MALE, new RaceGenderDescriptor(),
@@ -125,20 +135,60 @@ public class CreatureUIFactory implements UIFactory {
     public OkCancelDialog createAssetDialog(ShowCreateAssetDialogMessage message) {
         final Path directory = FileUtils.getDirectory(message.path());
         Path descriptorsFile = directory.resolve("descriptors.json");
-        //TODO: consider Widget builder for validating text fields
-        VisValidatableTextField uniqueNameTextBox = new VisValidatableTextField();
-        uniqueNameTextBox.addValidator(StringUtils::isNotBlank);
-        uniqueNameTextBox.addValidator(input -> completeAssetDictionary.getByUniqueName(input) == null);
 
         Race race = (Race) message.typeDescriptor();
         Collection<Gender> genders = new HashSet<>(race.getGenders().keySet());
         genders.add(Gender.ANY);
         Collection<CreatureBodyShape> bodyShapes = race.getBodyShapes().stream().map(CreatureBodyShapeDescriptor::getValue).toList();
+        Collection<EntityAssetType> assetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType()).stream().filter(assetType -> !assetType.getName().startsWith("ATTACH")).toList();
 
         CreatureEntityAsset asset = new CreatureEntityAsset();
         asset.setRace(race);
         asset.setConsciousness(null);
         asset.setConsciousnessList(new ArrayList<>());
+
+
+        VisValidatableTextField uniqueNameTextBox = new VisValidatableTextField();
+        uniqueNameTextBox.addValidator(StringUtils::isNotBlank);
+        uniqueNameTextBox.addValidator(input -> completeAssetDictionary.getByUniqueName(input) == null);
+
+
+        //TODO: not super keen this accesses state outside the lambda
+        Consumer<Object> uniqueNameRebuilder = o -> {
+            Gender gender = asset.getGender();
+            List<CreatureBodyShapeDescriptor> raceBodyShapes = race.getBodyShapes();
+            CreatureBodyShape bodyShape = asset.getBodyShape();
+            EntityAssetType assetType = asset.getType();
+            List<Consciousness> consciousnesses = asset.getConsciousnessList();
+
+            StringJoiner uniqueNameJoiner = new StringJoiner("-");
+            uniqueNameJoiner.add(race.getName());
+            if (gender != null && Gender.ANY != gender) {
+                uniqueNameJoiner.add(gender.name());
+            }
+            if (bodyShape != null && CreatureBodyShape.ANY != bodyShape && raceBodyShapes.size() > 1) {
+                uniqueNameJoiner.add(bodyShape.name());
+            }
+            //TODO: Profession
+            if (assetType != null) {
+                uniqueNameJoiner.add(assetType.getName());
+            }
+            Set<Consciousness> allConsciousness = new HashSet<>(List.of(Consciousness.values()));
+            allConsciousness.removeAll(consciousnesses);
+            if (allConsciousness.size() == 1) {
+                allConsciousness.stream().findFirst().ifPresent(unusedValue -> {
+                    uniqueNameJoiner.add("Not_"+unusedValue.name());
+                });
+            } else if(!consciousnesses.isEmpty() && !allConsciousness.isEmpty()) {
+                String consciousTerm = consciousnesses.stream().map(Consciousness::name).collect(Collectors.joining("_"));
+                uniqueNameJoiner.add(consciousTerm);
+            }
+
+            String builtName = WordUtils.capitalizeFully(uniqueNameJoiner.toString(), '_', '-');
+
+            uniqueNameTextBox.setText(builtName);
+            asset.setUniqueName(builtName);
+        };
 
         OkCancelDialog dialog = new OkCancelDialog("Create asset under " + directory) {
             @Override
@@ -152,17 +202,15 @@ public class CreatureUIFactory implements UIFactory {
         };
 
 
-        dialog.add(WidgetBuilder.selectField("Gender:", asset.getGender(), genders, null, asset::setGender)).left();
+        dialog.add(WidgetBuilder.selectField("Gender:", asset.getGender(), genders, null, compose(asset::setGender, uniqueNameRebuilder))).left();
         dialog.row();
-        dialog.add(WidgetBuilder.selectField("Body Shape:", asset.getBodyShape(), bodyShapes, null, asset::setBodyShape)).left();
+        dialog.add(WidgetBuilder.selectField("Body Shape:", asset.getBodyShape(), bodyShapes, null, compose(asset::setBodyShape, uniqueNameRebuilder))).left();
         dialog.row();
         //todo:profession
-        Collection<EntityAssetType> assetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType()).stream().filter(assetType -> !assetType.getName().startsWith("ATTACH")).toList();
-
-        dialog.add(WidgetBuilder.selectField("Type", asset.getType(), assetTypes,
-                entityAssetTypeDictionary.getByName("CREATURE_BODY"), asset::setType)).left();
+        dialog.add(WidgetBuilder.selectField("Type", asset.getType(), assetTypes, entityAssetTypeDictionary.getByName("CREATURE_BODY"), compose(asset::setType, uniqueNameRebuilder))).left();
         dialog.row();
 
+        //TODO: this was copied from the editor panel, should remove duplication
         VisTable consciousnessRow = new VisTable();
         VisLabel consciousnessLabel = new VisLabel("Consciousness");
         VisTable consciousnessTable = new VisTable();
@@ -177,6 +225,7 @@ public class CreatureUIFactory implements UIFactory {
                     } else {
                         asset.getConsciousnessList().remove(value);
                     }
+                    uniqueNameRebuilder.accept(null);
                 }
             });
             consciousnessTable.add(valueCheckbox).left().padLeft(20).row();
@@ -186,13 +235,16 @@ public class CreatureUIFactory implements UIFactory {
         dialog.add(consciousnessRow);
         dialog.row();
 
-        //TODO: Autogenerate name
-        //Race-[Gender]-[BodyShape]-[Profession]-Type-Consciousness
         VisTable nameRow = new VisTable();
         nameRow.add(new VisLabel("Unique Name:")).left();
-        nameRow.add(uniqueNameTextBox).left();
+        nameRow.add(uniqueNameTextBox).left().expandX().fillX();
         dialog.add(nameRow);
         return dialog;
+    }
+
+
+    private <T> Consumer<T> compose(Consumer<T> input, Consumer<Object> nameBuilder) {
+        return input.andThen(nameBuilder);
     }
 
 }

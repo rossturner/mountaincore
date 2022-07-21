@@ -39,6 +39,7 @@ import technology.rocketjump.saul.jobs.model.Profession;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.misc.ReflectionUtils;
+import technology.rocketjump.saul.persistence.FileUtils;
 import technology.rocketjump.saul.rendering.RenderMode;
 
 import java.lang.reflect.InvocationTargetException;
@@ -308,21 +309,23 @@ public class PropertyEditorPane extends VisTable {
 						public void onFileChosen(FileHandle file) {
 							String filename = file.name();
 							spriteDescriptor.setFilename(filename);
-							// Need to update sprites if file is already available
 							filenameField.setText(filename);
+
+							//todo: check where the file is, compared to mods directory
+							Path currentImageDirectory = FileUtils.getDirectory(Path.of(file.path()));
+
+							//must be a png in the entities folder
+							//Switch on if already in textureAtlas
+
+							// Need to update sprites if file is already available
+
 
 							//TODO: cobbled
 							Texture texture = new Texture(file);
 							Sprite sprite = new Sprite(texture);
 							sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
-							spriteDescriptor.setSprite(RenderMode.DIFFUSE, sprite);
+							spriteDescriptor.setSprite(RenderMode.DIFFUSE, sprite); //TODO: Assumes Diffuse is selected
 
-							//todo: check where the file is, compared to mods directory
-							//must be a png in the entities folder
-							//Switch on if already in textureAtlas
-							//Sprite descriptor needs renderModeSprite adding, which will be a Sprite wrapping a Texture from our file handle
-							//sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
-							//spriteDescriptor.setSprite(renderMode, sprite);
 							messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, editorStateProvider.getState().getCurrentEntity());
 						}
 
