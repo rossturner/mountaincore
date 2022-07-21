@@ -12,6 +12,7 @@ import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
+import technology.rocketjump.saul.assets.editor.model.CreatureNameBuilders;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
@@ -35,7 +36,6 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Singleton
 public class CreatureUIFactory implements UIFactory {
@@ -152,40 +152,8 @@ public class CreatureUIFactory implements UIFactory {
         uniqueNameTextBox.addValidator(StringUtils::isNotBlank);
         uniqueNameTextBox.addValidator(input -> completeAssetDictionary.getByUniqueName(input) == null);
 
-
-        //TODO: not super keen this accesses state outside the lambda
         Consumer<Object> uniqueNameRebuilder = o -> {
-            Gender gender = asset.getGender();
-            List<CreatureBodyShapeDescriptor> raceBodyShapes = race.getBodyShapes();
-            CreatureBodyShape bodyShape = asset.getBodyShape();
-            EntityAssetType assetType = asset.getType();
-            List<Consciousness> consciousnesses = asset.getConsciousnessList();
-
-            StringJoiner uniqueNameJoiner = new StringJoiner("-");
-            uniqueNameJoiner.add(race.getName());
-            if (gender != null && Gender.ANY != gender) {
-                uniqueNameJoiner.add(gender.name());
-            }
-            if (bodyShape != null && CreatureBodyShape.ANY != bodyShape && raceBodyShapes.size() > 1) {
-                uniqueNameJoiner.add(bodyShape.name());
-            }
-            //TODO: Profession
-            if (assetType != null) {
-                uniqueNameJoiner.add(assetType.getName());
-            }
-            Set<Consciousness> allConsciousness = new HashSet<>(List.of(Consciousness.values()));
-            allConsciousness.removeAll(consciousnesses);
-            if (allConsciousness.size() == 1) {
-                allConsciousness.stream().findFirst().ifPresent(unusedValue -> {
-                    uniqueNameJoiner.add("Not_"+unusedValue.name());
-                });
-            } else if(!consciousnesses.isEmpty() && !allConsciousness.isEmpty()) {
-                String consciousTerm = consciousnesses.stream().map(Consciousness::name).collect(Collectors.joining("_"));
-                uniqueNameJoiner.add(consciousTerm);
-            }
-
-            String builtName = WordUtils.capitalizeFully(uniqueNameJoiner.toString(), '_', '-');
-
+            String builtName = CreatureNameBuilders.buildUniqueNameForAsset(race, asset);
             uniqueNameTextBox.setText(builtName);
             asset.setUniqueName(builtName);
         };
@@ -241,7 +209,6 @@ public class CreatureUIFactory implements UIFactory {
         dialog.add(nameRow);
         return dialog;
     }
-
 
     private <T> Consumer<T> compose(Consumer<T> input, Consumer<Object> nameBuilder) {
         return input.andThen(nameBuilder);
