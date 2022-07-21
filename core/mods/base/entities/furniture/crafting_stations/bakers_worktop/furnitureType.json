@@ -1,0 +1,57 @@
+{
+  "name": "BAKERS_WORKTOP",
+  "i18nKey": "FURNITURE.BAKERS_WORKTOP",
+  "categoryName": "TABLE",
+  "defaultLayoutName": "2x3BL1R",
+  "colorCode": "#b8ad4e",
+  "iconName": "swap-bag",
+  "requirements": {
+    "STONE": [
+      {
+        "itemTypeName": "Resource-Stone-Block",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Tool-Rolling-Pin",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Tool-Kitchen-Knife",
+        "quantity": 1
+      }
+    ],
+    "WOOD": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Tool-Rolling-Pin",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Tool-Kitchen-Knife",
+        "quantity": 1
+      }
+    ],
+    "METAL": [
+      {
+        "itemTypeName": "Resource-Metal-Ingot",
+        "quantity": 8
+      },
+      {
+        "itemTypeName": "Tool-Rolling-Pin",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Tool-Kitchen-Knife",
+        "quantity": 1
+      }
+    ]
+  },
+  "tags": {
+    "CRAFTING_STATION_BEHAVIOUR": ["DOUGH_PREPARATION", "CRAFT_ITEM", "HAULING"],
+    "CRAFTING_OVERRIDE": ["DO_NOT_HAUL_OUTPUT"],
+    "DECORATION_FROM_INPUT": ["Tool-Rolling-Pin", "Tool-Kitchen-Knife"]
+  }
+}

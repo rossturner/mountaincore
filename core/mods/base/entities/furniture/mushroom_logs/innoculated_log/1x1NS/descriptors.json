@@ -1,0 +1,41 @@
+[
+  {
+    "uniqueName": "mushroom-innoculated-log-1x1NS-base",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "INNOCULATED_LOG",
+    "furnitureLayoutName": "1x1NS with workspaces",
+    "validMaterialTypes": ["WOOD", "SEED"],
+    "tags": {},
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Furniture-Log-NS02-Exterior.png",
+        "scale": 0.8,
+        "coloringLayer": "BRANCHES_COLOR",
+        "childAssets": [
+          {
+            "type": "FURNITURE_BELOW_LAYER_1"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "mushroom-innoculated-log-1x1NS-underlayer",
+    "type": "FURNITURE_BELOW_LAYER_1",
+    "furnitureTypeName": "INNOCULATED_LOG",
+    "furnitureLayoutName": "1x1NS with workspaces",
+    "validMaterialTypes": ["WOOD", "SEED"],
+    "tags": {},
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Furniture-Log-NS-Interior.png",
+        "scale": 0.8,
+        "coloringLayer": "WOOD_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    }
+  }
+]

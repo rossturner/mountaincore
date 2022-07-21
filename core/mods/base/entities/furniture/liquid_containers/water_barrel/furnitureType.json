@@ -1,0 +1,22 @@
+{
+  "name": "WATER_BARREL",
+  "i18nKey": "FURNITURE.WATER_BARREL",
+  "categoryName": "LIQUID_CONTAINER",
+  "defaultLayoutName": "1x1 with workspaces",
+  "colorCode": "#26e1ed",
+  "iconName": "barrel",
+  "placeAnywhere": false,
+  "autoConstructed": true,
+  "requirements": {
+    "WOOD": [
+      {
+        "itemTypeName": "Product-Barrel",
+        "quantity": 1
+      }
+    ]
+  },
+  "tags": {
+    "LIQUID_CONTAINER": ["6", "Water"],
+    "FURNITURE_BEHAVIOUR": ["FILL_LIQUID_CONTAINER", "ItemType_Product-Bucket"]
+  }
+}

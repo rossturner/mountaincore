@@ -1,0 +1,25 @@
+{
+  "name": "CHEFS_CAULDRON",
+  "i18nKey": "FURNITURE.CAULDRON",
+  "categoryName": "LIQUID_CONTAINER",
+  "defaultLayoutName": "1x1 with workspaces",
+  "colorCode": "#ba4b1a",
+  "iconName": "cauldron",
+  "placeAnywhere": false,
+  "autoConstructed": true,
+  "requirements": {
+    "METAL": [
+      {
+        "itemTypeName": "Product-Cauldron",
+        "quantity": 1
+      }
+    ]
+  },
+  "tags": {
+    "LIQUID_CONTAINER": [
+      "12",
+      "Water",
+      "ALWAYS_INACTIVE"
+    ]
+  }
+}

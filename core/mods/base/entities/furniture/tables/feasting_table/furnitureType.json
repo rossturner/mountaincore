@@ -1,0 +1,22 @@
+{
+  "name": "FEASTING_TABLE",
+  "i18nKey": "FURNITURE.FEASTING_TABLE",
+  "categoryName": "TABLE",
+  "defaultLayoutName": "4x2",
+  "colorCode": "#e0a275",
+  "iconName": "meal",
+  "requirements": {
+    "STONE": [
+      {
+        "itemTypeName": "Resource-Stone-Block",
+        "quantity": 8
+      }
+    ],
+    "WOOD": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 8
+      }
+    ]
+  }
+}

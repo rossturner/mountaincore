@@ -1,0 +1,26 @@
+{
+  "name": "KITCHEN_WORKTOP",
+  "i18nKey": "FURNITURE.KITCHEN_WORKTOP",
+  "categoryName": "TABLE",
+  "defaultLayoutName": "2x1 with workspaces",
+  "colorCode": "#f8981e",
+  "iconName": "carrot",
+  "requirements": {
+    "STONE": [
+      {
+        "itemTypeName": "Resource-Stone-Block",
+        "quantity": 3
+      }
+    ],
+    "WOOD": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 3
+      }
+    ]
+  },
+  "tags": {
+    "COLLECT_ITEMS_BEHAVIOUR": ["COOKING_INGREDIENTS", "2", "CHEF"],
+    "INVENTORY_ITEMS_UNALLOCATED": []
+  }
+}

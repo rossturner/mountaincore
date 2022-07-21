@@ -1,0 +1,56 @@
+{
+  "name": "CARPENTRY_WORKBENCH",
+  "i18nKey": "FURNITURE.CARPENTRY_WORKBENCH",
+  "categoryName": "TABLE",
+  "defaultLayoutName": "2x3L3R",
+  "colorCode": "#e7c467",
+  "iconName": "planks",
+  "requirements": {
+    "STONE": [
+      {
+        "itemTypeName": "Resource-Stone-Block",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Tool-Plane",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Tool-Saw",
+        "quantity": 1
+      }
+    ],
+    "WOOD": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Tool-Plane",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Tool-Saw",
+        "quantity": 1
+      }
+    ],
+    "METAL": [
+      {
+        "itemTypeName": "Resource-Metal-Ingot",
+        "quantity": 8
+      },
+      {
+        "itemTypeName": "Tool-Plane",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Tool-Saw",
+        "quantity": 1
+      }
+    ]
+  },
+  "tags": {
+    "CRAFTING_STATION_BEHAVIOUR": ["CARPENTRY", "CRAFT_ITEM", "HAULING"],
+    "DECORATION_FROM_INPUT": ["Tool-Plane", "Tool-Saw"]
+  }
+}

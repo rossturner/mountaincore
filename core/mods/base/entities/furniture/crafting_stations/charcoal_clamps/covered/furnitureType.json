@@ -1,0 +1,21 @@
+{
+  "name": "CHARCOAL_CLAMP_COVERED",
+  "i18nKey": "FURNITURE.CHARCOAL_CLAMP",
+  "categoryName": "OVEN",
+  "defaultLayoutName": "2x2 with lower workspaces",
+  "colorCode": "#746044",
+  "iconName": "pyre",
+  "hiddenFromPlacementMenu": true,
+  "requirements": {
+    "WOOD": [
+      {
+        "itemTypeName": "Resource-Logs",
+        "quantity": 32
+      }
+    ]
+  },
+  "tags": {
+    "FURNITURE_BEHAVIOUR": ["TRANSFORM_AFTER_SET_TIME", "FurnitureType_CHARCOAL_CLAMP_COMPLETED"],
+    "PARTICLE_EFFECTS_WHILE_PROCESSING": ["Smoking (charcoal)"]
+  }
+}

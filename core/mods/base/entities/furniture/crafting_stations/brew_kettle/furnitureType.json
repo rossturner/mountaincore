@@ -1,0 +1,27 @@
+{
+  "name": "BREW_KETTLE",
+  "i18nKey": "FURNITURE.BREW_KETTLE",
+  "categoryName": "OVEN",
+  "defaultLayoutName": "mashtun layout",
+  "colorCode": "#c67852",
+  "iconName": "round-bottom-flask-uncorked",
+  "placeAnywhere": false,
+  "requirements": {
+    "METAL": [
+      {
+        "itemTypeName": "Resource-Metal-Plate",
+        "quantity": 6
+      },
+      {
+        "itemTypeName": "Product-Liquid-Tank",
+        "quantity": 1
+      }
+    ]
+  },
+  "tags": {
+    "CRAFTING_STATION_BEHAVIOUR": ["WORT_BREWING", "PRODUCE_LIQUID", "HAULING", "Product-Barrel"],
+    "CRAFTING_OVERRIDE": ["DO_NOT_HAUL_OUTPUT"],
+    "LIQUID_CONTAINER": ["12", "Wort"],
+    "REQUIREMENT_TO_COLOR_MAPPINGS": ["Resource-Metal-Plate", "METAL_COLOR", "Product-Liquid-Tank", "MISC_COLOR_1"]
+  }
+}

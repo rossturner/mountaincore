@@ -1,0 +1,56 @@
+{
+  "name": "WOODCUTTERS_BENCH",
+  "i18nKey": "FURNITURE.WOODCUTTERS_BENCH",
+  "categoryName": "TABLE",
+  "defaultLayoutName": "2x3BL1R",
+  "colorCode": "#f19144",
+  "iconName": "hand-saw",
+  "requirements": {
+    "STONE": [
+      {
+        "itemTypeName": "Resource-Stone-Block",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Tool-Saw",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Tool-Axe",
+        "quantity": 1
+      }
+    ],
+    "WOOD": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Tool-Saw",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Tool-Axe",
+        "quantity": 1
+      }
+    ],
+    "METAL": [
+      {
+        "itemTypeName": "Resource-Metal-Ingot",
+        "quantity": 8
+      },
+      {
+        "itemTypeName": "Tool-Saw",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Tool-Axe",
+        "quantity": 1
+      }
+    ]
+  },
+  "tags": {
+    "CRAFTING_STATION_BEHAVIOUR": ["WOODCUTTING", "CRAFT_ITEM", "HAULING"],
+    "DECORATION_FROM_INPUT": ["Tool-Saw", "Tool-Axe"]
+  }
+}

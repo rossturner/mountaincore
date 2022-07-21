@@ -148,7 +148,7 @@ public class ModArtifactListing {
 				def("definitions/types", "furnitureLayouts", SINGLE_FILE, JSON_ARRAY, FurnitureLayout.class,
 						"entities/furniture", "furnitureLayouts.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/types", "furnitureTypes", SINGLE_FILE, JSON_ARRAY, FurnitureType.class,
-						"entities/furniture", "**/furnitureTypes.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
+						"entities/furniture", "**/furnitureType.json", JSON_OBJECT, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/types", "itemTypes", SINGLE_FILE, JSON_ARRAY, ItemType.class,
 						"entities/item", "**/itemTypes.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/types", "plantSpecies", SINGLE_FILE, JSON_ARRAY, PlantSpecies.class,

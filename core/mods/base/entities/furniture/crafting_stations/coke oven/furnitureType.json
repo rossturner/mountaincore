@@ -1,0 +1,23 @@
+{
+  "name": "COKE_OVEN",
+  "i18nKey": "FURNITURE.COKE_OVEN",
+  "categoryName": "TABLE",
+  "defaultLayoutName": "2x2 with lower workspaces",
+  "colorCode": "#b3a5a1",
+  "iconName": "fireplace",
+  "requirements": {
+    "STONE": [
+      {
+        "itemTypeName": "Resource-Stone-Block",
+        "quantity": 6
+      },
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 2
+      }
+    ]
+  },
+  "tags": {
+    "CRAFTING_STATION_BEHAVIOUR": ["COKE_OVEN_BAKING", "PRODUCE_ITEM", "HAULING"]
+  }
+}

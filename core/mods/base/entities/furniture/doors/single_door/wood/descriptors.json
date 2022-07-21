@@ -1,0 +1,38 @@
+[
+  {
+    "uniqueName": "door-wood-single-ew",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "SINGLE_DOOR",
+    "furnitureLayoutName": "1x1EW",
+    "validMaterialTypes": ["WOOD"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "isAnimated": true,
+        "filename": "door_wood_EW_anim",
+        "coloringLayer": "WOOD_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": -32
+        }
+      }
+    }
+  },
+  {
+    "uniqueName": "door-wood-single-ns",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "SINGLE_DOOR",
+    "furnitureLayoutName": "1x1NS",
+    "validMaterialTypes": ["WOOD"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "isAnimated": true,
+        "filename": "door_wood_NS_anim",
+        "coloringLayer": "WOOD_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": -32
+        }
+      }
+    }
+  }
+]

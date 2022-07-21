@@ -1,0 +1,26 @@
+{
+  "name": "SERVING_TABLE",
+  "i18nKey": "FURNITURE.SERVING_TABLE",
+  "categoryName": "TABLE",
+  "defaultLayoutName": "4x1 with workspaces",
+  "colorCode": "#ab8a49",
+  "iconName": "chicken-oven",
+  "requirements": {
+    "STONE": [
+      {
+        "itemTypeName": "Resource-Stone-Block",
+        "quantity": 4
+      }
+    ],
+    "WOOD": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 4
+      }
+    ]
+  },
+  "tags": {
+    "COLLECT_ITEMS_BEHAVIOUR": ["PREPARED_FOOD", "4", "CHEF", "ALLOW_DUPLICATES"],
+    "INVENTORY_ITEMS_UNALLOCATED": []
+  }
+}

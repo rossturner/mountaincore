@@ -2,7 +2,7 @@
   {
     "uniqueName": "chair-1x1N-stone",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": ["FEASTING_CHAIR"],
+    "furnitureTypeName": "FEASTING_CHAIR",
     "furnitureLayoutName": "1x1N",
     "validMaterialTypes": ["STONE"],
     "tags": {
@@ -22,7 +22,7 @@
   {
     "uniqueName": "chair-1x1E-stone",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": ["FEASTING_CHAIR"],
+    "furnitureTypeName": "FEASTING_CHAIR",
     "furnitureLayoutName": "1x1E",
     "validMaterialTypes": ["STONE"],
     "tags": {
@@ -42,7 +42,7 @@
   {
     "uniqueName": "chair-1x1W-stone",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": ["FEASTING_CHAIR"],
+    "furnitureTypeName": "FEASTING_CHAIR",
     "furnitureLayoutName": "1x1W",
     "validMaterialTypes": ["STONE"],
     "tags": {
@@ -63,7 +63,7 @@
   {
     "uniqueName": "chair-1x1S-stone",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": ["FEASTING_CHAIR"],
+    "furnitureTypeName": "FEASTING_CHAIR",
     "furnitureLayoutName": "1x1S",
     "validMaterialTypes": ["STONE"],
     "tags": {
@@ -85,7 +85,7 @@
   {
     "uniqueName": "chair-1x1N-wood",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": ["FEASTING_CHAIR"],
+    "furnitureTypeName": "FEASTING_CHAIR",
     "furnitureLayoutName": "1x1N",
     "validMaterialTypes": ["WOOD"],
     "tags": {
@@ -105,7 +105,7 @@
   {
     "uniqueName": "chair-1x1E-wood",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": ["FEASTING_CHAIR"],
+    "furnitureTypeName": "FEASTING_CHAIR",
     "furnitureLayoutName": "1x1E",
     "validMaterialTypes": ["WOOD"],
     "tags": {
@@ -125,7 +125,7 @@
   {
     "uniqueName": "chair-1x1W-wood",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": ["FEASTING_CHAIR"],
+    "furnitureTypeName": "FEASTING_CHAIR",
     "furnitureLayoutName": "1x1W",
     "validMaterialTypes": ["WOOD"],
     "tags": {
@@ -146,7 +146,7 @@
   {
     "uniqueName": "chair-1x1S-wood",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": ["FEASTING_CHAIR"],
+    "furnitureTypeName": "FEASTING_CHAIR",
     "furnitureLayoutName": "1x1S",
     "validMaterialTypes": ["WOOD"],
     "tags": {

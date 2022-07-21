@@ -1,0 +1,31 @@
+{
+  "name": "ORE_CRUSHING_STATION",
+  "i18nKey": "FURNITURE.ORE_CRUSHING_STATION",
+  "categoryName": "TABLE",
+  "defaultLayoutName": "2x2 with lower workspaces",
+  "colorCode": "#b5411d",
+  "iconName": "ore",
+  "requirements": {
+    "METAL": [
+      {
+        "itemTypeName": "Resource-Metal-Plate",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Product-Barrel-Hoops",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 4
+      }
+    ]
+  },
+  "tags": {
+    "CRAFTING_STATION_BEHAVIOUR": ["ORE_CRUSHING", "PRODUCE_ITEM", "HAULING"],
+    "PARTICLE_EFFECTS_WHILE_IN_USE": ["Ore chips"],
+    "REQUIREMENT_TO_COLOR_MAPPINGS": ["Resource-Metal-Plate", "MISC_COLOR_1", "Product-Barrel-Hoops", "MISC_COLOR_2"],
+    "EXTRA_MATERIAL_TYPES": ["CLOTH"],
+    "POWERED_FURNITURE": [-10, 8]
+  }
+}

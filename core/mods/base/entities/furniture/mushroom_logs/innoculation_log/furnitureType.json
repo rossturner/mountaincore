@@ -1,0 +1,19 @@
+{
+  "name": "INNOCULATION_LOG",
+  "i18nKey": "FURNITURE.MUSHROOM_LOG",
+  "categoryName": "LOG",
+  "defaultLayoutName": "1x1EW with workspaces",
+  "colorCode": "#963482",
+  "iconName": "mushroom-gills",
+  "requirements": {
+    "WOOD": [
+      {
+        "itemTypeName": "Resource-Logs",
+        "quantity": 1
+      }
+    ]
+  },
+  "tags": {
+    "INNOCULATION_LOG_BEHAVIOUR": ["Ingredient-Mushroom-Spawn", "INNOCULATED_LOG"]
+  }
+}

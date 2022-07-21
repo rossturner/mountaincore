@@ -1,0 +1,34 @@
+{
+  "name": "BUTCHERY_WORKTOP",
+  "i18nKey": "FURNITURE.BUTCHERY_WORKTOP",
+  "categoryName": "TABLE",
+  "defaultLayoutName": "2x1 with workspaces",
+  "colorCode": "#b25b47",
+  "iconName": "kitchen-knives",
+  "requirements": {
+    "STONE": [
+      {
+        "itemTypeName": "Resource-Stone-Block",
+        "quantity": 3
+      },
+      {
+        "itemTypeName": "Tool-Kitchen-Knife",
+        "quantity": 1
+      }
+    ],
+    "WOOD": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 3
+      },
+      {
+        "itemTypeName": "Tool-Kitchen-Knife",
+        "quantity": 1
+      }
+    ]
+  },
+  "tags": {
+    "BUTCHERY_STATION_BEHAVIOUR": [],
+    "DECORATION_FROM_INPUT": ["Tool-Kitchen-Knife"]
+  }
+}

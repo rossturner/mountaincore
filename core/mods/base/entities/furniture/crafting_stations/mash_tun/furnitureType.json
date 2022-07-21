@@ -1,0 +1,31 @@
+{
+  "name": "MASH_TUN",
+  "i18nKey": "FURNITURE.MASH_TUN",
+  "categoryName": "OVEN",
+  "defaultLayoutName": "mashtun layout",
+  "colorCode": "#ac7e28",
+  "iconName": "mashtun",
+  "placeAnywhere": false,
+  "requirements": {
+    "METAL": [
+      {
+        "itemTypeName": "Resource-Metal-Plate",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 6
+      },
+      {
+        "itemTypeName": "Product-Liquid-Tank",
+        "quantity": 1
+      }
+    ]
+  },
+  "tags": {
+    "CRAFTING_STATION_BEHAVIOUR": ["MALT_MASHING", "PRODUCE_LIQUID", "HAULING", "Product-Barrel"],
+    "CRAFTING_OVERRIDE": ["DO_NOT_HAUL_OUTPUT"],
+    "LIQUID_CONTAINER": ["12", "Water"],
+    "REQUIREMENT_TO_COLOR_MAPPINGS": ["Resource-Metal-Plate", "METAL_COLOR", "Product-Liquid-Tank", "MISC_COLOR_1"]
+  }
+}

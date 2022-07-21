@@ -1,0 +1,584 @@
+[
+  {
+    "uniqueName": "bakers-worktop-2x3BL-metal",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "BAKERS_WORKTOP",
+    "furnitureLayoutName": "2x3BL",
+    "validMaterialTypes": ["METAL"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "table-2x3L-metal.png",
+        "flipX": true,
+        "coloringLayer": "METAL_COLOR",
+        "offsetPixels": {
+          "x": -32,
+          "y": 70
+        },
+        "attachmentPoints": [
+          {
+            "type": "ATTACHMENT_DECO_1",
+            "offsetPixels": {
+              "x": 32,
+              "y": -46
+            }
+          },
+          {
+            "type": "ATTACHMENT_DECO_2",
+            "offsetPixels": {
+              "x": 32,
+              "y": 82
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_1",
+            "offsetPixels": {
+              "x": 32,
+              "y": 18
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_2",
+            "offsetPixels": {
+              "x": -32,
+              "y": -46
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "bakers-worktop-2x3BL-stone",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "BAKERS_WORKTOP",
+    "furnitureLayoutName": "2x3BL",
+    "validMaterialTypes": ["STONE"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "table-2x3L-stone.png",
+        "flipX": true,
+        "coloringLayer": "STONE_COLOR",
+        "offsetPixels": {
+          "x": -32,
+          "y": 70
+        },
+        "attachmentPoints": [
+          {
+            "type": "ATTACHMENT_DECO_1",
+            "offsetPixels": {
+              "x": 32,
+              "y": -46
+            }
+          },
+          {
+            "type": "ATTACHMENT_DECO_2",
+            "offsetPixels": {
+              "x": 32,
+              "y": 82
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_1",
+            "offsetPixels": {
+              "x": 32,
+              "y": 18
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_2",
+            "offsetPixels": {
+              "x": -32,
+              "y": -46
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "bakers-worktop-2x3BL-wood",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "BAKERS_WORKTOP",
+    "furnitureLayoutName": "2x3BL",
+    "validMaterialTypes": ["WOOD"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "table-2x3L-wood.png",
+        "flipX": true,
+        "coloringLayer": "WOOD_COLOR",
+        "offsetPixels": {
+          "x": -32,
+          "y": 70
+        },
+        "attachmentPoints": [
+          {
+            "type": "ATTACHMENT_DECO_1",
+            "offsetPixels": {
+              "x": 32,
+              "y": -46
+            }
+          },
+          {
+            "type": "ATTACHMENT_DECO_2",
+            "offsetPixels": {
+              "x": 32,
+              "y": 82
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_1",
+            "offsetPixels": {
+              "x": 32,
+              "y": 18
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_2",
+            "offsetPixels": {
+              "x": -32,
+              "y": -46
+            }
+          }
+        ]
+      }
+    }
+  },
+
+
+  {
+    "uniqueName": "bakers-worktop-2x3BL3R-metal",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "BAKERS_WORKTOP",
+    "furnitureLayoutName": "2x3BL3R",
+    "validMaterialTypes": ["METAL"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "table-2x3L1R-metal.png",
+        "flipX": true,
+        "coloringLayer": "METAL_COLOR",
+        "offsetPixels": {
+          "x": -64,
+          "y": 40
+        },
+        "attachmentPoints": [
+          {
+            "type": "ATTACHMENT_DECO_1",
+            "offsetPixels": {
+              "x": 64,
+              "y": 50
+            }
+          },
+          {
+            "type": "ATTACHMENT_DECO_2",
+            "offsetPixels": {
+              "x": -64,
+              "y": 50
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_1",
+            "offsetPixels": {
+              "x": 0,
+              "y": 50
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_2",
+            "offsetPixels": {
+              "x": 64,
+              "y": -14
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "bakers-worktop-2x3BL3R-stone",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "BAKERS_WORKTOP",
+    "furnitureLayoutName": "2x3BL3R",
+    "validMaterialTypes": ["STONE"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "table-2x3L1R-stone.png",
+        "flipX": true,
+        "coloringLayer": "STONE_COLOR",
+        "offsetPixels": {
+          "x": -64,
+          "y": 40
+        },
+        "attachmentPoints": [
+          {
+            "type": "ATTACHMENT_DECO_1",
+            "offsetPixels": {
+              "x": 64,
+              "y": 50
+            }
+          },
+          {
+            "type": "ATTACHMENT_DECO_2",
+            "offsetPixels": {
+              "x": -64,
+              "y": 50
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_1",
+            "offsetPixels": {
+              "x": 0,
+              "y": 50
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_2",
+            "offsetPixels": {
+              "x": 64,
+              "y": -14
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "bakers-worktop-2x3BL3R-wood",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "BAKERS_WORKTOP",
+    "furnitureLayoutName": "2x3BL3R",
+    "validMaterialTypes": ["WOOD"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "table-2x3L1R-wood.png",
+        "flipX": true,
+        "coloringLayer": "WOOD_COLOR",
+        "offsetPixels": {
+          "x": -64,
+          "y": 40
+        },
+        "attachmentPoints": [
+          {
+            "type": "ATTACHMENT_DECO_1",
+            "offsetPixels": {
+              "x": 64,
+              "y": 50
+            }
+          },
+          {
+            "type": "ATTACHMENT_DECO_2",
+            "offsetPixels": {
+              "x": -64,
+              "y": 50
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_1",
+            "offsetPixels": {
+              "x": 0,
+              "y": 50
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_2",
+            "offsetPixels": {
+              "x": 64,
+              "y": -14
+            }
+          }
+        ]
+      }
+    }
+  },
+
+
+  {
+    "uniqueName": "bakers-worktop-2x3BL2R-metal",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "BAKERS_WORKTOP",
+    "furnitureLayoutName": "2x3BL2R",
+    "validMaterialTypes": ["METAL"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "table-2x3L2R-metal.png",
+        "flipX": true,
+        "coloringLayer": "METAL_COLOR",
+        "offsetPixels": {
+          "x": 32,
+          "y": 70
+        },
+        "attachmentPoints": [
+          {
+            "type": "ATTACHMENT_DECO_1",
+            "offsetPixels": {
+              "x": -32,
+              "y": -46
+            }
+          },
+          {
+            "type": "ATTACHMENT_DECO_2",
+            "offsetPixels": {
+              "x": -32,
+              "y": 82
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_1",
+            "offsetPixels": {
+              "x": -32,
+              "y": 18
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_2",
+            "offsetPixels": {
+              "x": 32,
+              "y": 82
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "bakers-worktop-2x3BL2R-stone",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "BAKERS_WORKTOP",
+    "furnitureLayoutName": "2x3BL2R",
+    "validMaterialTypes": ["STONE"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "table-2x3L2R-stone.png",
+        "flipX": true,
+        "coloringLayer": "STONE_COLOR",
+        "offsetPixels": {
+          "x": 32,
+          "y": 70
+        },
+        "attachmentPoints": [
+          {
+            "type": "ATTACHMENT_DECO_1",
+            "offsetPixels": {
+              "x": -32,
+              "y": -46
+            }
+          },
+          {
+            "type": "ATTACHMENT_DECO_2",
+            "offsetPixels": {
+              "x": -32,
+              "y": 82
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_1",
+            "offsetPixels": {
+              "x": -32,
+              "y": 18
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_2",
+            "offsetPixels": {
+              "x": 32,
+              "y": 82
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "bakers-worktop-2x3BL2R-wood",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "BAKERS_WORKTOP",
+    "furnitureLayoutName": "2x3BL2R",
+    "validMaterialTypes": ["WOOD"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "table-2x3L2R-wood.png",
+        "flipX": true,
+        "coloringLayer": "WOOD_COLOR",
+        "offsetPixels": {
+          "x": 32,
+          "y": 70
+        },
+        "attachmentPoints": [
+          {
+            "type": "ATTACHMENT_DECO_1",
+            "offsetPixels": {
+              "x": -32,
+              "y": -46
+            }
+          },
+          {
+            "type": "ATTACHMENT_DECO_2",
+            "offsetPixels": {
+              "x": -32,
+              "y": 82
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_1",
+            "offsetPixels": {
+              "x": -32,
+              "y": 18
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_2",
+            "offsetPixels": {
+              "x": 32,
+              "y": 82
+            }
+          }
+        ]
+      }
+    }
+  },
+
+
+  {
+    "uniqueName": "bakers-worktop-2x3BL1R-metal",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "BAKERS_WORKTOP",
+    "furnitureLayoutName": "2x3BL1R",
+    "validMaterialTypes": ["METAL"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "table-2x3L3R-metal.png",
+        "flipX": true,
+        "coloringLayer": "METAL_COLOR",
+        "offsetPixels": {
+          "x": 64,
+          "y": 38
+        },
+        "attachmentPoints": [
+          {
+            "type": "ATTACHMENT_DECO_1",
+            "offsetPixels": {
+              "x": -64,
+              "y": -14
+            }
+          },
+          {
+            "type": "ATTACHMENT_DECO_2",
+            "offsetPixels": {
+              "x": 64,
+              "y": -14
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_1",
+            "offsetPixels": {
+              "x": 0,
+              "y": -14
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_2",
+            "offsetPixels": {
+              "x": -64,
+              "y": 50
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "bakers-worktop-2x3BL1R-stone",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "BAKERS_WORKTOP",
+    "furnitureLayoutName": "2x3BL1R",
+    "validMaterialTypes": ["STONE"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "table-2x3L3R-stone.png",
+        "flipX": true,
+        "coloringLayer": "STONE_COLOR",
+        "offsetPixels": {
+          "x": 64,
+          "y": 38
+        },
+        "attachmentPoints": [
+          {
+            "type": "ATTACHMENT_DECO_1",
+            "offsetPixels": {
+              "x": -64,
+              "y": -14
+            }
+          },
+          {
+            "type": "ATTACHMENT_DECO_2",
+            "offsetPixels": {
+              "x": 64,
+              "y": -14
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_1",
+            "offsetPixels": {
+              "x": 0,
+              "y": -14
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_2",
+            "offsetPixels": {
+              "x": -64,
+              "y": 50
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "bakers-worktop-2x3BL1R-wood",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "BAKERS_WORKTOP",
+    "furnitureLayoutName": "2x3BL1R",
+    "validMaterialTypes": ["WOOD"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "table-2x3L3R-wood.png",
+        "flipX": true,
+        "coloringLayer": "WOOD_COLOR",
+        "offsetPixels": {
+          "x": 64,
+          "y": 38
+        },
+        "attachmentPoints": [
+          {
+            "type": "ATTACHMENT_DECO_1",
+            "offsetPixels": {
+              "x": -64,
+              "y": -14
+            }
+          },
+          {
+            "type": "ATTACHMENT_DECO_2",
+            "offsetPixels": {
+              "x": 64,
+              "y": -14
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_1",
+            "offsetPixels": {
+              "x": 0,
+              "y": -14
+            }
+          },
+          {
+            "type": "ATTACHMENT_WORKSPACE_2",
+            "offsetPixels": {
+              "x": -64,
+              "y": 50
+            }
+          }
+        ]
+      }
+    }
+  }
+]
