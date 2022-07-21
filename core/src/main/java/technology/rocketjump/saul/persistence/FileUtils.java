@@ -54,4 +54,12 @@ public class FileUtils {
         }
 
     }
+
+    public static void copy(Path source, Path target) {
+        try {
+            Files.copy(source, target);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
 }

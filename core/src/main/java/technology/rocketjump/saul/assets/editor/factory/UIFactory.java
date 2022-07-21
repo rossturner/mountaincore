@@ -1,7 +1,7 @@
 package technology.rocketjump.saul.assets.editor.factory;
 
+import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
-import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 

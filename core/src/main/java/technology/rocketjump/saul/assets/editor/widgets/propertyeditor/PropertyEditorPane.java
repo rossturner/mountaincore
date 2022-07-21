@@ -15,6 +15,7 @@ import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooserCallback;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooserConfiguration;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.assets.editor.message.ShowImportFileDialogMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.creature.BodyShapesWidget;
@@ -44,10 +45,12 @@ import technology.rocketjump.saul.rendering.RenderMode;
 
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.*;
@@ -306,27 +309,31 @@ public class PropertyEditorPane extends VisTable {
 				public void clicked(InputEvent event, float x, float y) {
 					fileChooser.chooseFile(buildConfig(), new NativeFileChooserCallback() {
 						@Override
-						public void onFileChosen(FileHandle file) {
-							String filename = file.name();
-							spriteDescriptor.setFilename(filename);
-							filenameField.setText(filename);
+						public void onFileChosen(FileHandle selectedFile) {
+							Path modDirectory = editorStateProvider.getState().getModDirPath();
+							Path selectedImageDirectory = FileUtils.getDirectory(Path.of(selectedFile.path()));
 
-							//todo: check where the file is, compared to mods directory
-							Path currentImageDirectory = FileUtils.getDirectory(Path.of(file.path()));
+							Consumer<FileHandle> callback = fileHandle -> {
+								String filename = fileHandle.name();
+								spriteDescriptor.setFilename(filename);
+								filenameField.setText(filename);
+								Texture texture = new Texture(fileHandle);
+								Sprite sprite = new Sprite(texture);
+								sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
+								spriteDescriptor.setSprite(RenderMode.DIFFUSE, sprite); //TODO: Assumes Diffuse is selected
 
-							//must be a png in the entities folder
-							//Switch on if already in textureAtlas
+								messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, editorStateProvider.getState().getCurrentEntity());
+							};
 
-							// Need to update sprites if file is already available
-
-
-							//TODO: cobbled
-							Texture texture = new Texture(file);
-							Sprite sprite = new Sprite(texture);
-							sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
-							spriteDescriptor.setSprite(RenderMode.DIFFUSE, sprite); //TODO: Assumes Diffuse is selected
-
-							messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, editorStateProvider.getState().getCurrentEntity());
+							if (selectedImageDirectory.startsWith(modDirectory.toAbsolutePath())) {
+								// Image already in mod directory
+								callback.accept(selectedFile);
+							} else {
+								//TODO: suggested filename
+								Path destinationPath = FileUtils.getDirectory(Paths.get(editorStateProvider.getState().getAssetSelection().getDescriptorsPath()));
+								FileHandle destination = new FileHandle(destinationPath.toFile());
+								messageDispatcher.dispatchMessage(MessageType.EDITOR_SHOW_IMPORT_FILE_DIALOG, new ShowImportFileDialogMessage(selectedFile, destination, callback));
+							}
 						}
 
 						@Override

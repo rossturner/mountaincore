@@ -3,6 +3,7 @@ package technology.rocketjump.saul.assets.editor;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.kotcrab.vis.ui.util.InputValidator;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -20,6 +22,8 @@ import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
 import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.assets.editor.factory.UIFactory;
+import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
+import technology.rocketjump.saul.assets.editor.message.ShowImportFileDialogMessage;
 import technology.rocketjump.saul.assets.editor.model.ColorPickerMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
@@ -27,7 +31,10 @@ import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.TextBoxConventionListener;
 import technology.rocketjump.saul.assets.editor.widgets.TopLevelMenu;
-import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.*;
+import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserContextMenu;
+import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserPane;
+import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserTreeMessage;
+import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorContextMenu;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorPane;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeMessage;
@@ -148,6 +155,7 @@ public class AssetEditorUI implements Telegraph {
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_DIRECTORY_DIALOG);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_ENTITY_DIALOG);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_ASSET_DIALOG);
+		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_IMPORT_FILE_DIALOG);
 		messageDispatcher.addListener(this, MessageType.CAMERA_MOVED);
 	}
 
@@ -267,6 +275,38 @@ public class AssetEditorUI implements Telegraph {
 			case MessageType.EDITOR_SHOW_CREATE_ASSET_DIALOG: {
 				ShowCreateAssetDialogMessage message = (ShowCreateAssetDialogMessage) msg.extraInfo;
 				OkCancelDialog dialog = currentUiFactory.createAssetDialog(message);
+				dialog.show(stage);
+				return true;
+			}
+			case MessageType.EDITOR_SHOW_IMPORT_FILE_DIALOG: {
+				ShowImportFileDialogMessage message = (ShowImportFileDialogMessage) msg.extraInfo;
+				VisValidatableTextField filenameTextField = new VisValidatableTextField();
+				filenameTextField.addValidator(new InputValidator() {
+					@Override
+					public boolean validateInput(String input) {
+						if (StringUtils.isBlank(input)) {
+							return false;
+						}
+						return FileUtils.findFilesByFilename(editorStateProvider.getState().getModDirPath(), input).isEmpty();
+					}
+				});
+				OkCancelDialog dialog = new OkCancelDialog("Import file into mods") {
+					@Override
+					public void onOk() {
+						Path source = message.originalFileHandle().file().toPath();
+						Path target = Path.of(message.destinationDirectory().path(), filenameTextField.getText());
+						FileUtils.copy(source, target);
+						message.callback().accept(new FileHandle(target.toFile()));
+					}
+				};
+
+				dialog.add(new VisLabel("Original file")).left();
+				dialog.add(new VisLabel(message.originalFileHandle().path())).left();
+				dialog.add(new VisLabel(message.originalFileHandle().name())).left();
+				dialog.row();
+				dialog.add(new VisLabel("New Filename")).left();
+				dialog.add(new VisLabel(message.destinationDirectory().path())).left();
+				dialog.add(filenameTextField).prefWidth(100).left();
 				dialog.show(stage);
 				return true;
 			}
