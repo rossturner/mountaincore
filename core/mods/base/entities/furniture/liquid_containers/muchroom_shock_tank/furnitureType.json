@@ -1,7 +1,7 @@
 {
   "name": "MUSHROOM_SHOCK_TANK",
   "i18nKey": "FURNITURE.MUSHROOM_SHOCK_TANK",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "2x1 with workspaces",
   "colorCode": "#25a2d0",
   "iconName": "drop",

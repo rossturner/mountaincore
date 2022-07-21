@@ -1,7 +1,7 @@
 {
   "name": "WOODCUTTERS_BENCH",
   "i18nKey": "FURNITURE.WOODCUTTERS_BENCH",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "2x3BL1R",
   "colorCode": "#f19144",
   "iconName": "hand-saw",

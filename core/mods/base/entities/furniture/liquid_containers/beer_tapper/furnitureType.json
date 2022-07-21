@@ -1,7 +1,7 @@
 {
   "name": "BEER_TAPPER",
   "i18nKey": "FURNITURE.BEER_TAPPER",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "2x1 with workspaces",
   "colorCode": "#e3e369",
   "iconName": "beer-stein",

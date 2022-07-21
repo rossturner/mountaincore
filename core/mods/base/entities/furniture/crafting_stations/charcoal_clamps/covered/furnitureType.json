@@ -1,7 +1,7 @@
 {
   "name": "CHARCOAL_CLAMP_COVERED",
   "i18nKey": "FURNITURE.CHARCOAL_CLAMP",
-  "categoryName": "OVEN",
+  "blocksMovement": true,
   "defaultLayoutName": "2x2 with lower workspaces",
   "colorCode": "#746044",
   "iconName": "pyre",

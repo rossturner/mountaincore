@@ -1,7 +1,7 @@
 {
   "name": "FERMENTATION_TANK",
   "i18nKey": "FURNITURE.FERMENTATION_TANK",
-  "categoryName": "OVEN",
+  "blocksMovement": true,
   "defaultLayoutName": "1x1 with workspaces",
   "colorCode": "#e6c974",
   "iconName": "chemical-tank",

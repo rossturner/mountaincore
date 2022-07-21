@@ -1,7 +1,7 @@
 {
   "name": "ORE_CRUSHING_STATION",
   "i18nKey": "FURNITURE.ORE_CRUSHING_STATION",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "2x2 with lower workspaces",
   "colorCode": "#b5411d",
   "iconName": "ore",

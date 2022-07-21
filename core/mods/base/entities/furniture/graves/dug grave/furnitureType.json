@@ -1,7 +1,7 @@
 {
   "name": "DUG_GRAVE",
   "i18nKey": "FURNITURE.GRAVE",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "1x2 with workspaces",
   "colorCode": "#9a7555",
   "iconName": "tombstone",

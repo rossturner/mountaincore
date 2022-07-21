@@ -1,7 +1,7 @@
 {
   "name": "WATERWHEEL",
   "i18nKey": "FURNITURE.WATERWHEEL",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "Waterwheel S side",
   "colorCode": "#8ee1da",
   "iconName": "water-mill",

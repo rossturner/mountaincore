@@ -1,7 +1,7 @@
 {
   "name": "FLETCHERS_WORKBENCH",
   "i18nKey": "FURNITURE.FLETCHERS_WORKBENCH",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "2x3L3R",
   "colorCode": "#8dd68a",
   "iconName": "bow-arrow",

@@ -1,7 +1,7 @@
 {
   "name": "SHOCKED_LOG",
   "i18nKey": "FURNITURE.MUSHROOM_LOG",
-  "categoryName": "LOG",
+  "blocksMovement": true,
   "defaultLayoutName": "1x1EW with workspaces",
   "colorCode": "#963482",
   "iconName": "mushroom-gills",

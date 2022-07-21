@@ -1,7 +1,7 @@
 {
   "name": "KITCHEN_WORKTOP",
   "i18nKey": "FURNITURE.KITCHEN_WORKTOP",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "2x1 with workspaces",
   "colorCode": "#f8981e",
   "iconName": "carrot",

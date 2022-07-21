@@ -1,7 +1,6 @@
 {
   "name": "BASIC_LANTERN",
   "i18nKey": "FURNITURE.LANTERN",
-  "categoryName": "LANTERN",
   "defaultLayoutName": "1x1",
   "colorCode": "#6dc14c",
   "iconName": "lantern-flame",

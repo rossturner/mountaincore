@@ -1,7 +1,7 @@
 {
   "name": "STONEMASON_WORKBENCH",
   "i18nKey": "FURNITURE.STONEMASON_WORKBENCH",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "3x2",
   "colorCode": "#c9c9c9",
   "iconName": "stone-pile",

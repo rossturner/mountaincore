@@ -1,7 +1,7 @@
 {
   "name": "LOOM",
   "i18nKey": "FURNITURE.LOOM",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "1x1 with S workspace",
   "colorCode": "#dce551",
   "iconName": "sewing-string",

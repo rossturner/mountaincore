@@ -1,7 +1,7 @@
 {
   "name": "BAKING_OVEN",
   "i18nKey": "FURNITURE.BAKING_OVEN",
-  "categoryName": "OVEN",
+  "blocksMovement": true,
   "defaultLayoutName": "2x2 with lower workspaces",
   "colorCode": "#ab8a49",
   "iconName": "sliced-bread",

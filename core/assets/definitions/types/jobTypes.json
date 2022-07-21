@@ -221,6 +221,8 @@
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
   "switchToSpecialGoal" : "HAUL_ITEM",
+  "minimumTimeToCompleteJob" : 4.0,
+  "maximumTimeToCompleteJob" : 4.0,
   "experienceAwardedOnCompletion" : 1,
   "accessedFromAdjacentTile" : false
 }, {
@@ -231,6 +233,8 @@
   "requiresWeapon" : false,
   "usesWorkstationTool" : false,
   "switchToSpecialGoal" : "HAUL_ITEM",
+  "minimumTimeToCompleteJob" : 4.0,
+  "maximumTimeToCompleteJob" : 4.0,
   "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
   "accessedFromAdjacentTile" : false
@@ -498,6 +502,8 @@
   "requiresWeapon" : true,
   "usesWorkstationTool" : false,
   "switchToSpecialGoal" : "HUNT_CREATURE",
+  "minimumTimeToCompleteJob" : 4.0,
+  "maximumTimeToCompleteJob" : 4.0,
   "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "HUNTER",
   "accessedFromAdjacentTile" : false

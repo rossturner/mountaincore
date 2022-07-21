@@ -1,7 +1,7 @@
 {
   "name": "COKE_OVEN",
   "i18nKey": "FURNITURE.COKE_OVEN",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "2x2 with lower workspaces",
   "colorCode": "#b3a5a1",
   "iconName": "fireplace",

@@ -1,7 +1,7 @@
 {
   "name": "CARPENTRY_WORKBENCH",
   "i18nKey": "FURNITURE.CARPENTRY_WORKBENCH",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "2x3L3R",
   "colorCode": "#e7c467",
   "iconName": "planks",

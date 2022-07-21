@@ -1,7 +1,6 @@
 {
   "name": "SINGLE_DOOR_PLACEMENT",
   "i18nKey": "FURNITURE.SINGLE_DOOR",
-  "categoryName": "DOOR_PLACEMENT",
   "defaultLayoutName": "1x1EW",
   "colorCode": "#be926e",
   "iconName": "wooden-door",

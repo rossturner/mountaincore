@@ -1,7 +1,7 @@
 {
   "name": "CHEFS_CAULDRON",
   "i18nKey": "FURNITURE.CAULDRON",
-  "categoryName": "LIQUID_CONTAINER",
+  "blocksMovement": true,
   "defaultLayoutName": "1x1 with workspaces",
   "colorCode": "#ba4b1a",
   "iconName": "cauldron",

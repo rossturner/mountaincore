@@ -1,7 +1,7 @@
 {
   "name": "MALTING_STATION",
   "i18nKey": "FURNITURE.MALTING_STATION",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "4x1 WE",
   "colorCode": "#e29a39",
   "iconName": "powder",

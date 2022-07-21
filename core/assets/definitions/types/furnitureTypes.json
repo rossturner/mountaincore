@@ -1,7 +1,7 @@
 [ {
   "name" : "SINGLE_BED",
   "i18nKey" : "FURNITURE.SINGLE_BED",
-  "categoryName" : "BED",
+  "blocksMovement" : true,
   "defaultLayoutName" : "1x2N",
   "colorCode" : "#a04b00",
   "iconName" : "bed",
@@ -23,7 +23,7 @@
 }, {
   "name" : "SLEEPING_SPOT",
   "i18nKey" : "FURNITURE.SLEEPING_SPOT",
-  "categoryName" : "NAVIGABLE",
+  "blocksMovement" : false,
   "defaultLayoutName" : "1x1",
   "colorCode" : "#9f7d60",
   "iconName" : "sleeping-bag",
@@ -39,7 +39,7 @@
 }, {
   "name" : "FEASTING_CHAIR",
   "i18nKey" : "FURNITURE.CHAIR",
-  "categoryName" : "CHAIR",
+  "blocksMovement" : false,
   "defaultLayoutName" : "1x1E",
   "colorCode" : "#e0a275",
   "iconName" : "stone-throne",
@@ -64,7 +64,7 @@
 }, {
   "name" : "BAKERS_WORKTOP",
   "i18nKey" : "FURNITURE.BAKERS_WORKTOP",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x3BL1R",
   "colorCode" : "#b8ad4e",
   "iconName" : "swap-bag",
@@ -120,7 +120,7 @@
 }, {
   "name" : "BAKING_OVEN",
   "i18nKey" : "FURNITURE.BAKING_OVEN",
-  "categoryName" : "OVEN",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#ab8a49",
   "iconName" : "sliced-bread",
@@ -140,7 +140,7 @@
 }, {
   "name" : "BLOOMERY_FURNACE",
   "i18nKey" : "FURNITURE.BLOOMERY_FURNACE",
-  "categoryName" : "OVEN",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x2+SW with lower workspaces",
   "colorCode" : "#d44545",
   "iconName" : "metal-bar",
@@ -176,7 +176,7 @@
 }, {
   "name" : "BREW_KETTLE",
   "i18nKey" : "FURNITURE.BREW_KETTLE",
-  "categoryName" : "OVEN",
+  "blocksMovement" : true,
   "defaultLayoutName" : "mashtun layout",
   "colorCode" : "#c67852",
   "iconName" : "round-bottom-flask-uncorked",
@@ -203,7 +203,7 @@
 }, {
   "name" : "BUTCHERY_WORKTOP",
   "i18nKey" : "FURNITURE.BUTCHERY_WORKTOP",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x1 with workspaces",
   "colorCode" : "#b25b47",
   "iconName" : "kitchen-knives",
@@ -237,7 +237,7 @@
 }, {
   "name" : "CARPENTRY_WORKBENCH",
   "i18nKey" : "FURNITURE.CARPENTRY_WORKBENCH",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x3L3R",
   "colorCode" : "#e7c467",
   "iconName" : "planks",
@@ -292,7 +292,7 @@
 }, {
   "name" : "CHARCOAL_CLAMP_COMPLETED",
   "i18nKey" : "FURNITURE.CHARCOAL_CLAMP",
-  "categoryName" : "OVEN",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#746044",
   "iconName" : "pyre",
@@ -308,7 +308,7 @@
 }, {
   "name" : "CHARCOAL_CLAMP_COVERED",
   "i18nKey" : "FURNITURE.CHARCOAL_CLAMP",
-  "categoryName" : "OVEN",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#746044",
   "iconName" : "pyre",
@@ -329,7 +329,7 @@
 }, {
   "name" : "CHARCOAL_CLAMP",
   "i18nKey" : "FURNITURE.CHARCOAL_CLAMP",
-  "categoryName" : "OVEN",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#746044",
   "iconName" : "pyre",
@@ -350,7 +350,7 @@
 }, {
   "name" : "COKE_OVEN",
   "i18nKey" : "FURNITURE.COKE_OVEN",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#b3a5a1",
   "iconName" : "fireplace",
@@ -374,7 +374,7 @@
 }, {
   "name" : "FERMENTATION_TANK",
   "i18nKey" : "FURNITURE.FERMENTATION_TANK",
-  "categoryName" : "OVEN",
+  "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with workspaces",
   "colorCode" : "#e6c974",
   "iconName" : "chemical-tank",
@@ -400,7 +400,7 @@
 }, {
   "name" : "FLETCHERS_WORKBENCH",
   "i18nKey" : "FURNITURE.FLETCHERS_WORKBENCH",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x3L3R",
   "colorCode" : "#8dd68a",
   "iconName" : "bow-arrow",
@@ -442,7 +442,7 @@
 }, {
   "name" : "FLOUR_MILL",
   "i18nKey" : "FURNITURE.FLOUR_MILL",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "3x1 with workspaces",
   "colorCode" : "#d7ce86",
   "iconName" : "grain",
@@ -478,7 +478,7 @@
 }, {
   "name" : "FORGE",
   "i18nKey" : "FURNITURE.FORGE",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "inverted-U",
   "colorCode" : "#666666",
   "iconName" : "anvil",
@@ -515,7 +515,7 @@
 }, {
   "name" : "LOOM",
   "i18nKey" : "FURNITURE.LOOM",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with S workspace",
   "colorCode" : "#dce551",
   "iconName" : "sewing-string",
@@ -536,7 +536,7 @@
 }, {
   "name" : "MALTING_STATION",
   "i18nKey" : "FURNITURE.MALTING_STATION",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "4x1 WE",
   "colorCode" : "#e29a39",
   "iconName" : "powder",
@@ -575,7 +575,7 @@
 }, {
   "name" : "MASH_TUN",
   "i18nKey" : "FURNITURE.MASH_TUN",
-  "categoryName" : "OVEN",
+  "blocksMovement" : true,
   "defaultLayoutName" : "mashtun layout",
   "colorCode" : "#ac7e28",
   "iconName" : "mashtun",
@@ -606,7 +606,7 @@
 }, {
   "name" : "ORE_CRUSHING_STATION",
   "i18nKey" : "FURNITURE.ORE_CRUSHING_STATION",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#b5411d",
   "iconName" : "ore",
@@ -638,7 +638,7 @@
 }, {
   "name" : "STONEMASON_WORKBENCH",
   "i18nKey" : "FURNITURE.STONEMASON_WORKBENCH",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "3x2",
   "colorCode" : "#c9c9c9",
   "iconName" : "stone-pile",
@@ -693,7 +693,7 @@
 }, {
   "name" : "WOODCUTTERS_BENCH",
   "i18nKey" : "FURNITURE.WOODCUTTERS_BENCH",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x3BL1R",
   "colorCode" : "#f19144",
   "iconName" : "hand-saw",
@@ -748,7 +748,7 @@
 }, {
   "name" : "SINGLE_DOOR",
   "i18nKey" : "FURNITURE.SINGLE_DOOR",
-  "categoryName" : "DOOR",
+  "blocksMovement" : false,
   "defaultLayoutName" : "1x1EW",
   "colorCode" : "#be926e",
   "iconName" : "wooden-door",
@@ -776,7 +776,7 @@
 }, {
   "name" : "SINGLE_DOOR_PLACEMENT",
   "i18nKey" : "FURNITURE.SINGLE_DOOR",
-  "categoryName" : "DOOR_PLACEMENT",
+  "blocksMovement" : false,
   "defaultLayoutName" : "1x1EW",
   "colorCode" : "#be926e",
   "iconName" : "wooden-door",
@@ -804,7 +804,7 @@
 }, {
   "name" : "SINGLE_DOOR_FRAME",
   "i18nKey" : "FURNITURE.SINGLE_DOOR_FRAME",
-  "categoryName" : "DOOR_FRAME",
+  "blocksMovement" : false,
   "defaultLayoutName" : "1x1EW",
   "colorCode" : "#be926e",
   "iconName" : "wooden-door",
@@ -832,7 +832,7 @@
 }, {
   "name" : "DUG_GRAVE",
   "i18nKey" : "FURNITURE.GRAVE",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "1x2 with workspaces",
   "colorCode" : "#9a7555",
   "iconName" : "tombstone",
@@ -851,7 +851,7 @@
 }, {
   "name" : "FILLED_GRAVE",
   "i18nKey" : "FURNITURE.GRAVE",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "1x2 with workspaces",
   "colorCode" : "#9a7555",
   "iconName" : "tombstone",
@@ -870,7 +870,7 @@
 }, {
   "name" : "SARCOPHAGUS",
   "i18nKey" : "FURNITURE.SARCOPHAGUS",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "1x2N",
   "colorCode" : "#665a5a",
   "iconName" : "sarcophagus",
@@ -890,7 +890,7 @@
 }, {
   "name" : "BASIC_LANTERN",
   "i18nKey" : "FURNITURE.LANTERN",
-  "categoryName" : "LANTERN",
+  "blocksMovement" : false,
   "defaultLayoutName" : "1x1",
   "colorCode" : "#6dc14c",
   "iconName" : "lantern-flame",
@@ -908,7 +908,7 @@
 }, {
   "name" : "BEER_TAPPER",
   "i18nKey" : "FURNITURE.BEER_TAPPER",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x1 with workspaces",
   "colorCode" : "#e3e369",
   "iconName" : "beer-stein",
@@ -933,7 +933,7 @@
 }, {
   "name" : "CHEFS_CAULDRON",
   "i18nKey" : "FURNITURE.CAULDRON",
-  "categoryName" : "LIQUID_CONTAINER",
+  "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with workspaces",
   "colorCode" : "#ba4b1a",
   "iconName" : "cauldron",
@@ -953,7 +953,7 @@
 }, {
   "name" : "FEASTING_CAULDRON",
   "i18nKey" : "FURNITURE.CAULDRON",
-  "categoryName" : "LIQUID_CONTAINER",
+  "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with workspaces",
   "colorCode" : "#ba4b1a",
   "iconName" : "cauldron",
@@ -975,7 +975,7 @@
 }, {
   "name" : "MUSHROOM_SHOCK_TANK",
   "i18nKey" : "FURNITURE.MUSHROOM_SHOCK_TANK",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x1 with workspaces",
   "colorCode" : "#25a2d0",
   "iconName" : "drop",
@@ -1001,7 +1001,7 @@
 }, {
   "name" : "RETTING_TANK",
   "i18nKey" : "FURNITURE.RETTING_TANK",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x1 with workspaces",
   "colorCode" : "#25a2d0",
   "iconName" : "drop",
@@ -1027,7 +1027,7 @@
 }, {
   "name" : "WATER_BARREL",
   "i18nKey" : "FURNITURE.WATER_BARREL",
-  "categoryName" : "LIQUID_CONTAINER",
+  "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with workspaces",
   "colorCode" : "#26e1ed",
   "iconName" : "barrel",
@@ -1048,7 +1048,7 @@
 }, {
   "name" : "WELL",
   "i18nKey" : "FURNITURE.WELL",
-  "categoryName" : "LIQUID_CONTAINER",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#26e1ed",
   "iconName" : "well",
@@ -1081,7 +1081,7 @@
 }, {
   "name" : "WATERWHEEL",
   "i18nKey" : "FURNITURE.WATERWHEEL",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "Waterwheel S side",
   "colorCode" : "#8ee1da",
   "iconName" : "water-mill",
@@ -1106,7 +1106,7 @@
 }, {
   "name" : "WATER_PUMP",
   "i18nKey" : "FURNITURE.WATER_PUMP",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "Water Pump WE Layout",
   "colorCode" : "#26e1ed",
   "iconName" : "tap",
@@ -1131,7 +1131,7 @@
 }, {
   "name" : "WINDMILL",
   "i18nKey" : "FURNITURE.WINDMILL",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x2",
   "colorCode" : "#c14545",
   "iconName" : "windmill",
@@ -1160,7 +1160,7 @@
 }, {
   "name" : "INNOCULATED_LOG",
   "i18nKey" : "FURNITURE.MUSHROOM_LOG",
-  "categoryName" : "LOG",
+  "blocksMovement" : true,
   "defaultLayoutName" : "1x1EW with workspaces",
   "colorCode" : "#963482",
   "iconName" : "mushroom-gills",
@@ -1180,7 +1180,7 @@
 }, {
   "name" : "INNOCULATION_LOG",
   "i18nKey" : "FURNITURE.MUSHROOM_LOG",
-  "categoryName" : "LOG",
+  "blocksMovement" : true,
   "defaultLayoutName" : "1x1EW with workspaces",
   "colorCode" : "#963482",
   "iconName" : "mushroom-gills",
@@ -1200,7 +1200,7 @@
 }, {
   "name" : "SHOCKED_LOG",
   "i18nKey" : "FURNITURE.MUSHROOM_LOG",
-  "categoryName" : "LOG",
+  "blocksMovement" : true,
   "defaultLayoutName" : "1x1EW with workspaces",
   "colorCode" : "#963482",
   "iconName" : "mushroom-gills",
@@ -1221,7 +1221,7 @@
 }, {
   "name" : "PILLAR",
   "i18nKey" : "FURNITURE.PILLAR",
-  "categoryName" : "NAVIGABLE",
+  "blocksMovement" : false,
   "defaultLayoutName" : "1x1",
   "colorCode" : "#988568",
   "iconName" : "ionic-column",
@@ -1246,7 +1246,7 @@
 }, {
   "name" : "FEASTING_TABLE",
   "i18nKey" : "FURNITURE.FEASTING_TABLE",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "4x2",
   "colorCode" : "#e0a275",
   "iconName" : "meal",
@@ -1269,7 +1269,7 @@
 }, {
   "name" : "KITCHEN_WORKTOP",
   "i18nKey" : "FURNITURE.KITCHEN_WORKTOP",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "2x1 with workspaces",
   "colorCode" : "#f8981e",
   "iconName" : "carrot",
@@ -1295,7 +1295,7 @@
 }, {
   "name" : "SERVING_TABLE",
   "i18nKey" : "FURNITURE.SERVING_TABLE",
-  "categoryName" : "TABLE",
+  "blocksMovement" : true,
   "defaultLayoutName" : "4x1 with workspaces",
   "colorCode" : "#ab8a49",
   "iconName" : "chicken-oven",

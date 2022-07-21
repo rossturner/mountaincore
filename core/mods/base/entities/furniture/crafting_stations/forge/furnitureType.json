@@ -1,7 +1,7 @@
 {
   "name": "FORGE",
   "i18nKey": "FURNITURE.FORGE",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "inverted-U",
   "colorCode": "#666666",
   "iconName": "anvil",

@@ -1,7 +1,7 @@
 {
   "name": "MASH_TUN",
   "i18nKey": "FURNITURE.MASH_TUN",
-  "categoryName": "OVEN",
+  "blocksMovement": true,
   "defaultLayoutName": "mashtun layout",
   "colorCode": "#ac7e28",
   "iconName": "mashtun",

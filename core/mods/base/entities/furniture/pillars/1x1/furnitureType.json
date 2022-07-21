@@ -1,7 +1,6 @@
 {
   "name": "PILLAR",
   "i18nKey": "FURNITURE.PILLAR",
-  "categoryName": "NAVIGABLE",
   "defaultLayoutName": "1x1",
   "colorCode": "#988568",
   "iconName": "ionic-column",

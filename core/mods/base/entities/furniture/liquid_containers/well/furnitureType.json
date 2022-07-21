@@ -1,7 +1,7 @@
 {
   "name": "WELL",
   "i18nKey": "FURNITURE.WELL",
-  "categoryName": "LIQUID_CONTAINER",
+  "blocksMovement": true,
   "defaultLayoutName": "2x2 with lower workspaces",
   "colorCode": "#26e1ed",
   "iconName": "well",

@@ -1,7 +1,7 @@
 {
   "name": "BAKERS_WORKTOP",
   "i18nKey": "FURNITURE.BAKERS_WORKTOP",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "2x3BL1R",
   "colorCode": "#b8ad4e",
   "iconName": "swap-bag",

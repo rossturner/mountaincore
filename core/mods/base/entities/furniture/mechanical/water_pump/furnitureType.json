@@ -1,7 +1,7 @@
 {
   "name": "WATER_PUMP",
   "i18nKey": "FURNITURE.WATER_PUMP",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "Water Pump WE Layout",
   "colorCode": "#26e1ed",
   "iconName": "tap",

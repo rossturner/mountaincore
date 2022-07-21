@@ -1,7 +1,7 @@
 {
   "name": "WINDMILL",
   "i18nKey": "FURNITURE.WINDMILL",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "2x2",
   "colorCode": "#c14545",
   "iconName": "windmill",

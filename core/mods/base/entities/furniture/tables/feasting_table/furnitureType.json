@@ -1,7 +1,7 @@
 {
   "name": "FEASTING_TABLE",
   "i18nKey": "FURNITURE.FEASTING_TABLE",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "4x2",
   "colorCode": "#e0a275",
   "iconName": "meal",

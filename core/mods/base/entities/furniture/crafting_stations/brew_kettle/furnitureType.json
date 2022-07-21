@@ -1,7 +1,7 @@
 {
   "name": "BREW_KETTLE",
   "i18nKey": "FURNITURE.BREW_KETTLE",
-  "categoryName": "OVEN",
+  "blocksMovement": true,
   "defaultLayoutName": "mashtun layout",
   "colorCode": "#c67852",
   "iconName": "round-bottom-flask-uncorked",

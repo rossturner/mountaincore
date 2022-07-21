@@ -1,7 +1,7 @@
 {
   "name": "SARCOPHAGUS",
   "i18nKey": "FURNITURE.SARCOPHAGUS",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "1x2N",
   "colorCode": "#665a5a",
   "iconName": "sarcophagus",

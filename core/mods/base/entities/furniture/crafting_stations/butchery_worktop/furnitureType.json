@@ -1,7 +1,7 @@
 {
   "name": "BUTCHERY_WORKTOP",
   "i18nKey": "FURNITURE.BUTCHERY_WORKTOP",
-  "categoryName": "TABLE",
+  "blocksMovement": true,
   "defaultLayoutName": "2x1 with workspaces",
   "colorCode": "#b25b47",
   "iconName": "kitchen-knives",
