@@ -4,17 +4,19 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.kotcrab.vis.ui.widget.*;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import technology.rocketjump.saul.assets.editor.model.CreatureNameBuilders;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
+import technology.rocketjump.saul.assets.editor.widgets.TextBoxConventionListener;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
@@ -85,16 +87,7 @@ public class CreatureUIFactory implements UIFactory {
 
         VisValidatableTextField raceNameTextField = new VisValidatableTextField();
         raceNameTextField.addValidator(validRace::apply);
-        raceNameTextField.addListener(new InputListener() {
-            @Override
-            public boolean keyTyped(InputEvent event, char character) {
-                if (event.getListenerActor() instanceof VisTextField vtf) {
-                    vtf.setText(WordUtils.capitalize(vtf.getText()));
-                    vtf.setCursorAtTextEnd();
-                }
-                return true;
-            }
-        });
+        raceNameTextField.addListener(new TextBoxConventionListener(WordUtils::capitalize));
 
         OkCancelDialog dialog = new OkCancelDialog("Create new " + getEntityType()) {
             @Override

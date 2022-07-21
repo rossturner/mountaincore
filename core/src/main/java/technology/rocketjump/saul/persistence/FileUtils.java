@@ -7,6 +7,8 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class FileUtils {
     /**
@@ -42,5 +44,14 @@ public class FileUtils {
             }
         }
         return directoryToCreate;
+    }
+
+    public static List<Path> findFilesByFilename(Path directory, String filename) {
+        try (Stream<Path> files = Files.walk(directory)) {
+            return files.filter(modFile -> modFile.getFileName().toString().equals(filename)).toList();
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+
     }
 }

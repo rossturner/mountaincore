@@ -25,6 +25,7 @@ import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
+import technology.rocketjump.saul.assets.editor.widgets.TextBoxConventionListener;
 import technology.rocketjump.saul.assets.editor.widgets.TopLevelMenu;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.*;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorContextMenu;
@@ -241,9 +242,9 @@ public class AssetEditorUI implements Telegraph {
 			case MessageType.EDITOR_SHOW_CREATE_DIRECTORY_DIALOG: {
 				final Path directory = FileUtils.getDirectory((Path) msg.extraInfo);
 
-				//TODO: add magic text listener to remove spaces and force lowercase
 				VisValidatableTextField folderTextBox = new VisValidatableTextField();
 				folderTextBox.addValidator(StringUtils::isNotBlank);
+				folderTextBox.addListener(new TextBoxConventionListener(original -> original.toLowerCase().replaceAll("\\s", "_")));
 				OkCancelDialog dialog = new OkCancelDialog("Create subdirectory under " + directory) {
 					@Override
 					public void onOk() {
