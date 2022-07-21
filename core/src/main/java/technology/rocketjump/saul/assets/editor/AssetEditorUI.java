@@ -290,6 +290,9 @@ public class AssetEditorUI implements Telegraph {
 						return FileUtils.findFilesByFilename(editorStateProvider.getState().getModDirPath(), input).isEmpty();
 					}
 				});
+				if (message.suggestedFilename() != null) {
+					filenameTextField.setText(message.suggestedFilename());
+				}
 				OkCancelDialog dialog = new OkCancelDialog("Import file into mods") {
 					@Override
 					public void onOk() {
@@ -306,7 +309,7 @@ public class AssetEditorUI implements Telegraph {
 				dialog.row();
 				dialog.add(new VisLabel("New Filename")).left();
 				dialog.add(new VisLabel(message.destinationDirectory().path())).left();
-				dialog.add(filenameTextField).prefWidth(100).left();
+				dialog.add(filenameTextField).minWidth(350).left();
 				dialog.show(stage);
 				return true;
 			}

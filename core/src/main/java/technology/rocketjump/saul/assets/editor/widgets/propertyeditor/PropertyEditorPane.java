@@ -14,6 +14,7 @@ import com.kotcrab.vis.ui.widget.*;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooserCallback;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooserConfiguration;
+import org.apache.commons.lang3.text.WordUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.editor.message.ShowImportFileDialogMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
@@ -46,10 +47,7 @@ import technology.rocketjump.saul.rendering.RenderMode;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -330,9 +328,12 @@ public class PropertyEditorPane extends VisTable {
 								callback.accept(selectedFile);
 							} else {
 								//TODO: suggested filename
+								StringJoiner suggestedFileNameBuilder = new StringJoiner("_", "", ".png");
+								suggestedFileNameBuilder.add(entityAsset.getUniqueName()).add(orientation.name());
+								String suggestedFilename = WordUtils.capitalizeFully(suggestedFileNameBuilder.toString(), '_', '-');
 								Path destinationPath = FileUtils.getDirectory(Paths.get(editorStateProvider.getState().getAssetSelection().getDescriptorsPath()));
 								FileHandle destination = new FileHandle(destinationPath.toFile());
-								messageDispatcher.dispatchMessage(MessageType.EDITOR_SHOW_IMPORT_FILE_DIALOG, new ShowImportFileDialogMessage(selectedFile, destination, callback));
+								messageDispatcher.dispatchMessage(MessageType.EDITOR_SHOW_IMPORT_FILE_DIALOG, new ShowImportFileDialogMessage(selectedFile, destination, suggestedFilename, callback));
 							}
 						}
 
