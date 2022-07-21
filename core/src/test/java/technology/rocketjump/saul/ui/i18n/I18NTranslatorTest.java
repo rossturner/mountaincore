@@ -18,7 +18,6 @@ import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.ai.goap.GoalDictionary;
-import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureCategoryDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureLayoutDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.factories.*;
@@ -225,7 +224,7 @@ public class I18NTranslatorTest {
 
 	@Test
 	public void describeFurniture() throws IOException {
-		FurnitureEntityAttributes attributes = new FurnitureEntityAttributesFactory(new FurnitureTypeDictionary(new FurnitureCategoryDictionary(), new FurnitureLayoutDictionary(),
+		FurnitureEntityAttributes attributes = new FurnitureEntityAttributesFactory(new FurnitureTypeDictionary(new FurnitureLayoutDictionary(),
 				itemTypeDictionary)).byName("STONEMASON_WORKBENCH", gameMaterialDictionary.getByName("Granite"));
 		Entity entity = new FurnitureEntityFactory(mockMessageDispatcher, mockEntityAssetUpdater).create(attributes, new GridPoint2(), null, mockGameContext);
 		I18nText description = translator.getDescription(entity);
@@ -235,7 +234,7 @@ public class I18NTranslatorTest {
 
 	@Test
 	public void describeDoor() throws IOException {
-		FurnitureEntityAttributes attributes = new FurnitureEntityAttributesFactory(new FurnitureTypeDictionary(new FurnitureCategoryDictionary(), new FurnitureLayoutDictionary(),
+		FurnitureEntityAttributes attributes = new FurnitureEntityAttributesFactory(new FurnitureTypeDictionary(new FurnitureLayoutDictionary(),
 				itemTypeDictionary)).byName("SINGLE_DOOR", gameMaterialDictionary.getByName("Oak"));
 		Entity entity = new FurnitureEntityFactory(mockMessageDispatcher, mockEntityAssetUpdater).create(attributes, new GridPoint2(), null, mockGameContext);
 		I18nText description = translator.getDescription(entity);
@@ -246,7 +245,7 @@ public class I18NTranslatorTest {
 	@Test
 	public void describeFurnitureConstruction() throws IOException {
 		GameMaterial material = gameMaterialDictionary.getByName("Oak");
-		FurnitureEntityAttributes attributes = new FurnitureEntityAttributesFactory(new FurnitureTypeDictionary(new FurnitureCategoryDictionary(), new FurnitureLayoutDictionary(),
+		FurnitureEntityAttributes attributes = new FurnitureEntityAttributesFactory(new FurnitureTypeDictionary(new FurnitureLayoutDictionary(),
 				itemTypeDictionary)).byName("STONEMASON_WORKBENCH", material);
 		Entity furnitureEntity = new FurnitureEntityFactory(mockMessageDispatcher, mockEntityAssetUpdater).create(attributes, new GridPoint2(), null, mockGameContext);
 

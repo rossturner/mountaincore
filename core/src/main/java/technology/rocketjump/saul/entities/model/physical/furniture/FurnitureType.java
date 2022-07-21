@@ -11,18 +11,12 @@ import technology.rocketjump.saul.rooms.RoomType;
 
 import java.util.*;
 
-/**
- * A furniture type is a sub-grouping of FurnitureCategory
- * This may represent the difference between a carpenter's table and a mason's table
- */
 public class FurnitureType {
 
 	@Name
 	private String name;
 	private String i18nKey;
-	private String categoryName;
-	@JsonIgnore
-	private FurnitureCategory furnitureCategory;
+	private boolean blocksMovement;
 
 	private String defaultLayoutName;
 	@JsonIgnore
@@ -65,22 +59,6 @@ public class FurnitureType {
 
 	public void setI18nKey(String i18nKey) {
 		this.i18nKey = i18nKey;
-	}
-
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
-	public FurnitureCategory getFurnitureCategory() {
-		return furnitureCategory;
-	}
-
-	public void setFurnitureCategory(FurnitureCategory furnitureCategory) {
-		this.furnitureCategory = furnitureCategory;
 	}
 
 	public String getDefaultLayoutName() {
@@ -142,11 +120,7 @@ public class FurnitureType {
 
 	@Override
 	public String toString() {
-		return "FurnitureType{" +
-				"name='" + name + '\'' +
-				", categoryName='" + categoryName + '\'' +
-				", furnitureCategory=" + furnitureCategory +
-				'}';
+		return name;
 	}
 
 	public boolean isPlaceAnywhere() {
@@ -191,5 +165,13 @@ public class FurnitureType {
 
 	public void setHiddenFromPlacementMenu(boolean hiddenFromPlacementMenu) {
 		this.hiddenFromPlacementMenu = hiddenFromPlacementMenu;
+	}
+
+	public boolean isBlocksMovement() {
+		return blocksMovement;
+	}
+
+	public void setBlocksMovement(boolean blocksMovement) {
+		this.blocksMovement = blocksMovement;
 	}
 }

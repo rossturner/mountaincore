@@ -10,9 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureCategoryDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
-import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureCategory;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
@@ -67,27 +65,20 @@ public class BuildDoorsGuiView implements GuiView, I18nUpdatable {
 	@Inject
 	public BuildDoorsGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 							 IconButtonFactory iconButtonFactory, FurnitureTypeDictionary furnitureTypeDictionary,
-							 ItemTracker itemTracker, FurnitureCategoryDictionary furnitureCategoryDictionary,
+							 ItemTracker itemTracker,
 							 I18nTranslator i18nTranslator, I18nWidgetFactory i18NWidgetFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.itemTracker = itemTracker;
 		this.i18nTranslator = i18nTranslator;
 
-		FurnitureCategory doorCategory = furnitureCategoryDictionary.getByName("DOOR");
-		if (doorCategory == null) {
-			throw new RuntimeException("Could not find any furniture category of DOOR");
-		}
-
-		for (FurnitureType furnitureType : furnitureTypeDictionary.getAll()) {
-			if (doorCategory.equals(furnitureType.getFurnitureCategory())) {
-				doorTypes.add(furnitureType);
-				for (Map.Entry<GameMaterialType, List<QuantifiedItemType>> entry : furnitureType.getRequirements().entrySet()) {
-					if (entry.getValue().size() == 1) {
-						resourceTypeMap.put(entry.getKey(), entry.getValue().get(0).getItemType());
-					} else {
-						Logger.error(furnitureType.getName() + " must only have a single requirements ingredient");
-					}
-				}
+		// MODDING move the selection of door furniture types to be based on an "IS_DOOR" tag
+		FurnitureType furnitureType = furnitureTypeDictionary.getByName("SINGLE_DOOR");
+		doorTypes.add(furnitureType);
+		for (Map.Entry<GameMaterialType, List<QuantifiedItemType>> entry : furnitureType.getRequirements().entrySet()) {
+			if (entry.getValue().size() == 1) {
+				resourceTypeMap.put(entry.getKey(), entry.getValue().get(0).getItemType());
+			} else {
+				Logger.error(furnitureType.getName() + " must only have a single requirements ingredient");
 			}
 		}
 

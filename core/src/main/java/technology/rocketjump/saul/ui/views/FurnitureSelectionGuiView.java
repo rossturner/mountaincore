@@ -232,10 +232,6 @@ public class FurnitureSelectionGuiView implements GuiView, FurnitureSelectedCall
 
 
 		for (FurnitureType furnitureType : furnitureTypesForRoom) {
-			if (furnitureType.getFurnitureCategory() == null) {
-				continue;
-			}
-
 			IconButton iconButton = iconButtonFactory.create(furnitureType.getI18nKey(), furnitureType.getIconName(), furnitureType.getColor(), LARGE);
 			iconButton.setAction(new FurnitureSelectedAction(furnitureType, messageDispatcher, this));
 			furnitureTable.add(iconButton).pad(10);

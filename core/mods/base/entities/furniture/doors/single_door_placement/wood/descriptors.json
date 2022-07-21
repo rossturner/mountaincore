@@ -1,0 +1,19 @@
+[
+  {
+    "uniqueName": "door-placement-wood-single-ew",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "SINGLE_DOOR_PLACEMENT",
+    "furnitureLayoutName": "1x1EW",
+    "validMaterialTypes": ["WOOD"],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "door_wood_EW_anim_0.png",
+        "coloringLayer": "WOOD_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "name": "INNOCULATED_LOG",
+  "i18nKey": "FURNITURE.MUSHROOM_LOG",
+  "blocksMovement": true,
+  "defaultLayoutName": "1x1EW with workspaces",
+  "colorCode": "#963482",
+  "iconName": "mushroom-gills",
+  "autoConstructed": true,
+  "hiddenFromPlacementMenu": true,
+  "requirements": {
+    "SEED": [
+      {
+        "itemTypeName": "Resource-Mushroom-Log",
+        "quantity": 1
+      }
+    ]
+  },
+  "tags": {
+    "REPLACEMENT_DESCONSTRUCTION_RESOURCES": []
+  }
+}

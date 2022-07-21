@@ -2,7 +2,7 @@
   {
     "uniqueName": "pillar-1x1-stone",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": ["PILLAR"],
+    "furnitureTypeName": "PILLAR",
     "furnitureLayoutName": "1x1",
     "validMaterialTypes": ["STONE"],
     "spriteDescriptors": {
@@ -19,7 +19,7 @@
   {
     "uniqueName": "pillar-1x1-wood",
     "type": "BASE_LAYER",
-    "furnitureTypeNames": ["PILLAR"],
+    "furnitureTypeName": "PILLAR",
     "furnitureLayoutName": "1x1",
     "validMaterialTypes": ["WOOD"],
     "spriteDescriptors": {

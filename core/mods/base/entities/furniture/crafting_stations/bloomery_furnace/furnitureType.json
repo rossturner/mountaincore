@@ -1,0 +1,35 @@
+{
+  "name": "BLOOMERY_FURNACE",
+  "i18nKey": "FURNITURE.BLOOMERY_FURNACE",
+  "blocksMovement": true,
+  "defaultLayoutName": "2x2+SW with lower workspaces",
+  "colorCode": "#d44545",
+  "iconName": "metal-bar",
+  "requirements": {
+    "STONE": [
+      {
+        "itemTypeName": "Resource-Stone-Unrefined",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Stone-Block",
+        "quantity": 6
+      },
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 2
+      },
+      {
+        "itemTypeName": "Resource-Metal-Ingot",
+        "quantity": 2
+      }
+    ]
+  },
+  "tags": {
+    "CRAFTING_STATION_BEHAVIOUR": ["SMELTING", "PRODUCE_ITEM", "HAULING"],
+    "CRAFTING_OVERRIDE": ["DO_NOT_HAUL_OUTPUT"],
+    "REQUIREMENT_TO_COLOR_MAPPINGS": ["Resource-Stone-Unrefined", "MISC_COLOR_1", "Resource-Stone-Block", "MISC_COLOR_2"],
+    "EXTRA_MATERIAL_TYPES": ["CLOTH"],
+    "PARTICLE_EFFECTS_WHILE_PROCESSING": ["Smoking"]
+  }
+}
