@@ -7,6 +7,7 @@ import technology.rocketjump.saul.entities.components.humanoid.HappinessComponen
 import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.tags.ItemUsageSoundTag;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.model.Job;
@@ -48,7 +49,16 @@ public class WorkOnJobAction extends Action {
 		if (completionType == null && inPositionToWorkOnJob()) {
 			Job assignedJob = parent.getAssignedJob();
 			ProfessionsComponent professionsComponent = parent.parentEntity.getComponent(ProfessionsComponent.class);
-			assignedJob.applyWorkDone(deltaTime);
+
+			float workDone = deltaTime;
+			EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
+			if (equippedItemComponent != null && equippedItemComponent.getEquippedItem() != null) {
+				Entity equippedItem = equippedItemComponent.getEquippedItem();
+				if (equippedItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
+					workDone *= itemAttributes.getItemQuality().jobDurationMultiplier;
+				}
+			}
+			assignedJob.applyWorkDone(workDone);
 
 			if (!activeSoundTriggered) {
 				SoundAsset jobSoundAsset = getJobSoundAsset();
