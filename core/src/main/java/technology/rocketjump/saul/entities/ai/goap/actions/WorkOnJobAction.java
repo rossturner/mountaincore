@@ -55,7 +55,7 @@ public class WorkOnJobAction extends Action {
 			if (equippedItemComponent != null && equippedItemComponent.getEquippedItem() != null) {
 				Entity equippedItem = equippedItemComponent.getEquippedItem();
 				if (equippedItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
-					workDone *= itemAttributes.getItemQuality().jobDurationMultiplier;
+					workDone *= (1f / itemAttributes.getItemQuality().jobDurationMultiplier);
 				}
 			}
 			assignedJob.applyWorkDone(workDone);
