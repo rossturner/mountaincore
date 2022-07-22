@@ -1,8 +1,8 @@
 [
   {
-    "uniqueName": "Resource-Wheat-Sack-Rope-Ground",
+    "uniqueName": "Resource-Grain-Sack-Rope-Ground",
     "type": "ABOVE_LAYER_2",
-    "itemTypeName": "Resource-Wheat-Sack",
+    "itemTypeName": "Resource-Grain-Sack",
     "itemPlacements": ["ON_GROUND"],
     "minQuantity": 1,
     "maxQuantity": 30,
@@ -18,9 +18,9 @@
     }
   },
   {
-    "uniqueName": "Resource-Wheat-Sack-Rope-Carried",
+    "uniqueName": "Resource-Grain-Sack-Rope-Carried",
     "type": "ABOVE_LAYER_2",
-    "itemTypeName": "Resource-Wheat-Sack",
+    "itemTypeName": "Resource-Grain-Sack",
     "itemPlacements": ["BEING_CARRIED"],
     "minQuantity": 1,
     "maxQuantity": 30,

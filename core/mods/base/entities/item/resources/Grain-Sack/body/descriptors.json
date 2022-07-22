@@ -22,9 +22,9 @@
     }
   },
   {
-    "uniqueName": "Resource-Wheat-Sack-Body-Carried",
+    "uniqueName": "Resource-Grain-Sack-Body-Carried",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Resource-Wheat-Sack",
+    "itemTypeName": "Resource-Grain-Sack",
     "itemPlacements": ["BEING_CARRIED"],
     "minQuantity": 1,
     "maxQuantity": 30,

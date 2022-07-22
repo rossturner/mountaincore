@@ -1,8 +1,8 @@
 [
   {
-    "uniqueName": "Resource-Wheat-Sack-Label-Ground",
+    "uniqueName": "Resource-Grain-Sack-Label-Ground",
     "type": "ABOVE_LAYER_1",
-    "itemTypeName": "Resource-Wheat-Sack",
+    "itemTypeName": "Resource-Grain-Sack",
     "itemPlacements": [
       "ON_GROUND"
     ],
@@ -20,9 +20,9 @@
     }
   },
   {
-    "uniqueName": "Resource-Wheat-Sack-Label-Carried",
+    "uniqueName": "Resource-Grain-Sack-Label-Carried",
     "type": "ABOVE_LAYER_1",
-    "itemTypeName": "Resource-Wheat-Sack",
+    "itemTypeName": "Resource-Grain-Sack",
     "itemPlacements": [
       "BEING_CARRIED"
     ],

@@ -9579,9 +9579,9 @@
     }
   }
 }, {
-  "uniqueName" : "Resource-Wheat-Sack-Body-Carried",
+  "uniqueName" : "Resource-Grain-Sack-Body-Carried",
   "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Wheat-Sack",
+  "itemTypeName" : "Resource-Grain-Sack",
   "minQuantity" : 1,
   "maxQuantity" : 30,
   "itemPlacements" : [ "BEING_CARRIED" ],
@@ -9834,9 +9834,9 @@
     }
   }
 }, {
-  "uniqueName" : "Resource-Wheat-Sack-Label-Ground",
+  "uniqueName" : "Resource-Grain-Sack-Label-Ground",
   "type" : "ABOVE_LAYER_1",
-  "itemTypeName" : "Resource-Wheat-Sack",
+  "itemTypeName" : "Resource-Grain-Sack",
   "minQuantity" : 1,
   "maxQuantity" : 30,
   "itemPlacements" : [ "ON_GROUND" ],
@@ -9860,9 +9860,9 @@
     }
   }
 }, {
-  "uniqueName" : "Resource-Wheat-Sack-Label-Carried",
+  "uniqueName" : "Resource-Grain-Sack-Label-Carried",
   "type" : "ABOVE_LAYER_1",
-  "itemTypeName" : "Resource-Wheat-Sack",
+  "itemTypeName" : "Resource-Grain-Sack",
   "minQuantity" : 1,
   "maxQuantity" : 30,
   "itemPlacements" : [ "BEING_CARRIED" ],
@@ -9920,9 +9920,9 @@
     }
   }
 }, {
-  "uniqueName" : "Resource-Wheat-Sack-Rope-Ground",
+  "uniqueName" : "Resource-Grain-Sack-Rope-Ground",
   "type" : "ABOVE_LAYER_2",
-  "itemTypeName" : "Resource-Wheat-Sack",
+  "itemTypeName" : "Resource-Grain-Sack",
   "minQuantity" : 1,
   "maxQuantity" : 30,
   "itemPlacements" : [ "ON_GROUND" ],
@@ -9946,9 +9946,9 @@
     }
   }
 }, {
-  "uniqueName" : "Resource-Wheat-Sack-Rope-Carried",
+  "uniqueName" : "Resource-Grain-Sack-Rope-Carried",
   "type" : "ABOVE_LAYER_2",
-  "itemTypeName" : "Resource-Wheat-Sack",
+  "itemTypeName" : "Resource-Grain-Sack",
   "minQuantity" : 1,
   "maxQuantity" : 30,
   "itemPlacements" : [ "BEING_CARRIED" ],
@@ -17418,6 +17418,484 @@
           "unit" : false
         }
       } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Wheat-Sack-Body-Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Wheat-Sack",
+  "minQuantity" : 1,
+  "maxQuantity" : 30,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Sack body.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "zero" : true,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "zero" : true,
+          "unit" : false
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "zero" : true,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : -16.0,
+          "zero" : false,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -18.0,
+          "y" : -16.0,
+          "zero" : false,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Sack body.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "zero" : true,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "zero" : true,
+          "unit" : false
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "zero" : true,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : -16.0,
+          "zero" : false,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 22.0,
+          "y" : -10.0,
+          "zero" : false,
+          "unit" : false
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Sack body.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "zero" : true,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "zero" : true,
+          "unit" : false
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "zero" : true,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : -16.0,
+          "zero" : false,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -22.0,
+          "y" : -10.0,
+          "zero" : false,
+          "unit" : false
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Sack body.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "zero" : true,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "zero" : true,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : -16.0,
+          "zero" : false,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Sack body.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "zero" : true,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "zero" : true,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : -16.0,
+          "zero" : false,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP" : {
+      "filename" : "Sack body.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "zero" : true,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "zero" : true,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Wheat-Sack-Label-Ground",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Resource-Wheat-Sack",
+  "minQuantity" : 1,
+  "maxQuantity" : 30,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Sack label.png",
+      "coloringLayer" : "VEGETABLE_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -8.0,
+        "zero" : false,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Wheat-Sack-Label-Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Resource-Wheat-Sack",
+  "minQuantity" : 1,
+  "maxQuantity" : 30,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Sack label.png",
+      "coloringLayer" : "VEGETABLE_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -6.4,
+        "zero" : false,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Sack label.png",
+      "coloringLayer" : "VEGETABLE_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -6.4,
+        "zero" : false,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Sack label.png",
+      "coloringLayer" : "VEGETABLE_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -6.4,
+        "zero" : false,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Wheat-Sack-Rope-Ground",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Resource-Wheat-Sack",
+  "minQuantity" : 1,
+  "maxQuantity" : 30,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 17.0,
+        "zero" : false,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Wheat-Sack-Rope-Carried",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Resource-Wheat-Sack",
+  "minQuantity" : 1,
+  "maxQuantity" : 30,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 13.6,
+        "zero" : false,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 13.6,
+        "zero" : false,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 13.6,
+        "zero" : false,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 13.6,
+        "zero" : false,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 13.6,
+        "zero" : false,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 13.6,
+        "zero" : false,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
