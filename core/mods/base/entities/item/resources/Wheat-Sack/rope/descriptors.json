@@ -1,0 +1,84 @@
+[
+  {
+    "uniqueName": "Resource-Wheat-Sack-Rope-Ground",
+    "type": "ABOVE_LAYER_2",
+    "itemTypeName": "Resource-Wheat-Sack",
+    "itemPlacements": ["ON_GROUND"],
+    "minQuantity": 1,
+    "maxQuantity": 30,
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Sack rope.png",
+        "offsetPixels": {
+          "x": 0,
+          "y": 17
+        },
+        "coloringLayer": "ROPE_COLOR"
+      }
+    }
+  },
+  {
+    "uniqueName": "Resource-Wheat-Sack-Rope-Carried",
+    "type": "ABOVE_LAYER_2",
+    "itemTypeName": "Resource-Wheat-Sack",
+    "itemPlacements": ["BEING_CARRIED"],
+    "minQuantity": 1,
+    "maxQuantity": 30,
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Sack rope.png",
+        "scale": 0.8,
+        "offsetPixels": {
+          "x": 0,
+          "y": 13.6
+        },
+        "coloringLayer": "ROPE_COLOR"
+      },
+      "DOWN_RIGHT": {
+        "filename": "Sack rope.png",
+        "scale": 0.8,
+        "offsetPixels": {
+          "x": 0,
+          "y": 13.6
+        },
+        "coloringLayer": "ROPE_COLOR"
+      },
+      "DOWN_LEFT": {
+        "filename": "Sack rope.png",
+        "scale": 0.8,
+        "offsetPixels": {
+          "x": 0,
+          "y": 13.6
+        },
+        "coloringLayer": "ROPE_COLOR"
+      },
+      "UP_RIGHT": {
+        "filename": "Sack rope.png",
+        "scale": 0.8,
+        "offsetPixels": {
+          "x": 0,
+          "y": 13.6
+        },
+        "coloringLayer": "ROPE_COLOR"
+      },
+      "UP_LEFT": {
+        "filename": "Sack rope.png",
+        "scale": 0.8,
+        "offsetPixels": {
+          "x": 0,
+          "y": 13.6
+        },
+        "coloringLayer": "ROPE_COLOR"
+      },
+      "UP": {
+        "filename": "Sack rope.png",
+        "scale": 0.8,
+        "offsetPixels": {
+          "x": 0,
+          "y": 13.6
+        },
+        "coloringLayer": "ROPE_COLOR"
+      }
+    }
+  }
+]

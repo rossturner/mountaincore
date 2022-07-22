@@ -2,7 +2,7 @@
   {
     "uniqueName": "Resource-Hemp-Bundle-Base",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeNames": ["Resource-Hemp-Bundle", "Resource-Hemp-Fibre-Bundle"],
+    "itemTypeName": "Resource-Hemp-Bundle",
     "itemPlacements": ["ON_GROUND"],
     "minQuantity": 1,
     "maxQuantity": 4,
@@ -20,7 +20,7 @@
   {
     "uniqueName": "Resource-Hemp-Bundle-Single01",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeNames": ["Resource-Hemp-Bundle", "Resource-Hemp-Fibre-Bundle"],
+    "itemTypeName": "Resource-Hemp-Bundle",
     "itemPlacements": ["BEING_CARRIED"],
     "minQuantity": 1,
     "maxQuantity": 4,

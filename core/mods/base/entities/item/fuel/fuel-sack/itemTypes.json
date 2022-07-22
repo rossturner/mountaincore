@@ -1,8 +1,0 @@
-[{
-  "itemTypeName": "Fuel-Sack",
-  "materialTypes": ["CLOTH", "ORE"],
-  "primaryMaterialType": "ORE",
-  "maxStackSize": 16,
-  "maxHauledAtOnce": 16,
-  "stockpileGroupName": "FUEL"
-}]

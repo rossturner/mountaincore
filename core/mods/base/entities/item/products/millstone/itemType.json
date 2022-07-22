@@ -1,0 +1,10 @@
+{
+  "itemTypeName": "Product-Millstone",
+  "materialTypes": ["STONE"],
+  "primaryMaterialType": "STONE",
+  "stockpileGroupName": "PRODUCTS",
+  "hoursInInventoryUntilUnused": 1,
+  "maxStackSize": 1,
+  "maxHauledAtOnce": 1,
+  "equippedWhileWorkingOnJob": true
+}
