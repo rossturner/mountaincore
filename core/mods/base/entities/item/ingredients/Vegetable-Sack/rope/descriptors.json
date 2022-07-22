@@ -2,7 +2,7 @@
   {
     "uniqueName": "Ingredient-Vegetable-Sack-Rope-Ground",
     "type": "ABOVE_LAYER_2",
-    "itemTypeNames": ["Ingredient-Vegetable-Sack", "Resource-Wheat-Sack", "Resource-Grain-Sack"],
+    "itemTypeName": "Ingredient-Vegetable-Sack",
     "itemPlacements": ["ON_GROUND"],
     "minQuantity": 1,
     "maxQuantity": 30,
@@ -18,28 +18,9 @@
     }
   },
   {
-    "uniqueName": "Unlabelled-Vegetable-Sack-Rope-Ground",
-    "type": "ABOVE_LAYER_2",
-    "itemTypeNames": ["Resource-Flour-Sack", "Resource-Crushed-Vitriol", "Ingredient-Malt-Sack", "Ingredient-Milled-Malt-Sack"],
-    "itemPlacements": ["ON_GROUND"],
-    "minQuantity": 1,
-    "maxQuantity": 30,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Sack rope.png",
-        "scale": 0.8,
-        "offsetPixels": {
-          "x": 0,
-          "y": 13.6
-        },
-        "coloringLayer": "ROPE_COLOR"
-      }
-    }
-  },
-  {
     "uniqueName": "Ingredient-Vegetable-Sack-Rope-Carried",
     "type": "ABOVE_LAYER_2",
-    "itemTypeNames": ["Ingredient-Vegetable-Sack", "Resource-Wheat-Sack", "Resource-Grain-Sack"],
+    "itemTypeName": "Ingredient-Vegetable-Sack",
     "itemPlacements": ["BEING_CARRIED"],
     "minQuantity": 1,
     "maxQuantity": 30,
@@ -95,70 +76,6 @@
         "offsetPixels": {
           "x": 0,
           "y": 13.6
-        },
-        "coloringLayer": "ROPE_COLOR"
-      }
-    }
-  },
-  {
-    "uniqueName": "Unlabelled-Vegetable-Sack-Rope-Carried",
-    "type": "ABOVE_LAYER_2",
-    "itemTypeNames": ["Resource-Flour-Sack", "Resource-Crushed-Vitriol", "Ingredient-Malt-Sack", "Ingredient-Milled-Malt-Sack"],
-    "itemPlacements": ["BEING_CARRIED"],
-    "minQuantity": 1,
-    "maxQuantity": 30,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Sack rope.png",
-        "scale": 0.7,
-        "offsetPixels": {
-          "x": 0,
-          "y": 11.9
-        },
-        "coloringLayer": "ROPE_COLOR"
-      },
-      "DOWN_RIGHT": {
-        "filename": "Sack rope.png",
-        "scale": 0.7,
-        "offsetPixels": {
-          "x": 0,
-          "y": 11.9
-        },
-        "coloringLayer": "ROPE_COLOR"
-      },
-      "DOWN_LEFT": {
-        "filename": "Sack rope.png",
-        "scale": 0.7,
-        "offsetPixels": {
-          "x": 0,
-          "y": 11.9
-        },
-        "coloringLayer": "ROPE_COLOR"
-      },
-      "UP_RIGHT": {
-        "filename": "Sack rope.png",
-        "scale": 0.7,
-        "offsetPixels": {
-          "x": 0,
-          "y": 11.9
-        },
-        "coloringLayer": "ROPE_COLOR"
-      },
-      "UP_LEFT": {
-        "filename": "Sack rope.png",
-        "scale": 0.7,
-        "offsetPixels": {
-          "x": 0,
-          "y": 11.9
-        },
-        "coloringLayer": "ROPE_COLOR"
-      },
-      "UP": {
-        "filename": "Sack rope.png",
-        "scale": 0.7,
-        "offsetPixels": {
-          "x": 0,
-          "y": 11.9
         },
         "coloringLayer": "ROPE_COLOR"
       }

@@ -1,0 +1,13 @@
+{
+  "itemTypeName": "Product-Barrel",
+  "materialTypes": ["WOOD", "METAL"],
+  "primaryMaterialType": "WOOD",
+  "stockpileGroupName": "PRODUCTS",
+  "hoursInInventoryUntilUnused": 2,
+  "maxStackSize": 1,
+  "maxHauledAtOnce": 1,
+  "equippedWhileWorkingOnJob": true,
+  "tags": {
+    "LIQUID_CONTAINER": ["6"]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "itemTypeName": "Tool-Pickaxe",
+  "materialTypes": ["METAL", "WOOD"],
+  "primaryMaterialType": "METAL",
+  "maxStackSize": 1,
+  "maxHauledAtOnce": 1,
+  "stockpileGroupName": "TOOLS",
+  "holdPosition": "RIGHT_HAND",
+  "impedesMovement": false,
+  "blocksMovement": false,
+  "relatedCraftingTypeNames": ["SMELTING"]
+}

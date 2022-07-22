@@ -1,7 +1,0 @@
-[{
-  "itemTypeName": "Resource-Metal-Bloom",
-  "materialTypes": ["METAL"],
-  "primaryMaterialType": "METAL",
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1
-}]

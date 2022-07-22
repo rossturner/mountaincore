@@ -2,9 +2,7 @@
   {
     "uniqueName": "Giant-Mushroom-Lumber-Carried",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeNames": [
-      "Resource-Mushroom-Lumber"
-    ],
+    "itemTypeName": "Resource-Mushroom-Lumber",
     "itemSize": "SMALL",
     "itemStyle": "STYLE_1",
     "itemPlacements": [

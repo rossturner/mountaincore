@@ -32,15 +32,8 @@ public class ItemEntityAssetsByAssetType {
 			throw new RuntimeException("Unrecognised asset type " + asset.getType() + " for " + asset.getUniqueName());
 		}
 
-		if (asset.getItemTypeNames() != null && !asset.getItemTypeNames().isEmpty()) {
-			for (String itemTypeName : asset.getItemTypeNames()) {
-				typeMap.get(asset.getType()).add(itemTypeDictionary.getByName(itemTypeName), asset);
-				typeMap.get(NULL_ENTITY_ASSET_TYPE).add(itemTypeDictionary.getByName(itemTypeName), asset);
-			}
-		} else {
-			typeMap.get(asset.getType()).add(itemTypeDictionary.getByName(asset.getItemTypeName()), asset);
-			typeMap.get(NULL_ENTITY_ASSET_TYPE).add(itemTypeDictionary.getByName(asset.getItemTypeName()), asset);
-		}
+		typeMap.get(asset.getType()).add(itemTypeDictionary.getByName(asset.getItemTypeName()), asset);
+		typeMap.get(NULL_ENTITY_ASSET_TYPE).add(itemTypeDictionary.getByName(asset.getItemTypeName()), asset);
 	}
 
 	public ItemEntityAsset get(EntityAssetType entityAssetType, ItemEntityAttributes attributes) {

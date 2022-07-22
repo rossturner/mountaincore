@@ -1,0 +1,36 @@
+[{
+  "uniqueName": "Resource-Shocked-Mushroom-Log-Single-Interior",
+  "type": "BELOW_LAYER_1",
+  "itemTypeName": "Resource-Shocked-Mushroom-Log",
+  "itemSize": "AVERAGE",
+  "itemStyle": "DEFAULT",
+  "itemPlacements": ["BEING_CARRIED"],
+  "minQuantity": 0,
+  "maxQuantity": 0,
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "Resource-Logs-Large-Single-Interior.png",
+      "coloringLayer": "WOOD_COLOR"
+    },
+    "DOWN_RIGHT": {
+      "filename": "Resource-Logs-Large-Single-Interior-34.png",
+      "coloringLayer": "WOOD_COLOR"
+    },
+    "DOWN_LEFT": {
+      "filename": "Resource-Logs-Large-Single-Interior-34.png",
+      "coloringLayer": "WOOD_COLOR"
+    },
+    "UP": {
+      "filename": "Resource-Logs-Large-Single-Interior.png",
+      "coloringLayer": "WOOD_COLOR"
+    },
+    "UP_RIGHT": {
+      "filename": "Resource-Logs-Large-Single-Interior-34.png",
+      "coloringLayer": "WOOD_COLOR"
+    },
+    "UP_LEFT": {
+      "filename": "Resource-Logs-Large-Single-Interior-34.png",
+      "coloringLayer": "WOOD_COLOR"
+    }
+  }
+}]
