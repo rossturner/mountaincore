@@ -49,9 +49,9 @@ public class ViewEditorPane extends VisTable implements Telegraph {
         this.clearChildren();
         setBackground("window-bg");
 
-        add(new VisLabel("View Editor")).expandX().left().row();
-        add(buildRenderModeRow()).left();
-        add(buildSpritePaddingRow()).left();
+        add(new VisLabel("View Editor")).expandX().colspan(2).row();
+        add(buildRenderModeWidget());
+        add(buildSpritePaddingWidget());
         row();
 
         Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
@@ -62,20 +62,20 @@ public class ViewEditorPane extends VisTable implements Telegraph {
             VisTable entityAssetPane = null;
             //TODO: Move to UI Factory
             if (entityAttributes instanceof CreatureEntityAttributes creatureAttributes) {
-                entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater, professionDictionary, messageDispatcher);
-                entityAssetPane = new CreatureAssetPane(creatureAttributes, entityAssetTypeDictionary, creatureEntityAssetDictionary, editorStateProvider);
+                entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater, professionDictionary, entityAssetTypeDictionary, creatureEntityAssetDictionary, messageDispatcher);
+//                entityAssetPane = new CreatureAssetPane(creatureAttributes, entityAssetTypeDictionary, creatureEntityAssetDictionary, editorStateProvider);
             }
 
             if (entityAttributesPane != null) {
-                add(entityAttributesPane).left().row();
-                add(entityAssetPane).left().row();
+                add(entityAttributesPane).left().fill().colspan(2).row();
+//                add(entityAssetPane).left().fill().expandX().colspan(2).row();
             }
         }
 
     }
 
 
-    private VisTable buildRenderModeRow() {
+    private VisTable buildRenderModeWidget() {
         VisTable renderModeRow = new VisTable();
         //TODO: Consider moving to WidgetBuilder to generate a radio button group
         renderModeRow.add(new VisLabel("Render Mode"));
@@ -98,7 +98,7 @@ public class ViewEditorPane extends VisTable implements Telegraph {
         return renderModeRow;
     }
 
-    private VisTable buildSpritePaddingRow() {
+    private VisTable buildSpritePaddingWidget() {
         VisTable spritePaddingRow = new VisTable();
         spritePaddingRow.add(new VisLabel("Sprite padding")).left();
         VisSlider slider = new VisSlider(1, 3, 1, false);
