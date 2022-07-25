@@ -58,6 +58,10 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		camera.zoom = 0.5f;
 		camera.position.x = camera.viewportWidth / 2;
 		camera.position.y = camera.viewportHeight / 2;
+		init();
+	}
+
+	private void init() {
 		Injector injector = Guice.createInjector(new SaulGuiceModule() {
 			@Override
 			public void configure() {
@@ -68,6 +72,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				uiFactoryMapBinder.addBinding(EntityType.CREATURE).to(CreatureUIFactory.class);
 			}
 		});
+
 		entityAssetUpdater = injector.getInstance(EntityAssetUpdater.class);
 		entityRenderer = injector.getInstance(EntityRenderer.class);
 		editorStateProvider = injector.getInstance(EditorStateProvider.class);
@@ -75,13 +80,13 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(ui.getStage());
-//		inputMultiplexer.addProcessor(new CameraInputController(camera));
 		inputMultiplexer.addProcessor(injector.getInstance(ViewAreaInputHandler.class));
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
 		MessageDispatcher messageDispatcher = injector.getInstance(MessageDispatcher.class);
 		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED);
 		messageDispatcher.addListener(this, MessageType.ENTITY_ASSET_UPDATE_REQUIRED);
+		messageDispatcher.addListener(this, MessageType.EDITOR_RELOAD);
 	}
 
 	@Override
@@ -201,6 +206,10 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			}
 			case MessageType.ENTITY_ASSET_UPDATE_REQUIRED: {
 				entityAssetUpdater.updateEntityAssets((Entity) msg.extraInfo);
+				return true;
+			}
+			case MessageType.EDITOR_RELOAD: {
+				init();
 				return true;
 			}
 		}

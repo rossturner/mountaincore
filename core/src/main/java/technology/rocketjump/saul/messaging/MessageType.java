@@ -275,5 +275,6 @@ public class MessageType {
 	public static final int EDITOR_SHOW_CREATE_ASSET_DIALOG = 99008;
 	public static final int EDITOR_ASSET_CREATED = 99009;
 	public static final int EDITOR_SHOW_IMPORT_FILE_DIALOG = 99010;
+	public static final int EDITOR_RELOAD = 99011;
 
 }

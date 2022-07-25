@@ -80,6 +80,7 @@ public class EntityBrowserPane extends VisTable implements Telegraph {
 			public void clicked(InputEvent event, float x, float y) {
 				// TODO clear all state changes i.e. reload all (or just these) assets and types
 				messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, null);
+				messageDispatcher.dispatchMessage(MessageType.EDITOR_RELOAD, null);
 			}
 		});
 
