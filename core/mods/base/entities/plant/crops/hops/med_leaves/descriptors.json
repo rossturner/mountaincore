@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Hops-Medium-Leaves",
   "type": "PLANT_LEAVES",
-  "speciesNames": ["Hops"],
+  "speciesName": "Hops",
   "growthStages": [2],
   "spriteDescriptors": {
     "DOWN": {

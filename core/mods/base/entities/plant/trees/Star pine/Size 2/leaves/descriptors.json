@@ -1,0 +1,12 @@
+[{
+  "uniqueName": "Star-Pine-Size2-Leaves",
+  "type": "PLANT_LEAVES",
+  "speciesName": "Star pine",
+  "growthStages": [1],
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "pine_02_l.png",
+      "coloringLayer": "LEAF_COLOR"
+    }
+  }
+}]

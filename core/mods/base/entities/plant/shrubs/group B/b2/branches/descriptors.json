@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Bush-B2-Branches",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Thimbleberry bush", "Tamarillo bush", "Dragonfruit tree", "Shrub"],
+  "speciesName": "Shrub",
   "spriteDescriptors": {
     "DOWN": {
       "filename": "shrub_02_t.png",

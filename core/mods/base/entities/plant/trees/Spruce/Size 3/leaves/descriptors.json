@@ -1,0 +1,12 @@
+[{
+  "uniqueName": "Tree-Spruce-Size3-Leaves",
+  "type": "PLANT_LEAVES",
+  "speciesName": "Spruce",
+  "growthStages": [2],
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "fir-2-l.png",
+      "coloringLayer": "LEAF_COLOR"
+    }
+  }
+}]

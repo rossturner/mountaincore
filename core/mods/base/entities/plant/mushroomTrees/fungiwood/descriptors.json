@@ -1,8 +1,8 @@
 [
   {
-    "uniqueName": "Giant-Mushroom-Sapling-Branches",
+    "uniqueName": "Fungiwood-Sapling-Branches",
     "type": "PLANT_BRANCHES",
-    "speciesNames": ["Fungiwood", "Barkshroom"],
+    "speciesName": "Fungiwood",
     "growthStages": [0],
     "spriteDescriptors": {
       "DOWN": {
@@ -25,9 +25,9 @@
     }
   },
   {
-    "uniqueName": "Giant-Mushroom-Sapling-Leaves",
+    "uniqueName": "Fungiwood-Sapling-Leaves",
     "type": "PLANT_LEAVES",
-    "speciesNames": ["Fungiwood", "Barkshroom"],
+    "speciesName": "Fungiwood",
     "growthStages": [0],
     "spriteDescriptors": {
       "DOWN": {
@@ -42,9 +42,9 @@
   },
 
   {
-    "uniqueName": "Giant-Mushroom-Size1-Branches",
+    "uniqueName": "Fungiwood-Size1-Branches",
     "type": "PLANT_BRANCHES",
-    "speciesNames": ["Fungiwood", "Barkshroom"],
+    "speciesName": "Fungiwood",
     "growthStages": [1],
     "spriteDescriptors": {
       "DOWN": {
@@ -67,9 +67,9 @@
     }
   },
   {
-    "uniqueName": "Giant-Mushroom-Size1-Leaves",
+    "uniqueName": "Fungiwood-Size1-Leaves",
     "type": "PLANT_LEAVES",
-    "speciesNames": ["Fungiwood", "Barkshroom"],
+    "speciesName": "Fungiwood",
     "growthStages": [1],
     "spriteDescriptors": {
       "DOWN": {
@@ -84,9 +84,9 @@
   },
 
   {
-    "uniqueName": "Giant-Mushroom-Size2-Branches",
+    "uniqueName": "Fungiwood-Size2-Branches",
     "type": "PLANT_BRANCHES",
-    "speciesNames": ["Fungiwood", "Barkshroom"],
+    "speciesName": "Fungiwood",
     "growthStages": [2],
     "spriteDescriptors": {
       "DOWN": {
@@ -109,9 +109,9 @@
     }
   },
   {
-    "uniqueName": "Giant-Mushroom-Size2-Leaves",
+    "uniqueName": "Fungiwood-Size2-Leaves",
     "type": "PLANT_LEAVES",
-    "speciesNames": ["Fungiwood", "Barkshroom"],
+    "speciesName": "Fungiwood",
     "growthStages": [2],
     "spriteDescriptors": {
       "DOWN": {

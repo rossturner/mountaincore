@@ -2,7 +2,7 @@
   {
     "uniqueName": "Ingredient-Vegetable-Sack-Label-Ground",
     "type": "ABOVE_LAYER_1",
-    "itemTypeNames": ["Ingredient-Vegetable-Sack", "Resource-Wheat-Sack", "Resource-Grain-Sack"],
+    "itemTypeName": "Ingredient-Vegetable-Sack",
     "itemPlacements": [
       "ON_GROUND"
     ],
@@ -22,7 +22,7 @@
   {
     "uniqueName": "Ingredient-Vegetable-Sack-Label-Carried",
     "type": "ABOVE_LAYER_1",
-    "itemTypeNames": ["Ingredient-Vegetable-Sack", "Resource-Wheat-Sack", "Resource-Grain-Sack"],
+    "itemTypeName": "Ingredient-Vegetable-Sack",
     "itemPlacements": [
       "BEING_CARRIED"
     ],

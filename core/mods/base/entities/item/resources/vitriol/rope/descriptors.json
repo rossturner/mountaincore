@@ -1,0 +1,85 @@
+[
+  {
+    "uniqueName": "Resource-Crushed-Vitriol-Rope-Ground",
+    "type": "ABOVE_LAYER_2",
+    "itemTypeName": "Resource-Crushed-Vitriol",
+    "itemPlacements": ["ON_GROUND"],
+    "minQuantity": 1,
+    "maxQuantity": 30,
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Sack rope.png",
+        "scale": 0.8,
+        "offsetPixels": {
+          "x": 0,
+          "y": 13.6
+        },
+        "coloringLayer": "ROPE_COLOR"
+      }
+    }
+  },
+  {
+    "uniqueName": "Resource-Crushed-Vitriol-Rope-Carried",
+    "type": "ABOVE_LAYER_2",
+    "itemTypeName": "Resource-Crushed-Vitriol",
+    "itemPlacements": ["BEING_CARRIED"],
+    "minQuantity": 1,
+    "maxQuantity": 30,
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Sack rope.png",
+        "scale": 0.7,
+        "offsetPixels": {
+          "x": 0,
+          "y": 11.9
+        },
+        "coloringLayer": "ROPE_COLOR"
+      },
+      "DOWN_RIGHT": {
+        "filename": "Sack rope.png",
+        "scale": 0.7,
+        "offsetPixels": {
+          "x": 0,
+          "y": 11.9
+        },
+        "coloringLayer": "ROPE_COLOR"
+      },
+      "DOWN_LEFT": {
+        "filename": "Sack rope.png",
+        "scale": 0.7,
+        "offsetPixels": {
+          "x": 0,
+          "y": 11.9
+        },
+        "coloringLayer": "ROPE_COLOR"
+      },
+      "UP_RIGHT": {
+        "filename": "Sack rope.png",
+        "scale": 0.7,
+        "offsetPixels": {
+          "x": 0,
+          "y": 11.9
+        },
+        "coloringLayer": "ROPE_COLOR"
+      },
+      "UP_LEFT": {
+        "filename": "Sack rope.png",
+        "scale": 0.7,
+        "offsetPixels": {
+          "x": 0,
+          "y": 11.9
+        },
+        "coloringLayer": "ROPE_COLOR"
+      },
+      "UP": {
+        "filename": "Sack rope.png",
+        "scale": 0.7,
+        "offsetPixels": {
+          "x": 0,
+          "y": 11.9
+        },
+        "coloringLayer": "ROPE_COLOR"
+      }
+    }
+  }
+]

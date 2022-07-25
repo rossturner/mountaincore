@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Potato-Small",
   "type": "PLANT_LEAVES",
-  "speciesNames": ["Potato", "Carrot"],
+  "speciesName": "Potato",
   "growthStages": [2],
   "spriteDescriptors": {
     "DOWN": {

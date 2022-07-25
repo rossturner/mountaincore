@@ -4,22 +4,16 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismEntityAttributes;
 import technology.rocketjump.saul.misc.Name;
 
-import java.util.List;
-
 public class MechanismEntityAssetDescriptor {
 
 	@Name
 	private String uniqueName;
 	private EntityAssetType type;
 	private String mechanismTypeName;
-	private List<String> mechanismTypeNames;
 	private Integer layoutId;
 
 	public boolean matches(MechanismEntityAttributes entityAttributes) {
 		if (mechanismTypeName != null && !mechanismTypeName.equals(entityAttributes.getMechanismType().getName())) {
-			return false;
-		}
-		if (mechanismTypeNames != null && !mechanismTypeNames.contains(entityAttributes.getMechanismType().getName())) {
 			return false;
 		}
 		if (layoutId != null && entityAttributes.getPipeLayout() != null && !layoutId.equals(entityAttributes.getPipeLayout().getId())) {
@@ -50,14 +44,6 @@ public class MechanismEntityAssetDescriptor {
 
 	public void setMechanismTypeName(String MechanismTypeName) {
 		this.mechanismTypeName = MechanismTypeName;
-	}
-
-	public List<String> getMechanismTypeNames() {
-		return mechanismTypeNames;
-	}
-
-	public void setMechanismTypeNames(List<String> MechanismTypeNames) {
-		this.mechanismTypeNames = MechanismTypeNames;
 	}
 
 	public Integer getLayoutId() {

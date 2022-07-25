@@ -1,0 +1,121 @@
+[
+
+  {
+    "uniqueName": "Elfsbane-Markings-Cap01",
+    "type": "PLANT_LEAVES",
+    "speciesName": "Elfsbane",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap01-Base.png",
+        "scale": 0.75,
+        "coloringLayer": "LEAF_COLOR",
+        "childAssets": [
+          {
+            "type": "PLANT_FRUIT",
+            "specificAssetName": "Elfsbane-Cap01-Markings"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "Elfsbane-Markings-Cap02",
+    "type": "PLANT_LEAVES",
+    "speciesName": "Elfsbane",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap02-Base.png",
+        "scale": 0.75,
+        "coloringLayer": "LEAF_COLOR",
+        "childAssets": [
+          {
+            "type": "PLANT_FRUIT",
+            "specificAssetName": "Elfsbane-Cap02-Markings"
+          }
+        ]
+      }
+    }
+  },
+
+  {
+    "uniqueName": "Elfsbane-Cap01-Markings",
+    "type": "PLANT_FRUIT",
+    "speciesName": "Elfsbane",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap01-Markings.png",
+        "scale": 0.75,
+        "coloringLayer": "FRUIT_COLOR"
+      }
+    }
+  },
+  {
+    "uniqueName": "Elfsbane-Cap02-Markings",
+    "type": "PLANT_FRUIT",
+    "speciesName": "Elfsbane",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap02-Markings.png",
+        "scale": 0.75,
+        "coloringLayer": "FRUIT_COLOR"
+      }
+    }
+  },
+
+  {
+    "uniqueName": "Elfsbane-Stem01",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Elfsbane",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Stem01.png",
+        "scale": 0.75,
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": -4
+        },
+        "childAssets": [
+          {
+            "type": "PLANT_LEAVES",
+            "offsetPixels": {
+              "x": 1.75,
+              "y": 15
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "Elfsbane-Stem02",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Elfsbane",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Stem02.png",
+        "scale": 0.75,
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        },
+        "childAssets": [
+          {
+            "type": "PLANT_LEAVES",
+            "offsetPixels": {
+              "x": -1,
+              "y": 16
+            }
+          }
+        ]
+      }
+    }
+  }
+]

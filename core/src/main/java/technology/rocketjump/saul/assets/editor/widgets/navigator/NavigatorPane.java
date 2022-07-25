@@ -54,7 +54,7 @@ public class NavigatorPane extends VisTable {
 			try {
 				populateChildren(treeNode);
 			} catch (IOException e) {
-				Logger.error("Error parsing dir " + treeNode.getValue().path.toAbsolutePath(), e);
+				Logger.error(e, "Error parsing dir " + treeNode.getValue().path.toAbsolutePath());
 			}
 
 			navigatorTree.add(treeNode);
@@ -77,7 +77,7 @@ public class NavigatorPane extends VisTable {
 
 							parentNode.add(node);
 						} catch (IOException | ClassCastException e) {
-							Logger.error("Error parsing dir " + childDir.toAbsolutePath(), e);
+							Logger.error(e, "Error parsing dir " + childDir.toAbsolutePath());
 						}
 					});
 		}

@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Tree-Maple-Size4-Leaves",
   "type": "PLANT_LEAVES",
-  "speciesNames": ["Maple", "Nuytsia", "Red cedar", "Red emperor"],
+  "speciesName": "Maple",
   "growthStages": [3],
   "spriteDescriptors": {
     "DOWN": {

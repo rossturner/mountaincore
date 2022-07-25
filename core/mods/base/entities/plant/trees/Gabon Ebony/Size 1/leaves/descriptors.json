@@ -1,0 +1,12 @@
+[{
+  "uniqueName": "Gabon-Ebony-Size1-Leaves",
+  "type": "PLANT_LEAVES",
+  "speciesName": "Gabon Ebony",
+  "growthStages": [0],
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "beech-0-l.png",
+      "coloringLayer": "LEAF_COLOR"
+    }
+  }
+}]

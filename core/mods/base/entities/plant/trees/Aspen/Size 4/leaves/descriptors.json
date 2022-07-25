@@ -1,0 +1,12 @@
+[{
+  "uniqueName": "Tree-Aspen-Size4-Leaves",
+  "type": "PLANT_LEAVES",
+  "speciesName": "Aspen",
+  "growthStages": [3],
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "birch_04_l.png",
+      "coloringLayer": "LEAF_COLOR"
+    }
+  }
+}]

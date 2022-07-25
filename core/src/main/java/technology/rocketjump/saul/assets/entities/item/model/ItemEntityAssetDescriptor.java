@@ -14,7 +14,6 @@ public class ItemEntityAssetDescriptor {
 	private String uniqueName;
 	private EntityAssetType type;
 	private String itemTypeName;
-	private List<String> itemTypeNames;
 	private int minQuantity = 1; // The fewest amount that this asset represents
 	private int maxQuantity = 1; // The largest amount that this asset can represent
 	private ItemSize itemSize;
@@ -24,9 +23,6 @@ public class ItemEntityAssetDescriptor {
 
 	public boolean matches(ItemEntityAttributes entityAttributes) {
 		if (itemTypeName != null && !itemTypeName.equals(entityAttributes.getItemType().getItemTypeName())) {
-			return false;
-		}
-		if (itemTypeNames != null && !itemTypeNames.contains(entityAttributes.getItemType().getItemTypeName())) {
 			return false;
 		}
 		if (minQuantity > entityAttributes.getQuantity() || maxQuantity < entityAttributes.getQuantity()) {
@@ -66,14 +62,6 @@ public class ItemEntityAssetDescriptor {
 
 	public void setItemTypeName(String itemTypeName) {
 		this.itemTypeName = itemTypeName;
-	}
-
-	public List<String> getItemTypeNames() {
-		return itemTypeNames;
-	}
-
-	public void setItemTypeNames(List<String> itemTypeNames) {
-		this.itemTypeNames = itemTypeNames;
 	}
 
 	public ItemSize getItemSize() {

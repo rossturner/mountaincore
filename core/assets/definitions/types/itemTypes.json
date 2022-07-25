@@ -518,21 +518,21 @@
   "i18nKey" : "PRODUCT.ROPE"
 }, {
   "itemTypeId" : 31,
-  "itemTypeName" : "Resource-Ore-Crushed",
-  "maxStackSize" : 16,
-  "maxHauledAtOnce" : 16,
-  "materialTypes" : [ "CLOTH", "ORE" ],
-  "primaryMaterialType" : "ORE",
+  "itemTypeName" : "Resource-Flour-Sack",
+  "maxStackSize" : 30,
+  "maxHauledAtOnce" : 30,
+  "materialTypes" : [ "VEGETABLE", "CLOTH", "ROPE" ],
+  "primaryMaterialType" : "VEGETABLE",
   "holdPosition" : "IN_FRONT",
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 1.0,
   "relatedCraftingTypeNames" : [ ],
-  "stockpileGroupName" : "RAW_MATERIALS",
+  "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "describeAsMaterialOnly" : false,
-  "i18nKey" : "RESOURCE.ORE.CRUSHED"
+  "i18nKey" : "RESOURCE.FLOUR.SACK"
 }, {
   "itemTypeId" : 32,
   "itemTypeName" : "Resource-Gem",
@@ -552,21 +552,21 @@
   "i18nKey" : "RESOURCE.GEM"
 }, {
   "itemTypeId" : 33,
-  "itemTypeName" : "Resource-Flour-Sack",
-  "maxStackSize" : 30,
-  "maxHauledAtOnce" : 30,
-  "materialTypes" : [ "VEGETABLE", "CLOTH", "ROPE" ],
-  "primaryMaterialType" : "VEGETABLE",
+  "itemTypeName" : "Resource-Gems-Unrefined",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "STONE", "GEM" ],
+  "primaryMaterialType" : "GEM",
   "holdPosition" : "IN_FRONT",
-  "impedesMovement" : false,
+  "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 1.0,
+  "hoursInInventoryUntilUnused" : 38.0,
   "relatedCraftingTypeNames" : [ ],
-  "stockpileGroupName" : "GRANARY",
+  "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "describeAsMaterialOnly" : false,
-  "i18nKey" : "RESOURCE.FLOUR.SACK"
+  "i18nKey" : "RESOURCE.GEMS.UNREFINED"
 }, {
   "itemTypeId" : 34,
   "itemTypeName" : "Resource-Grain-Sack",
@@ -637,24 +637,6 @@
   "i18nKey" : "RESOURCE.METAL.INGOT"
 }, {
   "itemTypeId" : 38,
-  "itemTypeName" : "Resource-Stone-Unrefined",
-  "maxStackSize" : 1,
-  "maxHauledAtOnce" : 1,
-  "materialTypes" : [ "STONE" ],
-  "primaryMaterialType" : "STONE",
-  "holdPosition" : "IN_FRONT",
-  "impedesMovement" : true,
-  "blocksMovement" : false,
-  "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
-  "relatedCraftingTypeNames" : [ ],
-  "stockpileGroupName" : "RAW_MATERIALS",
-  "tags" : { },
-  "placementSoundAssetName" : "HeavyStoneItem",
-  "describeAsMaterialOnly" : false,
-  "i18nKey" : "RESOURCE.STONE.UNREFINED"
-}, {
-  "itemTypeId" : 39,
   "itemTypeName" : "Resource-Liquid-Example",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -670,7 +652,41 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LIQUID.EXAMPLE"
 }, {
+  "itemTypeId" : 39,
+  "itemTypeName" : "Resource-Mushroom-Log",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD", "SEED" ],
+  "primaryMaterialType" : "SEED",
+  "holdPosition" : "ON_SHOULDER",
+  "impedesMovement" : true,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "tags" : { },
+  "placementSoundAssetName" : "HeavyWoodItem",
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "RESOURCE.MUSHROOM.LOG"
+}, {
   "itemTypeId" : 40,
+  "itemTypeName" : "Resource-Shocked-Mushroom-Log",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD", "SEED" ],
+  "primaryMaterialType" : "SEED",
+  "holdPosition" : "ON_SHOULDER",
+  "impedesMovement" : true,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "tags" : { },
+  "placementSoundAssetName" : "HeavyWoodItem",
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "RESOURCE.SHOCKED.MUSHROOM.LOG"
+}, {
+  "itemTypeId" : 41,
   "itemTypeName" : "Resource-Logs",
   "maxStackSize" : 16,
   "maxHauledAtOnce" : 1,
@@ -688,41 +704,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LOGS"
 }, {
-  "itemTypeId" : 41,
-  "itemTypeName" : "Resource-Mushroom-Log",
-  "maxStackSize" : 1,
-  "maxHauledAtOnce" : 1,
-  "materialTypes" : [ "WOOD", "SEED" ],
-  "primaryMaterialType" : "SEED",
-  "holdPosition" : "ON_SHOULDER",
-  "impedesMovement" : true,
-  "blocksMovement" : false,
-  "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
-  "relatedCraftingTypeNames" : [ ],
-  "tags" : { },
-  "placementSoundAssetName" : "HeavyWoodItem",
-  "describeAsMaterialOnly" : false,
-  "i18nKey" : "RESOURCE.MUSHROOM.LOG"
-}, {
   "itemTypeId" : 42,
-  "itemTypeName" : "Resource-Shocked-Mushroom-Log",
-  "maxStackSize" : 1,
-  "maxHauledAtOnce" : 1,
-  "materialTypes" : [ "WOOD", "SEED" ],
-  "primaryMaterialType" : "SEED",
-  "holdPosition" : "ON_SHOULDER",
-  "impedesMovement" : true,
-  "blocksMovement" : false,
-  "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
-  "relatedCraftingTypeNames" : [ ],
-  "tags" : { },
-  "placementSoundAssetName" : "HeavyWoodItem",
-  "describeAsMaterialOnly" : false,
-  "i18nKey" : "RESOURCE.SHOCKED.MUSHROOM.LOG"
-}, {
-  "itemTypeId" : 43,
   "itemTypeName" : "Resource-Metal-Bloom",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -738,7 +720,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.BLOOM"
 }, {
-  "itemTypeId" : 44,
+  "itemTypeId" : 43,
   "itemTypeName" : "Resource-Metal-Plate",
   "maxStackSize" : 12,
   "maxHauledAtOnce" : 2,
@@ -755,7 +737,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.PLATE"
 }, {
-  "itemTypeId" : 45,
+  "itemTypeId" : 44,
   "itemTypeName" : "Resource-Mushroom-Lumber",
   "maxStackSize" : 16,
   "maxHauledAtOnce" : 1,
@@ -773,7 +755,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.MUSHROOM.LUMBER"
 }, {
-  "itemTypeId" : 46,
+  "itemTypeId" : 45,
   "itemTypeName" : "Ingredient-Mushroom-Spawn",
   "maxStackSize" : 50,
   "maxHauledAtOnce" : 15,
@@ -789,6 +771,23 @@
   "tags" : { },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MUSHROOM.SPAWN"
+}, {
+  "itemTypeId" : 46,
+  "itemTypeName" : "Resource-Ore-Crushed",
+  "maxStackSize" : 16,
+  "maxHauledAtOnce" : 16,
+  "materialTypes" : [ "CLOTH", "ORE" ],
+  "primaryMaterialType" : "ORE",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "RAW_MATERIALS",
+  "tags" : { },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "RESOURCE.ORE.CRUSHED"
 }, {
   "itemTypeId" : 47,
   "itemTypeName" : "Resource-Ore-Unrefined",
@@ -826,23 +825,6 @@
   "i18nKey" : "RESOURCE.PLANKS"
 }, {
   "itemTypeId" : 49,
-  "itemTypeName" : "Resource-Gems-Unrefined",
-  "maxStackSize" : 1,
-  "maxHauledAtOnce" : 1,
-  "materialTypes" : [ "STONE", "GEM" ],
-  "primaryMaterialType" : "GEM",
-  "holdPosition" : "IN_FRONT",
-  "impedesMovement" : true,
-  "blocksMovement" : false,
-  "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
-  "relatedCraftingTypeNames" : [ ],
-  "stockpileGroupName" : "RAW_MATERIALS",
-  "tags" : { },
-  "describeAsMaterialOnly" : false,
-  "i18nKey" : "RESOURCE.GEMS.UNREFINED"
-}, {
-  "itemTypeId" : 50,
   "itemTypeName" : "Ingredient-Seeds",
   "maxStackSize" : 50,
   "maxHauledAtOnce" : 15,
@@ -859,7 +841,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.SEEDS"
 }, {
-  "itemTypeId" : 51,
+  "itemTypeId" : 50,
   "itemTypeName" : "Resource-Stone-Block",
   "maxStackSize" : 16,
   "maxHauledAtOnce" : 2,
@@ -875,6 +857,24 @@
   "tags" : { },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.STONE.BLOCK"
+}, {
+  "itemTypeId" : 51,
+  "itemTypeName" : "Resource-Stone-Unrefined",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "STONE" ],
+  "primaryMaterialType" : "STONE",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : true,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "RAW_MATERIALS",
+  "tags" : { },
+  "placementSoundAssetName" : "HeavyStoneItem",
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "RESOURCE.STONE.UNREFINED"
 }, {
   "itemTypeId" : 52,
   "itemTypeName" : "Resource-Crushed-Vitriol",

@@ -2,7 +2,7 @@
   {
     "uniqueName": "Ingredient-Seeds-Bag-Rope-Ground",
     "type": "ABOVE_LAYER_1",
-    "itemTypeNames": ["Ingredient-Seeds", "Ingredient-Mushroom-Spawn"],
+    "itemTypeName": "Ingredient-Seeds",
     "itemPlacements": ["ON_GROUND"],
     "minQuantity": 1,
     "maxQuantity": 50,
@@ -16,7 +16,7 @@
   }, {
   "uniqueName": "Ingredient-Seeds-Bag-Rope-Carried",
   "type": "ABOVE_LAYER_1",
-  "itemTypeNames": ["Ingredient-Seeds", "Ingredient-Mushroom-Spawn"],
+  "itemTypeName": "Ingredient-Seeds",
   "itemPlacements": ["BEING_CARRIED"],
   "minQuantity": 1,
   "maxQuantity": 50,
