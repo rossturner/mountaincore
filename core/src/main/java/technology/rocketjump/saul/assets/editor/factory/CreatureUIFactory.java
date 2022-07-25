@@ -31,6 +31,8 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.model.Profession;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
 
@@ -38,6 +40,7 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Singleton
 public class CreatureUIFactory implements UIFactory {
@@ -46,14 +49,16 @@ public class CreatureUIFactory implements UIFactory {
     private final CompleteAssetDictionary completeAssetDictionary;
     private final RaceDictionary raceDictionary;
     private final CreatureEntityFactory creatureEntityFactory;
+    private final ProfessionDictionary professionDictionary;
 
     @Inject
-    public CreatureUIFactory(MessageDispatcher messageDispatcher, EntityAssetTypeDictionary entityAssetTypeDictionary, CompleteAssetDictionary completeAssetDictionary, RaceDictionary raceDictionary, CreatureEntityFactory creatureEntityFactory) {
+    public CreatureUIFactory(MessageDispatcher messageDispatcher, EntityAssetTypeDictionary entityAssetTypeDictionary, CompleteAssetDictionary completeAssetDictionary, RaceDictionary raceDictionary, CreatureEntityFactory creatureEntityFactory, ProfessionDictionary professionDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.completeAssetDictionary = completeAssetDictionary;
         this.raceDictionary = raceDictionary;
         this.creatureEntityFactory = creatureEntityFactory;
+        this.professionDictionary = professionDictionary;
     }
 
     @Override
@@ -134,6 +139,8 @@ public class CreatureUIFactory implements UIFactory {
         genders.add(Gender.ANY);
         Collection<CreatureBodyShape> bodyShapes = race.getBodyShapes().stream().map(CreatureBodyShapeDescriptor::getValue).toList();
         Collection<EntityAssetType> assetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType()).stream().filter(assetType -> !assetType.getName().startsWith("ATTACH")).toList();
+        List<String> allProfessions = professionDictionary.getAll().stream().map(Profession::getName).collect(Collectors.toList());
+        allProfessions.add(ProfessionDictionary.NULL_PROFESSION.getName());
 
         CreatureEntityAsset asset = new CreatureEntityAsset();
         asset.setRace(race);
@@ -167,7 +174,8 @@ public class CreatureUIFactory implements UIFactory {
         dialog.row();
         dialog.add(WidgetBuilder.selectField("Body Shape:", asset.getBodyShape(), bodyShapes, null, compose(asset::setBodyShape, uniqueNameRebuilder))).left();
         dialog.row();
-        //todo:profession
+        dialog.add(WidgetBuilder.selectField("Profession:", asset.getProfession(), allProfessions, null, compose(asset::setProfession, uniqueNameRebuilder))).left();
+        dialog.row();
         dialog.add(WidgetBuilder.selectField("Type", asset.getType(), assetTypes, entityAssetTypeDictionary.getByName("CREATURE_BODY"), compose(asset::setType, uniqueNameRebuilder))).left();
         dialog.row();
 
