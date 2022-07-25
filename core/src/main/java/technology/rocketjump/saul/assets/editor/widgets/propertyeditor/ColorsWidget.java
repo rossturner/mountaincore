@@ -116,7 +116,11 @@ public class ColorsWidget extends VisTable {
 						case swatch -> entry.getValue().setSwatch("FILENAME");
 						case transitionSwatch -> entry.getValue().setTransitionSwatch("FILENAME");
 						case colorChart -> entry.getValue().setColorChart("FILENAME");
-						case colorCode -> entry.getValue().setColorCode(HexColors.toHexString(Color.MAGENTA));
+						case colorCode -> {
+							Color defaultColor = Color.MAGENTA;
+							entry.getValue().setColorCode(HexColors.toHexString(defaultColor));
+							entry.getValue().setSpecificColor(defaultColor);
+						}
 					}
 					reload();
 				}
