@@ -18,8 +18,6 @@ public class GameMapGenerationParams {
 	private float requiredTotalGemRatio = 0.01f; // Ratio of gems to large mountain region tiles
 	private float requiredMushroomRatio = 0.04f; // Ratio of cave tiles to mushrooms
 
-	private float ratioOfFruitingShrubs = 0.08f;
-
 	private List<OreType> oreTypeList = new ArrayList<>();
 	private float totalOfOreRequirementAmounts = 0f;
 	private int minOreVeinLength = 5;
@@ -156,11 +154,4 @@ public class GameMapGenerationParams {
 		return shrubTypes;
 	}
 
-	public float getRatioOfFruitingShrubs() {
-		return ratioOfFruitingShrubs;
-	}
-
-	public void setRatioOfFruitingShrubs(float ratioOfFruitingShrubs) {
-		this.ratioOfFruitingShrubs = ratioOfFruitingShrubs;
-	}
 }

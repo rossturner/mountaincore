@@ -151,7 +151,7 @@ public class ModArtifactListing {
 				def("definitions/types", "ongoingEffectTypes", SINGLE_FILE, JSON_ARRAY, OngoingEffectType.class,
 						"entities/ongoingEffects", "**/effectTypes.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/types", "mechanismTypes", SINGLE_FILE, JSON_ARRAY, MechanismType.class,
-						"entities/mechanisms", "**/mechanismTypes.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
+						"entities/mechanisms", "**/mechanismType.json", JSON_OBJECT, ADDITIVE, GenericClassTypeProcessor.class),
 
 				def("definitions", "materials", SINGLE_FILE, JSON_ARRAY, GameMaterial.class,
 						"definitions/materials", "*-materials.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),

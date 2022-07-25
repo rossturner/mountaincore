@@ -1,8 +1,8 @@
-[{
-  "name": "Shaft_Horizontal",
+{
+  "name": "Shaft_Vertical",
   "i18nKey": "MECHANISM.WOODEN.SHAFT",
   "primaryMaterialType": "WOOD",
   "relatedProfessionName": "CARPENTER",
   "relatedItemTypeName": "Resource-Planks",
-  "powerTransmission": ["EAST", "WEST"]
-}]
+  "powerTransmission": ["NORTH", "SOUTH"]
+}
