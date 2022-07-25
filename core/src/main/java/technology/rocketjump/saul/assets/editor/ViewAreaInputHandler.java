@@ -1,12 +1,20 @@
 package technology.rocketjump.saul.assets.editor;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector3;
 import com.google.inject.Inject;
 
 public class ViewAreaInputHandler implements InputProcessor {
 
 	private final OrthographicCamera camera;
+	protected int button = -1;
+	private float startX, startY;
+	public float translateUnits = 10f;
+	private final Vector3 tmpV1 = new Vector3();
+	private final Vector3 tmpV2 = new Vector3();
 
 	@Inject
 	public ViewAreaInputHandler(OrthographicCamera camera) {
@@ -30,7 +38,10 @@ public class ViewAreaInputHandler implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		return false;
+		startX = screenX;
+		startY = screenY;
+		this.button = button;
+		return true;
 	}
 
 	@Override
@@ -40,7 +51,17 @@ public class ViewAreaInputHandler implements InputProcessor {
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		return false;
+		//Copied from CameraInputController
+		if (Input.Buttons.RIGHT == button) {
+			final float deltaX = (screenX - startX) / Gdx.graphics.getWidth();
+			final float deltaY = (startY - screenY) / Gdx.graphics.getHeight();
+			startX = screenX;
+			startY = screenY;
+
+			camera.translate(tmpV1.set(camera.direction).crs(camera.up).nor().scl(-deltaX * translateUnits));
+			camera.translate(tmpV2.set(camera.up).scl(-deltaY * translateUnits));
+		}
+		return true;
 	}
 
 	@Override

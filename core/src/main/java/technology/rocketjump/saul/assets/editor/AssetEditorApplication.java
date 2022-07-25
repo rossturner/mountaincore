@@ -75,6 +75,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(ui.getStage());
+//		inputMultiplexer.addProcessor(new CameraInputController(camera));
 		inputMultiplexer.addProcessor(injector.getInstance(ViewAreaInputHandler.class));
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
