@@ -93,17 +93,20 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			EntityAsset baseAsset = currentEntity.getPhysicalEntityComponent().getBaseAsset();
 			if (baseAsset != null) { //Don't render without the base asset, this can be for newly created entities
 				Vector2 originalPosition = new Vector2((int)Math.floor(camera.viewportWidth * 0.5f) + 0.5f, (int)Math.floor(camera.viewportHeight * 0.4f) + 0.5f);
-	//			Vector2 originalPosition = currentEntity.getLocationComponent().getWorldPosition().cpy();
 
-				int padding = editorStateProvider.getState().getSpritePadding();
 				RenderMode currentRenderMode = editorStateProvider.getState().getRenderMode();
+
+				//TODO: this isn't my best code, learn to do it properly - Rocky
+				//render boxes
+				for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
+					if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
+						renderEntityWithOrientation(currentEntity, orientation, originalPosition, currentRenderMode, false);
+					}
+				}
 
 				for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
 					if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
-						Vector2 orientationVector = orientation.asOriginalVector;
-						float offsetY = Math.max(orientationVector.y, 0) * padding;
-
-						renderEntityWithOrientation(currentEntity, originalPosition, orientationVector, orientationVector.x * padding, offsetY, currentRenderMode);
+						renderEntityWithOrientation(currentEntity, orientation, originalPosition, currentRenderMode, true);
 					}
 				}
 			}
@@ -131,23 +134,29 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		shapeRenderer.end();
 	}
 
-	private void renderEntityWithOrientation(Entity entity, Vector2 originalPosition, Vector2 orientation, float offsetX, float offsetY, RenderMode renderMode) {
+	private void renderEntityWithOrientation(Entity entity, EntityAssetOrientation orientation, Vector2 originalPosition, RenderMode renderMode, boolean renderSprite) {
+		int spritePadding = editorStateProvider.getState().getSpritePadding();
+		float offsetX = orientation.asOriginalVector.x * spritePadding;
+		float offsetY = Math.max(orientation.asOriginalVector.y, 0) * spritePadding;
+
 		// Set orientation
-		entity.getLocationComponent().setWorldPosition(originalPosition.cpy().add(orientation), true, false);
+		entity.getLocationComponent().setWorldPosition(originalPosition.cpy().add(orientation.asOriginalVector), true, false);
 		// Set position
 		entity.getLocationComponent().setWorldPosition(originalPosition.cpy().add(offsetX, offsetY), false, false);
-		// Render outling around actual entity position
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-		shapeRenderer.setColor(HexColors.get("#3355BB"));
-		shapeRenderer.rect(entity.getLocationComponent().getWorldPosition().x - 0.5f, entity.getLocationComponent().getWorldPosition().y - 0.5f,
-				1, 1);
-		shapeRenderer.end();
 
-		// Render
-		spriteBatch.begin();
-		spriteBatch.setProjectionMatrix(camera.combined);
-		entityRenderer.render(entity, spriteBatch, renderMode, null, null, null);
-		spriteBatch.end();
+		if (renderSprite) {
+			// Render
+			spriteBatch.begin();
+			spriteBatch.setProjectionMatrix(camera.combined);
+			entityRenderer.render(entity, spriteBatch, renderMode, null, null, null);
+			spriteBatch.end();
+		} else {
+			// Render outling around actual entity position
+			shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+			shapeRenderer.setColor(HexColors.get("#3355BB"));
+			shapeRenderer.rect(entity.getLocationComponent().getWorldPosition().x - 0.5f, entity.getLocationComponent().getWorldPosition().y - 0.5f,1, 1);
+			shapeRenderer.end();
+		}
 		// Reset position
 		entity.getLocationComponent().setWorldPosition(originalPosition, false, false);
 	}

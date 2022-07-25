@@ -326,7 +326,6 @@ public class PropertyEditorPane extends VisTable {
 								// Image already in mod directory
 								callback.accept(selectedFile);
 							} else {
-								//TODO: suggested filename
 								StringJoiner suggestedFileNameBuilder = new StringJoiner("_", "", ".png");
 								suggestedFileNameBuilder.add(entityAsset.getUniqueName()).add(orientation.name());
 								String suggestedFilename = WordUtils.capitalizeFully(suggestedFileNameBuilder.toString(), '_', '-');
