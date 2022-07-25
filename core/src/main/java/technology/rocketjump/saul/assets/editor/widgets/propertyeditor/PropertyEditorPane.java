@@ -218,7 +218,6 @@ public class PropertyEditorPane extends VisTable {
 		addSelectField("Gender:", "gender", List.of(Gender.values()), Gender.ANY, creatureAsset, editorTable);
 
 		List<String> allProfessions = professionDictionary.getAll().stream().map(Profession::getName).collect(Collectors.toList());
-		allProfessions.add(0, NULL_PROFESSION.getName());
 		addSelectField("Profession:", "profession", allProfessions, NULL_PROFESSION.getName(), creatureAsset, editorTable);
 
 		VisSelectBox<String> sanitySelect = new VisSelectBox<>();

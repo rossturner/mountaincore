@@ -140,7 +140,6 @@ public class CreatureUIFactory implements UIFactory {
         Collection<CreatureBodyShape> bodyShapes = race.getBodyShapes().stream().map(CreatureBodyShapeDescriptor::getValue).toList();
         Collection<EntityAssetType> assetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType()).stream().filter(assetType -> !assetType.getName().startsWith("ATTACH")).toList();
         List<String> allProfessions = professionDictionary.getAll().stream().map(Profession::getName).collect(Collectors.toList());
-        allProfessions.add(ProfessionDictionary.NULL_PROFESSION.getName());
 
         CreatureEntityAsset asset = new CreatureEntityAsset();
         asset.setRace(race);
