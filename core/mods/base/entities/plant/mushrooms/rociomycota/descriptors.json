@@ -1,0 +1,120 @@
+[
+  {
+    "uniqueName": "Rociomycota-Spots-Cap01",
+    "type": "PLANT_LEAVES",
+    "speciesName": "Rociomycota",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap01-Base.png",
+        "scale": 0.75,
+        "coloringLayer": "LEAF_COLOR",
+        "childAssets": [
+          {
+            "type": "PLANT_FRUIT",
+            "specificAssetName": "Rociomycota-Cap01-Spots"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "Rociomycota-Spots-Cap02",
+    "type": "PLANT_LEAVES",
+    "speciesName": "Rociomycota",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap02-Base.png",
+        "scale": 0.75,
+        "coloringLayer": "LEAF_COLOR",
+        "childAssets": [
+          {
+            "type": "PLANT_FRUIT",
+            "specificAssetName": "Rociomycota-Cap02-Spots"
+          }
+        ]
+      }
+    }
+  },
+
+  {
+    "uniqueName": "Rociomycota-Cap01-Spots",
+    "type": "PLANT_FRUIT",
+    "speciesName": "Rociomycota",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap01-Spots.png",
+        "scale": 0.75,
+        "coloringLayer": "FRUIT_COLOR"
+      }
+    }
+  },
+  {
+    "uniqueName": "Rociomycota-Cap02-Spots",
+    "type": "PLANT_FRUIT",
+    "speciesName": "Rociomycota",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap02-Spots.png",
+        "scale": 0.75,
+        "coloringLayer": "FRUIT_COLOR"
+      }
+    }
+  },
+
+  {
+    "uniqueName": "Rociomycota-Stem01",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Rociomycota",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Stem01.png",
+        "scale": 0.75,
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": -4
+        },
+        "childAssets": [
+          {
+            "type": "PLANT_LEAVES",
+            "offsetPixels": {
+              "x": 1.75,
+              "y": 15
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "Rociomycota-Stem02",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Rociomycota",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Stem02.png",
+        "scale": 0.75,
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        },
+        "childAssets": [
+          {
+            "type": "PLANT_LEAVES",
+            "offsetPixels": {
+              "x": -1,
+              "y": 16
+            }
+          }
+        ]
+      }
+    }
+  }
+]

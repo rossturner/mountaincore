@@ -120,46 +120,6 @@
     "combustible": true
   },
   {
-    "materialName": "Loquat bush wood",
-    "materialType": "WOOD",
-    "colorCode": "#6b4a34",
-    "useMaterialTypeAsAdjective": true,
-    "useInRandomGeneration": false,
-    "combustible": true
-  },
-  {
-    "materialName": "Thimbleberry bush wood",
-    "materialType": "WOOD",
-    "colorCode": "#9d683c",
-    "useMaterialTypeAsAdjective": true,
-    "useInRandomGeneration": false,
-    "combustible": true
-  },
-  {
-    "materialName": "Tamarillo bush wood",
-    "materialType": "WOOD",
-    "colorCode": "#946d51",
-    "useMaterialTypeAsAdjective": true,
-    "useInRandomGeneration": false,
-    "combustible": true
-  },
-  {
-    "materialName": "Dragonfruit tree wood",
-    "materialType": "WOOD",
-    "colorCode": "#6e653d",
-    "useMaterialTypeAsAdjective": true,
-    "useInRandomGeneration": false,
-    "combustible": true
-  },
-  {
-    "materialName": "Breadfruit tree wood",
-    "materialType": "WOOD",
-    "colorCode": "#6f5a4a",
-    "useMaterialTypeAsAdjective": true,
-    "useInRandomGeneration": false,
-    "combustible": true
-  },
-  {
     "materialName": "Shrub branch wood",
     "materialType": "WOOD",
     "colorCode": "#b08070",

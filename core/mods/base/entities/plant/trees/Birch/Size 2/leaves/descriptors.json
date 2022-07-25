@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Tree-Birch-Size2-Leaves",
   "type": "PLANT_LEAVES",
-  "speciesNames": ["Birch", "Bull-oak", "Rosewood", "Aspen"],
+  "speciesName": "Birch",
   "growthStages": [1],
   "spriteDescriptors": {
     "DOWN": {

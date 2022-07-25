@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Tomato-Large-Fruit",
   "type": "PLANT_FRUIT",
-  "speciesNames": ["Tomato"],
+  "speciesName": "Tomato",
   "growthStages": [5, 6],
   "spriteDescriptors": {
     "DOWN": {

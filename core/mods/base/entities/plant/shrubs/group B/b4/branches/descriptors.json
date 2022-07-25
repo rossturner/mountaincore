@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Bush-B4-Branches",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Loquat bush", "Dragonfruit tree", "Breadfruit tree"],
+  "speciesName": "Shrub",
   "spriteDescriptors": {
     "DOWN": {
       "filename": "shrub_04_t.png",

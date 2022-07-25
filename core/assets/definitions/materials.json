@@ -1864,64 +1864,8 @@
   "useInRandomGeneration" : true,
   "dynamicallyCreated" : false
 }, {
-  "materialName" : "Loquat",
-  "materialId" : 126,
-  "materialType" : "VEGETABLE",
-  "colorCode" : "#fcc04a",
-  "alcoholic" : false,
-  "combustible" : true,
-  "edible" : true,
-  "poisonous" : false,
-  "quenchesThirst" : false,
-  "i18nKey" : "VEGETABLE.LOQUAT",
-  "useMaterialTypeAsAdjective" : false,
-  "useInRandomGeneration" : true,
-  "dynamicallyCreated" : false
-}, {
-  "materialName" : "Thimbleberry",
-  "materialId" : 127,
-  "materialType" : "VEGETABLE",
-  "colorCode" : "#c7323f",
-  "alcoholic" : false,
-  "combustible" : true,
-  "edible" : true,
-  "poisonous" : false,
-  "quenchesThirst" : false,
-  "i18nKey" : "VEGETABLE.THIMBLEBERRY",
-  "useMaterialTypeAsAdjective" : false,
-  "useInRandomGeneration" : true,
-  "dynamicallyCreated" : false
-}, {
-  "materialName" : "Tamarillo",
-  "materialId" : 128,
-  "materialType" : "VEGETABLE",
-  "colorCode" : "#de4720",
-  "alcoholic" : false,
-  "combustible" : true,
-  "edible" : true,
-  "poisonous" : false,
-  "quenchesThirst" : false,
-  "i18nKey" : "VEGETABLE.TAMARILLO",
-  "useMaterialTypeAsAdjective" : false,
-  "useInRandomGeneration" : true,
-  "dynamicallyCreated" : false
-}, {
-  "materialName" : "Dragonfruit",
-  "materialId" : 129,
-  "materialType" : "VEGETABLE",
-  "colorCode" : "#c52660",
-  "alcoholic" : false,
-  "combustible" : true,
-  "edible" : true,
-  "poisonous" : false,
-  "quenchesThirst" : false,
-  "i18nKey" : "VEGETABLE.DRAGONFRUIT",
-  "useMaterialTypeAsAdjective" : false,
-  "useInRandomGeneration" : true,
-  "dynamicallyCreated" : false
-}, {
   "materialName" : "Purple Helmet Mushroom",
-  "materialId" : 130,
+  "materialId" : 126,
   "materialType" : "VEGETABLE",
   "colorCode" : "#963482",
   "alcoholic" : false,
@@ -1935,7 +1879,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Death Cap Mushroom",
-  "materialId" : 131,
+  "materialId" : 127,
   "materialType" : "VEGETABLE",
   "colorCode" : "#423d3d",
   "alcoholic" : false,
@@ -1949,7 +1893,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Fist Mushroom",
-  "materialId" : 132,
+  "materialId" : 128,
   "materialType" : "VEGETABLE",
   "colorCode" : "#4e4c4c",
   "alcoholic" : false,
@@ -1963,7 +1907,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Berserker Mushroom",
-  "materialId" : 133,
+  "materialId" : 129,
   "materialType" : "VEGETABLE",
   "colorCode" : "#ffb6c1",
   "alcoholic" : false,
@@ -1977,7 +1921,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Rociomycota Mushroom",
-  "materialId" : 134,
+  "materialId" : 130,
   "materialType" : "VEGETABLE",
   "colorCode" : "#f6f6f6",
   "alcoholic" : false,
@@ -1991,7 +1935,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Miltonia Mushroom",
-  "materialId" : 135,
+  "materialId" : 131,
   "materialType" : "VEGETABLE",
   "colorCode" : "#185BBF",
   "alcoholic" : false,
@@ -2005,7 +1949,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Elfsbane Mushroom",
-  "materialId" : 136,
+  "materialId" : 132,
   "materialType" : "VEGETABLE",
   "colorCode" : "#f4f2bb",
   "alcoholic" : false,
@@ -2019,7 +1963,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Sunglow Mushroom",
-  "materialId" : 137,
+  "materialId" : 133,
   "materialType" : "VEGETABLE",
   "colorCode" : "#f6f76f",
   "alcoholic" : false,
@@ -2033,7 +1977,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Glow Mushroom",
-  "materialId" : 138,
+  "materialId" : 134,
   "materialType" : "VEGETABLE",
   "colorCode" : "#ffd5d5",
   "alcoholic" : false,
@@ -2047,7 +1991,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Syrup Powder Mushroom",
-  "materialId" : 139,
+  "materialId" : 135,
   "materialType" : "VEGETABLE",
   "colorCode" : "#ffe700",
   "alcoholic" : false,
@@ -2061,7 +2005,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Beech",
-  "materialId" : 140,
+  "materialId" : 136,
   "materialType" : "WOOD",
   "colorCode" : "#e2c793",
   "alcoholic" : false,
@@ -2075,7 +2019,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Birch",
-  "materialId" : 141,
+  "materialId" : 137,
   "materialType" : "WOOD",
   "colorCode" : "#edd7ae",
   "alcoholic" : false,
@@ -2089,7 +2033,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Fir",
-  "materialId" : 142,
+  "materialId" : 138,
   "materialType" : "WOOD",
   "colorCode" : "#be926e",
   "alcoholic" : false,
@@ -2103,7 +2047,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Maple",
-  "materialId" : 143,
+  "materialId" : 139,
   "materialType" : "WOOD",
   "colorCode" : "#e9b775",
   "alcoholic" : false,
@@ -2117,7 +2061,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Pine",
-  "materialId" : 144,
+  "materialId" : 140,
   "materialType" : "WOOD",
   "colorCode" : "#e0ba83",
   "alcoholic" : false,
@@ -2131,7 +2075,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Oak",
-  "materialId" : 145,
+  "materialId" : 141,
   "materialType" : "WOOD",
   "colorCode" : "#634735",
   "alcoholic" : false,
@@ -2145,7 +2089,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Ebony",
-  "materialId" : 146,
+  "materialId" : 142,
   "materialType" : "WOOD",
   "colorCode" : "#424647",
   "alcoholic" : false,
@@ -2159,7 +2103,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Pecan",
-  "materialId" : 147,
+  "materialId" : 143,
   "materialType" : "WOOD",
   "colorCode" : "#dbb396",
   "alcoholic" : false,
@@ -2173,7 +2117,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Sycamore",
-  "materialId" : 148,
+  "materialId" : 144,
   "materialType" : "WOOD",
   "colorCode" : "#e4d2b2",
   "alcoholic" : false,
@@ -2187,7 +2131,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Ironwood",
-  "materialId" : 149,
+  "materialId" : 145,
   "materialType" : "WOOD",
   "colorCode" : "#74342f",
   "alcoholic" : false,
@@ -2201,7 +2145,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Rosewood",
-  "materialId" : 150,
+  "materialId" : 146,
   "materialType" : "WOOD",
   "colorCode" : "#970b28",
   "alcoholic" : false,
@@ -2215,7 +2159,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Aspen",
-  "materialId" : 151,
+  "materialId" : 147,
   "materialType" : "WOOD",
   "colorCode" : "#ecb35b",
   "alcoholic" : false,
@@ -2229,7 +2173,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Spruce",
-  "materialId" : 152,
+  "materialId" : 148,
   "materialType" : "WOOD",
   "colorCode" : "#f1d3ab",
   "alcoholic" : false,
@@ -2243,7 +2187,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Nuytsia",
-  "materialId" : 153,
+  "materialId" : 149,
   "materialType" : "WOOD",
   "colorCode" : "#ad9160",
   "alcoholic" : false,
@@ -2257,7 +2201,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Red cedar",
-  "materialId" : 154,
+  "materialId" : 150,
   "materialType" : "WOOD",
   "colorCode" : "#b9624e",
   "alcoholic" : false,
@@ -2271,7 +2215,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Red emperor",
-  "materialId" : 155,
+  "materialId" : 151,
   "materialType" : "WOOD",
   "colorCode" : "#832a1a",
   "alcoholic" : false,
@@ -2285,7 +2229,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Baobab",
-  "materialId" : 156,
+  "materialId" : 152,
   "materialType" : "WOOD",
   "colorCode" : "#daba7f",
   "alcoholic" : false,
@@ -2299,7 +2243,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Star pine",
-  "materialId" : 157,
+  "materialId" : 153,
   "materialType" : "WOOD",
   "colorCode" : "#c7b198",
   "alcoholic" : false,
@@ -2312,78 +2256,8 @@
   "useInRandomGeneration" : false,
   "dynamicallyCreated" : false
 }, {
-  "materialName" : "Loquat bush wood",
-  "materialId" : 158,
-  "materialType" : "WOOD",
-  "colorCode" : "#6b4a34",
-  "alcoholic" : false,
-  "combustible" : true,
-  "edible" : false,
-  "poisonous" : false,
-  "quenchesThirst" : false,
-  "i18nKey" : "WOOD.LOQUAT_BUSH_WOOD",
-  "useMaterialTypeAsAdjective" : true,
-  "useInRandomGeneration" : false,
-  "dynamicallyCreated" : false
-}, {
-  "materialName" : "Thimbleberry bush wood",
-  "materialId" : 159,
-  "materialType" : "WOOD",
-  "colorCode" : "#9d683c",
-  "alcoholic" : false,
-  "combustible" : true,
-  "edible" : false,
-  "poisonous" : false,
-  "quenchesThirst" : false,
-  "i18nKey" : "WOOD.THIMBLEBERRY_BUSH_WOOD",
-  "useMaterialTypeAsAdjective" : true,
-  "useInRandomGeneration" : false,
-  "dynamicallyCreated" : false
-}, {
-  "materialName" : "Tamarillo bush wood",
-  "materialId" : 160,
-  "materialType" : "WOOD",
-  "colorCode" : "#946d51",
-  "alcoholic" : false,
-  "combustible" : true,
-  "edible" : false,
-  "poisonous" : false,
-  "quenchesThirst" : false,
-  "i18nKey" : "WOOD.TAMARILLO_BUSH_WOOD",
-  "useMaterialTypeAsAdjective" : true,
-  "useInRandomGeneration" : false,
-  "dynamicallyCreated" : false
-}, {
-  "materialName" : "Dragonfruit tree wood",
-  "materialId" : 161,
-  "materialType" : "WOOD",
-  "colorCode" : "#6e653d",
-  "alcoholic" : false,
-  "combustible" : true,
-  "edible" : false,
-  "poisonous" : false,
-  "quenchesThirst" : false,
-  "i18nKey" : "WOOD.DRAGONFRUIT_TREE_WOOD",
-  "useMaterialTypeAsAdjective" : true,
-  "useInRandomGeneration" : false,
-  "dynamicallyCreated" : false
-}, {
-  "materialName" : "Breadfruit tree wood",
-  "materialId" : 162,
-  "materialType" : "WOOD",
-  "colorCode" : "#6f5a4a",
-  "alcoholic" : false,
-  "combustible" : true,
-  "edible" : false,
-  "poisonous" : false,
-  "quenchesThirst" : false,
-  "i18nKey" : "WOOD.BREADFRUIT_TREE_WOOD",
-  "useMaterialTypeAsAdjective" : true,
-  "useInRandomGeneration" : false,
-  "dynamicallyCreated" : false
-}, {
   "materialName" : "Shrub branch wood",
-  "materialId" : 163,
+  "materialId" : 154,
   "materialType" : "WOOD",
   "colorCode" : "#b08070",
   "alcoholic" : false,
@@ -2397,7 +2271,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Fungiwood",
-  "materialId" : 164,
+  "materialId" : 155,
   "materialType" : "WOOD",
   "colorCode" : "#7ca47b",
   "alcoholic" : false,
@@ -2411,7 +2285,7 @@
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Barkshroom",
-  "materialId" : 165,
+  "materialId" : 156,
   "materialType" : "WOOD",
   "colorCode" : "#37b5b7",
   "alcoholic" : false,

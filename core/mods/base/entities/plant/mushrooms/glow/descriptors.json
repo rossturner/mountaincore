@@ -1,0 +1,94 @@
+[
+
+  {
+    "uniqueName": "Glow-Stripes-Cap01",
+    "type": "PLANT_LEAVES",
+    "speciesName": "Glow",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap01-Base.png",
+        "scale": 0.75,
+        "coloringLayer": "LEAF_COLOR",
+        "childAssets": [
+          {
+            "type": "PLANT_FRUIT",
+            "specificAssetName": "Glow-Cap01-Stripes"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "Glow-Stripes-Cap02",
+    "type": "PLANT_LEAVES",
+    "speciesName": "Glow",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap02-Base.png",
+        "scale": 0.75,
+        "coloringLayer": "LEAF_COLOR",
+        "childAssets": [
+          {
+            "type": "PLANT_FRUIT",
+            "specificAssetName": "Glow-Cap02-Stripes"
+          }
+        ]
+      }
+    }
+  },
+
+  {
+    "uniqueName": "Glow-Stem01",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Glow",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Stem01.png",
+        "scale": 0.75,
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": -4
+        },
+        "childAssets": [
+          {
+            "type": "PLANT_LEAVES",
+            "offsetPixels": {
+              "x": 1.75,
+              "y": 15
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "Glow-Stem02",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Glow",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Stem02.png",
+        "scale": 0.75,
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        },
+        "childAssets": [
+          {
+            "type": "PLANT_LEAVES",
+            "offsetPixels": {
+              "x": -1,
+              "y": 16
+            }
+          }
+        ]
+      }
+    }
+  }
+]

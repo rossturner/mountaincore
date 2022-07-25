@@ -43,20 +43,8 @@ public class PlantEntityAssetsBySpecies {
 			// Specific species only
 			PlantSpecies plantSpecies = speciesDictionary.getByName(asset.getSpeciesName());
 			speciesMap.get(plantSpecies).add(asset);
-		} else if (asset.getSpeciesNames() != null) {
-			for (String speciesName : asset.getSpeciesNames()) {
-				PlantSpecies plantSpecies = speciesDictionary.getByName(speciesName);
-				if (plantSpecies != null) {
-					speciesMap.get(plantSpecies).add(asset);
-				} else {
-					Logger.error("Could not find species with name " + speciesName);
-				}
-			}
 		} else {
-			// Any species, add to all lists
-			for (List<PlantEntityAsset> entityAssetList : speciesMap.values()) {
-				entityAssetList.add(asset);
-			}
+			Logger.error(asset.getUniqueName() + " does not have a " + PlantSpecies.class.getSimpleName() + " specified and will not be used");
 		}
 	}
 

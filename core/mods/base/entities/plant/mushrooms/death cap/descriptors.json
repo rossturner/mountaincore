@@ -1,0 +1,121 @@
+[
+
+  {
+    "uniqueName": "Death-Cap-Stripes-Cap01",
+    "type": "PLANT_LEAVES",
+    "speciesName": "Death Cap",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap01-Base.png",
+        "scale": 0.75,
+        "coloringLayer": "LEAF_COLOR",
+        "childAssets": [
+          {
+            "type": "PLANT_FRUIT",
+            "specificAssetName": "Death-Cap-Cap01-Stripes"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "Death-Cap-Stripes-Cap02",
+    "type": "PLANT_LEAVES",
+    "speciesName": "Death Cap",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap02-Base.png",
+        "scale": 0.75,
+        "coloringLayer": "LEAF_COLOR",
+        "childAssets": [
+          {
+            "type": "PLANT_FRUIT",
+            "specificAssetName": "Death-Cap-Cap02-Stripes"
+          }
+        ]
+      }
+    }
+  },
+
+  {
+    "uniqueName": "Death-Cap-Cap01-Stripes",
+    "type": "PLANT_FRUIT",
+    "speciesName": "Death Cap",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap01-Stripes.png",
+        "scale": 0.75,
+        "coloringLayer": "FRUIT_COLOR"
+      }
+    }
+  },
+  {
+    "uniqueName": "Death-Cap-Cap02-Stripes",
+    "type": "PLANT_FRUIT",
+    "speciesName": "Death Cap",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap02-Stripes.png",
+        "scale": 0.75,
+        "coloringLayer": "FRUIT_COLOR"
+      }
+    }
+  },
+
+  {
+    "uniqueName": "Death-Cap-Stem01",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Death Cap",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Stem01.png",
+        "scale": 0.75,
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": -4
+        },
+        "childAssets": [
+          {
+            "type": "PLANT_LEAVES",
+            "offsetPixels": {
+              "x": 1.75,
+              "y": 15
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "Death-Cap-Stem02",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Death Cap",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Stem02.png",
+        "scale": 0.75,
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        },
+        "childAssets": [
+          {
+            "type": "PLANT_LEAVES",
+            "offsetPixels": {
+              "x": -1,
+              "y": 16
+            }
+          }
+        ]
+      }
+    }
+  }
+]

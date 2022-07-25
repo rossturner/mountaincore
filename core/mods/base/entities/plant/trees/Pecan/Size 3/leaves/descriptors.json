@@ -1,0 +1,12 @@
+[{
+  "uniqueName": "Tree-Pecan-Size3-Leaves",
+  "type": "PLANT_LEAVES",
+  "speciesName": "Pecan",
+  "growthStages": [2],
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "beech-2-l.png",
+      "coloringLayer": "LEAF_COLOR"
+    }
+  }
+}]

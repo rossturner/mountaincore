@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Bush-B1-Branches",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Loquat bush", "Thimbleberry bush", "Tamarillo bush", "Shrub"],
+  "speciesName": "Shrub",
   "spriteDescriptors": {
     "DOWN": {
       "filename": "shrub_01_t.png",

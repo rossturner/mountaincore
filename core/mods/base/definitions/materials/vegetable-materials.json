@@ -58,37 +58,6 @@
     "combustible": true
   },
 
-
-  {
-    "materialName": "Loquat",
-    "materialType": "VEGETABLE",
-    "edible": true,
-    "colorCode": "#fcc04a",
-    "combustible": true
-  },
-  {
-    "materialName": "Thimbleberry",
-    "materialType": "VEGETABLE",
-    "edible": true,
-    "colorCode": "#c7323f",
-    "combustible": true
-  },
-  {
-    "materialName": "Tamarillo",
-    "materialType": "VEGETABLE",
-    "edible": true,
-    "colorCode": "#de4720",
-    "combustible": true
-  },
-  {
-    "materialName": "Dragonfruit",
-    "materialType": "VEGETABLE",
-    "edible": true,
-    "colorCode": "#c52660",
-    "combustible": true
-  },
-
-
   {
     "materialName": "Purple Helmet Mushroom",
     "materialType": "VEGETABLE",

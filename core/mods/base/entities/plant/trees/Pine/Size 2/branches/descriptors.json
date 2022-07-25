@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Tree-Pine-Size2-Branches",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Pine", "Star pine"],
+  "speciesName": "Pine",
   "growthStages": [1],
   "spriteDescriptors": {
     "DOWN": {

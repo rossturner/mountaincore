@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Maize-Large-Fruit",
   "type": "PLANT_FRUIT",
-  "speciesNames": ["Maize"],
+  "speciesName": "Maize",
   "growthStages": [5, 6],
   "spriteDescriptors": {
     "DOWN": {

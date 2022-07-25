@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Potato-Medium-Flowers",
   "type": "PLANT_FRUIT",
-  "speciesNames": ["Potato", "Carrot"],
+  "speciesName": "Potato",
   "growthStages": [4],
   "spriteDescriptors": {
     "DOWN": {

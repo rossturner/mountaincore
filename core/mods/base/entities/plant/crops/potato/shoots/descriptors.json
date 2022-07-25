@@ -1,7 +1,24 @@
-[{
+[
+  {
+    "uniqueName": "Potato-Seeds",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Potato",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "crop_planted_seeds.png",
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    }
+  },
+  {
   "uniqueName": "Potato-Shoots",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Potato", "Carrot"],
+  "speciesName": "Potato",
   "growthStages": [1],
   "spriteDescriptors": {
     "DOWN": {
