@@ -15,6 +15,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.multibindings.MapBinder;
+import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import technology.rocketjump.saul.assets.editor.factory.CreatureUIFactory;
@@ -62,6 +63,10 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 	}
 
 	private void init() {
+		if (ui != null) {
+			FocusManager.resetFocus(ui.getStage()); //Memory saving trick, otherwise the old stage could've kept reference to old ItemEntityAssetDictionary
+		}
+
 		Injector injector = Guice.createInjector(new SaulGuiceModule() {
 			@Override
 			public void configure() {
