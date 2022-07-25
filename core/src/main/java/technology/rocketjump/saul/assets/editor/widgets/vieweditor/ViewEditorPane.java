@@ -59,16 +59,13 @@ public class ViewEditorPane extends VisTable implements Telegraph {
 
             EntityAttributes entityAttributes = currentEntity.getPhysicalEntityComponent().getAttributes();
             VisTable entityAttributesPane = null;
-            VisTable entityAssetPane = null;
             //TODO: Move to UI Factory
             if (entityAttributes instanceof CreatureEntityAttributes creatureAttributes) {
                 entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater, professionDictionary, entityAssetTypeDictionary, creatureEntityAssetDictionary, messageDispatcher);
-//                entityAssetPane = new CreatureAssetPane(creatureAttributes, entityAssetTypeDictionary, creatureEntityAssetDictionary, editorStateProvider);
             }
 
             if (entityAttributesPane != null) {
                 add(entityAttributesPane).left().fill().colspan(2).row();
-//                add(entityAssetPane).left().fill().expandX().colspan(2).row();
             }
         }
 
