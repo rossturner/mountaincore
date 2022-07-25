@@ -5,10 +5,13 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.misc.Name;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 
 public class NavigatorTreeValue {
 
@@ -34,7 +37,13 @@ public class NavigatorTreeValue {
 		String fileText = Files.readString(path);
 		try {
 			JSONObject descriptorJson = JSON.parseObject(fileText);
-			String name = descriptorJson.getString("name");
+
+			Field nameField = Arrays.stream(entityType.descriptorClass.getDeclaredFields())
+					.filter(field -> field.isAnnotationPresent(Name.class))
+					.findFirst()
+					.orElseThrow();
+
+			String name = descriptorJson.getString(nameField.getName());
 			return new NavigatorTreeValue(TreeValueType.ENTITY_DIR,
 					entityType,
 					directory,
