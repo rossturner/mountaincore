@@ -62,4 +62,12 @@ public class FileUtils {
             throw new UncheckedIOException(e);
         }
     }
+
+    public static void delete(Path file) {
+        try {
+            Files.deleteIfExists(file);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
 }

@@ -27,6 +27,7 @@ import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
+import technology.rocketjump.saul.logging.CrashHandler;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
@@ -51,15 +52,19 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 
 	@Override
 	public void create() {
-		VisUI.load();
-		this.spriteBatch = new SpriteBatch();
-		this.shapeRenderer = new ShapeRenderer();
+		try {
+			VisUI.load();
+			this.spriteBatch = new SpriteBatch();
+			this.shapeRenderer = new ShapeRenderer();
 
-		this.camera = new OrthographicCamera(Gdx.graphics.getWidth() / 100f, Gdx.graphics.getHeight() / 100f);
-		camera.zoom = 0.5f;
-		camera.position.x = camera.viewportWidth / 2;
-		camera.position.y = camera.viewportHeight / 2;
-		init();
+			this.camera = new OrthographicCamera(Gdx.graphics.getWidth() / 100f, Gdx.graphics.getHeight() / 100f);
+			camera.zoom = 0.5f;
+			camera.position.x = camera.viewportWidth / 2;
+			camera.position.y = camera.viewportHeight / 2;
+			init();
+		} catch (Throwable e) {
+			CrashHandler.logCrash(e);
+		}
 	}
 
 	private void init() {
@@ -77,7 +82,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				uiFactoryMapBinder.addBinding(EntityType.CREATURE).to(CreatureUIFactory.class);
 			}
 		});
-
+		injector.getInstance(CrashHandler.class); //ensure we load user preferences for crash
 		entityAssetUpdater = injector.getInstance(EntityAssetUpdater.class);
 		entityRenderer = injector.getInstance(EntityRenderer.class);
 		editorStateProvider = injector.getInstance(EditorStateProvider.class);
@@ -96,33 +101,37 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 
 	@Override
 	public void render () {
-		camera.update();
+		try {
+			camera.update();
 
-		renderBackground();
-		Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
-		if (currentEntity != null) {
-			EntityAsset baseAsset = currentEntity.getPhysicalEntityComponent().getBaseAsset();
-			if (baseAsset != null) { //Don't render without the base asset, this can be for newly created entities
-				Vector2 originalPosition = new Vector2((int)Math.floor(camera.viewportWidth * 0.5f) + 0.5f, (int)Math.floor(camera.viewportHeight * 0.4f) + 0.5f);
+			renderBackground();
+			Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
+			if (currentEntity != null) {
+				EntityAsset baseAsset = currentEntity.getPhysicalEntityComponent().getBaseAsset();
+				if (baseAsset != null) { //Don't render without the base asset, this can be for newly created entities
+					Vector2 originalPosition = new Vector2((int)Math.floor(camera.viewportWidth * 0.5f) + 0.5f, (int)Math.floor(camera.viewportHeight * 0.4f) + 0.5f);
 
-				RenderMode currentRenderMode = editorStateProvider.getState().getRenderMode();
+					RenderMode currentRenderMode = editorStateProvider.getState().getRenderMode();
 
-				//TODO: this isn't my best code, learn to do it properly - Rocky
-				//render boxes
-				for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
-					if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
-						renderEntityWithOrientation(currentEntity, orientation, originalPosition, currentRenderMode, false);
+					//TODO: this isn't my best code, learn to do it properly - Rocky
+					//render boxes
+					for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
+						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
+							renderEntityWithOrientation(currentEntity, orientation, originalPosition, currentRenderMode, false);
+						}
 					}
-				}
 
-				for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
-					if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
-						renderEntityWithOrientation(currentEntity, orientation, originalPosition, currentRenderMode, true);
+					for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
+						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
+							renderEntityWithOrientation(currentEntity, orientation, originalPosition, currentRenderMode, true);
+						}
 					}
 				}
 			}
+			ui.render();
+		} catch (Throwable e) {
+			CrashHandler.logCrash(e);
 		}
-		ui.render();
 	}
 
 	private void renderBackground() {
@@ -199,6 +208,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 	@Override
 	public void dispose () {
 		spriteBatch.dispose();
+		shapeRenderer.dispose();
 		VisUI.dispose();
 	}
 

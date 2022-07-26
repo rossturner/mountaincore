@@ -7,8 +7,11 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import net.spookygames.gdx.nativefilechooser.desktop.DesktopFileChooser;
+import org.lwjgl.opengl.Display;
 import technology.rocketjump.saul.AssetsPackager;
 import technology.rocketjump.saul.assets.editor.AssetEditorApplication;
+import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.io.IOException;
 
@@ -32,7 +35,18 @@ public class AssetEditorLauncher {
 			}
 		};
 		AssetEditorApplication gameInstance = Guice.createInjector(launcherModule).getInstance(AssetEditorApplication.class);
-		new LwjglApplication(gameInstance, config);
+		new LwjglApplication(gameInstance, config) {
+			@Override
+			protected void mainLoop() {
+				try {
+					super.mainLoop();
+				} catch (Throwable e) {
+					Display.destroy(); //bug fix - without this, ApplicationShutdownHooks can hang indefinitely
+					FileUtils.delete(EditorStateProvider.STATE_FILE);
+					throw e;
+				}
+			}
+		};
 	}
 
 }
