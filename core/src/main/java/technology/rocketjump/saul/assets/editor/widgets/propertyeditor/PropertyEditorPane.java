@@ -1,7 +1,9 @@
 package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.backends.lwjgl.LwjglFileHandle;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -16,6 +18,7 @@ import net.spookygames.gdx.nativefilechooser.NativeFileChooserCallback;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooserConfiguration;
 import org.apache.commons.lang3.text.WordUtils;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.assets.editor.NormalMapGenerator;
 import technology.rocketjump.saul.assets.editor.message.ShowImportFileDialogMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
@@ -72,6 +75,7 @@ public class PropertyEditorPane extends VisTable {
 	private final CreatureBehaviourDictionary creatureBehaviourDictionary;
 	private final ScheduleDictionary scheduleDictionary;
 	private final GameMaterialDictionary gameMaterialDictionary;
+	private final NormalMapGenerator normalMapGenerator;
 	//TODO: discuss refactor to reduce dependencies here
 	private final ItemTypeDictionary itemTypeDictionary;
 
@@ -79,7 +83,8 @@ public class PropertyEditorPane extends VisTable {
 	public PropertyEditorPane(NativeFileChooser fileChooser, EditorStateProvider editorStateProvider, EntityAssetTypeDictionary entityAssetTypeDictionary,
 							  ProfessionDictionary professionDictionary, BodyStructureDictionary bodyStructureDictionary,
 							  MessageDispatcher messageDispatcher, CreatureBehaviourDictionary creatureBehaviourDictionary,
-							  ScheduleDictionary scheduleDictionary, GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary) {
+							  ScheduleDictionary scheduleDictionary, GameMaterialDictionary gameMaterialDictionary,
+							  NormalMapGenerator normalMapGenerator, ItemTypeDictionary itemTypeDictionary) {
 		this.fileChooser = fileChooser;
 		this.editorStateProvider = editorStateProvider;
 		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
@@ -89,6 +94,7 @@ public class PropertyEditorPane extends VisTable {
 		this.creatureBehaviourDictionary = creatureBehaviourDictionary;
 		this.scheduleDictionary = scheduleDictionary;
 		this.gameMaterialDictionary = gameMaterialDictionary;
+		this.normalMapGenerator = normalMapGenerator;
 		this.itemTypeDictionary = itemTypeDictionary;
 		editorTable = new VisTable();
 		spriteDescriptorsTable = new VisTable();
@@ -318,6 +324,14 @@ public class PropertyEditorPane extends VisTable {
 								Sprite sprite = new Sprite(texture);
 								sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
 								spriteDescriptor.setSprite(RenderMode.DIFFUSE, sprite); //TODO: Assumes Diffuse is selected
+
+								//TODO: generate normal
+								Path generatedNormalFile = normalMapGenerator.generate(fileHandle.file().toPath());
+								Texture normalTexture = new Texture(new LwjglFileHandle(generatedNormalFile.toAbsolutePath().toFile(), Files.FileType.Absolute));
+								Sprite normalSprite = new Sprite(normalTexture);
+								sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
+								spriteDescriptor.setSprite(RenderMode.NORMALS, normalSprite);
+
 
 								messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, editorStateProvider.getState().getCurrentEntity());
 							};
