@@ -64,12 +64,8 @@ public class EntityBrowserPane extends VisTable implements Telegraph {
 		saveButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				try {
-					EntityBrowserPane.this.entityEditorPersistence.saveChanges(descriptorPathsByAssetName);
-					messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, null);
-				} catch (Exception e) {
-					Logger.error("An error occurred while saving", e);
-				}
+				saveChanges();
+				messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, null);
 			}
 		});
 
@@ -78,7 +74,6 @@ public class EntityBrowserPane extends VisTable implements Telegraph {
 		cancelButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				// TODO clear all state changes i.e. reload all (or just these) assets and types
 				messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, null);
 				messageDispatcher.dispatchMessage(MessageType.EDITOR_RELOAD, null);
 			}
@@ -207,5 +202,13 @@ public class EntityBrowserPane extends VisTable implements Telegraph {
 		}
 
 		return null;
+	}
+
+	public void saveChanges() {
+		try {
+			entityEditorPersistence.saveChanges(descriptorPathsByAssetName);
+		} catch (Exception e) {
+			Logger.error(e, "An error occurred while saving");
+		}
 	}
 }
