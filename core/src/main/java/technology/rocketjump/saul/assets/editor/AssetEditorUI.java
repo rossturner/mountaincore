@@ -72,12 +72,14 @@ public class AssetEditorUI implements Telegraph {
 	private final Map<EntityType, UIFactory> uiFactories;
 	private ColorPickerMessage.ColorPickerCallback colorPickerCallback;
 	private UIFactory currentUiFactory;
+	private final SpriteCropperPipeline spriteCropperPipeline;
+	//TODO: this class definitely getting big
 
 	@Inject
 	public AssetEditorUI(EntityBrowserContextMenu browserContextMenu, TopLevelMenu topLevelMenu, NavigatorPane navigatorPane,
 						 EntityBrowserPane entityBrowserPane, PropertyEditorPane propertyEditorPane,
 						 MessageDispatcher messageDispatcher, ViewEditorPane viewEditor, EditorStateProvider editorStateProvider,
-						 Map<EntityType, UIFactory> uiFactories) {
+						 Map<EntityType, UIFactory> uiFactories, SpriteCropperPipeline spriteCropperPipeline) {
 		this.browserContextMenu = browserContextMenu;
 		this.topLevelMenu = topLevelMenu;
 		this.navigatorPane = navigatorPane;
@@ -86,6 +88,7 @@ public class AssetEditorUI implements Telegraph {
 		this.viewEditor = viewEditor;
 		this.editorStateProvider = editorStateProvider;
 		this.uiFactories = uiFactories;
+		this.spriteCropperPipeline = spriteCropperPipeline;
 
 		stage = new Stage();
 		topLevelTable = new VisTable();
@@ -156,6 +159,7 @@ public class AssetEditorUI implements Telegraph {
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_ENTITY_DIALOG);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_ASSET_DIALOG);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_IMPORT_FILE_DIALOG);
+		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CROP_SPRITES_DIALOG);
 		messageDispatcher.addListener(this, MessageType.CAMERA_MOVED);
 	}
 
@@ -278,6 +282,24 @@ public class AssetEditorUI implements Telegraph {
 				dialog.show(stage);
 				return true;
 			}
+			case MessageType.EDITOR_SHOW_CROP_SPRITES_DIALOG: {
+				Path path = (Path) msg.extraInfo;
+				Path directoryToProcess = FileUtils.getDirectory(path);
+
+				OkCancelDialog dialog = new OkCancelDialog("Crop sprites in " + directoryToProcess) {
+					@Override
+					public void onOk() {
+						entityBrowserPane.saveChanges();
+						spriteCropperPipeline.process(directoryToProcess);
+					}
+				};
+
+				dialog.add(new VisLabel("Save all changes and crop sprites?")).left();
+				dialog.add(new VisLabel("Caution: This process can take up to few minutes")).left();
+				dialog.show(stage);
+				return true;
+			}
+
 			case MessageType.EDITOR_SHOW_IMPORT_FILE_DIALOG: {
 				ShowImportFileDialogMessage message = (ShowImportFileDialogMessage) msg.extraInfo;
 				VisValidatableTextField filenameTextField = new VisValidatableTextField();

@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class FileUtils {
@@ -44,6 +45,15 @@ public class FileUtils {
             }
         }
         return directoryToCreate;
+    }
+
+    //TODO: sort duplication
+    public static List<Path> findFilesByFilename(Path directory, Pattern pattern) {
+        try (Stream<Path> files = Files.walk(directory)) {
+            return files.filter(modFile -> modFile.getFileName().toString().matches(pattern.pattern())).toList();
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     public static List<Path> findFilesByFilename(Path directory, String filename) {

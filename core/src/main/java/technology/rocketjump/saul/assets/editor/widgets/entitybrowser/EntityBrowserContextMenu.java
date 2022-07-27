@@ -42,7 +42,6 @@ public class EntityBrowserContextMenu extends PopupMenu {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				messageDispatcher.dispatchMessage(MessageType.EDITOR_SHOW_CREATE_ASSET_DIALOG, new ShowCreateAssetDialogMessage(value.entityType, value.path, value.getTypeDescriptor()));
-				System.out.println("Clicked createEntityDefinition at " + value.path.toAbsolutePath());
 			}
 		});
 		this.addItem(createEntityDefinition);
@@ -64,6 +63,14 @@ public class EntityBrowserContextMenu extends PopupMenu {
 		});
 		this.addItem(explorerItem);
 
+		MenuItem cropSprites = new MenuItem("Crop sprites");
+		cropSprites.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				messageDispatcher.dispatchMessage(MessageType.EDITOR_SHOW_CROP_SPRITES_DIALOG, value.path);
+			}
+		});
+		this.addItem(cropSprites);
 	}
 
 }
