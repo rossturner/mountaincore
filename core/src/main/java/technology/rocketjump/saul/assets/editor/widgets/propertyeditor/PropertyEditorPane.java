@@ -1,7 +1,6 @@
 package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
 import com.badlogic.gdx.Files;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.backends.lwjgl.LwjglFileHandle;
 import com.badlogic.gdx.files.FileHandle;
@@ -20,7 +19,6 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.editor.NormalMapGenerator;
 import technology.rocketjump.saul.assets.editor.message.ShowImportFileDialogMessage;
-import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.creature.BodyShapesWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.creature.GenderWidget;
@@ -486,9 +484,7 @@ public class PropertyEditorPane extends VisTable {
 	}
 
 	private NativeFileChooserConfiguration buildConfig() {
-		EditorAssetSelection assetSelection = editorStateProvider.getState().getAssetSelection();
 		NativeFileChooserConfiguration config = new NativeFileChooserConfiguration();
-		config.directory = Gdx.files.local(Path.of(assetSelection.getDescriptorsPath()).getParent().toString());
 		config.nameFilter = (dir, name) -> name.endsWith("png");
 		config.title = "Select sprite file (.png)";
 		return config;
