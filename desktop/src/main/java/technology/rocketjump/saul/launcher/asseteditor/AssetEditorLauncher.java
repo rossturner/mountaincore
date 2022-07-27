@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.launcher.asseteditor;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -24,6 +25,10 @@ public class AssetEditorLauncher {
 		Graphics.DisplayMode desktopMode = LwjglApplicationConfiguration.getDesktopDisplayMode();
 		config.width = desktopMode.width - 300;
 		config.height = desktopMode.height - 280;
+
+		config.addIcon("assets/icon/editor-tool-icon-128x128.png", Files.FileType.Internal);
+		config.addIcon("assets/icon/editor-tool-icon-32x32.png", Files.FileType.Internal);
+		config.addIcon("assets/icon/editor-tool-icon-16x16.png", Files.FileType.Internal);
 
 		// On launch repackage assets into relevant folders
 		AssetsPackager.main();

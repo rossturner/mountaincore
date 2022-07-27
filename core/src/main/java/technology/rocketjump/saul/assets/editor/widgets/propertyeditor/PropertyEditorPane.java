@@ -117,14 +117,14 @@ public class PropertyEditorPane extends VisTable {
 		}
 
 		try {
-			if (instance instanceof CreatureEntityAsset a) {
-				showEditorControls(a);
+			if (instance instanceof CreatureEntityAsset entityAsset) {
+				showEditorControls(entityAsset);
 			} else if (instance instanceof Race race) {
 				showEditorControls(race);
 			} else if (instance instanceof PlantSpecies plantSpecies) {
 				showEditorControls(plantSpecies);
 			} else {
-				Logger.warn("Not yet implemented: Contrls for " + instance.getClass().getSimpleName() + " in " + getClass().getSimpleName());
+				Logger.warn("Not yet implemented: Controls for " + instance.getClass().getSimpleName() + " in " + getClass().getSimpleName());
 			}
 		} catch (Exception e) {
 			Logger.error("Unexpected exception setting up controls for " + instance, e);

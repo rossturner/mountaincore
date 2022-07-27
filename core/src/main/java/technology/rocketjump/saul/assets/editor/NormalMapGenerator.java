@@ -12,11 +12,12 @@ import java.util.concurrent.TimeUnit;
 
 @Singleton
 public class NormalMapGenerator {
+
     private final String laigterExe;
     private final String defaultSettings;
 
     public NormalMapGenerator() {
-        Path directory = Paths.get("../");
+        Path directory = Paths.get("mod_tools");
         List<Path> foundFiles = FileUtils.findFilesByFilename(directory, "laigter.exe");//TODO: not sure on this design
 
         if (foundFiles.isEmpty()) {

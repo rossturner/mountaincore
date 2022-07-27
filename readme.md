@@ -4,9 +4,8 @@ Note this is a private repository for the game code and assets.
 
 ## Setup
 
-Download and extract https://drive.google.com/file/d/1P1C5OzH_slQEUsJXPO43s8YLyXSHBFBQ/view?usp=sharing
-to release_tools/jdks (or alternatively download AdoptOpen JDK releases from https://adoptopenjdk.net/releases.html) 
-for the packing process (packr.jar) to use. 
+Download and extract Adoptium JDK releases from https://adoptium.net/temurin/releases 
+to release_tools/jdks for the packing process (packr.jar) to use. 
 
 
 ## Build / Framework

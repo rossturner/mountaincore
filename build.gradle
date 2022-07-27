@@ -57,6 +57,7 @@ project(":desktop") {
 
     clean.doFirst {
         file('../release_tools/win64_release').deleteDir()
+        file('../release_tools/win64_tool').deleteDir()
         file('../release_tools/linux64_release').deleteDir()
         file('../release_tools/macosx_release').deleteDir()
     }
@@ -64,51 +65,56 @@ project(":desktop") {
     task('packrWin', type: JavaExec, dependsOn: 'dist') {
         workingDir '../release_tools'
         main '-jar'
-        args=["packr.jar", "win-config.json"]
+        args=["packr-all-4.0.0.jar", "win-config.json"]
     }
     task('packrMac', type: JavaExec, dependsOn: 'dist') {
         workingDir '../release_tools'
         main '-jar'
-        args=["packr.jar", "mac-config.json"]
+        args=["packr-all-4.0.0.jar", "mac-config.json"]
     }
     task('packrLinux', type: JavaExec, dependsOn: 'dist') {
         workingDir '../release_tools'
         main '-jar'
-        args=["packr.jar", "linux-config.json"]
+        args=["packr-all-4.0.0.jar", "linux-config.json"]
+    }
+
+
+    task('packrToolWin', type: JavaExec, dependsOn: 'dist') {
+        workingDir '../release_tools'
+        main '-jar'
+        args=["packr-all-4.0.0.jar", "win-editor-tool-config.json"]
     }
 
     task('iconWin', type: Exec, dependsOn: 'packrWin') {
         workingDir '../release_tools'
-        commandLine 'cmd', '/c', 'rcedit-x64.exe', '"win64_release/King under the Mountain.exe"',  '--set-icon', '"icon/favicon.ico"'
+        commandLine 'cmd', '/c', 'rcedit-x64.exe', '"win64_release/Project Saul.exe"',  '--set-icon', '"icon/Steam_Icon_128x128.ico"'
+    }
+    task('iconToolWin', type: Exec, dependsOn: 'packrToolWin') {
+        workingDir '../release_tools'
+        commandLine 'cmd', '/c', 'rcedit-x64.exe', '"win64_tool/Asset Editor Tool.exe"',  '--set-icon', '"icon/carpenter.ico"'
+    }
+
+    task('moveToolWin', type: Copy, dependsOn: ['iconWin', 'iconToolWin']) {
+        from '../release_tools/win64_tool'
+        into '../release_tools/win64_release'
+        include '*.exe'
+        include '*.json'
     }
 
     task('zipWin', type: Zip, dependsOn: 'iconWin') {
-        archiveFileName = "King under the Mountain $project.version win64.zip"
+        archiveFileName = "Project Saul $project.version win64.zip"
         destinationDirectory = file("../release_tools")
         from "../release_tools/win64_release"
     }
     task('zipMac', type: Zip, dependsOn: 'packrMac') {
-        archiveFileName = "King under the Mountain $project.version macosx.zip"
+        archiveFileName = "Project Saul $project.version macosx.zip"
         destinationDirectory = file("../release_tools")
         from "../release_tools/macosx_release"
     }
     task('zipLinux', type: Zip, dependsOn: 'packrLinux') {
-        archiveFileName = "King under the Mountain $project.version linux64.zip"
+        archiveFileName = "Project Saul $project.version linux64.zip"
         destinationDirectory = file("../release_tools")
         from "../release_tools/linux64_release"
-    }
-
-    task('butlerWin', type: Exec, dependsOn: 'iconWin') {
-        workingDir '../release_tools'
-        commandLine 'butler', 'push', 'win64_release', 'rocketjumptechnology/king-under-the-mountain:win', '--userversion', "$project.version"
-    }
-    task('butlerMac', type: Exec, dependsOn: 'packrMac') {
-        workingDir '../release_tools'
-        commandLine 'butler', 'push', 'macosx_release', 'rocketjumptechnology/king-under-the-mountain:osx', '--userversion', "$project.version"
-    }
-    task('butlerLinux', type: Exec, dependsOn: 'packrLinux') {
-        workingDir '../release_tools'
-        commandLine 'butler', 'push', 'linux64_release', 'rocketjumptechnology/king-under-the-mountain:linux', '--userversion', "$project.version"
     }
 
     task('zipAll') {
@@ -117,10 +123,10 @@ project(":desktop") {
         dependsOn 'zipWin'
     }
 
-    task('release') {
-        dependsOn 'butlerLinux'
-        dependsOn 'butlerMac'
-        dependsOn 'butlerWin'
+    task('packr') {
+        dependsOn 'packrLinux'
+        dependsOn 'packrMac'
+        dependsOn 'moveToolWin'
     }
 }
 
