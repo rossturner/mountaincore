@@ -145,6 +145,7 @@ public class CreatureUIFactory implements UIFactory {
         asset.setRace(race);
         asset.setConsciousness(null);
         asset.setConsciousnessList(new ArrayList<>());
+        asset.setProfession("VILLAGER"); //TODO: revisit null object pattern
 
 
         VisValidatableTextField uniqueNameTextBox = new VisValidatableTextField();

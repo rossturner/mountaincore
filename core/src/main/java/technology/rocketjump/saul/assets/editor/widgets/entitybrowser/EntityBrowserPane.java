@@ -171,14 +171,19 @@ public class EntityBrowserPane extends VisTable implements Telegraph {
 	}
 
 	private void newAssetCreated(EntityBrowserValue value) {
-		Path targetDirectory = FileUtils.getDirectory(value.path);
-		EntityBrowserTreeNode targetParentNode = findSubDirNode(targetDirectory);
 
 
 		EntityBrowserTreeNode assetNode = new EntityBrowserTreeNode(messageDispatcher, editorStateProvider);
 		assetNode.setValue(value);
 		descriptorPathsByAssetName.put(value.label, value.path);
-		targetParentNode.add(assetNode);
+
+		Path targetDirectory = FileUtils.getDirectory(value.path);
+		EntityBrowserTreeNode targetParentNode = findSubDirNode(targetDirectory);
+		if (targetParentNode == null) {
+			assetTree.add(assetNode);
+		} else {
+			targetParentNode.add(assetNode);
+		}
 	}
 
 	private EntityBrowserTreeNode findSubDirNode(Path targetDirectory) {
@@ -201,6 +206,6 @@ public class EntityBrowserPane extends VisTable implements Telegraph {
 			}
 		}
 
-		throw new IllegalArgumentException("Could not find valid parent node for descriptor at " + targetDirectory);
+		return null;
 	}
 }
