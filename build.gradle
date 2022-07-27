@@ -22,13 +22,6 @@ allprojects {
     tasks.withType(JavaCompile) {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-        options.compilerArgs += "--enable-preview"
-    }
-    tasks.withType(Test) {
-        jvmArgs += "--enable-preview"
-    }
-    tasks.withType(JavaExec) {
-        jvmArgs += '--enable-preview'
     }
 
     version = 'Early Access 1.0'

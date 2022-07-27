@@ -99,6 +99,7 @@ public class PropertyEditorPane extends VisTable {
 		VisScrollPane editorScrollPane = new VisScrollPane(editorTable);
 
 		showControlsFor(null);
+		//TODO: consider recursively adding ChangedListener to produce, MessageType.ENTITY_ASSET_UPDATE_REQUIRED
 
 //		this.setDebug(true);
 		this.background("window-bg");
@@ -116,12 +117,14 @@ public class PropertyEditorPane extends VisTable {
 		}
 
 		try {
-			switch (instance) {
-				case CreatureEntityAsset a -> showEditorControls(a);
-				case Race race -> showEditorControls(race);
-				case PlantSpecies plantSpecies -> showEditorControls(plantSpecies);
-				default ->
-						Logger.warn("Not yet implemented: Contrls for " + instance.getClass().getSimpleName() + " in " + getClass().getSimpleName());
+			if (instance instanceof CreatureEntityAsset a) {
+				showEditorControls(a);
+			} else if (instance instanceof Race race) {
+				showEditorControls(race);
+			} else if (instance instanceof PlantSpecies plantSpecies) {
+				showEditorControls(plantSpecies);
+			} else {
+				Logger.warn("Not yet implemented: Contrls for " + instance.getClass().getSimpleName() + " in " + getClass().getSimpleName());
 			}
 		} catch (Exception e) {
 			Logger.error("Unexpected exception setting up controls for " + instance, e);
