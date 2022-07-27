@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import org.apache.commons.lang3.text.WordUtils;
@@ -22,16 +23,25 @@ import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityA
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
+import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
+import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
+import technology.rocketjump.saul.entities.model.physical.item.ItemType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.SpeciesColor;
+import technology.rocketjump.saul.environment.GameClock;
+import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.ProfessionDictionary;
 import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.mapping.model.TiledMap;
+import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
@@ -48,17 +58,29 @@ public class CreatureAttributesPane extends VisTable {
     private final ProfessionDictionary professionDictionary;
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
     private final CreatureEntityAssetDictionary creatureEntityAssetDictionary;
+    private final ItemTypeDictionary itemTypeDictionary;
+    private final ItemEntityFactory itemEntityFactory;
     private final MessageDispatcher messageDispatcher;
     private int colCount = 0;
+    private final GameContext fakeContext = new GameContext();
 
-    public CreatureAttributesPane(CreatureEntityAttributes creatureAttributes, EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater, ProfessionDictionary professionDictionary, EntityAssetTypeDictionary entityAssetTypeDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary, MessageDispatcher messageDispatcher) {
+    public CreatureAttributesPane(CreatureEntityAttributes creatureAttributes, EditorStateProvider editorStateProvider,
+                                  EntityAssetUpdater entityAssetUpdater, ProfessionDictionary professionDictionary,
+                                  EntityAssetTypeDictionary entityAssetTypeDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary,
+                                  ItemTypeDictionary itemTypeDictionary,
+                                  ItemEntityFactory itemEntityFactory, MessageDispatcher messageDispatcher) {
         super();
         this.editorStateProvider = editorStateProvider;
         this.entityAssetUpdater = entityAssetUpdater;
         this.professionDictionary = professionDictionary;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
+        this.itemTypeDictionary = itemTypeDictionary;
+        this.itemEntityFactory = itemEntityFactory;
         this.messageDispatcher = messageDispatcher;
+        fakeContext.setAreaMap(new TiledMap(1, 1, 1, FloorType.NULL_FLOOR, GameMaterial.NULL_MATERIAL));
+        fakeContext.setGameClock(new GameClock());
+        fakeContext.setRandom(new RandomXS128());
 
         Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
         Collection<Gender> genders = creatureAttributes.getRace().getGenders().keySet();
@@ -96,6 +118,9 @@ public class CreatureAttributesPane extends VisTable {
         for (ColoringLayer coloringLayer : creatureAttributes.getColors().keySet()) {
             createColorWidget(coloringLayer, creatureAttributes);
         }
+        row();
+
+        createEquippedItemWidget();
 //        debug();
     }
 
@@ -151,6 +176,37 @@ public class CreatureAttributesPane extends VisTable {
             assetMap.put(assetType, creatureEntityAsset);
         });
     }
+
+    private void createEquippedItemWidget() {
+        VisTable equippedItemTable = new VisTable();
+
+        VisCheckBox equippedItemCheckbox = new VisCheckBox("Show equipped item");
+        equippedItemCheckbox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor
+            ) {
+                Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
+                EquippedItemComponent equippedItemComponent = currentEntity.getOrCreateComponent(EquippedItemComponent.class);
+                if (equippedItemCheckbox.isChecked()) {
+                    List<ItemType> itemTypes = itemTypeDictionary.getAll();
+                    equippedItemTable.add(WidgetBuilder.selectField("", itemTypes.get(fakeContext.getRandom().nextInt(itemTypes.size())),
+                            itemTypes, null, itemType -> {
+                        Entity itemEntity = itemEntityFactory.createByItemType(itemType, fakeContext, false);
+                        equippedItemComponent.clearEquippedItem();
+                        equippedItemComponent.setEquippedItem(itemEntity, currentEntity, messageDispatcher);
+                    }));
+                } else {
+                    equippedItemComponent.clearEquippedItem();
+                    equippedItemTable.clearChildren();
+                    equippedItemTable.add(equippedItemCheckbox);
+                }
+            }
+        });
+        equippedItemTable.add(equippedItemCheckbox);
+
+        this.add(equippedItemTable).colspan(3).row();
+    }
+
 
     private String toNiceName(String value) {
         return WordUtils.capitalizeFully(value, '_');

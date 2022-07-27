@@ -14,9 +14,11 @@ import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.CreatureEntityAssetDictionary;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
+import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.jobs.ProfessionDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.RenderMode;
@@ -31,9 +33,14 @@ public class ViewEditorPane extends VisTable implements Telegraph {
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
     private final CreatureEntityAssetDictionary creatureEntityAssetDictionary;
     private final MessageDispatcher messageDispatcher;
+    private final ItemTypeDictionary itemTypeDictionary;
+    private final ItemEntityFactory itemEntityFactory;
 
     @Inject
-    public ViewEditorPane(EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater, ProfessionDictionary professionDictionary, EntityAssetTypeDictionary entityAssetTypeDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary, MessageDispatcher messageDispatcher) {
+    public ViewEditorPane(EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater,
+                          ProfessionDictionary professionDictionary, EntityAssetTypeDictionary entityAssetTypeDictionary,
+                          CreatureEntityAssetDictionary creatureEntityAssetDictionary, MessageDispatcher messageDispatcher,
+                          ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory) {
         super();
         this.editorStateProvider = editorStateProvider;
         this.entityAssetUpdater = entityAssetUpdater;
@@ -41,6 +48,8 @@ public class ViewEditorPane extends VisTable implements Telegraph {
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
         this.messageDispatcher = messageDispatcher;
+        this.itemTypeDictionary = itemTypeDictionary;
+        this.itemEntityFactory = itemEntityFactory;
         messageDispatcher.addListener(this, MessageType.EDITOR_BROWSER_TREE_SELECTION);
     }
 
@@ -61,7 +70,9 @@ public class ViewEditorPane extends VisTable implements Telegraph {
             VisTable entityAttributesPane = null;
             //TODO: Move to UI Factory
             if (entityAttributes instanceof CreatureEntityAttributes creatureAttributes) {
-                entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater, professionDictionary, entityAssetTypeDictionary, creatureEntityAssetDictionary, messageDispatcher);
+                entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater,
+                        professionDictionary, entityAssetTypeDictionary, creatureEntityAssetDictionary, itemTypeDictionary,
+                        itemEntityFactory, messageDispatcher);
             }
 
             if (entityAttributesPane != null) {
