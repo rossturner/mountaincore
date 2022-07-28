@@ -1,0 +1,12 @@
+[{
+  "uniqueName": "Tree-Red-emperor-Size3-Leaves",
+  "type": "PLANT_LEAVES",
+  "speciesName": "Red emperor",
+  "growthStages": [2],
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "maple_03_l.png",
+      "coloringLayer": "LEAF_COLOR"
+    }
+  }
+}]

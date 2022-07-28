@@ -2,7 +2,7 @@
   {
     "uniqueName": "Resource-Liquid-Example-Drop",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeNames": ["Resource-Liquid-Example"],
+    "itemTypeName": "Resource-Liquid-Example",
     "itemPlacements": ["ON_GROUND"],
     "minQuantity": 1,
     "maxQuantity": 1,

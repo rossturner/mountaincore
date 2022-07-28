@@ -1,0 +1,11 @@
+{
+  "itemTypeName": "Weapon-Metal-Arrows",
+  "materialTypes": ["METAL", "WOOD"],
+  "primaryMaterialType": "METAL",
+  "holdPosition": "IN_FRONT",
+  "stockpileGroupName": "WEAPONS",
+  "hoursInInventoryUntilUnused": 3,
+  "maxStackSize": 50,
+  "maxHauledAtOnce": 50,
+  "isAmmoType": "ARROWS"
+}

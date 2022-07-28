@@ -1,10 +1,24 @@
 [
   {
+    "uniqueName": "Hemp-Seeds",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Hemp",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "crop_planted_seeds.png",
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    }
+  },
+  {
     "uniqueName": "Hemp-Shoots-1",
     "type": "PLANT_BRANCHES",
-    "speciesNames": [
-      "Hemp"
-    ],
+    "speciesName": "Hemp",
     "growthStages": [
       1
     ],
@@ -22,9 +36,7 @@
   {
     "uniqueName": "Hemp-Shoots-2",
     "type": "PLANT_BRANCHES",
-    "speciesNames": [
-      "Hemp"
-    ],
+    "speciesName": "Hemp",
     "growthStages": [
       1
     ],
@@ -42,9 +54,7 @@
   {
     "uniqueName": "Hemp-Med-1",
     "type": "PLANT_BRANCHES",
-    "speciesNames": [
-      "Hemp"
-    ],
+    "speciesName": "Hemp",
     "growthStages": [
       2
     ],
@@ -62,9 +72,7 @@
   {
     "uniqueName": "Hemp-Med-2",
     "type": "PLANT_BRANCHES",
-    "speciesNames": [
-      "Hemp"
-    ],
+    "speciesName": "Hemp",
     "growthStages": [
       2
     ],
@@ -82,9 +90,7 @@
   {
     "uniqueName": "Hemp-Large-1",
     "type": "PLANT_BRANCHES",
-    "speciesNames": [
-      "Hemp"
-    ],
+    "speciesName": "Hemp",
     "growthStages": [
       3,
       4,
@@ -104,9 +110,7 @@
   {
     "uniqueName": "Hemp-Large-2",
     "type": "PLANT_BRANCHES",
-    "speciesNames": [
-      "Hemp"
-    ],
+    "speciesName": "Hemp",
     "growthStages": [
       3,
       4,

@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Tree-Fir-Size3-Leaves",
   "type": "PLANT_LEAVES",
-  "speciesNames": ["Fir", "Spruce"],
+  "speciesName": "Fir",
   "growthStages": [2],
   "spriteDescriptors": {
     "DOWN": {

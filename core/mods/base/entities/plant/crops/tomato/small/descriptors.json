@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Tomato-Small",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Tomato"],
+  "speciesName": "Tomato",
   "growthStages": [2],
   "spriteDescriptors": {
     "DOWN": {

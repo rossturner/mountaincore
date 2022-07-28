@@ -2,7 +2,7 @@
   {
     "uniqueName": "Mushroom-Cap01-Spots-Glowing",
     "type": "PLANT_FRUIT",
-    "speciesNames": ["Glow"],
+    "speciesName": "Glow",
     "growthStages": [0],
     "tags": {
       "ATTACHES_LIGHT_SOURCE": ["PARENT_BODY_COLOR"]
@@ -18,7 +18,7 @@
   {
     "uniqueName": "Mushroom-Cap02-Stripes-Spots",
     "type": "PLANT_FRUIT",
-    "speciesNames": ["Glow"],
+    "speciesName": "Glow",
     "growthStages": [0],
     "tags": {
       "ATTACHES_LIGHT_SOURCE": ["PARENT_BODY_COLOR"]

@@ -1,0 +1,9 @@
+{
+  "itemTypeName": "Carcass-Meat-Small",
+  "materialTypes": ["MEAT"],
+  "primaryMaterialType": "MEAT",
+  "maxStackSize": 10,
+  "maxHauledAtOnce": 10,
+  "stockpileGroupName": "FOOD",
+  "describeAsMaterialOnly": true
+}

@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Tree-Fir-Size2-Branches",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Fir", "Spruce"],
+  "speciesName": "Fir",
   "growthStages": [1],
   "spriteDescriptors": {
     "DOWN": {

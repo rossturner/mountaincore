@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Tree-Oak-Size1-Leaves",
   "type": "PLANT_LEAVES",
-  "speciesNames": ["Oak", "Baobab"],
+  "speciesName": "Oak",
   "growthStages": [0],
   "spriteDescriptors": {
     "DOWN": {

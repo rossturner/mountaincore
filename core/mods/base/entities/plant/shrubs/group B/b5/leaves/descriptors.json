@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Bush-B5-Leaves",
   "type": "PLANT_LEAVES",
-  "speciesNames": ["Loquat bush", "Thimbleberry bush", "Breadfruit tree"],
+  "speciesName": "Shrub",
   "spriteDescriptors": {
     "DOWN": {
       "filename": "shrub_05_l.png",

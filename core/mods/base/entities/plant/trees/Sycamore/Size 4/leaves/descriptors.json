@@ -1,0 +1,13 @@
+[{
+  "uniqueName": "Tree-Sycamore-Size4-Leaves",
+  "type": "PLANT_LEAVES",
+  "speciesName": "Sycamore",
+  "growthStages": [3],
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "beech-3-l.png",
+      "scale": 0.8,
+      "coloringLayer": "LEAF_COLOR"
+    }
+  }
+}]

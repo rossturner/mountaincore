@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Hops-Large-Leaves",
   "type": "PLANT_LEAVES",
-  "speciesNames": ["Hops"],
+  "speciesName": "Hops",
   "growthStages": [3, 4],
   "spriteDescriptors": {
     "DOWN": {

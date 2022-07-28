@@ -1,0 +1,81 @@
+[
+  {
+    "uniqueName": "No-Markings-Cap01",
+    "type": "PLANT_LEAVES",
+    "speciesName": "Syrup Powder",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap01-Base.png",
+        "scale": 0.75,
+        "coloringLayer": "LEAF_COLOR"
+      }
+    }
+  },
+  {
+    "uniqueName": "No-Markings-Cap02",
+    "type": "PLANT_LEAVES",
+    "speciesName": "Syrup Powder",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap02-Base.png",
+        "scale": 0.75,
+        "coloringLayer": "LEAF_COLOR"
+      }
+    }
+  },
+
+  {
+    "uniqueName": "Syrup-powder-Stem01",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Syrup Powder",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Stem01.png",
+        "scale": 0.75,
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": -4
+        },
+        "childAssets": [
+          {
+            "type": "PLANT_LEAVES",
+            "offsetPixels": {
+              "x": 1.75,
+              "y": 15
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "Syrup-powder-Stem02",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Syrup Powder",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Stem02.png",
+        "scale": 0.75,
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        },
+        "childAssets": [
+          {
+            "type": "PLANT_LEAVES",
+            "offsetPixels": {
+              "x": -1,
+              "y": 16
+            }
+          }
+        ]
+      }
+    }
+  }
+]

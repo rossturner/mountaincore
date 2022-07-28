@@ -2,7 +2,7 @@
   {
     "uniqueName": "Unlabelled-Vitriol-Sack-Body-Floor",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeNames": ["Resource-Crushed-Vitriol"],
+    "itemTypeName": "Resource-Crushed-Vitriol",
     "itemPlacements": ["ON_GROUND"],
     "minQuantity": 1,
     "maxQuantity": 30,
@@ -22,7 +22,7 @@
   {
     "uniqueName": "Unlabelled-Vitriol-Sack-Body-Carried",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeNames": ["Resource-Crushed-Vitriol"],
+    "itemTypeName": "Resource-Crushed-Vitriol",
     "itemPlacements": ["BEING_CARRIED"],
     "minQuantity": 1,
     "maxQuantity": 30,

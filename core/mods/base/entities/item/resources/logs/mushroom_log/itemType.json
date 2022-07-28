@@ -1,0 +1,11 @@
+{
+  "itemTypeName": "Resource-Mushroom-Log",
+  "materialTypes": ["WOOD", "SEED"],
+  "primaryMaterialType": "SEED",
+  "maxStackSize": 1,
+  "maxHauledAtOnce": 1,
+  "holdPosition": "ON_SHOULDER",
+  "impedesMovement": true,
+  "blocksMovement": false,
+  "placementSoundAssetName": "HeavyWoodItem"
+}

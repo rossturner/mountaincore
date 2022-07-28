@@ -1,0 +1,14 @@
+{
+  "itemTypeName": "Product-Bucket",
+  "materialTypes": ["WOOD", "METAL", "ROPE"],
+  "primaryMaterialType": "WOOD",
+  "stockpileGroupName": "PRODUCTS",
+  "hoursInInventoryUntilUnused": 2,
+  "maxStackSize": 1,
+  "maxHauledAtOnce": 1,
+  "equippedWhileWorkingOnJob": true,
+  "tags": {
+    "LIQUID_CONTAINER": ["2"],
+    "USAGE_SOUND": ["WaterCollect"]
+  }
+}

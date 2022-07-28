@@ -2,9 +2,7 @@
   {
     "uniqueName": "Resource-Mushroom-Lumber-Pile01",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeNames": [
-      "Resource-Mushroom-Lumber"
-    ],
+    "itemTypeName": "Resource-Mushroom-Lumber",
     "itemSize": "SMALL",
     "itemStyle": "STYLE_1",
     "itemPlacements": [
@@ -26,9 +24,7 @@
   {
     "uniqueName": "Resource-Mushroom-Lumber-Pile02",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeNames": [
-      "Resource-Mushroom-Lumber"
-    ],
+    "itemTypeName": "Resource-Mushroom-Lumber",
     "itemSize": "SMALL",
     "itemStyle": "STYLE_1",
     "itemPlacements": [
@@ -50,9 +46,7 @@
   {
     "uniqueName": "Resource-Mushroom-Lumber-Pile03",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeNames": [
-      "Resource-Mushroom-Lumber"
-    ],
+    "itemTypeName": "Resource-Mushroom-Lumber",
     "itemSize": "SMALL",
     "itemStyle": "STYLE_1",
     "itemPlacements": [
@@ -74,9 +68,7 @@
   {
     "uniqueName": "Resource-Mushroom-Lumber-Pile04",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeNames": [
-      "Resource-Mushroom-Lumber"
-    ],
+    "itemTypeName": "Resource-Mushroom-Lumber",
     "itemSize": "SMALL",
     "itemStyle": "STYLE_1",
     "itemPlacements": [

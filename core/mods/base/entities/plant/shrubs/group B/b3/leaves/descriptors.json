@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Bush-B3-Leaves",
   "type": "PLANT_LEAVES",
-  "speciesNames": ["Tamarillo bush", "Dragonfruit tree", "Breadfruit tree", "Shrub"],
+  "speciesName": "Shrub",
   "spriteDescriptors": {
     "DOWN": {
       "filename": "shrub_03_l.png",

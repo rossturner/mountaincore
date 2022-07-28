@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Tree-Pine-Size3-Leaves",
   "type": "PLANT_LEAVES",
-  "speciesNames": ["Pine", "Star pine"],
+  "speciesName": "Pine",
   "growthStages": [2],
   "spriteDescriptors": {
     "DOWN": {
