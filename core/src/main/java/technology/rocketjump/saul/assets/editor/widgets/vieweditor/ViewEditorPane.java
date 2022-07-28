@@ -8,22 +8,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisRadioButton;
-import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
+import technology.rocketjump.saul.assets.editor.factory.UIFactory;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.CreatureEntityAssetDictionary;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.jobs.ProfessionDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.RenderMode;
 
 import javax.inject.Inject;
+import java.util.Map;
 
 public class ViewEditorPane extends VisTable implements Telegraph {
 
@@ -35,12 +36,13 @@ public class ViewEditorPane extends VisTable implements Telegraph {
     private final MessageDispatcher messageDispatcher;
     private final ItemTypeDictionary itemTypeDictionary;
     private final ItemEntityFactory itemEntityFactory;
+    private final Map<EntityType, UIFactory> uiFactories;
 
     @Inject
     public ViewEditorPane(EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater,
                           ProfessionDictionary professionDictionary, EntityAssetTypeDictionary entityAssetTypeDictionary,
                           CreatureEntityAssetDictionary creatureEntityAssetDictionary, MessageDispatcher messageDispatcher,
-                          ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory) {
+                          ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory, Map<EntityType, UIFactory> uiFactories) {
         super();
         this.editorStateProvider = editorStateProvider;
         this.entityAssetUpdater = entityAssetUpdater;
@@ -50,6 +52,7 @@ public class ViewEditorPane extends VisTable implements Telegraph {
         this.messageDispatcher = messageDispatcher;
         this.itemTypeDictionary = itemTypeDictionary;
         this.itemEntityFactory = itemEntityFactory;
+        this.uiFactories = uiFactories;
         messageDispatcher.addListener(this, MessageType.EDITOR_BROWSER_TREE_SELECTION);
     }
 
@@ -65,15 +68,7 @@ public class ViewEditorPane extends VisTable implements Telegraph {
 
         Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
         if (currentEntity != null) {
-
-            EntityAttributes entityAttributes = currentEntity.getPhysicalEntityComponent().getAttributes();
-            VisTable entityAttributesPane = null;
-            //TODO: Move to UI Factory
-            if (entityAttributes instanceof CreatureEntityAttributes creatureAttributes) {
-                entityAttributesPane = new CreatureAttributesPane(creatureAttributes, editorStateProvider, entityAssetUpdater,
-                        professionDictionary, entityAssetTypeDictionary, creatureEntityAssetDictionary, itemTypeDictionary,
-                        itemEntityFactory, messageDispatcher);
-            }
+            VisTable entityAttributesPane = uiFactories.get(currentEntity.getType()).getViewEditorControls();
 
             if (entityAttributesPane != null) {
                 add(entityAttributesPane).left().fill().colspan(2).row();
@@ -107,18 +102,7 @@ public class ViewEditorPane extends VisTable implements Telegraph {
     }
 
     private VisTable buildSpritePaddingWidget() {
-        VisTable spritePaddingRow = new VisTable();
-        spritePaddingRow.add(new VisLabel("Sprite padding")).left();
-        VisSlider slider = new VisSlider(1, 3, 1, false);
-        slider.setValue(editorStateProvider.getState().getSpritePadding());
-        slider.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                editorStateProvider.getState().setSpritePadding((int) slider.getValue());
-            }
-        });
-        spritePaddingRow.add(slider).left();
-        return spritePaddingRow;
+        return WidgetBuilder.slider("Sprite padding", editorStateProvider.getState().getSpritePadding(), 1, 3, 1, value -> editorStateProvider.getState().setSpritePadding(value));
     }
 
     @Override
