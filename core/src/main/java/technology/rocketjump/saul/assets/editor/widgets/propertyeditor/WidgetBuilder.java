@@ -3,10 +3,8 @@ package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextField;
+import com.kotcrab.vis.ui.widget.*;
+import org.apache.commons.lang3.text.WordUtils;
 import technology.rocketjump.saul.misc.ReflectionUtils;
 
 import java.util.Collection;
@@ -18,7 +16,7 @@ public class WidgetBuilder {
 	//Composite components
 	public static <T> VisTable selectField(String labelText, T initialValue, Collection<T> items, T valueIfNull, Consumer<T> changeListener) {
 		VisTable visTable = new VisTable();
-		VisLabel label = new VisLabel(labelText.endsWith(":") ? labelText : labelText + ":");
+		VisLabel label = new VisLabel(niceLabel(labelText));
 		VisSelectBox<T> selectBox = new VisSelectBox<>();
 		selectBox.addListener(new ChangeListener() {
 			@Override
@@ -40,6 +38,22 @@ public class WidgetBuilder {
 		visTable.add(label).left();
 		visTable.add(selectBox).left();
 		return visTable;
+	}
+
+	public static VisTable slider(String labelText, int initialValue, int min, int max, int step, Consumer<Integer> changeListener) {
+		VisTable spritePaddingRow = new VisTable();
+		spritePaddingRow.add(new VisLabel(niceLabel(labelText))).left();
+		VisSlider slider = new VisSlider(min, max, step, false);
+		slider.setValue(initialValue);
+		slider.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				changeListener.accept((int) slider.getValue());
+			}
+		});
+		spritePaddingRow.add(slider).left();
+		//todo maybe display number
+		return spritePaddingRow;
 	}
 
 	//Reflective Java Bean components
@@ -117,5 +131,11 @@ public class WidgetBuilder {
 		}
 		return array;
 	}
+
+
+	private static String niceLabel(String labelText) {
+		return WordUtils.capitalizeFully(labelText.endsWith(":") ? labelText : labelText + ":", '_');
+	}
+
 
 }

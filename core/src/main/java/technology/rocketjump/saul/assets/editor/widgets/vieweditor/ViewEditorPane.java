@@ -8,10 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisRadioButton;
-import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.assets.editor.factory.UIFactory;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.CreatureEntityAssetDictionary;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
@@ -102,18 +102,7 @@ public class ViewEditorPane extends VisTable implements Telegraph {
     }
 
     private VisTable buildSpritePaddingWidget() {
-        VisTable spritePaddingRow = new VisTable();
-        spritePaddingRow.add(new VisLabel("Sprite padding")).left();
-        VisSlider slider = new VisSlider(1, 3, 1, false);
-        slider.setValue(editorStateProvider.getState().getSpritePadding());
-        slider.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                editorStateProvider.getState().setSpritePadding((int) slider.getValue());
-            }
-        });
-        spritePaddingRow.add(slider).left();
-        return spritePaddingRow;
+        return WidgetBuilder.slider("Sprite padding", editorStateProvider.getState().getSpritePadding(), 1, 3, 1, value -> editorStateProvider.getState().setSpritePadding(value));
     }
 
     @Override

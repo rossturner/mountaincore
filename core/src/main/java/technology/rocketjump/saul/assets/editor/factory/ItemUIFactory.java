@@ -7,6 +7,7 @@ import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
+import technology.rocketjump.saul.assets.editor.widgets.vieweditor.ItemAttributesPane;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -22,11 +23,13 @@ import java.util.Random;
 public class ItemUIFactory implements UIFactory {
     private final ItemEntityFactory itemEntityFactory;
     private final ItemTypeDictionary itemTypeDictionary;
+    private final ItemAttributesPane itemAttributesPane;
 
     @Inject
-    public ItemUIFactory(ItemEntityFactory itemEntityFactory, ItemTypeDictionary itemTypeDictionary) {
+    public ItemUIFactory(ItemEntityFactory itemEntityFactory, ItemTypeDictionary itemTypeDictionary, ItemAttributesPane itemAttributesPane) {
         this.itemEntityFactory = itemEntityFactory;
         this.itemTypeDictionary = itemTypeDictionary;
+        this.itemAttributesPane = itemAttributesPane;
     }
 
     @Override
@@ -50,7 +53,8 @@ public class ItemUIFactory implements UIFactory {
 
     @Override
     public VisTable getViewEditorControls() {
-        return null;
+        itemAttributesPane.reload();
+        return itemAttributesPane;
     }
 
     @Override
