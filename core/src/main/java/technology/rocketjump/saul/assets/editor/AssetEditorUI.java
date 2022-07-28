@@ -229,6 +229,7 @@ public class AssetEditorUI implements Telegraph {
 					selection.setUniqueName(value.label);
 					editorStateProvider.getState().setAssetSelection(selection);
 					editorStateProvider.stateChanged();
+					//TODO: ui factory, show controls for typeDescriptor and showControlsForEntityAsset
 					if (value.treeValueType.equals(ENTITY_TYPE_DESCRIPTOR)) {
 						propertyEditorPane.showControlsFor(value.getTypeDescriptor());
 					} else if (value.treeValueType.equals(ENTITY_ASSET_DESCRIPTOR)) {

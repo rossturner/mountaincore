@@ -20,6 +20,7 @@ import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.TextBoxConventionListener;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
+import technology.rocketjump.saul.assets.editor.widgets.vieweditor.CreatureAttributesPane;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShape;
@@ -50,15 +51,17 @@ public class CreatureUIFactory implements UIFactory {
     private final RaceDictionary raceDictionary;
     private final CreatureEntityFactory creatureEntityFactory;
     private final ProfessionDictionary professionDictionary;
+    private final CreatureAttributesPane viewEditorControls;
 
     @Inject
-    public CreatureUIFactory(MessageDispatcher messageDispatcher, EntityAssetTypeDictionary entityAssetTypeDictionary, CompleteAssetDictionary completeAssetDictionary, RaceDictionary raceDictionary, CreatureEntityFactory creatureEntityFactory, ProfessionDictionary professionDictionary) {
+    public CreatureUIFactory(MessageDispatcher messageDispatcher, EntityAssetTypeDictionary entityAssetTypeDictionary, CompleteAssetDictionary completeAssetDictionary, RaceDictionary raceDictionary, CreatureEntityFactory creatureEntityFactory, ProfessionDictionary professionDictionary, CreatureAttributesPane viewEditorControls) {
         this.messageDispatcher = messageDispatcher;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.completeAssetDictionary = completeAssetDictionary;
         this.raceDictionary = raceDictionary;
         this.creatureEntityFactory = creatureEntityFactory;
         this.professionDictionary = professionDictionary;
+        this.viewEditorControls = viewEditorControls;
     }
 
     @Override
@@ -75,6 +78,12 @@ public class CreatureUIFactory implements UIFactory {
         CreatureEntityAttributes attributes = new CreatureEntityAttributes(race, random.nextLong());
         Vector2 origin = new Vector2(0, 0f);
         return creatureEntityFactory.create(attributes, origin, origin, gameContext);
+    }
+
+    @Override
+    public VisTable getViewEditorControls() {
+        viewEditorControls.reload();
+        return viewEditorControls;
     }
 
     @Override

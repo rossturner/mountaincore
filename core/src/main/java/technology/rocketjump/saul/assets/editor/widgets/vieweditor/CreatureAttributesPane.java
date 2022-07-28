@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -24,7 +26,6 @@ import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.model.FloorType;
-import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -51,10 +52,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+@Singleton
 public class CreatureAttributesPane extends VisTable {
 
     private final EditorStateProvider editorStateProvider;
-    private final EntityAssetUpdater entityAssetUpdater;
     private final ProfessionDictionary professionDictionary;
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
     private final CreatureEntityAssetDictionary creatureEntityAssetDictionary;
@@ -64,14 +65,12 @@ public class CreatureAttributesPane extends VisTable {
     private int colCount = 0;
     private final GameContext fakeContext = new GameContext();
 
-    public CreatureAttributesPane(CreatureEntityAttributes creatureAttributes, EditorStateProvider editorStateProvider,
-                                  EntityAssetUpdater entityAssetUpdater, ProfessionDictionary professionDictionary,
+    @Inject
+    public CreatureAttributesPane(EditorStateProvider editorStateProvider, ProfessionDictionary professionDictionary,
                                   EntityAssetTypeDictionary entityAssetTypeDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary,
-                                  ItemTypeDictionary itemTypeDictionary,
-                                  ItemEntityFactory itemEntityFactory, MessageDispatcher messageDispatcher) {
+                                  ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory, MessageDispatcher messageDispatcher) {
         super();
         this.editorStateProvider = editorStateProvider;
-        this.entityAssetUpdater = entityAssetUpdater;
         this.professionDictionary = professionDictionary;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
@@ -81,8 +80,12 @@ public class CreatureAttributesPane extends VisTable {
         fakeContext.setAreaMap(new TiledMap(1, 1, 1, FloorType.NULL_FLOOR, GameMaterial.NULL_MATERIAL));
         fakeContext.setGameClock(new GameClock());
         fakeContext.setRandom(new RandomXS128());
+    }
 
+    public void reload() {
         Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
+        CreatureEntityAttributes creatureAttributes = (CreatureEntityAttributes) currentEntity.getPhysicalEntityComponent().getAttributes();
+
         Collection<Gender> genders = creatureAttributes.getRace().getGenders().keySet();
         Collection<CreatureBodyShape> bodyShapes = creatureAttributes.getRace().getBodyShapes().stream().map(CreatureBodyShapeDescriptor::getValue).toList();
         Collection<Consciousness> consciousnesses = Arrays.asList(Consciousness.values());
@@ -121,8 +124,8 @@ public class CreatureAttributesPane extends VisTable {
         row();
 
         createEquippedItemWidget();
-//        debug();
     }
+
 
     @Override
     public <T extends Actor> Cell<T> add(T actor) {

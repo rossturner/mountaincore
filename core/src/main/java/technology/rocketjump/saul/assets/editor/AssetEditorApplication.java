@@ -19,6 +19,7 @@ import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import technology.rocketjump.saul.assets.editor.factory.CreatureUIFactory;
+import technology.rocketjump.saul.assets.editor.factory.ItemUIFactory;
 import technology.rocketjump.saul.assets.editor.factory.UIFactory;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
@@ -80,6 +81,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				bind(OrthographicCamera.class).toInstance(camera);
 				MapBinder<EntityType, UIFactory> uiFactoryMapBinder = MapBinder.newMapBinder(binder(), EntityType.class, UIFactory.class);
 				uiFactoryMapBinder.addBinding(EntityType.CREATURE).to(CreatureUIFactory.class);
+				uiFactoryMapBinder.addBinding(EntityType.ITEM).to(ItemUIFactory.class);
 			}
 		});
 		injector.getInstance(CrashHandler.class); //ensure we load user preferences for crash
@@ -183,7 +185,9 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 
 	@Override
 	public void resize (int width, int height) {
-		ui.onResize(width, height);
+		if (ui != null) {
+			ui.onResize(width, height);
+		}
 
 		float tempX = camera.position.x;
 		float tempY = camera.position.y;
