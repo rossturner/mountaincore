@@ -12,19 +12,22 @@ public class PropertyEditorPane extends VisTable {
 	@Inject
 	public PropertyEditorPane() {
 		this.background("window-bg");
+		this.defaults().left().top();
+
 		clear();
-		this.setDebug(true);
 	}
 
 	public void clear() {
 		this.clearChildren();
-		this.add(new VisLabel("Property Editor")).left().row();
+		this.add(new VisLabel("Property Editor")).row();
+		this.add(new VisTable()).expandY();
 	}
 
 	public void setControls(VisTable controls) {
-		this.clear();
+		this.clearChildren();
+		this.add(new VisLabel("Property Editor")).row();
 		VisScrollPane editorScrollPane = new VisScrollPane(controls);
-		this.add(editorScrollPane).pad(10).top().row();
+		this.add(editorScrollPane).pad(10).expandY().row();
 	}
 
 }

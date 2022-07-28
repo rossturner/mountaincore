@@ -4,16 +4,62 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.widget.*;
+import com.kotcrab.vis.ui.widget.spinner.IntSpinnerModel;
+import com.kotcrab.vis.ui.widget.spinner.Spinner;
 import org.apache.commons.lang3.text.WordUtils;
 import technology.rocketjump.saul.misc.ReflectionUtils;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class WidgetBuilder {
 
 	//Composite components
+
+	public static VisTable intSpinner(String labelText, int initialValue, int minValue, int maxValue, Consumer<Integer> changeListener) {
+		VisTable component = new VisTable();
+		IntSpinnerModel spinnerModel = new IntSpinnerModel(initialValue, minValue, maxValue);
+		Spinner spinner = new Spinner("", spinnerModel);
+		spinner.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				changeListener.accept(spinnerModel.getValue());
+			}
+		});
+
+		component.add(new VisLabel(niceLabel(labelText)));
+		component.add(spinner);
+		return component;
+	}
+
+	public static <T> VisTable checkboxGroup(String labelText, List<T> initialValue, Collection<T> options, Consumer<T> checkedListener, Consumer<T> uncheckedListener) {
+		VisTable component = new VisTable();
+		component.defaults().left();
+
+		VisTable checkBoxes = new VisTable();
+		for (T option : options) {
+			VisCheckBox checkbox = new VisCheckBox(option.toString());
+			checkbox.setChecked(initialValue.contains(option));
+			checkbox.addListener(new ChangeListener() {
+				@Override
+				public void changed(ChangeEvent event, Actor actor) {
+					if (checkbox.isChecked()) {
+						checkedListener.accept(option);
+					} else {
+						uncheckedListener.accept(option);
+					}
+				}
+			});
+			checkBoxes.add(checkbox).left().row();
+		}
+
+		component.add(new VisLabel(niceLabel(labelText)));
+		component.add(checkBoxes);
+		return component;
+	}
+
 	public static <T> VisTable selectField(String labelText, T initialValue, Collection<T> items, T valueIfNull, Consumer<T> changeListener) {
 		VisTable visTable = new VisTable();
 		VisLabel label = new VisLabel(niceLabel(labelText));
@@ -141,6 +187,5 @@ public class WidgetBuilder {
 	private static String niceLabel(String labelText) {
 		return WordUtils.capitalizeFully(labelText.endsWith(":") ? labelText : labelText + ":", '_');
 	}
-
 
 }

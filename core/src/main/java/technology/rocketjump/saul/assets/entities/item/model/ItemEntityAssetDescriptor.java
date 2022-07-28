@@ -18,7 +18,7 @@ public class ItemEntityAssetDescriptor {
 	private int maxQuantity = 1; // The largest amount that this asset can represent
 	private ItemSize itemSize;
 	private ItemStyle itemStyle;
-	private List<ItemQuality> itemQualities;
+	private List<ItemQuality> itemQualities = new ArrayList<>();
 	private List<ItemPlacement> itemPlacements = new ArrayList<>();
 
 	public boolean matches(ItemEntityAttributes entityAttributes) {

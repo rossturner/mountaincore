@@ -243,7 +243,7 @@ public class AssetEditorUI implements Telegraph {
 						//TODO: fix vertical layout
 						EntityAsset entityAsset = value.getEntityAsset();
 						VisTable assetControls = currentUiFactory.getAssetPropertyControls(entityAsset);
-						assetControls.add(spriteDescriptorsPane).expandX().fillX().colspan(2).left().row();
+						assetControls.add(spriteDescriptorsPane).expandX().fillX().colspan(2).left().row(); //assumes 2 cols?
 						List<EntityAssetOrientation> applicableOrientations = currentUiFactory.getApplicableOrientations(entityAsset);
 						List<ColoringLayer> applicableColoringLayers = currentUiFactory.getApplicableColoringLayers();
 						spriteDescriptorsPane.showSpriteDescriptorControls(entityAsset, currentUiFactory.getEntityType(), applicableOrientations, applicableColoringLayers);
