@@ -1,8 +1,5 @@
 package technology.rocketjump.saul.assets.editor.widgets.vieweditor;
 
-import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.ai.msg.Telegram;
-import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -12,48 +9,23 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.assets.editor.factory.UIFactory;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
-import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
-import technology.rocketjump.saul.assets.entities.creature.CreatureEntityAssetDictionary;
-import technology.rocketjump.saul.entities.EntityAssetUpdater;
-import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
-import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
-import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.RenderMode;
 
 import javax.inject.Inject;
 import java.util.Map;
 
-public class ViewEditorPane extends VisTable implements Telegraph {
+public class ViewEditorPane extends VisTable {
 
     private final EditorStateProvider editorStateProvider;
-    private final EntityAssetUpdater entityAssetUpdater;
-    private final ProfessionDictionary professionDictionary;
-    private final EntityAssetTypeDictionary entityAssetTypeDictionary;
-    private final CreatureEntityAssetDictionary creatureEntityAssetDictionary;
-    private final MessageDispatcher messageDispatcher;
-    private final ItemTypeDictionary itemTypeDictionary;
-    private final ItemEntityFactory itemEntityFactory;
     private final Map<EntityType, UIFactory> uiFactories;
 
     @Inject
-    public ViewEditorPane(EditorStateProvider editorStateProvider, EntityAssetUpdater entityAssetUpdater,
-                          ProfessionDictionary professionDictionary, EntityAssetTypeDictionary entityAssetTypeDictionary,
-                          CreatureEntityAssetDictionary creatureEntityAssetDictionary, MessageDispatcher messageDispatcher,
-                          ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory, Map<EntityType, UIFactory> uiFactories) {
+    public ViewEditorPane(EditorStateProvider editorStateProvider, Map<EntityType, UIFactory> uiFactories) {
         super();
         this.editorStateProvider = editorStateProvider;
-        this.entityAssetUpdater = entityAssetUpdater;
-        this.professionDictionary = professionDictionary;
-        this.entityAssetTypeDictionary = entityAssetTypeDictionary;
-        this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
-        this.messageDispatcher = messageDispatcher;
-        this.itemTypeDictionary = itemTypeDictionary;
-        this.itemEntityFactory = itemEntityFactory;
         this.uiFactories = uiFactories;
-        messageDispatcher.addListener(this, MessageType.EDITOR_BROWSER_TREE_SELECTION);
     }
 
 
@@ -103,15 +75,5 @@ public class ViewEditorPane extends VisTable implements Telegraph {
 
     private VisTable buildSpritePaddingWidget() {
         return WidgetBuilder.slider("Sprite padding", editorStateProvider.getState().getSpritePadding(), 1, 3, 1, value -> editorStateProvider.getState().setSpritePadding(value));
-    }
-
-    @Override
-    public boolean handleMessage(Telegram msg) {
-
-        //TODO: Subscribe to this to update the asset type drop downs
-//            case MessageType.EDITOR_BROWSER_TREE_SELECTION: {
-//                EntityBrowserValue value = (EntityBrowserValue) msg.extraInfo;
-        //EntityAsset comes from EDITOR_BROWSER_TREE_SELECTION
-        return true;
     }
 }
