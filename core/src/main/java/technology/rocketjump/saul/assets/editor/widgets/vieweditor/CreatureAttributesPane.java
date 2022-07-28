@@ -92,7 +92,7 @@ public class CreatureAttributesPane extends AbstractAttributesPane {
             professionsComponent.clear();
             professionsComponent.setSkillLevel(profession, 50);
         })));
-        add(WidgetBuilder.selectField("Sanity:", creatureAttributes.getSanity(), List.of(Sanity.values()), Sanity.SANE, update(creatureAttributes::setSanity)));
+        add(WidgetBuilder.selectField("Sanity:", attributes.getSanity(), List.of(Sanity.values()), Sanity.SANE, update(attributes::setSanity)));
 
         row();
 
