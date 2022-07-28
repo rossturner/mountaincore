@@ -4,7 +4,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "AVERAGE",
   "gender" : "FEMALE",
-  "profession" : "VILLAGER",
   "sanity" : "BROKEN",
   "spriteDescriptors" : {
     "DOWN" : {

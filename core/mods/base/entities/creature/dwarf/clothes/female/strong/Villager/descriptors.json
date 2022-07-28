@@ -4,7 +4,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "STRONG",
   "gender" : "FEMALE",
-  "profession" : "VILLAGER",
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Dwarf-Female-Strong-Villager-Clothing-F.png"

@@ -42,8 +42,4 @@
   "name" : "HUNTER",
   "i18nKey" : "PROFESSION.HUNTER",
   "icon" : "profession-bow"
-}, {
-  "name" : "VILLAGER",
-  "i18nKey" : "PROFESSION.VILLAGER",
-  "icon" : "profession-none"
 } ]

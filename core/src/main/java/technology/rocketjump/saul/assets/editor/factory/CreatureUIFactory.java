@@ -64,6 +64,8 @@ import static technology.rocketjump.saul.assets.entities.model.ColoringLayer.*;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
 
+import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+
 @Singleton
 public class CreatureUIFactory implements UIFactory {
     private final MessageDispatcher messageDispatcher;
@@ -291,7 +293,7 @@ public class CreatureUIFactory implements UIFactory {
         asset.setRace(race);
         asset.setConsciousness(null);
         asset.setConsciousnessList(new ArrayList<>());
-        asset.setProfession("VILLAGER"); //TODO: revisit null object pattern
+        asset.setProfession(NULL_PROFESSION.getName());
 
 
         VisValidatableTextField uniqueNameTextBox = new VisValidatableTextField();
@@ -320,7 +322,7 @@ public class CreatureUIFactory implements UIFactory {
         dialog.row();
         dialog.add(WidgetBuilder.selectField("Body Shape:", asset.getBodyShape(), bodyShapes, null, compose(asset::setBodyShape, uniqueNameRebuilder))).left();
         dialog.row();
-        dialog.add(WidgetBuilder.selectField("Profession:", asset.getProfession(), allProfessions, null, compose(asset::setProfession, uniqueNameRebuilder))).left();
+        dialog.add(WidgetBuilder.selectField("Profession:", asset.getProfession(), allProfessions, NULL_PROFESSION.getName(), compose(asset::setProfession, uniqueNameRebuilder))).left();
         dialog.row();
         dialog.add(WidgetBuilder.selectField("Type", asset.getType(), assetTypes, entityAssetTypeDictionary.getByName("CREATURE_BODY"), compose(asset::setType, uniqueNameRebuilder))).left();
         dialog.row();

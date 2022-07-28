@@ -4,7 +4,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "FAT",
   "gender" : "FEMALE",
-  "profession" : "VILLAGER",
   "sanity" : "BROKEN",
   "spriteDescriptors" : {
     "DOWN" : {

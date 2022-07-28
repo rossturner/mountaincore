@@ -29,10 +29,7 @@ import technology.rocketjump.saul.entities.components.humanoid.ProfessionsCompon
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
-import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
-import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
-import technology.rocketjump.saul.entities.model.physical.creature.Gender;
+import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.SpeciesColor;
@@ -95,6 +92,7 @@ public class CreatureAttributesPane extends AbstractAttributesPane {
             professionsComponent.clear();
             professionsComponent.setSkillLevel(profession, 50);
         })));
+        add(WidgetBuilder.selectField("Sanity:", creatureAttributes.getSanity(), List.of(Sanity.values()), Sanity.SANE, update(creatureAttributes::setSanity)));
 
         row();
 
