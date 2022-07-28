@@ -38,7 +38,7 @@
     "materialType": "STONE",
     "rockGroup": "Metamorphic",
     "prevalence": 1,
-    "colorCode": "#ffffff",
+    "colorCode": "#c3c6ce",
     "oreNames": ["Malachite", "Chrysocolla", "Galena", "Thorium", "Pyrite", "Ilmenite"]
   },
   {
@@ -46,7 +46,7 @@
     "materialType": "STONE",
     "rockGroup": "Metamorphic",
     "prevalence": 1,
-    "colorCode": "#ffffe6",
+    "colorCode": "#ffffff",
     "oreNames": ["Malachite", "Chrysocolla", "Galena", "Wolframite", "Pyrite", "Ilmenite"]
   },
   {
@@ -54,7 +54,7 @@
     "materialType": "STONE",
     "rockGroup": "Igneous",
     "prevalence": 4,
-    "colorCode": "#7d6d6d",
+    "colorCode": "#816e6e",
     "oreNames": ["Native Gold", "Native Platinum", "Hematite", "Native Copper", "Native Silver", "Wolframite", "Pollucite"]
   },
   {
@@ -62,7 +62,7 @@
     "materialType": "STONE",
     "rockGroup": "Igneous",
     "prevalence": 1,
-    "colorCode": "#8C8C8C",
+    "colorCode": "#7f9199",
     "oreNames": ["Native Gold", "Native Platinum", "Hematite", "Native Copper", "Wolframite", "Ilmenite"]
   },
   {
