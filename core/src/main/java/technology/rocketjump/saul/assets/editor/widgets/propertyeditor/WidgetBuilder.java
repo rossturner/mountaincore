@@ -42,13 +42,19 @@ public class WidgetBuilder {
 
 	public static VisTable slider(String labelText, int initialValue, int min, int max, int step, Consumer<Integer> changeListener) {
 		VisTable spritePaddingRow = new VisTable();
-		spritePaddingRow.add(new VisLabel(niceLabel(labelText))).left();
+		String format = "%s (%d)";
+		String labelTextWithCount = String.format(format, labelText, initialValue);
+
+		VisLabel label = new VisLabel(niceLabel(labelTextWithCount));
+		spritePaddingRow.add(label).left();
 		VisSlider slider = new VisSlider(min, max, step, false);
 		slider.setValue(initialValue);
 		slider.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				changeListener.accept((int) slider.getValue());
+				int newValue = (int) slider.getValue();
+				label.setText(niceLabel(String.format(format, labelText, newValue)));
+				changeListener.accept(newValue);
 			}
 		});
 		spritePaddingRow.add(slider).left();
