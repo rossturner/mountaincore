@@ -18,7 +18,7 @@ public class ProfessionDictionary {
 	public static Profession NULL_PROFESSION = new Profession();
 	public static Profession CONTEXT_DEPENDENT_PROFESSION_REQUIRED = new Profession();
 	static {
-		NULL_PROFESSION.setName("Null profession");
+		NULL_PROFESSION.setName("NULL_PROFESSION");
 		NULL_PROFESSION.setI18nKey("PROFESSION.VILLAGER");
 		NULL_PROFESSION.setIcon("profession-none");
 		CONTEXT_DEPENDENT_PROFESSION_REQUIRED.setName("Specific profession required");
@@ -34,14 +34,9 @@ public class ProfessionDictionary {
 		List<Profession> professions = objectMapper.readValue(FileUtils.readFileToString(professionsJsonFile, "UTF-8"),
 				objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, Profession.class));
 
+		byName.put(NULL_PROFESSION.getName(), NULL_PROFESSION);
 		for (Profession profession : professions) {
 			byName.put(profession.getName(), profession);
-
-			if (profession.getName().equals("VILLAGER")) {
-				NULL_PROFESSION.setName(profession.getName());
-				NULL_PROFESSION.setI18nKey(profession.getI18nKey());
-				NULL_PROFESSION.setIcon(profession.getIcon());
-			}
 		}
 	}
 

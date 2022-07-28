@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+
 public class CreatureEntityAssetDescriptor {
 
 	@Name
@@ -37,7 +39,7 @@ public class CreatureEntityAssetDescriptor {
 		if (gender != null && !gender.equals(Gender.ANY) && !gender.equals(entityAttributes.getGender())) {
 			return false;
 		}
-		if (profession != null && primaryProfession != null && !profession.equals(primaryProfession.getName())) {
+		if (profession != null && !profession.equals(NULL_PROFESSION.getName()) && primaryProfession != null && !profession.equals(primaryProfession.getName())) {
 			return false;
 		}
 		if (consciousness != null && entityAttributes.getConsciousness() != consciousness) {

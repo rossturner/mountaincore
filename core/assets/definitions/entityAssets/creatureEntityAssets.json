@@ -11293,7 +11293,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "AVERAGE",
   "gender" : "FEMALE",
-  "profession" : "VILLAGER",
   "sanity" : "BROKEN",
   "tags" : { },
   "spriteDescriptors" : {
@@ -11394,7 +11393,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "AVERAGE",
   "gender" : "FEMALE",
-  "profession" : "VILLAGER",
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -12594,7 +12592,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "FAT",
   "gender" : "FEMALE",
-  "profession" : "VILLAGER",
   "sanity" : "BROKEN",
   "tags" : { },
   "spriteDescriptors" : {
@@ -12695,7 +12692,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "FAT",
   "gender" : "FEMALE",
-  "profession" : "VILLAGER",
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -13895,7 +13891,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "STRONG",
   "gender" : "FEMALE",
-  "profession" : "VILLAGER",
   "sanity" : "BROKEN",
   "tags" : { },
   "spriteDescriptors" : {
@@ -13996,7 +13991,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "STRONG",
   "gender" : "FEMALE",
-  "profession" : "VILLAGER",
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -15196,7 +15190,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "AVERAGE",
   "gender" : "MALE",
-  "profession" : "VILLAGER",
   "sanity" : "BROKEN",
   "tags" : { },
   "spriteDescriptors" : {
@@ -15297,7 +15290,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "AVERAGE",
   "gender" : "MALE",
-  "profession" : "VILLAGER",
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -16497,7 +16489,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "FAT",
   "gender" : "MALE",
-  "profession" : "VILLAGER",
   "sanity" : "BROKEN",
   "tags" : { },
   "spriteDescriptors" : {
@@ -16598,7 +16589,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "FAT",
   "gender" : "MALE",
-  "profession" : "VILLAGER",
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -17798,7 +17788,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "STRONG",
   "gender" : "MALE",
-  "profession" : "VILLAGER",
   "sanity" : "BROKEN",
   "tags" : { },
   "spriteDescriptors" : {
@@ -17899,7 +17888,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "STRONG",
   "gender" : "MALE",
-  "profession" : "VILLAGER",
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {

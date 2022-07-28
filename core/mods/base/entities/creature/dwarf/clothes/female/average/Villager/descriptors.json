@@ -4,7 +4,6 @@
   "raceName" : "Dwarf",
   "bodyShape" : "AVERAGE",
   "gender" : "FEMALE",
-  "profession" : "VILLAGER",
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Dwarf-Female-Average-Villager-Clothing-F.png"
