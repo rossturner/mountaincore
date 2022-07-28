@@ -58,7 +58,6 @@ public class WidgetBuilder {
 			}
 		});
 		spritePaddingRow.add(slider).left();
-		//todo maybe display number
 		return spritePaddingRow;
 	}
 
