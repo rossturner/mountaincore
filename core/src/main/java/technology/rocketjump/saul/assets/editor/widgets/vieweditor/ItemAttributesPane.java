@@ -56,14 +56,6 @@ public class ItemAttributesPane extends AbstractAttributesPane {
         }
         add(WidgetBuilder.selectField("Quality", attributes.getItemQuality(), itemQualities, null, update(attributes::setItemQuality)));
 
-
-
-        //stone material
-        //ore material
-        //gem material
-        //wood material
-        //metal material
-        //tree species
         //seed?
     }
 }

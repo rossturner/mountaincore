@@ -3,7 +3,6 @@ package technology.rocketjump.saul.assets.editor.widgets;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.kotcrab.vis.ui.widget.VisDialog;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
@@ -56,18 +55,22 @@ public abstract class OkCancelDialog {
     }
 
     public <T extends Actor> Cell<T> add(T actor) {
-        //TODO: maybe recursive
-        if (actor instanceof Table table) {
-            table.getChildren().forEach(child -> {
-                if (child instanceof VisValidatableTextField f) {
-                    validatedFields.add(f);
-                }
-            });
-        }
-        if (actor instanceof VisValidatableTextField f) {
+        if (actor instanceof Group group) {
+            captureValidatingFields(group);
+        } else if (actor instanceof VisValidatableTextField f) {
             validatedFields.add(f);
         }
         return visDialog.getContentTable().add(actor).fillX().expandX();
+    }
+
+    private void captureValidatingFields(Group group) {
+        for (Actor child : group.getChildren()) {
+            if (child instanceof VisValidatableTextField f) {
+                validatedFields.add(f);
+            } else if (child instanceof Group g) {
+                captureValidatingFields(g);
+            }
+        }
     }
 
     public void row() {
