@@ -40,7 +40,11 @@ import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorPane;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeMessage;
 import technology.rocketjump.saul.assets.editor.widgets.navigator.NavigatorTreeValue;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.PropertyEditorPane;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.SpriteDescriptorsPane;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.ViewEditorPane;
+import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
+import technology.rocketjump.saul.assets.entities.model.EntityAsset;
+import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -48,6 +52,7 @@ import technology.rocketjump.saul.persistence.FileUtils;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 
 import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_ASSET_DESCRIPTOR;
@@ -67,6 +72,7 @@ public class AssetEditorUI implements Telegraph {
 	private final NavigatorPane navigatorPane;
 	private final EntityBrowserPane entityBrowserPane;
 	private final PropertyEditorPane propertyEditorPane;
+	private final SpriteDescriptorsPane spriteDescriptorsPane;
 	private final EditorStateProvider editorStateProvider;
 	private final ColorPicker colorPicker;
 	private final Map<EntityType, UIFactory> uiFactories;
@@ -78,7 +84,8 @@ public class AssetEditorUI implements Telegraph {
 	@Inject
 	public AssetEditorUI(EntityBrowserContextMenu browserContextMenu, TopLevelMenu topLevelMenu, NavigatorPane navigatorPane,
 						 EntityBrowserPane entityBrowserPane, PropertyEditorPane propertyEditorPane,
-						 MessageDispatcher messageDispatcher, ViewEditorPane viewEditor, EditorStateProvider editorStateProvider,
+						 MessageDispatcher messageDispatcher, ViewEditorPane viewEditor,
+						 SpriteDescriptorsPane spriteDescriptorsPane, EditorStateProvider editorStateProvider,
 						 Map<EntityType, UIFactory> uiFactories, SpriteCropperPipeline spriteCropperPipeline) {
 		this.browserContextMenu = browserContextMenu;
 		this.topLevelMenu = topLevelMenu;
@@ -86,6 +93,7 @@ public class AssetEditorUI implements Telegraph {
 		this.entityBrowserPane = entityBrowserPane;
 		this.propertyEditorPane = propertyEditorPane;
 		this.viewEditor = viewEditor;
+		this.spriteDescriptorsPane = spriteDescriptorsPane;
 		this.editorStateProvider = editorStateProvider;
 		this.uiFactories = uiFactories;
 		this.spriteCropperPipeline = spriteCropperPipeline;
@@ -213,7 +221,7 @@ public class AssetEditorUI implements Telegraph {
 					currentUiFactory = uiFactories.get(selection.getEntityType());
 					entity = currentUiFactory.createEntityForRendering(selection.getTypeName());
 				}
-				propertyEditorPane.showControlsFor(null);
+				propertyEditorPane.clear();
 				editorStateProvider.getState().setCurrentEntity(entity);
 				editorStateProvider.getState().setEntitySelection(selection);
 				editorStateProvider.stateChanged();
@@ -229,16 +237,22 @@ public class AssetEditorUI implements Telegraph {
 					selection.setUniqueName(value.label);
 					editorStateProvider.getState().setAssetSelection(selection);
 					editorStateProvider.stateChanged();
-					//TODO: ui factory, show controls for typeDescriptor and showControlsForEntityAsset
 					if (value.treeValueType.equals(ENTITY_TYPE_DESCRIPTOR)) {
-						propertyEditorPane.showControlsFor(value.getTypeDescriptor());
+						propertyEditorPane.setControls(currentUiFactory.getEntityPropertyControls(value.getTypeDescriptor(), value.path));
 					} else if (value.treeValueType.equals(ENTITY_ASSET_DESCRIPTOR)) {
-						propertyEditorPane.showControlsFor(value.getEntityAsset());
+						//TODO: fix vertical layout
+						EntityAsset entityAsset = value.getEntityAsset();
+						VisTable assetControls = currentUiFactory.getAssetPropertyControls(entityAsset);
+						assetControls.add(spriteDescriptorsPane).expandX().fillX().colspan(2).left().row();
+						List<EntityAssetOrientation> applicableOrientations = currentUiFactory.getApplicableOrientations(entityAsset);
+						List<ColoringLayer> applicableColoringLayers = currentUiFactory.getApplicableColoringLayers();
+						spriteDescriptorsPane.showSpriteDescriptorControls(entityAsset, currentUiFactory.getEntityType(), applicableOrientations, applicableColoringLayers);
+						propertyEditorPane.setControls(assetControls);
 					}
 				} else {
 					editorStateProvider.getState().setAssetSelection(null);
 					editorStateProvider.stateChanged();
-					propertyEditorPane.showControlsFor(null);
+					propertyEditorPane.clear();
 				}
 				return true;
 			}

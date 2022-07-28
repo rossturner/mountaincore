@@ -8,6 +8,10 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.ItemAttributesPane;
+import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
+import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
+import technology.rocketjump.saul.assets.entities.model.EntityAsset;
+import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -17,7 +21,11 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionar
 import technology.rocketjump.saul.gamecontext.GameContext;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Random;
+
+import static technology.rocketjump.saul.assets.entities.item.model.ItemPlacement.BEING_CARRIED;
+import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 
 @Singleton
 public class ItemUIFactory implements UIFactory {
@@ -35,6 +43,16 @@ public class ItemUIFactory implements UIFactory {
     @Override
     public EntityType getEntityType() {
         return EntityType.ITEM;
+    }
+
+    @Override
+    public List<EntityAssetOrientation> getApplicableOrientations(EntityAsset entityAsset) {
+        List<ItemPlacement> itemPlacements = ((ItemEntityAsset) entityAsset).getItemPlacements();
+        if (itemPlacements.isEmpty() || itemPlacements.contains(BEING_CARRIED)) {
+            return List.of(DOWN, DOWN_LEFT, DOWN_RIGHT, UP_LEFT, UP_RIGHT, UP);
+        } else {
+            return List.of(DOWN);
+        }
     }
 
     @Override
@@ -63,7 +81,17 @@ public class ItemUIFactory implements UIFactory {
     }
 
     @Override
+    public VisTable getEntityPropertyControls(Object typeDescriptor, Path basePath) {
+        return new VisTable();
+    }
+
+    @Override
     public OkCancelDialog createAssetDialog(ShowCreateAssetDialogMessage message) {
         return null;
+    }
+
+    @Override
+    public VisTable getAssetPropertyControls(EntityAsset entityAsset) {
+        return new VisTable();
     }
 }
