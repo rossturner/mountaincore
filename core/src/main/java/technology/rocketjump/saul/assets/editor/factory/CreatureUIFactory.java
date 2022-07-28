@@ -14,6 +14,7 @@ import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.assets.editor.UniqueAssetNameValidator;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.model.CreatureNameBuilders;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
@@ -62,8 +63,6 @@ import java.util.stream.Collectors;
 import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.*;
 import static technology.rocketjump.saul.assets.entities.model.ColoringLayer.*;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
-
 import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
 
 @Singleton
@@ -297,8 +296,7 @@ public class CreatureUIFactory implements UIFactory {
 
 
         VisValidatableTextField uniqueNameTextBox = new VisValidatableTextField();
-        uniqueNameTextBox.addValidator(StringUtils::isNotBlank);
-        uniqueNameTextBox.addValidator(input -> completeAssetDictionary.getByUniqueName(input) == null);
+        uniqueNameTextBox.addValidator(new UniqueAssetNameValidator(completeAssetDictionary));
 
         Consumer<Object> uniqueNameRebuilder = o -> {
             String builtName = CreatureNameBuilders.buildUniqueNameForAsset(race, asset);

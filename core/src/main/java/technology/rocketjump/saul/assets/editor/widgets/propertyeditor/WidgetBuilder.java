@@ -3,6 +3,7 @@ package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
+import com.kotcrab.vis.ui.util.InputValidator;
 import com.kotcrab.vis.ui.widget.*;
 import com.kotcrab.vis.ui.widget.spinner.IntSpinnerModel;
 import com.kotcrab.vis.ui.widget.spinner.Spinner;
@@ -18,8 +19,24 @@ public class WidgetBuilder {
 
 	//Composite components
 
-	public static VisTable intSpinner(String labelText, int initialValue, int minValue, int maxValue, Consumer<Integer> changeListener) {
+	public static VisTable textField(String labelText, String initialValue, Consumer<String> changeListener, InputValidator inputValidator) {
+		VisValidatableTextField textField = new VisValidatableTextField();
+		textField.setText(initialValue);
+		textField.addValidator(inputValidator);
+		textField.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				changeListener.accept(textField.getText());
+			}
+		});
+
 		VisTable component = new VisTable();
+		component.add(new VisLabel(niceLabel(labelText)));
+		component.add(textField);
+		return component;
+	}
+
+	public static VisTable intSpinner(String labelText, int initialValue, int minValue, int maxValue, Consumer<Integer> changeListener) {
 		IntSpinnerModel spinnerModel = new IntSpinnerModel(initialValue, minValue, maxValue);
 		Spinner spinner = new Spinner("", spinnerModel);
 		spinner.addListener(new ChangeListener() {
@@ -29,6 +46,7 @@ public class WidgetBuilder {
 			}
 		});
 
+		VisTable component = new VisTable();
 		component.add(new VisLabel(niceLabel(labelText)));
 		component.add(spinner);
 		return component;

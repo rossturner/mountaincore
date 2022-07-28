@@ -54,6 +54,11 @@ public abstract class OkCancelDialog {
         visDialog.key(Input.Keys.ESCAPE, false);
     }
 
+    public <T extends Actor> void addRow(T actor) {
+        add(actor);
+        row();
+    }
+
     public <T extends Actor> Cell<T> add(T actor) {
         if (actor instanceof Group group) {
             captureValidatingFields(group);
@@ -61,6 +66,10 @@ public abstract class OkCancelDialog {
             validatedFields.add(f);
         }
         return visDialog.getContentTable().add(actor).fillX().expandX();
+    }
+
+    public void row() {
+        visDialog.getContentTable().row();
     }
 
     private void captureValidatingFields(Group group) {
@@ -73,9 +82,6 @@ public abstract class OkCancelDialog {
         }
     }
 
-    public void row() {
-        visDialog.getContentTable().row();
-    }
 
     public abstract void onOk();
 

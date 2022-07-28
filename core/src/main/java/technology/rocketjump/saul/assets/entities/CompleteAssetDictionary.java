@@ -6,6 +6,7 @@ import technology.rocketjump.saul.assets.entities.creature.CreatureEntityAssetDi
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.assets.entities.furniture.FurnitureEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.item.ItemEntityAssetDictionary;
+import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.mechanism.MechanismEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.plant.PlantEntityAssetDictionary;
@@ -55,6 +56,11 @@ public class CompleteAssetDictionary {
 
 	public void add(CreatureEntityAsset asset) {
 		creatureEntityAssetDictionary.add(asset);
+		rebuild();
+	}
+
+	public void add(ItemEntityAsset itemEntityAsset) {
+		itemEntityAssetDictionary.add(itemEntityAsset);
 		rebuild();
 	}
 

@@ -1,15 +1,19 @@
 package technology.rocketjump.saul.assets.editor.factory;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.VisTable;
+import technology.rocketjump.saul.assets.editor.UniqueAssetNameValidator;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
+import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.ItemAttributesPane;
+import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
@@ -26,6 +30,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.nio.file.Path;
@@ -39,19 +44,24 @@ import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrient
 
 @Singleton
 public class ItemUIFactory implements UIFactory {
+    private final MessageDispatcher messageDispatcher;
     private final ItemEntityFactory itemEntityFactory;
     private final ItemTypeDictionary itemTypeDictionary;
     private final ItemAttributesPane itemAttributesPane;
 
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
+    private final CompleteAssetDictionary completeAssetDictionary;
 
     @Inject
-    public ItemUIFactory(ItemEntityFactory itemEntityFactory, ItemTypeDictionary itemTypeDictionary, ItemAttributesPane itemAttributesPane,
-                         EntityAssetTypeDictionary entityAssetTypeDictionary) {
+    public ItemUIFactory(MessageDispatcher messageDispatcher, ItemEntityFactory itemEntityFactory, ItemTypeDictionary itemTypeDictionary,
+                         ItemAttributesPane itemAttributesPane, EntityAssetTypeDictionary entityAssetTypeDictionary,
+                         CompleteAssetDictionary completeAssetDictionary) {
+        this.messageDispatcher = messageDispatcher;
         this.itemEntityFactory = itemEntityFactory;
         this.itemTypeDictionary = itemTypeDictionary;
         this.itemAttributesPane = itemAttributesPane;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
+        this.completeAssetDictionary = completeAssetDictionary;
     }
 
     @Override
@@ -143,13 +153,32 @@ public class ItemUIFactory implements UIFactory {
 
     @Override
     public OkCancelDialog createAssetDialog(ShowCreateAssetDialogMessage message) {
+        //TODO: quite a bit of duplication between here and the editor
         final Path directory = FileUtils.getDirectory(message.path()); //duplicated from CreatureUI
+        Path descriptorsFile = directory.resolve("descriptors.json");
+
+        ItemEntityAsset itemEntityAsset = new ItemEntityAsset();
         OkCancelDialog dialog = new OkCancelDialog("Create asset under " + directory) {
             @Override
             public void onOk() {
-
+                completeAssetDictionary.add(itemEntityAsset);
+                EntityBrowserValue value = EntityBrowserValue.forAsset(getEntityType(), descriptorsFile, itemEntityAsset, message.typeDescriptor());
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_ASSET_CREATED, value);
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, value);
             }
         };
+
+        //todo: nice pattern for name rebuilding without the faff
+        Collection<EntityAssetType> entityAssetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType());
+        Collection<String> itemTypeNames = itemTypeDictionary.getAll().stream().map(ItemType::getItemTypeName).toList();
+        Collection<ItemPlacement> itemPlacements = Arrays.asList(ItemPlacement.values());
+
+        dialog.addRow(WidgetBuilder.selectField("Item Type", itemEntityAsset.getItemTypeName(), itemTypeNames, null, itemEntityAsset::setItemTypeName));
+        dialog.addRow(WidgetBuilder.selectField("Type", itemEntityAsset.getType(), entityAssetTypes, null, itemEntityAsset::setType));
+        dialog.addRow(WidgetBuilder.checkboxGroup("Placements", itemEntityAsset.getItemPlacements(), itemPlacements, itemEntityAsset.getItemPlacements()::add, itemEntityAsset.getItemPlacements()::remove));
+        dialog.addRow(WidgetBuilder.textField("Name", itemEntityAsset.getUniqueName(), itemEntityAsset::setUniqueName, new UniqueAssetNameValidator(completeAssetDictionary)));
+
+        //generate name "Tool-Large-Hammer-Head-On-Ground",
 
         return dialog;
     }
@@ -159,6 +188,7 @@ public class ItemUIFactory implements UIFactory {
         ItemEntityAsset itemEntityAsset = (ItemEntityAsset) entityAsset;
 
         Collection<EntityAssetType> entityAssetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType());
+        Collection<String> itemTypeNames = itemTypeDictionary.getAll().stream().map(ItemType::getItemTypeName).toList();
         Collection<ItemSize> itemSizes = Arrays.asList(ItemSize.values());
         Collection<ItemStyle> itemStyles = Arrays.asList(ItemStyle.values());
         Collection<ItemPlacement> itemPlacements = Arrays.asList(ItemPlacement.values());
@@ -175,11 +205,12 @@ public class ItemUIFactory implements UIFactory {
         };
         assetComponents.defaults().left();
         assetComponents.columnDefaults(0).uniformX().left();
-//        private String uniqueName;
+        assetComponents.addComponent(WidgetBuilder.textField("Name", itemEntityAsset.getUniqueName(), itemEntityAsset::setUniqueName, new UniqueAssetNameValidator(completeAssetDictionary)));
         assetComponents.addComponent(WidgetBuilder.selectField("Type", itemEntityAsset.getType(), entityAssetTypes, null, itemEntityAsset::setType));
-//        private String itemTypeName;
+        assetComponents.addComponent(WidgetBuilder.selectField("Item Type", itemEntityAsset.getItemTypeName(), itemTypeNames, null, itemEntityAsset::setItemTypeName)); //TODO: consider fixing to entity selection
         assetComponents.addComponent(WidgetBuilder.intSpinner("Min Quantity", itemEntityAsset.getMinQuantity(), 1, Integer.MAX_VALUE, itemEntityAsset::setMinQuantity));
         assetComponents.addComponent(WidgetBuilder.intSpinner("Max Quantity", itemEntityAsset.getMaxQuantity(), 1, Integer.MAX_VALUE, itemEntityAsset::setMaxQuantity));
+        assetComponents.row().padTop(15);
         assetComponents.addComponent(WidgetBuilder.checkboxGroup("Qualities", itemEntityAsset.getItemQualities(), itemQualities, itemEntityAsset.getItemQualities()::add, itemEntityAsset.getItemQualities()::remove));
         assetComponents.row().padTop(15);
         assetComponents.addComponent(WidgetBuilder.checkboxGroup("Placements", itemEntityAsset.getItemPlacements(), itemPlacements, itemEntityAsset.getItemPlacements()::add, itemEntityAsset.getItemPlacements()::remove));
