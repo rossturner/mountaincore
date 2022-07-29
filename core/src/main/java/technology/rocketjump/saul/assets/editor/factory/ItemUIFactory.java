@@ -211,6 +211,7 @@ public class ItemUIFactory implements UIFactory {
         };
         assetComponents.defaults().left();
         assetComponents.columnDefaults(0).uniformX().left();
+        assetComponents.columnDefaults(1).fillX();
         assetComponents.addComponent(WidgetBuilder.textField("Name", itemEntityAsset.getUniqueName(), itemEntityAsset::setUniqueName, new UniqueAssetNameValidator(completeAssetDictionary)));
         assetComponents.addComponent(WidgetBuilder.selectField("Type", itemEntityAsset.getType(), entityAssetTypes, null, itemEntityAsset::setType));
         assetComponents.addComponent(WidgetBuilder.selectField("Item Type", itemEntityAsset.getItemTypeName(), itemTypeNames, null, itemEntityAsset::setItemTypeName)); //TODO: consider fixing to entity selection

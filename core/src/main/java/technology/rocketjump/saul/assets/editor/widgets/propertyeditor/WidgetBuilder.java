@@ -73,7 +73,7 @@ public class WidgetBuilder {
 					}
 				}
 			});
-			checkBoxes.add(checkbox).left().row();
+			checkBoxes.add(checkbox).expandX().left().row();
 		}
 
 		component.add(new VisLabel(niceLabel(labelText)));
