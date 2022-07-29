@@ -31,6 +31,8 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.item.*;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
+import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
@@ -51,17 +53,19 @@ public class ItemUIFactory implements UIFactory {
 
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
     private final CompleteAssetDictionary completeAssetDictionary;
+    private final CraftingTypeDictionary craftingTypeDictionary;
 
     @Inject
     public ItemUIFactory(MessageDispatcher messageDispatcher, ItemEntityFactory itemEntityFactory, ItemTypeDictionary itemTypeDictionary,
                          ItemAttributesPane itemAttributesPane, EntityAssetTypeDictionary entityAssetTypeDictionary,
-                         CompleteAssetDictionary completeAssetDictionary) {
+                         CompleteAssetDictionary completeAssetDictionary, CraftingTypeDictionary craftingTypeDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.itemEntityFactory = itemEntityFactory;
         this.itemTypeDictionary = itemTypeDictionary;
         this.itemAttributesPane = itemAttributesPane;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.completeAssetDictionary = completeAssetDictionary;
+        this.craftingTypeDictionary = craftingTypeDictionary;
     }
 
     @Override
@@ -119,7 +123,7 @@ public class ItemUIFactory implements UIFactory {
 //        controls.debug();
         controls.defaults().left();
         controls.columnDefaults(0).uniformX().left();
-        controls.columnDefaults(1).fillX();
+        controls.columnDefaults(1).fillX().left();
 
 //        private long itemTypeId;
         controls.add(WidgetBuilder.label("Name"));
@@ -134,13 +138,15 @@ public class ItemUIFactory implements UIFactory {
         controls.add(WidgetBuilder.intSpinner(itemType.getMaxHauledAtOnce(), 0, Integer.MAX_VALUE, itemType::setMaxHauledAtOnce));
         controls.row();
 
-        controls.add(WidgetBuilder.label("Materials"));
-        controls.addSeparator().padTop(15);
+        controls.add(WidgetBuilder.label("Materials")).padTop(15);
+        controls.row();
+        controls.addSeparator().colspan(2);
 
         controls.add(WidgetBuilder.label("Material Only"));
         controls.add(WidgetBuilder.toggle(itemType.isDescribeAsMaterialOnly(), itemType::setDescribeAsMaterialOnly));
         controls.row();
-        //Todo: nicer name
+
+        //Todo: nicer display name
         Map<GameMaterialType, VisCheckBox> materialTypeMap = new HashMap<>();
         for (GameMaterialType materialType : GameMaterialType.values()) {
             VisCheckBox checkBox = WidgetBuilder.checkBox(materialType, itemType.getMaterialTypes().contains(materialType),
@@ -170,16 +176,14 @@ public class ItemUIFactory implements UIFactory {
         }));
         controls.row();
 
-        //todo: fix right column layout
         int checkboxColCount = 1;
         for (VisCheckBox checkBox : materialTypeMap.values()) {
-                controls.add(checkBox);
+            controls.add(checkBox).fill(false, false).left();
             if (checkboxColCount % 2 == 0) {
                 controls.row();
             }
             checkboxColCount++;
         }
-
 
         controls.addSeparator().colspan(2).padBottom(15);
 
@@ -205,10 +209,35 @@ public class ItemUIFactory implements UIFactory {
 //        controls.add(WidgetBuilder.doubleSpinner(itemType.getHoursInInventoryUntilUnused(), 0, Double.MAX_VALUE, itemType::setHoursInInventoryUntilUnused));
 //        controls.row();
 
+        controls.add(WidgetBuilder.label("Crafting")).padTop(15);
+        controls.row();
+        controls.addSeparator().colspan(2);
+        controls.row();
 
+        int craftingCheckboxCount = 1;
+        for (CraftingType craftingType : craftingTypeDictionary.getAll()) {
+            VisCheckBox checkBox = WidgetBuilder.checkBox(craftingType, itemType.getRelatedCraftingTypes().contains(craftingType),
+                    it -> {
+                        if (!itemType.getRelatedCraftingTypes().contains(it)) {
+                            itemType.getRelatedCraftingTypes().add(it);
+                            itemType.getRelatedCraftingTypeNames().add(it.getName());
+                        }
+                    },
+                    it -> {
+                        itemType.getRelatedCraftingTypes().remove(it);
+                        itemType.getRelatedCraftingTypeNames().remove(it.getName());
+                    });
 
-//        private List<String> relatedCraftingTypeNames = new ArrayList<>();
-//        private List<CraftingType> relatedCraftingTypes = new ArrayList<>();
+            controls.add(checkBox).fill(false, false).left();
+            if (craftingCheckboxCount % 2 == 0) {
+                controls.row();
+            }
+            craftingCheckboxCount++;
+        }
+
+        controls.row();
+        controls.addSeparator().colspan(2).padBottom(15);
+        controls.row();
 //
 //        private String stockpileGroupName;
 //        private StockpileGroup stockpileGroup;
