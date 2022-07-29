@@ -73,4 +73,9 @@ public class SoundAsset {
 	public void setVolumeModifier(float volumeModifier) {
 		this.volumeModifier = volumeModifier;
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }

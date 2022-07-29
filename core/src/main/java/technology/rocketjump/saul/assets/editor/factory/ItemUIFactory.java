@@ -26,6 +26,8 @@ import technology.rocketjump.saul.assets.entities.item.model.ItemStyle;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
+import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -57,12 +59,13 @@ public class ItemUIFactory implements UIFactory {
     private final CompleteAssetDictionary completeAssetDictionary;
     private final CraftingTypeDictionary craftingTypeDictionary;
     private final StockpileGroupDictionary stockpileGroupDictionary;
+    private final SoundAssetDictionary soundAssetDictionary;
 
     @Inject
     public ItemUIFactory(MessageDispatcher messageDispatcher, ItemEntityFactory itemEntityFactory, ItemTypeDictionary itemTypeDictionary,
                          ItemAttributesPane itemAttributesPane, EntityAssetTypeDictionary entityAssetTypeDictionary,
                          CompleteAssetDictionary completeAssetDictionary, CraftingTypeDictionary craftingTypeDictionary,
-                         StockpileGroupDictionary stockpileGroupDictionary) {
+                         StockpileGroupDictionary stockpileGroupDictionary, SoundAssetDictionary soundAssetDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.itemEntityFactory = itemEntityFactory;
         this.itemTypeDictionary = itemTypeDictionary;
@@ -71,6 +74,7 @@ public class ItemUIFactory implements UIFactory {
         this.completeAssetDictionary = completeAssetDictionary;
         this.craftingTypeDictionary = craftingTypeDictionary;
         this.stockpileGroupDictionary = stockpileGroupDictionary;
+        this.soundAssetDictionary = soundAssetDictionary;
     }
 
     @Override
@@ -247,7 +251,6 @@ public class ItemUIFactory implements UIFactory {
         controls.addSeparator().colspan(2).padBottom(15);
         controls.row();
 
-        controls.add(WidgetBuilder.label("Stockpile Group"));
 
 
         StockpileGroup nullStockpileGroup = new StockpileGroup() {
@@ -261,24 +264,43 @@ public class ItemUIFactory implements UIFactory {
                 return "-none-";
             }
         };
+        controls.add(WidgetBuilder.label("Stockpile Group"));
         controls.add(WidgetBuilder.select(itemType.getStockpileGroup(), stockpileGroupDictionary.getAll(), nullStockpileGroup, stockpileGroup -> {
             itemType.setStockpileGroup(stockpileGroup);
             itemType.setStockpileGroupName(stockpileGroup.getName());
         }));
         controls.row();
 
-//        private Map<String, List<String>> tags = new HashMap<>();
-//        private List<Tag> processedTags = new ArrayList<>();
-//
-//        private String placementSoundAssetName;
-//        private SoundAsset placementSoundAsset;
-//
-//        private String consumeSoundAssetName;
-//        private SoundAsset consumeSoundAsset;
-//
+        SoundAsset nullSoundAsset = new SoundAsset() {
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public String toString() {
+                return "-none-";
+            }
+        };
+        controls.add(WidgetBuilder.label("Placement Sound"));
+        controls.add(WidgetBuilder.select(itemType.getPlacementSoundAsset(), soundAssetDictionary.getAll(), nullSoundAsset, soundAsset -> {
+            itemType.setPlacementSoundAsset(soundAsset);
+            itemType.setPlacementSoundAssetName(soundAsset.getName());
+        }));
+        controls.row();
+        controls.add(WidgetBuilder.label("Consume Sound"));
+        controls.add(WidgetBuilder.select(itemType.getConsumeSoundAsset(), soundAssetDictionary.getAll(), nullSoundAsset, soundAsset -> {
+            itemType.setConsumeSoundAsset(soundAsset);
+            itemType.setConsumeSoundAssetName(soundAsset.getName());
+        }));
+        controls.row();
+
 //        private WeaponInfo weaponInfo;
 //        private AmmoType isAmmoType;
 //
+
+//        private Map<String, List<String>> tags = new HashMap<>();
+//        private List<Tag> processedTags = new ArrayList<>();
         return controls;
     }
 
