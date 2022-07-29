@@ -5,8 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.HappinessComponent;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -29,9 +29,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static technology.rocketjump.saul.entities.components.humanoid.HappinessComponent.HappinessModifier.NEW_SETTLEMENT_OPTIMISM;
+import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.NEW_SETTLEMENT_OPTIMISM;
 
 @Singleton
+// TODO Combine this with SettlerEntityFactory
 public class SettlerFactory {
 
 	private final SettlerCreatureAttributesFactory settlerAttributesFactory;

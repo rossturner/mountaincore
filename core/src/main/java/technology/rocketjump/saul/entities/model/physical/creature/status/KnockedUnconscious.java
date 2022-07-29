@@ -2,7 +2,6 @@ package technology.rocketjump.saul.entities.model.physical.creature.status;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
 import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -27,14 +26,7 @@ public class KnockedUnconscious extends StatusEffect {
 				showAsRotatedOnSide(parentEntity, gameContext);
 			}
 
-			if (parentEntity.getBehaviourComponent() instanceof SettlerBehaviour) {
-				SettlerBehaviour settlerBehaviour = (SettlerBehaviour) parentEntity.getBehaviourComponent();
-				if (settlerBehaviour.getCurrentGoal() != null) {
-					settlerBehaviour.getCurrentGoal().setInterrupted(true);
-				}
-			}
-			if (parentEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
-				CreatureBehaviour creatureBehaviour = (CreatureBehaviour) parentEntity.getBehaviourComponent();
+			if (parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
 				if (creatureBehaviour.getCurrentGoal() != null) {
 					creatureBehaviour.getCurrentGoal().setInterrupted(true);
 				}

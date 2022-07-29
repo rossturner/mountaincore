@@ -6,10 +6,10 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.ai.goap.GoalDictionary;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
-import technology.rocketjump.saul.entities.components.humanoid.MemoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.NeedsComponent;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
+import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
@@ -24,6 +24,7 @@ import technology.rocketjump.saul.rooms.RoomStore;
 import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
 
 @Singleton
+// TODO Combine this with SettlerFactory
 public class SettlerEntityFactory {
 
 	private final MessageDispatcher messageDispatcher;
@@ -47,7 +48,7 @@ public class SettlerEntityFactory {
 		PhysicalEntityComponent physicalComponent = new PhysicalEntityComponent();
 		physicalComponent.setAttributes(attributes);
 
-		SettlerBehaviour behaviourComponent = new SettlerBehaviour();
+		CreatureBehaviour behaviourComponent = new CreatureBehaviour();
 		behaviourComponent.constructWith(goalDictionary, roomStore);
 
 		LocationComponent locationComponent = new LocationComponent();

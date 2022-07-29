@@ -3,8 +3,8 @@ package technology.rocketjump.saul.entities.ai.goap;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import technology.rocketjump.saul.entities.components.humanoid.MemoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.NeedsComponent;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.environment.GameClock;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,

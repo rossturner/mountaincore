@@ -17,7 +17,7 @@ import technology.rocketjump.saul.assets.entities.model.*;
 import technology.rocketjump.saul.assets.entities.plant.PlantEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
@@ -153,8 +153,7 @@ public class EntityAssetUpdater implements GameContextAware {
 
 
 		CreatureEntityAsset baseAsset;
-		if (gameContext != null && entity.getLocationComponent().getContainerEntity() != null &&
-				attributes.getRace().equals(gameContext.getSettlementState().getSettlerRace())) {
+		if (gameContext != null && entity.getLocationComponent().getContainerEntity() != null && entity.isSettler()) {
 			// Only show head and above when inside a container
 			baseAsset = creatureEntityAssetDictionary.getMatching(CREATURE_HEAD, attributes, primaryProfession);
 		} else {

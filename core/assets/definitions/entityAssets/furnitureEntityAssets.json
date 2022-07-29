@@ -574,7 +574,6 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "sleep_spot.png",
-      "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {

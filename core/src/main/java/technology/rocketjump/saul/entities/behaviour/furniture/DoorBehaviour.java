@@ -5,7 +5,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.assets.entities.furniture.model.DoorState;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -26,6 +26,7 @@ public class DoorBehaviour implements BehaviourComponent {
 
 	private MessageDispatcher messageDispatcher;
 	private Entity parentEntity;
+	private GameContext gameContext;
 
 	private float currentStateElapsedTime = 0;
 	private boolean doorOpenRequested;
@@ -37,6 +38,7 @@ public class DoorBehaviour implements BehaviourComponent {
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		this.messageDispatcher = messageDispatcher;
 		this.parentEntity = parentEntity;
+		this.gameContext = gameContext;
 	}
 
 	@Override
@@ -69,7 +71,7 @@ public class DoorBehaviour implements BehaviourComponent {
 	}
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		currentStateElapsedTime += deltaTime;
 
 		PhysicalEntityComponent physicalEntityComponent = parentEntity.getPhysicalEntityComponent();

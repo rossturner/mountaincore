@@ -5,7 +5,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -41,7 +41,7 @@ public class ItemBehaviour implements BehaviourComponent {
 	}
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		// Do nothing, does not update every frame
 	}
 

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
-import technology.rocketjump.saul.entities.components.humanoid.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;

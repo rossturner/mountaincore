@@ -2,7 +2,7 @@ package technology.rocketjump.saul.entities.behaviour;
 
 import org.junit.Before;
 import org.junit.Test;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
 import technology.rocketjump.saul.jobs.model.Profession;
 
 import static org.fest.assertions.Assertions.assertThat;

@@ -1,6 +1,6 @@
 package technology.rocketjump.saul.messaging.types;
 
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.jobs.model.Job;
 

@@ -17,11 +17,11 @@ import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
+import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureParticleEffectsComponent;
 import technology.rocketjump.saul.entities.components.furniture.PoweredFurnitureComponent;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -817,7 +817,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		// Do nothing every frame
 	}
 

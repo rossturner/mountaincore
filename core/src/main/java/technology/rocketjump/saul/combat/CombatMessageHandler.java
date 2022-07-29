@@ -12,10 +12,9 @@ import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
 import technology.rocketjump.saul.entities.behaviour.items.ProjectileBehaviour;
-import technology.rocketjump.saul.entities.components.humanoid.MemoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -292,10 +291,8 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private void applyStun(Entity targetCreature) {
-		if (targetCreature.getBehaviourComponent() instanceof SettlerBehaviour) {
-			((SettlerBehaviour) targetCreature.getBehaviourComponent()).applyStun(gameContext.getRandom());
-		} else if (targetCreature.getBehaviourComponent() instanceof CreatureBehaviour) {
-			((CreatureBehaviour) targetCreature.getBehaviourComponent()).applyStun(gameContext.getRandom());
+		if (targetCreature.getBehaviourComponent() instanceof CreatureBehaviour behaviour) {
+			behaviour.applyStun(gameContext.getRandom());
 		}
 		// else probably already dead or else inanimate
 	}

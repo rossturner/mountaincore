@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -27,6 +27,7 @@ public class ProjectileBehaviour implements BehaviourComponent {
 
 	private LocationComponent locationComponent;
 	private MessageDispatcher messageDispatcher;
+	private GameContext gameContext;
 	private Entity parentEntity;
 	private Entity attackerEntity;
 	private Entity defenderEntity;
@@ -38,6 +39,7 @@ public class ProjectileBehaviour implements BehaviourComponent {
 		this.locationComponent = parentEntity.getLocationComponent();
 		this.messageDispatcher = messageDispatcher;
 		this.parentEntity = parentEntity;
+		this.gameContext = gameContext;
 		otherEntitiesEncountered.add(parentEntity.getId());
 	}
 
@@ -52,7 +54,7 @@ public class ProjectileBehaviour implements BehaviourComponent {
 	}
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		// move towards target and set rotation to target
 		Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
 		Vector2 targetPosition = defenderEntity.getLocationComponent().getWorldOrParentPosition();

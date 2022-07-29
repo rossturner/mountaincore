@@ -18,12 +18,17 @@ public class HerdAnimalBehaviour extends CreatureBehaviour {
 	}
 
 	@Override
-	protected AssignedGoal attackedByCreatureResponse(Memory attackedByCreatureMemory, GameContext gameContext) {
-		AssignedGoal assignedGoal = super.attackedByCreatureResponse(attackedByCreatureMemory, gameContext);
+	protected AssignedGoal attackedByCreatureResponse(Memory attackedByCreatureMemory) {
+		AssignedGoal assignedGoal = super.attackedByCreatureResponse(attackedByCreatureMemory);
 		if (creatureGroup != null) {
 			creatureGroup.getSharedMemoryComponent().addShortTerm(attackedByCreatureMemory, gameContext.getGameClock());
 		}
 		return assignedGoal;
+	}
+
+	@Override
+	public boolean isJobAssignable() {
+		return false;
 	}
 
 	@Override

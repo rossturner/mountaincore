@@ -15,12 +15,12 @@ import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
-import technology.rocketjump.saul.entities.components.humanoid.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
@@ -63,8 +63,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.CONTENTS_TO_BE_DUMPED;
-import static technology.rocketjump.saul.entities.components.humanoid.HappinessComponent.MAX_HAPPINESS_VALUE;
-import static technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent.MAX_PROFESSIONS;
+import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.MAX_HAPPINESS_VALUE;
+import static technology.rocketjump.saul.entities.components.creature.ProfessionsComponent.MAX_PROFESSIONS;
 import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
 import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
@@ -224,7 +224,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		if (selectable != null && selectable.type.equals(ENTITY)) {
 			Entity entity = selectable.getEntity();
-			if (entity.getBehaviourComponent() instanceof SettlerBehaviour) {
+			if (entity.isSettler()) {
 				buildSettlerSelectedView(entity);
 				// TODO description of any dead creatures
 			} else {
@@ -355,7 +355,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 			outerTable.add(entityDescriptionTable).top();
 
-			if (injuriesTable.hasChildren() && !(entity.getBehaviourComponent() instanceof SettlerBehaviour)) {
+			if (injuriesTable.hasChildren() && !entity.isSettler()) {
 				outerTable.add(injuriesTable).padLeft(5);
 			}
 
@@ -468,8 +468,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			nameCell.row();
 		}
 
-		if (entity.getBehaviourComponent() instanceof SettlerBehaviour) {
-			List<I18nText> description = ((SettlerBehaviour) entity.getBehaviourComponent()).getDescription(i18nTranslator, gameContext);
+		if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+			List<I18nText> description = creatureBehaviour.getDescription(i18nTranslator, gameContext);
 			for (I18nText i18nText : description) {
 				nameTable.add(new I18nTextWidget(i18nText, uiSkin, messageDispatcher)).left().row();
 			}

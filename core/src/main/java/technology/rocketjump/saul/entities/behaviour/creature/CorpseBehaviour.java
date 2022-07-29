@@ -7,9 +7,9 @@ import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescrip
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
-import technology.rocketjump.saul.entities.components.humanoid.HistoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
+import technology.rocketjump.saul.entities.components.creature.HistoryComponent;
+import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.DeathReason;
@@ -124,7 +124,7 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 	}
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		// Do nothing
 	}
 

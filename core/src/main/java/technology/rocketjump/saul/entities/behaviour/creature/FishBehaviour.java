@@ -16,6 +16,11 @@ public class FishBehaviour extends CreatureBehaviour {
 	}
 
 	@Override
+	public boolean isJobAssignable() {
+		return false;
+	}
+
+	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		super.writeTo(asJson, savedGameStateHolder);
 	}

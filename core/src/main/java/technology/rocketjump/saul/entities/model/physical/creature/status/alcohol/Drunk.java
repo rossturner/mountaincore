@@ -1,7 +1,7 @@
 package technology.rocketjump.saul.entities.model.physical.creature.status.alcohol;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.saul.gamecontext.GameContext;
 

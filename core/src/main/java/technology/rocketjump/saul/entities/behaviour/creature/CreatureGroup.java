@@ -2,7 +2,7 @@ package technology.rocketjump.saul.entities.behaviour.creature;
 
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.GridPoint2;
-import technology.rocketjump.saul.entities.components.humanoid.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.CompassDirection;
 import technology.rocketjump.saul.mapping.tile.MapTile;

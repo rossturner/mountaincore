@@ -16,9 +16,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.factories.SettlerFactory;
@@ -266,10 +265,8 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				break;
 			}
 			case TRIGGER_BREAKDOWN: {
-				Optional<Entity> settler = tile.getEntities().stream().filter(e -> e.getBehaviourComponent() instanceof SettlerBehaviour).findAny();
-				if (settler.isPresent()) {
-					settler.get().getComponent(HappinessComponent.class).add(HappinessComponent.HappinessModifier.CAUSE_BREAKDOWN);
-				}
+				tile.getEntities().stream().filter(Entity::isSettler).findAny()
+						.ifPresent(entity -> entity.getComponent(HappinessComponent.class).add(HappinessComponent.HappinessModifier.CAUSE_BREAKDOWN));
 				break;
 			}
 			case TOGGLE_PIPE: {

@@ -39,7 +39,8 @@ allprojects {
 
 project(":desktop") {
     apply plugin: "java-library"
-    sourceCompatibility = 17
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 
 
     dependencies {
@@ -121,7 +122,8 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java-library"
-    sourceCompatibility = 17
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 
 
     dependencies {

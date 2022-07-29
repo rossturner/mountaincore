@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.SettlerFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -92,14 +92,14 @@ public class AssignedGoalTest {
 	public void getDescription_hasTranslation_forEachGoalAndAction() {
 
 		for (Goal goal : goalDictionary.getAllGoals()) {
-			SettlerBehaviour settlerBehaviour = resetSettlerBehaviour();
+			CreatureBehaviour settlerBehaviour = resetBehaviour();
 
 			settlerBehaviour.getGoalQueue().add(new QueuedGoal(
 					goal, ScheduleCategory.ANY, GoalPriority.HIGHEST, gameContext.getGameClock()
 			));
-			settlerBehaviour.update(1, gameContext);
+			settlerBehaviour.update(1);
 
-			String description = i18nTranslator.getCurrentGoalDescription(entity, ((SettlerBehaviour) entity.getBehaviourComponent()).getCurrentGoal(), gameContext).toString();
+			String description = i18nTranslator.getCurrentGoalDescription(entity, ((CreatureBehaviour) entity.getBehaviourComponent()).getCurrentGoal(), gameContext).toString();
 
 			System.out.println("Goal: " + goal.name + ", description: " + description);
 		}
@@ -107,11 +107,11 @@ public class AssignedGoalTest {
 
 	}
 
-	private SettlerBehaviour resetSettlerBehaviour() {
-		SettlerBehaviour settlerBehaviour = new SettlerBehaviour();
-		settlerBehaviour.constructWith(goalDictionary, roomStore);
-		settlerBehaviour.init(entity, mockMessageDispatcher, gameContext);
-		entity.replaceBehaviourComponent(settlerBehaviour);
-		return settlerBehaviour;
+	private CreatureBehaviour resetBehaviour() {
+		CreatureBehaviour behaviour = new CreatureBehaviour();
+		behaviour.constructWith(goalDictionary, roomStore);
+		behaviour.init(entity, mockMessageDispatcher, gameContext);
+		entity.replaceBehaviourComponent(behaviour);
+		return behaviour;
 	}
 }

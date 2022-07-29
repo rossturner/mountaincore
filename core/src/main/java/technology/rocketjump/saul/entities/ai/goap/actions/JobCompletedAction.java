@@ -2,7 +2,7 @@ package technology.rocketjump.saul.entities.ai.goap.actions;
 
 import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.JobCompletedMessage;

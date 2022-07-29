@@ -15,7 +15,7 @@ import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.Goal;
 import technology.rocketjump.saul.entities.ai.goap.SpecialGoal;
 import technology.rocketjump.saul.entities.ai.goap.actions.location.GoToLocationAction;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.factories.SettlerFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -263,7 +263,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 			secondaryProfession = allProfessions.get(gameContext.getRandom().nextInt(allProfessions.size()));
 		}
 		Entity settler = settlerFactory.create(spawnPosition, new Vector2(), primaryProfession, secondaryProfession, gameContext);
-		SettlerBehaviour settlerBehaviour = (SettlerBehaviour) settler.getBehaviourComponent();
+		CreatureBehaviour settlerBehaviour = (CreatureBehaviour) settler.getBehaviourComponent();
 
 		Goal idleGoal = SpecialGoal.IDLE.getInstance();
 		AssignedGoal assignedGoal = new AssignedGoal(idleGoal, settler, messageDispatcher);

@@ -7,9 +7,10 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
 import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
@@ -220,7 +221,7 @@ public class Entity implements Persistable, Disposable {
 	}
 
 	public void update(float deltaTime, GameContext gameContext) {
-		behaviourComponent.update(deltaTime, gameContext);
+		behaviourComponent.update(deltaTime);
     }
 
 	public void infrequentUpdate(GameContext gameContext) {
@@ -273,6 +274,11 @@ public class Entity implements Persistable, Disposable {
 	public boolean isOnFire() {
 		StatusComponent statusComponent = getComponent(StatusComponent.class);
 		return statusComponent != null && statusComponent.contains(OnFireStatus.class);
+	}
+
+	public boolean isSettler() {
+		return getBehaviourComponent() instanceof CreatureBehaviour &&
+				getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT);
 	}
 
 	public EntityType getType() {

@@ -17,14 +17,13 @@ import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.creature.BrokenDwarfBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.*;
 import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureParticleEffectsComponent;
 import technology.rocketjump.saul.entities.components.furniture.PoweredFurnitureComponent;
-import technology.rocketjump.saul.entities.components.humanoid.*;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -172,7 +171,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.TRANSFORM_FURNITURE_TYPE);
 		messageDispatcher.addListener(this, MessageType.TRANSFORM_ITEM_TYPE);
 		messageDispatcher.addListener(this, MessageType.CREATURE_DEATH);
-		messageDispatcher.addListener(this, MessageType.HUMANOID_INSANITY);
+		messageDispatcher.addListener(this, MessageType.SAPIENT_CREATURE_INSANITY);
 		messageDispatcher.addListener(this, MessageType.SETTLER_TANTRUM);
 		messageDispatcher.addListener(this, MessageType.LIQUID_SPLASH);
 		messageDispatcher.addListener(this, MessageType.TREE_SHED_LEAVES);
@@ -190,15 +189,20 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 				Entity createdEntity = (Entity) msg.extraInfo;
 				entityStore.add(createdEntity);
 
-				if (createdEntity.getBehaviourComponent() instanceof SettlerBehaviour) {
-					settlerTracker.settlerAdded(createdEntity);
-					for (InventoryComponent.InventoryEntry inventoryEntry : createdEntity.getOrCreateComponent(InventoryComponent.class).getInventoryEntries()) {
-						if (inventoryEntry.entity.getType().equals(ITEM)) {
-							itemTracker.itemAdded(inventoryEntry.entity);
+				if (createdEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
+					if (createdEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+						settlerTracker.settlerAdded(createdEntity);
+					} else {
+						creatureTracker.creatureAdded(createdEntity);
+					}
+					InventoryComponent inventoryComponent = createdEntity.getComponent(InventoryComponent.class);
+					if (inventoryComponent != null) {
+						for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
+							if (inventoryEntry.entity.getType().equals(ITEM)) {
+								itemTracker.itemAdded(inventoryEntry.entity);
+							}
 						}
 					}
-				} else if (createdEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
-					creatureTracker.creatureAdded(createdEntity);
 				} else if (createdEntity.getType().equals(ITEM)) {
 					itemTracker.itemAdded(createdEntity);
 				} else if (createdEntity.getType().equals(EntityType.FURNITURE)) {
@@ -225,15 +229,17 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						furnitureTracker.furnitureRemoved(removedEntity);
 					} else if (removedEntity.getType().equals(ONGOING_EFFECT)) {
 						ongoingEffectTracker.entityRemoved(removedEntity);
-					} else if (removedEntity.getBehaviourComponent() instanceof SettlerBehaviour) {
-						settlerTracker.settlerRemoved(removedEntity);
-						CreatureEntityAttributes humanoidAttributes = (CreatureEntityAttributes) removedEntity.getPhysicalEntityComponent().getAttributes();
-						if (!humanoidAttributes.getConsciousness().equals(DEAD)) {
-							// Destroying non-dead settler entity
-							handle(new CreatureDeathMessage(removedEntity, DeathReason.UNKNOWN));
-						}
 					} else if (removedEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
-						creatureTracker.creatureRemoved(removedEntity);
+						if (removedEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+							settlerTracker.settlerRemoved(removedEntity);
+							CreatureEntityAttributes entityAttributes = (CreatureEntityAttributes) removedEntity.getPhysicalEntityComponent().getAttributes();
+							if (!entityAttributes.getConsciousness().equals(DEAD)) {
+								// Destroying non-dead settler entity
+								handle(new CreatureDeathMessage(removedEntity, DeathReason.UNKNOWN));
+							}
+						} else {
+							creatureTracker.creatureRemoved(removedEntity);
+						}
 					}
 
 					if (removedEntity.getLocationComponent().getWorldPosition() != null) {
@@ -301,8 +307,12 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					itemTracker.itemRemoved(entity);
 				} else if (entity.getType().equals(EntityType.FURNITURE)) {
 					furnitureTracker.furnitureRemoved(entity);
-				} else if (entity.getBehaviourComponent() instanceof SettlerBehaviour) {
-					settlerTracker.settlerRemoved(entity);
+				} else if (entity.getType().equals(CREATURE)) {
+					if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+						settlerTracker.settlerRemoved(entity);
+					} else {
+						creatureTracker.creatureRemoved(entity);
+					}
 				}
 
 				return true;
@@ -317,8 +327,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 				Long entityId = removedJob.getAssignedToEntityId();
 				if (entityId != null) {
 					Entity entity = entityStore.getById(entityId);
-					if (entity != null && entity.getBehaviourComponent() instanceof SettlerBehaviour) {
-						SettlerBehaviour behaviour = (SettlerBehaviour) entity.getBehaviourComponent();
+					if (entity != null && entity.getBehaviourComponent() instanceof CreatureBehaviour behaviour) {
 						if (behaviour.getCurrentGoal() != null) {
 							behaviour.getCurrentGoal().setInterrupted(true);
 						}
@@ -527,7 +536,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			case MessageType.CREATURE_DEATH: {
 				return handle((CreatureDeathMessage) msg.extraInfo);
 			}
-			case MessageType.HUMANOID_INSANITY: {
+			case MessageType.SAPIENT_CREATURE_INSANITY: {
 				return handleInsanity((Entity) msg.extraInfo);
 			}
 			case MessageType.SETTLER_TANTRUM: {
@@ -771,14 +780,14 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			deathReason = DeathReason.GIVEN_UP_ON_LIFE;
 		}
 
-		if (originalBehaviour instanceof SettlerBehaviour) {
+		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
 			Notification deathNotification = new Notification(NotificationType.DEATH, deceasedPosition);
 			deathNotification.addTextReplacement("character", i18nTranslator.getDescription(deceased));
 			deathNotification.addTextReplacement("reason", i18nTranslator.getDictionary().getWord(deathReason.getI18nKey()));
 			messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, deathNotification);
 
 			settlerTracker.settlerDied(deceased);
-		} else if (originalBehaviour instanceof CreatureBehaviour) {
+		} else {
 			creatureTracker.creatureDied(deceased);
 		}
 
@@ -796,8 +805,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 		showAsRotatedOnSide(deceased, gameContext);
 
-		// TODO check for game-over state
-		if (originalBehaviour instanceof SettlerBehaviour) {
+		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
 			boolean allDead = true;
 			for (Entity settler : settlerTracker.getAll()) {
 				CreatureEntityAttributes otherSettlerAttributes = (CreatureEntityAttributes) settler.getPhysicalEntityComponent().getAttributes();
