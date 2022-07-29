@@ -83,7 +83,12 @@ public class StockpileGroup {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		StockpileGroup that = (StockpileGroup) o;
-		return name.equals(that.name);
+		return Objects.equals(name, that.name);
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 
 	@Override

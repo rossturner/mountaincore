@@ -36,6 +36,8 @@ import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
+import technology.rocketjump.saul.rooms.StockpileGroup;
+import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -54,11 +56,13 @@ public class ItemUIFactory implements UIFactory {
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
     private final CompleteAssetDictionary completeAssetDictionary;
     private final CraftingTypeDictionary craftingTypeDictionary;
+    private final StockpileGroupDictionary stockpileGroupDictionary;
 
     @Inject
     public ItemUIFactory(MessageDispatcher messageDispatcher, ItemEntityFactory itemEntityFactory, ItemTypeDictionary itemTypeDictionary,
                          ItemAttributesPane itemAttributesPane, EntityAssetTypeDictionary entityAssetTypeDictionary,
-                         CompleteAssetDictionary completeAssetDictionary, CraftingTypeDictionary craftingTypeDictionary) {
+                         CompleteAssetDictionary completeAssetDictionary, CraftingTypeDictionary craftingTypeDictionary,
+                         StockpileGroupDictionary stockpileGroupDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.itemEntityFactory = itemEntityFactory;
         this.itemTypeDictionary = itemTypeDictionary;
@@ -66,6 +70,7 @@ public class ItemUIFactory implements UIFactory {
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.completeAssetDictionary = completeAssetDictionary;
         this.craftingTypeDictionary = craftingTypeDictionary;
+        this.stockpileGroupDictionary = stockpileGroupDictionary;
     }
 
     @Override
@@ -125,6 +130,7 @@ public class ItemUIFactory implements UIFactory {
         controls.columnDefaults(0).uniformX().left();
         controls.columnDefaults(1).fillX().left();
 
+        //todo:
 //        private long itemTypeId;
         controls.add(WidgetBuilder.label("Name"));
         controls.add(WidgetBuilder.textField(itemType.getItemTypeName(), itemType::setItemTypeName));
@@ -145,6 +151,7 @@ public class ItemUIFactory implements UIFactory {
         controls.add(WidgetBuilder.label("Material Only"));
         controls.add(WidgetBuilder.toggle(itemType.isDescribeAsMaterialOnly(), itemType::setDescribeAsMaterialOnly));
         controls.row();
+
 
         //Todo: nicer display name
         Map<GameMaterialType, VisCheckBox> materialTypeMap = new HashMap<>();
@@ -203,6 +210,7 @@ public class ItemUIFactory implements UIFactory {
         controls.add(WidgetBuilder.toggle(itemType.isEquippedWhileWorkingOnJob(), itemType::setEquippedWhileWorkingOnJob));
         controls.row();
 
+        //todo:
         //no double spinner available
 //        private double hoursInInventoryUntilUnused = DEFAULT_HOURS_FOR_ITEM_TO_BECOME_UNUSED;
 //        controls.add(WidgetBuilder.label("Inventory Until (hours)"));
@@ -238,10 +246,27 @@ public class ItemUIFactory implements UIFactory {
         controls.row();
         controls.addSeparator().colspan(2).padBottom(15);
         controls.row();
-//
-//        private String stockpileGroupName;
-//        private StockpileGroup stockpileGroup;
-//
+
+        controls.add(WidgetBuilder.label("Stockpile Group"));
+
+
+        StockpileGroup nullStockpileGroup = new StockpileGroup() {
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public String toString() {
+                return "-none-";
+            }
+        };
+        controls.add(WidgetBuilder.select(itemType.getStockpileGroup(), stockpileGroupDictionary.getAll(), nullStockpileGroup, stockpileGroup -> {
+            itemType.setStockpileGroup(stockpileGroup);
+            itemType.setStockpileGroupName(stockpileGroup.getName());
+        }));
+        controls.row();
+
 //        private Map<String, List<String>> tags = new HashMap<>();
 //        private List<Tag> processedTags = new ArrayList<>();
 //
