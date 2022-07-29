@@ -7,8 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextField;
 import technology.rocketjump.saul.assets.editor.UniqueAssetNameValidator;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
+import technology.rocketjump.saul.assets.editor.model.ItemNameBuilders;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
@@ -34,10 +36,8 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.function.Consumer;
 
 import static technology.rocketjump.saul.assets.entities.item.model.ItemPlacement.BEING_CARRIED;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
@@ -89,7 +89,6 @@ public class ItemUIFactory implements UIFactory {
         attributes.setItemType(itemType);
         attributes.setSeed(random.nextLong());
         attributes.setQuantity(1);
-
         return itemEntityFactory.create(attributes, new GridPoint2(), true, gameContext);
     }
 
@@ -156,30 +155,37 @@ public class ItemUIFactory implements UIFactory {
         //TODO: quite a bit of duplication between here and the editor
         final Path directory = FileUtils.getDirectory(message.path()); //duplicated from CreatureUI
         Path descriptorsFile = directory.resolve("descriptors.json");
+        ItemType itemType = (ItemType) message.typeDescriptor();
 
         ItemEntityAsset itemEntityAsset = new ItemEntityAsset();
         OkCancelDialog dialog = new OkCancelDialog("Create asset under " + directory) {
             @Override
             public void onOk() {
                 completeAssetDictionary.add(itemEntityAsset);
-                EntityBrowserValue value = EntityBrowserValue.forAsset(getEntityType(), descriptorsFile, itemEntityAsset, message.typeDescriptor());
+                EntityBrowserValue value = EntityBrowserValue.forAsset(getEntityType(), descriptorsFile, itemEntityAsset, itemType);
                 messageDispatcher.dispatchMessage(MessageType.EDITOR_ASSET_CREATED, value);
                 messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, value);
             }
         };
 
-        //todo: nice pattern for name rebuilding without the faff
+        //todo: nicer pattern for name building
         Collection<EntityAssetType> entityAssetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType());
         Collection<String> itemTypeNames = itemTypeDictionary.getAll().stream().map(ItemType::getItemTypeName).toList();
         Collection<ItemPlacement> itemPlacements = Arrays.asList(ItemPlacement.values());
 
-        dialog.addRow(WidgetBuilder.selectField("Item Type", itemEntityAsset.getItemTypeName(), itemTypeNames, null, itemEntityAsset::setItemTypeName));
-        dialog.addRow(WidgetBuilder.selectField("Type", itemEntityAsset.getType(), entityAssetTypes, null, itemEntityAsset::setType));
-        dialog.addRow(WidgetBuilder.checkboxGroup("Placements", itemEntityAsset.getItemPlacements(), itemPlacements, itemEntityAsset.getItemPlacements()::add, itemEntityAsset.getItemPlacements()::remove));
-        dialog.addRow(WidgetBuilder.textField("Name", itemEntityAsset.getUniqueName(), itemEntityAsset::setUniqueName, new UniqueAssetNameValidator(completeAssetDictionary)));
+        VisTable nameComponent = WidgetBuilder.textField("Name", itemEntityAsset.getUniqueName(), itemEntityAsset::setUniqueName, new UniqueAssetNameValidator(completeAssetDictionary));
+        Optional<VisTextField> optionalNameField = WidgetBuilder.findFirst(nameComponent, VisTextField.class);
+        Consumer<Object> uniqueNameRebuilder = o -> {
+            ItemType selectedItemType = itemTypeDictionary.getByName(itemEntityAsset.getItemTypeName());//Bit weird with the item type thing
+            String builtName = ItemNameBuilders.buildUniqueNameForAsset(selectedItemType, itemEntityAsset);
+            optionalNameField.ifPresent(textBox -> textBox.setText(builtName));
+        };
 
-        //generate name "Tool-Large-Hammer-Head-On-Ground",
-
+        dialog.addRow(WidgetBuilder.selectField("Item Type", itemEntityAsset.getItemTypeName(), itemTypeNames, itemType.getItemTypeName(), compose(itemEntityAsset::setItemTypeName, uniqueNameRebuilder)));
+        dialog.addRow(WidgetBuilder.selectField("Type", itemEntityAsset.getType(), entityAssetTypes, null, compose(itemEntityAsset::setType, uniqueNameRebuilder)));
+        dialog.addRow(WidgetBuilder.checkboxGroup("Placements", itemEntityAsset.getItemPlacements(), itemPlacements,
+                compose(itemEntityAsset.getItemPlacements()::add, uniqueNameRebuilder), compose(itemEntityAsset.getItemPlacements()::remove, uniqueNameRebuilder)));
+        dialog.addRow(nameComponent);
         return dialog;
     }
 

@@ -11,6 +11,7 @@ import technology.rocketjump.saul.entities.model.EntityType;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static technology.rocketjump.saul.assets.entities.model.ColoringLayer.*;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.DOWN;
@@ -42,4 +43,8 @@ public interface UIFactory {
     OkCancelDialog createAssetDialog(ShowCreateAssetDialogMessage message);
 
     VisTable getAssetPropertyControls(EntityAsset entityAsset);
+
+    default <T> Consumer<T> compose(Consumer<T> input, Consumer<Object> nameBuilder) {
+        return input.andThen(nameBuilder);
+    }
 }

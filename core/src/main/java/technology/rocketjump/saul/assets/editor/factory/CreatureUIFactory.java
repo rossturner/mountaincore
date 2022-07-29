@@ -439,8 +439,4 @@ public class CreatureUIFactory implements UIFactory {
         return editorTable;
     }
 
-    private <T> Consumer<T> compose(Consumer<T> input, Consumer<Object> nameBuilder) {
-        return input.andThen(nameBuilder);
-    }
-
 }

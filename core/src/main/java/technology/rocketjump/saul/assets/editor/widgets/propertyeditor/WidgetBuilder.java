@@ -1,6 +1,8 @@
 package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.util.InputValidator;
@@ -13,6 +15,7 @@ import technology.rocketjump.saul.misc.ReflectionUtils;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class WidgetBuilder {
@@ -206,4 +209,12 @@ public class WidgetBuilder {
 		return WordUtils.capitalizeFully(labelText.endsWith(":") ? labelText : labelText + ":", '_');
 	}
 
+	public static <T extends Widget> Optional<T> findFirst(Group group, Class<T> type) {
+		for (Actor child : group.getChildren()) {
+			if (type.isInstance(child)) {
+				return Optional.of((T) child);
+			}
+		}
+		return Optional.empty();
+	}
 }
