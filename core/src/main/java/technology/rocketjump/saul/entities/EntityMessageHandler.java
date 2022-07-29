@@ -190,7 +190,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 				entityStore.add(createdEntity);
 
 				if (createdEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
-					if (createdEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+					if (createdEntity.isSettler()) {
 						settlerTracker.settlerAdded(createdEntity);
 					} else {
 						creatureTracker.creatureAdded(createdEntity);
@@ -230,7 +230,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					} else if (removedEntity.getType().equals(ONGOING_EFFECT)) {
 						ongoingEffectTracker.entityRemoved(removedEntity);
 					} else if (removedEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
-						if (removedEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+						if (removedEntity.isSettler()) {
 							settlerTracker.settlerRemoved(removedEntity);
 							CreatureEntityAttributes entityAttributes = (CreatureEntityAttributes) removedEntity.getPhysicalEntityComponent().getAttributes();
 							if (!entityAttributes.getConsciousness().equals(DEAD)) {
@@ -308,7 +308,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 				} else if (entity.getType().equals(EntityType.FURNITURE)) {
 					furnitureTracker.furnitureRemoved(entity);
 				} else if (entity.getType().equals(CREATURE)) {
-					if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+					if (entity.isSettler()) {
 						settlerTracker.settlerRemoved(entity);
 					} else {
 						creatureTracker.creatureRemoved(entity);
