@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.util.InputValidator;
 import com.kotcrab.vis.ui.widget.*;
+import com.kotcrab.vis.ui.widget.spinner.FloatSpinnerModel;
 import com.kotcrab.vis.ui.widget.spinner.IntSpinnerModel;
 import com.kotcrab.vis.ui.widget.spinner.Spinner;
 import org.apache.commons.lang3.text.WordUtils;
@@ -24,7 +25,7 @@ public class WidgetBuilder {
 		return new VisLabel(niceLabel(labelText));
 	}
 
-	public static VisValidatableTextField textField(String initialValue, Consumer<String> changeListener) {
+	public static VisValidatableTextField textField(String initialValue, Consumer<String> changeListener, InputValidator... validators) {
 		VisValidatableTextField textField = new VisValidatableTextField();
 		textField.setText(initialValue);
 		textField.addListener(new ChangeListener() {
@@ -33,6 +34,9 @@ public class WidgetBuilder {
 				changeListener.accept(textField.getText());
 			}
 		});
+		for (InputValidator validator : validators) {
+			textField.addValidator(validator);
+		}
 		return textField;
 	}
 
@@ -66,6 +70,18 @@ public class WidgetBuilder {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				changeListener.accept(spinnerModel.getValue());
+			}
+		});
+		return spinner;
+	}
+
+	public static Spinner doubleSpinner(double initialValue, double minValue, double maxValue, Consumer<Double> changeListener) {
+		FloatSpinnerModel spinnerModel = new FloatSpinnerModel(String.valueOf(initialValue), String.valueOf(minValue), String.valueOf(maxValue));
+		Spinner spinner = new Spinner("", spinnerModel);
+		spinner.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				changeListener.accept(spinnerModel.getValue().doubleValue());
 			}
 		});
 		return spinner;
@@ -109,8 +125,7 @@ public class WidgetBuilder {
 	//Composite components
 
 	public static VisTable textField(String labelText, String initialValue, Consumer<String> changeListener, InputValidator inputValidator) {
-		VisValidatableTextField textField = textField(initialValue, changeListener);
-		textField.addValidator(inputValidator);
+		VisValidatableTextField textField = textField(initialValue, changeListener, inputValidator);
 		VisTable component = new VisTable();
 		component.add(label(labelText));
 		component.add(textField);

@@ -52,6 +52,7 @@ public class CompleteAssetDictionary {
 		allAssetsByName.putAll(mechanismEntityAssetDictionary.getAll());
 		allAssetsByName.put(NULL_ASSET.getUniqueName(), NULL_ASSET);
 		creatureEntityAssetDictionary.rebuild();
+		itemEntityAssetDictionary.rebuild();
 	}
 
 	public void add(CreatureEntityAsset asset) {

@@ -9,9 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.kotcrab.vis.ui.util.InputValidator;
 import com.kotcrab.vis.ui.widget.*;
+import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.assets.editor.UniqueAssetNameValidator;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
+import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.ItemNameBuilders;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
@@ -118,9 +121,26 @@ public class ItemUIFactory implements UIFactory {
         OkCancelDialog dialog = new OkCancelDialog("Create new " + getEntityType()) {
             @Override
             public void onOk() {
+                String itemTypeName = itemType.getItemTypeName();
+                itemType.setPrimaryMaterialType(GameMaterialType.STONE);
+                String folderName = itemTypeName.toLowerCase(Locale.ROOT);
+                Path basePath = FileUtils.createDirectory(path, folderName);
 
+                itemTypeDictionary.add(itemType);
+                completeAssetDictionary.rebuild();
+
+                EditorEntitySelection editorEntitySelection = new EditorEntitySelection();
+                editorEntitySelection.setEntityType(getEntityType());
+                editorEntitySelection.setTypeName(itemTypeName);
+                editorEntitySelection.setBasePath(basePath.toString());
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, editorEntitySelection);
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forTypeDescriptor(getEntityType(), basePath, itemType));
             }
         };
+        dialog.add(WidgetBuilder.label("Name"));
+        InputValidator nonBlank = StringUtils::isNotBlank;
+        InputValidator uniqueName = input -> itemTypeDictionary.getByName(input) == null;
+        dialog.add(WidgetBuilder.textField(null, itemType::setItemTypeName, nonBlank, uniqueName));
 
         return dialog;
     }
@@ -130,7 +150,6 @@ public class ItemUIFactory implements UIFactory {
         ItemType itemType = (ItemType) typeDescriptor;
 
         VisTable controls = new VisTable();
-//        controls.debug();
         controls.defaults().left();
         controls.columnDefaults(0).uniformX().left();
         controls.columnDefaults(1).fillX().left();
@@ -215,12 +234,9 @@ public class ItemUIFactory implements UIFactory {
         controls.add(WidgetBuilder.toggle(itemType.isEquippedWhileWorkingOnJob(), itemType::setEquippedWhileWorkingOnJob));
         controls.row();
 
-        //todo:
-        //no double spinner available
-//        private double hoursInInventoryUntilUnused = DEFAULT_HOURS_FOR_ITEM_TO_BECOME_UNUSED;
-//        controls.add(WidgetBuilder.label("Inventory Until (hours)"));
-//        controls.add(WidgetBuilder.doubleSpinner(itemType.getHoursInInventoryUntilUnused(), 0, Double.MAX_VALUE, itemType::setHoursInInventoryUntilUnused));
-//        controls.row();
+        controls.add(WidgetBuilder.label("Inventory Until Unused (hours)"));
+        controls.add(WidgetBuilder.doubleSpinner(itemType.getHoursInInventoryUntilUnused(), 0, Double.MAX_VALUE, itemType::setHoursInInventoryUntilUnused));
+        controls.row();
 
         controls.add(WidgetBuilder.label("Crafting")).padTop(15);
         controls.row();
