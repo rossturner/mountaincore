@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
@@ -12,34 +13,53 @@ import com.kotcrab.vis.ui.widget.spinner.Spinner;
 import org.apache.commons.lang3.text.WordUtils;
 import technology.rocketjump.saul.misc.ReflectionUtils;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 public class WidgetBuilder {
 
-	//Composite components
+	//Singular components
+	public static VisLabel label(String labelText) {
+		return new VisLabel(niceLabel(labelText));
+	}
 
-	public static VisTable textField(String labelText, String initialValue, Consumer<String> changeListener, InputValidator inputValidator) {
+	public static VisValidatableTextField textField(String initialValue, Consumer<String> changeListener) {
 		VisValidatableTextField textField = new VisValidatableTextField();
 		textField.setText(initialValue);
-		textField.addValidator(inputValidator);
 		textField.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				changeListener.accept(textField.getText());
 			}
 		});
-
-		VisTable component = new VisTable();
-		component.add(new VisLabel(niceLabel(labelText)));
-		component.add(textField);
-		return component;
+		return textField;
 	}
 
-	public static VisTable intSpinner(String labelText, int initialValue, int minValue, int maxValue, Consumer<Integer> changeListener) {
+	public static <T> VisSelectBox<T> select(T initialValue, T[] items, T valueIfNull, Consumer<T> changeListener) {
+		return select(initialValue, Arrays.asList(items), valueIfNull, changeListener);
+	}
+
+	public static <T> VisSelectBox<T> select(T initialValue, Collection<T> items, T valueIfNull, Consumer<T> changeListener) {
+		VisSelectBox<T> selectBox = new VisSelectBox<>();
+		selectBox.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				changeListener.accept(selectBox.getSelected());
+			}
+		});
+		selectBox.setItems(orderedArray(items, valueIfNull));
+		if (initialValue == null) {
+			if (valueIfNull != null) {
+				selectBox.setSelected(valueIfNull);
+			}
+		} else {
+			selectBox.setSelected(initialValue);
+		}
+		return selectBox;
+	}
+
+	public static Spinner intSpinner(int initialValue, int minValue, int maxValue, Consumer<Integer> changeListener) {
 		IntSpinnerModel spinnerModel = new IntSpinnerModel(initialValue, minValue, maxValue);
 		Spinner spinner = new Spinner("", spinnerModel);
 		spinner.addListener(new ChangeListener() {
@@ -48,10 +68,59 @@ public class WidgetBuilder {
 				changeListener.accept(spinnerModel.getValue());
 			}
 		});
+		return spinner;
+	}
 
+	public static VisTextButton toggle(boolean initialValue, Consumer<Boolean> changeListener) {
+		AtomicBoolean atomicBoolean = new AtomicBoolean(initialValue);
+		VisTextButton toggle = new VisTextButton(String.valueOf(initialValue));
+		toggle.setColor(initialValue ? Color.GREEN : Color.RED);
+		toggle.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				boolean newValue = !atomicBoolean.get();
+				atomicBoolean.set(newValue);
+				toggle.setText(String.valueOf(newValue));
+				toggle.setColor(newValue ? Color.GREEN : Color.RED);
+				changeListener.accept(newValue);
+			}
+		});
+
+		return toggle;
+	}
+
+	public static <T> VisCheckBox checkBox(T option, boolean initialValue, Consumer<T> checkedListener, Consumer<T> uncheckedListener) {
+		VisCheckBox checkbox = new VisCheckBox(option.toString());
+		checkbox.setChecked(initialValue);
+		checkbox.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if (checkbox.isChecked()) {
+					checkedListener.accept(option);
+				} else {
+					uncheckedListener.accept(option);
+				}
+			}
+		});
+		return checkbox;
+	}
+
+
+	//Composite components
+
+	public static VisTable textField(String labelText, String initialValue, Consumer<String> changeListener, InputValidator inputValidator) {
+		VisValidatableTextField textField = textField(initialValue, changeListener);
+		textField.addValidator(inputValidator);
 		VisTable component = new VisTable();
-		component.add(new VisLabel(niceLabel(labelText)));
-		component.add(spinner);
+		component.add(label(labelText));
+		component.add(textField);
+		return component;
+	}
+
+	public static VisTable intSpinner(String labelText, int initialValue, int minValue, int maxValue, Consumer<Integer> changeListener) {
+		VisTable component = new VisTable();
+		component.add(label(labelText));
+		component.add(intSpinner(initialValue, minValue, maxValue, changeListener));
 		return component;
 	}
 
@@ -76,31 +145,15 @@ public class WidgetBuilder {
 			checkBoxes.add(checkbox).expandX().left().row();
 		}
 
-		component.add(new VisLabel(niceLabel(labelText)));
+		component.add(label(labelText));
 		component.add(checkBoxes);
 		return component;
 	}
 
 	public static <T> VisTable selectField(String labelText, T initialValue, Collection<T> items, T valueIfNull, Consumer<T> changeListener) {
 		VisTable visTable = new VisTable();
-		VisLabel label = new VisLabel(niceLabel(labelText));
-		VisSelectBox<T> selectBox = new VisSelectBox<>();
-		selectBox.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				changeListener.accept(selectBox.getSelected());
-			}
-		});
-
-		selectBox.setItems(orderedArray(items, valueIfNull));
-
-		if (initialValue == null) {
-			if (valueIfNull != null) {
-				selectBox.setSelected(valueIfNull);
-			}
-		} else {
-			selectBox.setSelected(initialValue);
-		}
+		VisLabel label = label(labelText);
+		VisSelectBox<T> selectBox = select(initialValue, items, valueIfNull, changeListener);
 
 		visTable.add(label).left();
 		visTable.add(selectBox).left();
@@ -112,7 +165,7 @@ public class WidgetBuilder {
 		String format = "%s (%d)";
 		String labelTextWithCount = String.format(format, labelText, initialValue);
 
-		VisLabel label = new VisLabel(niceLabel(labelTextWithCount));
+		VisLabel label = label(labelTextWithCount);
 		spritePaddingRow.add(label).left();
 		VisSlider slider = new VisSlider(min, max, step, false);
 		slider.setValue(initialValue);
@@ -137,7 +190,7 @@ public class WidgetBuilder {
 				ReflectionUtils.setProperty(instance, propertyName, textField.getText());
 			}
 		});
-		table.add(new VisLabel(labelText)).left();
+		table.add(label(labelText)).left();
 		table.add(textField).left().expandX().fillX().row();
 	}
 
@@ -153,7 +206,7 @@ public class WidgetBuilder {
 				}
 			}
 		});
-		table.add(new VisLabel(labelText)).left();
+		table.add(label(labelText)).left();
 		table.add(textField).left().expandX().fillX().row();
 	}
 
@@ -170,7 +223,7 @@ public class WidgetBuilder {
 				}
 			}
 		});
-		table.add(new VisLabel(labelText)).left();
+		table.add(label(labelText)).left();
 		table.add(textField).left().expandX().fillX().row();
 	}
 

@@ -4,8 +4,10 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import technology.rocketjump.saul.assets.editor.UniqueAssetNameValidator;
@@ -27,11 +29,9 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
-import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
-import technology.rocketjump.saul.entities.model.physical.item.ItemType;
-import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
+import technology.rocketjump.saul.entities.model.physical.item.*;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
 
@@ -114,20 +114,99 @@ public class ItemUIFactory implements UIFactory {
     @Override
     public VisTable getEntityPropertyControls(Object typeDescriptor, Path basePath) {
         ItemType itemType = (ItemType) typeDescriptor;
+
+        VisTable controls = new VisTable();
+//        controls.debug();
+        controls.defaults().left();
+        controls.columnDefaults(0).uniformX().left();
+        controls.columnDefaults(1).fillX();
+
 //        private long itemTypeId;
-//        private String itemTypeName;
-//
-//        private int maxStackSize = 1;
-//        private int maxHauledAtOnce; // or requiresHauling
-//        private List<GameMaterialType> materialTypes = new ArrayList<>();
-//        private GameMaterialType primaryMaterialType;
-//
-//        private ItemHoldPosition holdPosition = ItemHoldPosition.IN_FRONT;
-//        private boolean impedesMovement = false;
-//        private boolean blocksMovement = false;
-//        private boolean equippedWhileWorkingOnJob = true; // Might need replacing with "can be shown hauling" property
+        controls.add(WidgetBuilder.label("Name"));
+        controls.add(WidgetBuilder.textField(itemType.getItemTypeName(), itemType::setItemTypeName));
+        controls.row();
+
+        controls.add(WidgetBuilder.label("Max Stack Size"));
+        controls.add(WidgetBuilder.intSpinner(itemType.getMaxStackSize(), 1, Integer.MAX_VALUE, itemType::setMaxStackSize));
+        controls.row();
+
+        controls.add(WidgetBuilder.label("Max Hauled At Once"));
+        controls.add(WidgetBuilder.intSpinner(itemType.getMaxHauledAtOnce(), 0, Integer.MAX_VALUE, itemType::setMaxHauledAtOnce));
+        controls.row();
+
+        controls.add(WidgetBuilder.label("Materials"));
+        controls.addSeparator().padTop(15);
+
+        controls.add(WidgetBuilder.label("Material Only"));
+        controls.add(WidgetBuilder.toggle(itemType.isDescribeAsMaterialOnly(), itemType::setDescribeAsMaterialOnly));
+        controls.row();
+        //Todo: nicer name
+        Map<GameMaterialType, VisCheckBox> materialTypeMap = new HashMap<>();
+        for (GameMaterialType materialType : GameMaterialType.values()) {
+            VisCheckBox checkBox = WidgetBuilder.checkBox(materialType, itemType.getMaterialTypes().contains(materialType),
+                    it -> {
+                        if (!itemType.getMaterialTypes().contains(it)) {
+                            itemType.getMaterialTypes().add(it);
+                        }
+                    }, itemType.getMaterialTypes()::remove);
+            materialTypeMap.put(materialType, checkBox);
+        }
+
+        controls.add(WidgetBuilder.label("Primary Type"));
+        controls.add(WidgetBuilder.select(itemType.getPrimaryMaterialType(), GameMaterialType.values(), null, newMaterialType -> {
+            GameMaterialType oldPrimary = itemType.getPrimaryMaterialType();
+            materialTypeMap.get(oldPrimary).setDisabled(false);
+            materialTypeMap.get(oldPrimary).setTouchable(Touchable.enabled);
+            materialTypeMap.get(oldPrimary).setChecked(false);
+
+            itemType.setPrimaryMaterialType(newMaterialType);
+            itemType.getMaterialTypes().remove(oldPrimary);
+            itemType.getMaterialTypes().add(newMaterialType);
+
+            materialTypeMap.get(newMaterialType).setDisabled(true);
+            materialTypeMap.get(newMaterialType).setTouchable(Touchable.disabled);
+            materialTypeMap.get(newMaterialType).setChecked(true);
+
+        }));
+        controls.row();
+
+        //todo: fix right column layout
+        int checkboxColCount = 1;
+        for (VisCheckBox checkBox : materialTypeMap.values()) {
+                controls.add(checkBox);
+            if (checkboxColCount % 2 == 0) {
+                controls.row();
+            }
+            checkboxColCount++;
+        }
+
+
+        controls.addSeparator().colspan(2).padBottom(15);
+
+        controls.add(WidgetBuilder.label("Hold Position"));
+        controls.add(WidgetBuilder.select(itemType.getHoldPosition(), ItemHoldPosition.values(), null, itemType::setHoldPosition));
+        controls.row();
+
+        controls.add(WidgetBuilder.label("Impedes Movement"));
+        controls.add(WidgetBuilder.toggle(itemType.impedesMovement(), itemType::setImpedesMovement));
+        controls.row();
+
+        controls.add(WidgetBuilder.label("Blocks Movement"));
+        controls.add(WidgetBuilder.toggle(itemType.blocksMovement(), itemType::setBlocksMovement));
+        controls.row();
+
+        controls.add(WidgetBuilder.label("Equipped While Working"));
+        controls.add(WidgetBuilder.toggle(itemType.isEquippedWhileWorkingOnJob(), itemType::setEquippedWhileWorkingOnJob));
+        controls.row();
+
+        //no double spinner available
 //        private double hoursInInventoryUntilUnused = DEFAULT_HOURS_FOR_ITEM_TO_BECOME_UNUSED;
-//
+//        controls.add(WidgetBuilder.label("Inventory Until (hours)"));
+//        controls.add(WidgetBuilder.doubleSpinner(itemType.getHoursInInventoryUntilUnused(), 0, Double.MAX_VALUE, itemType::setHoursInInventoryUntilUnused));
+//        controls.row();
+
+
+
 //        private List<String> relatedCraftingTypeNames = new ArrayList<>();
 //        private List<CraftingType> relatedCraftingTypes = new ArrayList<>();
 //
@@ -146,8 +225,7 @@ public class ItemUIFactory implements UIFactory {
 //        private WeaponInfo weaponInfo;
 //        private AmmoType isAmmoType;
 //
-//        private boolean describeAsMaterialOnly;
-        return new VisTable();
+        return controls;
     }
 
     @Override
@@ -200,7 +278,7 @@ public class ItemUIFactory implements UIFactory {
         Collection<ItemPlacement> itemPlacements = Arrays.asList(ItemPlacement.values());
         Collection<ItemQuality> itemQualities = Arrays.asList(ItemQuality.values());
 
-        var assetComponents = new VisTable() {
+        var assetComponents = new VisTable() { //TODO: feels dirty to unpack the widgets again
             private void addComponent(VisTable component) {
                 Actor[] actors = component.getChildren().toArray();
                 for (Actor actor : actors) {
