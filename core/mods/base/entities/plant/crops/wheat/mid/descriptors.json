@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Wheat-Mid",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Wheat", "Barley"],
+  "speciesName": "Wheat",
   "growthStages": [2],
   "spriteDescriptors": {
     "DOWN": {

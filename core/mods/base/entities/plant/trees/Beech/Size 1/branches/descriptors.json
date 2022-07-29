@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Tree-Beech-Size1-Branches",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Beech", "Gabon Ebony", "Pecan", "Sycamore"],
+  "speciesName": "Beech",
   "growthStages": [0],
   "spriteDescriptors": {
     "DOWN": {

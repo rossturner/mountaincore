@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Wheat-Late",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Wheat", "Barley"],
+  "speciesName": "Wheat",
   "growthStages": [3, 4, 5],
   "spriteDescriptors": {
     "DOWN": {

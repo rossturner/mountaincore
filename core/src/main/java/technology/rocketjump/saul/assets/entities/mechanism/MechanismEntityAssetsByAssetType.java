@@ -32,15 +32,8 @@ public class MechanismEntityAssetsByAssetType {
 			throw new RuntimeException("Unrecognised asset type " + asset.getType() + " for " + asset.getUniqueName());
 		}
 
-		if (asset.getMechanismTypeNames() != null && !asset.getMechanismTypeNames().isEmpty()) {
-			for (String MechanismTypeName : asset.getMechanismTypeNames()) {
-				typeMap.get(asset.getType()).add(mechanismTypeDictionary.getByName(MechanismTypeName), asset);
-				typeMap.get(NULL_ENTITY_ASSET_TYPE).add(mechanismTypeDictionary.getByName(MechanismTypeName), asset);
-			}
-		} else {
-			typeMap.get(asset.getType()).add(mechanismTypeDictionary.getByName(asset.getMechanismTypeName()), asset);
-			typeMap.get(NULL_ENTITY_ASSET_TYPE).add(mechanismTypeDictionary.getByName(asset.getMechanismTypeName()), asset);
-		}
+		typeMap.get(asset.getType()).add(mechanismTypeDictionary.getByName(asset.getMechanismTypeName()), asset);
+		typeMap.get(NULL_ENTITY_ASSET_TYPE).add(mechanismTypeDictionary.getByName(asset.getMechanismTypeName()), asset);
 	}
 
 	public MechanismEntityAsset get(EntityAssetType entityAssetType, MechanismEntityAttributes attributes) {

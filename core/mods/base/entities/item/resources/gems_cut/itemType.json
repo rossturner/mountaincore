@@ -1,0 +1,10 @@
+{
+  "itemTypeName": "Resource-Gem",
+  "materialTypes": ["GEM"],
+  "primaryMaterialType": "GEM",
+  "maxStackSize": 32,
+  "maxHauledAtOnce": 4,
+  "stockpileGroupName": "RAW_MATERIALS",
+  "impedesMovement": true,
+  "blocksMovement": false
+}

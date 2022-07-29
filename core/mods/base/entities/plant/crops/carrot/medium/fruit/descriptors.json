@@ -1,0 +1,16 @@
+[{
+  "uniqueName": "Carrot-Medium-Flowers",
+  "type": "PLANT_FRUIT",
+  "speciesName": "Carrot",
+  "growthStages": [4],
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "crop_potato_medium_flowers.png",
+      "coloringLayer": "FRUIT_COLOR",
+      "offsetPixels": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  }
+}]

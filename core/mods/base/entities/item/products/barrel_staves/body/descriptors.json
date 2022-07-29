@@ -2,9 +2,7 @@
   {
     "uniqueName": "Product-Barrel-Staves-Body-Ground",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeNames": [
-      "Product-Barrel-Staves"
-    ],
+    "itemTypeName": "Product-Barrel-Staves",
     "itemPlacements": [
       "ON_GROUND"
     ],
@@ -20,9 +18,7 @@
   {
     "uniqueName": "Product-Barrel-Staves-Body-Carried",
     "type": "ITEM_BASE_LAYER",
-    "itemTypeNames": [
-      "Product-Barrel-Staves"
-    ],
+    "itemTypeName": "Product-Barrel-Staves",
     "itemPlacements": [
       "BEING_CARRIED"
     ],

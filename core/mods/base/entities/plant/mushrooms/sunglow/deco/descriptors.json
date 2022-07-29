@@ -2,7 +2,7 @@
   {
     "uniqueName": "Mushroom-Cap01-Stripes-Glowing",
     "type": "PLANT_FRUIT",
-    "speciesNames": ["Sunglow"],
+    "speciesName": "Sunglow",
     "growthStages": [0],
     "tags": {
       "ATTACHES_LIGHT_SOURCE": ["#f6f76f", "#fdfda0", "#fafaec", "#f4f5c0"]
@@ -18,7 +18,7 @@
   {
     "uniqueName": "Mushroom-Cap02-Stripes-Glowing",
     "type": "PLANT_FRUIT",
-    "speciesNames": ["Sunglow"],
+    "speciesName": "Sunglow",
     "growthStages": [0],
     "tags": {
       "ATTACHES_LIGHT_SOURCE": ["#f6f76f", "#fdfda0", "#fafaec", "#f4f5c0"]

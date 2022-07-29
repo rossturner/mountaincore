@@ -1,0 +1,93 @@
+[
+  {
+    "uniqueName": "Sunglow-Stripes-Cap01",
+    "type": "PLANT_LEAVES",
+    "speciesName": "Sunglow",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap01-Base.png",
+        "scale": 0.75,
+        "coloringLayer": "LEAF_COLOR",
+        "childAssets": [
+          {
+            "type": "PLANT_FRUIT",
+            "specificAssetName": "Sunglow-Cap01-Stripes"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "Sunglow-Stripes-Cap02",
+    "type": "PLANT_LEAVES",
+    "speciesName": "Sunglow",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Cap02-Base.png",
+        "scale": 0.75,
+        "coloringLayer": "LEAF_COLOR",
+        "childAssets": [
+          {
+            "type": "PLANT_FRUIT",
+            "specificAssetName": "Sunglow-Cap02-Stripes"
+          }
+        ]
+      }
+    }
+  },
+
+  {
+    "uniqueName": "Sunglow-Stem01",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Sunglow",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Stem01.png",
+        "scale": 0.75,
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": -4
+        },
+        "childAssets": [
+          {
+            "type": "PLANT_LEAVES",
+            "offsetPixels": {
+              "x": 1.75,
+              "y": 15
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "uniqueName": "Sunglow-Stem02",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Sunglow",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Farmable-Mushroom-Stem02.png",
+        "scale": 0.75,
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        },
+        "childAssets": [
+          {
+            "type": "PLANT_LEAVES",
+            "offsetPixels": {
+              "x": -1,
+              "y": 16
+            }
+          }
+        ]
+      }
+    }
+  }
+]

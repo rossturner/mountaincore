@@ -1,0 +1,33 @@
+[
+  {
+    "uniqueName": "Carrot-Seeds",
+    "type": "PLANT_BRANCHES",
+    "speciesName": "Carrot",
+    "growthStages": [0],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "crop_planted_seeds.png",
+        "coloringLayer": "BRANCHES_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    }
+  },
+  {
+  "uniqueName": "Carrot-Shoots",
+  "type": "PLANT_BRANCHES",
+  "speciesName": "Carrot",
+  "growthStages": [1],
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "crop_potato_shoots.png",
+      "coloringLayer": "BRANCHES_COLOR",
+      "offsetPixels": {
+        "x": 0,
+        "y": -15
+      }
+    }
+  }
+}]

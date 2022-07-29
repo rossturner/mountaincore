@@ -1,8 +1,8 @@
 [
   {
-    "uniqueName": "Mushroom-Stem01",
+    "uniqueName": "Purple-Helmet-Stem01",
     "type": "PLANT_BRANCHES",
-    "speciesNames": ["Purple Helmet", "Death Cap", "Fist", "Berserker", "Rociomycota", "Miltonia", "Elfsbane", "Sunglow", "Glow", "Syrup Powder"],
+    "speciesName": "Purple Helmet",
     "growthStages": [0],
     "spriteDescriptors": {
       "DOWN": {
@@ -26,9 +26,9 @@
     }
   },
   {
-    "uniqueName": "Mushroom-Stem02",
+    "uniqueName": "Purple-Helmet-Stem02",
     "type": "PLANT_BRANCHES",
-    "speciesNames": ["Purple Helmet", "Death Cap", "Fist", "Berserker", "Rociomycota", "Miltonia", "Elfsbane", "Sunglow", "Glow", "Syrup Powder"],
+    "speciesName": "Purple Helmet",
     "growthStages": [0],
     "spriteDescriptors": {
       "DOWN": {

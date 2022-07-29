@@ -1,0 +1,12 @@
+{
+  "itemTypeName": "Ingredient-Vegetable-Sack",
+  "describeAsMaterialOnly": true,
+  "materialTypes": ["VEGETABLE", "CLOTH", "ROPE"],
+  "primaryMaterialType": "VEGETABLE",
+  "stockpileGroupName": "FOOD",
+  "hoursInInventoryUntilUnused": 2,
+  "maxStackSize": 30,
+  "maxHauledAtOnce": 30,
+  "equippedWhileWorkingOnJob": true,
+  "consumeSoundAssetName": "EatFood"
+}

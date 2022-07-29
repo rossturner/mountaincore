@@ -1,0 +1,12 @@
+{
+  "itemTypeName": "Ingredient-Soup-Bowl",
+  "describeAsMaterialOnly": true,
+  "materialTypes": ["LIQUID", "WOOD"],
+  "primaryMaterialType": "LIQUID",
+  "hoursInInventoryUntilUnused": 4,
+  "maxStackSize": 1,
+  "maxHauledAtOnce": 1,
+  "holdPosition": "RIGHT_HAND",
+  "equippedWhileWorkingOnJob": true,
+  "consumeSoundAssetName": "DrinkSoup"
+}

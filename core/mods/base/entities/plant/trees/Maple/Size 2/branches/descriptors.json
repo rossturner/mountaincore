@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Tree-Maple-Size2-Branches",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Maple", "Nuytsia", "Red cedar", "Red emperor"],
+  "speciesName": "Maple",
   "growthStages": [1],
   "spriteDescriptors": {
     "DOWN": {

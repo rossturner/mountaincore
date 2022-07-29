@@ -1,0 +1,12 @@
+[{
+  "uniqueName": "Tree-Rosewood-Size2-Leaves",
+  "type": "PLANT_LEAVES",
+  "speciesName": "Rosewood",
+  "growthStages": [1],
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "birch_02_l.png",
+      "coloringLayer": "LEAF_COLOR"
+    }
+  }
+}]

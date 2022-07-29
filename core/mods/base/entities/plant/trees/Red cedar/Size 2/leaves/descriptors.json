@@ -1,0 +1,12 @@
+[{
+  "uniqueName": "Tree-Red-cedar-Size2-Leaves",
+  "type": "PLANT_LEAVES",
+  "speciesName": "Red cedar",
+  "growthStages": [1],
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "maple_02_l.png",
+      "coloringLayer": "LEAF_COLOR"
+    }
+  }
+}]

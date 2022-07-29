@@ -12,16 +12,12 @@ public class PlantEntityAssetDescriptor {
 	private String uniqueName;
 	private EntityAssetType type;
 	private String speciesName;
-	private List<String> speciesNames;
 	private Set<Integer> growthStages = new HashSet<>();
 
 	protected Map<String, List<String>> tags = new HashMap<>();
 
 	public boolean matches(PlantEntityAttributes entityAttributes) {
 		if (speciesName != null && !speciesName.equals(entityAttributes.getSpecies().getSpeciesName())) {
-			return false;
-		}
-		if (speciesNames != null && !speciesNames.contains(entityAttributes.getSpecies().getSpeciesName())) {
 			return false;
 		}
 		if (!growthStages.isEmpty() && !growthStages.contains(entityAttributes.getGrowthStageCursor())) {
@@ -52,14 +48,6 @@ public class PlantEntityAssetDescriptor {
 
 	public void setSpeciesName(String speciesName) {
 		this.speciesName = speciesName;
-	}
-
-	public List<String> getSpeciesNames() {
-		return speciesNames;
-	}
-
-	public void setSpeciesNames(List<String> speciesNames) {
-		this.speciesNames = speciesNames;
 	}
 
 	public Set<Integer> getGrowthStages() {

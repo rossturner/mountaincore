@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Maize-Large",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Maize"],
+  "speciesName": "Maize",
   "growthStages": [5, 6, 7],
   "spriteDescriptors": {
     "DOWN": {

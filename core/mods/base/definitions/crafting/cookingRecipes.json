@@ -78,12 +78,8 @@
       {
         "itemTypeName": "Carcass-Meat-Large",
         "materialName": "Elephant Meat"
-      },
-
-      {
-        "itemTypeName": "Ingredient-Vegetable-Crate",
-        "materialName": "Tamarillo"
       }
+
     ],
     "inputItemQuantity": 3,
 

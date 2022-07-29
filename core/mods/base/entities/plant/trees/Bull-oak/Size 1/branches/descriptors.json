@@ -1,0 +1,25 @@
+[{
+  "uniqueName": "Tree-Bull-oak-Size1-Branches",
+  "type": "PLANT_BRANCHES",
+  "speciesName": "Bull-oak",
+  "growthStages": [0],
+  "spriteDescriptors": {
+    "DOWN": {
+      "filename": "birch_01_t.png",
+      "coloringLayer": "BRANCHES_COLOR",
+      "offsetPixels": {
+        "x": 0,
+        "y": 2
+      },
+      "childAssets": [
+        {
+          "type": "PLANT_LEAVES",
+          "offsetPixels": {
+            "x": 0,
+            "y": 14
+          }
+        }
+      ]
+    }
+  }
+}]

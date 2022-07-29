@@ -1,7 +1,7 @@
 [{
   "uniqueName": "Tree-Birch-Size3-Branches",
   "type": "PLANT_BRANCHES",
-  "speciesNames": ["Birch", "Bull-oak", "Rosewood", "Aspen"],
+  "speciesName": "Birch",
   "growthStages": [2],
   "spriteDescriptors": {
     "DOWN": {

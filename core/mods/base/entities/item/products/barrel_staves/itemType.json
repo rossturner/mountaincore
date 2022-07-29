@@ -1,0 +1,10 @@
+{
+  "itemTypeName": "Product-Barrel-Staves",
+  "materialTypes": ["WOOD"],
+  "primaryMaterialType": "WOOD",
+  "stockpileGroupName": "PRODUCTS",
+  "hoursInInventoryUntilUnused": 2,
+  "maxStackSize": 15,
+  "maxHauledAtOnce": 5,
+  "equippedWhileWorkingOnJob": true
+}

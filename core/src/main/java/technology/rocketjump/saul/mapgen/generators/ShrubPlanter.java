@@ -42,30 +42,19 @@ public class ShrubPlanter {
 	public void placeShrubs(GameMap map, TileSubType targetType, Random random, GameMapGenerationParams generationParams) {
 		for (MapSubRegion subRegion : map.getSubRegions().values()) {
 			if (subRegion.getSubRegionType().equals(targetType)) {
-				ShrubType nonFruitShrub = pickShrub(generationParams, random, false);
-				ShrubType fruitShrub = pickShrub(generationParams, random, true);
+				ShrubType shrubType = pickShrub(generationParams, random);
 
-				placeShrubs(map, subRegion, random, nonFruitShrub, fruitShrub, generationParams.getRatioOfFruitingShrubs());
+				placeShrubs(map, subRegion, random, shrubType);
 			}
 		}
 	}
 
-	private ShrubType pickShrub(GameMapGenerationParams generationParams, Random random, boolean hasFruit) {
+	private ShrubType pickShrub(GameMapGenerationParams generationParams, Random random) {
 		List<ShrubType> shrubTypes = generationParams.getShrubTypes();
-
-		ShrubType picked = null;
-		while (picked == null) {
-			// FIXME Need to ensure at least one shrub type with both fruit and non-fruit
-			ShrubType aShrubType = shrubTypes.get(random.nextInt(shrubTypes.size()));
-			if (aShrubType.hasFruit() == hasFruit) {
-				picked = aShrubType;
-			}
-		}
-
-		return picked;
+		return shrubTypes.get(random.nextInt(shrubTypes.size()));
 	}
 
-	private void placeShrubs(GameMap map, MapSubRegion subRegion, Random random, ShrubType nonFruitShrub, ShrubType fruitShrub, float ratioOfFruitingShrubs) {
+	private void placeShrubs(GameMap map, MapSubRegion subRegion, Random random, ShrubType shrubType) {
 		LinkedList<GridPoint2> positionsToSpawnFrom = new LinkedList<>();
 
 		List<GridPoint2> initialPositions = new LinkedList<>();
@@ -88,8 +77,7 @@ public class ShrubPlanter {
 
 		for (GridPoint2 initialPosition : initialPositions) {
 			if (isShrubAllowedAt(initialPosition, map, subRegion)) {
-				ShrubType typeToUse = pickShrubType(random, nonFruitShrub, fruitShrub, ratioOfFruitingShrubs);
-				map.get(initialPosition).setShrubType(typeToUse);
+				map.get(initialPosition).setShrubType(shrubType);
 				positionsToSpawnFrom.add(initialPosition);
 			}
 		}
@@ -112,7 +100,7 @@ public class ShrubPlanter {
 				if (validNearbyPoint == null) {
 					break;
 				} else {
-					map.get(validNearbyPoint).setShrubType(pickShrubType(random, nonFruitShrub, fruitShrub, ratioOfFruitingShrubs));
+					map.get(validNearbyPoint).setShrubType(shrubType);
 					positionsToSpawnFrom.add(validNearbyPoint);
 					shrubsSpawned++;
 				}
