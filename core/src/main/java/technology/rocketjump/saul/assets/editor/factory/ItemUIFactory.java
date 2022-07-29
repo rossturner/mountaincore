@@ -4,17 +4,18 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.kotcrab.vis.ui.widget.VisCheckBox;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextField;
+import com.kotcrab.vis.ui.widget.*;
 import technology.rocketjump.saul.assets.editor.UniqueAssetNameValidator;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.model.ItemNameBuilders;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.TagsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.ItemAttributesPane;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
@@ -251,6 +252,19 @@ public class ItemUIFactory implements UIFactory {
         controls.addSeparator().colspan(2).padBottom(15);
         controls.row();
 
+        TagsWidget tagsWidget = new TagsWidget(itemType.getTags());
+        CollapsibleWidget tagsCollapsible = new CollapsibleWidget(tagsWidget);
+        tagsCollapsible.setCollapsed(itemType.getTags().isEmpty());
+        VisLabel tagsLabel = new VisLabel("Tags (click to show)");
+        tagsLabel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                tagsCollapsible.setCollapsed(!tagsCollapsible.isCollapsed());
+            }
+        });
+        controls.add(tagsLabel).left().expandX().fillX().colspan(2).row();
+        controls.add(tagsCollapsible).expandX().fillX().left().colspan(2).row();
+
 
 
         StockpileGroup nullStockpileGroup = new StockpileGroup() {
@@ -295,12 +309,11 @@ public class ItemUIFactory implements UIFactory {
         }));
         controls.row();
 
+        //TODO: Weapon controls
 //        private WeaponInfo weaponInfo;
 //        private AmmoType isAmmoType;
 //
 
-//        private Map<String, List<String>> tags = new HashMap<>();
-//        private List<Tag> processedTags = new ArrayList<>();
         return controls;
     }
 
