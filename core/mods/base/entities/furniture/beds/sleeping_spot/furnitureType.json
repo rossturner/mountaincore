@@ -8,10 +8,5 @@
   "autoConstructed": true,
   "requirements": {
     "EARTH": []
-  },
-  "tags": {
-    "EXTRA_MATERIAL_TYPES": [
-      "CLOTH"
-    ]
-  }
+
 }

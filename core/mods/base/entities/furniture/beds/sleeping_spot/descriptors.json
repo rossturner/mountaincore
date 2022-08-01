@@ -11,7 +11,6 @@
     "spriteDescriptors": {
       "DOWN": {
         "filename": "sleep_spot.png",
-        "coloringLayer": "CLOTH_COLOR",
         "offsetPixels": {
           "x": 0,
           "y": 0

@@ -4,7 +4,7 @@
     "materialType": "STONE",
     "rockGroup": "Sedimentary",
     "prevalence": 1,
-    "colorCode": "#F0C297",
+    "colorCode": "#ffdb96",
     "oreNames": ["Hematite", "Bituminous Coal", "Cassiterite", "Pyrite", "Bauxite"]
   },
   {
@@ -12,7 +12,7 @@
     "materialType": "STONE",
     "rockGroup": "Sedimentary",
     "prevalence": 2,
-    "colorCode": "#FFFFE6",
+    "colorCode": "#e2d9b3",
     "isFluxMaterial": true,
     "oreNames": ["Hematite", "Bituminous Coal", "Cassiterite", "Pyrite", "Bauxite"]
   },
@@ -30,7 +30,7 @@
     "materialType": "STONE",
     "rockGroup": "Sedimentary",
     "prevalence": 1,
-    "colorCode": "#8A6565",
+    "colorCode": "#ce9999",
     "oreNames": ["Hematite", "Chrysocolla", "Bituminous Coal", "Cassiterite", "Ilmenite", "Bauxite"]
   },
   {
@@ -38,7 +38,7 @@
     "materialType": "STONE",
     "rockGroup": "Metamorphic",
     "prevalence": 1,
-    "colorCode": "#8C8C8C",
+    "colorCode": "#c3c6ce",
     "oreNames": ["Malachite", "Chrysocolla", "Galena", "Thorium", "Pyrite", "Ilmenite"]
   },
   {
@@ -46,7 +46,7 @@
     "materialType": "STONE",
     "rockGroup": "Metamorphic",
     "prevalence": 1,
-    "colorCode": "#FAFAFA",
+    "colorCode": "#ffffff",
     "oreNames": ["Malachite", "Chrysocolla", "Galena", "Wolframite", "Pyrite", "Ilmenite"]
   },
   {
@@ -54,7 +54,7 @@
     "materialType": "STONE",
     "rockGroup": "Igneous",
     "prevalence": 4,
-    "colorCode": "#4D4D4D",
+    "colorCode": "#816e6e",
     "oreNames": ["Native Gold", "Native Platinum", "Hematite", "Native Copper", "Native Silver", "Wolframite", "Pollucite"]
   },
   {
@@ -62,7 +62,7 @@
     "materialType": "STONE",
     "rockGroup": "Igneous",
     "prevalence": 1,
-    "colorCode": "#8C8C8C",
+    "colorCode": "#7f9199",
     "oreNames": ["Native Gold", "Native Platinum", "Hematite", "Native Copper", "Wolframite", "Ilmenite"]
   },
   {
@@ -70,7 +70,7 @@
     "materialType": "STONE",
     "rockGroup": "Igneous",
     "prevalence": 0.2,
-    "colorCode": "#404e73",
+    "colorCode": "#89a9ff",
     "useInRandomGeneration": false,
     "oreNames": ["Native Gold", "Native Platinum", "Hematite", "Native Copper"]
   }
