@@ -341,7 +341,7 @@ public class AssetEditorUI implements Telegraph {
 				};
 
 				dialog.add(new VisLabel("Original file")).left();
-				dialog.add(new VisLabel(message.originalFileHandle().path())).left();
+				dialog.add(new VisLabel(FileUtils.getDirectory(message.originalFileHandle().file().toPath()).toString())).left();
 				dialog.add(new VisLabel(message.originalFileHandle().name())).left();
 				dialog.row();
 				dialog.add(new VisLabel("New Filename")).left();

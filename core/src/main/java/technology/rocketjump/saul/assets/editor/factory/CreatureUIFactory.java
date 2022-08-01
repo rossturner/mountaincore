@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
@@ -192,7 +193,14 @@ public class CreatureUIFactory implements UIFactory {
     public VisTable getEntityPropertyControls(Object typeDescriptor, Path basePath) {
         VisTable editorTable = new VisTable();
         Race race = (Race) typeDescriptor;
-        addTextField("Name:", "name", race, editorTable);
+        //TODO: make cascade down to entity assets
+        VisValidatableTextField nameTextField = textField(race.getName(), race::setName);
+        nameTextField.setDisabled(true);
+        nameTextField.setTouchable(Touchable.disabled);
+        editorTable.add(WidgetBuilder.label("Name"));
+        editorTable.add(nameTextField);
+        editorTable.row();
+//        addTextField("Name:", "name", race, editorTable);
         addTextField("I18N key:", "i18nKey", race, editorTable);
 
         addFloatField("Minimum strength:", "minStrength", race, editorTable);

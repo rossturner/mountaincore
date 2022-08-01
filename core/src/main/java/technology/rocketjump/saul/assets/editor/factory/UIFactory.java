@@ -20,7 +20,6 @@ public interface UIFactory {
 
     EntityType getEntityType();
 
-    //                case FURNITURE -> List.of(DOWN, LEFT, RIGHT, UP);
     default List<EntityAssetOrientation> getApplicableOrientations(EntityAsset entityAsset) {
         return List.of(DOWN);
     }

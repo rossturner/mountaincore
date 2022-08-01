@@ -32,6 +32,7 @@ import technology.rocketjump.saul.assets.entities.item.model.ItemStyle;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
+import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
@@ -39,9 +40,12 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.combat.CombatDamageType;
 import technology.rocketjump.saul.entities.model.physical.item.*;
+import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
+import technology.rocketjump.saul.mapping.model.TiledMap;
+import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
@@ -105,6 +109,8 @@ public class ItemUIFactory implements UIFactory {
         Random random = new Random();
         GameContext gameContext = new GameContext();
         gameContext.setRandom(new RandomXS128());
+        gameContext.setAreaMap(new TiledMap(1, 1, 1, FloorType.NULL_FLOOR, GameMaterial.NULL_MATERIAL));
+        gameContext.setGameClock(new GameClock());
         ItemType itemType = itemTypeDictionary.getByName(name);
         ItemEntityAttributes attributes = new ItemEntityAttributes();
         attributes.setItemType(itemType);
@@ -158,8 +164,11 @@ public class ItemUIFactory implements UIFactory {
         controls.columnDefaults(0).uniformX().left();
         controls.columnDefaults(1).fillX().left();
 
+        VisValidatableTextField nameTextField = WidgetBuilder.textField(itemType.getItemTypeName(), itemType::setItemTypeName);
+        nameTextField.setDisabled(true);
+        nameTextField.setTouchable(Touchable.disabled);
         controls.add(WidgetBuilder.label("Name"));
-        controls.add(WidgetBuilder.textField(itemType.getItemTypeName(), itemType::setItemTypeName));
+        controls.add(nameTextField); //TODO: make editable and update child entity asset types
         controls.row();
 
         controls.add(WidgetBuilder.label("Max Stack Size"));
@@ -345,7 +354,7 @@ public class ItemUIFactory implements UIFactory {
 
         CollapsibleWidget weaponCollapsible = new CollapsibleWidget(weaponInfoControls);
         weaponCollapsible.setCollapsed(!initalHasWeaponInfo);
-        controls.add(WidgetBuilder.checkBox("Weapon:", initalHasWeaponInfo, checked -> {
+        controls.add(WidgetBuilder.checkBox("Is Weapon:", initalHasWeaponInfo, checked -> {
             itemType.setWeaponInfo(weaponInfo);
             weaponCollapsible.setCollapsed(false, true);
         }, unchecked -> {

@@ -80,19 +80,7 @@ public class SpriteDescriptorsPane extends VisTable {
                                 String filename = fileHandle.name();
                                 spriteDescriptor.setFilename(filename);
                                 filenameField.setText(filename);
-                                Texture texture = new Texture(fileHandle);
-                                Sprite sprite = new Sprite(texture);
-                                sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
-                                spriteDescriptor.setSprite(RenderMode.DIFFUSE, sprite); //TODO: Assumes Diffuse is selected
-
-                                Path generatedNormalFile = normalMapGenerator.generate(fileHandle.file().toPath());
-                                Texture normalTexture = new Texture(new LwjglFileHandle(generatedNormalFile.toAbsolutePath().toFile(), Files.FileType.Absolute));
-                                Sprite normalSprite = new Sprite(normalTexture);
-                                sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
-                                spriteDescriptor.setSprite(RenderMode.NORMALS, normalSprite);
-
-
-                                messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, editorStateProvider.getState().getCurrentEntity());
+                                displaySprite(fileHandle, spriteDescriptor);
                             };
 
                             if (selectedImageDirectory.startsWith(modDirectory.toAbsolutePath())) {
@@ -124,6 +112,12 @@ public class SpriteDescriptorsPane extends VisTable {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     spriteDescriptor.setFilename(filenameField.getText());
+                    Path currentDescriptorsPath = FileUtils.getDirectory(Paths.get(editorStateProvider.getState().getAssetSelection().getDescriptorsPath()));
+                    FileHandle fileHandle = new FileHandle(currentDescriptorsPath.resolve(filenameField.getText()).toFile());
+                    if (fileHandle.exists() && !fileHandle.isDirectory()) {
+                        displaySprite(fileHandle, spriteDescriptor);
+                    }
+
                 }
             });
             VisTable rowTable = new VisTable();
@@ -214,18 +208,33 @@ public class SpriteDescriptorsPane extends VisTable {
             orientationTable.add(new OffsetPixelsWidget(spriteDescriptor.getOffsetPixels())).left().colspan(2).row();
 
 
-            addChildAssetsWidgets("Child assets (click to show)", spriteDescriptor.getChildAssets(), entityType, orientationTable);
-            addChildAssetsWidgets("Attachment points (click to show)", spriteDescriptor.getAttachmentPoints(), entityType, orientationTable);
-            addChildAssetsWidgets("Parent entity assets (click to show)", spriteDescriptor.getParentEntityAssets(), entityType, orientationTable);
+            addChildAssetsWidgets("Child assets (click to show)", spriteDescriptor.getChildAssets(), orientationTable, entityAssetTypeDictionary.getByEntityType(entityType));
+            addChildAssetsWidgets("Attachment points (click to show)", spriteDescriptor.getAttachmentPoints(), orientationTable, entityAssetTypeDictionary.getByEntityType(entityType));
+            addChildAssetsWidgets("Parent entity assets (click to show)", spriteDescriptor.getParentEntityAssets(), orientationTable, entityAssetTypeDictionary.getAll());
 
             this.addSeparator().row();
             this.add(orientationTable).expandX().fillX().row();
         }
     }
 
-    private void addChildAssetsWidgets(String labelText, List<EntityChildAssetDescriptor> childAssets, EntityType entityType, VisTable orientationTable) {
+    private void displaySprite(FileHandle fileHandle, SpriteDescriptor spriteDescriptor) {
+        Texture texture = new Texture(fileHandle);
+        Sprite sprite = new Sprite(texture);
+        sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
+        spriteDescriptor.setSprite(RenderMode.DIFFUSE, sprite); //TODO: Assumes Diffuse is selected
+
+        Path generatedNormalFile = normalMapGenerator.generate(fileHandle.file().toPath());
+        Texture normalTexture = new Texture(new LwjglFileHandle(generatedNormalFile.toAbsolutePath().toFile(), Files.FileType.Absolute));
+        Sprite normalSprite = new Sprite(normalTexture);
+        sprite.setFlip(spriteDescriptor.isFlipX(), spriteDescriptor.isFlipY());
+        spriteDescriptor.setSprite(RenderMode.NORMALS, normalSprite);
+
+        messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, editorStateProvider.getState().getCurrentEntity());
+    }
+
+    private void addChildAssetsWidgets(String labelText, List<EntityChildAssetDescriptor> childAssets, VisTable orientationTable, Collection<EntityAssetType> applicableTypes) {
         VisLabel label = new VisLabel(labelText);
-        ChildAssetsWidget childAssetsWidget = new ChildAssetsWidget(childAssets, entityAssetTypeDictionary.getByEntityType(entityType));
+        ChildAssetsWidget childAssetsWidget = new ChildAssetsWidget(childAssets, applicableTypes);
         CollapsibleWidget collapsibleChildAssets = new CollapsibleWidget(childAssetsWidget);
         collapsibleChildAssets.setCollapsed(childAssets.isEmpty());
         label.addListener(new ClickListener() {

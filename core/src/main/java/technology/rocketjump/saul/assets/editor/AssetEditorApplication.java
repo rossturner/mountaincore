@@ -18,15 +18,20 @@ import com.google.inject.multibindings.MapBinder;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
+import technology.rocketjump.saul.AssetsPackager;
 import technology.rocketjump.saul.assets.editor.factory.CreatureUIFactory;
+import technology.rocketjump.saul.assets.editor.factory.FurnitureUIFactory;
 import technology.rocketjump.saul.assets.editor.factory.ItemUIFactory;
 import technology.rocketjump.saul.assets.editor.factory.UIFactory;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
 import technology.rocketjump.saul.logging.CrashHandler;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -45,6 +50,9 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 	private NativeFileChooser fileChooser;
 	private EditorStateProvider editorStateProvider;
 	private EntityAssetUpdater entityAssetUpdater;
+	private CreatureUIFactory creatureUIFactory;
+	private MessageDispatcher messageDispatcher;
+	private Entity itemHoldingDwarf;
 
 	@Inject
 	public AssetEditorApplication(NativeFileChooser fileChooser) {
@@ -82,6 +90,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				MapBinder<EntityType, UIFactory> uiFactoryMapBinder = MapBinder.newMapBinder(binder(), EntityType.class, UIFactory.class);
 				uiFactoryMapBinder.addBinding(EntityType.CREATURE).to(CreatureUIFactory.class);
 				uiFactoryMapBinder.addBinding(EntityType.ITEM).to(ItemUIFactory.class);
+				uiFactoryMapBinder.addBinding(EntityType.FURNITURE).to(FurnitureUIFactory.class);
 			}
 		});
 		injector.getInstance(CrashHandler.class); //ensure we load user preferences for crash
@@ -89,6 +98,9 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		entityRenderer = injector.getInstance(EntityRenderer.class);
 		editorStateProvider = injector.getInstance(EditorStateProvider.class);
 		ui = injector.getInstance(AssetEditorUI.class);
+		creatureUIFactory = injector.getInstance(CreatureUIFactory.class);
+		messageDispatcher = injector.getInstance(MessageDispatcher.class);
+		itemHoldingDwarf = creatureUIFactory.createEntityForRendering("Dwarf");
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(ui.getStage());
@@ -125,7 +137,16 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 
 					for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
 						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
-							renderEntityWithOrientation(currentEntity, orientation, originalPosition, currentRenderMode, true);
+
+							if (currentEntity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes iea && iea.getItemPlacement() == ItemPlacement.BEING_CARRIED) {
+								EquippedItemComponent equippedItemComponent = itemHoldingDwarf.getOrCreateComponent(EquippedItemComponent.class);
+								equippedItemComponent.clearEquippedItem();
+								equippedItemComponent.setEquippedItem(currentEntity, itemHoldingDwarf, messageDispatcher);
+								renderEntityWithOrientation(itemHoldingDwarf, orientation, originalPosition, currentRenderMode, true);
+								equippedItemComponent.clearEquippedItem();
+							} else {
+								renderEntityWithOrientation(currentEntity, orientation, originalPosition, currentRenderMode, true);
+							}
 						}
 					}
 				}
@@ -133,6 +154,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 			ui.render();
 		} catch (Throwable e) {
 			CrashHandler.logCrash(e);
+			throw e;
 		}
 	}
 
@@ -228,6 +250,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				return true;
 			}
 			case MessageType.EDITOR_RELOAD: {
+				AssetsPackager.main();
 				init();
 				return true;
 			}
