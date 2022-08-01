@@ -11,29 +11,34 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SkinFeature {
 
-	private String skinMaterialName;
+	private String materialName;
 	@JsonIgnore
-	private GameMaterial skinMaterial;
+	private GameMaterial material;
 	private Map<CombatDamageType, Integer> damageReduction = new EnumMap<>(CombatDamageType.class);
 
 	public Map<CombatDamageType, Integer> getDamageReduction() {
 		return damageReduction;
 	}
 
-	public String getSkinMaterialName() {
-		return skinMaterialName;
+	public String getMaterialName() {
+		return materialName;
 	}
 
-	public void setSkinMaterialName(String skinMaterialName) {
-		this.skinMaterialName = skinMaterialName;
+	public void setMaterialName(String materialName) {
+		this.materialName = materialName;
 	}
 
-	public GameMaterial getSkinMaterial() {
-		return skinMaterial;
+	public GameMaterial getMaterial() {
+		return material;
 	}
 
-	public void setSkinMaterial(GameMaterial skinMaterial) {
-		this.skinMaterial = skinMaterial;
+	public void setMaterial(GameMaterial material) {
+		if (GameMaterial.NULL_MATERIAL.equals(material) || material == null) {
+			this.materialName = null;
+		} else {
+			this.materialName = material.getMaterialName();
+		}
+		this.material = material;
 	}
 
 	public void setDamageReduction(Map<CombatDamageType, Integer> damageReduction) {

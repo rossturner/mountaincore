@@ -23,10 +23,9 @@ public class EntityChildAssetDescriptor {
 
 	public StorableVector2 getOffsetPixels() {
 		if (offsetPixels == null) {
-			return new StorableVector2();
-		} else {
-			return offsetPixels;
+			this.offsetPixels = new StorableVector2();
 		}
+		return offsetPixels;
 	}
 
 	public void setOffsetPixels(StorableVector2 offsetPixels) {

@@ -1,17 +1,18 @@
 {
 	"platform": "windows64",
-	"jdk": "jdks/OpenJDK17U-jdk_x64_windows_hotspot_17.0.2_8",
-	"executable": "King under the Mountain",
+	"jdk": "jdks/OpenJDK17U-jdk_x64_windows_hotspot_17.0.4_8",
+	"executable": "Project Saul",
 	"classpath": [
-		"../desktop/build/libs/undermount-desktop.jar"
+		"../desktop/build/libs/project-saul.jar"
 	],
-	"mainclass": "technology.rocketjump.undermount.launcher.DesktopLauncher",
+	"mainclass": "technology.rocketjump.saul.launcher.DesktopLauncher",
 	"vmargs": ["Xms1200m", "-Dfile.encoding=UTF-8", "-Dsun.java2d.dpiaware=true"],
 	"resources": [
 		"../core/seed.txt",
 		"../core/changelog.txt",
 		"../core/assets",
 		"../core/mods",
+		"../core/mod_tools",
 		"log.txt",
 		"troubleshooting.txt",
 		"launch-from-command-prompt.bat"

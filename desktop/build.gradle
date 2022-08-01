@@ -24,7 +24,7 @@ task dist(type: Jar) {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     with jar
-    archiveName 'undermount-desktop.jar'
+    archiveName 'project-saul.jar'
 }
 
 dist.dependsOn classes

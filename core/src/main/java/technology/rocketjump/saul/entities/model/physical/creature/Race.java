@@ -9,10 +9,7 @@ import technology.rocketjump.saul.entities.model.physical.creature.features.Race
 import technology.rocketjump.saul.entities.model.physical.plant.SpeciesColor;
 import technology.rocketjump.saul.misc.Name;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Race {
@@ -28,7 +25,7 @@ public class Race {
 	@JsonIgnore
 	private BodyStructure bodyStructure;
 
-	private List<CreatureBodyShapeDescriptor> bodyShapes;
+	private List<CreatureBodyShapeDescriptor> bodyShapes = new ArrayList<>(); //TODO: this safe?
 
 	private Map<ColoringLayer, SpeciesColor> colors = new EnumMap<>(ColoringLayer.class);
 
@@ -118,6 +115,9 @@ public class Race {
 
 	public void setBodyStructure(BodyStructure bodyStructure) {
 		this.bodyStructure = bodyStructure;
+		if (bodyStructure != null) {
+			setBodyStructureName(bodyStructure.getName());
+		}
 	}
 
 	public Map<ColoringLayer, SpeciesColor> getColors() {

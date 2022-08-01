@@ -508,6 +508,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						IconOnlyButton upButton = upButtons.get(rowIndex);
 						upButton.setAction(() -> {
 							professionsComponent.swapActivePositions(rowIndex - 1, rowIndex);
+							messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 							update();
 						});
 						orderingTable.add(upButton).pad(2).row();
@@ -517,6 +518,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						IconOnlyButton downButton = downButtons.get(rowIndex);
 						downButton.setAction(() -> {
 							professionsComponent.swapActivePositions(rowIndex, rowIndex + 1);
+							messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 							update();
 						});
 						orderingTable.add(downButton).pad(2);

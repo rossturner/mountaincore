@@ -22,6 +22,7 @@ out/
 ## Game specific
 
 core/assets/temp
+core/assets/editor-state.json
 
 ## Release stuff
 
@@ -29,6 +30,7 @@ release_tools/King under the Mountain*
 release_tools/assets
 release_tools/*.zip
 release_tools/*_release
+release_tools/*_tool
 release_tools/mods
 release_tools/jdks
 release_tools/undermount-desktop.jar

@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+
 public class CreatureEntityAssetDescriptor {
 
 	@Name
@@ -37,13 +39,13 @@ public class CreatureEntityAssetDescriptor {
 		if (gender != null && !gender.equals(Gender.ANY) && !gender.equals(entityAttributes.getGender())) {
 			return false;
 		}
-		if (profession != null && primaryProfession != null && !profession.equals(primaryProfession.getName())) {
+		if (profession != null && !profession.equals(NULL_PROFESSION.getName()) && primaryProfession != null && !profession.equals(primaryProfession.getName())) {
 			return false;
 		}
 		if (consciousness != null && entityAttributes.getConsciousness() != consciousness) {
 			return false;
 		}
-		if (consciousnessList != null && !consciousnessList.contains(entityAttributes.getConsciousness())) {
+		if (consciousnessList != null && !consciousnessList.isEmpty() && !consciousnessList.contains(entityAttributes.getConsciousness())) {
 			return false;
 		}
 		if (sanity != null && entityAttributes.getSanity() != sanity) {
@@ -74,6 +76,9 @@ public class CreatureEntityAssetDescriptor {
 
 	public void setRace(Race race) {
 		this.race = race;
+		if (race != null) {
+			this.raceName = race.getName();
+		}
 	}
 
 	public CreatureBodyShape getBodyShape() {
@@ -138,5 +143,10 @@ public class CreatureEntityAssetDescriptor {
 
 	public void setConsciousnessList(List<Consciousness> consciousnessList) {
 		this.consciousnessList = consciousnessList;
+	}
+
+	@Override
+	public String toString() {
+		return getUniqueName();
 	}
 }

@@ -13,17 +13,19 @@ public enum EntityAssetOrientation {
 	LEFT(DOWN, new Vector2(-1, 0)),
 	RIGHT(DOWN, new Vector2(1, 0)),
 	// The following are used for 6-directional entities
-	DOWN_LEFT(LEFT, new Vector2(-1, -1).nor()),
-	DOWN_RIGHT(RIGHT, new Vector2(1, -1).nor()),
-	UP_LEFT(LEFT, new Vector2(-1, 1).nor()),
-	UP_RIGHT(RIGHT, new Vector2(1, 1).nor());
+	DOWN_LEFT(LEFT, new Vector2(-1, -1)),
+	DOWN_RIGHT(RIGHT, new Vector2(1, -1)),
+	UP_LEFT(LEFT, new Vector2(-1, 1)),
+	UP_RIGHT(RIGHT, new Vector2(1, 1));
 
 	private EntityAssetOrientation fallback;
 	private Vector2 asVector;
+	public final Vector2 asOriginalVector;
 
 	EntityAssetOrientation(EntityAssetOrientation fallback, Vector2 vector) {
 		this.fallback = fallback;
-		this.asVector = vector;
+		this.asVector = vector.cpy().nor();
+		this.asOriginalVector = vector.cpy();
 	}
 
 	public boolean hasFallback() {

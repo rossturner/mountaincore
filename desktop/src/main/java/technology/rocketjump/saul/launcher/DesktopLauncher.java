@@ -61,9 +61,9 @@ public class DesktopLauncher {
         config.width = displayResolution.width;
         config.height = displayResolution.height;
 
-        config.addIcon("assets/icon/undermount-icon-128x128.png", Files.FileType.Internal);
-        config.addIcon("assets/icon/undermount-icon-32x32.png", Files.FileType.Internal);
-        config.addIcon("assets/icon/undermount-icon-16x16.png", Files.FileType.Internal);
+        config.addIcon("assets/icon/Steam_Icon_128x128.png", Files.FileType.Internal);
+        config.addIcon("assets/icon/Steam_Icon_32x32.png", Files.FileType.Internal);
+        config.addIcon("assets/icon/Steam_Icon_16x16.png", Files.FileType.Internal);
 
         SaulApplicationAdapter gameInstance = new SaulApplicationAdapter();
         new SaulLwjglApplication(gameInstance, config);

@@ -29,6 +29,11 @@ public class MeatFeature {
 	}
 
 	public void setItemType(ItemType itemType) {
+		if (itemType == null) {
+			itemTypeName = null;
+		} else {
+			itemTypeName = itemType.getItemTypeName();
+		}
 		this.itemType = itemType;
 	}
 
@@ -45,6 +50,11 @@ public class MeatFeature {
 	}
 
 	public void setMaterial(GameMaterial material) {
+		if (GameMaterial.NULL_MATERIAL.equals(material) || material == null) {
+			this.materialName = null;
+		} else {
+			this.materialName = material.getMaterialName();
+		}
 		this.material = material;
 	}
 

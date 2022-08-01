@@ -264,4 +264,18 @@ public class MessageType {
 	public static final int CREATURE_DAMAGE_APPLIED = 1903;
 	public static final int CREATURE_ORGAN_DAMAGE_APPLIED = 1904;
 
+	// Asset Editor messages
+	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;
+	public static final int EDITOR_BROWSER_TREE_RIGHT_CLICK = 99002;
+	public static final int EDITOR_ENTITY_SELECTION = 99003;
+	public static final int EDITOR_BROWSER_TREE_SELECTION = 99004;
+	public static final int EDITOR_SHOW_COLOR_PICKER = 99005;
+	public static final int EDITOR_SHOW_CREATE_DIRECTORY_DIALOG = 99006;
+	public static final int EDITOR_SHOW_CREATE_ENTITY_DIALOG = 99007;
+	public static final int EDITOR_SHOW_CREATE_ASSET_DIALOG = 99008;
+	public static final int EDITOR_ASSET_CREATED = 99009;
+	public static final int EDITOR_SHOW_IMPORT_FILE_DIALOG = 99010;
+	public static final int EDITOR_RELOAD = 99011;
+	public static final int EDITOR_SHOW_CROP_SPRITES_DIALOG = 99012;
+
 }

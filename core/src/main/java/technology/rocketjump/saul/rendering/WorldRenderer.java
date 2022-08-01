@@ -71,7 +71,7 @@ public class WorldRenderer implements Disposable {
 	private final List<MapTile> roomTiles = new LinkedList<>();
 	private final List<MapTile> unexploredTiles = new LinkedList<>();
 	private final Set<Long> entitiesRenderedThisFrame = new HashSet<>();
-	private final Set<GridPoint2> settlerLocations = new HashSet<>();
+	private final Set<GridPoint2> creatureLocations = new HashSet<>();
 	private final Map<Long, Construction> terrainConstructionsToRender = new TreeMap<>();
 	private final Map<Long, Construction> otherConstructionsToRender = new TreeMap<>(); // This needs to behave like a set and have consistent yet unimportant ordering
 	private final List<ParticleEffectInstance> particlesInFrontOfEntity = new ArrayList<>();
@@ -113,7 +113,7 @@ public class WorldRenderer implements Disposable {
 		bridgeTiles.clear();
 		roomTiles.clear();
 		unexploredTiles.clear();
-		settlerLocations.clear();
+		creatureLocations.clear();
 		int totalTiles = 0;
 		int outdoorTiles = 0;
 
@@ -152,7 +152,7 @@ public class WorldRenderer implements Disposable {
 				});
 				for (Entity entity : mapTile.getEntities()) {
 					if (entity.getType().equals(EntityType.CREATURE)) {
-						settlerLocations.add(toGridPoint(entity.getLocationComponent().getWorldOrParentPosition()));
+						creatureLocations.add(toGridPoint(entity.getLocationComponent().getWorldOrParentPosition()));
 					}
 				}
 				if (mapTile.hasDoorway()) {
@@ -268,7 +268,7 @@ public class WorldRenderer implements Disposable {
 
 					Color multiplyColor = null;
 					if (GlobalSettings.TREE_TRANSPARENCY_ENABLED) {
-						if (entity.getType().equals(EntityType.PLANT) && isPlantOccludingHumanoid(entity)) {
+						if (entity.getType().equals(EntityType.PLANT) && isPlantOccludingCreature(entity)) {
 							multiplyColor = TREE_TRANSPARENCY;
 						}
 					}
@@ -312,7 +312,7 @@ public class WorldRenderer implements Disposable {
 		}
 	}
 
-	private boolean isPlantOccludingHumanoid(Entity entity) {
+	private boolean isPlantOccludingCreature(Entity entity) {
 		PlantEntityAttributes attributes = (PlantEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 		if (attributes.getSpecies().getPlantType().equals(PlantSpeciesType.TREE)) {
 			GridPoint2 treePosition = toGridPoint(entity.getLocationComponent().getWorldOrParentPosition());
@@ -320,7 +320,7 @@ public class WorldRenderer implements Disposable {
 			PlantSpeciesGrowthStage growthStage = attributes.getSpecies().getGrowthStages().get(attributes.getGrowthStageCursor());
 			for (int checkX = treePosition.x - 1; checkX <= treePosition.x + 1; checkX++) {
 				for (int checkY = treePosition.y + 1; checkY <= treePosition.y + growthStage.getTileHeight(); checkY++) {
-					if (settlerLocations.contains(new GridPoint2(checkX, checkY))) {
+					if (creatureLocations.contains(new GridPoint2(checkX, checkY))) {
 						return true;
 					}
 				}

@@ -79,7 +79,7 @@ public class GameMaterialDictionary {
 		return material;
 	}
 
-	public Iterable<GameMaterial> getAll() {
+	public Collection<GameMaterial> getAll() {
 		return idMap.values();
 	}
 

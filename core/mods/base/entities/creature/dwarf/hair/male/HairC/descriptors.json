@@ -1,124 +1,98 @@
-[{
-  "uniqueName": "Dwarf-HairC-Color",
-  "type": "CREATURE_HAIR",
-  "raceName": "Dwarf",
-  "gender": "MALE",
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "Dwarf-HairC-Color-F+B.png",
-      "coloringLayer": "HAIR_COLOR",
-      "scale": 1.05,
-      "offsetPixels": {
-        "x": 0,
-        "y": -2
+[ {
+  "uniqueName" : "Dwarf-HairC-Color",
+  "type" : "CREATURE_HAIR",
+  "raceName" : "Dwarf",
+  "gender" : "MALE",
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-HairC-Color-F+B.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "scale" : 1.05,
+      "offsetPixels" : {
+        "y" : -2.0
       },
-      "childAssets": [
-        {
-          "type": "HAIR_OUTLINE",
-          "specificAssetName": "Dwarf-HairC-Outline",
-          "offsetPixels": {
-            "x": 1,
-            "y": 0
-          }
+      "childAssets" : [ {
+        "type" : "HAIR_OUTLINE",
+        "specificAssetName" : "Dwarf-HairC-Outline",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "unit" : true
         }
-      ]
+      } ]
     },
-    "DOWN_RIGHT": {
-      "filename": "Dwarf-HairC-Color-F34+B34flip.png",
-      "coloringLayer": "HAIR_COLOR",
-      "scale": 1.05,
-      "offsetPixels": {
-        "x": 0,
-        "y": -2
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-HairC-Color-F34+B34flip.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "scale" : 1.05,
+      "offsetPixels" : {
+        "y" : -2.0
       },
-      "childAssets": [
-        {
-          "type": "HAIR_OUTLINE",
-          "specificAssetName": "Dwarf-HairC-Outline",
-          "offsetPixels": {
-            "x": 0,
-            "y": 0
-          }
-        }
-      ]
+      "childAssets" : [ {
+        "type" : "HAIR_OUTLINE",
+        "specificAssetName" : "Dwarf-HairC-Outline"
+      } ]
     },
-    "DOWN_LEFT": {
-      "filename": "Dwarf-HairC-Color-F34+B34flip.png",
-      "flipX": true,
-      "coloringLayer": "HAIR_COLOR",
-      "scale": 1.05,
-      "offsetPixels": {
-        "x": 0,
-        "y": -2
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-HairC-Color-F34+B34flip.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "scale" : 1.05,
+      "offsetPixels" : {
+        "y" : -2.0
       },
-      "childAssets": [
-        {
-          "type": "HAIR_OUTLINE",
-          "specificAssetName": "Dwarf-HairC-Outline",
-          "offsetPixels": {
-            "x": -1,
-            "y": 0
-          }
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "HAIR_OUTLINE",
+        "specificAssetName" : "Dwarf-HairC-Outline",
+        "offsetPixels" : {
+          "x" : -1.0,
+          "unit" : true
         }
-      ]
+      } ]
     },
-    "UP_RIGHT": {
-      "filename": "Dwarf-HairC-Color-F34+B34flip.png",
-      "flipX": true,
-      "coloringLayer": "HAIR_COLOR",
-      "scale": 1.05,
-      "offsetPixels": {
-        "x": 0,
-        "y": -2
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-HairC-Color-F34+B34flip.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "scale" : 1.05,
+      "offsetPixels" : {
+        "y" : -2.0
       },
-      "childAssets": [
-        {
-          "type": "HAIR_OUTLINE",
-          "specificAssetName": "Dwarf-HairC-Outline",
-          "offsetPixels": {
-            "x": -1,
-            "y": 0
-          }
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "HAIR_OUTLINE",
+        "specificAssetName" : "Dwarf-HairC-Outline",
+        "offsetPixels" : {
+          "x" : -1.0,
+          "unit" : true
         }
-      ]
+      } ]
     },
-    "UP_LEFT": {
-      "filename": "Dwarf-HairC-Color-F34+B34flip.png",
-      "coloringLayer": "HAIR_COLOR",
-      "scale": 1.05,
-      "offsetPixels": {
-        "x": 0,
-        "y": -2
+    "UP_LEFT" : {
+      "filename" : "Dwarf-HairC-Color-F34+B34flip.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "scale" : 1.05,
+      "offsetPixels" : {
+        "y" : -2.0
       },
-      "childAssets": [
-        {
-          "type": "HAIR_OUTLINE",
-          "specificAssetName": "Dwarf-HairC-Outline",
-          "offsetPixels": {
-            "x": 0,
-            "y": 0
-          }
-        }
-      ]
+      "childAssets" : [ {
+        "type" : "HAIR_OUTLINE",
+        "specificAssetName" : "Dwarf-HairC-Outline"
+      } ]
     },
-    "UP": {
-      "filename": "Dwarf-HairC-Color-F+B.png",
-      "coloringLayer": "HAIR_COLOR",
-      "scale": 1.05,
-      "offsetPixels": {
-        "x": 0,
-        "y": -2
+    "UP" : {
+      "filename" : "Dwarf-HairC-Color-F+B.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "scale" : 1.05,
+      "offsetPixels" : {
+        "y" : -2.0
       },
-      "childAssets": [
-        {
-          "type": "HAIR_OUTLINE",
-          "specificAssetName": "Dwarf-HairC-Outline",
-          "offsetPixels": {
-            "x": 1,
-            "y": 0
-          }
+      "childAssets" : [ {
+        "type" : "HAIR_OUTLINE",
+        "specificAssetName" : "Dwarf-HairC-Outline",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "unit" : true
         }
-      ]
+      } ]
     }
   }
-}]
+} ]

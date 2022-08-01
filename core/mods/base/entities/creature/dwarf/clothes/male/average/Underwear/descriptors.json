@@ -1,55 +1,48 @@
-[{
-  "uniqueName": "Dwarf-Male-Average-Underwear",
-  "type": "BODY_CLOTHING",
-  "raceName": "Dwarf",
-  "bodyShape": "AVERAGE",
-  "gender": "MALE",
-  "profession": "VILLAGER",
-  "sanity": "BROKEN",
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "Dwarf-Male-Average-Underwear-F.png",
-      "offsetPixels": {
-        "x": 0,
-        "y": -16
+[ {
+  "uniqueName" : "Dwarf-Male-Average-Underwear",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "AVERAGE",
+  "gender" : "MALE",
+  "sanity" : "BROKEN",
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Male-Average-Underwear-F.png",
+      "offsetPixels" : {
+        "y" : -16.0
       }
     },
-    "DOWN_RIGHT": {
-      "filename": "Dwarf-Male-Average-Underwear-F34.png",
-      "offsetPixels": {
-        "x": 0,
-        "y": -13
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Male-Average-Underwear-F34.png",
+      "offsetPixels" : {
+        "y" : -13.0
       }
     },
-    "DOWN_LEFT": {
-      "filename": "Dwarf-Male-Average-Underwear-F34.png",
-      "flipX": true,
-      "offsetPixels": {
-        "x": 0,
-        "y": -13
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Male-Average-Underwear-F34.png",
+      "offsetPixels" : {
+        "y" : -13.0
+      },
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Male-Average-Underwear-B34.png",
+      "offsetPixels" : {
+        "y" : -12.0
       }
     },
-    "UP_RIGHT": {
-      "filename": "Dwarf-Male-Average-Underwear-B34.png",
-      "offsetPixels": {
-        "x": 0,
-        "y": -12
-      }
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Male-Average-Underwear-B34.png",
+      "offsetPixels" : {
+        "y" : -12.0
+      },
+      "flipX" : true
     },
-    "UP_LEFT": {
-      "filename": "Dwarf-Male-Average-Underwear-B34.png",
-      "flipX": true,
-      "offsetPixels": {
-        "x": 0,
-        "y": -12
-      }
-    },
-    "UP": {
-      "filename": "Dwarf-Male-Average-Underwear-B.png",
-      "offsetPixels": {
-        "x": 0,
-        "y": -12
+    "UP" : {
+      "filename" : "Dwarf-Male-Average-Underwear-B.png",
+      "offsetPixels" : {
+        "y" : -12.0
       }
     }
   }
-}]
+} ]

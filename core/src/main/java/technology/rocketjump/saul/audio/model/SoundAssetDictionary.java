@@ -9,10 +9,7 @@ import technology.rocketjump.saul.settlement.notifications.NotificationType;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Singleton
 public class SoundAssetDictionary {
@@ -59,6 +56,10 @@ public class SoundAssetDictionary {
 			}
 		}
 		asset.setFilenames(qualifiedFilenames);
+	}
+
+	public Collection<SoundAsset> getAll() {
+		return byName.values();
 	}
 
 	public SoundAsset getByName(String name) {

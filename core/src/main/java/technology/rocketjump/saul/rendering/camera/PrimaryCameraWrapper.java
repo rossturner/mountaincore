@@ -173,7 +173,7 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 			// Zooming by mouse wheel
 			if (camera.zoom < targetZoom) {
 				float difference = targetZoom - camera.zoom;
-				if (difference < 0.02f) {
+				if (difference < 0.05f) {
 					camera.zoom = targetZoom;
 				} else {
 					camera.zoom += ZOOM_SPEED * deltaSeconds * difference;

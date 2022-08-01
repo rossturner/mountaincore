@@ -194,6 +194,9 @@ public class ItemType {
 	}
 
 	public String getI18nKey() {
+		if (itemTypeName == null) {
+			return null;
+		}
 		return itemTypeName.toUpperCase().replaceAll("-", ".").replaceAll(" ", "_");
 	}
 
