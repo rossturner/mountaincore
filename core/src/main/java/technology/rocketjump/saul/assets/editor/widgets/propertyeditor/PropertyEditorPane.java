@@ -6,7 +6,6 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 
 
-//TODO: Kill me?
 public class PropertyEditorPane extends VisTable {
 
 	@Inject

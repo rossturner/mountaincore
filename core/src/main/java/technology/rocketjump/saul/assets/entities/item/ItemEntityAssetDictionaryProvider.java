@@ -59,8 +59,10 @@ public class ItemEntityAssetDictionaryProvider implements Provider<ItemEntityAss
 
 			for (ItemEntityAsset asset : assetList) {
 				for (SpriteDescriptor spriteDescriptor : asset.getSpriteDescriptors().values()) {
-					addSprite(spriteDescriptor, diffuseTextureAtlas, RenderMode.DIFFUSE);
-					addSprite(spriteDescriptor, normalTextureAtlas, RenderMode.NORMALS);
+					if (spriteDescriptor.getFilename() != null) {
+						addSprite(spriteDescriptor, diffuseTextureAtlas, RenderMode.DIFFUSE);
+						addSprite(spriteDescriptor, normalTextureAtlas, RenderMode.NORMALS);
+					}
 				}
 			}
 

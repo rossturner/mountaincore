@@ -75,6 +75,18 @@ public class WidgetBuilder {
 		return spinner;
 	}
 
+	public static Spinner floatSpinner(float initialValue, float minValue, float maxValue, Consumer<Float> changeListener) {
+		FloatSpinnerModel spinnerModel = new FloatSpinnerModel(String.valueOf(initialValue), String.valueOf(minValue), String.valueOf(maxValue));
+		Spinner spinner = new Spinner("", spinnerModel);
+		spinner.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				changeListener.accept(spinnerModel.getValue().floatValue());
+			}
+		});
+		return spinner;
+	}
+
 	public static Spinner doubleSpinner(double initialValue, double minValue, double maxValue, Consumer<Double> changeListener) {
 		FloatSpinnerModel spinnerModel = new FloatSpinnerModel(String.valueOf(initialValue), String.valueOf(minValue), String.valueOf(maxValue));
 		Spinner spinner = new Spinner("", spinnerModel);

@@ -35,6 +35,7 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.combat.CombatDamageType;
 import technology.rocketjump.saul.entities.model.physical.item.*;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
@@ -154,8 +155,6 @@ public class ItemUIFactory implements UIFactory {
         controls.columnDefaults(0).uniformX().left();
         controls.columnDefaults(1).fillX().left();
 
-        //todo:
-//        private long itemTypeId;
         controls.add(WidgetBuilder.label("Name"));
         controls.add(WidgetBuilder.textField(itemType.getItemTypeName(), itemType::setItemTypeName));
         controls.row();
@@ -165,7 +164,7 @@ public class ItemUIFactory implements UIFactory {
         controls.row();
 
         controls.add(WidgetBuilder.label("Max Hauled At Once"));
-        controls.add(WidgetBuilder.intSpinner(itemType.getMaxHauledAtOnce(), 0, Integer.MAX_VALUE, itemType::setMaxHauledAtOnce));
+        controls.add(WidgetBuilder.intSpinner(itemType.getMaxHauledAtOnce(), 1, Integer.MAX_VALUE, itemType::setMaxHauledAtOnce));
         controls.row();
 
         controls.add(WidgetBuilder.label("Materials")).padTop(15);
@@ -325,10 +324,82 @@ public class ItemUIFactory implements UIFactory {
         }));
         controls.row();
 
+
+        //        private AmmoType isAmmoType;
+
+
+        // Weapon info
+        final WeaponInfo weaponInfo;
+        boolean initalHasWeaponInfo = itemType.getWeaponInfo() != null;
+        if (initalHasWeaponInfo) {
+            weaponInfo = itemType.getWeaponInfo();
+        } else {
+            weaponInfo = new WeaponInfo();
+        }
+        VisTable weaponInfoControls = new VisTable();
+        weaponInfoControls.columnDefaults(0).uniformX().left();
+        weaponInfoControls.columnDefaults(1).fillX().left();
+
+        CollapsibleWidget weaponCollapsible = new CollapsibleWidget(weaponInfoControls);
+        weaponCollapsible.setCollapsed(!initalHasWeaponInfo);
+        controls.add(WidgetBuilder.checkBox("Weapon:", initalHasWeaponInfo, checked -> {
+            itemType.setWeaponInfo(weaponInfo);
+            weaponCollapsible.setCollapsed(false, true);
+        }, unchecked -> {
+            itemType.setWeaponInfo(null);
+            weaponCollapsible.setCollapsed(true, true);
+        })).padTop(15);
+        controls.row();
+        controls.addSeparator().colspan(2);
+
         //TODO: Weapon controls
-//        private WeaponInfo weaponInfo;
-//        private AmmoType isAmmoType;
-//
+        weaponInfoControls.add(WidgetBuilder.label("Modified By Strength"));
+        weaponInfoControls.add(WidgetBuilder.toggle(weaponInfo.isModifiedByStrength(), weaponInfo::setModifiedByStrength));
+        weaponInfoControls.row();
+
+        weaponInfoControls.add(WidgetBuilder.label("Min Damage"));
+        weaponInfoControls.add(WidgetBuilder.intSpinner(weaponInfo.getMinDamage(), 0, Integer.MAX_VALUE, weaponInfo::setMinDamage));
+        weaponInfoControls.row();
+
+        weaponInfoControls.add(WidgetBuilder.label("Max Damage"));
+        weaponInfoControls.add(WidgetBuilder.intSpinner(weaponInfo.getMaxDamage(), 0, Integer.MAX_VALUE, weaponInfo::setMaxDamage));
+        weaponInfoControls.row();
+
+        weaponInfoControls.add(WidgetBuilder.label("Damage Type"));
+        weaponInfoControls.add(WidgetBuilder.select(weaponInfo.getDamageType(), CombatDamageType.values(), null, weaponInfo::setDamageType));
+        weaponInfoControls.row();
+
+        weaponInfoControls.add(WidgetBuilder.label("Range"));
+        weaponInfoControls.add(WidgetBuilder.floatSpinner(weaponInfo.getRange(), 0, Float.MAX_VALUE, weaponInfo::setRange));
+        weaponInfoControls.row();
+
+        /*
+	private AmmoType requiresAmmoType;
+         */
+        weaponInfoControls.add(WidgetBuilder.label("Fire Sound"));
+        weaponInfoControls.add(WidgetBuilder.select(weaponInfo.getFireWeaponSoundAsset(), soundAssetDictionary.getAll(), nullSoundAsset, soundAsset -> {
+            weaponInfo.setFireWeaponSoundAsset(soundAsset);
+            weaponInfo.setFireWeaponSoundAssetName(soundAsset.getName());
+        }));
+        weaponInfoControls.row();
+
+        weaponInfoControls.add(WidgetBuilder.label("Hit Sound"));
+        weaponInfoControls.add(WidgetBuilder.select(weaponInfo.getWeaponHitSoundAsset(), soundAssetDictionary.getAll(), nullSoundAsset, soundAsset -> {
+            weaponInfo.setWeaponHitSoundAsset(soundAsset);
+            weaponInfo.setWeaponHitSoundAssetName(soundAsset.getName());
+        }));
+        weaponInfoControls.row();
+
+        weaponInfoControls.add(WidgetBuilder.label("Miss Sound"));
+        weaponInfoControls.add(WidgetBuilder.select(weaponInfo.getWeaponMissSoundAsset(), soundAssetDictionary.getAll(), nullSoundAsset, soundAsset -> {
+            weaponInfo.setWeaponMissSoundAsset(soundAsset);
+            weaponInfo.setWeaponMissSoundAssetName(soundAsset.getName());
+        }));
+        weaponInfoControls.row();
+
+        controls.add(weaponCollapsible).colspan(2);
+        controls.row();
+        controls.addSeparator().colspan(2).padBottom(15);
 
         return controls;
     }
