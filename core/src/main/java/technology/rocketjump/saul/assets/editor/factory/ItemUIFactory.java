@@ -452,19 +452,25 @@ public class ItemUIFactory implements UIFactory {
         Collection<String> itemTypeNames = itemTypeDictionary.getAll().stream().map(ItemType::getItemTypeName).toList();
         Collection<ItemPlacement> itemPlacements = Arrays.asList(ItemPlacement.values());
 
-        VisTable nameComponent = WidgetBuilder.textField("Name", itemEntityAsset.getUniqueName(), itemEntityAsset::setUniqueName, new UniqueAssetNameValidator(completeAssetDictionary));
-        Optional<VisTextField> optionalNameField = WidgetBuilder.findFirst(nameComponent, VisTextField.class);
+        VisTextField nameTextField = WidgetBuilder.textField(itemEntityAsset.getUniqueName(), itemEntityAsset::setUniqueName, new UniqueAssetNameValidator(completeAssetDictionary));
         Consumer<Object> uniqueNameRebuilder = o -> {
             ItemType selectedItemType = itemTypeDictionary.getByName(itemEntityAsset.getItemTypeName());//Bit weird with the item type thing
             String builtName = ItemNameBuilders.buildUniqueNameForAsset(selectedItemType, itemEntityAsset);
-            optionalNameField.ifPresent(textBox -> textBox.setText(builtName));
+            nameTextField.setText(builtName);
         };
 
-        dialog.addRow(WidgetBuilder.selectField("Item Type", itemEntityAsset.getItemTypeName(), itemTypeNames, itemType.getItemTypeName(), compose(itemEntityAsset::setItemTypeName, uniqueNameRebuilder)));
-        dialog.addRow(WidgetBuilder.selectField("Type", itemEntityAsset.getType(), entityAssetTypes, null, compose(itemEntityAsset::setType, uniqueNameRebuilder)));
-        dialog.addRow(WidgetBuilder.checkboxGroup("Placements", itemEntityAsset.getItemPlacements(), itemPlacements,
-                compose(itemEntityAsset.getItemPlacements()::add, uniqueNameRebuilder), compose(itemEntityAsset.getItemPlacements()::remove, uniqueNameRebuilder)));
-        dialog.addRow(nameComponent);
+        dialog.add(WidgetBuilder.label("Item Type"));
+        dialog.add(WidgetBuilder.select(itemEntityAsset.getItemTypeName(), itemTypeNames, itemType.getItemTypeName(), compose(itemEntityAsset::setItemTypeName, uniqueNameRebuilder)));
+        dialog.row();
+        dialog.add(WidgetBuilder.label("Type"));
+        dialog.add(WidgetBuilder.select(itemEntityAsset.getType(), entityAssetTypes, null, compose(itemEntityAsset::setType, uniqueNameRebuilder)));
+        dialog.row();
+        dialog.add(WidgetBuilder.label("Placements"));
+        dialog.add(WidgetBuilder.checkboxes(itemEntityAsset.getItemPlacements(), itemPlacements,
+                compose(itemEntityAsset.getItemPlacements()::add, uniqueNameRebuilder), compose(itemEntityAsset.getItemPlacements()::remove, uniqueNameRebuilder))).colspan(2);
+        dialog.row();
+        dialog.add(WidgetBuilder.label("Name"));
+        dialog.add(nameTextField);
         return dialog;
     }
 

@@ -54,11 +54,6 @@ public abstract class OkCancelDialog {
         visDialog.key(Input.Keys.ESCAPE, false);
     }
 
-    public <T extends Actor> void addRow(T actor) {
-        add(actor);
-        row();
-    }
-
     public <T extends Actor> Cell<T> add(T actor) {
         if (actor instanceof Group group) {
             captureValidatingFields(group);

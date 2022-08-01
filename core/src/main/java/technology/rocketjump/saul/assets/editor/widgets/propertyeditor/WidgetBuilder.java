@@ -154,7 +154,13 @@ public class WidgetBuilder {
 	public static <T> VisTable checkboxGroup(String labelText, List<T> initialValue, Collection<T> options, Consumer<T> checkedListener, Consumer<T> uncheckedListener) {
 		VisTable component = new VisTable();
 		component.defaults().left();
+		VisTable checkBoxes = checkboxes(initialValue, options, checkedListener, uncheckedListener);
+		component.add(label(labelText));
+		component.add(checkBoxes);
+		return component;
+	}
 
+	public static <T> VisTable checkboxes(List<T> initialValue, Collection<T> options, Consumer<T> checkedListener, Consumer<T> uncheckedListener) {
 		VisTable checkBoxes = new VisTable();
 		for (T option : options) {
 			VisCheckBox checkbox = new VisCheckBox(option.toString());
@@ -171,10 +177,7 @@ public class WidgetBuilder {
 			});
 			checkBoxes.add(checkbox).expandX().left().row();
 		}
-
-		component.add(label(labelText));
-		component.add(checkBoxes);
-		return component;
+		return checkBoxes;
 	}
 
 	public static <T> VisTable selectField(String labelText, T initialValue, Collection<T> items, T valueIfNull, Consumer<T> changeListener) {
