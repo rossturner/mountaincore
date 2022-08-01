@@ -22,8 +22,10 @@
     }
   },
 
+  "mapPlacement": "ANIMAL",
+
   "behaviour": {
-    "behaviourName": "SolitaryAnimal",
+    "behaviourName": "Creature",
     "scheduleName": "Diurnal animal",
     "needs": ["SLEEP"],
     "aggressionResponse": "MIXED"

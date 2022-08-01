@@ -25,8 +25,9 @@
       "hidden" : false
     }
   },
+  "mapPlacement" : "ANIMAL",
   "behaviour" : {
-    "behaviourName" : "HerdAnimal",
+    "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ "SLEEP" ],
     "group" : {
@@ -89,8 +90,9 @@
       "hidden" : false
     }
   },
+  "mapPlacement" : "ANIMAL",
   "behaviour" : {
-    "behaviourName" : "HerdAnimal",
+    "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ "SLEEP" ],
     "group" : {
@@ -145,8 +147,9 @@
       "hidden" : false
     }
   },
+  "mapPlacement" : "ANIMAL",
   "behaviour" : {
-    "behaviourName" : "HerdAnimal",
+    "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ "SLEEP" ],
     "group" : {
@@ -205,8 +208,9 @@
       "hidden" : false
     }
   },
+  "mapPlacement" : "ANIMAL",
   "behaviour" : {
-    "behaviourName" : "SolitaryAnimal",
+    "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ "SLEEP" ],
     "aggressionResponse" : "MIXED",
@@ -275,6 +279,7 @@
       "hidden" : false
     }
   },
+  "mapPlacement" : "NONE",
   "behaviour" : {
     "behaviourName" : "Creature",
     "scheduleName" : "Default Settler Schedule",
@@ -317,8 +322,9 @@
     "value" : "AVERAGE"
   } ],
   "colors" : { },
+  "mapPlacement" : "NONE",
   "behaviour" : {
-    "behaviourName" : "Fish",
+    "behaviourName" : "Creature",
     "needs" : [ ],
     "isSapient" : false
   },
@@ -358,8 +364,9 @@
     "value" : "AVERAGE"
   } ],
   "colors" : { },
+  "mapPlacement" : "NONE",
   "behaviour" : {
-    "behaviourName" : "Fish",
+    "behaviourName" : "Creature",
     "needs" : [ ],
     "isSapient" : false
   },
@@ -399,8 +406,9 @@
     "value" : "AVERAGE"
   } ],
   "colors" : { },
+  "mapPlacement" : "NONE",
   "behaviour" : {
-    "behaviourName" : "Fish",
+    "behaviourName" : "Creature",
     "needs" : [ ],
     "isSapient" : false
   },

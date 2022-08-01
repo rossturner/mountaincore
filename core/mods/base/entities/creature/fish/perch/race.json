@@ -17,7 +17,7 @@
   },
 
   "behaviour": {
-    "behaviourName": "Fish"
+    "behaviourName": "Creature"
   },
 
   "genders": {

@@ -22,8 +22,10 @@
     }
   },
 
+  "mapPlacement": "ANIMAL",
+
   "behaviour": {
-    "behaviourName": "HerdAnimal",
+    "behaviourName": "Creature",
     "scheduleName": "Diurnal animal",
     "needs": ["SLEEP"],
     "group": {

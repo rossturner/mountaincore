@@ -147,10 +147,10 @@ public class Entity implements Persistable, Disposable {
 
 		return cloned;
 	}
-	private List<AttachedEntity> attachedEntities = new ArrayList<>();
 
 	private Map<ItemHoldPosition, AttachedEntity> workspaceItems = new HashMap<>();
 
+	private List<AttachedEntity> attachedEntities = new ArrayList<>();
 	public List<AttachedEntity> getAttachedEntities() {
 		attachedEntities.clear(); // Avoiding new instance on each call, is this a good idea or bad idea?
 
