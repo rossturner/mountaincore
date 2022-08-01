@@ -30,7 +30,7 @@ public class EquipItemFromFoodAllocationAction extends Action {
 				completionType = FAILURE;
 			} else {
 				EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
-				equippedItemComponent.setEquippedItem(itemInInventory, parent.parentEntity, parent.messageDispatcher);
+				equippedItemComponent.setMainHandItem(itemInInventory, parent.parentEntity, parent.messageDispatcher);
 				completionType = SUCCESS;
 			}
 		}

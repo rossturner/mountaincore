@@ -95,7 +95,7 @@ public class CreatureViewerApplication extends ApplicationAdapter {
 		itemAllocationComponent.init(heldItem, null, null);
 
 		EquippedItemComponent equippedItemComponent = currentEntity.getOrCreateComponent(EquippedItemComponent.class);
-		equippedItemComponent.setEquippedItem(heldItem, currentEntity, new MessageDispatcher());
+		equippedItemComponent.setMainHandItem(heldItem, currentEntity, new MessageDispatcher());
 //		HaulingComponent haulingComponent = new HaulingComponent();
 //		haulingComponent.setHauledEntity(heldItem, new MessageDispatcher(), currentEntity);
 //		currentEntity.addComponent(haulingComponent);

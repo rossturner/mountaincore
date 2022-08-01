@@ -858,7 +858,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
 				EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
 				if (equippedItemComponent != null) {
-					Entity equippedItem = equippedItemComponent.clearEquippedItem();
+					Entity equippedItem = equippedItemComponent.clearMainHandItem();
 					if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
 						ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
 						GameMaterial material = attributes.getPrimaryMaterial();
@@ -867,7 +867,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
 						} else {
 							// put back as equipped for AI to clear
-							equippedItemComponent.setEquippedItem(equippedItem, completedByEntity, messageDispatcher);
+							equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
 						}
 
 						messageDispatcher.dispatchMessage(MessageType.FLOORING_CONSTRUCTED, new FloorConstructionMessage(
@@ -882,7 +882,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
 				EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
 				if (equippedItemComponent != null) {
-					Entity equippedItem = equippedItemComponent.clearEquippedItem();
+					Entity equippedItem = equippedItemComponent.clearMainHandItem();
 					if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
 						ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
 						GameMaterial material = attributes.getPrimaryMaterial();
@@ -891,7 +891,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
 						} else {
 							// put back as equipped for AI to clear
-							equippedItemComponent.setEquippedItem(equippedItem, completedByEntity, messageDispatcher);
+							equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
 						}
 
 						messageDispatcher.dispatchMessage(MessageType.ROOF_CONSTRUCTED, new RoofConstructionMessage(
@@ -912,7 +912,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
 				EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
 				if (equippedItemComponent != null) {
-					Entity equippedItem = equippedItemComponent.clearEquippedItem();
+					Entity equippedItem = equippedItemComponent.clearMainHandItem();
 					if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
 						ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
 						GameMaterial material = attributes.getPrimaryMaterial();
@@ -921,7 +921,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
 						} else {
 							// put back as equipped for AI to clear
-							equippedItemComponent.setEquippedItem(equippedItem, completedByEntity, messageDispatcher);
+							equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
 						}
 
 						messageDispatcher.dispatchMessage(MessageType.PIPE_CONSTRUCTED, new PipeConstructionMessage(
@@ -944,7 +944,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 					Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
 					EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
 					if (equippedItemComponent != null) {
-						Entity equippedItem = equippedItemComponent.clearEquippedItem();
+						Entity equippedItem = equippedItemComponent.clearMainHandItem();
 						if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
 							ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
 							GameMaterial material = attributes.getPrimaryMaterial();
@@ -953,7 +953,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 								messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
 							} else {
 								// put back as equipped for AI to clear
-								equippedItemComponent.setEquippedItem(equippedItem, completedByEntity, messageDispatcher);
+								equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
 							}
 
 							messageDispatcher.dispatchMessage(MessageType.MECHANISM_CONSTRUCTED, new MechanismConstructionMessage(

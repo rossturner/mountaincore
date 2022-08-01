@@ -605,7 +605,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
 				Entity equippedItem = null;
 				if (equippedItemComponent != null) {
-					equippedItem = equippedItemComponent.getEquippedItem();
+					equippedItem = equippedItemComponent.getMainHandItem();
 				}
 				if (equippedItem != null && equippedItem.getType().equals(ITEM) &&
 						((ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes()).getItemType().equals(selectedWeapon.get())) {

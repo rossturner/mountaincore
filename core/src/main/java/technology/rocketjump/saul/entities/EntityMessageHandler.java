@@ -276,8 +276,16 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 							haulingComponent.clearHauledEntity();
 							containerEntity.removeComponent(HaulingComponent.class);
 						}
-						if (equippedItemComponent != null && equippedItemComponent.getEquippedItem() != null && equippedItemComponent.getEquippedItem().getId() == removedEntity.getId()) {
-							equippedItemComponent.clearEquippedItem();
+						if (equippedItemComponent != null) {
+							if (equippedItemComponent.getMainHandItem() != null && equippedItemComponent.getMainHandItem().getId() == removedEntity.getId()) {
+								equippedItemComponent.clearMainHandItem();
+							}
+							if (equippedItemComponent.getOffHandItem() != null && equippedItemComponent.getOffHandItem().getId() == removedEntity.getId()) {
+								equippedItemComponent.clearOffHandItem();
+							}
+							if (equippedItemComponent.getEquippedClothing() != null && equippedItemComponent.getEquippedClothing().getId() == removedEntity.getId()) {
+								equippedItemComponent.clearEquippedClothing();
+							}
 							containerEntity.removeComponent(EquippedItemComponent.class);
 						}
 						if (containerInventory != null) {
@@ -1054,10 +1062,10 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			entity.removeComponent(HaulingComponent.class);
 		}
 		EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
-		if (equippedItemComponent != null && equippedItemComponent.getEquippedItem() != null) {
-			Entity equippedItem = equippedItemComponent.getEquippedItem();
-			equippedItemComponent.clearEquippedItem();
-			placeOnGround(equippedItem, entityPosition);
+		if (equippedItemComponent != null) {
+			for (Entity equipmentEntity : equippedItemComponent.clearAllEquipment()) {
+				placeOnGround(equipmentEntity, entityPosition);
+			}
 			entity.removeComponent(EquippedItemComponent.class);
 		}
 	}

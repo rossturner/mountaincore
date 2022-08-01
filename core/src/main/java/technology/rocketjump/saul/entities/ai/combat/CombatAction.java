@@ -9,4 +9,6 @@ public abstract class CombatAction {
 
 	private Entity parentEntity;
 
+	public abstract boolean completesInOneRound();
+
 }

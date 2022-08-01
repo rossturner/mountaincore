@@ -489,8 +489,9 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible,
 
 	@Override
 	public boolean isJobAssignable() {
-		// TODO replace this with does the creature belong to the player settlement faction and is sapient
-		return true;
+		boolean isSapient = ((CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes()).getRace().getBehaviour().getIsSapient();
+		boolean settlementFaction = parentEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT);
+		return isSapient && settlementFaction;
 	}
 
 	public CreatureGroup getCreatureGroup() {

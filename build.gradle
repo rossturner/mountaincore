@@ -37,11 +37,13 @@ allprojects {
 
 }
 
-project(":desktop") {
+subprojects {
     apply plugin: "java-library"
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = 17
+    targetCompatibility = 17
+}
 
+project(":desktop") {
 
     dependencies {
         implementation project(":core")
@@ -121,10 +123,6 @@ project(":desktop") {
 }
 
 project(":core") {
-    apply plugin: "java-library"
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"

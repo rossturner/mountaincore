@@ -168,10 +168,15 @@ public class Entity implements Persistable, Disposable {
 				// Only check for equipped items if not hauling
 				EquippedItemComponent equippedItemComponent = getComponent(EquippedItemComponent.class);
 				if (equippedItemComponent != null) {
-					Entity equippedItem = equippedItemComponent.getEquippedItem();
+					Entity equippedItem = equippedItemComponent.getMainHandItem();
 					if (equippedItem != null) {
 						ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
 						attachedEntities.add(new AttachedEntity(equippedItem, attributes.getItemType().getHoldPosition()));
+					}
+					Entity offHandItem = equippedItemComponent.getOffHandItem();
+					if (offHandItem != null) {
+						ItemEntityAttributes attributes = (ItemEntityAttributes) offHandItem.getPhysicalEntityComponent().getAttributes();
+						attachedEntities.add(new AttachedEntity(offHandItem, attributes.getItemType().getHoldPosition()));
 					}
 				}
 			}

@@ -25,7 +25,7 @@
   "i18nKey" : "FURNITURE.SLEEPING_SPOT",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1",
-  "colorCode" : "#718345",
+  "colorCode" : "#9f7d60",
   "iconName" : "sleeping-bag",
   "placeAnywhere" : false,
   "autoConstructed" : true,

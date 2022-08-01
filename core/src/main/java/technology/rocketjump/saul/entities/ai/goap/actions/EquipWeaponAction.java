@@ -29,7 +29,7 @@ public class EquipWeaponAction extends Action {
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
 		WeaponSelectionComponent weaponSelectionComponent = parent.parentEntity.getOrCreateComponent(WeaponSelectionComponent.class);
 
-		Entity currentlyEquipped = equippedItemComponent.clearEquippedItem();
+		Entity currentlyEquipped = equippedItemComponent.clearMainHandItem();
 		if (currentlyEquipped != null) {
 			inventoryComponent.add(currentlyEquipped, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
 		}
@@ -44,7 +44,7 @@ public class EquipWeaponAction extends Action {
 				completionType = FAILURE;
 			} else {
 				inventoryComponent.remove(inventoryEntry.entity.getId());
-				equippedItemComponent.setEquippedItem(inventoryEntry.entity, parent.parentEntity, parent.messageDispatcher);
+				equippedItemComponent.setMainHandItem(inventoryEntry.entity, parent.parentEntity, parent.messageDispatcher);
 				completionType = SUCCESS;
 			}
 		}

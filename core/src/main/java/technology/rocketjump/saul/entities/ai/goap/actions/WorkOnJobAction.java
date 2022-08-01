@@ -52,8 +52,8 @@ public class WorkOnJobAction extends Action {
 
 			float workDone = deltaTime;
 			EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
-			if (equippedItemComponent != null && equippedItemComponent.getEquippedItem() != null) {
-				Entity equippedItem = equippedItemComponent.getEquippedItem();
+			if (equippedItemComponent != null && equippedItemComponent.getMainHandItem() != null) {
+				Entity equippedItem = equippedItemComponent.getMainHandItem();
 				if (equippedItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
 					workDone *= (1f / itemAttributes.getItemQuality().jobDurationMultiplier);
 				}
@@ -181,8 +181,8 @@ public class WorkOnJobAction extends Action {
 		Job assignedJob = parent.getAssignedJob();
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
 		ItemUsageSoundTag itemUsageSoundTag = null;
-		if (equippedItemComponent != null && equippedItemComponent.getEquippedItem() != null) {
-			itemUsageSoundTag = equippedItemComponent.getEquippedItem().getTag(ItemUsageSoundTag.class);
+		if (equippedItemComponent != null && equippedItemComponent.getMainHandItem() != null) {
+			itemUsageSoundTag = equippedItemComponent.getMainHandItem().getTag(ItemUsageSoundTag.class);
 		}
 
 		if (itemUsageSoundTag != null && itemUsageSoundTag.getSoundAsset() != null) {

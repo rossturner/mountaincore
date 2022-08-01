@@ -243,7 +243,7 @@ public class AttackTargetAction extends Action {
 
 	public static ItemType getEquippedWeaponItemType(Entity entity) {
 		EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
-		Entity equippedItem = equippedItemComponent.getEquippedItem();
+		Entity equippedItem = equippedItemComponent.getMainHandItem();
 
 		ItemType equippedWeaponType = ItemType.UNARMED_WEAPON;
 		if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
