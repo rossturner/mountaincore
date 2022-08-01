@@ -6,7 +6,9 @@ import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.util.InputValidator;
@@ -50,6 +52,7 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Consumer;
 
+import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.orderedArray;
 import static technology.rocketjump.saul.assets.entities.item.model.ItemPlacement.BEING_CARRIED;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 
@@ -324,9 +327,9 @@ public class ItemUIFactory implements UIFactory {
         }));
         controls.row();
 
-
-        //        private AmmoType isAmmoType;
-
+        controls.add(WidgetBuilder.label("Is Ammo Type"));
+        controls.add(ammoTypeSelect(itemType.getIsAmmoType(), itemType::setIsAmmoType));
+        controls.row();
 
         // Weapon info
         final WeaponInfo weaponInfo;
@@ -352,7 +355,6 @@ public class ItemUIFactory implements UIFactory {
         controls.row();
         controls.addSeparator().colspan(2);
 
-        //TODO: Weapon controls
         weaponInfoControls.add(WidgetBuilder.label("Modified By Strength"));
         weaponInfoControls.add(WidgetBuilder.toggle(weaponInfo.isModifiedByStrength(), weaponInfo::setModifiedByStrength));
         weaponInfoControls.row();
@@ -373,9 +375,10 @@ public class ItemUIFactory implements UIFactory {
         weaponInfoControls.add(WidgetBuilder.floatSpinner(weaponInfo.getRange(), 0, Float.MAX_VALUE, weaponInfo::setRange));
         weaponInfoControls.row();
 
-        /*
-	private AmmoType requiresAmmoType;
-         */
+        weaponInfoControls.add(WidgetBuilder.label("Requires Ammo"));
+        weaponInfoControls.add(ammoTypeSelect(weaponInfo.getRequiresAmmoType(), weaponInfo::setRequiresAmmoType));
+        weaponInfoControls.row();
+
         weaponInfoControls.add(WidgetBuilder.label("Fire Sound"));
         weaponInfoControls.add(WidgetBuilder.select(weaponInfo.getFireWeaponSoundAsset(), soundAssetDictionary.getAll(), nullSoundAsset, soundAsset -> {
             weaponInfo.setFireWeaponSoundAsset(soundAsset);
@@ -402,6 +405,28 @@ public class ItemUIFactory implements UIFactory {
         controls.addSeparator().colspan(2).padBottom(15);
 
         return controls;
+    }
+
+    private VisSelectBox<String> ammoTypeSelect(AmmoType currentValue, Consumer<AmmoType> listener) {
+        String nullOption = "-none-";
+        VisSelectBox<String> selectBox = new VisSelectBox<>();
+        Array<String> items = orderedArray(Arrays.stream(AmmoType.values()).map(AmmoType::name).toList());
+        items.insert(0, nullOption);
+        selectBox.setItems(items);
+        selectBox.setSelected(currentValue == null ? nullOption : currentValue.name());
+        selectBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                String selected = selectBox.getSelected();
+                if (Objects.equals(selected, nullOption)) {
+                    listener.accept(null);
+                } else {
+                    listener.accept(AmmoType.valueOf(selected));
+                }
+            }
+        });
+
+        return selectBox;
     }
 
     @Override

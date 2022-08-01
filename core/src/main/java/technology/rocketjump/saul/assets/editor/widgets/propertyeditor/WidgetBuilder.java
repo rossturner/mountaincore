@@ -275,7 +275,6 @@ public class WidgetBuilder {
 		items.forEach(array::add);
 		array.sort(Comparator.comparing(Object::toString));
 
-
 		if (nullItem != null) {
 			if (items.stream().noneMatch(item -> item.toString().equals(nullItem.toString()))) {
 				array.insert(0, nullItem);
