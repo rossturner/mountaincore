@@ -7,15 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.kotcrab.vis.ui.widget.CollapsibleWidget;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisValidatableTextField;
+import com.kotcrab.vis.ui.widget.*;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.ToStringDecorator;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.TagsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.furniture.RequiredMaterialsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.FurnitureAttributesPane;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
@@ -27,14 +25,12 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 
@@ -45,16 +41,18 @@ public class FurnitureUIFactory implements UIFactory {
     private final FurnitureAttributesPane viewEditorControls;
     private final FurnitureLayoutDictionary furnitureLayoutDictionary;
     private final MessageDispatcher messageDispatcher;
+    private final ItemTypeDictionary itemTypeDictionary;
 
     @Inject
     public FurnitureUIFactory(FurnitureEntityFactory furnitureEntityFactory, FurnitureTypeDictionary furnitureTypeDictionary,
                               FurnitureAttributesPane viewEditorControls, FurnitureLayoutDictionary furnitureLayoutDictionary,
-                              MessageDispatcher messageDispatcher) {
+                              MessageDispatcher messageDispatcher, ItemTypeDictionary itemTypeDictionary) {
         this.furnitureEntityFactory = furnitureEntityFactory;
         this.furnitureTypeDictionary = furnitureTypeDictionary;
         this.viewEditorControls = viewEditorControls;
         this.furnitureLayoutDictionary = furnitureLayoutDictionary;
         this.messageDispatcher = messageDispatcher;
+        this.itemTypeDictionary = itemTypeDictionary;
     }
 
     @Override
@@ -139,15 +137,35 @@ public class FurnitureUIFactory implements UIFactory {
         controls.row();
 
 
-        controls.add(WidgetBuilder.label("Materials")).padTop(15);
+        controls.add(WidgetBuilder.label("Required Materials")).padTop(15);
         controls.row();
         controls.addSeparator().colspan(2);
 
-        /*
-	// This is the list of items (with quantities) needed to build the type for each listed GameMaterialType
-	private Map<GameMaterialType, List<QuantifiedItemType>> requirements;
+        RequiredMaterialsWidget requiredMaterialsWidget = new RequiredMaterialsWidget(furnitureType, itemTypeDictionary);
+        controls.add(requiredMaterialsWidget).colspan(2).row();
+        controls.row().padTop(10);
 
-         */
+        VisTable addRequiredMaterialRow = new VisTable();
+
+
+        VisSelectBox<ToStringDecorator<GameMaterialType>> requiredMaterialSelect = WidgetBuilder.select(null,
+                Arrays.stream(GameMaterialType.values()).map(ToStringDecorator::materialType).toList(), null, selected -> {});
+
+        addRequiredMaterialRow.add(WidgetBuilder.label("Furniture Material"));
+        addRequiredMaterialRow.add(requiredMaterialSelect);
+        addRequiredMaterialRow.add(WidgetBuilder.button("Add", x -> {
+            GameMaterialType materialType = requiredMaterialSelect.getSelected().getObject();
+
+            furnitureType.getRequirements().computeIfAbsent(materialType, s -> new ArrayList<>());
+            requiredMaterialsWidget.reload();
+        }));
+
+        controls.add(addRequiredMaterialRow).colspan(2).right();
+        controls.row();
+
+        controls.addSeparator().colspan(2).padBottom(15);
+
+
         ToStringDecorator<GameMaterialType> requiredFloorMaterialType = ToStringDecorator.materialType(furnitureType.getRequiredFloorMaterialType());
         Collection<ToStringDecorator<GameMaterialType>> materialTypeOptions = Arrays.stream(GameMaterialType.values()).map(ToStringDecorator::materialType).toList();
         controls.add(WidgetBuilder.label("Required Floor"));
@@ -157,8 +175,6 @@ public class FurnitureUIFactory implements UIFactory {
             }
         }));
         controls.row();
-
-        controls.addSeparator().colspan(2).padBottom(15);
 
         TagsWidget tagsWidget = new TagsWidget(furnitureType.getTags());
         CollapsibleWidget tagsCollapsible = new CollapsibleWidget(tagsWidget);

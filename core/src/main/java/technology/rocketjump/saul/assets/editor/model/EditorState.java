@@ -65,6 +65,7 @@ public class EditorState {
 		this.renderMode = renderMode;
 	}
 
+	@JSONField(serialize = false, deserialize = false)
 	public Entity getCurrentEntity() {
 		return currentEntity;
 	}

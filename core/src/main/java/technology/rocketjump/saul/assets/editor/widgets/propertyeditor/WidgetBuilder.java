@@ -106,6 +106,18 @@ public class WidgetBuilder {
 		return spinner;
 	}
 
+	public static VisTextButton button(String buttonText, Consumer<Void> changeListener) {
+		VisTextButton visTextButton = new VisTextButton(buttonText);
+		visTextButton.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				changeListener.accept(null);
+				return true;
+			}
+		});
+		return visTextButton;
+	}
+
 	public static VisTextButton toggle(boolean initialValue, Consumer<Boolean> changeListener) {
 		AtomicBoolean atomicBoolean = new AtomicBoolean(initialValue);
 		VisTextButton toggle = new VisTextButton(String.valueOf(initialValue));
