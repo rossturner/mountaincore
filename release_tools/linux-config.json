@@ -1,11 +1,11 @@
 {
 	"platform": "linux64",
 	"jdk": "jdks/OpenJDK17U-jdk_x64_linux_hotspot_17.0.2_8",
-	"executable": "King under the Mountain",
+	"executable": "Project Saul",
 	"classpath": [
-		"../desktop/build/libs/undermount-desktop.jar"
+		"../desktop/build/libs/project-saul.jar"
 	],
-	"mainclass": "technology.rocketjump.undermount.launcher.DesktopLauncher",
+	"mainclass": "technology.rocketjump.saul.launcher.DesktopLauncher",
 	"vmargs": ["Xms1200m", "-Dfile.encoding=UTF-8"],
 	"resources": [
 		"../core/seed.txt",

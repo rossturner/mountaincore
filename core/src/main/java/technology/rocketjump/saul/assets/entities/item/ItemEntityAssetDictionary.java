@@ -18,14 +18,29 @@ import java.util.Map;
 @Singleton
 public class ItemEntityAssetDictionary {
 
-	private final ItemEntityAssetsByQuantity quantityMap;
+	private final EntityAssetTypeDictionary entityAssetTypeDictionary;
+	private final ItemTypeDictionary itemTypeDictionary;
 	private final Map<String, ItemEntityAsset> assetsByName = new HashMap<>();
+	private ItemEntityAssetsByQuantity quantityMap;
 
 	public ItemEntityAssetDictionary(List<ItemEntityAsset> completeAssetList, EntityAssetTypeDictionary entityAssetTypeDictionary, ItemTypeDictionary itemTypeDictionary) {
-		this.quantityMap = new ItemEntityAssetsByQuantity(entityAssetTypeDictionary, itemTypeDictionary);
+		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
+		this.itemTypeDictionary = itemTypeDictionary;
 		for (ItemEntityAsset asset : completeAssetList) {
-			quantityMap.add(asset);
 			assetsByName.put(asset.getUniqueName(), asset);
+		}
+		rebuild();
+	}
+
+	public void add(ItemEntityAsset itemEntityAsset) {
+		assetsByName.put(itemEntityAsset.getUniqueName(), itemEntityAsset);
+		rebuild();
+	}
+
+	public void rebuild() {
+		this.quantityMap = new ItemEntityAssetsByQuantity(entityAssetTypeDictionary, itemTypeDictionary);
+		for (ItemEntityAsset asset : assetsByName.values()) {
+			quantityMap.add(asset);
 		}
 	}
 
@@ -54,4 +69,5 @@ public class ItemEntityAssetDictionary {
 	public ItemEntityAssetsByQuantity getQuantityMap() {
 		return quantityMap;
 	}
+
 }

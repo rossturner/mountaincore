@@ -1,58 +1,58 @@
-[{
-  "uniqueName": "Eyebrows H",
-  "type": "CREATURE_EYEBROWS",
-  "raceName": "Dwarf",
-  "gender": "MALE",
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "eyebrows H front.png",
-      "offsetPixels": {
-        "x": 0,
-        "y": -1
-      },
-      "coloringLayer": "HAIR_COLOR"
+[ {
+  "uniqueName" : "Eyebrows H",
+  "type" : "CREATURE_EYEBROWS",
+  "raceName" : "Dwarf",
+  "gender" : "MALE",
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "eyebrows H front.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
+      }
     },
-    "DOWN_RIGHT": {
-      "filename": "eyebrows H side.png",
-      "offsetPixels": {
-        "x": 0,
-        "y": -1
-      },
-      "coloringLayer": "HAIR_COLOR"
+    "DOWN_RIGHT" : {
+      "filename" : "eyebrows H side.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
+      }
     },
-    "DOWN_LEFT": {
-      "filename": "eyebrows H side.png",
-      "offsetPixels": {
-        "x": 0,
-        "y": -1
+    "DOWN_LEFT" : {
+      "filename" : "eyebrows H side.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
       },
-      "flipX": true,
-      "coloringLayer": "HAIR_COLOR"
+      "flipX" : true
     },
-    "UP_RIGHT": {
-      "filename": "eyebrows H side.png",
-      "offsetPixels": {
-        "x": 0,
-        "y": -1
-      },
-      "coloringLayer": "HAIR_COLOR"
+    "UP_RIGHT" : {
+      "filename" : "eyebrows H side.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
+      }
     },
-    "UP_LEFT": {
-      "filename": "eyebrows H side.png",
-      "offsetPixels": {
-        "x": 0,
-        "y": -1
+    "UP_LEFT" : {
+      "filename" : "eyebrows H side.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
       },
-      "flipX": true,
-      "coloringLayer": "HAIR_COLOR"
+      "flipX" : true
     },
-    "UP": {
-      "filename": "eyebrows H front.png",
-      "offsetPixels": {
-        "x": 0,
-        "y": -1
-      },
-      "coloringLayer": "HAIR_COLOR"
+    "UP" : {
+      "filename" : "eyebrows H front.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
+      }
     }
   }
-}]
+} ]

@@ -104,7 +104,7 @@ public class ModArtifactListing {
 						"entities/wallCap", "**/descriptors", JSON_ARRAY, ADDITIVE,
 						GenericClassTypeProcessor.class, ReferencedImagesExist.class, UniqueNames.class),
 				def("definitions/entityAssets", "mechanismEntityAssets", SINGLE_FILE, JSON_ARRAY, MechanismEntityAsset.class,
-						"entities/mechanisms", "**/descriptors", JSON_ARRAY, ADDITIVE,
+						"entities/mechanism", "**/descriptors", JSON_ARRAY, ADDITIVE,
 						GenericClassTypeProcessor.class, ReferencedImagesExist.class, UniqueNames.class),
 
 				def("definitions/crafting", "cookingRecipes", SINGLE_FILE, JSON_ARRAY, CookingRecipe.class,
@@ -149,9 +149,9 @@ public class ModArtifactListing {
 				def("definitions/types", "plantSpecies", SINGLE_FILE, JSON_ARRAY, PlantSpecies.class,
 						"entities/plant", "**/plantSpecies.json", JSON_OBJECT, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/types", "ongoingEffectTypes", SINGLE_FILE, JSON_ARRAY, OngoingEffectType.class,
-						"entities/ongoingEffects", "**/effectTypes.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
+						"entities/ongoing_effect", "**/effectTypes.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/types", "mechanismTypes", SINGLE_FILE, JSON_ARRAY, MechanismType.class,
-						"entities/mechanisms", "**/mechanismType.json", JSON_OBJECT, ADDITIVE, GenericClassTypeProcessor.class),
+						"entities/mechanism", "**/mechanismType.json", JSON_OBJECT, ADDITIVE, GenericClassTypeProcessor.class),
 
 				def("definitions", "materials", SINGLE_FILE, JSON_ARRAY, GameMaterial.class,
 						"definitions/materials", "*-materials.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),

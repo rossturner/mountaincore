@@ -59,9 +59,9 @@ public class CreatureEntityAssetDictionary {
 	public CreatureEntityAsset getMatching(EntityAssetType assetType, CreatureEntityAttributes attributes, Profession primaryProfession) {
 		List<CreatureEntityAsset> allMatchingAssets = getAllMatchingAssets(assetType, attributes, primaryProfession);
 
-		List<CreatureEntityAsset> matched = allMatchingAssets.stream().filter(humanoidEntityAsset ->
-				(humanoidEntityAsset.getConsciousness() == null || humanoidEntityAsset.getConsciousness().equals(attributes.getConsciousness())) &&
-						(humanoidEntityAsset.getSanity() == null || humanoidEntityAsset.getSanity().equals(attributes.getSanity()))
+		List<CreatureEntityAsset> matched = allMatchingAssets.stream().filter(creatureEntityAsset ->
+				(creatureEntityAsset.getConsciousness() == null || creatureEntityAsset.getConsciousness().equals(attributes.getConsciousness())) &&
+						(creatureEntityAsset.getSanity() == null || creatureEntityAsset.getSanity().equals(attributes.getSanity()))
 		).collect(Collectors.toList());
 
 		if (matched.size() > 0) {

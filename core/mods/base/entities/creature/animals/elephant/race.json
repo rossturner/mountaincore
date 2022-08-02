@@ -1,69 +1,57 @@
 {
-  "name": "Elephant",
-  "i18nKey": "RACE.ELEPHANT",
-
-  "minStrength": 9.0,
-  "maxStrength": 21.0,
-
-  "bodyStructureName": "pachyderm",
-
-  "bodyShapes": [
-    {
-      "value": "AVERAGE"
-    }
-  ],
-
-  "colors": {
-    "SKIN_COLOR": {
-      "swatch": "elephant-skin-swatch.png"
+  "name" : "Elephant",
+  "i18nKey" : "RACE.ELEPHANT",
+  "minStrength" : 9.0,
+  "maxStrength" : 21.0,
+  "bodyStructureName" : "pachyderm",
+  "bodyShapes" : [ {
+    "value" : "AVERAGE"
+  } ],
+  "colors" : {
+    "SKIN_COLOR" : {
+      "swatch" : "elephant-skin-swatch.png"
     },
-    "BONE_COLOR": {
-      "swatch": "elephant-tusk-swatch.png"
+    "BONE_COLOR" : {
+      "swatch" : "elephant-tusk-swatch.png"
     }
   },
-
   "mapPlacement": "ANIMAL",
-
-  "behaviour": {
-    "behaviourName": "Creature",
-    "scheduleName": "Diurnal animal",
-    "needs": ["SLEEP"],
-    "group": {
-      "minSize": 3,
-      "maxSize": 5
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "needs" : [ "SLEEP" ],
+    "group" : {
+      "minSize" : 3,
+      "maxSize" : 5
     },
-    "aggressionResponse": "ATTACK"
+    "aggressionResponse" : "ATTACK"
   },
-
-  "genders": {
-    "MALE": {
-      "weighting": 0.5,
-      "hasHair": 1
+  "genders" : {
+    "MALE" : {
+      "weighting" : 0.5,
+      "hasHair" : 1.0
     },
-    "FEMALE": {
-      "weighting": 0.5,
-      "hasHair": 1
+    "FEMALE" : {
+      "weighting" : 0.5,
+      "hasHair" : 1.0
     }
   },
-
-  "features": {
-    "meat": {
-      "itemTypeName": "Carcass-Meat-Large",
-      "materialName": "Elephant Meat",
-      "quantity": 4
-    },
-    "skin": {
-      "damageReduction": {
-        "STABBING": 1,
-        "SLASHING": 1,
-        "CRUSHING": 1
+  "features" : {
+    "skin" : {
+      "damageReduction" : {
+        "STABBING" : 1,
+        "SLASHING" : 1,
+        "CRUSHING" : 1
       }
     },
-    "bones": {
-      "materialName": "Bone"
+    "meat" : {
+      "itemTypeName" : "Carcass-Meat-Large",
+      "materialName" : "Elephant Meat",
+      "quantity" : 4
     },
-    "blood": {
-
-    }
+    "bones" : {
+      "materialName" : "Bone"
+    },
+    "blood" : { }
   }
 }

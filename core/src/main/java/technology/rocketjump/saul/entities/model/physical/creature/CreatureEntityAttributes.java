@@ -95,8 +95,8 @@ public class CreatureEntityAttributes implements EntityAttributes {
 
 	@Override
 	public Map<GameMaterialType, GameMaterial> getMaterials() {
-		if (race.getFeatures().getSkin() != null && race.getFeatures().getSkin().getSkinMaterial() != null) {
-			return Map.of(race.getFeatures().getSkin().getSkinMaterial().getMaterialType(), race.getFeatures().getSkin().getSkinMaterial());
+		if (race.getFeatures().getSkin() != null && race.getFeatures().getSkin().getMaterial() != null) {
+			return Map.of(race.getFeatures().getSkin().getMaterial().getMaterialType(), race.getFeatures().getSkin().getMaterial());
 		} else {
 			return Map.of();
 		}
@@ -242,7 +242,7 @@ public class CreatureEntityAttributes implements EntityAttributes {
 		JSONObject bodyJson = new JSONObject(true);
 		body.writeTo(bodyJson, savedGameStateHolder);
 		asJson.put("body", bodyJson);
-		if (!bodyShape.equals(CreatureBodyShape.AVERAGE)) {
+		if (!CreatureBodyShape.AVERAGE.equals(bodyShape)) {
 			asJson.put("bodyShape", bodyShape.name());
 		}
 
@@ -260,10 +260,10 @@ public class CreatureEntityAttributes implements EntityAttributes {
 			name.writeTo(nameJson, savedGameStateHolder);
 			asJson.put("name", nameJson);
 		}
-		if (!consciousness.equals(AWAKE)) {
+		if (!AWAKE.equals(consciousness)) {
 			asJson.put("consciousness", consciousness.name());
 		}
-		if (!sanity.equals(SANE)) {
+		if (!SANE.equals(sanity)) {
 			asJson.put("sanity", sanity.name());
 		}
 	}

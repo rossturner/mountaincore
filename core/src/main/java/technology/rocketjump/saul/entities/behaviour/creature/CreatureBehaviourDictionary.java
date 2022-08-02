@@ -7,6 +7,7 @@ import org.reflections.scanners.SubTypesScanner;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
 
 import java.lang.reflect.Modifier;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -31,4 +32,7 @@ public class CreatureBehaviourDictionary {
 		return byName.get(name);
 	}
 
+	public Collection<String> getAllNames() {
+		return byName.keySet();
+	}
 }

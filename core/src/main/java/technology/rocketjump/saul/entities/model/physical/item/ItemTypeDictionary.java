@@ -23,6 +23,9 @@ import static technology.rocketjump.saul.entities.model.physical.item.ItemType.U
 @Singleton
 public class ItemTypeDictionary {
 
+	private final CraftingTypeDictionary craftingTypeDictionary;
+	private final StockpileGroupDictionary stockpileGroupDictionary;
+	private final SoundAssetDictionary soundAssetDictionary;
 	private final ConstantsRepo constantsRepo;
 	private Map<String, ItemType> byName = new HashMap<>();
 	private List<ItemType> allTypesList = new ArrayList<>();
@@ -37,6 +40,9 @@ public class ItemTypeDictionary {
 							  StockpileGroupDictionary stockpileGroupDictionary,
 							  SoundAssetDictionary soundAssetDictionary,
 							  ConstantsRepo constantsRepo) throws IOException {
+		this.craftingTypeDictionary = craftingTypeDictionary;
+		this.stockpileGroupDictionary = stockpileGroupDictionary;
+		this.soundAssetDictionary = soundAssetDictionary;
 		this.constantsRepo = constantsRepo;
 		ObjectMapper objectMapper = new ObjectMapper();
 		File itemTypeJsonFile = new File("assets/definitions/types/itemTypes.json");
@@ -46,77 +52,7 @@ public class ItemTypeDictionary {
 		itemTypeList.sort(Comparator.comparing(ItemType::getItemTypeName));
 
 		for (ItemType itemType : itemTypeList) {
-			if (itemType.getRelatedCraftingTypeNames() == null) {
-				itemType.setRelatedCraftingTypeNames(new ArrayList<>());
-			}
-			if (itemType.getRelatedCraftingTypes() == null) {
-				itemType.setRelatedCraftingTypes(new ArrayList<>());
-			}
-			for (String relatedCraftingName : itemType.getRelatedCraftingTypeNames()) {
-				CraftingType craftingType = craftingTypeDictionary.getByName(relatedCraftingName);
-				if (craftingType == null) {
-					Logger.error("Could not find related crafting type by name: " + relatedCraftingName + " for " + itemType.getItemTypeName());
-				} else {
-					itemType.getRelatedCraftingTypes().add(craftingType);
-
-					List<ItemType> itemTypesByCraftingType = byCraftingType.computeIfAbsent(craftingType, k -> new ArrayList<>());
-					itemTypesByCraftingType.add(itemType);
-				}
-			}
-
-			if (itemType.getStockpileGroupName() != null) {
-				itemType.setStockpileGroup(stockpileGroupDictionary.getByName(itemType.getStockpileGroupName()));
-				if (itemType.getStockpileGroup() == null) {
-					Logger.error("Could not find stockpile group '"+itemType.getStockpileGroupName()+"' for itemType " + itemType.getItemTypeName());
-				} else {
-					byStockpileGroup.computeIfAbsent(itemType.getStockpileGroup(), a -> new ArrayList<>()).add(itemType);
-				}
-			}
-
-			if (itemType.getPlacementSoundAssetName() != null) {
-				itemType.setPlacementSoundAsset(soundAssetDictionary.getByName(itemType.getPlacementSoundAssetName()));
-				if (itemType.getPlacementSoundAsset() == null) {
-					Logger.error("Could not find sound asset with name " + itemType.getPlacementSoundAssetName() + " for item type " + itemType.getItemTypeName());
-				}
-			}
-
-			if (itemType.getConsumeSoundAssetName() != null) {
-				itemType.setConsumeSoundAsset(soundAssetDictionary.getByName(itemType.getConsumeSoundAssetName()));
-				if (itemType.getConsumeSoundAsset() == null) {
-					Logger.error("Could not find sound asset with name " + itemType.getConsumeSoundAssetName() + " for item type " + itemType.getItemTypeName());
-				}
-			}
-
-			byName.put(itemType.getItemTypeName(), itemType);
-			allTypesList.add(itemType);
-
-			if (itemType.getWeaponInfo() != null) {
-				if (itemType.getWeaponInfo().getFireWeaponSoundAssetName() != null) {
-					itemType.getWeaponInfo().setFireWeaponSoundAsset(soundAssetDictionary.getByName(itemType.getWeaponInfo().getFireWeaponSoundAssetName()));
-					if (itemType.getWeaponInfo().getFireWeaponSoundAsset() == null) {
-						Logger.error(String.format("Could not find sound asset with name %s for item type %s", itemType.getWeaponInfo().getFireWeaponSoundAssetName(), itemType.getItemTypeName()));
-					}
-				}
-
-				if (itemType.getWeaponInfo().getWeaponHitSoundAssetName() != null) {
-					itemType.getWeaponInfo().setWeaponHitSoundAsset(soundAssetDictionary.getByName(itemType.getWeaponInfo().getWeaponHitSoundAssetName()));
-					if (itemType.getWeaponInfo().getWeaponHitSoundAsset() == null) {
-						Logger.error(String.format("Could not find sound asset with name %s for item type %s", itemType.getWeaponInfo().getWeaponHitSoundAssetName(), itemType.getItemTypeName()));
-					}
-				}
-
-				if (itemType.getWeaponInfo().getWeaponMissSoundAssetName() != null) {
-					itemType.getWeaponInfo().setWeaponMissSoundAsset(soundAssetDictionary.getByName(itemType.getWeaponInfo().getWeaponMissSoundAssetName()));
-					if (itemType.getWeaponInfo().getWeaponMissSoundAsset() == null) {
-						Logger.error(String.format("Could not find sound asset with name %s for item type %s", itemType.getWeaponInfo().getWeaponMissSoundAssetName(), itemType.getItemTypeName()));
-					}
-				}
-
-				itemTypesWithWeaponInfo.add(itemType);
-			}
-			if (itemType.getIsAmmoType() != null) {
-				byAmmoType.computeIfAbsent(itemType.getIsAmmoType(), a -> new ArrayList<>()).add(itemType);
-			}
+			add(itemType);
 		}
 
 		byName.put(UNARMED_WEAPON.getItemTypeName(), UNARMED_WEAPON);
@@ -128,7 +64,80 @@ public class ItemTypeDictionary {
 				craftingType.setDefaultItemType(getByName(craftingType.getDefaultItemTypeName()));
 			}
 		}
+	}
 
+	public void add(ItemType itemType) {
+		if (itemType.getRelatedCraftingTypeNames() == null) {
+			itemType.setRelatedCraftingTypeNames(new ArrayList<>());
+		}
+		if (itemType.getRelatedCraftingTypes() == null) {
+			itemType.setRelatedCraftingTypes(new ArrayList<>());
+		}
+		for (String relatedCraftingName : itemType.getRelatedCraftingTypeNames()) {
+			CraftingType craftingType = craftingTypeDictionary.getByName(relatedCraftingName);
+			if (craftingType == null) {
+				Logger.error("Could not find related crafting type by name: " + relatedCraftingName + " for " + itemType.getItemTypeName());
+			} else {
+				itemType.getRelatedCraftingTypes().add(craftingType);
+
+				List<ItemType> itemTypesByCraftingType = byCraftingType.computeIfAbsent(craftingType, k -> new ArrayList<>());
+				itemTypesByCraftingType.add(itemType);
+			}
+		}
+
+		if (itemType.getStockpileGroupName() != null) {
+			itemType.setStockpileGroup(stockpileGroupDictionary.getByName(itemType.getStockpileGroupName()));
+			if (itemType.getStockpileGroup() == null) {
+				Logger.error("Could not find stockpile group '"+ itemType.getStockpileGroupName()+"' for itemType " + itemType.getItemTypeName());
+			} else {
+				byStockpileGroup.computeIfAbsent(itemType.getStockpileGroup(), a -> new ArrayList<>()).add(itemType);
+			}
+		}
+
+		if (itemType.getPlacementSoundAssetName() != null) {
+			itemType.setPlacementSoundAsset(soundAssetDictionary.getByName(itemType.getPlacementSoundAssetName()));
+			if (itemType.getPlacementSoundAsset() == null) {
+				Logger.error("Could not find sound asset with name " + itemType.getPlacementSoundAssetName() + " for item type " + itemType.getItemTypeName());
+			}
+		}
+
+		if (itemType.getConsumeSoundAssetName() != null) {
+			itemType.setConsumeSoundAsset(soundAssetDictionary.getByName(itemType.getConsumeSoundAssetName()));
+			if (itemType.getConsumeSoundAsset() == null) {
+				Logger.error("Could not find sound asset with name " + itemType.getConsumeSoundAssetName() + " for item type " + itemType.getItemTypeName());
+			}
+		}
+
+		byName.put(itemType.getItemTypeName(), itemType);
+		allTypesList.add(itemType);
+
+		if (itemType.getWeaponInfo() != null) {
+			if (itemType.getWeaponInfo().getFireWeaponSoundAssetName() != null) {
+				itemType.getWeaponInfo().setFireWeaponSoundAsset(soundAssetDictionary.getByName(itemType.getWeaponInfo().getFireWeaponSoundAssetName()));
+				if (itemType.getWeaponInfo().getFireWeaponSoundAsset() == null) {
+					Logger.error(String.format("Could not find sound asset with name %s for item type %s", itemType.getWeaponInfo().getFireWeaponSoundAssetName(), itemType.getItemTypeName()));
+				}
+			}
+
+			if (itemType.getWeaponInfo().getWeaponHitSoundAssetName() != null) {
+				itemType.getWeaponInfo().setWeaponHitSoundAsset(soundAssetDictionary.getByName(itemType.getWeaponInfo().getWeaponHitSoundAssetName()));
+				if (itemType.getWeaponInfo().getWeaponHitSoundAsset() == null) {
+					Logger.error(String.format("Could not find sound asset with name %s for item type %s", itemType.getWeaponInfo().getWeaponHitSoundAssetName(), itemType.getItemTypeName()));
+				}
+			}
+
+			if (itemType.getWeaponInfo().getWeaponMissSoundAssetName() != null) {
+				itemType.getWeaponInfo().setWeaponMissSoundAsset(soundAssetDictionary.getByName(itemType.getWeaponInfo().getWeaponMissSoundAssetName()));
+				if (itemType.getWeaponInfo().getWeaponMissSoundAsset() == null) {
+					Logger.error(String.format("Could not find sound asset with name %s for item type %s", itemType.getWeaponInfo().getWeaponMissSoundAssetName(), itemType.getItemTypeName()));
+				}
+			}
+
+			itemTypesWithWeaponInfo.add(itemType);
+		}
+		if (itemType.getIsAmmoType() != null) {
+			byAmmoType.computeIfAbsent(itemType.getIsAmmoType(), a -> new ArrayList<>()).add(itemType);
+		}
 	}
 
 	public ItemType getByName(String itemTypeName) {

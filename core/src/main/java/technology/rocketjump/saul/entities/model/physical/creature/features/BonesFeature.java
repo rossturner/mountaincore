@@ -24,6 +24,11 @@ public class BonesFeature {
 	}
 
 	public void setMaterial(GameMaterial material) {
+		if (GameMaterial.NULL_MATERIAL.equals(material) || material == null) {
+			this.materialName = null;
+		} else {
+			this.materialName = material.getMaterialName();
+		}
 		this.material = material;
 	}
 }

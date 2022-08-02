@@ -1,69 +1,53 @@
 {
-  "name": "Deer",
-  "i18nKey": "RACE.DEER",
-
-  "minStrength": 5.0,
-  "maxStrength": 12.0,
-
-  "bodyStructureName": "hooved-quadruped",
-
-  "bodyShapes": [
-    {
-      "value": "AVERAGE"
-    }
-  ],
-
-  "colors": {
-    "SKIN_COLOR": {
-      "swatch": "deer-skin-swatch.png"
+  "name" : "Deer",
+  "i18nKey" : "RACE.DEER",
+  "minStrength" : 5.0,
+  "maxStrength" : 12.0,
+  "bodyStructureName" : "hooved-quadruped",
+  "bodyShapes" : [ {
+    "value" : "AVERAGE"
+  } ],
+  "colors" : {
+    "SKIN_COLOR" : {
+      "swatch" : "deer-skin-swatch.png"
     },
-    "MARKING_COLOR": {
-      "swatch": "deer-markings-swatch.png"
+    "MARKING_COLOR" : {
+      "swatch" : "deer-markings-swatch.png"
     },
-    "HAIR_COLOR": {
-      "swatch": "deer-antlers-swatch.png"
+    "HAIR_COLOR" : {
+      "swatch" : "deer-antlers-swatch.png"
     }
   },
-
   "mapPlacement": "ANIMAL",
-
-  "behaviour": {
-    "behaviourName": "Creature",
-    "scheduleName": "Diurnal animal",
-    "needs": ["SLEEP"],
-    "group": {
-      "minSize": 2,
-      "maxSize": 4
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "needs" : [ "SLEEP" ],
+    "group" : {
+      "minSize" : 2,
+      "maxSize" : 4
     },
-    "aggressionResponse": "FLEE"
+    "aggressionResponse" : "FLEE"
   },
-
-  "genders": {
-    "MALE": {
-      "weighting": 0.5,
-      "hasHair": 1
+  "genders" : {
+    "MALE" : {
+      "weighting" : 0.5,
+      "hasHair" : 1.0
     },
-    "FEMALE": {
-      "weighting": 0.5,
-      "hasHair": 0
+    "FEMALE" : {
+      "weighting" : 0.5
     }
   },
-
-  "features": {
-    "meat": {
-      "itemTypeName": "Carcass-Meat-Medium",
-      "materialName": "Deer Meat",
-      "quantity": 2
+  "features" : {
+    "skin" : { },
+    "meat" : {
+      "itemTypeName" : "Carcass-Meat-Medium",
+      "materialName" : "Deer Meat",
+      "quantity" : 2
     },
-    "skin": {
-      "damageReduction": {
-      }
+    "bones" : {
+      "materialName" : "Bone"
     },
-    "bones": {
-      "materialName": "Bone"
-    },
-    "blood": {
-
-    }
+    "blood" : { }
   }
 }

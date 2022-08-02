@@ -107,4 +107,11 @@ public class SpeciesColor {
 	public void setColorChart(String colorChart) {
 		this.colorChart = colorChart;
 	}
+
+	public void clear() {
+		this.swatch = null;
+		this.transitionSwatch = null;
+		this.colorChart = null;
+		this.colorCode = null;
+	}
 }

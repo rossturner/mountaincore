@@ -1,1 +1,1 @@
-jre\bin\java -jar undermount-desktop.jar -Xms1200m -Dfile.encoding=UTF-8
+jre\bin\java -jar project-saul.jar -Xms1200m -Dfile.encoding=UTF-8 -Dsun.java2d.dpiaware=true

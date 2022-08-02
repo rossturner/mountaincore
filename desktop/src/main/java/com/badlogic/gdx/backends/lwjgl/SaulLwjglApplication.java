@@ -117,6 +117,7 @@ public class SaulLwjglApplication implements Application {
 				} catch (Throwable t) {
 					if (audio != null) audio.dispose();
 					Gdx.input.setCursorCatched(false);
+					Display.destroy(); //bug fix - without this, ApplicationShutdownHooks can hang indefinitely
 					if (t instanceof RuntimeException)
 						throw (RuntimeException)t;
 					else
