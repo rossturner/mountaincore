@@ -25,7 +25,7 @@ import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.model.FloorType;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -163,11 +163,11 @@ public class CreatureAttributesPane extends AbstractAttributesPane {
                     equippedItemTable.add(WidgetBuilder.selectField("", itemTypes.get(fakeContext.getRandom().nextInt(itemTypes.size())),
                             itemTypes, null, itemType -> {
                         Entity itemEntity = itemEntityFactory.createByItemType(itemType, fakeContext, false);
-                        equippedItemComponent.clearEquippedItem();
-                        equippedItemComponent.setEquippedItem(itemEntity, currentEntity, messageDispatcher);
+                        equippedItemComponent.clearMainHandItem();
+                        equippedItemComponent.setMainHandItem(itemEntity, currentEntity, messageDispatcher);
                     }));
                 } else {
-                    equippedItemComponent.clearEquippedItem();
+                    equippedItemComponent.clearMainHandItem();
                     equippedItemTable.clearChildren();
                     equippedItemTable.add(equippedItemCheckbox);
                 }

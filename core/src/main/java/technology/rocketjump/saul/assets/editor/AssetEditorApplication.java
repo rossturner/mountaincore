@@ -140,10 +140,10 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 
 							if (currentEntity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes iea && iea.getItemPlacement() == ItemPlacement.BEING_CARRIED) {
 								EquippedItemComponent equippedItemComponent = itemHoldingDwarf.getOrCreateComponent(EquippedItemComponent.class);
-								equippedItemComponent.clearEquippedItem();
-								equippedItemComponent.setEquippedItem(currentEntity, itemHoldingDwarf, messageDispatcher);
+								equippedItemComponent.clearMainHandItem();
+								equippedItemComponent.setMainHandItem(currentEntity, itemHoldingDwarf, messageDispatcher);
 								renderEntityWithOrientation(itemHoldingDwarf, orientation, originalPosition, currentRenderMode, true);
-								equippedItemComponent.clearEquippedItem();
+								equippedItemComponent.clearMainHandItem();
 							} else {
 								renderEntityWithOrientation(currentEntity, orientation, originalPosition, currentRenderMode, true);
 							}

@@ -23,9 +23,13 @@ public class CreatureBehaviourDictionary {
 		Set<Class<? extends BehaviourComponent>> behaviourClasses = reflections.getSubTypesOf(BehaviourComponent.class);
 		for (Class<? extends BehaviourComponent> behaviourClass : behaviourClasses) {
 			if (!Modifier.isAbstract(behaviourClass.getModifiers())) {
-				byName.put(behaviourClass.getSimpleName().substring(0, behaviourClass.getSimpleName().indexOf("Behaviour")), behaviourClass);
+				byName.put(toBehaviourName(behaviourClass), behaviourClass);
 			}
 		}
+	}
+
+	public static String toBehaviourName(Class<? extends BehaviourComponent> behaviourClass) {
+		return behaviourClass.getSimpleName().substring(0, behaviourClass.getSimpleName().indexOf("Behaviour"));
 	}
 
 	public Class<? extends BehaviourComponent> getByName(String name) {

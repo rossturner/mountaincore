@@ -40,6 +40,7 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviourDictionary;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -64,6 +65,7 @@ import java.util.stream.Collectors;
 import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.*;
 import static technology.rocketjump.saul.assets.entities.model.ColoringLayer.*;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
+import static technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviourDictionary.toBehaviourName;
 import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
 
 @Singleton
@@ -172,6 +174,8 @@ public class CreatureUIFactory implements UIFactory {
                         Gender.FEMALE, new RaceGenderDescriptor()
                 )));
                 newRace.getGenders().values().forEach(v -> v.setWeighting(0.5f));
+                newRace.getBehaviour().setBehaviourClass(CreatureBehaviour.class);
+                newRace.getBehaviour().setBehaviourName(toBehaviourName(CreatureBehaviour.class));
                 raceDictionary.add(newRace);
                 completeAssetDictionary.rebuild();
 
@@ -219,6 +223,7 @@ public class CreatureUIFactory implements UIFactory {
         editorTable.add(new ColorsWidget(race.getColors(), getApplicableColoringLayers(),
                 EntityType.CREATURE, basePath, fileChooser, messageDispatcher)).left().colspan(2).row();
 
+        addSelectField("Map placement:", "mapPlacement", List.of(CreatureMapPlacement.values()), CreatureMapPlacement.NONE, race, editorTable);
         addSelectField("Behaviour:", "behaviourName", creatureBehaviourDictionary.getAllNames(), "", race.getBehaviour(), editorTable);
         addSelectField("Schedule:", "scheduleName", scheduleDictionary.getAllNames(), "", race.getBehaviour(), editorTable);
 
