@@ -1,10 +1,13 @@
 package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.util.InputValidator;
 import com.kotcrab.vis.ui.widget.*;
@@ -12,10 +15,14 @@ import com.kotcrab.vis.ui.widget.spinner.FloatSpinnerModel;
 import com.kotcrab.vis.ui.widget.spinner.IntSpinnerModel;
 import com.kotcrab.vis.ui.widget.spinner.Spinner;
 import org.apache.commons.lang3.text.WordUtils;
+import technology.rocketjump.saul.assets.editor.model.ColorPickerMessage;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.misc.ReflectionUtils;
+import technology.rocketjump.saul.rendering.utils.HexColors;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class WidgetBuilder {
@@ -135,6 +142,45 @@ public class WidgetBuilder {
 
 
 	//Composite components
+	public static VisTable colorPickerTextField(MessageDispatcher messageDispatcher, Color initialColor, BiConsumer<Color, String> changeListener) {
+		VisTable component = new VisTable();
+
+		VisTextField colorCodeField = new VisTextField();
+		VisTextField.VisTextFieldStyle colorCodeStyle = new VisTextField.VisTextFieldStyle(colorCodeField.getStyle());
+		colorCodeStyle.fontColor = initialColor;
+		colorCodeField.setStyle(colorCodeStyle);
+		colorCodeField.setText(HexColors.toHexString(initialColor));
+		colorCodeField.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				Color validatedColor = HexColors.get(colorCodeField.getText());
+				if (validatedColor != null) {
+					changeListener.accept(validatedColor, HexColors.toHexString(validatedColor));
+					colorCodeStyle.fontColor = validatedColor;
+				} else {
+					changeListener.accept(null, null);
+				}
+			}
+		});
+
+		VisTextButton colorPickerButton = new VisTextButton("Picker");
+		colorPickerButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				messageDispatcher.dispatchMessage(MessageType.EDITOR_SHOW_COLOR_PICKER,
+						new ColorPickerMessage(colorCodeField.getText(), (color) -> {
+							changeListener.accept(color, HexColors.toHexString(color));
+							colorCodeStyle.fontColor = color;
+							colorCodeField.setText(HexColors.toHexString(color));
+						}));
+			}
+		});
+
+		component.add(colorCodeField).expandX().fillX();
+		component.add(colorPickerButton);
+		return component;
+	}
+
 
 	public static VisTable textField(String labelText, String initialValue, Consumer<String> changeListener, InputValidator inputValidator) {
 		VisValidatableTextField textField = textField(initialValue, changeListener, inputValidator);

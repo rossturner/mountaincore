@@ -15,7 +15,6 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 
 import java.util.*;
-import java.util.function.Function;
 
 @Singleton
 public class FurnitureAttributesPane extends AbstractAttributesPane {
@@ -37,16 +36,16 @@ public class FurnitureAttributesPane extends AbstractAttributesPane {
         FurnitureType furnitureType = attributes.getFurnitureType();
         Collection<GameMaterialType> materialTypes = furnitureType.getRequirements().keySet();
 
-        Function<GameMaterial, String> materialToString = material -> String.format("%s - %s", material.getMaterialType().name(), material.getMaterialName());
+
         List<ToStringDecorator<GameMaterial>> availableMaterials = new ArrayList<>();
         for (GameMaterialType type : materialTypes) {
             materialDictionary.getByType(type)
                     .stream()
-                    .map(material -> new ToStringDecorator<>(material, materialToString))
+                    .map(ToStringDecorator::material)
                     .forEach(availableMaterials::add);
         }
 
-        ToStringDecorator<GameMaterial> initalMaterial = new ToStringDecorator<>(attributes.getMaterials().get(attributes.getPrimaryMaterialType()), materialToString);
+        ToStringDecorator<GameMaterial> initalMaterial = ToStringDecorator.material(attributes.getMaterials().get(attributes.getPrimaryMaterialType()));
 
         Set<FurnitureLayout> furnitureLayouts = new LinkedHashSet<>();
         FurnitureLayout currentLayout = attributes.getCurrentLayout();
