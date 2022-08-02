@@ -6,6 +6,7 @@ import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
+import technology.rocketjump.saul.assets.editor.widgets.vieweditor.FurnitureAttributesPane;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.behaviour.furniture.FurnitureBehaviour;
@@ -14,10 +15,13 @@ import technology.rocketjump.saul.entities.factories.FurnitureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.materials.model.GameMaterialType;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 
@@ -25,11 +29,13 @@ import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrient
 public class FurnitureUIFactory implements UIFactory {
     private final FurnitureEntityFactory furnitureEntityFactory;
     private final FurnitureTypeDictionary furnitureTypeDictionary;
+    private final FurnitureAttributesPane viewEditorControls;
 
     @Inject
-    public FurnitureUIFactory(FurnitureEntityFactory furnitureEntityFactory, FurnitureTypeDictionary furnitureTypeDictionary) {
+    public FurnitureUIFactory(FurnitureEntityFactory furnitureEntityFactory, FurnitureTypeDictionary furnitureTypeDictionary, FurnitureAttributesPane viewEditorControls) {
         this.furnitureEntityFactory = furnitureEntityFactory;
         this.furnitureTypeDictionary = furnitureTypeDictionary;
+        this.viewEditorControls = viewEditorControls;
     }
 
     @Override
@@ -44,14 +50,18 @@ public class FurnitureUIFactory implements UIFactory {
 
     @Override
     public Entity createEntityForRendering(String name) {
+        FurnitureType type = furnitureTypeDictionary.getByName(name);
+        Optional<GameMaterialType> anyRequiredMaterial = type.getRequirements().keySet().stream().findAny();
         FurnitureEntityAttributes attributes = new FurnitureEntityAttributes();
-        attributes.setFurnitureType(furnitureTypeDictionary.getByName(name));
+        attributes.setFurnitureType(type);
+        attributes.setPrimaryMaterialType(anyRequiredMaterial.get());
         return furnitureEntityFactory.create(attributes, new GridPoint2(), new FurnitureBehaviour(), new GameContext());
     }
 
     @Override
     public VisTable getViewEditorControls() {
-        return null;
+        viewEditorControls.reload();
+        return viewEditorControls;
     }
 
     @Override
