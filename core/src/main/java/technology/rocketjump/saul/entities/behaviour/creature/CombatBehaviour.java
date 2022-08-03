@@ -2,10 +2,11 @@ package technology.rocketjump.saul.entities.behaviour.creature;
 
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
+import com.badlogic.gdx.math.Vector2;
 import org.apache.commons.lang3.NotImplementedException;
-import technology.rocketjump.saul.entities.ai.combat.CombatAction;
-import technology.rocketjump.saul.entities.ai.combat.ExitingCombatException;
+import technology.rocketjump.saul.entities.ai.combat.*;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
@@ -18,6 +19,7 @@ import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
 import static technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse.ATTACK;
+import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
 // Although this is coded as a Component, it is always encapsulated in CreatureBehaviour
 public class CombatBehaviour implements ParentDependentEntityComponent {
@@ -43,21 +45,17 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 		if (previousAction == null) {
 			newAction = initialCombatAction();
 		} else {
-			// TODO determine what to do next
-			newAction = null;
+			newAction = nextCombatAction(previousAction);
 		}
 		combatStateComponent.setCurrentAction(newAction);
 		return newAction;
 	}
 
-	public CombatAction changeCombatAction() {
+	public CombatAction changeCombatActionAtStartOfRound() {
 		// TODO something to decide to switch to the defensive if attacked by multiple opponents in melee
 
 		// otherwise return null
 		return null;
-	}
-
-	public void combatRoundStarted() {
 	}
 
 	public void update(float deltaTime) throws ExitingCombatException {
@@ -73,8 +71,12 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 		if (getAggressionResponse().equals(ATTACK)) {
 			return attackOrDefendAgainstOpponentAction();
 		} else {
-			return fleeFromOpponentAction();
+			return new FleeFromCombatAction(parentEntity);
 		}
+	}
+
+	private CombatAction nextCombatAction(CombatAction previousAction) {
+		return null;
 	}
 
 	private AggressionResponse getAggressionResponse() {
@@ -91,12 +93,42 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 	}
 
 	private CombatAction attackOrDefendAgainstOpponentAction() {
-
-		return null;
+		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+		if (combatStateComponent.isHasInitiative()) {
+			if (isInRangeOfOpponent(combatStateComponent.getTargetedOpponentId())) {
+				return new AttackCreatureCombatAction(parentEntity);
+			} else {
+				return new MoveInRangeOfTargetCombatAction(parentEntity);
+			}
+		} else {
+			return new DefensiveCombatAction(parentEntity);
+		}
 	}
 
-	private CombatAction fleeFromOpponentAction() {
-		return null;
+	private boolean isInRangeOfOpponent(Long targetedOpponentId) {
+		Entity targetedOpponent = gameContext.getEntities().get(targetedOpponentId);
+		if (targetedOpponent == null) {
+			return false;
+		}
+
+		CreatureCombatStats combatStats = new CreatureCombatStats(parentEntity);
+		float range = (float) combatStats.getWeaponRangeAsInt();
+		float distanceToOpponent = parentEntity.getLocationComponent().getWorldOrParentPosition().dst(targetedOpponent.getLocationComponent().getWorldOrParentPosition());
+		float tileSeparationToOpponent = getTileDistanceBetween(parentEntity.getLocationComponent().getWorldOrParentPosition(), targetedOpponent.getLocationComponent().getWorldOrParentPosition());
+
+		if (tileSeparationToOpponent <= 1) {
+			return true;
+		} else if (tileSeparationToOpponent <= 2  && range >= 2) {
+			return true;
+		} else {
+			return distanceToOpponent < range;
+		}
+	}
+
+	private float getTileDistanceBetween(Vector2 a, Vector2 b) {
+		GridPoint2 gridPointA = toGridPoint(a);
+		GridPoint2 gridPointB = toGridPoint(b);
+		return Math.max(Math.abs(gridPointA.x - gridPointB.x), Math.abs(gridPointA.y - gridPointB.y));
 	}
 
 	@Override

@@ -32,6 +32,9 @@ public class CreatureCombatStats {
 
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes)parentEntity.getPhysicalEntityComponent().getAttributes();
 		equippedWeapon = attributes.getRace().getFeatures().getUnarmedWeapon();
+		if (equippedWeapon == null) {
+			equippedWeapon = WeaponInfo.UNARMED;
+		}
 
 		EquippedItemComponent equippedItemComponent = parentEntity.getComponent(EquippedItemComponent.class);
 		if (equippedItemComponent != null && equippedItemComponent.getMainHandItem() != null) {
@@ -43,6 +46,10 @@ public class CreatureCombatStats {
 				}
 			}
 		}
+	}
+
+	public int getWeaponRangeAsInt() {
+		return (int)Math.max(1, equippedWeapon.getRange());
 	}
 
 	public int maxDefensePool() {

@@ -67,7 +67,7 @@ public class CombatTracker implements Updatable, Telegraph {
 		for (Entity entity : entitiesInCombatById.values()) {
 			if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
 				CombatAction currentAction = entity.getComponent(CombatStateComponent.class).getCurrentAction();
-				CombatAction newAction = creatureBehaviour.getCombatBehaviour().changeCombatAction();
+				CombatAction newAction = creatureBehaviour.getCombatBehaviour().changeCombatActionAtStartOfRound();
 				if (newAction != null) {
 					actionsToResolveThisRound.remove(currentAction);
 					if (newAction.completesInOneRound()) {
