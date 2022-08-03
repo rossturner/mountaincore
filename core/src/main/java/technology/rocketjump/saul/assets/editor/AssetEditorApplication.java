@@ -21,10 +21,7 @@ import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import technology.rocketjump.saul.AssetsPackager;
-import technology.rocketjump.saul.assets.editor.factory.CreatureUIFactory;
-import technology.rocketjump.saul.assets.editor.factory.FurnitureUIFactory;
-import technology.rocketjump.saul.assets.editor.factory.ItemUIFactory;
-import technology.rocketjump.saul.assets.editor.factory.UIFactory;
+import technology.rocketjump.saul.assets.editor.factory.*;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
@@ -100,6 +97,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				uiFactoryMapBinder.addBinding(EntityType.CREATURE).to(CreatureUIFactory.class);
 				uiFactoryMapBinder.addBinding(EntityType.ITEM).to(ItemUIFactory.class);
 				uiFactoryMapBinder.addBinding(EntityType.FURNITURE).to(FurnitureUIFactory.class);
+				uiFactoryMapBinder.addBinding(EntityType.PLANT).to(PlantUIFactory.class);
 			}
 		});
 		injector.getInstance(CrashHandler.class); //ensure we load user preferences for crash

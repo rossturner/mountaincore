@@ -24,7 +24,6 @@ public interface UIFactory {
         return List.of(DOWN);
     }
 
-//    case PLANT -> List.of(BRANCHES_COLOR, LEAF_COLOR, FRUIT_COLOR, FLOWER_COLOR, WOOD_COLOR, OTHER_COLOR, VEGETABLE_COLOR); //TODO: these shouldn't be in here
     default List<ColoringLayer> getApplicableColoringLayers() {
         return List.of(MISC_COLOR_1, MISC_COLOR_2, MISC_COLOR_3, MISC_COLOR_4, MISC_COLOR_5,
                 BONE_COLOR, SEED_COLOR, VEGETABLE_COLOR, CLOTH_COLOR, ROPE_COLOR, EARTH_COLOR, STONE_COLOR,
