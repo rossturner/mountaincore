@@ -225,6 +225,7 @@ public class FurnitureViewerApplication extends ApplicationAdapter {
 		batch.end();
 
 
+		//blue cross for origin
 		shapeRenderer.setColor(Color.BLUE);
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 
