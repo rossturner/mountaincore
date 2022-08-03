@@ -211,6 +211,8 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 										shapeRenderer.end();
 
 										entity.getLocationComponent().setWorldPosition(VectorUtils.toVector(accessedTile), false, false);
+										entity.getLocationComponent().setWorldPosition(VectorUtils.toVector(workspaceTile), true, false);
+										entity.getLocationComponent().setWorldPosition(VectorUtils.toVector(accessedTile), false, false);
 
 										spriteBatch.begin();
 										spriteBatch.setProjectionMatrix(camera.combined);
