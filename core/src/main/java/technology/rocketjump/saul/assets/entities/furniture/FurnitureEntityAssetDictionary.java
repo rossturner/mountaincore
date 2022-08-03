@@ -59,10 +59,17 @@ public class FurnitureEntityAssetDictionary {
 		return assetsByName;
 	}
 
+
+	public void add(FurnitureEntityAsset asset) {
+		assetsByName.put(asset.getUniqueName(), asset);
+		rebuild();
+	}
+
 	public void rebuild() {
 		byAssetType = new FurnitureEntityAssetsByAssetType(assetTypeDictionary, typeDictionary, layoutDictionary);
 		for (FurnitureEntityAsset asset : assetsByName.values()) {
 			byAssetType.add(asset);
 		}
 	}
+
 }

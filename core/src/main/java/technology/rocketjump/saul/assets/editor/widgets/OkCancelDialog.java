@@ -3,6 +3,7 @@ package technology.rocketjump.saul.assets.editor.widgets;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.kotcrab.vis.ui.widget.Separator;
 import com.kotcrab.vis.ui.widget.VisDialog;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
@@ -93,6 +94,13 @@ public abstract class OkCancelDialog {
             formValid &= validatedField.isInputValid();
         }
         return formValid;
+    }
+
+    public Cell<Separator> addSeparator () {
+        Cell<Separator> cell = add(new Separator()).padTop(2).padBottom(2);
+        cell.fillX().expandX();
+        row();
+        return cell;
     }
 
 }

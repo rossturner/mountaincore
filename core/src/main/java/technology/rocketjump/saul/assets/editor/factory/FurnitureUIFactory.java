@@ -22,6 +22,7 @@ import technology.rocketjump.saul.assets.editor.UniqueAssetNameValidator;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.editor.model.FurnitureNameBuilders;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.ToStringDecorator;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
@@ -53,6 +54,7 @@ import technology.rocketjump.saul.rendering.utils.HexColors;
 
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
@@ -320,7 +322,74 @@ public class FurnitureUIFactory implements UIFactory {
 
     @Override
     public OkCancelDialog createAssetDialog(ShowCreateAssetDialogMessage message) {
-        return null;
+        //TODO: quite a bit of duplication between here and the editor
+        FurnitureType furnitureType = (FurnitureType) message.typeDescriptor();
+        final Path directory = FileUtils.getDirectory(message.path()); //duplicated from CreatureUI
+        Path descriptorsFile = directory.resolve("descriptors.json");
+
+        FurnitureEntityAsset asset = new FurnitureEntityAsset();
+        asset.setFurnitureTypeName(furnitureType.getName());
+        asset.setValidMaterialTypes(new ArrayList<>());
+        Collection<EntityAssetType> entityAssetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType());
+
+        VisTextField nameTextField = WidgetBuilder.textField(asset.getUniqueName(), asset::setUniqueName, new UniqueAssetNameValidator(completeAssetDictionary));
+        Consumer<Object> uniqueNameRebuilder = o -> {
+            String builtName = FurnitureNameBuilders.buildUniqueNameForAsset(furnitureType, asset);
+            nameTextField.setText(builtName);
+        };
+
+
+        OkCancelDialog dialog = new OkCancelDialog("Create asset under " + directory) {
+            @Override
+            public void onOk() {
+                completeAssetDictionary.add(asset);
+                EntityBrowserValue value = EntityBrowserValue.forAsset(getEntityType(), descriptorsFile, asset, furnitureType);
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_ASSET_CREATED, value);
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, value);
+            }
+        };
+        dialog.add(WidgetBuilder.label("Type"));
+        dialog.add(WidgetBuilder.select(asset.getType(), entityAssetTypes, null, compose(asset::setType, uniqueNameRebuilder)));
+        dialog.row();
+
+        dialog.add(WidgetBuilder.label("Furniture Type"));
+        dialog.add(new VisLabel(asset.getFurnitureTypeName()));
+        dialog.row();
+
+        dialog.add(WidgetBuilder.label("Layout"));
+        dialog.add(WidgetBuilder.select(asset.getFurnitureLayoutName(), furnitureLayoutDictionary.getAll().stream().map(FurnitureLayout::getUniqueName).toList(), null, compose(asset::setFurnitureLayoutName, uniqueNameRebuilder)));
+        dialog.row();
+
+        dialog.add(WidgetBuilder.label("Valid Materials")).padTop(15);
+        dialog.row();
+        dialog.addSeparator().colspan(2);
+
+        //Todo: nicer display name
+        int checkboxColCount = 1;
+        for (GameMaterialType materialType : GameMaterialType.values()) {
+            VisCheckBox checkBox = WidgetBuilder.checkBox(materialType, asset.getValidMaterialTypes().contains(materialType),
+                    it -> {
+                        if (!asset.getValidMaterialTypes().contains(it)) {
+                            asset.getValidMaterialTypes().add(it);
+                            uniqueNameRebuilder.accept(null);
+                        }
+
+                    }, compose(asset.getValidMaterialTypes()::remove, uniqueNameRebuilder));
+            dialog.add(checkBox).fill(false, false).left();
+            if (checkboxColCount % 2 == 0) {
+                dialog.row();
+            }
+            checkboxColCount++;
+        }
+
+        dialog.row();
+
+        dialog.addSeparator().colspan(2).padBottom(15);
+
+        dialog.row();
+        dialog.add(WidgetBuilder.label("Name"));
+        dialog.add(nameTextField);
+        return dialog;
     }
 
     @Override
