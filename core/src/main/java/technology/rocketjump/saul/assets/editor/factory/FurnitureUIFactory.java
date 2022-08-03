@@ -2,6 +2,7 @@ package technology.rocketjump.saul.assets.editor.factory;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -12,17 +13,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.VisUI;
+import com.kotcrab.vis.ui.util.InputValidator;
 import com.kotcrab.vis.ui.util.adapter.ArrayListAdapter;
 import com.kotcrab.vis.ui.widget.*;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
+import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.ToStringDecorator;
+import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.TagsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.furniture.RequiredMaterialsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.FurnitureAttributesPane;
+import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.behaviour.furniture.FurnitureBehaviour;
@@ -36,7 +42,9 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureTyp
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
+import technology.rocketjump.saul.rendering.utils.HexColors;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -53,11 +61,13 @@ public class FurnitureUIFactory implements UIFactory {
     private final MessageDispatcher messageDispatcher;
     private final ItemTypeDictionary itemTypeDictionary;
     private final EditorStateProvider editorStateProvider;
+    private final CompleteAssetDictionary completeAssetDictionary;
 
     @Inject
     public FurnitureUIFactory(FurnitureEntityFactory furnitureEntityFactory, FurnitureTypeDictionary furnitureTypeDictionary,
                               FurnitureAttributesPane viewEditorControls, FurnitureLayoutDictionary furnitureLayoutDictionary,
-                              MessageDispatcher messageDispatcher, ItemTypeDictionary itemTypeDictionary, EditorStateProvider editorStateProvider) {
+                              MessageDispatcher messageDispatcher, ItemTypeDictionary itemTypeDictionary, EditorStateProvider editorStateProvider,
+                              CompleteAssetDictionary completeAssetDictionary) {
         this.furnitureEntityFactory = furnitureEntityFactory;
         this.furnitureTypeDictionary = furnitureTypeDictionary;
         this.viewEditorControls = viewEditorControls;
@@ -65,6 +75,7 @@ public class FurnitureUIFactory implements UIFactory {
         this.messageDispatcher = messageDispatcher;
         this.itemTypeDictionary = itemTypeDictionary;
         this.editorStateProvider = editorStateProvider;
+        this.completeAssetDictionary = completeAssetDictionary;
     }
 
     @Override
@@ -95,7 +106,36 @@ public class FurnitureUIFactory implements UIFactory {
 
     @Override
     public OkCancelDialog createEntityDialog(Path path) {
-        return null;
+        FurnitureType furnitureType = new FurnitureType();
+        OkCancelDialog dialog = new OkCancelDialog("Create new " + getEntityType()) {
+            @Override
+            public void onOk() {
+                String name = furnitureType.getName();
+                //required defaults
+                furnitureType.setRequirements(new HashMap<>());
+                furnitureType.getRequirements().put(GameMaterialType.EARTH, new ArrayList<>());
+                furnitureType.setDefaultLayoutName("1x1");
+                furnitureType.setColorCode(HexColors.toHexString(Color.WHITE));
+                String folderName = name.toLowerCase(Locale.ROOT);
+                Path basePath = FileUtils.createDirectory(path, folderName);
+
+                furnitureTypeDictionary.add(furnitureType);
+                completeAssetDictionary.rebuild();
+
+                EditorEntitySelection editorEntitySelection = new EditorEntitySelection();
+                editorEntitySelection.setEntityType(getEntityType());
+                editorEntitySelection.setTypeName(name);
+                editorEntitySelection.setBasePath(basePath.toString());
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, editorEntitySelection);
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forTypeDescriptor(getEntityType(), basePath, furnitureType));
+            }
+        };
+        dialog.add(WidgetBuilder.label("Name"));
+        InputValidator nonBlank = StringUtils::isNotBlank;
+        InputValidator uniqueName = input -> furnitureTypeDictionary.getByName(input) == null;
+        dialog.add(WidgetBuilder.textField(null, furnitureType::setName, nonBlank, uniqueName));
+
+        return dialog;
     }
 
     @Override
@@ -125,6 +165,10 @@ public class FurnitureUIFactory implements UIFactory {
         controls.add(WidgetBuilder.select(furnitureType.getDefaultLayout(), furnitureLayoutDictionary.getAll(), null, layout -> {
             furnitureType.setDefaultLayout(layout);
             furnitureType.setDefaultLayoutName(layout.getUniqueName());
+            //TODO: feels dirty
+            FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) editorStateProvider.getState().getCurrentEntity().getPhysicalEntityComponent().getAttributes();
+            attributes.setCurrentLayout(layout);
+            viewEditorControls.reload();
         }));
         controls.row();
 
@@ -177,10 +221,11 @@ public class FurnitureUIFactory implements UIFactory {
                 furnitureType.setIconName(iconName);
             }
         });
-        icons.stream().filter(iconPath -> iconPath.toString().contains(furnitureType.getIconName())).findAny().ifPresent(matched -> {
-            iconAdapter.getSelectionManager().select(matched);
-
-        });
+        if (furnitureType.getIconName() != null) {
+            icons.stream().filter(iconPath -> iconPath.toString().contains(furnitureType.getIconName())).findAny().ifPresent(matched -> {
+                iconAdapter.getSelectionManager().select(matched);
+            });
+        }
 
         controls.add(WidgetBuilder.label("Icon"));
         controls.add(iconList.getMainTable()).maxHeight(64);
@@ -201,8 +246,14 @@ public class FurnitureUIFactory implements UIFactory {
         controls.addSeparator().colspan(2);
         controls.row();
 
-        RequiredMaterialsWidget requiredMaterialsWidget = new RequiredMaterialsWidget(furnitureType, itemTypeDictionary);
-        controls.add(requiredMaterialsWidget).fill(false, false).uniform(false).expand(false, false).colspan(2).right();
+        RequiredMaterialsWidget requiredMaterialsWidget = new RequiredMaterialsWidget(furnitureType, itemTypeDictionary) {
+            @Override
+            public void reload() {
+                super.reload();
+                viewEditorControls.reload();
+            }
+        };
+        controls.add(requiredMaterialsWidget).fill(false, false).uniform(false).expand(false, false).colspan(2).left();
         controls.row();
         controls.row().padTop(10);
 

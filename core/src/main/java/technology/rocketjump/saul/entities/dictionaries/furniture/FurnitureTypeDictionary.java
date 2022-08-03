@@ -23,6 +23,9 @@ public class FurnitureTypeDictionary {
 		NULL_TYPE.setName("Null furniture type");
 	}
 
+	private final FurnitureLayoutDictionary layoutDictionary;
+	private final ItemTypeDictionary itemTypeDictionary;
+
 
 	@Inject
 	public FurnitureTypeDictionary(FurnitureLayoutDictionary layoutDictionary,
@@ -30,28 +33,35 @@ public class FurnitureTypeDictionary {
 		this(new FileHandle("assets/definitions/types/furnitureTypes.json"), layoutDictionary, itemTypeDictionary);
 	}
 
-	public FurnitureTypeDictionary(FileHandle jsonFile,
-								   FurnitureLayoutDictionary layoutDictionary, ItemTypeDictionary itemTypeDictionary) throws IOException {
+	public FurnitureTypeDictionary(FileHandle jsonFile, FurnitureLayoutDictionary layoutDictionary, ItemTypeDictionary itemTypeDictionary) throws IOException {
+		this.layoutDictionary = layoutDictionary;
+		this.itemTypeDictionary = itemTypeDictionary;
+
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<FurnitureType> furnitureTypes = objectMapper.readValue(jsonFile.readString(),
 				objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, FurnitureType.class));
 
 		for (FurnitureType furnitureType : furnitureTypes) {
-			initialiseFurnitureType(furnitureType, layoutDictionary, itemTypeDictionary);
-
-			byName.put(furnitureType.getName(), furnitureType);
-			if (furnitureType.isPlaceAnywhere()) {
-				placeAnywhereFurniture.add(furnitureType);
-			}
+			add(furnitureType);
 		}
 		byName.put(NULL_TYPE.getName(), NULL_TYPE);
 	}
+
+	public void add(FurnitureType furnitureType) {
+		initialiseFurnitureType(furnitureType);
+
+		byName.put(furnitureType.getName(), furnitureType);
+		if (furnitureType.isPlaceAnywhere()) {
+			placeAnywhereFurniture.add(furnitureType);
+		}
+	}
+
 
 	public List<FurnitureType> getPlaceAnywhereFurniture() {
 		return placeAnywhereFurniture;
 	}
 
-	private void initialiseFurnitureType(FurnitureType furnitureType, FurnitureLayoutDictionary layoutDictionary, ItemTypeDictionary itemTypeDictionary) {
+	private void initialiseFurnitureType(FurnitureType furnitureType) {
 		furnitureType.setDefaultLayout(layoutDictionary.getByName(furnitureType.getDefaultLayoutName()));
 		if (furnitureType.getDefaultLayout() == null) {
 			throw new RuntimeException("Could not find furniture layout: " + furnitureType.getDefaultLayoutName() + " for " + furnitureType.getName());
@@ -79,4 +89,5 @@ public class FurnitureTypeDictionary {
 	public Collection<FurnitureType> getAll() {
 		return byName.values();
 	}
+
 }
