@@ -37,12 +37,16 @@
     }
   },
   "features" : {
-    "skin" : {
+    "defense": {
+      "maxDefensePoints": 26,
+      "maxDefenseRegainedPerRound": 3,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 1,
         "CRUSHING" : 1
       }
+    },
+    "skin" : {
     },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Large",

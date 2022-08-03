@@ -1,9 +1,9 @@
-package technology.rocketjump.saul.entities.model.physical.item;
+package technology.rocketjump.saul.entities.model.physical.combat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import technology.rocketjump.saul.audio.model.SoundAsset;
-import technology.rocketjump.saul.entities.model.physical.combat.CombatDamageType;
+import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeaponInfo {
@@ -28,7 +28,7 @@ public class WeaponInfo {
 
 	public static WeaponInfo UNARMED = new WeaponInfo();
 	static {
-		UNARMED.setRange(0.5f);
+		UNARMED.setRange(1f);
 		UNARMED.setDamageType(CombatDamageType.CRUSHING);
 		UNARMED.setModifiedByStrength(true);
 		UNARMED.setMinDamage(0);

@@ -38,6 +38,7 @@ import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
@@ -83,6 +84,7 @@ public class CreatureUIFactory implements UIFactory {
     private final GameMaterialDictionary gameMaterialDictionary;
     private final ItemTypeDictionary itemTypeDictionary;
     private final NativeFileChooser fileChooser;
+    private final SoundAssetDictionary soundAssetDictionary;
 
     @Inject
     public CreatureUIFactory(MessageDispatcher messageDispatcher, EntityAssetTypeDictionary entityAssetTypeDictionary,
@@ -91,7 +93,7 @@ public class CreatureUIFactory implements UIFactory {
                              CreatureAttributesPane viewEditorControls, BodyStructureDictionary bodyStructureDictionary,
                              CreatureBehaviourDictionary creatureBehaviourDictionary, ScheduleDictionary scheduleDictionary,
                              GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary,
-                             NativeFileChooser fileChooser) {
+                             NativeFileChooser fileChooser, SoundAssetDictionary soundAssetDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.completeAssetDictionary = completeAssetDictionary;
@@ -105,6 +107,7 @@ public class CreatureUIFactory implements UIFactory {
         this.gameMaterialDictionary = gameMaterialDictionary;
         this.itemTypeDictionary = itemTypeDictionary;
         this.fileChooser = fileChooser;
+        this.soundAssetDictionary = soundAssetDictionary;
     }
 
     @Override
@@ -276,7 +279,7 @@ public class CreatureUIFactory implements UIFactory {
 
 
         editorTable.add(new VisLabel("Features:")).left().colspan(2).row();
-        editorTable.add(new RaceFeaturesWidget(race.getFeatures(), gameMaterialDictionary, itemTypeDictionary, messageDispatcher)).left().colspan(2).row();
+        editorTable.add(new RaceFeaturesWidget(race.getFeatures(), gameMaterialDictionary, itemTypeDictionary, messageDispatcher, soundAssetDictionary)).left().colspan(2).row();
         return editorTable;
     }
 

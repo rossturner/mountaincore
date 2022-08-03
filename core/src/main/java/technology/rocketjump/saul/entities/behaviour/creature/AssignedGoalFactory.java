@@ -2,18 +2,13 @@ package technology.rocketjump.saul.entities.behaviour.creature;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.RandomXS128;
-import org.apache.commons.lang3.NotImplementedException;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
-import technology.rocketjump.saul.entities.ai.goap.Goal;
-import technology.rocketjump.saul.entities.ai.goap.SpecialGoal;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
@@ -203,27 +198,6 @@ public class AssignedGoalFactory {
 			assignedGoal.setRelevantMemory(tantrumMemory);
 			return assignedGoal;
 		}
-	}
-
-	public static AssignedGoal attackedByCreatureResponse(Entity parentEntity, MessageDispatcher messageDispatcher, Memory attackedByCreatureMemory) {
-		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
-		AggressionResponse aggressionResponse = attributes.getRace().getBehaviour().getAggressionResponse();
-		if (aggressionResponse == null || aggressionResponse.equals(AggressionResponse.MIXED)) {
-			if (new RandomXS128(attributes.getSeed()).nextBoolean()) {
-				aggressionResponse = AggressionResponse.ATTACK;
-			} else {
-				aggressionResponse = AggressionResponse.FLEE;
-			}
-		}
-
-		Goal goal = switch (aggressionResponse) {
-			case ATTACK -> SpecialGoal.ATTACK_AGGRESSOR.getInstance();
-			case FLEE -> SpecialGoal.FLEE_FROM_AGGRESSOR.getInstance();
-			default -> throw new NotImplementedException("No goal specified for aggression response: " + aggressionResponse.name());
-		};
-		AssignedGoal assignedGoal = new AssignedGoal(goal, parentEntity, messageDispatcher);
-		assignedGoal.setRelevantMemory(attackedByCreatureMemory);
-		return assignedGoal;
 	}
 
 	public static AssignedGoal placeItemIntoStockpileGoal(Entity itemEntity, Entity parentEntity, MessageDispatcher messageDispatcher, HaulingAllocation stockpileAllocation) {

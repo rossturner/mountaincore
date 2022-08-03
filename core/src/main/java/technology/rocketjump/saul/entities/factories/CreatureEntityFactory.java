@@ -12,6 +12,7 @@ import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.FactionComponent;
+import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.components.creature.StatusComponent;
@@ -67,6 +68,7 @@ public class CreatureEntityFactory  {
 
 		entity.addComponent(new NeedsComponent(attributes.getRace().getBehaviour().getNeeds(), gameContext.getRandom()));
 		entity.addComponent(new MemoryComponent());
+		entity.getOrCreateComponent(CombatStateComponent.class).init(entity, messageDispatcher, gameContext);
 		entity.getOrCreateComponent(StatusComponent.class).init(entity, messageDispatcher, gameContext);
 		entity.getOrCreateComponent(FactionComponent.class).setFaction(Faction.WILD_ANIMALS); // TODO derive this from other data
 

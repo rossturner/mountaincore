@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import org.apache.commons.lang3.NotImplementedException;
+import technology.rocketjump.saul.entities.ai.combat.EnteringCombatException;
+import technology.rocketjump.saul.entities.ai.combat.ExitingCombatException;
 import technology.rocketjump.saul.entities.ai.goap.*;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
@@ -53,6 +55,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	private static final int MAX_TANTRUMS = 3;
 
 	protected SteeringComponent steeringComponent = new SteeringComponent();
+	protected CombatBehaviour combatBehaviour = new CombatBehaviour();
 
 	protected Entity parentEntity;
 	protected MessageDispatcher messageDispatcher;
@@ -81,6 +84,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		this.messageDispatcher = messageDispatcher;
 		this.gameContext = gameContext;
 		steeringComponent.init(parentEntity, gameContext.getAreaMap(), parentEntity.getLocationComponent(), messageDispatcher);
+		combatBehaviour.init(parentEntity, messageDispatcher, gameContext);
 
 		if (currentGoal != null) {
 			currentGoal.init(parentEntity, messageDispatcher);
@@ -98,14 +102,13 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			currentGoal.destroy(parentEntity, messageDispatcher, gameContext);
 			currentGoal = null;
 		}
+		if (creatureGroup != null) {
+			creatureGroup.removeMemberId(parentEntity.getId());
+		}
 	}
 
 	@Override
 	public void update(float deltaTime) {
-		if (currentGoal == null || currentGoal.isComplete()) {
-			currentGoal = pickNextGoalFromQueue();
-		}
-
 		// Not going to update steering when asleep so can't be pushed around
 		Consciousness consciousness = ((CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes()).getConsciousness();
 		if (AWAKE.equals(consciousness)) {
@@ -122,6 +125,28 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			return;
 		}
 
+		CombatStateComponent combatState = parentEntity.getComponent(CombatStateComponent.class);
+		if (combatState.isInCombat()) {
+			try {
+				combatBehaviour.update(deltaTime);
+			} catch (ExitingCombatException e) {
+				messageDispatcher.dispatchMessage(MessageType.CREATURE_EXITING_COMBAT, parentEntity);
+			}
+		}
+
+
+		if (currentGoal == null || currentGoal.isComplete()) {
+			try {
+				currentGoal = pickNextGoalFromQueue();
+			} catch (EnteringCombatException e) {
+				// Currently assuming whatever threw this has first cleared the CombatStateComponent
+				// Only switch to combat when we need to pick a new goal - previous goal may have needed to clean up interrupted actions
+				// TODO equip weapons/armour for combat
+				messageDispatcher.dispatchMessage(MessageType.CREATURE_ENTERING_COMBAT, parentEntity);
+				return;
+			}
+		}
+
 		try {
 			currentGoal.update(deltaTime, gameContext);
 		} catch (SwitchGoalException e) {
@@ -136,6 +161,44 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		}
 	}
 
+	@Override
+	public void infrequentUpdate(GameContext gameContext) {
+		double gameTime = gameContext.getGameClock().getCurrentGameTime();
+		double elapsed = gameTime - lastUpdateGameTime;
+		lastUpdateGameTime = gameTime;
+
+		if (creatureGroup != null) {
+			creatureGroup.infrequentUpdate(gameContext);
+		}
+
+		NeedsComponent needsComponent = parentEntity.getComponent(NeedsComponent.class);
+		needsComponent.update(elapsed, parentEntity, messageDispatcher);
+
+		parentEntity.getComponent(StatusComponent.class).infrequentUpdate(elapsed);
+
+		HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
+		if (happinessComponent != null) {
+			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
+			if (currentTile != null && currentTile.getRoof().getState().equals(TileRoofState.OPEN) &&
+					gameContext.getMapEnvironment().getCurrentWeather().getHappinessModifiers().containsKey(STANDING)) {
+				happinessComponent.add(gameContext.getMapEnvironment().getCurrentWeather().getHappinessModifiers().get(STANDING));
+			}
+		}
+
+		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
+		thinkAboutRequiredEquipment(gameContext);
+		addGoalsToQueue(gameContext);
+
+		lookAtNearbyThings(gameContext);
+
+		if (attributes.getRace().getBehaviour().getIsSapient()) {
+			if (attributes.getSanity().equals(Sanity.SANE) && attributes.getConsciousness().equals(AWAKE) &&
+					happinessComponent != null && happinessComponent.getNetModifier() <= MIN_HAPPINESS_VALUE) {
+				messageDispatcher.dispatchMessage(MessageType.SAPIENT_CREATURE_INSANITY, parentEntity);
+			}
+		}
+	}
+
 	public AssignedGoal getCurrentGoal() {
 		return currentGoal;
 	}
@@ -144,11 +207,11 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	public void setCurrentGoal(AssignedGoal assignedGoal) {
 		this.currentGoal = assignedGoal;
 	}
-
 	public GoalQueue getGoalQueue() {
 		return goalQueue;
 	}
-	protected AssignedGoal pickNextGoalFromQueue() {
+
+	protected AssignedGoal pickNextGoalFromQueue() throws EnteringCombatException {
 		if (parentEntity.isOnFire()) {
 			return onFireGoal(parentEntity, messageDispatcher, gameContext);
 		}
@@ -158,7 +221,10 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			if (creatureGroup != null) {
 				creatureGroup.getSharedMemoryComponent().addShortTerm(attackedMemory.get(), gameContext.getGameClock());
 			}
-			return attackedByCreatureResponse(parentEntity, messageDispatcher, attackedMemory.get());
+			CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+			combatStateComponent.clearState();
+			combatStateComponent.setTargetedOpponentId(attackedMemory.get().getRelatedEntityId());
+			throw new EnteringCombatException();
 		}
 
 		MemoryComponent memoryComponent = parentEntity.getOrCreateComponent(MemoryComponent.class);
@@ -208,44 +274,6 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	}
 
 	@Override
-	public void infrequentUpdate(GameContext gameContext) {
-		double gameTime = gameContext.getGameClock().getCurrentGameTime();
-		double elapsed = gameTime - lastUpdateGameTime;
-		lastUpdateGameTime = gameTime;
-
-		if (creatureGroup != null) {
-			creatureGroup.infrequentUpdate(gameContext);
-		}
-
-		NeedsComponent needsComponent = parentEntity.getComponent(NeedsComponent.class);
-		needsComponent.update(elapsed, parentEntity, messageDispatcher);
-
-		parentEntity.getComponent(StatusComponent.class).infrequentUpdate(elapsed);
-
-		HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
-		if (happinessComponent != null) {
-			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
-			if (currentTile != null && currentTile.getRoof().getState().equals(TileRoofState.OPEN) &&
-					gameContext.getMapEnvironment().getCurrentWeather().getHappinessModifiers().containsKey(STANDING)) {
-				happinessComponent.add(gameContext.getMapEnvironment().getCurrentWeather().getHappinessModifiers().get(STANDING));
-			}
-		}
-
-		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
-		thinkAboutRequiredEquipment(gameContext);
-		addGoalsToQueue(gameContext);
-
-		lookAtNearbyThings(gameContext);
-
-		if (attributes.getRace().getBehaviour().getIsSapient()) {
-			if (attributes.getSanity().equals(Sanity.SANE) && attributes.getConsciousness().equals(AWAKE) &&
-					happinessComponent != null && happinessComponent.getNetModifier() <= MIN_HAPPINESS_VALUE) {
-				messageDispatcher.dispatchMessage(MessageType.SAPIENT_CREATURE_INSANITY, parentEntity);
-			}
-		}
-	}
-
-	@Override
 	public SteeringComponent getSteeringComponent() {
 		return steeringComponent;
 	}
@@ -273,6 +301,9 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 	public void setCreatureGroup(CreatureGroup creatureGroup) {
 		this.creatureGroup = creatureGroup;
+		if (creatureGroup != null) {
+			creatureGroup.addMemberId(parentEntity.getId());
+		}
 	}
 
 	private void thinkAboutRequiredEquipment(GameContext gameContext) {
@@ -396,6 +427,10 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		return descriptionStrings;
 	}
 
+	public CombatBehaviour getCombatBehaviour() {
+		return combatBehaviour;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		if (creatureGroup != null) {
@@ -420,6 +455,10 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			steeringComponent.writeTo(steeringComponentJson, savedGameStateHolder);
 			asJson.put("steeringComponent", steeringComponentJson);
 		}
+
+		JSONObject combatBehaviourJson = new JSONObject(true);
+		combatBehaviour.writeTo(combatBehaviourJson, savedGameStateHolder);
+		asJson.put("combatBehaviour", combatBehaviourJson);
 
 		if (stunTime > 0) {
 			asJson.put("stunTime", stunTime);

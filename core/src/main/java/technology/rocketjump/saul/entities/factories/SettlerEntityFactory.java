@@ -7,6 +7,7 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.ai.goap.GoalDictionary;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
@@ -72,6 +73,7 @@ public class SettlerEntityFactory {
 		NeedsComponent needsComponent = new NeedsComponent(attributes.getRace().getBehaviour().getNeeds(), gameContext.getRandom());
 		entity.addComponent(needsComponent);
 		entity.addComponent(new MemoryComponent());
+		entity.getOrCreateComponent(CombatStateComponent.class).init(entity, messageDispatcher, gameContext);
 
 		entityAssetUpdater.updateEntityAssets(entity);
 

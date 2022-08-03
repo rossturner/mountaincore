@@ -45,12 +45,16 @@
     }
   },
   "features" : {
-    "skin" : {
+    "defense": {
+      "maxDefensePoints": 12,
+      "maxDefenseRegainedPerRound": 2,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 1,
         "CRUSHING" : 1
       }
+    },
+    "skin" : {
     },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Medium",

@@ -179,8 +179,8 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		// reduce by target's damage reduction
 		if (attackMessage.defenderEntity.getType().equals(EntityType.CREATURE)) {
 			CreatureEntityAttributes attributes = (CreatureEntityAttributes) attackMessage.defenderEntity.getPhysicalEntityComponent().getAttributes();
-			if (attributes.getRace().getFeatures().getSkin() != null) {
-				damageAmount -= attributes.getRace().getFeatures().getSkin().getDamageReduction().getOrDefault(damageType, 0);
+			if (attributes.getRace().getFeatures().getDefense() != null) {
+				damageAmount -= attributes.getRace().getFeatures().getDefense().getDamageReduction().getOrDefault(damageType, 0);
 			}
 
 			// TODO reduce by armour damage reduction

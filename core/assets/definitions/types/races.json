@@ -48,13 +48,7 @@
     }
   },
   "features" : {
-    "skin" : {
-      "damageReduction" : {
-        "STABBING" : 1,
-        "SLASHING" : 1,
-        "CRUSHING" : 1
-      }
-    },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Medium",
       "materialName" : "Boar Meat",
@@ -113,9 +107,7 @@
     }
   },
   "features" : {
-    "skin" : {
-      "damageReduction" : { }
-    },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Medium",
       "materialName" : "Deer Meat",
@@ -170,13 +162,7 @@
     }
   },
   "features" : {
-    "skin" : {
-      "damageReduction" : {
-        "STABBING" : 1,
-        "SLASHING" : 1,
-        "CRUSHING" : 1
-      }
-    },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Large",
       "materialName" : "Elephant Meat",
@@ -227,9 +213,7 @@
     }
   },
   "features" : {
-    "skin" : {
-      "damageReduction" : { }
-    },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Small",
       "materialName" : "Fox Meat",
@@ -298,13 +282,23 @@
     }
   },
   "features" : {
-    "skin" : {
+    "defense" : {
+      "maxDefensePoints" : 20,
+      "maxDefenseRegainedPerRound" : 3,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 2,
         "CRUSHING" : 2
       }
     },
+    "unarmedWeapon" : {
+      "range" : 1.0,
+      "damageType" : "CRUSHING",
+      "modifiedByStrength" : true,
+      "minDamage" : 1,
+      "maxDamage" : 4
+    },
+    "skin" : { },
     "bones" : {
       "materialName" : "Bone"
     },
@@ -339,9 +333,7 @@
     }
   },
   "features" : {
-    "skin" : {
-      "damageReduction" : { }
-    },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Carp-Prepared",
       "materialName" : "Carp Meat",
@@ -381,9 +373,7 @@
     }
   },
   "features" : {
-    "skin" : {
-      "damageReduction" : { }
-    },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Perch-Prepared",
       "materialName" : "Perch Meat",
@@ -423,9 +413,7 @@
     }
   },
   "features" : {
-    "skin" : {
-      "damageReduction" : { }
-    },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Pike-Prepared",
       "materialName" : "Pike Meat",

@@ -3,6 +3,7 @@ package technology.rocketjump.saul.entities.model.physical.item;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.materials.model.GameMaterialType;

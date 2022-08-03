@@ -21,6 +21,7 @@ import technology.rocketjump.saul.assets.editor.model.ItemNameBuilders;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.TagsWidget;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WeaponInfoWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.ItemAttributesPane;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
@@ -33,12 +34,11 @@ import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.model.FloorType;
-import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
-import technology.rocketjump.saul.entities.model.physical.combat.CombatDamageType;
+import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.item.*;
 import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -59,6 +59,7 @@ import java.util.function.Consumer;
 import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.orderedArray;
 import static technology.rocketjump.saul.assets.entities.item.model.ItemPlacement.BEING_CARRIED;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
+import static technology.rocketjump.saul.audio.model.SoundAssetDictionary.NULL_SOUND_ASSET;
 
 @Singleton
 public class ItemUIFactory implements UIFactory {
@@ -312,25 +313,14 @@ public class ItemUIFactory implements UIFactory {
         }));
         controls.row();
 
-        SoundAsset nullSoundAsset = new SoundAsset() {
-            @Override
-            public String getName() {
-                return null;
-            }
-
-            @Override
-            public String toString() {
-                return "-none-";
-            }
-        };
         controls.add(WidgetBuilder.label("Placement Sound"));
-        controls.add(WidgetBuilder.select(itemType.getPlacementSoundAsset(), soundAssetDictionary.getAll(), nullSoundAsset, soundAsset -> {
+        controls.add(WidgetBuilder.select(itemType.getPlacementSoundAsset(), soundAssetDictionary.getAll(), NULL_SOUND_ASSET, soundAsset -> {
             itemType.setPlacementSoundAsset(soundAsset);
             itemType.setPlacementSoundAssetName(soundAsset.getName());
         }));
         controls.row();
         controls.add(WidgetBuilder.label("Consume Sound"));
-        controls.add(WidgetBuilder.select(itemType.getConsumeSoundAsset(), soundAssetDictionary.getAll(), nullSoundAsset, soundAsset -> {
+        controls.add(WidgetBuilder.select(itemType.getConsumeSoundAsset(), soundAssetDictionary.getAll(), NULL_SOUND_ASSET, soundAsset -> {
             itemType.setConsumeSoundAsset(soundAsset);
             itemType.setConsumeSoundAssetName(soundAsset.getName());
         }));
@@ -342,19 +332,17 @@ public class ItemUIFactory implements UIFactory {
 
         // Weapon info
         final WeaponInfo weaponInfo;
-        boolean initalHasWeaponInfo = itemType.getWeaponInfo() != null;
-        if (initalHasWeaponInfo) {
+        boolean initialHasWeaponInfo = itemType.getWeaponInfo() != null;
+        if (initialHasWeaponInfo) {
             weaponInfo = itemType.getWeaponInfo();
         } else {
             weaponInfo = new WeaponInfo();
         }
-        VisTable weaponInfoControls = new VisTable();
-        weaponInfoControls.columnDefaults(0).uniformX().left();
-        weaponInfoControls.columnDefaults(1).fillX().left();
+        WeaponInfoWidget weaponInfoControls = new WeaponInfoWidget(weaponInfo, soundAssetDictionary);
 
         CollapsibleWidget weaponCollapsible = new CollapsibleWidget(weaponInfoControls);
-        weaponCollapsible.setCollapsed(!initalHasWeaponInfo);
-        controls.add(WidgetBuilder.checkBox("Is Weapon:", initalHasWeaponInfo, checked -> {
+        weaponCollapsible.setCollapsed(!initialHasWeaponInfo);
+        controls.add(WidgetBuilder.checkBox("Is Weapon:", initialHasWeaponInfo, checked -> {
             itemType.setWeaponInfo(weaponInfo);
             weaponCollapsible.setCollapsed(false, true);
         }, unchecked -> {
@@ -364,51 +352,6 @@ public class ItemUIFactory implements UIFactory {
         controls.row();
         controls.addSeparator().colspan(2);
 
-        weaponInfoControls.add(WidgetBuilder.label("Modified By Strength"));
-        weaponInfoControls.add(WidgetBuilder.toggle(weaponInfo.isModifiedByStrength(), weaponInfo::setModifiedByStrength));
-        weaponInfoControls.row();
-
-        weaponInfoControls.add(WidgetBuilder.label("Min Damage"));
-        weaponInfoControls.add(WidgetBuilder.intSpinner(weaponInfo.getMinDamage(), 0, Integer.MAX_VALUE, weaponInfo::setMinDamage));
-        weaponInfoControls.row();
-
-        weaponInfoControls.add(WidgetBuilder.label("Max Damage"));
-        weaponInfoControls.add(WidgetBuilder.intSpinner(weaponInfo.getMaxDamage(), 0, Integer.MAX_VALUE, weaponInfo::setMaxDamage));
-        weaponInfoControls.row();
-
-        weaponInfoControls.add(WidgetBuilder.label("Damage Type"));
-        weaponInfoControls.add(WidgetBuilder.select(weaponInfo.getDamageType(), CombatDamageType.values(), null, weaponInfo::setDamageType));
-        weaponInfoControls.row();
-
-        weaponInfoControls.add(WidgetBuilder.label("Range"));
-        weaponInfoControls.add(WidgetBuilder.floatSpinner(weaponInfo.getRange(), 0, Float.MAX_VALUE, weaponInfo::setRange));
-        weaponInfoControls.row();
-
-        weaponInfoControls.add(WidgetBuilder.label("Requires Ammo"));
-        weaponInfoControls.add(ammoTypeSelect(weaponInfo.getRequiresAmmoType(), weaponInfo::setRequiresAmmoType));
-        weaponInfoControls.row();
-
-        weaponInfoControls.add(WidgetBuilder.label("Fire Sound"));
-        weaponInfoControls.add(WidgetBuilder.select(weaponInfo.getFireWeaponSoundAsset(), soundAssetDictionary.getAll(), nullSoundAsset, soundAsset -> {
-            weaponInfo.setFireWeaponSoundAsset(soundAsset);
-            weaponInfo.setFireWeaponSoundAssetName(soundAsset.getName());
-        }));
-        weaponInfoControls.row();
-
-        weaponInfoControls.add(WidgetBuilder.label("Hit Sound"));
-        weaponInfoControls.add(WidgetBuilder.select(weaponInfo.getWeaponHitSoundAsset(), soundAssetDictionary.getAll(), nullSoundAsset, soundAsset -> {
-            weaponInfo.setWeaponHitSoundAsset(soundAsset);
-            weaponInfo.setWeaponHitSoundAssetName(soundAsset.getName());
-        }));
-        weaponInfoControls.row();
-
-        weaponInfoControls.add(WidgetBuilder.label("Miss Sound"));
-        weaponInfoControls.add(WidgetBuilder.select(weaponInfo.getWeaponMissSoundAsset(), soundAssetDictionary.getAll(), nullSoundAsset, soundAsset -> {
-            weaponInfo.setWeaponMissSoundAsset(soundAsset);
-            weaponInfo.setWeaponMissSoundAssetName(soundAsset.getName());
-        }));
-        weaponInfoControls.row();
-
         controls.add(weaponCollapsible).colspan(2);
         controls.row();
         controls.addSeparator().colspan(2).padBottom(15);
@@ -416,7 +359,7 @@ public class ItemUIFactory implements UIFactory {
         return controls;
     }
 
-    private VisSelectBox<String> ammoTypeSelect(AmmoType currentValue, Consumer<AmmoType> listener) {
+    public static VisSelectBox<String> ammoTypeSelect(AmmoType currentValue, Consumer<AmmoType> listener) {
         String nullOption = "-none-";
         VisSelectBox<String> selectBox = new VisSelectBox<>();
         Array<String> items = orderedArray(Arrays.stream(AmmoType.values()).map(AmmoType::name).toList());

@@ -6,12 +6,14 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.AssetDisposable;
+import technology.rocketjump.saul.combat.CombatTracker;
 import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
+import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
@@ -57,6 +59,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 	private final ItemTracker itemTracker;
 	private final SettlerTracker settlerTracker;
 	private final CreatureTracker creatureTracker;
+	private final CombatTracker combatTracker;
 	private final ConstantsRepo constantsRepo;
 
 	@Inject
@@ -64,7 +67,8 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 					   PlantEntityAttributesFactory plantEntityAttributesFactory, PlantEntityFactory plantEntityFactory,
 					   ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory,
 					   MessageDispatcher messageDispatcher, FurnitureTracker furnitureTracker,
-					   ItemTracker itemTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker, ConstantsRepo constantsRepo) {
+					   ItemTracker itemTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker,
+					   CombatTracker combatTracker, ConstantsRepo constantsRepo) {
 		this.settlerEntityFactory = settlerEntityFactory;
 		this.settlerCreatureAttributesFactory = settlerCreatureAttributesFactory;
 		this.plantEntityAttributesFactory = plantEntityAttributesFactory;
@@ -76,6 +80,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 		this.itemTracker = itemTracker;
 		this.settlerTracker = settlerTracker;
 		this.creatureTracker = creatureTracker;
+		this.combatTracker = combatTracker;
 		this.constantsRepo = constantsRepo;
 	}
 
@@ -298,6 +303,10 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 						} else {
 							creatureTracker.creatureAdded(entity);
 						}
+					}
+
+					if (entity.getComponent(CombatStateComponent.class).isInCombat()) {
+						combatTracker.add(entity);
 					}
 					break;
 			}

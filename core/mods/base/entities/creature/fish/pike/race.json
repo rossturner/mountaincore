@@ -36,8 +36,6 @@
       "quantity": 1
     },
     "skin": {
-      "damageReduction": {
-      }
     },
     "bones": {
       "materialName": "Bone"
