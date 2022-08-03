@@ -1,14 +1,22 @@
 package technology.rocketjump.saul.assets.editor.factory;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.kotcrab.vis.ui.VisUI;
+import com.kotcrab.vis.ui.util.adapter.ArrayListAdapter;
 import com.kotcrab.vis.ui.widget.*;
+import org.apache.commons.io.FilenameUtils;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
+import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.ToStringDecorator;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.TagsWidget;
@@ -28,9 +36,11 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureTyp
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
+import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.nio.file.Path;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 
@@ -42,17 +52,19 @@ public class FurnitureUIFactory implements UIFactory {
     private final FurnitureLayoutDictionary furnitureLayoutDictionary;
     private final MessageDispatcher messageDispatcher;
     private final ItemTypeDictionary itemTypeDictionary;
+    private final EditorStateProvider editorStateProvider;
 
     @Inject
     public FurnitureUIFactory(FurnitureEntityFactory furnitureEntityFactory, FurnitureTypeDictionary furnitureTypeDictionary,
                               FurnitureAttributesPane viewEditorControls, FurnitureLayoutDictionary furnitureLayoutDictionary,
-                              MessageDispatcher messageDispatcher, ItemTypeDictionary itemTypeDictionary) {
+                              MessageDispatcher messageDispatcher, ItemTypeDictionary itemTypeDictionary, EditorStateProvider editorStateProvider) {
         this.furnitureEntityFactory = furnitureEntityFactory;
         this.furnitureTypeDictionary = furnitureTypeDictionary;
         this.viewEditorControls = viewEditorControls;
         this.furnitureLayoutDictionary = furnitureLayoutDictionary;
         this.messageDispatcher = messageDispatcher;
         this.itemTypeDictionary = itemTypeDictionary;
+        this.editorStateProvider = editorStateProvider;
     }
 
     @Override
@@ -123,8 +135,55 @@ public class FurnitureUIFactory implements UIFactory {
         }));
         controls.row();
 
+        List<Path> icons = FileUtils.findFilesByFilename(editorStateProvider.getState().getModDirPath().resolve("icons"),
+                                                            Pattern.compile(".*\\.png"));
+
+        class IconAdapter extends ArrayListAdapter<Path, VisTable> {
+            private final Drawable bg = VisUI.getSkin().getDrawable("window-bg");
+            private final Drawable selection = VisUI.getSkin().getDrawable("list-selection");
+
+            public IconAdapter(List<Path> array) {
+                super(new ArrayList<>(array));
+                setSelectionMode(SelectionMode.SINGLE);
+            }
+
+            @Override
+            protected void selectView(VisTable view) {
+                view.setBackground(selection);
+            }
+
+            @Override
+            protected void deselectView(VisTable view) {
+                view.setBackground(bg);
+            }
+
+            @Override
+            protected VisTable createView(Path item) {
+                Texture texture = new Texture(new FileHandle(item.toFile()));
+                Image image = new Image(texture);
+                VisTable row = new VisTable();
+                row.left();
+                row.add(image).maxHeight(24).maxWidth(24);
+                row.add(new VisLabel(item.getFileName().toString())).uniformX().fillX();
+                return row;
+            }
+        }
+        IconAdapter iconAdapter = new IconAdapter(icons);
+        ListView<Path> iconList = new ListView<>(iconAdapter);
+        iconList.setItemClickListener(new ListView.ItemClickListener<Path>() {
+            @Override
+            public void clicked(Path item) {
+                String iconName = FilenameUtils.removeExtension(item.getFileName().toString());
+                furnitureType.setIconName(iconName);
+            }
+        });
+        icons.stream().filter(iconPath -> iconPath.toString().contains(furnitureType.getIconName())).findAny().ifPresent(matched -> {
+            iconAdapter.getSelectionManager().select(matched);
+
+        });
+
         controls.add(WidgetBuilder.label("Icon"));
-        controls.add(WidgetBuilder.textField(furnitureType.getIconName(), furnitureType::setIconName));
+        controls.add(iconList.getMainTable()).maxHeight(64);
         controls.row();
 
         controls.add(WidgetBuilder.label("Place Anywhere"));
