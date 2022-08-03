@@ -18,6 +18,7 @@ import com.kotcrab.vis.ui.util.adapter.ArrayListAdapter;
 import com.kotcrab.vis.ui.widget.*;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import technology.rocketjump.saul.assets.editor.UniqueAssetNameValidator;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
@@ -29,8 +30,11 @@ import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBui
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.furniture.RequiredMaterialsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.FurnitureAttributesPane;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
+import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
+import technology.rocketjump.saul.assets.entities.furniture.model.FurnitureEntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
+import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.behaviour.furniture.FurnitureBehaviour;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureLayoutDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
@@ -38,6 +42,7 @@ import technology.rocketjump.saul.entities.factories.FurnitureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -62,12 +67,13 @@ public class FurnitureUIFactory implements UIFactory {
     private final ItemTypeDictionary itemTypeDictionary;
     private final EditorStateProvider editorStateProvider;
     private final CompleteAssetDictionary completeAssetDictionary;
+    private final EntityAssetTypeDictionary entityAssetTypeDictionary;
 
     @Inject
     public FurnitureUIFactory(FurnitureEntityFactory furnitureEntityFactory, FurnitureTypeDictionary furnitureTypeDictionary,
                               FurnitureAttributesPane viewEditorControls, FurnitureLayoutDictionary furnitureLayoutDictionary,
                               MessageDispatcher messageDispatcher, ItemTypeDictionary itemTypeDictionary, EditorStateProvider editorStateProvider,
-                              CompleteAssetDictionary completeAssetDictionary) {
+                              CompleteAssetDictionary completeAssetDictionary, EntityAssetTypeDictionary entityAssetTypeDictionary) {
         this.furnitureEntityFactory = furnitureEntityFactory;
         this.furnitureTypeDictionary = furnitureTypeDictionary;
         this.viewEditorControls = viewEditorControls;
@@ -76,6 +82,7 @@ public class FurnitureUIFactory implements UIFactory {
         this.itemTypeDictionary = itemTypeDictionary;
         this.editorStateProvider = editorStateProvider;
         this.completeAssetDictionary = completeAssetDictionary;
+        this.entityAssetTypeDictionary = entityAssetTypeDictionary;
     }
 
     @Override
@@ -318,6 +325,70 @@ public class FurnitureUIFactory implements UIFactory {
 
     @Override
     public VisTable getAssetPropertyControls(EntityAsset entityAsset) {
-        return null;
+        FurnitureEntityAsset furnitureEntityAsset = (FurnitureEntityAsset) entityAsset;
+        Collection<EntityAssetType> entityAssetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType());
+
+        VisTable controls = new VisTable();
+        controls.columnDefaults(0).left().uniformX();
+        controls.columnDefaults(1).left().fillX();
+        controls.add(WidgetBuilder.label("Name"));
+        controls.add(WidgetBuilder.textField(furnitureEntityAsset.getUniqueName(), furnitureEntityAsset::setUniqueName, new UniqueAssetNameValidator(completeAssetDictionary)));
+        controls.row();
+
+        controls.add(WidgetBuilder.label("Type"));
+        controls.add(WidgetBuilder.select(furnitureEntityAsset.getType(), entityAssetTypes, null, furnitureEntityAsset::setType));
+        controls.row();
+
+        controls.add(WidgetBuilder.label("Furniture Type"));
+        controls.add(WidgetBuilder.select(furnitureEntityAsset.getFurnitureTypeName(), furnitureTypeDictionary.getAll().stream().map(FurnitureType::getName).toList(), null, furnitureEntityAsset::setFurnitureTypeName));
+        controls.row();
+
+        controls.add(WidgetBuilder.label("Layout"));
+        controls.add(WidgetBuilder.select(furnitureEntityAsset.getFurnitureLayoutName(), furnitureLayoutDictionary.getAll().stream().map(FurnitureLayout::getUniqueName).toList(), null, furnitureEntityAsset::setFurnitureLayoutName));
+        controls.row();
+
+
+        controls.add(WidgetBuilder.label("Valid Materials")).padTop(15);
+        controls.row();
+        controls.addSeparator().colspan(2);
+
+        //Todo: nicer display name
+        int checkboxColCount = 1;
+        for (GameMaterialType materialType : GameMaterialType.values()) {
+            VisCheckBox checkBox = WidgetBuilder.checkBox(materialType, furnitureEntityAsset.getValidMaterialTypes().contains(materialType),
+                    it -> {
+                        if (!furnitureEntityAsset.getValidMaterialTypes().contains(it)) {
+                            furnitureEntityAsset.getValidMaterialTypes().add(it);
+                        }
+                    }, furnitureEntityAsset.getValidMaterialTypes()::remove);
+            controls.add(checkBox).fill(false, false).left();
+            if (checkboxColCount % 2 == 0) {
+                controls.row();
+            }
+            checkboxColCount++;
+        }
+
+        controls.row();
+
+        controls.addSeparator().colspan(2).padBottom(15);
+
+
+        TagsWidget tagsWidget = new TagsWidget(furnitureEntityAsset.getTags());
+        tagsWidget.setFillParent(true);
+
+        CollapsibleWidget tagsCollapsible = new CollapsibleWidget(tagsWidget);
+        tagsCollapsible.setCollapsed(furnitureEntityAsset.getTags().isEmpty());
+        VisLabel tagsLabel = new VisLabel("Tags (click to show)");
+        tagsLabel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                tagsCollapsible.setCollapsed(!tagsCollapsible.isCollapsed());
+            }
+        });
+        controls.add(tagsLabel).row();
+        controls.add();
+        controls.add(tagsCollapsible).right().row();
+
+        return controls;
     }
 }
