@@ -35,10 +35,10 @@ public class TagsWidget extends VisTable {
 
 		for (Map.Entry<String, List<String>> entry : sourceTags.entrySet()) {
 			TagWidget tagWidget = new TagWidget(entry.getKey(), entry.getValue(), sourceTags);
-			this.add(tagWidget).left().expandX().row();
+			this.add(tagWidget).expandX().fillX().row();
 		}
 
-		this.add(addButton).left().row();
+		this.add(addButton).right().row();
 	}
 
 }

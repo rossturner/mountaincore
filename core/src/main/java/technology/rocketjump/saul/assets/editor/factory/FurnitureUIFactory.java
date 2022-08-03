@@ -199,9 +199,11 @@ public class FurnitureUIFactory implements UIFactory {
         controls.add(WidgetBuilder.label("Required Materials")).padTop(15);
         controls.row();
         controls.addSeparator().colspan(2);
+        controls.row();
 
         RequiredMaterialsWidget requiredMaterialsWidget = new RequiredMaterialsWidget(furnitureType, itemTypeDictionary);
-        controls.add(requiredMaterialsWidget).colspan(2).row();
+        controls.add(requiredMaterialsWidget).fill(false, false).uniform(false).expand(false, false).colspan(2).right();
+        controls.row();
         controls.row().padTop(10);
 
         VisTable addRequiredMaterialRow = new VisTable();
@@ -236,6 +238,8 @@ public class FurnitureUIFactory implements UIFactory {
         controls.row();
 
         TagsWidget tagsWidget = new TagsWidget(furnitureType.getTags());
+        tagsWidget.setFillParent(true);
+
         CollapsibleWidget tagsCollapsible = new CollapsibleWidget(tagsWidget);
         tagsCollapsible.setCollapsed(furnitureType.getTags().isEmpty());
         VisLabel tagsLabel = new VisLabel("Tags (click to show)");
@@ -245,9 +249,9 @@ public class FurnitureUIFactory implements UIFactory {
                 tagsCollapsible.setCollapsed(!tagsCollapsible.isCollapsed());
             }
         });
-        controls.add(tagsLabel).left().expandX().fillX().colspan(2).row();
-        controls.add(tagsCollapsible).expandX().fillX().left().colspan(2).row();
-
+        controls.add(tagsLabel).row();
+        controls.add();
+        controls.add(tagsCollapsible).right().row();
 
         controls.add(WidgetBuilder.label("Hide from Placement Menu"));
         controls.add(WidgetBuilder.toggle(furnitureType.isHiddenFromPlacementMenu(), furnitureType::setHiddenFromPlacementMenu));
