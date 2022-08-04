@@ -45,6 +45,7 @@ import java.util.function.Consumer;
 
 public class AssetEditorApplication extends ApplicationAdapter implements Telegraph {
 
+	public static final Color ENTITY_OUTLINE_COLOR = HexColors.get("#3355BB");
 	private AssetEditorUI ui;
 	private OrthographicCamera camera;
 	private SpriteBatch spriteBatch;
@@ -141,7 +142,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 							renderEntityWithOrientation(currentEntity, orientation, originalPosition, entity -> {
 								Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
 								shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-								shapeRenderer.setColor(HexColors.get("#3355BB"));
+								shapeRenderer.setColor(ENTITY_OUTLINE_COLOR);
 								shapeRenderer.rect(worldPosition.x - 0.5f, worldPosition.y - 0.5f,1, 1);
 								shapeRenderer.end();
 							});
@@ -177,7 +178,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 							renderEntityWithOrientation(itemHoldingDwarf, orientation, originalPosition, entity -> {
 								Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
 								shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-								shapeRenderer.setColor(HexColors.get("#3355BB"));
+								shapeRenderer.setColor(ENTITY_OUTLINE_COLOR);
 
 								shapeRenderer.line(worldPosition.x - 0.5f, worldPosition.y - 0.5f, worldPosition.x + 0.5f, worldPosition.y + 0.5f);
 								shapeRenderer.line(worldPosition.x - 0.5f, worldPosition.y + 0.5f, worldPosition.x + 0.5f, worldPosition.y - 0.5f);
@@ -186,6 +187,15 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 								if (currentEntity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes furnitureAttributes) {
 									FurnitureLayout currentLayout = furnitureAttributes.getCurrentLayout();
 									GridPoint2 tile = VectorUtils.toGridPoint(worldPosition);
+
+									shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+									shapeRenderer.setColor(ENTITY_OUTLINE_COLOR.cpy());
+									for (GridPoint2 extraTile : currentLayout.getExtraTiles()) {
+										GridPoint2 absoluteTilePoint = tile.cpy().add(extraTile);
+										shapeRenderer.rect(absoluteTilePoint.x, absoluteTilePoint.y, 1, 1);
+									}
+
+									shapeRenderer.end();
 
 									for (FurnitureLayout.Workspace workspace : currentLayout.getWorkspaces()) {
 										GridPoint2 workspaceTile = tile.cpy().add(workspace.getLocation());
