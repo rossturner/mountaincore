@@ -4,13 +4,22 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.model.physical.combat.CombatDamageType;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
+import technology.rocketjump.saul.particles.model.ParticleEffectType;
+
+import java.util.List;
 
 import static technology.rocketjump.saul.assets.editor.factory.ItemUIFactory.ammoTypeSelect;
 import static technology.rocketjump.saul.audio.model.SoundAssetDictionary.NULL_SOUND_ASSET;
 
 public class WeaponInfoWidget extends VisTable {
 
-	public WeaponInfoWidget(WeaponInfo weaponInfo, SoundAssetDictionary soundAssetDictionary) {
+	private static final ParticleEffectType NULL_PARTICLE_EFFECT = new ParticleEffectType();
+	static {
+		NULL_PARTICLE_EFFECT.setName("-none-");
+	}
+
+	public WeaponInfoWidget(WeaponInfo weaponInfo, SoundAssetDictionary soundAssetDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
 		this.columnDefaults(0).uniformX().left();
 		this.columnDefaults(1).fillX().left();
 
@@ -56,6 +65,21 @@ public class WeaponInfoWidget extends VisTable {
 		this.add(WidgetBuilder.select(weaponInfo.getWeaponMissSoundAsset(), soundAssetDictionary.getAll(), NULL_SOUND_ASSET, soundAsset -> {
 			weaponInfo.setWeaponMissSoundAsset(soundAsset);
 			weaponInfo.setWeaponMissSoundAssetName(soundAsset.getName());
+		}));
+		this.row();
+
+		this.add(WidgetBuilder.label("Animated sprite effect"));
+		List<ParticleEffectType> animatedSpriteEffectTypes = particleEffectTypeDictionary.getAll().stream()
+				.filter(type -> type.getAnimatedSpriteName() != null)
+				.toList();
+		this.add(WidgetBuilder.select(weaponInfo.getAnimatedEffectType(), animatedSpriteEffectTypes, NULL_PARTICLE_EFFECT, particleEffectType -> {
+			if (particleEffectType.equals(NULL_PARTICLE_EFFECT)) {
+				weaponInfo.setAnimatedSpriteEffectName(null);
+				weaponInfo.setAnimatedEffectType(null);
+			} else {
+				weaponInfo.setAnimatedSpriteEffectName(particleEffectType.getName());
+				weaponInfo.setAnimatedEffectType(particleEffectType);
+			}
 		}));
 		this.row();
 	}

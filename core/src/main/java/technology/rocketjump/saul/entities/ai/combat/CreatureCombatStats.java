@@ -16,6 +16,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 public class CreatureCombatStats {
 
 	private WeaponInfo equippedWeapon;
+	private ItemEntityAttributes equippedWeaponAttributes;
 	private ItemQuality equippedWeaponQuality = ItemQuality.STANDARD;
 
 	private DefenseInfo racialDefense = DefenseInfo.NONE;
@@ -42,10 +43,15 @@ public class CreatureCombatStats {
 			if (mainHandItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes mainHandItemAttributes) {
 				if (mainHandItemAttributes.getItemType().getWeaponInfo() != null) {
 					equippedWeapon = mainHandItemAttributes.getItemType().getWeaponInfo();
+					equippedWeaponAttributes = mainHandItemAttributes;
 					equippedWeaponQuality = mainHandItemAttributes.getItemQuality();
 				}
 			}
 		}
+	}
+
+	public WeaponInfo getEquippedWeapon() {
+		return equippedWeapon;
 	}
 
 	public int getWeaponRangeAsInt() {

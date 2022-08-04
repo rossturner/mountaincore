@@ -10,6 +10,7 @@ import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.rooms.StockpileGroup;
 import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
 
@@ -27,6 +28,7 @@ public class ItemTypeDictionary {
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 	private final SoundAssetDictionary soundAssetDictionary;
 	private final ConstantsRepo constantsRepo;
+	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
 	private Map<String, ItemType> byName = new HashMap<>();
 	private List<ItemType> allTypesList = new ArrayList<>();
 	private List<ItemType> itemTypesWithWeaponInfo = new ArrayList<>();
@@ -39,11 +41,13 @@ public class ItemTypeDictionary {
 	public ItemTypeDictionary(CraftingTypeDictionary craftingTypeDictionary,
 							  StockpileGroupDictionary stockpileGroupDictionary,
 							  SoundAssetDictionary soundAssetDictionary,
-							  ConstantsRepo constantsRepo) throws IOException {
+							  ConstantsRepo constantsRepo,
+							  ParticleEffectTypeDictionary particleEffectTypeDictionary) throws IOException {
 		this.craftingTypeDictionary = craftingTypeDictionary;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.constantsRepo = constantsRepo;
+		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
 		ObjectMapper objectMapper = new ObjectMapper();
 		File itemTypeJsonFile = new File("assets/definitions/types/itemTypes.json");
 		List<ItemType> itemTypeList = objectMapper.readValue(FileUtils.readFileToString(itemTypeJsonFile, "UTF-8"),
@@ -130,6 +134,13 @@ public class ItemTypeDictionary {
 				itemType.getWeaponInfo().setWeaponMissSoundAsset(soundAssetDictionary.getByName(itemType.getWeaponInfo().getWeaponMissSoundAssetName()));
 				if (itemType.getWeaponInfo().getWeaponMissSoundAsset() == null) {
 					Logger.error(String.format("Could not find sound asset with name %s for item type %s", itemType.getWeaponInfo().getWeaponMissSoundAssetName(), itemType.getItemTypeName()));
+				}
+			}
+
+			if (itemType.getWeaponInfo().getAnimatedSpriteEffectName() != null) {
+				itemType.getWeaponInfo().setAnimatedEffectType(particleEffectTypeDictionary.getByName(itemType.getWeaponInfo().getAnimatedSpriteEffectName()));
+				if (itemType.getWeaponInfo().getAnimatedEffectType() == null) {
+					Logger.error(String.format("Could not find particle effect with name %s for item type %s", itemType.getWeaponInfo().getAnimatedSpriteEffectName(), itemType.getItemTypeName()));
 				}
 			}
 

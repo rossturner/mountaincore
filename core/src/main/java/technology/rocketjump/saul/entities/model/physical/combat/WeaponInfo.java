@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
+import technology.rocketjump.saul.particles.model.ParticleEffectType;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeaponInfo {
@@ -24,6 +25,9 @@ public class WeaponInfo {
 	private String weaponMissSoundAssetName;
 	@JsonIgnore
 	private SoundAsset weaponMissSoundAsset;
+	private String animatedSpriteEffectName;
+	@JsonIgnore
+	private ParticleEffectType animatedEffectType;
 
 
 	public static WeaponInfo UNARMED = new WeaponInfo();
@@ -129,5 +133,21 @@ public class WeaponInfo {
 
 	public void setWeaponMissSoundAsset(SoundAsset weaponMissSoundAsset) {
 		this.weaponMissSoundAsset = weaponMissSoundAsset;
+	}
+
+	public String getAnimatedSpriteEffectName() {
+		return animatedSpriteEffectName;
+	}
+
+	public void setAnimatedSpriteEffectName(String animatedSpriteEffectName) {
+		this.animatedSpriteEffectName = animatedSpriteEffectName;
+	}
+
+	public ParticleEffectType getAnimatedEffectType() {
+		return animatedEffectType;
+	}
+
+	public void setAnimatedEffectType(ParticleEffectType animatedEffectType) {
+		this.animatedEffectType = animatedEffectType;
 	}
 }

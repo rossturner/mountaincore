@@ -24,7 +24,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
-  "overrideDuration" : 0.5,
+  "overrideDuration" : 0.3,
   "usingParentOrientation" : "RIGHT",
   "isLooping" : false,
   "usesTargetMaterialAsTintColor" : true,

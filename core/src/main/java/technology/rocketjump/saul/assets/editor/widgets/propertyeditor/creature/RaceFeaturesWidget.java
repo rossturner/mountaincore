@@ -19,6 +19,7 @@ import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.misc.ReflectionUtils;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
 public class RaceFeaturesWidget extends VisTable {
@@ -54,7 +55,9 @@ public class RaceFeaturesWidget extends VisTable {
 		abstract void initChildWidgets(VisTable childContainer, RaceFeatures sourceData);
 	}
 
-	public RaceFeaturesWidget(RaceFeatures sourceData, GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
+	public RaceFeaturesWidget(RaceFeatures sourceData, GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary,
+							  MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary,
+							  ParticleEffectTypeDictionary particleEffectTypeDictionary) {
 
 		new CheckBoxGroup(this, "Defense", sourceData, "defense") {
 			@Override
@@ -84,7 +87,7 @@ public class RaceFeaturesWidget extends VisTable {
 			@Override
 			void initChildWidgets(VisTable childContainer, RaceFeatures sourceData) {
 				WeaponInfo unarmedWeapon = sourceData.getUnarmedWeapon();
-				childContainer.add(new WeaponInfoWidget(unarmedWeapon, soundAssetDictionary)).left().colspan(2).row();
+				childContainer.add(new WeaponInfoWidget(unarmedWeapon, soundAssetDictionary, particleEffectTypeDictionary)).left().colspan(2).row();
 			}
 		};
 

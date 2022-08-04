@@ -55,6 +55,7 @@ import technology.rocketjump.saul.jobs.model.Profession;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.misc.ReflectionUtils;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.nio.file.Path;
@@ -85,6 +86,7 @@ public class CreatureUIFactory implements UIFactory {
     private final ItemTypeDictionary itemTypeDictionary;
     private final NativeFileChooser fileChooser;
     private final SoundAssetDictionary soundAssetDictionary;
+    private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
 
     @Inject
     public CreatureUIFactory(MessageDispatcher messageDispatcher, EntityAssetTypeDictionary entityAssetTypeDictionary,
@@ -93,7 +95,8 @@ public class CreatureUIFactory implements UIFactory {
                              CreatureAttributesPane viewEditorControls, BodyStructureDictionary bodyStructureDictionary,
                              CreatureBehaviourDictionary creatureBehaviourDictionary, ScheduleDictionary scheduleDictionary,
                              GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary,
-                             NativeFileChooser fileChooser, SoundAssetDictionary soundAssetDictionary) {
+                             NativeFileChooser fileChooser, SoundAssetDictionary soundAssetDictionary,
+                             ParticleEffectTypeDictionary particleEffectTypeDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.completeAssetDictionary = completeAssetDictionary;
@@ -108,6 +111,7 @@ public class CreatureUIFactory implements UIFactory {
         this.itemTypeDictionary = itemTypeDictionary;
         this.fileChooser = fileChooser;
         this.soundAssetDictionary = soundAssetDictionary;
+        this.particleEffectTypeDictionary = particleEffectTypeDictionary;
     }
 
     @Override
@@ -279,7 +283,8 @@ public class CreatureUIFactory implements UIFactory {
 
 
         editorTable.add(new VisLabel("Features:")).left().colspan(2).row();
-        editorTable.add(new RaceFeaturesWidget(race.getFeatures(), gameMaterialDictionary, itemTypeDictionary, messageDispatcher, soundAssetDictionary)).left().colspan(2).row();
+        editorTable.add(new RaceFeaturesWidget(race.getFeatures(), gameMaterialDictionary, itemTypeDictionary, messageDispatcher,
+                soundAssetDictionary, particleEffectTypeDictionary)).left().colspan(2).row();
         return editorTable;
     }
 

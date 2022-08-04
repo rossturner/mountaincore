@@ -15,7 +15,7 @@
   {
     "name": "Weapon slash",
     "animatedSpriteName": "slash",
-    "overrideDuration": 0.5,
+    "overrideDuration": 0.3,
     "scale": 1,
     "isLooping": false,
     "isAffectedByLighting": false,
@@ -25,7 +25,7 @@
       "y": 0.1
     },
     "usingParentOrientation": "RIGHT",
-    "distanceFromParentEntityOrientation": 0.6,
+    "distanceFromParentEntityOrientation": 0.7,
     "attachedToParent": true
   }
 ]

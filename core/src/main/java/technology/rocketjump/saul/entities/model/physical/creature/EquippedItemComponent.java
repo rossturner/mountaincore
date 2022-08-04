@@ -24,6 +24,7 @@ import static technology.rocketjump.saul.entities.components.ItemAllocation.Purp
 public class EquippedItemComponent implements EntityComponent {
 
 	private Entity mainHandItem; // Note this can actually be another creature, not just an item
+	private boolean hideMainHandItem;
 	private Entity offHandItem;
 	private Entity equippedClothing;
 
@@ -41,7 +42,16 @@ public class EquippedItemComponent implements EntityComponent {
 
 	public void setMainHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
 		this.mainHandItem = itemToEquip;
+		this.hideMainHandItem = false; // This shouldn't be necessary, but is here to guard against forgetting to unset this flag
 		setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
+	}
+
+	public boolean isHideMainHandItem() {
+		return hideMainHandItem;
+	}
+
+	public void setHideMainHandItem(boolean hideMainHandItem) {
+		this.hideMainHandItem = hideMainHandItem;
 	}
 
 	public void setOffHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
@@ -145,6 +155,7 @@ public class EquippedItemComponent implements EntityComponent {
 		if (equippedClothing != null) {
 			clonedComponent.setEquippedClothing(equippedClothing.clone(messageDispatcher, gameContext), equippedClothing.getLocationComponent().getContainerEntity(), messageDispatcher);
 		}
+		clonedComponent.hideMainHandItem = this.hideMainHandItem;
 		return clonedComponent;
 	}
 
@@ -153,6 +164,9 @@ public class EquippedItemComponent implements EntityComponent {
 		if (mainHandItem != null) {
 			mainHandItem.writeTo(savedGameStateHolder);
 			asJson.put("equippedItem", mainHandItem.getId());
+		}
+		if (hideMainHandItem) {
+			asJson.put("hideMainHandItem", true);
 		}
 		if (offHandItem != null) {
 			offHandItem.writeTo(savedGameStateHolder);
@@ -173,6 +187,8 @@ public class EquippedItemComponent implements EntityComponent {
 				throw new InvalidSaveException("Could not find entity with ID " + equippedItemId);
 			}
 		}
+
+		this.hideMainHandItem = asJson.getBooleanValue("hideMainHandItem");
 
 		Long offHandItemId = asJson.getLong("offHandItem");
 		if (offHandItemId != null) {

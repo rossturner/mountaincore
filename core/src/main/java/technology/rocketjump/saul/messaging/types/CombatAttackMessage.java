@@ -11,6 +11,14 @@ public class CombatAttackMessage {
 	public final ItemType weaponItemType;
 	public final ItemEntityAttributes ammoAttributes;
 
+	public CombatAttackMessage(Entity attackerEntity, Entity defenderEntity) {
+		this.attackerEntity = attackerEntity;
+		this.defenderEntity = defenderEntity;
+		this.weaponItemType = null;
+		this.ammoAttributes = null;
+	}
+
+	@Deprecated // TODO delete this
 	public CombatAttackMessage(Entity attackerEntity, Entity defenderEntity, ItemType weaponItemType, ItemEntityAttributes ammoAttributes) {
 		this.attackerEntity = attackerEntity;
 		this.defenderEntity = defenderEntity;

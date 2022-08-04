@@ -1,6 +1,8 @@
 package technology.rocketjump.saul.entities.ai.combat;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.persistence.model.ChildPersistable;
 
 /**
@@ -15,9 +17,9 @@ public abstract class CombatAction implements ChildPersistable {
 		this.parentEntity = parentEntity;
 	}
 
-	public abstract void update(float deltaTime);
+	public abstract void update(float deltaTime, GameContext gameContext, MessageDispatcher messageDispatcher);
 
-	public abstract void interrupted(); // do any cleanup when switching to other action mid-way through round
+	public abstract void interrupted(MessageDispatcher messageDispatcher); // do any cleanup when switching to other action mid-way through round
 
 	public void onRoundCompletion() {
 		if (completesInOneRound()) {

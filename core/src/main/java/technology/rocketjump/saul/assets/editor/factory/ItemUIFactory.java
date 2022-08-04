@@ -48,6 +48,7 @@ import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.persistence.FileUtils;
 import technology.rocketjump.saul.rooms.StockpileGroup;
 import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
@@ -73,12 +74,14 @@ public class ItemUIFactory implements UIFactory {
     private final CraftingTypeDictionary craftingTypeDictionary;
     private final StockpileGroupDictionary stockpileGroupDictionary;
     private final SoundAssetDictionary soundAssetDictionary;
+    private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
 
     @Inject
     public ItemUIFactory(MessageDispatcher messageDispatcher, ItemEntityFactory itemEntityFactory, ItemTypeDictionary itemTypeDictionary,
                          ItemAttributesPane itemAttributesPane, EntityAssetTypeDictionary entityAssetTypeDictionary,
                          CompleteAssetDictionary completeAssetDictionary, CraftingTypeDictionary craftingTypeDictionary,
-                         StockpileGroupDictionary stockpileGroupDictionary, SoundAssetDictionary soundAssetDictionary) {
+                         StockpileGroupDictionary stockpileGroupDictionary, SoundAssetDictionary soundAssetDictionary,
+                         ParticleEffectTypeDictionary particleEffectTypeDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.itemEntityFactory = itemEntityFactory;
         this.itemTypeDictionary = itemTypeDictionary;
@@ -88,6 +91,7 @@ public class ItemUIFactory implements UIFactory {
         this.craftingTypeDictionary = craftingTypeDictionary;
         this.stockpileGroupDictionary = stockpileGroupDictionary;
         this.soundAssetDictionary = soundAssetDictionary;
+        this.particleEffectTypeDictionary = particleEffectTypeDictionary;
     }
 
     @Override
@@ -338,7 +342,7 @@ public class ItemUIFactory implements UIFactory {
         } else {
             weaponInfo = new WeaponInfo();
         }
-        WeaponInfoWidget weaponInfoControls = new WeaponInfoWidget(weaponInfo, soundAssetDictionary);
+        WeaponInfoWidget weaponInfoControls = new WeaponInfoWidget(weaponInfo, soundAssetDictionary, particleEffectTypeDictionary);
 
         CollapsibleWidget weaponCollapsible = new CollapsibleWidget(weaponInfoControls);
         weaponCollapsible.setCollapsed(!initialHasWeaponInfo);

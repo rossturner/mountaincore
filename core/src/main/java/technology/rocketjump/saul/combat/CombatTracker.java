@@ -6,6 +6,7 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.entities.ai.combat.AttackCreatureCombatAction;
 import technology.rocketjump.saul.entities.ai.combat.CombatAction;
 import technology.rocketjump.saul.entities.ai.combat.CreatureCombatStats;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
@@ -18,16 +19,18 @@ import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.settlement.CreatureTracker;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static technology.rocketjump.saul.entities.components.Faction.HOSTILE_INVASION;
 import static technology.rocketjump.saul.entities.components.Faction.MERCHANTS;
 
 @Singleton
 public class CombatTracker implements Updatable, Telegraph {
+
+	private static final float COMBAT_ROUND_DURATION = 3.5f;
+	private static final float COMBAT_ROUND_INITIAL_DELAY = 0.25f;
+	private static final float COMBAT_ROUND_CLOSING_DELAY = COMBAT_ROUND_DURATION * 0.3f;
+	private static final float MAX_TIME_BETWEEN_ATTACKS = 0.4f;
 
 	private final CreatureTracker creatureTracker;
 	private final MessageDispatcher messageDispatcher;
@@ -43,6 +46,11 @@ public class CombatTracker implements Updatable, Telegraph {
 
 		messageDispatcher.addListener(this, MessageType.CREATURE_ENTERING_COMBAT);
 		messageDispatcher.addListener(this, MessageType.CREATURE_EXITING_COMBAT);
+	}
+
+	@Override
+	public void update(float deltaTime) {
+
 	}
 
 	public void onCombatRoundStart() {
@@ -77,8 +85,28 @@ public class CombatTracker implements Updatable, Telegraph {
 			}
 		}
 
-		// organise timing of attacks to be made, spread out from now to 70% of the way through the round
-		// combatants attacking each other are set to the same time
+
+		// This class organises when in the round an attack will take place
+		List<AttackCreatureCombatAction> attackActions = new ArrayList<>();
+		for (CombatAction combatAction : actionsToResolveThisRound) {
+			if (combatAction instanceof AttackCreatureCombatAction attack) {
+				attackActions.add(attack);
+			}
+		}
+		int numAttacksThisRound = attackActions.size();
+		if (numAttacksThisRound > 0) {
+			float timeToSplitAttacksOver = COMBAT_ROUND_DURATION - COMBAT_ROUND_INITIAL_DELAY - COMBAT_ROUND_CLOSING_DELAY;
+			float timeBetweenAttacks = timeToSplitAttacksOver / numAttacksThisRound;
+			timeBetweenAttacks = Math.min(timeBetweenAttacks, MAX_TIME_BETWEEN_ATTACKS);
+
+			float cursor = COMBAT_ROUND_INITIAL_DELAY;
+			Collections.shuffle(attackActions, gameContext.getRandom());
+			for (AttackCreatureCombatAction attackAction : attackActions) {
+				attackAction.setTimeUntilAttack(cursor);
+				cursor += timeBetweenAttacks;
+			}
+		}
+
 
 	}
 
@@ -171,11 +199,6 @@ public class CombatTracker implements Updatable, Telegraph {
 	public void clearContextRelatedState() {
 		entitiesInCombatById.clear();
 		actionsToResolveThisRound.clear();
-	}
-
-	@Override
-	public void update(float deltaTime) {
-
 	}
 
 	@Override

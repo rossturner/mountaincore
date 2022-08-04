@@ -95,7 +95,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 	private CombatAction attackOrDefendAgainstOpponentAction() {
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 		if (combatStateComponent.isHasInitiative()) {
-			if (isInRangeOfOpponent(combatStateComponent.getTargetedOpponentId())) {
+			if (isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()))) {
 				return new AttackCreatureCombatAction(parentEntity);
 			} else {
 				return new MoveInRangeOfTargetCombatAction(parentEntity);
@@ -105,8 +105,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 		}
 	}
 
-	private boolean isInRangeOfOpponent(Long targetedOpponentId) {
-		Entity targetedOpponent = gameContext.getEntities().get(targetedOpponentId);
+	public static boolean isInRangeOfOpponent(Entity parentEntity, Entity targetedOpponent) {
 		if (targetedOpponent == null) {
 			return false;
 		}
@@ -125,7 +124,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 		}
 	}
 
-	private float getTileDistanceBetween(Vector2 a, Vector2 b) {
+	private static float getTileDistanceBetween(Vector2 a, Vector2 b) {
 		GridPoint2 gridPointA = toGridPoint(a);
 		GridPoint2 gridPointB = toGridPoint(b);
 		return Math.max(Math.abs(gridPointA.x - gridPointB.x), Math.abs(gridPointA.y - gridPointB.y));

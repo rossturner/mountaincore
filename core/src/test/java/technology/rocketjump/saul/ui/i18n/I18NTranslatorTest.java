@@ -45,6 +45,7 @@ import technology.rocketjump.saul.materials.GameMaterialI18nUpdater;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.twitch.TwitchDataStore;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
@@ -116,9 +117,9 @@ public class I18NTranslatorTest {
 	@Mock
 	private TwitchDataStore mockTwitchDataStore;
 	@Mock
-	private GameMaterialDictionary mockMaterialDictionary;
-	@Mock
 	private RaceDictionary mockRaceDictionary;
+	@Mock
+	private ParticleEffectTypeDictionary mockParticleEffectTypeDictionary;
 
 	@Before
 	public void setup() throws IOException {
@@ -129,7 +130,8 @@ public class I18NTranslatorTest {
 
 		I18nRepo i18nRepo = new I18nRepo(mockUserPreferences);
 
-		itemTypeDictionary = new ItemTypeDictionary(mockCraftingTypeDictionary, new StockpileGroupDictionary(), mockSoundAssetDictionary, mockConstantsRepo);
+		itemTypeDictionary = new ItemTypeDictionary(mockCraftingTypeDictionary, new StockpileGroupDictionary(), mockSoundAssetDictionary,
+				mockConstantsRepo, mockParticleEffectTypeDictionary);
 		gameMaterialDictionary = new GameMaterialDictionary();
 		new GameMaterialI18nUpdater(i18nRepo, gameMaterialDictionary).onLanguageUpdated();
 
