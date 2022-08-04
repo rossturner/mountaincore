@@ -34,7 +34,7 @@ public enum EntityAssetOrientation {
 
 	/**
 	 * This method turns a normalised vector into an orientation
-	 *
+	 * <p>
 	 * There are 8 possible directions but this splits them into 6 for now, each given ~60 degrees
 	 *
 	 * @param facing a normalised vector representing a direction
@@ -42,7 +42,7 @@ public enum EntityAssetOrientation {
 	 */
 	public static EntityAssetOrientation fromFacing(Vector2 facing) {
 		if (facing.x > 0) {
-			 // Facing is to east/right side
+			// Facing is to east/right side
 			if (facing.y > 0.866f) {
 				return UP;
 			} else if (facing.y > 0.1f) {
@@ -59,6 +59,36 @@ public enum EntityAssetOrientation {
 			} else if (facing.y > 0.1f) {
 				return UP_LEFT;
 			} else if (facing.y > -0.866f) {
+				return DOWN_LEFT;
+			} else {
+				return DOWN;
+			}
+		}
+	}
+
+	public static EntityAssetOrientation fromFacingTo8Directions(Vector2 facing) {
+		if (facing.x > 0) {
+			// Facing is to east/right side
+			if (facing.y > 0.853f) {
+				return UP;
+			} else if (facing.y > 0.354f) {
+				return UP_RIGHT;
+			} else if (facing.y > -0.354f) {
+				return RIGHT;
+			} else if (facing.y > -0.853f) {
+				return DOWN_RIGHT;
+			} else {
+				return DOWN;
+			}
+		} else {
+			// Facing is to west/left side
+			if (facing.y > 0.853f) {
+				return UP;
+			} else if (facing.y > 0.354f) {
+				return UP_LEFT;
+			} else if (facing.y > -0.354f) {
+				return LEFT;
+			} else if (facing.y > -0.853f) {
 				return DOWN_LEFT;
 			} else {
 				return DOWN;

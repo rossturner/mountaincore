@@ -49,7 +49,7 @@ public class ParticleEffectFactory {
 		Sprite placeholderSprite = diffuseTextureAtlas.createSprite("placeholder");
 
 		for (ParticleEffectType particleEffectType : typeDictionary.getAll()) {
-			if (particleEffectType.getCustomImplementation() != null) {
+			if (particleEffectType.getCustomImplementation() != null || particleEffectType.getAnimatedSpriteName() != null) {
 				continue;
 			} else if (particleEffectType.getFragmentShaderFile() != null && particleEffectType.getVertexShaderFile() != null) {
 				ShaderProgram shaderProgram = ShaderLoader.createShader(Gdx.files.internal(FILE_PREFIX + particleEffectType.getVertexShaderFile()),
@@ -70,7 +70,7 @@ public class ParticleEffectFactory {
 
 				baseInstancesByDefinition.put(particleEffectType, baseInstance);
 			} else {
-				Logger.error("Did not load particle effect type " + particleEffectType.getName() + ", no particleFile, customImplementation or fragment and vertex shader");
+				Logger.error("Did not load particle effect type " + particleEffectType.getName() + ", no particleFile, customImplementation, animatedSpriteName or fragment and vertex shader");
 			}
 		}
 	}
@@ -82,6 +82,13 @@ public class ParticleEffectFactory {
 				return customEffectFactory.createProgressBarEffect(parentEntity.get());
 			} else {
 				Logger.error("Custom implementations are currently for entity attached effects only");
+				return null;
+			}
+		} else if (type.getAnimatedSpriteName() != null) {
+			if (parentEntity.isPresent()) {
+				return customEffectFactory.createAnimatedSpriteEffect(type, parentEntity.get(), optionalMaterialColor);
+			} else {
+				Logger.error("Animated sprite effects are currently for entity attached effects only");
 				return null;
 			}
 		} else if (type.getFragmentShaderFile() != null && type.getVertexShaderFile() != null) {

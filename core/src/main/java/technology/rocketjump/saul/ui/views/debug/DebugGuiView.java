@@ -29,7 +29,6 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionar
 import technology.rocketjump.saul.environment.WeatherManager;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
-import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.TileExploration;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
@@ -38,7 +37,10 @@ import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.CreatureDeathMessage;
 import technology.rocketjump.saul.messaging.types.DebugMessage;
+import technology.rocketjump.saul.messaging.types.ParticleRequestMessage;
 import technology.rocketjump.saul.messaging.types.PipeConstructionMessage;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
+import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.settlement.ImmigrationManager;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -72,7 +74,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	private final SettlerFactory settlerFactory;
 	private final WeatherManager weatherManager;
 	private final ImmigrationManager immigrationManager;
-	private final JobStore jobStore;
+	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
 	private Table layoutTable;
 	private GameContext gameContext;
 
@@ -86,7 +88,8 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	public DebugGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 						ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary materialDictionary,
 						ItemEntityAttributesFactory itemEntityAttributesFactory, ItemEntityFactory itemEntityFactory,
-						SettlerFactory settlerFactory, WeatherManager weatherManager, ImmigrationManager immigrationManager, JobStore jobStore) {
+						SettlerFactory settlerFactory, WeatherManager weatherManager, ImmigrationManager immigrationManager,
+						ParticleEffectTypeDictionary particleEffectTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.uiSkin = guiSkinRepository.getDefault();
 		this.itemTypeDictionary = itemTypeDictionary;
@@ -96,7 +99,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 		this.settlerFactory = settlerFactory;
 		this.weatherManager = weatherManager;
 		this.immigrationManager = immigrationManager;
-		this.jobStore = jobStore;
+		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
 
 		layoutTable = new Table(uiSkin);
 
@@ -285,6 +288,15 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 					messageDispatcher.dispatchMessage(MessageType.FLOOD_FILL_EXPLORATION, tile.getTilePosition());
 				}
 				break;
+			}
+			case TRIGGER_TEST_EFFECT: {
+				tile.getEntities().stream().filter(e -> e.getType().equals(CREATURE))
+						.findAny()
+						.ifPresent(entity -> {
+							ParticleEffectType effectType = particleEffectTypeDictionary.getByName("Weapon slash");
+							messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(effectType, Optional.of(entity),
+									Optional.empty(), (p) -> {}));
+						});
 			}
 			case NONE:
 			default:

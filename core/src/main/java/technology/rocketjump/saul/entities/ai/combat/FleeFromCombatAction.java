@@ -13,6 +13,16 @@ public class FleeFromCombatAction extends CombatAction {
 	}
 
 	@Override
+	public void update(float deltaTime) {
+
+	}
+
+	@Override
+	public void interrupted() {
+
+	}
+
+	@Override
 	public boolean completesInOneRound() {
 		return false;
 	}

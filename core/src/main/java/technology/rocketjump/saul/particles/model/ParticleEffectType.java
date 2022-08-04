@@ -12,6 +12,7 @@ public class ParticleEffectType {
 	// One of the following (particleFile, customImplementation, customShader) must be set
 	private String particleFile;
 	private String customImplementation;
+	private String animatedSpriteName;
 	private String vertexShaderFile;
 	private String fragmentShaderFile;
 
@@ -19,6 +20,7 @@ public class ParticleEffectType {
 	private float shaderEffectHeight;
 
 	private float scale = 1f;
+	private float overrideDuration = 1f; // only used by animated sprite effect
 	private EntityAssetOrientation usingParentOrientation;
 	private boolean isLooping; // if true this effect will loop endlessly until stopped
 	private boolean usesTargetMaterialAsTintColor;
@@ -172,5 +174,21 @@ public class ParticleEffectType {
 
 	public void setUnaffectedByPause(boolean unaffectedByPause) {
 		this.unaffectedByPause = unaffectedByPause;
+	}
+
+	public String getAnimatedSpriteName() {
+		return animatedSpriteName;
+	}
+
+	public void setAnimatedSpriteName(String animatedSpriteName) {
+		this.animatedSpriteName = animatedSpriteName;
+	}
+
+	public float getOverrideDuration() {
+		return overrideDuration;
+	}
+
+	public void setOverrideDuration(float overrideDuration) {
+		this.overrideDuration = overrideDuration;
 	}
 }

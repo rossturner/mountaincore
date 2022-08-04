@@ -15,6 +15,10 @@ public abstract class CombatAction implements ChildPersistable {
 		this.parentEntity = parentEntity;
 	}
 
+	public abstract void update(float deltaTime);
+
+	public abstract void interrupted(); // do any cleanup when switching to other action mid-way through round
+
 	public void onRoundCompletion() {
 		if (completesInOneRound()) {
 			this.completed = true;
