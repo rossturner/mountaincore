@@ -21,12 +21,14 @@ import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.entities.factories.PlantEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.*;
 import technology.rocketjump.saul.environment.model.Season;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -40,17 +42,19 @@ public class PlantUIFactory implements UIFactory {
     private final GameMaterialDictionary materialDictionary;
     private final NativeFileChooser fileChooser;
     private final MessageDispatcher messageDispatcher;
+    private final ItemTypeDictionary itemTypeDictionary;
 
     @Inject
     public PlantUIFactory(PlantSpeciesDictionary plantSpeciesDictionary, PlantEntityFactory plantEntityFactory,
                           PlantAttributesPane viewEditorControls, GameMaterialDictionary materialDictionary,
-                          NativeFileChooser fileChooser, MessageDispatcher messageDispatcher) {
+                          NativeFileChooser fileChooser, MessageDispatcher messageDispatcher, ItemTypeDictionary itemTypeDictionary) {
         this.plantSpeciesDictionary = plantSpeciesDictionary;
         this.plantEntityFactory = plantEntityFactory;
         this.viewEditorControls = viewEditorControls;
         this.materialDictionary = materialDictionary;
         this.fileChooser = fileChooser;
         this.messageDispatcher = messageDispatcher;
+        this.itemTypeDictionary = itemTypeDictionary;
     }
 
     @Override
@@ -83,6 +87,7 @@ public class PlantUIFactory implements UIFactory {
 
     @Override
     public VisTable getEntityPropertyControls(Object typeDescriptor, Path basePath) {
+        //TODO: Review the width sizing when color and season widgets are added
         PlantSpecies plantSpecies = (PlantSpecies) typeDescriptor;
         VisTable controls = new VisTable();
         controls.defaults().left();
@@ -115,10 +120,52 @@ public class PlantUIFactory implements UIFactory {
                 EntityType.PLANT, basePath, fileChooser, messageDispatcher)).colspan(2).row();
 
         controls.row();
-        controls.add(WidgetBuilder.label("Seasons")).padTop(15);
-        controls.row();
-        controls.addSeparator().colspan(2);
-        controls.row();
+
+        final PlantSpeciesSeed seed;
+        if (plantSpecies.getSeed() == null) {
+            seed = new PlantSpeciesSeed();
+        } else {
+             seed = plantSpecies.getSeed();
+        }
+        VisTable seedControls = new VisTable();
+        seedControls.defaults().left();
+        seedControls.columnDefaults(0).expandX().left();
+        seedControls.columnDefaults(1).fillX().right();
+        seedControls.add(WidgetBuilder.label("Seed Item Type"));
+        seedControls.add(WidgetBuilder.select(seed.getSeedItemType(), itemTypeDictionary.getAll(), null, selected -> {
+            seed.setSeedItemType(selected);
+            seed.setItemTypeName(selected.getItemTypeName());
+        }));
+        seedControls.row();
+        seedControls.add(WidgetBuilder.label("Seed Material"));
+        seedControls.add(WidgetBuilder.select(seed.getSeedMaterial(), materialDictionary.getAll(), null, material -> {
+            seed.setSeedMaterial(material);
+            seed.setMaterialName(material.getMaterialName());
+        }));
+        seedControls.row();
+
+        seedControls.add(WidgetBuilder.label("Planting Seasons"));
+        seedControls.add(WidgetBuilder.checkboxes(seed.getPlantingSeasons(), Arrays.asList(Season.values()), seed.getPlantingSeasons()::add, seed.getPlantingSeasons()::remove));
+        seedControls.row();
+
+        seedControls.setFillParent(true);
+        CollapsibleWidget seedCollapsible = new CollapsibleWidget(seedControls);
+        seedCollapsible.setCollapsed(plantSpecies.getSeed() == null);
+        controls.add(WidgetBuilder.label("Has Seed"));
+        controls.add(WidgetBuilder.toggle(plantSpecies.getSeed() != null, toggle -> {
+            seedCollapsible.setCollapsed(!toggle);
+            if (toggle) {
+                plantSpecies.setSeed(seed);
+            } else {
+                plantSpecies.setSeed(null);
+            }
+        })).row();
+        controls.add(seedCollapsible).colspan(2).right().row();
+
+        /*
+	// Base material type for catching fire, that kind of thing
+	private List<PlantSpeciesGrowthStage> growthStages = new ArrayList<>();
+         */
 
         PlantSeasonsWidget seasonsWidget = new PlantSeasonsWidget(plantSpecies, messageDispatcher, fileChooser, basePath, getApplicableColoringLayers()) {
             @Override
@@ -127,20 +174,13 @@ public class PlantUIFactory implements UIFactory {
                 viewEditorControls.reload();
             }
         };
-        controls.add(seasonsWidget).fill(false, false).uniform(false).expand(false, false).colspan(2).left();
+        controls.add(seasonsWidget).colspan(2);
         controls.row();
         controls.row().padTop(10);
 
-        /*
-	// Base material type for catching fire, that kind of thing
-	private PlantSpeciesSeed seed = null;
-	private List<PlantSpeciesGrowthStage> growthStages = new ArrayList<>();
-         */
-
-
+        VisSelectBox<Season> seasonSelection = WidgetBuilder.select(null, Season.values(), null, selected -> {});
         VisTable addSeasonRow = new VisTable();
         addSeasonRow.add(WidgetBuilder.label("Season"));
-        VisSelectBox<Season> seasonSelection = WidgetBuilder.select(null, Season.values(), null, selected -> {});
         addSeasonRow.add(seasonSelection);
         addSeasonRow.add(WidgetBuilder.button("Add", x -> {
             Season season = seasonSelection.getSelected();
@@ -151,9 +191,8 @@ public class PlantUIFactory implements UIFactory {
         controls.add(addSeasonRow).colspan(2).right();
         controls.row();
 
-        controls.addSeparator().colspan(2).padBottom(15);
-
-
+//        controls.addSeparator().colspan(2).padBottom(15);
+//        controls.row();
 
         controls.add(WidgetBuilder.label("Max Growth Speed Variance"));
         controls.add(WidgetBuilder.floatSpinner(plantSpecies.getMaxGrowthSpeedVariance(), 0.0f, Float.MAX_VALUE, plantSpecies::setMaxGrowthSpeedVariance));

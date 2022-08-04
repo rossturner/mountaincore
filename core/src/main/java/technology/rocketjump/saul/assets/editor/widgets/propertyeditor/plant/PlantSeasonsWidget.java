@@ -52,8 +52,11 @@ public class PlantSeasonsWidget extends VisTable {
                 this.add(WidgetBuilder.button("x", x -> {
                     plantSpecies.getSeasons().remove(season);
                     this.reload();
-                })).right();
+                })).bottom().right();
                 this.row();
+                this.addSeparator().colspan(2);
+                this.row();
+
 
                 this.add(WidgetBuilder.label("Growth"));
                 this.add(WidgetBuilder.toggle(settings.isGrowth(), settings::setGrowth)).fillX();
@@ -71,6 +74,8 @@ public class PlantSeasonsWidget extends VisTable {
                 this.add(new ColorsWidget(settings.getColors(), applicableColoringLayers,
                         EntityType.PLANT, basePath, fileChooser, messageDispatcher)).colspan(2).pad(15);
 
+                this.row();
+                this.addSeparator().colspan(2);
                 this.row();
             }
 
