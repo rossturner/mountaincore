@@ -28,7 +28,6 @@ import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.furniture.model.FurnitureEntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
-import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.behaviour.furniture.FurnitureBehaviour;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureLayoutDictionary;
@@ -49,8 +48,6 @@ import technology.rocketjump.saul.rendering.utils.HexColors;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Consumer;
-
-import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 
 @Singleton
 public class FurnitureUIFactory implements UIFactory {
@@ -78,11 +75,6 @@ public class FurnitureUIFactory implements UIFactory {
         this.editorStateProvider = editorStateProvider;
         this.completeAssetDictionary = completeAssetDictionary;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
-    }
-
-    @Override
-    public List<EntityAssetOrientation> getApplicableOrientations(EntityAsset entityAsset) {
-        return List.of(DOWN, LEFT, RIGHT, UP);
     }
 
     @Override
