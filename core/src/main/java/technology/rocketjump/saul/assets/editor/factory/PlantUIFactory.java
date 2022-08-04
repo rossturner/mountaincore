@@ -15,6 +15,7 @@ import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.ColorsWid
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.TagsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.plant.PlantSeasonsWidget;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.plant.PlantStagesWidget;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.PlantAttributesPane;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
@@ -162,10 +163,8 @@ public class PlantUIFactory implements UIFactory {
         })).row();
         controls.add(seedCollapsible).colspan(2).right().row();
 
-        /*
-	// Base material type for catching fire, that kind of thing
-	private List<PlantSpeciesGrowthStage> growthStages = new ArrayList<>();
-         */
+
+
 
         PlantSeasonsWidget seasonsWidget = new PlantSeasonsWidget(plantSpecies, messageDispatcher, fileChooser, basePath, getApplicableColoringLayers()) {
             @Override
@@ -174,6 +173,25 @@ public class PlantUIFactory implements UIFactory {
                 viewEditorControls.reload();
             }
         };
+        PlantStagesWidget stagesWidget = new PlantStagesWidget(plantSpecies, messageDispatcher, fileChooser, basePath, getApplicableColoringLayers()) {
+            @Override
+            public void reload() {
+                super.reload();
+                seasonsWidget.reload(); //reload to show stage selection in seasons
+            }
+        };
+
+        controls.add(stagesWidget).colspan(2);
+        controls.row();
+        controls.row().padTop(10);
+
+        controls.add(WidgetBuilder.button("Add Growth Stage", x -> {
+            plantSpecies.getGrowthStages().add(new PlantSpeciesGrowthStage());
+            seasonsWidget.reload();
+        })).colspan(2).right();
+        controls.row();
+
+
         controls.add(seasonsWidget).colspan(2);
         controls.row();
         controls.row().padTop(10);
@@ -190,9 +208,6 @@ public class PlantUIFactory implements UIFactory {
 
         controls.add(addSeasonRow).colspan(2).right();
         controls.row();
-
-//        controls.addSeparator().colspan(2).padBottom(15);
-//        controls.row();
 
         controls.add(WidgetBuilder.label("Max Growth Speed Variance"));
         controls.add(WidgetBuilder.floatSpinner(plantSpecies.getMaxGrowthSpeedVariance(), 0.0f, Float.MAX_VALUE, plantSpecies::setMaxGrowthSpeedVariance));
