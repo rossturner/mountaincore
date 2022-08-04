@@ -54,13 +54,17 @@ public class PlantAttributesPane extends AbstractAttributesPane {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
 
+                int currentGrowthStage = attributes.getGrowthStageCursor();
                 attributes = new PlantEntityAttributes(new RandomXS128().nextLong(), entityAttributes.getSpecies());
+                attributes.setGrowthStageCursor(currentGrowthStage);
+
 
                 editorStateProvider.getState().getCurrentEntity().getPhysicalEntityComponent().setAttributes(attributes);
 
                 attributes.updateColors(null);
                 colorButton.setText(HexColors.toHexString(attributes.getColor(coloringLayer)));
                 colorButton.setColor(attributes.getColor(coloringLayer));
+                reload();
             }
         });
         VisTable colorWidget = new VisTable();
