@@ -242,6 +242,9 @@ public class AssetEditorUI implements Telegraph {
 				EntityBrowserValue value = (EntityBrowserValue) msg.extraInfo;
 
 				if (value != null) {
+					if (editorStateProvider.getState().isAutosave()) {
+						entityBrowserPane.saveChanges();
+					}
 					EditorAssetSelection selection = new EditorAssetSelection();
 					selection.setBasePath(value.path.toString());
 					selection.setUniqueName(value.label);

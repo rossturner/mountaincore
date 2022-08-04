@@ -167,8 +167,6 @@ public class EntityBrowserPane extends VisTable implements Telegraph {
 	}
 
 	private void newAssetCreated(EntityBrowserValue value) {
-
-
 		EntityBrowserTreeNode assetNode = new EntityBrowserTreeNode(messageDispatcher, editorStateProvider);
 		assetNode.setValue(value);
 		descriptorPathsByAssetName.put(value.label, value.path);

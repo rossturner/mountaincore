@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class EditorState {
 
+	private boolean autosave = true;
 	private String modDir;
 	private Set<String> expandedNavigatorNodes = new HashSet<>();
 	private EditorEntitySelection entitySelection;
@@ -19,6 +20,14 @@ public class EditorState {
 	private int spritePadding = 1;
 	@JSONField(serialize = false, deserialize = false)
 	private Entity currentEntity;
+
+	public boolean isAutosave() {
+		return autosave;
+	}
+
+	public void setAutosave(boolean autosave) {
+		this.autosave = autosave;
+	}
 
 	public String getModDir() {
 		return modDir;
