@@ -7,26 +7,22 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.kotcrab.vis.ui.widget.CollapsibleWidget;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisValidatableTextField;
+import com.kotcrab.vis.ui.widget.*;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.ColorsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.TagsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.plant.PlantSeasonsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.PlantAttributesPane;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.entities.factories.PlantEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
-import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
-import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
-import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesType;
+import technology.rocketjump.saul.entities.model.physical.plant.*;
+import technology.rocketjump.saul.environment.model.Season;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 
@@ -118,27 +114,46 @@ public class PlantUIFactory implements UIFactory {
         controls.add(new ColorsWidget(plantSpecies.getDefaultColors(), getApplicableColoringLayers(),
                 EntityType.PLANT, basePath, fileChooser, messageDispatcher)).colspan(2).row();
 
-
+        controls.row();
+        controls.add(WidgetBuilder.label("Seasons")).padTop(15);
+        controls.row();
+        controls.addSeparator().colspan(2);
         controls.row();
 
+        PlantSeasonsWidget seasonsWidget = new PlantSeasonsWidget(plantSpecies, messageDispatcher, fileChooser, basePath, getApplicableColoringLayers()) {
+            @Override
+            public void reload() {
+                super.reload();
+                viewEditorControls.reload();
+            }
+        };
+        controls.add(seasonsWidget).fill(false, false).uniform(false).expand(false, false).colspan(2).left();
+        controls.row();
+        controls.row().padTop(10);
+
         /*
-	private Map<ColoringLayer, SpeciesColor> defaultColors = new EnumMap<>(ColoringLayer.class);
 	// Base material type for catching fire, that kind of thing
-	private Map<Season, PlantSeasonSettings> seasons = new EnumMap<>(Season.class);
-	private List<PlantSpeciesGrowthStage> growthStages = new ArrayList<>();
 	private PlantSpeciesSeed seed = null;
+	private List<PlantSpeciesGrowthStage> growthStages = new ArrayList<>();
          */
 
-        //default colors should use Creature color widget things for swatch etc
 
-        /*
-        public class PlantSeasonSettings {
+        VisTable addSeasonRow = new VisTable();
+        addSeasonRow.add(WidgetBuilder.label("Season"));
+        VisSelectBox<Season> seasonSelection = WidgetBuilder.select(null, Season.values(), null, selected -> {});
+        addSeasonRow.add(seasonSelection);
+        addSeasonRow.add(WidgetBuilder.button("Add", x -> {
+            Season season = seasonSelection.getSelected();
+            plantSpecies.getSeasons().computeIfAbsent(season, s -> new PlantSeasonSettings());
+            seasonsWidget.reload();
+        }));
 
-	private boolean growth = true;
-	private Map<ColoringLayer, SpeciesColor> colors = new EnumMap<>(ColoringLayer.class);
-	private Integer switchToGrowthStage = null; // Can be used to switch to a decaying-type stage
-	private boolean shedsLeaves = false;
-         */
+        controls.add(addSeasonRow).colspan(2).right();
+        controls.row();
+
+        controls.addSeparator().colspan(2).padBottom(15);
+
+
 
         controls.add(WidgetBuilder.label("Max Growth Speed Variance"));
         controls.add(WidgetBuilder.floatSpinner(plantSpecies.getMaxGrowthSpeedVariance(), 0.0f, Float.MAX_VALUE, plantSpecies::setMaxGrowthSpeedVariance));
