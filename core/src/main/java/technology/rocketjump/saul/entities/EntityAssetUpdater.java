@@ -17,7 +17,7 @@ import technology.rocketjump.saul.assets.entities.model.*;
 import technology.rocketjump.saul.assets.entities.plant.PlantEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
-import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
@@ -38,15 +38,15 @@ import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.entities.tags.TagProcessor;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.SkillDictionary;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
 @Singleton
 public class EntityAssetUpdater implements GameContextAware {
@@ -82,7 +82,7 @@ public class EntityAssetUpdater implements GameContextAware {
 	public EntityAssetUpdater(ItemEntityAssetDictionary itemEntityAssetDictionary, FurnitureEntityAssetDictionary furnitureEntityAssetDictionary,
 							  PlantEntityAssetDictionary plantEntityAssetDictionary, MechanismEntityAssetDictionary mechanismEntityAssetDictionary,
 							  EntityAssetTypeDictionary entityAssetTypeDictionary,
-							  ProfessionDictionary professionDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary,
+							  SkillDictionary skillDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary,
 							  TagProcessor tagProcessor) {
 		this.itemEntityAssetDictionary = itemEntityAssetDictionary;
 		this.plantEntityAssetDictionary = plantEntityAssetDictionary;
@@ -145,10 +145,10 @@ public class EntityAssetUpdater implements GameContextAware {
 
 	private void updateCreatureAssets(Entity entity) {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-		ProfessionsComponent professionsComponent = entity.getComponent(ProfessionsComponent.class);
-		Profession primaryProfession = NULL_PROFESSION;
-		if (professionsComponent != null) {
-			primaryProfession = professionsComponent.getPrimaryProfession();
+		SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
+		Skill primaryProfession = NULL_PROFESSION;
+		if (skillsComponent != null) {
+			primaryProfession = skillsComponent.getPrimaryProfession();
 		}
 
 
@@ -189,7 +189,7 @@ public class EntityAssetUpdater implements GameContextAware {
 	}
 
 	private void addOtherCreatureAssetTypes(EntityAssetType assetType, PhysicalEntityComponent physicalComponent, CreatureEntityAttributes attributes,
-											Profession primaryProfession) {
+											Skill primaryProfession) {
 		CreatureEntityAsset asset = creatureEntityAssetDictionary.getMatching(assetType, attributes, primaryProfession);
 
 		if (asset != null && asset.getType() != null) {

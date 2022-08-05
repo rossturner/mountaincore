@@ -22,7 +22,7 @@ import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.jobs.model.JobState.REMOVED;
 
 /**

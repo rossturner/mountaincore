@@ -64,10 +64,10 @@ import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.CONTENTS_TO_BE_DUMPED;
 import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.MAX_HAPPINESS_VALUE;
-import static technology.rocketjump.saul.entities.components.creature.ProfessionsComponent.MAX_PROFESSIONS;
+import static technology.rocketjump.saul.entities.components.creature.SkillsComponent.MAX_PROFESSIONS;
 import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
 import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.ENTITY;
 
@@ -488,26 +488,26 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	}
 
 	private void populateProfessionTable(Entity entity) {
-		ProfessionsComponent professionsComponent = entity.getComponent(ProfessionsComponent.class);
-		if (professionsComponent == null) {
+		SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
+		if (skillsComponent == null) {
 			return;
 		}
 		int rowCounter = 0;
-		List<ProfessionsComponent.QuantifiedProfession> activeProfessions = professionsComponent.getActiveProfessions();
+		List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
 		List<Table> professionRows = new ArrayList<>();
 
-		for (ProfessionsComponent.QuantifiedProfession quantifiedProfession : activeProfessions) {
-			if (!quantifiedProfession.getProfession().equals(NULL_PROFESSION)) {
+		for (SkillsComponent.QuantifiedSkill quantifiedSkill : activeProfessions) {
+			if (!quantifiedSkill.getSkill().equals(NULL_PROFESSION)) {
 				rowCounter++;
 
-				if (professionsComponent.getActiveProfessions().size() > 2) {
+				if (skillsComponent.getActiveProfessions().size() > 2) {
 					Table orderingTable = new Table(uiSkin);
 					final int rowIndex = rowCounter - 1;
 
 					if (rowIndex > 0) {
 						IconOnlyButton upButton = upButtons.get(rowIndex);
 						upButton.setAction(() -> {
-							professionsComponent.swapActivePositions(rowIndex - 1, rowIndex);
+							skillsComponent.swapActiveProfessionPositions(rowIndex - 1, rowIndex);
 							messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 							update();
 						});
@@ -517,7 +517,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					if (rowIndex < activeProfessions.size() - 2) {
 						IconOnlyButton downButton = downButtons.get(rowIndex);
 						downButton.setAction(() -> {
-							professionsComponent.swapActivePositions(rowIndex, rowIndex + 1);
+							skillsComponent.swapActiveProfessionPositions(rowIndex, rowIndex + 1);
 							messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 							update();
 						});
@@ -529,16 +529,16 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				Table professionRow = new Table(uiSkin);
 				professionRow.add(new Label(rowCounter +". ", uiSkin));
-				professionRow.add(new I18nTextWidget(i18nTranslator.getSkilledProfessionDescription(quantifiedProfession.getProfession(),
-						quantifiedProfession.getSkillLevel(), ((CreatureEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getGender()),
+				professionRow.add(new I18nTextWidget(i18nTranslator.getSkilledProfessionDescription(quantifiedSkill.getSkill(),
+						quantifiedSkill.getLevel(), ((CreatureEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getGender()),
 						uiSkin, messageDispatcher));
-				professionRow.add(new Label(" (" + quantifiedProfession.getSkillLevel() + ")", uiSkin));
+				professionRow.add(new Label(" (" + quantifiedSkill.getLevel() + ")", uiSkin));
 				professionsTable.add(professionRow).align(Align.left).pad(5);
 				professionRows.add(professionRow);
 
 				ImageButton cancelButton = cancelButtons.get(rowCounter);
 				cancelButton.setAction(() -> {
-					professionsComponent.deactivate(quantifiedProfession.getProfession());
+					skillsComponent.deactivateProfession(quantifiedSkill.getSkill());
 					messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 					update();
 				});

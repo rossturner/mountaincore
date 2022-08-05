@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.jobs.model.Job;
@@ -78,15 +78,15 @@ public class JobRequestHandler implements Updatable, Telegraph, Disposable {
 	}
 
 	private boolean handle(JobRequestMessage jobRequestMessage) {
-		ProfessionsComponent professionsComponent = jobRequestMessage.getRequestingEntity().getComponent(ProfessionsComponent.class);
+		SkillsComponent skillsComponent = jobRequestMessage.getRequestingEntity().getComponent(SkillsComponent.class);
 		Vector2 entityWorldPosition = jobRequestMessage.getRequestingEntity().getLocationComponent().getWorldPosition();
 		GridPoint2 requesterLocation = new GridPoint2((int)Math.floor(entityWorldPosition.x), (int)Math.floor(entityWorldPosition.y));
 
 		List<PotentialJob> allPotentialJobs = new ArrayList<>();
 
-		for (ProfessionsComponent.QuantifiedProfession professionToFindJobFor : professionsComponent.getActiveProfessions()) {
+		for (SkillsComponent.QuantifiedSkill professionToFindJobFor : skillsComponent.getActiveProfessions()) {
 			List<PotentialJob> potentialJobsThisProfession = new ArrayList<>();
-			Collection<Job> byProfession = jobStore.getCollectionByState(JobState.ASSIGNABLE).getByProfession(professionToFindJobFor.getProfession()).values();
+			Collection<Job> byProfession = jobStore.getCollectionByState(JobState.ASSIGNABLE).getByProfession(professionToFindJobFor.getSkill()).values();
 			if (byProfession.isEmpty()) {
 				continue;
 			}

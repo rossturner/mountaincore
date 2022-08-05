@@ -3,7 +3,7 @@ package technology.rocketjump.saul.ui.hints;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
@@ -12,8 +12,8 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.SkillDictionary;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.rooms.*;
 import technology.rocketjump.saul.rooms.components.FarmPlotComponent;
 import technology.rocketjump.saul.rooms.components.StockpileComponent;
@@ -37,7 +37,7 @@ public class HintProgressEvaluator implements GameContextAware {
 	private final I18nTranslator i18nTranslator;
 	private final RoomTypeDictionary roomTypeDictionary;
 	private final RoomStore roomStore;
-	private final ProfessionDictionary professionDictionary;
+	private final SkillDictionary skillDictionary;
 	private final SettlerTracker settlerTracker;
 	private final FurnitureTypeDictionary furnitureTypeDictionary;
 	private final FurnitureTracker furnitureTracker;
@@ -49,14 +49,14 @@ public class HintProgressEvaluator implements GameContextAware {
 
 	@Inject
 	public HintProgressEvaluator(I18nTranslator i18nTranslator, RoomTypeDictionary roomTypeDictionary, RoomStore roomStore,
-								 ProfessionDictionary professionDictionary, SettlerTracker settlerTracker,
+								 SkillDictionary skillDictionary, SettlerTracker settlerTracker,
 								 FurnitureTypeDictionary furnitureTypeDictionary, FurnitureTracker furnitureTracker,
 								 ItemTypeDictionary itemTypeDictionary, ItemTracker itemTracker,
 								 StockpileGroupDictionary stockpileGroupDictionary) {
 		this.i18nTranslator = i18nTranslator;
 		this.roomTypeDictionary = roomTypeDictionary;
 		this.roomStore = roomStore;
-		this.professionDictionary = professionDictionary;
+		this.skillDictionary = skillDictionary;
 		this.settlerTracker = settlerTracker;
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
 		this.furnitureTracker = furnitureTracker;
@@ -124,14 +124,14 @@ public class HintProgressEvaluator implements GameContextAware {
 				break;
 			}
 			case PROFESSIONS_ASSIGNED: {
-				Profession requiredType = professionDictionary.getByName(descriptor.getTargetTypeName());
+				Skill requiredType = skillDictionary.getByName(descriptor.getTargetTypeName());
 				if (requiredType == null) {
 					Logger.error("Could not find profession by type " + descriptor.getTargetTypeName() + " when evaluating " + descriptor.toString());
 				} else {
 					for (Entity settler : settlerTracker.getLiving()) {
-						ProfessionsComponent professionsComponent = settler.getComponent(ProfessionsComponent.class);
-						if (professionsComponent != null) {
-							if (professionsComponent.hasActiveProfession(requiredType)) {
+						SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
+						if (skillsComponent != null) {
+							if (skillsComponent.hasActiveProfession(requiredType)) {
 								quantity++;
 							}
 						}

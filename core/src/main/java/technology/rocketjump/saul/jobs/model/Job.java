@@ -8,7 +8,7 @@ import technology.rocketjump.saul.cooking.model.CookingRecipe;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
-import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
@@ -25,8 +25,8 @@ import technology.rocketjump.saul.rooms.HaulingAllocation;
 
 import java.util.Objects;
 
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.CONTEXT_DEPENDENT_PROFESSION_REQUIRED;
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.CONTEXT_DEPENDENT_PROFESSION_REQUIRED;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
 public class Job implements Persistable {
 
@@ -49,7 +49,7 @@ public class Job implements Persistable {
 	private GridPoint2 jobLocation;
 	private GridPoint2 secondaryLocation; // Used in crafting where jobLocation is position to stand, secondary is workspace
 
-	private Profession requiredProfession;
+	private Skill requiredProfession;
 	private ItemType requiredItemType;
 	private GameMaterial requiredItemMaterial;
 
@@ -145,8 +145,8 @@ public class Job implements Persistable {
 		this.assignedToEntityId = assignedToEntityId;
 	}
 
-	public float getJobTypeTotalWorkToDo(ProfessionsComponent professionsComponent) {
-		return getJobTypeTotalWorkToDo(professionsComponent.getSkillLevel(requiredProfession));
+	public float getJobTypeTotalWorkToDo(SkillsComponent skillsComponent) {
+		return getJobTypeTotalWorkToDo(skillsComponent.getSkillLevel(requiredProfession));
 	}
 
 	private float getJobTypeTotalWorkToDo(int skillLevelForProfession) {
@@ -172,8 +172,8 @@ public class Job implements Persistable {
 		this.workDoneSoFar = workDoneSoFar;
 	}
 
-	public float getTotalWorkToDo(ProfessionsComponent professionsComponent) {
-		float totalWorkToDo = getJobTypeTotalWorkToDo(professionsComponent);
+	public float getTotalWorkToDo(SkillsComponent skillsComponent) {
+		float totalWorkToDo = getJobTypeTotalWorkToDo(skillsComponent);
 		if (workDurationMultiplier != null) {
 			return workDurationMultiplier * totalWorkToDo;
 		} else {
@@ -189,11 +189,11 @@ public class Job implements Persistable {
 		this.jobLocation = jobLocation;
 	}
 
-	public Profession getRequiredProfession() {
+	public Skill getRequiredProfession() {
 		return requiredProfession;
 	}
 
-	public void setRequiredProfession(Profession requiredProfession) {
+	public void setRequiredProfession(Skill requiredProfession) {
 		this.requiredProfession = requiredProfession;
 	}
 
@@ -403,7 +403,7 @@ public class Job implements Persistable {
 
 		String requiredProfessionName = asJson.getString("profession");
 		if (requiredProfessionName != null) {
-			this.requiredProfession = dictionaries.professionDictionary.getByName(requiredProfessionName);
+			this.requiredProfession = dictionaries.skillDictionary.getByName(requiredProfessionName);
 			if (this.requiredProfession == null) {
 				throw new InvalidSaveException("Could not find profession with name: " + requiredProfessionName);
 			}

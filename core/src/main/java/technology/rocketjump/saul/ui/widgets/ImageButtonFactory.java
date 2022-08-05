@@ -7,15 +7,15 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.SkillDictionary;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
 @Singleton
 public class ImageButtonFactory {
@@ -29,12 +29,12 @@ public class ImageButtonFactory {
 	private final EntityRenderer entityRenderer;
 
 	@Inject
-	public ImageButtonFactory(TextureAtlasRepository textureAtlasRepository, ProfessionDictionary professionDictionary, EntityRenderer entityRenderer) {
+	public ImageButtonFactory(TextureAtlasRepository textureAtlasRepository, SkillDictionary skillDictionary, EntityRenderer entityRenderer) {
 		this.textureAtlas = textureAtlasRepository.get(TextureAtlasRepository.TextureAtlasType.GUI_TEXTURE_ATLAS);
 		this.entityRenderer = entityRenderer;
 		this.buttonNinePatch = textureAtlas.createPatch("button");
 
-		for (Profession profession : professionDictionary.getAll()) {
+		for (Skill profession : skillDictionary.getAllProfessions()) {
 			profession.setImageButton(getOrCreate(profession.getIcon()));
 		}
 		NULL_PROFESSION.setImageButton(getOrCreate(NULL_PROFESSION.getIcon()));

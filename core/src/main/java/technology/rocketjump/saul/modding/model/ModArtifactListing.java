@@ -33,7 +33,7 @@ import technology.rocketjump.saul.environment.model.DailyWeatherType;
 import technology.rocketjump.saul.environment.model.WeatherType;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.jobs.model.JobType;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.mapping.tile.designation.Designation;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.modding.processing.*;
@@ -132,8 +132,8 @@ public class ModArtifactListing {
 						"terrain/floors", "**/*-tileset-definition.json", JSON_OBJECT, ADDITIVE, GenericClassTypeProcessor.class, OverlapTypeExists.class),
 				def("definitions/types", "jobTypes", SINGLE_FILE, JSON_ARRAY, JobType.class,
 						"definitions", "jobTypes.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
-				def("definitions/types", "professions", SINGLE_FILE, JSON_ARRAY, Profession.class,
-						"definitions", "professions.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
+				def("definitions/types", "skills", SINGLE_FILE, JSON_ARRAY, Skill.class,
+						"definitions", "skills.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/types", "roomTypes", SINGLE_FILE, JSON_ARRAY, RoomType.class,
 						"rooms", "roomTypes.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions", "stockpileGroups", SINGLE_FILE, JSON_ARRAY, StockpileGroup.class,

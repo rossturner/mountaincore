@@ -19,7 +19,7 @@ public class MushroomFarmBehaviourTag extends Tag {
 	@Override
 	public void apply(Room room, TagProcessingUtils tagProcessingUtils) {
 		MushroomFarmBehaviour behaviourComponent = room.createComponent(MushroomFarmBehaviour.class, tagProcessingUtils.messageDispatcher);
-		behaviourComponent.setMushroomFarmingProfession(tagProcessingUtils.professionDictionary.getByName("FARMER"));
+		behaviourComponent.setMushroomFarmingProfession(tagProcessingUtils.skillDictionary.getByName("FARMER"));
 		behaviourComponent.setFurnitureTypes(
 				tagProcessingUtils.furnitureTypeDictionary.getByName("INNOCULATED_LOG"),
 				tagProcessingUtils.furnitureTypeDictionary.getByName("SHOCKED_LOG")

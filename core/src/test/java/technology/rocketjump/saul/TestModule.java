@@ -1,7 +1,7 @@
 package technology.rocketjump.saul;
 
 import com.google.inject.AbstractModule;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.persistence.UserFileManager;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.ui.i18n.I18nRepo;
@@ -23,7 +23,7 @@ public class TestModule extends AbstractModule {
 	private I18nTranslator stubbedI18nTranslater() throws IOException {
 		return new I18nTranslator(
 				new I18nRepo(new UserPreferences(new UserFileManager())),
-				new ProfessionDictionary(),
+				new SkillDictionary(),
 				null
 		);
 	}

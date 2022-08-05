@@ -14,10 +14,10 @@ import technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
-import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
@@ -35,7 +35,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.*;
 
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.ui.views.EntitySelectedGuiView.*;
 
 @Singleton
@@ -56,7 +56,7 @@ public class SettlerManagementScreen extends ManagementScreen {
 	private final Table settlerTable;
 	private final ScrollPane settlerScrollPane;
 
-	private Set<Profession> selectedProfessions = new HashSet<>();
+	private Set<Skill> selectedProfessions = new HashSet<>();
 
 	@Inject
 	public SettlerManagementScreen(UserPreferences userPreferences, MessageDispatcher messageDispatcher,
@@ -111,13 +111,13 @@ public class SettlerManagementScreen extends ManagementScreen {
 
 	@Override
 	public void reset() {
-		Map<Profession, List<Entity>> byProfession = new TreeMap<>(Comparator.comparing(Profession::getName));
+		Map<Skill, List<Entity>> byProfession = new TreeMap<>(Comparator.comparing(Skill::getName));
 		for (Entity settler : settlerTracker.getLiving()) {
-			ProfessionsComponent professionsComponent = settler.getComponent(ProfessionsComponent.class);
-			if (professionsComponent != null) {
-				for (ProfessionsComponent.QuantifiedProfession activeProfession : professionsComponent.getActiveProfessions()) {
-					if (!activeProfession.getProfession().equals(NULL_PROFESSION)) {
-						byProfession.computeIfAbsent(activeProfession.getProfession(), p -> new ArrayList<>()).add(settler);
+			SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
+			if (skillsComponent != null) {
+				for (SkillsComponent.QuantifiedSkill activeProfession : skillsComponent.getActiveProfessions()) {
+					if (!activeProfession.getSkill().equals(NULL_PROFESSION)) {
+						byProfession.computeIfAbsent(activeProfession.getSkill(), p -> new ArrayList<>()).add(settler);
 					}
 				}
 			}
@@ -193,16 +193,16 @@ public class SettlerManagementScreen extends ManagementScreen {
 		selectedProfessions.clear();
 	}
 
-	private void resetProfessionsTable(Map<Profession, List<Entity>> byProfession) {
-		List<Profession> currentProfessions = new ArrayList<>(byProfession.keySet());
-		currentProfessions.sort(Comparator.comparing(Profession::getName)); // TODO sort by i18n translation
+	private void resetProfessionsTable(Map<Skill, List<Entity>> byProfession) {
+		List<Skill> currentProfessions = new ArrayList<>(byProfession.keySet());
+		currentProfessions.sort(Comparator.comparing(Skill::getName)); // TODO sort by i18n translation
 
 		professionsTable.clearChildren();
 
 		for (int cursor = 0; cursor < currentProfessions.size(); cursor++) {
 			Table singleProfessionTable = new Table(uiSkin);
 
-			Profession profession = currentProfessions.get(cursor);
+			Skill profession = currentProfessions.get(cursor);
 			ImageButton imageButton = profession.getImageButton().clone();
 			imageButton.setTogglable(true);
 			imageButton.setAction(() -> {
@@ -248,12 +248,12 @@ public class SettlerManagementScreen extends ManagementScreen {
 		for (Entity settler : livingSettlers) {
 			boolean showAsActive = true;
 			if (!selectedProfessions.isEmpty()) {
-				ProfessionsComponent professionsComponent = settler.getComponent(ProfessionsComponent.class);
-				if (professionsComponent == null) {
+				SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
+				if (skillsComponent == null) {
 					continue;
 				}
 
-				showAsActive = professionsComponent.hasAnyActiveProfession(selectedProfessions);
+				showAsActive = skillsComponent.hasAnyActiveProfession(selectedProfessions);
 
 //				boolean hasAllSelectedProfessions = true;
 //				for (Profession selectedProfession : selectedProfessions) {

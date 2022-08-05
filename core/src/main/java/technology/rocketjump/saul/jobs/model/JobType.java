@@ -33,7 +33,7 @@ public class JobType {
 
 	private String requiredProfessionName;
 	@JsonIgnore
-	private Profession requiredProfession;
+	private Skill requiredProfession;
 
 	private String requiredItemTypeName;
 	@JsonIgnore
@@ -131,11 +131,11 @@ public class JobType {
 		this.onCompletionSoundAssetName = onCompletionSoundAssetName;
 	}
 
-	public Profession getRequiredProfession() {
+	public Skill getRequiredProfession() {
 		return requiredProfession;
 	}
 
-	public void setRequiredProfession(Profession requiredProfession) {
+	public void setRequiredProfession(Skill requiredProfession) {
 		this.requiredProfession = requiredProfession;
 	}
 

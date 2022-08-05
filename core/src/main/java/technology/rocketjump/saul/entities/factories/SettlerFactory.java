@@ -18,7 +18,7 @@ import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.jobs.model.JobType;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -43,7 +43,7 @@ public class SettlerFactory {
 	private final MessageDispatcher messageDispatcher;
 	private final GameMaterialDictionary materialDictionary;
 
-	private Map<Profession, Set<ItemType>> professionItemMapping = new HashMap<>();
+	private Map<Skill, Set<ItemType>> professionItemMapping = new HashMap<>();
 
 	@Inject
 	public SettlerFactory(SettlerCreatureAttributesFactory settlerAttributesFactory, SettlerEntityFactory entityFactory,
@@ -74,7 +74,7 @@ public class SettlerFactory {
 
 	}
 
-	public Entity create(Vector2 worldPosition, Vector2 facing, Profession primaryProfession, Profession secondaryProfession, GameContext gameContext) {
+	public Entity create(Vector2 worldPosition, Vector2 facing, Skill primaryProfession, Skill secondaryProfession, GameContext gameContext) {
 		CreatureEntityAttributes attributes = settlerAttributesFactory.create(gameContext);
 
 		Entity entity = entityFactory.create(attributes, worldPosition, facing, primaryProfession, secondaryProfession, gameContext);

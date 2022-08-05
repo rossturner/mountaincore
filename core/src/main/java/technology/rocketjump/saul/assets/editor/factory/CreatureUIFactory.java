@@ -50,8 +50,8 @@ import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructureDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.SkillDictionary;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.misc.ReflectionUtils;
@@ -68,7 +68,7 @@ import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.Wi
 import static technology.rocketjump.saul.assets.entities.model.ColoringLayer.*;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 import static technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviourDictionary.toBehaviourName;
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
 @Singleton
 public class CreatureUIFactory implements UIFactory {
@@ -77,7 +77,7 @@ public class CreatureUIFactory implements UIFactory {
     private final CompleteAssetDictionary completeAssetDictionary;
     private final RaceDictionary raceDictionary;
     private final CreatureEntityFactory creatureEntityFactory;
-    private final ProfessionDictionary professionDictionary;
+    private final SkillDictionary skillDictionary;
     private final CreatureAttributesPane viewEditorControls;
     private final BodyStructureDictionary bodyStructureDictionary;
     private final CreatureBehaviourDictionary creatureBehaviourDictionary;
@@ -91,7 +91,7 @@ public class CreatureUIFactory implements UIFactory {
     @Inject
     public CreatureUIFactory(MessageDispatcher messageDispatcher, EntityAssetTypeDictionary entityAssetTypeDictionary,
                              CompleteAssetDictionary completeAssetDictionary, RaceDictionary raceDictionary,
-                             CreatureEntityFactory creatureEntityFactory, ProfessionDictionary professionDictionary,
+                             CreatureEntityFactory creatureEntityFactory, SkillDictionary skillDictionary,
                              CreatureAttributesPane viewEditorControls, BodyStructureDictionary bodyStructureDictionary,
                              CreatureBehaviourDictionary creatureBehaviourDictionary, ScheduleDictionary scheduleDictionary,
                              GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary,
@@ -102,7 +102,7 @@ public class CreatureUIFactory implements UIFactory {
         this.completeAssetDictionary = completeAssetDictionary;
         this.raceDictionary = raceDictionary;
         this.creatureEntityFactory = creatureEntityFactory;
-        this.professionDictionary = professionDictionary;
+        this.skillDictionary = skillDictionary;
         this.viewEditorControls = viewEditorControls;
         this.bodyStructureDictionary = bodyStructureDictionary;
         this.creatureBehaviourDictionary = creatureBehaviourDictionary;
@@ -307,7 +307,7 @@ public class CreatureUIFactory implements UIFactory {
         genders.add(Gender.ANY);
         Collection<CreatureBodyShape> bodyShapes = race.getBodyShapes().stream().map(CreatureBodyShapeDescriptor::getValue).toList();
         Collection<EntityAssetType> assetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType()).stream().filter(assetType -> !assetType.getName().startsWith("ATTACH")).toList();
-        List<String> allProfessions = professionDictionary.getAll().stream().map(Profession::getName).collect(Collectors.toList());
+        List<String> allProfessions = skillDictionary.getAllProfessions().stream().map(Skill::getName).collect(Collectors.toList());
 
         CreatureEntityAsset asset = new CreatureEntityAsset();
         asset.setRace(race);
@@ -391,7 +391,7 @@ public class CreatureUIFactory implements UIFactory {
         addSelectField("Body shape:", "bodyShape", List.of(CreatureBodyShape.values()), CreatureBodyShape.ANY, creatureAsset, editorTable);
         addSelectField("Gender:", "gender", List.of(Gender.values()), Gender.ANY, creatureAsset, editorTable);
 
-        List<String> allProfessions = professionDictionary.getAll().stream().map(Profession::getName).collect(Collectors.toList());
+        List<String> allProfessions = skillDictionary.getAllProfessions().stream().map(Skill::getName).collect(Collectors.toList());
         addSelectField("Profession:", "profession", allProfessions, NULL_PROFESSION.getName(), creatureAsset, editorTable);
 
         VisSelectBox<String> sanitySelect = new VisSelectBox<>();

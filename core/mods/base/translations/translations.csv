@@ -1134,6 +1134,9 @@ SEED.SYRUP_POWDER_SPAWN.TOOLTIP,{{VEGETABLE.SYRUP_POWDER_MUSHROOM.TOOLTIP}},"A r
 ,,,,,,,,,,,,,,,
 SHRUB.DESCRIPTION,Shrub or bush should do,Bush,Arbuste,Arbusto,Büsche,Cespuglio,Arbusto,Arbusto,Куст,Krzak,Struikgewas,Buske,Busk,Bokor,Pensas
 ,,,,,,,,,,,,,,,
+SKILL.UNARMED_COMBAT.MALE_NOUN,,Brawler,,,,,,,,,,,,,
+SKILL.UNARMED_COMBAT.FEMALE_NOUN,,Brawler,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
 STATUS.ALCOHOL_WITHDRAWL,,Alcohol withdrawl,,,,,,,,,,,,,
 STATUS.BLEEDING,,Bleeding,,,,,,,,,,,,,
 STATUS.BLEEDING,,Bleeding,,,,,,,,,,,,,

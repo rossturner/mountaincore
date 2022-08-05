@@ -6,11 +6,12 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import technology.rocketjump.saul.misc.Name;
 import technology.rocketjump.saul.ui.widgets.ImageButton;
 
-public class Profession {
+public class Skill {
 
 	@Name
 	private String name;
 	private String i18nKey;
+	private SkillType type;
 	private String icon;
 	@JsonIgnore
 	private ImageButton imageButton;
@@ -47,6 +48,14 @@ public class Profession {
 		this.imageButton = imageButton;
 	}
 
+	public SkillType getType() {
+		return type;
+	}
+
+	public void setType(SkillType type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
 		return name;
@@ -56,7 +65,7 @@ public class Profession {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		Profession that = (Profession) o;
+		Skill that = (Skill) o;
 		return new EqualsBuilder().append(name, that.name).isEquals();
 	}
 
@@ -64,4 +73,5 @@ public class Profession {
 	public int hashCode() {
 		return new HashCodeBuilder(17, 37).append(name).toHashCode();
 	}
+
 }

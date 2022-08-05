@@ -1,0 +1,47 @@
+package technology.rocketjump.saul.entities.behaviour;
+
+import org.junit.Before;
+import org.junit.Test;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
+import technology.rocketjump.saul.jobs.model.Skill;
+
+import static org.fest.assertions.Assertions.assertThat;
+
+public class SkillsComponentTest {
+
+	private Skill profA;
+	private Skill profB;
+	private Skill profC;
+	private Skill villager;
+
+	@Before
+	public void setup() {
+		profA = new Skill();
+		profA.setName("profA");
+
+		profB = new Skill();
+		profB.setName("profB");
+
+		profC = new Skill();
+		profC.setName("profC");
+
+		villager = new Skill();
+		villager.setName("VILLAGER");
+	}
+
+	@Test
+	public void add() throws Exception {
+		SkillsComponent component = new SkillsComponent();
+
+		component.setSkillLevel(profB, 50);
+		component.setSkillLevel(profA, 20);
+		component.setSkillLevel(profC,80);
+
+		assertThat(component.getActiveProfessions()).hasSize(4);
+		assertThat(component.getActiveProfessions().get(0).getLevel()).isEqualTo(50);
+		assertThat(component.getActiveProfessions().get(1).getLevel()).isEqualTo(20);
+		assertThat(component.getActiveProfessions().get(2).getLevel()).isEqualTo(80);
+		assertThat(component.getActiveProfessions().get(3).getLevel()).isEqualTo(50); // NULL_PROFESSION
+	}
+
+}

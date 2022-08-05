@@ -8,7 +8,7 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +33,7 @@ public class CreatureNameBuilders {
         if (bodyShape != null && CreatureBodyShape.ANY != bodyShape && raceBodyShapes.size() > 1) {
             uniqueNameJoiner.add(bodyShape.name());
         }
-        if (profession != null && !ProfessionDictionary.NULL_PROFESSION.getName().equals(profession)) {
+        if (profession != null && !SkillDictionary.NULL_PROFESSION.getName().equals(profession)) {
             uniqueNameJoiner.add(profession);
         }
         if (assetType != null) {

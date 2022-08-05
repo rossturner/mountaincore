@@ -84,7 +84,7 @@ import static technology.rocketjump.saul.entities.model.physical.creature.Consci
 import static technology.rocketjump.saul.entities.model.physical.creature.Consciousness.DEAD;
 import static technology.rocketjump.saul.entities.model.physical.furniture.EntityDestructionCause.OXIDISED;
 import static technology.rocketjump.saul.jobs.JobMessageHandler.deconstructFurniture;
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.messaging.MessageType.DESTROY_ENTITY;
 import static technology.rocketjump.saul.messaging.MessageType.TRANSFORM_ITEM_TYPE;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
@@ -620,19 +620,19 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 	}
 
 	private boolean handle(ChangeProfessionMessage changeProfessionMessage) {
-		if (changeProfessionMessage.entity == null || changeProfessionMessage.entity.getComponent(ProfessionsComponent.class) == null) {
+		if (changeProfessionMessage.entity == null || changeProfessionMessage.entity.getComponent(SkillsComponent.class) == null) {
 			throw new RuntimeException("No entity in " + changeProfessionMessage.getClass().getSimpleName() + " handled in " + this.getClass().getSimpleName());
 		}
 
-		ProfessionsComponent professionsComponent = changeProfessionMessage.entity.getComponent(ProfessionsComponent.class);
+		SkillsComponent skillsComponent = changeProfessionMessage.entity.getComponent(SkillsComponent.class);
 
 		if (changeProfessionMessage.professionToReplace != null && !changeProfessionMessage.professionToReplace.equals(NULL_PROFESSION)) {
-			professionsComponent.deactivate(changeProfessionMessage.professionToReplace);
+			skillsComponent.deactivateProfession(changeProfessionMessage.professionToReplace);
 		}
 
 		if (!changeProfessionMessage.newProfession.getName().equals("VILLAGER")) {
-			if (!professionsComponent.hasActiveProfession(changeProfessionMessage.newProfession)) {
-				professionsComponent.activate(changeProfessionMessage.newProfession);
+			if (!skillsComponent.hasActiveProfession(changeProfessionMessage.newProfession)) {
+				skillsComponent.activateProfession(changeProfessionMessage.newProfession);
 			}
 		}
 

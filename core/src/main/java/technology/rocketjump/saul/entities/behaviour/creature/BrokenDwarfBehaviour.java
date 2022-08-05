@@ -5,7 +5,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import org.apache.commons.lang3.NotImplementedException;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.components.EntityComponent;
-import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -24,7 +24,7 @@ public class BrokenDwarfBehaviour extends CreatureBehaviour {
 		super.init(parentEntity, messageDispatcher, gameContext);
 
 		((CreatureEntityAttributes)parentEntity.getPhysicalEntityComponent().getAttributes()).setSanity(Sanity.BROKEN);
-		parentEntity.removeComponent(ProfessionsComponent.class);
+		parentEntity.removeComponent(SkillsComponent.class);
 	}
 
 	@Override

@@ -7,29 +7,31 @@ import com.google.common.collect.Sets;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
+import technology.rocketjump.saul.jobs.model.SkillType;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
 import java.util.*;
 
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.UNARMED_COMBAT_SKILL;
 
-public class ProfessionsComponent implements EntityComponent {
+public class SkillsComponent implements EntityComponent {
 
 	public static final int MAX_PROFESSIONS = 3;
-	private List<Profession> activeProfessions = new ArrayList<>(); // Note this is in priority order
-	private Map<Profession, Integer> skillLevels = new HashMap<>();
-	private Map<Profession, Integer> experiencePoints = new HashMap<>();
+	private List<Skill> activeProfessions = new ArrayList<>(); // Note this is in priority order
+	private Map<Skill, Integer> skillLevels = new HashMap<>();
+	private Map<Skill, Integer> experiencePoints = new HashMap<>();
 
-	public ProfessionsComponent() {
+	public SkillsComponent() {
 		clear();
 	}
 
 	@Override
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
-		ProfessionsComponent cloned = new ProfessionsComponent();
+		SkillsComponent cloned = new SkillsComponent();
 
 		cloned.activeProfessions.addAll(this.activeProfessions);
 		cloned.skillLevels.putAll(this.skillLevels);
@@ -37,14 +39,14 @@ public class ProfessionsComponent implements EntityComponent {
 		return cloned;
 	}
 
-	public void activate(Profession profession) {
+	public void activateProfession(Skill profession) {
 		if (!activeProfessions.contains(profession)) {
 			// Insert new active profession before last entry (which is NULL_PROFESSION)
 			activeProfessions.add(activeProfessions.size() - 1, profession);
 		}
 	}
 
-	public void deactivate(Profession profession) {
+	public void deactivateProfession(Skill profession) {
 		if (profession.equals(NULL_PROFESSION)) {
 			Logger.warn("Can not deactivate " + NULL_PROFESSION.getName());
 		} else {
@@ -52,36 +54,38 @@ public class ProfessionsComponent implements EntityComponent {
 		}
 	}
 
-	public void setSkillLevel(Profession profession, int skillLevel) {
-		activate(profession);
-		skillLevels.put(profession, skillLevel);
+	public void setSkillLevel(Skill skill, int skillLevel) {
+		if (skill.getType().equals(SkillType.PROFESSION)) {
+			activateProfession(skill);
+		}
+		skillLevels.put(skill, skillLevel);
 	}
 
-	public boolean hasActiveProfession(Profession profession) {
+	public boolean hasActiveProfession(Skill profession) {
 		return activeProfessions.contains(profession);
 	}
 
-	public boolean hasAnyActiveProfession(Set<Profession> professionSet) {
+	public boolean hasAnyActiveProfession(Set<Skill> professionSet) {
 		return !Sets.intersection(professionSet, Sets.newHashSet(activeProfessions)).isEmpty();
 	}
 
-	public List<QuantifiedProfession> getActiveProfessions() {
-		List<QuantifiedProfession> quantifiedProfessions = new ArrayList<>();
-		for (Profession profession : activeProfessions) {
-			quantifiedProfessions.add(new QuantifiedProfession(profession, skillLevels.getOrDefault(profession, 0)));
+	public List<QuantifiedSkill> getActiveProfessions() {
+		List<QuantifiedSkill> quantifiedSkills = new ArrayList<>();
+		for (Skill profession : activeProfessions) {
+			quantifiedSkills.add(new QuantifiedSkill(profession, skillLevels.getOrDefault(profession, 0)));
 		}
-		return quantifiedProfessions;
+		return quantifiedSkills;
 	}
 
-	public Profession getPrimaryProfession() {
+	public Skill getPrimaryProfession() {
 		return activeProfessions.get(0);
 	}
 
-	public int getSkillLevel(Profession profession) {
+	public int getSkillLevel(Skill profession) {
 		return skillLevels.getOrDefault(profession, 0);
 	}
 
-	public void experienceGained(int experiencePointsAmount, Profession profession) {
+	public void experienceGained(int experiencePointsAmount, Skill profession) {
 		int currentSkillLevel = getSkillLevel(profession);
 		int currentExperience = experiencePoints.getOrDefault(profession, 0);
 		currentExperience += experiencePointsAmount;
@@ -104,6 +108,7 @@ public class ProfessionsComponent implements EntityComponent {
 		skillLevels.clear();
 		experiencePoints.clear();
 
+		skillLevels.put(UNARMED_COMBAT_SKILL, 30);
 		skillLevels.put(NULL_PROFESSION, 50); // always 50 for null/none profession so will take medium time
 		activeProfessions.add(NULL_PROFESSION); // NULL_PROFESSION acts as default "Villager" profession
 	}
@@ -111,7 +116,7 @@ public class ProfessionsComponent implements EntityComponent {
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		JSONArray activeProfessionsJson = new JSONArray();
-		for (Profession activeProfession : activeProfessions) {
+		for (Skill activeProfession : activeProfessions) {
 			if (!activeProfession.equals(NULL_PROFESSION)) {
 				activeProfessionsJson.add(activeProfession.getName());
 			}
@@ -119,7 +124,7 @@ public class ProfessionsComponent implements EntityComponent {
 		asJson.put("active", activeProfessionsJson);
 
 		JSONObject skillLevelsJson = new JSONObject(true);
-		for (Map.Entry<Profession, Integer> entry : skillLevels.entrySet()) {
+		for (Map.Entry<Skill, Integer> entry : skillLevels.entrySet()) {
 			if (entry.getValue() > 0) {
 				skillLevelsJson.put(entry.getKey().getName(), entry.getValue());
 			}
@@ -128,7 +133,7 @@ public class ProfessionsComponent implements EntityComponent {
 
 
 		JSONObject experienceJson = new JSONObject(true);
-		for (Map.Entry<Profession, Integer> entry : experiencePoints.entrySet()) {
+		for (Map.Entry<Skill, Integer> entry : experiencePoints.entrySet()) {
 			if (entry.getValue() > 0) {
 				experienceJson.put(entry.getKey().getName(), entry.getValue());
 			}
@@ -147,7 +152,7 @@ public class ProfessionsComponent implements EntityComponent {
 		}
 
 		for (Object professionName: activeProfessionsJson) {
-			Profession profession = relatedStores.professionDictionary.getByName(professionName.toString());
+			Skill profession = relatedStores.skillDictionary.getByName(professionName.toString());
 			if (profession == null) {
 				throw new InvalidSaveException("Could not find profession with name " + professionName);
 			}
@@ -155,7 +160,7 @@ public class ProfessionsComponent implements EntityComponent {
 		}
 
 		for (String professionName: skillLevelsJson.keySet()) {
-			Profession profession = relatedStores.professionDictionary.getByName(professionName);
+			Skill profession = relatedStores.skillDictionary.getByName(professionName);
 			if (profession == null) {
 				throw new InvalidSaveException("Could not find profession with name " + professionName);
 			}
@@ -167,7 +172,7 @@ public class ProfessionsComponent implements EntityComponent {
 
 
 		for (String professionName: experienceJson.keySet()) {
-			Profession profession = relatedStores.professionDictionary.getByName(professionName);
+			Skill profession = relatedStores.skillDictionary.getByName(professionName);
 			if (profession == null) {
 				throw new InvalidSaveException("Could not find profession with name " + professionName);
 			}
@@ -178,8 +183,8 @@ public class ProfessionsComponent implements EntityComponent {
 		}
 	}
 
-	public void swapActivePositions(int a, int b) {
-		List<Profession> reordered = new ArrayList<>();
+	public void swapActiveProfessionPositions(int a, int b) {
+		List<Skill> reordered = new ArrayList<>();
 		for (int cursor = 0; cursor < activeProfessions.size(); cursor++) {
 			if (cursor == a) {
 				reordered.add(activeProfessions.get(b));
@@ -193,27 +198,27 @@ public class ProfessionsComponent implements EntityComponent {
 	}
 
 
-	public static class QuantifiedProfession {
+	public static class QuantifiedSkill {
 
-		private final Profession profession;
-		private final int skillLevel;
+		private final Skill skill;
+		private final int level;
 
-		public QuantifiedProfession(Profession profession, int skillLevel) {
-			this.profession = profession;
-			this.skillLevel = skillLevel;
+		public QuantifiedSkill(Skill skill, int level) {
+			this.skill = skill;
+			this.level = level;
 		}
 
-		public Profession getProfession() {
-			return profession;
+		public Skill getSkill() {
+			return skill;
 		}
 
-		public int getSkillLevel() {
-			return skillLevel;
+		public int getLevel() {
+			return level;
 		}
 
 		@Override
 		public String toString() {
-			return "profession=" + profession + ", skillLevel=" + skillLevel;
+			return "skill=" + skill + ", level=" + level;
 		}
 	}
 }

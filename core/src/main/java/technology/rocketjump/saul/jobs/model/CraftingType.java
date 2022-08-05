@@ -18,7 +18,7 @@ public class CraftingType implements Comparable<CraftingType> {
 	private String defaultItemTypeName;
 	private GameMaterialType constructsFurniture;
 	@JsonIgnore
-	private Profession professionRequired;
+	private Skill professionRequired;
 	@JsonIgnore
 	private ItemType defaultItemType;
 	private boolean usesWorkstationTool = false;
@@ -51,11 +51,11 @@ public class CraftingType implements Comparable<CraftingType> {
 		this.professionRequiredName = professionRequiredName;
 	}
 
-	public Profession getProfessionRequired() {
+	public Skill getProfessionRequired() {
 		return professionRequired;
 	}
 
-	public void setProfessionRequired(Profession professionRequired) {
+	public void setProfessionRequired(Skill professionRequired) {
 		this.professionRequired = professionRequired;
 	}
 

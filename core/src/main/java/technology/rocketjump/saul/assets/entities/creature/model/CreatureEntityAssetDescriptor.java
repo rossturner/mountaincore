@@ -3,14 +3,14 @@ package technology.rocketjump.saul.assets.entities.creature.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.creature.*;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.misc.Name;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
 public class CreatureEntityAssetDescriptor {
 
@@ -29,7 +29,7 @@ public class CreatureEntityAssetDescriptor {
 
 	private Map<String, List<String>> tags = new HashMap<>();
 
-	public boolean matches(CreatureEntityAttributes entityAttributes, Profession primaryProfession) {
+	public boolean matches(CreatureEntityAttributes entityAttributes, Skill primaryProfession) {
 		if (race != null && !race.equals(entityAttributes.getRace())) {
 			return false;
 		}

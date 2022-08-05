@@ -8,7 +8,7 @@ import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.creature.HistoryComponent;
-import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -109,9 +109,9 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 	public void setToFullyDecayed(CreatureEntityAttributes attributes) {
 		decayedAmount = HOURS_TO_FULLY_DECAY;
 		attributes.setGender(Gender.NONE);
-		ProfessionsComponent professionsComponent = parentEntity.getComponent(ProfessionsComponent.class);
-		if (professionsComponent != null) {
-			professionsComponent.clear();
+		SkillsComponent skillsComponent = parentEntity.getComponent(SkillsComponent.class);
+		if (skillsComponent != null) {
+			skillsComponent.clear();
 		}
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, parentEntity);
 	}

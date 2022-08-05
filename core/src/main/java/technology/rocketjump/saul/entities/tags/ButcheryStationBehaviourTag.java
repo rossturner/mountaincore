@@ -29,7 +29,7 @@ public class ButcheryStationBehaviourTag extends Tag {
 			ButcheryStationBehaviour newBehaviour = new ButcheryStationBehaviour();
 			newBehaviour.setHaulingJobType(tagProcessingUtils.jobTypeDictionary.getByName("HAULING"));
 			newBehaviour.setButcheryJobType(tagProcessingUtils.jobTypeDictionary.getByName("BUTCHER_CREATURE"));
-			newBehaviour.setRequiredProfession(tagProcessingUtils.professionDictionary.getByName("CHEF"));
+			newBehaviour.setRequiredProfession(tagProcessingUtils.skillDictionary.getByName("CHEF"));
 			newBehaviour.init(entity, messageDispatcher, gameContext);
 			entity.replaceBehaviourComponent(newBehaviour);
 		}

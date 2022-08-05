@@ -30,7 +30,7 @@ import technology.rocketjump.saul.environment.WeatherTypeDictionary;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.mapping.tile.designation.DesignationDictionary;
 import technology.rocketjump.saul.materials.DynamicMaterialFactory;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
@@ -55,7 +55,7 @@ public class PersistenceTestHarness {
 	@Mock
 	protected GameMaterialDictionary mockMaterialDictionary;
 	@Mock
-	protected ProfessionDictionary mockProfessionDictionary;
+	protected SkillDictionary mockSkillDictionary;
 	@Mock
 	protected ItemTypeDictionary mockItemTypeDictionary;
 	@Mock
@@ -134,7 +134,7 @@ public class PersistenceTestHarness {
 				mockMaterialDictionary,
 				mockCraftingOutputQualityDictionary,
 				mockMessageDispatcher,
-				mockProfessionDictionary,
+				mockSkillDictionary,
 				mockJobTypeDictionary,
 				mockItemTypeDictionary,
 				mockFloorTypeDictionary,

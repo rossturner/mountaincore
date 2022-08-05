@@ -25,7 +25,7 @@ import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.model.FloorType;
-import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -35,8 +35,8 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionar
 import technology.rocketjump.saul.entities.model.physical.plant.SpeciesColor;
 import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.SkillDictionary;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.rendering.utils.HexColors;
@@ -49,7 +49,7 @@ import java.util.Map;
 @Singleton
 public class CreatureAttributesPane extends AbstractAttributesPane {
 
-    private final ProfessionDictionary professionDictionary;
+    private final SkillDictionary skillDictionary;
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
     private final CreatureEntityAssetDictionary creatureEntityAssetDictionary;
     private final ItemTypeDictionary itemTypeDictionary;
@@ -57,11 +57,11 @@ public class CreatureAttributesPane extends AbstractAttributesPane {
     private final GameContext fakeContext = new GameContext();
 
     @Inject
-    public CreatureAttributesPane(EditorStateProvider editorStateProvider, ProfessionDictionary professionDictionary,
+    public CreatureAttributesPane(EditorStateProvider editorStateProvider, SkillDictionary skillDictionary,
                                   EntityAssetTypeDictionary entityAssetTypeDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary,
                                   ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory, MessageDispatcher messageDispatcher) {
         super(editorStateProvider, messageDispatcher);
-        this.professionDictionary = professionDictionary;
+        this.skillDictionary = skillDictionary;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
         this.itemTypeDictionary = itemTypeDictionary;
@@ -80,17 +80,17 @@ public class CreatureAttributesPane extends AbstractAttributesPane {
         Collection<Gender> genders = attributes.getRace().getGenders().keySet();
         Collection<CreatureBodyShape> bodyShapes = attributes.getRace().getBodyShapes().stream().map(CreatureBodyShapeDescriptor::getValue).toList();
         Collection<Consciousness> consciousnesses = Arrays.asList(Consciousness.values());
-        Collection<Profession> professions = this.professionDictionary.getAll();
+        Collection<Skill> professions = this.skillDictionary.getAllProfessions();
 
-        ProfessionsComponent professionsComponent = currentEntity.getOrCreateComponent(ProfessionsComponent.class);
+        SkillsComponent skillsComponent = currentEntity.getOrCreateComponent(SkillsComponent.class);
 
         //Attributes components
         add(WidgetBuilder.selectField("Gender:", attributes.getGender(), genders, null, update(attributes::setGender)));
         add(WidgetBuilder.selectField("Body Shape:", attributes.getBodyShape(), bodyShapes, null, update(attributes::setBodyShape)));
         add(WidgetBuilder.selectField("Consciousness:", attributes.getConsciousness(), consciousnesses, null, update(attributes::setConsciousness)));
-        add(WidgetBuilder.selectField("Profession:", professionsComponent.getPrimaryProfession(), professions, null, update(profession -> {
-            professionsComponent.clear();
-            professionsComponent.setSkillLevel(profession, 50);
+        add(WidgetBuilder.selectField("Profession:", skillsComponent.getPrimaryProfession(), professions, null, update(profession -> {
+            skillsComponent.clear();
+            skillsComponent.setSkillLevel(profession, 50);
         })));
         add(WidgetBuilder.selectField("Sanity:", attributes.getSanity(), List.of(Sanity.values()), Sanity.SANE, update(attributes::setSanity)));
 
@@ -100,7 +100,7 @@ public class CreatureAttributesPane extends AbstractAttributesPane {
         Collection<EntityAssetType> entityAssetTypes = this.entityAssetTypeDictionary.getByEntityType(EntityType.CREATURE);
         for (EntityAssetType type : entityAssetTypes) {
             if (assetMap.containsKey(type)) {
-                Profession primaryProfession = currentEntity.getComponent(ProfessionsComponent.class).getPrimaryProfession();
+                Skill primaryProfession = currentEntity.getComponent(SkillsComponent.class).getPrimaryProfession();
                 List<CreatureEntityAsset> matchingAssets = this.creatureEntityAssetDictionary.getAllMatchingAssets(type, attributes, primaryProfession);
                 if (matchingAssets.size() > 1) { //display selection box when more than one
                     add(createAssetWidget(type, matchingAssets));

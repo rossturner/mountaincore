@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class JobStore implements Updatable {
 
 	private static final float UPDATE_CYCLE_TIME = 0.141f;
-	private final ProfessionDictionary professionDictionary;
+	private final SkillDictionary skillDictionary;
 
 	private Map<JobState, JobCollection> byState = new ConcurrentHashMap<>();
 	private Map<GridPoint2, List<Job>> byLocation = new ConcurrentHashMap<>();
@@ -32,8 +32,8 @@ public class JobStore implements Updatable {
 	private float timeSinceLastUpdate;
 
 	@Inject
-	public JobStore(ProfessionDictionary professionDictionary) {
-		this.professionDictionary = professionDictionary;
+	public JobStore(SkillDictionary skillDictionary) {
+		this.skillDictionary = skillDictionary;
 		clearContextRelatedState();
 	}
 
@@ -109,7 +109,7 @@ public class JobStore implements Updatable {
 	@Override
 	public void clearContextRelatedState() {
 		for (JobState jobState : JobState.values()) {
-			byState.put(jobState, new JobCollection(jobState, professionDictionary));
+			byState.put(jobState, new JobCollection(jobState, skillDictionary));
 		}
 		byLocation.clear();
 	}

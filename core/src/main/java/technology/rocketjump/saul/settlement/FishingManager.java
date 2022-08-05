@@ -8,16 +8,16 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.constants.SettlementConstants;
-import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Job;
 import technology.rocketjump.saul.jobs.model.JobType;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.floor.BridgeTile;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -42,20 +42,20 @@ public class FishingManager implements Updatable, Telegraph {
 	private final SettlementConstants settlementConstants;
 	private final JobStore jobStore;
 	private final JobType fishingJobType;
-	private final Profession fishingProfession;
+	private final Skill fishingProfession;
 	private GameContext gameContext;
 
 	private float timeSinceLastUpdate;
 
 	@Inject
 	public FishingManager(MessageDispatcher messageDispatcher, SettlerTracker settlerTracker, ConstantsRepo constantsRepo,
-						  JobStore jobStore, JobTypeDictionary jobTypeDictionary, ProfessionDictionary professionDictionary) {
+						  JobStore jobStore, JobTypeDictionary jobTypeDictionary, SkillDictionary skillDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.settlerTracker = settlerTracker;
 		this.settlementConstants = constantsRepo.getSettlementConstants();
 		this.jobStore = jobStore;
 		this.fishingJobType = jobTypeDictionary.getByName(settlementConstants.getFishingJobType());
-		this.fishingProfession = professionDictionary.getByName("FISHER");
+		this.fishingProfession = skillDictionary.getByName("FISHER");
 
 		messageDispatcher.addListener(this, MessageType.YEAR_ELAPSED);
 		messageDispatcher.addListener(this, MessageType.FISH_HARVESTED_FROM_RIVER);
@@ -113,9 +113,9 @@ public class FishingManager implements Updatable, Telegraph {
 
 		Entity fisherSettler = null;
 		for (Entity entity : settlerTracker.getAll()) {
-			ProfessionsComponent professionsComponent = entity.getComponent(ProfessionsComponent.class);
-			if (professionsComponent != null) {
-				if (professionsComponent.hasActiveProfession(fishingProfession)) {
+			SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
+			if (skillsComponent != null) {
+				if (skillsComponent.hasActiveProfession(fishingProfession)) {
 					fisherSettler = entity;
 					break;
 				}

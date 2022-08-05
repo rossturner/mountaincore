@@ -4,7 +4,7 @@ import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityA
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +39,7 @@ public class CreatureEntityAssetsByRace {
 //		}
 	}
 
-	public CreatureEntityAsset get(CreatureEntityAttributes attributes, Profession primaryProfession) {
+	public CreatureEntityAsset get(CreatureEntityAttributes attributes, Skill primaryProfession) {
 		Race race = attributes.getRace();
 //		if (race == null) {
 //			race = NO_RACE;
@@ -47,7 +47,7 @@ public class CreatureEntityAssetsByRace {
 		return raceMap.get(race).get(attributes, primaryProfession);
 	}
 
-	public List<CreatureEntityAsset> getAll(CreatureEntityAttributes attributes, Profession primaryProfession) {
+	public List<CreatureEntityAsset> getAll(CreatureEntityAttributes attributes, Skill primaryProfession) {
 		Race race = attributes.getRace();
 //		if (race == null) {
 //			race = Race.ANY;

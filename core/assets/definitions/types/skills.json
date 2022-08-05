@@ -1,0 +1,56 @@
+[ {
+  "name" : "CHEF",
+  "i18nKey" : "PROFESSION.CHEF",
+  "type" : "PROFESSION",
+  "icon" : "profession-bread"
+}, {
+  "name" : "BLACKSMITH",
+  "i18nKey" : "PROFESSION.BLACKSMITH",
+  "type" : "PROFESSION",
+  "icon" : "profession-tongs"
+}, {
+  "name" : "CARPENTER",
+  "i18nKey" : "PROFESSION.CARPENTER",
+  "type" : "PROFESSION",
+  "icon" : "profession-plane"
+}, {
+  "name" : "FARMER",
+  "i18nKey" : "PROFESSION.FARMER",
+  "type" : "PROFESSION",
+  "icon" : "profession-seeds"
+}, {
+  "name" : "WEAVER",
+  "i18nKey" : "PROFESSION.WEAVER",
+  "type" : "PROFESSION",
+  "icon" : "profession-rope"
+}, {
+  "name" : "LUMBERJACK",
+  "i18nKey" : "PROFESSION.WOODCUTTER",
+  "type" : "PROFESSION",
+  "icon" : "profession-axe"
+}, {
+  "name" : "MINER",
+  "i18nKey" : "PROFESSION.MINER",
+  "type" : "PROFESSION",
+  "icon" : "profession-pickaxe"
+}, {
+  "name" : "STONEMASON",
+  "i18nKey" : "PROFESSION.STONEMASON",
+  "type" : "PROFESSION",
+  "icon" : "profession-chisel"
+}, {
+  "name" : "BREWER",
+  "i18nKey" : "PROFESSION.BREWER",
+  "type" : "PROFESSION",
+  "icon" : "profession-brewer"
+}, {
+  "name" : "FISHER",
+  "i18nKey" : "PROFESSION.FISHER",
+  "type" : "PROFESSION",
+  "icon" : "profession-fishing-rod"
+}, {
+  "name" : "HUNTER",
+  "i18nKey" : "PROFESSION.HUNTER",
+  "type" : "PROFESSION",
+  "icon" : "profession-bow"
+} ]

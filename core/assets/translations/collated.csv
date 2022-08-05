@@ -1133,6 +1133,9 @@ SEED.WHEAT_SEED.TOOLTIP,"A cereal grain generally used for the production of bre
 
 SHRUB.DESCRIPTION,Bush,,Büsche,Arbuste,Cespuglio,Arbusto,Arbusto,Arbusto,,Куст,Çalı,- Bush,,Buske,,,,藪,灌木,
 
+SKILL.UNARMED_COMBAT.FEMALE_NOUN,Brawler,,,,,,,,,,,,,,,,,,,
+SKILL.UNARMED_COMBAT.MALE_NOUN,Brawler,,,,,,,,,,,,,,,,,,,
+
 STATUS.ALCOHOL_WITHDRAWL,Alcohol withdrawl,,Alkohol-Entzug,,Ritiro dell'alcol,Síndrome de abstinencia de alcohol,,,,Отказ от алкоголя,,,,,,,,酔いが醒めた,酒精戒断症,
 STATUS.BLEEDING,Bleeding,,Blutet,,Sanguinamento,Sangrando,,,,"Кровотечение ",,,,,,,,出血,流血,
 STATUS.BLINDED,Blind,,Blind,,Cieco,Ciego,,,,Слепота,,,,,,,,盲目,失明,

@@ -1,13 +1,13 @@
 package technology.rocketjump.saul.jobs.model;
 
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
 /**
  * This class stores all the jobs of a certain state, as well as being responsible for setting JobState
@@ -15,22 +15,22 @@ import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSI
 public class JobCollection {
 
 	private final JobState collectionJobState;
-	private Map<Profession, Map<Long, Job>> byProfession = new ConcurrentHashMap<>();
+	private Map<Skill, Map<Long, Job>> byProfession = new ConcurrentHashMap<>();
 	private Map<Long, Job> byId = new ConcurrentHashMap<>();
 
 	private int iterationCursor = 0;
 	private List<Job> iterableCollection = emptyList;
 
-	public JobCollection(JobState jobState, ProfessionDictionary professionDictionary) {
+	public JobCollection(JobState jobState, SkillDictionary skillDictionary) {
 		this.collectionJobState = jobState;
 
-		for (Profession profession : professionDictionary.getAll()) {
+		for (Skill profession : skillDictionary.getAllProfessions()) {
 			byProfession.put(profession, new ConcurrentHashMap<>());
 		}
 		byProfession.put(NULL_PROFESSION, new ConcurrentHashMap<>());
 	}
 
-	public Map<Long, Job> getByProfession(Profession profession) {
+	public Map<Long, Job> getByProfession(Skill profession) {
 		return byProfession.get(profession);
 	}
 

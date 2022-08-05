@@ -33,9 +33,9 @@ import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.layout.WallLayout;
@@ -69,7 +69,7 @@ public class I18NTranslatorTest {
 
 	private I18nTranslator translator;
 	@Mock
-	private ProfessionDictionary mockProfessionDictionary;
+	private SkillDictionary mockSkillDictionary;
 	@Mock
 	private EntityAssetUpdater mockEntityAssetUpdater;
 	@Mock
@@ -135,7 +135,7 @@ public class I18NTranslatorTest {
 		gameMaterialDictionary = new GameMaterialDictionary();
 		new GameMaterialI18nUpdater(i18nRepo, gameMaterialDictionary).onLanguageUpdated();
 
-		translator = new I18nTranslator(i18nRepo, mockProfessionDictionary, mockEntityStore);
+		translator = new I18nTranslator(i18nRepo, mockSkillDictionary, mockEntityStore);
 
 
 
@@ -158,10 +158,10 @@ public class I18NTranslatorTest {
 				mockUserPreferences, mockTwitchDataStore, mockRaceDictionary).create(new GameContext());
 		attributes.setName(nameGenerator.create(88L, Gender.MALE));
 
-		Profession profession = new Profession();
+		Skill profession = new Skill();
 		profession.setI18nKey("PROFESSION.BLACKSMITH");
 		Entity entity = new SettlerEntityFactory(
-				mockMessageDispatcher, new ProfessionDictionary(), mockEntityAssetUpdater,
+				mockMessageDispatcher, new SkillDictionary(), mockEntityAssetUpdater,
 				mockGoalDictionary, mockRoomStore).create(attributes, null, new Vector2(), profession, profession, mockGameContext);
 
 		I18nText description = translator.getDescription(entity);

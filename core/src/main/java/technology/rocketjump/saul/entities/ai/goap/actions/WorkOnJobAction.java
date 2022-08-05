@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
-import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -48,7 +48,7 @@ public class WorkOnJobAction extends Action {
 
 		if (completionType == null && inPositionToWorkOnJob()) {
 			Job assignedJob = parent.getAssignedJob();
-			ProfessionsComponent professionsComponent = parent.parentEntity.getComponent(ProfessionsComponent.class);
+			SkillsComponent skillsComponent = parent.parentEntity.getComponent(SkillsComponent.class);
 
 			float workDone = deltaTime;
 			EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
@@ -116,7 +116,7 @@ public class WorkOnJobAction extends Action {
 				}
 			}
 
-			float workCompletionFraction = Math.min(assignedJob.getWorkDoneSoFar() / assignedJob.getTotalWorkToDo(professionsComponent), 1f);
+			float workCompletionFraction = Math.min(assignedJob.getWorkDoneSoFar() / assignedJob.getTotalWorkToDo(skillsComponent), 1f);
 
 			spawnedParticles.removeIf(p -> p == null || !p.isActive());
 
@@ -128,8 +128,8 @@ public class WorkOnJobAction extends Action {
 				}
 			}
 
-			if (assignedJob.getTotalWorkToDo(professionsComponent) <= assignedJob.getWorkDoneSoFar()) {
-				parent.messageDispatcher.dispatchMessage(MessageType.JOB_COMPLETED, new JobCompletedMessage(assignedJob, professionsComponent, parent.parentEntity));
+			if (assignedJob.getTotalWorkToDo(skillsComponent) <= assignedJob.getWorkDoneSoFar()) {
+				parent.messageDispatcher.dispatchMessage(MessageType.JOB_COMPLETED, new JobCompletedMessage(assignedJob, skillsComponent, parent.parentEntity));
 				completionType = SUCCESS;
 			}
 

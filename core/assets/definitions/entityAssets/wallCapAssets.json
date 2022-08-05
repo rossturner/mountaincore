@@ -13,7 +13,6 @@
       "offsetPixels" : {
         "x" : 0.0,
         "y" : 12.5,
-        "zero" : false,
         "unit" : false
       },
       "flipX" : false,
@@ -30,7 +29,6 @@
       "offsetPixels" : {
         "x" : 0.0,
         "y" : 12.5,
-        "zero" : false,
         "unit" : false
       },
       "flipX" : false,
@@ -55,7 +53,6 @@
       "offsetPixels" : {
         "x" : 0.0,
         "y" : 13.0,
-        "zero" : false,
         "unit" : false
       },
       "flipX" : false,
@@ -72,7 +69,6 @@
       "offsetPixels" : {
         "x" : 0.0,
         "y" : 13.0,
-        "zero" : false,
         "unit" : false
       },
       "flipX" : false,
@@ -97,7 +93,6 @@
       "offsetPixels" : {
         "x" : -0.5,
         "y" : 12.5,
-        "zero" : false,
         "unit" : false
       },
       "flipX" : false,
@@ -114,7 +109,6 @@
       "offsetPixels" : {
         "x" : 0.0,
         "y" : 12.0,
-        "zero" : false,
         "unit" : false
       },
       "flipX" : false,

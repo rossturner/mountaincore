@@ -1,7 +1,7 @@
 package technology.rocketjump.saul.entities.ai.combat;
 
 import org.apache.commons.lang3.NotImplementedException;
-import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
@@ -78,8 +78,8 @@ public class CreatureCombatStats {
 	}
 
 	private int getSkillLevel(WeaponInfo equippedWeapon) {
-		ProfessionsComponent professionsComponent = parentEntity.getComponent(ProfessionsComponent.class);
-		if (professionsComponent != null) {
+		SkillsComponent skillsComponent = parentEntity.getComponent(SkillsComponent.class);
+		if (skillsComponent != null) {
 			throw new NotImplementedException("Calculate skill level with equipped weapon/unarmed");
 		} else {
 			// Default to reasonable to low skill level

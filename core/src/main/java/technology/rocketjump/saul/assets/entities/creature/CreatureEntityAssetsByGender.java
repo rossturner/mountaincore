@@ -4,7 +4,7 @@ import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityA
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -36,7 +36,7 @@ public class CreatureEntityAssetsByGender {
 		}
 	}
 
-	public CreatureEntityAsset get(CreatureEntityAttributes attributes, Profession primaryProfession) {
+	public CreatureEntityAsset get(CreatureEntityAttributes attributes, Skill primaryProfession) {
 		Gender entityGender = attributes.getGender();
 		if (entityGender == null) {
 			entityGender = Gender.ANY;
@@ -44,7 +44,7 @@ public class CreatureEntityAssetsByGender {
 		return genderMap.get(entityGender).get(attributes, primaryProfession);
 	}
 
-	public List<CreatureEntityAsset> getAll(CreatureEntityAttributes attributes, Profession primaryProfession) {
+	public List<CreatureEntityAsset> getAll(CreatureEntityAttributes attributes, Skill primaryProfession) {
 		Gender entityGender = attributes.getGender();
 		if (entityGender == null) {
 			entityGender = Gender.ANY;
