@@ -51,12 +51,17 @@ public class EditorStateProvider {
 		try {
 			JSONObject asJsonObject = (JSONObject) JSON.toJSON(stateInstance);
 
-			if (stateInstance.getCurrentEntity() != null) {
+			Entity currentEntity = stateInstance.getCurrentEntity();
+			if (currentEntity != null) {
 				SavedGameStateHolder savedGameStateHolder = new SavedGameStateHolder();
-				stateInstance.getCurrentEntity().writeTo(savedGameStateHolder);
-
-				JSONObject serializedEntity = savedGameStateHolder.entitiesJson.getJSONObject(0);
-				asJsonObject.put(STATE_ENTITY_KEY, serializedEntity);
+				currentEntity.writeTo(savedGameStateHolder);
+				long currentEntityId = currentEntity.getId();
+				for (int i = 0; i < savedGameStateHolder.entitiesJson.size(); i++) {
+					JSONObject entityJson = savedGameStateHolder.entitiesJson.getJSONObject(i);
+					if (currentEntityId == entityJson.getLong("id")) {
+						asJsonObject.put(STATE_ENTITY_KEY, entityJson);
+					}
+				}
 			}
 
 			String outputText = JSON.toJSONString(asJsonObject, true);
