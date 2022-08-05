@@ -1,6 +1,5 @@
 package technology.rocketjump.saul.entities.ai.combat;
 
-import org.apache.commons.lang3.NotImplementedException;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -62,27 +61,47 @@ public class CreatureCombatStats {
 	}
 
 	public int maxDefensePool() {
-		throw new NotImplementedException("Add up defensive stats");
+		int total = 0;
+		int weaponSkillLevel = getSkillLevel(equippedWeapon);
+
+		if (racialDefense != null) {
+			total += scaleForSkillLevel(racialDefense.getMaxDefensePoints(), weaponSkillLevel, ItemQuality.STANDARD);
+		}
+		if (equippedShield != null) {
+			total += scaleForSkillLevel(equippedShield.getMaxDefensePoints(), weaponSkillLevel, equippedShieldQuality);
+		}
+		if (equippedArmour != null) {
+			total += scaleForSkillLevel(equippedArmour.getMaxDefensePoints(), weaponSkillLevel, equippedArmourQuality);
+		}
+		return total;
 	}
 
 	public int defensePoolRegainedPerDefensiveRound() {
 		int total = 0;
 		int weaponSkillLevel = getSkillLevel(equippedWeapon);
 
-		// Racial defense
 		if (racialDefense != null) {
-
+			total += scaleForSkillLevel(racialDefense.getMaxDefenseRegainedPerRound(), weaponSkillLevel, ItemQuality.STANDARD);
 		}
-
+		if (equippedShield != null) {
+			total += scaleForSkillLevel(equippedShield.getMaxDefenseRegainedPerRound(), weaponSkillLevel, equippedShieldQuality);
+		}
+		if (equippedArmour != null) {
+			total += scaleForSkillLevel(equippedArmour.getMaxDefenseRegainedPerRound(), weaponSkillLevel, equippedArmourQuality);
+		}
 		return total;
+	}
+
+	private int scaleForSkillLevel(Integer maximumValue, int weaponSkillLevel, ItemQuality itemQuality) {
+		return Math.max(1, Math.round((float)maximumValue * ((float)weaponSkillLevel / 100f) * itemQuality.combatMultiplier));
 	}
 
 	private int getSkillLevel(WeaponInfo equippedWeapon) {
 		SkillsComponent skillsComponent = parentEntity.getComponent(SkillsComponent.class);
 		if (skillsComponent != null) {
-			throw new NotImplementedException("Calculate skill level with equipped weapon/unarmed");
+			return skillsComponent.getSkillLevel(equippedWeapon.getCombatSkill());
 		} else {
-			// Default to reasonable to low skill level
+			// Default to reasonable-to-low skill level
 			return 30;
 		}
 	}
