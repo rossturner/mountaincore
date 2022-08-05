@@ -1,0 +1,159 @@
+[ {
+  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-bench-layout",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -15.0,
+        "y" : -32.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_3"
+      }, {
+        "type" : "FURNITURE_BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : -15.0
+        }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : -64.0,
+          "y" : -12.0
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "y" : -12.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-bench-layout",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "STONE_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-bench-layout",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-1x1-Furniture_Above_Layer_2-Wood_Down.png",
+      "coloringLayer" : "MISC_COLOR_1"
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Above_Layer_3-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_3",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-bench-layout",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Above_Layer_3-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Below_Layer_1-Wood",
+  "type" : "FURNITURE_BELOW_LAYER_1",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-bench-layout",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "childAssets" : [ {
+        "type" : "FURNITURE_BELOW_LAYER_2"
+      }, {
+        "type" : "FURNITURE_BELOW_LAYER_3"
+      }, {
+        "type" : "FURNITURE_BELOW_LAYER_4"
+      }, {
+        "type" : "FURNITURE_BELOW_LAYER_5"
+      }, {
+        "type" : "FURNITURE_BELOW_LAYER_6"
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Below_Layer_2-Wood",
+  "type" : "FURNITURE_BELOW_LAYER_2",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-bench-layout",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_2-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Below_Layer_3-Wood",
+  "type" : "FURNITURE_BELOW_LAYER_3",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-bench-layout",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_3-Wood_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Below_Layer_4-Wood",
+  "type" : "FURNITURE_BELOW_LAYER_4",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-bench-layout",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_4-Wood_Down.png"
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Below_Layer_5-Wood",
+  "type" : "FURNITURE_BELOW_LAYER_5",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-bench-layout",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_5-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Carpentry_Bench-carpentry-bench-layout-Furniture_Below_Layer_6-Wood",
+  "type" : "FURNITURE_BELOW_LAYER_6",
+  "furnitureTypeName" : "Carpentry_Bench",
+  "furnitureLayoutName" : "carpentry-bench-layout",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_6-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR"
+    }
+  }
+} ]

@@ -1,0 +1,31 @@
+{
+  "name" : "Carpentry_Bench",
+  "i18nKey" : "FURNITURE.CARPENTRY_WORKBENCH",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "carpentry-bench-layout",
+  "colorCode" : "#e7c467",
+  "iconName" : "planks",
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Logs",
+      "quantity" : 2
+    }, {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 3
+    }, {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Tool-Plane",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Tool-Saw",
+      "quantity" : 1
+    } ]
+  },
+  "tags": {
+    "CRAFTING_STATION_BEHAVIOUR": ["CARPENTRY", "CRAFT_ITEM", "HAULING"],
+    "DECORATION_FROM_INPUT": ["Tool-Plane", "Tool-Saw"],
+    "REQUIREMENT_TO_COLOR_MAPPINGS": ["Resource-Metal-Plate", "METAL_COLOR", "Product-Liquid-Tank", "MISC_COLOR_1"]
+  }
+}
