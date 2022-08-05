@@ -62,6 +62,10 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 
 	}
 
+	public void attackDamageSuffered() {
+		// TODO might want to change targeted opponent if multiple basing me
+	}
+
 	@Override
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
 		throw new NotImplementedException("Not yet implemented " + this.getClass().getSimpleName() + ".clone()");

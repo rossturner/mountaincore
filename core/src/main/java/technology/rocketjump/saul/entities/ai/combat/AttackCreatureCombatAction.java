@@ -71,6 +71,9 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 			if (weapon.getAnimatedEffectType() != null) {
 				totalAttackDuration = weapon.getAnimatedEffectType().getOverrideDuration();
 				ParticleRequestMessage requestMessage = new ParticleRequestMessage(weapon.getAnimatedEffectType(), Optional.of(parentEntity), Optional.empty(), this);
+				if (combatStats.getEquippedWeaponAttributes() != null) {
+					requestMessage.setOverrideColor(combatStats.getEquippedWeaponAttributes().getPrimaryMaterial().getColor());
+				}
 				messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, requestMessage);
 				hideWeapon();
 			} else {

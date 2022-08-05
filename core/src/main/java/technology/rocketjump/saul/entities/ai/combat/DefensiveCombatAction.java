@@ -2,6 +2,7 @@ package technology.rocketjump.saul.entities.ai.combat;
 
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -17,7 +18,14 @@ public class DefensiveCombatAction extends CombatAction {
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext, MessageDispatcher messageDispatcher) {
-
+		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+		Entity opponentEntity = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
+		if (opponentEntity != null) {
+			// Face towards opponent
+			Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
+			Vector2 opponentPosition = opponentEntity.getLocationComponent().getWorldOrParentPosition();
+			parentEntity.getLocationComponent().setFacing(opponentPosition.cpy().sub(parentPosition));
+		}
 	}
 
 	@Override

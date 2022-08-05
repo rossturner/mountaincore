@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.entities.ai.combat;
 
 import org.apache.commons.lang3.NotImplementedException;
+import technology.rocketjump.saul.entities.components.creature.ProfessionsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
@@ -15,6 +16,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
  */
 public class CreatureCombatStats {
 
+	private Entity parentEntity;
 	private WeaponInfo equippedWeapon;
 	private ItemEntityAttributes equippedWeaponAttributes;
 	private ItemQuality equippedWeaponQuality = ItemQuality.STANDARD;
@@ -30,6 +32,7 @@ public class CreatureCombatStats {
 		if (!parentEntity.getType().equals(EntityType.CREATURE)) {
 			throw new IllegalArgumentException("Creating " + getClass().getSimpleName() + " with entity of type " + parentEntity.getType());
 		}
+		this.parentEntity = parentEntity;
 
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes)parentEntity.getPhysicalEntityComponent().getAttributes();
 		equippedWeapon = attributes.getRace().getFeatures().getUnarmedWeapon();
@@ -63,6 +66,28 @@ public class CreatureCombatStats {
 	}
 
 	public int defensePoolRegainedPerDefensiveRound() {
-		throw new NotImplementedException("Add up from defensive stats");
+		int total = 0;
+		int weaponSkillLevel = getSkillLevel(equippedWeapon);
+
+		// Racial defense
+		if (racialDefense != null) {
+
+		}
+
+		return total;
+	}
+
+	private int getSkillLevel(WeaponInfo equippedWeapon) {
+		ProfessionsComponent professionsComponent = parentEntity.getComponent(ProfessionsComponent.class);
+		if (professionsComponent != null) {
+			throw new NotImplementedException("Calculate skill level with equipped weapon/unarmed");
+		} else {
+			// Default to reasonable to low skill level
+			return 30;
+		}
+	}
+
+	public ItemEntityAttributes getEquippedWeaponAttributes() {
+		return equippedWeaponAttributes;
 	}
 }
