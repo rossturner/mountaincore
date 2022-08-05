@@ -92,7 +92,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Above_Layer_3-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR",
+      "coloringLayer" : "MISC_COLOR_2",
       "offsetPixels" : {
         "x" : 11.5,
         "y" : -91.5

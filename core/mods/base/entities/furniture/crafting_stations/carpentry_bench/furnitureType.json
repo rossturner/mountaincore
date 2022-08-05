@@ -26,6 +26,8 @@
   "tags" : {
     "CRAFTING_STATION_BEHAVIOUR" : [ "CARPENTRY", "CRAFT_ITEM", "HAULING" ],
     "DECORATION_FROM_INPUT" : [ "Tool-Plane", "Tool-Saw" ],
-    "REQUIREMENT_TO_COLOR_MAPPINGS" : ["Resource-Planks", "WOOD_COLOR", "Resource-Logs", "MISC_COLOR_1"]
+    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Planks", "WOOD_COLOR", "WOOD_COLOR",
+      "Resource-Logs", "BRANCHES_COLOR", "MISC_COLOR_1",
+      "Resource-Logs", "WOOD_COLOR", "MISC_COLOR_2" ]
   }
 }
