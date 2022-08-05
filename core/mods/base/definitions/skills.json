@@ -64,5 +64,31 @@
     "i18nKey": "PROFESSION.HUNTER",
     "type": "PROFESSION",
     "icon": "profession-bow"
+  },
+
+  {
+    "name": "ARCHERY",
+    "i18nKey": "SKILL.ARCHERY",
+    "type": "COMBAT_SKILL"
+  },
+  {
+    "name": "CROSSBOWS",
+    "i18nKey": "SKILL.CROSSBOWS",
+    "type": "COMBAT_SKILL"
+  },
+  {
+    "name": "SWORDSMANSHIP",
+    "i18nKey": "SKILL.SWORDSMANSHIP",
+    "type": "COMBAT_SKILL"
+  },
+  {
+    "name": "MACES",
+    "i18nKey": "SKILL.MACES",
+    "type": "COMBAT_SKILL"
+  },
+  {
+    "name": "AXES",
+    "i18nKey": "SKILL.AXES",
+    "type": "COMBAT_SKILL"
   }
 ]

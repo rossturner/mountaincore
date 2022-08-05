@@ -4,6 +4,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.model.physical.combat.CombatDamageType;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static technology.rocketjump.saul.assets.editor.factory.ItemUIFactory.ammoTypeSelect;
 import static technology.rocketjump.saul.audio.model.SoundAssetDictionary.NULL_SOUND_ASSET;
+import static technology.rocketjump.saul.jobs.SkillDictionary.UNARMED_COMBAT_SKILL;
 
 public class WeaponInfoWidget extends VisTable {
 
@@ -19,7 +21,8 @@ public class WeaponInfoWidget extends VisTable {
 		NULL_PARTICLE_EFFECT.setName("-none-");
 	}
 
-	public WeaponInfoWidget(WeaponInfo weaponInfo, SoundAssetDictionary soundAssetDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
+	public WeaponInfoWidget(WeaponInfo weaponInfo, SoundAssetDictionary soundAssetDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary,
+							SkillDictionary skillDictionary) {
 		this.columnDefaults(0).uniformX().left();
 		this.columnDefaults(1).fillX().left();
 
@@ -45,6 +48,10 @@ public class WeaponInfoWidget extends VisTable {
 
 		this.add(WidgetBuilder.label("Requires Ammo"));
 		this.add(ammoTypeSelect(weaponInfo.getRequiresAmmoType(), weaponInfo::setRequiresAmmoType));
+		this.row();
+
+		this.add(WidgetBuilder.label("Combat skill"));
+		this.add(WidgetBuilder.select(weaponInfo.getCombatSkill(), skillDictionary.getAllCombatSkills(), UNARMED_COMBAT_SKILL, weaponInfo::setCombatSkill));
 		this.row();
 
 		this.add(WidgetBuilder.label("Fire Sound"));

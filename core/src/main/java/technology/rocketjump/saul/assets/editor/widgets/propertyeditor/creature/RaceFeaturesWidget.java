@@ -15,6 +15,7 @@ import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.features.*;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -57,7 +58,7 @@ public class RaceFeaturesWidget extends VisTable {
 
 	public RaceFeaturesWidget(RaceFeatures sourceData, GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary,
 							  MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary,
-							  ParticleEffectTypeDictionary particleEffectTypeDictionary) {
+							  ParticleEffectTypeDictionary particleEffectTypeDictionary, SkillDictionary skillDictionary) {
 
 		new CheckBoxGroup(this, "Defense", sourceData, "defense") {
 			@Override
@@ -87,7 +88,7 @@ public class RaceFeaturesWidget extends VisTable {
 			@Override
 			void initChildWidgets(VisTable childContainer, RaceFeatures sourceData) {
 				WeaponInfo unarmedWeapon = sourceData.getUnarmedWeapon();
-				childContainer.add(new WeaponInfoWidget(unarmedWeapon, soundAssetDictionary, particleEffectTypeDictionary)).left().colspan(2).row();
+				childContainer.add(new WeaponInfoWidget(unarmedWeapon, soundAssetDictionary, particleEffectTypeDictionary, skillDictionary)).left().colspan(2).row();
 			}
 		};
 

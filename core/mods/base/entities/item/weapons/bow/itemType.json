@@ -1,21 +1,21 @@
 {
-  "itemTypeName": "Weapon-Bow",
-  "materialTypes": ["WOOD"],
-  "primaryMaterialType": "WOOD",
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "stockpileGroupName": "WEAPONS",
-  "holdPosition": "LEFT_HAND",
-  "hoursInInventoryUntilUnused": 3.0,
-  "weaponInfo": {
-    "range": 9,
-    "damageType": "STABBING",
-    "modifiedByStrength": false,
-    "minDamage": 2,
-    "maxDamage": 8,
-    "requiresAmmoType": "ARROWS",
-    "fireWeaponSoundAssetName": "SFX_Hunting_Attack_Bow",
-    "weaponHitSoundAssetName": "SFX_Hunting_Impact_Stabbing_Bow",
-    "weaponMissSoundAssetName": "SFX_Hunting_Miss_Bow"
-  }
+  "itemTypeName" : "Weapon-Bow",
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD" ],
+  "primaryMaterialType" : "WOOD",
+  "holdPosition" : "LEFT_HAND",
+  "hoursInInventoryUntilUnused" : 3.0,
+  "stockpileGroupName" : "WEAPONS",
+  "weaponInfo" : {
+    "range" : 9.0,
+    "damageType" : "STABBING",
+    "minDamage" : 2,
+    "maxDamage" : 8,
+    "requiresAmmoType" : "ARROWS",
+    "combatSkillName" : "UNARMED_COMBAT",
+    "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
+    "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow"
+  },
+  "i18nKey" : "WEAPON.BOW"
 }

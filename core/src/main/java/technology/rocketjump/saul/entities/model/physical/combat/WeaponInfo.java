@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
+
+import static technology.rocketjump.saul.jobs.SkillDictionary.UNARMED_COMBAT_SKILL;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeaponInfo {
@@ -16,6 +19,9 @@ public class WeaponInfo {
 	private int maxDamage;
 	private AmmoType requiresAmmoType;
 
+	private String combatSkillName;
+	@JsonIgnore
+	private Skill combatSkill = UNARMED_COMBAT_SKILL;
 	private String fireWeaponSoundAssetName;
 	@JsonIgnore
 	private SoundAsset fireWeaponSoundAsset;
@@ -85,6 +91,23 @@ public class WeaponInfo {
 
 	public void setRequiresAmmoType(AmmoType requiresAmmoType) {
 		this.requiresAmmoType = requiresAmmoType;
+	}
+
+	public String getCombatSkillName() {
+		return combatSkillName;
+	}
+
+	public void setCombatSkillName(String combatSkillName) {
+		this.combatSkillName = combatSkillName;
+	}
+
+	public Skill getCombatSkill() {
+		return combatSkill;
+	}
+
+	public void setCombatSkill(Skill combatSkill) {
+		this.combatSkill = combatSkill;
+		this.combatSkillName = combatSkill.getName();
 	}
 
 	public String getFireWeaponSoundAssetName() {

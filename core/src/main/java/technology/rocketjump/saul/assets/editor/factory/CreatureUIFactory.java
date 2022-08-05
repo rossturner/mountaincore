@@ -284,7 +284,7 @@ public class CreatureUIFactory implements UIFactory {
 
         editorTable.add(new VisLabel("Features:")).left().colspan(2).row();
         editorTable.add(new RaceFeaturesWidget(race.getFeatures(), gameMaterialDictionary, itemTypeDictionary, messageDispatcher,
-                soundAssetDictionary, particleEffectTypeDictionary)).left().colspan(2).row();
+                soundAssetDictionary, particleEffectTypeDictionary, skillDictionary)).left().colspan(2).row();
         return editorTable;
     }
 
