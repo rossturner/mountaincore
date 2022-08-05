@@ -249,5 +249,4 @@ public class ColorsWidget extends VisTable {
 		return config;
 	}
 
-
 }

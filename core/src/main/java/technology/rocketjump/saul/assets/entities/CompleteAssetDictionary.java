@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.entities.creature.CreatureEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.assets.entities.furniture.FurnitureEntityAssetDictionary;
+import technology.rocketjump.saul.assets.entities.furniture.model.FurnitureEntityAsset;
 import technology.rocketjump.saul.assets.entities.item.ItemEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.mechanism.MechanismEntityAssetDictionary;
@@ -53,6 +54,7 @@ public class CompleteAssetDictionary {
 		allAssetsByName.put(NULL_ASSET.getUniqueName(), NULL_ASSET);
 		creatureEntityAssetDictionary.rebuild();
 		itemEntityAssetDictionary.rebuild();
+		furnitureEntityAssetDictionary.rebuild();
 	}
 
 	public void add(CreatureEntityAsset asset) {
@@ -62,6 +64,11 @@ public class CompleteAssetDictionary {
 
 	public void add(ItemEntityAsset itemEntityAsset) {
 		itemEntityAssetDictionary.add(itemEntityAsset);
+		rebuild();
+	}
+
+	public void add(FurnitureEntityAsset furnitureEntityAsset) {
+		furnitureEntityAssetDictionary.add(furnitureEntityAsset);
 		rebuild();
 	}
 

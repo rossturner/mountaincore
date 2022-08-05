@@ -6,10 +6,12 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -19,10 +21,7 @@ import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import technology.rocketjump.saul.AssetsPackager;
-import technology.rocketjump.saul.assets.editor.factory.CreatureUIFactory;
-import technology.rocketjump.saul.assets.editor.factory.FurnitureUIFactory;
-import technology.rocketjump.saul.assets.editor.factory.ItemUIFactory;
-import technology.rocketjump.saul.assets.editor.factory.UIFactory;
+import technology.rocketjump.saul.assets.editor.factory.*;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
@@ -31,13 +30,18 @@ import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
 import technology.rocketjump.saul.logging.CrashHandler;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.misc.VectorUtils;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
+
+import java.util.function.Consumer;
 
 public class AssetEditorApplication extends ApplicationAdapter implements Telegraph {
 
@@ -53,6 +57,8 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 	private CreatureUIFactory creatureUIFactory;
 	private MessageDispatcher messageDispatcher;
 	private Entity itemHoldingDwarf;
+	private static final Color WORKSPACE_TILE_COLOR = new Color(1f, 0f, 1f, 0.2f);
+	private static final Color WORKSPACE_OFFSET_TILE_COLOR = new Color(1f, 0f, 0f, 0.2f);
 
 	@Inject
 	public AssetEditorApplication(NativeFileChooser fileChooser) {
@@ -91,6 +97,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				uiFactoryMapBinder.addBinding(EntityType.CREATURE).to(CreatureUIFactory.class);
 				uiFactoryMapBinder.addBinding(EntityType.ITEM).to(ItemUIFactory.class);
 				uiFactoryMapBinder.addBinding(EntityType.FURNITURE).to(FurnitureUIFactory.class);
+				uiFactoryMapBinder.addBinding(EntityType.PLANT).to(PlantUIFactory.class);
 			}
 		});
 		injector.getInstance(CrashHandler.class); //ensure we load user preferences for crash
@@ -131,24 +138,95 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 					//render boxes
 					for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
 						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
-							renderEntityWithOrientation(currentEntity, orientation, originalPosition, currentRenderMode, false);
+							renderEntityWithOrientation(currentEntity, orientation, originalPosition, entity -> {
+								Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
+								shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+								shapeRenderer.setColor(HexColors.get("#3355BB"));
+								shapeRenderer.rect(worldPosition.x - 0.5f, worldPosition.y - 0.5f,1, 1);
+								shapeRenderer.end();
+							});
 						}
 					}
 
 					for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
 						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
 
+							Consumer<Entity> entityRenderer = entity -> {
+								spriteBatch.begin();
+								spriteBatch.setProjectionMatrix(camera.combined);
+								this.entityRenderer.render(entity, spriteBatch, currentRenderMode, null, null, null);
+								spriteBatch.end();
+							};
 							if (currentEntity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes iea && iea.getItemPlacement() == ItemPlacement.BEING_CARRIED) {
 								EquippedItemComponent equippedItemComponent = itemHoldingDwarf.getOrCreateComponent(EquippedItemComponent.class);
 								equippedItemComponent.clearMainHandItem();
 								equippedItemComponent.setMainHandItem(currentEntity, itemHoldingDwarf, messageDispatcher);
-								renderEntityWithOrientation(itemHoldingDwarf, orientation, originalPosition, currentRenderMode, true);
+								renderEntityWithOrientation(itemHoldingDwarf, orientation, originalPosition, entityRenderer);
 								equippedItemComponent.clearMainHandItem();
 							} else {
-								renderEntityWithOrientation(currentEntity, orientation, originalPosition, currentRenderMode, true);
+								renderEntityWithOrientation(currentEntity, orientation, originalPosition, entityRenderer);
 							}
+
 						}
 					}
+
+					//TODO: sort duplication
+					//TODO: consider ui toggle for layout lines
+					for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
+						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
+							renderEntityWithOrientation(itemHoldingDwarf, orientation, originalPosition, entity -> {
+								Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
+								shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+								shapeRenderer.setColor(HexColors.get("#3355BB"));
+
+								shapeRenderer.line(worldPosition.x - 0.5f, worldPosition.y - 0.5f, worldPosition.x + 0.5f, worldPosition.y + 0.5f);
+								shapeRenderer.line(worldPosition.x - 0.5f, worldPosition.y + 0.5f, worldPosition.x + 0.5f, worldPosition.y - 0.5f);
+								shapeRenderer.end();
+
+								if (currentEntity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes furnitureAttributes) {
+									FurnitureLayout currentLayout = furnitureAttributes.getCurrentLayout();
+									GridPoint2 tile = VectorUtils.toGridPoint(worldPosition);
+
+									for (FurnitureLayout.Workspace workspace : currentLayout.getWorkspaces()) {
+										GridPoint2 workspaceTile = tile.cpy().add(workspace.getLocation());
+										GridPoint2 accessedTile = tile.cpy().add(workspace.getAccessedFrom());
+										shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+
+										shapeRenderer.setColor(WORKSPACE_TILE_COLOR);
+										shapeRenderer.rect(workspaceTile.x, workspaceTile.y, 1, 1);
+
+										shapeRenderer.setColor(WORKSPACE_OFFSET_TILE_COLOR);
+//										shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
+										shapeRenderer.rect(accessedTile.x, accessedTile.y, 1, 1);
+
+										//todo: rocky learn geometry again
+//										Vector2 direction = new Vector2(accessedTile.y - workspaceTile.y, accessedTile.x - workspaceTile.x);
+//										shapeRenderer.triangle(
+//												accessedTile.x, accessedTile.y,
+//												workspaceTile.x + (direction.x / 2), workspaceTile.y + (direction.y / 2),
+//												accessedTile.x + direction.x, accessedTile.y  + direction.y
+//										);
+										shapeRenderer.end();
+
+										entity.getLocationComponent().setWorldPosition(VectorUtils.toVector(accessedTile), false, false);
+										entity.getLocationComponent().setWorldPosition(VectorUtils.toVector(workspaceTile), true, false);
+										entity.getLocationComponent().setWorldPosition(VectorUtils.toVector(accessedTile), false, false);
+
+										spriteBatch.begin();
+										spriteBatch.setProjectionMatrix(camera.combined);
+										this.entityRenderer.render(entity, spriteBatch, currentRenderMode, null, null, null);
+										spriteBatch.end();
+
+										// Reset position
+										entity.getLocationComponent().setWorldPosition(originalPosition, false, false);
+
+									}
+								}
+							});
+
+						}
+					}
+
 				}
 			}
 			ui.render();
@@ -178,7 +256,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		shapeRenderer.end();
 	}
 
-	private void renderEntityWithOrientation(Entity entity, EntityAssetOrientation orientation, Vector2 originalPosition, RenderMode renderMode, boolean renderSprite) {
+	private void renderEntityWithOrientation(Entity entity, EntityAssetOrientation orientation, Vector2 originalPosition, Consumer<Entity> renderBehavior) {
 		int spritePadding = editorStateProvider.getState().getSpritePadding();
 		float offsetX = orientation.asOriginalVector.x * spritePadding;
 		float offsetY = Math.max(orientation.asOriginalVector.y, 0) * spritePadding;
@@ -188,19 +266,8 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		// Set position
 		entity.getLocationComponent().setWorldPosition(originalPosition.cpy().add(offsetX, offsetY), false, false);
 
-		if (renderSprite) {
-			// Render
-			spriteBatch.begin();
-			spriteBatch.setProjectionMatrix(camera.combined);
-			entityRenderer.render(entity, spriteBatch, renderMode, null, null, null);
-			spriteBatch.end();
-		} else {
-			// Render outling around actual entity position
-			shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-			shapeRenderer.setColor(HexColors.get("#3355BB"));
-			shapeRenderer.rect(entity.getLocationComponent().getWorldPosition().x - 0.5f, entity.getLocationComponent().getWorldPosition().y - 0.5f,1, 1);
-			shapeRenderer.end();
-		}
+		renderBehavior.accept(entity);
+
 		// Reset position
 		entity.getLocationComponent().setWorldPosition(originalPosition, false, false);
 	}
