@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -122,7 +123,7 @@ public class AssetEditorUI implements Telegraph {
 				if (stage.getScrollFocus() == null) {
 					Actor hitActor = stage.hit(x, y, false);
 					while (hitActor != null) {
-						if (hitActor instanceof VisScrollPane) {
+						if (hitActor instanceof ScrollPane) {
 							break;
 						}
 						hitActor = hitActor.getParent();
@@ -140,7 +141,7 @@ public class AssetEditorUI implements Telegraph {
 			@Override
 			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
 				while (toActor != null) {
-					if (toActor instanceof VisScrollPane) {
+					if (toActor instanceof ScrollPane) {
 						break;
 					}
 					toActor = toActor.getParent();
