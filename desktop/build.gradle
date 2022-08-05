@@ -1,6 +1,5 @@
 apply plugin: "java"
 
-sourceCompatibility = 11
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 project.ext.mainClassName = "technology.rocketjump.saul.launcher.DesktopLauncher"
