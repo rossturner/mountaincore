@@ -13,7 +13,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.UserPreferences;
-import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 
 import static com.badlogic.gdx.graphics.GL20.*;
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.CRASH_REPORTING;
@@ -56,7 +55,7 @@ public class CrashHandler implements Telegraph {
 
 	public static void logCrash(Throwable exception) {
 		Logger.error(exception);
-		if (GlobalSettings.DEV_MODE || !reportingEnabled) {
+		if (!reportingEnabled) {
 			return;
 		}
 		try {
