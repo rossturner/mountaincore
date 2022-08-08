@@ -1883,15 +1883,29 @@
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
-          "x" : -64.0,
-          "y" : -12.0,
+          "x" : -70.0,
+          "y" : 16.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : 64.0,
+          "y" : 16.0,
           "unit" : false
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -12.0,
+          "x" : 6.0,
+          "y" : 120.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_2",
+        "offsetPixels" : {
+          "x" : -60.0,
+          "y" : 120.0,
           "unit" : false
         }
       } ],
@@ -1987,7 +2001,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -119.5,
+        "x" : -100.5,
         "y" : 12.0,
         "unit" : false
       },
@@ -2003,28 +2017,28 @@
       }, {
         "type" : "FURNITURE_BELOW_LAYER_3",
         "offsetPixels" : {
-          "x" : 119.5,
+          "x" : 109.5,
           "y" : -12.0,
           "unit" : false
         }
       }, {
         "type" : "FURNITURE_BELOW_LAYER_4",
         "offsetPixels" : {
-          "x" : 149.5,
+          "x" : 139.5,
           "y" : -12.0,
           "unit" : false
         }
       }, {
         "type" : "FURNITURE_BELOW_LAYER_5",
         "offsetPixels" : {
-          "x" : 119.5,
+          "x" : 109.5,
           "y" : -12.0,
           "unit" : false
         }
       }, {
         "type" : "FURNITURE_BELOW_LAYER_6",
         "offsetPixels" : {
-          "x" : 149.5,
+          "x" : 139.5,
           "y" : -12.0,
           "unit" : false
         }
