@@ -200,14 +200,11 @@ public class AssetEditorUI implements Telegraph {
 		// Menu
 		topLevelTable.add(topLevelMenu.getTable()).expandX().fillX().colspan(3).row();
 
-		//Body
-		VisTable viewSpace = new VisTable();
-		viewSpace.add(viewArea).expand().row(); //View area has no components, so let it take as much as possible
-		viewSpace.add(viewEditor).left().top().expandX().fill();
-
 		topLevelTable.add(leftPane).top().left().expandY().fillY();
-		topLevelTable.add(viewSpace).top().expand().fillY().fillX();
+		topLevelTable.add(viewArea).top();
 		topLevelTable.add(propertyEditorPane).top().right().expandY().fillY();
+		topLevelTable.row();
+		topLevelTable.add(viewEditor).colspan(3).center().fillX();
 	}
 
 	@Override
