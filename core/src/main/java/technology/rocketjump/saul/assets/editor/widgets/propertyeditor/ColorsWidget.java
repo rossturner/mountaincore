@@ -194,7 +194,8 @@ public class ColorsWidget extends VisTable {
 
 	private void buildFileSelector(SpeciesColor instance, ColorValueType field) {
 		try {
-			VisTextField filenameField = new VisTextField(PropertyUtils.getProperty(instance, field.name()).toString());
+			Object property = PropertyUtils.getProperty(instance, field.name());
+			VisTextField filenameField = new VisTextField(property == null ? "" : property.toString());
 			filenameField.addListener(new ChangeListener() {
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
@@ -248,6 +249,5 @@ public class ColorsWidget extends VisTable {
 		config.title = "Select swatch file (.png)";
 		return config;
 	}
-
 
 }

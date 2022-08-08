@@ -23,16 +23,19 @@ import static technology.rocketjump.saul.assets.entities.plant.PlantEntityAssets
 @Singleton
 public class PlantEntityAssetDictionary {
 
-	private final PlantEntityAssetsByType typeMap;
+	private final EntityAssetTypeDictionary entityAssetTypeDictionary;
+	private final PlantSpeciesDictionary plantSpeciesDictionary;
+	private PlantEntityAssetsByType typeMap;
 	private final Map<String, PlantEntityAsset> assetsByName = new HashMap<>();
 
 	public PlantEntityAssetDictionary(List<PlantEntityAsset> completeAssetList, EntityAssetTypeDictionary entityAssetTypeDictionary,
 									  PlantSpeciesDictionary plantSpeciesDictionary) {
-		this.typeMap = new PlantEntityAssetsByType(entityAssetTypeDictionary, plantSpeciesDictionary);
+		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
+		this.plantSpeciesDictionary = plantSpeciesDictionary;
 		for (PlantEntityAsset asset : completeAssetList) {
-			typeMap.add(asset);
 			assetsByName.put(asset.getUniqueName(), asset);
 		}
+		rebuild();
 		assetsByName.put(NULL_ENTITY_ASSET.getUniqueName(), NULL_ENTITY_ASSET);
 	}
 
@@ -56,5 +59,19 @@ public class PlantEntityAssetDictionary {
 
 	public Map<String, PlantEntityAsset> getAll() {
 		return assetsByName;
+	}
+
+	public void rebuild() {
+		this.typeMap = new PlantEntityAssetsByType(entityAssetTypeDictionary, plantSpeciesDictionary);
+		for (PlantEntityAsset asset : assetsByName.values()) {
+			if (NULL_ENTITY_ASSET != asset) {
+				typeMap.add(asset);
+			}
+		}
+	}
+
+	public void add(PlantEntityAsset asset) {
+		assetsByName.put(asset.getUniqueName(), asset);
+		rebuild();
 	}
 }

@@ -20,16 +20,21 @@ import java.util.Map;
 public class FurnitureEntityAssetDictionary {
 
 	private final Map<String, FurnitureEntityAsset> assetsByName = new HashMap<>();
+	private final EntityAssetTypeDictionary assetTypeDictionary;
+	private final FurnitureTypeDictionary typeDictionary;
+	private final FurnitureLayoutDictionary layoutDictionary;
 	private FurnitureEntityAssetsByAssetType byAssetType;
 
 	public FurnitureEntityAssetDictionary(List<FurnitureEntityAsset> completeAssetList, EntityAssetTypeDictionary assetTypeDictionary,
 										  FurnitureTypeDictionary typeDictionary, FurnitureLayoutDictionary layoutDictionary) {
-		byAssetType = new FurnitureEntityAssetsByAssetType(assetTypeDictionary, typeDictionary, layoutDictionary);
+		this.assetTypeDictionary = assetTypeDictionary;
+		this.typeDictionary = typeDictionary;
+		this.layoutDictionary = layoutDictionary;
 
 		for (FurnitureEntityAsset asset : completeAssetList) {
 			assetsByName.put(asset.getUniqueName(), asset);
-			byAssetType.add(asset);
 		}
+		rebuild();
 	}
 
 	public FurnitureEntityAsset getByUniqueName(String uniqueAssetName) {
@@ -53,4 +58,18 @@ public class FurnitureEntityAssetDictionary {
 	public Map<? extends String, ? extends EntityAsset> getAll() {
 		return assetsByName;
 	}
+
+
+	public void add(FurnitureEntityAsset asset) {
+		assetsByName.put(asset.getUniqueName(), asset);
+		rebuild();
+	}
+
+	public void rebuild() {
+		byAssetType = new FurnitureEntityAssetsByAssetType(assetTypeDictionary, typeDictionary, layoutDictionary);
+		for (FurnitureEntityAsset asset : assetsByName.values()) {
+			byAssetType.add(asset);
+		}
+	}
+
 }

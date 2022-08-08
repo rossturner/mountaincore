@@ -110,9 +110,12 @@ public class RaceFeaturesWidget extends VisTable {
 				BloodFeature blood = sourceData.getBlood();
 
 				String colorCode = blood.getColorCode();
+				Color initialColor = blood.getColor();
+
+				//TODO: replace with WidgetBuilder.colorPickerTextField
 				VisTextField colorCodeField = new VisTextField(colorCode);
 				VisTextField.VisTextFieldStyle colorCodeStyle = new VisTextField.VisTextFieldStyle(colorCodeField.getStyle());
-				colorCodeStyle.fontColor = blood.getColor();
+				colorCodeStyle.fontColor = initialColor;
 				colorCodeField.setStyle(colorCodeStyle);
 
 				colorCodeField.setText(colorCode);

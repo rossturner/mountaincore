@@ -5,11 +5,13 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.entities.creature.CreatureEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.assets.entities.furniture.FurnitureEntityAssetDictionary;
+import technology.rocketjump.saul.assets.entities.furniture.model.FurnitureEntityAsset;
 import technology.rocketjump.saul.assets.entities.item.ItemEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.mechanism.MechanismEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.plant.PlantEntityAssetDictionary;
+import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
 import technology.rocketjump.saul.assets.entities.wallcap.WallCapAssetDictionary;
 
 import java.util.HashMap;
@@ -53,6 +55,8 @@ public class CompleteAssetDictionary {
 		allAssetsByName.put(NULL_ASSET.getUniqueName(), NULL_ASSET);
 		creatureEntityAssetDictionary.rebuild();
 		itemEntityAssetDictionary.rebuild();
+		furnitureEntityAssetDictionary.rebuild();
+		plantEntityAssetDictionary.rebuild();
 	}
 
 	public void add(CreatureEntityAsset asset) {
@@ -62,6 +66,16 @@ public class CompleteAssetDictionary {
 
 	public void add(ItemEntityAsset itemEntityAsset) {
 		itemEntityAssetDictionary.add(itemEntityAsset);
+		rebuild();
+	}
+
+	public void add(FurnitureEntityAsset furnitureEntityAsset) {
+		furnitureEntityAssetDictionary.add(furnitureEntityAsset);
+		rebuild();
+	}
+
+	public void add(PlantEntityAsset asset) {
+		plantEntityAssetDictionary.add(asset);
 		rebuild();
 	}
 

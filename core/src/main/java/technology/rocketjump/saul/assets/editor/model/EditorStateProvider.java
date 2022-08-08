@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.assets.editor.model;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -28,9 +29,14 @@ public class EditorStateProvider {
 	public EditorStateProvider(SavedGameDependentDictionaries dictionaries) throws IOException, InvalidSaveException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 		if (Files.exists(STATE_FILE)) {
 			String fileText = Files.readString(STATE_FILE);
-			this.stateInstance = JSON.parseObject(fileText, EditorState.class);
-			JSONObject asJson = JSONObject.parseObject(fileText);
-			loadEntity(dictionaries, asJson);
+			try {
+				this.stateInstance = JSON.parseObject(fileText, EditorState.class);
+				JSONObject asJson = JSONObject.parseObject(fileText);
+				loadEntity(dictionaries, asJson);
+			} catch (JSONException jse) {
+				Logger.error(jse, "Something went wrong parsing the file text " + fileText);
+				throw jse;
+			}
 		} else {
 			this.stateInstance = new EditorState();
 			this.stateInstance.setModDir("mods/base");
@@ -45,12 +51,17 @@ public class EditorStateProvider {
 		try {
 			JSONObject asJsonObject = (JSONObject) JSON.toJSON(stateInstance);
 
-			if (stateInstance.getCurrentEntity() != null) {
+			Entity currentEntity = stateInstance.getCurrentEntity();
+			if (currentEntity != null) {
 				SavedGameStateHolder savedGameStateHolder = new SavedGameStateHolder();
-				stateInstance.getCurrentEntity().writeTo(savedGameStateHolder);
-
-				JSONObject serializedEntity = savedGameStateHolder.entitiesJson.getJSONObject(0);
-				asJsonObject.put(STATE_ENTITY_KEY, serializedEntity);
+				currentEntity.writeTo(savedGameStateHolder);
+				long currentEntityId = currentEntity.getId();
+				for (int i = 0; i < savedGameStateHolder.entitiesJson.size(); i++) {
+					JSONObject entityJson = savedGameStateHolder.entitiesJson.getJSONObject(i);
+					if (currentEntityId == entityJson.getLong("id")) {
+						asJsonObject.put(STATE_ENTITY_KEY, entityJson);
+					}
+				}
 			}
 
 			String outputText = JSON.toJSONString(asJsonObject, true);

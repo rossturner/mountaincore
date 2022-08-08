@@ -6,13 +6,20 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.kotcrab.vis.ui.VisUI;
+import com.kotcrab.vis.ui.layout.GridGroup;
 import com.kotcrab.vis.ui.util.InputValidator;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
@@ -20,9 +27,11 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.assets.editor.factory.UIFactory;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
+import technology.rocketjump.saul.assets.editor.message.ShowIconSelectDialogMessage;
 import technology.rocketjump.saul.assets.editor.message.ShowImportFileDialogMessage;
 import technology.rocketjump.saul.assets.editor.model.ColorPickerMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorAssetSelection;
@@ -54,6 +63,7 @@ import technology.rocketjump.saul.rendering.utils.HexColors;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_ASSET_DESCRIPTOR;
 import static technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue.TreeValueType.ENTITY_TYPE_DESCRIPTOR;
@@ -113,7 +123,7 @@ public class AssetEditorUI implements Telegraph {
 				if (stage.getScrollFocus() == null) {
 					Actor hitActor = stage.hit(x, y, false);
 					while (hitActor != null) {
-						if (hitActor instanceof VisScrollPane) {
+						if (hitActor instanceof ScrollPane) {
 							break;
 						}
 						hitActor = hitActor.getParent();
@@ -131,7 +141,7 @@ public class AssetEditorUI implements Telegraph {
 			@Override
 			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
 				while (toActor != null) {
-					if (toActor instanceof VisScrollPane) {
+					if (toActor instanceof ScrollPane) {
 						break;
 					}
 					toActor = toActor.getParent();
@@ -168,6 +178,7 @@ public class AssetEditorUI implements Telegraph {
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CREATE_ASSET_DIALOG);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_IMPORT_FILE_DIALOG);
 		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_CROP_SPRITES_DIALOG);
+		messageDispatcher.addListener(this, MessageType.EDITOR_SHOW_ICON_SELECTION_DIALOG);
 		messageDispatcher.addListener(this, MessageType.CAMERA_MOVED);
 	}
 
@@ -189,14 +200,11 @@ public class AssetEditorUI implements Telegraph {
 		// Menu
 		topLevelTable.add(topLevelMenu.getTable()).expandX().fillX().colspan(3).row();
 
-		//Body
-		VisTable viewSpace = new VisTable();
-		viewSpace.add(viewArea).expand().row(); //View area has no components, so let it take as much as possible
-		viewSpace.add(viewEditor).left().top().expandX().fill();
-
 		topLevelTable.add(leftPane).top().left().expandY().fillY();
-		topLevelTable.add(viewSpace).top().expand().fillY().fillX();
+		topLevelTable.add(viewArea).top();
 		topLevelTable.add(propertyEditorPane).top().right().expandY().fillY();
+		topLevelTable.row();
+		topLevelTable.add(viewEditor).colspan(3).center().fillX();
 	}
 
 	@Override
@@ -232,6 +240,9 @@ public class AssetEditorUI implements Telegraph {
 				EntityBrowserValue value = (EntityBrowserValue) msg.extraInfo;
 
 				if (value != null) {
+					if (editorStateProvider.getState().isAutosave()) {
+						entityBrowserPane.saveChanges();
+					}
 					EditorAssetSelection selection = new EditorAssetSelection();
 					selection.setBasePath(value.path.toString());
 					selection.setUniqueName(value.label);
@@ -294,6 +305,63 @@ public class AssetEditorUI implements Telegraph {
 			case MessageType.EDITOR_SHOW_CREATE_ASSET_DIALOG: {
 				ShowCreateAssetDialogMessage message = (ShowCreateAssetDialogMessage) msg.extraInfo;
 				OkCancelDialog dialog = currentUiFactory.createAssetDialog(message);
+				dialog.show(stage);
+				return true;
+			}
+			case MessageType.EDITOR_SHOW_ICON_SELECTION_DIALOG: {
+				ShowIconSelectDialogMessage message = (ShowIconSelectDialogMessage) msg.extraInfo;
+
+				List<Path> icons = FileUtils.findFilesByFilename(editorStateProvider.getState().getModDirPath().resolve("icons"),
+						Pattern.compile(".*\\.png"));
+
+				var selection = new Object() {
+					private VisTable selectedImage = new VisTable();
+					private Path selectedIcon = null;
+					private final Drawable defaultBgSkin = VisUI.getSkin().getDrawable("window-bg");
+					private final Drawable selectedBgSkin = VisUI.getSkin().getDrawable("list-selection");
+					void select(VisTable image, Path path) {
+						selectedImage.setBackground(defaultBgSkin);
+
+						selectedIcon = path;
+						selectedImage = image;
+						selectedImage.setBackground(selectedBgSkin);
+					}
+				};
+
+				GridGroup group = new GridGroup(64, 4);
+				for (Path iconPath : icons) {
+					Texture texture = new Texture(new FileHandle(iconPath.toFile()));
+					Image image = new Image(texture);
+					VisTable imageContainer = new VisTable();
+					imageContainer.add(image);
+					group.addActor(imageContainer);
+					imageContainer.addListener(new ClickListener() {
+						@Override
+						public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+							selection.select(imageContainer, iconPath);
+							return true;
+						}
+					});
+
+					if (message.initialIconName() != null && iconPath.toString().contains(message.initialIconName())) {
+						selection.select(imageContainer, iconPath);
+					}
+				}
+
+				VisScrollPane scrollPane = new VisScrollPane(group);
+				scrollPane.setScrollbarsVisible(true);
+				scrollPane.setScrollingDisabled(true, false);
+
+				OkCancelDialog dialog = new OkCancelDialog("Select an icon") {
+					@Override
+					public void onOk() {
+						if (selection.selectedIcon != null) {
+							message.callback().accept(FilenameUtils.removeExtension(selection.selectedIcon.getFileName().toString()));
+						}
+					}
+				};
+
+				dialog.add(scrollPane).prefWidth(64 * 9).prefHeight(64 * 3);
 				dialog.show(stage);
 				return true;
 			}

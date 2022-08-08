@@ -44,7 +44,7 @@ public class TagWidget extends VisTable {
 	private void reload() {
 		this.clearChildren();
 
-		this.add(keyField).left().expandX().fillX().colspan(2).row();
+		this.add(keyField).left().fillX().row();
 
 		for (int index = 0; index < values.size(); index++) {
 			String value = index == values.size() ? "" : values.get(index);
@@ -58,8 +58,7 @@ public class TagWidget extends VisTable {
 					sourceMap.put(key, values);
 				}
 			});
-			this.add(new VisTable()).width(40);
-			this.add(valueField).row();
+			this.add(valueField).padLeft(40).fillX().row();
 		}
 
 		VisTextButton addValueButton = new VisTextButton("Add tag value");
@@ -70,9 +69,8 @@ public class TagWidget extends VisTable {
 				reload();
 			}
 		});
-		this.add(new VisTable()).width(40);
-		this.add(addValueButton).row();
+		this.add(addValueButton).right().row();
 
-		this.addSeparator().colspan(2).row();
+		this.addSeparator().row();
 	}
 }

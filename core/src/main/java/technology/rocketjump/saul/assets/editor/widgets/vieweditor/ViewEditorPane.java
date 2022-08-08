@@ -1,8 +1,11 @@
 package technology.rocketjump.saul.assets.editor.widgets.vieweditor;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.kotcrab.vis.ui.widget.CollapsibleWidget;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisRadioButton;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -18,8 +21,11 @@ import java.util.Map;
 
 public class ViewEditorPane extends VisTable {
 
+    public static final String CLOSED_LABEL = "[>] View Editor";
+    public static final String OPEN_LABEL = "[v] View Editor";
     private final EditorStateProvider editorStateProvider;
     private final Map<EntityType, UIFactory> uiFactories;
+    private boolean isCollapsed = true;
 
     @Inject
     public ViewEditorPane(EditorStateProvider editorStateProvider, Map<EntityType, UIFactory> uiFactories) {
@@ -33,17 +39,33 @@ public class ViewEditorPane extends VisTable {
         this.clearChildren();
         setBackground("window-bg");
 
-        add(new VisLabel("View Editor")).expandX().colspan(2).row();
-        add(buildRenderModeWidget());
-        add(buildSpritePaddingWidget());
-        row();
+        VisTable viewEditorControls = new VisTable();
+        CollapsibleWidget collapsibleWidget = new CollapsibleWidget(viewEditorControls);
+        collapsibleWidget.setCollapsed(isCollapsed);
+
+        VisLabel viewEditorLabel = new VisLabel(isCollapsed ? CLOSED_LABEL : OPEN_LABEL);
+        viewEditorLabel.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                isCollapsed = !isCollapsed;
+                viewEditorLabel.setText(isCollapsed ? CLOSED_LABEL : OPEN_LABEL);
+                collapsibleWidget.setCollapsed(isCollapsed);
+                return true;
+            }
+        });
+        add(viewEditorLabel).row();
+        add(collapsibleWidget).row();
+
+        viewEditorControls.add(buildRenderModeWidget());
+        viewEditorControls.add(buildSpritePaddingWidget());
+        viewEditorControls.row();
 
         Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
         if (currentEntity != null) {
             VisTable entityAttributesPane = uiFactories.get(currentEntity.getType()).getViewEditorControls();
 
             if (entityAttributesPane != null) {
-                add(entityAttributesPane).left().fill().colspan(2).row();
+                viewEditorControls.add(entityAttributesPane).colspan(2).row();
             }
         }
 

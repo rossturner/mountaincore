@@ -144,8 +144,6 @@ public class FurnitureLayout {
 
 	@Override
 	public String toString() {
-		return "FurnitureLayout{" +
-				"uniqueName='" + uniqueName + '\'' +
-				'}';
+		return uniqueName;
 	}
 }

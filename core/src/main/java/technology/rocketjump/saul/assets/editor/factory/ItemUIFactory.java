@@ -280,6 +280,7 @@ public class ItemUIFactory implements UIFactory {
         controls.row();
 
         TagsWidget tagsWidget = new TagsWidget(itemType.getTags());
+        tagsWidget.setFillParent(true);
         CollapsibleWidget tagsCollapsible = new CollapsibleWidget(tagsWidget);
         tagsCollapsible.setCollapsed(itemType.getTags().isEmpty());
         VisLabel tagsLabel = new VisLabel("Tags (click to show)");
@@ -289,8 +290,9 @@ public class ItemUIFactory implements UIFactory {
                 tagsCollapsible.setCollapsed(!tagsCollapsible.isCollapsed());
             }
         });
-        controls.add(tagsLabel).left().expandX().fillX().colspan(2).row();
-        controls.add(tagsCollapsible).expandX().fillX().left().colspan(2).row();
+        controls.add(tagsLabel).left().row();
+        controls.add();
+        controls.add(tagsCollapsible).right().row();
 
 
 
