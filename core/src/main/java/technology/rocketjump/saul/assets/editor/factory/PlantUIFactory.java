@@ -192,7 +192,6 @@ public class PlantUIFactory implements UIFactory {
         seedControls.add(WidgetBuilder.checkboxes(seed.getPlantingSeasons(), Arrays.asList(Season.values()), seed.getPlantingSeasons()::add, seed.getPlantingSeasons()::remove));
         seedControls.row();
 
-        seedControls.setFillParent(true);
         CollapsibleWidget seedCollapsible = new CollapsibleWidget(seedControls);
         seedCollapsible.setCollapsed(plantSpecies.getSeed() == null);
         controls.add(WidgetBuilder.label("Has Seed"));
@@ -213,7 +212,7 @@ public class PlantUIFactory implements UIFactory {
                 viewEditorControls.reload();
             }
         };
-        PlantStagesWidget stagesWidget = new PlantStagesWidget(plantSpecies, messageDispatcher, fileChooser, basePath, getApplicableColoringLayers()) {
+        PlantStagesWidget stagesWidget = new PlantStagesWidget(plantSpecies, messageDispatcher, fileChooser, basePath, getApplicableColoringLayers(), materialDictionary, itemTypeDictionary) {
             @Override
             public void reload() {
                 super.reload();
@@ -232,7 +231,7 @@ public class PlantUIFactory implements UIFactory {
         controls.row();
 
 
-        controls.add(seasonsWidget).colspan(2);
+        controls.add(seasonsWidget).colspan(2).right();
         controls.row();
         controls.row().padTop(10);
 
@@ -281,7 +280,6 @@ public class PlantUIFactory implements UIFactory {
         controls.add();
         controls.add(tagsCollapsible).right().row();
 
-        controls.debug();
         return controls;
     }
 

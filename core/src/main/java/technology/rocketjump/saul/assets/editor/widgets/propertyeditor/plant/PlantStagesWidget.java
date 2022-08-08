@@ -8,8 +8,11 @@ import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.ColorsWid
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesGrowthStage;
+import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesItem;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -20,14 +23,19 @@ public class PlantStagesWidget extends VisTable {
     private final NativeFileChooser fileChooser;
     private final Path basePath;
     private final List<ColoringLayer> applicableColoringLayers;
+    private final GameMaterialDictionary materialDictionary;
+    private final ItemTypeDictionary itemTypeDictionary;
 
     public PlantStagesWidget(PlantSpecies plantSpecies, MessageDispatcher messageDispatcher,
-                             NativeFileChooser fileChooser, Path basePath, List<ColoringLayer> applicableColoringLayers) {
+                             NativeFileChooser fileChooser, Path basePath, List<ColoringLayer> applicableColoringLayers,
+                             GameMaterialDictionary materialDictionary, ItemTypeDictionary itemTypeDictionary) {
         this.plantSpecies = plantSpecies;
         this.messageDispatcher = messageDispatcher;
         this.fileChooser = fileChooser;
         this.basePath = basePath;
         this.applicableColoringLayers = applicableColoringLayers;
+        this.materialDictionary = materialDictionary;
+        this.itemTypeDictionary = itemTypeDictionary;
         reload();
     }
 
@@ -42,6 +50,12 @@ public class PlantStagesWidget extends VisTable {
             growthStageNumbers.add(new ToStringDecorator<>(i, Object::toString));
         }
 
+        Collection<ToStringDecorator<PlantSpeciesGrowthStage.PlantSpeciesHarvestType>> harvestTypes = new ArrayList<>();
+        harvestTypes.add(ToStringDecorator.none());
+        for (PlantSpeciesGrowthStage.PlantSpeciesHarvestType harvestType : PlantSpeciesGrowthStage.PlantSpeciesHarvestType.values()) {
+            harvestTypes.add(new ToStringDecorator<>(harvestType, Object::toString));
+        }
+
         for (int growthStageIndex = 0; growthStageIndex < plantSpecies.getGrowthStages().size(); growthStageIndex++) {
             PlantSpeciesGrowthStage growthStage = plantSpecies.getGrowthStages().get(growthStageIndex);
 
@@ -52,7 +66,7 @@ public class PlantStagesWidget extends VisTable {
                     this.reload();
                 })).bottom().right();
                 this.row();
-                this.addSeparator().colspan(2);
+                this.addSeparator().colspan(2).expand(false, false);
                 this.row();
 
                 this.add(WidgetBuilder.label("Next Growth Stage"));
@@ -96,30 +110,50 @@ public class PlantStagesWidget extends VisTable {
                 this.add(WidgetBuilder.label("Colors"));
                 this.row();
                 this.add(new ColorsWidget(growthStage.getColors(), applicableColoringLayers,
-                        EntityType.PLANT, basePath, fileChooser, messageDispatcher)).colspan(2).pad(15);
+                        EntityType.PLANT, basePath, fileChooser, messageDispatcher)).colspan(2);
+                this.row();
+
+
+                ToStringDecorator<Integer> initialPostHarvestStage;
+                if (growthStage.getHarvestSwitchesToGrowthStage() == null) {
+                    initialPostHarvestStage = ToStringDecorator.none();
+                } else {
+                    initialPostHarvestStage = new ToStringDecorator<>(growthStage.getHarvestSwitchesToGrowthStage(), Objects::toString);
+                }
+                this.add(WidgetBuilder.label("Post-Harvest Growth Stage"));
+                this.add(WidgetBuilder.select(initialPostHarvestStage, growthStageNumbers, null, selected -> {
+                    growthStage.setHarvestSwitchesToGrowthStage(selected.getObject());
+                })).fillX();
+                this.row();
+
+                ToStringDecorator<PlantSpeciesGrowthStage.PlantSpeciesHarvestType> initialHarvestType;
+                if (growthStage.getHarvestType() == null) {
+                    initialHarvestType = ToStringDecorator.none();
+                } else {
+                    initialHarvestType = new ToStringDecorator<>(growthStage.getHarvestType(), Objects::toString);
+                }
+
+                this.add(WidgetBuilder.label("Harvest Type"));
+                this.add(WidgetBuilder.select(initialHarvestType, harvestTypes, null, selected -> {
+                    growthStage.setHarvestType(selected.getObject());
+                })).fillX();
+                this.row();
+
+                PlantSpeciesItemWidget itemWidget = new PlantSpeciesItemWidget(growthStage, materialDictionary, itemTypeDictionary);
+
+                this.add(itemWidget).colspan(2);
+                this.row();
+                this.add(WidgetBuilder.button("Add Harvest Item", x -> {
+                    growthStage.getHarvestedItems().add(new PlantSpeciesItem());
+                    itemWidget.reload();
+                })).colspan(2).right();
                 this.row();
 
 
                 this.row();
-                this.addSeparator().colspan(2);
+                this.addSeparator().colspan(2).expand(false, false);
                 this.row();
             }
         }
-
-
-
-        /*
-	private PlantSpeciesHarvestType harvestType = null;
-	private Integer harvestSwitchesToGrowthStage = null;
-	private List<PlantSpeciesItem> harvestedItems = new ArrayList<>();
-
-	// TODO might work better to replace this with JobType
-	public enum PlantSpeciesHarvestType {
-
-		LOGGING, FORAGING, FARMING
-
-	}
-         */
-
     }
 }
