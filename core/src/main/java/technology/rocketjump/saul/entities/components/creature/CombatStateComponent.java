@@ -2,7 +2,7 @@ package technology.rocketjump.saul.entities.components.creature;
 
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import technology.rocketjump.saul.entities.ai.combat.CombatAction;
+import com.badlogic.gdx.math.GridPoint2;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -23,7 +23,7 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 	private boolean engagedInMelee;
 	private int defensePool; // TODO fill this upon entering combat
 
-	private CombatAction currentAction;
+	private GridPoint2 heldLocation; // The tile the combatant is keeping control of - other combatants should not share this tile
 	private Long targetedOpponentId;
 	private List<Long> opponentEntityIds = new ArrayList<>();
 
@@ -37,7 +37,7 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 		this.hasInitiative = false;
 		this.engagedInMelee = false;
 		this.defensePool = 0;
-		this.currentAction = null;
+		this.heldLocation = null;
 		this.targetedOpponentId = null;
 		this.opponentEntityIds = new ArrayList<>();
 	}
@@ -99,19 +99,15 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 		this.engagedInMelee = engagedInMelee;
 	}
 
-	public CombatAction getCurrentAction() {
-		return currentAction;
-	}
-
-	public void setCurrentAction(CombatAction currentAction) {
-		this.currentAction = currentAction;
-	}
-
 	public int getDefensePool() {
 		return defensePool;
 	}
 
 	public void setDefensePool(int defensePool) {
 		this.defensePool = defensePool;
+	}
+
+	public GridPoint2 getHeldLocation() {
+		return heldLocation;
 	}
 }

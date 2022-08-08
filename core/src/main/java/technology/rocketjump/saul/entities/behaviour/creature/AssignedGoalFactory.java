@@ -2,10 +2,12 @@ package technology.rocketjump.saul.entities.behaviour.creature;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
+import technology.rocketjump.saul.entities.ai.combat.EnteringCombatException;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -41,7 +43,7 @@ import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 public class AssignedGoalFactory {
 
 	// MODDING expose these
-	private static final float MAX_DISTANCE_TO_DOUSE_FIRE = 12f;
+	private static final float MAX_DISTANCE_TO_LIQUID_FOR_DOUSE_FIRE = 12f;
 	private static final float AMOUNT_REQUIRED_TO_DOUSE_FIRE = 0.5f;
 
 
@@ -139,7 +141,7 @@ public class AssignedGoalFactory {
 		return null;
 	}
 
-	public static AssignedGoal tantrumGoal(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+	public static AssignedGoal tantrumGoal(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) throws EnteringCombatException {
 		GridPoint2 parentLocation = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition()).getTilePosition();
 
 		Entity target = null;
@@ -188,15 +190,14 @@ public class AssignedGoalFactory {
 		if (target == null) {
 			return new AssignedGoal(IDLE.getInstance(), parentEntity, messageDispatcher);
 		} else {
-			AssignedGoal assignedGoal = new AssignedGoal(ATTACK_AGGRESSOR.getInstance(), parentEntity, messageDispatcher);
-
 			Memory tantrumMemory = new Memory(MemoryType.HAD_A_TANTRUM, gameContext.getGameClock());
 			parentEntity.getComponent(MemoryComponent.class).addLongTerm(tantrumMemory);
 			tantrumMemory.setRelatedEntityId(target.getId());
 
-
-			assignedGoal.setRelevantMemory(tantrumMemory);
-			return assignedGoal;
+			CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+			combatStateComponent.clearState();
+			combatStateComponent.setTargetedOpponentId(target.getId());
+			throw new EnteringCombatException();
 		}
 	}
 
@@ -227,7 +228,7 @@ public class AssignedGoalFactory {
 			if (liquidAllocation.get().isPresent()) {
 				GridPoint2 accessLocation = liquidAllocation.get().get().getTargetZoneTile().getAccessLocation();
 				float distanceToLiquidAllocation = parentEntity.getLocationComponent().getWorldOrParentPosition().dst(toVector(accessLocation));
-				if (distanceToLiquidAllocation > MAX_DISTANCE_TO_DOUSE_FIRE) {
+				if (distanceToLiquidAllocation > MAX_DISTANCE_TO_LIQUID_FOR_DOUSE_FIRE) {
 					messageDispatcher.dispatchMessage(MessageType.LIQUID_ALLOCATION_CANCELLED, liquidAllocation.get());
 					liquidAllocation.set(Optional.empty());
 				} else {

@@ -130,6 +130,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			try {
 				combatBehaviour.update(deltaTime);
 			} catch (ExitingCombatException e) {
+				combatBehaviour.onExitingCombat();
 				messageDispatcher.dispatchMessage(MessageType.CREATURE_EXITING_COMBAT, parentEntity);
 			}
 		}
@@ -139,9 +140,9 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			try {
 				currentGoal = pickNextGoalFromQueue();
 			} catch (EnteringCombatException e) {
+				combatBehaviour.onEnteringCombat();
 				// Currently assuming whatever threw this has first cleared the CombatStateComponent
 				// Only switch to combat when we need to pick a new goal - previous goal may have needed to clean up interrupted actions
-				// TODO equip weapons/armour for combat
 				messageDispatcher.dispatchMessage(MessageType.CREATURE_ENTERING_COMBAT, parentEntity);
 				return;
 			}

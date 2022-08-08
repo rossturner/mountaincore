@@ -8,6 +8,7 @@ import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
@@ -20,6 +21,7 @@ import technology.rocketjump.saul.entities.model.physical.creature.HaulingCompon
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.planning.PathfindingCallback;
+import technology.rocketjump.saul.entities.planning.PathfindingFlag;
 import technology.rocketjump.saul.entities.planning.PathfindingTask;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.model.Job;
@@ -31,6 +33,9 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
@@ -52,6 +57,7 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 
 	protected Vector2 overrideLocation;
 	private transient PathfindingTask pathfindingTask;
+	protected List<PathfindingFlag> pathfindingFlags = List.of();
 
 	public GoToLocationAction(AssignedGoal parent) {
 		super(parent);
@@ -71,7 +77,7 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 			}
 			PathfindingRequestMessage pathfindingRequestMessage = new PathfindingRequestMessage(
 					parent.parentEntity, parent.parentEntity.getLocationComponent().getWorldPosition(),
-					destination, gameContext.getAreaMap(), this, parent.parentEntity.getId());
+					destination, gameContext.getAreaMap(), this, parent.parentEntity.getId(), pathfindingFlags);
 
 			parent.messageDispatcher.dispatchMessage(MessageType.PATHFINDING_REQUEST, pathfindingRequestMessage);
 		} else if (path == null) {
@@ -282,17 +288,15 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-		if (pathfindingRequested) {
-			asJson.put("pathfindingRequested", true);
-		}
-
 		if (path != null) {
+			asJson.put("pathfindingRequested", true);
 			JSONArray pathJson = new JSONArray();
 			for (Vector2 pathNode : path) {
 				pathJson.add(JSONUtils.toJSON(pathNode));
 			}
 			asJson.put("path", pathJson);
 		}
+		// if pathfindingRequested is true but we don't have a path yet, don't save it, so we'll ask for pathfinding again on load
 
 		if (timeWaitingForPath > 0f) {
 			asJson.put("timeWaitingForPath", timeWaitingForPath);
@@ -302,6 +306,11 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 		}
 		if (overrideLocation != null) {
 			asJson.put("overrideLocation", JSONUtils.toJSON(overrideLocation));
+		}
+		if (!pathfindingFlags.isEmpty()) {
+			JSONArray pathfindingFlagsJson = new JSONArray();
+			pathfindingFlags.forEach(flag -> pathfindingFlagsJson.add(flag.name()));
+			asJson.put("pathfindingFlags", pathfindingFlagsJson);
 		}
 	}
 
@@ -320,5 +329,13 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 		this.timeWaitingForPath = asJson.getFloatValue("timeWaitingForPath");
 		this.pathCursor = asJson.getIntValue("pathCursor");
 		this.overrideLocation = JSONUtils.vector2(asJson.getJSONObject("overrideLocation"));
+
+		JSONArray pathfindingFlagsJson = asJson.getJSONArray("pathfindingFlags");
+		if (pathfindingFlagsJson != null) {
+			pathfindingFlags = new ArrayList<>();
+			for (Object flagName : pathfindingFlagsJson) {
+				pathfindingFlags.add(EnumUtils.getEnum(PathfindingFlag.class, flagName.toString()));
+			}
+		}
 	}
 }

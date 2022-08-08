@@ -9,10 +9,12 @@ import com.google.inject.Singleton;
 import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
+import technology.rocketjump.saul.entities.ai.combat.CreatureCombat;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.items.ProjectileBehaviour;
+import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
@@ -28,6 +30,7 @@ import technology.rocketjump.saul.entities.model.physical.creature.status.*;
 import technology.rocketjump.saul.entities.model.physical.furniture.EntityDestructionCause;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -46,8 +49,6 @@ import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 @Singleton
 public class CombatMessageHandler implements Telegraph, GameContextAware {
 
-	private static final float NORMAL_CHANCE_TO_HIT = 0.7f;
-	private static final float CHANCE_TO_HIT_WHEN_BLINDED = 0.05f;
 	private static final int DAMAGE_TO_DESTROY_FURNITURE = 10;
 	private final MessageDispatcher messageDispatcher;
 	private final ItemEntityFactory itemEntityFactory;
@@ -94,21 +95,23 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private void handleAttackWithWeapon(CombatAttackMessage attackMessage) {
-		boolean isRangedAttack = attackMessage.weaponItemType.getWeaponInfo().getRange() > 1 && attackMessage.weaponItemType.getWeaponInfo().getRequiresAmmoType() != null;
+		CreatureCombat attackerCombat = new CreatureCombat(attackMessage.attackerEntity);
+
+		boolean isRangedAttack = attackerCombat.getWeaponRangeAsInt() > 1 && attackerCombat.getEquippedWeapon().getRequiresAmmoType() != null;
 
 		if (isRangedAttack) {
 			// create ongoing effect of arrow moving towards target with rotation set
 			if (attackMessage.ammoAttributes != null) {
 				createProjectile(attackMessage);
-				if (attackMessage.weaponItemType.getWeaponInfo().getFireWeaponSoundAsset() != null) {
+				if (attackerCombat.getEquippedWeapon().getFireWeaponSoundAsset() != null) {
 					messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(
-						attackMessage.weaponItemType.getWeaponInfo().getFireWeaponSoundAsset(), attackMessage.attackerEntity
+						attackerCombat.getEquippedWeapon().getFireWeaponSoundAsset(), attackMessage.attackerEntity
 					));
 				}
 			}
 		} else {
 			// is a melee attack
-			boolean attackHits = gameContext.getRandom().nextFloat() < getChanceToHitWithAttack(attackMessage.attackerEntity);
+			boolean attackHits = !isBlinded(attackMessage.attackerEntity);
 			if (attackHits) {
 				applyAttackDamage(attackMessage);
 			}
@@ -118,22 +121,22 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 
 	private void triggerHitOrMissSound(CombatAttackMessage attackMessage, boolean attackHits) {
 		if (attackHits) {
-			if (attackMessage.weaponItemType.getWeaponInfo().getWeaponHitSoundAsset() != null) {
+			if (attackMessage.weaponAttack.getWeaponHitSoundAsset() != null) {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(
-						attackMessage.weaponItemType.getWeaponInfo().getWeaponHitSoundAsset(), attackMessage.defenderEntity
+						attackMessage.weaponAttack.getWeaponHitSoundAsset(), attackMessage.defenderEntity
 				));
 			}
 		} else {
-			if (attackMessage.weaponItemType.getWeaponInfo().getWeaponMissSoundAsset() != null) {
+			if (attackMessage.weaponAttack.getWeaponMissSoundAsset() != null) {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(
-						attackMessage.weaponItemType.getWeaponInfo().getWeaponMissSoundAsset(), attackMessage.defenderEntity
+						attackMessage.weaponAttack.getWeaponMissSoundAsset(), attackMessage.defenderEntity
 				));
 			}
 		}
 	}
 
 	private void handleProjectileImpact(CombatAttackMessage attackMessage) {
-		boolean attackHits = gameContext.getRandom().nextFloat() < getChanceToHitWithAttack(attackMessage.attackerEntity);
+		boolean attackHits = !isBlinded(attackMessage.attackerEntity);
 		if (attackHits) {
 			applyAttackDamage(attackMessage);
 		}
@@ -149,41 +152,34 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		ProjectileBehaviour projectileBehaviour = new ProjectileBehaviour();
 		projectileBehaviour.setAttackerEntity(attackMessage.attackerEntity);
 		projectileBehaviour.setDefenderEntity(attackMessage.defenderEntity);
-		projectileBehaviour.setWeaponItemType(attackMessage.weaponItemType);
+		projectileBehaviour.setWeaponAttack(attackMessage.weaponAttack);
 		projectileBehaviour.init(projectileEntity, messageDispatcher, gameContext);
 		projectileEntity.replaceBehaviourComponent(projectileBehaviour);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, projectileEntity);
 	}
 
-	private float getChanceToHitWithAttack(Entity attackerEntity) {
+	private boolean isBlinded(Entity attackerEntity) {
 		StatusComponent statusComponent = attackerEntity.getComponent(StatusComponent.class);
-		if (statusComponent.contains(Blinded.class) || statusComponent.contains(TemporaryBlinded.class)) {
-			return CHANCE_TO_HIT_WHEN_BLINDED;
-		} else {
-			return NORMAL_CHANCE_TO_HIT;
-		}
+		return statusComponent.contains(Blinded.class) || statusComponent.contains(TemporaryBlinded.class);
 	}
 
 	private void applyAttackDamage(CombatAttackMessage attackMessage) {
-		int damageAmount = attackMessage.weaponItemType.getWeaponInfo().getMinDamage() + gameContext.getRandom().nextInt(
-				attackMessage.weaponItemType.getWeaponInfo().getMaxDamage() - attackMessage.weaponItemType.getWeaponInfo().getMinDamage()
+		int damageAmount = attackMessage.weaponAttack.getMinDamage() + gameContext.getRandom().nextInt(
+				attackMessage.weaponAttack.getMaxDamage() - attackMessage.weaponAttack.getMinDamage()
 		);
+		damageAmount = scaleDamageByWeaponQuality(damageAmount, attackMessage.weaponAttack.getWeaponQuality());
 
-		if (attackMessage.weaponItemType.getWeaponInfo().isModifiedByStrength()) {
+		if (attackMessage.weaponAttack.isModifiedByStrength()) {
 			damageAmount += getStrengthModifier(attackMessage.attackerEntity);
 		}
 
-		CombatDamageType damageType = attackMessage.weaponItemType.getWeaponInfo().getDamageType();
-
+		CombatDamageType damageType = attackMessage.weaponAttack.getDamageType();
 
 		// reduce by target's damage reduction
-		if (attackMessage.defenderEntity.getType().equals(EntityType.CREATURE)) {
-			CreatureEntityAttributes attributes = (CreatureEntityAttributes) attackMessage.defenderEntity.getPhysicalEntityComponent().getAttributes();
-			if (attributes.getRace().getFeatures().getDefense() != null) {
-				damageAmount -= attributes.getRace().getFeatures().getDefense().getDamageReduction().getOrDefault(damageType, 0);
-			}
 
-			// TODO reduce by armour damage reduction
+		if (attackMessage.defenderEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes defenderAttributes) {
+			CreatureCombat defenderCombat = new CreatureCombat(attackMessage.defenderEntity);
+			damageAmount -= defenderCombat.getDamageReduction(damageType);
 
 			if (attackMessage.attackerEntity.getType().equals(EntityType.CREATURE)) {
 				MemoryComponent memoryComponent = attackMessage.defenderEntity.getOrCreateComponent(MemoryComponent.class);
@@ -196,41 +192,57 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 				return;
 			}
 
-			BodyPart impactedBodyPart = attributes.getBody().randomlySelectPartBasedOnSize(gameContext.getRandom());
-			BodyPartDamage currentDamage = attributes.getBody().getDamage(impactedBodyPart);
-			Optional<BodyPartOrgan> impactedOrgan = impactedBodyPart.rollToHitOrgan(gameContext.getRandom(), currentDamage);
-
-			if (impactedOrgan.isPresent()) {
-				BodyPartOrgan targetOrgan = impactedOrgan.get();
-				OrganDamageLevel currentOrganDamage = attributes.getBody().getOrganDamage(impactedBodyPart, targetOrgan);
-				damageAmount += currentOrganDamage.furtherDamageModifier;
-				OrganDamageLevel newOrganDamage = OrganDamageLevel.getForDamageAmount(damageAmount);
-				if (newOrganDamage.isGreaterThan(currentOrganDamage)) {
-					attributes.getBody().setOrganDamage(impactedBodyPart, targetOrgan, newOrganDamage);
-					messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
-							attackMessage.defenderEntity, impactedBodyPart, targetOrgan, newOrganDamage
-					));
-				}
+			// TODO don't use defense pool if attack is from behind/asleep
+			CombatStateComponent defenderCombatState = attackMessage.defenderEntity.getComponent(CombatStateComponent.class);
+			int defenderDefensePool = defenderCombatState.getDefensePool();
+			if (damageAmount > defenderDefensePool) {
+				damageAmount = damageAmount - defenderDefensePool;
+				defenderCombatState.setDefensePool(0);
 			} else {
-				// impacted with body part only
-				damageAmount += currentDamage.getDamageLevel().furtherDamageModifier;
-				BodyPartDamageLevel newDamageLevel = BodyPartDamageLevel.getForDamageAmount(damageAmount);
-				if (newDamageLevel.isGreaterThan(currentDamage.getDamageLevel())) {
-					attributes.getBody().setDamage(impactedBodyPart, newDamageLevel);
-					messageDispatcher.dispatchMessage(MessageType.CREATURE_DAMAGE_APPLIED, new CreatureDamagedMessage(
-							attackMessage.defenderEntity, impactedBodyPart, newDamageLevel
-					));
-
-					if (newDamageLevel.equals(Destroyed)) {
-						bodyPartDestroyed(impactedBodyPart, attributes.getBody(), attackMessage.defenderEntity);
-					}
-				}
+				defenderCombatState.setDefensePool(defenderDefensePool - damageAmount);
 			}
 
-			Vector2 knockbackVector = attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition().cpy().sub(
-					attackMessage.attackerEntity.getLocationComponent().getWorldOrParentPosition()
-			).nor().scl(damageAmount / 4f);
-			attackMessage.defenderEntity.getBehaviourComponent().getSteeringComponent().setKnockback(knockbackVector);
+			// TODO might want to inform defender they suffered damage (if in combat)
+
+			if (damageAmount > 0) {
+				BodyPart impactedBodyPart = defenderAttributes.getBody().randomlySelectPartBasedOnSize(gameContext.getRandom());
+				BodyPartDamage currentDamage = defenderAttributes.getBody().getDamage(impactedBodyPart);
+				Optional<BodyPartOrgan> impactedOrgan = impactedBodyPart.rollToHitOrgan(gameContext.getRandom(), currentDamage);
+
+				if (impactedOrgan.isPresent()) {
+					BodyPartOrgan targetOrgan = impactedOrgan.get();
+					OrganDamageLevel currentOrganDamage = defenderAttributes.getBody().getOrganDamage(impactedBodyPart, targetOrgan);
+					damageAmount += currentOrganDamage.furtherDamageModifier;
+					OrganDamageLevel newOrganDamage = OrganDamageLevel.getForDamageAmount(damageAmount);
+					if (newOrganDamage.isGreaterThan(currentOrganDamage)) {
+						defenderAttributes.getBody().setOrganDamage(impactedBodyPart, targetOrgan, newOrganDamage);
+						messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
+								attackMessage.defenderEntity, impactedBodyPart, targetOrgan, newOrganDamage
+						));
+					}
+				} else {
+					// impacted with body part only
+					damageAmount += currentDamage.getDamageLevel().furtherDamageModifier;
+					BodyPartDamageLevel newDamageLevel = BodyPartDamageLevel.getForDamageAmount(damageAmount);
+					if (newDamageLevel.isGreaterThan(currentDamage.getDamageLevel())) {
+						defenderAttributes.getBody().setDamage(impactedBodyPart, newDamageLevel);
+						messageDispatcher.dispatchMessage(MessageType.CREATURE_DAMAGE_APPLIED, new CreatureDamagedMessage(
+								attackMessage.defenderEntity, impactedBodyPart, newDamageLevel
+						));
+
+						if (newDamageLevel.equals(Destroyed)) {
+							bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity);
+						}
+					}
+				}
+
+				// TODO change knockback mechanics incl. when damage impacts defense pool only
+				Vector2 knockbackVector = attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition().cpy().sub(
+						attackMessage.attackerEntity.getLocationComponent().getWorldOrParentPosition()
+				).nor().scl(damageAmount / 4f);
+				attackMessage.defenderEntity.getBehaviourComponent().getSteeringComponent().setKnockback(knockbackVector);
+			}
+
 		} else if (attackMessage.defenderEntity.getType().equals(EntityType.FURNITURE)) {
 			FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) attackMessage.defenderEntity.getPhysicalEntityComponent().getAttributes();
 			attributes.setDamageAmount(attributes.getDamageAmount() + damageAmount);
@@ -395,6 +407,10 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 
 	public static int getAbilityScoreModifier(int score) {
 		return (score / 3) - 3;
+	}
+
+	private int scaleDamageByWeaponQuality(int damageAmount, ItemQuality weaponQuality) {
+		return Math.round((float)damageAmount * weaponQuality.combatMultiplier);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public abstract class CombatAction implements ChildPersistable {
 		this.parentEntity = parentEntity;
 	}
 
-	public abstract void update(float deltaTime, GameContext gameContext, MessageDispatcher messageDispatcher);
+	public abstract void update(float deltaTime, GameContext gameContext, MessageDispatcher messageDispatcher) throws ExitingCombatException;
 
 	public abstract void interrupted(MessageDispatcher messageDispatcher); // do any cleanup when switching to other action mid-way through round
 
@@ -29,4 +29,7 @@ public abstract class CombatAction implements ChildPersistable {
 
 	public abstract boolean completesInOneRound();
 
+	public boolean isCompleted() {
+		return completed;
+	}
 }

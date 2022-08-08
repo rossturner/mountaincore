@@ -49,11 +49,6 @@
   "type" : "PROFESSION",
   "icon" : "profession-fishing-rod"
 }, {
-  "name" : "HUNTER",
-  "i18nKey" : "PROFESSION.HUNTER",
-  "type" : "PROFESSION",
-  "icon" : "profession-bow"
-}, {
   "name" : "ARCHERY",
   "i18nKey" : "SKILL.ARCHERY",
   "type" : "COMBAT_SKILL"

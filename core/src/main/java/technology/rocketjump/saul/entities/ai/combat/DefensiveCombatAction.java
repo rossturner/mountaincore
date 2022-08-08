@@ -41,7 +41,7 @@ public class DefensiveCombatAction extends CombatAction {
 	@Override
 	public void onRoundCompletion() {
 		super.onRoundCompletion();
-		CreatureCombatStats combatStats = new CreatureCombatStats(parentEntity);
+		CreatureCombat combatStats = new CreatureCombat(parentEntity);
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 
 		if (!combatStateComponent.isHasInitiative()) {

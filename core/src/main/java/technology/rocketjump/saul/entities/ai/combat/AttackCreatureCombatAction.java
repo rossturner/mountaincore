@@ -3,10 +3,14 @@ package technology.rocketjump.saul.entities.ai.combat;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
+import technology.rocketjump.saul.combat.model.WeaponAttack;
+import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.CombatAttackMessage;
@@ -19,6 +23,7 @@ import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import java.util.Optional;
 
 import static technology.rocketjump.saul.entities.behaviour.creature.CombatBehaviour.isInRangeOfOpponent;
+import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 
 public class AttackCreatureCombatAction extends CombatAction implements ParticleRequestMessage.ParticleCreationCallback {
 
@@ -64,7 +69,7 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 
 	private void beginAttack(GameContext gameContext, MessageDispatcher messageDispatcher) {
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
-		CreatureCombatStats combatStats = new CreatureCombatStats(parentEntity);
+		CreatureCombat combatStats = new CreatureCombat(parentEntity);
 
 		if (isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()))) {
 			WeaponInfo weapon = combatStats.getEquippedWeapon();
@@ -86,9 +91,14 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 	}
 
 	private void triggerAttack(Entity targetedEntity, MessageDispatcher messageDispatcher) {
-		messageDispatcher.dispatchMessage(MessageType.MAKE_ATTACK_WITH_WEAPON, new CombatAttackMessage(parentEntity, targetedEntity));
+		CreatureCombat creatureCombat = new CreatureCombat(parentEntity);
+		ItemEntityAttributes ammoAttributes = decrementAmmoFromInventory(creatureCombat.getEquippedWeapon().getRequiresAmmoType(), messageDispatcher);
+		messageDispatcher.dispatchMessage(MessageType.MAKE_ATTACK_WITH_WEAPON, new CombatAttackMessage(
+				parentEntity, targetedEntity, new WeaponAttack(creatureCombat.getEquippedWeapon(), creatureCombat.getEquippedWeaponQuality()),
+				ammoAttributes));
 		attackMade = true;
 	}
+
 
 	@Override
 	public void interrupted(MessageDispatcher messageDispatcher) {
@@ -122,6 +132,31 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 		if (equippedItemComponent != null) {
 			equippedItemComponent.setHideMainHandItem(true);
 		}
+	}
+
+	private ItemEntityAttributes decrementAmmoFromInventory(AmmoType requiredAmmoType, MessageDispatcher messageDispatcher) {
+		if (requiredAmmoType == null) {
+			return null;
+		}
+		Optional<InventoryComponent.InventoryEntry> inventoryEntry = parentEntity.getComponent(InventoryComponent.class).getInventoryEntries()
+				.stream()
+				.filter(e -> e.entity.getType().equals(ITEM) &&
+						requiredAmmoType.equals(((ItemEntityAttributes) e.entity.getPhysicalEntityComponent().getAttributes()).getItemType().getIsAmmoType()))
+				.findFirst();
+		if (inventoryEntry.isPresent()) {
+			ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryEntry.get().entity.getPhysicalEntityComponent().getAttributes();
+
+			ItemEntityAttributes cloned = attributes.clone();
+			cloned.setQuantity(1);
+
+			attributes.setQuantity(attributes.getQuantity() - 1);
+			if (attributes.getQuantity() <= 0) {
+				messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, inventoryEntry.get().entity);
+			}
+
+			return cloned;
+		}
+		return null;
 	}
 
 	public float getTimeUntilAttack() {

@@ -16,7 +16,6 @@ public class DefenseInfo {
 
 	private Integer maxDefensePoints;
 	private Integer maxDefenseRegainedPerRound;
-
 	private Map<CombatDamageType, Integer> damageReduction = new EnumMap<>(CombatDamageType.class);
 
 	public Integer getMaxDefensePoints() {

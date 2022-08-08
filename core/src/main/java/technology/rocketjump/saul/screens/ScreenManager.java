@@ -129,12 +129,11 @@ public class ScreenManager implements Telegraph, GameContextAware {
 				!Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.ENABLE_TUTORIAL, "true"));
 	}
 
-	private static final boolean smallStart = true;
 	public static boolean STRESS_TEST = false;
 
 	private List<Skill> buildProfessionList() {
 		List<Skill> professionList = new ArrayList<>();
-		if (!DEV_MODE && smallStart) {
+		if (!DEV_MODE) {
 			add(professionList, "MINER", 1);
 			add(professionList, "LUMBERJACK", 1);
 			add(professionList, "CARPENTER", 1);
@@ -147,7 +146,7 @@ public class ScreenManager implements Telegraph, GameContextAware {
 			for (int cursor = 0; cursor < 1000; cursor++) {
 				professionList.add(allProfessions.get(cursor % allProfessions.size()));
 			}
-		} else if (DEV_MODE) {
+		} else {
 			for (int iteration = 0; iteration < 4; iteration++) {
 				for (Skill profession : skillDictionary.getAllProfessions()) {
 					if (profession.getName().equals("VILLAGER")) {
@@ -156,15 +155,6 @@ public class ScreenManager implements Telegraph, GameContextAware {
 					professionList.add(profession);
 				}
 			}
-		} else {
-			add(professionList, "MINER", 3);
-			add(professionList, "LUMBERJACK", 3);
-			add(professionList, "CARPENTER", 3);
-			add(professionList, "STONEMASON", 3);
-			add(professionList, "BLACKSMITH", 2);
-			add(professionList, "FARMER", 4);
-			add(professionList, "CHEF", 2);
-			add(professionList, "HUNTER", 2);
 		}
 
 		return professionList;

@@ -3,6 +3,7 @@ package technology.rocketjump.saul.entities.ai.combat;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.combat.CombatDamageType;
 import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -13,7 +14,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 /**
  * Class to represent and lookup the attack and defense of an entity in combat
  */
-public class CreatureCombatStats {
+public class CreatureCombat {
 
 	private Entity parentEntity;
 	private WeaponInfo equippedWeapon;
@@ -27,7 +28,7 @@ public class CreatureCombatStats {
 	private ItemQuality equippedArmourQuality = ItemQuality.STANDARD;
 
 
-	public CreatureCombatStats(Entity parentEntity) {
+	public CreatureCombat(Entity parentEntity) {
 		if (!parentEntity.getType().equals(EntityType.CREATURE)) {
 			throw new IllegalArgumentException("Creating " + getClass().getSimpleName() + " with entity of type " + parentEntity.getType());
 		}
@@ -108,5 +109,23 @@ public class CreatureCombatStats {
 
 	public ItemEntityAttributes getEquippedWeaponAttributes() {
 		return equippedWeaponAttributes;
+	}
+
+	public ItemQuality getEquippedWeaponQuality() {
+		return equippedWeaponQuality;
+	}
+
+	public int getDamageReduction(CombatDamageType damageType) {
+		int totalDamageReduction = 0;
+		if (equippedShield != null) {
+			totalDamageReduction += equippedShield.getDamageReduction().getOrDefault(damageType, 0);
+		}
+		if (equippedArmour != null) {
+			totalDamageReduction += equippedArmour.getDamageReduction().getOrDefault(damageType, 0);
+		}
+		if (racialDefense != null) {
+			totalDamageReduction += racialDefense.getDamageReduction().getOrDefault(damageType, 0);
+		}
+		return totalDamageReduction;
 	}
 }

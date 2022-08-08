@@ -4,12 +4,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
+import technology.rocketjump.saul.combat.model.WeaponAttack;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -31,7 +31,7 @@ public class ProjectileBehaviour implements BehaviourComponent {
 	private Entity parentEntity;
 	private Entity attackerEntity;
 	private Entity defenderEntity;
-	private ItemType weaponItemType;
+	private WeaponAttack weaponAttack;
 	private Set<Long> otherEntitiesEncountered = new HashSet<>();
 
 	@Override
@@ -49,7 +49,7 @@ public class ProjectileBehaviour implements BehaviourComponent {
 		cloned.init(parentEntity, messageDispatcher, gameContext);
 		cloned.attackerEntity = this.attackerEntity;
 		cloned.defenderEntity = this.defenderEntity;
-		cloned.weaponItemType = this.weaponItemType;
+		cloned.weaponAttack = this.weaponAttack;
 		return cloned;
 	}
 
@@ -97,7 +97,7 @@ public class ProjectileBehaviour implements BehaviourComponent {
 
 	private void impactWith(Entity impactedEntity) {
 		messageDispatcher.dispatchMessage(MessageType.COMBAT_PROJECTILE_REACHED_TARGET,
-				new CombatAttackMessage(attackerEntity, impactedEntity, weaponItemType,
+				new CombatAttackMessage(attackerEntity, impactedEntity, weaponAttack,
 						(ItemEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes()));
 		messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, parentEntity);
 	}
@@ -147,12 +147,12 @@ public class ProjectileBehaviour implements BehaviourComponent {
 		return defenderEntity;
 	}
 
-	public void setWeaponItemType(ItemType weaponItemType) {
-		this.weaponItemType = weaponItemType;
+	public void setWeaponAttack(WeaponAttack weaponAttack) {
+		this.weaponAttack = weaponAttack;
 	}
 
-	public ItemType getWeaponItemType() {
-		return weaponItemType;
+	public WeaponAttack getWeaponAttack() {
+		return weaponAttack;
 	}
 
 	@Override
@@ -163,7 +163,9 @@ public class ProjectileBehaviour implements BehaviourComponent {
 		defenderEntity.writeTo(savedGameStateHolder);
 		asJson.put("defender", defenderEntity.getId());
 
-		asJson.put("weapon", weaponItemType.getItemTypeName());
+		JSONObject weaponAttackJson = new JSONObject(true);
+		weaponAttack.writeTo(weaponAttackJson, savedGameStateHolder);
+		asJson.put("weaponAttack", weaponAttackJson);
 
 		JSONArray otherEntitiesJson = new JSONArray();
 		for (Long entityId : otherEntitiesEncountered) {
@@ -186,10 +188,9 @@ public class ProjectileBehaviour implements BehaviourComponent {
 			throw new InvalidSaveException("Could not find entity with ID " + asJson.getLong("defender"));
 		}
 
-		this.weaponItemType = relatedStores.itemTypeDictionary.getByName(asJson.getString("weapon"));
-		if (this.weaponItemType == null) {
-			throw new InvalidSaveException("Could not find item type by name " + asJson.getString("weapon"));
-		}
+		JSONObject weaponAttackJson = asJson.getJSONObject("weaponAttack");
+		this.weaponAttack = new WeaponAttack();
+		this.weaponAttack.readFrom(weaponAttackJson, savedGameStateHolder, relatedStores);
 
 		JSONArray otherEntitiesJson = asJson.getJSONArray("encountered");
 		if (otherEntitiesJson != null) {

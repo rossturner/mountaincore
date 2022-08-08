@@ -8,7 +8,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.entities.ai.combat.AttackCreatureCombatAction;
 import technology.rocketjump.saul.entities.ai.combat.CombatAction;
-import technology.rocketjump.saul.entities.ai.combat.CreatureCombatStats;
+import technology.rocketjump.saul.entities.ai.combat.CreatureCombat;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.FactionComponent;
@@ -56,9 +56,10 @@ public class CombatTracker implements Updatable, Telegraph {
 	public void onCombatRoundStart() {
 		// defending combatants can replenish defense pool
 		for (Entity entity : entitiesInCombatById.values()) {
-			CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
-			if (combatStateComponent.getCurrentAction() != null) {
-				combatStateComponent.getCurrentAction().onRoundCompletion();
+			if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+				if (creatureBehaviour.getCombatBehaviour().getCurrentAction() != null) {
+					creatureBehaviour.getCombatBehaviour().getCurrentAction().onRoundCompletion();
+				}
 			}
 		}
 
@@ -74,7 +75,7 @@ public class CombatTracker implements Updatable, Telegraph {
 		}
 		for (Entity entity : entitiesInCombatById.values()) {
 			if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
-				CombatAction currentAction = entity.getComponent(CombatStateComponent.class).getCurrentAction();
+				CombatAction currentAction = creatureBehaviour.getCombatBehaviour().getCurrentAction();
 				CombatAction newAction = creatureBehaviour.getCombatBehaviour().changeCombatActionAtStartOfRound();
 				if (newAction != null) {
 					actionsToResolveThisRound.remove(currentAction);
@@ -112,7 +113,7 @@ public class CombatTracker implements Updatable, Telegraph {
 
 	public void add(Entity entity) {
 		entitiesInCombatById.put(entity.getId(), entity);
-		CreatureCombatStats combatStats = new CreatureCombatStats(entity);
+		CreatureCombat combatStats = new CreatureCombat(entity);
 
 		CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
 		combatStateComponent.setInCombat(true);

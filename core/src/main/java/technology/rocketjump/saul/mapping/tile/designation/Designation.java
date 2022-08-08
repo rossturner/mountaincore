@@ -26,7 +26,6 @@ public class Designation {
 	private Sprite iconSprite;
 
 	private JobPriority defaultJobPriority;
-	private boolean appliesToEntities;
 
 	@JsonCreator
 	public Designation(@JsonProperty("designationName") String designationName,
@@ -34,15 +33,13 @@ public class Designation {
 					   @JsonProperty("createsJobType") String createsJobTypeName,
 					   @JsonProperty("selectionColor") Color selectionColor,
 					   @JsonProperty("designationColor") Color designationColor,
-					   @JsonProperty("defaultJobPriority") JobPriority defaultJobPriority,
-					   @JsonProperty("appliesToEntities") Boolean appliesToEntities) {
+					   @JsonProperty("defaultJobPriority") JobPriority defaultJobPriority) {
 		this.designationName = designationName;
 		this.iconName = iconName;
 		this.createsJobTypeName = createsJobTypeName;
 		this.selectionColor = selectionColor;
 		this.designationColor = designationColor;
 		this.defaultJobPriority = defaultJobPriority == null ? JobPriority.NORMAL : defaultJobPriority;
-		this.appliesToEntities = appliesToEntities != null && appliesToEntities;
 	}
 
 	public String getDesignationName() {
@@ -85,11 +82,4 @@ public class Designation {
 		return defaultJobPriority;
 	}
 
-	public boolean isAppliesToEntities() {
-		return appliesToEntities;
-	}
-
-	public void setDefaultJobPriority(JobPriority defaultJobPriority) {
-		this.defaultJobPriority = defaultJobPriority;
-	}
 }
