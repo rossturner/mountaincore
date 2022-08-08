@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.assets.editor.UniqueAssetNameValidator;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
+import technology.rocketjump.saul.assets.editor.model.PlantNameBuilders;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.ColorsWidget;
@@ -42,6 +43,7 @@ import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 import static technology.rocketjump.saul.assets.entities.model.ColoringLayer.*;
@@ -290,7 +292,44 @@ public class PlantUIFactory implements UIFactory {
 
     @Override
     public OkCancelDialog createAssetDialog(ShowCreateAssetDialogMessage message) {
-        return null;
+        //TODO: quite a bit of duplication between here and the editor
+        PlantSpecies plantSpecies = (PlantSpecies) message.typeDescriptor();
+        List<Integer> availableGrowthStages = IntStream.range(0, plantSpecies.getGrowthStages().size()).boxed().toList();
+        final Path directory = FileUtils.getDirectory(message.path()); //duplicated from CreatureUI
+        Path descriptorsFile = directory.resolve("descriptors.json");
+
+        PlantEntityAsset asset = new PlantEntityAsset();
+        asset.setSpeciesName(plantSpecies.getSpeciesName());
+        Collection<EntityAssetType> entityAssetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType());
+
+        VisTextField nameTextField = WidgetBuilder.textField(asset.getUniqueName(), asset::setUniqueName, new UniqueAssetNameValidator(completeAssetDictionary));
+        Consumer<Object> uniqueNameRebuilder = o -> {
+            String builtName = PlantNameBuilders.buildUniqueNameForAsset(plantSpecies, asset);
+            nameTextField.setText(builtName);
+        };
+
+
+        OkCancelDialog dialog = new OkCancelDialog("Create asset under " + directory) {
+            @Override
+            public void onOk() {
+                completeAssetDictionary.add(asset);
+                EntityBrowserValue value = EntityBrowserValue.forAsset(getEntityType(), descriptorsFile, asset, plantSpecies);
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_ASSET_CREATED, value);
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, value);
+            }
+        };
+        dialog.add(WidgetBuilder.label("Type"));
+        dialog.add(WidgetBuilder.select(asset.getType(), entityAssetTypes, null, compose(asset::setType, uniqueNameRebuilder)));
+        dialog.row();
+
+        dialog.add(WidgetBuilder.label("Growth Stages"));
+        dialog.add(WidgetBuilder.checkboxes(asset.getGrowthStages(), availableGrowthStages, compose(asset.getGrowthStages()::add, uniqueNameRebuilder), compose(asset.getGrowthStages()::remove, uniqueNameRebuilder)));
+        dialog.row();
+
+        dialog.row();
+        dialog.add(WidgetBuilder.label("Name"));
+        dialog.add(nameTextField);
+        return dialog;
     }
 
     @Override

@@ -69,4 +69,9 @@ public class PlantEntityAssetDictionary {
 			}
 		}
 	}
+
+	public void add(PlantEntityAsset asset) {
+		assetsByName.put(asset.getUniqueName(), asset);
+		rebuild();
+	}
 }
