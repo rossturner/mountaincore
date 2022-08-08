@@ -11,6 +11,7 @@ import com.kotcrab.vis.ui.util.InputValidator;
 import com.kotcrab.vis.ui.widget.*;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import org.apache.commons.lang3.StringUtils;
+import technology.rocketjump.saul.assets.editor.UniqueAssetNameValidator;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
@@ -22,8 +23,11 @@ import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.plant.Pla
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.plant.PlantStagesWidget;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.PlantAttributesPane;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
+import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
+import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
+import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
 import technology.rocketjump.saul.entities.factories.PlantEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -37,10 +41,8 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.IntStream;
 
 import static technology.rocketjump.saul.assets.entities.model.ColoringLayer.*;
 
@@ -54,12 +56,14 @@ public class PlantUIFactory implements UIFactory {
     private final MessageDispatcher messageDispatcher;
     private final ItemTypeDictionary itemTypeDictionary;
     private final CompleteAssetDictionary completeAssetDictionary;
+    private final EntityAssetTypeDictionary entityAssetTypeDictionary;
 
     @Inject
     public PlantUIFactory(PlantSpeciesDictionary plantSpeciesDictionary, PlantEntityFactory plantEntityFactory,
                           PlantAttributesPane viewEditorControls, GameMaterialDictionary materialDictionary,
                           NativeFileChooser fileChooser, MessageDispatcher messageDispatcher,
-                          ItemTypeDictionary itemTypeDictionary, CompleteAssetDictionary completeAssetDictionary) {
+                          ItemTypeDictionary itemTypeDictionary, CompleteAssetDictionary completeAssetDictionary,
+                          EntityAssetTypeDictionary entityAssetTypeDictionary) {
         this.plantSpeciesDictionary = plantSpeciesDictionary;
         this.plantEntityFactory = plantEntityFactory;
         this.viewEditorControls = viewEditorControls;
@@ -68,6 +72,7 @@ public class PlantUIFactory implements UIFactory {
         this.messageDispatcher = messageDispatcher;
         this.itemTypeDictionary = itemTypeDictionary;
         this.completeAssetDictionary = completeAssetDictionary;
+        this.entityAssetTypeDictionary = entityAssetTypeDictionary;
     }
 
     @Override
@@ -290,6 +295,41 @@ public class PlantUIFactory implements UIFactory {
 
     @Override
     public VisTable getAssetPropertyControls(EntityAsset entityAsset) {
-        return null;
+        PlantEntityAsset plantEntityAsset = (PlantEntityAsset) entityAsset;
+        PlantSpecies species = plantSpeciesDictionary.getByName(plantEntityAsset.getSpeciesName());
+        List<Integer> availableGrowthStages = IntStream.range(0, species.getGrowthStages().size()).boxed().toList();
+        Collection<EntityAssetType> entityAssetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType());
+
+        VisTable controls = new VisTable();
+        controls.columnDefaults(0).left().uniformX();
+        controls.columnDefaults(1).left().fillX();
+        controls.add(WidgetBuilder.label("Name"));
+        controls.add(WidgetBuilder.textField(plantEntityAsset.getUniqueName(), plantEntityAsset::setUniqueName, new UniqueAssetNameValidator(completeAssetDictionary)));
+        controls.row();
+
+        controls.add(WidgetBuilder.label("Type"));
+        controls.add(WidgetBuilder.select(plantEntityAsset.getType(), entityAssetTypes, null, plantEntityAsset::setType));
+        controls.row();
+
+        controls.add(WidgetBuilder.label("Growth Stages"));
+        controls.add(WidgetBuilder.checkboxes(plantEntityAsset.getGrowthStages(), availableGrowthStages, plantEntityAsset.getGrowthStages()::add, plantEntityAsset.getGrowthStages()::remove));
+        controls.row();
+
+        TagsWidget tagsWidget = new TagsWidget(plantEntityAsset.getTags());
+        tagsWidget.setFillParent(true);
+        CollapsibleWidget tagsCollapsible = new CollapsibleWidget(tagsWidget);
+        tagsCollapsible.setCollapsed(plantEntityAsset.getTags().isEmpty());
+        VisLabel tagsLabel = new VisLabel("Tags (click to show)");
+        tagsLabel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                tagsCollapsible.setCollapsed(!tagsCollapsible.isCollapsed());
+            }
+        });
+        controls.add(tagsLabel).row();
+        controls.add();
+        controls.add(tagsCollapsible).right().row();
+
+        return controls;
     }
 }

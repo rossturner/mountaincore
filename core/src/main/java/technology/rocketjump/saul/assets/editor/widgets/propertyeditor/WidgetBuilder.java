@@ -219,7 +219,7 @@ public class WidgetBuilder {
 		return component;
 	}
 
-	public static <T> VisTable checkboxes(List<T> initialValue, Collection<T> options, Consumer<T> checkedListener, Consumer<T> uncheckedListener) {
+	public static <T> VisTable checkboxes(Collection<T> initialValue, Collection<T> options, Consumer<T> checkedListener, Consumer<T> uncheckedListener) {
 		VisTable checkBoxes = new VisTable();
 		for (T option : options) {
 			VisCheckBox checkbox = new VisCheckBox(option.toString());
