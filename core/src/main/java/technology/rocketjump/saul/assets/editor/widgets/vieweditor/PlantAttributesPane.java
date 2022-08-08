@@ -48,29 +48,31 @@ public class PlantAttributesPane extends AbstractAttributesPane {
 
     private void createColorWidget(ColoringLayer coloringLayer, PlantEntityAttributes entityAttributes) {
         Color color = entityAttributes.getColor(coloringLayer);
-        TextButton colorButton = new TextButton(HexColors.toHexString(color), new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")));
-        colorButton.setColor(color);
-        colorButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
+        if (color != null) {
+            TextButton colorButton = new TextButton(HexColors.toHexString(color), new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")));
+            colorButton.setColor(color);
+            colorButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
 
-                int currentGrowthStage = attributes.getGrowthStageCursor();
-                attributes = new PlantEntityAttributes(new RandomXS128().nextLong(), entityAttributes.getSpecies());
-                attributes.setGrowthStageCursor(currentGrowthStage);
+                    int currentGrowthStage = attributes.getGrowthStageCursor();
+                    attributes = new PlantEntityAttributes(new RandomXS128().nextLong(), entityAttributes.getSpecies());
+                    attributes.setGrowthStageCursor(currentGrowthStage);
 
 
-                editorStateProvider.getState().getCurrentEntity().getPhysicalEntityComponent().setAttributes(attributes);
+                    editorStateProvider.getState().getCurrentEntity().getPhysicalEntityComponent().setAttributes(attributes);
 
-                attributes.updateColors(null);
-                colorButton.setText(HexColors.toHexString(attributes.getColor(coloringLayer)));
-                colorButton.setColor(attributes.getColor(coloringLayer));
-                reload();
-            }
-        });
-        VisTable colorWidget = new VisTable();
-        colorWidget.add(WidgetBuilder.label(coloringLayer.name()));
-        colorWidget.add(colorButton);
-        add(colorWidget);
+                    attributes.updateColors(null);
+                    colorButton.setText(HexColors.toHexString(attributes.getColor(coloringLayer)));
+                    colorButton.setColor(attributes.getColor(coloringLayer));
+                    reload();
+                }
+            });
+            VisTable colorWidget = new VisTable();
+            colorWidget.add(WidgetBuilder.label(coloringLayer.name()));
+            colorWidget.add(colorButton);
+            add(colorWidget);
+        }
     }
 
 }

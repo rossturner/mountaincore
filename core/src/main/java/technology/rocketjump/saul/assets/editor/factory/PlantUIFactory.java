@@ -7,16 +7,21 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.kotcrab.vis.ui.util.InputValidator;
 import com.kotcrab.vis.ui.widget.*;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
+import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
+import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
+import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.ColorsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.TagsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.plant.PlantSeasonsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.plant.PlantStagesWidget;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.PlantAttributesPane;
+import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.entities.factories.PlantEntityFactory;
@@ -27,10 +32,14 @@ import technology.rocketjump.saul.entities.model.physical.plant.*;
 import technology.rocketjump.saul.environment.model.Season;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
+import technology.rocketjump.saul.materials.model.GameMaterial;
+import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import static technology.rocketjump.saul.assets.entities.model.ColoringLayer.*;
@@ -44,11 +53,13 @@ public class PlantUIFactory implements UIFactory {
     private final NativeFileChooser fileChooser;
     private final MessageDispatcher messageDispatcher;
     private final ItemTypeDictionary itemTypeDictionary;
+    private final CompleteAssetDictionary completeAssetDictionary;
 
     @Inject
     public PlantUIFactory(PlantSpeciesDictionary plantSpeciesDictionary, PlantEntityFactory plantEntityFactory,
                           PlantAttributesPane viewEditorControls, GameMaterialDictionary materialDictionary,
-                          NativeFileChooser fileChooser, MessageDispatcher messageDispatcher, ItemTypeDictionary itemTypeDictionary) {
+                          NativeFileChooser fileChooser, MessageDispatcher messageDispatcher,
+                          ItemTypeDictionary itemTypeDictionary, CompleteAssetDictionary completeAssetDictionary) {
         this.plantSpeciesDictionary = plantSpeciesDictionary;
         this.plantEntityFactory = plantEntityFactory;
         this.viewEditorControls = viewEditorControls;
@@ -56,6 +67,7 @@ public class PlantUIFactory implements UIFactory {
         this.fileChooser = fileChooser;
         this.messageDispatcher = messageDispatcher;
         this.itemTypeDictionary = itemTypeDictionary;
+        this.completeAssetDictionary = completeAssetDictionary;
     }
 
     @Override
@@ -83,7 +95,38 @@ public class PlantUIFactory implements UIFactory {
 
     @Override
     public OkCancelDialog createEntityDialog(Path path) {
-        return null;
+        PlantSpecies plantSpecies = new PlantSpecies();
+        OkCancelDialog dialog = new OkCancelDialog("Create new " + getEntityType()) {
+            @Override
+            public void onOk() {
+                String name = plantSpecies.getSpeciesName();
+                //required defaults
+                PlantSpeciesGrowthStage firstGrowthStage = new PlantSpeciesGrowthStage();
+
+                plantSpecies.setMaterial(GameMaterial.NULL_MATERIAL);
+                plantSpecies.setMaterialName(GameMaterial.NULL_MATERIAL.getMaterialName());
+                plantSpecies.setPlantType(PlantSpeciesType.CROP);
+                plantSpecies.getGrowthStages().add(firstGrowthStage);
+                String folderName = name.toLowerCase(Locale.ROOT);
+                Path basePath = FileUtils.createDirectory(path, folderName);
+
+                plantSpeciesDictionary.add(plantSpecies);
+                completeAssetDictionary.rebuild();
+
+                EditorEntitySelection editorEntitySelection = new EditorEntitySelection();
+                editorEntitySelection.setEntityType(getEntityType());
+                editorEntitySelection.setTypeName(name);
+                editorEntitySelection.setBasePath(basePath.toString());
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, editorEntitySelection);
+                messageDispatcher.dispatchMessage(MessageType.EDITOR_BROWSER_TREE_SELECTION, EntityBrowserValue.forTypeDescriptor(getEntityType(), basePath, plantSpecies));
+            }
+        };
+        dialog.add(WidgetBuilder.label("Name"));
+        InputValidator nonBlank = StringUtils::isNotBlank;
+        InputValidator uniqueName = input -> plantSpeciesDictionary.getByName(input) == null;
+        dialog.add(WidgetBuilder.textField(null, plantSpecies::setSpeciesName, nonBlank, uniqueName));
+
+        return dialog;
     }
 
     @Override
@@ -163,9 +206,6 @@ public class PlantUIFactory implements UIFactory {
         })).row();
         controls.add(seedCollapsible).colspan(2).right().row();
 
-
-
-
         PlantSeasonsWidget seasonsWidget = new PlantSeasonsWidget(plantSpecies, messageDispatcher, fileChooser, basePath, getApplicableColoringLayers()) {
             @Override
             public void reload() {
@@ -187,7 +227,7 @@ public class PlantUIFactory implements UIFactory {
 
         controls.add(WidgetBuilder.button("Add Growth Stage", x -> {
             plantSpecies.getGrowthStages().add(new PlantSpeciesGrowthStage());
-            seasonsWidget.reload();
+            stagesWidget.reload();
         })).colspan(2).right();
         controls.row();
 
@@ -241,6 +281,7 @@ public class PlantUIFactory implements UIFactory {
         controls.add();
         controls.add(tagsCollapsible).right().row();
 
+        controls.debug();
         return controls;
     }
 

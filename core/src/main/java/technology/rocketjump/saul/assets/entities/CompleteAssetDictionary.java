@@ -55,6 +55,7 @@ public class CompleteAssetDictionary {
 		creatureEntityAssetDictionary.rebuild();
 		itemEntityAssetDictionary.rebuild();
 		furnitureEntityAssetDictionary.rebuild();
+		plantEntityAssetDictionary.rebuild();
 	}
 
 	public void add(CreatureEntityAsset asset) {

@@ -34,7 +34,7 @@ public class PlantStagesWidget extends VisTable {
     public void reload() {
         this.clearChildren();
         this.columnDefaults(0).left().uniformX();
-        this.columnDefaults(1).expandX();
+        this.columnDefaults(1).uniformX();
 
         Collection<ToStringDecorator<Integer>> growthStageNumbers = new ArrayList<>();
         growthStageNumbers.add(ToStringDecorator.none());
@@ -109,9 +109,6 @@ public class PlantStagesWidget extends VisTable {
 
 
         /*
-
-	private Map<ColoringLayer, SpeciesColor> colors = new EnumMap<>(ColoringLayer.class);
-
 	private PlantSpeciesHarvestType harvestType = null;
 	private Integer harvestSwitchesToGrowthStage = null;
 	private List<PlantSpeciesItem> harvestedItems = new ArrayList<>();
