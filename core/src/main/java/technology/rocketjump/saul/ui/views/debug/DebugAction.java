@@ -3,6 +3,7 @@ package technology.rocketjump.saul.ui.views.debug;
 public enum DebugAction {
 
 	NONE,
+	SPAWN_CREATURE,
 	SPAWN_ITEM,
 	SPAWN_SETTLER,
 	DESTROY_ENTITY,
