@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.widget.*;
 import technology.rocketjump.saul.assets.editor.model.ColorPickerMessage;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.entities.model.physical.creature.features.*;
+import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
@@ -63,7 +64,15 @@ public class RaceFeaturesWidget extends VisTable {
 			void initChildWidgets(VisTable childContainer, RaceFeatures sourceData) {
 				SkinFeature skin = sourceData.getSkin();
 
+				ItemType noneOption = new ItemType();
+				noneOption.setItemTypeName("-none-");
+				childContainer.add(WidgetBuilder.selectField("Item Type", skin.getItemType(), itemTypeDictionary.getAll(), noneOption, selected -> {
+					if (selected != noneOption) {
+						skin.setItemType(selected);
+					}
+				})).left().colspan(2).row();
 				WidgetBuilder.addSelectField("Skin Material:", "material", gameMaterialDictionary.getAll(), GameMaterial.NULL_MATERIAL, skin, childContainer);
+				WidgetBuilder.addIntegerField("Quantity:", "quantity", skin, childContainer);
 				childContainer.add(new VisLabel("Damage reduction: (integer)")).left().colspan(2).row();
 				childContainer.add(new DamageReductionWidget(skin.getDamageReduction())).left().colspan(2).row();
 			}
