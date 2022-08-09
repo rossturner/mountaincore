@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.assets.editor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
@@ -200,9 +201,9 @@ public class AssetEditorUI implements Telegraph {
 		// Menu
 		topLevelTable.add(topLevelMenu.getTable()).expandX().fillX().colspan(3).row();
 
-		topLevelTable.add(leftPane).top().left().expandY().fillY();
-		topLevelTable.add(viewArea).top();
-		topLevelTable.add(propertyEditorPane).top().right().expandY().fillY();
+		topLevelTable.add(leftPane).top().left().expand().fillY();
+		topLevelTable.add(viewArea).top().minWidth(Gdx.graphics.getWidth() / 3);
+		topLevelTable.add(propertyEditorPane).top().right().expand().fillY();
 		topLevelTable.row();
 		topLevelTable.add(viewEditor).colspan(3).center().fillX();
 	}
