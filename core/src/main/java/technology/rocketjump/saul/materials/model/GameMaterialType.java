@@ -7,7 +7,7 @@ public enum GameMaterialType {
 	STONE, METAL, WOOD, ORE, GEM,
 	CLOTH, ROPE,
 	EARTH, SEED, VEGETABLE, FOODSTUFF, MEAT, BONE,
-	LIQUID, VITRIOL,
+	LIQUID, VITRIOL, SKIN,
 	OTHER;
 
 	private I18nWord i18NValue = new I18nWord(getI18nKey());
