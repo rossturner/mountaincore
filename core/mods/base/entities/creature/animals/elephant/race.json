@@ -37,6 +37,9 @@
   },
   "features" : {
     "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 4,
+      "materialName" : "Elephant Hide",
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 1,

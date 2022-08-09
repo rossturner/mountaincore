@@ -1,0 +1,26 @@
+[
+  {
+    "materialName": "Dwarf Hide",
+    "materialType": "SKIN",
+    "combustible": true,
+    "colorCode": "#c69784"
+  },
+  {
+    "materialName": "Boar Hide",
+    "materialType": "SKIN",
+    "combustible": true,
+    "colorCode": "#A3938A"
+  },
+  {
+    "materialName": "Deer Hide",
+    "materialType": "SKIN",
+    "combustible": true,
+    "colorCode": "#aa7252"
+  },
+  {
+    "materialName": "Elephant Hide",
+    "materialType": "SKIN",
+    "combustible": true,
+    "colorCode": "#f2eff0"
+  }
+]

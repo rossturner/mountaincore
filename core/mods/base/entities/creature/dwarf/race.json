@@ -35,7 +35,7 @@
     "scheduleName" : "Default Settler Schedule",
     "needs" : [ "FOOD", "DRINK", "SLEEP" ],
     "aggressionResponse" : "FLEE",
-    "isSapient": true
+    "isSapient" : true
   },
   "genders" : {
     "MALE" : {
@@ -49,6 +49,9 @@
   },
   "features" : {
     "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 1,
+      "materialName" : "Dwarf Flesh",
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 2,

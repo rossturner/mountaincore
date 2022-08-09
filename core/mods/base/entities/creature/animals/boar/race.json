@@ -43,6 +43,9 @@
   },
   "features" : {
     "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 1,
+      "materialName" : "Boar Hide",
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 1,
