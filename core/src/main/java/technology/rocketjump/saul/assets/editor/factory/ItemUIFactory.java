@@ -257,7 +257,7 @@ public class ItemUIFactory implements UIFactory {
         controls.row();
 
         int craftingCheckboxCount = 1;
-        for (CraftingType craftingType : craftingTypeDictionary.getAll()) {
+        for (CraftingType craftingType : craftingTypeDictionary.getAll().stream().sorted().toList()) {
             VisCheckBox checkBox = WidgetBuilder.checkBox(craftingType, itemType.getRelatedCraftingTypes().contains(craftingType),
                     it -> {
                         if (!itemType.getRelatedCraftingTypes().contains(it)) {
