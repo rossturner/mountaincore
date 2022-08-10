@@ -512,6 +512,7 @@
   "equippedWhileWorkingOnJob" : true,
   "hoursInInventoryUntilUnused" : 38.0,
   "relatedCraftingTypeNames" : [ "TANNING_HIDE" ],
+  "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LEATHER"

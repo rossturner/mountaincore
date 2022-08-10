@@ -784,7 +784,7 @@
     "quantity" : 1
   } ],
   "materialTypesToCopyOver" : [ "SKIN" ],
-  "extraGameHoursToComplete" : 48.0,
+  "extraGameHoursToComplete" : 2.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 15.0
 }, {

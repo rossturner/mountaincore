@@ -6,5 +6,6 @@
   "materialTypes" : [ "SKIN" ],
   "primaryMaterialType" : "SKIN",
   "relatedCraftingTypeNames" : [ "TANNING_HIDE" ],
+  "stockpileGroupName" : "PRODUCTS",
   "i18nKey" : "PRODUCT.LEATHER"
 }
