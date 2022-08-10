@@ -841,7 +841,7 @@
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "scale" : 0.6,
@@ -858,27 +858,28 @@
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
           "x" : 18.0,
-          "y" : 0.0,
+          "y" : 14.0,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
           "x" : -18.0,
-          "y" : 0.0,
+          "y" : 14.0,
           "unit" : false
-        }
+        },
+        "overrideRenderLayer" : 100
       } ]
     },
     "UP" : {
-      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "scale" : 0.55,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : 1.0,
         "y" : 0.0,
-        "unit" : false
+        "unit" : true
       },
       "flipX" : false,
       "flipY" : false,
@@ -887,7 +888,7 @@
       "parentEntityAssets" : [ ]
     },
     "DOWN_LEFT" : {
-      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "scale" : 0.55,
@@ -904,20 +905,21 @@
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
           "x" : 16.0,
-          "y" : 0.0,
+          "y" : 14.0,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
           "x" : -16.0,
-          "y" : 10.0,
+          "y" : 14.0,
           "unit" : false
-        }
+        },
+        "overrideRenderLayer" : -100
       } ]
     },
     "DOWN_RIGHT" : {
-      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "scale" : 0.55,
@@ -934,26 +936,27 @@
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
           "x" : 16.0,
-          "y" : 10.0,
+          "y" : 14.0,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
           "x" : -16.0,
-          "y" : 0.0,
+          "y" : 14.0,
           "unit" : false
-        }
+        },
+        "overrideRenderLayer" : 100
       } ]
     },
     "UP_LEFT" : {
-      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "scale" : 0.55,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -12.0,
         "unit" : false
       },
       "flipX" : false,
@@ -963,20 +966,20 @@
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -5.0,
+          "x" : -15.0,
+          "y" : 14.0,
           "unit" : false
         }
       } ]
     },
     "UP_RIGHT" : {
-      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "scale" : 0.55,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -12.0,
         "unit" : false
       },
       "flipX" : true,
@@ -986,8 +989,8 @@
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -5.0,
+          "x" : 15.0,
+          "y" : 14.0,
           "unit" : false
         }
       } ]
@@ -998,7 +1001,7 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Carcass-Hide",
   "minQuantity" : 1,
-  "maxQuantity" : 1,
+  "maxQuantity" : 4,
   "itemSize" : "AVERAGE",
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
@@ -1006,6 +1009,34 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Carcass-Hide-Item_Base_Layer-On_Ground-Many",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Carcass-Hide",
+  "minQuantity" : 5,
+  "maxQuantity" : 10,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ "STANDARD" ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground-Many_Down.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,

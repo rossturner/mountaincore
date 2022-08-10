@@ -103,7 +103,7 @@
 }, {
   "itemTypeId" : 7,
   "itemTypeName" : "Carcass-Hide",
-  "maxStackSize" : 1,
+  "maxStackSize" : 10,
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "SKIN" ],
   "primaryMaterialType" : "SKIN",
