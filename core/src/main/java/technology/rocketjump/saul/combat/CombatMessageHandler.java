@@ -9,6 +9,7 @@ import com.google.inject.Singleton;
 import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
+import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.ai.combat.CreatureCombat;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
@@ -21,6 +22,7 @@ import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.combat.CombatDamageType;
+import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.DeathReason;
 import technology.rocketjump.saul.entities.model.physical.creature.body.*;
@@ -41,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 import static technology.rocketjump.saul.entities.FireMessageHandler.blackenedColor;
 import static technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel.BrokenBones;
 import static technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel.Destroyed;
@@ -105,7 +108,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 				createProjectile(attackMessage);
 				if (attackerCombat.getEquippedWeapon().getFireWeaponSoundAsset() != null) {
 					messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(
-						attackerCombat.getEquippedWeapon().getFireWeaponSoundAsset(), attackMessage.attackerEntity
+							attackerCombat.getEquippedWeapon().getFireWeaponSoundAsset(), attackMessage.attackerEntity
 					));
 				}
 			}
@@ -192,15 +195,8 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 				return;
 			}
 
-			// TODO don't use defense pool if attack is from behind/asleep
-			CombatStateComponent defenderCombatState = attackMessage.defenderEntity.getComponent(CombatStateComponent.class);
-			int defenderDefensePool = defenderCombatState.getDefensePool();
-			if (damageAmount > defenderDefensePool) {
-				damageAmount = damageAmount - defenderDefensePool;
-				defenderCombatState.setDefensePool(0);
-			} else {
-				defenderCombatState.setDefensePool(defenderDefensePool - damageAmount);
-				damageAmount = 0;
+			if (canUseDefensePool(attackMessage)) {
+				damageAmount = reduceDamageWithDefensePool(damageAmount, attackMessage.defenderEntity);
 			}
 
 			// TODO might want to inform defender they suffered damage (if in combat)
@@ -257,6 +253,55 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		} else {
 			Logger.warn("TODO: Damage application to non-creature entities");
 		}
+	}
+
+	// don't use defense pool if attack is from behind/asleep
+	private boolean canUseDefensePool(CombatAttackMessage attackMessage) {
+		if (attackMessage.defenderEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+			if (creatureBehaviour.isStunned()) {
+				return false;
+			}
+		}
+
+		if (attackMessage.defenderEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes) {
+			if (!creatureEntityAttributes.getConsciousness().equals(Consciousness.AWAKE)) {
+				return false;
+			}
+		}
+
+		EntityAssetOrientation defenderOrientation = EntityAssetOrientation.fromFacingTo8Directions(attackMessage.defenderEntity.getLocationComponent().getFacing());
+		EntityAssetOrientation attackerRelativeToDefender = EntityAssetOrientation.fromFacingTo8Directions(attackMessage.attackerEntity.getLocationComponent().getWorldOrParentPosition().cpy()
+				.sub(attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition())
+				.nor());
+
+		// This ! operator might be confusing, but it's simpler to describe which orientations aren't covered
+		return !getOrientationsOppositeTo(defenderOrientation).contains(attackerRelativeToDefender);
+	}
+
+	private List<EntityAssetOrientation> getOrientationsOppositeTo(EntityAssetOrientation facingOrientation) {
+		return switch (facingOrientation) {
+			case UP -> List.of(DOWN_LEFT, DOWN, DOWN_RIGHT);
+			case UP_RIGHT -> List.of(LEFT, DOWN_LEFT, DOWN);
+			case RIGHT -> List.of(UP_LEFT, LEFT, DOWN_LEFT);
+			case DOWN_RIGHT -> List.of(LEFT, UP_LEFT, UP);
+			case DOWN -> List.of(UP_LEFT, UP, UP_RIGHT);
+			case DOWN_LEFT -> List.of(UP, UP_RIGHT, RIGHT);
+			case LEFT -> List.of(UP_RIGHT, RIGHT, DOWN_RIGHT);
+			case UP_LEFT -> List.of(RIGHT, DOWN_RIGHT, DOWN);
+		};
+	}
+
+	private int reduceDamageWithDefensePool(int damageAmount, Entity defenderEntity) {
+		CombatStateComponent defenderCombatState = defenderEntity.getComponent(CombatStateComponent.class);
+		int defenderDefensePool = defenderCombatState.getDefensePool();
+		if (damageAmount > defenderDefensePool) {
+			damageAmount = damageAmount - defenderDefensePool;
+			defenderCombatState.setDefensePool(0);
+		} else {
+			defenderCombatState.setDefensePool(defenderDefensePool - damageAmount);
+			damageAmount = 0;
+		}
+		return damageAmount;
 	}
 
 	private void applyDamageToCreature(CreatureDamagedMessage message) {
@@ -318,7 +363,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		for (BodyPart bodyPart : attributes.getBody().getAllBodyParts()) {
 			for (BodyPartOrgan organForBodyPart : bodyPart.getPartDefinition().getOrgans()) {
 				if (message.impactedOrgan.getOrganDefinition().equals(organForBodyPart.getOrganDefinition()) &&
-					message.impactedOrgan.getDiscriminator() != organForBodyPart.getDiscriminator() &&
+						message.impactedOrgan.getDiscriminator() != organForBodyPart.getDiscriminator() &&
 						!attributes.getBody().getOrganDamage(bodyPart, organForBodyPart).equals(OrganDamageLevel.DESTROYED)) {
 					otherOrgansOfType.add(organForBodyPart);
 				}
@@ -411,7 +456,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private int scaleDamageByWeaponQuality(int damageAmount, ItemQuality weaponQuality) {
-		return Math.round((float)damageAmount * weaponQuality.combatMultiplier);
+		return Math.round((float) damageAmount * weaponQuality.combatMultiplier);
 	}
 
 	@Override
