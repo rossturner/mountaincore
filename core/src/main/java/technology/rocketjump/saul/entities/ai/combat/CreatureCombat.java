@@ -35,6 +35,11 @@ public class CreatureCombat {
 		this.parentEntity = parentEntity;
 
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes)parentEntity.getPhysicalEntityComponent().getAttributes();
+		DefenseInfo racialDefense = attributes.getRace().getFeatures().getDefense();
+		if (racialDefense != null) {
+			this.racialDefense = racialDefense;
+		}
+
 		equippedWeapon = attributes.getRace().getFeatures().getUnarmedWeapon();
 		if (equippedWeapon == null) {
 			equippedWeapon = WeaponInfo.UNARMED;
@@ -65,13 +70,13 @@ public class CreatureCombat {
 		int total = 0;
 		int weaponSkillLevel = getSkillLevel(equippedWeapon);
 
-		if (racialDefense != null) {
+		if (racialDefense.getMaxDefensePoints() > 0) {
 			total += scaleForSkillLevel(racialDefense.getMaxDefensePoints(), weaponSkillLevel, ItemQuality.STANDARD);
 		}
-		if (equippedShield != null) {
+		if (equippedShield.getMaxDefensePoints() > 0) {
 			total += scaleForSkillLevel(equippedShield.getMaxDefensePoints(), weaponSkillLevel, equippedShieldQuality);
 		}
-		if (equippedArmour != null) {
+		if (equippedArmour.getMaxDefensePoints() > 0) {
 			total += scaleForSkillLevel(equippedArmour.getMaxDefensePoints(), weaponSkillLevel, equippedArmourQuality);
 		}
 		return total;
@@ -81,13 +86,13 @@ public class CreatureCombat {
 		int total = 0;
 		int weaponSkillLevel = getSkillLevel(equippedWeapon);
 
-		if (racialDefense != null) {
+		if (racialDefense.getMaxDefenseRegainedPerRound() > 0) {
 			total += scaleForSkillLevel(racialDefense.getMaxDefenseRegainedPerRound(), weaponSkillLevel, ItemQuality.STANDARD);
 		}
-		if (equippedShield != null) {
+		if (equippedShield.getMaxDefenseRegainedPerRound() > 0) {
 			total += scaleForSkillLevel(equippedShield.getMaxDefenseRegainedPerRound(), weaponSkillLevel, equippedShieldQuality);
 		}
-		if (equippedArmour != null) {
+		if (equippedArmour.getMaxDefenseRegainedPerRound() > 0) {
 			total += scaleForSkillLevel(equippedArmour.getMaxDefenseRegainedPerRound(), weaponSkillLevel, equippedArmourQuality);
 		}
 		return total;

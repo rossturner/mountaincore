@@ -27,6 +27,7 @@ import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 
 public class AttackCreatureCombatAction extends CombatAction implements ParticleRequestMessage.ParticleCreationCallback {
 
+	private static final float MAX_ATTACK_DURATION = 4f;
 	private float timeUntilAttack;
 	private float totalAttackDuration;
 	private float attackDurationElapsed; // once timeUntilAttack has elapsed, this counts how far through the attack "animation" we are
@@ -60,10 +61,13 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 					triggerAttack(opponentEntity, messageDispatcher);
 				}
 
-				if (attackDurationElapsed >= totalAttackDuration) {
+				if (attackDurationElapsed >= totalAttackDuration || attackDurationElapsed > MAX_ATTACK_DURATION) {
 					showWeapon();
+					completed = true;
 				}
 			}
+		} else {
+			completed = true;
 		}
 	}
 
@@ -84,9 +88,11 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 			} else {
 				// No animation associated, just trigger attack right now
 				triggerAttack(gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()), messageDispatcher);
+				completed = true;
 			}
 		} else {
 			// Not in range of opponent anymore! Just do nothing for the rest of this round I guess
+			completed = true;
 		}
 	}
 
@@ -169,12 +175,24 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
+		super.writeTo(asJson, savedGameStateHolder);
+
 		asJson.put("timeUntilAttack", timeUntilAttack);
+		asJson.put("totalAttackDuration", totalAttackDuration);
+		asJson.put("attackDurationElapsed", attackDurationElapsed);
+		if (attackMade) {
+			asJson.put("attackMade", true);
+		}
 	}
 
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
+		super.readFrom(asJson, savedGameStateHolder, relatedStores);
+
 		this.timeUntilAttack = asJson.getFloatValue("timeUntilAttack");
+		this.totalAttackDuration = asJson.getFloatValue("totalAttackDuration");
+		this.attackDurationElapsed = asJson.getFloatValue("attackDurationElapsed");
+		this.attackMade = asJson.getBooleanValue("attackMade");
 	}
 
 	@Override

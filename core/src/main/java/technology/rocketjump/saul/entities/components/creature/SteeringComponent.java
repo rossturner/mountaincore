@@ -25,6 +25,7 @@ public class SteeringComponent implements ChildPersistable {
 
 	private static final float ROTATION_MULTIPLIER = 1.5f; // for quicker turning speed
 	private static final float KNOCKBACK_DISTANCE_PER_SECOND = 8f;
+	private static final float MAX_DISTANCE_WITHIN_TILE_TO_ARRIVE = 0.08f;
 	private LocationComponent locationComponent;
 	private MessageDispatcher messageDispatcher;
 	private Entity parentEntity;
@@ -91,18 +92,19 @@ public class SteeringComponent implements ChildPersistable {
 				}
 			}
 
-			Vector2 nextWaypointRelative = nextWaypoint.cpy().sub(currentPosition);
+			Vector2 nextWaypointRelativeNormalised = nextWaypoint.cpy().sub(currentPosition).nor();
 			if (!waitingForDoorToOpen) {
-				if (nextWaypoint == destination) {
+				if (nextWaypoint.equals(destination)) {
 					// approach rather than full steam ahead
-					currentVelocity.mulAdd(currentVelocity.cpy().scl(-2f), deltaTime);
-					steeringOutputForce.add(nextWaypointRelative.nor().scl(2f));
+					// just directly approach middle
+					currentVelocity.set(nextWaypointRelativeNormalised.cpy().scl(currentVelocity.len()));
+					steeringOutputForce.add(nextWaypointRelativeNormalised.scl(1.5f));
 				} else {
-					steeringOutputForce.add(nextWaypointRelative.nor().scl(3f));
+					steeringOutputForce.add(nextWaypointRelativeNormalised.scl(3f));
 				}
 
 			}
-			rotateFacingAndApplyVelocity(deltaTime, currentVelocity, nextWaypointRelative);
+			rotateFacingAndApplyVelocity(deltaTime, currentVelocity, nextWaypointRelativeNormalised);
 
 
 		}
@@ -181,6 +183,14 @@ public class SteeringComponent implements ChildPersistable {
 
 		locationComponent.setLinearVelocity(newVelocity);
 		locationComponent.setWorldPosition(newPosition, updateFacing);
+
+		if (nextWaypoint != null && nextWaypoint.equals(destination)) {
+
+			if (locationComponent.getWorldPosition().dst(destination) < MAX_DISTANCE_WITHIN_TILE_TO_ARRIVE) {
+				nextWaypoint = null;
+				destination = null;
+			}
+		}
 
 		// TODO Adjust position for nudges by other entities
 

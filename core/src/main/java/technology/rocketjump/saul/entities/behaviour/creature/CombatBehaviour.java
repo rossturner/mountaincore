@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import org.apache.commons.lang3.NotImplementedException;
+import org.reflections.ReflectionUtils;
 import technology.rocketjump.saul.entities.ai.combat.*;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.actions.EquipWeaponAction;
@@ -39,12 +40,21 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 		this.parentEntity = parentEntity;
 		this.messageDispatcher = messageDispatcher;
 		this.gameContext = gameContext;
+
+		if (currentAction != null) {
+			// Required after loading from disk
+			currentAction.setParentEntity(parentEntity);
+		}
 	}
 
 	/**
 	 * This is expected to be called by CombatTracker for it to know what is going on in the round
 	 */
-	public CombatAction selectNewActionForRound() {
+	public CombatAction selectNewActionForRound(boolean stunned) {
+		if (stunned) {
+			return new StunnedCombatAction(parentEntity);
+		}
+
 		CombatAction previousAction = currentAction;
 		CombatAction newAction;
 		if (previousAction == null) {
@@ -64,7 +74,9 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 	}
 
 	public void update(float deltaTime) throws ExitingCombatException {
-
+		if (currentAction != null) {
+			currentAction.update(deltaTime, gameContext, messageDispatcher);
+		}
 	}
 
 	public void attackDamageSuffered() {
@@ -85,7 +97,11 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 	}
 
 	private CombatAction nextCombatAction(CombatAction previousAction) {
-		throw new NotImplementedException("TODO");
+		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+		if (previousAction instanceof MoveInRangeOfTargetCombatAction) {
+			combatStateComponent.setHeldLocation(toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
+		}
+		return attackOrDefendAgainstOpponentAction();
 	}
 
 	private AggressionResponse getAggressionResponse() {
@@ -157,11 +173,21 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-		throw new NotImplementedException("Must implement writeTo() in " + getClass().getSimpleName());
+		if (currentAction != null) {
+			JSONObject actionJson = new JSONObject(true);
+			actionJson.put("_class", currentAction.getClass().getName());
+			currentAction.writeTo(actionJson, savedGameStateHolder);
+			asJson.put("currentAction", actionJson);
+		}
 	}
 
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-
+		JSONObject actionJson = asJson.getJSONObject("currentAction");
+		if (actionJson != null) {
+			String className = actionJson.getString("_class");
+			this.currentAction = CombatAction.newInstance(ReflectionUtils.forName(className), Entity.NULL_ENTITY);
+			this.currentAction.readFrom(asJson, savedGameStateHolder, relatedStores);
+		}
 	}
 }

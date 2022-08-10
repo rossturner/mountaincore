@@ -1,9 +1,7 @@
 package technology.rocketjump.saul.entities.ai.combat;
 
-import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
-import org.apache.commons.lang3.NotImplementedException;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.Goal;
@@ -13,9 +11,8 @@ import technology.rocketjump.saul.entities.ai.goap.actions.location.GoToCombatOp
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
-import technology.rocketjump.saul.persistence.model.InvalidSaveException;
-import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+
+import static technology.rocketjump.saul.entities.behaviour.creature.CombatBehaviour.isInRangeOfOpponent;
 
 public class MoveInRangeOfTargetCombatAction extends CombatAction {
 
@@ -29,6 +26,7 @@ public class MoveInRangeOfTargetCombatAction extends CombatAction {
 	public void update(float deltaTime, GameContext gameContext, MessageDispatcher messageDispatcher) throws ExitingCombatException {
 		if (goToLocationAction == null) {
 			goToLocationAction = new GoToCombatOpponentAction(new AssignedGoal(Goal.NULL_GOAL, parentEntity, messageDispatcher));
+			parentEntity.getComponent(CombatStateComponent.class).setHeldLocation(null);
 		}
 
 		goToLocationAction.update(deltaTime, gameContext);
@@ -38,7 +36,13 @@ public class MoveInRangeOfTargetCombatAction extends CombatAction {
 			if (completion.equals(Action.CompletionType.FAILURE)) {
 				throw new ExitingCombatException();
 			}
-			this.completed = true;
+			CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+			if (isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()))) {
+				this.completed = true;
+			} else {
+				// Opponent has moved away
+				this.goToLocationAction = null;
+			}
 		} else {
 			CreatureCombat combatStats = new CreatureCombat(parentEntity);
 			if (combatStats.getWeaponRangeAsInt() > 1) {
@@ -83,13 +87,4 @@ public class MoveInRangeOfTargetCombatAction extends CombatAction {
 		this.goToLocationAction = null; // Null out every round so that pathfinding is reset in case the opponent keeps changing position
 	}
 
-	@Override
-	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-		throw new NotImplementedException("Need to implement writeTo() in " + getClass().getSimpleName());
-	}
-
-	@Override
-	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-
-	}
 }

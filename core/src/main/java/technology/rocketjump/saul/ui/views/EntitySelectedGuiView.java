@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.EntityStore;
+import technology.rocketjump.saul.entities.ai.combat.CreatureCombat;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
@@ -315,10 +316,16 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						List<ItemAllocation> itemAllocations = itemAllocationComponent.getAll();
 						if (itemAllocations.size() > 0) {
 							String allocationsString = StringUtils.join(itemAllocations, ", ");
-							entityDescriptionTable.add(new Label("Allocations: " + allocationsString, uiSkin)).left();
+							entityDescriptionTable.add(new Label("Allocations: " + allocationsString, uiSkin)).left().row();
 						}
 					}
 					if (entity.getType().equals(EntityType.CREATURE)) {
+						CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
+						if (combatStateComponent != null && combatStateComponent.isInCombat()) {
+							if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+								entityDescriptionTable.add(new Label("In combat: " + creatureBehaviour.getCombatBehaviour().getCurrentAction().getClass().getSimpleName(), uiSkin)).left().row();
+							}
+						}
 //					SettlerBehaviour behaviourComponent = (SettlerBehaviour) entity.getBehaviourComponent();
 //					if (behaviourComponent.getCurrentGoal() != null) {
 //						String goal = "Goal: " + behaviourComponent.getCurrentGoal().goal.name;
@@ -472,6 +479,16 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			List<I18nText> description = creatureBehaviour.getDescription(i18nTranslator, gameContext);
 			for (I18nText i18nText : description) {
 				nameTable.add(new I18nTextWidget(i18nText, uiSkin, messageDispatcher)).left().row();
+			}
+
+			if (GlobalSettings.DEV_MODE) {
+				CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
+				if (combatStateComponent != null && combatStateComponent.isInCombat()) {
+					nameTable.add(new Label("DEBUG In combat: " + creatureBehaviour.getCombatBehaviour().getCurrentAction().getClass().getSimpleName(), uiSkin)).left().row();
+					CreatureCombat creatureCombat = new CreatureCombat(entity);
+					nameTable.add(new Label("Defense: " + combatStateComponent.getDefensePool() + "/" + creatureCombat.maxDefensePool() +
+							" (+" + creatureCombat.defensePoolRegainedPerDefensiveRound() + ")", uiSkin)).left().row();
+				}
 			}
 		} else if (entity.getBehaviourComponent() instanceof CorpseBehaviour) {
 			HistoryComponent historyComponent = entity.getComponent(HistoryComponent.class);

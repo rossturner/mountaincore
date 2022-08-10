@@ -1,19 +1,16 @@
 package technology.rocketjump.saul.entities.ai.combat;
 
-import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
-import technology.rocketjump.saul.persistence.model.InvalidSaveException;
-import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
 public class DefensiveCombatAction extends CombatAction {
 
 	public DefensiveCombatAction(Entity parentEntity) {
 		super(parentEntity);
+		this.completed = true;
 	}
 
 	@Override
@@ -54,13 +51,4 @@ public class DefensiveCombatAction extends CombatAction {
 		}
 	}
 
-	@Override
-	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-
-	}
-
-	@Override
-	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-
-	}
 }

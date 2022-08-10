@@ -118,8 +118,8 @@ public class CreatureGroup implements Persistable {
 		sharedMemoryComponent.readFrom(memoryJson, savedGameStateHolder, relatedStores);
 
 		JSONArray memberIdsJson = asJson.getJSONArray("memberIds");
-		for (Object o : memberIdsJson) {
-			this.memberEntityIds.add((Long)o);
+		for (int index = 0; index < memberIdsJson.size(); index++) {
+			this.memberEntityIds.add(memberIdsJson.getLong(index));
 		}
 
 		savedGameStateHolder.creatureGroups.put(groupId, this);

@@ -46,6 +46,7 @@ public class SkillDictionary {
 				objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, Skill.class));
 
 		byName.put(NULL_PROFESSION.getName(), NULL_PROFESSION);
+		byName.put(UNARMED_COMBAT_SKILL.getName(), UNARMED_COMBAT_SKILL);
 		for (Skill skill : skills) {
 			byName.put(skill.getName(), skill);
 			byType.computeIfAbsent(skill.getType(), a -> new ArrayList<>()).add(skill);

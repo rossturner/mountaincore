@@ -200,6 +200,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 				defenderCombatState.setDefensePool(0);
 			} else {
 				defenderCombatState.setDefensePool(defenderDefensePool - damageAmount);
+				damageAmount = 0;
 			}
 
 			// TODO might want to inform defender they suffered damage (if in combat)
@@ -237,10 +238,10 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 				}
 
 				// TODO change knockback mechanics incl. when damage impacts defense pool only
-				Vector2 knockbackVector = attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition().cpy().sub(
-						attackMessage.attackerEntity.getLocationComponent().getWorldOrParentPosition()
-				).nor().scl(damageAmount / 4f);
-				attackMessage.defenderEntity.getBehaviourComponent().getSteeringComponent().setKnockback(knockbackVector);
+//				Vector2 knockbackVector = attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition().cpy().sub(
+//						attackMessage.attackerEntity.getLocationComponent().getWorldOrParentPosition()
+//				).nor().scl(damageAmount / 4f);
+//				attackMessage.defenderEntity.getBehaviourComponent().getSteeringComponent().setKnockback(knockbackVector);
 			}
 
 		} else if (attackMessage.defenderEntity.getType().equals(EntityType.FURNITURE)) {

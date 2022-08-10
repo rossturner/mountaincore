@@ -129,6 +129,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		if (combatState.isInCombat()) {
 			try {
 				combatBehaviour.update(deltaTime);
+				return;
 			} catch (ExitingCombatException e) {
 				combatBehaviour.onExitingCombat();
 				messageDispatcher.dispatchMessage(MessageType.CREATURE_EXITING_COMBAT, parentEntity);
@@ -411,6 +412,10 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 	public void applyStun(Random random) {
 		this.stunTime = 1f + (random.nextFloat() * 3f);
+	}
+
+	public boolean isStunned() {
+		return this.stunTime > 0f;
 	}
 
 	@Override

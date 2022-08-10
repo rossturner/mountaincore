@@ -141,6 +141,9 @@ public class ItemTypeDictionary {
 				itemType.getWeaponInfo().setAnimatedEffectType(particleEffectTypeDictionary.getByName(itemType.getWeaponInfo().getAnimatedSpriteEffectName()));
 				if (itemType.getWeaponInfo().getAnimatedEffectType() == null) {
 					Logger.error(String.format("Could not find particle effect with name %s for item type %s", itemType.getWeaponInfo().getAnimatedSpriteEffectName(), itemType.getItemTypeName()));
+				} else if (itemType.getWeaponInfo().getAnimatedEffectType().getAnimatedSpriteName() == null) {
+					Logger.error(String.format("Particle effect %s is not an animated-sprite type particle effect, for %s",
+							itemType.getWeaponInfo().getAnimatedEffectType().getName(), itemType.getItemTypeName()));
 				}
 			}
 

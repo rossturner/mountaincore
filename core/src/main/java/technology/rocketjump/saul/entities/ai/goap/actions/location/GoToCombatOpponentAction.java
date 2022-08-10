@@ -43,7 +43,7 @@ public class GoToCombatOpponentAction extends GoToLocationAction {
 				.filter(neighbour -> neighbour.getEntities()
 						.stream().noneMatch(entity -> {
 							CombatStateComponent neighbourTileEntityCombatState = entity.getComponent(CombatStateComponent.class);
-							return neighbourTileEntityCombatState != null && neighbourTileEntityCombatState.getHeldLocation().equals(neighbour.getTilePosition());
+							return neighbourTileEntityCombatState != null && neighbour.getTilePosition().equals(neighbourTileEntityCombatState.getHeldLocation());
 						})
 				)
 				.sorted(Comparator.comparingInt(o -> (int) (o.getTilePosition().dst2(parentTile) * 1000)))

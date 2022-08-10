@@ -15,9 +15,12 @@ import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.entities.ai.memory.Memory;
+import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.factories.SettlerFactory;
@@ -296,6 +299,29 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 							ParticleEffectType effectType = particleEffectTypeDictionary.getByName("Weapon slash");
 							messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(effectType, Optional.of(entity),
 									Optional.empty(), (p) -> {}));
+						});
+			}
+			case PRETEND_ATTACKED_BY_NEARBY_CREATURE: {
+				tile.getEntities().stream().filter(e -> e.getType().equals(CREATURE))
+						.findAny()
+						.ifPresent(entity -> {
+							Entity otherNearbyCreature = null;
+							for (int x = -4; x <= 4; x++) {
+								for (int y = -4; y <= 4; y++) {
+									MapTile otherTile = gameContext.getAreaMap().getTile(tile.getTileX() + x, tile.getTileY() + y);
+									if (otherTile != null) {
+										Optional<Entity> foundEntity = otherTile.getEntities().stream()
+												.filter(e -> e.getType().equals(CREATURE) && e.getId() != entity.getId())
+												.findAny();
+										if (foundEntity.isPresent()) {
+											MemoryComponent memoryComponent = entity.getOrCreateComponent(MemoryComponent.class);
+											Memory attackedByCreatureMemory = new Memory(MemoryType.ATTACKED_BY_CREATURE, gameContext.getGameClock());
+											attackedByCreatureMemory.setRelatedEntityId(foundEntity.get().getId());
+											memoryComponent.addShortTerm(attackedByCreatureMemory, gameContext.getGameClock());
+										}
+									}
+								}
+							}
 						});
 			}
 			case NONE:

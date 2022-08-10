@@ -110,4 +110,8 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 	public GridPoint2 getHeldLocation() {
 		return heldLocation;
 	}
+
+	public void setHeldLocation(GridPoint2 heldLocation) {
+		this.heldLocation = heldLocation;
+	}
 }

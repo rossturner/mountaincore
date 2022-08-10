@@ -17,12 +17,14 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.rendering.ScreenWriter;
 import technology.rocketjump.saul.settlement.CreatureTracker;
 
 import java.util.*;
 
 import static technology.rocketjump.saul.entities.components.Faction.HOSTILE_INVASION;
 import static technology.rocketjump.saul.entities.components.Faction.MERCHANTS;
+import static technology.rocketjump.saul.ui.i18n.I18nTranslator.oneDecimalFormat;
 
 @Singleton
 public class CombatTracker implements Updatable, Telegraph {
@@ -34,15 +36,17 @@ public class CombatTracker implements Updatable, Telegraph {
 
 	private final CreatureTracker creatureTracker;
 	private final MessageDispatcher messageDispatcher;
+	private final ScreenWriter screenWriter;
 	private GameContext gameContext;
 
 	private final Map<Long, Entity> entitiesInCombatById = new HashMap<>();
 	private final List<CombatAction> actionsToResolveThisRound = new ArrayList<>();
 
 	@Inject
-	public CombatTracker(CreatureTracker creatureTracker, MessageDispatcher messageDispatcher) {
+	public CombatTracker(CreatureTracker creatureTracker, MessageDispatcher messageDispatcher, ScreenWriter screenWriter) {
 		this.creatureTracker = creatureTracker;
 		this.messageDispatcher = messageDispatcher;
+		this.screenWriter = screenWriter;
 
 		messageDispatcher.addListener(this, MessageType.CREATURE_ENTERING_COMBAT);
 		messageDispatcher.addListener(this, MessageType.CREATURE_EXITING_COMBAT);
@@ -50,7 +54,16 @@ public class CombatTracker implements Updatable, Telegraph {
 
 	@Override
 	public void update(float deltaTime) {
+		float currentElapsedTime = gameContext.getSettlementState().getCurrentCombatRoundElapsed();
+		currentElapsedTime += deltaTime;
+		if (currentElapsedTime >= COMBAT_ROUND_DURATION && allActionsResolved()) {
+			onCombatRoundStart();
+			currentElapsedTime = 0f;
+		}
 
+		screenWriter.printLine("Combat round elapsed: " + oneDecimalFormat.format(currentElapsedTime));
+
+		gameContext.getSettlementState().setCurrentCombatRoundElapsed(currentElapsedTime);
 	}
 
 	public void onCombatRoundStart() {
@@ -67,7 +80,7 @@ public class CombatTracker implements Updatable, Telegraph {
 
 		for (Entity entity : entitiesInCombatById.values()) {
 			if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
-				CombatAction combatAction = creatureBehaviour.getCombatBehaviour().selectNewActionForRound();
+				CombatAction combatAction = creatureBehaviour.getCombatBehaviour().selectNewActionForRound(creatureBehaviour.isStunned());
 				if (combatAction.completesInOneRound()) {
 					actionsToResolveThisRound.add(combatAction);
 				}
@@ -160,6 +173,10 @@ public class CombatTracker implements Updatable, Telegraph {
 				.toList();
 	}
 
+	private boolean allActionsResolved() {
+		return actionsToResolveThisRound.stream().allMatch(CombatAction::isCompleted);
+	}
+
 	@Override
 	public boolean handleMessage(Telegram msg) {
 		switch (msg.message) {
@@ -179,16 +196,17 @@ public class CombatTracker implements Updatable, Telegraph {
 		add(creature);
 
 		if (creature.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
-			CombatAction combatAction = creatureBehaviour.getCombatBehaviour().selectNewActionForRound();
+			CombatAction combatAction = creatureBehaviour.getCombatBehaviour().selectNewActionForRound(creatureBehaviour.isStunned());
 			combatActionAdded(combatAction);
 		}
 
 	}
 
 	private void combatActionAdded(CombatAction combatAction) {
-		actionsToResolveThisRound.add(combatAction);
+		if (combatAction.completesInOneRound()) {
+			actionsToResolveThisRound.add(combatAction);
+		}
 
-		// TODO determine when to do attack within round or similar
 	}
 
 	@Override
