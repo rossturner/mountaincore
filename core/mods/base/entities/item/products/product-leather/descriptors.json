@@ -1,0 +1,14 @@
+[ {
+  "uniqueName" : "Product-Leather-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Product-Leather",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Product-Leather-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR"
+    }
+  }
+} ]

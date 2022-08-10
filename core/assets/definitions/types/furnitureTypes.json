@@ -672,6 +672,27 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
+  "name" : "Tanning_Frame",
+  "i18nKey" : "FURNITURE.TANNING_FRAME",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "2x2 with lower workspaces",
+  "colorCode" : "#BE926E",
+  "iconName" : "wood-frame",
+  "placeAnywhere" : false,
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Logs",
+      "quantity" : 1,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "CRAFTING_STATION_BEHAVIOUR" : [ "TANNING_HIDE", "PRODUCE_ITEM", "HAULING" ],
+    "COPY_GAME_MATERIAL_FROM_INVENTORY" : [ "SKIN" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "WOODCUTTERS_BENCH",
   "i18nKey" : "FURNITURE.WOODCUTTERS_BENCH",
   "blocksMovement" : true,

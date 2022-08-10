@@ -48,6 +48,10 @@
     "fixedAmount" : 2,
     "perSettler" : 0.0
   },
+  "Product-Leather" : {
+    "fixedAmount" : 400,
+    "perSettler" : 0.0
+  },
   "Product-Linen" : {
     "fixedAmount" : 6,
     "perSettler" : 0.0

@@ -115,4 +115,11 @@
   "iconName" : "crossed-swords",
   "furnitureNames" : [ "FLETCHERS_WORKBENCH" ],
   "tags" : { }
+}, {
+  "roomName" : "LEATHER_WORKSHOP",
+  "i18nKey" : "ROOMS.LEATHER_WORKSHOP",
+  "colorCode" : "#aa7252",
+  "iconName" : "animal-hide",
+  "furnitureNames" : [ "Tanning_Frame" ],
+  "tags" : { }
 } ]

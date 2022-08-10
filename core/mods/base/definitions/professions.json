@@ -53,5 +53,10 @@
     "name": "HUNTER",
     "i18nKey": "PROFESSION.HUNTER",
     "icon": "profession-bow"
+  },
+  {
+    "name": "LEATHERWORKER",
+    "i18nKey": "PROFESSION.LEATHERWORKER",
+    "icon": "profession-knife"
   }
 ]

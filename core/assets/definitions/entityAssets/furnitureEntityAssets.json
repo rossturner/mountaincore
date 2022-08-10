@@ -4903,6 +4903,63 @@
     }
   }
 }, {
+  "uniqueName" : "Tanning_Frame-2x2 with lower workspaces-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "Tanning_Frame",
+  "furnitureLayoutName" : "2x2 with lower workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Tanning_Frame-2x2 with lower workspaces-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 32.0,
+        "y" : 40.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Tanning_Frame-2x2 with lower workspaces-Show_When_Inventory_Present-Wood",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT",
+  "furnitureTypeName" : "Tanning_Frame",
+  "furnitureLayoutName" : "2x2 with lower workspaces",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Tanning_Frame-2x2 with lower workspaces-Show_When_Inventory_Present-Wood_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "woodcutters-bench-2x3BL-metal",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "WOODCUTTERS_BENCH",

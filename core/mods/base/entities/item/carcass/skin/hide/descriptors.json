@@ -1,0 +1,114 @@
+[ {
+  "uniqueName" : "Carcass-Hide-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Carcass-Hide",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.6,
+      "offsetPixels" : {
+        "y" : -12.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -18.0
+        }
+      } ]
+    },
+    "UP" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.55
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.55,
+      "offsetPixels" : {
+        "x" : 8.0,
+        "y" : -10.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : 10.0
+        }
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.55,
+      "offsetPixels" : {
+        "x" : -8.0,
+        "y" : -10.0
+      },
+      "flipX" : true,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : 10.0
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0
+        }
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.55,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "y" : -5.0
+        }
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.55,
+      "flipX" : true,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "y" : -5.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Carcass-Hide-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Carcass-Hide",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ "STANDARD" ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR"
+    }
+  }
+} ]

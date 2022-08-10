@@ -1,0 +1,9 @@
+{
+  "itemTypeId" : 7,
+  "itemTypeName" : "Carcass-Hide",
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "SKIN" ],
+  "primaryMaterialType" : "SKIN",
+  "stockpileGroupName" : "RAW_MATERIALS",
+  "i18nKey" : "CARCASS.HIDE"
+}

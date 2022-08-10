@@ -1,0 +1,9 @@
+{
+  "itemTypeId" : 30,
+  "itemTypeName" : "Product-Leather",
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "SKIN" ],
+  "primaryMaterialType" : "SKIN",
+  "relatedCraftingTypeNames" : [ "TANNING_HIDE" ],
+  "i18nKey" : "PRODUCT.LEATHER"
+}

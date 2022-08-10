@@ -121,6 +121,9 @@
   "Carcass-Perch-Prepared": {
     "fixedAmount": 100
   },
+  "Product-Leather": {
+    "fixedAmount": 400
+  },
 
   "Weapon-Metal-Arrows": {
     "fixedAmount": 100

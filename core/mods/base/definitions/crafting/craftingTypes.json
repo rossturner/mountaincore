@@ -97,5 +97,10 @@
     "professionRequiredName": "CHEF",
     "defaultItemTypeName": "Tool-Rolling-Pin",
     "usesWorkstationTool": true
+  },
+  {
+    "name": "TANNING_HIDE",
+    "i18nKey": "CRAFTING_TYPE.TANNING_HIDE",
+    "professionRequiredName": "LEATHERWORKER"
   }
 ]
