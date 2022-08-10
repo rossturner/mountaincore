@@ -27,10 +27,13 @@ import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	public static final int SCROLL_BORDER = 2;
+	private static final int NO_BUTTON = -1;
 	private final PrimaryCameraWrapper primaryCameraWrapper;
 	private final RenderingOptions renderingOptions;
 	private final MessageDispatcher messageDispatcher;
 	private GameContext gameContext;
+	private int button = NO_BUTTON;
+	private float startX, startY;
 
 	@Inject
 	public GameWorldInputHandler(PrimaryCameraWrapper primaryCameraWrapper, RenderingOptions renderingOptions,
@@ -140,6 +143,10 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 			screenY = renderingOptions.debug().adjustScreenYForSplitView(screenY);
 		}
 
+		this.startX = screenX;
+		this.startY = screenY;
+		this.button = button;
+
 		Vector3 worldPosition = primaryCameraWrapper.getCamera().unproject(new Vector3(screenX, screenY, 0));
 		Vector2 worldPosition2 = new Vector2(worldPosition.x, worldPosition.y);
 		MouseChangeMessage.MouseButtonType mouseButtonType = MouseChangeMessage.MouseButtonType.byButtonCode(button);
@@ -153,6 +160,7 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		this.button = NO_BUTTON;
 		if (renderingOptions.debug().showIndividualLightingBuffers()) {
 			screenX = renderingOptions.debug().adjustScreenXForSplitView(screenX);
 			screenY = renderingOptions.debug().adjustScreenYForSplitView(screenY);
@@ -171,10 +179,21 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		Vector3 worldPosition = primaryCameraWrapper.getCamera().unproject(new Vector3(screenX, screenY, 0));
-		Vector2 worldPosition2 = new Vector2(worldPosition.x, worldPosition.y);
-		MouseChangeMessage mouseMovedMessage = new MouseChangeMessage(screenX, screenY, worldPosition2, null);
-		messageDispatcher.dispatchMessage(null, MessageType.MOUSE_MOVED, mouseMovedMessage);
+		//Copied from CameraInputController
+		if (Input.Buttons.MIDDLE == button) {
+			final float deltaX = (screenX - startX) / Gdx.graphics.getWidth();
+			final float deltaY = (startY - screenY) / Gdx.graphics.getHeight();
+			startX = screenX;
+			startY = screenY;
+
+			primaryCameraWrapper.moveTo(deltaX, deltaY);
+		} else {
+			Vector3 worldPosition = primaryCameraWrapper.getCamera().unproject(new Vector3(screenX, screenY, 0));
+			Vector2 worldPosition2 = new Vector2(worldPosition.x, worldPosition.y);
+			MouseChangeMessage mouseMovedMessage = new MouseChangeMessage(screenX, screenY, worldPosition2, null);
+			messageDispatcher.dispatchMessage(null, MessageType.MOUSE_MOVED, mouseMovedMessage);
+		}
+
 		return true;
 	}
 
@@ -214,7 +233,9 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	@Override
 	public boolean scrolled(int amount) {
-		primaryCameraWrapper.zoom(amount);
+		if (button == NO_BUTTON) {
+			primaryCameraWrapper.zoom(amount);
+		}
 		return true;
 	}
 

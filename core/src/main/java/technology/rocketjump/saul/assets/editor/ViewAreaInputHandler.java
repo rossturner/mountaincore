@@ -46,13 +46,14 @@ public class ViewAreaInputHandler implements InputProcessor {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
+		this.button = -1;
+		return true;
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		//Copied from CameraInputController
-		if (Input.Buttons.RIGHT == button) {
+		if (Input.Buttons.MIDDLE == button) {
 			final float deltaX = (screenX - startX) / Gdx.graphics.getWidth();
 			final float deltaY = (startY - screenY) / Gdx.graphics.getHeight();
 			startX = screenX;
