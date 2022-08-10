@@ -11,5 +11,18 @@
       "y": 0.4
     },
     "attachedToParent": true
+  },
+  {
+    "name": "Defense pool bar",
+    "customImplementation": "DefensePoolBarEffect",
+    "scale": 1,
+    "isLooping": false,
+    "isAffectedByLighting": false,
+    "usesTargetMaterialAsTintColor": false,
+    "offsetFromParentEntity": {
+      "x": 0,
+      "y": 0.35
+    },
+    "attachedToParent": true
   }
 ]

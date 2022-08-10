@@ -60,6 +60,26 @@
   "attachedToParent" : true,
   "unaffectedByPause" : false
 }, {
+  "name" : "Defense pool bar",
+  "customImplementation" : "DefensePoolBarEffect",
+  "shaderEffectWidth" : 0.0,
+  "shaderEffectHeight" : 0.0,
+  "scale" : 1.0,
+  "overrideDuration" : 1.0,
+  "isLooping" : false,
+  "usesTargetMaterialAsTintColor" : false,
+  "isAffectedByLighting" : false,
+  "distanceFromParentEntityOrientation" : 0.0,
+  "offsetFromParentEntity" : {
+    "x" : 0.0,
+    "y" : 0.35,
+    "unit" : false
+  },
+  "renderBehindParent" : false,
+  "overrideYDepth" : false,
+  "attachedToParent" : true,
+  "unaffectedByPause" : false
+}, {
   "name" : "Dust cloud",
   "particleFile" : "smoke.p",
   "shaderEffectWidth" : 0.0,

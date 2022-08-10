@@ -15,7 +15,9 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.mapping.tile.MapTile;
+import technology.rocketjump.saul.particles.custom_libgdx.DefensePoolBarEffect;
 import technology.rocketjump.saul.particles.custom_libgdx.LibgdxParticleEffect;
+import technology.rocketjump.saul.particles.custom_libgdx.ProgressBarEffect;
 import technology.rocketjump.saul.particles.custom_libgdx.ShaderEffect;
 import technology.rocketjump.saul.particles.model.ParticleEffectInstance;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
@@ -79,7 +81,14 @@ public class ParticleEffectFactory {
 										 Optional<MapTile> parentTile, Optional<Color> optionalMaterialColor) {
 		if (type.getCustomImplementation() != null) {
 			if (parentEntity.isPresent()) {
-				return customEffectFactory.createProgressBarEffect(parentEntity.get());
+				if (type.getCustomImplementation().equals(ProgressBarEffect.class.getSimpleName())) {
+					return customEffectFactory.createProgressBarEffect(parentEntity.get());
+				} else if (type.getCustomImplementation().equals(DefensePoolBarEffect.class.getSimpleName())) {
+					return customEffectFactory.createDefenseBarEffect(parentEntity.get());
+				} else {
+					Logger.error("Unrecognised custom particle effect implementation: " + type.getCustomImplementation());
+					return null;
+				}
 			} else {
 				Logger.error("Custom implementations are currently for entity attached effects only");
 				return null;

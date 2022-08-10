@@ -18,22 +18,32 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.ParticleEffectTypeCallback;
+import technology.rocketjump.saul.messaging.types.ParticleRequestMessage;
+import technology.rocketjump.saul.particles.custom_libgdx.DefensePoolBarEffect;
+import technology.rocketjump.saul.particles.model.ParticleEffectInstance;
+import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+
+import java.util.Optional;
 
 import static technology.rocketjump.saul.entities.ai.goap.Goal.NULL_GOAL;
 import static technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse.ATTACK;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
 // Although this is coded as a Component, it is always encapsulated in CreatureBehaviour
-public class CombatBehaviour implements ParentDependentEntityComponent {
+public class CombatBehaviour implements ParentDependentEntityComponent, ParticleEffectTypeCallback, ParticleRequestMessage.ParticleCreationCallback {
 
 	private Entity parentEntity;
 	private MessageDispatcher messageDispatcher;
 	private GameContext gameContext;
 
 	private CombatAction currentAction;
+	private transient ParticleEffectType defensePoolEffectType;
+	private transient ParticleEffectInstance defensePoolEffect;
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -45,6 +55,8 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 			// Required after loading from disk
 			currentAction.setParentEntity(parentEntity);
 		}
+
+		messageDispatcher.dispatchMessage(MessageType.GET_DEFENSE_POOL_EFFECT_TYPE, this);
 	}
 
 	/**
@@ -76,6 +88,24 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 	public void update(float deltaTime) throws ExitingCombatException {
 		if (currentAction != null) {
 			currentAction.update(deltaTime, gameContext, messageDispatcher);
+		}
+
+		if (defensePoolEffect == null || !defensePoolEffect.isActive()) {
+			if (defensePoolEffectType != null) {
+				messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(
+						defensePoolEffectType,
+						Optional.of(parentEntity),
+						Optional.empty(),
+						this));
+			}
+		}
+
+		if (defensePoolEffect != null && defensePoolEffect.isActive()) {
+			if (defensePoolEffect.getWrappedInstance() instanceof DefensePoolBarEffect defensePoolBarEffect) {
+				CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+				CreatureCombat combat = new CreatureCombat(parentEntity);
+				defensePoolBarEffect.setPoolPercentage((float)combatStateComponent.getDefensePool() / (float) combat.maxDefensePool());
+			}
 		}
 	}
 
@@ -159,6 +189,10 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 		parentEntity.getComponent(CombatStateComponent.class).clearState();
 		new UnequipWeaponAction(new AssignedGoal(NULL_GOAL, parentEntity, messageDispatcher))
 				.update(0.1f, gameContext);
+
+		if (defensePoolEffect != null) {
+			defensePoolEffect.getWrappedInstance().allowCompletion();
+		}
 	}
 
 	public CombatAction getCurrentAction() {
@@ -189,5 +223,15 @@ public class CombatBehaviour implements ParentDependentEntityComponent {
 			this.currentAction = CombatAction.newInstance(ReflectionUtils.forName(className), Entity.NULL_ENTITY);
 			this.currentAction.readFrom(asJson, savedGameStateHolder, relatedStores);
 		}
+	}
+
+	@Override
+	public void typeFound(ParticleEffectType type) {
+		this.defensePoolEffectType = type;
+	}
+
+	@Override
+	public void particleCreated(ParticleEffectInstance instance) {
+		this.defensePoolEffect = instance;
 	}
 }

@@ -11,6 +11,7 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.particles.custom_libgdx.AnimatedSpriteEffect;
+import technology.rocketjump.saul.particles.custom_libgdx.DefensePoolBarEffect;
 import technology.rocketjump.saul.particles.custom_libgdx.ParticleEffect;
 import technology.rocketjump.saul.particles.custom_libgdx.ProgressBarEffect;
 import technology.rocketjump.saul.particles.model.ParticleEffectInstance;
@@ -26,10 +27,15 @@ import static technology.rocketjump.saul.assets.TextureAtlasRepository.TextureAt
 public class CustomEffectFactory {
 
 	public static final String PROGRESS_BAR_EFFECT_TYPE_NAME = "Progress bar";
+	public static final String DEFENSE_POOL_EFFECT_TYPE_NAME = "Defense pool bar";
 	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
 	private final Sprite progressBarOuterSprite;
 	private final Sprite progressBarInnerSprite;
+	private final Sprite defensePoolShieldSprite;
+	private final Sprite defensePoolForegroundSprite;
+	private final Sprite defensePoolBackgroundSprite;
 	private final ParticleEffectType progressBarEffectType;
+	private final ParticleEffectType defensePoolEffectType;
 	private final TextureAtlas diffuseEntitiesAtlas;
 
 	@Inject
@@ -38,12 +44,17 @@ public class CustomEffectFactory {
 
 		// TODO more generic loading of custom effects
 		progressBarEffectType = particleEffectTypeDictionary.getByName(PROGRESS_BAR_EFFECT_TYPE_NAME);
+		defensePoolEffectType = particleEffectTypeDictionary.getByName(DEFENSE_POOL_EFFECT_TYPE_NAME);
 
 		TextureAtlas diffuseTextureAtlas = textureAtlasRepository.get(GUI_TEXTURE_ATLAS);
 		diffuseEntitiesAtlas = textureAtlasRepository.get(TextureAtlasRepository.TextureAtlasType.DIFFUSE_ENTITIES);
 
 		progressBarOuterSprite = diffuseTextureAtlas.createSprite("yellow_button13");
 		progressBarInnerSprite = diffuseTextureAtlas.createSprite("green_button01");
+
+		defensePoolShieldSprite = diffuseTextureAtlas.createSprite("Shield_Bar_Icon");
+		defensePoolForegroundSprite = diffuseTextureAtlas.createSprite("Shield_Bar_Foreground_Trimmed");
+		defensePoolBackgroundSprite = diffuseTextureAtlas.createSprite("Shield_Bar_Background");
 	}
 
 	/**
@@ -83,6 +94,14 @@ public class CustomEffectFactory {
 		ParticleEffectInstance particleEffectInstance = new ParticleEffectInstance(SequentialIdGenerator.nextId(), progressBarEffectType, progressBarEffect, parentEntity);
 		particleEffectInstance.setOffsetFromWorldPosition(progressBarEffectType.getOffsetFromParentEntity());
 
+		return particleEffectInstance;
+	}
+
+
+	public ParticleEffectInstance createDefenseBarEffect(Entity parentEntity) {
+		ParticleEffect defensePoolBarEffect = new DefensePoolBarEffect(defensePoolShieldSprite, defensePoolForegroundSprite, defensePoolBackgroundSprite);
+		ParticleEffectInstance particleEffectInstance = new ParticleEffectInstance(SequentialIdGenerator.nextId(), defensePoolEffectType, defensePoolBarEffect, parentEntity);
+		particleEffectInstance.setOffsetFromWorldPosition(defensePoolEffectType.getOffsetFromParentEntity());
 		return particleEffectInstance;
 	}
 }
