@@ -17,10 +17,12 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.CombatActionChangedMessage;
 import technology.rocketjump.saul.rendering.ScreenWriter;
 import technology.rocketjump.saul.settlement.CreatureTracker;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.entities.components.Faction.HOSTILE_INVASION;
 import static technology.rocketjump.saul.entities.components.Faction.MERCHANTS;
@@ -50,6 +52,7 @@ public class CombatTracker implements Updatable, Telegraph {
 
 		messageDispatcher.addListener(this, MessageType.CREATURE_ENTERING_COMBAT);
 		messageDispatcher.addListener(this, MessageType.CREATURE_EXITING_COMBAT);
+		messageDispatcher.addListener(this, MessageType.COMBAT_ACTION_CHANGED);
 	}
 
 	@Override
@@ -138,7 +141,7 @@ public class CombatTracker implements Updatable, Telegraph {
 			// Figure out set of opponent IDs
 			if (targetedEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
 				if (creatureBehaviour.getCreatureGroup() != null) {
-					combatStateComponent.setOpponentEntityIds(new ArrayList<>(creatureBehaviour.getCreatureGroup().getMemberIds()));
+					combatStateComponent.setOpponentEntityIds(new HashSet<>(creatureBehaviour.getCreatureGroup().getMemberIds()));
 				} else {
 					Faction opponentFaction = targetedEntity.getOrCreateComponent(FactionComponent.class).getFaction();
 					Faction entityFaction = entity.getOrCreateComponent(FactionComponent.class).getFaction();
@@ -166,11 +169,20 @@ public class CombatTracker implements Updatable, Telegraph {
 		}
 	}
 
-	private List<Long> getAllCreaturesInFaction(Faction faction) {
+
+	public void remove(Entity entity) {
+		entitiesInCombatById.remove(entity.getId());
+
+		CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
+		combatStateComponent.setInCombat(false);
+		combatStateComponent.setDefensePool(0);
+	}
+
+	private Set<Long> getAllCreaturesInFaction(Faction faction) {
 		return creatureTracker.getLiving().stream()
 				.filter(e -> e.getOrCreateComponent(FactionComponent.class).getFaction().equals(faction))
 				.map(Entity::getId)
-				.toList();
+				.collect(Collectors.toSet());
 	}
 
 	private boolean allActionsResolved() {
@@ -185,7 +197,15 @@ public class CombatTracker implements Updatable, Telegraph {
 				return true;
 			}
 			case MessageType.CREATURE_EXITING_COMBAT: {
+				creatureLeavingCombat((Entity) msg.extraInfo);
 				return true;
+			}
+			case MessageType.COMBAT_ACTION_CHANGED: {
+				CombatActionChangedMessage message = (CombatActionChangedMessage) msg.extraInfo;
+				actionsToResolveThisRound.remove(message.previousAction);
+				if (message.newAction.completesInOneRound()) {
+					actionsToResolveThisRound.add(message.newAction);
+				}
 			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
@@ -199,7 +219,15 @@ public class CombatTracker implements Updatable, Telegraph {
 			CombatAction combatAction = creatureBehaviour.getCombatBehaviour().selectNewActionForRound(creatureBehaviour.isStunned());
 			combatActionAdded(combatAction);
 		}
+	}
 
+	private void creatureLeavingCombat(Entity creature) {
+		if (creature.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+			CombatAction currentAction = creatureBehaviour.getCombatBehaviour().getCurrentAction();
+			combatActionRemoved(currentAction);
+		}
+
+		remove(creature);
 	}
 
 	private void combatActionAdded(CombatAction combatAction) {
@@ -207,6 +235,12 @@ public class CombatTracker implements Updatable, Telegraph {
 			actionsToResolveThisRound.add(combatAction);
 		}
 
+	}
+
+	private void combatActionRemoved(CombatAction combatAction) {
+		if (combatAction.completesInOneRound()) {
+			actionsToResolveThisRound.remove(combatAction);
+		}
 	}
 
 	@Override

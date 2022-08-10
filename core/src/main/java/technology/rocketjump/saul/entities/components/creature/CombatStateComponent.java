@@ -11,8 +11,8 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CombatStateComponent implements ParentDependentEntityComponent {
 
@@ -25,7 +25,7 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 
 	private GridPoint2 heldLocation; // The tile the combatant is keeping control of - other combatants should not share this tile
 	private Long targetedOpponentId;
-	private List<Long> opponentEntityIds = new ArrayList<>();
+	private Set<Long> opponentEntityIds = new HashSet<>();
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -39,7 +39,7 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 		this.defensePool = 0;
 		this.heldLocation = null;
 		this.targetedOpponentId = null;
-		this.opponentEntityIds = new ArrayList<>();
+		this.opponentEntityIds = new HashSet<>();
 	}
 
 	@Override
@@ -75,11 +75,11 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 		this.targetedOpponentId = targetedOpponentId;
 	}
 
-	public List<Long> getOpponentEntityIds() {
+	public Set<Long> getOpponentEntityIds() {
 		return opponentEntityIds;
 	}
 
-	public void setOpponentEntityIds(List<Long> opponentEntityIds) {
+	public void setOpponentEntityIds(Set<Long> opponentEntityIds) {
 		this.opponentEntityIds = opponentEntityIds;
 	}
 

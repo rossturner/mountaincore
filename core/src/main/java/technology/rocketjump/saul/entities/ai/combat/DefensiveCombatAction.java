@@ -42,13 +42,13 @@ public class DefensiveCombatAction extends CombatAction {
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 
 		if (!combatStateComponent.isHasInitiative()) {
-			combatStateComponent.setHasInitiative(true);
-
 			int defensePool = combatStateComponent.getDefensePool();
 			defensePool += combatStats.defensePoolRegainedPerDefensiveRound();
 			defensePool = Math.min(defensePool, combatStats.maxDefensePool());
 			combatStateComponent.setDefensePool(defensePool);
 		}
+
+		combatStateComponent.setHasInitiative(true);
 	}
 
 }

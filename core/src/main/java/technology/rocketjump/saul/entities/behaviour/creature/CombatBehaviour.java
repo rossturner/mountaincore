@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import org.apache.commons.lang3.NotImplementedException;
 import org.reflections.ReflectionUtils;
+import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.ai.combat.*;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.actions.EquipWeaponAction;
@@ -19,6 +20,7 @@ import technology.rocketjump.saul.entities.model.physical.creature.AggressionRes
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.CombatActionChangedMessage;
 import technology.rocketjump.saul.messaging.types.ParticleEffectTypeCallback;
 import technology.rocketjump.saul.messaging.types.ParticleRequestMessage;
 import technology.rocketjump.saul.particles.custom_libgdx.DefensePoolBarEffect;
@@ -28,8 +30,11 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+import static technology.rocketjump.saul.combat.CombatMessageHandler.getOrientationsOppositeTo;
 import static technology.rocketjump.saul.entities.ai.goap.Goal.NULL_GOAL;
 import static technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse.ATTACK;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
@@ -109,8 +114,61 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		}
 	}
 
-	public void attackDamageSuffered() {
-		// TODO might want to change targeted opponent if multiple basing me
+	public void sufferedCombatDamage(Entity attackerEntity) {
+		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+		combatStateComponent.getOpponentEntityIds().add(attackerEntity.getId());
+
+		if (currentAction instanceof AttackCreatureCombatAction attackAction) {
+			attackAction.interrupted(messageDispatcher);
+			CombatAction previousAction = currentAction;
+			currentAction = new DefensiveCombatAction(parentEntity);
+			messageDispatcher.dispatchMessage(MessageType.COMBAT_ACTION_CHANGED, new CombatActionChangedMessage(
+					parentEntity, previousAction, currentAction
+			));
+		}
+
+		changeOpponentIfCanFaceMoreOpponentsAtOnce(combatStateComponent);
+
+	}
+
+	private void changeOpponentIfCanFaceMoreOpponentsAtOnce(CombatStateComponent combatStateComponent) {
+		GridPoint2 parentTilePosition = toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition());
+		List<Entity> opponentsInMelee = new ArrayList<>();
+		for (Long opponentEntityId : combatStateComponent.getOpponentEntityIds()) {
+			Entity opponentEntity = gameContext.getEntities().get(opponentEntityId);
+			if (opponentEntity != null) {
+				GridPoint2 opponentTilePosition = toGridPoint(opponentEntity.getLocationComponent().getWorldOrParentPosition());
+				if (Math.abs(parentTilePosition.x - opponentTilePosition.x) <= 1 &&
+					Math.abs(parentTilePosition.y - opponentTilePosition.y) <= 1) {
+					opponentsInMelee.add(opponentEntity);
+				}
+			}
+		}
+
+		int mostOpponentsInView = 0;
+		Long opponentKeepingMostOpponentsInView = null;
+		for (Entity cursorOpponent : opponentsInMelee) {
+			EntityAssetOrientation orientationToOpponent = EntityAssetOrientation.fromFacingTo8Directions(parentEntity.getLocationComponent().getWorldOrParentPosition().cpy()
+					.sub(cursorOpponent.getLocationComponent().getWorldOrParentPosition()));
+
+			int opponentsInView = 0;
+			for (Entity otherOpponent : opponentsInMelee) {
+				EntityAssetOrientation orientationToOtherOpponent = EntityAssetOrientation.fromFacingTo8Directions(parentEntity.getLocationComponent().getWorldOrParentPosition().cpy()
+						.sub(otherOpponent.getLocationComponent().getWorldOrParentPosition()));
+				if (!getOrientationsOppositeTo(orientationToOpponent).contains(orientationToOtherOpponent)) {
+					opponentsInView++;
+				}
+			}
+
+			if (opponentsInView > mostOpponentsInView) {
+				mostOpponentsInView = opponentsInView;
+				opponentKeepingMostOpponentsInView = cursorOpponent.getId();
+			}
+		}
+		if (opponentKeepingMostOpponentsInView != null && !opponentKeepingMostOpponentsInView.equals(combatStateComponent.getTargetedOpponentId())) {
+			combatStateComponent.setTargetedOpponentId(opponentKeepingMostOpponentsInView);
+		}
+
 	}
 
 	@Override

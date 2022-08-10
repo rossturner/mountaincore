@@ -199,8 +199,6 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 				damageAmount = reduceDamageWithDefensePool(damageAmount, attackMessage.defenderEntity);
 			}
 
-			// TODO might want to inform defender they suffered damage (if in combat)
-
 			if (damageAmount > 0) {
 				BodyPart impactedBodyPart = defenderAttributes.getBody().randomlySelectPartBasedOnSize(gameContext.getRandom());
 				BodyPartDamage currentDamage = defenderAttributes.getBody().getDamage(impactedBodyPart);
@@ -214,7 +212,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 					if (newOrganDamage.isGreaterThan(currentOrganDamage)) {
 						defenderAttributes.getBody().setOrganDamage(impactedBodyPart, targetOrgan, newOrganDamage);
 						messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
-								attackMessage.defenderEntity, impactedBodyPart, targetOrgan, newOrganDamage
+								attackMessage.defenderEntity, attackMessage.attackerEntity, impactedBodyPart, targetOrgan, newOrganDamage
 						));
 					}
 				} else {
@@ -224,11 +222,11 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 					if (newDamageLevel.isGreaterThan(currentDamage.getDamageLevel())) {
 						defenderAttributes.getBody().setDamage(impactedBodyPart, newDamageLevel);
 						messageDispatcher.dispatchMessage(MessageType.CREATURE_DAMAGE_APPLIED, new CreatureDamagedMessage(
-								attackMessage.defenderEntity, impactedBodyPart, newDamageLevel
+								attackMessage.defenderEntity, attackMessage.attackerEntity, impactedBodyPart, newDamageLevel
 						));
 
 						if (newDamageLevel.equals(Destroyed)) {
-							bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity);
+							bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity, attackMessage.attackerEntity);
 						}
 					}
 				}
@@ -255,7 +253,9 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		}
 	}
 
-	// don't use defense pool if attack is from behind/asleep
+	/**
+	 * Don't use defense pool if attack is from behind or defender is stunned/asleep
+ 	 */
 	private boolean canUseDefensePool(CombatAttackMessage attackMessage) {
 		if (attackMessage.defenderEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
 			if (creatureBehaviour.isStunned()) {
@@ -278,7 +278,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		return !getOrientationsOppositeTo(defenderOrientation).contains(attackerRelativeToDefender);
 	}
 
-	private List<EntityAssetOrientation> getOrientationsOppositeTo(EntityAssetOrientation facingOrientation) {
+	public static List<EntityAssetOrientation> getOrientationsOppositeTo(EntityAssetOrientation facingOrientation) {
 		return switch (facingOrientation) {
 			case UP -> List.of(DOWN_LEFT, DOWN, DOWN_RIGHT);
 			case UP_RIGHT -> List.of(LEFT, DOWN_LEFT, DOWN);
@@ -307,6 +307,10 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	private void applyDamageToCreature(CreatureDamagedMessage message) {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) message.targetCreature.getPhysicalEntityComponent().getAttributes();
 		StatusComponent statusComponent = message.targetCreature.getComponent(StatusComponent.class);
+
+		if (message.targetCreature.getBehaviourComponent() instanceof CreatureBehaviour defenderBehaviour) {
+			defenderBehaviour.getCombatBehaviour().sufferedCombatDamage(message.aggressorCreature);
+		}
 
 		switch (message.damageLevel) {
 			case None:
@@ -359,6 +363,10 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) message.targetEntity.getPhysicalEntityComponent().getAttributes();
 		StatusComponent statusComponent = message.targetEntity.getComponent(StatusComponent.class);
 
+		if (message.aggressorEntity.getBehaviourComponent() instanceof CreatureBehaviour defenderBehaviour) {
+			defenderBehaviour.getCombatBehaviour().sufferedCombatDamage(message.aggressorEntity);
+		}
+
 		List<BodyPartOrgan> otherOrgansOfType = new ArrayList<>();
 		for (BodyPart bodyPart : attributes.getBody().getAllBodyParts()) {
 			for (BodyPartOrgan organForBodyPart : bodyPart.getPartDefinition().getOrgans()) {
@@ -408,12 +416,12 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		}
 	}
 
-	private void bodyPartDestroyed(BodyPart impactedBodyPart, Body body, Entity targetEntity) {
+	private void bodyPartDestroyed(BodyPart impactedBodyPart, Body body, Entity targetEntity, Entity aggressorEntity) {
 		for (BodyPartOrgan organ : impactedBodyPart.getPartDefinition().getOrgans()) {
 			if (!body.getOrganDamage(impactedBodyPart, organ).equals(OrganDamageLevel.DESTROYED)) {
 				body.setOrganDamage(impactedBodyPart, organ, OrganDamageLevel.DESTROYED);
 				messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
-						targetEntity, impactedBodyPart, organ, OrganDamageLevel.DESTROYED
+						targetEntity, aggressorEntity, impactedBodyPart, organ, OrganDamageLevel.DESTROYED
 				));
 			}
 		}
@@ -435,7 +443,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 					.stream().filter(b -> b.getPartDefinition().equals(childPartDefinition) && b.getDiscriminator() == finalChildDiscriminator)
 					.forEach(b -> {
 						if (!body.getDamage(b).getDamageLevel().equals(Destroyed)) {
-							bodyPartDestroyed(b, body, targetEntity);
+							bodyPartDestroyed(b, body, targetEntity, aggressorEntity);
 						}
 					});
 		}
