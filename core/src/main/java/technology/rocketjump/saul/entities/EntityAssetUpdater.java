@@ -16,6 +16,7 @@ import technology.rocketjump.saul.assets.entities.mechanism.model.MechanismEntit
 import technology.rocketjump.saul.assets.entities.model.*;
 import technology.rocketjump.saul.assets.entities.plant.PlantEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
+import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -76,6 +77,7 @@ public class EntityAssetUpdater implements GameContextAware {
 	public final EntityAssetType FURNITURE_LIQUID_LAYER;
 	public final EntityAssetType FURNITURE_COVER_LAYER;
 	public final EntityAssetType MECHANISM_BASE_LAYER;
+	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT;
 	private GameContext gameContext;
 
 	@Inject
@@ -113,6 +115,7 @@ public class EntityAssetUpdater implements GameContextAware {
 		CREATURE_RIGHT_HAND = entityAssetTypeDictionary.getByName("CREATURE_RIGHT_HAND");
 
 		MECHANISM_BASE_LAYER = entityAssetTypeDictionary.getByName("MECHANISM_BASE_LAYER");
+		SHOW_WHEN_INVENTORY_PRESENT = entityAssetTypeDictionary.getByName("SHOW_WHEN_INVENTORY_PRESENT");
 
 		this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
 		this.tagProcessor = tagProcessor;
@@ -396,6 +399,11 @@ public class EntityAssetUpdater implements GameContextAware {
 	}
 
 	private boolean shouldAssetTypeApply(EntityAssetType attachedType, Entity entity) {
+		if (SHOW_WHEN_INVENTORY_PRESENT.equals(attachedType)) {
+			InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
+			return  inventoryComponent != null && !inventoryComponent.getInventoryEntries().isEmpty();
+		}
+
 		if (attachedType.equals(ITEM_COVER_LAYER) || attachedType.equals(FURNITURE_COVER_LAYER)) {
 			LiquidContainerComponent liquidContainerComponent = entity.getComponent(LiquidContainerComponent.class);
 			return liquidContainerComponent != null && liquidContainerComponent.getTargetLiquidMaterial() != null &&

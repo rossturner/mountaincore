@@ -173,6 +173,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 
 		// Target item entity should be in this tile
 		Entity entityToPickUp = null;
+		Entity containerEntity = null;
 		HaulingAllocation haulingAllocation = parent.getAssignedHaulingAllocation();
 		MapTile sourcePositionTile = gameContext.getAreaMap().getTile(haulingAllocation.getSourcePosition());
 		if (haulingAllocation.getHauledEntityType().equals(EntityType.FURNITURE)) {
@@ -184,7 +185,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			}
 			entityToPickUp = createItemFromEntireFurniture(sourceEntity, parent.messageDispatcher, gameContext);
 		} else if (FURNITURE.equals(haulingAllocation.getSourcePositionType())) {
-			Entity containerEntity = sourcePositionTile.getEntity(haulingAllocation.getSourceContainerId());
+			containerEntity = sourcePositionTile.getEntity(haulingAllocation.getSourceContainerId());
 			if (containerEntity == null) {
 				Logger.error("Could not find container entity to pick up item from");
 				completionType = FAILURE;
@@ -205,6 +206,9 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			pickUpCreatureEntity(entityToPickUp, gameContext);
 		} else {
 			pickUpItemEntity(gameContext, currentTile, entityToPickUp, haulingAllocation.getItemAllocation());
+		}
+		if (containerEntity != null) {
+			parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, containerEntity);
 		}
 	}
 
