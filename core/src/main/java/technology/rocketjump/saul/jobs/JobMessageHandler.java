@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.cooking.model.CookingRecipe;
@@ -33,6 +34,7 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.creature.features.MeatFeature;
+import technology.rocketjump.saul.entities.model.physical.creature.features.SkinFeature;
 import technology.rocketjump.saul.entities.model.physical.creature.status.OnFireStatus;
 import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -1016,8 +1018,16 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							meatItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
 						}
 
-						// TODO create items for bone and hide
+						SkinFeature skinFeature = attributes.getRace().getFeatures().getSkin();
+						if (skinFeature != null && skinFeature.getItemType() != null) {
+							ItemEntityAttributes skinItemAttributes = itemEntityAttributesFactory.createItemAttributes(skinFeature.getItemType(), skinFeature.getQuantity(), skinFeature.getMaterial());
+							skinItemAttributes.setColor(ColoringLayer.SKIN_COLOR, attributes.getColor(ColoringLayer.SKIN_COLOR));
+							Entity skinItem = itemEntityFactory.create(skinItemAttributes, null, true, gameContext);
+							inventoryComponent.add(skinItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
+							skinItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
+						}
 
+						// TODO create items for bone and hide
 						messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, creatureInventoryEntity.get().entity);
 					}
 				}
