@@ -11,7 +11,7 @@
       "coloringLayer" : "SKIN_COLOR",
       "scale" : 0.6,
       "offsetPixels" : {
-        "y" : -12.0
+        "y" : -11.5
       },
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
@@ -34,7 +34,7 @@
       "scale" : 0.55,
       "offsetPixels" : {
         "x" : 1.0,
-        "unit" : true
+        "y" : 0.5
       }
     },
     "DOWN_LEFT" : {
@@ -43,7 +43,7 @@
       "scale" : 0.55,
       "offsetPixels" : {
         "x" : 8.0,
-        "y" : -10.0
+        "y" : -9.5
       },
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
@@ -66,7 +66,7 @@
       "scale" : 0.55,
       "offsetPixels" : {
         "x" : -8.0,
-        "y" : -10.0
+        "y" : -9.5
       },
       "flipX" : true,
       "parentEntityAssets" : [ {
@@ -89,7 +89,7 @@
       "coloringLayer" : "SKIN_COLOR",
       "scale" : 0.55,
       "offsetPixels" : {
-        "y" : -12.0
+        "y" : -11.5
       },
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
@@ -104,7 +104,7 @@
       "coloringLayer" : "SKIN_COLOR",
       "scale" : 0.55,
       "offsetPixels" : {
-        "y" : -12.0
+        "y" : -11.5
       },
       "flipX" : true,
       "parentEntityAssets" : [ {
@@ -128,7 +128,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
+      }
     }
   }
 }, {
@@ -144,7 +148,10 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground-Many_Down.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 0.5
+      }
     }
   }
 } ]

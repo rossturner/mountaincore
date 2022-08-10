@@ -59,8 +59,9 @@ public class ViewAreaInputHandler implements InputProcessor {
 			startX = screenX;
 			startY = screenY;
 
-			camera.translate(tmpV1.set(camera.direction).crs(camera.up).nor().scl(-deltaX * translateUnits));
-			camera.translate(tmpV2.set(camera.up).scl(-deltaY * translateUnits));
+			float zoomedTranslation = translateUnits * camera.zoom;
+			camera.translate(tmpV1.set(camera.direction).crs(camera.up).nor().scl(-deltaX * zoomedTranslation));
+			camera.translate(tmpV2.set(camera.up).scl(-deltaY * zoomedTranslation));
 		}
 		return true;
 	}
