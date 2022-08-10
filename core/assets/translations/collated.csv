@@ -34,6 +34,9 @@ ACTION.SELECT_JOB.DESCRIPTION,Looking for work to do,,Sucht Arbeit,Cherche quoi 
 ACTION.SLEEP_ON_FLOOR.DESCRIPTION,Sleeping on {{tileDescription}},,Schläft auf {{tileDescription}},Dors: {{tileDescription}},Sta dormendo su: {{tileDescription}},Durmiendo sobre {{tileDescription}},A dormir em {{tileDescription}},Dormindo em {{tileDescription}},,Спящий на: {{tileDescription}},{{tileDescription}} üzerinde uyuyor.,Sover på {{tileDescription}},,Sova på {{TileDescription},,,,{{tileDescription}}で眠っている,在{{tileDescription}}上睡觉,
 ACTION.STUNNED,Stunned,,,,Stordito,Aturdido,,,,Ошеломленный,,,,,,,,スタンしている,昏迷,
 
+ARMOUR.LEATHER,Leather armour,,,,,,,,,,,,,,,,,,,
+ARMOUR.LEATHER.TOOLTIP,A light and basic armour to protect you in combat,,,,,,,,,,,,,,,,,,,
+
 ASHES.NOUN,Ash,,Asche,,Cenere,Cenizas,,,,Пепел,,,,,,,,灰,灰烬,
 
 BODY_STRUCTURE.ABDOMEN,Abdomen,,Abdomen,,Addome,Abdomen,,,,Брюшная полость,,,,,,,,腹部,腹部,
@@ -103,6 +106,7 @@ CRAFTING_TYPE.CARPENTRY,Carpentry,,Schreinern,,Carpenteria,Fabricando,,,,Пло�
 CRAFTING_TYPE.COKE_OVEN_BAKING,Coke baking,,Verkoken,,Cottura del carbone bituminoso,Destilando coque,,,,Коксирование каменного угля,Fırıncılık,,,,,,,石炭をコークスにする,炼焦,
 CRAFTING_TYPE.FERMENTING,Fermenting,,Gären,,Fermentazione,Fermentando,,,,Фермерство,Fermantasyon,,,,,,,ビールを発酵させる,发酵,
 CRAFTING_TYPE.FLETCHING,Fletching,,Befiedern,,Fabbricazione di archi,Emplumando,,,,Оперение стрел,,,,,,,,弓矢を製造する,制箭,
+CRAFTING_TYPE.LEATHERWORKING,Leatherworking,,,,,,,,,,,,,,,,,,,
 CRAFTING_TYPE.MALTING,Malting,,Mälzen,,Maltatura,Malteando,,,,Соложение,Çimlendirme,,,,,,,モルツを加工する,制作麦芽,
 CRAFTING_TYPE.MALT_MASHING,Malt mashing,,Maischen,,Ammassamento del malto,Cociendo malta,,,,Замешивание солода,Mayşeleme,,,,,,,モルツを糖化する,糖化,
 CRAFTING_TYPE.MILLING,Milling,,Mahlen,,Macinazione,Moliendo,,,,Измельчение,Frzeleme,,,,,,,粉を挽く,磨粉,

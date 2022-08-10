@@ -96,4 +96,9 @@
   "i18nKey" : "CRAFTING_TYPE.TANNING_HIDE",
   "professionRequiredName" : "LEATHERWORKER",
   "usesWorkstationTool" : false
+}, {
+  "name" : "LEATHERWORKING",
+  "i18nKey" : "CRAFTING_TYPE.LEATHERWORKING",
+  "professionRequiredName" : "LEATHERWORKER",
+  "usesWorkstationTool" : false
 } ]

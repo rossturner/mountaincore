@@ -1,0 +1,10 @@
+{
+  "itemTypeId" : 1,
+  "itemTypeName" : "Armour-Leather",
+  "maxHauledAtOnce" : 7,
+  "materialTypes" : [ "SKIN" ],
+  "primaryMaterialType" : "SKIN",
+  "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
+  "stockpileGroupName" : "PRODUCTS",
+  "i18nKey" : "ARMOUR.LEATHER"
+}

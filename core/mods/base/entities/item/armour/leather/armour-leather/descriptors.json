@@ -1,0 +1,31 @@
+[ {
+  "uniqueName" : "Armour-Leather-Above_Layer_1-On_Ground",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Armour-Leather",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Leather-Above_Layer_1-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Armour-Leather-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Armour-Leather",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ "STANDARD" ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Leather-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ]
+    }
+  }
+} ]
