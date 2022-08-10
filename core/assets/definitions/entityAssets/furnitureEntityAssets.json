@@ -4917,7 +4917,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
-        "y" : 40.0,
+        "y" : 33.5,
         "unit" : false
       },
       "flipX" : false,
@@ -4926,7 +4926,7 @@
         "type" : "SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 6.5,
           "unit" : false
         }
       } ],
@@ -4948,8 +4948,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -1.0,
+        "y" : -6.5,
         "unit" : false
       },
       "flipX" : false,
