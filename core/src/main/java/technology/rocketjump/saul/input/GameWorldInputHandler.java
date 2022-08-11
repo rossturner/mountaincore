@@ -18,6 +18,9 @@ import technology.rocketjump.saul.rendering.camera.DisplaySettings;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class is for input directly in the game world, as compared to some input that was caught by the GUI instead
  * <p>
@@ -27,12 +30,12 @@ import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	public static final int SCROLL_BORDER = 2;
-	private static final int NO_BUTTON = -1;
+
 	private final PrimaryCameraWrapper primaryCameraWrapper;
 	private final RenderingOptions renderingOptions;
 	private final MessageDispatcher messageDispatcher;
 	private GameContext gameContext;
-	private int button = NO_BUTTON;
+	private Map<Integer, Boolean> buttonsPressed = new HashMap<>();
 	private float startX, startY;
 
 	@Inject
@@ -41,6 +44,11 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		this.primaryCameraWrapper = primaryCameraWrapper;
 		this.renderingOptions = renderingOptions;
 		this.messageDispatcher = messageDispatcher;
+		buttonsPressed.put(Input.Buttons.LEFT, false);
+		buttonsPressed.put(Input.Buttons.MIDDLE, false);
+		buttonsPressed.put(Input.Buttons.RIGHT, false);
+		buttonsPressed.put(Input.Buttons.FORWARD, false);
+		buttonsPressed.put(Input.Buttons.BACK, false);
 	}
 
 	@Override
@@ -145,7 +153,7 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 		this.startX = screenX;
 		this.startY = screenY;
-		this.button = button;
+		this.buttonsPressed.put(button, true);
 
 		Vector3 worldPosition = primaryCameraWrapper.getCamera().unproject(new Vector3(screenX, screenY, 0));
 		Vector2 worldPosition2 = new Vector2(worldPosition.x, worldPosition.y);
@@ -160,7 +168,7 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		this.button = NO_BUTTON;
+		this.buttonsPressed.put(button, false);
 		if (renderingOptions.debug().showIndividualLightingBuffers()) {
 			screenX = renderingOptions.debug().adjustScreenXForSplitView(screenX);
 			screenY = renderingOptions.debug().adjustScreenYForSplitView(screenY);
@@ -180,19 +188,18 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		//Copied from CameraInputController
-		if (Input.Buttons.MIDDLE == button) {
+		if (buttonsPressed.get(Input.Buttons.MIDDLE)) {
 			final float deltaX = (screenX - startX) / Gdx.graphics.getWidth();
 			final float deltaY = (startY - screenY) / Gdx.graphics.getHeight();
 			startX = screenX;
 			startY = screenY;
 
 			primaryCameraWrapper.moveTo(deltaX, deltaY);
-		} else {
-			Vector3 worldPosition = primaryCameraWrapper.getCamera().unproject(new Vector3(screenX, screenY, 0));
-			Vector2 worldPosition2 = new Vector2(worldPosition.x, worldPosition.y);
-			MouseChangeMessage mouseMovedMessage = new MouseChangeMessage(screenX, screenY, worldPosition2, null);
-			messageDispatcher.dispatchMessage(null, MessageType.MOUSE_MOVED, mouseMovedMessage);
 		}
+		Vector3 worldPosition = primaryCameraWrapper.getCamera().unproject(new Vector3(screenX, screenY, 0));
+		Vector2 worldPosition2 = new Vector2(worldPosition.x, worldPosition.y);
+		MouseChangeMessage mouseMovedMessage = new MouseChangeMessage(screenX, screenY, worldPosition2, null);
+		messageDispatcher.dispatchMessage(null, MessageType.MOUSE_MOVED, mouseMovedMessage);
 
 		return true;
 	}
@@ -233,7 +240,7 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	@Override
 	public boolean scrolled(int amount) {
-		if (button == NO_BUTTON) {
+		if (!buttonsPressed.get(Input.Buttons.MIDDLE)) { //Don't zoom when holding in middle button
 			primaryCameraWrapper.zoom(amount);
 		}
 		return true;
