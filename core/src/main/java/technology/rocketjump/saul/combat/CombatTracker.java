@@ -206,6 +206,7 @@ public class CombatTracker implements Updatable, Telegraph {
 				if (message.newAction.completesInOneRound()) {
 					actionsToResolveThisRound.add(message.newAction);
 				}
+				return true;
 			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());

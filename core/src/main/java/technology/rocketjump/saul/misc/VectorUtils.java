@@ -24,7 +24,7 @@ public class VectorUtils {
 		}
 	}
 
-	// Wtih thanks to https://www.redblobgames.com/grids/line-drawing.html
+	// With thanks to https://www.redblobgames.com/grids/line-drawing.html
 	public static List<GridPoint2> getGridpointsBetween(Vector2 p0, Vector2 p1) {
 		float dx = p1.x - p0.x, dy = p1.y - p0.y;
 		float nx = Math.abs(dx), ny = Math.abs(dy);

@@ -1,12 +1,15 @@
 package technology.rocketjump.saul.entities.components.creature;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
+import org.apache.commons.lang3.NotImplementedException;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.persistence.JSONUtils;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
@@ -21,7 +24,7 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 	private boolean inCombat;
 	private boolean hasInitiative;
 	private boolean engagedInMelee;
-	private int defensePool; // TODO fill this upon entering combat
+	private int defensePool;
 
 	private GridPoint2 heldLocation; // The tile the combatant is keeping control of - other combatants should not share this tile
 	private Long targetedOpponentId;
@@ -44,19 +47,7 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 
 	@Override
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
-		CombatStateComponent cloned = new CombatStateComponent();
-		// TODO copy state over
-		return cloned;
-	}
-
-	@Override
-	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-
-	}
-
-	@Override
-	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-
+		throw new NotImplementedException(getClass().getSimpleName() + ".clone()");
 	}
 
 	public boolean isInCombat() {
@@ -114,4 +105,51 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 	public void setHeldLocation(GridPoint2 heldLocation) {
 		this.heldLocation = heldLocation;
 	}
+
+
+	@Override
+	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
+		if (inCombat) {
+			asJson.put("inCombat", true);
+		}
+		if (hasInitiative) {
+			asJson.put("hasInitiative", true);
+		}
+		if (engagedInMelee) {
+			asJson.put("engagedInMelee", true);
+		}
+		if (defensePool > 0) {
+			asJson.put("defensePool", defensePool);
+		}
+		if (heldLocation != null) {
+			asJson.put("heldLocation", JSONUtils.toJSON(heldLocation));
+		}
+		if (targetedOpponentId != null) {
+			asJson.put("targetedOpponentId", targetedOpponentId);
+		}
+		if (!opponentEntityIds.isEmpty()) {
+			JSONArray opponentIdsJson = new JSONArray();
+			opponentIdsJson.addAll(opponentEntityIds);
+			asJson.put("opponentEntityIds", opponentIdsJson);
+		}
+
+	}
+
+	@Override
+	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
+		this.inCombat = asJson.getBooleanValue("inCombat");
+		this.hasInitiative = asJson.getBooleanValue("hasInitiative");
+		this.engagedInMelee = asJson.getBooleanValue("engagedInMelee");
+		this.defensePool = asJson.getIntValue("defensePool");
+		this.heldLocation = JSONUtils.gridPoint2(asJson.getJSONObject("heldLocation"));
+		this.targetedOpponentId = asJson.getLong("targetedOpponentId");
+
+		JSONArray opponentIdsJson = asJson.getJSONArray("opponentEntityIds");
+		if (opponentIdsJson != null) {
+			for (int cursor = 0; cursor < opponentIdsJson.size(); cursor++) {
+				this.opponentEntityIds.add(opponentIdsJson.getLong(cursor));
+			}
+		}
+	}
+
 }

@@ -191,6 +191,10 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 				memoryComponent.addShortTerm(memory, gameContext.getGameClock());
 			}
 
+			if (attackMessage.defenderEntity.getBehaviourComponent() instanceof CreatureBehaviour defenderBehaviour) {
+				defenderBehaviour.getCombatBehaviour().attackedInCombat(attackMessage.attackerEntity);
+			}
+
 			if (damageAmount <= 0) {
 				return;
 			}
@@ -255,7 +259,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 
 	/**
 	 * Don't use defense pool if attack is from behind or defender is stunned/asleep
- 	 */
+	 */
 	private boolean canUseDefensePool(CombatAttackMessage attackMessage) {
 		if (attackMessage.defenderEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
 			if (creatureBehaviour.isStunned()) {
@@ -308,10 +312,6 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) message.targetCreature.getPhysicalEntityComponent().getAttributes();
 		StatusComponent statusComponent = message.targetCreature.getComponent(StatusComponent.class);
 
-		if (message.targetCreature.getBehaviourComponent() instanceof CreatureBehaviour defenderBehaviour) {
-			defenderBehaviour.getCombatBehaviour().sufferedCombatDamage(message.aggressorCreature);
-		}
-
 		switch (message.damageLevel) {
 			case None:
 				return;
@@ -362,10 +362,6 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	private void applyOrganDamageToCreature(CreatureOrganDamagedMessage message) {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) message.targetEntity.getPhysicalEntityComponent().getAttributes();
 		StatusComponent statusComponent = message.targetEntity.getComponent(StatusComponent.class);
-
-		if (message.aggressorEntity.getBehaviourComponent() instanceof CreatureBehaviour defenderBehaviour) {
-			defenderBehaviour.getCombatBehaviour().sufferedCombatDamage(message.aggressorEntity);
-		}
 
 		List<BodyPartOrgan> otherOrgansOfType = new ArrayList<>();
 		for (BodyPart bodyPart : attributes.getBody().getAllBodyParts()) {

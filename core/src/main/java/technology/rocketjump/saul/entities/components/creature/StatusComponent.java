@@ -6,16 +6,13 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.InfrequentlyUpdatableComponent;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
+import technology.rocketjump.saul.entities.model.physical.creature.status.*;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class StatusComponent implements InfrequentlyUpdatableComponent {
 
@@ -24,6 +21,11 @@ public class StatusComponent implements InfrequentlyUpdatableComponent {
 	private GameContext gameContext;
 
 	private final Map<Class<? extends StatusEffect>, StatusEffect> byClassType = new HashMap<>();
+
+	private Set<Class<? extends StatusEffect>> seriousStatusAilments = Set.of(
+			InternalBleeding.class, OnFireStatus.class, VeryHungry.class, VeryThirsty.class,
+			DyingOfHunger.class, DyingOfThirst.class
+	);
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -60,6 +62,15 @@ public class StatusComponent implements InfrequentlyUpdatableComponent {
 
 	public boolean contains(Class<? extends StatusEffect> statusClass) {
 		return byClassType.containsKey(statusClass);
+	}
+
+	public boolean hasSeriousStatusAilment() {
+		for (Class<? extends StatusEffect> currentEffect : byClassType.keySet()) {
+			if (seriousStatusAilments.contains(currentEffect)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

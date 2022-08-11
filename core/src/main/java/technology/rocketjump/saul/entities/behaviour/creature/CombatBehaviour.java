@@ -10,14 +10,21 @@ import org.reflections.ReflectionUtils;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.ai.combat.*;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
+import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.ai.goap.actions.EquipWeaponAction;
 import technology.rocketjump.saul.entities.ai.goap.actions.UnequipWeaponAction;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
+import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.body.Body;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamage;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.CombatActionChangedMessage;
@@ -32,6 +39,7 @@ import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static technology.rocketjump.saul.combat.CombatMessageHandler.getOrientationsOppositeTo;
@@ -42,6 +50,7 @@ import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 // Although this is coded as a Component, it is always encapsulated in CreatureBehaviour
 public class CombatBehaviour implements ParentDependentEntityComponent, ParticleEffectTypeCallback, ParticleRequestMessage.ParticleCreationCallback {
 
+	private static final Double SERIOUSLY_LOW_NEED_VALUE = 10.0;
 	private Entity parentEntity;
 	private MessageDispatcher messageDispatcher;
 	private GameContext gameContext;
@@ -114,7 +123,33 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		}
 	}
 
-	public void sufferedCombatDamage(Entity attackerEntity) {
+	@Override
+	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
+		throw new NotImplementedException("Not yet implemented " + this.getClass().getSimpleName() + ".clone()");
+	}
+
+	private CombatAction initialCombatAction() {
+		if (getAggressionResponse().equals(ATTACK)) {
+			return attackOrDefendAgainstOpponentAction();
+		} else {
+			return new FleeFromCombatAction(parentEntity);
+		}
+	}
+
+	private CombatAction nextCombatAction(CombatAction previousAction) {
+		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+		if (previousAction instanceof MoveInRangeOfTargetCombatAction) {
+			combatStateComponent.setHeldLocation(toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
+		}
+
+		if (seriouslyInjured() || needsSeriouslyLow()) {
+			return new FleeFromCombatAction(parentEntity);
+		}
+
+		return attackOrDefendAgainstOpponentAction();
+	}
+
+	public void attackedInCombat(Entity attackerEntity) {
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 		combatStateComponent.getOpponentEntityIds().add(attackerEntity.getId());
 
@@ -128,7 +163,6 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		}
 
 		changeOpponentIfCanFaceMoreOpponentsAtOnce(combatStateComponent);
-
 	}
 
 	private void changeOpponentIfCanFaceMoreOpponentsAtOnce(CombatStateComponent combatStateComponent) {
@@ -139,11 +173,13 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 			if (opponentEntity != null) {
 				GridPoint2 opponentTilePosition = toGridPoint(opponentEntity.getLocationComponent().getWorldOrParentPosition());
 				if (Math.abs(parentTilePosition.x - opponentTilePosition.x) <= 1 &&
-					Math.abs(parentTilePosition.y - opponentTilePosition.y) <= 1) {
+						Math.abs(parentTilePosition.y - opponentTilePosition.y) <= 1) {
 					opponentsInMelee.add(opponentEntity);
 				}
 			}
 		}
+
+		combatStateComponent.setEngagedInMelee(!opponentsInMelee.isEmpty());
 
 		int mostOpponentsInView = 0;
 		Long opponentKeepingMostOpponentsInView = null;
@@ -171,27 +207,6 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 
 	}
 
-	@Override
-	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
-		throw new NotImplementedException("Not yet implemented " + this.getClass().getSimpleName() + ".clone()");
-	}
-
-	private CombatAction initialCombatAction() {
-		if (getAggressionResponse().equals(ATTACK)) {
-			return attackOrDefendAgainstOpponentAction();
-		} else {
-			return new FleeFromCombatAction(parentEntity);
-		}
-	}
-
-	private CombatAction nextCombatAction(CombatAction previousAction) {
-		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
-		if (previousAction instanceof MoveInRangeOfTargetCombatAction) {
-			combatStateComponent.setHeldLocation(toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
-		}
-		return attackOrDefendAgainstOpponentAction();
-	}
-
 	private AggressionResponse getAggressionResponse() {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		AggressionResponse aggressionResponse = attributes.getRace().getBehaviour().getAggressionResponse();
@@ -216,6 +231,37 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		} else {
 			return new DefensiveCombatAction(parentEntity);
 		}
+	}
+
+	private boolean needsSeriouslyLow() {
+		NeedsComponent needsComponent = parentEntity.getComponent(NeedsComponent.class);
+		if (needsComponent != null) {
+			for (Map.Entry<EntityNeed, Double> needEntry : needsComponent.getAll()) {
+				if (needEntry.getValue() <= SERIOUSLY_LOW_NEED_VALUE) {
+					return true;
+				}
+			}
+
+		}
+		return false;
+	}
+
+	private boolean seriouslyInjured() {
+		StatusComponent statusComponent = parentEntity.getComponent(StatusComponent.class);
+		if (statusComponent != null && statusComponent.hasSeriousStatusAilment()) {
+			return true;
+		}
+
+		if (parentEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes) {
+			Body body = creatureEntityAttributes.getBody();
+			for (Map.Entry<BodyPart, BodyPartDamage> damageEntry : body.getAllDamage()) {
+				if (damageEntry.getValue().getDamageLevel().equals(BodyPartDamageLevel.BrokenBones)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	public static boolean isInRangeOfOpponent(Entity parentEntity, Entity targetedOpponent) {
