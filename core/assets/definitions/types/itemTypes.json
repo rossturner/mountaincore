@@ -400,7 +400,7 @@
 }, {
   "itemTypeId" : 24,
   "itemTypeName" : "Product-Stone-Gear",
-  "maxStackSize" : 4,
+  "maxStackSize" : 6,
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "STONE" ],
   "primaryMaterialType" : "STONE",
@@ -417,7 +417,7 @@
 }, {
   "itemTypeId" : 25,
   "itemTypeName" : "Product-Linen",
-  "maxStackSize" : 4,
+  "maxStackSize" : 12,
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "CLOTH" ],
   "primaryMaterialType" : "CLOTH",

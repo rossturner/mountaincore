@@ -160,6 +160,7 @@ public class ItemUIFactory implements UIFactory {
         ItemType itemType = (ItemType) typeDescriptor;
 
         VisTable controls = new VisTable();
+
         controls.defaults().left();
         controls.columnDefaults(0).uniformX().left();
         controls.columnDefaults(1).fillX().left();
@@ -181,7 +182,7 @@ public class ItemUIFactory implements UIFactory {
 
         controls.add(WidgetBuilder.label("Materials")).padTop(15);
         controls.row();
-        controls.addSeparator().colspan(2);
+        controls.addSeparator().colspan(2).expand(false, false).row();
 
         controls.add(WidgetBuilder.label("Material Only"));
         controls.add(WidgetBuilder.toggle(itemType.isDescribeAsMaterialOnly(), itemType::setDescribeAsMaterialOnly));
@@ -226,8 +227,9 @@ public class ItemUIFactory implements UIFactory {
             }
             checkboxColCount++;
         }
+        controls.row();
 
-        controls.addSeparator().colspan(2).padBottom(15);
+        controls.addSeparator().colspan(2).padBottom(15).expand(false, false).row();
 
         controls.add(WidgetBuilder.label("Hold Position"));
         controls.add(WidgetBuilder.select(itemType.getHoldPosition(), ItemHoldPosition.values(), null, itemType::setHoldPosition));
@@ -255,7 +257,7 @@ public class ItemUIFactory implements UIFactory {
         controls.row();
 
         int craftingCheckboxCount = 1;
-        for (CraftingType craftingType : craftingTypeDictionary.getAll()) {
+        for (CraftingType craftingType : craftingTypeDictionary.getAll().stream().sorted().toList()) {
             VisCheckBox checkBox = WidgetBuilder.checkBox(craftingType, itemType.getRelatedCraftingTypes().contains(craftingType),
                     it -> {
                         if (!itemType.getRelatedCraftingTypes().contains(it)) {
@@ -364,7 +366,7 @@ public class ItemUIFactory implements UIFactory {
             weaponCollapsible.setCollapsed(true, true);
         })).padTop(15);
         controls.row();
-        controls.addSeparator().colspan(2);
+        controls.addSeparator().colspan(2).expand(false, false).row();
 
         weaponInfoControls.add(WidgetBuilder.label("Modified By Strength"));
         weaponInfoControls.add(WidgetBuilder.toggle(weaponInfo.isModifiedByStrength(), weaponInfo::setModifiedByStrength));
@@ -413,7 +415,7 @@ public class ItemUIFactory implements UIFactory {
 
         controls.add(weaponCollapsible).colspan(2);
         controls.row();
-        controls.addSeparator().colspan(2).padBottom(15);
+        controls.addSeparator().colspan(2).padBottom(15).expand(false, false).row();
 
         return controls;
     }

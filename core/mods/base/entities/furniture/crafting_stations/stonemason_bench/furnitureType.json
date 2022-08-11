@@ -1,0 +1,27 @@
+{
+  "name" : "Stonemason_Bench",
+  "i18nKey" : "FURNITURE.STONEMASON_WORKBENCH",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "stonemason-bench-layout",
+  "colorCode" : "#C9C9C9",
+  "iconName" : "stone-pile",
+  "requirements" : {
+    "STONE" : [ {
+      "itemTypeName" : "Tool-Chisel",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Tool-Small-Hammer",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Resource-Stone-Unrefined",
+      "quantity" : 3
+    }, {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 3
+    } ]
+  },
+  "tags" : {
+    "DECORATION_FROM_INPUT" : [ "Tool-Small-Hammer", "Tool-Chisel" ],
+    "CRAFTING_STATION_BEHAVIOUR" : [ "STONEMASONRY", "CRAFT_ITEM", "HAULING" ]
+  }
+}
