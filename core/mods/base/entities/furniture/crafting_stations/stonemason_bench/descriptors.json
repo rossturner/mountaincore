@@ -10,7 +10,7 @@
       "coloringLayer" : "STONE_COLOR",
       "offsetPixels" : {
         "x" : -96.0,
-        "y" : -34.0
+        "y" : -40.0
       },
       "childAssets" : [ {
         "type" : "FURNITURE_ABOVE_LAYER_2",
@@ -36,13 +36,13 @@
           "y" : -79.0
         }
       }, {
-        "type" : "ATTACHMENT_WORKSPACE_1",
+        "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -33.0,
           "y" : 48.0
         }
       }, {
-        "type" : "ATTACHMENT_WORKSPACE_2",
+        "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 30.0,
           "y" : 48.0
