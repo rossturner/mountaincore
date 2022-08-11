@@ -272,6 +272,7 @@ public class FurnitureUIFactory implements UIFactory {
         FurnitureEntityAsset asset = new FurnitureEntityAsset();
         asset.setFurnitureTypeName(furnitureType.getName());
         asset.setValidMaterialTypes(new ArrayList<>());
+        asset.setFurnitureLayoutName(furnitureType.getDefaultLayoutName());
         Collection<EntityAssetType> entityAssetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType());
 
         VisTextField nameTextField = WidgetBuilder.textField(asset.getUniqueName(), asset::setUniqueName, new UniqueAssetNameValidator(completeAssetDictionary));
