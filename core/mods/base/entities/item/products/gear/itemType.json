@@ -1,10 +1,11 @@
 {
-  "itemTypeName": "Product-Stone-Gear",
-  "materialTypes": ["STONE"],
-  "primaryMaterialType": "STONE",
-  "stockpileGroupName": "PRODUCTS",
-  "hoursInInventoryUntilUnused": 1,
-  "maxStackSize": 4,
-  "maxHauledAtOnce": 1,
-  "equippedWhileWorkingOnJob": true
+  "itemTypeId" : 24,
+  "itemTypeName" : "Product-Stone-Gear",
+  "maxStackSize" : 6,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "STONE" ],
+  "primaryMaterialType" : "STONE",
+  "hoursInInventoryUntilUnused" : 1.0,
+  "stockpileGroupName" : "PRODUCTS",
+  "i18nKey" : "PRODUCT.STONE.GEAR"
 }

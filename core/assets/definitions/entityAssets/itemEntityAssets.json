@@ -6113,42 +6113,18 @@
     }
   }
 }, {
-  "uniqueName" : "Product-Stone-Gear-On-Ground",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Product-Stone-Gear",
-  "minQuantity" : 1,
-  "maxQuantity" : 50,
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Product-Stone-Gear.png",
-      "coloringLayer" : "STONE_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Product-Stone-Gear-Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Product-Stone-Gear",
   "minQuantity" : 1,
   "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Product-Stone-Gear.png",
+      "filename" : "Product-Stone-Gear-On-Ground_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "scale" : 0.5,
@@ -6180,7 +6156,7 @@
       } ]
     },
     "DOWN_RIGHT" : {
-      "filename" : "Product-Stone-Gear.png",
+      "filename" : "Product-Stone-Gear-On-Ground_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "scale" : 0.5,
@@ -6204,7 +6180,7 @@
       } ]
     },
     "DOWN_LEFT" : {
-      "filename" : "Product-Stone-Gear.png",
+      "filename" : "Product-Stone-Gear-On-Ground_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "scale" : 0.5,
@@ -6228,7 +6204,7 @@
       } ]
     },
     "UP" : {
-      "filename" : "Product-Stone-Gear.png",
+      "filename" : "Product-Stone-Gear-On-Ground_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "scale" : 0.5,
@@ -6260,7 +6236,7 @@
       } ]
     },
     "UP_LEFT" : {
-      "filename" : "Product-Stone-Gear.png",
+      "filename" : "Product-Stone-Gear-On-Ground_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "scale" : 0.5,
@@ -6284,7 +6260,7 @@
       } ]
     },
     "UP_RIGHT" : {
-      "filename" : "Product-Stone-Gear.png",
+      "filename" : "Product-Stone-Gear-On-Ground_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "scale" : 0.5,
@@ -6306,6 +6282,62 @@
         },
         "overrideRenderLayer" : 100
       } ]
+    }
+  }
+}, {
+  "uniqueName" : "Product-Stone-Gear-On-Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Product-Stone-Gear",
+  "minQuantity" : 1,
+  "maxQuantity" : 3,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Product-Stone-Gear-On-Ground_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Product-Stone-Gear-On-Ground-Many",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Product-Stone-Gear",
+  "minQuantity" : 4,
+  "maxQuantity" : 6,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Product-Stone-Gear-On-Ground-Many_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
     }
   }
 }, {

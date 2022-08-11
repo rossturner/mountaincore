@@ -400,7 +400,7 @@
 }, {
   "itemTypeId" : 24,
   "itemTypeName" : "Product-Stone-Gear",
-  "maxStackSize" : 4,
+  "maxStackSize" : 6,
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "STONE" ],
   "primaryMaterialType" : "STONE",
