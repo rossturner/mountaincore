@@ -6357,8 +6357,8 @@
       "isAnimated" : false,
       "scale" : 0.6,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -8.0,
+        "x" : -0.5,
+        "y" : -11.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6389,8 +6389,8 @@
       "isAnimated" : false,
       "scale" : 0.6,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -8.0,
+        "x" : -0.5,
+        "y" : -11.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6413,8 +6413,8 @@
       "isAnimated" : false,
       "scale" : 0.6,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -8.0,
+        "x" : -0.5,
+        "y" : -11.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6437,8 +6437,8 @@
       "isAnimated" : false,
       "scale" : 0.6,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -8.0,
+        "x" : -0.5,
+        "y" : -11.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6469,8 +6469,8 @@
       "isAnimated" : false,
       "scale" : 0.6,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -8.0,
+        "x" : -0.5,
+        "y" : -11.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6493,8 +6493,8 @@
       "isAnimated" : false,
       "scale" : 0.6,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -8.0,
+        "x" : -0.5,
+        "y" : -11.0,
         "unit" : false
       },
       "flipX" : false,
@@ -6558,7 +6558,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 0.5,
         "unit" : false
       },
       "flipX" : false,
