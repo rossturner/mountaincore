@@ -1,0 +1,73 @@
+[ {
+  "uniqueName" : "Stonemason_Bench-stonemason-bench-layout-Base_Layer-Stone",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-bench-layout",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-Bench-Layout-Base_Layer-Stone_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "offsetPixels" : {
+        "x" : -96.0,
+        "y" : -32.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_2"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_3"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_4"
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-bench-layout-Furniture_Above_Layer_1-Stone",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-bench-layout",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-Bench-Layout-Furniture_Above_Layer_1-Stone_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-bench-layout-Furniture_Above_Layer_2-Stone",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-bench-layout",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-Bench-Layout-Furniture_Above_Layer_2-Stone_Down.png",
+      "coloringLayer" : "WOOD_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-bench-layout-Furniture_Above_Layer_3-Stone",
+  "type" : "FURNITURE_ABOVE_LAYER_3",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-bench-layout",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-Bench-Layout-Furniture_Above_Layer_3-Stone_Down.png",
+      "coloringLayer" : "WOOD_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Stonemason_Bench-stonemason-bench-layout-Furniture_Above_Layer_4-Stone",
+  "type" : "FURNITURE_ABOVE_LAYER_4",
+  "furnitureTypeName" : "Stonemason_Bench",
+  "furnitureLayoutName" : "stonemason-bench-layout",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Stonemason_Bench-Stonemason-Bench-Layout-Furniture_Above_Layer_4-Stone_Down.png"
+    }
+  }
+} ]
