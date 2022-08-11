@@ -294,7 +294,7 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 	}
 
 	public void moveTo(float deltaX, float deltaY) {
-		float translateUnits = 10f * camera.zoom;
+		float translateUnits = 12f * camera.zoom;
 		camera.translate(tmpV1.set(camera.direction).crs(camera.up).nor().scl(-deltaX * translateUnits));
 		camera.translate(tmpV2.set(camera.up).scl(-deltaY * translateUnits));
 	}
