@@ -9,8 +9,9 @@ import com.google.inject.Inject;
 
 public class ViewAreaInputHandler implements InputProcessor {
 
+	public static final int NO_BUTTON = -1;
 	private final OrthographicCamera camera;
-	protected int button = -1;
+	protected int button = NO_BUTTON;
 	private float startX, startY;
 	public float translateUnits = 10f;
 	private final Vector3 tmpV1 = new Vector3();
@@ -46,13 +47,14 @@ public class ViewAreaInputHandler implements InputProcessor {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
+		this.button = NO_BUTTON;
+		return true;
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		//Copied from CameraInputController
-		if (Input.Buttons.RIGHT == button) {
+		if (Input.Buttons.MIDDLE == button) {
 			final float deltaX = (screenX - startX) / Gdx.graphics.getWidth();
 			final float deltaY = (startY - screenY) / Gdx.graphics.getHeight();
 			startX = screenX;

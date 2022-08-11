@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -106,12 +107,12 @@ public class WidgetBuilder {
 		return spinner;
 	}
 
-	public static VisTextButton button(String buttonText, Consumer<Void> changeListener) {
+	public static VisTextButton button(String buttonText, Consumer<TextButton> changeListener) {
 		VisTextButton visTextButton = new VisTextButton(buttonText);
 		visTextButton.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				changeListener.accept(null);
+				changeListener.accept(visTextButton);
 				return true;
 			}
 		});
@@ -218,7 +219,7 @@ public class WidgetBuilder {
 		return component;
 	}
 
-	public static <T> VisTable checkboxes(List<T> initialValue, Collection<T> options, Consumer<T> checkedListener, Consumer<T> uncheckedListener) {
+	public static <T> VisTable checkboxes(Collection<T> initialValue, Collection<T> options, Consumer<T> checkedListener, Consumer<T> uncheckedListener) {
 		VisTable checkBoxes = new VisTable();
 		for (T option : options) {
 			VisCheckBox checkbox = new VisCheckBox(option.toString());

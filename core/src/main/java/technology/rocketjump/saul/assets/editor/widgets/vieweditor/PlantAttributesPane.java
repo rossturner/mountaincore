@@ -23,6 +23,7 @@ import java.util.stream.IntStream;
 
 @Singleton
 public class PlantAttributesPane extends AbstractAttributesPane {
+    private PlantEntityAttributes attributes;
 
     @Inject
     public PlantAttributesPane(EditorStateProvider editorStateProvider, MessageDispatcher messageDispatcher) {
@@ -34,7 +35,7 @@ public class PlantAttributesPane extends AbstractAttributesPane {
         this.clearChildren();
 
         Entity currentEntity = editorStateProvider.getState().getCurrentEntity();
-        PlantEntityAttributes attributes = (PlantEntityAttributes) currentEntity.getPhysicalEntityComponent().getAttributes();
+        attributes = (PlantEntityAttributes) currentEntity.getPhysicalEntityComponent().getAttributes();
         List<Integer> growthStages = IntStream.range(0, attributes.getSpecies().getGrowthStages().size()).boxed().toList();
 
         add(WidgetBuilder.selectField("Growth Stages", attributes.getGrowthStageCursor(), growthStages, 0, update(attributes::setGrowthStageCursor)));
@@ -47,24 +48,31 @@ public class PlantAttributesPane extends AbstractAttributesPane {
 
     private void createColorWidget(ColoringLayer coloringLayer, PlantEntityAttributes entityAttributes) {
         Color color = entityAttributes.getColor(coloringLayer);
-        TextButton colorButton = new TextButton(HexColors.toHexString(color), new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")));
-        colorButton.setColor(color);
-        colorButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
+        if (color != null) {
+            TextButton colorButton = new TextButton(HexColors.toHexString(color), new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")));
+            colorButton.setColor(color);
+            colorButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
 
-                PlantEntityAttributes newAttributes = new PlantEntityAttributes(new RandomXS128().nextLong(), entityAttributes.getSpecies());
-                editorStateProvider.getState().getCurrentEntity().getPhysicalEntityComponent().setAttributes(newAttributes);
+                    int currentGrowthStage = attributes.getGrowthStageCursor();
+                    attributes = new PlantEntityAttributes(new RandomXS128().nextLong(), entityAttributes.getSpecies());
+                    attributes.setGrowthStageCursor(currentGrowthStage);
 
-                newAttributes.updateColors(null);
-                colorButton.setText(HexColors.toHexString(newAttributes.getColor(coloringLayer)));
-                colorButton.setColor(newAttributes.getColor(coloringLayer));
-            }
-        });
-        VisTable colorWidget = new VisTable();
-        colorWidget.add(WidgetBuilder.label(coloringLayer.name()));
-        colorWidget.add(colorButton);
-        add(colorWidget);
+
+                    editorStateProvider.getState().getCurrentEntity().getPhysicalEntityComponent().setAttributes(attributes);
+
+                    attributes.updateColors(null);
+                    colorButton.setText(HexColors.toHexString(attributes.getColor(coloringLayer)));
+                    colorButton.setColor(attributes.getColor(coloringLayer));
+                    reload();
+                }
+            });
+            VisTable colorWidget = new VisTable();
+            colorWidget.add(WidgetBuilder.label(coloringLayer.name()));
+            colorWidget.add(colorButton);
+            add(colorWidget);
+        }
     }
 
 }

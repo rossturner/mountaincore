@@ -46,7 +46,7 @@
   "i18nKey" : "ROOMS.CARPENTRY_WORKSHOP",
   "colorCode" : "#be926e",
   "iconName" : "hammer-nails",
-  "furnitureNames" : [ "CARPENTRY_WORKBENCH" ],
+  "furnitureNames" : [ "Carpentry_Bench" ],
   "tags" : { }
 }, {
   "roomName" : "MASONRY_WORKSHOP",

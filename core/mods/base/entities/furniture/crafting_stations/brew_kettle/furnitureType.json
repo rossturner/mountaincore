@@ -22,6 +22,6 @@
     "CRAFTING_STATION_BEHAVIOUR": ["WORT_BREWING", "PRODUCE_LIQUID", "HAULING", "Product-Barrel"],
     "CRAFTING_OVERRIDE": ["DO_NOT_HAUL_OUTPUT"],
     "LIQUID_CONTAINER": ["12", "Wort"],
-    "REQUIREMENT_TO_COLOR_MAPPINGS": ["Resource-Metal-Plate", "METAL_COLOR", "Product-Liquid-Tank", "MISC_COLOR_1"]
+    "REQUIREMENT_TO_COLOR_MAPPINGS": ["Resource-Metal-Plate", "METAL_COLOR", "METAL_COLOR", "Product-Liquid-Tank", "METAL_COLOR", "MISC_COLOR_1"]
   }
 }

@@ -29,6 +29,11 @@ public class RequiredMaterialsWidget extends VisTable {
 
         for (GameMaterialType materialType : furnitureType.getRequirements().keySet()) {
             this.add(WidgetBuilder.label(ToStringDecorator.materialType(materialType).toString())).padTop(10);
+            this.add(); this.add(); this.add(); this.add(); this.add();
+            this.add(WidgetBuilder.button("x", x -> {
+                furnitureType.getRequirements().remove(materialType);
+                this.reload();
+            })).padLeft(10);
             this.row();
             List<QuantifiedItemType> quantifiedItemTypes = furnitureType.getRequirements().get(materialType);
             for (QuantifiedItemType quantifiedItemType : quantifiedItemTypes) {

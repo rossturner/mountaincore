@@ -166,7 +166,7 @@
   "tags" : {
     "CRAFTING_STATION_BEHAVIOUR" : [ "SMELTING", "PRODUCE_ITEM", "HAULING" ],
     "CRAFTING_OVERRIDE" : [ "DO_NOT_HAUL_OUTPUT" ],
-    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Stone-Unrefined", "MISC_COLOR_1", "Resource-Stone-Block", "MISC_COLOR_2" ],
+    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Stone-Unrefined", "STONE_COLOR", "MISC_COLOR_1", "Resource-Stone-Block", "STONE_COLOR", "MISC_COLOR_2" ],
     "EXTRA_MATERIAL_TYPES" : [ "CLOTH" ],
     "PARTICLE_EFFECTS_WHILE_PROCESSING" : [ "Smoking" ]
   },
@@ -195,7 +195,7 @@
     "CRAFTING_STATION_BEHAVIOUR" : [ "WORT_BREWING", "PRODUCE_LIQUID", "HAULING", "Product-Barrel" ],
     "CRAFTING_OVERRIDE" : [ "DO_NOT_HAUL_OUTPUT" ],
     "LIQUID_CONTAINER" : [ "12", "Wort" ],
-    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Metal-Plate", "METAL_COLOR", "Product-Liquid-Tank", "MISC_COLOR_1" ]
+    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Metal-Plate", "METAL_COLOR", "METAL_COLOR", "Product-Liquid-Tank", "METAL_COLOR", "MISC_COLOR_1" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {
@@ -233,44 +233,26 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
-  "name" : "CARPENTRY_WORKBENCH",
+  "name" : "Carpentry_Bench",
   "i18nKey" : "FURNITURE.CARPENTRY_WORKBENCH",
   "blocksMovement" : true,
-  "defaultLayoutName" : "2x3L3R",
+  "defaultLayoutName" : "carpentry-bench-layout",
   "colorCode" : "#e7c467",
   "iconName" : "planks",
   "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
-    "STONE" : [ {
-      "itemTypeName" : "Resource-Stone-Block",
-      "quantity" : 4,
-      "liquid" : false
-    }, {
-      "itemTypeName" : "Tool-Plane",
-      "quantity" : 1,
-      "liquid" : false
-    }, {
-      "itemTypeName" : "Tool-Saw",
-      "quantity" : 1,
-      "liquid" : false
-    } ],
     "WOOD" : [ {
+      "itemTypeName" : "Resource-Logs",
+      "quantity" : 2,
+      "liquid" : false
+    }, {
       "itemTypeName" : "Resource-Planks",
-      "quantity" : 4,
+      "quantity" : 3,
       "liquid" : false
     }, {
-      "itemTypeName" : "Tool-Plane",
+      "itemTypeName" : "Resource-Stone-Block",
       "quantity" : 1,
-      "liquid" : false
-    }, {
-      "itemTypeName" : "Tool-Saw",
-      "quantity" : 1,
-      "liquid" : false
-    } ],
-    "METAL" : [ {
-      "itemTypeName" : "Resource-Metal-Ingot",
-      "quantity" : 8,
       "liquid" : false
     }, {
       "itemTypeName" : "Tool-Plane",
@@ -284,7 +266,8 @@
   },
   "tags" : {
     "CRAFTING_STATION_BEHAVIOUR" : [ "CARPENTRY", "CRAFT_ITEM", "HAULING" ],
-    "DECORATION_FROM_INPUT" : [ "Tool-Plane", "Tool-Saw" ]
+    "DECORATION_FROM_INPUT" : [ "Tool-Plane", "Tool-Saw" ],
+    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Planks", "WOOD_COLOR", "WOOD_COLOR", "Resource-Logs", "BRANCHES_COLOR", "MISC_COLOR_1", "Resource-Logs", "WOOD_COLOR", "MISC_COLOR_2" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {
@@ -598,7 +581,7 @@
     "CRAFTING_STATION_BEHAVIOUR" : [ "MALT_MASHING", "PRODUCE_LIQUID", "HAULING", "Product-Barrel" ],
     "CRAFTING_OVERRIDE" : [ "DO_NOT_HAUL_OUTPUT" ],
     "LIQUID_CONTAINER" : [ "12", "Water" ],
-    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Metal-Plate", "METAL_COLOR", "Product-Liquid-Tank", "MISC_COLOR_1" ]
+    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Metal-Plate", "METAL_COLOR", "METAL_COLOR", "Product-Liquid-Tank", "METAL_COLOR", "MISC_COLOR_1" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {
@@ -628,7 +611,7 @@
   "tags" : {
     "CRAFTING_STATION_BEHAVIOUR" : [ "ORE_CRUSHING", "PRODUCE_ITEM", "HAULING" ],
     "PARTICLE_EFFECTS_WHILE_IN_USE" : [ "Ore chips" ],
-    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Metal-Plate", "MISC_COLOR_1", "Product-Barrel-Hoops", "MISC_COLOR_2" ],
+    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Metal-Plate", "METAL_COLOR", "MISC_COLOR_1", "Product-Barrel-Hoops", "METAL_COLOR", "MISC_COLOR_2" ],
     "EXTRA_MATERIAL_TYPES" : [ "CLOTH" ],
     "POWERED_FURNITURE" : [ "-10", "8" ]
   },

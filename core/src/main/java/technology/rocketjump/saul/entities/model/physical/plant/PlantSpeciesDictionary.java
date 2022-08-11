@@ -51,19 +51,7 @@ public class PlantSpeciesDictionary {
 		}
 
 		for (PlantSpecies plantSpecies : speciesList) {
-			initialiseTransientFields(plantSpecies);
-			byName.put(plantSpecies.getSpeciesName(), plantSpecies);
-			bySpeciesType.get(plantSpecies.getPlantType()).add(plantSpecies);
-			allSpeciesList.add(plantSpecies);
-
-			if (plantSpecies.getSeed() != null) {
-				GameMaterial seedMaterial = plantSpecies.getSeed().getSeedMaterial();
-				if (bySeedMaterial.containsKey(seedMaterial)) {
-					Logger.warn("Duplicate plant species with same seed material : " + bySeedMaterial.get(seedMaterial).getSpeciesName() + " and " + plantSpecies.getSpeciesName());
-				} else {
-					bySeedMaterial.put(seedMaterial, plantSpecies);
-				}
-			}
+			add(plantSpecies);
 		}
 	}
 
@@ -178,4 +166,19 @@ public class PlantSpeciesDictionary {
 		}
 	}
 
+	public void add(PlantSpecies plantSpecies) {
+		initialiseTransientFields(plantSpecies);
+		byName.put(plantSpecies.getSpeciesName(), plantSpecies);
+		bySpeciesType.get(plantSpecies.getPlantType()).add(plantSpecies);
+		allSpeciesList.add(plantSpecies);
+
+		if (plantSpecies.getSeed() != null) {
+			GameMaterial seedMaterial = plantSpecies.getSeed().getSeedMaterial();
+			if (bySeedMaterial.containsKey(seedMaterial)) {
+				Logger.warn("Duplicate plant species with same seed material : " + bySeedMaterial.get(seedMaterial).getSpeciesName() + " and " + plantSpecies.getSpeciesName());
+			} else {
+				bySeedMaterial.put(seedMaterial, plantSpecies);
+			}
+		}
+	}
 }
