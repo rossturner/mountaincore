@@ -21,7 +21,7 @@
     } ]
   },
   "tags" : {
-    "DECORATION_FROM_INPUT" : [ "Tool-Small-Hammer", "Tool-Chisel"],
+    "DECORATION_FROM_INPUT" : [ "Tool-Small-Hammer", "Tool-Chisel" ],
     "CRAFTING_STATION_BEHAVIOUR" : [ "STONEMASONRY", "CRAFT_ITEM", "HAULING" ]
   }
 }

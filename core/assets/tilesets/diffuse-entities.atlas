@@ -34,7 +34,7 @@ repeat: none
   index: -1
 1x2 beer tapper equipment
   rotate: false
-  xy: 3500, 3255
+  xy: 2480, 2743
   size: 34, 128
   orig: 34, 128
   offset: 0, 0
@@ -153,14 +153,14 @@ Anvil
   index: -1
 Bag
   rotate: false
-  xy: 3558, 3405
+  xy: 2398, 2838
   size: 42, 64
   orig: 42, 64
   offset: 0, 0
   index: -1
 Bag-Rope
   rotate: false
-  xy: 1148, 1087
+  xy: 1327, 1028
   size: 26, 19
   orig: 26, 19
   offset: 0, 0
@@ -216,7 +216,7 @@ Barrel-Hoops-Carried-NS
   index: -1
 Barrel-Hoops-Carried-Omni
   rotate: false
-  xy: 1476, 1898
+  xy: 2808, 3294
   size: 44, 50
   orig: 44, 50
   offset: 0, 0
@@ -244,14 +244,14 @@ Bloom
   index: -1
 BoarBodyColourFront
   rotate: false
-  xy: 3688, 3402
+  xy: 1613, 1874
   size: 37, 41
   orig: 37, 41
   offset: 0, 0
   index: -1
 BoarBodyColourFrontS
   rotate: false
-  xy: 2281, 3367
+  xy: 1652, 1880
   size: 37, 35
   orig: 37, 35
   offset: 0, 0
@@ -272,14 +272,14 @@ BoarBodyColourFrontSideS
   index: -1
 BoarBodyLinesFront
   rotate: false
-  xy: 2179, 2254
+  xy: 1897, 1918
   size: 38, 45
   orig: 38, 45
   offset: 0, 0
   index: -1
 BoarBodyLinesFrontS
   rotate: false
-  xy: 2139, 2043
+  xy: 1937, 1914
   size: 38, 40
   orig: 38, 40
   offset: 0, 0
@@ -300,14 +300,14 @@ BoarBodyLinesFrontSideS
   index: -1
 BoarColourBodyBack
   rotate: false
-  xy: 1733, 1948
+  xy: 1815, 1902
   size: 38, 40
   orig: 38, 40
   offset: 0, 0
   index: -1
 BoarColourBodyBackS
   rotate: false
-  xy: 2320, 3367
+  xy: 1691, 1882
   size: 37, 36
   orig: 37, 36
   offset: 0, 0
@@ -328,7 +328,7 @@ BoarColourBodyBackSideS
   index: -1
 BoarColourHeadBack
   rotate: false
-  xy: 2527, 3327
+  xy: 2074, 1879
   size: 15, 38
   orig: 15, 38
   offset: 0, 0
@@ -370,14 +370,14 @@ BoarColourTuskBackS
   index: -1
 BoarColourTuskBackSide
   rotate: false
-  xy: 1600, 3063
+  xy: 496, 2330
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 BoarColourTuskBackSideS
   rotate: false
-  xy: 2115, 3561
+  xy: 1937, 1956
   size: 9, 7
   orig: 9, 7
   offset: 0, 0
@@ -440,14 +440,14 @@ BoarLinesBodyBackSideS
   index: -1
 BoarLinesTuskBack
   rotate: false
-  xy: 897, 1923
+  xy: 2093, 2198
   size: 42, 11
   orig: 42, 11
   offset: 0, 0
   index: -1
 BoarLinesTuskBackS
   rotate: false
-  xy: 1177, 2514
+  xy: 1847, 2169
   size: 43, 10
   orig: 43, 10
   offset: 0, 0
@@ -461,7 +461,7 @@ BoarLinesTuskBackSide
   index: -1
 BoarLinesTuskBackSideS
   rotate: false
-  xy: 1065, 2717
+  xy: 2420, 3342
   size: 11, 9
   orig: 11, 9
   offset: 0, 0
@@ -496,7 +496,7 @@ BoarNoseColourFrontSideS
   index: -1
 BoarTuskColourFront
   rotate: false
-  xy: 1155, 2
+  xy: 897, 1920
   size: 42, 14
   orig: 42, 14
   offset: 0, 0
@@ -510,7 +510,7 @@ BoarTuskColourFrontS
   index: -1
 BoarTuskColourFrontSide
   rotate: false
-  xy: 2974, 3498
+  xy: 1065, 2713
   size: 11, 13
   orig: 11, 13
   offset: 0, 0
@@ -531,63 +531,63 @@ BoarTuskLinesFront
   index: -1
 BoarTuskLinesFrontS
   rotate: false
-  xy: 330, 5
+  xy: 3175, 3378
   size: 44, 15
   orig: 44, 15
   offset: 0, 0
   index: -1
 BoarTuskLinesFrontSide
   rotate: false
-  xy: 2760, 3346
+  xy: 2759, 3346
   size: 35, 16
   orig: 35, 16
   offset: 0, 0
   index: -1
 BoarTuskLinesFrontSideS
   rotate: false
-  xy: 1840, 2575
+  xy: 1123, 2331
   size: 34, 15
   orig: 34, 15
   offset: 0, 0
   index: -1
 Bow
   rotate: false
-  xy: 1522, 1905
+  xy: 2854, 3285
   size: 44, 43
   orig: 44, 43
   offset: 0, 0
   index: -1
 Bow-B
   rotate: false
-  xy: 1933, 1919
+  xy: 787, 1722
   size: 13, 48
   orig: 13, 48
   offset: 0, 0
   index: -1
 Bow-B34
   rotate: false
-  xy: 3690, 3271
+  xy: 2249, 2341
   size: 18, 48
   orig: 18, 48
   offset: 0, 0
   index: -1
 Bow-F
   rotate: false
-  xy: 787, 1722
+  xy: 787, 1672
   size: 13, 48
   orig: 13, 48
   offset: 0, 0
   index: -1
 Bow-F34
   rotate: false
-  xy: 2544, 3317
+  xy: 2506, 3093
   size: 15, 48
   orig: 15, 48
   offset: 0, 0
   index: -1
 Bucket-Body-Carried
   rotate: false
-  xy: 1998, 2152
+  xy: 1987, 2538
   size: 46, 52
   orig: 46, 52
   offset: 0, 0
@@ -601,7 +601,7 @@ Bucket-Body-Floor
   index: -1
 Bucket-Contents-Floor
   rotate: false
-  xy: 1123, 2325
+  xy: 224, 42
   size: 34, 21
   orig: 34, 21
   offset: 0, 0
@@ -615,7 +615,7 @@ Bucket-Hoops-Carried
   index: -1
 Bucket-Hoops-Floor
   rotate: false
-  xy: 1427, 1677
+  xy: 2092, 1952
   size: 45, 27
   orig: 45, 27
   offset: 0, 0
@@ -629,14 +629,14 @@ Bucket-Rope-Floor
   index: -1
 Carp
   rotate: false
-  xy: 2174, 2570
+  xy: 1330, 1335
   size: 29, 31
   orig: 29, 31
   offset: 0, 0
   index: -1
 CarpFillet
   rotate: false
-  xy: 2027, 2624
+  xy: 1148, 1073
   size: 26, 33
   orig: 26, 33
   offset: 0, 0
@@ -713,7 +713,7 @@ Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_6-Wood_Down
   index: -1
 Cauldron-Body-Carried
   rotate: false
-  xy: 1998, 2108
+  xy: 1987, 2494
   size: 46, 42
   orig: 46, 42
   offset: 0, 0
@@ -727,7 +727,7 @@ Cauldron-Body-Floor
   index: -1
 Cauldron-Carried-Underside
   rotate: false
-  xy: 2220, 2380
+  xy: 1730, 1844
   size: 35, 22
   orig: 35, 22
   offset: 0, 0
@@ -741,14 +741,14 @@ Cauldron-Fireplace-Floor
   index: -1
 Cauldron-Liquid-Carried
   rotate: false
-  xy: 224, 42
+  xy: 2480, 2720
   size: 34, 21
   orig: 34, 21
   offset: 0, 0
   index: -1
 Cauldron-Liquid-Floor
   rotate: false
-  xy: 2209, 3211
+  xy: 1251, 32
   size: 23, 17
   orig: 23, 17
   offset: 0, 0
@@ -762,7 +762,7 @@ Cauldron-Rope-Floor
   index: -1
 Cauldron-Stand-Floor
   rotate: false
-  xy: 1476, 1819
+  xy: 2808, 3215
   size: 44, 77
   orig: 44, 77
   offset: 0, 0
@@ -790,7 +790,7 @@ Coke Oven Stone Top
   index: -1
 Coke Oven Wood Door Bottom
   rotate: false
-  xy: 3500, 3203
+  xy: 1975, 1860
   size: 34, 50
   orig: 34, 50
   offset: 0, 0
@@ -832,14 +832,14 @@ DeerColourAntlersBackS
   index: -1
 DeerColourAntlersBackSide
   rotate: false
-  xy: 2090, 2229
+  xy: 2281, 3382
   size: 44, 21
   orig: 44, 21
   offset: 0, 0
   index: -1
 DeerColourAntlersBackSideS
   rotate: false
-  xy: 1427, 1654
+  xy: 1155, 9
   size: 45, 21
   orig: 45, 21
   offset: 0, 0
@@ -867,14 +867,14 @@ DeerColourAntlersFrontSide
   index: -1
 DeerColourAntlersFrontSideS
   rotate: false
-  xy: 1998, 2083
+  xy: 1987, 2469
   size: 46, 23
   orig: 46, 23
   offset: 0, 0
   index: -1
 DeerColourBodyBack
   rotate: false
-  xy: 2321, 3322
+  xy: 1730, 1868
   size: 37, 43
   orig: 37, 43
   offset: 0, 0
@@ -909,7 +909,7 @@ DeerColourBodyFront
   index: -1
 DeerColourBodyFrontS
   rotate: false
-  xy: 2324, 3286
+  xy: 2419, 3242
   size: 37, 34
   orig: 37, 34
   offset: 0, 0
@@ -930,14 +930,14 @@ DeerColourBodyFrontSideS
   index: -1
 DeerColourMarkingsBack
   rotate: false
-  xy: 2327, 3251
+  xy: 1691, 1847
   size: 37, 33
   orig: 37, 33
   offset: 0, 0
   index: -1
 DeerColourMarkingsBackS
   rotate: false
-  xy: 2327, 3231
+  xy: 1652, 1860
   size: 37, 18
   orig: 37, 18
   offset: 0, 0
@@ -958,14 +958,14 @@ DeerColourMarkingsBackSideS
   index: -1
 DeerColourMarkingsFront
   rotate: false
-  xy: 2220, 2345
+  xy: 1453, 1840
   size: 35, 33
   orig: 35, 33
   offset: 0, 0
   index: -1
 DeerColourMarkingsFrontS
   rotate: false
-  xy: 2220, 2312
+  xy: 2255, 2447
   size: 35, 31
   orig: 35, 31
   offset: 0, 0
@@ -1042,14 +1042,14 @@ DeerLinesAntlersFrontSideS
   index: -1
 DeerLinesBodyBack
   rotate: false
-  xy: 2280, 3320
+  xy: 1177, 471
   size: 39, 45
   orig: 39, 45
   offset: 0, 0
   index: -1
 DeerLinesBodyBackS
   rotate: false
-  xy: 1335, 1944
+  xy: 1733, 1958
   size: 39, 30
   orig: 39, 30
   offset: 0, 0
@@ -1070,7 +1070,7 @@ DeerLinesBodyBackSideS
   index: -1
 DeerLinesBodyFront
   rotate: false
-  xy: 2139, 2085
+  xy: 1732, 1913
   size: 39, 43
   orig: 39, 43
   offset: 0, 0
@@ -1224,7 +1224,7 @@ Dwarf Skull Up-Right
   index: -1
 Dwarf-Beard01-Accessory-F
   rotate: false
-  xy: 1046, 1120
+  xy: 1213, 330
   size: 16, 9
   orig: 16, 9
   offset: 0, 0
@@ -1252,7 +1252,7 @@ Dwarf-Beard01-Color-F34
   index: -1
 Dwarf-Beard01-Outline-F
   rotate: false
-  xy: 3536, 3366
+  xy: 1250, 2896
   size: 20, 24
   orig: 20, 24
   offset: 0, 0
@@ -1273,14 +1273,14 @@ Dwarf-Beard02-Accessory-F
   index: -1
 Dwarf-Beard02-Accessory-F34
   rotate: false
-  xy: 535, 1590
+  xy: 2115, 3561
   size: 9, 7
   orig: 9, 7
   offset: 0, 0
   index: -1
 Dwarf-Beard02-Color-F
   rotate: false
-  xy: 3765, 3431
+  xy: 1330, 1309
   size: 29, 24
   orig: 29, 24
   offset: 0, 0
@@ -1322,7 +1322,7 @@ Dwarf-Beard03-Accessory-F34
   index: -1
 Dwarf-Beard03-Color-F
   rotate: false
-  xy: 3640, 3248
+  xy: 3310, 3475
   size: 22, 26
   orig: 22, 26
   offset: 0, 0
@@ -1378,14 +1378,14 @@ Dwarf-Beard04-Color-F34
   index: -1
 Dwarf-Beard04-Outline-F
   rotate: false
-  xy: 1732, 1922
+  xy: 1773, 1900
   size: 35, 24
   orig: 35, 24
   offset: 0, 0
   index: -1
 Dwarf-Beard04-Outline-F34
   rotate: false
-  xy: 2258, 2419
+  xy: 2480, 2694
   size: 34, 24
   orig: 34, 24
   offset: 0, 0
@@ -1406,7 +1406,7 @@ Dwarf-Beard05-Accessory-F34
   index: -1
 Dwarf-Beard05-Color-F
   rotate: false
-  xy: 2223, 2537
+  xy: 3038, 3237
   size: 30, 22
   orig: 30, 22
   offset: 0, 0
@@ -1420,21 +1420,21 @@ Dwarf-Beard05-Color-F34
   index: -1
 Dwarf-Beard05-Outline-F
   rotate: false
-  xy: 3606, 3187
+  xy: 2184, 2440
   size: 31, 25
   orig: 31, 25
   offset: 0, 0
   index: -1
 Dwarf-Beard05-Outline-F34
   rotate: false
-  xy: 1788, 1894
+  xy: 2185, 2256
   size: 30, 26
   orig: 30, 26
   offset: 0, 0
   index: -1
 Dwarf-Beard06-Accessory-F
   rotate: false
-  xy: 2125, 2603
+  xy: 1179, 1864
   size: 26, 6
   orig: 26, 6
   offset: 0, 0
@@ -1448,28 +1448,28 @@ Dwarf-Beard06-Accessory-F34
   index: -1
 Dwarf-Beard06-Color-F
   rotate: false
-  xy: 2223, 2515
+  xy: 3038, 3215
   size: 30, 20
   orig: 30, 20
   offset: 0, 0
   index: -1
 Dwarf-Beard06-Color-F34
   rotate: false
-  xy: 1788, 1870
+  xy: 3070, 3220
   size: 30, 22
   orig: 30, 22
   offset: 0, 0
   index: -1
 Dwarf-Beard06-Outline-F
   rotate: false
-  xy: 2795, 3301
+  xy: 1335, 1954
   size: 32, 21
   orig: 32, 21
   offset: 0, 0
   index: -1
 Dwarf-Beard06-Outline-F34
   rotate: false
-  xy: 2294, 2410
+  xy: 2217, 2440
   size: 31, 24
   orig: 31, 24
   offset: 0, 0
@@ -1511,7 +1511,7 @@ Dwarf-Eyes-Dead-F
   index: -1
 Dwarf-Eyes-Dead-F34
   rotate: false
-  xy: 1476, 1950
+  xy: 2093, 2191
   size: 15, 5
   orig: 15, 5
   offset: 0, 0
@@ -1532,7 +1532,7 @@ Dwarf-Eyes-F34
   index: -1
 Dwarf-Female-Average-Baker-Clothing-B
   rotate: false
-  xy: 2710, 3284
+  xy: 2710, 3321
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -1546,21 +1546,21 @@ Dwarf-Female-Average-Baker-Clothing-B34
   index: -1
 Dwarf-Female-Average-Baker-Clothing-F
   rotate: false
-  xy: 1998, 2040
+  xy: 1987, 2426
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Baker-Clothing-F34
   rotate: false
-  xy: 2255, 2522
+  xy: 2710, 3278
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Blacksmith-Clothing-B
   rotate: false
-  xy: 2304, 2521
+  xy: 2759, 3303
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -1574,21 +1574,21 @@ Dwarf-Female-Average-Blacksmith-Clothing-B34
   index: -1
 Dwarf-Female-Average-Blacksmith-Clothing-F
   rotate: false
-  xy: 1997, 1997
+  xy: 1945, 2332
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Blacksmith-Clothing-F34
   rotate: false
-  xy: 1782, 2839
+  xy: 2759, 3260
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Carpenter-Clothing-B
   rotate: false
-  xy: 1782, 2796
+  xy: 2255, 2522
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -1602,189 +1602,189 @@ Dwarf-Female-Average-Carpenter-Clothing-B34
   index: -1
 Dwarf-Female-Average-Carpenter-Clothing-F
   rotate: false
-  xy: 1997, 1954
+  xy: 1945, 2289
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Carpenter-Clothing-F34
   rotate: false
-  xy: 1782, 2753
+  xy: 2304, 2521
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing01-B
   rotate: false
-  xy: 1997, 1911
+  xy: 1945, 2246
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing01-B34
   rotate: false
-  xy: 1782, 2710
+  xy: 1782, 2839
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing01-F
   rotate: false
-  xy: 2036, 2482
+  xy: 1945, 2203
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing01-F34
   rotate: false
-  xy: 1427, 1613
+  xy: 2141, 2150
   size: 45, 39
   orig: 45, 39
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing02-B
   rotate: false
-  xy: 2036, 2442
+  xy: 1949, 2163
   size: 46, 38
   orig: 46, 38
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing02-B34
   rotate: false
-  xy: 1782, 2670
+  xy: 1782, 2799
   size: 47, 38
   orig: 47, 38
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing02-F
   rotate: false
-  xy: 2041, 2403
+  xy: 1949, 2124
   size: 46, 37
   orig: 46, 37
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing02-F34
   rotate: false
-  xy: 1427, 1573
+  xy: 2141, 2110
   size: 45, 38
   orig: 45, 38
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing03-B
   rotate: false
-  xy: 3283, 3548
+  xy: 1949, 2082
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing03-B34
   rotate: false
-  xy: 1782, 2627
+  xy: 1782, 2756
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing03-F
   rotate: false
-  xy: 3331, 3548
+  xy: 1948, 2040
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing03-F34
   rotate: false
-  xy: 1427, 1532
+  xy: 2141, 2069
   size: 45, 39
   orig: 45, 39
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing04-B
   rotate: false
-  xy: 3280, 3506
+  xy: 1948, 1998
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing04-B34
   rotate: false
-  xy: 1831, 2696
+  xy: 1782, 2713
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing04-F
   rotate: false
-  xy: 3280, 3464
+  xy: 1948, 1956
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing04-F34
   rotate: false
-  xy: 2043, 2341
+  xy: 2141, 2028
   size: 45, 39
   orig: 45, 39
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing05-B
   rotate: false
-  xy: 3328, 3506
+  xy: 1164, 288
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing05-B34
   rotate: false
-  xy: 1831, 2654
+  xy: 1782, 2671
   size: 47, 40
   orig: 47, 40
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing05-F
   rotate: false
-  xy: 3328, 3465
+  xy: 1163, 247
   size: 46, 39
   orig: 46, 39
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing05-F34
   rotate: false
-  xy: 2043, 2300
+  xy: 2092, 1911
   size: 45, 39
   orig: 45, 39
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing06-B
   rotate: false
-  xy: 3280, 3422
+  xy: 1992, 2384
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing06-B34
   rotate: false
-  xy: 1831, 2611
+  xy: 1782, 2628
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing06-F
   rotate: false
-  xy: 3328, 3423
+  xy: 1993, 2342
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Clothing06-F34
   rotate: false
-  xy: 2043, 2259
+  xy: 2141, 1987
   size: 45, 39
   orig: 45, 39
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Farmer-Clothing-B
   rotate: false
-  xy: 3277, 3379
+  xy: 1993, 2299
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
@@ -1798,49 +1798,49 @@ Dwarf-Female-Average-Farmer-Clothing-B34
   index: -1
 Dwarf-Female-Average-Farmer-Clothing-F
   rotate: false
-  xy: 2084, 2474
+  xy: 1993, 2256
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Farmer-Clothing-F34
   rotate: false
-  xy: 1880, 2661
+  xy: 1831, 2696
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Fisher-Clothing-B
   rotate: false
-  xy: 2089, 2431
+  xy: 1993, 2213
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Fisher-Clothing-B34
   rotate: false
-  xy: 1880, 2618
+  xy: 1831, 2653
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Fisher-Clothing-F
   rotate: false
-  xy: 2089, 2388
+  xy: 1997, 2170
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Fisher-Clothing-F34
   rotate: false
-  xy: 1929, 2646
+  xy: 1791, 2585
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Hunter-Clothing-B
   rotate: false
-  xy: 1929, 2603
+  xy: 1791, 2542
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -1854,7 +1854,7 @@ Dwarf-Female-Average-Hunter-Clothing-B34
   index: -1
 Dwarf-Female-Average-Hunter-Clothing-F
   rotate: false
-  xy: 3571, 3471
+  xy: 1997, 2127
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
@@ -1868,63 +1868,63 @@ Dwarf-Female-Average-Hunter-Clothing-F34
   index: -1
 Dwarf-Female-Average-Lumberjack-Clothing-B
   rotate: false
-  xy: 3619, 3447
+  xy: 1997, 2084
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Lumberjack-Clothing-B34
   rotate: false
-  xy: 1880, 2575
+  xy: 1791, 2499
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Lumberjack-Clothing-F
   rotate: false
-  xy: 3667, 3445
+  xy: 1162, 204
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Lumberjack-Clothing-F34
   rotate: false
-  xy: 1929, 2560
+  xy: 1791, 2456
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Miner-Clothing-B
   rotate: false
-  xy: 1132, 930
+  xy: 1153, 161
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Miner-Clothing-B34
   rotate: false
-  xy: 1978, 2616
+  xy: 1880, 2661
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Miner-Clothing-B34F
   rotate: false
-  xy: 1978, 2573
+  xy: 1840, 2610
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Miner-Clothing-F
   rotate: false
-  xy: 3127, 3336
+  xy: 1155, 118
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Miner-Clothing-F34
   rotate: false
-  xy: 2027, 2572
+  xy: 1840, 2567
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -1952,7 +1952,7 @@ Dwarf-Female-Average-Nude-F
   index: -1
 Dwarf-Female-Average-Nude-F34
   rotate: false
-  xy: 1978, 2531
+  xy: 1840, 2525
   size: 47, 40
   orig: 47, 40
   offset: 0, 0
@@ -1987,28 +1987,28 @@ Dwarf-Female-Average-Outline-F34
   index: -1
 Dwarf-Female-Average-Stonemason-Clothing-B
   rotate: false
-  xy: 3175, 3352
+  xy: 1155, 75
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Stonemason-Clothing-B34
   rotate: false
-  xy: 2027, 2529
+  xy: 1840, 2482
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Stonemason-Clothing-F
   rotate: false
-  xy: 3223, 3353
+  xy: 1155, 32
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Stonemason-Clothing-F34
   rotate: false
-  xy: 2076, 2568
+  xy: 1889, 2618
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -2043,35 +2043,35 @@ Dwarf-Female-Average-Underwear-F34
   index: -1
 Dwarf-Female-Average-Villager-Clothing-B
   rotate: false
-  xy: 3271, 3336
+  xy: 1201, 161
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Villager-Clothing-B34
   rotate: false
-  xy: 2076, 2525
+  xy: 1889, 2575
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Villager-Clothing-F
   rotate: false
-  xy: 3223, 3310
+  xy: 1203, 118
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Villager-Clothing-F34
   rotate: false
-  xy: 2125, 2560
+  xy: 1889, 2532
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Weaver-Clothing-B
   rotate: false
-  xy: 3175, 3309
+  xy: 1203, 75
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
@@ -2085,14 +2085,14 @@ Dwarf-Female-Average-Weaver-Clothing-B34
   index: -1
 Dwarf-Female-Average-Weaver-Clothing-F
   rotate: false
-  xy: 3127, 3293
+  xy: 1203, 32
   size: 46, 41
   orig: 46, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Average-Weaver-Clothing-F34
   rotate: false
-  xy: 2125, 2517
+  xy: 1889, 2489
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -2666,399 +2666,399 @@ Dwarf-Female-Fat-Weaver-Clothing-F34
   index: -1
 Dwarf-Female-Strong-Baker-Clothing-B
   rotate: false
-  xy: 3271, 3290
+  xy: 2036, 2569
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Baker-Clothing-B34
   rotate: false
-  xy: 3223, 3264
+  xy: 2035, 2523
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Baker-Clothing-F
   rotate: false
-  xy: 3175, 3263
+  xy: 2035, 2477
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Baker-Clothing-F34
   rotate: false
-  xy: 2174, 2515
+  xy: 1840, 2436
   size: 47, 44
   orig: 47, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Blacksmith-Clothing-B
   rotate: false
-  xy: 3271, 3244
+  xy: 2035, 2431
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Blacksmith-Clothing-B34
   rotate: false
-  xy: 3223, 3218
+  xy: 2040, 2385
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Blacksmith-Clothing-F
   rotate: false
-  xy: 3271, 3198
+  xy: 2041, 2339
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Blacksmith-Clothing-F34
   rotate: false
-  xy: 1791, 2565
+  xy: 1889, 2443
   size: 47, 44
   orig: 47, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Carpenter-Clothing-B
   rotate: false
-  xy: 3319, 3333
+  xy: 2041, 2293
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Carpenter-Clothing-B34
   rotate: false
-  xy: 3319, 3287
+  xy: 2041, 2247
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Carpenter-Clothing-F
   rotate: false
-  xy: 3319, 3241
+  xy: 2084, 2565
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Carpenter-Clothing-F34
   rotate: false
-  xy: 1791, 2519
+  xy: 1840, 2390
   size: 47, 44
   orig: 47, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing01-B
   rotate: false
-  xy: 3319, 3195
+  xy: 2083, 2519
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing01-B34
   rotate: false
-  xy: 1568, 1906
+  xy: 2854, 3241
   size: 44, 42
   orig: 44, 42
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing01-F
   rotate: false
-  xy: 1153, 190
+  xy: 2083, 2473
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing01-F34
   rotate: false
-  xy: 1522, 1861
+  xy: 2900, 3269
   size: 44, 42
   orig: 44, 42
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing02-B
   rotate: false
-  xy: 1153, 148
+  xy: 2083, 2431
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing02-B34
   rotate: false
-  xy: 1568, 1865
+  xy: 1211, 247
   size: 44, 39
   orig: 44, 39
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing02-F
   rotate: false
-  xy: 1155, 106
+  xy: 2088, 2389
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing02-F34
   rotate: false
-  xy: 1522, 1819
+  xy: 1212, 288
   size: 44, 40
   orig: 44, 40
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing03-B
   rotate: false
-  xy: 2043, 2215
+  xy: 2140, 1943
   size: 45, 42
   orig: 45, 42
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing03-B34
   rotate: false
-  xy: 1568, 1821
+  xy: 2324, 3286
   size: 44, 42
   orig: 44, 42
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing03-F
   rotate: false
-  xy: 3602, 3402
+  xy: 2403, 2636
   size: 41, 43
   orig: 41, 43
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing03-F34
   rotate: false
-  xy: 1227, 976
+  xy: 2398, 2795
   size: 42, 41
   orig: 42, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing04-B
   rotate: false
-  xy: 1155, 62
+  xy: 2089, 2345
   size: 46, 42
   orig: 46, 42
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing04-B34
   rotate: false
-  xy: 1475, 1776
+  xy: 2327, 3243
   size: 44, 41
   orig: 44, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing04-F
   rotate: false
-  xy: 1475, 1731
+  xy: 2900, 3224
   size: 44, 43
   orig: 44, 43
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing04-F34
   rotate: false
-  xy: 3468, 3489
+  xy: 3175, 3335
   size: 43, 41
   orig: 43, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing05-B
   rotate: false
-  xy: 1155, 18
+  xy: 2089, 2301
   size: 46, 42
   orig: 46, 42
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing05-B34
   rotate: false
-  xy: 1521, 1776
+  xy: 2854, 3198
   size: 44, 41
   orig: 44, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing05-F
   rotate: false
-  xy: 3328, 3379
+  xy: 2089, 2257
   size: 46, 42
   orig: 46, 42
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing05-F34
   rotate: false
-  xy: 1521, 1733
+  xy: 2900, 3181
   size: 44, 41
   orig: 44, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing06-B
   rotate: false
-  xy: 3367, 3334
+  xy: 2132, 2558
   size: 46, 43
   orig: 46, 43
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing06-B34
   rotate: false
-  xy: 1614, 1874
+  xy: 2374, 3310
   size: 44, 41
   orig: 44, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing06-F
   rotate: false
-  xy: 3367, 3289
+  xy: 2131, 2513
   size: 46, 43
   orig: 46, 43
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Clothing06-F34
   rotate: false
-  xy: 1614, 1831
+  xy: 2946, 3236
   size: 44, 41
   orig: 44, 41
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Farmer-Clothing-B
   rotate: false
-  xy: 3367, 3243
+  xy: 2131, 2467
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Farmer-Clothing-B34
   rotate: false
-  xy: 3367, 3197
+  xy: 2089, 2211
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Farmer-Clothing-F
   rotate: false
-  xy: 3367, 3151
+  xy: 2136, 2421
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Farmer-Clothing-F34
   rotate: false
-  xy: 1791, 2473
+  xy: 1889, 2397
   size: 47, 44
   orig: 47, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Fisher-Clothing-B
   rotate: false
-  xy: 1332, 1898
+  xy: 2137, 2375
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Fisher-Clothing-B34
   rotate: false
-  xy: 1332, 1852
+  xy: 2137, 2329
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Fisher-Clothing-F
   rotate: false
-  xy: 1331, 1806
+  xy: 2137, 2283
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Fisher-Clothing-F34
   rotate: false
-  xy: 1791, 2427
+  xy: 1845, 2344
   size: 47, 44
   orig: 47, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Hunter-Clothing-B
   rotate: false
-  xy: 1331, 1760
+  xy: 2137, 2237
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Hunter-Clothing-B34
   rotate: false
-  xy: 1331, 1714
+  xy: 2137, 2191
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Hunter-Clothing-F
   rotate: false
-  xy: 1331, 1668
+  xy: 3127, 3333
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Hunter-Clothing-F34
   rotate: false
-  xy: 1840, 2529
+  xy: 1894, 2351
   size: 47, 44
   orig: 47, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Lumberjack-Clothing-B
   rotate: false
-  xy: 1331, 1622
+  xy: 3124, 3287
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Lumberjack-Clothing-B34
   rotate: false
-  xy: 1331, 1576
+  xy: 3120, 3241
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Lumberjack-Clothing-F
   rotate: false
-  xy: 1331, 1530
+  xy: 1997, 2038
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Lumberjack-Clothing-F34
   rotate: false
-  xy: 1840, 2483
+  xy: 1847, 2298
   size: 47, 44
   orig: 47, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Miner-Clothing-B
   rotate: false
-  xy: 1330, 1484
+  xy: 1996, 1992
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Miner-Clothing-B34
   rotate: false
-  xy: 1330, 1438
+  xy: 1996, 1946
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Miner-Clothing-B34F
   rotate: false
-  xy: 1330, 1392
+  xy: 2045, 2165
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Miner-Clothing-F
   rotate: false
-  xy: 1330, 1346
+  xy: 2045, 2119
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Miner-Clothing-F34
   rotate: false
-  xy: 1840, 2437
+  xy: 1847, 2252
   size: 47, 44
   orig: 47, 44
   offset: 0, 0
@@ -3072,7 +3072,7 @@ Dwarf-Female-Strong-Nude-B
   index: -1
 Dwarf-Female-Strong-Nude-B34
   rotate: false
-  xy: 1330, 1301
+  xy: 2045, 2074
   size: 46, 43
   orig: 46, 43
   offset: 0, 0
@@ -3086,7 +3086,7 @@ Dwarf-Female-Strong-Nude-F
   index: -1
 Dwarf-Female-Strong-Nude-F34
   rotate: false
-  xy: 1330, 1256
+  xy: 2045, 2029
   size: 46, 43
   orig: 46, 43
   offset: 0, 0
@@ -3121,28 +3121,28 @@ Dwarf-Female-Strong-Outline-F34
   index: -1
 Dwarf-Female-Strong-Stonemason-Clothing-B
   rotate: false
-  xy: 1330, 1210
+  xy: 2044, 1983
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Stonemason-Clothing-B34
   rotate: false
-  xy: 2090, 2343
+  xy: 2139, 1898
   size: 45, 43
   orig: 45, 43
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Stonemason-Clothing-F
   rotate: false
-  xy: 1380, 1930
+  xy: 2044, 1937
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Stonemason-Clothing-F34
   rotate: false
-  xy: 1380, 1885
+  xy: 2350, 2654
   size: 46, 43
   orig: 46, 43
   offset: 0, 0
@@ -3177,70 +3177,70 @@ Dwarf-Female-Strong-Underwear-F34
   index: -1
 Dwarf-Female-Strong-Villager-Clothing-B
   rotate: false
-  xy: 1428, 1911
+  xy: 2355, 2608
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Villager-Clothing-B34
   rotate: false
-  xy: 1380, 1839
+  xy: 2355, 2562
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Villager-Clothing-F
   rotate: false
-  xy: 1428, 1865
+  xy: 2353, 2516
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Villager-Clothing-F34
   rotate: false
-  xy: 1840, 2391
+  xy: 1847, 2206
   size: 47, 44
   orig: 47, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Weaver-Clothing-B
   rotate: false
-  xy: 1379, 1793
+  xy: 3168, 3241
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Weaver-Clothing-B34
   rotate: false
-  xy: 1379, 1747
+  xy: 3172, 3287
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Weaver-Clothing-F
   rotate: false
-  xy: 1379, 1701
+  xy: 3220, 3308
   size: 46, 44
   orig: 46, 44
   offset: 0, 0
   index: -1
 Dwarf-Female-Strong-Weaver-Clothing-F34
   rotate: false
-  xy: 1845, 2345
+  xy: 1896, 2305
   size: 47, 44
   orig: 47, 44
   offset: 0, 0
   index: -1
 Dwarf-HairA-Color-All
   rotate: false
-  xy: 205, 7
+  xy: 2036, 2645
   size: 17, 12
   orig: 17, 12
   offset: 0, 0
   index: -1
 Dwarf-HairA-Outline-All
   rotate: false
-  xy: 1978, 2672
+  xy: 3270, 3349
   size: 24, 15
   orig: 24, 15
   offset: 0, 0
@@ -3254,7 +3254,7 @@ Dwarf-HairB-F+B
   index: -1
 Dwarf-HairB-F34+B34
   rotate: false
-  xy: 2089, 2037
+  xy: 2184, 2423
   size: 31, 15
   orig: 31, 15
   offset: 0, 0
@@ -3268,126 +3268,126 @@ Dwarf-HairC-Color-F+B
   index: -1
 Dwarf-HairC-Color-F34+B34flip
   rotate: false
-  xy: 2281, 3404
+  xy: 2280, 3320
   size: 18, 9
   orig: 18, 9
   offset: 0, 0
   index: -1
 Dwarf-HairC-Outline-F+B
   rotate: false
-  xy: 1287, 2073
+  xy: 1880, 2704
   size: 14, 11
   orig: 14, 11
   offset: 0, 0
   index: -1
 Dwarf-HairC-Outline-F34+B34flip
   rotate: false
-  xy: 473, 2215
+  xy: 471, 2215
   size: 22, 12
   orig: 22, 12
   offset: 0, 0
   index: -1
 Dwarf-HairD-Color-B34
   rotate: false
-  xy: 1788, 1848
+  xy: 2185, 2234
   size: 30, 20
   orig: 30, 20
   offset: 0, 0
   index: -1
 Dwarf-HairD-Color-F+B
   rotate: false
-  xy: 2088, 2012
+  xy: 2185, 2398
   size: 31, 23
   orig: 31, 23
   offset: 0, 0
   index: -1
 Dwarf-HairD-Color-F34
   rotate: false
-  xy: 1788, 1825
+  xy: 2185, 2211
   size: 30, 21
   orig: 30, 21
   offset: 0, 0
   index: -1
 Dwarf-HairE-Color-B
   rotate: false
-  xy: 3422, 3532
+  xy: 2067, 2748
   size: 33, 21
   orig: 33, 21
   offset: 0, 0
   index: -1
 Dwarf-HairE-Color-B34
   rotate: false
-  xy: 1820, 1908
+  xy: 1332, 1844
   size: 30, 22
   orig: 30, 22
   offset: 0, 0
   index: -1
 Dwarf-HairE-Color-F
   rotate: false
-  xy: 2067, 2747
+  xy: 1213, 341
   size: 33, 22
   orig: 33, 22
   offset: 0, 0
   index: -1
 Dwarf-HairE-Color-F34
   rotate: false
-  xy: 1820, 1884
+  xy: 1331, 1820
   size: 30, 22
   orig: 30, 22
   offset: 0, 0
   index: -1
 Dwarf-HairF-Color-B
   rotate: false
-  xy: 1820, 1858
+  xy: 1331, 1794
   size: 30, 24
   orig: 30, 24
   offset: 0, 0
   index: -1
 Dwarf-HairF-Color-B34
   rotate: false
-  xy: 1820, 1831
+  xy: 1331, 1767
   size: 30, 25
   orig: 30, 25
   offset: 0, 0
   index: -1
 Dwarf-HairF-Color-F
   rotate: false
-  xy: 1852, 1901
+  xy: 1331, 1740
   size: 30, 25
   orig: 30, 25
   offset: 0, 0
   index: -1
 Dwarf-HairF-Color-F34
   rotate: false
-  xy: 1852, 1874
+  xy: 1331, 1713
   size: 30, 25
   orig: 30, 25
   offset: 0, 0
   index: -1
 Dwarf-HairFA-Color-FB
   rotate: false
-  xy: 1773, 1944
+  xy: 1855, 1902
   size: 38, 37
   orig: 38, 37
   offset: 0, 0
   index: -1
 Dwarf-HairFA-Color-FB34
   rotate: false
-  xy: 2352, 2802
+  xy: 2442, 2834
   size: 36, 37
   orig: 36, 37
   offset: 0, 0
   index: -1
 Dwarf-HairFB-Color-FB
   rotate: false
-  xy: 3500, 3164
+  xy: 2484, 2655
   size: 34, 37
   orig: 34, 37
   offset: 0, 0
   index: -1
 Dwarf-HairFB-Color-FB34
   rotate: false
-  xy: 2352, 2765
+  xy: 2442, 2797
   size: 36, 35
   orig: 36, 35
   offset: 0, 0
@@ -3408,7 +3408,7 @@ Dwarf-HairFC-Color-FB34
   index: -1
 Dwarf-HairFD-Color-B
   rotate: false
-  xy: 3765, 3405
+  xy: 1330, 1283
   size: 29, 24
   orig: 29, 24
   offset: 0, 0
@@ -3429,35 +3429,35 @@ Dwarf-HairFD-Color-F
   index: -1
 Dwarf-HairFD-Color-F34
   rotate: false
-  xy: 2760, 3324
+  xy: 2484, 2633
   size: 34, 20
   orig: 34, 20
   offset: 0, 0
   index: -1
 Dwarf-HairFD-Outline-B
   rotate: false
-  xy: 2295, 2436
+  xy: 1218, 470
   size: 32, 26
   orig: 32, 26
   offset: 0, 0
   index: -1
 Dwarf-HairFD-Outline-B34
   rotate: false
-  xy: 2088, 1985
+  xy: 2185, 2371
   size: 31, 25
   orig: 31, 25
   offset: 0, 0
   index: -1
 Dwarf-HairFD-Outline-F
   rotate: false
-  xy: 2088, 1962
+  xy: 2185, 2348
   size: 31, 21
   orig: 31, 21
   offset: 0, 0
   index: -1
 Dwarf-HairFD-Outline-F34
   rotate: false
-  xy: 1163, 294
+  xy: 2442, 2772
   size: 36, 23
   orig: 36, 23
   offset: 0, 0
@@ -3471,49 +3471,49 @@ Dwarf-HairFE-Color-B
   index: -1
 Dwarf-HairFE-Color-B34
   rotate: false
-  xy: 1769, 1922
+  xy: 1313, 953
   size: 33, 20
   orig: 33, 20
   offset: 0, 0
   index: -1
 Dwarf-HairFE-Color-F
   rotate: false
-  xy: 1840, 2592
+  xy: 1895, 1899
   size: 38, 17
   orig: 38, 17
   offset: 0, 0
   index: -1
 Dwarf-HairFE-Color-F34
   rotate: false
-  xy: 2796, 3324
+  xy: 3264, 3193
   size: 33, 20
   orig: 33, 20
   offset: 0, 0
   index: -1
 Dwarf-HairFE-Outline-B
   rotate: false
-  xy: 2046, 2037
+  xy: 2403, 2611
   size: 41, 23
   orig: 41, 23
   offset: 0, 0
   index: -1
 Dwarf-HairFE-Outline-B34
   rotate: false
-  xy: 2352, 2741
+  xy: 2442, 2748
   size: 36, 22
   orig: 36, 22
   offset: 0, 0
   index: -1
 Dwarf-HairFE-Outline-F
   rotate: false
-  xy: 2132, 2496
+  xy: 1178, 884
   size: 40, 19
   orig: 40, 19
   offset: 0, 0
   index: -1
 Dwarf-HairFE-Outline-F34
   rotate: false
-  xy: 2352, 2717
+  xy: 2442, 2724
   size: 36, 22
   orig: 36, 22
   offset: 0, 0
@@ -3527,7 +3527,7 @@ Dwarf-HairFF-Color-B
   index: -1
 Dwarf-HairFF-Color-B34
   rotate: false
-  xy: 2090, 2319
+  xy: 1202, 8
   size: 45, 22
   orig: 45, 22
   offset: 0, 0
@@ -3541,7 +3541,7 @@ Dwarf-HairFF-Color-F
   index: -1
 Dwarf-HairFF-Color-F34
   rotate: false
-  xy: 1732, 2673
+  xy: 1791, 2433
   size: 47, 21
   orig: 47, 21
   offset: 0, 0
@@ -3576,7 +3576,7 @@ Dwarf-HairFF-Outline-F34
   index: -1
 Dwarf-HairFG-Color-B
   rotate: false
-  xy: 1847, 2306
+  xy: 1896, 2266
   size: 47, 37
   orig: 47, 37
   offset: 0, 0
@@ -3590,21 +3590,21 @@ Dwarf-HairFG-Color-B34
   index: -1
 Dwarf-HairFG-Color-F
   rotate: false
-  xy: 1847, 2270
+  xy: 1732, 2660
   size: 47, 34
   orig: 47, 34
   offset: 0, 0
   index: -1
 Dwarf-HairFG-Color-F34
   rotate: false
-  xy: 1182, 978
+  xy: 2352, 2711
   size: 43, 36
   orig: 43, 36
   offset: 0, 0
   index: -1
 Dwarf-Male-Average-Baker-Clothing-B
   rotate: false
-  xy: 1847, 2227
+  xy: 1896, 2223
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3618,7 +3618,7 @@ Dwarf-Male-Average-Baker-Clothing-B34
   index: -1
 Dwarf-Male-Average-Baker-Clothing-F
   rotate: false
-  xy: 1847, 2184
+  xy: 1896, 2180
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3632,7 +3632,7 @@ Dwarf-Male-Average-Baker-Clothing-F34
   index: -1
 Dwarf-Male-Average-Blacksmith-Clothing-B
   rotate: false
-  xy: 1889, 2517
+  xy: 1900, 2137
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3646,7 +3646,7 @@ Dwarf-Male-Average-Blacksmith-Clothing-B34
   index: -1
 Dwarf-Male-Average-Blacksmith-Clothing-F
   rotate: false
-  xy: 1889, 2474
+  xy: 1900, 2094
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3660,7 +3660,7 @@ Dwarf-Male-Average-Blacksmith-Clothing-F34
   index: -1
 Dwarf-Male-Average-Carpenter-Clothing-B
   rotate: false
-  xy: 1889, 2431
+  xy: 1899, 2051
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3674,7 +3674,7 @@ Dwarf-Male-Average-Carpenter-Clothing-B34
   index: -1
 Dwarf-Male-Average-Carpenter-Clothing-F
   rotate: false
-  xy: 1938, 2488
+  xy: 1899, 2008
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3688,7 +3688,7 @@ Dwarf-Male-Average-Carpenter-Clothing-F34
   index: -1
 Dwarf-Male-Average-Clothing01-B
   rotate: false
-  xy: 1938, 2445
+  xy: 1899, 1965
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3702,7 +3702,7 @@ Dwarf-Male-Average-Clothing01-B34
   index: -1
 Dwarf-Male-Average-Clothing01-F
   rotate: false
-  xy: 1938, 2402
+  xy: 1114, 276
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3716,7 +3716,7 @@ Dwarf-Male-Average-Clothing01-F34
   index: -1
 Dwarf-Male-Average-Clothing02-B
   rotate: false
-  xy: 1889, 2391
+  xy: 1113, 236
   size: 47, 38
   orig: 47, 38
   offset: 0, 0
@@ -3730,7 +3730,7 @@ Dwarf-Male-Average-Clothing02-B34
   index: -1
 Dwarf-Male-Average-Clothing02-F
   rotate: false
-  xy: 1894, 2352
+  xy: 3283, 3551
   size: 47, 37
   orig: 47, 37
   offset: 0, 0
@@ -3744,7 +3744,7 @@ Dwarf-Male-Average-Clothing02-F34
   index: -1
 Dwarf-Male-Average-Clothing03-B
   rotate: false
-  xy: 1896, 2310
+  xy: 3332, 3548
   size: 47, 40
   orig: 47, 40
   offset: 0, 0
@@ -3758,7 +3758,7 @@ Dwarf-Male-Average-Clothing03-B34
   index: -1
 Dwarf-Male-Average-Clothing03-F
   rotate: false
-  xy: 1896, 2268
+  xy: 3571, 3472
   size: 47, 40
   orig: 47, 40
   offset: 0, 0
@@ -3772,7 +3772,7 @@ Dwarf-Male-Average-Clothing03-F34
   index: -1
 Dwarf-Male-Average-Clothing04-B
   rotate: false
-  xy: 1896, 2226
+  xy: 3620, 3448
   size: 47, 40
   orig: 47, 40
   offset: 0, 0
@@ -3786,7 +3786,7 @@ Dwarf-Male-Average-Clothing04-B34
   index: -1
 Dwarf-Male-Average-Clothing04-F
   rotate: false
-  xy: 1896, 2184
+  xy: 3669, 3446
   size: 47, 40
   orig: 47, 40
   offset: 0, 0
@@ -3800,7 +3800,7 @@ Dwarf-Male-Average-Clothing04-F34
   index: -1
 Dwarf-Male-Average-Clothing05-B
   rotate: false
-  xy: 1943, 2360
+  xy: 3221, 3354
   size: 47, 40
   orig: 47, 40
   offset: 0, 0
@@ -3828,7 +3828,7 @@ Dwarf-Male-Average-Clothing05-F34
   index: -1
 Dwarf-Male-Average-Clothing06-B
   rotate: false
-  xy: 1945, 2318
+  xy: 1132, 931
   size: 47, 40
   orig: 47, 40
   offset: 0, 0
@@ -3842,7 +3842,7 @@ Dwarf-Male-Average-Clothing06-B34
   index: -1
 Dwarf-Male-Average-Clothing06-F
   rotate: false
-  xy: 1945, 2276
+  xy: 1129, 889
   size: 47, 40
   orig: 47, 40
   offset: 0, 0
@@ -3856,7 +3856,7 @@ Dwarf-Male-Average-Clothing06-F34
   index: -1
 Dwarf-Male-Average-Farmer-Clothing-B
   rotate: false
-  xy: 1945, 2233
+  xy: 1128, 846
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3870,7 +3870,7 @@ Dwarf-Male-Average-Farmer-Clothing-B34
   index: -1
 Dwarf-Male-Average-Farmer-Clothing-F
   rotate: false
-  xy: 1945, 2190
+  xy: 1128, 803
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3884,7 +3884,7 @@ Dwarf-Male-Average-Farmer-Clothing-F34
   index: -1
 Dwarf-Male-Average-Fisher-Clothing-B
   rotate: false
-  xy: 1900, 2141
+  xy: 1128, 760
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3898,7 +3898,7 @@ Dwarf-Male-Average-Fisher-Clothing-B34
   index: -1
 Dwarf-Male-Average-Fisher-Clothing-F
   rotate: false
-  xy: 1900, 2098
+  xy: 1128, 717
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3940,7 +3940,7 @@ Dwarf-Male-Average-Hunter-Clothing-F34
   index: -1
 Dwarf-Male-Average-Lumberjack-Clothing-B
   rotate: false
-  xy: 2090, 2276
+  xy: 1210, 204
   size: 45, 41
   orig: 45, 41
   offset: 0, 0
@@ -3954,7 +3954,7 @@ Dwarf-Male-Average-Lumberjack-Clothing-B34
   index: -1
 Dwarf-Male-Average-Lumberjack-Clothing-F
   rotate: false
-  xy: 1899, 2055
+  xy: 1128, 674
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3968,7 +3968,7 @@ Dwarf-Male-Average-Lumberjack-Clothing-F34
   index: -1
 Dwarf-Male-Average-Miner-Clothing-B
   rotate: false
-  xy: 1899, 2012
+  xy: 1128, 631
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -3989,7 +3989,7 @@ Dwarf-Male-Average-Miner-Clothing-B34F
   index: -1
 Dwarf-Male-Average-Miner-Clothing-F
   rotate: false
-  xy: 1949, 2147
+  xy: 1128, 588
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -4045,7 +4045,7 @@ Dwarf-Male-Average-Outline-F34+B34
   index: -1
 Dwarf-Male-Average-Stonemason-Clothing-B
   rotate: false
-  xy: 1949, 2104
+  xy: 1128, 545
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -4059,7 +4059,7 @@ Dwarf-Male-Average-Stonemason-Clothing-B34
   index: -1
 Dwarf-Male-Average-Stonemason-Clothing-F
   rotate: false
-  xy: 1899, 1969
+  xy: 1128, 502
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -4101,7 +4101,7 @@ Dwarf-Male-Average-Underwear-F34
   index: -1
 Dwarf-Male-Average-Villager-Clothing-B
   rotate: false
-  xy: 1949, 2061
+  xy: 1128, 459
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -4115,7 +4115,7 @@ Dwarf-Male-Average-Villager-Clothing-B34
   index: -1
 Dwarf-Male-Average-Villager-Clothing-F
   rotate: false
-  xy: 1948, 2018
+  xy: 1164, 416
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -4129,7 +4129,7 @@ Dwarf-Male-Average-Villager-Clothing-F34
   index: -1
 Dwarf-Male-Average-Weaver-Clothing-B
   rotate: false
-  xy: 1948, 1975
+  xy: 1164, 373
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -4143,7 +4143,7 @@ Dwarf-Male-Average-Weaver-Clothing-B34
   index: -1
 Dwarf-Male-Average-Weaver-Clothing-F
   rotate: false
-  xy: 1948, 1932
+  xy: 1164, 330
   size: 47, 41
   orig: 47, 41
   offset: 0, 0
@@ -5179,21 +5179,21 @@ Dwarf-Male-Strong-Stonemason-Clothing-F34
   index: -1
 Dwarf-Male-Strong-Underwear-B
   rotate: false
-  xy: 2041, 2382
+  xy: 2041, 2226
   size: 46, 19
   orig: 46, 19
   offset: 0, 0
   index: -1
 Dwarf-Male-Strong-Underwear-B34
   rotate: false
-  xy: 376, 2
+  xy: 330, 2
   size: 44, 18
   orig: 44, 18
   offset: 0, 0
   index: -1
 Dwarf-Male-Strong-Underwear-F
   rotate: false
-  xy: 1847, 2171
+  xy: 1791, 2420
   size: 40, 11
   orig: 40, 11
   offset: 0, 0
@@ -5410,56 +5410,56 @@ Fabric_Plain
   index: -1
 Farmable-Mushroom-Cap01-Base
   rotate: false
-  xy: 2391, 2839
+  xy: 2014, 1915
   size: 28, 29
   orig: 28, 29
   offset: 0, 0
   index: -1
 Farmable-Mushroom-Cap01-Markings
   rotate: false
-  xy: 4070, 3752
+  xy: 4070, 3753
   size: 24, 25
   orig: 24, 25
   offset: 0, 0
   index: -1
 Farmable-Mushroom-Cap01-Spots
   rotate: false
-  xy: 4070, 3725
+  xy: 4070, 3726
   size: 24, 25
   orig: 24, 25
   offset: 0, 0
   index: -1
 Farmable-Mushroom-Cap01-Stripes
   rotate: false
-  xy: 4070, 3698
+  xy: 4070, 3699
   size: 24, 25
   orig: 24, 25
   offset: 0, 0
   index: -1
 Farmable-Mushroom-Cap02-Base
   rotate: false
-  xy: 2090, 2252
+  xy: 2327, 3381
   size: 45, 22
   orig: 45, 22
   offset: 0, 0
   index: -1
 Farmable-Mushroom-Cap02-Markings
   rotate: false
-  xy: 422, 2
+  xy: 376, 2
   size: 41, 18
   orig: 41, 18
   offset: 0, 0
   index: -1
 Farmable-Mushroom-Cap02-Spots
   rotate: false
-  xy: 2510, 3458
+  xy: 419, 2
   size: 41, 18
   orig: 41, 18
   offset: 0, 0
   index: -1
 Farmable-Mushroom-Cap02-Stripes
   rotate: false
-  xy: 2045, 2017
+  xy: 2510, 3458
   size: 41, 18
   orig: 41, 18
   offset: 0, 0
@@ -5473,21 +5473,21 @@ Farmable-Mushroom-DetailEW
   index: -1
 Farmable-Mushroom-DetailNS
   rotate: false
-  xy: 1128, 840
+  xy: 2506, 3006
   size: 15, 85
   orig: 15, 85
   offset: 0, 0
   index: -1
 Farmable-Mushroom-Stem01
   rotate: false
-  xy: 2069, 1884
+  xy: 2036, 2620
   size: 17, 23
   orig: 17, 23
   offset: 0, 0
   index: -1
 Farmable-Mushroom-Stem02
   rotate: false
-  xy: 1250, 2885
+  xy: 1250, 2859
   size: 20, 35
   orig: 20, 35
   offset: 0, 0
@@ -5529,7 +5529,7 @@ Forge A
   index: -1
 Forge B
   rotate: false
-  xy: 1813, 1932
+  xy: 1373, 1925
   size: 38, 49
   orig: 38, 49
   offset: 0, 0
@@ -5543,21 +5543,21 @@ Forge C
   index: -1
 FoxBackBaseColour
   rotate: false
-  xy: 3727, 3402
+  xy: 2179, 2467
   size: 36, 53
   orig: 36, 53
   offset: 0, 0
   index: -1
 FoxBackBaseColourS
   rotate: false
-  xy: 1379, 1665
+  xy: 3220, 3272
   size: 46, 34
   orig: 46, 34
   offset: 0, 0
   index: -1
 FoxBackLines
   rotate: false
-  xy: 2093, 2174
+  xy: 2946, 3181
   size: 44, 53
   orig: 44, 53
   offset: 0, 0
@@ -5571,7 +5571,7 @@ FoxBackLinesS
   index: -1
 FoxBackMarkingsPlaceOntop
   rotate: false
-  xy: 1853, 1928
+  xy: 1373, 1870
   size: 38, 53
   orig: 38, 53
   offset: 0, 0
@@ -5627,21 +5627,21 @@ FoxBackSideMarkingsPlaceOntopS
   index: -1
 FoxFrontBaseColour
   rotate: false
-  xy: 2352, 3174
+  xy: 2443, 3185
   size: 37, 55
   orig: 37, 55
   offset: 0, 0
   index: -1
 FoxFrontBaseColourS
   rotate: false
-  xy: 2352, 2681
+  xy: 2179, 2522
   size: 36, 34
   orig: 36, 34
   offset: 0, 0
   index: -1
 FoxFrontLines
   rotate: false
-  xy: 2179, 2458
+  xy: 1774, 1926
   size: 39, 55
   orig: 39, 55
   offset: 0, 0
@@ -5655,14 +5655,14 @@ FoxFrontLinesS
   index: -1
 FoxFrontMarkingsPlaceOntop
   rotate: false
-  xy: 1852, 1818
+  xy: 1331, 1657
   size: 30, 54
   orig: 30, 54
   offset: 0, 0
   index: -1
 FoxFrontMarkingsPlaceOntopS
   rotate: false
-  xy: 2088, 1942
+  xy: 2185, 2328
   size: 31, 18
   orig: 31, 18
   offset: 0, 0
@@ -5704,14 +5704,14 @@ FoxFrontSideMarkingsPlaceOntop
   index: -1
 FoxFrontSideMarkingsPlaceOntopS
   rotate: false
-  xy: 1227, 1019
+  xy: 2992, 3183
   size: 43, 24
   orig: 43, 24
   offset: 0, 0
   index: -1
 Furnace A
   rotate: false
-  xy: 1287, 2056
+  xy: 1287, 2069
   size: 14, 15
   orig: 14, 15
   offset: 0, 0
@@ -5767,28 +5767,28 @@ Furniture-Log-EW02-Exterior
   index: -1
 Furniture-Log-NS-Interior
   rotate: false
-  xy: 2391, 3035
+  xy: 2218, 2348
   size: 29, 90
   orig: 29, 90
   offset: 0, 0
   index: -1
 Furniture-Log-NS02-Exterior
   rotate: false
-  xy: 2355, 2586
+  xy: 2217, 2466
   size: 36, 93
   orig: 36, 93
   offset: 0, 0
   index: -1
 Giant Mushroom 1 Tile Head
   rotate: false
-  xy: 2045, 1978
+  xy: 2403, 2572
   size: 41, 37
   orig: 41, 37
   offset: 0, 0
   index: -1
 Giant Mushroom 1 Tile Stem
   rotate: false
-  xy: 2561, 3330
+  xy: 2506, 2969
   size: 15, 35
   orig: 15, 35
   offset: 0, 0
@@ -5802,21 +5802,21 @@ Giant Mushroom 2 Tiles High Head
   index: -1
 Giant Mushroom 2 Tiles High Stem
   rotate: false
-  xy: 3666, 3286
+  xy: 2482, 3068
   size: 22, 73
   orig: 22, 73
   offset: 0, 0
   index: -1
 Giant Mushroom Carried Diagonal
   rotate: false
-  xy: 2258, 2479
+  xy: 1769, 1857
   size: 35, 41
   orig: 35, 41
   offset: 0, 0
   index: -1
 Giant Mushroom Carried Vertical
   rotate: false
-  xy: 1128, 791
+  xy: 2505, 2909
   size: 15, 47
   orig: 15, 47
   offset: 0, 0
@@ -5837,28 +5837,28 @@ Giant Mushroom Medium Pile
   index: -1
 Giant Mushroom Sapling Head
   rotate: false
-  xy: 2390, 2813
+  xy: 2218, 2287
   size: 28, 24
   orig: 28, 24
   offset: 0, 0
   index: -1
 Giant Mushroom Sapling Stem
   rotate: false
-  xy: 3558, 3484
+  xy: 2974, 3485
   size: 11, 26
   orig: 11, 26
   offset: 0, 0
   index: -1
 Giant Mushroom Single Pile
   rotate: false
-  xy: 2470, 3308
+  xy: 1257, 226
   size: 17, 60
   orig: 17, 60
   offset: 0, 0
   index: -1
 Giant Mushroom Small Pile
   rotate: false
-  xy: 1379, 1595
+  xy: 3216, 3202
   size: 46, 68
   orig: 46, 68
   offset: 0, 0
@@ -5879,14 +5879,14 @@ Headstone East West Variant B
   index: -1
 Headstone North South Variant A
   rotate: false
-  xy: 1327, 1064
+  xy: 2482, 3143
   size: 23, 97
   orig: 23, 97
   offset: 0, 0
   index: -1
 Headstone North South Variant B
   rotate: false
-  xy: 1145, 777
+  xy: 1363, 1567
   size: 13, 85
   orig: 13, 85
   offset: 0, 0
@@ -5956,7 +5956,7 @@ Hopback whirlpool
   index: -1
 Ingredient-Soup-Bowl-Liquid
   rotate: false
-  xy: 1938, 2535
+  xy: 1935, 1889
   size: 38, 23
   orig: 38, 23
   offset: 0, 0
@@ -5977,7 +5977,7 @@ Kiln
   index: -1
 Lantern Side Front
   rotate: false
-  xy: 2181, 2157
+  xy: 1413, 1860
   size: 38, 95
   orig: 38, 95
   offset: 0, 0
@@ -6019,7 +6019,7 @@ Loom_B_String2
   index: -1
 Loom_B_Weights
   rotate: false
-  xy: 1732, 2660
+  xy: 360, 2216
   size: 41, 11
   orig: 41, 11
   offset: 0, 0
@@ -6047,7 +6047,7 @@ Loom_Back_Shadow
   index: -1
 Loom_Back_Thread
   rotate: false
-  xy: 360, 2216
+  xy: 2041, 2213
   size: 43, 11
   orig: 43, 11
   offset: 0, 0
@@ -6131,14 +6131,14 @@ Metal tankard
   index: -1
 Mill 1x3 stone table
   rotate: false
-  xy: 3536, 3171
+  xy: 1219, 689
   size: 33, 193
   orig: 33, 193
   offset: 0, 0
   index: -1
 Mill 1x3 wood table
   rotate: false
-  xy: 2137, 2290
+  xy: 1177, 678
   size: 40, 204
   orig: 40, 204
   offset: 0, 0
@@ -6201,7 +6201,7 @@ Ore Crushing Station E
   index: -1
 Perch
   rotate: false
-  xy: 2391, 3001
+  xy: 1330, 1249
   size: 29, 32
   orig: 29, 32
   offset: 0, 0
@@ -6215,28 +6215,28 @@ PerchFillet
   index: -1
 Pike
   rotate: false
-  xy: 2393, 2560
+  xy: 3268, 3318
   size: 27, 29
   orig: 27, 29
   offset: 0, 0
   index: -1
 PikeFillet
   rotate: false
-  xy: 2181, 2133
+  xy: 1453, 1933
   size: 38, 22
   orig: 38, 22
   offset: 0, 0
   index: -1
 Product-Bread-Dough
   rotate: false
-  xy: 1475, 1702
+  xy: 2398, 2766
   size: 42, 27
   orig: 42, 27
   offset: 0, 0
   index: -1
 Product-Bread-Loaf
   rotate: false
-  xy: 1474, 1673
+  xy: 1181, 943
   size: 42, 27
   orig: 42, 27
   offset: 0, 0
@@ -6283,13 +6283,6 @@ Product-Millstone
   orig: 64, 64
   offset: 0, 0
   index: -1
-Product-Stone-Gear
-  rotate: false
-  xy: 2660, 3310
-  size: 48, 35
-  orig: 48, 35
-  offset: 0, 0
-  index: -1
 Product-Stone-Gear-On-Ground-Many_Down
   rotate: false
   xy: 1689, 2968
@@ -6299,28 +6292,28 @@ Product-Stone-Gear-On-Ground-Many_Down
   index: -1
 Product-Stone-Gear-On-Ground_Down
   rotate: false
-  xy: 2710, 3327
+  xy: 2660, 3310
   size: 48, 35
   orig: 48, 35
   offset: 0, 0
   index: -1
 RedMeatLarge
   rotate: false
-  xy: 1379, 1544
+  xy: 2093, 2140
   size: 46, 49
   orig: 46, 49
   offset: 0, 0
   index: -1
 RedMeatMedium
   rotate: false
-  xy: 2045, 1947
+  xy: 1227, 954
   size: 41, 29
   orig: 41, 29
   offset: 0, 0
   index: -1
 RedMeatSmall
   rotate: false
-  xy: 2039, 1831
+  xy: 2044, 1858
   size: 27, 30
   orig: 27, 30
   offset: 0, 0
@@ -6334,21 +6327,21 @@ Resource-Gem-Cut-Pile01
   index: -1
 Resource-Gem-Cut-Pile02
   rotate: false
-  xy: 2386, 3339
+  xy: 2209, 3215
   size: 22, 13
   orig: 22, 13
   offset: 0, 0
   index: -1
 Resource-Gem-Cut-Pile03
   rotate: false
-  xy: 2352, 3153
+  xy: 1613, 1853
   size: 37, 19
   orig: 37, 19
   offset: 0, 0
   index: -1
 Resource-Gem-Cut-Pile04
   rotate: false
-  xy: 1114, 294
+  xy: 1847, 2181
   size: 47, 23
   orig: 47, 23
   offset: 0, 0
@@ -6383,7 +6376,7 @@ Resource-Gems-Unrefined03
   index: -1
 Resource-Logs-Large-Pile01-Interior
   rotate: false
-  xy: 1287, 2044
+  xy: 3875, 3762
   size: 14, 10
   orig: 14, 10
   offset: 0, 0
@@ -6411,21 +6404,21 @@ Resource-Logs-Large-Pile04-Interior
   index: -1
 Resource-Logs-Large-Single-Interior
   rotate: false
-  xy: 1979, 1914
+  xy: 2074, 1919
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 Resource-Logs-Large-Single-Interior-34
   rotate: false
-  xy: 1250, 2811
+  xy: 1046, 1114
   size: 16, 15
   orig: 16, 15
   offset: 0, 0
   index: -1
 Resource-Logs-Large01-Pile01-Exterior
   rotate: false
-  xy: 3710, 3272
+  xy: 2270, 2398
   size: 18, 47
   orig: 18, 47
   offset: 0, 0
@@ -6453,21 +6446,21 @@ Resource-Logs-Large01-Pile04-Exterior
   index: -1
 Resource-Logs-Large01-Single-Exterior
   rotate: false
-  xy: 2410, 3305
+  xy: 2290, 2398
   size: 18, 47
   orig: 18, 47
   offset: 0, 0
   index: -1
 Resource-Logs-Large01-Single-Exterior-34
   rotate: false
-  xy: 2352, 3111
+  xy: 2443, 3143
   size: 37, 40
   orig: 37, 40
   offset: 0, 0
   index: -1
 Resource-Logs-Large02-Pile01-Exterior
   rotate: false
-  xy: 2430, 3308
+  xy: 2217, 2235
   size: 18, 47
   orig: 18, 47
   offset: 0, 0
@@ -6495,14 +6488,14 @@ Resource-Logs-Large02-Pile04-Exterior
   index: -1
 Resource-Logs-Large02-Single-Exterior
   rotate: false
-  xy: 2450, 3321
+  xy: 2237, 2238
   size: 18, 47
   orig: 18, 47
   offset: 0, 0
   index: -1
 Resource-Logs-Large02-Single-Exterior-34
   rotate: false
-  xy: 2352, 3069
+  xy: 2443, 3101
   size: 37, 40
   orig: 37, 40
   offset: 0, 0
@@ -6537,35 +6530,35 @@ Resource-Logs-Small-Pile04-Interior
   index: -1
 Resource-Logs-Small-Single-Interior
   rotate: false
-  xy: 1889, 2173
+  xy: 1678, 2954
   size: 9, 9
   orig: 9, 9
   offset: 0, 0
   index: -1
 Resource-Logs-Small-Single-Interior-34
   rotate: false
-  xy: 1678, 2954
+  xy: 2900, 3319
   size: 9, 9
   orig: 9, 9
   offset: 0, 0
   index: -1
 Resource-Logs-Small01-Pile01-Exterior
   rotate: false
-  xy: 2402, 3231
+  xy: 2125, 1863
   size: 11, 46
   orig: 11, 46
   offset: 0, 0
   index: -1
 Resource-Logs-Small01-Pile02-Exterior
   rotate: false
-  xy: 1162, 236
+  xy: 1453, 1875
   size: 38, 56
   orig: 38, 56
   offset: 0, 0
   index: -1
 Resource-Logs-Small01-Pile03-Exterior
   rotate: false
-  xy: 1113, 236
+  xy: 1938, 2631
   size: 47, 56
   orig: 47, 56
   offset: 0, 0
@@ -6579,35 +6572,35 @@ Resource-Logs-Small01-Pile04-Exterior
   index: -1
 Resource-Logs-Small01-Single-Exterior
   rotate: false
-  xy: 1161, 883
+  xy: 1359, 1154
   size: 11, 45
   orig: 11, 45
   offset: 0, 0
   index: -1
 Resource-Logs-Small01-Single-Exterior-34
   rotate: false
-  xy: 3571, 3326
+  xy: 1219, 649
   size: 33, 38
   orig: 33, 38
   offset: 0, 0
   index: -1
 Resource-Logs-Small02-Pile01-Exterior
   rotate: false
-  xy: 787, 1674
+  xy: 2269, 2343
   size: 11, 46
   orig: 11, 46
   offset: 0, 0
   index: -1
 Resource-Logs-Small02-Pile02-Exterior
   rotate: false
-  xy: 1893, 1911
+  xy: 1493, 1892
   size: 38, 56
   orig: 38, 56
   offset: 0, 0
   index: -1
 Resource-Logs-Small02-Pile03-Exterior
   rotate: false
-  xy: 1987, 2471
+  xy: 1938, 2573
   size: 47, 56
   orig: 47, 56
   offset: 0, 0
@@ -6621,14 +6614,14 @@ Resource-Logs-Small02-Pile04-Exterior
   index: -1
 Resource-Logs-Small02-Single-Exterior
   rotate: false
-  xy: 1145, 730
+  xy: 2269, 2296
   size: 11, 45
   orig: 11, 45
   offset: 0, 0
   index: -1
 Resource-Logs-Small02-Single-Exterior-34
   rotate: false
-  xy: 3571, 3286
+  xy: 1219, 609
   size: 33, 38
   orig: 33, 38
   offset: 0, 0
@@ -6642,28 +6635,28 @@ Resource-Metal-Ingot-Pile01
   index: -1
 Resource-Metal-Ingot-Pile02
   rotate: false
-  xy: 2391, 2966
+  xy: 2218, 2313
   size: 29, 33
   orig: 29, 33
   offset: 0, 0
   index: -1
 Resource-Metal-Ingot-Pile03
   rotate: false
-  xy: 2179, 2419
+  xy: 1815, 1944
   size: 39, 37
   orig: 39, 37
   offset: 0, 0
   index: -1
 Resource-Metal-Ingot-Pile04
   rotate: false
-  xy: 2179, 2377
+  xy: 1856, 1941
   size: 39, 40
   orig: 39, 40
   offset: 0, 0
   index: -1
 Resource-Metal-Ingot-Single
   rotate: false
-  xy: 1678, 2915
+  xy: 205, 7
   size: 17, 12
   orig: 17, 12
   offset: 0, 0
@@ -6691,7 +6684,7 @@ Resource-Ore-Unrefined03
   index: -1
 Resource-Planks-Pile01
   rotate: false
-  xy: 1352, 1055
+  xy: 1352, 977
   size: 19, 49
   orig: 19, 49
   offset: 0, 0
@@ -6719,42 +6712,42 @@ Resource-Planks-Pile04
   index: -1
 Resource-Planks-Single-F
   rotate: false
-  xy: 2389, 3290
+  xy: 2249, 2391
   size: 19, 47
   orig: 19, 47
   offset: 0, 0
   index: -1
 Resource-Planks-Single-F34
   rotate: false
-  xy: 3468, 3445
+  xy: 1182, 972
   size: 43, 42
   orig: 43, 42
   offset: 0, 0
   index: -1
 Resource-Stone-Block-Pile01
   rotate: false
-  xy: 4069, 3809
+  xy: 2421, 3373
   size: 25, 29
   orig: 25, 29
   offset: 0, 0
   index: -1
 Resource-Stone-Block-Pile02
   rotate: false
-  xy: 1987, 2421
+  xy: 1938, 2523
   size: 47, 48
   orig: 47, 48
   offset: 0, 0
   index: -1
 Resource-Stone-Block-Pile03
   rotate: false
-  xy: 1992, 2364
+  xy: 1938, 2466
   size: 47, 55
   orig: 47, 55
   offset: 0, 0
   index: -1
 Resource-Stone-Block-Pile04
   rotate: false
-  xy: 1994, 2298
+  xy: 1938, 2400
   size: 47, 64
   orig: 47, 64
   offset: 0, 0
@@ -6803,28 +6796,28 @@ Resource-Stone-Unrefined03
   index: -1
 Resources_Half-pipe centre-to-east
   rotate: false
-  xy: 2759, 3295
+  xy: 2484, 2604
   size: 34, 27
   orig: 34, 27
   offset: 0, 0
   index: -1
 Resources_Half-pipe centre-to-north
   rotate: false
-  xy: 1884, 1860
+  xy: 1331, 1606
   size: 30, 49
   orig: 30, 49
   offset: 0, 0
   index: -1
 Resources_Half-pipe centre-to-south
   rotate: false
-  xy: 1884, 1809
+  xy: 1331, 1555
   size: 30, 49
   orig: 30, 49
   offset: 0, 0
   index: -1
 Resources_Half-pipe centre-to-west
   rotate: false
-  xy: 3596, 3373
+  xy: 2484, 2575
   size: 34, 27
   orig: 34, 27
   offset: 0, 0
@@ -6880,7 +6873,7 @@ Resources_Pipe east-to-west
   index: -1
 Resources_Pipe north-to-south
   rotate: false
-  xy: 1916, 1828
+  xy: 1330, 1472
   size: 30, 81
   orig: 30, 81
   offset: 0, 0
@@ -6901,14 +6894,14 @@ Sack body
   index: -1
 Sack label
   rotate: false
-  xy: 2355, 2552
+  xy: 2442, 2690
   size: 36, 32
   orig: 36, 32
   offset: 0, 0
   index: -1
 Sack rope
   rotate: false
-  xy: 3875, 3762
+  xy: 1209, 2514
   size: 16, 10
   orig: 16, 10
   offset: 0, 0
@@ -6985,7 +6978,7 @@ Simple Mining Helmet Side Front
   index: -1
 Stone Pillar
   rotate: false
-  xy: 3460, 3282
+  xy: 1533, 1857
   size: 38, 91
   orig: 38, 91
   offset: 0, 0
@@ -7055,7 +7048,7 @@ Stonemason_Bench-Stonemason-Bench-Layout-Furniture_Above_Layer_4-Stone_Down
   index: -1
 String-TrueColor
   rotate: false
-  xy: 2258, 2445
+  xy: 1977, 1912
   size: 35, 32
   orig: 35, 32
   offset: 0, 0
@@ -7118,7 +7111,7 @@ door_wood_NS_anim
   index: 0
 Tool-Axe-Handle-Being-Carried-F
   rotate: false
-  xy: 1678, 2929
+  xy: 1689, 3021
   size: 9, 23
   orig: 9, 23
   offset: 0, 0
@@ -7132,7 +7125,7 @@ Tool-Axe-Handle-Being-Carried-F34
   index: -1
 Tool-Axe-Handle-On-Ground
   rotate: false
-  xy: 1327, 1036
+  xy: 3334, 3475
   size: 22, 26
   orig: 22, 26
   offset: 0, 0
@@ -7153,21 +7146,21 @@ Tool-Axe-Head-Being-Carried-B34
   index: -1
 Tool-Axe-Head-Being-Carried-F
   rotate: false
-  xy: 3379, 3550
+  xy: 2249, 2301
   size: 18, 38
   orig: 18, 38
   offset: 0, 0
   index: -1
 Tool-Axe-Head-Being-Carried-F34
   rotate: false
-  xy: 2360, 3333
+  xy: 1806, 1858
   size: 24, 40
   orig: 24, 40
   offset: 0, 0
   index: -1
 Tool-Axe-Head-On-Ground
   rotate: false
-  xy: 2353, 2510
+  xy: 2255, 2480
   size: 36, 40
   orig: 36, 40
   offset: 0, 0
@@ -7181,70 +7174,70 @@ Tool-Chisel-Blade-Being-Carried-B
   index: -1
 Tool-Chisel-Blade-Being-Carried-B34
   rotate: false
-  xy: 1148, 1067
+  xy: 2421, 3353
   size: 24, 18
   orig: 24, 18
   offset: 0, 0
   index: -1
 Tool-Chisel-Blade-Being-Carried-F
   rotate: false
-  xy: 2413, 3374
+  xy: 1832, 1872
   size: 24, 28
   orig: 24, 28
   offset: 0, 0
   index: -1
 Tool-Chisel-Blade-Being-Carried-F34
   rotate: false
-  xy: 1945, 1801
+  xy: 3277, 3393
   size: 26, 25
   orig: 26, 25
   offset: 0, 0
   index: -1
 Tool-Chisel-Blade-On-Ground
   rotate: false
-  xy: 2093, 2140
+  xy: 2373, 3276
   size: 44, 32
   orig: 44, 32
   offset: 0, 0
   index: -1
 Tool-Chisel-Handle-Being-Carried-B34
   rotate: false
-  xy: 2386, 3354
+  xy: 1858, 1882
   size: 24, 18
   orig: 24, 18
   offset: 0, 0
   index: -1
 Tool-Chisel-Handle-Being-Carried-F
   rotate: false
-  xy: 3771, 3375
+  xy: 1249, 2
   size: 24, 28
   orig: 24, 28
   offset: 0, 0
   index: -1
 Tool-Chisel-Handle-Being-Carried-F34
   rotate: false
-  xy: 3632, 3375
+  xy: 3270, 3366
   size: 26, 25
   orig: 26, 25
   offset: 0, 0
   index: -1
 Tool-Chisel-Handle-On-Ground
   rotate: false
-  xy: 2093, 2106
+  xy: 2373, 3242
   size: 44, 32
   orig: 44, 32
   offset: 0, 0
   index: -1
 Tool-Fishing-Rod-Handle-Being-Carried-B
   rotate: false
-  xy: 2578, 3334
+  xy: 2292, 2447
   size: 15, 31
   orig: 15, 31
   offset: 0, 0
   index: -1
 Tool-Fishing-Rod-Handle-Being-Carried-B34
   rotate: false
-  xy: 2391, 2918
+  xy: 1330, 1201
   size: 29, 46
   orig: 29, 46
   offset: 0, 0
@@ -7258,7 +7251,7 @@ Tool-Fishing-Rod-Handle-Being-Carried-F
   index: -1
 Tool-Fishing-Rod-Handle-Being-Carried-F34
   rotate: false
-  xy: 2137, 2238
+  xy: 1177, 626
   size: 40, 50
   orig: 40, 50
   offset: 0, 0
@@ -7272,28 +7265,28 @@ Tool-Fishing-Rod-Handle-On-Ground
   index: -1
 Tool-Fishing-Rod-Line-Being-Carried-B
   rotate: false
-  xy: 1128, 758
+  xy: 2091, 1878
   size: 15, 31
   orig: 15, 31
   offset: 0, 0
   index: -1
 Tool-Fishing-Rod-Line-Being-Carried-B34
   rotate: false
-  xy: 2391, 2870
+  xy: 1328, 1153
   size: 29, 46
   orig: 29, 46
   offset: 0, 0
   index: -1
 Tool-Fishing-Rod-Line-Being-Carried-F
   rotate: false
-  xy: 1352, 1106
+  xy: 2482, 2899
   size: 21, 57
   orig: 21, 57
   offset: 0, 0
   index: -1
 Tool-Fishing-Rod-Line-Being-Carried-F34
   rotate: false
-  xy: 2139, 2186
+  xy: 1177, 574
   size: 40, 50
   orig: 40, 50
   offset: 0, 0
@@ -7314,7 +7307,7 @@ Tool-Kitchen-Knife-Blade-Being-Carried-B
   index: -1
 Tool-Kitchen-Knife-Blade-Being-Carried-B34
   rotate: false
-  xy: 1689, 3018
+  xy: 3515, 3593
   size: 9, 26
   orig: 9, 26
   offset: 0, 0
@@ -7328,14 +7321,14 @@ Tool-Kitchen-Knife-Blade-Being-Carried-F
   index: -1
 Tool-Kitchen-Knife-Blade-Being-Carried-F34
   rotate: false
-  xy: 1128, 718
+  xy: 2108, 1871
   size: 15, 38
   orig: 15, 38
   offset: 0, 0
   index: -1
 Tool-Kitchen-Knife-Blade-On-Ground
   rotate: false
-  xy: 1428, 1828
+  xy: 2093, 2103
   size: 46, 35
   orig: 46, 35
   offset: 0, 0
@@ -7349,14 +7342,14 @@ Tool-Kitchen-Knife-Handle-Being-Carried-F
   index: -1
 Tool-Kitchen-Knife-Handle-Being-Carried-F34
   rotate: false
-  xy: 1128, 678
+  xy: 2214, 1966
   size: 15, 38
   orig: 15, 38
   offset: 0, 0
   index: -1
 Tool-Kitchen-Knife-Handle-On-Ground
   rotate: false
-  xy: 1427, 1791
+  xy: 2093, 2066
   size: 46, 35
   orig: 46, 35
   offset: 0, 0
@@ -7370,119 +7363,119 @@ Tool-Large-Hammer-Extras-Being-Carried-B
   index: -1
 Tool-Large-Hammer-Extras-Being-Carried-B34
   rotate: false
-  xy: 4069, 3779
+  xy: 4069, 3810
   size: 25, 28
   orig: 25, 28
   offset: 0, 0
   index: -1
 Tool-Large-Hammer-Extras-Being-Carried-F
   rotate: false
-  xy: 3797, 3377
+  xy: 2188, 1968
   size: 24, 36
   orig: 24, 36
   offset: 0, 0
   index: -1
 Tool-Large-Hammer-Extras-Being-Carried-F34
   rotate: false
-  xy: 3660, 3366
+  xy: 1249, 163
   size: 26, 39
   orig: 26, 39
   offset: 0, 0
   index: -1
 Tool-Large-Hammer-Extras-On-Ground
   rotate: false
-  xy: 2046, 2164
+  xy: 2374, 3353
   size: 45, 49
   orig: 45, 49
   offset: 0, 0
   index: -1
 Tool-Large-Hammer-Handle-Being-Carried-B34
   rotate: false
-  xy: 2359, 3375
+  xy: 4069, 3780
   size: 25, 28
   orig: 25, 28
   offset: 0, 0
   index: -1
 Tool-Large-Hammer-Handle-Being-Carried-F
   rotate: false
-  xy: 3823, 3377
+  xy: 2187, 1930
   size: 24, 36
   orig: 24, 36
   offset: 0, 0
   index: -1
 Tool-Large-Hammer-Handle-Being-Carried-F34
   rotate: false
-  xy: 3688, 3361
+  xy: 1251, 122
   size: 26, 39
   orig: 26, 39
   offset: 0, 0
   index: -1
 Tool-Large-Hammer-Handle-On-Ground
   rotate: false
-  xy: 2046, 2113
+  xy: 2327, 3330
   size: 45, 49
   orig: 45, 49
   offset: 0, 0
   index: -1
 Tool-Large-Hammer-Head-Being-Carried-B
   rotate: false
-  xy: 1250, 2863
+  xy: 3718, 3466
   size: 20, 20
   orig: 20, 20
   offset: 0, 0
   index: -1
 Tool-Large-Hammer-Head-Being-Carried-B34
   rotate: false
-  xy: 2386, 3374
+  xy: 1251, 51
   size: 25, 28
   orig: 25, 28
   offset: 0, 0
   index: -1
 Tool-Large-Hammer-Head-Being-Carried-F
   rotate: false
-  xy: 2363, 3295
+  xy: 2186, 1892
   size: 24, 36
   orig: 24, 36
   offset: 0, 0
   index: -1
 Tool-Large-Hammer-Head-Being-Carried-F34
   rotate: false
-  xy: 3716, 3361
+  xy: 1251, 81
   size: 26, 39
   orig: 26, 39
   offset: 0, 0
   index: -1
 Tool-Large-Hammer-Head-On-Ground
   rotate: false
-  xy: 2046, 2062
+  xy: 2280, 3331
   size: 45, 49
   orig: 45, 49
   offset: 0, 0
   index: -1
 Tool-Pickaxe-Extras-Being-Carried-B
   rotate: false
-  xy: 3715, 3460
+  xy: 2180, 2575
   size: 23, 26
   orig: 23, 26
   offset: 0, 0
   index: -1
 Tool-Pickaxe-Extras-Being-Carried-B34
   rotate: false
-  xy: 2205, 2697
+  xy: 2992, 3262
   size: 24, 15
   orig: 24, 15
   offset: 0, 0
   index: -1
 Tool-Pickaxe-Extras-Being-Carried-F
   rotate: false
-  xy: 2390, 2768
+  xy: 2188, 2166
   size: 28, 43
   orig: 28, 43
   offset: 0, 0
   index: -1
 Tool-Pickaxe-Extras-Being-Carried-F34
   rotate: false
-  xy: 3460, 3240
+  xy: 1493, 1850
   size: 38, 40
   orig: 38, 40
   offset: 0, 0
@@ -7503,14 +7496,14 @@ Tool-Pickaxe-Handle-Being-Carried-B
   index: -1
 Tool-Pickaxe-Handle-Being-Carried-F
   rotate: false
-  xy: 2390, 2723
+  xy: 2188, 2121
   size: 28, 43
   orig: 28, 43
   offset: 0, 0
   index: -1
 Tool-Pickaxe-Handle-Being-Carried-F34
   rotate: false
-  xy: 3460, 3198
+  xy: 1573, 1908
   size: 38, 40
   orig: 38, 40
   offset: 0, 0
@@ -7531,21 +7524,21 @@ Tool-Pickaxe-Head-Being-Carried-B
   index: -1
 Tool-Pickaxe-Head-Being-Carried-B34
   rotate: false
-  xy: 2412, 3357
+  xy: 2205, 2697
   size: 24, 15
   orig: 24, 15
   offset: 0, 0
   index: -1
 Tool-Pickaxe-Head-Being-Carried-F
   rotate: false
-  xy: 1979, 1866
+  xy: 2188, 2076
   size: 28, 43
   orig: 28, 43
   offset: 0, 0
   index: -1
 Tool-Pickaxe-Head-Being-Carried-F34
   rotate: false
-  xy: 3460, 3156
+  xy: 1573, 1866
   size: 38, 40
   orig: 38, 40
   offset: 0, 0
@@ -7566,21 +7559,21 @@ Tool-Plane-Body-Being-Carried-B
   index: -1
 Tool-Plane-Body-Being-Carried-B34
   rotate: false
-  xy: 2331, 2470
+  xy: 1287, 2048
   size: 14, 19
   orig: 14, 19
   offset: 0, 0
   index: -1
 Tool-Plane-Body-Being-Carried-F
   rotate: false
-  xy: 2390, 2688
+  xy: 2188, 2041
   size: 28, 33
   orig: 28, 33
   offset: 0, 0
   index: -1
 Tool-Plane-Body-Being-Carried-F34
   rotate: false
-  xy: 2045, 1909
+  xy: 1270, 945
   size: 41, 36
   orig: 41, 36
   offset: 0, 0
@@ -7594,28 +7587,28 @@ Tool-Plane-Body-On-Ground
   index: -1
 Tool-Plane-Extra-Being-Carried-B
   rotate: false
-  xy: 2831, 3318
+  xy: 3362, 3520
   size: 21, 26
   orig: 21, 26
   offset: 0, 0
   index: -1
 Tool-Plane-Extra-Being-Carried-B34
   rotate: false
-  xy: 2069, 1863
+  xy: 1220, 884
   size: 14, 19
   orig: 14, 19
   offset: 0, 0
   index: -1
 Tool-Plane-Extra-Being-Carried-F
   rotate: false
-  xy: 2009, 1876
+  xy: 2188, 2006
   size: 28, 33
   orig: 28, 33
   offset: 0, 0
   index: -1
 Tool-Plane-Extra-Being-Carried-F34
   rotate: false
-  xy: 3645, 3407
+  xy: 1181, 905
   size: 41, 36
   orig: 41, 36
   offset: 0, 0
@@ -7636,238 +7629,238 @@ Tool-Rolling-Pin-Being-Carried-B
   index: -1
 Tool-Rolling-Pin-Being-Carried-B34
   rotate: false
-  xy: 3878, 3655
+  xy: 3381, 3569
   size: 16, 19
   orig: 16, 19
   offset: 0, 0
   index: -1
 Tool-Rolling-Pin-Being-Carried-F
   rotate: false
-  xy: 1128, 454
+  xy: 1224, 905
   size: 10, 36
   orig: 10, 36
   offset: 0, 0
   index: -1
 Tool-Rolling-Pin-Being-Carried-F34
   rotate: false
-  xy: 3744, 3366
+  xy: 2458, 3242
   size: 25, 34
   orig: 25, 34
   offset: 0, 0
   index: -1
 Tool-Rolling-Pin-On-Ground
   rotate: false
-  xy: 1994, 2273
+  xy: 1943, 2375
   size: 47, 23
   orig: 47, 23
   offset: 0, 0
   index: -1
 Tool-Saw-Blade-Being-Carried-B
   rotate: false
-  xy: 2068, 1842
+  xy: 3381, 3548
   size: 14, 19
   orig: 14, 19
   offset: 0, 0
   index: -1
 Tool-Saw-Blade-Being-Carried-B34
   rotate: false
-  xy: 3640, 3228
+  xy: 1858, 1862
   size: 22, 18
   orig: 22, 18
   offset: 0, 0
   index: -1
 Tool-Saw-Blade-Being-Carried-F
   rotate: false
-  xy: 3571, 3249
+  xy: 1219, 572
   size: 33, 35
   orig: 33, 35
   offset: 0, 0
   index: -1
 Tool-Saw-Blade-Being-Carried-F34
   rotate: false
-  xy: 3606, 3341
+  xy: 2419, 3278
   size: 32, 30
   orig: 32, 30
   offset: 0, 0
   index: -1
 Tool-Saw-Blade-On-Ground
   rotate: false
-  xy: 2352, 3018
+  xy: 2443, 3050
   size: 37, 49
   orig: 37, 49
   offset: 0, 0
   index: -1
 Tool-Saw-Extras-Being-Carried-B
   rotate: false
-  xy: 3571, 3212
+  xy: 1219, 535
   size: 33, 35
   orig: 33, 35
   offset: 0, 0
   index: -1
 Tool-Saw-Extras-Being-Carried-B34
   rotate: false
-  xy: 3690, 3341
+  xy: 3310, 3455
   size: 22, 18
   orig: 22, 18
   offset: 0, 0
   index: -1
 Tool-Saw-Extras-Being-Carried-F
   rotate: false
-  xy: 1128, 599
+  xy: 1355, 1028
   size: 14, 19
   orig: 14, 19
   offset: 0, 0
   index: -1
 Tool-Saw-Extras-Being-Carried-F34
   rotate: false
-  xy: 3606, 3309
+  xy: 2420, 3310
   size: 32, 30
   orig: 32, 30
   offset: 0, 0
   index: -1
 Tool-Saw-Extras-On-Ground
   rotate: false
-  xy: 2352, 2967
+  xy: 2443, 2999
   size: 37, 49
   orig: 37, 49
   offset: 0, 0
   index: -1
 Tool-Saw-Handle-Being-Carried-B
   rotate: false
-  xy: 1128, 578
+  xy: 3878, 3655
   size: 14, 19
   orig: 14, 19
   offset: 0, 0
   index: -1
 Tool-Saw-Handle-Being-Carried-B34
   rotate: false
-  xy: 3690, 3321
+  xy: 2482, 3048
   size: 22, 18
   orig: 22, 18
   offset: 0, 0
   index: -1
 Tool-Saw-Handle-Being-Carried-F
   rotate: false
-  xy: 3571, 3175
+  xy: 1219, 498
   size: 33, 35
   orig: 33, 35
   offset: 0, 0
   index: -1
 Tool-Saw-Handle-Being-Carried-F34
   rotate: false
-  xy: 3606, 3277
+  xy: 1767, 1825
   size: 32, 30
   orig: 32, 30
   offset: 0, 0
   index: -1
 Tool-Saw-Handle-On-Ground
   rotate: false
-  xy: 2352, 2916
+  xy: 2443, 2948
   size: 37, 49
   orig: 37, 49
   offset: 0, 0
   index: -1
 Tool-Small-Hammer-Being-Carried-B
   rotate: false
-  xy: 583, 11
+  xy: 1413, 1957
   size: 16, 17
   orig: 16, 17
   offset: 0, 0
   index: -1
 Tool-Small-Hammer-Being-Carried-B34
   rotate: false
-  xy: 3946, 3638
+  xy: 2946, 3297
   size: 20, 14
   orig: 20, 14
   offset: 0, 0
   index: -1
 Tool-Small-Hammer-Being-Carried-F
   rotate: false
-  xy: 1250, 2828
+  xy: 1250, 2824
   size: 20, 33
   orig: 20, 33
   offset: 0, 0
   index: -1
 Tool-Small-Hammer-Being-Carried-F34
   rotate: false
-  xy: 1916, 1795
+  xy: 3280, 3420
   size: 27, 31
   orig: 27, 31
   offset: 0, 0
   index: -1
 Tool-Small-Hammer-On-Ground
   rotate: false
-  xy: 3558, 3366
+  xy: 2293, 2482
   size: 36, 37
   orig: 36, 37
   offset: 0, 0
   index: -1
 Tool-Tongs-Body-Being-Carried-B
   rotate: false
-  xy: 2489, 3324
+  xy: 3298, 3272
   size: 17, 44
   orig: 17, 44
   offset: 0, 0
   index: -1
 Tool-Tongs-Body-Being-Carried-B34
   rotate: false
-  xy: 1328, 1163
+  xy: 2482, 3003
   size: 22, 43
   orig: 22, 43
   offset: 0, 0
   index: -1
 Tool-Tongs-Body-Being-Carried-F
   rotate: false
-  xy: 3640, 3321
+  xy: 3310, 3503
   size: 24, 43
   orig: 24, 43
   offset: 0, 0
   index: -1
 Tool-Tongs-Body-Being-Carried-F34
   rotate: false
-  xy: 1979, 1819
+  xy: 2044, 1890
   size: 28, 45
   orig: 28, 45
   offset: 0, 0
   index: -1
 Tool-Tongs-Body-On-Ground
   rotate: false
-  xy: 1948, 1880
+  xy: 1327, 1101
   size: 29, 50
   orig: 29, 50
   offset: 0, 0
   index: -1
 Tool-Tongs-Extra-Being-Carried-B
   rotate: false
-  xy: 2508, 3321
+  xy: 3300, 3226
   size: 17, 44
   orig: 17, 44
   offset: 0, 0
   index: -1
 Tool-Tongs-Extra-Being-Carried-B34
   rotate: false
-  xy: 1352, 1165
+  xy: 2482, 2958
   size: 22, 43
   orig: 22, 43
   offset: 0, 0
   index: -1
 Tool-Tongs-Extra-Being-Carried-F
   rotate: false
-  xy: 3640, 3276
+  xy: 3336, 3503
   size: 24, 43
   orig: 24, 43
   offset: 0, 0
   index: -1
 Tool-Tongs-Extra-Being-Carried-F34
   rotate: false
-  xy: 2009, 1829
+  xy: 2014, 1868
   size: 28, 45
   orig: 28, 45
   offset: 0, 0
   index: -1
 Tool-Tongs-Extra-On-Ground
   rotate: false
-  xy: 1948, 1828
+  xy: 1327, 1049
   size: 29, 50
   orig: 29, 50
   offset: 0, 0
@@ -7902,7 +7895,7 @@ Vegetable-Crate-Label-Floor
   index: -1
 Wood Pillar
   rotate: false
-  xy: 2393, 2591
+  xy: 3280, 3453
   size: 28, 95
   orig: 28, 95
   offset: 0, 0
@@ -7916,7 +7909,7 @@ Wooden tankard
   index: -1
 arrow-bodies
   rotate: false
-  xy: 1474, 1628
+  xy: 1272, 983
   size: 42, 43
   orig: 42, 43
   offset: 0, 0
@@ -7944,14 +7937,14 @@ ash-pile
   index: -1
 basic dwarf hand
   rotate: false
-  xy: 3684, 3575
+  xy: 2946, 3279
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 basic dwarf head
   rotate: false
-  xy: 3606, 3248
+  xy: 2403, 2543
   size: 32, 27
   orig: 32, 27
   offset: 0, 0
@@ -8035,7 +8028,7 @@ bed-2x1E-frame
   index: -1
 bed-2x1E-pillows
   rotate: false
-  xy: 2295, 2464
+  xy: 3264, 3215
   size: 34, 55
   orig: 34, 55
   offset: 0, 0
@@ -8049,7 +8042,7 @@ beech-0-l
   index: -1
 beech-0-t
   rotate: false
-  xy: 2220, 2435
+  xy: 2446, 2610
   size: 36, 78
   orig: 36, 78
   offset: 0, 0
@@ -8098,14 +8091,14 @@ beech-3-t
   index: -1
 birch_01_l
   rotate: false
-  xy: 2088, 1898
+  xy: 2185, 2284
   size: 31, 42
   orig: 31, 42
   offset: 0, 0
   index: -1
 birch_01_t
   rotate: false
-  xy: 1128, 620
+  xy: 1363, 1786
   size: 15, 56
   orig: 15, 56
   offset: 0, 0
@@ -8203,7 +8196,7 @@ crop_hops_base
   index: -1
 crop_hops_final_cones
   rotate: false
-  xy: 1427, 1751
+  xy: 2093, 2026
   size: 46, 38
   orig: 46, 38
   offset: 0, 0
@@ -8231,7 +8224,7 @@ crop_hops_med_leaves
   index: -1
 crop_hops_small_cones
   rotate: false
-  xy: 1474, 1587
+  xy: 2398, 2725
   size: 42, 39
   orig: 42, 39
   offset: 0, 0
@@ -8294,7 +8287,7 @@ crop_planted_seeds
   index: -1
 crop_potato_large_branches
   rotate: false
-  xy: 1752, 1866
+  xy: 1213, 403
   size: 34, 54
   orig: 34, 54
   offset: 0, 0
@@ -8315,14 +8308,14 @@ crop_potato_large_leaves
   index: -1
 crop_potato_medium_branches
   rotate: false
-  xy: 2391, 3189
+  xy: 1330, 1430
   size: 30, 40
   orig: 30, 40
   offset: 0, 0
   index: -1
 crop_potato_medium_flowers
   rotate: false
-  xy: 1474, 1543
+  xy: 2398, 2681
   size: 42, 42
   orig: 42, 42
   offset: 0, 0
@@ -8336,21 +8329,21 @@ crop_potato_medium_leaves
   index: -1
 crop_potato_shoots
   rotate: false
-  xy: 1791, 2611
+  xy: 1287, 2032
   size: 14, 14
   orig: 14, 14
   offset: 0, 0
   index: -1
 crop_potato_small_branches
   rotate: false
-  xy: 3714, 3331
+  xy: 1275, 2
   size: 20, 28
   orig: 20, 28
   offset: 0, 0
   index: -1
 crop_potato_small_leaves
   rotate: false
-  xy: 1427, 1706
+  xy: 2092, 1981
   size: 46, 43
   orig: 46, 43
   offset: 0, 0
@@ -8364,7 +8357,7 @@ crop_tomato_large_branches
   index: -1
 crop_tomato_large_fruit
   rotate: false
-  xy: 1752, 1828
+  xy: 1213, 365
   size: 34, 36
   orig: 34, 36
   offset: 0, 0
@@ -8378,21 +8371,21 @@ crop_tomato_medium_branches
   index: -1
 crop_tomato_medium_fruit
   rotate: false
-  xy: 2391, 3153
+  xy: 1330, 1394
   size: 30, 34
   orig: 30, 34
   offset: 0, 0
   index: -1
 crop_tomato_shoots
   rotate: false
-  xy: 2220, 2404
+  xy: 2446, 2579
   size: 36, 29
   orig: 36, 29
   offset: 0, 0
   index: -1
 crop_tomato_small
   rotate: false
-  xy: 2139, 2130
+  xy: 1177, 518
   size: 40, 54
   orig: 40, 54
   offset: 0, 0
@@ -8735,7 +8728,7 @@ door_wood_NS_top-64
   index: -1
 drop
   rotate: false
-  xy: 3602, 3451
+  xy: 1987, 2669
   size: 15, 18
   orig: 15, 18
   offset: 0, 0
@@ -8756,7 +8749,7 @@ eyebrows A side
   index: -1
 eyebrows B front
   rotate: false
-  xy: 1889, 2562
+  xy: 929, 1051
   size: 33, 11
   orig: 33, 11
   offset: 0, 0
@@ -8770,49 +8763,49 @@ eyebrows B side
   index: -1
 eyebrows C front
   rotate: false
-  xy: 1123, 2313
+  xy: 1177, 2514
   size: 30, 10
   orig: 30, 10
   offset: 0, 0
   index: -1
 eyebrows C side
   rotate: false
-  xy: 1978, 2660
+  xy: 857, 2509
   size: 24, 10
   orig: 24, 10
   offset: 0, 0
   index: -1
 eyebrows D front
   rotate: false
-  xy: 440, 2216
+  xy: 438, 2216
   size: 31, 11
   orig: 31, 11
   offset: 0, 0
   index: -1
 eyebrows D side
   rotate: false
-  xy: 857, 2508
+  xy: 1832, 1859
   size: 24, 11
   orig: 24, 11
   offset: 0, 0
   index: -1
 eyebrows E front
   rotate: false
-  xy: 1379, 1532
+  xy: 2352, 2699
   size: 40, 10
   orig: 40, 10
   offset: 0, 0
   index: -1
 eyebrows E side
   rotate: false
-  xy: 2258, 2406
+  xy: 1123, 2318
   size: 32, 11
   orig: 32, 11
   offset: 0, 0
   index: -1
 eyebrows F front
   rotate: false
-  xy: 929, 1052
+  xy: 1177, 459
   size: 36, 10
   orig: 36, 10
   offset: 0, 0
@@ -8854,14 +8847,14 @@ eyebrows H side
   index: -1
 fir-0-l
   rotate: false
-  xy: 2093, 2054
+  xy: 2992, 3209
   size: 44, 50
   orig: 44, 50
   offset: 0, 0
   index: -1
 fir-0-t
   rotate: false
-  xy: 2366, 3231
+  xy: 1316, 975
   size: 34, 51
   orig: 34, 51
   offset: 0, 0
@@ -8973,14 +8966,14 @@ gears
   index: 3
 groundsplat
   rotate: false
-  xy: 3606, 3214
+  xy: 2401, 2509
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 leaf1
   rotate: false
-  xy: 1128, 558
+  xy: 3946, 3634
   size: 14, 18
   orig: 14, 18
   offset: 0, 0
@@ -9022,21 +9015,21 @@ lightning3
   index: -1
 longdrop
   rotate: false
-  xy: 496, 2298
+  xy: 496, 2288
   size: 8, 40
   orig: 8, 40
   offset: 0, 0
   index: -1
 maple_01_l
   rotate: false
-  xy: 2391, 3127
+  xy: 1330, 1368
   size: 30, 24
   orig: 30, 24
   offset: 0, 0
   index: -1
 maple_01_t
   rotate: false
-  xy: 2039, 1863
+  xy: 3268, 3272
   size: 28, 44
   orig: 28, 44
   offset: 0, 0
@@ -9085,14 +9078,14 @@ maple_04_t
   index: -1
 oak-0-l
   rotate: false
-  xy: 1994, 2206
+  xy: 1987, 2592
   size: 47, 65
   orig: 47, 65
   offset: 0, 0
   index: -1
 oak-0-t
   rotate: false
-  xy: 2179, 2301
+  xy: 1332, 1868
   size: 39, 74
   orig: 39, 74
   offset: 0, 0
@@ -9141,7 +9134,7 @@ oak-3-t
   index: -1
 pebble
   rotate: false
-  xy: 1880, 2704
+  xy: 2327, 3230
   size: 18, 11
   orig: 18, 11
   offset: 0, 0
@@ -9162,7 +9155,7 @@ pine_01_l
   index: -1
 pine_01_t
   rotate: false
-  xy: 2352, 2841
+  xy: 2443, 2873
   size: 37, 73
   orig: 37, 73
   offset: 0, 0
@@ -9267,35 +9260,35 @@ pump_n_base
   index: -1
 pump_n_mechanism
   rotate: false
-  xy: 1660, 1833
+  xy: 2352, 3158
   size: 44, 82
   orig: 44, 82
   offset: 0, 0
   index: 0
 pump_n_mechanism
   rotate: false
-  xy: 1706, 1836
+  xy: 2352, 3074
   size: 44, 82
   orig: 44, 82
   offset: 0, 0
   index: 1
 pump_n_mechanism
   rotate: false
-  xy: 3376, 3464
+  xy: 2352, 2990
   size: 44, 82
   orig: 44, 82
   offset: 0, 0
   index: 2
 pump_n_mechanism
   rotate: false
-  xy: 3376, 3380
+  xy: 2352, 2906
   size: 44, 82
   orig: 44, 82
   offset: 0, 0
   index: 3
 pump_n_pipe
   rotate: false
-  xy: 3415, 3217
+  xy: 2398, 3084
   size: 43, 156
   orig: 43, 156
   offset: 0, 0
@@ -9309,35 +9302,35 @@ pump_s_base
   index: -1
 pump_s_mechanism
   rotate: false
-  xy: 3468, 3385
+  xy: 1227, 985
   size: 43, 58
   orig: 43, 58
   offset: 0, 0
   index: 0
 pump_s_mechanism
   rotate: false
-  xy: 3415, 3157
+  xy: 2398, 3024
   size: 43, 58
   orig: 43, 58
   offset: 0, 0
   index: 1
 pump_s_mechanism
   rotate: false
-  xy: 3513, 3452
+  xy: 2398, 2964
   size: 43, 58
   orig: 43, 58
   offset: 0, 0
   index: 2
 pump_s_mechanism
   rotate: false
-  xy: 3513, 3392
+  xy: 2398, 2904
   size: 43, 58
   orig: 43, 58
   offset: 0, 0
   index: 3
 pump_s_pipe
   rotate: false
-  xy: 3422, 3375
+  xy: 2352, 2749
   size: 44, 155
   orig: 44, 155
   offset: 0, 0
@@ -9386,21 +9379,21 @@ shaft-vert
   index: 1
 shaft-vert
   rotate: false
-  xy: 1128, 492
+  xy: 1363, 1720
   size: 14, 64
   orig: 14, 64
   offset: 0, 0
   index: 2
 shaft-vert
   rotate: false
-  xy: 1145, 864
+  xy: 1363, 1654
   size: 14, 64
   orig: 14, 64
   offset: 0, 0
   index: 3
 shaving
   rotate: false
-  xy: 491, 1838
+  xy: 1276, 32
   size: 11, 17
   orig: 11, 17
   offset: 0, 0
@@ -9820,7 +9813,7 @@ wheelhouse-stone-64
   index: -1
 wheelhouse-stone-ew-64
   rotate: false
-  xy: 405, 2215
+  xy: 403, 2215
   size: 33, 12
   orig: 33, 12
   offset: 0, 0
@@ -9925,7 +9918,7 @@ windmill-3
   index: 7
 woodchip1
   rotate: false
-  xy: 3515, 3603
+  xy: 1757, 2987
   size: 9, 16
   orig: 9, 16
   offset: 0, 0

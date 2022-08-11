@@ -4599,7 +4599,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -96.0,
-        "y" : -32.0,
+        "y" : -34.0,
         "unit" : false
       },
       "flipX" : false,
@@ -4610,14 +4610,16 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "overrideRenderLayer" : 100
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "overrideRenderLayer" : 110
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_3",
         "offsetPixels" : {
@@ -4633,7 +4635,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : 91.0,
+          "y" : -18.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : -46.0,
+          "y" : -79.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : -33.0,
+          "y" : 48.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_2",
+        "offsetPixels" : {
+          "x" : 30.0,
+          "y" : 48.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     }
   }
@@ -4661,7 +4691,8 @@
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
-  }
+  },
+  "overrideRenderLayer" : 110
 }, {
   "uniqueName" : "Stonemason_Bench-stonemason-bench-layout-Furniture_Above_Layer_2-Stone",
   "type" : "FURNITURE_ABOVE_LAYER_2",
@@ -4686,7 +4717,8 @@
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
-  }
+  },
+  "overrideRenderLayer" : 100
 }, {
   "uniqueName" : "Stonemason_Bench-stonemason-bench-layout-Furniture_Above_Layer_3-Stone",
   "type" : "FURNITURE_ABOVE_LAYER_3",
