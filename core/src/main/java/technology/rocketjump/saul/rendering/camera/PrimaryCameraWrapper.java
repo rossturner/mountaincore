@@ -35,6 +35,8 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 	public static final float ZOOM_SPEED = 10.0f;
 	private final OrthographicCamera camera;
 	private final ScreenWriter screenWriter;
+	private final Vector3 tmpV1 = new Vector3();
+	private final Vector3 tmpV2 = new Vector3();
 
 	private Vector3 xyzVelocity = new Vector3();
 	private float targetZoom;
@@ -289,6 +291,12 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 			this.minZoom = minTilesForZoom / camera.viewportWidth;
 			this.maxZoom = maxTilesForZoom / camera.viewportWidth;
 		}
+	}
+
+	public void moveTo(float deltaX, float deltaY) {
+		float translateUnits = 12f * camera.zoom;
+		camera.translate(tmpV1.set(camera.direction).crs(camera.up).nor().scl(-deltaX * translateUnits));
+		camera.translate(tmpV2.set(camera.up).scl(-deltaY * translateUnits));
 	}
 
 	public void moveTo(GridPoint2 tilePosition) {
