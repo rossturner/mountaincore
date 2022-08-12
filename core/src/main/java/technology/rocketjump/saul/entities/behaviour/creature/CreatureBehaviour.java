@@ -105,6 +105,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		if (creatureGroup != null) {
 			creatureGroup.removeMemberId(parentEntity.getId());
 		}
+		combatBehaviour.destroy(parentEntity, messageDispatcher, gameContext);
 	}
 
 	@Override
@@ -122,7 +123,6 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			if (stunTime < 0) {
 				stunTime = 0;
 			}
-			return;
 		}
 
 		CombatStateComponent combatState = parentEntity.getComponent(CombatStateComponent.class);
@@ -160,6 +160,16 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 				newGoal.setAssignedHaulingAllocation(currentGoal.getAssignedJob().getHaulingAllocation());
 			}
 			currentGoal = newGoal;
+		}
+	}
+
+	@Override
+	public void updateWhenPaused() {
+		CombatStateComponent combatState = parentEntity.getComponent(CombatStateComponent.class);
+		if (combatState.isInCombat()) {
+			combatBehaviour.updateWhenPaused();
+		} else if (currentGoal != null && !currentGoal.isComplete()) {
+			currentGoal.updateWhenPaused();
 		}
 	}
 
@@ -499,6 +509,8 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		if (steeringComponentJson != null) {
 			this.steeringComponent.readFrom(steeringComponentJson, savedGameStateHolder, relatedStores);
 		}
+
+		this.combatBehaviour.readFrom(asJson.getJSONObject("combatBehaviour"), savedGameStateHolder, relatedStores);
 
 		this.stunTime = asJson.getFloatValue("stunTime");
 	}

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import org.apache.commons.lang3.NotImplementedException;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
@@ -26,9 +27,11 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 	private boolean engagedInMelee;
 	private int defensePool;
 
+	private Vector2 enteredCombatAtPosition;
 	private GridPoint2 heldLocation; // The tile the combatant is keeping control of - other combatants should not share this tile
 	private Long targetedOpponentId;
 	private Set<Long> opponentEntityIds = new HashSet<>();
+	private boolean attackOfOpportunityMadeThisRound;
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -43,6 +46,7 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 		this.heldLocation = null;
 		this.targetedOpponentId = null;
 		this.opponentEntityIds = new HashSet<>();
+		this.attackOfOpportunityMadeThisRound = false;
 	}
 
 	@Override
@@ -72,6 +76,7 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 
 	public void setOpponentEntityIds(Set<Long> opponentEntityIds) {
 		this.opponentEntityIds = opponentEntityIds;
+		this.opponentEntityIds.remove(parentEntity.getId());
 	}
 
 	public boolean isHasInitiative() {
@@ -106,6 +111,21 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 		this.heldLocation = heldLocation;
 	}
 
+	public void setAttackOfOpportunityMadeThisRound(boolean attackOfOpportunityMadeThisRound) {
+		this.attackOfOpportunityMadeThisRound = attackOfOpportunityMadeThisRound;
+	}
+
+	public boolean isAttackOfOpportunityMadeThisRound() {
+		return attackOfOpportunityMadeThisRound;
+	}
+
+	public Vector2 getEnteredCombatAtPosition() {
+		return enteredCombatAtPosition;
+	}
+
+	public void setEnteredCombatAtPosition(Vector2 enteredCombatAtPosition) {
+		this.enteredCombatAtPosition = enteredCombatAtPosition;
+	}
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
@@ -132,7 +152,12 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 			opponentIdsJson.addAll(opponentEntityIds);
 			asJson.put("opponentEntityIds", opponentIdsJson);
 		}
-
+		if (attackOfOpportunityMadeThisRound) {
+			asJson.put("attackOfOpportunityMadeThisRound", true);
+		}
+		if (enteredCombatAtPosition != null) {
+			asJson.put("enteredCombatAtPosition", JSONUtils.toJSON(enteredCombatAtPosition));
+		}
 	}
 
 	@Override
@@ -150,6 +175,8 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 				this.opponentEntityIds.add(opponentIdsJson.getLong(cursor));
 			}
 		}
+
+		this.enteredCombatAtPosition = JSONUtils.vector2(asJson.getJSONObject("enteredCombatAtPosition"));
 	}
 
 }

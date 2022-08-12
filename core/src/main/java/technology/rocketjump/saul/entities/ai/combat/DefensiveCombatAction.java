@@ -16,12 +16,14 @@ public class DefensiveCombatAction extends CombatAction {
 	@Override
 	public void update(float deltaTime, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
-		Entity opponentEntity = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
-		if (opponentEntity != null) {
-			// Face towards opponent
-			Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
-			Vector2 opponentPosition = opponentEntity.getLocationComponent().getWorldOrParentPosition();
-			parentEntity.getLocationComponent().setFacing(opponentPosition.cpy().sub(parentPosition));
+		if (combatStateComponent.getTargetedOpponentId() != null) {
+			Entity opponentEntity = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
+			if (opponentEntity != null) {
+				// Face towards opponent
+				Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
+				Vector2 opponentPosition = opponentEntity.getLocationComponent().getWorldOrParentPosition();
+				parentEntity.getLocationComponent().setFacing(opponentPosition.cpy().sub(parentPosition));
+			}
 		}
 	}
 

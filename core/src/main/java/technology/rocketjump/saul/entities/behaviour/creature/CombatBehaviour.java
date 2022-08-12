@@ -30,6 +30,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.CombatActionChangedMessage;
 import technology.rocketjump.saul.messaging.types.ParticleEffectTypeCallback;
 import technology.rocketjump.saul.messaging.types.ParticleRequestMessage;
+import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.particles.custom_libgdx.DefensePoolBarEffect;
 import technology.rocketjump.saul.particles.model.ParticleEffectInstance;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
@@ -37,10 +38,7 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static technology.rocketjump.saul.combat.CombatMessageHandler.getOrientationsOppositeTo;
 import static technology.rocketjump.saul.entities.ai.goap.Goal.NULL_GOAL;
@@ -48,14 +46,18 @@ import static technology.rocketjump.saul.entities.model.physical.creature.Aggres
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
 // Although this is coded as a Component, it is always encapsulated in CreatureBehaviour
-public class CombatBehaviour implements ParentDependentEntityComponent, ParticleEffectTypeCallback, ParticleRequestMessage.ParticleCreationCallback {
+public class CombatBehaviour implements ParentDependentEntityComponent, ParticleEffectTypeCallback,
+		ParticleRequestMessage.ParticleCreationCallback, Destructible {
 
 	private static final Double SERIOUSLY_LOW_NEED_VALUE = 10.0;
+	private static final float MAX_DISTANCE_FROM_COMBAT_START = 25f;
+	private static final float MAX_DISTANCE_FROM_COMBAT_START_SQUARED = MAX_DISTANCE_FROM_COMBAT_START * MAX_DISTANCE_FROM_COMBAT_START;
 	private Entity parentEntity;
 	private MessageDispatcher messageDispatcher;
 	private GameContext gameContext;
 
 	private CombatAction currentAction;
+	private AttackCreatureCombatAction attackOfOpportunityAction;
 	private transient ParticleEffectType defensePoolEffectType;
 	private transient ParticleEffectInstance defensePoolEffect;
 
@@ -69,19 +71,38 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 			// Required after loading from disk
 			currentAction.setParentEntity(parentEntity);
 		}
+		if (attackOfOpportunityAction != null) {
+			attackOfOpportunityAction.setParentEntity(parentEntity);
+		}
 
 		messageDispatcher.dispatchMessage(MessageType.GET_DEFENSE_POOL_EFFECT_TYPE, this);
+	}
+
+	@Override
+	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+		if (defensePoolEffect != null) {
+			defensePoolEffect.getWrappedInstance().allowCompletion();
+		}
+	}
+
+
+	public void onStartOfNewCombatRound() {
+		parentEntity.getComponent(CombatStateComponent.class).setAttackOfOpportunityMadeThisRound(false);
+
+		if (currentAction instanceof MoveInRangeOfTargetCombatAction && tooFarFromCombatStartingPosition()) {
+			currentAction = new FleeFromCombatAction(parentEntity);
+		}
 	}
 
 	/**
 	 * This is expected to be called by CombatTracker for it to know what is going on in the round
 	 */
 	public CombatAction selectNewActionForRound(boolean stunned) {
+		CombatAction previousAction = currentAction;
 		if (stunned) {
 			return new StunnedCombatAction(parentEntity);
 		}
 
-		CombatAction previousAction = currentAction;
 		CombatAction newAction;
 		if (previousAction == null) {
 			newAction = initialCombatAction();
@@ -102,8 +123,23 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	public void update(float deltaTime) throws ExitingCombatException {
 		if (currentAction != null) {
 			currentAction.update(deltaTime, gameContext, messageDispatcher);
+			if (currentAction instanceof FleeFromCombatAction && currentAction.isCompleted()) {
+				throw new ExitingCombatException();
+			}
 		}
 
+		if (attackOfOpportunityAction != null) {
+			attackOfOpportunityAction.update(deltaTime, gameContext, messageDispatcher);
+
+			if (attackOfOpportunityAction.isCompleted()) {
+				attackOfOpportunityAction = null;
+			}
+		}
+
+		updateWhenPaused();
+	}
+
+	public void updateWhenPaused() {
 		if (defensePoolEffect == null || !defensePoolEffect.isActive()) {
 			if (defensePoolEffectType != null) {
 				messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(
@@ -123,6 +159,14 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		}
 	}
 
+	private boolean tooFarFromCombatStartingPosition() {
+		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+		Vector2 startingPosition = combatStateComponent.getEnteredCombatAtPosition();
+		Vector2 currentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
+
+		return startingPosition.dst2(currentPosition) > MAX_DISTANCE_FROM_COMBAT_START_SQUARED;
+	}
+
 	@Override
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
 		throw new NotImplementedException("Not yet implemented " + this.getClass().getSimpleName() + ".clone()");
@@ -138,6 +182,23 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 
 	private CombatAction nextCombatAction(CombatAction previousAction) {
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+		if (combatStateComponent.getTargetedOpponentId() == null) {
+			if (combatStateComponent.getOpponentEntityIds().isEmpty()) {
+				return new FleeFromCombatAction(parentEntity);
+			} else {
+				Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
+				Optional<Entity> nearestOpponent = combatStateComponent.getOpponentEntityIds().stream()
+						.map(entityId -> gameContext.getEntities().get(entityId))
+						.filter(Objects::nonNull)
+						.min(Comparator.comparingInt(e -> (int)(100f * e.getLocationComponent().getWorldOrParentPosition().dst2(parentPosition))));
+				if (nearestOpponent.isPresent()) {
+					combatStateComponent.setTargetedOpponentId(nearestOpponent.get().getId());
+				} else {
+					return new FleeFromCombatAction(parentEntity);
+				}
+			}
+		}
+
 		if (previousAction instanceof MoveInRangeOfTargetCombatAction) {
 			combatStateComponent.setHeldLocation(toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
 		}
@@ -166,18 +227,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	}
 
 	private void changeOpponentIfCanFaceMoreOpponentsAtOnce(CombatStateComponent combatStateComponent) {
-		GridPoint2 parentTilePosition = toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition());
-		List<Entity> opponentsInMelee = new ArrayList<>();
-		for (Long opponentEntityId : combatStateComponent.getOpponentEntityIds()) {
-			Entity opponentEntity = gameContext.getEntities().get(opponentEntityId);
-			if (opponentEntity != null) {
-				GridPoint2 opponentTilePosition = toGridPoint(opponentEntity.getLocationComponent().getWorldOrParentPosition());
-				if (Math.abs(parentTilePosition.x - opponentTilePosition.x) <= 1 &&
-						Math.abs(parentTilePosition.y - opponentTilePosition.y) <= 1) {
-					opponentsInMelee.add(opponentEntity);
-				}
-			}
-		}
+		List<Entity> opponentsInMelee = getOpponentsInMelee(parentEntity, gameContext);
 
 		combatStateComponent.setEngagedInMelee(!opponentsInMelee.isEmpty());
 
@@ -205,6 +255,23 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 			combatStateComponent.setTargetedOpponentId(opponentKeepingMostOpponentsInView);
 		}
 
+	}
+
+	public static List<Entity> getOpponentsInMelee(Entity entityInCombat, GameContext gameContext) {
+		CombatStateComponent combatStateComponent = entityInCombat.getComponent(CombatStateComponent.class);
+		GridPoint2 parentTilePosition = toGridPoint(entityInCombat.getLocationComponent().getWorldOrParentPosition());
+		List<Entity> opponentsInMelee = new ArrayList<>();
+		for (Long opponentEntityId : combatStateComponent.getOpponentEntityIds()) {
+			Entity opponentEntity = gameContext.getEntities().get(opponentEntityId);
+			if (opponentEntity != null) {
+				GridPoint2 opponentTilePosition = toGridPoint(opponentEntity.getLocationComponent().getWorldOrParentPosition());
+				if (Math.abs(parentTilePosition.x - opponentTilePosition.x) <= 1 &&
+						Math.abs(parentTilePosition.y - opponentTilePosition.y) <= 1) {
+					opponentsInMelee.add(opponentEntity);
+				}
+			}
+		}
+		return opponentsInMelee;
 	}
 
 	private AggressionResponse getAggressionResponse() {
@@ -296,6 +363,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 
 		if (defensePoolEffect != null) {
 			defensePoolEffect.getWrappedInstance().allowCompletion();
+			defensePoolEffect = null;
 		}
 	}
 
@@ -309,6 +377,28 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		return Math.max(Math.abs(gridPointA.x - gridPointB.x), Math.abs(gridPointA.y - gridPointB.y));
 	}
 
+	public boolean isActionComplete() {
+		return currentAction == null || currentAction.isCompleted();
+	}
+
+	public void makeAttackOfOpportunity(Entity targetEntity) {
+		CreatureCombat combat = new CreatureCombat(parentEntity);
+		if (combat.getWeaponRangeAsInt() <= 2) {
+			// Only make "melee" attacks of opportunity
+			attackOfOpportunityAction = new AttackCreatureCombatAction(parentEntity);
+			attackOfOpportunityAction.setOverrideTarget(targetEntity.getId());
+			parentEntity.getComponent(CombatStateComponent.class).setAttackOfOpportunityMadeThisRound(true);
+		}
+	}
+
+	public void interrupted() {
+		if (currentAction != null) {
+			currentAction.interrupted(messageDispatcher);
+			messageDispatcher.dispatchMessage(MessageType.COMBAT_ACTION_CHANGED, new CombatActionChangedMessage(parentEntity, currentAction, null));
+			currentAction = null;
+		}
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		if (currentAction != null) {
@@ -316,6 +406,12 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 			actionJson.put("_class", currentAction.getClass().getName());
 			currentAction.writeTo(actionJson, savedGameStateHolder);
 			asJson.put("currentAction", actionJson);
+		}
+
+		if (attackOfOpportunityAction != null) {
+			JSONObject actionJson = new JSONObject(true);
+			attackOfOpportunityAction.writeTo(actionJson, savedGameStateHolder);
+			asJson.put("attackOfOpportunityAction", actionJson);
 		}
 	}
 
@@ -326,6 +422,13 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 			String className = actionJson.getString("_class");
 			this.currentAction = CombatAction.newInstance(ReflectionUtils.forName(className), Entity.NULL_ENTITY);
 			this.currentAction.readFrom(asJson, savedGameStateHolder, relatedStores);
+		}
+
+		actionJson = asJson.getJSONObject("attackOfOpportunityAction");
+		if (actionJson != null) {
+			String className = actionJson.getString("_class");
+			this.attackOfOpportunityAction = new AttackCreatureCombatAction(Entity.NULL_ENTITY);
+			this.attackOfOpportunityAction.readFrom(asJson, savedGameStateHolder, relatedStores);
 		}
 	}
 

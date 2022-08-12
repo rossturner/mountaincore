@@ -91,6 +91,11 @@ public class PlantBehaviour implements BehaviourComponent, SelectableDescription
 	}
 
 	@Override
+	public void updateWhenPaused() {
+
+	}
+
+	@Override
 	public void infrequentUpdate(GameContext gameContext) {
 
 		if (lastUpdateGameTime == null) {

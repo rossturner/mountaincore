@@ -95,6 +95,11 @@ public class ProjectileBehaviour implements BehaviourComponent {
 		}
 	}
 
+	@Override
+	public void updateWhenPaused() {
+
+	}
+
 	private void impactWith(Entity impactedEntity) {
 		messageDispatcher.dispatchMessage(MessageType.COMBAT_PROJECTILE_REACHED_TARGET,
 				new CombatAttackMessage(attackerEntity, impactedEntity, weaponAttack,

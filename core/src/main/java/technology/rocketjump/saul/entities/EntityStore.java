@@ -13,7 +13,6 @@ import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
@@ -266,52 +265,50 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 	public void onContextChange(GameContext gameContext) {
 		this.gameContext = gameContext;
 
-		for (Entity entity : gameContext.getEntities().values()) {
-			add(entity, false);
+		if (gameContext != null) {
+			for (Entity entity : gameContext.getEntities().values()) {
+				add(entity, false);
 
-			switch (entity.getType()) {
-				case ITEM:
-					itemTracker.itemAdded(entity);
-					break;
-				case FURNITURE:
-					furnitureTracker.furnitureAdded(entity);
-					break;
-				case CREATURE:
+				switch (entity.getType()) {
+					case ITEM:
+						itemTracker.itemAdded(entity);
+						break;
+					case FURNITURE:
+						furnitureTracker.furnitureAdded(entity);
+						break;
+					case CREATURE:
 
-					if (entity.getBehaviourComponent() instanceof CorpseBehaviour) {
-						if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
-							settlerTracker.settlerDied(entity);
-						} else {
-							creatureTracker.creatureDied(entity);
-						}
-					} else {
-						if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
-							settlerTracker.settlerAdded(entity);
-							for (InventoryComponent.InventoryEntry inventoryEntry : entity.getComponent(InventoryComponent.class).getInventoryEntries()) {
-								add(inventoryEntry.entity);
-								if (inventoryEntry.entity.getType().equals(ITEM)) {
-									itemTracker.itemAdded(inventoryEntry.entity);
-								}
-							}
-							HaulingComponent haulingComponent = entity.getComponent(HaulingComponent.class);
-							if (haulingComponent != null && haulingComponent.getHauledEntity() != null) {
-								add(haulingComponent.getHauledEntity());
-								if (haulingComponent.getHauledEntity().getType().equals(ITEM)) {
-									itemTracker.itemAdded(haulingComponent.getHauledEntity());
-								}
+						if (entity.getBehaviourComponent() instanceof CorpseBehaviour) {
+							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+								settlerTracker.settlerDied(entity);
+							} else {
+								creatureTracker.creatureDied(entity);
 							}
 						} else {
-							creatureTracker.creatureAdded(entity);
+							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+								settlerTracker.settlerAdded(entity);
+								for (InventoryComponent.InventoryEntry inventoryEntry : entity.getComponent(InventoryComponent.class).getInventoryEntries()) {
+									add(inventoryEntry.entity);
+									if (inventoryEntry.entity.getType().equals(ITEM)) {
+										itemTracker.itemAdded(inventoryEntry.entity);
+									}
+								}
+								HaulingComponent haulingComponent = entity.getComponent(HaulingComponent.class);
+								if (haulingComponent != null && haulingComponent.getHauledEntity() != null) {
+									add(haulingComponent.getHauledEntity());
+									if (haulingComponent.getHauledEntity().getType().equals(ITEM)) {
+										itemTracker.itemAdded(haulingComponent.getHauledEntity());
+									}
+								}
+							} else {
+								creatureTracker.creatureAdded(entity);
+							}
 						}
-					}
 
-					if (entity.getComponent(CombatStateComponent.class).isInCombat()) {
-						combatTracker.add(entity);
-					}
-					break;
+						break;
+				}
 			}
 		}
-
 	}
 
 	@Override

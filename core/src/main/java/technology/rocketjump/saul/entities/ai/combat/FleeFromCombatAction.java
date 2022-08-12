@@ -1,23 +1,20 @@
 package technology.rocketjump.saul.entities.ai.combat;
 
-import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import org.apache.commons.lang3.NotImplementedException;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.Goal;
+import technology.rocketjump.saul.entities.ai.goap.actions.Action;
 import technology.rocketjump.saul.entities.ai.goap.actions.location.GoToLocationAction;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
-import technology.rocketjump.saul.persistence.model.InvalidSaveException;
-import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +23,9 @@ import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
 public class FleeFromCombatAction extends CombatAction {
 
-	private static final float LARGE_DISTANCE_AWAY_FROM_OPPONENTS = 40f;
+	private static final float LARGE_DISTANCE_AWAY_FROM_OPPONENTS = 30f;
+	private static final float MIN_SEPARATION_FROM_OPPONENTS_TO_LEAVE_COMBAT = 18f;
+
 	private GoToLocationAction goToLocationAction;
 
 	public FleeFromCombatAction(Entity parentEntity) {
@@ -51,9 +50,34 @@ public class FleeFromCombatAction extends CombatAction {
 			}
 
 			goToLocationAction.update(deltaTime, gameContext);
+
+
+			Action.CompletionType completion = MoveInRangeOfTargetCombatAction.isCompleted(goToLocationAction, gameContext);
+			if (completion != null) {
+				goToLocationAction = null;
+			}
 		}
 
+
+
 		// complete when X distance away from any opponent
+		List<Entity> opponentEntities = getOpponents(gameContext);
+		if (opponentEntities.isEmpty()) {
+			completed = true;
+		} else {
+			Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
+			float dist2ToNearestOpponent = LARGE_DISTANCE_AWAY_FROM_OPPONENTS * LARGE_DISTANCE_AWAY_FROM_OPPONENTS;
+			for (Entity opponentEntity : opponentEntities) {
+				float distance2ToOpponent = opponentEntity.getLocationComponent().getWorldOrParentPosition().dst2(parentPosition);
+				if (distance2ToOpponent < dist2ToNearestOpponent) {
+					dist2ToNearestOpponent = distance2ToOpponent;
+				}
+			}
+
+			if (dist2ToNearestOpponent > MIN_SEPARATION_FROM_OPPONENTS_TO_LEAVE_COMBAT * MIN_SEPARATION_FROM_OPPONENTS_TO_LEAVE_COMBAT) {
+				completed = true;
+			}
+		}
 	}
 
 	private GridPoint2 pickFleeDestination(GameContext gameContext) {
@@ -63,12 +87,9 @@ public class FleeFromCombatAction extends CombatAction {
 		} else {
 			Vector2 directionOfOpponents = new Vector2();
 			Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
-			for (Long opponentEntityId : combatStateComponent.getOpponentEntityIds()) {
-				Entity opponentEntity = gameContext.getEntities().get(opponentEntityId);
-				if (opponentEntity != null) {
-					Vector2 parentToOpponent = opponentEntity.getLocationComponent().getWorldOrParentPosition().cpy().sub(parentPosition);
-					directionOfOpponents.add(parentToOpponent);
-				}
+			for (Entity opponentEntity : getOpponents(gameContext)) {
+				Vector2 parentToOpponent = opponentEntity.getLocationComponent().getWorldOrParentPosition().cpy().sub(parentPosition);
+				directionOfOpponents.add(parentToOpponent);
 			}
 
 			GridPoint2 destination = pickDestinationInDirection(directionOfOpponents.nor().scl(-1f), gameContext);
@@ -89,6 +110,17 @@ public class FleeFromCombatAction extends CombatAction {
 		return null;
 	}
 
+	private List<Entity> getOpponents(GameContext gameContext) {
+		List<Entity> result = new ArrayList<>();
+		for (Long opponentEntityId : parentEntity.getComponent(CombatStateComponent.class).getOpponentEntityIds()) {
+			Entity opponent = gameContext.getEntities().get(opponentEntityId);
+			if (opponent != null) {
+				result.add(opponent);
+			}
+		}
+		return result;
+	}
+
 	private GridPoint2 pickDestinationInDirection(Vector2 directionToFlee, GameContext gameContext) {
 		int parentRegion = -1;
 		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
@@ -100,7 +132,7 @@ public class FleeFromCombatAction extends CombatAction {
 			// Randomly picks a place in +/-5 tiles in direction
 			Vector2 target = directionToFlee.cpy().scl(LARGE_DISTANCE_AWAY_FROM_OPPONENTS).add(
 					-5f + gameContext.getRandom().nextFloat(10f), -5f + gameContext.getRandom().nextFloat(10f)
-			);
+			).add(parentTile.getTileX(), parentTile.getTileY());
 			MapTile targetTile = gameContext.getAreaMap().getTile(target);
 			if (targetTile != null && targetTile.isNavigable(parentEntity) && targetTile.getRegionId() == parentRegion) {
 				return targetTile.getTilePosition();
@@ -119,13 +151,6 @@ public class FleeFromCombatAction extends CombatAction {
 		return false;
 	}
 
-	@Override
-	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-		throw new NotImplementedException("");
-	}
+	// don't do persistence, just create a new GoToLocationAction
 
-	@Override
-	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-
-	}
 }

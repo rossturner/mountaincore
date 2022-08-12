@@ -122,6 +122,11 @@ public class BaseOngoingEffectBehaviour implements BehaviourComponent, Destructi
 
 	}
 
+	@Override
+	public void updateWhenPaused() {
+
+	}
+
 	protected void nextState() {
 		switch (state) {
 			case STARTING:

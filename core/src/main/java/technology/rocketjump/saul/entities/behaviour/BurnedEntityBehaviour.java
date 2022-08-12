@@ -35,6 +35,11 @@ public class BurnedEntityBehaviour implements BehaviourComponent {
 	}
 
 	@Override
+	public void updateWhenPaused() {
+
+	}
+
+	@Override
 	public void infrequentUpdate(GameContext gameContext) {
 		double gameTime = gameContext.getGameClock().getCurrentGameTime();
 		double elapsed = gameTime - lastUpdateGameTime;

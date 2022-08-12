@@ -6,6 +6,7 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ai.combat.AttackCreatureCombatAction;
 import technology.rocketjump.saul.entities.ai.combat.CombatAction;
 import technology.rocketjump.saul.entities.ai.combat.CreatureCombat;
@@ -18,6 +19,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.CombatActionChangedMessage;
+import technology.rocketjump.saul.messaging.types.CreatureDeathMessage;
 import technology.rocketjump.saul.rendering.ScreenWriter;
 import technology.rocketjump.saul.settlement.CreatureTracker;
 
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.entities.components.Faction.HOSTILE_INVASION;
 import static technology.rocketjump.saul.entities.components.Faction.MERCHANTS;
+import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
 import static technology.rocketjump.saul.ui.i18n.I18nTranslator.oneDecimalFormat;
 
 @Singleton
@@ -35,6 +38,7 @@ public class CombatTracker implements Updatable, Telegraph {
 	private static final float COMBAT_ROUND_INITIAL_DELAY = 0.25f;
 	private static final float COMBAT_ROUND_CLOSING_DELAY = COMBAT_ROUND_DURATION * 0.3f;
 	private static final float MAX_TIME_BETWEEN_ATTACKS = 0.4f;
+	private static final float COMBAT_ROUND_MAXIMUM_DURATION = 11f;
 
 	private final CreatureTracker creatureTracker;
 	private final MessageDispatcher messageDispatcher;
@@ -53,13 +57,14 @@ public class CombatTracker implements Updatable, Telegraph {
 		messageDispatcher.addListener(this, MessageType.CREATURE_ENTERING_COMBAT);
 		messageDispatcher.addListener(this, MessageType.CREATURE_EXITING_COMBAT);
 		messageDispatcher.addListener(this, MessageType.COMBAT_ACTION_CHANGED);
+		messageDispatcher.addListener(this, MessageType.CREATURE_DEATH);
 	}
 
 	@Override
 	public void update(float deltaTime) {
 		float currentElapsedTime = gameContext.getSettlementState().getCurrentCombatRoundElapsed();
 		currentElapsedTime += deltaTime;
-		if (currentElapsedTime >= COMBAT_ROUND_DURATION && allActionsResolved()) {
+		if (roundCompleted(currentElapsedTime)) {
 			onCombatRoundStart();
 			currentElapsedTime = 0f;
 		}
@@ -67,6 +72,14 @@ public class CombatTracker implements Updatable, Telegraph {
 		screenWriter.printLine("Combat round elapsed: " + oneDecimalFormat.format(currentElapsedTime));
 
 		gameContext.getSettlementState().setCurrentCombatRoundElapsed(currentElapsedTime);
+	}
+
+	private boolean roundCompleted(float currentElapsedTime) {
+		if (currentElapsedTime >= COMBAT_ROUND_MAXIMUM_DURATION) {
+			Logger.error("Combat round lasted too long, figure out why someone's action hasn't resolved");
+			return true;
+		}
+		return currentElapsedTime >= COMBAT_ROUND_DURATION && allActionsResolved();
 	}
 
 	public void onCombatRoundStart() {
@@ -83,9 +96,12 @@ public class CombatTracker implements Updatable, Telegraph {
 
 		for (Entity entity : entitiesInCombatById.values()) {
 			if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
-				CombatAction combatAction = creatureBehaviour.getCombatBehaviour().selectNewActionForRound(creatureBehaviour.isStunned());
-				if (combatAction.completesInOneRound()) {
-					actionsToResolveThisRound.add(combatAction);
+				creatureBehaviour.getCombatBehaviour().onStartOfNewCombatRound();
+				if (creatureBehaviour.getCombatBehaviour().isActionComplete()) {
+					CombatAction combatAction = creatureBehaviour.getCombatBehaviour().selectNewActionForRound(creatureBehaviour.isStunned());
+					if (combatAction.completesInOneRound()) {
+						actionsToResolveThisRound.add(combatAction);
+					}
 				}
 			}
 		}
@@ -132,8 +148,11 @@ public class CombatTracker implements Updatable, Telegraph {
 		CreatureCombat combatStats = new CreatureCombat(entity);
 
 		CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
-		combatStateComponent.setInCombat(true);
-		combatStateComponent.setDefensePool(combatStats.maxDefensePool());
+		if (!combatStateComponent.isInCombat()) {
+			combatStateComponent.setInCombat(true);
+			combatStateComponent.setDefensePool(combatStats.maxDefensePool());
+			combatStateComponent.setEnteredCombatAtPosition(entity.getLocationComponent().getWorldOrParentPosition());
+		}
 
 		if (combatStateComponent.getTargetedOpponentId() != null) {
 			Entity targetedEntity = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
@@ -173,6 +192,14 @@ public class CombatTracker implements Updatable, Telegraph {
 	public void remove(Entity entity) {
 		entitiesInCombatById.remove(entity.getId());
 
+		for (Entity entityInCombat : entitiesInCombatById.values()) {
+			CombatStateComponent combatStateComponent = entityInCombat.getComponent(CombatStateComponent.class);
+			combatStateComponent.getOpponentEntityIds().remove(entity.getId());
+			if (combatStateComponent.getTargetedOpponentId() != null && combatStateComponent.getTargetedOpponentId() == entity.getId()) {
+				combatStateComponent.setTargetedOpponentId(null);
+			}
+		}
+
 		CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
 		combatStateComponent.setInCombat(false);
 		combatStateComponent.setDefensePool(0);
@@ -207,6 +234,10 @@ public class CombatTracker implements Updatable, Telegraph {
 					actionsToResolveThisRound.add(message.newAction);
 				}
 				return true;
+			}
+			case MessageType.CREATURE_DEATH: {
+				handleCreatureDeath((CreatureDeathMessage)msg.extraInfo);
+				return false;
 			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
@@ -244,9 +275,33 @@ public class CombatTracker implements Updatable, Telegraph {
 		}
 	}
 
+	private void handleCreatureDeath(CreatureDeathMessage deathMessage) {
+		for (Entity entityInCombat : new ArrayList<>(entitiesInCombatById.values())) {
+			if (entityInCombat.getId() == deathMessage.deceased.getId()) {
+				remove(entityInCombat);
+			} else {
+				CombatStateComponent combatStateComponent = entityInCombat.getComponent(CombatStateComponent.class);
+				combatStateComponent.getOpponentEntityIds().remove(deathMessage.deceased.getId());
+				if (combatStateComponent.getTargetedOpponentId() != null && combatStateComponent.getTargetedOpponentId() == deathMessage.deceased.getId()) {
+					combatStateComponent.setTargetedOpponentId(null);
+				}
+			}
+		}
+	}
+
 	@Override
 	public void onContextChange(GameContext gameContext) {
 		this.gameContext = gameContext;
+
+		if (gameContext != null) {
+			for (Entity entity : gameContext.getEntities().values()) {
+				if (CREATURE.equals(entity.getType())) {
+					if (entity.getComponent(CombatStateComponent.class).isInCombat()) {
+						this.add(entity);
+					}
+				}
+			}
+		}
 	}
 
 	@Override

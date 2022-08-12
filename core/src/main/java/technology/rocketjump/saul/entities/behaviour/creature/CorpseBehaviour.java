@@ -129,6 +129,11 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 	}
 
 	@Override
+	public void updateWhenPaused() {
+
+	}
+
+	@Override
 	public SteeringComponent getSteeringComponent() {
 		return steeringComponent;
 	}

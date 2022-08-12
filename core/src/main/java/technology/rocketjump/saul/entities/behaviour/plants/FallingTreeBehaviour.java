@@ -93,6 +93,11 @@ public class FallingTreeBehaviour implements BehaviourComponent {
 	}
 
 	@Override
+	public void updateWhenPaused() {
+		
+	}
+
+	@Override
 	public void infrequentUpdate(GameContext gameContext) {
 		// Do nothing, is not infrequent updater
 	}

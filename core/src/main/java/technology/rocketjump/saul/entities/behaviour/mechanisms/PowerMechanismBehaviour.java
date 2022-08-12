@@ -46,6 +46,11 @@ public class PowerMechanismBehaviour implements BehaviourComponent {
 	}
 
 	@Override
+	public void updateWhenPaused() {
+
+	}
+
+	@Override
 	public void infrequentUpdate(GameContext gameContext) {
 
 	}

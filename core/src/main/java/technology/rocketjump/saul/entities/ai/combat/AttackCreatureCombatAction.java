@@ -33,6 +33,7 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 	private float attackDurationElapsed; // once timeUntilAttack has elapsed, this counts how far through the attack "animation" we are
 	private boolean attackMade; // done halfway through attackDuration - actual calculation of hit/miss with weapon
 	private ParticleEffectInstance effectInstance; // transient
+	private Long overrideTarget;
 
 	public AttackCreatureCombatAction(Entity parentEntity) {
 		super(parentEntity);
@@ -40,42 +41,46 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext, MessageDispatcher messageDispatcher) {
-		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
-		Entity opponentEntity = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
-		if (opponentEntity != null) {
-			// Face towards opponent
-			Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
-			Vector2 opponentPosition = opponentEntity.getLocationComponent().getWorldOrParentPosition();
-			parentEntity.getLocationComponent().setFacing(opponentPosition.cpy().sub(parentPosition));
-
-			if (timeUntilAttack > 0) {
-				timeUntilAttack -= deltaTime;
-				if (timeUntilAttack <= 0) {
-					beginAttack(gameContext, messageDispatcher);
-				}
-			}
-
-			if (totalAttackDuration > 0 && attackDurationElapsed < totalAttackDuration) {
-				attackDurationElapsed += deltaTime;
-				if (attackDurationElapsed > totalAttackDuration / 2 && !attackMade) {
-					triggerAttack(opponentEntity, messageDispatcher);
-				}
-
-				if (attackDurationElapsed >= totalAttackDuration || attackDurationElapsed > MAX_ATTACK_DURATION) {
-					showWeapon();
-					completed = true;
-				}
-			}
-		} else {
+		Long opponentId = getOpponentId();
+		if (opponentId == null) {
 			completed = true;
+			return;
+		}
+		Entity opponentEntity = gameContext.getEntities().get(opponentId);
+		if (opponentEntity == null) {
+			completed = true;
+			return;
+		}
+
+		// Face towards opponent
+		Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
+		Vector2 opponentPosition = opponentEntity.getLocationComponent().getWorldOrParentPosition();
+		parentEntity.getLocationComponent().setFacing(opponentPosition.cpy().sub(parentPosition));
+
+		if (timeUntilAttack > 0) {
+			timeUntilAttack -= deltaTime;
+			if (timeUntilAttack <= 0) {
+				beginAttack(gameContext, messageDispatcher);
+			}
+		}
+
+		if (totalAttackDuration > 0 && attackDurationElapsed < totalAttackDuration) {
+			attackDurationElapsed += deltaTime;
+			if (attackDurationElapsed > totalAttackDuration / 2 && !attackMade) {
+				triggerAttack(opponentEntity, messageDispatcher);
+			}
+
+			if (attackDurationElapsed >= totalAttackDuration || attackDurationElapsed > MAX_ATTACK_DURATION) {
+				showWeapon();
+				completed = true;
+			}
 		}
 	}
 
 	private void beginAttack(GameContext gameContext, MessageDispatcher messageDispatcher) {
-		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 		CreatureCombat combatStats = new CreatureCombat(parentEntity);
 
-		if (isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()))) {
+		if (isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(getOpponentId()))) {
 			WeaponInfo weapon = combatStats.getEquippedWeapon();
 			if (weapon.getAnimatedEffectType() != null) {
 				totalAttackDuration = weapon.getAnimatedEffectType().getOverrideDuration();
@@ -87,7 +92,7 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 				hideWeapon();
 			} else {
 				// No animation associated, just trigger attack right now
-				triggerAttack(gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()), messageDispatcher);
+				triggerAttack(gameContext.getEntities().get(getOpponentId()), messageDispatcher);
 				completed = true;
 			}
 		} else {
@@ -103,6 +108,10 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 				parentEntity, targetedEntity, new WeaponAttack(creatureCombat.getEquippedWeapon(), creatureCombat.getEquippedWeaponQuality()),
 				ammoAttributes));
 		attackMade = true;
+	}
+
+	private Long getOpponentId() {
+		return overrideTarget != null ? overrideTarget : parentEntity.getComponent(CombatStateComponent.class).getTargetedOpponentId();
 	}
 
 
@@ -173,6 +182,10 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 		this.timeUntilAttack = timeUntilAttack;
 	}
 
+	public void setOverrideTarget(Long overrideTarget) {
+		this.overrideTarget = overrideTarget;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		super.writeTo(asJson, savedGameStateHolder);
@@ -182,6 +195,9 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 		asJson.put("attackDurationElapsed", attackDurationElapsed);
 		if (attackMade) {
 			asJson.put("attackMade", true);
+		}
+		if (overrideTarget != null) {
+			asJson.put("overrideTarget", overrideTarget);
 		}
 	}
 
@@ -193,10 +209,12 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 		this.totalAttackDuration = asJson.getFloatValue("totalAttackDuration");
 		this.attackDurationElapsed = asJson.getFloatValue("attackDurationElapsed");
 		this.attackMade = asJson.getBooleanValue("attackMade");
+		this.overrideTarget = asJson.getLong("overrideTarget");
 	}
 
 	@Override
 	public void particleCreated(ParticleEffectInstance instance) {
 		this.effectInstance = instance;
 	}
+
 }

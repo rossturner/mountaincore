@@ -121,6 +121,11 @@ public class DoorBehaviour implements BehaviourComponent {
 
 	}
 
+	@Override
+	public void updateWhenPaused() {
+
+	}
+
 	private void switchState(DoorState newState) {
 		DoorState previousState = this.state;
 		if (previousState.equals(newState)) {

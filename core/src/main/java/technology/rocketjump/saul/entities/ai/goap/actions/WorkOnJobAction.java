@@ -22,7 +22,6 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,17 +87,7 @@ public class WorkOnJobAction extends Action {
 
 			Action This = this;
 
-			parent.messageDispatcher.dispatchMessage(MessageType.GET_PROGRESS_BAR_EFFECT_TYPE, (ParticleEffectTypeCallback) progressBarType -> {
-				if (spawnedParticles.stream().noneMatch(p -> p.getType().equals(progressBarType))) {
-					parent.messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(
-							progressBarType,
-							Optional.of(parent.parentEntity),
-							Optional.empty(),
-							instance -> {
-						This.spawnedParticles.add(instance);
-					}));
-				}
-			});
+			updateProgressBarEffect();
 
 			List<ParticleEffectType> relatedParticleEffectTypes = getRelatedParticleEffectTypes();
 			if (relatedParticleEffectTypes != null) {
@@ -113,18 +102,6 @@ public class WorkOnJobAction extends Action {
 							This.spawnedParticles.add(instance);
 						}));
 					}
-				}
-			}
-
-			float workCompletionFraction = Math.min(assignedJob.getWorkDoneSoFar() / assignedJob.getTotalWorkToDo(skillsComponent), 1f);
-
-			spawnedParticles.removeIf(p -> p == null || !p.isActive());
-
-			Iterator<ParticleEffectInstance> particleIterator = spawnedParticles.iterator();
-			while (particleIterator.hasNext()) {
-				ParticleEffectInstance spawnedParticle = particleIterator.next();
-				if (spawnedParticle.getWrappedInstance() instanceof ProgressBarEffect) {
-					((ProgressBarEffect)spawnedParticle.getWrappedInstance()).setProgress(workCompletionFraction);
 				}
 			}
 
@@ -149,6 +126,33 @@ public class WorkOnJobAction extends Action {
 				if (jobSoundAsset != null && jobSoundAsset.isLooping()) {
 					parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_STOP_SOUND_LOOP, new RequestSoundStopMessage(jobSoundAsset, parent.parentEntity.getId()));
 				}
+			}
+		}
+	}
+
+	public void updateProgressBarEffect() {
+		Job assignedJob = parent.getAssignedJob();
+		SkillsComponent skillsComponent = parent.parentEntity.getComponent(SkillsComponent.class);
+		Action This = this;
+		parent.messageDispatcher.dispatchMessage(MessageType.GET_PROGRESS_BAR_EFFECT_TYPE, (ParticleEffectTypeCallback) progressBarType -> {
+			if (spawnedParticles.stream().noneMatch(p -> p.getType().equals(progressBarType))) {
+				parent.messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(
+						progressBarType,
+						Optional.of(parent.parentEntity),
+						Optional.empty(),
+						instance -> {
+					This.spawnedParticles.add(instance);
+				}));
+			}
+		});
+
+		float workCompletionFraction = Math.min(assignedJob.getWorkDoneSoFar() / assignedJob.getTotalWorkToDo(skillsComponent), 1f);
+
+		spawnedParticles.removeIf(p -> p == null || !p.isActive());
+
+		for (ParticleEffectInstance spawnedParticle : spawnedParticles) {
+			if (spawnedParticle.getWrappedInstance() instanceof ProgressBarEffect) {
+				((ProgressBarEffect) spawnedParticle.getWrappedInstance()).setProgress(workCompletionFraction);
 			}
 		}
 	}

@@ -30,6 +30,7 @@ public class KnockedUnconscious extends StatusEffect {
 				if (creatureBehaviour.getCurrentGoal() != null) {
 					creatureBehaviour.getCurrentGoal().setInterrupted(true);
 				}
+				creatureBehaviour.getCombatBehaviour().interrupted();
 			}
 
 			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, parentEntity);

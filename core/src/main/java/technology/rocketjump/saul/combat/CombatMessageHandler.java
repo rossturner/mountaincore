@@ -45,6 +45,7 @@ import java.util.Optional;
 
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 import static technology.rocketjump.saul.entities.FireMessageHandler.blackenedColor;
+import static technology.rocketjump.saul.entities.behaviour.creature.CombatBehaviour.getOpponentsInMelee;
 import static technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel.BrokenBones;
 import static technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel.Destroyed;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
@@ -67,6 +68,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.APPLY_ATTACK_DAMAGE);
 		messageDispatcher.addListener(this, MessageType.CREATURE_DAMAGE_APPLIED);
 		messageDispatcher.addListener(this, MessageType.CREATURE_ORGAN_DAMAGE_APPLIED);
+		messageDispatcher.addListener(this, MessageType.TRIGGER_ATTACK_OF_OPPORTUNITY);
 	}
 
 	@Override
@@ -92,8 +94,24 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 				applyOrganDamageToCreature((CreatureOrganDamagedMessage) msg.extraInfo);
 				return true;
 			}
+			case MessageType.TRIGGER_ATTACK_OF_OPPORTUNITY: {
+				Entity fleeingEntity = (Entity) msg.extraInfo;
+				triggerAttackOfOpportunity(fleeingEntity);
+				return true;
+			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
+		}
+	}
+
+	private void triggerAttackOfOpportunity(Entity fleeingEntity) {
+		for (Entity opponentEntity : getOpponentsInMelee(fleeingEntity, gameContext)) {
+			CombatStateComponent opponentCombatState = opponentEntity.getComponent(CombatStateComponent.class);
+			if (opponentCombatState != null && !opponentCombatState.isAttackOfOpportunityMadeThisRound()) {
+				if (opponentEntity.getBehaviourComponent() instanceof CreatureBehaviour opponentBehaviour) {
+					opponentBehaviour.getCombatBehaviour().makeAttackOfOpportunity(fleeingEntity);
+				}
+			}
 		}
 	}
 

@@ -46,6 +46,11 @@ public class ItemBehaviour implements BehaviourComponent {
 	}
 
 	@Override
+	public void updateWhenPaused() {
+
+	}
+
+	@Override
 	public void infrequentUpdate(GameContext gameContext) {
 		ItemEntityAttributes attributes = (ItemEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		ItemAllocationComponent itemAllocationComponent = parentEntity.getComponent(ItemAllocationComponent.class);

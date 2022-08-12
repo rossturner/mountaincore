@@ -225,9 +225,13 @@ public class Entity implements Persistable, Disposable {
 		return attachedEntities;
 	}
 
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		behaviourComponent.update(deltaTime);
     }
+
+	public void updateWhenPaused() {
+		behaviourComponent.updateWhenPaused();
+	}
 
 	public void infrequentUpdate(GameContext gameContext) {
 		behaviourComponent.infrequentUpdate(gameContext);

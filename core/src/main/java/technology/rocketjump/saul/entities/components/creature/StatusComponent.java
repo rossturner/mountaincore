@@ -22,7 +22,7 @@ public class StatusComponent implements InfrequentlyUpdatableComponent {
 
 	private final Map<Class<? extends StatusEffect>, StatusEffect> byClassType = new HashMap<>();
 
-	private Set<Class<? extends StatusEffect>> seriousStatusAilments = Set.of(
+	private static Set<Class<? extends StatusEffect>> seriousStatusAilments = Set.of(
 			InternalBleeding.class, OnFireStatus.class, VeryHungry.class, VeryThirsty.class,
 			DyingOfHunger.class, DyingOfThirst.class
 	);

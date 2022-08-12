@@ -7,6 +7,8 @@ public interface BehaviourComponent extends ParentDependentEntityComponent {
 
 	void update(float deltaTime);
 
+	void updateWhenPaused();
+
 	void infrequentUpdate(GameContext gameContext);
 
 	SteeringComponent getSteeringComponent();

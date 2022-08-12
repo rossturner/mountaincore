@@ -8,6 +8,7 @@ import technology.rocketjump.saul.entities.ai.goap.Goal;
 import technology.rocketjump.saul.entities.ai.goap.SwitchGoalException;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
 import technology.rocketjump.saul.entities.ai.goap.actions.location.GoToCombatOpponentAction;
+import technology.rocketjump.saul.entities.ai.goap.actions.location.GoToLocationAction;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -37,7 +38,7 @@ public class MoveInRangeOfTargetCombatAction extends CombatAction {
 				throw new ExitingCombatException();
 			}
 			CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
-			if (isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()))) {
+			if (isInRangeOfOpponent(parentEntity, lookupOpponent(combatStateComponent, gameContext))) {
 				this.completed = true;
 			} else {
 				// Opponent has moved away
@@ -61,11 +62,19 @@ public class MoveInRangeOfTargetCombatAction extends CombatAction {
 		}
 	}
 
-	private Action.CompletionType isCompleted(GoToCombatOpponentAction action, GameContext gameContext) {
+	private Entity lookupOpponent(CombatStateComponent combatStateComponent, GameContext gameContext) {
+		if (combatStateComponent.getTargetedOpponentId() == null) {
+			return null;
+		} else {
+			return gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
+		}
+	}
+
+	public static Action.CompletionType isCompleted(GoToLocationAction action, GameContext gameContext) {
 		try {
 			return action.isCompleted(gameContext);
 		} catch (SwitchGoalException e) {
-			Logger.error("Need to handle SwitchGoalException in " + getClass().getSimpleName());
+			Logger.error("Need to handle SwitchGoalException in " + MoveInRangeOfTargetCombatAction.class.getSimpleName());
 			return Action.CompletionType.FAILURE;
 		}
 	}
@@ -86,5 +95,7 @@ public class MoveInRangeOfTargetCombatAction extends CombatAction {
 
 		this.goToLocationAction = null; // Null out every round so that pathfinding is reset in case the opponent keeps changing position
 	}
+
+	// don't do persistence, just create a new GoToLocationAction
 
 }
