@@ -8,7 +8,7 @@ import technology.rocketjump.saul.entities.model.physical.combat.CombatDamageTyp
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeaponInfo {
 
-	private float range;
+	private int range;
 	private CombatDamageType damageType;
 	private boolean modifiedByStrength;
 	private int minDamage;
@@ -28,18 +28,18 @@ public class WeaponInfo {
 
 	public static WeaponInfo UNARMED = new WeaponInfo();
 	static {
-		UNARMED.setRange(0.5f);
+		UNARMED.setRange(1);
 		UNARMED.setDamageType(CombatDamageType.CRUSHING);
 		UNARMED.setModifiedByStrength(true);
 		UNARMED.setMinDamage(0);
 		UNARMED.setMaxDamage(4);
 	}
 
-	public float getRange() {
+	public int getRange() {
 		return range;
 	}
 
-	public void setRange(float range) {
+	public void setRange(int range) {
 		this.range = range;
 	}
 
