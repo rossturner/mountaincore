@@ -1,0 +1,168 @@
+[ {
+  "uniqueName" : "Weapon-Battle-Hammer-Grip-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Battle-Hammer",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Down.png",
+      "coloringLayer" : "CLOTH_COLOR"
+    },
+    "UP" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Up.png",
+      "coloringLayer" : "CLOTH_COLOR"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Down_Left.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Down_Left.png",
+      "coloringLayer" : "CLOTH_COLOR"
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Up_Left.png",
+      "coloringLayer" : "CLOTH_COLOR"
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Up_Left.png",
+      "coloringLayer" : "CLOTH_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Battle-Hammer-Grip-On_Ground",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Battle-Hammer",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-On_Ground_Down.png",
+      "coloringLayer" : "CLOTH_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Battle-Hammer-Main-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Battle-Hammer",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "y" : 15.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "y" : -11.0
+        }
+      } ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Up.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : 9.0,
+        "y" : 16.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "y" : -17.0
+        }
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Down_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -6.0,
+        "y" : 16.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "y" : -14.0
+        }
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Down_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -6.0,
+        "y" : 17.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -3.0,
+          "y" : -11.0
+        }
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Up_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : 31.0,
+        "y" : 12.0
+      },
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Up_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : 9.0,
+        "y" : 12.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "y" : -9.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Battle-Hammer-Main-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Battle-Hammer",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Battle-Hammer-Main-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ]
+    }
+  }
+} ]

@@ -64,5 +64,28 @@
     "materialTypesToCopyOver": ["WOOD", "METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 11.5
+  },
+  {
+    "recipeName": "Forge Hammer",
+    "craftingTypeName": "BLACKSMITHING",
+    "input": [
+      {
+        "itemTypeName": "Product-Linen",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Metal-Ingot",
+        "quantity": 3
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Weapon-Battle-Hammer",
+        "quantity": 1
+      }
+    ],
+    "materialTypesToCopyOver": ["CLOTH", "METAL"],
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 11.5
   }
 ]

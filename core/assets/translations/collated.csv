@@ -1331,6 +1331,7 @@ WALL.STONE_BLOCK.NOUN,Smooth stone wall,,Glatte Steinwand,Paroi lisse,Parete di 
 WALL.WOODEN.NOUN,Wood wall,,Holzwand,Mur en bois,Parete di legno,Muro de madera,Muro de madeira,Parede de madeira,,Деревянная стена,Tahta duvar,Træ væg,,Trävägg,,,,木壁,木墙,
 
 WEAPON.BATTLE.AXE,Battle axe,,,,,,,,,,,,,,,,,,,
+WEAPON.BATTLE.HAMMER,Battle hammer,,,,,,,,,,,,,,,,,,,
 WEAPON.BONE.ARROWS.NOUN,Arrow,,Pfeil,,Freccia,Flecha,,,,Стрела,,,,,,,,矢,箭矢,
 WEAPON.BONE.ARROWS.PLURAL,Arrows,,Pfeile,,Freccie,Flechas,,,,Стрелы,,,,,,,,矢,箭矢,
 WEAPON.BOW,Bow,,Bogen,,Arco,Arco,,,,Лук,,,,,,,,弓,弓,
