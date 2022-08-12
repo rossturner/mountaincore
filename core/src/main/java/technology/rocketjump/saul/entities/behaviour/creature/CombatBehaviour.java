@@ -21,6 +21,7 @@ import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse;
+import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.body.Body;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart;
@@ -194,6 +195,13 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 				Optional<Entity> nearestOpponent = combatStateComponent.getOpponentEntityIds().stream()
 						.map(entityId -> gameContext.getEntities().get(entityId))
 						.filter(Objects::nonNull)
+						.filter(e -> {
+							if (e.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes attributes) {
+								return !Consciousness.DEAD.equals(attributes.getConsciousness());
+							} else {
+								return false;
+							}
+						})
 						.min(Comparator.comparingInt(e -> (int)(100f * e.getLocationComponent().getWorldOrParentPosition().dst2(parentPosition))));
 				if (nearestOpponent.isPresent()) {
 					combatStateComponent.setTargetedOpponentId(nearestOpponent.get().getId());
@@ -390,6 +398,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		if (combat.getWeaponRangeAsInt() <= 2) {
 			// Only make "melee" attacks of opportunity
 			attackOfOpportunityAction = new AttackCreatureCombatAction(parentEntity);
+			attackOfOpportunityAction.setTimeUntilAttack(0.01f);
 			attackOfOpportunityAction.setOverrideTarget(targetEntity.getId());
 			parentEntity.getComponent(CombatStateComponent.class).setAttackOfOpportunityMadeThisRound(true);
 		}

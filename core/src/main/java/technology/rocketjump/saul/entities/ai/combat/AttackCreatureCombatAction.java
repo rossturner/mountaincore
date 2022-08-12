@@ -8,6 +8,7 @@ import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -24,6 +25,7 @@ import java.util.Optional;
 
 import static technology.rocketjump.saul.entities.behaviour.creature.CombatBehaviour.isInRangeOfOpponent;
 import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
+import static technology.rocketjump.saul.entities.model.physical.creature.Consciousness.DEAD;
 
 public class AttackCreatureCombatAction extends CombatAction implements ParticleRequestMessage.ParticleCreationCallback {
 
@@ -80,7 +82,17 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 	private void beginAttack(GameContext gameContext, MessageDispatcher messageDispatcher) {
 		CreatureCombat combatStats = new CreatureCombat(parentEntity);
 
-		if (isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(getOpponentId()))) {
+		Entity opponent = getOpponent(gameContext);
+		if (isInRangeOfOpponent(parentEntity, opponent)) {
+			if (opponent.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes opponentAttributes) {
+				if (DEAD.equals(opponentAttributes.getConsciousness())) {
+					parentEntity.getComponent(CombatStateComponent.class).setTargetedOpponentId(null);
+					completed = true;
+					return;
+				}
+			}
+
+
 			WeaponInfo weapon = combatStats.getEquippedWeapon();
 			if (weapon.getAnimatedEffectType() != null) {
 				totalAttackDuration = weapon.getAnimatedEffectType().getOverrideDuration();
@@ -112,6 +124,15 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 
 	private Long getOpponentId() {
 		return overrideTarget != null ? overrideTarget : parentEntity.getComponent(CombatStateComponent.class).getTargetedOpponentId();
+	}
+
+	private Entity getOpponent(GameContext gameContext) {
+		Long opponentId = getOpponentId();
+		if (opponentId == null) {
+			return null;
+		} else {
+			return gameContext.getEntities().get(opponentId);
+		}
 	}
 
 

@@ -160,7 +160,7 @@ public class InWorldUIRenderer {
 		if (interactionStateContainer.getInteractionMode().equals(DEFAULT)) {
 			Selectable selectable = interactionStateContainer.getSelectable();
 			if (selectable != null) {
-				selectableOutlineRenderer.render(selectable, shapeRenderer);
+				selectableOutlineRenderer.render(selectable, shapeRenderer, gameContext);
 
 				if (GlobalSettings.DEV_MODE) {
 					showCreatureGroupLocation(gameContext, selectable);
@@ -505,7 +505,7 @@ public class InWorldUIRenderer {
 			if (selectedEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
 				CreatureGroup creatureGroup = ((CreatureBehaviour) selectedEntity.getBehaviourComponent()).getCreatureGroup();
 				if (creatureGroup != null) {
-					selectableOutlineRenderer.render(new Selectable(gameContext.getAreaMap().getTile(creatureGroup.getHomeLocation())), shapeRenderer);
+					selectableOutlineRenderer.render(new Selectable(gameContext.getAreaMap().getTile(creatureGroup.getHomeLocation())), shapeRenderer, gameContext);
 				}
 			}
 		}
