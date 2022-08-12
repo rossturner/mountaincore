@@ -1230,6 +1230,31 @@
   "i18nKey" : "WEAPON.BATTLE.HAMMER"
 }, {
   "itemTypeId" : 70,
+  "itemTypeName" : "Weapon-Crossbow",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD" ],
+  "primaryMaterialType" : "WOOD",
+  "holdPosition" : "RIGHT_HAND",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "weaponInfo" : {
+    "range" : 9.0,
+    "damageType" : "STABBING",
+    "modifiedByStrength" : false,
+    "minDamage" : 2,
+    "maxDamage" : 8,
+    "requiresAmmoType" : "BOLTS"
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.CROSSBOW"
+}, {
+  "itemTypeId" : 71,
   "itemTypeName" : "Weapon-Sword",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
