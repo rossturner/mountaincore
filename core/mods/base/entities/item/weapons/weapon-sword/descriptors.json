@@ -10,11 +10,15 @@
       "filename" : "Weapon-Sword-Blade-Being_Carried_Down.png",
       "coloringLayer" : "METAL_COLOR",
       "offsetPixels" : {
-        "x" : -9.0,
-        "y" : 16.0
+        "x" : -11.0,
+        "y" : 22.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : -6.0
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -28,34 +32,46 @@
       "filename" : "Weapon-Sword-Blade-Being_Carried_Up.png",
       "coloringLayer" : "METAL_COLOR",
       "offsetPixels" : {
-        "x" : 8.0,
-        "y" : 16.0
+        "x" : 9.5,
+        "y" : 22.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -1.5,
+          "y" : -6.0
+        }
       } ]
     },
     "DOWN_LEFT" : {
       "filename" : "Weapon-Sword-Blade-Being_Carried_Down_Left.png",
       "coloringLayer" : "METAL_COLOR",
       "offsetPixels" : {
-        "x" : -6.0,
-        "y" : 14.0
+        "x" : -8.5,
+        "y" : 20.5
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 2.5,
+          "y" : -6.5
+        }
       } ]
     },
     "DOWN_RIGHT" : {
       "filename" : "Weapon-Sword-Blade-Being_Carried_Down_Left.png",
       "coloringLayer" : "METAL_COLOR",
       "offsetPixels" : {
-        "x" : 1.0,
-        "y" : 14.0
+        "x" : 3.5,
+        "y" : 20.5
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -2.5,
+          "y" : -6.5
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -69,23 +85,31 @@
       "filename" : "Weapon-Sword-Blade-Being_Carried_Up_Left.png",
       "coloringLayer" : "METAL_COLOR",
       "offsetPixels" : {
-        "x" : 27.0,
-        "y" : 16.0
+        "x" : 25.0,
+        "y" : 23.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : -7.0
+        }
       } ]
     },
     "UP_RIGHT" : {
       "filename" : "Weapon-Sword-Blade-Being_Carried_Up_Left.png",
       "coloringLayer" : "METAL_COLOR",
       "offsetPixels" : {
-        "x" : 10.0,
-        "y" : 8.0
+        "x" : 12.0,
+        "y" : 15.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -2.0,
+          "y" : -7.0
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -107,8 +131,16 @@
     "DOWN" : {
       "filename" : "Weapon-Sword-Item_Base_Layer-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : 5.5,
+        "y" : -6.0
+      },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -5.5,
+          "y" : 6.0
+        }
       } ]
     }
   }
@@ -121,24 +153,48 @@
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Weapon-Sword-Handle-Being_Carried_Down.png"
+      "filename" : "Weapon-Sword-Handle-Being_Carried_Down.png",
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : -11.5
+      }
     },
     "UP" : {
-      "filename" : "Weapon-Sword-Handle-Being_Carried_Up.png"
+      "filename" : "Weapon-Sword-Handle-Being_Carried_Up.png",
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : -12.0
+      }
     },
     "DOWN_LEFT" : {
       "filename" : "Weapon-Sword-Handle-Being_Carried_Down_Left.png",
+      "offsetPixels" : {
+        "x" : 2.0,
+        "y" : -14.0
+      },
       "flipX" : true
     },
     "DOWN_RIGHT" : {
-      "filename" : "Weapon-Sword-Handle-Being_Carried_Down_Left.png"
+      "filename" : "Weapon-Sword-Handle-Being_Carried_Down_Left.png",
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : -14.0
+      }
     },
     "UP_LEFT" : {
       "filename" : "Weapon-Sword-Handle-Being_Carried_Up_Left.png",
+      "offsetPixels" : {
+        "x" : 2.0,
+        "y" : -13.5
+      },
       "flipX" : true
     },
     "UP_RIGHT" : {
-      "filename" : "Weapon-Sword-Handle-Being_Carried_Up_Left.png"
+      "filename" : "Weapon-Sword-Handle-Being_Carried_Up_Left.png",
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : -13.5
+      }
     }
   }
 }, {
@@ -150,7 +206,11 @@
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Weapon-Sword-Above_Layer_1-On_Ground_Down.png"
+      "filename" : "Weapon-Sword-Above_Layer_1-On_Ground_Down.png",
+      "offsetPixels" : {
+        "x" : -5.5,
+        "y" : 8.0
+      }
     }
   }
 } ]

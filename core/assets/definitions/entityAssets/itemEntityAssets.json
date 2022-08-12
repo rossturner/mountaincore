@@ -22464,8 +22464,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -9.0,
-        "y" : 16.0,
+        "x" : -11.0,
+        "y" : 22.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22473,8 +22473,8 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 2.0,
+          "y" : -6.0,
           "unit" : false
         }
       } ],
@@ -22494,8 +22494,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 8.0,
-        "y" : 16.0,
+        "x" : 9.5,
+        "y" : 22.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22503,8 +22503,8 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -1.5,
+          "y" : -6.0,
           "unit" : false
         }
       } ],
@@ -22517,8 +22517,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -6.0,
-        "y" : 14.0,
+        "x" : -8.5,
+        "y" : 20.5,
         "unit" : false
       },
       "flipX" : true,
@@ -22526,8 +22526,8 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 2.5,
+          "y" : -6.5,
           "unit" : false
         }
       } ],
@@ -22540,8 +22540,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 1.0,
-        "y" : 14.0,
+        "x" : 3.5,
+        "y" : 20.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22549,8 +22549,8 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -2.5,
+          "y" : -6.5,
           "unit" : false
         }
       } ],
@@ -22570,8 +22570,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 27.0,
-        "y" : 16.0,
+        "x" : 25.0,
+        "y" : 23.0,
         "unit" : false
       },
       "flipX" : true,
@@ -22579,8 +22579,8 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 2.0,
+          "y" : -7.0,
           "unit" : false
         }
       } ],
@@ -22593,8 +22593,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 10.0,
-        "y" : 8.0,
+        "x" : 12.0,
+        "y" : 15.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22602,8 +22602,8 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -2.0,
+          "y" : -7.0,
           "unit" : false
         }
       } ],
@@ -22635,8 +22635,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 5.5,
+        "y" : -6.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22644,8 +22644,8 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -5.5,
+          "y" : 6.0,
           "unit" : false
         }
       } ],
@@ -22669,8 +22669,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 0.5,
+        "y" : -11.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22684,8 +22684,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -1.5,
+        "y" : -12.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22699,8 +22699,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 2.0,
+        "y" : -14.0,
         "unit" : false
       },
       "flipX" : true,
@@ -22714,8 +22714,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -2.0,
+        "y" : -14.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22729,8 +22729,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 2.0,
+        "y" : -13.5,
         "unit" : false
       },
       "flipX" : true,
@@ -22744,8 +22744,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -2.0,
+        "y" : -13.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22771,8 +22771,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -5.5,
+        "y" : 8.0,
         "unit" : false
       },
       "flipX" : false,
