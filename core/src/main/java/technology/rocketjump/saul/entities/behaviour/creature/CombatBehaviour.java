@@ -14,6 +14,7 @@ import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.ai.goap.actions.EquipWeaponAction;
 import technology.rocketjump.saul.entities.ai.goap.actions.UnequipWeaponAction;
 import technology.rocketjump.saul.entities.components.EntityComponent;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
@@ -155,6 +156,9 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 				CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 				CreatureCombat combat = new CreatureCombat(parentEntity);
 				defensePoolBarEffect.setPoolPercentage((float)combatStateComponent.getDefensePool() / (float) combat.maxDefensePool());
+				FactionComponent factionComponent = parentEntity.getOrCreateComponent(FactionComponent.class);
+				defensePoolBarEffect.setShieldSpriteColor(factionComponent.getFaction().defensePoolShieldColor);
+				defensePoolBarEffect.setProgressBarColor(factionComponent.getFaction().defensePoolBarColor);
 			}
 		}
 	}

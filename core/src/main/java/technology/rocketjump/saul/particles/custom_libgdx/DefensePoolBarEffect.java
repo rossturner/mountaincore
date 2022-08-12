@@ -87,6 +87,14 @@ public class DefensePoolBarEffect implements ParticleEffect {
 		this.progressBarColor = color;
 	}
 
+	public void setShieldSpriteColor(Color shieldSpriteColor) {
+		this.shieldSpriteColor = shieldSpriteColor;
+	}
+
+	public void setProgressBarColor(Color progressBarColor) {
+		this.progressBarColor = progressBarColor;
+	}
+
 	@Override
 	public void adjustForParentOrientation(EntityAssetOrientation effectDefaultOrientation, EntityAssetOrientation parentOrientation) {
 		// Do nothing
