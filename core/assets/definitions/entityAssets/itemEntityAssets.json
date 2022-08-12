@@ -22116,7 +22116,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -17.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22131,8 +22131,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -2.5,
+        "y" : -17.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22147,8 +22147,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 2.5,
+        "y" : -17.0,
         "unit" : false
       },
       "flipX" : true,
@@ -22163,8 +22163,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -2.5,
+        "y" : -17.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22179,8 +22179,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -0.5,
+        "y" : -16.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22195,8 +22195,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -0.5,
+        "y" : -16.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22223,8 +22223,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -15.0,
+        "y" : 13.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22251,8 +22251,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 15.0,
+        "x" : -0.5,
+        "y" : 14.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22260,8 +22260,8 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 0.5,
+          "y" : 0.5,
           "unit" : false
         }
       } ],
@@ -22281,8 +22281,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 9.0,
-        "y" : 16.0,
+        "x" : 8.0,
+        "y" : 15.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22290,8 +22290,8 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 1.0,
+          "y" : 0.5,
           "unit" : false
         }
       } ],
@@ -22311,8 +22311,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -6.0,
-        "y" : 16.0,
+        "x" : -7.0,
+        "y" : 15.0,
         "unit" : false
       },
       "flipX" : true,
@@ -22320,8 +22320,8 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 1.0,
+          "y" : 1.0,
           "unit" : false
         }
       } ],
@@ -22341,8 +22341,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -6.0,
-        "y" : 17.0,
+        "x" : -5.0,
+        "y" : 16.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22350,8 +22350,8 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -1.0,
+          "y" : 1.0,
           "unit" : false
         }
       } ],
@@ -22371,7 +22371,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 31.0,
+        "x" : 31.5,
         "y" : 12.0,
         "unit" : false
       },
@@ -22387,7 +22387,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 9.0,
+        "x" : 8.5,
         "y" : 12.0,
         "unit" : false
       },
@@ -22396,7 +22396,7 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
+          "x" : 0.5,
           "y" : 0.0,
           "unit" : false
         }
@@ -22430,7 +22430,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -0.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22439,7 +22439,7 @@
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 0.5,
           "unit" : false
         }
       } ],

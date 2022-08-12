@@ -8,28 +8,51 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Down.png",
-      "coloringLayer" : "CLOTH_COLOR"
+      "coloringLayer" : "CLOTH_COLOR",
+      "offsetPixels" : {
+        "y" : -17.5
+      }
     },
     "UP" : {
       "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Up.png",
-      "coloringLayer" : "CLOTH_COLOR"
+      "coloringLayer" : "CLOTH_COLOR",
+      "offsetPixels" : {
+        "x" : -2.5,
+        "y" : -17.5
+      }
     },
     "DOWN_LEFT" : {
       "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Down_Left.png",
       "coloringLayer" : "CLOTH_COLOR",
+      "offsetPixels" : {
+        "x" : 2.5,
+        "y" : -17.0
+      },
       "flipX" : true
     },
     "DOWN_RIGHT" : {
       "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Down_Left.png",
-      "coloringLayer" : "CLOTH_COLOR"
+      "coloringLayer" : "CLOTH_COLOR",
+      "offsetPixels" : {
+        "x" : -2.5,
+        "y" : -17.0
+      }
     },
     "UP_LEFT" : {
       "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Up_Left.png",
-      "coloringLayer" : "CLOTH_COLOR"
+      "coloringLayer" : "CLOTH_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -16.0
+      }
     },
     "UP_RIGHT" : {
       "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Up_Left.png",
-      "coloringLayer" : "CLOTH_COLOR"
+      "coloringLayer" : "CLOTH_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -16.0
+      }
     }
   }
 }, {
@@ -42,7 +65,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Battle-Hammer-Grip-On_Ground_Down.png",
-      "coloringLayer" : "CLOTH_COLOR"
+      "coloringLayer" : "CLOTH_COLOR",
+      "offsetPixels" : {
+        "x" : -15.0,
+        "y" : 13.0
+      }
     }
   }
 }, {
@@ -57,10 +84,15 @@
       "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Down.png",
       "coloringLayer" : "METAL_COLOR",
       "offsetPixels" : {
-        "y" : 15.0
+        "x" : -0.5,
+        "y" : 14.5
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.5,
+          "y" : 0.5
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -73,11 +105,15 @@
       "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Up.png",
       "coloringLayer" : "METAL_COLOR",
       "offsetPixels" : {
-        "x" : 9.0,
-        "y" : 16.0
+        "x" : 8.0,
+        "y" : 15.5
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "y" : 0.5
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -90,12 +126,16 @@
       "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Down_Left.png",
       "coloringLayer" : "METAL_COLOR",
       "offsetPixels" : {
-        "x" : -6.0,
-        "y" : 16.0
+        "x" : -7.0,
+        "y" : 15.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "y" : 1.0
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -108,11 +148,15 @@
       "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Down_Left.png",
       "coloringLayer" : "METAL_COLOR",
       "offsetPixels" : {
-        "x" : -6.0,
-        "y" : 17.0
+        "x" : -5.0,
+        "y" : 16.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -1.0,
+          "y" : 1.0
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -126,7 +170,7 @@
       "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Up_Left.png",
       "coloringLayer" : "METAL_COLOR",
       "offsetPixels" : {
-        "x" : 31.0,
+        "x" : 31.5,
         "y" : 12.0
       },
       "flipX" : true
@@ -135,11 +179,14 @@
       "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Up_Left.png",
       "coloringLayer" : "METAL_COLOR",
       "offsetPixels" : {
-        "x" : 9.0,
+        "x" : 8.5,
         "y" : 12.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.5
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -160,8 +207,14 @@
     "DOWN" : {
       "filename" : "Weapon-Battle-Hammer-Main-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "y" : -0.5
+      },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "y" : 0.5
+        }
       } ]
     }
   }
