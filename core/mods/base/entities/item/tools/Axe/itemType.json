@@ -1,12 +1,17 @@
 {
-  "itemTypeName": "Tool-Axe",
-  "materialTypes": ["METAL", "WOOD"],
-  "primaryMaterialType": "METAL",
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "stockpileGroupName": "TOOLS",
-  "holdPosition": "RIGHT_HAND",
-  "impedesMovement": false,
-  "blocksMovement": false,
-  "relatedCraftingTypeNames": ["WOODCUTTING"]
+  "itemTypeId" : 54,
+  "itemTypeName" : "Tool-Axe",
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD", "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "relatedCraftingTypeNames" : [ "WOODCUTTING" ],
+  "stockpileGroupName" : "TOOLS",
+  "weaponInfo" : {
+    "damageType" : "SLASHING",
+    "modifiedByStrength" : true,
+    "minDamage" : 2,
+    "maxDamage" : 2
+  },
+  "i18nKey" : "TOOL.AXE"
 }

@@ -914,7 +914,7 @@
   "itemTypeName" : "Tool-Axe",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
-  "materialTypes" : [ "METAL", "WOOD" ],
+  "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "METAL",
   "holdPosition" : "RIGHT_HAND",
   "impedesMovement" : false,
@@ -924,6 +924,13 @@
   "relatedCraftingTypeNames" : [ "WOODCUTTING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "weaponInfo" : {
+    "range" : 0.0,
+    "damageType" : "SLASHING",
+    "modifiedByStrength" : true,
+    "minDamage" : 2,
+    "maxDamage" : 2
+  },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.AXE"
 }, {
@@ -1001,7 +1008,7 @@
   "itemTypeName" : "Tool-Pickaxe",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
-  "materialTypes" : [ "METAL", "WOOD" ],
+  "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "METAL",
   "holdPosition" : "RIGHT_HAND",
   "impedesMovement" : false,
@@ -1011,6 +1018,13 @@
   "relatedCraftingTypeNames" : [ "SMELTING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "weaponInfo" : {
+    "range" : 0.0,
+    "damageType" : "STABBING",
+    "modifiedByStrength" : true,
+    "minDamage" : 1,
+    "maxDamage" : 3
+  },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PICKAXE"
 }, {
@@ -1168,7 +1182,7 @@
   "i18nKey" : "WEAPON.BOW"
 }, {
   "itemTypeId" : 68,
-  "itemTypeName" : "Weapon-Axe",
+  "itemTypeName" : "Weapon-Battle-Axe",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "WOOD", "METAL" ],
@@ -1189,5 +1203,5 @@
     "maxDamage" : 12
   },
   "describeAsMaterialOnly" : false,
-  "i18nKey" : "WEAPON.AXE"
+  "i18nKey" : "WEAPON.BATTLE.AXE"
 } ]

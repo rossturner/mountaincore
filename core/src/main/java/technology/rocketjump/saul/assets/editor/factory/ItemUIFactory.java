@@ -172,6 +172,10 @@ public class ItemUIFactory implements UIFactory {
         controls.add(nameTextField); //TODO: make editable and update child entity asset types
         controls.row();
 
+        controls.add(WidgetBuilder.label("i18n Key"));
+        controls.add(new VisLabel(itemType.getI18nKey()));
+        controls.row();
+
         controls.add(WidgetBuilder.label("Max Stack Size"));
         controls.add(WidgetBuilder.intSpinner(itemType.getMaxStackSize(), 1, Integer.MAX_VALUE, itemType::setMaxStackSize));
         controls.row();

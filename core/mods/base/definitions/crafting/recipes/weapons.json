@@ -41,5 +41,28 @@
     "materialTypesToCopyOver": ["WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 11.5
+  },
+  {
+    "recipeName": "Forge Axe",
+    "craftingTypeName": "BLACKSMITHING",
+    "input": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Metal-Ingot",
+        "quantity": 1
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Weapon-Battle-Axe",
+        "quantity": 1
+      }
+    ],
+    "materialTypesToCopyOver": ["WOOD", "METAL"],
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 11.5
   }
 ]

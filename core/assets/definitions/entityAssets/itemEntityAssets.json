@@ -18762,6 +18762,106 @@
     }
   }
 }, {
+  "uniqueName" : "Tool-Pickaxe-Extras-Being-Carried",
+  "type" : "BELOW_LAYER_1",
+  "itemTypeName" : "Tool-Pickaxe",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-F.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-F34.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-F34.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B34.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B34.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Tool-Pickaxe-Handle-Being-Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Tool-Pickaxe",
@@ -19082,16 +19182,16 @@
     }
   }
 }, {
-  "uniqueName" : "Tool-Pickaxe-Extras-Being-Carried",
+  "uniqueName" : "Tool-Pickaxe-Extras-On-Ground",
   "type" : "BELOW_LAYER_1",
   "itemTypeName" : "Tool-Pickaxe",
   "minQuantity" : 1,
   "maxQuantity" : 1,
   "itemQualities" : [ ],
-  "itemPlacements" : [ "BEING_CARRIED" ],
+  "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-F.png",
+      "filename" : "Tool-Pickaxe-Extras-On-Ground.png",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
@@ -19100,81 +19200,6 @@
         "unit" : false
       },
       "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-F34.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-F34.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B34.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B34.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
       "flipY" : false,
       "childAssets" : [ ],
       "attachmentPoints" : [ ],
@@ -19233,31 +19258,6 @@
     "DOWN" : {
       "filename" : "Tool-Pickaxe-Head-On-Ground.png",
       "coloringLayer" : "METAL_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Tool-Pickaxe-Extras-On-Ground",
-  "type" : "BELOW_LAYER_1",
-  "itemTypeName" : "Tool-Pickaxe",
-  "minQuantity" : 1,
-  "maxQuantity" : 1,
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Tool-Pickaxe-Extras-On-Ground.png",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
@@ -21742,18 +21742,18 @@
     }
   }
 }, {
-  "uniqueName" : "Weapon-Axe-Handle-Being_Carried",
+  "uniqueName" : "Weapon-Battle-Axe-Handle-Being_Carried",
   "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Weapon-Axe",
+  "itemTypeName" : "Weapon-Battle-Axe",
   "minQuantity" : 1,
   "maxQuantity" : 1,
   "itemSize" : "AVERAGE",
   "itemStyle" : "DEFAULT",
-  "itemQualities" : [ "STANDARD" ],
+  "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Weapon-Axe-Handle-Being_Carried_Down.png",
+      "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -21783,7 +21783,7 @@
       } ]
     },
     "UP" : {
-      "filename" : "Weapon-Axe-Handle-Being_Carried_Up.png",
+      "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Up.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -21806,7 +21806,7 @@
       "parentEntityAssets" : [ ]
     },
     "DOWN_LEFT" : {
-      "filename" : "Weapon-Axe-Handle-Being_Carried_Down_Left.png",
+      "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Down_Left.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -21836,7 +21836,7 @@
       } ]
     },
     "DOWN_RIGHT" : {
-      "filename" : "Weapon-Axe-Handle-Being_Carried_Down_Left.png",
+      "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Down_Left.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -21866,7 +21866,7 @@
       } ]
     },
     "UP_LEFT" : {
-      "filename" : "Weapon-Axe-Handle-Being_Carried_Up_Left.png",
+      "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Up_Left.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -21897,7 +21897,7 @@
       } ]
     },
     "UP_RIGHT" : {
-      "filename" : "Weapon-Axe-Handle-Being_Carried_Up_Left.png",
+      "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Up_Left.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -21928,9 +21928,9 @@
     }
   }
 }, {
-  "uniqueName" : "Weapon-Axe-Handle-On_Ground",
+  "uniqueName" : "Weapon-Battle-Axe-Handle-On_Ground",
   "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Weapon-Axe",
+  "itemTypeName" : "Weapon-Battle-Axe",
   "minQuantity" : 1,
   "maxQuantity" : 1,
   "itemSize" : "AVERAGE",
@@ -21939,7 +21939,7 @@
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Weapon-Axe-Handle-On_Ground_Down.png",
+      "filename" : "Weapon-Battle-Axe-Handle-On_Ground_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -21963,9 +21963,9 @@
     }
   }
 }, {
-  "uniqueName" : "Weapon-Axe-Head-Being_Carried",
+  "uniqueName" : "Weapon-Battle-Axe-Head-Being_Carried",
   "type" : "ABOVE_LAYER_1",
-  "itemTypeName" : "Weapon-Axe",
+  "itemTypeName" : "Weapon-Battle-Axe",
   "minQuantity" : 1,
   "maxQuantity" : 1,
   "itemSize" : "AVERAGE",
@@ -21974,7 +21974,7 @@
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Weapon-Axe-Head-Being_Carried_Down.png",
+      "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Down.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -21990,7 +21990,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP" : {
-      "filename" : "Weapon-Axe-Head-Being_Carried_Up.png",
+      "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Up.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -22006,7 +22006,7 @@
       "parentEntityAssets" : [ ]
     },
     "DOWN_LEFT" : {
-      "filename" : "Weapon-Axe-Head-Being_Carried_Down_Right.png",
+      "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Down_Right.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -22022,7 +22022,7 @@
       "parentEntityAssets" : [ ]
     },
     "DOWN_RIGHT" : {
-      "filename" : "Weapon-Axe-Head-Being_Carried_Down_Right.png",
+      "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Down_Right.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -22038,7 +22038,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Weapon-Axe-Head-Being_Carried_Up_Left.png",
+      "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Up_Left.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -22054,7 +22054,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_RIGHT" : {
-      "filename" : "Weapon-Axe-Head-Being_Carried_Up_Left.png",
+      "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Up_Left.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -22071,9 +22071,9 @@
     }
   }
 }, {
-  "uniqueName" : "Weapon-Axe-Head-On_Ground",
+  "uniqueName" : "Weapon-Battle-Axe-Head-On_Ground",
   "type" : "ABOVE_LAYER_1",
-  "itemTypeName" : "Weapon-Axe",
+  "itemTypeName" : "Weapon-Battle-Axe",
   "minQuantity" : 1,
   "maxQuantity" : 1,
   "itemSize" : "AVERAGE",
@@ -22082,7 +22082,7 @@
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Weapon-Axe-Head-On_Ground_Down.png",
+      "filename" : "Weapon-Battle-Axe-Head-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,

@@ -1,6 +1,6 @@
 {
   "itemTypeId" : 68,
-  "itemTypeName" : "Weapon-Axe",
+  "itemTypeName" : "Weapon-Battle-Axe",
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "METAL",
@@ -13,5 +13,5 @@
     "minDamage" : 3,
     "maxDamage" : 12
   },
-  "i18nKey" : "WEAPON.AXE"
+  "i18nKey" : "WEAPON.BATTLE.AXE"
 }

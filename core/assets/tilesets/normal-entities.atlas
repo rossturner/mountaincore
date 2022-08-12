@@ -7914,70 +7914,70 @@ Vegetable-Crate-Label-Floor
   orig: 65, 46
   offset: 0, 0
   index: -1
-Weapon-Axe-Handle-Being_Carried_Down
+Weapon-Battle-Axe-Handle-Being_Carried_Down
   rotate: false
   xy: 1944, 1661
   size: 17, 27
   orig: 17, 27
   offset: 0, 0
   index: -1
-Weapon-Axe-Handle-Being_Carried_Down_Left
+Weapon-Battle-Axe-Handle-Being_Carried_Down_Left
   rotate: false
   xy: 2475, 3278
   size: 22, 26
   orig: 22, 26
   offset: 0, 0
   index: -1
-Weapon-Axe-Handle-Being_Carried_Up
+Weapon-Battle-Axe-Handle-Being_Carried_Up
   rotate: false
   xy: 3318, 3683
   size: 18, 28
   orig: 18, 28
   offset: 0, 0
   index: -1
-Weapon-Axe-Handle-Being_Carried_Up_Left
+Weapon-Battle-Axe-Handle-Being_Carried_Up_Left
   rotate: false
   xy: 1251, 1138
   size: 22, 26
   orig: 22, 26
   offset: 0, 0
   index: -1
-Weapon-Axe-Handle-On_Ground_Down
+Weapon-Battle-Axe-Handle-On_Ground_Down
   rotate: false
   xy: 2521, 3483
   size: 27, 29
   orig: 27, 29
   offset: 0, 0
   index: -1
-Weapon-Axe-Head-Being_Carried_Down
+Weapon-Battle-Axe-Head-Being_Carried_Down
   rotate: false
   xy: 1187, 1518
   size: 26, 35
   orig: 26, 35
   offset: 0, 0
   index: -1
-Weapon-Axe-Head-Being_Carried_Down_Right
+Weapon-Battle-Axe-Head-Being_Carried_Down_Right
   rotate: false
   xy: 3590, 3646
   size: 31, 34
   orig: 31, 34
   offset: 0, 0
   index: -1
-Weapon-Axe-Head-Being_Carried_Up
+Weapon-Battle-Axe-Head-Being_Carried_Up
   rotate: false
   xy: 3233, 3575
   size: 26, 31
   orig: 26, 31
   offset: 0, 0
   index: -1
-Weapon-Axe-Head-Being_Carried_Up_Left
+Weapon-Battle-Axe-Head-Being_Carried_Up_Left
   rotate: false
   xy: 3522, 3649
   size: 32, 33
   orig: 32, 33
   offset: 0, 0
   index: -1
-Weapon-Axe-Head-On_Ground_Down
+Weapon-Battle-Axe-Head-On_Ground_Down
   rotate: false
   xy: 3133, 3615
   size: 38, 32
