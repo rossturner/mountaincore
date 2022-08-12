@@ -1337,6 +1337,7 @@ WEAPON.BONE.ARROWS.PLURAL,Arrows,,Pfeile,,Freccie,Flechas,,,,Стрелы,,,,,,,
 WEAPON.BOW,Bow,,Bogen,,Arco,Arco,,,,Лук,,,,,,,,弓,弓,
 WEAPON.METAL.ARROWS.NOUN,Arrow,,Pfeil,,Freccia,Flecha,,,,Стрела,,,,,,,,矢,箭矢,
 WEAPON.METAL.ARROWS.PLURAL,Arrows,,Pfeile,,Frecce,Flechas,,,,Стрелы,,,,,,,,矢,箭矢,
+WEAPON.SWORD,Sword,,,,,,,,,,,,,,,,,,,
 WEAPON.UNARMED,Unarmed,,Unbewaffnet,,Disarmato,Desarmado,,,,"Безоружный ",,,,,,,,非武装,赤手空拳,
 
 WEATHER.TYPE.CLOUDY,Cloudy & grey,,Bewölkt & grau,,Nuvoloso e grigio,Gris y nublado,,,,Облачно,,,,,,,,曇,多云,

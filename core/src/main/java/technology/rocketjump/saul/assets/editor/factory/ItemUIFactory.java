@@ -65,7 +65,7 @@ public class ItemUIFactory implements UIFactory {
     private final MessageDispatcher messageDispatcher;
     private final ItemEntityFactory itemEntityFactory;
     private final ItemTypeDictionary itemTypeDictionary;
-    private final ItemAttributesPane itemAttributesPane;
+    private final ItemAttributesPane viewEditorControls;
 
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
     private final CompleteAssetDictionary completeAssetDictionary;
@@ -75,13 +75,13 @@ public class ItemUIFactory implements UIFactory {
 
     @Inject
     public ItemUIFactory(MessageDispatcher messageDispatcher, ItemEntityFactory itemEntityFactory, ItemTypeDictionary itemTypeDictionary,
-                         ItemAttributesPane itemAttributesPane, EntityAssetTypeDictionary entityAssetTypeDictionary,
+                         ItemAttributesPane viewEditorControls, EntityAssetTypeDictionary entityAssetTypeDictionary,
                          CompleteAssetDictionary completeAssetDictionary, CraftingTypeDictionary craftingTypeDictionary,
                          StockpileGroupDictionary stockpileGroupDictionary, SoundAssetDictionary soundAssetDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.itemEntityFactory = itemEntityFactory;
         this.itemTypeDictionary = itemTypeDictionary;
-        this.itemAttributesPane = itemAttributesPane;
+        this.viewEditorControls = viewEditorControls;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.completeAssetDictionary = completeAssetDictionary;
         this.craftingTypeDictionary = craftingTypeDictionary;
@@ -121,8 +121,8 @@ public class ItemUIFactory implements UIFactory {
 
     @Override
     public VisTable getViewEditorControls() {
-        itemAttributesPane.reload();
-        return itemAttributesPane;
+        viewEditorControls.reload();
+        return viewEditorControls;
     }
 
     @Override
@@ -201,7 +201,12 @@ public class ItemUIFactory implements UIFactory {
                         if (!itemType.getMaterialTypes().contains(it)) {
                             itemType.getMaterialTypes().add(it);
                         }
-                    }, itemType.getMaterialTypes()::remove);
+                        viewEditorControls.reload();
+                    },
+                    it -> {
+                        itemType.getMaterialTypes().remove(it);
+                        viewEditorControls.reload();
+                    });
             materialTypeMap.put(materialType, checkBox);
         }
 

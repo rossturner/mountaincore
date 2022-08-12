@@ -75,7 +75,7 @@
       },
       {
         "itemTypeName": "Resource-Metal-Ingot",
-        "quantity": 3
+        "quantity": 2
       }
     ],
     "output": [
@@ -85,6 +85,25 @@
       }
     ],
     "materialTypesToCopyOver": ["CLOTH", "METAL"],
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 11.5
+  },
+  {
+    "recipeName": "Forge Sword",
+    "craftingTypeName": "BLACKSMITHING",
+    "input": [
+      {
+        "itemTypeName": "Resource-Metal-Ingot",
+        "quantity": 3
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Weapon-Sword",
+        "quantity": 1
+      }
+    ],
+    "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 11.5
   }
