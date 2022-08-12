@@ -852,4 +852,21 @@
   "materialTypesToCopyOver" : [ "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
+}, {
+  "recipeName" : "Craft Crossbow",
+  "craftingTypeName" : "BLACKSMITHING",
+  "input" : [ {
+    "itemTypeName" : "Resource-Planks",
+    "quantity" : 1
+  }, {
+    "itemTypeName" : "Resource-Metal-Ingot",
+    "quantity" : 1
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Weapon-Crossbow",
+    "quantity" : 1
+  } ],
+  "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 11.5
 } ]
