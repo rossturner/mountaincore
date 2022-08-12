@@ -8,7 +8,6 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.entities.model.EntityChildAssetDescriptor;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.messaging.MessageType;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +27,6 @@ public class ChildAssetsWidget extends VisTable {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				sourceData.add(new EntityChildAssetDescriptor());
-				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, currentEntity);
 				reload();
 			}
 		});

@@ -1,0 +1,170 @@
+[ {
+  "uniqueName" : "Weapon-Axe-Handle-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Axe",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ "STANDARD" ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Axe-Handle-Being_Carried_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : 20.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 3.0,
+          "y" : -12.0
+        }
+      } ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Axe-Handle-Being_Carried_Up.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : 12.0,
+        "y" : 13.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Axe-Handle-Being_Carried_Down_Left.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : 18.0,
+        "y" : 18.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "ATTACHMENT_RIGHT_HAND"
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Axe-Handle-Being_Carried_Down_Left.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -16.0,
+        "y" : 18.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 10.0,
+          "y" : -12.0
+        }
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Axe-Handle-Being_Carried_Up_Left.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : 34.0,
+        "y" : 13.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_6",
+        "overrideRenderLayer" : 0
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Axe-Handle-Being_Carried_Up_Left.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -3.0,
+        "y" : 13.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 8.0,
+          "y" : -13.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Axe-Handle-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Axe",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Axe-Handle-On_Ground_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Axe-Head-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Axe",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Axe-Head-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    },
+    "UP" : {
+      "filename" : "Weapon-Axe-Head-Being_Carried_Up.png",
+      "coloringLayer" : "METAL_COLOR"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Axe-Head-Being_Carried_Down_Right.png",
+      "coloringLayer" : "METAL_COLOR"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Axe-Head-Being_Carried_Down_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "flipX" : true
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Axe-Head-Being_Carried_Up_Left.png",
+      "coloringLayer" : "METAL_COLOR"
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Axe-Head-Being_Carried_Up_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "flipX" : true
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Axe-Head-On_Ground",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Axe",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Axe-Head-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    }
+  }
+} ]

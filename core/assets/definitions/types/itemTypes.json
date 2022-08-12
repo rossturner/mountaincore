@@ -1166,4 +1166,28 @@
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BOW"
+}, {
+  "itemTypeId" : 68,
+  "itemTypeName" : "Weapon-Axe",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD", "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "weaponInfo" : {
+    "range" : 0.0,
+    "damageType" : "SLASHING",
+    "modifiedByStrength" : true,
+    "minDamage" : 3,
+    "maxDamage" : 12
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.AXE"
 } ]
