@@ -1,0 +1,123 @@
+[ {
+  "uniqueName" : "Weapon-Metal-Bolts-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Metal-Bolts",
+  "maxQuantity" : 50,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -8.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 15.0,
+          "y" : -8.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -15.0,
+          "y" : -9.0
+        }
+      } ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "scale" : 0.7
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 5.0,
+        "y" : -11.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 19.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -15.0,
+          "y" : -6.0
+        }
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -5.0,
+        "y" : -9.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 14.0,
+          "y" : -3.0
+        },
+        "overrideRenderLayer" : -100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : -10.0
+        }
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -4.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -10.0,
+          "y" : -12.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -4.0,
+        "y" : -5.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 13.0,
+          "y" : -8.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Metal-Bolts",
+  "maxQuantity" : 50,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png"
+    }
+  }
+} ]

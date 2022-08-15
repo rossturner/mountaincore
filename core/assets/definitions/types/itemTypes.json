@@ -1154,6 +1154,24 @@
   "i18nKey" : "WEAPON.METAL.ARROWS"
 }, {
   "itemTypeId" : 67,
+  "itemTypeName" : "Weapon-Metal-Bolts",
+  "maxStackSize" : 50,
+  "maxHauledAtOnce" : 50,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "FLETCHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "isAmmoType" : "BOLTS",
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.METAL.BOLTS"
+}, {
+  "itemTypeId" : 68,
   "itemTypeName" : "Weapon-Bow",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1181,7 +1199,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BOW"
 }, {
-  "itemTypeId" : 68,
+  "itemTypeId" : 69,
   "itemTypeName" : "Weapon-Battle-Axe",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1205,7 +1223,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.AXE"
 }, {
-  "itemTypeId" : 69,
+  "itemTypeId" : 70,
   "itemTypeName" : "Weapon-Battle-Hammer",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1229,7 +1247,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.HAMMER"
 }, {
-  "itemTypeId" : 70,
+  "itemTypeId" : 71,
   "itemTypeName" : "Weapon-Crossbow",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1254,7 +1272,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.CROSSBOW"
 }, {
-  "itemTypeId" : 71,
+  "itemTypeId" : 72,
   "itemTypeName" : "Weapon-Sword",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,

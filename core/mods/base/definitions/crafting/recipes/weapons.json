@@ -24,6 +24,25 @@
     "maximumTimeToCompleteCrafting": 8.5
   },
   {
+    "recipeName": "Fletch metal bolts",
+    "craftingTypeName": "FLETCHING",
+    "verbOverrideI18nKey": "CRAFTING_TYPE.FLETCHING",
+    "input": [
+      {
+        "itemTypeName": "Resource-Metal-Ingot",
+        "quantity": 1
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Weapon-Metal-Bolts",
+        "quantity": 15
+      }
+    ],
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 8.5
+  },
+  {
     "recipeName": "Craft wooden bow",
     "craftingTypeName": "FLETCHING",
     "input": [

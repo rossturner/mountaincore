@@ -1338,6 +1338,8 @@ WEAPON.BOW,Bow,,Bogen,,Arco,Arco,,,,Лук,,,,,,,,弓,弓,
 WEAPON.CROSSBOW,Crossbow,,,,,,,,,,,,,,,,,,,
 WEAPON.METAL.ARROWS.NOUN,Arrow,,Pfeil,,Freccia,Flecha,,,,Стрела,,,,,,,,矢,箭矢,
 WEAPON.METAL.ARROWS.PLURAL,Arrows,,Pfeile,,Frecce,Flechas,,,,Стрелы,,,,,,,,矢,箭矢,
+WEAPON.METAL.BOLTS.NOUN,Bolt,,,,,,,,,,,,,,,,,,,
+WEAPON.METAL.BOLTS.PLURAL,Bolts,,,,,,,,,,,,,,,,,,,
 WEAPON.SWORD,Sword,,,,,,,,,,,,,,,,,,,
 WEAPON.UNARMED,Unarmed,,Unbewaffnet,,Disarmato,Desarmado,,,,"Безоружный ",,,,,,,,非武装,赤手空拳,
 
