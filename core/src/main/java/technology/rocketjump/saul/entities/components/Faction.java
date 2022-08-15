@@ -9,10 +9,10 @@ import technology.rocketjump.saul.rendering.utils.HexColors;
 public enum Faction {
 
 	SETTLEMENT("#74d7e9", "#80ecff"),
-	WILD_ANIMALS("#74e990", "#80ffaa"),
-	MONSTERS("#e97474", "#ff8080"),
-	HOSTILE_INVASION("#ffbb80", "#e9b274"),
-	MERCHANTS("#e674e9", "#ff80fe");
+	WILD_ANIMALS("#c2c285", "#cfcf5a"),
+	MONSTERS("#857ab8", "#6549e4"),
+	HOSTILE_INVASION("#e69e66", "#f0c566"),
+	MERCHANTS("#ffcbd7", "#b87a99");
 
 	public final Color defensePoolShieldColor;
 	public final Color defensePoolBarColor;

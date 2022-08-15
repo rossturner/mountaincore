@@ -3,6 +3,7 @@ package technology.rocketjump.saul.combat;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -10,7 +11,7 @@ import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
-import technology.rocketjump.saul.entities.ai.combat.CreatureCombat;
+import technology.rocketjump.saul.entities.ai.combat.*;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
@@ -35,6 +36,8 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttribu
 import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.mapping.tile.CompassDirection;
+import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
 
@@ -213,6 +216,8 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 				defenderBehaviour.getCombatBehaviour().attackedInCombat(attackMessage.attackerEntity);
 			}
 
+			handleKnockback(attackMessage);
+
 			if (damageAmount <= 0) {
 				return;
 			}
@@ -273,6 +278,85 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		} else {
 			Logger.warn("TODO: Damage application to non-creature entities");
 		}
+	}
+
+	private void handleKnockback(CombatAttackMessage attackMessage) {
+		CreatureBehaviour defenderBeahviour = (CreatureBehaviour) attackMessage.defenderEntity.getBehaviourComponent();
+		if (shouldApplyKnockback(defenderBeahviour)) {
+			GridPoint2 defenderTilePosition = toGridPoint(attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition());
+			List<CompassDirection> pushbackDirections = CompassDirection.fromNormalisedVector(
+					attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition().cpy()
+							.sub(attackMessage.attackerEntity.getLocationComponent().getWorldOrParentPosition()).nor()
+			).withNeighbours();
+
+			List<MapTile> navigablePushbackTiles = new ArrayList<>();
+			for (CompassDirection direction : pushbackDirections) {
+				MapTile tile = gameContext.getAreaMap().getTile(
+						defenderTilePosition.x + direction.getXOffset(),
+						defenderTilePosition.y + direction.getYOffset()
+				);
+				if (tile != null && tile.isNavigable(attackMessage.defenderEntity)) {
+					navigablePushbackTiles.add(tile);
+				}
+			}
+
+			if (navigablePushbackTiles.isEmpty()) {
+				return;
+			} // else can definitely push back somewhere
+
+			List<MapTile> emptyPushbackTiles = navigablePushbackTiles.stream()
+					.filter(tile ->
+							tile.getEntities().stream()
+									.noneMatch(entity -> {
+										CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
+										if (combatStateComponent == null || !combatStateComponent.isInCombat() || combatStateComponent.getHeldLocation() == null) {
+											return false;
+										} else {
+											return combatStateComponent.getHeldLocation().equals(toGridPoint(entity.getLocationComponent().getWorldOrParentPosition()));
+										}
+									})
+					).toList();
+
+			if (!emptyPushbackTiles.isEmpty()) {
+				MapTile targetTile = emptyPushbackTiles.get(gameContext.getRandom().nextInt(emptyPushbackTiles.size()));
+				triggerKnockback(defenderTilePosition, targetTile, attackMessage);
+			} else {
+				// all knockback tiles have a combatant in them, pick one and knock back that combatant also
+				MapTile targetTile = navigablePushbackTiles.get(gameContext.getRandom().nextInt(navigablePushbackTiles.size()));
+				triggerKnockback(defenderTilePosition, targetTile, attackMessage);
+
+				targetTile.getEntities().forEach(entity -> {
+					CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
+					if (combatStateComponent != null && combatStateComponent.isInCombat() && combatStateComponent.getHeldLocation() != null &&
+							combatStateComponent.getHeldLocation().equals(targetTile.getTilePosition())) {
+						handleKnockback(new CombatAttackMessage(attackMessage.defenderEntity, entity, null, null));
+					}
+				});
+			}
+		}
+	}
+
+	private void triggerKnockback(GridPoint2 fromTile, MapTile targetTile, CombatAttackMessage message) {
+		if (message.attackerEntity.getBehaviourComponent() instanceof CreatureBehaviour attackerBehaviour) {
+			if (attackerBehaviour.getCombatBehaviour().getCurrentAction() instanceof AttackCreatureCombatAction attackAction) {
+				attackAction.setFollowUpKnockbackTo(fromTile);
+			}
+		}
+		if (message.defenderEntity.getBehaviourComponent() instanceof CreatureBehaviour defenderBehaviour) {
+			CombatStateComponent defenderCombatState = message.defenderEntity.getComponent(CombatStateComponent.class);
+			if (defenderCombatState.isInCombat()) {
+				CombatAction currentDefenderAction = defenderBehaviour.getCombatBehaviour().getCurrentAction();
+				if (!(currentDefenderAction instanceof KnockBackCombatAction)) {
+					defenderBehaviour.getCombatBehaviour().immediateKnockbackTo(targetTile.getTilePosition());
+				}
+			} else {
+				defenderBehaviour.getCombatBehaviour().setPendingKnockback(targetTile.getTilePosition());
+			}
+		}
+	}
+
+	private boolean shouldApplyKnockback(CreatureBehaviour defenderBeahviour) {
+		return gameContext.getRandom().nextBoolean() && !(defenderBeahviour.getCombatBehaviour().getCurrentAction() instanceof FleeFromCombatAction);
 	}
 
 	/**

@@ -2,6 +2,7 @@ package technology.rocketjump.saul.entities.ai.combat;
 
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.combat.model.WeaponAttack;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
@@ -17,6 +18,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.CombatAttackMessage;
 import technology.rocketjump.saul.messaging.types.ParticleRequestMessage;
 import technology.rocketjump.saul.particles.model.ParticleEffectInstance;
+import technology.rocketjump.saul.persistence.JSONUtils;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
@@ -36,6 +38,7 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 	private boolean attackMade; // done halfway through attackDuration - actual calculation of hit/miss with weapon
 	private ParticleEffectInstance effectInstance; // transient
 	private Long overrideTarget;
+	private GridPoint2 followUpKnockbackTo;
 
 	public AttackCreatureCombatAction(Entity parentEntity) {
 		super(parentEntity);
@@ -207,6 +210,14 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 		this.overrideTarget = overrideTarget;
 	}
 
+	public void setFollowUpKnockbackTo(GridPoint2 followUpKnockbackTo) {
+		this.followUpKnockbackTo = followUpKnockbackTo;
+	}
+
+	public GridPoint2 getFollowUpKnockbackTo() {
+		return followUpKnockbackTo;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		super.writeTo(asJson, savedGameStateHolder);
@@ -220,6 +231,9 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 		if (overrideTarget != null) {
 			asJson.put("overrideTarget", overrideTarget);
 		}
+		if (followUpKnockbackTo != null) {
+			asJson.put("followUpKnockbackTo", JSONUtils.toJSON(followUpKnockbackTo));
+		}
 	}
 
 	@Override
@@ -231,6 +245,7 @@ public class AttackCreatureCombatAction extends CombatAction implements Particle
 		this.attackDurationElapsed = asJson.getFloatValue("attackDurationElapsed");
 		this.attackMade = asJson.getBooleanValue("attackMade");
 		this.overrideTarget = asJson.getLong("overrideTarget");
+		this.followUpKnockbackTo = JSONUtils.gridPoint2(asJson.getJSONObject("followUpKnockbackTo"));
 	}
 
 	@Override

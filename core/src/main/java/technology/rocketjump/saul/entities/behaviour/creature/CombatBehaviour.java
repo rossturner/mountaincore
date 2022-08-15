@@ -36,6 +36,7 @@ import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.particles.custom_libgdx.DefensePoolBarEffect;
 import technology.rocketjump.saul.particles.model.ParticleEffectInstance;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
+import technology.rocketjump.saul.persistence.JSONUtils;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
@@ -45,6 +46,7 @@ import java.util.*;
 import static technology.rocketjump.saul.combat.CombatMessageHandler.getOrientationsOppositeTo;
 import static technology.rocketjump.saul.entities.ai.goap.Goal.NULL_GOAL;
 import static technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse.ATTACK;
+import static technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse.FLEE;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
 // Although this is coded as a Component, it is always encapsulated in CreatureBehaviour
@@ -60,6 +62,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 
 	private CombatAction currentAction;
 	private AttackCreatureCombatAction attackOfOpportunityAction;
+	private GridPoint2 pendingKnockback;
 	private transient ParticleEffectType defensePoolEffectType;
 	private transient ParticleEffectInstance defensePoolEffect;
 
@@ -125,8 +128,24 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	public void update(float deltaTime) throws ExitingCombatException {
 		if (currentAction != null) {
 			currentAction.update(deltaTime, gameContext, messageDispatcher);
-			if (currentAction instanceof FleeFromCombatAction && currentAction.isCompleted()) {
-				throw new ExitingCombatException();
+
+			// special cases to switch action mid-round
+			if (currentAction.isCompleted()) {
+				if (currentAction instanceof FleeFromCombatAction) {
+					throw new ExitingCombatException();
+				}
+				if (currentAction instanceof AttackCreatureCombatAction attackAction) {
+					if (attackAction.getFollowUpKnockbackTo() != null) {
+						CombatAction previousAction = currentAction;
+						KnockBackCombatAction newAction = new KnockBackCombatAction(parentEntity);
+						newAction.setStartLocation(parentEntity.getLocationComponent().getWorldOrParentPosition());
+						newAction.setTargetLocation(attackAction.getFollowUpKnockbackTo());
+						this.currentAction = newAction;
+						messageDispatcher.dispatchMessage(MessageType.COMBAT_ACTION_CHANGED, new CombatActionChangedMessage(
+								parentEntity, previousAction, newAction
+						));
+					}
+				}
 			}
 		}
 
@@ -139,6 +158,23 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		}
 
 		updateWhenPaused();
+	}
+
+	public void immediateKnockbackTo(GridPoint2 targetTile) {
+		CombatAction previousAction = currentAction;
+
+		KnockBackCombatAction newAction = new KnockBackCombatAction(parentEntity);
+		newAction.setStartLocation(parentEntity.getLocationComponent().getWorldOrParentPosition());
+		newAction.setTargetLocation(targetTile);
+
+		this.currentAction = newAction;
+
+		if (previousAction != null) {
+			previousAction.interrupted(messageDispatcher);
+			messageDispatcher.dispatchMessage(MessageType.COMBAT_ACTION_CHANGED, new CombatActionChangedMessage(
+					parentEntity, previousAction, newAction
+			));
+		}
 	}
 
 	public void updateWhenPaused() {
@@ -178,7 +214,13 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	}
 
 	private CombatAction initialCombatAction() {
-		if (getAggressionResponse().equals(ATTACK)) {
+		if (pendingKnockback != null) {
+			KnockBackCombatAction knockBackCombatAction = new KnockBackCombatAction(parentEntity);
+			knockBackCombatAction.setTargetLocation(pendingKnockback);
+			knockBackCombatAction.setStartLocation(parentEntity.getLocationComponent().getWorldOrParentPosition());
+			this.pendingKnockback = null;
+			return knockBackCombatAction;
+		} else if (getAggressionResponse().equals(ATTACK)) {
 			return attackOrDefendAgainstOpponentAction();
 		} else {
 			return new FleeFromCombatAction(parentEntity);
@@ -302,7 +344,9 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	private CombatAction attackOrDefendAgainstOpponentAction() {
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 		if (combatStateComponent.isHasInitiative()) {
-			if (isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()))) {
+			if (getAggressionResponse().equals(FLEE)) {
+				return new FleeFromCombatAction(parentEntity);
+			} else if (isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()))) {
 				return new AttackCreatureCombatAction(parentEntity);
 			} else {
 				return new MoveInRangeOfTargetCombatAction(parentEntity);
@@ -412,6 +456,10 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		}
 	}
 
+	public void setPendingKnockback(GridPoint2 pendingKnockback) {
+		this.pendingKnockback = pendingKnockback;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		if (currentAction != null) {
@@ -425,6 +473,10 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 			JSONObject actionJson = new JSONObject(true);
 			attackOfOpportunityAction.writeTo(actionJson, savedGameStateHolder);
 			asJson.put("attackOfOpportunityAction", actionJson);
+		}
+
+		if (pendingKnockback != null) {
+			asJson.put("pendingKnockback", JSONUtils.toJSON(pendingKnockback));
 		}
 	}
 
@@ -443,6 +495,8 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 			this.attackOfOpportunityAction = new AttackCreatureCombatAction(Entity.NULL_ENTITY);
 			this.attackOfOpportunityAction.readFrom(asJson, savedGameStateHolder, relatedStores);
 		}
+
+		this.pendingKnockback = JSONUtils.gridPoint2(asJson.getJSONObject("pendingKnockback"));
 	}
 
 	@Override
