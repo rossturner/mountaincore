@@ -6,15 +6,22 @@
   "validMaterialTypes" : [ "WOOD" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Base_Layer-Wood_Down.png",
+      "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Base_Layer-Wood_Down-Rocky.png",
       "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
-        "x" : -97.0
+        "x" : -80.0,
+        "y" : 11.0
       },
       "childAssets" : [ {
-        "type" : "FURNITURE_ABOVE_LAYER_1"
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -15.0
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_2"
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : -16.0
+        }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_3"
       }, {
