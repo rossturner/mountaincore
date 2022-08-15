@@ -1,5 +1,5 @@
 {
-  "itemTypeId" : 69,
+  "itemTypeId" : 70,
   "itemTypeName" : "Weapon-Battle-Hammer",
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "METAL" ],
@@ -8,6 +8,7 @@
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "weaponInfo" : {
+    "range" : 1,
     "damageType" : "CRUSHING",
     "modifiedByStrength" : true,
     "minDamage" : 4,

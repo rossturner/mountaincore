@@ -1,5 +1,5 @@
 {
-  "itemTypeId" : 67,
+  "itemTypeId" : 68,
   "itemTypeName" : "Weapon-Bow",
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "WOOD" ],

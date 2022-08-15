@@ -925,7 +925,7 @@
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "weaponInfo" : {
-    "range" : 0.0,
+    "range" : 1,
     "damageType" : "SLASHING",
     "modifiedByStrength" : true,
     "minDamage" : 2,
@@ -1019,7 +1019,7 @@
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "weaponInfo" : {
-    "range" : 0.0,
+    "range" : 1,
     "damageType" : "STABBING",
     "modifiedByStrength" : true,
     "minDamage" : 1,
@@ -1186,7 +1186,7 @@
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "weaponInfo" : {
-    "range" : 9.0,
+    "range" : 9,
     "damageType" : "STABBING",
     "modifiedByStrength" : false,
     "minDamage" : 2,
@@ -1214,7 +1214,7 @@
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "weaponInfo" : {
-    "range" : 0.0,
+    "range" : 1,
     "damageType" : "SLASHING",
     "modifiedByStrength" : true,
     "minDamage" : 3,
@@ -1238,7 +1238,7 @@
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "weaponInfo" : {
-    "range" : 0.0,
+    "range" : 1,
     "damageType" : "CRUSHING",
     "modifiedByStrength" : true,
     "minDamage" : 4,
@@ -1262,7 +1262,7 @@
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "weaponInfo" : {
-    "range" : 9.0,
+    "range" : 9,
     "damageType" : "STABBING",
     "modifiedByStrength" : false,
     "minDamage" : 2,
@@ -1287,7 +1287,7 @@
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "weaponInfo" : {
-    "range" : 0.0,
+    "range" : 1,
     "damageType" : "SLASHING",
     "modifiedByStrength" : true,
     "minDamage" : 2,

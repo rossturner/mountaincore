@@ -8,6 +8,7 @@
   "relatedCraftingTypeNames" : [ "WOODCUTTING" ],
   "stockpileGroupName" : "TOOLS",
   "weaponInfo" : {
+    "range" : 1,
     "damageType" : "SLASHING",
     "modifiedByStrength" : true,
     "minDamage" : 2,

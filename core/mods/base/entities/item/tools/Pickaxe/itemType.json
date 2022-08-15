@@ -8,6 +8,7 @@
   "relatedCraftingTypeNames" : [ "SMELTING" ],
   "stockpileGroupName" : "TOOLS",
   "weaponInfo" : {
+    "range" : 1,
     "damageType" : "STABBING",
     "modifiedByStrength" : true,
     "minDamage" : 1,

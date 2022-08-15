@@ -1,5 +1,5 @@
 {
-  "itemTypeId" : 70,
+  "itemTypeId" : 71,
   "itemTypeName" : "Weapon-Crossbow",
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "WOOD" ],
@@ -8,7 +8,7 @@
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "weaponInfo" : {
-    "range" : 9.0,
+    "range" : 9,
     "damageType" : "STABBING",
     "minDamage" : 2,
     "maxDamage" : 8,

@@ -1,5 +1,5 @@
 {
-  "itemTypeId" : 68,
+  "itemTypeId" : 69,
   "itemTypeName" : "Weapon-Battle-Axe",
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "WOOD", "METAL" ],
@@ -8,6 +8,7 @@
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "weaponInfo" : {
+    "range" : 1,
     "damageType" : "SLASHING",
     "modifiedByStrength" : true,
     "minDamage" : 3,
