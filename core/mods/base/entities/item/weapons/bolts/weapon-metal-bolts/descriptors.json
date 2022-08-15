@@ -11,6 +11,7 @@
       "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
       "offsetPixels" : {
+        "x" : -0.5,
         "y" : -8.0
       },
       "parentEntityAssets" : [ {
@@ -30,13 +31,16 @@
     },
     "UP" : {
       "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5
+      }
     },
     "DOWN_LEFT" : {
       "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
       "offsetPixels" : {
-        "x" : 5.0,
+        "x" : 4.5,
         "y" : -11.0
       },
       "parentEntityAssets" : [ {
@@ -58,7 +62,7 @@
       "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
       "offsetPixels" : {
-        "x" : -5.0,
+        "x" : -5.5,
         "y" : -9.0
       },
       "parentEntityAssets" : [ {
@@ -80,6 +84,7 @@
       "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
       "offsetPixels" : {
+        "x" : -0.5,
         "y" : -4.0
       },
       "parentEntityAssets" : [ {
@@ -95,7 +100,7 @@
       "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
       "offsetPixels" : {
-        "x" : -4.0,
+        "x" : -4.5,
         "y" : -5.0
       },
       "parentEntityAssets" : [ {
@@ -117,7 +122,10 @@
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png"
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "offsetPixels" : {
+        "x" : -0.5
+      }
     }
   }
 } ]

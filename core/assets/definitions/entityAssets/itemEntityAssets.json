@@ -21563,7 +21563,7 @@
       "isAnimated" : false,
       "scale" : 0.7,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : -0.5,
         "y" : -8.0,
         "unit" : false
       },
@@ -21593,7 +21593,7 @@
       "isAnimated" : false,
       "scale" : 0.7,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : -0.5,
         "y" : 0.0,
         "unit" : false
       },
@@ -21608,7 +21608,7 @@
       "isAnimated" : false,
       "scale" : 0.7,
       "offsetPixels" : {
-        "x" : 5.0,
+        "x" : 4.5,
         "y" : -11.0,
         "unit" : false
       },
@@ -21638,7 +21638,7 @@
       "isAnimated" : false,
       "scale" : 0.7,
       "offsetPixels" : {
-        "x" : -5.0,
+        "x" : -5.5,
         "y" : -9.0,
         "unit" : false
       },
@@ -21668,7 +21668,7 @@
       "isAnimated" : false,
       "scale" : 0.7,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : -0.5,
         "y" : -4.0,
         "unit" : false
       },
@@ -21691,7 +21691,7 @@
       "isAnimated" : false,
       "scale" : 0.7,
       "offsetPixels" : {
-        "x" : -4.0,
+        "x" : -4.5,
         "y" : -5.0,
         "unit" : false
       },
@@ -21725,7 +21725,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : -0.5,
         "y" : 0.0,
         "unit" : false
       },
