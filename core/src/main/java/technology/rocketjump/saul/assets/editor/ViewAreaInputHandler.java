@@ -9,8 +9,9 @@ import com.google.inject.Inject;
 
 public class ViewAreaInputHandler implements InputProcessor {
 
+	public static final int NO_BUTTON = -1;
 	private final OrthographicCamera camera;
-	protected int button = -1;
+	protected int button = NO_BUTTON;
 	private float startX, startY;
 	public float translateUnits = 10f;
 	private final Vector3 tmpV1 = new Vector3();
@@ -46,7 +47,7 @@ public class ViewAreaInputHandler implements InputProcessor {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		this.button = -1;
+		this.button = NO_BUTTON;
 		return true;
 	}
 
@@ -59,9 +60,8 @@ public class ViewAreaInputHandler implements InputProcessor {
 			startX = screenX;
 			startY = screenY;
 
-			float zoomedTranslation = translateUnits * camera.zoom;
-			camera.translate(tmpV1.set(camera.direction).crs(camera.up).nor().scl(-deltaX * zoomedTranslation));
-			camera.translate(tmpV2.set(camera.up).scl(-deltaY * zoomedTranslation));
+			camera.translate(tmpV1.set(camera.direction).crs(camera.up).nor().scl(-deltaX * translateUnits));
+			camera.translate(tmpV2.set(camera.up).scl(-deltaY * translateUnits));
 		}
 		return true;
 	}

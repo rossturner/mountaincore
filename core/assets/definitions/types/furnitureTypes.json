@@ -617,58 +617,36 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
-  "name" : "STONEMASON_WORKBENCH",
+  "name" : "Stonemason_Bench",
   "i18nKey" : "FURNITURE.STONEMASON_WORKBENCH",
   "blocksMovement" : true,
-  "defaultLayoutName" : "3x2",
-  "colorCode" : "#c9c9c9",
+  "defaultLayoutName" : "stonemason-bench-layout",
+  "colorCode" : "#C9C9C9",
   "iconName" : "stone-pile",
   "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
-      "itemTypeName" : "Resource-Stone-Block",
-      "quantity" : 6,
+      "itemTypeName" : "Tool-Chisel",
+      "quantity" : 1,
       "liquid" : false
     }, {
       "itemTypeName" : "Tool-Small-Hammer",
       "quantity" : 1,
       "liquid" : false
     }, {
-      "itemTypeName" : "Tool-Chisel",
-      "quantity" : 1,
+      "itemTypeName" : "Resource-Stone-Unrefined",
+      "quantity" : 3,
       "liquid" : false
-    } ],
-    "WOOD" : [ {
+    }, {
       "itemTypeName" : "Resource-Planks",
-      "quantity" : 6,
-      "liquid" : false
-    }, {
-      "itemTypeName" : "Tool-Small-Hammer",
-      "quantity" : 1,
-      "liquid" : false
-    }, {
-      "itemTypeName" : "Tool-Chisel",
-      "quantity" : 1,
-      "liquid" : false
-    } ],
-    "METAL" : [ {
-      "itemTypeName" : "Resource-Metal-Ingot",
-      "quantity" : 12,
-      "liquid" : false
-    }, {
-      "itemTypeName" : "Tool-Small-Hammer",
-      "quantity" : 1,
-      "liquid" : false
-    }, {
-      "itemTypeName" : "Tool-Chisel",
-      "quantity" : 1,
+      "quantity" : 3,
       "liquid" : false
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "STONEMASONRY", "CRAFT_ITEM", "HAULING" ],
-    "DECORATION_FROM_INPUT" : [ "Tool-Small-Hammer", "Tool-Chisel" ]
+    "DECORATION_FROM_INPUT" : [ "Tool-Small-Hammer", "Tool-Chisel" ],
+    "CRAFTING_STATION_BEHAVIOUR" : [ "STONEMASONRY", "CRAFT_ITEM", "HAULING" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {

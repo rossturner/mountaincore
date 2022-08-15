@@ -185,26 +185,31 @@ public class SpriteCropper {
 
                         directionJson.add("offsetPixels", originalOffset);
 
-                        JsonArray childAssets = directionJson.getAsJsonArray("childAssets");
-                        if (childAssets != null) {
-                            for (int childCursor = 0; childCursor < childAssets.size(); childCursor++) {
-                                JsonObject childAssetJson = childAssets.get(childCursor).getAsJsonObject();
-                                JsonObject childOffsetJson = childAssetJson.getAsJsonObject("offsetPixels");
-                                if (childOffsetJson == null) {
-                                    childOffsetJson = new JsonObject();
-                                }
-                                Vector2 childOffsetVec = new Vector2(
-                                        childOffsetJson.get("x") == null ? 0f : childOffsetJson.get("x").getAsFloat(),
-                                        childOffsetJson.get("y") == null ? 0f : childOffsetJson.get("y").getAsFloat()
-                                );
-                                childOffsetVec.sub(newOffset);
-                                childOffsetJson.addProperty("x", childOffsetVec.x);
-                                childOffsetJson.addProperty("y", childOffsetVec.y);
-                                childAssetJson.add("offsetPixels", childOffsetJson);
-                            }
-                        }
+                        processRelatedAssets(newOffset, directionJson.getAsJsonArray("childAssets"));
+                        processRelatedAssets(newOffset, directionJson.getAsJsonArray("parentEntityAssets"));
+                        processRelatedAssets(newOffset, directionJson.getAsJsonArray("attachmentPoints"));
                     }
                 }
+            }
+        }
+    }
+
+    private void processRelatedAssets(Vector2 newOffset, JsonArray childAssets) {
+        if (childAssets != null) {
+            for (int childCursor = 0; childCursor < childAssets.size(); childCursor++) {
+                JsonObject childAssetJson = childAssets.get(childCursor).getAsJsonObject();
+                JsonObject childOffsetJson = childAssetJson.getAsJsonObject("offsetPixels");
+                if (childOffsetJson == null) {
+                    childOffsetJson = new JsonObject();
+                }
+                Vector2 childOffsetVec = new Vector2(
+                        childOffsetJson.get("x") == null ? 0f : childOffsetJson.get("x").getAsFloat(),
+                        childOffsetJson.get("y") == null ? 0f : childOffsetJson.get("y").getAsFloat()
+                );
+                childOffsetVec.sub(newOffset);
+                childOffsetJson.addProperty("x", childOffsetVec.x);
+                childOffsetJson.addProperty("y", childOffsetVec.y);
+                childAssetJson.add("offsetPixels", childOffsetJson);
             }
         }
     }

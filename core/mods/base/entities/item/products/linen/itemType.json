@@ -1,10 +1,11 @@
 {
-  "itemTypeName": "Product-Linen",
-  "materialTypes": ["CLOTH"],
-  "primaryMaterialType": "CLOTH",
-  "stockpileGroupName": "PRODUCTS",
-  "hoursInInventoryUntilUnused": 1,
-  "maxStackSize": 4,
-  "maxHauledAtOnce": 1,
-  "equippedWhileWorkingOnJob": true
+  "itemTypeId" : 25,
+  "itemTypeName" : "Product-Linen",
+  "maxStackSize" : 12,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "CLOTH" ],
+  "primaryMaterialType" : "CLOTH",
+  "hoursInInventoryUntilUnused" : 1.0,
+  "stockpileGroupName" : "PRODUCTS",
+  "i18nKey" : "PRODUCT.LINEN"
 }
