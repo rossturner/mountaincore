@@ -1,0 +1,23 @@
+{
+  "name" : "Leatherworking_Station",
+  "i18nKey" : "FURNITURE.LEATHERWORKING_STATION",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "leatherwork-bench-layout",
+  "colorCode" : "#AA7252",
+  "iconName" : "animal-hide",
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 3
+    }, {
+      "itemTypeName" : "Product-Barrel-Hoops",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Tool-Chisel",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Tool-Kitchen-Knife",
+      "quantity" : 1
+    } ]
+  }
+}

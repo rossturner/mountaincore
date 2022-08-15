@@ -1045,5 +1045,21 @@
         "accessedFrom": { "x": -2, "y": -1 }
       }
     ]
+  },
+  {
+    "uniqueName": "leatherwork-bench-layout",
+    "rotatesToName": null,
+    "extraTiles": [
+      { "x": 0, "y": -1 },
+      { "x":-1, "y": -1 },
+      { "x":-2, "y": -1 },
+      { "x":-3, "y": -1 }
+    ],
+    "workspaces": [
+      {
+        "location": { "x":-2, "y": -1 },
+        "accessedFrom": { "x": -2, "y": 0 }
+      }
+    ]
   }
 ]
