@@ -234,7 +234,7 @@ public class SpriteDescriptorsPane extends VisTable {
 
     private void addChildAssetsWidgets(String labelText, List<EntityChildAssetDescriptor> childAssets, VisTable orientationTable, Collection<EntityAssetType> applicableTypes) {
         VisLabel label = new VisLabel(labelText);
-        ChildAssetsWidget childAssetsWidget = new ChildAssetsWidget(childAssets, applicableTypes, messageDispatcher, editorStateProvider.getState().getCurrentEntity());
+        ChildAssetsWidget childAssetsWidget = new ChildAssetsWidget(childAssets, applicableTypes);
         CollapsibleWidget collapsibleChildAssets = new CollapsibleWidget(childAssetsWidget);
         collapsibleChildAssets.setCollapsed(childAssets.isEmpty());
         label.addListener(new ClickListener() {
