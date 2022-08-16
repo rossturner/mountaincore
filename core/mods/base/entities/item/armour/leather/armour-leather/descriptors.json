@@ -47,6 +47,43 @@
     }
   }
 }, {
+  "uniqueName" : "Armour-Leather-Above_Layer_2-Being_Carried",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Armour-Leather",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Leather-Above_Layer_2-Being_Carried_Down.png",
+      "scale" : 0.7
+    },
+    "UP" : { },
+    "DOWN_LEFT" : {
+      "filename" : "Armour-Leather-Above_Layer_2-Being_Carried_Down_Left.png",
+      "scale" : 0.7,
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Armour-Leather-Above_Layer_2-Being_Carried_Down_Left.png",
+      "scale" : 0.7
+    },
+    "UP_LEFT" : { },
+    "UP_RIGHT" : { }
+  }
+}, {
+  "uniqueName" : "Armour-Leather-Above_Layer_2-On_Ground",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Armour-Leather",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Leather-Above_Layer_2-On_Ground_Down.png"
+    }
+  }
+}, {
   "uniqueName" : "Armour-Leather-Item_Base_Layer-Being_Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Armour-Leather",
@@ -63,6 +100,8 @@
       },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1"
+      }, {
+        "type" : "ABOVE_LAYER_2"
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
@@ -97,6 +136,8 @@
       "flipX" : true,
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1"
+      }, {
+        "type" : "ABOVE_LAYER_2"
       } ],
       "attachmentPoints" : [ {
         "type" : "ABOVE_LAYER_1"
@@ -122,6 +163,8 @@
       },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1"
+      }, {
+        "type" : "ABOVE_LAYER_2"
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
@@ -186,6 +229,8 @@
       "coloringLayer" : "SKIN_COLOR",
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1"
+      }, {
+        "type" : "ABOVE_LAYER_2"
       } ]
     }
   }
