@@ -1,8 +1,9 @@
 package technology.rocketjump.saul.entities.behaviour.creature;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.GridPoint2;
-import technology.rocketjump.saul.entities.components.humanoid.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.CompassDirection;
 import technology.rocketjump.saul.mapping.tile.MapTile;
@@ -12,9 +13,7 @@ import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.Persistable;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * This is used to track a group of Creatures such as a herd of deer, so they can move around a central point
@@ -25,6 +24,7 @@ public class CreatureGroup implements Persistable {
 	private long groupId;
 	private GridPoint2 homeLocation;
 	private double lastUpdateGameTime;
+	private Set<Long> memberEntityIds = new HashSet<>();
 
 	private final MemoryComponent sharedMemoryComponent = new MemoryComponent();
 
@@ -75,6 +75,18 @@ public class CreatureGroup implements Persistable {
 		}
 	}
 
+	public void addMemberId(long entityId) {
+		memberEntityIds.add(entityId);
+	}
+
+	public void removeMemberId(long entityId) {
+		memberEntityIds.remove(entityId);
+	}
+
+	public Set<Long> getMemberIds() {
+		return memberEntityIds;
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		if (savedGameStateHolder.creatureGroups.containsKey(groupId)) {
@@ -89,6 +101,10 @@ public class CreatureGroup implements Persistable {
 		sharedMemoryComponent.writeTo(memoryJson, savedGameStateHolder);
 		asJson.put("memories", memoryJson);
 
+		JSONArray memberIdsJson = new JSONArray();
+		memberIdsJson.addAll(memberEntityIds);
+		asJson.put("memberIds", memberIdsJson);
+
 		savedGameStateHolder.creatureGroupJson.add(asJson);
 		savedGameStateHolder.creatureGroups.put(groupId, this);
 	}
@@ -101,7 +117,11 @@ public class CreatureGroup implements Persistable {
 		JSONObject memoryJson = asJson.getJSONObject("memories");
 		sharedMemoryComponent.readFrom(memoryJson, savedGameStateHolder, relatedStores);
 
+		JSONArray memberIdsJson = asJson.getJSONArray("memberIds");
+		for (int index = 0; index < memberIdsJson.size(); index++) {
+			this.memberEntityIds.add(memberIdsJson.getLong(index));
+		}
+
 		savedGameStateHolder.creatureGroups.put(groupId, this);
 	}
-
 }

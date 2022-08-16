@@ -31,7 +31,7 @@
     }
   },
   "behaviour" : {
-    "behaviourName" : "Settler",
+    "behaviourName" : "Creature",
     "scheduleName" : "Default Settler Schedule",
     "needs" : [ "FOOD", "DRINK", "SLEEP" ],
     "aggressionResponse" : "FLEE",
@@ -48,12 +48,23 @@
     }
   },
   "features" : {
-    "skin" : {
+    "defense": {
+      "maxDefensePoints": 20,
+      "maxDefenseRegainedPerRound": 3,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 2,
         "CRUSHING" : 2
       }
+    },
+    "unarmedWeapon": {
+      "range": 1,
+      "damageType": "CRUSHING",
+      "modifiedByStrength": true,
+      "minDamage": 1,
+      "maxDamage": 4
+    },
+    "skin" : {
     },
     "bones" : {
       "materialName" : "Bone"

@@ -1,5 +1,4 @@
 {
-  "itemTypeId" : 69,
   "itemTypeName" : "Weapon-Battle-Axe",
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "WOOD", "METAL" ],
@@ -12,7 +11,10 @@
     "damageType" : "SLASHING",
     "modifiedByStrength" : true,
     "minDamage" : 3,
-    "maxDamage" : 12
+    "maxDamage" : 12,
+    "combatSkillName" : "AXES",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
+    "animatedSpriteEffectName" : "Weapon slash"
   },
   "i18nKey" : "WEAPON.BATTLE.AXE"
 }

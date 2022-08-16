@@ -12,7 +12,7 @@ import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodySha
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.creature.*;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 
 import java.util.List;
 import java.util.Map;
@@ -53,15 +53,15 @@ public class CreatureEntityAssetDictionaryTest {
 
         CreatureEntityAssetDictionary dictionary = new CreatureEntityAssetDictionary(List.of(expectedAsset), entityAssetTypeDictionary, raceDictionary);
 
-        assertThat(dictionary.getMatching(assetType, attributes, ProfessionDictionary.NULL_PROFESSION)).isSameAs(expectedAsset);
+        assertThat(dictionary.getMatching(assetType, attributes, SkillDictionary.NULL_PROFESSION)).isSameAs(expectedAsset);
 
         expectedAsset.setGender(Gender.FEMALE);
         dictionary.rebuild();
 
-        assertThat(dictionary.getMatching(assetType, attributes, ProfessionDictionary.NULL_PROFESSION)).isNull();
+        assertThat(dictionary.getMatching(assetType, attributes, SkillDictionary.NULL_PROFESSION)).isNull();
 
         attributes.setGender(Gender.FEMALE);
-        assertThat(dictionary.getMatching(assetType, attributes, ProfessionDictionary.NULL_PROFESSION)).isSameAs(expectedAsset);
+        assertThat(dictionary.getMatching(assetType, attributes, SkillDictionary.NULL_PROFESSION)).isSameAs(expectedAsset);
     }
 
 }

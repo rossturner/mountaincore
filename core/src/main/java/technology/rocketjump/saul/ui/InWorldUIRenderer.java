@@ -14,9 +14,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureGroup;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -161,7 +160,7 @@ public class InWorldUIRenderer {
 		if (interactionStateContainer.getInteractionMode().equals(DEFAULT)) {
 			Selectable selectable = interactionStateContainer.getSelectable();
 			if (selectable != null) {
-				selectableOutlineRenderer.render(selectable, shapeRenderer);
+				selectableOutlineRenderer.render(selectable, shapeRenderer, gameContext);
 
 				if (GlobalSettings.DEV_MODE) {
 					showCreatureGroupLocation(gameContext, selectable);
@@ -304,7 +303,7 @@ public class InWorldUIRenderer {
 								Vector2 location = entity.getLocationComponent().getWorldPosition();
 								Vector2 velocity = entity.getLocationComponent().getLinearVelocity();
 
-								SteeringComponent steeringComponent = ((SettlerBehaviour) entity.getBehaviourComponent()).getSteeringComponent();
+								SteeringComponent steeringComponent = entity.getBehaviourComponent().getSteeringComponent();
 
 								if (steeringComponent.getPauseTime() > 0) {
 									shapeRenderer.setColor(Color.BLUE);
@@ -506,7 +505,7 @@ public class InWorldUIRenderer {
 			if (selectedEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
 				CreatureGroup creatureGroup = ((CreatureBehaviour) selectedEntity.getBehaviourComponent()).getCreatureGroup();
 				if (creatureGroup != null) {
-					selectableOutlineRenderer.render(new Selectable(gameContext.getAreaMap().getTile(creatureGroup.getHomeLocation())), shapeRenderer);
+					selectableOutlineRenderer.render(new Selectable(gameContext.getAreaMap().getTile(creatureGroup.getHomeLocation())), shapeRenderer, gameContext);
 				}
 			}
 		}

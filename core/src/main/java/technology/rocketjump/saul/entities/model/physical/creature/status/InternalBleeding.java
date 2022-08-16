@@ -11,7 +11,7 @@ public class InternalBleeding extends StatusEffect {
 	private static final float CHANCE_OF_DEATH_ON_TICK = 1f / 35f;
 
 	public InternalBleeding() {
-		super(null, 24.0, null);
+		super(null, 3.0, null);
 	}
 
 	@Override

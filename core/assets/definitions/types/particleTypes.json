@@ -4,6 +4,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : true,
   "isAffectedByLighting" : true,
@@ -11,7 +12,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 0.1,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -19,11 +19,33 @@
   "attachedToParent" : false,
   "unaffectedByPause" : false
 }, {
+  "name" : "Weapon slash",
+  "animatedSpriteName" : "slash",
+  "shaderEffectWidth" : 0.0,
+  "shaderEffectHeight" : 0.0,
+  "scale" : 1.0,
+  "overrideDuration" : 0.3,
+  "usingParentOrientation" : "RIGHT",
+  "isLooping" : false,
+  "usesTargetMaterialAsTintColor" : true,
+  "isAffectedByLighting" : false,
+  "distanceFromParentEntityOrientation" : 0.7,
+  "offsetFromParentEntity" : {
+    "x" : 0.0,
+    "y" : 0.1,
+    "unit" : false
+  },
+  "renderBehindParent" : false,
+  "overrideYDepth" : false,
+  "attachedToParent" : true,
+  "unaffectedByPause" : false
+}, {
   "name" : "Progress bar",
   "customImplementation" : "ProgressBarEffect",
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "isLooping" : false,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : false,
@@ -31,7 +53,26 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 0.4,
-    "zero" : false,
+    "unit" : false
+  },
+  "renderBehindParent" : false,
+  "overrideYDepth" : false,
+  "attachedToParent" : true,
+  "unaffectedByPause" : false
+}, {
+  "name" : "Defense pool bar",
+  "customImplementation" : "DefensePoolBarEffect",
+  "shaderEffectWidth" : 0.0,
+  "shaderEffectHeight" : 0.0,
+  "scale" : 1.0,
+  "overrideDuration" : 1.0,
+  "isLooping" : false,
+  "usesTargetMaterialAsTintColor" : false,
+  "isAffectedByLighting" : false,
+  "distanceFromParentEntityOrientation" : 0.0,
+  "offsetFromParentEntity" : {
+    "x" : 0.0,
+    "y" : 0.35,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -44,6 +85,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.2,
+  "overrideDuration" : 1.0,
   "isLooping" : false,
   "usesTargetMaterialAsTintColor" : true,
   "isAffectedByLighting" : true,
@@ -58,6 +100,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.4,
+  "overrideDuration" : 1.0,
   "isLooping" : false,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : true,
@@ -72,6 +115,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 0.8,
+  "overrideDuration" : 1.0,
   "isLooping" : false,
   "usesTargetMaterialAsTintColor" : true,
   "isAffectedByLighting" : true,
@@ -86,6 +130,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 0.8,
+  "overrideDuration" : 1.0,
   "isLooping" : false,
   "usesTargetMaterialAsTintColor" : true,
   "isAffectedByLighting" : true,
@@ -100,6 +145,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 0.8,
+  "overrideDuration" : 1.0,
   "isLooping" : false,
   "usesTargetMaterialAsTintColor" : true,
   "isAffectedByLighting" : true,
@@ -107,7 +153,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 2.0,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -120,6 +165,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : true,
@@ -127,7 +173,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.6,
     "y" : 1.5,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -140,6 +185,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : true,
@@ -147,7 +193,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 0.35,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -160,6 +205,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : true,
@@ -167,7 +213,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.5,
     "y" : 1.3,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -180,6 +225,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : true,
@@ -187,7 +233,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.5,
     "y" : 1.6,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -200,6 +245,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : true,
   "isAffectedByLighting" : true,
@@ -207,7 +253,6 @@
   "offsetFromParentEntity" : {
     "x" : 1.15,
     "y" : 0.9,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -220,6 +265,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : true,
   "isAffectedByLighting" : true,
@@ -227,7 +273,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 0.3,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -240,6 +285,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 0.4,
+  "overrideDuration" : 1.0,
   "usingParentOrientation" : "LEFT",
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : true,
@@ -248,7 +294,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 0.3,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -261,6 +306,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "usingParentOrientation" : "LEFT",
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : true,
@@ -269,7 +315,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 0.3,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -282,6 +327,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 0.8,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : true,
@@ -289,7 +335,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : -0.2,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : true,
@@ -302,6 +347,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 0.8,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : true,
@@ -309,7 +355,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : -0.2,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : true,
@@ -322,6 +367,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 0.8,
+  "overrideDuration" : 1.0,
   "isLooping" : false,
   "usesTargetMaterialAsTintColor" : true,
   "isAffectedByLighting" : true,
@@ -329,7 +375,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 0.2,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : true,
@@ -342,6 +387,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 0.8,
+  "overrideDuration" : 1.0,
   "isLooping" : false,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : true,
@@ -349,7 +395,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 0.15,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -362,6 +407,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "isLooping" : false,
   "usesTargetMaterialAsTintColor" : true,
   "isAffectedByLighting" : true,
@@ -369,7 +415,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 0.15,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -382,6 +427,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : true,
   "isAffectedByLighting" : true,
@@ -389,7 +435,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 0.3,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -402,6 +447,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 0.7,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : false,
@@ -409,7 +455,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 0.3,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -423,6 +468,7 @@
   "shaderEffectWidth" : 1.5,
   "shaderEffectHeight" : 1.5,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : false,
@@ -430,7 +476,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 0.25,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,
@@ -443,6 +488,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 0.5,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : true,
@@ -457,6 +503,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 0.5,
+  "overrideDuration" : 1.0,
   "isLooping" : true,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : true,
@@ -471,6 +518,7 @@
   "shaderEffectWidth" : 0.0,
   "shaderEffectHeight" : 0.0,
   "scale" : 1.0,
+  "overrideDuration" : 1.0,
   "isLooping" : false,
   "usesTargetMaterialAsTintColor" : false,
   "isAffectedByLighting" : false,
@@ -478,7 +526,6 @@
   "offsetFromParentEntity" : {
     "x" : 0.0,
     "y" : 3.0,
-    "zero" : false,
     "unit" : false
   },
   "renderBehindParent" : false,

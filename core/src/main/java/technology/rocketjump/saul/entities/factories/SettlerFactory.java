@@ -5,8 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.HappinessComponent;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -18,7 +18,7 @@ import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.jobs.model.JobType;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -29,9 +29,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static technology.rocketjump.saul.entities.components.humanoid.HappinessComponent.HappinessModifier.NEW_SETTLEMENT_OPTIMISM;
+import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.NEW_SETTLEMENT_OPTIMISM;
 
 @Singleton
+// TODO Combine this with SettlerEntityFactory
 public class SettlerFactory {
 
 	private final SettlerCreatureAttributesFactory settlerAttributesFactory;
@@ -42,7 +43,7 @@ public class SettlerFactory {
 	private final MessageDispatcher messageDispatcher;
 	private final GameMaterialDictionary materialDictionary;
 
-	private Map<Profession, Set<ItemType>> professionItemMapping = new HashMap<>();
+	private Map<Skill, Set<ItemType>> professionItemMapping = new HashMap<>();
 
 	@Inject
 	public SettlerFactory(SettlerCreatureAttributesFactory settlerAttributesFactory, SettlerEntityFactory entityFactory,
@@ -73,7 +74,7 @@ public class SettlerFactory {
 
 	}
 
-	public Entity create(Vector2 worldPosition, Vector2 facing, Profession primaryProfession, Profession secondaryProfession, GameContext gameContext) {
+	public Entity create(Vector2 worldPosition, Vector2 facing, Skill primaryProfession, Skill secondaryProfession, GameContext gameContext) {
 		CreatureEntityAttributes attributes = settlerAttributesFactory.create(gameContext);
 
 		Entity entity = entityFactory.create(attributes, worldPosition, facing, primaryProfession, secondaryProfession, gameContext);

@@ -5,17 +5,20 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
+import technology.rocketjump.saul.gamecontext.GameContext;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
+import static technology.rocketjump.saul.rendering.utils.HexColors.NEGATIVE_COLOR;
 
 public class SelectableOutlineRenderer {
 
-	public void render(Selectable selectable, ShapeRenderer shapeRenderer) {
+	public void render(Selectable selectable, ShapeRenderer shapeRenderer, GameContext gameContext) {
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 		shapeRenderer.setColor(Color.WHITE);
 
@@ -33,6 +36,19 @@ public class SelectableOutlineRenderer {
 					case CREATURE:
 						shapeRenderer.circle(worldPosition.x, worldPosition.y,
 								selectedEntity.getLocationComponent().getRadius() + 0.3f, 100);
+						CombatStateComponent combatStateComponent = selectedEntity.getComponent(CombatStateComponent.class);
+						if (combatStateComponent != null && combatStateComponent.isInCombat() && combatStateComponent.getTargetedOpponentId() != null) {
+							Entity targetEntity = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
+							if (targetEntity != null) {
+								Vector2 targetPosition = targetEntity.getLocationComponent().getWorldPosition();
+								if (targetPosition != null) {
+									shapeRenderer.setColor(NEGATIVE_COLOR);
+									shapeRenderer.circle(targetPosition.x, targetPosition.y,
+											targetEntity.getLocationComponent().getRadius() + 0.3f, 100);
+									shapeRenderer.setColor(Color.WHITE);
+								}
+							}
+						}
 						break;
 					case FURNITURE:
 						Set<GridPoint2> entityLocations = new HashSet<>();

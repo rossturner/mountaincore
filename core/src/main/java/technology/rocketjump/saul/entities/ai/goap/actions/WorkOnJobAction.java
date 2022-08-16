@@ -3,8 +3,8 @@ package technology.rocketjump.saul.entities.ai.goap.actions;
 import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
-import technology.rocketjump.saul.entities.components.humanoid.HappinessComponent;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -22,13 +22,12 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
-import static technology.rocketjump.saul.entities.components.humanoid.HappinessComponent.HappinessModifier.WORKED_IN_ENCLOSED_ROOM;
+import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.WORKED_IN_ENCLOSED_ROOM;
 import static technology.rocketjump.saul.entities.model.EntityType.FURNITURE;
 import static technology.rocketjump.saul.environment.model.WeatherType.HappinessInteraction.WORKING;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
@@ -48,12 +47,12 @@ public class WorkOnJobAction extends Action {
 
 		if (completionType == null && inPositionToWorkOnJob()) {
 			Job assignedJob = parent.getAssignedJob();
-			ProfessionsComponent professionsComponent = parent.parentEntity.getComponent(ProfessionsComponent.class);
+			SkillsComponent skillsComponent = parent.parentEntity.getComponent(SkillsComponent.class);
 
 			float workDone = deltaTime;
 			EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
-			if (equippedItemComponent != null && equippedItemComponent.getEquippedItem() != null) {
-				Entity equippedItem = equippedItemComponent.getEquippedItem();
+			if (equippedItemComponent != null && equippedItemComponent.getMainHandItem() != null) {
+				Entity equippedItem = equippedItemComponent.getMainHandItem();
 				if (equippedItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
 					workDone *= (1f / itemAttributes.getItemQuality().jobDurationMultiplier);
 				}
@@ -88,17 +87,7 @@ public class WorkOnJobAction extends Action {
 
 			Action This = this;
 
-			parent.messageDispatcher.dispatchMessage(MessageType.GET_PROGRESS_BAR_EFFECT_TYPE, (ParticleEffectTypeCallback) progressBarType -> {
-				if (spawnedParticles.stream().noneMatch(p -> p.getType().equals(progressBarType))) {
-					parent.messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(
-							progressBarType,
-							Optional.of(parent.parentEntity),
-							Optional.empty(),
-							instance -> {
-						This.spawnedParticles.add(instance);
-					}));
-				}
-			});
+			updateProgressBarEffect();
 
 			List<ParticleEffectType> relatedParticleEffectTypes = getRelatedParticleEffectTypes();
 			if (relatedParticleEffectTypes != null) {
@@ -116,20 +105,8 @@ public class WorkOnJobAction extends Action {
 				}
 			}
 
-			float workCompletionFraction = Math.min(assignedJob.getWorkDoneSoFar() / assignedJob.getTotalWorkToDo(professionsComponent), 1f);
-
-			spawnedParticles.removeIf(p -> p == null || !p.isActive());
-
-			Iterator<ParticleEffectInstance> particleIterator = spawnedParticles.iterator();
-			while (particleIterator.hasNext()) {
-				ParticleEffectInstance spawnedParticle = particleIterator.next();
-				if (spawnedParticle.getWrappedInstance() instanceof ProgressBarEffect) {
-					((ProgressBarEffect)spawnedParticle.getWrappedInstance()).setProgress(workCompletionFraction);
-				}
-			}
-
-			if (assignedJob.getTotalWorkToDo(professionsComponent) <= assignedJob.getWorkDoneSoFar()) {
-				parent.messageDispatcher.dispatchMessage(MessageType.JOB_COMPLETED, new JobCompletedMessage(assignedJob, professionsComponent, parent.parentEntity));
+			if (assignedJob.getTotalWorkToDo(skillsComponent) <= assignedJob.getWorkDoneSoFar()) {
+				parent.messageDispatcher.dispatchMessage(MessageType.JOB_COMPLETED, new JobCompletedMessage(assignedJob, skillsComponent, parent.parentEntity));
 				completionType = SUCCESS;
 			}
 
@@ -149,6 +126,33 @@ public class WorkOnJobAction extends Action {
 				if (jobSoundAsset != null && jobSoundAsset.isLooping()) {
 					parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_STOP_SOUND_LOOP, new RequestSoundStopMessage(jobSoundAsset, parent.parentEntity.getId()));
 				}
+			}
+		}
+	}
+
+	public void updateProgressBarEffect() {
+		Job assignedJob = parent.getAssignedJob();
+		SkillsComponent skillsComponent = parent.parentEntity.getComponent(SkillsComponent.class);
+		Action This = this;
+		parent.messageDispatcher.dispatchMessage(MessageType.GET_PROGRESS_BAR_EFFECT_TYPE, (ParticleEffectTypeCallback) progressBarType -> {
+			if (spawnedParticles.stream().noneMatch(p -> p.getType().equals(progressBarType))) {
+				parent.messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(
+						progressBarType,
+						Optional.of(parent.parentEntity),
+						Optional.empty(),
+						instance -> {
+					This.spawnedParticles.add(instance);
+				}));
+			}
+		});
+
+		float workCompletionFraction = Math.min(assignedJob.getWorkDoneSoFar() / assignedJob.getTotalWorkToDo(skillsComponent), 1f);
+
+		spawnedParticles.removeIf(p -> p == null || !p.isActive());
+
+		for (ParticleEffectInstance spawnedParticle : spawnedParticles) {
+			if (spawnedParticle.getWrappedInstance() instanceof ProgressBarEffect) {
+				((ProgressBarEffect) spawnedParticle.getWrappedInstance()).setProgress(workCompletionFraction);
 			}
 		}
 	}
@@ -181,8 +185,8 @@ public class WorkOnJobAction extends Action {
 		Job assignedJob = parent.getAssignedJob();
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
 		ItemUsageSoundTag itemUsageSoundTag = null;
-		if (equippedItemComponent != null && equippedItemComponent.getEquippedItem() != null) {
-			itemUsageSoundTag = equippedItemComponent.getEquippedItem().getTag(ItemUsageSoundTag.class);
+		if (equippedItemComponent != null && equippedItemComponent.getMainHandItem() != null) {
+			itemUsageSoundTag = equippedItemComponent.getMainHandItem().getTag(ItemUsageSoundTag.class);
 		}
 
 		if (itemUsageSoundTag != null && itemUsageSoundTag.getSoundAsset() != null) {

@@ -2,7 +2,7 @@ package technology.rocketjump.saul.entities.ai.goap.actions;
 
 import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.JobCompletedMessage;
@@ -27,7 +27,7 @@ public class JobCompletedAction extends Action {
 	public void update(float deltaTime, GameContext gameContext) {
 		if (parent.getAssignedJob() != null) {
 			parent.messageDispatcher.dispatchMessage(MessageType.JOB_COMPLETED,
-					new JobCompletedMessage(parent.getAssignedJob(), parent.parentEntity.getComponent(ProfessionsComponent.class), parent.parentEntity));
+					new JobCompletedMessage(parent.getAssignedJob(), parent.parentEntity.getComponent(SkillsComponent.class), parent.parentEntity));
 			parent.setInterrupted(false); // Kind of a hack to ignore that the above marks the goal as interrupted
 		}
 		completionType = SUCCESS;

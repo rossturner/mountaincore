@@ -1,11 +1,11 @@
 {
-  "itemTypeName": "Weapon-Bone-Arrows",
-  "materialTypes": ["BONE", "WOOD"],
-  "primaryMaterialType": "BONE",
-  "holdPosition": "IN_FRONT",
-  "stockpileGroupName": "WEAPONS",
-  "hoursInInventoryUntilUnused": 3,
-  "maxStackSize": 50,
-  "maxHauledAtOnce": 50,
-  "isAmmoType": "ARROWS"
+  "itemTypeName" : "Weapon-Bone-Arrows",
+  "maxStackSize" : 50,
+  "maxHauledAtOnce" : 50,
+  "materialTypes" : [ "BONE", "WOOD" ],
+  "primaryMaterialType" : "BONE",
+  "hoursInInventoryUntilUnused" : 3.0,
+  "stockpileGroupName" : "WEAPONS",
+  "isAmmoType" : "ARROWS",
+  "i18nKey" : "WEAPON.BONE.ARROWS"
 }

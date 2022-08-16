@@ -35,7 +35,7 @@ public class EquipItemForJobFromInventoryAction extends Action {
 		if (itemInInventory != null) {
 			inventoryComponent.remove(itemInInventory.entity.getId());
 			EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
-			equippedItemComponent.setEquippedItem(itemInInventory.entity, parent.parentEntity, parent.messageDispatcher);
+			equippedItemComponent.setMainHandItem(itemInInventory.entity, parent.parentEntity, parent.messageDispatcher);
 			completionType = SUCCESS;
 		} else {
 			// Interrupt entire goal so we don't then GoToLocation

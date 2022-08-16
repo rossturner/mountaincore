@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -17,13 +17,13 @@ public class MechanismTypeDictionary {
 
 	private final Map<String, MechanismType> byName = new HashMap<>();
 	private final ItemTypeDictionary itemTypeDictionary;
-	private final ProfessionDictionary professionDictionary;
+	private final SkillDictionary skillDictionary;
 
 	@Inject
-	public MechanismTypeDictionary(ItemTypeDictionary itemTypeDictionary, ProfessionDictionary professionDictionary) throws IOException {
+	public MechanismTypeDictionary(ItemTypeDictionary itemTypeDictionary, SkillDictionary skillDictionary) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		this.itemTypeDictionary = itemTypeDictionary;
-		this.professionDictionary = professionDictionary;
+		this.skillDictionary = skillDictionary;
 		File typesJsonFile = new File("assets/definitions/types/mechanismTypes.json");
 		List<MechanismType> typeList = objectMapper.readValue(FileUtils.readFileToString(typesJsonFile, "UTF-8"),
 				objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, MechanismType.class));
@@ -43,7 +43,7 @@ public class MechanismTypeDictionary {
 		}
 
 		if (mechanismType.getRelatedProfessionName() != null) {
-			mechanismType.setRelatedProfession(professionDictionary.getByName(mechanismType.getRelatedProfessionName()));
+			mechanismType.setRelatedProfession(skillDictionary.getByName(mechanismType.getRelatedProfessionName()));
 			if (mechanismType.getRelatedProfession() == null) {
 				Logger.error("Could not find profession with name " + mechanismType.getRelatedProfessionName() + " for mechanism type " + mechanismType.getName());
 			}

@@ -23,10 +23,10 @@ import technology.rocketjump.saul.entities.tags.CollectItemsBehaviourTag;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Job;
 import technology.rocketjump.saul.jobs.model.JobType;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -61,7 +61,7 @@ public class KitchenManager implements Telegraph, Updatable {
 
 	private final MessageDispatcher messageDispatcher;
 	private final ConstructionStore constructionStore;
-	private final Profession cookingProfession;
+	private final Skill cookingProfession;
 	private final FurnitureTracker furnitureTracker;
 	private final JobType haulingJobType;
 	private final ItemTracker itemTracker;
@@ -72,12 +72,12 @@ public class KitchenManager implements Telegraph, Updatable {
 
 	@Inject
 	public KitchenManager(MessageDispatcher messageDispatcher, ConstructionStore constructionStore,
-						  ProfessionDictionary professionDictionary, FurnitureTracker furnitureTracker,
+						  SkillDictionary skillDictionary, FurnitureTracker furnitureTracker,
 						  JobTypeDictionary jobTypeDictionary, ConstantsRepo constantsRepo, ItemTracker itemTracker) {
 		this.messageDispatcher = messageDispatcher;
 		this.constructionStore = constructionStore;
 		this.itemTracker = itemTracker;
-		this.cookingProfession = professionDictionary.getByName(constantsRepo.getSettlementConstants().getKitchenProfession());
+		this.cookingProfession = skillDictionary.getByName(constantsRepo.getSettlementConstants().getKitchenProfession());
 		this.furnitureTracker = furnitureTracker;
 		this.haulingJobType = jobTypeDictionary.getByName(constantsRepo.getSettlementConstants().getHaulingJobType());
 

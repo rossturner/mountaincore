@@ -43,8 +43,8 @@ public class PlaceFoodOrDrinkOnFurnitureAction extends Action {
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
 
 
-		if (parentTile == null || equippedItemComponent == null || equippedItemComponent.getEquippedItem() == null ||
-				parent.getFoodAllocation() == null || equippedItemComponent.getEquippedItem().getId() != parent.getFoodAllocation().getTargetEntity().getId()) {
+		if (parentTile == null || equippedItemComponent == null || equippedItemComponent.getMainHandItem() == null ||
+				parent.getFoodAllocation() == null || equippedItemComponent.getMainHandItem().getId() != parent.getFoodAllocation().getTargetEntity().getId()) {
 			completionType = FAILURE;
 		} else {
 
@@ -71,7 +71,7 @@ public class PlaceFoodOrDrinkOnFurnitureAction extends Action {
 									)
 							);
 
-							Entity item = equippedItemComponent.clearEquippedItem(); // FIXME Maybe this should always remove the component from its parent
+							Entity item = equippedItemComponent.clearMainHandItem(); // FIXME Maybe this should always remove the component from its parent
 							furnitureInventory.add(item, furnitureEntity, parent.messageDispatcher,
 									gameContext.getGameClock(), preferredPosition);
 							// Need to create allocation or unassigned food will be assigned to someone else

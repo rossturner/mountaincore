@@ -29,7 +29,7 @@ public class PowerSourceBehaviour extends FurnitureBehaviour implements Destruct
 	private Boolean isOutside;
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		if (isWorking(gameContext)) {
 			PoweredFurnitureComponent poweredFurnitureComponent = parentEntity.getComponent(PoweredFurnitureComponent.class);
 			if (poweredFurnitureComponent != null) {

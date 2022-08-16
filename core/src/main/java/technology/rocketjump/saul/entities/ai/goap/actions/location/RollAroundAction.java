@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.status.OnFireStatus;
 import technology.rocketjump.saul.gamecontext.GameContext;

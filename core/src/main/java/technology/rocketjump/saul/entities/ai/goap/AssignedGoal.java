@@ -5,15 +5,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.cooking.model.FoodAllocation;
-import technology.rocketjump.saul.entities.ai.goap.actions.Action;
-import technology.rocketjump.saul.entities.ai.goap.actions.ActionTransitions;
-import technology.rocketjump.saul.entities.ai.goap.actions.InitialisableAction;
-import technology.rocketjump.saul.entities.ai.goap.actions.UnassignFurnitureAction;
+import technology.rocketjump.saul.entities.ai.goap.actions.*;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
-import technology.rocketjump.saul.entities.components.humanoid.MemoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.NeedsComponent;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.model.Job;
@@ -136,6 +133,17 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 		}
 
 		checkForActionCompletionOrElseUpdate(currentAction, deltaTime, gameContext);
+	}
+
+	public void updateWhenPaused() {
+		if (actionQueue.isEmpty()) {
+			return;
+		}
+
+		Action currentAction = actionQueue.peek();
+		if (currentAction instanceof WorkOnJobAction workOnJobAction) {
+			workOnJobAction.updateProgressBarEffect();
+		}
 	}
 
 	private void checkForActionCompletionOrElseUpdate(Action currentAction, float deltaTime, GameContext gameContext) throws SwitchGoalException {

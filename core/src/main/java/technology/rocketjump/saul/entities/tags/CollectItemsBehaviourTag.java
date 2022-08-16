@@ -9,7 +9,7 @@ import technology.rocketjump.saul.entities.behaviour.furniture.CollectItemFurnit
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -68,7 +68,7 @@ public class CollectItemsBehaviourTag extends Tag {
 			newBehaviour.setMaxNumItemStacks(Integer.valueOf(args.get(1)));
 
 			if (args.size() > 2) {
-				Profession specifiedProfession = tagProcessingUtils.professionDictionary.getByName(args.get(2));
+				Skill specifiedProfession = tagProcessingUtils.skillDictionary.getByName(args.get(2));
 				if (specifiedProfession == null) {
 					Logger.error("Unrecognised profession " + args.get(2) + " in " + getTagName() + " tag");
 				} else {

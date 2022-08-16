@@ -2,7 +2,7 @@ package technology.rocketjump.saul.entities.model.physical.creature.status.alcoh
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
-import technology.rocketjump.saul.entities.components.humanoid.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.saul.gamecontext.GameContext;
 

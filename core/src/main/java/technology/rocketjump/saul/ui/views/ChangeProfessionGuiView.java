@@ -6,9 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
+import technology.rocketjump.saul.jobs.SkillDictionary;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.ChangeProfessionMessage;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
@@ -28,7 +28,7 @@ import java.util.List;
 public class ChangeProfessionGuiView implements GuiView {
 
 	private final int ITEMS_PER_ROW = 5;
-	private final ProfessionDictionary professionDictionary;
+	private final SkillDictionary skillDictionary;
 	private final Skin uiSkin;
 	private final GameInteractionStateContainer gameInteractionStateContainer;
 	private final I18nWidgetFactory i18nWidgetFactory;
@@ -44,10 +44,10 @@ public class ChangeProfessionGuiView implements GuiView {
 
 
 	@Inject
-	public ChangeProfessionGuiView(ProfessionDictionary professionDictionary, I18nWidgetFactory i18nWidgetFactory,
+	public ChangeProfessionGuiView(SkillDictionary skillDictionary, I18nWidgetFactory i18nWidgetFactory,
 								   GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 								   GameInteractionStateContainer gameInteractionStateContainer, I18nTranslator i18nTranslator) {
-		this.professionDictionary = professionDictionary;
+		this.skillDictionary = skillDictionary;
 		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;
 
@@ -91,13 +91,13 @@ public class ChangeProfessionGuiView implements GuiView {
 
 		int numAdded = 0;
 
-		List<Profession> professionsForSelection = new ArrayList<>(professionDictionary.getAll());
-		ProfessionsComponent professionsComponent = gameInteractionStateContainer.getSelectable().getEntity().getComponent(ProfessionsComponent.class);
-		for (ProfessionsComponent.QuantifiedProfession quantifiedProfession : professionsComponent.getActiveProfessions()) {
-			professionsForSelection.remove(quantifiedProfession.getProfession());
+		List<Skill> professionsForSelection = new ArrayList<>(skillDictionary.getAllProfessions());
+		SkillsComponent skillsComponent = gameInteractionStateContainer.getSelectable().getEntity().getComponent(SkillsComponent.class);
+		for (SkillsComponent.QuantifiedSkill quantifiedSkill : skillsComponent.getActiveProfessions()) {
+			professionsForSelection.remove(quantifiedSkill.getSkill());
 		}
 
-		for (Profession profession : professionsForSelection) {
+		for (Skill profession : professionsForSelection) {
 			Table innerTable = new Table(uiSkin);
 
 			ImageButton imageButton = profession.getImageButton();
@@ -108,8 +108,8 @@ public class ChangeProfessionGuiView implements GuiView {
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ENTITY_SELECTED);
 			});
 			innerTable.add(imageButton).pad(10).row();
-			String skillLevelText = i18nTranslator.getSkillLevelDescription(professionsComponent.getSkillLevel(profession)).toString();
-			skillLevelText += " (" + professionsComponent.getSkillLevel(profession) + ")";
+			String skillLevelText = i18nTranslator.getSkillLevelDescription(skillsComponent.getSkillLevel(profession)).toString();
+			skillLevelText += " (" + skillsComponent.getSkillLevel(profession) + ")";
 			innerTable.add(new Label(skillLevelText, uiSkin)).row();
 			innerTable.add(i18nWidgetFactory.createLabel(profession.getI18nKey()));
 

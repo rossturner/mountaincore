@@ -30,7 +30,7 @@ import technology.rocketjump.saul.environment.WeatherTypeDictionary;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.mapping.tile.designation.DesignationDictionary;
 import technology.rocketjump.saul.materials.DynamicMaterialFactory;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
@@ -51,7 +51,7 @@ public class SavedGameDependentDictionaries {
 	public final GameMaterialDictionary gameMaterialDictionary;
 	public final CraftingOutputQualityDictionary craftingOutputQualityDictionary;
 	public final MessageDispatcher messageDispatcher;
-	public final ProfessionDictionary professionDictionary;
+	public final SkillDictionary skillDictionary;
 	public final JobTypeDictionary jobTypeDictionary;
 	public final ItemTypeDictionary itemTypeDictionary;
 	public final FloorTypeDictionary floorTypeDictionary;
@@ -89,7 +89,7 @@ public class SavedGameDependentDictionaries {
 	@Inject
 	public SavedGameDependentDictionaries(DynamicMaterialFactory dynamicMaterialFactory, GameMaterialDictionary gameMaterialDictionary,
 										  CraftingOutputQualityDictionary craftingOutputQualityDictionary,
-										  MessageDispatcher messageDispatcher, ProfessionDictionary professionDictionary,
+										  MessageDispatcher messageDispatcher, SkillDictionary skillDictionary,
 										  JobTypeDictionary jobTypeDictionary, ItemTypeDictionary itemTypeDictionary, FloorTypeDictionary floorTypeDictionary,
 										  CookingRecipeDictionary cookingRecipeDictionary, ComponentDictionary componentDictionary,
 										  StatusEffectDictionary statusEffectDictionary, CraftingTypeDictionary craftingTypeDictionary,
@@ -110,7 +110,7 @@ public class SavedGameDependentDictionaries {
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.craftingOutputQualityDictionary = craftingOutputQualityDictionary;
 		this.messageDispatcher = messageDispatcher;
-		this.professionDictionary = professionDictionary;
+		this.skillDictionary = skillDictionary;
 		this.jobTypeDictionary = jobTypeDictionary;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.floorTypeDictionary = floorTypeDictionary;

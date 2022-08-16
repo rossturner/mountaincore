@@ -13,7 +13,7 @@ import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.cooking.model.CookingRecipe;
 import technology.rocketjump.saul.doors.Doorway;
 import technology.rocketjump.saul.entities.EntityStore;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.effects.FireEffectBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.InnoculationLogBehaviour;
@@ -23,10 +23,10 @@ import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
 import technology.rocketjump.saul.entities.components.furniture.HarvestableEntityComponent;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -77,7 +77,7 @@ import java.util.stream.Collectors;
 import static technology.rocketjump.saul.entities.behaviour.furniture.InnoculationLogBehaviour.InnoculationLogState.INNOCULATING;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.HELD_IN_INVENTORY;
 import static technology.rocketjump.saul.entities.model.EntityType.*;
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.ROOM;
@@ -407,8 +407,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 			case "HARVESTING": {
 
 				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
-				if (completedByEntity != null && completedByEntity.getBehaviourComponent() instanceof SettlerBehaviour) {
-					SettlerBehaviour settlerBehaviour = (SettlerBehaviour) completedByEntity.getBehaviourComponent();
+				if (completedByEntity != null && completedByEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
 					Entity targetEntity;
 					if (completedJob.getTargetId() != null) {
 						targetEntity = entityStore.getById(completedJob.getTargetId());
@@ -460,7 +459,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 						Logger.error("Target of " + completedJob.getType().getName() + " job is not valid");
 					}
 				} else {
-					Logger.error("Entity that completed job is null or not a settler");
+					Logger.error("Entity that completed job is null or not a creature");
 				}
 				break;
 			}
@@ -859,7 +858,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
 				EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
 				if (equippedItemComponent != null) {
-					Entity equippedItem = equippedItemComponent.clearEquippedItem();
+					Entity equippedItem = equippedItemComponent.clearMainHandItem();
 					if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
 						ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
 						GameMaterial material = attributes.getPrimaryMaterial();
@@ -868,7 +867,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
 						} else {
 							// put back as equipped for AI to clear
-							equippedItemComponent.setEquippedItem(equippedItem, completedByEntity, messageDispatcher);
+							equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
 						}
 
 						messageDispatcher.dispatchMessage(MessageType.FLOORING_CONSTRUCTED, new FloorConstructionMessage(
@@ -883,7 +882,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
 				EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
 				if (equippedItemComponent != null) {
-					Entity equippedItem = equippedItemComponent.clearEquippedItem();
+					Entity equippedItem = equippedItemComponent.clearMainHandItem();
 					if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
 						ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
 						GameMaterial material = attributes.getPrimaryMaterial();
@@ -892,7 +891,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
 						} else {
 							// put back as equipped for AI to clear
-							equippedItemComponent.setEquippedItem(equippedItem, completedByEntity, messageDispatcher);
+							equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
 						}
 
 						messageDispatcher.dispatchMessage(MessageType.ROOF_CONSTRUCTED, new RoofConstructionMessage(
@@ -913,7 +912,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
 				EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
 				if (equippedItemComponent != null) {
-					Entity equippedItem = equippedItemComponent.clearEquippedItem();
+					Entity equippedItem = equippedItemComponent.clearMainHandItem();
 					if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
 						ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
 						GameMaterial material = attributes.getPrimaryMaterial();
@@ -922,7 +921,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
 						} else {
 							// put back as equipped for AI to clear
-							equippedItemComponent.setEquippedItem(equippedItem, completedByEntity, messageDispatcher);
+							equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
 						}
 
 						messageDispatcher.dispatchMessage(MessageType.PIPE_CONSTRUCTED, new PipeConstructionMessage(
@@ -945,7 +944,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 					Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
 					EquippedItemComponent equippedItemComponent = completedByEntity.getOrCreateComponent(EquippedItemComponent.class);
 					if (equippedItemComponent != null) {
-						Entity equippedItem = equippedItemComponent.clearEquippedItem();
+						Entity equippedItem = equippedItemComponent.clearMainHandItem();
 						if (equippedItem != null && equippedItem.getType().equals(ITEM)) {
 							ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
 							GameMaterial material = attributes.getPrimaryMaterial();
@@ -954,7 +953,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 								messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedItem);
 							} else {
 								// put back as equipped for AI to clear
-								equippedItemComponent.setEquippedItem(equippedItem, completedByEntity, messageDispatcher);
+								equippedItemComponent.setMainHandItem(equippedItem, completedByEntity, messageDispatcher);
 							}
 
 							messageDispatcher.dispatchMessage(MessageType.MECHANISM_CONSTRUCTED, new MechanismConstructionMessage(
@@ -1104,10 +1103,9 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				HaulingComponent haulingComponent = completedByEntity.getOrCreateComponent(HaulingComponent.class);
 				haulingComponent.setHauledEntity(inventoryEntry.entity, messageDispatcher, completedByEntity);
 			} else {
-				BehaviourComponent behaviourComponent = completedByEntity.getBehaviourComponent();
-				if (behaviourComponent instanceof SettlerBehaviour) {
+				if (completedByEntity.getBehaviourComponent() instanceof CreatureBehaviour behaviour) {
 					// Remove all other goals and set this inventory item to expired so it is immediately placed
-					((SettlerBehaviour)behaviourComponent).getGoalQueue().clear();
+					behaviour.getGoalQueue().clear();
 					inventoryEntry.setLastUpdateGameTime(0 - harvestedItem.getItemType().getHoursInInventoryUntilUnused());
 				}
 			}

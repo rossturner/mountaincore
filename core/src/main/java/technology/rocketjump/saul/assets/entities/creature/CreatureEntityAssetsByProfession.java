@@ -4,7 +4,7 @@ import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodySha
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
 public class CreatureEntityAssetsByProfession {
 
@@ -46,7 +46,7 @@ public class CreatureEntityAssetsByProfession {
 		assets.add(asset);
 	}
 
-	public CreatureEntityAsset get(CreatureEntityAttributes attributes, Profession primaryProfession) {
+	public CreatureEntityAsset get(CreatureEntityAttributes attributes, Skill primaryProfession) {
 		List<CreatureEntityAsset> assetsForProfession = professionNameMap.get(primaryProfession.getName());
 
 		if (assetsForProfession == null || assetsForProfession.isEmpty()) {
@@ -60,8 +60,8 @@ public class CreatureEntityAssetsByProfession {
 		}
 	}
 
-	public List<CreatureEntityAsset> getAll(CreatureEntityAttributes attributes, Profession primaryProfession) {
-		final Profession profession = primaryProfession == null ? NULL_PROFESSION : primaryProfession;
+	public List<CreatureEntityAsset> getAll(CreatureEntityAttributes attributes, Skill primaryProfession) {
+		final Skill profession = primaryProfession == null ? NULL_PROFESSION : primaryProfession;
 		List<CreatureEntityAsset> assetsForProfession = professionNameMap.get(profession.getName());
 
 		if (assetsForProfession == null || assetsForProfession.isEmpty()) {

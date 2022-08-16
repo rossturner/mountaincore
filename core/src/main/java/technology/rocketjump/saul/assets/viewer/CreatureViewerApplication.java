@@ -17,7 +17,7 @@ import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -29,7 +29,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttribu
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.ScreenWriter;
@@ -85,8 +85,8 @@ public class CreatureViewerApplication extends ApplicationAdapter {
 		gameContext.setRandom(new RandomXS128());
 		currentEntity = creatureEntityFactory.create(attributes, position, facing, gameContext);
 
-		ProfessionsComponent professionsComponent = currentEntity.getOrCreateComponent(ProfessionsComponent.class);
-		professionsComponent.setSkillLevel(injector.getInstance(ProfessionDictionary.class).getByName("CARPENTER"), 80);
+		SkillsComponent skillsComponent = currentEntity.getOrCreateComponent(SkillsComponent.class);
+		skillsComponent.setSkillLevel(injector.getInstance(SkillDictionary.class).getByName("CARPENTER"), 80);
 
 		injector.getInstance(EntityAssetUpdater.class).updateEntityAssets(currentEntity);
 
@@ -95,7 +95,7 @@ public class CreatureViewerApplication extends ApplicationAdapter {
 		itemAllocationComponent.init(heldItem, null, null);
 
 		EquippedItemComponent equippedItemComponent = currentEntity.getOrCreateComponent(EquippedItemComponent.class);
-		equippedItemComponent.setEquippedItem(heldItem, currentEntity, new MessageDispatcher());
+		equippedItemComponent.setMainHandItem(heldItem, currentEntity, new MessageDispatcher());
 //		HaulingComponent haulingComponent = new HaulingComponent();
 //		haulingComponent.setHauledEntity(heldItem, new MessageDispatcher(), currentEntity);
 //		currentEntity.addComponent(haulingComponent);

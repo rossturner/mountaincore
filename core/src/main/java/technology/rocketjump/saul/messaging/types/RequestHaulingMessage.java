@@ -2,7 +2,7 @@ package technology.rocketjump.saul.messaging.types;
 
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.jobs.model.JobPriority;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 
 public class RequestHaulingMessage {
 
@@ -12,7 +12,7 @@ public class RequestHaulingMessage {
 	public final JobCreatedCallback callback;
 	public final JobPriority jobPriority;
 
-	private Profession specificProfessionRequired;
+	private Skill specificProfessionRequired;
 
 	public RequestHaulingMessage(Entity entityToBeMoved, Entity requestingEntity, boolean forceHaulingEvenWithoutStockpile, JobPriority jobPriority, JobCreatedCallback callback) {
 		this.entityToBeMoved = entityToBeMoved;
@@ -30,11 +30,11 @@ public class RequestHaulingMessage {
 		return forceHaulingEvenWithoutStockpile;
 	}
 
-	public Profession getSpecificProfessionRequired() {
+	public Skill getSpecificProfessionRequired() {
 		return specificProfessionRequired;
 	}
 
-	public void setSpecificProfessionRequired(Profession specificProfessionRequired) {
+	public void setSpecificProfessionRequired(Skill specificProfessionRequired) {
 		this.specificProfessionRequired = specificProfessionRequired;
 	}
 

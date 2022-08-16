@@ -375,13 +375,6 @@
     "onCompletionSoundAssetName": "WaterSizzle"
   },
   {
-    "name": "HUNT_CREATURE",
-    "switchToSpecialGoal": "HUNT_CREATURE",
-    "requiredProfessionName": "HUNTER",
-    "removeJobWhenAssignmentCancelled": true,
-    "requiresWeapon": true
-  },
-  {
     "name": "BUTCHER_CREATURE",
     "minimumTimeToCompleteJob": 1.75,
     "maximumTimeToCompleteJob": 8.25,

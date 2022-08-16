@@ -1,11 +1,13 @@
 package technology.rocketjump.saul.entities.components;
 
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
 
 public interface BehaviourComponent extends ParentDependentEntityComponent {
 
-	void update(float deltaTime, GameContext gameContext);
+	void update(float deltaTime);
+
+	void updateWhenPaused();
 
 	void infrequentUpdate(GameContext gameContext);
 

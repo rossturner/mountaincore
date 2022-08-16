@@ -49,7 +49,7 @@ public class MushroomFarmBehaviour extends RoomBehaviourComponent implements Pri
 	private FurnitureType innoculatedLogFurnitureType;
 	private FurnitureType shockedLogFurnitureType;
 	private JobType haulingJobType;
-	private Profession mushroomFarmingProfession;
+	private Skill mushroomFarmingProfession;
 
 	public MushroomFarmBehaviour(Room parent, MessageDispatcher messageDispatcher) {
 		super(parent, messageDispatcher);
@@ -180,7 +180,7 @@ public class MushroomFarmBehaviour extends RoomBehaviourComponent implements Pri
 		}
 	}
 
-	public void setMushroomFarmingProfession(Profession profession) {
+	public void setMushroomFarmingProfession(Skill profession) {
 		this.mushroomFarmingProfession = profession;
 	}
 
@@ -244,7 +244,7 @@ public class MushroomFarmBehaviour extends RoomBehaviourComponent implements Pri
 
 		String requiredProfessionName = asJson.getString("profession");
 		if (requiredProfessionName != null) {
-			this.mushroomFarmingProfession = relatedStores.professionDictionary.getByName(requiredProfessionName);
+			this.mushroomFarmingProfession = relatedStores.skillDictionary.getByName(requiredProfessionName);
 			if (this.mushroomFarmingProfession == null) {
 				throw new InvalidSaveException("Could not find profession by name " + requiredProfessionName);
 			}

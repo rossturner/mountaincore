@@ -5,9 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -38,6 +38,7 @@ public class FurnitureBehaviour implements BehaviourComponent {
 	protected LocationComponent locationComponent;
 	protected MessageDispatcher messageDispatcher;
 	protected Entity parentEntity;
+	protected GameContext gameContext;
 
 	protected List<ItemType> relatedItemTypes = new ArrayList<>(0);
 	protected List<JobType> relatedJobTypes = new ArrayList<>(0);
@@ -51,6 +52,7 @@ public class FurnitureBehaviour implements BehaviourComponent {
 		this.locationComponent = parentEntity.getLocationComponent();
 		this.messageDispatcher = messageDispatcher;
 		this.parentEntity = parentEntity;
+		this.gameContext = gameContext;
 		this.lastUpdateGameTime = gameContext.getGameClock().getCurrentGameTime();
 	}
 
@@ -62,8 +64,13 @@ public class FurnitureBehaviour implements BehaviourComponent {
 	}
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		// Do nothing, does not update every frame
+	}
+
+	@Override
+	public void updateWhenPaused() {
+
 	}
 
 	@Override

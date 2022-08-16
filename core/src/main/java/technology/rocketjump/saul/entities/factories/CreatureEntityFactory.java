@@ -9,11 +9,13 @@ import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.ai.goap.GoalDictionary;
 import technology.rocketjump.saul.entities.behaviour.DoNothingBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
-import technology.rocketjump.saul.entities.components.humanoid.MemoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.NeedsComponent;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
+import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
@@ -48,12 +50,8 @@ public class CreatureEntityFactory  {
 		if (attributes.getRace().getBehaviour().getBehaviourClass() != null) {
 			try {
 				behaviourComponent = attributes.getRace().getBehaviour().getBehaviourClass().getConstructor().newInstance();
-
-				if (behaviourComponent instanceof SettlerBehaviour) {
-					SettlerBehaviour settlerBehaviour = (SettlerBehaviour) behaviourComponent;
-					settlerBehaviour.constructWith(goalDictionary, roomStore);
-				} else if (behaviourComponent instanceof CreatureBehaviour) {
-					((CreatureBehaviour) behaviourComponent).constructWith(goalDictionary);
+				if (behaviourComponent instanceof CreatureBehaviour creatureBehaviour) {
+					creatureBehaviour.constructWith(goalDictionary, roomStore);
 				}
 
 			} catch (ReflectiveOperationException e) {
@@ -70,7 +68,9 @@ public class CreatureEntityFactory  {
 
 		entity.addComponent(new NeedsComponent(attributes.getRace().getBehaviour().getNeeds(), gameContext.getRandom()));
 		entity.addComponent(new MemoryComponent());
+		entity.getOrCreateComponent(CombatStateComponent.class).init(entity, messageDispatcher, gameContext);
 		entity.getOrCreateComponent(StatusComponent.class).init(entity, messageDispatcher, gameContext);
+		entity.getOrCreateComponent(FactionComponent.class).setFaction(Faction.WILD_ANIMALS); // TODO derive this from other data
 
 		entityAssetUpdater.updateEntityAssets(entity);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, entity);

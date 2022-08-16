@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.entities.ai.pathfinding.Map2DCollection;
 import technology.rocketjump.saul.entities.ai.pathfinding.MapPathfindingNode;
+import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.CompassDirection;
@@ -14,8 +15,11 @@ import technology.rocketjump.saul.messaging.async.BackgroundTaskResult;
 import technology.rocketjump.saul.messaging.types.PathfindingRequestMessage;
 import technology.rocketjump.saul.misc.VectorGraphPath;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
+
+import static technology.rocketjump.saul.entities.planning.PathfindingFlag.AVOID_COMBATANTS_HOLDING_TILES;
 
 public class PathfindingTask implements Callable<BackgroundTaskResult> {
 
@@ -29,6 +33,7 @@ public class PathfindingTask implements Callable<BackgroundTaskResult> {
 	private final PriorityQueue<MapPathfindingNode> frontier = new PriorityQueue<>();
 	private final Map2DCollection<MapPathfindingNode> explored;
 	private final long relatedId;
+	private final List<PathfindingFlag> flags;
 	private final Entity parentEntity;
 
 	public PathfindingTask(PathfindingRequestMessage requestMessage) {
@@ -37,6 +42,7 @@ public class PathfindingTask implements Callable<BackgroundTaskResult> {
 		this.map = requestMessage.getMap();
 		this.explored = new Map2DCollection<>(map.getWidth());
 		this.relatedId = requestMessage.getRelatedId();
+		this.flags = requestMessage.getFlags();
 
 		this.origin = requestMessage.getOrigin();
 		this.originCell = map.getTile(origin);
@@ -136,6 +142,20 @@ public class PathfindingTask implements Callable<BackgroundTaskResult> {
 			CompassDirection direction = compassDirectionMapCellEntry.getKey();
 			MapTile cellInDirection = compassDirectionMapCellEntry.getValue();
 			if (cellInDirection.isNavigable(parentEntity, originCell)) {
+				if (flags.contains(AVOID_COMBATANTS_HOLDING_TILES)) {
+					boolean hasCombatantHoldingTile = cellInDirection.getEntities()
+							.stream().anyMatch(entity -> {
+								CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
+								if (combatStateComponent != null && combatStateComponent.isInCombat() && combatStateComponent.getHeldLocation() != null) {
+									return cellInDirection.getTilePosition().equals(combatStateComponent.getHeldLocation());
+								}
+								return false;
+							});
+					if (hasCombatantHoldingTile) {
+						continue;
+					}
+				}
+
 				if (direction.isDiagonal()) {
 					// Needs both orthogonal neighbours to be navigable
 					// Assuming that if there is a diagonal neighbour, both the orthogonal neighbours must not be null

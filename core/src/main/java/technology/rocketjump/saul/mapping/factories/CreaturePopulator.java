@@ -8,9 +8,6 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureGroup;
-import technology.rocketjump.saul.entities.behaviour.creature.HerdAnimalBehaviour;
-import technology.rocketjump.saul.entities.behaviour.creature.SolitaryAnimalBehaviour;
-import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.factories.CreatureEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -29,18 +26,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.stream.Collectors;
+
+import static technology.rocketjump.saul.entities.model.physical.creature.CreatureMapPlacement.ANIMAL;
 
 @Singleton
 public class CreaturePopulator {
 
 	private static final int MIN_ANIMALS_ON_SPAWN = 29;
 	private static final int MAX_ANIMALS_ON_SPAWN = 57;
-	// MODDING expose the below as a global constant
-	private static final List<Class<? extends BehaviourComponent>> ANIMAL_BEHAVIOURS = List.of(
-			HerdAnimalBehaviour.class,
-			SolitaryAnimalBehaviour.class
-	);
 	private static final float MIN_DISTANCE_FROM_EMBARK = 30f;
 	private static final float MIN_DISTANCE_FROM_OTHER_CREATURES = 20f;
 	private static final int MAP_SIZE_ANIMAL_RATIO = 1500;
@@ -78,8 +71,8 @@ public class CreaturePopulator {
 
 	private void addAnimalsToMap(int animalsToAdd, boolean addingAtMapEdge, GameContext gameContext) {
 		List<Race> animalRaces = raceDictionary.getAll().stream()
-				.filter(r -> r.getBehaviour().getBehaviourClass() != null && ANIMAL_BEHAVIOURS.contains(r.getBehaviour().getBehaviourClass()))
-				.collect(Collectors.toList());
+				.filter(r -> ANIMAL.equals(r.getMapPlacement()))
+				.toList();
 		Set<GridPoint2> creatureSpawnLocations = new HashSet<>();
 
 		Logger.debug("Adding " + animalsToAdd + " animals");

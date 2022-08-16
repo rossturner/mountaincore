@@ -3,7 +3,7 @@ package technology.rocketjump.saul.entities.model.physical.mechanism;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.tags.Tag;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.mapping.tile.CompassDirection;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.Name;
@@ -20,7 +20,7 @@ public class MechanismType {
 
 	private String relatedProfessionName;
 	@JsonIgnore
-	private Profession relatedProfession;
+	private Skill relatedProfession;
 
 	private String relatedItemTypeName;
 	@JsonIgnore
@@ -85,11 +85,11 @@ public class MechanismType {
 		this.relatedProfessionName = relatedProfessionName;
 	}
 
-	public Profession getRelatedProfession() {
+	public Skill getRelatedProfession() {
 		return relatedProfession;
 	}
 
-	public void setRelatedProfession(Profession relatedProfession) {
+	public void setRelatedProfession(Skill relatedProfession) {
 		this.relatedProfession = relatedProfession;
 	}
 

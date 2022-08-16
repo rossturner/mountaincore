@@ -5,7 +5,7 @@ import technology.rocketjump.saul.jobs.model.PotentialJob;
 
 import java.util.Comparator;
 
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
 /**
  * This comparator sorts by priority, then having or not having a required profession, then distance

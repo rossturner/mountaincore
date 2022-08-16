@@ -5,7 +5,7 @@ import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityA
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,11 +26,11 @@ public class CreatureEntityAssetsByType {
 		typeMap.get(asset.getType()).add(asset);
 	}
 
-	public CreatureEntityAsset get(EntityAssetType type, CreatureEntityAttributes attributes, Profession primaryProfession) {
+	public CreatureEntityAsset get(EntityAssetType type, CreatureEntityAttributes attributes, Skill primaryProfession) {
 		return typeMap.get(type).get(attributes, primaryProfession);
 	}
 
-	public List<CreatureEntityAsset> getAll(EntityAssetType type, CreatureEntityAttributes attributes, Profession primaryProfession) {
+	public List<CreatureEntityAsset> getAll(EntityAssetType type, CreatureEntityAttributes attributes, Skill primaryProfession) {
 		return typeMap.get(type).getAll(attributes, primaryProfession);
 	}
 

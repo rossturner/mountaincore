@@ -1,5 +1,4 @@
 {
-  "itemTypeId" : 72,
   "itemTypeName" : "Weapon-Sword",
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "METAL" ],
@@ -11,8 +10,11 @@
     "range" : 1,
     "damageType" : "SLASHING",
     "modifiedByStrength" : true,
-    "minDamage" : 2,
-    "maxDamage" : 10
+    "minDamage" : 3,
+    "maxDamage" : 8,
+    "combatSkillName" : "SWORDSMANSHIP",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
+    "animatedSpriteEffectName" : "Weapon slash"
   },
   "i18nKey" : "WEAPON.SWORD"
 }

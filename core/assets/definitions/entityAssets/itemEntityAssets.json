@@ -18251,6 +18251,106 @@
     }
   }
 }, {
+  "uniqueName" : "Tool-Large-Hammer-Extras-Being-Carried",
+  "type" : "BELOW_LAYER_1",
+  "itemTypeName" : "Tool-Large-Hammer",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Tool-Large-Hammer-Extras-Being-Carried-F.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Tool-Large-Hammer-Extras-Being-Carried-F34.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Tool-Large-Hammer-Extras-Being-Carried-F34.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Tool-Large-Hammer-Extras-Being-Carried-B.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Tool-Large-Hammer-Extras-Being-Carried-B34.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Tool-Large-Hammer-Extras-Being-Carried-B34.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Tool-Large-Hammer-Handle-Being-Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Tool-Large-Hammer",
@@ -18571,16 +18671,16 @@
     }
   }
 }, {
-  "uniqueName" : "Tool-Large-Hammer-Extras-Being-Carried",
+  "uniqueName" : "Tool-Large-Hammer-Extras-On-Ground",
   "type" : "BELOW_LAYER_1",
   "itemTypeName" : "Tool-Large-Hammer",
   "minQuantity" : 1,
   "maxQuantity" : 1,
   "itemQualities" : [ ],
-  "itemPlacements" : [ "BEING_CARRIED" ],
+  "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Tool-Large-Hammer-Extras-Being-Carried-F.png",
+      "filename" : "Tool-Large-Hammer-Extras-On-Ground.png",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
@@ -18593,9 +18693,20 @@
       "childAssets" : [ ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Tool-Large-Hammer-Extras-Being-Carried-F34.png",
+    }
+  }
+}, {
+  "uniqueName" : "Tool-Large-Hammer-Handle-On-Ground",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Tool-Large-Hammer",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Tool-Large-Hammer-Handle-On-Ground.png",
+      "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
@@ -18604,66 +18715,6 @@
         "unit" : false
       },
       "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Tool-Large-Hammer-Extras-Being-Carried-F34.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP" : {
-      "filename" : "Tool-Large-Hammer-Extras-Being-Carried-B.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Tool-Large-Hammer-Extras-Being-Carried-B34.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Tool-Large-Hammer-Extras-Being-Carried-B34.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
       "flipY" : false,
       "childAssets" : [ ],
       "attachmentPoints" : [ ],
@@ -18706,57 +18757,6 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Tool-Large-Hammer-Handle-On-Ground",
-  "type" : "ABOVE_LAYER_1",
-  "itemTypeName" : "Tool-Large-Hammer",
-  "minQuantity" : 1,
-  "maxQuantity" : 1,
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Tool-Large-Hammer-Handle-On-Ground.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Tool-Large-Hammer-Extras-On-Ground",
-  "type" : "BELOW_LAYER_1",
-  "itemTypeName" : "Tool-Large-Hammer",
-  "minQuantity" : 1,
-  "maxQuantity" : 1,
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Tool-Large-Hammer-Extras-On-Ground.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
@@ -20756,69 +20756,13 @@
     }
   }
 }, {
-  "uniqueName" : "Weapon-Bone-Arrows-On-Ground-Body",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Weapon-Bone-Arrows",
-  "minQuantity" : 1,
-  "maxQuantity" : 50,
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "arrow-bodies.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 3.0,
-        "y" : -2.5,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "offsetPixels" : {
-          "x" : -3.0,
-          "y" : 2.5,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Weapon-Projectile-Bone",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Weapon-Metal-Arrows",
-  "minQuantity" : 1,
-  "maxQuantity" : 1,
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "PROJECTILE" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "arrow-projectile.png",
-      "coloringLayer" : "BONE_COLOR",
-      "isAnimated" : false,
-      "scale" : 0.7,
-      "offsetPixels" : {
-        "x" : -1.5,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Weapon-Bone-Arrows-Carried-Body",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Bone-Arrows",
   "minQuantity" : 1,
   "maxQuantity" : 50,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
@@ -20828,7 +20772,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 3.0,
-        "y" : -10.5,
+        "y" : -12.5,
         "unit" : false
       },
       "flipX" : false,
@@ -20845,7 +20789,7 @@
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 26.0,
+          "x" : 16.0,
           "y" : 0.0,
           "unit" : false
         },
@@ -20865,8 +20809,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 3.0,
-        "y" : -10.5,
+        "x" : 1.0,
+        "y" : -8.5,
         "unit" : false
       },
       "flipX" : false,
@@ -20874,7 +20818,7 @@
       "childAssets" : [ {
         "type" : "BELOW_LAYER_1",
         "offsetPixels" : {
-          "x" : -3.0,
+          "x" : -5.0,
           "y" : 2.5,
           "unit" : false
         }
@@ -20883,7 +20827,7 @@
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : -20.0,
+          "x" : -13.0,
           "y" : 0.0,
           "unit" : false
         },
@@ -20896,7 +20840,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 3.0,
-        "y" : -10.5,
+        "y" : -12.5,
         "unit" : false
       },
       "flipX" : false,
@@ -20913,7 +20857,7 @@
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 20.0,
+          "x" : 9.0,
           "y" : 0.0,
           "unit" : false
         },
@@ -20926,7 +20870,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 3.0,
-        "y" : -10.5,
+        "y" : -11.5,
         "unit" : false
       },
       "flipX" : false,
@@ -20943,7 +20887,7 @@
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 22.0,
+          "x" : 19.0,
           "y" : 0.0,
           "unit" : false
         },
@@ -20963,8 +20907,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 3.0,
-        "y" : -10.5,
+        "x" : 10.0,
+        "y" : -12.5,
         "unit" : false
       },
       "flipX" : false,
@@ -20993,8 +20937,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 3.0,
-        "y" : -10.5,
+        "x" : -4.0,
+        "y" : -11.5,
         "unit" : false
       },
       "flipX" : false,
@@ -21011,38 +20955,12 @@
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 12.0,
+          "x" : 8.0,
           "y" : 0.0,
           "unit" : false
         },
         "overrideRenderLayer" : 100
       } ]
-    }
-  }
-}, {
-  "uniqueName" : "Weapon-Bone-Arrows-On-Ground-Bone-Heads",
-  "type" : "BELOW_LAYER_1",
-  "itemTypeName" : "Weapon-Bone-Arrows",
-  "minQuantity" : 1,
-  "maxQuantity" : 50,
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "arrow-heads.png",
-      "coloringLayer" : "BONE_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -14.0,
-        "y" : 8.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
     }
   }
 }, {
@@ -21142,6 +21060,90 @@
       "offsetPixels" : {
         "x" : -14.0,
         "y" : 8.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Bone-Arrows-On-Ground-Body",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Bone-Arrows",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "arrow-bodies.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 3.0,
+        "y" : -2.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : -3.0,
+          "y" : 2.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Bone-Arrows-On-Ground-Bone-Heads",
+  "type" : "BELOW_LAYER_1",
+  "itemTypeName" : "Weapon-Bone-Arrows",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "arrow-heads.png",
+      "coloringLayer" : "BONE_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -14.0,
+        "y" : 8.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Projectile-Bone",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Metal-Arrows",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "PROJECTILE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "arrow-projectile.png",
+      "coloringLayer" : "BONE_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : 0.0,
         "unit" : false
       },
       "flipX" : false,

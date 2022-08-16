@@ -18,7 +18,7 @@ import technology.rocketjump.saul.entities.behaviour.effects.FireEffectBehaviour
 import technology.rocketjump.saul.entities.components.AttachedEntitiesComponent;
 import technology.rocketjump.saul.entities.components.AttachedLightSourceComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.factories.OngoingEffectAttributesFactory;
 import technology.rocketjump.saul.entities.factories.OngoingEffectEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;

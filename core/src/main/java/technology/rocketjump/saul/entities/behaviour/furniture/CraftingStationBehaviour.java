@@ -17,11 +17,11 @@ import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureParticleEffectsComponent;
 import technology.rocketjump.saul.entities.components.furniture.PoweredFurnitureComponent;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -357,7 +357,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 
 			if (assignedQuantity < requirement.getQuantity()) {
 				// Create new job
-				Profession professionRequired = currentProductionAssignment.targetRecipe.getCraftingType().getProfessionRequired();
+				Skill professionRequired = currentProductionAssignment.targetRecipe.getCraftingType().getProfessionRequired();
 				FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
 				if (navigableWorkspace != null) {
 					messageDispatcher.dispatchMessage(MessageType.REQUEST_LIQUID_TRANSFER, new RequestLiquidTransferMessage(
@@ -699,9 +699,9 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	private ItemQuality determineItemQuality(Entity completedByEntity, Random random) {
 		ItemQuality result = STANDARD;
 		if (craftingType.getProfessionRequired() != null) {
-			ProfessionsComponent professionsComponent = completedByEntity.getComponent(ProfessionsComponent.class);
-			if (professionsComponent != null) {
-				int skillLevel = professionsComponent.getSkillLevel(craftingType.getProfessionRequired());
+			SkillsComponent skillsComponent = completedByEntity.getComponent(SkillsComponent.class);
+			if (skillsComponent != null) {
+				int skillLevel = skillsComponent.getSkillLevel(craftingType.getProfessionRequired());
 				CraftingOutputQuality outputQuality = craftingOutputQualityDictionary.getForSkillLevel(skillLevel);
 
 				float roll = random.nextFloat();
@@ -817,7 +817,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		// Do nothing every frame
 	}
 

@@ -33,9 +33,10 @@ import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
+import technology.rocketjump.saul.jobs.model.SkillType;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.layout.WallLayout;
@@ -45,6 +46,7 @@ import technology.rocketjump.saul.materials.GameMaterialI18nUpdater;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.twitch.TwitchDataStore;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
@@ -68,7 +70,7 @@ public class I18NTranslatorTest {
 
 	private I18nTranslator translator;
 	@Mock
-	private ProfessionDictionary mockProfessionDictionary;
+	private SkillDictionary mockSkillDictionary;
 	@Mock
 	private EntityAssetUpdater mockEntityAssetUpdater;
 	@Mock
@@ -116,9 +118,9 @@ public class I18NTranslatorTest {
 	@Mock
 	private TwitchDataStore mockTwitchDataStore;
 	@Mock
-	private GameMaterialDictionary mockMaterialDictionary;
-	@Mock
 	private RaceDictionary mockRaceDictionary;
+	@Mock
+	private ParticleEffectTypeDictionary mockParticleEffectTypeDictionary;
 
 	@Before
 	public void setup() throws IOException {
@@ -126,14 +128,16 @@ public class I18NTranslatorTest {
 
 		when(mockCraftingTypeDictionary.getByName(Mockito.anyString())).thenReturn(mockCraftingType);
 		when(mockWallType.getI18nKey()).thenReturn("WALL.STONE_BLOCK");
+		when(mockSkillDictionary.getByName(anyString())).thenReturn(SkillDictionary.UNARMED_COMBAT_SKILL);
 
 		I18nRepo i18nRepo = new I18nRepo(mockUserPreferences);
 
-		itemTypeDictionary = new ItemTypeDictionary(mockCraftingTypeDictionary, new StockpileGroupDictionary(), mockSoundAssetDictionary, mockConstantsRepo);
+		itemTypeDictionary = new ItemTypeDictionary(mockCraftingTypeDictionary, new StockpileGroupDictionary(), mockSoundAssetDictionary,
+				mockConstantsRepo, mockParticleEffectTypeDictionary, mockSkillDictionary);
 		gameMaterialDictionary = new GameMaterialDictionary();
 		new GameMaterialI18nUpdater(i18nRepo, gameMaterialDictionary).onLanguageUpdated();
 
-		translator = new I18nTranslator(i18nRepo, mockProfessionDictionary, mockEntityStore);
+		translator = new I18nTranslator(i18nRepo, mockSkillDictionary, mockEntityStore);
 
 
 
@@ -156,10 +160,11 @@ public class I18NTranslatorTest {
 				mockUserPreferences, mockTwitchDataStore, mockRaceDictionary).create(new GameContext());
 		attributes.setName(nameGenerator.create(88L, Gender.MALE));
 
-		Profession profession = new Profession();
+		Skill profession = new Skill();
 		profession.setI18nKey("PROFESSION.BLACKSMITH");
+		profession.setType(SkillType.PROFESSION);
 		Entity entity = new SettlerEntityFactory(
-				mockMessageDispatcher, new ProfessionDictionary(), mockEntityAssetUpdater,
+				mockMessageDispatcher, new SkillDictionary(), mockEntityAssetUpdater,
 				mockGoalDictionary, mockRoomStore).create(attributes, null, new Vector2(), profession, profession, mockGameContext);
 
 		I18nText description = translator.getDescription(entity);
@@ -225,7 +230,7 @@ public class I18NTranslatorTest {
 	@Test
 	public void describeFurniture() throws IOException {
 		FurnitureEntityAttributes attributes = new FurnitureEntityAttributesFactory(new FurnitureTypeDictionary(new FurnitureLayoutDictionary(),
-				itemTypeDictionary)).byName("STONEMASON_WORKBENCH", gameMaterialDictionary.getByName("Granite"));
+				itemTypeDictionary)).byName("Stonemason_Bench", gameMaterialDictionary.getByName("Granite"));
 		Entity entity = new FurnitureEntityFactory(mockMessageDispatcher, mockEntityAssetUpdater).create(attributes, new GridPoint2(), null, mockGameContext);
 		I18nText description = translator.getDescription(entity);
 
@@ -244,9 +249,9 @@ public class I18NTranslatorTest {
 
 	@Test
 	public void describeFurnitureConstruction() throws IOException {
-		GameMaterial material = gameMaterialDictionary.getByName("Oak");
+		GameMaterial material = gameMaterialDictionary.getByName("Granite");
 		FurnitureEntityAttributes attributes = new FurnitureEntityAttributesFactory(new FurnitureTypeDictionary(new FurnitureLayoutDictionary(),
-				itemTypeDictionary)).byName("STONEMASON_WORKBENCH", material);
+				itemTypeDictionary)).byName("Stonemason_Bench", material);
 		Entity furnitureEntity = new FurnitureEntityFactory(mockMessageDispatcher, mockEntityAssetUpdater).create(attributes, new GridPoint2(), null, mockGameContext);
 
 		FurnitureConstruction construction = new FurnitureConstruction(furnitureEntity);
@@ -254,7 +259,7 @@ public class I18NTranslatorTest {
 			requirement.setMaterial(material);
 		}
 
-		assertThat(translator.getDescription(construction).toString()).isEqualTo("Construction of oaken stonemason workbench");
+		assertThat(translator.getDescription(construction).toString()).isEqualTo("Construction of granite stonemason workbench");
 	}
 
 //	@Test
@@ -461,7 +466,7 @@ public class I18NTranslatorTest {
 		PlantEntityAttributesFactory factory = new PlantEntityAttributesFactory(new PlantSpeciesDictionary(gameMaterialDictionary, itemTypeDictionary));
 		Random random = new RandomXS128(1L);
 		PlantSpeciesDictionary speciesDictionary = new PlantSpeciesDictionary(gameMaterialDictionary, itemTypeDictionary);
-		PlantEntityAttributes attributes = factory.createBySpecies(speciesDictionary.getByName("Tamarillo bush"), random);
+		PlantEntityAttributes attributes = factory.createBySpecies(speciesDictionary.getByName("Shrub"), random);
 
 		return new PlantEntityFactory(mockMessageDispatcher, mockEntityAssetUpdater, mockJobTypeDictionary).create(attributes, new GridPoint2(), mockGameContext);
 	}

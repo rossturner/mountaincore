@@ -15,12 +15,12 @@ import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
-import technology.rocketjump.saul.entities.components.humanoid.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
@@ -63,11 +63,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.CONTENTS_TO_BE_DUMPED;
-import static technology.rocketjump.saul.entities.components.humanoid.HappinessComponent.MAX_HAPPINESS_VALUE;
-import static technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent.MAX_PROFESSIONS;
+import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.MAX_HAPPINESS_VALUE;
+import static technology.rocketjump.saul.entities.components.creature.SkillsComponent.MAX_PROFESSIONS;
 import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
 import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.ENTITY;
 
@@ -224,7 +224,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		if (selectable != null && selectable.type.equals(ENTITY)) {
 			Entity entity = selectable.getEntity();
-			if (entity.getBehaviourComponent() instanceof SettlerBehaviour) {
+			if (entity.isSettler()) {
 				buildSettlerSelectedView(entity);
 				// TODO description of any dead creatures
 			} else {
@@ -315,10 +315,16 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						List<ItemAllocation> itemAllocations = itemAllocationComponent.getAll();
 						if (itemAllocations.size() > 0) {
 							String allocationsString = StringUtils.join(itemAllocations, ", ");
-							entityDescriptionTable.add(new Label("Allocations: " + allocationsString, uiSkin)).left();
+							entityDescriptionTable.add(new Label("Allocations: " + allocationsString, uiSkin)).left().row();
 						}
 					}
 					if (entity.getType().equals(EntityType.CREATURE)) {
+						CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
+						if (combatStateComponent != null && combatStateComponent.isInCombat()) {
+							if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+								entityDescriptionTable.add(new Label("In combat: " + creatureBehaviour.getCombatBehaviour().getCurrentAction().getClass().getSimpleName(), uiSkin)).left().row();
+							}
+						}
 //					SettlerBehaviour behaviourComponent = (SettlerBehaviour) entity.getBehaviourComponent();
 //					if (behaviourComponent.getCurrentGoal() != null) {
 //						String goal = "Goal: " + behaviourComponent.getCurrentGoal().goal.name;
@@ -355,7 +361,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 			outerTable.add(entityDescriptionTable).top();
 
-			if (injuriesTable.hasChildren() && !(entity.getBehaviourComponent() instanceof SettlerBehaviour)) {
+			if (injuriesTable.hasChildren() && !entity.isSettler()) {
 				outerTable.add(injuriesTable).padLeft(5);
 			}
 
@@ -468,11 +474,20 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			nameCell.row();
 		}
 
-		if (entity.getBehaviourComponent() instanceof SettlerBehaviour) {
-			List<I18nText> description = ((SettlerBehaviour) entity.getBehaviourComponent()).getDescription(i18nTranslator, gameContext);
+		if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+			List<I18nText> description;
+
+
+			CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
+			if (combatStateComponent != null && combatStateComponent.isInCombat()) {
+				description = creatureBehaviour.getCombatBehaviour().getDescription(i18nTranslator, gameContext);
+			} else {
+				description = creatureBehaviour.getDescription(i18nTranslator, gameContext);
+			}
 			for (I18nText i18nText : description) {
 				nameTable.add(new I18nTextWidget(i18nText, uiSkin, messageDispatcher)).left().row();
 			}
+
 		} else if (entity.getBehaviourComponent() instanceof CorpseBehaviour) {
 			HistoryComponent historyComponent = entity.getComponent(HistoryComponent.class);
 			if (historyComponent != null && historyComponent.getDeathReason() != null) {
@@ -488,26 +503,26 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	}
 
 	private void populateProfessionTable(Entity entity) {
-		ProfessionsComponent professionsComponent = entity.getComponent(ProfessionsComponent.class);
-		if (professionsComponent == null) {
+		SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
+		if (skillsComponent == null) {
 			return;
 		}
 		int rowCounter = 0;
-		List<ProfessionsComponent.QuantifiedProfession> activeProfessions = professionsComponent.getActiveProfessions();
+		List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
 		List<Table> professionRows = new ArrayList<>();
 
-		for (ProfessionsComponent.QuantifiedProfession quantifiedProfession : activeProfessions) {
-			if (!quantifiedProfession.getProfession().equals(NULL_PROFESSION)) {
+		for (SkillsComponent.QuantifiedSkill quantifiedSkill : activeProfessions) {
+			if (!quantifiedSkill.getSkill().equals(NULL_PROFESSION)) {
 				rowCounter++;
 
-				if (professionsComponent.getActiveProfessions().size() > 2) {
+				if (skillsComponent.getActiveProfessions().size() > 2) {
 					Table orderingTable = new Table(uiSkin);
 					final int rowIndex = rowCounter - 1;
 
 					if (rowIndex > 0) {
 						IconOnlyButton upButton = upButtons.get(rowIndex);
 						upButton.setAction(() -> {
-							professionsComponent.swapActivePositions(rowIndex - 1, rowIndex);
+							skillsComponent.swapActiveProfessionPositions(rowIndex - 1, rowIndex);
 							messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 							update();
 						});
@@ -517,7 +532,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					if (rowIndex < activeProfessions.size() - 2) {
 						IconOnlyButton downButton = downButtons.get(rowIndex);
 						downButton.setAction(() -> {
-							professionsComponent.swapActivePositions(rowIndex, rowIndex + 1);
+							skillsComponent.swapActiveProfessionPositions(rowIndex, rowIndex + 1);
 							messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 							update();
 						});
@@ -529,16 +544,16 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				Table professionRow = new Table(uiSkin);
 				professionRow.add(new Label(rowCounter +". ", uiSkin));
-				professionRow.add(new I18nTextWidget(i18nTranslator.getSkilledProfessionDescription(quantifiedProfession.getProfession(),
-						quantifiedProfession.getSkillLevel(), ((CreatureEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getGender()),
+				professionRow.add(new I18nTextWidget(i18nTranslator.getSkilledProfessionDescription(quantifiedSkill.getSkill(),
+						quantifiedSkill.getLevel(), ((CreatureEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getGender()),
 						uiSkin, messageDispatcher));
-				professionRow.add(new Label(" (" + quantifiedProfession.getSkillLevel() + ")", uiSkin));
+				professionRow.add(new Label(" (" + quantifiedSkill.getLevel() + ")", uiSkin));
 				professionsTable.add(professionRow).align(Align.left).pad(5);
 				professionRows.add(professionRow);
 
 				ImageButton cancelButton = cancelButtons.get(rowCounter);
 				cancelButton.setAction(() -> {
-					professionsComponent.deactivate(quantifiedProfession.getProfession());
+					skillsComponent.deactivateProfession(quantifiedSkill.getSkill());
 					messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 					update();
 				});
@@ -607,7 +622,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
 				Entity equippedItem = null;
 				if (equippedItemComponent != null) {
-					equippedItem = equippedItemComponent.getEquippedItem();
+					equippedItem = equippedItemComponent.getMainHandItem();
 				}
 				if (equippedItem != null && equippedItem.getType().equals(ITEM) &&
 						((ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes()).getItemType().equals(selectedWeapon.get())) {

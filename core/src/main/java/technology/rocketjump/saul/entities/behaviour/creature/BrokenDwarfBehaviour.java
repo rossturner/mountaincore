@@ -5,8 +5,8 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import org.apache.commons.lang3.NotImplementedException;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.components.EntityComponent;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.Sanity;
@@ -17,14 +17,14 @@ import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
 import static technology.rocketjump.saul.entities.ai.goap.SpecialGoal.IDLE;
 
-public class BrokenDwarfBehaviour extends SettlerBehaviour {
+public class BrokenDwarfBehaviour extends CreatureBehaviour {
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		super.init(parentEntity, messageDispatcher, gameContext);
 
 		((CreatureEntityAttributes)parentEntity.getPhysicalEntityComponent().getAttributes()).setSanity(Sanity.BROKEN);
-		parentEntity.removeComponent(ProfessionsComponent.class);
+		parentEntity.removeComponent(SkillsComponent.class);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class BrokenDwarfBehaviour extends SettlerBehaviour {
 	}
 
 	@Override
-	protected AssignedGoal pickNextGoalFromQueue(GameContext gameContext) {
+	protected AssignedGoal pickNextGoalFromQueue() {
 		return new AssignedGoal(IDLE.getInstance(), parentEntity, messageDispatcher);
 	}
 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PotentialJobSorterTest {
@@ -22,7 +22,7 @@ public class PotentialJobSorterTest {
 	@Mock
 	private JobType requiredProfessionJobType;
 	@Mock
-	private Profession mockProfession;
+	private Skill mockProfession;
 
 	private PotentialJobSorter potentialJobSorter;
 

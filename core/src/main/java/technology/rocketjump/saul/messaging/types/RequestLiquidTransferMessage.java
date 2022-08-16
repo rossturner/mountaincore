@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.jobs.model.JobPriority;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 
 public class RequestLiquidTransferMessage {
@@ -15,11 +15,11 @@ public class RequestLiquidTransferMessage {
 	public final Vector2 requesterPosition;
 	public final ItemType liquidContainerItemType;
 	public final JobCreatedCallback jobCreatedCallback;
-	public final Profession requiredProfession;
+	public final Skill requiredProfession;
 	public final JobPriority jobPriority;
 
 	public RequestLiquidTransferMessage(GameMaterial targetLiquidMaterial, boolean useSmallCapacityZones, Entity requesterEntity, Vector2 requesterPosition,
-										ItemType liquidContainerItemType, Profession requiredProfession, JobPriority jobPriority, JobCreatedCallback jobCreatedCallback) {
+										ItemType liquidContainerItemType, Skill requiredProfession, JobPriority jobPriority, JobCreatedCallback jobCreatedCallback) {
 		this.targetLiquidMaterial = targetLiquidMaterial;
 		this.useSmallCapacityZones = useSmallCapacityZones;
 		this.requesterEntity = requesterEntity;
