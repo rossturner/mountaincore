@@ -20,7 +20,6 @@ import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.CombatActionChangedMessage;
 import technology.rocketjump.saul.messaging.types.CreatureDeathMessage;
-import technology.rocketjump.saul.rendering.ScreenWriter;
 import technology.rocketjump.saul.settlement.CreatureTracker;
 
 import java.util.*;
@@ -29,7 +28,6 @@ import java.util.stream.Collectors;
 import static technology.rocketjump.saul.entities.components.Faction.HOSTILE_INVASION;
 import static technology.rocketjump.saul.entities.components.Faction.MERCHANTS;
 import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
-import static technology.rocketjump.saul.ui.i18n.I18nTranslator.oneDecimalFormat;
 
 @Singleton
 public class CombatTracker implements Updatable, Telegraph {
@@ -42,17 +40,15 @@ public class CombatTracker implements Updatable, Telegraph {
 
 	private final CreatureTracker creatureTracker;
 	private final MessageDispatcher messageDispatcher;
-	private final ScreenWriter screenWriter;
 	private GameContext gameContext;
 
 	private final Map<Long, Entity> entitiesInCombatById = new HashMap<>();
 	private final List<CombatAction> actionsToResolveThisRound = new ArrayList<>();
 
 	@Inject
-	public CombatTracker(CreatureTracker creatureTracker, MessageDispatcher messageDispatcher, ScreenWriter screenWriter) {
+	public CombatTracker(CreatureTracker creatureTracker, MessageDispatcher messageDispatcher) {
 		this.creatureTracker = creatureTracker;
 		this.messageDispatcher = messageDispatcher;
-		this.screenWriter = screenWriter;
 
 		messageDispatcher.addListener(this, MessageType.CREATURE_ENTERING_COMBAT);
 		messageDispatcher.addListener(this, MessageType.CREATURE_EXITING_COMBAT);
@@ -68,8 +64,6 @@ public class CombatTracker implements Updatable, Telegraph {
 			onCombatRoundStart();
 			currentElapsedTime = 0f;
 		}
-
-		screenWriter.printLine("Combat round elapsed: " + oneDecimalFormat.format(currentElapsedTime));
 
 		gameContext.getSettlementState().setCurrentCombatRoundElapsed(currentElapsedTime);
 	}

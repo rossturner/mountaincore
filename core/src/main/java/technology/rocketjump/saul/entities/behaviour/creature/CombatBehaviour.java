@@ -13,8 +13,10 @@ import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.ai.goap.actions.EquipWeaponAction;
 import technology.rocketjump.saul.entities.ai.goap.actions.UnequipWeaponAction;
+import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.FactionComponent;
+import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
@@ -23,10 +25,13 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse;
 import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.creature.body.Body;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamage;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel;
+import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.CombatActionChangedMessage;
@@ -40,18 +45,23 @@ import technology.rocketjump.saul.persistence.JSONUtils;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+import technology.rocketjump.saul.ui.i18n.I18nString;
+import technology.rocketjump.saul.ui.i18n.I18nText;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 import java.util.*;
 
 import static technology.rocketjump.saul.combat.CombatMessageHandler.getOrientationsOppositeTo;
 import static technology.rocketjump.saul.entities.ai.goap.Goal.NULL_GOAL;
+import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 import static technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse.ATTACK;
 import static technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse.FLEE;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
 // Although this is coded as a Component, it is always encapsulated in CreatureBehaviour
 public class CombatBehaviour implements ParentDependentEntityComponent, ParticleEffectTypeCallback,
-		ParticleRequestMessage.ParticleCreationCallback, Destructible {
+		ParticleRequestMessage.ParticleCreationCallback, Destructible,
+		SelectableDescription {
 
 	private static final Double SERIOUSLY_LOW_NEED_VALUE = 10.0;
 	private static final float MAX_DISTANCE_FROM_COMBAT_START = 25f;
@@ -280,6 +290,27 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		changeOpponentIfCanFaceMoreOpponentsAtOnce(combatStateComponent);
 	}
 
+	@Override
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+		// Hard-coded for now, might want to be more data-driven
+		if (currentAction instanceof FleeFromCombatAction) {
+			return List.of(i18nTranslator.getTranslatedString("COMBAT.DESCRIPTION.FLEEING"));
+		} else if (currentAction instanceof StunnedCombatAction) {
+			return List.of(i18nTranslator.getTranslatedString("ACTION.STUNNED"));
+		} else {
+			CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+			if (combatStateComponent.getTargetedOpponentId() != null) {
+				Entity opponent = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
+				if (opponent != null) {
+					Map<String, I18nString> replacements = Map.of("targetDescription", i18nTranslator.getDescription(opponent));
+					return List.of(i18nTranslator.applyReplacements(i18nTranslator.getDictionary().getWord("COMBAT.DESCRIPTION.VERSUS_OPPONENT"),
+							replacements, Gender.ANY));
+				}
+			}
+		}
+		return List.of(i18nTranslator.getTranslatedString("COMBAT.DESCRIPTION.GENERIC"));
+	}
+
 	private void changeOpponentIfCanFaceMoreOpponentsAtOnce(CombatStateComponent combatStateComponent) {
 		List<Entity> opponentsInMelee = getOpponentsInMelee(parentEntity, gameContext);
 
@@ -345,6 +376,8 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 		if (combatStateComponent.isHasInitiative()) {
 			if (getAggressionResponse().equals(FLEE)) {
+				return new FleeFromCombatAction(parentEntity);
+			} else if (hasRangedWeaponButNoAmmo()) {
 				return new FleeFromCombatAction(parentEntity);
 			} else if (isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()))) {
 				return new AttackCreatureCombatAction(parentEntity);
@@ -458,6 +491,21 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 
 	public void setPendingKnockback(GridPoint2 pendingKnockback) {
 		this.pendingKnockback = pendingKnockback;
+	}
+
+	private boolean hasRangedWeaponButNoAmmo() {
+		CreatureCombat creatureCombat = new CreatureCombat(parentEntity);
+		AmmoType requiredAmmoType = creatureCombat.getEquippedWeapon().getRequiresAmmoType();
+		if (creatureCombat.getEquippedWeapon().getRange() > 2 && requiredAmmoType != null) {
+			return parentEntity.getComponent(InventoryComponent.class).getInventoryEntries()
+					.stream()
+					.filter(e -> e.entity.getType().equals(ITEM) &&
+							requiredAmmoType.equals(((ItemEntityAttributes) e.entity.getPhysicalEntityComponent().getAttributes()).getItemType().getIsAmmoType()))
+					.findAny()
+					.isEmpty();
+		} else {
+			return false;
+		}
 	}
 
 	@Override

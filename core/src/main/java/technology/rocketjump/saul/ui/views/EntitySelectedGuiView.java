@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.EntityStore;
-import technology.rocketjump.saul.entities.ai.combat.CreatureCombat;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
@@ -476,20 +475,19 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 
 		if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
-			List<I18nText> description = creatureBehaviour.getDescription(i18nTranslator, gameContext);
+			List<I18nText> description;
+
+
+			CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
+			if (combatStateComponent != null && combatStateComponent.isInCombat()) {
+				description = creatureBehaviour.getCombatBehaviour().getDescription(i18nTranslator, gameContext);
+			} else {
+				description = creatureBehaviour.getDescription(i18nTranslator, gameContext);
+			}
 			for (I18nText i18nText : description) {
 				nameTable.add(new I18nTextWidget(i18nText, uiSkin, messageDispatcher)).left().row();
 			}
 
-			if (GlobalSettings.DEV_MODE) {
-				CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
-				if (combatStateComponent != null && combatStateComponent.isInCombat()) {
-					nameTable.add(new Label("DEBUG In combat: " + creatureBehaviour.getCombatBehaviour().getCurrentAction().getClass().getSimpleName(), uiSkin)).left().row();
-					CreatureCombat creatureCombat = new CreatureCombat(entity);
-					nameTable.add(new Label("Defense: " + combatStateComponent.getDefensePool() + "/" + creatureCombat.maxDefensePool() +
-							" (+" + creatureCombat.defensePoolRegainedPerDefensiveRound() + ")", uiSkin)).left().row();
-				}
-			}
 		} else if (entity.getBehaviourComponent() instanceof CorpseBehaviour) {
 			HistoryComponent historyComponent = entity.getComponent(HistoryComponent.class);
 			if (historyComponent != null && historyComponent.getDeathReason() != null) {

@@ -68,6 +68,9 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 
 	public void setTargetedOpponentId(Long targetedOpponentId) {
 		this.targetedOpponentId = targetedOpponentId;
+		if (targetedOpponentId != null) {
+			getOpponentEntityIds().add(targetedOpponentId);
+		}
 	}
 
 	public Set<Long> getOpponentEntityIds() {

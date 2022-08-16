@@ -36,6 +36,7 @@ import technology.rocketjump.saul.jobs.JobTypeDictionary;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.jobs.model.Skill;
+import technology.rocketjump.saul.jobs.model.SkillType;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.layout.WallLayout;
@@ -160,6 +161,7 @@ public class I18NTranslatorTest {
 
 		Skill profession = new Skill();
 		profession.setI18nKey("PROFESSION.BLACKSMITH");
+		profession.setType(SkillType.PROFESSION);
 		Entity entity = new SettlerEntityFactory(
 				mockMessageDispatcher, new SkillDictionary(), mockEntityAssetUpdater,
 				mockGoalDictionary, mockRoomStore).create(attributes, null, new Vector2(), profession, profession, mockGameContext);

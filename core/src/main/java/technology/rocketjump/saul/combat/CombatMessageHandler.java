@@ -18,6 +18,7 @@ import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.items.ProjectileBehaviour;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -57,6 +58,7 @@ import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 public class CombatMessageHandler implements Telegraph, GameContextAware {
 
 	private static final int DAMAGE_TO_DESTROY_FURNITURE = 10;
+	private static final int XP_GAIN_PER_COMBAT_ROUND = 1;
 	private final MessageDispatcher messageDispatcher;
 	private final ItemEntityFactory itemEntityFactory;
 	private GameContext gameContext;
@@ -78,7 +80,9 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	public boolean handleMessage(Telegram msg) {
 		switch (msg.message) {
 			case MessageType.MAKE_ATTACK_WITH_WEAPON: {
-				handleAttackWithWeapon((CombatAttackMessage) msg.extraInfo);
+				CombatAttackMessage attackMessage = (CombatAttackMessage) msg.extraInfo;
+				handleAttackWithWeapon(attackMessage);
+				awardCombatExperience(attackMessage);
 				return true;
 			}
 			case MessageType.COMBAT_PROJECTILE_REACHED_TARGET: {
@@ -104,6 +108,16 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
+		}
+	}
+
+	private void awardCombatExperience(CombatAttackMessage attackMessage) {
+		for (Entity combatant : List.of(attackMessage.attackerEntity, attackMessage.defenderEntity)) {
+			SkillsComponent skillsComponent = combatant.getComponent(SkillsComponent.class);
+			if (skillsComponent != null) {
+				CreatureCombat creatureCombat = new CreatureCombat(combatant);
+				skillsComponent.experienceGained(XP_GAIN_PER_COMBAT_ROUND, creatureCombat.getEquippedWeapon().getCombatSkill());
+			}
 		}
 	}
 
