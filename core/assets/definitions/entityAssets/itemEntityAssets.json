@@ -154,20 +154,6 @@
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     },
-    "UP" : {
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
     "DOWN_LEFT" : {
       "filename" : "Armour-Leather-Above_Layer_2-Being_Carried_Down_Left.png",
       "isAnimated" : false,
