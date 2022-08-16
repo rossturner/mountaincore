@@ -1,4 +1,19 @@
 [ {
+  "recipeName" : "Craft leather armour",
+  "verbOverrideI18nKey" : "CRAFTING_TYPE.LEATHERWORKING",
+  "craftingTypeName" : "LEATHERWORKING",
+  "input" : [ {
+    "itemTypeName" : "Product-Leather",
+    "quantity" : 3
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Armour-Leather",
+    "quantity" : 1
+  } ],
+  "materialTypesToCopyOver" : [ "SKIN" ],
+  "minimumTimeToCompleteCrafting" : 1.5,
+  "maximumTimeToCompleteCrafting" : 8.5
+}, {
   "recipeName" : "Malt barley",
   "verbOverrideI18nKey" : "ACTION.MALTING",
   "craftingTypeName" : "MALTING",
@@ -785,21 +800,6 @@
   } ],
   "materialTypesToCopyOver" : [ "SKIN" ],
   "extraGameHoursToComplete" : 48.0,
-  "minimumTimeToCompleteCrafting" : 1.5,
-  "maximumTimeToCompleteCrafting" : 15.0
-}, {
-  "recipeName" : "Craft leather armour",
-  "craftingTypeName" : "LEATHERWORKING",
-  "input" : [ {
-    "itemTypeName" : "Product-Leather",
-    "quantity" : 3
-  } ],
-  "output" : [ {
-    "itemTypeName" : "Armour-Leather",
-    "quantity" : 1
-  } ],
-  "materialTypesToCopyOver" : [ "SKIN" ],
-  "extraGameHoursToComplete" : 72.0,
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 15.0
 }, {

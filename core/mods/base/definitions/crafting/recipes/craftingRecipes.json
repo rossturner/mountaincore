@@ -945,25 +945,5 @@
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 15,
     "extraGameHoursToComplete": 48.0
-  },
-  {
-    "recipeName": "Craft leather armour",
-    "craftingTypeName": "LEATHERWORKING",
-    "input": [
-      {
-        "itemTypeName": "Product-Leather",
-        "quantity": 3
-      }
-    ],
-    "output": [
-      {
-        "itemTypeName": "Armour-Leather",
-        "quantity": 1
-      }
-    ],
-    "materialTypesToCopyOver": ["SKIN"],
-    "minimumTimeToCompleteCrafting": 1.5,
-    "maximumTimeToCompleteCrafting": 15,
-    "extraGameHoursToComplete": 72.0
   }
 ]

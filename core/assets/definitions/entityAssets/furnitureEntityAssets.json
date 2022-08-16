@@ -3331,13 +3331,13 @@
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Base_Layer-Wood_Down.png",
+      "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Base_Layer-Wood_Down-Rocky.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -97.0,
-        "y" : 0.0,
+        "x" : -80.0,
+        "y" : 11.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3345,14 +3345,14 @@
       "childAssets" : [ {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
+          "x" : -15.0,
           "y" : 0.0,
           "unit" : false
         }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
-          "x" : 0.0,
+          "x" : -16.0,
           "y" : 0.0,
           "unit" : false
         }

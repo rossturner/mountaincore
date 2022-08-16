@@ -1,0 +1,22 @@
+[
+  {
+    "recipeName": "Craft leather armour",
+    "craftingTypeName": "LEATHERWORKING",
+    "verbOverrideI18nKey": "CRAFTING_TYPE.LEATHERWORKING",
+    "input": [
+      {
+        "itemTypeName": "Product-Leather",
+        "quantity": 3
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Armour-Leather",
+        "quantity": 1
+      }
+    ],
+    "materialTypesToCopyOver": ["SKIN"],
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 8.5
+  }
+]

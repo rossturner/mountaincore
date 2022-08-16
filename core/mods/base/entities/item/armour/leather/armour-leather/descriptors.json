@@ -1,4 +1,39 @@
 [ {
+  "uniqueName" : "Armour-Leather-Above_Layer_1-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Armour-Leather",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Down.png",
+      "scale" : 0.7
+    },
+    "UP" : {
+      "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Up.png",
+      "scale" : 0.7
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Down_Left.png",
+      "scale" : 0.7,
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Down_Left.png",
+      "scale" : 0.7
+    },
+    "UP_LEFT" : {
+      "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Up_Left.png",
+      "scale" : 0.7,
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Up_Left.png",
+      "scale" : 0.7
+    }
+  }
+}, {
   "uniqueName" : "Armour-Leather-Above_Layer_1-On_Ground",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Armour-Leather",
@@ -12,12 +47,138 @@
     }
   }
 }, {
+  "uniqueName" : "Armour-Leather-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Armour-Leather",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Leather-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -5.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 26.0
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -26.0
+        }
+      } ]
+    },
+    "UP" : {
+      "filename" : "Armour-Leather-Item_Base_Layer-Being_Carried_Up.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -5.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Armour-Leather-Item_Base_Layer-Being_Carried_Down_Left.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -7.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 15.0
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -20.0
+        }
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Armour-Leather-Item_Base_Layer-Being_Carried_Down_Left.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -7.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 20.0
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -15.0
+        }
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Armour-Leather-Item_Base_Layer-Being_Carried_Up_Left.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 3.0,
+        "y" : -7.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -19.0
+        }
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Armour-Leather-Item_Base_Layer-Being_Carried_Up_Left.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -3.0,
+        "y" : -7.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 19.0
+        }
+      } ]
+    }
+  }
+}, {
   "uniqueName" : "Armour-Leather-Item_Base_Layer-On_Ground",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Armour-Leather",
   "itemSize" : "AVERAGE",
   "itemStyle" : "DEFAULT",
-  "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
