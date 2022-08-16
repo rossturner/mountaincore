@@ -152,7 +152,7 @@ public class CombatTracker implements Updatable, Telegraph {
 			Entity targetedEntity = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
 
 			// Figure out set of opponent IDs
-			if (targetedEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+			if (targetedEntity != null && targetedEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
 				if (creatureBehaviour.getCreatureGroup() != null) {
 					combatStateComponent.setOpponentEntityIds(new HashSet<>(creatureBehaviour.getCreatureGroup().getMemberIds()));
 				} else {
@@ -264,7 +264,7 @@ public class CombatTracker implements Updatable, Telegraph {
 	}
 
 	private void combatActionRemoved(CombatAction combatAction) {
-		if (combatAction.completesInOneRound()) {
+		if (combatAction != null && combatAction.completesInOneRound()) {
 			actionsToResolveThisRound.remove(combatAction);
 		}
 	}
