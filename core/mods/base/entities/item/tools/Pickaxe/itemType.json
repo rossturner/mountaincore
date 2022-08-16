@@ -1,5 +1,4 @@
 {
-  "itemTypeId" : 59,
   "itemTypeName" : "Tool-Pickaxe",
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "WOOD", "METAL" ],
@@ -12,7 +11,11 @@
     "damageType" : "STABBING",
     "modifiedByStrength" : true,
     "minDamage" : 1,
-    "maxDamage" : 3
+    "maxDamage" : 5,
+    "armorNegation" : 4,
+    "combatSkillName" : "MACES",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
+    "animatedSpriteEffectName" : "Weapon slash"
   },
   "i18nKey" : "TOOL.PICKAXE"
 }

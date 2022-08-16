@@ -1,5 +1,4 @@
 {
-  "itemTypeId" : 70,
   "itemTypeName" : "Weapon-Battle-Hammer",
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "METAL" ],
@@ -12,7 +11,11 @@
     "damageType" : "CRUSHING",
     "modifiedByStrength" : true,
     "minDamage" : 4,
-    "maxDamage" : 8
+    "maxDamage" : 8,
+    "armorNegation" : 4,
+    "combatSkillName" : "MACES",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
+    "animatedSpriteEffectName" : "Weapon slash"
   },
   "i18nKey" : "WEAPON.BATTLE.HAMMER"
 }

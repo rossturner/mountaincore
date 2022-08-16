@@ -217,7 +217,9 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 
 		if (attackMessage.defenderEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes defenderAttributes) {
 			CreatureCombat defenderCombat = new CreatureCombat(attackMessage.defenderEntity);
-			damageAmount -= defenderCombat.getDamageReduction(damageType);
+			int damageReduction = defenderCombat.getDamageReduction(damageType);
+			damageReduction = Math.max(0, damageReduction - attackMessage.weaponAttack.getArmorNegation());
+			damageAmount -= damageReduction;
 
 			if (attackMessage.attackerEntity.getType().equals(EntityType.CREATURE)) {
 				MemoryComponent memoryComponent = attackMessage.defenderEntity.getOrCreateComponent(MemoryComponent.class);

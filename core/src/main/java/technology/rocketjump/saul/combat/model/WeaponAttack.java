@@ -19,6 +19,7 @@ public class WeaponAttack implements ChildPersistable {
 	private CombatDamageType damageType;
 	private int minDamage;
 	private int maxDamage;
+	private int armorNegation;
 	private ItemQuality weaponQuality = ItemQuality.STANDARD;
 	private String weaponHitSoundAssetName;
 	@JsonIgnore
@@ -36,6 +37,7 @@ public class WeaponAttack implements ChildPersistable {
 		this.damageType = weaponInfo.getDamageType();
 		this.minDamage = weaponInfo.getMinDamage();
 		this.maxDamage = weaponInfo.getMaxDamage();
+		this.armorNegation = weaponInfo.getArmorNegation();
 		this.weaponQuality = weaponQuality;
 		this.weaponHitSoundAsset = weaponInfo.getWeaponHitSoundAsset();
 		this.weaponMissSoundAsset = weaponInfo.getWeaponMissSoundAsset();
@@ -110,6 +112,7 @@ public class WeaponAttack implements ChildPersistable {
 		asJson.put("damageType", damageType.name());
 		asJson.put("minDamage", minDamage);
 		asJson.put("maxDamage", maxDamage);
+		asJson.put("armorNegation", armorNegation);
 		if (!weaponQuality.equals(ItemQuality.STANDARD)) {
 			asJson.put("weaponQuality", weaponQuality.name());
 		}
@@ -129,6 +132,7 @@ public class WeaponAttack implements ChildPersistable {
 		this.damageType = EnumParser.getEnumValue(asJson, "damageType", CombatDamageType.class, CombatDamageType.CRUSHING);
 		this.minDamage = asJson.getIntValue("minDamage");
 		this.maxDamage = asJson.getIntValue("maxDamage");
+		this.armorNegation = asJson.getIntValue("armorNegation");
 		this.weaponQuality = EnumParser.getEnumValue(asJson, "weaponQuality", ItemQuality.class, ItemQuality.STANDARD);
 
 		this.weaponHitSoundAssetName = asJson.getString("weaponHitSoundAssetName");
@@ -156,5 +160,13 @@ public class WeaponAttack implements ChildPersistable {
 
 	public void setModifiedByStrength(boolean modifiedByStrength) {
 		this.modifiedByStrength = modifiedByStrength;
+	}
+
+	public int getArmorNegation() {
+		return armorNegation;
+	}
+
+	public void setArmorNegation(int armorNegation) {
+		this.armorNegation = armorNegation;
 	}
 }

@@ -9,7 +9,9 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
+import technology.rocketjump.saul.jobs.model.SkillType;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.rooms.StockpileGroup;
 import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
@@ -29,6 +31,7 @@ public class ItemTypeDictionary {
 	private final SoundAssetDictionary soundAssetDictionary;
 	private final ConstantsRepo constantsRepo;
 	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
+	private final SkillDictionary skillDictionary;
 	private Map<String, ItemType> byName = new HashMap<>();
 	private List<ItemType> allTypesList = new ArrayList<>();
 	private List<ItemType> itemTypesWithWeaponInfo = new ArrayList<>();
@@ -42,12 +45,14 @@ public class ItemTypeDictionary {
 							  StockpileGroupDictionary stockpileGroupDictionary,
 							  SoundAssetDictionary soundAssetDictionary,
 							  ConstantsRepo constantsRepo,
-							  ParticleEffectTypeDictionary particleEffectTypeDictionary) throws IOException {
+							  ParticleEffectTypeDictionary particleEffectTypeDictionary,
+							  SkillDictionary skillDictionary) throws IOException {
 		this.craftingTypeDictionary = craftingTypeDictionary;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.constantsRepo = constantsRepo;
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
+		this.skillDictionary = skillDictionary;
 		ObjectMapper objectMapper = new ObjectMapper();
 		File itemTypeJsonFile = new File("assets/definitions/types/itemTypes.json");
 		List<ItemType> itemTypeList = objectMapper.readValue(FileUtils.readFileToString(itemTypeJsonFile, "UTF-8"),
@@ -144,6 +149,15 @@ public class ItemTypeDictionary {
 				} else if (itemType.getWeaponInfo().getAnimatedEffectType().getAnimatedSpriteName() == null) {
 					Logger.error(String.format("Particle effect %s is not an animated-sprite type particle effect, for %s",
 							itemType.getWeaponInfo().getAnimatedEffectType().getName(), itemType.getItemTypeName()));
+				}
+			}
+
+			if (itemType.getWeaponInfo().getCombatSkillName() != null) {
+				itemType.getWeaponInfo().setCombatSkill(skillDictionary.getByName(itemType.getWeaponInfo().getCombatSkillName()));
+				if (itemType.getWeaponInfo().getCombatSkill() == null) {
+					Logger.error("Could not find combat skill with name %s for item type %s", itemType.getWeaponInfo().getCombatSkillName(), itemType.getItemTypeName());
+				} else if (!itemType.getWeaponInfo().getCombatSkill().getType().equals(SkillType.COMBAT_SKILL)) {
+					Logger.error("Combat skill with name %s for item type %s is not a COMBAT_SKILL-type skill", itemType.getWeaponInfo().getCombatSkillName(), itemType.getItemTypeName());
 				}
 			}
 

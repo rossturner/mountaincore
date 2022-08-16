@@ -100,7 +100,6 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		}
 	}
 
-
 	public void onStartOfNewCombatRound() {
 		parentEntity.getComponent(CombatStateComponent.class).setAttackOfOpportunityMadeThisRound(false);
 
@@ -454,6 +453,10 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 			defensePoolEffect.getWrappedInstance().allowCompletion();
 			defensePoolEffect = null;
 		}
+
+		currentAction = null;
+		attackOfOpportunityAction = null;
+		pendingKnockback = null;
 	}
 
 	public CombatAction getCurrentAction() {
@@ -534,14 +537,14 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		if (actionJson != null) {
 			String className = actionJson.getString("_class");
 			this.currentAction = CombatAction.newInstance(ReflectionUtils.forName(className), Entity.NULL_ENTITY);
-			this.currentAction.readFrom(asJson, savedGameStateHolder, relatedStores);
+			this.currentAction.readFrom(actionJson, savedGameStateHolder, relatedStores);
 		}
 
 		actionJson = asJson.getJSONObject("attackOfOpportunityAction");
 		if (actionJson != null) {
 			String className = actionJson.getString("_class");
 			this.attackOfOpportunityAction = new AttackCreatureCombatAction(Entity.NULL_ENTITY);
-			this.attackOfOpportunityAction.readFrom(asJson, savedGameStateHolder, relatedStores);
+			this.attackOfOpportunityAction.readFrom(actionJson, savedGameStateHolder, relatedStores);
 		}
 
 		this.pendingKnockback = JSONUtils.gridPoint2(asJson.getJSONObject("pendingKnockback"));

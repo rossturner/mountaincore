@@ -17,6 +17,7 @@ public class WeaponInfo {
 	private boolean modifiedByStrength;
 	private int minDamage;
 	private int maxDamage;
+	private int armorNegation;
 	private AmmoType requiresAmmoType;
 
 	private String combatSkillName;
@@ -83,6 +84,14 @@ public class WeaponInfo {
 
 	public void setMaxDamage(int maxDamage) {
 		this.maxDamage = maxDamage;
+	}
+
+	public int getArmorNegation() {
+		return armorNegation;
+	}
+
+	public void setArmorNegation(int armorNegation) {
+		this.armorNegation = armorNegation;
 	}
 
 	public AmmoType getRequiresAmmoType() {

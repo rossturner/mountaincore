@@ -132,7 +132,7 @@ public class I18NTranslatorTest {
 		I18nRepo i18nRepo = new I18nRepo(mockUserPreferences);
 
 		itemTypeDictionary = new ItemTypeDictionary(mockCraftingTypeDictionary, new StockpileGroupDictionary(), mockSoundAssetDictionary,
-				mockConstantsRepo, mockParticleEffectTypeDictionary);
+				mockConstantsRepo, mockParticleEffectTypeDictionary, skillDictionary);
 		gameMaterialDictionary = new GameMaterialDictionary();
 		new GameMaterialI18nUpdater(i18nRepo, gameMaterialDictionary).onLanguageUpdated();
 

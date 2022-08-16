@@ -875,7 +875,11 @@
     "damageType" : "SLASHING",
     "modifiedByStrength" : true,
     "minDamage" : 2,
-    "maxDamage" : 2
+    "maxDamage" : 8,
+    "armorNegation" : 0,
+    "combatSkillName" : "AXES",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
+    "animatedSpriteEffectName" : "Weapon slash"
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.AXE"
@@ -933,7 +937,7 @@
   "itemTypeName" : "Tool-Large-Hammer",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
-  "materialTypes" : [ "METAL", "WOOD" ],
+  "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "METAL",
   "holdPosition" : "RIGHT_HAND",
   "impedesMovement" : false,
@@ -943,6 +947,17 @@
   "relatedCraftingTypeNames" : [ "STONEMASONRY", "BLACKSMITHING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "CRUSHING",
+    "modifiedByStrength" : true,
+    "minDamage" : 1,
+    "maxDamage" : 5,
+    "armorNegation" : 3,
+    "combatSkillName" : "MACES",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
+    "animatedSpriteEffectName" : "Weapon slash"
+  },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.LARGE.HAMMER"
 }, {
@@ -964,7 +979,11 @@
     "damageType" : "STABBING",
     "modifiedByStrength" : true,
     "minDamage" : 1,
-    "maxDamage" : 3
+    "maxDamage" : 5,
+    "armorNegation" : 4,
+    "combatSkillName" : "MACES",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
+    "animatedSpriteEffectName" : "Weapon slash"
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PICKAXE"
@@ -1123,6 +1142,7 @@
     "modifiedByStrength" : false,
     "minDamage" : 2,
     "maxDamage" : 8,
+    "armorNegation" : 0,
     "requiresAmmoType" : "ARROWS",
     "combatSkillName" : "ARCHERY",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
@@ -1150,7 +1170,11 @@
     "damageType" : "SLASHING",
     "modifiedByStrength" : true,
     "minDamage" : 3,
-    "maxDamage" : 12
+    "maxDamage" : 12,
+    "armorNegation" : 0,
+    "combatSkillName" : "AXES",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
+    "animatedSpriteEffectName" : "Weapon slash"
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.AXE"
@@ -1173,7 +1197,11 @@
     "damageType" : "CRUSHING",
     "modifiedByStrength" : true,
     "minDamage" : 4,
-    "maxDamage" : 8
+    "maxDamage" : 8,
+    "armorNegation" : 4,
+    "combatSkillName" : "MACES",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
+    "animatedSpriteEffectName" : "Weapon slash"
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.HAMMER"
@@ -1192,12 +1220,17 @@
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "weaponInfo" : {
-    "range" : 9,
+    "range" : 7,
     "damageType" : "STABBING",
     "modifiedByStrength" : false,
-    "minDamage" : 2,
+    "minDamage" : 3,
     "maxDamage" : 8,
-    "requiresAmmoType" : "BOLTS"
+    "armorNegation" : 0,
+    "requiresAmmoType" : "BOLTS",
+    "combatSkillName" : "CROSSBOWS",
+    "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
+    "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow"
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.CROSSBOW"
@@ -1219,8 +1252,12 @@
     "range" : 1,
     "damageType" : "SLASHING",
     "modifiedByStrength" : true,
-    "minDamage" : 2,
-    "maxDamage" : 10
+    "minDamage" : 3,
+    "maxDamage" : 8,
+    "armorNegation" : 0,
+    "combatSkillName" : "SWORDSMANSHIP",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
+    "animatedSpriteEffectName" : "Weapon slash"
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.SWORD"

@@ -39,6 +39,7 @@ public class MoveInRangeOfTargetCombatAction extends CombatAction {
 			}
 			CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 			if (isInRangeOfOpponent(parentEntity, lookupOpponent(combatStateComponent, gameContext))) {
+				parentEntity.getBehaviourComponent().getSteeringComponent().destinationReached();
 				this.completed = true;
 			} else {
 				// Opponent has moved away
@@ -55,6 +56,7 @@ public class MoveInRangeOfTargetCombatAction extends CombatAction {
 					float distanceToOpponent = parentPosition.dst(opponentPosition);
 					if (distanceToOpponent < combatStats.getEquippedWeapon().getRange() * 0.8f) {
 						// Checking opponent is within 80% of range so that they don't just immediately move out of range again
+						parentEntity.getBehaviourComponent().getSteeringComponent().destinationReached();
 						this.completed = true;
 					}
 				}

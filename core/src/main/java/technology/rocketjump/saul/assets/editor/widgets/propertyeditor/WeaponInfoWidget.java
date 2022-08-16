@@ -38,12 +38,16 @@ public class WeaponInfoWidget extends VisTable {
 		this.add(WidgetBuilder.intSpinner(weaponInfo.getMaxDamage(), 0, 100, weaponInfo::setMaxDamage));
 		this.row();
 
+		this.add(WidgetBuilder.label("Armor Negation"));
+		this.add(WidgetBuilder.intSpinner(weaponInfo.getArmorNegation(), 0, 100, weaponInfo::setArmorNegation));
+		this.row();
+
 		this.add(WidgetBuilder.label("Damage Type"));
 		this.add(WidgetBuilder.select(weaponInfo.getDamageType(), CombatDamageType.values(), null, weaponInfo::setDamageType));
 		this.row();
 
 		this.add(WidgetBuilder.label("Range"));
-		this.add(WidgetBuilder.intSpinner(weaponInfo.getRange(), 0, 200, weaponInfo::setRange));
+		this.add(WidgetBuilder.intSpinner(weaponInfo.getRange(), 1, 200, weaponInfo::setRange));
 		this.row();
 
 		this.add(WidgetBuilder.label("Requires Ammo"));
