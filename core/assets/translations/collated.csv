@@ -884,6 +884,8 @@ PRODUCT.STONE.GEAR.TOOLTIP,Used in the construction of mechanisms.,,Wird beim Ba
 PRODUCT.STONE.PIPE.NOUN,Pipe,,Rohre,,Tubo,Tubería,,,,Труба,,,,,,,,配管,管道,
 PRODUCT.STONE.PIPE.PLURAL,Pipes,,Rohre,,Tubi,Tuberías,,,,Трубы,,,,,,,,配管,管道,
 PRODUCT.STONE.PIPE.TOOLTIP,Used for liquids to flow between tiles underground.,,"Wird verwendet, damit Flüssigkeiten zwischen den Platten unter der Erde fließen.",,Utilizzato per far scorrere i liquidi tra le piastrelle sottoterra.,Usadas para el transporte de líquidos entre casillas subterráneas.,,,,Используется для перемещения жидкостей под землей,,,,,,,,タイルの地下に水などの液体を流すために使います。,能用来在地底运输液体。,
+PRODUCT.WATERSKIN.NOUN,Waterskin,,,,,,,,,,,,,,,,,,,
+PRODUCT.WATERSKIN.PLURAL,Waterskins,,,,,,,,,,,,,,,,,,,
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.NOUN,Horizontal shaft,,Horizontalwelle,,Albero orizzontale,Eje horizontas,,,,"Горизонтальный вал ",,,,,,,,シャフト(水平),连接杆（水平）,
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.PLURAL,Horizontal shafts,,Horizontalwellen,,Alberi orizzontali,Ejes horizontales,,,,"Горизонтальные валы ",,,,,,,,シャフト(水平),连接杆（水平）,
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.TOOLTIP,Used to connect mechanisms which produce and require power.,,"Wird verwendet, um Mechanismen zu verbinden, die Strom erzeugen und benötigen.",,Utilizzato per collegare meccanismi che producono e richiedono energia.,Usados para conectar mecanismos que requieren energía.,,,,"Используется для соединения механизмов, которые производят и требуют энергии",,,,,,,,動力源と動力を必要とする設備を結ぶために使います。,能用来连接产生和需求动能的机械装置。,

@@ -67,16 +67,21 @@
   "Product-Anvil": {
     "fixedAmount": 1
   },
+  "Product-Leather": {
+    "fixedAmount": 400
+  },
+  "Product-Linen": {
+    "fixedAmount": 6
+  },
   "Product-Liquid-Tank": {
     "fixedAmount": 1
   },
   "Product-Rope": {
     "fixedAmount": 1
   },
-  "Product-Linen": {
-    "fixedAmount": 6
+  "Product-Waterskin": {
+    "perSettler": 1
   },
-
 
   "Tool-Axe": {
     "fixedAmount": 3
@@ -120,9 +125,6 @@
   },
   "Carcass-Perch-Prepared": {
     "fixedAmount": 100
-  },
-  "Product-Leather": {
-    "fixedAmount": 400
   },
 
   "Weapon-Metal-Arrows": {

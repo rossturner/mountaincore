@@ -76,6 +76,9 @@
     "fixedAmount" : 4,
     "perSettler" : 0.0
   },
+  "Product-Waterskin" : {
+    "perSettler" : 1.0
+  },
   "Resource-Crushed-Vitriol" : {
     "fixedAmount" : 200,
     "perSettler" : 0.0

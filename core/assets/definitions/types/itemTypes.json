@@ -535,6 +535,26 @@
   "i18nKey" : "PRODUCT.LEATHER"
 }, {
   "itemTypeId" : 32,
+  "itemTypeName" : "Product-Waterskin",
+  "maxStackSize" : 50,
+  "maxHauledAtOnce" : 10,
+  "materialTypes" : [ "SKIN" ],
+  "primaryMaterialType" : "SKIN",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
+  "stockpileGroupName" : "PRODUCTS",
+  "tags" : {
+    "LIQUID_CONTAINER" : [ "2", "Water" ],
+    "USAGE_SOUND" : [ "WaterCollect" ]
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "PRODUCT.WATERSKIN"
+}, {
+  "itemTypeId" : 33,
   "itemTypeName" : "Product-Ration",
   "maxStackSize" : 50,
   "maxHauledAtOnce" : 50,
@@ -551,7 +571,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.RATION"
 }, {
-  "itemTypeId" : 33,
+  "itemTypeId" : 34,
   "itemTypeName" : "Product-Rope",
   "maxStackSize" : 4,
   "maxHauledAtOnce" : 1,
@@ -568,7 +588,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.ROPE"
 }, {
-  "itemTypeId" : 34,
+  "itemTypeId" : 35,
   "itemTypeName" : "Resource-Flour-Sack",
   "maxStackSize" : 30,
   "maxHauledAtOnce" : 30,
@@ -585,7 +605,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.FLOUR.SACK"
 }, {
-  "itemTypeId" : 35,
+  "itemTypeId" : 36,
   "itemTypeName" : "Resource-Gem",
   "maxStackSize" : 32,
   "maxHauledAtOnce" : 4,
@@ -602,7 +622,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.GEM"
 }, {
-  "itemTypeId" : 36,
+  "itemTypeId" : 37,
   "itemTypeName" : "Resource-Gems-Unrefined",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -619,7 +639,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.GEMS.UNREFINED"
 }, {
-  "itemTypeId" : 37,
+  "itemTypeId" : 38,
   "itemTypeName" : "Resource-Grain-Sack",
   "maxStackSize" : 30,
   "maxHauledAtOnce" : 30,
@@ -636,7 +656,7 @@
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.GRAIN.SACK"
 }, {
-  "itemTypeId" : 38,
+  "itemTypeId" : 39,
   "itemTypeName" : "Resource-Hemp-Bundle",
   "maxStackSize" : 4,
   "maxHauledAtOnce" : 2,
@@ -653,7 +673,7 @@
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.BUNDLE"
 }, {
-  "itemTypeId" : 39,
+  "itemTypeId" : 40,
   "itemTypeName" : "Resource-Hemp-Fibre-Bundle",
   "maxStackSize" : 4,
   "maxHauledAtOnce" : 2,
@@ -670,7 +690,7 @@
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.FIBRE.BUNDLE"
 }, {
-  "itemTypeId" : 40,
+  "itemTypeId" : 41,
   "itemTypeName" : "Resource-Metal-Ingot",
   "maxStackSize" : 32,
   "maxHauledAtOnce" : 2,
@@ -687,7 +707,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.INGOT"
 }, {
-  "itemTypeId" : 41,
+  "itemTypeId" : 42,
   "itemTypeName" : "Resource-Liquid-Example",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -703,7 +723,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LIQUID.EXAMPLE"
 }, {
-  "itemTypeId" : 42,
+  "itemTypeId" : 43,
   "itemTypeName" : "Resource-Mushroom-Log",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -720,7 +740,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.MUSHROOM.LOG"
 }, {
-  "itemTypeId" : 43,
+  "itemTypeId" : 44,
   "itemTypeName" : "Resource-Shocked-Mushroom-Log",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -737,7 +757,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.SHOCKED.MUSHROOM.LOG"
 }, {
-  "itemTypeId" : 44,
+  "itemTypeId" : 45,
   "itemTypeName" : "Resource-Logs",
   "maxStackSize" : 16,
   "maxHauledAtOnce" : 1,
@@ -755,7 +775,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LOGS"
 }, {
-  "itemTypeId" : 45,
+  "itemTypeId" : 46,
   "itemTypeName" : "Resource-Metal-Bloom",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -771,7 +791,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.BLOOM"
 }, {
-  "itemTypeId" : 46,
+  "itemTypeId" : 47,
   "itemTypeName" : "Resource-Metal-Plate",
   "maxStackSize" : 12,
   "maxHauledAtOnce" : 2,
@@ -788,7 +808,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.PLATE"
 }, {
-  "itemTypeId" : 47,
+  "itemTypeId" : 48,
   "itemTypeName" : "Resource-Mushroom-Lumber",
   "maxStackSize" : 16,
   "maxHauledAtOnce" : 1,
@@ -806,7 +826,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.MUSHROOM.LUMBER"
 }, {
-  "itemTypeId" : 48,
+  "itemTypeId" : 49,
   "itemTypeName" : "Ingredient-Mushroom-Spawn",
   "maxStackSize" : 50,
   "maxHauledAtOnce" : 15,
@@ -823,7 +843,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MUSHROOM.SPAWN"
 }, {
-  "itemTypeId" : 49,
+  "itemTypeId" : 50,
   "itemTypeName" : "Resource-Ore-Crushed",
   "maxStackSize" : 16,
   "maxHauledAtOnce" : 16,
@@ -840,7 +860,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.ORE.CRUSHED"
 }, {
-  "itemTypeId" : 50,
+  "itemTypeId" : 51,
   "itemTypeName" : "Resource-Ore-Unrefined",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -857,7 +877,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.ORE.UNREFINED"
 }, {
-  "itemTypeId" : 51,
+  "itemTypeId" : 52,
   "itemTypeName" : "Resource-Planks",
   "maxStackSize" : 16,
   "maxHauledAtOnce" : 2,
@@ -875,7 +895,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.PLANKS"
 }, {
-  "itemTypeId" : 52,
+  "itemTypeId" : 53,
   "itemTypeName" : "Ingredient-Seeds",
   "maxStackSize" : 50,
   "maxHauledAtOnce" : 15,
@@ -892,7 +912,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.SEEDS"
 }, {
-  "itemTypeId" : 53,
+  "itemTypeId" : 54,
   "itemTypeName" : "Resource-Stone-Block",
   "maxStackSize" : 16,
   "maxHauledAtOnce" : 2,
@@ -909,7 +929,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.STONE.BLOCK"
 }, {
-  "itemTypeId" : 54,
+  "itemTypeId" : 55,
   "itemTypeName" : "Resource-Stone-Unrefined",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -927,7 +947,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.STONE.UNREFINED"
 }, {
-  "itemTypeId" : 55,
+  "itemTypeId" : 56,
   "itemTypeName" : "Resource-Crushed-Vitriol",
   "maxStackSize" : 16,
   "maxHauledAtOnce" : 16,
@@ -944,7 +964,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.CRUSHED.VITRIOL"
 }, {
-  "itemTypeId" : 56,
+  "itemTypeId" : 57,
   "itemTypeName" : "Resource-Wheat-Sack",
   "maxStackSize" : 30,
   "maxHauledAtOnce" : 30,
@@ -961,7 +981,7 @@
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.WHEAT.SACK"
 }, {
-  "itemTypeId" : 57,
+  "itemTypeId" : 58,
   "itemTypeName" : "Tool-Axe",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -985,7 +1005,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.AXE"
 }, {
-  "itemTypeId" : 58,
+  "itemTypeId" : 59,
   "itemTypeName" : "Tool-Chisel",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1004,7 +1024,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.CHISEL"
 }, {
-  "itemTypeId" : 59,
+  "itemTypeId" : 60,
   "itemTypeName" : "Tool-Fishing-Rod",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1021,7 +1041,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.FISHING.ROD"
 }, {
-  "itemTypeId" : 60,
+  "itemTypeId" : 61,
   "itemTypeName" : "Tool-Kitchen-Knife",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1038,7 +1058,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.KITCHEN.KNIFE"
 }, {
-  "itemTypeId" : 61,
+  "itemTypeId" : 62,
   "itemTypeName" : "Tool-Large-Hammer",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1055,7 +1075,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.LARGE.HAMMER"
 }, {
-  "itemTypeId" : 62,
+  "itemTypeId" : 63,
   "itemTypeName" : "Tool-Pickaxe",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1079,7 +1099,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PICKAXE"
 }, {
-  "itemTypeId" : 63,
+  "itemTypeId" : 64,
   "itemTypeName" : "Tool-Plane",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1098,7 +1118,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PLANE"
 }, {
-  "itemTypeId" : 64,
+  "itemTypeId" : 65,
   "itemTypeName" : "Tool-Rolling-Pin",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1115,7 +1135,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.ROLLING.PIN"
 }, {
-  "itemTypeId" : 65,
+  "itemTypeId" : 66,
   "itemTypeName" : "Tool-Saw",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1134,7 +1154,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.SAW"
 }, {
-  "itemTypeId" : 66,
+  "itemTypeId" : 67,
   "itemTypeName" : "Tool-Small-Hammer",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1151,7 +1171,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.SMALL.HAMMER"
 }, {
-  "itemTypeId" : 67,
+  "itemTypeId" : 68,
   "itemTypeName" : "Tool-Tongs",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1168,7 +1188,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.TONGS"
 }, {
-  "itemTypeId" : 68,
+  "itemTypeId" : 69,
   "itemTypeName" : "Weapon-Bone-Arrows",
   "maxStackSize" : 50,
   "maxHauledAtOnce" : 50,
@@ -1186,7 +1206,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BONE.ARROWS"
 }, {
-  "itemTypeId" : 69,
+  "itemTypeId" : 70,
   "itemTypeName" : "Weapon-Metal-Arrows",
   "maxStackSize" : 50,
   "maxHauledAtOnce" : 50,
@@ -1204,7 +1224,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.ARROWS"
 }, {
-  "itemTypeId" : 70,
+  "itemTypeId" : 71,
   "itemTypeName" : "Weapon-Metal-Bolts",
   "maxStackSize" : 50,
   "maxHauledAtOnce" : 50,
@@ -1222,7 +1242,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.BOLTS"
 }, {
-  "itemTypeId" : 71,
+  "itemTypeId" : 72,
   "itemTypeName" : "Weapon-Bow",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1250,7 +1270,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BOW"
 }, {
-  "itemTypeId" : 72,
+  "itemTypeId" : 73,
   "itemTypeName" : "Weapon-Battle-Axe",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1274,7 +1294,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.AXE"
 }, {
-  "itemTypeId" : 73,
+  "itemTypeId" : 74,
   "itemTypeName" : "Weapon-Battle-Hammer",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1298,7 +1318,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.HAMMER"
 }, {
-  "itemTypeId" : 74,
+  "itemTypeId" : 75,
   "itemTypeName" : "Weapon-Crossbow",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1323,7 +1343,7 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.CROSSBOW"
 }, {
-  "itemTypeId" : 75,
+  "itemTypeId" : 76,
   "itemTypeName" : "Weapon-Sword",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,

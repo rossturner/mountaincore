@@ -1,0 +1,15 @@
+{
+  "itemTypeId" : 32,
+  "itemTypeName" : "Product-Waterskin",
+  "maxStackSize" : 50,
+  "maxHauledAtOnce" : 10,
+  "materialTypes" : [ "SKIN" ],
+  "primaryMaterialType" : "SKIN",
+  "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
+  "stockpileGroupName" : "PRODUCTS",
+  "tags" : {
+    "LIQUID_CONTAINER" : [ "2", "Water" ],
+    "USAGE_SOUND" : [ "WaterCollect" ]
+  },
+  "i18nKey" : "PRODUCT.WATERSKIN"
+}

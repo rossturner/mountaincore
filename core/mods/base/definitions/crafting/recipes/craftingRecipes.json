@@ -945,5 +945,24 @@
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 15,
     "extraGameHoursToComplete": 48.0
+  },
+  {
+    "recipeName": "Craft waterskin",
+    "craftingTypeName": "LEATHERWORKING",
+    "input": [
+      {
+        "itemTypeName": "Product-Leather",
+        "quantity": 1
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Product-Waterskin",
+        "quantity": 10
+      }
+    ],
+    "materialTypesToCopyOver": ["SKIN"],
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 15
   }
 ]
