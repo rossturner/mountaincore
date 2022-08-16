@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.jobs.model.Skill;
+import technology.rocketjump.saul.jobs.model.SkillType;
 
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -18,15 +19,19 @@ public class SkillsComponentTest {
 	public void setup() {
 		profA = new Skill();
 		profA.setName("profA");
+		profA.setType(SkillType.PROFESSION);
 
 		profB = new Skill();
 		profB.setName("profB");
+		profB.setType(SkillType.PROFESSION);
 
 		profC = new Skill();
 		profC.setName("profC");
+		profC.setType(SkillType.PROFESSION);
 
 		villager = new Skill();
 		villager.setName("VILLAGER");
+		villager.setType(SkillType.PROFESSION);
 	}
 
 	@Test

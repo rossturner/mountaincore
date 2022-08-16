@@ -34,7 +34,6 @@ public enum EntityAssetOrientation {
 
 	/**
 	 * This method turns a normalised vector into an orientation
-	 * <p>
 	 * There are 8 possible directions but this splits them into 6 for now, each given ~60 degrees
 	 *
 	 * @param facing a normalised vector representing a direction

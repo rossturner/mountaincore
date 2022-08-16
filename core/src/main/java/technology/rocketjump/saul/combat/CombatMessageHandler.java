@@ -274,11 +274,6 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 					}
 				}
 
-				// TODO change knockback mechanics incl. when damage impacts defense pool only
-//				Vector2 knockbackVector = attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition().cpy().sub(
-//						attackMessage.attackerEntity.getLocationComponent().getWorldOrParentPosition()
-//				).nor().scl(damageAmount / 4f);
-//				attackMessage.defenderEntity.getBehaviourComponent().getSteeringComponent().setKnockback(knockbackVector);
 			}
 
 		} else if (attackMessage.defenderEntity.getType().equals(EntityType.FURNITURE)) {

@@ -6,8 +6,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import technology.rocketjump.saul.jobs.model.Skill;
+import technology.rocketjump.saul.jobs.model.SkillType;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SkillsComponentTest {
@@ -21,6 +23,9 @@ public class SkillsComponentTest {
 
 	@Test
 	public void hasAnyActiveProfession() {
+		when(mockProfA.getType()).thenReturn(SkillType.PROFESSION);
+		when(mockProfB.getType()).thenReturn(SkillType.PROFESSION);
+
 		SkillsComponent skillsComponent = new SkillsComponent();
 		skillsComponent.setSkillLevel(mockProfA, 50);
 		skillsComponent.setSkillLevel(mockProfB, 30);
