@@ -18762,6 +18762,106 @@
     }
   }
 }, {
+  "uniqueName" : "Tool-Pickaxe-Extras-Being-Carried",
+  "type" : "BELOW_LAYER_1",
+  "itemTypeName" : "Tool-Pickaxe",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-F.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-F34.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-F34.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B34.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B34.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Tool-Pickaxe-Handle-Being-Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Tool-Pickaxe",
@@ -19082,16 +19182,16 @@
     }
   }
 }, {
-  "uniqueName" : "Tool-Pickaxe-Extras-Being-Carried",
+  "uniqueName" : "Tool-Pickaxe-Extras-On-Ground",
   "type" : "BELOW_LAYER_1",
   "itemTypeName" : "Tool-Pickaxe",
   "minQuantity" : 1,
   "maxQuantity" : 1,
   "itemQualities" : [ ],
-  "itemPlacements" : [ "BEING_CARRIED" ],
+  "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-F.png",
+      "filename" : "Tool-Pickaxe-Extras-On-Ground.png",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
@@ -19100,81 +19200,6 @@
         "unit" : false
       },
       "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-F34.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-F34.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B34.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B34.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
       "flipY" : false,
       "childAssets" : [ ],
       "attachmentPoints" : [ ],
@@ -19233,31 +19258,6 @@
     "DOWN" : {
       "filename" : "Tool-Pickaxe-Head-On-Ground.png",
       "coloringLayer" : "METAL_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Tool-Pickaxe-Extras-On-Ground",
-  "type" : "BELOW_LAYER_1",
-  "itemTypeName" : "Tool-Pickaxe",
-  "minQuantity" : 1,
-  "maxQuantity" : 1,
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Tool-Pickaxe-Extras-On-Ground.png",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
@@ -21548,6 +21548,195 @@
     }
   }
 }, {
+  "uniqueName" : "Weapon-Metal-Bolts-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Metal-Bolts",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -8.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 15.0,
+          "y" : -8.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -15.0,
+          "y" : -9.0,
+          "unit" : false
+        }
+      } ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 4.5,
+        "y" : -11.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 19.0,
+          "y" : -6.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -15.0,
+          "y" : -6.0,
+          "unit" : false
+        }
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -5.5,
+        "y" : -9.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 14.0,
+          "y" : -3.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : -100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : -10.0,
+          "unit" : false
+        }
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -4.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -10.0,
+          "y" : -12.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -4.5,
+        "y" : -5.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 13.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Metal-Bolts",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Weapon-Bow-Being-Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Bow",
@@ -21732,6 +21921,1569 @@
       "offsetPixels" : {
         "x" : 2.5,
         "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Battle-Axe-Handle-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Battle-Axe",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 2.0,
+        "y" : 9.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -2.0,
+          "y" : 10.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : -3.0,
+          "unit" : false
+        }
+      } ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Up.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 6.5,
+        "y" : 3.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 5.5,
+          "y" : 10.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Down_Left.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 9.5,
+        "y" : 7.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 8.5,
+          "y" : 11.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Down_Left.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -7.5,
+        "y" : 7.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -8.5,
+          "y" : 11.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : -1.0,
+          "unit" : false
+        }
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Up_Left.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 24.5,
+        "y" : 2.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 9.5,
+          "y" : 11.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_6",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 0
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Up_Left.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 6.5,
+        "y" : 2.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -9.5,
+          "y" : 11.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "y" : -3.0,
+          "unit" : false
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Battle-Axe-Handle-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Battle-Axe",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Battle-Axe-Handle-On_Ground_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -10.5,
+        "y" : -8.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 10.5,
+          "y" : 8.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Battle-Axe-Head-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Battle-Axe",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -5.5,
+        "y" : 6.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Up.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 2.5,
+        "y" : 8.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Down_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : 7.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Down_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -4.0,
+        "y" : 7.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Up_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 3.5,
+        "y" : 7.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Up_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -3.5,
+        "y" : 7.5,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Battle-Axe-Head-On_Ground",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Battle-Axe",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Battle-Axe-Head-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 5.0,
+        "y" : 7.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Battle-Hammer-Grip-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Battle-Hammer",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Down.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -17.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Up.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -2.5,
+        "y" : -17.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Down_Left.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 2.5,
+        "y" : -17.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Down_Left.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -2.5,
+        "y" : -17.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Up_Left.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -16.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Up_Left.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -16.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Battle-Hammer-Grip-On_Ground",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Battle-Hammer",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Battle-Hammer-Grip-On_Ground_Down.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -15.0,
+        "y" : 13.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Battle-Hammer-Main-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Battle-Hammer",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 14.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.5,
+          "y" : 0.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -11.0,
+          "unit" : false
+        }
+      } ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Up.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 8.0,
+        "y" : 15.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "y" : 0.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -17.0,
+          "unit" : false
+        }
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Down_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -7.0,
+        "y" : 15.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "y" : 1.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -14.0,
+          "unit" : false
+        }
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Down_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -5.0,
+        "y" : 16.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -1.0,
+          "y" : 1.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -3.0,
+          "y" : -11.0,
+          "unit" : false
+        }
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Up_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 31.5,
+        "y" : 12.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Up_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 8.5,
+        "y" : 12.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.5,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -9.0,
+          "unit" : false
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Battle-Hammer-Main-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Battle-Hammer",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Battle-Hammer-Main-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -0.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Crossbow-Mechanism-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Crossbow",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -1.0,
+        "unit" : true
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Up.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 1.0,
+        "unit" : true
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Down_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : 1.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Down_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 1.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Up_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 3.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Up_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : 3.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Crossbow-Mechanism-On_Ground",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Crossbow",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Crossbow-Mechanism-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -2.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Crossbow-Stock-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Crossbow",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Crossbow-Stock-Being_Carried_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -5.0,
+        "y" : -2.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "y" : -1.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "y" : -1.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 4.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Crossbow-Stock-Being_Carried_Up.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 6.5,
+        "y" : 5.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Crossbow-Stock-Being_Carried_Down_Right.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -9.0,
+        "y" : -3.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -3.0,
+          "y" : -1.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : -3.0,
+          "y" : -1.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Crossbow-Stock-Being_Carried_Down_Right.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 14.0,
+        "y" : -3.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 3.0,
+          "y" : -1.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 3.0,
+          "y" : -1.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : 5.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 10
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Crossbow-Stock-Being_Carried_Up_Right.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -4.5,
+        "y" : 2.5,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -6.5,
+          "y" : -3.5,
+          "unit" : false
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : -6.5,
+          "y" : -3.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Crossbow-Stock-Being_Carried_Up_Right.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 15.5,
+        "y" : 2.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 6.5,
+          "y" : -3.5,
+          "unit" : false
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 6.5,
+          "y" : -3.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : -4.0,
+          "unit" : false
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Crossbow-Stock-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Crossbow",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Crossbow-Stock-On_Ground_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : 1.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : -1.5,
+          "unit" : false
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : -1.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Crossbow-String-Being_Carried",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Weapon-Crossbow",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Crossbow-String-Being_Carried_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 3.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Crossbow-String-Being_Carried_Up.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : 2.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Crossbow-String-Being_Carried_Down_Right.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 2.5,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Crossbow-String-Being_Carried_Down_Right.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 2.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Crossbow-String-Being_Carried_Up_Right.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 3.5,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Crossbow-String-Being_Carried_Up_Right.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 3.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Crossbow-String-On_Ground",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Weapon-Crossbow",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Crossbow-String-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : 1.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Sword-Blade-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Sword",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Sword-Blade-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -11.0,
+        "y" : 22.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : -6.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 3.0,
+          "y" : -17.0,
+          "unit" : false
+        }
+      } ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Sword-Blade-Being_Carried_Up.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 9.5,
+        "y" : 22.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -1.5,
+          "y" : -6.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Sword-Blade-Being_Carried_Down_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -8.5,
+        "y" : 20.5,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 2.5,
+          "y" : -6.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Sword-Blade-Being_Carried_Down_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 3.5,
+        "y" : 20.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -2.5,
+          "y" : -6.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -4.0,
+          "y" : -17.0,
+          "unit" : false
+        }
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Sword-Blade-Being_Carried_Up_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 25.0,
+        "y" : 23.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : -7.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Sword-Blade-Being_Carried_Up_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 12.0,
+        "y" : 15.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -2.0,
+          "y" : -7.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -4.0,
+          "y" : -17.0,
+          "unit" : false
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Sword-Blade-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Sword",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Sword-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 5.5,
+        "y" : -6.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -5.5,
+          "y" : 6.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Sword-Handle-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Sword",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Sword-Handle-Being_Carried_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : -11.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Sword-Handle-Being_Carried_Up.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : -12.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Sword-Handle-Being_Carried_Down_Left.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 2.0,
+        "y" : -14.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Sword-Handle-Being_Carried_Down_Left.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : -14.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Sword-Handle-Being_Carried_Up_Left.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 2.0,
+        "y" : -13.5,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Sword-Handle-Being_Carried_Up_Left.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : -13.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Sword-Handle-On_Ground",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Sword",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Sword-Above_Layer_1-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -5.5,
+        "y" : 8.0,
         "unit" : false
       },
       "flipX" : false,

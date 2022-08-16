@@ -914,7 +914,7 @@
   "itemTypeName" : "Tool-Axe",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
-  "materialTypes" : [ "METAL", "WOOD" ],
+  "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "METAL",
   "holdPosition" : "RIGHT_HAND",
   "impedesMovement" : false,
@@ -924,6 +924,13 @@
   "relatedCraftingTypeNames" : [ "WOODCUTTING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "SLASHING",
+    "modifiedByStrength" : true,
+    "minDamage" : 2,
+    "maxDamage" : 2
+  },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.AXE"
 }, {
@@ -1001,7 +1008,7 @@
   "itemTypeName" : "Tool-Pickaxe",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
-  "materialTypes" : [ "METAL", "WOOD" ],
+  "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "METAL",
   "holdPosition" : "RIGHT_HAND",
   "impedesMovement" : false,
@@ -1011,6 +1018,13 @@
   "relatedCraftingTypeNames" : [ "SMELTING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "STABBING",
+    "modifiedByStrength" : true,
+    "minDamage" : 1,
+    "maxDamage" : 3
+  },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PICKAXE"
 }, {
@@ -1140,6 +1154,24 @@
   "i18nKey" : "WEAPON.METAL.ARROWS"
 }, {
   "itemTypeId" : 67,
+  "itemTypeName" : "Weapon-Metal-Bolts",
+  "maxStackSize" : 50,
+  "maxHauledAtOnce" : 50,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "FLETCHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "isAmmoType" : "BOLTS",
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.METAL.BOLTS"
+}, {
+  "itemTypeId" : 68,
   "itemTypeName" : "Weapon-Bow",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1154,7 +1186,7 @@
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "weaponInfo" : {
-    "range" : 9.0,
+    "range" : 9,
     "damageType" : "STABBING",
     "modifiedByStrength" : false,
     "minDamage" : 2,
@@ -1166,4 +1198,101 @@
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BOW"
+}, {
+  "itemTypeId" : 69,
+  "itemTypeName" : "Weapon-Battle-Axe",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD", "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "SLASHING",
+    "modifiedByStrength" : true,
+    "minDamage" : 3,
+    "maxDamage" : 12
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.BATTLE.AXE"
+}, {
+  "itemTypeId" : 70,
+  "itemTypeName" : "Weapon-Battle-Hammer",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "CRUSHING",
+    "modifiedByStrength" : true,
+    "minDamage" : 4,
+    "maxDamage" : 8
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.BATTLE.HAMMER"
+}, {
+  "itemTypeId" : 71,
+  "itemTypeName" : "Weapon-Crossbow",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD" ],
+  "primaryMaterialType" : "WOOD",
+  "holdPosition" : "RIGHT_HAND",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "weaponInfo" : {
+    "range" : 9,
+    "damageType" : "STABBING",
+    "modifiedByStrength" : false,
+    "minDamage" : 2,
+    "maxDamage" : 8,
+    "requiresAmmoType" : "BOLTS"
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.CROSSBOW"
+}, {
+  "itemTypeId" : 72,
+  "itemTypeName" : "Weapon-Sword",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "SLASHING",
+    "modifiedByStrength" : true,
+    "minDamage" : 2,
+    "maxDamage" : 10
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.SWORD"
 } ]
