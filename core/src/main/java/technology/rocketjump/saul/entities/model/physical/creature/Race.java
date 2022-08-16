@@ -29,6 +29,8 @@ public class Race {
 
 	private Map<ColoringLayer, SpeciesColor> colors = new EnumMap<>(ColoringLayer.class);
 
+	private CreatureMapPlacement mapPlacement = CreatureMapPlacement.NONE;
+
 	private RaceBehaviour behaviour = new RaceBehaviour();
 
 	private Map<Gender, RaceGenderDescriptor> genders = new EnumMap<>(Gender.class);
@@ -142,5 +144,13 @@ public class Race {
 
 	public void setBehaviour(RaceBehaviour behaviour) {
 		this.behaviour = behaviour;
+	}
+
+	public CreatureMapPlacement getMapPlacement() {
+		return mapPlacement;
+	}
+
+	public void setMapPlacement(CreatureMapPlacement mapPlacement) {
+		this.mapPlacement = mapPlacement;
 	}
 }

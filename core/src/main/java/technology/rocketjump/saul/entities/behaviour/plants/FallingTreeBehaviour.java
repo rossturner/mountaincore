@@ -5,7 +5,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesGrowthStage;
@@ -54,7 +54,7 @@ public class FallingTreeBehaviour implements BehaviourComponent {
 	private static final float ROTATION_DEGREES_PER_SECOND = 120f;
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		PlantEntityAttributes attributes = (PlantEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 
 		float rotationChange = 0.05f + (0.9f * (absoluteRotationAmount / 90));
@@ -90,6 +90,11 @@ public class FallingTreeBehaviour implements BehaviourComponent {
 					fallToWest, harvestedItems));
 		}
 
+	}
+
+	@Override
+	public void updateWhenPaused() {
+		
 	}
 
 	@Override

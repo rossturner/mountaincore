@@ -92,7 +92,7 @@ public class MessageType {
 	public static final int ITEM_CREATION_REQUEST = 338;
 	public static final int PLANT_CREATION_REQUEST = 339;
 	public static final int CREATURE_DEATH = 340;
-	public static final int HUMANOID_INSANITY = 341;
+	public static final int SAPIENT_CREATURE_INSANITY = 341;
 	public static final int LIQUID_AMOUNT_CHANGED = 342;
 	public static final int TREE_SHED_LEAVES = 343;
 
@@ -242,7 +242,8 @@ public class MessageType {
 	public static final int PARTICLE_REQUEST = 1600;
 	public static final int PARTICLE_RELEASE = 1602; // Used to set particles to expire
 	public static final int GET_PROGRESS_BAR_EFFECT_TYPE = 1603;
-	public static final int PARTICLE_FORCE_REMOVE = 1604;
+	public static final int GET_DEFENSE_POOL_EFFECT_TYPE = 1604;
+	public static final int PARTICLE_FORCE_REMOVE = 1605;
 
 	// Weather and fire messages
 	public static final int SPREAD_FIRE_FROM_LOCATION = 1700;
@@ -263,6 +264,10 @@ public class MessageType {
 	public static final int APPLY_ATTACK_DAMAGE = 1902;
 	public static final int CREATURE_DAMAGE_APPLIED = 1903;
 	public static final int CREATURE_ORGAN_DAMAGE_APPLIED = 1904;
+	public static final int CREATURE_ENTERING_COMBAT = 1905;
+	public static final int CREATURE_EXITING_COMBAT = 1906;
+	public static final int COMBAT_ACTION_CHANGED = 1907;
+	public static final int TRIGGER_ATTACK_OF_OPPORTUNITY = 1908;
 
 	// Asset Editor messages
 	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;

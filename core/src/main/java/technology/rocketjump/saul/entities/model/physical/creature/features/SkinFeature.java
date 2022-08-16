@@ -6,9 +6,6 @@ import technology.rocketjump.saul.entities.model.physical.combat.CombatDamageTyp
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 
-import java.util.EnumMap;
-import java.util.Map;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SkinFeature {
 
@@ -19,7 +16,6 @@ public class SkinFeature {
 	private String materialName;
 	@JsonIgnore
 	private GameMaterial material;
-	private Map<CombatDamageType, Integer> damageReduction = new EnumMap<>(CombatDamageType.class);
 
 	public String getItemTypeName() {
 		return itemTypeName;
@@ -50,10 +46,6 @@ public class SkinFeature {
 		this.quantity = quantity;
 	}
 
-	public Map<CombatDamageType, Integer> getDamageReduction() {
-		return damageReduction;
-	}
-
 	public String getMaterialName() {
 		return materialName;
 	}
@@ -75,7 +67,4 @@ public class SkinFeature {
 		this.material = material;
 	}
 
-	public void setDamageReduction(Map<CombatDamageType, Integer> damageReduction) {
-		this.damageReduction = damageReduction;
-	}
 }

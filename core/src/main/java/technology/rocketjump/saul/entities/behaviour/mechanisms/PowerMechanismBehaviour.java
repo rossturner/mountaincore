@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.components.EntityComponent;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.MapTile;
@@ -16,10 +16,12 @@ import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 public class PowerMechanismBehaviour implements BehaviourComponent {
 
 	private Entity parentEntity;
+	private GameContext gameContext;
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		this.parentEntity = parentEntity;
+		this.gameContext = gameContext;
 	}
 
 	@Override
@@ -28,7 +30,7 @@ public class PowerMechanismBehaviour implements BehaviourComponent {
 	}
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
 		PowerGrid powerGrid = parentTile.getUnderTile().getPowerGrid();
 
@@ -41,6 +43,11 @@ public class PowerMechanismBehaviour implements BehaviourComponent {
 			}
 			parentEntity.getPhysicalEntityComponent().setAnimationProgress(animationProgress);
 		}
+	}
+
+	@Override
+	public void updateWhenPaused() {
+
 	}
 
 	@Override

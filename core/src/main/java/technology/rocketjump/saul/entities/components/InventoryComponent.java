@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -44,10 +44,9 @@ public class InventoryComponent implements EntityComponent, Destructible {
 	@Override
 	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		for (InventoryComponent.InventoryEntry inventoryEntry : new ArrayList<>(getInventoryEntries())) {
-			if (inventoryEntry.entity.getBehaviourComponent() instanceof SettlerBehaviour) {
-				SettlerBehaviour settlerBehaviour = (SettlerBehaviour) inventoryEntry.entity.getBehaviourComponent();
-				if (settlerBehaviour.getCurrentGoal() != null && settlerBehaviour.getCurrentGoal().getCurrentAction() != null) {
-					settlerBehaviour.getCurrentGoal().getCurrentAction().actionInterrupted(gameContext);
+			if (inventoryEntry.entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+				if (creatureBehaviour.getCurrentGoal() != null && creatureBehaviour.getCurrentGoal().getCurrentAction() != null) {
+					creatureBehaviour.getCurrentGoal().getCurrentAction().actionInterrupted(gameContext);
 				}
 			} else if (inventoryEntry.entity.getType().equals(ITEM)) {
 				ItemEntityAttributes itemAttributes = (ItemEntityAttributes) inventoryEntry.entity.getPhysicalEntityComponent().getAttributes();

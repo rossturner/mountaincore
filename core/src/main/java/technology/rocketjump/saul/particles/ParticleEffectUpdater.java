@@ -25,6 +25,7 @@ import java.util.Optional;
 
 import static technology.rocketjump.saul.jobs.model.JobTarget.NULL_TARGET;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
+import static technology.rocketjump.saul.particles.CustomEffectFactory.DEFENSE_POOL_EFFECT_TYPE_NAME;
 import static technology.rocketjump.saul.particles.CustomEffectFactory.PROGRESS_BAR_EFFECT_TYPE_NAME;
 
 @Singleton
@@ -46,6 +47,7 @@ public class ParticleEffectUpdater implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.PARTICLE_RELEASE);
 		messageDispatcher.addListener(this, MessageType.PARTICLE_FORCE_REMOVE);
 		messageDispatcher.addListener(this, MessageType.GET_PROGRESS_BAR_EFFECT_TYPE);
+		messageDispatcher.addListener(this, MessageType.GET_DEFENSE_POOL_EFFECT_TYPE);
 	}
 
 	public void update(float deltaTime, TileBoundingBox boundingBox, boolean cameraIsAtMaxZoom) {
@@ -105,6 +107,11 @@ public class ParticleEffectUpdater implements Telegraph, GameContextAware {
 			case MessageType.GET_PROGRESS_BAR_EFFECT_TYPE: {
 				ParticleEffectTypeCallback callback = (ParticleEffectTypeCallback) msg.extraInfo;
 				callback.typeFound(particleEffectTypeDictionary.getByName(PROGRESS_BAR_EFFECT_TYPE_NAME));
+				return true;
+			}
+			case MessageType.GET_DEFENSE_POOL_EFFECT_TYPE: {
+				ParticleEffectTypeCallback callback = (ParticleEffectTypeCallback) msg.extraInfo;
+				callback.typeFound(particleEffectTypeDictionary.getByName(DEFENSE_POOL_EFFECT_TYPE_NAME));
 				return true;
 			}
 			default:

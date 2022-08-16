@@ -7,7 +7,7 @@ import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.behaviour.effects.BaseOngoingEffectBehaviour;
 import technology.rocketjump.saul.entities.behaviour.effects.FireEffectBehaviour;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.status.OnFireStatus;
 import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectAttributes;

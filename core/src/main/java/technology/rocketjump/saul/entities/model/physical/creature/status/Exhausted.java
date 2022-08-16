@@ -2,8 +2,8 @@ package technology.rocketjump.saul.entities.model.physical.creature.status;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
-import technology.rocketjump.saul.entities.components.humanoid.HappinessComponent;
-import technology.rocketjump.saul.entities.components.humanoid.NeedsComponent;
+import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.DeathReason;
 import technology.rocketjump.saul.gamecontext.GameContext;
 

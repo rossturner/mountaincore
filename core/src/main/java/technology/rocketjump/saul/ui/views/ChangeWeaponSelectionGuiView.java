@@ -10,7 +10,7 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ExampleItemDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.ChangeWeaponSelectionMessage;
 import technology.rocketjump.saul.settlement.ItemTracker;
@@ -31,7 +31,7 @@ import java.util.Optional;
 public class ChangeWeaponSelectionGuiView implements GuiView {
 
 	private final int ITEMS_PER_ROW = 5;
-	private final ProfessionDictionary professionDictionary;
+	private final SkillDictionary skillDictionary;
 	private final Skin uiSkin;
 	private final GameInteractionStateContainer gameInteractionStateContainer;
 	private final ItemTypeDictionary itemTypeDictionary;
@@ -51,11 +51,11 @@ public class ChangeWeaponSelectionGuiView implements GuiView {
 
 
 	@Inject
-	public ChangeWeaponSelectionGuiView(ProfessionDictionary professionDictionary, I18nWidgetFactory i18nWidgetFactory,
+	public ChangeWeaponSelectionGuiView(SkillDictionary skillDictionary, I18nWidgetFactory i18nWidgetFactory,
 										GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 										GameInteractionStateContainer gameInteractionStateContainer,
 										ItemTypeDictionary itemTypeDictionary, ExampleItemDictionary exampleItemDictionary, ImageButtonFactory imageButtonFactory, ItemTracker itemTracker) {
-		this.professionDictionary = professionDictionary;
+		this.skillDictionary = skillDictionary;
 		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;
 

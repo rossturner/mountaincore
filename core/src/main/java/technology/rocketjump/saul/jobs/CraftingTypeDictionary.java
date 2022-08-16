@@ -22,18 +22,18 @@ public class CraftingTypeDictionary {
 	private Map<GameMaterialType, CraftingType> byFurnitureConstruction = new HashMap<>();
 
 	@Inject
-	public CraftingTypeDictionary(ProfessionDictionary professionDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) throws IOException {
-		this(new File("assets/definitions/crafting/craftingTypes.json"), professionDictionary, particleEffectTypeDictionary);
+	public CraftingTypeDictionary(SkillDictionary skillDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) throws IOException {
+		this(new File("assets/definitions/crafting/craftingTypes.json"), skillDictionary, particleEffectTypeDictionary);
 	}
 
-	public CraftingTypeDictionary(File craftingTypesJsonFile, ProfessionDictionary professionDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) throws IOException {
+	public CraftingTypeDictionary(File craftingTypesJsonFile, SkillDictionary skillDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) throws IOException {
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<CraftingType> craftingTypes = objectMapper.readValue(FileUtils.readFileToString(craftingTypesJsonFile, "UTF-8"),
 				objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, CraftingType.class));
 
 		for (CraftingType craftingType : craftingTypes) {
-			craftingType.setProfessionRequired(professionDictionary.getByName(craftingType.getProfessionRequiredName()));
+			craftingType.setProfessionRequired(skillDictionary.getByName(craftingType.getProfessionRequiredName()));
 
 			if (craftingType.getParticleEffectNames() != null) {
 				for (String particleEffectName : craftingType.getParticleEffectNames()) {

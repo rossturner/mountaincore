@@ -1,12 +1,21 @@
 {
-  "itemTypeName": "Tool-Large-Hammer",
-  "materialTypes": ["METAL", "WOOD"],
-  "primaryMaterialType": "METAL",
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "stockpileGroupName": "TOOLS",
-  "holdPosition": "RIGHT_HAND",
-  "impedesMovement": false,
-  "blocksMovement": false,
-  "relatedCraftingTypeNames": ["STONEMASONRY", "BLACKSMITHING"]
+  "itemTypeName" : "Tool-Large-Hammer",
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD", "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "relatedCraftingTypeNames" : [ "STONEMASONRY", "BLACKSMITHING" ],
+  "stockpileGroupName" : "TOOLS",
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "CRUSHING",
+    "modifiedByStrength" : true,
+    "minDamage" : 1,
+    "maxDamage" : 5,
+    "armorNegation" : 3,
+    "combatSkillName" : "MACES",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
+    "animatedSpriteEffectName" : "Weapon slash"
+  },
+  "i18nKey" : "TOOL.LARGE.HAMMER"
 }

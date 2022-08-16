@@ -3,7 +3,7 @@ package technology.rocketjump.saul.environment.model;
 import com.badlogic.gdx.graphics.Color;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import technology.rocketjump.saul.audio.model.SoundAsset;
-import technology.rocketjump.saul.entities.components.humanoid.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.misc.Name;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
 

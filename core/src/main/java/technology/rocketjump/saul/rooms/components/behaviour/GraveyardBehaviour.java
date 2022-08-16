@@ -43,14 +43,10 @@ public class GraveyardBehaviour extends RoomBehaviourComponent implements Priori
 
 	public GraveyardBehaviour(Room parent, MessageDispatcher messageDispatcher) {
 		super(parent, messageDispatcher);
-//		messageDispatcher.addListener(this, MessageType.JOB_CANCELLED);
-//		messageDispatcher.addListener(this, MessageType.JOB_COMPLETED);
 	}
 
 	@Override
 	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-//		messageDispatcher.removeListener(this, MessageType.JOB_CANCELLED);
-//		messageDispatcher.removeListener(this, MessageType.JOB_COMPLETED);
 	}
 
 	@Override

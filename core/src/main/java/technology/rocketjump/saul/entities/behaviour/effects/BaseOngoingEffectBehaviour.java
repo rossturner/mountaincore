@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.audio.model.ActiveSoundEffect;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureParticleEffectsComponent;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectAttributes;
@@ -33,6 +33,7 @@ public class BaseOngoingEffectBehaviour implements BehaviourComponent, Destructi
 
 	protected Entity parentEntity;
 	protected MessageDispatcher messageDispatcher;
+	protected GameContext gameContext;
 
 	protected final AtomicReference<ParticleEffectInstance> currentParticleEffect = new AtomicReference<>(null);
 	protected ActiveSoundEffect activeSoundEffect;
@@ -44,6 +45,7 @@ public class BaseOngoingEffectBehaviour implements BehaviourComponent, Destructi
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		this.parentEntity = parentEntity;
 		this.messageDispatcher = messageDispatcher;
+		this.gameContext = gameContext;
 	}
 
 	@Override
@@ -54,16 +56,16 @@ public class BaseOngoingEffectBehaviour implements BehaviourComponent, Destructi
 	}
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		OngoingEffectAttributes attributes = (OngoingEffectAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		Entity containerEntity = parentEntity.getLocationComponent().getContainerEntity();
 		if (state.equals(STARTING) && containerEntity != null && containerEntity.getType().equals(EntityType.CREATURE)) {
-			nextState(gameContext);
+			nextState();
 		}
 
 		stateDuration += deltaTime;
 		if (stateDuration > attributes.getType().getStates().get(state).getDuration()) {
-			nextState(gameContext);
+			nextState();
 		}
 		if (this.state == null) {
 			messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, parentEntity);
@@ -120,7 +122,12 @@ public class BaseOngoingEffectBehaviour implements BehaviourComponent, Destructi
 
 	}
 
-	protected void nextState(GameContext gameContext) {
+	@Override
+	public void updateWhenPaused() {
+
+	}
+
+	protected void nextState() {
 		switch (state) {
 			case STARTING:
 				this.state = ACTIVE;

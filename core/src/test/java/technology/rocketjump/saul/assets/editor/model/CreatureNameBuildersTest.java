@@ -11,7 +11,7 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ class CreatureNameBuildersTest {
             Arguments.of(typicalDwarf(), asset().gender(MALE).assetType("HEAD").consciousness(DEAD).build(), "Dwarf-Male-Head-Dead"),
             Arguments.of(typicalDwarf(), asset().gender(MALE).assetType("CREATURE_BODY").consciousness(DEAD, SLEEPING, KNOCKED_UNCONSCIOUS).build(), "Dwarf-Male-Creature_Body-Not_Awake"),
             Arguments.of(typicalDwarf(), asset().gender(FEMALE).profession("BLACKSMITH").build(), "Dwarf-Female-Blacksmith"),
-            Arguments.of(typicalDwarf(), asset().gender(FEMALE).profession(ProfessionDictionary.NULL_PROFESSION.getName()).build(), "Dwarf-Female")
+            Arguments.of(typicalDwarf(), asset().gender(FEMALE).profession(SkillDictionary.NULL_PROFESSION.getName()).build(), "Dwarf-Female")
         );
     }
 

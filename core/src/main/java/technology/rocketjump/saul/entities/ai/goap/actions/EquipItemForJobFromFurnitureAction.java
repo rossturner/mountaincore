@@ -53,7 +53,7 @@ public class EquipItemForJobFromFurnitureAction extends Action {
 						if (itemInInventory != null) {
 							inventoryComponent.remove(itemInInventory.getId());
 							EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
-							equippedItemComponent.setEquippedItem(itemInInventory, parent.parentEntity, parent.messageDispatcher);
+							equippedItemComponent.setMainHandItem(itemInInventory, parent.parentEntity, parent.messageDispatcher);
 							completionType = SUCCESS;
 						} else {
 							parent.setInterrupted(true);

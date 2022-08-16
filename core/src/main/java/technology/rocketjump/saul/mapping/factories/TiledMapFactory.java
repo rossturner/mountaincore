@@ -22,7 +22,7 @@ import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesType;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.mapgen.model.output.GameMap;
 import technology.rocketjump.saul.mapping.model.InvalidMapGenerationException;
 import technology.rocketjump.saul.mapping.model.TiledMap;
@@ -117,7 +117,7 @@ public class TiledMapFactory {
 
 
 	// Note this passes in MessageDispatcher as a guard against using it in this class before the GameContext is set up
-	public void postSelectSpawnStep(GameContext gameContext, MessageDispatcher messageDispatcher, List<Profession> professionList) {
+	public void postSelectSpawnStep(GameContext gameContext, MessageDispatcher messageDispatcher, List<Skill> professionList) {
 		TiledMap areaMap = gameContext.getAreaMap();
 		GridPoint2 embarkPoint = areaMap.getEmbarkPoint();
 		messageDispatcher.dispatchMessage(MessageType.FLOOD_FILL_EXPLORATION, embarkPoint);
@@ -126,8 +126,8 @@ public class TiledMapFactory {
 		Deque<QuantifiedItemTypeWithMaterial> inventoryStartingItems = initInventoryStartingItems(professionList.size(), gameContext.getRandom());
 		List<Entity> allSettlers = new ArrayList<>();
 
-		for (Profession primaryProfession : professionList) {
-			Profession secondaryProfession = professionList.get(gameContext.getRandom().nextInt(professionList.size()));
+		for (Skill primaryProfession : professionList) {
+			Skill secondaryProfession = professionList.get(gameContext.getRandom().nextInt(professionList.size()));
 
 			Entity settler = createSettler(embarkPoint.x, embarkPoint.y, primaryProfession, secondaryProfession, gameContext, messageDispatcher);
 
@@ -213,7 +213,7 @@ public class TiledMapFactory {
 		}
 	}
 
-	private Entity createSettler(int tileX, int tileY, Profession primaryprofession, Profession secondaryProfession, GameContext gameContext, MessageDispatcher messageDispatcher) {
+	private Entity createSettler(int tileX, int tileY, Skill primaryprofession, Skill secondaryProfession, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		Random random = new Random();
 		Vector2 worldPosition = new Vector2(tileX + 0.5f + (0.1f - (random.nextFloat() * 0.2f)), tileY + 0.5f+ (0.1f - (random.nextFloat() * 0.2f)));
 		Vector2 facing = new Vector2((random.nextFloat() * 2.0f) - 1.0f, (random.nextFloat() * 2.0f) - 1.0f);

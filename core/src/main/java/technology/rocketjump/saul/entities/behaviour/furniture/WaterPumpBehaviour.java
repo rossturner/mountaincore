@@ -18,7 +18,7 @@ import static technology.rocketjump.saul.mapping.tile.underground.TileLiquidFlow
 public class WaterPumpBehaviour extends FurnitureBehaviour implements Destructible {
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		PoweredFurnitureComponent poweredFurnitureComponent = parentEntity.getComponent(PoweredFurnitureComponent.class);
 		if (poweredFurnitureComponent != null) {
 			poweredFurnitureComponent.update(deltaTime, gameContext);

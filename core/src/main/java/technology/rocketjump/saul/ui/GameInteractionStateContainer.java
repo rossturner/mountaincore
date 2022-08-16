@@ -22,7 +22,7 @@ import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismTyp
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.model.JobPriority;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.mapping.MapMessageHandler;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.model.WallPlacementMode;
@@ -97,7 +97,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 	private DoorwayPlacementMessage virtualDoorPlacement;
 
 	private Selectable selectable;
-	private Profession professionToReplace;
+	private Skill professionToReplace;
 
 	private MaterialSelectionMessage doorMaterialSelection = new MaterialSelectionMessage(GameMaterialType.STONE, NULL_MATERIAL, null);
 
@@ -796,11 +796,11 @@ public class GameInteractionStateContainer implements GameContextAware {
 		this.virtualBridgeConstruction = virtualBridgeConstruction;
 	}
 
-	public Profession getProfessionToReplace() {
+	public Skill getProfessionToReplace() {
 		return professionToReplace;
 	}
 
-	public void setProfessionToReplace(Profession professionToReplace) {
+	public void setProfessionToReplace(Skill professionToReplace) {
 		this.professionToReplace = professionToReplace;
 	}
 

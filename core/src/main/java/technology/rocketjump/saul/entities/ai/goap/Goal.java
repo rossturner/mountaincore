@@ -26,6 +26,8 @@ public class Goal {
 	private final List<Class<? extends Action>> initialActions = new ArrayList<>();
 	private final Map<Class<? extends Action>, ActionTransitions> actionTransitionsMap = new HashMap<>();
 
+	public static final Goal NULL_GOAL = new Goal("NULL_GOAL", "", 0.0, false, false);
+
 	public Goal(String name, String i18nDescription, Double expiryHours, boolean interruptedByCombat, boolean interruptedByLowNeeds) {
 		this.name = name;
 		this.i18nDescription = i18nDescription;

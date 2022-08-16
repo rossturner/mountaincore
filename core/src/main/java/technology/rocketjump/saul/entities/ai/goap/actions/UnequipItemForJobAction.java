@@ -30,7 +30,7 @@ public class UnequipItemForJobAction extends Action {
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
-		Entity currentItem = equippedItemComponent.clearEquippedItem();
+		Entity currentItem = equippedItemComponent.clearMainHandItem();
 		if (currentItem != null) {
 			if (new EquipItemForJobFromFurnitureAction(parent).isApplicable(gameContext)) {
 				unequipItemToFurniture(currentItem, gameContext);

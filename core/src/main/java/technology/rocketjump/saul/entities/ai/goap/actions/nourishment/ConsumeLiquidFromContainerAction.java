@@ -8,10 +8,10 @@ import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
-import technology.rocketjump.saul.entities.components.humanoid.HappinessComponent;
-import technology.rocketjump.saul.entities.components.humanoid.MemoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.NeedsComponent;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.status.alcohol.Drunk;
@@ -26,7 +26,7 @@ import static technology.rocketjump.saul.entities.ai.goap.EntityNeed.DRINK;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
 import static technology.rocketjump.saul.entities.components.LiquidAllocation.LiquidAllocationType.FROM_RIVER;
-import static technology.rocketjump.saul.entities.components.humanoid.HappinessComponent.HappinessModifier.DRANK_FROM_RIVER;
+import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.DRANK_FROM_RIVER;
 
 public class ConsumeLiquidFromContainerAction extends Action {
 

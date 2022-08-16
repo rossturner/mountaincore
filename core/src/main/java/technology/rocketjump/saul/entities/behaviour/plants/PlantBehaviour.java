@@ -10,7 +10,7 @@ import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.components.EntityComponent;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.plant.*;
 import technology.rocketjump.saul.environment.model.Season;
@@ -86,8 +86,13 @@ public class PlantBehaviour implements BehaviourComponent, SelectableDescription
 	}
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
+	public void update(float deltaTime) {
 		// Do nothing, does not update every frame
+	}
+
+	@Override
+	public void updateWhenPaused() {
+
 	}
 
 	@Override

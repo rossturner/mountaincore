@@ -5,9 +5,9 @@ import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.GoalSelectionCondition;
 import technology.rocketjump.saul.entities.ai.goap.GoalSelector;
 import technology.rocketjump.saul.entities.ai.goap.QueuedGoal;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
-import technology.rocketjump.saul.entities.components.humanoid.MemoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.NeedsComponent;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -25,7 +25,7 @@ public class RequeueThisGoalAction extends Action {
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
-		SettlerBehaviour parentBehaviour = (SettlerBehaviour) parent.parentEntity.getBehaviourComponent();
+		CreatureBehaviour parentBehaviour = (CreatureBehaviour) parent.parentEntity.getBehaviourComponent();
 		NeedsComponent needsComponent = parent.parentEntity.getComponent(NeedsComponent.class);
 		MemoryComponent memoryComponent = parent.parentEntity.getComponent(MemoryComponent.class);
 

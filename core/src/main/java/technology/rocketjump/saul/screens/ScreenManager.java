@@ -14,8 +14,8 @@ import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.*;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.SkillDictionary;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.mapping.factories.TiledMapFactory;
 import technology.rocketjump.saul.mapping.model.InvalidMapGenerationException;
 import technology.rocketjump.saul.mapping.model.TiledMap;
@@ -48,7 +48,7 @@ public class ScreenManager implements Telegraph, GameContextAware {
 	private final GameScreenDictionary gameScreenDictionary;
 	private final MessageDispatcher messageDispatcher;
 	private final TiledMapFactory mapFactory;
-	private final ProfessionDictionary professionDictionary;
+	private final SkillDictionary skillDictionary;
 	private final GameContextFactory gameContextFactory;
 	private final GameContextRegister gameContextRegister;
 	private final GameDialogDictionary dialogDictionary;
@@ -64,13 +64,13 @@ public class ScreenManager implements Telegraph, GameContextAware {
 
 	@Inject
 	public ScreenManager(GameScreenDictionary gameScreenDictionary, MessageDispatcher messageDispatcher, TiledMapFactory mapFactory,
-						 ProfessionDictionary professionDictionary, GameContextFactory gameContextFactory,
+						 SkillDictionary skillDictionary, GameContextFactory gameContextFactory,
 						 GameContextRegister gameContextRegister, GameDialogDictionary dialogDictionary,
 						 EntityStore entityStore, UserPreferences userPreferences, PrimaryCameraWrapper primaryCameraWrapper, MainGameScreen mainGameScreen, MainMenuScreen mainMenuScreen) {
 		this.gameScreenDictionary = gameScreenDictionary;
 		this.messageDispatcher = messageDispatcher;
 		this.mapFactory = mapFactory;
-		this.professionDictionary = professionDictionary;
+		this.skillDictionary = skillDictionary;
 		this.gameContextFactory = gameContextFactory;
 		this.gameContextRegister = gameContextRegister;
 		this.dialogDictionary = dialogDictionary;
@@ -129,12 +129,11 @@ public class ScreenManager implements Telegraph, GameContextAware {
 				!Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.ENABLE_TUTORIAL, "true"));
 	}
 
-	private static final boolean smallStart = true;
 	public static boolean STRESS_TEST = false;
 
-	private List<Profession> buildProfessionList() {
-		List<Profession> professionList = new ArrayList<>();
-		if (!DEV_MODE && smallStart) {
+	private List<Skill> buildProfessionList() {
+		List<Skill> professionList = new ArrayList<>();
+		if (!DEV_MODE) {
 			add(professionList, "MINER", 1);
 			add(professionList, "LUMBERJACK", 1);
 			add(professionList, "CARPENTER", 1);
@@ -143,36 +142,27 @@ public class ScreenManager implements Telegraph, GameContextAware {
 			add(professionList, "FARMER", 1);
 			add(professionList, "CHEF", 1);
 		} else if (STRESS_TEST) {
-			List<Profession> allProfessions = new ArrayList<>(professionDictionary.getAll());
+			List<Skill> allProfessions = new ArrayList<>(skillDictionary.getAllProfessions());
 			for (int cursor = 0; cursor < 1000; cursor++) {
 				professionList.add(allProfessions.get(cursor % allProfessions.size()));
 			}
-		} else if (DEV_MODE) {
+		} else {
 			for (int iteration = 0; iteration < 4; iteration++) {
-				for (Profession profession : professionDictionary.getAll()) {
+				for (Skill profession : skillDictionary.getAllProfessions()) {
 					if (profession.getName().equals("VILLAGER")) {
 						continue;
 					}
 					professionList.add(profession);
 				}
 			}
-		} else {
-			add(professionList, "MINER", 3);
-			add(professionList, "LUMBERJACK", 3);
-			add(professionList, "CARPENTER", 3);
-			add(professionList, "STONEMASON", 3);
-			add(professionList, "BLACKSMITH", 2);
-			add(professionList, "FARMER", 4);
-			add(professionList, "CHEF", 2);
-			add(professionList, "HUNTER", 2);
 		}
 
 		return professionList;
 	}
 
-	private void add(List<Profession> professionList, String professionName, int quantity) {
+	private void add(List<Skill> professionList, String professionName, int quantity) {
 		for (int cursor = 0; cursor < quantity; cursor++) {
-			Profession profession = professionDictionary.getByName(professionName);
+			Skill profession = skillDictionary.getByName(professionName);
 			if (profession == null) {
 				Logger.error("Could not find profession by name: " + professionName);
 			} else {

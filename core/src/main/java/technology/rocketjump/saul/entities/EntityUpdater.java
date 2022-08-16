@@ -26,8 +26,16 @@ public class EntityUpdater implements Updatable {
 	public void update(float deltaTime) {
 		for (Entity updatableEntity : entityStore.getUpdateEveryFrameEntities()) {
 			if (updatableEntity != null) { // FIXME No idea how this is sometimes being null
-				updatableEntity.update(deltaTime, gameContext);
+				if (gameContext.getGameClock().isPaused()) {
+					updatableEntity.updateWhenPaused();
+				} else {
+					updatableEntity.update(deltaTime);
+				}
 			}
+		}
+
+		if (gameContext.getGameClock().isPaused()) {
+			return;
 		}
 
 		List<Entity> infrequentUpdateEntities = entityStore.getUpdateInfrequentlyEntities();
@@ -52,7 +60,7 @@ public class EntityUpdater implements Updatable {
 
 	@Override
 	public boolean runWhilePaused() {
-		return false;
+		return true;
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.entities.EntityStore;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
@@ -114,8 +114,8 @@ public class JobAccessibilityUpdater implements Updatable {
 	private Entity getEntityToPathfindFrom(Job job) {
 		List<Entity> candidates = new ArrayList<>();
 		for (Entity jobAssignableEntity : entityStore.getJobAssignableEntities()) {
-			ProfessionsComponent professionsComponent = jobAssignableEntity.getComponent(ProfessionsComponent.class);
-			if (professionsComponent != null && professionsComponent.hasActiveProfession(job.getRequiredProfession())) {
+			SkillsComponent skillsComponent = jobAssignableEntity.getComponent(SkillsComponent.class);
+			if (skillsComponent != null && skillsComponent.hasActiveProfession(job.getRequiredProfession())) {
 				candidates.add(jobAssignableEntity);
 			}
 		}

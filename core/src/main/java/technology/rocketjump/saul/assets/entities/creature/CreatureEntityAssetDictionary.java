@@ -7,7 +7,7 @@ import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityA
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +56,7 @@ public class CreatureEntityAssetDictionary {
 		return assetsByName;
 	}
 
-	public CreatureEntityAsset getMatching(EntityAssetType assetType, CreatureEntityAttributes attributes, Profession primaryProfession) {
+	public CreatureEntityAsset getMatching(EntityAssetType assetType, CreatureEntityAttributes attributes, Skill primaryProfession) {
 		List<CreatureEntityAsset> allMatchingAssets = getAllMatchingAssets(assetType, attributes, primaryProfession);
 
 		List<CreatureEntityAsset> matched = allMatchingAssets.stream().filter(creatureEntityAsset ->
@@ -71,7 +71,7 @@ public class CreatureEntityAssetDictionary {
 		}
 	}
 
-	public List<CreatureEntityAsset> getAllMatchingAssets(EntityAssetType assetType, CreatureEntityAttributes attributes, Profession primaryProfession) {
+	public List<CreatureEntityAsset> getAllMatchingAssets(EntityAssetType assetType, CreatureEntityAttributes attributes, Skill primaryProfession) {
 		return typeMap.getAll(assetType, attributes, primaryProfession);
 	}
 

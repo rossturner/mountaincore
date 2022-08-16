@@ -1,7 +1,7 @@
 package technology.rocketjump.saul.entities.model.physical.creature.status;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import technology.rocketjump.saul.entities.components.humanoid.SteeringComponent;
+import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel;
 import technology.rocketjump.saul.gamecontext.GameContext;

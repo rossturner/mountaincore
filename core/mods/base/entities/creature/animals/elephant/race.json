@@ -15,8 +15,9 @@
       "swatch" : "elephant-tusk-swatch.png"
     }
   },
+  "mapPlacement": "ANIMAL",
   "behaviour" : {
-    "behaviourName" : "HerdAnimal",
+    "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ "SLEEP" ],
     "group" : {
@@ -36,15 +37,19 @@
     }
   },
   "features" : {
-    "skin" : {
-      "itemTypeName" : "Carcass-Hide",
-      "quantity" : 4,
-      "materialName" : "Elephant Hide",
+    "defense": {
+      "maxDefensePoints": 26,
+      "maxDefenseRegainedPerRound": 3,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 1,
         "CRUSHING" : 1
       }
+    },
+    "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 4,
+      "materialName" : "Elephant Hide"
     },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Large",

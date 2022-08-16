@@ -8,14 +8,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.widget.*;
 import technology.rocketjump.saul.assets.editor.model.ColorPickerMessage;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WeaponInfoWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
+import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.features.*;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.misc.ReflectionUtils;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
 public class RaceFeaturesWidget extends VisTable {
@@ -51,7 +57,41 @@ public class RaceFeaturesWidget extends VisTable {
 		abstract void initChildWidgets(VisTable childContainer, RaceFeatures sourceData);
 	}
 
-	public RaceFeaturesWidget(RaceFeatures sourceData, GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary, MessageDispatcher messageDispatcher) {
+	public RaceFeaturesWidget(RaceFeatures sourceData, GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary,
+							  MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary,
+							  ParticleEffectTypeDictionary particleEffectTypeDictionary, SkillDictionary skillDictionary) {
+
+		new CheckBoxGroup(this, "Defense", sourceData, "defense") {
+			@Override
+			void initData(RaceFeatures sourceData) {
+				sourceData.setDefense(new DefenseInfo());
+			}
+
+			@Override
+			void initChildWidgets(VisTable childContainer, RaceFeatures sourceData) {
+				DefenseInfo defenseInfo = sourceData.getDefense();
+
+				WidgetBuilder.addIntegerField("Max Defense Points:", "maxDefensePoints", defenseInfo, childContainer);
+				WidgetBuilder.addIntegerField("Max Defense Regained/Round:", "maxDefenseRegainedPerRound", defenseInfo, childContainer);
+
+				childContainer.add(new VisLabel("Damage reduction: (integer)")).left().colspan(2).row();
+				childContainer.add(new DamageReductionWidget(defenseInfo.getDamageReduction())).left().colspan(2).row();
+			}
+		};
+
+
+		new CheckBoxGroup(this, "Unarmed Weapon", sourceData, "unarmedWeapon") {
+			@Override
+			void initData(RaceFeatures sourceData) {
+				sourceData.setUnarmedWeapon(new WeaponInfo());
+			}
+
+			@Override
+			void initChildWidgets(VisTable childContainer, RaceFeatures sourceData) {
+				WeaponInfo unarmedWeapon = sourceData.getUnarmedWeapon();
+				childContainer.add(new WeaponInfoWidget(unarmedWeapon, soundAssetDictionary, particleEffectTypeDictionary, skillDictionary)).left().colspan(2).row();
+			}
+		};
 
 		new CheckBoxGroup(this, "Skin", sourceData, "skin") {
 
@@ -73,8 +113,6 @@ public class RaceFeaturesWidget extends VisTable {
 				})).left().colspan(2).row();
 				WidgetBuilder.addSelectField("Skin Material:", "material", gameMaterialDictionary.getAll(), GameMaterial.NULL_MATERIAL, skin, childContainer);
 				WidgetBuilder.addIntegerField("Quantity:", "quantity", skin, childContainer);
-				childContainer.add(new VisLabel("Damage reduction: (integer)")).left().colspan(2).row();
-				childContainer.add(new DamageReductionWidget(skin.getDamageReduction())).left().colspan(2).row();
 			}
 		};
 

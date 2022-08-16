@@ -15,15 +15,15 @@ import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.Goal;
 import technology.rocketjump.saul.entities.ai.goap.SpecialGoal;
 import technology.rocketjump.saul.entities.ai.goap.actions.location.GoToLocationAction;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.factories.SettlerFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.SkillDictionary;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.mapping.factories.CreaturePopulator;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.roof.TileRoofState;
@@ -43,7 +43,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 	private final ItemTracker itemTracker;
 	private final SettlerTracker settlerTracker;
 	private final SettlerFactory settlerFactory;
-	private final ProfessionDictionary professionDictionary;
+	private final SkillDictionary skillDictionary;
 	private final CreaturePopulator creaturePopulator;
 	private final int baseImmigrationVarianceIterations;
 	private final int baseImmigrationExtraFixedAmount;
@@ -61,7 +61,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 
 	@Inject
 	public ImmigrationManager(MessageDispatcher messageDispatcher, ItemTracker itemTracker, SettlerTracker settlerTracker,
-							  SettlerFactory settlerFactory, ProfessionDictionary professionDictionary, CreaturePopulator creaturePopulator) {
+							  SettlerFactory settlerFactory, SkillDictionary skillDictionary, CreaturePopulator creaturePopulator) {
 		this.creaturePopulator = creaturePopulator;
 		FileHandle settingsJsonFile = new FileHandle("assets/settings/immigrationSettings.json");
 		JSONObject immigrationSettings = JSON.parseObject(settingsJsonFile.readString());
@@ -82,7 +82,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 		this.itemTracker = itemTracker;
 		this.settlerTracker = settlerTracker;
 		this.settlerFactory = settlerFactory;
-		this.professionDictionary = professionDictionary;
+		this.skillDictionary = skillDictionary;
 
 		messageDispatcher.addListener(this, MessageType.YEAR_ELAPSED);
 	}
@@ -256,14 +256,14 @@ public class ImmigrationManager implements Updatable, Telegraph {
 	}
 
 	private void createImmigrant(Vector2 spawnPosition) {
-		List<Profession> allProfessions = new ArrayList<>(professionDictionary.getAll());
-		Profession primaryProfession = allProfessions.get(gameContext.getRandom().nextInt(allProfessions.size()));
-		Profession secondaryProfession = null;
+		List<Skill> allProfessions = new ArrayList<>(skillDictionary.getAllProfessions());
+		Skill primaryProfession = allProfessions.get(gameContext.getRandom().nextInt(allProfessions.size()));
+		Skill secondaryProfession = null;
 		if (!primaryProfession.getName().equals("VILLAGER")) {
 			secondaryProfession = allProfessions.get(gameContext.getRandom().nextInt(allProfessions.size()));
 		}
 		Entity settler = settlerFactory.create(spawnPosition, new Vector2(), primaryProfession, secondaryProfession, gameContext);
-		SettlerBehaviour settlerBehaviour = (SettlerBehaviour) settler.getBehaviourComponent();
+		CreatureBehaviour settlerBehaviour = (CreatureBehaviour) settler.getBehaviourComponent();
 
 		Goal idleGoal = SpecialGoal.IDLE.getInstance();
 		AssignedGoal assignedGoal = new AssignedGoal(idleGoal, settler, messageDispatcher);

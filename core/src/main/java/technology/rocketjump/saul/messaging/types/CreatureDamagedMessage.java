@@ -7,11 +7,13 @@ import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart
 public class CreatureDamagedMessage {
 
 	public final Entity targetCreature;
+	public final Entity aggressorCreature;
 	public final BodyPart impactedBodyPart;
 	public final BodyPartDamageLevel damageLevel;
 
-	public CreatureDamagedMessage(Entity targetCreature, BodyPart impactedBodyPart, BodyPartDamageLevel damageLevel) {
+	public CreatureDamagedMessage(Entity targetCreature, Entity aggressorCreature, BodyPart impactedBodyPart, BodyPartDamageLevel damageLevel) {
 		this.targetCreature = targetCreature;
+		this.aggressorCreature = aggressorCreature;
 		this.impactedBodyPart = impactedBodyPart;
 		this.damageLevel = damageLevel;
 	}

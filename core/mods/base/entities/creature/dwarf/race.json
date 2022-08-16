@@ -31,7 +31,7 @@
     }
   },
   "behaviour" : {
-    "behaviourName" : "Settler",
+    "behaviourName" : "Creature",
     "scheduleName" : "Default Settler Schedule",
     "needs" : [ "FOOD", "DRINK", "SLEEP" ],
     "aggressionResponse" : "FLEE",
@@ -48,15 +48,26 @@
     }
   },
   "features" : {
-    "skin" : {
-      "itemTypeName" : "Carcass-Hide",
-      "quantity" : 1,
-      "materialName" : "Dwarf Flesh",
+    "defense": {
+      "maxDefensePoints": 20,
+      "maxDefenseRegainedPerRound": 3,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 2,
         "CRUSHING" : 2
       }
+    },
+    "unarmedWeapon": {
+      "range": 1,
+      "damageType": "CRUSHING",
+      "modifiedByStrength": true,
+      "minDamage": 1,
+      "maxDamage": 4
+    },
+    "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 1,
+      "materialName" : "Dwarf Flesh"
     },
     "bones" : {
       "materialName" : "Bone"

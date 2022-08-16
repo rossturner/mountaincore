@@ -21,13 +21,16 @@
       "colorCode" : "#aa8c9a"
     }
   },
-  "behaviour" : {
-    "behaviourName" : "HerdAnimal",
-    "scheduleName" : "Diurnal animal",
-    "needs" : [ "SLEEP" ],
-    "group" : {
-      "minSize" : 2,
-      "maxSize" : 5
+
+  "mapPlacement": "ANIMAL",
+
+  "behaviour": {
+    "behaviourName": "Creature",
+    "scheduleName": "Diurnal animal",
+    "needs": ["SLEEP"],
+    "group": {
+      "minSize": 2,
+      "maxSize": 5
     },
     "aggressionResponse" : "ATTACK"
   },
@@ -42,15 +45,19 @@
     }
   },
   "features" : {
-    "skin" : {
-      "itemTypeName" : "Carcass-Hide",
-      "quantity" : 1,
-      "materialName" : "Boar Hide",
+    "defense": {
+      "maxDefensePoints": 12,
+      "maxDefenseRegainedPerRound": 2,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 1,
         "CRUSHING" : 1
       }
+    },
+    "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 1,
+      "materialName" : "Boar Hide"
     },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Medium",

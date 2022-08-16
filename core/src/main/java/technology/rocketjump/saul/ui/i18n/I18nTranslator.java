@@ -12,7 +12,7 @@ import technology.rocketjump.saul.entities.ai.goap.actions.Action;
 import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
-import technology.rocketjump.saul.entities.components.humanoid.ProfessionsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -32,9 +32,9 @@ import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismTyp
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Job;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.underground.TileLiquidFlow;
 import technology.rocketjump.saul.mapping.tile.underground.UnderTile;
@@ -55,7 +55,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.mapping.tile.underground.TileLiquidFlow.MAX_LIQUID_FLOW_PER_TILE;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.ZONE;
@@ -67,14 +67,14 @@ public class I18nTranslator implements I18nUpdatable {
 	public static DecimalFormat oneDecimalFormat = new DecimalFormat("#.#");
 
 	private final I18nRepo repo;
-	private final ProfessionDictionary professionDictionary;
+	private final SkillDictionary skillDictionary;
 	private final EntityStore entityStore;
 	private I18nLanguageDictionary dictionary;
 
 	@Inject
-	public I18nTranslator(I18nRepo repo, ProfessionDictionary professionDictionary, EntityStore entityStore) {
+	public I18nTranslator(I18nRepo repo, SkillDictionary skillDictionary, EntityStore entityStore) {
 		this.repo = repo;
-		this.professionDictionary = professionDictionary;
+		this.skillDictionary = skillDictionary;
 		this.dictionary = repo.getCurrentLanguage();
 		this.entityStore = entityStore;
 	}
@@ -186,7 +186,7 @@ public class I18nTranslator implements I18nUpdatable {
 				if (job.getType().getOverrideI18nKey() != null) {
 					description = dictionary.getWord(job.getType().getOverrideI18nKey());
 				}
-				Profession requiredProfession = job.getRequiredProfession();
+				Skill requiredProfession = job.getRequiredProfession();
 				if (requiredProfession == null) {
 					requiredProfession = NULL_PROFESSION;
 				}
@@ -470,14 +470,14 @@ public class I18nTranslator implements I18nUpdatable {
 			replacements.put("madness", dictionary.getWord("MADNESS.BROKEN"));
 			return applyReplacements(dictionary.getWord("HUMANOID.BROKEN.DESCRIPTION"), replacements, attributes.getGender());
 		} else {
-			ProfessionsComponent professionsComponent = entity.getComponent(ProfessionsComponent.class);
-			if (professionsComponent != null) {
-				Profession primaryProfession = professionsComponent.getPrimaryProfession();
+			SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
+			if (skillsComponent != null) {
+				Skill primaryProfession = skillsComponent.getPrimaryProfession();
 				if (primaryProfession.equals(NULL_PROFESSION)) {
 					replacements.put("skillLevelDescription", BLANK);
 				} else {
 					replacements.put("race", I18nWord.BLANK);
-					replacements.put("skillLevelDescription", getSkillLevelDescription(professionsComponent.getSkillLevel(primaryProfession)));
+					replacements.put("skillLevelDescription", getSkillLevelDescription(skillsComponent.getSkillLevel(primaryProfession)));
 				}
 				replacements.put("profession", dictionary.getWord(primaryProfession.getI18nKey()));
 			} else {
@@ -488,7 +488,7 @@ public class I18nTranslator implements I18nUpdatable {
 		}
 	}
 
-	public I18nText getSkilledProfessionDescription(Profession profession, int skillLevel, Gender gender) {
+	public I18nText getSkilledProfessionDescription(Skill profession, int skillLevel, Gender gender) {
 		Map<String, I18nString> replacements = new HashMap<>();
 		replacements.put("profession", dictionary.getWord(profession.getI18nKey()));
 		replacements.put("skillLevelDescription", getSkillLevelDescription(skillLevel));

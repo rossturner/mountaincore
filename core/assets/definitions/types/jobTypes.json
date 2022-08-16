@@ -496,18 +496,6 @@
   "onCompletionSoundAssetName" : "WaterSizzle",
   "accessedFromAdjacentTile" : true
 }, {
-  "name" : "HUNT_CREATURE",
-  "removeJobWhenAssignmentCancelled" : true,
-  "haulItemWhileWorking" : false,
-  "requiresWeapon" : true,
-  "usesWorkstationTool" : false,
-  "switchToSpecialGoal" : "HUNT_CREATURE",
-  "minimumTimeToCompleteJob" : 4.0,
-  "maximumTimeToCompleteJob" : 4.0,
-  "experienceAwardedOnCompletion" : 1,
-  "requiredProfessionName" : "HUNTER",
-  "accessedFromAdjacentTile" : false
-}, {
   "name" : "BUTCHER_CREATURE",
   "overrideI18nKey" : "ACTION.JOB.BUTCHER_CREATURE",
   "removeJobWhenAssignmentCancelled" : false,

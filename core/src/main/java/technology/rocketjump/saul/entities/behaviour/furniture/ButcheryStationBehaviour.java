@@ -34,7 +34,7 @@ public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prio
 	private List<Job> haulingJobs = new ArrayList<>();
 	private Job butcheryJob;
 
-	private Profession requiredProfession = null;
+	private Skill requiredProfession = null;
 	private JobType haulingJobType;
 	private JobType butcheryJobType;
 
@@ -162,7 +162,7 @@ public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prio
 	}
 
 
-	public void setRequiredProfession(Profession requiredProfession) {
+	public void setRequiredProfession(Skill requiredProfession) {
 		this.requiredProfession = requiredProfession;
 	}
 
@@ -225,7 +225,7 @@ public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prio
 
 		String requiredProfessionName = asJson.getString("requiredProfession");
 		if (requiredProfessionName != null) {
-			this.requiredProfession = relatedStores.professionDictionary.getByName(requiredProfessionName);
+			this.requiredProfession = relatedStores.skillDictionary.getByName(requiredProfessionName);
 			if (this.requiredProfession == null) {
 				throw new InvalidSaveException("Could not find profession by name " + requiredProfessionName);
 			}

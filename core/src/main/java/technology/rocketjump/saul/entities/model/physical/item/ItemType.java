@@ -3,14 +3,17 @@ package technology.rocketjump.saul.entities.model.physical.item;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.Name;
-import technology.rocketjump.saul.misc.SequentialId;
 import technology.rocketjump.saul.rooms.StockpileGroup;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ItemType {
@@ -22,8 +25,6 @@ public class ItemType {
 		UNARMED_WEAPON.setWeaponInfo(WeaponInfo.UNARMED);
 	}
 
-	@SequentialId
-	private long itemTypeId;
 	@Name
 	private String itemTypeName;
 
@@ -62,14 +63,6 @@ public class ItemType {
 	private AmmoType isAmmoType;
 
 	private boolean describeAsMaterialOnly;
-
-	public long getItemTypeId() {
-		return itemTypeId;
-	}
-
-	public void setItemTypeId(long itemTypeId) {
-		this.itemTypeId = itemTypeId;
-	}
 
 	public String getItemTypeName() {
 		return itemTypeName;
@@ -140,12 +133,12 @@ public class ItemType {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		ItemType itemType = (ItemType) o;
-		return itemTypeId == itemType.itemTypeId;
+		return itemTypeName.equals(itemType.itemTypeName);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(itemTypeId);
+		return itemTypeName.hashCode();
 	}
 
 	@Override

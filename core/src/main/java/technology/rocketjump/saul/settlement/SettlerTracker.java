@@ -13,6 +13,8 @@ import java.util.Map;
 
 /**
  * This class is responsible for keeping track of all items (allocated or not) on the map
+ *
+ * TODO merge this into creature tracker and use faction and sapience to distinguish things like settlers
  */
 @Singleton
 public class SettlerTracker implements GameContextAware {

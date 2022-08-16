@@ -7,9 +7,10 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.StatusComponent;
 import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
@@ -146,10 +147,10 @@ public class Entity implements Persistable, Disposable {
 
 		return cloned;
 	}
-	private List<AttachedEntity> attachedEntities = new ArrayList<>();
 
 	private Map<ItemHoldPosition, AttachedEntity> workspaceItems = new HashMap<>();
 
+	private List<AttachedEntity> attachedEntities = new ArrayList<>();
 	public List<AttachedEntity> getAttachedEntities() {
 		attachedEntities.clear(); // Avoiding new instance on each call, is this a good idea or bad idea?
 
@@ -167,10 +168,15 @@ public class Entity implements Persistable, Disposable {
 				// Only check for equipped items if not hauling
 				EquippedItemComponent equippedItemComponent = getComponent(EquippedItemComponent.class);
 				if (equippedItemComponent != null) {
-					Entity equippedItem = equippedItemComponent.getEquippedItem();
-					if (equippedItem != null) {
+					Entity equippedItem = equippedItemComponent.getMainHandItem();
+					if (equippedItem != null && !equippedItemComponent.isHideMainHandItem()) {
 						ItemEntityAttributes attributes = (ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes();
 						attachedEntities.add(new AttachedEntity(equippedItem, attributes.getItemType().getHoldPosition()));
+					}
+					Entity offHandItem = equippedItemComponent.getOffHandItem();
+					if (offHandItem != null) {
+						ItemEntityAttributes attributes = (ItemEntityAttributes) offHandItem.getPhysicalEntityComponent().getAttributes();
+						attachedEntities.add(new AttachedEntity(offHandItem, attributes.getItemType().getHoldPosition()));
 					}
 				}
 			}
@@ -219,9 +225,13 @@ public class Entity implements Persistable, Disposable {
 		return attachedEntities;
 	}
 
-	public void update(float deltaTime, GameContext gameContext) {
-		behaviourComponent.update(deltaTime, gameContext);
+	public void update(float deltaTime) {
+		behaviourComponent.update(deltaTime);
     }
+
+	public void updateWhenPaused() {
+		behaviourComponent.updateWhenPaused();
+	}
 
 	public void infrequentUpdate(GameContext gameContext) {
 		behaviourComponent.infrequentUpdate(gameContext);
@@ -273,6 +283,11 @@ public class Entity implements Persistable, Disposable {
 	public boolean isOnFire() {
 		StatusComponent statusComponent = getComponent(StatusComponent.class);
 		return statusComponent != null && statusComponent.contains(OnFireStatus.class);
+	}
+
+	public boolean isSettler() {
+		return getBehaviourComponent() instanceof CreatureBehaviour &&
+				getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT);
 	}
 
 	public EntityType getType() {

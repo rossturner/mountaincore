@@ -72,6 +72,49 @@ public enum CompassDirection {
 		}
 	}
 
+	public List<CompassDirection> withNeighbours() {
+		return switch (this) {
+			case NORTH -> List.of(NORTH_WEST, NORTH, NORTH_EAST);
+			case NORTH_EAST -> List.of(NORTH, NORTH_EAST, EAST);
+			case EAST -> List.of(NORTH_EAST, EAST, SOUTH_EAST);
+			case SOUTH_EAST -> List.of(EAST, SOUTH_EAST, SOUTH);
+			case SOUTH -> List.of(SOUTH_EAST, SOUTH, SOUTH_WEST);
+			case SOUTH_WEST -> List.of(SOUTH, SOUTH_WEST, WEST);
+			case WEST -> List.of(SOUTH_WEST, WEST, NORTH_WEST);
+			case NORTH_WEST -> List.of(WEST, NORTH_WEST, NORTH);
+		};
+	}
+
+	public static CompassDirection fromNormalisedVector(Vector2 facing) {
+		if (facing.x > 0) {
+			// Facing is to east/right side
+			if (facing.y > 0.853f) {
+				return NORTH;
+			} else if (facing.y > 0.354f) {
+				return NORTH_EAST;
+			} else if (facing.y > -0.354f) {
+				return EAST;
+			} else if (facing.y > -0.853f) {
+				return SOUTH_EAST;
+			} else {
+				return SOUTH;
+			}
+		} else {
+			// Facing is to west/left side
+			if (facing.y > 0.853f) {
+				return NORTH;
+			} else if (facing.y > 0.354f) {
+				return NORTH_WEST;
+			} else if (facing.y > -0.354f) {
+				return WEST;
+			} else if (facing.y > -0.853f) {
+				return SOUTH_WEST;
+			} else {
+				return SOUTH;
+			}
+		}
+	}
+
     public int getXOffset() {
         return xOffset;
     }

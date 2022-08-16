@@ -7,10 +7,12 @@ import org.apache.commons.io.FileUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviourDictionary;
+import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructureDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.SpeciesColor;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,16 +30,19 @@ public class RaceDictionary {
 	private final BodyStructureDictionary bodyStructureDictionary;
 	private final CreatureBehaviourDictionary creatureBehaviourDictionary;
 	private final ScheduleDictionary scheduleDictionary;
+	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
 	private final Map<String, Race> byName = new HashMap<>();
 
 	@Inject
 	public RaceDictionary(GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary, BodyStructureDictionary bodyStructureDictionary,
-						  CreatureBehaviourDictionary creatureBehaviourDictionary, ScheduleDictionary scheduleDictionary) throws IOException {
+						  CreatureBehaviourDictionary creatureBehaviourDictionary, ScheduleDictionary scheduleDictionary,
+						  ParticleEffectTypeDictionary particleEffectTypeDictionary) throws IOException {
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.bodyStructureDictionary = bodyStructureDictionary;
 		this.creatureBehaviourDictionary = creatureBehaviourDictionary;
 		this.scheduleDictionary = scheduleDictionary;
+		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		File itemTypeJsonFile = new File("assets/definitions/types/races.json");
@@ -72,6 +77,20 @@ public class RaceDictionary {
 		race.setBodyStructure(bodyStructureDictionary.getByName(race.getBodyStructureName()));
 		if (race.getBodyStructure() == null) {
 			throw new RuntimeException(format("Could not find body structure with name %s for race %s", race.getBodyStructureName(), race.getName()));
+		}
+
+		WeaponInfo unarmedWeapon = race.getFeatures().getUnarmedWeapon();
+		if (unarmedWeapon != null) {
+			if (unarmedWeapon.getAnimatedSpriteEffectName() != null) {
+				unarmedWeapon.setAnimatedEffectType(particleEffectTypeDictionary.getByName(unarmedWeapon.getAnimatedSpriteEffectName()));
+				if (unarmedWeapon.getAnimatedEffectType() == null) {
+					Logger.error(String.format("Could not find particle effect with name %s for %s %s", unarmedWeapon.getAnimatedSpriteEffectName(),
+							Race.class.getSimpleName(), race.getName()));
+				} else if (unarmedWeapon.getAnimatedEffectType().getAnimatedSpriteName() == null) {
+					Logger.error(String.format("Particle effect %s is not an animated-sprite type particle effect, for %s",
+							unarmedWeapon.getAnimatedEffectType().getName(), race.getName()));
+				}
+			}
 		}
 
 		if (race.getFeatures().getMeat() != null) {

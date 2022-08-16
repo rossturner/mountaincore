@@ -16,6 +16,19 @@ public class SoundAssetDictionary {
 
 	private final Map<String, SoundAsset> byName = new HashMap<>();
 
+
+	public static SoundAsset NULL_SOUND_ASSET = new SoundAsset() {
+		@Override
+		public String getName() {
+			return null;
+		}
+
+		@Override
+		public String toString() {
+			return "-none-";
+		}
+	};
+
 	@Inject
 	public SoundAssetDictionary() {
 		File assetDefinitionsFile = new File("assets/sounds/soundAssets.json");

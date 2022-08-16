@@ -19,7 +19,7 @@ public class KitchenBehaviourTag extends Tag {
 	@Override
 	public void apply(Room room, TagProcessingUtils tagProcessingUtils) {
 		KitchenBehaviour behaviourComponent = room.createComponent(KitchenBehaviour.class, tagProcessingUtils.messageDispatcher);
-		behaviourComponent.setRequiredProfession(tagProcessingUtils.professionDictionary.getByName("CHEF")); // MODDING data-drive this
+		behaviourComponent.setRequiredProfession(tagProcessingUtils.skillDictionary.getByName("CHEF")); // MODDING data-drive this
 		behaviourComponent.setJobTypes( // MODDING data-drive this
 				tagProcessingUtils.jobTypeDictionary.getByName("COOKING"),
 				tagProcessingUtils.jobTypeDictionary.getByName("TRANSFER_LIQUID"),

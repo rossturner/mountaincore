@@ -5,7 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class JobStore implements Updatable {
 
 	private static final float UPDATE_CYCLE_TIME = 0.141f;
-	private final ProfessionDictionary professionDictionary;
+	private final SkillDictionary skillDictionary;
 
 	private Map<JobState, JobCollection> byState = new ConcurrentHashMap<>();
 	private Map<GridPoint2, List<Job>> byLocation = new ConcurrentHashMap<>();
@@ -32,8 +32,8 @@ public class JobStore implements Updatable {
 	private float timeSinceLastUpdate;
 
 	@Inject
-	public JobStore(ProfessionDictionary professionDictionary) {
-		this.professionDictionary = professionDictionary;
+	public JobStore(SkillDictionary skillDictionary) {
+		this.skillDictionary = skillDictionary;
 		clearContextRelatedState();
 	}
 
@@ -79,8 +79,8 @@ public class JobStore implements Updatable {
 		jobToRemove.setJobState(JobState.REMOVED);
 		if (jobToRemove.getAssignedToEntityId() != null) {
 			Entity assignedEntity = gameContext.getEntities().get(jobToRemove.getAssignedToEntityId());
-			if (assignedEntity != null && assignedEntity.getBehaviourComponent() instanceof SettlerBehaviour) {
-				((SettlerBehaviour)assignedEntity.getBehaviourComponent()).getCurrentGoal().setInterrupted(true);
+			if (assignedEntity != null && assignedEntity.getBehaviourComponent() instanceof CreatureBehaviour behaviour) {
+				behaviour.getCurrentGoal().setInterrupted(true);
 			}
 		}
 		jobToRemove.setAssignedToEntityId(-1L);
@@ -109,7 +109,7 @@ public class JobStore implements Updatable {
 	@Override
 	public void clearContextRelatedState() {
 		for (JobState jobState : JobState.values()) {
-			byState.put(jobState, new JobCollection(jobState, professionDictionary));
+			byState.put(jobState, new JobCollection(jobState, skillDictionary));
 		}
 		byLocation.clear();
 	}
@@ -158,12 +158,12 @@ public class JobStore implements Updatable {
 	}
 
 	private boolean entityNoLongerAssigned(Entity assignedEntity, Job assignedJobToCheck) {
-		if (assignedEntity == null || assignedEntity.getBehaviourComponent() == null || !(assignedEntity.getBehaviourComponent() instanceof SettlerBehaviour)) {
+		if (assignedEntity == null || assignedEntity.getBehaviourComponent() == null || !(assignedEntity.getBehaviourComponent() instanceof CreatureBehaviour)) {
 			return true;
 		}
 
-		SettlerBehaviour settlerBehaviour = (SettlerBehaviour) assignedEntity.getBehaviourComponent();
-		AssignedGoal currentGoal = settlerBehaviour.getCurrentGoal();
+		CreatureBehaviour creatureBehaviour = (CreatureBehaviour) assignedEntity.getBehaviourComponent();
+		AssignedGoal currentGoal = creatureBehaviour.getCurrentGoal();
 
 		return currentGoal.getAssignedJob() == null || !currentGoal.getAssignedJob().equals(assignedJobToCheck);
 	}

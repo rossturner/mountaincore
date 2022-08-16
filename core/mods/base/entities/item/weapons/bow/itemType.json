@@ -1,5 +1,4 @@
 {
-  "itemTypeId" : 68,
   "itemTypeName" : "Weapon-Bow",
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "WOOD" ],
@@ -13,6 +12,7 @@
     "minDamage" : 2,
     "maxDamage" : 8,
     "requiresAmmoType" : "ARROWS",
+    "combatSkillName" : "ARCHERY",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
     "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow"

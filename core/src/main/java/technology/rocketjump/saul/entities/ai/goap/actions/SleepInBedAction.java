@@ -7,8 +7,8 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
+import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.furniture.SleepingPositionComponent;
-import technology.rocketjump.saul.entities.components.humanoid.HappinessComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -26,7 +26,7 @@ import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrient
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
 import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
-import static technology.rocketjump.saul.entities.components.humanoid.HappinessComponent.HappinessModifier.*;
+import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.*;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
 /**

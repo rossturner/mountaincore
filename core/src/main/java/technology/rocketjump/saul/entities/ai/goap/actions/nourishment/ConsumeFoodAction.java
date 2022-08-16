@@ -6,8 +6,8 @@ import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.HappinessComponent;
-import technology.rocketjump.saul.entities.components.humanoid.NeedsComponent;
+import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.status.Poisoned;
@@ -23,7 +23,7 @@ import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
-import static technology.rocketjump.saul.entities.components.humanoid.HappinessComponent.HappinessModifier.ATE_NICELY_PREPARED_FOOD;
+import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.ATE_NICELY_PREPARED_FOOD;
 
 public class ConsumeFoodAction extends Action {
 
@@ -89,8 +89,8 @@ public class ConsumeFoodAction extends Action {
 		// Place (back) into inventory
 		InventoryComponent parentInventory = parent.parentEntity.getOrCreateComponent(InventoryComponent.class);
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
-		if (equippedItemComponent != null && equippedItemComponent.getEquippedItem().equals(targetEntity)) {
-			equippedItemComponent.clearEquippedItem();
+		if (equippedItemComponent != null && equippedItemComponent.getMainHandItem().equals(targetEntity)) {
+			equippedItemComponent.clearMainHandItem();
 			parent.parentEntity.removeComponent(EquippedItemComponent.class);
 			parentInventory.add(targetEntity, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
 		} else {

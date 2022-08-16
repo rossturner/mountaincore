@@ -316,18 +316,23 @@ public class EntityRenderer implements GameContextAware, Disposable {
 			if (animatedSprites != null && animatedSprites.size > 0) {
 				float animationProgress = renderStep.getEntity().getPhysicalEntityComponent().getAnimationProgress();
 
-				int frameSelection = (int) Math.floor(animationProgress * animatedSprites.size);
-				if (frameSelection >= animatedSprites.size) {
-					frameSelection = animatedSprites.size - 1;
-				} else if (frameSelection <= 0) {
-					frameSelection = 0;
-				}
+				int frameSelection = selectFrame(animatedSprites, animationProgress);
 				sprite = animatedSprites.get(frameSelection);
 			}
 		} else {
 			sprite = spriteDescriptor.getSprite(renderMode);
 		}
 		return sprite;
+	}
+
+	public static int selectFrame(Array<Sprite> animatedSprites, float animationProgress) {
+		int frameSelection = (int) Math.floor(animationProgress * animatedSprites.size);
+		if (frameSelection >= animatedSprites.size) {
+			frameSelection = animatedSprites.size - 1;
+		} else if (frameSelection <= 0) {
+			frameSelection = 0;
+		}
+		return frameSelection;
 	}
 
 	private Vector2 spriteWorldSize = new Vector2(); // Private member to avoid new instance on every render call

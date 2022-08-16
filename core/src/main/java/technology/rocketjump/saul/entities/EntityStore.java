@@ -6,14 +6,15 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.AssetDisposable;
+import technology.rocketjump.saul.combat.CombatTracker;
 import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
@@ -57,6 +58,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 	private final ItemTracker itemTracker;
 	private final SettlerTracker settlerTracker;
 	private final CreatureTracker creatureTracker;
+	private final CombatTracker combatTracker;
 	private final ConstantsRepo constantsRepo;
 
 	@Inject
@@ -64,7 +66,8 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 					   PlantEntityAttributesFactory plantEntityAttributesFactory, PlantEntityFactory plantEntityFactory,
 					   ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory,
 					   MessageDispatcher messageDispatcher, FurnitureTracker furnitureTracker,
-					   ItemTracker itemTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker, ConstantsRepo constantsRepo) {
+					   ItemTracker itemTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker,
+					   CombatTracker combatTracker, ConstantsRepo constantsRepo) {
 		this.settlerEntityFactory = settlerEntityFactory;
 		this.settlerCreatureAttributesFactory = settlerCreatureAttributesFactory;
 		this.plantEntityAttributesFactory = plantEntityAttributesFactory;
@@ -76,6 +79,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 		this.itemTracker = itemTracker;
 		this.settlerTracker = settlerTracker;
 		this.creatureTracker = creatureTracker;
+		this.combatTracker = combatTracker;
 		this.constantsRepo = constantsRepo;
 	}
 
@@ -261,47 +265,50 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 	public void onContextChange(GameContext gameContext) {
 		this.gameContext = gameContext;
 
-		for (Entity entity : gameContext.getEntities().values()) {
-			add(entity, false);
+		if (gameContext != null) {
+			for (Entity entity : gameContext.getEntities().values()) {
+				add(entity, false);
 
-			switch (entity.getType()) {
-				case ITEM:
-					itemTracker.itemAdded(entity);
-					break;
-				case FURNITURE:
-					furnitureTracker.furnitureAdded(entity);
-					break;
-				case CREATURE:
+				switch (entity.getType()) {
+					case ITEM:
+						itemTracker.itemAdded(entity);
+						break;
+					case FURNITURE:
+						furnitureTracker.furnitureAdded(entity);
+						break;
+					case CREATURE:
 
-					if (entity.getBehaviourComponent() instanceof SettlerBehaviour) {
-						settlerTracker.settlerAdded(entity);
-						for (InventoryComponent.InventoryEntry inventoryEntry : entity.getComponent(InventoryComponent.class).getInventoryEntries()) {
-							add(inventoryEntry.entity);
-							if (inventoryEntry.entity.getType().equals(ITEM)) {
-								itemTracker.itemAdded(inventoryEntry.entity);
+						if (entity.getBehaviourComponent() instanceof CorpseBehaviour) {
+							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+								settlerTracker.settlerDied(entity);
+							} else {
+								creatureTracker.creatureDied(entity);
 							}
-						}
-						HaulingComponent haulingComponent = entity.getComponent(HaulingComponent.class);
-						if (haulingComponent != null && haulingComponent.getHauledEntity() != null) {
-							add(haulingComponent.getHauledEntity());
-							if (haulingComponent.getHauledEntity().getType().equals(ITEM)) {
-								itemTracker.itemAdded(haulingComponent.getHauledEntity());
-							}
-						}
-					} else if (entity.getBehaviourComponent() instanceof CorpseBehaviour) {
-						CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-						if (attributes.getRace().equals(gameContext.getSettlementState().getSettlerRace())) {
-							settlerTracker.settlerDied(entity);
 						} else {
-							creatureTracker.creatureDied(entity);
+							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+								settlerTracker.settlerAdded(entity);
+								for (InventoryComponent.InventoryEntry inventoryEntry : entity.getComponent(InventoryComponent.class).getInventoryEntries()) {
+									add(inventoryEntry.entity);
+									if (inventoryEntry.entity.getType().equals(ITEM)) {
+										itemTracker.itemAdded(inventoryEntry.entity);
+									}
+								}
+								HaulingComponent haulingComponent = entity.getComponent(HaulingComponent.class);
+								if (haulingComponent != null && haulingComponent.getHauledEntity() != null) {
+									add(haulingComponent.getHauledEntity());
+									if (haulingComponent.getHauledEntity().getType().equals(ITEM)) {
+										itemTracker.itemAdded(haulingComponent.getHauledEntity());
+									}
+								}
+							} else {
+								creatureTracker.creatureAdded(entity);
+							}
 						}
-					} else {
-						creatureTracker.creatureAdded(entity);
-					}
-					break;
+
+						break;
+				}
 			}
 		}
-
 	}
 
 	@Override

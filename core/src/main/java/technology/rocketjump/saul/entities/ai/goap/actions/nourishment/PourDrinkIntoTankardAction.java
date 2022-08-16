@@ -130,7 +130,7 @@ public class PourDrinkIntoTankardAction extends Action implements EntityCreatedC
 
 	private void equip(Entity tankardEntity) {
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
-		equippedItemComponent.setEquippedItem(tankardEntity, parent.parentEntity, parent.messageDispatcher);
+		equippedItemComponent.setMainHandItem(tankardEntity, parent.parentEntity, parent.messageDispatcher);
 
 		// Pseudo-create food allocation so PlaceFoodOrDrinkOnFurniture action works
 		FoodAllocation foodAllocation = new FoodAllocation(FoodAllocation.FoodAllocationType.LIQUID_CONTAINER, tankardEntity, (LiquidAllocation) null);

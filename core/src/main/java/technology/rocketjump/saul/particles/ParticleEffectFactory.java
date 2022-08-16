@@ -15,7 +15,9 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.mapping.tile.MapTile;
+import technology.rocketjump.saul.particles.custom_libgdx.DefensePoolBarEffect;
 import technology.rocketjump.saul.particles.custom_libgdx.LibgdxParticleEffect;
+import technology.rocketjump.saul.particles.custom_libgdx.ProgressBarEffect;
 import technology.rocketjump.saul.particles.custom_libgdx.ShaderEffect;
 import technology.rocketjump.saul.particles.model.ParticleEffectInstance;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
@@ -49,7 +51,7 @@ public class ParticleEffectFactory {
 		Sprite placeholderSprite = diffuseTextureAtlas.createSprite("placeholder");
 
 		for (ParticleEffectType particleEffectType : typeDictionary.getAll()) {
-			if (particleEffectType.getCustomImplementation() != null) {
+			if (particleEffectType.getCustomImplementation() != null || particleEffectType.getAnimatedSpriteName() != null) {
 				continue;
 			} else if (particleEffectType.getFragmentShaderFile() != null && particleEffectType.getVertexShaderFile() != null) {
 				ShaderProgram shaderProgram = ShaderLoader.createShader(Gdx.files.internal(FILE_PREFIX + particleEffectType.getVertexShaderFile()),
@@ -70,7 +72,7 @@ public class ParticleEffectFactory {
 
 				baseInstancesByDefinition.put(particleEffectType, baseInstance);
 			} else {
-				Logger.error("Did not load particle effect type " + particleEffectType.getName() + ", no particleFile, customImplementation or fragment and vertex shader");
+				Logger.error("Did not load particle effect type " + particleEffectType.getName() + ", no particleFile, customImplementation, animatedSpriteName or fragment and vertex shader");
 			}
 		}
 	}
@@ -79,9 +81,23 @@ public class ParticleEffectFactory {
 										 Optional<MapTile> parentTile, Optional<Color> optionalMaterialColor) {
 		if (type.getCustomImplementation() != null) {
 			if (parentEntity.isPresent()) {
-				return customEffectFactory.createProgressBarEffect(parentEntity.get());
+				if (type.getCustomImplementation().equals(ProgressBarEffect.class.getSimpleName())) {
+					return customEffectFactory.createProgressBarEffect(parentEntity.get());
+				} else if (type.getCustomImplementation().equals(DefensePoolBarEffect.class.getSimpleName())) {
+					return customEffectFactory.createDefenseBarEffect(parentEntity.get());
+				} else {
+					Logger.error("Unrecognised custom particle effect implementation: " + type.getCustomImplementation());
+					return null;
+				}
 			} else {
 				Logger.error("Custom implementations are currently for entity attached effects only");
+				return null;
+			}
+		} else if (type.getAnimatedSpriteName() != null) {
+			if (parentEntity.isPresent()) {
+				return customEffectFactory.createAnimatedSpriteEffect(type, parentEntity.get(), optionalMaterialColor);
+			} else {
+				Logger.error("Animated sprite effects are currently for entity attached effects only");
 				return null;
 			}
 		} else if (type.getFragmentShaderFile() != null && type.getVertexShaderFile() != null) {

@@ -25,8 +25,9 @@
       "hidden" : false
     }
   },
+  "mapPlacement" : "ANIMAL",
   "behaviour" : {
-    "behaviourName" : "HerdAnimal",
+    "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ "SLEEP" ],
     "group" : {
@@ -47,16 +48,16 @@
     }
   },
   "features" : {
-    "skin" : {
-      "itemTypeName" : "Carcass-Hide",
-      "quantity" : 1,
-      "materialName" : "Boar Hide",
+    "defense" : {
+      "maxDefensePoints" : 12,
+      "maxDefenseRegainedPerRound" : 2,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 1,
         "CRUSHING" : 1
       }
     },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Medium",
       "materialName" : "Boar Meat",
@@ -92,8 +93,9 @@
       "hidden" : false
     }
   },
+  "mapPlacement" : "ANIMAL",
   "behaviour" : {
-    "behaviourName" : "HerdAnimal",
+    "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ "SLEEP" ],
     "group" : {
@@ -114,12 +116,12 @@
     }
   },
   "features" : {
-    "skin" : {
-      "itemTypeName" : "Carcass-Hide",
-      "quantity" : 1,
-      "materialName" : "Deer Hide",
+    "defense" : {
+      "maxDefensePoints" : 6,
+      "maxDefenseRegainedPerRound" : 1,
       "damageReduction" : { }
     },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Medium",
       "materialName" : "Deer Meat",
@@ -151,8 +153,9 @@
       "hidden" : false
     }
   },
+  "mapPlacement" : "ANIMAL",
   "behaviour" : {
-    "behaviourName" : "HerdAnimal",
+    "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ "SLEEP" ],
     "group" : {
@@ -173,16 +176,16 @@
     }
   },
   "features" : {
-    "skin" : {
-      "itemTypeName" : "Carcass-Hide",
-      "quantity" : 4,
-      "materialName" : "Elephant Hide",
+    "defense" : {
+      "maxDefensePoints" : 26,
+      "maxDefenseRegainedPerRound" : 3,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 1,
         "CRUSHING" : 1
       }
     },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Large",
       "materialName" : "Elephant Meat",
@@ -214,8 +217,9 @@
       "hidden" : false
     }
   },
+  "mapPlacement" : "ANIMAL",
   "behaviour" : {
-    "behaviourName" : "SolitaryAnimal",
+    "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ "SLEEP" ],
     "aggressionResponse" : "MIXED",
@@ -232,10 +236,12 @@
     }
   },
   "features" : {
-    "skin" : {
-      "quantity" : 0,
+    "defense" : {
+      "maxDefensePoints" : 10,
+      "maxDefenseRegainedPerRound" : 1,
       "damageReduction" : { }
     },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Small",
       "materialName" : "Fox Meat",
@@ -285,8 +291,9 @@
       "hidden" : false
     }
   },
+  "mapPlacement" : "NONE",
   "behaviour" : {
-    "behaviourName" : "Settler",
+    "behaviourName" : "Creature",
     "scheduleName" : "Default Settler Schedule",
     "needs" : [ "FOOD", "DRINK", "SLEEP" ],
     "aggressionResponse" : "FLEE",
@@ -303,16 +310,23 @@
     }
   },
   "features" : {
-    "skin" : {
-      "itemTypeName" : "Carcass-Hide",
-      "quantity" : 1,
-      "materialName" : "Dwarf Flesh",
+    "defense" : {
+      "maxDefensePoints" : 20,
+      "maxDefenseRegainedPerRound" : 3,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 2,
         "CRUSHING" : 2
       }
     },
+    "unarmedWeapon" : {
+      "range" : 1.0,
+      "damageType" : "CRUSHING",
+      "modifiedByStrength" : true,
+      "minDamage" : 1,
+      "maxDamage" : 4
+    },
+    "skin" : { },
     "bones" : {
       "materialName" : "Bone"
     },
@@ -330,8 +344,9 @@
     "value" : "AVERAGE"
   } ],
   "colors" : { },
+  "mapPlacement" : "NONE",
   "behaviour" : {
-    "behaviourName" : "Fish",
+    "behaviourName" : "Creature",
     "needs" : [ ],
     "isSapient" : false
   },
@@ -346,10 +361,7 @@
     }
   },
   "features" : {
-    "skin" : {
-      "quantity" : 0,
-      "damageReduction" : { }
-    },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Carp-Prepared",
       "materialName" : "Carp Meat",
@@ -372,8 +384,9 @@
     "value" : "AVERAGE"
   } ],
   "colors" : { },
+  "mapPlacement" : "NONE",
   "behaviour" : {
-    "behaviourName" : "Fish",
+    "behaviourName" : "Creature",
     "needs" : [ ],
     "isSapient" : false
   },
@@ -388,10 +401,7 @@
     }
   },
   "features" : {
-    "skin" : {
-      "quantity" : 0,
-      "damageReduction" : { }
-    },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Perch-Prepared",
       "materialName" : "Perch Meat",
@@ -414,8 +424,9 @@
     "value" : "AVERAGE"
   } ],
   "colors" : { },
+  "mapPlacement" : "NONE",
   "behaviour" : {
-    "behaviourName" : "Fish",
+    "behaviourName" : "Creature",
     "needs" : [ ],
     "isSapient" : false
   },
@@ -430,10 +441,7 @@
     }
   },
   "features" : {
-    "skin" : {
-      "quantity" : 0,
-      "damageReduction" : { }
-    },
+    "skin" : { },
     "meat" : {
       "itemTypeName" : "Carcass-Pike-Prepared",
       "materialName" : "Pike Meat",

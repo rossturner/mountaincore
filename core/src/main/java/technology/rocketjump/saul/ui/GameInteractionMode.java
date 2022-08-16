@@ -1,6 +1,5 @@
 package technology.rocketjump.saul.ui;
 
-import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
@@ -86,8 +85,6 @@ public enum GameInteractionMode {
 		}
 		return false;
 	}, null, true),
-	DESIGNATE_CREATURE_TO_HUNT("hunting", "HUNT_CREATURE", null,
-			entity -> entity.getDesignation() == null && entity.getType().equals(CREATURE) && entity.getBehaviourComponent() instanceof CreatureBehaviour, true),
 
 	DESIGNATE_ROOFING("roofing", null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
 			mapTile.getRoof().getState().equals(OPEN) && mapTile.getRoof().getConstructionState().equals(NONE), null, true),

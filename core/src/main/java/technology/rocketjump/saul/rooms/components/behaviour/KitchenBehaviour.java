@@ -23,7 +23,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.model.Job;
 import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.jobs.model.JobType;
-import technology.rocketjump.saul.jobs.model.Profession;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.JobCompletedMessage;
 import technology.rocketjump.saul.messaging.types.RequestHaulingAllocationMessage;
@@ -49,7 +49,7 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 
 	private Map<Long, CookingSession> cookingSessions = new HashMap<>();
 	private Map<Long, Entity> furnitureEntities = new HashMap<>();
-	private Profession requiredProfession;
+	private Skill requiredProfession;
 	private JobType cookingJobType;
 	private JobType transferLiquidJobType;
 	private JobType haulingJobType;
@@ -455,11 +455,11 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 		}
 	}
 
-	public void setRequiredProfession(Profession requiredProfession) {
+	public void setRequiredProfession(Skill requiredProfession) {
 		this.requiredProfession = requiredProfession;
 	}
 
-	public Profession getRequiredProfession() {
+	public Skill getRequiredProfession() {
 		return requiredProfession;
 	}
 
@@ -563,7 +563,7 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 
 		String requiredProfessionName = asJson.getString("profession");
 		if (requiredProfessionName != null) {
-			this.requiredProfession = relatedStores.professionDictionary.getByName(requiredProfessionName);
+			this.requiredProfession = relatedStores.skillDictionary.getByName(requiredProfessionName);
 			if (this.requiredProfession == null) {
 				throw new InvalidSaveException("Could not find profession by name " + requiredProfessionName);
 			}

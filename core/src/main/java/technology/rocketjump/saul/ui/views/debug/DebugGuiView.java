@@ -15,10 +15,12 @@ import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.entities.ai.memory.Memory;
+import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
-import technology.rocketjump.saul.entities.behaviour.creature.SettlerBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.humanoid.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -31,7 +33,6 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionar
 import technology.rocketjump.saul.environment.WeatherManager;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
-import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.TileExploration;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
@@ -40,7 +41,10 @@ import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.CreatureDeathMessage;
 import technology.rocketjump.saul.messaging.types.DebugMessage;
+import technology.rocketjump.saul.messaging.types.ParticleRequestMessage;
 import technology.rocketjump.saul.messaging.types.PipeConstructionMessage;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
+import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.settlement.ImmigrationManager;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -78,7 +82,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	private final SettlerFactory settlerFactory;
 	private final WeatherManager weatherManager;
 	private final ImmigrationManager immigrationManager;
-	private final JobStore jobStore;
+	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
 	private Table layoutTable;
 	private GameContext gameContext;
 
@@ -94,7 +98,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 						ItemEntityAttributesFactory itemEntityAttributesFactory,
 						CreatureEntityFactory creatureEntityFactory, CreatureEntityAttributesFactory creatureEntityAttributesFactory, RaceDictionary raceDictionary,
 						ItemEntityFactory itemEntityFactory, SettlerFactory settlerFactory, WeatherManager weatherManager,
-						ImmigrationManager immigrationManager, JobStore jobStore) {
+						ImmigrationManager immigrationManager, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.uiSkin = guiSkinRepository.getDefault();
 		this.itemTypeDictionary = itemTypeDictionary;
@@ -106,7 +110,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 		this.settlerFactory = settlerFactory;
 		this.weatherManager = weatherManager;
 		this.immigrationManager = immigrationManager;
-		this.jobStore = jobStore;
+		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
 		this.raceDictionary = raceDictionary;
 
 		layoutTable = new Table(uiSkin);
@@ -284,10 +288,8 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				break;
 			}
 			case TRIGGER_BREAKDOWN: {
-				Optional<Entity> settler = tile.getEntities().stream().filter(e -> e.getBehaviourComponent() instanceof SettlerBehaviour).findAny();
-				if (settler.isPresent()) {
-					settler.get().getComponent(HappinessComponent.class).add(HappinessComponent.HappinessModifier.CAUSE_BREAKDOWN);
-				}
+				tile.getEntities().stream().filter(Entity::isSettler).findAny()
+						.ifPresent(entity -> entity.getComponent(HappinessComponent.class).add(HappinessComponent.HappinessModifier.CAUSE_BREAKDOWN));
 				break;
 			}
 			case TOGGLE_PIPE: {
@@ -306,6 +308,38 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 					messageDispatcher.dispatchMessage(MessageType.FLOOD_FILL_EXPLORATION, tile.getTilePosition());
 				}
 				break;
+			}
+			case TRIGGER_TEST_EFFECT: {
+				tile.getEntities().stream().filter(e -> e.getType().equals(CREATURE))
+						.findAny()
+						.ifPresent(entity -> {
+							ParticleEffectType effectType = particleEffectTypeDictionary.getByName("Weapon slash");
+							messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(effectType, Optional.of(entity),
+									Optional.empty(), (p) -> {}));
+						});
+			}
+			case PRETEND_ATTACKED_BY_NEARBY_CREATURE: {
+				tile.getEntities().stream().filter(e -> e.getType().equals(CREATURE))
+						.findAny()
+						.ifPresent(entity -> {
+							Entity otherNearbyCreature = null;
+							for (int x = -4; x <= 4; x++) {
+								for (int y = -4; y <= 4; y++) {
+									MapTile otherTile = gameContext.getAreaMap().getTile(tile.getTileX() + x, tile.getTileY() + y);
+									if (otherTile != null) {
+										Optional<Entity> foundEntity = otherTile.getEntities().stream()
+												.filter(e -> e.getType().equals(CREATURE) && e.getId() != entity.getId())
+												.findAny();
+										if (foundEntity.isPresent()) {
+											MemoryComponent memoryComponent = entity.getOrCreateComponent(MemoryComponent.class);
+											Memory attackedByCreatureMemory = new Memory(MemoryType.ATTACKED_BY_CREATURE, gameContext.getGameClock());
+											attackedByCreatureMemory.setRelatedEntityId(foundEntity.get().getId());
+											memoryComponent.addShortTerm(attackedByCreatureMemory, gameContext.getGameClock());
+										}
+									}
+								}
+							}
+						});
 			}
 			case NONE:
 			default:

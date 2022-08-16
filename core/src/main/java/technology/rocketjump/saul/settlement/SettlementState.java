@@ -62,6 +62,7 @@ public class SettlementState implements Persistable {
 	private Vector2 immigrationPoint;
 	private Double nextImmigrationGameTime;
 	private int fishRemainingInRiver;
+	private float currentCombatRoundElapsed;
 	private GameState gameState;
 	private Race settlerRace;
 
@@ -287,6 +288,8 @@ public class SettlementState implements Persistable {
 			asJson.put("settlerRace", settlerRace.getName());
 		}
 
+		asJson.put("currentCombatRoundElapsed", currentCombatRoundElapsed);
+
 		savedGameStateHolder.setSettlementState(this);
 	}
 
@@ -430,6 +433,7 @@ public class SettlementState implements Persistable {
 		this.immigrantCounter = asJson.getIntValue("immigrantCounter");
 		this.immigrationPoint = JSONUtils.vector2(asJson.getJSONObject("immigrationPoint"));
 		this.nextImmigrationGameTime = asJson.getDouble("nextImmigration");
+		this.currentCombatRoundElapsed = asJson.getFloatValue("currentCombatRoundElapsed");
 
 		JSONArray notificationsJson = asJson.getJSONArray("notifications");
 		if (notificationsJson != null) {
@@ -503,5 +507,13 @@ public class SettlementState implements Persistable {
 
 	public void setSettlerRace(Race settlerRace) {
 		this.settlerRace = settlerRace;
+	}
+
+	public float getCurrentCombatRoundElapsed() {
+		return currentCombatRoundElapsed;
+	}
+
+	public void setCurrentCombatRoundElapsed(float currentCombatRoundElapsed) {
+		this.currentCombatRoundElapsed = currentCombatRoundElapsed;
 	}
 }

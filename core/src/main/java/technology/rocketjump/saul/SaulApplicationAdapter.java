@@ -72,6 +72,7 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 	private ScreenManager screenManager;
 	private ConstantsRepo constantsRepo;
 	private TwitchTaskRunner twitchTaskRunner;
+	private boolean crashHappened;
 
 	@Override
 	public void create() {
@@ -167,13 +168,16 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 			backgroundTaskManager.update(deltaTime);
 		} catch (Throwable e) {
 			CrashHandler.logCrash(e);
+			crashHappened = true;
 			onExit();
 		}
 	}
 
 	public void onExit() {
 		AnalyticsManager.stopAnalytics();
-		messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
+		if (!crashHappened) {
+			messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
+		}
 		messageDispatcher.dispatchMessage(MessageType.SHUTDOWN_IN_PROGRESS);
 		Gdx.app.exit();
 	}

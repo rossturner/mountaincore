@@ -28,7 +28,7 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 	private List<ItemTypeWithMaterial> inventoryAssignments = new ArrayList<>();
 	private int maxNumItemStacks = 0;
 	private List<Job> incomingHaulingJobs = new ArrayList<>();
-	private Profession requiredProfession = null;
+	private Skill requiredProfession = null;
 	private boolean allowDuplicates = false;
 	private JobType haulingJobType;
 
@@ -145,7 +145,7 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 		this.inventoryAssignments = refreshedInventoryAssignments;
 	}
 
-	public void setRequiredProfession(Profession requiredProfession) {
+	public void setRequiredProfession(Skill requiredProfession) {
 		this.requiredProfession = requiredProfession;
 	}
 
@@ -241,7 +241,7 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 
 		String requiredProfessionName = asJson.getString("requiredProfession");
 		if (requiredProfessionName != null) {
-			this.requiredProfession = relatedStores.professionDictionary.getByName(requiredProfessionName);
+			this.requiredProfession = relatedStores.skillDictionary.getByName(requiredProfessionName);
 			if (this.requiredProfession == null) {
 				throw new InvalidSaveException("Could not find profession by name " + requiredProfessionName);
 			}

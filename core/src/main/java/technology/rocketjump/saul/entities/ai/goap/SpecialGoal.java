@@ -13,10 +13,7 @@ public enum SpecialGoal {
 	ROLL_ON_FLOOR("Roll on floor goal"),
 	DOUSE_SELF("Douse self goal"),
 	EXTINGUISH_FIRE("Extinguish fire goal"),
-	HUNT_CREATURE("Hunt creature goal"),
-	ABANDON_JOB("Abandon job goal"),
-	ATTACK_AGGRESSOR("Attack aggressor goal"),
-	FLEE_FROM_AGGRESSOR("Flee from aggressor goal");
+	ABANDON_JOB("Abandon job goal");
 
 	public final String goalName;
 	Goal goalInstance;

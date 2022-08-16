@@ -26,8 +26,8 @@ public class FireEffectBehaviour extends BaseOngoingEffectBehaviour {
 	}
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) {
-		super.update(deltaTime, gameContext);
+	public void update(float deltaTime) {
+		super.update(deltaTime);
 		OngoingEffectAttributes attributes = (OngoingEffectAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		ParticleEffectInstance particleEffectInstance = currentParticleEffect.get();
 
@@ -60,13 +60,13 @@ public class FireEffectBehaviour extends BaseOngoingEffectBehaviour {
 
 
 	@Override
-	protected void nextState(GameContext gameContext) {
+	protected void nextState() {
 		switch (state) {
 			case STARTING:
 				this.state = ACTIVE;
 				break;
 			case ACTIVE:
-				FireContinuationAction continuation = rollForContinuation(gameContext);
+				FireContinuationAction continuation = rollForContinuation();
 				switch (continuation) {
 					case SPREAD_TO_OTHER_TILES:
 						messageDispatcher.dispatchMessage(MessageType.SPREAD_FIRE_FROM_LOCATION, parentEntity.getLocationComponent().getWorldOrParentPosition());
@@ -96,7 +96,7 @@ public class FireEffectBehaviour extends BaseOngoingEffectBehaviour {
 		this.stateDuration = 0f;
 	}
 
-	private FireContinuationAction rollForContinuation(GameContext gameContext) {
+	private FireContinuationAction rollForContinuation() {
 		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
 		if (parentTile != null && parentTile.getRoof().getState().equals(TileRoofState.OPEN) && gameContext.getMapEnvironment().getCurrentWeather().getChanceToExtinguishFire() != null) {
 			if (gameContext.getRandom().nextFloat() < gameContext.getMapEnvironment().getCurrentWeather().getChanceToExtinguishFire()) {

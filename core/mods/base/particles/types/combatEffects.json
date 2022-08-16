@@ -11,5 +11,21 @@
       "y": 0.1
     },
     "attachedToParent": false
+  },
+  {
+    "name": "Weapon slash",
+    "animatedSpriteName": "slash",
+    "overrideDuration": 0.3,
+    "scale": 1,
+    "isLooping": false,
+    "isAffectedByLighting": false,
+    "usesTargetMaterialAsTintColor": true,
+    "offsetFromParentEntity": {
+      "x": 0,
+      "y": 0.1
+    },
+    "usingParentOrientation": "RIGHT",
+    "distanceFromParentEntityOrientation": 0.7,
+    "attachedToParent": true
   }
 ]

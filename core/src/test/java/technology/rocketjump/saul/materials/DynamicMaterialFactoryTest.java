@@ -10,7 +10,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
-import technology.rocketjump.saul.jobs.ProfessionDictionary;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.persistence.UserPreferences;
@@ -35,7 +35,7 @@ public class DynamicMaterialFactoryTest {
 
 	private I18nTranslator i18nTranslator;
 	@Mock
-	private ProfessionDictionary mockProfessionDictionary;
+	private SkillDictionary mockSkillDictionary;
 	@Mock
 	private EntityStore mockEntityStore;
 
@@ -51,7 +51,7 @@ public class DynamicMaterialFactoryTest {
 		when(mockUserPreferences.getPreference(eq(LANGUAGE), any())).thenReturn("en-gb");
 
 		I18nRepo i18nRepo = new I18nRepo(mockUserPreferences);
-		i18nTranslator = new I18nTranslator(i18nRepo, mockProfessionDictionary, mockEntityStore);
+		i18nTranslator = new I18nTranslator(i18nRepo, mockSkillDictionary, mockEntityStore);
 
 		dynamicMaterialFactory = new DynamicMaterialFactory(gameMaterialDictionary, i18nTranslator);
 

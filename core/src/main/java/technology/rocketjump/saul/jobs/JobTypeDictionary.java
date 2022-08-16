@@ -16,24 +16,24 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.CONTEXT_DEPENDENT_PROFESSION_REQUIRED;
-import static technology.rocketjump.saul.jobs.ProfessionDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.jobs.SkillDictionary.CONTEXT_DEPENDENT_PROFESSION_REQUIRED;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
 @Singleton
 public class JobTypeDictionary {
 
 	private final ItemTypeDictionary itemTypeDictionary;
-	private final ProfessionDictionary professionDictionary;
+	private final SkillDictionary skillDictionary;
 	private final SoundAssetDictionary soundAssetDictionary;
 	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
 
 	private final Map<String, JobType> byName = new HashMap<>();
 
 	@Inject
-	public JobTypeDictionary(ItemTypeDictionary itemTypeDictionary, ProfessionDictionary professionDictionary,
+	public JobTypeDictionary(ItemTypeDictionary itemTypeDictionary, SkillDictionary skillDictionary,
 							 SoundAssetDictionary soundAssetDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
 		this.itemTypeDictionary = itemTypeDictionary;
-		this.professionDictionary = professionDictionary;
+		this.skillDictionary = skillDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
 
@@ -75,7 +75,7 @@ public class JobTypeDictionary {
 			if (jobType.getRequiredProfessionName().equals("CONTEXT_DEPENDENT_PROFESSION_REQUIRED")) {
 				jobType.setRequiredProfession(CONTEXT_DEPENDENT_PROFESSION_REQUIRED);
 			} else {
-				jobType.setRequiredProfession(professionDictionary.getByName(jobType.getRequiredProfessionName()));
+				jobType.setRequiredProfession(skillDictionary.getByName(jobType.getRequiredProfessionName()));
 				if (jobType.getRequiredProfession() == null) {
 					Logger.error("Could not profession with name " + jobType.getRequiredProfessionName() + " for job type " + jobType.getName());
 				}

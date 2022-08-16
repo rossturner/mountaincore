@@ -22,8 +22,10 @@
     }
   },
 
+  "mapPlacement": "ANIMAL",
+
   "behaviour": {
-    "behaviourName": "SolitaryAnimal",
+    "behaviourName": "Creature",
     "scheduleName": "Diurnal animal",
     "needs": ["SLEEP"],
     "aggressionResponse": "MIXED"
@@ -39,14 +41,16 @@
   },
 
   "features": {
+    "defense": {
+      "maxDefensePoints": 10,
+      "maxDefenseRegainedPerRound": 1
+    },
     "meat": {
       "itemTypeName": "Carcass-Meat-Small",
       "materialName": "Fox Meat",
       "quantity": 2
     },
     "skin": {
-      "damageReduction": {
-      }
     },
     "bones": {
       "materialName": "Bone"
