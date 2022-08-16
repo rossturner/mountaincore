@@ -6,7 +6,11 @@
   "validMaterialTypes" : [ "WOOD" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Butchery_Worktop-Blood-Wood_Down.png"
+      "filename" : "Butchery_Worktop-Blood-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : -29.0,
+        "y" : 2.0
+      }
     }
   }
 }, {
@@ -17,7 +21,11 @@
   "validMaterialTypes" : [ "WOOD" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Butchery_Worktop-Meat-Wood_Down.png"
+      "filename" : "Butchery_Worktop-Meat-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : 42.0,
+        "y" : -11.0
+      }
     }
   }
 }, {
@@ -31,25 +39,33 @@
       "filename" : "Butchery-Table-2x1-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
-        "x" : 61.0,
-        "y" : -1.0
+        "x" : 41.0,
+        "y" : -5.0
       },
       "childAssets" : [ {
-        "type" : "FURNITURE_ABOVE_LAYER_1"
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 20.0,
+          "y" : 4.0
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_2"
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 20.0,
+          "y" : 4.0
+        }
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "x" : -59.0,
-          "y" : 6.0
+          "x" : -39.0,
+          "y" : 10.0
         }
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
-          "x" : 11.0,
-          "y" : 10.0
+          "x" : 31.0,
+          "y" : 14.0
         }
       } ]
     }
