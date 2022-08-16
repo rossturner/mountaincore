@@ -27,12 +27,14 @@ import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
+import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
 import technology.rocketjump.saul.logging.CrashHandler;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -160,6 +162,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 							};
 							if (currentEntity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes iea && iea.getItemPlacement() == ItemPlacement.BEING_CARRIED) {
 								EquippedItemComponent equippedItemComponent = itemHoldingDwarf.getOrCreateComponent(EquippedItemComponent.class);
+								currentEntity.getOrCreateComponent(ItemAllocationComponent.class).init(currentEntity, messageDispatcher, new GameContext());
 								equippedItemComponent.clearEquippedItem();
 								equippedItemComponent.setEquippedItem(currentEntity, itemHoldingDwarf, messageDispatcher);
 								renderEntityWithOrientation(itemHoldingDwarf, orientation, originalPosition, entityRenderer);

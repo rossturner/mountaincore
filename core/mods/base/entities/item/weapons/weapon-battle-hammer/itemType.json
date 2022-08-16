@@ -1,0 +1,18 @@
+{
+  "itemTypeId" : 70,
+  "itemTypeName" : "Weapon-Battle-Hammer",
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "CRUSHING",
+    "modifiedByStrength" : true,
+    "minDamage" : 4,
+    "maxDamage" : 8
+  },
+  "i18nKey" : "WEAPON.BATTLE.HAMMER"
+}

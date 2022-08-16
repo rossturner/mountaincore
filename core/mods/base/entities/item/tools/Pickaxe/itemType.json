@@ -1,12 +1,18 @@
 {
-  "itemTypeName": "Tool-Pickaxe",
-  "materialTypes": ["METAL", "WOOD"],
-  "primaryMaterialType": "METAL",
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "stockpileGroupName": "TOOLS",
-  "holdPosition": "RIGHT_HAND",
-  "impedesMovement": false,
-  "blocksMovement": false,
-  "relatedCraftingTypeNames": ["SMELTING"]
+  "itemTypeId" : 59,
+  "itemTypeName" : "Tool-Pickaxe",
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD", "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "relatedCraftingTypeNames" : [ "SMELTING" ],
+  "stockpileGroupName" : "TOOLS",
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "STABBING",
+    "modifiedByStrength" : true,
+    "minDamage" : 1,
+    "maxDamage" : 3
+  },
+  "i18nKey" : "TOOL.PICKAXE"
 }
