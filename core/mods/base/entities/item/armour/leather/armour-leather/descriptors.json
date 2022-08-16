@@ -8,29 +8,47 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Down.png",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -0.5
+      }
     },
     "UP" : {
       "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Up.png",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -0.5
+      }
     },
     "DOWN_LEFT" : {
       "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Down_Left.png",
       "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 0.5
+      },
       "flipX" : true
     },
     "DOWN_RIGHT" : {
       "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Down_Left.png",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5
+      }
     },
     "UP_LEFT" : {
       "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Up_Left.png",
       "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -1.5
+      },
       "flipX" : true
     },
     "UP_RIGHT" : {
       "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Up_Left.png",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 1.5
+      }
     }
   }
 }, {
@@ -43,7 +61,10 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Leather-Above_Layer_1-On_Ground_Down.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : -0.5
+      }
     }
   }
 }, {
@@ -56,17 +77,29 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Leather-Above_Layer_2-Being_Carried_Down.png",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -7.5
+      }
     },
     "UP" : { },
     "DOWN_LEFT" : {
       "filename" : "Armour-Leather-Above_Layer_2-Being_Carried_Down_Left.png",
       "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : -9.5
+      },
       "flipX" : true
     },
     "DOWN_RIGHT" : {
       "filename" : "Armour-Leather-Above_Layer_2-Being_Carried_Down_Left.png",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 2.0,
+        "y" : -9.5
+      }
     },
     "UP_LEFT" : { },
     "UP_RIGHT" : { }
@@ -80,7 +113,11 @@
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Armour-Leather-Above_Layer_2-On_Ground_Down.png"
+      "filename" : "Armour-Leather-Above_Layer_2-On_Ground_Down.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -7.5
+      }
     }
   }
 }, {
@@ -96,22 +133,30 @@
       "coloringLayer" : "SKIN_COLOR",
       "scale" : 0.7,
       "offsetPixels" : {
-        "y" : -5.0
+        "y" : -5.5
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "y" : 0.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_2"
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "y" : 0.5
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 26.0
+          "x" : 26.0,
+          "y" : 0.5
         }
       }, {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : -26.0
+          "x" : -26.0,
+          "y" : 0.5
         }
       } ]
     },
@@ -183,17 +228,21 @@
       "coloringLayer" : "SKIN_COLOR",
       "scale" : 0.7,
       "offsetPixels" : {
-        "x" : 3.0,
+        "x" : 2.0,
         "y" : -7.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "unit" : true
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : -19.0
+          "x" : -18.0
         }
       } ]
     },
@@ -202,16 +251,20 @@
       "coloringLayer" : "SKIN_COLOR",
       "scale" : 0.7,
       "offsetPixels" : {
-        "x" : -3.0,
+        "x" : -2.0,
         "y" : -7.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -1.0,
+          "unit" : true
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : 19.0
+          "x" : 18.0
         }
       } ]
     }
@@ -227,10 +280,19 @@
     "DOWN" : {
       "filename" : "Armour-Leather-Item_Base_Layer-On_Ground_Down.png",
       "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : -0.5
+      },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "y" : 0.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_2"
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "y" : 0.5
+        }
       } ]
     }
   }
