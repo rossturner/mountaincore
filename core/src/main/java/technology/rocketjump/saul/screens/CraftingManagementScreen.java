@@ -297,8 +297,12 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 					String craftingStationName = i18nTranslator.getTranslatedString(craftingStation.getI18nKey()).toString();
 
 					List<RoomType> roomTypes = roomsForCraftingStations.get(craftingStation);
-					String roomTypesString = roomTypes.stream().map(roomType -> i18nTranslator.getTranslatedString(roomType.getI18nKey()).toString()).collect(Collectors.joining(", "));
-					return craftingStationName + " (" + roomTypesString + ")";
+					if (roomTypes == null || roomTypes.isEmpty()) {
+						return craftingStationName;
+					} else {
+						String roomTypesString = roomTypes.stream().map(roomType -> i18nTranslator.getTranslatedString(roomType.getI18nKey()).toString()).collect(Collectors.joining(", "));
+						return craftingStationName + " (" + roomTypesString + ")";
+					}
 				})
 				.collect(Collectors.joining(", "));
 		clickableRow.add(new Label(collectedCraftingStationText, uiSkin)).right().expandX().pad(5);

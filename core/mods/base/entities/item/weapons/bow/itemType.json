@@ -7,12 +7,12 @@
   "hoursInInventoryUntilUnused" : 3.0,
   "stockpileGroupName" : "WEAPONS",
   "weaponInfo" : {
-    "range" : 9.0,
+    "range" : 9,
     "damageType" : "STABBING",
     "minDamage" : 2,
     "maxDamage" : 8,
     "requiresAmmoType" : "ARROWS",
-    "combatSkillName" : "UNARMED_COMBAT",
+    "combatSkillName" : "ARCHERY",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
     "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow"

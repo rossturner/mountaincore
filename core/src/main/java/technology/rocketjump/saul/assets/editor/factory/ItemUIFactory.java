@@ -68,7 +68,7 @@ public class ItemUIFactory implements UIFactory {
     private final MessageDispatcher messageDispatcher;
     private final ItemEntityFactory itemEntityFactory;
     private final ItemTypeDictionary itemTypeDictionary;
-    private final ItemAttributesPane itemAttributesPane;
+    private final ItemAttributesPane viewEditorControls;
 
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
     private final CompleteAssetDictionary completeAssetDictionary;
@@ -80,14 +80,14 @@ public class ItemUIFactory implements UIFactory {
 
     @Inject
     public ItemUIFactory(MessageDispatcher messageDispatcher, ItemEntityFactory itemEntityFactory, ItemTypeDictionary itemTypeDictionary,
-                         ItemAttributesPane itemAttributesPane, EntityAssetTypeDictionary entityAssetTypeDictionary,
+                         ItemAttributesPane viewEditorControls, EntityAssetTypeDictionary entityAssetTypeDictionary,
                          CompleteAssetDictionary completeAssetDictionary, CraftingTypeDictionary craftingTypeDictionary,
                          StockpileGroupDictionary stockpileGroupDictionary, SoundAssetDictionary soundAssetDictionary,
                          ParticleEffectTypeDictionary particleEffectTypeDictionary, SkillDictionary skillDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.itemEntityFactory = itemEntityFactory;
         this.itemTypeDictionary = itemTypeDictionary;
-        this.itemAttributesPane = itemAttributesPane;
+        this.viewEditorControls = viewEditorControls;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.completeAssetDictionary = completeAssetDictionary;
         this.craftingTypeDictionary = craftingTypeDictionary;
@@ -129,8 +129,8 @@ public class ItemUIFactory implements UIFactory {
 
     @Override
     public VisTable getViewEditorControls() {
-        itemAttributesPane.reload();
-        return itemAttributesPane;
+        viewEditorControls.reload();
+        return viewEditorControls;
     }
 
     @Override
@@ -168,6 +168,7 @@ public class ItemUIFactory implements UIFactory {
         ItemType itemType = (ItemType) typeDescriptor;
 
         VisTable controls = new VisTable();
+
         controls.defaults().left();
         controls.columnDefaults(0).uniformX().left();
         controls.columnDefaults(1).fillX().left();
@@ -177,6 +178,10 @@ public class ItemUIFactory implements UIFactory {
         nameTextField.setTouchable(Touchable.disabled);
         controls.add(WidgetBuilder.label("Name"));
         controls.add(nameTextField); //TODO: make editable and update child entity asset types
+        controls.row();
+
+        controls.add(WidgetBuilder.label("i18n Key"));
+        controls.add(new VisLabel(itemType.getI18nKey()));
         controls.row();
 
         controls.add(WidgetBuilder.label("Max Stack Size"));
@@ -189,7 +194,7 @@ public class ItemUIFactory implements UIFactory {
 
         controls.add(WidgetBuilder.label("Materials")).padTop(15);
         controls.row();
-        controls.addSeparator().colspan(2);
+        controls.addSeparator().colspan(2).expand(false, false).row();
 
         controls.add(WidgetBuilder.label("Material Only"));
         controls.add(WidgetBuilder.toggle(itemType.isDescribeAsMaterialOnly(), itemType::setDescribeAsMaterialOnly));
@@ -204,7 +209,12 @@ public class ItemUIFactory implements UIFactory {
                         if (!itemType.getMaterialTypes().contains(it)) {
                             itemType.getMaterialTypes().add(it);
                         }
-                    }, itemType.getMaterialTypes()::remove);
+                        viewEditorControls.reload();
+                    },
+                    it -> {
+                        itemType.getMaterialTypes().remove(it);
+                        viewEditorControls.reload();
+                    });
             materialTypeMap.put(materialType, checkBox);
         }
 
@@ -234,8 +244,9 @@ public class ItemUIFactory implements UIFactory {
             }
             checkboxColCount++;
         }
+        controls.row();
 
-        controls.addSeparator().colspan(2).padBottom(15);
+        controls.addSeparator().colspan(2).padBottom(15).expand(false, false).row();
 
         controls.add(WidgetBuilder.label("Hold Position"));
         controls.add(WidgetBuilder.select(itemType.getHoldPosition(), ItemHoldPosition.values(), null, itemType::setHoldPosition));
@@ -263,7 +274,7 @@ public class ItemUIFactory implements UIFactory {
         controls.row();
 
         int craftingCheckboxCount = 1;
-        for (CraftingType craftingType : craftingTypeDictionary.getAll()) {
+        for (CraftingType craftingType : craftingTypeDictionary.getAll().stream().sorted().toList()) {
             VisCheckBox checkBox = WidgetBuilder.checkBox(craftingType, itemType.getRelatedCraftingTypes().contains(craftingType),
                     it -> {
                         if (!itemType.getRelatedCraftingTypes().contains(it)) {
@@ -359,11 +370,11 @@ public class ItemUIFactory implements UIFactory {
             weaponCollapsible.setCollapsed(true, true);
         })).padTop(15);
         controls.row();
-        controls.addSeparator().colspan(2);
+        controls.addSeparator().colspan(2).expand(false, false).row();
 
         controls.add(weaponCollapsible).colspan(2);
         controls.row();
-        controls.addSeparator().colspan(2).padBottom(15);
+        controls.addSeparator().colspan(2).padBottom(15).expand(false, false).row();
 
         return controls;
     }

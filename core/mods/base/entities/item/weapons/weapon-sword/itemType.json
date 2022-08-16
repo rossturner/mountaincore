@@ -1,0 +1,18 @@
+{
+  "itemTypeId" : 72,
+  "itemTypeName" : "Weapon-Sword",
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "SLASHING",
+    "modifiedByStrength" : true,
+    "minDamage" : 2,
+    "maxDamage" : 10
+  },
+  "i18nKey" : "WEAPON.SWORD"
+}

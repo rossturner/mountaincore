@@ -1,0 +1,327 @@
+[ {
+  "uniqueName" : "Weapon-Crossbow-Mechanism-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Crossbow",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
+      }
+    },
+    "UP" : {
+      "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Up.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "y" : 1.0,
+        "unit" : true
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Down_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : 1.0
+      },
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Down_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 1.0
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Up_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 3.0
+      },
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Up_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : 3.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Crossbow-Mechanism-On_Ground",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Crossbow",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Crossbow-Mechanism-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "y" : -2.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Crossbow-Stock-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Crossbow",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Crossbow-Stock-Being_Carried_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -5.0,
+        "y" : -2.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "y" : -1.0
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "y" : -1.0
+        }
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "y" : 4.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "UP" : {
+      "filename" : "Weapon-Crossbow-Stock-Being_Carried_Up.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : 6.5,
+        "y" : 5.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 1.5
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 1.5
+        }
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Crossbow-Stock-Being_Carried_Down_Right.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -9.0,
+        "y" : -3.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -3.0,
+          "y" : -1.0
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : -3.0,
+          "y" : -1.0
+        }
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Crossbow-Stock-Being_Carried_Down_Right.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : 14.0,
+        "y" : -3.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 3.0,
+          "y" : -1.0
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 3.0,
+          "y" : -1.0
+        }
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : 5.0
+        },
+        "overrideRenderLayer" : 10
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Crossbow-Stock-Being_Carried_Up_Right.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -4.5,
+        "y" : 2.5
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -6.5,
+          "y" : -3.5
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : -6.5,
+          "y" : -3.5
+        }
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Crossbow-Stock-Being_Carried_Up_Right.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : 15.5,
+        "y" : 2.5
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 6.5,
+          "y" : -3.5
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 6.5,
+          "y" : -3.5
+        }
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : -4.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Crossbow-Stock-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Crossbow",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Crossbow-Stock-On_Ground_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : 1.5
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : -1.5
+        }
+      }, {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : -1.5
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Crossbow-String-Being_Carried",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Weapon-Crossbow",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Crossbow-String-Being_Carried_Down.png",
+      "offsetPixels" : {
+        "y" : 3.5
+      }
+    },
+    "UP" : {
+      "filename" : "Weapon-Crossbow-String-Being_Carried_Up.png",
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : 2.5
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Crossbow-String-Being_Carried_Down_Right.png",
+      "offsetPixels" : {
+        "y" : 2.5
+      },
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Crossbow-String-Being_Carried_Down_Right.png",
+      "offsetPixels" : {
+        "y" : 2.5
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Crossbow-String-Being_Carried_Up_Right.png",
+      "offsetPixels" : {
+        "y" : 3.5
+      },
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Crossbow-String-Being_Carried_Up_Right.png",
+      "offsetPixels" : {
+        "y" : 3.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Crossbow-String-On_Ground",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Weapon-Crossbow",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Crossbow-String-On_Ground_Down.png",
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : 1.0
+      }
+    }
+  }
+} ]

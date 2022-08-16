@@ -31,11 +31,11 @@ public class WeaponInfoWidget extends VisTable {
 		this.row();
 
 		this.add(WidgetBuilder.label("Min Damage"));
-		this.add(WidgetBuilder.intSpinner(weaponInfo.getMinDamage(), 0, Integer.MAX_VALUE, weaponInfo::setMinDamage));
+		this.add(WidgetBuilder.intSpinner(weaponInfo.getMinDamage(), 0, 100, weaponInfo::setMinDamage));
 		this.row();
 
 		this.add(WidgetBuilder.label("Max Damage"));
-		this.add(WidgetBuilder.intSpinner(weaponInfo.getMaxDamage(), 0, Integer.MAX_VALUE, weaponInfo::setMaxDamage));
+		this.add(WidgetBuilder.intSpinner(weaponInfo.getMaxDamage(), 0, 100, weaponInfo::setMaxDamage));
 		this.row();
 
 		this.add(WidgetBuilder.label("Damage Type"));
@@ -43,7 +43,7 @@ public class WeaponInfoWidget extends VisTable {
 		this.row();
 
 		this.add(WidgetBuilder.label("Range"));
-		this.add(WidgetBuilder.floatSpinner(weaponInfo.getRange(), 0, Float.MAX_VALUE, weaponInfo::setRange));
+		this.add(WidgetBuilder.intSpinner(weaponInfo.getRange(), 0, 200, weaponInfo::setRange));
 		this.row();
 
 		this.add(WidgetBuilder.label("Requires Ammo"));

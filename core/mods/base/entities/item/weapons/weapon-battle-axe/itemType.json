@@ -1,0 +1,18 @@
+{
+  "itemTypeId" : 69,
+  "itemTypeName" : "Weapon-Battle-Axe",
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD", "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "SLASHING",
+    "modifiedByStrength" : true,
+    "minDamage" : 3,
+    "maxDamage" : 12
+  },
+  "i18nKey" : "WEAPON.BATTLE.AXE"
+}
