@@ -49,6 +49,11 @@
   "type" : "PROFESSION",
   "icon" : "profession-fishing-rod"
 }, {
+  "name" : "LEATHERWORKER",
+  "i18nKey" : "PROFESSION.LEATHERWORKER",
+  "type" : "PROFESSION",
+  "icon" : "profession-knife"
+}, {
   "name" : "ARCHERY",
   "i18nKey" : "SKILL.ARCHERY",
   "type" : "COMBAT_SKILL"

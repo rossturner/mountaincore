@@ -2,6 +2,7 @@
   "recipeName" : "Craft leather armour",
   "verbOverrideI18nKey" : "CRAFTING_TYPE.LEATHERWORKING",
   "craftingTypeName" : "LEATHERWORKING",
+  "itemTypeRequiredName" : "Tool-Kitchen-Knife",
   "input" : [ {
     "itemTypeName" : "Product-Leather",
     "quantity" : 3
@@ -11,7 +12,7 @@
     "quantity" : 1
   } ],
   "materialTypesToCopyOver" : [ "SKIN" ],
-  "minimumTimeToCompleteCrafting" : 1.5,
+  "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 8.5
 }, {
   "recipeName" : "Malt barley",
@@ -805,6 +806,7 @@
 }, {
   "recipeName" : "Craft waterskin",
   "craftingTypeName" : "LEATHERWORKING",
+  "itemTypeRequiredName" : "Tool-Kitchen-Knife",
   "input" : [ {
     "itemTypeName" : "Product-Leather",
     "quantity" : 1
@@ -815,7 +817,7 @@
   } ],
   "materialTypesToCopyOver" : [ "SKIN" ],
   "minimumTimeToCompleteCrafting" : 1.5,
-  "maximumTimeToCompleteCrafting" : 15.0
+  "maximumTimeToCompleteCrafting" : 3.0
 }, {
   "recipeName" : "Fletch metal arrows",
   "verbOverrideI18nKey" : "CRAFTING_TYPE.FLETCHING",
@@ -863,8 +865,9 @@
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
 }, {
-  "recipeName" : "Forge Axe",
+  "recipeName" : "Forge Battle Axe",
   "craftingTypeName" : "BLACKSMITHING",
+  "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Resource-Planks",
     "quantity" : 1
@@ -880,8 +883,9 @@
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
 }, {
-  "recipeName" : "Forge Hammer",
+  "recipeName" : "Forge Battle Hammer",
   "craftingTypeName" : "BLACKSMITHING",
+  "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Product-Linen",
     "quantity" : 1
@@ -899,6 +903,7 @@
 }, {
   "recipeName" : "Forge Sword",
   "craftingTypeName" : "BLACKSMITHING",
+  "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
     "quantity" : 3
@@ -913,6 +918,7 @@
 }, {
   "recipeName" : "Craft Crossbow",
   "craftingTypeName" : "BLACKSMITHING",
+  "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Resource-Planks",
     "quantity" : 1

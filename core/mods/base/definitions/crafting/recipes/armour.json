@@ -15,8 +15,9 @@
         "quantity": 1
       }
     ],
+    "itemTypeRequiredName": "Tool-Kitchen-Knife",
     "materialTypesToCopyOver": ["SKIN"],
-    "minimumTimeToCompleteCrafting": 1.5,
+    "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 8.5
   }
 ]
