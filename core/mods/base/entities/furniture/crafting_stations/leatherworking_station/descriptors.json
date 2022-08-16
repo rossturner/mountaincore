@@ -9,47 +9,69 @@
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Base_Layer-Wood_Down-Rocky.png",
       "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
-        "x" : -80.0,
-        "y" : 11.0
+        "x" : -84.0,
+        "y" : -27.0
       },
       "childAssets" : [ {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : -15.0
+          "x" : -11.0,
+          "y" : 38.0
         }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
-          "x" : -16.0
+          "x" : -12.0,
+          "y" : 38.0
         }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_3"
+        "type" : "FURNITURE_ABOVE_LAYER_3",
+        "offsetPixels" : {
+          "x" : 4.0,
+          "y" : 38.0
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_4"
+        "type" : "FURNITURE_ABOVE_LAYER_4",
+        "offsetPixels" : {
+          "x" : 4.0,
+          "y" : 38.0
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_5"
+        "type" : "FURNITURE_ABOVE_LAYER_5",
+        "offsetPixels" : {
+          "x" : 4.0,
+          "y" : 38.0
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_6"
+        "type" : "FURNITURE_ABOVE_LAYER_6",
+        "offsetPixels" : {
+          "x" : 4.0,
+          "y" : 38.0
+        }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_7"
+        "type" : "FURNITURE_ABOVE_LAYER_7",
+        "offsetPixels" : {
+          "x" : 4.0,
+          "y" : 38.0
+        }
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
-          "x" : 84.0,
-          "y" : -10.0
+          "x" : 88.0,
+          "y" : 28.0
         }
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
-          "x" : -86.0,
-          "y" : -61.0
+          "x" : -82.0,
+          "y" : -23.0
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "x" : -31.0,
-          "y" : -62.0
+          "x" : -27.0,
+          "y" : -24.0
         }
       } ]
     }
@@ -63,7 +85,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_1-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR"
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -30.0,
+        "y" : -62.5
+      }
     }
   }
 }, {
@@ -74,7 +100,11 @@
   "validMaterialTypes" : [ "WOOD" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_2-Wood_Down.png"
+      "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_2-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : -9.5,
+        "y" : -57.0
+      }
     }
   }
 }, {
@@ -86,7 +116,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_3-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR"
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : 84.5,
+        "y" : -62.5
+      }
     }
   }
 }, {
@@ -98,7 +132,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_4-Wood_Down.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : 87.5,
+        "y" : -61.0
+      }
     }
   }
 }, {
@@ -110,7 +148,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_5-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR"
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : 52.0,
+        "y" : 79.0
+      }
     }
   }
 }, {
@@ -122,7 +164,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_6-Wood_Down.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : 68.5,
+        "y" : 89.5
+      }
     }
   }
 }, {
@@ -134,7 +180,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_7-Wood_Down.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : 16.0,
+        "y" : 48.0
+      }
     }
   }
 } ]

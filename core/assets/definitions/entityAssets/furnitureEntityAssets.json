@@ -3336,8 +3336,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -80.0,
-        "y" : 11.0,
+        "x" : -84.0,
+        "y" : -27.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3345,72 +3345,72 @@
       "childAssets" : [ {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : -15.0,
-          "y" : 0.0,
+          "x" : -11.0,
+          "y" : 38.0,
           "unit" : false
         }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
-          "x" : -16.0,
-          "y" : 0.0,
+          "x" : -12.0,
+          "y" : 38.0,
           "unit" : false
         }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_3",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 4.0,
+          "y" : 38.0,
           "unit" : false
         }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_4",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 4.0,
+          "y" : 38.0,
           "unit" : false
         }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_5",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 4.0,
+          "y" : 38.0,
           "unit" : false
         }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_6",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 4.0,
+          "y" : 38.0,
           "unit" : false
         }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_7",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 4.0,
+          "y" : 38.0,
           "unit" : false
         }
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
-          "x" : 84.0,
-          "y" : -10.0,
+          "x" : 88.0,
+          "y" : 28.0,
           "unit" : false
         }
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
-          "x" : -86.0,
-          "y" : -61.0,
+          "x" : -82.0,
+          "y" : -23.0,
           "unit" : false
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "x" : -31.0,
-          "y" : -62.0,
+          "x" : -27.0,
+          "y" : -24.0,
           "unit" : false
         }
       } ],
@@ -3431,8 +3431,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -30.0,
+        "y" : -62.5,
         "unit" : false
       },
       "flipX" : false,
@@ -3455,8 +3455,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -9.5,
+        "y" : -57.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3480,8 +3480,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 84.5,
+        "y" : -62.5,
         "unit" : false
       },
       "flipX" : false,
@@ -3505,8 +3505,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 87.5,
+        "y" : -61.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3530,8 +3530,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 52.0,
+        "y" : 79.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3555,8 +3555,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 68.5,
+        "y" : 89.5,
         "unit" : false
       },
       "flipX" : false,
@@ -3580,8 +3580,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 16.0,
+        "y" : 48.0,
         "unit" : false
       },
       "flipX" : false,
