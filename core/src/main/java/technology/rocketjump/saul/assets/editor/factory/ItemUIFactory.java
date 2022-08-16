@@ -385,7 +385,7 @@ public class ItemUIFactory implements UIFactory {
         weaponInfoControls.row();
 
         weaponInfoControls.add(WidgetBuilder.label("Range"));
-        weaponInfoControls.add(WidgetBuilder.floatSpinner(weaponInfo.getRange(), 0, Float.MAX_VALUE, weaponInfo::setRange));
+        weaponInfoControls.add(WidgetBuilder.intSpinner(weaponInfo.getRange(), 1, Integer.MAX_VALUE, weaponInfo::setRange));
         weaponInfoControls.row();
 
         weaponInfoControls.add(WidgetBuilder.label("Requires Ammo"));
