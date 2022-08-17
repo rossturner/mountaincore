@@ -131,7 +131,9 @@ public class ConstructionManager implements Updatable {
 	private void reselectMaterials(Construction construction) {
 		boolean allMaterialsSelected = true;
 		for (QuantifiedItemTypeWithMaterial requirement : construction.getRequirements()) {
-			requirement.setMaterial(null);
+			if (requirement.getMaterial() != null) {
+				continue;
+			}
 
 			if (construction.getPlayerSpecifiedPrimaryMaterial().isPresent() &&
 				construction.getPlayerSpecifiedPrimaryMaterial().get().getMaterialType().equals(requirement.getItemType().getPrimaryMaterialType())) {
