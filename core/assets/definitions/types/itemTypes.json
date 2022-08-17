@@ -1,4 +1,20 @@
 [ {
+  "itemTypeName" : "Armour-Leather",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "SKIN" ],
+  "primaryMaterialType" : "SKIN",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "ARMOUR.LEATHER"
+}, {
   "itemTypeName" : "Carcass-Carp-Prepared",
   "maxStackSize" : 4,
   "maxHauledAtOnce" : 4,
@@ -94,6 +110,22 @@
   "tags" : { },
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.PIKE.PREPARED"
+}, {
+  "itemTypeName" : "Carcass-Hide",
+  "maxStackSize" : 10,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "SKIN" ],
+  "primaryMaterialType" : "SKIN",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "RAW_MATERIALS",
+  "tags" : { },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "CARCASS.HIDE"
 }, {
   "itemTypeName" : "Fuel-Sack",
   "maxStackSize" : 16,
@@ -454,6 +486,41 @@
   "tags" : { },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.STONE.PIPE"
+}, {
+  "itemTypeName" : "Product-Leather",
+  "maxStackSize" : 10,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "SKIN" ],
+  "primaryMaterialType" : "SKIN",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "TANNING_HIDE" ],
+  "stockpileGroupName" : "PRODUCTS",
+  "tags" : { },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "PRODUCT.LEATHER"
+}, {
+  "itemTypeName" : "Product-Waterskin",
+  "maxStackSize" : 50,
+  "maxHauledAtOnce" : 10,
+  "materialTypes" : [ "SKIN" ],
+  "primaryMaterialType" : "SKIN",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
+  "stockpileGroupName" : "PRODUCTS",
+  "tags" : {
+    "LIQUID_CONTAINER" : [ "2", "Water" ],
+    "USAGE_SOUND" : [ "WaterCollect" ]
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "PRODUCT.WATERSKIN"
 }, {
   "itemTypeName" : "Product-Ration",
   "maxStackSize" : 50,

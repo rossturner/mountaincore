@@ -47,6 +47,9 @@
       }
     },
     "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 4,
+      "materialName" : "Elephant Hide"
     },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Large",

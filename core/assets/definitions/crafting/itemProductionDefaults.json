@@ -1,4 +1,7 @@
 {
+  "Armour-Leather" : {
+    "perSettler" : 1.0
+  },
   "Carcass-Carp-Prepared" : {
     "fixedAmount" : 100,
     "perSettler" : 0.0
@@ -48,6 +51,10 @@
     "fixedAmount" : 2,
     "perSettler" : 0.0
   },
+  "Product-Leather" : {
+    "fixedAmount" : 400,
+    "perSettler" : 0.0
+  },
   "Product-Linen" : {
     "fixedAmount" : 6,
     "perSettler" : 0.0
@@ -71,6 +78,9 @@
   "Product-Stone-Pipe" : {
     "fixedAmount" : 4,
     "perSettler" : 0.0
+  },
+  "Product-Waterskin" : {
+    "perSettler" : 1.0
   },
   "Resource-Crushed-Vitriol" : {
     "fixedAmount" : 200,
@@ -147,11 +157,27 @@
     "fixedAmount" : 2,
     "perSettler" : 0.0
   },
+  "Weapon-Battle-Axe" : {
+    "perSettler" : 0.1
+  },
+  "Weapon-Battle-Hammer" : {
+    "perSettler" : 0.1
+  },
   "Weapon-Bow" : {
+    "perSettler" : 0.1
+  },
+  "Weapon-Crossbow" : {
     "perSettler" : 0.1
   },
   "Weapon-Metal-Arrows" : {
     "fixedAmount" : 100,
     "perSettler" : 0.0
+  },
+  "Weapon-Metal-Bolts" : {
+    "fixedAmount" : 100,
+    "perSettler" : 0.0
+  },
+  "Weapon-Sword" : {
+    "perSettler" : 0.1
   }
 }

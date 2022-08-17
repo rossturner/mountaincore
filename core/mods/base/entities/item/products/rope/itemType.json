@@ -1,10 +1,11 @@
 {
-  "itemTypeName": "Product-Rope",
-  "materialTypes": ["ROPE"],
-  "primaryMaterialType": "ROPE",
-  "stockpileGroupName": "PRODUCTS",
-  "hoursInInventoryUntilUnused": 1,
-  "maxStackSize": 4,
-  "maxHauledAtOnce": 1,
-  "equippedWhileWorkingOnJob": true
+  "itemTypeId" : 33,
+  "itemTypeName" : "Product-Rope",
+  "maxStackSize" : 4,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "ROPE" ],
+  "primaryMaterialType" : "ROPE",
+  "hoursInInventoryUntilUnused" : 1.0,
+  "stockpileGroupName" : "PRODUCTS",
+  "i18nKey" : "PRODUCT.ROPE"
 }

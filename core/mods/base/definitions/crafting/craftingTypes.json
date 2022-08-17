@@ -97,5 +97,17 @@
     "professionRequiredName": "CHEF",
     "defaultItemTypeName": "Tool-Rolling-Pin",
     "usesWorkstationTool": true
+  },
+  {
+    "name": "TANNING_HIDE",
+    "i18nKey": "CRAFTING_TYPE.TANNING_HIDE",
+    "professionRequiredName": "LEATHERWORKER"
+  },
+  {
+    "name": "LEATHERWORKING",
+    "i18nKey": "CRAFTING_TYPE.LEATHERWORKING",
+    "professionRequiredName": "LEATHERWORKER",
+    "usesWorkstationTool": true,
+    "defaultItemTypeName": "Tool-Kitchen-Knife"
   }
 ]

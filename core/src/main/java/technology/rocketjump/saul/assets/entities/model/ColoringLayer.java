@@ -10,7 +10,7 @@ import static technology.rocketjump.saul.materials.model.GameMaterialType.*;
 public enum ColoringLayer {
 
 	// Creature layers
-	HAIR_COLOR, SKIN_COLOR, EYE_COLOR, ACCESSORY_COLOR, MARKING_COLOR,
+	HAIR_COLOR, SKIN_COLOR(SKIN), EYE_COLOR, ACCESSORY_COLOR, MARKING_COLOR,
 
 	// Plant type layers
 	BRANCHES_COLOR, LEAF_COLOR, FRUIT_COLOR, FLOWER_COLOR,

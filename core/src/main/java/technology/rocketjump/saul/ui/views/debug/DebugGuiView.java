@@ -21,11 +21,12 @@ import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
-import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
-import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
-import technology.rocketjump.saul.entities.factories.SettlerFactory;
+import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.DeathReason;
+import technology.rocketjump.saul.entities.model.physical.creature.Race;
+import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
@@ -73,6 +74,10 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	private final SelectBox<GameMaterial> materialSelect;
 	private final GameMaterialDictionary materialDictionary;
 	private final ItemEntityAttributesFactory itemEntityAttributesFactory;
+	private final CreatureEntityFactory creatureEntityFactory;
+	private final CreatureEntityAttributesFactory creatureEntityAttributesFactory;
+	private final RaceDictionary raceDictionary;
+	private final SelectBox<Race> raceSelect;
 	private final ItemEntityFactory itemEntityFactory;
 	private final SettlerFactory settlerFactory;
 	private final WeatherManager weatherManager;
@@ -90,19 +95,23 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	@Inject
 	public DebugGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 						ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary materialDictionary,
-						ItemEntityAttributesFactory itemEntityAttributesFactory, ItemEntityFactory itemEntityFactory,
-						SettlerFactory settlerFactory, WeatherManager weatherManager, ImmigrationManager immigrationManager,
-						ParticleEffectTypeDictionary particleEffectTypeDictionary) {
+						ItemEntityAttributesFactory itemEntityAttributesFactory,
+						CreatureEntityFactory creatureEntityFactory, CreatureEntityAttributesFactory creatureEntityAttributesFactory, RaceDictionary raceDictionary,
+						ItemEntityFactory itemEntityFactory, SettlerFactory settlerFactory, WeatherManager weatherManager,
+						ImmigrationManager immigrationManager, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.uiSkin = guiSkinRepository.getDefault();
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.materialDictionary = materialDictionary;
 		this.itemEntityAttributesFactory = itemEntityAttributesFactory;
+		this.creatureEntityFactory = creatureEntityFactory;
+		this.creatureEntityAttributesFactory = creatureEntityAttributesFactory;
 		this.itemEntityFactory = itemEntityFactory;
 		this.settlerFactory = settlerFactory;
 		this.weatherManager = weatherManager;
 		this.immigrationManager = immigrationManager;
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
+		this.raceDictionary = raceDictionary;
 
 		layoutTable = new Table(uiSkin);
 
@@ -145,6 +154,9 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				update();
 			}
 		});
+
+		this.raceSelect = new SelectBox<>(uiSkin);
+		raceSelect.setItems(raceDictionary.getAll().stream().filter(race -> !"Dwarf".equals(race.getName())).toArray(Race[]::new));
 
 		messageDispatcher.addListener(this, MessageType.TOGGLE_DEBUG_VIEW);
 		messageDispatcher.addListener(this, MessageType.DEBUG_MESSAGE);
@@ -208,6 +220,11 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				} else {
 					Logger.warn("Blocked spawning of item in tile that already contains an item");
 				}
+				break;
+			}
+			case SPAWN_CREATURE:{
+				CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(raceSelect.getSelected());
+				creatureEntityFactory.create(attributes, worldPosition, DOWN.toVector2(), gameContext);
 				break;
 			}
 			case SPAWN_SETTLER: {
@@ -351,6 +368,8 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 					layoutTable.add(materialSelect).pad(5).left().row();
 				} else if (currentAction.equals(DebugAction.TOGGLE_PIPE)) {
 					layoutTable.add(materialSelect).pad(5).left().row();
+				} else if (currentAction.equals(DebugAction.SPAWN_CREATURE)) {
+					layoutTable.add(raceSelect).pad(5).left().row();
 				}
 			} else {
 				layoutTable.setBackground((Drawable) null);

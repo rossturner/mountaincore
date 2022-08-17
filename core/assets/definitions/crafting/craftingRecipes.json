@@ -1,4 +1,20 @@
 [ {
+  "recipeName" : "Craft leather armour",
+  "verbOverrideI18nKey" : "CRAFTING_TYPE.LEATHERWORKING",
+  "craftingTypeName" : "LEATHERWORKING",
+  "itemTypeRequiredName" : "Tool-Kitchen-Knife",
+  "input" : [ {
+    "itemTypeName" : "Product-Leather",
+    "quantity" : 3
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Armour-Leather",
+    "quantity" : 1
+  } ],
+  "materialTypesToCopyOver" : [ "SKIN" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 8.5
+}, {
   "recipeName" : "Malt barley",
   "verbOverrideI18nKey" : "ACTION.MALTING",
   "craftingTypeName" : "MALTING",
@@ -773,6 +789,36 @@
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 8.5
 }, {
+  "recipeName" : "Craft leather",
+  "craftingTypeName" : "TANNING_HIDE",
+  "input" : [ {
+    "itemTypeName" : "Carcass-Hide",
+    "quantity" : 1
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Product-Leather",
+    "quantity" : 1
+  } ],
+  "materialTypesToCopyOver" : [ "SKIN" ],
+  "extraGameHoursToComplete" : 48.0,
+  "minimumTimeToCompleteCrafting" : 1.5,
+  "maximumTimeToCompleteCrafting" : 15.0
+}, {
+  "recipeName" : "Craft waterskin",
+  "craftingTypeName" : "LEATHERWORKING",
+  "itemTypeRequiredName" : "Tool-Kitchen-Knife",
+  "input" : [ {
+    "itemTypeName" : "Product-Leather",
+    "quantity" : 1
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Product-Waterskin",
+    "quantity" : 10
+  } ],
+  "materialTypesToCopyOver" : [ "SKIN" ],
+  "minimumTimeToCompleteCrafting" : 1.5,
+  "maximumTimeToCompleteCrafting" : 3.0
+}, {
   "recipeName" : "Fletch metal arrows",
   "verbOverrideI18nKey" : "CRAFTING_TYPE.FLETCHING",
   "craftingTypeName" : "FLETCHING",
@@ -819,8 +865,9 @@
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
 }, {
-  "recipeName" : "Forge Axe",
+  "recipeName" : "Forge Battle Axe",
   "craftingTypeName" : "BLACKSMITHING",
+  "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Resource-Planks",
     "quantity" : 1
@@ -836,8 +883,9 @@
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
 }, {
-  "recipeName" : "Forge Hammer",
+  "recipeName" : "Forge Battle Hammer",
   "craftingTypeName" : "BLACKSMITHING",
+  "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Product-Linen",
     "quantity" : 1
@@ -855,6 +903,7 @@
 }, {
   "recipeName" : "Forge Sword",
   "craftingTypeName" : "BLACKSMITHING",
+  "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
     "quantity" : 3
@@ -869,6 +918,7 @@
 }, {
   "recipeName" : "Craft Crossbow",
   "craftingTypeName" : "BLACKSMITHING",
+  "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Resource-Planks",
     "quantity" : 1

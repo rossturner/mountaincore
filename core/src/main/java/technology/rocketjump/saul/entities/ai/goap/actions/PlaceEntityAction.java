@@ -8,6 +8,7 @@ import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.MushroomShockTankBehaviour;
+import technology.rocketjump.saul.entities.components.CopyGameMaterialsFromInventoryComponent;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -138,6 +139,12 @@ public class PlaceEntityAction extends Action {
 			removeTargetFrom(currentContainer);
 			InventoryComponent targetInventory = targetFurniture.getOrCreateComponent(InventoryComponent.class);
 			targetInventory.add(itemToPlace, targetFurniture, parent.messageDispatcher, gameContext.getGameClock());
+			CopyGameMaterialsFromInventoryComponent copyColorComponent = targetFurniture.getComponent(CopyGameMaterialsFromInventoryComponent.class);
+			if (copyColorComponent != null) {
+				copyColorComponent.apply(itemToPlace, targetFurniture);
+			}
+			parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, targetFurniture);
+
 			if (targetFurniture.getBehaviourComponent() instanceof CraftingStationBehaviour) {
 				CraftingStationBehaviour craftingStationBehaviour = (CraftingStationBehaviour) targetFurniture.getBehaviourComponent();
 				craftingStationBehaviour.itemAdded(gameContext.getAreaMap());

@@ -925,5 +925,45 @@
     ],
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 8.5
+  },
+  {
+    "recipeName": "Craft leather",
+    "craftingTypeName": "TANNING_HIDE",
+    "input": [
+      {
+        "itemTypeName": "Carcass-Hide",
+        "quantity": 1
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Product-Leather",
+        "quantity": 1
+      }
+    ],
+    "materialTypesToCopyOver": ["SKIN"],
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 15,
+    "extraGameHoursToComplete": 48.0
+  },
+  {
+    "recipeName": "Craft waterskin",
+    "craftingTypeName": "LEATHERWORKING",
+    "input": [
+      {
+        "itemTypeName": "Product-Leather",
+        "quantity": 1
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Product-Waterskin",
+        "quantity": 10
+      }
+    ],
+    "itemTypeRequiredName": "Tool-Kitchen-Knife",
+    "materialTypesToCopyOver": ["SKIN"],
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 3
   }
 ]

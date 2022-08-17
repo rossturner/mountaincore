@@ -1,0 +1,34 @@
+{
+  "name" : "Leatherworking_Station",
+  "i18nKey" : "FURNITURE.LEATHERWORKING_STATION",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "leatherwork-bench-layout",
+  "colorCode" : "#AA7252",
+  "iconName" : "animal-hide",
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 3
+    }, {
+      "itemTypeName" : "Product-Barrel-Hoops",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Product-Barrel-Staves",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Tool-Chisel",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Tool-Kitchen-Knife",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Product-Leather",
+      "quantity" : 1
+    } ]
+  },
+  "tags" : {
+    "CRAFTING_STATION_BEHAVIOUR" : [ "LEATHERWORKING", "PRODUCE_ITEM", "HAULING" ],
+    "DECORATION_FROM_INPUT" : [ "Tool-Chisel", "Tool-Kitchen-Knife" ],
+    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Product-Leather", "SKIN_COLOR", "MISC_COLOR_1", "Product-Barrel-Staves", "WOOD_COLOR", "MISC_COLOR_2" ]
+  }
+}

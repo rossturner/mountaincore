@@ -649,7 +649,7 @@ public class I18nTranslator implements I18nUpdatable {
 
 			if (token.equals("quantity_if_multiple")) {
 				if (getQuantity(replacements) > 1) {
-					replacement = new I18nWord(getQuantity(replacements) + " ");
+					replacement = new I18nWord(String.valueOf(getQuantity(replacements)));
 				} else {
 					replacement = I18nWord.BLANK;
 				}

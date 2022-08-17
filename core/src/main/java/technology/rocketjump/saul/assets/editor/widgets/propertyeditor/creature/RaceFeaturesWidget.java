@@ -14,6 +14,7 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.features.*;
+import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
@@ -103,7 +104,15 @@ public class RaceFeaturesWidget extends VisTable {
 			void initChildWidgets(VisTable childContainer, RaceFeatures sourceData) {
 				SkinFeature skin = sourceData.getSkin();
 
+				ItemType noneOption = new ItemType();
+				noneOption.setItemTypeName("-none-");
+				childContainer.add(WidgetBuilder.selectField("Item Type", skin.getItemType(), itemTypeDictionary.getAll(), noneOption, selected -> {
+					if (selected != noneOption) {
+						skin.setItemType(selected);
+					}
+				})).left().colspan(2).row();
 				WidgetBuilder.addSelectField("Skin Material:", "material", gameMaterialDictionary.getAll(), GameMaterial.NULL_MATERIAL, skin, childContainer);
+				WidgetBuilder.addIntegerField("Quantity:", "quantity", skin, childContainer);
 			}
 		};
 

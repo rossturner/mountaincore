@@ -43,7 +43,11 @@
       "maxDefensePoints": 6,
       "maxDefenseRegainedPerRound": 1
     },
-    "skin" : { },
+    "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 1,
+      "materialName" : "Deer Hide"
+    },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Medium",
       "materialName" : "Deer Meat",

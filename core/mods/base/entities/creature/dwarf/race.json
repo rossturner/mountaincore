@@ -35,7 +35,7 @@
     "scheduleName" : "Default Settler Schedule",
     "needs" : [ "FOOD", "DRINK", "SLEEP" ],
     "aggressionResponse" : "FLEE",
-    "isSapient": true
+    "isSapient" : true
   },
   "genders" : {
     "MALE" : {
@@ -65,6 +65,9 @@
       "maxDamage": 4
     },
     "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 1,
+      "materialName" : "Dwarf Flesh"
     },
     "bones" : {
       "materialName" : "Bone"

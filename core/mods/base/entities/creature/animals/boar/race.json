@@ -55,6 +55,9 @@
       }
     },
     "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 1,
+      "materialName" : "Boar Hide"
     },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Medium",

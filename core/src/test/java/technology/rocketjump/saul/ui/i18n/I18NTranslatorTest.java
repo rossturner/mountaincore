@@ -453,6 +453,30 @@ public class I18NTranslatorTest {
 		assertThat(result.toString()).isEqualTo("08:00, day 1, spring, year 1");
 	}
 
+	@Test
+	public void getItemType_GivenSingularItem_ReturnsFirstLetterUppercase() {
+		GameMaterial material = new GameMaterial();
+		material.setI18nValue(new I18nWord("SKIN.DWARF_HIDE", "Dwarf"));
+		ItemType itemType = Mockito.mock(ItemType.class);
+		when(itemType.getI18nKey()).thenReturn("PRODUCT.LEATHER");
+
+		I18nText processed = translator.getItemDescription(1, material, itemType, ItemQuality.STANDARD);
+
+		assertThat(processed.toString()).isEqualTo("Dwarf leather");
+	}
+
+	@Test
+	public void getItemType_GivenMultipleItem_DoesNotCapitalizeFirstAlpha() {
+		GameMaterial material = new GameMaterial();
+		material.setI18nValue(new I18nWord("SKIN.DWARF_HIDE", "Deer"));
+		ItemType itemType = Mockito.mock(ItemType.class);
+		when(itemType.getI18nKey()).thenReturn("PRODUCT.LEATHER");
+
+		I18nText processed = translator.getItemDescription(3, material, itemType, ItemQuality.STANDARD);
+
+		assertThat(processed.toString()).isEqualTo("3 deer leather");
+	}
+
 	private Entity createTree() throws IOException {
 		PlantEntityAttributesFactory factory = new PlantEntityAttributesFactory(new PlantSpeciesDictionary(gameMaterialDictionary, itemTypeDictionary));
 		Random random = new RandomXS128(1L);

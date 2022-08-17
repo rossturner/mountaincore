@@ -119,6 +119,12 @@ public class RaceDictionary {
 		}
 
 		if (race.getFeatures().getSkin() != null && race.getFeatures().getSkin().getMaterialName() != null) {
+			race.getFeatures().getSkin().setItemType(itemTypeDictionary.getByName(race.getFeatures().getSkin().getItemTypeName()));
+			if (race.getFeatures().getSkin().getItemType() == null) {
+				Logger.error("Could not find item type " + race.getFeatures().getSkin().getItemTypeName() +
+						" for meat as part of race " + race.getName());
+			}
+
 			race.getFeatures().getSkin().setMaterial(gameMaterialDictionary.getByName(race.getFeatures().getSkin().getMaterialName()));
 			if (race.getFeatures().getSkin().getMaterial() == null) {
 				Logger.error("Could not find material " + race.getFeatures().getSkin().getMaterialName() +

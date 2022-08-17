@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.kotcrab.vis.ui.util.InputValidator;
 import com.kotcrab.vis.ui.widget.*;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooser;
 import net.spookygames.gdx.nativefilechooser.NativeFileChooserCallback;
@@ -60,13 +61,50 @@ public class SpriteDescriptorsPane extends VisTable {
         this.clearChildren();
 
         for (EntityAssetOrientation orientation : orientations) {
-            SpriteDescriptor spriteDescriptor = entityAsset.getSpriteDescriptors().computeIfAbsent(orientation, a -> new SpriteDescriptor());
+            final SpriteDescriptor spriteDescriptor;
+            boolean hasOrientation = entityAsset.getSpriteDescriptors().containsKey(orientation);
+            if (hasOrientation) {
+                spriteDescriptor = entityAsset.getSpriteDescriptors().get(orientation);
+            } else {
+                spriteDescriptor = new SpriteDescriptor();
+            }
             VisTable orientationTable = new VisTable();
+            orientationTable.setFillParent(true);
+            CollapsibleWidget collapsibleOrientation = new CollapsibleWidget(orientationTable);
+            collapsibleOrientation.setCollapsed(!hasOrientation);
 
-            orientationTable.add(new VisLabel(orientation.name())).padBottom(5).left().colspan(2).row();
+            VisCheckBox orientationCheckbox = WidgetBuilder.checkBox(orientation.name(), hasOrientation, checked -> {
+                entityAsset.getSpriteDescriptors().put(orientation, spriteDescriptor);
+                collapsibleOrientation.setCollapsed(false);
+            },
+            unchecked -> {
+                entityAsset.getSpriteDescriptors().remove(orientation);
+                collapsibleOrientation.setCollapsed(true);
+            });
+
+            this.addSeparator().row();
+            this.add(orientationCheckbox).padBottom(15).colspan(2).left().row();
+
+            Path currentDescriptorsPath = FileUtils.getDirectory(Paths.get(editorStateProvider.getState().getAssetSelection().getDescriptorsPath()));
+
+            InputValidator filenameExists = new InputValidator() {
+                @Override
+                public boolean validateInput(String filename) {
+                    FileHandle fileHandle = new FileHandle(currentDescriptorsPath.resolve(filename).toFile());
+                    return fileHandle.exists() && !fileHandle.isDirectory();
+                }
+            };
+
 
             VisTextButton browseButton = new VisTextButton("Browse");
-            VisTextField filenameField = new VisTextField(spriteDescriptor.getFilename());
+            VisTextField filenameField = WidgetBuilder.textField(spriteDescriptor.getFilename(), filename -> {
+                spriteDescriptor.setFilename(filename);
+                if (filenameExists.validateInput(filename)) {
+                    FileHandle fileHandle = new FileHandle(currentDescriptorsPath.resolve(filename).toFile());
+                    displaySprite(fileHandle, spriteDescriptor);
+                }
+            }, filenameExists);
+
             browseButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -212,8 +250,7 @@ public class SpriteDescriptorsPane extends VisTable {
             addChildAssetsWidgets("Attachment points (click to show)", spriteDescriptor.getAttachmentPoints(), orientationTable, entityAssetTypeDictionary.getByEntityType(entityType));
             addChildAssetsWidgets("Parent entity assets (click to show)", spriteDescriptor.getParentEntityAssets(), orientationTable, entityAssetTypeDictionary.getAll());
 
-            this.addSeparator().row();
-            this.add(orientationTable).expandX().fillX().row();
+            this.add(collapsibleOrientation).expandX().fillX().row();
         }
     }
 

@@ -57,7 +57,11 @@
         "CRUSHING" : 1
       }
     },
-    "skin" : { },
+    "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 1,
+      "materialName" : "Boar Hide"
+    },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Medium",
       "materialName" : "Boar Meat",
@@ -121,7 +125,11 @@
       "maxDefenseRegainedPerRound" : 1,
       "damageReduction" : { }
     },
-    "skin" : { },
+    "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 1,
+      "materialName" : "Deer Hide"
+    },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Medium",
       "materialName" : "Deer Meat",
@@ -185,7 +193,11 @@
         "CRUSHING" : 1
       }
     },
-    "skin" : { },
+    "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 4,
+      "materialName" : "Elephant Hide"
+    },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Large",
       "materialName" : "Elephant Meat",
@@ -241,7 +253,9 @@
       "maxDefenseRegainedPerRound" : 1,
       "damageReduction" : { }
     },
-    "skin" : { },
+    "skin" : {
+      "quantity" : 0
+    },
     "meat" : {
       "itemTypeName" : "Carcass-Meat-Small",
       "materialName" : "Fox Meat",
@@ -320,13 +334,18 @@
       }
     },
     "unarmedWeapon" : {
-      "range" : 1.0,
+      "range" : 1,
       "damageType" : "CRUSHING",
       "modifiedByStrength" : true,
       "minDamage" : 1,
-      "maxDamage" : 4
+      "maxDamage" : 4,
+      "armorNegation" : 0
     },
-    "skin" : { },
+    "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 1,
+      "materialName" : "Dwarf Flesh"
+    },
     "bones" : {
       "materialName" : "Bone"
     },
@@ -361,7 +380,9 @@
     }
   },
   "features" : {
-    "skin" : { },
+    "skin" : {
+      "quantity" : 0
+    },
     "meat" : {
       "itemTypeName" : "Carcass-Carp-Prepared",
       "materialName" : "Carp Meat",
@@ -401,7 +422,9 @@
     }
   },
   "features" : {
-    "skin" : { },
+    "skin" : {
+      "quantity" : 0
+    },
     "meat" : {
       "itemTypeName" : "Carcass-Perch-Prepared",
       "materialName" : "Perch Meat",
@@ -441,7 +464,9 @@
     }
   },
   "features" : {
-    "skin" : { },
+    "skin" : {
+      "quantity" : 0
+    },
     "meat" : {
       "itemTypeName" : "Carcass-Pike-Prepared",
       "materialName" : "Pike Meat",

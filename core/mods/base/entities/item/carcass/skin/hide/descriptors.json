@@ -1,0 +1,157 @@
+[ {
+  "uniqueName" : "Carcass-Hide-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Carcass-Hide",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.6,
+      "offsetPixels" : {
+        "y" : -11.5
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : 14.0
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -18.0,
+          "y" : 14.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.55,
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : 0.5
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.55,
+      "offsetPixels" : {
+        "x" : 8.0,
+        "y" : -9.5
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : 14.0
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : 14.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.55,
+      "offsetPixels" : {
+        "x" : -8.0,
+        "y" : -9.5
+      },
+      "flipX" : true,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : 14.0
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : 14.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.55,
+      "offsetPixels" : {
+        "y" : -11.5
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -15.0,
+          "y" : 14.0
+        }
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "scale" : 0.55,
+      "offsetPixels" : {
+        "y" : -11.5
+      },
+      "flipX" : true,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 15.0,
+          "y" : 14.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Carcass-Hide-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Carcass-Hide",
+  "maxQuantity" : 4,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ "STANDARD" ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Carcass-Hide-Item_Base_Layer-On_Ground-Many",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Carcass-Hide",
+  "minQuantity" : 5,
+  "maxQuantity" : 10,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ "STANDARD" ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground-Many_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 0.5
+      }
+    }
+  }
+} ]

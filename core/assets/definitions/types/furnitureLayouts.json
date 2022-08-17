@@ -297,6 +297,50 @@
   } ],
   "specialTiles" : [ ]
 }, {
+  "uniqueName" : "2x1 with workspaces, no rotation",
+  "extraTiles" : [ {
+    "x" : 1,
+    "y" : 0
+  } ],
+  "workspaces" : [ {
+    "location" : {
+      "x" : 0,
+      "y" : 0
+    },
+    "accessedFrom" : {
+      "x" : 0,
+      "y" : -1
+    }
+  }, {
+    "location" : {
+      "x" : 0,
+      "y" : 0
+    },
+    "accessedFrom" : {
+      "x" : 0,
+      "y" : 1
+    }
+  }, {
+    "location" : {
+      "x" : 1,
+      "y" : 0
+    },
+    "accessedFrom" : {
+      "x" : 1,
+      "y" : -1
+    }
+  }, {
+    "location" : {
+      "x" : 1,
+      "y" : 0
+    },
+    "accessedFrom" : {
+      "x" : 1,
+      "y" : 1
+    }
+  } ],
+  "specialTiles" : [ ]
+}, {
   "uniqueName" : "Waterwheel S side",
   "rotatesToName" : "Waterwheel W side",
   "extraTiles" : [ {
@@ -1711,6 +1755,38 @@
     "accessedFrom" : {
       "x" : -2,
       "y" : -1
+    }
+  } ],
+  "specialTiles" : [ ]
+}, {
+  "uniqueName" : "leatherwork-bench-layout",
+  "extraTiles" : [ {
+    "x" : 0,
+    "y" : -1
+  }, {
+    "x" : -1,
+    "y" : -1
+  }, {
+    "x" : -2,
+    "y" : -1
+  }, {
+    "x" : -3,
+    "y" : -1
+  }, {
+    "x" : 0,
+    "y" : 1
+  }, {
+    "x" : -1,
+    "y" : 1
+  } ],
+  "workspaces" : [ {
+    "location" : {
+      "x" : -2,
+      "y" : -1
+    },
+    "accessedFrom" : {
+      "x" : -2,
+      "y" : 0
     }
   } ],
   "specialTiles" : [ ]

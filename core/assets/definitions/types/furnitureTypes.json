@@ -202,21 +202,12 @@
   "name" : "BUTCHERY_WORKTOP",
   "i18nKey" : "FURNITURE.BUTCHERY_WORKTOP",
   "blocksMovement" : true,
-  "defaultLayoutName" : "2x1 with workspaces",
+  "defaultLayoutName" : "2x1 with workspaces, no rotation",
   "colorCode" : "#b25b47",
   "iconName" : "kitchen-knives",
   "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
-    "STONE" : [ {
-      "itemTypeName" : "Resource-Stone-Block",
-      "quantity" : 3,
-      "liquid" : false
-    }, {
-      "itemTypeName" : "Tool-Kitchen-Knife",
-      "quantity" : 1,
-      "liquid" : false
-    } ],
     "WOOD" : [ {
       "itemTypeName" : "Resource-Planks",
       "quantity" : 3,
@@ -494,6 +485,48 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
+  "name" : "Leatherworking_Station",
+  "i18nKey" : "FURNITURE.LEATHERWORKING_STATION",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "leatherwork-bench-layout",
+  "colorCode" : "#AA7252",
+  "iconName" : "animal-hide",
+  "placeAnywhere" : false,
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 3,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Product-Barrel-Hoops",
+      "quantity" : 1,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Product-Barrel-Staves",
+      "quantity" : 1,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Tool-Chisel",
+      "quantity" : 1,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Tool-Kitchen-Knife",
+      "quantity" : 1,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Product-Leather",
+      "quantity" : 1,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "CRAFTING_STATION_BEHAVIOUR" : [ "LEATHERWORKING", "PRODUCE_ITEM", "HAULING" ],
+    "DECORATION_FROM_INPUT" : [ "Tool-Chisel", "Tool-Kitchen-Knife" ],
+    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Product-Leather", "SKIN_COLOR", "MISC_COLOR_1", "Product-Barrel-Staves", "WOOD_COLOR", "MISC_COLOR_2" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "LOOM",
   "i18nKey" : "FURNITURE.LOOM",
   "blocksMovement" : true,
@@ -647,6 +680,27 @@
   "tags" : {
     "DECORATION_FROM_INPUT" : [ "Tool-Small-Hammer", "Tool-Chisel" ],
     "CRAFTING_STATION_BEHAVIOUR" : [ "STONEMASONRY", "CRAFT_ITEM", "HAULING" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "Tanning_Frame",
+  "i18nKey" : "FURNITURE.TANNING_FRAME",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "2x2 with lower workspaces",
+  "colorCode" : "#BE926E",
+  "iconName" : "wood-frame",
+  "placeAnywhere" : false,
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Logs",
+      "quantity" : 1,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "CRAFTING_STATION_BEHAVIOUR" : [ "TANNING_HIDE", "PRODUCE_ITEM", "HAULING" ],
+    "COPY_GAME_MATERIAL_FROM_INVENTORY" : [ "SKIN" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {
