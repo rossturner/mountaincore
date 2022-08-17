@@ -116,7 +116,7 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_3-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR",
+      "coloringLayer" : "MISC_COLOR_2",
       "offsetPixels" : {
         "x" : 84.5,
         "y" : -62.5
