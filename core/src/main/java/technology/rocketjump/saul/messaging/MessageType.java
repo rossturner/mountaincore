@@ -102,6 +102,7 @@ public class MessageType {
 
 	public static final int CHANGE_WEAPON_SELECTION = 348;
 	public static final int SETTLER_TANTRUM = 349;
+	public static final int LOCATE_SETTLERS_IN_REGION = 350;
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;
