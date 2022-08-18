@@ -9,10 +9,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ItemEntityMessageHandler;
-import technology.rocketjump.saul.entities.components.ItemAllocation;
-import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
-import technology.rocketjump.saul.entities.components.LiquidAllocation;
-import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
+import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
@@ -237,21 +234,28 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 	}
 
 	private boolean handle(RequestLiquidAllocationMessage message) {
+		Entity requestingEntity = message.requestingEntity;
+		Vector2 requesterPosition = requestingEntity.getLocationComponent().getWorldPosition();
 
-		//TODO: here determine if liquidContainer is in inventory with amount in
-
-		Vector2 requesterPosition = message.requestingEntity.getLocationComponent().getWorldPosition();
 		MapTile requesterTile = gameContext.getAreaMap().getTile(requesterPosition);
 		if (requesterTile == null) {
 			Logger.error(this.getClass().getSimpleName() + " received request for off-map tile");
 			return false;
 		}
 
+
 		Collection<GameMaterial> applicableMaterials = gameMaterialDictionary.getThirstQuenchingMaterials();
 
 		applicableMaterials = applicableMaterials.stream()
 				.filter(material -> material.isAlcoholic() == message.isAlcoholic)
 				.collect(Collectors.toList());
+
+		//TODO: here determine if liquidContainer is in inventory with amount in
+		Optional<LiquidAllocation> availableInInventory = findAvailableInInventory(requestingEntity, applicableMaterials, message.amountRequired);
+		if (availableInInventory.isPresent()) {
+			message.callback.allocationFound(availableInInventory);
+			return true;
+		}
 
 		List<Zone> nearestApplicableZones = findNearestZonesOfCorrectType(gameContext, applicableMaterials, requesterTile.getRegionId(), requesterPosition, true, message.amountRequired)
 				.collect(Collectors.toList());
@@ -268,7 +272,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 				} else {
 					LiquidContainerComponent liquidContainerComponent = getLiquidContainerFromFurnitureInTile(targetTile);
 					if (liquidContainerComponent != null) {
-						LiquidAllocation allocation = liquidContainerComponent.createAllocation(message.amountRequired, message.requestingEntity);
+						LiquidAllocation allocation = liquidContainerComponent.createAllocation(message.amountRequired, requestingEntity);
 						if (allocation != null) {
 							foundAllocation = Optional.of(allocation);
 							break;
@@ -282,6 +286,23 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 
 		message.callback.allocationFound(foundAllocation);
 		return true;
+	}
+
+	private Optional<LiquidAllocation> findAvailableInInventory(Entity requester, Collection<GameMaterial> applicableMaterials, float amountRequired) {
+		InventoryComponent inventory = requester.getComponent(InventoryComponent.class);
+		if (inventory == null) {
+			return Optional.empty();
+		} else {
+			Optional<LiquidContainerComponent> liquidContainers = inventory.getInventoryEntries().stream()
+					.map(entry -> entry.entity)
+					.filter(item -> item.getComponent(LiquidContainerComponent.class) != null)
+					.map(item -> item.getComponent(LiquidContainerComponent.class))
+					.filter(container -> applicableMaterials.contains(container.getTargetLiquidMaterial()))
+					.filter(container -> container.getNumUnallocated() >= amountRequired)
+					.findAny();
+
+			return liquidContainers.map(container -> container.createAllocation(amountRequired, requester));
+		}
 	}
 
 	private void requestDumpLiquidContents(Entity entity) {
