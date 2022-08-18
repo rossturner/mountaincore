@@ -32,11 +32,11 @@ public class SelectItemAssignmentAction extends Action {
 
     @Override
     public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-
+        //No state here
     }
 
     @Override
     public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-
+        //No state here
     }
 }

@@ -517,7 +517,8 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : {
     "LIQUID_CONTAINER" : [ "2", "Water" ],
-    "USAGE_SOUND" : [ "WaterCollect" ]
+    "USAGE_SOUND" : [ "WaterCollect" ],
+    "ITEM_ASSIGNMENT" : [ ]
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.WATERSKIN"

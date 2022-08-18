@@ -237,6 +237,9 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 	}
 
 	private boolean handle(RequestLiquidAllocationMessage message) {
+
+		//TODO: here determine if liquidContainer is in inventory with amount in
+
 		Vector2 requesterPosition = message.requestingEntity.getLocationComponent().getWorldPosition();
 		MapTile requesterTile = gameContext.getAreaMap().getTile(requesterPosition);
 		if (requesterTile == null) {
