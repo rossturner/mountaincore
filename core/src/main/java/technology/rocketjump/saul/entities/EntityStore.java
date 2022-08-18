@@ -13,7 +13,10 @@ import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.factories.*;
+import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
+import technology.rocketjump.saul.entities.factories.PlantEntityAttributesFactory;
+import technology.rocketjump.saul.entities.factories.PlantEntityFactory;
+import technology.rocketjump.saul.entities.factories.SettlerCreatureAttributesFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -39,7 +42,6 @@ import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 @Singleton
 public class EntityStore implements GameContextAware, AssetDisposable {
 
-	private final SettlerEntityFactory settlerEntityFactory;
 	private final SettlerCreatureAttributesFactory settlerCreatureAttributesFactory;
 
 	private final PlantEntityAttributesFactory plantEntityAttributesFactory;
@@ -51,7 +53,6 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 	private final Map<Long, Entity> updateEveryFrameEntities = new ConcurrentHashMap<>();
 	private final List<Entity> updateInfrequentlyEntities = new ArrayList<>();
 	private final Map<Long, Entity> jobAssignableEntities = new ConcurrentHashMap<>();
-	private final MessageDispatcher messageDispatcher;
 
 	private GameContext gameContext;
 	private final FurnitureTracker furnitureTracker;
@@ -62,19 +63,17 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 	private final ConstantsRepo constantsRepo;
 
 	@Inject
-	public EntityStore(SettlerEntityFactory settlerEntityFactory, SettlerCreatureAttributesFactory settlerCreatureAttributesFactory,
+	public EntityStore(SettlerCreatureAttributesFactory settlerCreatureAttributesFactory,
 					   PlantEntityAttributesFactory plantEntityAttributesFactory, PlantEntityFactory plantEntityFactory,
 					   ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory,
 					   MessageDispatcher messageDispatcher, FurnitureTracker furnitureTracker,
 					   ItemTracker itemTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker,
 					   CombatTracker combatTracker, ConstantsRepo constantsRepo) {
-		this.settlerEntityFactory = settlerEntityFactory;
 		this.settlerCreatureAttributesFactory = settlerCreatureAttributesFactory;
 		this.plantEntityAttributesFactory = plantEntityAttributesFactory;
 		this.plantEntityFactory = plantEntityFactory;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.itemEntityFactory = itemEntityFactory;
-		this.messageDispatcher = messageDispatcher;
 		this.furnitureTracker = furnitureTracker;
 		this.itemTracker = itemTracker;
 		this.settlerTracker = settlerTracker;

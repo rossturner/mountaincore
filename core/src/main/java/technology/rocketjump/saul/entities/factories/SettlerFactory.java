@@ -4,90 +4,102 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.entities.ai.goap.GoalDictionary;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
-import technology.rocketjump.saul.entities.components.creature.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.LocationComponent;
+import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
-import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
-import technology.rocketjump.saul.jobs.JobTypeDictionary;
-import technology.rocketjump.saul.jobs.model.CraftingType;
-import technology.rocketjump.saul.jobs.model.JobType;
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.ItemPrimaryMaterialChangedMessage;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import technology.rocketjump.saul.rooms.RoomStore;
 
 import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.NEW_SETTLEMENT_OPTIMISM;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
 @Singleton
-// TODO Combine this with SettlerEntityFactory
 public class SettlerFactory {
 
 	private final SettlerCreatureAttributesFactory settlerAttributesFactory;
-	private final SettlerEntityFactory entityFactory;
 	private final ItemTypeDictionary itemTypeDictionary; // Needed to ensure order of JobType initialisation
-	private final PlantSpeciesDictionary plantSpeciesDictionary;
 	private final ItemEntityFactory itemEntityFactory;
 	private final MessageDispatcher messageDispatcher;
 	private final GameMaterialDictionary materialDictionary;
+	private final GoalDictionary goalDictionary;
+	private final RoomStore roomStore;
 
-	private Map<Skill, Set<ItemType>> professionItemMapping = new HashMap<>();
 
 	@Inject
-	public SettlerFactory(SettlerCreatureAttributesFactory settlerAttributesFactory, SettlerEntityFactory entityFactory,
-						  ItemTypeDictionary itemTypeDictionary, CraftingTypeDictionary craftingTypeDictionary,
-						  PlantSpeciesDictionary plantSpeciesDictionary, ItemEntityFactory itemEntityFactory, MessageDispatcher messageDispatcher,
-						  JobTypeDictionary jobTypeDictionary, GameMaterialDictionary materialDictionary) {
+	public SettlerFactory(SettlerCreatureAttributesFactory settlerAttributesFactory,
+						  ItemTypeDictionary itemTypeDictionary,
+						  ItemEntityFactory itemEntityFactory, MessageDispatcher messageDispatcher,
+						  GameMaterialDictionary materialDictionary, GoalDictionary goalDictionary, RoomStore roomStore) {
 		this.settlerAttributesFactory = settlerAttributesFactory;
-		this.entityFactory = entityFactory;
 		this.itemTypeDictionary = itemTypeDictionary;
-		this.plantSpeciesDictionary = plantSpeciesDictionary;
 		this.itemEntityFactory = itemEntityFactory;
 		this.messageDispatcher = messageDispatcher;
 		this.materialDictionary = materialDictionary;
-
-		for (CraftingType craftingType : craftingTypeDictionary.getAll()) {
-			if (craftingType.getDefaultItemType() != null && craftingType.getProfessionRequired() != null) {
-				Set<ItemType> itemsForProfession = professionItemMapping.computeIfAbsent(craftingType.getProfessionRequired(), (e) -> new HashSet<>());
-				itemsForProfession.add(craftingType.getDefaultItemType());
-			}
-		}
-
-		for (JobType jobType : jobTypeDictionary.getAll()) {
-			if (jobType.getRequiredProfession() != null && jobType.getRequiredItemType() != null) {
-				Set<ItemType> itemsForProfession = professionItemMapping.computeIfAbsent(jobType.getRequiredProfession(), (e) -> new HashSet<>());
-				itemsForProfession.add(jobType.getRequiredItemType());
-			}
-		}
-
+		this.goalDictionary = goalDictionary;
+		this.roomStore = roomStore;
 	}
 
-	public Entity create(Vector2 worldPosition, Vector2 facing, Skill primaryProfession, Skill secondaryProfession, GameContext gameContext) {
+	public Entity create(Vector2 worldPosition, Skill primaryProfession, Skill secondaryProfession, GameContext gameContext, boolean includeRations) {
 		CreatureEntityAttributes attributes = settlerAttributesFactory.create(gameContext);
 
-		Entity entity = entityFactory.create(attributes, worldPosition, facing, primaryProfession, secondaryProfession, gameContext);
+		PhysicalEntityComponent physicalComponent = new PhysicalEntityComponent();
+		physicalComponent.setAttributes(attributes);
 
-		entity.getOrCreateComponent(StatusComponent.class).init(entity, messageDispatcher, gameContext);
+		CreatureBehaviour behaviourComponent = new CreatureBehaviour();
+		behaviourComponent.constructWith(goalDictionary, roomStore);
+
+		LocationComponent locationComponent = new LocationComponent();
+		locationComponent.setWorldPosition(worldPosition, true);
+
+		Entity entity = new Entity(EntityType.CREATURE, physicalComponent, behaviourComponent, locationComponent,
+				messageDispatcher, gameContext);
+		entity.addComponent(new HaulingComponent());
+		entity.addComponent(buildSkillsComponent(primaryProfession, secondaryProfession));
+		entity.addComponent(new NeedsComponent(attributes.getRace().getBehaviour().getNeeds(), gameContext.getRandom()));
+		entity.addComponent(new MemoryComponent());
+		entity.addComponent(new CombatStateComponent());
+		entity.addComponent(new StatusComponent());
+		entity.addComponent(new MilitaryComponent());
 
 		HappinessComponent happinessComponent = entity.getOrCreateComponent(HappinessComponent.class);
 		happinessComponent.add(NEW_SETTLEMENT_OPTIMISM);
 
-		addRations(entity, messageDispatcher, gameContext);
+		entity.init(messageDispatcher, gameContext);
 
+		if (includeRations) {
+			addRations(entity, messageDispatcher, gameContext);
+		}
+
+		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, entity);
 		return entity;
+	}
+
+	private SkillsComponent buildSkillsComponent(Skill primaryProfession, Skill secondaryProfession) {
+		SkillsComponent skillsComponent = new SkillsComponent();
+		if (primaryProfession == null) {
+			primaryProfession = NULL_PROFESSION;
+		}
+		skillsComponent.setSkillLevel(primaryProfession, 50);
+		if (secondaryProfession != null && !secondaryProfession.equals(primaryProfession)) {
+			skillsComponent.setSkillLevel(secondaryProfession, 30);
+		}
+		return skillsComponent;
 	}
 
 	private void addRations(Entity settler, MessageDispatcher messageDispatcher, GameContext gameContext) {

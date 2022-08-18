@@ -5,12 +5,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
+import com.google.inject.Guice;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import technology.rocketjump.saul.TestModule;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.assets.model.WallType;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
@@ -21,10 +23,9 @@ import technology.rocketjump.saul.entities.ai.goap.GoalDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureLayoutDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.factories.*;
-import technology.rocketjump.saul.entities.factories.names.NorseNameGenerator;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
-import technology.rocketjump.saul.entities.model.physical.creature.*;
+import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.*;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
@@ -68,6 +69,7 @@ import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceK
 @RunWith(MockitoJUnitRunner.class)
 public class I18NTranslatorTest {
 
+	private static final long FIXED_SEED = 12345L;
 	private I18nTranslator translator;
 	@Mock
 	private SkillDictionary mockSkillDictionary;
@@ -141,35 +143,20 @@ public class I18NTranslatorTest {
 
 
 
-		when(mockGameContext.getRandom()).thenReturn(new RandomXS128());
+		when(mockGameContext.getRandom()).thenReturn(new RandomXS128(FIXED_SEED));
 	}
 
 	@Test
 	public void describeHumanoid() throws IOException {
-		NorseNameGenerator nameGenerator = new NorseNameGenerator();
-		Race dwarfStub = new Race();
-		dwarfStub.setName("Dwarf");
-		dwarfStub.setBodyShapes(List.of());
-		dwarfStub.setI18nKey("RACE.DWARF");
-		RaceBehaviour behaviour = new RaceBehaviour();
-		behaviour.setIsSapient(true);
-		dwarfStub.setBehaviour(behaviour);
-		when(mockRaceDictionary.getByName(anyString())).thenReturn(dwarfStub);
-		CreatureEntityAttributes attributes = new SettlerCreatureAttributesFactory(
-				new DwarvenNameGenerator(new NorseNameGenerator()),
-				mockUserPreferences, mockTwitchDataStore, mockRaceDictionary).create(new GameContext());
-		attributes.setName(nameGenerator.create(88L, Gender.MALE));
-
 		Skill profession = new Skill();
 		profession.setI18nKey("PROFESSION.BLACKSMITH");
 		profession.setType(SkillType.PROFESSION);
-		Entity entity = new SettlerEntityFactory(
-				mockMessageDispatcher, new SkillDictionary(), mockEntityAssetUpdater,
-				mockGoalDictionary, mockRoomStore).create(attributes, null, new Vector2(), profession, profession, mockGameContext);
+		Entity entity = Guice.createInjector(new TestModule()).getInstance(SettlerFactory.class)
+				.create(new Vector2(), profession, null, mockGameContext, false);
 
 		I18nText description = translator.getDescription(entity);
 
-		assertThat(description.toString()).isEqualTo("Olin Olinson, journeyman blacksmith");
+		assertThat(description.toString()).isEqualTo("Holmes Twoguild, journeyman blacksmith");
 	}
 
 	@Test

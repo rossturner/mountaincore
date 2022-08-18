@@ -22,11 +22,8 @@ import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.factories.FurnitureEntityFactory;
-import technology.rocketjump.saul.entities.factories.SettlerEntityFactory;
+import technology.rocketjump.saul.entities.factories.SettlerFactory;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.Race;
-import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
@@ -170,13 +167,10 @@ public class FurnitureViewerApplication extends ApplicationAdapter {
 	private Entity createHumanoidEntity(Injector injector) {
 		Random random = new RandomXS128();
 
-		Race race = injector.getInstance(RaceDictionary.class).getByName("Dwarf");
-		CreatureEntityAttributes attributes = new CreatureEntityAttributes(race, random.nextLong());
-		Vector2 facing = new Vector2(0, 0f);
-		SettlerEntityFactory settlerEntityFactory = injector.getInstance(SettlerEntityFactory.class);
+		SettlerFactory settlerEntityFactory = injector.getInstance(SettlerFactory.class);
 		GameContext gameContext = new GameContext();
 		gameContext.setRandom(random);
-		return settlerEntityFactory.create(attributes, null, facing, null, null, gameContext);
+		return settlerEntityFactory.create(new Vector2(), null, null, gameContext, true);
 	}
 
 	private static final Color MAIN_TILE_COLOR = new Color(0f, 0f, 1f, 0.3f);

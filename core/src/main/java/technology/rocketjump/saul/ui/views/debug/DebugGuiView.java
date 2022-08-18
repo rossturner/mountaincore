@@ -228,7 +228,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				break;
 			}
 			case SPAWN_SETTLER: {
-				settlerFactory.create(worldPosition, DOWN.toVector2(), null, null, gameContext);
+				settlerFactory.create(worldPosition, null, null, gameContext, true);
 				break;
 			}
 			case KILL_CREATURE: {

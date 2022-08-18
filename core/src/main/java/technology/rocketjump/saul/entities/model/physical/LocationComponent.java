@@ -23,7 +23,7 @@ import static technology.rocketjump.saul.entities.model.EntityType.ONGOING_EFFEC
 public class LocationComponent implements ParentDependentEntityComponent {
 
 	private Vector2 worldPosition; // can be null to denote off-map or being carried
-	private Vector2 facing = new Vector2();
+	private Vector2 facing = new Vector2(0, -1);
 	private EntityAssetOrientation orientation; // To only be updated by facing
 	private float radius = 0.3f; // Rough size of entity around worldPosition point, maybe change to width and height vector
 
