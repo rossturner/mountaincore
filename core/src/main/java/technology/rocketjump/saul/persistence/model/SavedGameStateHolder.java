@@ -20,6 +20,7 @@ import technology.rocketjump.saul.mapping.tile.MapVertex;
 import technology.rocketjump.saul.mapping.tile.underground.PowerGrid;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.types.JobRequestMessage;
+import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.misc.versioning.Version;
 import technology.rocketjump.saul.modding.model.ParsedMod;
 import technology.rocketjump.saul.persistence.EnumParser;
@@ -56,6 +57,7 @@ public class SavedGameStateHolder {
 	public final Map<GridPoint2, MapVertex> vertices = new HashMap<>();
 	public final Map<Long, ProductionAssignment> productionAssignments = new HashMap<>();
 	public final Map<String, Version> activeModNamesToVersions = new LinkedHashMap<>();
+	public final Map<Long, Squad> squads = new HashMap();
 	private SettlementState settlementState;
 	private List<Telegram> messages = new LinkedList<>();
 	private GameClock gameClock;
@@ -88,6 +90,7 @@ public class SavedGameStateHolder {
 	public final JSONObject gameClockJson;
 	public final JSONObject cameraJson;
 	public final JSONObject modsJson;
+	public final JSONArray squadsJson;
 
 	public SavedGameStateHolder() {
 		dynamicMaterialsJson = new JSONArray();
@@ -114,6 +117,7 @@ public class SavedGameStateHolder {
 		gameClockJson = new JSONObject(true);
 		cameraJson = new JSONObject(true);
 		modsJson = new JSONObject(true);
+		squadsJson = new JSONArray();
 	}
 
 	public SavedGameStateHolder(JSONObject combined) {
@@ -142,6 +146,7 @@ public class SavedGameStateHolder {
 		sequentialIdPointer = combined.getLongValue("lastSequentialId");
 		cameraJson = combined.getJSONObject("camera");
 		modsJson = combined.getJSONObject("mods");
+		squadsJson = combined.getJSONArray("squads");
 	}
 
 	public JSONObject toCombinedJson() {
@@ -172,6 +177,7 @@ public class SavedGameStateHolder {
 		combined.put("clock", gameClockJson);
 		combined.put("lastSequentialId", sequentialIdPointer);
 		combined.put("camera", cameraJson);
+		combined.put("squads", squadsJson);
 		return combined;
 	}
 
@@ -202,6 +208,7 @@ public class SavedGameStateHolder {
 		convertJsonToInstances(creatureGroupJson, CreatureGroup.class, relatedStores);
 		convertJsonToInstances(entitiesJson, Entity.class, relatedStores);
 		convertJsonToInstances(bridgesJson, Bridge.class, relatedStores);
+		convertJsonToInstances(squadsJson, Squad.class, relatedStores);
 
 		for (int cursor = 0; cursor < constructionsJson.size(); cursor++) {
 			try {
