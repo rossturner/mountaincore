@@ -100,8 +100,7 @@ public class MessageType {
 	public static final int FURNITURE_NO_LONGER_IN_USE = 346;
 	public static final int MATERIAL_OXIDISED = 347;
 
-	public static final int CHANGE_WEAPON_SELECTION = 348;
-	public static final int SETTLER_TANTRUM = 349;
+	public static final int SETTLER_TANTRUM = 348;
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;
@@ -268,6 +267,9 @@ public class MessageType {
 	public static final int CREATURE_EXITING_COMBAT = 1906;
 	public static final int COMBAT_ACTION_CHANGED = 1907;
 	public static final int TRIGGER_ATTACK_OF_OPPORTUNITY = 1908;
+
+	// Military messages
+	public static final int MILITARY_ASSIGNMENT_CHANGED = 2000;
 
 	// Asset Editor messages
 	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;

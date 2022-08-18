@@ -24,6 +24,11 @@ public class UnequipWeaponAction extends Action {
 		if (currentlyEquipped != null) {
 			inventoryComponent.add(currentlyEquipped, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
 		}
+
+		Entity equippedOffHand = equippedItemComponent.clearOffHandItem();
+		if (equippedOffHand != null) {
+			inventoryComponent.add(equippedOffHand, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
+		}
 		completionType = CompletionType.SUCCESS;
 	}
 

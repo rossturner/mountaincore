@@ -6,17 +6,20 @@ import technology.rocketjump.saul.entities.ai.combat.EnteringCombatException;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
-import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.InventoryComponent;
+import technology.rocketjump.saul.entities.components.ItemAllocation;
+import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
+import technology.rocketjump.saul.entities.components.LiquidAllocation;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.CompassDirection;
 import technology.rocketjump.saul.mapping.tile.MapTile;
@@ -96,21 +99,30 @@ public class AssignedGoalFactory {
 		// Place an unused item into a stockpile if a space is available
 		InventoryComponent inventory = parentEntity.getComponent(InventoryComponent.class);
 		if (inventory != null) {
-			WeaponSelectionComponent weaponSelectionComponent = parentEntity.getOrCreateComponent(WeaponSelectionComponent.class);
+			MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
+			List<Long> assignedMilitaryItems = militaryComponent.getItemIdsToHoldOnto();
 
 			double currentGameTime = gameContext.getGameClock().getCurrentGameTime();
 			for (InventoryComponent.InventoryEntry entry : inventory.getInventoryEntries()) {
 				if (entry.entity.getType().equals(ITEM)) {
 					ItemEntityAttributes attributes = (ItemEntityAttributes) entry.entity.getPhysicalEntityComponent().getAttributes();
 
-					if (weaponSelectionComponent.getSelectedWeapon().isPresent()) {
-						ItemType weaponSelection = weaponSelectionComponent.getSelectedWeapon().get();
-						if (attributes.getItemType().equals(weaponSelection)) {
-							continue; // This is a weapon we have selected so do not drop
-						}
+					if (assignedMilitaryItems.contains(entry.entity.getId())) {
+						// This is one of our assigned items of military equipment
+						continue;
+					}
 
-						if (weaponSelection.getWeaponInfo().getRequiresAmmoType() != null && weaponSelection.getWeaponInfo().getRequiresAmmoType().equals(attributes.getItemType().getIsAmmoType())) {
-							continue; // This is ammo for selected weapon
+					if (attributes.getItemType().getIsAmmoType() != null) {
+						Long assignedWeaponId = militaryComponent.getAssignedWeaponId();
+						if (assignedWeaponId != null && militaryComponent.isInMilitary()) {
+							Entity assignedWeapon = gameContext.getEntities().get(assignedWeaponId);
+							if (assignedWeapon != null && assignedWeapon.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes weaponAttributes) {
+								if (attributes.getItemType().getIsAmmoType().equals(
+										weaponAttributes.getItemType().getWeaponInfo().getRequiresAmmoType())) {
+									// This item is ammo for the currently assigned weapon
+									continue;
+								}
+							}
 						}
 					}
 

@@ -7,15 +7,20 @@ import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MilitaryComponent implements ParentDependentEntityComponent, Destructible {
 
-	private Long assignedToSquadId; // null means not in military
+	private Long squadId; // null means not in military
 
 	private Long assignedWeaponId;
 	private Long assignedShieldId;
@@ -34,30 +39,76 @@ public class MilitaryComponent implements ParentDependentEntityComponent, Destru
 
 	@Override
 	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		if (assignedToSquadId != null) {
+		if (squadId != null) {
 			removeFromMilitary();
 		}
 	}
 
 	public void addToMilitary(long squadId) {
-		this.assignedToSquadId = squadId;
+		this.squadId = squadId;
+		messageDispatcher.dispatchMessage(MessageType.MILITARY_ASSIGNMENT_CHANGED, parentEntity);
+
 	}
 
 	public void removeFromMilitary() {
-		this.assignedToSquadId = null;
-
-
 		InventoryComponent inventoryComponent = parentEntity.getOrCreateComponent(InventoryComponent.class);
+		for (Long itemId : getItemIdsToHoldOnto()) {
+			setToRemoveFromInventory(itemId, inventoryComponent);
+		}
+
+		this.squadId = null;
+		messageDispatcher.dispatchMessage(MessageType.MILITARY_ASSIGNMENT_CHANGED, parentEntity);
 	}
 
-	public boolean isInMilitary() {
-		return assignedToSquadId != null;
+	public Long getSquadId() {
+		return squadId;
 	}
 
+	public Long getAssignedWeaponId() {
+		return assignedWeaponId;
+	}
+
+	public Long getAssignedShieldId() {
+		return assignedShieldId;
+	}
+
+	public Long getAssignedArmorId() {
+		return assignedArmorId;
+	}
 
 	@Override
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
 		throw new NotImplementedException("Creatures are not cloned");
+	}
+
+	public boolean isInMilitary() {
+		return squadId != null;
+	}
+
+	public List<Long> getItemIdsToHoldOnto() {
+		if (!isInMilitary()) {
+			return List.of();
+		} else {
+			List<Long> itemIds = new ArrayList<>();
+			if (assignedWeaponId != null) {
+				itemIds.add(assignedWeaponId);
+			}
+			if (assignedShieldId != null) {
+				itemIds.add(assignedShieldId);
+			}
+			if (assignedArmorId != null) {
+				itemIds.add(assignedArmorId);
+			}
+			return itemIds;
+		}
+	}
+
+	private void setToRemoveFromInventory(Long itemId, InventoryComponent inventoryComponent) {
+		InventoryComponent.InventoryEntry entry = inventoryComponent.getEntryById(itemId);
+		if (entry != null) {
+			ItemEntityAttributes attributes = (ItemEntityAttributes) entry.entity.getPhysicalEntityComponent().getAttributes();
+			entry.setLastUpdateGameTime(gameContext.getGameClock().getCurrentGameTime() - attributes.getItemType().getHoursInInventoryUntilUnused());
+		}
 	}
 
 	@Override

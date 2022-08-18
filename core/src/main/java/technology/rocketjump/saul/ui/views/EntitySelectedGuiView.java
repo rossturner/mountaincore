@@ -2,8 +2,10 @@ package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
@@ -95,14 +97,15 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private Table entityDescriptionTable;
 	private GameContext gameContext;
 	private Label beingDeconstructedLabel;
+	private I18nCheckbox militaryToggleCheckbox;
 
 	private final Table nameTable;
 	private final Table professionsTable;
-	private final Table weaponsTable;
 	private final Table needsTable;
 	private final Table happinessTable;
 	private final Table injuriesTable;
 	private final Table inventoryTable;
+	private final Table militaryToggleTable;
 
 	private final Table upperRow;
 	private final Table lowerRow;
@@ -187,13 +190,32 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		beingDeconstructedLabel = i18nWidgetFactory.createLabel("GUI.FURNITURE_BEING_REMOVED");
 		inventoryLabel = i18nWidgetFactory.createLabel("INVENTORY.CONTAINS.LABEL");
 
+		militaryToggleCheckbox = new I18nCheckbox("CIVILIAN", "civilian", uiSkin);
+		militaryToggleCheckbox.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				Selectable selectable = gameInteractionStateContainer.getSelectable();
+				if (selectable.getEntity() != null) {
+					Entity entity = selectable.getEntity();
+					MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
+					boolean checked = militaryToggleCheckbox.isChecked();
+					if (checked) {
+						militaryComponent.addToMilitary(1L);
+					} else {
+						militaryComponent.removeFromMilitary();
+					}
+					updateMilitaryToggle(entity);
+				}
+			}
+		});
+
 		nameTable = new Table(uiSkin);
 		professionsTable = new Table(uiSkin);
-		weaponsTable = new Table(uiSkin);
 		needsTable = new Table(uiSkin);
 		happinessTable = new Table(uiSkin);
 		injuriesTable = new Table(uiSkin);
 		inventoryTable = new Table(uiSkin);
+		militaryToggleTable = new Table(uiSkin);
 
 		upperRow = new Table(uiSkin);
 		lowerRow = new Table(uiSkin);
@@ -204,6 +226,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		changeSettlerNameButton = imageButtonFactory.getOrCreate("fountain-pen", true).clone();
 		nullProfessionButton1 = NULL_PROFESSION.getImageButton().clone();
 		nullProfessionButton2 = NULL_PROFESSION.getImageButton().clone();
+
+		militaryToggleTable.add(militaryToggleCheckbox).center();
 	}
 
 	@Override
@@ -325,34 +349,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 								entityDescriptionTable.add(new Label("In combat: " + creatureBehaviour.getCombatBehaviour().getCurrentAction().getClass().getSimpleName(), uiSkin)).left().row();
 							}
 						}
-//					SettlerBehaviour behaviourComponent = (SettlerBehaviour) entity.getBehaviourComponent();
-//					if (behaviourComponent.getCurrentGoal() != null) {
-//						String goal = "Goal: " + behaviourComponent.getCurrentGoal().goal.name;
-//						entityDescriptionTable.add(new Label(goal, uiSkin)).left();
-//						entityDescriptionTable.row();
-//
-//						if (behaviourComponent.getCurrentGoal().getCurrentAction() != null) {
-//							String action = "Action: " + behaviourComponent.getCurrentGoal().getCurrentAction().getClass().getSimpleName();
-//							entityDescriptionTable.add(new Label(action, uiSkin)).left();
-//							entityDescriptionTable.row();
-//						}
-//
-//						GoalQueue goalQueue = behaviourComponent.getGoalQueue();
-//						entityDescriptionTable.add(new Label("Queued: " + goalQueue.toString(), uiSkin)).left().row();
-//					}
-					} else if (entity.getType().equals(EntityType.PLANT)) {
-//					PlantEntityAttributes attributes = (PlantEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-//
-//					PlantSpeciesGrowthStage currentGrowthStage = attributes.getSpecies().getGrowthStages().get(attributes.getGrowthStageCursor());
-//					String growthStageDescription = "GS: " + currentGrowthStage.getName() + " progress: " + df.format(attributes.getGrowthStageProgress());
-//					entityDescriptionTable.add(new Label(growthStageDescription, uiSkin)).left().row();
-//
-//					BehaviourComponent behaviourComponent = entity.getBehaviourComponent();
-//					if (behaviourComponent instanceof PlantBehaviour) {
-//						entityDescriptionTable.add(new Label("Season: " + ((PlantBehaviour) behaviourComponent).getSeasonPlantThinksItIs() +
-//								" tTN: "+df.format(((PlantBehaviour) behaviourComponent).getGameSeasonsToNoticeSeasonChange()) +
-//								" progress: " + df.format(attributes.getSeasonProgress()), uiSkin)).left().row();
-//					}
 					}
 				}
 			}
@@ -393,7 +389,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		nameTable.clear();
 		professionsTable.clear();
-		weaponsTable.clear();
 		needsTable.clear();
 		inventoryTable.clear();
 		happinessTable.clear();
@@ -419,14 +414,14 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			lowerRow.add(inventoryTable).top().padRight(5);
 		} else {
 			populateProfessionTable(entity);
-			populateWeaponsTable(entity);
 			populateNeedsTable(needsTable, entity, needLabels, uiSkin);
 			populateHappinessTable(entity);
 			populateInjuriesTable(entity);
+			updateMilitaryToggle(entity);
 
 			upperRow.add(nameTable).top().padRight(5);
 			upperRow.add(professionsTable);
-			upperRow.add(weaponsTable).padRight(5);
+			upperRow.add(militaryToggleTable).center().padRight(5);
 
 			lowerRow.add(needsTable).top().padRight(5);
 			lowerRow.add(inventoryTable).top().padRight(5);
@@ -436,6 +431,18 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		entityDescriptionTable.add(upperRow).left().row();
 		entityDescriptionTable.add(lowerRow).left();
+	}
+
+	private void updateMilitaryToggle(Entity entity) {
+		MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
+		militaryToggleCheckbox.setProgrammaticChangeEvents(false);
+		if (militaryComponent.isInMilitary()) {
+			militaryToggleCheckbox.changeI18nKey("MILITARY", i18nTranslator);
+			militaryToggleCheckbox.setChecked(true);
+		} else {
+			militaryToggleCheckbox.changeI18nKey("CIVILIAN", i18nTranslator);
+			militaryToggleCheckbox.setChecked(false);
+		}
 	}
 
 	public static void populateSettlerNameTable(Entity entity, Table nameTable, I18nTranslator i18nTranslator, Skin uiSkin,
@@ -578,35 +585,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	}
 
-	private void populateWeaponsTable(Entity entity) {
-		WeaponSelectionComponent weaponSelectionComponent = entity.getOrCreateComponent(WeaponSelectionComponent.class);
-
-		Optional<ItemType> selectedWeapon = weaponSelectionComponent.getSelectedWeapon();
-
-		ImageButton imageButton;
-		if (selectedWeapon.isEmpty()) {
-			// Unarmed
-			imageButton = UNARMED_IMAGE_BUTTON;
-		} else if (hasSelectedWeaponAndAmmoInInventory(entity, selectedWeapon, gameContext)) {
-			Optional<Entity> fromInventoryOrEquipped = getSelectedWeaponFromInventoryOrEquipped(entity, selectedWeapon, gameContext);
-			imageButton = imageButtonFactory.getOrCreate(fromInventoryOrEquipped.orElse(Entity.NULL_ENTITY));
-		} else {
-			imageButton = imageButtonFactory.getOrCreateGhostButton(exampleItemDictionary.getExampleItemEntity(selectedWeapon.get(), Optional.empty()));
-		}
-		weaponsTable.add(imageButton).pad(5);
-		imageButton.setAction(() -> {
-			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.CHANGE_WEAPON_SELECTION);
-		});
-
-		weaponsTable.row();
-
-		if (selectedWeapon.isPresent()) {
-			weaponsTable.add(i18nWidgetFactory.createLabel(selectedWeapon.get().getI18nKey())).pad(5);
-		} else {
-			weaponsTable.add(i18nWidgetFactory.createLabel("WEAPON.UNARMED")).pad(5);
-		}
-	}
-
 	public static Optional<Entity> getSelectedWeaponFromInventoryOrEquipped(Entity entity, Optional<ItemType> selectedWeapon, GameContext gameContext) {
 		if (selectedWeapon.isEmpty()) {
 			return Optional.empty();
@@ -630,35 +608,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				} else {
 					return Optional.empty();
 				}
-			}
-		}
-	}
-
-	public static boolean hasSelectedWeaponAndAmmoInInventory(Entity entity, Optional<ItemType> selectedWeapon, GameContext gameContext) {
-		if (selectedWeapon.isEmpty()) {
-			return true;
-		}
-
-		Optional<Entity> weaponOnEntity = getSelectedWeaponFromInventoryOrEquipped(entity, selectedWeapon, gameContext);
-		if (weaponOnEntity.isEmpty()) {
-			return false;
-		} else {
-			if (selectedWeapon.get().getWeaponInfo().getRequiresAmmoType() == null) {
-				// No ammo
-				return true;
-			} else {
-				// any ammo in inventory?
-				InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
-				return inventoryComponent.getInventoryEntries().stream()
-						.anyMatch(e -> {
-							if (e.entity.getType().equals(ITEM)) {
-									ItemEntityAttributes attributes = (ItemEntityAttributes) e.entity.getPhysicalEntityComponent().getAttributes();
-								return attributes.getItemType().getIsAmmoType() != null &&
-										attributes.getItemType().getIsAmmoType().equals(selectedWeapon.get().getWeaponInfo().getRequiresAmmoType());
-							} else {
-								return false;
-							}
-						});
 			}
 		}
 	}

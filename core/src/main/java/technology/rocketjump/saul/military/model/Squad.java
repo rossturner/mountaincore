@@ -6,6 +6,7 @@ import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.Persistable;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Set;
 public class Squad implements Persistable {
 
 	private long id; // Think this will just be 1 to 6 for labelling as such in the UI
-	private Set<Long> memberEntityIds;
+	private final Set<Long> memberEntityIds = new HashSet<>();
 
 	private String name;
 	private MilitaryShift shift = MilitaryShift.DAYTIME;
@@ -22,6 +23,14 @@ public class Squad implements Persistable {
 
 	// TODO something to keep orders
 
+
+	public long getId() {
+		return id;
+	}
+
+	public Set<Long> getMemberEntityIds() {
+		return memberEntityIds;
+	}
 
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {

@@ -3,17 +3,14 @@ package technology.rocketjump.saul.entities.ai.goap.actions;
 import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.WeaponSelectionComponent;
+import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
-import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
-
-import java.util.Optional;
 
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
@@ -29,7 +26,6 @@ public class EquipWeaponAction extends Action {
 		InventoryComponent inventoryComponent = parent.parentEntity.getOrCreateComponent(InventoryComponent.class);
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
 		HaulingComponent haulingComponent = parent.parentEntity.getComponent(HaulingComponent.class);
-		WeaponSelectionComponent weaponSelectionComponent = parent.parentEntity.getOrCreateComponent(WeaponSelectionComponent.class);
 
 		Entity currentlyEquipped = equippedItemComponent.clearMainHandItem();
 		if (currentlyEquipped != null) {
@@ -44,18 +40,28 @@ public class EquipWeaponAction extends Action {
 			}
 		}
 
-		Optional<ItemType> selectedWeapon = weaponSelectionComponent.getSelectedWeapon();
+		MilitaryComponent militaryComponent = parent.parentEntity.getComponent(MilitaryComponent.class);
+		Long assignedWeaponId = militaryComponent.getAssignedWeaponId();
 
-		if (selectedWeapon.isEmpty()) {
+		if (assignedWeaponId == null) {
 			completionType = SUCCESS;
 		} else {
-			InventoryComponent.InventoryEntry inventoryEntry = inventoryComponent.findByItemType(selectedWeapon.get(), gameContext.getGameClock());
-			if (inventoryEntry == null) {
+			Entity weaponInInventory = inventoryComponent.getById(assignedWeaponId);
+			if (weaponInInventory == null) {
 				completionType = FAILURE;
 			} else {
-				inventoryComponent.remove(inventoryEntry.entity.getId());
-				equippedItemComponent.setMainHandItem(inventoryEntry.entity, parent.parentEntity, parent.messageDispatcher);
+				inventoryComponent.remove(weaponInInventory.getId());
+				equippedItemComponent.setMainHandItem(weaponInInventory, parent.parentEntity, parent.messageDispatcher);
 				completionType = SUCCESS;
+			}
+		}
+
+		Long assignedShieldId = militaryComponent.getAssignedShieldId();
+		if (assignedShieldId != null) {
+			Entity shieldInInventory = inventoryComponent.getById(assignedShieldId);
+			if (shieldInInventory != null) {
+				inventoryComponent.remove(shieldInInventory.getId());
+				equippedItemComponent.setOffHandItem(shieldInInventory, parent.parentEntity, parent.messageDispatcher);
 			}
 		}
 	}

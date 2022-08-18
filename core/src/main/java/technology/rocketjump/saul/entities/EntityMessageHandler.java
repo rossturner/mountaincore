@@ -13,13 +13,15 @@ import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
-import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.creature.BrokenDwarfBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.*;
 import technology.rocketjump.saul.entities.components.*;
-import technology.rocketjump.saul.entities.components.creature.*;
+import technology.rocketjump.saul.entities.components.creature.HistoryComponent;
+import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureParticleEffectsComponent;
@@ -165,7 +167,6 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.REQUEST_FURNITURE_REMOVAL);
 		messageDispatcher.addListener(this, MessageType.HAULING_ALLOCATION_CANCELLED);
 		messageDispatcher.addListener(this, MessageType.CHANGE_PROFESSION);
-		messageDispatcher.addListener(this, MessageType.CHANGE_WEAPON_SELECTION);
 		messageDispatcher.addListener(this, MessageType.APPLY_STATUS);
 		messageDispatcher.addListener(this, MessageType.REMOVE_STATUS);
 		messageDispatcher.addListener(this, MessageType.TRANSFORM_FURNITURE_TYPE);
@@ -437,8 +438,6 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			}
 			case MessageType.CHANGE_PROFESSION:
 				return handle((ChangeProfessionMessage) msg.extraInfo);
-			case MessageType.CHANGE_WEAPON_SELECTION:
-				return handle((ChangeWeaponSelectionMessage) msg.extraInfo);
 			case MessageType.HAULING_ALLOCATION_CANCELLED: {
 				HaulingAllocation allocation = (HaulingAllocation) msg.extraInfo;
 
@@ -600,22 +599,6 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		Notification tantrumNotification = new Notification(NotificationType.SETTLER_TANTRUM, tantrumEntity.getLocationComponent().getWorldOrParentPosition());
 		tantrumNotification.addTextReplacement("character", i18nTranslator.getDescription(tantrumEntity));
 		messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, tantrumNotification);
-		return true;
-	}
-
-	private boolean handle(ChangeWeaponSelectionMessage weaponSelectionMessage) {
-		WeaponSelectionComponent weaponSelectionComponent = weaponSelectionMessage.entity.getOrCreateComponent(WeaponSelectionComponent.class);
-		if (weaponSelectionComponent.getSelectedWeapon().isPresent()) {
-			// forget existing memory to find weapon of that type
-			MemoryComponent memoryComponent = weaponSelectionMessage.entity.getOrCreateComponent(MemoryComponent.class);
-			memoryComponent.getShortTermMemories(gameContext.getGameClock())
-					.removeIf(memory -> memory.getType().equals(MemoryType.LACKING_REQUIRED_ITEM) &&
-							memory.getRelatedItemType() != null &&
-							memory.getRelatedItemType().equals(weaponSelectionComponent.getSelectedWeapon().get()));
-		}
-
-		weaponSelectionComponent.setSelectedWeapon(weaponSelectionMessage.selectedWeaponType);
-
 		return true;
 	}
 

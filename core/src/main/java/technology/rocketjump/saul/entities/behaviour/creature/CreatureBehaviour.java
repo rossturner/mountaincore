@@ -10,7 +10,10 @@ import technology.rocketjump.saul.entities.ai.goap.*;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
-import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.BehaviourComponent;
+import technology.rocketjump.saul.entities.components.EntityComponent;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
@@ -19,9 +22,6 @@ import technology.rocketjump.saul.entities.model.physical.creature.HaulingCompon
 import technology.rocketjump.saul.entities.model.physical.creature.Sanity;
 import technology.rocketjump.saul.entities.model.physical.creature.status.Blinded;
 import technology.rocketjump.saul.entities.model.physical.creature.status.TemporaryBlinded;
-import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
-import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.CompassDirection;
 import technology.rocketjump.saul.mapping.tile.MapTile;
@@ -45,7 +45,6 @@ import static technology.rocketjump.saul.entities.behaviour.creature.AssignedGoa
 import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.SAW_DEAD_BODY;
 import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.MIN_HAPPINESS_VALUE;
 import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
-import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 import static technology.rocketjump.saul.entities.model.physical.creature.Consciousness.*;
 import static technology.rocketjump.saul.environment.model.WeatherType.HappinessInteraction.STANDING;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
@@ -197,12 +196,11 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			}
 		}
 
-		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
-		thinkAboutRequiredEquipment(gameContext);
 		addGoalsToQueue(gameContext);
 
 		lookAtNearbyThings(gameContext);
 
+		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		if (attributes.getRace().getBehaviour().getIsSapient()) {
 			if (attributes.getSanity().equals(Sanity.SANE) && attributes.getConsciousness().equals(AWAKE) &&
 					happinessComponent != null && happinessComponent.getNetModifier() <= MIN_HAPPINESS_VALUE) {
@@ -315,38 +313,6 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		this.creatureGroup = creatureGroup;
 		if (creatureGroup != null) {
 			creatureGroup.addMemberId(parentEntity.getId());
-		}
-	}
-
-	private void thinkAboutRequiredEquipment(GameContext gameContext) {
-		WeaponSelectionComponent weaponSelectionComponent = parentEntity.getOrCreateComponent(WeaponSelectionComponent.class);
-
-		if (weaponSelectionComponent.getSelectedWeapon().isPresent()) {
-			ItemType weaponItemType = weaponSelectionComponent.getSelectedWeapon().get();
-
-			InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
-			InventoryComponent.InventoryEntry weaponInInventory = inventoryComponent.findByItemType(weaponItemType, gameContext.getGameClock());
-
-			if (weaponInInventory == null) {
-				Memory itemRequiredMemory = new Memory(MemoryType.LACKING_REQUIRED_ITEM, gameContext.getGameClock());
-				itemRequiredMemory.setRelatedItemType(weaponItemType);
-				// Should set required material at some point
-				parentEntity.getOrCreateComponent(MemoryComponent.class).addShortTerm(itemRequiredMemory, gameContext.getGameClock());
-			} else if (weaponItemType.getWeaponInfo() != null && weaponItemType.getWeaponInfo().getRequiresAmmoType() != null) {
-				// check for ammo
-				AmmoType requiredAmmoType = weaponItemType.getWeaponInfo().getRequiresAmmoType();
-
-				boolean hasAmmo = inventoryComponent.getInventoryEntries().stream()
-						.anyMatch(entry -> entry.entity.getType().equals(ITEM) &&
-								requiredAmmoType.equals(((ItemEntityAttributes) entry.entity.getPhysicalEntityComponent().getAttributes()).getItemType().getIsAmmoType()));
-
-				if (!hasAmmo) {
-					Memory itemRequiredMemory = new Memory(MemoryType.LACKING_REQUIRED_ITEM, gameContext.getGameClock());
-					itemRequiredMemory.setRelatedAmmoType(requiredAmmoType);
-					// Should set required material at some point
-					parentEntity.getOrCreateComponent(MemoryComponent.class).addShortTerm(itemRequiredMemory, gameContext.getGameClock());
-				}
-			}
 		}
 	}
 
