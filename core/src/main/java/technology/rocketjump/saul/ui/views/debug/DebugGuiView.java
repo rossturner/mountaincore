@@ -15,12 +15,14 @@ import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
+import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -55,6 +57,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.DOWN;
 import static technology.rocketjump.saul.entities.model.EntityType.*;
@@ -78,6 +81,8 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	private final CreatureEntityAttributesFactory creatureEntityAttributesFactory;
 	private final RaceDictionary raceDictionary;
 	private final SelectBox<Race> raceSelect;
+	private final SelectBox<EntityNeed> needSelect;
+	private final SelectBox<Integer> needValueSelect;
 	private final ItemEntityFactory itemEntityFactory;
 	private final SettlerFactory settlerFactory;
 	private final WeatherManager weatherManager;
@@ -157,6 +162,17 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 
 		this.raceSelect = new SelectBox<>(uiSkin);
 		raceSelect.setItems(raceDictionary.getAll().stream().filter(race -> !"Dwarf".equals(race.getName())).toArray(Race[]::new));
+
+		this.needSelect = new SelectBox<>(uiSkin);
+		this.needSelect.setItems(EntityNeed.values());
+
+
+		Integer[] needValues = IntStream.rangeClosed((int) NeedsComponent.MIN_NEED_VALUE, (int) NeedsComponent.MAX_NEED_VALUE)
+				.filter(x -> x % 10 == 0)
+				.boxed()
+				.toArray(Integer[]::new);
+		this.needValueSelect = new SelectBox<>(uiSkin);
+		this.needValueSelect.setItems(needValues);
 
 		messageDispatcher.addListener(this, MessageType.TOGGLE_DEBUG_VIEW);
 		messageDispatcher.addListener(this, MessageType.DEBUG_MESSAGE);
@@ -246,6 +262,16 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 							}
 						}
 
+					}
+				}
+				break;
+			}
+			case CHANGE_CREATURE_NEED: {
+				for (Entity entity : tile.getEntities()) {
+					NeedsComponent needs = entity.getComponent(NeedsComponent.class);
+					if (entity.getType().equals(CREATURE) && needs != null) {
+						needs.setValue(needSelect.getSelected(), needValueSelect.getSelected());
+						break;
 					}
 				}
 				break;
@@ -370,6 +396,9 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 					layoutTable.add(materialSelect).pad(5).left().row();
 				} else if (currentAction.equals(DebugAction.SPAWN_CREATURE)) {
 					layoutTable.add(raceSelect).pad(5).left().row();
+				} else if (currentAction.equals(DebugAction.CHANGE_CREATURE_NEED)) {
+					layoutTable.add(needSelect).pad(5).left().row();
+					layoutTable.add(needValueSelect).pad(5).left().row();
 				}
 			} else {
 				layoutTable.setBackground((Drawable) null);
