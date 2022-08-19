@@ -247,9 +247,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					} else {
 						militaryComponent.setAssignedWeaponId(null);
 					}
-					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
 				}
+				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
 			}));
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
 		};
 		shieldSelectionAction = () -> {
 			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
@@ -262,9 +263,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					} else {
 						militaryComponent.setAssignedShieldId(null);
 					}
-					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
 				}
+				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
 			}));
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
 		};
 		armorSelectionAction = () -> {
 			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
@@ -277,9 +279,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					} else {
 						militaryComponent.setAssignedArmorId(null);
 					}
-					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
 				}
+				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
 			}));
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
 		};
 	}
 

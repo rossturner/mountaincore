@@ -504,6 +504,7 @@ GUI.RESOURCE_MANAGEMENT.UNALLOCATED_LABEL,,Available: {{count}}
 GUI.ROOFING.ADD,,Add
 GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (R) to rotate furniture
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…
+GUI.SELECT_WEAPON.LABEL,,Select weapon
 GUI.SETTINGS.LABEL,,Settings
 GUI.SETTLER_MANAGEMENT.BEDS_COUNTER,,Number of beds: {{count}}
 GUI.SETTLER_MANAGEMENT.DEAD_COUNTER,,Dead: {{count}}
@@ -1390,6 +1391,7 @@ WEAPON.METAL.ARROWS.PLURAL,,Arrows
 WEAPON.METAL.BOLTS.NOUN,,Bolt
 WEAPON.METAL.BOLTS.PLURAL,,Bolts
 WEAPON.SWORD,,Sword
+WEAPON.NONE,Used to select no weapon from the selection list,None
 WEAPON.UNARMED,,Unarmed
 WEAPON.NO_SHIELD,,Unshielded
 WEAPON.NO_ARMOUR,,Unarmoured

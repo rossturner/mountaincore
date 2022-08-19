@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import org.apache.commons.lang3.NotImplementedException;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
+import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -77,15 +78,34 @@ public class MilitaryComponent implements ParentDependentEntityComponent, Destru
 	}
 
 	public void setAssignedWeaponId(Long assignedWeaponId) {
+		assignedWeaponId = checkItemStillAvailable(assignedWeaponId);
 		this.assignedWeaponId = assignedWeaponId;
 	}
 
 	public void setAssignedShieldId(Long assignedShieldId) {
+		assignedShieldId = checkItemStillAvailable(assignedShieldId);
 		this.assignedShieldId = assignedShieldId;
 	}
 
 	public void setAssignedArmorId(Long assignedArmorId) {
+		assignedArmorId = checkItemStillAvailable(assignedArmorId);
 		this.assignedArmorId = assignedArmorId;
+	}
+
+	private Long checkItemStillAvailable(Long itemEntityId) {
+		// TODO change this to set up ItemAssignmentComponent or whatever we called it
+		if (itemEntityId != null) {
+			Entity itemEntity = gameContext.getEntities().get(itemEntityId);
+			if (itemEntity != null) {
+				ItemAllocationComponent allocationComponent = itemEntity.getComponent(ItemAllocationComponent.class);
+				if (allocationComponent != null) {
+					if (allocationComponent.getNumUnallocated() > 0) {
+						return itemEntityId;
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 	@Override
