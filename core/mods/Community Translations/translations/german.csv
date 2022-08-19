@@ -34,6 +34,9 @@ ACTION.SELECT_JOB.DESCRIPTION,When looking for a job to work,Looking for work to
 ACTION.SLEEP_ON_FLOOR.DESCRIPTION,E.g. “Sleeping on rough stone floor”,Sleeping on {{tileDescription}},Schläft auf {{tileDescription}}
 ACTION.STUNNED,,Stunned,
 
+ARMOUR.LEATHER,,Leather armour,
+ARMOUR.LEATHER.TOOLTIP,,A light and basic armour to protect you in combat,
+
 ASHES.NOUN,,Ash,Asche
 
 BODY_STRUCTURE.ABDOMEN,,Abdomen,Abdomen
@@ -70,6 +73,7 @@ BONE.BONE,,Bone,Knochen
 CARCASS.CARP.PREPARED.NOUN,,Carp fillet,Karpfenfilet
 CARCASS.CARP.PREPARED.PLURAL,,Carp fillets,Karpfenfilets
 CARCASS.GROUP,,Corpses,Leichen
+CARCASS.HIDE,,Hide,
 CARCASS.MEAT.LARGE,,Meat (large),Fleisch (groß)
 CARCASS.MEAT.MEDIUM,,Meat (medium),Fleisch (mittel)
 CARCASS.MEAT.SMALL,,Meat (small),Fleisch (klein)
@@ -82,6 +86,10 @@ CLOTH.BRONZED_HEMP,,Hemp,
 CLOTH.HEMP-LINEN,,Hemp,
 CLOTH.LIGHT_HEMP,,Hemp,
 CLOTH.TOBACCO_CLOTH,,Tobacco cloth,
+
+COMBAT.DESCRIPTION.FLEEING,,Fleeing from combat,
+COMBAT.DESCRIPTION.GENERIC,,In combat,
+COMBAT.DESCRIPTION.VERSUS_OPPONENT,,In combat with {{targetDescription}},
 
 CONSTRUCTION.DESCRIPTION,E.g. “Construction of granite stonemason workbench”,Construction of {{materialType.adjective}} {{furnitureType.noun}},Herstellung von {{furnitureType.noun}} aus {{materialType}}
 CONSTRUCTION.ITEM_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{quantity}} of {{itemDescription}} allocated,{{quantity}} von {{itemDescription}} zugewiesen
@@ -102,12 +110,14 @@ CRAFTING_TYPE.CARPENTRY,,Carpentry,Schreinern
 CRAFTING_TYPE.COKE_OVEN_BAKING,,Coke baking,Verkoken
 CRAFTING_TYPE.FERMENTING,,Fermenting,Gären
 CRAFTING_TYPE.FLETCHING,,Fletching,Befiedern
+CRAFTING_TYPE.LEATHERWORKING,,Leatherworking,
 CRAFTING_TYPE.MALTING,,Malting,Mälzen
 CRAFTING_TYPE.MALT_MASHING,,Malt mashing,Maischen
 CRAFTING_TYPE.MILLING,,Milling,Mahlen
 CRAFTING_TYPE.ORE_CRUSHING,,Ore crushing,Erz zerkleinern
 CRAFTING_TYPE.SMELTING,,Smelting,Schmelzen
 CRAFTING_TYPE.STONEMASONRY,,Stonemasonry,Stein bearbeiten
+CRAFTING_TYPE.TANNING_HIDE,,Hide tanning,
 CRAFTING_TYPE.WEAVING,,Weaving,Weben
 CRAFTING_TYPE.WOODCUTTING,,Woodcutting,Holz hacken
 CRAFTING_TYPE.WORT_BREWING,,Brewing,Brauen
@@ -224,6 +234,8 @@ FURNITURE.KITCHEN_WORKTOP.TOOLTIP,,An area to store ingredients for a {{PROFESSI
 FURNITURE.LANTERN,,Lantern,Laterne
 FURNITURE.LANTERN.TOOLTIP,,A lantern provides light – this does not currently have an in-game effect.,Eine Laterne verbreitet Licht – hat momentan noch keinen Effekt im Spiel.
 FURNITURE.LARGE_TABLE,,Large table,Esstisch
+FURNITURE.LEATHERWORKING_STATION,,Leatherworking station,
+FURNITURE.LEATHERWORKING_STATION.TOOLTIP,,A workbench to produce leather goods like armour and waterskins,
 FURNITURE.LOOM,,Loom,Webstuhl
 FURNITURE.MALTING_STATION,,Malting station,Malzstation
 FURNITURE.MALTING_STATION.TOOLTIP,,"Here brewers steep barley and then dry it out using a kiln to produce malt. ","Hier weichen Brauer Gerste ein und lassen sie dann in einem Ofen trocknen, um Malz herzustellen."
@@ -253,6 +265,8 @@ FURNITURE.SMALL_TABLE,,Small table,kleiner Tisch
 FURNITURE.STONEMASON_WORKBENCH,,Stonemason workbench,Steinmetzwerkbank
 FURNITURE.STONEMASON_WORKBENCH.TOOLTIP,,A {{PROFESSION.STONEMASON}} works here with {{MATERIAL_TYPE.STONE.ADJECTIVE}} resources.,Ein {{PROFESSION.STONEMASON}} arbeitet hier mit {{MATERIAL_TYPE.STONE.ADJECTIVE}} Materialien.
 FURNITURE.STOOL,,Stool,Hocker
+FURNITURE.TANNING_FRAME,,Tanning frame,
+FURNITURE.TANNING_FRAME.TOOLTIP,,Turn your Animal Skins into Leather.,
 FURNITURE.WATERWHEEL,,Water wheel,Wasserrad
 FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.,Versorgt andere Geräte mit mechanischer Kraft über {{PRODUCT.STONE.GEAR.PLURAL}} und Schäfte. Muss neben einem Fluss gebaut werden.
 FURNITURE.WATER_BARREL,,Water barrel,Wasserfass
@@ -567,7 +581,7 @@ HINT.WELCOME.NEXT_STEPS,,"Click “Tutorial” to be guided through the basics, 
 HINT.WELCOME.PRE_SPAWN,,"Start the game by selecting a location on the map with enough space, and clicking the '{{GUI.EMBARK.START}}' button.","Starten Sie das Spiel, indem Sie einen Ort mit ausreichend Platz auf der Karte auswählen und auf die Schaltfläche '{{GUI.EMBARK.START}}' klicken."
 
 HUMANOID.BROKEN.DESCRIPTION,"E.g. “Urist McScrooge, insane dwarf”","{{name}}, {{madness.adjective}} {{race.noun}}","{{name}}, {{madness.adjective}} {{race.noun}}"
-HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{profession.noun}}","{{name}}, {{race.adjective}} {{profession.noun}}"
+HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{skillLevelDescription.adjective}} {{profession.noun}}","{{name}}, {{race.adjective}} {{profession.noun}}"
 
 INGREDIENT.DOUGH,To be combined with the above as “bread dough”,Dough,Teig
 INGREDIENT.FLOUR,,Flour,Mehl
@@ -590,8 +604,16 @@ INGREDIENT.VEGETABLE.SACK.PLURAL,,Vegetables (sack),Gemüse (Sack)
 
 INVENTORY.CONTAINS.LABEL,This is the label of “inventory” to go above a list of items contained within a piece of furniture or held by a character,Inventory:,Inventar:
 
-ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}}{{itemType.noun_or_plural}} aus {{materialType}}
-ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}}{{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}}
+ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}} {{quality.adjective}} {{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}}{{itemType.noun_or_plural}} aus {{materialType}}
+ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}} {{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}}
+ITEM.QUALITY.PREFIX.AWFUL.ADJECTIVE,,Awful,
+ITEM.QUALITY.PREFIX.AWFUL.TOOLTIP,,"This item is terribly made, difficult to use, and would not be worth very much",
+ITEM.QUALITY.PREFIX.MASTERWORK.ADJECTIVE,,Masterwork,
+ITEM.QUALITY.PREFIX.MASTERWORK.TOOLTIP,,"This item has clearly been made by a master craftsman, it is ideal in every way",
+ITEM.QUALITY.PREFIX.POOR.ADJECTIVE,,Poor,
+ITEM.QUALITY.PREFIX.POOR.TOOLTIP,,This item is poorly made and will slightly impede anyone using it,
+ITEM.QUALITY.PREFIX.SUPERIOR.ADJECTIVE,,Superior,
+ITEM.QUALITY.PREFIX.SUPERIOR.TOOLTIP,,"This item has been crafted with great skill, making it more valuable and easier to use",
 
 ITEM_GROUP.FUEL.PLURAL,,Fuel,Brennstoff
 ITEM_GROUP.PRODUCT.PLURAL,,Products,Produkte
@@ -628,6 +650,8 @@ MATERIAL_TYPE.OTHER.NOUN,This isn't actually used in-game yet so won't be combin
 MATERIAL_TYPE.ROPE.ADJECTIVE,," ",
 MATERIAL_TYPE.ROPE.NOUN,," ",
 MATERIAL_TYPE.SEED.NOUN,For saying something is “made up of seed”,Seed,Samen
+MATERIAL_TYPE.SKIN.ADJECTIVE,," ",
+MATERIAL_TYPE.SKIN.NOUN,," ",
 MATERIAL_TYPE.STONE.ADJECTIVE,,,Stein
 MATERIAL_TYPE.STONE.NOUN,,Stone,Stein
 MATERIAL_TYPE.VEGETABLE.NOUN,Used to make up “Vegetable soup”,Vegetable,Gemüse
@@ -845,6 +869,7 @@ PRODUCT.BUCKET.PLURAL,,Buckets,Eimer
 PRODUCT.BUCKET.TOOLTIP,,A small container used to move liquids around by hand.,"Ein kleiner Behälter, in dem Flüssigkeiten von Hand getragen werden."
 PRODUCT.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,Kessel
 PRODUCT.CAULDRON.TOOLTIP,,"Used by a {{PROFESSION.CHEF}} to prepare soup in a {{ROOMS.KITCHEN}}, where it is then moved to a {{ROOMS.FEASTING_HALL}}.","Wird von einem {{PROFESSION.CHEF}} benutzt, um Suppe in der {{ROOMS.KITCHEN}} vorzubereiten von wo sie dann in die {{ROOMS.FEASTING_HALL}} gebracht wird."
+PRODUCT.LEATHER,,Leather,
 PRODUCT.LINEN.NOUN,,Linen,Leinen
 PRODUCT.LINEN.PLURAL,,Linen,Leinen
 PRODUCT.LIQUID.TANK,,Tank,Tank
@@ -863,6 +888,8 @@ PRODUCT.STONE.GEAR.TOOLTIP,,Used in the construction of mechanisms.,Wird beim Ba
 PRODUCT.STONE.PIPE.NOUN,,Pipe,Rohre
 PRODUCT.STONE.PIPE.PLURAL,,Pipes,Rohre
 PRODUCT.STONE.PIPE.TOOLTIP,,Used for liquids to flow between tiles underground.,"Wird verwendet, damit Flüssigkeiten zwischen den Platten unter der Erde fließen."
+PRODUCT.WATERSKIN.NOUN,,Waterskin,
+PRODUCT.WATERSKIN.PLURAL,,Waterskins,
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.NOUN,,Horizontal shaft,Horizontalwelle
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.PLURAL,,Horizontal shafts,Horizontalwellen
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.TOOLTIP,,Used to connect mechanisms which produce and require power.,"Wird verwendet, um Mechanismen zu verbinden, die Strom erzeugen und benötigen."
@@ -887,6 +914,7 @@ PROFESSION.CHEF.FEMALE_NOUN,,Chef,Köchin
 PROFESSION.CHEF.MALE_NOUN,,Chef,Koch
 PROFESSION.CHEF.TOOLTIP,,Prepares all of the food to be consumed by your settlers.,"Bereitet das Essen vor, das von deinen Siedlern verzehrt wird."
 PROFESSION.CHEF.VERB,,Cooking,Kocht
+PROFESSION.DESCRIPTION,,{{skillLevelDescription.adjective}} {{profession.noun}},
 PROFESSION.FARMER.FEMALE_NOUN,,Farmer,Bäuerin
 PROFESSION.FARMER.MALE_NOUN,,Farmer,Bauer
 PROFESSION.FARMER.PLURAL,,Farmers,Bauern
@@ -896,10 +924,15 @@ PROFESSION.FISHER.FEMALE_NOUN,This could be “fisherman” and “fisherwoman�
 PROFESSION.FISHER.MALE_NOUN,,Fisher,Fischer
 PROFESSION.FISHER.TOOLTIP,,Catches fish from bodies of water for use as food and resources.,"Fängt Fische aus Gewässern, um sie als Nahrung und Ressource zu verwenden."
 PROFESSION.FISHER.VERB,,Fishing,Fischt
+PROFESSION.GUI.ADD_ANOTHER,,Add another,
 PROFESSION.HUNTER.FEMALE_NOUN,This could be “huntsman” and “huntress”,Hunter,Jägerin
 PROFESSION.HUNTER.MALE_NOUN,,Hunter,Jäger
 PROFESSION.HUNTER.TOOLTIP,,Tracks and kills wild animals for their meat and pelts.,Aufspüren und Töten von Wildtieren wegen ihres Fleisches und Fells.
 PROFESSION.HUNTER.VERB,,Hunting,Jagt
+PROFESSION.LEATHERWORKER.FEMALE_NOUN,,Leatherworker,
+PROFESSION.LEATHERWORKER.MALE_NOUN,,Leatherworker,
+PROFESSION.LEATHERWORKER.TOOLTIP,,Treats the hides of creatures to produce leather goods.,
+PROFESSION.LEATHERWORKER.VERB,,Leatherworking,
 PROFESSION.MAYOR.FEMALE_NOUN,"In English at least, “mayoress” is incorrect",Mayor,Bürgermeisterin
 PROFESSION.MAYOR.MALE_NOUN,,Mayor,Bürgermeister
 PROFESSION.MAYOR.VERB,,Governing,Verwaltet
@@ -919,6 +952,24 @@ PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,Runenschmied
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.","Verzaubert Waffen, Rüstungen und Gegenstände mit magischen Runen, um ihre Fähigkeiten zu verbessern."
 PROFESSION.RUNESMITH.VERB,,Enchanting,Verzaubert
+PROFESSION.SKILL_LEVEL.1,,Neophyte,
+PROFESSION.SKILL_LEVEL.1.TOOLTIP,,An absolute beginner with little to no experience.,
+PROFESSION.SKILL_LEVEL.2,,Novice,
+PROFESSION.SKILL_LEVEL.2.TOOLTIP,,They only understand the basics of their craft.,
+PROFESSION.SKILL_LEVEL.3,,Apprentice,
+PROFESSION.SKILL_LEVEL.3.TOOLTIP,,"Though they are becoming skilled, there is still a lot of experience to be earned.",
+PROFESSION.SKILL_LEVEL.4,,Journeyman,
+PROFESSION.SKILL_LEVEL.4.TOOLTIP,,"No longer an apprentice, they have reasonable skill in their given craft.",
+PROFESSION.SKILL_LEVEL.5,,Adept,
+PROFESSION.SKILL_LEVEL.5.TOOLTIP,,They are well-skilled but still have further heights that can be reached.,
+PROFESSION.SKILL_LEVEL.6,,Skilled,
+PROFESSION.SKILL_LEVEL.6.TOOLTIP,,"Very skilled in their craft, they are now more than competent.",
+PROFESSION.SKILL_LEVEL.7,,Expert,
+PROFESSION.SKILL_LEVEL.7.TOOLTIP,,There is little that the expert does not know of their respective field.,
+PROFESSION.SKILL_LEVEL.8,,Master,
+PROFESSION.SKILL_LEVEL.8.TOOLTIP,,"Beyond even an expert, they are truly a master of their craft.",
+PROFESSION.SKILL_LEVEL.9,,Grandmaster,
+PROFESSION.SKILL_LEVEL.9.TOOLTIP,,There is nobody more skilled in their craft than a grandmaster.,
 PROFESSION.STONEMASON.FEMALE_NOUN,,Stonemason,Steinmetzin
 PROFESSION.STONEMASON.MALE_NOUN,,Stonemason,Steinmetz
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.,Stellt Möbel und Gegenstände aus Stein her.
@@ -930,6 +981,11 @@ PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,Dorfbewohnerin
 PROFESSION.VILLAGER.MALE_NOUN,,Villager,Dorfbewohner
 PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,Dieser Siedler hat keine spezifischen Berufe und wird alltägliche Aufgaben wie das Transportieren von Gegenständen übernehmen.
 PROFESSION.VILLAGER.VERB,,Working,Arbeitet
+PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
+PROFESSION.WEAVER.MALE_NOUN,,Weaver,
+PROFESSION.WEAVER.PLURAL,,Weavers,
+PROFESSION.WEAVER.TOOLTIP,,Processes materials into clothing and other fabrics.,
+PROFESSION.WEAVER.VERB,,Weaving,
 PROFESSION.WOODCUTTER.FEMALE_NOUN,This could be “lumberjack” and “lumberjane”,Woodcutter,Holzfällerin
 PROFESSION.WOODCUTTER.MALE_NOUN,,Woodcutter,Holzfäller
 PROFESSION.WOODCUTTER.TOOLTIP,,Cuts down trees as lumber that can be used in a {{ROOMS.SAWMILL}}.,"Fällt Bäume für Nutzholz, das in einer {{ROOMS.SAWMILL}} verwendet werden kann."
@@ -1035,6 +1091,8 @@ ROOMS.GRAVEYARD,,Graveyard,Friedhof
 ROOMS.GRAVEYARD.TOOLTIP,,Deceased settlers are laid to rest here.,Verstorbene Siedler werden hier zur Ruhe gelegt.
 ROOMS.KITCHEN,,Kitchen,Küche
 ROOMS.KITCHEN.TOOLTIP,,Most food is prepared here before being served in a {{ROOMS.FEASTING_HALL}}.,"Die meisten Speisen werden hier zubereitet, bevor sie in einer {{ROOMS.FEASTING_HALL}} serviert werden."
+ROOMS.LEATHER_WORKSHOP,,Leather workshop,
+ROOMS.LEATHER_WORKSHOP.TOOLTIP,,Craft items out of animal hide,
 ROOMS.MASONRY_WORKSHOP,,Masonry workshop,Maurerei
 ROOMS.MASONRY_WORKSHOP.TOOLTIP,,This workshop produces most items made out of stone.,Diese Werkstatt produziert die meisten Gegenstände aus Stein.
 ROOMS.METALWORKS,,Metalworks,Metallwerke
@@ -1098,6 +1156,30 @@ SEED.WHEAT_SEED,,Wheat,Weizen
 SEED.WHEAT_SEED.TOOLTIP,{{VEGETABLE.WHEAT.TOOLTIP}},"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}.","Ein Getreidekorn, das in der Regel für die Herstellung von Brot verwendet wird. Es kann {{SEASON.WINTER}} überleben, dauert aber eine Weile, um zu wachsen, also wird es entweder in {{SEASON.SPRING}} oder {{SEASON.AUTUMN}} gepflanzt."
 
 SHRUB.DESCRIPTION,Shrub or bush should do,Bush,Büsche
+
+SKILL.ARCHERY.FEMALE_NOUN,,Archer,
+SKILL.ARCHERY.MALE_NOUN,,Archer,
+SKILL.ARCHERY.TOOLTIP,,Skill with the bow,
+SKILL.AXES.FEMALE_NOUN,,Axewoman,
+SKILL.AXES.MALE_NOUN,,Axeman,
+SKILL.AXES.TOOLTIP,,Skill with axes,
+SKILL.CROSSBOWS.FEMALE_NOUN,,Arbalist,
+SKILL.CROSSBOWS.MALE_NOUN,,Arbalist,
+SKILL.CROSSBOWS.TOOLTIP,,Skill with the crossbow,
+SKILL.MACES.FEMALE_NOUN,,Hammerer,
+SKILL.MACES.MALE_NOUN,,Hammerer,
+SKILL.MACES.TOOLTIP,,Skill with hammers and maces,
+SKILL.SWORDSMANSHIP.FEMALE_NOUN,,Swordswoman,
+SKILL.SWORDSMANSHIP.MALE_NOUN,,Swordsman,
+SKILL.SWORDSMANSHIP.TOOLTIP,,Skill with the sword,
+SKILL.UNARMED_COMBAT.FEMALE_NOUN,,Brawler,
+SKILL.UNARMED_COMBAT.MALE_NOUN,,Brawler,
+SKILL.UNARMED_COMBAT.TOOLTIP,,Skill in unarmed combat,
+
+SKIN.BOAR_HIDE,,Boar,
+SKIN.DEER_HIDE,,Deer,
+SKIN.DWARF_HIDE,,Dwarf,
+SKIN.ELEPHANT_HIDE,,Elephant,
 
 STATUS.ALCOHOL_WITHDRAWL,,Alcohol withdrawl,Alkohol-Entzug
 STATUS.BLEEDING,,Bleeding,Blutet
@@ -1296,11 +1378,17 @@ WALL.ROUGH_STONE.NOUN,,Rock wall,Steinwand
 WALL.STONE_BLOCK.NOUN,,Smooth stone wall,Glatte Steinwand
 WALL.WOODEN.NOUN,,Wood wall,Holzwand
 
+WEAPON.BATTLE.AXE,,Battle axe,
+WEAPON.BATTLE.HAMMER,,Battle hammer,
 WEAPON.BONE.ARROWS.NOUN,,Arrow,Pfeil
 WEAPON.BONE.ARROWS.PLURAL,,Arrows,Pfeile
 WEAPON.BOW,,Bow,Bogen
+WEAPON.CROSSBOW,,Crossbow,
 WEAPON.METAL.ARROWS.NOUN,,Arrow,Pfeil
 WEAPON.METAL.ARROWS.PLURAL,,Arrows,Pfeile
+WEAPON.METAL.BOLTS.NOUN,,Bolt,
+WEAPON.METAL.BOLTS.PLURAL,,Bolts,
+WEAPON.SWORD,,Sword,
 WEAPON.UNARMED,,Unarmed,Unbewaffnet
 
 WEATHER.TYPE.CLOUDY,,Cloudy & grey,Bewölkt & grau
