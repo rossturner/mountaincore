@@ -3,6 +3,7 @@ package technology.rocketjump.saul.entities.tags;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.items.ItemBehaviour;
 import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.ItemAssignmentComponent;
@@ -86,6 +87,7 @@ public class ItemAssignmentTag extends Tag {
                 messageDispatcher.dispatchMessage(MessageType.LOCATE_SETTLERS_IN_REGION, new LocateSettlersMessage(regionId, entities -> {
                     entities.stream()
                             .filter(settler -> {
+                                //Check they don't have one already in inventory
                                 InventoryComponent inventoryComponent = settler.getComponent(InventoryComponent.class);
                                 if (inventoryComponent == null) {
                                     return true;
@@ -94,6 +96,7 @@ public class ItemAssignmentTag extends Tag {
                                 }
                             })
                             .filter(settler -> {
+                                //And don't have one already assigned
                                 ItemAssignmentComponent itemAssignmentComponent = settler.getComponent(ItemAssignmentComponent.class);
                                 if (itemAssignmentComponent == null) {
                                     return true;
@@ -102,6 +105,7 @@ public class ItemAssignmentTag extends Tag {
                                 }
                             })
                             .filter(settler -> {
+                                //And don't have one already equipped
                                 EquippedItemComponent equippedItemComponent = settler.getComponent(EquippedItemComponent.class);
                                 if (equippedItemComponent == null) {
                                     return true;
@@ -113,6 +117,16 @@ public class ItemAssignmentTag extends Tag {
                                         return true;
                                     }
                                 }
+                            })
+                            .filter(settler -> {
+                                //And are not currently hauling anything (e.g. another item assignment process)
+                                BehaviourComponent behavior = settler.getBehaviourComponent();
+                                if (behavior instanceof CreatureBehaviour creatureBehaviour) {
+                                    if (creatureBehaviour.getCurrentGoal() != null) {
+                                        return creatureBehaviour.getCurrentGoal().getAssignedHaulingAllocation() == null;
+                                    }
+                                }
+                                return false;
                             })
                             .findFirst()
                             .ifPresent(settler -> {
