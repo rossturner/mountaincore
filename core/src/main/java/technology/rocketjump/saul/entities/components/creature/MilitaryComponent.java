@@ -76,6 +76,18 @@ public class MilitaryComponent implements ParentDependentEntityComponent, Destru
 		return assignedArmorId;
 	}
 
+	public void setAssignedWeaponId(Long assignedWeaponId) {
+		this.assignedWeaponId = assignedWeaponId;
+	}
+
+	public void setAssignedShieldId(Long assignedShieldId) {
+		this.assignedShieldId = assignedShieldId;
+	}
+
+	public void setAssignedArmorId(Long assignedArmorId) {
+		this.assignedArmorId = assignedArmorId;
+	}
+
 	@Override
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
 		throw new NotImplementedException("Creatures are not cloned");

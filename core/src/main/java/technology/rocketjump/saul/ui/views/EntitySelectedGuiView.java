@@ -45,6 +45,7 @@ import technology.rocketjump.saul.jobs.model.Job;
 import technology.rocketjump.saul.jobs.model.JobType;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.PopulateSelectItemViewMessage;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
@@ -52,6 +53,7 @@ import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.screens.CraftingManagementScreen;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
+import technology.rocketjump.saul.ui.actions.ButtonAction;
 import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -77,6 +79,8 @@ import static technology.rocketjump.saul.ui.Selectable.SelectableType.ENTITY;
 public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	private final ImageButton UNARMED_IMAGE_BUTTON;
+	private final ImageButton UNSHIELDED_IMAGE_BUTTON;
+	private final ImageButton UNARMORED_IMAGE_BUTTON;
 	private final Skin uiSkin;
 	private final I18nTranslator i18nTranslator;
 	private final GameInteractionStateContainer gameInteractionStateContainer;
@@ -90,8 +94,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private final MessageDispatcher messageDispatcher;
 	private final JobType haulingJobType;
 	private final ImageButton changeSettlerNameButton;
-	private final ImageButton nullProfessionButton1;
-	private final ImageButton nullProfessionButton2;
+	private final ButtonAction weaponSelectionAction;
+	private final ButtonAction shieldSelectionAction;
+	private final ButtonAction armorSelectionAction;
 
 	private Table outerTable;
 	private Table entityDescriptionTable;
@@ -101,6 +106,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	private final Table nameTable;
 	private final Table professionsTable;
+	private final Table militaryEquipmentTable;
 	private final Table needsTable;
 	private final Table happinessTable;
 	private final Table injuriesTable;
@@ -151,7 +157,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			if (selectable != null && selectable.type.equals(ENTITY)) {
 				BehaviourComponent behaviourComponent = selectable.getEntity().getBehaviourComponent();
 				if (behaviourComponent instanceof CraftingStationBehaviour) {
-					messageDispatcher.dispatchMessage(MessageType.SHOW_SPECIFIC_CRAFTING, ((CraftingStationBehaviour)behaviourComponent).getCraftingType());
+					messageDispatcher.dispatchMessage(MessageType.SHOW_SPECIFIC_CRAFTING, ((CraftingStationBehaviour) behaviourComponent).getCraftingType());
 					messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, CraftingManagementScreen.NAME);
 				}
 			}
@@ -204,13 +210,14 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					} else {
 						militaryComponent.removeFromMilitary();
 					}
-					updateMilitaryToggle(entity);
+					This.update();
 				}
 			}
 		});
 
 		nameTable = new Table(uiSkin);
 		professionsTable = new Table(uiSkin);
+		militaryEquipmentTable = new Table(uiSkin);
 		needsTable = new Table(uiSkin);
 		happinessTable = new Table(uiSkin);
 		injuriesTable = new Table(uiSkin);
@@ -223,11 +230,57 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		needLabels = i18nWidgetFactory.createNeedsLabels();
 
 		UNARMED_IMAGE_BUTTON = imageButtonFactory.getOrCreate("punch");
+		UNSHIELDED_IMAGE_BUTTON = imageButtonFactory.getOrCreate("chicken-oven");
+		UNARMORED_IMAGE_BUTTON = imageButtonFactory.getOrCreate("dwarf-face");
 		changeSettlerNameButton = imageButtonFactory.getOrCreate("fountain-pen", true).clone();
-		nullProfessionButton1 = NULL_PROFESSION.getImageButton().clone();
-		nullProfessionButton2 = NULL_PROFESSION.getImageButton().clone();
 
 		militaryToggleTable.add(militaryToggleCheckbox).center();
+
+		weaponSelectionAction = () -> {
+			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
+					PopulateSelectItemViewMessage.ItemSelectionCategory.WEAPON, entity -> {
+				Entity settler = gameInteractionStateContainer.getSelectable().getEntity();
+				if (settler != null) {
+					MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
+					if (entity != null) {
+						militaryComponent.setAssignedWeaponId(entity.getId());
+					} else {
+						militaryComponent.setAssignedWeaponId(null);
+					}
+					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
+				}
+			}));
+		};
+		shieldSelectionAction = () -> {
+			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
+					PopulateSelectItemViewMessage.ItemSelectionCategory.SHIELD, entity -> {
+				Entity settler = gameInteractionStateContainer.getSelectable().getEntity();
+				if (settler != null) {
+					MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
+					if (entity != null) {
+						militaryComponent.setAssignedShieldId(entity.getId());
+					} else {
+						militaryComponent.setAssignedShieldId(null);
+					}
+					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
+				}
+			}));
+		};
+		armorSelectionAction = () -> {
+			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
+					PopulateSelectItemViewMessage.ItemSelectionCategory.ARMOR, entity -> {
+				Entity settler = gameInteractionStateContainer.getSelectable().getEntity();
+				if (settler != null) {
+					MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
+					if (entity != null) {
+						militaryComponent.setAssignedArmorId(entity.getId());
+					} else {
+						militaryComponent.setAssignedArmorId(null);
+					}
+					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
+				}
+			}));
+		};
 	}
 
 	@Override
@@ -389,6 +442,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		nameTable.clear();
 		professionsTable.clear();
+		militaryEquipmentTable.clear();
 		needsTable.clear();
 		inventoryTable.clear();
 		happinessTable.clear();
@@ -408,24 +462,32 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+		MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
 
 		if (attributes.getConsciousness().equals(Consciousness.DEAD)) {
 			upperRow.add(nameTable).top().padRight(5);
 			lowerRow.add(inventoryTable).top().padRight(5);
 		} else {
 			populateProfessionTable(entity);
+			populateMilitaryEquipmentTable(entity, militaryComponent);
 			populateNeedsTable(needsTable, entity, needLabels, uiSkin);
 			populateHappinessTable(entity);
 			populateInjuriesTable(entity);
 			updateMilitaryToggle(entity);
 
 			upperRow.add(nameTable).top().padRight(5);
-			upperRow.add(professionsTable);
+			if (militaryComponent.isInMilitary()) {
+				upperRow.add(militaryEquipmentTable);
+			} else {
+				upperRow.add(professionsTable);
+			}
 			upperRow.add(militaryToggleTable).center().padRight(5);
 
 			lowerRow.add(needsTable).top().padRight(5);
 			lowerRow.add(inventoryTable).top().padRight(5);
-			lowerRow.add(happinessTable).top().padRight(5);
+			if (!militaryComponent.isInMilitary()) {
+				lowerRow.add(happinessTable).top().padRight(5);
+			}
 			lowerRow.add(injuriesTable).top().padRight(5);
 		}
 
@@ -443,6 +505,67 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			militaryToggleCheckbox.changeI18nKey("CIVILIAN", i18nTranslator);
 			militaryToggleCheckbox.setChecked(false);
 		}
+	}
+
+	private void populateMilitaryEquipmentTable(Entity entity, MilitaryComponent militaryComponent) {
+		// Weapon
+		Long assignedWeaponId = militaryComponent.getAssignedWeaponId();
+		Entity assignedWeapon = null;
+		if (assignedWeaponId != null) {
+			assignedWeapon = gameContext.getEntities().get(assignedWeaponId);
+			if (assignedWeapon == null) {
+				militaryComponent.setAssignedWeaponId(null);
+			}
+		}
+		ImageButton weaponButton = UNARMED_IMAGE_BUTTON;
+		if (assignedWeapon != null) {
+			weaponButton = imageButtonFactory.getOrCreate(assignedWeapon);
+		}
+		weaponButton.setAction(weaponSelectionAction);
+		militaryEquipmentTable.add(weaponButton).center().pad(5);
+
+		// Shield
+		Long assignedShieldId = militaryComponent.getAssignedShieldId();
+		Entity assignedShield = null;
+		if (assignedShieldId != null) {
+			assignedShield = gameContext.getEntities().get(assignedShieldId);
+			if (assignedShield == null) {
+				militaryComponent.setAssignedShieldId(null);
+			}
+		}
+		ImageButton shieldButton = UNSHIELDED_IMAGE_BUTTON;
+		if (assignedShield != null) {
+			shieldButton = imageButtonFactory.getOrCreate(assignedShield);
+		}
+		shieldButton.setAction(shieldSelectionAction);
+		militaryEquipmentTable.add(shieldButton).center().pad(5);
+
+		// Armour
+		Long assignedArmorId = militaryComponent.getAssignedArmorId();
+		Entity assignedArmor = null;
+		if (assignedArmorId != null) {
+			assignedArmor = gameContext.getEntities().get(assignedArmorId);
+			if (assignedArmor == null) {
+				militaryComponent.setAssignedArmorId(null);
+			}
+		}
+		ImageButton armorButton = UNARMORED_IMAGE_BUTTON;
+		if (assignedArmor != null) {
+			armorButton = imageButtonFactory.getOrCreate(assignedArmor);
+		}
+		armorButton.setAction(armorSelectionAction);
+		militaryEquipmentTable.add(armorButton).center().pad(5);
+
+		// Description line
+		militaryEquipmentTable.row();
+		addLabel(assignedWeapon, "WEAPON.UNARMED");
+		addLabel(assignedShield, "WEAPON.NO_SHIELD");
+		addLabel(assignedArmor, "WEAPON.NO_ARMOUR");
+	}
+
+	private void addLabel(Entity itemEntity, String defaultI18nKey) {
+		I18nText description = itemEntity != null ? i18nTranslator.getDescription(itemEntity) : i18nTranslator.getTranslatedString(defaultI18nKey);
+		militaryEquipmentTable.add(new Label(description.toString(), uiSkin)).pad(2).center();
 	}
 
 	public static void populateSettlerNameTable(Entity entity, Table nameTable, I18nTranslator i18nTranslator, Skin uiSkin,
@@ -550,9 +673,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				}
 
 				Table professionRow = new Table(uiSkin);
-				professionRow.add(new Label(rowCounter +". ", uiSkin));
+				professionRow.add(new Label(rowCounter + ". ", uiSkin));
 				professionRow.add(new I18nTextWidget(i18nTranslator.getSkilledProfessionDescription(quantifiedSkill.getSkill(),
-						quantifiedSkill.getLevel(), ((CreatureEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getGender()),
+						quantifiedSkill.getLevel(), ((CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getGender()),
 						uiSkin, messageDispatcher));
 				professionRow.add(new Label(" (" + quantifiedSkill.getLevel() + ")", uiSkin));
 				professionsTable.add(professionRow).align(Align.left).pad(5);
@@ -575,7 +698,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			I18nTextButton addAnotherButton = i18nWidgetFactory.createTextButton("PROFESSION.GUI.ADD_ANOTHER");
 			addAnotherButton.addListener(new ClickListener() {
 				@Override
-				public void clicked (InputEvent event, float x, float y) {
+				public void clicked(InputEvent event, float x, float y) {
 					gameInteractionStateContainer.setProfessionToReplace(null);
 					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.CHANGE_PROFESSION);
 				}
@@ -753,7 +876,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					}
 					haulingTargetDescriptions.put(targetDescription, quantity);
 				} else {
-					Logger.error("Target "+jobAtLocation.getHaulingAllocation().getTargetPositionType()+" of hauling allocation is not found");
+					Logger.error("Target " + jobAtLocation.getHaulingAllocation().getTargetPositionType() + " of hauling allocation is not found");
 				}
 			}
 		}
@@ -770,7 +893,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		return entity.getType().equals(ITEM) &&
 				(itemAllocationComponent == null || itemAllocationComponent.getNumAllocated() == 0) &&
 				liquidContainerComponent != null && liquidContainerComponent.getLiquidQuantity() > 0 && liquidContainerComponent.getNumAllocated() < 0.001f &&
-				((ItemEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getItemPlacement().equals(ItemPlacement.ON_GROUND);
+				((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getItemPlacement().equals(ItemPlacement.ON_GROUND);
 	}
 
 	@Override

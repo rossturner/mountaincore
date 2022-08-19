@@ -48,21 +48,21 @@
     }
   },
   "features" : {
-    "defense": {
-      "maxDefensePoints": 20,
-      "maxDefenseRegainedPerRound": 3,
+    "defense" : {
+      "maxDefensePoints" : 20,
+      "maxDefenseRegainedPerRound" : 3,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 2,
         "CRUSHING" : 2
       }
     },
-    "unarmedWeapon": {
-      "range": 1,
-      "damageType": "CRUSHING",
-      "modifiedByStrength": true,
-      "minDamage": 1,
-      "maxDamage": 4
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "CRUSHING",
+      "modifiedByStrength" : true,
+      "minDamage" : 1,
+      "maxDamage" : 4
     },
     "skin" : {
       "itemTypeName" : "Carcass-Hide",

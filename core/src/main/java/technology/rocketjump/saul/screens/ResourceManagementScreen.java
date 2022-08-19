@@ -190,7 +190,7 @@ public class ResourceManagementScreen extends ManagementScreen {
 			});
 		}
 
-		EntityDrawable materialDrawable = new EntityDrawable(itemEntity, entityRenderer);
+		EntityDrawable materialDrawable = new EntityDrawable(itemEntity, entityRenderer, false, messageDispatcher);
 		clickableRow.add(new Image(materialDrawable)).center().width(80).pad(5);
 
 		clickableRow.add(new I18nTextWidget(displayName, uiSkin, messageDispatcher)).left().width(400f - (indents * INDENT_WIDTH)).pad(2);

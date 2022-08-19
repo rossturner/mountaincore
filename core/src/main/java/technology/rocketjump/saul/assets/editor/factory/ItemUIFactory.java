@@ -20,6 +20,7 @@ import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
 import technology.rocketjump.saul.assets.editor.model.ItemNameBuilders;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.DefenseInfoWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.TagsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WeaponInfoWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
@@ -38,6 +39,7 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.item.*;
 import technology.rocketjump.saul.environment.GameClock;
@@ -373,6 +375,32 @@ public class ItemUIFactory implements UIFactory {
         controls.addSeparator().colspan(2).expand(false, false).row();
 
         controls.add(weaponCollapsible).colspan(2);
+        controls.row();
+        controls.addSeparator().colspan(2).padBottom(15).expand(false, false).row();
+
+        // Defense info
+        final DefenseInfo defenseInfo;
+        boolean initialHasDefenseInfo = itemType.getDefenseInfo() != null;
+        if (initialHasDefenseInfo) {
+            defenseInfo = itemType.getDefenseInfo();
+        } else {
+            defenseInfo = new DefenseInfo();
+        }
+        DefenseInfoWidget defenseInfoWidget = new DefenseInfoWidget(defenseInfo);
+
+        CollapsibleWidget defenseCollapsible = new CollapsibleWidget(defenseInfoWidget);
+        defenseCollapsible.setCollapsed(!initialHasDefenseInfo);
+        controls.add(WidgetBuilder.checkBox("Is Defense:", initialHasDefenseInfo, checked -> {
+            itemType.setDefenseInfo(defenseInfo);
+            defenseCollapsible.setCollapsed(false, true);
+        }, unchecked -> {
+            itemType.setDefenseInfo(null);
+            defenseCollapsible.setCollapsed(true, true);
+        })).padTop(15);
+        controls.row();
+        controls.addSeparator().colspan(2).expand(false, false).row();
+
+        controls.add(defenseCollapsible).colspan(2);
         controls.row();
         controls.addSeparator().colspan(2).padBottom(15).expand(false, false).row();
 

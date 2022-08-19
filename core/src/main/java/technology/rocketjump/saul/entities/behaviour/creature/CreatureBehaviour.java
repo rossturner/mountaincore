@@ -188,7 +188,10 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		parentEntity.getComponent(StatusComponent.class).infrequentUpdate(elapsed);
 
 		HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
-		if (happinessComponent != null) {
+		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
+		boolean isInMilitary = militaryComponent != null && militaryComponent.isInMilitary();
+
+		if (happinessComponent != null && !isInMilitary) {
 			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
 			if (currentTile != null && currentTile.getRoof().getState().equals(TileRoofState.OPEN) &&
 					gameContext.getMapEnvironment().getCurrentWeather().getHappinessModifiers().containsKey(STANDING)) {
@@ -201,7 +204,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		lookAtNearbyThings(gameContext);
 
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
-		if (attributes.getRace().getBehaviour().getIsSapient()) {
+		if (attributes.getRace().getBehaviour().getIsSapient() && !isInMilitary) {
 			if (attributes.getSanity().equals(Sanity.SANE) && attributes.getConsciousness().equals(AWAKE) &&
 					happinessComponent != null && happinessComponent.getNetModifier() <= MIN_HAPPINESS_VALUE) {
 				messageDispatcher.dispatchMessage(MessageType.SAPIENT_CREATURE_INSANITY, parentEntity);

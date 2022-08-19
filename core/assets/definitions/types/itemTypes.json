@@ -12,6 +12,16 @@
   "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "defenseInfo" : {
+    "type" : "ARMOR",
+    "maxDefensePoints" : 12,
+    "maxDefenseRegainedPerRound" : 2,
+    "damageReduction" : {
+      "STABBING" : 1,
+      "SLASHING" : 2,
+      "CRUSHING" : 3
+    }
+  },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.LEATHER"
 }, {

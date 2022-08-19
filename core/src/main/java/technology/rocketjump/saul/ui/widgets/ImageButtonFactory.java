@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.ui.widgets;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -23,14 +24,18 @@ public class ImageButtonFactory {
 	private final TextureAtlas textureAtlas;
 	private final NinePatch buttonNinePatch;
 
+	private final MessageDispatcher messageDispatcher;
+
 	private Map<String, ImageButton> byIconName = new HashMap<>();
 	private final Map<Long, ImageButton> entityButtonsByEntityId = new HashMap<>();
 	private final Map<Long, ImageButton> ghostButtonsByEntityId = new HashMap<>();
 	private final EntityRenderer entityRenderer;
 
 	@Inject
-	public ImageButtonFactory(TextureAtlasRepository textureAtlasRepository, SkillDictionary skillDictionary, EntityRenderer entityRenderer) {
+	public ImageButtonFactory(TextureAtlasRepository textureAtlasRepository, SkillDictionary skillDictionary,
+							  MessageDispatcher messageDispatcher, EntityRenderer entityRenderer) {
 		this.textureAtlas = textureAtlasRepository.get(TextureAtlasRepository.TextureAtlasType.GUI_TEXTURE_ATLAS);
+		this.messageDispatcher = messageDispatcher;
 		this.entityRenderer = entityRenderer;
 		this.buttonNinePatch = textureAtlas.createPatch("button");
 
@@ -56,12 +61,12 @@ public class ImageButtonFactory {
 	}
 
 	public ImageButton getOrCreate(Entity entity) {
-		return entityButtonsByEntityId.computeIfAbsent(entity.getId(), a -> new ImageButton(new EntityDrawable(entity, entityRenderer), buttonNinePatch, false));
+		return entityButtonsByEntityId.computeIfAbsent(entity.getId(), a -> new ImageButton(new EntityDrawable(entity, entityRenderer, true, messageDispatcher), buttonNinePatch, false));
 	}
 
 	public ImageButton getOrCreateGhostButton(Entity entity) {
 		return ghostButtonsByEntityId.computeIfAbsent(entity.getId(), a -> {
-			EntityDrawable entityDrawable = new EntityDrawable(entity, entityRenderer);
+			EntityDrawable entityDrawable = new EntityDrawable(entity, entityRenderer, true, messageDispatcher);
 			entityDrawable.setOverrideColor(HexColors.get("#D4534C88"));
 			return new ImageButton(entityDrawable, buttonNinePatch, false);
 		});

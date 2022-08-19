@@ -1,10 +1,19 @@
 {
-  "itemTypeId" : 1,
   "itemTypeName" : "Armour-Leather",
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "SKIN" ],
   "primaryMaterialType" : "SKIN",
   "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
   "stockpileGroupName" : "WEAPONS",
+  "defenseInfo" : {
+    "type" : "ARMOR",
+    "maxDefensePoints" : 12,
+    "maxDefenseRegainedPerRound" : 2,
+    "damageReduction" : {
+      "STABBING" : 1,
+      "SLASHING" : 2,
+      "CRUSHING" : 3
+    }
+  },
   "i18nKey" : "ARMOUR.LEATHER"
 }

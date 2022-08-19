@@ -1391,6 +1391,8 @@ WEAPON.METAL.ARROWS.NOUN,Arrow,,Pfeil,,Freccia,Flecha,,,,Стрела,,,,,,,,矢
 WEAPON.METAL.ARROWS.PLURAL,Arrows,,Pfeile,,Frecce,Flechas,,,,Стрелы,,,,,,,,矢,箭矢,
 WEAPON.METAL.BOLTS.NOUN,Bolt,,,,,,,,,,,,,,,,,,,
 WEAPON.METAL.BOLTS.PLURAL,Bolts,,,,,,,,,,,,,,,,,,,
+WEAPON.NO_ARMOUR,Unarmoured,,,,,,,,,,,,,,,,,,,
+WEAPON.NO_SHIELD,Unshielded,,,,,,,,,,,,,,,,,,,
 WEAPON.SWORD,Sword,,,,,,,,,,,,,,,,,,,
 WEAPON.UNARMED,Unarmed,,Unbewaffnet,,Disarmato,Desarmado,,,,"Безоружный ",,,,,,,,非武装,赤手空拳,
 

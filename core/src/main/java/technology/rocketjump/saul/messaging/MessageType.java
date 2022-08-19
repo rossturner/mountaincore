@@ -61,6 +61,7 @@ public class MessageType {
 	public static final int PREFERENCE_CHANGED = 280;
 	public static final int GUI_CANCEL_CURRENT_VIEW_OR_GO_TO_MAIN_MENU = 281;
 	public static final int TOGGLE_DEBUG_VIEW = 282;
+	public static final int PREPOPULATE_SELECT_ITEM_VIEW = 283;
 
 	// i18n Messages
 	public static final int LANGUAGE_CHANGED = 290;

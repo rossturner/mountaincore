@@ -32,5 +32,6 @@ public enum GuiViewName {
 	TILE_SELECTED,
 
 	CHANGE_PROFESSION,
+	SELECT_ITEM
 
 }
