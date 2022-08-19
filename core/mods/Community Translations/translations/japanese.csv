@@ -34,6 +34,9 @@ ACTION.SELECT_JOB.DESCRIPTION,When looking for a job to work,Looking for work to
 ACTION.SLEEP_ON_FLOOR.DESCRIPTION,E.g. “Sleeping on rough stone floor”,Sleeping on {{tileDescription}},{{tileDescription}}で眠っている
 ACTION.STUNNED,,Stunned,スタンしている
 
+ARMOUR.LEATHER,,Leather armour,
+ARMOUR.LEATHER.TOOLTIP,,A light and basic armour to protect you in combat,
+
 ASHES.NOUN,,Ash,灰
 
 BODY_STRUCTURE.ABDOMEN,,Abdomen,腹部
@@ -70,6 +73,7 @@ BONE.BONE,,Bone,骨
 CARCASS.CARP.PREPARED.NOUN,,Carp fillet,コイの切り身
 CARCASS.CARP.PREPARED.PLURAL,,Carp fillets,コイの切り身
 CARCASS.GROUP,,Corpses,死体
+CARCASS.HIDE,,Hide,
 CARCASS.MEAT.LARGE,,Meat (large),食肉(大)
 CARCASS.MEAT.MEDIUM,,Meat (medium),食肉(中)
 CARCASS.MEAT.SMALL,,Meat (small),食肉(小)
@@ -82,6 +86,10 @@ CLOTH.BRONZED_HEMP,,Hemp,麻
 CLOTH.HEMP-LINEN,,Hemp,麻
 CLOTH.LIGHT_HEMP,,Hemp,麻
 CLOTH.TOBACCO_CLOTH,,Tobacco cloth,タバコの葉
+
+COMBAT.DESCRIPTION.FLEEING,,Fleeing from combat,
+COMBAT.DESCRIPTION.GENERIC,,In combat,
+COMBAT.DESCRIPTION.VERSUS_OPPONENT,,In combat with {{targetDescription}},
 
 CONSTRUCTION.DESCRIPTION,E.g. “Construction of granite stonemason workbench”,Construction of {{materialType.adjective}} {{furnitureType.noun}},{{materialType.adjective}} {{furnitureType.noun}}(建築中)
 CONSTRUCTION.ITEM_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{quantity}} of {{itemDescription}} allocated,{{quantity}}/{{itemDescription}}が割り当てられている
@@ -102,12 +110,14 @@ CRAFTING_TYPE.CARPENTRY,,Carpentry,木製品を製造する
 CRAFTING_TYPE.COKE_OVEN_BAKING,,Coke baking,石炭をコークスにする
 CRAFTING_TYPE.FERMENTING,,Fermenting,ビールを発酵させる
 CRAFTING_TYPE.FLETCHING,,Fletching,弓矢を製造する
+CRAFTING_TYPE.LEATHERWORKING,,Leatherworking,
 CRAFTING_TYPE.MALTING,,Malting,モルツを加工する
 CRAFTING_TYPE.MALT_MASHING,,Malt mashing,モルツを糖化する
 CRAFTING_TYPE.MILLING,,Milling,粉を挽く
 CRAFTING_TYPE.ORE_CRUSHING,,Ore crushing,鉱石を砕く
 CRAFTING_TYPE.SMELTING,,Smelting,金属を製錬する
 CRAFTING_TYPE.STONEMASONRY,,Stonemasonry,石を加工する
+CRAFTING_TYPE.TANNING_HIDE,,Hide tanning,
 CRAFTING_TYPE.WEAVING,,Weaving,布製品を製造する
 CRAFTING_TYPE.WOODCUTTING,,Woodcutting,丸太を加工する
 CRAFTING_TYPE.WORT_BREWING,,Brewing,ビールを醸造する
@@ -224,6 +234,8 @@ FURNITURE.KITCHEN_WORKTOP.TOOLTIP,,An area to store ingredients for a {{PROFESSI
 FURNITURE.LANTERN,,Lantern,ランタン
 FURNITURE.LANTERN.TOOLTIP,,A lantern provides light – this does not currently have an in-game effect.,ランタンは光を提供します。今の所、ゲーム内での効果はありません。
 FURNITURE.LARGE_TABLE,,Large table,大食卓
+FURNITURE.LEATHERWORKING_STATION,,Leatherworking station,
+FURNITURE.LEATHERWORKING_STATION.TOOLTIP,,A workbench to produce leather goods like armour and waterskins,
 FURNITURE.LOOM,,Loom,織機
 FURNITURE.MALTING_STATION,,Malting station,麦汁製造台
 FURNITURE.MALTING_STATION.TOOLTIP,,"Here brewers steep barley and then dry it out using a kiln to produce malt. ",醸造者が大麦を煮た後で乾燥させ、麦芽を作るための場所です
@@ -253,6 +265,8 @@ FURNITURE.SMALL_TABLE,,Small table,小食卓
 FURNITURE.STONEMASON_WORKBENCH,,Stonemason workbench,石細工台
 FURNITURE.STONEMASON_WORKBENCH.TOOLTIP,,A {{PROFESSION.STONEMASON}} works here with {{MATERIAL_TYPE.STONE.ADJECTIVE}} resources.,{{PROFESSION.STONEMASON}}が{{MATERIAL_TYPE.STONE.ADJECTIVE}}を加工するために必要です。
 FURNITURE.STOOL,,Stool,スツール
+FURNITURE.TANNING_FRAME,,Tanning frame,
+FURNITURE.TANNING_FRAME.TOOLTIP,,Turn your Animal Skins into Leather.,
 FURNITURE.WATERWHEEL,,Water wheel,水車
 FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.,{{PRODUCT.STONE.GEAR.PLURAL}}とシャフトを使って動力を引き出します。川の横に設置する必要があります。
 FURNITURE.WATER_BARREL,,Water barrel,水タル
@@ -567,7 +581,7 @@ HINT.WELCOME.NEXT_STEPS,,"Click “Tutorial” to be guided through the basics, 
 HINT.WELCOME.PRE_SPAWN,,"Start the game by selecting a location on the map with enough space, and clicking the '{{GUI.EMBARK.START}}' button.",マップ上の十分なスペースのある場所を選び、{{GUI.EMBARK.START}}ボタンをクリックするとゲームが開始されます。
 
 HUMANOID.BROKEN.DESCRIPTION,"E.g. “Urist McScrooge, insane dwarf”","{{name}}, {{madness.adjective}} {{race.noun}}",{{name}}、 {{madness.adjective}} {{race.noun}}
-HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{profession.noun}}",{{name}}、{{race.adjective}} {{profession.noun}}
+HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{skillLevelDescription.adjective}} {{profession.noun}}",{{name}}、{{race.adjective}} {{profession.noun}}
 
 INGREDIENT.DOUGH,To be combined with the above as “bread dough”,Dough,生地
 INGREDIENT.FLOUR,,Flour,穀粉
@@ -590,8 +604,16 @@ INGREDIENT.VEGETABLE.SACK.PLURAL,,Vegetables (sack),野菜(袋入り)
 
 INVENTORY.CONTAINS.LABEL,This is the label of “inventory” to go above a list of items contained within a piece of furniture or held by a character,Inventory:,インベントリ:
 
-ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}} {{materialType.adjective}} {{itemType.noun_or_plural}}
-ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}}{{materialType.noun_or_plural}},{{quantity_if_multiple}} {{materialType.noun_or_plural}}
+ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}} {{quality.adjective}} {{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}} {{materialType.adjective}} {{itemType.noun_or_plural}}
+ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}} {{materialType.noun_or_plural}},{{quantity_if_multiple}} {{materialType.noun_or_plural}}
+ITEM.QUALITY.PREFIX.AWFUL.ADJECTIVE,,Awful,
+ITEM.QUALITY.PREFIX.AWFUL.TOOLTIP,,"This item is terribly made, difficult to use, and would not be worth very much",
+ITEM.QUALITY.PREFIX.MASTERWORK.ADJECTIVE,,Masterwork,
+ITEM.QUALITY.PREFIX.MASTERWORK.TOOLTIP,,"This item has clearly been made by a master craftsman, it is ideal in every way",
+ITEM.QUALITY.PREFIX.POOR.ADJECTIVE,,Poor,
+ITEM.QUALITY.PREFIX.POOR.TOOLTIP,,This item is poorly made and will slightly impede anyone using it,
+ITEM.QUALITY.PREFIX.SUPERIOR.ADJECTIVE,,Superior,
+ITEM.QUALITY.PREFIX.SUPERIOR.TOOLTIP,,"This item has been crafted with great skill, making it more valuable and easier to use",
 
 ITEM_GROUP.FUEL.PLURAL,,Fuel,燃料
 ITEM_GROUP.PRODUCT.PLURAL,,Products,工作物
@@ -628,6 +650,8 @@ MATERIAL_TYPE.OTHER.NOUN,This isn't actually used in-game yet so won't be combin
 MATERIAL_TYPE.ROPE.ADJECTIVE,," ",
 MATERIAL_TYPE.ROPE.NOUN,," ",
 MATERIAL_TYPE.SEED.NOUN,For saying something is “made up of seed”,Seed,種
+MATERIAL_TYPE.SKIN.ADJECTIVE,," ",
+MATERIAL_TYPE.SKIN.NOUN,," ",
 MATERIAL_TYPE.STONE.ADJECTIVE,,,石の
 MATERIAL_TYPE.STONE.NOUN,,Stone,石
 MATERIAL_TYPE.VEGETABLE.NOUN,Used to make up “Vegetable soup”,Vegetable,野菜
@@ -845,6 +869,7 @@ PRODUCT.BUCKET.PLURAL,,Buckets,バケツ
 PRODUCT.BUCKET.TOOLTIP,,A small container used to move liquids around by hand.,手に持って液体を運ぶことができる小型の容器です。
 PRODUCT.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,大釜
 PRODUCT.CAULDRON.TOOLTIP,,"Used by a {{PROFESSION.CHEF}} to prepare soup in a {{ROOMS.KITCHEN}}, where it is then moved to a {{ROOMS.FEASTING_HALL}}.",{{PROFESSION.CHEF}}が{{ROOMS.KITCHEN}}でスープを作るために使います。また、そのまま{{ROOMS.FEASTING_HALL}}に持ち運ぶこともできます。
+PRODUCT.LEATHER,,Leather,
 PRODUCT.LINEN.NOUN,,Linen,リネン
 PRODUCT.LINEN.PLURAL,,Linen,リネン
 PRODUCT.LIQUID.TANK,,Tank,タンク
@@ -862,6 +887,8 @@ PRODUCT.STONE.GEAR.TOOLTIP,,Used in the construction of mechanisms.,器械設備
 PRODUCT.STONE.PIPE.NOUN,,Pipe,配管
 PRODUCT.STONE.PIPE.PLURAL,,Pipes,配管
 PRODUCT.STONE.PIPE.TOOLTIP,,Used for liquids to flow between tiles underground.,タイルの地下に水などの液体を流すために使います。
+PRODUCT.WATERSKIN.NOUN,,Waterskin,
+PRODUCT.WATERSKIN.PLURAL,,Waterskins,
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.NOUN,,Horizontal shaft,シャフト(水平)
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.PLURAL,,Horizontal shafts,シャフト(水平)
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.TOOLTIP,,Used to connect mechanisms which produce and require power.,動力源と動力を必要とする設備を結ぶために使います。
@@ -886,6 +913,7 @@ PROFESSION.CHEF.FEMALE_NOUN,,Chef,料理人
 PROFESSION.CHEF.MALE_NOUN,,Chef,料理人
 PROFESSION.CHEF.TOOLTIP,,Prepares all of the food to be consumed by your settlers.,入植者たちの食を一手に担います。
 PROFESSION.CHEF.VERB,,Cooking,調理している
+PROFESSION.DESCRIPTION,,{{skillLevelDescription.adjective}} {{profession.noun}},
 PROFESSION.FARMER.FEMALE_NOUN,,Farmer,農夫
 PROFESSION.FARMER.MALE_NOUN,,Farmer,農夫
 PROFESSION.FARMER.PLURAL,,Farmers,農夫
@@ -895,10 +923,15 @@ PROFESSION.FISHER.FEMALE_NOUN,This could be “fisherman” and “fisherwoman�
 PROFESSION.FISHER.MALE_NOUN,,Fisher,漁師
 PROFESSION.FISHER.TOOLTIP,,Catches fish from bodies of water for use as food and resources.,水中から魚を捕まえ、食料や資源として活用します。
 PROFESSION.FISHER.VERB,,Fishing,釣りをしている
+PROFESSION.GUI.ADD_ANOTHER,,Add another,
 PROFESSION.HUNTER.FEMALE_NOUN,This could be “huntsman” and “huntress”,Hunter,狩人
 PROFESSION.HUNTER.MALE_NOUN,,Hunter,狩人
 PROFESSION.HUNTER.TOOLTIP,,Tracks and kills wild animals for their meat and pelts.,肉や皮を得るために野生動物を追い、殺します。
 PROFESSION.HUNTER.VERB,,Hunting,狩りをしている
+PROFESSION.LEATHERWORKER.FEMALE_NOUN,,Leatherworker,
+PROFESSION.LEATHERWORKER.MALE_NOUN,,Leatherworker,
+PROFESSION.LEATHERWORKER.TOOLTIP,,Treats the hides of creatures to produce leather goods.,
+PROFESSION.LEATHERWORKER.VERB,,Leatherworking,
 PROFESSION.MAYOR.FEMALE_NOUN,"In English at least, “mayoress” is incorrect",Mayor,長
 PROFESSION.MAYOR.MALE_NOUN,,Mayor,長
 PROFESSION.MAYOR.VERB,,Governing,統治している
@@ -918,6 +951,24 @@ PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,ルーンスミス
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.",武器、防具、その他のアイテムに魔法のルーンでエンチャントを施し、それらを強化します。
 PROFESSION.RUNESMITH.VERB,,Enchanting,エンチャントしている
+PROFESSION.SKILL_LEVEL.1,,Neophyte,
+PROFESSION.SKILL_LEVEL.1.TOOLTIP,,An absolute beginner with little to no experience.,
+PROFESSION.SKILL_LEVEL.2,,Novice,
+PROFESSION.SKILL_LEVEL.2.TOOLTIP,,They only understand the basics of their craft.,
+PROFESSION.SKILL_LEVEL.3,,Apprentice,
+PROFESSION.SKILL_LEVEL.3.TOOLTIP,,"Though they are becoming skilled, there is still a lot of experience to be earned.",
+PROFESSION.SKILL_LEVEL.4,,Journeyman,
+PROFESSION.SKILL_LEVEL.4.TOOLTIP,,"No longer an apprentice, they have reasonable skill in their given craft.",
+PROFESSION.SKILL_LEVEL.5,,Adept,
+PROFESSION.SKILL_LEVEL.5.TOOLTIP,,They are well-skilled but still have further heights that can be reached.,
+PROFESSION.SKILL_LEVEL.6,,Skilled,
+PROFESSION.SKILL_LEVEL.6.TOOLTIP,,"Very skilled in their craft, they are now more than competent.",
+PROFESSION.SKILL_LEVEL.7,,Expert,
+PROFESSION.SKILL_LEVEL.7.TOOLTIP,,There is little that the expert does not know of their respective field.,
+PROFESSION.SKILL_LEVEL.8,,Master,
+PROFESSION.SKILL_LEVEL.8.TOOLTIP,,"Beyond even an expert, they are truly a master of their craft.",
+PROFESSION.SKILL_LEVEL.9,,Grandmaster,
+PROFESSION.SKILL_LEVEL.9.TOOLTIP,,There is nobody more skilled in their craft than a grandmaster.,
 PROFESSION.STONEMASON.FEMALE_NOUN,,Stonemason,石工
 PROFESSION.STONEMASON.MALE_NOUN,,Stonemason,石工
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.,石から建築物やアイテムを作ります。
@@ -929,6 +980,11 @@ PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,村人
 PROFESSION.VILLAGER.MALE_NOUN,,Villager,村人
 PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,この入植者は特定の役割を持ちませんが、アイテムを運搬するなどの誰でもできるような仕事を果たします。
 PROFESSION.VILLAGER.VERB,,Working,働いている
+PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
+PROFESSION.WEAVER.MALE_NOUN,,Weaver,
+PROFESSION.WEAVER.PLURAL,,Weavers,
+PROFESSION.WEAVER.TOOLTIP,,Processes materials into clothing and other fabrics.,
+PROFESSION.WEAVER.VERB,,Weaving,
 PROFESSION.WOODCUTTER.FEMALE_NOUN,This could be “lumberjack” and “lumberjane”,Woodcutter,木こり
 PROFESSION.WOODCUTTER.MALE_NOUN,,Woodcutter,木こり
 PROFESSION.WOODCUTTER.TOOLTIP,,Cuts down trees as lumber that can be used in a {{ROOMS.SAWMILL}}.,木を伐採し、{{ROOMS.SAWMILL}}で使用できる木材にします。
@@ -1034,6 +1090,8 @@ ROOMS.GRAVEYARD,,Graveyard,墓地
 ROOMS.GRAVEYARD.TOOLTIP,,Deceased settlers are laid to rest here.,死せる入植者たちに安息の眠りを提供する場所です。
 ROOMS.KITCHEN,,Kitchen,調理場
 ROOMS.KITCHEN.TOOLTIP,,Most food is prepared here before being served in a {{ROOMS.FEASTING_HALL}}.,{{ROOMS.FEASTING_HALL}}で提供する食事を作る場所です。
+ROOMS.LEATHER_WORKSHOP,,Leather workshop,
+ROOMS.LEATHER_WORKSHOP.TOOLTIP,,Craft items out of animal hide,
 ROOMS.MASONRY_WORKSHOP,,Masonry workshop,石工作業所
 ROOMS.MASONRY_WORKSHOP.TOOLTIP,,This workshop produces most items made out of stone.,石を加工してアイテムを生産する場所です。
 ROOMS.METALWORKS,,Metalworks,金属加工所
@@ -1097,6 +1155,30 @@ SEED.WHEAT_SEED,,Wheat,小麦
 SEED.WHEAT_SEED.TOOLTIP,{{VEGETABLE.WHEAT.TOOLTIP}},"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}.",この穀物はふつうパン作りに使われます。{{SEASON.WINTER}}でも枯れずに残りますが、生育が遅くなります。そのため{{SEASON.SPRING}}か{{SEASON.AUTUMN}}に植えられます。
 
 SHRUB.DESCRIPTION,Shrub or bush should do,Bush,藪
+
+SKILL.ARCHERY.FEMALE_NOUN,,Archer,
+SKILL.ARCHERY.MALE_NOUN,,Archer,
+SKILL.ARCHERY.TOOLTIP,,Skill with the bow,
+SKILL.AXES.FEMALE_NOUN,,Axewoman,
+SKILL.AXES.MALE_NOUN,,Axeman,
+SKILL.AXES.TOOLTIP,,Skill with axes,
+SKILL.CROSSBOWS.FEMALE_NOUN,,Arbalist,
+SKILL.CROSSBOWS.MALE_NOUN,,Arbalist,
+SKILL.CROSSBOWS.TOOLTIP,,Skill with the crossbow,
+SKILL.MACES.FEMALE_NOUN,,Hammerer,
+SKILL.MACES.MALE_NOUN,,Hammerer,
+SKILL.MACES.TOOLTIP,,Skill with hammers and maces,
+SKILL.SWORDSMANSHIP.FEMALE_NOUN,,Swordswoman,
+SKILL.SWORDSMANSHIP.MALE_NOUN,,Swordsman,
+SKILL.SWORDSMANSHIP.TOOLTIP,,Skill with the sword,
+SKILL.UNARMED_COMBAT.FEMALE_NOUN,,Brawler,
+SKILL.UNARMED_COMBAT.MALE_NOUN,,Brawler,
+SKILL.UNARMED_COMBAT.TOOLTIP,,Skill in unarmed combat,
+
+SKIN.BOAR_HIDE,,Boar,
+SKIN.DEER_HIDE,,Deer,
+SKIN.DWARF_HIDE,,Dwarf,
+SKIN.ELEPHANT_HIDE,,Elephant,
 
 STATUS.ALCOHOL_WITHDRAWL,,Alcohol withdrawl,酔いが醒めた
 STATUS.BLEEDING,,Bleeding,出血
@@ -1295,11 +1377,17 @@ WALL.ROUGH_STONE.NOUN,,Rock wall,岩壁
 WALL.STONE_BLOCK.NOUN,,Smooth stone wall,磨かれた石壁
 WALL.WOODEN.NOUN,,Wood wall,木壁
 
+WEAPON.BATTLE.AXE,,Battle axe,
+WEAPON.BATTLE.HAMMER,,Battle hammer,
 WEAPON.BONE.ARROWS.NOUN,,Arrow,矢
 WEAPON.BONE.ARROWS.PLURAL,,Arrows,矢
 WEAPON.BOW,,Bow,弓
+WEAPON.CROSSBOW,,Crossbow,
 WEAPON.METAL.ARROWS.NOUN,,Arrow,矢
 WEAPON.METAL.ARROWS.PLURAL,,Arrows,矢
+WEAPON.METAL.BOLTS.NOUN,,Bolt,
+WEAPON.METAL.BOLTS.PLURAL,,Bolts,
+WEAPON.SWORD,,Sword,
 WEAPON.UNARMED,,Unarmed,非武装
 
 WEATHER.TYPE.CLOUDY,,Cloudy & grey,曇
