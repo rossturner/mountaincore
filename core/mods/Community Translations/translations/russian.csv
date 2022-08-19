@@ -374,6 +374,7 @@ GOAL.FLEE_FROM_AGGRESSOR.DESCRIPTION,,Fleeing from {{targetDescription}},Убе�
 GOAL.HAULING.DESCRIPTION,E.g. “Hauling granite stone”,Hauling {{targetDescription}},Переноска: {{itemDescription}}
 GOAL.IDLE.DESCRIPTION,When not doing anything,Idle,Бездельничает
 GOAL.ON_FIRE.DESCRIPTION,,On fire!,Горит!
+GOAL.REFILL_WATERSKIN.DESCRIPTION,,Refilling waterskin,
 GOAL.SLEEP.DESCRIPTION,,Going to sleep,Собирается спать
 GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {{targetZoneMaterial}},Переносит: {{targetZoneMaterial}}
 
