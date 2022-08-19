@@ -23,8 +23,6 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-import java.util.Optional;
-
 import static technology.rocketjump.saul.entities.ai.goap.EntityNeed.DRINK;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
@@ -85,12 +83,9 @@ public class ConsumeLiquidFromContainerAction extends Action {
 				InventoryComponent inventory = parent.parentEntity.getComponent(InventoryComponent.class);
 				completionType = FAILURE;
 				if (inventory != null) {
-					Optional<Entity> inventoryItem = inventory.getInventoryEntries().stream()
-							.map(item -> item.entity)
-							.filter(entity -> entity.getId() == liquidAllocation.getTargetContainerId())
-							.findAny();
-					if (inventoryItem.isPresent()) {
-						LiquidContainerComponent container = inventoryItem.get().getComponent(LiquidContainerComponent.class);
+					Entity inventoryItem = inventory.getById(liquidAllocation.getTargetContainerId());
+					if (inventoryItem != null) {
+						LiquidContainerComponent container = inventoryItem.getComponent(LiquidContainerComponent.class);
 						LiquidAllocation success = container.cancelAllocationAndDecrementQuantity(liquidAllocation);
 						parent.setLiquidAllocation(null);
 						if (success != null) {
