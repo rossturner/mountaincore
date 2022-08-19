@@ -8,7 +8,7 @@
   "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : {
-    "LIQUID_CONTAINER" : [ "2", "Water" ],
+    "LIQUID_CONTAINER" : [ "1", "Water" ],
     "USAGE_SOUND" : [ "WaterCollect" ],
     "ITEM_ASSIGNMENT": []
   },

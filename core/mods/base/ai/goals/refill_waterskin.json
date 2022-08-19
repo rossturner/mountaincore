@@ -1,0 +1,32 @@
+{
+  "name": "Refill waterskin",
+  "i18nDescription": "GOAL.REFILL_WATERSKIN.DESCRIPTION",
+  "selectors": [
+    {
+      "conditions": [ ],
+      "priority": "WANT_NORMAL",
+      "scheduleCategory": "NOURISHMENT"
+    }
+  ],
+  "initialActions": ["InspectWaterskins"],
+  "actionRelationships": {
+    "InspectWaterskins": {
+      "pass": ["GoToDrinkLocation"],
+      "fail": []
+    },
+    "GoToDrinkLocation": {
+      "pass": ["FaceTowardsLocation"],
+      "fail": ["CancelLiquidAllocation"]
+    },
+    "FaceTowardsLocation": {
+      "pass": ["RefillWaterskin"],
+      "fail": ["CancelLiquidAllocation"]
+    },
+    "RefillWaterskin": {
+      "pass": ["UnassignFurniture"],
+      "fail": ["CancelLiquidAllocation"]
+    },
+    "UnassignFurniture": {},
+    "CancelLiquidAllocation": {}
+  }
+}

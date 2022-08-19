@@ -6,6 +6,7 @@ import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
+import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
@@ -21,6 +22,8 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+
+import java.util.Optional;
 
 import static technology.rocketjump.saul.entities.ai.goap.EntityNeed.DRINK;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
@@ -77,6 +80,27 @@ public class ConsumeLiquidFromContainerAction extends Action {
 				// No real liquid to remove
 				consumedLiquid = targetZoneTile.getFloor().getMaterial();
 				completionType = SUCCESS;
+			} else if (LiquidAllocation.LiquidAllocationType.REQUESTER_INVENTORY == liquidAllocation.getType()) {
+
+				InventoryComponent inventory = parent.parentEntity.getComponent(InventoryComponent.class);
+				completionType = FAILURE;
+				if (inventory != null) {
+					Optional<Entity> inventoryItem = inventory.getInventoryEntries().stream()
+							.map(item -> item.entity)
+							.filter(entity -> entity.getId() == liquidAllocation.getTargetContainerId())
+							.findAny();
+					if (inventoryItem.isPresent()) {
+						LiquidContainerComponent container = inventoryItem.get().getComponent(LiquidContainerComponent.class);
+						LiquidAllocation success = container.cancelAllocationAndDecrementQuantity(liquidAllocation);
+						parent.setLiquidAllocation(null);
+						if (success != null) {
+							consumedLiquid = container.getTargetLiquidMaterial();
+							completionType = SUCCESS;
+						}
+
+
+					}
+				}
 			} else {
 				Logger.error("Not found target for " + this.getClass().getSimpleName() + ", could be removed furniture");
 				completionType = FAILURE;

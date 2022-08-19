@@ -301,7 +301,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 					.filter(container -> container.getNumUnallocated() >= amountRequired)
 					.findAny();
 
-			return liquidContainers.map(container -> container.createAllocation(amountRequired, requester));
+			return liquidContainers.map(container -> container.createAllocationFromInventory(amountRequired, requester));
 		}
 	}
 

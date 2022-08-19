@@ -367,6 +367,35 @@
   "selectors" : [ ],
   "initialActions" : [ "GoToLocation" ]
 }, {
+  "i18nDescription" : "GOAL.REFILL_WATERSKIN.DESCRIPTION",
+  "name" : "Refill waterskin",
+  "actionRelationships" : {
+    "RefillWaterskin" : {
+      "fail" : [ "CancelLiquidAllocation" ],
+      "pass" : [ "UnassignFurniture" ]
+    },
+    "CancelLiquidAllocation" : { },
+    "GoToDrinkLocation" : {
+      "fail" : [ "CancelLiquidAllocation" ],
+      "pass" : [ "FaceTowardsLocation" ]
+    },
+    "UnassignFurniture" : { },
+    "InspectWaterskins" : {
+      "fail" : [ ],
+      "pass" : [ "GoToDrinkLocation" ]
+    },
+    "FaceTowardsLocation" : {
+      "fail" : [ "CancelLiquidAllocation" ],
+      "pass" : [ "RefillWaterskin" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "NOURISHMENT",
+    "conditions" : [ ],
+    "priority" : "WANT_NORMAL"
+  } ],
+  "initialActions" : [ "InspectWaterskins" ]
+}, {
   "i18nDescription" : "GOAL.TRANSFER_LIQUID.DESCRIPTION",
   "name" : "Remove liquid goal",
   "actionRelationships" : {
