@@ -34,6 +34,9 @@ ACTION.SELECT_JOB.DESCRIPTION,When looking for a job to work,Looking for work to
 ACTION.SLEEP_ON_FLOOR.DESCRIPTION,E.g. “Sleeping on rough stone floor”,Sleeping on {{tileDescription}},在{{tileDescription}}上睡觉
 ACTION.STUNNED,,Stunned,昏迷
 
+ARMOUR.LEATHER,,Leather armour,
+ARMOUR.LEATHER.TOOLTIP,,A light and basic armour to protect you in combat,
+
 ASHES.NOUN,,Ash,灰烬
 
 BODY_STRUCTURE.ABDOMEN,,Abdomen,腹部
@@ -70,6 +73,7 @@ BONE.BONE,,Bone,骨头
 CARCASS.CARP.PREPARED.NOUN,,Carp fillet,鲤鱼柳
 CARCASS.CARP.PREPARED.PLURAL,,Carp fillets,鲤鱼柳
 CARCASS.GROUP,,Corpses,尸体
+CARCASS.HIDE,,Hide,
 CARCASS.MEAT.LARGE,,Meat (large),肉（大）
 CARCASS.MEAT.MEDIUM,,Meat (medium),肉（中）
 CARCASS.MEAT.SMALL,,Meat (small),肉（小）
@@ -82,6 +86,10 @@ CLOTH.BRONZED_HEMP,,Hemp,
 CLOTH.HEMP-LINEN,,Hemp,大麻
 CLOTH.LIGHT_HEMP,,Hemp,
 CLOTH.TOBACCO_CLOTH,,Tobacco cloth,
+
+COMBAT.DESCRIPTION.FLEEING,,Fleeing from combat,
+COMBAT.DESCRIPTION.GENERIC,,In combat,
+COMBAT.DESCRIPTION.VERSUS_OPPONENT,,In combat with {{targetDescription}},
 
 CONSTRUCTION.DESCRIPTION,E.g. “Construction of granite stonemason workbench”,Construction of {{materialType.adjective}} {{furnitureType.noun}},建造{{materialType.adjective}} {{furnitureType.noun}}
 CONSTRUCTION.ITEM_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{quantity}} of {{itemDescription}} allocated,已分配{{quantity}} {{itemDescription}}
@@ -102,12 +110,14 @@ CRAFTING_TYPE.CARPENTRY,,Carpentry,木工
 CRAFTING_TYPE.COKE_OVEN_BAKING,,Coke baking,炼焦
 CRAFTING_TYPE.FERMENTING,,Fermenting,发酵
 CRAFTING_TYPE.FLETCHING,,Fletching,制箭
+CRAFTING_TYPE.LEATHERWORKING,,Leatherworking,
 CRAFTING_TYPE.MALTING,,Malting,制作麦芽
 CRAFTING_TYPE.MALT_MASHING,,Malt mashing,糖化
 CRAFTING_TYPE.MILLING,,Milling,磨粉
 CRAFTING_TYPE.ORE_CRUSHING,,Ore crushing,碎石
 CRAFTING_TYPE.SMELTING,,Smelting,熔炼
 CRAFTING_TYPE.STONEMASONRY,,Stonemasonry,石雕
+CRAFTING_TYPE.TANNING_HIDE,,Hide tanning,
 CRAFTING_TYPE.WEAVING,,Weaving,纺织
 CRAFTING_TYPE.WOODCUTTING,,Woodcutting,伐木
 CRAFTING_TYPE.WORT_BREWING,,Brewing,酿制
@@ -224,6 +234,8 @@ FURNITURE.KITCHEN_WORKTOP.TOOLTIP,,An area to store ingredients for a {{PROFESSI
 FURNITURE.LANTERN,,Lantern,提灯
 FURNITURE.LANTERN.TOOLTIP,,A lantern provides light – this does not currently have an in-game effect.,便携式的灯具，游戏内尚未实装效果。
 FURNITURE.LARGE_TABLE,,Large table,桌子（大）
+FURNITURE.LEATHERWORKING_STATION,,Leatherworking station,
+FURNITURE.LEATHERWORKING_STATION.TOOLTIP,,A workbench to produce leather goods like armour and waterskins,
 FURNITURE.LOOM,,Loom,织布机
 FURNITURE.MALTING_STATION,,Malting station,发芽屋
 FURNITURE.MALTING_STATION.TOOLTIP,,"Here brewers steep barley and then dry it out using a kiln to produce malt. ","酿酒师在这里将大麦浸泡在水中，等待出芽后迅速地加热干燥，最后就能获得麦芽了。 "
@@ -253,6 +265,8 @@ FURNITURE.SMALL_TABLE,,Small table,桌子（小）
 FURNITURE.STONEMASON_WORKBENCH,,Stonemason workbench,石工工作台
 FURNITURE.STONEMASON_WORKBENCH.TOOLTIP,,A {{PROFESSION.STONEMASON}} works here with {{MATERIAL_TYPE.STONE.ADJECTIVE}} resources.,{{PROFESSION.STONEMASON}}处理{{MATERIAL_TYPE.STONE.ADJECTIVE}}资源的工作场所。
 FURNITURE.STOOL,,Stool,凳子
+FURNITURE.TANNING_FRAME,,Tanning frame,
+FURNITURE.TANNING_FRAME.TOOLTIP,,Turn your Animal Skins into Leather.,
 FURNITURE.WATERWHEEL,,Water wheel,水车
 FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.,通过{{PRODUCT.STONE.GEAR.PLURAL}}和轴为其他装置提供动力。必须建造在河流附近。
 FURNITURE.WATER_BARREL,,Water barrel,水桶
@@ -567,7 +581,7 @@ HINT.WELCOME.NEXT_STEPS,,"Click “Tutorial” to be guided through the basics, 
 HINT.WELCOME.PRE_SPAWN,,"Start the game by selecting a location on the map with enough space, and clicking the '{{GUI.EMBARK.START}}' button.",在地图上点击任意地点，然后点击'{{GUI.EMBARK.START}}'即可开始游戏。
 
 HUMANOID.BROKEN.DESCRIPTION,"E.g. “Urist McScrooge, insane dwarf”","{{name}}, {{madness.adjective}} {{race.noun}}","{{name}}, {{madness.adjective}} {{race.noun}}"
-HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{profession.noun}}","{{name}}, {{race.adjective}} {{profession.noun}}"
+HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{skillLevelDescription.adjective}} {{profession.noun}}","{{name}}, {{race.adjective}} {{profession.noun}}"
 
 INGREDIENT.DOUGH,To be combined with the above as “bread dough”,Dough,面团
 INGREDIENT.FLOUR,,Flour,面粉
@@ -590,8 +604,16 @@ INGREDIENT.VEGETABLE.SACK.PLURAL,,Vegetables (sack),蔬菜（袋）
 
 INVENTORY.CONTAINS.LABEL,This is the label of “inventory” to go above a list of items contained within a piece of furniture or held by a character,Inventory:,背包：
 
-ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}}
-ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}}{{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}}
+ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}} {{quality.adjective}} {{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}}
+ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}} {{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}}
+ITEM.QUALITY.PREFIX.AWFUL.ADJECTIVE,,Awful,
+ITEM.QUALITY.PREFIX.AWFUL.TOOLTIP,,"This item is terribly made, difficult to use, and would not be worth very much",
+ITEM.QUALITY.PREFIX.MASTERWORK.ADJECTIVE,,Masterwork,
+ITEM.QUALITY.PREFIX.MASTERWORK.TOOLTIP,,"This item has clearly been made by a master craftsman, it is ideal in every way",
+ITEM.QUALITY.PREFIX.POOR.ADJECTIVE,,Poor,
+ITEM.QUALITY.PREFIX.POOR.TOOLTIP,,This item is poorly made and will slightly impede anyone using it,
+ITEM.QUALITY.PREFIX.SUPERIOR.ADJECTIVE,,Superior,
+ITEM.QUALITY.PREFIX.SUPERIOR.TOOLTIP,,"This item has been crafted with great skill, making it more valuable and easier to use",
 
 ITEM_GROUP.FUEL.PLURAL,,Fuel,燃料
 ITEM_GROUP.PRODUCT.PLURAL,,Products,产品
@@ -628,6 +650,8 @@ MATERIAL_TYPE.OTHER.NOUN,This isn't actually used in-game yet so won't be combin
 MATERIAL_TYPE.ROPE.ADJECTIVE,," "," "
 MATERIAL_TYPE.ROPE.NOUN,," "," "
 MATERIAL_TYPE.SEED.NOUN,For saying something is “made up of seed”,Seed,种子
+MATERIAL_TYPE.SKIN.ADJECTIVE,," ",
+MATERIAL_TYPE.SKIN.NOUN,," ",
 MATERIAL_TYPE.STONE.ADJECTIVE,,,
 MATERIAL_TYPE.STONE.NOUN,,Stone,石头
 MATERIAL_TYPE.VEGETABLE.NOUN,Used to make up “Vegetable soup”,Vegetable,蔬菜
@@ -845,6 +869,7 @@ PRODUCT.BUCKET.PLURAL,,Buckets,水桶
 PRODUCT.BUCKET.TOOLTIP,,A small container used to move liquids around by hand.,手拎式的小型液体容器。
 PRODUCT.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,坩埚
 PRODUCT.CAULDRON.TOOLTIP,,"Used by a {{PROFESSION.CHEF}} to prepare soup in a {{ROOMS.KITCHEN}}, where it is then moved to a {{ROOMS.FEASTING_HALL}}.",{{PROFESSION.CHEF}}在{{ROOMS.KITCHEN}}烹饪的汤羹会送往{{ROOMS.FEASTING_HALL}}。
+PRODUCT.LEATHER,,Leather,
 PRODUCT.LINEN.NOUN,,Linen,亚麻布
 PRODUCT.LINEN.PLURAL,,Linen,亚麻布
 PRODUCT.LIQUID.TANK,,Tank,水箱
@@ -862,6 +887,8 @@ PRODUCT.STONE.GEAR.TOOLTIP,,Used in the construction of mechanisms.,各种机械
 PRODUCT.STONE.PIPE.NOUN,,Pipe,管道
 PRODUCT.STONE.PIPE.PLURAL,,Pipes,管道
 PRODUCT.STONE.PIPE.TOOLTIP,,Used for liquids to flow between tiles underground.,能用来在地底运输液体。
+PRODUCT.WATERSKIN.NOUN,,Waterskin,
+PRODUCT.WATERSKIN.PLURAL,,Waterskins,
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.NOUN,,Horizontal shaft,连接杆（水平）
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.PLURAL,,Horizontal shafts,连接杆（水平）
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.TOOLTIP,,Used to connect mechanisms which produce and require power.,能用来连接产生和需求动能的机械装置。
@@ -886,6 +913,7 @@ PROFESSION.CHEF.FEMALE_NOUN,,Chef,厨师
 PROFESSION.CHEF.MALE_NOUN,,Chef,厨师
 PROFESSION.CHEF.TOOLTIP,,Prepares all of the food to be consumed by your settlers.,为你的殖民者烹饪各类食物以便充饥。
 PROFESSION.CHEF.VERB,,Cooking,烹饪
+PROFESSION.DESCRIPTION,,{{skillLevelDescription.adjective}} {{profession.noun}},
 PROFESSION.FARMER.FEMALE_NOUN,,Farmer,农夫
 PROFESSION.FARMER.MALE_NOUN,,Farmer,农夫
 PROFESSION.FARMER.PLURAL,,Farmers,农夫
@@ -895,10 +923,15 @@ PROFESSION.FISHER.FEMALE_NOUN,This could be “fisherman” and “fisherwoman�
 PROFESSION.FISHER.MALE_NOUN,,Fisher,渔夫
 PROFESSION.FISHER.TOOLTIP,,Catches fish from bodies of water for use as food and resources.,在水域捕捉鱼类，用作食物和其他用途。
 PROFESSION.FISHER.VERB,,Fishing,钓鱼
+PROFESSION.GUI.ADD_ANOTHER,,Add another,
 PROFESSION.HUNTER.FEMALE_NOUN,This could be “huntsman” and “huntress”,Hunter,猎人
 PROFESSION.HUNTER.MALE_NOUN,,Hunter,猎人
 PROFESSION.HUNTER.TOOLTIP,,Tracks and kills wild animals for their meat and pelts.,追踪和捕杀野生动物获取肉和毛皮。
 PROFESSION.HUNTER.VERB,,Hunting,狩猎
+PROFESSION.LEATHERWORKER.FEMALE_NOUN,,Leatherworker,
+PROFESSION.LEATHERWORKER.MALE_NOUN,,Leatherworker,
+PROFESSION.LEATHERWORKER.TOOLTIP,,Treats the hides of creatures to produce leather goods.,
+PROFESSION.LEATHERWORKER.VERB,,Leatherworking,
 PROFESSION.MAYOR.FEMALE_NOUN,"In English at least, “mayoress” is incorrect",Mayor,市长
 PROFESSION.MAYOR.MALE_NOUN,,Mayor,市长
 PROFESSION.MAYOR.VERB,,Governing,管理
@@ -918,6 +951,24 @@ PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,符文师
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.",为武器、盔甲和其他物品附魔符文来增强它们的性能。
 PROFESSION.RUNESMITH.VERB,,Enchanting,附魔
+PROFESSION.SKILL_LEVEL.1,,Neophyte,
+PROFESSION.SKILL_LEVEL.1.TOOLTIP,,An absolute beginner with little to no experience.,
+PROFESSION.SKILL_LEVEL.2,,Novice,
+PROFESSION.SKILL_LEVEL.2.TOOLTIP,,They only understand the basics of their craft.,
+PROFESSION.SKILL_LEVEL.3,,Apprentice,
+PROFESSION.SKILL_LEVEL.3.TOOLTIP,,"Though they are becoming skilled, there is still a lot of experience to be earned.",
+PROFESSION.SKILL_LEVEL.4,,Journeyman,
+PROFESSION.SKILL_LEVEL.4.TOOLTIP,,"No longer an apprentice, they have reasonable skill in their given craft.",
+PROFESSION.SKILL_LEVEL.5,,Adept,
+PROFESSION.SKILL_LEVEL.5.TOOLTIP,,They are well-skilled but still have further heights that can be reached.,
+PROFESSION.SKILL_LEVEL.6,,Skilled,
+PROFESSION.SKILL_LEVEL.6.TOOLTIP,,"Very skilled in their craft, they are now more than competent.",
+PROFESSION.SKILL_LEVEL.7,,Expert,
+PROFESSION.SKILL_LEVEL.7.TOOLTIP,,There is little that the expert does not know of their respective field.,
+PROFESSION.SKILL_LEVEL.8,,Master,
+PROFESSION.SKILL_LEVEL.8.TOOLTIP,,"Beyond even an expert, they are truly a master of their craft.",
+PROFESSION.SKILL_LEVEL.9,,Grandmaster,
+PROFESSION.SKILL_LEVEL.9.TOOLTIP,,There is nobody more skilled in their craft than a grandmaster.,
 PROFESSION.STONEMASON.FEMALE_NOUN,,Stonemason,石匠
 PROFESSION.STONEMASON.MALE_NOUN,,Stonemason,石匠
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.,利用石料制作家具和其他东西。
@@ -929,6 +980,11 @@ PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,村民
 PROFESSION.VILLAGER.MALE_NOUN,,Villager,村民
 PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,这类殖民者没有特定的职业，可以完成任何普通的任务，比如搬运东西。
 PROFESSION.VILLAGER.VERB,,Working,劳作
+PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
+PROFESSION.WEAVER.MALE_NOUN,,Weaver,
+PROFESSION.WEAVER.PLURAL,,Weavers,
+PROFESSION.WEAVER.TOOLTIP,,Processes materials into clothing and other fabrics.,
+PROFESSION.WEAVER.VERB,,Weaving,
 PROFESSION.WOODCUTTER.FEMALE_NOUN,This could be “lumberjack” and “lumberjane”,Woodcutter,樵夫
 PROFESSION.WOODCUTTER.MALE_NOUN,,Woodcutter,樵夫
 PROFESSION.WOODCUTTER.TOOLTIP,,Cuts down trees as lumber that can be used in a {{ROOMS.SAWMILL}}.,砍伐树木获得供{{ROOMS.SAWMILL}}使用的木材。
@@ -1034,6 +1090,8 @@ ROOMS.GRAVEYARD,,Graveyard,墓地
 ROOMS.GRAVEYARD.TOOLTIP,,Deceased settlers are laid to rest here.,死者安息之地。
 ROOMS.KITCHEN,,Kitchen,厨房
 ROOMS.KITCHEN.TOOLTIP,,Most food is prepared here before being served in a {{ROOMS.FEASTING_HALL}}.,烹饪食物的地方，食物会接着送往{{ROOMS.FEASTING_HALL}}。
+ROOMS.LEATHER_WORKSHOP,,Leather workshop,
+ROOMS.LEATHER_WORKSHOP.TOOLTIP,,Craft items out of animal hide,
 ROOMS.MASONRY_WORKSHOP,,Masonry workshop,石工工坊
 ROOMS.MASONRY_WORKSHOP.TOOLTIP,,This workshop produces most items made out of stone.,绝大多数石制品都出自这里。
 ROOMS.METALWORKS,,Metalworks,金属加工厂
@@ -1097,6 +1155,30 @@ SEED.WHEAT_SEED,,Wheat,小麦
 SEED.WHEAT_SEED.TOOLTIP,{{VEGETABLE.WHEAT.TOOLTIP}},"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}.",通常用来制作面包的谷物。能在{{SEASON.WINTER}}生存，但生长周期较长，所以通常在{{SEASON.SPRING}}或 {{SEASON.AUTUMN}}播种。
 
 SHRUB.DESCRIPTION,Shrub or bush should do,Bush,灌木
+
+SKILL.ARCHERY.FEMALE_NOUN,,Archer,
+SKILL.ARCHERY.MALE_NOUN,,Archer,
+SKILL.ARCHERY.TOOLTIP,,Skill with the bow,
+SKILL.AXES.FEMALE_NOUN,,Axewoman,
+SKILL.AXES.MALE_NOUN,,Axeman,
+SKILL.AXES.TOOLTIP,,Skill with axes,
+SKILL.CROSSBOWS.FEMALE_NOUN,,Arbalist,
+SKILL.CROSSBOWS.MALE_NOUN,,Arbalist,
+SKILL.CROSSBOWS.TOOLTIP,,Skill with the crossbow,
+SKILL.MACES.FEMALE_NOUN,,Hammerer,
+SKILL.MACES.MALE_NOUN,,Hammerer,
+SKILL.MACES.TOOLTIP,,Skill with hammers and maces,
+SKILL.SWORDSMANSHIP.FEMALE_NOUN,,Swordswoman,
+SKILL.SWORDSMANSHIP.MALE_NOUN,,Swordsman,
+SKILL.SWORDSMANSHIP.TOOLTIP,,Skill with the sword,
+SKILL.UNARMED_COMBAT.FEMALE_NOUN,,Brawler,
+SKILL.UNARMED_COMBAT.MALE_NOUN,,Brawler,
+SKILL.UNARMED_COMBAT.TOOLTIP,,Skill in unarmed combat,
+
+SKIN.BOAR_HIDE,,Boar,
+SKIN.DEER_HIDE,,Deer,
+SKIN.DWARF_HIDE,,Dwarf,
+SKIN.ELEPHANT_HIDE,,Elephant,
 
 STATUS.ALCOHOL_WITHDRAWL,,Alcohol withdrawl,酒精戒断症
 STATUS.BLEEDING,,Bleeding,流血
@@ -1295,11 +1377,17 @@ WALL.ROUGH_STONE.NOUN,,Rock wall,石墙
 WALL.STONE_BLOCK.NOUN,,Smooth stone wall,光滑的石头墙
 WALL.WOODEN.NOUN,,Wood wall,木墙
 
+WEAPON.BATTLE.AXE,,Battle axe,
+WEAPON.BATTLE.HAMMER,,Battle hammer,
 WEAPON.BONE.ARROWS.NOUN,,Arrow,箭矢
 WEAPON.BONE.ARROWS.PLURAL,,Arrows,箭矢
 WEAPON.BOW,,Bow,弓
+WEAPON.CROSSBOW,,Crossbow,
 WEAPON.METAL.ARROWS.NOUN,,Arrow,箭矢
 WEAPON.METAL.ARROWS.PLURAL,,Arrows,箭矢
+WEAPON.METAL.BOLTS.NOUN,,Bolt,
+WEAPON.METAL.BOLTS.PLURAL,,Bolts,
+WEAPON.SWORD,,Sword,
 WEAPON.UNARMED,,Unarmed,赤手空拳
 
 WEATHER.TYPE.CLOUDY,,Cloudy & grey,多云

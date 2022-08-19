@@ -34,6 +34,9 @@ ACTION.SELECT_JOB.DESCRIPTION,When looking for a job to work,Looking for work to
 ACTION.SLEEP_ON_FLOOR.DESCRIPTION,E.g. “Sleeping on rough stone floor”,Sleeping on {{tileDescription}},Sova på {{TileDescription}
 ACTION.STUNNED,,Stunned,
 
+ARMOUR.LEATHER,,Leather armour,
+ARMOUR.LEATHER.TOOLTIP,,A light and basic armour to protect you in combat,
+
 ASHES.NOUN,,Ash,
 
 BODY_STRUCTURE.ABDOMEN,,Abdomen,
@@ -70,6 +73,7 @@ BONE.BONE,,Bone,
 CARCASS.CARP.PREPARED.NOUN,,Carp fillet,
 CARCASS.CARP.PREPARED.PLURAL,,Carp fillets,
 CARCASS.GROUP,,Corpses,
+CARCASS.HIDE,,Hide,
 CARCASS.MEAT.LARGE,,Meat (large),
 CARCASS.MEAT.MEDIUM,,Meat (medium),
 CARCASS.MEAT.SMALL,,Meat (small),
@@ -82,6 +86,10 @@ CLOTH.BRONZED_HEMP,,Hemp,
 CLOTH.HEMP-LINEN,,Hemp,
 CLOTH.LIGHT_HEMP,,Hemp,
 CLOTH.TOBACCO_CLOTH,,Tobacco cloth,
+
+COMBAT.DESCRIPTION.FLEEING,,Fleeing from combat,
+COMBAT.DESCRIPTION.GENERIC,,In combat,
+COMBAT.DESCRIPTION.VERSUS_OPPONENT,,In combat with {{targetDescription}},
 
 CONSTRUCTION.DESCRIPTION,E.g. “Construction of granite stonemason workbench”,Construction of {{materialType.adjective}} {{furnitureType.noun}},Konstruktion av {{materialType.adjective}} {{furnitureType.noun}}
 CONSTRUCTION.ITEM_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{quantity}} of {{itemDescription}} allocated,{{kvantitet}} av {{itemDescription}} allokerade
@@ -102,12 +110,14 @@ CRAFTING_TYPE.CARPENTRY,,Carpentry,
 CRAFTING_TYPE.COKE_OVEN_BAKING,,Coke baking,
 CRAFTING_TYPE.FERMENTING,,Fermenting,
 CRAFTING_TYPE.FLETCHING,,Fletching,
+CRAFTING_TYPE.LEATHERWORKING,,Leatherworking,
 CRAFTING_TYPE.MALTING,,Malting,
 CRAFTING_TYPE.MALT_MASHING,,Malt mashing,
 CRAFTING_TYPE.MILLING,,Milling,
 CRAFTING_TYPE.ORE_CRUSHING,,Ore crushing,
 CRAFTING_TYPE.SMELTING,,Smelting,
 CRAFTING_TYPE.STONEMASONRY,,Stonemasonry,
+CRAFTING_TYPE.TANNING_HIDE,,Hide tanning,
 CRAFTING_TYPE.WEAVING,,Weaving,
 CRAFTING_TYPE.WOODCUTTING,,Woodcutting,
 CRAFTING_TYPE.WORT_BREWING,,Brewing,
@@ -224,6 +234,8 @@ FURNITURE.KITCHEN_WORKTOP.TOOLTIP,,An area to store ingredients for a {{PROFESSI
 FURNITURE.LANTERN,,Lantern,Lykta
 FURNITURE.LANTERN.TOOLTIP,,A lantern provides light – this does not currently have an in-game effect.,En lykta ger ljus — detta har för närvarande ingen effekt i spelet.
 FURNITURE.LARGE_TABLE,,Large table,Stort bord
+FURNITURE.LEATHERWORKING_STATION,,Leatherworking station,
+FURNITURE.LEATHERWORKING_STATION.TOOLTIP,,A workbench to produce leather goods like armour and waterskins,
 FURNITURE.LOOM,,Loom,
 FURNITURE.MALTING_STATION,,Malting station,
 FURNITURE.MALTING_STATION.TOOLTIP,,"Here brewers steep barley and then dry it out using a kiln to produce malt. ",
@@ -253,6 +265,8 @@ FURNITURE.SMALL_TABLE,,Small table,Litet bord
 FURNITURE.STONEMASON_WORKBENCH,,Stonemason workbench,Stenhuggarbänk
 FURNITURE.STONEMASON_WORKBENCH.TOOLTIP,,A {{PROFESSION.STONEMASON}} works here with {{MATERIAL_TYPE.STONE.ADJECTIVE}} resources.,A {{PROFESSI.STONEMASON}} arbetar här med {{MATERIAL_TYPE.STONE.ADJECTIVE}} resurser.
 FURNITURE.STOOL,,Stool,Pall
+FURNITURE.TANNING_FRAME,,Tanning frame,
+FURNITURE.TANNING_FRAME.TOOLTIP,,Turn your Animal Skins into Leather.,
 FURNITURE.WATERWHEEL,,Water wheel,
 FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.,
 FURNITURE.WATER_BARREL,,Water barrel,Vatten fat
@@ -567,7 +581,7 @@ HINT.WELCOME.NEXT_STEPS,,"Click “Tutorial” to be guided through the basics, 
 HINT.WELCOME.PRE_SPAWN,,"Start the game by selecting a location on the map with enough space, and clicking the '{{GUI.EMBARK.START}}' button.",
 
 HUMANOID.BROKEN.DESCRIPTION,"E.g. “Urist McScrooge, insane dwarf”","{{name}}, {{madness.adjective}} {{race.noun}}","{{name}}, {{madness.adjektiv}} {{race.noun}}"
-HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{profession.noun}}","{{name}}, {{race.adjective}} {{profession.noun}}"
+HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{skillLevelDescription.adjective}} {{profession.noun}}","{{name}}, {{race.adjective}} {{profession.noun}}"
 
 INGREDIENT.DOUGH,To be combined with the above as “bread dough”,Dough,- Degen
 INGREDIENT.FLOUR,,Flour,Mjöl
@@ -590,8 +604,16 @@ INGREDIENT.VEGETABLE.SACK.PLURAL,,Vegetables (sack),
 
 INVENTORY.CONTAINS.LABEL,This is the label of “inventory” to go above a list of items contained within a piece of furniture or held by a character,Inventory:,Inventering:
 
-ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}}
-ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}}{{materialType.noun_or_plural}},{{quantity_if_multiple}} {{MaterialType.noun_or_plural}}
+ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}} {{quality.adjective}} {{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}}
+ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}} {{materialType.noun_or_plural}},{{quantity_if_multiple}} {{MaterialType.noun_or_plural}}
+ITEM.QUALITY.PREFIX.AWFUL.ADJECTIVE,,Awful,
+ITEM.QUALITY.PREFIX.AWFUL.TOOLTIP,,"This item is terribly made, difficult to use, and would not be worth very much",
+ITEM.QUALITY.PREFIX.MASTERWORK.ADJECTIVE,,Masterwork,
+ITEM.QUALITY.PREFIX.MASTERWORK.TOOLTIP,,"This item has clearly been made by a master craftsman, it is ideal in every way",
+ITEM.QUALITY.PREFIX.POOR.ADJECTIVE,,Poor,
+ITEM.QUALITY.PREFIX.POOR.TOOLTIP,,This item is poorly made and will slightly impede anyone using it,
+ITEM.QUALITY.PREFIX.SUPERIOR.ADJECTIVE,,Superior,
+ITEM.QUALITY.PREFIX.SUPERIOR.TOOLTIP,,"This item has been crafted with great skill, making it more valuable and easier to use",
 
 ITEM_GROUP.FUEL.PLURAL,,Fuel,Bränsle
 ITEM_GROUP.PRODUCT.PLURAL,,Products,Produkter
@@ -628,6 +650,8 @@ MATERIAL_TYPE.OTHER.NOUN,This isn't actually used in-game yet so won't be combin
 MATERIAL_TYPE.ROPE.ADJECTIVE,," ",
 MATERIAL_TYPE.ROPE.NOUN,," ",
 MATERIAL_TYPE.SEED.NOUN,For saying something is “made up of seed”,Seed,Frö
+MATERIAL_TYPE.SKIN.ADJECTIVE,," ",
+MATERIAL_TYPE.SKIN.NOUN,," ",
 MATERIAL_TYPE.STONE.ADJECTIVE,,,Sten-
 MATERIAL_TYPE.STONE.NOUN,,Stone,Sten
 MATERIAL_TYPE.VEGETABLE.NOUN,Used to make up “Vegetable soup”,Vegetable,Grönsaker
@@ -845,6 +869,7 @@ PRODUCT.BUCKET.PLURAL,,Buckets,Hinkar
 PRODUCT.BUCKET.TOOLTIP,,A small container used to move liquids around by hand.,En liten behållare som används för att flytta vätskor runt för hand.
 PRODUCT.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,Kittel
 PRODUCT.CAULDRON.TOOLTIP,,"Used by a {{PROFESSION.CHEF}} to prepare soup in a {{ROOMS.KITCHEN}}, where it is then moved to a {{ROOMS.FEASTING_HALL}}.","Används av en {{PROFESSI.CHEF}} för att tillaga soppa i en {{ROOMS.CITY}}, där den sedan flyttas till en {{ROOMS.FEASTING_HALL}}."
+PRODUCT.LEATHER,,Leather,
 PRODUCT.LINEN.NOUN,,Linen,
 PRODUCT.LINEN.PLURAL,,Linen,
 PRODUCT.LIQUID.TANK,,Tank,
@@ -862,6 +887,8 @@ PRODUCT.STONE.GEAR.TOOLTIP,,Used in the construction of mechanisms.,
 PRODUCT.STONE.PIPE.NOUN,,Pipe,
 PRODUCT.STONE.PIPE.PLURAL,,Pipes,
 PRODUCT.STONE.PIPE.TOOLTIP,,Used for liquids to flow between tiles underground.,
+PRODUCT.WATERSKIN.NOUN,,Waterskin,
+PRODUCT.WATERSKIN.PLURAL,,Waterskins,
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.NOUN,,Horizontal shaft,
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.PLURAL,,Horizontal shafts,
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.TOOLTIP,,Used to connect mechanisms which produce and require power.,
@@ -886,6 +913,7 @@ PROFESSION.CHEF.FEMALE_NOUN,,Chef,Kocken
 PROFESSION.CHEF.MALE_NOUN,,Chef,Kocken
 PROFESSION.CHEF.TOOLTIP,,Prepares all of the food to be consumed by your settlers.,Förbereder all mat som ska konsumeras av dina nybyggare.
 PROFESSION.CHEF.VERB,,Cooking,Matlagning
+PROFESSION.DESCRIPTION,,{{skillLevelDescription.adjective}} {{profession.noun}},
 PROFESSION.FARMER.FEMALE_NOUN,,Farmer,Lantbrukare
 PROFESSION.FARMER.MALE_NOUN,,Farmer,Lantbrukare
 PROFESSION.FARMER.PLURAL,,Farmers,Bönder
@@ -895,10 +923,15 @@ PROFESSION.FISHER.FEMALE_NOUN,This could be “fisherman” and “fisherwoman�
 PROFESSION.FISHER.MALE_NOUN,,Fisher,Fiskare
 PROFESSION.FISHER.TOOLTIP,,Catches fish from bodies of water for use as food and resources.,Fångster fisk från vattenförekomster för användning som livsmedel och resurser.
 PROFESSION.FISHER.VERB,,Fishing,Fiska
+PROFESSION.GUI.ADD_ANOTHER,,Add another,
 PROFESSION.HUNTER.FEMALE_NOUN,This could be “huntsman” and “huntress”,Hunter,Jägare
 PROFESSION.HUNTER.MALE_NOUN,,Hunter,Jägare
 PROFESSION.HUNTER.TOOLTIP,,Tracks and kills wild animals for their meat and pelts.,Spår och dödar vilda djur för deras kött och skinn.
 PROFESSION.HUNTER.VERB,,Hunting,Jaga
+PROFESSION.LEATHERWORKER.FEMALE_NOUN,,Leatherworker,
+PROFESSION.LEATHERWORKER.MALE_NOUN,,Leatherworker,
+PROFESSION.LEATHERWORKER.TOOLTIP,,Treats the hides of creatures to produce leather goods.,
+PROFESSION.LEATHERWORKER.VERB,,Leatherworking,
 PROFESSION.MAYOR.FEMALE_NOUN,"In English at least, “mayoress” is incorrect",Mayor,Borgmästare
 PROFESSION.MAYOR.MALE_NOUN,,Mayor,Borgmästare
 PROFESSION.MAYOR.VERB,,Governing,Styra
@@ -918,6 +951,24 @@ PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,Runsmed
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.","Förtrollar vapen, rustningar och föremål med magiska runor för att öka deras förmågor."
 PROFESSION.RUNESMITH.VERB,,Enchanting,Förtrolla
+PROFESSION.SKILL_LEVEL.1,,Neophyte,
+PROFESSION.SKILL_LEVEL.1.TOOLTIP,,An absolute beginner with little to no experience.,
+PROFESSION.SKILL_LEVEL.2,,Novice,
+PROFESSION.SKILL_LEVEL.2.TOOLTIP,,They only understand the basics of their craft.,
+PROFESSION.SKILL_LEVEL.3,,Apprentice,
+PROFESSION.SKILL_LEVEL.3.TOOLTIP,,"Though they are becoming skilled, there is still a lot of experience to be earned.",
+PROFESSION.SKILL_LEVEL.4,,Journeyman,
+PROFESSION.SKILL_LEVEL.4.TOOLTIP,,"No longer an apprentice, they have reasonable skill in their given craft.",
+PROFESSION.SKILL_LEVEL.5,,Adept,
+PROFESSION.SKILL_LEVEL.5.TOOLTIP,,They are well-skilled but still have further heights that can be reached.,
+PROFESSION.SKILL_LEVEL.6,,Skilled,
+PROFESSION.SKILL_LEVEL.6.TOOLTIP,,"Very skilled in their craft, they are now more than competent.",
+PROFESSION.SKILL_LEVEL.7,,Expert,
+PROFESSION.SKILL_LEVEL.7.TOOLTIP,,There is little that the expert does not know of their respective field.,
+PROFESSION.SKILL_LEVEL.8,,Master,
+PROFESSION.SKILL_LEVEL.8.TOOLTIP,,"Beyond even an expert, they are truly a master of their craft.",
+PROFESSION.SKILL_LEVEL.9,,Grandmaster,
+PROFESSION.SKILL_LEVEL.9.TOOLTIP,,There is nobody more skilled in their craft than a grandmaster.,
 PROFESSION.STONEMASON.FEMALE_NOUN,,Stonemason,Stenhuggare
 PROFESSION.STONEMASON.MALE_NOUN,,Stonemason,Stenhuggare
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.,Hantverk möbler och föremål från sten.
@@ -929,6 +980,11 @@ PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,Bybo
 PROFESSION.VILLAGER.MALE_NOUN,,Villager,Bybo
 PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,Denna bosättare har inga specifika yrken och kommer att uppfylla några vardagliga uppgifter som att transportera föremål.
 PROFESSION.VILLAGER.VERB,,Working,Arbeta
+PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
+PROFESSION.WEAVER.MALE_NOUN,,Weaver,
+PROFESSION.WEAVER.PLURAL,,Weavers,
+PROFESSION.WEAVER.TOOLTIP,,Processes materials into clothing and other fabrics.,
+PROFESSION.WEAVER.VERB,,Weaving,
 PROFESSION.WOODCUTTER.FEMALE_NOUN,This could be “lumberjack” and “lumberjane”,Woodcutter,Skogshuggare
 PROFESSION.WOODCUTTER.MALE_NOUN,,Woodcutter,Skogshuggare
 PROFESSION.WOODCUTTER.TOOLTIP,,Cuts down trees as lumber that can be used in a {{ROOMS.SAWMILL}}.,Klipper ner träd som virke som kan användas i en {{ROOMS.SAWMILL}}.
@@ -1034,6 +1090,8 @@ ROOMS.GRAVEYARD,,Graveyard,Kyrkogård
 ROOMS.GRAVEYARD.TOOLTIP,,Deceased settlers are laid to rest here.,Avlidna bosättare läggs för att vila här.
 ROOMS.KITCHEN,,Kitchen,Kök
 ROOMS.KITCHEN.TOOLTIP,,Most food is prepared here before being served in a {{ROOMS.FEASTING_HALL}}.,De flesta livsmedel tillagas här innan de serveras i {{ROOPS.FEASTING_HALL}}.
+ROOMS.LEATHER_WORKSHOP,,Leather workshop,
+ROOMS.LEATHER_WORKSHOP.TOOLTIP,,Craft items out of animal hide,
 ROOMS.MASONRY_WORKSHOP,,Masonry workshop,Murarverkstad
 ROOMS.MASONRY_WORKSHOP.TOOLTIP,,This workshop produces most items made out of stone.,Denna verkstad producerar de flesta föremål gjorda av sten.
 ROOMS.METALWORKS,,Metalworks,Metallarbeten
@@ -1097,6 +1155,30 @@ SEED.WHEAT_SEED,,Wheat,Vete
 SEED.WHEAT_SEED.TOOLTIP,{{VEGETABLE.WHEAT.TOOLTIP}},"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}.","En spannmålskorn som vanligtvis används för produktion av bröd. Den kan överleva {{SEASON.WINTER}} men tar ett tag att växa, så den är antingen planterad i {{SEASON.SPRING}} eller {{SEASON.HÖSTEN}}."
 
 SHRUB.DESCRIPTION,Shrub or bush should do,Bush,Buske
+
+SKILL.ARCHERY.FEMALE_NOUN,,Archer,
+SKILL.ARCHERY.MALE_NOUN,,Archer,
+SKILL.ARCHERY.TOOLTIP,,Skill with the bow,
+SKILL.AXES.FEMALE_NOUN,,Axewoman,
+SKILL.AXES.MALE_NOUN,,Axeman,
+SKILL.AXES.TOOLTIP,,Skill with axes,
+SKILL.CROSSBOWS.FEMALE_NOUN,,Arbalist,
+SKILL.CROSSBOWS.MALE_NOUN,,Arbalist,
+SKILL.CROSSBOWS.TOOLTIP,,Skill with the crossbow,
+SKILL.MACES.FEMALE_NOUN,,Hammerer,
+SKILL.MACES.MALE_NOUN,,Hammerer,
+SKILL.MACES.TOOLTIP,,Skill with hammers and maces,
+SKILL.SWORDSMANSHIP.FEMALE_NOUN,,Swordswoman,
+SKILL.SWORDSMANSHIP.MALE_NOUN,,Swordsman,
+SKILL.SWORDSMANSHIP.TOOLTIP,,Skill with the sword,
+SKILL.UNARMED_COMBAT.FEMALE_NOUN,,Brawler,
+SKILL.UNARMED_COMBAT.MALE_NOUN,,Brawler,
+SKILL.UNARMED_COMBAT.TOOLTIP,,Skill in unarmed combat,
+
+SKIN.BOAR_HIDE,,Boar,
+SKIN.DEER_HIDE,,Deer,
+SKIN.DWARF_HIDE,,Dwarf,
+SKIN.ELEPHANT_HIDE,,Elephant,
 
 STATUS.ALCOHOL_WITHDRAWL,,Alcohol withdrawl,
 STATUS.BLEEDING,,Bleeding,
@@ -1295,11 +1377,17 @@ WALL.ROUGH_STONE.NOUN,,Rock wall,Stenmur
 WALL.STONE_BLOCK.NOUN,,Smooth stone wall,Slät stenmur
 WALL.WOODEN.NOUN,,Wood wall,Trävägg
 
+WEAPON.BATTLE.AXE,,Battle axe,
+WEAPON.BATTLE.HAMMER,,Battle hammer,
 WEAPON.BONE.ARROWS.NOUN,,Arrow,
 WEAPON.BONE.ARROWS.PLURAL,,Arrows,
 WEAPON.BOW,,Bow,
+WEAPON.CROSSBOW,,Crossbow,
 WEAPON.METAL.ARROWS.NOUN,,Arrow,
 WEAPON.METAL.ARROWS.PLURAL,,Arrows,
+WEAPON.METAL.BOLTS.NOUN,,Bolt,
+WEAPON.METAL.BOLTS.PLURAL,,Bolts,
+WEAPON.SWORD,,Sword,
 WEAPON.UNARMED,,Unarmed,
 
 WEATHER.TYPE.CLOUDY,,Cloudy & grey,

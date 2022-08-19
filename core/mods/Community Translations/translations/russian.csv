@@ -4,7 +4,7 @@ ACTION.DRINK_FROM_RIVER,,from river,из реки
 ACTION.JOB.BUTCHER_CREATURE,,Butchering,Разделка мяса
 ACTION.JOB.CLEAR_GROUND,E.g. “Clearing shrub”,Clearing {{targetPlant}},Расчистка {{plantDescription}}
 ACTION.JOB.CONSTRUCT_FLOORING,,Laying floor,Укладка пола
-ACTION.JOB.CONSTRUCT_FURNITURE,E.g. “Crafting furniture”,{{profession.verb}},Изготовление мебели: {{profession.verb}} 
+ACTION.JOB.CONSTRUCT_FURNITURE,E.g. “Crafting furniture”,{{profession.verb}} {{targetDescription}},"Изготовление мебели: {{profession.verb}} "
 ACTION.JOB.CONSTRUCT_MECHANISM,,Placing mechanisms,Размещение механизмов
 ACTION.JOB.CONSTRUCT_PIPING,,Placing pipe,Установка труб
 ACTION.JOB.CONSTRUCT_ROOFING,,Constructing roof,Соорожение крыши
@@ -14,11 +14,11 @@ ACTION.JOB.DECONSTRUCT_MECHANISM,,Removing mechanism,Удаление механ
 ACTION.JOB.DECONSTRUCT_PIPING,,Removing pipe,Удаление труб
 ACTION.JOB.DECONSTRUCT_ROOFING,,Removing roof,Удаление крыши
 ACTION.JOB.DIGGING,,Digging {{targetDescription}},Копание {{targetDescription}}
-ACTION.JOB.DUMP_LIQUID_FROM_CONTAINER,For emptying the liquid contents out of a container,Emptying out contents of {{targetDescription}},Опорожнение содержимого {{targetDescription}} 
+ACTION.JOB.DUMP_LIQUID_FROM_CONTAINER,For emptying the liquid contents out of a container,Emptying out contents of {{targetDescription}},"Опорожнение содержимого {{targetDescription}} "
 ACTION.JOB.EXTINGUISH_FLAMES,,Putting out a fire,Тушение огоня
 ACTION.JOB.FILL_GRAVE,For filling a grave with dirt,Filling {{targetDescription}},Заполнение {{targetDescription}}
 ACTION.JOB.FISHING,,Fishing,Рыбалка
-ACTION.JOB.GENERIC,"E.g. “Smelting iron ore”, “Crafting wooden planks”",{{profession.verb}} {{targetDescription}},"Изготовление деревянных досок {{profession.verb}} {{targetDescription}}"
+ACTION.JOB.GENERIC,"E.g. “Smelting iron ore”, “Crafting wooden planks”",{{profession.verb}} {{targetDescription}},Изготовление деревянных досок {{profession.verb}} {{targetDescription}}
 ACTION.JOB.HARVESTING,,Harvesting {{targetPlant}},Сбор урожая: {{targetPlant}}
 ACTION.JOB.INNOCULATE_MUSHROOM_LOG,,Injecting mushroom spawn,Введение грибных спор
 ACTION.JOB.LOGGING,,{{profession.verb}} {{targetPlant}},{{profession.verb}} {{targetPlant}}
@@ -34,6 +34,9 @@ ACTION.SELECT_JOB.DESCRIPTION,When looking for a job to work,Looking for work to
 ACTION.SLEEP_ON_FLOOR.DESCRIPTION,E.g. “Sleeping on rough stone floor”,Sleeping on {{tileDescription}},Спящий на: {{tileDescription}}
 ACTION.STUNNED,,Stunned,Ошеломленный
 
+ARMOUR.LEATHER,,Leather armour,
+ARMOUR.LEATHER.TOOLTIP,,A light and basic armour to protect you in combat,
+
 ASHES.NOUN,,Ash,Пепел
 
 BODY_STRUCTURE.ABDOMEN,,Abdomen,Брюшная полость
@@ -44,6 +47,7 @@ BODY_STRUCTURE.DAMAGE.BRUISED,,Bruised,Ушибленный
 BODY_STRUCTURE.DAMAGE.DESTROYED,,Destroyed,Уничтоженный
 BODY_STRUCTURE.DISCRIMINATOR.BACKLEFT,,Rear left,Задний нижний
 BODY_STRUCTURE.DISCRIMINATOR.BACKRIGHT,,Rear right,Задний правый
+BODY_STRUCTURE.DISCRIMINATOR.FRONTLEFT,,Front left,
 BODY_STRUCTURE.DISCRIMINATOR.FRONTRIGHT,,Front right,Передний правый
 BODY_STRUCTURE.DISCRIMINATOR.LEFT,,Left,Лево
 BODY_STRUCTURE.DISCRIMINATOR.RIGHT,,Right,Право
@@ -69,6 +73,7 @@ BONE.BONE,,Bone,Кость
 CARCASS.CARP.PREPARED.NOUN,,Carp fillet,Филе карпа
 CARCASS.CARP.PREPARED.PLURAL,,Carp fillets,Филе карпа
 CARCASS.GROUP,,Corpses,Трупы
+CARCASS.HIDE,,Hide,
 CARCASS.MEAT.LARGE,,Meat (large),Большой кусок мяса
 CARCASS.MEAT.MEDIUM,,Meat (medium),Средний кусок мяса
 CARCASS.MEAT.SMALL,,Meat (small),Маленький кусок мяса
@@ -81,6 +86,10 @@ CLOTH.BRONZED_HEMP,,Hemp,Пенька
 CLOTH.HEMP-LINEN,,Hemp,Пенька
 CLOTH.LIGHT_HEMP,,Hemp,Пенька
 CLOTH.TOBACCO_CLOTH,,Tobacco cloth,Табачная ткань
+
+COMBAT.DESCRIPTION.FLEEING,,Fleeing from combat,
+COMBAT.DESCRIPTION.GENERIC,,In combat,
+COMBAT.DESCRIPTION.VERSUS_OPPONENT,,In combat with {{targetDescription}},
 
 CONSTRUCTION.DESCRIPTION,E.g. “Construction of granite stonemason workbench”,Construction of {{materialType.adjective}} {{furnitureType.noun}},Строительство: {{furnitureType.noun}} {{materialType.adjective}}
 CONSTRUCTION.ITEM_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{quantity}} of {{itemDescription}} allocated,Выделено: {{quantity}} из {{itemDescription}}
@@ -101,12 +110,14 @@ CRAFTING_TYPE.CARPENTRY,,Carpentry,Плотницкое дело
 CRAFTING_TYPE.COKE_OVEN_BAKING,,Coke baking,Коксирование каменного угля
 CRAFTING_TYPE.FERMENTING,,Fermenting,Фермерство
 CRAFTING_TYPE.FLETCHING,,Fletching,Оперение стрел
+CRAFTING_TYPE.LEATHERWORKING,,Leatherworking,
 CRAFTING_TYPE.MALTING,,Malting,Соложение
 CRAFTING_TYPE.MALT_MASHING,,Malt mashing,Замешивание солода
 CRAFTING_TYPE.MILLING,,Milling,Измельчение
 CRAFTING_TYPE.ORE_CRUSHING,,Ore crushing,Дробление руды
 CRAFTING_TYPE.SMELTING,,Smelting,Плавление металлов
 CRAFTING_TYPE.STONEMASONRY,,Stonemasonry,Работа с камнем
+CRAFTING_TYPE.TANNING_HIDE,,Hide tanning,
 CRAFTING_TYPE.WEAVING,,Weaving,Ткачество
 CRAFTING_TYPE.WOODCUTTING,,Woodcutting,Резьба по дереву
 CRAFTING_TYPE.WORT_BREWING,,Brewing,Пивоварение
@@ -121,51 +132,51 @@ CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!,"Это растение пострадало от чрезмерного количества тлей и других насекомых, которых необходимо удалить {{PROFESSION.FARMER}}, прежде чем оно сможет снова расти. Несвоевременное удаление вредителей приведет к гибели урожая!"
 CROP.DESCRIPTION,,{{materialType.noun}} plant,Растение: {{materialType.noun}}
 CROP.HARVEST_PROGRESS,E.g. “Progress towards harvest: 30%”,Progress towards harvest: {{progress}}%,Прогресс до сбора урожая: {{progress}}%
-CROP.MOISTURE_STATE.DROUGHTED,,This plant has no access to water for a long time and has stopped growing,Это растение долгое время не имеет доступа к воде и перестало расти. 
-CROP.MOISTURE_STATE.NEEDS_WATERING,,This plant has not been watered and is growing slowly,Это растение не поливали и оно медленно растет 
+CROP.MOISTURE_STATE.DROUGHTED,,This plant has no access to water for a long time and has stopped growing,"Это растение долгое время не имеет доступа к воде и перестало расти. "
+CROP.MOISTURE_STATE.NEEDS_WATERING,,This plant has not been watered and is growing slowly,"Это растение не поливали и оно медленно растет "
 CROP.MOISTURE_STATE.NEEDS_WATERING.TOOLTIP,,You can irrigate your crops with a channel containing water with 2 tiles.,"Вы можете поливать свои посевы с помощью канала, содержащего воду в 2 клетках."
-CROP.MOISTURE_STATE.WATERED,,This plant has been watered recently and is growing quickly,Это растение недавно поливали и оно быстро растет. 
+CROP.MOISTURE_STATE.WATERED,,This plant has been watered recently and is growing quickly,"Это растение недавно поливали и оно быстро растет. "
 
 DEATH_REASON.BURNING,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Burning,Горящий
-DEATH_REASON.CRITICAL_ORGAN_DAMAGE,,Critical organ damage,Критическое повреждение органа 
+DEATH_REASON.CRITICAL_ORGAN_DAMAGE,,Critical organ damage,"Критическое повреждение органа "
 DEATH_REASON.CRUSHED_BY_FALLING_DEBRIS,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Falling debris,Падающие обломки
 DEATH_REASON.DEHYDRATION,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Dehydration,Обезвоживание
-DEATH_REASON.EXHAUSTION,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Exhaustion,Истощение 
+DEATH_REASON.EXHAUSTION,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Exhaustion,"Истощение "
 DEATH_REASON.FOOD_POISONING,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Food poisoning,Пищевое отравление
 DEATH_REASON.FROZEN,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Exposure to freezing weather,Воздействие холода
-DEATH_REASON.GIVEN_UP_ON_LIFE,,having given up on life,Отказавшись от жизни 
+DEATH_REASON.GIVEN_UP_ON_LIFE,,having given up on life,"Отказавшись от жизни "
 DEATH_REASON.INTERNAL_BLEEDING,,Internal bleeding,Внутреннее кровотечение
 DEATH_REASON.STARVATION,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Starvation,Голод
-DEATH_REASON.SUFFOCATION,,Suffocation,Удушье 
+DEATH_REASON.SUFFOCATION,,Suffocation,"Удушье "
 DEATH_REASON.UNKNOWN,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Mysterious circumstances,Таинственные обстоятельства
 
 EARTH.DIRT,,Dirt,Грязь
 EARTH.GRASS,,Grass,Трава
 
 ENTITY.DESTRUCTION_DESCRIPTION.BURNED,,Destroyed by fire,Уничтожен огнем
-ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain,Разрушается при длительном пребывании под дождем 
-ENTITY.DESTRUCTION_DESCRIPTION.TANTRUM,,Destroyed in a tantrum,Уничтожен в припадке гнева 
+ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain,"Разрушается при длительном пребывании под дождем "
+ENTITY.DESTRUCTION_DESCRIPTION.TANTRUM,,Destroyed in a tantrum,"Уничтожен в припадке гнева "
 
-FLOOR.CHANNEL.DESCRIPTION,,Irrigation channel ({{state}}),Оросительный канал ({{state}}) 
-FLOOR.CHANNEL.DESCRIPTION.TOOLTIP,,Irrigation channels provide access to water to crops within 2 tiles. Build a water pump and connect the channels to it using pipes.,Оросительные каналы обеспечивают доступ к воде сельскохозяйственных культур в пределах 2 клеток. Постройте водяной насос и подключите к нему каналы с помощью труб. 
+FLOOR.CHANNEL.DESCRIPTION,,Irrigation channel ({{state}}),"Оросительный канал ({{state}}) "
+FLOOR.CHANNEL.DESCRIPTION.TOOLTIP,,Irrigation channels provide access to water to crops within 2 tiles. Build a water pump and connect the channels to it using pipes.,"Оросительные каналы обеспечивают доступ к воде сельскохозяйственных культур в пределах 2 клеток. Постройте водяной насос и подключите к нему каналы с помощью труб. "
 FLOOR.CHANNEL.STATE.EMPTY,,Empty,Пустой
 FLOOR.CHANNEL.STATE.FULL,,Full,Полный
-FLOOR.CHANNEL.STATE.PARTIALLY_FILLED,,Partially-filled,Частично заполнен 
+FLOOR.CHANNEL.STATE.PARTIALLY_FILLED,,Partially-filled,"Частично заполнен "
 FLOOR.COBBLESTONE,,Cobblestone,Булыжник
 FLOOR.DESCRIPTION,,{{floorType.noun}},{{floorType.noun}}
 FLOOR.DIRT,,Dirt,Грязь
 FLOOR.GRASS,,Grass,Трава
 FLOOR.GRAVEL,,Gravel,Гравий
-FLOOR.PIPE.DESCRIPTION,,{{material}} pipe ({{state}}),{{material}} труба ({{state}}) 
-FLOOR.POWER.DESCRIPTION,,{{entity}} - Power available: {{powerAmount}},Доступная энергия: {{powerAmount}} 
+FLOOR.PIPE.DESCRIPTION,,{{material}} pipe ({{state}}),"{{material}} труба ({{state}}) "
+FLOOR.POWER.DESCRIPTION,,{{entity}} - Power available: {{powerAmount}},"Доступная энергия: {{powerAmount}} "
 FLOOR.RIVER,,River,Река
 FLOOR.ROUGH_STONE,,Rough stone floor,Грубый каменный пол
 FLOOR.SNOW,,Fallen snow,Выпавший снег
-FLOOR.STONE_PAVING,,Stone paving,Брусчатка 
+FLOOR.STONE_PAVING,,Stone paving,"Брусчатка "
 FLOOR.STONE_SLAB,,Stone slab,Каменная плитка
 FLOOR.TILLED_EARTH,,Tilled earth,Обработанная земля
 FLOOR.UNEXPLORED,Used when the player clicks on an area they have not discovered yet,Unexplored,Неисследованные
-FLOOR.WOODEN,,Wooden floorboards,Деревянные половые доски 
+FLOOR.WOODEN,,Wooden floorboards,"Деревянные половые доски "
 
 FOODSTUFF.ROCKBREAD,This is a made-up fantasy food,Rockbread,Каменный хлеб
 FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer J. A. Moffatt once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.,"Это печально известный жесткий хлеб, который настолько твердый и практически несъедобный, что потребуется очень много времени, чтобы он испортился. Человек-исследователь Дж. А. Моффатт описал его вкус как «Сродни жеваемому гравию, который был вынут из болота». К счастью, большинство гномов, кажется, не против их есть."
@@ -178,16 +189,16 @@ FURNITURE.BAKERS_WORKTOP,,Baker’s worktop,Стол пекаря
 FURNITURE.BAKERS_WORKTOP.TOOLTIP,,A {{PROFESSION.CHEF}} works here to turn {{RESOURCE.FLOUR.SACK.PLURAL}} into {{INGREDIENT.DOUGH}}.,"{{PROFESSION.CHEF}} работает здесь, чтобы превратить {{RESOURCE.FLOUR.SACK.PLURAL}} в {{INGREDIENT.DOUGH}}."
 FURNITURE.BAKING_OVEN,For the baking of bread,Baker's oven,Плита для выпечки хлеба
 FURNITURE.BAKING_OVEN.TOOLTIP,,A {{PROFESSION.CHEF}} bakes loaves here using prepared {{INGREDIENT.DOUGH}}.,"{{PROFESSION.CHEF}} выпекает здесь хлеб, используя приготовленные {{INGREDIENT.DOUGH}}."
-FURNITURE.BEER_TAPPER,,Beer tapper,Пивной кран 
+FURNITURE.BEER_TAPPER,,Beer tapper,"Пивной кран "
 FURNITURE.BEER_TAPPER.STATE.BEER_AVAILABLE,,Beer is available,Пиво доступно
-FURNITURE.BEER_TAPPER.STATE.BEER_BARREL_INCOMING,,A beer barrel is on the way,Бочонок с пивом уже в пути 
-FURNITURE.BEER_TAPPER.STATE.BEER_EXHAUSTED,,The beer has all gone!,Все пиво пропало! 
-FURNITURE.BEER_TAPPER.STATE.IDLE,,Idle (no beer available),В режиме ожидания (пиво недоступно) 
-FURNITURE.BEER_TAPPER.TOOLTIP,,This is where fermented {{LIQUID.BEER}} is served from.,Здесь ферментируется{{LIQUID.BEER}} 
-FURNITURE.BLOOMERY_FURNACE,A simple type of furnace to smelt metal from ore,Bloomery furnace,Блумерская печь 
+FURNITURE.BEER_TAPPER.STATE.BEER_BARREL_INCOMING,,A beer barrel is on the way,"Бочонок с пивом уже в пути "
+FURNITURE.BEER_TAPPER.STATE.BEER_EXHAUSTED,,The beer has all gone!,"Все пиво пропало! "
+FURNITURE.BEER_TAPPER.STATE.IDLE,,Idle (no beer available),"В режиме ожидания (пиво недоступно) "
+FURNITURE.BEER_TAPPER.TOOLTIP,,This is where fermented {{LIQUID.BEER}} is served from.,"Здесь ферментируется{{LIQUID.BEER}} "
+FURNITURE.BLOOMERY_FURNACE,A simple type of furnace to smelt metal from ore,Bloomery furnace,"Блумерская печь "
 FURNITURE.BLOOMERY_FURNACE.TOOLTIP,,A {{PROFESSION.BLACKSMITH}} uses this hand-operated furnace to turn {{RESOURCE.ORE.CRUSHED.PLURAL}} and {{FUEL.SACK}} into {{MATERIAL_TYPE.METAL.ADJECTIVE}} {{RESOURCE.METAL.INGOT.PLURAL}}.,"{{PROFESSION.BLACKSMITH}} используйте эту печь с ручным управлением, чтобы превратить {{RESOURCE.ORE.CRUSHED.PLURAL}} и {{FUEL.SACK}} в {{MATERIAL_TYPE.METAL.ADJECTIVE}} {RESOURCE.METAL.INGOT.PLURAL}}."
-FURNITURE.BREW_KETTLE,,Brew kettle,Заварочный чайник 
-FURNITURE.BREW_KETTLE.TOOLTIP,,This is used to produce the final wort (unfermented beer) using {{VEGETABLE.HOPS}} and wort from the {{FURNITURE.MASH_TUN}}.,Это используется для производства конечного сусла (неферментированного пива) с использованием {{VEGETABLE.HOPS}} и сусла из {{FURNITURE.MASH_TUN}} 
+FURNITURE.BREW_KETTLE,,Brew kettle,"Заварочный чайник "
+FURNITURE.BREW_KETTLE.TOOLTIP,,This is used to produce the final wort (unfermented beer) using {{VEGETABLE.HOPS}} and wort from the {{FURNITURE.MASH_TUN}}.,"Это используется для производства конечного сусла (неферментированного пива) с использованием {{VEGETABLE.HOPS}} и сусла из {{FURNITURE.MASH_TUN}} "
 FURNITURE.BUTCHERY_WORKTOP,,Butchery worktop,Стол для разделки мяса
 FURNITURE.BUTCHERY_WORKTOP.TOOLTIP,,Fish and animal carcasses are prepared here into usable meat.,Туши рыбы и животных здесь превращают в пригодное для употребления мясо
 FURNITURE.CARPENTRY_WORKBENCH,,Carpentry workbench,Столярный верстак
@@ -206,12 +217,12 @@ FURNITURE.DESCRIPTION.SHOCKING_IN_PROGRESS,,Progress: {{progress}}%,Прогре
 FURNITURE.DESCRIPTION.WAITING_FOR_ITEM,,Waiting for {{itemType.noun}},Ожидание {{itemType.noun}}
 FURNITURE.DESCRIPTION.WAITING_FOR_LIQUID,,Waiting to be filled,Ожидание заполнения
 FURNITURE.DESCRIPTION.WAITING_FOR_MUSHROOM_SPAWN,,Waiting to be injected with mushroom spawn,Ожидание введения грибных спор
-FURNITURE.FEASTING_TABLE,A very large table for a feast,Feasting table,Праздничный стол 
+FURNITURE.FEASTING_TABLE,A very large table for a feast,Feasting table,"Праздничный стол "
 FURNITURE.FEASTING_TABLE.TOOLTIP,,"With a {{FURNITURE.CHAIR}} in place, your settlers will enjoy their meals at this table.","С {{FURNITURE.CHAIR}}, ваши поселенцы будут наслаждаться трапезой за этим столом."
-FURNITURE.FERMENTATION_TANK,,Fermentation tank,Резервуар для брожения 
-FURNITURE.FERMENTATION_TANK.TOOLTIP,,This is where {{LIQUID.HOPPED_WORT}} is fermented into {{LIQUID.BEER}}.,Здесь {{LIQUID.HOPPED_WORT}} ферментируется до {{LIQUID.BEER}} 
+FURNITURE.FERMENTATION_TANK,,Fermentation tank,"Резервуар для брожения "
+FURNITURE.FERMENTATION_TANK.TOOLTIP,,This is where {{LIQUID.HOPPED_WORT}} is fermented into {{LIQUID.BEER}}.,"Здесь {{LIQUID.HOPPED_WORT}} ферментируется до {{LIQUID.BEER}} "
 FURNITURE.FLETCHERS_WORKBENCH,,Fletcher's workbench,Верстак лучника
-FURNITURE.FLETCHERS_WORKBENCH.TOOTIP,,This is a crafting station for ranged weapons and ammunition,Это мастерская для стрелкового оружия и боеприпасов. 
+FURNITURE.FLETCHERS_WORKBENCH.TOOTIP,,This is a crafting station for ranged weapons and ammunition,"Это мастерская для стрелкового оружия и боеприпасов. "
 FURNITURE.FLOUR_MILL,This is a table with a hand-operated flour mill stone on top,Gristmill,Мельница
 FURNITURE.FLOUR_MILL.TOOLTIP,,The gristmill grinds {{VEGETABLE.WHEAT}} into {{RESOURCE.FLOUR.SACK.NOUN}} so that it can be used by a {{PROFESSION.CHEF}}.,"Мельница измельчает {{VEGETABLE.WHEAT}} в {{RESOURCE.FLOUR.SACK.NOUN}}, чтобы ее можно было использовать {{PROFESSION.CHEF}}."
 FURNITURE.FORGE,,Forge,Кузница
@@ -223,11 +234,13 @@ FURNITURE.KITCHEN_WORKTOP.TOOLTIP,,An area to store ingredients for a {{PROFESSI
 FURNITURE.LANTERN,,Lantern,Фонарь
 FURNITURE.LANTERN.TOOLTIP,,A lantern provides light – this does not currently have an in-game effect.,Фонарь обеспечивает свет — в настоящее время это не имеет эффекта в игре.
 FURNITURE.LARGE_TABLE,,Large table,Большой стол
-FURNITURE.LOOM,,Loom,Ткацкий станок 
+FURNITURE.LEATHERWORKING_STATION,,Leatherworking station,
+FURNITURE.LEATHERWORKING_STATION.TOOLTIP,,A workbench to produce leather goods like armour and waterskins,
+FURNITURE.LOOM,,Loom,"Ткацкий станок "
 FURNITURE.MALTING_STATION,,Malting station,Солодовый аппарат
 FURNITURE.MALTING_STATION.TOOLTIP,,"Here brewers steep barley and then dry it out using a kiln to produce malt. ","Здесь пивовары варят ячмень, а затем сушат его в печи для производства солода."
 FURNITURE.MASH_TUN,,Mash tun,Бочка для бражения
-FURNITURE.MASH_TUN.TOOLTIP,,This is used to produce wort (unfermented beer) from milled malt and water.,Используется для производства сусла (неферментированного пива) из молотого солода и воды. 
+FURNITURE.MASH_TUN.TOOLTIP,,This is used to produce wort (unfermented beer) from milled malt and water.,"Используется для производства сусла (неферментированного пива) из молотого солода и воды. "
 FURNITURE.MUSHROOM_LOG,,Mushroom log,Грибное бревно
 FURNITURE.MUSHROOM_LOG.TOOLTIP,,"A log that has been injected with {{INGREDIENT.MUSHROOM.SPAWN.PLURAL}} to produce several harvests of delicious, juicy mushrooms.","Бревно, в которое были введены {{INGREDIENT.MUSHROOM.SPAWN.PLURAL}} для получения нескольких урожаев вкусных и сочных грибов."
 FURNITURE.MUSHROOM_SHOCK_TANK,This is a trough of water used to immerse mushroom logs in for a period of time,Shock tank,Шоковый бак
@@ -246,14 +259,16 @@ FURNITURE.SINGLE_BED,,Bed,Кровать
 FURNITURE.SINGLE_BED.TOOLTIP,,"A bed is the best place for a comfortable night’s rest. ",Кровать — лучшее место для комфортного сна.
 FURNITURE.SINGLE_DOOR,,Door,Дверь
 FURNITURE.SINGLE_DOOR_FRAME,,Door frame,Дверной косяк
-FURNITURE.SLEEPING_SPOT,,Sleeping spot,Спальное место 
+FURNITURE.SLEEPING_SPOT,,Sleeping spot,"Спальное место "
 FURNITURE.SLEEPING_SPOT.TOOLTIP,,Your settlers will use this space to sleep on the floor. Not very comfortable!,"Ваши поселенцы будут использовать это место, чтобы спать на полу. Это не очень удобно!"
 FURNITURE.SMALL_TABLE,,Small table,Маленький стол
 FURNITURE.STONEMASON_WORKBENCH,,Stonemason workbench,Верстак каменщика
 FURNITURE.STONEMASON_WORKBENCH.TOOLTIP,,A {{PROFESSION.STONEMASON}} works here with {{MATERIAL_TYPE.STONE.ADJECTIVE}} resources.,{{PROFESSION.STONEMASON}} работает здесь с ресурсами {{MATERIAL_TYPE.STONE.ADJECTIVE}}.
 FURNITURE.STOOL,,Stool,Табурет
+FURNITURE.TANNING_FRAME,,Tanning frame,
+FURNITURE.TANNING_FRAME.TOOLTIP,,Turn your Animal Skins into Leather.,
 FURNITURE.WATERWHEEL,,Water wheel,Водяная мельница
-FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.,Обеспечивает энергией другие устройства через {{PRODUCT.STONE.GEAR.PLURAL}} и валы. Должна быть построена рядом с рекой 
+FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.,"Обеспечивает энергией другие устройства через {{PRODUCT.STONE.GEAR.PLURAL}} и валы. Должна быть построена рядом с рекой "
 FURNITURE.WATER_BARREL,,Water barrel,Бочка для воды
 FURNITURE.WATER_BARREL.TOOLTIP,,"A water barrel is a place for your settlers to get a thirst-quenching drink, rather than having to find a natural water source like the river.","Бочка с водой — это место, где ваши поселенцы смогут утолить жажду, вместо того, чтобы искать естественный источник воды, такой как река."
 FURNITURE.WATER_PUMP,,Water pump,Водяной насос
@@ -261,7 +276,7 @@ FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.,Пе�
 FURNITURE.WELL,,Well,Колодец
 FURNITURE.WELL.TOOLTIP,,"A well provides a source of water, but must be connected to a working pipe system.","Колодец является источником воды, но должен быть подключен к работающей системе трубопроводов"
 FURNITURE.WINDMILL,,Windmill,Ветряная мельница
-FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.,Обеспечивает энергией другие устройства через {{PRODUCT.STONE.GEAR.PLURAL}} и валы. 
+FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.,"Обеспечивает энергией другие устройства через {{PRODUCT.STONE.GEAR.PLURAL}} и валы. "
 FURNITURE.WOODCUTTERS_BENCH,,Woodcutting bench,Верстак резчика по дереву
 FURNITURE.WOODCUTTERS_BENCH.TOOLTIP,,A {{PROFESSION.WOODCUTTER}} works here to turn {{RESOURCE.LOGS.PLURAL}} into {{RESOURCE.PLANKS.PLURAL}}.,"{{PROFESSION.WOODCUTTER}} работает здесь, чтобы превратить {{RESOURCE.LOGS.PLURAL}} в {{RESOURCE.PLANKS.PLURAL}}."
 
@@ -317,8 +332,8 @@ GEM.MORGANITE.TOOLTIP,,A rose-coloured variety of beryl. It was named after bein
 GEM.OPAL.ADJECTIVE,,Opal,Опаловый
 GEM.OPAL.NOUN,,Opal,Опал
 GEM.OPAL.TOOLTIP,,"A form of silica infused with the magic of the oceans, which makes this a favourite of sailors and fishermen.","Вид кремнезема, наполненный магией океанов, что делает его любимым камнем моряков и рыбаков."
-GEM.PAINITE.ADJECTIVE,,Painite,Пейнитовый 
-GEM.PAINITE.NOUN,,Painite,Пейнит 
+GEM.PAINITE.ADJECTIVE,,Painite,"Пейнитовый "
+GEM.PAINITE.NOUN,,Painite,"Пейнит "
 GEM.PAINITE.TOOLTIP,,A very rare gemstone which is often identified as an off-colour sapphire. The crystals are naturally hexagonal in shape and a favourite of tacticians.,"Очень редкий драгоценный камень, который часто называют бесцветным сапфиром. Кристаллы имеют естественную шестиугольную форму, что делает его любимым камнем полководцев."
 GEM.RHODOCHROSITE.ADJECTIVE,,Rhodochrosite,Родохрозитовый
 GEM.RHODOCHROSITE.NOUN,,Rhodochrosite,Родохрозит
@@ -348,9 +363,9 @@ GEM.TURQUOISE.ADJECTIVE,,Turquoise,Бирюзовый
 GEM.TURQUOISE.NOUN,,Turquoise,Бирюза
 GEM.TURQUOISE.TOOLTIP,,A blue-green mineral often used in decorations. It is thought to bring good luck to the bearer. It is often infused with the element of earth.,"Сине-зеленый минерал, который часто используется в декорациях. Считается, что он приносит удачу. В нем часто встречается элемент земли."
 
-GOAL.ABANDON_JOB.DESCRIPTION,,Abandoning task,Отказ от задачи 
+GOAL.ABANDON_JOB.DESCRIPTION,,Abandoning task,"Отказ от задачи "
 GOAL.ADD_TO_INVENTORY.DESCRIPTION,E.g. “Collecting bag of wheat seeds”,Collecting {{targetDescription}},Сбор: {{targetDescription}}
-GOAL.COMBAT.DESCRIPTION,,Attacking {{targetDescription}},Атакующий {{targetDescription}} 
+GOAL.COMBAT.DESCRIPTION,,Attacking {{targetDescription}},"Атакующий {{targetDescription}} "
 GOAL.DRINK.DESCRIPTION,,Drinking {{targetDescription}},Пьющий{{targetZoneMaterial}}
 GOAL.DUMP_LIQUID.DESCRIPTION,,Dumping contents of {{targetDescription}},Выгрузка содержимого {{targetDescription}}
 GOAL.EAT.DESCRIPTION,,Eating {{targetDescription}},Кушающий {{targetDescription}}
@@ -381,7 +396,7 @@ GUI.BUILD_LABEL,This should be as short as possible,Build,Строить
 GUI.CANCEL_LABEL,This should be as short as possible,Cancel,Отмена
 GUI.CHANGE_PROFESSION_LABEL,,Change profession,Сменить профессию
 GUI.CHANGE_WEAPON_LABEL,,Select weapon,Сменить оружие
-GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items in stock,Maintaining,Поддержание 
+GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items in stock,Maintaining,"Поддержание "
 GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting,Ремесло
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}},Текущий итог: {{quantity}}
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total),Всего ({{quantity}}
@@ -405,18 +420,18 @@ GUI.DIALOG.OK_BUTTON,Single button shown to dismiss an error dialog,Ok,OK
 GUI.DIALOG.RENAME_ROOM_TITLE,,Rename room,Переименовать комнату
 GUI.DIALOG.RENAME_SETTLER_TITLE,,Rename settler,Переименовать поселенца
 GUI.DIALOG.RESTART_REQUIRED,,You must restart the game for this change to take effect,"Вы должны перезапустить игру, чтобы это изменение вступило в силу"
-GUI.DIALOG.SETTLEMENT_NAME_ALREADY_IN_USE,,You already have a saved game for the settlement {{name}}. Starting a new game will overwrite the existing save file. Are you sure you want to continue?,У вас уже есть сохраненная игра для поселения {{name}}. При запуске новой игры существующий файл сохранения будет перезаписан. Вы уверены что хотите продолжить? 
+GUI.DIALOG.SETTLEMENT_NAME_ALREADY_IN_USE,,You already have a saved game for the settlement {{name}}. Starting a new game will overwrite the existing save file. Are you sure you want to continue?,"У вас уже есть сохраненная игра для поселения {{name}}. При запуске новой игры существующий файл сохранения будет перезаписан. Вы уверены что хотите продолжить? "
 GUI.DIALOG.SETTLEMENT_NAME_NOT_SPECIFIED,,A name for the settlement must be specified.,Необходимо указать название населенного пункта.
 GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE,,Stockpile settings,Настройка хранилища
-GUI.EMBARK.DISCLAIMER,,"This is an early alpha version of King under the Mountain. There are many, many features still to be added, and bugs are to be expected. In a future update you will be able to use this screen to customise your starting settlers, resources and even map and gameplay settings. Please join our Discord community to report any bugs you find or offer feedback, so we can work together to guide King under the Mountain to become the best possible version of itself. Thank you for playing!","Это ранняя альфа-версия King Under the Mountain. В будущем в игру будут добавляться новые возможности, пока возможны ошибки. В будущем обновлении вы сможете использовать этот экран, чтобы настроить начальных поселенцев, ресурсы, карту и игровой процесс. Присоединяйтесь к нашему сообществу Discord, чтобы сообщать о любых обнаруженных вами ошибках или оставлять отзывы, чтобы мы могли вместе работать над тем, чтобы помочь King Under the Mountain стать лучше. Спасибо ты за игру!" 
+GUI.EMBARK.DISCLAIMER,,"This is an early alpha version of King under the Mountain. There are many, many features still to be added, and bugs are to be expected. In a future update you will be able to use this screen to customise your starting settlers, resources and even map and gameplay settings. Please join our Discord community to report any bugs you find or offer feedback, so we can work together to guide King under the Mountain to become the best possible version of itself. Thank you for playing!","Это ранняя альфа-версия King Under the Mountain. В будущем в игру будут добавляться новые возможности, пока возможны ошибки. В будущем обновлении вы сможете использовать этот экран, чтобы настроить начальных поселенцев, ресурсы, карту и игровой процесс. Присоединяйтесь к нашему сообществу Discord, чтобы сообщать о любых обнаруженных вами ошибках или оставлять отзывы, чтобы мы могли вместе работать над тем, чтобы помочь King Under the Mountain стать лучше. Спасибо ты за игру!"
 GUI.EMBARK.DISCORD_LINK,,Click here to join our Discord community,Нажмите чтобы присоединиться к нашему сообществу в Discord
 GUI.EMBARK.MAP_SEED,,Map seed:,Значение карты:
 GUI.EMBARK.SETTLEMENT_NAME,,Settlement name:,Название поселения:
 GUI.EMBARK.START,,Begin!,Начать!
 GUI.EMBARK.TITLE,,Embark Options,Начало игры
 GUI.EMPTY_CONTAINER_LABEL,This should be as short as possible,Empty,Пусто
-GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED,,Contents are being emptied.,Содержимое опорожняется 
-GUI.EMPTY_CONTAINER_LABEL.HINT,,Dump the contents of this container on the ground.,Вылейте содержимое этого контейнера на землю. 
+GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED,,Contents are being emptied.,"Содержимое опорожняется "
+GUI.EMPTY_CONTAINER_LABEL.HINT,,Dump the contents of this container on the ground.,"Вылейте содержимое этого контейнера на землю. "
 GUI.FURNITURE_ASSIGNED_TO,Used to show who owns a piece of furniture,Assigned to {{name}},Принадлежит: {{name}}
 GUI.FURNITURE_BEING_REMOVED,Label for when a piece of furniture is in the process of being removed,Currently being removed,В процессе удаления
 GUI.FURNITURE_REQUIRES_FLOOR_MATERIALTYPE,,This furniture must be placed on {{materialType}}.,Эта мебель должна быть размещена на {{materialType}}.
@@ -430,7 +445,7 @@ GUI.LOAD_GAME.TABLE.SETTLEMENT_NAME,,Name,Имя
 GUI.LOAD_GAME.TABLE.VERSION,,Version,Версия
 GUI.LOAD_GAME.TITLE,,Load Game,Загрузить игру
 GUI.MAP_SEED.COPY_TO_CLIPBOARD,,Copy to clipboard,Скопировать в буфер обмена
-GUI.MAP_SEED_DISPLAY,,"Current map seed: ","Текущее значение карты:"
+GUI.MAP_SEED_DISPLAY,,"Current map seed: ",Текущее значение карты:
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal,Горизонтальный
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical,Вертикальный
 GUI.MINIMAP.LABEL,,Minimap,Миникарта
@@ -443,16 +458,16 @@ GUI.OPTIONS.GAMEPLAY.HIDE_TREES_OBSCURING_SETTLERS,This is an option that makes 
 GUI.OPTIONS.GAMEPLAY.PAUSE_ON_NOTIFICATION,,Pause for notifications,Пауза для уведомлений
 GUI.OPTIONS.GAMEPLAY.TITLE,,"Gameplay Options "," Настройки игры "
 GUI.OPTIONS.GAMEPLAY.USE_EDGE_SCROLLING,This is for a question to ask if the player would like the camera to scroll/pan by placing the mouse at the edge of the screen,Scroll when cursor is at the edge of the screen,"Прокрутка, когда курсор находится на краю экрана"
-GUI.OPTIONS.GAMEPLAY.ZOOM_TO_CURSOR,This is for a question to ask if the player would like the camera to scroll/pan based on where the mouse cursor is when they zoom in or out,Scroll to cursor when zooming,Прокрутка к курсору при масштабировании 
+GUI.OPTIONS.GAMEPLAY.ZOOM_TO_CURSOR,This is for a question to ask if the player would like the camera to scroll/pan based on where the mouse cursor is when they zoom in or out,Scroll to cursor when zooming,"Прокрутка к курсору при масштабировании "
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,,Borderless,Полный экран
-GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen,Эксклюзивный полноэкранный режим 
+GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen,"Эксклюзивный полноэкранный режим "
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed,В окне
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options ","Настройки графики "
 GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Allow automatic crash reports,Разрешить автоматические отчеты о сбоях
-GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game,Показывать подсказки в игре 
-GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING,,Scroll the background on the main menu,Прокрутите фон в главном меню 
+GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game,"Показывать подсказки в игре "
+GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING,,Scroll the background on the main menu,"Прокрутите фон в главном меню "
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous,Разное
-GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Ask to start the tutorial at game start,Предлагать начать обучение при запуске игры 
+GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Ask to start the tutorial at game start,"Предлагать начать обучение при запуске игры "
 GUI.OPTIONS.TAB.AUDIO,,Audio,Аудио
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay,Игра
 GUI.OPTIONS.TAB.GRAPHICS,,Graphics,Графика
@@ -460,16 +475,16 @@ GUI.OPTIONS.TAB.MISC,,Other,Прочее
 GUI.OPTIONS.TAB.TWITCH,,Twitch,Twitch
 GUI.OPTIONS.TWITCH.ACCOUNT_LABEL,,Twitch Account:,Аккаунт Twitch:
 GUI.OPTIONS.TWITCH.CODE_LABEL,,Code,Кож
-GUI.OPTIONS.TWITCH.CONNECTED_LABEL,,Twitch account connected,Аккаунт Twitch подключен 
+GUI.OPTIONS.TWITCH.CONNECTED_LABEL,,Twitch account connected,"Аккаунт Twitch подключен "
 GUI.OPTIONS.TWITCH.DISCONNECT,,Disconnect,Отключен
 GUI.OPTIONS.TWITCH.DISCONNECTED_LABEL,,Twitch account disconnected,Аккаунт Twitch отключен
-GUI.OPTIONS.TWITCH.ENABLED,,Twitch integration enabled,Интеграция с Twitch включена 
-GUI.OPTIONS.TWITCH.GENERAL_ERROR,,An error occured while communicating with Twitch,Произошла ошибка при подключении к Twitch 
+GUI.OPTIONS.TWITCH.ENABLED,,Twitch integration enabled,"Интеграция с Twitch включена "
+GUI.OPTIONS.TWITCH.GENERAL_ERROR,,An error occured while communicating with Twitch,"Произошла ошибка при подключении к Twitch "
 GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Click here to connect your Twitch account,"Нажмите здесь, чтобы подключить свою учетную запись Twitch"
-GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,Отдавайте приоритет подписчикам 
+GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,"Отдавайте приоритет подписчикам "
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit,Отправить
-GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,Интеграция с Twitch 
-GUI.OPTIONS.TWITCH.VIEWERS_AS_SETTLERS,,Use viewers as settler names,Используйте зрителей как имена поселенцев 
+GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,"Интеграция с Twitch "
+GUI.OPTIONS.TWITCH.VIEWERS_AS_SETTLERS,,Use viewers as settler names,"Используйте зрителей как имена поселенцев "
 GUI.ORDERS.CHOP_WOOD,This should be as short as possible,Chop,Рубить
 GUI.ORDERS.CLEAR_GROUND,This should be as short as possible,Clear,Расчистить
 GUI.ORDERS.DIG_CHANNELS,This should be as short as possible - used to dig channels in the ground for water to run through to irrigate crops,Irrigation,Орошение
@@ -503,23 +518,23 @@ GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,Раз�
 GUI.VIEW_ROADMAP,,View development roadmap,Посмотреть планы разработки
 GUI.ZONES_LABEL,This should be as short as possible,Zones,Зоны
 
-HAPPINESS_MODIFIER.ALCOHOL_WITHDRAWAL,,Going sober,Трезвый 
-HAPPINESS_MODIFIER.ATE_NICELY_PREPARED_FOOD,,Ate a nicely prepared meal,Съел хорошо приготовленную еду 
-HAPPINESS_MODIFIER.BLEEDING,,Bleeding profusely,Обильное кровотечение 
-HAPPINESS_MODIFIER.CARRIED_DEAD_BODY,,Carried a dead body,Несет мертвое тело 
-HAPPINESS_MODIFIER.CAUGHT_IN_RAIN,,Caught outside in the rain,Попал под дождь на улице 
-HAPPINESS_MODIFIER.DRANK_ALCOHOL,,Under the effects of alcohol,Под воздействием алкоголя 
+HAPPINESS_MODIFIER.ALCOHOL_WITHDRAWAL,,Going sober,"Трезвый "
+HAPPINESS_MODIFIER.ATE_NICELY_PREPARED_FOOD,,Ate a nicely prepared meal,"Съел хорошо приготовленную еду "
+HAPPINESS_MODIFIER.BLEEDING,,Bleeding profusely,"Обильное кровотечение "
+HAPPINESS_MODIFIER.CARRIED_DEAD_BODY,,Carried a dead body,"Несет мертвое тело "
+HAPPINESS_MODIFIER.CAUGHT_IN_RAIN,,Caught outside in the rain,"Попал под дождь на улице "
+HAPPINESS_MODIFIER.DRANK_ALCOHOL,,Under the effects of alcohol,"Под воздействием алкоголя "
 HAPPINESS_MODIFIER.DRANK_FROM_RIVER,,Drank river water,Пьет речную воду
 HAPPINESS_MODIFIER.DYING_OF_HUNGER,,Starving,Голод
 HAPPINESS_MODIFIER.DYING_OF_THIRST,,Critically dehydrated,Критически обезвоженн
 HAPPINESS_MODIFIER.HAD_A_TANTRUM,,Had a tantrum,Впал в ярость
 HAPPINESS_MODIFIER.NEW_SETTLEMENT_OPTIMISM,,Optimistic about new settlement,Оптимистичный подход к новому поселению
-HAPPINESS_MODIFIER.ON_FIRE,,Was badly burned,Сильно обгорел 
+HAPPINESS_MODIFIER.ON_FIRE,,Was badly burned,"Сильно обгорел "
 HAPPINESS_MODIFIER.POISONED,,Poisoned,Отравлен
 HAPPINESS_MODIFIER.SAW_DEAD_BODY,,Saw a dead body,Видел труп
-HAPPINESS_MODIFIER.SLEEPING_IN_RAIN,,Slept in the rain,Спал под дождем 
+HAPPINESS_MODIFIER.SLEEPING_IN_RAIN,,Slept in the rain,"Спал под дождем "
 HAPPINESS_MODIFIER.SLEEPING_IN_SNOW,,Slept in the snow,Спал на снегу
-HAPPINESS_MODIFIER.SLEPT_IN_ENCLOSED_BEDROOM,,Slept in an enclosed bedroom,Спал в закрытой спальне 
+HAPPINESS_MODIFIER.SLEPT_IN_ENCLOSED_BEDROOM,,Slept in an enclosed bedroom,"Спал в закрытой спальне "
 HAPPINESS_MODIFIER.SLEPT_IN_LARGE_PRIVATE_BEDROOM,,"Slept in a spacious, private bedroom","Спал в просторной, отдельной спальне"
 HAPPINESS_MODIFIER.SLEPT_IN_SHARED_BEDROOM,,Shared a bedroom with others,Общая спальня с другими
 HAPPINESS_MODIFIER.SLEPT_IN_SMALL_BEDROOM,,Slept in a cramped bedroom,Спал в стесненных спальнях
@@ -529,8 +544,8 @@ HAPPINESS_MODIFIER.TITLE,,Happiness:,Счастье:
 HAPPINESS_MODIFIER.VERY_HUNGRY,,Very hungry,Очень голодный
 HAPPINESS_MODIFIER.VERY_THIRSTY,,Very thirsty,Очень хочется пить
 HAPPINESS_MODIFIER.VERY_TIRED,,Extremely tired,Очень устал
-HAPPINESS_MODIFIER.WORKED_IN_ENCLOSED_ROOM,,Worked in an enclosed room,Работал в закрытом помещении 
-HAPPINESS_MODIFIER.WORKED_IN_RAIN,,Working in the rain,Работал под дождем 
+HAPPINESS_MODIFIER.WORKED_IN_ENCLOSED_ROOM,,Worked in an enclosed room,"Работал в закрытом помещении "
+HAPPINESS_MODIFIER.WORKED_IN_RAIN,,Working in the rain,"Работал под дождем "
 
 HAULING.ASSIGNMENT.DESCRIPTION,,{{quantity}} assigned to {{targetDescription}},{{quantity}} назначено {{targetDescription}}
 
@@ -542,7 +557,7 @@ HINT.BUILD_POWER.2,,"These are placed below the ground, so make sure your settle
 HINT.BUILD_POWER.3,,Constructions which require or produce power will display a red or green icon indicating if they are an input or output to the network.,"Конструкции, которые требуют или производят энергию, будут отображать красный или зеленый значок, указывающий, являются ли они входом или выходом для сети."
 HINT.BUILD_ROOFING.1,,"This view allows you to see which tiles are outside with no roof above them (light blue), and those which have had a roof built overhead (dark brown).","Этот вид позволяет вам увидеть, какие клетки находятся снаружи без крыши над ними (светло-голубой), и те, у которых есть крыша над головой (темно-коричневый)."
 HINT.BUILD_ROOFING.2,,"You can use the {{GUI.ROOFING.ADD}} and {{GUI.CANCEL_LABEL}} options to queue up roofing to be constructed, and {{GUI.DECONSTRUCT_LABEL}} to remove any existing roof tiles.","Вы можете использовать параметры {{GUI.ROOFING.ADD}} и {{GUI.CANCEL_LABEL}}, чтобы поставить кровлю в очередь, которую нужно построить, и {{GUI.DECONSTRUCT_LABEL}}, чтобы удалить любую существующую черепицу."
-HINT.BUILD_ROOFING.3,,A roof can only be constructed within 3 tiles of a wall or {{FURNITURE.PILLAR}}.,Крышу можно построить только в пределах 3-х клеток от стены или {{FURNITURE.PILLAR}}. 
+HINT.BUILD_ROOFING.3,,A roof can only be constructed within 3 tiles of a wall or {{FURNITURE.PILLAR}}.,"Крышу можно построить только в пределах 3-х клеток от стены или {{FURNITURE.PILLAR}}. "
 HINT.BUTTON.DISABLE_ALL,,Disable all hints,Отключить все подсказки
 HINT.BUTTON.DISMISS,,Dismiss,Отключить
 HINT.BUTTON.HINTS_ONLY,,Hints only,Только подсказки
@@ -551,13 +566,13 @@ HINT.BUTTON.TUTORIAL,,Tutorial,Обучение
 HINT.OPEN_PRIORITY_MENU.1,,"You can use this menu to change the priority of jobs and tasks, so that higher priority jobs will be assigned before lower priority jobs.","Вы можете использовать это меню для изменения приоритета заданий и задач, чтобы задания с более высоким приоритетом были назначены перед заданиями с более низким приоритетом."
 HINT.OPEN_PRIORITY_MENU.2,,"While the Priority menu is open, the priority icons are shown in the game world where there is a job or task to be performed, or where a room or item of furniture may create jobs in the future.","Пока открыто меню приоритета, значки приоритета отображаются в игровом мире, где есть задание или задача, которую нужно выполнить, или где комната или предмет мебели могут создать рабочие места в будущем."
 HINT.PROGRESS.HEADER,,Progress:,Прогресс:
-HINT.TOOL_DEPLETED.AXE1,,Your settlement no longer has an {{TOOL.AXE}} available. You will no longer be able to chop down trees.,Для вашего поселения больше нет доступного {{TOOL.AXE}}. Вы больше не сможете рубить деревья 
-HINT.TOOL_DEPLETED.AXE2,,"More axes can be crafted at the {{FURNITURE.FORGE}}. If you do not have a {{FURNITURE.FORGE}} up and running, you may need to remove a {{FURNITURE.WOODCUTTERS_BENCH}}.","На {{FURNITURE.FORGE}} можно изготовить другие топоры. Если у вас нет работающего {{FURNITURE.FORGE}}, вам может потребоваться удалить {{FURNITURE.WOODCUTTERS_BENCH}}." 
-HINT.TOOL_DEPLETED.CHISEL1,,Your settlement no longer has a {{TOOL.CHISEL}} available. This is required to construct stone furniture.,Для вашего поселения больше нет доступного {{TOOL.CHISEL}}. Это необходимо для изготовления каменной мебели. 
+HINT.TOOL_DEPLETED.AXE1,,Your settlement no longer has an {{TOOL.AXE}} available. You will no longer be able to chop down trees.,"Для вашего поселения больше нет доступного {{TOOL.AXE}}. Вы больше не сможете рубить деревья "
+HINT.TOOL_DEPLETED.AXE2,,"More axes can be crafted at the {{FURNITURE.FORGE}}. If you do not have a {{FURNITURE.FORGE}} up and running, you may need to remove a {{FURNITURE.WOODCUTTERS_BENCH}}.","На {{FURNITURE.FORGE}} можно изготовить другие топоры. Если у вас нет работающего {{FURNITURE.FORGE}}, вам может потребоваться удалить {{FURNITURE.WOODCUTTERS_BENCH}}."
+HINT.TOOL_DEPLETED.CHISEL1,,Your settlement no longer has a {{TOOL.CHISEL}} available. This is required to construct stone furniture.,"Для вашего поселения больше нет доступного {{TOOL.CHISEL}}. Это необходимо для изготовления каменной мебели. "
 HINT.TOOL_DEPLETED.CHISEL2,,"More chisels can be crafted at the {{FURNITURE.FORGE}}. If you do not have a {{FURNITURE.FORGE}} up and running, you may need to remove a {{FURNITURE.STONEMASON_WORKBENCH}}.","На {{FURNITURE.FORGE}} можно изготовить и другие долота. Если у вас нет работающего {{FURNITURE.FORGE}}, вам может потребоваться удалить {{FURNITURE.STONEMASON_WORKBENCH}}."
-HINT.TOOL_DEPLETED.PLANE1,,Your settlement no longer has a {{TOOL.PLANE}} available. This is required to construct wooden furniture.,В вашем поселении больше нет {{TOOL.PLANE}}. Это необходимо для изготовления деревянной мебели. 
+HINT.TOOL_DEPLETED.PLANE1,,Your settlement no longer has a {{TOOL.PLANE}} available. This is required to construct wooden furniture.,"В вашем поселении больше нет {{TOOL.PLANE}}. Это необходимо для изготовления деревянной мебели. "
 HINT.TOOL_DEPLETED.PLANE2,,More planes can be crafted at the {{FURNITURE.CARPENTRY_WORKBENCH}} from a {{RESOURCE.PLANKS.NOUN}}.,More planes can be crafted at the {{FURNITURE.CARPENTRY_WORKBENCH}} from a {{RESOURCE.PLANKS.NOUN}}
-HINT.TOOL_DEPLETED.SAW1,,Your settlement no longer has a {{TOOL.SAW}} available. This is required to build a {{FURNITURE.WOODCUTTERS_BENCH}} or {{FURNITURE.CARPENTRY_WORKBENCH}}.,В вашем поселении больше нет {{TOOL.SAW}}. Это необходимо для создания {{FURNITURE.WOODCUTTERS_BENCH}} или {{FURNITURE.CARPENTRY_WORKBENCH}} 
+HINT.TOOL_DEPLETED.SAW1,,Your settlement no longer has a {{TOOL.SAW}} available. This is required to build a {{FURNITURE.WOODCUTTERS_BENCH}} or {{FURNITURE.CARPENTRY_WORKBENCH}}.,"В вашем поселении больше нет {{TOOL.SAW}}. Это необходимо для создания {{FURNITURE.WOODCUTTERS_BENCH}} или {{FURNITURE.CARPENTRY_WORKBENCH}} "
 HINT.TOOL_DEPLETED.SAW2,,"More saws can be crafted at the {{FURNITURE.FORGE}}. If you do not have a {{FURNITURE.FORGE}} up and running, you may need to remove a {{FURNITURE.WOODCUTTERS_BENCH}} or {{FURNITURE.CARPENTRY_WORKBENCH}}.","На {{FURNITURE.FORGE}} можно изготовить другие пилы. Если у вас нет работающего {{FURNITURE.FORGE}}, вам может потребоваться удалить {{FURNITURE.WOODCUTTERS_BENCH}} или {{FURNITURE .CARPENTRY_WORKBENCH}}."
 HINT.WEAPON_SELECTION.1,,Use this view to select a type of weapon that the settler will keep in their inventory in case of combat.,"Используйте это представление, чтобы выбрать тип оружия, которое поселенец будет держать в своем инвентаре на случай боя."
 HINT.WEAPON_SELECTION.2,,It is strongly recommended you assign a ranged weapon such as a {{WEAPON.BOW}} or {{WEAPON.CROSSBOW}} to those settlers assigned as a {{PROFESSION.HUNTER}}.,"Настоятельно рекомендуется назначить оружие дальнего боя, такое как {{WEAPON.BOW}} или {{WEAPON.CROSSBOW}}, тем поселенцам, которым назначен {{PROFESSION.HUNTER}}"
@@ -567,7 +582,7 @@ HINT.WELCOME.NEXT_STEPS,,"Click “Tutorial” to be guided through the basics, 
 HINT.WELCOME.PRE_SPAWN,,"Start the game by selecting a location on the map with enough space, and clicking the '{{GUI.EMBARK.START}}' button.","«Запустите игру, выбрав на карте место с достаточным пространством и нажав кнопку '{{GUI.EMBARK.START}}'»."
 
 HUMANOID.BROKEN.DESCRIPTION,"E.g. “Urist McScrooge, insane dwarf”","{{name}}, {{madness.adjective}} {{race.noun}}","{{name}}, {{madness.прилагательное}} {{race.noun}}"
-HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{profession.noun}}","{{name}}, {{race.noun}}-{{profession.noun}}"
+HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{skillLevelDescription.adjective}} {{profession.noun}}","{{name}}, {{race.noun}}-{{profession.noun}}"
 
 INGREDIENT.DOUGH,To be combined with the above as “bread dough”,Dough,Тесто
 INGREDIENT.FLOUR,,Flour,Мука
@@ -576,22 +591,30 @@ INGREDIENT.LOAF.PLURAL,,Loaves,Качаны капусты
 INGREDIENT.MALT.SACK.NOUN,,Malt,Солод
 INGREDIENT.MALT.SACK.TOOLTIP,,This needs to be milled before it can be used further for brewing.,"Его необходимо измельчить, прежде чем его можно будет использовать в дальнейшем для пивоварения."
 INGREDIENT.MILLED.MALT.SACK.NOUN,,Milled malt,Измельченный солод
-INGREDIENT.MILLED.MALT.SACK.TOOLTIP,,This is combined with water in a {{FURNITURE.MASH_TUN}} to produce {{LIQUID.WORT}}.,Он смешивается с водой в {{FURNITURE.MASH_TUN}} для получения {{LIQUID.WORT}} 
+INGREDIENT.MILLED.MALT.SACK.TOOLTIP,,This is combined with water in a {{FURNITURE.MASH_TUN}} to produce {{LIQUID.WORT}}.,"Он смешивается с водой в {{FURNITURE.MASH_TUN}} для получения {{LIQUID.WORT}} "
 INGREDIENT.MUSHROOM.SPAWN.NOUN,,Mushroom spawn,Грибница
 INGREDIENT.MUSHROOM.SPAWN.PLURAL,,Mushroom spawn,Грибница
 INGREDIENT.MUSHROOM.SPAWN.TOOLTIP,,"Also known as mycelium, this can be thought of as “seeds” from which to grow mushrooms in a {{ROOMS.MUSHROOM_FARM}}.","Также известный как мицелий, это можно рассматривать как «семена», из которых выращивать грибы в {{ROOMS.MUSHROOM_FARM}}."
 INGREDIENT.SEEDS.NOUN,E.g. “Wheat seed”,Seed,Семя:
 INGREDIENT.SEEDS.PLURAL,E.g. “4 wheat seeds”,Seeds,Семена:
 INGREDIENT.SEEDS.TOOLTIP,,Seeds of the right type are required for planting in a {{ROOMS.FARM}}. They also need to be available in a {{STOCKPILE.GRANARY}} stockpile.,Семена нужного типа необходимы для посадки в {{ROOMS.FARM}}. Они также должны быть доступны в запасе {{STOCKPILE.GRANARY}}.
-INGREDIENT.VEGETABLE.CRATE.NOUN,,Vegetable (crate),Овощи (ящик) 
+INGREDIENT.VEGETABLE.CRATE.NOUN,,Vegetable (crate),"Овощи (ящик) "
 INGREDIENT.VEGETABLE.CRATE.PLURAL,,Vegetables (crate),Овощи (ящики)
 INGREDIENT.VEGETABLE.SACK.NOUN,,Vegetable (sack),Овощи (мешок)
 INGREDIENT.VEGETABLE.SACK.PLURAL,,Vegetables (sack),Овощи (мешки)
 
 INVENTORY.CONTAINS.LABEL,This is the label of “inventory” to go above a list of items contained within a piece of furniture or held by a character,Inventory:,Инвентарь:
 
-ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}}{{itemType.noun_or_plural}} {{materialType.adjective}}
-ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}}{{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}}
+ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}} {{quality.adjective}} {{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}}{{itemType.noun_or_plural}} {{materialType.adjective}}
+ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}} {{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}}
+ITEM.QUALITY.PREFIX.AWFUL.ADJECTIVE,,Awful,
+ITEM.QUALITY.PREFIX.AWFUL.TOOLTIP,,"This item is terribly made, difficult to use, and would not be worth very much",
+ITEM.QUALITY.PREFIX.MASTERWORK.ADJECTIVE,,Masterwork,
+ITEM.QUALITY.PREFIX.MASTERWORK.TOOLTIP,,"This item has clearly been made by a master craftsman, it is ideal in every way",
+ITEM.QUALITY.PREFIX.POOR.ADJECTIVE,,Poor,
+ITEM.QUALITY.PREFIX.POOR.TOOLTIP,,This item is poorly made and will slightly impede anyone using it,
+ITEM.QUALITY.PREFIX.SUPERIOR.ADJECTIVE,,Superior,
+ITEM.QUALITY.PREFIX.SUPERIOR.TOOLTIP,,"This item has been crafted with great skill, making it more valuable and easier to use",
 
 ITEM_GROUP.FUEL.PLURAL,,Fuel,Топливо
 ITEM_GROUP.PRODUCT.PLURAL,,Products,Продукты
@@ -603,7 +626,7 @@ LANGUAGE.LABEL,,Language,Язык
 LIQUID.BEER.NOUN,,Beer,Пиво
 LIQUID.BEER.TOOLTIP,,"Beloved by dwarves, this will provide a substantial happiness bonus for a while. The only problem is that they will eventually require it to get through the working day.","Любимый гномами, это на время даст существенный бонус к счастью. Единственная проблема в том, что они в конечном итоге потребуют этого, чтобы пережить рабочий день »."
 LIQUID.HOPPED_WORT.NOUN,,Hopped wort,Сусло с хмелем
-LIQUID.HOPPED_WORT.TOOLTIP,,This is the final stage of unfermented beer before it is placed in a {{FERMENTATION_TANK}} to produce drinkable beer.,Это заключительный этап производства неферментированного пива перед его помещением в {{FERMENTATION_TANK}} для производства питьевого пива. 
+LIQUID.HOPPED_WORT.TOOLTIP,,This is the final stage of unfermented beer before it is placed in a {{FERMENTATION_TANK}} to produce drinkable beer.,"Это заключительный этап производства неферментированного пива перед его помещением в {{FERMENTATION_TANK}} для производства питьевого пива. "
 LIQUID.WATER.NOUN,,Water,Вода
 LIQUID.WORT.NOUN,,Wort,Сусло
 LIQUID.WORT.TOOLTIP,,"This is unfermented beer, it requires {{VEGETABLE.HOPS}} to be added in a {{FURNITURE.BREW_KETTLE}} for flavour before it can be fermented.","Это неферментированное пиво, перед ферментацией необходимо добавить {{VEGETABLE.HOPS}} в {{FURNITURE.BREW_KETTLE}} для придания вкуса. "
@@ -628,6 +651,8 @@ MATERIAL_TYPE.OTHER.NOUN,This isn't actually used in-game yet so won't be combin
 MATERIAL_TYPE.ROPE.ADJECTIVE,," ",Веревочный
 MATERIAL_TYPE.ROPE.NOUN,," ",Веревка
 MATERIAL_TYPE.SEED.NOUN,For saying something is “made up of seed”,Seed,Семя
+MATERIAL_TYPE.SKIN.ADJECTIVE,," ",
+MATERIAL_TYPE.SKIN.NOUN,," ",
 MATERIAL_TYPE.STONE.ADJECTIVE,,,Каменный
 MATERIAL_TYPE.STONE.NOUN,,Stone,Камень
 MATERIAL_TYPE.VEGETABLE.NOUN,Used to make up “Vegetable soup”,Vegetable,Овощной
@@ -653,14 +678,14 @@ MECHANISM.FURNITURE.CRAFTING_STATION_REQUIRES_POWER,,Working very slowly - not e
 MECHANISM.FURNITURE.CRAFTING_STATION_REQUIRES_POWER.TOOLTIP,,This furniture requires an underground power connection to a power-producer such as a {{FURNITURE.WINDMILL}} or {{FURNITURE.WATERWHEEL}}.,"Эта мебель требует подземного подключения к источнику энергии, такому как {{FURNITURE.WINDMILL}} или {{FURNITURE.WATERWHEEL}}."
 MECHANISM.FURNITURE.PRODUCING_POWER,,Working - producing {{power}} power,Работает - производимая {{power}} мощность
 MECHANISM.FURNITURE.REQUIRES_OUTSIDE_PLACEMENT,,This must be outside to function correctly,"Это должно быть расположено снаружи, чтобы правильно работать"
-MECHANISM.FURNITURE.REQUIRES_POWER,,Disabled - not enough power,Недостаточно энергии 
+MECHANISM.FURNITURE.REQUIRES_POWER,,Disabled - not enough power,"Недостаточно энергии "
 MECHANISM.FURNITURE.REQUIRES_POWER.TOOLTIP,,This furniture requires an underground power connection to a power-producer such as a {{FURNITURE.WINDMILL}} or {{FURNITURE.WATERWHEEL}}.,"Эта мебель требует подземного подключения к источнику энергии, такому как {{FURNITURE.WINDMILL}} или {{FURNITURE.WATERWHEEL}}"
 MECHANISM.FURNITURE.REQUIRES_POWER_GRID,,Disabled - connect to an underground power connection,Подключиться к подземному источнику энергии
-MECHANISM.FURNITURE.REQUIRES_POWER_GRID.TOOLTIP,,This furniture requires an underground power connection - see the {{GUI.BUILD.POWER}} option in the {{GUI.BUILD_LABEL}} menu.,Эта мебель требует подземного подключения к источнику энергии - см. Параметр {{GUI.BUILD.POWER}} в меню {{GUI.BUILD_LABEL}}. 
-MECHANISM.STONE.GEAR.NOUN,,Gear assembly,Сборка шестерен 
-MECHANISM.STONE.GEAR.TOOLTIP,,This contraption links up mechanical power in all 4 directions,Эта штуковина связывает механическую энергию во всех 4 направлениях
+MECHANISM.FURNITURE.REQUIRES_POWER_GRID.TOOLTIP,,This furniture requires an underground power connection - see the {{GUI.BUILD.POWER}} option in the {{GUI.BUILD_LABEL}} menu.,"Эта мебель требует подземного подключения к источнику энергии - см. Параметр {{GUI.BUILD.POWER}} в меню {{GUI.BUILD_LABEL}}. "
+MECHANISM.STONE.GEAR.NOUN,,Gear assembly,"Сборка шестерен "
+MECHANISM.STONE.GEAR.TOOLTIP,,This contraption links up mechanical power in all 4 directions.,Эта штуковина связывает механическую энергию во всех 4 направлениях
 MECHANISM.WOODEN.SHAFT.NOUN,,Shaft,Вал
-MECHANISM.WOODEN.SHAFT.TOOLTIP,,A wooden shaft links mechanical power in 2 directions,Деревянный вал связывает механическую силу в двух направлениях
+MECHANISM.WOODEN.SHAFT.TOOLTIP,,A wooden shaft links mechanical power in 2 directions.,Деревянный вал связывает механическую силу в двух направлениях
 
 MENU.CONTINUE_GAME,,Continue game,Продолжить игру
 MENU.LOAD_GAME,,Load game,Загрузить игру
@@ -688,9 +713,9 @@ METAL.IRON.TOOLTIP,,It is a poor military which does not have access to iron. Dw
 METAL.PLATINUM.ADJECTIVE,,Platinum,Платиновый
 METAL.PLATINUM.NOUN,,Platinum,Платина
 METAL.PLATINUM.TOOLTIP,,A silver-white metal that is highly resistant to corrosion. Platinum is rarer and therefore more valuable than {{METAL.GOLD.NOUN}}.,"Серебристо-белый металл, который обладает высокой устойчивостью к коррозии. Платина встречается реже и поэтому более ценна, чем {{METAL.GOLD.NOUN}}."
-METAL.RUSTED_IRON.ADJECTIVE,,Rusted iron,Ржавое железо 
+METAL.RUSTED_IRON.ADJECTIVE,,Rusted iron,"Ржавое железо "
 METAL.RUSTED_IRON.NOUN,,Rust,Ржавое железо
-METAL.RUSTED_IRON.TOOLTIP,,Iron turns to rust when exposed to rain for a long period. Eventually this will decay completely!,Железо ржавеет при длительном воздействии дождя. В конце концов оно полностью разрушится! 
+METAL.RUSTED_IRON.TOOLTIP,,Iron turns to rust when exposed to rain for a long period. Eventually this will decay completely!,"Железо ржавеет при длительном воздействии дождя. В конце концов оно полностью разрушится! "
 METAL.SILVER.ADJECTIVE,,Silver,Серебряный
 METAL.SILVER.NOUN,,Silver,Серебро
 METAL.SILVER.TOOLTIP,,"Like {{METAL.GOLD.NOUN}}, silver is often used for coinage and as solid bars for the trading of wealth. ","Как и {{METAL.GOLD.NOUN}}, серебро часто используется для чеканки монет и в качестве слитков для торговли."
@@ -724,7 +749,7 @@ NOTIFICATION.AREA_REVEALED.TITLE,,Exploration,Исследование
 NOTIFICATION.DEATH.DESCRIPTION,,"{{character}}, has died due to {{reason}}.","{{character}}, умер из-за {{reason}}."
 NOTIFICATION.DEATH.SHORT_DESCRIPTION,,Died due to {{reason}},Умер из-за {{reason}}
 NOTIFICATION.DEATH.TITLE,,Settler death,Смерть поселенцев
-NOTIFICATION.FIRE_STARTED.DESCRIPTION,,A fire has broken out in your settlement!,В вашем поселении вспыхнул пожар! 
+NOTIFICATION.FIRE_STARTED.DESCRIPTION,,A fire has broken out in your settlement!,"В вашем поселении вспыхнул пожар! "
 NOTIFICATION.FIRE_STARTED.TITLE,,Fire!,Пожар!
 NOTIFICATION.FISH_EXHAUSTED.DESCRIPTION,,You have over-fished the river to such an extent that there are no more fish left. You will have to wait until the spawning season next spring for the fish to return.,"Вы выловили так много рыбы в реке, что рыбы больше не осталось. Вам придется подождать до начала сезона нереста следующей весной, чтобы рыба вернулась."
 NOTIFICATION.FISH_EXHAUSTED.TITLE,,Fish depopulated,Рыба закончилась
@@ -845,10 +870,11 @@ PRODUCT.BUCKET.PLURAL,,Buckets,Ведра
 PRODUCT.BUCKET.TOOLTIP,,A small container used to move liquids around by hand.,"Небольшой контейнер, используемый для перемещения жидкостей вручную."
 PRODUCT.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron,Котел
 PRODUCT.CAULDRON.TOOLTIP,,"Used by a {{PROFESSION.CHEF}} to prepare soup in a {{ROOMS.KITCHEN}}, where it is then moved to a {{ROOMS.FEASTING_HALL}}.","Используется {{PROFESSION.CHEF}} для приготовления супа в {{ROOMS.KITCHEN}}, где он затем перемещается в {{ROOMS.FEASTING_HALL}}."
+PRODUCT.LEATHER,,Leather,
 PRODUCT.LINEN.NOUN,,Linen,Лен
 PRODUCT.LINEN.PLURAL,,Linen,Льна
 PRODUCT.LIQUID.TANK,,Tank,Бак
-PRODUCT.LIQUID.TANK.TOOLTIP,,"This is a metal container used to store liquids, which must be crafted at the {{FURNITURE.FORGE}}.","Это металлический контейнер, используемый для хранения жидкостей, который должен быть изготовлен на {{FURNITURE.FORGE}}." 
+PRODUCT.LIQUID.TANK.TOOLTIP,,"This is a metal container used to store liquids, which must be crafted at the {{FURNITURE.FORGE}}.","Это металлический контейнер, используемый для хранения жидкостей, который должен быть изготовлен на {{FURNITURE.FORGE}}."
 PRODUCT.MILLSTONE,,Millstone,Жернов
 PRODUCT.MILLSTONE.TOOLTIP,,Two large stone discs that are ground together to mill harvested crops. Used to construct a {{FURNITURE.FLOUR_MILL}}.,"Два больших каменных диска, которые измельчают зерно. Используется для построения {{FURNITURE.FLOUR_MILL}}."
 PRODUCT.RATION.NOUN,,Ration,Паек
@@ -858,12 +884,14 @@ PRODUCT.ROPE.NOUN,,Rope,Веревка
 PRODUCT.ROPE.PLURAL,,Ropes,Веревки
 PRODUCT.STONE.GEAR.NOUN,,Gear,Шестерня
 PRODUCT.STONE.GEAR.PLURAL,,Gears,Шестерни
-PRODUCT.STONE.GEAR.TOOLTIP,,Used in the construction of mechanisms.,Используется при строительстве механизмов 
+PRODUCT.STONE.GEAR.TOOLTIP,,Used in the construction of mechanisms.,"Используется при строительстве механизмов "
 PRODUCT.STONE.PIPE.NOUN,,Pipe,Труба
 PRODUCT.STONE.PIPE.PLURAL,,Pipes,Трубы
 PRODUCT.STONE.PIPE.TOOLTIP,,Used for liquids to flow between tiles underground.,Используется для перемещения жидкостей под землей
-PRODUCT.WOODEN.SHAFT.HORIZONTAL.NOUN,,Horizontal shaft,Горизонтальный вал 
-PRODUCT.WOODEN.SHAFT.HORIZONTAL.PLURAL,,Horizontal shafts,Горизонтальные валы 
+PRODUCT.WATERSKIN.NOUN,,Waterskin,
+PRODUCT.WATERSKIN.PLURAL,,Waterskins,
+PRODUCT.WOODEN.SHAFT.HORIZONTAL.NOUN,,Horizontal shaft,"Горизонтальный вал "
+PRODUCT.WOODEN.SHAFT.HORIZONTAL.PLURAL,,Horizontal shafts,"Горизонтальные валы "
 PRODUCT.WOODEN.SHAFT.HORIZONTAL.TOOLTIP,,Used to connect mechanisms which produce and require power.,"Используется для соединения механизмов, которые производят и требуют энергии"
 PRODUCT.WOODEN.SHAFT.VERTICAL.NOUN,,Vertical shaft,Вертикальный вал
 PRODUCT.WOODEN.SHAFT.VERTICAL.PLURAL,,Vertical shafts,Вертикальные валы
@@ -876,7 +904,7 @@ PROFESSION.BLACKSMITH.TOOLTIP,,Crafts items using metal and also produces metal 
 PROFESSION.BLACKSMITH.VERB,,Forging,Ковка
 PROFESSION.BREWER.FEMALE_NOUN,,Brewer,Пивовар
 PROFESSION.BREWER.MALE_NOUN,,Brewer,Пивовар
-PROFESSION.BREWER.TOOLTIP,,Produces beer in a {{ROOMS.BREWERY}}.,Производит пиво в {{ROOMS.BREWERY}} 
+PROFESSION.BREWER.TOOLTIP,,Produces beer in a {{ROOMS.BREWERY}}.,"Производит пиво в {{ROOMS.BREWERY}} "
 PROFESSION.BREWER.VERB,,Brewing,Пивоварение
 PROFESSION.CARPENTER.FEMALE_NOUN,,Carpenter,Плотник
 PROFESSION.CARPENTER.MALE_NOUN,,Carpenter,Плотник
@@ -886,6 +914,7 @@ PROFESSION.CHEF.FEMALE_NOUN,,Chef,Повар
 PROFESSION.CHEF.MALE_NOUN,,Chef,Повар
 PROFESSION.CHEF.TOOLTIP,,Prepares all of the food to be consumed by your settlers.,"Готовит все продукты питания, которые будут потребляться вашими поселенцами."
 PROFESSION.CHEF.VERB,,Cooking,Приготовление еды
+PROFESSION.DESCRIPTION,,{{skillLevelDescription.adjective}} {{profession.noun}},
 PROFESSION.FARMER.FEMALE_NOUN,,Farmer,Фермер
 PROFESSION.FARMER.MALE_NOUN,,Farmer,Фермер
 PROFESSION.FARMER.PLURAL,,Farmers,Фермеры
@@ -895,10 +924,15 @@ PROFESSION.FISHER.FEMALE_NOUN,This could be “fisherman” and “fisherwoman�
 PROFESSION.FISHER.MALE_NOUN,,Fisher,Рыболов
 PROFESSION.FISHER.TOOLTIP,,Catches fish from bodies of water for use as food and resources.,Ловит рыбу из водоемов для использования в качестве пищи и ресурсов.
 PROFESSION.FISHER.VERB,,Fishing,Рыбалка
+PROFESSION.GUI.ADD_ANOTHER,,Add another,
 PROFESSION.HUNTER.FEMALE_NOUN,This could be “huntsman” and “huntress”,Hunter,Охотница
 PROFESSION.HUNTER.MALE_NOUN,,Hunter,Охотник
 PROFESSION.HUNTER.TOOLTIP,,Tracks and kills wild animals for their meat and pelts.,Выслеживает и убивает диких животных ради их мяса и шкур.
 PROFESSION.HUNTER.VERB,,Hunting,Охота
+PROFESSION.LEATHERWORKER.FEMALE_NOUN,,Leatherworker,
+PROFESSION.LEATHERWORKER.MALE_NOUN,,Leatherworker,
+PROFESSION.LEATHERWORKER.TOOLTIP,,Treats the hides of creatures to produce leather goods.,
+PROFESSION.LEATHERWORKER.VERB,,Leatherworking,
 PROFESSION.MAYOR.FEMALE_NOUN,"In English at least, “mayoress” is incorrect",Mayor,Мэр
 PROFESSION.MAYOR.MALE_NOUN,,Mayor,Мэр
 PROFESSION.MAYOR.VERB,,Governing,Управляющий
@@ -918,6 +952,24 @@ PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith,Мастер рун
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities.","Зачаровывает оружие, доспехи и предметы магическими рунами, чтобы повысить их характеристики."
 PROFESSION.RUNESMITH.VERB,,Enchanting,Зачарование
+PROFESSION.SKILL_LEVEL.1,,Neophyte,
+PROFESSION.SKILL_LEVEL.1.TOOLTIP,,An absolute beginner with little to no experience.,
+PROFESSION.SKILL_LEVEL.2,,Novice,
+PROFESSION.SKILL_LEVEL.2.TOOLTIP,,They only understand the basics of their craft.,
+PROFESSION.SKILL_LEVEL.3,,Apprentice,
+PROFESSION.SKILL_LEVEL.3.TOOLTIP,,"Though they are becoming skilled, there is still a lot of experience to be earned.",
+PROFESSION.SKILL_LEVEL.4,,Journeyman,
+PROFESSION.SKILL_LEVEL.4.TOOLTIP,,"No longer an apprentice, they have reasonable skill in their given craft.",
+PROFESSION.SKILL_LEVEL.5,,Adept,
+PROFESSION.SKILL_LEVEL.5.TOOLTIP,,They are well-skilled but still have further heights that can be reached.,
+PROFESSION.SKILL_LEVEL.6,,Skilled,
+PROFESSION.SKILL_LEVEL.6.TOOLTIP,,"Very skilled in their craft, they are now more than competent.",
+PROFESSION.SKILL_LEVEL.7,,Expert,
+PROFESSION.SKILL_LEVEL.7.TOOLTIP,,There is little that the expert does not know of their respective field.,
+PROFESSION.SKILL_LEVEL.8,,Master,
+PROFESSION.SKILL_LEVEL.8.TOOLTIP,,"Beyond even an expert, they are truly a master of their craft.",
+PROFESSION.SKILL_LEVEL.9,,Grandmaster,
+PROFESSION.SKILL_LEVEL.9.TOOLTIP,,There is nobody more skilled in their craft than a grandmaster.,
 PROFESSION.STONEMASON.FEMALE_NOUN,,Stonemason,Каменщица
 PROFESSION.STONEMASON.MALE_NOUN,,Stonemason,Каменщик
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.,Создает мебель и предметы из камня.
@@ -929,6 +981,11 @@ PROFESSION.VILLAGER.FEMALE_NOUN,,Villager,Крестьянка
 PROFESSION.VILLAGER.MALE_NOUN,,Villager,Крестьянин
 PROFESSION.VILLAGER.TOOLTIP,,This settler does not have any specific professions and will fulfil any mundane tasks like hauling items.,"Этот поселенец не имеет какой-либо конкретной профессии и будет выполнять любые повседневные задачи, такие как транспортировка предметов."
 PROFESSION.VILLAGER.VERB,,Working,Рабочий
+PROFESSION.WEAVER.FEMALE_NOUN,,Weaver,
+PROFESSION.WEAVER.MALE_NOUN,,Weaver,
+PROFESSION.WEAVER.PLURAL,,Weavers,
+PROFESSION.WEAVER.TOOLTIP,,Processes materials into clothing and other fabrics.,
+PROFESSION.WEAVER.VERB,,Weaving,
 PROFESSION.WOODCUTTER.FEMALE_NOUN,This could be “lumberjack” and “lumberjane”,Woodcutter,Резчица по дереву
 PROFESSION.WOODCUTTER.MALE_NOUN,,Woodcutter,Резчик по дереву
 PROFESSION.WOODCUTTER.TOOLTIP,,Cuts down trees as lumber that can be used in a {{ROOMS.SAWMILL}}.,"Рубит деревья на пиломатериалы, которые могут быть использованы в {{ROOMS.SAWMILL}}."
@@ -1013,11 +1070,11 @@ RESOURCE.WHEAT.SACK.NOUN,,Wheat (sack),Пшеница (мешок)
 RESOURCE.WHEAT.SACK.PLURAL,,Wheat (sack),Пшеница (мешки)
 
 ROOMS.ARMOURY,,Armoury,Оружейная
-ROOMS.ARMOURY.TOOLTIP,,Weapons and armour are created here,Здесь создаются оружие и доспехи 
+ROOMS.ARMOURY.TOOLTIP,,Weapons and armour are created here,"Здесь создаются оружие и доспехи "
 ROOMS.BEDROOM,,Bedroom,Спальня
 ROOMS.BEDROOM.TOOLTIP,,"A place for your settlers to sleep. They prefer to have individual bedrooms that are at least 9 tiles in size, and preferably at least 13 tiles in size.","Место для ночлега ваших поселенцев. Они предпочитают иметь отдельные спальни размером не менее 9 квадратов, а жалательно не менее 13 квадратов."
 ROOMS.BREWERY,,Brewery,Пивоварня
-ROOMS.BREWERY.TOOLTIP,,Brews beer for your settlers to enjoy! Other alcoholic beverages will be implemented in the future.,Варите пиво для ваших поселенцев! Другие алкогольные напитки будут реализованы в будущем. 
+ROOMS.BREWERY.TOOLTIP,,Brews beer for your settlers to enjoy! Other alcoholic beverages will be implemented in the future.,"Варите пиво для ваших поселенцев! Другие алкогольные напитки будут реализованы в будущем. "
 ROOMS.BRIDGE,,Bridge,Мост
 ROOMS.BRIDGE.TOOLTIP,,Placed across the river to allow access to the other side.,"Размещенный через реку, чтобы обеспечить доступ к другой стороне."
 ROOMS.CARPENTRY_WORKSHOP,,Carpentry workshop,Мастерская плотника
@@ -1034,6 +1091,8 @@ ROOMS.GRAVEYARD,,Graveyard,Кладбище
 ROOMS.GRAVEYARD.TOOLTIP,,Deceased settlers are laid to rest here.,Здесь покоятся умершие поселенцы.
 ROOMS.KITCHEN,,Kitchen,Кухня
 ROOMS.KITCHEN.TOOLTIP,,Most food is prepared here before being served in a {{ROOMS.FEASTING_HALL}}.,Большая часть пищи готовится здесь перед подачей в {{ROOMS.FEASTING_HALL}}.
+ROOMS.LEATHER_WORKSHOP,,Leather workshop,
+ROOMS.LEATHER_WORKSHOP.TOOLTIP,,Craft items out of animal hide,
 ROOMS.MASONRY_WORKSHOP,,Masonry workshop,Мастерская каменщика
 ROOMS.MASONRY_WORKSHOP.TOOLTIP,,This workshop produces most items made out of stone.,Эта мастерская производит большинство изделий из камня.
 ROOMS.METALWORKS,,Metalworks,Обработка металла
@@ -1043,7 +1102,7 @@ ROOMS.MUSHROOM_FARM.TOOLTIP,,Mushrooms can be grown using {{INGREDIENT.MUSHROOM.
 ROOMS.SAWMILL,,Sawmill,Лесопилка
 ROOMS.SAWMILL.TOOLTIP,,Wooden {{RESOURCE.LOGS.PLURAL}} are refined into {{RESOURCE.PLANKS.PLURAL}} here.,Деревянные {{RESOURCE.LOGS.PLURAL}} превращются {{RESOURCE.PLANKS.PLURAL}} здесь.
 ROOMS.STOCKPILE,,Stockpile,Хранилища
-ROOMS.STOCKPILE.TOOLTIP,,This area stores different kinds of items depending on settings.,В зависимости от настроек здесь хранятся различные предметы 
+ROOMS.STOCKPILE.TOOLTIP,,This area stores different kinds of items depending on settings.,"В зависимости от настроек здесь хранятся различные предметы "
 ROOMS.STOCKPILES,,Stockpiles,Склады
 ROOMS.STOCKPILES.TOOLTIP,,Unused items are placed in stockpiles for easy access.,Неиспользованные предметы помещаются на склады для облегчения доступа.
 ROOMS.TEXTILE_WORKSHOP,,Textile workshop,Швейная мастерская
@@ -1098,20 +1157,44 @@ SEED.WHEAT_SEED.TOOLTIP,{{VEGETABLE.WHEAT.TOOLTIP}},"A cereal grain generally us
 
 SHRUB.DESCRIPTION,Shrub or bush should do,Bush,Куст
 
+SKILL.ARCHERY.FEMALE_NOUN,,Archer,
+SKILL.ARCHERY.MALE_NOUN,,Archer,
+SKILL.ARCHERY.TOOLTIP,,Skill with the bow,
+SKILL.AXES.FEMALE_NOUN,,Axewoman,
+SKILL.AXES.MALE_NOUN,,Axeman,
+SKILL.AXES.TOOLTIP,,Skill with axes,
+SKILL.CROSSBOWS.FEMALE_NOUN,,Arbalist,
+SKILL.CROSSBOWS.MALE_NOUN,,Arbalist,
+SKILL.CROSSBOWS.TOOLTIP,,Skill with the crossbow,
+SKILL.MACES.FEMALE_NOUN,,Hammerer,
+SKILL.MACES.MALE_NOUN,,Hammerer,
+SKILL.MACES.TOOLTIP,,Skill with hammers and maces,
+SKILL.SWORDSMANSHIP.FEMALE_NOUN,,Swordswoman,
+SKILL.SWORDSMANSHIP.MALE_NOUN,,Swordsman,
+SKILL.SWORDSMANSHIP.TOOLTIP,,Skill with the sword,
+SKILL.UNARMED_COMBAT.FEMALE_NOUN,,Brawler,
+SKILL.UNARMED_COMBAT.MALE_NOUN,,Brawler,
+SKILL.UNARMED_COMBAT.TOOLTIP,,Skill in unarmed combat,
+
+SKIN.BOAR_HIDE,,Boar,
+SKIN.DEER_HIDE,,Deer,
+SKIN.DWARF_HIDE,,Dwarf,
+SKIN.ELEPHANT_HIDE,,Elephant,
+
 STATUS.ALCOHOL_WITHDRAWL,,Alcohol withdrawl,Отказ от алкоголя
-STATUS.BLEEDING,,Bleeding,Кровотечение 
+STATUS.BLEEDING,,Bleeding,"Кровотечение "
 STATUS.BLINDED,,Blind,Слепота
 STATUS.DEATH,,Dead,Мертвый
 STATUS.DRUNK,,Drunk,Пьяный
 STATUS.DYING_OF_HUNGER,,Dying of hunger,Умирает от голода
 STATUS.DYING_OF_THIRST,,Dying of thirst,Умирает от жажды
-STATUS.EXHAUSTED,,Exhausted,Измученный 
+STATUS.EXHAUSTED,,Exhausted,"Измученный "
 STATUS.INTERNAL_BLEEDING,,Internal bleeding,Внутреннее кровотечение
 STATUS.KNOCKED_UNCONSCIOUS,,Unconscious,Без сознания
-STATUS.MOVEMENT_IMPAIRED,,Impaired movement,Нарушение движения 
+STATUS.MOVEMENT_IMPAIRED,,Impaired movement,"Нарушение движения "
 STATUS.ON_FIRE,,On fire,Горит
 STATUS.POISONED,,Poisoned,Отравлен
-STATUS.TEMPORARILY_BLINDED,,Temporarily blinded,Временно ослеплен 
+STATUS.TEMPORARILY_BLINDED,,Temporarily blinded,"Временно ослеплен "
 STATUS.VERY_HUNGRY,,Very hungry,Очень голоден
 STATUS.VERY_THIRSTY,,Very thirsty,Очень хочет пить
 
@@ -1119,7 +1202,7 @@ STOCKPILE.GROUP.FOOD,,Food,Еда
 STOCKPILE.GROUP.FOOD.TOOLTIP,,Stores harvested fruit and vegetables which can expire.,"Хранит собранные фрукты и овощи, срок годности которых истекает."
 STOCKPILE.GROUP.FUEL,,Fuel,Топливо
 STOCKPILE.GROUP.GRANARY,,Granary,Амбар
-STOCKPILE.GROUP.GRANARY.TOOLTIP,,Stores grains and seeds which will not expire.,Хранит зерно и семена с неограниченным сроком годности 
+STOCKPILE.GROUP.GRANARY.TOOLTIP,,Stores grains and seeds which will not expire.,"Хранит зерно и семена с неограниченным сроком годности "
 STOCKPILE.GROUP.PRODUCTS,,Products,Продукты
 STOCKPILE.GROUP.RAW_MATERIALS,,Raw materials,Необработанные материалы
 STOCKPILE.GROUP.SEEDS,,Seeds,Семена
@@ -1205,7 +1288,7 @@ TUTORIAL.8.A,,"Now you are ready to produce {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{R
 TUTORIAL.8.B,,Select {{GUI.ORDERS_LABEL}} > {{GUI.ORDERS.CHOP_WOOD}} and click-and-drag over trees to let your woodcutters know to cut them down. Similarly you can select select {{GUI.ORDERS_LABEL}} > {{GUI.ORDERS.MINE}} and click-and-drag an area of the mountain to designate to be mined. Select enough of both to build your stockpiles back up to 40 of each.,"Выберите {{GUI.ORDERS_LABEL}} > {{GUI.ORDERS.CHOP_WOOD}} и щелкните и выделите деревья, чтобы ваши лесорубы их срубили. Точно так же вы можете выбрать {{GUI.ORDERS_LABEL}} > {{GUI.ORDERS.MINE}} и нажать и выделить часть горы, чтобы добывать камень. Выберите достаточное количество обоих ресурсов, чтобы увеличить ваши запасы до 40 единиц каждого."
 TUTORIAL.8.C,,"Be careful with mining! A mined-out area of 7 by 7 tiles without a {{FURNITURE.PILLAR}} built within that area will collapse! ","Будьте осторожны с копанием! Раскопанный участок размером 7 на 7 клеток без {{FURNITURE.PILLAR}}, построенный внутри этой области, обвалится!"
 TUTORIAL.CAMERA.A,,"You can use the W, A, S and D keys or the arrow keys to pan the camera around. Moving the cursor to the edge of the screen also pans the camera, but this can be disabled in the options menu.","Вы можете использовать клавиши W, A, S и D или клавиши со стрелками для управления камерой. Перемещение курсора к краю экрана также перемещает камеру, но это можно отключить в настройках игры."
-TUTORIAL.CAMERA.B,,Scrolling the mouse wheel or pressing the Q and E keys zooms the camera in or out.,Прокрутка колесика мыши или нажатие клавиш Q и E увеличивает или уменьшает масштаб камеры. 
+TUTORIAL.CAMERA.B,,Scrolling the mouse wheel or pressing the Q and E keys zooms the camera in or out.,"Прокрутка колесика мыши или нажатие клавиш Q и E увеличивает или уменьшает масштаб камеры. "
 TUTORIAL.CAMERA.C,,"In the lower-right section of the screen is the minimap, and you can click on this to jump the camera to that point. Click on the “Minimap” label to show or hide the minimap.","В правом нижнем углу экрана расположена миникарта, вы можете нажать на нее, чтобы переместить камеру в нужную точку. Нажмите на иконку « Миникарта », чтобы показать или скрыть миникарту."
 TUTORIAL.CAMERA.D,,Try out these camera controls and then click “Next” to proceed.,"Попробуйте эти элементы управления камерой, а затем нажмите «Далее», чтобы продолжить."
 TUTORIAL.FINAL.A,,"This covers the basics of playing King under the Mountain. For your next challenge, aim to set up a functioning {{ROOMS.METALWORKS}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore. Refined metal ores are produced at the {{FURNITURE.ORE_CRUSHING_STATION}}, and fuel can be crushed from coal or produced out of {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} with a {{FURNITURE.CHARCOAL_CLAMP}} in an {{ROOMS.EARTHWORKS}}. Good luck!","Демонстрирует основы игры King under the Mountain. В качестве вашей следующей задачи постарайтесь создать работающую {{ROOMS.METALWORKS}} с {{FURNITURE.FORGE}}, снабженную топливом и дробленной металлической рудой. Дробление руды происходит на {{FURNITURE.ORE_CRUSHING_STATION}}, а топливо может быть изготовлено из дробленого угля или добыто из {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} с {{FURNITURE.CHARCOAL_CLAMP}} в {{НОМЕРА ЗЕМНЫЕ РАБОТЫ}}. Удачи!"
@@ -1264,8 +1347,8 @@ VEGETABLE.POTATO.TOOLTIP,,"A starchy root vegetable which can survive {{SEASON.W
 VEGETABLE.PURPLE_HELMET_MUSHROOM,,Purple helmet mushroom,Пурпурошлемник
 VEGETABLE.PURPLE_HELMET_MUSHROOM.PLURAL,,Purple helmet mushrooms,Пурпурошлемники
 VEGETABLE.PURPLE_HELMET_MUSHROOM.TOOLTIP,,"Fat Hat, Plump Turban, Puffy Helmet; This fabled mushroom goes by many names. Legend holds that long ago, many communities of dwarves subsisted entirely on a domesticated strain of this fungus.","Толстошляпник, Пухлотюрбинник, Пухлошлемник; У этого легендарного гриба много названий. Легенда гласит, что давным-давно многие сообщества гномов питались только одним одомашненным видом этого гриба."
-VEGETABLE.ROCIOMYCOTA_MUSHROOM,,Rociomycota mushroom,Роциомикота 
-VEGETABLE.ROCIOMYCOTA_MUSHROOM.PLURAL,,Rociomycota mushrooms,Роциомикоты 
+VEGETABLE.ROCIOMYCOTA_MUSHROOM,,Rociomycota mushroom,"Роциомикота "
+VEGETABLE.ROCIOMYCOTA_MUSHROOM.PLURAL,,Rociomycota mushrooms,"Роциомикоты "
 VEGETABLE.ROCIOMYCOTA_MUSHROOM.TOOLTIP,,A white and black spotted mushroom. It has been known to affect the appearance of those who ingest it.,"Белый и черный пятнистый гриб. Известно, что он влияет на внешний вид тех, кто его ест."
 VEGETABLE.SUNGLOW_MUSHROOM,,Sunglow mushroom,Солнцесвет
 VEGETABLE.SUNGLOW_MUSHROOM.PLURAL,,Sunglow mushrooms,Солнцесветы
@@ -1295,12 +1378,18 @@ WALL.ROUGH_STONE.NOUN,,Rock wall,Каменная стена
 WALL.STONE_BLOCK.NOUN,,Smooth stone wall,Стена из гладкого камня
 WALL.WOODEN.NOUN,,Wood wall,Деревянная стена
 
+WEAPON.BATTLE.AXE,,Battle axe,
+WEAPON.BATTLE.HAMMER,,Battle hammer,
 WEAPON.BONE.ARROWS.NOUN,,Arrow,Стрела
 WEAPON.BONE.ARROWS.PLURAL,,Arrows,Стрелы
 WEAPON.BOW,,Bow,Лук
+WEAPON.CROSSBOW,,Crossbow,
 WEAPON.METAL.ARROWS.NOUN,,Arrow,Стрела
 WEAPON.METAL.ARROWS.PLURAL,,Arrows,Стрелы
-WEAPON.UNARMED,,Unarmed,Безоружный 
+WEAPON.METAL.BOLTS.NOUN,,Bolt,
+WEAPON.METAL.BOLTS.PLURAL,,Bolts,
+WEAPON.SWORD,,Sword,
+WEAPON.UNARMED,,Unarmed,"Безоружный "
 
 WEATHER.TYPE.CLOUDY,,Cloudy & grey,Облачно
 WEATHER.TYPE.COLD_WINDS,,Cold winds,Холодный ветер
@@ -1341,11 +1430,11 @@ WOOD.RED_CEDAR.ADJECTIVE,,Red cedar,Красно кедровый
 WOOD.RED_CEDAR.NOUN,,Red cedar,Красный кедр
 WOOD.RED_EMPEROR.ADJECTIVE,,Red emperor,Клен Красный император
 WOOD.RED_EMPEROR.NOUN,,Red emperor,Клен Красный император
-WOOD.ROSEWOOD.ADJECTIVE,,Rosewood,Палисандровый 
+WOOD.ROSEWOOD.ADJECTIVE,,Rosewood,"Палисандровый "
 WOOD.ROSEWOOD.NOUN,,Rosewood,Палисандр
 WOOD.SPRUCE.ADJECTIVE,,Spruce,Еловый
 WOOD.SPRUCE.NOUN,,Spruce,Ель
 WOOD.STAR_PINE.ADJECTIVE,,Star pine,Звездчато сосновый
-WOOD.STAR_PINE.NOUN,,Star pine,Звездчатая сосна  
+WOOD.STAR_PINE.NOUN,,Star pine,"Звездчатая сосна  "
 WOOD.SYCAMORE.ADJECTIVE,,Sycamore,Платановый
 WOOD.SYCAMORE.NOUN,,Sycamore,Платан

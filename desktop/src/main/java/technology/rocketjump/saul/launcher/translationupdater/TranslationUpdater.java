@@ -48,6 +48,8 @@ public class TranslationUpdater {
 		}
 
 		ObjectMapper objectMapper = new ObjectMapper();
+		List<LanguageType> sourceLanguages = objectMapper.readValue(FileUtils.readFileToString(sourceDirectory.resolve("languages.json").toFile(), "UTF-8"),
+				objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, LanguageType.class));
 		List<LanguageType> targetLanguages = objectMapper.readValue(FileUtils.readFileToString(targetLanguagesJsonPath.toFile(), "UTF-8"),
 				objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, LanguageType.class));
 
@@ -85,6 +87,7 @@ public class TranslationUpdater {
 		for (LanguageType targetLanguage : targetLanguages) {
 			output(targetLanguage, targetFilePath);
 		}
+		output(sourceLanguages.get(0), sourceDirectory);
 	}
 
 	private void parseMasterCsv(Path masterCsvPath, List<LanguageType> targetLanguages) throws IOException {
@@ -127,8 +130,9 @@ public class TranslationUpdater {
 		if (skipLanguages.contains(targetLanguage.getLabelEn())) {
 			return;
 		}
+		boolean isSourceLanguage = targetLanguage.getLabelEn().equalsIgnoreCase("ENGLISH");
 
-		Path targetPath = targetFilePath.resolve(targetLanguage.getFilename());
+		Path targetPath = isSourceLanguage ? targetFilePath.resolve("translations.csv") : targetFilePath.resolve(targetLanguage.getFilename());
 		Files.deleteIfExists(targetPath);
 		Files.createFile(targetPath);
 
@@ -138,7 +142,9 @@ public class TranslationUpdater {
 		printer.print("KEY");
 		printer.print("NOTES");
 		printer.print("ENGLISH");
-		printer.print(targetLanguage.getLabelEn().toUpperCase());
+		if (!isSourceLanguage) {
+			printer.print(targetLanguage.getLabelEn().toUpperCase());
+		}
 		printer.println();
 
 		List<String> allKeys = new ArrayList<>(combinedKeysToLanguagesToValues.keySet());
@@ -158,15 +164,17 @@ public class TranslationUpdater {
 			String englishValue = languageToValueMap.get("en");
 			printer.print(englishValue);
 
-			String value = languageToValueMap.get(targetLanguage.getCode());
-			if (value == null) {
-				value = "";
-				if (useAwsTranslate(targetLanguage) && englishValue.length() > 0) {
-					value = amazonTranslator.getTranslation(englishValue, "en", targetLanguage.getCode());
-					value = fixReplacements(value, englishValue);
+			if (!isSourceLanguage) {
+				String value = languageToValueMap.get(targetLanguage.getCode());
+				if (value == null) {
+					value = "";
+					if (useAwsTranslate(targetLanguage) && englishValue.length() > 0) {
+						value = amazonTranslator.getTranslation(englishValue, "en", targetLanguage.getCode());
+						value = fixReplacements(value, englishValue);
+					}
 				}
+				printer.print(value);
 			}
-			printer.print(value);
 
 			printer.println();
 			lastKey = key;
