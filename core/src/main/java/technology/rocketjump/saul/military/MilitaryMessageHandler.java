@@ -11,16 +11,19 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.military.model.Squad;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 @Singleton
 public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 
 	private final MessageDispatcher messageDispatcher;
+	private final I18nTranslator i18nTranslator;
 	private GameContext gameContext;
 
 	@Inject
-	public MilitaryMessageHandler(MessageDispatcher messageDispatcher) {
+	public MilitaryMessageHandler(MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator) {
 		this.messageDispatcher = messageDispatcher;
+		this.i18nTranslator = i18nTranslator;
 
 		messageDispatcher.addListener(this, MessageType.MILITARY_ASSIGNMENT_CHANGED);
 	}
@@ -33,7 +36,9 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 				MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
 				Long squadId = militaryComponent.getSquadId();
 
-				// TODO if squad with ID does not exist, create it
+				if (squadId != null && !gameContext.getSquads().containsKey(squadId)) {
+					createSquad(squadId);
+				}
 
 				for (Squad squad : gameContext.getSquads().values()) {
 					if (squadId != null && squad.getId() == squadId) {
@@ -53,6 +58,13 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 			}
 			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg);
 		}
+	}
+
+	private void createSquad(long squadId) {
+		Squad squad = new Squad();
+		squad.setId(squadId);
+		squad.setName(i18nTranslator.getTranslatedString("MILITARY.SQUAD.DEFAULT_NAME") + " #" + squadId);
+		gameContext.getSquads().put(squadId, squad);
 	}
 
 	@Override

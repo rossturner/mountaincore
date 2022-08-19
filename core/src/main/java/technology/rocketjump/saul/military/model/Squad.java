@@ -28,8 +28,36 @@ public class Squad implements Persistable {
 		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public Set<Long> getMemberEntityIds() {
 		return memberEntityIds;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public MilitaryShift getShift() {
+		return shift;
+	}
+
+	public void setShift(MilitaryShift shift) {
+		this.shift = shift;
+	}
+
+	public SquadFormation getFormation() {
+		return formation;
+	}
+
+	public void setFormation(SquadFormation formation) {
+		this.formation = formation;
 	}
 
 	@Override

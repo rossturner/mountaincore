@@ -66,7 +66,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 	public EntityStore(SettlerCreatureAttributesFactory settlerCreatureAttributesFactory,
 					   PlantEntityAttributesFactory plantEntityAttributesFactory, PlantEntityFactory plantEntityFactory,
 					   ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory,
-					   MessageDispatcher messageDispatcher, FurnitureTracker furnitureTracker,
+					   FurnitureTracker furnitureTracker,
 					   ItemTracker itemTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker,
 					   CombatTracker combatTracker, ConstantsRepo constantsRepo) {
 		this.settlerCreatureAttributesFactory = settlerCreatureAttributesFactory;
