@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.entities.ai.goap.actions.nourishment;
 
+import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.SwitchGoalException;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
@@ -9,6 +10,9 @@ import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestLiquidAllocationMessage;
+import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
+import technology.rocketjump.saul.persistence.model.InvalidSaveException;
+import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -54,5 +58,15 @@ public class InspectWaterskinsAction extends Action implements RequestLiquidAllo
             parent.setTargetLocation(toVector(liquidAllocation.getTargetZoneTile().getTargetTile()));
             completionType = CompletionType.SUCCESS;
         }
+    }
+
+    @Override
+    public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
+        // resolves instantly
+    }
+
+    @Override
+    public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
+        // resolves instantly
     }
 }
