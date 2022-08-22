@@ -20,14 +20,13 @@ import java.util.Optional;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
-public class InspectWaterskinsAction extends Action implements RequestLiquidAllocationMessage.LiquidAllocationCallback {
-    public InspectWaterskinsAction(AssignedGoal parent) {
+public class InspectInventoryLiquidContainersAction extends Action implements RequestLiquidAllocationMessage.LiquidAllocationCallback {
+    public InspectInventoryLiquidContainersAction(AssignedGoal parent) {
         super(parent);
     }
 
     @Override
     public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
-
         if (completionType == null) {
             InventoryComponent inventory = parent.parentEntity.getComponent(InventoryComponent.class);
             if (inventory == null) {

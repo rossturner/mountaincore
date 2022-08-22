@@ -250,7 +250,6 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 				.filter(material -> material.isAlcoholic() == message.isAlcoholic)
 				.collect(Collectors.toList());
 
-		//TODO: here determine if liquidContainer is in inventory with amount in
 		Optional<LiquidAllocation> availableInInventory = findAvailableInInventory(requestingEntity, applicableMaterials, message.amountRequired);
 		if (availableInInventory.isPresent()) {
 			message.callback.allocationFound(availableInInventory);

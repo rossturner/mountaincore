@@ -368,9 +368,9 @@
   "initialActions" : [ "GoToLocation" ]
 }, {
   "i18nDescription" : "GOAL.REFILL_WATERSKIN.DESCRIPTION",
-  "name" : "Refill waterskin",
+  "name" : "Refill inventory liquid containers",
   "actionRelationships" : {
-    "RefillWaterskin" : {
+    "RefillInventoryLiquidContainers" : {
       "fail" : [ "CancelLiquidAllocation" ],
       "pass" : [ "UnassignFurniture" ]
     },
@@ -380,13 +380,13 @@
       "pass" : [ "FaceTowardsLocation" ]
     },
     "UnassignFurniture" : { },
-    "InspectWaterskins" : {
+    "InspectInventoryLiquidContainers" : {
       "fail" : [ ],
       "pass" : [ "GoToDrinkLocation" ]
     },
     "FaceTowardsLocation" : {
       "fail" : [ "CancelLiquidAllocation" ],
-      "pass" : [ "RefillWaterskin" ]
+      "pass" : [ "RefillInventoryLiquidContainers" ]
     }
   },
   "selectors" : [ {
@@ -394,7 +394,7 @@
     "conditions" : [ ],
     "priority" : "WANT_NORMAL"
   } ],
-  "initialActions" : [ "InspectWaterskins" ]
+  "initialActions" : [ "InspectInventoryLiquidContainers" ]
 }, {
   "i18nDescription" : "GOAL.TRANSFER_LIQUID.DESCRIPTION",
   "name" : "Remove liquid goal",

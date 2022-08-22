@@ -16,8 +16,8 @@ import java.util.Optional;
 
 import static technology.rocketjump.saul.entities.ai.goap.actions.nourishment.ConsumeLiquidFromContainerAction.getFirstFurnitureEntity;
 
-public class RefillWaterskinAction extends Action {
-    public RefillWaterskinAction(AssignedGoal parent) {
+public class RefillInventoryLiquidContainersAction extends Action {
+    public RefillInventoryLiquidContainersAction(AssignedGoal parent) {
         super(parent);
     }
 
@@ -48,7 +48,6 @@ public class RefillWaterskinAction extends Action {
                     LiquidContainerComponent targetLiquidContainer = targetFurniture.getComponent(LiquidContainerComponent.class);
                     if (targetLiquidContainer != null) {
                         LiquidAllocation success = targetLiquidContainer.cancelAllocationAndDecrementQuantity(liquidAllocation);
-                        parent.setLiquidAllocation(null);
                         if (success != null) {
                             refill(targetLiquidContainer.getTargetLiquidMaterial(), needingRefill.get());
                             completionType = CompletionType.SUCCESS;
@@ -56,9 +55,8 @@ public class RefillWaterskinAction extends Action {
                     }
                 }
             }
-
-
         }
+        parent.setLiquidAllocation(null);
     }
 
     private void refill(GameMaterial material, LiquidContainerComponent liquidContainer) {

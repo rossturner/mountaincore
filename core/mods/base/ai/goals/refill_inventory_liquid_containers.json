@@ -1,5 +1,5 @@
 {
-  "name": "Refill waterskin",
+  "name": "Refill inventory liquid containers",
   "i18nDescription": "GOAL.REFILL_WATERSKIN.DESCRIPTION",
   "selectors": [
     {
@@ -8,9 +8,9 @@
       "scheduleCategory": "NOURISHMENT"
     }
   ],
-  "initialActions": ["InspectWaterskins"],
+  "initialActions": ["InspectInventoryLiquidContainers"],
   "actionRelationships": {
-    "InspectWaterskins": {
+    "InspectInventoryLiquidContainers": {
       "pass": ["GoToDrinkLocation"],
       "fail": []
     },
@@ -19,10 +19,10 @@
       "fail": ["CancelLiquidAllocation"]
     },
     "FaceTowardsLocation": {
-      "pass": ["RefillWaterskin"],
+      "pass": ["RefillInventoryLiquidContainers"],
       "fail": ["CancelLiquidAllocation"]
     },
-    "RefillWaterskin": {
+    "RefillInventoryLiquidContainers": {
       "pass": ["UnassignFurniture"],
       "fail": ["CancelLiquidAllocation"]
     },
