@@ -14,7 +14,6 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
@@ -32,12 +31,7 @@ public class InspectInventoryLiquidContainersAction extends Action implements Re
             if (inventory == null) {
                 completionType = FAILURE;
             } else {
-                Optional<LiquidContainerComponent> needingRefill = inventory.getInventoryEntries().stream()
-                        .map(item -> item.entity.getComponent(LiquidContainerComponent.class))
-                        .filter(Objects::nonNull)
-                        .filter(container -> container.getMaxLiquidCapacity() > container.getLiquidQuantity())
-                        .filter(container -> container.getLiquidQuantity() < LocateDrinkAction.LIQUID_AMOUNT_FOR_DRINK_CONSUMPTION)
-                        .findFirst();
+                Optional<LiquidContainerComponent> needingRefill = inventory.getLiquidContainerNeedingFilling();
                 needingRefill.ifPresentOrElse(container -> {
                     parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_LIQUID_ALLOCATION, new RequestLiquidAllocationMessage(
                             parent.parentEntity, container.getMaxLiquidCapacity(),

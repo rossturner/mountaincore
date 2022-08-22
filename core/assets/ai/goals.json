@@ -391,7 +391,9 @@
   },
   "selectors" : [ {
     "scheduleCategory" : "NOURISHMENT",
-    "conditions" : [ ],
+    "conditions" : [ {
+      "type" : "HAS_LIQUID_CONTAINER_NEEDING_FILLING"
+    } ],
     "priority" : "WANT_NORMAL"
   } ],
   "initialActions" : [ "InspectInventoryLiquidContainers" ]

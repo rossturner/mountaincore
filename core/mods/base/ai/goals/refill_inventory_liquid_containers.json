@@ -3,7 +3,11 @@
   "i18nDescription": "GOAL.REFILL_WATERSKIN.DESCRIPTION",
   "selectors": [
     {
-      "conditions": [ ],
+      "conditions": [
+        {
+          "type": "HAS_LIQUID_CONTAINER_NEEDING_FILLING"
+        }
+      ],
       "priority": "WANT_NORMAL",
       "scheduleCategory": "NOURISHMENT"
     }
