@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
-import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
+import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.environment.GameClock;
 
 import java.util.Collection;
@@ -22,7 +22,8 @@ public class GoalSelectionByMemory implements GoalSelectionCondition {
 
 	@JsonIgnore
 	@Override
-	public boolean apply(GameClock gameClock, NeedsComponent needsComponent, MemoryComponent memoryComponent) {
+	public boolean apply(GameClock gameClock, Entity parentEntity) {
+		MemoryComponent memoryComponent = parentEntity.getComponent(MemoryComponent.class);
 		if (memoryComponent == null) {
 			return false;
 		}

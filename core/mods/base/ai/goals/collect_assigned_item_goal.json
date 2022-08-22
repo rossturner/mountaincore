@@ -1,0 +1,31 @@
+{
+  "name": "Collect assigned item",
+  "expiryHours": 12,
+  "i18nDescription": "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
+  "interruptedByLowNeeds": true,
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "ITEM_ASSIGNED"
+        }
+      ],
+      "priority": "JOB_NORMAL",
+      "scheduleCategory": "ANY"
+    }
+  ],
+  "initialActions": ["SelectItemAssignment"],
+  "actionRelationships": {
+    "SelectItemAssignment": {
+      "pass": ["GoToLocation"]
+    },
+    "GoToLocation": {
+      "pass": ["PickUpEntity"],
+      "fail": ["CancelHaulingAllocation"]
+    },
+    "PickUpEntity": {
+      "fail": ["CancelHaulingAllocation"]
+    },
+    "CancelHaulingAllocation": {}
+  }
+}

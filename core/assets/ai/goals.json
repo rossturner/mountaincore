@@ -40,6 +40,32 @@
   "initialActions" : [ "RememberRequiredItem" ],
   "interruptedByLowNeeds" : true
 }, {
+  "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
+  "expiryHours" : 12,
+  "name" : "Collect assigned item",
+  "actionRelationships" : {
+    "CancelHaulingAllocation" : { },
+    "GoToLocation" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "PickUpEntity" ]
+    },
+    "SelectItemAssignment" : {
+      "pass" : [ "GoToLocation" ]
+    },
+    "PickUpEntity" : {
+      "fail" : [ "CancelHaulingAllocation" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "type" : "ITEM_ASSIGNED"
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "initialActions" : [ "SelectItemAssignment" ],
+  "interruptedByLowNeeds" : true
+}, {
   "i18nDescription" : "GOAL.ON_FIRE.DESCRIPTION",
   "name" : "Douse self goal",
   "actionRelationships" : {
@@ -340,6 +366,37 @@
   },
   "selectors" : [ ],
   "initialActions" : [ "GoToLocation" ]
+}, {
+  "i18nDescription" : "GOAL.REFILL_WATERSKIN.DESCRIPTION",
+  "name" : "Refill inventory liquid containers",
+  "actionRelationships" : {
+    "RefillInventoryLiquidContainers" : {
+      "fail" : [ "CancelLiquidAllocation" ],
+      "pass" : [ "UnassignFurniture" ]
+    },
+    "CancelLiquidAllocation" : { },
+    "GoToDrinkLocation" : {
+      "fail" : [ "CancelLiquidAllocation" ],
+      "pass" : [ "FaceTowardsLocation" ]
+    },
+    "UnassignFurniture" : { },
+    "InspectInventoryLiquidContainers" : {
+      "fail" : [ ],
+      "pass" : [ "GoToDrinkLocation" ]
+    },
+    "FaceTowardsLocation" : {
+      "fail" : [ "CancelLiquidAllocation" ],
+      "pass" : [ "RefillInventoryLiquidContainers" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "NOURISHMENT",
+    "conditions" : [ {
+      "type" : "HAS_LIQUID_CONTAINER_NEEDING_FILLING"
+    } ],
+    "priority" : "WANT_NORMAL"
+  } ],
+  "initialActions" : [ "InspectInventoryLiquidContainers" ]
 }, {
   "i18nDescription" : "GOAL.TRANSFER_LIQUID.DESCRIPTION",
   "name" : "Remove liquid goal",

@@ -373,6 +373,7 @@ GOAL.FLEE_FROM_AGGRESSOR.DESCRIPTION,,Fleeing from {{targetDescription}},正在�
 GOAL.HAULING.DESCRIPTION,E.g. “Hauling granite stone”,Hauling {{targetDescription}},正在搬运{{targetDescription}}
 GOAL.IDLE.DESCRIPTION,When not doing anything,Idle,闲置
 GOAL.ON_FIRE.DESCRIPTION,,On fire!,着火了！
+GOAL.REFILL_WATERSKIN.DESCRIPTION,,Refilling waterskin,
 GOAL.SLEEP.DESCRIPTION,,Going to sleep,去睡觉
 GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {{targetZoneMaterial}},正在转移{{targetZoneMaterial}}
 

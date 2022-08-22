@@ -195,6 +195,20 @@ public class LiquidContainerComponent implements ParentDependentEntityComponent,
 		return totalAllocated;
 	}
 
+	public LiquidAllocation createAllocationFromInventory(float amountRequired, Entity requestingEntity) {
+		if (getNumUnallocated() < amountRequired) {
+			return null;
+		} else {
+			MapTile targetTile = gameContext.getAreaMap().getTile(requestingEntity.getLocationComponent().getWorldPosition());
+			LiquidAllocation allocation = new LiquidAllocation(REQUESTER_INVENTORY, new ZoneTile(targetTile, targetTile), amountRequired, targetLiquidMaterial);
+			allocation.setTargetContainerId(parentEntity.getId());
+			allocation.setRequesterEntityId(requestingEntity.getId());
+			allocations.add(allocation);
+			return allocation;
+		}
+
+	}
+
 	public LiquidAllocation createAllocation(float amountRequired, Entity requestingEntity) {
 		if (getNumUnallocated() < amountRequired) {
 			return null;

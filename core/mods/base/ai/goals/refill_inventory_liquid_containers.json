@@ -1,0 +1,36 @@
+{
+  "name": "Refill inventory liquid containers",
+  "i18nDescription": "GOAL.REFILL_WATERSKIN.DESCRIPTION",
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "HAS_LIQUID_CONTAINER_NEEDING_FILLING"
+        }
+      ],
+      "priority": "WANT_NORMAL",
+      "scheduleCategory": "NOURISHMENT"
+    }
+  ],
+  "initialActions": ["InspectInventoryLiquidContainers"],
+  "actionRelationships": {
+    "InspectInventoryLiquidContainers": {
+      "pass": ["GoToDrinkLocation"],
+      "fail": []
+    },
+    "GoToDrinkLocation": {
+      "pass": ["FaceTowardsLocation"],
+      "fail": ["CancelLiquidAllocation"]
+    },
+    "FaceTowardsLocation": {
+      "pass": ["RefillInventoryLiquidContainers"],
+      "fail": ["CancelLiquidAllocation"]
+    },
+    "RefillInventoryLiquidContainers": {
+      "pass": ["UnassignFurniture"],
+      "fail": ["CancelLiquidAllocation"]
+    },
+    "UnassignFurniture": {},
+    "CancelLiquidAllocation": {}
+  }
+}

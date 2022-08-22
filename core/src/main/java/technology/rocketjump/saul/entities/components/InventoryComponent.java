@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
+import technology.rocketjump.saul.entities.ai.goap.actions.nourishment.LocateDrinkAction;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -136,6 +137,14 @@ public class InventoryComponent implements EntityComponent, Destructible {
 		return null;
 	}
 
+	public Optional<LiquidContainerComponent> getLiquidContainerNeedingFilling() {
+		return getInventoryEntries().stream()
+				.map(item -> item.entity.getComponent(LiquidContainerComponent.class))
+				.filter(Objects::nonNull)
+				.filter(container -> container.getMaxLiquidCapacity() > container.getLiquidQuantity())
+				.filter(container -> container.getLiquidQuantity() < LocateDrinkAction.LIQUID_AMOUNT_FOR_DRINK_CONSUMPTION)
+				.findFirst();
+	}
 
 	public InventoryEntry add(Entity entityToAdd, Entity parentEntity, MessageDispatcher messageDispatcher, GameClock gameClock) {
 		return add(entityToAdd, parentEntity, messageDispatcher, gameClock, null);
@@ -291,7 +300,7 @@ public class InventoryComponent implements EntityComponent, Destructible {
 		this.itemsUnallocated = asJson.getBooleanValue("itemsUnallocated");
 	}
 
-	public static class InventoryEntry {
+    public static class InventoryEntry {
 
 		private double lastUpdateGameTime;
 		public final Entity entity;

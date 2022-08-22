@@ -3,8 +3,8 @@ package technology.rocketjump.saul.entities.ai.goap;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
+import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.environment.GameClock;
 
 public class GoalSelectionByNeed implements GoalSelectionCondition {
@@ -25,7 +25,8 @@ public class GoalSelectionByNeed implements GoalSelectionCondition {
 
 	@JsonIgnore
 	@Override
-	public boolean apply(GameClock gameClock, NeedsComponent needsComponent, MemoryComponent memoryComponent) {
+	public boolean apply(GameClock gameClock, Entity parentEntity) {
+		NeedsComponent needsComponent = parentEntity.getComponent(NeedsComponent.class);
 		if (needsComponent == null || !needsComponent.has(need)) {
 			return false;
 		}

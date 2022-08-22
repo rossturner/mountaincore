@@ -6,6 +6,7 @@ import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
+import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
@@ -14,6 +15,7 @@ import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.status.alcohol.Drunk;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.MapTile;
@@ -51,6 +53,8 @@ public class ConsumeLiquidFromContainerAction extends Action {
 			return;
 		}
 
+		Entity inventoryContainer = tryEquipContainerFromInventory();
+
 		GameMaterial consumedLiquid = GameMaterial.NULL_MATERIAL;
 		elapsedTime += deltaTime;
 		if (elapsedTime > getTimeToSpendDrinking()) {
@@ -77,6 +81,18 @@ public class ConsumeLiquidFromContainerAction extends Action {
 				// No real liquid to remove
 				consumedLiquid = targetZoneTile.getFloor().getMaterial();
 				completionType = SUCCESS;
+			} else if (inventoryContainer != null) {
+				completionType = FAILURE;
+				LiquidContainerComponent container = inventoryContainer.getComponent(LiquidContainerComponent.class);
+				LiquidAllocation success = container.cancelAllocationAndDecrementQuantity(liquidAllocation);
+				parent.setLiquidAllocation(null);
+				parent.parentEntity.getComponent(EquippedItemComponent.class).clearMainHandItem();
+				parent.parentEntity.getComponent(InventoryComponent.class).add(inventoryContainer, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
+
+				if (success != null) {
+					consumedLiquid = container.getTargetLiquidMaterial();
+					completionType = SUCCESS;
+				}
 			} else {
 				Logger.error("Not found target for " + this.getClass().getSimpleName() + ", could be removed furniture");
 				completionType = FAILURE;
@@ -86,6 +102,30 @@ public class ConsumeLiquidFromContainerAction extends Action {
 				effectsOfDrinkConsumption(consumedLiquid, liquidAllocation, gameContext);
 			}
 		}
+	}
+
+	private Entity tryEquipContainerFromInventory() {
+		LiquidAllocation liquidAllocation = parent.getLiquidAllocation();
+		if (LiquidAllocation.LiquidAllocationType.REQUESTER_INVENTORY == liquidAllocation.getType()) {
+			InventoryComponent inventory = parent.parentEntity.getComponent(InventoryComponent.class);
+			EquippedItemComponent equipped = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
+			if (inventory == null) {
+				return null;
+			} else {
+				Long containerId = liquidAllocation.getTargetContainerId();
+				Entity inInventory = inventory.getById(containerId);
+				Entity mainHandItem = equipped.getMainHandItem();
+				if (mainHandItem != null && containerId.equals(mainHandItem.getId())) {
+					return mainHandItem;
+				} else if (inInventory != null) {
+					inInventory = inventory.remove(inInventory.getId());
+					equipped.clearMainHandItem();
+					equipped.setMainHandItem(inInventory, parent.parentEntity, parent.messageDispatcher);
+					return inInventory;
+				}
+			}
+		}
+		return null;
 	}
 
 	protected void effectsOfDrinkConsumption(GameMaterial consumedLiquid, LiquidAllocation liquidAllocation, GameContext gameContext) {
