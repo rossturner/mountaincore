@@ -10,6 +10,7 @@
 }, {
   "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
   "expiryHours" : 12,
+  "settlerCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Add to inventory goal",
   "actionRelationships" : {
     "CancelHaulingAllocation" : { },
@@ -42,6 +43,7 @@
 }, {
   "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
   "expiryHours" : 12,
+  "settlerCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Collect assigned item",
   "actionRelationships" : {
     "CancelHaulingAllocation" : { },
@@ -84,6 +86,7 @@
   "initialActions" : [ "GoToDrinkLocation", "DouseSelf" ]
 }, {
   "i18nDescription" : "GOAL.DRINK.DESCRIPTION",
+  "settlerCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Drink goal",
   "actionRelationships" : {
     "LocateDrink" : {
@@ -182,6 +185,7 @@
   "initialActions" : [ "GoToLocation", "PickUpEntity" ]
 }, {
   "i18nDescription" : "GOAL.EAT.DESCRIPTION",
+  "settlerCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Eat food goal",
   "actionRelationships" : {
     "GoToFoodLocation" : {
@@ -368,6 +372,7 @@
   "initialActions" : [ "GoToLocation" ]
 }, {
   "i18nDescription" : "GOAL.REFILL_WATERSKIN.DESCRIPTION",
+  "settlerCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Refill inventory liquid containers",
   "actionRelationships" : {
     "RefillInventoryLiquidContainers" : {
@@ -436,6 +441,7 @@
   "initialActions" : [ "RollAround" ]
 }, {
   "i18nDescription" : "GOAL.SLEEP.DESCRIPTION",
+  "settlerCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Sleep in bed goal",
   "actionRelationships" : {
     "SleepInBed" : {
@@ -508,6 +514,7 @@
   "interruptedByLowNeeds" : true
 }, {
   "i18nDescription" : "ACTION.SELECT_JOB.DESCRIPTION",
+  "settlerCategories" : [ "CIVILIAN" ],
   "name" : "Work on job goal",
   "actionRelationships" : {
     "WorkOnJob" : {

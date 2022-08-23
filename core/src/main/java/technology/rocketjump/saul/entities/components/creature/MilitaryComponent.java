@@ -145,11 +145,17 @@ public class MilitaryComponent implements ParentDependentEntityComponent, Destru
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-		throw new NotImplementedException("Implement this");
+		asJson.put("squadId", squadId);
+		asJson.put("assignedWeaponId", assignedWeaponId);
+		asJson.put("assignedShieldId", assignedShieldId);
+		asJson.put("assignedArmorId", assignedArmorId);
 	}
 
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-		throw new NotImplementedException("Implement this");
+		this.squadId = asJson.getLong("squadId");
+		this.assignedWeaponId = asJson.getLong("assignedWeaponId");
+		this.assignedShieldId = asJson.getLong("assignedShieldId");
+		this.assignedArmorId = asJson.getLong("assignedArmorId");
 	}
 }

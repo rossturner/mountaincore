@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -49,11 +50,12 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 					}
 				}
 
-				// TODO swap behaviour of dwarf over to military schedule - need to interrupt current goal and resolve what it is doing
+				if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+					creatureBehaviour.militaryAssignmentChanged();
+				}
 
-				// TODO update entity assets, use clothing from armour for dwarf
-
-
+				// TODO figure out how to show armour
+				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 				return true;
 			}
 			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg);

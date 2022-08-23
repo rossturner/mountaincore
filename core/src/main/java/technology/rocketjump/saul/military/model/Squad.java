@@ -1,6 +1,8 @@
 package technology.rocketjump.saul.military.model;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.Persistable;
@@ -69,18 +71,33 @@ public class Squad implements Persistable {
 		JSONObject asJson = new JSONObject(true);
 		asJson.put("id", id);
 
-		throw new RuntimeException("Implement the other fields");
+		JSONArray memberJson = new JSONArray();
+		memberJson.addAll(memberEntityIds);
+		asJson.put("members", memberJson);
 
-		/*
+		asJson.put("name", name);
+		if (!shift.equals(MilitaryShift.DAYTIME)) {
+			asJson.put("shift", shift.name());
+		}
+		if (!formation.equals(SquadFormation.SINGLE_SPACED_LINE)) {
+			asJson.put("formation", formation.name());
+		}
+
 		savedGameStateHolder.squadsJson.add(asJson);
 		savedGameStateHolder.squads.put(id, this);
-		*/
 	}
 
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
 		this.id = asJson.getLong("id");
 
-		throw new RuntimeException("Implement the other fields");
+		JSONArray memberJson = asJson.getJSONArray("members");
+		for (int cursor = 0; cursor < memberJson.size(); cursor++) {
+			this.memberEntityIds.add(memberJson.getLong(cursor));
+		}
+
+		this.name = asJson.getString("name");
+		this.shift = EnumParser.getEnumValue(asJson, "shift", MilitaryShift.class, MilitaryShift.DAYTIME);
+		this.formation = EnumParser.getEnumValue(asJson, "formation", SquadFormation.class, SquadFormation.SINGLE_SPACED_LINE);
 	}
 }

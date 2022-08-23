@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.EnumUtils;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
 import technology.rocketjump.saul.entities.ai.goap.actions.ActionDictionary;
 import technology.rocketjump.saul.entities.ai.goap.actions.ActionTransitions;
@@ -67,7 +69,24 @@ public class GoalDictionary {
 		if (interruptedByLowNeeds == null) {
 			interruptedByLowNeeds = false;
 		}
-		Goal goal = new Goal(goalJson.getString("name"), goalJson.getString("i18nDescription"), goalJson.getDouble("expiryHours"), interruptedByCombat, interruptedByLowNeeds);
+
+
+		List<SettlerCategory> settlerCategories = new ArrayList<>();
+		JSONArray settlerCategoriesJson = goalJson.getJSONArray("settlerCategories");
+		if (settlerCategoriesJson == null || settlerCategoriesJson.isEmpty()) {
+			settlerCategories.addAll(List.of(SettlerCategory.values()));
+		} else {
+			for (int cursor = 0; cursor < settlerCategoriesJson.size(); cursor++) {
+				SettlerCategory category = EnumUtils.getEnum(SettlerCategory.class, settlerCategoriesJson.getString(cursor));
+				if (category == null) {
+					Logger.error("Could not parse " + settlerCategoriesJson.getString(cursor) + " to " + SettlerCategory.class.getSimpleName());
+				} else {
+					settlerCategories.add(category);
+				}
+			}
+		}
+		Goal goal = new Goal(goalJson.getString("name"), goalJson.getString("i18nDescription"), goalJson.getDouble("expiryHours"),
+				interruptedByCombat, interruptedByLowNeeds, settlerCategories);
 
 		List<GoalSelector> selectors = objectMapper.readValue(goalJson.getJSONArray("selectors").toJSONString(),
 				objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, GoalSelector.class));
