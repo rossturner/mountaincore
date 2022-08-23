@@ -127,7 +127,7 @@ public class CreatureUIFactory implements UIFactory {
 
     @Override
     public List<ColoringLayer> getApplicableColoringLayers() {
-        return List.of(HAIR_COLOR, SKIN_COLOR, EYE_COLOR, ACCESSORY_COLOR, MARKING_COLOR, BONE_COLOR, OTHER_COLOR);
+        return List.of(HAIR_COLOR, SKIN_COLOR, EYE_COLOR, ACCESSORY_COLOR, MARKING_COLOR, BONE_COLOR, OTHER_COLOR, CLOTHING_COLOR);
     }
 
     @Override

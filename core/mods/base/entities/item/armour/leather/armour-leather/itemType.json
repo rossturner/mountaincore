@@ -1,5 +1,6 @@
 {
   "itemTypeName" : "Armour-Leather",
+  "i18nKey" : "ARMOUR.LEATHER",
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "SKIN" ],
   "primaryMaterialType" : "SKIN",
@@ -15,5 +16,7 @@
       "CRUSHING" : 3
     }
   },
-  "i18nKey" : "ARMOUR.LEATHER"
+  "tags": {
+    "ASSET_OVERRIDE_BY_SKILL": ["LIGHT_ARMOR", "CLOTHING_COLOR"]
+  }
 }

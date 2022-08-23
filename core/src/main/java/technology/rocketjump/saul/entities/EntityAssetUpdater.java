@@ -37,6 +37,7 @@ import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismEnt
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesGrowthStage;
+import technology.rocketjump.saul.entities.tags.AssetOverrideBySkillTag;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.entities.tags.TagProcessor;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -69,6 +70,8 @@ public class EntityAssetUpdater implements GameContextAware {
 	public final EntityAssetType ITEM_COVER_LAYER;
 	public final EntityAssetType FURNITURE_BASE_LAYER;
 	public final EntityAssetType CREATURE_BODY;
+	public final EntityAssetType BODY_OUTLINE;
+	public final EntityAssetType CLOTHING_OUTLINE;
 	public final EntityAssetType CREATURE_HAIR;
 	public final EntityAssetType HAIR_OUTLINE;
 	public final EntityAssetType CREATURE_EYEBROWS;
@@ -110,6 +113,8 @@ public class EntityAssetUpdater implements GameContextAware {
 
 		CREATURE_HEAD = entityAssetTypeDictionary.getByName("CREATURE_HEAD");
 		CREATURE_HAIR = entityAssetTypeDictionary.getByName("CREATURE_HAIR");
+		BODY_OUTLINE = entityAssetTypeDictionary.getByName("BODY_OUTLINE");
+		CLOTHING_OUTLINE = entityAssetTypeDictionary.getByName("CLOTHING_OUTLINE");
 		HAIR_OUTLINE = entityAssetTypeDictionary.getByName("HAIR_OUTLINE");
 		CREATURE_EYEBROWS = entityAssetTypeDictionary.getByName("CREATURE_EYEBROWS");
 		CREATURE_BEARD = entityAssetTypeDictionary.getByName("CREATURE_BEARD");
@@ -161,11 +166,15 @@ public class EntityAssetUpdater implements GameContextAware {
 		MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
 		if (militaryComponent != null && militaryComponent.isInMilitary()) {
 			primaryProfession = UNARMORED_MILITARY_OVERRIDE;
+		}
 
-			EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
-			if (equippedItemComponent != null && equippedItemComponent.getEquippedClothing() != null) {
-				Entity equippedClothing = equippedItemComponent.getEquippedClothing();
-
+		EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
+		if (equippedItemComponent != null && equippedItemComponent.getEquippedClothing() != null) {
+			Entity equippedClothing = equippedItemComponent.getEquippedClothing();
+			AssetOverrideBySkillTag assetOverrideBySkillTag = equippedClothing.getTag(AssetOverrideBySkillTag.class);
+			if (assetOverrideBySkillTag != null && equippedClothing.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes clothingAttributes) {
+				primaryProfession = assetOverrideBySkillTag.getSkill();
+				attributes.setColor(assetOverrideBySkillTag.getColoringLayer(), clothingAttributes.getPrimaryMaterial().getColor());
 			}
 		}
 
@@ -187,10 +196,14 @@ public class EntityAssetUpdater implements GameContextAware {
 			addOtherCreatureAssetTypes(baseAsset.getType(), entity.getPhysicalEntityComponent(), attributes, primaryProfession);
 		}
 
+
 		// Some special cases that should(?) be refactored away
 		if (!attributes.getHasHair()) {
 			entity.getPhysicalEntityComponent().getTypeMap().remove(CREATURE_HAIR);
 			entity.getPhysicalEntityComponent().getTypeMap().remove(HAIR_OUTLINE);
+		}
+		if (entity.getPhysicalEntityComponent().getTypeMap().containsKey(CLOTHING_OUTLINE)) {
+			entity.getPhysicalEntityComponent().getTypeMap().remove(BODY_OUTLINE);
 		}
 		if (attributes.getGender().equals(Gender.FEMALE)) {
 			entity.getPhysicalEntityComponent().getTypeMap().remove(CREATURE_EYEBROWS);

@@ -11,7 +11,9 @@
   "hoursInInventoryUntilUnused" : 38.0,
   "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
   "stockpileGroupName" : "WEAPONS",
-  "tags" : { },
+  "tags" : {
+    "ASSET_OVERRIDE_BY_SKILL" : [ "LIGHT_ARMOR", "CLOTHING_COLOR" ]
+  },
   "defenseInfo" : {
     "type" : "ARMOR",
     "maxDefensePoints" : 12,

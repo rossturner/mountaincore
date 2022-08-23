@@ -300,6 +300,10 @@
       "colorCode" : "#000000",
       "hidden" : false
     },
+    "CLOTHING_COLOR" : {
+      "colorChart" : "dwarf-accessory-swatch.png",
+      "hidden" : false
+    },
     "ACCESSORY_COLOR" : {
       "colorChart" : "dwarf-accessory-swatch.png",
       "hidden" : false
