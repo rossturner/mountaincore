@@ -52,6 +52,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionar
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
+import technology.rocketjump.saul.jobs.model.SkillType;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.misc.ReflectionUtils;
@@ -307,7 +308,10 @@ public class CreatureUIFactory implements UIFactory {
         genders.add(Gender.ANY);
         Collection<CreatureBodyShape> bodyShapes = race.getBodyShapes().stream().map(CreatureBodyShapeDescriptor::getValue).toList();
         Collection<EntityAssetType> assetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType()).stream().filter(assetType -> !assetType.getName().startsWith("ATTACH")).toList();
-        List<String> allProfessions = skillDictionary.getAllProfessions().stream().map(Skill::getName).collect(Collectors.toList());
+        List<String> allProfessions = skillDictionary.getAll().stream()
+                .filter(skill -> skill.getType().equals(SkillType.PROFESSION) || skill.getType().equals(SkillType.ASSET_OVERRIDE))
+                .map(Skill::getName)
+                .collect(Collectors.toList());
 
         CreatureEntityAsset asset = new CreatureEntityAsset();
         asset.setRace(race);
@@ -391,7 +395,10 @@ public class CreatureUIFactory implements UIFactory {
         addSelectField("Body shape:", "bodyShape", List.of(CreatureBodyShape.values()), CreatureBodyShape.ANY, creatureAsset, editorTable);
         addSelectField("Gender:", "gender", List.of(Gender.values()), Gender.ANY, creatureAsset, editorTable);
 
-        List<String> allProfessions = skillDictionary.getAllProfessions().stream().map(Skill::getName).collect(Collectors.toList());
+        List<String> allProfessions =skillDictionary.getAll().stream()
+				.filter(skill -> skill.getType().equals(SkillType.PROFESSION) || skill.getType().equals(SkillType.ASSET_OVERRIDE))
+				.map(Skill::getName)
+				.collect(Collectors.toList());
         addSelectField("Profession:", "profession", allProfessions, NULL_PROFESSION.getName(), creatureAsset, editorTable);
 
         VisSelectBox<String> sanitySelect = new VisSelectBox<>();

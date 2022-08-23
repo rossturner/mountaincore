@@ -18,11 +18,13 @@ import technology.rocketjump.saul.assets.entities.plant.PlantEntityAssetDictiona
 import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
+import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectAttributes;
 import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectType;
@@ -79,6 +81,7 @@ public class EntityAssetUpdater implements GameContextAware {
 	public final EntityAssetType MECHANISM_BASE_LAYER;
 	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT;
 	private GameContext gameContext;
+	private Skill UNARMORED_MILITARY_OVERRIDE;
 
 	@Inject
 	public EntityAssetUpdater(ItemEntityAssetDictionary itemEntityAssetDictionary, FurnitureEntityAssetDictionary furnitureEntityAssetDictionary,
@@ -117,6 +120,8 @@ public class EntityAssetUpdater implements GameContextAware {
 		MECHANISM_BASE_LAYER = entityAssetTypeDictionary.getByName("MECHANISM_BASE_LAYER");
 		SHOW_WHEN_INVENTORY_PRESENT = entityAssetTypeDictionary.getByName("SHOW_WHEN_INVENTORY_PRESENT");
 
+		UNARMORED_MILITARY_OVERRIDE = skillDictionary.getByName("UNARMORED_MILITARY");
+
 		this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
 		this.tagProcessor = tagProcessor;
 	}
@@ -153,6 +158,16 @@ public class EntityAssetUpdater implements GameContextAware {
 		if (skillsComponent != null) {
 			primaryProfession = skillsComponent.getPrimaryProfession();
 		}
+		MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
+		if (militaryComponent != null && militaryComponent.isInMilitary()) {
+			primaryProfession = UNARMORED_MILITARY_OVERRIDE;
+
+			EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
+			if (equippedItemComponent != null && equippedItemComponent.getEquippedClothing() != null) {
+				Entity equippedClothing = equippedItemComponent.getEquippedClothing();
+
+			}
+		}
 
 
 		CreatureEntityAsset baseAsset;
@@ -172,7 +187,7 @@ public class EntityAssetUpdater implements GameContextAware {
 			addOtherCreatureAssetTypes(baseAsset.getType(), entity.getPhysicalEntityComponent(), attributes, primaryProfession);
 		}
 
-		// Some gender-specific stuff that should be extracted elsewhere
+		// Some special cases that should(?) be refactored away
 		if (!attributes.getHasHair()) {
 			entity.getPhysicalEntityComponent().getTypeMap().remove(CREATURE_HAIR);
 			entity.getPhysicalEntityComponent().getTypeMap().remove(HAIR_OUTLINE);
