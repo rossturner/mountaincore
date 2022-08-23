@@ -76,6 +76,12 @@
   "Product-Liquid-Tank": {
     "fixedAmount": 1
   },
+  "Product-Ration": {
+    "perSettler": 7
+  },
+  "Product-Ration-Dough": {
+    "perSettler": 2
+  },
   "Product-Rope": {
     "fixedAmount": 1
   },
