@@ -813,7 +813,7 @@
   } ],
   "output" : [ {
     "itemTypeName" : "Product-Waterskin",
-    "quantity" : 10
+    "quantity" : 3
   } ],
   "materialTypesToCopyOver" : [ "SKIN" ],
   "minimumTimeToCompleteCrafting" : 1.5,

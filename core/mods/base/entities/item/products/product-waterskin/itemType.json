@@ -8,8 +8,9 @@
   "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : {
-    "LIQUID_CONTAINER" : [ "2", "Water" ],
-    "USAGE_SOUND" : [ "WaterCollect" ]
+    "LIQUID_CONTAINER" : [ "1", "Water" ],
+    "USAGE_SOUND" : [ "WaterCollect" ],
+    "ITEM_ASSIGNMENT": []
   },
   "i18nKey" : "PRODUCT.WATERSKIN"
 }

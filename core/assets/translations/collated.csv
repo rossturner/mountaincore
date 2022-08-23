@@ -374,6 +374,7 @@ GOAL.FLEE_FROM_AGGRESSOR.DESCRIPTION,Fleeing from {{targetDescription}},,Flucht 
 GOAL.HAULING.DESCRIPTION,Hauling {{targetDescription}},,Transportiert {{itemDescription}},Transporte: {{itemDescription}},Sta trasportando: {{itemDescription}},Transportando {{itemDescription}},Carregar {{itemDescription}},Transportando {{targetDescription}},,Переноска: {{itemDescription}},{{itemDescription}} taşınıyor,Hauling {{targetDescription}},,Släpa {{itemDescription}},,,,{{targetDescription}}を運んでいる,正在搬运{{targetDescription}},
 GOAL.IDLE.DESCRIPTION,Idle,,Untätig,Libre,Non sta facendo niente,Descansando,Inativo,À toa,,Бездельничает,Boşta,- Itomgang,,Inaktiv,,,,何もしていない,闲置,
 GOAL.ON_FIRE.DESCRIPTION,On fire!,,Brennt!,,A fuoco!,¡En llamas!,,,,Горит!,,,,,,,,炎上している！,着火了！,
+GOAL.REFILL_WATERSKIN.DESCRIPTION,Refilling waterskin,,,,,,,,,,,,,,,,,,,
 GOAL.SLEEP.DESCRIPTION,Going to sleep,,Geht schlafen,Va dormir,Sta andando a dormire,Yendo a dormir,A ir para a cama,Indo dormir,,Собирается спать,Uyumaya gidiyor,Skal til at sove,,Gå till sängs,,,,眠ろうとしている,去睡觉,
 GOAL.TRANSFER_LIQUID.DESCRIPTION,Transferring {{targetZoneMaterial}},,Füllt {{targetZoneMaterial}} um,Transfère: {{targetZoneMaterial}},Sta trasferendo: {{targetZoneMaterial}},Transfiriendo {{targetZoneMaterial}},A transferir {{targetZoneMaterial}},Transferindo {{targetZoneMaterial}},,Переносит: {{targetZoneMaterial}},{{targetZoneMaterial}} aktarılıyor,Overførsel {{targetZoneMaterial}},,Överföra {{targetZoneMaterial}},,,,{{targetZoneMaterial}}を運んでいる,正在转移{{targetZoneMaterial}},
 

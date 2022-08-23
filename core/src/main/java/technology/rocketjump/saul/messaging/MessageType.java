@@ -102,6 +102,7 @@ public class MessageType {
 	public static final int MATERIAL_OXIDISED = 347;
 
 	public static final int SETTLER_TANTRUM = 348;
+	public static final int LOCATE_SETTLERS_IN_REGION = 349;
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;

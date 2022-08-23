@@ -1,12 +1,17 @@
 package technology.rocketjump.saul.persistence.model;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.NotImplementedException;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 
 public interface ChildPersistable {
 
-	void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder);
+	default void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
+		throw new NotImplementedException("Implement this in " + this.getClass().getSimpleName());
+	}
 
-	void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException;
+	default void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
+		throw new NotImplementedException("Implement this in " + this.getClass().getSimpleName());
+	}
 
 }

@@ -195,6 +195,7 @@ public class LiquidAllocation implements Persistable {
 		FROM_RIVER,
 		FROM_LIQUID_CONTAINER,
 		CRAFTING_ASSIGNMENT,
+		REQUESTER_INVENTORY,
 		PARENT_HAULING
 
 	}

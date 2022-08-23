@@ -320,8 +320,6 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	}
 
 	protected void addGoalsToQueue(GameContext gameContext) {
-		NeedsComponent needsComponent = parentEntity.getComponent(NeedsComponent.class);
-		MemoryComponent memoryComponent = parentEntity.getComponent(MemoryComponent.class);
 		goalQueue.removeExpiredGoals(gameContext.getGameClock());
 		for (Goal potentialGoal : goalDictionary.getAllGoals()) {
 			if (potentialGoal.getSelectors().isEmpty()) {
@@ -333,7 +331,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			for (GoalSelector selector : potentialGoal.getSelectors()) {
 				boolean allConditionsApply = true;
 				for (GoalSelectionCondition condition : selector.conditions) {
-					if (!condition.apply(gameContext.getGameClock(), needsComponent, memoryComponent)) {
+					if (!condition.apply(gameContext.getGameClock(), parentEntity)) {
 						allConditionsApply = false;
 						break;
 					}

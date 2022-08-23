@@ -373,6 +373,7 @@ GOAL.FLEE_FROM_AGGRESSOR.DESCRIPTION,,Fleeing from {{targetDescription}},
 GOAL.HAULING.DESCRIPTION,E.g. “Hauling granite stone”,Hauling {{targetDescription}},Frakter {{itemDescription}}
 GOAL.IDLE.DESCRIPTION,When not doing anything,Idle,Ledig
 GOAL.ON_FIRE.DESCRIPTION,,On fire!,
+GOAL.REFILL_WATERSKIN.DESCRIPTION,,Refilling waterskin,
 GOAL.SLEEP.DESCRIPTION,,Going to sleep,
 GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {{targetZoneMaterial}},
 
