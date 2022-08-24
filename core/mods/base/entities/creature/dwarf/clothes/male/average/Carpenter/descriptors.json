@@ -5,6 +5,7 @@
   "bodyShape" : "AVERAGE",
   "gender" : "MALE",
   "profession" : "CARPENTER",
+  "consciousnessList" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Dwarf-Male-Average-Carpenter-Clothing-F.png"
