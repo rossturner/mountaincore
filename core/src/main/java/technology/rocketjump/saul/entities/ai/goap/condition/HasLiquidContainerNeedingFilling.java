@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.entities.ai.goap.actions.condition;
+package technology.rocketjump.saul.entities.ai.goap.condition;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import technology.rocketjump.saul.entities.ai.goap.GoalSelectionCondition;
