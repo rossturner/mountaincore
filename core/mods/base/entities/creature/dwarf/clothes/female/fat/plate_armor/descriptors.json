@@ -10,69 +10,153 @@
     "DOWN" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Down.png",
       "coloringLayer" : "CLOTHING_COLOR",
+      "offsetPixels" : {
+        "y" : -0.5
+      },
       "childAssets" : [ {
-        "type" : "BODY_CLOTHING_ABOVE_1"
+        "type" : "BODY_CLOTHING_ABOVE_1",
+        "offsetPixels" : {
+          "y" : 0.5
+        }
       }, {
-        "type" : "BODY_CLOTHING_ABOVE_2"
+        "type" : "BODY_CLOTHING_ABOVE_2",
+        "offsetPixels" : {
+          "y" : 0.5
+        }
       }, {
-        "type" : "CLOTHING_OUTLINE"
+        "type" : "CLOTHING_OUTLINE",
+        "offsetPixels" : {
+          "y" : 0.5
+        }
       } ]
     },
     "UP" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Up.png",
       "coloringLayer" : "CLOTHING_COLOR",
+      "offsetPixels" : {
+        "y" : 1.0,
+        "unit" : true
+      },
       "childAssets" : [ {
-        "type" : "BODY_CLOTHING_ABOVE_1"
+        "type" : "BODY_CLOTHING_ABOVE_1",
+        "offsetPixels" : {
+          "y" : -1.0,
+          "unit" : true
+        }
       }, {
-        "type" : "BODY_CLOTHING_ABOVE_2"
+        "type" : "BODY_CLOTHING_ABOVE_2",
+        "offsetPixels" : {
+          "y" : -1.0,
+          "unit" : true
+        }
       }, {
-        "type" : "CLOTHING_OUTLINE"
+        "type" : "CLOTHING_OUTLINE",
+        "offsetPixels" : {
+          "y" : -1.0,
+          "unit" : true
+        }
       } ]
     },
     "DOWN_LEFT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Down_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5
+      },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "BODY_CLOTHING_ABOVE_1"
+        "type" : "BODY_CLOTHING_ABOVE_1",
+        "offsetPixels" : {
+          "x" : 0.5
+        }
       }, {
-        "type" : "BODY_CLOTHING_ABOVE_2"
+        "type" : "BODY_CLOTHING_ABOVE_2",
+        "offsetPixels" : {
+          "x" : 0.5
+        }
       }, {
-        "type" : "CLOTHING_OUTLINE"
+        "type" : "CLOTHING_OUTLINE",
+        "offsetPixels" : {
+          "x" : 0.5
+        }
       } ]
     },
     "DOWN_RIGHT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Down_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
+      "offsetPixels" : {
+        "x" : 0.5
+      },
       "childAssets" : [ {
-        "type" : "BODY_CLOTHING_ABOVE_1"
+        "type" : "BODY_CLOTHING_ABOVE_1",
+        "offsetPixels" : {
+          "x" : -0.5
+        }
       }, {
-        "type" : "BODY_CLOTHING_ABOVE_2"
+        "type" : "BODY_CLOTHING_ABOVE_2",
+        "offsetPixels" : {
+          "x" : -0.5
+        }
       }, {
-        "type" : "CLOTHING_OUTLINE"
+        "type" : "CLOTHING_OUTLINE",
+        "offsetPixels" : {
+          "x" : -0.5
+        }
       } ]
     },
     "UP_LEFT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Up_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 1.0
+      },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "BODY_CLOTHING_ABOVE_1"
+        "type" : "BODY_CLOTHING_ABOVE_1",
+        "offsetPixels" : {
+          "x" : 0.5,
+          "y" : -1.0
+        }
       }, {
-        "type" : "BODY_CLOTHING_ABOVE_2"
+        "type" : "BODY_CLOTHING_ABOVE_2",
+        "offsetPixels" : {
+          "x" : 0.5,
+          "y" : -1.0
+        }
       }, {
-        "type" : "CLOTHING_OUTLINE"
+        "type" : "CLOTHING_OUTLINE",
+        "offsetPixels" : {
+          "x" : 0.5,
+          "y" : -1.0
+        }
       } ]
     },
     "UP_RIGHT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Up_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : 1.0
+      },
       "childAssets" : [ {
-        "type" : "BODY_CLOTHING_ABOVE_1"
+        "type" : "BODY_CLOTHING_ABOVE_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : -1.0
+        }
       }, {
-        "type" : "BODY_CLOTHING_ABOVE_2"
+        "type" : "BODY_CLOTHING_ABOVE_2",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : -1.0
+        }
       }, {
-        "type" : "CLOTHING_OUTLINE"
+        "type" : "CLOTHING_OUTLINE",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : -1.0
+        }
       } ]
     }
   }
@@ -87,29 +171,51 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_1_Down.png",
-      "coloringLayer" : "ACCESSORY_COLOR"
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "offsetPixels" : {
+        "y" : 15.0
+      }
     },
     "UP" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_1_Up.png",
-      "coloringLayer" : "ACCESSORY_COLOR"
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "offsetPixels" : {
+        "y" : 15.5
+      }
     },
     "DOWN_LEFT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_1_Down_Right.png",
       "coloringLayer" : "ACCESSORY_COLOR",
+      "offsetPixels" : {
+        "x" : -4.0,
+        "y" : 15.0
+      },
       "flipX" : true
     },
     "DOWN_RIGHT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_1_Down_Right.png",
-      "coloringLayer" : "ACCESSORY_COLOR"
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : 15.0
+      }
     },
     "UP_LEFT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_1_Up_Right.png",
       "coloringLayer" : "ACCESSORY_COLOR",
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : 15.5
+      },
       "flipX" : true
     },
     "UP_RIGHT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_1_Up_Right.png",
-      "coloringLayer" : "ACCESSORY_COLOR"
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "offsetPixels" : {
+        "x" : 2.0,
+        "y" : 15.5
+      }
     }
   }
 }, {
@@ -122,24 +228,46 @@
   "consciousnessList" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_2_Down.png"
+      "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_2_Down.png",
+      "offsetPixels" : {
+        "y" : -12.5
+      }
     },
     "UP" : {
-      "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_2_Up.png"
+      "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_2_Up.png",
+      "offsetPixels" : {
+        "y" : 2.0
+      }
     },
     "DOWN_LEFT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_2_Down_Right.png",
+      "offsetPixels" : {
+        "x" : -7.5,
+        "y" : -11.5
+      },
       "flipX" : true
     },
     "DOWN_RIGHT" : {
-      "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_2_Down_Right.png"
+      "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_2_Down_Right.png",
+      "offsetPixels" : {
+        "x" : 7.5,
+        "y" : -11.5
+      }
     },
     "UP_LEFT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_2_Up_Right.png",
+      "offsetPixels" : {
+        "x" : 6.5,
+        "y" : 0.5
+      },
       "flipX" : true
     },
     "UP_RIGHT" : {
-      "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_2_Up_Right.png"
+      "filename" : "Dwarf-Female-Fat-Heavy_Armor-Body_Clothing_Above_2_Up_Right.png",
+      "offsetPixels" : {
+        "x" : -6.5,
+        "y" : 0.5
+      }
     }
   }
 }, {
@@ -153,29 +281,51 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Clothing_Outline_Down.png",
-      "scale" : 0.5
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "y" : -1.5
+      }
     },
     "UP" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Clothing_Outline_Up.png",
-      "scale" : 0.5
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "y" : 1.5
+      }
     },
     "DOWN_LEFT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Clothing_Outline_Down_Right.png",
       "scale" : 0.5,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 0.5
+      },
       "flipX" : true
     },
     "DOWN_RIGHT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Clothing_Outline_Down_Right.png",
-      "scale" : 0.5
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : 0.5
+      }
     },
     "UP_LEFT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Clothing_Outline_Up_Right.png",
       "scale" : 0.5,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 2.0
+      },
       "flipX" : true
     },
     "UP_RIGHT" : {
       "filename" : "Dwarf-Female-Fat-Heavy_Armor-Clothing_Outline_Up_Right.png",
-      "scale" : 0.5
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : 2.0
+      }
     }
   }
 } ]
