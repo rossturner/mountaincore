@@ -214,8 +214,12 @@ public class CreatureUIFactory implements UIFactory {
 //        addTextField("Name:", "name", race, editorTable);
         addTextField("I18N key:", "i18nKey", race, editorTable);
 
-        addFloatField("Minimum strength:", "minStrength", race, editorTable);
-        addFloatField("Maximum strength:", "maxStrength", race, editorTable);
+        editorTable.add(WidgetBuilder.label("Minimum strength")).left();
+        editorTable.add(floatSpinner(race.getMinStrength(), 0.0f, Float.MAX_VALUE, race::setMinStrength)).left().expandX().fillX().row();
+
+
+        editorTable.add(WidgetBuilder.label("Maximum strength")).left();
+        editorTable.add(floatSpinner(race.getMaxStrength(), 0.0f, Float.MAX_VALUE, race::setMaxStrength)).left().expandX().fillX().row();
 
         addSelectField("Body structure:", "bodyStructure", bodyStructureDictionary.getAll(), null, race, editorTable);
 
