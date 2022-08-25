@@ -1,0 +1,22 @@
+[ {
+  "uniqueName" : "Dough_Proofing_Table-1x1-Base_Layer-Stone",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "Dough_Proofing_Table",
+  "furnitureLayoutName" : "1x1 with workspaces",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dough_Proofing_Table-1x1-Base_Layer-Stone_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "offsetPixels" : {
+        "y" : 5.0
+      },
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "y" : 13.0
+        }
+      } ]
+    }
+  }
+} ]

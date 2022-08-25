@@ -67,6 +67,12 @@
     "fixedAmount" : 1,
     "perSettler" : 0.0
   },
+  "Product-Ration" : {
+    "perSettler" : 7.0
+  },
+  "Product-Ration-Dough" : {
+    "perSettler" : 2.0
+  },
   "Product-Rope" : {
     "fixedAmount" : 1,
     "perSettler" : 0.0

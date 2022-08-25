@@ -31,6 +31,7 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 	private Skill requiredProfession = null;
 	private boolean allowDuplicates = false;
 	private JobType haulingJobType;
+	private boolean includeFromFurniture = false;
 
 	@Override
 	public FurnitureBehaviour clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -69,7 +70,7 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 			if (allowDuplicates || !inventoryAssignments.contains(potentialItemTypeWithMaterial)) {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
 						parentEntity, parentEntity.getLocationComponent().getWorldOrParentPosition(), potentialItemTypeWithMaterial.getItemType(), potentialItemTypeWithMaterial.getMaterial(),
-						false, null, null, allocation -> {
+						includeFromFurniture, null, null, allocation -> {
 							if (allocation != null) {
 								finaliseAllocation(potentialItemTypeWithMaterial, allocation);
 							}
@@ -165,6 +166,10 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 		this.haulingJobType = haulingJobType;
 	}
 
+	public void setIncludeFromFurniture(boolean includeFromFurniture) {
+		this.includeFromFurniture = includeFromFurniture;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		super.writeTo(asJson, savedGameStateHolder);
@@ -204,6 +209,7 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 		}
 
 		asJson.put("haulingJobType", haulingJobType.getName());
+		asJson.put("includeFromFurniture", includeFromFurniture);
 	}
 
 	@Override
@@ -253,6 +259,7 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 		if (haulingJobType == null) {
 			throw new InvalidSaveException("Could not find job type with name " + asJson.getString("haulingJobType"));
 		}
+		this.includeFromFurniture = asJson.getBooleanValue("includeFromFurniture");
 	}
 
 }

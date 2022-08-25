@@ -157,17 +157,13 @@
       "itemTypeName" : "Resource-Planks",
       "quantity" : 2,
       "liquid" : false
-    }, {
-      "itemTypeName" : "Resource-Metal-Ingot",
-      "quantity" : 2,
-      "liquid" : false
     } ]
   },
   "tags" : {
     "CRAFTING_STATION_BEHAVIOUR" : [ "SMELTING", "PRODUCE_ITEM", "HAULING" ],
     "CRAFTING_OVERRIDE" : [ "DO_NOT_HAUL_OUTPUT" ],
     "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Stone-Unrefined", "STONE_COLOR", "MISC_COLOR_1", "Resource-Stone-Block", "STONE_COLOR", "MISC_COLOR_2" ],
-    "EXTRA_MATERIAL_TYPES" : [ "CLOTH" ],
+    "EXTRA_MATERIAL_TYPES" : [ "CLOTH", "METAL" ],
     "PARTICLE_EFFECTS_WHILE_PROCESSING" : [ "Smoking" ]
   },
   "hiddenFromPlacementMenu" : false
@@ -341,6 +337,27 @@
   },
   "tags" : {
     "CRAFTING_STATION_BEHAVIOUR" : [ "COKE_OVEN_BAKING", "PRODUCE_ITEM", "HAULING" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "Dough_Proofing_Table",
+  "i18nKey" : "FURNITURE.DOUGH_PROOFING_TABLE",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x1 with workspaces",
+  "colorCode" : "#EBDEB0",
+  "iconName" : "sliced-bread",
+  "placeAnywhere" : false,
+  "autoConstructed" : false,
+  "requirements" : {
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 2,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "COLLECT_ITEMS_BEHAVIOUR" : [ "COOKING_INGREDIENTS", "15", "CHEF", "ALLOW_DUPLICATES", "Product-Ration-Dough", "Product-Bread-Dough" ],
+    "INVENTORY_ITEMS_UNALLOCATED" : [ ]
   },
   "hiddenFromPlacementMenu" : false
 }, {

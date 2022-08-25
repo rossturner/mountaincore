@@ -536,6 +536,24 @@
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
 }, {
+  "recipeName" : "Create ration dough",
+  "verbOverrideI18nKey" : "ACTION.PREPARATION",
+  "craftingTypeName" : "DOUGH_PREPARATION",
+  "input" : [ {
+    "itemTypeName" : "Resource-Flour-Sack",
+    "quantity" : 4
+  }, {
+    "itemTypeName" : "Resource-Stone-Block",
+    "quantity" : 1
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Product-Ration-Dough",
+    "quantity" : 4
+  } ],
+  "materialTypesToCopyOver" : [ "VEGETABLE", "STONE" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 7.5
+}, {
   "recipeName" : "Crush ore",
   "craftingTypeName" : "ORE_CRUSHING",
   "input" : [ {

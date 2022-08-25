@@ -539,6 +539,22 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.RATION"
 }, {
+  "itemTypeName" : "Product-Ration-Dough",
+  "maxStackSize" : 28,
+  "maxHauledAtOnce" : 7,
+  "materialTypes" : [ "VEGETABLE" ],
+  "primaryMaterialType" : "VEGETABLE",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : false,
+  "hoursInInventoryUntilUnused" : 1.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "FOOD",
+  "tags" : { },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "PRODUCT.RATION.DOUGH"
+}, {
   "itemTypeName" : "Product-Rope",
   "maxStackSize" : 4,
   "maxHauledAtOnce" : 1,
