@@ -498,6 +498,10 @@
     "BONE_COLOR" : {
       "colorCode" : "#fbfbf9",
       "hidden" : false
+    },
+    "OTHER_COLOR" : {
+      "colorCode" : "#DB0B23",
+      "hidden" : false
     }
   },
   "mapPlacement" : "CAVE_MONSTER",

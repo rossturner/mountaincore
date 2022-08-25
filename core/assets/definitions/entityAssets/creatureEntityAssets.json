@@ -22471,10 +22471,13 @@
   "gender" : "NONE",
   "profession" : "NULL_PROFESSION",
   "consciousnessList" : [ ],
-  "tags" : { },
+  "tags" : {
+    "ATTACHES_LIGHT_SOURCE" : [ "PARENT_BODY_COLOR" ]
+  },
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Undead dwarf-Eye_Glow_Down.png",
+      "coloringLayer" : "OTHER_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
@@ -22490,6 +22493,7 @@
     },
     "DOWN_LEFT" : {
       "filename" : "Undead dwarf-Eye_Glow_Down_Left.png",
+      "coloringLayer" : "OTHER_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
@@ -22505,6 +22509,7 @@
     },
     "DOWN_RIGHT" : {
       "filename" : "Undead dwarf-Eye_Glow_Down_Left.png",
+      "coloringLayer" : "OTHER_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
