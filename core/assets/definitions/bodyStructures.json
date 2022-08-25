@@ -282,4 +282,57 @@
     "childParts" : [ ],
     "i18nKey" : "BODY_STRUCTURE.PAW"
   } ]
+}, {
+  "name" : "Undead Humanoid",
+  "rootPartName" : "Torso",
+  "partDefinitions" : [ {
+    "name" : "Head",
+    "size" : 0.3,
+    "bones" : [ "SKULL" ],
+    "organs" : [ ],
+    "childParts" : [ ],
+    "i18nKey" : "BODY_STRUCTURE.HEAD"
+  }, {
+    "name" : "Torso",
+    "size" : 1.0,
+    "bones" : [ "MEDIUM", "MEDIUM" ],
+    "organs" : [ ],
+    "childParts" : [ "Head", "Abdomen", "Right-Arm", "Left-Arm" ],
+    "i18nKey" : "BODY_STRUCTURE.TORSO"
+  }, {
+    "name" : "Arm",
+    "size" : 0.2,
+    "bones" : [ "MEDIUM" ],
+    "organs" : [ ],
+    "childParts" : [ "Hand" ],
+    "i18nKey" : "BODY_STRUCTURE.ARM"
+  }, {
+    "name" : "Hand",
+    "size" : 0.04,
+    "bones" : [ "SMALL" ],
+    "organs" : [ ],
+    "childParts" : [ ],
+    "i18nKey" : "BODY_STRUCTURE.HAND"
+  }, {
+    "name" : "Abdomen",
+    "size" : 0.3,
+    "bones" : [ ],
+    "organs" : [ ],
+    "childParts" : [ "Left-Leg", "Right-Leg" ],
+    "i18nKey" : "BODY_STRUCTURE.ABDOMEN"
+  }, {
+    "name" : "Leg",
+    "size" : 0.2,
+    "bones" : [ "MEDIUM" ],
+    "organs" : [ ],
+    "childParts" : [ "Foot" ],
+    "i18nKey" : "BODY_STRUCTURE.LEG"
+  }, {
+    "name" : "Foot",
+    "size" : 0.02,
+    "bones" : [ "SMALL" ],
+    "organs" : [ ],
+    "childParts" : [ ],
+    "i18nKey" : "BODY_STRUCTURE.FOOT"
+  } ]
 } ]

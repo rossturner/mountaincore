@@ -1,0 +1,46 @@
+{
+  "name": "Undead Humanoid",
+  "rootPartName": "Torso",
+  "partDefinitions": [
+    {
+      "name": "Head",
+      "size": 0.3,
+      "bones": ["SKULL"]
+    },
+    {
+      "name": "Torso",
+      "size": 1.0,
+      "bones": ["MEDIUM", "MEDIUM"],
+      "childParts": ["Head", "Abdomen", "Right-Arm", "Left-Arm"]
+    },
+    {
+      "name": "Arm",
+      "size": 0.2,
+      "bones": ["MEDIUM"],
+      "childParts": ["Hand"]
+    },
+    {
+      "name": "Hand",
+      "size": 0.04,
+      "bones": ["SMALL"],
+      "function": "GRASP"
+    },
+    {
+      "name": "Abdomen",
+      "size": 0.3,
+      "childParts": ["Left-Leg", "Right-Leg"]
+    },
+    {
+      "name": "Leg",
+      "size": 0.2,
+      "bones": ["MEDIUM"],
+      "childParts": ["Foot"]
+    },
+    {
+      "name": "Foot",
+      "size": 0.02,
+      "bones": ["SMALL"],
+      "function": "FOOT"
+    }
+  ]
+}

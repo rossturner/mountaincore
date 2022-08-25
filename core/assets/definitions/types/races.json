@@ -479,4 +479,58 @@
       "colorCode" : "#e62d23"
     }
   }
+}, {
+  "name" : "Undead Dwarf",
+  "i18nKey" : "RACE.UNDEAD_DWARF",
+  "minStrength" : 2.0,
+  "maxStrength" : 17.0,
+  "bodyStructureName" : "Undead Humanoid",
+  "bodyShapes" : [ {
+    "value" : "FAT",
+    "maxStrength" : 10.0
+  }, {
+    "value" : "AVERAGE"
+  }, {
+    "value" : "STRONG",
+    "maxStrength" : 14.5
+  } ],
+  "colors" : {
+    "BONE_COLOR" : {
+      "colorCode" : "#fbfbf9",
+      "hidden" : false
+    }
+  },
+  "mapPlacement" : "CAVE_MONSTER",
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "needs" : [ ],
+    "aggressionResponse" : "ATTACK",
+    "isSapient" : false
+  },
+  "genders" : { },
+  "features" : {
+    "defense" : {
+      "maxDefensePoints" : 10,
+      "maxDefenseRegainedPerRound" : 1,
+      "damageReduction" : {
+        "STABBING" : 8,
+        "SLASHING" : 8,
+        "CRUSHING" : 0
+      }
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "SLASHING",
+      "modifiedByStrength" : true,
+      "minDamage" : 2,
+      "maxDamage" : 6,
+      "armorNegation" : 0,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "animatedSpriteEffectName" : "Weapon slash"
+    },
+    "bones" : {
+      "materialName" : "Bone"
+    }
+  }
 } ]

@@ -1,0 +1,77 @@
+[ {
+  "uniqueName" : "Undead Dwarf-Skeleton-Average",
+  "type" : "CREATURE_BODY",
+  "raceName" : "Undead Dwarf",
+  "bodyShape" : "AVERAGE",
+  "gender" : "NONE",
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf Skeleton Body Average Down.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : 6.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "specificAssetName" : "Undead-Dwarf-Skull"
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf Skeleton Body Average Down-Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : 6.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "specificAssetName" : "Undead-Dwarf-Skull"
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf Skeleton Body Average Down-Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : 6.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "specificAssetName" : "Undead-Dwarf-Skull"
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf Skeleton Body Average Up-Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : 6.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "specificAssetName" : "Undead-Dwarf-Skull"
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf Skeleton Body Average Up-Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : 6.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "specificAssetName" : "Undead-Dwarf-Skull"
+      } ]
+    },
+    "UP" : {
+      "filename" : "Dwarf Skeleton Body Average Up.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : 6.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "specificAssetName" : "Undead-Dwarf-Skull"
+      } ]
+    }
+  }
+} ]
