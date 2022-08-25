@@ -102,6 +102,7 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 	@Override
 	public void infrequentUpdate(GameContext gameContext, MessageDispatcher messageDispatcher) {
 		refreshFurnitureEntities(gameContext);
+		double gameTime = gameContext.getGameClock().getCurrentGameTime();
 
 		Map<FurnitureType, List<CookingRecipe>> byFurnitureType = new HashMap<>();
 		for (CookingRecipe recipe : cookingRecipes) {
@@ -125,11 +126,31 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 					} else {
 						cookingRecipe = availableRecipes.get(gameContext.getRandom().nextInt(availableRecipes.size()));
 					}
-					CookingSession cookingSession = new CookingSession(cookingRecipe, entity);
+
+					CookingSession cookingSession = new CookingSession(cookingRecipe, entity, gameTime);
 					cookingSessions.put(entity.getId(), cookingSession);
 				}
 			}
 		}
+		cookingSessions.entrySet().removeIf(entry -> {
+			CookingSession cookingSession = entry.getValue();
+			if (!cookingSession.isCompleted() && Math.abs(gameTime - cookingSession.getGameTimeStart()) > 12) {
+
+
+				LiquidContainerComponent liquid = cookingSession.getAssignedFurnitureEntity().getComponent(LiquidContainerComponent.class);
+				InventoryComponent inventory = cookingSession.getAssignedFurnitureEntity().getComponent(InventoryComponent.class);
+				float ingredientCount = 0;
+				if (liquid != null) {
+					ingredientCount += liquid.getLiquidQuantity();
+				}
+				if (inventory != null) {
+					ingredientCount += inventory.getInventoryEntries().size();
+				}
+				return ingredientCount == 0;
+			}
+			return false;
+		});
+
 
 		for (CookingSession cookingSession : cookingSessions.values()) {
 			if (!cookingSession.isCompleted()) {
