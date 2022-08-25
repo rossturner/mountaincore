@@ -1,4 +1,56 @@
 [ {
+  "uniqueName" : "Undead Dwarf-Eye_Glow",
+  "type" : "CREATURE_ABOVE_LAYER_2",
+  "raceName" : "Undead Dwarf",
+  "bodyShape" : "ANY",
+  "gender" : "NONE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Undead dwarf-Eye_Glow_Down.png"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Undead dwarf-Eye_Glow_Down_Left.png",
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Undead dwarf-Eye_Glow_Down_Left.png"
+    }
+  }
+}, {
+  "uniqueName" : "Undead Dwarf-Front_Eyes",
+  "type" : "CREATURE_ABOVE_LAYER_1",
+  "raceName" : "Undead Dwarf",
+  "bodyShape" : "ANY",
+  "gender" : "NONE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Undead dwarf-Front_Eyes_Down.png",
+      "childAssets" : [ {
+        "type" : "CREATURE_ABOVE_LAYER_2",
+        "specificAssetName" : "Undead Dwarf-Eye_Glow"
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Undead dwarf-Front_Eyes_Down_Left.png",
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_ABOVE_LAYER_2",
+        "specificAssetName" : "Undead Dwarf-Eye_Glow"
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Undead dwarf-Front_Eyes_Down_Left.png",
+      "childAssets" : [ {
+        "type" : "CREATURE_ABOVE_LAYER_2",
+        "specificAssetName" : "Undead Dwarf-Eye_Glow"
+      } ]
+    }
+  }
+}, {
   "uniqueName" : "Undead-Dwarf-Creature_Eyes",
   "type" : "CREATURE_EYES",
   "raceName" : "Undead Dwarf",
@@ -8,14 +60,26 @@
   "consciousnessList" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Undead dwarf-Creature_Eyes_Down.png"
+      "filename" : "Undead dwarf-Creature_Eyes_Down.png",
+      "childAssets" : [ {
+        "type" : "CREATURE_ABOVE_LAYER_1",
+        "specificAssetName" : "Undead Dwarf-Front_Eyes"
+      } ]
     },
     "DOWN_LEFT" : {
       "filename" : "Undead-Dwarf-Creature_Eyes_Down_Left.png",
-      "flipX" : true
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_ABOVE_LAYER_1",
+        "specificAssetName" : "Undead Dwarf-Front_Eyes"
+      } ]
     },
     "DOWN_RIGHT" : {
-      "filename" : "Undead-Dwarf-Creature_Eyes_Down_Left.png"
+      "filename" : "Undead-Dwarf-Creature_Eyes_Down_Left.png",
+      "childAssets" : [ {
+        "type" : "CREATURE_ABOVE_LAYER_1",
+        "specificAssetName" : "Undead Dwarf-Front_Eyes"
+      } ]
     }
   }
 }, {

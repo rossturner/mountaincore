@@ -4,6 +4,8 @@
   "raceName" : "Undead Dwarf",
   "bodyShape" : "STRONG",
   "gender" : "NONE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Dwarf Skeleton Body Strong Down.png",
