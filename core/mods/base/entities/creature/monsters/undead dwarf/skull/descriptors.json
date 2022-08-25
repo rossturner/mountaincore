@@ -1,21 +1,56 @@
 [ {
+  "uniqueName" : "Undead-Dwarf-Creature_Eyes",
+  "type" : "CREATURE_EYES",
+  "raceName" : "Undead Dwarf",
+  "bodyShape" : "ANY",
+  "gender" : "NONE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Undead dwarf-Creature_Eyes_Down.png"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Undead-Dwarf-Creature_Eyes_Down_Left.png",
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Undead-Dwarf-Creature_Eyes_Down_Left.png"
+    }
+  }
+}, {
   "uniqueName" : "Undead-Dwarf-Skull",
   "type" : "CREATURE_HEAD",
   "raceName" : "Undead Dwarf",
+  "bodyShape" : "ANY",
   "gender" : "NONE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Dwarf Skull Down.png",
-      "coloringLayer" : "BONE_COLOR"
+      "coloringLayer" : "BONE_COLOR",
+      "childAssets" : [ {
+        "type" : "CREATURE_EYES",
+        "specificAssetName" : "Undead-Dwarf-Creature_Eyes"
+      } ]
     },
     "DOWN_RIGHT" : {
       "filename" : "Dwarf Skull Down-Right.png",
-      "coloringLayer" : "BONE_COLOR"
+      "coloringLayer" : "BONE_COLOR",
+      "childAssets" : [ {
+        "type" : "CREATURE_EYES",
+        "specificAssetName" : "Undead-Dwarf-Creature_Eyes"
+      } ]
     },
     "DOWN_LEFT" : {
       "filename" : "Dwarf Skull Down-Right.png",
       "coloringLayer" : "BONE_COLOR",
-      "flipX" : true
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_EYES",
+        "specificAssetName" : "Undead-Dwarf-Creature_Eyes"
+      } ]
     },
     "UP_RIGHT" : {
       "filename" : "Dwarf Skull Up-Right.png",

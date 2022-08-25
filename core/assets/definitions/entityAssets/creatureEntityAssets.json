@@ -22161,6 +22161,8 @@
   "raceName" : "Undead Dwarf",
   "bodyShape" : "AVERAGE",
   "gender" : "NONE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -22462,10 +22464,69 @@
     }
   }
 }, {
+  "uniqueName" : "Undead-Dwarf-Creature_Eyes",
+  "type" : "CREATURE_EYES",
+  "raceName" : "Undead Dwarf",
+  "bodyShape" : "ANY",
+  "gender" : "NONE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Undead dwarf-Creature_Eyes_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Undead-Dwarf-Creature_Eyes_Down_Left.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Undead-Dwarf-Creature_Eyes_Down_Left.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Undead-Dwarf-Skull",
   "type" : "CREATURE_HEAD",
   "raceName" : "Undead Dwarf",
+  "bodyShape" : "ANY",
   "gender" : "NONE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -22480,7 +22541,15 @@
       },
       "flipX" : false,
       "flipY" : false,
-      "childAssets" : [ ],
+      "childAssets" : [ {
+        "type" : "CREATURE_EYES",
+        "specificAssetName" : "Undead-Dwarf-Creature_Eyes",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     },
@@ -22496,7 +22565,15 @@
       },
       "flipX" : false,
       "flipY" : false,
-      "childAssets" : [ ],
+      "childAssets" : [ {
+        "type" : "CREATURE_EYES",
+        "specificAssetName" : "Undead-Dwarf-Creature_Eyes",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     },
@@ -22512,7 +22589,15 @@
       },
       "flipX" : true,
       "flipY" : false,
-      "childAssets" : [ ],
+      "childAssets" : [ {
+        "type" : "CREATURE_EYES",
+        "specificAssetName" : "Undead-Dwarf-Creature_Eyes",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     },
