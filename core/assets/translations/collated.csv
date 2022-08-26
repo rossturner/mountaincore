@@ -1020,6 +1020,7 @@ RACE.FOX.MALE_NOUN,Fox,,Fuchs,,Volpe,Zorro,,,,Лис,,,,,,,,キツネ,狐狸,
 RACE.PERCH.NOUN,Perch,,Barsch,,Persico,Perca,,,,Окунь,,,,,,,,パーチ,鲈鱼,
 RACE.PIKE.NOUN,Pike,,Hecht,,Luccio,Lucio,,,,Щука,,,,,,,,マス,梭子鱼,
 RACE.UNDEAD_DWARF,Undead dwarf,,,,,,,,,,,,,,,,,,,
+RACE.WURM,Wurm,,,,,,,,,,,,,,,,,,,
 
 RESOURCE.CRUSHED.VITRIOL.NOUN,Vitriol,,Vitriol,Vitriol,Vitriolo,Vitriol,Vitriol,,,Медный купорос,Vitriol,Vitriol,,Vitriol,,,,硫酸塩,硫酸盐,
 RESOURCE.CRUSHED.VITRIOL.PLURAL,Vitriol,,Vitriol,Vitriol,Vitriolo,Vitriol,Vitriol,,,Медный купорос,Vitriol,Vitriol,,Vitriol,,,,硫酸塩,硫酸盐,
