@@ -1,0 +1,41 @@
+{
+  "name" : "Wurm",
+  "i18nKey" : "RACE.WURM",
+  "minStrength" : 12.0,
+  "maxStrength" : 20.0,
+  "bodyStructureName" : "Serpent",
+  "bodyShapes" : [ {
+    "value" : "ANY"
+  } ],
+  "colors" : {
+    "SKIN_COLOR" : {
+      "swatch" : "wurm-skin-swatch.png"
+    }
+  },
+  "mapPlacement" : "CAVE_MONSTER",
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "aggressionResponse" : "ATTACK"
+  },
+  "features" : {
+    "defense" : {
+      "maxDefensePoints" : 20,
+      "maxDefenseRegainedPerRound" : 3,
+      "damageReduction" : {
+        "STABBING" : 0,
+        "SLASHING" : 0,
+        "CRUSHING" : 10
+      }
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "CRUSHING",
+      "modifiedByStrength" : true,
+      "minDamage" : 4,
+      "maxDamage" : 15,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "animatedSpriteEffectName" : "Weapon slash"
+    }
+  }
+}

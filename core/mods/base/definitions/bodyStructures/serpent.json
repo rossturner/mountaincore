@@ -1,0 +1,34 @@
+{
+  "name": "Serpent",
+  "rootPartName": "Torso",
+  "partDefinitions": [
+    {
+      "name": "Head",
+      "size": 1.0,
+      "bones": ["SMALL"],
+      "organs": [
+        {
+          "type": "Brain",
+          "relativeSize": 0.2
+        },
+        {
+          "type": "Eye",
+          "discriminator": "Left",
+          "relativeSize": 0.05
+        },
+        {
+          "type": "Eye",
+          "discriminator": "Right",
+          "relativeSize": 0.05
+        }
+      ]
+    },
+    {
+      "name": "Torso",
+      "size": 0.9,
+      "bones": ["SMALL", "SMALL"],
+      "organs": [],
+      "childParts": ["Head"]
+    }
+  ]
+}
