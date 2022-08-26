@@ -6514,13 +6514,6 @@ Product-Bread-Dough
   orig: 42, 27
   offset: 0, 0
   index: -1
-Product-Ration-Dough
-  rotate: false
-  xy: 1235, 1828
-  size: 42, 27
-  orig: 42, 27
-  offset: 0, 0
-  index: -1
 Product-Bread-Loaf
   rotate: false
   xy: 1097, 1740
