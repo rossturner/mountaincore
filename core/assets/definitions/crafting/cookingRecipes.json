@@ -90,4 +90,23 @@
   "outputMaterialName" : "Wheat-Bread",
   "minimumTimeToCompleteCooking" : 5.0,
   "maximumTimeToCompleteCooking" : 20.0
+}, {
+  "recipeName" : "Bake ration",
+  "inputItemOptions" : [ {
+    "itemTypeName" : "Product-Ration-Dough",
+    "materialName" : "Wheat"
+  } ],
+  "inputItemQuantity" : 16,
+  "inputLiquidOptions" : [ ],
+  "inputLiquidQuantity" : 0,
+  "cookedInFurnitureName" : "BAKING_OVEN",
+  "verbOverrideI18nKey" : "PROFESSION.BAKER",
+  "outputDescriptionI18nKey" : "COOKING.RATION.DESCRIPTION",
+  "outputMaterialType" : "FOODSTUFF",
+  "outputQuantity" : 35,
+  "outputProcess" : "SPECIFIED_MATERIAL",
+  "outputItemTypeName" : "Product-Ration",
+  "outputMaterialName" : "Rockbread",
+  "minimumTimeToCompleteCooking" : 5.0,
+  "maximumTimeToCompleteCooking" : 20.0
 } ]

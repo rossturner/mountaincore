@@ -101,6 +101,7 @@ CONSTRUCTION.STATUS.WAITING_FOR_RESOURCES,This is displayed while a construction
 
 COOKING.BREAD.DESCRIPTION,E.g. “Wheat bread”,{{materialDescription}} bread
 COOKING.DUAL_INGREDIENT.DESCRIPTION,"E.g. “Tomato and potato”, to be used for for two ingredients together as below",{{materialOne}} and {{materialTwo}}
+COOKING.RATION.DESCRIPTION,E.g. “Rockbread ration”,{{materialDescription}} ration
 COOKING.SOUP.DESCRIPTION,"E.g. “Tomato soup”, “Tomato and potato soup”, “Vegetable soup”",{{materialDescription}} soup
 COOKING.TRIPLE_INGREDIENT.DESCRIPTION,"E.g. “Fish, tomato and potato”, to be used for for three ingredients together as below","{{materialOne}}, {{materialTwo}} and {{materialThree}}"
 
@@ -217,6 +218,8 @@ FURNITURE.DESCRIPTION.SHOCKING_IN_PROGRESS,,Progress: {{progress}}%
 FURNITURE.DESCRIPTION.WAITING_FOR_ITEM,,Waiting for {{itemType.noun}}
 FURNITURE.DESCRIPTION.WAITING_FOR_LIQUID,,Waiting to be filled
 FURNITURE.DESCRIPTION.WAITING_FOR_MUSHROOM_SPAWN,,Waiting to be injected with mushroom spawn
+FURNITURE.DOUGH_PROOFING_TABLE,,Dough proofing table
+FURNITURE.DOUGH_PROOFING_TABLE.TOOLTIP,,Dough can be taken from {{FURNITURE.BAKERS_WORKTOP}} to store here before entering the {{FURNITURE.BAKING_OVEN}}
 FURNITURE.FEASTING_TABLE,A very large table for a feast,Feasting table
 FURNITURE.FEASTING_TABLE.TOOLTIP,,"With a {{FURNITURE.CHAIR}} in place, your settlers will enjoy their meals at this table."
 FURNITURE.FERMENTATION_TANK,,Fermentation tank
@@ -880,6 +883,9 @@ PRODUCT.MILLSTONE.TOOLTIP,,Two large stone discs that are ground together to mil
 PRODUCT.RATION.NOUN,,Ration
 PRODUCT.RATION.PLURAL,,Rations
 PRODUCT.RATION.TOOLTIP,,"These will last a long time to feed your settlers, but you will need other sources of food as a priority."
+PRODUCT.RATION.DOUGH.NOUN,,Ration dough
+PRODUCT.RATION.DOUGH.PLURAL,,Ration dough
+PRODUCT.RATION.DOUGH.TOOLTIP,,A mix of ingredients that can be baked into {{PRODUCT.RATION.LOAF.PLURAL}} using an {{FURNITURE.BAKING_OVEN}}.
 PRODUCT.ROPE.NOUN,,Rope
 PRODUCT.ROPE.PLURAL,,Ropes
 PRODUCT.STONE.GEAR.NOUN,,Gear

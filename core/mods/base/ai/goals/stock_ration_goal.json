@@ -1,0 +1,36 @@
+{
+  "name": "Stock ration",
+  "expiryHours": 12,
+  "i18nDescription": "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
+  "interruptedByLowNeeds": true,
+  "interruptedByCombat": true,
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "INVENTORY",
+          "itemType": "Product-Ration",
+          "operator": "LESS_THAN",
+          "value": 3,
+          "targetQuantity": 7
+        }
+      ],
+      "priority": "LOWEST",
+      "scheduleCategory": "FREE_TIME"
+    }
+  ],
+  "initialActions": ["FindItemFromInventorySelectors"],
+  "actionRelationships": {
+    "FindItemFromInventorySelectors": {
+      "pass": ["GoToLocation"]
+    },
+    "GoToLocation": {
+      "pass": ["PickUpEntity"],
+      "fail": ["CancelHaulingAllocation"]
+    },
+    "PickUpEntity": {
+      "fail": ["CancelHaulingAllocation"]
+    },
+    "CancelHaulingAllocation": {}
+  }
+}

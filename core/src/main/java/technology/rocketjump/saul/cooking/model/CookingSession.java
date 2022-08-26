@@ -16,6 +16,7 @@ public class CookingSession implements ChildPersistable {
 
 	private CookingRecipe recipe;
 	private Entity assignedFurnitureEntity;
+	private double gameTimeStart;
 
 	private List<Job> inputIngredientJobs = new ArrayList<>();
 	private Job cookingJob = null;
@@ -25,9 +26,10 @@ public class CookingSession implements ChildPersistable {
 
 	}
 
-	public CookingSession(CookingRecipe recipe, Entity assignedFurnitureEntity) {
+	public CookingSession(CookingRecipe recipe, Entity assignedFurnitureEntity, double gameTimeStart) {
 		this.recipe = recipe;
 		this.assignedFurnitureEntity = assignedFurnitureEntity;
+		this.gameTimeStart = gameTimeStart;
 	}
 
 	public CookingRecipe getRecipe() {
@@ -36,6 +38,10 @@ public class CookingSession implements ChildPersistable {
 
 	public Entity getAssignedFurnitureEntity() {
 		return assignedFurnitureEntity;
+	}
+
+	public double getGameTimeStart() {
+		return gameTimeStart;
 	}
 
 	public List<Job> getInputIngredientJobs() {
@@ -62,6 +68,7 @@ public class CookingSession implements ChildPersistable {
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		asJson.put("recipe", recipe.getRecipeName());
 		asJson.put("entity", assignedFurnitureEntity.getId());
+		asJson.put("gameTimeStart", gameTimeStart);
 
 		if (!inputIngredientJobs.isEmpty()) {
 			JSONArray inputJobs = new JSONArray();
@@ -109,5 +116,6 @@ public class CookingSession implements ChildPersistable {
 			}
 		}
 		this.completed = asJson.getBooleanValue("completed");
+		this.gameTimeStart = asJson.getDoubleValue("gameTimeStart");
 	}
 }

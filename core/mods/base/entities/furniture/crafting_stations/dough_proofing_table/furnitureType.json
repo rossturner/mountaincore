@@ -1,0 +1,18 @@
+{
+  "name" : "Dough_Proofing_Table",
+  "i18nKey" : "FURNITURE.DOUGH_PROOFING_TABLE",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x1 with workspaces",
+  "colorCode" : "#EBDEB0",
+  "iconName" : "sliced-bread",
+  "requirements" : {
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 2
+    } ]
+  },
+  "tags": {
+    "COLLECT_ITEMS_BEHAVIOUR": ["COOKING_INGREDIENTS", "15", "CHEF", "ALLOW_DUPLICATES", "Product-Ration-Dough", "Product-Bread-Dough"],
+    "INVENTORY_ITEMS_UNALLOCATED": []
+  }
+}

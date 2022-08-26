@@ -185,8 +185,12 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			}
 
 			Entity containerEntity = unallocatedItem.getLocationComponent().getContainerEntity();
+			Long requestingEntityId = null;
+			if (message.requestingEntity != null) {
+				requestingEntityId = message.requestingEntity.getId();
+			}
 			if (containerEntity != null) {
-				if (message.includeFromFurniture) {
+				if (message.includeFromFurniture && !Objects.equals(containerEntity.getId(), requestingEntityId)) {
 					if (containerEntity.getType().equals(EntityType.FURNITURE)) {
 						allocation.setSourcePositionType(HaulingAllocation.AllocationPositionType.FURNITURE);
 						allocation.setSourcePosition(itemTile.getTilePosition());
