@@ -217,8 +217,8 @@ public class ColorsWidget extends VisTable {
 						public void onFileChosen(FileHandle file) {
 							String filename = file.name();
 							try {
-								PropertyUtils.setProperty(instance, field.name(), filenameField.getText());
 								filenameField.setText(filename);
+								PropertyUtils.setProperty(instance, field.name(), filenameField.getText());
 								initialiseSpeciesColor(entityType, instance);
 							} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ignored) {
 							}
