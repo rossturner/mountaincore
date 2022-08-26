@@ -19,12 +19,14 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
+	private final SquadFormationDictionary squadFormationDictionary;
 	private GameContext gameContext;
 
 	@Inject
-	public MilitaryMessageHandler(MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator) {
+	public MilitaryMessageHandler(MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator, SquadFormationDictionary squadFormationDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
+		this.squadFormationDictionary = squadFormationDictionary;
 
 		messageDispatcher.addListener(this, MessageType.MILITARY_ASSIGNMENT_CHANGED);
 	}
@@ -64,6 +66,7 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 
 	private void createSquad(long squadId) {
 		Squad squad = new Squad();
+		squad.setFormation(squadFormationDictionary.getAll().iterator().next());
 		squad.setId(squadId);
 		squad.setName(i18nTranslator.getTranslatedString("MILITARY.SQUAD.DEFAULT_NAME") + " #" + squadId);
 		gameContext.getSquads().put(squadId, squad);

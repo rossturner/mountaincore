@@ -46,6 +46,7 @@ import technology.rocketjump.saul.jobs.model.JobType;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.PopulateSelectItemViewMessage;
+import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
@@ -97,6 +98,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private final ButtonAction weaponSelectionAction;
 	private final ButtonAction shieldSelectionAction;
 	private final ButtonAction armorSelectionAction;
+	private final ClickableTable squadTextButton;
 
 	private Table outerTable;
 	private Table entityDescriptionTable;
@@ -129,7 +131,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	public EntitySelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
 								 GameInteractionStateContainer gameInteractionStateContainer, IconButtonFactory iconButtonFactory,
 								 EntityStore entityStore, ExampleItemDictionary exampleItemDictionary, JobStore jobStore,
-								 I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary, ImageButtonFactory imageButtonFactory, IconButtonFactory iconButtonFactory1) {
+								 I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary,
+								 ImageButtonFactory imageButtonFactory, ClickableTableFactory clickableTableFactory) {
 		uiSkin = guiSkinRepository.getDefault();
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
@@ -139,7 +142,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;
 		this.imageButtonFactory = imageButtonFactory;
-		this.iconButtonFactory = iconButtonFactory1;
+		this.iconButtonFactory = iconButtonFactory;
 
 		outerTable = new Table(uiSkin);
 		outerTable.background("default-rect");
@@ -234,7 +237,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		UNARMORED_IMAGE_BUTTON = imageButtonFactory.getOrCreate("dwarf-face");
 		changeSettlerNameButton = imageButtonFactory.getOrCreate("fountain-pen", true).clone();
 
-		militaryToggleTable.add(militaryToggleCheckbox).center();
+
+		squadTextButton = clickableTableFactory.create();
+		squadTextButton.setBackground(uiSkin.get(TextButton.TextButtonStyle.class).up);
+		squadTextButton.add(new Label("REPLACE ME", uiSkin));
 
 		weaponSelectionAction = () -> {
 			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
@@ -446,6 +452,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		nameTable.clear();
 		professionsTable.clear();
 		militaryEquipmentTable.clear();
+		militaryToggleTable.clear();
 		needsTable.clear();
 		inventoryTable.clear();
 		happinessTable.clear();
@@ -476,7 +483,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			populateNeedsTable(needsTable, entity, needLabels, uiSkin);
 			populateHappinessTable(entity);
 			populateInjuriesTable(entity);
-			updateMilitaryToggle(entity);
+			populateMilitaryToggleTable(entity);
 
 			upperRow.add(nameTable).top().padRight(5);
 			if (militaryComponent.isInMilitary()) {
@@ -498,7 +505,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		entityDescriptionTable.add(lowerRow).left();
 	}
 
-	private void updateMilitaryToggle(Entity entity) {
+	private void populateMilitaryToggleTable(Entity entity) {
 		MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
 		militaryToggleCheckbox.setProgrammaticChangeEvents(false);
 		if (militaryComponent.isInMilitary()) {
@@ -507,6 +514,19 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		} else {
 			militaryToggleCheckbox.changeI18nKey("CIVILIAN", i18nTranslator);
 			militaryToggleCheckbox.setChecked(false);
+		}
+
+		squadTextButton.clearChildren();
+
+
+		militaryToggleTable.add(militaryToggleCheckbox).center().row();
+		if (militaryComponent.isInMilitary()) {
+			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
+			if (squad != null) {
+				squadTextButton.add(new Label(squad.getName(), uiSkin));
+				squadTextButton.setAction(() -> messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(squad)));
+				militaryToggleTable.add(squadTextButton).center().pad(5).row();
+			}
 		}
 	}
 

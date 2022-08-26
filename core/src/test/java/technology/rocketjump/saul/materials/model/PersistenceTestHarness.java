@@ -34,6 +34,7 @@ import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.mapping.tile.designation.DesignationDictionary;
 import technology.rocketjump.saul.materials.DynamicMaterialFactory;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
+import technology.rocketjump.saul.military.SquadFormationDictionary;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
@@ -124,6 +125,8 @@ public class PersistenceTestHarness {
 	private OrganDefinitionDictionary mockOrganDefinitionDictionary;
 	@Mock
 	private CraftingOutputQualityDictionary mockCraftingOutputQualityDictionary;
+	@Mock
+	private SquadFormationDictionary mockSquadFormationDictionary;
 
 	@Before
 	public void setup() {
@@ -167,7 +170,8 @@ public class PersistenceTestHarness {
 				mockMechanismTypeDictionary,
 				mockBodyStructureDictionary,
 				mockOrganDefinitionDictionary,
-				mockRaceDictionary);
+				mockRaceDictionary,
+				mockSquadFormationDictionary);
 
 	}
 

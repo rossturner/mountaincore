@@ -165,4 +165,20 @@
   },
   "defaultJobPriority" : "NORMAL",
   "createsJobTypeName" : "DIG_CHANNEL"
+}, {
+  "designationName" : "SQUAD_ATTACK_CREATURE",
+  "iconName" : "crosshair-arrow",
+  "selectionColor" : {
+    "r" : 1.0,
+    "g" : 1.0,
+    "b" : 0.6,
+    "a" : 0.4
+  },
+  "designationColor" : {
+    "r" : 1.0,
+    "g" : 0.3,
+    "b" : 0.3,
+    "a" : 0.4
+  },
+  "defaultJobPriority" : "NORMAL"
 } ]

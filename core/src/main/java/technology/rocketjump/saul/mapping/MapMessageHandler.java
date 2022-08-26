@@ -295,11 +295,6 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 						if (tile.getDesignation() != null) {
 							messageDispatcher.dispatchMessage(MessageType.REMOVE_DESIGNATION, new RemoveDesignationMessage(tile));
 						}
-						for (Entity entity : tile.getEntities()) {
-							if (entity.getDesignation() != null) {
-								messageDispatcher.dispatchMessage(MessageType.REMOVE_DESIGNATION, new RemoveDesignationMessage(entity));
-							}
-						}
 					} else if (interactionStateContainer.getInteractionMode().tileDesignationCheck != null &&
 							interactionStateContainer.getInteractionMode().getDesignationToApply() != null) {
 
@@ -313,20 +308,6 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 								}
 								tile.setDesignation(designationToApply);
 								messageDispatcher.dispatchMessage(MessageType.DESIGNATION_APPLIED, new ApplyDesignationMessage(tile, designationToApply, interactionStateContainer.getInteractionMode()));
-							}
-						}
-					} else if (interactionStateContainer.getInteractionMode().entityDesignationCheck != null &&
-							interactionStateContainer.getInteractionMode().getDesignationToApply() != null) {
-						if (tile.getExploration().equals(TileExploration.EXPLORED)) {
-							for (Entity entity : tile.getEntities()) {
-								if (interactionStateContainer.getInteractionMode().entityDesignationCheck.shouldDesignationApply(entity)) {
-									Designation designationToApply = interactionStateContainer.getInteractionMode().getDesignationToApply();
-									if (entity.getDesignation() != null) {
-										messageDispatcher.dispatchMessage(MessageType.REMOVE_DESIGNATION, new RemoveDesignationMessage(entity));
-									}
-									entity.setDesignation(designationToApply);
-									messageDispatcher.dispatchMessage(MessageType.DESIGNATION_APPLIED, new ApplyDesignationMessage(entity, designationToApply, interactionStateContainer.getInteractionMode()));
-								}
 							}
 						}
 					} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.SET_JOB_PRIORITY)) {

@@ -272,6 +272,8 @@ public class MessageType {
 
 	// Military messages
 	public static final int MILITARY_ASSIGNMENT_CHANGED = 2000;
+	public static final int MILITARY_SQUAD_SHIFT_CHANGED = 2001;
+	public static final int MILITARY_SQUAD_ORDERS_CHANGED = 2002;
 
 	// Asset Editor messages
 	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;

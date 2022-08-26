@@ -3,6 +3,7 @@ package technology.rocketjump.saul.ui;
 import technology.rocketjump.saul.doors.Doorway;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.mapping.tile.MapTile;
+import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.rooms.Bridge;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.constructions.Construction;
@@ -19,6 +20,7 @@ public class Selectable implements Comparable<Selectable> {
 
 	private Construction construction;
 	private Room room;
+	private Squad squad;
 	private Bridge bridge;
 	private MapTile tile;
 	private Doorway doorway;
@@ -38,6 +40,11 @@ public class Selectable implements Comparable<Selectable> {
 	public Selectable(Room room) {
 		this.type = SelectableType.ROOM;
 		this.room = room;
+	}
+
+	public Selectable(Squad squad) {
+		this.type = SelectableType.SQUAD;
+		this.squad = squad;
 	}
 
 	public Selectable(Bridge bridge) {
@@ -83,22 +90,15 @@ public class Selectable implements Comparable<Selectable> {
 	}
 
 	public long getId() {
-		switch (this.type) {
-			case ENTITY:
-				return this.entity.getId();
-			case ROOM:
-				return this.room.getRoomId();
-			case BRIDGE:
-				return this.bridge.getBridgeId();
-			case TILE:
-				return (this.tile.getTileX() * 10000) + this.tile.getTileY();
-			case DOORWAY:
-				return this.doorway.getDoorEntity().getId();
-			case CONSTRUCTION:
-				return this.construction.getId();
-			default:
-				return 0;
-		}
+		return switch (this.type) {
+			case ENTITY -> this.entity.getId();
+			case ROOM -> this.room.getRoomId();
+			case BRIDGE -> this.bridge.getBridgeId();
+			case TILE -> (this.tile.getTileX() * 10000L) + this.tile.getTileY();
+			case DOORWAY -> this.doorway.getDoorEntity().getId();
+			case CONSTRUCTION -> this.construction.getId();
+			case SQUAD -> this.squad.getId();
+		};
 	}
 
 	public Entity getEntity() {
@@ -133,9 +133,14 @@ public class Selectable implements Comparable<Selectable> {
 		return sort;
 	}
 
+	public Squad getSquad() {
+		return squad;
+	}
+
 	public enum SelectableType {
 
 		ENTITY(5000),
+		SQUAD(4500),
 		CONSTRUCTION(4000),
 		DOORWAY(3000),
 		BRIDGE(2001),

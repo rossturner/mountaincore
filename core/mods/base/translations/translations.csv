@@ -728,6 +728,8 @@ METAL.TIN.NOUN,,Tin
 METAL.TIN.TOOLTIP,,Tin can be smelted from {{ORE.CASSITERITE.NOUN}} and alloyed with {{METAL.COPPER.NOUN}} to produce {{METAL.BRONZE.NOUN}}. (Alloys have not yet been implemented in King under the Mountain)
 
 MILITARY.SQUAD.DEFAULT_NAME,,Squad
+MILITARY.SQUAD.SHIFT.DAYTIME,Used to assign a squad to active duty during the daytime,Day shift
+MILITARY.SQUAD.SHIFT.NIGHTTIME,Used to assign a squad to active duty during the nighttime,Night shift
 
 MODS.APPLY,,Apply
 MODS.COMPATIBILITY.COMPATIBLE,,Yes

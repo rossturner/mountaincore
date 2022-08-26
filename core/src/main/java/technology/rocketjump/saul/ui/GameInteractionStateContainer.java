@@ -343,9 +343,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 						if (tile == null) {
 							continue;
 						}
-						if (interactionMode.entityDesignationCheck != null) {
-							tileSelected = tile.getEntities().stream().anyMatch(e -> interactionMode.entityDesignationCheck.shouldDesignationApply(e));
-						} else if (interactionMode.tileDesignationCheck.shouldDesignationApply(tile)) {
+						if (interactionMode.tileDesignationCheck.shouldDesignationApply(tile)) {
 							tileSelected = true;
 						}
 					}

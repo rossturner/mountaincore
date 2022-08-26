@@ -2,13 +2,18 @@ package technology.rocketjump.saul.military.model;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.badlogic.gdx.math.GridPoint2;
+import technology.rocketjump.saul.military.model.formations.SquadFormation;
 import technology.rocketjump.saul.persistence.EnumParser;
+import technology.rocketjump.saul.persistence.JSONUtils;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.Persistable;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,14 +22,15 @@ import java.util.Set;
 public class Squad implements Persistable {
 
 	private long id; // Think this will just be 1 to 6 for labelling as such in the UI
-	private final Set<Long> memberEntityIds = new HashSet<>();
+	private final List<Long> memberEntityIds = new ArrayList<>();
 
 	private String name;
 	private MilitaryShift shift = MilitaryShift.DAYTIME;
-	private SquadFormation formation = SquadFormation.SINGLE_SPACED_LINE;
+	private SquadFormation formation;
 
-	// TODO something to keep orders
-
+	private SquadOrderType currentOrderType = SquadOrderType.TRAINING;
+	private GridPoint2 guardingLocation;
+	private Set<Long> attackEntityIds = new HashSet<>();
 
 	public long getId() {
 		return id;
@@ -34,7 +40,7 @@ public class Squad implements Persistable {
 		this.id = id;
 	}
 
-	public Set<Long> getMemberEntityIds() {
+	public List<Long> getMemberEntityIds() {
 		return memberEntityIds;
 	}
 
@@ -62,6 +68,26 @@ public class Squad implements Persistable {
 		this.formation = formation;
 	}
 
+	public SquadOrderType getCurrentOrderType() {
+		return currentOrderType;
+	}
+
+	public void setCurrentOrderType(SquadOrderType currentOrderType) {
+		this.currentOrderType = currentOrderType;
+	}
+
+	public GridPoint2 getGuardingLocation() {
+		return guardingLocation;
+	}
+
+	public void setGuardingLocation(GridPoint2 guardingLocation) {
+		this.guardingLocation = guardingLocation;
+	}
+
+	public Set<Long> getAttackEntityIds() {
+		return attackEntityIds;
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		if (savedGameStateHolder.squads.containsKey(id)) {
@@ -79,8 +105,18 @@ public class Squad implements Persistable {
 		if (!shift.equals(MilitaryShift.DAYTIME)) {
 			asJson.put("shift", shift.name());
 		}
-		if (!formation.equals(SquadFormation.SINGLE_SPACED_LINE)) {
-			asJson.put("formation", formation.name());
+		asJson.put("formation", formation.getFormationName());
+		if (!currentOrderType.equals(SquadOrderType.TRAINING)) {
+			asJson.put("orderType", currentOrderType.name());
+		}
+
+		if (guardingLocation != null) {
+			asJson.put("guardingLocation", JSONUtils.toJSON(guardingLocation));
+		}
+		if (!attackEntityIds.isEmpty()) {
+			JSONArray attackEntityJson = new JSONArray();
+			attackEntityJson.addAll(attackEntityIds);
+			asJson.put("attackEntityIds", attackEntityJson);
 		}
 
 		savedGameStateHolder.squadsJson.add(asJson);
@@ -98,6 +134,19 @@ public class Squad implements Persistable {
 
 		this.name = asJson.getString("name");
 		this.shift = EnumParser.getEnumValue(asJson, "shift", MilitaryShift.class, MilitaryShift.DAYTIME);
-		this.formation = EnumParser.getEnumValue(asJson, "formation", SquadFormation.class, SquadFormation.SINGLE_SPACED_LINE);
+		this.formation = relatedStores.squadFormationDictionary.getByName(asJson.getString("formation"));
+		if (this.formation == null) {
+			throw new InvalidSaveException("Could not find a squad formation with name " + asJson.getString("formation"));
+		}
+		this.currentOrderType = EnumParser.getEnumValue(asJson, "orderType", SquadOrderType.class, SquadOrderType.TRAINING);
+
+		this.guardingLocation = JSONUtils.gridPoint2(asJson.getJSONObject("guardingLocation"));
+
+		JSONArray attackEntityJson = asJson.getJSONArray("attackEntityIds");
+		if (attackEntityIds != null) {
+			for (int cursor = 0; cursor < attackEntityJson.size(); cursor++) {
+				this.attackEntityIds.add(attackEntityJson.getLong(cursor));
+			}
+		}
 	}
 }

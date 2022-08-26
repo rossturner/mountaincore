@@ -27,6 +27,62 @@
     "23" : [ "SLEEP" ]
   }
 }, {
+  "name" : "Military day shift",
+  "hourlyCategories" : {
+    "0" : [ "SLEEP" ],
+    "1" : [ "SLEEP" ],
+    "2" : [ "SLEEP" ],
+    "3" : [ "SLEEP" ],
+    "4" : [ "SLEEP", "NOURISHMENT" ],
+    "5" : [ "SLEEP", "NOURISHMENT" ],
+    "6" : [ "NOURISHMENT" ],
+    "7" : [ "MILITARY_DUTY" ],
+    "8" : [ "MILITARY_DUTY" ],
+    "9" : [ "MILITARY_DUTY" ],
+    "10" : [ "MILITARY_DUTY" ],
+    "11" : [ "MILITARY_DUTY" ],
+    "12" : [ "MILITARY_DUTY" ],
+    "13" : [ "MILITARY_DUTY" ],
+    "14" : [ "MILITARY_DUTY" ],
+    "15" : [ "MILITARY_DUTY" ],
+    "16" : [ "MILITARY_DUTY" ],
+    "17" : [ "MILITARY_DUTY" ],
+    "18" : [ "MILITARY_DUTY" ],
+    "19" : [ "NOURISHMENT", "FREE_TIME" ],
+    "20" : [ "NOURISHMENT", "FREE_TIME" ],
+    "21" : [ "NOURISHMENT", "SLEEP", "FREE_TIME" ],
+    "22" : [ "SLEEP", "FREE_TIME" ],
+    "23" : [ "SLEEP" ]
+  }
+}, {
+  "name" : "Military night shift",
+  "hourlyCategories" : {
+    "12" : [ "SLEEP" ],
+    "13" : [ "SLEEP" ],
+    "14" : [ "SLEEP" ],
+    "15" : [ "SLEEP" ],
+    "16" : [ "SLEEP", "NOURISHMENT" ],
+    "17" : [ "SLEEP", "NOURISHMENT" ],
+    "18" : [ "NOURISHMENT" ],
+    "19" : [ "MILITARY_DUTY" ],
+    "20" : [ "MILITARY_DUTY" ],
+    "21" : [ "MILITARY_DUTY" ],
+    "22" : [ "MILITARY_DUTY" ],
+    "23" : [ "MILITARY_DUTY" ],
+    "0" : [ "MILITARY_DUTY" ],
+    "1" : [ "MILITARY_DUTY" ],
+    "2" : [ "MILITARY_DUTY" ],
+    "3" : [ "MILITARY_DUTY" ],
+    "4" : [ "MILITARY_DUTY" ],
+    "5" : [ "MILITARY_DUTY" ],
+    "6" : [ "MILITARY_DUTY" ],
+    "7" : [ "NOURISHMENT", "FREE_TIME" ],
+    "8" : [ "NOURISHMENT", "FREE_TIME" ],
+    "9" : [ "NOURISHMENT", "SLEEP", "FREE_TIME" ],
+    "10" : [ "SLEEP", "FREE_TIME" ],
+    "11" : [ "SLEEP" ]
+  }
+}, {
   "name" : "Diurnal animal",
   "hourlyCategories" : {
     "0" : [ "SLEEP" ],

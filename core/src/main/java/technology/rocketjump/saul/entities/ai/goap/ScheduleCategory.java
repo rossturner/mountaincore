@@ -6,7 +6,7 @@ public enum ScheduleCategory {
 	WORK,
 	SLEEP,
 	FREE_TIME,
-	SCARED,
+	MILITARY_DUTY,
 	ANY
 
 }

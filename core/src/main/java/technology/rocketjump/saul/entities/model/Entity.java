@@ -22,7 +22,6 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttribu
 import technology.rocketjump.saul.entities.model.physical.item.ItemHoldPosition;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.mapping.tile.designation.Designation;
 import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
@@ -48,7 +47,6 @@ public class Entity implements Persistable, Disposable {
 	private final EntityComponentMap componentMap = new EntityComponentMap();
 	private Set<Tag> tags = new LinkedHashSet<>();
 	private double lastUpdateGameTime;
-	private Designation designation;
 
 	public static final Entity NULL_ENTITY = new Entity();
 
@@ -408,10 +406,6 @@ public class Entity implements Persistable, Disposable {
 			asJson.put("tags", tagsJson);
 		}
 
-		if (designation != null) {
-			asJson.put("designation", designation.getDesignationName());
-		}
-
 		savedGameStateHolder.entitiesJson.add(asJson);
 		savedGameStateHolder.entities.put(id, this);
 	}
@@ -465,13 +459,6 @@ public class Entity implements Persistable, Disposable {
 			}
 		}
 
-		String designationName = asJson.getString("designation");
-		if (designationName != null) {
-			this.designation = relatedStores.designationDictionary.getByName(designationName);
-			if (this.designation == null) {
-				throw new InvalidSaveException("Could not find designation with name " + designationName);
-			}
-		}
 	}
 
 	public <T> T getTag(Class<T> tagClass) {
@@ -494,11 +481,4 @@ public class Entity implements Persistable, Disposable {
 		return componentMap.values();
 	}
 
-	public Designation getDesignation() {
-		return designation;
-	}
-
-	public void setDesignation(Designation designation) {
-		this.designation = designation;
-	}
 }

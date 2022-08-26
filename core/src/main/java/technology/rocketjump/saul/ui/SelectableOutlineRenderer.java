@@ -9,6 +9,7 @@ import technology.rocketjump.saul.entities.components.creature.CombatStateCompon
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.military.model.Squad;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +24,15 @@ public class SelectableOutlineRenderer {
 		shapeRenderer.setColor(Color.WHITE);
 
 		switch (selectable.type) {
+			case SQUAD:
+				Squad squad = selectable.getSquad();
+				for (Long memberEntityId : squad.getMemberEntityIds()) {
+					Entity squadMember = gameContext.getEntities().get(memberEntityId);
+					if (squadMember != null) {
+						renderCircleAroundEntity(squadMember, shapeRenderer, gameContext);
+					}
+				}
+				break;
 			case ENTITY:
 				Entity selectedEntity = selectable.getEntity();
 
@@ -34,21 +44,7 @@ public class SelectableOutlineRenderer {
 					case ITEM:
 					case PLANT:
 					case CREATURE:
-						shapeRenderer.circle(worldPosition.x, worldPosition.y,
-								selectedEntity.getLocationComponent().getRadius() + 0.3f, 100);
-						CombatStateComponent combatStateComponent = selectedEntity.getComponent(CombatStateComponent.class);
-						if (combatStateComponent != null && combatStateComponent.isInCombat() && combatStateComponent.getTargetedOpponentId() != null) {
-							Entity targetEntity = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
-							if (targetEntity != null) {
-								Vector2 targetPosition = targetEntity.getLocationComponent().getWorldPosition();
-								if (targetPosition != null) {
-									shapeRenderer.setColor(NEGATIVE_COLOR);
-									shapeRenderer.circle(targetPosition.x, targetPosition.y,
-											targetEntity.getLocationComponent().getRadius() + 0.3f, 100);
-									shapeRenderer.setColor(Color.WHITE);
-								}
-							}
-						}
+						renderCircleAroundEntity(selectedEntity, shapeRenderer, gameContext);
 						break;
 					case FURNITURE:
 						Set<GridPoint2> entityLocations = new HashSet<>();
@@ -82,6 +78,25 @@ public class SelectableOutlineRenderer {
 		}
 
 		shapeRenderer.end();
+	}
+
+	private void renderCircleAroundEntity(Entity selectedEntity, ShapeRenderer shapeRenderer, GameContext gameContext) {
+		Vector2 worldPosition = selectedEntity.getLocationComponent().getWorldPosition();
+		shapeRenderer.circle(worldPosition.x, worldPosition.y,
+				selectedEntity.getLocationComponent().getRadius() + 0.3f, 100);
+		CombatStateComponent combatStateComponent = selectedEntity.getComponent(CombatStateComponent.class);
+		if (combatStateComponent != null && combatStateComponent.isInCombat() && combatStateComponent.getTargetedOpponentId() != null) {
+			Entity targetEntity = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
+			if (targetEntity != null) {
+				Vector2 targetPosition = targetEntity.getLocationComponent().getWorldPosition();
+				if (targetPosition != null) {
+					shapeRenderer.setColor(NEGATIVE_COLOR);
+					shapeRenderer.circle(targetPosition.x, targetPosition.y,
+							targetEntity.getLocationComponent().getRadius() + 0.3f, 100);
+					shapeRenderer.setColor(Color.WHITE);
+				}
+			}
+		}
 	}
 
 	private void renderTileOutline(GridPoint2 tileLocation, ShapeRenderer shapeRenderer) {
