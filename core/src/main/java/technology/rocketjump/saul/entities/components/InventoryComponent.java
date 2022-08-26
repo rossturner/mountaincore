@@ -110,11 +110,15 @@ public class InventoryComponent implements EntityComponent, Destructible {
 	}
 
 	public InventoryEntry findByItemType(ItemType itemType, GameClock gameClock) {
+		return findByItemType(itemType.getItemTypeName(), gameClock);
+	}
+
+	public InventoryEntry findByItemType(String itemTypeName, GameClock gameClock) {
 		for (InventoryEntry entry : inventoryEntries.values()) {
 			Entity item = entry.entity;
 			if (ITEM.equals(item.getType())) {
 				ItemEntityAttributes attributes = (ItemEntityAttributes) item.getPhysicalEntityComponent().getAttributes();
-				if (itemType.equals(attributes.getItemType())) {
+				if (itemTypeName.equals(attributes.getItemType().getItemTypeName())) {
 					entry.touch(gameClock);
 					return entry;
 				}

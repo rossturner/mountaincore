@@ -102,24 +102,55 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 	@Override
 	public void infrequentUpdate(GameContext gameContext, MessageDispatcher messageDispatcher) {
 		refreshFurnitureEntities(gameContext);
+		double gameTime = gameContext.getGameClock().getCurrentGameTime();
 
-		for (CookingRecipe cookingRecipe : cookingRecipes) {
-			// See if this cookingRecipe can be added as a new session
-			FurnitureType requiredFurnitureType = cookingRecipe.getCookedInFurniture();
-			Entity matchedFurnitureEntity = null;
-			for (Entity entity : furnitureEntities.values()) {
+		Map<FurnitureType, List<CookingRecipe>> byFurnitureType = new HashMap<>();
+		for (CookingRecipe recipe : cookingRecipes) {
+			if (!byFurnitureType.containsKey(recipe.getCookedInFurniture())) {
+				byFurnitureType.put(recipe.getCookedInFurniture(), new ArrayList<>());
+			}
+			byFurnitureType.get(recipe.getCookedInFurniture()).add(recipe);
+		}
+
+		for (Entity entity : furnitureEntities.values()) {
+			boolean isNotCooking = !cookingSessions.containsKey(entity.getId());
+
+			if (isNotCooking) {
 				FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-				if (attributes.getFurnitureType().equals(requiredFurnitureType) && !cookingSessions.containsKey(entity.getId())) {
-					matchedFurnitureEntity = entity;
-					break;
+				List<CookingRecipe> availableRecipes = byFurnitureType.get(attributes.getFurnitureType());
+				if (availableRecipes != null && !availableRecipes.isEmpty()) {
+					//TODO: think of a better planner for picking recipes
+					final CookingRecipe cookingRecipe;
+					if (availableRecipes.size() == 1) {
+						cookingRecipe = availableRecipes.get(0);
+					} else {
+						cookingRecipe = availableRecipes.get(gameContext.getRandom().nextInt(availableRecipes.size()));
+					}
+
+					CookingSession cookingSession = new CookingSession(cookingRecipe, entity, gameTime);
+					cookingSessions.put(entity.getId(), cookingSession);
 				}
 			}
-
-			if (matchedFurnitureEntity != null) {
-				CookingSession cookingSession = new CookingSession(cookingRecipe, matchedFurnitureEntity);
-				cookingSessions.put(matchedFurnitureEntity.getId(), cookingSession);
-			}
 		}
+		cookingSessions.entrySet().removeIf(entry -> {
+			CookingSession cookingSession = entry.getValue();
+			if (!cookingSession.isCompleted() && Math.abs(gameTime - cookingSession.getGameTimeStart()) > 12) {
+
+
+				LiquidContainerComponent liquid = cookingSession.getAssignedFurnitureEntity().getComponent(LiquidContainerComponent.class);
+				InventoryComponent inventory = cookingSession.getAssignedFurnitureEntity().getComponent(InventoryComponent.class);
+				float ingredientCount = 0;
+				if (liquid != null) {
+					ingredientCount += liquid.getLiquidQuantity();
+				}
+				if (inventory != null) {
+					ingredientCount += inventory.getInventoryEntries().size();
+				}
+				return ingredientCount == 0;
+			}
+			return false;
+		});
+
 
 		for (CookingSession cookingSession : cookingSessions.values()) {
 			if (!cookingSession.isCompleted()) {

@@ -124,5 +124,30 @@
     "outputProcess": "SPECIFIED_MATERIAL",
     "outputMaterialName": "Wheat-Bread",
     "outputItemTypeName": "Product-Bread-Loaf"
+  },
+  {
+    "recipeName": "Bake ration",
+    "inputItemOptions": [
+      {
+        "itemTypeName": "Product-Ration-Dough",
+        "materialName": "Wheat"
+      }
+    ],
+    "inputItemQuantity": 16,
+
+    "inputLiquidOptions": [],
+    "inputLiquidQuantity": 0,
+
+    "cookedInFurnitureName": "BAKING_OVEN",
+    "minimumTimeToCompleteCooking": 5,
+    "maximumTimeToCompleteCooking": 20,
+
+    "verbOverrideI18nKey": "PROFESSION.BAKER",
+    "outputDescriptionI18nKey": "COOKING.RATION.DESCRIPTION",
+    "outputMaterialType": "FOODSTUFF",
+    "outputQuantity": 35,
+    "outputProcess": "SPECIFIED_MATERIAL",
+    "outputMaterialName": "Rockbread",
+    "outputItemTypeName": "Product-Ration"
   }
 ]

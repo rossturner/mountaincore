@@ -481,6 +481,37 @@
   } ],
   "initialActions" : [ "LocateBed" ]
 }, {
+  "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
+  "expiryHours" : 12,
+  "name" : "Stock ration",
+  "actionRelationships" : {
+    "CancelHaulingAllocation" : { },
+    "GoToLocation" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "PickUpEntity" ]
+    },
+    "FindItemFromInventorySelectors" : {
+      "pass" : [ "GoToLocation" ]
+    },
+    "PickUpEntity" : {
+      "fail" : [ "CancelHaulingAllocation" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "FREE_TIME",
+    "conditions" : [ {
+      "itemType" : "Product-Ration",
+      "type" : "INVENTORY",
+      "value" : 3,
+      "operator" : "LESS_THAN",
+      "targetQuantity" : 7
+    } ],
+    "priority" : "LOWEST"
+  } ],
+  "interruptedByCombat" : true,
+  "initialActions" : [ "FindItemFromInventorySelectors" ],
+  "interruptedByLowNeeds" : true
+}, {
   "i18nDescription" : "GOAL.TRANSFER_LIQUID.DESCRIPTION",
   "name" : "Transfer liquid goal",
   "actionRelationships" : {

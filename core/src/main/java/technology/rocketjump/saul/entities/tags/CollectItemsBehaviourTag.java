@@ -13,6 +13,7 @@ import technology.rocketjump.saul.jobs.model.Skill;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CollectItemsBehaviourTag extends Tag {
@@ -47,6 +48,12 @@ public class CollectItemsBehaviourTag extends Tag {
 					Set<ItemTypeWithMaterial> cookingIngredients = new HashSet<>();
 					for (CookingRecipe cookingRecipe : tagProcessingUtils.cookingRecipeDictionary.getAll()) {
 						cookingIngredients.addAll(cookingRecipe.getInputItemOptions());
+					}
+					if (args.size() > 4) {
+						//todo: feels bit funky?
+						newBehaviour.setIncludeFromFurniture(true); //force fetching from other furniture, may cause infinite loop
+						List<String> specificIngredients = args.subList(4, args.size());
+						cookingIngredients.removeIf(itemTypeWithMaterial -> !specificIngredients.contains(itemTypeWithMaterial.getItemType().getItemTypeName()));
 					}
 					newBehaviour.setItemsToCollect(new ArrayList<>(cookingIngredients));
 					break;
