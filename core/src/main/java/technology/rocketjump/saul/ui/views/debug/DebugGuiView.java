@@ -26,10 +26,7 @@ import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.DeathReason;
-import technology.rocketjump.saul.entities.model.physical.creature.Race;
-import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
+import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
@@ -241,7 +238,13 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 			}
 			case SPAWN_CREATURE:{
 				CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(raceSelect.getSelected());
-				creatureEntityFactory.create(attributes, worldPosition, DOWN.toVector2(), gameContext, Faction.WILD_ANIMALS);
+				Faction faction;
+				if (raceSelect.getSelected().getMapPlacement() == CreatureMapPlacement.CAVE_MONSTER) {
+					faction = Faction.MONSTERS;
+				} else {
+					faction = Faction.WILD_ANIMALS;
+				}
+				creatureEntityFactory.create(attributes, worldPosition, DOWN.toVector2(), gameContext, faction);
 				break;
 			}
 			case SPAWN_SETTLER: {
