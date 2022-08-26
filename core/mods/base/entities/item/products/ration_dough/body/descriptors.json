@@ -8,7 +8,7 @@
     "maxQuantity": 28,
     "spriteDescriptors": {
       "DOWN": {
-        "filename": "Product-Ration-Dough.png",
+        "filename": "Product-Bread-Dough.png",
         "coloringLayer": "VEGETABLE_COLOR"
       }
     }
@@ -22,7 +22,7 @@
     "maxQuantity": 7,
     "spriteDescriptors": {
       "DOWN": {
-        "filename": "Product-Ration-Dough.png",
+        "filename": "Product-Bread-Dough.png",
         "coloringLayer": "VEGETABLE_COLOR",
         "scale": 0.8,
         "parentEntityAssets": [
@@ -45,7 +45,7 @@
         ]
       },
       "DOWN_RIGHT": {
-        "filename": "Product-Ration-Dough.png",
+        "filename": "Product-Bread-Dough.png",
         "coloringLayer": "VEGETABLE_COLOR",
         "scale": 0.8,
         "parentEntityAssets": [
@@ -68,7 +68,7 @@
         ]
       },
       "DOWN_LEFT": {
-        "filename": "Product-Ration-Dough.png",
+        "filename": "Product-Bread-Dough.png",
         "coloringLayer": "VEGETABLE_COLOR",
         "scale": 0.8,
         "parentEntityAssets": [
@@ -91,7 +91,7 @@
         ]
       },
       "UP_RIGHT": {
-        "filename": "Product-Ration-Dough.png",
+        "filename": "Product-Bread-Dough.png",
         "coloringLayer": "VEGETABLE_COLOR",
         "scale": 0.8,
         "parentEntityAssets": [
@@ -106,7 +106,7 @@
         ]
       },
       "UP_LEFT": {
-        "filename": "Product-Ration-Dough.png",
+        "filename": "Product-Bread-Dough.png",
         "coloringLayer": "VEGETABLE_COLOR",
         "scale": 0.8,
         "parentEntityAssets": [
@@ -121,7 +121,7 @@
         ]
       },
       "UP": {
-        "filename": "Product-Ration-Dough.png",
+        "filename": "Product-Bread-Dough.png",
         "coloringLayer": "VEGETABLE_COLOR",
         "scale": 0.8
       }
