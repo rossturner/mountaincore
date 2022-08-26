@@ -199,10 +199,13 @@ public class ColorsWidget extends VisTable {
 			filenameField.addListener(new ChangeListener() {
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
-					try {
-						PropertyUtils.setProperty(instance, field.name(), filenameField.getText());
-						initialiseSpeciesColor(entityType, instance);
-					} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ignored) {
+					if (!filenameField.getText().isEmpty()) {
+						try {
+							PropertyUtils.setProperty(instance, field.name(), filenameField.getText());
+							initialiseSpeciesColor(entityType, instance);
+						} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ignored) {
+						}
+
 					}
 				}
 			});
