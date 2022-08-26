@@ -1,79 +1,93 @@
-[ {
-  "uniqueName" : "Undead Dwarf-Skeleton-Strong",
-  "type" : "CREATURE_BODY",
-  "raceName" : "Undead Dwarf",
-  "bodyShape" : "STRONG",
-  "gender" : "NONE",
-  "profession" : "NULL_PROFESSION",
-  "consciousnessList" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Dwarf Skeleton Body Strong Down.png",
-      "coloringLayer" : "BONE_COLOR",
-      "offsetPixels" : {
-        "y" : 6.0
+[
+  {
+    "uniqueName": "Undead Dwarf-Skeleton-Strong",
+    "type": "CREATURE_BODY",
+    "raceName": "Undead Dwarf",
+    "bodyShape": "STRONG",
+    "gender": "NONE",
+    "profession": "NULL_PROFESSION",
+    "consciousnessList": [],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Dwarf Skeleton Body Strong Down.png",
+        "coloringLayer": "BONE_COLOR",
+        "offsetPixels": {
+          "y": 6.0
+        },
+        "childAssets": [
+          {
+            "type": "CREATURE_HEAD",
+            "specificAssetName": "Undead-Dwarf-Skull"
+          }
+        ]
       },
-      "childAssets" : [ {
-        "type" : "CREATURE_HEAD",
-        "specificAssetName" : "Undead-Dwarf-Skull"
-      } ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Dwarf Skeleton Body Strong Down-Right.png",
-      "coloringLayer" : "BONE_COLOR",
-      "offsetPixels" : {
-        "y" : 6.0
+      "DOWN_RIGHT": {
+        "filename": "Dwarf Skeleton Body Strong Down-Right.png",
+        "coloringLayer": "BONE_COLOR",
+        "offsetPixels": {
+          "y": 6.0
+        },
+        "childAssets": [
+          {
+            "type": "CREATURE_HEAD",
+            "specificAssetName": "Undead-Dwarf-Skull"
+          }
+        ]
       },
-      "childAssets" : [ {
-        "type" : "CREATURE_HEAD",
-        "specificAssetName" : "Undead-Dwarf-Skull"
-      } ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Dwarf Skeleton Body Strong Down-Right.png",
-      "coloringLayer" : "BONE_COLOR",
-      "offsetPixels" : {
-        "y" : 6.0
+      "DOWN_LEFT": {
+        "filename": "Dwarf Skeleton Body Strong Down-Right.png",
+        "coloringLayer": "BONE_COLOR",
+        "offsetPixels": {
+          "y": 6.0
+        },
+        "flipX": true,
+        "childAssets": [
+          {
+            "type": "CREATURE_HEAD",
+            "specificAssetName": "Undead-Dwarf-Skull"
+          }
+        ]
       },
-      "flipX" : true,
-      "childAssets" : [ {
-        "type" : "CREATURE_HEAD",
-        "specificAssetName" : "Undead-Dwarf-Skull"
-      } ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Dwarf Skeleton Body Strong Up-Right.png",
-      "coloringLayer" : "BONE_COLOR",
-      "offsetPixels" : {
-        "y" : 6.0
+      "UP_RIGHT": {
+        "filename": "Dwarf Skeleton Body Strong Up-Right.png",
+        "coloringLayer": "BONE_COLOR",
+        "offsetPixels": {
+          "y": 6.0
+        },
+        "childAssets": [
+          {
+            "type": "CREATURE_HEAD",
+            "specificAssetName": "Undead-Dwarf-Skull"
+          }
+        ]
       },
-      "childAssets" : [ {
-        "type" : "CREATURE_HEAD",
-        "specificAssetName" : "Undead-Dwarf-Skull"
-      } ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Dwarf Skeleton Body Strong Up-Right.png",
-      "coloringLayer" : "BONE_COLOR",
-      "offsetPixels" : {
-        "y" : 6.0
+      "UP_LEFT": {
+        "filename": "Dwarf Skeleton Body Strong Up-Right.png",
+        "coloringLayer": "BONE_COLOR",
+        "offsetPixels": {
+          "y": 6.0
+        },
+        "flipX": true,
+        "childAssets": [
+          {
+            "type": "CREATURE_HEAD",
+            "specificAssetName": "Undead-Dwarf-Skull"
+          }
+        ]
       },
-      "flipX" : true,
-      "childAssets" : [ {
-        "type" : "CREATURE_HEAD",
-        "specificAssetName" : "Undead-Dwarf-Skull"
-      } ]
-    },
-    "UP" : {
-      "filename" : "Dwarf Skeleton Body Strong Up.png",
-      "coloringLayer" : "BONE_COLOR",
-      "offsetPixels" : {
-        "y" : 6.0
-      },
-      "childAssets" : [ {
-        "type" : "CREATURE_HEAD",
-        "specificAssetName" : "Undead-Dwarf-Skull"
-      } ]
+      "UP": {
+        "filename": "Dwarf Skeleton Body Strong Up.png",
+        "coloringLayer": "BONE_COLOR",
+        "offsetPixels": {
+          "y": 6.0
+        },
+        "childAssets": [
+          {
+            "type": "CREATURE_HEAD",
+            "specificAssetName": "Undead-Dwarf-Skull"
+          }
+        ]
+      }
     }
   }
-} ]
+]
