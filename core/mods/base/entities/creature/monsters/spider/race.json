@@ -1,0 +1,25 @@
+{
+  "name" : "Spider",
+  "i18nKey" : "RACE.SPIDER",
+  "minStrength" : 3.0,
+  "maxStrength" : 6.0,
+  "bodyStructureName" : "pawed-quadruped",
+  "bodyShapes" : [ {
+    "value" : "AVERAGE"
+  } ],
+  "colors" : {
+    "SKIN_COLOR" : {
+      "colorCode" : "#665446"
+    },
+    "EYE_COLOR" : {
+      "colorCode" : "#b25f3f"
+    }
+  },
+  "mapPlacement" : "CAVE_MONSTER",
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "aggressionResponse" : "ATTACK"
+  },
+  "features" : { }
+}
