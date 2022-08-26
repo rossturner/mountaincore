@@ -224,7 +224,7 @@ public class CombatTracker implements Updatable, Telegraph {
 			case MessageType.COMBAT_ACTION_CHANGED: {
 				CombatActionChangedMessage message = (CombatActionChangedMessage) msg.extraInfo;
 				actionsToResolveThisRound.remove(message.previousAction);
-				if (message.newAction.completesInOneRound()) {
+				if (message.newAction != null && message.newAction.completesInOneRound()) {
 					actionsToResolveThisRound.add(message.newAction);
 				}
 				return true;
