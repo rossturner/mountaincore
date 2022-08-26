@@ -8,6 +8,7 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureGroup;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.factories.CreatureEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -28,6 +29,7 @@ import java.util.Random;
 import java.util.Set;
 
 import static technology.rocketjump.saul.entities.model.physical.creature.CreatureMapPlacement.ANIMAL;
+import static technology.rocketjump.saul.entities.model.physical.creature.CreatureMapPlacement.CAVE_MONSTER;
 
 @Singleton
 public class CreaturePopulator {
@@ -58,6 +60,7 @@ public class CreaturePopulator {
 		Logger.debug("Adding " + animalsToAdd + " animals");
 
 		addAnimalsToMap(animalsToAdd, false, gameContext);
+		addMonstersToMap(100, false, gameContext);
 	}
 
 	public void addAnimalsAtEdge(GameContext gameContext) {
@@ -96,7 +99,7 @@ public class CreaturePopulator {
 				while (numToAddInGroup > 0) {
 					MapTile spawnTile = addingAtMapEdge ? spawnLocation : pickNearbyTileInRegion(5, spawnLocation, gameContext);
 					CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(selectedRace);
-					Entity entity = creatureEntityFactory.create(attributes, spawnTile.getWorldPositionOfCenter(), new Vector2(), gameContext);
+					Entity entity = creatureEntityFactory.create(attributes, spawnTile.getWorldPositionOfCenter(), new Vector2(), gameContext, Faction.WILD_ANIMALS);
 					if (entity.getBehaviourComponent() instanceof CreatureBehaviour) {
 						((CreatureBehaviour) entity.getBehaviourComponent()).setCreatureGroup(group);
 					}
@@ -106,10 +109,36 @@ public class CreaturePopulator {
 			} else {
 				// add individual to map
 				CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(selectedRace);
-				creatureEntityFactory.create(attributes, spawnLocation.getWorldPositionOfCenter(), new Vector2(), gameContext);
+				creatureEntityFactory.create(attributes, spawnLocation.getWorldPositionOfCenter(), new Vector2(), gameContext, Faction.WILD_ANIMALS);
 				animalsToAdd--;
 			}
 
+		}
+	}
+
+	private void addMonstersToMap(int amount, boolean addingAtMapEdge, GameContext gameContext) {
+		List<Race> monsterRaces = raceDictionary.getAll().stream()
+				.filter(r -> CAVE_MONSTER.equals(r.getMapPlacement()))
+				.toList();
+		Set<GridPoint2> creatureSpawnLocations = new HashSet<>();
+		//TODO: figure out monster difficulty to placement
+
+		while (amount > 0) {
+			Race selectedRace = monsterRaces.get(gameContext.getRandom().nextInt(monsterRaces.size()));
+
+			//TODO: place in caves in particular
+			MapTile spawnLocation = findSpawnLocation(gameContext, creatureSpawnLocations, addingAtMapEdge);
+			if (spawnLocation == null) {
+				Logger.warn("Could not find valid spawn location for more animals");
+				break;
+			} else {
+				creatureSpawnLocations.add(spawnLocation.getTilePosition());
+			}
+
+			// add individual to map
+			CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(selectedRace);
+			creatureEntityFactory.create(attributes, spawnLocation.getWorldPositionOfCenter(), new Vector2(), gameContext, Faction.MONSTERS);
+			amount--;
 		}
 	}
 

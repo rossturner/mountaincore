@@ -388,38 +388,46 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			return;
 		}
 
+		Faction myFaction = parentEntity.getOrCreateComponent(FactionComponent.class).getFaction();
 		HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
 
-		if (happinessComponent != null) {
-			GridPoint2 parentPosition = toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition());
-			for (CompassDirection compassDirection : CompassDirection.values()) {
-				for (int distance = 1; distance <= DISTANCE_TO_LOOK_AROUND; distance++) {
-					GridPoint2 targetPosition = parentPosition.cpy().add(compassDirection.getXOffset() * distance, compassDirection.getYOffset() * distance);
-					MapTile targetTile = gameContext.getAreaMap().getTile(targetPosition);
-					if (targetTile == null || targetTile.hasWall()) {
-						// Stop looking in this direction
-						break;
-					}
+		GridPoint2 parentPosition = toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition());
+		for (CompassDirection compassDirection : CompassDirection.values()) {
+			for (int distance = 1; distance <= DISTANCE_TO_LOOK_AROUND; distance++) {
+				GridPoint2 targetPosition = parentPosition.cpy().add(compassDirection.getXOffset() * distance, compassDirection.getYOffset() * distance);
+				MapTile targetTile = gameContext.getAreaMap().getTile(targetPosition);
+				if (targetTile == null || targetTile.hasWall()) {
+					// Stop looking in this direction
+					break;
+				}
 
-					for (Entity entityInTile : targetTile.getEntities()) {
-						if (entityInTile.getType().equals(CREATURE)) {
-							CreatureEntityAttributes creatureEntityAttributes = (CreatureEntityAttributes) entityInTile.getPhysicalEntityComponent().getAttributes();
-							if (creatureEntityAttributes.getConsciousness().equals(DEAD)
-									&& creatureEntityAttributes.getRace().equals(((CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes()).getRace())) {
-								// Saw a dead body!
+				for (Entity entityInTile : targetTile.getEntities()) {
+					if (entityInTile.getType().equals(CREATURE)) {
+						CreatureEntityAttributes creatureEntityAttributes = (CreatureEntityAttributes) entityInTile.getPhysicalEntityComponent().getAttributes();
+						Faction targetFaction = entityInTile.getOrCreateComponent(FactionComponent.class).getFaction();
+						if (creatureEntityAttributes.getConsciousness().equals(DEAD)
+								&& creatureEntityAttributes.getRace().equals(((CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes()).getRace())) {
+							// Saw a dead body!
+							if (happinessComponent != null) {
 								happinessComponent.add(SAW_DEAD_BODY);
-
-								return; // TODO remove this, but for now this is the only thing to see so might as well stop looking
 							}
+
+							return; // TODO remove this, but for now this is the only thing to see so might as well stop looking
+						} else if (myFaction == Faction.MONSTERS && myFaction != targetFaction) {
+							MemoryComponent memoryComponent = parentEntity.getOrCreateComponent(MemoryComponent.class);
+							Memory attackedByCreatureMemory = new Memory(MemoryType.ATTACKED_BY_CREATURE, gameContext.getGameClock());
+							attackedByCreatureMemory.setRelatedEntityId(entityInTile.getId());
+							memoryComponent.addShortTerm(attackedByCreatureMemory, gameContext.getGameClock());
 						}
 					}
-
 				}
+
 			}
 		}
-
 	}
 
+
+	//TODO: what if some creatures don't stun
 	public void applyStun(Random random) {
 		this.stunTime = 1f + (random.nextFloat() * 3f);
 	}

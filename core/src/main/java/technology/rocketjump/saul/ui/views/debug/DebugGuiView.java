@@ -19,6 +19,7 @@ import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
@@ -240,7 +241,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 			}
 			case SPAWN_CREATURE:{
 				CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(raceSelect.getSelected());
-				creatureEntityFactory.create(attributes, worldPosition, DOWN.toVector2(), gameContext);
+				creatureEntityFactory.create(attributes, worldPosition, DOWN.toVector2(), gameContext, Faction.WILD_ANIMALS);
 				break;
 			}
 			case SPAWN_SETTLER: {

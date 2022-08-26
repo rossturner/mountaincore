@@ -43,6 +43,7 @@ import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviourDictionary;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -137,7 +138,7 @@ public class CreatureUIFactory implements UIFactory {
         Race race = raceDictionary.getByName(name);
         CreatureEntityAttributes attributes = new CreatureEntityAttributes(race, random.nextLong());
         Vector2 origin = new Vector2(0, 0f);
-        return creatureEntityFactory.create(attributes, origin, origin, gameContext);
+        return creatureEntityFactory.create(attributes, origin, origin, gameContext, Faction.WILD_ANIMALS);
     }
 
     @Override

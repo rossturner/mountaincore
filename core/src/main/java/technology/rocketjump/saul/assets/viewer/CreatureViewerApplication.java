@@ -16,6 +16,7 @@ import com.google.inject.Injector;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
@@ -83,7 +84,7 @@ public class CreatureViewerApplication extends ApplicationAdapter {
 		Vector2 position = new Vector2(cameraManager.getCamera().viewportWidth * 0.75f, cameraManager.getCamera().viewportHeight * 0.8f);
 		GameContext gameContext = new GameContext();
 		gameContext.setRandom(new RandomXS128());
-		currentEntity = creatureEntityFactory.create(attributes, position, facing, gameContext);
+		currentEntity = creatureEntityFactory.create(attributes, position, facing, gameContext, Faction.WILD_ANIMALS);
 
 		SkillsComponent skillsComponent = currentEntity.getOrCreateComponent(SkillsComponent.class);
 		skillsComponent.setSkillLevel(injector.getInstance(SkillDictionary.class).getByName("CARPENTER"), 80);
