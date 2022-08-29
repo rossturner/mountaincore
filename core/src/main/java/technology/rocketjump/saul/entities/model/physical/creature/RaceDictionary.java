@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static java.lang.String.format;
+import static technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary.NULL_SCHEDULE;
 import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
 import static technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary.initialiseSpeciesColor;
 
@@ -142,6 +143,7 @@ public class RaceDictionary {
 			race.getBehaviour().setSchedule(scheduleDictionary.getByName(race.getBehaviour().getScheduleName()));
 			if (race.getBehaviour().getSchedule() == null) {
 				Logger.error(String.format("Could not find scheudle %s for race %s", race.getBehaviour().getBehaviourName(), race.getName()));
+				race.getBehaviour().setSchedule(NULL_SCHEDULE);
 			}
 		}
 

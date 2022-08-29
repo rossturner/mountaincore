@@ -122,10 +122,9 @@ public enum GameInteractionMode {
 				mapTile.hasChannel() || (mapTile.hasFloor() && mapTile.getFloor().getFloorType().isConstructed()) ||
 				(mapTile.hasWall() && mapTile.getWall().getWallType().isConstructed());
 	}, true),
-	SQUAD_MOVE_TO_LOCATION("movement", null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
-			mapTile.isNavigable(null), false),
-	SQUAD_ATTACK_CREATURE("hunting", null, null,
-			true),
+	SQUAD_MOVE_TO_LOCATION("movement", null, mapTile ->
+			mapTile.getExploration().equals(EXPLORED) && mapTile.isNavigable(null), false),
+	SQUAD_ATTACK_CREATURE("hunting", null, null, true),
 	CANCEL_ATTACK_CREATURE("cancel", null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
 			mapTile.getUnderTile() != null && mapTile.getUnderTile().getQueuedMechanismType() != null, true);
 

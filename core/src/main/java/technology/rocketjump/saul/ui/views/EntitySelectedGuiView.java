@@ -31,7 +31,6 @@ import technology.rocketjump.saul.entities.model.physical.creature.DeathReason;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.item.ExampleItemDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
@@ -89,7 +88,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private final IconButton deconstructButton;
 	private final IconButton emptyLiquidContainerButton;
 	private final EntityStore entityStore;
-	private final ExampleItemDictionary exampleItemDictionary;
 	private final JobStore jobStore;
 	private final I18nWidgetFactory i18nWidgetFactory;
 	private final MessageDispatcher messageDispatcher;
@@ -130,14 +128,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	@Inject
 	public EntitySelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
 								 GameInteractionStateContainer gameInteractionStateContainer, IconButtonFactory iconButtonFactory,
-								 EntityStore entityStore, ExampleItemDictionary exampleItemDictionary, JobStore jobStore,
+								 EntityStore entityStore, JobStore jobStore,
 								 I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary,
 								 ImageButtonFactory imageButtonFactory, ClickableTableFactory clickableTableFactory) {
 		uiSkin = guiSkinRepository.getDefault();
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
 		this.entityStore = entityStore;
-		this.exampleItemDictionary = exampleItemDictionary;
 		this.jobStore = jobStore;
 		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;

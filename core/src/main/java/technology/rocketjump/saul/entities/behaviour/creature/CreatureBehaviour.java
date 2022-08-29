@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import org.apache.commons.lang3.NotImplementedException;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ai.combat.EnteringCombatException;
 import technology.rocketjump.saul.entities.ai.combat.ExitingCombatException;
 import technology.rocketjump.saul.entities.ai.goap.*;
@@ -27,6 +28,7 @@ import technology.rocketjump.saul.mapping.tile.CompassDirection;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.roof.TileRoofState;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -40,6 +42,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import static technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary.*;
 import static technology.rocketjump.saul.entities.ai.goap.SettlerCategory.CIVILIAN;
 import static technology.rocketjump.saul.entities.ai.goap.SettlerCategory.MILITARY;
 import static technology.rocketjump.saul.entities.ai.goap.SpecialGoal.IDLE;
@@ -268,8 +271,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			return placeInventoryItemsGoal;
 		}
 
-		Schedule schedule = ((CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes()).getRace().getBehaviour().getSchedule();
-		List<ScheduleCategory> currentScheduleCategories = schedule == null ? List.of() : schedule.getCurrentApplicableCategories(gameContext.getGameClock());
+		List<ScheduleCategory> currentScheduleCategories = getCurrentSchedule().getCurrentApplicableCategories(gameContext.getGameClock());
 		QueuedGoal nextGoal = goalQueue.popNextGoal(currentScheduleCategories);
 		if (nextGoal == null) {
 			return new AssignedGoal(IDLE.getInstance(), parentEntity, messageDispatcher);
@@ -339,7 +341,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			for (GoalSelector selector : potentialGoal.getSelectors()) {
 				boolean allConditionsApply = true;
 				for (GoalSelectionCondition condition : selector.conditions) {
-					if (!condition.apply(gameContext.getGameClock(), parentEntity)) {
+					if (!condition.apply(parentEntity, gameContext)) {
 						allConditionsApply = false;
 						break;
 					}
@@ -415,6 +417,23 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 	public boolean isStunned() {
 		return this.stunTime > 0f;
+	}
+
+	public Schedule getCurrentSchedule() {
+		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
+		if (militaryComponent != null && militaryComponent.isInMilitary()) {
+			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
+			return switch (squad.getShift()) {
+				case DAYTIME -> militaryDayShiftSchedule;
+				case NIGHTTIME -> militaryNightShiftSchedule;
+			};
+		}
+		if (parentEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes attributes) {
+			return attributes.getRace().getBehaviour().getSchedule();
+		} else {
+			Logger.error("Looking for a schedule on " + this.getClass().getSimpleName() + " with no " + CreatureEntityAttributes.class.getSimpleName());
+			return NULL_SCHEDULE;
+		}
 	}
 
 	@Override

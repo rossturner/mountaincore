@@ -1,30 +1,32 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.SquadOrderChangeMessage;
+import technology.rocketjump.saul.military.SquadFormationDictionary;
 import technology.rocketjump.saul.military.model.MilitaryShift;
 import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.military.model.SquadOrderType;
+import technology.rocketjump.saul.military.model.formations.SquadFormation;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.I18nTextButton;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
-import technology.rocketjump.saul.ui.widgets.ImageButton;
-import technology.rocketjump.saul.ui.widgets.ImageButtonFactory;
+import technology.rocketjump.saul.ui.widgets.*;
 
 import java.util.List;
 
+import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.orderedArray;
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.SQUAD;
 
 @Singleton
@@ -38,6 +40,8 @@ public class SquadSelectedGuiView implements GuiView {
 	private final I18nTextButton shiftButton;
 	private final I18nTranslator i18nTranslator;
 
+	private final EnhancedSelectBox<SquadFormation> squadFormationSelectBox;
+
 	private final ImageButton trainingOrderButton;
 	private final ImageButton guardOrderButton;
 	private final ImageButton attackOrderButton;
@@ -47,7 +51,7 @@ public class SquadSelectedGuiView implements GuiView {
 	@Inject
 	public SquadSelectedGuiView(GuiSkinRepository guiSkinRepository, GameInteractionStateContainer gameInteractionStateContainer,
 								I18nWidgetFactory i18nWidgetFactory, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher,
-								ImageButtonFactory imageButtonFactory) {
+								ImageButtonFactory imageButtonFactory, SquadFormationDictionary squadFormationDictionary) {
 		this.uiSkin = guiSkinRepository.getDefault();
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
@@ -112,6 +116,21 @@ public class SquadSelectedGuiView implements GuiView {
 			}
 		});
 
+		squadFormationSelectBox = new EnhancedSelectBox<>(uiSkin);
+		squadFormationSelectBox.setItems(orderedArray(squadFormationDictionary.getAll(), null));
+		squadFormationSelectBox.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
+				if (squad != null) {
+					SquadFormation selectedFormation = squadFormationSelectBox.getSelected();
+					if (!selectedFormation.equals(squad.getFormation())) {
+						squad.setFormation(selectedFormation);
+					}
+				}
+			}
+		});
+
 		upperTable = new Table(uiSkin);
 		lowerTable = new Table(uiSkin);
 	}
@@ -127,6 +146,11 @@ public class SquadSelectedGuiView implements GuiView {
 
 	@Override
 	public void update() {
+		if (squadFormationSelectBox.isShowingList()) {
+			// Don't refresh everything while list is open or it'll close
+			return;
+		}
+
 		outerTable.clear();
 
 		upperTable.clear();
@@ -140,7 +164,9 @@ public class SquadSelectedGuiView implements GuiView {
 			upperTable.add(new Label("TODO: Description of what squad is doing", uiSkin)).left().pad(5).row();
 			updateShiftButtonText(squad.getShift());
 			upperTable.add(shiftButton).left().pad(5).row();
-			upperTable.add(new Label("TODO: Formations", uiSkin)).left().pad(5).row();
+			upperTable.add(new Label("FORMATION:", uiSkin)).left().pad(5).row();
+			squadFormationSelectBox.setSelected(squad.getFormation());
+			upperTable.add(squadFormationSelectBox).left().pad(5).row();
 
 
 			updateButtonToggle(squad);

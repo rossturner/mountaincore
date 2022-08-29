@@ -11,6 +11,7 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.SquadOrderChangeMessage;
 import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
@@ -29,6 +30,7 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 		this.squadFormationDictionary = squadFormationDictionary;
 
 		messageDispatcher.addListener(this, MessageType.MILITARY_ASSIGNMENT_CHANGED);
+		messageDispatcher.addListener(this, MessageType.MILITARY_SQUAD_ORDERS_CHANGED);
 	}
 
 	@Override
@@ -56,8 +58,16 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 					creatureBehaviour.militaryAssignmentChanged();
 				}
 
-				// TODO figure out how to show armour
 				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
+				return true;
+			}
+			case MessageType.MILITARY_SQUAD_ORDERS_CHANGED -> {
+				SquadOrderChangeMessage message = (SquadOrderChangeMessage) msg.extraInfo;
+
+				// TODO handle changes with to/from orders
+
+				message.squad.setCurrentOrderType(message.newOrderType);
+
 				return true;
 			}
 			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg);

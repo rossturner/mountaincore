@@ -88,6 +88,10 @@ public class Squad implements Persistable {
 		return attackEntityIds;
 	}
 
+	public int getMemberIndex(long id) {
+		return Math.max(0, memberEntityIds.indexOf(id));
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		if (savedGameStateHolder.squads.containsKey(id)) {
@@ -143,10 +147,12 @@ public class Squad implements Persistable {
 		this.guardingLocation = JSONUtils.gridPoint2(asJson.getJSONObject("guardingLocation"));
 
 		JSONArray attackEntityJson = asJson.getJSONArray("attackEntityIds");
-		if (attackEntityIds != null) {
+		if (attackEntityJson != null) {
 			for (int cursor = 0; cursor < attackEntityJson.size(); cursor++) {
 				this.attackEntityIds.add(attackEntityJson.getLong(cursor));
 			}
 		}
+
+		savedGameStateHolder.squads.put(this.id, this);
 	}
 }

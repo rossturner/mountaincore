@@ -324,6 +324,29 @@
   "initialActions" : [ "Idle" ],
   "interruptedByLowNeeds" : true
 }, {
+  "i18nDescription" : "GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION",
+  "settlerCategories" : [ "MILITARY" ],
+  "name" : "Stand in formation",
+  "actionRelationships" : {
+    "StandToAttention" : {
+      "pass" : [ "RequeueThisGoal" ]
+    },
+    "GoToSquadFormationPosition" : {
+      "fail" : [ "StandToAttention" ],
+      "pass" : [ "StandToAttention" ]
+    },
+    "RequeueThisGoal" : { }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "MILITARY_DUTY",
+    "conditions" : [ {
+      "orderType" : "GUARDING",
+      "type" : "SQUAD_HAS_ORDERS"
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "initialActions" : [ "GoToSquadFormationPosition" ]
+}, {
   "i18nDescription" : "GOAL.TRANSFER_LIQUID.DESCRIPTION",
   "name" : "Move liquid in item goal",
   "actionRelationships" : {

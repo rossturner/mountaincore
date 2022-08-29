@@ -40,7 +40,7 @@ public abstract class AbstractSpacedFormation implements SquadFormation {
 			List<CompassDirection> formationDirections = getFormationDirections();
 			CompassDirection direction = formationDirections.get(cursor % formationDirections.size());
 
-			int distanceOffset = (cursor / formationDirections.size()) * getSpacing();
+			int distanceOffset = ((cursor / formationDirections.size()) + 1) * getSpacing();
 			MapTile nextTile = gameContext.getAreaMap().getTile(centralTile.getTileX() + (direction.getXOffset() * distanceOffset),
 					centralTile.getTileY() + (direction.getYOffset() + distanceOffset));
 

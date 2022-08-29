@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.FloorTypeDictionary;
 import technology.rocketjump.saul.assets.WallTypeDictionary;
 import technology.rocketjump.saul.assets.model.FloorType;
@@ -29,6 +30,8 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
+import technology.rocketjump.saul.military.model.Squad;
+import technology.rocketjump.saul.military.model.SquadOrderType;
 import technology.rocketjump.saul.rooms.Bridge;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomTile;
@@ -333,6 +336,17 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 					messageDispatcher.dispatchMessage(MessageType.MECHANISM_CONSTRUCTION_ADDED, new MechanismPlacementMessage(
 							cursorTile, interactionStateContainer.getMechanismTypeToPlace()
 					));
+				}
+			} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.SQUAD_MOVE_TO_LOCATION)) {
+				MapTile cursorTile = gameContext.getAreaMap().getTile(mouseChangeMessage.getWorldPosition());
+				if (cursorTile != null && interactionStateContainer.getInteractionMode().tileDesignationCheck.shouldDesignationApply(cursorTile)) {
+					Squad squad = interactionStateContainer.getSelectable().getSquad();
+					if (squad == null) {
+						Logger.error("Clicked " + interactionStateContainer.getInteractionMode().name() + " but no squad selected");
+					} else {
+						squad.setGuardingLocation(cursorTile.getTilePosition());
+						messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.GUARDING));
+					}
 				}
 			}
 

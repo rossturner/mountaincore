@@ -6,9 +6,9 @@ import technology.rocketjump.saul.entities.ai.goap.GoalSelectionCondition;
 import technology.rocketjump.saul.entities.ai.goap.GoalSelector;
 import technology.rocketjump.saul.entities.ai.goap.ScheduleCategory;
 import technology.rocketjump.saul.entities.ai.goap.condition.GoalSelectionByInventory;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.model.EntityType;
-import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -42,8 +42,8 @@ public class FindItemFromInventorySelectorsAction extends Action implements Item
 		GameClock gameClock = gameContext.getGameClock();
 
 		Collection<ScheduleCategory> applicableScheduleCategories = EnumSet.allOf(ScheduleCategory.class);
-		if (parent.parentEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureAttributes) {
-			applicableScheduleCategories = creatureAttributes.getRace().getBehaviour().getSchedule().getCurrentApplicableCategories(gameClock);
+		if (parent.parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+			applicableScheduleCategories = creatureBehaviour.getCurrentSchedule().getCurrentApplicableCategories(gameClock);
 		}
 
 
@@ -55,7 +55,7 @@ public class FindItemFromInventorySelectorsAction extends Action implements Item
 				for (GoalSelectionCondition condition : selector.conditions) {
 					if (amountRequired == 0 && condition instanceof GoalSelectionByInventory inventoryCondition) {
 						Integer targetQuantity = inventoryCondition.targetQuantity;
-						if (inventoryCondition.apply(gameClock, parent.parentEntity)) {
+						if (inventoryCondition.apply(parent.parentEntity, gameContext)) {
 							amountRequired = targetQuantity - inventoryCondition.getCurrentQuantity(gameClock, parent.parentEntity.getComponent(InventoryComponent.class));
 							itemTypeName = inventoryCondition.itemTypeName;
 						}

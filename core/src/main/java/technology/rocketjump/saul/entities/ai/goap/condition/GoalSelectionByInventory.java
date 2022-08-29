@@ -9,6 +9,7 @@ import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.environment.GameClock;
+import technology.rocketjump.saul.gamecontext.GameContext;
 
 public class GoalSelectionByInventory implements GoalSelectionCondition {
 
@@ -31,11 +32,11 @@ public class GoalSelectionByInventory implements GoalSelectionCondition {
 
     @JsonIgnore
     @Override
-    public boolean apply(GameClock gameClock, Entity parentEntity) {
+    public boolean apply(Entity parentEntity, GameContext gameContext) {
         InventoryComponent inventory = parentEntity.getComponent(InventoryComponent.class);
 
         if (inventory != null) {
-            double currentQuantity = getCurrentQuantity(gameClock, inventory);
+            double currentQuantity = getCurrentQuantity(gameContext.getGameClock(), inventory);
             return operator.apply(currentQuantity, value);
         }
         return false;

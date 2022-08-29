@@ -11,9 +11,13 @@ import java.util.*;
 @Singleton
 public class ScheduleDictionary {
 
-	private static final String DEFAULT_SETTLER_SCHEDULE_NAME = "Default Settler Schedule";
+	private static final String MILITARY_DAY_SHIFT_SCHEDULE_NAME = "Military day shift";
+	private static final String MILITARY_NIGHT_SHIFT_SCHEDULE_NAME = "Military night shift";
+
 	private Map<String, Schedule> byName = new HashMap<>();
-	public final Schedule settlerSchedule;
+	public static Schedule militaryDayShiftSchedule;
+	public static Schedule militaryNightShiftSchedule;
+	public static final Schedule NULL_SCHEDULE = new Schedule("NULL", Map.of());
 
 	@Inject
 	public ScheduleDictionary() throws IOException {
@@ -27,9 +31,13 @@ public class ScheduleDictionary {
 			byName.put(schedule.getName(), schedule);
 		}
 
-		settlerSchedule = byName.get(DEFAULT_SETTLER_SCHEDULE_NAME);
-		if (settlerSchedule == null) {
-			throw new RuntimeException("Could not find schedule with name: " + DEFAULT_SETTLER_SCHEDULE_NAME);
+		militaryDayShiftSchedule = byName.get(MILITARY_DAY_SHIFT_SCHEDULE_NAME);
+		if (militaryDayShiftSchedule == null) {
+			throw new RuntimeException("Could not find schedule with name: " + MILITARY_DAY_SHIFT_SCHEDULE_NAME);
+		}
+		militaryNightShiftSchedule = byName.get(MILITARY_NIGHT_SHIFT_SCHEDULE_NAME);
+		if (militaryNightShiftSchedule == null) {
+			throw new RuntimeException("Could not find schedule with name: " + MILITARY_NIGHT_SHIFT_SCHEDULE_NAME);
 		}
 	}
 
