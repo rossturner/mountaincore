@@ -346,6 +346,8 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 					} else {
 						squad.setGuardingLocation(cursorTile.getTilePosition());
 						messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.GUARDING));
+						// Cancel out of this interaction mode
+						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DEFAULT);
 					}
 				}
 			}

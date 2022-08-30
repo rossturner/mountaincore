@@ -27,7 +27,7 @@ public abstract class AbstractSpacedFormation implements SquadFormation {
 
 		List<GridPoint2> availablePositions = getAvailablePositions(centralTile, gameContext, squadMemberIndex + 1);
 		if (availablePositions.size() > squadMemberIndex) {
-			return availablePositions.get(squadMemberIndex);
+			return availablePositions.get(squadMemberIndex - 1);
 		} else {
 			return null;
 		}
@@ -36,21 +36,24 @@ public abstract class AbstractSpacedFormation implements SquadFormation {
 
 	private List<GridPoint2> getAvailablePositions(MapTile centralTile, GameContext gameContext, int positionsRequired) {
 		List<GridPoint2> availablePositions = new ArrayList<>();
-		for (int cursor = 0; cursor < 100; cursor++) {
-			List<CompassDirection> formationDirections = getFormationDirections();
-			CompassDirection direction = formationDirections.get(cursor % formationDirections.size());
+		int distanceOffset = getSpacing();
+		int attempts = 0; // used to ensure we don't create an infinite loop
+		while (attempts < positionsRequired + 200) {
+			for (CompassDirection direction : getFormationDirections()) {
+				MapTile nextTile = gameContext.getAreaMap().getTile(centralTile.getTileX() + (direction.getXOffset() * distanceOffset),
+						centralTile.getTileY() + (direction.getYOffset() * distanceOffset));
 
-			int distanceOffset = ((cursor / formationDirections.size()) + 1) * getSpacing();
-			MapTile nextTile = gameContext.getAreaMap().getTile(centralTile.getTileX() + (direction.getXOffset() * distanceOffset),
-					centralTile.getTileY() + (direction.getYOffset() + distanceOffset));
+				if (nextTile != null && nextTile.getRegionId() == centralTile.getRegionId() && nextTile.isNavigable(null)) {
+					availablePositions.add(nextTile.getTilePosition());
+				}
 
-			if (nextTile != null && nextTile.getRegionId() == centralTile.getRegionId() && nextTile.isNavigable(null)) {
-				availablePositions.add(nextTile.getTilePosition());
+				attempts++;
+				if (availablePositions.size() >= positionsRequired) {
+					return availablePositions;
+				}
 			}
 
-			if (availablePositions.size() >= positionsRequired) {
-				return availablePositions;
-			}
+			distanceOffset += getSpacing();
 		}
 		return availablePositions;
 	}
