@@ -1017,8 +1017,10 @@ RACE.DWARF.TOOLTIP,Dwarves are short and stocky humanoids. They are masters of w
 RACE.ELEPHANT.NOUN,Elephant,,Elefant,,Elefante,Elefante,,,,Слон,,,,,,,,ゾウ,大象,
 RACE.FOX.FEMALE_NOUN,Vixen,,Füchsin,,Volpe,Zorra,,,,Лисица,,,,,,,,キツネ,雌狐,
 RACE.FOX.MALE_NOUN,Fox,,Fuchs,,Volpe,Zorro,,,,Лис,,,,,,,,キツネ,狐狸,
+RACE.FUNGOLEM,Fungolem,,,,,,,,,,,,,,,,,,,
 RACE.PERCH.NOUN,Perch,,Barsch,,Persico,Perca,,,,Окунь,,,,,,,,パーチ,鲈鱼,
 RACE.PIKE.NOUN,Pike,,Hecht,,Luccio,Lucio,,,,Щука,,,,,,,,マス,梭子鱼,
+RACE.SPIDER,Spider,,,,,,,,,,,,,,,,,,,
 RACE.UNDEAD_DWARF,Undead dwarf,,,,,,,,,,,,,,,,,,,
 RACE.WURM,Wurm,,,,,,,,,,,,,,,,,,,
 
