@@ -16,20 +16,21 @@ import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntit
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceBehaviourGroup;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
+import technology.rocketjump.saul.entities.model.physical.creature.features.RaceFeatures;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.TileExploration;
+import technology.rocketjump.saul.mapping.tile.TileNeighbours;
 import technology.rocketjump.saul.mapping.tile.roof.TileRoofState;
 import technology.rocketjump.saul.settlement.CreatureTracker;
+import technology.rocketjump.saul.settlement.SettlerTracker;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import static technology.rocketjump.saul.entities.model.physical.creature.CreatureMapPlacement.ANIMAL;
 import static technology.rocketjump.saul.entities.model.physical.creature.CreatureMapPlacement.CAVE_MONSTER;
+import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.CAVERN;
 
 @Singleton
 public class CreaturePopulator {
@@ -43,14 +44,16 @@ public class CreaturePopulator {
 	private final CreatureEntityAttributesFactory creatureEntityAttributesFactory;
 	private final CreatureEntityFactory creatureEntityFactory;
 	private final CreatureTracker creatureTracker;
+	private final SettlerTracker settlerTracker;
 
 	@Inject
 	public CreaturePopulator(RaceDictionary raceDictionary, CreatureEntityAttributesFactory creatureEntityAttributesFactory,
-							 CreatureEntityFactory creatureEntityFactory, CreatureTracker creatureTracker) {
+							 CreatureEntityFactory creatureEntityFactory, CreatureTracker creatureTracker, SettlerTracker settlerTracker) {
 		this.raceDictionary = raceDictionary;
 		this.creatureEntityAttributesFactory = creatureEntityAttributesFactory;
 		this.creatureEntityFactory = creatureEntityFactory;
 		this.creatureTracker = creatureTracker;
+		this.settlerTracker = settlerTracker;
 	}
 
 
@@ -117,29 +120,88 @@ public class CreaturePopulator {
 	}
 
 	private void addMonstersToMap(int amount, boolean addingAtMapEdge, GameContext gameContext) {
-		List<Race> monsterRaces = raceDictionary.getAll().stream()
-				.filter(r -> CAVE_MONSTER.equals(r.getMapPlacement()))
-				.toList();
-		Set<GridPoint2> creatureSpawnLocations = new HashSet<>();
-		//TODO: figure out monster difficulty to placement
+		class RegionInformation {
+			private final MapTile nearestTile;
+			private List<MapTile> tilesInRegion;
+			private Race race;
 
-		while (amount > 0) {
-			Race selectedRace = monsterRaces.get(gameContext.getRandom().nextInt(monsterRaces.size()));
+			RegionInformation(MapTile nearestTile) {
+				this.nearestTile = nearestTile;
+				this.tilesInRegion = new ArrayList<>();
+				this.tilesInRegion.add(nearestTile);
+			}
+		}
 
-			//TODO: place in caves in particular
-			MapTile spawnLocation = findSpawnLocation(gameContext, creatureSpawnLocations, addingAtMapEdge);
-			if (spawnLocation == null) {
-				Logger.warn("Could not find valid spawn location for more animals");
-				break;
+		TiledMap areaMap = gameContext.getAreaMap();
+		RegionInformation[] regions = new RegionInformation[areaMap.getNumRegions()];
+		int mapWidth = areaMap.getWidth();
+		int mapHeight = areaMap.getHeight();
+		boolean[] visited = new boolean[mapWidth * mapHeight];
+		Arrays.fill(visited, false);
+
+		Deque<MapTile> frontier = new LinkedList<>();
+		frontier.push(areaMap.getTile(areaMap.getEmbarkPoint()));
+		while (!frontier.isEmpty()) {
+			MapTile currentTile = frontier.pop();
+			visited[currentTile.getTileY() * mapWidth + currentTile.getTileX()] = true;
+			if (regions[currentTile.getRegionId()-1] == null) {
+				regions[currentTile.getRegionId()-1] = new RegionInformation(currentTile);
 			} else {
-				creatureSpawnLocations.add(spawnLocation.getTilePosition());
+				regions[currentTile.getRegionId()-1].tilesInRegion.add(currentTile);
 			}
 
-			// add individual to map
-			CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(selectedRace);
-			creatureEntityFactory.create(attributes, spawnLocation.getWorldPositionOfCenter(), new Vector2(), gameContext, Faction.MONSTERS);
-			amount--;
+			TileNeighbours neighbours = areaMap.getNeighbours(currentTile.getTilePosition());
+			for (MapTile neighbour : neighbours.values()) {
+				if (!visited[neighbour.getTileY() * mapWidth + neighbour.getTileX()]) {
+					visited[neighbour.getTileY() * mapWidth + neighbour.getTileX()] = true;
+					frontier.add(neighbour);
+				}
+			}
 		}
+
+		Entity randomSettler = settlerTracker.getLiving().stream().findAny().get();
+
+		List<RegionInformation> caves = Arrays.stream(regions)
+				.filter(region -> region.nearestTile.getRoof() != null && CAVERN == region.nearestTile.getRoof().getState())
+//				.filter(region -> !region.nearestTile.isNavigable(randomSettler))
+				.sorted(Comparator.comparingInt(value -> chebyshevDistance(value.nearestTile.getTilePosition(), areaMap.getEmbarkPoint())))
+				.toList();
+
+
+		List<Race> monsterRaces = raceDictionary.getAll().stream()
+				.filter(r -> CAVE_MONSTER.equals(r.getMapPlacement()))
+				.sorted(Comparator.comparingInt(this::monsterDifficulty))
+				.toList();
+		//todo: what about when no caves are available
+
+		while (caves.size() > 0 && amount > 0) {
+			for (RegionInformation cave : caves) {
+				if (cave.race == null) {
+					cave.race = monsterRaces.get(gameContext.getRandom().nextInt(monsterRaces.size())); //TODO: difficulty based selection
+				}
+				MapTile randomCaveTile = cave.tilesInRegion.get(gameContext.getRandom().nextInt(cave.tilesInRegion.size()));
+				//			MapTile spawnLocation = findSpawnLocation(gameContext, creatureSpawnLocations, addingAtMapEdge);
+				CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(cave.race);
+				creatureEntityFactory.create(attributes, randomCaveTile.getWorldPositionOfCenter(), new Vector2(), gameContext, Faction.MONSTERS);
+				amount--;
+			}
+		}
+	}
+
+	private int chebyshevDistance(GridPoint2 a, GridPoint2 b) {
+		return Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
+	}
+
+	private int monsterDifficulty(Race race) {
+		int difficulty = 0;
+		RaceFeatures features = race.getFeatures();
+		if (features.getDefense() != null && features.getDefense().getMaxDefensePoints() != null) {
+			difficulty += features.getDefense().getMaxDefensePoints();
+		}
+		if (features.getUnarmedWeapon() != null) {
+			difficulty += features.getUnarmedWeapon().getMaxDamage();
+		}
+		return difficulty;
 	}
 
 	private MapTile findSpawnLocation(GameContext gameContext, Set<GridPoint2> creatureSpawnLocations, boolean addingAtMapEdge) {

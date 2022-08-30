@@ -21,5 +21,24 @@
     "scheduleName" : "Diurnal animal",
     "aggressionResponse" : "ATTACK"
   },
-  "features" : { }
+  "features" : {
+    "defense" : {
+      "maxDefensePoints" : 6,
+      "maxDefenseRegainedPerRound" : 1,
+      "damageReduction" : {
+        "STABBING" : 0,
+        "SLASHING" : 0,
+        "CRUSHING" : 0
+      }
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "STABBING",
+      "modifiedByStrength" : true,
+      "minDamage" : 1,
+      "maxDamage" : 3,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "animatedSpriteEffectName" : "Weapon slash"
+    }
+  }
 }

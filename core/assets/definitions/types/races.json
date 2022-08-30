@@ -556,7 +556,27 @@
     "isSapient" : false
   },
   "genders" : { },
-  "features" : { }
+  "features" : {
+    "defense" : {
+      "maxDefensePoints" : 6,
+      "maxDefenseRegainedPerRound" : 1,
+      "damageReduction" : {
+        "STABBING" : 0,
+        "SLASHING" : 0,
+        "CRUSHING" : 0
+      }
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "STABBING",
+      "modifiedByStrength" : true,
+      "minDamage" : 1,
+      "maxDamage" : 3,
+      "armorNegation" : 0,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "animatedSpriteEffectName" : "Weapon slash"
+    }
+  }
 }, {
   "name" : "Undead Dwarf",
   "i18nKey" : "RACE.UNDEAD_DWARF",
