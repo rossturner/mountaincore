@@ -22171,7 +22171,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -4.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22185,8 +22185,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 0.5,
+        "y" : -5.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22200,8 +22200,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -0.5,
+        "y" : -5.0,
         "unit" : false
       },
       "flipX" : true,
@@ -22215,8 +22215,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -1.5,
+        "y" : -5.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22230,8 +22230,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 1.5,
+        "y" : -5.0,
         "unit" : false
       },
       "flipX" : true,
@@ -22246,7 +22246,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -5.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22274,7 +22274,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 2.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22290,7 +22290,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 3.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22306,7 +22306,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 3.0,
         "unit" : false
       },
       "flipX" : true,
@@ -22332,8 +22332,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 1.5,
+        "y" : 16.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22359,8 +22359,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 2.0,
+        "y" : 16.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22374,8 +22374,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -2.0,
+        "y" : 9.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22389,8 +22389,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 2.0,
+        "y" : 9.5,
         "unit" : false
       },
       "flipX" : true,
@@ -22404,8 +22404,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 0.5,
+        "y" : 16.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22419,8 +22419,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -0.5,
+        "y" : 16.5,
         "unit" : false
       },
       "flipX" : true,
@@ -22434,8 +22434,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 3.0,
+        "y" : 9.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22462,7 +22462,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 7.0,
+        "y" : -6.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22471,7 +22471,7 @@
         "type" : "BODY_OUTLINE",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 13.5,
           "unit" : false
         },
         "overrideRenderLayer" : 100
@@ -22479,14 +22479,14 @@
         "type" : "CREATURE_HEAD",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 13.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_EYES",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 13.5,
           "unit" : false
         }
       } ],
@@ -22499,8 +22499,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 8.0,
+        "x" : -1.5,
+        "y" : -5.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22508,23 +22508,23 @@
       "childAssets" : [ {
         "type" : "BODY_OUTLINE",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 1.5,
+          "y" : 13.5,
           "unit" : false
         },
         "overrideRenderLayer" : 100
       }, {
         "type" : "CREATURE_HEAD",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 1.5,
+          "y" : 13.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_EYES",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 1.5,
+          "y" : 13.5,
           "unit" : false
         }
       } ],
@@ -22537,8 +22537,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 8.0,
+        "x" : 1.5,
+        "y" : -5.5,
         "unit" : false
       },
       "flipX" : true,
@@ -22546,22 +22546,22 @@
       "childAssets" : [ {
         "type" : "BODY_OUTLINE",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -1.5,
+          "y" : 13.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_HEAD",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -1.5,
+          "y" : 13.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_EYES",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -1.5,
+          "y" : 13.5,
           "unit" : false
         }
       } ],
@@ -22574,8 +22574,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 11.0,
+        "x" : -0.5,
+        "y" : -9.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22583,22 +22583,22 @@
       "childAssets" : [ {
         "type" : "BODY_OUTLINE",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 0.5,
+          "y" : 20.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_HEAD",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 0.5,
+          "y" : 20.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_EYES",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 0.5,
+          "y" : 20.5,
           "unit" : false
         }
       } ],
@@ -22611,8 +22611,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 11.0,
+        "x" : 0.5,
+        "y" : -9.5,
         "unit" : false
       },
       "flipX" : true,
@@ -22620,22 +22620,22 @@
       "childAssets" : [ {
         "type" : "BODY_OUTLINE",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -0.5,
+          "y" : 20.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_HEAD",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -0.5,
+          "y" : 20.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_EYES",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -0.5,
+          "y" : 20.5,
           "unit" : false
         }
       } ],
@@ -22648,8 +22648,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 11.0,
+        "x" : -0.5,
+        "y" : -9.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22657,15 +22657,15 @@
       "childAssets" : [ {
         "type" : "BODY_OUTLINE",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 0.5,
+          "y" : 20.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_HEAD",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 0.5,
+          "y" : 20.5,
           "unit" : false
         }
       } ],
@@ -22689,7 +22689,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 3.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22703,8 +22703,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -4.5,
+        "y" : -1.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22718,8 +22718,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 4.5,
+        "y" : -1.0,
         "unit" : false
       },
       "flipX" : true,
@@ -22745,8 +22745,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -0.5,
+        "y" : 11.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22754,22 +22754,22 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 0.5,
+          "y" : -11.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_ABOVE_LAYER_3",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 0.5,
+          "y" : -11.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_ABOVE_LAYER_2",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 0.5,
+          "y" : -11.5,
           "unit" : false
         }
       } ],
@@ -22783,7 +22783,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 12.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22792,14 +22792,14 @@
         "type" : "CREATURE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : -12.0,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_ABOVE_LAYER_3",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : -12.0,
           "unit" : false
         }
       } ],
@@ -22813,7 +22813,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 12.0,
         "unit" : false
       },
       "flipX" : true,
@@ -22822,21 +22822,21 @@
         "type" : "CREATURE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : -12.0,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : -12.0,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_ABOVE_LAYER_3",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : -12.0,
           "unit" : false
         }
       } ],
@@ -22849,8 +22849,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -1.0,
+        "y" : 11.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22858,8 +22858,8 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_3",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 1.0,
+          "y" : -11.0,
           "unit" : false
         }
       } ],
@@ -22872,8 +22872,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 1.0,
+        "y" : 11.0,
         "unit" : false
       },
       "flipX" : true,
@@ -22881,8 +22881,8 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_3",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -1.0,
+          "y" : -11.0,
           "unit" : false
         }
       } ],
@@ -22896,7 +22896,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 11.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22905,7 +22905,7 @@
         "type" : "CREATURE_ABOVE_LAYER_3",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : -11.5,
           "unit" : false
         }
       } ],
@@ -22929,7 +22929,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 0.5,
         "unit" : false
       },
       "flipX" : false,
@@ -22943,7 +22943,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : 6.0,
         "y" : 0.0,
         "unit" : false
       },
@@ -22958,7 +22958,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : -6.0,
         "y" : 0.0,
         "unit" : false
       },
@@ -22973,8 +22973,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 6.5,
+        "y" : 2.5,
         "unit" : false
       },
       "flipX" : true,
@@ -22988,8 +22988,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -6.5,
+        "y" : 2.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23003,8 +23003,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 0.5,
+        "y" : -1.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23030,8 +23030,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 3.5,
+        "y" : -7.0,
         "unit" : false
       },
       "flipX" : false,
@@ -23039,8 +23039,8 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_2",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -3.5,
+          "y" : 7.0,
           "unit" : false
         }
       } ],
@@ -23053,8 +23053,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -3.5,
+        "y" : -7.0,
         "unit" : false
       },
       "flipX" : true,
@@ -23062,8 +23062,8 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_2",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 3.5,
+          "y" : 7.0,
           "unit" : false
         }
       } ],
@@ -23077,7 +23077,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -11.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23086,7 +23086,7 @@
         "type" : "CREATURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 11.5,
           "unit" : false
         }
       } ],
@@ -23099,8 +23099,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -1.0,
+        "y" : -1.5,
         "unit" : false
       },
       "flipX" : true,
@@ -23108,8 +23108,8 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_2",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 1.0,
+          "y" : 1.5,
           "unit" : false
         }
       } ],
@@ -23122,8 +23122,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 1.0,
+        "y" : -1.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23131,8 +23131,8 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_2",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -1.0,
+          "y" : 1.5,
           "unit" : false
         }
       } ],
@@ -23146,7 +23146,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -8.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23155,7 +23155,7 @@
         "type" : "CREATURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 8.5,
           "unit" : false
         }
       } ],
@@ -23180,7 +23180,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -11.0,
         "unit" : false
       },
       "flipX" : false,
@@ -23189,7 +23189,7 @@
         "type" : "CREATURE_ABOVE_LAYER_3",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 11.0,
           "unit" : false
         }
       } ],
@@ -23201,8 +23201,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 2.0,
+        "y" : -7.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23210,8 +23210,8 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_3",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -2.0,
+          "y" : 7.5,
           "unit" : false
         }
       } ],
@@ -23223,8 +23223,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -2.0,
+        "y" : -7.5,
         "unit" : false
       },
       "flipX" : true,
@@ -23232,8 +23232,8 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_3",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 2.0,
+          "y" : 7.5,
           "unit" : false
         }
       } ],
@@ -23245,8 +23245,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -1.0,
+        "y" : -2.5,
         "unit" : false
       },
       "flipX" : true,
@@ -23260,8 +23260,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 1.0,
+        "y" : -2.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23276,7 +23276,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -8.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23302,8 +23302,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -22.5,
+        "y" : -23.0,
         "unit" : false
       },
       "flipX" : false,
@@ -23317,8 +23317,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 22.5,
+        "y" : -23.0,
         "unit" : false
       },
       "flipX" : true,
@@ -23345,7 +23345,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 7.0,
+        "y" : 8.0,
         "unit" : false
       },
       "flipX" : false,
@@ -23354,15 +23354,15 @@
         "type" : "BODY_OUTLINE",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
-          "unit" : false
+          "y" : -1.0,
+          "unit" : true
         }
       }, {
         "type" : "CREATURE_HEAD",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
-          "unit" : false
+          "y" : -1.0,
+          "unit" : true
         }
       } ],
       "attachmentPoints" : [ ],
@@ -23374,8 +23374,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -9.0,
-        "y" : 0.0,
+        "x" : -3.5,
+        "y" : 0.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23383,15 +23383,15 @@
       "childAssets" : [ {
         "type" : "BODY_OUTLINE",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -5.5,
+          "y" : -0.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_HEAD",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -5.5,
+          "y" : -0.5,
           "unit" : false
         }
       } ],
@@ -23404,8 +23404,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 9.0,
-        "y" : 0.0,
+        "x" : 3.5,
+        "y" : 0.5,
         "unit" : false
       },
       "flipX" : true,
@@ -23413,15 +23413,15 @@
       "childAssets" : [ {
         "type" : "BODY_OUTLINE",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 5.5,
+          "y" : -0.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_HEAD",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 5.5,
+          "y" : -0.5,
           "unit" : false
         }
       } ],
@@ -23434,8 +23434,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 6.0,
+        "y" : 3.0,
         "unit" : false
       },
       "flipX" : true,
@@ -23443,15 +23443,15 @@
       "childAssets" : [ {
         "type" : "BODY_OUTLINE",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -6.0,
+          "y" : -3.0,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_HEAD",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -6.0,
+          "y" : -3.0,
           "unit" : false
         }
       } ],
@@ -23464,8 +23464,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -6.0,
+        "y" : 3.0,
         "unit" : false
       },
       "flipX" : false,
@@ -23473,15 +23473,15 @@
       "childAssets" : [ {
         "type" : "BODY_OUTLINE",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 6.0,
+          "y" : -3.0,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_HEAD",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 6.0,
+          "y" : -3.0,
           "unit" : false
         }
       } ],
@@ -23494,8 +23494,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -0.5,
+        "y" : -0.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23503,15 +23503,15 @@
       "childAssets" : [ {
         "type" : "BODY_OUTLINE",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 0.5,
+          "y" : 0.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 0.5,
+          "y" : 0.5,
           "unit" : false
         }
       } ],
@@ -23535,8 +23535,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -0.5,
+        "y" : -19.0,
         "unit" : false
       },
       "flipX" : false,
@@ -23551,8 +23551,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -20.0,
+        "y" : -13.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23567,8 +23567,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 20.0,
+        "y" : -13.5,
         "unit" : false
       },
       "flipX" : true,
@@ -23595,7 +23595,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -20.0,
         "unit" : false
       },
       "flipX" : false,
@@ -23604,14 +23604,14 @@
         "type" : "CREATURE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 20.0,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_EYES",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 20.0,
           "unit" : false
         }
       } ],
@@ -23624,8 +23624,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -19.0,
+        "y" : -17.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23633,16 +23633,16 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 19.0,
+          "y" : 17.5,
           "unit" : false
         },
         "overrideRenderLayer" : 300
       }, {
         "type" : "CREATURE_EYES",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 19.0,
+          "y" : 17.5,
           "unit" : false
         }
       } ],
@@ -23655,8 +23655,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 19.0,
+        "y" : -17.5,
         "unit" : false
       },
       "flipX" : true,
@@ -23664,15 +23664,15 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -19.0,
+          "y" : 17.5,
           "unit" : false
         }
       }, {
         "type" : "CREATURE_EYES",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -19.0,
+          "y" : 17.5,
           "unit" : false
         }
       } ],
@@ -23685,8 +23685,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -20.5,
+        "y" : 17.5,
         "unit" : false
       },
       "flipX" : true,
@@ -23694,8 +23694,8 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : 20.5,
+          "y" : -17.5,
           "unit" : false
         }
       } ],
@@ -23708,8 +23708,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 20.5,
+        "y" : 17.5,
         "unit" : false
       },
       "flipX" : false,
@@ -23717,8 +23717,8 @@
       "childAssets" : [ {
         "type" : "CREATURE_ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
-          "y" : 0.0,
+          "x" : -20.5,
+          "y" : -17.5,
           "unit" : false
         }
       } ],
