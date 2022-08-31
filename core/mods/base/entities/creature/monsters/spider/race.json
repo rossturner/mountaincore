@@ -19,6 +19,10 @@
   "behaviour" : {
     "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
+    "group" : {
+      "minSize" : 1,
+      "maxSize" : 200
+    },
     "aggressionResponse" : "ATTACK"
   },
   "features" : {
