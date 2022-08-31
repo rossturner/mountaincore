@@ -139,7 +139,7 @@ public class CreaturePopulator {
 			int maxDistance = cavesFurthestFirst.get(0).distanceFromEmbarkPoint;
 
 			for (RegionInformation cave : cavesFurthestFirst) {
-				if (amount > 0) {
+				if (amount > 0 && cave.tilesInRegion.size() > 1) {
 					//TODO: definitely refactor and test common components
 					//at 1.0, all difficulties available, at 0.0, no difficulties
 					float caveDistanceRatio =  (float) cave.distanceFromEmbarkPoint / maxDistance;
