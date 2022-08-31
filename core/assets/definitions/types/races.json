@@ -533,7 +533,7 @@
   "i18nKey" : "RACE.SPIDER",
   "minStrength" : 3.0,
   "maxStrength" : 6.0,
-  "bodyStructureName" : "pawed-quadruped",
+  "bodyStructureName" : "arachnid",
   "bodyShapes" : [ {
     "value" : "AVERAGE"
   } ],
@@ -552,6 +552,10 @@
     "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ ],
+    "group" : {
+      "minSize" : 1,
+      "maxSize" : 200
+    },
     "aggressionResponse" : "ATTACK",
     "isSapient" : false
   },
@@ -618,7 +622,7 @@
       "damageReduction" : {
         "STABBING" : 8,
         "SLASHING" : 8,
-        "CRUSHING" : 0
+        "CRUSHING" : -7
       }
     },
     "unarmedWeapon" : {
@@ -655,6 +659,10 @@
     "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ ],
+    "group" : {
+      "minSize" : 1,
+      "maxSize" : 3
+    },
     "aggressionResponse" : "ATTACK",
     "isSapient" : false
   },

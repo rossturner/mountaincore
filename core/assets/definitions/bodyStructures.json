@@ -1,4 +1,73 @@
 [ {
+  "name" : "arachnid",
+  "rootPartName" : "Cephalothorax",
+  "partDefinitions" : [ {
+    "name" : "Cephalothorax",
+    "size" : 0.5,
+    "bones" : [ "SKULL" ],
+    "organs" : [ {
+      "type" : "Brain",
+      "relativeSize" : 0.25
+    }, {
+      "type" : "Eye",
+      "discriminator" : "FirstLeft",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "SecondLeft",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "ThirdLeft",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "FourthLeft",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "FirstRight",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "SecondRight",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "ThirdRight",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "FourthRight",
+      "relativeSize" : 0.05
+    } ],
+    "childParts" : [ "Abdomen", "FirstLeft-Leg", "SecondLeft-Leg", "ThirdLeft-Leg", "FourthLeft-Leg", "FirstRight-Leg", "SecondRight-Leg", "ThirdRight-Leg", "FourthRight-Leg" ],
+    "i18nKey" : "BODY_STRUCTURE.CEPHALOTHORAX"
+  }, {
+    "name" : "Abdomen",
+    "size" : 0.8,
+    "bones" : [ "MEDIUM", "MEDIUM" ],
+    "organs" : [ {
+      "type" : "Heart",
+      "relativeSize" : 0.2
+    }, {
+      "type" : "Lung",
+      "relativeSize" : 0.25
+    }, {
+      "type" : "Intestine",
+      "relativeSize" : 0.3
+    } ],
+    "childParts" : [ ],
+    "i18nKey" : "BODY_STRUCTURE.ABDOMEN"
+  }, {
+    "name" : "Leg",
+    "size" : 1.0,
+    "bones" : [ "MEDIUM" ],
+    "organs" : [ ],
+    "childParts" : [ ],
+    "i18nKey" : "BODY_STRUCTURE.LEG"
+  } ]
+}, {
   "name" : "Fish",
   "rootPartName" : "Torso",
   "partDefinitions" : [ {
@@ -284,7 +353,7 @@
   } ]
 }, {
   "name" : "Serpent",
-  "rootPartName" : "Torso",
+  "rootPartName" : "Head",
   "partDefinitions" : [ {
     "name" : "Head",
     "size" : 1.0,
@@ -301,14 +370,14 @@
       "discriminator" : "Right",
       "relativeSize" : 0.05
     } ],
-    "childParts" : [ ],
+    "childParts" : [ "Torso" ],
     "i18nKey" : "BODY_STRUCTURE.HEAD"
   }, {
     "name" : "Torso",
     "size" : 0.9,
     "bones" : [ "SMALL", "SMALL" ],
     "organs" : [ ],
-    "childParts" : [ "Head" ],
+    "childParts" : [ ],
     "i18nKey" : "BODY_STRUCTURE.TORSO"
   } ]
 }, {

@@ -1,6 +1,6 @@
 {
   "name": "Serpent",
-  "rootPartName": "Torso",
+  "rootPartName": "Head",
   "partDefinitions": [
     {
       "name": "Head",
@@ -21,14 +21,14 @@
           "discriminator": "Right",
           "relativeSize": 0.05
         }
-      ]
+      ],
+      "childParts": ["Torso"]
     },
     {
       "name": "Torso",
       "size": 0.9,
       "bones": ["SMALL", "SMALL"],
-      "organs": [],
-      "childParts": ["Head"]
+      "organs": []
     }
   ]
 }

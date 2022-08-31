@@ -3,7 +3,7 @@
   "i18nKey" : "RACE.SPIDER",
   "minStrength" : 3.0,
   "maxStrength" : 6.0,
-  "bodyStructureName" : "pawed-quadruped",
+  "bodyStructureName" : "arachnid",
   "bodyShapes" : [ {
     "value" : "AVERAGE"
   } ],
