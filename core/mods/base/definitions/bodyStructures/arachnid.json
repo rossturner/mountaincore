@@ -5,7 +5,6 @@
     {
       "name": "Cephalothorax",
       "size": 0.5,
-      "bones": ["SKULL"],
       "organs": [
         {
           "type": "Brain",
@@ -58,7 +57,6 @@
     {
       "name": "Abdomen",
       "size": 0.8,
-      "bones": ["MEDIUM", "MEDIUM"],
       "organs": [
         {
           "type": "Heart",
@@ -76,8 +74,7 @@
     },
     {
       "name": "Leg",
-      "size": 1,
-      "bones": ["MEDIUM"]
+      "size": 1
     }
   ]
 }

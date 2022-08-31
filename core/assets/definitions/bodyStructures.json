@@ -4,7 +4,7 @@
   "partDefinitions" : [ {
     "name" : "Cephalothorax",
     "size" : 0.5,
-    "bones" : [ "SKULL" ],
+    "bones" : [ ],
     "organs" : [ {
       "type" : "Brain",
       "relativeSize" : 0.25
@@ -46,7 +46,7 @@
   }, {
     "name" : "Abdomen",
     "size" : 0.8,
-    "bones" : [ "MEDIUM", "MEDIUM" ],
+    "bones" : [ ],
     "organs" : [ {
       "type" : "Heart",
       "relativeSize" : 0.2
@@ -54,7 +54,7 @@
       "type" : "Lung",
       "relativeSize" : 0.25
     }, {
-      "type" : "Intestine",
+      "type" : "Intestines",
       "relativeSize" : 0.3
     } ],
     "childParts" : [ ],
@@ -62,7 +62,7 @@
   }, {
     "name" : "Leg",
     "size" : 1.0,
-    "bones" : [ "MEDIUM" ],
+    "bones" : [ ],
     "organs" : [ ],
     "childParts" : [ ],
     "i18nKey" : "BODY_STRUCTURE.LEG"
