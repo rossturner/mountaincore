@@ -218,7 +218,11 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		if (attackMessage.defenderEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes defenderAttributes) {
 			CreatureCombat defenderCombat = new CreatureCombat(attackMessage.defenderEntity);
 			int damageReduction = defenderCombat.getDamageReduction(damageType);
-			damageReduction = Math.max(0, damageReduction - attackMessage.weaponAttack.getArmorNegation());
+			if (damageReduction < 0) {
+				damageReduction += attackMessage.weaponAttack.getArmorNegation();
+			} else {
+				damageReduction -= attackMessage.weaponAttack.getArmorNegation();
+			}
 			damageAmount -= damageReduction;
 
 			if (attackMessage.attackerEntity.getType().equals(EntityType.CREATURE)) {
@@ -270,6 +274,10 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 
 						if (newDamageLevel.equals(Destroyed)) {
 							bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity, attackMessage.attackerEntity);
+							if(impactedBodyPart.getPartDefinition().getName().equals(defenderAttributes.getBody().getBodyStructure().getRootPartName())) {
+								messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH,
+										new CreatureDeathMessage(attackMessage.defenderEntity, DeathReason.EXTENSIVE_INJURIES));
+							}
 						}
 					}
 				}
@@ -292,8 +300,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private void handleKnockback(CombatAttackMessage attackMessage) {
-		CreatureBehaviour defenderBeahviour = (CreatureBehaviour) attackMessage.defenderEntity.getBehaviourComponent();
-		if (shouldApplyKnockback(defenderBeahviour)) {
+		if (attackMessage.defenderEntity.getBehaviourComponent() instanceof CreatureBehaviour defenderBehaviour && shouldApplyKnockback(defenderBehaviour)) {
 			GridPoint2 defenderTilePosition = toGridPoint(attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition());
 			List<CompassDirection> pushbackDirections = CompassDirection.fromNormalisedVector(
 					attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition().cpy()

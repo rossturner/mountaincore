@@ -34,7 +34,7 @@
       "damageReduction" : {
         "STABBING" : 8,
         "SLASHING" : 8,
-        "CRUSHING" : 0
+        "CRUSHING" : -7
       }
     },
     "unarmedWeapon" : {
