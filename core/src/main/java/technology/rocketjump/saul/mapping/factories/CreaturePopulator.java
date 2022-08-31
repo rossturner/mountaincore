@@ -120,7 +120,6 @@ public class CreaturePopulator {
 		class RegionInformation {
 			private final MapTile nearestTile;
 			private List<MapTile> tilesInRegion;
-			private Race race;
 
 			RegionInformation(MapTile nearestTile) {
 				this.nearestTile = nearestTile;
@@ -175,30 +174,29 @@ public class CreaturePopulator {
 			//todo: wiggle room?
 
 			for (RegionInformation cave : cavesFurthestFirst) {
-				if (cave.race == null && amount > 0) {
+				if (amount > 0) {
 					//TODO: definitely refactor and test common components
 					//at 1.0, all difficulties available, at 0.0, no difficulties
 					float caveDistanceRatio = (1.0f * chebyshevDistance(cave.nearestTile.getTilePosition(), embarkPoint)) / maxDistance;
 					int availableDifficulty = (int) Math.ceil(maxDifficulty * caveDistanceRatio * 1.2f); //TODO: round to next difficulty
 					int totalMonsterDifficulty = monsterRaces.stream().mapToInt(this::monsterDifficulty).filter(difficulty -> difficulty <= availableDifficulty).sum();
 					int selection = gameContext.getRandom().nextInt(totalMonsterDifficulty);
-					for (Race monster : monsterRaces) {
+
+					Race monster = null;
+					Iterator<Race> monsterIterator = monsterRaces.iterator();
+					while(selection > 0) {
+						monster = monsterIterator.next();
 						selection -= this.monsterDifficulty(monster);
-						if (cave.race == null && selection <= 0) {
-							cave.race = monster;
-						}
 					}
-				}
-				if (cave.race != null) {
-					for (int i = 0; i < cave.tilesInRegion.size(); i+=20) {
+
+					for (int i = 0; i < cave.tilesInRegion.size(); i+=40) {
 						MapTile randomCaveTile = cave.tilesInRegion.get(gameContext.getRandom().nextInt(cave.tilesInRegion.size()));
-						CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(cave.race);
+						CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(monster);
 						creatureEntityFactory.create(attributes, randomCaveTile.getWorldPositionOfCenter(), new Vector2(), gameContext, Faction.MONSTERS);
 						amount--;
 					}
 				}
 			}
-
 		}
 	}
 
