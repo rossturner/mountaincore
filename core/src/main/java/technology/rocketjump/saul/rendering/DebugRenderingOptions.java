@@ -10,6 +10,7 @@ public class DebugRenderingOptions {
 	private boolean showZones = false;
 	private boolean showPathfindingSlowdown = false;
 	private boolean showLiquidFlow = false;
+	private int frameBufferIndex = 1;
 
 	public boolean showIndividualLightingBuffers() {
 		return showIndividualLightingBuffers;
@@ -73,5 +74,13 @@ public class DebugRenderingOptions {
 
 	public void setShowLiquidFlow(boolean showLiquidFlow) {
 		this.showLiquidFlow = showLiquidFlow;
+	}
+
+	public int getFrameBufferIndex() {
+		return frameBufferIndex;
+	}
+
+	public void setFrameBufferIndex(int frameBufferIndex) {
+		this.frameBufferIndex = frameBufferIndex;
 	}
 }

@@ -46,6 +46,8 @@ public class GameRenderer implements AssetDisposable {
 	private TextureRegion lightingTextureRegion;
 	private FrameBuffer combinedFrameBuffer;
 	private TextureRegion combinedTextureRegion;
+	private TextureRegion[] textureRegions;
+	private String[] textureRegionNames;
 
 	private final OrthographicCamera viewportCamera;
 
@@ -158,17 +160,34 @@ public class GameRenderer implements AssetDisposable {
 			frameBufferSpriteBatch.setProjectionMatrix(viewportCamera.projection);
 
 			frameBufferSpriteBatch.draw(diffuseTextureRegion, -Gdx.graphics.getWidth() / 2.0f, 0f,
-					Gdx.graphics.getWidth() / 2.0f,  Gdx.graphics.getHeight() / 2.0f);
+					Gdx.graphics.getWidth() / 2.0f, Gdx.graphics.getHeight() / 2.0f);
 
 			frameBufferSpriteBatch.draw(bumpMapTextureRegion, 0f, 0f,
-					Gdx.graphics.getWidth() / 2.0f,  Gdx.graphics.getHeight() / 2.0f);
+					Gdx.graphics.getWidth() / 2.0f, Gdx.graphics.getHeight() / 2.0f);
 
 			frameBufferSpriteBatch.draw(lightingTextureRegion, -Gdx.graphics.getWidth() / 2.0f, -Gdx.graphics.getHeight() / 2.0f,
-					Gdx.graphics.getWidth() / 2.0f,  Gdx.graphics.getHeight() / 2.0f);
+					Gdx.graphics.getWidth() / 2.0f, Gdx.graphics.getHeight() / 2.0f);
 
 			frameBufferSpriteBatch.draw(combinedTextureRegion, 0f, -Gdx.graphics.getHeight() / 2.0f,
-					Gdx.graphics.getWidth() / 2.0f,  Gdx.graphics.getHeight() / 2.0f);
+					Gdx.graphics.getWidth() / 2.0f, Gdx.graphics.getHeight() / 2.0f);
 
+			frameBufferSpriteBatch.end();
+		} else if (renderingOptions.debug().getFrameBufferIndex() > 0 && renderingOptions.debug().getFrameBufferIndex() <= textureRegions.length) {
+			//0 means render game normally
+			int frameBufferIndex = renderingOptions.debug().getFrameBufferIndex();
+
+			TextureRegion toRender = textureRegions[frameBufferIndex - 1];
+			String textureRegionName = textureRegionNames[frameBufferIndex - 1];
+			screenWriter.printLine(textureRegionName);
+
+			combinedFrameBuffer.begin();
+			combinedRenderer.renderFinal(diffuseTextureRegion, lightingTextureRegion, fadeAmount);
+			combinedFrameBuffer.end();
+
+			frameBufferSpriteBatch.begin();
+			frameBufferSpriteBatch.disableBlending();
+			frameBufferSpriteBatch.setProjectionMatrix(viewportCamera.projection);
+			frameBufferSpriteBatch.draw(toRender, -Gdx.graphics.getWidth() / 2.0f, -Gdx.graphics.getHeight() / 2.0f, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			frameBufferSpriteBatch.end();
 		} else {
 			combinedRenderer.renderFinal(diffuseTextureRegion, lightingTextureRegion, fadeAmount);
@@ -201,6 +220,18 @@ public class GameRenderer implements AssetDisposable {
 		combinedFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, /* hasDepth */ false, /* hasStencil */ false);
 		combinedTextureRegion = new TextureRegion(combinedFrameBuffer.getColorBufferTexture(), width, height);
 		combinedTextureRegion.flip(false, true);
+
+		textureRegions = new TextureRegion[4];
+		textureRegions[0] = diffuseTextureRegion;
+		textureRegions[1] = bumpMapTextureRegion;
+		textureRegions[2] = lightingTextureRegion;
+		textureRegions[3] = combinedTextureRegion;
+
+		textureRegionNames = new String[4];
+		textureRegionNames[0] = "Diffuse Texture";
+		textureRegionNames[1] = "Bump Map Texture";
+		textureRegionNames[2] = "Lighting Texture";
+		textureRegionNames[3] = "Combined Texture";
 	}
 
 	private void disposeFrameBuffers() {
@@ -208,6 +239,7 @@ public class GameRenderer implements AssetDisposable {
 		normalMapFrameBuffer.dispose();
 		lightingFrameBuffer.dispose();
 		combinedFrameBuffer.dispose();
+		textureRegions = null;
 	}
 
 }

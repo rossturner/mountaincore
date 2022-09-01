@@ -36,6 +36,7 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 	private final MessageDispatcher messageDispatcher;
 	private GameContext gameContext;
 	private Map<Integer, Boolean> buttonsPressed = new HashMap<>();
+	private Map<Integer, Boolean> keysPressed = new HashMap<>();
 	private float startX, startY;
 
 	@Inject
@@ -53,6 +54,7 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	@Override
 	public boolean keyDown(int keycode) {
+		keysPressed.put(keycode, true);
 		if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT) {
 			primaryCameraWrapper.setPanSpeedMultiplier(true);
 		} else if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
@@ -79,8 +81,11 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	@Override
 	public boolean keyUp(int keycode) {
+		keysPressed.put(keycode, false);
 		if (GlobalSettings.DEV_MODE) {
-			if (keycode == Input.Keys.J) {
+			if (isKeyPressed(Input.Keys.CONTROL_LEFT) && keycode >= Input.Keys.NUM_0 && keycode <= Input.Keys.NUM_9) {
+				renderingOptions.debug().setFrameBufferIndex(keycode - Input.Keys.NUM_0);
+			} else if (keycode == Input.Keys.J) {
 				renderingOptions.debug().setShowJobStatus(!renderingOptions.debug().showJobStatus());
 			} else if (keycode == Input.Keys.O) {
 				renderingOptions.toggleFloorOverlapRenderingEnabled();
@@ -104,6 +109,9 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		}
 
 
+		if (isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+			return true;
+		}
 		if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT) {
 			primaryCameraWrapper.setPanSpeedMultiplier(false);
 		} else if (keycode == Input.Keys.NUM_1 && gameContext != null) {
@@ -137,6 +145,11 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 			return false;
 		}
 		return true;
+	}
+
+	private boolean isKeyPressed(int keyCode) {
+		Boolean pressed = keysPressed.get(keyCode);
+		return pressed != null && pressed;
 	}
 
 	@Override
