@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import static technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary.*;
+import static technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary.NULL_SCHEDULE;
 import static technology.rocketjump.saul.entities.ai.goap.SettlerCategory.CIVILIAN;
 import static technology.rocketjump.saul.entities.ai.goap.SettlerCategory.MILITARY;
 import static technology.rocketjump.saul.entities.ai.goap.SpecialGoal.IDLE;
@@ -423,10 +423,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
 		if (militaryComponent != null && militaryComponent.isInMilitary()) {
 			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
-			return switch (squad.getShift()) {
-				case DAYTIME -> militaryDayShiftSchedule;
-				case NIGHTTIME -> militaryNightShiftSchedule;
-			};
+			return ScheduleDictionary.getScheduleForSquadShift(squad.getShift());
 		}
 		if (parentEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes attributes) {
 			return attributes.getRace().getBehaviour().getSchedule();

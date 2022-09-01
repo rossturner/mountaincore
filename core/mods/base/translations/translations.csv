@@ -733,6 +733,11 @@ METAL.TIN.TOOLTIP,,Tin can be smelted from {{ORE.CASSITERITE.NOUN}} and alloyed 
 MILITARY.SQUAD.DEFAULT_NAME,,Squad
 MILITARY.SQUAD.SHIFT.DAYTIME,Used to assign a squad to active duty during the daytime,Day shift
 MILITARY.SQUAD.SHIFT.NIGHTTIME,Used to assign a squad to active duty during the nighttime,Night shift
+MILITARY.SQUAD.ORDER_DESCRIPTION.OFF_DUTY,,Currently off duty
+MILITARY.SQUAD.ORDER_DESCRIPTION.GUARDING,,Guarding a position
+MILITARY.SQUAD.ORDER_DESCRIPTION.COMBAT,,In combat
+MILITARY.SQUAD.ORDER_DESCRIPTION.TRAINING,,Training combat skills
+MILITARY.SQUAD.ORDER_DESCRIPTION.RETREATING,,Retreating from combat
 
 MODS.APPLY,,Apply
 MODS.COMPATIBILITY.COMPATIBLE,,Yes

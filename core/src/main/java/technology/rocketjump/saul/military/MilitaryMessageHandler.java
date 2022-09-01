@@ -64,7 +64,7 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 			case MessageType.MILITARY_SQUAD_ORDERS_CHANGED -> {
 				SquadOrderChangeMessage message = (SquadOrderChangeMessage) msg.extraInfo;
 
-				// TODO handle changes with to/from orders
+				// TODO handle changes with to/from orders (if needed?)
 
 				message.squad.setCurrentOrderType(message.newOrderType);
 

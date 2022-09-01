@@ -3,6 +3,10 @@ package technology.rocketjump.saul.military.model;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.GridPoint2;
+import technology.rocketjump.saul.entities.ai.goap.Schedule;
+import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
+import technology.rocketjump.saul.environment.GameClock;
+import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.military.model.formations.SquadFormation;
 import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.JSONUtils;
@@ -10,16 +14,21 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.Persistable;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+import technology.rocketjump.saul.ui.i18n.I18nText;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static technology.rocketjump.saul.entities.ai.goap.ScheduleCategory.MILITARY_DUTY;
+import static technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary.getScheduleForSquadShift;
+
 /**
  * A grouping of military dwarves into a single unit to give orders to
  */
-public class Squad implements Persistable {
+public class Squad implements Persistable, SelectableDescription {
 
 	private long id; // Think this will just be 1 to 6 for labelling as such in the UI
 	private final List<Long> memberEntityIds = new ArrayList<>();
@@ -38,6 +47,27 @@ public class Squad implements Persistable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	@Override
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+		I18nText orderDescription;
+		if (isOnShift(gameContext.getGameClock())) {
+			orderDescription = switch (currentOrderType) {
+				case GUARDING -> i18nTranslator.getTranslatedString("MILITARY.SQUAD.ORDER_DESCRIPTION.GUARDING");
+				case COMBAT -> i18nTranslator.getTranslatedString("MILITARY.SQUAD.ORDER_DESCRIPTION.COMBAT");
+				case TRAINING -> i18nTranslator.getTranslatedString("MILITARY.SQUAD.ORDER_DESCRIPTION.TRAINING");
+				case RETREATING -> i18nTranslator.getTranslatedString("MILITARY.SQUAD.ORDER_DESCRIPTION.RETREATING");
+			};
+		} else {
+			orderDescription = i18nTranslator.getTranslatedString("MILITARY.SQUAD.ORDER_DESCRIPTION.OFF_DUTY");
+		}
+		return List.of(orderDescription);
+	}
+
+	private boolean isOnShift(GameClock gameClock) {
+		Schedule schedule = getScheduleForSquadShift(shift);
+		return schedule.getCurrentApplicableCategories(gameClock).contains(MILITARY_DUTY);
 	}
 
 	public List<Long> getMemberEntityIds() {

@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.SquadOrderChangeMessage;
 import technology.rocketjump.saul.military.SquadFormationDictionary;
@@ -20,9 +22,11 @@ import technology.rocketjump.saul.military.model.formations.SquadFormation;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.*;
+import technology.rocketjump.saul.ui.widgets.libgdxclone.SaulSelectBox;
 
 import java.util.List;
 
@@ -30,7 +34,7 @@ import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.Wi
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.SQUAD;
 
 @Singleton
-public class SquadSelectedGuiView implements GuiView {
+public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 	private final Table outerTable;
 	private final Table upperTable;
@@ -40,21 +44,25 @@ public class SquadSelectedGuiView implements GuiView {
 	private final I18nTextButton shiftButton;
 	private final I18nTranslator i18nTranslator;
 
-	private final EnhancedSelectBox<SquadFormation> squadFormationSelectBox;
+	private final SaulSelectBox<SquadFormation> squadFormationSelectBox;
 
 	private final ImageButton trainingOrderButton;
 	private final ImageButton guardOrderButton;
 	private final ImageButton attackOrderButton;
 	private final ImageButton cancelAttackOrderButton;
 	private final ImageButton retreatOrderButton;
+	private final MessageDispatcher messageDispatcher;
+	private GameContext gameContext;
 
 	@Inject
 	public SquadSelectedGuiView(GuiSkinRepository guiSkinRepository, GameInteractionStateContainer gameInteractionStateContainer,
 								I18nWidgetFactory i18nWidgetFactory, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher,
-								ImageButtonFactory imageButtonFactory, SquadFormationDictionary squadFormationDictionary) {
+								ImageButtonFactory imageButtonFactory, SquadFormationDictionary squadFormationDictionary,
+								MessageDispatcher messageDispatcher1) {
 		this.uiSkin = guiSkinRepository.getDefault();
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
+		this.messageDispatcher = messageDispatcher1;
 
 		outerTable = new Table(uiSkin);
 		outerTable.background("default-rect");
@@ -103,7 +111,7 @@ public class SquadSelectedGuiView implements GuiView {
 		cancelAttackOrderButton.setAction(() -> {
 			Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
 			if (squad != null) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.REMOVE_DESIGNATIONS);
+				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.CANCEL_ATTACK_CREATURE);
 				updateButtonToggle(squad);
 			}
 		});
@@ -116,7 +124,7 @@ public class SquadSelectedGuiView implements GuiView {
 			}
 		});
 
-		squadFormationSelectBox = new EnhancedSelectBox<>(uiSkin);
+		squadFormationSelectBox = new SaulSelectBox<>(uiSkin);
 		squadFormationSelectBox.setItems(orderedArray(squadFormationDictionary.getAll(), null));
 		squadFormationSelectBox.addListener(new ChangeListener() {
 			@Override
@@ -146,7 +154,7 @@ public class SquadSelectedGuiView implements GuiView {
 
 	@Override
 	public void update() {
-		if (squadFormationSelectBox.isShowingList()) {
+		if (squadFormationSelectBox.isListDisplayed()) {
 			// Don't refresh everything while list is open or it'll close
 			return;
 		}
@@ -161,7 +169,9 @@ public class SquadSelectedGuiView implements GuiView {
 			Squad squad = selectable.getSquad();
 
 			upperTable.add(new Label(squad.getName(), uiSkin)).left().pad(5).row();
-			upperTable.add(new Label("TODO: Description of what squad is doing", uiSkin)).left().pad(5).row();
+			for (I18nText descriptionText : squad.getDescription(i18nTranslator, gameContext)) {
+				upperTable.add(new I18nTextWidget(descriptionText, uiSkin, messageDispatcher)).left().pad(5).row();
+			}
 			updateShiftButtonText(squad.getShift());
 			upperTable.add(shiftButton).left().pad(5).row();
 			upperTable.add(new Label("FORMATION:", uiSkin)).left().pad(5).row();
@@ -203,5 +213,15 @@ public class SquadSelectedGuiView implements GuiView {
 			case COMBAT -> attackOrderButton.setToggledOn(true);
 			case RETREATING -> retreatOrderButton.setToggledOn(true);
 		}
+	}
+
+	@Override
+	public void onContextChange(GameContext gameContext) {
+		this.gameContext = gameContext;
+	}
+
+	@Override
+	public void clearContextRelatedState() {
+
 	}
 }

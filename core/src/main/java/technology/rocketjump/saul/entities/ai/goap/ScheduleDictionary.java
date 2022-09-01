@@ -4,6 +4,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.military.model.MilitaryShift;
 
 import java.io.IOException;
 import java.util.*;
@@ -15,9 +16,16 @@ public class ScheduleDictionary {
 	private static final String MILITARY_NIGHT_SHIFT_SCHEDULE_NAME = "Military night shift";
 
 	private Map<String, Schedule> byName = new HashMap<>();
-	public static Schedule militaryDayShiftSchedule;
-	public static Schedule militaryNightShiftSchedule;
+	private static Schedule militaryDayShiftSchedule;
+	private static Schedule militaryNightShiftSchedule;
 	public static final Schedule NULL_SCHEDULE = new Schedule("NULL", Map.of());
+
+	public static Schedule getScheduleForSquadShift(MilitaryShift shift) {
+		return switch (shift) {
+			case DAYTIME -> militaryDayShiftSchedule;
+			case NIGHTTIME -> militaryNightShiftSchedule;
+		};
+	}
 
 	@Inject
 	public ScheduleDictionary() throws IOException {

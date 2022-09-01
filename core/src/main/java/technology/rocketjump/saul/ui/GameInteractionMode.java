@@ -124,7 +124,7 @@ public enum GameInteractionMode {
 	}, true),
 	SQUAD_MOVE_TO_LOCATION("movement", null, mapTile ->
 			mapTile.getExploration().equals(EXPLORED) && mapTile.isNavigable(null), false),
-	SQUAD_ATTACK_CREATURE("hunting", null, null, true),
+	SQUAD_ATTACK_CREATURE("hunting", null, mapTile -> mapTile.getExploration().equals(EXPLORED), true),
 	CANCEL_ATTACK_CREATURE("cancel", null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
 			mapTile.getUnderTile() != null && mapTile.getUnderTile().getQueuedMechanismType() != null, true);
 

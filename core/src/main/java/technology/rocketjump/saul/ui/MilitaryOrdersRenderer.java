@@ -5,6 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -22,6 +23,11 @@ import technology.rocketjump.saul.rendering.custom_libgdx.ShaderLoader;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import static technology.rocketjump.saul.mapping.MapMessageHandler.getAttackableCreatures;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
@@ -34,6 +40,7 @@ public class MilitaryOrdersRenderer {
 	private final GameInteractionStateContainer interactionStateContainer;
 	private final EntityRenderer entityRenderer;
 	private final SpriteBatch greyscaleSpriteBatch = new SpriteBatch();
+	private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
 	@Inject
 	public MilitaryOrdersRenderer(GameInteractionStateContainer interactionStateContainer, EntityRenderer entityRenderer) {
@@ -45,10 +52,15 @@ public class MilitaryOrdersRenderer {
 		greyscaleSpriteBatch.setShader(ShaderLoader.createShader(vertexShaderFile, fragmentShaderFile));
 	}
 
+	private Set<Entity> targetedCreatures = new HashSet<>();
+	private Set<Entity> currentSquadTargetedCreatures = new HashSet<>();
 
 	public void render(GameContext gameContext, OrthographicCamera camera) {
 		TileBoundingBox boundingBox = new TileBoundingBox(camera, gameContext.getAreaMap());
 
+		targetedCreatures.clear();
+		currentSquadTargetedCreatures.clear();
+		Squad currentSelectedSquad = interactionStateContainer.getSelectable() != null ? interactionStateContainer.getSelectable().getSquad() : null;
 
 		greyscaleSpriteBatch.setProjectionMatrix(camera.combined);
 
@@ -59,6 +71,17 @@ public class MilitaryOrdersRenderer {
 				squad.getGuardingLocation() != null) {
 				renderSquadPositions(squad, squad.getGuardingLocation(), boundingBox, gameContext, LIME);
 			}
+
+			squad.getAttackEntityIds().stream()
+					.map(id -> gameContext.getEntities().get(id))
+					.filter(Objects::nonNull)
+					.forEach(attackedEntity -> {
+						if (currentSelectedSquad != null && currentSelectedSquad.getAttackEntityIds().contains(attackedEntity.getId())) {
+							currentSquadTargetedCreatures.add(attackedEntity);
+						} else {
+							targetedCreatures.add(attackedEntity);
+						}
+					});
 		}
 
 		if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.SQUAD_MOVE_TO_LOCATION)) {
@@ -74,11 +97,43 @@ public class MilitaryOrdersRenderer {
 					renderSquadPositions(selectedSquad, cursorTilePosition, boundingBox, gameContext, LIGHT_BLUE);
 				}
 			}
-
-
 		}
 
 		greyscaleSpriteBatch.end();
+
+		if ((interactionStateContainer.getInteractionMode().equals(GameInteractionMode.SQUAD_ATTACK_CREATURE) ||
+				interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL_ATTACK_CREATURE)) &&
+				interactionStateContainer.isDragging()) {
+			Set<Entity> attackableCreatures = getAttackableCreatures(interactionStateContainer.getMinPoint(), interactionStateContainer.getMaxPoint(), gameContext);
+
+			if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.SQUAD_ATTACK_CREATURE)) {
+				currentSquadTargetedCreatures.addAll(attackableCreatures);
+				targetedCreatures.removeAll(attackableCreatures);
+			} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL_ATTACK_CREATURE)) {
+				currentSquadTargetedCreatures.removeAll(attackableCreatures);
+			}
+		}
+
+		// TODO replace with fancier outline rendering
+		shapeRenderer.setProjectionMatrix(camera.combined);
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+		for (Entity targetedCreature : targetedCreatures) {
+			shapeRenderer.setColor(Color.ORANGE);
+			Vector2 worldPosition = targetedCreature.getLocationComponent().getWorldPosition();
+			if (worldPosition != null) {
+				shapeRenderer.circle(worldPosition.x, worldPosition.y,
+						targetedCreature.getLocationComponent().getRadius() + 0.3f, 100);
+			}
+		}
+		for (Entity targetedCreature : currentSquadTargetedCreatures) {
+			shapeRenderer.setColor(Color.RED);
+			Vector2 worldPosition = targetedCreature.getLocationComponent().getWorldPosition();
+			if (worldPosition != null) {
+				shapeRenderer.circle(worldPosition.x, worldPosition.y,
+						targetedCreature.getLocationComponent().getRadius() + 0.3f, 100);
+			}
+		}
+		shapeRenderer.end();
 
 	}
 
