@@ -116,10 +116,6 @@ public class CookingSession implements ChildPersistable {
 			}
 		}
 		this.completed = asJson.getBooleanValue("completed");
-		if (asJson.getDouble("gameTimeStart") == null) {
-			this.gameTimeStart = 0.0;
-		} else {
-			this.gameTimeStart = asJson.getDoubleValue("gameTimeStart");
-		}
+		this.gameTimeStart = asJson.getDoubleValue("gameTimeStart");
 	}
 }

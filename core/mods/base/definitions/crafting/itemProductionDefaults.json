@@ -77,7 +77,7 @@
     "fixedAmount": 1
   },
   "Product-Ration": {
-    "perSettler": 7
+    "perSettler": 25
   },
   "Product-Ration-Dough": {
     "perSettler": 2

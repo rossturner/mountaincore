@@ -543,7 +543,7 @@
     "itemTypeName" : "Resource-Flour-Sack",
     "quantity" : 4
   }, {
-    "itemTypeName" : "Resource-Stone-Block",
+    "itemTypeName" : "Resource-Stone-Unrefined",
     "quantity" : 1
   } ],
   "output" : [ {
