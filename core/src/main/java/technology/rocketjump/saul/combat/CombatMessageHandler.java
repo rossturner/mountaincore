@@ -11,6 +11,7 @@ import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
+import technology.rocketjump.saul.combat.model.WeaponAttack;
 import technology.rocketjump.saul.entities.ai.combat.*;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
@@ -211,19 +212,10 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 			damageAmount += getStrengthModifier(attackMessage.attackerEntity);
 		}
 
-		CombatDamageType damageType = attackMessage.weaponAttack.getDamageType();
-
 		// reduce by target's damage reduction
 
 		if (attackMessage.defenderEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes defenderAttributes) {
-			CreatureCombat defenderCombat = new CreatureCombat(attackMessage.defenderEntity);
-			int damageReduction = defenderCombat.getDamageReduction(damageType);
-			if (damageReduction < 0) {
-				damageReduction += attackMessage.weaponAttack.getArmorNegation();
-			} else {
-				damageReduction -= attackMessage.weaponAttack.getArmorNegation();
-			}
-			damageAmount -= damageReduction;
+			damageAmount = adjustDamageAmount(damageAmount, attackMessage);
 
 			if (attackMessage.attackerEntity.getType().equals(EntityType.CREATURE)) {
 				MemoryComponent memoryComponent = attackMessage.defenderEntity.getOrCreateComponent(MemoryComponent.class);
@@ -296,6 +288,22 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 			}
 		} else {
 			Logger.warn("TODO: Damage application to non-creature entities");
+		}
+	}
+
+	public static int adjustDamageAmount(int currentDamageAmount, CombatAttackMessage attackMessage) {
+		Entity defenderEntity = attackMessage.defenderEntity;
+		WeaponAttack weaponAttack = attackMessage.weaponAttack;
+		CombatDamageType damageType = weaponAttack.getDamageType();
+		CreatureCombat creatureCombat = new CreatureCombat(defenderEntity);
+
+		int armorNegation = attackMessage.weaponAttack.getArmorNegation();
+		int damageReduction = creatureCombat.getDamageReduction(damageType);
+
+		if (damageReduction >= 0) {
+			return currentDamageAmount - Math.max(0, damageReduction - armorNegation);
+		} else {
+			return currentDamageAmount - Math.min(0, damageReduction + armorNegation);
 		}
 	}
 
