@@ -1,11 +1,13 @@
 package technology.rocketjump.saul.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
@@ -41,6 +43,7 @@ import technology.rocketjump.saul.rendering.RoomRenderer;
 import technology.rocketjump.saul.rendering.TerrainRenderer;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.custom_libgdx.CustomShaderSpriteBatch;
+import technology.rocketjump.saul.rendering.custom_libgdx.ShaderLoader;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.mechanisms.MechanismsViewModeRenderer;
 import technology.rocketjump.saul.rendering.piping.PipingViewModeRenderer;
@@ -80,6 +83,7 @@ public class InWorldUIRenderer {
 
 	private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 	private final SpriteBatch spriteBatch = new SpriteBatch();
+	private final ShaderProgram selectedEntityShaderProgram;
 	private final CustomShaderSpriteBatch customShaderSpriteBatch;
 	private final RoomRenderer roomRenderer;
 	private final RenderingOptions renderingOptions;
@@ -111,6 +115,28 @@ public class InWorldUIRenderer {
 
 		FurnitureType singleDoorType = furnitureTypeDictionary.getByName("SINGLE_DOOR");
 		this.doorIconSprite = iconSpriteCache.getByName(singleDoorType.getIconName());
+		FileHandle vertexShaderFile = Gdx.files.classpath("shaders/default_vertex_shader.glsl"); //TODO: should be a constant somewhere?
+		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/alpha_preserving_fragment_shader.glsl");
+
+		this.selectedEntityShaderProgram = ShaderLoader.createShader(vertexShaderFile, fragmentShaderFile);
+	}
+
+	public void renderSelectedEntity(OrthographicCamera camera) {
+		if (interactionStateContainer.getSelectable() == null) {
+			return;
+		}
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		ShaderProgram previousShader = spriteBatch.getShader();
+		spriteBatch.setShader(selectedEntityShaderProgram);
+		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.enableBlending();
+		spriteBatch.begin();
+		Selectable selectable = interactionStateContainer.getSelectable();
+		if (Selectable.SelectableType.ENTITY == selectable.type) {
+			entityRenderer.render(selectable.getEntity(), spriteBatch, RenderMode.DIFFUSE, null, null, null);
+		}
+		spriteBatch.end();
+		spriteBatch.setShader(previousShader);
 	}
 
 	public void render(GameContext gameContext, OrthographicCamera camera, List<ParticleEffectInstance> particlesToRenderAsUI, TerrainSpriteCache diffuseSpriteCache) {
@@ -510,4 +536,5 @@ public class InWorldUIRenderer {
 			}
 		}
 	}
+
 }

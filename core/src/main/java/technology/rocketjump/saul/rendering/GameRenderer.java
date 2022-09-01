@@ -44,6 +44,8 @@ public class GameRenderer implements AssetDisposable {
 	private TextureRegion bumpMapTextureRegion;
 	private FrameBuffer lightingFrameBuffer;
 	private TextureRegion lightingTextureRegion;
+	private FrameBuffer selectedEntitiesFrameBuffer;
+	private TextureRegion selectedEntitiesTextureRegion;
 	private FrameBuffer combinedFrameBuffer;
 	private TextureRegion combinedTextureRegion;
 	private TextureRegion[] textureRegions;
@@ -141,6 +143,11 @@ public class GameRenderer implements AssetDisposable {
 		worldRenderer.renderWorld(worldMap, camera, normalSpriteCache, RenderMode.NORMALS, null, null);
 		normalMapFrameBuffer.end();
 
+		//TODO: draw entity outline/depth? buffer here
+		selectedEntitiesFrameBuffer.begin();
+		inWorldUIRenderer.renderSelectedEntity(camera);
+		selectedEntitiesFrameBuffer.end();
+
 		/////// Draw lighting info ///
 
 		lightingFrameBuffer.begin();
@@ -221,17 +228,23 @@ public class GameRenderer implements AssetDisposable {
 		combinedTextureRegion = new TextureRegion(combinedFrameBuffer.getColorBufferTexture(), width, height);
 		combinedTextureRegion.flip(false, true);
 
-		textureRegions = new TextureRegion[4];
+		selectedEntitiesFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false, false);
+		selectedEntitiesTextureRegion = new TextureRegion(selectedEntitiesFrameBuffer.getColorBufferTexture(), width, height);
+		selectedEntitiesTextureRegion.flip(false, true);
+
+		textureRegions = new TextureRegion[5];
 		textureRegions[0] = diffuseTextureRegion;
 		textureRegions[1] = bumpMapTextureRegion;
 		textureRegions[2] = lightingTextureRegion;
-		textureRegions[3] = combinedTextureRegion;
+		textureRegions[3] = selectedEntitiesTextureRegion;
+		textureRegions[4] = combinedTextureRegion;
 
-		textureRegionNames = new String[4];
+		textureRegionNames = new String[5];
 		textureRegionNames[0] = "Diffuse Texture";
 		textureRegionNames[1] = "Bump Map Texture";
 		textureRegionNames[2] = "Lighting Texture";
-		textureRegionNames[3] = "Combined Texture";
+		textureRegionNames[3] = "Selected Entities Texture";
+		textureRegionNames[4] = "Combined Texture";
 	}
 
 	private void disposeFrameBuffers() {
