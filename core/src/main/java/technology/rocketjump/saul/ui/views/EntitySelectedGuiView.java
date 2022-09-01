@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.EntityStore;
+import technology.rocketjump.saul.entities.ai.combat.CombatAction;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
@@ -322,7 +323,14 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
 						if (combatStateComponent != null && combatStateComponent.isInCombat()) {
 							if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
-								entityDescriptionTable.add(new Label("In combat: " + creatureBehaviour.getCombatBehaviour().getCurrentAction().getClass().getSimpleName(), uiSkin)).left().row();
+								CombatAction currentAction = creatureBehaviour.getCombatBehaviour().getCurrentAction();
+								String combatText;
+								if (currentAction == null) {
+									combatText = "In combat";
+								} else {
+									combatText = "In combat: " + currentAction.getClass().getSimpleName();
+								}
+								entityDescriptionTable.add(new Label(combatText, uiSkin)).left().row();
 							}
 						}
 //					SettlerBehaviour behaviourComponent = (SettlerBehaviour) entity.getBehaviourComponent();

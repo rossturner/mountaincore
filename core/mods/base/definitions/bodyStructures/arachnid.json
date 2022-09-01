@@ -1,0 +1,80 @@
+{
+  "name": "arachnid",
+  "rootPartName": "Cephalothorax",
+  "partDefinitions": [
+    {
+      "name": "Cephalothorax",
+      "size": 0.5,
+      "organs": [
+        {
+          "type": "Brain",
+          "relativeSize": 0.25
+        },
+        {
+          "type": "Eye",
+          "discriminator": "FirstLeft",
+          "relativeSize": 0.05
+        },
+        {
+          "type": "Eye",
+          "discriminator": "SecondLeft",
+          "relativeSize": 0.05
+        },
+        {
+          "type": "Eye",
+          "discriminator": "ThirdLeft",
+          "relativeSize": 0.05
+        },
+        {
+          "type": "Eye",
+          "discriminator": "FourthLeft",
+          "relativeSize": 0.05
+        },
+        {
+          "type": "Eye",
+          "discriminator": "FirstRight",
+          "relativeSize": 0.05
+        },
+        {
+          "type": "Eye",
+          "discriminator": "SecondRight",
+          "relativeSize": 0.05
+        },
+        {
+          "type": "Eye",
+          "discriminator": "ThirdRight",
+          "relativeSize": 0.05
+        },
+        {
+          "type": "Eye",
+          "discriminator": "FourthRight",
+          "relativeSize": 0.05
+        }
+      ],
+      "childParts": ["Abdomen", "FirstLeft-Leg", "SecondLeft-Leg", "ThirdLeft-Leg", "FourthLeft-Leg",
+        "FirstRight-Leg", "SecondRight-Leg", "ThirdRight-Leg", "FourthRight-Leg"]
+    },
+    {
+      "name": "Abdomen",
+      "size": 0.8,
+      "organs": [
+        {
+          "type": "Heart",
+          "relativeSize": 0.2
+        },
+        {
+          "type": "Lung",
+          "relativeSize": 0.25
+        },
+        {
+          "type": "Intestines",
+          "relativeSize": 0.3
+        }
+      ]
+    },
+    {
+      "name": "Leg",
+      "size": 1
+    }
+  ]
+}

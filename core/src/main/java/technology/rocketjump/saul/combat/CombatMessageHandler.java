@@ -11,6 +11,7 @@ import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
+import technology.rocketjump.saul.combat.model.WeaponAttack;
 import technology.rocketjump.saul.entities.ai.combat.*;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
@@ -211,15 +212,10 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 			damageAmount += getStrengthModifier(attackMessage.attackerEntity);
 		}
 
-		CombatDamageType damageType = attackMessage.weaponAttack.getDamageType();
-
 		// reduce by target's damage reduction
 
 		if (attackMessage.defenderEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes defenderAttributes) {
-			CreatureCombat defenderCombat = new CreatureCombat(attackMessage.defenderEntity);
-			int damageReduction = defenderCombat.getDamageReduction(damageType);
-			damageReduction = Math.max(0, damageReduction - attackMessage.weaponAttack.getArmorNegation());
-			damageAmount -= damageReduction;
+			damageAmount = adjustDamageAmount(damageAmount, attackMessage);
 
 			if (attackMessage.attackerEntity.getType().equals(EntityType.CREATURE)) {
 				MemoryComponent memoryComponent = attackMessage.defenderEntity.getOrCreateComponent(MemoryComponent.class);
@@ -270,6 +266,10 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 
 						if (newDamageLevel.equals(Destroyed)) {
 							bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity, attackMessage.attackerEntity);
+							if(impactedBodyPart.getPartDefinition().getName().equals(defenderAttributes.getBody().getBodyStructure().getRootPartName())) {
+								messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH,
+										new CreatureDeathMessage(attackMessage.defenderEntity, DeathReason.EXTENSIVE_INJURIES));
+							}
 						}
 					}
 				}
@@ -291,9 +291,24 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		}
 	}
 
+	public static int adjustDamageAmount(int currentDamageAmount, CombatAttackMessage attackMessage) {
+		Entity defenderEntity = attackMessage.defenderEntity;
+		WeaponAttack weaponAttack = attackMessage.weaponAttack;
+		CombatDamageType damageType = weaponAttack.getDamageType();
+		CreatureCombat creatureCombat = new CreatureCombat(defenderEntity);
+
+		int armorNegation = attackMessage.weaponAttack.getArmorNegation();
+		int damageReduction = creatureCombat.getDamageReduction(damageType);
+
+		if (damageReduction >= 0) {
+			return currentDamageAmount - Math.max(0, damageReduction - armorNegation);
+		} else {
+			return currentDamageAmount - Math.min(0, damageReduction + armorNegation);
+		}
+	}
+
 	private void handleKnockback(CombatAttackMessage attackMessage) {
-		CreatureBehaviour defenderBeahviour = (CreatureBehaviour) attackMessage.defenderEntity.getBehaviourComponent();
-		if (shouldApplyKnockback(defenderBeahviour)) {
+		if (attackMessage.defenderEntity.getBehaviourComponent() instanceof CreatureBehaviour defenderBehaviour && shouldApplyKnockback(defenderBehaviour)) {
 			GridPoint2 defenderTilePosition = toGridPoint(attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition());
 			List<CompassDirection> pushbackDirections = CompassDirection.fromNormalisedVector(
 					attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition().cpy()
