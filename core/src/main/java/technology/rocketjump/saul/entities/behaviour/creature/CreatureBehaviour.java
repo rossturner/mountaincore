@@ -412,7 +412,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 								happinessComponent.add(SAW_DEAD_BODY);
 							}
 
-							return; // TODO remove this, but for now this is the only thing to see so might as well stop looking
+							return;
 						} else if (myFaction == Faction.MONSTERS && myFaction != targetFaction) {
 							MemoryComponent memoryComponent = parentEntity.getOrCreateComponent(MemoryComponent.class);
 							Memory attackedByCreatureMemory = new Memory(MemoryType.ATTACKED_BY_CREATURE, gameContext.getGameClock());

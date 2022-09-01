@@ -70,7 +70,7 @@ public class CreatureEntityFactory  {
 		entity.addComponent(new MemoryComponent());
 		entity.getOrCreateComponent(CombatStateComponent.class).init(entity, messageDispatcher, gameContext);
 		entity.getOrCreateComponent(StatusComponent.class).init(entity, messageDispatcher, gameContext);
-		entity.getOrCreateComponent(FactionComponent.class).setFaction(faction); // TODO derive this from other data
+		entity.getOrCreateComponent(FactionComponent.class).setFaction(faction);
 
 		entityAssetUpdater.updateEntityAssets(entity);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, entity);

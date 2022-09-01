@@ -325,7 +325,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 							if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
 								CombatAction currentAction = creatureBehaviour.getCombatBehaviour().getCurrentAction();
 								String combatText;
-								//TODO: i18n ?
 								if (currentAction == null) {
 									combatText = "In combat";
 								} else {
