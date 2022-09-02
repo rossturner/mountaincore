@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.entities.ai.memory;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.EnumUtils;
 import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
@@ -12,7 +13,9 @@ import technology.rocketjump.saul.persistence.model.ChildPersistable;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * This class represents a memory that happened to a sapient being at some point (may be short or long term memory)
@@ -28,6 +31,7 @@ public class Memory implements ChildPersistable {
 	private String relatedGoalName;
 	private AmmoType relatedAmmoType;
 	private Long relatedEntityId;
+	private Set<Long> relatedEntityIds;
 
 	public Memory() {
 
@@ -104,6 +108,14 @@ public class Memory implements ChildPersistable {
 		return relatedEntityId;
 	}
 
+	public Set<Long> getRelatedEntityIds() {
+		return relatedEntityIds;
+	}
+
+	public void setRelatedEntityIds(Set<Long> relatedEntityIds) {
+		this.relatedEntityIds = relatedEntityIds;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		asJson.put("type", type.name());
@@ -126,6 +138,11 @@ public class Memory implements ChildPersistable {
 		}
 		if (relatedEntityId != null) {
 			asJson.put("relatedEntityId", relatedEntityId);
+		}
+		if (relatedEntityIds != null && !relatedEntityIds.isEmpty()) {
+			JSONArray relatedIdsJson = new JSONArray();
+			relatedIdsJson.addAll(relatedEntityIds);
+			asJson.put("relatedEntityIds", relatedIdsJson);
 		}
 	}
 
@@ -160,6 +177,14 @@ public class Memory implements ChildPersistable {
 		}
 
 		this.relatedEntityId = asJson.getLong("relatedEntityId");
+
+		JSONArray relatedIdsJson = asJson.getJSONArray("relatedEntityIds");
+		if (relatedIdsJson != null) {
+			this.relatedEntityIds = new HashSet<>();
+			for (int cursor = 0; cursor < relatedIdsJson.size(); cursor++) {
+				relatedEntityIds.add(relatedIdsJson.getLong(cursor));
+			}
+		}
 
 		this.relatedGoalName = asJson.getString("relatedGoalName");
 	}

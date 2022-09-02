@@ -56,6 +56,8 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
+import technology.rocketjump.saul.military.model.Squad;
+import technology.rocketjump.saul.military.model.SquadOrderType;
 import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
@@ -795,6 +797,15 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, deceased);
 		}
 		showAsRotatedOnSide(deceased, gameContext);
+
+		for (Squad squad : gameContext.getSquads().values()) {
+			if (squad.getAttackEntityIds().contains(deceased.getId())) {
+				squad.getAttackEntityIds().remove(deceased.getId());
+				if (squad.getAttackEntityIds().isEmpty()) {
+					messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.TRAINING));
+				}
+			}
+		}
 
 		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
 			boolean allDead = true;

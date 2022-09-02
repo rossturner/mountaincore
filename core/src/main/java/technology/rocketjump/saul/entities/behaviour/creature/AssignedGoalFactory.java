@@ -100,7 +100,7 @@ public class AssignedGoalFactory {
 		InventoryComponent inventory = parentEntity.getComponent(InventoryComponent.class);
 		if (inventory != null) {
 			MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
-			List<Long> assignedMilitaryItems = militaryComponent.getItemIdsToHoldOnto();
+			List<Long> assignedMilitaryItems = militaryComponent == null ? List.of() : militaryComponent.getItemIdsToHoldOnto();
 
 			double currentGameTime = gameContext.getGameClock().getCurrentGameTime();
 			for (InventoryComponent.InventoryEntry entry : inventory.getInventoryEntries()) {

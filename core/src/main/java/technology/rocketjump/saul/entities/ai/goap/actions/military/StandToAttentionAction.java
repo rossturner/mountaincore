@@ -1,8 +1,10 @@
-package technology.rocketjump.saul.entities.ai.goap.actions;
+package technology.rocketjump.saul.entities.ai.goap.actions.military;
 
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
+import technology.rocketjump.saul.entities.ai.goap.actions.Action;
+import technology.rocketjump.saul.entities.ai.goap.actions.FaceTowardsLocationAction;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.CompassDirection;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;

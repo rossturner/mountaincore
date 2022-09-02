@@ -405,7 +405,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
 						if (combatStateComponent != null && combatStateComponent.isInCombat()) {
 							if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
-								entityDescriptionTable.add(new Label("In combat: " + creatureBehaviour.getCombatBehaviour().getCurrentAction().getClass().getSimpleName(), uiSkin)).left().row();
+								if (creatureBehaviour.getCombatBehaviour().getCurrentAction() != null) {
+									entityDescriptionTable.add(new Label("In combat: " + creatureBehaviour.getCombatBehaviour().getCurrentAction().getClass().getSimpleName(), uiSkin)).left().row();
+								}
 							}
 						}
 					}

@@ -324,6 +324,31 @@
   "initialActions" : [ "Idle" ],
   "interruptedByLowNeeds" : true
 }, {
+  "i18nDescription" : "GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION",
+  "settlerCategories" : [ "MILITARY" ],
+  "name" : "Attack squad target",
+  "actionRelationships" : {
+    "RequeueThisGoal" : { },
+    "AttackOpponent" : { },
+    "SelectOpponent" : {
+      "fail" : [ ],
+      "pass" : [ "MoveTowardsOpponent" ]
+    },
+    "MoveTowardsOpponent" : {
+      "fail" : [ "RequeueThisGoal" ],
+      "pass" : [ "AttackOpponent" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "MILITARY_DUTY",
+    "conditions" : [ {
+      "orderType" : "COMBAT",
+      "type" : "SQUAD_HAS_ORDERS"
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "initialActions" : [ "SelectOpponent" ]
+}, {
   "i18nDescription" : "GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION",
   "settlerCategories" : [ "MILITARY" ],
   "name" : "Stand in formation",

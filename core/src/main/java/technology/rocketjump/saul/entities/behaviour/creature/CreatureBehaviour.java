@@ -234,14 +234,17 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			return onFireGoal(parentEntity, messageDispatcher, gameContext);
 		}
 
-		Optional<Memory> attackedMemory = getMemoryOfAttackedByCreature(parentEntity, creatureGroup, gameContext);
-		if (attackedMemory.isPresent()) {
+		Optional<Memory> combatMemory = getCombatRelatedMemory(parentEntity, creatureGroup, gameContext);
+		if (combatMemory.isPresent()) {
 			if (creatureGroup != null) {
-				creatureGroup.getSharedMemoryComponent().addShortTerm(attackedMemory.get(), gameContext.getGameClock());
+				creatureGroup.getSharedMemoryComponent().addShortTerm(combatMemory.get(), gameContext.getGameClock());
 			}
 			CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 			combatStateComponent.clearState();
-			combatStateComponent.setTargetedOpponentId(attackedMemory.get().getRelatedEntityId());
+			combatStateComponent.setTargetedOpponentId(combatMemory.get().getRelatedEntityId());
+			if (combatMemory.get().getRelatedEntityIds() != null) {
+				combatStateComponent.setOpponentEntityIds(combatMemory.get().getRelatedEntityIds());
+			}
 			throw new EnteringCombatException();
 		}
 
@@ -279,15 +282,17 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		return new AssignedGoal(nextGoal.getGoal(), parentEntity, messageDispatcher);
 	}
 
-	public static Optional<Memory> getMemoryOfAttackedByCreature(Entity entity, CreatureGroup creatureGroup, GameContext gameContext) {
+	private static final List<MemoryType> enterCombatMemoryTypes = List.of(MemoryType.ATTACKED_BY_CREATURE, MemoryType.ABOUT_TO_ATTACK_CREATURE);
+
+	public static Optional<Memory> getCombatRelatedMemory(Entity entity, CreatureGroup creatureGroup, GameContext gameContext) {
 		MemoryComponent memoryComponent = entity.getOrCreateComponent(MemoryComponent.class);
-		Optional<Memory> attackedMemory = memoryComponent.getShortTermMemories(gameContext.getGameClock())
-				.stream().filter(m -> m.getType().equals(MemoryType.ATTACKED_BY_CREATURE)).findAny();
-		if (attackedMemory.isEmpty() && creatureGroup != null) {
-			attackedMemory = creatureGroup.getSharedMemoryComponent().getShortTermMemories(gameContext.getGameClock())
-					.stream().filter(m -> m.getType().equals(MemoryType.ATTACKED_BY_CREATURE)).findAny();
+		Optional<Memory> combatMemory = memoryComponent.getShortTermMemories(gameContext.getGameClock())
+				.stream().filter(m -> enterCombatMemoryTypes.contains(m.getType())).findAny();
+		if (combatMemory.isEmpty() && creatureGroup != null) {
+			combatMemory = creatureGroup.getSharedMemoryComponent().getShortTermMemories(gameContext.getGameClock())
+					.stream().filter(m -> enterCombatMemoryTypes.contains(m.getType())).findAny();
 		}
-		return attackedMemory;
+		return combatMemory;
 	}
 
 	@Override

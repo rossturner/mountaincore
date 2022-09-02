@@ -407,12 +407,12 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 			newlySelected.removeAll(currentlySelected);
 			if (!newlySelected.isEmpty()) {
 				squad.getAttackEntityIds().addAll(newlySelected);
-				squad.setCurrentOrderType(SquadOrderType.COMBAT);
+				messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.COMBAT));
 			}
 		} else {
 			squad.getAttackEntityIds().removeAll(newlySelected);
 			if (squad.getAttackEntityIds().isEmpty()) {
-				squad.setCurrentOrderType(SquadOrderType.TRAINING);
+				messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.TRAINING));
 			}
 		}
 	}

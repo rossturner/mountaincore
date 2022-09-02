@@ -56,6 +56,7 @@ BODY_STRUCTURE.HAND,,Hand
 BODY_STRUCTURE.HEAD,,Head
 BODY_STRUCTURE.HOOF,,Hoof
 BODY_STRUCTURE.LEG,,Leg
+BODY_STRUCTURE.TRUNK,,Trunk
 BODY_STRUCTURE.ORGAN.BRAIN,,Brain
 BODY_STRUCTURE.ORGAN.EYE,,Eye
 BODY_STRUCTURE.ORGAN.HEART,,Heart
@@ -379,6 +380,8 @@ GOAL.ON_FIRE.DESCRIPTION,,On fire!
 GOAL.REFILL_WATERSKIN.DESCRIPTION,,Refilling waterskin
 GOAL.SLEEP.DESCRIPTION,,Going to sleep
 GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {{targetZoneMaterial}}
+GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION,,Moving into combat
+GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION,,Guarding a position
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
 GUI.ADD_TILES,This should be as short as possible,Add tiles

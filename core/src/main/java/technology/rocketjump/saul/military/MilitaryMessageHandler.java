@@ -13,6 +13,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.SquadOrderChangeMessage;
 import technology.rocketjump.saul.military.model.Squad;
+import technology.rocketjump.saul.military.model.SquadOrderType;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 @Singleton
@@ -64,7 +65,9 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 			case MessageType.MILITARY_SQUAD_ORDERS_CHANGED -> {
 				SquadOrderChangeMessage message = (SquadOrderChangeMessage) msg.extraInfo;
 
-				// TODO handle changes with to/from orders (if needed?)
+				if (!message.newOrderType.equals(SquadOrderType.COMBAT)) {
+					message.squad.getAttackEntityIds().clear();
+				}
 
 				message.squad.setCurrentOrderType(message.newOrderType);
 

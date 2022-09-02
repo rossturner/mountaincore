@@ -9,23 +9,18 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.reflections.ReflectionUtils;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.ai.combat.*;
-import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
-import technology.rocketjump.saul.entities.ai.goap.actions.EquipWeaponAction;
-import technology.rocketjump.saul.entities.ai.goap.actions.UnequipWeaponAction;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
+import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse;
-import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
-import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.Gender;
+import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.creature.body.Body;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamage;
@@ -52,7 +47,6 @@ import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import java.util.*;
 
 import static technology.rocketjump.saul.combat.CombatMessageHandler.getOrientationsOppositeTo;
-import static technology.rocketjump.saul.entities.ai.goap.Goal.NULL_GOAL;
 import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 import static technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse.ATTACK;
 import static technology.rocketjump.saul.entities.model.physical.creature.AggressionResponse.FLEE;
@@ -359,6 +353,11 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	}
 
 	private AggressionResponse getAggressionResponse() {
+		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
+		if (militaryComponent != null && militaryComponent.isInMilitary()) {
+			return ATTACK;
+		}
+
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		AggressionResponse aggressionResponse = attributes.getRace().getBehaviour().getAggressionResponse();
 		if (aggressionResponse == null || aggressionResponse.equals(AggressionResponse.MIXED)) {
@@ -439,15 +438,51 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	}
 
 	public void onEnteringCombat() {
-		// Might want to move the implementation of the below to here if it ends up no longer used by normal GOAP
-		new EquipWeaponAction(new AssignedGoal(NULL_GOAL, parentEntity, messageDispatcher))
-				.update(0.1f, gameContext);
+		equipWeapon();
+	}
+
+	private void equipWeapon() {
+		InventoryComponent inventoryComponent = parentEntity.getOrCreateComponent(InventoryComponent.class);
+		EquippedItemComponent equippedItemComponent = parentEntity.getOrCreateComponent(EquippedItemComponent.class);
+		HaulingComponent haulingComponent = parentEntity.getComponent(HaulingComponent.class);
+
+		Entity currentlyEquipped = equippedItemComponent.clearMainHandItem();
+		if (currentlyEquipped != null) {
+			inventoryComponent.add(currentlyEquipped, parentEntity, messageDispatcher, gameContext.getGameClock());
+		}
+		if (haulingComponent != null) {
+			Entity hauledEntity = haulingComponent.getHauledEntity();
+			if (hauledEntity != null) {
+				haulingComponent.clearHauledEntity();
+				inventoryComponent.add(hauledEntity, parentEntity, messageDispatcher, gameContext.getGameClock());
+				parentEntity.removeComponent(HaulingComponent.class);
+			}
+		}
+
+		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
+		Long assignedWeaponId = militaryComponent != null ? militaryComponent.getAssignedWeaponId() : null;
+
+		if (assignedWeaponId != null) {
+			Entity weaponInInventory = inventoryComponent.getById(assignedWeaponId);
+			if (weaponInInventory != null) {
+				inventoryComponent.remove(weaponInInventory.getId());
+				equippedItemComponent.setMainHandItem(weaponInInventory, parentEntity, messageDispatcher);
+			}
+		}
+
+		Long assignedShieldId = militaryComponent != null ? militaryComponent.getAssignedShieldId() : null;
+		if (assignedShieldId != null) {
+			Entity shieldInInventory = inventoryComponent.getById(assignedShieldId);
+			if (shieldInInventory != null) {
+				inventoryComponent.remove(shieldInInventory.getId());
+				equippedItemComponent.setOffHandItem(shieldInInventory, parentEntity, messageDispatcher);
+			}
+		}
 	}
 
 	public void onExitingCombat() {
 		parentEntity.getComponent(CombatStateComponent.class).clearState();
-		new UnequipWeaponAction(new AssignedGoal(NULL_GOAL, parentEntity, messageDispatcher))
-				.update(0.1f, gameContext);
+		unequipWeapon();
 
 		if (defensePoolEffect != null) {
 			defensePoolEffect.getWrappedInstance().allowCompletion();
@@ -457,6 +492,20 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		currentAction = null;
 		attackOfOpportunityAction = null;
 		pendingKnockback = null;
+	}
+
+	private void unequipWeapon() {
+		InventoryComponent inventoryComponent = parentEntity.getOrCreateComponent(InventoryComponent.class);
+		EquippedItemComponent equippedItemComponent = parentEntity.getOrCreateComponent(EquippedItemComponent.class);
+		Entity currentlyEquipped = equippedItemComponent.clearMainHandItem();
+		if (currentlyEquipped != null) {
+			inventoryComponent.add(currentlyEquipped, parentEntity, messageDispatcher, gameContext.getGameClock());
+		}
+
+		Entity equippedOffHand = equippedItemComponent.clearOffHandItem();
+		if (equippedOffHand != null) {
+			inventoryComponent.add(equippedOffHand, parentEntity, messageDispatcher, gameContext.getGameClock());
+		}
 	}
 
 	public CombatAction getCurrentAction() {

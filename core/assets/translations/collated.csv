@@ -67,6 +67,7 @@ BODY_STRUCTURE.ORGAN_DAMAGE.HEAVY,Heavy damage to,,Schwerer Schaden an,,Danni pe
 BODY_STRUCTURE.ORGAN_DAMAGE.LIGHT,Light damage to,,Leichter Schaden an,,Danno leggero a,Daño leve en,,,,Легкое повреждение,,,,,,,,軽傷:,轻伤：,
 BODY_STRUCTURE.PAW,Paw,,Pfote,,Zampa,Zarpa,,,,Лапа,,,,,,,,肉球,爪子,
 BODY_STRUCTURE.TORSO,Chest,,Brust,,Torso,Pecho,,,,Грудь,,,,,,,,胸,胸,
+BODY_STRUCTURE.TRUNK,Trunk,,,,,,,,,,,,,,,,,,,
 
 BONE.BONE,Bone,,Knochen,,Osso,Hueso,,,,Кость,,,,,,,,骨,骨头,
 
@@ -376,6 +377,7 @@ GOAL.EXTINGUISH_FIRE.DESCRIPTION,Putting out a fire,,Löscht ein Feuer,,Spegnere
 GOAL.FLEE_FROM_AGGRESSOR.DESCRIPTION,Fleeing from {{targetDescription}},,Flucht vor {{targetDescription}},,In fuga da {{targetDescription}},Huyendo de {{targetDescription}},,,,Убегает от {{targetDescription}},,,,,,,,{{targetDescription}}から逃げている,正在逃离{{targetDescription}},
 GOAL.HAULING.DESCRIPTION,Hauling {{targetDescription}},,Transportiert {{itemDescription}},Transporte: {{itemDescription}},Sta trasportando: {{itemDescription}},Transportando {{itemDescription}},Carregar {{itemDescription}},Transportando {{targetDescription}},,Переноска: {{itemDescription}},{{itemDescription}} taşınıyor,Hauling {{targetDescription}},,Släpa {{itemDescription}},,,,{{targetDescription}}を運んでいる,正在搬运{{targetDescription}},
 GOAL.IDLE.DESCRIPTION,Idle,,Untätig,Libre,Non sta facendo niente,Descansando,Inativo,À toa,,Бездельничает,Boşta,- Itomgang,,Inaktiv,,,,何もしていない,闲置,
+GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION,Moving into combat,,,,,,,,,,,,,,,,,,,
 GOAL.ON_FIRE.DESCRIPTION,On fire!,,Brennt!,,A fuoco!,¡En llamas!,,,,Горит!,,,,,,,,炎上している！,着火了！,
 GOAL.REFILL_WATERSKIN.DESCRIPTION,Refilling waterskin,,,,,,,,,,,,,,,,,,,
 GOAL.SLEEP.DESCRIPTION,Going to sleep,,Geht schlafen,Va dormir,Sta andando a dormire,Yendo a dormir,A ir para a cama,Indo dormir,,Собирается спать,Uyumaya gidiyor,Skal til at sove,,Gå till sängs,,,,眠ろうとしている,去睡觉,
