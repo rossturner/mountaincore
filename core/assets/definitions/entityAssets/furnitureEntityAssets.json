@@ -9065,7 +9065,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : -2.5,
         "y" : 0.0,
         "unit" : false
       },
@@ -9074,7 +9074,7 @@
       "childAssets" : [ {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
+          "x" : 2.5,
           "y" : 0.0,
           "unit" : false
         }
@@ -9097,7 +9097,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : 6.0,
         "y" : 0.0,
         "unit" : false
       },
@@ -9123,7 +9123,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -0.5,
         "unit" : false
       },
       "flipX" : true,
@@ -9132,7 +9132,7 @@
         "type" : "FURNITURE_BELOW_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 0.5,
           "unit" : false
         }
       } ],
@@ -9155,7 +9155,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 4.0,
         "unit" : false
       },
       "flipX" : false,
@@ -9211,8 +9211,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 0.5,
+        "y" : 0.5,
         "unit" : false
       },
       "flipX" : false,
@@ -9236,7 +9236,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : 2.5,
         "y" : 0.0,
         "unit" : false
       },
@@ -9245,7 +9245,7 @@
       "childAssets" : [ {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
+          "x" : -2.5,
           "y" : 0.0,
           "unit" : false
         }
@@ -9268,7 +9268,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : -6.0,
         "y" : 0.0,
         "unit" : false
       },
@@ -9291,10 +9291,10 @@
       "filename" : "Training_Dummy-1x1 with w workspace-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
-      "scale" : 1.0,
+      "scale" : 1.25,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 4.5,
         "unit" : false
       },
       "flipX" : true,
@@ -9316,10 +9316,10 @@
       "filename" : "Training_Dummy-1x1 with s workspace-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
-      "scale" : 1.0,
+      "scale" : 1.25,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -1.5,
+        "y" : 4.5,
         "unit" : false
       },
       "flipX" : true,
@@ -9341,10 +9341,10 @@
       "filename" : "Training_Dummy-1x1 with s workspace-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
-      "scale" : 1.0,
+      "scale" : 1.25,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 1.5,
+        "y" : 4.5,
         "unit" : false
       },
       "flipX" : false,
@@ -9366,10 +9366,10 @@
       "filename" : "Training_Dummy-1x1 with w workspace-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
-      "scale" : 1.0,
+      "scale" : 1.25,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 4.5,
         "unit" : false
       },
       "flipX" : false,

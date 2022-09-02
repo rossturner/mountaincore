@@ -11,7 +11,7 @@
       "quantity" : 3
     } ]
   },
-  "tags": {
-    "WORKSPACE_LOCATIONS_MUST_BE_INSIDE_ROOM": []
+  "tags" : {
+    "WORKSPACE_LOCATIONS_MUST_BE_INSIDE_ROOM" : [ ]
   }
 }

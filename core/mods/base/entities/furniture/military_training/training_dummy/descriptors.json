@@ -8,6 +8,10 @@
     "DOWN" : {
       "filename" : "Training_Dummy-1x1 with w workspace-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
+      "scale" : 1.25,
+      "offsetPixels" : {
+        "y" : 4.5
+      },
       "flipX" : true
     }
   }
@@ -21,6 +25,11 @@
     "DOWN" : {
       "filename" : "Training_Dummy-1x1 with s workspace-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
+      "scale" : 1.25,
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : 4.5
+      },
       "flipX" : true
     }
   }
@@ -33,7 +42,12 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Training_Dummy-1x1 with s workspace-Base_Layer-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR"
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 1.25,
+      "offsetPixels" : {
+        "x" : 1.5,
+        "y" : 4.5
+      }
     }
   }
 }, {
@@ -45,7 +59,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Training_Dummy-1x1 with w workspace-Base_Layer-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR"
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 1.25,
+      "offsetPixels" : {
+        "y" : 4.5
+      }
     }
   }
 } ]
