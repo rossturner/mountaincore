@@ -488,4 +488,213 @@
       "colorCode" : "#e62d23"
     }
   }
+}, {
+  "name" : "Fungolem",
+  "i18nKey" : "RACE.FUNGOLEM",
+  "minStrength" : 0.0,
+  "maxStrength" : 0.0,
+  "bodyStructureName" : "Humanoid",
+  "bodyShapes" : [ {
+    "value" : "AVERAGE"
+  } ],
+  "colors" : {
+    "HAIR_COLOR" : {
+      "swatch" : "fungolem-hair-swatch.png",
+      "hidden" : false
+    },
+    "SKIN_COLOR" : {
+      "colorCode" : "#fcf2f0",
+      "hidden" : false
+    }
+  },
+  "mapPlacement" : "CAVE_MONSTER",
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "needs" : [ "SLEEP" ],
+    "aggressionResponse" : "FLEE",
+    "isSapient" : false
+  },
+  "genders" : { },
+  "features" : {
+    "defense" : {
+      "maxDefensePoints" : 3,
+      "maxDefenseRegainedPerRound" : 0,
+      "damageReduction" : {
+        "STABBING" : 0,
+        "SLASHING" : 0,
+        "CRUSHING" : 0
+      }
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "CRUSHING",
+      "modifiedByStrength" : false,
+      "minDamage" : 1,
+      "maxDamage" : 2,
+      "armorNegation" : 0,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "animatedSpriteEffectName" : "Weapon slash"
+    }
+  }
+}, {
+  "name" : "Spider",
+  "i18nKey" : "RACE.SPIDER",
+  "minStrength" : 3.0,
+  "maxStrength" : 6.0,
+  "bodyStructureName" : "arachnid",
+  "bodyShapes" : [ {
+    "value" : "AVERAGE"
+  } ],
+  "colors" : {
+    "SKIN_COLOR" : {
+      "colorCode" : "#665446",
+      "hidden" : false
+    },
+    "EYE_COLOR" : {
+      "colorCode" : "#b25f3f",
+      "hidden" : false
+    }
+  },
+  "mapPlacement" : "CAVE_MONSTER",
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "needs" : [ ],
+    "group" : {
+      "minSize" : 1,
+      "maxSize" : 200
+    },
+    "aggressionResponse" : "ATTACK",
+    "isSapient" : false
+  },
+  "genders" : { },
+  "features" : {
+    "defense" : {
+      "maxDefensePoints" : 6,
+      "maxDefenseRegainedPerRound" : 1,
+      "damageReduction" : {
+        "STABBING" : 0,
+        "SLASHING" : 0,
+        "CRUSHING" : 0
+      }
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "STABBING",
+      "modifiedByStrength" : true,
+      "minDamage" : 1,
+      "maxDamage" : 3,
+      "armorNegation" : 0,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "animatedSpriteEffectName" : "Weapon slash"
+    }
+  }
+}, {
+  "name" : "Undead Dwarf",
+  "i18nKey" : "RACE.UNDEAD_DWARF",
+  "minStrength" : 2.0,
+  "maxStrength" : 17.0,
+  "bodyStructureName" : "Undead Humanoid",
+  "bodyShapes" : [ {
+    "value" : "FAT",
+    "maxStrength" : 10.0
+  }, {
+    "value" : "AVERAGE"
+  }, {
+    "value" : "STRONG",
+    "maxStrength" : 14.5
+  } ],
+  "colors" : {
+    "BONE_COLOR" : {
+      "colorCode" : "#fbfbf9",
+      "hidden" : false
+    },
+    "OTHER_COLOR" : {
+      "colorCode" : "#DB0B23",
+      "hidden" : false
+    }
+  },
+  "mapPlacement" : "CAVE_MONSTER",
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "needs" : [ ],
+    "aggressionResponse" : "ATTACK",
+    "isSapient" : false
+  },
+  "genders" : { },
+  "features" : {
+    "defense" : {
+      "maxDefensePoints" : 10,
+      "maxDefenseRegainedPerRound" : 1,
+      "damageReduction" : {
+        "STABBING" : 8,
+        "SLASHING" : 8,
+        "CRUSHING" : -7
+      }
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "SLASHING",
+      "modifiedByStrength" : true,
+      "minDamage" : 2,
+      "maxDamage" : 6,
+      "armorNegation" : 0,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "animatedSpriteEffectName" : "Weapon slash"
+    },
+    "bones" : {
+      "materialName" : "Bone"
+    }
+  }
+}, {
+  "name" : "Wurm",
+  "i18nKey" : "RACE.WURM",
+  "minStrength" : 12.0,
+  "maxStrength" : 20.0,
+  "bodyStructureName" : "Serpent",
+  "bodyShapes" : [ {
+    "value" : "ANY"
+  } ],
+  "colors" : {
+    "SKIN_COLOR" : {
+      "swatch" : "wurm-skin-swatch.png",
+      "hidden" : false
+    }
+  },
+  "mapPlacement" : "CAVE_MONSTER",
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "needs" : [ ],
+    "group" : {
+      "minSize" : 1,
+      "maxSize" : 3
+    },
+    "aggressionResponse" : "ATTACK",
+    "isSapient" : false
+  },
+  "genders" : { },
+  "features" : {
+    "defense" : {
+      "maxDefensePoints" : 20,
+      "maxDefenseRegainedPerRound" : 3,
+      "damageReduction" : {
+        "STABBING" : 0,
+        "SLASHING" : 0,
+        "CRUSHING" : 10
+      }
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "CRUSHING",
+      "modifiedByStrength" : true,
+      "minDamage" : 4,
+      "maxDamage" : 15,
+      "armorNegation" : 0,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "animatedSpriteEffectName" : "Weapon slash"
+    }
+  }
 } ]

@@ -8,6 +8,12 @@
     {
       "conditions": [
         {
+          "type": "NEED",
+          "need": "FOOD",
+          "operator": "GREATER_THAN",
+          "value": -10
+        },
+        {
           "type": "INVENTORY",
           "itemType": "Product-Ration",
           "operator": "LESS_THAN",

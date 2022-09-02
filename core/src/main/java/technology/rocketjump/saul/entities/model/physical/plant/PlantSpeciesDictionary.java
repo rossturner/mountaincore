@@ -138,13 +138,18 @@ public class PlantSpeciesDictionary {
 		}
 
 		if (speciesColor.getSwatch() != null) {
-			Pixmap swatchPixmap = new Pixmap(new FileHandle(basePath + speciesColor.getSwatch()));
-			for (int y = 0; y < swatchPixmap.getHeight(); y++) {
-				for (int x = 0; x < swatchPixmap.getWidth(); x++) {
-					speciesColor.getSwatchColors().add(new Color(swatchPixmap.getPixel(x, y)));
+			FileHandle swatchFile = new FileHandle(basePath + speciesColor.getSwatch());
+			if (swatchFile.exists()) {
+				Pixmap swatchPixmap = new Pixmap(swatchFile);
+				for (int y = 0; y < swatchPixmap.getHeight(); y++) {
+					for (int x = 0; x < swatchPixmap.getWidth(); x++) {
+						speciesColor.getSwatchColors().add(new Color(swatchPixmap.getPixel(x, y)));
+					}
 				}
+				swatchPixmap.dispose();
+			} else {
+				Logger.warn("Swatch file does not exist at " + swatchFile);
 			}
-			swatchPixmap.dispose();
 		}
 
 		if (speciesColor.getColorChart() != null) {

@@ -42,7 +42,7 @@ public class CreatureEntityFactory  {
 		this.roomStore = roomStore;
 	}
 
-	public Entity create(CreatureEntityAttributes attributes, Vector2 worldPosition, Vector2 facing, GameContext gameContext) {
+	public Entity create(CreatureEntityAttributes attributes, Vector2 worldPosition, Vector2 facing, GameContext gameContext, Faction faction) {
 		PhysicalEntityComponent physicalComponent = new PhysicalEntityComponent();
 		physicalComponent.setAttributes(attributes);
 
@@ -70,7 +70,7 @@ public class CreatureEntityFactory  {
 		entity.addComponent(new MemoryComponent());
 		entity.getOrCreateComponent(CombatStateComponent.class).init(entity, messageDispatcher, gameContext);
 		entity.getOrCreateComponent(StatusComponent.class).init(entity, messageDispatcher, gameContext);
-		entity.getOrCreateComponent(FactionComponent.class).setFaction(Faction.WILD_ANIMALS); // TODO derive this from other data
+		entity.getOrCreateComponent(FactionComponent.class).setFaction(faction);
 
 		entityAssetUpdater.updateEntityAssets(entity);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, entity);

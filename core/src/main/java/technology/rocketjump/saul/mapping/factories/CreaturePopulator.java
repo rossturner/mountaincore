@@ -8,6 +8,7 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureGroup;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.factories.CreatureEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -15,19 +16,20 @@ import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntit
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceBehaviourGroup;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
+import technology.rocketjump.saul.entities.model.physical.creature.features.RaceFeatures;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.TileExploration;
+import technology.rocketjump.saul.mapping.tile.TileNeighbours;
 import technology.rocketjump.saul.mapping.tile.roof.TileRoofState;
 import technology.rocketjump.saul.settlement.CreatureTracker;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import static technology.rocketjump.saul.entities.model.physical.creature.CreatureMapPlacement.ANIMAL;
+import static technology.rocketjump.saul.entities.model.physical.creature.CreatureMapPlacement.CAVE_MONSTER;
+import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.CAVERN;
 
 @Singleton
 public class CreaturePopulator {
@@ -58,6 +60,7 @@ public class CreaturePopulator {
 		Logger.debug("Adding " + animalsToAdd + " animals");
 
 		addAnimalsToMap(animalsToAdd, false, gameContext);
+		addMonstersToMap(100, gameContext);
 	}
 
 	public void addAnimalsAtEdge(GameContext gameContext) {
@@ -96,7 +99,7 @@ public class CreaturePopulator {
 				while (numToAddInGroup > 0) {
 					MapTile spawnTile = addingAtMapEdge ? spawnLocation : pickNearbyTileInRegion(5, spawnLocation, gameContext);
 					CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(selectedRace);
-					Entity entity = creatureEntityFactory.create(attributes, spawnTile.getWorldPositionOfCenter(), new Vector2(), gameContext);
+					Entity entity = creatureEntityFactory.create(attributes, spawnTile.getWorldPositionOfCenter(), new Vector2(), gameContext, Faction.WILD_ANIMALS);
 					if (entity.getBehaviourComponent() instanceof CreatureBehaviour) {
 						((CreatureBehaviour) entity.getBehaviourComponent()).setCreatureGroup(group);
 					}
@@ -106,11 +109,132 @@ public class CreaturePopulator {
 			} else {
 				// add individual to map
 				CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(selectedRace);
-				creatureEntityFactory.create(attributes, spawnLocation.getWorldPositionOfCenter(), new Vector2(), gameContext);
+				creatureEntityFactory.create(attributes, spawnLocation.getWorldPositionOfCenter(), new Vector2(), gameContext, Faction.WILD_ANIMALS);
 				animalsToAdd--;
 			}
 
 		}
+	}
+
+	private void addMonstersToMap(int amount, GameContext gameContext) {
+		TiledMap areaMap = gameContext.getAreaMap();
+
+		List<Race> monsterRaces = raceDictionary.getAll().stream()
+				.filter(r -> CAVE_MONSTER.equals(r.getMapPlacement()))
+				.sorted(Comparator.comparingInt(this::monsterDifficulty))
+				.toList();
+
+		if (monsterRaces.isEmpty()) {
+			return;
+		}
+
+		int maxDifficulty = monsterDifficulty(monsterRaces.get(monsterRaces.size() - 1));
+
+		List<RegionInformation> cavesFurthestFirst = Arrays.stream(findRegionsFromEmbarkPoint(areaMap, areaMap.getEmbarkPoint()))
+				.filter(region -> region.nearestTile.getRoof() != null && CAVERN == region.nearestTile.getRoof().getState())
+				.sorted(Comparator.<RegionInformation>comparingInt(value -> value.distanceFromEmbarkPoint).reversed())
+				.toList();
+
+		if (cavesFurthestFirst.size() > 0) {
+			int maxDistance = cavesFurthestFirst.get(0).distanceFromEmbarkPoint;
+
+			for (RegionInformation cave : cavesFurthestFirst) {
+				if (amount > 0 && cave.tilesInRegion.size() > 1) {
+					//TODO: definitely refactor and test common components
+					//at 1.0, all difficulties available, at 0.0, no difficulties
+					float caveDistanceRatio =  (float) cave.distanceFromEmbarkPoint / maxDistance;
+					Race monster = selectMonsterRace(gameContext, monsterRaces, maxDifficulty, caveDistanceRatio);
+					if (monster == null) {
+						continue; //rocky yuk
+					}
+
+					CreatureGroup group = new CreatureGroup();
+					int numToAddInGroup = Integer.MAX_VALUE;
+					boolean shouldGroup = monster.getBehaviour().getGroup() != null;
+					if (shouldGroup) {
+						group.setGroupId(SequentialIdGenerator.nextId());
+						group.setHomeLocation(cave.tilesInRegion.get(gameContext.getRandom().nextInt(cave.tilesInRegion.size())).getTilePosition());
+						numToAddInGroup = selectGroupSize(monster.getBehaviour().getGroup(), gameContext.getRandom());
+					}
+
+					for (int i = 0; i < cave.tilesInRegion.size() && numToAddInGroup > 0; i+=40) {
+						MapTile randomCaveTile = cave.tilesInRegion.get(gameContext.getRandom().nextInt(cave.tilesInRegion.size()));
+						CreatureEntityAttributes attributes = creatureEntityAttributesFactory.create(monster);
+						Entity entity = creatureEntityFactory.create(attributes, randomCaveTile.getWorldPositionOfCenter(), new Vector2(), gameContext, Faction.MONSTERS);
+
+						if (shouldGroup && entity.getBehaviourComponent() instanceof CreatureBehaviour) {
+							((CreatureBehaviour) entity.getBehaviourComponent()).setCreatureGroup(group);
+						}
+
+						numToAddInGroup--;
+						amount--;
+					}
+				}
+			}
+		}
+	}
+
+	//TODO: this selection process needs tidying and not the 1.2f fudge factor
+	private Race selectMonsterRace(GameContext gameContext, List<Race> monsterRaces, int hardestMonsterDifficulty, float ratioOfDifficultyBarToUse) {
+		int difficultyCap = (int) Math.ceil(hardestMonsterDifficulty * ratioOfDifficultyBarToUse * 1.2f);
+
+
+		int totalMonsterDifficulty = monsterRaces.stream().mapToInt(this::monsterDifficulty).filter(difficulty -> difficulty <= difficultyCap).sum();
+
+		int selection = gameContext.getRandom().nextInt(totalMonsterDifficulty);
+
+		Race monster = null;
+		Iterator<Race> monsterIterator = monsterRaces.iterator();
+		while(selection > 0) {
+			monster = monsterIterator.next();
+			selection -= this.monsterDifficulty(monster);
+		}
+		return monster;
+	}
+
+	private RegionInformation[] findRegionsFromEmbarkPoint(TiledMap areaMap, GridPoint2 embarkPoint) {
+		RegionInformation[] regions = new RegionInformation[areaMap.getNumRegions()];
+		int mapWidth = areaMap.getWidth();
+		int mapHeight = areaMap.getHeight();
+		boolean[] visited = new boolean[mapWidth * mapHeight];
+		Arrays.fill(visited, false);
+
+		Deque<MapTile> frontier = new LinkedList<>();
+		frontier.push(areaMap.getTile(embarkPoint));
+		while (!frontier.isEmpty()) {
+			MapTile currentTile = frontier.pop();
+			visited[currentTile.getTileY() * mapWidth + currentTile.getTileX()] = true;
+			if (regions[currentTile.getRegionId()-1] == null) {
+				regions[currentTile.getRegionId()-1] = new RegionInformation(currentTile, chebyshevDistance(currentTile.getTilePosition(), embarkPoint));
+			} else {
+				regions[currentTile.getRegionId()-1].tilesInRegion.add(currentTile);
+			}
+
+			TileNeighbours neighbours = areaMap.getNeighbours(currentTile.getTilePosition());
+			for (MapTile neighbour : neighbours.values()) {
+				if (!visited[neighbour.getTileY() * mapWidth + neighbour.getTileX()]) {
+					visited[neighbour.getTileY() * mapWidth + neighbour.getTileX()] = true;
+					frontier.add(neighbour);
+				}
+			}
+		}
+		return regions;
+	}
+
+	private int chebyshevDistance(GridPoint2 a, GridPoint2 b) {
+		return Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
+	}
+
+	private int monsterDifficulty(Race race) {
+		int difficulty = 0;
+		RaceFeatures features = race.getFeatures();
+		if (features.getDefense() != null && features.getDefense().getMaxDefensePoints() != null) {
+			difficulty += features.getDefense().getMaxDefensePoints();
+		}
+		if (features.getUnarmedWeapon() != null) {
+			difficulty += features.getUnarmedWeapon().getMaxDamage();
+		}
+		return difficulty;
 	}
 
 	private MapTile findSpawnLocation(GameContext gameContext, Set<GridPoint2> creatureSpawnLocations, boolean addingAtMapEdge) {
@@ -195,5 +319,18 @@ public class CreaturePopulator {
 
 	private int selectGroupSize(RaceBehaviourGroup group, Random random) {
 		return group.getMinSize() + random.nextInt(group.getMaxSize() - group.getMinSize());
+	}
+
+	class RegionInformation {
+		private final MapTile nearestTile;
+		private final List<MapTile> tilesInRegion;
+		private final int distanceFromEmbarkPoint;
+
+		RegionInformation(MapTile nearestTile, int distanceFromEmbarkPoint) {
+			this.nearestTile = nearestTile;
+			this.distanceFromEmbarkPoint = distanceFromEmbarkPoint;
+			this.tilesInRegion = new ArrayList<>();
+			this.tilesInRegion.add(nearestTile);
+		}
 	}
 }

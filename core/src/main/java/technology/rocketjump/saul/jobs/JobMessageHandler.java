@@ -20,10 +20,7 @@ import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBe
 import technology.rocketjump.saul.entities.behaviour.furniture.InnoculationLogBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.OnJobCompletion;
 import technology.rocketjump.saul.entities.behaviour.plants.FallingTreeBehaviour;
-import technology.rocketjump.saul.entities.components.BehaviourComponent;
-import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
-import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
+import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
@@ -981,7 +978,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
 
 				CreatureEntityAttributes fishAttributes = creatureEntityAttributesFactory.create(fishType);
-				Entity fishEntity = creatureEntityFactory.create(fishAttributes, null, new Vector2(), gameContext);
+				Entity fishEntity = creatureEntityFactory.create(fishAttributes, null, new Vector2(), gameContext, Faction.WILD_ANIMALS);
 				messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(fishEntity, DeathReason.SUFFOCATION));
 				fishEntity.getLocationComponent().setRotation(0);
 

@@ -1,4 +1,73 @@
 [ {
+  "name" : "arachnid",
+  "rootPartName" : "Cephalothorax",
+  "partDefinitions" : [ {
+    "name" : "Cephalothorax",
+    "size" : 0.5,
+    "bones" : [ ],
+    "organs" : [ {
+      "type" : "Brain",
+      "relativeSize" : 0.25
+    }, {
+      "type" : "Eye",
+      "discriminator" : "FirstLeft",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "SecondLeft",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "ThirdLeft",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "FourthLeft",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "FirstRight",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "SecondRight",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "ThirdRight",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "FourthRight",
+      "relativeSize" : 0.05
+    } ],
+    "childParts" : [ "Abdomen", "FirstLeft-Leg", "SecondLeft-Leg", "ThirdLeft-Leg", "FourthLeft-Leg", "FirstRight-Leg", "SecondRight-Leg", "ThirdRight-Leg", "FourthRight-Leg" ],
+    "i18nKey" : "BODY_STRUCTURE.CEPHALOTHORAX"
+  }, {
+    "name" : "Abdomen",
+    "size" : 0.8,
+    "bones" : [ ],
+    "organs" : [ {
+      "type" : "Heart",
+      "relativeSize" : 0.2
+    }, {
+      "type" : "Lung",
+      "relativeSize" : 0.25
+    }, {
+      "type" : "Intestines",
+      "relativeSize" : 0.3
+    } ],
+    "childParts" : [ ],
+    "i18nKey" : "BODY_STRUCTURE.ABDOMEN"
+  }, {
+    "name" : "Leg",
+    "size" : 1.0,
+    "bones" : [ ],
+    "organs" : [ ],
+    "childParts" : [ ],
+    "i18nKey" : "BODY_STRUCTURE.LEG"
+  } ]
+}, {
   "name" : "Fish",
   "rootPartName" : "Torso",
   "partDefinitions" : [ {
@@ -281,5 +350,87 @@
     "organs" : [ ],
     "childParts" : [ ],
     "i18nKey" : "BODY_STRUCTURE.PAW"
+  } ]
+}, {
+  "name" : "Serpent",
+  "rootPartName" : "Head",
+  "partDefinitions" : [ {
+    "name" : "Head",
+    "size" : 1.0,
+    "bones" : [ "SMALL" ],
+    "organs" : [ {
+      "type" : "Brain",
+      "relativeSize" : 0.2
+    }, {
+      "type" : "Eye",
+      "discriminator" : "Left",
+      "relativeSize" : 0.05
+    }, {
+      "type" : "Eye",
+      "discriminator" : "Right",
+      "relativeSize" : 0.05
+    } ],
+    "childParts" : [ "Torso" ],
+    "i18nKey" : "BODY_STRUCTURE.HEAD"
+  }, {
+    "name" : "Torso",
+    "size" : 0.9,
+    "bones" : [ "SMALL", "SMALL" ],
+    "organs" : [ ],
+    "childParts" : [ ],
+    "i18nKey" : "BODY_STRUCTURE.TORSO"
+  } ]
+}, {
+  "name" : "Undead Humanoid",
+  "rootPartName" : "Torso",
+  "partDefinitions" : [ {
+    "name" : "Head",
+    "size" : 0.3,
+    "bones" : [ "SKULL" ],
+    "organs" : [ ],
+    "childParts" : [ ],
+    "i18nKey" : "BODY_STRUCTURE.HEAD"
+  }, {
+    "name" : "Torso",
+    "size" : 1.0,
+    "bones" : [ "MEDIUM", "MEDIUM" ],
+    "organs" : [ ],
+    "childParts" : [ "Head", "Abdomen", "Right-Arm", "Left-Arm" ],
+    "i18nKey" : "BODY_STRUCTURE.TORSO"
+  }, {
+    "name" : "Arm",
+    "size" : 0.2,
+    "bones" : [ "MEDIUM" ],
+    "organs" : [ ],
+    "childParts" : [ "Hand" ],
+    "i18nKey" : "BODY_STRUCTURE.ARM"
+  }, {
+    "name" : "Hand",
+    "size" : 0.04,
+    "bones" : [ "SMALL" ],
+    "organs" : [ ],
+    "childParts" : [ ],
+    "i18nKey" : "BODY_STRUCTURE.HAND"
+  }, {
+    "name" : "Abdomen",
+    "size" : 0.3,
+    "bones" : [ ],
+    "organs" : [ ],
+    "childParts" : [ "Left-Leg", "Right-Leg" ],
+    "i18nKey" : "BODY_STRUCTURE.ABDOMEN"
+  }, {
+    "name" : "Leg",
+    "size" : 0.2,
+    "bones" : [ "MEDIUM" ],
+    "organs" : [ ],
+    "childParts" : [ "Foot" ],
+    "i18nKey" : "BODY_STRUCTURE.LEG"
+  }, {
+    "name" : "Foot",
+    "size" : 0.02,
+    "bones" : [ "SMALL" ],
+    "organs" : [ ],
+    "childParts" : [ ],
+    "i18nKey" : "BODY_STRUCTURE.FOOT"
   } ]
 } ]

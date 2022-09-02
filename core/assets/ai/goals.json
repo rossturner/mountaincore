@@ -548,6 +548,11 @@
   "selectors" : [ {
     "scheduleCategory" : "FREE_TIME",
     "conditions" : [ {
+      "need" : "FOOD",
+      "type" : "NEED",
+      "value" : -10,
+      "operator" : "GREATER_THAN"
+    }, {
       "itemType" : "Product-Ration",
       "type" : "INVENTORY",
       "value" : 3,

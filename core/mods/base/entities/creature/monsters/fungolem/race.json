@@ -1,0 +1,42 @@
+{
+  "name" : "Fungolem",
+  "i18nKey" : "RACE.FUNGOLEM",
+  "bodyStructureName" : "Humanoid",
+  "bodyShapes" : [ {
+    "value" : "AVERAGE"
+  } ],
+  "colors" : {
+    "HAIR_COLOR" : {
+      "swatch" : "fungolem-hair-swatch.png"
+    },
+    "SKIN_COLOR" : {
+      "colorCode" : "#fcf2f0"
+    }
+  },
+  "mapPlacement" : "CAVE_MONSTER",
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "needs" : [ "SLEEP" ],
+    "aggressionResponse" : "FLEE"
+  },
+  "features" : {
+    "defense" : {
+      "maxDefensePoints" : 3,
+      "maxDefenseRegainedPerRound" : 0,
+      "damageReduction" : {
+        "STABBING" : 0,
+        "SLASHING" : 0,
+        "CRUSHING" : 0
+      }
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "CRUSHING",
+      "minDamage" : 1,
+      "maxDamage" : 2,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "animatedSpriteEffectName" : "Weapon slash"
+    }
+  }
+}

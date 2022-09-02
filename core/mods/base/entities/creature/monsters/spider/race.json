@@ -1,0 +1,48 @@
+{
+  "name" : "Spider",
+  "i18nKey" : "RACE.SPIDER",
+  "minStrength" : 3.0,
+  "maxStrength" : 6.0,
+  "bodyStructureName" : "arachnid",
+  "bodyShapes" : [ {
+    "value" : "AVERAGE"
+  } ],
+  "colors" : {
+    "SKIN_COLOR" : {
+      "colorCode" : "#665446"
+    },
+    "EYE_COLOR" : {
+      "colorCode" : "#b25f3f"
+    }
+  },
+  "mapPlacement" : "CAVE_MONSTER",
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "group" : {
+      "minSize" : 1,
+      "maxSize" : 200
+    },
+    "aggressionResponse" : "ATTACK"
+  },
+  "features" : {
+    "defense" : {
+      "maxDefensePoints" : 6,
+      "maxDefenseRegainedPerRound" : 1,
+      "damageReduction" : {
+        "STABBING" : 0,
+        "SLASHING" : 0,
+        "CRUSHING" : 0
+      }
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "STABBING",
+      "modifiedByStrength" : true,
+      "minDamage" : 1,
+      "maxDamage" : 3,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "animatedSpriteEffectName" : "Weapon slash"
+    }
+  }
+}
