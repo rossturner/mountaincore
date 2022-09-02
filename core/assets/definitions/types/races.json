@@ -518,6 +518,7 @@
   "genders" : { },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 3,
       "maxDefenseRegainedPerRound" : 0,
       "damageReduction" : {
@@ -571,6 +572,7 @@
   "genders" : { },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 6,
       "maxDefenseRegainedPerRound" : 1,
       "damageReduction" : {
@@ -626,6 +628,7 @@
   "genders" : { },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 10,
       "maxDefenseRegainedPerRound" : 1,
       "damageReduction" : {
@@ -678,6 +681,7 @@
   "genders" : { },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 20,
       "maxDefenseRegainedPerRound" : 3,
       "damageReduction" : {

@@ -95,6 +95,15 @@
     ]
   },
   {
+    "roomName": "BARRAKCS",
+    "i18nKey": "ROOMS.BARRACKS",
+    "colorCode": "#c4b2c5",
+    "iconName": "barracks",
+    "furnitureNames": [
+      "BARRACKS_BED"
+    ]
+  },
+  {
     "roomName": "KITCHEN",
     "i18nKey": "ROOMS.KITCHEN",
     "colorCode": "#1d8898",

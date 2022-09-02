@@ -1105,6 +1105,8 @@ RESOURCE.WHEAT.SACK.PLURAL,,Wheat (sack)
 
 ROOMS.ARMOURY,,Armoury
 ROOMS.ARMOURY.TOOLTIP,,Weapons and armour are created here
+ROOMS.BARRACKS,,Barracks
+ROOMS.BARRACKS.TOOLTIP,,A place for members of the military to sleep and train
 ROOMS.BEDROOM,,Bedroom
 ROOMS.BEDROOM.TOOLTIP,,"A place for your settlers to sleep. They prefer to have individual bedrooms that are at least 9 tiles in size, and preferably at least 13 tiles in size."
 ROOMS.BREWERY,,Brewery

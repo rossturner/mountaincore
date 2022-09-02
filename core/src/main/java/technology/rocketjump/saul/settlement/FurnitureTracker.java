@@ -19,9 +19,10 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.FurnitureAssignmentRequest;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyMap;
+import static technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag.BedCreaturePosition.INSIDE_FURNITURE;
+import static technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag.BedCreaturePosition.ON_GROUND;
 
 /**
  * This class is responsible for keeping track of all items (allocated or not) on the map
@@ -105,12 +106,13 @@ public class FurnitureTracker implements GameContextAware, Telegraph {
 						.stream().filter(e -> {
 							if (request.requiredTag.equals(BedSleepingPositionTag.class)) {
 								SleepingPositionComponent sleepingPositionComponent = e.getComponent(SleepingPositionComponent.class);
-								return sleepingPositionComponent.isOnFloor() == request.wantsToSleepOnFloor;
+								return sleepingPositionComponent.getBedCreaturePosition().equals(request.wantsToSleepOnFloor ? ON_GROUND : INSIDE_FURNITURE) &&
+										sleepingPositionComponent.isApplicableTo(request.requestingEntity);
 							} else {
 								return true;
 							}
 						})
-						.collect(Collectors.toList());
+						.toList();
 				Vector2 requesterPosition = request.requestingEntity.getLocationComponent().getWorldPosition();
 				long requesterRegionId = gameContext.getAreaMap().getTile(requesterPosition).getRegionId();
 				Entity nearest = null;

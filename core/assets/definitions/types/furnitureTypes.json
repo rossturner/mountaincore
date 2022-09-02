@@ -1,4 +1,26 @@
 [ {
+  "name" : "BARRACKS_BED",
+  "i18nKey" : "FURNITURE.SINGLE_BED",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x2N",
+  "colorCode" : "#a04b00",
+  "iconName" : "bed",
+  "placeAnywhere" : false,
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 4,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Product-Linen",
+      "quantity" : 1,
+      "liquid" : false
+    } ]
+  },
+  "tags" : { },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "SINGLE_BED",
   "i18nKey" : "FURNITURE.SINGLE_BED",
   "blocksMovement" : true,

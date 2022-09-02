@@ -29,6 +29,7 @@ import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.roof.TileRoofState;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.military.model.Squad;
+import technology.rocketjump.saul.military.model.SquadOrderType;
 import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -408,18 +409,33 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 								happinessComponent.add(SAW_DEAD_BODY);
 							}
 
-							return;
-						} else if (myFaction == Faction.MONSTERS && myFaction != targetFaction) {
+						} else if (hostileFactions(myFaction, targetFaction)) {
 							MemoryComponent memoryComponent = parentEntity.getOrCreateComponent(MemoryComponent.class);
-							Memory attackedByCreatureMemory = new Memory(MemoryType.ATTACKED_BY_CREATURE, gameContext.getGameClock());
-							attackedByCreatureMemory.setRelatedEntityId(entityInTile.getId());
-							memoryComponent.addShortTerm(attackedByCreatureMemory, gameContext.getGameClock());
+							Memory attackCreatureMemory = new Memory(MemoryType.ABOUT_TO_ATTACK_CREATURE, gameContext.getGameClock());
+							attackCreatureMemory.setRelatedEntityId(entityInTile.getId());
+							memoryComponent.addShortTerm(attackCreatureMemory, gameContext.getGameClock());
 						}
 					}
 				}
 
 			}
 		}
+	}
+
+	private boolean hostileFactions(Faction myFaction, Faction targetFaction) {
+		return (myFaction == Faction.MONSTERS && myFaction != targetFaction) ||
+				(myFaction == Faction.SETTLEMENT && targetFaction == Faction.MONSTERS && isGuardingPositionInMilitary());
+	}
+
+	private boolean isGuardingPositionInMilitary() {
+		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
+		if (militaryComponent != null && militaryComponent.isInMilitary()) {
+			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
+			if (squad != null) {
+				return squad.getCurrentOrderType().equals(SquadOrderType.GUARDING);
+			}
+		}
+		return false;
 	}
 
 
