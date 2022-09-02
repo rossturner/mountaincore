@@ -74,7 +74,7 @@
   "i18nKey" : "ROOMS.BARRACKS",
   "colorCode" : "#c4b2c5",
   "iconName" : "barracks",
-  "furnitureNames" : [ "BARRACKS_BED" ],
+  "furnitureNames" : [ "BARRACKS_BED", "TRAINING_DUMMY", "ARCHERY_TARGET" ],
   "tags" : { }
 }, {
   "roomName" : "KITCHEN",

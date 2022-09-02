@@ -1207,6 +1207,46 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
+  "name" : "ARCHERY_TARGET",
+  "i18nKey" : "FURNITURE.ARCHERY_TARGET",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x1 with S workspace offset 6",
+  "colorCode" : "#E38B20",
+  "iconName" : "archery-target",
+  "placeAnywhere" : false,
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 3,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "WORKSPACE_LOCATIONS_MUST_BE_INSIDE_ROOM" : [ ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "TRAINING_DUMMY",
+  "i18nKey" : "FURNITURE.TRAINING_DUMMY",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x1 with S workspace",
+  "colorCode" : "#3CC9C2",
+  "iconName" : "target-dummy",
+  "placeAnywhere" : false,
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 3,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "WORKSPACE_LOCATIONS_MUST_BE_INSIDE_ROOM" : [ ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "INNOCULATED_LOG",
   "i18nKey" : "FURNITURE.MUSHROOM_LOG",
   "blocksMovement" : true,

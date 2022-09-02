@@ -106,6 +106,7 @@ public class FurnitureUIFactory implements UIFactory {
             public void onOk() {
                 String name = furnitureType.getName();
                 //required defaults
+                furnitureType.setI18nKey("FURNITURE."+name.toUpperCase());
                 furnitureType.setRequirements(new HashMap<>());
                 furnitureType.getRequirements().put(GameMaterialType.EARTH, new ArrayList<>());
                 furnitureType.setDefaultLayoutName("1x1");
@@ -292,7 +293,8 @@ public class FurnitureUIFactory implements UIFactory {
             }
         };
         dialog.add(WidgetBuilder.label("Type"));
-        dialog.add(WidgetBuilder.select(asset.getType(), entityAssetTypes, null, compose(asset::setType, uniqueNameRebuilder)));
+        dialog.add(WidgetBuilder.select(asset.getType(), entityAssetTypes, entityAssetTypes.stream().filter(t -> t.name.equals("BASE_LAYER")).findAny().orElse(null),
+                compose(asset::setType, uniqueNameRebuilder)));
         dialog.row();
 
         dialog.add(WidgetBuilder.label("Furniture Type"));
@@ -318,6 +320,7 @@ public class FurnitureUIFactory implements UIFactory {
                         }
 
                     }, compose(asset.getValidMaterialTypes()::remove, uniqueNameRebuilder));
+            checkBox.setChecked(furnitureType.getRequirements().containsKey(materialType));
             dialog.add(checkBox).fill(false, false).left();
             if (checkboxColCount % 2 == 0) {
                 dialog.row();

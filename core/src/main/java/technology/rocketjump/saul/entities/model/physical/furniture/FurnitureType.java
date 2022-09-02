@@ -151,6 +151,10 @@ public class FurnitureType {
 		return processedTags;
 	}
 
+	public boolean hasTag(Class<? extends Tag> tagClass) {
+		return processedTags.stream().anyMatch(t -> t.getClass().equals(tagClass));
+	}
+
 	public GameMaterialType getRequiredFloorMaterialType() {
 		return requiredFloorMaterialType;
 	}

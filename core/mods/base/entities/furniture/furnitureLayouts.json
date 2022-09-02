@@ -74,6 +74,51 @@
   },
 
   {
+    "uniqueName": "1x1 with S workspace offset 6",
+    "rotatesToName": "1x1 with W workspace offset 6",
+    "extraTiles": [],
+    "workspaces": [
+      {
+        "location": { "x": 0, "y": 0 },
+        "accessedFrom": { "x": 0, "y": -6 }
+      }
+    ]
+  },
+  {
+    "uniqueName": "1x1 with W workspace offset 6",
+    "rotatesToName": "1x1 with N workspace offset 6",
+    "extraTiles": [],
+    "workspaces": [
+      {
+        "location": { "x": 0, "y": 0 },
+        "accessedFrom": { "x": -6, "y": 0 }
+      }
+    ]
+  },
+  {
+    "uniqueName": "1x1 with N workspace offset 6",
+    "rotatesToName": "1x1 with E workspace offset 6",
+    "extraTiles": [],
+    "workspaces": [
+      {
+        "location": { "x": 0, "y": 0 },
+        "accessedFrom": { "x": 0, "y": 6 }
+      }
+    ]
+  },
+  {
+    "uniqueName": "1x1 with E workspace offset 6",
+    "rotatesToName": "1x1 with S workspace offset 6",
+    "extraTiles": [],
+    "workspaces": [
+      {
+        "location": { "x": 0, "y": 0 },
+        "accessedFrom": { "x": 6, "y": 0 }
+      }
+    ]
+  },
+
+  {
     "uniqueName": "1x1NS",
     "rotatesToName": "1x1EW",
     "extraTiles": [],

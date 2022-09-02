@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class EditorState {
 
-	private boolean autosave = true;
+	private boolean autosave;
 	private String modDir;
 	private Set<String> expandedNavigatorNodes = new HashSet<>();
 	private EditorEntitySelection entitySelection;

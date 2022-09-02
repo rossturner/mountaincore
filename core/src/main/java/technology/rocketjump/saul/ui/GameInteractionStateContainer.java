@@ -9,6 +9,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.assets.entities.tags.WorkspaceLocationsRestrictionTag;
 import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.assets.model.WallType;
 import technology.rocketjump.saul.audio.model.SoundAsset;
@@ -560,6 +561,11 @@ public class GameInteractionStateContainer implements GameContextAware {
 		positionsToCheck.add(tilePosition);
 		for (GridPoint2 extraTileOffset : attributes.getCurrentLayout().getExtraTiles()) {
 			positionsToCheck.add(tilePosition.cpy().add(extraTileOffset));
+		}
+		if (attributes.getFurnitureType().hasTag(WorkspaceLocationsRestrictionTag.class)) {
+			for (FurnitureLayout.Workspace workspace : attributes.getCurrentLayout().getWorkspaces()) {
+				positionsToCheck.add(tilePosition.cpy().add(workspace.getAccessedFrom()));
+			}
 		}
 
 		boolean oneTileNotRiverEdge = false;

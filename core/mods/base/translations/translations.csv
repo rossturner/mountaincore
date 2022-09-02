@@ -198,6 +198,8 @@ FOODSTUFF.WHEAT-BREAD,"Actually just to describe “wheat” as a foodstuff, not
 FUEL.SACK,,Fuel
 FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{FURNITURE.BLOOMERY_FURNACE}} and the {{FURNITURE.FORGE}}."
 
+FURNITURE.ARCHERY_TARGET,,Archery target
+FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here
 FURNITURE.BAKERS_WORKTOP,,Baker’s worktop
 FURNITURE.BAKERS_WORKTOP.TOOLTIP,,A {{PROFESSION.CHEF}} works here to turn {{RESOURCE.FLOUR.SACK.PLURAL}} into {{INGREDIENT.DOUGH}}.
 FURNITURE.BAKING_OVEN,For the baking of bread,Baker's oven
@@ -282,6 +284,8 @@ FURNITURE.STONEMASON_WORKBENCH.TOOLTIP,,A {{PROFESSION.STONEMASON}} works here w
 FURNITURE.STOOL,,Stool
 FURNITURE.TANNING_FRAME,,Tanning frame
 FURNITURE.TANNING_FRAME.TOOLTIP,,Turn your Animal Skins into Leather.
+FURNITURE.TRAINING_DUMMY,,Training dummy
+FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here
 FURNITURE.WATERWHEEL,,Water wheel
 FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.
 FURNITURE.WATER_BARREL,,Water barrel

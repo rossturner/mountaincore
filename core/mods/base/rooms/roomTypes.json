@@ -100,7 +100,9 @@
     "colorCode": "#c4b2c5",
     "iconName": "barracks",
     "furnitureNames": [
-      "BARRACKS_BED"
+      "BARRACKS_BED",
+      "TRAINING_DUMMY",
+      "ARCHERY_TARGET"
     ]
   },
   {
