@@ -96,13 +96,14 @@ public class CombinedLightingResultRenderer implements Disposable {
 	}
 
 
-	public void renderEntityOutline(TextureRegion selectedEntitiesTextureRegion) {
+	public void renderEntityOutline(TextureRegion textureRegion) {
 		Gdx.gl.glDisable(GL20.GL_BLEND);
-
+		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		entityOutlineShader.begin();
-		entityOutlineShader.setUniformi("u_textureDepth", 0);
-		selectedEntitiesTextureRegion.getTexture().bind(0);
-
+		entityOutlineShader.setUniformi("u_texture", 0);
+		textureRegion.getTexture().bind(0);
+		entityOutlineShader.setUniform2fv("u_viewportResolution", new float[] {Gdx.graphics.getWidth(), Gdx.graphics.getHeight() }, 0, 2);
 		fullScrenMesh.render(entityOutlineShader, GL20.GL_TRIANGLES);
 		entityOutlineShader.end();
 	}

@@ -148,11 +148,12 @@ public class GameRenderer implements AssetDisposable {
 		worldRenderer.renderWorld(worldMap, camera, normalSpriteCache, RenderMode.NORMALS, null, null);
 		normalMapFrameBuffer.end();
 
-		//TODO: draw entity outline/depth? buffer here
+		//--------Render selected entities---------
 		selectedEntitiesFrameBuffer.begin();
 		inWorldUIRenderer.renderSelectedEntity(camera);
 		selectedEntitiesFrameBuffer.end();
 
+		//-------Image processing pipeline---------
 		entityOutlineFrameBuffer.begin();
 		combinedRenderer.renderEntityOutline(selectedEntitiesTextureRegion); //todo: this is not in right place
 		entityOutlineFrameBuffer.end();

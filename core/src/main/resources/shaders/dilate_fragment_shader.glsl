@@ -34,5 +34,5 @@ void main() {
     );
 
     float newAlpha = sobel(step/1440, step/900, correctedCoords);
-    gl_FragColor = vec4(newAlpha, newAlpha, newAlpha, texture2D(u_texture, correctedCoords).a);
+    gl_FragColor = vec4(newAlpha, newAlpha, newAlpha, newAlpha);
 }
