@@ -10,7 +10,7 @@ public class DebugRenderingOptions {
 	private boolean showZones = false;
 	private boolean showPathfindingSlowdown = false;
 	private boolean showLiquidFlow = false;
-	private int frameBufferIndex = 1;
+	private int frameBufferIndex = 0;
 
 	public boolean showIndividualLightingBuffers() {
 		return showIndividualLightingBuffers;
