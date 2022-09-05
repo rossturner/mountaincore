@@ -46,6 +46,11 @@ public class GameRenderer implements AssetDisposable {
 	private TextureRegion lightingTextureRegion;
 	private FrameBuffer selectedEntitiesFrameBuffer;
 	private TextureRegion selectedEntitiesTextureRegion;
+	private FrameBuffer entityOutlineFrameBuffer;
+	private TextureRegion entityOutlineTextureRegion;
+	private FrameBuffer dilatedFrameBuffer;
+	private TextureRegion dilatedTextureRegion;
+	//TODO: refactor to just have 2 frame buffers with a chain of image processing kernels
 	private FrameBuffer combinedFrameBuffer;
 	private TextureRegion combinedTextureRegion;
 	private TextureRegion[] textureRegions;
@@ -148,6 +153,24 @@ public class GameRenderer implements AssetDisposable {
 		inWorldUIRenderer.renderSelectedEntity(camera);
 		selectedEntitiesFrameBuffer.end();
 
+		entityOutlineFrameBuffer.begin();
+		combinedRenderer.renderEntityOutline(selectedEntitiesTextureRegion); //todo: this is not in right place
+		entityOutlineFrameBuffer.end();
+
+		dilatedFrameBuffer.begin();
+		combinedRenderer.dilateImage(entityOutlineTextureRegion); //todo: this is not in right place
+		dilatedFrameBuffer.end();
+
+		//bodged 2nd dilation for thickness. could use a bigger kernel really to achieve same effect
+		dilatedFrameBuffer.begin();
+		combinedRenderer.dilateImage(dilatedTextureRegion); //todo: this is not in right place
+		dilatedFrameBuffer.end();
+		//bodged 3rd dilation for thickness. could use a bigger kernel really to achieve same effect
+		dilatedFrameBuffer.begin();
+		combinedRenderer.dilateImage(dilatedTextureRegion); //todo: this is not in right place
+		dilatedFrameBuffer.end();
+		//end todo:
+
 		/////// Draw lighting info ///
 
 		lightingFrameBuffer.begin();
@@ -198,6 +221,7 @@ public class GameRenderer implements AssetDisposable {
 			frameBufferSpriteBatch.end();
 		} else {
 			combinedRenderer.renderFinal(diffuseTextureRegion, lightingTextureRegion, fadeAmount);
+			combinedRenderer.renderstuff(entityOutlineTextureRegion);
 			inWorldUIRenderer.render(gameContext, camera, particlesToRenderAsUI, diffuseSpriteCache);
 		}
 
@@ -232,19 +256,31 @@ public class GameRenderer implements AssetDisposable {
 		selectedEntitiesTextureRegion = new TextureRegion(selectedEntitiesFrameBuffer.getColorBufferTexture(), width, height);
 		selectedEntitiesTextureRegion.flip(false, true);
 
-		textureRegions = new TextureRegion[5];
+		entityOutlineFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false, false);
+		entityOutlineTextureRegion = new TextureRegion(entityOutlineFrameBuffer.getColorBufferTexture(), width, height);
+		entityOutlineTextureRegion.flip(false, true);
+
+		dilatedFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false, false);
+		dilatedTextureRegion = new TextureRegion(dilatedFrameBuffer.getColorBufferTexture(), width, height);
+		dilatedTextureRegion.flip(false, true);
+
+		textureRegions = new TextureRegion[7];
 		textureRegions[0] = diffuseTextureRegion;
 		textureRegions[1] = bumpMapTextureRegion;
 		textureRegions[2] = lightingTextureRegion;
 		textureRegions[3] = selectedEntitiesTextureRegion;
-		textureRegions[4] = combinedTextureRegion;
+		textureRegions[4] = entityOutlineTextureRegion;
+		textureRegions[5] = dilatedTextureRegion;
+		textureRegions[6] = combinedTextureRegion;
 
-		textureRegionNames = new String[5];
+		textureRegionNames = new String[7];
 		textureRegionNames[0] = "Diffuse Texture";
 		textureRegionNames[1] = "Bump Map Texture";
 		textureRegionNames[2] = "Lighting Texture";
 		textureRegionNames[3] = "Selected Entities Texture";
-		textureRegionNames[4] = "Combined Texture";
+		textureRegionNames[4] = "Entity Outline Texture";
+		textureRegionNames[5] = "Dilated Texture";
+		textureRegionNames[6] = "Combined Texture";
 	}
 
 	private void disposeFrameBuffers() {
@@ -252,6 +288,8 @@ public class GameRenderer implements AssetDisposable {
 		normalMapFrameBuffer.dispose();
 		lightingFrameBuffer.dispose();
 		combinedFrameBuffer.dispose();
+		entityOutlineFrameBuffer.dispose();
+		dilatedFrameBuffer.dispose();
 		textureRegions = null;
 	}
 

@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.utils.Disposable;
 import com.google.inject.Inject;
 import technology.rocketjump.saul.rendering.custom_libgdx.ShaderLoader;
@@ -18,6 +20,8 @@ public class CombinedLightingResultRenderer implements Disposable {
 	private static final int VERTEX_SIZE = 2;
 	private static final int NUM_INDEX_PER_TRIANGLE = 3;
 	private final ShaderProgram combinedShader;
+	private final ShaderProgram entityOutlineShader;
+	private final ShaderProgram dilateImageShader;
 	private Mesh fullScrenMesh;
 
 	@Inject
@@ -58,6 +62,14 @@ public class CombinedLightingResultRenderer implements Disposable {
 		FileHandle vertexShaderFile = Gdx.files.classpath("shaders/combined_lighting_vertex_shader.glsl");
 		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/combined_lighting_fragment_shader.glsl");
 		combinedShader = ShaderLoader.createShader(vertexShaderFile, fragmentShaderFile);
+
+		FileHandle edgeDetectingVertexShader = Gdx.files.classpath("shaders/combined_lighting_vertex_shader.glsl");
+		FileHandle edgeDetectingFragmentShader = Gdx.files.classpath("shaders/outline_fragment_shader.glsl");
+		entityOutlineShader = ShaderLoader.createShader(edgeDetectingVertexShader, edgeDetectingFragmentShader);
+
+		FileHandle dilateImageFragmentShader = Gdx.files.classpath("shaders/dilate_fragment_shader.glsl");
+		dilateImageShader = ShaderLoader.createShader(vertexShaderFile, dilateImageFragmentShader);
+		new GLProfiler(Gdx.graphics).enable();
 	}
 
 	public void renderFinal(TextureRegion diffuseTextureRegion, TextureRegion lightingTextureRegion, float fadeAmount) {
@@ -75,8 +87,39 @@ public class CombinedLightingResultRenderer implements Disposable {
 		combinedShader.end();
 	}
 
+	public void renderstuff(TextureRegion textureRegion) {
+		Gdx.gl.glDisable(GL20.GL_BLEND);
+		SpriteBatch spriteBatch = new SpriteBatch();
+		spriteBatch.begin();
+		spriteBatch.draw(textureRegion, 0, 0);
+		spriteBatch.end();
+	}
+
+
+	public void renderEntityOutline(TextureRegion selectedEntitiesTextureRegion) {
+		Gdx.gl.glDisable(GL20.GL_BLEND);
+
+		entityOutlineShader.begin();
+		entityOutlineShader.setUniformi("u_textureDepth", 0);
+		selectedEntitiesTextureRegion.getTexture().bind(0);
+
+		fullScrenMesh.render(entityOutlineShader, GL20.GL_TRIANGLES);
+		entityOutlineShader.end();
+	}
+
 	@Override
 	public void dispose() {
 		combinedShader.dispose();
+	}
+
+	public void dilateImage(TextureRegion textureRegion) {
+		Gdx.gl.glDisable(GL20.GL_BLEND);
+
+		dilateImageShader.begin();
+		dilateImageShader.setUniformi("u_texture", 0);
+		textureRegion.getTexture().bind(0);
+
+		fullScrenMesh.render(dilateImageShader, GL20.GL_TRIANGLES);
+		dilateImageShader.end();
 	}
 }

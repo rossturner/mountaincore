@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
@@ -119,21 +120,26 @@ public class InWorldUIRenderer {
 		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/alpha_preserving_fragment_shader.glsl");
 
 		this.selectedEntityShaderProgram = ShaderLoader.createShader(vertexShaderFile, fragmentShaderFile);
+		new GLProfiler(Gdx.graphics).enable();
 	}
 
 	public void renderSelectedEntity(OrthographicCamera camera) {
+		//TODO: separate texture region for colours
 		if (interactionStateContainer.getSelectable() == null) {
 			return;
 		}
+		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		ShaderProgram previousShader = spriteBatch.getShader();
 		spriteBatch.setShader(selectedEntityShaderProgram);
+
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.enableBlending();
 		spriteBatch.begin();
 		Selectable selectable = interactionStateContainer.getSelectable();
 		if (Selectable.SelectableType.ENTITY == selectable.type) {
-			entityRenderer.render(selectable.getEntity(), spriteBatch, RenderMode.DIFFUSE, null, null, null);
+			Entity selectableEntity = selectable.getEntity();
+			entityRenderer.render(selectableEntity, spriteBatch, RenderMode.DIFFUSE, null, null, null);
 		}
 		spriteBatch.end();
 		spriteBatch.setShader(previousShader);
