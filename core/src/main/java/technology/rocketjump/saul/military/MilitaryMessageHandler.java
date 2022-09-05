@@ -31,6 +31,7 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 		this.squadFormationDictionary = squadFormationDictionary;
 
 		messageDispatcher.addListener(this, MessageType.MILITARY_ASSIGNMENT_CHANGED);
+		messageDispatcher.addListener(this, MessageType.MILITARY_SQUAD_SHIFT_CHANGED);
 		messageDispatcher.addListener(this, MessageType.MILITARY_SQUAD_ORDERS_CHANGED);
 	}
 
@@ -62,6 +63,13 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 				return true;
 			}
+			case MessageType.MILITARY_SQUAD_SHIFT_CHANGED -> {
+				Squad squad = (Squad) msg.extraInfo;
+
+				interruptCurrentBehaviour(squad);
+
+				return true;
+			}
 			case MessageType.MILITARY_SQUAD_ORDERS_CHANGED -> {
 				SquadOrderChangeMessage message = (SquadOrderChangeMessage) msg.extraInfo;
 
@@ -71,9 +79,24 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 
 				message.squad.setCurrentOrderType(message.newOrderType);
 
+				if (message.squad.isOnDuty(gameContext.getGameClock())) {
+					interruptCurrentBehaviour(message.squad);
+				}
+
 				return true;
 			}
 			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg);
+		}
+	}
+
+	private void interruptCurrentBehaviour(Squad squad) {
+		for (Long memberEntityId : squad.getMemberEntityIds()) {
+			Entity squadMember = gameContext.getEntities().get(memberEntityId);
+			if (squadMember.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+				if (creatureBehaviour.getCurrentGoal() != null) {
+					creatureBehaviour.getCurrentGoal().setInterrupted(true);
+				}
+			}
 		}
 	}
 

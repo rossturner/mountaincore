@@ -52,7 +52,7 @@ public class Squad implements Persistable, SelectableDescription {
 	@Override
 	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
 		I18nText orderDescription;
-		if (isOnShift(gameContext.getGameClock())) {
+		if (isOnDuty(gameContext.getGameClock())) {
 			orderDescription = switch (currentOrderType) {
 				case GUARDING -> i18nTranslator.getTranslatedString("MILITARY.SQUAD.ORDER_DESCRIPTION.GUARDING");
 				case COMBAT -> i18nTranslator.getTranslatedString("MILITARY.SQUAD.ORDER_DESCRIPTION.COMBAT");
@@ -65,7 +65,7 @@ public class Squad implements Persistable, SelectableDescription {
 		return List.of(orderDescription);
 	}
 
-	private boolean isOnShift(GameClock gameClock) {
+	public boolean isOnDuty(GameClock gameClock) {
 		Schedule schedule = getScheduleForSquadShift(shift);
 		return schedule.getCurrentApplicableCategories(gameClock).contains(MILITARY_DUTY);
 	}
