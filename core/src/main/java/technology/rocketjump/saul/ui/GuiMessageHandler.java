@@ -12,6 +12,7 @@ import technology.rocketjump.saul.assets.FloorTypeDictionary;
 import technology.rocketjump.saul.assets.WallTypeDictionary;
 import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.assets.model.WallType;
+import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.factories.FurnitureEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.FurnitureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -414,6 +415,16 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 					Selectable selectableEntity = new Selectable(entity, distanceToEntity);
 					if (!selectables.contains(selectableEntity)) {
 						selectables.add(selectableEntity);
+					}
+					MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
+					if (militaryComponent != null && militaryComponent.isInMilitary()) {
+						Squad entitySquad = gameContext.getSquads().get(militaryComponent.getSquadId());
+						if (entitySquad != null) {
+							Selectable selectableSquad = new Selectable(entitySquad);
+							if (!selectables.contains(selectableSquad)) {
+								selectables.add(selectableSquad);
+							}
+						}
 					}
 				}
 

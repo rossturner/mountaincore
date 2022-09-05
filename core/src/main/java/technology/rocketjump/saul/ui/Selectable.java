@@ -139,8 +139,8 @@ public class Selectable implements Comparable<Selectable> {
 
 	public enum SelectableType {
 
+		SQUAD(6000),
 		ENTITY(5000),
-		SQUAD(4500),
 		CONSTRUCTION(4000),
 		DOORWAY(3000),
 		BRIDGE(2001),

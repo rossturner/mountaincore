@@ -18,10 +18,7 @@ import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.*;
 import technology.rocketjump.saul.entities.components.*;
-import technology.rocketjump.saul.entities.components.creature.HistoryComponent;
-import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
-import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
-import technology.rocketjump.saul.entities.components.creature.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureParticleEffectsComponent;
@@ -789,6 +786,11 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 
 		HistoryComponent historyComponent = deceased.getOrCreateComponent(HistoryComponent.class);
 		historyComponent.setDeathReason(deathReason);
+
+		MilitaryComponent militaryComponent = deceased.getComponent(MilitaryComponent.class);
+		if (militaryComponent != null && militaryComponent.isInMilitary()) {
+			militaryComponent.removeFromMilitary();
+		}
 
 		// Rotate and change orientation of deceased
 		if (previousConciousness.equals(AWAKE)) {
