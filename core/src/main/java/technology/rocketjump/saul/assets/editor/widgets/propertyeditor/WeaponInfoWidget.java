@@ -11,6 +11,7 @@ import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import java.util.List;
 
 import static technology.rocketjump.saul.assets.editor.factory.ItemUIFactory.ammoTypeSelect;
+import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.toggle;
 import static technology.rocketjump.saul.audio.model.SoundAssetDictionary.NULL_SOUND_ASSET;
 import static technology.rocketjump.saul.jobs.SkillDictionary.UNARMED_COMBAT_SKILL;
 
@@ -27,7 +28,7 @@ public class WeaponInfoWidget extends VisTable {
 		this.columnDefaults(1).fillX().left();
 
 		this.add(WidgetBuilder.label("Modified By Strength"));
-		this.add(WidgetBuilder.toggle(weaponInfo.isModifiedByStrength(), weaponInfo::setModifiedByStrength));
+		this.add(toggle(weaponInfo.isModifiedByStrength(), weaponInfo::setModifiedByStrength));
 		this.row();
 
 		this.add(WidgetBuilder.label("Min Damage"));
@@ -52,6 +53,10 @@ public class WeaponInfoWidget extends VisTable {
 
 		this.add(WidgetBuilder.label("Requires Ammo"));
 		this.add(ammoTypeSelect(weaponInfo.getRequiresAmmoType(), weaponInfo::setRequiresAmmoType));
+		this.row();
+
+		this.add(WidgetBuilder.label("Two handed"));
+		this.add(toggle(weaponInfo.isTwoHanded(), weaponInfo::setTwoHanded));
 		this.row();
 
 		this.add(WidgetBuilder.label("Combat skill"));

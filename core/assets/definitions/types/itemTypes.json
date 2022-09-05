@@ -973,6 +973,7 @@
     "minDamage" : 2,
     "maxDamage" : 8,
     "armorNegation" : 0,
+    "twoHanded" : false,
     "combatSkillName" : "AXES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
     "animatedSpriteEffectName" : "Weapon slash"
@@ -1050,6 +1051,7 @@
     "minDamage" : 1,
     "maxDamage" : 5,
     "armorNegation" : 3,
+    "twoHanded" : false,
     "combatSkillName" : "MACES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
     "animatedSpriteEffectName" : "Weapon slash"
@@ -1077,6 +1079,7 @@
     "minDamage" : 1,
     "maxDamage" : 5,
     "armorNegation" : 4,
+    "twoHanded" : false,
     "combatSkillName" : "MACES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
     "animatedSpriteEffectName" : "Weapon slash"
@@ -1240,6 +1243,7 @@
     "maxDamage" : 8,
     "armorNegation" : 0,
     "requiresAmmoType" : "ARROWS",
+    "twoHanded" : true,
     "combatSkillName" : "ARCHERY",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
@@ -1268,6 +1272,7 @@
     "minDamage" : 3,
     "maxDamage" : 12,
     "armorNegation" : 0,
+    "twoHanded" : false,
     "combatSkillName" : "AXES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
     "animatedSpriteEffectName" : "Weapon slash"
@@ -1295,6 +1300,7 @@
     "minDamage" : 4,
     "maxDamage" : 8,
     "armorNegation" : 4,
+    "twoHanded" : false,
     "combatSkillName" : "MACES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
     "animatedSpriteEffectName" : "Weapon slash"
@@ -1323,6 +1329,7 @@
     "maxDamage" : 8,
     "armorNegation" : 0,
     "requiresAmmoType" : "BOLTS",
+    "twoHanded" : true,
     "combatSkillName" : "CROSSBOWS",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
@@ -1351,6 +1358,7 @@
     "minDamage" : 3,
     "maxDamage" : 8,
     "armorNegation" : 0,
+    "twoHanded" : false,
     "combatSkillName" : "SWORDSMANSHIP",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
     "animatedSpriteEffectName" : "Weapon slash"

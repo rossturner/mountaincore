@@ -248,6 +248,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 					if (entity != null) {
 						militaryComponent.setAssignedWeaponId(entity.getId());
+						if (isTwoHandedWeapon(entity)) {
+							militaryComponent.setAssignedShieldId(null);
+						}
 					} else {
 						militaryComponent.setAssignedWeaponId(null);
 					}
@@ -535,14 +538,26 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 	}
 
+	private boolean isTwoHandedWeapon(Entity itemEntity) {
+		if (itemEntity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
+			if (attributes.getItemType().getWeaponInfo() != null && attributes.getItemType().getWeaponInfo().isTwoHanded()) {
+				return attributes.getItemType().getWeaponInfo().isTwoHanded();
+			}
+		}
+		return false;
+	}
+
 	private void populateMilitaryEquipmentTable(Entity entity, MilitaryComponent militaryComponent) {
 		// Weapon
 		Long assignedWeaponId = militaryComponent.getAssignedWeaponId();
 		Entity assignedWeapon = null;
+		boolean weaponIsTwoHanded = false;
 		if (assignedWeaponId != null) {
 			assignedWeapon = gameContext.getEntities().get(assignedWeaponId);
 			if (assignedWeapon == null) {
 				militaryComponent.setAssignedWeaponId(null);
+			} else {
+				weaponIsTwoHanded = isTwoHandedWeapon(assignedWeapon);
 			}
 		}
 		ImageButton weaponButton = UNARMED_IMAGE_BUTTON;
@@ -566,7 +581,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			shieldButton = imageButtonFactory.getOrCreate(assignedShield);
 		}
 		shieldButton.setAction(shieldSelectionAction);
-		militaryEquipmentTable.add(shieldButton).center().pad(5);
+		if (!weaponIsTwoHanded) {
+			militaryEquipmentTable.add(shieldButton).center().pad(5);
+		}
 
 		// Armour
 		Long assignedArmorId = militaryComponent.getAssignedArmorId();
@@ -587,7 +604,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		// Description line
 		militaryEquipmentTable.row();
 		addLabel(assignedWeapon, "WEAPON.UNARMED");
-		addLabel(assignedShield, "WEAPON.NO_SHIELD");
+		if (!weaponIsTwoHanded) {
+			addLabel(assignedShield, "WEAPON.NO_SHIELD");
+		}
 		addLabel(assignedArmor, "WEAPON.NO_ARMOUR");
 	}
 

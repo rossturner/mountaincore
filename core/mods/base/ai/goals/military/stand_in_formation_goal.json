@@ -17,8 +17,7 @@
   "initialActions": ["GoToSquadFormationPosition"],
   "actionRelationships": {
     "GoToSquadFormationPosition": {
-      "pass": ["StandToAttention"],
-      "fail": ["StandToAttention"]
+      "pass": ["StandToAttention"]
     },
     "StandToAttention": {
       "pass": ["RequeueThisGoal"]

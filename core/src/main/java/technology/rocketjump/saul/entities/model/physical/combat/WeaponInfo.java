@@ -19,6 +19,7 @@ public class WeaponInfo {
 	private int maxDamage;
 	private int armorNegation;
 	private AmmoType requiresAmmoType;
+	private boolean twoHanded;
 
 	private String combatSkillName;
 	@JsonIgnore
@@ -181,5 +182,13 @@ public class WeaponInfo {
 
 	public void setAnimatedEffectType(ParticleEffectType animatedEffectType) {
 		this.animatedEffectType = animatedEffectType;
+	}
+
+	public boolean isTwoHanded() {
+		return twoHanded;
+	}
+
+	public void setTwoHanded(boolean twoHanded) {
+		this.twoHanded = twoHanded;
 	}
 }

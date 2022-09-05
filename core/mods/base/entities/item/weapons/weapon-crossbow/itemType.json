@@ -12,6 +12,7 @@
     "minDamage" : 3,
     "maxDamage" : 8,
     "requiresAmmoType" : "BOLTS",
+    "twoHanded" : true,
     "combatSkillName" : "CROSSBOWS",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",

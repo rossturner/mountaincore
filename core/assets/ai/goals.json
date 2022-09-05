@@ -357,7 +357,6 @@
       "pass" : [ "RequeueThisGoal" ]
     },
     "GoToSquadFormationPosition" : {
-      "fail" : [ "StandToAttention" ],
       "pass" : [ "StandToAttention" ]
     },
     "RequeueThisGoal" : { }
