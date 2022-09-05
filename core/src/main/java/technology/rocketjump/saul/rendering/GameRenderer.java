@@ -46,13 +46,9 @@ public class GameRenderer implements AssetDisposable {
 	private TextureRegion lightingTextureRegion;
 	private FrameBuffer selectedEntitiesFrameBuffer;
 	private TextureRegion selectedEntitiesTextureRegion;
-	private FrameBuffer entityOutlineFrameBuffer;
-	private TextureRegion entityOutlineTextureRegion;
-	private FrameBuffer dilatedFrameBuffer;
-	private TextureRegion dilatedTextureRegion;
-	//TODO: refactor to just have 2 frame buffers with a chain of image processing kernels
 	private FrameBuffer combinedFrameBuffer;
 	private TextureRegion combinedTextureRegion;
+
 	private TextureRegion[] textureRegions;
 	private String[] textureRegionNames;
 
@@ -65,6 +61,7 @@ public class GameRenderer implements AssetDisposable {
 	private final CombinedLightingResultRenderer combinedRenderer;
 	private final DebugRenderer debugRenderer;
 	private final InWorldUIRenderer inWorldUIRenderer;
+	private final ImageProcessingRenderer imageProcessingRenderer;
 
 	private final TerrainSpriteCache diffuseSpriteCache;
 	private final TerrainSpriteCache normalSpriteCache;
@@ -76,8 +73,9 @@ public class GameRenderer implements AssetDisposable {
 	public GameRenderer(LightProcessor lightProcessor,
 						RenderingOptions renderingOptions, WorldRenderer worldRenderer, WorldLightingRenderer worldLightingRenderer,
 						CombinedLightingResultRenderer combinedRenderer, DebugRenderer debugRenderer,
-						InWorldUIRenderer inWorldUIRenderer, @Named("diffuse") TerrainSpriteCache diffuseSpriteCache,
-						@Named("normal") TerrainSpriteCache normalSpriteCache, ScreenWriter screenWriter) {
+						InWorldUIRenderer inWorldUIRenderer, ImageProcessingRenderer imageProcessingRenderer,
+						@Named("diffuse") TerrainSpriteCache diffuseSpriteCache, @Named("normal") TerrainSpriteCache normalSpriteCache,
+						ScreenWriter screenWriter) {
 		this.lightProcessor = lightProcessor;
 		this.renderingOptions = renderingOptions;
 		this.worldRenderer = worldRenderer;
@@ -85,6 +83,7 @@ public class GameRenderer implements AssetDisposable {
 		this.combinedRenderer = combinedRenderer;
 		this.debugRenderer = debugRenderer;
 		this.inWorldUIRenderer = inWorldUIRenderer;
+		this.imageProcessingRenderer = imageProcessingRenderer;
 		this.diffuseSpriteCache = diffuseSpriteCache;
 		this.normalSpriteCache = normalSpriteCache;
 		this.screenWriter = screenWriter;
@@ -154,26 +153,10 @@ public class GameRenderer implements AssetDisposable {
 		selectedEntitiesFrameBuffer.end();
 
 		//-------Image processing pipeline---------
-		entityOutlineFrameBuffer.begin();
-		combinedRenderer.renderEntityOutline(selectedEntitiesTextureRegion); //todo: this is not in right place
-		entityOutlineFrameBuffer.end();
-
-		dilatedFrameBuffer.begin();
-		combinedRenderer.dilateImage(entityOutlineTextureRegion); //todo: this is not in right place
-		dilatedFrameBuffer.end();
-
-		//bodged 2nd dilation for thickness. could use a bigger kernel really to achieve same effect
-		dilatedFrameBuffer.begin();
-		combinedRenderer.dilateImage(dilatedTextureRegion); //todo: this is not in right place
-		dilatedFrameBuffer.end();
-		//bodged 3rd dilation for thickness. could use a bigger kernel really to achieve same effect
-		dilatedFrameBuffer.begin();
-		combinedRenderer.dilateImage(dilatedTextureRegion); //todo: this is not in right place
-		dilatedFrameBuffer.end();
-		//end todo:
+		TextureRegion outlined = imageProcessingRenderer.outline(selectedEntitiesTextureRegion);
+		TextureRegion outlinedAndDilated = imageProcessingRenderer.dilate(outlined);
 
 		/////// Draw lighting info ///
-
 		lightingFrameBuffer.begin();
 		worldLightingRenderer.renderWorldLighting(gameContext, lightsToRenderThisFrame, camera, bumpMapTextureRegion);
 		lightingFrameBuffer.end();
@@ -222,7 +205,7 @@ public class GameRenderer implements AssetDisposable {
 			frameBufferSpriteBatch.end();
 		} else {
 			combinedRenderer.renderFinal(diffuseTextureRegion, lightingTextureRegion, fadeAmount);
-			combinedRenderer.renderstuff(entityOutlineTextureRegion);
+			combinedRenderer.renderstuff(outlinedAndDilated);
 			inWorldUIRenderer.render(gameContext, camera, particlesToRenderAsUI, diffuseSpriteCache);
 		}
 
@@ -257,21 +240,18 @@ public class GameRenderer implements AssetDisposable {
 		selectedEntitiesTextureRegion = new TextureRegion(selectedEntitiesFrameBuffer.getColorBufferTexture(), width, height);
 		selectedEntitiesTextureRegion.flip(false, true);
 
-		entityOutlineFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false, false);
-		entityOutlineTextureRegion = new TextureRegion(entityOutlineFrameBuffer.getColorBufferTexture(), width, height);
-		entityOutlineTextureRegion.flip(false, true);
+		imageProcessingRenderer.initFrameBuffers(width, height);
 
-		dilatedFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false, false);
-		dilatedTextureRegion = new TextureRegion(dilatedFrameBuffer.getColorBufferTexture(), width, height);
-		dilatedTextureRegion.flip(false, true);
 
 		textureRegions = new TextureRegion[7];
 		textureRegions[0] = diffuseTextureRegion;
 		textureRegions[1] = bumpMapTextureRegion;
 		textureRegions[2] = lightingTextureRegion;
 		textureRegions[3] = selectedEntitiesTextureRegion;
-		textureRegions[4] = entityOutlineTextureRegion;
-		textureRegions[5] = dilatedTextureRegion;
+
+		textureRegions[4] = imageProcessingRenderer.getFirstTextureRegion();
+		textureRegions[5] = imageProcessingRenderer.getSecondTextureRegion();
+
 		textureRegions[6] = combinedTextureRegion;
 
 		textureRegionNames = new String[7];
@@ -279,8 +259,10 @@ public class GameRenderer implements AssetDisposable {
 		textureRegionNames[1] = "Bump Map Texture";
 		textureRegionNames[2] = "Lighting Texture";
 		textureRegionNames[3] = "Selected Entities Texture";
-		textureRegionNames[4] = "Entity Outline Texture";
-		textureRegionNames[5] = "Dilated Texture";
+
+		textureRegionNames[4] = "Image Processor 1 Texture";
+		textureRegionNames[5] = "Image Processor 2 Texture";
+
 		textureRegionNames[6] = "Combined Texture";
 	}
 
@@ -289,8 +271,7 @@ public class GameRenderer implements AssetDisposable {
 		normalMapFrameBuffer.dispose();
 		lightingFrameBuffer.dispose();
 		combinedFrameBuffer.dispose();
-		entityOutlineFrameBuffer.dispose();
-		dilatedFrameBuffer.dispose();
+		imageProcessingRenderer.dispose();
 		textureRegions = null;
 	}
 
