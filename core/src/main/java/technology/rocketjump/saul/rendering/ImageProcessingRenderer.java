@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.utils.Disposable;
 import technology.rocketjump.saul.rendering.custom_libgdx.ShaderLoader;
@@ -51,8 +50,6 @@ public class ImageProcessingRenderer implements Disposable {
     private int height;
 
     public ImageProcessingRenderer() {
-        new GLProfiler(Gdx.graphics).enable();
-
         FileHandle vertexShader = Gdx.files.classpath("shaders/combined_lighting_vertex_shader.glsl");
         FileHandle fragmentShader = Gdx.files.classpath("shaders/image_processing_fragment_shader.glsl");
         imageProcessorShader = ShaderLoader.createShader(vertexShader, fragmentShader);
