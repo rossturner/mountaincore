@@ -191,8 +191,6 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		NeedsComponent needsComponent = parentEntity.getComponent(NeedsComponent.class);
 		needsComponent.update(elapsed, parentEntity, messageDispatcher);
 
-		parentEntity.getComponent(StatusComponent.class).infrequentUpdate(elapsed);
-
 		HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
 		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
 		boolean isInMilitary = militaryComponent != null && militaryComponent.isInMilitary();

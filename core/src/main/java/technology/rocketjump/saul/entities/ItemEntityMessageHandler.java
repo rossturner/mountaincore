@@ -35,10 +35,7 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
-import technology.rocketjump.saul.rooms.HaulingAllocation;
-import technology.rocketjump.saul.rooms.Room;
-import technology.rocketjump.saul.rooms.RoomStore;
-import technology.rocketjump.saul.rooms.StockpileAllocationResponse;
+import technology.rocketjump.saul.rooms.*;
 import technology.rocketjump.saul.rooms.components.StockpileComponent;
 import technology.rocketjump.saul.settlement.ItemTracker;
 
@@ -47,7 +44,6 @@ import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.*;
 
 @Singleton
 public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
@@ -161,9 +157,8 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			unallocatedItems = itemTracker.getItemsByType(message.requiredItemType, true);
 		}
 
-		Collections.sort(unallocatedItems, new NearestDistanceSorter(message.requesterPosition));
+		unallocatedItems.sort(new NearestDistanceSorter(message.requesterPosition));
 
-		HaulingAllocation allocation = new HaulingAllocation();
 		for (Entity unallocatedItem : unallocatedItems) {
 			MapTile itemTile = gameContext.getAreaMap().getTile(unallocatedItem.getLocationComponent().getWorldOrParentPosition());
 			if (itemTile == null || itemTile.getRegionId() != requesterRegionId) {
@@ -191,26 +186,17 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			}
 			if (containerEntity != null) {
 				if (message.includeFromFurniture && !Objects.equals(containerEntity.getId(), requestingEntityId)) {
-					if (containerEntity.getType().equals(EntityType.FURNITURE)) {
-						allocation.setSourcePositionType(HaulingAllocation.AllocationPositionType.FURNITURE);
-						allocation.setSourcePosition(itemTile.getTilePosition());
-						allocation.setSourceContainerId(containerEntity.getId());
-					} else {
-						Logger.info("Not yet implemented: Requesting item from non-furniture container");
+					if (!containerEntity.getType().equals(EntityType.FURNITURE)) {
+						Logger.warn("Not yet implemented: Requesting item from non-furniture container");
 						continue;
 					}
 				} else {
 					// This request does not want items from other containers
 					continue;
 				}
-			} else {
-				// Not in a container
-				allocation.setSourcePositionType(HaulingAllocation.AllocationPositionType.FLOOR);
-				allocation.setSourcePosition(itemTile.getTilePosition());
 			}
 
 			ItemEntityAttributes attributes = (ItemEntityAttributes) unallocatedItem.getPhysicalEntityComponent().getAttributes();
-			allocation.setHauledEntityId(unallocatedItem.getId());
 
 			ItemAllocationComponent itemAllocationComponent = unallocatedItem.getOrCreateComponent(ItemAllocationComponent.class);
 
@@ -219,18 +205,14 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 				numToAllocate = Math.min(numToAllocate, message.maxAmountRequired);
 			}
 			Entity requestingEntity = message.requestingEntity != null ? message.requestingEntity : unallocatedItem;
-			ItemAllocation itemAllocation = itemAllocationComponent.createAllocation(numToAllocate, requestingEntity, ItemAllocation.Purpose.DUE_TO_BE_HAULED);
-			if (itemAllocation != null) {
-				allocation.setItemAllocation(itemAllocation);
-				if (liquidContainerComponent != null && message.requiredContainedLiquid != null) {
-					LiquidAllocation liquidAllocation = liquidContainerComponent.createAllocationDueToParentHauling(liquidContainerComponent.getNumUnallocated(), message.requestingEntity);
-					allocation.setLiquidAllocation(liquidAllocation);
-				}
-				message.allocationCallback.allocationFound(allocation);
-				return true;
-			} else {
-				Logger.error("Could not create item allocation");
+			HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(numToAllocate, unallocatedItem, requestingEntity)
+					.toEntity(requestingEntity);
+			if (liquidContainerComponent != null && message.requiredContainedLiquid != null) {
+				LiquidAllocation liquidAllocation = liquidContainerComponent.createAllocationDueToParentHauling(liquidContainerComponent.getNumUnallocated(), message.requestingEntity);
+				haulingAllocation.setLiquidAllocation(liquidAllocation);
 			}
+			message.allocationCallback.allocationFound(haulingAllocation);
+			return true;
 		}
 
 		message.allocationCallback.allocationFound(null);
@@ -292,17 +274,8 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			for (Room room : byDistance.values()) {
 				StockpileAllocationResponse stockpileAllocationResponse = room.getComponent(StockpileComponent.class).requestAllocation(entity, areaMap);
 				if (stockpileAllocationResponse != null) {
-					HaulingAllocation allocation = new HaulingAllocation();
-					allocation.setTargetPosition(stockpileAllocationResponse.position);
-					allocation.setTargetPositionType(ROOM);
-					allocation.setTargetId(room.getRoomId());
-
-					ItemAllocation itemAllocation = entity.getOrCreateComponent(ItemAllocationComponent.class).createAllocation(stockpileAllocationResponse.quantity,
-							requestingEntity, ItemAllocation.Purpose.DUE_TO_BE_HAULED);
-					allocation.setItemAllocation(itemAllocation);
-					allocation.setHauledEntityType(entity.getType());
-
-					return allocation;
+					return HaulingAllocationBuilder.createWithItemAllocation(stockpileAllocationResponse.quantity, entity, requestingEntity)
+							.toRoom(room, stockpileAllocationResponse.position);
 				}
 			}
 		}
@@ -333,15 +306,8 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 				return true;
 			}
 
-			haulingAllocation = new HaulingAllocation();
-			haulingAllocation.setSourcePositionType(FLOOR); // May be overridden below
-			haulingAllocation.setTargetPosition(null);
-			haulingAllocation.setHauledEntityId(message.getEntityToBeMoved().getId());
-
-			ItemAllocation itemAllocation = itemAllocationComponent.createAllocation(quantityToAllocate, message.getEntityToBeMoved(), ItemAllocation.Purpose.DUE_TO_BE_HAULED);
-			if (itemAllocation != null) {
-				haulingAllocation.setItemAllocation(itemAllocation);
-			}
+			haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(quantityToAllocate, message.getEntityToBeMoved(), message.requestingEntity)
+							.toEntity(message.requestingEntity);
 		}
 
 		if (haulingAllocation != null) {
@@ -350,19 +316,11 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			Entity itemToBeMoved = message.getEntityToBeMoved();
 			Entity containerEntity = itemToBeMoved.getLocationComponent().getContainerEntity();
 			if (containerEntity != null) {
-				if (!containerEntity.getType().equals(EntityType.FURNITURE)) {
-					Logger.error("Not yet implemented: Hauling out of non-furniture container entity");
-					messageDispatcher.dispatchMessage(MessageType.JOB_CANCELLED, haulingJob);
-					message.callback.jobCreated(null);
-					return true;
-				}
-				haulingAllocation.setSourcePositionType(FURNITURE);
-				haulingAllocation.setSourcePosition(toGridPoint(containerEntity.getLocationComponent().getWorldPosition()));
-				haulingAllocation.setSourceContainerId(containerEntity.getId());
-
 				FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(containerEntity, gameContext.getAreaMap());
 				if (navigableWorkspace == null) {
 					Logger.error("Item created but not accessible to collect - investigate and fix");
+					messageDispatcher.dispatchMessage(MessageType.CANCEL_ITEM_ALLOCATION, haulingAllocation.getItemAllocation());
+					return true;
 				} else {
 					haulingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
 					haulingJob.setJobState(JobState.ASSIGNABLE);

@@ -9,7 +9,10 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ItemEntityMessageHandler;
-import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.InventoryComponent;
+import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
+import technology.rocketjump.saul.entities.components.LiquidAllocation;
+import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
@@ -29,6 +32,7 @@ import technology.rocketjump.saul.messaging.types.RequestLiquidAllocationMessage
 import technology.rocketjump.saul.messaging.types.RequestLiquidRemovalMessage;
 import technology.rocketjump.saul.messaging.types.RequestLiquidTransferMessage;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
+import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 import technology.rocketjump.saul.settlement.ItemTracker;
 import technology.rocketjump.saul.zones.Zone;
 import technology.rocketjump.saul.zones.ZoneTile;
@@ -38,10 +42,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
-import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.CONTENTS_TO_BE_DUMPED;
-import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.DUE_TO_BE_HAULED;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.*;
+import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FLOOR;
+import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.ZONE;
 import static technology.rocketjump.saul.zones.ZoneClassification.ZoneType.LIQUID_SOURCE;
 
 @Singleton
@@ -144,6 +147,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 						true, null, null, (allocation) -> {
 							if (allocation != null) {
 								allocation.setTargetPositionType(HaulingAllocation.AllocationPositionType.ZONE);
+								allocation.setTargetId(nearestApplicableZone.get().getZoneId());
 								allocation.setTargetPosition(accessTile.getTilePosition());
 
 								transferLiquidJob.setJobPriority(message.jobPriority);
@@ -193,35 +197,27 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 				moveLiquidInItemJob.setTargetId(message.requesterEntity.getId());
 				moveLiquidInItemJob.setJobLocation(toGridPoint(message.requesterPosition));
 
-				HaulingAllocation haulingAllocation = new HaulingAllocation();
-				haulingAllocation.setSourcePositionType(FLOOR); // May be overridden below
-				haulingAllocation.setSourcePosition(toGridPoint(itemEntity.getLocationComponent().getWorldPosition()));
-				haulingAllocation.setHauledEntityId(itemEntity.getId());
+				HaulingAllocation haulingAllocation = HaulingAllocationBuilder
+						.createWithItemAllocation(itemAllocationComponent.getNumUnallocated(), itemEntity, message.requesterEntity)
+								.toEntity(message.requesterEntity);
 
 				Entity containerEntity = itemEntity.getLocationComponent().getContainerEntity();
 				if (containerEntity != null) {
 					if (!containerEntity.getType().equals(EntityType.FURNITURE)) {
 						Logger.error("Not yet implemented: Hauling out of non-furniture container entity");
+						messageDispatcher.dispatchMessage(MessageType.CANCEL_ITEM_ALLOCATION, haulingAllocation.getItemAllocation());
 						continue;
 					}
-					haulingAllocation.setSourcePositionType(FURNITURE);
-					haulingAllocation.setSourcePosition(toGridPoint(containerEntity.getLocationComponent().getWorldPosition()));
-					haulingAllocation.setSourceContainerId(containerEntity.getId());
 
 					FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(containerEntity, gameContext.getAreaMap());
 					if (navigableWorkspace == null) {
 						Logger.error("Item not accessible to collect - investigate and fix");
+						messageDispatcher.dispatchMessage(MessageType.CANCEL_ITEM_ALLOCATION, haulingAllocation.getItemAllocation());
 						continue;
 					} else {
 						haulingAllocation.setSourcePosition(navigableWorkspace.getAccessedFrom());
 					}
 				}
-
-				ItemAllocation itemAllocation = itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(),
-						message.requesterEntity, DUE_TO_BE_HAULED);
-				haulingAllocation.setItemAllocation(itemAllocation);
-
-				haulingAllocation.setTargetPosition(toGridPoint(message.requesterPosition));
 
 				moveLiquidInItemJob.setHaulingAllocation(haulingAllocation);
 
@@ -312,35 +308,19 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 			}
 
 			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+			GridPoint2 tileLocation = toGridPoint(entity.getLocationComponent().getWorldPosition());
 
-			ItemAllocationComponent itemAllocationComponent = entity.getOrCreateComponent(ItemAllocationComponent.class);
-			ItemAllocation allocation = itemAllocationComponent.createAllocation(attributes.getQuantity(), entity, CONTENTS_TO_BE_DUMPED);
+			HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(attributes.getQuantity(), entity, entity)
+							.toEntity(entity);
+			haulingAllocation.setTargetPositionType(FLOOR);
 
-			if (allocation != null) {
-				GridPoint2 tileLocation = toGridPoint(entity.getLocationComponent().getWorldPosition());
+			Job job = new Job(dumpLiquidJobType);
+			job.setJobPriority(JobPriority.NORMAL);
+			job.setJobLocation(tileLocation);
+			job.setTargetId(entity.getId());
+			job.setHaulingAllocation(haulingAllocation);
 
-				HaulingAllocation haulingAllocation = new HaulingAllocation();
-				haulingAllocation.setSourcePosition(tileLocation);
-				haulingAllocation.setSourcePositionType(FLOOR);
-
-				haulingAllocation.setItemAllocation(allocation);
-				haulingAllocation.setHauledEntityType(EntityType.ITEM);
-				haulingAllocation.setTargetId(entity.getId());
-				haulingAllocation.setHauledEntityId(entity.getId());
-
-				haulingAllocation.setTargetPosition(tileLocation);
-				haulingAllocation.setTargetPositionType(FLOOR);
-
-				Job job = new Job(dumpLiquidJobType);
-				job.setJobPriority(JobPriority.NORMAL);
-				job.setJobLocation(tileLocation);
-				job.setTargetId(entity.getId());
-				job.setHaulingAllocation(haulingAllocation);
-
-				messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, job);
-			} else {
-				Logger.error("Could not create item allocation to dump liquid contents");
-			}
+			messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, job);
 		} else {
 			Logger.error("Not yet implemented - dumping liquid contents from entity other than item");
 		}
@@ -441,6 +421,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 					messageDispatcher.dispatchMessage(MessageType.HAULING_ALLOCATION_CANCELLED, haulingAllocation);
 				} else {
 					haulingAllocation.setTargetPositionType(ZONE);
+					haulingAllocation.setTargetId(null);
 					haulingAllocation.setTargetPosition(message.workspaceLocation);
 
 					job = new Job(removeLiquidJobType);

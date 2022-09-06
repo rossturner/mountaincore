@@ -233,8 +233,6 @@ public class Entity implements Persistable, Disposable {
 	}
 
 	public void infrequentUpdate(GameContext gameContext) {
-		behaviourComponent.infrequentUpdate(gameContext);
-
 		double gameTime = gameContext.getGameClock().getCurrentGameTime();
 		double elapsed = gameTime - lastUpdateGameTime;
 		lastUpdateGameTime = gameTime;
@@ -243,6 +241,9 @@ public class Entity implements Persistable, Disposable {
 				((InfrequentlyUpdatableComponent) c).infrequentUpdate(elapsed);
 			}
 		}
+
+		// update behaviour after other components so that we can pick up on newly required goals
+		behaviourComponent.infrequentUpdate(gameContext);
 	}
 
 	public boolean isUpdateEveryFrame() {

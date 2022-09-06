@@ -89,8 +89,7 @@ import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.messaging.MessageType.DESTROY_ENTITY;
 import static technology.rocketjump.saul.messaging.MessageType.TRANSFORM_ITEM_TYPE;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FURNITURE;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.*;
+import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.CREATURE;
 
 @Singleton
 public class EntityMessageHandler implements GameContextAware, Telegraph {
@@ -473,41 +472,49 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						itemAllocationComponent.cancel(allocation.getItemAllocation());
 					}
 
-					if (ROOM.equals(allocation.getTargetPositionType())) {
-						Room targetRoom = roomStore.getById(allocation.getTargetId());
-						if (targetRoom != null && targetRoom.getComponent(StockpileComponent.class) != null) {
-							targetRoom.getComponent(StockpileComponent.class).allocationCancelled(allocation, targetItemEntity);
-						}
-						return true;
-					} else if (CONSTRUCTION.equals(allocation.getTargetPositionType())) {
-						Construction targetConstruction = gameContext.getConstructions().get(allocation.getTargetId());
-						if (targetConstruction != null) {
-							targetConstruction.allocationCancelled(allocation);
-						}
-						return true; // This is handled by ConstructionMessageHandler
-					} else if (allocation.getTargetPosition() == null) {
-						// Not hauling to anywhere in particular so allocation cancelled message doesn't matter
-						return true;
-					} else if (FURNITURE.equals(allocation.getTargetPositionType())) {
-						Entity targetFurnitureEntity = entityStore.getById(allocation.getTargetId());
-						if (targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
-							((CraftingStationBehaviour) targetFurnitureEntity.getBehaviourComponent()).allocationCancelled(allocation);
-						} else if (targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour ||
-								targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof InnoculationLogBehaviour) {
-							// Do nothing, CollectItemFurnitureBehaviour will deal with cancelled allocations, eventually, might want to improve this
-						} else {
-							// FIXME perhaps this is fine and we can do nothing
-							// Currently this could be a target of a cooking cauldron or baked bread, which KitchenBehaviour would deal with
-							Logger.error("Unrecognised item allocation cancelled with target of furniture");
-						}
-						return true;
-					} else if (ZONE.equals(allocation.getTargetPositionType())) {
-						// Hauling to zone doesn't matter about cancelling
-						return true;
+					if (allocation.getTargetPositionType() == null) {
+						Logger.error("No target position type on cancelled hauling allocation " + allocation);
 					} else {
-						Logger.error("HAULING_ALLOCATION_CANCELLED message received with unrecognised targetPositionType");
-						return false;
+						switch (allocation.getTargetPositionType()) {
+							case ROOM -> {
+								Room targetRoom = roomStore.getById(allocation.getTargetId());
+								if (targetRoom != null && targetRoom.getComponent(StockpileComponent.class) != null) {
+									targetRoom.getComponent(StockpileComponent.class).allocationCancelled(allocation, targetItemEntity);
+								}
+							}
+							case CONSTRUCTION -> {
+								Construction targetConstruction = gameContext.getConstructions().get(allocation.getTargetId());
+								if (targetConstruction != null) {
+									targetConstruction.allocationCancelled(allocation);
+								}
+							}
+							case CREATURE -> {
+								Entity targetCreature = entityStore.getById(allocation.getTargetId());
+								if (targetCreature != null) {
+									ItemAssignmentComponent itemAssignmentComponent = targetCreature.getComponent(ItemAssignmentComponent.class);
+									if (itemAssignmentComponent != null) {
+										itemAssignmentComponent.getHaulingAllocations().remove(allocation);
+									}
+								}
+							}
+							case FURNITURE -> {
+								Entity targetFurnitureEntity = entityStore.getById(allocation.getTargetId());
+								if (targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
+									((CraftingStationBehaviour) targetFurnitureEntity.getBehaviourComponent()).allocationCancelled(allocation);
+								} else if (targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour ||
+										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof InnoculationLogBehaviour) {
+									// Do nothing, CollectItemFurnitureBehaviour will deal with cancelled allocations, eventually, might want to improve this
+								} else {
+									// FIXME perhaps this is fine and we can do nothing
+									// Currently this could be a target of a cooking cauldron or baked bread, which KitchenBehaviour would deal with
+									Logger.error("Unrecognised item allocation cancelled with target of furniture");
+								}
+							}
+							case ZONE -> {} // Hauling to zone doesn't matter about cancelling
+							default -> Logger.error("HAULING_ALLOCATION_CANCELLED message received with unrecognised targetPositionType");
+						}
 					}
+					return true;
 				} else {
 					// FURNITURE-type hauling handled elsewhere e.g. KitchenManager
 					return false;

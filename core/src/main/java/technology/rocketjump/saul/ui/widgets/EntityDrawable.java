@@ -13,6 +13,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 
+import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.DOWN;
 import static technology.rocketjump.saul.rendering.entities.EntityRenderer.PIXELS_PER_TILE;
 
 public class EntityDrawable extends BaseDrawable {
@@ -41,6 +42,7 @@ public class EntityDrawable extends BaseDrawable {
         LocationComponent overrideLocationComponent = originalLocationComponent.clone(null, null);
         Vector2 screenPosition = new Vector2(x + (width / 2), y + (width / 2));
         overrideLocationComponent.setWorldPosition(screenPosition, false);
+        overrideLocationComponent.setFacing(DOWN.toVector2());
         entity.setLocationComponent(overrideLocationComponent);
 
         float tempPixelsPerTile = PIXELS_PER_TILE;

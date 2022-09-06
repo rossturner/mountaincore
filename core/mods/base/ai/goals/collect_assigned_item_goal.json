@@ -11,7 +11,7 @@
           "type": "ITEM_ASSIGNED"
         }
       ],
-      "priority": "JOB_NORMAL",
+      "priority": "JOB_URGENT",
       "scheduleCategory": "ANY"
     }
   ],

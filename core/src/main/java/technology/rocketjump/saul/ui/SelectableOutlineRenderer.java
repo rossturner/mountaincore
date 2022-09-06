@@ -82,6 +82,9 @@ public class SelectableOutlineRenderer {
 
 	private void renderCircleAroundEntity(Entity selectedEntity, ShapeRenderer shapeRenderer, GameContext gameContext) {
 		Vector2 worldPosition = selectedEntity.getLocationComponent().getWorldPosition();
+		if (worldPosition == null) {
+			return;
+		}
 		shapeRenderer.circle(worldPosition.x, worldPosition.y,
 				selectedEntity.getLocationComponent().getRadius() + 0.3f, 100);
 		CombatStateComponent combatStateComponent = selectedEntity.getComponent(CombatStateComponent.class);

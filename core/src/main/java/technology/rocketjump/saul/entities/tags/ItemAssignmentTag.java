@@ -5,7 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.items.ItemBehaviour;
-import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.BehaviourComponent;
+import technology.rocketjump.saul.entities.components.EntityComponent;
+import technology.rocketjump.saul.entities.components.InventoryComponent;
+import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.creature.ItemAssignmentComponent;
 import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -17,8 +20,8 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.LocateSettlersMessage;
-import technology.rocketjump.saul.misc.VectorUtils;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
+import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 
 /**
  * Attach to an item for automatic inventory allocation
@@ -130,13 +133,8 @@ public class ItemAssignmentTag extends Tag {
                             })
                             .findFirst()
                             .ifPresent(settler -> {
-                                ItemAllocation itemAllocation = itemAllocationComponent.createAllocation(1, settler, ItemAllocation.Purpose.DUE_TO_BE_HAULED);
-                                HaulingAllocation haulingAllocation = new HaulingAllocation();
-                                haulingAllocation.setItemAllocation(itemAllocation);
-                                haulingAllocation.setSourcePositionType(HaulingAllocation.AllocationPositionType.FLOOR);
-                                haulingAllocation.setSourcePosition(VectorUtils.toGridPoint(worldPosition));
-                                haulingAllocation.setHauledEntityId(this.parentEntity.getId());
-
+                                HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(1, parentEntity, settler)
+                                                .toEntity(settler);
                                 ItemAssignmentComponent assignmentComponent = settler.getOrCreateComponent(ItemAssignmentComponent.class);
                                 assignmentComponent.getHaulingAllocations().add(haulingAllocation);
                             });

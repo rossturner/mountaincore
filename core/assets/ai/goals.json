@@ -63,7 +63,7 @@
     "conditions" : [ {
       "type" : "ITEM_ASSIGNED"
     } ],
-    "priority" : "JOB_NORMAL"
+    "priority" : "JOB_URGENT"
   } ],
   "initialActions" : [ "SelectItemAssignment" ],
   "interruptedByLowNeeds" : true
