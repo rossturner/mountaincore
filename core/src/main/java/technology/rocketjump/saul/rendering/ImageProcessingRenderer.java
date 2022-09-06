@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.utils.Disposable;
 import technology.rocketjump.saul.rendering.custom_libgdx.ShaderLoader;
@@ -15,12 +16,18 @@ public class ImageProcessingRenderer implements Disposable {
     private static final int NUM_TRIANGLES = 2;
     private static final int VERTEX_SIZE = 2;
     private static final int NUM_INDEX_PER_TRIANGLE = 3;
-    private static final float ONE_NINTH = 1.0f/9.0f;
+    private static final float ONE_NINTH = 1.0f;
     //Remember these are column oriented
     private static final Matrix3 ZEROS_KERNEL = new Matrix3(new float[] {
        0, 0, 0,
        0, 0, 0,
        0, 0, 0
+    });
+
+    private static final Matrix3 GAUSSIAN_BLUR_KERNEL = new Matrix3(new float[] {
+            1.0f/16.0f, 1.0f/8.0f, 1.0f/16.0f,
+            1.0f/8.0f, 1.0f/4.0f, 1.0f/8.0f,
+            1.0f/16.0f, 1.0f/8.0f, 1.0f/16.0f,
     });
 
     private static final Matrix3 DILATE_KERNEL = new Matrix3(new float[] {
@@ -50,6 +57,8 @@ public class ImageProcessingRenderer implements Disposable {
     private int height;
 
     public ImageProcessingRenderer() {
+        new GLProfiler(Gdx.graphics).enable();
+
         FileHandle vertexShader = Gdx.files.classpath("shaders/combined_lighting_vertex_shader.glsl");
         FileHandle fragmentShader = Gdx.files.classpath("shaders/image_processing_fragment_shader.glsl");
         imageProcessorShader = ShaderLoader.createShader(vertexShader, fragmentShader);
@@ -96,6 +105,10 @@ public class ImageProcessingRenderer implements Disposable {
         return process(input, DILATE_KERNEL, ZEROS_KERNEL);
     }
 
+    public TextureRegion blur(TextureRegion input) {
+        return process(input, GAUSSIAN_BLUR_KERNEL, ZEROS_KERNEL);
+    }
+
     private TextureRegion process(TextureRegion input, Matrix3 kernelX, Matrix3 kernelY) {
         FrameBuffer frameBuffer = frameBuffers[currentFrameBufferIndex];
         TextureRegion textureRegion = textureRegions[currentFrameBufferIndex];
@@ -107,7 +120,7 @@ public class ImageProcessingRenderer implements Disposable {
 
         frameBuffer.begin();
         Gdx.gl.glDisable(GL20.GL_BLEND);
-        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClearColor(0.5f, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         imageProcessorShader.begin();
         imageProcessorShader.setUniformi("u_texture", 0);

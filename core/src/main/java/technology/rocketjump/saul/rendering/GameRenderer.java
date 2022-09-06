@@ -153,8 +153,10 @@ public class GameRenderer implements AssetDisposable {
 		selectedEntitiesFrameBuffer.end();
 
 		//-------Image processing pipeline---------
+		//TODO: render when selectable
 		TextureRegion outlined = imageProcessingRenderer.outline(selectedEntitiesTextureRegion);
-		TextureRegion outlinedAndDilated = imageProcessingRenderer.dilate(outlined);
+		TextureRegion dilated = imageProcessingRenderer.dilate(outlined);
+
 
 		/////// Draw lighting info ///
 		lightingFrameBuffer.begin();
@@ -205,7 +207,7 @@ public class GameRenderer implements AssetDisposable {
 			frameBufferSpriteBatch.end();
 		} else {
 			combinedRenderer.renderFinal(diffuseTextureRegion, lightingTextureRegion, fadeAmount);
-			combinedRenderer.renderstuff(outlinedAndDilated);
+			combinedRenderer.renderstuff(outlined);
 			inWorldUIRenderer.render(gameContext, camera, particlesToRenderAsUI, diffuseSpriteCache);
 		}
 

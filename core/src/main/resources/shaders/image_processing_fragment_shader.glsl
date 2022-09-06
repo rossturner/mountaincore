@@ -8,34 +8,43 @@ uniform vec2 u_viewportResolution;
 uniform mat3 u_kernelX;
 uniform mat3 u_kernelY;
 
-float intensity(in vec4 color){
-    return sqrt((color.x*color.x)+(color.y*color.y)+(color.z*color.z));
-}
-
-float convolution(float stepx, float stepy, vec2 center){
+vec4 convolution(float stepx, float stepy, vec2 center){
     // get samples around pixel
-    float tleft = intensity(texture2D(u_texture, center + vec2(-stepx, stepy)));
-    float left = intensity(texture2D(u_texture, center + vec2(-stepx, 0)));
-    float bleft = intensity(texture2D(u_texture, center + vec2(-stepx, -stepy)));
+    vec4 tleft = texture2D(u_texture, center + vec2(-stepx, stepy));
+    vec4 left = texture2D(u_texture, center + vec2(-stepx, 0));
+    vec4 bleft = texture2D(u_texture, center + vec2(-stepx, -stepy));
 
-    float top = intensity(texture2D(u_texture, center + vec2(0, stepy)));
-    float middle = intensity(texture2D(u_texture, center));
-    float bottom = intensity(texture2D(u_texture, center + vec2(0, -stepy)));
+    vec4 top = texture2D(u_texture, center + vec2(0, stepy));
+    vec4 middle = texture2D(u_texture, center);
+    vec4 bottom = texture2D(u_texture, center + vec2(0, -stepy));
 
-    float tright = intensity(texture2D(u_texture, center + vec2(stepx, stepy)));
-    float right = intensity(texture2D(u_texture, center + vec2(stepx, 0)));
-    float bright = intensity(texture2D(u_texture, center + vec2(stepx, -stepy)));
+    vec4 tright = texture2D(u_texture, center + vec2(stepx, stepy));
+    vec4 right = texture2D(u_texture, center + vec2(stepx, 0));
+    vec4 bright = texture2D(u_texture, center + vec2(stepx, -stepy));
 
-    float x = ( u_kernelX[0][0] * tleft +   u_kernelX[1][0] * top +      u_kernelX[2][0] * tright +
-                u_kernelX[0][1] * left +    u_kernelX[1][1] * middle +   u_kernelX[2][1] * right +
-                u_kernelX[0][2] * bleft +   u_kernelX[1][2] * bottom +   u_kernelX[2][2] * right);
+    vec4 outputColour = vec4(0, 0, 0, 0);
+
+    float colourChannels = 0.0;
+    for (int i = 0; i < 3; i++) {
+        float x = ( u_kernelX[0][0] * tleft[i] +   u_kernelX[1][0] * top[i] +      u_kernelX[2][0] * tright[i] +
+                    u_kernelX[0][1] * left[i] +    u_kernelX[1][1] * middle[i] +   u_kernelX[2][1] * right[i] +
+                    u_kernelX[0][2] * bleft[i] +   u_kernelX[1][2] * bottom[i] +   u_kernelX[2][2] * right[i]);
 
 
-    float y = ( u_kernelY[0][0] * tleft +   u_kernelY[1][0] * top +      u_kernelY[2][0] * tright +
-                u_kernelY[0][1] * left +    u_kernelY[1][1] * middle +   u_kernelY[2][1] * right +
-                u_kernelY[0][2] * bleft +   u_kernelY[1][2] * bottom +   u_kernelY[2][2] * right);
+        float y = ( u_kernelY[0][0] * tleft[i] +   u_kernelY[1][0] * top[i] +      u_kernelY[2][0] * tright[i] +
+                    u_kernelY[0][1] * left[i] +    u_kernelY[1][1] * middle[i] +   u_kernelY[2][1] * right[i] +
+                    u_kernelY[0][2] * bleft[i] +   u_kernelY[1][2] * bottom[i] +   u_kernelY[2][2] * right[i]);
 
-    return sqrt((x*x) + (y*y));
+
+        float colourChannel = sqrt((x*x) + (y*y));
+        colourChannels += colourChannel;
+        outputColour[i] = colourChannel;
+    }
+
+    outputColour.a = step(0.5, colourChannels);
+
+
+    return outputColour;
 }
 
 
@@ -46,8 +55,9 @@ void main() {
         (v_position.y + 1.0) / 2.0
     );
 
-    float newAlpha = convolution(0.1/u_viewportResolution.x, 0.1/u_viewportResolution.y, correctedCoords);
-    vec3 newColour = texture2D(u_texture, correctedCoords).xyz * newAlpha;
+//    float newAlpha = convolution(0.1/u_viewportResolution.x, 0.1/u_viewportResolution.y, correctedCoords);
+//    vec3 newColour = texture2D(u_texture, correctedCoords).xyz * newAlpha;
 //    gl_FragColor = vec4(texture2D(u_texture, correctedCoords).xyz, newAlpha); //? probably wants a threshold for alpha, if above X then
-    gl_FragColor = vec4(newColour, newAlpha);
+//    gl_FragColor = vec4(newColour, newAlpha);
+    gl_FragColor = convolution(0.2/u_viewportResolution.x, 0.2/u_viewportResolution.y, correctedCoords);
 }

@@ -194,8 +194,8 @@ public class InWorldUIRenderer {
 		if (interactionStateContainer.getInteractionMode().equals(DEFAULT)) {
 			Selectable selectable = interactionStateContainer.getSelectable();
 			if (selectable != null) {
-				selectableOutlineRenderer.render(selectable, shapeRenderer, gameContext);
-
+//				selectableOutlineRenderer.render(selectable, shapeRenderer, gameContext);
+//
 				if (GlobalSettings.DEV_MODE) {
 					showCreatureGroupLocation(gameContext, selectable);
 				}
