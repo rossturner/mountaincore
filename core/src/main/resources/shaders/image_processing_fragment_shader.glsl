@@ -8,10 +8,6 @@ uniform vec2 u_viewportResolution;
 uniform mat3 u_kernelX;
 uniform mat3 u_kernelY;
 
-
-float step = 0.1;
-
-//TODO: maybe refactor to only have grayscale images to avoid thid calculation
 float intensity(in vec4 color){
     return sqrt((color.x*color.x)+(color.y*color.y)+(color.z*color.z));
 }
@@ -39,17 +35,19 @@ float convolution(float stepx, float stepy, vec2 center){
                 u_kernelY[0][1] * left +    u_kernelY[1][1] * middle +   u_kernelY[2][1] * right +
                 u_kernelY[0][2] * bleft +   u_kernelY[1][2] * bottom +   u_kernelY[2][2] * right);
 
-    float newAlpha = sqrt((x*x) + (y*y));
-    return newAlpha;
+    return sqrt((x*x) + (y*y));
 }
 
 
 void main() {
+    //Rocky suspects that the incoming image lacks an alpha channel, so is just opaque
     vec2 correctedCoords = vec2(
         (v_position.x + 1.0) / 2.0,
         (v_position.y + 1.0) / 2.0
     );
 
-    float newAlpha = convolution(step/u_viewportResolution.x, step/u_viewportResolution.y, correctedCoords);
-    gl_FragColor = vec4(newAlpha, newAlpha, newAlpha, 1.0); //? probably wants a threshold for alpha, if above X then
+    float newAlpha = convolution(0.1/u_viewportResolution.x, 0.1/u_viewportResolution.y, correctedCoords);
+    vec3 newColour = texture2D(u_texture, correctedCoords).xyz * newAlpha;
+//    gl_FragColor = vec4(texture2D(u_texture, correctedCoords).xyz, newAlpha); //? probably wants a threshold for alpha, if above X then
+    gl_FragColor = vec4(newColour, newAlpha);
 }
