@@ -8,14 +8,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.RandomXS128;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.*;
 import com.google.inject.Inject;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureGroup;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -134,6 +133,15 @@ public class InWorldUIRenderer {
 		selectedEntitySpriteBatch.begin();
 		Selectable selectable = interactionStateContainer.getSelectable();
 		if (Selectable.SelectableType.ENTITY == selectable.type) {
+			Entity selectableEntity = selectable.getEntity();
+			Color entityOutlineColour;
+			FactionComponent factionComponent = selectableEntity.getComponent(FactionComponent.class);
+			if (factionComponent != null) {
+				entityOutlineColour = factionComponent.getFaction().defensePoolBarColor;
+			} else {
+				entityOutlineColour = Faction.SETTLEMENT.defensePoolBarColor;
+			}
+			selectedEntitySpriteBatch.getShader().setUniformf("u_colour", new Vector3(entityOutlineColour.r, entityOutlineColour.g, entityOutlineColour.b));
 			entityRenderer.render(selectable.getEntity(), selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, null, null);
 		}
 		selectedEntitySpriteBatch.end();
