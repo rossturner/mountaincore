@@ -22,7 +22,7 @@ public class GoToSquadFormationPositionAction extends GoToLocationAction {
 			if (squad != null && squad.getGuardingLocation() != null) {
 				return toVector(squad.getFormation().getFormationPosition(squad.getMemberIndex(parent.parentEntity.getId()),
 						squad.getGuardingLocation(),
-						gameContext));
+						gameContext, squad.getMemberEntityIds().size()));
 			}
 		}
 		return null;

@@ -7,6 +7,6 @@ public interface SquadFormation {
 
 	String getFormationName();
 
-	GridPoint2 getFormationPosition(int squadMemberIndex, GridPoint2 centralLocation, GameContext gameContext);
+	GridPoint2 getFormationPosition(int squadMemberIndex, GridPoint2 centralLocation, GameContext gameContext, int totalSquadMembers);
 
 }

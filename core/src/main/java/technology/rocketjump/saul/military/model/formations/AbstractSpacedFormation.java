@@ -15,9 +15,9 @@ public abstract class AbstractSpacedFormation implements SquadFormation {
 	protected abstract int getSpacing();
 
 	@Override
-	public GridPoint2 getFormationPosition(int squadMemberIndex, GridPoint2 centralLocation, GameContext gameContext) {
+	public GridPoint2 getFormationPosition(int squadMemberIndex, GridPoint2 centralLocation, GameContext gameContext, int totalSquadMembers) {
 		MapTile centralTile = gameContext.getAreaMap().getTile(centralLocation);
-		if (centralTile == null) {
+		if (centralTile == null || !centralTile.isNavigable(null)) {
 			return null;
 		}
 

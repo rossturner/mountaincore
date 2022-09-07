@@ -139,7 +139,7 @@ public class MilitaryOrdersRenderer {
 
 	private void renderSquadPositions(Squad squad, GridPoint2 centralLocation, TileBoundingBox boundingBox, GameContext gameContext, Color overrideColor) {
 		for (int cursor = 0; cursor < squad.getMemberEntityIds().size(); cursor++) {
-			GridPoint2 formationPosition = squad.getFormation().getFormationPosition(cursor, centralLocation, gameContext);
+			GridPoint2 formationPosition = squad.getFormation().getFormationPosition(cursor, centralLocation, gameContext, squad.getMemberEntityIds().size());
 			if (formationPosition != null && boundingBox.contains(formationPosition)) {
 				Entity squadMember = gameContext.getEntities().get(squad.getMemberEntityIds().get(cursor));
 				Vector2 currentWorldPosition = squadMember.getLocationComponent().getWorldPosition();

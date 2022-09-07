@@ -4,11 +4,11 @@ import technology.rocketjump.saul.mapping.tile.CompassDirection;
 
 import java.util.List;
 
-public class SingleSpacedGridFormation extends AbstractGridFormation {
+public class ContinuousGridFormation extends AbstractGridFormation {
 
 	@Override
 	public String getFormationName() {
-		return "SINGLE_SPACED_GRID";
+		return "CONTINUOUS_GRID";
 	}
 
 	@Override
@@ -18,7 +18,7 @@ public class SingleSpacedGridFormation extends AbstractGridFormation {
 
 	@Override
 	protected int getSpacing() {
-		return 2;
+		return 1;
 	}
 
 }

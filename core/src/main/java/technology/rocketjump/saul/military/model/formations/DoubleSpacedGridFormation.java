@@ -4,7 +4,7 @@ import technology.rocketjump.saul.mapping.tile.CompassDirection;
 
 import java.util.List;
 
-public class DoubleSpacedGridFormation extends AbstractSpacedFormation {
+public class DoubleSpacedGridFormation extends AbstractGridFormation {
 
 	@Override
 	public String getFormationName() {
