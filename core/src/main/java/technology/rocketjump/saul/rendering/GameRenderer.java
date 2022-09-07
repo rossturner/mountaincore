@@ -70,6 +70,7 @@ public class GameRenderer implements AssetDisposable {
 
 	private final List<ParticleEffectInstance> particlesToRenderAsUI = new LinkedList<>();
 	private final ScreenWriter screenWriter;
+	private final OutlineExtensionRenderer outlineExtensionRenderer;
 
 	@Inject
 	public GameRenderer(LightProcessor lightProcessor,
@@ -80,7 +81,7 @@ public class GameRenderer implements AssetDisposable {
 						MilitaryOrdersRenderer militaryOrdersRenderer,
 						@Named("diffuse") TerrainSpriteCache diffuseSpriteCache,
 						@Named("normal") TerrainSpriteCache normalSpriteCache,
-						ScreenWriter screenWriter) {
+						ScreenWriter screenWriter, OutlineExtensionRenderer outlineExtensionRenderer) {
 		this.lightProcessor = lightProcessor;
 		this.renderingOptions = renderingOptions;
 		this.worldRenderer = worldRenderer;
@@ -93,6 +94,7 @@ public class GameRenderer implements AssetDisposable {
 		this.diffuseSpriteCache = diffuseSpriteCache;
 		this.normalSpriteCache = normalSpriteCache;
 		this.screenWriter = screenWriter;
+		this.outlineExtensionRenderer = outlineExtensionRenderer;
 
 		try {
 			initFrameBuffers(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -162,14 +164,15 @@ public class GameRenderer implements AssetDisposable {
 		TextureRegion overlay = null;
 		if (hasSelection) {
 //			TextureRegion outlined = imageProcessingRenderer.outline(selectedEntitiesTextureRegion, camera.zoom);
-			TextureRegion dilated = imageProcessingRenderer.dilate(selectedEntitiesTextureRegion, camera.zoom);
-			TextureRegion a = imageProcessingRenderer.dilate(dilated, camera.zoom);
-			TextureRegion b = imageProcessingRenderer.dilate(a, camera.zoom);
-			TextureRegion c = imageProcessingRenderer.dilate(b, camera.zoom);
-			TextureRegion d = imageProcessingRenderer.dilate(c, camera.zoom);
+			TextureRegion outlined = outlineExtensionRenderer.outline(selectedEntitiesTextureRegion);
+//			TextureRegion dilated = imageProcessingRenderer.dilate(selectedEntitiesTextureRegion, camera.zoom);
+//			TextureRegion a = imageProcessingRenderer.dilate(dilated, camera.zoom);
+//			TextureRegion b = imageProcessingRenderer.dilate(a, camera.zoom);
+//			TextureRegion c = imageProcessingRenderer.dilate(b, camera.zoom);
+//			TextureRegion d = imageProcessingRenderer.dilate(c, camera.zoom);
 //			TextureRegion blurred = imageProcessingRenderer.blur(dilated, camera.zoom);
 
-			overlay = d;
+			overlay = outlined;
 		}
 
 
@@ -262,6 +265,7 @@ public class GameRenderer implements AssetDisposable {
 		selectedEntitiesTextureRegion.flip(false, true);
 
 		imageProcessingRenderer.initFrameBuffers(width, height);
+		outlineExtensionRenderer.initFrameBuffers(width, height);
 
 
 		textureRegions = new TextureRegion[7];
@@ -270,8 +274,8 @@ public class GameRenderer implements AssetDisposable {
 		textureRegions[2] = lightingTextureRegion;
 		textureRegions[3] = selectedEntitiesTextureRegion;
 
-		textureRegions[4] = imageProcessingRenderer.getFirstTextureRegion();
-		textureRegions[5] = imageProcessingRenderer.getSecondTextureRegion();
+		textureRegions[4] = outlineExtensionRenderer.getFirstTextureRegion();
+		textureRegions[5] = outlineExtensionRenderer.getSecondTextureRegion();
 
 		textureRegions[6] = combinedTextureRegion;
 
@@ -293,6 +297,7 @@ public class GameRenderer implements AssetDisposable {
 		lightingFrameBuffer.dispose();
 		combinedFrameBuffer.dispose();
 		imageProcessingRenderer.dispose();
+		outlineExtensionRenderer.dispose();
 		textureRegions = null;
 	}
 

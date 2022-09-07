@@ -3,11 +3,16 @@ package technology.rocketjump.saul.ui;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
+import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.military.model.Squad;
 
 import java.util.Set;
+
+import static technology.rocketjump.saul.rendering.utils.HexColors.NEGATIVE_COLOR;
 
 public class SelectableOutlineRenderer {
 
