@@ -5,7 +5,10 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
+import technology.rocketjump.saul.entities.ai.goap.actions.military.AttackOpponentAction;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -73,11 +76,17 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 			case MessageType.MILITARY_SQUAD_ORDERS_CHANGED -> {
 				SquadOrderChangeMessage message = (SquadOrderChangeMessage) msg.extraInfo;
 
+				if (message.newOrderType.equals(SquadOrderType.RETREATING)) {
+					retreatFromCombat(message.squad);
+					message.squad.setCurrentOrderType(SquadOrderType.TRAINING);
+				} else {
+					message.squad.setCurrentOrderType(message.newOrderType);
+				}
+
 				if (!message.newOrderType.equals(SquadOrderType.COMBAT)) {
 					message.squad.getAttackEntityIds().clear();
 				}
 
-				message.squad.setCurrentOrderType(message.newOrderType);
 
 				if (message.squad.isOnDuty(gameContext.getGameClock())) {
 					interruptCurrentBehaviour(message.squad);
@@ -85,8 +94,31 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 
 				return true;
 			}
-			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg);
+			default ->
+					throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg);
 		}
+	}
+
+	private void retreatFromCombat(Squad squad) {
+		for (Long memberEntityId : squad.getMemberEntityIds()) {
+			Entity squadMember = gameContext.getEntities().get(memberEntityId);
+			if (squadMember != null) {
+				CombatStateComponent combatStateComponent = squadMember.getComponent(CombatStateComponent.class);
+				if (combatStateComponent.isInCombat()) {
+					combatStateComponent.setForceRetreat(true);
+				} else if (squadMember.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour &&
+						creatureBehaviour.getCurrentGoal() != null &&
+						hasPendingAttackAction(creatureBehaviour.getCurrentGoal())) {
+					creatureBehaviour.getCurrentGoal().setInterrupted(true);
+				}
+			}
+		}
+
+	}
+
+	private boolean hasPendingAttackAction(AssignedGoal goal) {
+		return goal.actionQueue.stream()
+				.anyMatch(a -> a.getClass().equals(AttackOpponentAction.class));
 	}
 
 	private void interruptCurrentBehaviour(Squad squad) {

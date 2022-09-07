@@ -42,7 +42,7 @@ public class EquipWeaponAction extends Action {
 		}
 
 		MilitaryComponent militaryComponent = parent.parentEntity.getComponent(MilitaryComponent.class);
-		Long assignedWeaponId = militaryComponent.getAssignedWeaponId();
+		Long assignedWeaponId = militaryComponent == null ? null : militaryComponent.getAssignedWeaponId();
 
 		if (assignedWeaponId == null) {
 			completionType = SUCCESS;
@@ -57,7 +57,7 @@ public class EquipWeaponAction extends Action {
 			}
 		}
 
-		Long assignedShieldId = militaryComponent.getAssignedShieldId();
+		Long assignedShieldId = militaryComponent == null ? null : militaryComponent.getAssignedShieldId();
 		if (assignedShieldId != null) {
 			Entity shieldInInventory = inventoryComponent.getById(assignedShieldId);
 			if (shieldInInventory != null) {

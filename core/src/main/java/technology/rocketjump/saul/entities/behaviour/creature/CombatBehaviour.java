@@ -239,6 +239,10 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 
 	private CombatAction nextCombatAction(CombatAction previousAction) {
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+		if (combatStateComponent.isForceRetreat()) {
+			combatStateComponent.setForceRetreat(false);
+			return new FleeFromCombatAction(parentEntity);
+		}
 		if (combatStateComponent.getTargetedOpponentId() == null) {
 			if (combatStateComponent.getOpponentEntityIds().isEmpty()) {
 				return new FleeFromCombatAction(parentEntity);
