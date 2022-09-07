@@ -37,6 +37,7 @@ import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
+import technology.rocketjump.saul.jobs.model.SkillType;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.rendering.utils.HexColors;
@@ -80,7 +81,9 @@ public class CreatureAttributesPane extends AbstractAttributesPane {
         Collection<Gender> genders = attributes.getRace().getGenders().keySet();
         Collection<CreatureBodyShape> bodyShapes = attributes.getRace().getBodyShapes().stream().map(CreatureBodyShapeDescriptor::getValue).toList();
         Collection<Consciousness> consciousnesses = Arrays.asList(Consciousness.values());
-        Collection<Skill> professions = this.skillDictionary.getAllProfessions();
+        Collection<Skill> professions = this.skillDictionary.getAll().stream()
+                .filter(skill -> skill.getType().equals(SkillType.PROFESSION) || skill.getType().equals(SkillType.ASSET_OVERRIDE))
+                .toList();
 
         SkillsComponent skillsComponent = currentEntity.getOrCreateComponent(SkillsComponent.class);
 
@@ -90,6 +93,7 @@ public class CreatureAttributesPane extends AbstractAttributesPane {
         add(WidgetBuilder.selectField("Consciousness:", attributes.getConsciousness(), consciousnesses, null, update(attributes::setConsciousness)));
         add(WidgetBuilder.selectField("Profession:", skillsComponent.getPrimaryProfession(), professions, null, update(profession -> {
             skillsComponent.clear();
+            profession.setType(SkillType.PROFESSION); // bit of a hack in the editor only for the asset override skills
             skillsComponent.setSkillLevel(profession, 50);
         })));
         add(WidgetBuilder.selectField("Sanity:", attributes.getSanity(), List.of(Sanity.values()), Sanity.SANE, update(attributes::setSanity)));

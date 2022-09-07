@@ -7,6 +7,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import technology.rocketjump.saul.environment.GameClock;
 
+import java.util.List;
+
 import static java.util.Arrays.asList;
 import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -22,6 +24,7 @@ public class GoalQueueTest {
 	private Goal mockGoal;
 	@Mock
 	private GameClock mockClock;
+	private List<SettlerCategory> settlerCategories = List.of(SettlerCategory.CIVILIAN);
 
 	@Before
 	public void setUp() throws Exception {
@@ -66,9 +69,9 @@ public class GoalQueueTest {
 
 	@Test
 	public void popNextGoal_returnsPriorityOrder() {
-		goalQueue.add(new QueuedGoal(new Goal("first", "i18nDescription", null, false, false), NOURISHMENT, WANT_NORMAL, mockClock));
-		goalQueue.add(new QueuedGoal(new Goal("other", "i18nDescription", null, false, false), NOURISHMENT, WANT_URGENT, mockClock));
-		goalQueue.add(new QueuedGoal(new Goal("yet another", "i18nDescription", null, false, false), NOURISHMENT, WANT_NORMAL, mockClock));
+		goalQueue.add(new QueuedGoal(new Goal("first", "i18nDescription", null, false, false, settlerCategories), NOURISHMENT, WANT_NORMAL, mockClock));
+		goalQueue.add(new QueuedGoal(new Goal("other", "i18nDescription", null, false, false, settlerCategories), NOURISHMENT, WANT_URGENT, mockClock));
+		goalQueue.add(new QueuedGoal(new Goal("yet another", "i18nDescription", null, false, false, settlerCategories), NOURISHMENT, WANT_NORMAL, mockClock));
 
 		QueuedGoal result = goalQueue.popNextGoal(asList(NOURISHMENT));
 
@@ -78,9 +81,9 @@ public class GoalQueueTest {
 
 	@Test
 	public void goalsWithSamePriority_returnedInInsertionOrder() {
-		Goal first = new Goal("first", null, null, false, false);
-		Goal third = new Goal("third", null, null, false, false);
-		Goal second = new Goal("second", null, null, false, false);
+		Goal first = new Goal("first", null, null, false, false, settlerCategories);
+		Goal third = new Goal("third", null, null, false, false, settlerCategories);
+		Goal second = new Goal("second", null, null, false, false, settlerCategories);
 
 		goalQueue.add(new QueuedGoal(first, ScheduleCategory.WORK, JOB_NORMAL, mockClock));
 		goalQueue.add(new QueuedGoal(second, ScheduleCategory.WORK, JOB_NORMAL, mockClock));
@@ -99,8 +102,8 @@ public class GoalQueueTest {
 	public void goalsWithExpiredTime_areRemoved() {
 		when(mockClock.getCurrentGameTime()).thenReturn(10.0);
 
-		Goal first = new Goal("first", null, 1.0, false, false);
-		Goal second = new Goal("second", null, null, false, false);
+		Goal first = new Goal("first", null, 1.0, false, false, settlerCategories);
+		Goal second = new Goal("second", null, null, false, false, settlerCategories);
 
 		goalQueue.add(new QueuedGoal(first, ScheduleCategory.WORK, JOB_NORMAL, mockClock));
 		goalQueue.add(new QueuedGoal(second, ScheduleCategory.WORK, JOB_NORMAL, mockClock));

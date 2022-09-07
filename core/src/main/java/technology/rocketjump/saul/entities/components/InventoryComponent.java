@@ -234,6 +234,10 @@ public class InventoryComponent implements EntityComponent, Destructible {
 		}
 	}
 
+	public InventoryEntry getEntryById(long entityId) {
+		return inventoryEntries.get(entityId);
+	}
+
 	public Collection<InventoryEntry> getInventoryEntries() {
 		return inventoryEntries.values();
 	}

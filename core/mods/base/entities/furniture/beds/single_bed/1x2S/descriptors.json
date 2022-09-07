@@ -8,7 +8,7 @@
       "WOOD"
     ],
     "tags": {
-      "BED_SLEEPING_POSITION": ["UP"]
+      "BED_SLEEPING_POSITION": ["UP", "CIVILIAN_ONLY", "INSIDE_FURNITURE"]
     },
     "spriteDescriptors": {
       "DOWN": {

@@ -70,6 +70,13 @@
   "furnitureNames" : [ "SINGLE_BED", "SLEEPING_SPOT" ],
   "tags" : { }
 }, {
+  "roomName" : "BARRAKCS",
+  "i18nKey" : "ROOMS.BARRACKS",
+  "colorCode" : "#c4b2c5",
+  "iconName" : "barracks",
+  "furnitureNames" : [ "BARRACKS_BED", "TRAINING_DUMMY", "ARCHERY_TARGET" ],
+  "tags" : { }
+}, {
   "roomName" : "KITCHEN",
   "i18nKey" : "ROOMS.KITCHEN",
   "colorCode" : "#1d8898",

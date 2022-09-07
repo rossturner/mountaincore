@@ -63,7 +63,7 @@ public class AudioMessageHandler implements Telegraph {
 			}
 			case MessageType.GUI_CHANGE_AMBIENT_EFFECT_VOLUME: {
 				Float newVolume = (Float) msg.extraInfo;
-				ambientSoundManager.setGlobalVolumeModifier(newVolume);
+				ambientSoundManager.setAmbientEffectVolume(newVolume);
 				return true;
 			}
 			case MessageType.AMBIENCE_UPDATE: {

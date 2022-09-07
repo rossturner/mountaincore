@@ -1,6 +1,7 @@
 {
   "name": "Refill inventory liquid containers",
   "i18nDescription": "GOAL.REFILL_WATERSKIN.DESCRIPTION",
+  "settlerCategories": ["CIVILIAN", "MILITARY"],
   "selectors": [
     {
       "conditions": [

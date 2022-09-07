@@ -34,6 +34,7 @@ import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.mapping.tile.designation.DesignationDictionary;
 import technology.rocketjump.saul.materials.DynamicMaterialFactory;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
+import technology.rocketjump.saul.military.SquadFormationDictionary;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
@@ -85,6 +86,7 @@ public class SavedGameDependentDictionaries {
 	public final BodyStructureDictionary bodyStructureDictionary;
 	public final OrganDefinitionDictionary organDefinitionDictionary;
 	public final RaceDictionary raceDictionary;
+	public final SquadFormationDictionary squadFormationDictionary;
 
 	@Inject
 	public SavedGameDependentDictionaries(DynamicMaterialFactory dynamicMaterialFactory, GameMaterialDictionary gameMaterialDictionary,
@@ -105,7 +107,7 @@ public class SavedGameDependentDictionaries {
 										  OngoingEffectTypeDictionary ongoingEffectTypeDictionary,
 										  WeatherTypeDictionary weatherTypeDictionary, DailyWeatherTypeDictionary dailyWeatherTypeDictionary,
 										  MechanismTypeDictionary mechanismTypeDictionary, BodyStructureDictionary bodyStructureDictionary,
-										  OrganDefinitionDictionary organDefinitionDictionary, RaceDictionary raceDictionary) {
+										  OrganDefinitionDictionary organDefinitionDictionary, RaceDictionary raceDictionary, SquadFormationDictionary squadFormationDictionary) {
 		this.dynamicMaterialFactory = dynamicMaterialFactory;
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.craftingOutputQualityDictionary = craftingOutputQualityDictionary;
@@ -144,5 +146,6 @@ public class SavedGameDependentDictionaries {
 		this.bodyStructureDictionary = bodyStructureDictionary;
 		this.organDefinitionDictionary = organDefinitionDictionary;
 		this.raceDictionary = raceDictionary;
+		this.squadFormationDictionary = squadFormationDictionary;
 	}
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.PopulateSelectItemViewMessage;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 
@@ -26,17 +27,21 @@ public class GuiViewRepository implements Telegraph {
 							 BuildRoofingGuiView buildRoofingGuiView, BuildPipingGuiView buildPipingGuiView,
 							 BuildMechanismsGuiView buildMechanismsGuiView,
 							 RoomSelectedGuiView roomSelectedGuiView, StockpileSelectionGuiView stockpileSelectionGuiView,
-							 ChangeProfessionGuiView changeProfessionGuiView, ChangeWeaponSelectionGuiView changeWeaponSelectionGuiView,
+							 ChangeProfessionGuiView changeProfessionGuiView,
 							 BuildBridgeGuiView buildBridgeGuiView,
 							 BridgeSelectedGuiView bridgeSelectedGuiView, PrioritiesGuiView prioritiesGuiView,
 							 SelectStartLocationGuiView selectStartLocationGuiView,
+							 SelectItemGuiView selectItemGuiView,
+							 SquadSelectedGuiView squadSelectedGuiView,
 							 MessageDispatcher messageDispatcher) {
 		this(messageDispatcher, defaultGuiView, orderSelectionGuiView, roomSelectionGuiView, roomSizingGuiView, constructionSelectedGuiView,
 				furnitureSelectionGuiView, entitySelectedGuiView, buildMenuGuiView, buildFlooringGuiView, buildWallsGuiView,
 				buildDoorsGuiView, doorwaySelectedGuiView,
 				tileSelectedGuiView, buildRoofingGuiView, buildPipingGuiView, roomSelectedGuiView, stockpileSelectionGuiView,
-				changeProfessionGuiView, changeWeaponSelectionGuiView, buildBridgeGuiView, buildMechanismsGuiView,
-				bridgeSelectedGuiView, prioritiesGuiView, selectStartLocationGuiView);
+				changeProfessionGuiView, buildBridgeGuiView, buildMechanismsGuiView,
+				bridgeSelectedGuiView, prioritiesGuiView, selectStartLocationGuiView,
+				squadSelectedGuiView,
+				selectItemGuiView);
 	}
 
 	public GuiViewRepository(MessageDispatcher messageDispatcher, GuiView... views) {
@@ -45,12 +50,13 @@ public class GuiViewRepository implements Telegraph {
 		}
 
 		messageDispatcher.addListener(this, MessageType.GUI_ROOM_TYPE_SELECTED);
+		messageDispatcher.addListener(this, MessageType.PREPOPULATE_SELECT_ITEM_VIEW);
 	}
 
 	@Override
 	public boolean handleMessage(Telegram msg) {
 		switch (msg.message) {
-			case MessageType.GUI_ROOM_TYPE_SELECTED: {
+			case MessageType.GUI_ROOM_TYPE_SELECTED -> {
 				RoomType selectedRoomType = (RoomType) msg.extraInfo;
 				FurnitureSelectionGuiView furnitureSelectionView = (FurnitureSelectionGuiView) byName.get(GuiViewName.ROOM_FURNITURE_SELECTION);
 				furnitureSelectionView.setCurrentRoomType(selectedRoomType);
@@ -60,8 +66,12 @@ public class GuiViewRepository implements Telegraph {
 				GameInteractionMode.PLACE_ROOM.setRoomType(selectedRoomType);
 				return true;
 			}
-			default:
-				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
+			case MessageType.PREPOPULATE_SELECT_ITEM_VIEW -> {
+				PopulateSelectItemViewMessage message = (PopulateSelectItemViewMessage) msg.extraInfo;
+				((SelectItemGuiView) byName.get(GuiViewName.SELECT_ITEM)).prepopulate(message);
+				return true;
+			}
+			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg);
 		}
 	}
 

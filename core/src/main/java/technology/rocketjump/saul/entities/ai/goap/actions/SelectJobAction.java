@@ -7,7 +7,6 @@ import technology.rocketjump.saul.entities.ai.goap.SwitchGoalException;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.WeaponSelectionComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.planning.JobAssignmentCallback;
@@ -26,7 +25,6 @@ import java.util.List;
 
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
-import static technology.rocketjump.saul.ui.views.EntitySelectedGuiView.hasSelectedWeaponAndAmmoInInventory;
 
 public class SelectJobAction extends Action implements JobAssignmentCallback, InitialisableAction {
 
@@ -88,13 +86,6 @@ public class SelectJobAction extends Action implements JobAssignmentCallback, In
 						itemRequiredMemory.setRelatedItemType(potentialJob.getRequiredItemType());
 						itemRequiredMemory.setRelatedMaterial(potentialJob.getRequiredItemMaterial()); // Might be null
 						parent.parentEntity.getComponent(MemoryComponent.class).addShortTerm(itemRequiredMemory, gameContext.getGameClock());
-						continue;
-					}
-				}
-
-				if (potentialJob.getType().isRequiresWeapon()) {
-					WeaponSelectionComponent weaponSelectionComponent = parent.parentEntity.getOrCreateComponent(WeaponSelectionComponent.class);
-					if (!hasSelectedWeaponAndAmmoInInventory(parent.parentEntity, weaponSelectionComponent.getSelectedWeapon(), gameContext)) {
 						continue;
 					}
 				}

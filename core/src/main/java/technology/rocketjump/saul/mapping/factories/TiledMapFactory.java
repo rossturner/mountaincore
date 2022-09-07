@@ -138,6 +138,7 @@ public class TiledMapFactory {
 		addStartingInventory(inventoryStartingItems, allSettlers, gameContext, messageDispatcher);
 
 		ItemType plankItemType = itemTypeDictionary.getByName("Resource-Planks");
+		ItemType logItemType = itemTypeDictionary.getByName("Resource-Logs");
 		GameMaterial plankMaterialType = pickWoodMaterialType();
 		ItemType stoneBlockItemType = itemTypeDictionary.getByName("Resource-Stone-Block");
 		GameMaterial stoneBlockMaterialType = pickMaterialType(stoneBlockItemType);
@@ -152,7 +153,7 @@ public class TiledMapFactory {
 
 		createResources(embarkPoint.x - 1, embarkPoint.y - 1, plankItemType, plankMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
 		createResources(embarkPoint.x - 1, embarkPoint.y, plankItemType, plankMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
-		createResources(embarkPoint.x - 1, embarkPoint.y + 1, plankItemType, plankMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
+		createResources(embarkPoint.x - 1, embarkPoint.y + 1, logItemType, plankMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
 
 		createResources(embarkPoint.x, embarkPoint.y - 1, stoneBlockItemType, stoneBlockMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
 		createResources(embarkPoint.x, embarkPoint.y, stoneBlockItemType, stoneBlockMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
@@ -218,7 +219,7 @@ public class TiledMapFactory {
 		Vector2 worldPosition = new Vector2(tileX + 0.5f + (0.1f - (random.nextFloat() * 0.2f)), tileY + 0.5f+ (0.1f - (random.nextFloat() * 0.2f)));
 		Vector2 facing = new Vector2((random.nextFloat() * 2.0f) - 1.0f, (random.nextFloat() * 2.0f) - 1.0f);
 
-		Entity settler = setterFactory.create(worldPosition, facing, primaryprofession, secondaryProfession, gameContext);
+		Entity settler = setterFactory.create(worldPosition, primaryprofession, secondaryProfession, gameContext, true);
 
 		if (GlobalSettings.DEV_MODE) {
 			HaulingComponent haulingComponent = settler.getOrCreateComponent(HaulingComponent.class);

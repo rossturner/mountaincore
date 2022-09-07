@@ -61,7 +61,6 @@ import static technology.rocketjump.saul.jobs.model.JobState.ASSIGNABLE;
 import static technology.rocketjump.saul.jobs.model.JobState.REMOVED;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FURNITURE;
 import static technology.rocketjump.saul.ui.i18n.I18nTranslator.oneDecimalFormat;
 
 public class CraftingStationBehaviour extends FurnitureBehaviour
@@ -398,10 +397,6 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				true, amountRequired, null, this));
 
 		if (haulingAllocation != null) {
-			haulingAllocation.setTargetPositionType(FURNITURE);
-			haulingAllocation.setTargetId(parentEntity.getId());
-			haulingAllocation.setTargetPosition(toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
-
 			haulingInputAllocations.add(haulingAllocation);
 
 			Job haulingJob = ItemEntityMessageHandler.createHaulingJob(haulingAllocation,

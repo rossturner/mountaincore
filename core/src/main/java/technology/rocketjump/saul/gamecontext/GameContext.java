@@ -8,6 +8,7 @@ import technology.rocketjump.saul.mapping.model.MapEnvironment;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.types.JobRequestMessage;
+import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.settlement.SettlementState;
@@ -28,6 +29,7 @@ public class GameContext {
 	private final Map<Long, Entity> entities = new ConcurrentHashMap<>();
 	private final Map<Long, Construction> constructions = new ConcurrentHashMap<>();
 	private final Map<Long, Room> rooms = new ConcurrentHashMap<>();
+	private final Map<Long, Squad> squads = new ConcurrentHashMap<>();
 	private final Deque<JobRequestMessage> jobRequestQueue = new LinkedBlockingDeque<>();
 	private final Map<String, GameMaterial> dynamicallyCreatedMaterialsByCombinedId = new HashMap<>();
 	private SettlementState settlementState = new SettlementState();
@@ -80,6 +82,10 @@ public class GameContext {
 
 	public Map<Long, Room> getRooms() {
 		return rooms;
+	}
+
+	public Map<Long, Squad> getSquads() {
+		return squads;
 	}
 
 	public Map<Long, Construction> getConstructions() {

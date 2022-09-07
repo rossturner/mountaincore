@@ -65,6 +65,7 @@ BODY_STRUCTURE.HAND,,Hand
 BODY_STRUCTURE.HEAD,,Head
 BODY_STRUCTURE.HOOF,,Hoof
 BODY_STRUCTURE.LEG,,Leg
+BODY_STRUCTURE.TRUNK,,Trunk
 BODY_STRUCTURE.ORGAN.BRAIN,,Brain
 BODY_STRUCTURE.ORGAN.EYE,,Eye
 BODY_STRUCTURE.ORGAN.HEART,,Heart
@@ -197,6 +198,8 @@ FOODSTUFF.WHEAT-BREAD,"Actually just to describe “wheat” as a foodstuff, not
 FUEL.SACK,,Fuel
 FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{FURNITURE.BLOOMERY_FURNACE}} and the {{FURNITURE.FORGE}}."
 
+FURNITURE.ARCHERY_TARGET,,Archery target
+FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here
 FURNITURE.BAKERS_WORKTOP,,Baker’s worktop
 FURNITURE.BAKERS_WORKTOP.TOOLTIP,,A {{PROFESSION.CHEF}} works here to turn {{RESOURCE.FLOUR.SACK.PLURAL}} into {{INGREDIENT.DOUGH}}.
 FURNITURE.BAKING_OVEN,For the baking of bread,Baker's oven
@@ -281,6 +284,8 @@ FURNITURE.STONEMASON_WORKBENCH.TOOLTIP,,A {{PROFESSION.STONEMASON}} works here w
 FURNITURE.STOOL,,Stool
 FURNITURE.TANNING_FRAME,,Tanning frame
 FURNITURE.TANNING_FRAME.TOOLTIP,,Turn your Animal Skins into Leather.
+FURNITURE.TRAINING_DUMMY,,Training dummy
+FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here
 FURNITURE.WATERWHEEL,,Water wheel
 FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.
 FURNITURE.WATER_BARREL,,Water barrel
@@ -390,6 +395,8 @@ GOAL.ON_FIRE.DESCRIPTION,,On fire!
 GOAL.REFILL_WATERSKIN.DESCRIPTION,,Refilling waterskin
 GOAL.SLEEP.DESCRIPTION,,Going to sleep
 GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {{targetZoneMaterial}}
+GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION,,Moving into combat
+GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION,,Guarding a position
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
 GUI.ADD_TILES,This should be as short as possible,Add tiles
@@ -519,6 +526,7 @@ GUI.RESOURCE_MANAGEMENT.UNALLOCATED_LABEL,,Available: {{count}}
 GUI.ROOFING.ADD,,Add
 GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (R) to rotate furniture
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…
+GUI.SELECT_WEAPON.LABEL,,Select weapon
 GUI.SETTINGS.LABEL,,Settings
 GUI.SETTLER_MANAGEMENT.BEDS_COUNTER,,Number of beds: {{count}}
 GUI.SETTLER_MANAGEMENT.DEAD_COUNTER,,Dead: {{count}}
@@ -739,6 +747,15 @@ METAL.STEEL.TOOLTIP,,"Far stronger than {{METAL.IRON.NOUN}} which makes for supe
 METAL.TIN.ADJECTIVE,,Tin
 METAL.TIN.NOUN,,Tin
 METAL.TIN.TOOLTIP,,Tin can be smelted from {{ORE.CASSITERITE.NOUN}} and alloyed with {{METAL.COPPER.NOUN}} to produce {{METAL.BRONZE.NOUN}}. (Alloys have not yet been implemented in King under the Mountain)
+
+MILITARY.SQUAD.DEFAULT_NAME,,Squad
+MILITARY.SQUAD.SHIFT.DAYTIME,Used to assign a squad to active duty during the daytime,Day shift
+MILITARY.SQUAD.SHIFT.NIGHTTIME,Used to assign a squad to active duty during the nighttime,Night shift
+MILITARY.SQUAD.ORDER_DESCRIPTION.OFF_DUTY,,Currently off duty
+MILITARY.SQUAD.ORDER_DESCRIPTION.GUARDING,,Guarding a position
+MILITARY.SQUAD.ORDER_DESCRIPTION.COMBAT,,In combat
+MILITARY.SQUAD.ORDER_DESCRIPTION.TRAINING,,Training combat skills
+MILITARY.SQUAD.ORDER_DESCRIPTION.RETREATING,,Retreating from combat
 
 MODS.APPLY,,Apply
 MODS.COMPATIBILITY.COMPATIBLE,,Yes
@@ -1092,6 +1109,8 @@ RESOURCE.WHEAT.SACK.PLURAL,,Wheat (sack)
 
 ROOMS.ARMOURY,,Armoury
 ROOMS.ARMOURY.TOOLTIP,,Weapons and armour are created here
+ROOMS.BARRACKS,,Barracks
+ROOMS.BARRACKS.TOOLTIP,,A place for members of the military to sleep and train
 ROOMS.BEDROOM,,Bedroom
 ROOMS.BEDROOM.TOOLTIP,,"A place for your settlers to sleep. They prefer to have individual bedrooms that are at least 9 tiles in size, and preferably at least 13 tiles in size."
 ROOMS.BREWERY,,Brewery
@@ -1410,7 +1429,10 @@ WEAPON.METAL.ARROWS.PLURAL,,Arrows
 WEAPON.METAL.BOLTS.NOUN,,Bolt
 WEAPON.METAL.BOLTS.PLURAL,,Bolts
 WEAPON.SWORD,,Sword
+WEAPON.NONE,Used to select no weapon from the selection list,None
 WEAPON.UNARMED,,Unarmed
+WEAPON.NO_SHIELD,,Unshielded
+WEAPON.NO_ARMOUR,,Unarmoured
 
 WEATHER.TYPE.CLOUDY,,Cloudy & grey
 WEATHER.TYPE.COLD_WINDS,,Cold winds

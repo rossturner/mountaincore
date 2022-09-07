@@ -11,14 +11,15 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.ai.combat.*;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
-import technology.rocketjump.saul.entities.ai.goap.actions.EquipWeaponAction;
-import technology.rocketjump.saul.entities.ai.goap.actions.UnequipWeaponAction;
+import technology.rocketjump.saul.entities.ai.goap.actions.military.EquipWeaponAction;
+import technology.rocketjump.saul.entities.ai.goap.actions.military.UnequipWeaponAction;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
+import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -238,6 +239,10 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 
 	private CombatAction nextCombatAction(CombatAction previousAction) {
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+		if (combatStateComponent.isForceRetreat()) {
+			combatStateComponent.setForceRetreat(false);
+			return new FleeFromCombatAction(parentEntity);
+		}
 		if (combatStateComponent.getTargetedOpponentId() == null) {
 			if (combatStateComponent.getOpponentEntityIds().isEmpty()) {
 				return new FleeFromCombatAction(parentEntity);
@@ -359,6 +364,11 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	}
 
 	private AggressionResponse getAggressionResponse() {
+		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
+		if (militaryComponent != null && militaryComponent.isInMilitary()) {
+			return ATTACK;
+		}
+
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		AggressionResponse aggressionResponse = attributes.getRace().getBehaviour().getAggressionResponse();
 		if (aggressionResponse == null || aggressionResponse.equals(AggressionResponse.MIXED)) {
@@ -439,15 +449,12 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	}
 
 	public void onEnteringCombat() {
-		// Might want to move the implementation of the below to here if it ends up no longer used by normal GOAP
-		new EquipWeaponAction(new AssignedGoal(NULL_GOAL, parentEntity, messageDispatcher))
-				.update(0.1f, gameContext);
+		equipWeapon();
 	}
 
 	public void onExitingCombat() {
 		parentEntity.getComponent(CombatStateComponent.class).clearState();
-		new UnequipWeaponAction(new AssignedGoal(NULL_GOAL, parentEntity, messageDispatcher))
-				.update(0.1f, gameContext);
+		unequipWeapon();
 
 		if (defensePoolEffect != null) {
 			defensePoolEffect.getWrappedInstance().allowCompletion();
@@ -457,6 +464,16 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		currentAction = null;
 		attackOfOpportunityAction = null;
 		pendingKnockback = null;
+	}
+
+	private void equipWeapon() {
+		new EquipWeaponAction(new AssignedGoal(NULL_GOAL, parentEntity, messageDispatcher))
+				.update(0.1f, gameContext);
+	}
+
+	private void unequipWeapon() {
+		new UnequipWeaponAction(new AssignedGoal(NULL_GOAL, parentEntity, messageDispatcher))
+				.update(0.1f, gameContext);
 	}
 
 	public CombatAction getCurrentAction() {

@@ -43,8 +43,12 @@ public class SpeciesColor {
 			Random random = new RandomXS128(seed);
 			return ColorMixer.randomBlend(random, swatchColors);
 		} else if (colorChart != null) {
-			Random random = new RandomXS128(seed);
-			return swatchColors.get(random.nextInt(swatchColors.size));
+			if (swatchColors.isEmpty()) {
+				return Color.MAGENTA;
+			} else {
+				Random random = new RandomXS128(seed);
+				return swatchColors.get(random.nextInt(swatchColors.size));
+			}
 		} else if (hidden) {
 			return Color.CLEAR;
 		} else {

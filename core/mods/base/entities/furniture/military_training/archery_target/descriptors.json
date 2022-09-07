@@ -1,0 +1,193 @@
+[
+  {
+    "uniqueName": "Archery_Target-1x1 with E workspace offset 6-Base_Layer-Wood",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "ARCHERY_TARGET",
+    "furnitureLayoutName": "1x1 with E workspace offset 6",
+    "validMaterialTypes": [
+      "WOOD"
+    ],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Archery_Target-1x1 with w workspace offset 6-Base_Layer-Wood_Down.png",
+        "coloringLayer": "WOOD_COLOR",
+        "flipX": true,
+        "childAssets": [
+          {
+            "type": "FURNITURE_ABOVE_LAYER_1",
+            "offsetPixels": {
+              "x": 2.5,
+              "y": 0.0
+            }
+          }
+        ],
+        "offsetPixels": {
+          "x": -2.5,
+          "y": 0.0
+        }
+      }
+    }
+  },
+  {
+    "uniqueName": "Archery_Target-1x1 with E workspace offset 6-Furniture_Above_Layer_1-Wood",
+    "type": "FURNITURE_ABOVE_LAYER_1",
+    "furnitureTypeName": "ARCHERY_TARGET",
+    "furnitureLayoutName": "1x1 with E workspace offset 6",
+    "validMaterialTypes": [
+      "WOOD"
+    ],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Archery_Target-1x1 with w workspace offset 6-Furniture_Above_Layer_1-Wood_Down.png",
+        "coloringLayer": "WOOD_COLOR",
+        "flipX": true,
+        "offsetPixels": {
+          "x": 6.0,
+          "y": 0.0
+        }
+      }
+    }
+  },
+  {
+    "uniqueName": "Archery_Target-1x1 with N workspace offset 6-Base_Layer-Wood",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "ARCHERY_TARGET",
+    "furnitureLayoutName": "1x1 with N workspace offset 6",
+    "validMaterialTypes": [
+      "WOOD"
+    ],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Archery_Target-1x1 with n workspace offset 6-Base_Layer-Wood_Down.png",
+        "coloringLayer": "WOOD_COLOR",
+        "flipX": true,
+        "childAssets": [
+          {
+            "type": "FURNITURE_BELOW_LAYER_1",
+            "offsetPixels": {
+              "x": 0.0,
+              "y": 0.5
+            }
+          }
+        ],
+        "offsetPixels": {
+          "x": 0.0,
+          "y": -0.5
+        }
+      }
+    }
+  },
+  {
+    "uniqueName": "Archery_Target-1x1 with N workspace offset 6-Furniture_Below_Layer_1-Wood",
+    "type": "FURNITURE_BELOW_LAYER_1",
+    "furnitureTypeName": "ARCHERY_TARGET",
+    "furnitureLayoutName": "1x1 with N workspace offset 6",
+    "validMaterialTypes": [
+      "WOOD"
+    ],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Archery_Target-1x1 with n workspace offset 6-Furniture_Below_Layer_1-Wood_Down.png",
+        "coloringLayer": "WOOD_COLOR",
+        "offsetPixels": {
+          "x": 0.0,
+          "y": 4.0
+        }
+      }
+    }
+  },
+  {
+    "uniqueName": "Archery_Target-1x1 with S workspace offset 6-Base_Layer-Wood",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "ARCHERY_TARGET",
+    "furnitureLayoutName": "1x1 with S workspace offset 6",
+    "validMaterialTypes": [
+      "WOOD"
+    ],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Archery_Target-1x1 with s workspace offset 6-Base_Layer-Wood_Down.png",
+        "coloringLayer": "WOOD_COLOR",
+        "childAssets": [
+          {
+            "type": "FURNITURE_ABOVE_LAYER_1",
+            "offsetPixels": {
+              "x": 0.0,
+              "y": 0.0
+            }
+          }
+        ],
+        "offsetPixels": {
+          "x": 0.0,
+          "y": 0.0
+        }
+      }
+    }
+  },
+  {
+    "uniqueName": "Archery_Target-1x1 with S workspace offset 6-Furniture_Above_Layer_1-Wood",
+    "type": "FURNITURE_ABOVE_LAYER_1",
+    "furnitureTypeName": "ARCHERY_TARGET",
+    "furnitureLayoutName": "1x1 with S workspace offset 6",
+    "validMaterialTypes": [
+      "WOOD"
+    ],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Archery_Target-1x1 with s workspace offset 6-Furniture_Above_Layer_1-Wood_Down.png",
+        "coloringLayer": "WOOD_COLOR",
+        "offsetPixels": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    }
+  },
+  {
+    "uniqueName": "Archery_Target-1x1 with W workspace offset 6-Base_Layer-Wood",
+    "type": "BASE_LAYER",
+    "furnitureTypeName": "ARCHERY_TARGET",
+    "furnitureLayoutName": "1x1 with W workspace offset 6",
+    "validMaterialTypes": [
+      "WOOD"
+    ],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Archery_Target-1x1 with w workspace offset 6-Base_Layer-Wood_Down.png",
+        "coloringLayer": "WOOD_COLOR",
+        "childAssets": [
+          {
+            "type": "FURNITURE_ABOVE_LAYER_1",
+            "offsetPixels": {
+              "x": -2.5,
+              "y": 0.0
+            }
+          }
+        ],
+        "offsetPixels": {
+          "x": 2.5,
+          "y": 0.0
+        }
+      }
+    }
+  },
+  {
+    "uniqueName": "Archery_Target-1x1 with W workspace offset 6-Furniture_Above_Layer_1-Wood",
+    "type": "FURNITURE_ABOVE_LAYER_1",
+    "furnitureTypeName": "ARCHERY_TARGET",
+    "furnitureLayoutName": "1x1 with W workspace offset 6",
+    "validMaterialTypes": [
+      "WOOD"
+    ],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Archery_Target-1x1 with w workspace offset 6-Furniture_Above_Layer_1-Wood_Down.png",
+        "coloringLayer": "WOOD_COLOR",
+        "offsetPixels": {
+          "x": -6.0,
+          "y": 0.0
+        }
+      }
+    }
+  }
+]

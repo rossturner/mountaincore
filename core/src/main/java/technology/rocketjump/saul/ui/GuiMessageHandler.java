@@ -12,6 +12,7 @@ import technology.rocketjump.saul.assets.FloorTypeDictionary;
 import technology.rocketjump.saul.assets.WallTypeDictionary;
 import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.assets.model.WallType;
+import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.factories.FurnitureEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.FurnitureEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -30,6 +31,8 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
+import technology.rocketjump.saul.military.model.Squad;
+import technology.rocketjump.saul.military.model.SquadOrderType;
 import technology.rocketjump.saul.rooms.Bridge;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomTile;
@@ -335,6 +338,19 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 							cursorTile, interactionStateContainer.getMechanismTypeToPlace()
 					));
 				}
+			} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.SQUAD_MOVE_TO_LOCATION)) {
+				MapTile cursorTile = gameContext.getAreaMap().getTile(mouseChangeMessage.getWorldPosition());
+				if (cursorTile != null && interactionStateContainer.getInteractionMode().tileDesignationCheck.shouldDesignationApply(cursorTile)) {
+					Squad squad = interactionStateContainer.getSelectable().getSquad();
+					if (squad == null) {
+						Logger.error("Clicked " + interactionStateContainer.getInteractionMode().name() + " but no squad selected");
+					} else {
+						squad.setGuardingLocation(cursorTile.getTilePosition());
+						messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.GUARDING));
+						// Cancel out of this interaction mode
+						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DEFAULT);
+					}
+				}
 			}
 
 		}
@@ -400,6 +416,16 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 					if (!selectables.contains(selectableEntity)) {
 						selectables.add(selectableEntity);
 					}
+					MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
+					if (militaryComponent != null && militaryComponent.isInMilitary()) {
+						Squad entitySquad = gameContext.getSquads().get(militaryComponent.getSquadId());
+						if (entitySquad != null) {
+							Selectable selectableSquad = new Selectable(entitySquad);
+							if (!selectables.contains(selectableSquad)) {
+								selectables.add(selectableSquad);
+							}
+						}
+					}
 				}
 
 				if (clickedTile.hasConstruction()) {
@@ -451,32 +477,22 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 
 	private void chooseSelectable(Selectable selected) {
 		interactionStateContainer.setSelectable(selected);
-		switch (selected.type) {
-			case ENTITY:
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ENTITY_SELECTED);
-				break;
-			case CONSTRUCTION:
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.CONSTRUCTION_SELECTED);
-				break;
-			case DOORWAY:
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.DOORWAY_SELECTED);
-				break;
-			case TILE:
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.TILE_SELECTED);
-				break;
-			case ROOM:
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ROOM_SELECTED);
-				break;
-			case BRIDGE:
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.BRIDGE_SELECTED);
-				break;
-			default:
-				Logger.error("Not yet implemented: UI selection of " + selected.type);
-		}
+		messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getGuiViewName(selected.type));
+	}
+
+	private GuiViewName getGuiViewName(Selectable.SelectableType type) {
+		return switch (type) {
+			case ENTITY -> GuiViewName.ENTITY_SELECTED;
+			case CONSTRUCTION -> GuiViewName.CONSTRUCTION_SELECTED;
+			case DOORWAY -> GuiViewName.DOORWAY_SELECTED;
+			case TILE -> GuiViewName.TILE_SELECTED;
+			case ROOM -> GuiViewName.ROOM_SELECTED;
+			case BRIDGE -> GuiViewName.BRIDGE_SELECTED;
+			case SQUAD -> GuiViewName.SQUAD_SELECTED;
+		};
 	}
 
 	private void cancelButtonClicked(boolean goToMainMenu) {
-		interactionStateContainer.setSelectable(null);
 		if (interactionStateContainer.isDragging()) {
 			interactionStateContainer.setDragging(false);
 		} else {
@@ -490,6 +506,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 				} else {
 					messageDispatcher.dispatchMessage(MessageType.GUI_CANCEL_CURRENT_VIEW);
 				}
+				interactionStateContainer.setSelectable(null);
 			}
 		}
 	}

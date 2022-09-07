@@ -11,7 +11,19 @@
   "hoursInInventoryUntilUnused" : 38.0,
   "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
   "stockpileGroupName" : "WEAPONS",
-  "tags" : { },
+  "tags" : {
+    "ASSET_OVERRIDE_BY_SKILL" : [ "LIGHT_ARMOR", "CLOTHING_COLOR" ]
+  },
+  "defenseInfo" : {
+    "type" : "ARMOR",
+    "maxDefensePoints" : 12,
+    "maxDefenseRegainedPerRound" : 2,
+    "damageReduction" : {
+      "STABBING" : 1,
+      "SLASHING" : 2,
+      "CRUSHING" : 3
+    }
+  },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.LEATHER"
 }, {
@@ -518,7 +530,7 @@
   "tags" : {
     "LIQUID_CONTAINER" : [ "1", "Water" ],
     "USAGE_SOUND" : [ "WaterCollect" ],
-    "ITEM_ASSIGNMENT" : [ ]
+    "ITEM_ASSIGNMENT" : [ "PREFER_MILITARY" ]
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.WATERSKIN"
@@ -961,6 +973,7 @@
     "minDamage" : 2,
     "maxDamage" : 8,
     "armorNegation" : 0,
+    "twoHanded" : false,
     "combatSkillName" : "AXES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
     "animatedSpriteEffectName" : "Weapon slash"
@@ -1038,6 +1051,7 @@
     "minDamage" : 1,
     "maxDamage" : 5,
     "armorNegation" : 3,
+    "twoHanded" : false,
     "combatSkillName" : "MACES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
     "animatedSpriteEffectName" : "Weapon slash"
@@ -1065,6 +1079,7 @@
     "minDamage" : 1,
     "maxDamage" : 5,
     "armorNegation" : 4,
+    "twoHanded" : false,
     "combatSkillName" : "MACES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
     "animatedSpriteEffectName" : "Weapon slash"
@@ -1228,6 +1243,7 @@
     "maxDamage" : 8,
     "armorNegation" : 0,
     "requiresAmmoType" : "ARROWS",
+    "twoHanded" : true,
     "combatSkillName" : "ARCHERY",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
@@ -1256,6 +1272,7 @@
     "minDamage" : 3,
     "maxDamage" : 12,
     "armorNegation" : 0,
+    "twoHanded" : false,
     "combatSkillName" : "AXES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
     "animatedSpriteEffectName" : "Weapon slash"
@@ -1283,6 +1300,7 @@
     "minDamage" : 4,
     "maxDamage" : 8,
     "armorNegation" : 4,
+    "twoHanded" : false,
     "combatSkillName" : "MACES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
     "animatedSpriteEffectName" : "Weapon slash"
@@ -1311,6 +1329,7 @@
     "maxDamage" : 8,
     "armorNegation" : 0,
     "requiresAmmoType" : "BOLTS",
+    "twoHanded" : true,
     "combatSkillName" : "CROSSBOWS",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
@@ -1339,6 +1358,7 @@
     "minDamage" : 3,
     "maxDamage" : 8,
     "armorNegation" : 0,
+    "twoHanded" : false,
     "combatSkillName" : "SWORDSMANSHIP",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
     "animatedSpriteEffectName" : "Weapon slash"

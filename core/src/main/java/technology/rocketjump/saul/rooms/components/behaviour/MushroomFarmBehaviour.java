@@ -20,6 +20,7 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
+import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomTile;
 import technology.rocketjump.saul.rooms.components.RoomComponent;
@@ -33,8 +34,6 @@ import java.util.Set;
 import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
 import static technology.rocketjump.saul.entities.behaviour.furniture.MushroomShockTankBehaviour.MushrooomShockTankState.ASSIGNED;
 import static technology.rocketjump.saul.entities.behaviour.furniture.MushroomShockTankBehaviour.MushrooomShockTankState.AVAILABLE;
-import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FURNITURE;
 
 /**
  * This class organises the transfer of innoculated mushroom logs to shock tanks,
@@ -83,17 +82,8 @@ public class MushroomFarmBehaviour extends RoomBehaviourComponent implements Pri
 	}
 
 	private void haulLogToShockTank(Entity innoculatedLog, Entity shockTank, GameContext gameContext) {
-		HaulingAllocation haulingAllocation = new HaulingAllocation();
-		haulingAllocation.setSourcePosition(toGridPoint(innoculatedLog.getLocationComponent().getWorldPosition()));
-		haulingAllocation.setSourcePositionType(FURNITURE);
-		haulingAllocation.setHauledEntityType(EntityType.FURNITURE);
-		haulingAllocation.setHauledEntityId(innoculatedLog.getId());
-
-
-		haulingAllocation.setTargetPosition(toGridPoint(shockTank.getLocationComponent().getWorldPosition()));
-		haulingAllocation.setTargetId(shockTank.getId());
-		haulingAllocation.setTargetPositionType(FURNITURE);
-
+		HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createToHaulFurniture(innoculatedLog)
+						.toEntity(shockTank);
 
 		FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(innoculatedLog, gameContext.getAreaMap());
 		if (navigableWorkspace != null) {

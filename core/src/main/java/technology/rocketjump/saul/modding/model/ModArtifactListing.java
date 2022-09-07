@@ -69,7 +69,7 @@ public class ModArtifactListing {
 				def("ai", "schedules", SINGLE_FILE, JSON_ARRAY, Schedule.class,
 						"ai", "schedules.json", JSON_ARRAY, ADDITIVE, GenericClassTypeProcessor.class),
 				def("ai", "goals", SINGLE_FILE, JSON_ARRAY, Goal.class,
-						"ai/goals", "*.json", JSON_OBJECT, ADDITIVE,
+						"ai/goals", "**/*.json", JSON_OBJECT, ADDITIVE,
 						/* TODO Check Goal JSON */ UntypedJsonProcessor.class),
 
 				////////// definitions //////////

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import technology.rocketjump.saul.entities.ai.goap.condition.GoalSelectionByInventory;
 import technology.rocketjump.saul.entities.ai.goap.condition.HasLiquidContainerNeedingFilling;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.environment.GameClock;
+import technology.rocketjump.saul.gamecontext.GameContext;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
 		include = JsonTypeInfo.As.PROPERTY,
@@ -17,10 +17,11 @@ import technology.rocketjump.saul.environment.GameClock;
 		@JsonSubTypes.Type(value = GoalSelectionByItemAssignment.class, name = "ITEM_ASSIGNED"),
 		@JsonSubTypes.Type(value = HasLiquidContainerNeedingFilling.class, name = "HAS_LIQUID_CONTAINER_NEEDING_FILLING"),
 		@JsonSubTypes.Type(value = GoalSelectionByInventory.class, name = "INVENTORY"),
+		@JsonSubTypes.Type(value = GoalSelectionBySquadOrders.class, name = "SQUAD_HAS_ORDERS"),
 })
 public interface GoalSelectionCondition {
 
 	@JsonIgnore
-	boolean apply(GameClock gameClock, Entity parentEntity);
+	boolean apply(Entity parentEntity, GameContext gameContext);
 
 }

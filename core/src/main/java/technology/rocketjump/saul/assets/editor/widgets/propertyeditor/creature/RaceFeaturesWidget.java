@@ -12,6 +12,7 @@ import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WeaponInf
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
+import technology.rocketjump.saul.entities.model.physical.combat.DefenseType;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.features.*;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
@@ -23,6 +24,8 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.misc.ReflectionUtils;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.rendering.utils.HexColors;
+
+import java.util.List;
 
 public class RaceFeaturesWidget extends VisTable {
 
@@ -71,6 +74,7 @@ public class RaceFeaturesWidget extends VisTable {
 			void initChildWidgets(VisTable childContainer, RaceFeatures sourceData) {
 				DefenseInfo defenseInfo = sourceData.getDefense();
 
+				WidgetBuilder.addSelectField("Type:", "type", List.of(DefenseType.values()), DefenseInfo.NONE.getType(), defenseInfo, childContainer);
 				WidgetBuilder.addIntegerField("Max Defense Points:", "maxDefensePoints", defenseInfo, childContainer);
 				WidgetBuilder.addIntegerField("Max Defense Regained/Round:", "maxDefenseRegainedPerRound", defenseInfo, childContainer);
 

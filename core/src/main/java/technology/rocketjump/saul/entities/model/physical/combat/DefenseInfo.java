@@ -14,9 +14,18 @@ public class DefenseInfo {
 		NONE.maxDefenseRegainedPerRound = 0;
 	}
 
+	private DefenseType type = DefenseType.RACIAL;
 	private Integer maxDefensePoints;
 	private Integer maxDefenseRegainedPerRound;
 	private Map<CombatDamageType, Integer> damageReduction = new EnumMap<>(CombatDamageType.class);
+
+	public DefenseType getType() {
+		return type;
+	}
+
+	public void setType(DefenseType type) {
+		this.type = type;
+	}
 
 	public Integer getMaxDefensePoints() {
 		return maxDefensePoints;

@@ -23,8 +23,8 @@ import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
 public class FleeFromCombatAction extends CombatAction {
 
-	private static final float LARGE_DISTANCE_AWAY_FROM_OPPONENTS = 30f;
-	private static final float MIN_SEPARATION_FROM_OPPONENTS_TO_LEAVE_COMBAT = 18f;
+	public static final float LARGE_DISTANCE_AWAY_FROM_OPPONENTS = 30f;
+	public static final float MIN_SEPARATION_FROM_OPPONENTS_TO_LEAVE_COMBAT = 18f;
 
 	private GoToLocationAction goToLocationAction;
 

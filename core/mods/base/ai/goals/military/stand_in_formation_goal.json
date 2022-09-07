@@ -1,0 +1,27 @@
+{
+  "name": "Stand in formation",
+  "i18nDescription": "GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION",
+  "settlerCategories": ["MILITARY"],
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "SQUAD_HAS_ORDERS",
+          "orderType": "GUARDING"
+        }
+      ],
+      "priority": "JOB_NORMAL",
+      "scheduleCategory": "MILITARY_DUTY"
+    }
+  ],
+  "initialActions": ["GoToSquadFormationPosition"],
+  "actionRelationships": {
+    "GoToSquadFormationPosition": {
+      "pass": ["StandToAttention"]
+    },
+    "StandToAttention": {
+      "pass": ["RequeueThisGoal"]
+    },
+    "RequeueThisGoal": {}
+  }
+}

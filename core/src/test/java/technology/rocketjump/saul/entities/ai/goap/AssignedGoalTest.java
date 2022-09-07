@@ -84,7 +84,7 @@ public class AssignedGoalTest {
 		this.scheduleDictionary = injector.getInstance(ScheduleDictionary.class);
 		this.roomStore = injector.getInstance(RoomStore.class);
 
-		this.entity = injector.getInstance(SettlerFactory.class).create(new Vector2(), new Vector2(), NULL_PROFESSION, NULL_PROFESSION, gameContext);
+		this.entity = injector.getInstance(SettlerFactory.class).create(new Vector2(), NULL_PROFESSION, NULL_PROFESSION, gameContext, true);
 
 	}
 

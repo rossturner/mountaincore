@@ -13,10 +13,12 @@ import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.persistence.UserPreferences;
 
 import static technology.rocketjump.saul.audio.SoundEffectManager.GLOBAL_VOLUME_MULTIPLIER;
+import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.AMBIENT_EFFECT_VOLUME;
 
 @Singleton
 public class AmbientSoundManager implements Updatable, AssetDisposable {
 
+	private final UserPreferences userPreferences;
 	private boolean initialised;
 	private SoundAsset riverAmbience;
 	private ActiveSoundEffect weatherActiveSound;
@@ -26,11 +28,12 @@ public class AmbientSoundManager implements Updatable, AssetDisposable {
 	private GameContext gameContext;
 
 	public static final String DEFAULT_AMBIENT_AUDIO_VOLUME_AS_STRING = "0.5";
-	private float globalAmbientVolumeModifier;
+	private float ambientEffectVolume;
 
 	@Inject
 	public AmbientSoundManager(SoundAssetDictionary soundAssetDictionary, UserPreferences userPreferences) {
 		this.riverAmbience = soundAssetDictionary.getByName("River");
+		this.userPreferences = userPreferences;
 
 		try {
 			riverActiveSound = new ActiveSoundEffect(riverAmbience, 0L, null);
@@ -41,8 +44,8 @@ public class AmbientSoundManager implements Updatable, AssetDisposable {
 			initialised = false;
 		}
 
-		String volumeString = userPreferences.getPreference(UserPreferences.PreferenceKey.AMBIENT_EFFECT_VOLUME, DEFAULT_AMBIENT_AUDIO_VOLUME_AS_STRING);
-		this.globalAmbientVolumeModifier = GLOBAL_VOLUME_MULTIPLIER * Float.valueOf(volumeString);
+		String volumeString = userPreferences.getPreference(AMBIENT_EFFECT_VOLUME, DEFAULT_AMBIENT_AUDIO_VOLUME_AS_STRING);
+		this.ambientEffectVolume = GLOBAL_VOLUME_MULTIPLIER * Float.valueOf(volumeString);
 	}
 
 	public void updateViewport(int outdoorTiles, int riverTiles, int totalTiles) {
@@ -67,8 +70,8 @@ public class AmbientSoundManager implements Updatable, AssetDisposable {
 			float desiredOutdoorAmbienceVolume = Math.max((outdoorRatio - 0.2f), 0f) * (1f / (1f - 0.75f));
 			float desiredRiverAmbienceVolume = Math.min(riverRatio, 0.2f) * (1f / 0.15f);
 
-			desiredOutdoorAmbienceVolume *= globalAmbientVolumeModifier;
-			desiredRiverAmbienceVolume *= globalAmbientVolumeModifier;
+			desiredOutdoorAmbienceVolume *= ambientEffectVolume;
+			desiredRiverAmbienceVolume *= ambientEffectVolume;
 
 			SoundAsset weatherAmbienceAsset = getCurrentWeatherAmbienceAsset(daytimeHours());
 			if (weatherActiveSound == null && weatherAmbienceAsset != null) {
@@ -133,8 +136,9 @@ public class AmbientSoundManager implements Updatable, AssetDisposable {
 		}
 	}
 
-	public void setGlobalVolumeModifier(Float newVolume) {
-		this.globalAmbientVolumeModifier = newVolume * GLOBAL_VOLUME_MULTIPLIER;
+	public void setAmbientEffectVolume(Float newVolume) {
+		this.ambientEffectVolume = newVolume * GLOBAL_VOLUME_MULTIPLIER;
+		userPreferences.setPreference(AMBIENT_EFFECT_VOLUME, String.valueOf(newVolume));
 	}
 
 	@Override

@@ -262,7 +262,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 		if (!primaryProfession.getName().equals("VILLAGER")) {
 			secondaryProfession = allProfessions.get(gameContext.getRandom().nextInt(allProfessions.size()));
 		}
-		Entity settler = settlerFactory.create(spawnPosition, new Vector2(), primaryProfession, secondaryProfession, gameContext);
+		Entity settler = settlerFactory.create(spawnPosition, primaryProfession, secondaryProfession, gameContext, true);
 		CreatureBehaviour settlerBehaviour = (CreatureBehaviour) settler.getBehaviourComponent();
 
 		Goal idleGoal = SpecialGoal.IDLE.getInstance();

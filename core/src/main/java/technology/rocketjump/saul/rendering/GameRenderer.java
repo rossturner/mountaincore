@@ -24,6 +24,7 @@ import technology.rocketjump.saul.rendering.lighting.PointLight;
 import technology.rocketjump.saul.rendering.lighting.WorldLightingRenderer;
 import technology.rocketjump.saul.sprites.TerrainSpriteCache;
 import technology.rocketjump.saul.ui.InWorldUIRenderer;
+import technology.rocketjump.saul.ui.MilitaryOrdersRenderer;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -56,6 +57,7 @@ public class GameRenderer implements AssetDisposable {
 	private final CombinedLightingResultRenderer combinedRenderer;
 	private final DebugRenderer debugRenderer;
 	private final InWorldUIRenderer inWorldUIRenderer;
+	private final MilitaryOrdersRenderer militaryOrdersRenderer;
 
 	private final TerrainSpriteCache diffuseSpriteCache;
 	private final TerrainSpriteCache normalSpriteCache;
@@ -67,8 +69,10 @@ public class GameRenderer implements AssetDisposable {
 	public GameRenderer(LightProcessor lightProcessor,
 						RenderingOptions renderingOptions, WorldRenderer worldRenderer, WorldLightingRenderer worldLightingRenderer,
 						CombinedLightingResultRenderer combinedRenderer, DebugRenderer debugRenderer,
-						InWorldUIRenderer inWorldUIRenderer, @Named("diffuse") TerrainSpriteCache diffuseSpriteCache,
-						@Named("normal") TerrainSpriteCache normalSpriteCache, ScreenWriter screenWriter) {
+						InWorldUIRenderer inWorldUIRenderer, MilitaryOrdersRenderer militaryOrdersRenderer,
+						@Named("diffuse") TerrainSpriteCache diffuseSpriteCache,
+						@Named("normal") TerrainSpriteCache normalSpriteCache,
+						ScreenWriter screenWriter) {
 		this.lightProcessor = lightProcessor;
 		this.renderingOptions = renderingOptions;
 		this.worldRenderer = worldRenderer;
@@ -76,6 +80,7 @@ public class GameRenderer implements AssetDisposable {
 		this.combinedRenderer = combinedRenderer;
 		this.debugRenderer = debugRenderer;
 		this.inWorldUIRenderer = inWorldUIRenderer;
+		this.militaryOrdersRenderer = militaryOrdersRenderer;
 		this.diffuseSpriteCache = diffuseSpriteCache;
 		this.normalSpriteCache = normalSpriteCache;
 		this.screenWriter = screenWriter;
@@ -173,6 +178,7 @@ public class GameRenderer implements AssetDisposable {
 		} else {
 			combinedRenderer.renderFinal(diffuseTextureRegion, lightingTextureRegion, fadeAmount);
 			inWorldUIRenderer.render(gameContext, camera, particlesToRenderAsUI, diffuseSpriteCache);
+			militaryOrdersRenderer.render(gameContext, camera);
 		}
 
 		debugRenderer.render(worldMap, camera);

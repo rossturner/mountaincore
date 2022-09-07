@@ -4,13 +4,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import org.apache.commons.lang3.NotImplementedException;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ai.combat.EnteringCombatException;
 import technology.rocketjump.saul.entities.ai.combat.ExitingCombatException;
 import technology.rocketjump.saul.entities.ai.goap.*;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
-import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.BehaviourComponent;
+import technology.rocketjump.saul.entities.components.EntityComponent;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
@@ -19,14 +23,13 @@ import technology.rocketjump.saul.entities.model.physical.creature.HaulingCompon
 import technology.rocketjump.saul.entities.model.physical.creature.Sanity;
 import technology.rocketjump.saul.entities.model.physical.creature.status.Blinded;
 import technology.rocketjump.saul.entities.model.physical.creature.status.TemporaryBlinded;
-import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
-import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.CompassDirection;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.roof.TileRoofState;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.military.model.Squad;
+import technology.rocketjump.saul.military.model.SquadOrderType;
 import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -40,12 +43,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import static technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary.NULL_SCHEDULE;
+import static technology.rocketjump.saul.entities.ai.goap.SettlerCategory.CIVILIAN;
+import static technology.rocketjump.saul.entities.ai.goap.SettlerCategory.MILITARY;
 import static technology.rocketjump.saul.entities.ai.goap.SpecialGoal.IDLE;
 import static technology.rocketjump.saul.entities.behaviour.creature.AssignedGoalFactory.*;
 import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.SAW_DEAD_BODY;
 import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.MIN_HAPPINESS_VALUE;
 import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
-import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 import static technology.rocketjump.saul.entities.model.physical.creature.Consciousness.*;
 import static technology.rocketjump.saul.environment.model.WeatherType.HappinessInteraction.STANDING;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
@@ -186,10 +191,11 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		NeedsComponent needsComponent = parentEntity.getComponent(NeedsComponent.class);
 		needsComponent.update(elapsed, parentEntity, messageDispatcher);
 
-		parentEntity.getComponent(StatusComponent.class).infrequentUpdate(elapsed);
-
 		HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
-		if (happinessComponent != null) {
+		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
+		boolean isInMilitary = militaryComponent != null && militaryComponent.isInMilitary();
+
+		if (happinessComponent != null && !isInMilitary) {
 			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
 			if (currentTile != null && currentTile.getRoof().getState().equals(TileRoofState.OPEN) &&
 					gameContext.getMapEnvironment().getCurrentWeather().getHappinessModifiers().containsKey(STANDING)) {
@@ -197,13 +203,12 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			}
 		}
 
-		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
-		thinkAboutRequiredEquipment(gameContext);
 		addGoalsToQueue(gameContext);
 
 		lookAtNearbyThings(gameContext);
 
-		if (attributes.getRace().getBehaviour().getIsSapient()) {
+		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
+		if (attributes.getRace().getBehaviour().getIsSapient() && !isInMilitary) {
 			if (attributes.getSanity().equals(Sanity.SANE) && attributes.getConsciousness().equals(AWAKE) &&
 					happinessComponent != null && happinessComponent.getNetModifier() <= MIN_HAPPINESS_VALUE) {
 				messageDispatcher.dispatchMessage(MessageType.SAPIENT_CREATURE_INSANITY, parentEntity);
@@ -228,14 +233,17 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			return onFireGoal(parentEntity, messageDispatcher, gameContext);
 		}
 
-		Optional<Memory> attackedMemory = getMemoryOfAttackedByCreature(parentEntity, creatureGroup, gameContext);
-		if (attackedMemory.isPresent()) {
+		Optional<Memory> combatMemory = getCombatRelatedMemory(parentEntity, creatureGroup, gameContext);
+		if (combatMemory.isPresent()) {
 			if (creatureGroup != null) {
-				creatureGroup.getSharedMemoryComponent().addShortTerm(attackedMemory.get(), gameContext.getGameClock());
+				creatureGroup.getSharedMemoryComponent().addShortTerm(combatMemory.get(), gameContext.getGameClock());
 			}
 			CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 			combatStateComponent.clearState();
-			combatStateComponent.setTargetedOpponentId(attackedMemory.get().getRelatedEntityId());
+			combatStateComponent.setTargetedOpponentId(combatMemory.get().getRelatedEntityId());
+			if (combatMemory.get().getRelatedEntityIds() != null) {
+				combatStateComponent.setOpponentEntityIds(combatMemory.get().getRelatedEntityIds());
+			}
 			throw new EnteringCombatException();
 		}
 
@@ -265,8 +273,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			return placeInventoryItemsGoal;
 		}
 
-		Schedule schedule = ((CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes()).getRace().getBehaviour().getSchedule();
-		List<ScheduleCategory> currentScheduleCategories = schedule == null ? List.of() : schedule.getCurrentApplicableCategories(gameContext.getGameClock());
+		List<ScheduleCategory> currentScheduleCategories = getCurrentSchedule().getCurrentApplicableCategories(gameContext.getGameClock());
 		QueuedGoal nextGoal = goalQueue.popNextGoal(currentScheduleCategories);
 		if (nextGoal == null) {
 			return new AssignedGoal(IDLE.getInstance(), parentEntity, messageDispatcher);
@@ -274,15 +281,17 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		return new AssignedGoal(nextGoal.getGoal(), parentEntity, messageDispatcher);
 	}
 
-	public static Optional<Memory> getMemoryOfAttackedByCreature(Entity entity, CreatureGroup creatureGroup, GameContext gameContext) {
+	private static final List<MemoryType> enterCombatMemoryTypes = List.of(MemoryType.ATTACKED_BY_CREATURE, MemoryType.ABOUT_TO_ATTACK_CREATURE);
+
+	public static Optional<Memory> getCombatRelatedMemory(Entity entity, CreatureGroup creatureGroup, GameContext gameContext) {
 		MemoryComponent memoryComponent = entity.getOrCreateComponent(MemoryComponent.class);
-		Optional<Memory> attackedMemory = memoryComponent.getShortTermMemories(gameContext.getGameClock())
-				.stream().filter(m -> m.getType().equals(MemoryType.ATTACKED_BY_CREATURE)).findAny();
-		if (attackedMemory.isEmpty() && creatureGroup != null) {
-			attackedMemory = creatureGroup.getSharedMemoryComponent().getShortTermMemories(gameContext.getGameClock())
-					.stream().filter(m -> m.getType().equals(MemoryType.ATTACKED_BY_CREATURE)).findAny();
+		Optional<Memory> combatMemory = memoryComponent.getShortTermMemories(gameContext.getGameClock())
+				.stream().filter(m -> enterCombatMemoryTypes.contains(m.getType())).findAny();
+		if (combatMemory.isEmpty() && creatureGroup != null) {
+			combatMemory = creatureGroup.getSharedMemoryComponent().getShortTermMemories(gameContext.getGameClock())
+					.stream().filter(m -> enterCombatMemoryTypes.contains(m.getType())).findAny();
 		}
-		return attackedMemory;
+		return combatMemory;
 	}
 
 	@Override
@@ -318,45 +327,17 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		}
 	}
 
-	private void thinkAboutRequiredEquipment(GameContext gameContext) {
-		WeaponSelectionComponent weaponSelectionComponent = parentEntity.getOrCreateComponent(WeaponSelectionComponent.class);
-
-		if (weaponSelectionComponent.getSelectedWeapon().isPresent()) {
-			ItemType weaponItemType = weaponSelectionComponent.getSelectedWeapon().get();
-
-			InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
-			InventoryComponent.InventoryEntry weaponInInventory = inventoryComponent.findByItemType(weaponItemType, gameContext.getGameClock());
-
-			if (weaponInInventory == null) {
-				Memory itemRequiredMemory = new Memory(MemoryType.LACKING_REQUIRED_ITEM, gameContext.getGameClock());
-				itemRequiredMemory.setRelatedItemType(weaponItemType);
-				// Should set required material at some point
-				parentEntity.getOrCreateComponent(MemoryComponent.class).addShortTerm(itemRequiredMemory, gameContext.getGameClock());
-			} else if (weaponItemType.getWeaponInfo() != null && weaponItemType.getWeaponInfo().getRequiresAmmoType() != null) {
-				// check for ammo
-				AmmoType requiredAmmoType = weaponItemType.getWeaponInfo().getRequiresAmmoType();
-
-				boolean hasAmmo = inventoryComponent.getInventoryEntries().stream()
-						.anyMatch(entry -> entry.entity.getType().equals(ITEM) &&
-								requiredAmmoType.equals(((ItemEntityAttributes) entry.entity.getPhysicalEntityComponent().getAttributes()).getItemType().getIsAmmoType()));
-
-				if (!hasAmmo) {
-					Memory itemRequiredMemory = new Memory(MemoryType.LACKING_REQUIRED_ITEM, gameContext.getGameClock());
-					itemRequiredMemory.setRelatedAmmoType(requiredAmmoType);
-					// Should set required material at some point
-					parentEntity.getOrCreateComponent(MemoryComponent.class).addShortTerm(itemRequiredMemory, gameContext.getGameClock());
-				}
-			}
-		}
-	}
-
-
-
 	protected void addGoalsToQueue(GameContext gameContext) {
+		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
+		SettlerCategory currentSettlerCategory = militaryComponent != null && militaryComponent.isInMilitary() ? MILITARY : CIVILIAN;
 		goalQueue.removeExpiredGoals(gameContext.getGameClock());
 		for (Goal potentialGoal : goalDictionary.getAllGoals()) {
 			if (potentialGoal.getSelectors().isEmpty()) {
 				continue; // Don't add goals with no selectors
+			}
+			if (!potentialGoal.settlerCategories.contains(currentSettlerCategory)) {
+				// Goal does not apply to our settler category
+				continue;
 			}
 			if (currentGoal != null && potentialGoal.equals(currentGoal.goal)) {
 				continue; // Don't queue up the current goal
@@ -364,7 +345,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			for (GoalSelector selector : potentialGoal.getSelectors()) {
 				boolean allConditionsApply = true;
 				for (GoalSelectionCondition condition : selector.conditions) {
-					if (!condition.apply(gameContext.getGameClock(), parentEntity)) {
+					if (!condition.apply(parentEntity, gameContext)) {
 						allConditionsApply = false;
 						break;
 					}
@@ -375,6 +356,20 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 				}
 			}
 		}
+	}
+
+	public void militaryAssignmentChanged() {
+		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
+		boolean inMilitary = militaryComponent.isInMilitary();
+		SettlerCategory currentSettlerCategory = inMilitary ? MILITARY : CIVILIAN;
+
+		goalQueue.clear();
+
+		if (currentGoal != null && !currentGoal.isComplete() && !currentGoal.goal.settlerCategories.contains(currentSettlerCategory)) {
+			currentGoal.setInterrupted(true);
+		}
+
+		addGoalsToQueue(gameContext);
 	}
 
 	private void lookAtNearbyThings(GameContext gameContext) {
@@ -412,18 +407,33 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 								happinessComponent.add(SAW_DEAD_BODY);
 							}
 
-							return;
-						} else if (myFaction == Faction.MONSTERS && myFaction != targetFaction) {
+						} else if (hostileFactions(myFaction, targetFaction)) {
 							MemoryComponent memoryComponent = parentEntity.getOrCreateComponent(MemoryComponent.class);
-							Memory attackedByCreatureMemory = new Memory(MemoryType.ATTACKED_BY_CREATURE, gameContext.getGameClock());
-							attackedByCreatureMemory.setRelatedEntityId(entityInTile.getId());
-							memoryComponent.addShortTerm(attackedByCreatureMemory, gameContext.getGameClock());
+							Memory attackCreatureMemory = new Memory(MemoryType.ABOUT_TO_ATTACK_CREATURE, gameContext.getGameClock());
+							attackCreatureMemory.setRelatedEntityId(entityInTile.getId());
+							memoryComponent.addShortTerm(attackCreatureMemory, gameContext.getGameClock());
 						}
 					}
 				}
 
 			}
 		}
+	}
+
+	private boolean hostileFactions(Faction myFaction, Faction targetFaction) {
+		return (myFaction == Faction.MONSTERS && myFaction != targetFaction) ||
+				(myFaction == Faction.SETTLEMENT && targetFaction == Faction.MONSTERS && isGuardingPositionInMilitary());
+	}
+
+	private boolean isGuardingPositionInMilitary() {
+		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
+		if (militaryComponent != null && militaryComponent.isInMilitary()) {
+			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
+			if (squad != null) {
+				return squad.getCurrentOrderType().equals(SquadOrderType.GUARDING);
+			}
+		}
+		return false;
 	}
 
 
@@ -434,6 +444,20 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 	public boolean isStunned() {
 		return this.stunTime > 0f;
+	}
+
+	public Schedule getCurrentSchedule() {
+		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
+		if (militaryComponent != null && militaryComponent.isInMilitary()) {
+			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
+			return ScheduleDictionary.getScheduleForSquadShift(squad.getShift());
+		}
+		if (parentEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes attributes) {
+			return attributes.getRace().getBehaviour().getSchedule();
+		} else {
+			Logger.error("Looking for a schedule on " + this.getClass().getSimpleName() + " with no " + CreatureEntityAttributes.class.getSimpleName());
+			return NULL_SCHEDULE;
+		}
 	}
 
 	@Override

@@ -117,7 +117,7 @@ public class InnoculationLogBehaviour extends FurnitureBehaviour implements Dest
 						parentEntity, parentEntity.getLocationComponent().getWorldOrParentPosition(), getRelatedItemType(), null,
 						false, 1, null, allocation -> {
 					if (allocation != null) {
-						finaliseAllocation(allocation);
+						createHaulingJob(allocation);
 					}
 				}
 				));
@@ -174,12 +174,8 @@ public class InnoculationLogBehaviour extends FurnitureBehaviour implements Dest
 		this.state = state;
 	}
 
-	public void finaliseAllocation(HaulingAllocation allocation) {
+	public void createHaulingJob(HaulingAllocation allocation) {
 		// Create hauling job to haul assignment into inventory
-		allocation.setTargetPositionType(HaulingAllocation.AllocationPositionType.FURNITURE);
-		allocation.setTargetId(parentEntity.getId());
-		allocation.setTargetPosition(toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
-
 		Job haulingJob = new Job(haulingJobType);
 		haulingJob.setJobPriority(priority);
 		haulingJob.setTargetId(allocation.getHauledEntityId());

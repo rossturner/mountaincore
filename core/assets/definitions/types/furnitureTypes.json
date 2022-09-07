@@ -1,4 +1,26 @@
 [ {
+  "name" : "BARRACKS_BED",
+  "i18nKey" : "FURNITURE.SINGLE_BED",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x2N",
+  "colorCode" : "#a04b00",
+  "iconName" : "bed",
+  "placeAnywhere" : false,
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 4,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Product-Linen",
+      "quantity" : 1,
+      "liquid" : false
+    } ]
+  },
+  "tags" : { },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "SINGLE_BED",
   "i18nKey" : "FURNITURE.SINGLE_BED",
   "blocksMovement" : true,
@@ -1182,6 +1204,46 @@
   "tags" : {
     "FURNITURE_BEHAVIOUR" : [ "POWER_SOURCE" ],
     "POWERED_FURNITURE" : [ "18", "0.9" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "ARCHERY_TARGET",
+  "i18nKey" : "FURNITURE.ARCHERY_TARGET",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x1 with S workspace offset 6",
+  "colorCode" : "#E38B20",
+  "iconName" : "archery-target",
+  "placeAnywhere" : false,
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 3,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "WORKSPACE_LOCATIONS_MUST_BE_INSIDE_ROOM" : [ ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "TRAINING_DUMMY",
+  "i18nKey" : "FURNITURE.TRAINING_DUMMY",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x1 with S workspace",
+  "colorCode" : "#3CC9C2",
+  "iconName" : "target-dummy",
+  "placeAnywhere" : false,
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 3,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "WORKSPACE_LOCATIONS_MUST_BE_INSIDE_ROOM" : [ ]
   },
   "hiddenFromPlacementMenu" : false
 }, {

@@ -23,6 +23,8 @@ import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomTile;
 
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.DOWN;
+import static technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag.BedCreaturePosition.INSIDE_FURNITURE;
+import static technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag.BedCreaturePosition.ON_GROUND;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
 import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
@@ -59,7 +61,7 @@ public class SleepInBedAction extends SleepOnFloorAction {
 
 			Entity assignedFurniture = gameContext.getEntities().get(parent.getAssignedFurnitureId());
 			SleepingPositionComponent sleepingPositionComponent = assignedFurniture.getComponent(SleepingPositionComponent.class);
-			if (sleepingPositionComponent.isOnFloor()) {
+			if (sleepingPositionComponent.getBedCreaturePosition().equals(ON_GROUND)) {
 				parent.parentEntity.getComponent(HappinessComponent.class).add(SLEPT_ON_GROUND);
 			}
 
@@ -144,9 +146,9 @@ public class SleepInBedAction extends SleepOnFloorAction {
 			return;
 		}
 		SleepingPositionComponent sleepingPositionComponent = assignedFurniture.getComponent(SleepingPositionComponent.class);
-		if (sleepingPositionComponent.isOnFloor()) {
+		if (sleepingPositionComponent.getBedCreaturePosition().equals(ON_GROUND)) {
 			changeToSleeping(gameContext);
-		} else if (assignedFurniture == null || !locatedInFurnitureWorkspace(assignedFurniture)) {
+		} else if (!locatedInFurnitureWorkspace(assignedFurniture)) {
 			completionType = FAILURE;
 		} else {
 			InventoryComponent inventoryComponent = assignedFurniture.getOrCreateComponent(InventoryComponent.class);
@@ -164,7 +166,7 @@ public class SleepInBedAction extends SleepOnFloorAction {
 			return;
 		}
 		SleepingPositionComponent sleepingPositionComponent = assignedFurniture.getComponent(SleepingPositionComponent.class);
-		if (!sleepingPositionComponent.isOnFloor()) {
+		if (sleepingPositionComponent.getBedCreaturePosition().equals(INSIDE_FURNITURE)) {
 			InventoryComponent inventoryComponent = assignedFurniture.getOrCreateComponent(InventoryComponent.class);
 			inventoryComponent.remove(parent.parentEntity.getId());
 

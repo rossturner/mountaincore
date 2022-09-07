@@ -312,11 +312,11 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 
 					if (wall.hasOre()) {
 						GameMaterial oreMaterial = wall.getOreMaterial();
-						if (gameContext.getRandom().nextFloat() < skillLevelOfCompletion + 0.1f) {
+						if (gameContext.getRandom().nextInt(100) < skillLevelOfCompletion + 10) {
 							entityStore.createResourceItem(oreMaterial, completedJob.getJobLocation(), 1, wall.getMaterial());
 						}
 					} else {
-						if (gameContext.getRandom().nextFloat() < skillLevelOfCompletion) {
+						if (gameContext.getRandom().nextInt(100) < skillLevelOfCompletion) {
 							entityStore.createResourceItem(wall.getMaterial(), completedJob.getJobLocation(), 1);
 						}
 					}
@@ -988,13 +988,6 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				messageDispatcher.dispatchMessage(MessageType.FISH_HARVESTED_FROM_RIVER);
 				break;
 			}
-			case "HUNT_CREATURE": {
-				Entity targetEntity = gameContext.getEntities().get(jobCompletedMessage.getJob().getTargetId());
-				if (targetEntity != null) {
-					targetEntity.setDesignation(null);
-				}
-				break;
-			}
 			case "BUTCHER_CREATURE": {
 				Entity furnitureEntity = entityStore.getById(completedJob.getTargetId());
 				if (furnitureEntity != null) {
@@ -1246,16 +1239,8 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				newJob.setRequiredProfession(floorTypeToPlace.getCraftingType().getProfessionRequired());
 			}
 
-			GridPoint2 targetLocation;
 			MapTile targetTile = applyDesignationMessage.getTargetTile();
-			if (applyDesignationMessage.getTargetEntity() != null) {
-				targetLocation = toGridPoint(applyDesignationMessage.getTargetEntity().getLocationComponent().getWorldOrParentPosition());
-				targetTile = gameContext.getAreaMap().getTile(targetLocation);
-				newJob.setTargetId(applyDesignationMessage.getTargetEntity().getId());
-			} else {
-				targetLocation = applyDesignationMessage.getTargetTile().getTilePosition();
-			}
-			newJob.setJobLocation(targetLocation);
+			newJob.setJobLocation(applyDesignationMessage.getTargetTile().getTilePosition());
 			newJob.setJobState(calculateNewJobState(jobType, targetTile));
 			newJob.setJobPriority(applyDesignationMessage.getDesignationToApply().getDefaultJobPriority());
 
@@ -1276,16 +1261,6 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				jobStore.remove(job);
 			}
 			removeDesignationMessage.getTargetTile().setDesignation(null);
-		} else if (removeDesignationMessage.getTargetEntity() != null) {
-			Designation designation = removeDesignationMessage.getTargetEntity().getDesignation();
-			if (designation != null) {
-				jobStore.getByType(designation.getCreatesJobType()).stream()
-						.filter(j -> j.getTargetId() == removeDesignationMessage.getTargetEntity().getId())
-						.collect(Collectors.toList())
-						.forEach(jobStore::remove);
-
-				removeDesignationMessage.getTargetEntity().setDesignation(null);
-			}
 		}
 		return true;
 	}
