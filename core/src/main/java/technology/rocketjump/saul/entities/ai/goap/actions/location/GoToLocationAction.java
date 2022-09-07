@@ -51,7 +51,7 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 	public static final float MAX_TIME_TO_WAIT = 8f;
 
 	protected boolean pathfindingRequested;
-	private GraphPath<Vector2> path;
+	protected GraphPath<Vector2> path;
 	private float timeWaitingForPath;
 	private int pathCursor = 0;
 

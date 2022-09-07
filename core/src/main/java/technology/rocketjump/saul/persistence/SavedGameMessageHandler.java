@@ -29,6 +29,7 @@ import technology.rocketjump.saul.messaging.async.BackgroundTaskManager;
 import technology.rocketjump.saul.messaging.async.BackgroundTaskResult;
 import technology.rocketjump.saul.messaging.async.ErrorType;
 import technology.rocketjump.saul.messaging.types.GameSaveMessage;
+import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.modding.LocalModRepository;
 import technology.rocketjump.saul.modding.model.ParsedMod;
 import technology.rocketjump.saul.persistence.model.InvaidSaveOrModsMissingException;
@@ -226,6 +227,9 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 		}
 		for (Room room : gameContext.getRooms().values()) {
 			room.writeTo(stateHolder);
+		}
+		for (Squad squad : gameContext.getSquads().values()) {
+			squad.writeTo(stateHolder);
 		}
 		TiledMap map = gameContext.getAreaMap();
 		stateHolder.mapJson.put("seed", map.getSeed());

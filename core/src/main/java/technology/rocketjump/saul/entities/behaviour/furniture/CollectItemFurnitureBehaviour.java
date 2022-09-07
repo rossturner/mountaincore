@@ -20,8 +20,6 @@ import technology.rocketjump.saul.rooms.HaulingAllocation;
 import java.util.ArrayList;
 import java.util.List;
 
-import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
-
 public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements Prioritisable {
 
 	private List<ItemTypeWithMaterial> itemsToCollect = new ArrayList<>();
@@ -72,7 +70,7 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 						parentEntity, parentEntity.getLocationComponent().getWorldOrParentPosition(), potentialItemTypeWithMaterial.getItemType(), potentialItemTypeWithMaterial.getMaterial(),
 						includeFromFurniture, null, null, allocation -> {
 							if (allocation != null) {
-								finaliseAllocation(potentialItemTypeWithMaterial, allocation);
+								createHaulingJobForAllocation(potentialItemTypeWithMaterial, allocation);
 							}
 						}
 				));
@@ -94,13 +92,9 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 		return false;
 	}
 
-	public void finaliseAllocation(ItemTypeWithMaterial potentialItemTypeWithMaterial, HaulingAllocation allocation) {
+	public void createHaulingJobForAllocation(ItemTypeWithMaterial potentialItemTypeWithMaterial, HaulingAllocation allocation) {
 		inventoryAssignments.add(potentialItemTypeWithMaterial);
 		// Create hauling job to haul assignment into inventory
-
-		allocation.setTargetPositionType(HaulingAllocation.AllocationPositionType.FURNITURE);
-		allocation.setTargetId(parentEntity.getId());
-		allocation.setTargetPosition(toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
 
 		Job haulingJob = new Job(haulingJobType);
 		haulingJob.setJobPriority(priority);

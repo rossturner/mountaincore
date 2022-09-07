@@ -9,7 +9,6 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.behaviour.furniture.CollectItemFurnitureBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -32,6 +31,7 @@ import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.CookingCompleteMessage;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
+import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.rooms.constructions.ConstructionStore;
 import technology.rocketjump.saul.settlement.FurnitureTracker;
@@ -43,12 +43,9 @@ import java.util.List;
 
 import static technology.rocketjump.saul.entities.EntityUpdater.TIME_BETWEEN_INFREQUENT_UPDATE_SECONDS;
 import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
-import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.DUE_TO_BE_HAULED;
 import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 import static technology.rocketjump.saul.entities.tags.ConstructionOverrideTag.ConstructionOverrideSetting.REQUIRES_EDIBLE_LIQUID;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.CONSTRUCTION;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FLOOR;
 import static technology.rocketjump.saul.rooms.constructions.ConstructionState.SELECTING_MATERIALS;
 import static technology.rocketjump.saul.rooms.constructions.ConstructionState.WAITING_FOR_COMPLETION;
 
@@ -134,30 +131,24 @@ public class KitchenManager implements Telegraph, Updatable {
 
 	private void setupHaulingToCollectionFurniture(List<Entity> furnitureWithItemsToMove) {
 		for (Entity collectItemsFurniture : furnitureTracker.findByTag(CollectItemsBehaviourTag.class, false)) {
-			if (collectItemsFurniture.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour) {
-				CollectItemFurnitureBehaviour behaviour = (CollectItemFurnitureBehaviour) collectItemsFurniture.getBehaviourComponent();
+			if (collectItemsFurniture.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour collectItemFurnitureBehaviour) {
 
 				for (Entity cookingFurniture : new ArrayList<>(furnitureWithItemsToMove)) {
 					InventoryComponent inventoryComponent = cookingFurniture.getComponent(InventoryComponent.class);
 					InventoryComponent.InventoryEntry inventoryEntry = inventoryComponent.getInventoryEntries().iterator().next();
 
-					if (behaviour.canAccept(inventoryEntry.entity)) {
+					if (collectItemFurnitureBehaviour.canAccept(inventoryEntry.entity)) {
 
 
 						ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryEntry.entity.getPhysicalEntityComponent().getAttributes();
 						ItemAllocationComponent itemAllocationComponent = inventoryEntry.entity.getOrCreateComponent(ItemAllocationComponent.class);
 
-						HaulingAllocation allocation = new HaulingAllocation();
-
-						allocation.setSourceContainerId(cookingFurniture.getId());
-						allocation.setSourcePositionType(HaulingAllocation.AllocationPositionType.FURNITURE);
-						allocation.setSourcePosition(toGridPoint(cookingFurniture.getLocationComponent().getWorldPosition()));
 
 						int numToAllocate = Math.min(itemAllocationComponent.getNumUnallocated(), attributes.getItemType().getMaxHauledAtOnce());
-						ItemAllocation itemAllocation = itemAllocationComponent.createAllocation(numToAllocate, cookingFurniture, ItemAllocation.Purpose.HELD_IN_INVENTORY);
-						allocation.setItemAllocation(itemAllocation);
+						HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(numToAllocate, inventoryEntry.entity, cookingFurniture)
+								.toEntity(collectItemsFurniture);
 
-						behaviour.finaliseAllocation(behaviour.getMatch(attributes), allocation);
+						collectItemFurnitureBehaviour.createHaulingJobForAllocation(collectItemFurnitureBehaviour.getMatch(attributes), haulingAllocation);
 						furnitureWithItemsToMove.remove(cookingFurniture);
 					}
 				}
@@ -171,13 +162,9 @@ public class KitchenManager implements Telegraph, Updatable {
 		haulingJob.setTargetId(matchingEntity.getId());
 		haulingJob.setRequiredProfession(cookingProfession);
 
-		HaulingAllocation haulingAllocation = new HaulingAllocation();
-		haulingJob.setHaulingAllocation(haulingAllocation);
-
-		haulingAllocation.setSourcePosition(toGridPoint(matchingEntity.getLocationComponent().getWorldOrParentPosition()));
 		if (matchingEntity.getType().equals(EntityType.FURNITURE)) {
-			haulingAllocation.setSourcePositionType(HaulingAllocation.AllocationPositionType.FURNITURE);
-			haulingAllocation.setHauledEntityType(EntityType.FURNITURE);
+			haulingJob.setHaulingAllocation(HaulingAllocationBuilder.createToHaulFurniture(matchingEntity)
+					.toConstruction(construction));
 
 			FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(matchingEntity, gameContext.getAreaMap());
 			if (navigableWorkspace == null) {
@@ -187,31 +174,15 @@ public class KitchenManager implements Telegraph, Updatable {
 				haulingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
 			}
 		} else if (matchingEntity.getType().equals(ITEM)) {
-			if (matchingEntity.getLocationComponent().getContainerEntity() != null) {
-				Logger.error("Not yet implemented, hauling from container in " + this.getClass().getSimpleName());
-				return null;
-			} else {
-				haulingAllocation.setSourcePositionType(FLOOR);
-				haulingAllocation.setHauledEntityType(ITEM);
-				ItemAllocationComponent itemAllocationComponent = matchingEntity.getComponent(ItemAllocationComponent.class);
-				ItemAllocation itemAllocation = itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), construction.getEntity(), DUE_TO_BE_HAULED);
-				if (itemAllocation == null) {
-					Logger.error("Could not allocate item in " + this.getClass().getSimpleName());
-					return null;
-				} else {
-					haulingAllocation.setItemAllocation(itemAllocation);
-				}
-				haulingJob.setJobLocation(toGridPoint(matchingEntity.getLocationComponent().getWorldOrParentPosition()));
-			}
+			ItemAllocationComponent itemAllocationComponent = matchingEntity.getComponent(ItemAllocationComponent.class);
+			haulingJob.setHaulingAllocation(HaulingAllocationBuilder.createWithItemAllocation(itemAllocationComponent.getNumUnallocated(), matchingEntity, construction.getEntity())
+					.toConstruction(construction));
+
+			haulingJob.setJobLocation(toGridPoint(matchingEntity.getLocationComponent().getWorldOrParentPosition()));
 		} else {
 			Logger.error("Unrecognised entity type in " + this.getClass().getSimpleName());
 			return null;
 		}
-		haulingAllocation.setHauledEntityId(matchingEntity.getId());
-
-		haulingAllocation.setTargetPosition(construction.getPrimaryLocation());
-		haulingAllocation.setTargetId(construction.getId());
-		haulingAllocation.setTargetPositionType(CONSTRUCTION);
 
 		return haulingJob;
 	}

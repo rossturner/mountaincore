@@ -4,6 +4,8 @@
   "raceName" : "Dwarf",
   "bodyShape" : "AVERAGE",
   "gender" : "FEMALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Dwarf-Female-Average-Outline-F.png"

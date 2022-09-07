@@ -1,6 +1,5 @@
 package technology.rocketjump.saul.entities.factories;
 
-import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -11,15 +10,12 @@ import technology.rocketjump.saul.misc.twitch.TwitchDataStore;
 import technology.rocketjump.saul.misc.twitch.model.TwitchViewer;
 import technology.rocketjump.saul.persistence.UserPreferences;
 
-import java.util.Random;
-
 @Singleton
 public class SettlerCreatureAttributesFactory {
 
 	private final DwarvenNameGenerator nameGenerator;
 	private final UserPreferences userPreferences;
 	private final TwitchDataStore twitchDataStore;
-	private final Random random = new RandomXS128();
 	private final Race dwarfRace;
 
 	@Inject
@@ -34,7 +30,7 @@ public class SettlerCreatureAttributesFactory {
 	}
 
 	public CreatureEntityAttributes create(GameContext gameContext) {
-		CreatureEntityAttributes attributes = new CreatureEntityAttributes(dwarfRace, random.nextLong());
+		CreatureEntityAttributes attributes = new CreatureEntityAttributes(dwarfRace, gameContext.getRandom().nextLong());
 
 		if (twitchSettlerNameReplacementsEnabled()) {
 			for (TwitchViewer twitchViewer : twitchDataStore.getPrioritisedViewers()) {
@@ -57,5 +53,7 @@ public class SettlerCreatureAttributesFactory {
 		return Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.TWITCH_INTEGRATION_ENABLED, "false")) &&
 				Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.TWITCH_VIEWERS_AS_SETTLER_NAMES, "false"));
 	}
+
+
 
 }

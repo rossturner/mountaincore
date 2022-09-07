@@ -9,10 +9,7 @@ import technology.rocketjump.saul.jobs.model.SkillType;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Singleton
 public class SkillDictionary {
@@ -65,4 +62,7 @@ public class SkillDictionary {
 		return byType.get(SkillType.COMBAT_SKILL);
 	}
 
+	public Collection<Skill> getAll() {
+		return byName.values();
+	}
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.IntMap;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -16,9 +17,13 @@ import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.behaviour.DoNothingBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.factories.MechanismEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.MechanismEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismType;
@@ -41,6 +46,8 @@ import technology.rocketjump.saul.mapping.tile.wall.Wall;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
+import technology.rocketjump.saul.military.model.Squad;
+import technology.rocketjump.saul.military.model.SquadOrderType;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.rooms.*;
@@ -53,6 +60,7 @@ import technology.rocketjump.saul.zones.Zone;
 
 import java.util.*;
 
+import static java.util.stream.Collectors.toSet;
 import static technology.rocketjump.saul.settlement.notifications.NotificationType.AREA_REVEALED;
 
 @Singleton
@@ -287,22 +295,19 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 
 		Set<GridPoint2> roomTilesToRemove = new HashSet<>();
 
+		if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.SQUAD_ATTACK_CREATURE) ||
+			interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL_ATTACK_CREATURE)) {
+			handleAttackOrCancelCreaturesInSelection(areaSelectionMessage);
+			return true;
+		}
+
 		for (int x = minTile.x; x <= maxTile.x; x++) {
 			for (int y = minTile.y; y <= maxTile.y; y++) {
 				MapTile tile = gameContext.getAreaMap().getTile(x, y);
 				if (tile != null) {
-					if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.REMOVE_DESIGNATIONS)) {
-						if (tile.getDesignation() != null) {
-							messageDispatcher.dispatchMessage(MessageType.REMOVE_DESIGNATION, new RemoveDesignationMessage(tile));
-						}
-						for (Entity entity : tile.getEntities()) {
-							if (entity.getDesignation() != null) {
-								messageDispatcher.dispatchMessage(MessageType.REMOVE_DESIGNATION, new RemoveDesignationMessage(entity));
-							}
-						}
-					} else if (interactionStateContainer.getInteractionMode().tileDesignationCheck != null &&
-							interactionStateContainer.getInteractionMode().getDesignationToApply() != null) {
 
+					if (interactionStateContainer.getInteractionMode().tileDesignationCheck != null &&
+							interactionStateContainer.getInteractionMode().getDesignationToApply() != null) {
 						if (interactionStateContainer.getInteractionMode().tileDesignationCheck.shouldDesignationApply(tile)) {
 							if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.REMOVE_ROOMS)) {
 								roomTilesToRemove.add(tile.getTilePosition());
@@ -315,66 +320,66 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 								messageDispatcher.dispatchMessage(MessageType.DESIGNATION_APPLIED, new ApplyDesignationMessage(tile, designationToApply, interactionStateContainer.getInteractionMode()));
 							}
 						}
-					} else if (interactionStateContainer.getInteractionMode().entityDesignationCheck != null &&
-							interactionStateContainer.getInteractionMode().getDesignationToApply() != null) {
-						if (tile.getExploration().equals(TileExploration.EXPLORED)) {
-							for (Entity entity : tile.getEntities()) {
-								if (interactionStateContainer.getInteractionMode().entityDesignationCheck.shouldDesignationApply(entity)) {
-									Designation designationToApply = interactionStateContainer.getInteractionMode().getDesignationToApply();
-									if (entity.getDesignation() != null) {
-										messageDispatcher.dispatchMessage(MessageType.REMOVE_DESIGNATION, new RemoveDesignationMessage(entity));
-									}
-									entity.setDesignation(designationToApply);
-									messageDispatcher.dispatchMessage(MessageType.DESIGNATION_APPLIED, new ApplyDesignationMessage(entity, designationToApply, interactionStateContainer.getInteractionMode()));
+					} else {
+						switch (interactionStateContainer.getInteractionMode()) {
+							case REMOVE_DESIGNATIONS -> {
+								if (tile.getDesignation() != null) {
+									messageDispatcher.dispatchMessage(MessageType.REMOVE_DESIGNATION, new RemoveDesignationMessage(tile));
 								}
 							}
-						}
-					} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.SET_JOB_PRIORITY)) {
-						JobPriority priorityToApply = interactionStateContainer.getJobPriorityToApply();
+							case SET_JOB_PRIORITY -> {
+								JobPriority priorityToApply = interactionStateContainer.getJobPriorityToApply();
 
-						for (Job job : jobStore.getJobsAtLocation(tile.getTilePosition())) {
-							job.setJobPriority(priorityToApply);
-						}
+								for (Job job : jobStore.getJobsAtLocation(tile.getTilePosition())) {
+									job.setJobPriority(priorityToApply);
+								}
 
-						if (tile.hasConstruction()) {
-							tile.getConstruction().setPriority(priorityToApply, messageDispatcher);
-						}
+								if (tile.hasConstruction()) {
+									tile.getConstruction().setPriority(priorityToApply, messageDispatcher);
+								}
 
-						for (Entity entity : tile.getEntities()) {
-							if (entity.getBehaviourComponent() instanceof Prioritisable) {
-								Prioritisable prioritisableBehaviour = (Prioritisable) entity.getBehaviourComponent();
-								prioritisableBehaviour.setPriority(priorityToApply);
+								for (Entity entity : tile.getEntities()) {
+									if (entity.getBehaviourComponent() instanceof Prioritisable) {
+										Prioritisable prioritisableBehaviour = (Prioritisable) entity.getBehaviourComponent();
+										prioritisableBehaviour.setPriority(priorityToApply);
+									}
+								}
 							}
+							case DESIGNATE_ROOFING -> {
+								if (interactionStateContainer.getInteractionMode().tileDesignationCheck.shouldDesignationApply(tile)) {
+									messageDispatcher.dispatchMessage(MessageType.ROOF_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, true));
+								}
+							}
+							case CANCEL_ROOFING -> {
+								messageDispatcher.dispatchMessage(MessageType.ROOF_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, false));
+								messageDispatcher.dispatchMessage(MessageType.ROOF_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, false));
+							}
+							case DECONSTRUCT_ROOFING -> {
+								messageDispatcher.dispatchMessage(MessageType.ROOF_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
+							}
+							case DESIGNATE_PIPING -> {
+								if (interactionStateContainer.getInteractionMode().tileDesignationCheck.shouldDesignationApply(tile)) {
+									messageDispatcher.dispatchMessage(MessageType.PIPE_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, true));
+								}
+							}
+							case CANCEL_PIPING -> {
+								messageDispatcher.dispatchMessage(MessageType.PIPE_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, false));
+								messageDispatcher.dispatchMessage(MessageType.PIPE_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, false));
+							}
+							case DECONSTRUCT_PIPING -> {
+								messageDispatcher.dispatchMessage(MessageType.PIPE_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
+							}
+							case CANCEL_MECHANISMS -> {
+								messageDispatcher.dispatchMessage(MessageType.MECHANISM_CONSTRUCTION_REMOVED, new TileConstructionQueueMessage(tile, false));
+								messageDispatcher.dispatchMessage(MessageType.MECHANISM_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, false));
+							}
+							case DECONSTRUCT_MECHANISMS -> {
+								messageDispatcher.dispatchMessage(MessageType.MECHANISM_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
+							}
+							default -> Logger.warn(String.format("Unhandled area selection message %s in %s", interactionStateContainer.getInteractionMode().name(), getClass().getSimpleName()));
 						}
-
-					} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DESIGNATE_ROOFING)) {
-						if (interactionStateContainer.getInteractionMode().tileDesignationCheck.shouldDesignationApply(tile)) {
-							messageDispatcher.dispatchMessage(MessageType.ROOF_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, true));
-						}
-					} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL_ROOFING)) {
-						messageDispatcher.dispatchMessage(MessageType.ROOF_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, false));
-						messageDispatcher.dispatchMessage(MessageType.ROOF_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, false));
-					} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT_ROOFING)) {
-						messageDispatcher.dispatchMessage(MessageType.ROOF_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
-
-					} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DESIGNATE_PIPING)) {
-						if (interactionStateContainer.getInteractionMode().tileDesignationCheck.shouldDesignationApply(tile)) {
-							messageDispatcher.dispatchMessage(MessageType.PIPE_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, true));
-						}
-					} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL_PIPING)) {
-						messageDispatcher.dispatchMessage(MessageType.PIPE_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, false));
-						messageDispatcher.dispatchMessage(MessageType.PIPE_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, false));
-					} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT_PIPING)) {
-						messageDispatcher.dispatchMessage(MessageType.PIPE_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
-
-					} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL_MECHANISMS)) {
-						messageDispatcher.dispatchMessage(MessageType.MECHANISM_CONSTRUCTION_REMOVED, new TileConstructionQueueMessage(tile, false));
-						messageDispatcher.dispatchMessage(MessageType.MECHANISM_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, false));
-					} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT_MECHANISMS)) {
-						messageDispatcher.dispatchMessage(MessageType.MECHANISM_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
-					} else {
-						Logger.warn("Unhandled area selection message in " + getClass().getSimpleName());
 					}
+
 				}
 			}
 		}
@@ -383,6 +388,72 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 			removeRoomTiles(roomTilesToRemove);
 		}
 		return true;
+	}
+
+	private void handleAttackOrCancelCreaturesInSelection(AreaSelectionMessage areaSelectionMessage) {
+		Squad squad = interactionStateContainer.getSelectable().getSquad();
+		if (squad == null) {
+			Logger.error("Trying to handle attack or cancel while squad is null");
+			return;
+		}
+
+		Set<Long> currentlySelected = squad.getAttackEntityIds();
+		Set<Long> newlySelected = getAttackableCreatures(areaSelectionMessage.getMinPoint(), areaSelectionMessage.getMaxPoint(), gameContext)
+				.stream()
+				.map(Entity::getId)
+				.collect(toSet());
+
+		if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.SQUAD_ATTACK_CREATURE)) {
+			newlySelected.removeAll(currentlySelected);
+			if (!newlySelected.isEmpty()) {
+				squad.getAttackEntityIds().addAll(newlySelected);
+				messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.COMBAT));
+			}
+		} else {
+			squad.getAttackEntityIds().removeAll(newlySelected);
+			if (squad.getAttackEntityIds().isEmpty()) {
+				messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.TRAINING));
+			}
+		}
+	}
+
+	public static Set<Entity> getAttackableCreatures(Vector2 minPoint, Vector2 maxPoint, GameContext gameContext) {
+		GridPoint2 minTile = new GridPoint2(MathUtils.floor(minPoint.x), MathUtils.floor(minPoint.y));
+		GridPoint2 maxTile = new GridPoint2(MathUtils.floor(maxPoint.x), MathUtils.floor(maxPoint.y));
+
+		Set<Entity> selected = new HashSet<>();
+
+		for (int x = minTile.x; x <= maxTile.x; x++) {
+			for (int y = minTile.y; y <= maxTile.y; y++) {
+				MapTile tile = gameContext.getAreaMap().getTile(x, y);
+				if (tile != null && tile.getExploration().equals(TileExploration.EXPLORED)) {
+					tile.getEntities().stream()
+							.filter(MapMessageHandler::isAttackableCreature)
+							.filter(entity -> isWithinBounds(entity, minPoint, maxPoint))
+							.forEach(selected::add);
+				}
+			}
+		}
+		return selected;
+	}
+
+	public static boolean isAttackableCreature(Entity entity) {
+		if (entity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes) {
+			return !creatureEntityAttributes.getConsciousness().equals(Consciousness.DEAD) &&
+					!entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT);
+		} else {
+			return false;
+		}
+	}
+
+	private static boolean isWithinBounds(Entity entity, Vector2 minPoint, Vector2 maxPoint) {
+		Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
+		if (worldPosition != null) {
+			return minPoint.x <= worldPosition.x && worldPosition.x <= maxPoint.x &&
+					minPoint.y <= worldPosition.y && worldPosition.y <= maxPoint.y;
+		} else {
+			return false;
+		}
 	}
 
 	private void removeRoomTiles(Set<GridPoint2> roomTilesToRemove) {

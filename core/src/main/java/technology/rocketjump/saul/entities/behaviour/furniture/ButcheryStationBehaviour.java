@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -21,13 +20,13 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
+import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
-import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
 public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prioritisable {
 
@@ -112,26 +111,14 @@ public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prio
 	}
 
 	private void createIncomingHaulingJob(Entity corpseEntity) {
-		HaulingAllocation allocation = new HaulingAllocation();
-		allocation.setHauledEntityId(corpseEntity.getId());
-		allocation.setHauledEntityType(corpseEntity.getType());
-
-		ItemAllocation itemAllocation = corpseEntity.getComponent(ItemAllocationComponent.class)
-				.createAllocation(1, parentEntity, ItemAllocation.Purpose.DUE_TO_BE_HAULED);
-		allocation.setItemAllocation(itemAllocation);
-
-		allocation.setSourcePosition(toGridPoint(corpseEntity.getLocationComponent().getWorldPosition()));
-		allocation.setSourcePositionType(HaulingAllocation.AllocationPositionType.FLOOR);
-
-		allocation.setTargetPositionType(HaulingAllocation.AllocationPositionType.FURNITURE);
-		allocation.setTargetId(parentEntity.getId());
-		allocation.setTargetPosition(toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
+		HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(1, corpseEntity, parentEntity)
+						.toEntity(parentEntity);
 
 		Job haulingJob = new Job(haulingJobType);
 		haulingJob.setJobPriority(priority);
-		haulingJob.setTargetId(allocation.getHauledEntityId());
-		haulingJob.setHaulingAllocation(allocation);
-		haulingJob.setJobLocation(allocation.getSourcePosition());
+		haulingJob.setTargetId(haulingAllocation.getHauledEntityId());
+		haulingJob.setHaulingAllocation(haulingAllocation);
+		haulingJob.setJobLocation(haulingAllocation.getSourcePosition());
 
 		if (requiredProfession != null) {
 			haulingJob.setRequiredProfession(requiredProfession);

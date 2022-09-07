@@ -12,9 +12,11 @@ import technology.rocketjump.saul.entities.ai.goap.actions.Action;
 import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
+import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.creature.Sanity;
@@ -472,20 +474,47 @@ public class I18nTranslator implements I18nUpdatable {
 		} else {
 			SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
 			if (skillsComponent != null) {
-				Skill primaryProfession = skillsComponent.getPrimaryProfession();
-				if (primaryProfession.equals(NULL_PROFESSION)) {
-					replacements.put("skillLevelDescription", BLANK);
-				} else {
+				MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
+				if (militaryComponent != null && militaryComponent.isInMilitary()) {
+					WeaponInfo assignedWeapon = getAssignedWeapon(entity, militaryComponent.getAssignedWeaponId());
 					replacements.put("race", I18nWord.BLANK);
-					replacements.put("skillLevelDescription", getSkillLevelDescription(skillsComponent.getSkillLevel(primaryProfession)));
+					replacements.put("skillLevelDescription", getSkillLevelDescription(skillsComponent.getSkillLevel(assignedWeapon.getCombatSkill())));
+					replacements.put("profession", dictionary.getWord(assignedWeapon.getCombatSkill().getI18nKey()));
+				} else {
+					Skill primaryProfession = skillsComponent.getPrimaryProfession();
+					if (primaryProfession.equals(NULL_PROFESSION)) {
+						replacements.put("skillLevelDescription", BLANK);
+					} else {
+						replacements.put("race", I18nWord.BLANK);
+						replacements.put("skillLevelDescription", getSkillLevelDescription(skillsComponent.getSkillLevel(primaryProfession)));
+					}
+					replacements.put("profession", dictionary.getWord(primaryProfession.getI18nKey()));
 				}
-				replacements.put("profession", dictionary.getWord(primaryProfession.getI18nKey()));
 			} else {
 				replacements.put("profession", I18nWord.BLANK);
 			}
 
 			return applyReplacements(dictionary.getWord("HUMANOID.DESCRIPTION"), replacements, attributes.getGender());
 		}
+	}
+
+	private WeaponInfo getAssignedWeapon(Entity entity, Long assignedWeaponId) {
+		if (assignedWeaponId != null) {
+			Entity weaponEntity = entityStore.getById(assignedWeaponId);
+			if (weaponEntity != null && weaponEntity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
+				if (itemAttributes.getItemType().getWeaponInfo() != null) {
+					return itemAttributes.getItemType().getWeaponInfo();
+				}
+			}
+		}
+
+		if (entity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes) {
+			if (creatureEntityAttributes.getRace().getFeatures().getUnarmedWeapon() != null) {
+				return creatureEntityAttributes.getRace().getFeatures().getUnarmedWeapon();
+			}
+		}
+
+		return WeaponInfo.UNARMED;
 	}
 
 	public I18nText getSkilledProfessionDescription(Skill profession, int skillLevel, Gender gender) {

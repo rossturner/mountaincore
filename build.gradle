@@ -24,7 +24,7 @@ allprojects {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    version = 'Early Access 1.0.1'
+    version = 'Early Access 1.0.2'
     ext {
         appName = 'saul'
         gdxVersion = '1.9.10'

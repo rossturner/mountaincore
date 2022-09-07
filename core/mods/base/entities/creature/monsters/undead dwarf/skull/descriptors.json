@@ -5,7 +5,7 @@
   "bodyShape" : "ANY",
   "gender" : "NONE",
   "profession" : "NULL_PROFESSION",
-  "consciousnessList" : [ ],
+  "consciousnessList" : [ "AWAKE" ],
   "tags" : {
     "ATTACHES_LIGHT_SOURCE" : [ "PARENT_BODY_COLOR" ]
   },

@@ -49,6 +49,9 @@ public class RaceBehaviour {
 		this.scheduleName = scheduleName;
 	}
 
+	/**
+	 * Note that this should currently only be used in CreatureBehaviour.getCurrentSchedule, which is what everything else should refer to
+	 */
 	public Schedule getSchedule() {
 		return schedule;
 	}

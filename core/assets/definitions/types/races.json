@@ -49,6 +49,7 @@
   },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 12,
       "maxDefenseRegainedPerRound" : 2,
       "damageReduction" : {
@@ -121,6 +122,7 @@
   },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 6,
       "maxDefenseRegainedPerRound" : 1,
       "damageReduction" : { }
@@ -185,6 +187,7 @@
   },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 26,
       "maxDefenseRegainedPerRound" : 3,
       "damageReduction" : {
@@ -249,6 +252,7 @@
   },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 10,
       "maxDefenseRegainedPerRound" : 1,
       "damageReduction" : { }
@@ -296,6 +300,10 @@
       "colorCode" : "#000000",
       "hidden" : false
     },
+    "CLOTHING_COLOR" : {
+      "colorChart" : "dwarf-accessory-swatch.png",
+      "hidden" : false
+    },
     "ACCESSORY_COLOR" : {
       "colorChart" : "dwarf-accessory-swatch.png",
       "hidden" : false
@@ -325,6 +333,7 @@
   },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 20,
       "maxDefenseRegainedPerRound" : 3,
       "damageReduction" : {
@@ -509,6 +518,7 @@
   "genders" : { },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 3,
       "maxDefenseRegainedPerRound" : 0,
       "damageReduction" : {
@@ -562,6 +572,7 @@
   "genders" : { },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 6,
       "maxDefenseRegainedPerRound" : 1,
       "damageReduction" : {
@@ -617,6 +628,7 @@
   "genders" : { },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 10,
       "maxDefenseRegainedPerRound" : 1,
       "damageReduction" : {
@@ -669,6 +681,7 @@
   "genders" : { },
   "features" : {
     "defense" : {
+      "type" : "RACIAL",
       "maxDefensePoints" : 20,
       "maxDefenseRegainedPerRound" : 3,
       "damageReduction" : {

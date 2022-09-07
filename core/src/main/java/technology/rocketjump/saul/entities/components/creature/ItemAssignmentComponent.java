@@ -26,6 +26,13 @@ public class ItemAssignmentComponent implements EntityComponent, Destructible {
         return haulingAllocations;
     }
 
+    public HaulingAllocation getByHauledItemId(long itemId) {
+        return haulingAllocations.stream()
+                .filter(alloc -> alloc.getItemAllocation() != null && alloc.getItemAllocation().getTargetItemEntityId() == itemId)
+                .findFirst()
+                .orElse(null);
+    }
+
     @Override
     public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
         return null;

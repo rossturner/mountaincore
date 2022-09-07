@@ -130,8 +130,8 @@ public class CreatureEntityAttributes implements EntityAttributes {
 		this.colors.put(ColoringLayer.SKIN_COLOR, boneColor);
 	}
 
-	public void setAccessoryColor(Color accessoryColor) {
-		this.colors.put(ColoringLayer.ACCESSORY_COLOR, accessoryColor);
+	public void setColor(ColoringLayer coloringLayer, Color color) {
+		this.colors.put(coloringLayer, color);
 	}
 
 	public long getSeed() {

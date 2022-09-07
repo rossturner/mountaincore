@@ -10,6 +10,7 @@ import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.behaviour.furniture.EdibleLiquidSourceBehaviour;
 import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
@@ -259,26 +260,26 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 				itemAllocation.setAllocationAmount(quantityToPick);
 			}
 
-			Entity clonedItem = entityToPickUp.clone(parent.messageDispatcher, gameContext);
-			clonedItem.getLocationComponent().clearWorldPosition();
-			clonedItem.getOrCreateComponent(ItemAllocationComponent.class).cancelAll();
+			Entity pickedUpItem = entityToPickUp.clone(parent.messageDispatcher, gameContext);
+			pickedUpItem.getLocationComponent().clearWorldPosition();
+			pickedUpItem.getOrCreateComponent(ItemAllocationComponent.class).cancelAll();
 
-			ItemEntityAttributes cloneAttributes = (ItemEntityAttributes) clonedItem.getPhysicalEntityComponent().getAttributes();
+			ItemEntityAttributes cloneAttributes = (ItemEntityAttributes) pickedUpItem.getPhysicalEntityComponent().getAttributes();
 			cloneAttributes.setQuantity(quantityToPick);
 
 
 			// Need to do this before adding to inventory, as it may be destroyed if added to an existing inventory item
-			parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, clonedItem);
+			parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, pickedUpItem);
 
 			if (parent.getAssignedJob() != null && (parent.getAssignedJob().getType().isHaulItemWhileWorking())) {
 				// Use hauling component for HAULING and TRANSFER_LIQUID job types
 				HaulingComponent haulingComponent = parent.parentEntity.getOrCreateComponent(HaulingComponent.class);
-				haulingComponent.setHauledEntity(clonedItem, parent.messageDispatcher, parent.parentEntity);
+				haulingComponent.setHauledEntity(pickedUpItem, parent.messageDispatcher, parent.parentEntity);
 			} else {
 				InventoryComponent inventoryComponent = parent.parentEntity.getComponent(InventoryComponent.class);
-				InventoryComponent.InventoryEntry inventoryEntry = inventoryComponent.add(clonedItem, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
+				InventoryComponent.InventoryEntry inventoryEntry = inventoryComponent.add(pickedUpItem, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
 				// Might have merged into a different entity so need to update target ID
-				clonedItem = inventoryEntry.entity;
+				pickedUpItem = inventoryEntry.entity;
 			}
 
 			entityToPickUp.getComponent(ItemAllocationComponent.class).cancel(itemAllocation);
@@ -295,9 +296,25 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 				parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entityToPickUp);
 			}
 
-			updateAllocationTarget(clonedItem);
+			updateAllocationTarget(pickedUpItem);
+			updateSpecificAssignments(entityToPickUp.getId(), pickedUpItem.getId());
 
 			completionType = SUCCESS;
+		}
+	}
+
+	private void updateSpecificAssignments(long oldId, long newId) {
+		MilitaryComponent militaryComponent = parent.parentEntity.getComponent(MilitaryComponent.class);
+		if (militaryComponent != null) {
+			if (militaryComponent.getAssignedWeaponId() != null && militaryComponent.getAssignedWeaponId() == oldId) {
+				militaryComponent.setAssignedWeaponId(newId);
+			}
+			if (militaryComponent.getAssignedShieldId() != null && militaryComponent.getAssignedShieldId() == oldId) {
+				militaryComponent.setAssignedShieldId(newId);
+			}
+			if (militaryComponent.getAssignedArmorId() != null && militaryComponent.getAssignedArmorId() == oldId) {
+				militaryComponent.setAssignedArmorId(newId);
+			}
 		}
 	}
 

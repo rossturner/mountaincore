@@ -61,6 +61,7 @@ public class MessageType {
 	public static final int PREFERENCE_CHANGED = 280;
 	public static final int GUI_CANCEL_CURRENT_VIEW_OR_GO_TO_MAIN_MENU = 281;
 	public static final int TOGGLE_DEBUG_VIEW = 282;
+	public static final int PREPOPULATE_SELECT_ITEM_VIEW = 283;
 
 	// i18n Messages
 	public static final int LANGUAGE_CHANGED = 290;
@@ -100,9 +101,8 @@ public class MessageType {
 	public static final int FURNITURE_NO_LONGER_IN_USE = 346;
 	public static final int MATERIAL_OXIDISED = 347;
 
-	public static final int CHANGE_WEAPON_SELECTION = 348;
-	public static final int SETTLER_TANTRUM = 349;
-	public static final int LOCATE_SETTLERS_IN_REGION = 350;
+	public static final int SETTLER_TANTRUM = 348;
+	public static final int LOCATE_SETTLERS_IN_REGION = 349;
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;
@@ -269,6 +269,11 @@ public class MessageType {
 	public static final int CREATURE_EXITING_COMBAT = 1906;
 	public static final int COMBAT_ACTION_CHANGED = 1907;
 	public static final int TRIGGER_ATTACK_OF_OPPORTUNITY = 1908;
+
+	// Military messages
+	public static final int MILITARY_ASSIGNMENT_CHANGED = 2000;
+	public static final int MILITARY_SQUAD_SHIFT_CHANGED = 2001;
+	public static final int MILITARY_SQUAD_ORDERS_CHANGED = 2002;
 
 	// Asset Editor messages
 	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;

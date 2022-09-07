@@ -125,6 +125,11 @@ public class PlantSpeciesDictionary {
 	}
 
 	public static void initialiseSpeciesColor(EntityType entityType, SpeciesColor speciesColor) {
+		if (Gdx.graphics == null) {
+			// Running in a test
+			return;
+		}
+
 		speciesColor.setSpecificColor(HexColors.get(speciesColor.getColorCode()));
 
 		String basePath = PLANT_COLOR_SWATCH_ASSET_PATH;

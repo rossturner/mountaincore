@@ -361,7 +361,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 			reset();
 		});
 
-		EntityDrawable materialDrawable = new EntityDrawable(getExampleEntity(craftingOutput.itemType, craftingOutput.liquidMaterial), entityRenderer);
+		EntityDrawable materialDrawable = new EntityDrawable(getExampleEntity(craftingOutput.itemType, craftingOutput.liquidMaterial), entityRenderer, false, messageDispatcher);
 		clickableRow.add(new Image(materialDrawable)).left().width(80).pad(5);
 
 		String i18nKey = craftingOutput.isLiquid ? craftingOutput.liquidMaterial.getI18nKey() : craftingOutput.itemType.getI18nKey();
@@ -439,7 +439,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 
 		for (int inputCursor = 0; inputCursor < craftingRecipe.getInput().size(); inputCursor++) {
 			QuantifiedItemTypeWithMaterial inputRequirement = craftingRecipe.getInput().get(inputCursor);
-			EntityDrawable itemDrawable = new EntityDrawable(getExampleEntity(inputRequirement.getItemType(), inputRequirement.getMaterial()), entityRenderer);
+			EntityDrawable itemDrawable = new EntityDrawable(getExampleEntity(inputRequirement.getItemType(), inputRequirement.getMaterial()), entityRenderer, false, messageDispatcher);
 			clickableRow.add(new Image(itemDrawable)).left().pad(5);
 			I18nText description = i18nTranslator.getItemDescription(inputRequirement.getQuantity(), inputRequirement.getMaterial(),
 					inputRequirement.getItemType(), null);
@@ -465,7 +465,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 
 		for (int outputCursor = 0; outputCursor < craftingRecipe.getOutput().size(); outputCursor++) {
 			QuantifiedItemTypeWithMaterial outputRequirement = craftingRecipe.getOutput().get(outputCursor);
-			EntityDrawable entityDrawable = new EntityDrawable(getExampleEntity(outputRequirement.getItemType(), outputRequirement.getMaterial()), entityRenderer);
+			EntityDrawable entityDrawable = new EntityDrawable(getExampleEntity(outputRequirement.getItemType(), outputRequirement.getMaterial()), entityRenderer, false, messageDispatcher);
 			clickableRow.add(new Image(entityDrawable)).left().pad(5);
 			I18nText description = i18nTranslator.getItemDescription(outputRequirement.getQuantity(), outputRequirement.getMaterial(),
 					outputRequirement.getItemType(), null);

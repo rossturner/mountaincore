@@ -20,21 +20,23 @@ public class Goal {
 	public final long goalId;
 	public final boolean interruptedByCombat;
 	public final boolean interruptedByLowNeeds;
+	public final List<SettlerCategory> settlerCategories;
 
 	private List<GoalSelector> selectors = new LinkedList<>();
 
 	private final List<Class<? extends Action>> initialActions = new ArrayList<>();
 	private final Map<Class<? extends Action>, ActionTransitions> actionTransitionsMap = new HashMap<>();
 
-	public static final Goal NULL_GOAL = new Goal("NULL_GOAL", "", 0.0, false, false);
+	public static final Goal NULL_GOAL = new Goal("NULL_GOAL", "", 0.0, false, false, List.of());
 
-	public Goal(String name, String i18nDescription, Double expiryHours, boolean interruptedByCombat, boolean interruptedByLowNeeds) {
+	public Goal(String name, String i18nDescription, Double expiryHours, boolean interruptedByCombat, boolean interruptedByLowNeeds, List<SettlerCategory> settlerCategories) {
 		this.name = name;
 		this.i18nDescription = i18nDescription;
 		this.expiryHours = expiryHours;
 		this.interruptedByCombat = interruptedByCombat;
 		this.interruptedByLowNeeds = interruptedByLowNeeds;
 		this.goalId = SequentialIdGenerator.nextId();
+		this.settlerCategories = settlerCategories;
 	}
 
 	@Override

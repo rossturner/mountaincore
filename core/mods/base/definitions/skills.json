@@ -65,6 +65,7 @@
     "type": "PROFESSION",
     "icon": "profession-knife"
   },
+
   {
     "name": "ARCHERY",
     "i18nKey": "SKILL.ARCHERY",
@@ -89,5 +90,18 @@
     "name": "AXES",
     "i18nKey": "SKILL.AXES",
     "type": "COMBAT_SKILL"
+  },
+
+  {
+    "name": "UNARMORED_MILITARY",
+    "type": "ASSET_OVERRIDE"
+  },
+  {
+    "name": "LIGHT_ARMOR",
+    "type": "ASSET_OVERRIDE"
+  },
+  {
+    "name": "HEAVY_ARMOR",
+    "type": "ASSET_OVERRIDE"
   }
 ]

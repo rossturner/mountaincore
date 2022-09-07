@@ -22,7 +22,6 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttribu
 import technology.rocketjump.saul.entities.model.physical.item.ItemHoldPosition;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.mapping.tile.designation.Designation;
 import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
@@ -48,7 +47,6 @@ public class Entity implements Persistable, Disposable {
 	private final EntityComponentMap componentMap = new EntityComponentMap();
 	private Set<Tag> tags = new LinkedHashSet<>();
 	private double lastUpdateGameTime;
-	private Designation designation;
 
 	public static final Entity NULL_ENTITY = new Entity();
 
@@ -85,7 +83,7 @@ public class Entity implements Persistable, Disposable {
 				physicalEntityComponent = (PhysicalEntityComponent) component;
 			} else if (component instanceof LocationComponent) {
 				locationComponent = (LocationComponent) component;
-			} else if (component instanceof  BehaviourComponent) {
+			} else if (component instanceof BehaviourComponent) {
 				behaviourComponent = (BehaviourComponent) component;
 			}
 			componentMap.add(component);
@@ -98,7 +96,7 @@ public class Entity implements Persistable, Disposable {
 		}
 		for (EntityComponent component : componentMap.values()) {
 			if (component instanceof ParentDependentEntityComponent) {
-				((ParentDependentEntityComponent)component).init(this, messageDispatcher, gameContext);
+				((ParentDependentEntityComponent) component).init(this, messageDispatcher, gameContext);
 			}
 		}
 		this.lastUpdateGameTime = gameContext.getGameClock().getCurrentGameTime();
@@ -137,11 +135,11 @@ public class Entity implements Persistable, Disposable {
 				clonedComponent = thisComponent.clone(messageDispatcher, gameContext);
 				cloned.componentMap.add(clonedComponent);
 				if (clonedComponent instanceof BehaviourComponent) {
-					cloned.replaceBehaviourComponent((BehaviourComponent)clonedComponent);
+					cloned.replaceBehaviourComponent((BehaviourComponent) clonedComponent);
 				}
 			}
 			if (clonedComponent instanceof ParentDependentEntityComponent) {
-				((ParentDependentEntityComponent)clonedComponent).init(cloned, messageDispatcher, gameContext);
+				((ParentDependentEntityComponent) clonedComponent).init(cloned, messageDispatcher, gameContext);
 			}
 		}
 
@@ -151,6 +149,7 @@ public class Entity implements Persistable, Disposable {
 	private Map<ItemHoldPosition, AttachedEntity> workspaceItems = new HashMap<>();
 
 	private List<AttachedEntity> attachedEntities = new ArrayList<>();
+
 	public List<AttachedEntity> getAttachedEntities() {
 		attachedEntities.clear(); // Avoiding new instance on each call, is this a good idea or bad idea?
 
@@ -227,23 +226,24 @@ public class Entity implements Persistable, Disposable {
 
 	public void update(float deltaTime) {
 		behaviourComponent.update(deltaTime);
-    }
+	}
 
 	public void updateWhenPaused() {
 		behaviourComponent.updateWhenPaused();
 	}
 
 	public void infrequentUpdate(GameContext gameContext) {
-		behaviourComponent.infrequentUpdate(gameContext);
-
 		double gameTime = gameContext.getGameClock().getCurrentGameTime();
 		double elapsed = gameTime - lastUpdateGameTime;
 		lastUpdateGameTime = gameTime;
 		for (EntityComponent c : componentMap.values()) {
 			if (c instanceof InfrequentlyUpdatableComponent) {
-				((InfrequentlyUpdatableComponent)c).infrequentUpdate(elapsed);
+				((InfrequentlyUpdatableComponent) c).infrequentUpdate(elapsed);
 			}
 		}
+
+		// update behaviour after other components so that we can pick up on newly required goals
+		behaviourComponent.infrequentUpdate(gameContext);
 	}
 
 	public boolean isUpdateEveryFrame() {
@@ -254,13 +254,13 @@ public class Entity implements Persistable, Disposable {
 		return behaviourComponent.isUpdateInfrequently();
 	}
 
-    public long getId() {
-        return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public PhysicalEntityComponent getPhysicalEntityComponent() {
-        return physicalEntityComponent;
-    }
+	public PhysicalEntityComponent getPhysicalEntityComponent() {
+		return physicalEntityComponent;
+	}
 
 	public LocationComponent getLocationComponent() {
 		return locationComponent;
@@ -304,7 +304,7 @@ public class Entity implements Persistable, Disposable {
 
 	@Override
 	public int hashCode() {
-		return (int)id;
+		return (int) id;
 	}
 
 	public boolean isJobAssignable() {
@@ -407,10 +407,6 @@ public class Entity implements Persistable, Disposable {
 			asJson.put("tags", tagsJson);
 		}
 
-		if (designation != null) {
-			asJson.put("designation", designation.getDesignationName());
-		}
-
 		savedGameStateHolder.entitiesJson.add(asJson);
 		savedGameStateHolder.entities.put(id, this);
 	}
@@ -464,13 +460,6 @@ public class Entity implements Persistable, Disposable {
 			}
 		}
 
-		String designationName = asJson.getString("designation");
-		if (designationName != null) {
-			this.designation = relatedStores.designationDictionary.getByName(designationName);
-			if (this.designation == null) {
-				throw new InvalidSaveException("Could not find designation with name " + designationName);
-			}
-		}
 	}
 
 	public <T> T getTag(Class<T> tagClass) {
@@ -493,11 +482,4 @@ public class Entity implements Persistable, Disposable {
 		return componentMap.values();
 	}
 
-	public Designation getDesignation() {
-		return designation;
-	}
-
-	public void setDesignation(Designation designation) {
-		this.designation = designation;
-	}
 }

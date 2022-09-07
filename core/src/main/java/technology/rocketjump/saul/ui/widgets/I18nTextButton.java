@@ -6,7 +6,7 @@ import technology.rocketjump.saul.ui.i18n.I18nWordClass;
 
 public class I18nTextButton extends TextButton {
 
-	private final String i18nKey;
+	private String i18nKey;
 	private final I18nWordClass i18nWordClass;
 
 	public I18nTextButton(String i18nKey, String i18nValue, Skin skin) {
@@ -17,6 +17,11 @@ public class I18nTextButton extends TextButton {
 		super(i18nValue, skin);
 		this.i18nKey = i18nKey;
 		this.i18nWordClass = i18nWordClass;
+	}
+
+	public void setText(String i18nKey, String i18nValue) {
+		this.i18nKey = i18nKey;
+		setText(i18nValue);
 	}
 
 	public String getI18nKey() {

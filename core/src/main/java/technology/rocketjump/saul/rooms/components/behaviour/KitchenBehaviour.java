@@ -11,7 +11,10 @@ import technology.rocketjump.saul.cooking.model.CookingRecipe;
 import technology.rocketjump.saul.cooking.model.CookingSession;
 import technology.rocketjump.saul.entities.behaviour.furniture.CollectItemFurnitureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
-import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.BehaviourComponent;
+import technology.rocketjump.saul.entities.components.InventoryComponent;
+import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
+import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -32,6 +35,7 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
+import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomTile;
 import technology.rocketjump.saul.rooms.components.RoomComponent;
@@ -39,7 +43,6 @@ import technology.rocketjump.saul.rooms.components.RoomComponent;
 import java.util.*;
 
 import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
-import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.DUE_TO_BE_HAULED;
 import static technology.rocketjump.saul.jobs.model.JobState.REMOVED;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
@@ -300,15 +303,9 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 		}
 
 		if (foundIngredient != null) {
-			HaulingAllocation ingredientHaulingAllocation = new HaulingAllocation();
-			ingredientHaulingAllocation.setSourcePositionType(HaulingAllocation.AllocationPositionType.FURNITURE);
-			ingredientHaulingAllocation.setSourceContainerId(foundIngredient.getLocationComponent().getContainerEntity().getId());
-			ingredientHaulingAllocation.setSourcePosition(toGridPoint(foundIngredient.getLocationComponent().getContainerEntity().getLocationComponent().getWorldPosition()));
-
-			ingredientHaulingAllocation.setHauledEntityId(foundIngredient.getId());
 			// Always only move 1 ingredient at a time so we can get a good mix of inputs // TODO make this conditional on recipe
-			ItemAllocation itemAllocation = foundIngredient.getOrCreateComponent(ItemAllocationComponent.class).createAllocation(1, foundIngredient, DUE_TO_BE_HAULED);
-			ingredientHaulingAllocation.setItemAllocation(itemAllocation);
+			HaulingAllocation ingredientHaulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(1, foundIngredient, cookingSession.getAssignedFurnitureEntity())
+							.toEntity(cookingSession.getAssignedFurnitureEntity());
 
 			createHaulingJob(cookingSession, gameContext, foundIngredient, ingredientHaulingAllocation);
 		} else {
@@ -328,10 +325,6 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 	}
 
 	private void createHaulingJob(CookingSession cookingSession, GameContext gameContext, Entity foundIngredient, HaulingAllocation haulingAllocation) {
-		haulingAllocation.setTargetPositionType(HaulingAllocation.AllocationPositionType.FURNITURE);
-		haulingAllocation.setTargetPosition(toGridPoint(cookingSession.getAssignedFurnitureEntity().getLocationComponent().getWorldPosition()));
-		haulingAllocation.setTargetId(cookingSession.getAssignedFurnitureEntity().getId());
-
 		Job haulingJob = new Job(haulingJobType);
 		haulingJob.setJobPriority(priority);
 		haulingJob.setRequiredProfession(requiredProfession);

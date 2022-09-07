@@ -1,11 +1,543 @@
 [ {
+  "uniqueName" : "barracks-bed-1x2N-wood-base",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "1x2N",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : {
+    "BED_SLEEPING_POSITION" : [ "DOWN", "MILITARY_ONLY", "INSIDE_FURNITURE" ]
+  },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-1x2N-frame.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 38.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "CLOTH_LAYER",
+        "specificAssetName" : "bed-1x2N-base-cover",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 28.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "specificAssetName" : "bed-1x2N-pillows",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 42.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "specificAssetName" : "bed-1x2N-cover",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -23.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-1x2N-base-cover",
+  "type" : "CLOTH_LAYER",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "1x2N",
+  "validMaterialTypes" : [ "CLOTH" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-1x2N-base-cover.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-1x2N-pillows",
+  "type" : "ATTACHMENT_DECO_1",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "1x2N",
+  "validMaterialTypes" : [ "CLOTH" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-1x2N-pillows.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -12.0,
+          "unit" : false
+        }
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-1x2N-cover",
+  "type" : "ATTACHMENT_DECO_2",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "1x2N",
+  "validMaterialTypes" : [ "CLOTH" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-1x2N-cover.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-1x2S-base-cover",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "1x2S",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : {
+    "BED_SLEEPING_POSITION" : [ "UP", "MILITARY_ONLY", "INSIDE_FURNITURE" ]
+  },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-1x2S-base-cover.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 38.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "CLOTH_LAYER",
+        "specificAssetName" : "bed-1x2S-cover",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 14.5,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "specificAssetName" : "bed-1x2S-pillows",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -29.5,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "specificAssetName" : "bed-1x2S-frame",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-1x2S-cover",
+  "type" : "CLOTH_LAYER",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "1x2S",
+  "validMaterialTypes" : [ "CLOTH" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-1x2S-cover.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-1x2S-pillows",
+  "type" : "ATTACHMENT_DECO_1",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "1x2S",
+  "validMaterialTypes" : [ "CLOTH" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-1x2S-pillows.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 12.0,
+          "unit" : false
+        }
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-1x2S-frame",
+  "type" : "ATTACHMENT_DECO_2",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "1x2S",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-1x2S-frame.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-2x1E-wood-base",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "2x1E",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : {
+    "BED_SLEEPING_POSITION" : [ "DOWN_RIGHT", "MILITARY_ONLY", "INSIDE_FURNITURE" ]
+  },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-2x1E-frame.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 32.0,
+        "y" : 8.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "CLOTH_LAYER",
+        "specificAssetName" : "bed-2x1E-base-cover",
+        "offsetPixels" : {
+          "x" : 23.5,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "specificAssetName" : "bed-2x1E-pillows",
+        "offsetPixels" : {
+          "x" : 38.0,
+          "y" : 6.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "specificAssetName" : "bed-2x1E-cover",
+        "offsetPixels" : {
+          "x" : -13.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-2x1E-base-cover",
+  "type" : "CLOTH_LAYER",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "2x1E",
+  "validMaterialTypes" : [ "CLOTH" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-2x1E-base-cover.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-2x1E-pillows",
+  "type" : "ATTACHMENT_DECO_1",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "2x1E",
+  "validMaterialTypes" : [ "CLOTH" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-2x1E-pillows.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : -8.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-2x1E-cover",
+  "type" : "ATTACHMENT_DECO_2",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "2x1E",
+  "validMaterialTypes" : [ "CLOTH" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-2x1E-cover.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-2x1W-wood-base",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "2x1W",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : {
+    "BED_SLEEPING_POSITION" : [ "DOWN_LEFT", "MILITARY_ONLY", "INSIDE_FURNITURE" ]
+  },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-2x1E-frame.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 32.0,
+        "y" : 8.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "CLOTH_LAYER",
+        "specificAssetName" : "bed-2x1W-base-cover",
+        "offsetPixels" : {
+          "x" : -23.5,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "specificAssetName" : "bed-2x1W-pillows",
+        "offsetPixels" : {
+          "x" : -38.0,
+          "y" : 6.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "specificAssetName" : "bed-2x1W-cover",
+        "offsetPixels" : {
+          "x" : 13.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-2x1W-base-cover",
+  "type" : "CLOTH_LAYER",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "2x1W",
+  "validMaterialTypes" : [ "CLOTH" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-2x1E-base-cover.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-2x1W-pillows",
+  "type" : "ATTACHMENT_DECO_1",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "2x1W",
+  "validMaterialTypes" : [ "CLOTH" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-2x1E-pillows.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 8.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "barracks-bed-2x1W-cover",
+  "type" : "ATTACHMENT_DECO_2",
+  "furnitureTypeName" : "BARRACKS_BED",
+  "furnitureLayoutName" : "2x1W",
+  "validMaterialTypes" : [ "CLOTH" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "bed-2x1E-cover.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "bed-1x2N-wood-base",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "SINGLE_BED",
   "furnitureLayoutName" : "1x2N",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : {
-    "BED_SLEEPING_POSITION" : [ "DOWN" ]
+    "BED_SLEEPING_POSITION" : [ "DOWN", "CIVILIAN_ONLY", "INSIDE_FURNITURE" ]
   },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -138,7 +670,7 @@
   "furnitureLayoutName" : "1x2S",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : {
-    "BED_SLEEPING_POSITION" : [ "UP" ]
+    "BED_SLEEPING_POSITION" : [ "UP", "CIVILIAN_ONLY", "INSIDE_FURNITURE" ]
   },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -271,7 +803,7 @@
   "furnitureLayoutName" : "2x1E",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : {
-    "BED_SLEEPING_POSITION" : [ "DOWN_RIGHT" ]
+    "BED_SLEEPING_POSITION" : [ "DOWN_RIGHT", "CIVILIAN_ONLY", "INSIDE_FURNITURE" ]
   },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -404,7 +936,7 @@
   "furnitureLayoutName" : "2x1W",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : {
-    "BED_SLEEPING_POSITION" : [ "DOWN_LEFT" ]
+    "BED_SLEEPING_POSITION" : [ "DOWN_LEFT", "CIVILIAN_ONLY", "INSIDE_FURNITURE" ]
   },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -537,7 +1069,7 @@
   "furnitureLayoutName" : "1x1",
   "validMaterialTypes" : [ "EARTH" ],
   "tags" : {
-    "BED_SLEEPING_POSITION" : [ "DOWN", "true" ]
+    "BED_SLEEPING_POSITION" : [ "DOWN", "CIVILIAN_ONLY", "ON_GROUND" ]
   },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -8510,6 +9042,334 @@
       "offsetPixels" : {
         "x" : 0.0,
         "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Archery_Target-1x1 with E workspace offset 6-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "ARCHERY_TARGET",
+  "furnitureLayoutName" : "1x1 with E workspace offset 6",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Archery_Target-1x1 with w workspace offset 6-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -2.5,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 2.5,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Archery_Target-1x1 with E workspace offset 6-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "ARCHERY_TARGET",
+  "furnitureLayoutName" : "1x1 with E workspace offset 6",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Archery_Target-1x1 with w workspace offset 6-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 6.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Archery_Target-1x1 with N workspace offset 6-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "ARCHERY_TARGET",
+  "furnitureLayoutName" : "1x1 with N workspace offset 6",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Archery_Target-1x1 with n workspace offset 6-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -0.5,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.5,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Archery_Target-1x1 with N workspace offset 6-Furniture_Below_Layer_1-Wood",
+  "type" : "FURNITURE_BELOW_LAYER_1",
+  "furnitureTypeName" : "ARCHERY_TARGET",
+  "furnitureLayoutName" : "1x1 with N workspace offset 6",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Archery_Target-1x1 with n workspace offset 6-Furniture_Below_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 4.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Archery_Target-1x1 with S workspace offset 6-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "ARCHERY_TARGET",
+  "furnitureLayoutName" : "1x1 with S workspace offset 6",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Archery_Target-1x1 with s workspace offset 6-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Archery_Target-1x1 with S workspace offset 6-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "ARCHERY_TARGET",
+  "furnitureLayoutName" : "1x1 with S workspace offset 6",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Archery_Target-1x1 with s workspace offset 6-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : 0.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Archery_Target-1x1 with W workspace offset 6-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "ARCHERY_TARGET",
+  "furnitureLayoutName" : "1x1 with W workspace offset 6",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Archery_Target-1x1 with w workspace offset 6-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 2.5,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -2.5,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Archery_Target-1x1 with W workspace offset 6-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "ARCHERY_TARGET",
+  "furnitureLayoutName" : "1x1 with W workspace offset 6",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Archery_Target-1x1 with w workspace offset 6-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -6.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Training_Dummy-1x1 with E workspace-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRAINING_DUMMY",
+  "furnitureLayoutName" : "1x1 with E workspace",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Training_Dummy-1x1 with w workspace-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.25,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 4.5,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Training_Dummy-1x1 with N workspace-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRAINING_DUMMY",
+  "furnitureLayoutName" : "1x1 with N workspace",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Training_Dummy-1x1 with s workspace-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.25,
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : 4.5,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Training_Dummy-1x1 with S workspace-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRAINING_DUMMY",
+  "furnitureLayoutName" : "1x1 with S workspace",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Training_Dummy-1x1 with s workspace-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.25,
+      "offsetPixels" : {
+        "x" : 1.5,
+        "y" : 4.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Training_Dummy-1x1 with W workspace-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRAINING_DUMMY",
+  "furnitureLayoutName" : "1x1 with W workspace",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Training_Dummy-1x1 with w workspace-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.25,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 4.5,
         "unit" : false
       },
       "flipX" : false,

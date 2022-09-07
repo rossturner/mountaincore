@@ -1,0 +1,30 @@
+{
+  "name": "Attack squad target",
+  "i18nDescription": "GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION",
+  "settlerCategories": ["MILITARY"],
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "SQUAD_HAS_ORDERS",
+          "orderType": "COMBAT"
+        }
+      ],
+      "priority": "JOB_NORMAL",
+      "scheduleCategory": "MILITARY_DUTY"
+    }
+  ],
+  "initialActions": ["SelectOpponent"],
+  "actionRelationships": {
+    "SelectOpponent": {
+      "pass": ["MoveTowardsOpponent"],
+      "fail": []
+    },
+    "MoveTowardsOpponent": {
+      "pass": ["AttackOpponent"],
+      "fail": ["RequeueThisGoal"]
+    },
+    "AttackOpponent": {},
+    "RequeueThisGoal": {}
+  }
+}

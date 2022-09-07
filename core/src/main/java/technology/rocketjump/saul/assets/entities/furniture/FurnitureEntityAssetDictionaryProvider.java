@@ -1,7 +1,5 @@
 package technology.rocketjump.saul.assets.entities.furniture;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
@@ -16,6 +14,9 @@ import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeD
 import technology.rocketjump.saul.rendering.RenderMode;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,11 +56,11 @@ public class FurnitureEntityAssetDictionaryProvider implements Provider<Furnitur
 	private FurnitureEntityAssetDictionary create() {
 		TextureAtlas diffuseTextureAtlas = textureAtlasRepository.get(DIFFUSE_ENTITIES);
 		TextureAtlas normalTextureAtlas = textureAtlasRepository.get(NORMAL_ENTITIES);
-		FileHandle entityDefinitionsFile = Gdx.files.internal("assets/definitions/entityAssets/furnitureEntityAssets.json");
+		Path entityDefinitionsFile = Paths.get("assets/definitions/entityAssets/furnitureEntityAssets.json");
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		try {
-			List<FurnitureEntityAsset> assetList = objectMapper.readValue(entityDefinitionsFile.readString(),
+			List<FurnitureEntityAsset> assetList = objectMapper.readValue(Files.readString(entityDefinitionsFile),
 					objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, FurnitureEntityAsset.class));
 
 			for (FurnitureEntityAsset asset : assetList) {

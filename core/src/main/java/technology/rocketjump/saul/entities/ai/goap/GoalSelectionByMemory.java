@@ -7,7 +7,7 @@ import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.environment.GameClock;
+import technology.rocketjump.saul.gamecontext.GameContext;
 
 import java.util.Collection;
 
@@ -22,13 +22,13 @@ public class GoalSelectionByMemory implements GoalSelectionCondition {
 
 	@JsonIgnore
 	@Override
-	public boolean apply(GameClock gameClock, Entity parentEntity) {
+	public boolean apply(Entity parentEntity, GameContext gameContext) {
 		MemoryComponent memoryComponent = parentEntity.getComponent(MemoryComponent.class);
 		if (memoryComponent == null) {
 			return false;
 		}
 
-		Collection<Memory> shortTermMemories = memoryComponent.getShortTermMemories(gameClock);
+		Collection<Memory> shortTermMemories = memoryComponent.getShortTermMemories(gameContext.getGameClock());
 		for (Memory shortTermMemory : shortTermMemories) {
 			if (shortTermMemory.getType().equals(memoryType)) {
 				return true;

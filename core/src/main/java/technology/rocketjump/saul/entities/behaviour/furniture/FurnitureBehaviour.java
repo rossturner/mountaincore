@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
-import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -76,12 +75,7 @@ public class FurnitureBehaviour implements BehaviourComponent {
 	@Override
 	public void infrequentUpdate(GameContext gameContext) {
 		double gameTime = gameContext.getGameClock().getCurrentGameTime();
-		double elapsed = gameTime - lastUpdateGameTime;
 		lastUpdateGameTime = gameTime;
-		StatusComponent statusComponent = parentEntity.getComponent(StatusComponent.class);
-		if (statusComponent != null) {
-			statusComponent.infrequentUpdate(elapsed);
-		}
 
 		if (parentEntity.isOnFire()) {
 			return;

@@ -2,11 +2,12 @@ package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nWordClass;
 
 public class I18nCheckbox extends CheckBox {
 
-	private final String i18nKey;
+	private String i18nKey;
 	private final I18nWordClass i18nWordClass;
 
 	public I18nCheckbox(String i18nKey, String i18nValue, Skin skin) {
@@ -22,6 +23,11 @@ public class I18nCheckbox extends CheckBox {
 
 	public String getI18nKey() {
 		return i18nKey;
+	}
+
+	public void changeI18nKey(String key, I18nTranslator i18nTranslator) {
+		this.i18nKey = key;
+		this.setText(i18nTranslator.getTranslatedString(i18nKey, i18nWordClass).toString());
 	}
 
 	public I18nWordClass getI18nWordClass() {

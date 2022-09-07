@@ -97,6 +97,7 @@ public class GameContextFactory {
 		context.getJobRequestQueue().addAll(stateHolder.jobRequests.values());
 		context.getDynamicallyCreatedMaterialsByCombinedId().putAll(stateHolder.dynamicMaterials);
 		context.setSettlementState(stateHolder.getSettlementState());
+		context.getSquads().putAll(stateHolder.squads);
 
 		context.setAreaMap(stateHolder.getMap());
 		context.setMapEnvironment(stateHolder.getMapEnvironment());

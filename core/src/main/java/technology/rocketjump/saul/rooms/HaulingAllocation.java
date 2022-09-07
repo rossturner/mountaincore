@@ -32,6 +32,8 @@ public class HaulingAllocation implements Persistable {
 	private ItemAllocation itemAllocation; // When hauling an item, the allocation
 	private LiquidAllocation liquidAllocation; // When item contains liquid, the liquid allocation
 
+	// Use HaulingAllocationBuilder to create
+	@Deprecated
 	public HaulingAllocation() {
 		this.haulingAllocationId = SequentialIdGenerator.nextId();
 	}
@@ -244,6 +246,6 @@ public class HaulingAllocation implements Persistable {
 
 	// Where the allocation is going  to or from
 	public enum AllocationPositionType {
-		ROOM, CONSTRUCTION, FURNITURE, FLOOR, ZONE
+		ROOM, CONSTRUCTION, FURNITURE, FLOOR, ZONE, CREATURE
 	}
 }

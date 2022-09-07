@@ -54,7 +54,6 @@ import technology.rocketjump.saul.zones.Zone;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Random;
 
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
@@ -174,7 +173,6 @@ public class InWorldUIRenderer {
 
 		if (interactionStateContainer.isDragging() && (
 				interactionStateContainer.getInteractionMode().tileDesignationCheck != null ||
-						interactionStateContainer.getInteractionMode().entityDesignationCheck != null ||
 						interactionStateContainer.getInteractionMode().equals(SET_JOB_PRIORITY)
 		)) {
 			drawDragAreaOutline(minDraggingPoint, maxDraggingPoint);
@@ -491,22 +489,6 @@ public class InWorldUIRenderer {
 
 			spriteBatch.setColor(designation.getDesignationColor());
 			spriteBatch.draw(designation.getIconSprite(), x, y, 1, 1);
-		} else {
-			Optional<Entity> entityWithDesignation = mapTile.getEntities().stream().filter(e -> e.getDesignation() != null).findAny();
-			if (entityWithDesignation.isPresent()) {
-				Entity entity = entityWithDesignation.get();
-				Designation designation = entity.getDesignation();
-				if (jobStore.getByType(designation.getCreatesJobType()).stream().anyMatch(j -> j.getTargetId() == entity.getId() &&
-						j.getAssignedToEntityId() != null)) {
-					if (!blinkState) {
-						return;
-					}
-				}
-
-				spriteBatch.setColor(designation.getDesignationColor());
-				Vector2 entityPosition = entity.getLocationComponent().getWorldOrParentPosition();
-				spriteBatch.draw(designation.getIconSprite(), entityPosition.x - 0.5f, entityPosition.y - 0.5f, 1, 1);
-			}
 		}
 	}
 
@@ -519,8 +501,6 @@ public class InWorldUIRenderer {
 	private boolean shouldHighlight(MapTile mapTile) {
 		if (interactionStateContainer.getInteractionMode().tileDesignationCheck != null) {
 			return interactionStateContainer.getInteractionMode().tileDesignationCheck.shouldDesignationApply(mapTile);
-		} else if (interactionStateContainer.getInteractionMode().entityDesignationCheck != null) {
-			return mapTile.getEntities().stream().anyMatch(e -> interactionStateContainer.getInteractionMode().entityDesignationCheck.shouldDesignationApply(e));
 		} else {
 			return false;
 		}

@@ -29,7 +29,7 @@ public class RequeueThisGoalAction extends Action {
 		for (GoalSelector selector : parent.goal.getSelectors()) {
 			boolean allConditionsApply = true;
 			for (GoalSelectionCondition condition : selector.conditions) {
-				if (!condition.apply(gameContext.getGameClock(), parent.parentEntity)) {
+				if (!condition.apply(parent.parentEntity, gameContext)) {
 					allConditionsApply = false;
 					break;
 				}

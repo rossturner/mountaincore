@@ -1,0 +1,17 @@
+{
+  "name" : "ARCHERY_TARGET",
+  "i18nKey" : "FURNITURE.ARCHERY_TARGET",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x1 with S workspace offset 6",
+  "colorCode" : "#E38B20",
+  "iconName" : "archery-target",
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 3
+    } ]
+  },
+  "tags" : {
+    "WORKSPACE_LOCATIONS_MUST_BE_INSIDE_ROOM" : [ ]
+  }
+}

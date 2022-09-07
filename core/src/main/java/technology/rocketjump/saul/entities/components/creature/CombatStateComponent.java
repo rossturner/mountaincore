@@ -32,6 +32,7 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 	private Long targetedOpponentId;
 	private Set<Long> opponentEntityIds = new HashSet<>();
 	private boolean attackOfOpportunityMadeThisRound;
+	private boolean forceRetreat;
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -130,6 +131,14 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 		this.enteredCombatAtPosition = enteredCombatAtPosition;
 	}
 
+	public void setForceRetreat(boolean forceRetreat) {
+		this.forceRetreat = forceRetreat;
+	}
+
+	public boolean isForceRetreat() {
+		return forceRetreat;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		if (inCombat) {
@@ -161,6 +170,9 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 		if (enteredCombatAtPosition != null) {
 			asJson.put("enteredCombatAtPosition", JSONUtils.toJSON(enteredCombatAtPosition));
 		}
+		if (forceRetreat) {
+			asJson.put("forceRetreat", true);
+		}
 	}
 
 	@Override
@@ -180,6 +192,7 @@ public class CombatStateComponent implements ParentDependentEntityComponent {
 		}
 
 		this.enteredCombatAtPosition = JSONUtils.vector2(asJson.getJSONObject("enteredCombatAtPosition"));
+		this.forceRetreat = asJson.getBooleanValue("forceRetreat");
 	}
 
 }

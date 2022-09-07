@@ -30,7 +30,7 @@ public class ItemBehaviour implements BehaviourComponent {
 	private MessageDispatcher messageDispatcher;
 	private Entity parentEntity;
 	private GameContext gameContext;
-	private Map<Class<? extends BehaviourComponent>, BehaviourComponent> additionalBehaviors = new LinkedHashMap<>();
+	private final Map<Class<? extends BehaviourComponent>, BehaviourComponent> additionalBehaviours = new LinkedHashMap<>();
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -38,7 +38,7 @@ public class ItemBehaviour implements BehaviourComponent {
 		this.messageDispatcher = messageDispatcher;
 		this.parentEntity = parentEntity;
 		this.gameContext = gameContext;
-		for (BehaviourComponent additionalBehavior : additionalBehaviors.values()) {
+		for (BehaviourComponent additionalBehavior : additionalBehaviours.values()) {
 			additionalBehavior.init(parentEntity, messageDispatcher, gameContext);
 		}
 	}
@@ -46,13 +46,16 @@ public class ItemBehaviour implements BehaviourComponent {
 	public void addAdditionalBehaviour(BehaviourComponent additionalBehaviour) {
 		additionalBehaviour.init(parentEntity, messageDispatcher, gameContext);
 
-		this.additionalBehaviors.put(additionalBehaviour.getClass(), additionalBehaviour);
+		this.additionalBehaviours.put(additionalBehaviour.getClass(), additionalBehaviour);
 	}
 
 	@Override
 	public ItemBehaviour clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
 		ItemBehaviour cloned = new ItemBehaviour();
-		cloned.additionalBehaviors = this.additionalBehaviors;
+		for (BehaviourComponent behaviourComponent : this.additionalBehaviours.values()) {
+			BehaviourComponent clonedAdditional = (BehaviourComponent) behaviourComponent.clone(messageDispatcher, gameContext);
+			cloned.additionalBehaviours.put(clonedAdditional.getClass(), clonedAdditional);
+		}
 		cloned.init(parentEntity, messageDispatcher, gameContext);
 		return cloned;
 	}
@@ -92,7 +95,7 @@ public class ItemBehaviour implements BehaviourComponent {
 			}
 		}
 
-		for (BehaviourComponent additionalBehavior : additionalBehaviors.values()) {
+		for (BehaviourComponent additionalBehavior : additionalBehaviours.values()) {
 			additionalBehavior.infrequentUpdate(gameContext);
 		}
 	}

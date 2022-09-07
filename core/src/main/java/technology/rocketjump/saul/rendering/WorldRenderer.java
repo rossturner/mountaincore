@@ -49,7 +49,7 @@ import static technology.rocketjump.saul.rooms.constructions.ConstructionType.WA
 public class WorldRenderer implements Disposable {
 
 	public static final float ONE_UNIT = 1.0f;
-	private static final Color TREE_TRANSPARENCY = new Color(1f, 1f, 1f, 0.4f);
+	public static final Color TREE_TRANSPARENCY = new Color(1f, 1f, 1f, 0.4f);
 	private final RenderingOptions renderingOptions;
 	private final TerrainRenderer terrainRenderer;
 	private final EntityRenderer entityRenderer;

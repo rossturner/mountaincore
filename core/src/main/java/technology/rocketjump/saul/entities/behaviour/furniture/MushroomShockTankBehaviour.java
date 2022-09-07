@@ -35,8 +35,6 @@ import java.util.Map;
 
 import static technology.rocketjump.saul.entities.behaviour.furniture.MushroomShockTankBehaviour.MushrooomShockTankState.*;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.HELD_IN_INVENTORY;
-import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FURNITURE;
 import static technology.rocketjump.saul.ui.i18n.I18nTranslator.oneDecimalFormat;
 
 public class MushroomShockTankBehaviour extends FillLiquidContainerBehaviour implements SelectableDescription {
@@ -149,10 +147,6 @@ public class MushroomShockTankBehaviour extends FillLiquidContainerBehaviour imp
 				parentEntity, parentEntity.getLocationComponent().getWorldPosition(), targetItemType, null,
 				false, 1, null, haulingAllocation -> {
 					if (haulingAllocation != null) {
-						haulingAllocation.setTargetPosition(toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
-						haulingAllocation.setTargetId(parentEntity.getId());
-						haulingAllocation.setTargetPositionType(FURNITURE);
-
 						Job haulingJob = new Job(relatedJobTypes.get(0));
 						haulingJob.setJobPriority(priority);
 						haulingJob.setTargetId(haulingAllocation.getTargetId());

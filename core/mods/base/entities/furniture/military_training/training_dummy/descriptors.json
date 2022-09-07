@@ -1,0 +1,69 @@
+[ {
+  "uniqueName" : "Training_Dummy-1x1 with E workspace-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRAINING_DUMMY",
+  "furnitureLayoutName" : "1x1 with E workspace",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Training_Dummy-1x1 with w workspace-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 1.25,
+      "offsetPixels" : {
+        "y" : 4.5
+      },
+      "flipX" : true
+    }
+  }
+}, {
+  "uniqueName" : "Training_Dummy-1x1 with N workspace-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRAINING_DUMMY",
+  "furnitureLayoutName" : "1x1 with N workspace",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Training_Dummy-1x1 with s workspace-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 1.25,
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : 4.5
+      },
+      "flipX" : true
+    }
+  }
+}, {
+  "uniqueName" : "Training_Dummy-1x1 with S workspace-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRAINING_DUMMY",
+  "furnitureLayoutName" : "1x1 with S workspace",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Training_Dummy-1x1 with s workspace-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 1.25,
+      "offsetPixels" : {
+        "x" : 1.5,
+        "y" : 4.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Training_Dummy-1x1 with W workspace-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRAINING_DUMMY",
+  "furnitureLayoutName" : "1x1 with W workspace",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Training_Dummy-1x1 with w workspace-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 1.25,
+      "offsetPixels" : {
+        "y" : 4.5
+      }
+    }
+  }
+} ]

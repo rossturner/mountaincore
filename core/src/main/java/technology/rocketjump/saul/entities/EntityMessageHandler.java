@@ -13,7 +13,6 @@ import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
-import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.creature.BrokenDwarfBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
@@ -54,6 +53,8 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
+import technology.rocketjump.saul.military.model.Squad;
+import technology.rocketjump.saul.military.model.SquadOrderType;
 import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
@@ -88,8 +89,7 @@ import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.messaging.MessageType.DESTROY_ENTITY;
 import static technology.rocketjump.saul.messaging.MessageType.TRANSFORM_ITEM_TYPE;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FURNITURE;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.*;
+import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.CREATURE;
 
 @Singleton
 public class EntityMessageHandler implements GameContextAware, Telegraph {
@@ -165,7 +165,6 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.REQUEST_FURNITURE_REMOVAL);
 		messageDispatcher.addListener(this, MessageType.HAULING_ALLOCATION_CANCELLED);
 		messageDispatcher.addListener(this, MessageType.CHANGE_PROFESSION);
-		messageDispatcher.addListener(this, MessageType.CHANGE_WEAPON_SELECTION);
 		messageDispatcher.addListener(this, MessageType.APPLY_STATUS);
 		messageDispatcher.addListener(this, MessageType.REMOVE_STATUS);
 		messageDispatcher.addListener(this, MessageType.TRANSFORM_FURNITURE_TYPE);
@@ -437,8 +436,6 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			}
 			case MessageType.CHANGE_PROFESSION:
 				return handle((ChangeProfessionMessage) msg.extraInfo);
-			case MessageType.CHANGE_WEAPON_SELECTION:
-				return handle((ChangeWeaponSelectionMessage) msg.extraInfo);
 			case MessageType.HAULING_ALLOCATION_CANCELLED: {
 				HaulingAllocation allocation = (HaulingAllocation) msg.extraInfo;
 
@@ -475,41 +472,49 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						itemAllocationComponent.cancel(allocation.getItemAllocation());
 					}
 
-					if (ROOM.equals(allocation.getTargetPositionType())) {
-						Room targetRoom = roomStore.getById(allocation.getTargetId());
-						if (targetRoom != null && targetRoom.getComponent(StockpileComponent.class) != null) {
-							targetRoom.getComponent(StockpileComponent.class).allocationCancelled(allocation, targetItemEntity);
-						}
-						return true;
-					} else if (CONSTRUCTION.equals(allocation.getTargetPositionType())) {
-						Construction targetConstruction = gameContext.getConstructions().get(allocation.getTargetId());
-						if (targetConstruction != null) {
-							targetConstruction.allocationCancelled(allocation);
-						}
-						return true; // This is handled by ConstructionMessageHandler
-					} else if (allocation.getTargetPosition() == null) {
-						// Not hauling to anywhere in particular so allocation cancelled message doesn't matter
-						return true;
-					} else if (FURNITURE.equals(allocation.getTargetPositionType())) {
-						Entity targetFurnitureEntity = entityStore.getById(allocation.getTargetId());
-						if (targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
-							((CraftingStationBehaviour) targetFurnitureEntity.getBehaviourComponent()).allocationCancelled(allocation);
-						} else if (targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour ||
-								targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof InnoculationLogBehaviour) {
-							// Do nothing, CollectItemFurnitureBehaviour will deal with cancelled allocations, eventually, might want to improve this
-						} else {
-							// FIXME perhaps this is fine and we can do nothing
-							// Currently this could be a target of a cooking cauldron or baked bread, which KitchenBehaviour would deal with
-							Logger.error("Unrecognised item allocation cancelled with target of furniture");
-						}
-						return true;
-					} else if (ZONE.equals(allocation.getTargetPositionType())) {
-						// Hauling to zone doesn't matter about cancelling
-						return true;
+					if (allocation.getTargetPositionType() == null) {
+						Logger.error("No target position type on cancelled hauling allocation " + allocation);
 					} else {
-						Logger.error("HAULING_ALLOCATION_CANCELLED message received with unrecognised targetPositionType");
-						return false;
+						switch (allocation.getTargetPositionType()) {
+							case ROOM -> {
+								Room targetRoom = roomStore.getById(allocation.getTargetId());
+								if (targetRoom != null && targetRoom.getComponent(StockpileComponent.class) != null) {
+									targetRoom.getComponent(StockpileComponent.class).allocationCancelled(allocation, targetItemEntity);
+								}
+							}
+							case CONSTRUCTION -> {
+								Construction targetConstruction = gameContext.getConstructions().get(allocation.getTargetId());
+								if (targetConstruction != null) {
+									targetConstruction.allocationCancelled(allocation);
+								}
+							}
+							case CREATURE -> {
+								Entity targetCreature = entityStore.getById(allocation.getTargetId());
+								if (targetCreature != null) {
+									ItemAssignmentComponent itemAssignmentComponent = targetCreature.getComponent(ItemAssignmentComponent.class);
+									if (itemAssignmentComponent != null) {
+										itemAssignmentComponent.getHaulingAllocations().remove(allocation);
+									}
+								}
+							}
+							case FURNITURE -> {
+								Entity targetFurnitureEntity = entityStore.getById(allocation.getTargetId());
+								if (targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
+									((CraftingStationBehaviour) targetFurnitureEntity.getBehaviourComponent()).allocationCancelled(allocation);
+								} else if (targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour ||
+										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof InnoculationLogBehaviour) {
+									// Do nothing, CollectItemFurnitureBehaviour will deal with cancelled allocations, eventually, might want to improve this
+								} else {
+									// FIXME perhaps this is fine and we can do nothing
+									// Currently this could be a target of a cooking cauldron or baked bread, which KitchenBehaviour would deal with
+									Logger.error("Unrecognised item allocation cancelled with target of furniture");
+								}
+							}
+							case ZONE -> {} // Hauling to zone doesn't matter about cancelling
+							default -> Logger.error("HAULING_ALLOCATION_CANCELLED message received with unrecognised targetPositionType");
+						}
 					}
+					return true;
 				} else {
 					// FURNITURE-type hauling handled elsewhere e.g. KitchenManager
 					return false;
@@ -600,22 +605,6 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		Notification tantrumNotification = new Notification(NotificationType.SETTLER_TANTRUM, tantrumEntity.getLocationComponent().getWorldOrParentPosition());
 		tantrumNotification.addTextReplacement("character", i18nTranslator.getDescription(tantrumEntity));
 		messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, tantrumNotification);
-		return true;
-	}
-
-	private boolean handle(ChangeWeaponSelectionMessage weaponSelectionMessage) {
-		WeaponSelectionComponent weaponSelectionComponent = weaponSelectionMessage.entity.getOrCreateComponent(WeaponSelectionComponent.class);
-		if (weaponSelectionComponent.getSelectedWeapon().isPresent()) {
-			// forget existing memory to find weapon of that type
-			MemoryComponent memoryComponent = weaponSelectionMessage.entity.getOrCreateComponent(MemoryComponent.class);
-			memoryComponent.getShortTermMemories(gameContext.getGameClock())
-					.removeIf(memory -> memory.getType().equals(MemoryType.LACKING_REQUIRED_ITEM) &&
-							memory.getRelatedItemType() != null &&
-							memory.getRelatedItemType().equals(weaponSelectionComponent.getSelectedWeapon().get()));
-		}
-
-		weaponSelectionComponent.setSelectedWeapon(weaponSelectionMessage.selectedWeaponType);
-
 		return true;
 	}
 
@@ -805,6 +794,11 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		HistoryComponent historyComponent = deceased.getOrCreateComponent(HistoryComponent.class);
 		historyComponent.setDeathReason(deathReason);
 
+		MilitaryComponent militaryComponent = deceased.getComponent(MilitaryComponent.class);
+		if (militaryComponent != null && militaryComponent.isInMilitary()) {
+			militaryComponent.removeFromMilitary();
+		}
+
 		// Rotate and change orientation of deceased
 		if (previousConciousness.equals(AWAKE)) {
 			changeToConsciousnessOnFloor(deceased, DEAD, gameContext, messageDispatcher);
@@ -812,6 +806,15 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, deceased);
 		}
 		showAsRotatedOnSide(deceased, gameContext);
+
+		for (Squad squad : gameContext.getSquads().values()) {
+			if (squad.getAttackEntityIds().contains(deceased.getId())) {
+				squad.getAttackEntityIds().remove(deceased.getId());
+				if (squad.getAttackEntityIds().isEmpty()) {
+					messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.TRAINING));
+				}
+			}
+		}
 
 		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
 			boolean allDead = true;

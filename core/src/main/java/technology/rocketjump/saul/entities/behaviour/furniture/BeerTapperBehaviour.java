@@ -35,7 +35,6 @@ import static technology.rocketjump.saul.entities.ai.goap.actions.nourishment.Lo
 import static technology.rocketjump.saul.entities.behaviour.furniture.BeerTapperBehaviour.BeerTapperState.*;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.HELD_IN_INVENTORY;
 import static technology.rocketjump.saul.jobs.model.JobState.REMOVED;
-import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
 public class BeerTapperBehaviour extends FurnitureBehaviour implements Destructible, SelectableDescription, Prioritisable {
 
@@ -84,7 +83,7 @@ public class BeerTapperBehaviour extends FurnitureBehaviour implements Destructi
 								parentEntity, parentEntity.getLocationComponent().getWorldPosition(), relatedItemTypes.get(0), null, true, 1,
 								relatedMaterials.get(0), haulingAllocation -> {
 							if (haulingAllocation != null) {
-								finaliseAllocation(haulingAllocation);
+								createHaulingJob(haulingAllocation);
 							}
 						})
 				);
@@ -161,13 +160,8 @@ public class BeerTapperBehaviour extends FurnitureBehaviour implements Destructi
 		infrequentUpdate(gameContext);
 	}
 
-	public void finaliseAllocation(HaulingAllocation allocation) {
+	public void createHaulingJob(HaulingAllocation allocation) {
 		// Create hauling job to haul allocation into inventory
-
-		allocation.setTargetPositionType(HaulingAllocation.AllocationPositionType.FURNITURE);
-		allocation.setTargetId(parentEntity.getId());
-		allocation.setTargetPosition(toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
-
 		Job haulingJob = new Job(relatedJobTypes.get(0));
 		haulingJob.setJobPriority(priority);
 		haulingJob.setTargetId(allocation.getHauledEntityId());

@@ -63,7 +63,7 @@ public class CreatureCombat {
 	}
 
 	public int getWeaponRangeAsInt() {
-		return (int)Math.max(1, equippedWeapon.getRange());
+		return Math.max(1, equippedWeapon.getRange());
 	}
 
 	public int maxDefensePool() {

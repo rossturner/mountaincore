@@ -19,12 +19,11 @@ import technology.rocketjump.saul.jobs.model.JobType;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
+import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 
 import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
 import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FLOOR;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FURNITURE;
 
 /**
  * This class is responsible for assigning and moving corpses to graves
@@ -119,18 +118,8 @@ public class GraveManager implements Updatable {
 		FurnitureEntityAttributes furnitureAttributes = (FurnitureEntityAttributes) deceasedContainer.getPhysicalEntityComponent().getAttributes();
 		furnitureAttributes.setAssignedToEntityId(deceased.getId());
 
-		HaulingAllocation allocation = new HaulingAllocation();
-		// Assuming always collecting from floor
-		allocation.setSourcePosition(deceasedPosition);
-		allocation.setSourcePositionType(FLOOR);
-
-		allocation.setHauledEntityType(CREATURE);
-		allocation.setHauledEntityId(deceased.getId());
-
-		allocation.setTargetId(deceasedContainer.getId());
-		allocation.setTargetPositionType(FURNITURE);
-		allocation.setTargetPosition(toGridPoint(deceasedContainer.getLocationComponent().getWorldOrParentPosition()));
-
+		HaulingAllocation allocation = HaulingAllocationBuilder.createToHaulCreature(deceased)
+				.toEntity(deceasedContainer);
 
 		Job haulingJob = new Job(haulingJobType);
 		haulingJob.setJobPriority(JobPriority.HIGHER);// Might prefer to set priority based on grave room priority

@@ -3,6 +3,7 @@ package technology.rocketjump.saul.entities.model.physical.item;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.jobs.model.CraftingType;
@@ -61,6 +62,7 @@ public class ItemType {
 
 	private WeaponInfo weaponInfo;
 	private AmmoType isAmmoType;
+	private DefenseInfo defenseInfo;
 
 	private boolean describeAsMaterialOnly;
 
@@ -279,6 +281,14 @@ public class ItemType {
 
 	public void setIsAmmoType(AmmoType isAmmoType) {
 		this.isAmmoType = isAmmoType;
+	}
+
+	public DefenseInfo getDefenseInfo() {
+		return defenseInfo;
+	}
+
+	public void setDefenseInfo(DefenseInfo defenseInfo) {
+		this.defenseInfo = defenseInfo;
 	}
 
 	@JsonIgnore
