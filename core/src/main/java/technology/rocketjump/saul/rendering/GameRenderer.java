@@ -149,13 +149,17 @@ public class GameRenderer implements AssetDisposable {
 
 		//--------Render selected entities---------
 		selectedEntitiesFrameBuffer.begin();
-		inWorldUIRenderer.renderSelectedEntity(camera);
+		boolean hasSelection = inWorldUIRenderer.renderSelectedEntity(camera);
 		selectedEntitiesFrameBuffer.end();
 
 		//-------Image processing pipeline---------
-		//TODO: render when selectable
-		TextureRegion outlined = imageProcessingRenderer.outline(selectedEntitiesTextureRegion);
-		TextureRegion dilated = imageProcessingRenderer.dilate(outlined);
+		TextureRegion overlay = null;
+		if (hasSelection) {
+			TextureRegion outlined = imageProcessingRenderer.outline(selectedEntitiesTextureRegion, camera.zoom);
+			TextureRegion dilated = imageProcessingRenderer.dilate(outlined, camera.zoom);
+			overlay = outlined;
+		}
+
 
 
 		/////// Draw lighting info ///
@@ -207,7 +211,9 @@ public class GameRenderer implements AssetDisposable {
 			frameBufferSpriteBatch.end();
 		} else {
 			combinedRenderer.renderFinal(diffuseTextureRegion, lightingTextureRegion, fadeAmount);
-			combinedRenderer.renderstuff(outlined);
+			if (overlay != null) {
+				combinedRenderer.renderstuff(overlay);
+			}
 			inWorldUIRenderer.render(gameContext, camera, particlesToRenderAsUI, diffuseSpriteCache);
 		}
 

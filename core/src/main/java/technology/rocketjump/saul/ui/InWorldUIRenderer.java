@@ -121,30 +121,32 @@ public class InWorldUIRenderer {
 		this.selectedEntitySpriteBatch = new SpriteBatch(100, ShaderLoader.createShader(vertexShaderFile, alphaPreservingFragmentShader));
 	}
 
-	public void renderSelectedEntity(OrthographicCamera camera) {
-		if (interactionStateContainer.getSelectable() == null) {
-			return;
-		}
+	public boolean renderSelectedEntity(OrthographicCamera camera) {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		if (interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.ENTITY) {
+			Selectable selectable = interactionStateContainer.getSelectable();
 
-		selectedEntitySpriteBatch.setProjectionMatrix(camera.combined);
-		selectedEntitySpriteBatch.enableBlending();
-		selectedEntitySpriteBatch.begin();
-		Selectable selectable = interactionStateContainer.getSelectable();
-		if (Selectable.SelectableType.ENTITY == selectable.type) {
-			Entity selectableEntity = selectable.getEntity();
-			Color entityOutlineColour;
-			FactionComponent factionComponent = selectableEntity.getComponent(FactionComponent.class);
-			if (factionComponent != null) {
-				entityOutlineColour = factionComponent.getFaction().defensePoolBarColor;
-			} else {
-				entityOutlineColour = Faction.SETTLEMENT.defensePoolBarColor;
+			selectedEntitySpriteBatch.setProjectionMatrix(camera.combined);
+			selectedEntitySpriteBatch.enableBlending();
+			selectedEntitySpriteBatch.begin();
+			if (Selectable.SelectableType.ENTITY == selectable.type) {
+				Entity selectableEntity = selectable.getEntity();
+				Color entityOutlineColour;
+				FactionComponent factionComponent = selectableEntity.getComponent(FactionComponent.class);
+				if (factionComponent != null) {
+					entityOutlineColour = factionComponent.getFaction().defensePoolBarColor;
+				} else {
+					entityOutlineColour = Faction.SETTLEMENT.defensePoolBarColor;
+				}
+				selectedEntitySpriteBatch.getShader().setUniformf("u_colour", new Vector3(entityOutlineColour.r, entityOutlineColour.g, entityOutlineColour.b));
+				entityRenderer.render(selectable.getEntity(), selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, null, null);
 			}
-			selectedEntitySpriteBatch.getShader().setUniformf("u_colour", new Vector3(entityOutlineColour.r, entityOutlineColour.g, entityOutlineColour.b));
-			entityRenderer.render(selectable.getEntity(), selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, null, null);
+			selectedEntitySpriteBatch.end();
+			return true;
+		} else {
+			return false;
 		}
-		selectedEntitySpriteBatch.end();
 	}
 
 	public void render(GameContext gameContext, OrthographicCamera camera, List<ParticleEffectInstance> particlesToRenderAsUI, TerrainSpriteCache diffuseSpriteCache) {
@@ -194,8 +196,8 @@ public class InWorldUIRenderer {
 		if (interactionStateContainer.getInteractionMode().equals(DEFAULT)) {
 			Selectable selectable = interactionStateContainer.getSelectable();
 			if (selectable != null) {
-//				selectableOutlineRenderer.render(selectable, shapeRenderer, gameContext);
-//
+				selectableOutlineRenderer.render(selectable, shapeRenderer, gameContext);
+
 				if (GlobalSettings.DEV_MODE) {
 					showCreatureGroupLocation(gameContext, selectable);
 				}

@@ -77,8 +77,8 @@ public class CombinedLightingResultRenderer implements Disposable {
 
 	//TODO: this is dirty
 	public void renderstuff(TextureRegion textureRegion) {
-		Gdx.gl.glDisable(GL20.GL_BLEND);
 		SpriteBatch spriteBatch = new SpriteBatch();
+		spriteBatch.enableBlending();
 		spriteBatch.begin();
 		spriteBatch.draw(textureRegion, 0, 0);
 		spriteBatch.end();
