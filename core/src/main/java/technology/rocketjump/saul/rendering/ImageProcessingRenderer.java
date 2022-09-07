@@ -98,11 +98,11 @@ public class ImageProcessingRenderer implements Disposable {
     }
 
     public TextureRegion dilate(TextureRegion input, float factor) {
-        return process(input, DILATE_KERNEL, ZEROS_KERNEL, 0.2f / factor, true);
+        return process(input, DILATE_KERNEL, ZEROS_KERNEL, 1f / factor, true);
     }
 
-    public TextureRegion blur(TextureRegion input) {
-        return process(input, GAUSSIAN_BLUR_KERNEL, ZEROS_KERNEL, 0.1f, false);
+    public TextureRegion blur(TextureRegion input, float factor) {
+        return process(input, GAUSSIAN_BLUR_KERNEL, ZEROS_KERNEL, 1f / factor, false);
     }
 
     private TextureRegion process(TextureRegion input, Matrix3 kernelX, Matrix3 kernelY, float step, boolean reduceByMax) {

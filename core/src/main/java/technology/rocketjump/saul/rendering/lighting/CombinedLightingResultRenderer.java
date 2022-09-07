@@ -19,6 +19,7 @@ public class CombinedLightingResultRenderer implements Disposable {
 	private static final int VERTEX_SIZE = 2;
 	private static final int NUM_INDEX_PER_TRIANGLE = 3;
 	private final ShaderProgram combinedShader;
+//	private final ShaderProgram overlayShader;
 	private Mesh fullScreenMesh;
 
 	@Inject
@@ -59,6 +60,10 @@ public class CombinedLightingResultRenderer implements Disposable {
 		FileHandle vertexShaderFile = Gdx.files.classpath("shaders/combined_lighting_vertex_shader.glsl");
 		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/combined_lighting_fragment_shader.glsl");
 		combinedShader = ShaderLoader.createShader(vertexShaderFile, fragmentShaderFile);
+
+
+//		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/combined_lighting_fragment_shader.glsl");
+//		overlayShader = ShaderLoader.createShader(vertexShaderFile, fragmentShaderFile);
 	}
 
 	public void renderFinal(TextureRegion diffuseTextureRegion, TextureRegion lightingTextureRegion, float fadeAmount) {
@@ -76,11 +81,21 @@ public class CombinedLightingResultRenderer implements Disposable {
 	}
 
 	//TODO: this is dirty
-	public void renderstuff(TextureRegion textureRegion) {
+	public void renderstuff(TextureRegion overlay, TextureRegion toSubtract) {
+
+//		overlayShader.begin();
+//		overlayShader.setUniformi("u_overlay", 1);
+//		overlay.getTexture().bind(1);
+//		overlayShader.setUniformi("u_toSubtract", 0);
+//		toSubtract.getTexture().bind(0);
+//
+//		fullScreenMesh.render(overlayShader, GL20.GL_TRIANGLES);
+//		overlayShader.end();
+
 		SpriteBatch spriteBatch = new SpriteBatch();
 		spriteBatch.enableBlending();
 		spriteBatch.begin();
-		spriteBatch.draw(textureRegion, 0, 0);
+		spriteBatch.draw(overlay, 0, 0);
 		spriteBatch.end();
 	}
 

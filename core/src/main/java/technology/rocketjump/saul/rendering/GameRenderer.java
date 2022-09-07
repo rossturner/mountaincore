@@ -155,9 +155,15 @@ public class GameRenderer implements AssetDisposable {
 		//-------Image processing pipeline---------
 		TextureRegion overlay = null;
 		if (hasSelection) {
-			TextureRegion outlined = imageProcessingRenderer.outline(selectedEntitiesTextureRegion, camera.zoom);
-			TextureRegion dilated = imageProcessingRenderer.dilate(outlined, camera.zoom);
-			overlay = outlined;
+//			TextureRegion outlined = imageProcessingRenderer.outline(selectedEntitiesTextureRegion, camera.zoom);
+			TextureRegion dilated = imageProcessingRenderer.dilate(selectedEntitiesTextureRegion, camera.zoom);
+			TextureRegion a = imageProcessingRenderer.dilate(dilated, camera.zoom);
+			TextureRegion b = imageProcessingRenderer.dilate(a, camera.zoom);
+			TextureRegion c = imageProcessingRenderer.dilate(b, camera.zoom);
+			TextureRegion d = imageProcessingRenderer.dilate(c, camera.zoom);
+//			TextureRegion blurred = imageProcessingRenderer.blur(dilated, camera.zoom);
+
+			overlay = d;
 		}
 
 
@@ -212,7 +218,7 @@ public class GameRenderer implements AssetDisposable {
 		} else {
 			combinedRenderer.renderFinal(diffuseTextureRegion, lightingTextureRegion, fadeAmount);
 			if (overlay != null) {
-				combinedRenderer.renderstuff(overlay);
+				combinedRenderer.renderstuff(overlay, selectedEntitiesTextureRegion);
 			}
 			inWorldUIRenderer.render(gameContext, camera, particlesToRenderAsUI, diffuseSpriteCache);
 		}
