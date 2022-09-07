@@ -530,7 +530,7 @@
   "tags" : {
     "LIQUID_CONTAINER" : [ "1", "Water" ],
     "USAGE_SOUND" : [ "WaterCollect" ],
-    "ITEM_ASSIGNMENT" : [ ]
+    "ITEM_ASSIGNMENT" : [ "PREFER_MILITARY" ]
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.WATERSKIN"
