@@ -3,6 +3,7 @@ package technology.rocketjump.saul.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.GridPoint2;
@@ -45,6 +46,8 @@ public class MilitaryOrdersRenderer {
 	}
 
 	public void render(GameContext gameContext, OrthographicCamera camera) {
+		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		TileBoundingBox boundingBox = new TileBoundingBox(camera, gameContext.getAreaMap());
 
 		greyscaleSpriteBatch.setProjectionMatrix(camera.combined);

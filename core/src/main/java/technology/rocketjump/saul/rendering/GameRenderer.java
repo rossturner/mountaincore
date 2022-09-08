@@ -2,7 +2,6 @@ package technology.rocketjump.saul.rendering;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -171,8 +170,6 @@ public class GameRenderer implements AssetDisposable {
 
 		//-------Military orders-------------------
 		militaryOrdersFrameBuffer.begin();
-		Gdx.gl.glClearColor(0, 0, 0, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		militaryOrdersRenderer.render(gameContext, camera);
 		militaryOrdersFrameBuffer.end();
 
