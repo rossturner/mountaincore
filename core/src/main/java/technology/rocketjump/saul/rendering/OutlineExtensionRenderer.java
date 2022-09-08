@@ -118,4 +118,5 @@ public class OutlineExtensionRenderer implements Disposable {
     public TextureRegion getSecondTextureRegion() {
         return textureRegions[1];
     }
+
 }

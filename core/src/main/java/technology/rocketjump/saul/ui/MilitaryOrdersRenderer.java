@@ -28,7 +28,6 @@ import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 @Singleton
 public class MilitaryOrdersRenderer {
 
-	private static final Color SLIGHT_TRANSPARENCY = new Color(1, 1, 1, 0.7f);
 	public static final Color LIME = HexColors.get("#86DB00");
 	public static final Color LIGHT_BLUE = HexColors.get("#99F8FF");
 	private final GameInteractionStateContainer interactionStateContainer;
@@ -93,7 +92,7 @@ public class MilitaryOrdersRenderer {
 					MapTile formationTile = gameContext.getAreaMap().getTile(formationPosition);
 					overrideColor = formationTile.isNavigable(squadMember) ? overrideColor : HexColors.NEGATIVE_COLOR;
 
-					entityRenderer.render(squadMember, greyscaleSpriteBatch, RenderMode.DIFFUSE, null, overrideColor, SLIGHT_TRANSPARENCY);
+					entityRenderer.render(squadMember, greyscaleSpriteBatch, RenderMode.DIFFUSE, null, overrideColor, null);
 
 					squadMember.getLocationComponent().setRotation(currentRotation);
 					squadMember.getLocationComponent().setFacing(currentFacing);

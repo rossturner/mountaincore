@@ -19,6 +19,7 @@ public class CombinedLightingResultRenderer implements Disposable {
 	private static final int NUM_INDEX_PER_TRIANGLE = 3;
 	private final ShaderProgram combinedShader;
 	private final ShaderProgram overlayShader;
+	private final ShaderProgram transparentOverlayShader;
 	private Mesh fullScreenMesh;
 
 	@Inject
@@ -61,6 +62,7 @@ public class CombinedLightingResultRenderer implements Disposable {
 		combinedShader = ShaderLoader.createShader(vertexShaderFile, fragmentShaderFile);
 
 		overlayShader = ShaderLoader.createShader(vertexShaderFile, Gdx.files.classpath("shaders/overlay_fragment_shader.glsl"));
+		transparentOverlayShader = ShaderLoader.createShader(vertexShaderFile, Gdx.files.classpath("shaders/transparent_overlay_fragment_shader.glsl"));
 	}
 
 	public void renderFinal(TextureRegion diffuseTextureRegion, TextureRegion lightingTextureRegion, float fadeAmount) {
@@ -93,5 +95,18 @@ public class CombinedLightingResultRenderer implements Disposable {
 	@Override
 	public void dispose() {
 		combinedShader.dispose();
+	}
+
+	public void renderTransparentOverlay(TextureRegion overlay) {
+		float alpha = 0.45f;
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+
+		transparentOverlayShader.begin();
+		transparentOverlayShader.setUniformi("u_textureOverlay", 0);
+		overlay.getTexture().bind(0);
+		transparentOverlayShader.setUniformf("u_alpha", alpha);
+
+		fullScreenMesh.render(transparentOverlayShader, GL20.GL_TRIANGLES);
+		transparentOverlayShader.end();
 	}
 }

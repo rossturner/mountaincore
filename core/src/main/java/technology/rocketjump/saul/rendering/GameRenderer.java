@@ -2,6 +2,7 @@ package technology.rocketjump.saul.rendering;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -47,6 +48,8 @@ public class GameRenderer implements AssetDisposable {
 	private TextureRegion lightingTextureRegion;
 	private FrameBuffer selectedEntitiesFrameBuffer;
 	private TextureRegion selectedEntitiesTextureRegion;
+	private FrameBuffer militaryOrdersFrameBuffer;
+	private TextureRegion militaryOrdersTextureRegion;
 	private FrameBuffer combinedFrameBuffer;
 	private TextureRegion combinedTextureRegion;
 
@@ -154,6 +157,7 @@ public class GameRenderer implements AssetDisposable {
 
 		//--------Render selected entities---------
 		selectedEntitiesFrameBuffer.begin();
+
 		boolean hasSelection = inWorldUIRenderer.renderEntityMasks(camera, gameContext);
 		selectedEntitiesFrameBuffer.end();
 
@@ -164,6 +168,13 @@ public class GameRenderer implements AssetDisposable {
 			TextureRegion secondOutlinePass = outlineExtensionRenderer.outline(firstOutlinePass);
 			overlay = secondOutlinePass;
 		}
+
+		//-------Military orders-------------------
+		militaryOrdersFrameBuffer.begin();
+		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		militaryOrdersRenderer.render(gameContext, camera);
+		militaryOrdersFrameBuffer.end();
 
 		/////// Draw lighting info ///
 		lightingFrameBuffer.begin();
@@ -217,8 +228,8 @@ public class GameRenderer implements AssetDisposable {
 			if (overlay != null) {
 				combinedRenderer.renderOverlay(overlay, selectedEntitiesTextureRegion);
 			}
+			combinedRenderer.renderTransparentOverlay(militaryOrdersTextureRegion);
 			inWorldUIRenderer.render(gameContext, camera, particlesToRenderAsUI, diffuseSpriteCache);
-			militaryOrdersRenderer.render(gameContext, camera);
 		}
 
 		debugRenderer.render(worldMap, camera);
@@ -254,8 +265,12 @@ public class GameRenderer implements AssetDisposable {
 
 		outlineExtensionRenderer.initFrameBuffers(width, height);
 
+		militaryOrdersFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false, false);
+		militaryOrdersTextureRegion = new TextureRegion(militaryOrdersFrameBuffer.getColorBufferTexture(), width, height);
+		militaryOrdersTextureRegion.flip(false, true);
 
-		textureRegions = new TextureRegion[7];
+		int frameBufferCount = 8;
+		textureRegions = new TextureRegion[frameBufferCount];
 		textureRegions[0] = diffuseTextureRegion;
 		textureRegions[1] = bumpMapTextureRegion;
 		textureRegions[2] = lightingTextureRegion;
@@ -263,10 +278,11 @@ public class GameRenderer implements AssetDisposable {
 
 		textureRegions[4] = outlineExtensionRenderer.getFirstTextureRegion();
 		textureRegions[5] = outlineExtensionRenderer.getSecondTextureRegion();
+		textureRegions[6] = militaryOrdersTextureRegion;
 
-		textureRegions[6] = combinedTextureRegion;
+		textureRegions[7] = combinedTextureRegion;
 
-		textureRegionNames = new String[7];
+		textureRegionNames = new String[frameBufferCount];
 		textureRegionNames[0] = "Diffuse Texture";
 		textureRegionNames[1] = "Bump Map Texture";
 		textureRegionNames[2] = "Lighting Texture";
@@ -275,7 +291,9 @@ public class GameRenderer implements AssetDisposable {
 		textureRegionNames[4] = "Outline Extension 1 Texture";
 		textureRegionNames[5] = "Outline Extension 2 Texture";
 
-		textureRegionNames[6] = "Combined Texture";
+		textureRegionNames[6] = "Military orders texture";
+
+		textureRegionNames[7] = "Combined Texture";
 	}
 
 	private void disposeFrameBuffers() {
@@ -284,6 +302,7 @@ public class GameRenderer implements AssetDisposable {
 		lightingFrameBuffer.dispose();
 		combinedFrameBuffer.dispose();
 		outlineExtensionRenderer.dispose();
+		militaryOrdersFrameBuffer.dispose();
 		textureRegions = null;
 	}
 
