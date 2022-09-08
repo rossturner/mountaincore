@@ -9,8 +9,8 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 public class GlobalSettings {
-	public static final boolean MAP_REVEALED = true;
-	public static final boolean DEV_MODE = false;
+	public static final boolean MAP_REVEALED = false;
+	public static final boolean DEV_MODE = true;
 	public static final boolean CHOOSE_SPAWN_LOCATION = true;
 
 	public static boolean USE_EDGE_SCROLLING = true;

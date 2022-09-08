@@ -8,7 +8,6 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.military.model.Squad;
 
 import java.util.Set;
 
@@ -22,14 +21,6 @@ public class SelectableOutlineRenderer {
 
 		switch (selectable.type) {
 			case SQUAD:
-				Squad squad = selectable.getSquad();
-				for (Long memberEntityId : squad.getMemberEntityIds()) {
-					Entity squadMember = gameContext.getEntities().get(memberEntityId);
-					if (squadMember != null) {
-						renderCircleAroundEntity(squadMember, shapeRenderer, gameContext);
-					}
-				}
-				break;
 			case ENTITY:
 				break;
 			case ROOM:

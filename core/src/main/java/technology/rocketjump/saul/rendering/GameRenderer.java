@@ -157,7 +157,7 @@ public class GameRenderer implements AssetDisposable {
 
 		//--------Render selected entities---------
 		selectedEntitiesFrameBuffer.begin();
-		boolean hasSelection = inWorldUIRenderer.renderSelectedEntity(camera);
+		boolean hasSelection = inWorldUIRenderer.renderEntityMasks(camera, gameContext);
 		selectedEntitiesFrameBuffer.end();
 
 		//-------Image processing pipeline---------
