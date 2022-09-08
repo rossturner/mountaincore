@@ -100,9 +100,9 @@ public class OutlineExtensionRenderer implements Disposable {
         }
     }
 
-    public void initFrameBuffers(int width, int height) {
-        this.width = width;
-        this.height = height;
+    public void initFrameBuffers(int widthInput, int heightInput) {
+        this.width = widthInput/2;
+        this.height = heightInput/2;
 
         FrameBuffer firstFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false, false);
         FrameBuffer secondFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false, false);

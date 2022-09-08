@@ -163,16 +163,9 @@ public class GameRenderer implements AssetDisposable {
 		//-------Image processing pipeline---------
 		TextureRegion overlay = null;
 		if (hasSelection) {
-//			TextureRegion outlined = imageProcessingRenderer.outline(selectedEntitiesTextureRegion, camera.zoom);
 			TextureRegion outlined = outlineExtensionRenderer.outline(selectedEntitiesTextureRegion);
-//			TextureRegion dilated = imageProcessingRenderer.dilate(selectedEntitiesTextureRegion, camera.zoom);
-//			TextureRegion a = imageProcessingRenderer.dilate(dilated, camera.zoom);
-//			TextureRegion b = imageProcessingRenderer.dilate(a, camera.zoom);
-//			TextureRegion c = imageProcessingRenderer.dilate(b, camera.zoom);
-//			TextureRegion d = imageProcessingRenderer.dilate(c, camera.zoom);
-//			TextureRegion blurred = imageProcessingRenderer.blur(dilated, camera.zoom);
-
-			overlay = outlined;
+			TextureRegion outlined2 = outlineExtensionRenderer.outline(outlined);
+			overlay = outlined2;
 		}
 
 

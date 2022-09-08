@@ -30,6 +30,10 @@ import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
+import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
+import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
+import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesGrowthStage;
 import technology.rocketjump.saul.environment.WeatherManager;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
@@ -77,8 +81,11 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	private final ItemEntityAttributesFactory itemEntityAttributesFactory;
 	private final CreatureEntityFactory creatureEntityFactory;
 	private final CreatureEntityAttributesFactory creatureEntityAttributesFactory;
-	private final RaceDictionary raceDictionary;
+	private final PlantEntityAttributesFactory plantEntityAttributesFactory;
+	private final PlantEntityFactory plantEntityFactory;
 	private final SelectBox<Race> raceSelect;
+	private final SelectBox<String> plantSpeciesSelect;
+	private final SelectBox<Integer> plantSpeciesGrowthStageSelect;
 	private final SelectBox<EntityNeed> needSelect;
 	private final SelectBox<Integer> needValueSelect;
 	private final ItemEntityFactory itemEntityFactory;
@@ -99,7 +106,9 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	public DebugGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 						ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary materialDictionary,
 						ItemEntityAttributesFactory itemEntityAttributesFactory,
-						CreatureEntityFactory creatureEntityFactory, CreatureEntityAttributesFactory creatureEntityAttributesFactory, RaceDictionary raceDictionary,
+						CreatureEntityFactory creatureEntityFactory, CreatureEntityAttributesFactory creatureEntityAttributesFactory,
+						RaceDictionary raceDictionary, PlantSpeciesDictionary plantSpeciesDictionary,
+						PlantEntityAttributesFactory plantEntityAttributesFactory, PlantEntityFactory plantEntityFactory,
 						ItemEntityFactory itemEntityFactory, SettlerFactory settlerFactory, WeatherManager weatherManager,
 						ImmigrationManager immigrationManager, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
@@ -109,12 +118,13 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 		this.itemEntityAttributesFactory = itemEntityAttributesFactory;
 		this.creatureEntityFactory = creatureEntityFactory;
 		this.creatureEntityAttributesFactory = creatureEntityAttributesFactory;
+		this.plantEntityAttributesFactory = plantEntityAttributesFactory;
+		this.plantEntityFactory = plantEntityFactory;
 		this.itemEntityFactory = itemEntityFactory;
 		this.settlerFactory = settlerFactory;
 		this.weatherManager = weatherManager;
 		this.immigrationManager = immigrationManager;
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
-		this.raceDictionary = raceDictionary;
 
 		layoutTable = new Table(uiSkin);
 
@@ -163,6 +173,18 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 
 		this.needSelect = new SelectBox<>(uiSkin);
 		this.needSelect.setItems(EntityNeed.values());
+
+		this.plantSpeciesSelect = new SelectBox<>(uiSkin);
+		this.plantSpeciesGrowthStageSelect = new SelectBox<>(uiSkin);
+
+		this.plantSpeciesSelect.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				List<PlantSpeciesGrowthStage> growthStages = plantSpeciesDictionary.getByName(plantSpeciesSelect.getSelected()).getGrowthStages();
+				plantSpeciesGrowthStageSelect.setItems(IntStream.range(0, growthStages.size()).boxed().toArray(Integer[]::new));
+			}
+		});
+		this.plantSpeciesSelect.setItems(plantSpeciesDictionary.getAll().stream().map(PlantSpecies::getSpeciesName).toArray(String[]::new));
 
 
 		Integer[] needValues = IntStream.rangeClosed((int) NeedsComponent.MIN_NEED_VALUE, (int) NeedsComponent.MAX_NEED_VALUE)
@@ -233,6 +255,20 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 					itemEntityFactory.create(attributes, tile.getTilePosition(), true, gameContext);
 				} else {
 					Logger.warn("Blocked spawning of item in tile that already contains an item");
+				}
+				break;
+			}
+			case SPAWN_PLANT: {
+
+				List<Entity> plantsInTile = tile.getEntities().stream().filter(e -> e.getType().equals(PLANT)).collect(Collectors.toList());
+
+				if (plantsInTile.isEmpty()) {
+					PlantEntityAttributes attributes = plantEntityAttributesFactory.createBySpeciesName(plantSpeciesSelect.getSelected());
+					attributes.setGrowthStageCursor(plantSpeciesGrowthStageSelect.getSelected());
+					Entity entity = plantEntityFactory.create(attributes, tile.getTilePosition(), gameContext);
+					messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, entity);
+				} else {
+					Logger.warn("Blocked spawning of plant in tile that already contains a plant");
 				}
 				break;
 			}
@@ -403,6 +439,9 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				} else if (currentAction.equals(DebugAction.CHANGE_CREATURE_NEED)) {
 					layoutTable.add(needSelect).pad(5).left().row();
 					layoutTable.add(needValueSelect).pad(5).left().row();
+				} else if (currentAction.equals(DebugAction.SPAWN_PLANT)) {
+					layoutTable.add(plantSpeciesSelect).pad(5).left().row();
+					layoutTable.add(plantSpeciesGrowthStageSelect).pad(5).left().row();
 				}
 			} else {
 				layoutTable.setBackground((Drawable) null);
