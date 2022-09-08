@@ -127,7 +127,7 @@ public class VertexColorSpriteBatch implements Disposable {
 	 * Returns a new instance of the default shader used by SpriteBatch for GL2 when no shader is specified.
 	 */
 	static public ShaderProgram createDefaultShader() {
-		FileHandle vertexShaderFile = Gdx.files.classpath("shaders/default_vertex_shader.glsl");
+		FileHandle vertexShaderFile = ShaderLoader.DEFAULT_VERTEX_SHADER;
 		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/default_fragment_shader.glsl");
 		return ShaderLoader.createShader(vertexShaderFile, fragmentShaderFile);
 	}

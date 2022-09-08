@@ -93,6 +93,9 @@ public class InWorldUIRenderer {
 	private boolean blinkState = true;
 	private float elapsedSeconds;
 
+	private Set<Entity> targetedCreatures = new HashSet<>();
+	private Set<Entity> currentSquadTargetedCreatures = new HashSet<>();
+
 	@Inject
 	public InWorldUIRenderer(GameInteractionStateContainer interactionStateContainer, EntityRenderer entityRenderer,
 							 TerrainRenderer terrainRenderer, RoomRenderer roomRenderer, RenderingOptions renderingOptions, JobStore jobStore,
@@ -116,16 +119,67 @@ public class InWorldUIRenderer {
 		FurnitureType singleDoorType = furnitureTypeDictionary.getByName("SINGLE_DOOR");
 		this.doorIconSprite = iconSpriteCache.getByName(singleDoorType.getIconName());
 
-
-
-		FileHandle vertexShaderFile = Gdx.files.classpath("shaders/default_vertex_shader.glsl"); //TODO: should be a constant somewhere?
+		FileHandle vertexShaderFile = ShaderLoader.DEFAULT_VERTEX_SHADER;
 		FileHandle alphaPreservingFragmentShader = Gdx.files.classpath("shaders/alpha_preserving_fragment_shader.glsl");
 		this.selectedEntitySpriteBatch = new SpriteBatch(100, ShaderLoader.createShader(vertexShaderFile, alphaPreservingFragmentShader));
 	}
 
+	public boolean renderEntityMasks(OrthographicCamera camera, GameContext gameContext) {
+		determineTargetedCreatures(gameContext);
+		boolean hasEntitySelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.ENTITY;
+		boolean hasSquadSelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.SQUAD;
+		boolean hasTargets = !targetedCreatures.isEmpty() || !currentSquadTargetedCreatures.isEmpty();
 
-	private Set<Entity> targetedCreatures = new HashSet<>();
-	private Set<Entity> currentSquadTargetedCreatures = new HashSet<>();
+		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		if (hasEntitySelected || hasTargets || hasSquadSelected) {
+			selectedEntitySpriteBatch.setProjectionMatrix(camera.combined);
+			selectedEntitySpriteBatch.enableBlending();
+			selectedEntitySpriteBatch.begin();
+
+
+			Selectable selectable = interactionStateContainer.getSelectable();
+			if (hasEntitySelected) {
+				Entity selectableEntity = selectable.getEntity();
+				renderEntityWithFactionColor(selectableEntity);
+			}
+
+			if (hasSquadSelected) {
+				Squad squad = selectable.getSquad();
+				for (Long memberEntityId : squad.getMemberEntityIds()) {
+					Entity squadMember = gameContext.getEntities().get(memberEntityId);
+					if (squadMember != null) {
+						renderEntityWithFactionColor(squadMember);
+					}
+				}
+			}
+
+			for (Entity targetedCreature : targetedCreatures) {
+				Color color = Color.ORANGE;
+				entityRenderer.render(targetedCreature, selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, color, null);
+			}
+			for (Entity targetedCreature : currentSquadTargetedCreatures) {
+				Color color = Color.RED;
+				entityRenderer.render(targetedCreature, selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, color, null);
+			}
+
+			selectedEntitySpriteBatch.end();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private void renderEntityWithFactionColor(Entity selectableEntity) {
+		Color color;
+		FactionComponent factionComponent = selectableEntity.getComponent(FactionComponent.class);
+		if (factionComponent != null) {
+			color = factionComponent.getFaction().defensePoolBarColor;
+		} else {
+			color = Faction.SETTLEMENT.defensePoolBarColor;
+		}
+		entityRenderer.render(selectableEntity, selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, color, null);
+	}
 
 	private void determineTargetedCreatures(GameContext gameContext) {
 		targetedCreatures.clear();
@@ -162,62 +216,8 @@ public class InWorldUIRenderer {
 		}
 	}
 
-	public boolean renderEntityMasks(OrthographicCamera camera, GameContext gameContext) {
-		determineTargetedCreatures(gameContext);
-		boolean hasEntitySelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.ENTITY;
-		boolean hasSquadSelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.SQUAD;
-		boolean hasTargets = !targetedCreatures.isEmpty() || !currentSquadTargetedCreatures.isEmpty();
-
-		Gdx.gl.glClearColor(0, 0, 0, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		if (hasEntitySelected || hasTargets || hasSquadSelected) {
-			selectedEntitySpriteBatch.setProjectionMatrix(camera.combined);
-			selectedEntitySpriteBatch.enableBlending();
-			selectedEntitySpriteBatch.begin();
 
 
-			Selectable selectable = interactionStateContainer.getSelectable();
-			if (hasEntitySelected) {
-				Entity selectableEntity = selectable.getEntity();
-				renderEntityWithFactionColour(selectableEntity);
-			}
-
-			if (hasSquadSelected) {
-				Squad squad = selectable.getSquad();
-				for (Long memberEntityId : squad.getMemberEntityIds()) {
-					Entity squadMember = gameContext.getEntities().get(memberEntityId);
-					if (squadMember != null) {
-						renderEntityWithFactionColour(squadMember);
-					}
-				}
-			}
-
-			for (Entity targetedCreature : targetedCreatures) {
-				Color color = Color.ORANGE;
-				entityRenderer.render(targetedCreature, selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, color, null);
-			}
-			for (Entity targetedCreature : currentSquadTargetedCreatures) {
-				Color color = Color.RED;
-				entityRenderer.render(targetedCreature, selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, color, null);
-			}
-
-			selectedEntitySpriteBatch.end();
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	private void renderEntityWithFactionColour(Entity selectableEntity) {
-		Color color;
-		FactionComponent factionComponent = selectableEntity.getComponent(FactionComponent.class);
-		if (factionComponent != null) {
-			color = factionComponent.getFaction().defensePoolBarColor;
-		} else {
-			color = Faction.SETTLEMENT.defensePoolBarColor;
-		}
-		entityRenderer.render(selectableEntity, selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, color, null);
-	}
 
 	public void render(GameContext gameContext, OrthographicCamera camera, List<ParticleEffectInstance> particlesToRenderAsUI, TerrainSpriteCache diffuseSpriteCache) {
 		TiledMap map = gameContext.getAreaMap();

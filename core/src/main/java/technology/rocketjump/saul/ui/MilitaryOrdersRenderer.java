@@ -40,7 +40,7 @@ public class MilitaryOrdersRenderer {
 		this.interactionStateContainer = interactionStateContainer;
 		this.entityRenderer = entityRenderer;
 
-		FileHandle vertexShaderFile = Gdx.files.classpath("shaders/default_vertex_shader.glsl");
+		FileHandle vertexShaderFile = ShaderLoader.DEFAULT_VERTEX_SHADER;
 		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/greyscale_texture_fragment_shader.glsl");
 		greyscaleSpriteBatch.setShader(ShaderLoader.createShader(vertexShaderFile, fragmentShaderFile));
 	}

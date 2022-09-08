@@ -62,7 +62,6 @@ public class GameRenderer implements AssetDisposable {
 	private final CombinedLightingResultRenderer combinedRenderer;
 	private final DebugRenderer debugRenderer;
 	private final InWorldUIRenderer inWorldUIRenderer;
-	private final ImageProcessingRenderer imageProcessingRenderer;
 	private final MilitaryOrdersRenderer militaryOrdersRenderer;
 
 	private final TerrainSpriteCache diffuseSpriteCache;
@@ -77,7 +76,6 @@ public class GameRenderer implements AssetDisposable {
 						RenderingOptions renderingOptions, WorldRenderer worldRenderer, WorldLightingRenderer worldLightingRenderer,
 						CombinedLightingResultRenderer combinedRenderer, DebugRenderer debugRenderer,
 						InWorldUIRenderer inWorldUIRenderer,
-						ImageProcessingRenderer imageProcessingRenderer,
 						MilitaryOrdersRenderer militaryOrdersRenderer,
 						@Named("diffuse") TerrainSpriteCache diffuseSpriteCache,
 						@Named("normal") TerrainSpriteCache normalSpriteCache,
@@ -90,7 +88,6 @@ public class GameRenderer implements AssetDisposable {
 		this.debugRenderer = debugRenderer;
 		this.inWorldUIRenderer = inWorldUIRenderer;
 		this.militaryOrdersRenderer = militaryOrdersRenderer;
-		this.imageProcessingRenderer = imageProcessingRenderer;
 		this.diffuseSpriteCache = diffuseSpriteCache;
 		this.normalSpriteCache = normalSpriteCache;
 		this.screenWriter = screenWriter;
@@ -163,12 +160,10 @@ public class GameRenderer implements AssetDisposable {
 		//-------Image processing pipeline---------
 		TextureRegion overlay = null;
 		if (hasSelection) {
-			TextureRegion outlined = outlineExtensionRenderer.outline(selectedEntitiesTextureRegion);
-			TextureRegion outlined2 = outlineExtensionRenderer.outline(outlined);
-			overlay = outlined2;
+			TextureRegion firstOutlinePass = outlineExtensionRenderer.outline(selectedEntitiesTextureRegion);
+			TextureRegion secondOutlinePass = outlineExtensionRenderer.outline(firstOutlinePass);
+			overlay = secondOutlinePass;
 		}
-
-
 
 		/////// Draw lighting info ///
 		lightingFrameBuffer.begin();
@@ -220,7 +215,7 @@ public class GameRenderer implements AssetDisposable {
 		} else {
 			combinedRenderer.renderFinal(diffuseTextureRegion, lightingTextureRegion, fadeAmount);
 			if (overlay != null) {
-				combinedRenderer.renderstuff(overlay, selectedEntitiesTextureRegion);
+				combinedRenderer.renderOverlay(overlay, selectedEntitiesTextureRegion);
 			}
 			inWorldUIRenderer.render(gameContext, camera, particlesToRenderAsUI, diffuseSpriteCache);
 			militaryOrdersRenderer.render(gameContext, camera);
@@ -257,7 +252,6 @@ public class GameRenderer implements AssetDisposable {
 		selectedEntitiesTextureRegion = new TextureRegion(selectedEntitiesFrameBuffer.getColorBufferTexture(), width, height);
 		selectedEntitiesTextureRegion.flip(false, true);
 
-		imageProcessingRenderer.initFrameBuffers(width, height);
 		outlineExtensionRenderer.initFrameBuffers(width, height);
 
 
@@ -278,8 +272,8 @@ public class GameRenderer implements AssetDisposable {
 		textureRegionNames[2] = "Lighting Texture";
 		textureRegionNames[3] = "Selected Entities Texture";
 
-		textureRegionNames[4] = "Image Processor 1 Texture";
-		textureRegionNames[5] = "Image Processor 2 Texture";
+		textureRegionNames[4] = "Outline Extension 1 Texture";
+		textureRegionNames[5] = "Outline Extension 2 Texture";
 
 		textureRegionNames[6] = "Combined Texture";
 	}
@@ -289,7 +283,6 @@ public class GameRenderer implements AssetDisposable {
 		normalMapFrameBuffer.dispose();
 		lightingFrameBuffer.dispose();
 		combinedFrameBuffer.dispose();
-		imageProcessingRenderer.dispose();
 		outlineExtensionRenderer.dispose();
 		textureRegions = null;
 	}

@@ -77,8 +77,7 @@ public class CombinedLightingResultRenderer implements Disposable {
 		combinedShader.end();
 	}
 
-	//TODO: this is dirty
-	public void renderstuff(TextureRegion overlay, TextureRegion toSubtract) {
+	public void renderOverlay(TextureRegion overlay, TextureRegion toSubtract) {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 
 		overlayShader.begin();
@@ -89,7 +88,6 @@ public class CombinedLightingResultRenderer implements Disposable {
 
 		fullScreenMesh.render(overlayShader, GL20.GL_TRIANGLES);
 		overlayShader.end();
-
 	}
 
 	@Override

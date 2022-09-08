@@ -14,7 +14,6 @@ public class OutlineExtensionRenderer implements Disposable {
     private static final int NUM_TRIANGLES = 2;
     private static final int VERTEX_SIZE = 2;
     private static final int NUM_INDEX_PER_TRIANGLE = 3;
-    //Remember these are column oriented
 
     private FrameBuffer[] frameBuffers;
     private TextureRegion[] textureRegions;
@@ -79,11 +78,7 @@ public class OutlineExtensionRenderer implements Disposable {
         shader.begin();
         shader.setUniformi("u_texture", 0);
         input.getTexture().bind(0);
-//        shader.setUniform2f("u_step", step);
-//        shader.setUniformi("u_reduceByMax", reduceByMax ? 1 : 0);
         shader.setUniform2fv("u_viewportResolution", new float[] {width, height}, 0, 2);
-//        shader.setUniformMatrix("u_kernelX", kernelX);
-//        shader.setUniformMatrix("u_kernelY", kernelY);
 
         fullScreenMesh.render(shader, GL20.GL_TRIANGLES);
 
