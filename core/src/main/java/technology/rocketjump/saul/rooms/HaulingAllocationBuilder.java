@@ -95,6 +95,7 @@ public class HaulingAllocationBuilder {
 		switch (targetEntity.getType()) {
 			case FURNITURE -> allocation.setTargetPositionType(FURNITURE);
 			case CREATURE -> allocation.setTargetPositionType(CREATURE);
+			case ITEM -> allocation.setTargetPositionType(FLOOR);
 			default -> throw new NotImplementedException(targetEntity.getType() + " not implemented in " + getClass().getSimpleName() + ".toEntity()");
 		}
 		return build();
