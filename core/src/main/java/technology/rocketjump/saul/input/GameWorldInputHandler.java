@@ -79,8 +79,11 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	@Override
 	public boolean keyUp(int keycode) {
+		boolean leftControlPressed = Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT);
 		if (GlobalSettings.DEV_MODE) {
-			if (keycode == Input.Keys.J) {
+			if (leftControlPressed && keycode >= Input.Keys.NUM_0 && keycode <= Input.Keys.NUM_9) {
+				renderingOptions.debug().setFrameBufferIndex(keycode - Input.Keys.NUM_0);
+			} else if (keycode == Input.Keys.J) {
 				renderingOptions.debug().setShowJobStatus(!renderingOptions.debug().showJobStatus());
 			} else if (keycode == Input.Keys.O) {
 				renderingOptions.toggleFloorOverlapRenderingEnabled();
@@ -104,6 +107,9 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		}
 
 
+		if (leftControlPressed) {
+			return true;
+		}
 		if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT) {
 			primaryCameraWrapper.setPanSpeedMultiplier(false);
 		} else if (keycode == Input.Keys.NUM_1 && gameContext != null) {

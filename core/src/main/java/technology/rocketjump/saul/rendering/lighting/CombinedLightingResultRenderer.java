@@ -18,7 +18,9 @@ public class CombinedLightingResultRenderer implements Disposable {
 	private static final int VERTEX_SIZE = 2;
 	private static final int NUM_INDEX_PER_TRIANGLE = 3;
 	private final ShaderProgram combinedShader;
-	private Mesh fullScrenMesh;
+	private final ShaderProgram overlayShader;
+	private final ShaderProgram transparentOverlayShader;
+	private Mesh fullScreenMesh;
 
 	@Inject
 	public CombinedLightingResultRenderer() {
@@ -28,7 +30,7 @@ public class CombinedLightingResultRenderer implements Disposable {
 		int MAX_INDICES = NUM_TRIANGLES * NUM_INDEX_PER_TRIANGLE;
 		short[] indices = new short[MAX_INDICES];
 
-		fullScrenMesh = new Mesh(Mesh.VertexDataType.VertexArray, true, MAX_VERTICES, MAX_INDICES,
+		fullScreenMesh = new Mesh(Mesh.VertexDataType.VertexArray, true, MAX_VERTICES, MAX_INDICES,
 						new VertexAttribute(VertexAttributes.Usage.Position, 2, ShaderProgram.POSITION_ATTRIBUTE)
 				);
 
@@ -45,7 +47,7 @@ public class CombinedLightingResultRenderer implements Disposable {
 
 		vertices[vertexIndex++] = 1f;
 		vertices[vertexIndex++] = -1f;
-		fullScrenMesh.setVertices(vertices);
+		fullScreenMesh.setVertices(vertices);
 
 		indices[0] = 0; // indices for triangle with vertices [0, 1, 2] [2, 3, 0]
 		indices[1] = 1;
@@ -53,11 +55,14 @@ public class CombinedLightingResultRenderer implements Disposable {
 		indices[3] = 2;
 		indices[4] = 3;
 		indices[5] = 0;
-		fullScrenMesh.setIndices(indices);
+		fullScreenMesh.setIndices(indices);
 
 		FileHandle vertexShaderFile = Gdx.files.classpath("shaders/combined_lighting_vertex_shader.glsl");
 		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/combined_lighting_fragment_shader.glsl");
 		combinedShader = ShaderLoader.createShader(vertexShaderFile, fragmentShaderFile);
+
+		overlayShader = ShaderLoader.createShader(vertexShaderFile, Gdx.files.classpath("shaders/overlay_fragment_shader.glsl"));
+		transparentOverlayShader = ShaderLoader.createShader(vertexShaderFile, Gdx.files.classpath("shaders/transparent_overlay_fragment_shader.glsl"));
 	}
 
 	public void renderFinal(TextureRegion diffuseTextureRegion, TextureRegion lightingTextureRegion, float fadeAmount) {
@@ -70,13 +75,38 @@ public class CombinedLightingResultRenderer implements Disposable {
 		diffuseTextureRegion.getTexture().bind(0);
 		combinedShader.setUniformf("u_alpha", 1 - fadeAmount);
 
-
-		fullScrenMesh.render(combinedShader, GL20.GL_TRIANGLES);
+		fullScreenMesh.render(combinedShader, GL20.GL_TRIANGLES);
 		combinedShader.end();
+	}
+
+	public void renderOverlay(TextureRegion overlay, TextureRegion toSubtract) {
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+
+		overlayShader.begin();
+		overlayShader.setUniformi("u_textureToSubtract", 1);
+		toSubtract.getTexture().bind(1);
+		overlayShader.setUniformi("u_textureOverlay", 0);
+		overlay.getTexture().bind(0);
+
+		fullScreenMesh.render(overlayShader, GL20.GL_TRIANGLES);
+		overlayShader.end();
 	}
 
 	@Override
 	public void dispose() {
 		combinedShader.dispose();
+	}
+
+	public void renderTransparentOverlay(TextureRegion overlay) {
+		float alpha = 0.45f;
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+
+		transparentOverlayShader.begin();
+		transparentOverlayShader.setUniformi("u_textureOverlay", 0);
+		overlay.getTexture().bind(0);
+		transparentOverlayShader.setUniformf("u_alpha", alpha);
+
+		fullScreenMesh.render(transparentOverlayShader, GL20.GL_TRIANGLES);
+		transparentOverlayShader.end();
 	}
 }

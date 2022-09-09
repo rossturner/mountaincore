@@ -55,7 +55,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 		this.assetDictionary = completeAssetDictionary;
 		this.renderLayerDictionary = renderLayerDictionary;
 
-		FileHandle defaultVertexShaderFile = Gdx.files.classpath("shaders/default_vertex_shader.glsl");
+		FileHandle defaultVertexShaderFile = ShaderLoader.DEFAULT_VERTEX_SHADER;
 		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/invert_normal_map_red_channel_fragment_shader.glsl");
 		inverseNormalShader = ShaderLoader.createShader(defaultVertexShaderFile, fragmentShaderFile);
 

@@ -6,11 +6,12 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 public class ShaderLoader {
 
+	public static final FileHandle DEFAULT_VERTEX_SHADER = Gdx.files.classpath("shaders/default_vertex_shader.glsl");
 	public static ShaderProgram defaultShaderInstance;
+
 	static {
-		FileHandle vertexShaderFile = Gdx.files.classpath("shaders/default_vertex_shader.glsl");
 		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/default_fragment_shader.glsl");
-		defaultShaderInstance = ShaderLoader.createShader(vertexShaderFile, fragmentShaderFile);
+		defaultShaderInstance = ShaderLoader.createShader(DEFAULT_VERTEX_SHADER, fragmentShaderFile);
 	}
 
 	public static ShaderProgram createShader(FileHandle vertexShaderFile, FileHandle fragmentShaderFile) {
