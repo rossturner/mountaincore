@@ -32,7 +32,7 @@ import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
 @Singleton
 public class CombatTracker implements Updatable, Telegraph {
 
-	private static final float COMBAT_ROUND_DURATION = 3.5f;
+	public static final float COMBAT_ROUND_DURATION = 3.5f;
 	private static final float COMBAT_ROUND_INITIAL_DELAY = 0.25f;
 	private static final float COMBAT_ROUND_CLOSING_DELAY = COMBAT_ROUND_DURATION * 0.3f;
 	private static final float MAX_TIME_BETWEEN_ATTACKS = 0.4f;
@@ -208,6 +208,10 @@ public class CombatTracker implements Updatable, Telegraph {
 
 	private boolean allActionsResolved() {
 		return actionsToResolveThisRound.stream().allMatch(CombatAction::isCompleted);
+	}
+
+	public Collection<Entity> getEntitiesInCombat() {
+		return entitiesInCombatById.values();
 	}
 
 	@Override

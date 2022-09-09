@@ -74,7 +74,6 @@ public class MainGameScreen implements GameContextAware, GameScreen, Telegraph {
 	}
 
 	private void updateGameLogic(float deltaTime) {
-		screenWriter.clearText();
 		float multipliedDeltaTime = deltaTime * gameContext.getGameClock().getSpeedMultiplier();
 		GdxAI.getTimepiece().update(multipliedDeltaTime); // This is used for message delays, not actual AI, so runs when paused
 		if (!gameContext.getGameClock().isPaused() && !gameContext.getSettlementState().getGameState().equals(SELECT_SPAWN_LOCATION) &&

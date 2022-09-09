@@ -42,7 +42,7 @@ public class ScreenWriter {
 		stage.addActor(label);
 	}
 
-	public void clearText() {
+	private void clearText() {
 		lines.clear();
 	}
 
@@ -71,6 +71,8 @@ public class ScreenWriter {
 
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
+
+		clearText();
 	}
 
 	public void onResize(int screenWidth, int screenHeight) {

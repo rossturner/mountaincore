@@ -10,9 +10,9 @@ import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.assets.model.WallType;
 import technology.rocketjump.saul.doors.Doorway;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
-import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.DoorwayEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -194,8 +194,10 @@ public class MapTile implements Persistable {
 			if (getFloor().hasBridge() && !getFloor().isBridgeNavigable()) {
 				return false;
 			}
-			if (hasDoorway() && requestingEntity != null && requestingEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
-				return false;
+			if (hasDoorway() && requestingEntity != null && requestingEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureAttributes) {
+				if (!creatureAttributes.getRace().getBehaviour().getIsSapient()) {
+					return false;
+				}
 			}
 			for (Entity entity : getEntities()) {
 				if (entity.getType().equals(EntityType.FURNITURE)) {

@@ -443,7 +443,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					messageDispatcher.dispatchMessage(MessageType.LIQUID_ALLOCATION_CANCELLED, allocation.getLiquidAllocation());
 				}
 
-				if (allocation.getHauledEntityType().equals(CREATURE)) {
+				if (allocation.getHauledEntityType().equals(EntityType.CREATURE)) {
 					// Probably assigned to a piece of furniture somewhere
 					if (allocation.getTargetPositionType().equals(HaulingAllocation.AllocationPositionType.FURNITURE)) {
 						Entity targetFurniture = entityStore.getById(allocation.getTargetId());
@@ -454,7 +454,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						}
 					}
 					return true;
-				} else if (allocation.getHauledEntityType().equals(ITEM)) {
+				} else if (allocation.getHauledEntityType().equals(EntityType.ITEM)) {
 					if (allocation.getItemAllocation() == null) {
 						Logger.warn("Item Hauling allocation does not have an item allocation");
 						return true;
