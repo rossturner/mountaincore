@@ -45,8 +45,15 @@ public class GameRenderer implements AssetDisposable {
 	private TextureRegion bumpMapTextureRegion;
 	private FrameBuffer lightingFrameBuffer;
 	private TextureRegion lightingTextureRegion;
+	private FrameBuffer selectedEntitiesFrameBuffer;
+	private TextureRegion selectedEntitiesTextureRegion;
+	private FrameBuffer militaryOrdersFrameBuffer;
+	private TextureRegion militaryOrdersTextureRegion;
 	private FrameBuffer combinedFrameBuffer;
 	private TextureRegion combinedTextureRegion;
+
+	private TextureRegion[] textureRegions;
+	private String[] textureRegionNames;
 
 	private final OrthographicCamera viewportCamera;
 
@@ -64,15 +71,17 @@ public class GameRenderer implements AssetDisposable {
 
 	private final List<ParticleEffectInstance> particlesToRenderAsUI = new LinkedList<>();
 	private final ScreenWriter screenWriter;
+	private final OutlineExtensionRenderer outlineExtensionRenderer;
 
 	@Inject
 	public GameRenderer(LightProcessor lightProcessor,
 						RenderingOptions renderingOptions, WorldRenderer worldRenderer, WorldLightingRenderer worldLightingRenderer,
 						CombinedLightingResultRenderer combinedRenderer, DebugRenderer debugRenderer,
-						InWorldUIRenderer inWorldUIRenderer, MilitaryOrdersRenderer militaryOrdersRenderer,
+						InWorldUIRenderer inWorldUIRenderer,
+						MilitaryOrdersRenderer militaryOrdersRenderer,
 						@Named("diffuse") TerrainSpriteCache diffuseSpriteCache,
 						@Named("normal") TerrainSpriteCache normalSpriteCache,
-						ScreenWriter screenWriter) {
+						ScreenWriter screenWriter, OutlineExtensionRenderer outlineExtensionRenderer) {
 		this.lightProcessor = lightProcessor;
 		this.renderingOptions = renderingOptions;
 		this.worldRenderer = worldRenderer;
@@ -84,6 +93,7 @@ public class GameRenderer implements AssetDisposable {
 		this.diffuseSpriteCache = diffuseSpriteCache;
 		this.normalSpriteCache = normalSpriteCache;
 		this.screenWriter = screenWriter;
+		this.outlineExtensionRenderer = outlineExtensionRenderer;
 
 		try {
 			initFrameBuffers(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -144,8 +154,26 @@ public class GameRenderer implements AssetDisposable {
 		worldRenderer.renderWorld(worldMap, camera, normalSpriteCache, RenderMode.NORMALS, null, null);
 		normalMapFrameBuffer.end();
 
-		/////// Draw lighting info ///
+		//--------Render selected entities---------
+		selectedEntitiesFrameBuffer.begin();
 
+		boolean hasSelection = inWorldUIRenderer.renderEntityMasks(camera, gameContext);
+		selectedEntitiesFrameBuffer.end();
+
+		//-------Image processing pipeline---------
+		TextureRegion overlay = null;
+		if (hasSelection) {
+			TextureRegion firstOutlinePass = outlineExtensionRenderer.outline(selectedEntitiesTextureRegion);
+			TextureRegion secondOutlinePass = outlineExtensionRenderer.outline(firstOutlinePass);
+			overlay = secondOutlinePass;
+		}
+
+		//-------Military orders-------------------
+		militaryOrdersFrameBuffer.begin();
+		militaryOrdersRenderer.render(gameContext, camera);
+		militaryOrdersFrameBuffer.end();
+
+		/////// Draw lighting info ///
 		lightingFrameBuffer.begin();
 		worldLightingRenderer.renderWorldLighting(gameContext, lightsToRenderThisFrame, camera, bumpMapTextureRegion);
 		lightingFrameBuffer.end();
@@ -163,22 +191,42 @@ public class GameRenderer implements AssetDisposable {
 			frameBufferSpriteBatch.setProjectionMatrix(viewportCamera.projection);
 
 			frameBufferSpriteBatch.draw(diffuseTextureRegion, -Gdx.graphics.getWidth() / 2.0f, 0f,
-					Gdx.graphics.getWidth() / 2.0f,  Gdx.graphics.getHeight() / 2.0f);
+					Gdx.graphics.getWidth() / 2.0f, Gdx.graphics.getHeight() / 2.0f);
 
 			frameBufferSpriteBatch.draw(bumpMapTextureRegion, 0f, 0f,
-					Gdx.graphics.getWidth() / 2.0f,  Gdx.graphics.getHeight() / 2.0f);
+					Gdx.graphics.getWidth() / 2.0f, Gdx.graphics.getHeight() / 2.0f);
 
 			frameBufferSpriteBatch.draw(lightingTextureRegion, -Gdx.graphics.getWidth() / 2.0f, -Gdx.graphics.getHeight() / 2.0f,
-					Gdx.graphics.getWidth() / 2.0f,  Gdx.graphics.getHeight() / 2.0f);
+					Gdx.graphics.getWidth() / 2.0f, Gdx.graphics.getHeight() / 2.0f);
 
 			frameBufferSpriteBatch.draw(combinedTextureRegion, 0f, -Gdx.graphics.getHeight() / 2.0f,
-					Gdx.graphics.getWidth() / 2.0f,  Gdx.graphics.getHeight() / 2.0f);
+					Gdx.graphics.getWidth() / 2.0f, Gdx.graphics.getHeight() / 2.0f);
 
+			frameBufferSpriteBatch.end();
+		} else if (renderingOptions.debug().getFrameBufferIndex() > 0 && renderingOptions.debug().getFrameBufferIndex() <= textureRegions.length) {
+			//0 means render game normally
+			int frameBufferIndex = renderingOptions.debug().getFrameBufferIndex();
+
+			TextureRegion toRender = textureRegions[frameBufferIndex - 1];
+			String textureRegionName = textureRegionNames[frameBufferIndex - 1];
+			screenWriter.printLine(textureRegionName);
+
+			combinedFrameBuffer.begin();
+			combinedRenderer.renderFinal(diffuseTextureRegion, lightingTextureRegion, fadeAmount);
+			combinedFrameBuffer.end();
+
+			frameBufferSpriteBatch.begin();
+			frameBufferSpriteBatch.disableBlending();
+			frameBufferSpriteBatch.setProjectionMatrix(viewportCamera.projection);
+			frameBufferSpriteBatch.draw(toRender, -Gdx.graphics.getWidth() / 2.0f, -Gdx.graphics.getHeight() / 2.0f, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			frameBufferSpriteBatch.end();
 		} else {
 			combinedRenderer.renderFinal(diffuseTextureRegion, lightingTextureRegion, fadeAmount);
+			if (overlay != null) {
+				combinedRenderer.renderOverlay(overlay, selectedEntitiesTextureRegion);
+			}
+			combinedRenderer.renderTransparentOverlay(militaryOrdersTextureRegion);
 			inWorldUIRenderer.render(gameContext, camera, particlesToRenderAsUI, diffuseSpriteCache);
-			militaryOrdersRenderer.render(gameContext, camera);
 		}
 
 		debugRenderer.render(worldMap, camera);
@@ -207,6 +255,42 @@ public class GameRenderer implements AssetDisposable {
 		combinedFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, /* hasDepth */ false, /* hasStencil */ false);
 		combinedTextureRegion = new TextureRegion(combinedFrameBuffer.getColorBufferTexture(), width, height);
 		combinedTextureRegion.flip(false, true);
+
+		selectedEntitiesFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false, false);
+		selectedEntitiesTextureRegion = new TextureRegion(selectedEntitiesFrameBuffer.getColorBufferTexture(), width, height);
+		selectedEntitiesTextureRegion.flip(false, true);
+
+		outlineExtensionRenderer.initFrameBuffers(width, height);
+
+		militaryOrdersFrameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false, false);
+		militaryOrdersTextureRegion = new TextureRegion(militaryOrdersFrameBuffer.getColorBufferTexture(), width, height);
+		militaryOrdersTextureRegion.flip(false, true);
+
+		int frameBufferCount = 8;
+		textureRegions = new TextureRegion[frameBufferCount];
+		textureRegions[0] = diffuseTextureRegion;
+		textureRegions[1] = bumpMapTextureRegion;
+		textureRegions[2] = lightingTextureRegion;
+		textureRegions[3] = selectedEntitiesTextureRegion;
+
+		textureRegions[4] = outlineExtensionRenderer.getFirstTextureRegion();
+		textureRegions[5] = outlineExtensionRenderer.getSecondTextureRegion();
+		textureRegions[6] = militaryOrdersTextureRegion;
+
+		textureRegions[7] = combinedTextureRegion;
+
+		textureRegionNames = new String[frameBufferCount];
+		textureRegionNames[0] = "Diffuse Texture";
+		textureRegionNames[1] = "Bump Map Texture";
+		textureRegionNames[2] = "Lighting Texture";
+		textureRegionNames[3] = "Selected Entities Texture";
+
+		textureRegionNames[4] = "Outline Extension 1 Texture";
+		textureRegionNames[5] = "Outline Extension 2 Texture";
+
+		textureRegionNames[6] = "Military orders texture";
+
+		textureRegionNames[7] = "Combined Texture";
 	}
 
 	private void disposeFrameBuffers() {
@@ -214,6 +298,9 @@ public class GameRenderer implements AssetDisposable {
 		normalMapFrameBuffer.dispose();
 		lightingFrameBuffer.dispose();
 		combinedFrameBuffer.dispose();
+		outlineExtensionRenderer.dispose();
+		militaryOrdersFrameBuffer.dispose();
+		textureRegions = null;
 	}
 
 }

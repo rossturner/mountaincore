@@ -454,7 +454,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						}
 					}
 					return true;
-				} else if (allocation.getHauledEntityType().equals(ITEM)) {
+				} else if (allocation.getHauledEntityType().equals(EntityType.ITEM)) {
 					if (allocation.getItemAllocation() == null) {
 						Logger.warn("Item Hauling allocation does not have an item allocation");
 						return true;

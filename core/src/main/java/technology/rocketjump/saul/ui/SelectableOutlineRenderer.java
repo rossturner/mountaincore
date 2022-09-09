@@ -7,14 +7,10 @@ import com.badlogic.gdx.math.Vector2;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.military.model.Squad;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.rendering.utils.HexColors.NEGATIVE_COLOR;
 
 public class SelectableOutlineRenderer {
@@ -25,38 +21,7 @@ public class SelectableOutlineRenderer {
 
 		switch (selectable.type) {
 			case SQUAD:
-				Squad squad = selectable.getSquad();
-				for (Long memberEntityId : squad.getMemberEntityIds()) {
-					Entity squadMember = gameContext.getEntities().get(memberEntityId);
-					if (squadMember != null) {
-						renderCircleAroundEntity(squadMember, shapeRenderer, gameContext);
-					}
-				}
-				break;
 			case ENTITY:
-				Entity selectedEntity = selectable.getEntity();
-
-				Vector2 worldPosition = selectedEntity.getLocationComponent().getWorldPosition();
-				if (worldPosition == null) {
-					break;
-				}
-				switch (selectedEntity.getType()) {
-					case ITEM:
-					case PLANT:
-					case CREATURE:
-						renderCircleAroundEntity(selectedEntity, shapeRenderer, gameContext);
-						break;
-					case FURNITURE:
-						Set<GridPoint2> entityLocations = new HashSet<>();
-						GridPoint2 entityLocation = toGridPoint(worldPosition);
-						entityLocations.add(entityLocation);
-						FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) selectedEntity.getPhysicalEntityComponent().getAttributes();
-						for (GridPoint2 extraTileOffset : attributes.getCurrentLayout().getExtraTiles()) {
-							entityLocations.add(entityLocation.cpy().add(extraTileOffset));
-						}
-						renderTileOutline(entityLocations, shapeRenderer);
-						break;
-				}
 				break;
 			case ROOM:
 				renderTileOutline(selectable.getRoom().getRoomTiles().keySet(), shapeRenderer);
