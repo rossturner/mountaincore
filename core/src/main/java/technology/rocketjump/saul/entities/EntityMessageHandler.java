@@ -443,7 +443,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					messageDispatcher.dispatchMessage(MessageType.LIQUID_ALLOCATION_CANCELLED, allocation.getLiquidAllocation());
 				}
 
-				if (allocation.getHauledEntityType().equals(CREATURE)) {
+				if (allocation.getHauledEntityType().equals(EntityType.CREATURE)) {
 					// Probably assigned to a piece of furniture somewhere
 					if (allocation.getTargetPositionType().equals(HaulingAllocation.AllocationPositionType.FURNITURE)) {
 						Entity targetFurniture = entityStore.getById(allocation.getTargetId());
