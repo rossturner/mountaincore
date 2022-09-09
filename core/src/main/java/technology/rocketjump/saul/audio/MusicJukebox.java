@@ -38,7 +38,7 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 			this.stopped = true;
 		}
 
-		FileHandle musicDir = new FileHandle("assets/music");
+		FileHandle musicDir = new FileHandle("assets/music/peaceful");
 
 		FileHandle mainMusic = null;
 		for (FileHandle fileHandle : musicDir.list()) {
