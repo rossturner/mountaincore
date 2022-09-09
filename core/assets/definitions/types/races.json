@@ -348,7 +348,8 @@
       "modifiedByStrength" : true,
       "minDamage" : 1,
       "maxDamage" : 4,
-      "armorNegation" : 0
+      "armorNegation" : 0,
+      "twoHanded" : false
     },
     "skin" : {
       "itemTypeName" : "Carcass-Hide",
@@ -512,6 +513,10 @@
     "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ "SLEEP" ],
+    "group" : {
+      "minSize" : 2,
+      "maxSize" : 12
+    },
     "aggressionResponse" : "FLEE",
     "isSapient" : false
   },
@@ -534,6 +539,7 @@
       "minDamage" : 1,
       "maxDamage" : 2,
       "armorNegation" : 0,
+      "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
       "animatedSpriteEffectName" : "Weapon slash"
     }
@@ -588,6 +594,7 @@
       "minDamage" : 1,
       "maxDamage" : 3,
       "armorNegation" : 0,
+      "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
       "animatedSpriteEffectName" : "Weapon slash"
     }
@@ -622,6 +629,10 @@
     "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ ],
+    "group" : {
+      "minSize" : 1,
+      "maxSize" : 8
+    },
     "aggressionResponse" : "ATTACK",
     "isSapient" : false
   },
@@ -644,6 +655,7 @@
       "minDamage" : 2,
       "maxDamage" : 6,
       "armorNegation" : 0,
+      "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
       "animatedSpriteEffectName" : "Weapon slash"
     },
@@ -697,6 +709,7 @@
       "minDamage" : 4,
       "maxDamage" : 15,
       "armorNegation" : 0,
+      "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
       "animatedSpriteEffectName" : "Weapon slash"
     }
