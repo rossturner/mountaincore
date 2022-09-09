@@ -729,6 +729,12 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			if (itemAllocationComponent.getNumUnallocated() > 0) {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(entry.entity, parentEntity, true, priority, job -> {
 					// Do nothing with job
+					if (job != null && job.getHaulingAllocation() != null) {
+						HaulingAllocation allocation = job.getHaulingAllocation();
+						allocation.setTargetId(null);
+						allocation.setTargetPositionType(null);
+						allocation.setTargetPosition(null);
+					}
 				}));
 			}
 		}
