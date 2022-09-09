@@ -64,7 +64,6 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 		messageDispatcher.addListener(this, MessageType.POST_NOTIFICATION);
 
 		combatInProgressButton = i18nWidgetFactory.createTextButton("GUI.COMBAT_IN_PROGRESS");
-		var This = this;
 		combatInProgressButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
