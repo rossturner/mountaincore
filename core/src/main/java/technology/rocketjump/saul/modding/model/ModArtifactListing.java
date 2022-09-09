@@ -163,8 +163,10 @@ public class ModArtifactListing {
 						"definitions/constants", "**.json", JSON_KEY_VALUES, ADDITIVE, UntypedJsonProcessor.class),
 
 				////////// music //////////
-				def("music", null, COPY_ORIGINAL_FILES, OGG, null,
-						"music", "*.ogg", OGG, ADDITIVE, CopyFilesProcessor.class),
+				def("music/peaceful", null, COPY_ORIGINAL_FILES, OGG, null,
+						"music/peaceful", "*.ogg", OGG, ADDITIVE, CopyFilesProcessor.class),
+				def("music/skirmish", null, COPY_ORIGINAL_FILES, OGG, null,
+						"music/skirmish", "*.ogg", OGG, ADDITIVE, CopyFilesProcessor.class),
 
 				////////// particles //////////
 				def("definitions/particles", null, COPY_ORIGINAL_FILES, P_FILE, null,

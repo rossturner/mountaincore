@@ -329,7 +329,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		stage.draw();
 
 		screenWriter.render();
-		screenWriter.clearText();
 	}
 
 	@Override
