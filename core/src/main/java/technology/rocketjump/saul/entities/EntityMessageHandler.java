@@ -1006,6 +1006,10 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 								message.oxidisedMaterial.getColor(), null
 						));
 
+						if (message.targetEntity.getComponent(LiquidContainerComponent.class) != null) {
+							message.targetEntity.getComponent(LiquidContainerComponent.class).destroy(message.targetEntity, messageDispatcher, gameContext);
+						}
+
 						showNotificationOxidisationDestroyedSomething(message.targetEntity);
 
 					}
