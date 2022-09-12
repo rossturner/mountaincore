@@ -79,7 +79,7 @@ public class ConstructionSelectedGuiView implements GuiView, GameContextAware {
 
 		if (selectable != null && selectable.type.equals(CONSTRUCTION)) {
 			Construction construction = selectable.getConstruction();
-			List<I18nText> description = construction.getDescription(i18nTranslator, gameContext);
+			List<I18nText> description = construction.getDescription(i18nTranslator, gameContext, messageDispatcher);
 			for (I18nText line : description) {
 				descriptionTable.add(new I18nTextWidget(line, uiSkin, messageDispatcher)).left();
 				descriptionTable.row();

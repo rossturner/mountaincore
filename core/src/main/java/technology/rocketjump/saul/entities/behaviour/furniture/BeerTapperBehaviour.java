@@ -59,7 +59,7 @@ public class BeerTapperBehaviour extends FurnitureBehaviour implements Destructi
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		I18nWord descriptionWord = i18nTranslator.getDictionary().getWord(state.descriptionI18nKey);
 		return Lists.newArrayList(i18nTranslator.applyReplacements(descriptionWord, Map.of(), Gender.ANY));
 	}

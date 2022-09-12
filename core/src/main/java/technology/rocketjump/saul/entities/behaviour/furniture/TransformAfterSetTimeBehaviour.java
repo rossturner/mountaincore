@@ -73,7 +73,7 @@ public class TransformAfterSetTimeBehaviour extends FurnitureBehaviour implement
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		List<I18nText> descriptions = new ArrayList<>(1);
 		double progress = (TOTAL_TIME - timeRemaining) / TOTAL_TIME;
 		descriptions.add(i18nTranslator.getTranslatedWordWithReplacements("FURNITURE.DESCRIPTION.GENERIC_PROGRESS",

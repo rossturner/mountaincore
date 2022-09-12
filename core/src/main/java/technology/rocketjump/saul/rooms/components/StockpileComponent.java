@@ -304,7 +304,7 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		int parentSize = parent.getRoomTiles().size();
 		int allocationSize = allocations.size();
 

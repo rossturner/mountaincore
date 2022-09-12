@@ -416,19 +416,19 @@ public class I18NTranslatorTest {
 
 		wallConstruction.setState(ConstructionState.CLEARING_WORK_SITE);
 
-		assertThat(translator.getConstructionStatusDescription(wallConstruction).toString()).isEqualTo("Removing other items");
+		assertThat(wallConstruction.getConstructionStatusDescriptions(translator, null).toString()).contains("Removing other items");
 
 		wallConstruction.setState(ConstructionState.SELECTING_MATERIALS);
 
-		assertThat(translator.getConstructionStatusDescription(wallConstruction).toString()).isEqualTo("Waiting for more stone blocks to be available");
+		assertThat(wallConstruction.getConstructionStatusDescriptions(translator, null).toString()).contains("Waiting for more stone blocks to be available");
 
 		wallConstruction.setState(ConstructionState.WAITING_FOR_RESOURCES);
 
-		assertThat(translator.getConstructionStatusDescription(wallConstruction).toString()).isEqualTo("Waiting for resources to arrive");
+		assertThat(wallConstruction.getConstructionStatusDescriptions(translator, null).toString()).contains("Waiting for resources to arrive");
 
 		wallConstruction.setState(ConstructionState.WAITING_FOR_COMPLETION);
 
-		assertThat(translator.getConstructionStatusDescription(wallConstruction).toString()).isEqualTo("Under construction");
+		assertThat(wallConstruction.getConstructionStatusDescriptions(translator, null).toString()).contains("Under construction");
 	}
 
 	@Test

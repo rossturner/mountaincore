@@ -847,7 +847,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		List<I18nText> descriptions = new ArrayList<>(2);
 
 		if (currentProductionAssignment != null) {

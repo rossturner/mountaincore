@@ -370,7 +370,7 @@ public class PlantBehaviour implements BehaviourComponent, SelectableDescription
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		PlantEntityAttributes attributes = (PlantEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		if (attributes.getSpecies().isIgnoresMoisture()) {
 			return Collections.emptyList();

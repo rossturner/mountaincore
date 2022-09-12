@@ -5,11 +5,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import org.apache.commons.lang3.EnumUtils;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
@@ -20,6 +22,7 @@ import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.ItemMaterialSelectionMessage;
 import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.JSONUtils;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
@@ -27,8 +30,10 @@ import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.Persistable;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
+import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+import technology.rocketjump.saul.ui.i18n.I18nWord;
 
 import java.util.*;
 
@@ -36,6 +41,7 @@ import static technology.rocketjump.saul.entities.components.ItemAllocation.Purp
 import static technology.rocketjump.saul.entities.tags.ConstructionOverrideTag.ConstructionOverrideSetting.REQUIRES_EDIBLE_LIQUID;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 import static technology.rocketjump.saul.rooms.constructions.ConstructionState.SELECTING_MATERIALS;
+import static technology.rocketjump.saul.ui.i18n.I18nText.BLANK;
 
 public abstract class Construction implements Persistable, SelectableDescription {
 
@@ -341,18 +347,18 @@ public abstract class Construction implements Persistable, SelectableDescription
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		List<I18nText> description = new ArrayList<>(2 + requirements.size());
 
 		description.add(i18nTranslator.getDescription(this)); //TODO: polymorphic
-		description.addAll(i18nTranslator.getConstructionStatusDescriptions(this)); //TODO: polymorphic
+		description.addAll(getConstructionStatusDescriptions(i18nTranslator, messageDispatcher));
 
 		if (!getState().equals(SELECTING_MATERIALS)) {
 			List<HaulingAllocation> allocatedItems = getIncomingHaulingAllocations();
 			for (QuantifiedItemTypeWithMaterial requirement : getRequirements()) {
 				if (requirement.getMaterial() != null) {
 					int numberAllocated = getAllocationAmount(requirement.getItemType(), allocatedItems, getPlacedItemAllocations().values(), gameContext);
-					description.add(i18nTranslator.getItemAllocationDescription(numberAllocated, requirement)); //TODO: refactor
+					description.add(getItemAllocationDescription(numberAllocated, requirement, i18nTranslator));
 				}
 			}
 		}
@@ -381,5 +387,67 @@ public abstract class Construction implements Persistable, SelectableDescription
 		}
 
 		return allocated;
+	}
+
+	public List<I18nText> getConstructionStatusDescriptions(I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher) {
+		List<I18nText> descriptions = new ArrayList<>();
+
+		if (SELECTING_MATERIALS == getState()) {
+			for (QuantifiedItemTypeWithMaterial requirement : getRequirements()) {
+				if (requirement.getMaterial() == null) {
+
+					messageDispatcher.dispatchMessage(MessageType.SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE, new ItemMaterialSelectionMessage(
+							requirement.getItemType(),
+							requirement.getQuantity(),
+							foundMaterial -> {
+								if (foundMaterial == null) {
+									Map<String, I18nString> replacements = new HashMap<>();
+									I18nWord word = i18nTranslator.getWord("CONSTRUCTION.STATUS.SELECTING_MATERIALS");
+									ItemType missingItemType = requirement.getItemType();
+
+									if (missingItemType != null) {
+										replacements.put("materialType", i18nTranslator.getWord(missingItemType.getPrimaryMaterialType().getI18nKey()));
+										replacements.put("itemDescription", i18nTranslator.getWord(missingItemType.getI18nKey()));
+									}
+
+									descriptions.add(i18nTranslator.applyReplacements(word, replacements, Gender.ANY));
+								}
+							}
+					));
+
+
+				}
+			}
+		} else {
+			Map<String, I18nString> replacements = new HashMap<>();
+			I18nWord word;
+			switch (getState()) {
+				case CLEARING_WORK_SITE:
+					word = i18nTranslator.getWord("CONSTRUCTION.STATUS.CLEARING_WORK_SITE");
+					break;
+				case WAITING_FOR_RESOURCES:
+					word = i18nTranslator.getWord("CONSTRUCTION.STATUS.WAITING_FOR_RESOURCES");
+					break;
+				case WAITING_FOR_COMPLETION:
+					word = i18nTranslator.getWord("CONSTRUCTION.STATUS.WAITING_FOR_COMPLETION");
+					break;
+				default:
+					Logger.error("Not yet implemented: Construction state description for " + getState());
+					return List.of(BLANK);
+			}
+
+			descriptions.add(i18nTranslator.applyReplacements(word, replacements, Gender.ANY));
+		}
+
+		return descriptions;
+	}
+
+	public I18nText getItemAllocationDescription(int numberAllocated, QuantifiedItemTypeWithMaterial requirement, I18nTranslator i18nTranslator) {
+		Map<String, I18nString> replacements = new HashMap<>();
+		replacements.put("quantity", new I18nWord(String.valueOf(numberAllocated)));
+		replacements.put("total", new I18nWord(String.valueOf(requirement.getQuantity())));
+		replacements.put("itemDescription", i18nTranslator.getItemDescription(requirement.getQuantity(), requirement.getMaterial(), requirement.getItemType(), null));
+
+		return i18nTranslator.applyReplacements(i18nTranslator.getWord("CONSTRUCTION.ITEM_ALLOCATION"), replacements, Gender.ANY);
 	}
 }
