@@ -168,7 +168,7 @@ EARTH.GRASS,,Grass
 
 ENTITY.DESTRUCTION_DESCRIPTION.BURNED,,Destroyed by fire
 ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
-ENTITY.DESTRUCTION_DESCRIPTION.TANTRUM,,Destroyed in a tantrum
+ENTITY.DESTRUCTION_DESCRIPTION.COMBAT_DAMAGE,,Destroyed during combat
 
 FLOOR.CHANNEL.DESCRIPTION,,Irrigation channel ({{state}})
 FLOOR.CHANNEL.DESCRIPTION.TOOLTIP,,Irrigation channels provide access to water to crops within 2 tiles. Build a water pump and connect the channels to it using pipes.

@@ -18,6 +18,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 		@JsonSubTypes.Type(value = HasLiquidContainerNeedingFilling.class, name = "HAS_LIQUID_CONTAINER_NEEDING_FILLING"),
 		@JsonSubTypes.Type(value = GoalSelectionByInventory.class, name = "INVENTORY"),
 		@JsonSubTypes.Type(value = GoalSelectionBySquadOrders.class, name = "SQUAD_HAS_ORDERS"),
+		@JsonSubTypes.Type(value = GoalSelectionByCombatSkillLevel.class, name = "COMBAT_SKILL_LEVEL"),
 })
 public interface GoalSelectionCondition {
 
