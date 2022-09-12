@@ -44,7 +44,7 @@ public class HaulingAllocationBuilder {
 			HaulingAllocationBuilder builder = new HaulingAllocationBuilder();
 			builder.allocation.setHauledEntityType(EntityType.FURNITURE);
 			builder.allocation.setHauledEntityId(furnitureToBeHauled.getId());
-			builder.allocation.setSourcePositionType(HaulingAllocation.AllocationPositionType.FLOOR);
+			builder.allocation.setSourcePositionType(FURNITURE);
 			builder.allocation.setSourcePosition(toGridPoint(furnitureToBeHauled.getLocationComponent().getWorldPosition()));
 			return builder;
 		} else {
