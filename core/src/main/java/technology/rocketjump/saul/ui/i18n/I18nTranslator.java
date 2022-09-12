@@ -44,10 +44,7 @@ import technology.rocketjump.saul.mapping.tile.wall.Wall;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.rooms.Bridge;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
-import technology.rocketjump.saul.rooms.constructions.BridgeConstruction;
-import technology.rocketjump.saul.rooms.constructions.Construction;
-import technology.rocketjump.saul.rooms.constructions.FurnitureConstruction;
-import technology.rocketjump.saul.rooms.constructions.WallConstruction;
+import technology.rocketjump.saul.rooms.constructions.*;
 import technology.rocketjump.saul.settlement.production.ProductionAssignment;
 import technology.rocketjump.saul.zones.Zone;
 import technology.rocketjump.saul.zones.ZoneClassification;
@@ -793,43 +790,51 @@ public class I18nTranslator implements I18nUpdatable {
 			return BLANK;
 		}
 	}
-
 	public I18nText getConstructionStatusDescription(Construction construction) {
-		Map<String, I18nString> replacements = new HashMap<>();
+		List<I18nText> descriptions = getConstructionStatusDescriptions(construction);
+		return descriptions.get(0);
+	}
 
-		ItemType missingItemType = null;
-		for (QuantifiedItemTypeWithMaterial requirement : construction.getRequirements()) {
-			if (requirement.getMaterial() == null) {
-				missingItemType = requirement.getItemType();
-				break;
+	public List<I18nText> getConstructionStatusDescriptions(Construction construction) {
+		List<I18nText> descriptions = new ArrayList<>();
+
+		if (ConstructionState.SELECTING_MATERIALS == construction.getState()) {
+			for (QuantifiedItemTypeWithMaterial requirement : construction.getRequirements()) {
+				if (requirement.getMaterial() == null) {
+					Map<String, I18nString> replacements = new HashMap<>();
+					I18nWord word = dictionary.getWord("CONSTRUCTION.STATUS.SELECTING_MATERIALS");
+					ItemType missingItemType = requirement.getItemType();
+
+					if (missingItemType != null) {
+						replacements.put("materialType", dictionary.getWord(missingItemType.getPrimaryMaterialType().getI18nKey()));
+						replacements.put("itemDescription", dictionary.getWord(missingItemType.getI18nKey()));
+					}
+
+					descriptions.add(applyReplacements(word, replacements, Gender.ANY));
+				}
 			}
+		} else {
+			Map<String, I18nString> replacements = new HashMap<>();
+			I18nWord word;
+			switch (construction.getState()) {
+				case CLEARING_WORK_SITE:
+					word = dictionary.getWord("CONSTRUCTION.STATUS.CLEARING_WORK_SITE");
+					break;
+				case WAITING_FOR_RESOURCES:
+					word = dictionary.getWord("CONSTRUCTION.STATUS.WAITING_FOR_RESOURCES");
+					break;
+				case WAITING_FOR_COMPLETION:
+					word = dictionary.getWord("CONSTRUCTION.STATUS.WAITING_FOR_COMPLETION");
+					break;
+				default:
+					Logger.error("Not yet implemented: Construction state description for " + construction.getState());
+					return List.of(BLANK);
+			}
+
+			descriptions.add(applyReplacements(word, replacements, Gender.ANY));
 		}
 
-		if (missingItemType != null) {
-			replacements.put("materialType", dictionary.getWord(missingItemType.getPrimaryMaterialType().getI18nKey()));
-			replacements.put("itemDescription", dictionary.getWord(missingItemType.getI18nKey()));
-		}
-
-		I18nWord word;
-		switch (construction.getState()) {
-			case CLEARING_WORK_SITE:
-				word = dictionary.getWord("CONSTRUCTION.STATUS.CLEARING_WORK_SITE");
-				break;
-			case SELECTING_MATERIALS:
-				word = dictionary.getWord("CONSTRUCTION.STATUS.SELECTING_MATERIALS");
-				break;
-			case WAITING_FOR_RESOURCES:
-				word = dictionary.getWord("CONSTRUCTION.STATUS.WAITING_FOR_RESOURCES");
-				break;
-			case WAITING_FOR_COMPLETION:
-				word = dictionary.getWord("CONSTRUCTION.STATUS.WAITING_FOR_COMPLETION");
-				break;
-			default:
-				Logger.error("Not yet implemented: Construction state description for " + construction.getState());
-				return BLANK;
-		}
-
-		return applyReplacements(word, replacements, Gender.ANY);
+		return descriptions;
 	}
 
 	public I18nText getHarvestProgress(float progress) {

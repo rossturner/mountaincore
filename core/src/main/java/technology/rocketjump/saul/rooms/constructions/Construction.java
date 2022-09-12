@@ -5,13 +5,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import org.apache.commons.lang3.EnumUtils;
+import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
 import technology.rocketjump.saul.entities.tags.ConstructionOverrideTag;
+import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.model.Job;
 import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.materials.model.GameMaterial;
@@ -24,14 +27,17 @@ import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.Persistable;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
+import technology.rocketjump.saul.ui.i18n.I18nText;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 import java.util.*;
 
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.PLACED_FOR_CONSTRUCTION;
 import static technology.rocketjump.saul.entities.tags.ConstructionOverrideTag.ConstructionOverrideSetting.REQUIRES_EDIBLE_LIQUID;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
+import static technology.rocketjump.saul.rooms.constructions.ConstructionState.SELECTING_MATERIALS;
 
-public abstract class Construction implements Persistable {
+public abstract class Construction implements Persistable, SelectableDescription {
 
 	protected long constructionId;
 
@@ -332,5 +338,48 @@ public abstract class Construction implements Persistable {
 		}
 
 		savedGameStateHolder.constructions.put(getId(), this);
+	}
+
+	@Override
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+		List<I18nText> description = new ArrayList<>(2 + requirements.size());
+
+		description.add(i18nTranslator.getDescription(this)); //TODO: polymorphic
+		description.addAll(i18nTranslator.getConstructionStatusDescriptions(this)); //TODO: polymorphic
+
+		if (!getState().equals(SELECTING_MATERIALS)) {
+			List<HaulingAllocation> allocatedItems = getIncomingHaulingAllocations();
+			for (QuantifiedItemTypeWithMaterial requirement : getRequirements()) {
+				if (requirement.getMaterial() != null) {
+					int numberAllocated = getAllocationAmount(requirement.getItemType(), allocatedItems, getPlacedItemAllocations().values(), gameContext);
+					description.add(i18nTranslator.getItemAllocationDescription(numberAllocated, requirement)); //TODO: refactor
+				}
+			}
+		}
+		return description;
+	}
+
+
+	private int getAllocationAmount(ItemType itemType, List<HaulingAllocation> haulingAllocations, Collection<ItemAllocation> placedItems, GameContext gameContext) {
+		int allocated = 0;
+		for (HaulingAllocation haulingAllocation : haulingAllocations) {
+			if (haulingAllocation.getItemAllocation() != null) {
+				Entity itemEntity = gameContext.getEntities().get(haulingAllocation.getItemAllocation().getTargetItemEntityId());
+				if (itemEntity != null && ((ItemEntityAttributes)itemEntity.getPhysicalEntityComponent().getAttributes()).getItemType().equals(itemType)) {
+					allocated += haulingAllocation.getItemAllocation().getAllocationAmount();
+				}
+			}
+		}
+		for (ItemAllocation itemAllocation : placedItems) {
+			Entity itemEntity = gameContext.getEntities().get(itemAllocation.getTargetItemEntityId());
+			if (itemEntity != null) {
+				ItemEntityAttributes attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();
+				if (attributes.getItemType().equals(itemType)) {
+					allocated += itemAllocation.getAllocationAmount();
+				}
+			}
+		}
+
+		return allocated;
 	}
 }
