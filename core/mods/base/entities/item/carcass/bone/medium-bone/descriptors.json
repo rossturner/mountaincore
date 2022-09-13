@@ -10,17 +10,21 @@
     "DOWN" : {
       "filename" : "Medium-Bone-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -4.0
+      },
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 12.0,
-          "y" : -10.0
+          "x" : 13.0,
+          "y" : -6.0
         }
       }, {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : -15.0,
-          "y" : -11.0
+          "x" : -14.0,
+          "y" : -7.0
         }
       } ]
     }
@@ -35,7 +39,11 @@
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground_Down.png"
+      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground_Down.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -4.0
+      }
     }
   }
 }, {
@@ -49,7 +57,11 @@
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground-Large_Down.png"
+      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground-Large_Down.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -1.5
+      }
     }
   }
 }, {
@@ -63,7 +75,11 @@
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground-Medium_Down.png"
+      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground-Medium_Down.png",
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : -6.0
+      }
     }
   }
 } ]
