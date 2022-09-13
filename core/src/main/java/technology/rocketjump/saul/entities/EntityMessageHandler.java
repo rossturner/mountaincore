@@ -285,7 +285,6 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 							if (equippedItemComponent.getEquippedClothing() != null && equippedItemComponent.getEquippedClothing().getId() == removedEntity.getId()) {
 								equippedItemComponent.clearEquippedClothing();
 							}
-							containerEntity.removeComponent(EquippedItemComponent.class);
 						}
 						if (containerInventory != null) {
 							containerInventory.remove(removedEntity.getId());

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import technology.rocketjump.saul.entities.ai.goap.condition.GoalSelectionByInventory;
+import technology.rocketjump.saul.entities.ai.goap.condition.GoalSelectionByWeaponAmmo;
 import technology.rocketjump.saul.entities.ai.goap.condition.HasLiquidContainerNeedingFilling;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -18,6 +19,8 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 		@JsonSubTypes.Type(value = HasLiquidContainerNeedingFilling.class, name = "HAS_LIQUID_CONTAINER_NEEDING_FILLING"),
 		@JsonSubTypes.Type(value = GoalSelectionByInventory.class, name = "INVENTORY"),
 		@JsonSubTypes.Type(value = GoalSelectionBySquadOrders.class, name = "SQUAD_HAS_ORDERS"),
+		@JsonSubTypes.Type(value = GoalSelectionByCombatSkillLevel.class, name = "COMBAT_SKILL_LEVEL"),
+		@JsonSubTypes.Type(value = GoalSelectionByWeaponAmmo.class, name = "ASSIGNED_WEAPON_REQUIRES_AMMO"),
 })
 public interface GoalSelectionCondition {
 

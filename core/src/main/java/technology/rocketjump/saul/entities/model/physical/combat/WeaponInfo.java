@@ -37,14 +37,18 @@ public class WeaponInfo {
 	@JsonIgnore
 	private ParticleEffectType animatedEffectType;
 
-
 	public static WeaponInfo UNARMED = new WeaponInfo();
+
 	static {
 		UNARMED.setRange(1);
 		UNARMED.setDamageType(CombatDamageType.CRUSHING);
 		UNARMED.setModifiedByStrength(true);
 		UNARMED.setMinDamage(0);
 		UNARMED.setMaxDamage(4);
+	}
+
+	public boolean isRanged() {
+		return range > 2;
 	}
 
 	public int getRange() {

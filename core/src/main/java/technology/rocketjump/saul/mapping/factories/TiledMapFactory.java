@@ -146,7 +146,7 @@ public class TiledMapFactory {
 		ItemType plateItemType = itemTypeDictionary.getByName("Resource-Metal-Plate");
 		ItemType hoopsItemType = itemTypeDictionary.getByName("Product-Barrel-Hoops");
 		GameMaterial metalMaterial = pickMaterialType(metalItemType);
-		List<ItemType> placedItems = Arrays.asList(plankItemType, stoneBlockItemType, metalItemType, plateItemType, hoopsItemType);
+		List<ItemType> placedItems = Arrays.asList(logItemType, plankItemType, stoneBlockItemType, metalItemType, plateItemType, hoopsItemType);
 
 		Map<GridPoint2, RoomTile> roomTiles = new HashMap<>();
 		Set<StockpileGroup> stockpileGroups = new HashSet<>();

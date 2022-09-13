@@ -1223,7 +1223,10 @@
     } ]
   },
   "tags" : {
-    "WORKSPACE_LOCATIONS_MUST_BE_INSIDE_ROOM" : [ ]
+    "WORKSPACE_LOCATIONS_MUST_BE_INSIDE_ROOM" : [ ],
+    "TRAINING_EQUIPMENT" : [ "RANGED" ],
+    "FLAT_DAMAGE_REDUCTION" : [ "10" ],
+    "EXTRA_FURNITURE_HITPOINTS" : [ "300" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {
@@ -1243,7 +1246,10 @@
     } ]
   },
   "tags" : {
-    "WORKSPACE_LOCATIONS_MUST_BE_INSIDE_ROOM" : [ ]
+    "WORKSPACE_LOCATIONS_MUST_BE_INSIDE_ROOM" : [ ],
+    "TRAINING_EQUIPMENT" : [ "MELEE" ],
+    "FLAT_DAMAGE_REDUCTION" : [ "10" ],
+    "EXTRA_FURNITURE_HITPOINTS" : [ "300" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {

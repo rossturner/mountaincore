@@ -349,6 +349,51 @@
   } ],
   "initialActions" : [ "SelectOpponent" ]
 }, {
+  "i18nDescription" : "GOAL.MILITARY.TRAINING.DESCRIPTION",
+  "settlerCategories" : [ "MILITARY" ],
+  "name" : "Military training",
+  "actionRelationships" : {
+    "AttackTrainingFurniture" : {
+      "fail" : [ "UnassignFurniture" ],
+      "pass" : [ "UnassignFurniture", "RequeueThisGoal" ]
+    },
+    "EquipWeapon" : {
+      "pass" : [ "CheckAmmoAvailable" ]
+    },
+    "LocateTrainingFurniture" : {
+      "fail" : [ "UnequipWeapon" ],
+      "pass" : [ "GoToLocation" ]
+    },
+    "GoToLocation" : {
+      "fail" : [ "UnassignFurniture" ],
+      "pass" : [ "FaceTowardsLocation", "AttackTrainingFurniture" ]
+    },
+    "UnassignFurniture" : {
+      "fail" : [ "UnequipWeapon" ],
+      "pass" : [ "UnequipWeapon" ]
+    },
+    "RequeueThisGoal" : { },
+    "UnequipWeapon" : { },
+    "CheckAmmoAvailable" : {
+      "fail" : [ "UnequipWeapon" ],
+      "pass" : [ "LocateTrainingFurniture" ]
+    },
+    "FaceTowardsLocation" : { }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "MILITARY_DUTY",
+    "conditions" : [ {
+      "orderType" : "TRAINING",
+      "type" : "SQUAD_HAS_ORDERS"
+    }, {
+      "type" : "COMBAT_SKILL_LEVEL",
+      "value" : 50,
+      "operator" : "LESS_THAN_OR_EQUAL_TO"
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "initialActions" : [ "EquipWeapon" ]
+}, {
   "i18nDescription" : "GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION",
   "settlerCategories" : [ "MILITARY" ],
   "name" : "Stand in formation",
@@ -370,6 +415,74 @@
     "priority" : "JOB_NORMAL"
   } ],
   "initialActions" : [ "GoToSquadFormationPosition" ]
+}, {
+  "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
+  "expiryHours" : 12,
+  "settlerCategories" : [ "MILITARY" ],
+  "name" : "Stock ammunition (military)",
+  "actionRelationships" : {
+    "CancelHaulingAllocation" : { },
+    "GoToLocation" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "PickUpEntity" ]
+    },
+    "FindAmmoForAssignedWeapon" : {
+      "pass" : [ "GoToLocation" ]
+    },
+    "PickUpEntity" : {
+      "fail" : [ "CancelHaulingAllocation" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "type" : "ASSIGNED_WEAPON_REQUIRES_AMMO",
+      "value" : 11,
+      "operator" : "LESS_THAN",
+      "targetQuantity" : 20
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "interruptedByCombat" : true,
+  "initialActions" : [ "FindAmmoForAssignedWeapon" ],
+  "interruptedByLowNeeds" : true
+}, {
+  "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
+  "expiryHours" : 12,
+  "settlerCategories" : [ "MILITARY" ],
+  "name" : "Stock ration (military)",
+  "actionRelationships" : {
+    "CancelHaulingAllocation" : { },
+    "GoToLocation" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "PickUpEntity" ]
+    },
+    "FindItemFromInventorySelectors" : {
+      "pass" : [ "GoToLocation" ]
+    },
+    "PickUpEntity" : {
+      "fail" : [ "CancelHaulingAllocation" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "NOURISHMENT",
+    "conditions" : [ {
+      "need" : "FOOD",
+      "type" : "NEED",
+      "value" : -10,
+      "operator" : "GREATER_THAN"
+    }, {
+      "itemType" : "Product-Ration",
+      "type" : "INVENTORY",
+      "value" : 7,
+      "operator" : "LESS_THAN",
+      "targetQuantity" : 10
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "interruptedByCombat" : true,
+  "initialActions" : [ "FindItemFromInventorySelectors" ],
+  "interruptedByLowNeeds" : true
 }, {
   "i18nDescription" : "GOAL.TRANSFER_LIQUID.DESCRIPTION",
   "name" : "Move liquid in item goal",
@@ -530,7 +643,8 @@
 }, {
   "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
   "expiryHours" : 12,
-  "name" : "Stock ration",
+  "settlerCategories" : [ "CIVILIAN" ],
+  "name" : "Stock ration (civilian)",
   "actionRelationships" : {
     "CancelHaulingAllocation" : { },
     "GoToLocation" : {

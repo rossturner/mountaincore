@@ -1,7 +1,6 @@
 package technology.rocketjump.saul.entities.ai.goap.actions;
 
 import com.alibaba.fastjson.JSONObject;
-import technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -26,7 +25,7 @@ public class LocateBedAction extends Action implements FurnitureAssignmentCallba
 	public void update(float deltaTime, GameContext gameContext) {
 		if (parent.parentEntity.getBehaviourComponent().isJobAssignable()) {
 			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_FURNITURE_ASSIGNMENT,
-					new FurnitureAssignmentRequest(BedSleepingPositionTag.class, parent.parentEntity, this, willingToSleepOnFloor));
+					FurnitureAssignmentRequest.requestBed(parent.parentEntity, willingToSleepOnFloor, this::furnitureAssigned));
 		} else {
 			// For animals / non-settlers
 			completionType = FAILURE;
@@ -39,7 +38,7 @@ public class LocateBedAction extends Action implements FurnitureAssignmentCallba
 			if (!willingToSleepOnFloor) {
 				willingToSleepOnFloor = true;
 				parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_FURNITURE_ASSIGNMENT,
-						new FurnitureAssignmentRequest(BedSleepingPositionTag.class, parent.parentEntity, this, willingToSleepOnFloor));
+						FurnitureAssignmentRequest.requestBed(parent.parentEntity, willingToSleepOnFloor, this));
 			} else {
 				completionType = FAILURE;
 			}

@@ -166,8 +166,9 @@ EARTH.DIRT,Dirt,,Erde,Terre,Terra,Tierra,Sujeira,,,Грязь,Toprak,Jord,,Smuts
 EARTH.GRASS,Grass,,Gras,Herbe,Erba,Hierba,Erva,Relva,,Трава,Çimen,Gras,,Gräs,,,,草地,青草,
 
 ENTITY.DESTRUCTION_DESCRIPTION.BURNED,Destroyed by fire,,Zerstört durch Feuer,,Distrutto dal fuoco,Calcinado por el fuego,,,,Уничтожен огнем,,,,,,,,火によって損壊,毁于一场大火,
+ENTITY.DESTRUCTION_DESCRIPTION.COMBAT_DAMAGE,Destroyed during combat,,,,,,,,,,,,,,,,,,,
 ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,Destroyed by prolonged exposure to rain,,Zerstört durch längere Einwirkung von Regen,,Distrutto dall'esposizione prolungata alla pioggia,Destruido por exposición prolongada a las lluvias,,,,"Разрушается при длительном пребывании под дождем ",,,,,,,,長期に渡って雨に晒されたことによる損壊,由于长期日晒雨淋损坏了,
-ENTITY.DESTRUCTION_DESCRIPTION.TANTRUM,Destroyed in a tantrum,,In einem Wutanfall zerstört,,Distrutto in uno scatto d'ira,Destruido por un berrinche,,,,"Уничтожен в припадке гнева ",,,,,,,,かんしゃくを起こした入植者による損壊,因乱发脾气被毁,
+ENTITY.DESTRUCTION_DESCRIPTION.TANTRUM,,,In einem Wutanfall zerstört,,Distrutto in uno scatto d'ira,Destruido por un berrinche,,,,"Уничтожен в припадке гнева ",,,,,,,,かんしゃくを起こした入植者による損壊,因乱发脾气被毁,
 
 FLOOR.CHANNEL.DESCRIPTION,Irrigation channel ({{state}}),,Bewässerungskanal ({{state}}),,Canale di irrigazione ({{state}}),Canal de riego,,,,"Оросительный канал ({{state}}) ",,,,,,,,灌漑水路 ({{state}}),灌溉渠,
 FLOOR.CHANNEL.DESCRIPTION.TOOLTIP,Irrigation channels provide access to water to crops within 2 tiles. Build a water pump and connect the channels to it using pipes.,,Bewässerungskanäle bieten den Pflanzen innerhalb von 2 Feldern Zugang zu Wasser. Baue eine Wasserpumpe und verbinde die Kanäle mit Rohren damit.,,I canali di irrigazione forniscono l'accesso all'acqua alle colture entro 2 caselle. Costruisci una pompa d'acqua e connetti i canali ad essa usando dei tubi.,Los canales de riego proporcionan acceso al agua a las cosechas a una distancia de hasta dos casillas. Construye una bomba de agua y conecta los canales de riego a la bomba usando tuberías.,,,,"Оросительные каналы обеспечивают доступ к воде сельскохозяйственных культур в пределах 2 клеток. Постройте водяной насос и подключите к нему каналы с помощью труб. ",,,,,,,,灌漑水路は周囲2タイルの作物に水を供給することができます。汲み上げポンプを作り、パイプで水路と接続してください。,灌溉渠能为2格内的农作物提供水源。建造水泵，然后用管道连接灌溉渠。,
@@ -393,6 +394,7 @@ GOAL.HAULING.DESCRIPTION,Hauling {{targetDescription}},,Transportiert {{itemDesc
 GOAL.IDLE.DESCRIPTION,Idle,,Untätig,Libre,Non sta facendo niente,Descansando,Inativo,À toa,,Бездельничает,Boşta,- Itomgang,,Inaktiv,,,,何もしていない,闲置,
 GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION,Moving into combat,,,,,,,,,,,,,,,,,,,
 GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION,Guarding a position,,,,,,,,,,,,,,,,,,,
+GOAL.MILITARY.TRAINING.DESCRIPTION,Weapon training,,,,,,,,,,,,,,,,,,,
 GOAL.ON_FIRE.DESCRIPTION,On fire!,,Brennt!,,A fuoco!,¡En llamas!,,,,Горит!,,,,,,,,炎上している！,着火了！,
 GOAL.REFILL_WATERSKIN.DESCRIPTION,Refilling waterskin,,,,,,,,,,,,,,,,,,,
 GOAL.SLEEP.DESCRIPTION,Going to sleep,,Geht schlafen,Va dormir,Sta andando a dormire,Yendo a dormir,A ir para a cama,Indo dormir,,Собирается спать,Uyumaya gidiyor,Skal til at sove,,Gå till sängs,,,,眠ろうとしている,去睡觉,

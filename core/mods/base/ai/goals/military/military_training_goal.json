@@ -1,0 +1,51 @@
+{
+  "name": "Military training",
+  "i18nDescription": "GOAL.MILITARY.TRAINING.DESCRIPTION",
+  "settlerCategories": ["MILITARY"],
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "SQUAD_HAS_ORDERS",
+          "orderType": "TRAINING"
+        },
+        {
+          "type": "COMBAT_SKILL_LEVEL",
+          "operator": "LESS_THAN_OR_EQUAL_TO",
+          "value": 50
+        }
+      ],
+      "priority": "JOB_NORMAL",
+      "scheduleCategory": "MILITARY_DUTY"
+    }
+  ],
+  "initialActions": ["EquipWeapon"],
+  "actionRelationships": {
+    "EquipWeapon": {
+      "pass": ["CheckAmmoAvailable"]
+    },
+    "CheckAmmoAvailable": {
+      "pass": ["LocateTrainingFurniture"],
+      "fail": ["UnequipWeapon"]
+    },
+    "LocateTrainingFurniture": {
+      "pass": ["GoToLocation"],
+      "fail": ["UnequipWeapon"]
+    },
+    "GoToLocation": {
+      "pass": ["FaceTowardsLocation", "AttackTrainingFurniture"],
+      "fail": ["UnassignFurniture"]
+    },
+    "FaceTowardsLocation": {},
+    "AttackTrainingFurniture": {
+      "pass": ["UnassignFurniture", "RequeueThisGoal"],
+      "fail": ["UnassignFurniture"]
+    },
+    "UnassignFurniture": {
+      "pass": ["UnequipWeapon"],
+      "fail": ["UnequipWeapon"]
+    },
+    "UnequipWeapon": {},
+    "RequeueThisGoal": {}
+  }
+}
