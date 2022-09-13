@@ -1,0 +1,8 @@
+{
+  "itemTypeName" : "Small-Bone",
+  "maxStackSize" : 10,
+  "maxHauledAtOnce" : 3,
+  "materialTypes" : [ "STONE" ],
+  "primaryMaterialType" : "STONE",
+  "i18nKey" : "SMALL.BONE"
+}

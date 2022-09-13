@@ -1,0 +1,10 @@
+{
+  "itemTypeName" : "Medium-Bone",
+  "maxStackSize" : 10,
+  "maxHauledAtOnce" : 2,
+  "materialTypes" : [ "BONE" ],
+  "primaryMaterialType" : "BONE",
+  "stockpileGroupName" : "RAW_MATERIALS",
+  "describeAsMaterialOnly" : true,
+  "i18nKey" : "MEDIUM.BONE"
+}

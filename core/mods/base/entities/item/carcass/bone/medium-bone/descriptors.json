@@ -1,0 +1,69 @@
+[ {
+  "uniqueName" : "Medium-Bone-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Medium-Bone",
+  "maxQuantity" : 2,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground_Down.png",
+      "scale" : 0.7,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 12.0,
+          "y" : -10.0
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -15.0,
+          "y" : -11.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Medium-Bone-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Medium-Bone",
+  "maxQuantity" : 2,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground_Down.png"
+    }
+  }
+}, {
+  "uniqueName" : "Medium-Bone-Item_Base_Layer-On_Ground-Large",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Medium-Bone",
+  "minQuantity" : 6,
+  "maxQuantity" : 10,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground-Large_Down.png"
+    }
+  }
+}, {
+  "uniqueName" : "Medium-Bone-Item_Base_Layer-On_Ground-Medium",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Medium-Bone",
+  "minQuantity" : 3,
+  "maxQuantity" : 5,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground-Medium_Down.png"
+    }
+  }
+} ]
