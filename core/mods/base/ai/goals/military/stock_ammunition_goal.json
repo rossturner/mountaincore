@@ -1,33 +1,27 @@
 {
-  "name": "Stock ration",
+  "name": "Stock ammunition (military)",
   "expiryHours": 12,
   "i18nDescription": "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
   "interruptedByLowNeeds": true,
   "interruptedByCombat": true,
+  "settlerCategories": ["MILITARY"],
   "selectors": [
     {
       "conditions": [
         {
-          "type": "NEED",
-          "need": "FOOD",
-          "operator": "GREATER_THAN",
-          "value": -10
-        },
-        {
-          "type": "INVENTORY",
-          "itemType": "Product-Ration",
+          "type": "ASSIGNED_WEAPON_REQUIRES_AMMO",
           "operator": "LESS_THAN",
-          "value": 3,
-          "targetQuantity": 7
+          "value": 11,
+          "targetQuantity": 20
         }
       ],
-      "priority": "LOWEST",
-      "scheduleCategory": "FREE_TIME"
+      "priority": "JOB_NORMAL",
+      "scheduleCategory": "ANY"
     }
   ],
-  "initialActions": ["FindItemFromInventorySelectors"],
+  "initialActions": ["FindAmmoForAssignedWeapon"],
   "actionRelationships": {
-    "FindItemFromInventorySelectors": {
+    "FindAmmoForAssignedWeapon": {
       "pass": ["GoToLocation"]
     },
     "GoToLocation": {

@@ -24,10 +24,12 @@ public class TrainingEquipmentTag extends Tag {
 		return EnumUtils.isValidEnum(TrainingEquipmentType.class, args.get(0));
 	}
 
+	public TrainingEquipmentType getTrainingEquipmentType() {
+		return TrainingEquipmentType.valueOf(args.get(0));
+	}
+
 	@Override
 	public void apply(Entity entity, TagProcessingUtils tagProcessingUtils, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		TrainingEquipmentComponent trainingEquipmentComponent = entity.getOrCreateComponent(TrainingEquipmentComponent.class);
-		trainingEquipmentComponent.setEquipmentType(TrainingEquipmentType.valueOf(args.get(0)));
 	}
 
 	public enum TrainingEquipmentType {
@@ -56,13 +58,10 @@ public class TrainingEquipmentTag extends Tag {
 
 		@Override
 		public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-			EntityComponent.super.writeTo(asJson, savedGameStateHolder);
 		}
 
 		@Override
 		public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-			EntityComponent.super.readFrom(asJson, savedGameStateHolder, relatedStores);
 		}
 	}
-
 }

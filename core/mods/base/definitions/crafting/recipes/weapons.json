@@ -39,6 +39,7 @@
         "quantity": 15
       }
     ],
+    "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 8.5
   },

@@ -33,11 +33,11 @@ public class LocateTrainingFurnitureAction extends Action {
 			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_FURNITURE_ASSIGNMENT,
 					new FurnitureAssignmentRequest(TrainingEquipmentTag.class, parent.parentEntity,
 							potentialFurniture -> {
-								TrainingEquipmentTag.TrainingEquipmentComponent trainingEquipmentComponent = potentialFurniture.getComponent(TrainingEquipmentTag.TrainingEquipmentComponent.class);
-								if (trainingEquipmentComponent == null) {
+								TrainingEquipmentTag trainingEquipmentTag = potentialFurniture.getTag(TrainingEquipmentTag.class);
+								if (trainingEquipmentTag == null) {
 									return false;
 								} else {
-									return trainingEquipmentComponent.getEquipmentType().equals(equippedWeapon.isRanged() ? RANGED : MELEE);
+									return trainingEquipmentTag.getTrainingEquipmentType().equals(equippedWeapon.isRanged() ? RANGED : MELEE);
 								}
 							}, assignedFurniture -> {
 								if (assignedFurniture == null) {

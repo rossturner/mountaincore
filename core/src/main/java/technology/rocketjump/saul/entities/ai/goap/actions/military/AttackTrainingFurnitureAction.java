@@ -14,7 +14,7 @@ import static technology.rocketjump.saul.combat.CombatTracker.COMBAT_ROUND_DURAT
 
 public class AttackTrainingFurnitureAction extends Action {
 
-	private int attacksToMake = 10;
+	private int attacksToMake = 5;
 	/*
 	 Note this isn't being persisted though it should be - because we don't have the parent AssignedGoal.parentEntity
 	 during persistence logic - the parentEntity gets set in the init() step *after* readFrom() is called

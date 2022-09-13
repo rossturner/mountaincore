@@ -1,0 +1,43 @@
+{
+  "name": "Stock ration (military)",
+  "expiryHours": 12,
+  "i18nDescription": "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
+  "interruptedByLowNeeds": true,
+  "interruptedByCombat": true,
+  "settlerCategories": ["MILITARY"],
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "NEED",
+          "need": "FOOD",
+          "operator": "GREATER_THAN",
+          "value": -10
+        },
+        {
+          "type": "INVENTORY",
+          "itemType": "Product-Ration",
+          "operator": "LESS_THAN",
+          "value": 7,
+          "targetQuantity": 10
+        }
+      ],
+      "priority": "JOB_NORMAL",
+      "scheduleCategory": "NOURISHMENT"
+    }
+  ],
+  "initialActions": ["FindItemFromInventorySelectors"],
+  "actionRelationships": {
+    "FindItemFromInventorySelectors": {
+      "pass": ["GoToLocation"]
+    },
+    "GoToLocation": {
+      "pass": ["PickUpEntity"],
+      "fail": ["CancelHaulingAllocation"]
+    },
+    "PickUpEntity": {
+      "fail": ["CancelHaulingAllocation"]
+    },
+    "CancelHaulingAllocation": {}
+  }
+}

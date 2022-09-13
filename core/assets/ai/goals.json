@@ -416,6 +416,74 @@
   } ],
   "initialActions" : [ "GoToSquadFormationPosition" ]
 }, {
+  "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
+  "expiryHours" : 12,
+  "settlerCategories" : [ "MILITARY" ],
+  "name" : "Stock ammunition (military)",
+  "actionRelationships" : {
+    "CancelHaulingAllocation" : { },
+    "GoToLocation" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "PickUpEntity" ]
+    },
+    "FindAmmoForAssignedWeapon" : {
+      "pass" : [ "GoToLocation" ]
+    },
+    "PickUpEntity" : {
+      "fail" : [ "CancelHaulingAllocation" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "type" : "ASSIGNED_WEAPON_REQUIRES_AMMO",
+      "value" : 11,
+      "operator" : "LESS_THAN",
+      "targetQuantity" : 20
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "interruptedByCombat" : true,
+  "initialActions" : [ "FindAmmoForAssignedWeapon" ],
+  "interruptedByLowNeeds" : true
+}, {
+  "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
+  "expiryHours" : 12,
+  "settlerCategories" : [ "MILITARY" ],
+  "name" : "Stock ration (military)",
+  "actionRelationships" : {
+    "CancelHaulingAllocation" : { },
+    "GoToLocation" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "PickUpEntity" ]
+    },
+    "FindItemFromInventorySelectors" : {
+      "pass" : [ "GoToLocation" ]
+    },
+    "PickUpEntity" : {
+      "fail" : [ "CancelHaulingAllocation" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "NOURISHMENT",
+    "conditions" : [ {
+      "need" : "FOOD",
+      "type" : "NEED",
+      "value" : -10,
+      "operator" : "GREATER_THAN"
+    }, {
+      "itemType" : "Product-Ration",
+      "type" : "INVENTORY",
+      "value" : 7,
+      "operator" : "LESS_THAN",
+      "targetQuantity" : 10
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "interruptedByCombat" : true,
+  "initialActions" : [ "FindItemFromInventorySelectors" ],
+  "interruptedByLowNeeds" : true
+}, {
   "i18nDescription" : "GOAL.TRANSFER_LIQUID.DESCRIPTION",
   "name" : "Move liquid in item goal",
   "actionRelationships" : {
@@ -575,7 +643,8 @@
 }, {
   "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
   "expiryHours" : 12,
-  "name" : "Stock ration",
+  "settlerCategories" : [ "CIVILIAN" ],
+  "name" : "Stock ration (civilian)",
   "actionRelationships" : {
     "CancelHaulingAllocation" : { },
     "GoToLocation" : {

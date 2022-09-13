@@ -397,6 +397,7 @@ GOAL.SLEEP.DESCRIPTION,,Going to sleep
 GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {{targetZoneMaterial}}
 GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION,,Moving into combat
 GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION,,Guarding a position
+GOAL.MILITARY.TRAINING.DESCRIPTION,,Weapon training
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
 GUI.ADD_TILES,This should be as short as possible,Add tiles

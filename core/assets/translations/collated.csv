@@ -394,6 +394,7 @@ GOAL.HAULING.DESCRIPTION,Hauling {{targetDescription}},,Transportiert {{itemDesc
 GOAL.IDLE.DESCRIPTION,Idle,,Untätig,Libre,Non sta facendo niente,Descansando,Inativo,À toa,,Бездельничает,Boşta,- Itomgang,,Inaktiv,,,,何もしていない,闲置,
 GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION,Moving into combat,,,,,,,,,,,,,,,,,,,
 GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION,Guarding a position,,,,,,,,,,,,,,,,,,,
+GOAL.MILITARY.TRAINING.DESCRIPTION,Weapon training,,,,,,,,,,,,,,,,,,,
 GOAL.ON_FIRE.DESCRIPTION,On fire!,,Brennt!,,A fuoco!,¡En llamas!,,,,Горит!,,,,,,,,炎上している！,着火了！,
 GOAL.REFILL_WATERSKIN.DESCRIPTION,Refilling waterskin,,,,,,,,,,,,,,,,,,,
 GOAL.SLEEP.DESCRIPTION,Going to sleep,,Geht schlafen,Va dormir,Sta andando a dormire,Yendo a dormir,A ir para a cama,Indo dormir,,Собирается спать,Uyumaya gidiyor,Skal til at sove,,Gå till sängs,,,,眠ろうとしている,去睡觉,
