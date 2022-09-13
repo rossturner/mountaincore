@@ -166,7 +166,7 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		HistoryComponent historyComponent = parentEntity.getComponent(HistoryComponent.class);
 		if (historyComponent != null && historyComponent.getDeathReason() != null) {
 			DeathReason reason = historyComponent.getDeathReason();

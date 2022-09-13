@@ -165,4 +165,10 @@ public class FurnitureConstruction extends Construction {
 
 		this.primaryLocation = JSONUtils.gridPoint2(asJson.getJSONObject("primaryLocation"));
 	}
+
+	@Override
+	public String getFurnitureTypeI18nKey() {
+		FurnitureEntityAttributes furnitureEntityAttributes = (FurnitureEntityAttributes) getEntity().getPhysicalEntityComponent().getAttributes();
+		return furnitureEntityAttributes.getFurnitureType().getI18nKey();
+	}
 }

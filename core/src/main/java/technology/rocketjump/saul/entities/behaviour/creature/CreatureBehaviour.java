@@ -461,7 +461,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		if (attributes.getConsciousness().equals(KNOCKED_UNCONSCIOUS)) {
 			return List.of(i18nTranslator.getTranslatedString("ACTION.KNOCKED_UNCONSCIOUS"));

@@ -169,7 +169,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 			Squad squad = selectable.getSquad();
 
 			upperTable.add(new Label(squad.getName(), uiSkin)).left().pad(5).row();
-			for (I18nText descriptionText : squad.getDescription(i18nTranslator, gameContext)) {
+			for (I18nText descriptionText : squad.getDescription(i18nTranslator, gameContext, messageDispatcher)) {
 				upperTable.add(new I18nTextWidget(descriptionText, uiSkin, messageDispatcher)).left().pad(5).row();
 			}
 			updateShiftButtonText(squad.getShift());

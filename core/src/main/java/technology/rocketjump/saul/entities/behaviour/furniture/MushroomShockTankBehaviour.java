@@ -129,7 +129,7 @@ public class MushroomShockTankBehaviour extends FillLiquidContainerBehaviour imp
 
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		Map<String, I18nString> replacements = new HashMap<>();
 		float progress = 100f * shockingProgress(gameContext);
 		replacements.put("progress", new I18nWord("progress", oneDecimalFormat.format(progress)));

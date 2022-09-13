@@ -927,6 +927,11 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			poweredFurnitureComponent.destroy(message.targetEntity, messageDispatcher, gameContext);
 		}
 
+		LiquidContainerComponent liquidContainerComponent = message.targetEntity.getComponent(LiquidContainerComponent.class);
+		if (liquidContainerComponent != null) {
+			liquidContainerComponent.destroy(message.targetEntity, messageDispatcher, gameContext);
+		}
+
 		message.targetEntity.getLocationComponent().setRotation(slightRotation());
 
 		return true;
@@ -1004,6 +1009,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 								message.targetEntity, OXIDISED, message.oxidisedMaterial,
 								message.oxidisedMaterial.getColor(), null
 						));
+
 
 						showNotificationOxidisationDestroyedSomething(message.targetEntity);
 

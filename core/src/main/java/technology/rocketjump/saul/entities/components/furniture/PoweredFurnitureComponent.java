@@ -108,7 +108,7 @@ public class PoweredFurnitureComponent implements ParentDependentEntityComponent
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		if (((FurnitureEntityAttributes)parentEntity.getPhysicalEntityComponent().getAttributes()).isDestroyed()) {
 			return emptyList();
 		}

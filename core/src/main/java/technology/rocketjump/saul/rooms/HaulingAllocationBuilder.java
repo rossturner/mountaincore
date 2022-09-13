@@ -44,7 +44,7 @@ public class HaulingAllocationBuilder {
 			HaulingAllocationBuilder builder = new HaulingAllocationBuilder();
 			builder.allocation.setHauledEntityType(EntityType.FURNITURE);
 			builder.allocation.setHauledEntityId(furnitureToBeHauled.getId());
-			builder.allocation.setSourcePositionType(HaulingAllocation.AllocationPositionType.FLOOR);
+			builder.allocation.setSourcePositionType(FURNITURE);
 			builder.allocation.setSourcePosition(toGridPoint(furnitureToBeHauled.getLocationComponent().getWorldPosition()));
 			return builder;
 		} else {
@@ -95,7 +95,7 @@ public class HaulingAllocationBuilder {
 		switch (targetEntity.getType()) {
 			case FURNITURE -> allocation.setTargetPositionType(FURNITURE);
 			case CREATURE -> allocation.setTargetPositionType(CREATURE);
-			case ITEM -> allocation.setTargetPositionType(null);
+			case ITEM -> allocation.setTargetPositionType(FLOOR);
 			default -> throw new NotImplementedException(targetEntity.getType() + " not implemented in " + getClass().getSimpleName() + ".toEntity()");
 		}
 		return build();

@@ -6,7 +6,7 @@ varying vec2 v_position;
 uniform sampler2D u_texture;
 uniform vec2 u_viewportResolution;
 
-const int numSteps = 5;
+const int numSteps = 4;
 
 void main() {
     vec2 correctedCoords = vec2(

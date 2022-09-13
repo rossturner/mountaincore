@@ -109,4 +109,9 @@ public class WallConstruction extends Construction {
 
 		this.layout = new WallConstructionLayout(asJson.getIntValue("layout"));
 	}
+
+	@Override
+	public String getFurnitureTypeI18nKey() {
+		return getWallTypeToConstruct().getI18nKey();
+	}
 }

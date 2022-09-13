@@ -77,7 +77,7 @@ public class MushroomLogBehaviour extends FurnitureBehaviour implements Destruct
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		if (state.descriptionI18nKey == null) {
 			return emptyList();
 		}

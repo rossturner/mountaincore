@@ -295,7 +295,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		// Hard-coded for now, might want to be more data-driven
 		if (currentAction instanceof FleeFromCombatAction) {
 			return List.of(i18nTranslator.getTranslatedString("COMBAT.DESCRIPTION.FLEEING"));

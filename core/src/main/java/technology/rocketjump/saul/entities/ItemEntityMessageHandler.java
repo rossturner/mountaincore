@@ -241,7 +241,11 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 				availabilityMap.put(itemMaterial, quantityOfMaterial);
 			}
 
-			itemMaterialSelectionMessage.callback.materialFound(mostCommonMaterial);
+			if (mostCommonQuantity >= itemMaterialSelectionMessage.minimumQuantity) {
+				itemMaterialSelectionMessage.callback.materialFound(mostCommonMaterial);
+			} else {
+				itemMaterialSelectionMessage.callback.materialFound(null);
+			}
 		} else {
 			itemMaterialSelectionMessage.callback.materialFound(null);
 		}
