@@ -26,6 +26,7 @@ import technology.rocketjump.saul.mapping.tile.roof.TileRoofState;
 import technology.rocketjump.saul.settlement.CreatureTracker;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 import static technology.rocketjump.saul.entities.model.physical.creature.CreatureMapPlacement.ANIMAL;
 import static technology.rocketjump.saul.entities.model.physical.creature.CreatureMapPlacement.CAVE_MONSTER;
@@ -130,8 +131,15 @@ public class CreaturePopulator {
 
 		int maxDifficulty = monsterDifficulty(monsterRaces.get(monsterRaces.size() - 1));
 
+		Predicate<RegionInformation> allRoofsAreCavern = regionInformation -> {
+			boolean allCavern = true;
+			for (MapTile mapTile : regionInformation.tilesInRegion) {
+				allCavern &= mapTile.getRoof() != null && CAVERN == mapTile.getRoof().getState();
+			}
+			return allCavern;
+		};
 		List<RegionInformation> cavesFurthestFirst = Arrays.stream(findRegionsFromEmbarkPoint(areaMap, areaMap.getEmbarkPoint()))
-				.filter(region -> region.nearestTile.getRoof() != null && CAVERN == region.nearestTile.getRoof().getState())
+				.filter(allRoofsAreCavern)
 				.sorted(Comparator.<RegionInformation>comparingInt(value -> value.distanceFromEmbarkPoint).reversed())
 				.toList();
 
