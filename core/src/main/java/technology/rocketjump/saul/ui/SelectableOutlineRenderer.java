@@ -22,6 +22,7 @@ public class SelectableOutlineRenderer {
 		switch (selectable.type) {
 			case SQUAD:
 			case ENTITY:
+			case CONSTRUCTION:
 				break;
 			case ROOM:
 				renderTileOutline(selectable.getRoom().getRoomTiles().keySet(), shapeRenderer);
@@ -34,9 +35,6 @@ public class SelectableOutlineRenderer {
 				break;
 			case DOORWAY:
 				renderTileOutline(selectable.getDoorway().getTileLocation(), shapeRenderer);
-				break;
-			case CONSTRUCTION:
-				renderTileOutline(selectable.getConstruction().getTileLocations(), shapeRenderer);
 				break;
 			default:
 				Logger.error("Not yet implemented: " + this.getClass().getSimpleName() + ".render() for " + selectable.type);
