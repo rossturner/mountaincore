@@ -13,7 +13,7 @@ public class GlobalSettings {
 	public static final boolean DEV_MODE = true;
 	public static final boolean CHOOSE_SPAWN_LOCATION = true;
 
-	public static boolean USE_EDGE_SCROLLING = false;
+	public static boolean USE_EDGE_SCROLLING = true;
 	public static boolean ZOOM_TO_CURSOR = true;
 	public static boolean PAUSE_FOR_NOTIFICATIONS = true;
 	public static boolean TREE_TRANSPARENCY_ENABLED = true;
