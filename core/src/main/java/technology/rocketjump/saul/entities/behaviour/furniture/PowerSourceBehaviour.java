@@ -56,7 +56,7 @@ public class PowerSourceBehaviour extends FurnitureBehaviour implements Destruct
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		if (isWorking(gameContext)) {
 			return Collections.emptyList();
 		} else {

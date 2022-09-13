@@ -232,15 +232,12 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			// Crafting in progress, check if all requirements met on item or liquid addition
 		}
 
-		if (currentProductionAssignment.getInputSelectionsLastUpdated() < gameContext.getGameClock().getCurrentGameTime() - gameContext.getGameClock().HOURS_IN_DAY &&
-			haulingInputAllocations.isEmpty()) {
-			// More than one day since last updated selections, perhaps we ran out of that material
-			currentProductionAssignment.getInputMaterialSelections().clear();
-			currentProductionAssignment.setInputSelectionsLastUpdated(gameContext.getGameClock().getCurrentGameTime());
-		}
-
 		if (currentProductionAssignment.inputMaterialSelections.size() != currentProductionAssignment.targetRecipe.getInput().size()) {
 			selectMaterials(gameContext);
+		}
+
+		if (currentProductionAssignment == null) {
+			return;
 		}
 
 		for (QuantifiedItemTypeWithMaterial inputRequirement : currentProductionAssignment.getInputMaterialSelections()) {
@@ -412,6 +409,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	private void selectMaterials(GameContext gameContext) {
+		boolean allMaterialsAvailable = true;
 		for (int inputCursor = 0; inputCursor < currentProductionAssignment.targetRecipe.getInput().size(); inputCursor++) {
 			if (currentProductionAssignment.getInputMaterialSelections().size() > inputCursor) {
 				// Already have this one selected
@@ -438,6 +436,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 					// Still null i.e.
 					messageDispatcher.dispatchMessage(MessageType.SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE, new ItemMaterialSelectionMessage(
 							inputRequirement.getItemType(),
+							inputRequirement.getQuantity(),
 							(gameMaterial) -> {
 								if (gameMaterial != null) {
 									inputRequirement.setMaterial(gameMaterial);
@@ -452,10 +451,15 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 					currentProductionAssignment.getInputMaterialSelections().add(inputRequirement);
 					currentProductionAssignment.setInputSelectionsLastUpdated(gameContext.getGameClock().getCurrentGameTime());
 				} else {
+					allMaterialsAvailable = false;
 					// Couldn't find an appropriate material for this item, break out of loop to match order of entries with targetRecipe.inputs
 					break;
 				}
 			}
+		}
+
+		if (!allMaterialsAvailable) {
+			currentProductionAssignment = null;
 		}
 	}
 
@@ -729,6 +733,12 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			if (itemAllocationComponent.getNumUnallocated() > 0) {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(entry.entity, parentEntity, true, priority, job -> {
 					// Do nothing with job
+					if (job != null && job.getHaulingAllocation() != null) {
+						HaulingAllocation allocation = job.getHaulingAllocation();
+						allocation.setTargetId(null);
+						allocation.setTargetPositionType(null);
+						allocation.setTargetPosition(null);
+					}
 				}));
 			}
 		}
@@ -837,7 +847,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		List<I18nText> descriptions = new ArrayList<>(2);
 
 		if (currentProductionAssignment != null) {

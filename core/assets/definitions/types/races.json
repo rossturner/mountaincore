@@ -513,6 +513,10 @@
     "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ "SLEEP" ],
+    "group" : {
+      "minSize" : 2,
+      "maxSize" : 12
+    },
     "aggressionResponse" : "FLEE",
     "isSapient" : false
   },
@@ -625,6 +629,10 @@
     "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
     "needs" : [ ],
+    "group" : {
+      "minSize" : 1,
+      "maxSize" : 8
+    },
     "aggressionResponse" : "ATTACK",
     "isSapient" : false
   },

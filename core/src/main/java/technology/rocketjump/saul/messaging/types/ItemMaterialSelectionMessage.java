@@ -6,10 +6,12 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 public class ItemMaterialSelectionMessage {
 
 	public final ItemType itemType;
+	public final int minimumQuantity;
 	public final ItemMaterialSelectionCallback callback;
 
-	public ItemMaterialSelectionMessage(ItemType itemType, ItemMaterialSelectionCallback callback) {
+	public ItemMaterialSelectionMessage(ItemType itemType, int minimumQuantity, ItemMaterialSelectionCallback callback) {
 		this.itemType = itemType;
+		this.minimumQuantity = minimumQuantity;
 		this.callback = callback;
 	}
 
