@@ -196,6 +196,17 @@
         "CRUSHING" : 1
       }
     },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "STABBING",
+      "modifiedByStrength" : true,
+      "minDamage" : 3,
+      "maxDamage" : 8,
+      "armorNegation" : 1,
+      "twoHanded" : false,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "ranged" : false
+    },
     "skin" : {
       "itemTypeName" : "Carcass-Hide",
       "quantity" : 4,
@@ -349,7 +360,8 @@
       "minDamage" : 1,
       "maxDamage" : 4,
       "armorNegation" : 0,
-      "twoHanded" : false
+      "twoHanded" : false,
+      "ranged" : false
     },
     "skin" : {
       "itemTypeName" : "Carcass-Hide",
@@ -541,7 +553,8 @@
       "armorNegation" : 0,
       "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
-      "animatedSpriteEffectName" : "Weapon slash"
+      "animatedSpriteEffectName" : "Weapon slash",
+      "ranged" : false
     }
   }
 }, {
@@ -596,7 +609,8 @@
       "armorNegation" : 0,
       "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
-      "animatedSpriteEffectName" : "Weapon slash"
+      "animatedSpriteEffectName" : "Weapon slash",
+      "ranged" : false
     }
   }
 }, {
@@ -657,7 +671,8 @@
       "armorNegation" : 0,
       "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
-      "animatedSpriteEffectName" : "Weapon slash"
+      "animatedSpriteEffectName" : "Weapon slash",
+      "ranged" : false
     },
     "bones" : {
       "materialName" : "Bone"
@@ -711,7 +726,8 @@
       "armorNegation" : 0,
       "twoHanded" : false,
       "combatSkillName" : "UNARMED_COMBAT",
-      "animatedSpriteEffectName" : "Weapon slash"
+      "animatedSpriteEffectName" : "Weapon slash",
+      "ranged" : false
     }
   }
 } ]
