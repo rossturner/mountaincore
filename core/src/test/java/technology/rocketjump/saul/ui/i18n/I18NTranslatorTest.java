@@ -11,7 +11,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 import technology.rocketjump.saul.TestModule;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.assets.model.WallType;
@@ -46,6 +48,8 @@ import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.GameMaterialI18nUpdater;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
+import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.ItemMaterialSelectionMessage;
 import technology.rocketjump.saul.misc.twitch.TwitchDataStore;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.persistence.UserPreferences;
@@ -62,6 +66,7 @@ import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.LANGUAGE;
@@ -246,7 +251,7 @@ public class I18NTranslatorTest {
 			requirement.setMaterial(material);
 		}
 
-		assertThat(translator.getDescription(construction).toString()).isEqualTo("Construction of granite stonemason workbench");
+		assertThat(construction.getHeadlineDescription(translator).toString()).isEqualTo("Construction of granite stonemason workbench");
 	}
 
 //	@Test
@@ -396,7 +401,7 @@ public class I18NTranslatorTest {
 	public void getWallConstructionDescription_doesNotShowMaterialType_whenNoMaterialSelected() {
 		WallConstruction wallConstruction = createWallConstruction(NULL_MATERIAL);
 
-		I18nText description = translator.getDescription(wallConstruction);
+		I18nText description = wallConstruction.getHeadlineDescription(translator);
 
 		assertThat(description.toString()).isEqualTo("Construction of smooth stone wall");
 	}
@@ -405,7 +410,7 @@ public class I18NTranslatorTest {
 	public void getWallConstructionDescription_doesShowMaterialType_whenMaterialIsSelected() {
 		WallConstruction wallConstruction = createWallConstruction(gameMaterialDictionary.getByName("Dolostone"));
 
-		I18nText description = translator.getDescription(wallConstruction);
+		I18nText description = wallConstruction.getHeadlineDescription(translator);
 
 		assertThat(description.toString()).isEqualTo("Construction of smooth stone wall");
 	}
@@ -419,8 +424,16 @@ public class I18NTranslatorTest {
 		assertThat(wallConstruction.getConstructionStatusDescriptions(translator, null).toString()).contains("Removing other items");
 
 		wallConstruction.setState(ConstructionState.SELECTING_MATERIALS);
+		doAnswer(new Answer() {
+			@Override
+			public Object answer(InvocationOnMock invocation) throws Throwable {
+				ItemMaterialSelectionMessage messageInfo = invocation.getArgument(1, ItemMaterialSelectionMessage.class);
+				messageInfo.callback.materialFound(null);
+				return null;
+			}
+		}).when(mockMessageDispatcher).dispatchMessage(eq(MessageType.SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE), any(ItemMaterialSelectionMessage.class));
 
-		assertThat(wallConstruction.getConstructionStatusDescriptions(translator, null).toString()).contains("Waiting for more stone blocks to be available");
+		assertThat(wallConstruction.getConstructionStatusDescriptions(translator, mockMessageDispatcher).toString()).contains("Waiting for more stone blocks to be available");
 
 		wallConstruction.setState(ConstructionState.WAITING_FOR_RESOURCES);
 

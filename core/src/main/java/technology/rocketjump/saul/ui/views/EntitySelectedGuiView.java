@@ -897,7 +897,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					}
 					case CONSTRUCTION: {
 						if (targetTile.getConstruction() != null) {
-							targetDescription = i18nTranslator.getDescription(targetTile.getConstruction());
+							targetDescription = targetTile.getConstruction().getHeadlineDescription(i18nTranslator);
 						}
 						break;
 					}

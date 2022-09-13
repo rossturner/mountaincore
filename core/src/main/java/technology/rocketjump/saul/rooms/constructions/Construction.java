@@ -350,7 +350,7 @@ public abstract class Construction implements Persistable, SelectableDescription
 	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		List<I18nText> description = new ArrayList<>(2 + requirements.size());
 
-		description.add(i18nTranslator.getDescription(this)); //TODO: polymorphic
+		description.add(getHeadlineDescription(i18nTranslator));
 		description.addAll(getConstructionStatusDescriptions(i18nTranslator, messageDispatcher));
 
 		if (!getState().equals(SELECTING_MATERIALS)) {
@@ -365,6 +365,24 @@ public abstract class Construction implements Persistable, SelectableDescription
 		return description;
 	}
 
+	public abstract String getFurnitureTypeI18nKey();
+
+	public I18nText getHeadlineDescription(I18nTranslator translator) {
+		GameMaterial primaryMaterial = getPrimaryMaterial();
+		Map<String, I18nString> replacements = new HashMap<>();
+		if (NULL_MATERIAL.equals(primaryMaterial)) {
+			replacements.put("materialType", I18nWord.BLANK);
+		} else {
+			replacements.put("materialType", primaryMaterial.getI18nValue());
+		}
+		replacements.put("furnitureType", translator.getWord(getFurnitureTypeI18nKey()));
+
+		return translator.applyReplacements(translator.getWord("CONSTRUCTION.DESCRIPTION"), replacements, Gender.ANY);
+
+//		} else if (construction instanceof BridgeConstruction) {
+//			return getConstructionDescription(getPrimaryMaterial(), ((BridgeConstruction)construction).getBridge().getBridgeType().getI18nKey());
+//		}
+	}
 
 	private int getAllocationAmount(ItemType itemType, List<HaulingAllocation> haulingAllocations, Collection<ItemAllocation> placedItems, GameContext gameContext) {
 		int allocated = 0;

@@ -426,22 +426,6 @@ public class I18nTranslator implements I18nUpdatable {
 		return applyReplacements(dictionary.getWord("FLOOR.POWER.DESCRIPTION"), replacements, Gender.ANY);
 	}
 
-	public I18nText getDescription(Construction construction) {
-
-		if (construction instanceof FurnitureConstruction) {
-			FurnitureEntityAttributes furnitureEntityAttributes = (FurnitureEntityAttributes) construction.getEntity().getPhysicalEntityComponent().getAttributes();
-			return getConstructionDescription(construction.getPrimaryMaterial(), furnitureEntityAttributes.getFurnitureType().getI18nKey());
-		} else if (construction instanceof WallConstruction) {
-			return getConstructionDescription(construction.getPrimaryMaterial(), ((WallConstruction) construction).getWallTypeToConstruct().getI18nKey());
-		} else if (construction instanceof BridgeConstruction) {
-			return getConstructionDescription(construction.getPrimaryMaterial(), ((BridgeConstruction)construction).getBridge().getBridgeType().getI18nKey());
-		} else {
-			Logger.error("Description of " + construction.getClass().getSimpleName() + " not yet implemented");
-			return BLANK;
-		}
-
-	}
-
 	public I18nText getDateTimeString(GameClock gameClock) {
 		if (gameClock == null) {
 			return new I18nText("");
@@ -454,17 +438,6 @@ public class I18nTranslator implements I18nUpdatable {
 		return applyReplacements(dictionary.getWord("GUI.DATE_TIME_LABEL"), replacements, Gender.ANY);
 	}
 
-	private I18nText getConstructionDescription(GameMaterial primaryMaterial, String furnitureTypeI18nKey) {
-		Map<String, I18nString> replacements = new HashMap<>();
-		if (NULL_MATERIAL.equals(primaryMaterial)) {
-			replacements.put("materialType", I18nWord.BLANK);
-		} else {
-			replacements.put("materialType", primaryMaterial.getI18nValue());
-		}
-		replacements.put("furnitureType", dictionary.getWord(furnitureTypeI18nKey));
-
-		return applyReplacements(dictionary.getWord("CONSTRUCTION.DESCRIPTION"), replacements, Gender.ANY);
-	}
 
 	private I18nText getSapientCreatureDescription(Entity entity, CreatureEntityAttributes attributes) {
 		Map<String, I18nString> replacements = new HashMap<>();

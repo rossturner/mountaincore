@@ -89,4 +89,9 @@ public class BridgeConstruction extends Construction {
 			throw new InvalidSaveException("Can not find bridge with ID " + bridgeId + " for " + getClass().getSimpleName());
 		}
 	}
+
+	@Override
+	public String getFurnitureTypeI18nKey() {
+		return getBridge().getBridgeType().getI18nKey();
+	}
 }
