@@ -534,7 +534,7 @@ public class I18nTranslator implements I18nUpdatable {
 	public I18nText getItemDescription(int quantity, GameMaterial material, ItemType itemType, ItemQuality itemQuality) {
 		Map<String, I18nString> replacements = new HashMap<>();
 		replacements.put("quantity", new I18nWord(String.valueOf(quantity)));
-		if (material == null) {
+		if (material == null || material.isExcludeFromItemDescription()) {
 			replacements.put("materialType", I18nWord.BLANK);
 		} else {
 			replacements.put("materialType", material.getI18nValue());

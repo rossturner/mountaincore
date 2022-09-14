@@ -30,6 +30,10 @@ import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.*;
+import technology.rocketjump.saul.entities.model.physical.creature.body.Body;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BoneType;
+import technology.rocketjump.saul.entities.model.physical.creature.features.BonesFeature;
 import technology.rocketjump.saul.entities.model.physical.creature.features.MeatFeature;
 import technology.rocketjump.saul.entities.model.physical.creature.features.SkinFeature;
 import technology.rocketjump.saul.entities.model.physical.creature.status.OnFireStatus;
@@ -1014,6 +1018,42 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							Entity skinItem = itemEntityFactory.create(skinItemAttributes, null, true, gameContext);
 							inventoryComponent.add(skinItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
 							skinItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
+						}
+
+						BonesFeature bonesFeature = attributes.getRace().getFeatures().getBones();
+						if (bonesFeature != null) {
+							Body body = attributes.getBody();
+							int[] numberOfBonesPerPart = new int[BoneType.values().length];
+
+							for (BodyPart bodyPart : body.getAllBodyParts()) {
+								for (BoneType boneType : bodyPart.getPartDefinition().getBones()) {
+									numberOfBonesPerPart[boneType.ordinal()]++;
+								}
+							}
+
+							//TODO: move as fields
+							ItemType largeBone = itemTypeDictionary.getByName("Resource-Bone-Large");
+							ItemType mediumBone = itemTypeDictionary.getByName("Resource-Bone-Medium");
+							ItemType smallBone = itemTypeDictionary.getByName("Resource-Bone-Small");
+
+							for (BoneType boneType : BoneType.values()) {
+								int quantity = numberOfBonesPerPart[boneType.ordinal()];
+								ItemType boneItemType;
+								switch (boneType) {
+									case LARGE -> boneItemType = largeBone;
+									case MEDIUM -> boneItemType = mediumBone;
+									case SMALL -> boneItemType = smallBone;
+									default -> boneItemType = null;
+								}
+
+								if (boneItemType != null && quantity > 0) {
+									ItemEntityAttributes boneItemAttributes = itemEntityAttributesFactory.createItemAttributes(boneItemType, quantity, bonesFeature.getMaterial());
+									Entity boneItem = itemEntityFactory.create(boneItemAttributes, null, true, gameContext);
+									inventoryComponent.add(boneItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
+									boneItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
+								}
+							}
+
 						}
 
 						// TODO create items for bone and hide

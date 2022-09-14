@@ -11,6 +11,7 @@
   "i18nKey" : "CLOTH.TOBACCO_CLOTH",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Hemp-Linen",
@@ -25,6 +26,7 @@
   "i18nKey" : "CLOTH.HEMP-LINEN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Light hemp",
@@ -39,6 +41,7 @@
   "i18nKey" : "CLOTH.LIGHT_HEMP",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Bronzed hemp",
@@ -53,6 +56,7 @@
   "i18nKey" : "CLOTH.BRONZED_HEMP",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Rockbread",
@@ -67,6 +71,7 @@
   "i18nKey" : "FOODSTUFF.ROCKBREAD",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Wheat-Bread",
@@ -81,6 +86,7 @@
   "i18nKey" : "FOODSTUFF.WHEAT-BREAD",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Amethyst",
@@ -97,6 +103,7 @@
   "i18nKey" : "GEM.AMETHYST",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Citrine",
@@ -113,6 +120,7 @@
   "i18nKey" : "GEM.CITRINE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Garnet",
@@ -129,6 +137,7 @@
   "i18nKey" : "GEM.GARNET",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Moonstone",
@@ -145,6 +154,7 @@
   "i18nKey" : "GEM.MOONSTONE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Diamond",
@@ -161,6 +171,7 @@
   "i18nKey" : "GEM.DIAMOND",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Tanzanite",
@@ -177,6 +188,7 @@
   "i18nKey" : "GEM.TANZANITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Tourmaline",
@@ -193,6 +205,7 @@
   "i18nKey" : "GEM.TOURMALINE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Topaz",
@@ -209,6 +222,7 @@
   "i18nKey" : "GEM.TOPAZ",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Jasper",
@@ -225,6 +239,7 @@
   "i18nKey" : "GEM.JASPER",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Opal",
@@ -241,6 +256,7 @@
   "i18nKey" : "GEM.OPAL",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Rock Crystal",
@@ -257,6 +273,7 @@
   "i18nKey" : "GEM.ROCK_CRYSTAL",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Emerald",
@@ -273,6 +290,7 @@
   "i18nKey" : "GEM.EMERALD",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Morganite",
@@ -289,6 +307,7 @@
   "i18nKey" : "GEM.MORGANITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Aquamarine",
@@ -305,6 +324,7 @@
   "i18nKey" : "GEM.AQUAMARINE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Jade",
@@ -321,6 +341,7 @@
   "i18nKey" : "GEM.JADE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Turquoise",
@@ -337,6 +358,7 @@
   "i18nKey" : "GEM.TURQUOISE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Spinel",
@@ -353,6 +375,7 @@
   "i18nKey" : "GEM.SPINEL",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Ruby",
@@ -369,6 +392,7 @@
   "i18nKey" : "GEM.RUBY",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Sapphire",
@@ -385,6 +409,7 @@
   "i18nKey" : "GEM.SAPPHIRE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Ammolite",
@@ -401,6 +426,7 @@
   "i18nKey" : "GEM.AMMOLITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Painite",
@@ -417,6 +443,7 @@
   "i18nKey" : "GEM.PAINITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Rhodochrosite",
@@ -433,6 +460,7 @@
   "i18nKey" : "GEM.RHODOCHROSITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Bixbite",
@@ -449,6 +477,7 @@
   "i18nKey" : "GEM.BIXBITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Lapis",
@@ -465,6 +494,7 @@
   "i18nKey" : "GEM.LAPIS",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Labradorite",
@@ -481,6 +511,7 @@
   "i18nKey" : "GEM.LABRADORITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Magnesite",
@@ -497,6 +528,7 @@
   "i18nKey" : "GEM.MAGNESITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Cinnabar",
@@ -513,6 +545,7 @@
   "i18nKey" : "GEM.CINNABAR",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Water",
@@ -527,6 +560,7 @@
   "i18nKey" : "LIQUID.WATER",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Wort",
@@ -541,6 +575,7 @@
   "i18nKey" : "LIQUID.WORT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Hopped Wort",
@@ -555,6 +590,7 @@
   "i18nKey" : "LIQUID.HOPPED_WORT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Beer",
@@ -569,6 +605,7 @@
   "i18nKey" : "LIQUID.BEER",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Dwarf Flesh",
@@ -582,6 +619,7 @@
   "i18nKey" : "MEAT.DWARF_FLESH",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Boar Meat",
@@ -596,6 +634,7 @@
   "i18nKey" : "MEAT.BOAR_MEAT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Deer Meat",
@@ -610,6 +649,7 @@
   "i18nKey" : "MEAT.DEER_MEAT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Fox Meat",
@@ -624,6 +664,7 @@
   "i18nKey" : "MEAT.FOX_MEAT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Elephant Meat",
@@ -638,6 +679,7 @@
   "i18nKey" : "MEAT.ELEPHANT_MEAT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Carp Meat",
@@ -652,6 +694,7 @@
   "i18nKey" : "MEAT.CARP_MEAT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Perch Meat",
@@ -666,6 +709,7 @@
   "i18nKey" : "MEAT.PERCH_MEAT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Pike Meat",
@@ -680,6 +724,7 @@
   "i18nKey" : "MEAT.PIKE_MEAT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Iron",
@@ -700,6 +745,7 @@
   "i18nKey" : "METAL.IRON",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Steel",
@@ -720,6 +766,7 @@
   "i18nKey" : "METAL.STEEL",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Rusted Iron",
@@ -739,6 +786,7 @@
   "i18nKey" : "METAL.RUSTED_IRON",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Copper",
@@ -758,6 +806,7 @@
   "i18nKey" : "METAL.COPPER",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Copper Patina",
@@ -772,6 +821,7 @@
   "i18nKey" : "METAL.COPPER_PATINA",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Tin",
@@ -786,6 +836,7 @@
   "i18nKey" : "METAL.TIN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Bronze",
@@ -800,6 +851,7 @@
   "i18nKey" : "METAL.BRONZE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Gold",
@@ -814,6 +866,7 @@
   "i18nKey" : "METAL.GOLD",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Platinum",
@@ -828,6 +881,7 @@
   "i18nKey" : "METAL.PLATINUM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Silver",
@@ -842,6 +896,7 @@
   "i18nKey" : "METAL.SILVER",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Hematite",
@@ -857,6 +912,7 @@
   "i18nKey" : "ORE.HEMATITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Bituminous Coal",
@@ -872,6 +928,7 @@
   "i18nKey" : "ORE.BITUMINOUS_COAL",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Coke",
@@ -887,6 +944,7 @@
   "i18nKey" : "ORE.COKE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Charcoal",
@@ -902,6 +960,7 @@
   "i18nKey" : "ORE.CHARCOAL",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Native Gold",
@@ -917,6 +976,7 @@
   "i18nKey" : "ORE.NATIVE_GOLD",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Native Platinum",
@@ -932,6 +992,7 @@
   "i18nKey" : "ORE.NATIVE_PLATINUM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Pyrite",
@@ -947,6 +1008,7 @@
   "i18nKey" : "ORE.PYRITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Cassiterite",
@@ -962,6 +1024,7 @@
   "i18nKey" : "ORE.CASSITERITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Native Copper",
@@ -977,6 +1040,7 @@
   "i18nKey" : "ORE.NATIVE_COPPER",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Galena",
@@ -992,6 +1056,7 @@
   "i18nKey" : "ORE.GALENA",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Native Silver",
@@ -1007,6 +1072,7 @@
   "i18nKey" : "ORE.NATIVE_SILVER",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Malachite",
@@ -1022,6 +1088,7 @@
   "i18nKey" : "ORE.MALACHITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Wolframite",
@@ -1037,6 +1104,7 @@
   "i18nKey" : "ORE.WOLFRAMITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Thorium",
@@ -1052,6 +1120,7 @@
   "i18nKey" : "ORE.THORIUM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Chrysocolla",
@@ -1067,6 +1136,7 @@
   "i18nKey" : "ORE.CHRYSOCOLLA",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Pollucite",
@@ -1082,6 +1152,7 @@
   "i18nKey" : "ORE.POLLUCITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Ilmenite",
@@ -1097,6 +1168,7 @@
   "i18nKey" : "ORE.ILMENITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Bauxite",
@@ -1112,6 +1184,7 @@
   "i18nKey" : "ORE.BAUXITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Green Vitriol",
@@ -1126,6 +1199,7 @@
   "i18nKey" : "VITRIOL.GREEN_VITRIOL",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Snowfall",
@@ -1139,6 +1213,7 @@
   "i18nKey" : "LIQUID.SNOWFALL",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "brick",
@@ -1152,6 +1227,7 @@
   "i18nKey" : "OTHER.BRICK",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Grass",
@@ -1166,6 +1242,7 @@
   "i18nKey" : "EARTH.GRASS",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Dirt",
@@ -1180,6 +1257,7 @@
   "i18nKey" : "EARTH.DIRT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Tilled earth",
@@ -1193,6 +1271,7 @@
   "i18nKey" : "EARTH.TILLED_EARTH",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "clay_soil",
@@ -1206,6 +1285,7 @@
   "i18nKey" : "OTHER.CLAY_SOIL",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Gravel",
@@ -1220,6 +1300,7 @@
   "i18nKey" : "OTHER.GRAVEL",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Plant",
@@ -1233,6 +1314,7 @@
   "i18nKey" : "OTHER.PLANT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Bone",
@@ -1247,6 +1329,7 @@
   "i18nKey" : "BONE.BONE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : true,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Ash",
@@ -1261,6 +1344,7 @@
   "i18nKey" : "OTHER.ASH",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Sandstone",
@@ -1278,6 +1362,7 @@
   "i18nKey" : "STONE.SANDSTONE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Limestone",
@@ -1295,6 +1380,7 @@
   "i18nKey" : "STONE.LIMESTONE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Dolostone",
@@ -1312,6 +1398,7 @@
   "i18nKey" : "STONE.DOLOSTONE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Shale",
@@ -1329,6 +1416,7 @@
   "i18nKey" : "STONE.SHALE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Slate",
@@ -1346,6 +1434,7 @@
   "i18nKey" : "STONE.SLATE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Marble",
@@ -1363,6 +1452,7 @@
   "i18nKey" : "STONE.MARBLE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Granite",
@@ -1380,6 +1470,7 @@
   "i18nKey" : "STONE.GRANITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Basalt",
@@ -1397,6 +1488,7 @@
   "i18nKey" : "STONE.BASALT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Fronite",
@@ -1414,6 +1506,7 @@
   "i18nKey" : "STONE.FRONITE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Hemp-Rope",
@@ -1428,6 +1521,7 @@
   "i18nKey" : "ROPE.HEMP-ROPE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Aged rope",
@@ -1442,6 +1536,7 @@
   "i18nKey" : "ROPE.AGED_ROPE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Tobacco rope",
@@ -1456,6 +1551,7 @@
   "i18nKey" : "ROPE.TOBACCO_ROPE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Gray rope",
@@ -1470,6 +1566,7 @@
   "i18nKey" : "ROPE.GRAY_ROPE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Bronzed rope",
@@ -1484,6 +1581,7 @@
   "i18nKey" : "ROPE.BRONZED_ROPE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Wheat Seed",
@@ -1498,6 +1596,7 @@
   "i18nKey" : "SEED.WHEAT_SEED",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Hemp Seed",
@@ -1512,6 +1611,7 @@
   "i18nKey" : "SEED.HEMP_SEED",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Barley Seed",
@@ -1526,6 +1626,7 @@
   "i18nKey" : "SEED.BARLEY_SEED",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Tomato Seed",
@@ -1540,6 +1641,7 @@
   "i18nKey" : "SEED.TOMATO_SEED",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Potato Seed",
@@ -1554,6 +1656,7 @@
   "i18nKey" : "SEED.POTATO_SEED",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Carrot Seed",
@@ -1568,6 +1671,7 @@
   "i18nKey" : "SEED.CARROT_SEED",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Hops Seed",
@@ -1582,6 +1686,7 @@
   "i18nKey" : "SEED.HOPS_SEED",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Corn Seed",
@@ -1596,6 +1701,7 @@
   "i18nKey" : "SEED.CORN_SEED",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Purple Helmet Spawn",
@@ -1610,6 +1716,7 @@
   "i18nKey" : "SEED.PURPLE_HELMET_SPAWN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Death Cap Spawn",
@@ -1624,6 +1731,7 @@
   "i18nKey" : "SEED.DEATH_CAP_SPAWN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Fist Spawn",
@@ -1638,6 +1746,7 @@
   "i18nKey" : "SEED.FIST_SPAWN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Berserker Mushroom Spawn",
@@ -1652,6 +1761,7 @@
   "i18nKey" : "SEED.BERSERKER_MUSHROOM_SPAWN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Rociomycota Mushroom Spawn",
@@ -1666,6 +1776,7 @@
   "i18nKey" : "SEED.ROCIOMYCOTA_MUSHROOM_SPAWN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Miltonia Spawn",
@@ -1680,6 +1791,7 @@
   "i18nKey" : "SEED.MILTONIA_SPAWN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Elfsbane Spawn",
@@ -1694,6 +1806,7 @@
   "i18nKey" : "SEED.ELFSBANE_SPAWN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Sunglow Spawn",
@@ -1708,6 +1821,7 @@
   "i18nKey" : "SEED.SUNGLOW_SPAWN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Glow Spawn",
@@ -1722,6 +1836,7 @@
   "i18nKey" : "SEED.GLOW_SPAWN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Syrup Powder Spawn",
@@ -1736,6 +1851,7 @@
   "i18nKey" : "SEED.SYRUP_POWDER_SPAWN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Dwarf Hide",
@@ -1750,6 +1866,7 @@
   "i18nKey" : "SKIN.DWARF_HIDE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Boar Hide",
@@ -1764,6 +1881,7 @@
   "i18nKey" : "SKIN.BOAR_HIDE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Deer Hide",
@@ -1778,6 +1896,7 @@
   "i18nKey" : "SKIN.DEER_HIDE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Elephant Hide",
@@ -1792,6 +1911,7 @@
   "i18nKey" : "SKIN.ELEPHANT_HIDE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Wheat",
@@ -1806,6 +1926,7 @@
   "i18nKey" : "VEGETABLE.WHEAT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Hemp",
@@ -1820,6 +1941,7 @@
   "i18nKey" : "VEGETABLE.HEMP",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Hemp_Fibre",
@@ -1834,6 +1956,7 @@
   "i18nKey" : "VEGETABLE.HEMP_FIBRE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Barley",
@@ -1848,6 +1971,7 @@
   "i18nKey" : "VEGETABLE.BARLEY",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Tomato",
@@ -1862,6 +1986,7 @@
   "i18nKey" : "VEGETABLE.TOMATO",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Potato",
@@ -1876,6 +2001,7 @@
   "i18nKey" : "VEGETABLE.POTATO",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Carrot",
@@ -1890,6 +2016,7 @@
   "i18nKey" : "VEGETABLE.CARROT",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Hops",
@@ -1904,6 +2031,7 @@
   "i18nKey" : "VEGETABLE.HOPS",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Corn",
@@ -1918,6 +2046,7 @@
   "i18nKey" : "VEGETABLE.CORN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Purple Helmet Mushroom",
@@ -1932,6 +2061,7 @@
   "i18nKey" : "VEGETABLE.PURPLE_HELMET_MUSHROOM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Death Cap Mushroom",
@@ -1946,6 +2076,7 @@
   "i18nKey" : "VEGETABLE.DEATH_CAP_MUSHROOM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Fist Mushroom",
@@ -1960,6 +2091,7 @@
   "i18nKey" : "VEGETABLE.FIST_MUSHROOM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Berserker Mushroom",
@@ -1974,6 +2106,7 @@
   "i18nKey" : "VEGETABLE.BERSERKER_MUSHROOM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Rociomycota Mushroom",
@@ -1988,6 +2121,7 @@
   "i18nKey" : "VEGETABLE.ROCIOMYCOTA_MUSHROOM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Miltonia Mushroom",
@@ -2002,6 +2136,7 @@
   "i18nKey" : "VEGETABLE.MILTONIA_MUSHROOM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Elfsbane Mushroom",
@@ -2016,6 +2151,7 @@
   "i18nKey" : "VEGETABLE.ELFSBANE_MUSHROOM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Sunglow Mushroom",
@@ -2030,6 +2166,7 @@
   "i18nKey" : "VEGETABLE.SUNGLOW_MUSHROOM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Glow Mushroom",
@@ -2044,6 +2181,7 @@
   "i18nKey" : "VEGETABLE.GLOW_MUSHROOM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Syrup Powder Mushroom",
@@ -2058,6 +2196,7 @@
   "i18nKey" : "VEGETABLE.SYRUP_POWDER_MUSHROOM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Beech",
@@ -2072,6 +2211,7 @@
   "i18nKey" : "WOOD.BEECH",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Birch",
@@ -2086,6 +2226,7 @@
   "i18nKey" : "WOOD.BIRCH",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Fir",
@@ -2100,6 +2241,7 @@
   "i18nKey" : "WOOD.FIR",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Maple",
@@ -2114,6 +2256,7 @@
   "i18nKey" : "WOOD.MAPLE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Pine",
@@ -2128,6 +2271,7 @@
   "i18nKey" : "WOOD.PINE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Oak",
@@ -2142,6 +2286,7 @@
   "i18nKey" : "WOOD.OAK",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : true,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Ebony",
@@ -2156,6 +2301,7 @@
   "i18nKey" : "WOOD.EBONY",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Pecan",
@@ -2170,6 +2316,7 @@
   "i18nKey" : "WOOD.PECAN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Sycamore",
@@ -2184,6 +2331,7 @@
   "i18nKey" : "WOOD.SYCAMORE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Ironwood",
@@ -2198,6 +2346,7 @@
   "i18nKey" : "WOOD.IRONWOOD",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Rosewood",
@@ -2212,6 +2361,7 @@
   "i18nKey" : "WOOD.ROSEWOOD",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Aspen",
@@ -2226,6 +2376,7 @@
   "i18nKey" : "WOOD.ASPEN",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Spruce",
@@ -2240,6 +2391,7 @@
   "i18nKey" : "WOOD.SPRUCE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Nuytsia",
@@ -2254,6 +2406,7 @@
   "i18nKey" : "WOOD.NUYTSIA",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Red cedar",
@@ -2268,6 +2421,7 @@
   "i18nKey" : "WOOD.RED_CEDAR",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Red emperor",
@@ -2282,6 +2436,7 @@
   "i18nKey" : "WOOD.RED_EMPEROR",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Baobab",
@@ -2296,6 +2451,7 @@
   "i18nKey" : "WOOD.BAOBAB",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Star pine",
@@ -2310,6 +2466,7 @@
   "i18nKey" : "WOOD.STAR_PINE",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Shrub branch wood",
@@ -2324,6 +2481,7 @@
   "i18nKey" : "WOOD.SHRUB_BRANCH_WOOD",
   "useMaterialTypeAsAdjective" : true,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Fungiwood",
@@ -2338,6 +2496,7 @@
   "i18nKey" : "WOOD.FUNGIWOOD",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {
   "materialName" : "Barkshroom",
@@ -2352,5 +2511,6 @@
   "i18nKey" : "WOOD.BARKSHROOM",
   "useMaterialTypeAsAdjective" : false,
   "useInRandomGeneration" : false,
+  "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 } ]

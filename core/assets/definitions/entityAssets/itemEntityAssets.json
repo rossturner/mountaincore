@@ -517,372 +517,6 @@
     }
   }
 }, {
-  "uniqueName" : "Large-Bone-Item_Base_Layer-Being_Carried",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Large-Bone",
-  "minQuantity" : 1,
-  "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "BEING_CARRIED" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Large-Bone-Item_Base_Layer-On_Ground_Down.png",
-      "isAnimated" : false,
-      "scale" : 0.7,
-      "offsetPixels" : {
-        "x" : -0.5,
-        "y" : -2.5,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_LEFT_HAND",
-        "offsetPixels" : {
-          "x" : 17.5,
-          "y" : -9.5,
-          "unit" : false
-        }
-      }, {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : -17.5,
-          "y" : -12.5,
-          "unit" : false
-        }
-      } ]
-    }
-  }
-}, {
-  "uniqueName" : "Large-Bone-Item_Base_Layer-On_Ground",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Large-Bone",
-  "minQuantity" : 1,
-  "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Large-Bone-Item_Base_Layer-On_Ground_Down.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -0.5,
-        "y" : -2.5,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Large-Bone-Item_Base_Layer-On_Ground-Large",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Large-Bone",
-  "minQuantity" : 6,
-  "maxQuantity" : 10,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Large-Bone-Item_Base_Layer-On_Ground-Large_Down.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -4.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Large-Bone-Item_Base_Layer-On_Ground-Medium",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Large-Bone",
-  "minQuantity" : 3,
-  "maxQuantity" : 5,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Large-Bone-Item_Base_Layer-On_Ground-Medium_Down.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -3.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Medium-Bone-Item_Base_Layer-Being_Carried",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Medium-Bone",
-  "minQuantity" : 1,
-  "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "BEING_CARRIED" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground_Down.png",
-      "isAnimated" : false,
-      "scale" : 0.7,
-      "offsetPixels" : {
-        "x" : -1.0,
-        "y" : -4.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_LEFT_HAND",
-        "offsetPixels" : {
-          "x" : 13.0,
-          "y" : -6.0,
-          "unit" : false
-        }
-      }, {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : -14.0,
-          "y" : -7.0,
-          "unit" : false
-        }
-      } ]
-    }
-  }
-}, {
-  "uniqueName" : "Medium-Bone-Item_Base_Layer-On_Ground",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Medium-Bone",
-  "minQuantity" : 1,
-  "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground_Down.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -1.0,
-        "y" : -4.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Medium-Bone-Item_Base_Layer-On_Ground-Large",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Medium-Bone",
-  "minQuantity" : 6,
-  "maxQuantity" : 10,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground-Large_Down.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -1.0,
-        "y" : -1.5,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Medium-Bone-Item_Base_Layer-On_Ground-Medium",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Medium-Bone",
-  "minQuantity" : 3,
-  "maxQuantity" : 5,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Medium-Bone-Item_Base_Layer-On_Ground-Medium_Down.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -2.0,
-        "y" : -6.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Small-Bone-Item_Base_Layer-Being_Carried",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Small-Bone",
-  "minQuantity" : 1,
-  "maxQuantity" : 3,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "BEING_CARRIED" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Small-Bone-Item_Base_Layer-On_Ground_Down.png",
-      "isAnimated" : false,
-      "scale" : 0.7,
-      "offsetPixels" : {
-        "x" : -2.5,
-        "y" : -0.5,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_LEFT_HAND",
-        "offsetPixels" : {
-          "x" : 17.5,
-          "y" : -5.5,
-          "unit" : false
-        }
-      }, {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : -14.5,
-          "y" : -5.5,
-          "unit" : false
-        }
-      } ]
-    }
-  }
-}, {
-  "uniqueName" : "Small-Bone-Item_Base_Layer-On_Ground",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Small-Bone",
-  "minQuantity" : 1,
-  "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Small-Bone-Item_Base_Layer-On_Ground_Down.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : -2.5,
-        "y" : -0.5,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Small-Bone-Item_Base_Layer-On_Ground-Large",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Small-Bone",
-  "minQuantity" : 6,
-  "maxQuantity" : 10,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Small-Bone-Item_Base_Layer-On_Ground-Large_Down.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Small-Bone-Item_Base_Layer-On_Ground-Medium",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Small-Bone",
-  "minQuantity" : 3,
-  "maxQuantity" : 5,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Small-Bone-Item_Base_Layer-On_Ground-Medium_Down.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.5,
-        "y" : -0.5,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Carcass-Carp-Prepared-Pile",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Carcass-Carp-Prepared",
@@ -9129,6 +8763,372 @@
       "offsetPixels" : {
         "x" : 0.0,
         "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Large-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Large",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Large-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -2.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 17.5,
+          "y" : -9.5,
+          "unit" : false
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -17.5,
+          "y" : -12.5,
+          "unit" : false
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Large-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Large",
+  "minQuantity" : 1,
+  "maxQuantity" : 2,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Large-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -2.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Large-Item_Base_Layer-On_Ground-Large",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Large",
+  "minQuantity" : 6,
+  "maxQuantity" : 10,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Large-Item_Base_Layer-On_Ground-Large_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -4.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Large-Item_Base_Layer-On_Ground-Medium",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Large",
+  "minQuantity" : 3,
+  "maxQuantity" : 5,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Large-Item_Base_Layer-On_Ground-Medium_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -3.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Medium-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Medium",
+  "minQuantity" : 1,
+  "maxQuantity" : 2,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -4.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 13.0,
+          "y" : -6.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -14.0,
+          "y" : -7.0,
+          "unit" : false
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Medium",
+  "minQuantity" : 1,
+  "maxQuantity" : 2,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -4.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground-Large",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Medium",
+  "minQuantity" : 6,
+  "maxQuantity" : 10,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground-Large_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -1.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground-Medium",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Medium",
+  "minQuantity" : 3,
+  "maxQuantity" : 5,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground-Medium_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : -6.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Small-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Small",
+  "minQuantity" : 1,
+  "maxQuantity" : 3,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Small-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -2.5,
+        "y" : -0.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 17.5,
+          "y" : -5.5,
+          "unit" : false
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -14.5,
+          "y" : -5.5,
+          "unit" : false
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Small-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Small",
+  "minQuantity" : 1,
+  "maxQuantity" : 2,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Small-Item_Base_Layer-On_Ground_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -2.5,
+        "y" : -0.5,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Small-Item_Base_Layer-On_Ground-Large",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Small",
+  "minQuantity" : 6,
+  "maxQuantity" : 10,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Small-Item_Base_Layer-On_Ground-Large_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Small-Item_Base_Layer-On_Ground-Medium",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Small",
+  "minQuantity" : 3,
+  "maxQuantity" : 5,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Small-Item_Base_Layer-On_Ground-Medium_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : -0.5,
         "unit" : false
       },
       "flipX" : false,

@@ -27,53 +27,6 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.LEATHER"
 }, {
-  "itemTypeName" : "Large-Bone",
-  "maxStackSize" : 10,
-  "maxHauledAtOnce" : 1,
-  "materialTypes" : [ "BONE" ],
-  "primaryMaterialType" : "BONE",
-  "holdPosition" : "IN_FRONT",
-  "impedesMovement" : false,
-  "blocksMovement" : false,
-  "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
-  "relatedCraftingTypeNames" : [ ],
-  "stockpileGroupName" : "RAW_MATERIALS",
-  "tags" : { },
-  "describeAsMaterialOnly" : true,
-  "i18nKey" : "LARGE.BONE"
-}, {
-  "itemTypeName" : "Medium-Bone",
-  "maxStackSize" : 10,
-  "maxHauledAtOnce" : 2,
-  "materialTypes" : [ "BONE" ],
-  "primaryMaterialType" : "BONE",
-  "holdPosition" : "IN_FRONT",
-  "impedesMovement" : false,
-  "blocksMovement" : false,
-  "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
-  "relatedCraftingTypeNames" : [ ],
-  "stockpileGroupName" : "RAW_MATERIALS",
-  "tags" : { },
-  "describeAsMaterialOnly" : true,
-  "i18nKey" : "MEDIUM.BONE"
-}, {
-  "itemTypeName" : "Small-Bone",
-  "maxStackSize" : 10,
-  "maxHauledAtOnce" : 3,
-  "materialTypes" : [ "STONE" ],
-  "primaryMaterialType" : "STONE",
-  "holdPosition" : "IN_FRONT",
-  "impedesMovement" : false,
-  "blocksMovement" : false,
-  "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
-  "relatedCraftingTypeNames" : [ ],
-  "tags" : { },
-  "describeAsMaterialOnly" : false,
-  "i18nKey" : "SMALL.BONE"
-}, {
   "itemTypeName" : "Carcass-Carp-Prepared",
   "maxStackSize" : 4,
   "maxHauledAtOnce" : 4,
@@ -630,6 +583,54 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.ROPE"
 }, {
+  "itemTypeName" : "Resource-Bone-Large",
+  "maxStackSize" : 10,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "BONE" ],
+  "primaryMaterialType" : "BONE",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "RAW_MATERIALS",
+  "tags" : { },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "RESOURCE.BONE.LARGE"
+}, {
+  "itemTypeName" : "Resource-Bone-Medium",
+  "maxStackSize" : 10,
+  "maxHauledAtOnce" : 2,
+  "materialTypes" : [ "BONE" ],
+  "primaryMaterialType" : "BONE",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "RAW_MATERIALS",
+  "tags" : { },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "RESOURCE.BONE.MEDIUM"
+}, {
+  "itemTypeName" : "Resource-Bone-Small",
+  "maxStackSize" : 10,
+  "maxHauledAtOnce" : 3,
+  "materialTypes" : [ "BONE" ],
+  "primaryMaterialType" : "BONE",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "RAW_MATERIALS",
+  "tags" : { },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "RESOURCE.BONE.SMALL"
+}, {
   "itemTypeName" : "Resource-Flour-Sack",
   "maxStackSize" : 30,
   "maxHauledAtOnce" : 30,
@@ -1023,7 +1024,8 @@
     "twoHanded" : false,
     "combatSkillName" : "AXES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
-    "animatedSpriteEffectName" : "Weapon slash"
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.AXE"
@@ -1101,7 +1103,8 @@
     "twoHanded" : false,
     "combatSkillName" : "MACES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
-    "animatedSpriteEffectName" : "Weapon slash"
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.LARGE.HAMMER"
@@ -1129,7 +1132,8 @@
     "twoHanded" : false,
     "combatSkillName" : "MACES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
-    "animatedSpriteEffectName" : "Weapon slash"
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PICKAXE"
@@ -1294,7 +1298,8 @@
     "combatSkillName" : "ARCHERY",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
-    "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow"
+    "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow",
+    "ranged" : true
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BOW"
@@ -1322,7 +1327,8 @@
     "twoHanded" : false,
     "combatSkillName" : "AXES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
-    "animatedSpriteEffectName" : "Weapon slash"
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.AXE"
@@ -1350,7 +1356,8 @@
     "twoHanded" : false,
     "combatSkillName" : "MACES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
-    "animatedSpriteEffectName" : "Weapon slash"
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.HAMMER"
@@ -1380,7 +1387,8 @@
     "combatSkillName" : "CROSSBOWS",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
-    "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow"
+    "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow",
+    "ranged" : true
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.CROSSBOW"
@@ -1408,7 +1416,8 @@
     "twoHanded" : false,
     "combatSkillName" : "SWORDSMANSHIP",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
-    "animatedSpriteEffectName" : "Weapon slash"
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.SWORD"
