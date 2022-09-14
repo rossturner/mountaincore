@@ -311,7 +311,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			}
 
 			haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(quantityToAllocate, message.getEntityToBeMoved(), message.requestingEntity)
-							.toEntity(message.requestingEntity);
+							.toUnspecifiedLocation();
 		}
 
 		if (haulingAllocation != null) {

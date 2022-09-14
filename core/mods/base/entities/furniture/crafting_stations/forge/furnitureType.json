@@ -1,36 +1,30 @@
 {
-  "name": "FORGE",
-  "i18nKey": "FURNITURE.FORGE",
-  "blocksMovement": true,
-  "defaultLayoutName": "inverted-U",
-  "colorCode": "#666666",
-  "iconName": "anvil",
-  "requirements": {
-    "STONE": [
-      {
-        "itemTypeName": "Resource-Stone-Block",
-        "quantity": 15
-      },
-      {
-        "itemTypeName": "Fuel-Sack",
-        "quantity": 2
-      },
-      {
-        "itemTypeName": "Product-Anvil",
-        "quantity": 1
-      },
-      {
-        "itemTypeName": "Tool-Large-Hammer",
-        "quantity": 1
-      },
-      {
-        "itemTypeName": "Tool-Tongs",
-        "quantity": 1
-      }
-    ]
+  "name" : "FORGE",
+  "i18nKey" : "FURNITURE.FORGE",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "inverted-U",
+  "colorCode" : "#666666",
+  "iconName" : "anvil",
+  "requirements" : {
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 15
+    }, {
+      "itemTypeName" : "Fuel-Sack",
+      "quantity" : 2
+    }, {
+      "itemTypeName" : "Product-Anvil",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Tool-Large-Hammer",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Tool-Tongs",
+      "quantity" : 1
+    } ]
   },
-  "tags": {
-    "CRAFTING_STATION_BEHAVIOUR": ["BLACKSMITHING", "FORGE_ITEM", "HAULING"],
-    "DECORATION_FROM_INPUT": ["Product-Anvil", "Tool-Large-Hammer", "Tool-Tongs"]
+  "tags" : {
+    "CRAFTING_STATION_BEHAVIOUR" : [ "BLACKSMITHING", "FORGE_ITEM", "HAULING" ],
+    "DECORATION_FROM_INPUT" : [ "Product-Anvil", "Tool-Large-Hammer", "Tool-Tongs" ]
   }
 }

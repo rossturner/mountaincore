@@ -1356,6 +1356,7 @@
   "equippedWhileWorkingOnJob" : true,
   "hoursInInventoryUntilUnused" : 38.0,
   "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "defenseInfo" : {
     "type" : "SHIELD",
@@ -1401,8 +1402,8 @@
 }, {
   "itemTypeName" : "Weapon-Wooden-Shield",
   "maxStackSize" : 1,
-  "maxHauledAtOnce" : 0,
-  "materialTypes" : [ "WOOD", "WOOD" ],
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
   "holdPosition" : "LEFT_HAND",
   "impedesMovement" : false,

@@ -1,6 +1,7 @@
 {
   "itemTypeName" : "Weapon-Wooden-Shield",
-  "materialTypes" : [ "WOOD", "WOOD" ],
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
   "holdPosition" : "LEFT_HAND",
   "stockpileGroupName" : "WEAPONS",

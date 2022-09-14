@@ -1431,11 +1431,13 @@ WEAPON.METAL.ARROWS.NOUN,Arrow,,Pfeil,,Freccia,Flecha,,,,Стрела,,,,,,,,矢
 WEAPON.METAL.ARROWS.PLURAL,Arrows,,Pfeile,,Frecce,Flechas,,,,Стрелы,,,,,,,,矢,箭矢,
 WEAPON.METAL.BOLTS.NOUN,Bolt,,,,,,,,,,,,,,,,,,,
 WEAPON.METAL.BOLTS.PLURAL,Bolts,,,,,,,,,,,,,,,,,,,
+WEAPON.METAL.SHIELD,Shield,,,,,,,,,,,,,,,,,,,
 WEAPON.NONE,None,,,,,,,,,,,,,,,,,,,
 WEAPON.NO_ARMOUR,Unarmoured,,,,,,,,,,,,,,,,,,,
 WEAPON.NO_SHIELD,Unshielded,,,,,,,,,,,,,,,,,,,
 WEAPON.SWORD,Sword,,,,,,,,,,,,,,,,,,,
 WEAPON.UNARMED,Unarmed,,Unbewaffnet,,Disarmato,Desarmado,,,,"Безоружный ",,,,,,,,非武装,赤手空拳,
+WEAPON.WOODEN.SHIELD,Shield,,,,,,,,,,,,,,,,,,,
 
 WEATHER.TYPE.CLOUDY,Cloudy & grey,,Bewölkt & grau,,Nuvoloso e grigio,Gris y nublado,,,,Облачно,,,,,,,,曇,多云,
 WEATHER.TYPE.COLD_WINDS,Cold winds,,Kalte Winde,,Venti freddi,Vientos fríos,,,,Холодный ветер,,,,,,,,強風,寒风,

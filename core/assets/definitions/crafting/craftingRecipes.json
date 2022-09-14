@@ -940,7 +940,7 @@
   "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Resource-Planks",
-    "quantity" : 1
+    "quantity" : 2
   }, {
     "itemTypeName" : "Resource-Metal-Ingot",
     "quantity" : 1
@@ -950,6 +950,34 @@
     "quantity" : 1
   } ],
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 11.5
+}, {
+  "recipeName" : "Craft wooden shield",
+  "craftingTypeName" : "CARPENTRY",
+  "input" : [ {
+    "itemTypeName" : "Resource-Planks",
+    "quantity" : 2
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Weapon-Wooden-Shield",
+    "quantity" : 1
+  } ],
+  "materialTypesToCopyOver" : [ "WOOD" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 11.5
+}, {
+  "recipeName" : "Craft metal shield",
+  "craftingTypeName" : "BLACKSMITHING",
+  "input" : [ {
+    "itemTypeName" : "Resource-Metal-Ingot",
+    "quantity" : 4
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Weapon-Metal-Shield",
+    "quantity" : 1
+  } ],
+  "materialTypesToCopyOver" : [ "METAL" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 11.5
 } ]

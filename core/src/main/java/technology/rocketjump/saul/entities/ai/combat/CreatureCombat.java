@@ -24,7 +24,7 @@ public class CreatureCombat {
 	private DefenseInfo racialDefense = DefenseInfo.NONE;
 	private DefenseInfo equippedShield = DefenseInfo.NONE;
 	private ItemQuality equippedShieldQuality = ItemQuality.STANDARD;
-	private DefenseInfo equippedArmour = DefenseInfo.NONE;
+	private DefenseInfo equippedArmour;
 	private ItemQuality equippedArmourQuality = ItemQuality.STANDARD;
 
 
@@ -34,7 +34,7 @@ public class CreatureCombat {
 		}
 		this.parentEntity = parentEntity;
 
-		CreatureEntityAttributes attributes = (CreatureEntityAttributes)parentEntity.getPhysicalEntityComponent().getAttributes();
+		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		DefenseInfo racialDefense = attributes.getRace().getFeatures().getDefense();
 		if (racialDefense != null) {
 			this.racialDefense = racialDefense;
@@ -45,14 +45,33 @@ public class CreatureCombat {
 			equippedWeapon = WeaponInfo.UNARMED;
 		}
 
+		equippedArmour = attributes.getRace().getFeatures().getDefense();
+		if (equippedArmour == null) {
+			equippedArmour = DefenseInfo.NONE;
+		}
+
 		EquippedItemComponent equippedItemComponent = parentEntity.getComponent(EquippedItemComponent.class);
-		if (equippedItemComponent != null && equippedItemComponent.getMainHandItem() != null) {
+		if (equippedItemComponent != null) {
 			Entity mainHandItem = equippedItemComponent.getMainHandItem();
-			if (mainHandItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes mainHandItemAttributes) {
+			if (mainHandItem != null && mainHandItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes mainHandItemAttributes) {
 				if (mainHandItemAttributes.getItemType().getWeaponInfo() != null) {
 					equippedWeapon = mainHandItemAttributes.getItemType().getWeaponInfo();
 					equippedWeaponAttributes = mainHandItemAttributes;
 					equippedWeaponQuality = mainHandItemAttributes.getItemQuality();
+				}
+			}
+			Entity offHandItem = equippedItemComponent.getOffHandItem();
+			if (offHandItem != null && offHandItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes offHandItemAttributes) {
+				if (offHandItemAttributes.getItemType().getDefenseInfo() != null) {
+					equippedShield = offHandItemAttributes.getItemType().getDefenseInfo();
+					equippedShieldQuality = offHandItemAttributes.getItemQuality();
+				}
+			}
+			Entity equippedClothing = equippedItemComponent.getEquippedClothing();
+			if (equippedClothing != null && equippedClothing.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes clothingAttributes) {
+				if (clothingAttributes.getItemType().getDefenseInfo() != null) {
+					equippedArmour = clothingAttributes.getItemType().getDefenseInfo();
+					equippedArmourQuality = clothingAttributes.getItemQuality();
 				}
 			}
 		}
@@ -95,7 +114,7 @@ public class CreatureCombat {
 	}
 
 	private int scaleForSkillLevel(Integer maximumValue, int weaponSkillLevel, ItemQuality itemQuality) {
-		return Math.max(1, Math.round((float)maximumValue * ((float)weaponSkillLevel / 100f) * itemQuality.combatMultiplier));
+		return Math.max(1, Math.round((float) maximumValue * ((float) weaponSkillLevel / 100f) * itemQuality.combatMultiplier));
 	}
 
 	private int getSkillLevel(WeaponInfo equippedWeapon) {

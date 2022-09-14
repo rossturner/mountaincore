@@ -4,6 +4,7 @@
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
   "holdPosition" : "LEFT_HAND",
+  "stockpileGroupName" : "WEAPONS",
   "defenseInfo" : {
     "type" : "SHIELD",
     "maxDefensePoints" : 16,
