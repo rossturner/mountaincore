@@ -989,5 +989,45 @@
     "materialTypesToCopyOver": ["SKIN"],
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 3
+  },
+  {
+    "recipeName": "Craft metal arrow heads",
+    "craftingTypeName": "BLACKSMITHING",
+    "input": [
+      {
+        "itemTypeName": "Resource-Metal-Ingot",
+        "quantity": 1
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Weapon-Metal-Arrow-Heads",
+        "quantity": 10
+      }
+    ],
+    "itemTypeRequiredName": "Tool-Large-Hammer",
+    "materialTypesToCopyOver": ["METAL", "WOOD"],
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Craft bone arrow heads",
+    "craftingTypeName": "BLACKSMITHING",
+    "input": [
+      {
+        "itemTypeName": "Resource-Bone-Medium",
+        "quantity": 1
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Weapon-Bone-Arrow-Heads",
+        "quantity": 10
+      }
+    ],
+    "itemTypeRequiredName": "Tool-Large-Hammer",
+    "materialTypesToCopyOver": ["BONE", "WOOD"],
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
   }
 ]

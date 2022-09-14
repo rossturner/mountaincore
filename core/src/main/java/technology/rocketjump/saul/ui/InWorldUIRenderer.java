@@ -141,12 +141,12 @@ public class InWorldUIRenderer {
 
 
 			Selectable selectable = interactionStateContainer.getSelectable();
-			if (hasEntitySelected) {
+			if (hasEntitySelected && selectable.getEntity() != null) {
 				Entity selectableEntity = selectable.getEntity();
 				renderEntityWithFactionColor(selectableEntity);
 			}
 
-			if (hasConstructionSelected) {
+			if (hasConstructionSelected && selectable.getConstruction().getEntity() != null) {
 				Entity selectableEntity = selectable.getConstruction().getEntity();
 				renderEntityWithFactionColor(selectableEntity);
 			}

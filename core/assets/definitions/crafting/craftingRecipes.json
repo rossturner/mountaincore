@@ -837,12 +837,42 @@
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 3.0
 }, {
+  "recipeName" : "Craft metal arrow heads",
+  "craftingTypeName" : "BLACKSMITHING",
+  "itemTypeRequiredName" : "Tool-Large-Hammer",
+  "input" : [ {
+    "itemTypeName" : "Resource-Metal-Ingot",
+    "quantity" : 1
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Weapon-Metal-Arrow-Heads",
+    "quantity" : 10
+  } ],
+  "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 7.5
+}, {
+  "recipeName" : "Craft bone arrow heads",
+  "craftingTypeName" : "BLACKSMITHING",
+  "itemTypeRequiredName" : "Tool-Large-Hammer",
+  "input" : [ {
+    "itemTypeName" : "Resource-Bone-Medium",
+    "quantity" : 1
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Weapon-Bone-Arrow-Heads",
+    "quantity" : 10
+  } ],
+  "materialTypesToCopyOver" : [ "BONE", "WOOD" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 7.5
+}, {
   "recipeName" : "Fletch metal arrows",
   "verbOverrideI18nKey" : "CRAFTING_TYPE.FLETCHING",
   "craftingTypeName" : "FLETCHING",
   "input" : [ {
-    "itemTypeName" : "Resource-Metal-Ingot",
-    "quantity" : 1
+    "itemTypeName" : "Weapon-Metal-Arrow-Heads",
+    "quantity" : 10
   }, {
     "itemTypeName" : "Resource-Planks",
     "quantity" : 1
@@ -852,6 +882,24 @@
     "quantity" : 10
   } ],
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
+  "minimumTimeToCompleteCrafting" : 1.5,
+  "maximumTimeToCompleteCrafting" : 8.5
+}, {
+  "recipeName" : "Fletch bone arrows",
+  "verbOverrideI18nKey" : "CRAFTING_TYPE.FLETCHING",
+  "craftingTypeName" : "FLETCHING",
+  "input" : [ {
+    "itemTypeName" : "Weapon-Bone-Arrow-Heads",
+    "quantity" : 10
+  }, {
+    "itemTypeName" : "Resource-Planks",
+    "quantity" : 1
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Weapon-Bone-Arrows",
+    "quantity" : 10
+  } ],
+  "materialTypesToCopyOver" : [ "BONE", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 8.5
 }, {

@@ -1239,6 +1239,38 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BONE.ARROWS"
 }, {
+  "itemTypeName" : "Weapon-Bone-Arrow-Heads",
+  "maxStackSize" : 50,
+  "maxHauledAtOnce" : 20,
+  "materialTypes" : [ "BONE" ],
+  "primaryMaterialType" : "BONE",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.BONE.ARROW.HEADS"
+}, {
+  "itemTypeName" : "Weapon-Metal-Arrow-Heads",
+  "maxStackSize" : 50,
+  "maxHauledAtOnce" : 20,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.METAL.ARROW.HEADS"
+}, {
   "itemTypeName" : "Weapon-Metal-Arrows",
   "maxStackSize" : 50,
   "maxHauledAtOnce" : 50,
