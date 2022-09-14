@@ -15,7 +15,7 @@
       "swatch" : "elephant-tusk-swatch.png"
     }
   },
-  "mapPlacement": "ANIMAL",
+  "mapPlacement" : "ANIMAL",
   "behaviour" : {
     "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
@@ -37,14 +37,23 @@
     }
   },
   "features" : {
-    "defense": {
-      "maxDefensePoints": 26,
-      "maxDefenseRegainedPerRound": 3,
+    "defense" : {
+      "maxDefensePoints" : 26,
+      "maxDefenseRegainedPerRound" : 3,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 1,
         "CRUSHING" : 1
       }
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "STABBING",
+      "modifiedByStrength" : true,
+      "minDamage" : 3,
+      "maxDamage" : 8,
+      "armorNegation" : 1,
+      "combatSkillName" : "UNARMED_COMBAT"
     },
     "skin" : {
       "itemTypeName" : "Carcass-Hide",

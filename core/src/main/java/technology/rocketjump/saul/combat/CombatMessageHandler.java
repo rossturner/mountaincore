@@ -11,6 +11,8 @@ import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
+import technology.rocketjump.saul.assets.entities.tags.ExtraFurnitureHitpointsTag;
+import technology.rocketjump.saul.assets.entities.tags.FlatDamageReductionTag;
 import technology.rocketjump.saul.combat.model.WeaponAttack;
 import technology.rocketjump.saul.entities.ai.combat.*;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
@@ -136,9 +138,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	private void handleAttackWithWeapon(CombatAttackMessage attackMessage) {
 		CreatureCombat attackerCombat = new CreatureCombat(attackMessage.attackerEntity);
 
-		boolean isRangedAttack = attackerCombat.getWeaponRangeAsInt() > 1 && attackerCombat.getEquippedWeapon().getRequiresAmmoType() != null;
-
-		if (isRangedAttack) {
+		if (attackerCombat.getEquippedWeapon().isRanged()) {
 			// create ongoing effect of arrow moving towards target with rotation set
 			if (attackMessage.ammoAttributes != null) {
 				createProjectile(attackMessage);
@@ -278,17 +278,37 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 
 		} else if (attackMessage.defenderEntity.getType().equals(EntityType.FURNITURE)) {
 			FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) attackMessage.defenderEntity.getPhysicalEntityComponent().getAttributes();
+
+			damageAmount = calculateFurnitureDamage(attackMessage.defenderEntity, damageAmount);
+
 			attributes.setDamageAmount(attributes.getDamageAmount() + damageAmount);
 
-			if (attributes.getDamageAmount() > DAMAGE_TO_DESTROY_FURNITURE) {
+			if (attributes.getDamageAmount() > damageToDestroyFurniture(attackMessage.defenderEntity)) {
 				messageDispatcher.dispatchMessage(MessageType.DAMAGE_FURNITURE, new FurnitureDamagedMessage(
-						attackMessage.defenderEntity, EntityDestructionCause.TANTRUM, null,
+						attackMessage.defenderEntity, EntityDestructionCause.COMBAT_DAMAGE, null,
 						blackenedColor(gameContext.getRandom()), blackenedColor(gameContext.getRandom())
 				));
 			}
 		} else {
 			Logger.warn("TODO: Damage application to non-creature entities");
 		}
+	}
+
+	private int calculateFurnitureDamage(Entity defenderEntity, int damageAmount) {
+		FlatDamageReductionTag damageReductionTag = defenderEntity.getTag(FlatDamageReductionTag.class);
+		if (damageReductionTag != null) {
+			damageAmount -= damageReductionTag.getValue();
+		}
+		return Math.max(0, damageAmount);
+	}
+
+	private int damageToDestroyFurniture(Entity defenderEntity) {
+		int damageToDestroy = DAMAGE_TO_DESTROY_FURNITURE;
+		ExtraFurnitureHitpointsTag extraHitpointsTag = defenderEntity.getTag(ExtraFurnitureHitpointsTag.class);
+		if (extraHitpointsTag != null) {
+			damageToDestroy += extraHitpointsTag.getValue();
+		}
+		return damageToDestroy;
 	}
 
 	public static int adjustDamageAmount(int currentDamageAmount, CombatAttackMessage attackMessage) {

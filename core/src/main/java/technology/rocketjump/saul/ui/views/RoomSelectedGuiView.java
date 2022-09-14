@@ -287,7 +287,7 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 
 			for (RoomComponent roomComponent : room.getAllComponents()) {
 				if (roomComponent instanceof SelectableDescription) {
-					for (I18nText description : ((SelectableDescription) roomComponent).getDescription(i18nTranslator, gameContext)) {
+					for (I18nText description : ((SelectableDescription) roomComponent).getDescription(i18nTranslator, gameContext, messageDispatcher)) {
 						descriptionTable.add(new I18nTextWidget(description, uiSkin, messageDispatcher)).colspan(3).left().row();
 					}
 				}

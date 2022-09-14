@@ -81,6 +81,10 @@ public class I18nTranslator implements I18nUpdatable {
 		this.entityStore = entityStore;
 	}
 
+	public I18nWord getWord(String i18nKey) {
+		return dictionary.getWord(i18nKey);
+	}
+
 	public I18nText getTranslatedString(String i18nKey) {
 		return getTranslatedString(i18nKey, I18nWordClass.UNSPECIFIED);
 	}
@@ -422,22 +426,6 @@ public class I18nTranslator implements I18nUpdatable {
 		return applyReplacements(dictionary.getWord("FLOOR.POWER.DESCRIPTION"), replacements, Gender.ANY);
 	}
 
-	public I18nText getDescription(Construction construction) {
-
-		if (construction instanceof FurnitureConstruction) {
-			FurnitureEntityAttributes furnitureEntityAttributes = (FurnitureEntityAttributes) construction.getEntity().getPhysicalEntityComponent().getAttributes();
-			return getConstructionDescription(construction.getPrimaryMaterial(), furnitureEntityAttributes.getFurnitureType().getI18nKey());
-		} else if (construction instanceof WallConstruction) {
-			return getConstructionDescription(construction.getPrimaryMaterial(), ((WallConstruction) construction).getWallTypeToConstruct().getI18nKey());
-		} else if (construction instanceof BridgeConstruction) {
-			return getConstructionDescription(construction.getPrimaryMaterial(), ((BridgeConstruction)construction).getBridge().getBridgeType().getI18nKey());
-		} else {
-			Logger.error("Description of " + construction.getClass().getSimpleName() + " not yet implemented");
-			return BLANK;
-		}
-
-	}
-
 	public I18nText getDateTimeString(GameClock gameClock) {
 		if (gameClock == null) {
 			return new I18nText("");
@@ -450,17 +438,6 @@ public class I18nTranslator implements I18nUpdatable {
 		return applyReplacements(dictionary.getWord("GUI.DATE_TIME_LABEL"), replacements, Gender.ANY);
 	}
 
-	private I18nText getConstructionDescription(GameMaterial primaryMaterial, String furnitureTypeI18nKey) {
-		Map<String, I18nString> replacements = new HashMap<>();
-		if (NULL_MATERIAL.equals(primaryMaterial)) {
-			replacements.put("materialType", I18nWord.BLANK);
-		} else {
-			replacements.put("materialType", primaryMaterial.getI18nValue());
-		}
-		replacements.put("furnitureType", dictionary.getWord(furnitureTypeI18nKey));
-
-		return applyReplacements(dictionary.getWord("CONSTRUCTION.DESCRIPTION"), replacements, Gender.ANY);
-	}
 
 	private I18nText getSapientCreatureDescription(Entity entity, CreatureEntityAttributes attributes) {
 		Map<String, I18nString> replacements = new HashMap<>();
@@ -603,14 +580,7 @@ public class I18nTranslator implements I18nUpdatable {
 				Map.of("material", material.getI18nValue(), "quantity", new I18nWord(oneDecimalFormat.format(quantity))), Gender.ANY);
 	}
 
-	public I18nText getItemAllocationDescription(int numberAllocated, QuantifiedItemTypeWithMaterial requirement) {
-		Map<String, I18nString> replacements = new HashMap<>();
-		replacements.put("quantity", new I18nWord(String.valueOf(numberAllocated)));
-		replacements.put("total", new I18nWord(String.valueOf(requirement.getQuantity())));
-		replacements.put("itemDescription", getItemDescription(requirement.getQuantity(), requirement.getMaterial(), requirement.getItemType(), null));
 
-		return applyReplacements(dictionary.getWord("CONSTRUCTION.ITEM_ALLOCATION"), replacements, Gender.ANY);
-	}
 
 	private I18nText getDescription(Entity entity, PlantEntityAttributes attributes) {
 		Map<String, I18nString> replacements = new HashMap<>();
@@ -794,44 +764,6 @@ public class I18nTranslator implements I18nUpdatable {
 		}
 	}
 
-	public I18nText getConstructionStatusDescription(Construction construction) {
-		Map<String, I18nString> replacements = new HashMap<>();
-
-		ItemType missingItemType = null;
-		for (QuantifiedItemTypeWithMaterial requirement : construction.getRequirements()) {
-			if (requirement.getMaterial() == null) {
-				missingItemType = requirement.getItemType();
-				break;
-			}
-		}
-
-		if (missingItemType != null) {
-			replacements.put("materialType", dictionary.getWord(missingItemType.getPrimaryMaterialType().getI18nKey()));
-			replacements.put("itemDescription", dictionary.getWord(missingItemType.getI18nKey()));
-		}
-
-		I18nWord word;
-		switch (construction.getState()) {
-			case CLEARING_WORK_SITE:
-				word = dictionary.getWord("CONSTRUCTION.STATUS.CLEARING_WORK_SITE");
-				break;
-			case SELECTING_MATERIALS:
-				word = dictionary.getWord("CONSTRUCTION.STATUS.SELECTING_MATERIALS");
-				break;
-			case WAITING_FOR_RESOURCES:
-				word = dictionary.getWord("CONSTRUCTION.STATUS.WAITING_FOR_RESOURCES");
-				break;
-			case WAITING_FOR_COMPLETION:
-				word = dictionary.getWord("CONSTRUCTION.STATUS.WAITING_FOR_COMPLETION");
-				break;
-			default:
-				Logger.error("Not yet implemented: Construction state description for " + construction.getState());
-				return BLANK;
-		}
-
-		return applyReplacements(word, replacements, Gender.ANY);
-	}
-
 	public I18nText getHarvestProgress(float progress) {
 		Map<String, I18nString> replacements = new HashMap<>();
 		replacements.put("progress", new I18nWord("progress", oneDecimalFormat.format(progress)));
@@ -919,4 +851,5 @@ public class I18nTranslator implements I18nUpdatable {
 			);
 		}
 	}
+
 }

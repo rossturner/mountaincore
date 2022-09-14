@@ -62,10 +62,6 @@ public class CreatureCombat {
 		return equippedWeapon;
 	}
 
-	public int getWeaponRangeAsInt() {
-		return Math.max(1, equippedWeapon.getRange());
-	}
-
 	public int maxDefensePool() {
 		int total = 0;
 		int weaponSkillLevel = getSkillLevel(equippedWeapon);

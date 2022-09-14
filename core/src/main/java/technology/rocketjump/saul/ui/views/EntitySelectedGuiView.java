@@ -319,7 +319,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				for (EntityComponent component : entity.getAllComponents()) {
 					if (component instanceof SelectableDescription) {
-						for (I18nText description : ((SelectableDescription) component).getDescription(i18nTranslator, gameContext)) {
+						for (I18nText description : ((SelectableDescription) component).getDescription(i18nTranslator, gameContext, messageDispatcher)) {
 							if (!description.isEmpty()) {
 								entityDescriptionTable.add(new I18nTextWidget(description, uiSkin, messageDispatcher)).left().row();
 							}
@@ -657,9 +657,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 			CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
 			if (combatStateComponent != null && combatStateComponent.isInCombat()) {
-				description = creatureBehaviour.getCombatBehaviour().getDescription(i18nTranslator, gameContext);
+				description = creatureBehaviour.getCombatBehaviour().getDescription(i18nTranslator, gameContext, messageDispatcher);
 			} else {
-				description = creatureBehaviour.getDescription(i18nTranslator, gameContext);
+				description = creatureBehaviour.getDescription(i18nTranslator, gameContext, messageDispatcher);
 			}
 			for (I18nText i18nText : description) {
 				nameTable.add(new I18nTextWidget(i18nText, uiSkin, messageDispatcher)).left().row();
@@ -897,7 +897,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					}
 					case CONSTRUCTION: {
 						if (targetTile.getConstruction() != null) {
-							targetDescription = i18nTranslator.getDescription(targetTile.getConstruction());
+							targetDescription = targetTile.getConstruction().getHeadlineDescription(i18nTranslator);
 						}
 						break;
 					}

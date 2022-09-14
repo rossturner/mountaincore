@@ -295,7 +295,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		// Hard-coded for now, might want to be more data-driven
 		if (currentAction instanceof FleeFromCombatAction) {
 			return List.of(i18nTranslator.getTranslatedString("COMBAT.DESCRIPTION.FLEEING"));
@@ -386,7 +386,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		if (combatStateComponent.isHasInitiative()) {
 			if (getAggressionResponse().equals(FLEE)) {
 				return new FleeFromCombatAction(parentEntity);
-			} else if (hasRangedWeaponButNoAmmo()) {
+			} else if (hasNoAmmo()) {
 				return new FleeFromCombatAction(parentEntity);
 			} else if (isInRangeOfOpponent(parentEntity, gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId()))) {
 				return new AttackCreatureCombatAction(parentEntity);
@@ -435,7 +435,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		}
 
 		CreatureCombat combatStats = new CreatureCombat(parentEntity);
-		float range = (float) combatStats.getWeaponRangeAsInt();
+		float range = (float) combatStats.getEquippedWeapon().getRange();
 		float distanceToOpponent = parentEntity.getLocationComponent().getWorldOrParentPosition().dst(targetedOpponent.getLocationComponent().getWorldOrParentPosition());
 		float tileSeparationToOpponent = getTileDistanceBetween(parentEntity.getLocationComponent().getWorldOrParentPosition(), targetedOpponent.getLocationComponent().getWorldOrParentPosition());
 
@@ -492,7 +492,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 
 	public void makeAttackOfOpportunity(Entity targetEntity) {
 		CreatureCombat combat = new CreatureCombat(parentEntity);
-		if (combat.getWeaponRangeAsInt() <= 2) {
+		if (combat.getEquippedWeapon().getRange() <= 2) {
 			// Only make "melee" attacks of opportunity
 			attackOfOpportunityAction = new AttackCreatureCombatAction(parentEntity);
 			attackOfOpportunityAction.setTimeUntilAttack(0.01f);
@@ -513,10 +513,10 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		this.pendingKnockback = pendingKnockback;
 	}
 
-	private boolean hasRangedWeaponButNoAmmo() {
+	private boolean hasNoAmmo() {
 		CreatureCombat creatureCombat = new CreatureCombat(parentEntity);
 		AmmoType requiredAmmoType = creatureCombat.getEquippedWeapon().getRequiresAmmoType();
-		if (creatureCombat.getEquippedWeapon().getRange() > 2 && requiredAmmoType != null) {
+		if (requiredAmmoType != null) {
 			return parentEntity.getComponent(InventoryComponent.class).getInventoryEntries()
 					.stream()
 					.filter(e -> e.entity.getType().equals(ITEM) &&

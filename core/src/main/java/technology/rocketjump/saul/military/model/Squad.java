@@ -2,6 +2,7 @@ package technology.rocketjump.saul.military.model;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import technology.rocketjump.saul.entities.ai.goap.Schedule;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
@@ -50,7 +51,7 @@ public class Squad implements Persistable, SelectableDescription {
 	}
 
 	@Override
-	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext) {
+	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		I18nText orderDescription;
 		if (isOnDuty(gameContext.getGameClock())) {
 			orderDescription = switch (currentOrderType) {

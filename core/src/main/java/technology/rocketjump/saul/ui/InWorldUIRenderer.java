@@ -127,12 +127,13 @@ public class InWorldUIRenderer {
 	public boolean renderEntityMasks(OrthographicCamera camera, GameContext gameContext) {
 		determineTargetedCreatures(gameContext);
 		boolean hasEntitySelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.ENTITY;
+		boolean hasConstructionSelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.CONSTRUCTION;
 		boolean hasSquadSelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.SQUAD;
 		boolean hasTargets = !targetedCreatures.isEmpty() || !currentSquadTargetedCreatures.isEmpty();
 
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		if (hasEntitySelected || hasTargets || hasSquadSelected) {
+		if (hasEntitySelected || hasTargets || hasSquadSelected || hasConstructionSelected) {
 			selectedEntitySpriteBatch.setProjectionMatrix(camera.combined);
 			selectedEntitySpriteBatch.enableBlending();
 			selectedEntitySpriteBatch.begin();
@@ -143,6 +144,12 @@ public class InWorldUIRenderer {
 				Entity selectableEntity = selectable.getEntity();
 				renderEntityWithFactionColor(selectableEntity);
 			}
+
+			if (hasConstructionSelected) {
+				Entity selectableEntity = selectable.getConstruction().getEntity();
+				renderEntityWithFactionColor(selectableEntity);
+			}
+
 
 			if (hasSquadSelected) {
 				Squad squad = selectable.getSquad();

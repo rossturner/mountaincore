@@ -6,8 +6,6 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag;
-import technology.rocketjump.saul.entities.components.furniture.SleepingPositionComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.furniture.DoorwayEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -21,8 +19,6 @@ import technology.rocketjump.saul.messaging.types.FurnitureAssignmentRequest;
 import java.util.*;
 
 import static java.util.Collections.emptyMap;
-import static technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag.BedCreaturePosition.INSIDE_FURNITURE;
-import static technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag.BedCreaturePosition.ON_GROUND;
 
 /**
  * This class is responsible for keeping track of all items (allocated or not) on the map
@@ -103,15 +99,8 @@ public class FurnitureTracker implements GameContextAware, Telegraph {
 			case MessageType.REQUEST_FURNITURE_ASSIGNMENT: {
 				FurnitureAssignmentRequest request = (FurnitureAssignmentRequest) msg.extraInfo;
 				List<Entity> matched = findByTag(request.requiredTag, true)
-						.stream().filter(e -> {
-							if (request.requiredTag.equals(BedSleepingPositionTag.class)) {
-								SleepingPositionComponent sleepingPositionComponent = e.getComponent(SleepingPositionComponent.class);
-								return sleepingPositionComponent.getBedCreaturePosition().equals(request.wantsToSleepOnFloor ? ON_GROUND : INSIDE_FURNITURE) &&
-										sleepingPositionComponent.isApplicableTo(request.requestingEntity);
-							} else {
-								return true;
-							}
-						})
+						.stream()
+						.filter(request.filter)
 						.toList();
 				Vector2 requesterPosition = request.requestingEntity.getLocationComponent().getWorldPosition();
 				long requesterRegionId = gameContext.getAreaMap().getTile(requesterPosition).getRegionId();
@@ -132,7 +121,7 @@ public class FurnitureTracker implements GameContextAware, Telegraph {
 					FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) nearest.getPhysicalEntityComponent().getAttributes();
 					attributes.setAssignedToEntityId(request.requestingEntity.getId());
 				}
-				request.callback.furnitureAssigned(nearest);
+				request.callback.accept(nearest);
 				return true;
 			}
 			default:
