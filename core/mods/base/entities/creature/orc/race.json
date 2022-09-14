@@ -1,0 +1,61 @@
+{
+  "name" : "Orc",
+  "i18nKey" : "RACE.ORC",
+  "minStrength" : 8.0,
+  "maxStrength" : 23.0,
+  "bodyStructureName" : "Humanoid",
+  "bodyShapes" : [ {
+    "value" : "FAT",
+    "minStrength" : 8.0,
+    "maxStrength" : 14.0
+  }, {
+    "value" : "AVERAGE",
+    "minStrength" : 13.0,
+    "maxStrength" : 19.0
+  }, {
+    "value" : "STRONG",
+    "minStrength" : 18.0,
+    "maxStrength" : 23.0
+  } ],
+  "colors" : {
+    "EYE_COLOR" : {
+      "colorCode" : "#000000"
+    },
+    "SKIN_COLOR" : {
+      "swatch" : "orc-skin-swatch.png"
+    }
+  },
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "needs" : [ "FOOD", "DRINK", "SLEEP" ],
+    "aggressionResponse" : "ATTACK"
+  },
+  "genders" : {
+    "MALE" : {
+      "weighting" : 1.0,
+      "hasHair" : 0.2
+    }
+  },
+  "features" : {
+    "defense" : {
+      "maxDefensePoints" : 20,
+      "maxDefenseRegainedPerRound" : 3,
+      "damageReduction" : {
+        "STABBING" : 1,
+        "SLASHING" : 1,
+        "CRUSHING" : 1
+      }
+    },
+    "unarmedWeapon" : {
+      "range" : 8,
+      "damageType" : "CRUSHING",
+      "modifiedByStrength" : true,
+      "minDamage" : 1,
+      "maxDamage" : 3,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "ranged" : true
+    },
+    "blood" : { }
+  }
+}

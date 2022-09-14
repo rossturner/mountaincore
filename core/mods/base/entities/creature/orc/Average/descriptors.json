@@ -1,0 +1,103 @@
+[ {
+  "uniqueName" : "Orc-Male-Average-Creature_Body",
+  "type" : "CREATURE_BODY",
+  "raceName" : "Orc",
+  "bodyShape" : "AVERAGE",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Orc-Male-Average-Creature_Body_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 16.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_EYES"
+      }, {
+        "type" : "CREATURE_HAIR"
+      }, {
+        "type" : "CREATURE_BEARD"
+      }, {
+        "type" : "BODY_CLOTHING"
+      } ]
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Average-Creature_Body_Up.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 16.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_HAIR"
+      }, {
+        "type" : "CREATURE_BEARD"
+      }, {
+        "type" : "BODY_CLOTHING"
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Average-Creature_Body_Down_Left.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 16.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_EYES"
+      }, {
+        "type" : "CREATURE_HAIR"
+      }, {
+        "type" : "CREATURE_BEARD"
+      }, {
+        "type" : "BODY_CLOTHING"
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Average-Creature_Body_Down_Left.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 16.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_EYES"
+      }, {
+        "type" : "CREATURE_HAIR"
+      }, {
+        "type" : "CREATURE_BEARD"
+      }, {
+        "type" : "BODY_CLOTHING"
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Average-Creature_Body_Up_Right.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 20.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_HAIR"
+      }, {
+        "type" : "CREATURE_BEARD"
+      }, {
+        "type" : "BODY_CLOTHING"
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Average-Creature_Body_Up_Right.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 20.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_HAIR"
+      }, {
+        "type" : "CREATURE_BEARD"
+      }, {
+        "type" : "BODY_CLOTHING"
+      } ]
+    }
+  }
+} ]

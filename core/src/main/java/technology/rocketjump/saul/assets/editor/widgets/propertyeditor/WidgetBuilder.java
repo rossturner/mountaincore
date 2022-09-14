@@ -308,7 +308,7 @@ public class WidgetBuilder {
 					Float newValue = Float.valueOf(textField.getText());
 					ReflectionUtils.setProperty(instance, propertyName, newValue);
 				} catch (NumberFormatException e) {
-					ReflectionUtils.setProperty(instance, propertyName, null);
+					ReflectionUtils.setProperty(instance, propertyName, 0f);
 				}
 			}
 		});
