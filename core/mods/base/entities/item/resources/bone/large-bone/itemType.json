@@ -1,10 +1,9 @@
 {
-  "itemTypeName" : "Large-Bone",
+  "itemTypeName" : "Resource-Bone-Large",
   "maxStackSize" : 10,
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "BONE" ],
   "primaryMaterialType" : "BONE",
   "stockpileGroupName" : "RAW_MATERIALS",
-  "describeAsMaterialOnly" : true,
-  "i18nKey" : "LARGE.BONE"
+  "i18nKey" : "RESOURCE.BONE.LARGE"
 }

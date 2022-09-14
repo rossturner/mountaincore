@@ -1,14 +1,14 @@
 [ {
-  "uniqueName" : "Small-Bone-Item_Base_Layer-Being_Carried",
+  "uniqueName" : "Resource-Bone-Small-Item_Base_Layer-Being_Carried",
   "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Small-Bone",
+  "itemTypeName" : "Resource-Bone-Small",
   "maxQuantity" : 3,
   "itemSize" : "AVERAGE",
   "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Small-Bone-Item_Base_Layer-On_Ground_Down.png",
+      "filename" : "Resource-Bone-Small-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
       "offsetPixels" : {
         "x" : -2.5,
@@ -30,16 +30,16 @@
     }
   }
 }, {
-  "uniqueName" : "Small-Bone-Item_Base_Layer-On_Ground",
+  "uniqueName" : "Resource-Bone-Small-Item_Base_Layer-On_Ground",
   "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Small-Bone",
+  "itemTypeName" : "Resource-Bone-Small",
   "maxQuantity" : 2,
   "itemSize" : "AVERAGE",
   "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Small-Bone-Item_Base_Layer-On_Ground_Down.png",
+      "filename" : "Resource-Bone-Small-Item_Base_Layer-On_Ground_Down.png",
       "offsetPixels" : {
         "x" : -2.5,
         "y" : -0.5
@@ -47,9 +47,9 @@
     }
   }
 }, {
-  "uniqueName" : "Small-Bone-Item_Base_Layer-On_Ground-Large",
+  "uniqueName" : "Resource-Bone-Small-Item_Base_Layer-On_Ground-Large",
   "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Small-Bone",
+  "itemTypeName" : "Resource-Bone-Small",
   "minQuantity" : 6,
   "maxQuantity" : 10,
   "itemSize" : "AVERAGE",
@@ -57,13 +57,13 @@
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Small-Bone-Item_Base_Layer-On_Ground-Large_Down.png"
+      "filename" : "Resource-Bone-Small-Item_Base_Layer-On_Ground-Large_Down.png"
     }
   }
 }, {
-  "uniqueName" : "Small-Bone-Item_Base_Layer-On_Ground-Medium",
+  "uniqueName" : "Resource-Bone-Small-Item_Base_Layer-On_Ground-Medium",
   "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Small-Bone",
+  "itemTypeName" : "Resource-Bone-Small",
   "minQuantity" : 3,
   "maxQuantity" : 5,
   "itemSize" : "AVERAGE",
@@ -71,7 +71,7 @@
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Small-Bone-Item_Base_Layer-On_Ground-Medium_Down.png",
+      "filename" : "Resource-Bone-Small-Item_Base_Layer-On_Ground-Medium_Down.png",
       "offsetPixels" : {
         "x" : 0.5,
         "y" : -0.5
