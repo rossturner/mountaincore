@@ -1,0 +1,10 @@
+{
+  "itemTypeName" : "Weapon-Metal-Arrow-Heads",
+  "maxStackSize" : 50,
+  "maxHauledAtOnce" : 20,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
+  "stockpileGroupName" : "WEAPONS",
+  "i18nKey" : "WEAPON.METAL.ARROW.HEADS"
+}

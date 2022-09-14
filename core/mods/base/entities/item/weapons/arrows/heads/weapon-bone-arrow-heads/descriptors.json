@@ -1,0 +1,23 @@
+[ {
+  "uniqueName" : "Weapon-Bone-Arrow-Heads-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Bone-Arrow-Heads",
+  "maxQuantity" : 50,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ]
+}, {
+  "uniqueName" : "Weapon-Bone-Arrow-Heads-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Bone-Arrow-Heads",
+  "maxQuantity" : 50,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "arrow-heads.png",
+      "coloringLayer" : "BONE_COLOR"
+    }
+  }
+} ]
