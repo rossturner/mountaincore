@@ -1,0 +1,31 @@
+[ {
+  "uniqueName" : "Dwarf-Male-Fat-Artisan-Body_Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "profession" : "ARTISAN",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Male-Fat-Artisan-Body_Clothing_Down.png"
+    },
+    "UP" : {
+      "filename" : "Dwarf-Male-Fat-Artisan-Body_Clothing_Up.png"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Male-Fat-Artisan-Body_Clothing_Down_Right.png",
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Male-Fat-Artisan-Body_Clothing_Down_Right.png"
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Male-Fat-Artisan-Body_Clothing_Up_Right.png",
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Male-Fat-Artisan-Body_Clothing_Up_Right.png"
+    }
+  }
+} ]
