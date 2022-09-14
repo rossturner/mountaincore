@@ -1,0 +1,17 @@
+{
+  "itemTypeName" : "Weapon-Wooden-Shield",
+  "materialTypes" : [ "WOOD", "WOOD" ],
+  "primaryMaterialType" : "WOOD",
+  "holdPosition" : "LEFT_HAND",
+  "stockpileGroupName" : "WEAPONS",
+  "defenseInfo" : {
+    "type" : "SHIELD",
+    "maxDefensePoints" : 10,
+    "damageReduction" : {
+      "STABBING" : 0,
+      "SLASHING" : 0,
+      "CRUSHING" : 0
+    }
+  },
+  "i18nKey" : "WEAPON.WOODEN.SHIELD"
+}

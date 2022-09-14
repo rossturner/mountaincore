@@ -1,0 +1,116 @@
+[ {
+  "uniqueName" : "Weapon-Wooden-Shield-Above_Layer_1-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Wooden-Shield",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "UP" : {
+      "filename" : "Weapon-Wooden-Shield-Above_Layer_1-Being_Carried_Up.png",
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : -1.5
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Wooden-Shield-Above_Layer_1-Being_Carried_Up_Left.png",
+      "offsetPixels" : {
+        "x" : 1.5,
+        "y" : -1.0
+      }
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Wooden-Shield-Above_Layer_1-Being_Carried_Up_Left.png",
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : -1.0
+      },
+      "flipX" : true
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Wooden-Shield-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Wooden-Shield",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Wooden-Shield-Item_Base_Layer-Being_Carried_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : -1.5
+      }
+    },
+    "UP" : {
+      "filename" : "Weapon-Wooden-Shield-Item_Base_Layer-Being_Carried_Up.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : -0.5
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "y" : 0.5
+        }
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Wooden-Shield-Item_Base_Layer-Being_Carried_Down_Right.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Wooden-Shield-Item_Base_Layer-Being_Carried_Down_Right.png",
+      "coloringLayer" : "WOOD_COLOR"
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Wooden-Shield-Item_Base_Layer-Being_Carried_Up_Left.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -0.5
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.5,
+          "y" : 0.5
+        }
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Wooden-Shield-Item_Base_Layer-Being_Carried_Up_Left.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -0.5
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.5,
+          "y" : 0.5
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Wooden-Shield-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Wooden-Shield",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Wooden-Shield-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : 0.5
+      }
+    }
+  }
+} ]

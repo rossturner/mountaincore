@@ -976,7 +976,8 @@
     "twoHanded" : false,
     "combatSkillName" : "AXES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
-    "animatedSpriteEffectName" : "Weapon slash"
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.AXE"
@@ -1054,7 +1055,8 @@
     "twoHanded" : false,
     "combatSkillName" : "MACES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
-    "animatedSpriteEffectName" : "Weapon slash"
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.LARGE.HAMMER"
@@ -1082,7 +1084,8 @@
     "twoHanded" : false,
     "combatSkillName" : "MACES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
-    "animatedSpriteEffectName" : "Weapon slash"
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PICKAXE"
@@ -1247,7 +1250,8 @@
     "combatSkillName" : "ARCHERY",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
-    "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow"
+    "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow",
+    "ranged" : true
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BOW"
@@ -1275,7 +1279,8 @@
     "twoHanded" : false,
     "combatSkillName" : "AXES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
-    "animatedSpriteEffectName" : "Weapon slash"
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.AXE"
@@ -1303,7 +1308,8 @@
     "twoHanded" : false,
     "combatSkillName" : "MACES",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
-    "animatedSpriteEffectName" : "Weapon slash"
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.HAMMER"
@@ -1333,10 +1339,36 @@
     "combatSkillName" : "CROSSBOWS",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
-    "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow"
+    "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow",
+    "ranged" : true
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.CROSSBOW"
+}, {
+  "itemTypeName" : "Weapon-Metal-Shield",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "LEFT_HAND",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "tags" : { },
+  "defenseInfo" : {
+    "type" : "SHIELD",
+    "maxDefensePoints" : 16,
+    "maxDefenseRegainedPerRound" : 4,
+    "damageReduction" : {
+      "STABBING" : 2,
+      "SLASHING" : 2,
+      "CRUSHING" : 0
+    }
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.METAL.SHIELD"
 }, {
   "itemTypeName" : "Weapon-Sword",
   "maxStackSize" : 1,
@@ -1361,8 +1393,34 @@
     "twoHanded" : false,
     "combatSkillName" : "SWORDSMANSHIP",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
-    "animatedSpriteEffectName" : "Weapon slash"
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.SWORD"
+}, {
+  "itemTypeName" : "Weapon-Wooden-Shield",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 0,
+  "materialTypes" : [ "WOOD", "WOOD" ],
+  "primaryMaterialType" : "WOOD",
+  "holdPosition" : "LEFT_HAND",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "defenseInfo" : {
+    "type" : "SHIELD",
+    "maxDefensePoints" : 10,
+    "damageReduction" : {
+      "STABBING" : 0,
+      "SLASHING" : 0,
+      "CRUSHING" : 0
+    }
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.WOODEN.SHIELD"
 } ]
