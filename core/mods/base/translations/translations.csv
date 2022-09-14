@@ -118,6 +118,7 @@ COOKING.TRIPLE_INGREDIENT.DESCRIPTION,"E.g. “Fish, tomato and potato”, to be
 
 CRAFTING_TYPE.BAKING,,Baking
 CRAFTING_TYPE.BLACKSMITHING,,Blacksmithing
+CRAFTING_TYPE.BONE_CRAFTING,,Bone crafting
 CRAFTING_TYPE.CARPENTRY,,Carpentry
 CRAFTING_TYPE.COKE_OVEN_BAKING,,Coke baking
 CRAFTING_TYPE.FERMENTING,,Fermenting
@@ -212,6 +213,8 @@ FURNITURE.BEER_TAPPER.STATE.IDLE,,Idle (no beer available)
 FURNITURE.BEER_TAPPER.TOOLTIP,,This is where fermented {{LIQUID.BEER}} is served from.
 FURNITURE.BLOOMERY_FURNACE,A simple type of furnace to smelt metal from ore,Bloomery furnace
 FURNITURE.BLOOMERY_FURNACE.TOOLTIP,,A {{PROFESSION.BLACKSMITH}} uses this hand-operated furnace to turn {{RESOURCE.ORE.CRUSHED.PLURAL}} and {{FUEL.SACK}} into {{MATERIAL_TYPE.METAL.ADJECTIVE}} {{RESOURCE.METAL.INGOT.PLURAL}}.
+FURNITURE.BONE_CRAFTING_BENCH,,Bone crafting bench
+FURNITURE.BONE_CRAFTING_BENCH.TOOLTIP,,This is used to construct items out of bone
 FURNITURE.BREW_KETTLE,,Brew kettle
 FURNITURE.BREW_KETTLE.TOOLTIP,,This is used to produce the final wort (unfermented beer) using {{VEGETABLE.HOPS}} and wort from the {{FURNITURE.MASH_TUN}}.
 FURNITURE.BUTCHERY_WORKTOP,,Butchery worktop
@@ -1116,6 +1119,8 @@ RESOURCE.WHEAT.SACK.PLURAL,,Wheat (sack)
 
 ROOMS.ARMOURY,,Armoury
 ROOMS.ARMOURY.TOOLTIP,,Weapons and armour are created here
+ROOMS.ARTISAN_WORKSHOP,,Artisan workshop
+ROOMS.ARTISAN_WORKSHOP.TOOLTIP,,Craft intricate items using bone or gems
 ROOMS.BARRACKS,,Barracks
 ROOMS.BARRACKS.TOOLTIP,,A place for members of the military to sleep and train
 ROOMS.BEDROOM,,Bedroom

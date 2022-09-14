@@ -1,0 +1,167 @@
+[ {
+  "uniqueName" : "bone-crafting-bench-2x3BL-stone",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "BONE_CRAFTING_BENCH",
+  "furnitureLayoutName" : "2x3BL",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "table-2x3L-stone.png",
+      "coloringLayer" : "STONE_COLOR",
+      "offsetPixels" : {
+        "x" : -32.0,
+        "y" : 70.0
+      },
+      "flipX" : true,
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : 32.0,
+          "y" : -46.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : 32.0,
+          "y" : 82.0
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 32.0,
+          "y" : 18.0
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_2",
+        "offsetPixels" : {
+          "x" : -32.0,
+          "y" : -46.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "bone-crafting-bench-2x3BL1R-stone",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "BONE_CRAFTING_BENCH",
+  "furnitureLayoutName" : "2x3BL1R",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "table-2x3L3R-stone.png",
+      "coloringLayer" : "STONE_COLOR",
+      "offsetPixels" : {
+        "x" : 64.0,
+        "y" : 38.0
+      },
+      "flipX" : true,
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : -64.0,
+          "y" : -14.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : 64.0,
+          "y" : -14.0
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "y" : -14.0
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_2",
+        "offsetPixels" : {
+          "x" : -64.0,
+          "y" : 50.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "bone-crafting-bench-2x3BL2R-stone",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "BONE_CRAFTING_BENCH",
+  "furnitureLayoutName" : "2x3BL2R",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "table-2x3L2R-stone.png",
+      "coloringLayer" : "STONE_COLOR",
+      "offsetPixels" : {
+        "x" : 32.0,
+        "y" : 70.0
+      },
+      "flipX" : true,
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : -32.0,
+          "y" : -46.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : -32.0,
+          "y" : 82.0
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : -32.0,
+          "y" : 18.0
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_2",
+        "offsetPixels" : {
+          "x" : 32.0,
+          "y" : 82.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "bone-crafting-bench-2x3BL3R-stone",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "BONE_CRAFTING_BENCH",
+  "furnitureLayoutName" : "2x3BL3R",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "table-2x3L1R-stone.png",
+      "coloringLayer" : "STONE_COLOR",
+      "offsetPixels" : {
+        "x" : -64.0,
+        "y" : 40.0
+      },
+      "flipX" : true,
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : 64.0,
+          "y" : 50.0
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : -64.0,
+          "y" : 50.0
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "y" : 50.0
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_2",
+        "offsetPixels" : {
+          "x" : 64.0,
+          "y" : -14.0
+        }
+      } ]
+    }
+  }
+} ]

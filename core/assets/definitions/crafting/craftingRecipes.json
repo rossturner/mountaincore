@@ -853,8 +853,8 @@
   "maximumTimeToCompleteCrafting" : 7.5
 }, {
   "recipeName" : "Craft bone arrow heads",
-  "craftingTypeName" : "BLACKSMITHING",
-  "itemTypeRequiredName" : "Tool-Large-Hammer",
+  "craftingTypeName" : "BONE_CRAFTING",
+  "itemTypeRequiredName" : "Tool-Chisel",
   "input" : [ {
     "itemTypeName" : "Resource-Bone-Medium",
     "quantity" : 1

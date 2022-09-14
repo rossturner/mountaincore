@@ -1012,7 +1012,7 @@
   },
   {
     "recipeName": "Craft bone arrow heads",
-    "craftingTypeName": "BLACKSMITHING",
+    "craftingTypeName": "BONE_CRAFTING",
     "input": [
       {
         "itemTypeName": "Resource-Bone-Medium",
@@ -1025,7 +1025,7 @@
         "quantity": 10
       }
     ],
-    "itemTypeRequiredName": "Tool-Large-Hammer",
+    "itemTypeRequiredName": "Tool-Chisel",
     "materialTypesToCopyOver": ["BONE", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
