@@ -16,11 +16,20 @@
       "childAssets" : [ {
         "type" : "CREATURE_EYES"
       }, {
-        "type" : "CREATURE_HAIR"
+        "type" : "CREATURE_HAIR",
+        "overrideRenderLayer" : 50
       }, {
         "type" : "CREATURE_BEARD"
       }, {
         "type" : "BODY_CLOTHING"
+      }, {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "CREATURE_FACEPAINT"
+      }, {
+        "type" : "CREATURE_HORNS"
+      }, {
+        "type" : "CREATURE_TUSKS"
       } ]
     },
     "UP" : {
@@ -35,6 +44,10 @@
         "type" : "CREATURE_BEARD"
       }, {
         "type" : "BODY_CLOTHING"
+      }, {
+        "type" : "CREATURE_HORNS"
+      }, {
+        "type" : "CREATURE_TUSKS"
       } ]
     },
     "DOWN_LEFT" : {
@@ -51,6 +64,14 @@
         "type" : "CREATURE_BEARD"
       }, {
         "type" : "BODY_CLOTHING"
+      }, {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "CREATURE_FACEPAINT"
+      }, {
+        "type" : "CREATURE_HORNS"
+      }, {
+        "type" : "CREATURE_TUSKS"
       } ]
     },
     "DOWN_RIGHT" : {
@@ -68,6 +89,14 @@
         "type" : "CREATURE_BEARD"
       }, {
         "type" : "BODY_CLOTHING"
+      }, {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "CREATURE_FACEPAINT"
+      }, {
+        "type" : "CREATURE_HORNS"
+      }, {
+        "type" : "CREATURE_TUSKS"
       } ]
     },
     "UP_LEFT" : {
@@ -83,6 +112,14 @@
         "type" : "CREATURE_BEARD"
       }, {
         "type" : "BODY_CLOTHING"
+      }, {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "CREATURE_FACEPAINT"
+      }, {
+        "type" : "CREATURE_HORNS"
+      }, {
+        "type" : "CREATURE_TUSKS"
       } ]
     },
     "UP_RIGHT" : {
@@ -97,6 +134,10 @@
         "type" : "CREATURE_BEARD"
       }, {
         "type" : "BODY_CLOTHING"
+      }, {
+        "type" : "CREATURE_HORNS"
+      }, {
+        "type" : "CREATURE_TUSKS"
       } ]
     }
   }

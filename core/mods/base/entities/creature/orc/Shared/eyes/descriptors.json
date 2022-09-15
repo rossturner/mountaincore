@@ -1,0 +1,23 @@
+[ {
+  "uniqueName" : "Orc-Male-Creature_Eyes-Awake",
+  "type" : "CREATURE_EYES",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ "AWAKE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Eyes-Awake_Down.png",
+      "coloringLayer" : "EYE_COLOR"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Eyes-Awake_Down_Left.png",
+      "coloringLayer" : "EYE_COLOR"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Eyes-Awake_Down_Left.png",
+      "coloringLayer" : "EYE_COLOR",
+      "flipX" : true
+    }
+  }
+} ]

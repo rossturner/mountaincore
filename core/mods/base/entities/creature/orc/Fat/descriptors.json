@@ -1,0 +1,143 @@
+[ {
+  "uniqueName" : "Orc-Male-Fat-Creature_Body",
+  "type" : "CREATURE_BODY",
+  "raceName" : "Orc",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Orc-Male-Fat-Creature_Body_Down.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 15.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_EYES"
+      }, {
+        "type" : "CREATURE_HAIR",
+        "overrideRenderLayer" : 50
+      }, {
+        "type" : "CREATURE_BEARD"
+      }, {
+        "type" : "BODY_CLOTHING"
+      }, {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "CREATURE_FACEPAINT"
+      }, {
+        "type" : "CREATURE_HORNS"
+      }, {
+        "type" : "CREATURE_TUSKS"
+      } ]
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Fat-Creature_Body_Up.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 22.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_HAIR"
+      }, {
+        "type" : "CREATURE_BEARD"
+      }, {
+        "type" : "BODY_CLOTHING"
+      }, {
+        "type" : "CREATURE_HORNS",
+        "offsetPixels" : {
+          "y" : -5.0
+        }
+      }, {
+        "type" : "CREATURE_TUSKS"
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Fat-Creature_Body_Down_Left.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 15.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_EYES"
+      }, {
+        "type" : "CREATURE_HAIR"
+      }, {
+        "type" : "CREATURE_BEARD"
+      }, {
+        "type" : "BODY_CLOTHING"
+      }, {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "CREATURE_FACEPAINT"
+      }, {
+        "type" : "CREATURE_HORNS"
+      }, {
+        "type" : "CREATURE_TUSKS"
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Creature_Body_Down_Left.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 15.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_EYES"
+      }, {
+        "type" : "CREATURE_HAIR"
+      }, {
+        "type" : "CREATURE_BEARD"
+      }, {
+        "type" : "BODY_CLOTHING"
+      }, {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "CREATURE_FACEPAINT"
+      }, {
+        "type" : "CREATURE_HORNS"
+      }, {
+        "type" : "CREATURE_TUSKS"
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Fat-Creature_Body_Up_Right.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 19.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_HAIR"
+      }, {
+        "type" : "CREATURE_BEARD"
+      }, {
+        "type" : "BODY_CLOTHING"
+      }, {
+        "type" : "CREATURE_HORNS"
+      }, {
+        "type" : "CREATURE_TUSKS"
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Creature_Body_Up_Right.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 19.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_HAIR"
+      }, {
+        "type" : "CREATURE_BEARD"
+      }, {
+        "type" : "BODY_CLOTHING"
+      }, {
+        "type" : "CREATURE_HORNS"
+      }, {
+        "type" : "CREATURE_TUSKS"
+      } ]
+    }
+  }
+} ]

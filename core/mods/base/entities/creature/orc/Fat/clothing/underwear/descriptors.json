@@ -1,0 +1,31 @@
+[ {
+  "uniqueName" : "Orc-Male-Fat-Body_Clothing_Underwear",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Orc",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Orc-Male-Fat-Body_Clothing_Underwear_Down.png"
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Fat-Body_Clothing_Underwear_Up.png"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Fat-Body_Clothing_Underwear_Down_Left.png"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Body_Clothing_Underwear_Down_Left.png",
+      "flipX" : true
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Fat-Body_Clothing_Underwear_Up_Right.png",
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Body_Clothing_Underwear_Up_Right.png"
+    }
+  }
+} ]

@@ -19,10 +19,16 @@
   } ],
   "colors" : {
     "EYE_COLOR" : {
-      "colorCode" : "#000000"
+      "swatch" : "orc-eye-swatch.png"
     },
     "SKIN_COLOR" : {
-      "swatch" : "orc-skin-swatch.png"
+      "colorChart" : "orc-skin-swatch.png"
+    },
+    "HAIR_COLOR" : {
+      "colorChart" : "orc-hair-swatch.png"
+    },
+    "BONE_COLOR" : {
+      "swatch" : "orc-horn-swatch.png"
     }
   },
   "behaviour" : {
@@ -34,7 +40,14 @@
   "genders" : {
     "MALE" : {
       "weighting" : 1.0,
-      "hasHair" : 0.2
+      "hideAssetTypes" : {
+        "CREATURE_HAIR" : 0.95,
+        "CREATURE_BEARD" : 0.9,
+        "CREATURE_HORNS" : 0.6,
+        "CREATURE_TUSKS" : 0.2,
+        "CREATURE_FACEPAINT" : 0.7,
+        "CREATURE_BODYPAINT" : 0.7
+      }
     }
   },
   "features" : {

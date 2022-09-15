@@ -25,7 +25,6 @@ import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
-import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectAttributes;
 import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectType;
 import technology.rocketjump.saul.entities.model.physical.furniture.DoorwayEntityAttributes;
@@ -198,16 +197,17 @@ public class EntityAssetUpdater implements GameContextAware {
 
 
 		// Some special cases that should(?) be refactored away
-		if (!attributes.getHasHair()) {
-			entity.getPhysicalEntityComponent().getTypeMap().remove(CREATURE_HAIR);
-			entity.getPhysicalEntityComponent().getTypeMap().remove(HAIR_OUTLINE);
+		for (EntityAssetType hiddenAssetType : attributes.getHiddenAssetTypes()) {
+			entity.getPhysicalEntityComponent().getTypeMap().remove(hiddenAssetType);
+
+			// Special case to remove by merging hair and hair outlines
+			if (hiddenAssetType.equals(CREATURE_HAIR)) {
+				entity.getPhysicalEntityComponent().getTypeMap().remove(HAIR_OUTLINE);
+			}
 		}
+
 		if (entity.getPhysicalEntityComponent().getTypeMap().containsKey(CLOTHING_OUTLINE)) {
 			entity.getPhysicalEntityComponent().getTypeMap().remove(BODY_OUTLINE);
-		}
-		if (attributes.getGender().equals(Gender.FEMALE)) {
-			entity.getPhysicalEntityComponent().getTypeMap().remove(CREATURE_EYEBROWS);
-			entity.getPhysicalEntityComponent().getTypeMap().remove(CREATURE_BEARD);
 		}
 
 		if (entity.getLocationComponent().getContainerEntity() == null) {

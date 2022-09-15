@@ -36,12 +36,10 @@
   },
   "genders" : {
     "MALE" : {
-      "weighting" : 0.5,
-      "hasHair" : 1.0
+      "weighting" : 0.5
     },
     "FEMALE" : {
-      "weighting" : 0.5,
-      "hasHair" : 1.0
+      "weighting" : 0.5
     }
   },
   "features" : {

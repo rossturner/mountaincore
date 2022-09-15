@@ -54,12 +54,6 @@ public class WidgetBuilder {
 
 	public static <T> VisSelectBox<T> select(T initialValue, Collection<T> items, T valueIfNull, Consumer<T> changeListener) {
 		VisSelectBox<T> selectBox = new VisSelectBox<>();
-		selectBox.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				changeListener.accept(selectBox.getSelected());
-			}
-		});
 		selectBox.setItems(orderedArray(items, valueIfNull));
 		if (initialValue == null) {
 			if (valueIfNull != null) {
@@ -68,6 +62,12 @@ public class WidgetBuilder {
 		} else {
 			selectBox.setSelected(initialValue);
 		}
+		selectBox.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				changeListener.accept(selectBox.getSelected());
+			}
+		});
 		return selectBox;
 	}
 

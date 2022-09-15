@@ -1,0 +1,40 @@
+[ {
+  "uniqueName" : "Orc-Male-Body_Clothing_Underwear",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Orc",
+  "bodyShape" : "AVERAGE",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Orc-Male-Body_Clothing_Underwear_Down.png"
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Body_Clothing_Underwear_Up.png",
+      "offsetPixels" : {
+        "y" : 2.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Body_Clothing_Underwear_Down_Left.png"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Body_Clothing_Underwear_Down_Left.png",
+      "flipX" : true
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Body_Clothing_Underwear_Up_Right.png",
+      "offsetPixels" : {
+        "y" : -3.0
+      },
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Body_Clothing_Underwear_Up_Right.png",
+      "offsetPixels" : {
+        "y" : -3.0
+      }
+    }
+  }
+} ]

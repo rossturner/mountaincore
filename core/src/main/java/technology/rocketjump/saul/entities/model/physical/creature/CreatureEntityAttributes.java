@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.entities.model.physical.creature;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.RandomXS128;
@@ -7,6 +8,7 @@ import com.google.common.base.MoreObjects;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShape;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShapeDescriptor;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
+import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.body.Body;
 import technology.rocketjump.saul.entities.model.physical.plant.SpeciesColor;
@@ -18,9 +20,7 @@ import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import static technology.rocketjump.saul.entities.model.physical.creature.Consciousness.AWAKE;
 import static technology.rocketjump.saul.entities.model.physical.creature.Sanity.SANE;
@@ -35,7 +35,7 @@ public class CreatureEntityAttributes implements EntityAttributes {
 	private Body body; // instance of a bodyStructure with damage/missing parts, for humanoid and animal type entities
 	private CreatureBodyShape bodyShape;
 	private Map<ColoringLayer, Color> colors = new EnumMap<>(ColoringLayer.class);
-	private boolean hasHair;
+	private Set<EntityAssetType> hiddenAssetTypes = new HashSet<>();
 	private HumanoidName name;
 	private Consciousness consciousness = AWAKE;
 	private Sanity sanity = SANE;
@@ -75,8 +75,19 @@ public class CreatureEntityAttributes implements EntityAttributes {
 		for (Map.Entry<ColoringLayer, SpeciesColor> colorEntry : race.getColors().entrySet()) {
 			colors.put(colorEntry.getKey(), colorEntry.getValue().getColor(seed));
 		}
+
 		selectGender(race, random);
-		this.hasHair = hasHair(race);
+		updateHiddenAssetTypes();
+	}
+
+	private void updateHiddenAssetTypes() {
+		Random random = new RandomXS128(seed);
+		this.hiddenAssetTypes.clear();
+		for (Map.Entry<EntityAssetType, Float> hideAssetTypeEntry : this.race.getGenders().get(gender).getHideAssetTypes().entrySet()) {
+			if (random.nextFloat() < hideAssetTypeEntry.getValue()) {
+				hiddenAssetTypes.add(hideAssetTypeEntry.getKey());
+			}
+		}
 	}
 
 	@Override
@@ -87,7 +98,7 @@ public class CreatureEntityAttributes implements EntityAttributes {
 		cloned.gender = this.gender;
 		cloned.bodyShape = this.bodyShape;
 		cloned.colors.putAll(this.colors);
-		cloned.hasHair = this.hasHair;
+		cloned.hiddenAssetTypes.addAll(this.hiddenAssetTypes);
 		cloned.consciousness= this.consciousness;
 		cloned.sanity = this.sanity;
 		return cloned;
@@ -145,15 +156,11 @@ public class CreatureEntityAttributes implements EntityAttributes {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
-		this.hasHair = hasHair(race);
+		updateHiddenAssetTypes();
 	}
 
 	public Gender getGender() {
 		return gender;
-	}
-
-	public boolean getHasHair() {
-		return hasHair;
 	}
 
 	public void setName(HumanoidName name) {
@@ -196,6 +203,10 @@ public class CreatureEntityAttributes implements EntityAttributes {
 		this.body = body;
 	}
 
+	public Set<EntityAssetType> getHiddenAssetTypes() {
+		return hiddenAssetTypes;
+	}
+
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
@@ -222,15 +233,6 @@ public class CreatureEntityAttributes implements EntityAttributes {
 		}
 	}
 
-	private boolean hasHair(Race race) {
-		RaceGenderDescriptor genderDescriptor = race.getGenders().get(gender);
-		if (genderDescriptor == null) {
-			return false;
-		} else {
-			return new RandomXS128(seed).nextFloat() < genderDescriptor.getHasHair();
-		}
-	}
-
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		asJson.put("seed", seed);
@@ -252,9 +254,10 @@ public class CreatureEntityAttributes implements EntityAttributes {
 		}
 		asJson.put("colors", colorsJson);
 
-		if (hasHair) {
-			asJson.put("hasHair", true);
-		}
+		JSONArray hiddenAssetTypesJson = new JSONArray();
+		this.hiddenAssetTypes.forEach(assetType -> hiddenAssetTypesJson.add(assetType.getName()));
+		asJson.put("hiddenAssetTypes", hiddenAssetTypesJson);
+
 		if (name != null) {
 			JSONObject nameJson = new JSONObject(true);
 			name.writeTo(nameJson, savedGameStateHolder);
@@ -291,7 +294,11 @@ public class CreatureEntityAttributes implements EntityAttributes {
 			}
 		}
 
-		hasHair = asJson.getBooleanValue("hasHair");
+		JSONArray hiddenAssetTypesJson = asJson.getJSONArray("hiddenAssetTypes");
+		for (int cursor = 0; cursor < hiddenAssetTypesJson.size(); cursor++) {
+			this.hiddenAssetTypes.add(new EntityAssetType(hiddenAssetTypesJson.getString(cursor)));
+		}
+
 		JSONObject nameJson = asJson.getJSONObject("name");
 		if (nameJson != null) {
 			name = new HumanoidName();

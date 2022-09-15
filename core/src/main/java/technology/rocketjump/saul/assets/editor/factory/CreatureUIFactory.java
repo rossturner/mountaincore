@@ -285,7 +285,7 @@ public class CreatureUIFactory implements UIFactory {
                 null, race.getBehaviour(), editorTable);
 
         editorTable.add(new VisLabel("Gender settings:")).left().colspan(2).row();
-        editorTable.add(new GenderWidget(race.getGenders())).left().colspan(2).row();
+        editorTable.add(new GenderWidget(race.getGenders(), entityAssetTypeDictionary.getByEntityType(EntityType.CREATURE))).left().colspan(2).row();
 
 
         editorTable.add(new VisLabel("Features:")).left().colspan(2).row();

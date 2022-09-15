@@ -1,0 +1,61 @@
+[ {
+  "uniqueName" : "Orc-Male-Average-Creature_Beard",
+  "type" : "CREATURE_BEARD",
+  "raceName" : "Orc",
+  "bodyShape" : "AVERAGE",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Orc-Male-Average-Creature_Beard_Down.png",
+      "coloringLayer" : "HAIR_COLOR"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Average-Creature_Beard_Down_Left.png",
+      "coloringLayer" : "HAIR_COLOR"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Average-Creature_Beard_Down_Left.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "flipX" : true
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Average-Creature_Hair",
+  "type" : "CREATURE_HAIR",
+  "raceName" : "Orc",
+  "bodyShape" : "AVERAGE",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Orc-Male-Average-Creature_Hair_Down.png",
+      "coloringLayer" : "HAIR_COLOR"
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Average-Creature_Hair_Up.png",
+      "coloringLayer" : "HAIR_COLOR"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Average-Creature_Hair_Down_Left.png",
+      "coloringLayer" : "HAIR_COLOR"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Average-Creature_Hair_Down_Left.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "flipX" : true
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Average-Creature_Hair_Up_Right.png",
+      "coloringLayer" : "HAIR_COLOR",
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Average-Creature_Hair_Up_Right.png",
+      "coloringLayer" : "HAIR_COLOR"
+    }
+  },
+  "overrideRenderLayer" : 50
+} ]
