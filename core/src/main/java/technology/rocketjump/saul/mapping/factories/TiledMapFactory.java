@@ -32,9 +32,13 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RoomPlacementMessage;
+import technology.rocketjump.saul.production.StockpileComponentUpdater;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
-import technology.rocketjump.saul.rooms.*;
+import technology.rocketjump.saul.rooms.Room;
+import technology.rocketjump.saul.rooms.RoomTile;
+import technology.rocketjump.saul.rooms.RoomType;
+import technology.rocketjump.saul.rooms.RoomTypeDictionary;
 import technology.rocketjump.saul.rooms.components.StockpileComponent;
 
 import java.util.*;
@@ -172,11 +176,11 @@ public class TiledMapFactory {
 		Room placedRoom = gameContext.getAreaMap().getTile(embarkPoint).getRoomTile().getRoom();
 		StockpileComponent stockpileComponent = placedRoom.getComponent(StockpileComponent.class);
 		for (StockpileGroup stockpileGroup : stockpileGroupList) {
-			stockpileComponentUpdater.toggleGroup(stockpileComponent, stockpileGroup, false, true);
+			stockpileComponentUpdater.toggleGroup(stockpileComponent.getStockpileSettings(), stockpileGroup, false, true);
 		}
 		for (ItemType placedItemType : placedItems) {
-			if (!stockpileComponent.isEnabled(placedItemType)) {
-				stockpileComponentUpdater.toggleItem(stockpileComponent, placedItemType, true, true, true);
+			if (!stockpileComponent.getStockpileSettings().isEnabled(placedItemType)) {
+				stockpileComponentUpdater.toggleItem(stockpileComponent.getStockpileSettings(), placedItemType, true, true, true);
 			}
 		}
 

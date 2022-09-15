@@ -50,7 +50,11 @@ import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.military.model.SquadOrderType;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
-import technology.rocketjump.saul.rooms.*;
+import technology.rocketjump.saul.production.StockpileComponentUpdater;
+import technology.rocketjump.saul.rooms.Room;
+import technology.rocketjump.saul.rooms.RoomFactory;
+import technology.rocketjump.saul.rooms.RoomStore;
+import technology.rocketjump.saul.rooms.RoomTile;
 import technology.rocketjump.saul.rooms.components.StockpileComponent;
 import technology.rocketjump.saul.settlement.notifications.Notification;
 import technology.rocketjump.saul.ui.GameInteractionMode;
@@ -247,7 +251,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 			Room newRoom = roomFactory.create(roomPlacementMessage.getRoomType(), roomTilesToPlace);
 			StockpileComponent stockpileComponent = newRoom.getComponent(StockpileComponent.class);
 			if (stockpileComponent != null && roomPlacementMessage.stockpileGroup != null) {
-				stockpileComponentUpdater.toggleGroup(stockpileComponent, roomPlacementMessage.stockpileGroup, true, true);
+				stockpileComponentUpdater.toggleGroup(stockpileComponent.getStockpileSettings(), roomPlacementMessage.stockpileGroup, true, true);
 				roomFactory.updateRoomNameForStockpileGroup(newRoom, roomPlacementMessage.stockpileGroup);
 			}
 			newRooms.add(newRoom);

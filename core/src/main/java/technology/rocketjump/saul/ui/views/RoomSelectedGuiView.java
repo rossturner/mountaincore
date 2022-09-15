@@ -24,11 +24,12 @@ import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.async.ErrorType;
+import technology.rocketjump.saul.production.StockpileComponentUpdater;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.utils.HexColors;
+import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomStore;
-import technology.rocketjump.saul.rooms.StockpileComponentUpdater;
 import technology.rocketjump.saul.rooms.components.FarmPlotComponent;
 import technology.rocketjump.saul.rooms.components.RoomComponent;
 import technology.rocketjump.saul.rooms.components.StockpileComponent;
@@ -266,9 +267,9 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 			outerTable.add(buttonsTable).left().row();
 
 			if (showStockpileManagement && currentStockpileComponent != null) {
-				outerTable.add(new StockpileManagementTree(uiSkin, messageDispatcher, currentStockpileComponent,
-						stockpileComponentUpdater, stockpileGroupDictionary, i18nTranslator, itemTypeDictionary, gameMaterialDictionary, raceDictionary,
-								gameContext.getSettlementState().getSettlerRace()))
+				outerTable.add(new StockpileManagementTree(uiSkin, messageDispatcher,
+								stockpileComponentUpdater, stockpileGroupDictionary, i18nTranslator, itemTypeDictionary, gameMaterialDictionary, raceDictionary,
+								gameContext.getSettlementState().getSettlerRace(), currentStockpileComponent.getParent().getRoomId(), HaulingAllocation.AllocationPositionType.ROOM, currentStockpileComponent.getStockpileSettings()))
 						.left().pad(4).row();
 			}
 

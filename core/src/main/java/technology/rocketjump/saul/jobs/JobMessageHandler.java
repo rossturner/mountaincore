@@ -64,8 +64,6 @@ import technology.rocketjump.saul.messaging.types.*;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.rooms.Bridge;
-import technology.rocketjump.saul.rooms.Room;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
@@ -79,7 +77,6 @@ import static technology.rocketjump.saul.entities.model.EntityType.*;
 import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
-import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.ROOM;
 
 /**
  * This class deals with dishing out jobs to entities requesting them
@@ -248,8 +245,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				return true;
 			}
 			case MessageType.STOCKPILE_SETTING_UPDATED: {
-				Room targetRoom = (Room) msg.extraInfo;
-				stockpileSettingUpdated(targetRoom);
+				stockpileSettingUpdated((StockpileSettingsUpdatedMessage) msg.extraInfo);
 				return true;
 			}
 			default:
@@ -1326,22 +1322,23 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 		return null;
 	}
 
-	private void stockpileSettingUpdated(Room targetRoom) {
-		StockpileComponent stockpileComponent = targetRoom.getComponent(StockpileComponent.class);
-
+	private void stockpileSettingUpdated(StockpileSettingsUpdatedMessage message) {
 		List<Job> invalidJobs = jobStore.getByType(haulingJobType)
 				.stream()
 				// filter to all hauling jobs for this stockpile
 				.filter(j ->
-						j.getHaulingAllocation() != null && j.getHaulingAllocation().getTargetPositionType() != null &&
-						j.getHaulingAllocation().getTargetPositionType().equals(ROOM) &&
-								j.getHaulingAllocation().getTargetId().equals(targetRoom.getRoomId())
+						{
+							if (j.getHaulingAllocation() == null || j.getHaulingAllocation().getTargetPositionType() == null ||
+									!j.getHaulingAllocation().getTargetPositionType().equals(message.haulingAllocationTargetPositionType()))
+								return false;
+							return j.getHaulingAllocation().getTargetId().equals(message.haulingAllocationTargetId());
+						}
 				)
 				// filter to those items which are no longer held here
 				.filter(j -> {
 					Entity itemEntity = gameContext.getEntities().get(j.getTargetId());
 					if (itemEntity != null) {
-						return !stockpileComponent.canHold(itemEntity);
+						return !message.stockpileSettings().canHold(itemEntity);
 					} else {
 						return false;
 					}

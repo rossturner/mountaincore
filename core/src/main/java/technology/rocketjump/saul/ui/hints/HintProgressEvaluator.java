@@ -108,7 +108,7 @@ public class HintProgressEvaluator implements GameContextAware {
 				} else {
 					for (Room stockpile : roomStore.getByComponent(StockpileComponent.class)) {
 						StockpileComponent stockpileComponent = stockpile.getComponent(StockpileComponent.class);
-						if (stockpileComponent.isEnabled(targetType)) {
+						if (stockpileComponent.getStockpileSettings().isEnabled(targetType)) {
 							quantity += stockpile.getRoomTiles().size();
 						}
 					}

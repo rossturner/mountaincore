@@ -78,7 +78,7 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 				if (tile.getRoomTile() != null) {
 					Room room = tile.getRoomTile().getRoom();
 					StockpileComponent stockpileComponent = room.getComponent(StockpileComponent.class);
-					if (stockpileComponent != null && stockpileComponent.canHold(parentEntity)) {
+					if (stockpileComponent != null && stockpileComponent.getStockpileSettings().canHold(parentEntity)) {
 						inStockpile = true;
 					}
 				}

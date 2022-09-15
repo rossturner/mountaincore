@@ -264,7 +264,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 		for (Room stockpile : roomStore.getByComponent(StockpileComponent.class)) {
 			StockpileComponent stockpileComponent = stockpile.getComponent(StockpileComponent.class);
-			if (stockpileComponent.canHold(entity)) {
+			if (stockpileComponent.getStockpileSettings().canHold(entity)) {
 				int roomRegionId = stockpile.getRoomTiles().values().iterator().next().getTile().getRegionId();
 				if (sourceRegionId == roomRegionId) {
 					Map<Float, Room> byDistance = stockpilesByDistanceByPriority.computeIfAbsent(stockpileComponent.getPriority(), a -> new TreeMap<>(Comparator.comparingInt(o -> (int) (o * 10))));
