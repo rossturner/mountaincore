@@ -74,7 +74,7 @@
   "i18nKey" : "ROOMS.BARRACKS",
   "colorCode" : "#c4b2c5",
   "iconName" : "barracks",
-  "furnitureNames" : [ "BARRACKS_BED", "TRAINING_DUMMY", "ARCHERY_TARGET" ],
+  "furnitureNames" : [ "BARRACKS_BED", "TRAINING_DUMMY", "ARCHERY_TARGET", "Armour_Stand", "Weapon_Rack" ],
   "tags" : { }
 }, {
   "roomName" : "KITCHEN",
@@ -120,7 +120,7 @@
   "i18nKey" : "ROOMS.ARMOURY",
   "colorCode" : "#e17151",
   "iconName" : "crossed-swords",
-  "furnitureNames" : [ "FLETCHERS_WORKBENCH" ],
+  "furnitureNames" : [ "FLETCHERS_WORKBENCH", "Armour_Stand", "Weapon_Rack" ],
   "tags" : { }
 }, {
   "roomName" : "LEATHER_WORKSHOP",

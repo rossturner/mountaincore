@@ -1339,6 +1339,42 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
+  "name" : "Armour_Stand",
+  "i18nKey" : "FURNITURE.ARMOUR_STAND",
+  "blocksMovement" : false,
+  "defaultLayoutName" : "1x1",
+  "colorCode" : "#E9B775",
+  "iconName" : "armor-vest",
+  "placeAnywhere" : false,
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Logs",
+      "quantity" : 2,
+      "liquid" : false
+    } ]
+  },
+  "tags" : { },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "Weapon_Rack",
+  "i18nKey" : "FURNITURE.WEAPON_RACK",
+  "blocksMovement" : false,
+  "defaultLayoutName" : "1x1NS",
+  "colorCode" : "#E2C793",
+  "iconName" : "crossed-swords",
+  "placeAnywhere" : false,
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 3,
+      "liquid" : false
+    } ]
+  },
+  "tags" : { },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "FEASTING_TABLE",
   "i18nKey" : "FURNITURE.FEASTING_TABLE",
   "blocksMovement" : true,

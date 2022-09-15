@@ -200,6 +200,7 @@ FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{F
 
 FURNITURE.ARCHERY_TARGET,,Archery target
 FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here
+FURNITURE.ARMOUR_STAND,,Armour stand
 FURNITURE.BAKERS_WORKTOP,,Baker’s worktop
 FURNITURE.BAKERS_WORKTOP.TOOLTIP,,A {{PROFESSION.CHEF}} works here to turn {{RESOURCE.FLOUR.SACK.PLURAL}} into {{INGREDIENT.DOUGH}}.
 FURNITURE.BAKING_OVEN,For the baking of bread,Baker's oven
@@ -292,6 +293,7 @@ FURNITURE.WATER_BARREL,,Water barrel
 FURNITURE.WATER_BARREL.TOOLTIP,,"A water barrel is a place for your settlers to get a thirst-quenching drink, rather than having to find a natural water source like the river."
 FURNITURE.WATER_PUMP,,Water pump
 FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.
+FURNITURE.WEAPON_RACK,,Weapon rack
 FURNITURE.WELL,,Well
 FURNITURE.WELL.TOOLTIP,,"A well provides a source of water, but must be connected to a working pipe system."
 FURNITURE.WINDMILL,,Windmill
