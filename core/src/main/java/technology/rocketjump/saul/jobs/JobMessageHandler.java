@@ -114,6 +114,9 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 	private final List<Race> fishRacesAvailable;
 	private GameContext gameContext;
 	private ParticleEffectType deconstructParticleEffect;
+	private final ItemType largeBone;
+	private final ItemType mediumBone;
+	private final ItemType smallBone;
 
 	@Inject
 	public JobMessageHandler(MessageDispatcher messageDispatcher, JobStore jobStore,
@@ -149,6 +152,10 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
 		constantsRepo.initialise(raceDictionary);
 		this.fishRacesAvailable = constantsRepo.getSettlementConstants().getFishRacesAvailable();
+
+		largeBone = itemTypeDictionary.getByName("Resource-Bone-Large");
+		mediumBone = itemTypeDictionary.getByName("Resource-Bone-Medium");
+		smallBone = itemTypeDictionary.getByName("Resource-Bone-Small");
 
 		messageDispatcher.addListener(this, MessageType.DESIGNATION_APPLIED);
 		messageDispatcher.addListener(this, MessageType.REMOVE_DESIGNATION);
@@ -1031,11 +1038,6 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 								}
 							}
 
-							//TODO: move as fields
-							ItemType largeBone = itemTypeDictionary.getByName("Resource-Bone-Large");
-							ItemType mediumBone = itemTypeDictionary.getByName("Resource-Bone-Medium");
-							ItemType smallBone = itemTypeDictionary.getByName("Resource-Bone-Small");
-
 							for (BoneType boneType : BoneType.values()) {
 								int quantity = numberOfBonesPerPart[boneType.ordinal()];
 								ItemType boneItemType;
@@ -1056,7 +1058,6 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 
 						}
 
-						// TODO create items for bone and hide
 						messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, creatureInventoryEntity.get().entity);
 					}
 				}
