@@ -13,8 +13,8 @@ import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.jobs.model.SkillType;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
-import technology.rocketjump.saul.rooms.StockpileGroup;
-import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
+import technology.rocketjump.saul.production.StockpileGroup;
+import technology.rocketjump.saul.production.StockpileGroupDictionary;
 
 import java.io.File;
 import java.io.IOException;

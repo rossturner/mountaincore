@@ -8,6 +8,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.TileNeighbours;
+import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rooms.components.RoomComponent;
 import technology.rocketjump.saul.rooms.components.StockpileComponent;
 import technology.rocketjump.saul.ui.i18n.I18nText;

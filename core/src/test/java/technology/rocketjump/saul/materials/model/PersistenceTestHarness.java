@@ -38,9 +38,9 @@ import technology.rocketjump.saul.military.SquadFormationDictionary;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
-import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
 import technology.rocketjump.saul.rooms.components.RoomComponentDictionary;
 import technology.rocketjump.saul.sprites.BridgeTypeDictionary;
 

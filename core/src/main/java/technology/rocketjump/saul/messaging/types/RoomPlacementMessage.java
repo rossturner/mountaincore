@@ -1,9 +1,9 @@
 package technology.rocketjump.saul.messaging.types;
 
 import com.badlogic.gdx.math.GridPoint2;
+import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rooms.RoomTile;
 import technology.rocketjump.saul.rooms.RoomType;
-import technology.rocketjump.saul.rooms.StockpileGroup;
 
 import java.util.Map;
 

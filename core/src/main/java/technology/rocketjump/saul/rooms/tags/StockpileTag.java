@@ -5,6 +5,7 @@ import technology.rocketjump.saul.entities.tags.TagProcessingUtils;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.components.StockpileComponent;
 
+//TODO: this is a stockpile tag for rooms
 public class StockpileTag extends Tag {
 	@Override
 	public String getTagName() {

@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.rooms;
+package technology.rocketjump.saul.production;
 
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.GridPoint2;
@@ -35,6 +35,7 @@ public class StockpileAllocation implements ChildPersistable {
 		this.position = position;
 	}
 
+	//TODO: this might need to check inventory
 	public void refreshQuantityInTile(MapTile mapTile) {
 		quantityInTile = 0;
 		for (Entity entity : mapTile.getEntities()) {

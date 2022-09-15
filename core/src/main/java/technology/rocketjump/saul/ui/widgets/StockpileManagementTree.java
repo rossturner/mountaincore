@@ -13,9 +13,9 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionar
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.production.StockpileGroup;
+import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rooms.StockpileComponentUpdater;
-import technology.rocketjump.saul.rooms.StockpileGroup;
-import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
 import technology.rocketjump.saul.rooms.components.StockpileComponent;
 import technology.rocketjump.saul.ui.Scene2DUtils;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;

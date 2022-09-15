@@ -10,6 +10,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
+import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rooms.components.StockpileComponent;
 
 @Singleton

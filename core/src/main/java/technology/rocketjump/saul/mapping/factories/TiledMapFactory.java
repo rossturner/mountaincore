@@ -32,6 +32,7 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RoomPlacementMessage;
+import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rooms.*;
 import technology.rocketjump.saul.rooms.components.StockpileComponent;

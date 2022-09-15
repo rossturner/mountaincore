@@ -16,7 +16,7 @@ import technology.rocketjump.saul.jobs.JobTypeDictionary;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
-import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
+import technology.rocketjump.saul.production.StockpileGroupDictionary;
 
 public class TagProcessingUtils {
 

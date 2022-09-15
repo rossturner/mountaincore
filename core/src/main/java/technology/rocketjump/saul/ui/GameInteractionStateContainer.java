@@ -35,6 +35,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.DoorwayPlacementMessage;
 import technology.rocketjump.saul.messaging.types.MaterialSelectionMessage;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
+import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rendering.ScreenWriter;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 import technology.rocketjump.saul.rooms.*;

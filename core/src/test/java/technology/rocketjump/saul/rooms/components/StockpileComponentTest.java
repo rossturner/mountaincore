@@ -15,9 +15,9 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttribu
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
+import technology.rocketjump.saul.production.StockpileAllocation;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomTile;
-import technology.rocketjump.saul.rooms.StockpileAllocation;
 
 import java.util.HashMap;
 import java.util.Map;
