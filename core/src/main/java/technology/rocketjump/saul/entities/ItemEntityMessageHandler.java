@@ -8,6 +8,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.entities.behaviour.items.ItemBehaviour;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
@@ -257,6 +258,12 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		int sourceRegionId = areaMap.getTile(entityPosition).getRegionId();
 		Map<JobPriority, Map<Float, Room>> stockpilesByDistanceByPriority = new EnumMap<>(JobPriority.class);
 
+		JobPriority currentStockpilePriority = JobPriority.DISABLED;
+
+		ItemBehaviour itemBehaviour = entity.getComponent(ItemBehaviour.class);
+		if (itemBehaviour != null && entityPosition != null && itemBehaviour.getStockpile(entityPosition, areaMap) != null) {
+			currentStockpilePriority = itemBehaviour.getStockpile(entityPosition, areaMap).getPriority();
+		}
 
 		for (Room stockpile : roomStore.getByComponent(StockpileComponent.class)) {
 			StockpileComponent stockpileComponent = stockpile.getComponent(StockpileComponent.class);
@@ -269,10 +276,9 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			}
 		}
 
-		for (JobPriority priority : JobPriority.values()) {
-			if (priority.equals(JobPriority.DISABLED)) {
-				continue;
-			}
+
+		for (int i = 0; i < currentStockpilePriority.ordinal(); i++) {
+			JobPriority priority = JobPriority.values()[i];
 
 			Map<Float, Room> byDistance = stockpilesByDistanceByPriority.getOrDefault(priority, Collections.emptyMap());
 			for (Room room : byDistance.values()) {
@@ -283,7 +289,6 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 				}
 			}
 		}
-
 
 		return null;
 	}
