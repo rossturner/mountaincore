@@ -29,6 +29,9 @@
     },
     "BONE_COLOR" : {
       "swatch" : "orc-horn-swatch.png"
+    },
+    "ACCESSORY_COLOR" : {
+      "colorChart" : "orc-accessory-swatch.png"
     }
   },
   "behaviour" : {
@@ -45,8 +48,8 @@
         "CREATURE_BEARD" : 0.9,
         "CREATURE_HORNS" : 0.6,
         "CREATURE_TUSKS" : 0.2,
-        "CREATURE_FACEPAINT" : 0.7,
-        "CREATURE_BODYPAINT" : 0.7
+        "CREATURE_FACEPAINT" : 0.6,
+        "CREATURE_BODYPAINT" : 0.6
       }
     }
   },
