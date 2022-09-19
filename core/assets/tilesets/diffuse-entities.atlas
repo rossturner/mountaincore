@@ -7900,13 +7900,6 @@ Orc-Male-Average-Light_Armor-Body_Clothing_Above_1_Up_Right
   orig: 106, 89
   offset: 0, 0
   index: -1
-Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Up_Right
-  rotate: false
-  xy: 1858, 3369
-  size: 106, 89
-  orig: 106, 89
-  offset: 0, 0
-  index: -1
 Orc-Male-Average-Light_Armor-Body_Clothing_Below_1_Down
   rotate: false
   xy: 1846, 1905
@@ -7956,13 +7949,6 @@ Orc-Male-Average-Light_Armor-Body_Clothing_Below_2_Up_Right
   orig: 106, 89
   offset: 0, 0
   index: -1
-Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Up_Right
-  rotate: false
-  xy: 721, 794
-  size: 106, 89
-  orig: 106, 89
-  offset: 0, 0
-  index: -1
 Orc-Male-Average-Light_Armor-Body_Clothing_Down
   rotate: false
   xy: 3856, 3651
@@ -7985,13 +7971,6 @@ Orc-Male-Average-Light_Armor-Body_Clothing_Up
   offset: 0, 0
   index: -1
 Orc-Male-Average-Light_Armor-Body_Clothing_Up_Right
-  rotate: false
-  xy: 711, 703
-  size: 106, 89
-  orig: 106, 89
-  offset: 0, 0
-  index: -1
-Orc-Male-Fat-Light_Armor-Body_Clothing_Up_Right
   rotate: false
   xy: 711, 703
   size: 106, 89

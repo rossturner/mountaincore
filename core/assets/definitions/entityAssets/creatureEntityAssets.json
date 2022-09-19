@@ -34341,13 +34341,13 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Up_Right.png",
+      "filename" : "Orc-Male-Strong-Light_Armor-Body_Clothing_Up_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -10.0,
-        "y" : -2.0,
+        "x" : -4.0,
+        "y" : -3.0,
         "unit" : false
       },
       "flipX" : true,
@@ -34378,13 +34378,13 @@
       "parentEntityAssets" : [ ]
     },
     "UP_RIGHT" : {
-      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Up_Right.png",
+      "filename" : "Orc-Male-Strong-Light_Armor-Body_Clothing_Up_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 10.0,
-        "y" : -2.0,
+        "x" : 4.0,
+        "y" : -1.0,
         "unit" : false
       },
       "flipX" : false,
@@ -34490,7 +34490,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Up_Right.png",
+      "filename" : "Orc-Male-Strong-Light_Armor-Body_Clothing_Above_1_Up_Right.png",
       "coloringLayer" : "BONE_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -34506,7 +34506,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_RIGHT" : {
-      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Up_Right.png",
+      "filename" : "Orc-Male-Strong-Light_Armor-Body_Clothing_Above_1_Up_Right.png",
       "coloringLayer" : "BONE_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -34653,7 +34653,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Up_Right.png",
+      "filename" : "Orc-Male-Strong-Light_Armor-Body_Clothing_Below_2_Up_Right.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -34669,7 +34669,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_RIGHT" : {
-      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Up_Right.png",
+      "filename" : "Orc-Male-Strong-Light_Armor-Body_Clothing_Below_2_Up_Right.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
