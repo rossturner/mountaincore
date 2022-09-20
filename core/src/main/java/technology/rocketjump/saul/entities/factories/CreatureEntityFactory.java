@@ -51,7 +51,7 @@ public class CreatureEntityFactory  {
 			try {
 				behaviourComponent = attributes.getRace().getBehaviour().getBehaviourClass().getConstructor().newInstance();
 				if (behaviourComponent instanceof CreatureBehaviour creatureBehaviour) {
-					creatureBehaviour.constructWith(goalDictionary, roomStore);
+					creatureBehaviour.constructWith(goalDictionary);
 				}
 
 			} catch (ReflectiveOperationException e) {

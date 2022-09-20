@@ -34,7 +34,6 @@ import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
-import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
@@ -67,7 +66,6 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	protected GameContext gameContext;
 
 	protected GoalDictionary goalDictionary;
-	protected RoomStore roomStore;
 
 	protected CreatureGroup creatureGroup;
 	protected AssignedGoal currentGoal;
@@ -77,9 +75,8 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 	private float stunTime;
 
-	public void constructWith(GoalDictionary goalDictionary, RoomStore roomStore) {
+	public void constructWith(GoalDictionary goalDictionary) {
 		this.goalDictionary = goalDictionary;
-		this.roomStore = roomStore;
 	}
 
 	@Override
@@ -251,7 +248,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 		// (Override) if we're hauling an item, need to place it
 		if (parentEntity.getComponent(HaulingComponent.class) != null && parentEntity.getComponent(HaulingComponent.class).getHauledEntity() != null) {
-			return placeHauledItemGoal(parentEntity, roomStore, messageDispatcher, gameContext);
+			return placeHauledItemGoal(parentEntity, messageDispatcher, gameContext);
 		}
 
 		Optional<Memory> breakdownMemory = memoryComponent.getShortTermMemories(gameContext.getGameClock())
@@ -268,7 +265,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			}
 		}
 
-		AssignedGoal placeInventoryItemsGoal = checkToPlaceInventoryItems(parentEntity, roomStore, messageDispatcher, gameContext);
+		AssignedGoal placeInventoryItemsGoal = checkToPlaceInventoryItems(parentEntity, messageDispatcher, gameContext);
 		if (placeInventoryItemsGoal != null) {
 			return placeInventoryItemsGoal;
 		}
@@ -516,7 +513,6 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
 		this.goalDictionary = relatedStores.goalDictionary;
-		this.roomStore = relatedStores.roomStore;
 
 		Long creatureGroupId = asJson.getLong("creatureGroup");
 		if (creatureGroupId != null) {

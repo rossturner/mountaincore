@@ -61,7 +61,7 @@ public class SettlerFactory {
 		physicalComponent.setAttributes(attributes);
 
 		CreatureBehaviour behaviourComponent = new CreatureBehaviour();
-		behaviourComponent.constructWith(goalDictionary, roomStore);
+		behaviourComponent.constructWith(goalDictionary);
 
 		LocationComponent locationComponent = new LocationComponent();
 		locationComponent.setWorldPosition(worldPosition, true);
