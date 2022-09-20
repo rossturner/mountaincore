@@ -12,15 +12,11 @@ import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.model.JobPriority;
-import technology.rocketjump.saul.mapping.model.TiledMap;
-import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestHaulingMessage;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
-import technology.rocketjump.saul.rooms.Room;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -79,17 +75,8 @@ public class ItemBehaviour implements BehaviourComponent {
 		Vector2 worldPosition = locationComponent.getWorldPosition();
 
 		if (worldPosition != null && attributes.getItemPlacement().equals(ItemPlacement.ON_GROUND) && itemAllocationComponent.getNumUnallocated() > 0) {
-			// Has some unallocated on ground
-			TiledMap areaMap = gameContext.getAreaMap();
-			boolean inStockpile = getStockpile(worldPosition, areaMap) != null;
-
-			if (!inStockpile) {
-				// Not in a stockpile and some unallocated, so see if we can be hauled to a stockpile
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, JobPriority.NORMAL, null));
-			} else {
-				// Try moving into a higher priority stockpile if possible
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, JobPriority.LOWEST, null));
-			}
+			// This should haul to a stockpile or to a higher priority stockpile
+			messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, JobPriority.NORMAL, null));
 		}
 
 		for (BehaviourComponent additionalBehavior : additionalBehaviours.values()) {
@@ -97,17 +84,6 @@ public class ItemBehaviour implements BehaviourComponent {
 		}
 	}
 
-	public StockpileComponent getStockpile(Vector2 worldPosition, TiledMap areaMap) {
-		MapTile tile = areaMap.getTile(worldPosition);
-		if (tile.getRoomTile() != null) {
-			Room room = tile.getRoomTile().getRoom();
-			StockpileComponent stockpileComponent = room.getComponent(StockpileComponent.class);
-			if (stockpileComponent != null && stockpileComponent.getStockpileSettings().canHold(parentEntity)) {
-				return stockpileComponent;
-			}
-		}
-		return null;
-	}
 
 	@Override
 	public SteeringComponent getSteeringComponent() {
