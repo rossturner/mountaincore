@@ -10120,6 +10120,100 @@
       },
       "flipX" : false,
       "flipY" : false,
+      "childAssets" : [ {
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT_3",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon_Rack-1x1EW-Show_When_Inventory_Present-Wood",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT",
+  "furnitureTypeName" : "Weapon_Rack",
+  "furnitureLayoutName" : "1x1EW",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon_Rack-1x1ew-Show_When_Inventory_Present-Wood_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon_Rack-1x1EW-Show_When_Inventory_Present_2-Wood",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT_2",
+  "furnitureTypeName" : "Weapon_Rack",
+  "furnitureLayoutName" : "1x1EW",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon_Rack-1x1ew-Show_When_Inventory_Present_2-Wood_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon_Rack-1x1EW-Show_When_Inventory_Present_3-Wood",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT_3",
+  "furnitureTypeName" : "Weapon_Rack",
+  "furnitureLayoutName" : "1x1EW",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon_Rack-1x1ew-Show_When_Inventory_Present_3-Wood_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
       "childAssets" : [ ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -10135,6 +10229,101 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Rack-1x1ns-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT_3",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon_Rack-1x1NS-Show_When_Inventory_Present-Wood",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT",
+  "furnitureTypeName" : "Weapon_Rack",
+  "furnitureLayoutName" : "1x1NS",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon_Rack-1x1ns-Show_When_Inventory_Present-Wood_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon_Rack-1x1NS-Show_When_Inventory_Present_2-Wood",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT_2",
+  "furnitureTypeName" : "Weapon_Rack",
+  "furnitureLayoutName" : "1x1NS",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon_Rack-1x1ns-Show_When_Inventory_Present_2-Wood_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon_Rack-1x1NS-Show_When_Inventory_Present_3-Wood",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT_3",
+  "furnitureTypeName" : "Weapon_Rack",
+  "furnitureLayoutName" : "1x1NS",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon_Rack-1x1ns-Show_When_Inventory_Present_3-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,

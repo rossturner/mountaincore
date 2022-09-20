@@ -10,7 +10,8 @@
       "quantity" : 3
     } ]
   },
-  "tags": {
-    "STOCKPILE": []
+  "tags" : {
+    "STOCKPILE" : [ ],
+    "EXTRA_MATERIAL_TYPES" : [ "METAL" ]
   }
 }

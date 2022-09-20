@@ -1402,7 +1402,8 @@
     } ]
   },
   "tags" : {
-    "STOCKPILE" : [ ]
+    "STOCKPILE" : [ ],
+    "EXTRA_MATERIAL_TYPES" : [ "METAL" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {

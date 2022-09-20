@@ -83,6 +83,8 @@ public class EntityAssetUpdater implements GameContextAware {
 	public final EntityAssetType FURNITURE_COVER_LAYER;
 	public final EntityAssetType MECHANISM_BASE_LAYER;
 	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT;
+	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT_2;
+	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT_3;
 	private GameContext gameContext;
 	private Skill UNARMORED_MILITARY_OVERRIDE;
 
@@ -124,6 +126,8 @@ public class EntityAssetUpdater implements GameContextAware {
 
 		MECHANISM_BASE_LAYER = entityAssetTypeDictionary.getByName("MECHANISM_BASE_LAYER");
 		SHOW_WHEN_INVENTORY_PRESENT = entityAssetTypeDictionary.getByName("SHOW_WHEN_INVENTORY_PRESENT");
+		SHOW_WHEN_INVENTORY_PRESENT_2 = entityAssetTypeDictionary.getByName("SHOW_WHEN_INVENTORY_PRESENT_2");
+		SHOW_WHEN_INVENTORY_PRESENT_3 = entityAssetTypeDictionary.getByName("SHOW_WHEN_INVENTORY_PRESENT_3");
 
 		UNARMORED_MILITARY_OVERRIDE = skillDictionary.getByName("UNARMORED_MILITARY");
 
@@ -426,7 +430,7 @@ public class EntityAssetUpdater implements GameContextAware {
 	}
 
 	private boolean shouldAssetTypeApply(EntityAssetType attachedType, Entity entity) {
-		if (SHOW_WHEN_INVENTORY_PRESENT.equals(attachedType)) {
+		if (SHOW_WHEN_INVENTORY_PRESENT.equals(attachedType) || SHOW_WHEN_INVENTORY_PRESENT_2.equals(attachedType) || SHOW_WHEN_INVENTORY_PRESENT_3.equals(attachedType)) {
 			InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 			return  inventoryComponent != null && !inventoryComponent.getInventoryEntries().isEmpty();
 		}
