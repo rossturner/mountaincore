@@ -29,7 +29,7 @@ public class StockpileSettings implements ChildPersistable {
         cloned.enabledGroups.addAll(getEnabledGroups());
         cloned.enabledItemTypes.addAll(getEnabledItemTypes());
         cloned.enabledMaterialsByItemType.putAll(getEnabledMaterialsByItemType());
-        return null;
+        return cloned;
     }
 
 
