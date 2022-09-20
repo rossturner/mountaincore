@@ -1,0 +1,17 @@
+{
+  "itemTypeName" : "Armour-Plate",
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "stockpileGroupName" : "WEAPONS",
+  "defenseInfo" : {
+    "type" : "ARMOR",
+    "maxDefensePoints" : 20,
+    "maxDefenseRegainedPerRound" : 5,
+    "damageReduction" : {
+      "STABBING" : 2,
+      "SLASHING" : 2,
+      "CRUSHING" : 0
+    }
+  },
+  "i18nKey" : "ARMOUR.PLATE"
+}

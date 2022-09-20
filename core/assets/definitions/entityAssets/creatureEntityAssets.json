@@ -31487,7 +31487,7 @@
   "type" : "CREATURE_BODY",
   "raceName" : "Wurm",
   "bodyShape" : "ANY",
-  "gender" : "NONE",
+  "gender" : "ANY",
   "profession" : "NULL_PROFESSION",
   "consciousnessList" : [ ],
   "tags" : { },

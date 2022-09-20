@@ -34,7 +34,7 @@
       "sameAs" : "DOWN"
     },
     "DOWN" : {
-      "ordering" : [ "BELOW_LAYER_2", "BELOW_LAYER_1", "ITEM_BASE_LAYER", "ITEM_LIQUID_LAYER", "ABOVE_LAYER_1", "ABOVE_LAYER_2", "ITEM_COVER_LAYER" ]
+      "ordering" : [ "BELOW_LAYER_2", "BELOW_LAYER_1", "ITEM_BASE_LAYER", "ITEM_LIQUID_LAYER", "ABOVE_LAYER_1", "ABOVE_LAYER_2", "ABOVE_LAYER_3", "ITEM_COVER_LAYER" ]
     },
     "DOWN_LEFT" : {
       "sameAs" : "DOWN"

@@ -36,6 +36,8 @@ ACTION.STUNNED,Stunned,,,,Stordito,Aturdido,,,,Ошеломленный,,,,,,,,�
 
 ARMOUR.LEATHER,Leather armour,,,,,,,,,,,,,,,,,,,
 ARMOUR.LEATHER.TOOLTIP,A light and basic armour to protect you in combat,,,,,,,,,,,,,,,,,,,
+ARMOUR.PLATE,Plate armour,,,,,,,,,,,,,,,,,,,
+ARMOUR.PLATE.TOOLTIP,Thick and sturdy armour which offers a lot of protection in combat,,,,,,,,,,,,,,,,,,,
 
 ASHES.NOUN,Ash,,Asche,,Cenere,Cenizas,,,,Пепел,,,,,,,,灰,灰烬,
 

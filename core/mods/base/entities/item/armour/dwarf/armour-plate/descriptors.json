@@ -1,0 +1,305 @@
+[ {
+  "uniqueName" : "Armour-Plate-Above_Layer_1-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Armour-Plate",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Metal-Above_Layer_1-On_Ground_Down.png",
+      "scale" : 0.7
+    },
+    "UP" : {
+      "filename" : "Armour-Metal-Above_Layer_1-On_Ground_Down.png",
+      "scale" : 0.7
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Armour-Metal-Above_Layer_1-On_Ground_Down.png",
+      "scale" : 0.7
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Armour-Metal-Above_Layer_1-On_Ground_Down.png",
+      "scale" : 0.7
+    },
+    "UP_LEFT" : {
+      "filename" : "Armour-Metal-Above_Layer_1-On_Ground_Down.png",
+      "scale" : 0.7
+    },
+    "UP_RIGHT" : {
+      "filename" : "Armour-Metal-Above_Layer_1-On_Ground_Down.png",
+      "scale" : 0.7
+    }
+  }
+}, {
+  "uniqueName" : "Armour-Plate-Above_Layer_1-On_Ground",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Armour-Plate",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Metal-Above_Layer_1-On_Ground_Down.png"
+    }
+  }
+}, {
+  "uniqueName" : "Armour-Plate-Above_Layer_2-Being_Carried",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Armour-Plate",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Metal-Above_Layer_2-On_Ground_Down.png",
+      "scale" : 0.7
+    },
+    "UP" : {
+      "filename" : "Armour-Metal-Above_Layer_2-On_Ground_Down.png",
+      "scale" : 0.7
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Armour-Metal-Above_Layer_2-On_Ground_Down.png",
+      "scale" : 0.7
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Armour-Metal-Above_Layer_2-On_Ground_Down.png",
+      "scale" : 0.7
+    },
+    "UP_LEFT" : {
+      "filename" : "Armour-Metal-Above_Layer_2-On_Ground_Down.png",
+      "scale" : 0.7
+    },
+    "UP_RIGHT" : {
+      "filename" : "Armour-Metal-Above_Layer_2-On_Ground_Down.png",
+      "scale" : 0.7
+    }
+  }
+}, {
+  "uniqueName" : "Armour-Plate-Above_Layer_2-On_Ground",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Armour-Plate",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Metal-Above_Layer_2-On_Ground_Down.png",
+      "coloringLayer" : "MISC_COLOR_1"
+    }
+  }
+}, {
+  "uniqueName" : "Armour-Plate-Above_Layer_3-Being_Carried",
+  "type" : "ABOVE_LAYER_3",
+  "itemTypeName" : "Armour-Plate",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Plate-Above_Layer_3-On_Ground_Down.png",
+      "scale" : 0.35
+    },
+    "UP" : {
+      "filename" : "Armour-Plate-Above_Layer_3-On_Ground_Down.png",
+      "scale" : 0.35
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Armour-Plate-Above_Layer_3-On_Ground_Down.png",
+      "scale" : 0.35
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Armour-Plate-Above_Layer_3-On_Ground_Down.png",
+      "scale" : 0.35
+    },
+    "UP_LEFT" : {
+      "filename" : "Armour-Plate-Above_Layer_3-On_Ground_Down.png",
+      "scale" : 0.35
+    },
+    "UP_RIGHT" : {
+      "filename" : "Armour-Plate-Above_Layer_3-On_Ground_Down.png",
+      "scale" : 0.35
+    }
+  }
+}, {
+  "uniqueName" : "Armour-Plate-Above_Layer_3-On_Ground",
+  "type" : "ABOVE_LAYER_3",
+  "itemTypeName" : "Armour-Plate",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Plate-Above_Layer_3-On_Ground_Down.png",
+      "scale" : 0.5
+    }
+  }
+}, {
+  "uniqueName" : "Armour-Plate-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Armour-Plate",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Metal-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "scale" : 0.7,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      }, {
+        "type" : "ABOVE_LAYER_2"
+      }, {
+        "type" : "ABOVE_LAYER_3"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 26.0,
+          "y" : 0.5
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -26.0,
+          "y" : 0.5
+        }
+      } ]
+    },
+    "UP" : {
+      "filename" : "Armour-Metal-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "scale" : 0.7,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      }, {
+        "type" : "ABOVE_LAYER_2"
+      }, {
+        "type" : "ABOVE_LAYER_3"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 26.0,
+          "y" : 0.5
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -26.0,
+          "y" : 0.5
+        }
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Armour-Metal-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "scale" : 0.7,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      }, {
+        "type" : "ABOVE_LAYER_2"
+      }, {
+        "type" : "ABOVE_LAYER_3"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 26.0,
+          "y" : 0.5
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -26.0,
+          "y" : 0.5
+        }
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Armour-Metal-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "scale" : 0.7,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      }, {
+        "type" : "ABOVE_LAYER_2"
+      }, {
+        "type" : "ABOVE_LAYER_3"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 26.0,
+          "y" : 0.5
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -26.0,
+          "y" : 0.5
+        }
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Armour-Metal-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "scale" : 0.7,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      }, {
+        "type" : "ABOVE_LAYER_2"
+      }, {
+        "type" : "ABOVE_LAYER_3"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 26.0,
+          "y" : 0.5
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -26.0,
+          "y" : 0.5
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Armour-Metal-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "scale" : 0.7,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      }, {
+        "type" : "ABOVE_LAYER_2"
+      }, {
+        "type" : "ABOVE_LAYER_3"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 26.0,
+          "y" : 0.5
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -26.0,
+          "y" : 0.5
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Armour-Plate-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Armour-Plate",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Armour-Metal-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      }, {
+        "type" : "ABOVE_LAYER_2"
+      }, {
+        "type" : "ABOVE_LAYER_3"
+      } ]
+    }
+  }
+} ]

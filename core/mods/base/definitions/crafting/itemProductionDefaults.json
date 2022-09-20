@@ -134,7 +134,10 @@
   },
 
   "Armour-Leather": {
-    "perSettler": 1
+    "perSettler": 0.15
+  },
+  "Armour-Plate": {
+    "perSettler": 0.15
   },
 
   "Weapon-Metal-Bolts": {

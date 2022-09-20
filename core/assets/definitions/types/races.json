@@ -539,7 +539,12 @@
     "aggressionResponse" : "FLEE",
     "isSapient" : false
   },
-  "genders" : { },
+  "genders" : {
+    "FEMALE" : {
+      "weighting" : 1.0,
+      "hideAssetTypes" : { }
+    }
+  },
   "features" : {
     "defense" : {
       "type" : "RACIAL",
@@ -595,7 +600,16 @@
     "aggressionResponse" : "ATTACK",
     "isSapient" : false
   },
-  "genders" : { },
+  "genders" : {
+    "MALE" : {
+      "weighting" : 0.5,
+      "hideAssetTypes" : { }
+    },
+    "FEMALE" : {
+      "weighting" : 0.5,
+      "hideAssetTypes" : { }
+    }
+  },
   "features" : {
     "defense" : {
       "type" : "RACIAL",
@@ -657,7 +671,12 @@
     "aggressionResponse" : "ATTACK",
     "isSapient" : false
   },
-  "genders" : { },
+  "genders" : {
+    "NONE" : {
+      "weighting" : 1.0,
+      "hideAssetTypes" : { }
+    }
+  },
   "features" : {
     "defense" : {
       "type" : "RACIAL",
@@ -712,7 +731,16 @@
     "aggressionResponse" : "ATTACK",
     "isSapient" : false
   },
-  "genders" : { },
+  "genders" : {
+    "MALE" : {
+      "weighting" : 0.5,
+      "hideAssetTypes" : { }
+    },
+    "FEMALE" : {
+      "weighting" : 0.5,
+      "hideAssetTypes" : { }
+    }
+  },
   "features" : {
     "defense" : {
       "type" : "RACIAL",

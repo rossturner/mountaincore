@@ -257,6 +257,7 @@
         "ITEM_LIQUID_LAYER",
         "ABOVE_LAYER_1",
         "ABOVE_LAYER_2",
+        "ABOVE_LAYER_3",
         "ITEM_COVER_LAYER"
       ]
     },

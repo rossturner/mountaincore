@@ -437,6 +437,8 @@ public class ItemUIFactory implements UIFactory {
         ItemType itemType = (ItemType) message.typeDescriptor();
 
         ItemEntityAsset itemEntityAsset = new ItemEntityAsset();
+        itemEntityAsset.setItemTypeName(((ItemType) message.typeDescriptor()).getItemTypeName());
+        itemEntityAsset.setItemStyle(ItemStyle.DEFAULT);
         OkCancelDialog dialog = new OkCancelDialog("Create asset under " + directory) {
             @Override
             public void onOk() {
