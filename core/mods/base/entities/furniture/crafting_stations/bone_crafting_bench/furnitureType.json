@@ -1,0 +1,24 @@
+{
+  "name" : "BONE_CRAFTING_BENCH",
+  "i18nKey" : "FURNITURE.BONE_CRAFTING_BENCH",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "2x3BL1R",
+  "colorCode" : "#fbfbf9",
+  "iconName" : "chisel",
+  "requirements" : {
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 4
+    }, {
+      "itemTypeName" : "Tool-Chisel",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Tool-Small-Hammer",
+      "quantity" : 1
+    } ]
+  },
+  "tags" : {
+    "CRAFTING_STATION_BEHAVIOUR" : [ "BONE_CRAFTING", "CRAFT_ITEM", "HAULING" ],
+    "DECORATION_FROM_INPUT" : [ "Tool-Chisel", "Tool-Small-Hammer" ]
+  }
+}

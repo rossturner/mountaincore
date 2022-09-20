@@ -1,0 +1,82 @@
+[ {
+  "uniqueName" : "Resource-Bone-Large-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Large",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Large-Item_Base_Layer-On_Ground_Down.png",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -2.5
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 17.5,
+          "y" : -9.5
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -17.5,
+          "y" : -12.5
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Large-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Large",
+  "maxQuantity" : 2,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Large-Item_Base_Layer-On_Ground_Down.png",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -2.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Large-Item_Base_Layer-On_Ground-Large",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Large",
+  "minQuantity" : 6,
+  "maxQuantity" : 10,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Large-Item_Base_Layer-On_Ground-Large_Down.png",
+      "offsetPixels" : {
+        "y" : -4.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Large-Item_Base_Layer-On_Ground-Medium",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Large",
+  "minQuantity" : 3,
+  "maxQuantity" : 5,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Large-Item_Base_Layer-On_Ground-Medium_Down.png",
+      "offsetPixels" : {
+        "y" : -3.0
+      }
+    }
+  }
+} ]

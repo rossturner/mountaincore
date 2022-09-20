@@ -199,5 +199,14 @@
     "furnitureNames": [
       "Tanning_Frame","Leatherworking_Station"
     ]
+  },
+  {
+    "roomName": "ARTISAN_WORKSHOP",
+    "i18nKey": "ROOMS.ARTISAN_WORKSHOP",
+    "colorCode": "#aa1a1c",
+    "iconName": "gems",
+    "furnitureNames": [
+      "BONE_CRAFTING_BENCH"
+    ]
   }
 ]

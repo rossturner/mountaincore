@@ -1,0 +1,85 @@
+[ {
+  "uniqueName" : "Resource-Bone-Medium-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Medium",
+  "maxQuantity" : 2,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground_Down.png",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -4.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 13.0,
+          "y" : -6.0
+        }
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -14.0,
+          "y" : -7.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Medium",
+  "maxQuantity" : 2,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground_Down.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -4.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground-Large",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Medium",
+  "minQuantity" : 6,
+  "maxQuantity" : 10,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground-Large_Down.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -1.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground-Medium",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Bone-Medium",
+  "minQuantity" : 3,
+  "maxQuantity" : 5,
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground-Medium_Down.png",
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : -6.0
+      }
+    }
+  }
+} ]

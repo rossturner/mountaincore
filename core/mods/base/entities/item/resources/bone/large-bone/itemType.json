@@ -1,0 +1,9 @@
+{
+  "itemTypeName" : "Resource-Bone-Large",
+  "maxStackSize" : 10,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "BONE" ],
+  "primaryMaterialType" : "BONE",
+  "stockpileGroupName" : "RAW_MATERIALS",
+  "i18nKey" : "RESOURCE.BONE.LARGE"
+}

@@ -468,72 +468,79 @@ chicken-oven
   orig: 64, 64
   offset: 0, 0
   index: -1
-circular-sawblade
+chisel
   rotate: false
   xy: 1547, 374
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-clockwise-rotation
+circular-sawblade
   rotate: false
   xy: 1613, 374
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-closed-doors
+clockwise-rotation
   rotate: false
   xy: 1679, 374
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-coins
+closed-doors
   rotate: false
   xy: 1745, 374
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-concrete-bag
+coins
   rotate: false
   xy: 1811, 374
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-contract
+concrete-bag
   rotate: false
   xy: 1877, 374
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-cooking-pot
+contract
   rotate: false
   xy: 1943, 374
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-cracked-shield
+cooking-pot
   rotate: false
   xy: 227, 308
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-crossbow
+cracked-shield
   rotate: false
   xy: 293, 308
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-crossed-swords
+crossbow
   rotate: false
   xy: 359, 308
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+crossed-swords
+  rotate: false
+  xy: 425, 308
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
