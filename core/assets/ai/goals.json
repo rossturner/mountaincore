@@ -358,11 +358,12 @@
       "pass" : [ "UnassignFurniture", "RequeueThisGoal" ]
     },
     "EquipWeapon" : {
-      "pass" : [ "CheckAmmoAvailable" ]
+      "fail" : [ "UnassignFurniture" ],
+      "pass" : [ "GoToLocation" ]
     },
     "LocateTrainingFurniture" : {
-      "fail" : [ "UnequipWeapon" ],
-      "pass" : [ "GoToLocation" ]
+      "fail" : [ ],
+      "pass" : [ "EquipWeapon" ]
     },
     "GoToLocation" : {
       "fail" : [ "UnassignFurniture" ],
@@ -392,7 +393,7 @@
     } ],
     "priority" : "JOB_NORMAL"
   } ],
-  "initialActions" : [ "EquipWeapon" ]
+  "initialActions" : [ "CheckAmmoAvailable" ]
 }, {
   "i18nDescription" : "GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION",
   "settlerCategories" : [ "MILITARY" ],

@@ -1,0 +1,118 @@
+[ {
+  "uniqueName" : "Weapon-Metal-Shield-Above_Layer_1-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Weapon-Metal-Shield",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "UP" : {
+      "filename" : "Weapon-Metal-Shield-Above_Layer_1-Being_Carried_Up.png",
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : 0.5
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Metal-Shield-Above_Layer_1-Being_Carried_Up_Left.png",
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : -0.5
+      }
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Metal-Shield-Above_Layer_1-Being_Carried_Up_Left.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -0.5
+      },
+      "flipX" : true
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Metal-Shield-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Metal-Shield",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Metal-Shield-Item_Base_Layer-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "y" : -0.5
+      }
+    },
+    "UP" : {
+      "filename" : "Weapon-Metal-Shield-Item_Base_Layer-Being_Carried_Up.png",
+      "coloringLayer" : "METAL_COLOR",
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Weapon-Metal-Shield-Item_Base_Layer-Being_Carried_Down_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -4.5
+      },
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Weapon-Metal-Shield-Item_Base_Layer-Being_Carried_Down_Right.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -2.5
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Weapon-Metal-Shield-Item_Base_Layer-Being_Carried_Up_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : 0.5
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "y" : -0.5
+        }
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Weapon-Metal-Shield-Item_Base_Layer-Being_Carried_Up_Left.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : 0.5
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -1.0,
+          "y" : -0.5
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Metal-Shield-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Weapon-Metal-Shield",
+  "itemSize" : "AVERAGE",
+  "itemStyle" : "DEFAULT",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Weapon-Metal-Shield-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : 1.5
+      }
+    }
+  }
+} ]

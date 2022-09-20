@@ -162,5 +162,11 @@
   },
   "Weapon-Sword": {
     "perSettler": 0.1
+  },
+  "Weapon-Wooden-Shield": {
+    "perSettler": 0.1
+  },
+  "Weapon-Metal-Shield": {
+    "perSettler": 0.1
   }
 }

@@ -1425,6 +1425,32 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.CROSSBOW"
 }, {
+  "itemTypeName" : "Weapon-Metal-Shield",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "LEFT_HAND",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "defenseInfo" : {
+    "type" : "SHIELD",
+    "maxDefensePoints" : 16,
+    "maxDefenseRegainedPerRound" : 4,
+    "damageReduction" : {
+      "STABBING" : 2,
+      "SLASHING" : 2,
+      "CRUSHING" : 0
+    }
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.METAL.SHIELD"
+}, {
   "itemTypeName" : "Weapon-Sword",
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
@@ -1453,4 +1479,29 @@
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.SWORD"
+}, {
+  "itemTypeName" : "Weapon-Wooden-Shield",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD" ],
+  "primaryMaterialType" : "WOOD",
+  "holdPosition" : "LEFT_HAND",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "defenseInfo" : {
+    "type" : "SHIELD",
+    "maxDefensePoints" : 10,
+    "damageReduction" : {
+      "STABBING" : 0,
+      "SLASHING" : 0,
+      "CRUSHING" : 0
+    }
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "WEAPON.WOODEN.SHIELD"
 } ]

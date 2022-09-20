@@ -471,9 +471,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						itemAllocationComponent.cancel(allocation.getItemAllocation());
 					}
 
-					if (allocation.getTargetPositionType() == null) {
-						Logger.error("No target position type on cancelled hauling allocation " + allocation);
-					} else {
+					if (allocation.getTargetPositionType() != null) {
 						switch (allocation.getTargetPositionType()) {
 							case ROOM -> {
 								Room targetRoom = roomStore.getById(allocation.getTargetId());

@@ -1449,6 +1449,8 @@ WEAPON.NONE,Used to select no weapon from the selection list,None
 WEAPON.UNARMED,,Unarmed
 WEAPON.NO_SHIELD,,Unshielded
 WEAPON.NO_ARMOUR,,Unarmoured
+WEAPON.WOODEN.SHIELD,,Shield
+WEAPON.METAL.SHIELD,,Shield
 
 WEATHER.TYPE.CLOUDY,,Cloudy & grey
 WEATHER.TYPE.COLD_WINDS,,Cold winds

@@ -1,0 +1,19 @@
+{
+  "itemTypeName" : "Weapon-Metal-Shield",
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "LEFT_HAND",
+  "stockpileGroupName" : "WEAPONS",
+  "defenseInfo" : {
+    "type" : "SHIELD",
+    "maxDefensePoints" : 16,
+    "maxDefenseRegainedPerRound" : 4,
+    "damageReduction" : {
+      "STABBING" : 2,
+      "SLASHING" : 2,
+      "CRUSHING" : 0
+    }
+  },
+  "i18nKey" : "WEAPON.METAL.SHIELD"
+}

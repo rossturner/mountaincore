@@ -3927,6 +3927,56 @@
     }
   }
 }, {
+  "uniqueName" : "Forge-A",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "FORGE",
+  "furnitureLayoutName" : "inverted-U",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Forge A.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 68.0,
+        "y" : 36.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Forge-B",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "FORGE",
+  "furnitureLayoutName" : "inverted-U",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Forge B.png",
+      "coloringLayer" : "ORE_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 67.5,
+        "y" : 13.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Forge-C",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "FORGE",
@@ -3941,7 +3991,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
-        "y" : 44.0,
+        "y" : -25.0,
         "unit" : false
       },
       "flipX" : false,
@@ -3990,56 +4040,6 @@
           "unit" : false
         }
       } ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Forge-B",
-  "type" : "FURNITURE_ABOVE_LAYER_1",
-  "furnitureTypeName" : "FORGE",
-  "furnitureLayoutName" : "inverted-U",
-  "validMaterialTypes" : [ "STONE" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Forge B.png",
-      "coloringLayer" : "ORE_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 67.5,
-        "y" : 13.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Forge-A",
-  "type" : "FURNITURE_ABOVE_LAYER_2",
-  "furnitureTypeName" : "FORGE",
-  "furnitureLayoutName" : "inverted-U",
-  "validMaterialTypes" : [ "STONE" ],
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Forge A.png",
-      "coloringLayer" : "STONE_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 68.0,
-        "y" : 36.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
   }
