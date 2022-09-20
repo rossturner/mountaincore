@@ -45,7 +45,8 @@
   {
     "materialName": "Bone",
     "materialType": "BONE",
-    "colorCode": "#fbfbf9"
+    "colorCode": "#fbfbf9",
+    "excludeFromItemDescription": true
   },
   {
     "materialName": "Ash",

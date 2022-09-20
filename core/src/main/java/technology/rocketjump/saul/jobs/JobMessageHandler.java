@@ -30,6 +30,10 @@ import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.*;
+import technology.rocketjump.saul.entities.model.physical.creature.body.Body;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BoneType;
+import technology.rocketjump.saul.entities.model.physical.creature.features.BonesFeature;
 import technology.rocketjump.saul.entities.model.physical.creature.features.MeatFeature;
 import technology.rocketjump.saul.entities.model.physical.creature.features.SkinFeature;
 import technology.rocketjump.saul.entities.model.physical.creature.status.OnFireStatus;
@@ -110,6 +114,9 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 	private final List<Race> fishRacesAvailable;
 	private GameContext gameContext;
 	private ParticleEffectType deconstructParticleEffect;
+	private final ItemType largeBone;
+	private final ItemType mediumBone;
+	private final ItemType smallBone;
 
 	@Inject
 	public JobMessageHandler(MessageDispatcher messageDispatcher, JobStore jobStore,
@@ -145,6 +152,10 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
 		constantsRepo.initialise(raceDictionary);
 		this.fishRacesAvailable = constantsRepo.getSettlementConstants().getFishRacesAvailable();
+
+		largeBone = itemTypeDictionary.getByName("Resource-Bone-Large");
+		mediumBone = itemTypeDictionary.getByName("Resource-Bone-Medium");
+		smallBone = itemTypeDictionary.getByName("Resource-Bone-Small");
 
 		messageDispatcher.addListener(this, MessageType.DESIGNATION_APPLIED);
 		messageDispatcher.addListener(this, MessageType.REMOVE_DESIGNATION);
@@ -1016,7 +1027,37 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							skinItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
 						}
 
-						// TODO create items for bone and hide
+						BonesFeature bonesFeature = attributes.getRace().getFeatures().getBones();
+						if (bonesFeature != null) {
+							Body body = attributes.getBody();
+							int[] numberOfBonesPerPart = new int[BoneType.values().length];
+
+							for (BodyPart bodyPart : body.getAllBodyParts()) {
+								for (BoneType boneType : bodyPart.getPartDefinition().getBones()) {
+									numberOfBonesPerPart[boneType.ordinal()]++;
+								}
+							}
+
+							for (BoneType boneType : BoneType.values()) {
+								int quantity = numberOfBonesPerPart[boneType.ordinal()];
+								ItemType boneItemType;
+								switch (boneType) {
+									case LARGE -> boneItemType = largeBone;
+									case MEDIUM -> boneItemType = mediumBone;
+									case SMALL -> boneItemType = smallBone;
+									default -> boneItemType = null;
+								}
+
+								if (boneItemType != null && quantity > 0) {
+									ItemEntityAttributes boneItemAttributes = itemEntityAttributesFactory.createItemAttributes(boneItemType, quantity, bonesFeature.getMaterial());
+									Entity boneItem = itemEntityFactory.create(boneItemAttributes, null, true, gameContext);
+									inventoryComponent.add(boneItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
+									boneItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
+								}
+							}
+
+						}
+
 						messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, creatureInventoryEntity.get().entity);
 					}
 				}

@@ -22,6 +22,7 @@ import technology.rocketjump.saul.entities.components.creature.SteeringComponent
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
@@ -140,12 +141,12 @@ public class InWorldUIRenderer {
 
 
 			Selectable selectable = interactionStateContainer.getSelectable();
-			if (hasEntitySelected) {
+			if (hasEntitySelected && selectable.getEntity() != null) {
 				Entity selectableEntity = selectable.getEntity();
 				renderEntityWithFactionColor(selectableEntity);
 			}
 
-			if (hasConstructionSelected) {
+			if (hasConstructionSelected && selectable.getConstruction().getEntity() != null) {
 				Entity selectableEntity = selectable.getConstruction().getEntity();
 				renderEntityWithFactionColor(selectableEntity);
 			}
@@ -185,7 +186,10 @@ public class InWorldUIRenderer {
 		} else {
 			color = Faction.SETTLEMENT.defensePoolBarColor;
 		}
-		entityRenderer.render(selectableEntity, selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, color, null);
+		LocationComponent locationComponent = selectableEntity.getLocationComponent();
+		if (locationComponent.getWorldPosition() != null) {
+			entityRenderer.render(selectableEntity, selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, color, null);
+		}
 	}
 
 	private void determineTargetedCreatures(GameContext gameContext) {

@@ -109,5 +109,12 @@
     "professionRequiredName": "LEATHERWORKER",
     "usesWorkstationTool": true,
     "defaultItemTypeName": "Tool-Kitchen-Knife"
+  },
+  {
+    "name": "BONE_CRAFTING",
+    "i18nKey": "CRAFTING_TYPE.BONE_CRAFTING",
+    "professionRequiredName": "ARTISAN",
+    "usesWorkstationTool": true,
+    "defaultItemTypeName": "Tool-Chisel"
   }
 ]
