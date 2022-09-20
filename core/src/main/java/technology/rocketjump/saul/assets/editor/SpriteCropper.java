@@ -1,10 +1,11 @@
 package technology.rocketjump.saul.assets.editor;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.Vector2;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import org.apache.commons.io.FileUtils;
 
 import javax.imageio.ImageIO;
@@ -22,7 +23,7 @@ public class SpriteCropper {
     public void processDirectory(Path filePath) throws Exception {
         Map<String, Path> spriteFiles = new HashMap<>();
         Path descriptorsFilePath = null;
-        JsonArray descriptorsJson = null;
+        JSONArray descriptorsJson = null;
 
         for (Path path : Files.list(filePath).collect(Collectors.toList())) {
             if (Files.isDirectory(path)) {
@@ -33,7 +34,7 @@ public class SpriteCropper {
                 spriteFiles.put(path.getFileName().toString(), path);
             } else if (path.getFileName().toString().equalsIgnoreCase("descriptors.json")) {
                 descriptorsFilePath = path;
-                descriptorsJson = new Gson().fromJson(FileUtils.readFileToString(path.toFile()), JsonArray.class);
+                descriptorsJson = JSON.parseArray(FileUtils.readFileToString(path.toFile()));
             }
         }
 
@@ -50,7 +51,7 @@ public class SpriteCropper {
         }
     }
 
-    private void processSprites(JsonArray descriptorsJson, Map<String, Path> spriteFiles) throws Exception {
+    private void processSprites(JSONArray descriptorsJson, Map<String, Path> spriteFiles) throws Exception {
         Map<String, Vector2> newOffsets = new HashMap<>();
 
         for (Map.Entry<String, Path> entry : spriteFiles.entrySet()) {
@@ -149,67 +150,78 @@ public class SpriteCropper {
         processDescriptors(descriptorsJson, newOffsets);
     }
 
-    private void processDescriptors(JsonArray descriptorsJson, Map<String, Vector2> newOffsets) {
+    private void processDescriptors(JSONArray descriptorsJson, Map<String, Vector2> newOffsets) {
         for (int cursor = 0; cursor < descriptorsJson.size(); cursor++) {
-            JsonObject descriptorRootNode = descriptorsJson.get(cursor).getAsJsonObject();
+            JSONObject descriptorRootNode = descriptorsJson.getJSONObject(cursor);
 
-            JsonObject spriteDescriptors = descriptorRootNode.getAsJsonObject("spriteDescriptors");
+            JSONObject spriteDescriptors = descriptorRootNode.getJSONObject("spriteDescriptors");
             if (spriteDescriptors == null) {
                 System.err.println("Could not find spriteDescriptors in " + descriptorRootNode.toString());
             } else {
                 for (String direction : spriteDescriptors.keySet()) {
-                    JsonObject directionJson = spriteDescriptors.getAsJsonObject(direction);
+                    JSONObject directionJson = spriteDescriptors.getJSONObject(direction);
 
-                    boolean isFlipX = directionJson.has("flipX") && directionJson.get("flipX").getAsBoolean();
+                    boolean isFlipX = directionJson.getBooleanValue("flipX");
                     if (directionJson.get("filename") == null) {
                         continue;
                     }
-                    String filename = directionJson.get("filename").getAsString();
+                    String filename = directionJson.getString("filename");
                     System.out.println("Processing descriptors for " + filename);
                     Vector2 newOffset = newOffsets.get(filename);
                     if (newOffset != null) {
-                        JsonObject originalOffset = directionJson.getAsJsonObject("offsetPixels");
-                        if (originalOffset == null) {
-                            originalOffset = new JsonObject();
+                        JSONObject offsetPixelsJson = directionJson.getJSONObject("offsetPixels");
+                        if (offsetPixelsJson == null) {
+                            offsetPixelsJson = new JSONObject(true);
                         }
                         if (isFlipX) {
                             newOffset = newOffset.cpy();
                             newOffset.x = 0 - newOffset.x;
                         }
+
+                        float scale = 1f;
+                        if (directionJson.getFloat("scale") != null) {
+                            scale = directionJson.getFloat("scale");
+                        }
                         Vector2 replacementOffset = newOffset.cpy().add(
-                                originalOffset.get("x") == null ? 0f : originalOffset.get("x").getAsFloat(),
-                                originalOffset.get("y") == null ? 0f : originalOffset.get("y").getAsFloat()
+                                offsetPixelsJson.getFloatValue("x"),
+                                offsetPixelsJson.getFloatValue("y")
                         );
-                        originalOffset.addProperty("x", replacementOffset.x);
-                        originalOffset.addProperty("y", replacementOffset.y);
 
-                        directionJson.add("offsetPixels", originalOffset);
+                        if (scale != 1f) {
+                            replacementOffset.x = replacementOffset.x * scale;
+                            replacementOffset.y = replacementOffset.y * scale;
+                        }
 
-                        processRelatedAssets(newOffset, directionJson.getAsJsonArray("childAssets"));
-                        processRelatedAssets(newOffset, directionJson.getAsJsonArray("parentEntityAssets"));
-                        processRelatedAssets(newOffset, directionJson.getAsJsonArray("attachmentPoints"));
+                        offsetPixelsJson.put("x", replacementOffset.x);
+                        offsetPixelsJson.put("y", replacementOffset.y);
+
+                        directionJson.put("offsetPixels", offsetPixelsJson);
+
+                        processRelatedAssets(newOffset, directionJson.getJSONArray("childAssets"), scale);
+                        processRelatedAssets(newOffset, directionJson.getJSONArray("parentEntityAssets"), scale);
+                        processRelatedAssets(newOffset, directionJson.getJSONArray("attachmentPoints"), scale);
                     }
                 }
             }
         }
     }
 
-    private void processRelatedAssets(Vector2 newOffset, JsonArray childAssets) {
+    private void processRelatedAssets(Vector2 newOffset, JSONArray childAssets, float parentScale) {
         if (childAssets != null) {
             for (int childCursor = 0; childCursor < childAssets.size(); childCursor++) {
-                JsonObject childAssetJson = childAssets.get(childCursor).getAsJsonObject();
-                JsonObject childOffsetJson = childAssetJson.getAsJsonObject("offsetPixels");
+                JSONObject childAssetJson = childAssets.getJSONObject(childCursor);
+                JSONObject childOffsetJson = childAssetJson.getJSONObject("offsetPixels");
                 if (childOffsetJson == null) {
-                    childOffsetJson = new JsonObject();
+                    childOffsetJson = new JSONObject(true);
                 }
                 Vector2 childOffsetVec = new Vector2(
-                        childOffsetJson.get("x") == null ? 0f : childOffsetJson.get("x").getAsFloat(),
-                        childOffsetJson.get("y") == null ? 0f : childOffsetJson.get("y").getAsFloat()
+                        childOffsetJson.getFloatValue("x"),
+                        childOffsetJson.getFloatValue("y")
                 );
                 childOffsetVec.sub(newOffset);
-                childOffsetJson.addProperty("x", childOffsetVec.x);
-                childOffsetJson.addProperty("y", childOffsetVec.y);
-                childAssetJson.add("offsetPixels", childOffsetJson);
+                childOffsetJson.put("x", childOffsetVec.x);
+                childOffsetJson.put("y", childOffsetVec.y);
+                childAssetJson.put("offsetPixels", childOffsetJson);
             }
         }
     }
