@@ -36,7 +36,7 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
-import technology.rocketjump.saul.production.StockpileAllocationResponse;
+import technology.rocketjump.saul.production.AbstractStockpile;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 import technology.rocketjump.saul.rooms.Room;
@@ -257,18 +257,21 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 	public static HaulingAllocation findStockpileAllocation(TiledMap areaMap, Entity entity, Entity requestingEntity, MessageDispatcher messageDispatcher) {
 		Vector2 entityPosition = entity.getLocationComponent().getWorldOrParentPosition();
 		int sourceRegionId = areaMap.getTile(entityPosition).getRegionId();
-		Map<JobPriority, Map<Float, Room>> stockpilesByDistanceByPriority = new EnumMap<>(JobPriority.class);
+		Map<JobPriority, Map<Float, AbstractStockpile>> stockpilesByDistanceByPriority = new EnumMap<>(JobPriority.class);
+		for (JobPriority jobPriority : JobPriority.values()) {
+			stockpilesByDistanceByPriority.put(jobPriority, new TreeMap<>(Comparator.comparingInt(o -> (int) (o * 10))));
+		}
 
 		JobPriority currentStockpilePriority = getStockpilePriority(entity, entityPosition, areaMap);
 
 		messageDispatcher.dispatchMessage(MessageType.GET_ROOMS_BY_COMPONENT, new GetRoomsByComponentMessage(StockpileComponent.class, rooms -> {
-			for (Room stockpile : rooms) {
-				StockpileComponent stockpileComponent = stockpile.getComponent(StockpileComponent.class);
+			for (Room room : rooms) {
+				StockpileComponent stockpileComponent = room.getComponent(StockpileComponent.class);
 				if (stockpileComponent.getStockpileSettings().canHold(entity)) {
-					int roomRegionId = stockpile.getRoomTiles().values().iterator().next().getTile().getRegionId();
+					int roomRegionId = room.getRoomTiles().values().iterator().next().getTile().getRegionId();
 					if (sourceRegionId == roomRegionId) {
-						Map<Float, Room> byDistance = stockpilesByDistanceByPriority.computeIfAbsent(stockpileComponent.getPriority(), a -> new TreeMap<>(Comparator.comparingInt(o -> (int) (o * 10))));
-						byDistance.put(entityPosition.dst2(stockpile.getAvgWorldPosition()), stockpile);
+						Map<Float, AbstractStockpile> byDistance = stockpilesByDistanceByPriority.get(stockpileComponent.getPriority());
+						byDistance.put(entityPosition.dst2(room.getAvgWorldPosition()), stockpileComponent.getStockpile());
 					}
 				}
 			}
@@ -278,22 +281,20 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			for (Entity pieceOfFurniture : furniture) {
 				FurnitureStockpileComponent stockpileComponent = pieceOfFurniture.getComponent(FurnitureStockpileComponent.class);
 				if (stockpileComponent.getStockpileSettings().canHold(entity)) {
-					//TODO: fill in blanks for stockpile map
+					Map<Float, AbstractStockpile> byDistance = stockpilesByDistanceByPriority.get(JobPriority.HIGHEST); //Furniture has the highest priority, todo: maybe let player specify
+					byDistance.put(entityPosition.dst2(pieceOfFurniture.getLocationComponent().getWorldPosition()), stockpileComponent.getStockpile());
 				}
 			}
 		}));
 
-
-
 		for (int i = 0; i < currentStockpilePriority.ordinal(); i++) {
 			JobPriority priority = JobPriority.values()[i];
 
-			Map<Float, Room> byDistance = stockpilesByDistanceByPriority.getOrDefault(priority, Collections.emptyMap());
-			for (Room room : byDistance.values()) {
-				StockpileAllocationResponse stockpileAllocationResponse = room.getComponent(StockpileComponent.class).requestAllocation(entity, areaMap);
-				if (stockpileAllocationResponse != null) {
-					return HaulingAllocationBuilder.createWithItemAllocation(stockpileAllocationResponse.quantity, entity, requestingEntity)
-							.toRoom(room, stockpileAllocationResponse.position);
+			Map<Float, AbstractStockpile> byDistance = stockpilesByDistanceByPriority.getOrDefault(priority, Collections.emptyMap());
+			for (AbstractStockpile stockpile : byDistance.values()) {
+				HaulingAllocation haulingAllocation = stockpile.requestAllocation(entity, areaMap, requestingEntity);
+				if (haulingAllocation != null) {
+					return haulingAllocation;
 				}
 			}
 		}

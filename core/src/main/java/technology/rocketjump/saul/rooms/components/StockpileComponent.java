@@ -5,23 +5,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.RandomXS128;
 import com.google.common.collect.Lists;
-import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
-import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.model.JobPriority;
-import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -30,8 +23,8 @@ import technology.rocketjump.saul.persistence.JSONUtils;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+import technology.rocketjump.saul.production.AbstractStockpile;
 import technology.rocketjump.saul.production.StockpileAllocation;
-import technology.rocketjump.saul.production.StockpileAllocationResponse;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileSettings;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
@@ -42,15 +35,16 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nWord;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StockpileComponent extends RoomComponent implements SelectableDescription, Prioritisable {
 
 	private final StockpileSettings stockpileSettings;
-
-	// This keeps track of allocations - null for empty spaces
-	private final Map<GridPoint2, StockpileAllocation> allocations = new HashMap<>();
+	private final RoomStockpile stockpile;
 	private JobPriority priority = JobPriority.NORMAL;
 
 	public StockpileComponent(Room parent, MessageDispatcher messageDispatcher) {
@@ -60,6 +54,7 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 	private StockpileComponent(Room parent, MessageDispatcher messageDispatcher, StockpileSettings stockpileSettings) {
 		super(parent, messageDispatcher);
 		this.stockpileSettings = stockpileSettings;
+		this.stockpile = new RoomStockpile(parent);
 	}
 
 	@Override
@@ -73,8 +68,8 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 		StockpileComponent cloned = new StockpileComponent(newParent, messageDispatcher, stockpileSettings.clone());
 
 		// Copy over allocations, duplicates will be removed after
-		for (Map.Entry<GridPoint2, StockpileAllocation> entry : this.allocations.entrySet()) {
-			cloned.allocations.put(entry.getKey(), entry.getValue());
+		for (Map.Entry<GridPoint2, StockpileAllocation> entry : this.stockpile.getAllocations().entrySet()) {
+			cloned.stockpile.getAllocations().put(entry.getKey(), entry.getValue());
 		}
 		return cloned;
 	}
@@ -82,8 +77,8 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 	@Override
 	public void mergeFrom(RoomComponent otherComponent) {
 		StockpileComponent other = (StockpileComponent) otherComponent;
-		for (Map.Entry<GridPoint2, StockpileAllocation> entry : other.allocations.entrySet()) {
-			this.allocations.put(entry.getKey(), entry.getValue());
+		for (Map.Entry<GridPoint2, StockpileAllocation> entry : other.stockpile.getAllocations().entrySet()) {
+			this.stockpile.getAllocations().put(entry.getKey(), entry.getValue());
 		}
 
 		getStockpileSettings().getEnabledGroups().addAll(other.getEnabledGroups());
@@ -98,8 +93,12 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 
 	@Override
 	public void tileRemoved(GridPoint2 location) {
-		allocations.remove(location);
+		stockpile.getAllocations().remove(location);
 		messageDispatcher.dispatchMessage(MessageType.REMOVE_HAULING_JOBS_TO_POSITION, location);
+	}
+
+	public AbstractStockpile getStockpile() {
+		return stockpile;
 	}
 
 	public void itemOrCreaturePickedUp(MapTile targetTile) {
@@ -107,7 +106,7 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 		if (allocationAtTile != null) {
 			allocationAtTile.refreshQuantityInTile(targetTile);
 			if (allocationAtTile.getTotalQuantity() <= 0 && allocationAtTile.getIncomingHaulingQuantity() <= 0) {
-				allocations.remove(targetTile.getTilePosition());
+				stockpile.getAllocations().remove(targetTile.getTilePosition());
 			}
 		}
 	}
@@ -126,10 +125,11 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 			replacementAllocation.setItemType(placedItemAttributes.getItemType());
 			replacementAllocation.refreshQuantityInTile(targetTile);
 
-			this.allocations.put(targetTile.getTilePosition(), replacementAllocation);
+			this.stockpile.getAllocations().put(targetTile.getTilePosition(), replacementAllocation);
 		}
 	}
 
+	//TODO: extract to abstract stockpile
 	public void corpsePlaced(MapTile targetTile, CreatureEntityAttributes attributes) {
 		StockpileAllocation existingAllocation = getAllocationAt(targetTile.getTilePosition());
 		if (existingAllocation != null && attributes.getRace().equals(existingAllocation.getRaceCorpse())) {
@@ -142,150 +142,14 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 			replacementAllocation.setRaceCorpse(attributes.getRace());
 			replacementAllocation.refreshQuantityInTile(targetTile);
 
-			this.allocations.put(targetTile.getTilePosition(), replacementAllocation);
+			this.stockpile.getAllocations().put(targetTile.getTilePosition(), replacementAllocation);
 		}
 	}
 
-	// Picks and allocates a position for the item
-	public StockpileAllocationResponse requestAllocation(Entity entity, TiledMap map) {
-		boolean isItem = entity.getType().equals(EntityType.ITEM);
-		boolean isCorpse = entity.getType().equals(EntityType.CREATURE) && entity.getBehaviourComponent() instanceof CorpseBehaviour;
-		if (!isItem && !isCorpse) {
-			return null;
-		}
 
-		ItemType itemType = isItem ? ((ItemEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getItemType() : null;
-		GameMaterial itemMaterial = isItem ? ((ItemEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getPrimaryMaterial() : null;
-		Race race = isCorpse ? ((CreatureEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getRace() : null;
-		final int maxStackSize = isCorpse ? 1 : itemType.getMaxStackSize();
-
-		int numUnallocated = entity.getComponent(ItemAllocationComponent.class).getNumUnallocated();
-		int quantityToAllocate = Math.min(numUnallocated, isCorpse ? 1 : itemType.getMaxHauledAtOnce());
-
-		StockpileAllocation allocationToUse = null;
-
-		List<GridPoint2> pointsToTraverse = new ArrayList<>(parent.getRoomTiles().keySet());
-		// Randomly traverse to see if we can fit into existing
-		Collections.shuffle(pointsToTraverse);
-		// First try to find a matching allocation
-		for (GridPoint2 position : pointsToTraverse) {
-			MapTile tileAtPosition = map.getTile(position);
-			StockpileAllocation allocationAtPosition = allocations.get(position);
-			if (allocationAtPosition == null) {
-				// No allocation here yet
-				if (!tileAtPosition.isEmpty()) {
-					Entity itemAlreadyInTile = tileAtPosition.getFirstItem();
-					if (itemAlreadyInTile != null) {
-						// There is already an item here but no existing allocation, so add a new allocation matching it
-						// This is for pre-existing items where a stockpile is placed
-						allocationAtPosition = new StockpileAllocation(position);
-						ItemEntityAttributes attributesItemAlreadyInTile = (ItemEntityAttributes) itemAlreadyInTile.getPhysicalEntityComponent().getAttributes();
-
-						allocationAtPosition.setGameMaterial(attributesItemAlreadyInTile.getPrimaryMaterial());
-						allocationAtPosition.setItemType(attributesItemAlreadyInTile.getItemType());
-						allocationAtPosition.refreshQuantityInTile(tileAtPosition);
-						allocations.put(position, allocationAtPosition);
-						continue;
-					}
-
-					Entity corpseEntity = tileAtPosition.getFirstCorpse();
-					if (corpseEntity != null) {
-						allocationAtPosition = new StockpileAllocation(position);
-						allocationAtPosition.setRaceCorpse(((CreatureEntityAttributes)corpseEntity.getPhysicalEntityComponent().getAttributes()).getRace());
-						allocationAtPosition.refreshQuantityInTile(tileAtPosition);
-						allocations.put(position, allocationAtPosition);
-						continue;
-					}
-				}
-			} else if (matches(entity, allocationAtPosition) &&
-					allocationAtPosition.getTotalQuantity() + quantityToAllocate <= maxStackSize &&
-					allocationIsCorrectForTileContents(tileAtPosition, allocationAtPosition)) {
-				allocationToUse = allocationAtPosition;
-				break;
-			}
-		}
-		if (allocationToUse == null) {
-			// Not found one yet so use a new allocation
-
-			// Deterministically go through points to traverse for a new location
-			pointsToTraverse = new ArrayList<>(parent.getRoomTiles().keySet());
-			Random random = new RandomXS128(parent.getRoomId());
-			Collections.shuffle(pointsToTraverse, random);
-
-			for (GridPoint2 position : pointsToTraverse) {
-				MapTile tileAtPosition = map.getTile(position);
-				StockpileAllocation allocationAtPosition = allocations.get(position);
-				if (allocationAtPosition == null) {
-					if (tileAtPosition.isEmpty()) {
-						allocationToUse = new StockpileAllocation(position);
-						allocationToUse.setItemType(itemType);
-						allocationToUse.setGameMaterial(itemMaterial);
-						allocationToUse.setRaceCorpse(race);
-						allocations.put(position, allocationToUse);
-						break;
-					}
-				}
-			}
-		}
-
-		if (allocationToUse != null) {
-			int spaceInAllocation = maxStackSize - allocationToUse.getTotalQuantity();
-			if (quantityToAllocate == 0) {
- 				Logger.error("1Quantity to requestAllocation in " + this.getClass().getSimpleName() + " is 0, investigate why");
-				return null;
-			}
-			quantityToAllocate = Math.min(quantityToAllocate, spaceInAllocation);
-
-			allocationToUse.incrementIncomingHaulingQuantity(quantityToAllocate);
-
-			return new StockpileAllocationResponse(allocationToUse.getPosition(), quantityToAllocate);
-		}
-
-		return null;
-	}
-
-	private boolean matches(Entity entity, StockpileAllocation stockpileAllocation) {
-		if (entity.getType().equals(EntityType.CREATURE)) {
-			return ((CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getRace().equals(stockpileAllocation.getRaceCorpse());
-		} else if (entity.getType().equals(EntityType.ITEM)) {
-			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-			return attributes.getItemType().equals(stockpileAllocation.getItemType()) &&
-					attributes.getPrimaryMaterial().equals(stockpileAllocation.getGameMaterial());
-		} else {
-			return false;
-		}
-	}
-
-	private boolean allocationIsCorrectForTileContents(MapTile tileAtPosition, StockpileAllocation allocationAtPosition) {
-		Entity itemAtPosition = null;
-		Entity corpseAtPosition = null;
-		for (Entity entity : tileAtPosition.getEntities()) {
-			if (entity.getType().equals(EntityType.PLANT)) {
-				return false; // a plant has grown into the tile
-			}
-			if (entity.getType().equals(EntityType.ITEM)) {
-				itemAtPosition = entity;
-				break;
-			}
-			if (entity.getType().equals(EntityType.CREATURE) && entity.getBehaviourComponent() instanceof CorpseBehaviour) {
-				corpseAtPosition = entity;
-				break;
-			}
-		}
-
-		if (itemAtPosition == null && corpseAtPosition == null) {
-			return true; // nothing here so can place allocation
-		} else if (corpseAtPosition != null) {
-			return allocationAtPosition.getRaceCorpse() != null && allocationAtPosition.getRaceCorpse().equals(((CreatureEntityAttributes) corpseAtPosition.getPhysicalEntityComponent().getAttributes()).getRace());
-		} else {
-			ItemEntityAttributes attributes = (ItemEntityAttributes) itemAtPosition.getPhysicalEntityComponent().getAttributes();
-			return attributes.getItemType().equals(allocationAtPosition.getItemType()) &&
-					attributes.getPrimaryMaterial().equals(allocationAtPosition.getGameMaterial());
-		}
-	}
-
+	//TODO: extract to AbstractStockpile
 	public void allocationCancelled(HaulingAllocation allocation, Entity itemEntity) {
-		StockpileAllocation positionalAllocation = allocations.get(allocation.getTargetPosition());
+		StockpileAllocation positionalAllocation = stockpile.getAllocations().get(allocation.getTargetPosition());
 		if (positionalAllocation == null) {
 			// Stockpile must have been removed
 			return;
@@ -301,14 +165,14 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 		ItemAllocation itemAllocation = allocation.getItemAllocation();
 		positionalAllocation.decrementIncomingHaulingQuantity(itemAllocation.getAllocationAmount());
 		if (positionalAllocation.getTotalQuantity() <= 0) {
-			allocations.remove(allocation.getTargetPosition());
+			stockpile.getAllocations().remove(allocation.getTargetPosition());
 		}
 	}
 
 	@Override
 	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		int parentSize = parent.getRoomTiles().size();
-		int allocationSize = allocations.size();
+		int allocationSize = stockpile.getAllocations().size();
 
 		Map<String, I18nString> replacements = new HashMap<>();
 		replacements.put("allocated", new I18nWord(String.valueOf(allocationSize)));
@@ -317,7 +181,7 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 	}
 
 	public StockpileAllocation getAllocationAt(GridPoint2 position) {
-		return allocations.get(position);
+		return stockpile.getAllocations().get(position);
 	}
 
 	public void updateColor() {
@@ -342,9 +206,9 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 		asJson.put("stockpileSettings", stockpileSettingsJson);
 
 
-		if (!allocations.isEmpty()) {
+		if (!stockpile.getAllocations().isEmpty()) {
 			JSONArray allocationsJson = new JSONArray();
-			for (Map.Entry<GridPoint2, StockpileAllocation> entry : allocations.entrySet()) {
+			for (Map.Entry<GridPoint2, StockpileAllocation> entry : stockpile.getAllocations().entrySet()) {
 				JSONObject entryJson = new JSONObject(true);
 				entryJson.put("position", JSONUtils.toJSON(entry.getKey()));
 				if (entry.getValue() != null) {
@@ -381,16 +245,13 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 					allocation.readFrom(allocationJson, savedGameStateHolder, relatedStores);
 				}
 
-				allocations.put(position, allocation);
+				stockpile.getAllocations().put(position, allocation);
 			}
 		}
 
 		this.priority = EnumParser.getEnumValue(asJson, "priority", JobPriority.class, JobPriority.NORMAL);
 	}
 
-	public Room getParent() {
-		return parent;
-	}
 
 	public Set<StockpileGroup> getEnabledGroups() {
 		return getStockpileSettings().getEnabledGroups();
