@@ -8,7 +8,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.entities.behaviour.items.ItemBehaviour;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
@@ -258,12 +257,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		int sourceRegionId = areaMap.getTile(entityPosition).getRegionId();
 		Map<JobPriority, Map<Float, Room>> stockpilesByDistanceByPriority = new EnumMap<>(JobPriority.class);
 
-		JobPriority currentStockpilePriority = JobPriority.DISABLED;
-
-		ItemBehaviour itemBehaviour = entity.getComponent(ItemBehaviour.class);
-		if (itemBehaviour != null && entityPosition != null && itemBehaviour.getStockpile(entityPosition, areaMap) != null) {
-			currentStockpilePriority = itemBehaviour.getStockpile(entityPosition, areaMap).getPriority();
-		}
+		JobPriority currentStockpilePriority = getStockpilePriority(entity, entityPosition, areaMap);
 
 		for (Room stockpile : roomStore.getByComponent(StockpileComponent.class)) {
 			StockpileComponent stockpileComponent = stockpile.getComponent(StockpileComponent.class);
@@ -404,5 +398,17 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 			return Math.round((position1.dst2(requesterPosition) - position2.dst2(requesterPosition)) * 10000f);
 		}
+	}
+
+	private static JobPriority getStockpilePriority(Entity entity, Vector2 worldPosition, TiledMap areaMap) {
+		MapTile tile = areaMap.getTile(worldPosition);
+		if (tile.getRoomTile() != null) {
+			Room room = tile.getRoomTile().getRoom();
+			StockpileComponent stockpileComponent = room.getComponent(StockpileComponent.class);
+			if (stockpileComponent != null && stockpileComponent.canHold(entity)) {
+				return stockpileComponent.getPriority();
+			}
+		}
+		return JobPriority.DISABLED;
 	}
 }
