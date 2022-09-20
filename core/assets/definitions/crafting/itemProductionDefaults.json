@@ -183,7 +183,13 @@
     "fixedAmount" : 100,
     "perSettler" : 0.0
   },
+  "Weapon-Metal-Shield" : {
+    "perSettler" : 0.1
+  },
   "Weapon-Sword" : {
+    "perSettler" : 0.1
+  },
+  "Weapon-Wooden-Shield" : {
     "perSettler" : 0.1
   }
 }

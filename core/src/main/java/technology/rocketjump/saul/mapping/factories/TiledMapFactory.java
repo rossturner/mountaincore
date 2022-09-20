@@ -143,7 +143,6 @@ public class TiledMapFactory {
 		addStartingInventory(inventoryStartingItems, allSettlers, gameContext, messageDispatcher);
 
 		ItemType plankItemType = itemTypeDictionary.getByName("Resource-Planks");
-		ItemType logItemType = itemTypeDictionary.getByName("Resource-Logs");
 		GameMaterial plankMaterialType = pickWoodMaterialType();
 		ItemType stoneBlockItemType = itemTypeDictionary.getByName("Resource-Stone-Block");
 		GameMaterial stoneBlockMaterialType = pickMaterialType(stoneBlockItemType);
@@ -151,14 +150,14 @@ public class TiledMapFactory {
 		ItemType plateItemType = itemTypeDictionary.getByName("Resource-Metal-Plate");
 		ItemType hoopsItemType = itemTypeDictionary.getByName("Product-Barrel-Hoops");
 		GameMaterial metalMaterial = pickMaterialType(metalItemType);
-		List<ItemType> placedItems = Arrays.asList(logItemType, plankItemType, stoneBlockItemType, metalItemType, plateItemType, hoopsItemType);
+		List<ItemType> placedItems = Arrays.asList(plankItemType, stoneBlockItemType, metalItemType, plateItemType, hoopsItemType);
 
 		Map<GridPoint2, RoomTile> roomTiles = new HashMap<>();
 		Set<StockpileGroup> stockpileGroups = new HashSet<>();
 
 		createResources(embarkPoint.x - 1, embarkPoint.y - 1, plankItemType, plankMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
 		createResources(embarkPoint.x - 1, embarkPoint.y, plankItemType, plankMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
-		createResources(embarkPoint.x - 1, embarkPoint.y + 1, logItemType, plankMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
+		createResources(embarkPoint.x - 1, embarkPoint.y + 1, plankItemType, plankMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
 
 		createResources(embarkPoint.x, embarkPoint.y - 1, stoneBlockItemType, stoneBlockMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
 		createResources(embarkPoint.x, embarkPoint.y, stoneBlockItemType, stoneBlockMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
@@ -288,10 +287,7 @@ public class TiledMapFactory {
 			tile.removeEntity(entityId);
 		}
 
-		ItemEntityAttributes itemEntityAttributes = new ItemEntityAttributes(gameContext.getRandom().nextLong());
-		itemEntityAttributes.setItemType(itemType);
-		itemEntityAttributes.setMaterial(materialToUse);
-		itemEntityAttributes.setQuantity(itemType.getMaxStackSize());
+		ItemEntityAttributes itemEntityAttributes = itemEntityAttributesFactory.createItemAttributes(itemType, itemType.getMaxStackSize(), materialToUse);
 		GridPoint2 location = new GridPoint2(x, y);
 		entityStore.createResourceItem(itemEntityAttributes, location);
 		stockpileGroups.add(itemType.getStockpileGroup());

@@ -92,6 +92,7 @@ public class HaulingAllocationBuilder {
 		allocation.setTargetId(targetEntity.getId());
 		allocation.setTargetPosition(toGridPoint(targetEntity.getLocationComponent().getWorldOrParentPosition()));
 
+		// might be able to eliminate hauling to item
 		switch (targetEntity.getType()) {
 			case FURNITURE -> allocation.setTargetPositionType(FURNITURE);
 			case CREATURE -> allocation.setTargetPositionType(CREATURE);
@@ -112,6 +113,10 @@ public class HaulingAllocationBuilder {
 		allocation.setTargetPosition(location);
 		allocation.setTargetPositionType(ROOM);
 		allocation.setTargetId(room.getRoomId());
+		return build();
+	}
+
+	public HaulingAllocation toUnspecifiedLocation() {
 		return build();
 	}
 

@@ -30,7 +30,7 @@ public class ItemType {
 	private String itemTypeName;
 
 	private int maxStackSize = 1;
-	private int maxHauledAtOnce; // or requiresHauling
+	private int maxHauledAtOnce = 1;
 	private List<GameMaterialType> materialTypes = new ArrayList<>();
 	private GameMaterialType primaryMaterialType;
 

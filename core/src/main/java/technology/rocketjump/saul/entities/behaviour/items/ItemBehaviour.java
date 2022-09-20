@@ -12,6 +12,7 @@ import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.model.JobPriority;
+import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestHaulingMessage;
@@ -76,28 +77,36 @@ public class ItemBehaviour implements BehaviourComponent {
 		ItemEntityAttributes attributes = (ItemEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		ItemAllocationComponent itemAllocationComponent = parentEntity.getComponent(ItemAllocationComponent.class);
 		Vector2 worldPosition = locationComponent.getWorldPosition();
-		MapTile tile = gameContext.getAreaMap().getTile(worldPosition);
 
 		if (worldPosition != null && attributes.getItemPlacement().equals(ItemPlacement.ON_GROUND) && itemAllocationComponent.getNumUnallocated() > 0) {
 			// Has some unallocated on ground
-			boolean inStockpile = false;
-			if (tile.getRoomTile() != null) {
-				Room room = tile.getRoomTile().getRoom();
-				StockpileComponent stockpileComponent = room.getComponent(StockpileComponent.class);
-				if (stockpileComponent != null && stockpileComponent.getStockpileSettings().canHold(parentEntity)) {
-					inStockpile = true;
-				}
-			}
+			TiledMap areaMap = gameContext.getAreaMap();
+			boolean inStockpile = getStockpile(worldPosition, areaMap) != null;
 
 			if (!inStockpile) {
 				// Not in a stockpile and some unallocated, so see if we can be hauled to a stockpile
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, JobPriority.NORMAL, null));
+			} else {
+				// Try moving into a higher priority stockpile if possible
+				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, JobPriority.LOWEST, null));
 			}
 		}
 
 		for (BehaviourComponent additionalBehavior : additionalBehaviours.values()) {
 			additionalBehavior.infrequentUpdate(gameContext);
 		}
+	}
+
+	public StockpileComponent getStockpile(Vector2 worldPosition, TiledMap areaMap) {
+		MapTile tile = areaMap.getTile(worldPosition);
+		if (tile.getRoomTile() != null) {
+			Room room = tile.getRoomTile().getRoom();
+			StockpileComponent stockpileComponent = room.getComponent(StockpileComponent.class);
+			if (stockpileComponent != null && stockpileComponent.getStockpileSettings().canHold(parentEntity)) {
+				return stockpileComponent;
+			}
+		}
+		return null;
 	}
 
 	@Override

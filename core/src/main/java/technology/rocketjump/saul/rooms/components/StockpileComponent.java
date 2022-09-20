@@ -230,7 +230,7 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 		if (allocationToUse != null) {
 			int spaceInAllocation = maxStackSize - allocationToUse.getTotalQuantity();
 			if (quantityToAllocate == 0) {
-				Logger.error("Quantity to requestAllocation in " + this.getClass().getSimpleName() + " is 0, investigate why");
+ 				Logger.error("1Quantity to requestAllocation in " + this.getClass().getSimpleName() + " is 0, investigate why");
 				return null;
 			}
 			quantityToAllocate = Math.min(quantityToAllocate, spaceInAllocation);
