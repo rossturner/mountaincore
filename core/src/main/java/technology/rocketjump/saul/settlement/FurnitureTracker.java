@@ -6,6 +6,7 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.furniture.DoorwayEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -15,6 +16,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.FurnitureAssignmentRequest;
+import technology.rocketjump.saul.messaging.types.GetFurnitureByComponentMessage;
 
 import java.util.*;
 
@@ -31,10 +33,12 @@ public class FurnitureTracker implements GameContextAware, Telegraph {
 	private final Map<FurnitureType, Map<Long, Entity>> byFurnitureType = new HashMap<>();
 	// Note that tags are mostly attached to assets, which can change over time, but furniture tends to have static assets so this shouldn't be an issue here
 	private final Map<Class<? extends Tag>, Map<Long, Entity>> byTag = new HashMap<>();
+	private final Map<Class<? extends EntityComponent>, Map<Long, Entity>> byComponent = new HashMap<>();
 
 	@Inject
 	public FurnitureTracker(MessageDispatcher messageDispatcher) {
 		messageDispatcher.addListener(this, MessageType.REQUEST_FURNITURE_ASSIGNMENT);
+		messageDispatcher.addListener(this, MessageType.GET_FURNITURE_BY_COMPONENT);
 	}
 
 	public void furnitureAdded(Entity entity) {
@@ -52,6 +56,9 @@ public class FurnitureTracker implements GameContextAware, Telegraph {
 		for (Tag tag : entity.getTags()) {
 			byTag.computeIfAbsent(tag.getClass(), (f) -> new HashMap<>()).put(entity.getId(), entity);
 		}
+		for (EntityComponent component : entity.getAllComponents()) {
+			byComponent.computeIfAbsent(component.getClass(), (f) -> new HashMap<>()).put(entity.getId(), entity);
+		}
 	}
 
 	public void furnitureRemoved(Entity entity) {
@@ -63,6 +70,9 @@ public class FurnitureTracker implements GameContextAware, Telegraph {
 		byFurnitureType.get(furnitureType).remove(entity.getId());
 		for (Tag tag : entity.getTags()) {
 			byTag.getOrDefault(tag.getClass(), emptyMap()).remove(entity.getId());
+		}
+		for (EntityComponent component : entity.getAllComponents()) {
+			byComponent.getOrDefault(component.getClass(), emptyMap()).remove(entity.getId());
 		}
 	}
 
@@ -124,6 +134,12 @@ public class FurnitureTracker implements GameContextAware, Telegraph {
 				request.callback.accept(nearest);
 				return true;
 			}
+			case MessageType.GET_FURNITURE_BY_COMPONENT: {
+				GetFurnitureByComponentMessage message = (GetFurnitureByComponentMessage) msg.extraInfo;
+				Collection<Entity> found = findEntitiesFrom(byComponent.get(message.type()), false);
+				message.callback().accept(found);
+				return true;
+			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
 		}
@@ -133,6 +149,7 @@ public class FurnitureTracker implements GameContextAware, Telegraph {
 	public void clearContextRelatedState() {
 		byFurnitureType.clear();
 		byTag.clear();
+		byComponent.clear();
 	}
 
 	@Override

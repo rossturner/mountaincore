@@ -23,7 +23,6 @@ import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.ItemPrimaryMaterialChangedMessage;
-import technology.rocketjump.saul.rooms.RoomStore;
 
 import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.NEW_SETTLEMENT_OPTIMISM;
 import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
@@ -37,21 +36,19 @@ public class SettlerFactory {
 	private final MessageDispatcher messageDispatcher;
 	private final GameMaterialDictionary materialDictionary;
 	private final GoalDictionary goalDictionary;
-	private final RoomStore roomStore;
 
 
 	@Inject
 	public SettlerFactory(SettlerCreatureAttributesFactory settlerAttributesFactory,
 						  ItemTypeDictionary itemTypeDictionary,
 						  ItemEntityFactory itemEntityFactory, MessageDispatcher messageDispatcher,
-						  GameMaterialDictionary materialDictionary, GoalDictionary goalDictionary, RoomStore roomStore) {
+						  GameMaterialDictionary materialDictionary, GoalDictionary goalDictionary) {
 		this.settlerAttributesFactory = settlerAttributesFactory;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.itemEntityFactory = itemEntityFactory;
 		this.messageDispatcher = messageDispatcher;
 		this.materialDictionary = materialDictionary;
 		this.goalDictionary = goalDictionary;
-		this.roomStore = roomStore;
 	}
 
 	public Entity create(Vector2 worldPosition, Skill primaryProfession, Skill secondaryProfession, GameContext gameContext, boolean includeRations) {

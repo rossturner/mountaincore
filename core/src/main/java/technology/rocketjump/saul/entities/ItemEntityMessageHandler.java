@@ -12,6 +12,7 @@ import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
+import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -271,7 +272,15 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 					}
 				}
 			}
+		}));
 
+		messageDispatcher.dispatchMessage(MessageType.GET_FURNITURE_BY_COMPONENT, new GetFurnitureByComponentMessage(FurnitureStockpileComponent.class, furniture -> {
+			for (Entity pieceOfFurniture : furniture) {
+				FurnitureStockpileComponent stockpileComponent = pieceOfFurniture.getComponent(FurnitureStockpileComponent.class);
+				if (stockpileComponent.getStockpileSettings().canHold(entity)) {
+					//TODO: fill in blanks for stockpile map
+				}
+			}
 		}));
 
 

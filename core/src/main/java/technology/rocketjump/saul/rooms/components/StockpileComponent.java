@@ -47,14 +47,19 @@ import java.util.stream.Collectors;
 
 public class StockpileComponent extends RoomComponent implements SelectableDescription, Prioritisable {
 
-	private final StockpileSettings stockpileSettings = new StockpileSettings();
+	private final StockpileSettings stockpileSettings;
 
 	// This keeps track of allocations - null for empty spaces
 	private final Map<GridPoint2, StockpileAllocation> allocations = new HashMap<>();
 	private JobPriority priority = JobPriority.NORMAL;
 
 	public StockpileComponent(Room parent, MessageDispatcher messageDispatcher) {
+		this(parent, messageDispatcher, new StockpileSettings());
+	}
+
+	private StockpileComponent(Room parent, MessageDispatcher messageDispatcher, StockpileSettings stockpileSettings) {
 		super(parent, messageDispatcher);
+		this.stockpileSettings = stockpileSettings;
 	}
 
 	@Override
@@ -64,12 +69,8 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 
 	@Override
 	public RoomComponent clone(Room newParent) {
-		StockpileComponent cloned = new StockpileComponent(newParent, messageDispatcher);
-		cloned.getEnabledGroups().addAll(getStockpileSettings().getEnabledGroups());
-		cloned.getStockpileSettings().getEnabledItemTypes().addAll(getStockpileSettings().getEnabledItemTypes());
-		for (Map.Entry<ItemType, Set<GameMaterial>> entry : getStockpileSettings().getEnabledMaterialsByItemType().entrySet()) {
-			cloned.getStockpileSettings().getEnabledMaterialsByItemType().put(entry.getKey(), entry.getValue());
-		}
+
+		StockpileComponent cloned = new StockpileComponent(newParent, messageDispatcher, stockpileSettings.clone());
 
 		// Copy over allocations, duplicates will be removed after
 		for (Map.Entry<GridPoint2, StockpileAllocation> entry : this.allocations.entrySet()) {
@@ -336,37 +337,9 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-		JSONArray enabledGroupsJson = new JSONArray();
-		for (StockpileGroup enabledGroup : getStockpileSettings().getEnabledGroups()) {
-			enabledGroupsJson.add(enabledGroup.getName());
-		}
-		if (getStockpileSettings().isAcceptingCorpses()) {
-			enabledGroupsJson.add("CORPSES");
-		}
-		asJson.put("enabledGroups", enabledGroupsJson);
-
-		JSONArray enabledItemTypesJson = new JSONArray();
-		for (ItemType enabledItemType : getStockpileSettings().getEnabledItemTypes()) {
-			enabledItemTypesJson.add(enabledItemType.getItemTypeName());
-		}
-		asJson.put("enabledItemTypes", enabledItemTypesJson);
-
-		JSONArray enabledRacesJson = new JSONArray();
-		for (Race race : getStockpileSettings().getEnabledRaceCorpses()) {
-			enabledRacesJson.add(race.getName());
-		}
-		asJson.put("enabledRaces", enabledRacesJson);
-
-
-		JSONObject materialMappingJson = new JSONObject(true);
-		for (Map.Entry<ItemType, Set<GameMaterial>> entry : getStockpileSettings().getEnabledMaterialsByItemType().entrySet()) {
-			JSONArray materialNames = new JSONArray();
-			for (GameMaterial material : entry.getValue()) {
-				materialNames.add(material.getMaterialName());
-			}
-			materialMappingJson.put(entry.getKey().getItemTypeName(), materialNames);
-		}
-		asJson.put("enabledMaterials", materialMappingJson);
+		JSONObject stockpileSettingsJson = new JSONObject();
+		stockpileSettings.writeTo(stockpileSettingsJson, savedGameStateHolder);
+		asJson.put("stockpileSettings", stockpileSettingsJson);
 
 
 		if (!allocations.isEmpty()) {
@@ -391,64 +364,9 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-		JSONArray enabledGroupsJson = asJson.getJSONArray("enabledGroups");
-		if (enabledGroupsJson != null) {
-			for (Object item : enabledGroupsJson) {
-				if (item.toString().equals("CORPSES")) {
-					this.getStockpileSettings().setAcceptingCorpses(true);
-				} else {
-					StockpileGroup group = relatedStores.stockpileGroupDictionary.getByName(item.toString());
-					if (group == null) {
-						throw new InvalidSaveException("Could not find stockpile group with name " + item.toString());
-					} else {
-						getStockpileSettings().getEnabledGroups().add(group);
-					}
-				}
-			}
-		}
-
-		JSONArray enabledItemTypesJson = asJson.getJSONArray("enabledItemTypes");
-		if (enabledItemTypesJson != null) {
-			for (Object item : enabledItemTypesJson) {
-				ItemType itemType = relatedStores.itemTypeDictionary.getByName(item.toString());
-				if (itemType == null) {
-					throw new InvalidSaveException("Could not find itemType with name " + item.toString());
-				} else {
-					getStockpileSettings().getEnabledItemTypes().add(itemType);
-				}
-			}
-		}
-
-		JSONArray enabledRacesJson = asJson.getJSONArray("enabledRaces");
-		if (enabledRacesJson != null) {
-			for (Object item : enabledRacesJson) {
-				Race race = relatedStores.raceDictionary.getByName(item.toString());
-				if (race == null) {
-					throw new InvalidSaveException("Could not find race with name " + item.toString());
-				} else {
-					getStockpileSettings().getEnabledRaceCorpses().add(race);
-				}
-			}
-		}
-
-		JSONObject materialMappingJson = asJson.getJSONObject("enabledMaterials");
-		if (materialMappingJson != null) {
-			for (String itemNameKey : materialMappingJson.keySet()) {
-				JSONArray materialNames = materialMappingJson.getJSONArray(itemNameKey);
-				ItemType itemType = relatedStores.itemTypeDictionary.getByName(itemNameKey);
-				if (itemType == null) {
-					throw new InvalidSaveException("Could not find itemType with name " + itemNameKey);
-				}
-				Set<GameMaterial> materials = new HashSet<>();
-				for (Object materialName : materialNames) {
-					GameMaterial material = relatedStores.gameMaterialDictionary.getByName(materialName.toString());
-					if (material == null) {
-						throw new InvalidSaveException("Could not find material with name " + materialName.toString());
-					}
-					materials.add(material);
-				}
-				getStockpileSettings().getEnabledMaterialsByItemType().put(itemType, materials);
-			}
+		JSONObject stockpileSettingsJson = asJson.getJSONObject("stockpileSettings");
+		if (stockpileSettingsJson != null) {
+			stockpileSettings.readFrom(stockpileSettingsJson, savedGameStateHolder, relatedStores);
 		}
 
 		JSONArray allocationsJson = asJson.getJSONArray("allocations");

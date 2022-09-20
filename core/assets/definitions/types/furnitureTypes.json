@@ -1401,7 +1401,9 @@
       "liquid" : false
     } ]
   },
-  "tags" : { },
+  "tags" : {
+    "STOCKPILE" : [ ]
+  },
   "hiddenFromPlacementMenu" : false
 }, {
   "name" : "FEASTING_TABLE",

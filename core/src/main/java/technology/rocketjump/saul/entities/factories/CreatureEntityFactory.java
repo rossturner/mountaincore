@@ -23,7 +23,6 @@ import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponen
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.rooms.RoomStore;
 
 @Singleton
 public class CreatureEntityFactory  {
@@ -31,15 +30,12 @@ public class CreatureEntityFactory  {
 	private final MessageDispatcher messageDispatcher;
 	private final EntityAssetUpdater entityAssetUpdater;
 	private final GoalDictionary goalDictionary;
-	private final RoomStore roomStore;
 
 	@Inject
-	public CreatureEntityFactory(MessageDispatcher messageDispatcher, EntityAssetUpdater entityAssetUpdater, GoalDictionary goalDictionary,
-								 RoomStore roomStore) {
+	public CreatureEntityFactory(MessageDispatcher messageDispatcher, EntityAssetUpdater entityAssetUpdater, GoalDictionary goalDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.entityAssetUpdater = entityAssetUpdater;
 		this.goalDictionary = goalDictionary;
-		this.roomStore = roomStore;
 	}
 
 	public Entity create(CreatureEntityAttributes attributes, Vector2 worldPosition, Vector2 facing, GameContext gameContext, Faction faction) {

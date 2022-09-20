@@ -9,5 +9,8 @@
       "itemTypeName" : "Resource-Planks",
       "quantity" : 3
     } ]
+  },
+  "tags": {
+    "STOCKPILE": []
   }
 }

@@ -269,7 +269,7 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 			if (showStockpileManagement && currentStockpileComponent != null) {
 				outerTable.add(new StockpileManagementTree(uiSkin, messageDispatcher,
 								stockpileComponentUpdater, stockpileGroupDictionary, i18nTranslator, itemTypeDictionary, gameMaterialDictionary, raceDictionary,
-								gameContext.getSettlementState().getSettlerRace(), currentStockpileComponent.getParent().getRoomId(), HaulingAllocation.AllocationPositionType.ROOM, currentStockpileComponent.getStockpileSettings()))
+								gameContext.getSettlementState().getSettlerRace(), room.getRoomId(), HaulingAllocation.AllocationPositionType.ROOM, currentStockpileComponent.getStockpileSettings()))
 						.left().pad(4).row();
 			}
 
