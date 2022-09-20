@@ -8,32 +8,50 @@
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -28.0
+      }
     },
     "UP" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -28.0
+      }
     },
     "DOWN_LEFT" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -28.0
+      }
     },
     "DOWN_RIGHT" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -28.0
+      }
     },
     "UP_LEFT" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -28.0
+      }
     },
     "UP_RIGHT" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -28.0
+      }
     }
   }
 }, {
@@ -46,7 +64,10 @@
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.8
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "y" : -28.0
+      }
     }
   }
 }, {
@@ -59,32 +80,50 @@
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_2-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : 13.0
+      }
     },
     "UP" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_2-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : 13.0
+      }
     },
     "DOWN_LEFT" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_2-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : 13.0
+      }
     },
     "DOWN_RIGHT" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_2-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : 13.0
+      }
     },
     "UP_LEFT" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_2-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : 13.0
+      }
     },
     "UP_RIGHT" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_2-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : 13.0
+      }
     }
   }
 }, {
@@ -97,7 +136,10 @@
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_2-On_Ground_Down.png",
       "coloringLayer" : "METAL_COLOR",
-      "scale" : 0.8
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "y" : 13.0
+      }
     }
   }
 }, {
@@ -110,32 +152,56 @@
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Below_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "CLOTH_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -37.5
+      }
     },
     "UP" : {
       "filename" : "Armour-Orc-Heavy-Below_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "CLOTH_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -37.5
+      }
     },
     "DOWN_LEFT" : {
       "filename" : "Armour-Orc-Heavy-Below_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "CLOTH_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -37.5
+      }
     },
     "DOWN_RIGHT" : {
       "filename" : "Armour-Orc-Heavy-Below_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "CLOTH_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -37.5
+      }
     },
     "UP_LEFT" : {
       "filename" : "Armour-Orc-Heavy-Below_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "CLOTH_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -37.5
+      }
     },
     "UP_RIGHT" : {
       "filename" : "Armour-Orc-Heavy-Below_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "CLOTH_COLOR",
-      "scale" : 0.7
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -37.5
+      }
     }
   }
 }, {
@@ -148,7 +214,11 @@
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Below_Layer_1-On_Ground_Down.png",
       "coloringLayer" : "CLOTH_COLOR",
-      "scale" : 0.8
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -37.5
+      }
     }
   }
 }, {
@@ -162,26 +232,39 @@
       "filename" : "Armour-Orc-Heavy-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
       "offsetPixels" : {
-        "y" : 9.0
+        "x" : 0.5,
+        "y" : -3.5
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 29.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_2"
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 26.0,
-          "y" : -21.0
+          "x" : 25.5,
+          "y" : -8.5
         }
       }, {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : -26.0,
-          "y" : -21.0
+          "x" : -26.5,
+          "y" : -8.5
         }
       } ]
     },
@@ -189,26 +272,39 @@
       "filename" : "Armour-Orc-Heavy-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
       "offsetPixels" : {
-        "y" : 9.0
+        "x" : 0.5,
+        "y" : -3.5
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 29.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_2"
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 26.0,
-          "y" : -21.0
+          "x" : 25.5,
+          "y" : -8.5
         }
       }, {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : -26.0,
-          "y" : -21.0
+          "x" : -26.5,
+          "y" : -8.5
         }
       } ]
     },
@@ -216,26 +312,39 @@
       "filename" : "Armour-Orc-Heavy-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
       "offsetPixels" : {
-        "y" : 9.0
+        "x" : 0.5,
+        "y" : -3.5
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 29.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_2"
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 26.0,
-          "y" : -21.0
+          "x" : 25.5,
+          "y" : -10.5
         }
       }, {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : -26.0,
-          "y" : -21.0
+          "x" : -26.5,
+          "y" : -8.5
         }
       } ]
     },
@@ -243,26 +352,39 @@
       "filename" : "Armour-Orc-Heavy-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
       "offsetPixels" : {
-        "y" : 9.0
+        "x" : 0.5,
+        "y" : -3.5
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 29.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_2"
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 26.0,
-          "y" : -21.0
+          "x" : 25.5,
+          "y" : -8.5
         }
       }, {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : -26.0,
-          "y" : -21.0
+          "x" : -26.5,
+          "y" : -8.5
         }
       } ]
     },
@@ -270,26 +392,39 @@
       "filename" : "Armour-Orc-Heavy-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
       "offsetPixels" : {
-        "y" : 9.0
+        "x" : 0.5,
+        "y" : -3.5
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 29.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_2"
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 26.0,
-          "y" : -21.0
+          "x" : 25.5,
+          "y" : -8.5
         }
       }, {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : -26.0,
-          "y" : -21.0
+          "x" : -26.5,
+          "y" : -8.5
         }
       } ]
     },
@@ -297,27 +432,40 @@
       "filename" : "Armour-Orc-Heavy-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.7,
       "offsetPixels" : {
-        "y" : 9.0
+        "x" : 0.5,
+        "y" : -3.5
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 29.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_2"
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_LEFT_HAND",
         "offsetPixels" : {
-          "x" : 26.0,
-          "y" : -21.0
+          "x" : 25.5,
+          "y" : -8.5
         },
         "overrideRenderLayer" : 50
       }, {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : -26.0,
-          "y" : -21.0
+          "x" : -26.5,
+          "y" : -8.5
         },
         "overrideRenderLayer" : 50
       } ]
@@ -334,14 +482,27 @@
       "filename" : "Armour-Orc-Heavy-Item_Base_Layer-On_Ground_Down.png",
       "scale" : 0.8,
       "offsetPixels" : {
-        "y" : 9.0
+        "x" : 0.5,
+        "y" : -3.5
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 20.0
+        }
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       }, {
-        "type" : "ABOVE_LAYER_2"
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : -0.5,
+          "y" : 12.5
+        }
       } ]
     }
   }
