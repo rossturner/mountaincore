@@ -102,6 +102,10 @@ public class StockpileManagementTree extends Table {
 			}
 
 			for (ItemType itemType : itemTypeDictionary.getByStockpileGroup(stockpileGroup)) {
+				if (!stockpileSettings.isAllowed(itemType)) {
+					continue;
+				}
+
 				StockpileTreeNode itemTypeNode = new StockpileTreeNode();
 				itemTypeNode.setValue(new StockpileTreeValue(itemType));
 				createCheckbox(itemTypeNode, itemType.getI18nKey());

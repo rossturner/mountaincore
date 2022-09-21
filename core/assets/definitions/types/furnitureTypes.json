@@ -1384,7 +1384,7 @@
     } ]
   },
   "tags" : {
-    "STOCKPILE" : [ "1", "WEAPONS" ]
+    "STOCKPILE" : [ "1", "IS_ARMOUR" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {
@@ -1404,7 +1404,7 @@
     } ]
   },
   "tags" : {
-    "STOCKPILE" : [ "6", "WEAPONS" ],
+    "STOCKPILE" : [ "6", "IS_WEAPON", "ItemType_Weapon-Metal-Arrows", "ItemType_Weapon-Bone-Arrows" ],
     "EXTRA_MATERIAL_TYPES" : [ "METAL" ]
   },
   "hiddenFromPlacementMenu" : false

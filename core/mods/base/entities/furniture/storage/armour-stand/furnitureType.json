@@ -11,6 +11,6 @@
     } ]
   },
   "tags" : {
-    "STOCKPILE" : [ "1", "WEAPONS" ]
+    "STOCKPILE" : [ "1", "IS_ARMOUR" ]
   }
 }

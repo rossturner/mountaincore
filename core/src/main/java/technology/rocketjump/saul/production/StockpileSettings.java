@@ -160,7 +160,7 @@ public class StockpileSettings implements ChildPersistable {
         JSONArray restrictionsJson = new JSONArray();
         for (String restriction : restrictions) {
             JSONObject restrictionJson = new JSONObject();
-            restrictionJson.put("stockpileGroupName", restriction);
+            restrictionJson.put("value", restriction);
             restrictionsJson.add(restrictionJson);
         }
         asJson.put("restrictions", restrictionsJson);
@@ -231,21 +231,30 @@ public class StockpileSettings implements ChildPersistable {
         JSONArray restrictionsJson = asJson.getJSONArray("restrictions");
         if (restrictionsJson != null) {
             for (int i = 0; i < restrictionsJson.size(); i++) {
-                String stockpileGroupName = restrictionsJson.getJSONObject(i).getString("stockpileGroupName");
-                restrictions.add(stockpileGroupName);
+                String restriction = restrictionsJson.getJSONObject(i).getString("value");
+                restrictions.add(restriction);
             }
         }
     }
 
-    public void addRestriction(String stockpileGroupName) {
-        restrictions.add(stockpileGroupName);
+    public void addRestriction(ItemType itemType) {
+        restrictions.add(itemType.getStockpileGroupName());
+        restrictions.add(itemType.getItemTypeName());
     }
 
     public boolean isAllowed(StockpileGroup stockpileGroup) {
+        return restrictionsContainName(stockpileGroup.getName());
+    }
+
+    public boolean isAllowed(ItemType itemType) {
+        return restrictionsContainName(itemType.getItemTypeName());
+    }
+
+    private boolean restrictionsContainName(String name) {
         if (restrictions.isEmpty()) {
             return true;
         } else {
-            return restrictions.contains(stockpileGroup.getName());
+            return restrictions.contains(name);
         }
     }
 }

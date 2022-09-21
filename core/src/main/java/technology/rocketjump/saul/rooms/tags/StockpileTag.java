@@ -4,16 +4,27 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.combat.DefenseType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.tags.InventoryItemsUnallocatedTag;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.entities.tags.TagProcessingUtils;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.production.FurnitureStockpile;
+import technology.rocketjump.saul.production.StockpileComponentUpdater;
 import technology.rocketjump.saul.production.StockpileSettings;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.components.StockpileComponent;
 
+import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StockpileTag extends Tag {
+
+	private static final Pattern IS_MACRO_PATTERN = Pattern.compile("IS_(ARMOUR|WEAPON)");
+	private static final Pattern ITEM_TYPE_PATTERN = Pattern.compile("ItemType_(\\w+)");
+
 	@Override
 	public String getTagName() {
 		return "STOCKPILE";
@@ -35,6 +46,9 @@ public class StockpileTag extends Tag {
 		if (EntityType.FURNITURE == entity.getType() && entity.getComponent(FurnitureStockpileComponent.class) == null) {
 			new InventoryItemsUnallocatedTag().apply(entity, tagProcessingUtils, messageDispatcher, gameContext);
 
+			StockpileComponentUpdater stockpileComponentUpdater = tagProcessingUtils.stockpileComponentUpdater;
+
+
 			int maxQuantity = 0;
 			if (args.size() > 0) {
 				maxQuantity = Integer.parseInt(args.get(0));
@@ -44,8 +58,27 @@ public class StockpileTag extends Tag {
 
 			StockpileSettings stockpileSettings = new StockpileSettings();
 			for (int i = 1; i < args.size(); i++) {
-				String stockpileGroupName = args.get(i);
-				stockpileSettings.addRestriction(stockpileGroupName);
+				String restrictionArgumentString = args.get(i);
+				Matcher isMacroMatcher = IS_MACRO_PATTERN.matcher(restrictionArgumentString);
+				Matcher itemTypeMatcher = ITEM_TYPE_PATTERN.matcher(restrictionArgumentString);
+				Predicate<ItemType> predicate = itemType -> false;
+				if (isMacroMatcher.matches()) {
+					String macroName = isMacroMatcher.group(1);
+					predicate = switch (macroName) {
+						case "ARMOUR" -> itemType -> itemType.getDefenseInfo() != null && DefenseType.ARMOR == itemType.getDefenseInfo().getType();
+						case "WEAPON" -> itemType -> itemType.getWeaponInfo() != null;
+						default -> itemType -> false;
+					};
+				} else if (itemTypeMatcher.matches()) {
+					String itemTypeName = itemTypeMatcher.group(1);
+					predicate = itemType -> itemTypeName.equalsIgnoreCase(itemType.getItemTypeName());
+				}
+				tagProcessingUtils.itemTypeDictionary.getAll().stream()
+								.filter(predicate)
+								.forEach(itemType -> {
+									stockpileComponentUpdater.toggleItem(stockpileSettings, itemType, true, true, true);
+									stockpileSettings.addRestriction(itemType);
+								});
 			}
 
 			FurnitureStockpileComponent component = new FurnitureStockpileComponent(stockpileSettings, furnitureStockpile);
