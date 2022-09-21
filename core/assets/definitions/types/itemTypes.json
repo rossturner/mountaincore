@@ -40,7 +40,9 @@
   "hoursInInventoryUntilUnused" : 38.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
-  "tags" : { },
+  "tags" : {
+    "ASSET_OVERRIDE_BY_SKILL" : [ "HEAVY_ARMOR", "CLOTHING_COLOR" ]
+  },
   "defenseInfo" : {
     "type" : "ARMOR",
     "maxDefensePoints" : 20,
