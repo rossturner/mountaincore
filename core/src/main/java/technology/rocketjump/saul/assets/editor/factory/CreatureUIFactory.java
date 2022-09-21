@@ -177,7 +177,7 @@ public class CreatureUIFactory implements UIFactory {
                 newRace.setName(raceName);
                 newRace.setI18nKey("RACE." + raceName.toUpperCase());
                 newRace.setBodyStructureName("pawed-quadruped");
-                newRace.setBodyShapes(List.of(bodyShape));
+                newRace.setBodyShapes(new ArrayList<>(List.of(bodyShape))); // Needs to be mutable
                 newRace.setGenders(new HashMap<>(Map.of(
                         Gender.MALE, new RaceGenderDescriptor(),
                         Gender.FEMALE, new RaceGenderDescriptor()
@@ -285,7 +285,7 @@ public class CreatureUIFactory implements UIFactory {
                 null, race.getBehaviour(), editorTable);
 
         editorTable.add(new VisLabel("Gender settings:")).left().colspan(2).row();
-        editorTable.add(new GenderWidget(race.getGenders())).left().colspan(2).row();
+        editorTable.add(new GenderWidget(race.getGenders(), entityAssetTypeDictionary.getByEntityType(EntityType.CREATURE))).left().colspan(2).row();
 
 
         editorTable.add(new VisLabel("Features:")).left().colspan(2).row();

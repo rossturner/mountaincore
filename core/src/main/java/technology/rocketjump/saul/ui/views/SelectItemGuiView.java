@@ -114,7 +114,7 @@ public class SelectItemGuiView implements GuiView {
 		numAdded++;
 
 		for (ItemType itemType : itemTypeDictionary.getAll()) {
-			if (includedItemType(itemType, message.itemSelectionCategory)) {
+			if (includedItemType(itemType, message)) {
 				// Going to assume that equippable items are always not stackable
 				for (Entity itemEntity : itemTracker.getItemsByType(itemType, true)) {
 					itemsTable.add(buildItemButton(itemEntity, message.callback));
@@ -137,11 +137,11 @@ public class SelectItemGuiView implements GuiView {
 		return innerTable;
 	}
 
-	private boolean includedItemType(ItemType itemType, PopulateSelectItemViewMessage.ItemSelectionCategory selectionCategory) {
-		return switch (selectionCategory) {
+	private boolean includedItemType(ItemType itemType, PopulateSelectItemViewMessage message) {
+		return switch (message.itemSelectionCategory) {
 			case WEAPON -> itemType.getWeaponInfo() != null;
 			case SHIELD -> itemType.getDefenseInfo() != null && itemType.getDefenseInfo().getType().equals(DefenseType.SHIELD);
-			case ARMOR -> itemType.getDefenseInfo() != null && itemType.getDefenseInfo().getType().equals(DefenseType.ARMOR);
+			case ARMOR -> itemType.getDefenseInfo() != null && itemType.getDefenseInfo().getType().equals(DefenseType.ARMOR) && itemType.getDefenseInfo().canBeEquippedBy(message.requestingEntity);
 		};
 	}
 

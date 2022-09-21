@@ -1,0 +1,219 @@
+[ {
+  "uniqueName" : "Orc-Male-Creature_Tusks_1",
+  "type" : "CREATURE_TUSKS",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Tusks_1_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 6.0,
+        "y" : -5.0
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Tusks_1_Down.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -2.5
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Tusks_1_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -6.0,
+        "y" : -5.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Creature_Tusks_2",
+  "type" : "CREATURE_TUSKS",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Tusks_2_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 5.0,
+        "y" : 7.5
+      }
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Tusks_2_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 4.5,
+        "y" : -7.5
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Tusks_2_Down.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -8.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Tusks_2_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -4.5,
+        "y" : -7.5
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Creature_Tusks_2_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -5.0,
+        "y" : 7.5
+      },
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Creature_Tusks_2_Up.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 6.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Creature_Tusks_3",
+  "type" : "CREATURE_TUSKS",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Tusks_2_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 5.0,
+        "y" : 7.5
+      }
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Tusks_3_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 6.0,
+        "y" : -6.5
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Tusks_3_Down.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -8.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Tusks_3_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -6.0,
+        "y" : -6.5
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Creature_Tusks_2_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -5.0,
+        "y" : 7.5
+      },
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Creature_Tusks_2_Up.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 6.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Creature_Tusks_4",
+  "type" : "CREATURE_TUSKS",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Tusks_4_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 6.0,
+        "y" : -3.5
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Tusks_4_Down.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : -1.5
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Tusks_4_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -6.0,
+        "y" : -3.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Creature_Tusks_5",
+  "type" : "CREATURE_TUSKS",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Tusks_5_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 7.5,
+        "y" : -9.0
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Tusks_5_Down.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : -9.5
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Tusks_5_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -7.5,
+        "y" : -9.0
+      }
+    }
+  }
+} ]

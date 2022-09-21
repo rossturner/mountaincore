@@ -1,0 +1,93 @@
+[ {
+  "uniqueName" : "Orc-Male-Fat-Creature_Bodypaint_1",
+  "type" : "CREATURE_BODYPAINT",
+  "raceName" : "Orc",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Creature_Bodypaint_1_Down_Left.png",
+      "offsetPixels" : {
+        "x" : -4.0,
+        "y" : -6.5
+      }
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Fat-Creature_Bodypaint_1_Down.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -8.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Fat-Creature_Bodypaint_1_Down_Left.png",
+      "offsetPixels" : {
+        "x" : -4.0,
+        "y" : -6.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Fat-Creature_Bodypaint_2",
+  "type" : "CREATURE_BODYPAINT",
+  "raceName" : "Orc",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Creature_Bodypaint_2_Down_Left.png",
+      "offsetPixels" : {
+        "x" : 1.5
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Fat-Creature_Bodypaint_2_Down.png",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -1.5
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Fat-Creature_Bodypaint_2_Down_Left.png",
+      "offsetPixels" : {
+        "x" : -1.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Fat-Creature_Bodypaint_3",
+  "type" : "CREATURE_BODYPAINT",
+  "raceName" : "Orc",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Creature_Bodypaint_3_Down_Left.png",
+      "offsetPixels" : {
+        "x" : 4.5,
+        "y" : -9.0
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Fat-Creature_Bodypaint_3_Down.png",
+      "offsetPixels" : {
+        "y" : -7.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Fat-Creature_Bodypaint_3_Down_Left.png",
+      "offsetPixels" : {
+        "x" : -4.5,
+        "y" : -9.0
+      }
+    }
+  }
+} ]

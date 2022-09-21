@@ -4,13 +4,16 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
+import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceGenderDescriptor;
 import technology.rocketjump.saul.misc.ReflectionUtils;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -20,10 +23,12 @@ import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.Wi
 public class GenderWidget extends VisTable {
 
 	private final Map<Gender, RaceGenderDescriptor> sourceData;
+	private final Collection<EntityAssetType> applicableTypes;
 	private final VisTextButton addButton;
 
-	public GenderWidget(Map<Gender, RaceGenderDescriptor> sourceData) {
+	public GenderWidget(Map<Gender, RaceGenderDescriptor> sourceData, Collection<EntityAssetType> applicableTypes) {
 		this.sourceData = sourceData;
+		this.applicableTypes = applicableTypes;
 
 		addButton = new VisTextButton("Add another");
 		addButton.addListener(new ClickListener() {
@@ -68,9 +73,13 @@ public class GenderWidget extends VisTable {
 
 			try {
 				addFloatField("Weighting:", "weighting", entry.getValue(), this);
+				this.row();
 
+				this.add(new VisLabel("Hide asset types:")).colspan(3).center().row();
 
-				VisTextButton removeButton = new VisTextButton("(remove)");
+				this.add(new HideAssetTypesWidget(entry.getValue().getHideAssetTypes(), applicableTypes)).colspan(3).left().row();
+
+				VisTextButton removeButton = new VisTextButton("(remove gender)");
 				removeButton.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -78,9 +87,7 @@ public class GenderWidget extends VisTable {
 						reload();
 					}
 				});
-				this.add(removeButton);
-
-				addFloatField("% with hair:", "hasHair", entry.getValue(), this);
+				this.add(removeButton).colspan(3).left().row();
 			} catch (ReflectionUtils.PropertyReflectionException ignored) {
 			}
 

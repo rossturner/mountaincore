@@ -9,6 +9,7 @@ import technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviourDictionary;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructureDictionary;
+import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.SpeciesColor;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
@@ -53,6 +54,21 @@ public class RaceDictionary {
 		for (Race race : raceList) {
 			initialise(race);
 			byName.put(race.getName(), race);
+		}
+
+		for (ItemType itemType : itemTypeDictionary.getAll()) {
+			if (itemType.getDefenseInfo() != null) {
+				if (itemType.getDefenseInfo().getRestrictedToRaceNames() != null) {
+					for (String raceName : itemType.getDefenseInfo().getRestrictedToRaceNames()) {
+						Race race = getByName(raceName);
+						if (race == null) {
+							Logger.error("Could not find race " + raceName + " for defense info on item type " + itemType.getItemTypeName());
+						} else {
+							itemType.getDefenseInfo().getRestrictedToRaces().add(race);
+						}
+					}
+				}
+			}
 		}
 
 	}

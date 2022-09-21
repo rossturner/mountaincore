@@ -1,0 +1,18 @@
+{
+  "itemTypeName" : "Armour-Orc-Light",
+  "materialTypes" : [ "SKIN", "BONE", "CLOTH" ],
+  "primaryMaterialType" : "SKIN",
+  "stockpileGroupName" : "WEAPONS",
+  "defenseInfo" : {
+    "type" : "ARMOR",
+    "maxDefensePoints" : 10,
+    "maxDefenseRegainedPerRound" : 2,
+    "damageReduction" : {
+      "STABBING" : 0,
+      "SLASHING" : 1,
+      "CRUSHING" : 1
+    },
+    "restrictedToRaceNames" : [ "Orc" ]
+  },
+  "i18nKey" : "ARMOUR.ORC.LIGHT"
+}

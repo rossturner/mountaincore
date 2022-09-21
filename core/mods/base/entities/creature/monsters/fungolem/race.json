@@ -24,6 +24,11 @@
     },
     "aggressionResponse" : "FLEE"
   },
+  "genders" : {
+    "FEMALE" : {
+      "weighting" : 1
+    }
+  },
   "features" : {
     "defense" : {
       "maxDefensePoints" : 3,

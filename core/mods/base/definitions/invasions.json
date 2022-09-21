@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Orc invasion",
+    "triggeredBy": "Population",
+    "minHoursUntilFirstInvasion": 1,
+    "minHoursBetweenInvasions": 1,
+    "participants": [
+      {
+        "raceName": "Orc",
+        "pointsCost": 50,
+        "fixedInventory": [
+          {
+            "itemTypeName": "Rations",
+            "quantity": 10
+          }
+        ],
+        "equipmentOptions": {
+          "weapons": [
+            {
+              "itemTypeName": "axe",
+              "costByQuality": {
+                "AWFUL": 4,
+                "POOR": 6,
+                "STANDARD": 10
+              }
+            }
+          ],
+          "armour": [
+
+          ]
+        }
+      }
+    ]
+  }
+]

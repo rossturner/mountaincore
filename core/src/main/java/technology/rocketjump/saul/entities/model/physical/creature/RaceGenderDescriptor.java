@@ -1,12 +1,16 @@
 package technology.rocketjump.saul.entities.model.physical.creature;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RaceGenderDescriptor {
 
 	private float weighting;
-	private float hasHair;
+	private Map<EntityAssetType, Float> hideAssetTypes = new HashMap<>();
 
 	public float getWeighting() {
 		return weighting;
@@ -16,11 +20,11 @@ public class RaceGenderDescriptor {
 		this.weighting = weighting;
 	}
 
-	public float getHasHair() {
-		return hasHair;
+	public Map<EntityAssetType, Float> getHideAssetTypes() {
+		return hideAssetTypes;
 	}
 
-	public void setHasHair(float hasHair) {
-		this.hasHair = hasHair;
+	public void setHideAssetTypes(Map<EntityAssetType, Float> hideAssetTypes) {
+		this.hideAssetTypes = hideAssetTypes;
 	}
 }
