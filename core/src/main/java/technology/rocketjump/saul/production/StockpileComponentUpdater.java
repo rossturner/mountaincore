@@ -28,7 +28,6 @@ public class StockpileComponentUpdater implements GameContextAware {
 
 	public void toggleGroup(StockpileSettings stockpileSettings, StockpileGroup group, boolean enabled, boolean recurseToChildren) {
 		stockpileSettings.toggle(group, enabled);
-//		stockpileComponent.updateColor(); //todo
 
 		if (recurseToChildren) {
 			for (ItemType itemType : itemTypeDictionary.getByStockpileGroup(group)) {

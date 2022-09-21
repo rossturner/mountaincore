@@ -32,8 +32,11 @@ public class StockpileTag extends Tag {
 
 	@Override
 	public boolean isValid(TagProcessingUtils tagProcessingUtils) {
-		return true;//todo validate
-//		return args.size() == 0;
+		boolean isValid = true;
+		if (args.size() > 0) {
+			isValid = args.get(0).matches("\\d+");
+		}
+		return isValid;
 	}
 
 	@Override
