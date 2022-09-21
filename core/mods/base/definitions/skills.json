@@ -103,5 +103,11 @@
   {
     "name": "HEAVY_ARMOR",
     "type": "ASSET_OVERRIDE"
+  },
+  {
+    "name": "ARTISAN",
+    "i18nKey": "PROFESSION.ARTISAN",
+    "type": "PROFESSION",
+    "icon": "profession-chisel"
   }
 ]

@@ -21,16 +21,14 @@
       "colorCode" : "#aa8c9a"
     }
   },
-
-  "mapPlacement": "ANIMAL",
-
-  "behaviour": {
-    "behaviourName": "Creature",
-    "scheduleName": "Diurnal animal",
-    "needs": ["SLEEP"],
-    "group": {
-      "minSize": 2,
-      "maxSize": 5
+  "mapPlacement" : "ANIMAL",
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "needs" : [ "SLEEP" ],
+    "group" : {
+      "minSize" : 2,
+      "maxSize" : 5
     },
     "aggressionResponse" : "ATTACK"
   },
@@ -43,9 +41,9 @@
     }
   },
   "features" : {
-    "defense": {
-      "maxDefensePoints": 12,
-      "maxDefenseRegainedPerRound": 2,
+    "defense" : {
+      "maxDefensePoints" : 12,
+      "maxDefenseRegainedPerRound" : 2,
       "damageReduction" : {
         "STABBING" : 1,
         "SLASHING" : 1,

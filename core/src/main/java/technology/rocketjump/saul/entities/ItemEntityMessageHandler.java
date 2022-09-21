@@ -257,6 +257,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		int sourceRegionId = areaMap.getTile(entityPosition).getRegionId();
 		Map<JobPriority, Map<Float, Room>> stockpilesByDistanceByPriority = new EnumMap<>(JobPriority.class);
 
+		JobPriority currentStockpilePriority = getStockpilePriority(entity, entityPosition, areaMap);
 
 		for (Room stockpile : roomStore.getByComponent(StockpileComponent.class)) {
 			StockpileComponent stockpileComponent = stockpile.getComponent(StockpileComponent.class);
@@ -269,10 +270,9 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			}
 		}
 
-		for (JobPriority priority : JobPriority.values()) {
-			if (priority.equals(JobPriority.DISABLED)) {
-				continue;
-			}
+
+		for (int i = 0; i < currentStockpilePriority.ordinal(); i++) {
+			JobPriority priority = JobPriority.values()[i];
 
 			Map<Float, Room> byDistance = stockpilesByDistanceByPriority.getOrDefault(priority, Collections.emptyMap());
 			for (Room room : byDistance.values()) {
@@ -283,7 +283,6 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 				}
 			}
 		}
-
 
 		return null;
 	}
@@ -399,5 +398,17 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 			return Math.round((position1.dst2(requesterPosition) - position2.dst2(requesterPosition)) * 10000f);
 		}
+	}
+
+	private static JobPriority getStockpilePriority(Entity entity, Vector2 worldPosition, TiledMap areaMap) {
+		MapTile tile = areaMap.getTile(worldPosition);
+		if (tile.getRoomTile() != null) {
+			Room room = tile.getRoomTile().getRoom();
+			StockpileComponent stockpileComponent = room.getComponent(StockpileComponent.class);
+			if (stockpileComponent != null && stockpileComponent.canHold(entity)) {
+				return stockpileComponent.getPriority();
+			}
+		}
+		return JobPriority.DISABLED;
 	}
 }

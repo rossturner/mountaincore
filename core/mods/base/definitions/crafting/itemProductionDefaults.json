@@ -139,7 +139,12 @@
   "Armour-Plate": {
     "perSettler": 0.15
   },
-
+  "Weapon-Bone-Arrow-Heads": {
+    "fixedAmount": 20
+  },
+  "Weapon-Metal-Arrow-Heads": {
+    "fixedAmount": 20
+  },
   "Weapon-Metal-Bolts": {
     "fixedAmount": 100
   },

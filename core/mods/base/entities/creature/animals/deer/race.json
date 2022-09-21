@@ -18,7 +18,7 @@
       "swatch" : "deer-antlers-swatch.png"
     }
   },
-  "mapPlacement": "ANIMAL",
+  "mapPlacement" : "ANIMAL",
   "behaviour" : {
     "behaviourName" : "Creature",
     "scheduleName" : "Diurnal animal",
@@ -41,9 +41,9 @@
     }
   },
   "features" : {
-    "defense": {
-      "maxDefensePoints": 6,
-      "maxDefenseRegainedPerRound": 1
+    "defense" : {
+      "maxDefensePoints" : 6,
+      "maxDefenseRegainedPerRound" : 1
     },
     "skin" : {
       "itemTypeName" : "Carcass-Hide",
