@@ -56,7 +56,8 @@
         "STABBING" : 1,
         "SLASHING" : 1,
         "CRUSHING" : 1
-      }
+      },
+      "restrictedToRaceNames" : [ ]
     },
     "skin" : {
       "itemTypeName" : "Carcass-Hide",
@@ -127,7 +128,8 @@
       "type" : "RACIAL",
       "maxDefensePoints" : 6,
       "maxDefenseRegainedPerRound" : 1,
-      "damageReduction" : { }
+      "damageReduction" : { },
+      "restrictedToRaceNames" : [ ]
     },
     "skin" : {
       "itemTypeName" : "Carcass-Hide",
@@ -196,7 +198,8 @@
         "STABBING" : 1,
         "SLASHING" : 1,
         "CRUSHING" : 1
-      }
+      },
+      "restrictedToRaceNames" : [ ]
     },
     "unarmedWeapon" : {
       "range" : 1,
@@ -268,7 +271,8 @@
       "type" : "RACIAL",
       "maxDefensePoints" : 10,
       "maxDefenseRegainedPerRound" : 1,
-      "damageReduction" : { }
+      "damageReduction" : { },
+      "restrictedToRaceNames" : [ ]
     },
     "skin" : {
       "quantity" : 0
@@ -358,7 +362,8 @@
         "STABBING" : 1,
         "SLASHING" : 2,
         "CRUSHING" : 2
-      }
+      },
+      "restrictedToRaceNames" : [ ]
     },
     "unarmedWeapon" : {
       "range" : 1,
@@ -554,7 +559,8 @@
         "STABBING" : 0,
         "SLASHING" : 0,
         "CRUSHING" : 0
-      }
+      },
+      "restrictedToRaceNames" : [ ]
     },
     "unarmedWeapon" : {
       "range" : 1,
@@ -619,7 +625,8 @@
         "STABBING" : 0,
         "SLASHING" : 0,
         "CRUSHING" : 0
-      }
+      },
+      "restrictedToRaceNames" : [ ]
     },
     "unarmedWeapon" : {
       "range" : 1,
@@ -686,7 +693,8 @@
         "STABBING" : 8,
         "SLASHING" : 8,
         "CRUSHING" : -7
-      }
+      },
+      "restrictedToRaceNames" : [ ]
     },
     "unarmedWeapon" : {
       "range" : 1,
@@ -750,7 +758,8 @@
         "STABBING" : 0,
         "SLASHING" : 0,
         "CRUSHING" : 10
-      }
+      },
+      "restrictedToRaceNames" : [ ]
     },
     "unarmedWeapon" : {
       "range" : 1,
@@ -836,7 +845,8 @@
         "STABBING" : 1,
         "SLASHING" : 1,
         "CRUSHING" : 1
-      }
+      },
+      "restrictedToRaceNames" : [ ]
     },
     "unarmedWeapon" : {
       "range" : 8,
