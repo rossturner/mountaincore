@@ -7,6 +7,7 @@ import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
+import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -74,9 +75,17 @@ public class ItemBehaviour implements BehaviourComponent {
 		ItemAllocationComponent itemAllocationComponent = parentEntity.getComponent(ItemAllocationComponent.class);
 		Vector2 worldPosition = locationComponent.getWorldPosition();
 
-		if (worldPosition != null && attributes.getItemPlacement().equals(ItemPlacement.ON_GROUND) && itemAllocationComponent.getNumUnallocated() > 0) {
-			// This should haul to a stockpile or to a higher priority stockpile
-			messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, JobPriority.NORMAL, null));
+		if (itemAllocationComponent.getNumUnallocated() > 0) {
+			if (worldPosition != null && attributes.getItemPlacement().equals(ItemPlacement.ON_GROUND)) {
+				// This should haul to a stockpile or to a higher priority stockpile
+				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, JobPriority.NORMAL, null));
+			}
+
+			Entity container = parentEntity.getLocationComponent().getContainerEntity();
+			if (container != null && container.getComponent(FurnitureStockpileComponent.class) != null && !container.getComponent(FurnitureStockpileComponent.class).getStockpileSettings().canHold(parentEntity) ) {
+				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, true, JobPriority.NORMAL, null));
+
+			}
 		}
 
 		for (BehaviourComponent additionalBehavior : additionalBehaviours.values()) {

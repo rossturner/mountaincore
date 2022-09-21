@@ -9,13 +9,12 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
-import technology.rocketjump.saul.production.AbstractStockpile;
 import technology.rocketjump.saul.production.FurnitureStockpile;
 import technology.rocketjump.saul.production.StockpileSettings;
 
 public class FurnitureStockpileComponent implements ParentDependentEntityComponent {
     private final StockpileSettings stockpileSettings;
-    private AbstractStockpile stockpile;
+    private FurnitureStockpile stockpile;
 
     public FurnitureStockpileComponent() {
         this(new StockpileSettings());
@@ -33,6 +32,7 @@ public class FurnitureStockpileComponent implements ParentDependentEntityCompone
     @Override
     public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
         FurnitureStockpileComponent cloned = new FurnitureStockpileComponent(stockpileSettings.clone());
+        //TODO: clone allocations
 
         return cloned;
     }
@@ -41,7 +41,7 @@ public class FurnitureStockpileComponent implements ParentDependentEntityCompone
         return stockpileSettings;
     }
 
-    public AbstractStockpile getStockpile() {
+    public FurnitureStockpile getStockpile() {
         return stockpile;
     }
 

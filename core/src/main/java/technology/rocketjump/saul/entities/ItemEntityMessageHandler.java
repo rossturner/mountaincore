@@ -36,6 +36,7 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
+import technology.rocketjump.saul.misc.VectorUtils;
 import technology.rocketjump.saul.production.AbstractStockpile;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
@@ -335,13 +336,16 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			Entity containerEntity = itemToBeMoved.getLocationComponent().getContainerEntity();
 			if (containerEntity != null) {
 				FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(containerEntity, gameContext.getAreaMap());
-				if (navigableWorkspace == null) {
+				if (navigableWorkspace != null) {
+					haulingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
+					haulingJob.setJobState(JobState.ASSIGNABLE);
+				} else if (containerEntity.getComponent(FurnitureStockpileComponent.class) != null) {
+					haulingJob.setJobLocation(VectorUtils.toGridPoint(containerEntity.getLocationComponent().getWorldPosition()));
+					haulingJob.setJobState(JobState.ASSIGNABLE);
+				} else {
 					Logger.error("Item created but not accessible to collect - investigate and fix");
 					messageDispatcher.dispatchMessage(MessageType.CANCEL_ITEM_ALLOCATION, haulingAllocation.getItemAllocation());
 					return true;
-				} else {
-					haulingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
-					haulingJob.setJobState(JobState.ASSIGNABLE);
 				}
 			}
 

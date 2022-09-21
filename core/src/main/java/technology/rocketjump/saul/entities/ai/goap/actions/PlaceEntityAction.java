@@ -11,6 +11,7 @@ import technology.rocketjump.saul.entities.behaviour.furniture.MushroomShockTank
 import technology.rocketjump.saul.entities.components.CopyGameMaterialsFromInventoryComponent;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
+import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -144,6 +145,10 @@ public class PlaceEntityAction extends Action {
 				copyColorComponent.apply(itemToPlace, targetFurniture);
 			}
 			parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, targetFurniture);
+			FurnitureStockpileComponent stockpileComponent = targetFurniture.getComponent(FurnitureStockpileComponent.class);
+			if (stockpileComponent != null) {
+				stockpileComponent.getStockpile().cancelAllocation();
+			}
 
 			if (targetFurniture.getBehaviourComponent() instanceof CraftingStationBehaviour) {
 				CraftingStationBehaviour craftingStationBehaviour = (CraftingStationBehaviour) targetFurniture.getBehaviourComponent();
