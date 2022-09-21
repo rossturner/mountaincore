@@ -41,6 +41,7 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
+import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.*;
 import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -79,13 +80,14 @@ public class ItemUIFactory implements UIFactory {
     private final SoundAssetDictionary soundAssetDictionary;
     private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
     private final SkillDictionary skillDictionary;
+    private final RaceDictionary raceDictionary;
 
     @Inject
     public ItemUIFactory(MessageDispatcher messageDispatcher, ItemEntityFactory itemEntityFactory, ItemTypeDictionary itemTypeDictionary,
                          ItemAttributesPane viewEditorControls, EntityAssetTypeDictionary entityAssetTypeDictionary,
                          CompleteAssetDictionary completeAssetDictionary, CraftingTypeDictionary craftingTypeDictionary,
                          StockpileGroupDictionary stockpileGroupDictionary, SoundAssetDictionary soundAssetDictionary,
-                         ParticleEffectTypeDictionary particleEffectTypeDictionary, SkillDictionary skillDictionary) {
+                         ParticleEffectTypeDictionary particleEffectTypeDictionary, SkillDictionary skillDictionary, RaceDictionary raceDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.itemEntityFactory = itemEntityFactory;
         this.itemTypeDictionary = itemTypeDictionary;
@@ -97,6 +99,7 @@ public class ItemUIFactory implements UIFactory {
         this.soundAssetDictionary = soundAssetDictionary;
         this.particleEffectTypeDictionary = particleEffectTypeDictionary;
         this.skillDictionary = skillDictionary;
+        this.raceDictionary = raceDictionary;
     }
 
     @Override
@@ -386,7 +389,7 @@ public class ItemUIFactory implements UIFactory {
         } else {
             defenseInfo = new DefenseInfo();
         }
-        DefenseInfoWidget defenseInfoWidget = new DefenseInfoWidget(defenseInfo);
+        DefenseInfoWidget defenseInfoWidget = new DefenseInfoWidget(defenseInfo, raceDictionary);
 
         CollapsibleWidget defenseCollapsible = new CollapsibleWidget(defenseInfoWidget);
         defenseCollapsible.setCollapsed(!initialHasDefenseInfo);

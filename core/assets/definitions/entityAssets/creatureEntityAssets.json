@@ -32367,7 +32367,9 @@
   "gender" : "MALE",
   "profession" : "HEAVY_ARMOR",
   "consciousnessList" : [ ],
-  "tags" : { },
+  "tags" : {
+    "REMOVES_HAIR" : [ ]
+  },
   "spriteDescriptors" : {
     "UP_RIGHT" : {
       "filename" : "Orc-Male-Average-Heavy_Armor-Creature_Helmet_Up_Right.png",
@@ -34895,11 +34897,11 @@
   "tags" : { },
   "spriteDescriptors" : {
     "UP_RIGHT" : {
-      "filename" : "Orc-Male-Strong-Heavy_Armor-Body_Clothing_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Heavy_Armor-Body_Clothing_Up_Right.png",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : 10.0,
         "y" : 0.0,
         "unit" : false
       },
@@ -35068,11 +35070,11 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Orc-Male-Strong-Heavy_Armor-Body_Clothing_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Heavy_Armor-Body_Clothing_Up_Right.png",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : -10.0,
         "y" : 0.0,
         "unit" : false
       },
@@ -35167,7 +35169,7 @@
   "tags" : { },
   "spriteDescriptors" : {
     "UP_RIGHT" : {
-      "filename" : "Orc-Male-Strong-Heavy_Armor-Body_Clothing_Above_1_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Heavy_Armor-Body_Clothing_Above_1_Up_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -35231,7 +35233,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Orc-Male-Strong-Heavy_Armor-Body_Clothing_Above_1_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Heavy_Armor-Body_Clothing_Above_1_Up_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -35274,13 +35276,13 @@
   "tags" : { },
   "spriteDescriptors" : {
     "UP_RIGHT" : {
-      "filename" : "Orc-Male-Average-Heavy_Armor-Body_Clothing_Above_2_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Heavy_Armor-Body_Clothing_Above_2_Up_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 6.0,
-        "y" : 2.0,
+        "x" : 0.0,
+        "y" : 0.0,
         "unit" : false
       },
       "flipX" : false,
@@ -35338,13 +35340,13 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Orc-Male-Average-Heavy_Armor-Body_Clothing_Above_2_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Heavy_Armor-Body_Clothing_Above_2_Up_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -6.0,
-        "y" : 2.0,
+        "x" : 0.0,
+        "y" : 0.0,
         "unit" : false
       },
       "flipX" : true,
@@ -35381,7 +35383,7 @@
   "tags" : { },
   "spriteDescriptors" : {
     "UP_RIGHT" : {
-      "filename" : "Orc-Male-Strong-Heavy_Armor-Body_Clothing_Below_1_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Heavy_Armor-Body_Clothing_Below_1_Up_Right.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -35445,7 +35447,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Orc-Male-Strong-Heavy_Armor-Body_Clothing_Below_1_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Heavy_Armor-Body_Clothing_Below_1_Up_Right.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -35485,16 +35487,18 @@
   "gender" : "MALE",
   "profession" : "HEAVY_ARMOR",
   "consciousnessList" : [ ],
-  "tags" : { },
+  "tags" : {
+    "REMOVES_HAIR" : [ ]
+  },
   "spriteDescriptors" : {
     "UP_RIGHT" : {
-      "filename" : "Orc-Male-Strong-Heavy_Armor-Creature_Helmet_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Heavy_Armor-Creature_Helmet_Up_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 2.0,
-        "y" : -1.0,
+        "x" : 0.0,
+        "y" : 3.0,
         "unit" : false
       },
       "flipX" : false,
@@ -35552,13 +35556,13 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Orc-Male-Strong-Heavy_Armor-Creature_Helmet_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Heavy_Armor-Creature_Helmet_Up_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -2.0,
-        "y" : -1.0,
+        "x" : 0.0,
+        "y" : 3.0,
         "unit" : false
       },
       "flipX" : true,
@@ -35596,12 +35600,12 @@
   "tags" : { },
   "spriteDescriptors" : {
     "UP_RIGHT" : {
-      "filename" : "Orc-Male-Strong-Light_Armor-Body_Clothing_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Up_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 4.0,
+        "x" : 10.0,
         "y" : -1.0,
         "unit" : false
       },
@@ -35744,13 +35748,13 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Orc-Male-Strong-Light_Armor-Body_Clothing_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Up_Right.png",
       "coloringLayer" : "CLOTHING_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -4.0,
-        "y" : -3.0,
+        "x" : -10.0,
+        "y" : -1.0,
         "unit" : false
       },
       "flipX" : true,
@@ -35829,7 +35833,7 @@
   "tags" : { },
   "spriteDescriptors" : {
     "UP_RIGHT" : {
-      "filename" : "Orc-Male-Strong-Light_Armor-Body_Clothing_Above_1_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Up_Right.png",
       "coloringLayer" : "BONE_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -35893,7 +35897,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Orc-Male-Strong-Light_Armor-Body_Clothing_Above_1_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Up_Right.png",
       "coloringLayer" : "BONE_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -35992,7 +35996,7 @@
   "tags" : { },
   "spriteDescriptors" : {
     "UP_RIGHT" : {
-      "filename" : "Orc-Male-Strong-Light_Armor-Body_Clothing_Below_2_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Up_Right.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -36056,7 +36060,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Orc-Male-Strong-Light_Armor-Body_Clothing_Below_2_Up_Right.png",
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Up_Right.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -37397,7 +37401,9 @@
   "gender" : "MALE",
   "profession" : "HEAVY_ARMOR",
   "consciousnessList" : [ ],
-  "tags" : { },
+  "tags" : {
+    "REMOVES_HAIR" : [ ]
+  },
   "spriteDescriptors" : {
     "UP_RIGHT" : {
       "filename" : "Orc-Male-Strong-Heavy_Armor-Creature_Helmet_Up_Right.png",

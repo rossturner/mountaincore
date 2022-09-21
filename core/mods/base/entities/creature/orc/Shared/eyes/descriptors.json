@@ -1,39 +1,35 @@
-[
-  {
-    "profession": "NULL_PROFESSION",
-    "uniqueName": "Orc-Male-Creature_Eyes-Awake",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "CREATURE_EYES",
-    "consciousnessList": [
-      "AWAKE"
-    ],
-    "spriteDescriptors": {
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Creature_Eyes-Awake_Down_Left.png",
-        "offsetPixels": {
-          "x": 9.0,
-          "y": 3.0
-        },
-        "coloringLayer": "EYE_COLOR",
-        "flipX": true
+[ {
+  "uniqueName" : "Orc-Male-Creature_Eyes-Awake",
+  "type" : "CREATURE_EYES",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ "AWAKE" ],
+  "spriteDescriptors" : {
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Eyes-Awake_Down_Left.png",
+      "coloringLayer" : "EYE_COLOR",
+      "offsetPixels" : {
+        "x" : 9.0,
+        "y" : 3.0
       },
-      "DOWN": {
-        "filename": "Orc-Male-Creature_Eyes-Awake_Down.png",
-        "offsetPixels": {
-          "x": -0.5,
-          "y": 4.0
-        },
-        "coloringLayer": "EYE_COLOR"
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Creature_Eyes-Awake_Down_Left.png",
-        "offsetPixels": {
-          "x": -9.0,
-          "y": 3.0
-        },
-        "coloringLayer": "EYE_COLOR"
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Eyes-Awake_Down.png",
+      "coloringLayer" : "EYE_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 4.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Eyes-Awake_Down_Left.png",
+      "coloringLayer" : "EYE_COLOR",
+      "offsetPixels" : {
+        "x" : -9.0,
+        "y" : 3.0
       }
     }
   }
-]
+} ]

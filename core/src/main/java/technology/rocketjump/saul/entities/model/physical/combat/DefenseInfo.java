@@ -1,9 +1,12 @@
 package technology.rocketjump.saul.entities.model.physical.combat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.Race;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefenseInfo {
@@ -18,6 +21,23 @@ public class DefenseInfo {
 	private Integer maxDefensePoints;
 	private Integer maxDefenseRegainedPerRound;
 	private Map<CombatDamageType, Integer> damageReduction = new EnumMap<>(CombatDamageType.class);
+
+	// The restriction by race is only intended to apply to the ARMOR DefenseType
+	private List<String> restrictedToRaceNames = new ArrayList<>();
+	@JsonIgnore
+	private Set<Race> restrictedToRaces = new HashSet<>();
+
+	public boolean canBeEquippedBy(Entity entity) {
+		if (restrictedToRaces == null || restrictedToRaces.isEmpty()) {
+			return true;
+		} else {
+			if (entity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes) {
+				return restrictedToRaces.contains(creatureEntityAttributes.getRace());
+			} else {
+				return false;
+			}
+		}
+	}
 
 	public DefenseType getType() {
 		return type;
@@ -51,4 +71,19 @@ public class DefenseInfo {
 		this.damageReduction = damageReduction;
 	}
 
+	public List<String> getRestrictedToRaceNames() {
+		return restrictedToRaceNames;
+	}
+
+	public void setRestrictedToRaceNames(List<String> restrictedToRaceNames) {
+		this.restrictedToRaceNames = restrictedToRaceNames;
+	}
+
+	public Set<Race> getRestrictedToRaces() {
+		return restrictedToRaces;
+	}
+
+	public void setRestrictedToRaces(Set<Race> restrictedToRaces) {
+		this.restrictedToRaces = restrictedToRaces;
+	}
 }

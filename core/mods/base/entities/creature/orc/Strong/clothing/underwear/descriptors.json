@@ -1,57 +1,54 @@
-[
-  {
-    "profession": "NULL_PROFESSION",
-    "uniqueName": "Orc-Male-Strong-Body_Clothing_Underwear",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "BODY_CLOTHING",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "UP_RIGHT": {
-        "filename": "Orc-Male-Strong-Body_Clothing_Underwear_Up_Right.png",
-        "offsetPixels": {
-          "x": -1.5,
-          "y": -36.0
-        }
-      },
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Strong-Body_Clothing_Underwear_Down_Left.png",
-        "offsetPixels": {
-          "x": -1.0,
-          "y": -32.5
-        },
-        "flipX": true
-      },
-      "DOWN": {
-        "filename": "Orc-Male-Strong-Body_Clothing_Underwear_Down.png",
-        "offsetPixels": {
-          "x": -0.5,
-          "y": -31.5
-        }
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Strong-Body_Clothing_Underwear_Down_Left.png",
-        "offsetPixels": {
-          "x": 1.0,
-          "y": -32.5
-        }
-      },
-      "UP_LEFT": {
-        "filename": "Orc-Male-Strong-Body_Clothing_Underwear_Up_Right.png",
-        "offsetPixels": {
-          "x": 1.5,
-          "y": -36.0
-        },
-        "flipX": true
-      },
-      "UP": {
-        "filename": "Orc-Male-Strong-Body_Clothing_Underwear_Up.png",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": -38.0
-        }
+[ {
+  "uniqueName" : "Orc-Male-Strong-Body_Clothing_Underwear",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Orc",
+  "bodyShape" : "STRONG",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Strong-Body_Clothing_Underwear_Up_Right.png",
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : -36.0
       }
     },
-    "bodyShape": "STRONG"
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Strong-Body_Clothing_Underwear_Down_Left.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -32.5
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Strong-Body_Clothing_Underwear_Down.png",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -31.5
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Strong-Body_Clothing_Underwear_Down_Left.png",
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : -32.5
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Strong-Body_Clothing_Underwear_Up_Right.png",
+      "offsetPixels" : {
+        "x" : 1.5,
+        "y" : -36.0
+      },
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Strong-Body_Clothing_Underwear_Up.png",
+      "offsetPixels" : {
+        "y" : -38.0
+      }
+    }
   }
-]
+} ]

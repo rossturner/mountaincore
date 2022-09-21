@@ -1,316 +1,278 @@
-[
-  {
-    "profession": "LIGHT_ARMOR",
-    "uniqueName": "Orc-Male-Fat-Light_Armor-Body_Clothing",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "BODY_CLOTHING",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "UP_RIGHT": {
-        "filename": "Orc-Male-Strong-Light_Armor-Body_Clothing_Up_Right.png",
-        "offsetPixels": {
-          "x": 4.0,
-          "y": -1.0
-        },
-        "childAssets": [
-          {
-            "type": "BODY_CLOTHING_BELOW_1"
-          },
-          {
-            "type": "BODY_CLOTHING_BELOW_2"
-          },
-          {
-            "type": "BODY_CLOTHING_ABOVE_1"
-          }
-        ],
-        "coloringLayer": "CLOTHING_COLOR"
+[ {
+  "uniqueName" : "Orc-Male-Fat-Light_Armor-Body_Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Orc",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "profession" : "LIGHT_ARMOR",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Up_Right.png",
+      "coloringLayer" : "CLOTHING_COLOR",
+      "offsetPixels" : {
+        "x" : 10.0,
+        "y" : -1.0
       },
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Down_Left.png",
-        "childAssets": [
-          {
-            "offsetPixels": {
-              "x": 1.5,
-              "y": 10.5
-            },
-            "type": "BODY_CLOTHING_BELOW_1"
-          },
-          {
-            "offsetPixels": {
-              "x": 1.5,
-              "y": 10.5
-            },
-            "type": "BODY_CLOTHING_BELOW_2"
-          },
-          {
-            "offsetPixels": {
-              "x": 1.5,
-              "y": 10.5
-            },
-            "type": "BODY_CLOTHING_ABOVE_1"
-          }
-        ],
-        "offsetPixels": {
-          "x": -1.5,
-          "y": -10.5
-        },
-        "coloringLayer": "CLOTHING_COLOR",
-        "flipX": true
-      },
-      "DOWN": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Down.png",
-        "childAssets": [
-          {
-            "offsetPixels": {
-              "x": 0.0,
-              "y": 10.5
-            },
-            "type": "BODY_CLOTHING_BELOW_1"
-          },
-          {
-            "offsetPixels": {
-              "x": 0.0,
-              "y": 10.5
-            },
-            "type": "BODY_CLOTHING_BELOW_2"
-          },
-          {
-            "offsetPixels": {
-              "x": 0.0,
-              "y": 10.5
-            },
-            "type": "BODY_CLOTHING_ABOVE_1"
-          }
-        ],
-        "offsetPixels": {
-          "x": 0.0,
-          "y": -10.5
-        },
-        "coloringLayer": "CLOTHING_COLOR"
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Down_Left.png",
-        "childAssets": [
-          {
-            "offsetPixels": {
-              "x": -1.5,
-              "y": 10.5
-            },
-            "type": "BODY_CLOTHING_BELOW_1"
-          },
-          {
-            "offsetPixels": {
-              "x": -1.5,
-              "y": 10.5
-            },
-            "type": "BODY_CLOTHING_BELOW_2"
-          },
-          {
-            "offsetPixels": {
-              "x": -1.5,
-              "y": 10.5
-            },
-            "type": "BODY_CLOTHING_ABOVE_1"
-          }
-        ],
-        "offsetPixels": {
-          "x": 1.5,
-          "y": -10.5
-        },
-        "coloringLayer": "CLOTHING_COLOR"
-      },
-      "UP_LEFT": {
-        "filename": "Orc-Male-Strong-Light_Armor-Body_Clothing_Up_Right.png",
-        "offsetPixels": {
-          "x": -4.0,
-          "y": -3.0
-        },
-        "childAssets": [
-          {
-            "type": "BODY_CLOTHING_BELOW_1"
-          },
-          {
-            "type": "BODY_CLOTHING_BELOW_2"
-          },
-          {
-            "type": "BODY_CLOTHING_ABOVE_1"
-          }
-        ],
-        "coloringLayer": "CLOTHING_COLOR",
-        "flipX": true
-      },
-      "UP": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Up.png",
-        "childAssets": [
-          {
-            "offsetPixels": {
-              "x": 0.0,
-              "y": 15.5
-            },
-            "type": "BODY_CLOTHING_BELOW_1"
-          },
-          {
-            "offsetPixels": {
-              "x": 0.0,
-              "y": 15.5
-            },
-            "type": "BODY_CLOTHING_BELOW_2"
-          },
-          {
-            "offsetPixels": {
-              "x": 0.0,
-              "y": 15.5
-            },
-            "type": "BODY_CLOTHING_ABOVE_1"
-          }
-        ],
-        "offsetPixels": {
-          "x": 0.0,
-          "y": -15.5
-        },
-        "coloringLayer": "CLOTHING_COLOR"
-      }
+      "childAssets" : [ {
+        "type" : "BODY_CLOTHING_BELOW_1"
+      }, {
+        "type" : "BODY_CLOTHING_BELOW_2"
+      }, {
+        "type" : "BODY_CLOTHING_ABOVE_1"
+      } ]
     },
-    "bodyShape": "FAT"
-  },
-  {
-    "profession": "LIGHT_ARMOR",
-    "uniqueName": "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "BODY_CLOTHING_ABOVE_1",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "UP_RIGHT": {
-        "filename": "Orc-Male-Strong-Light_Armor-Body_Clothing_Above_1_Up_Right.png",
-        "coloringLayer": "BONE_COLOR"
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Down_Left.png",
+      "coloringLayer" : "CLOTHING_COLOR",
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : -10.5
       },
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Down_Left.png",
-        "offsetPixels": {
-          "x": -25.0,
-          "y": 12.5
-        },
-        "coloringLayer": "BONE_COLOR",
-        "flipX": true
-      },
-      "DOWN": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Down.png",
-        "offsetPixels": {
-          "x": 27.0,
-          "y": 12.5
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Down_Left.png",
-        "offsetPixels": {
-          "x": 25.0,
-          "y": 12.5
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "UP_LEFT": {
-        "filename": "Orc-Male-Strong-Light_Armor-Body_Clothing_Above_1_Up_Right.png",
-        "coloringLayer": "BONE_COLOR",
-        "flipX": true
-      },
-      "UP": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Up.png",
-        "offsetPixels": {
-          "x": -25.5,
-          "y": 5.5
-        },
-        "coloringLayer": "BONE_COLOR"
-      }
-    },
-    "bodyShape": "FAT"
-  },
-  {
-    "profession": "LIGHT_ARMOR",
-    "uniqueName": "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_1",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "BODY_CLOTHING_BELOW_1",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_1_Down_Left.png",
-        "offsetPixels": {
-          "x": 17.5,
-          "y": -24.5
-        },
-        "flipX": true
-      },
-      "DOWN": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_1_Down.png",
-        "offsetPixels": {
-          "x": -13.0,
-          "y": -23.5
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "BODY_CLOTHING_BELOW_1",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : 10.5
         }
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_1_Down_Left.png",
-        "offsetPixels": {
-          "x": -17.5,
-          "y": -24.5
+      }, {
+        "type" : "BODY_CLOTHING_BELOW_2",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : 10.5
         }
-      }
+      }, {
+        "type" : "BODY_CLOTHING_ABOVE_1",
+        "offsetPixels" : {
+          "x" : 1.5,
+          "y" : 10.5
+        }
+      } ]
     },
-    "bodyShape": "FAT"
-  },
-  {
-    "profession": "LIGHT_ARMOR",
-    "uniqueName": "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "BODY_CLOTHING_BELOW_2",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "UP_RIGHT": {
-        "filename": "Orc-Male-Strong-Light_Armor-Body_Clothing_Below_2_Up_Right.png",
-        "coloringLayer": "ACCESSORY_COLOR"
+    "DOWN" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Down.png",
+      "coloringLayer" : "CLOTHING_COLOR",
+      "offsetPixels" : {
+        "y" : -10.5
       },
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Down_Left.png",
-        "offsetPixels": {
-          "x": -1.5,
-          "y": -32.5
-        },
-        "coloringLayer": "ACCESSORY_COLOR",
-        "flipX": true
-      },
-      "DOWN": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Down.png",
-        "offsetPixels": {
-          "x": -0.5,
-          "y": -30.5
-        },
-        "coloringLayer": "ACCESSORY_COLOR"
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Down_Left.png",
-        "offsetPixels": {
-          "x": 1.5,
-          "y": -32.5
-        },
-        "coloringLayer": "ACCESSORY_COLOR"
-      },
-      "UP_LEFT": {
-        "filename": "Orc-Male-Strong-Light_Armor-Body_Clothing_Below_2_Up_Right.png",
-        "coloringLayer": "ACCESSORY_COLOR",
-        "flipX": true
-      },
-      "UP": {
-        "filename": "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Up.png",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": -38.0
-        },
-        "coloringLayer": "ACCESSORY_COLOR"
-      }
+      "childAssets" : [ {
+        "type" : "BODY_CLOTHING_BELOW_1",
+        "offsetPixels" : {
+          "y" : 10.5
+        }
+      }, {
+        "type" : "BODY_CLOTHING_BELOW_2",
+        "offsetPixels" : {
+          "y" : 10.5
+        }
+      }, {
+        "type" : "BODY_CLOTHING_ABOVE_1",
+        "offsetPixels" : {
+          "y" : 10.5
+        }
+      } ]
     },
-    "bodyShape": "FAT"
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Down_Left.png",
+      "coloringLayer" : "CLOTHING_COLOR",
+      "offsetPixels" : {
+        "x" : 1.5,
+        "y" : -10.5
+      },
+      "childAssets" : [ {
+        "type" : "BODY_CLOTHING_BELOW_1",
+        "offsetPixels" : {
+          "x" : -1.5,
+          "y" : 10.5
+        }
+      }, {
+        "type" : "BODY_CLOTHING_BELOW_2",
+        "offsetPixels" : {
+          "x" : -1.5,
+          "y" : 10.5
+        }
+      }, {
+        "type" : "BODY_CLOTHING_ABOVE_1",
+        "offsetPixels" : {
+          "x" : -1.5,
+          "y" : 10.5
+        }
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Up_Right.png",
+      "coloringLayer" : "CLOTHING_COLOR",
+      "offsetPixels" : {
+        "x" : -10.0,
+        "y" : -1.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "BODY_CLOTHING_BELOW_1"
+      }, {
+        "type" : "BODY_CLOTHING_BELOW_2"
+      }, {
+        "type" : "BODY_CLOTHING_ABOVE_1"
+      } ]
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Up.png",
+      "coloringLayer" : "CLOTHING_COLOR",
+      "offsetPixels" : {
+        "y" : -15.5
+      },
+      "childAssets" : [ {
+        "type" : "BODY_CLOTHING_BELOW_1",
+        "offsetPixels" : {
+          "y" : 15.5
+        }
+      }, {
+        "type" : "BODY_CLOTHING_BELOW_2",
+        "offsetPixels" : {
+          "y" : 15.5
+        }
+      }, {
+        "type" : "BODY_CLOTHING_ABOVE_1",
+        "offsetPixels" : {
+          "y" : 15.5
+        }
+      } ]
+    }
   }
-]
+}, {
+  "uniqueName" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1",
+  "type" : "BODY_CLOTHING_ABOVE_1",
+  "raceName" : "Orc",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "profession" : "LIGHT_ARMOR",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -25.0,
+        "y" : 12.5
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Down.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 27.0,
+        "y" : 12.5
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 25.0,
+        "y" : 12.5
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Above_1_Up.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -25.5,
+        "y" : 5.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_1",
+  "type" : "BODY_CLOTHING_BELOW_1",
+  "raceName" : "Orc",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "profession" : "LIGHT_ARMOR",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_1_Down_Left.png",
+      "offsetPixels" : {
+        "x" : 17.5,
+        "y" : -24.5
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_1_Down.png",
+      "offsetPixels" : {
+        "x" : -13.0,
+        "y" : -23.5
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_1_Down_Left.png",
+      "offsetPixels" : {
+        "x" : -17.5,
+        "y" : -24.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2",
+  "type" : "BODY_CLOTHING_BELOW_2",
+  "raceName" : "Orc",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "profession" : "LIGHT_ARMOR",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Up_Right.png",
+      "coloringLayer" : "ACCESSORY_COLOR"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Down_Left.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "offsetPixels" : {
+        "x" : -1.5,
+        "y" : -32.5
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Down.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -30.5
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Down_Left.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "offsetPixels" : {
+        "x" : 1.5,
+        "y" : -32.5
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Up_Right.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Fat-Light_Armor-Body_Clothing_Below_2_Up.png",
+      "coloringLayer" : "ACCESSORY_COLOR",
+      "offsetPixels" : {
+        "y" : -38.0
+      }
+    }
+  }
+} ]

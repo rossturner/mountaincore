@@ -1,101 +1,94 @@
-[
-  {
-    "profession": "NULL_PROFESSION",
-    "uniqueName": "Orc-Male-Strong-Creature_Bodypaint_1",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "CREATURE_BODYPAINT",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Strong-Creature_Bodypaint_1_Down_Left.png",
-        "offsetPixels": {
-          "x": 4.0,
-          "y": -6.5
-        },
-        "flipX": true
+[ {
+  "uniqueName" : "Orc-Male-Strong-Creature_Bodypaint_1",
+  "type" : "CREATURE_BODYPAINT",
+  "raceName" : "Orc",
+  "bodyShape" : "STRONG",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Strong-Creature_Bodypaint_1_Down_Left.png",
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : -6.5
       },
-      "DOWN": {
-        "filename": "Orc-Male-Strong-Creature_Bodypaint_1_Down.png",
-        "offsetPixels": {
-          "x": -2.0,
-          "y": -7.0
-        }
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Strong-Creature_Bodypaint_1_Down_Left.png",
-        "offsetPixels": {
-          "x": -4.0,
-          "y": -6.5
-        }
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Strong-Creature_Bodypaint_1_Down.png",
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : -7.0
       }
     },
-    "bodyShape": "STRONG"
-  },
-  {
-    "profession": "NULL_PROFESSION",
-    "uniqueName": "Orc-Male-Strong-Creature_Bodypaint_2",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "CREATURE_BODYPAINT",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Strong-Creature_Bodypaint_2_Down_Left.png",
-        "offsetPixels": {
-          "x": -2.5,
-          "y": 0.0
-        },
-        "flipX": true
-      },
-      "DOWN": {
-        "filename": "Orc-Male-Strong-Creature_Bodypaint_2_Down.png",
-        "offsetPixels": {
-          "x": 0.5,
-          "y": -3.0
-        }
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Strong-Creature_Bodypaint_2_Down_Left.png",
-        "offsetPixels": {
-          "x": 2.5,
-          "y": 0.0
-        }
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Strong-Creature_Bodypaint_1_Down_Left.png",
+      "offsetPixels" : {
+        "x" : -4.0,
+        "y" : -6.5
       }
-    },
-    "bodyShape": "STRONG"
-  },
-  {
-    "profession": "NULL_PROFESSION",
-    "uniqueName": "Orc-Male-Strong-Creature_Bodypaint_3",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "CREATURE_BODYPAINT",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Strong-Creature_Bodypaint_3_Down_Left.png",
-        "offsetPixels": {
-          "x": 4.0,
-          "y": -10.5
-        },
-        "flipX": true
-      },
-      "DOWN": {
-        "filename": "Orc-Male-Strong-Creature_Bodypaint_3_Down.png",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": -9.0
-        }
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Strong-Creature_Bodypaint_3_Down_Left.png",
-        "offsetPixels": {
-          "x": -4.0,
-          "y": -10.5
-        }
-      }
-    },
-    "bodyShape": "STRONG"
+    }
   }
-]
+}, {
+  "uniqueName" : "Orc-Male-Strong-Creature_Bodypaint_2",
+  "type" : "CREATURE_BODYPAINT",
+  "raceName" : "Orc",
+  "bodyShape" : "STRONG",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Strong-Creature_Bodypaint_2_Down_Left.png",
+      "offsetPixels" : {
+        "x" : -2.5
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Strong-Creature_Bodypaint_2_Down.png",
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : -3.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Strong-Creature_Bodypaint_2_Down_Left.png",
+      "offsetPixels" : {
+        "x" : 2.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Strong-Creature_Bodypaint_3",
+  "type" : "CREATURE_BODYPAINT",
+  "raceName" : "Orc",
+  "bodyShape" : "STRONG",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Strong-Creature_Bodypaint_3_Down_Left.png",
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : -10.5
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Strong-Creature_Bodypaint_3_Down.png",
+      "offsetPixels" : {
+        "y" : -9.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Strong-Creature_Bodypaint_3_Down_Left.png",
+      "offsetPixels" : {
+        "x" : -4.0,
+        "y" : -10.5
+      }
+    }
+  }
+} ]

@@ -1,302 +1,290 @@
-[
-  {
-    "profession": "NULL_PROFESSION",
-    "uniqueName": "Orc-Male-Creature_Horns_1",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "CREATURE_HORNS",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "UP_RIGHT": {
-        "filename": "Orc-Male-Creature_Horns_1_Up_Right.png",
-        "offsetPixels": {
-          "x": 5.5,
-          "y": 17.0
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Creature_Horns_1_Down_Left.png",
-        "offsetPixels": {
-          "x": 4.0,
-          "y": 15.5
-        },
-        "coloringLayer": "BONE_COLOR",
-        "flipX": true
-      },
-      "DOWN": {
-        "filename": "Orc-Male-Creature_Horns_1_Down.png",
-        "offsetPixels": {
-          "x": -0.5,
-          "y": 15.0
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Creature_Horns_1_Down_Left.png",
-        "offsetPixels": {
-          "x": -4.0,
-          "y": 15.5
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "UP_LEFT": {
-        "filename": "Orc-Male-Creature_Horns_1_Up_Right.png",
-        "offsetPixels": {
-          "x": -5.5,
-          "y": 17.0
-        },
-        "coloringLayer": "BONE_COLOR",
-        "flipX": true
-      },
-      "UP": {
-        "filename": "Orc-Male-Creature_Horns_1_Up.png",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 18.0
-        },
-        "coloringLayer": "BONE_COLOR"
+[ {
+  "uniqueName" : "Orc-Male-Creature_Horns_1",
+  "type" : "CREATURE_HORNS",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Horns_1_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 5.5,
+        "y" : 17.0
       }
-    }
-  },
-  {
-    "profession": "NULL_PROFESSION",
-    "uniqueName": "Orc-Male-Creature_Horns_2",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "CREATURE_HORNS",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "UP_RIGHT": {
-        "filename": "Orc-Male-Creature_Horns_2_Up_Right.png",
-        "offsetPixels": {
-          "x": 7.5,
-          "y": 16.0
-        },
-        "coloringLayer": "BONE_COLOR"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Horns_1_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : 15.5
       },
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Creature_Horns_2_Down_Left.png",
-        "offsetPixels": {
-          "x": 4.0,
-          "y": 17.0
-        },
-        "coloringLayer": "BONE_COLOR",
-        "flipX": true
-      },
-      "DOWN": {
-        "filename": "Orc-Male-Creature_Horns_2_Down.png",
-        "offsetPixels": {
-          "x": -0.5,
-          "y": 14.0
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Creature_Horns_2_Down_Left.png",
-        "offsetPixels": {
-          "x": -4.0,
-          "y": 17.0
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "UP_LEFT": {
-        "filename": "Orc-Male-Creature_Horns_2_Up_Right.png",
-        "offsetPixels": {
-          "x": -7.5,
-          "y": 16.0
-        },
-        "coloringLayer": "BONE_COLOR",
-        "flipX": true
-      },
-      "UP": {
-        "filename": "Orc-Male-Creature_Horns_2_Up.png",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 17.5
-        },
-        "coloringLayer": "BONE_COLOR"
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Horns_1_Down.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 15.0
       }
-    }
-  },
-  {
-    "profession": "NULL_PROFESSION",
-    "uniqueName": "Orc-Male-Creature_Horns_3",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "CREATURE_HORNS",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "UP_RIGHT": {
-        "filename": "Orc-Male-Creature_Horns_3_Up_Right.png",
-        "offsetPixels": {
-          "x": 6.5,
-          "y": 19.5
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Creature_Horns_3_Down_Left.png",
-        "offsetPixels": {
-          "x": 3.5,
-          "y": 19.0
-        },
-        "coloringLayer": "BONE_COLOR",
-        "flipX": true
-      },
-      "DOWN": {
-        "filename": "Orc-Male-Creature_Horns_3_Down.png",
-        "offsetPixels": {
-          "x": -0.5,
-          "y": 19.0
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Creature_Horns_3_Down_Left.png",
-        "offsetPixels": {
-          "x": -3.5,
-          "y": 19.0
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "UP_LEFT": {
-        "filename": "Orc-Male-Creature_Horns_3_Up_Right.png",
-        "offsetPixels": {
-          "x": -6.5,
-          "y": 19.5
-        },
-        "coloringLayer": "BONE_COLOR",
-        "flipX": true
-      },
-      "UP": {
-        "filename": "Orc-Male-Creature_Horns_3_Up.png",
-        "offsetPixels": {
-          "x": -0.5,
-          "y": 24.5
-        },
-        "coloringLayer": "BONE_COLOR"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Horns_1_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -4.0,
+        "y" : 15.5
       }
-    }
-  },
-  {
-    "profession": "NULL_PROFESSION",
-    "uniqueName": "Orc-Male-Creature_Horns_4",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "CREATURE_HORNS",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "UP_RIGHT": {
-        "filename": "Orc-Male-Creature_Horns_4_Up_Right.png",
-        "offsetPixels": {
-          "x": 6.0,
-          "y": 20.5
-        },
-        "coloringLayer": "BONE_COLOR"
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Creature_Horns_1_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -5.5,
+        "y" : 17.0
       },
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Creature_Horns_4_Down_Left.png",
-        "offsetPixels": {
-          "x": 4.0,
-          "y": 19.0
-        },
-        "coloringLayer": "BONE_COLOR",
-        "flipX": true
-      },
-      "DOWN": {
-        "filename": "Orc-Male-Creature_Horns_4_Down.png",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 21.0
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Creature_Horns_4_Down_Left.png",
-        "offsetPixels": {
-          "x": -4.0,
-          "y": 19.0
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "UP_LEFT": {
-        "filename": "Orc-Male-Creature_Horns_4_Up_Right.png",
-        "offsetPixels": {
-          "x": -6.0,
-          "y": 20.5
-        },
-        "coloringLayer": "BONE_COLOR",
-        "flipX": true
-      },
-      "UP": {
-        "filename": "Orc-Male-Creature_Horns_4_Up.png",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 22.5
-        },
-        "coloringLayer": "BONE_COLOR"
-      }
-    }
-  },
-  {
-    "profession": "NULL_PROFESSION",
-    "uniqueName": "Orc-Male-Creature_Horns_5",
-    "gender": "MALE",
-    "raceName": "Orc",
-    "type": "CREATURE_HORNS",
-    "consciousnessList": [],
-    "spriteDescriptors": {
-      "UP_RIGHT": {
-        "filename": "Orc-Male-Creature_Horns_5_Up_Right.png",
-        "offsetPixels": {
-          "x": 9.0,
-          "y": 20.5
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "DOWN_RIGHT": {
-        "filename": "Orc-Male-Creature_Horns_5_Down_Left.png",
-        "offsetPixels": {
-          "x": 3.0,
-          "y": 24.0
-        },
-        "coloringLayer": "BONE_COLOR",
-        "flipX": true
-      },
-      "DOWN": {
-        "filename": "Orc-Male-Creature_Horns_5_Down.png",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 23.5
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "DOWN_LEFT": {
-        "filename": "Orc-Male-Creature_Horns_5_Down_Left.png",
-        "offsetPixels": {
-          "x": -3.0,
-          "y": 24.0
-        },
-        "coloringLayer": "BONE_COLOR"
-      },
-      "UP_LEFT": {
-        "filename": "Orc-Male-Creature_Horns_5_Up_Right.png",
-        "offsetPixels": {
-          "x": -9.0,
-          "y": 20.5
-        },
-        "coloringLayer": "BONE_COLOR",
-        "flipX": true
-      },
-      "UP": {
-        "filename": "Orc-Male-Creature_Horns_5_Up.png",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 28.5
-        },
-        "coloringLayer": "BONE_COLOR"
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Creature_Horns_1_Up.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : 18.0
       }
     }
   }
-]
+}, {
+  "uniqueName" : "Orc-Male-Creature_Horns_2",
+  "type" : "CREATURE_HORNS",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Horns_2_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 7.5,
+        "y" : 16.0
+      }
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Horns_2_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : 17.0
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Horns_2_Down.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 14.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Horns_2_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -4.0,
+        "y" : 17.0
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Creature_Horns_2_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -7.5,
+        "y" : 16.0
+      },
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Creature_Horns_2_Up.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : 17.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Creature_Horns_3",
+  "type" : "CREATURE_HORNS",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Horns_3_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 6.5,
+        "y" : 19.5
+      }
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Horns_3_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 3.5,
+        "y" : 19.0
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Horns_3_Down.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 19.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Horns_3_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -3.5,
+        "y" : 19.0
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Creature_Horns_3_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -6.5,
+        "y" : 19.5
+      },
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Creature_Horns_3_Up.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : 24.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Creature_Horns_4",
+  "type" : "CREATURE_HORNS",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Horns_4_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 6.0,
+        "y" : 20.5
+      }
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Horns_4_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : 19.0
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Horns_4_Down.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : 21.0
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Horns_4_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -4.0,
+        "y" : 19.0
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Creature_Horns_4_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -6.0,
+        "y" : 20.5
+      },
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Creature_Horns_4_Up.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : 22.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Orc-Male-Creature_Horns_5",
+  "type" : "CREATURE_HORNS",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "UP_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Horns_5_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 9.0,
+        "y" : 20.5
+      }
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Horns_5_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : 3.0,
+        "y" : 24.0
+      },
+      "flipX" : true
+    },
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Horns_5_Down.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : 23.5
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Horns_5_Down_Left.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -3.0,
+        "y" : 24.0
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Orc-Male-Creature_Horns_5_Up_Right.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "x" : -9.0,
+        "y" : 20.5
+      },
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Orc-Male-Creature_Horns_5_Up.png",
+      "coloringLayer" : "BONE_COLOR",
+      "offsetPixels" : {
+        "y" : 28.5
+      }
+    }
+  }
+} ]

@@ -1,7 +1,6 @@
 package technology.rocketjump.saul.assets.entities.tags;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.entities.tags.TagProcessingUtils;
@@ -22,7 +21,8 @@ public class RemovesHairTag extends Tag {
 
 	@Override
 	public void apply(Entity entity, TagProcessingUtils tagProcessingUtils, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		EntityAssetType hairType = tagProcessingUtils.entityAssetTypeDictionary.getByName("HUMANOID_HAIR");
-		entity.getPhysicalEntityComponent().getTypeMap().remove(hairType);
+		entity.getPhysicalEntityComponent().getTypeMap().remove(tagProcessingUtils.entityAssetTypeDictionary.getByName("CREATURE_HORNS"));
+		entity.getPhysicalEntityComponent().getTypeMap().remove(tagProcessingUtils.entityAssetTypeDictionary.getByName("CREATURE_HAIR"));
+		entity.getPhysicalEntityComponent().getTypeMap().remove(tagProcessingUtils.entityAssetTypeDictionary.getByName("HAIR_OUTLINE"));
 	}
 }
