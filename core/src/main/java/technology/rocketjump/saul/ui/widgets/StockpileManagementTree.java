@@ -49,6 +49,10 @@ public class StockpileManagementTree extends Table {
 		Tree<StockpileTreeNode, String> treeRoot = new Tree<>(uiSkin);
 
 		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll()) {
+			if (!stockpileSettings.isAllowed(stockpileGroup)) {
+				continue;
+			}
+
 			StockpileTreeNode groupNode = new StockpileTreeNode();
 			groupNode.setValue(new StockpileTreeValue(stockpileGroup));
 			createCheckbox(groupNode, stockpileGroup.getI18nKey());

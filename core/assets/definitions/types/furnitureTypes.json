@@ -1402,7 +1402,7 @@
     } ]
   },
   "tags" : {
-    "STOCKPILE" : [ ],
+    "STOCKPILE" : [ "6", "WEAPONS" ],
     "EXTRA_MATERIAL_TYPES" : [ "METAL" ]
   },
   "hiddenFromPlacementMenu" : false

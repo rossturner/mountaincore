@@ -14,27 +14,26 @@ import technology.rocketjump.saul.production.StockpileSettings;
 
 public class FurnitureStockpileComponent implements ParentDependentEntityComponent {
     private final StockpileSettings stockpileSettings;
-    private FurnitureStockpile stockpile;
+    private final FurnitureStockpile stockpile;
 
+    //Used in game loading
     public FurnitureStockpileComponent() {
-        this(new StockpileSettings());
+        this(new StockpileSettings(), new FurnitureStockpile());
     }
 
-    private FurnitureStockpileComponent(StockpileSettings stockpileSettings) {
+    public FurnitureStockpileComponent(StockpileSettings stockpileSettings, FurnitureStockpile furnitureStockpile) {
         this.stockpileSettings = stockpileSettings;
+        this.stockpile = furnitureStockpile;
     }
 
     @Override
     public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-        this.stockpile = new FurnitureStockpile(parentEntity);
+        this.stockpile.setParentEntity(parentEntity);
     }
 
     @Override
     public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
-        FurnitureStockpileComponent cloned = new FurnitureStockpileComponent(stockpileSettings.clone());
-        //TODO: clone allocations
-
-        return cloned;
+        return new FurnitureStockpileComponent(stockpileSettings.clone(), stockpile.clone());
     }
 
     public StockpileSettings getStockpileSettings() {
@@ -51,7 +50,9 @@ public class FurnitureStockpileComponent implements ParentDependentEntityCompone
         stockpileSettings.writeTo(stockpileSettingsJson, savedGameStateHolder);
         asJson.put("stockpileSettings", stockpileSettingsJson);
 
-        //TODO: persist stockpile allocations
+        JSONObject stockpileJson = new JSONObject();
+        stockpile.writeTo(stockpileJson, savedGameStateHolder);
+        asJson.put("stockpile", stockpileJson);
     }
 
     @Override
@@ -61,7 +62,10 @@ public class FurnitureStockpileComponent implements ParentDependentEntityCompone
             stockpileSettings.readFrom(stockpileSettingsJson, savedGameStateHolder, relatedStores);
         }
 
-        //TODO: persist stockpile allocations
+        JSONObject stockpileJson = asJson.getJSONObject("stockpile");
+        if (stockpileJson != null) {
+            stockpile.readFrom(stockpileJson, savedGameStateHolder, relatedStores);
+        }
     }
 
 }

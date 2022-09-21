@@ -23,6 +23,7 @@ public class StockpileSettings implements ChildPersistable {
     private final Map<ItemType, Set<GameMaterial>> enabledMaterialsByItemType = new HashMap<ItemType, Set<GameMaterial>>();
     private boolean acceptingCorpses;
     private final Set<Race> enabledRaceCorpses = new HashSet<Race>();
+    private final Set<String> restrictions = new HashSet<>();
 
     public StockpileSettings clone() {
         StockpileSettings cloned = new StockpileSettings();
@@ -31,7 +32,6 @@ public class StockpileSettings implements ChildPersistable {
         cloned.enabledMaterialsByItemType.putAll(getEnabledMaterialsByItemType());
         return cloned;
     }
-
 
     public void toggle(StockpileGroup group, boolean enabled) {
         if (enabled) {
@@ -156,6 +156,14 @@ public class StockpileSettings implements ChildPersistable {
             materialMappingJson.put(entry.getKey().getItemTypeName(), materialNames);
         }
         asJson.put("enabledMaterials", materialMappingJson);
+
+        JSONArray restrictionsJson = new JSONArray();
+        for (String restriction : restrictions) {
+            JSONObject restrictionJson = new JSONObject();
+            restrictionJson.put("stockpileGroupName", restriction);
+            restrictionsJson.add(restrictionJson);
+        }
+        asJson.put("restrictions", restrictionsJson);
     }
 
     @Override
@@ -218,6 +226,26 @@ public class StockpileSettings implements ChildPersistable {
                 }
                 getEnabledMaterialsByItemType().put(itemType, materials);
             }
+        }
+
+        JSONArray restrictionsJson = asJson.getJSONArray("restrictions");
+        if (restrictionsJson != null) {
+            for (int i = 0; i < restrictionsJson.size(); i++) {
+                String stockpileGroupName = restrictionsJson.getJSONObject(i).getString("stockpileGroupName");
+                restrictions.add(stockpileGroupName);
+            }
+        }
+    }
+
+    public void addRestriction(String stockpileGroupName) {
+        restrictions.add(stockpileGroupName);
+    }
+
+    public boolean isAllowed(StockpileGroup stockpileGroup) {
+        if (restrictions.isEmpty()) {
+            return true;
+        } else {
+            return restrictions.contains(stockpileGroup.getName());
         }
     }
 }
