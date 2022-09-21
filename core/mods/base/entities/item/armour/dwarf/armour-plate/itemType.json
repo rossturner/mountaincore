@@ -11,7 +11,8 @@
       "STABBING" : 2,
       "SLASHING" : 2,
       "CRUSHING" : 0
-    }
+    },
+    "restrictedToRaceNames" : [ "Dwarf" ]
   },
   "i18nKey" : "ARMOUR.PLATE"
 }

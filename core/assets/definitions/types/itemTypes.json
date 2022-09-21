@@ -22,7 +22,8 @@
       "STABBING" : 1,
       "SLASHING" : 2,
       "CRUSHING" : 3
-    }
+    },
+    "restrictedToRaceNames" : [ "Dwarf" ]
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.LEATHER"
@@ -48,7 +49,8 @@
       "STABBING" : 2,
       "SLASHING" : 2,
       "CRUSHING" : 0
-    }
+    },
+    "restrictedToRaceNames" : [ "Dwarf" ]
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.PLATE"
@@ -74,7 +76,8 @@
       "STABBING" : 0,
       "SLASHING" : 1,
       "CRUSHING" : 0
-    }
+    },
+    "restrictedToRaceNames" : [ "Orc" ]
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.ORC.HEAVY"
@@ -100,7 +103,8 @@
       "STABBING" : 0,
       "SLASHING" : 1,
       "CRUSHING" : 1
-    }
+    },
+    "restrictedToRaceNames" : [ "Orc" ]
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.ORC.LIGHT"
@@ -1444,7 +1448,8 @@
       "STABBING" : 2,
       "SLASHING" : 2,
       "CRUSHING" : 0
-    }
+    },
+    "restrictedToRaceNames" : [ ]
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.SHIELD"
@@ -1498,7 +1503,8 @@
       "STABBING" : 0,
       "SLASHING" : 0,
       "CRUSHING" : 0
-    }
+    },
+    "restrictedToRaceNames" : [ ]
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.WOODEN.SHIELD"

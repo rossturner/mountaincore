@@ -2,10 +2,7 @@ package technology.rocketjump.saul.assets.editor.widgets.propertyeditor;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.kotcrab.vis.ui.widget.Separator;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.*;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 
@@ -25,6 +22,8 @@ public class RestrictedByRaceWidget extends VisTable {
 
 	private void reload() {
 		this.clearChildren();
+
+		this.add(new VisLabel("Restrict to race(s):")).colspan(2).left().row();
 
 		for (String raceName : sourceData) {
 			VisSelectBox<Race> raceSelect = WidgetBuilder.select(raceDictionary.getByName(raceName), raceDictionary.getAll(), null, otherRace -> {

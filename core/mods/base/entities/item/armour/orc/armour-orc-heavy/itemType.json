@@ -11,7 +11,8 @@
       "STABBING" : 0,
       "SLASHING" : 1,
       "CRUSHING" : 0
-    }
+    },
+    "restrictedToRaceNames" : [ "Orc" ]
   },
   "i18nKey" : "ARMOUR.ORC.HEAVY"
 }

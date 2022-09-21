@@ -31,7 +31,7 @@ public class DefenseInfo {
 		if (restrictedToRaces == null || restrictedToRaces.isEmpty()) {
 			return true;
 		} else {
-			if (entity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes) {
+			if (entity != null && entity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes) {
 				return restrictedToRaces.contains(creatureEntityAttributes.getRace());
 			} else {
 				return false;
