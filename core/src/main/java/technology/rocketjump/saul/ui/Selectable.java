@@ -68,6 +68,9 @@ public class Selectable implements Comparable<Selectable> {
 	}
 
 	public boolean equals(Selectable other) {
+		if (other == null) {
+			return false;
+		}
 		if (this.type.equals(other.type)) {
 			// Types are the same so compare on IDs
 			return this.getId() == other.getId();

@@ -107,6 +107,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private GameContext gameContext;
 	private Label beingDeconstructedLabel;
 	private I18nCheckbox militaryToggleCheckbox;
+	private Selectable previousSelectable;
 
 	private final Table nameTable;
 	private final Table professionsTable;
@@ -132,11 +133,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	// For stockpiles
 	private FurnitureStockpileComponent currentStockpileComponent;
+	private StockpileManagementTree stockpileManagementTree;
 	private final StockpileComponentUpdater stockpileComponentUpdater;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 	private final GameMaterialDictionary gameMaterialDictionary;
 	private final RaceDictionary raceDictionary;
 	private final ItemTypeDictionary itemTypeDictionary;
+
 
 	@Inject
 	public EntitySelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
@@ -329,6 +332,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Selectable selectable = gameInteractionStateContainer.getSelectable();
 
 		if (selectable != null && selectable.type.equals(ENTITY)) {
+			boolean sameSelectable = selectable.equals(previousSelectable);
+			previousSelectable = selectable;
+
 			Entity entity = selectable.getEntity();
 			this.currentStockpileComponent = entity.getComponent(FurnitureStockpileComponent.class);
 			if (entity.isSettler()) {
@@ -473,12 +479,20 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				outerTable.add(i18nWidgetFactory.createLabel("GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED"));
 			}
 
+
+
 			if (currentStockpileComponent != null) {
 				outerTable.row();
-				outerTable.add(new StockpileManagementTree(uiSkin, messageDispatcher,
-								stockpileComponentUpdater, stockpileGroupDictionary, i18nTranslator, itemTypeDictionary, gameMaterialDictionary, raceDictionary,
-								gameContext.getSettlementState().getSettlerRace(), entity.getId(), HaulingAllocation.AllocationPositionType.FURNITURE, currentStockpileComponent.getStockpileSettings()))
-						.left().pad(4).row();
+
+				//Dirty hack for now
+				if (!sameSelectable) {
+					this.stockpileManagementTree = new StockpileManagementTree(uiSkin, messageDispatcher,
+						stockpileComponentUpdater, stockpileGroupDictionary, i18nTranslator, itemTypeDictionary, gameMaterialDictionary, raceDictionary,
+						gameContext.getSettlementState().getSettlerRace(), entity.getId(), HaulingAllocation.AllocationPositionType.FURNITURE, currentStockpileComponent.getStockpileSettings());
+
+				}
+
+				outerTable.add(this.stockpileManagementTree).left().pad(4).row();
 			}
 		}
 
