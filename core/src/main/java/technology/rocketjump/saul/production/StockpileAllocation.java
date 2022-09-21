@@ -35,7 +35,6 @@ public class StockpileAllocation implements ChildPersistable {
 		this.position = position;
 	}
 
-	//TODO: this might need to check inventory
 	public void refreshQuantityInTile(MapTile mapTile) {
 		quantityInTile = 0;
 		for (Entity entity : mapTile.getEntities()) {
