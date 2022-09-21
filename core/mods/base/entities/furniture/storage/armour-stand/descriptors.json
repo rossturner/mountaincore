@@ -8,8 +8,14 @@
     "DOWN" : {
       "filename" : "Armour-Stand-1x1-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : -0.5
+      },
       "attachmentPoints" : [ {
-        "type" : "ATTACHMENT_WORKSPACE_1"
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "y" : 0.5
+        }
       } ]
     }
   }

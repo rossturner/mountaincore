@@ -10090,7 +10090,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -0.5,
         "unit" : false
       },
       "flipX" : false,
@@ -10100,7 +10100,7 @@
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 0.5,
           "unit" : false
         }
       } ],
@@ -10122,7 +10122,7 @@
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 6.0,
+        "y" : 5.0,
         "unit" : false
       },
       "flipX" : false,
@@ -10131,22 +10131,22 @@
         "type" : "SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
-          "unit" : false
+          "y" : 1.0,
+          "unit" : true
         }
       }, {
         "type" : "SHOW_WHEN_INVENTORY_PRESENT_2",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
-          "unit" : false
+          "y" : 1.0,
+          "unit" : true
         }
       }, {
         "type" : "SHOW_WHEN_INVENTORY_PRESENT_3",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
-          "unit" : false
+          "y" : 1.0,
+          "unit" : true
         }
       } ],
       "attachmentPoints" : [ ],
@@ -10167,8 +10167,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -0.5,
+        "y" : -2.5,
         "unit" : false
       },
       "flipX" : false,
@@ -10191,8 +10191,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -2.5,
+        "y" : 18.0,
         "unit" : false
       },
       "flipX" : false,
@@ -10215,8 +10215,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -5.5,
+        "y" : 6.0,
         "unit" : false
       },
       "flipX" : false,
@@ -10241,7 +10241,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -0.5,
         "unit" : false
       },
       "flipX" : false,
@@ -10250,21 +10250,21 @@
         "type" : "SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 0.5,
           "unit" : false
         }
       }, {
         "type" : "SHOW_WHEN_INVENTORY_PRESENT_2",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 0.5,
           "unit" : false
         }
       }, {
         "type" : "SHOW_WHEN_INVENTORY_PRESENT_3",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : 0.5,
           "unit" : false
         }
       } ],
@@ -10286,8 +10286,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 1.5,
+        "y" : 3.5,
         "unit" : false
       },
       "flipX" : false,
@@ -10310,8 +10310,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -2.5,
+        "y" : 16.0,
         "unit" : false
       },
       "flipX" : false,
@@ -10335,8 +10335,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 5.0,
+        "y" : 9.5,
         "unit" : false
       },
       "flipX" : false,
