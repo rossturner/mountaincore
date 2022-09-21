@@ -1,7 +1,7 @@
 {
   "name" : "Armour_Stand",
   "i18nKey" : "FURNITURE.ARMOUR_STAND",
-  "defaultLayoutName" : "1x1",
+  "defaultLayoutName" : "1x1 with workspaces",
   "colorCode" : "#E9B775",
   "iconName" : "armor-vest",
   "requirements" : {
@@ -9,5 +9,8 @@
       "itemTypeName" : "Resource-Logs",
       "quantity" : 2
     } ]
+  },
+  "tags" : {
+    "STOCKPILE" : [ "1", "WEAPONS" ]
   }
 }

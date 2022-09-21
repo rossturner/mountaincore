@@ -10079,7 +10079,7 @@
   "uniqueName" : "Armour_Stand-1x1-Base_Layer-Wood",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "Armour_Stand",
-  "furnitureLayoutName" : "1x1",
+  "furnitureLayoutName" : "1x1 with workspaces",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : { },
   "spriteDescriptors" : {
@@ -10096,7 +10096,14 @@
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     }
   }
