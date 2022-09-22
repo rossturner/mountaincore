@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 public class StockpileTag extends Tag {
 
 	private static final Pattern IS_MACRO_PATTERN = Pattern.compile("IS_(ARMOUR|WEAPON)");
-	private static final Pattern ITEM_TYPE_PATTERN = Pattern.compile("ItemType_(\\w+)");
+	private static final Pattern ITEM_TYPE_PATTERN = Pattern.compile("ItemType_(.*)");
 
 	@Override
 	public String getTagName() {
@@ -35,6 +35,10 @@ public class StockpileTag extends Tag {
 		boolean isValid = true;
 		if (args.size() > 0) {
 			isValid = args.get(0).matches("\\d+");
+		}
+		for (int i = 1; i < args.size(); i++) {
+			String argument = args.get(i);
+			isValid = IS_MACRO_PATTERN.matcher(argument).matches() || ITEM_TYPE_PATTERN.matcher(argument).matches();
 		}
 		return isValid;
 	}
