@@ -33,44 +33,6 @@ public class StockpileSettings implements ChildPersistable {
         return cloned;
     }
 
-    public void toggle(StockpileGroup group, boolean enabled) {
-        if (enabled) {
-            getEnabledGroups().add(group);
-        } else {
-            getEnabledGroups().remove(group);
-        }
-    }
-
-    public void toggle(ItemType itemType, boolean enabled) {
-        if (enabled) {
-            getEnabledItemTypes().add(itemType);
-        } else {
-            getEnabledItemTypes().remove(itemType);
-        }
-    }
-
-    public void toggle(ItemType itemType, GameMaterial gameMaterial, boolean enabled) {
-        Set<GameMaterial> materials = getEnabledMaterialsByItemType().computeIfAbsent(itemType, a -> new LinkedHashSet<>());
-
-        if (enabled) {
-            materials.add(gameMaterial);
-        } else {
-            materials.remove(gameMaterial);
-
-            if (materials.isEmpty()) {
-                getEnabledMaterialsByItemType().remove(itemType);
-            }
-        }
-    }
-
-    public void toggleCorpse(Race race, boolean enabled) {
-        if (enabled) {
-            getEnabledRaceCorpses().add(race);
-        } else {
-            getEnabledRaceCorpses().remove(race);
-        }
-    }
-
     public boolean canHold(Entity entity) {
         if (entity.getType().equals(EntityType.ITEM)) {
             ItemEntityAttributes itemAttributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
@@ -119,7 +81,7 @@ public class StockpileSettings implements ChildPersistable {
         return enabledMaterialsByItemType;
     }
 
-    public Set<Race> getEnabledRaceCorpses() {
+    private Set<Race> getEnabledRaceCorpses() {
         return enabledRaceCorpses;
     }
 
@@ -135,6 +97,45 @@ public class StockpileSettings implements ChildPersistable {
     public boolean isAllowed(ItemType itemType) {
         return restrictionsContainName(itemType.getItemTypeName());
     }
+
+    void toggle(StockpileGroup group, boolean enabled) {
+        if (enabled) {
+            getEnabledGroups().add(group);
+        } else {
+            getEnabledGroups().remove(group);
+        }
+    }
+
+    void toggle(ItemType itemType, boolean enabled) {
+        if (enabled) {
+            getEnabledItemTypes().add(itemType);
+        } else {
+            getEnabledItemTypes().remove(itemType);
+        }
+    }
+
+    void toggle(ItemType itemType, GameMaterial gameMaterial, boolean enabled) {
+        Set<GameMaterial> materials = getEnabledMaterialsByItemType().computeIfAbsent(itemType, a -> new LinkedHashSet<>());
+
+        if (enabled) {
+            materials.add(gameMaterial);
+        } else {
+            materials.remove(gameMaterial);
+
+            if (materials.isEmpty()) {
+                getEnabledMaterialsByItemType().remove(itemType);
+            }
+        }
+    }
+
+    void toggleCorpse(Race race, boolean enabled) {
+        if (enabled) {
+            getEnabledRaceCorpses().add(race);
+        } else {
+            getEnabledRaceCorpses().remove(race);
+        }
+    }
+
 
     private boolean restrictionsContainName(String name) {
         if (restrictions.isEmpty()) {

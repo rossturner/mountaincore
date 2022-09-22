@@ -42,6 +42,7 @@ import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
+import technology.rocketjump.saul.rooms.tags.StockpileTag;
 import technology.rocketjump.saul.settlement.ItemTracker;
 
 import java.util.*;
@@ -278,10 +279,10 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			}
 		}));
 
-		messageDispatcher.dispatchMessage(MessageType.GET_FURNITURE_BY_COMPONENT, new GetFurnitureByComponentMessage(FurnitureStockpileComponent.class, furniture -> {
+		messageDispatcher.dispatchMessage(MessageType.GET_FURNITURE_BY_TAG, new GetFurnitureByTagMessage(StockpileTag.class, furniture -> {
 			for (Entity pieceOfFurniture : furniture) {
 				FurnitureStockpileComponent stockpileComponent = pieceOfFurniture.getComponent(FurnitureStockpileComponent.class);
-				if (stockpileComponent.getStockpileSettings().canHold(entity)) {
+				if (stockpileComponent != null && stockpileComponent.getStockpileSettings().canHold(entity)) {
 					Map<Float, AbstractStockpile> byDistance = stockpilesByDistanceByPriority.get(JobPriority.HIGHEST); //Furniture has the highest priority, todo: maybe let player specify
 					byDistance.put(entityPosition.dst2(pieceOfFurniture.getLocationComponent().getWorldPosition()), stockpileComponent.getStockpile());
 				}

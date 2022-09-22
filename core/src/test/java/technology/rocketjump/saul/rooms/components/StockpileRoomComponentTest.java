@@ -6,10 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
@@ -23,6 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 
@@ -95,9 +100,16 @@ public class StockpileRoomComponentTest {
 
 	@Test
 	public void allocate_stacks_items_into_same_tile() {
+		Entity mockRequestingEntity = Mockito.mock(Entity.class);
+		ItemAllocation mockItemAllocation = Mockito.mock(ItemAllocation.class);
+		LocationComponent mockLocationComponent = Mockito.mock(LocationComponent.class);
+		when(mockItem.getOrCreateComponent(ItemAllocationComponent.class)).thenReturn(mockItemAllocationComponent);
+		when(mockItemAllocationComponent.createAllocation(anyInt(), any(), any())).thenReturn(mockItemAllocation);
+		when(mockItem.getLocationComponent()).thenReturn(mockLocationComponent);
+
 
 		for (int i = 1; i <= 10; i++) {
-			stockpileRoomComponent.requestAllocation(mockItem, mockMap);
+			stockpileRoomComponent.getStockpile().requestAllocation(mockItem, mockMap, mockRequestingEntity);
 		}
 
 		StockpileAllocation allocation = stockpileRoomComponent.getAllocationAt(new GridPoint2(0, 0));
