@@ -2,6 +2,7 @@
   {
     "name": "Orc invasion",
     "triggeredBy": "Population",
+    "objective": "Pillage",
     "minHoursUntilFirstInvasion": 1,
     "minHoursBetweenInvasions": 1,
     "participants": [
@@ -17,16 +18,31 @@
         "equipmentOptions": {
           "weapons": [
             {
-              "itemTypeName": "axe",
-              "costByQuality": {
-                "AWFUL": 4,
-                "POOR": 6,
-                "STANDARD": 10
-              }
+              "itemTypeName": "Weapon-Battle-Axe",
+              "standardPointsCost": 16
+            }
+          ],
+          "shield": [
+            {
+              "none": true
+            },
+            {
+              "itemTypeName": "Weapon-Wooden-Shield",
+              "standardPointsCost": 10
             }
           ],
           "armour": [
-
+            {
+              "none": true
+            },
+            {
+              "itemTypeName": "Armour-Orc-Light",
+              "standardPointsCost": 10
+            },
+            {
+              "itemTypeName": "Armour-Orc-Heavy",
+              "standardPointsCost": 18
+            }
           ]
         }
       }
