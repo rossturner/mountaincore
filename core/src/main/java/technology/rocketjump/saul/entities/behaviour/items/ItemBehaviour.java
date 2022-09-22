@@ -83,7 +83,8 @@ public class ItemBehaviour implements BehaviourComponent {
 
 			Entity container = parentEntity.getLocationComponent().getContainerEntity();
 			if (container != null && container.getComponent(FurnitureStockpileComponent.class) != null){
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, true, JobPriority.NORMAL, null));
+				boolean forceRemoval = !container.getComponent(FurnitureStockpileComponent.class).getStockpileSettings().canHold(parentEntity);
+				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, forceRemoval, JobPriority.NORMAL, null));
 			}
 		}
 

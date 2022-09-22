@@ -2,6 +2,8 @@ package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -13,6 +15,7 @@ import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.VisProgressBar;
 import org.apache.commons.lang3.StringUtils;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.ai.combat.CombatAction;
@@ -41,6 +44,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
 import technology.rocketjump.saul.jobs.model.Job;
+import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.jobs.model.JobType;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
@@ -139,6 +143,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private final GameMaterialDictionary gameMaterialDictionary;
 	private final RaceDictionary raceDictionary;
 	private final ItemTypeDictionary itemTypeDictionary;
+	private List<ToggleButtonSet.ToggleButtonDefinition> priorityButtonDefinitions;
 
 
 	@Inject
@@ -148,7 +153,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 								 I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary,
 								 ImageButtonFactory imageButtonFactory, ClickableTableFactory clickableTableFactory,
 								 StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
-								 GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary, ItemTypeDictionary itemTypeDictionary) {
+								 GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
+								 ItemTypeDictionary itemTypeDictionary, TextureAtlasRepository textureAtlasRepository) {
 		uiSkin = guiSkinRepository.getDefault();
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
@@ -313,6 +319,18 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}));
 			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
 		};
+
+
+		priorityButtonDefinitions = new ArrayList<>();
+		// TODO might want to pull the below code out somewhere else
+		TextureAtlas guiTextureAtlas = textureAtlasRepository.get(TextureAtlasRepository.TextureAtlasType.GUI_TEXTURE_ATLAS);
+		for (JobPriority jobPriority : Arrays.asList(JobPriority.LOWEST, JobPriority.LOWER, JobPriority.NORMAL, JobPriority.HIGHER, JobPriority.HIGHEST)) {
+			Sprite sprite = guiTextureAtlas.createSprite(jobPriority.iconName);
+			sprite.scale(0.5f);
+			sprite.setSize(sprite.getWidth() / 2f, sprite.getHeight() / 2f);
+			sprite.setColor(jobPriority.color);
+			priorityButtonDefinitions.add(new ToggleButtonSet.ToggleButtonDefinition(jobPriority.name(), sprite));
+		}
 	}
 
 	@Override
@@ -479,10 +497,23 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				outerTable.add(i18nWidgetFactory.createLabel("GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED"));
 			}
 
-
-
 			if (currentStockpileComponent != null) {
 				outerTable.row();
+
+				ToggleButtonSet priorityToggle = new ToggleButtonSet(uiSkin, priorityButtonDefinitions, (value) -> {
+					JobPriority selectedPriority = JobPriority.valueOf(value);
+					currentStockpileComponent.setPriority(selectedPriority);
+				});
+				priorityToggle.setChecked(currentStockpileComponent.getPriority().name());
+
+				Table priorityStack = new Table();
+				priorityStack.add(new Label(i18nTranslator.getTranslatedString("GUI.PRIORITY_LABEL").toString(), uiSkin)).left().row();
+				priorityStack.add(priorityToggle).left().row();
+				priorityStack.align(Align.left);
+				priorityStack.pad(2);
+
+				outerTable.add(priorityStack).colspan(3).left().row();
+
 
 				//Dirty hack for now
 				if (!sameSelectable) {

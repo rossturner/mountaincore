@@ -283,7 +283,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			for (Entity pieceOfFurniture : furniture) {
 				FurnitureStockpileComponent stockpileComponent = pieceOfFurniture.getComponent(FurnitureStockpileComponent.class);
 				if (stockpileComponent != null && stockpileComponent.getStockpileSettings().canHold(entity) && pieceOfFurniture.getLocationComponent().getWorldPosition() != null) {
-					Map<Float, AbstractStockpile> byDistance = stockpilesByDistanceByPriority.get(JobPriority.HIGHER); //Furniture has the highest priority, todo: maybe let player specify
+					Map<Float, AbstractStockpile> byDistance = stockpilesByDistanceByPriority.get(stockpileComponent.getPriority());
 					byDistance.put(entityPosition.dst2(pieceOfFurniture.getLocationComponent().getWorldPosition()), stockpileComponent.getStockpile());
 				}
 			}
@@ -422,6 +422,12 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 	private static JobPriority getStockpilePriority(Entity entity, Vector2 worldPosition, TiledMap areaMap) {
 		MapTile tile = areaMap.getTile(worldPosition);
+		if (entity.getLocationComponent().getContainerEntity() != null) {
+			FurnitureStockpileComponent component = entity.getLocationComponent().getContainerEntity().getComponent(FurnitureStockpileComponent.class);
+			if (component != null) {
+				return component.getPriority();
+			}
+		}
 		if (tile.getRoomTile() != null) {
 			Room room = tile.getRoomTile().getRoom();
 			StockpileRoomComponent stockpileRoomComponent = room.getComponent(StockpileRoomComponent.class);
