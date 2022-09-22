@@ -41,7 +41,7 @@ import technology.rocketjump.saul.production.AbstractStockpile;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 import technology.rocketjump.saul.rooms.Room;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.settlement.ItemTracker;
 
 import java.util.*;
@@ -265,14 +265,14 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 		JobPriority currentStockpilePriority = getStockpilePriority(entity, entityPosition, areaMap);
 
-		messageDispatcher.dispatchMessage(MessageType.GET_ROOMS_BY_COMPONENT, new GetRoomsByComponentMessage(StockpileComponent.class, rooms -> {
+		messageDispatcher.dispatchMessage(MessageType.GET_ROOMS_BY_COMPONENT, new GetRoomsByComponentMessage(StockpileRoomComponent.class, rooms -> {
 			for (Room room : rooms) {
-				StockpileComponent stockpileComponent = room.getComponent(StockpileComponent.class);
-				if (stockpileComponent.getStockpileSettings().canHold(entity)) {
+				StockpileRoomComponent stockpileRoomComponent = room.getComponent(StockpileRoomComponent.class);
+				if (stockpileRoomComponent.getStockpileSettings().canHold(entity)) {
 					int roomRegionId = room.getRoomTiles().values().iterator().next().getTile().getRegionId();
 					if (sourceRegionId == roomRegionId) {
-						Map<Float, AbstractStockpile> byDistance = stockpilesByDistanceByPriority.get(stockpileComponent.getPriority());
-						byDistance.put(entityPosition.dst2(room.getAvgWorldPosition()), stockpileComponent.getStockpile());
+						Map<Float, AbstractStockpile> byDistance = stockpilesByDistanceByPriority.get(stockpileRoomComponent.getPriority());
+						byDistance.put(entityPosition.dst2(room.getAvgWorldPosition()), stockpileRoomComponent.getStockpile());
 					}
 				}
 			}
@@ -423,9 +423,9 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		MapTile tile = areaMap.getTile(worldPosition);
 		if (tile.getRoomTile() != null) {
 			Room room = tile.getRoomTile().getRoom();
-			StockpileComponent stockpileComponent = room.getComponent(StockpileComponent.class);
-			if (stockpileComponent != null && stockpileComponent.getStockpileSettings().canHold(entity)) {
-				return stockpileComponent.getPriority();
+			StockpileRoomComponent stockpileRoomComponent = room.getComponent(StockpileRoomComponent.class);
+			if (stockpileRoomComponent != null && stockpileRoomComponent.getStockpileSettings().canHold(entity)) {
+				return stockpileRoomComponent.getPriority();
 			}
 		}
 		return JobPriority.DISABLED;

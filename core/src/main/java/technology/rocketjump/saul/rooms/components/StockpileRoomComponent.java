@@ -41,17 +41,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class StockpileComponent extends RoomComponent implements SelectableDescription, Prioritisable {
+public class StockpileRoomComponent extends RoomComponent implements SelectableDescription, Prioritisable {
 
 	private final StockpileSettings stockpileSettings;
 	private final RoomStockpile stockpile;
 	private JobPriority priority = JobPriority.NORMAL;
 
-	public StockpileComponent(Room parent, MessageDispatcher messageDispatcher) {
+	public StockpileRoomComponent(Room parent, MessageDispatcher messageDispatcher) {
 		this(parent, messageDispatcher, new StockpileSettings());
 	}
 
-	private StockpileComponent(Room parent, MessageDispatcher messageDispatcher, StockpileSettings stockpileSettings) {
+	private StockpileRoomComponent(Room parent, MessageDispatcher messageDispatcher, StockpileSettings stockpileSettings) {
 		super(parent, messageDispatcher);
 		this.stockpileSettings = stockpileSettings;
 		this.stockpile = new RoomStockpile(parent);
@@ -65,7 +65,7 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 	@Override
 	public RoomComponent clone(Room newParent) {
 
-		StockpileComponent cloned = new StockpileComponent(newParent, messageDispatcher, stockpileSettings.clone());
+		StockpileRoomComponent cloned = new StockpileRoomComponent(newParent, messageDispatcher, stockpileSettings.clone());
 
 		// Copy over allocations, duplicates will be removed after
 		for (Map.Entry<GridPoint2, StockpileAllocation> entry : this.stockpile.getAllocations().entrySet()) {
@@ -76,7 +76,7 @@ public class StockpileComponent extends RoomComponent implements SelectableDescr
 
 	@Override
 	public void mergeFrom(RoomComponent otherComponent) {
-		StockpileComponent other = (StockpileComponent) otherComponent;
+		StockpileRoomComponent other = (StockpileRoomComponent) otherComponent;
 		for (Map.Entry<GridPoint2, StockpileAllocation> entry : other.stockpile.getAllocations().entrySet()) {
 			this.stockpile.getAllocations().put(entry.getKey(), entry.getValue());
 		}

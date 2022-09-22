@@ -21,7 +21,7 @@ import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
 import technology.rocketjump.saul.rooms.components.FarmPlotComponent;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.settlement.FurnitureTracker;
 import technology.rocketjump.saul.settlement.ItemTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
@@ -106,9 +106,9 @@ public class HintProgressEvaluator implements GameContextAware {
 				if (targetType == null) {
 					Logger.error("Could not find stockpile group by type " + descriptor.getTargetTypeName() + " when evaluating " + descriptor.toString());
 				} else {
-					for (Room stockpile : roomStore.getByComponent(StockpileComponent.class)) {
-						StockpileComponent stockpileComponent = stockpile.getComponent(StockpileComponent.class);
-						if (stockpileComponent.getStockpileSettings().isEnabled(targetType)) {
+					for (Room stockpile : roomStore.getByComponent(StockpileRoomComponent.class)) {
+						StockpileRoomComponent stockpileRoomComponent = stockpile.getComponent(StockpileRoomComponent.class);
+						if (stockpileRoomComponent.getStockpileSettings().isEnabled(targetType)) {
 							quantity += stockpile.getRoomTiles().size();
 						}
 					}

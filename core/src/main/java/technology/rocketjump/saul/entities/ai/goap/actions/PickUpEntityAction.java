@@ -31,7 +31,7 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 
 import java.util.ArrayList;
@@ -239,9 +239,9 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 		completionType = SUCCESS;
 
 		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldPosition());
-		if (currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileComponent.class) != null) {
-			StockpileComponent stockpileComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileComponent.class);
-			stockpileComponent.itemOrCreaturePickedUp(currentTile);
+		if (currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class) != null) {
+			StockpileRoomComponent stockpileRoomComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class);
+			stockpileRoomComponent.itemOrCreaturePickedUp(currentTile);
 		}
 	}
 
@@ -285,9 +285,9 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			entityToPickUp.getComponent(ItemAllocationComponent.class).cancel(itemAllocation);
 			targetItemAttributes.setQuantity(targetItemAttributes.getQuantity() - quantityToPick);
 
-			if (currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileComponent.class) != null) {
-				StockpileComponent stockpileComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileComponent.class);
-				stockpileComponent.itemOrCreaturePickedUp(currentTile);
+			if (currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class) != null) {
+				StockpileRoomComponent stockpileRoomComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class);
+				stockpileRoomComponent.itemOrCreaturePickedUp(currentTile);
 			}
 
 			if (targetItemAttributes.getQuantity() <= 0) {

@@ -27,9 +27,9 @@ import static org.mockito.Mockito.when;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 
 @RunWith(MockitoJUnitRunner.class)
-public class StockpileComponentTest {
+public class StockpileRoomComponentTest {
 
-	private StockpileComponent stockpileComponent;
+	private StockpileRoomComponent stockpileRoomComponent;
 
 	@Mock
 	private Room mockRoom;
@@ -56,7 +56,7 @@ public class StockpileComponentTest {
 
 	@Before
 	public void setUp() throws Exception {
-		stockpileComponent = new StockpileComponent(mockRoom, mockMessageDispatcher);
+		stockpileRoomComponent = new StockpileRoomComponent(mockRoom, mockMessageDispatcher);
 
 		roomTiles = new HashMap<>();
 
@@ -97,12 +97,12 @@ public class StockpileComponentTest {
 	public void allocate_stacks_items_into_same_tile() {
 
 		for (int i = 1; i <= 10; i++) {
-			stockpileComponent.requestAllocation(mockItem, mockMap);
+			stockpileRoomComponent.requestAllocation(mockItem, mockMap);
 		}
 
-		StockpileAllocation allocation = stockpileComponent.getAllocationAt(new GridPoint2(0, 0));
+		StockpileAllocation allocation = stockpileRoomComponent.getAllocationAt(new GridPoint2(0, 0));
 		if (allocation == null) {
-			allocation = stockpileComponent.getAllocationAt(new GridPoint2(0, 1));
+			allocation = stockpileRoomComponent.getAllocationAt(new GridPoint2(0, 1));
 		}
 
 		assertThat(allocation.getTotalQuantity()).isEqualTo(100);

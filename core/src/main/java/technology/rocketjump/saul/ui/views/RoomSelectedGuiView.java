@@ -32,7 +32,7 @@ import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.components.FarmPlotComponent;
 import technology.rocketjump.saul.rooms.components.RoomComponent;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
@@ -77,7 +77,7 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 	private List<ToggleButtonSet.ToggleButtonDefinition> priorityButtonDefinitions;
 
 	// For stockpiles
-	private StockpileComponent currentStockpileComponent;
+	private StockpileRoomComponent currentStockpileRoomComponent;
 	boolean showStockpileManagement = false;
 	private final StockpileComponentUpdater stockpileComponentUpdater;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
@@ -234,7 +234,7 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 				// Still update if it's not a farm plot (due to SelectBox reset on farm plot)
 				// FIXME Better to use a dialog for making changes, also gives more space to show info
 				FarmPlotComponent farmPlotComponent = currentSelectable.getRoom().getComponent(FarmPlotComponent.class);
-				if (farmPlotComponent == null && currentStockpileComponent == null) {
+				if (farmPlotComponent == null && currentStockpileRoomComponent == null) {
 					doUpdate();
 				}
 			}
@@ -249,13 +249,13 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 			Room room = currentSelectable.getRoom();
 
 			boolean requiresFurnitureButton = !room.getRoomType().getFurnitureNames().isEmpty();
-			StockpileComponent stockpileComponent = room.getComponent(StockpileComponent.class);
+			StockpileRoomComponent stockpileRoomComponent = room.getComponent(StockpileRoomComponent.class);
 
 			outerTable.add(descriptionTable).left().row();
 
 			Table buttonsTable = new Table(uiSkin);
-			if (stockpileComponent != null) {
-				currentStockpileComponent = stockpileComponent;
+			if (stockpileRoomComponent != null) {
+				currentStockpileRoomComponent = stockpileRoomComponent;
 				buttonsTable.add(manageStockpileButton).left().pad(4);
 			}
 			if (requiresFurnitureButton) {
@@ -266,10 +266,10 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 			buttonsTable.add(removeButton).left().pad(4).row();
 			outerTable.add(buttonsTable).left().row();
 
-			if (showStockpileManagement && currentStockpileComponent != null) {
+			if (showStockpileManagement && currentStockpileRoomComponent != null) {
 				outerTable.add(new StockpileManagementTree(uiSkin, messageDispatcher,
 								stockpileComponentUpdater, stockpileGroupDictionary, i18nTranslator, itemTypeDictionary, gameMaterialDictionary, raceDictionary,
-								gameContext.getSettlementState().getSettlerRace(), room.getRoomId(), HaulingAllocation.AllocationPositionType.ROOM, currentStockpileComponent.getStockpileSettings()))
+								gameContext.getSettlementState().getSettlerRace(), room.getRoomId(), HaulingAllocation.AllocationPositionType.ROOM, currentStockpileRoomComponent.getStockpileSettings()))
 						.left().pad(4).row();
 			}
 

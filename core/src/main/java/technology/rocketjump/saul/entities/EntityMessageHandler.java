@@ -58,7 +58,7 @@ import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomStore;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.settlement.*;
 import technology.rocketjump.saul.settlement.notifications.Notification;
@@ -472,8 +472,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						switch (allocation.getTargetPositionType()) {
 							case ROOM -> {
 								Room targetRoom = roomStore.getById(allocation.getTargetId());
-								if (targetRoom != null && targetRoom.getComponent(StockpileComponent.class) != null) {
-									targetRoom.getComponent(StockpileComponent.class).allocationCancelled(allocation, targetItemEntity);
+								if (targetRoom != null && targetRoom.getComponent(StockpileRoomComponent.class) != null) {
+									targetRoom.getComponent(StockpileRoomComponent.class).allocationCancelled(allocation, targetItemEntity);
 								}
 							}
 							case CONSTRUCTION -> {

@@ -28,7 +28,7 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -228,9 +228,9 @@ public class PlaceEntityAction extends Action {
 				}
 			}
 
-			if (completionType.equals(SUCCESS) && currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileComponent.class) != null) {
-				StockpileComponent stockpileComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileComponent.class);
-				stockpileComponent.itemPlaced(currentTile, itemToPlaceAttributes, quantityToPlace);
+			if (completionType.equals(SUCCESS) && currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class) != null) {
+				StockpileRoomComponent stockpileRoomComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class);
+				stockpileRoomComponent.itemPlaced(currentTile, itemToPlaceAttributes, quantityToPlace);
 			}
 
 		} else { // not of type ITEM
@@ -243,9 +243,9 @@ public class PlaceEntityAction extends Action {
 			completionType = SUCCESS;
 
 			if (entityToPlace.getType().equals(EntityType.CREATURE) && entityToPlace.getBehaviourComponent() instanceof CorpseBehaviour &&
-					currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileComponent.class) != null) {
-				StockpileComponent stockpileComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileComponent.class);
-				stockpileComponent.corpsePlaced(currentTile, (CreatureEntityAttributes)entityToPlace.getPhysicalEntityComponent().getAttributes());
+					currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class) != null) {
+				StockpileRoomComponent stockpileRoomComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class);
+				stockpileRoomComponent.corpsePlaced(currentTile, (CreatureEntityAttributes)entityToPlace.getPhysicalEntityComponent().getAttributes());
 			}
 		}
 	}

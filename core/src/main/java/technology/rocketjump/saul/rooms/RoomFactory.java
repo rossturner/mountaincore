@@ -10,7 +10,7 @@ import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.TileNeighbours;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rooms.components.RoomComponent;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
@@ -50,8 +50,8 @@ public class RoomFactory implements GameContextAware, I18nUpdatable {
 		for (RoomComponent originalComponent : originalRoom.getAllComponents()) {
 			RoomComponent cloned = originalComponent.clone(newRoom);
 			newRoom.addComponent(cloned);
-			if (cloned instanceof StockpileComponent) {
-				Iterator<StockpileGroup> groupIterator = ((StockpileComponent) cloned).getEnabledGroups().iterator();
+			if (cloned instanceof StockpileRoomComponent) {
+				Iterator<StockpileGroup> groupIterator = ((StockpileRoomComponent) cloned).getEnabledGroups().iterator();
 				if (groupIterator.hasNext()) {
 					String translatedName =  i18nTranslator.getTranslatedString(newRoom.getRoomType().getI18nKey()).toString();
 					String groupTranslated = i18nTranslator.getTranslatedString(groupIterator.next().getI18nKey()).toString();
@@ -95,10 +95,10 @@ public class RoomFactory implements GameContextAware, I18nUpdatable {
 			if (!room.isNameChangedByPlayer()) {
 				I18nText translatedName = i18nTranslator.getTranslatedString(room.getRoomType().getI18nKey());
 				String translatedStockpileGroup = null;
-				StockpileComponent stockpileComponent = room.getComponent(StockpileComponent.class);
-				if (stockpileComponent != null) {
-					if (!stockpileComponent.getEnabledGroups().isEmpty()) {
-						StockpileGroup group = stockpileComponent.getEnabledGroups().iterator().next();
+				StockpileRoomComponent stockpileRoomComponent = room.getComponent(StockpileRoomComponent.class);
+				if (stockpileRoomComponent != null) {
+					if (!stockpileRoomComponent.getEnabledGroups().isEmpty()) {
+						StockpileGroup group = stockpileRoomComponent.getEnabledGroups().iterator().next();
 						translatedStockpileGroup = i18nTranslator.getTranslatedString(group.getI18nKey()).toString();
 					}
 				}

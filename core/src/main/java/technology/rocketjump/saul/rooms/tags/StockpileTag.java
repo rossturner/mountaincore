@@ -14,7 +14,7 @@ import technology.rocketjump.saul.production.FurnitureStockpile;
 import technology.rocketjump.saul.production.StockpileComponentUpdater;
 import technology.rocketjump.saul.production.StockpileSettings;
 import technology.rocketjump.saul.rooms.Room;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
@@ -45,7 +45,7 @@ public class StockpileTag extends Tag {
 
 	@Override
 	public void apply(Room room, TagProcessingUtils tagProcessingUtils) {
-		room.createComponent(StockpileComponent.class, tagProcessingUtils.messageDispatcher);
+		room.createComponent(StockpileRoomComponent.class, tagProcessingUtils.messageDispatcher);
 	}
 
 	@Override

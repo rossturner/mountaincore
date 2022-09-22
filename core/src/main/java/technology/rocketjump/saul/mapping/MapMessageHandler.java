@@ -55,7 +55,7 @@ import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomFactory;
 import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.RoomTile;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.settlement.notifications.Notification;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
@@ -249,9 +249,9 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 
 		while (!roomTilesToPlace.isEmpty()) {
 			Room newRoom = roomFactory.create(roomPlacementMessage.getRoomType(), roomTilesToPlace);
-			StockpileComponent stockpileComponent = newRoom.getComponent(StockpileComponent.class);
-			if (stockpileComponent != null && roomPlacementMessage.stockpileGroup != null) {
-				stockpileComponentUpdater.toggleGroup(stockpileComponent.getStockpileSettings(), roomPlacementMessage.stockpileGroup, true, true);
+			StockpileRoomComponent stockpileRoomComponent = newRoom.getComponent(StockpileRoomComponent.class);
+			if (stockpileRoomComponent != null && roomPlacementMessage.stockpileGroup != null) {
+				stockpileComponentUpdater.toggleGroup(stockpileRoomComponent.getStockpileSettings(), roomPlacementMessage.stockpileGroup, true, true);
 				roomFactory.updateRoomNameForStockpileGroup(newRoom, roomPlacementMessage.stockpileGroup);
 			}
 			newRooms.add(newRoom);
