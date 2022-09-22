@@ -123,6 +123,27 @@ public class StockpileSettings implements ChildPersistable {
         return enabledRaceCorpses;
     }
 
+    public void addRestriction(ItemType itemType) {
+        restrictions.add(itemType.getStockpileGroupName());
+        restrictions.add(itemType.getItemTypeName());
+    }
+
+    public boolean isAllowed(StockpileGroup stockpileGroup) {
+        return restrictionsContainName(stockpileGroup.getName());
+    }
+
+    public boolean isAllowed(ItemType itemType) {
+        return restrictionsContainName(itemType.getItemTypeName());
+    }
+
+    private boolean restrictionsContainName(String name) {
+        if (restrictions.isEmpty()) {
+            return true;
+        } else {
+            return restrictions.contains(name);
+        }
+    }
+
     @Override
     public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
         JSONArray enabledGroupsJson = new JSONArray();
@@ -234,27 +255,6 @@ public class StockpileSettings implements ChildPersistable {
                 String restriction = restrictionsJson.getJSONObject(i).getString("value");
                 restrictions.add(restriction);
             }
-        }
-    }
-
-    public void addRestriction(ItemType itemType) {
-        restrictions.add(itemType.getStockpileGroupName());
-        restrictions.add(itemType.getItemTypeName());
-    }
-
-    public boolean isAllowed(StockpileGroup stockpileGroup) {
-        return restrictionsContainName(stockpileGroup.getName());
-    }
-
-    public boolean isAllowed(ItemType itemType) {
-        return restrictionsContainName(itemType.getItemTypeName());
-    }
-
-    private boolean restrictionsContainName(String name) {
-        if (restrictions.isEmpty()) {
-            return true;
-        } else {
-            return restrictions.contains(name);
         }
     }
 }

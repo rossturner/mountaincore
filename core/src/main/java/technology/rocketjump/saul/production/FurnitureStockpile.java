@@ -59,6 +59,14 @@ public class FurnitureStockpile extends AbstractStockpile implements ChildPersis
         currentAllocationCount--;
     }
 
+    public FurnitureStockpile clone() {
+        FurnitureStockpile cloned = new FurnitureStockpile();
+        cloned.maxQuantity = this.maxQuantity;
+        cloned.currentAllocationCount = this.currentAllocationCount;
+        cloned.parentEntity = this.parentEntity;
+        return cloned;
+    }
+
     @Override
     public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
         asJson.put("currentAllocationCount", currentAllocationCount);
@@ -69,14 +77,6 @@ public class FurnitureStockpile extends AbstractStockpile implements ChildPersis
     public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
         this.currentAllocationCount = asJson.getIntValue("currentAllocationCount");
         this.maxQuantity = asJson.getIntValue("maxQuantity");
-    }
-
-    public FurnitureStockpile clone() {
-        FurnitureStockpile cloned = new FurnitureStockpile();
-        cloned.maxQuantity = this.maxQuantity;
-        cloned.currentAllocationCount = this.currentAllocationCount;
-        cloned.parentEntity = this.parentEntity;
-        return cloned;
     }
 
 }
