@@ -495,10 +495,11 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 								Entity targetFurnitureEntity = entityStore.getById(allocation.getTargetId());
 								if (targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
 									((CraftingStationBehaviour) targetFurnitureEntity.getBehaviourComponent()).allocationCancelled(allocation);
+								} else if (targetFurnitureEntity != null && targetFurnitureEntity.getComponent(FurnitureStockpileComponent.class) != null) {
+									targetFurnitureEntity.getComponent(FurnitureStockpileComponent.class).getStockpile().cancelAllocation();
 								} else if (
 										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour ||
-										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof InnoculationLogBehaviour ||
-										targetFurnitureEntity != null && targetFurnitureEntity.getComponent(FurnitureStockpileComponent.class) != null
+										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof InnoculationLogBehaviour
 								) {
 									// Do nothing, CollectItemFurnitureBehaviour will deal with cancelled allocations, eventually, might want to improve this
 								} else {
