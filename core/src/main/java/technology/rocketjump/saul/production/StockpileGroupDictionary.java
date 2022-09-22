@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.rooms;
+package technology.rocketjump.saul.production;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;

@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.rooms;
+package technology.rocketjump.saul.production;
 
 import com.badlogic.gdx.graphics.Color;
 import com.fasterxml.jackson.annotation.JsonIgnore;

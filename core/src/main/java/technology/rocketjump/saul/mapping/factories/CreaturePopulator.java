@@ -189,6 +189,10 @@ public class CreaturePopulator {
 
 		int totalMonsterDifficulty = monsterRaces.stream().mapToInt(this::monsterDifficulty).filter(difficulty -> difficulty <= difficultyCap).sum();
 
+		if (totalMonsterDifficulty <= 0) {
+			return null;
+		}
+
 		int selection = gameContext.getRandom().nextInt(totalMonsterDifficulty);
 
 		Race monster = null;

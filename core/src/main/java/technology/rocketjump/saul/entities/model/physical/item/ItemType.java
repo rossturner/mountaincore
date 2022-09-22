@@ -9,7 +9,7 @@ import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.Name;
-import technology.rocketjump.saul.rooms.StockpileGroup;
+import technology.rocketjump.saul.production.StockpileGroup;
 
 import java.util.ArrayList;
 import java.util.HashMap;

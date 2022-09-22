@@ -2,6 +2,8 @@ package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -13,6 +15,7 @@ import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.widget.VisProgressBar;
 import org.apache.commons.lang3.StringUtils;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.ai.combat.CombatAction;
@@ -24,16 +27,15 @@ import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescrip
 import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
+import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
-import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
-import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.DeathReason;
-import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesType;
 import technology.rocketjump.saul.environment.model.GameSpeed;
@@ -42,14 +44,19 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
 import technology.rocketjump.saul.jobs.model.Job;
+import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.jobs.model.JobType;
 import technology.rocketjump.saul.mapping.tile.MapTile;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.PopulateSelectItemViewMessage;
 import technology.rocketjump.saul.military.model.Squad;
+import technology.rocketjump.saul.production.StockpileComponentUpdater;
+import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
+import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.screens.CraftingManagementScreen;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
@@ -104,6 +111,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private GameContext gameContext;
 	private Label beingDeconstructedLabel;
 	private I18nCheckbox militaryToggleCheckbox;
+	private Selectable previousSelectable;
 
 	private final Table nameTable;
 	private final Table professionsTable;
@@ -126,12 +134,27 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private final List<IconOnlyButton> upButtons = new ArrayList<>();
 	private final List<IconOnlyButton> downButtons = new ArrayList<>();
 
+
+	// For stockpiles
+	private FurnitureStockpileComponent currentStockpileComponent;
+	private StockpileManagementTree stockpileManagementTree;
+	private final StockpileComponentUpdater stockpileComponentUpdater;
+	private final StockpileGroupDictionary stockpileGroupDictionary;
+	private final GameMaterialDictionary gameMaterialDictionary;
+	private final RaceDictionary raceDictionary;
+	private final ItemTypeDictionary itemTypeDictionary;
+	private List<ToggleButtonSet.ToggleButtonDefinition> priorityButtonDefinitions;
+
+
 	@Inject
 	public EntitySelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
 								 GameInteractionStateContainer gameInteractionStateContainer, IconButtonFactory iconButtonFactory,
 								 EntityStore entityStore, JobStore jobStore,
 								 I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary,
-								 ImageButtonFactory imageButtonFactory, ClickableTableFactory clickableTableFactory) {
+								 ImageButtonFactory imageButtonFactory, ClickableTableFactory clickableTableFactory,
+								 StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
+								 GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
+								 ItemTypeDictionary itemTypeDictionary, TextureAtlasRepository textureAtlasRepository) {
 		uiSkin = guiSkinRepository.getDefault();
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
@@ -141,6 +164,11 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		this.messageDispatcher = messageDispatcher;
 		this.imageButtonFactory = imageButtonFactory;
 		this.iconButtonFactory = iconButtonFactory;
+		this.stockpileComponentUpdater = stockpileComponentUpdater;
+		this.stockpileGroupDictionary = stockpileGroupDictionary;
+		this.gameMaterialDictionary = gameMaterialDictionary;
+		this.raceDictionary = raceDictionary;
+		this.itemTypeDictionary = itemTypeDictionary;
 
 		outerTable = new Table(uiSkin);
 		outerTable.background("default-rect");
@@ -294,6 +322,18 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					}));
 			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
 		};
+
+
+		priorityButtonDefinitions = new ArrayList<>();
+		// TODO might want to pull the below code out somewhere else
+		TextureAtlas guiTextureAtlas = textureAtlasRepository.get(TextureAtlasRepository.TextureAtlasType.GUI_TEXTURE_ATLAS);
+		for (JobPriority jobPriority : Arrays.asList(JobPriority.LOWEST, JobPriority.LOWER, JobPriority.NORMAL, JobPriority.HIGHER, JobPriority.HIGHEST)) {
+			Sprite sprite = guiTextureAtlas.createSprite(jobPriority.iconName);
+			sprite.scale(0.5f);
+			sprite.setSize(sprite.getWidth() / 2f, sprite.getHeight() / 2f);
+			sprite.setColor(jobPriority.color);
+			priorityButtonDefinitions.add(new ToggleButtonSet.ToggleButtonDefinition(jobPriority.name(), sprite));
+		}
 	}
 
 	@Override
@@ -313,7 +353,11 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Selectable selectable = gameInteractionStateContainer.getSelectable();
 
 		if (selectable != null && selectable.type.equals(ENTITY)) {
+			boolean sameSelectable = selectable.equals(previousSelectable);
+			previousSelectable = selectable;
+
 			Entity entity = selectable.getEntity();
+			this.currentStockpileComponent = entity.getComponent(FurnitureStockpileComponent.class);
 			if (entity.isSettler()) {
 				buildSettlerSelectedView(entity);
 				// TODO description of any dead creatures
@@ -455,7 +499,37 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			if (itemAllocationComponent != null && itemAllocationComponent.getAllocationForPurpose(CONTENTS_TO_BE_DUMPED) != null) {
 				outerTable.add(i18nWidgetFactory.createLabel("GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED"));
 			}
+
+			if (currentStockpileComponent != null) {
+				outerTable.row();
+
+				ToggleButtonSet priorityToggle = new ToggleButtonSet(uiSkin, priorityButtonDefinitions, (value) -> {
+					JobPriority selectedPriority = JobPriority.valueOf(value);
+					currentStockpileComponent.setPriority(selectedPriority);
+				});
+				priorityToggle.setChecked(currentStockpileComponent.getPriority().name());
+
+				Table priorityStack = new Table();
+				priorityStack.add(new Label(i18nTranslator.getTranslatedString("GUI.PRIORITY_LABEL").toString(), uiSkin)).left().row();
+				priorityStack.add(priorityToggle).left().row();
+				priorityStack.align(Align.left);
+				priorityStack.pad(2);
+
+				outerTable.add(priorityStack).colspan(3).left().row();
+
+
+				//Dirty hack for now
+				if (!sameSelectable) {
+					this.stockpileManagementTree = new StockpileManagementTree(uiSkin, messageDispatcher,
+						stockpileComponentUpdater, stockpileGroupDictionary, i18nTranslator, itemTypeDictionary, gameMaterialDictionary, raceDictionary,
+						gameContext.getSettlementState().getSettlerRace(), entity.getId(), HaulingAllocation.AllocationPositionType.FURNITURE, currentStockpileComponent.getStockpileSettings());
+
+				}
+
+				outerTable.add(this.stockpileManagementTree).left().pad(4).row();
+			}
 		}
+
 	}
 
 	private void buildSettlerSelectedView(Entity entity) {

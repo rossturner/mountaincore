@@ -26,7 +26,6 @@ import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestLiquidAllocationMessage;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
-import technology.rocketjump.saul.rooms.RoomStore;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,7 +49,7 @@ public class AssignedGoalFactory {
 	private static final float AMOUNT_REQUIRED_TO_DOUSE_FIRE = 0.5f;
 
 
-	public static AssignedGoal placeHauledItemGoal(Entity parentEntity, RoomStore roomStore, MessageDispatcher messageDispatcher, GameContext gameContext) {
+	public static AssignedGoal placeHauledItemGoal(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		Entity hauledEntity = parentEntity.getComponent(HaulingComponent.class).getHauledEntity();
 		// need somewhere to place it
 
@@ -71,7 +70,7 @@ public class AssignedGoalFactory {
 			}
 			itemAllocationComponent.cancelAll(ItemAllocation.Purpose.HAULING);
 
-			stockpileAllocation = findStockpileAllocation(gameContext.getAreaMap(), hauledEntity, roomStore, parentEntity);
+			stockpileAllocation = findStockpileAllocation(gameContext.getAreaMap(), hauledEntity, parentEntity, messageDispatcher);
 
 			if (stockpileAllocation != null && stockpileAllocation.getItemAllocation() != null) {
 				// Stockpile allocation found, swap from DUE_TO_BE_HAULED
@@ -95,7 +94,7 @@ public class AssignedGoalFactory {
 		}
 	}
 
-	public static AssignedGoal checkToPlaceInventoryItems(Entity parentEntity, RoomStore roomStore, MessageDispatcher messageDispatcher, GameContext gameContext) {
+	public static AssignedGoal checkToPlaceInventoryItems(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		// Place an unused item into a stockpile if a space is available
 		InventoryComponent inventory = parentEntity.getComponent(InventoryComponent.class);
 		if (inventory != null) {
@@ -131,7 +130,7 @@ public class AssignedGoalFactory {
 						ItemAllocationComponent itemAllocationComponent = entry.entity.getOrCreateComponent(ItemAllocationComponent.class);
 						itemAllocationComponent.cancelAll(HELD_IN_INVENTORY);
 
-						HaulingAllocation stockpileAllocation = findStockpileAllocation(gameContext.getAreaMap(), entry.entity, roomStore, parentEntity);
+						HaulingAllocation stockpileAllocation = findStockpileAllocation(gameContext.getAreaMap(), entry.entity, parentEntity, messageDispatcher);
 
 						if (stockpileAllocation == null) {
 							itemAllocationComponent.createAllocation(attributes.getQuantity(), parentEntity, HELD_IN_INVENTORY);

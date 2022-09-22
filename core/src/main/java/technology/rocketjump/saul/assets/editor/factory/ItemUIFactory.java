@@ -54,8 +54,8 @@ import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.persistence.FileUtils;
-import technology.rocketjump.saul.rooms.StockpileGroup;
-import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
+import technology.rocketjump.saul.production.StockpileGroup;
+import technology.rocketjump.saul.production.StockpileGroupDictionary;
 
 import java.nio.file.Path;
 import java.util.*;

@@ -32,9 +32,14 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RoomPlacementMessage;
+import technology.rocketjump.saul.production.StockpileComponentUpdater;
+import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
-import technology.rocketjump.saul.rooms.*;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.Room;
+import technology.rocketjump.saul.rooms.RoomTile;
+import technology.rocketjump.saul.rooms.RoomType;
+import technology.rocketjump.saul.rooms.RoomTypeDictionary;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -168,13 +173,13 @@ public class TiledMapFactory {
 		messageDispatcher.dispatchMessage(MessageType.ROOM_PLACEMENT, new RoomPlacementMessage(roomTiles, stockpileRoomType, stockpileGroupList.get(0)));
 
 		Room placedRoom = gameContext.getAreaMap().getTile(embarkPoint).getRoomTile().getRoom();
-		StockpileComponent stockpileComponent = placedRoom.getComponent(StockpileComponent.class);
+		StockpileRoomComponent stockpileRoomComponent = placedRoom.getComponent(StockpileRoomComponent.class);
 		for (StockpileGroup stockpileGroup : stockpileGroupList) {
-			stockpileComponentUpdater.toggleGroup(stockpileComponent, stockpileGroup, false, true);
+			stockpileComponentUpdater.toggleGroup(stockpileRoomComponent.getStockpileSettings(), stockpileGroup, false, true);
 		}
 		for (ItemType placedItemType : placedItems) {
-			if (!stockpileComponent.isEnabled(placedItemType)) {
-				stockpileComponentUpdater.toggleItem(stockpileComponent, placedItemType, true, true, true);
+			if (!stockpileRoomComponent.getStockpileSettings().isEnabled(placedItemType)) {
+				stockpileComponentUpdater.toggleItem(stockpileRoomComponent.getStockpileSettings(), placedItemType, true, true, true);
 			}
 		}
 
