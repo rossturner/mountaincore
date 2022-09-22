@@ -496,7 +496,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 								if (targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
 									((CraftingStationBehaviour) targetFurnitureEntity.getBehaviourComponent()).allocationCancelled(allocation);
 								} else if (targetFurnitureEntity != null && targetFurnitureEntity.getComponent(FurnitureStockpileComponent.class) != null) {
-									targetFurnitureEntity.getComponent(FurnitureStockpileComponent.class).getStockpile().cancelAllocation();
+									targetFurnitureEntity.getComponent(FurnitureStockpileComponent.class).getStockpile().cancelAllocation(allocation);
 								} else if (
 										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour ||
 										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof InnoculationLogBehaviour

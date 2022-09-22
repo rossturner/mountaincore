@@ -71,10 +71,10 @@ public class PlaceEntityAction extends Action {
 						Logger.error("Not in nearest workspace for furniture to place item into");
 						completionType = FAILURE;
 					} else {
-						placeEntityInFurniture(containerComponent, targetFurniture, gameContext);
+						placeEntityInFurniture(containerComponent, targetFurniture, gameContext, haulingAllocation);
 					}
 				} else if (adjacentTo(targetFurniture)) {
-					placeEntityInFurniture(containerComponent, targetFurniture, gameContext);
+					placeEntityInFurniture(containerComponent, targetFurniture, gameContext, haulingAllocation);
 				} else {
 					// Not adjacent or not in workspace
 					completionType = FAILURE;
@@ -132,7 +132,7 @@ public class PlaceEntityAction extends Action {
 		// No state to read
 	}
 
-	private void placeEntityInFurniture(EntityComponent currentContainer, Entity targetFurniture, GameContext gameContext) {
+	private void placeEntityInFurniture(EntityComponent currentContainer, Entity targetFurniture, GameContext gameContext, HaulingAllocation haulingAllocation) {
 		Entity itemToPlace = getTargetFrom(currentContainer);
 		if (targetFurniture == null) {
 			completionType = FAILURE; // Could not find furniture to place item into
@@ -147,7 +147,7 @@ public class PlaceEntityAction extends Action {
 			parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, targetFurniture);
 			FurnitureStockpileComponent stockpileComponent = targetFurniture.getComponent(FurnitureStockpileComponent.class);
 			if (stockpileComponent != null) {
-				stockpileComponent.getStockpile().cancelAllocation();
+				stockpileComponent.getStockpile().cancelAllocation(haulingAllocation);
 			}
 
 			if (targetFurniture.getBehaviourComponent() instanceof CraftingStationBehaviour) {
