@@ -43,11 +43,16 @@
   "genders" : {
     "MALE" : {
       "weighting" : 0.5,
-      "hasHair" : 0.6
+      "hideAssetTypes": {
+        "CREATURE_HAIR": 0.4
+      }
     },
     "FEMALE" : {
       "weighting" : 0.5,
-      "hasHair" : 1.0
+      "hideAssetTypes": {
+        "CREATURE_EYEBROWS": 1,
+        "CREATURE_BEARD": 1
+      }
     }
   },
   "features" : {

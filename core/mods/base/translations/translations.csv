@@ -36,6 +36,10 @@ ACTION.STUNNED,,Stunned
 
 ARMOUR.LEATHER,,Leather armour
 ARMOUR.LEATHER.TOOLTIP,,A light and basic armour to protect you in combat
+ARMOUR.PLATE,,Plate armour
+ARMOUR.PLATE.TOOLTIP,,Thick and sturdy armour which offers a lot of protection in combat
+ARMOUR.ORC.HEAVY,,Orc armour
+ARMOUR.ORC.LIGHT,,Leather orc armour
 
 ASHES.NOUN,,Ash
 

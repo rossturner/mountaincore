@@ -1,0 +1,21 @@
+{
+  "itemTypeName" : "Armour-Plate",
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : {
+    "ASSET_OVERRIDE_BY_SKILL" : [ "HEAVY_ARMOR", "CLOTHING_COLOR" ]
+  },
+  "defenseInfo" : {
+    "type" : "ARMOR",
+    "maxDefensePoints" : 20,
+    "maxDefenseRegainedPerRound" : 5,
+    "damageReduction" : {
+      "STABBING" : 2,
+      "SLASHING" : 2,
+      "CRUSHING" : 0
+    },
+    "restrictedToRaceNames" : [ "Dwarf" ]
+  },
+  "i18nKey" : "ARMOUR.PLATE"
+}

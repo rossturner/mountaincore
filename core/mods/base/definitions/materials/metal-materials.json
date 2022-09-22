@@ -6,7 +6,7 @@
     "oxidisation": {
       "effect": "CONVERT_MATERIAL",
       "changesTo": "Rusted Iron",
-      "hoursToConvert": 380,
+      "hoursToConvert": 580,
       "setsItemQualityTo": "AWFUL"
     }
   },
@@ -17,7 +17,7 @@
     "oxidisation": {
       "effect": "CONVERT_MATERIAL",
       "changesTo": "Rusted Iron",
-      "hoursToConvert": 480,
+      "hoursToConvert": 680,
       "setsItemQualityTo": "AWFUL"
     }
   },

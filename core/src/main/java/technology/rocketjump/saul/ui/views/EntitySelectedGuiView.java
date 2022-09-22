@@ -270,53 +270,56 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		weaponSelectionAction = () -> {
 			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
-					PopulateSelectItemViewMessage.ItemSelectionCategory.WEAPON, entity -> {
-				Entity settler = gameInteractionStateContainer.getSelectable().getEntity();
-				if (settler != null) {
-					MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
-					if (entity != null) {
-						militaryComponent.setAssignedWeaponId(entity.getId());
-						if (isTwoHandedWeapon(entity)) {
-							militaryComponent.setAssignedShieldId(null);
+					PopulateSelectItemViewMessage.ItemSelectionCategory.WEAPON, gameInteractionStateContainer.getSelectable().getEntity(),
+					entity -> {
+						Entity settler = gameInteractionStateContainer.getSelectable().getEntity();
+						if (settler != null) {
+							MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
+							if (entity != null) {
+								militaryComponent.setAssignedWeaponId(entity.getId());
+								if (isTwoHandedWeapon(entity)) {
+									militaryComponent.setAssignedShieldId(null);
+								}
+							} else {
+								militaryComponent.setAssignedWeaponId(null);
+							}
 						}
-					} else {
-						militaryComponent.setAssignedWeaponId(null);
-					}
-				}
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
-			}));
+						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
+					}));
 			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
 		};
 		shieldSelectionAction = () -> {
 			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
-					PopulateSelectItemViewMessage.ItemSelectionCategory.SHIELD, entity -> {
-				Entity settler = gameInteractionStateContainer.getSelectable().getEntity();
-				if (settler != null) {
-					MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
-					if (entity != null) {
-						militaryComponent.setAssignedShieldId(entity.getId());
-					} else {
-						militaryComponent.setAssignedShieldId(null);
-					}
-				}
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
-			}));
+					PopulateSelectItemViewMessage.ItemSelectionCategory.SHIELD, gameInteractionStateContainer.getSelectable().getEntity(),
+					entity -> {
+						Entity settler = gameInteractionStateContainer.getSelectable().getEntity();
+						if (settler != null) {
+							MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
+							if (entity != null) {
+								militaryComponent.setAssignedShieldId(entity.getId());
+							} else {
+								militaryComponent.setAssignedShieldId(null);
+							}
+						}
+						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
+					}));
 			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
 		};
 		armorSelectionAction = () -> {
 			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
-					PopulateSelectItemViewMessage.ItemSelectionCategory.ARMOR, entity -> {
-				Entity settler = gameInteractionStateContainer.getSelectable().getEntity();
-				if (settler != null) {
-					MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
-					if (entity != null) {
-						militaryComponent.setAssignedArmorId(entity.getId());
-					} else {
-						militaryComponent.setAssignedArmorId(null);
-					}
-				}
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
-			}));
+					PopulateSelectItemViewMessage.ItemSelectionCategory.ARMOR, gameInteractionStateContainer.getSelectable().getEntity(),
+					entity -> {
+						Entity settler = gameInteractionStateContainer.getSelectable().getEntity();
+						if (settler != null) {
+							MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
+							if (entity != null) {
+								militaryComponent.setAssignedArmorId(entity.getId());
+							} else {
+								militaryComponent.setAssignedArmorId(null);
+							}
+						}
+						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
+					}));
 			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
 		};
 

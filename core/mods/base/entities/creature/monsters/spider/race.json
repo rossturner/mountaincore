@@ -25,6 +25,14 @@
     },
     "aggressionResponse" : "ATTACK"
   },
+  "genders" : {
+    "MALE" : {
+      "weighting" : 0.5
+    },
+    "FEMALE" : {
+      "weighting" : 0.5
+    }
+  },
   "features" : {
     "defense" : {
       "maxDefensePoints" : 6,

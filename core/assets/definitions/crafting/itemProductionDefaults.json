@@ -1,6 +1,9 @@
 {
   "Armour-Leather" : {
-    "perSettler" : 1.0
+    "perSettler" : 0.15
+  },
+  "Armour-Plate" : {
+    "perSettler" : 0.15
   },
   "Carcass-Carp-Prepared" : {
     "fixedAmount" : 100,

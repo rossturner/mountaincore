@@ -1,0 +1,18 @@
+{
+  "itemTypeName" : "Armour-Orc-Heavy",
+  "materialTypes" : [ "METAL", "METAL", "CLOTH", "SKIN" ],
+  "primaryMaterialType" : "METAL",
+  "stockpileGroupName" : "WEAPONS",
+  "defenseInfo" : {
+    "type" : "ARMOR",
+    "maxDefensePoints" : 16,
+    "maxDefenseRegainedPerRound" : 3,
+    "damageReduction" : {
+      "STABBING" : 0,
+      "SLASHING" : 1,
+      "CRUSHING" : 0
+    },
+    "restrictedToRaceNames" : [ "Orc" ]
+  },
+  "i18nKey" : "ARMOUR.ORC.HEAVY"
+}

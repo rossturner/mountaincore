@@ -40,6 +40,7 @@ import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.jobs.model.SkillType;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.materials.model.GameMaterial;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
 import java.util.Arrays;
@@ -97,7 +98,9 @@ public class CreatureAttributesPane extends AbstractAttributesPane {
             skillsComponent.setSkillLevel(profession, 50);
         })));
         add(WidgetBuilder.selectField("Sanity:", attributes.getSanity(), List.of(Sanity.values()), Sanity.SANE, update(attributes::setSanity)));
-
+        add(WidgetBuilder.button("New seed (" + attributes.getSeed() + ")", a -> {
+            messageDispatcher.dispatchMessage(MessageType.EDITOR_ENTITY_SELECTION, editorStateProvider.getState().getEntitySelection());
+        }));
         row();
 
         Map<EntityAssetType, EntityAsset> assetMap = currentEntity.getPhysicalEntityComponent().getTypeMap();

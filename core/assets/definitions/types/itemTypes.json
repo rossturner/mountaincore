@@ -9,7 +9,7 @@
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
   "hoursInInventoryUntilUnused" : 38.0,
-  "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
+  "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : {
     "ASSET_OVERRIDE_BY_SKILL" : [ "LIGHT_ARMOR", "CLOTHING_COLOR" ]
@@ -22,10 +22,94 @@
       "STABBING" : 1,
       "SLASHING" : 2,
       "CRUSHING" : 3
-    }
+    },
+    "restrictedToRaceNames" : [ "Dwarf" ]
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.LEATHER"
+}, {
+  "itemTypeName" : "Armour-Plate",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : {
+    "ASSET_OVERRIDE_BY_SKILL" : [ "HEAVY_ARMOR", "CLOTHING_COLOR" ]
+  },
+  "defenseInfo" : {
+    "type" : "ARMOR",
+    "maxDefensePoints" : 20,
+    "maxDefenseRegainedPerRound" : 5,
+    "damageReduction" : {
+      "STABBING" : 2,
+      "SLASHING" : 2,
+      "CRUSHING" : 0
+    },
+    "restrictedToRaceNames" : [ "Dwarf" ]
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "ARMOUR.PLATE"
+}, {
+  "itemTypeName" : "Armour-Orc-Heavy",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "METAL", "METAL", "CLOTH", "SKIN" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "defenseInfo" : {
+    "type" : "ARMOR",
+    "maxDefensePoints" : 16,
+    "maxDefenseRegainedPerRound" : 3,
+    "damageReduction" : {
+      "STABBING" : 0,
+      "SLASHING" : 1,
+      "CRUSHING" : 0
+    },
+    "restrictedToRaceNames" : [ "Orc" ]
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "ARMOUR.ORC.HEAVY"
+}, {
+  "itemTypeName" : "Armour-Orc-Light",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "SKIN", "BONE", "CLOTH" ],
+  "primaryMaterialType" : "SKIN",
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 38.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "WEAPONS",
+  "tags" : { },
+  "defenseInfo" : {
+    "type" : "ARMOR",
+    "maxDefensePoints" : 10,
+    "maxDefenseRegainedPerRound" : 2,
+    "damageReduction" : {
+      "STABBING" : 0,
+      "SLASHING" : 1,
+      "CRUSHING" : 1
+    },
+    "restrictedToRaceNames" : [ "Orc" ]
+  },
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "ARMOUR.ORC.LIGHT"
 }, {
   "itemTypeName" : "Carcass-Carp-Prepared",
   "maxStackSize" : 4,
@@ -1446,7 +1530,8 @@
       "STABBING" : 2,
       "SLASHING" : 2,
       "CRUSHING" : 0
-    }
+    },
+    "restrictedToRaceNames" : [ ]
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.SHIELD"
@@ -1500,7 +1585,8 @@
       "STABBING" : 0,
       "SLASHING" : 0,
       "CRUSHING" : 0
-    }
+    },
+    "restrictedToRaceNames" : [ ]
   },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.WOODEN.SHIELD"

@@ -739,7 +739,7 @@
   "oxidisation" : {
     "effect" : "CONVERT_MATERIAL",
     "changesTo" : "Rusted Iron",
-    "hoursToConvert" : 380.0,
+    "hoursToConvert" : 580.0,
     "setsItemQualityTo" : "AWFUL"
   },
   "i18nKey" : "METAL.IRON",
@@ -760,7 +760,7 @@
   "oxidisation" : {
     "effect" : "CONVERT_MATERIAL",
     "changesTo" : "Rusted Iron",
-    "hoursToConvert" : 480.0,
+    "hoursToConvert" : 680.0,
     "setsItemQualityTo" : "AWFUL"
   },
   "i18nKey" : "METAL.STEEL",

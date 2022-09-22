@@ -15,6 +15,21 @@
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 8.5
 }, {
+  "recipeName" : "Craft plate armour",
+  "craftingTypeName" : "BLACKSMITHING",
+  "itemTypeRequiredName" : "Tool-Tongs",
+  "input" : [ {
+    "itemTypeName" : "Resource-Metal-Ingot",
+    "quantity" : 8
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Armour-Plate",
+    "quantity" : 1
+  } ],
+  "materialTypesToCopyOver" : [ "METAL" ],
+  "minimumTimeToCompleteCrafting" : 3.5,
+  "maximumTimeToCompleteCrafting" : 16.5
+}, {
   "recipeName" : "Malt barley",
   "verbOverrideI18nKey" : "ACTION.MALTING",
   "craftingTypeName" : "MALTING",
