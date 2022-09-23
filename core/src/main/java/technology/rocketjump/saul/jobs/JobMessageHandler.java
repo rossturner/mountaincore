@@ -1028,7 +1028,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							Body body = attributes.getBody();
 							int[] numberOfBonesPerPart = new int[BoneType.values().length];
 
-							for (BodyPart bodyPart : body.getAllBodyParts()) {
+							for (BodyPart bodyPart : body.getAllWorkingBodyParts()) {
 								for (BoneType boneType : bodyPart.getPartDefinition().getBones()) {
 									numberOfBonesPerPart[boneType.ordinal()]++;
 								}

@@ -21,6 +21,7 @@ public class MovementImpaired extends StatusEffect {
 
 	@Override
 	public boolean checkForRemoval(GameContext gameContext) {
+		//TODO: check and test for destroyed limb
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		boolean noSignificantDamage = attributes.getBody().getAllDamage()
 				.stream().noneMatch(e -> e.getValue().getDamageLevel().equals(BodyPartDamageLevel.BrokenBones) ||

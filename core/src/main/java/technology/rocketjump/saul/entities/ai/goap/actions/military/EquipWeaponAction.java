@@ -24,6 +24,7 @@ public class EquipWeaponAction extends Action {
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
+		//TODO: consider skipping if status affect preventing equipping item
 		InventoryComponent inventoryComponent = parent.parentEntity.getOrCreateComponent(InventoryComponent.class);
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
 		HaulingComponent haulingComponent = parent.parentEntity.getComponent(HaulingComponent.class);

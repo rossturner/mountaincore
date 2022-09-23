@@ -21,6 +21,7 @@ public class UnequipWeaponAction extends Action {
 	public void update(float deltaTime, GameContext gameContext) {
 		InventoryComponent inventoryComponent = parent.parentEntity.getOrCreateComponent(InventoryComponent.class);
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
+		//TODO: probably worth adding back to inventory
 		Entity currentlyEquipped = equippedItemComponent.clearMainHandItem();
 		if (currentlyEquipped != null) {
 			inventoryComponent.add(currentlyEquipped, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());

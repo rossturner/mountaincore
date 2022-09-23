@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
@@ -495,6 +494,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 			statusComponent.apply(new KnockedUnconscious());
 		}
 
+		//TODO: review this logic for destroyed limb
 		if (message.damageLevel.equals(BrokenBones) || message.damageLevel.equals(Destroyed)) {
 			statusComponent.apply(new MovementImpaired());
 		}
@@ -512,7 +512,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		StatusComponent statusComponent = message.targetEntity.getComponent(StatusComponent.class);
 
 		List<BodyPartOrgan> otherOrgansOfType = new ArrayList<>();
-		for (BodyPart bodyPart : attributes.getBody().getAllBodyParts()) {
+		for (BodyPart bodyPart : attributes.getBody().getAllWorkingBodyParts()) {
 			for (BodyPartOrgan organForBodyPart : bodyPart.getPartDefinition().getOrgans()) {
 				if (message.impactedOrgan.getOrganDefinition().equals(organForBodyPart.getOrganDefinition()) &&
 						message.impactedOrgan.getDiscriminator() != organForBodyPart.getDiscriminator() &&
@@ -561,37 +561,18 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private void bodyPartDestroyed(BodyPart impactedBodyPart, Body body, Entity targetEntity, Entity aggressorEntity) {
-		for (BodyPartOrgan organ : impactedBodyPart.getPartDefinition().getOrgans()) {
-			if (!body.getOrganDamage(impactedBodyPart, organ).equals(OrganDamageLevel.DESTROYED)) {
-				body.setOrganDamage(impactedBodyPart, organ, OrganDamageLevel.DESTROYED);
-				messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
-						targetEntity, aggressorEntity, impactedBodyPart, organ, OrganDamageLevel.DESTROYED
-				));
+		for (BodyPart child : body.iterateRecursively(impactedBodyPart)) {
+			for (BodyPartOrgan organ : child.getPartDefinition().getOrgans()) {
+				if (!body.getOrganDamage(child, organ).equals(OrganDamageLevel.DESTROYED)) {
+					body.setOrganDamage(child, organ, OrganDamageLevel.DESTROYED);
+					messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
+							targetEntity, aggressorEntity, child, organ, OrganDamageLevel.DESTROYED
+					));
+				}
 			}
+
+			//TODO: partDefinition.Function apply status affect for each function
 		}
-
-		for (String childPartName : impactedBodyPart.getPartDefinition().getChildParts()) {
-			String[] split = childPartName.split("-");
-			BodyPartDiscriminator childDiscriminator = null;
-			if (split.length > 1) {
-				childDiscriminator = EnumUtils.getEnum(BodyPartDiscriminator.class, split[0]);
-				childPartName = split[1];
-			}
-			BodyPartDefinition childPartDefinition = body.getBodyStructure().getPartDefinitionByName(childPartName).orElse(null);
-			if (childDiscriminator == null) {
-				childDiscriminator = impactedBodyPart.getDiscriminator();
-			}
-			final BodyPartDiscriminator finalChildDiscriminator = childDiscriminator;
-
-			body.getAllBodyParts()
-					.stream().filter(b -> b.getPartDefinition().equals(childPartDefinition) && b.getDiscriminator() == finalChildDiscriminator)
-					.forEach(b -> {
-						if (!body.getDamage(b).getDamageLevel().equals(Destroyed)) {
-							bodyPartDestroyed(b, body, targetEntity, aggressorEntity);
-						}
-					});
-		}
-
 	}
 
 	private int getStrengthModifier(Entity attackerEntity) {

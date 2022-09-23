@@ -2,8 +2,7 @@ package technology.rocketjump.saul.entities.model.physical.creature.body;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.lang3.EnumUtils;
-import org.pmw.tinylog.Logger;
+import com.google.common.collect.Streams;
 import technology.rocketjump.saul.entities.model.physical.creature.body.organs.OrganDamageLevel;
 import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
@@ -30,16 +29,15 @@ public class Body implements ChildPersistable {
 	}
 
 	public BodyPart randomlySelectPartBasedOnSize(Random random) {
-		List<BodyPart> allBodyParts = getAllBodyParts();
 
 		float totalSize = 0f;
-		for (BodyPart bodyPart : allBodyParts) {
+		for (BodyPart bodyPart : getAllWorkingBodyParts()) {
 			totalSize += bodyPart.getPartDefinition().getSize();
 		}
 
 		float roll = random.nextFloat() * totalSize;
 		BodyPart selected = null;
-		for (BodyPart bodyPart : allBodyParts) {
+		for (BodyPart bodyPart : getAllWorkingBodyParts()) {
 			selected = bodyPart;
 			roll -= bodyPart.getPartDefinition().getSize();
 			if (roll <= 0) {
@@ -49,10 +47,15 @@ public class Body implements ChildPersistable {
 		return selected;
 	}
 
-	public List<BodyPart> getAllBodyParts() {
-		List<BodyPart> allBodyParts = new ArrayList<>();
-		addBodyParts(bodyStructure.getRootPart(), null, allBodyParts);
-		return allBodyParts;
+	public Iterable<BodyPart> getAllWorkingBodyParts() {
+		return () -> Streams.stream(iterateRecursively(new BodyPart(bodyStructure.getRootPart(), null)))
+				.filter(bodyPart -> !(BodyPartDamageLevel.Destroyed == getDamage(bodyPart).getDamageLevel()))
+				.iterator();
+	}
+
+	public Iterable<BodyPart> iterateRecursively(BodyPart rootPart) {
+		BodyPartIterator iterator = new BodyPartIterator(this, rootPart);
+		return () -> iterator;
 	}
 
 	public List<I18nText> getDamageDescriptions(I18nTranslator i18nTranslator) {
@@ -70,43 +73,6 @@ public class Body implements ChildPersistable {
 			}
 		}
 		return result;
-	}
-
-	private void addBodyParts(BodyPartDefinition partDefinition, BodyPartDiscriminator discriminator, List<BodyPart> allBodyParts) {
-		if (partDefinition == null) {
-			Logger.error("Null body part definition");
-			return;
-		}
-		Optional<Map.Entry<BodyPart, BodyPartDamage>> damagedBodyPart = damageMap.entrySet().stream()
-				.filter(e -> e.getKey().getPartDefinition().equals(partDefinition) && e.getKey().getDiscriminator() == discriminator)
-				.findAny();
-
-		if (damagedBodyPart.isPresent() && damagedBodyPart.get().getValue().getDamageLevel().equals(BodyPartDamageLevel.Destroyed)) {
-			// this part has been destroyed
-			return;
-		}
-
-		allBodyParts.add(new BodyPart(partDefinition, discriminator));
-
-		for (String childPartName : partDefinition.getChildParts()) {
-
-			BodyPartDefinition childPartDefinition = bodyStructure.getPartDefinitionByName(childPartName).orElse(null);
-			if (childPartDefinition == null) {
-				String[] split = childPartName.split("-");
-				BodyPartDiscriminator childDiscriminator = null;
-				if (split.length > 1) {
-					childDiscriminator = EnumUtils.getEnum(BodyPartDiscriminator.class, split[0]);
-					childPartName = split[1];
-				}
-				childPartDefinition = bodyStructure.getPartDefinitionByName(childPartName).orElse(null);
-				if (childDiscriminator == null) {
-					childDiscriminator = discriminator;
-				}
-				addBodyParts(childPartDefinition, childDiscriminator, allBodyParts);
-			} else {
-				addBodyParts(childPartDefinition, null, allBodyParts);
-			}
-		}
 	}
 
 	public Set<Map.Entry<BodyPart, BodyPartDamage>> getAllDamage() {
@@ -184,4 +150,5 @@ public class Body implements ChildPersistable {
 	public void clearDamage(BodyPart bodyPart) {
 		damageMap.remove(bodyPart);
 	}
+
 }

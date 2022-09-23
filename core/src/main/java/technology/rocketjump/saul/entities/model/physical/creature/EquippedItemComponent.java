@@ -81,6 +81,7 @@ public class EquippedItemComponent implements EntityComponent {
 		return equipment;
 	}
 
+	//TODO Should call this if main hand destroyed, probably application of status affect
 	public Entity clearMainHandItem() {
 		if (this.mainHandItem != null) {
 			Entity mainHandItem = this.mainHandItem;
@@ -92,6 +93,7 @@ public class EquippedItemComponent implements EntityComponent {
 		}
 	}
 
+	//TODO Should call this if off hand destroyed, probably application of status affect
 	public Entity clearOffHandItem() {
 		if (this.offHandItem != null) {
 			Entity offHandItem = this.offHandItem;
