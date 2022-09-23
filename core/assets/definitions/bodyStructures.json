@@ -148,7 +148,7 @@
     "bones" : [ ],
     "organs" : [ ],
     "childParts" : [ ],
-    "function" : "FOOT",
+    "function" : "MOVEMENT",
     "i18nKey" : "BODY_STRUCTURE.HOOF"
   } ]
 }, {
@@ -251,7 +251,7 @@
     "bones" : [ "SMALL" ],
     "organs" : [ ],
     "childParts" : [ ],
-    "function" : "FOOT",
+    "function" : "MOVEMENT",
     "i18nKey" : "BODY_STRUCTURE.FOOT"
   } ]
 }, {
@@ -313,7 +313,7 @@
     "bones" : [ ],
     "organs" : [ ],
     "childParts" : [ ],
-    "function" : "FOOT",
+    "function" : "MOVEMENT",
     "i18nKey" : "BODY_STRUCTURE.FOOT"
   } ]
 }, {
@@ -368,7 +368,7 @@
     "bones" : [ ],
     "organs" : [ ],
     "childParts" : [ ],
-    "function" : "FOOT",
+    "function" : "MOVEMENT",
     "i18nKey" : "BODY_STRUCTURE.PAW"
   } ]
 }, {
@@ -452,7 +452,7 @@
     "bones" : [ "SMALL" ],
     "organs" : [ ],
     "childParts" : [ ],
-    "function" : "FOOT",
+    "function" : "MOVEMENT",
     "i18nKey" : "BODY_STRUCTURE.FOOT"
   } ]
 } ]

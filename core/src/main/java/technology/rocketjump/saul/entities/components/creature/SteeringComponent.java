@@ -40,6 +40,7 @@ public class SteeringComponent implements ChildPersistable {
 	private static float DEFAULT_PAUSE_TIME = 0.9f;
 	private boolean isSlowed;
 	private boolean movementImpaired;
+	private boolean immobilised;
 
 	public SteeringComponent() {
 
@@ -165,6 +166,9 @@ public class SteeringComponent implements ChildPersistable {
 			maxSpeed *= 2f;
 		}
 
+		if (immobilised) {
+			maxSpeed = 0.01f;
+		}
 
 		if (pauseTime > 0) {
 			pauseTime -= deltaTime;
@@ -332,4 +336,11 @@ public class SteeringComponent implements ChildPersistable {
 		this.movementImpaired = asJson.getBooleanValue("movementImpaired");
 	}
 
+	public void setImmobilised(boolean immobilised) {
+		this.immobilised = immobilised;
+	}
+
+	public boolean isImmobilised() {
+		return immobilised;
+	}
 }

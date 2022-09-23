@@ -3,34 +3,37 @@ package technology.rocketjump.saul.entities.model.physical.creature.status;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartFunction;
 import technology.rocketjump.saul.gamecontext.GameContext;
 
-public class MovementImpaired extends StatusEffect {
+public class MovementImpairedIrreversible extends StatusEffect {
 
 	// Lasts permanently until removed
-	public MovementImpaired() {
+	public MovementImpairedIrreversible() {
 		super(null, null, null);
 	}
 
 	@Override
 	public void applyOngoingEffect(GameContext gameContext, MessageDispatcher messageDispatcher) {
 		SteeringComponent steeringComponent = parentEntity.getBehaviourComponent().getSteeringComponent();
+		boolean hasOtherMeansOfMovement = false;
+		if (parentEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureAttributes) {
+			for (BodyPart workingBodyPart : creatureAttributes.getBody().getAllWorkingBodyParts()) {
+				if (workingBodyPart.getPartDefinition().getFunction() == BodyPartFunction.MOVEMENT) {
+					hasOtherMeansOfMovement = true;
+				}
+			}
+		}
+		if (!hasOtherMeansOfMovement) {
+			steeringComponent.setImmobilised(true);
+		}
 		steeringComponent.setMovementImpaired(true);
 	}
 
 	@Override
 	public boolean checkForRemoval(GameContext gameContext) {
-		//TODO: check and test for destroyed limb
-		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
-		boolean noSignificantDamage = attributes.getBody().getAllDamage()
-				.stream().noneMatch(e -> e.getValue().getDamageLevel().equals(BodyPartDamageLevel.BrokenBones) ||
-						e.getValue().getDamageLevel().equals(BodyPartDamageLevel.Destroyed));
-
-		if (noSignificantDamage) {
-			parentEntity.getBehaviourComponent().getSteeringComponent().setMovementImpaired(false);
-		}
-		return noSignificantDamage;
+		return false;
 	}
 
 	@Override

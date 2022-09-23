@@ -17,7 +17,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 public class CreatureCombat {
 
 	private Entity parentEntity;
-	private WeaponInfo equippedWeapon;
+	private WeaponInfo equippedWeapon; //TODO: refresh this if weapon no longer equipped
 	private ItemEntityAttributes equippedWeaponAttributes;
 	private ItemQuality equippedWeaponQuality = ItemQuality.STANDARD;
 

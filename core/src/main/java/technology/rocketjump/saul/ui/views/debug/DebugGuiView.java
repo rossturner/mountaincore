@@ -306,6 +306,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				}
 				break;
 			}
+
 			case CHANGE_CREATURE_NEED: {
 				for (Entity entity : tile.getEntities()) {
 					NeedsComponent needs = entity.getComponent(NeedsComponent.class);

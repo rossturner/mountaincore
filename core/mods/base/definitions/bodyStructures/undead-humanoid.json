@@ -40,7 +40,7 @@
       "name": "Foot",
       "size": 0.02,
       "bones": ["SMALL"],
-      "function": "FOOT"
+      "function": "MOVEMENT"
     }
   ]
 }
