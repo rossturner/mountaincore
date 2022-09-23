@@ -89,17 +89,23 @@ public class Body implements ChildPersistable {
 		allBodyParts.add(new BodyPart(partDefinition, discriminator));
 
 		for (String childPartName : partDefinition.getChildParts()) {
-			String[] split = childPartName.split("-");
-			BodyPartDiscriminator childDiscriminator = null;
-			if (split.length > 1) {
-				childDiscriminator = EnumUtils.getEnum(BodyPartDiscriminator.class, split[0]);
-				childPartName = split[1];
-			}
+
 			BodyPartDefinition childPartDefinition = bodyStructure.getPartDefinitionByName(childPartName).orElse(null);
-			if (childDiscriminator == null) {
-				childDiscriminator = discriminator;
+			if (childPartDefinition == null) {
+				String[] split = childPartName.split("-");
+				BodyPartDiscriminator childDiscriminator = null;
+				if (split.length > 1) {
+					childDiscriminator = EnumUtils.getEnum(BodyPartDiscriminator.class, split[0]);
+					childPartName = split[1];
+				}
+				childPartDefinition = bodyStructure.getPartDefinitionByName(childPartName).orElse(null);
+				if (childDiscriminator == null) {
+					childDiscriminator = discriminator;
+				}
+				addBodyParts(childPartDefinition, childDiscriminator, allBodyParts);
+			} else {
+				addBodyParts(childPartDefinition, null, allBodyParts);
 			}
-			addBodyParts(childPartDefinition, childDiscriminator, allBodyParts);
 		}
 	}
 
