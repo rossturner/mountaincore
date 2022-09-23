@@ -8,6 +8,7 @@ import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -25,6 +26,8 @@ public class EquippedItemComponent implements EntityComponent {
 
 	private Entity mainHandItem; // Note this can actually be another creature, not just an item
 	private boolean hideMainHandItem;
+	private boolean mainHandEnabled = true;
+	private boolean offHandEnabled = true;
 	private Entity offHandItem;
 	private Entity equippedClothing;
 
@@ -41,9 +44,15 @@ public class EquippedItemComponent implements EntityComponent {
 	}
 
 	public void setMainHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
-		this.mainHandItem = itemToEquip;
-		this.hideMainHandItem = false; // This shouldn't be necessary, but is here to guard against forgetting to unset this flag
-		setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
+		boolean requiresTwoHands = requiresTwoHands(itemToEquip);
+		if (
+				(mainHandEnabled && !requiresTwoHands)
+				|| (requiresTwoHands && mainHandEnabled && offHandEnabled)
+		) {
+			this.mainHandItem = itemToEquip;
+			this.hideMainHandItem = false; // This shouldn't be necessary, but is here to guard against forgetting to unset this flag
+			setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
+		}
 	}
 
 	public boolean isHideMainHandItem() {
@@ -55,8 +64,10 @@ public class EquippedItemComponent implements EntityComponent {
 	}
 
 	public void setOffHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
-		this.offHandItem = itemToEquip;
-		setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
+		if (offHandEnabled) {
+			this.offHandItem = itemToEquip;
+			setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
+		}
 	}
 
 	public void setEquippedClothing(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
@@ -81,7 +92,28 @@ public class EquippedItemComponent implements EntityComponent {
 		return equipment;
 	}
 
-	//TODO Should call this if main hand destroyed, probably application of status affect
+	public void disableMainHand() {
+		clearMainHandItem();
+		mainHandEnabled = false;
+	}
+
+	public void disableOffHand() {
+		clearOffHandItem();
+		offHandEnabled = false;
+
+		if (requiresTwoHands(mainHandItem)) {
+			clearMainHandItem();
+		}
+	}
+
+	private boolean requiresTwoHands(Entity item) {
+		if (item != null && item.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
+			WeaponInfo weaponInfo = itemAttributes.getItemType().getWeaponInfo();
+			return weaponInfo != null && weaponInfo.isTwoHanded();
+		}
+		return false;
+	}
+
 	public Entity clearMainHandItem() {
 		if (this.mainHandItem != null) {
 			Entity mainHandItem = this.mainHandItem;
@@ -93,7 +125,6 @@ public class EquippedItemComponent implements EntityComponent {
 		}
 	}
 
-	//TODO Should call this if off hand destroyed, probably application of status affect
 	public Entity clearOffHandItem() {
 		if (this.offHandItem != null) {
 			Entity offHandItem = this.offHandItem;
@@ -208,4 +239,5 @@ public class EquippedItemComponent implements EntityComponent {
 			}
 		}
 	}
+
 }

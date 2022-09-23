@@ -52,7 +52,6 @@ import java.util.Optional;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 import static technology.rocketjump.saul.entities.FireMessageHandler.blackenedColor;
 import static technology.rocketjump.saul.entities.behaviour.creature.CombatBehaviour.getOpponentsInMelee;
-import static technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel.BrokenBones;
 import static technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel.Destroyed;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
@@ -270,6 +269,8 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 										new CreatureDeathMessage(attackMessage.defenderEntity, DeathReason.EXTENSIVE_INJURIES));
 							}
 						}
+
+						//TODO: decide if broken bones immobilizes like before
 					}
 				}
 
@@ -494,10 +495,6 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 			statusComponent.apply(new KnockedUnconscious());
 		}
 
-		//TODO: review this logic for destroyed limb
-		if (message.damageLevel.equals(BrokenBones) || message.damageLevel.equals(Destroyed)) {
-			statusComponent.apply(new MovementImpaired());
-		}
 	}
 
 	private void applyStun(Entity targetCreature) {
@@ -561,6 +558,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private void bodyPartDestroyed(BodyPart impactedBodyPart, Body body, Entity targetEntity, Entity aggressorEntity) {
+		StatusComponent statusComponent = targetEntity.getOrCreateComponent(StatusComponent.class);
 		for (BodyPart child : body.iterateRecursively(impactedBodyPart)) {
 			for (BodyPartOrgan organ : child.getPartDefinition().getOrgans()) {
 				if (!body.getOrganDamage(child, organ).equals(OrganDamageLevel.DESTROYED)) {
@@ -571,7 +569,14 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 				}
 			}
 
-			//TODO: partDefinition.Function apply status affect for each function
+			BodyPartFunction function = child.getPartDefinition().getFunction();
+			if (function != null) {
+				switch (function) {
+					case MAIN_HAND -> statusComponent.apply(new LossOfMainHand());
+					case OFF_HAND -> statusComponent.apply(new LossOfOffHand());
+//					case FOOT -> statusComponent.apply();
+				}
+			}
 		}
 	}
 
