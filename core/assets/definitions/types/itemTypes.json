@@ -1161,6 +1161,19 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "STABBING",
+    "modifiedByStrength" : true,
+    "minDamage" : 2,
+    "maxDamage" : 6,
+    "armorNegation" : 0,
+    "twoHanded" : false,
+    "combatSkillName" : "SWORDSMANSHIP",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
+  },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.KITCHEN.KNIFE"
 }, {

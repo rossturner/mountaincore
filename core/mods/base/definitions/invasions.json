@@ -1,17 +1,24 @@
 [
   {
     "name": "Orc invasion",
-    "triggeredBy": "Population",
-    "objective": "Pillage",
-    "minHoursUntilFirstInvasion": 1,
-    "minHoursBetweenInvasions": 1,
+    "triggeredBy": "POPULATION",
+    "objective": "PILLAGE",
+    "minDaysUntilFirstInvasion": 50,
+    "minDaysBetweenInvasions": 28,
+    "invasionHappensWithinDays": 40,
     "participants": [
       {
         "raceName": "Orc",
-        "pointsCost": 50,
+        "basePointsCost": 50,
+        "itemQualities": {
+          "AWFUL": 0.2,
+          "POOR": 0.3,
+          "STANDARD": 0.5
+        },
         "fixedInventory": [
           {
-            "itemTypeName": "Rations",
+            "itemTypeName": "Product-Ration",
+            "materialName": "Rockbread",
             "quantity": 10
           }
         ],
@@ -19,7 +26,27 @@
           "weapons": [
             {
               "itemTypeName": "Weapon-Battle-Axe",
-              "standardPointsCost": 16
+              "standardPointsCost": 18
+            },
+            {
+              "itemTypeName": "Weapon-Battle-Hammer",
+              "standardPointsCost": 18
+            },
+            {
+              "itemTypeName": "Weapon-Sword",
+              "standardPointsCost": 18
+            },
+            {
+              "itemTypeName": "Tool-Axe",
+              "standardPointsCost": 12
+            },
+            {
+              "itemTypeName": "Tool-Kitchen-Knife",
+              "standardPointsCost": 8
+            },
+            {
+              "itemTypeName": "Tool-Pickaxe",
+              "standardPointsCost": 10
             }
           ],
           "shield": [
@@ -28,20 +55,20 @@
             },
             {
               "itemTypeName": "Weapon-Wooden-Shield",
-              "standardPointsCost": 10
+              "standardPointsCost": 14
             }
           ],
-          "armour": [
+          "armor": [
             {
               "none": true
             },
             {
               "itemTypeName": "Armour-Orc-Light",
-              "standardPointsCost": 10
+              "standardPointsCost": 20
             },
             {
               "itemTypeName": "Armour-Orc-Heavy",
-              "standardPointsCost": 18
+              "standardPointsCost": 28
             }
           ]
         }

@@ -121,7 +121,7 @@ public class EquippedItemComponent implements EntityComponent {
 		if (itemToEquip.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
 			itemAttributes.setItemPlacement(ItemPlacement.BEING_CARRIED);
 			itemToEquip.getLocationComponent().setOrientation(parentEntity.getLocationComponent().getOrientation());
-			messageDispatcher.dispatchMessage(null, MessageType.ENTITY_ASSET_UPDATE_REQUIRED, itemToEquip);
+			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, itemToEquip);
 
 			ItemAllocationComponent itemAllocationComponent = itemToEquip.getOrCreateComponent(ItemAllocationComponent.class);
 			if (itemAllocationComponent.getNumAllocated() == 0) {

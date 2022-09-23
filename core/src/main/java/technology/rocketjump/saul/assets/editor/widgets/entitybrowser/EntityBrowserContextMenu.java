@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.widget.MenuItem;
 import com.kotcrab.vis.ui.widget.PopupMenu;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
+import technology.rocketjump.saul.assets.editor.model.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.messaging.MessageType;
 
 import javax.inject.Inject;

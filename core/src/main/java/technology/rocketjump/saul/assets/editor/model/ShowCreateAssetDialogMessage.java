@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.assets.editor.message;
+package technology.rocketjump.saul.assets.editor.model;
 
 import technology.rocketjump.saul.entities.model.EntityType;
 
