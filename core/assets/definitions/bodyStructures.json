@@ -148,6 +148,7 @@
     "bones" : [ ],
     "organs" : [ ],
     "childParts" : [ ],
+    "function" : "FOOT",
     "i18nKey" : "BODY_STRUCTURE.HOOF"
   } ]
 }, {
@@ -202,6 +203,7 @@
     "bones" : [ "SMALL" ],
     "organs" : [ ],
     "childParts" : [ ],
+    "function" : "GRASP",
     "i18nKey" : "BODY_STRUCTURE.HAND"
   }, {
     "name" : "Abdomen",
@@ -234,6 +236,7 @@
     "bones" : [ "SMALL" ],
     "organs" : [ ],
     "childParts" : [ ],
+    "function" : "FOOT",
     "i18nKey" : "BODY_STRUCTURE.FOOT"
   } ]
 }, {
@@ -295,6 +298,7 @@
     "bones" : [ ],
     "organs" : [ ],
     "childParts" : [ ],
+    "function" : "FOOT",
     "i18nKey" : "BODY_STRUCTURE.FOOT"
   } ]
 }, {
@@ -349,6 +353,7 @@
     "bones" : [ ],
     "organs" : [ ],
     "childParts" : [ ],
+    "function" : "FOOT",
     "i18nKey" : "BODY_STRUCTURE.PAW"
   } ]
 }, {
@@ -410,6 +415,7 @@
     "bones" : [ "SMALL" ],
     "organs" : [ ],
     "childParts" : [ ],
+    "function" : "GRASP",
     "i18nKey" : "BODY_STRUCTURE.HAND"
   }, {
     "name" : "Abdomen",
@@ -431,6 +437,7 @@
     "bones" : [ "SMALL" ],
     "organs" : [ ],
     "childParts" : [ ],
+    "function" : "FOOT",
     "i18nKey" : "BODY_STRUCTURE.FOOT"
   } ]
 } ]
