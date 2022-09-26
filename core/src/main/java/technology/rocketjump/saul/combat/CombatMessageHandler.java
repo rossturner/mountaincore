@@ -269,8 +269,6 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 										new CreatureDeathMessage(attackMessage.defenderEntity, DeathReason.EXTENSIVE_INJURIES));
 							}
 						}
-
-						//TODO: decide if broken bones immobilizes like before
 					}
 				}
 
