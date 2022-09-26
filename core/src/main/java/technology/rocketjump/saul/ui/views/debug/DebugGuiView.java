@@ -197,7 +197,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 		this.needValueSelect.setItems(needValues);
 
 		this.damageSelect = new SelectBox<>(uiSkin);
-		this.damageSelect.setItems(IntStream.rangeClosed(0, 50).boxed().toArray(Integer[]::new));
+		this.damageSelect.setItems(IntStream.rangeClosed(1, 50).boxed().toArray(Integer[]::new));
 
 		messageDispatcher.addListener(this, MessageType.TOGGLE_DEBUG_VIEW);
 		messageDispatcher.addListener(this, MessageType.DEBUG_MESSAGE);

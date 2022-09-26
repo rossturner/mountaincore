@@ -13,7 +13,7 @@ public class LossOfOffHand extends StatusEffect {
     @Override
     public void applyOngoingEffect(GameContext gameContext, MessageDispatcher messageDispatcher) {
         EquippedItemComponent equipped = parentEntity.getComponent(EquippedItemComponent.class);
-        if (equipped != null && equipped.getOffHandItem() != null) {
+        if (equipped != null && equipped.isOffHandEnabled()) {
             equipped.disableOffHand();
         }
     }
