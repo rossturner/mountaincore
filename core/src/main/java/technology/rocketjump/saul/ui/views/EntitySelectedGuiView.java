@@ -265,7 +265,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		squadTextButton.setBackground(uiSkin.get(TextButton.TextButtonStyle.class).up);
 		squadTextButton.add(new Label("REPLACE ME", uiSkin));
 
-		//TODO: somewhere in this call stock, block from assigning a new weapon
 		weaponSelectionAction = () -> {
 			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
 					PopulateSelectItemViewMessage.ItemSelectionCategory.WEAPON, gameInteractionStateContainer.getSelectable().getEntity(),
