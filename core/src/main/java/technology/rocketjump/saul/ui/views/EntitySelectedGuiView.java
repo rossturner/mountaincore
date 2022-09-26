@@ -30,10 +30,7 @@ import technology.rocketjump.saul.entities.components.furniture.ConstructedEntit
 import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
-import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
-import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.DeathReason;
-import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
+import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -559,13 +556,14 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 		MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
+		EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
 
 		if (attributes.getConsciousness().equals(Consciousness.DEAD)) {
 			upperRow.add(nameTable).top().padRight(5);
 			lowerRow.add(inventoryTable).top().padRight(5);
 		} else {
 			populateProfessionTable(entity);
-			populateMilitaryEquipmentTable(militaryComponent);
+			populateMilitaryEquipmentTable(militaryComponent, equippedItemComponent);
 			populateNeedsTable(needsTable, entity, needLabels);
 			populateHappinessTable(entity);
 			populateInjuriesTable(entity);
@@ -625,7 +623,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		return false;
 	}
 
-	private void populateMilitaryEquipmentTable(MilitaryComponent militaryComponent) {
+	private void populateMilitaryEquipmentTable(MilitaryComponent militaryComponent, EquippedItemComponent equippedItemComponent) {
 		// Weapon
 		Long assignedWeaponId = militaryComponent.getAssignedWeaponId();
 		Entity assignedWeapon = null;
@@ -643,7 +641,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			weaponButton = imageButtonFactory.getOrCreate(assignedWeapon);
 		}
 		weaponButton.setAction(weaponSelectionAction);
-		militaryEquipmentTable.add(weaponButton).center().pad(5);
 
 		// Shield
 		Long assignedShieldId = militaryComponent.getAssignedShieldId();
@@ -659,9 +656,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			shieldButton = imageButtonFactory.getOrCreate(assignedShield);
 		}
 		shieldButton.setAction(shieldSelectionAction);
-		if (!weaponIsTwoHanded) {
-			militaryEquipmentTable.add(shieldButton).center().pad(5);
-		}
 
 		// Armour
 		Long assignedArmorId = militaryComponent.getAssignedArmorId();
@@ -677,8 +671,15 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			armorButton = imageButtonFactory.getOrCreate(assignedArmor);
 		}
 		armorButton.setAction(armorSelectionAction);
-		militaryEquipmentTable.add(armorButton).center().pad(5);
 
+		if (equippedItemComponent == null || equippedItemComponent.isMainHandEnabled()) {
+			militaryEquipmentTable.add(weaponButton).center().pad(5);
+		}
+
+		if (!weaponIsTwoHanded && (equippedItemComponent == null || equippedItemComponent.isOffHandEnabled())) {
+			militaryEquipmentTable.add(shieldButton).center().pad(5);
+		}
+		militaryEquipmentTable.add(armorButton).center().pad(5);
 		// Description line
 		militaryEquipmentTable.row();
 		addLabel(assignedWeapon, "WEAPON.UNARMED");

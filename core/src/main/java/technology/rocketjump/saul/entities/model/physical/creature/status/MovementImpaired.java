@@ -7,10 +7,9 @@ import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartFunction;
 import technology.rocketjump.saul.gamecontext.GameContext;
 
-public class MovementImpairedIrreversible extends StatusEffect {
+public class MovementImpaired extends StatusEffect {
 
-	// Lasts permanently until removed
-	public MovementImpairedIrreversible() {
+	public MovementImpaired() {
 		super(null, null, null);
 	}
 
@@ -39,6 +38,7 @@ public class MovementImpairedIrreversible extends StatusEffect {
 	@Override
 	public String getI18Key() {
 		return "STATUS.MOVEMENT_IMPAIRED";
+		//TODO: return immobilized key?
 	}
 
 }

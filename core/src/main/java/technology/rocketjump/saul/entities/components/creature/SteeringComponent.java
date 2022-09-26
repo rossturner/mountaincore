@@ -316,6 +316,10 @@ public class SteeringComponent implements ChildPersistable {
 		return movementImpaired;
 	}
 
+	public void setImmobilised(boolean immobilised) {
+		this.immobilised = immobilised;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		if (destination != null) {
@@ -327,6 +331,9 @@ public class SteeringComponent implements ChildPersistable {
 		if (movementImpaired) {
 			asJson.put("movementImpaired", true);
 		}
+		if (immobilised) {
+			asJson.put("immobilised", true);
+		}
 	}
 
 	@Override
@@ -334,13 +341,7 @@ public class SteeringComponent implements ChildPersistable {
 		this.destination = JSONUtils.vector2(asJson.getJSONObject("destination"));
 		this.nextWaypoint = JSONUtils.vector2(asJson.getJSONObject("destination"));
 		this.movementImpaired = asJson.getBooleanValue("movementImpaired");
+		this.immobilised = asJson.getBooleanValue("immobilised");
 	}
 
-	public void setImmobilised(boolean immobilised) {
-		this.immobilised = immobilised;
-	}
-
-	public boolean isImmobilised() {
-		return immobilised;
-	}
 }

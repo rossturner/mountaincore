@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.combat.model.WeaponAttack;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
@@ -26,8 +27,11 @@ import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.combat.CombatDamageType;
+import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
@@ -43,10 +47,7 @@ import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.messaging.types.CreatureDeathMessage;
-import technology.rocketjump.saul.messaging.types.DebugMessage;
-import technology.rocketjump.saul.messaging.types.ParticleRequestMessage;
-import technology.rocketjump.saul.messaging.types.PipeConstructionMessage;
+import technology.rocketjump.saul.messaging.types.*;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
@@ -88,6 +89,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	private final SelectBox<Integer> plantSpeciesGrowthStageSelect;
 	private final SelectBox<EntityNeed> needSelect;
 	private final SelectBox<Integer> needValueSelect;
+	private final SelectBox<Integer> damageSelect;
 	private final ItemEntityFactory itemEntityFactory;
 	private final SettlerFactory settlerFactory;
 	private final WeatherManager weatherManager;
@@ -193,6 +195,9 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				.toArray(Integer[]::new);
 		this.needValueSelect = new SelectBox<>(uiSkin);
 		this.needValueSelect.setItems(needValues);
+
+		this.damageSelect = new SelectBox<>(uiSkin);
+		this.damageSelect.setItems(IntStream.rangeClosed(0, 50).boxed().toArray(Integer[]::new));
 
 		messageDispatcher.addListener(this, MessageType.TOGGLE_DEBUG_VIEW);
 		messageDispatcher.addListener(this, MessageType.DEBUG_MESSAGE);
@@ -306,7 +311,21 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				}
 				break;
 			}
+			case ATTACK_ENTITY: {
 
+				WeaponInfo weaponInfo = new WeaponInfo();
+				weaponInfo.setRange(1);
+				weaponInfo.setDamageType(CombatDamageType.SLASHING);
+				weaponInfo.setModifiedByStrength(true);
+				weaponInfo.setMinDamage(0);
+				weaponInfo.setMaxDamage(damageSelect.getSelected());
+				WeaponAttack weaponAttack = new WeaponAttack(weaponInfo, ItemQuality.STANDARD);
+				for (Entity entity : tile.getEntities()) {
+					CombatAttackMessage attackMessage = new CombatAttackMessage(entity, entity, weaponAttack, null);
+					messageDispatcher.dispatchMessage(MessageType.APPLY_ATTACK_DAMAGE, attackMessage);
+				}
+				break;
+			}
 			case CHANGE_CREATURE_NEED: {
 				for (Entity entity : tile.getEntities()) {
 					NeedsComponent needs = entity.getComponent(NeedsComponent.class);
@@ -440,6 +459,8 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				} else if (currentAction.equals(DebugAction.CHANGE_CREATURE_NEED)) {
 					layoutTable.add(needSelect).pad(5).left().row();
 					layoutTable.add(needValueSelect).pad(5).left().row();
+				} else if (currentAction.equals(DebugAction.ATTACK_ENTITY)) {
+					layoutTable.add(damageSelect).pad(5).left().row();
 				} else if (currentAction.equals(DebugAction.SPAWN_PLANT)) {
 					layoutTable.add(plantSpeciesSelect).pad(5).left().row();
 					layoutTable.add(plantSpeciesGrowthStageSelect).pad(5).left().row();

@@ -106,6 +106,14 @@ public class EquippedItemComponent implements EntityComponent {
 		}
 	}
 
+	public boolean isMainHandEnabled() {
+		return mainHandEnabled;
+	}
+
+	public boolean isOffHandEnabled() {
+		return offHandEnabled;
+	}
+
 	private boolean requiresTwoHands(Entity item) {
 		if (item != null && item.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
 			WeaponInfo weaponInfo = itemAttributes.getItemType().getWeaponInfo();

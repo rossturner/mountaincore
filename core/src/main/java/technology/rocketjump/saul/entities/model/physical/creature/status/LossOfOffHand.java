@@ -25,6 +25,6 @@ public class LossOfOffHand extends StatusEffect {
 
     @Override
     public String getI18Key() {
-        return "STATUS.LOSS_MAIN_HAND";
+        return "STATUS.LOSS_OFF_HAND";
     }
 }

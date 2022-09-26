@@ -1,7 +1,7 @@
 {
   "ai/goals.json" : -719739170042747134,
   "ai/schedules.json" : 7401291134305884154,
-  "definitions/bodyStructures.json" : 3827103867599602409,
+  "definitions/bodyStructures.json" : 1865404260865442176,
   "definitions/constants.json" : 2187185287016120816,
   "definitions/crafting/cookingRecipes.json" : 8993911908670867479,
   "definitions/crafting/craftingOutputQuality.json" : 6761694033947772547,
@@ -30,7 +30,7 @@
   "definitions/types/floorTypes.json" : -7795907128060816893,
   "definitions/types/furnitureLayouts.json" : -3519890082497992321,
   "definitions/types/furnitureTypes.json" : 8375634872712073571,
-  "definitions/types/itemTypes.json" : -285377417565055139,
+  "definitions/types/itemTypes.json" : 3335088647002587572,
   "definitions/types/jobTypes.json" : -670589122090947983,
   "definitions/types/mechanismTypes.json" : 824986586870154975,
   "definitions/types/ongoingEffectTypes.json" : -2245878883697869623,

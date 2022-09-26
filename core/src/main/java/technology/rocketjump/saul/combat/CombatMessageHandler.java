@@ -574,7 +574,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 				switch (function) {
 					case MAIN_HAND -> statusComponent.apply(new LossOfMainHand());
 					case OFF_HAND -> statusComponent.apply(new LossOfOffHand());
-					case MOVEMENT -> statusComponent.apply(new MovementImpairedIrreversible());
+					case MOVEMENT -> statusComponent.apply(new MovementImpaired());
 				}
 			}
 		}
