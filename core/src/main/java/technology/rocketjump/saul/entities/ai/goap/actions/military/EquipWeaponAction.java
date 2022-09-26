@@ -52,8 +52,13 @@ public class EquipWeaponAction extends Action {
 				completionType = FAILURE;
 			} else {
 				inventoryComponent.remove(weaponInInventory.getId());
-				equippedItemComponent.setMainHandItem(weaponInInventory, parent.parentEntity, parent.messageDispatcher);
-				completionType = SUCCESS;
+				boolean equippingSuccessful = equippedItemComponent.setMainHandItem(weaponInInventory, parent.parentEntity, parent.messageDispatcher);
+				if (equippingSuccessful) {
+					completionType = SUCCESS;
+				} else {
+					//TODO: Stick back in inventory
+					completionType = FAILURE;
+				}
 			}
 		}
 

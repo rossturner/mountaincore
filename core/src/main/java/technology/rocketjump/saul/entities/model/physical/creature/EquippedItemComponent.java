@@ -25,10 +25,10 @@ import static technology.rocketjump.saul.entities.components.ItemAllocation.Purp
 public class EquippedItemComponent implements EntityComponent {
 
 	private Entity mainHandItem; // Note this can actually be another creature, not just an item
+	private Entity offHandItem;
 	private boolean hideMainHandItem;
 	private boolean mainHandEnabled = true;
 	private boolean offHandEnabled = true;
-	private Entity offHandItem;
 	private Entity equippedClothing;
 
 	public Entity getMainHandItem() {
@@ -43,7 +43,7 @@ public class EquippedItemComponent implements EntityComponent {
 		return equippedClothing;
 	}
 
-	public void setMainHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
+	public boolean setMainHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
 		boolean requiresTwoHands = requiresTwoHands(itemToEquip);
 		if (
 				(mainHandEnabled && !requiresTwoHands)
@@ -52,6 +52,9 @@ public class EquippedItemComponent implements EntityComponent {
 			this.mainHandItem = itemToEquip;
 			this.hideMainHandItem = false; // This shouldn't be necessary, but is here to guard against forgetting to unset this flag
 			setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -63,10 +66,13 @@ public class EquippedItemComponent implements EntityComponent {
 		this.hideMainHandItem = hideMainHandItem;
 	}
 
-	public void setOffHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
+	public boolean setOffHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
 		if (offHandEnabled) {
 			this.offHandItem = itemToEquip;
 			setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -197,6 +203,8 @@ public class EquippedItemComponent implements EntityComponent {
 			clonedComponent.setEquippedClothing(equippedClothing.clone(messageDispatcher, gameContext), equippedClothing.getLocationComponent().getContainerEntity(), messageDispatcher);
 		}
 		clonedComponent.hideMainHandItem = this.hideMainHandItem;
+		clonedComponent.mainHandEnabled = this.mainHandEnabled;
+		clonedComponent.offHandEnabled = this.offHandEnabled;
 		return clonedComponent;
 	}
 
@@ -217,6 +225,8 @@ public class EquippedItemComponent implements EntityComponent {
 			equippedClothing.writeTo(savedGameStateHolder);
 			asJson.put("equippedClothing", equippedClothing.getId());
 		}
+		asJson.put("mainHandEnabled", mainHandEnabled);
+		asJson.put("offHandEnabled", offHandEnabled);
 	}
 
 	@Override
@@ -245,6 +255,18 @@ public class EquippedItemComponent implements EntityComponent {
 			if (this.equippedClothing == null) {
 				throw new InvalidSaveException("Could not find entity with ID " + equippedClothingId);
 			}
+		}
+
+		if (asJson.containsKey("mainHandEnabled")) {
+			this.mainHandEnabled = asJson.getBooleanValue("mainHandEnabled");
+		} else {
+			this.mainHandEnabled = true;
+		}
+
+		if (asJson.containsKey("offHandEnabled")) {
+			this.offHandEnabled = asJson.getBooleanValue("offHandEnabled");
+		} else {
+			this.offHandEnabled = true;
 		}
 	}
 

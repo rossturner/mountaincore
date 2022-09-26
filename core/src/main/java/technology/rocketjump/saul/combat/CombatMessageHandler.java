@@ -249,7 +249,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 					if (newOrganDamage.isGreaterThan(currentOrganDamage)) {
 						defenderAttributes.getBody().setOrganDamage(impactedBodyPart, targetOrgan, newOrganDamage);
 						messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
-								attackMessage.defenderEntity, attackMessage.attackerEntity, impactedBodyPart, targetOrgan, newOrganDamage
+								attackMessage.defenderEntity, impactedBodyPart, targetOrgan, newOrganDamage
 						));
 					}
 				} else {
@@ -263,7 +263,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 						));
 
 						if (newDamageLevel.equals(Destroyed)) {
-							bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity, attackMessage.attackerEntity);
+							bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity);
 							if(impactedBodyPart.getPartDefinition().getName().equals(defenderAttributes.getBody().getBodyStructure().getRootPartName())) {
 								messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH,
 										new CreatureDeathMessage(attackMessage.defenderEntity, DeathReason.EXTENSIVE_INJURIES));
@@ -555,14 +555,14 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		}
 	}
 
-	private void bodyPartDestroyed(BodyPart impactedBodyPart, Body body, Entity targetEntity, Entity aggressorEntity) {
+	public void bodyPartDestroyed(BodyPart impactedBodyPart, Body body, Entity targetEntity) {
 		StatusComponent statusComponent = targetEntity.getOrCreateComponent(StatusComponent.class);
 		for (BodyPart child : body.iterateRecursively(impactedBodyPart)) {
 			for (BodyPartOrgan organ : child.getPartDefinition().getOrgans()) {
 				if (!body.getOrganDamage(child, organ).equals(OrganDamageLevel.DESTROYED)) {
 					body.setOrganDamage(child, organ, OrganDamageLevel.DESTROYED);
 					messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
-							targetEntity, aggressorEntity, child, organ, OrganDamageLevel.DESTROYED
+							targetEntity, child, organ, OrganDamageLevel.DESTROYED
 					));
 				}
 			}

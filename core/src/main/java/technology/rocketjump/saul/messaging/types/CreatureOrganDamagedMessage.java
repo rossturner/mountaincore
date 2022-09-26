@@ -8,14 +8,12 @@ import technology.rocketjump.saul.entities.model.physical.creature.body.organs.O
 public class CreatureOrganDamagedMessage {
 
 	public final Entity targetEntity;
-	public final Entity aggressorEntity;
 	public final BodyPart impactedBodyPart;
 	public final BodyPartOrgan impactedOrgan;
 	public final OrganDamageLevel organDamageLevel;
 
-	public CreatureOrganDamagedMessage(Entity targetEntity, Entity aggressorEntity, BodyPart impactedBodyPart, BodyPartOrgan impactedOrgan, OrganDamageLevel organDamageLevel) {
+	public CreatureOrganDamagedMessage(Entity targetEntity, BodyPart impactedBodyPart, BodyPartOrgan impactedOrgan, OrganDamageLevel organDamageLevel) {
 		this.targetEntity = targetEntity;
-		this.aggressorEntity = aggressorEntity;
 		this.impactedBodyPart = impactedBodyPart;
 		this.impactedOrgan = impactedOrgan;
 		this.organDamageLevel = organDamageLevel;
