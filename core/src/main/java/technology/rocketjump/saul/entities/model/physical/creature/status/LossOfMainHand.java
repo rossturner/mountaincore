@@ -12,7 +12,7 @@ public class LossOfMainHand extends StatusEffect {
 
     @Override
     public void applyOngoingEffect(GameContext gameContext, MessageDispatcher messageDispatcher) {
-        EquippedItemComponent equipped = parentEntity.getComponent(EquippedItemComponent.class);
+        EquippedItemComponent equipped = parentEntity.getOrCreateComponent(EquippedItemComponent.class);
         if (equipped != null && equipped.isMainHandEnabled()) {
             equipped.disableMainHand();
         }
