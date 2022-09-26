@@ -47,7 +47,6 @@ public class EquipWeaponAction extends Action {
 		if (assignedWeaponId == null) {
 			completionType = SUCCESS;
 		} else {
-			//TODO: decide if main hand enabled has any affect here
 			Entity weaponInInventory = inventoryComponent.getById(assignedWeaponId);
 			if (weaponInInventory == null) {
 				completionType = FAILURE;

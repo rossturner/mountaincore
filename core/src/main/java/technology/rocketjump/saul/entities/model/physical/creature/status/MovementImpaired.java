@@ -38,7 +38,6 @@ public class MovementImpaired extends StatusEffect {
 	@Override
 	public String getI18Key() {
 		return "STATUS.MOVEMENT_IMPAIRED";
-		//TODO: return immobilized key?
 	}
 
 }

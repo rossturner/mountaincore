@@ -240,7 +240,7 @@
     "i18nKey" : "BODY_STRUCTURE.ABDOMEN"
   }, {
     "name" : "Leg",
-    "size" : 20.2,
+    "size" : 0.2,
     "bones" : [ "MEDIUM" ],
     "organs" : [ ],
     "childParts" : [ "Foot" ],
