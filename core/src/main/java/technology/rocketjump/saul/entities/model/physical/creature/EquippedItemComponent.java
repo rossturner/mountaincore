@@ -43,11 +43,11 @@ public class EquippedItemComponent implements EntityComponent {
 		return equippedClothing;
 	}
 
-	public boolean isEquipped(Entity targetEntity) {
+	public boolean isEquippedToAnyHand(Entity targetEntity) {
 		return targetEntity.equals(mainHandItem) || targetEntity.equals(offHandItem);
 	}
 
-	public boolean setEquipped(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
+	public boolean setEquippedToAnyHand(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
 		boolean successful = setMainHandItem(itemToEquip, parentEntity, messageDispatcher);
 		if (successful) {
 			return true;
@@ -56,7 +56,7 @@ public class EquippedItemComponent implements EntityComponent {
 		}
 	}
 
-	public void clearEquipped(Entity targetEntity) {
+	public void clearFromEquippedHand(Entity targetEntity) {
 		if (targetEntity.equals(mainHandItem)) {
 			clearMainHandItem();
 		} else if (targetEntity.equals(offHandItem)) {
