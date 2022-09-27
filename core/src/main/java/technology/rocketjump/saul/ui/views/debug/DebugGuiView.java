@@ -31,6 +31,7 @@ import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.creature.body.Body;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructure;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
@@ -330,6 +331,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 					BodyPart bodyPart = stringToBodyPart.get(bodyPartSelect.getSelected());
 					EntityAttributes attributes = entity.getPhysicalEntityComponent().getAttributes();
 					if (attributes instanceof CreatureEntityAttributes creatureAttributes) {
+						creatureAttributes.getBody().setDamage(bodyPart, BodyPartDamageLevel.Destroyed);
 						combatMessageHandler.bodyPartDestroyed(bodyPart, creatureAttributes.getBody(), entity);
 					}
 				}
