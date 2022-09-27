@@ -256,6 +256,9 @@ public class CreatureUIFactory implements UIFactory {
         addSelectField("Behaviour:", "behaviourName", creatureBehaviourDictionary.getAllNames(), "", race.getBehaviour(), editorTable);
         addSelectField("Schedule:", "scheduleName", scheduleDictionary.getAllNames(), "", race.getBehaviour(), editorTable);
 
+        editorTable.add(label("Is Sapient:")).left();
+        editorTable.add(toggle(race.getBehaviour().getIsSapient(), race.getBehaviour()::setIsSapient)).left().expandX().fillX().row();
+
         editorTable.add(new VisLabel("Needs:")).left();
         VisTable needTable = new VisTable();
         for (EntityNeed need : EntityNeed.values()) {

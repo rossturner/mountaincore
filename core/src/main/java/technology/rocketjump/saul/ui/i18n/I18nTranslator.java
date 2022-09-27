@@ -10,6 +10,8 @@ import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
 import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
 import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
@@ -452,7 +454,8 @@ public class I18nTranslator implements I18nUpdatable {
 			SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
 			if (skillsComponent != null) {
 				MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
-				if (militaryComponent != null && militaryComponent.isInMilitary()) {
+				FactionComponent factionComponent = entity.getOrCreateComponent(FactionComponent.class);
+				if (militaryComponent != null && (militaryComponent.isInMilitary() || !factionComponent.getFaction().equals(Faction.SETTLEMENT))) {
 					WeaponInfo assignedWeapon = getAssignedWeapon(entity, militaryComponent.getAssignedWeaponId());
 					replacements.put("race", I18nWord.BLANK);
 					replacements.put("skillLevelDescription", getSkillLevelDescription(skillsComponent.getSkillLevel(assignedWeapon.getCombatSkill())));

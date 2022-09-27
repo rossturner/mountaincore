@@ -11,7 +11,7 @@
   "descriptorName" : "Orcish",
   "firstName" : "orc_given_names",
   "familyName" : "adjective_noun",
-  "goodSpheres" : [ "Heroic", "Villainous", "Humanoid", "Strong", "Emotions", "Humanoid", "Colour", "Weapon", "Food", "Orcish", "Unspecified" ],
+  "goodSpheres" : [ "Heroic", "Villainous", "Humanoid", "Strong", "Emotions", "Humanoid", "Colour", "Weapon", "Food", "Orcish" ],
   "badSpheres" : [ "Agile", "Air", "Dwarven", "Elven", "Nature", "Weak" ]
 }, {
   "descriptorName" : "Settlement",

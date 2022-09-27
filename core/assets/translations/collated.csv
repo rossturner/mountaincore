@@ -1057,6 +1057,8 @@ RACE.ELEPHANT.NOUN,Elephant,,Elefant,,Elefante,Elefante,,,,Слон,,,,,,,,ゾ�
 RACE.FOX.FEMALE_NOUN,Vixen,,Füchsin,,Volpe,Zorra,,,,Лисица,,,,,,,,キツネ,雌狐,
 RACE.FOX.MALE_NOUN,Fox,,Fuchs,,Volpe,Zorro,,,,Лис,,,,,,,,キツネ,狐狸,
 RACE.FUNGOLEM,Fungolem,,,,,,,,,,,,,,,,,,,
+RACE.ORC.MALE_ADJECTIVE,Orcish,,,,,,,,,,,,,,,,,,,
+RACE.ORC.MALE_NOUN,Orc,,,,,,,,,,,,,,,,,,,
 RACE.PERCH.NOUN,Perch,,Barsch,,Persico,Perca,,,,Окунь,,,,,,,,パーチ,鲈鱼,
 RACE.PIKE.NOUN,Pike,,Hecht,,Luccio,Lucio,,,,Щука,,,,,,,,マス,梭子鱼,
 RACE.SPIDER,Spider,,,,,,,,,,,,,,,,,,,
