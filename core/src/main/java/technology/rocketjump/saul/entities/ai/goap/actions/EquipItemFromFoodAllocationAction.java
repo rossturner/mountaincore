@@ -34,6 +34,7 @@ public class EquipItemFromFoodAllocationAction extends Action {
 				if (successful) {
 					completionType = SUCCESS;
 				} else {
+					inventoryComponent.add(itemInInventory, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
 					completionType = FAILURE;
 				}
 
