@@ -34,7 +34,6 @@ import technology.rocketjump.saul.entities.model.physical.creature.*;
 import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesType;
@@ -129,7 +128,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	private final Map<EntityNeed, I18nLabel> needLabels;
 	private final ImageButtonFactory imageButtonFactory;
-	private final IconButtonFactory iconButtonFactory;
 	private final List<ImageButton> cancelButtons = new ArrayList<>();
 	private final List<IconOnlyButton> upButtons = new ArrayList<>();
 	private final List<IconOnlyButton> downButtons = new ArrayList<>();
@@ -163,7 +161,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;
 		this.imageButtonFactory = imageButtonFactory;
-		this.iconButtonFactory = iconButtonFactory;
 		this.stockpileComponentUpdater = stockpileComponentUpdater;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.gameMaterialDictionary = gameMaterialDictionary;
@@ -558,14 +555,15 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 		MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
+		EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
 
 		if (attributes.getConsciousness().equals(Consciousness.DEAD)) {
 			upperRow.add(nameTable).top().padRight(5);
 			lowerRow.add(inventoryTable).top().padRight(5);
 		} else {
 			populateProfessionTable(entity);
-			populateMilitaryEquipmentTable(entity, militaryComponent);
-			populateNeedsTable(needsTable, entity, needLabels, uiSkin);
+			populateMilitaryEquipmentTable(militaryComponent, equippedItemComponent);
+			populateNeedsTable(needsTable, entity, needLabels);
 			populateHappinessTable(entity);
 			populateInjuriesTable(entity);
 			populateMilitaryToggleTable(entity);
@@ -624,7 +622,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		return false;
 	}
 
-	private void populateMilitaryEquipmentTable(Entity entity, MilitaryComponent militaryComponent) {
+	private void populateMilitaryEquipmentTable(MilitaryComponent militaryComponent, EquippedItemComponent equippedItemComponent) {
 		// Weapon
 		Long assignedWeaponId = militaryComponent.getAssignedWeaponId();
 		Entity assignedWeapon = null;
@@ -642,7 +640,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			weaponButton = imageButtonFactory.getOrCreate(assignedWeapon);
 		}
 		weaponButton.setAction(weaponSelectionAction);
-		militaryEquipmentTable.add(weaponButton).center().pad(5);
 
 		// Shield
 		Long assignedShieldId = militaryComponent.getAssignedShieldId();
@@ -658,9 +655,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			shieldButton = imageButtonFactory.getOrCreate(assignedShield);
 		}
 		shieldButton.setAction(shieldSelectionAction);
-		if (!weaponIsTwoHanded) {
-			militaryEquipmentTable.add(shieldButton).center().pad(5);
-		}
 
 		// Armour
 		Long assignedArmorId = militaryComponent.getAssignedArmorId();
@@ -676,8 +670,15 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			armorButton = imageButtonFactory.getOrCreate(assignedArmor);
 		}
 		armorButton.setAction(armorSelectionAction);
-		militaryEquipmentTable.add(armorButton).center().pad(5);
 
+		if (equippedItemComponent == null || equippedItemComponent.isMainHandEnabled()) {
+			militaryEquipmentTable.add(weaponButton).center().pad(5);
+		}
+
+		if (!weaponIsTwoHanded && (equippedItemComponent == null || equippedItemComponent.isOffHandEnabled())) {
+			militaryEquipmentTable.add(shieldButton).center().pad(5);
+		}
+		militaryEquipmentTable.add(armorButton).center().pad(5);
 		// Description line
 		militaryEquipmentTable.row();
 		addLabel(assignedWeapon, "WEAPON.UNARMED");
@@ -703,7 +704,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				I18nText descriptionText = i18nTranslator.getTranslatedString("RENAME_DESC");
 				I18nText buttonText = i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
 
-				final GameSpeed currentSpeed = gameContext.getGameClock().getCurrentGameSpeed();
 				final boolean performPause = !gameContext.getGameClock().isPaused();
 				if (performPause) {
 					messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
@@ -832,34 +832,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	}
 
-	public static Optional<Entity> getSelectedWeaponFromInventoryOrEquipped(Entity entity, Optional<ItemType> selectedWeapon, GameContext gameContext) {
-		if (selectedWeapon.isEmpty()) {
-			return Optional.empty();
-		} else {
-			InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
-			InventoryComponent.InventoryEntry inventoryEntry = inventoryComponent.findByItemType(selectedWeapon.get(), gameContext.getGameClock());
-
-			if (inventoryEntry != null) {
-				// use entitydrawable of actual entity
-				return Optional.of(inventoryEntry.entity);
-			} else {
-				// Might be equipped instead
-				EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
-				Entity equippedItem = null;
-				if (equippedItemComponent != null) {
-					equippedItem = equippedItemComponent.getMainHandItem();
-				}
-				if (equippedItem != null && equippedItem.getType().equals(ITEM) &&
-						((ItemEntityAttributes) equippedItem.getPhysicalEntityComponent().getAttributes()).getItemType().equals(selectedWeapon.get())) {
-					return Optional.of(equippedItem);
-				} else {
-					return Optional.empty();
-				}
-			}
-		}
-	}
-
-	public static void populateNeedsTable(Table needsTable, Entity entity, Map<EntityNeed, I18nLabel> needLabels, Skin uiSkin) {
+	public static void populateNeedsTable(Table needsTable, Entity entity, Map<EntityNeed, I18nLabel> needLabels) {
 		NeedsComponent needsComponent = entity.getComponent(NeedsComponent.class);
 		if (needsComponent != null) {
 			for (Map.Entry<EntityNeed, I18nLabel> entry : needLabels.entrySet()) {

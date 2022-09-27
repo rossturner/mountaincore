@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
@@ -53,7 +52,6 @@ import java.util.Optional;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.*;
 import static technology.rocketjump.saul.entities.FireMessageHandler.blackenedColor;
 import static technology.rocketjump.saul.entities.behaviour.creature.CombatBehaviour.getOpponentsInMelee;
-import static technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel.BrokenBones;
 import static technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel.Destroyed;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
@@ -251,7 +249,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 					if (newOrganDamage.isGreaterThan(currentOrganDamage)) {
 						defenderAttributes.getBody().setOrganDamage(impactedBodyPart, targetOrgan, newOrganDamage);
 						messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
-								attackMessage.defenderEntity, attackMessage.attackerEntity, impactedBodyPart, targetOrgan, newOrganDamage
+								attackMessage.defenderEntity, impactedBodyPart, targetOrgan, newOrganDamage
 						));
 					}
 				} else {
@@ -265,7 +263,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 						));
 
 						if (newDamageLevel.equals(Destroyed)) {
-							bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity, attackMessage.attackerEntity);
+							bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity);
 							if(impactedBodyPart.getPartDefinition().getName().equals(defenderAttributes.getBody().getBodyStructure().getRootPartName())) {
 								messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH,
 										new CreatureDeathMessage(attackMessage.defenderEntity, DeathReason.EXTENSIVE_INJURIES));
@@ -495,9 +493,6 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 			statusComponent.apply(new KnockedUnconscious());
 		}
 
-		if (message.damageLevel.equals(BrokenBones) || message.damageLevel.equals(Destroyed)) {
-			statusComponent.apply(new MovementImpaired());
-		}
 	}
 
 	private void applyStun(Entity targetCreature) {
@@ -512,7 +507,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		StatusComponent statusComponent = message.targetEntity.getComponent(StatusComponent.class);
 
 		List<BodyPartOrgan> otherOrgansOfType = new ArrayList<>();
-		for (BodyPart bodyPart : attributes.getBody().getAllBodyParts()) {
+		for (BodyPart bodyPart : attributes.getBody().getAllWorkingBodyParts()) {
 			for (BodyPartOrgan organForBodyPart : bodyPart.getPartDefinition().getOrgans()) {
 				if (message.impactedOrgan.getOrganDefinition().equals(organForBodyPart.getOrganDefinition()) &&
 						message.impactedOrgan.getDiscriminator() != organForBodyPart.getDiscriminator() &&
@@ -560,38 +555,28 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		}
 	}
 
-	private void bodyPartDestroyed(BodyPart impactedBodyPart, Body body, Entity targetEntity, Entity aggressorEntity) {
-		for (BodyPartOrgan organ : impactedBodyPart.getPartDefinition().getOrgans()) {
-			if (!body.getOrganDamage(impactedBodyPart, organ).equals(OrganDamageLevel.DESTROYED)) {
-				body.setOrganDamage(impactedBodyPart, organ, OrganDamageLevel.DESTROYED);
-				messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
-						targetEntity, aggressorEntity, impactedBodyPart, organ, OrganDamageLevel.DESTROYED
-				));
+	public void bodyPartDestroyed(BodyPart impactedBodyPart, Body body, Entity targetEntity) {
+		StatusComponent statusComponent = targetEntity.getOrCreateComponent(StatusComponent.class);
+		for (BodyPart child : body.iterateRecursively(impactedBodyPart)) {
+			body.setDamage(child, Destroyed);
+			for (BodyPartOrgan organ : child.getPartDefinition().getOrgans()) {
+				if (!body.getOrganDamage(child, organ).equals(OrganDamageLevel.DESTROYED)) {
+					body.setOrganDamage(child, organ, OrganDamageLevel.DESTROYED);
+					messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
+							targetEntity, child, organ, OrganDamageLevel.DESTROYED
+					));
+				}
+			}
+
+			BodyPartFunction function = child.getPartDefinition().getFunction();
+			if (function != null) {
+				switch (function) {
+					case MAIN_HAND -> statusComponent.apply(new LossOfMainHand());
+					case OFF_HAND -> statusComponent.apply(new LossOfOffHand());
+					case MOVEMENT -> statusComponent.apply(new MovementImpaired());
+				}
 			}
 		}
-
-		for (String childPartName : impactedBodyPart.getPartDefinition().getChildParts()) {
-			String[] split = childPartName.split("-");
-			BodyPartDiscriminator childDiscriminator = null;
-			if (split.length > 1) {
-				childDiscriminator = EnumUtils.getEnum(BodyPartDiscriminator.class, split[0]);
-				childPartName = split[1];
-			}
-			BodyPartDefinition childPartDefinition = body.getBodyStructure().getPartDefinitionByName(childPartName).orElse(null);
-			if (childDiscriminator == null) {
-				childDiscriminator = impactedBodyPart.getDiscriminator();
-			}
-			final BodyPartDiscriminator finalChildDiscriminator = childDiscriminator;
-
-			body.getAllBodyParts()
-					.stream().filter(b -> b.getPartDefinition().equals(childPartDefinition) && b.getDiscriminator() == finalChildDiscriminator)
-					.forEach(b -> {
-						if (!body.getDamage(b).getDamageLevel().equals(Destroyed)) {
-							bodyPartDestroyed(b, body, targetEntity, aggressorEntity);
-						}
-					});
-		}
-
 	}
 
 	private int getStrengthModifier(Entity attackerEntity) {

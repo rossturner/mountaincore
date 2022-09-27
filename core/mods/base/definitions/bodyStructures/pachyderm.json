@@ -61,7 +61,7 @@
     {
       "name": "Foot",
       "size": 0.01,
-      "function": "FOOT"
+      "function": "MOVEMENT"
     }
   ]
 }

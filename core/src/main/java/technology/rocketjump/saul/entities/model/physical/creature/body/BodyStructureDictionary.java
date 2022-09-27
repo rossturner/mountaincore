@@ -6,7 +6,6 @@ import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.model.physical.creature.body.organs.OrganDefinitionDictionary;
-import technology.rocketjump.saul.materials.GameMaterialDictionary;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,13 +15,11 @@ import java.util.*;
 public class BodyStructureDictionary {
 
 	private final OrganDefinitionDictionary organDefinitionDictionary;
-	private final GameMaterialDictionary gameMaterialDictionary;
 	private final Map<String, BodyStructure> byName = new HashMap<>();
 
 	@Inject
-	public BodyStructureDictionary(OrganDefinitionDictionary organDefinitionDictionary, GameMaterialDictionary gameMaterialDictionary) throws IOException {
+	public BodyStructureDictionary(OrganDefinitionDictionary organDefinitionDictionary) throws IOException {
 		this.organDefinitionDictionary = organDefinitionDictionary;
-		this.gameMaterialDictionary = gameMaterialDictionary;
 		File jsonFile = new File("assets/definitions/bodyStructures.json");
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<BodyStructure> bodyStructures = objectMapper.readValue(FileUtils.readFileToString(jsonFile),

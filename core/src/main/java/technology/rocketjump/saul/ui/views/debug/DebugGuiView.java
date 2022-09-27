@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.combat.CombatMessageHandler;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
@@ -26,7 +27,12 @@ import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.*;
+import technology.rocketjump.saul.entities.model.physical.creature.body.Body;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel;
+import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructure;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
@@ -55,9 +61,7 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.views.GuiView;
 import technology.rocketjump.saul.ui.views.GuiViewName;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -83,11 +87,14 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	private final CreatureEntityAttributesFactory creatureEntityAttributesFactory;
 	private final PlantEntityAttributesFactory plantEntityAttributesFactory;
 	private final PlantEntityFactory plantEntityFactory;
+	private final CombatMessageHandler combatMessageHandler;
 	private final SelectBox<Race> raceSelect;
 	private final SelectBox<String> plantSpeciesSelect;
 	private final SelectBox<Integer> plantSpeciesGrowthStageSelect;
 	private final SelectBox<EntityNeed> needSelect;
 	private final SelectBox<Integer> needValueSelect;
+	private final SelectBox<String> bodyPartSelect;
+	private final Map<String, BodyPart> stringToBodyPart = new TreeMap<>();
 	private final ItemEntityFactory itemEntityFactory;
 	private final SettlerFactory settlerFactory;
 	private final WeatherManager weatherManager;
@@ -109,7 +116,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 						CreatureEntityFactory creatureEntityFactory, CreatureEntityAttributesFactory creatureEntityAttributesFactory,
 						RaceDictionary raceDictionary, PlantSpeciesDictionary plantSpeciesDictionary,
 						PlantEntityAttributesFactory plantEntityAttributesFactory, PlantEntityFactory plantEntityFactory,
-						ItemEntityFactory itemEntityFactory, SettlerFactory settlerFactory, WeatherManager weatherManager,
+						CombatMessageHandler combatMessageHandler, ItemEntityFactory itemEntityFactory, SettlerFactory settlerFactory, WeatherManager weatherManager,
 						ImmigrationManager immigrationManager, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.uiSkin = guiSkinRepository.getDefault();
@@ -120,6 +127,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 		this.creatureEntityAttributesFactory = creatureEntityAttributesFactory;
 		this.plantEntityAttributesFactory = plantEntityAttributesFactory;
 		this.plantEntityFactory = plantEntityFactory;
+		this.combatMessageHandler = combatMessageHandler;
 		this.itemEntityFactory = itemEntityFactory;
 		this.settlerFactory = settlerFactory;
 		this.weatherManager = weatherManager;
@@ -193,6 +201,18 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				.toArray(Integer[]::new);
 		this.needValueSelect = new SelectBox<>(uiSkin);
 		this.needValueSelect.setItems(needValues);
+
+
+		for (Race race : raceDictionary.getAll()) {
+			BodyStructure bodyStructure = race.getBodyStructure();
+			Body body = new Body(bodyStructure);
+			for (BodyPart bodyPart : body.getAllWorkingBodyParts()) {
+				this.stringToBodyPart.put(race.getName() + "-" + bodyPart.toString(), bodyPart);
+			}
+		}
+
+		this.bodyPartSelect = new SelectBox<>(uiSkin);
+		this.bodyPartSelect.setItems(stringToBodyPart.keySet().toArray(String[]::new));
 
 		messageDispatcher.addListener(this, MessageType.TOGGLE_DEBUG_VIEW);
 		messageDispatcher.addListener(this, MessageType.DEBUG_MESSAGE);
@@ -302,6 +322,17 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 							}
 						}
 
+					}
+				}
+				break;
+			}
+			case DESTROY_BODY_PART: {
+				for (Entity entity : tile.getEntities()) {
+					BodyPart bodyPart = stringToBodyPart.get(bodyPartSelect.getSelected());
+					EntityAttributes attributes = entity.getPhysicalEntityComponent().getAttributes();
+					if (attributes instanceof CreatureEntityAttributes creatureAttributes) {
+						creatureAttributes.getBody().setDamage(bodyPart, BodyPartDamageLevel.Destroyed);
+						combatMessageHandler.bodyPartDestroyed(bodyPart, creatureAttributes.getBody(), entity);
 					}
 				}
 				break;
@@ -439,6 +470,10 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				} else if (currentAction.equals(DebugAction.CHANGE_CREATURE_NEED)) {
 					layoutTable.add(needSelect).pad(5).left().row();
 					layoutTable.add(needValueSelect).pad(5).left().row();
+				} else if (currentAction.equals(DebugAction.DESTROY_BODY_PART)) {
+
+
+					layoutTable.add(bodyPartSelect).pad(5).left().row();
 				} else if (currentAction.equals(DebugAction.SPAWN_PLANT)) {
 					layoutTable.add(plantSpeciesSelect).pad(5).left().row();
 					layoutTable.add(plantSpeciesGrowthStageSelect).pad(5).left().row();

@@ -23,6 +23,10 @@
           "need": "SLEEP",
           "operator": "GREATER_THAN_OR_EQUAL_TO",
           "value": 15
+        },
+        {
+          "type": "BODY_PART_FUNCTION",
+          "need": "MAIN_HAND"
         }
       ],
       "priority": "LOWEST",

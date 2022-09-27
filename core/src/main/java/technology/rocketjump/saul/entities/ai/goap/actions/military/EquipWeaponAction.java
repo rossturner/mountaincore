@@ -48,12 +48,12 @@ public class EquipWeaponAction extends Action {
 			completionType = SUCCESS;
 		} else {
 			Entity weaponInInventory = inventoryComponent.getById(assignedWeaponId);
-			if (weaponInInventory == null) {
-				completionType = FAILURE;
-			} else {
+			if (weaponInInventory != null && equippedItemComponent.isMainHandEnabled()) {
 				inventoryComponent.remove(weaponInInventory.getId());
 				equippedItemComponent.setMainHandItem(weaponInInventory, parent.parentEntity, parent.messageDispatcher);
 				completionType = SUCCESS;
+			} else {
+				completionType = FAILURE;
 			}
 		}
 

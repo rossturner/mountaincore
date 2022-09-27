@@ -50,9 +50,9 @@ public class EquipItemForJobFromFurnitureAction extends Action {
 						} else {
 							itemInInventory = inventoryComponent.findByItemType(requiredItemType);
 						}
-						if (itemInInventory != null) {
+						EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
+						if (itemInInventory != null && equippedItemComponent.isMainHandEnabled()) {
 							inventoryComponent.remove(itemInInventory.getId());
-							EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
 							equippedItemComponent.setMainHandItem(itemInInventory, parent.parentEntity, parent.messageDispatcher);
 							completionType = SUCCESS;
 						} else {
