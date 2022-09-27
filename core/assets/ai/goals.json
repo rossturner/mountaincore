@@ -752,6 +752,9 @@
       "type" : "NEED",
       "value" : 15,
       "operator" : "GREATER_THAN_OR_EQUAL_TO"
+    }, {
+      "need" : "MAIN_HAND",
+      "type" : "BODY_PART_FUNCTION"
     } ],
     "priority" : "LOWEST"
   } ],
