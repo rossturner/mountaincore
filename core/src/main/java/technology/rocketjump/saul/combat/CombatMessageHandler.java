@@ -558,6 +558,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	public void bodyPartDestroyed(BodyPart impactedBodyPart, Body body, Entity targetEntity) {
 		StatusComponent statusComponent = targetEntity.getOrCreateComponent(StatusComponent.class);
 		for (BodyPart child : body.iterateRecursively(impactedBodyPart)) {
+			body.setDamage(child, Destroyed);
 			for (BodyPartOrgan organ : child.getPartDefinition().getOrgans()) {
 				if (!body.getOrganDamage(child, organ).equals(OrganDamageLevel.DESTROYED)) {
 					body.setOrganDamage(child, organ, OrganDamageLevel.DESTROYED);
