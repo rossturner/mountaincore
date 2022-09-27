@@ -89,8 +89,8 @@ public class ConsumeFoodAction extends Action {
 		// Place (back) into inventory
 		InventoryComponent parentInventory = parent.parentEntity.getOrCreateComponent(InventoryComponent.class);
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
-		if (equippedItemComponent != null && targetEntity.equals(equippedItemComponent.getMainHandItem())) {
-			equippedItemComponent.clearMainHandItem();
+		if (equippedItemComponent != null && equippedItemComponent.isEquipped(targetEntity)) {
+			equippedItemComponent.clearEquipped(targetEntity);
 			parent.parentEntity.removeComponent(EquippedItemComponent.class);
 			parentInventory.add(targetEntity, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
 		} else {

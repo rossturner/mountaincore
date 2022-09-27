@@ -43,6 +43,27 @@ public class EquippedItemComponent implements EntityComponent {
 		return equippedClothing;
 	}
 
+	public boolean isEquipped(Entity targetEntity) {
+		return targetEntity.equals(mainHandItem) || targetEntity.equals(offHandItem);
+	}
+
+	public boolean setEquipped(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
+		boolean successful = setMainHandItem(itemToEquip, parentEntity, messageDispatcher);
+		if (successful) {
+			return true;
+		} else {
+			return setOffHandItem(itemToEquip, parentEntity, messageDispatcher);
+		}
+	}
+
+	public void clearEquipped(Entity targetEntity) {
+		if (targetEntity.equals(mainHandItem)) {
+			clearMainHandItem();
+		} else if (targetEntity.equals(offHandItem)) {
+			clearOffHandItem();
+		}
+	}
+
 	public boolean setMainHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
 		boolean requiresTwoHands = requiresTwoHands(itemToEquip);
 		if (
@@ -99,16 +120,16 @@ public class EquippedItemComponent implements EntityComponent {
 	}
 
 	public void disableMainHand() {
-		clearMainHandItem();
+		clearMainHandItem(); //todo return me
 		mainHandEnabled = false;
 	}
 
 	public void disableOffHand() {
 		clearOffHandItem();
-		offHandEnabled = false;
+		offHandEnabled = false; //todo return me
 
 		if (requiresTwoHands(mainHandItem)) {
-			clearMainHandItem();
+			clearMainHandItem(); //todo return me
 		}
 	}
 
