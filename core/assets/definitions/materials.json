@@ -1865,7 +1865,7 @@
   "quenchesThirst" : false,
   "i18nKey" : "SKIN.DWARF_HIDE",
   "useMaterialTypeAsAdjective" : false,
-  "useInRandomGeneration" : true,
+  "useInRandomGeneration" : false,
   "excludeFromItemDescription" : false,
   "dynamicallyCreated" : false
 }, {

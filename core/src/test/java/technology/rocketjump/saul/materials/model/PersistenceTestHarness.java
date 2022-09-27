@@ -27,6 +27,7 @@ import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDict
 import technology.rocketjump.saul.entities.tags.TagDictionary;
 import technology.rocketjump.saul.environment.DailyWeatherTypeDictionary;
 import technology.rocketjump.saul.environment.WeatherTypeDictionary;
+import technology.rocketjump.saul.invasions.InvasionDefinitionDictionary;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
@@ -127,6 +128,8 @@ public class PersistenceTestHarness {
 	private CraftingOutputQualityDictionary mockCraftingOutputQualityDictionary;
 	@Mock
 	private SquadFormationDictionary mockSquadFormationDictionary;
+	@Mock
+	private InvasionDefinitionDictionary mockInvasionDefinitionDictionary;
 
 	@Before
 	public void setup() {
@@ -171,7 +174,8 @@ public class PersistenceTestHarness {
 				mockBodyStructureDictionary,
 				mockOrganDefinitionDictionary,
 				mockRaceDictionary,
-				mockSquadFormationDictionary);
+				mockSquadFormationDictionary,
+				mockInvasionDefinitionDictionary);
 
 	}
 

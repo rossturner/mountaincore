@@ -45,6 +45,8 @@ import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviourDictionary;
 import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.factories.CreatureEntityFactory;
+import technology.rocketjump.saul.entities.factories.names.NameGenerationDescriptor;
+import technology.rocketjump.saul.entities.factories.names.NameGenerationDescriptorDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.*;
@@ -89,6 +91,7 @@ public class CreatureUIFactory implements UIFactory {
     private final NativeFileChooser fileChooser;
     private final SoundAssetDictionary soundAssetDictionary;
     private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
+    private final NameGenerationDescriptorDictionary nameGenerationDescriptorDictionary;
 
     @Inject
     public CreatureUIFactory(MessageDispatcher messageDispatcher, EntityAssetTypeDictionary entityAssetTypeDictionary,
@@ -98,7 +101,7 @@ public class CreatureUIFactory implements UIFactory {
                              CreatureBehaviourDictionary creatureBehaviourDictionary, ScheduleDictionary scheduleDictionary,
                              GameMaterialDictionary gameMaterialDictionary, ItemTypeDictionary itemTypeDictionary,
                              NativeFileChooser fileChooser, SoundAssetDictionary soundAssetDictionary,
-                             ParticleEffectTypeDictionary particleEffectTypeDictionary) {
+                             ParticleEffectTypeDictionary particleEffectTypeDictionary, NameGenerationDescriptorDictionary nameGenerationDescriptorDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.completeAssetDictionary = completeAssetDictionary;
@@ -114,6 +117,7 @@ public class CreatureUIFactory implements UIFactory {
         this.fileChooser = fileChooser;
         this.soundAssetDictionary = soundAssetDictionary;
         this.particleEffectTypeDictionary = particleEffectTypeDictionary;
+        this.nameGenerationDescriptorDictionary = nameGenerationDescriptorDictionary;
     }
 
     @Override
@@ -215,6 +219,18 @@ public class CreatureUIFactory implements UIFactory {
         editorTable.row();
 //        addTextField("Name:", "name", race, editorTable);
         addTextField("I18N key:", "i18nKey", race, editorTable);
+
+        String nullOption = "-none-";
+        List<String> nameGenerationDescriptors = new ArrayList<>();
+        nameGenerationDescriptors.add(nullOption);
+        nameGenerationDescriptors.addAll(nameGenerationDescriptorDictionary.getAll().stream().map(NameGenerationDescriptor::getDescriptorName).toList());
+        editorTable.add(selectField("Name generation:", race.getNameGeneration(), nameGenerationDescriptors, nullOption, newValue -> {
+            if (newValue.equals(nullOption)) {
+                race.setNameGeneration(null);
+            } else {
+                race.setNameGeneration(newValue);
+            }
+        })).left().expandX().fillX().row();
 
         editorTable.add(WidgetBuilder.label("Minimum strength")).left();
         editorTable.add(floatSpinner(race.getMinStrength(), 0.0f, Float.MAX_VALUE, race::setMinStrength)).left().expandX().fillX().row();

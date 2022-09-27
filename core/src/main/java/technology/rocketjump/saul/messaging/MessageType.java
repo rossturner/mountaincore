@@ -108,8 +108,8 @@ public class MessageType {
 	public static final int SHUTDOWN_IN_PROGRESS = 400;
 
 	// Game clock and environment messages
-	public static final int DAY_ELAPSED = 500;
-	public static final int SEASON_ELAPSED = 501;
+	public static final int HOUR_ELAPSED = 500;
+	public static final int DAY_ELAPSED = 501;
 	public static final int YEAR_ELAPSED = 502;
 
 	// Job messages
@@ -274,6 +274,9 @@ public class MessageType {
 	public static final int MILITARY_ASSIGNMENT_CHANGED = 2000;
 	public static final int MILITARY_SQUAD_SHIFT_CHANGED = 2001;
 	public static final int MILITARY_SQUAD_ORDERS_CHANGED = 2002;
+
+	// Invasion messages
+	public static final int TRIGGER_INVASION = 2100;
 
 	// Asset Editor messages
 	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;

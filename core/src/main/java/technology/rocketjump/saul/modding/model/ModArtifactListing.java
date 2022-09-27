@@ -19,7 +19,7 @@ import technology.rocketjump.saul.crafting.model.CraftingOutputQuality;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
 import technology.rocketjump.saul.entities.ai.goap.Goal;
 import technology.rocketjump.saul.entities.ai.goap.Schedule;
-import technology.rocketjump.saul.entities.factories.names.NameWord;
+import technology.rocketjump.saul.entities.factories.names.NameGenerationDescriptor;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructure;
 import technology.rocketjump.saul.entities.model.physical.creature.body.organs.OrganDefinition;
@@ -227,21 +227,10 @@ public class ModArtifactListing {
 						"terrain", "wallLayoutQuadrants", JSON_OBJECT, SINGLE_FILE, REPLACES_EXISTING, UntypedJsonProcessor.class),
 
 				////////// text //////////
-				// TODO MODDING this could do with improvement/being made more generic
-				def("text/names/adjective_noun", "adjectives.csv", CSV, NameWord.class,
-						"text/adjective_noun", "adjectives", CSV, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class,
-						NameWordValidator.class),
-				def("text/names/adjective_noun", "nouns.csv", CSV, NameWord.class,
-						"text/adjective_noun", "nouns", CSV, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class,
-						NameWordValidator.class),
-				def("text/names/dwarven", "descriptor.json", JSON_OBJECT, null,
-						"text/dwarven", "descriptor", JSON_OBJECT, SINGLE_FILE, REPLACES_EXISTING, UntypedJsonProcessor.class),
-				def("text/names/old_norse", "descriptor.json", JSON_OBJECT, null,
-						"text/old_norse", "descriptor", JSON_OBJECT, SINGLE_FILE, REPLACES_EXISTING, UntypedJsonProcessor.class),
-				def("text/names/old_norse", "given_names.csv", CSV, null,
-						"text/old_norse", "given_names", CSV, COPY_ORIGINAL_FILES, REPLACES_EXISTING, CopyFilesProcessor.class),
-				def("text/names/settlement", "descriptor.json", JSON_OBJECT, null,
-						"text/settlement", "descriptor", JSON_OBJECT, SINGLE_FILE, REPLACES_EXISTING, UntypedJsonProcessor.class),
+				def("text/names/csv", "*.csv", CSV, null,
+						"text/csv", null, CSV, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
+				def("text/names", "**/descriptor.json", JSON_OBJECT, NameGenerationDescriptor.class,
+						"text", "name-descriptors", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 
 				////////// translations //////////
 				def("translations", "languages.json", JSON_ARRAY, LanguageType.class,

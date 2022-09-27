@@ -19,6 +19,7 @@ import static technology.rocketjump.saul.entities.model.physical.creature.Gender
  * MODDING This should be one of several possible types of names (e.g. different nationalities)
  */
 @Singleton
+@Deprecated// This is out of date but keeping around for the surname creation
 public class NorseNameGenerator {
 
 	private final List<String> maleGivenNames = new ArrayList<>();

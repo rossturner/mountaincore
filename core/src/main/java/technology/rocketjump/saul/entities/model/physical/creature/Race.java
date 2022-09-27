@@ -17,6 +17,7 @@ public class Race {
 	@Name
 	private String name;
 	private String i18nKey;
+	private String nameGeneration;
 
 	private float minStrength;
 	private float maxStrength;
@@ -152,5 +153,13 @@ public class Race {
 
 	public void setMapPlacement(CreatureMapPlacement mapPlacement) {
 		this.mapPlacement = mapPlacement;
+	}
+
+	public String getNameGeneration() {
+		return nameGeneration;
+	}
+
+	public void setNameGeneration(String nameGeneration) {
+		this.nameGeneration = nameGeneration;
 	}
 }

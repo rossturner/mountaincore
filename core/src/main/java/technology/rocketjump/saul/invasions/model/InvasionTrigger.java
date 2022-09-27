@@ -5,6 +5,6 @@ package technology.rocketjump.saul.invasions.model;
  */
 public enum InvasionTrigger {
 
-	POPULATION
+	POPULATION;
 
 }

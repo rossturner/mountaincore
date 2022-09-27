@@ -2,6 +2,7 @@ package technology.rocketjump.saul.settlement.notifications;
 
 import com.badlogic.gdx.graphics.Color;
 import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
 public enum NotificationType {
@@ -16,6 +17,7 @@ public enum NotificationType {
 	FIRE_STARTED("flame", "#FF4400", "fire-landscape.png", null),
 	OXIDISATION_DESTRUCTION("cracked-shield", "#a15f33", "rainfall.png", null),
 	FISH_EXHAUSTED("fried-fish", "#38bfc8", "river.png", null),
+	INVASION("battle-axe", HexColors.toHexString(Faction.HOSTILE_INVASION.defensePoolShieldColor), "orc-invasion-placeholder.png", null),
 	GAME_OVER("castle-ruins", "#cd0303", "settlement-game-over.png", null);
 
 

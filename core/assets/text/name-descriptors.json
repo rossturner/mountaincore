@@ -1,0 +1,22 @@
+[ {
+  "descriptorName" : "Dwarven",
+  "firstName" : "norse_given_names",
+  "familyName" : "adjective_noun",
+  "goodSpheres" : [ "Colour", "Dwarven", "Earth", "Garment", "Gemstone", "Humanoid", "Metal", "Ore", "Stone", "Strong", "Tool", "Unspecified", "Weapon" ],
+  "badSpheres" : [ "Agile", "Air", "Elven", "Nature", "Weak" ]
+}, {
+  "descriptorName" : "Old Norse",
+  "firstName" : "norse_given_names"
+}, {
+  "descriptorName" : "Orcish",
+  "firstName" : "orc_given_names",
+  "familyName" : "adjective_noun",
+  "goodSpheres" : [ "Heroic", "Villainous", "Humanoid", "Strong", "Emotions", "Humanoid", "Colour", "Weapon", "Food", "Orcish", "Unspecified" ],
+  "badSpheres" : [ "Agile", "Air", "Dwarven", "Elven", "Nature", "Weak" ]
+}, {
+  "descriptorName" : "Settlement",
+  "firstName" : "adjective_noun",
+  "familyName" : "none",
+  "goodSpheres" : [ "Agile", "Air", "Colour", "Death", "Dwarven", "Earth", "Emotions", "Fire", "Gemstone", "Happy", "Heroic", "Ice", "Life", "Metal", "Noble", "Ore", "Placename", "Poor", "Rich", "Stone", "Strong", "Tool", "Unspecified", "Water", "Weak", "Weapon" ],
+  "badSpheres" : [ "Air", "Food", "Garment", "Human", "Humanoid", "Professions", "Spirit" ]
+} ]

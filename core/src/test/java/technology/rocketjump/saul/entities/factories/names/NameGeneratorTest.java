@@ -2,9 +2,9 @@ package technology.rocketjump.saul.entities.factories.names;
 
 import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.junit.Before;
 import org.junit.Test;
-import technology.rocketjump.saul.entities.factories.DwarvenNameGenerator;
 import technology.rocketjump.saul.entities.model.physical.creature.HumanoidName;
 
 import java.util.LinkedList;
@@ -15,18 +15,19 @@ import static org.fest.assertions.Assertions.assertThat;
 import static technology.rocketjump.saul.entities.model.physical.creature.Gender.FEMALE;
 import static technology.rocketjump.saul.entities.model.physical.creature.Gender.MALE;
 
-public class DwarvenNameGeneratorTest {
+public class NameGeneratorTest {
 
-	private DwarvenNameGenerator nameGenerator;
+	private NameGenerator nameGenerator;
 
 	@Before
 	public void setup() {
-		nameGenerator = Guice.createInjector().getInstance(DwarvenNameGenerator.class);
+		Injector injector = Guice.createInjector();
+		nameGenerator = injector.getInstance(NameGenerator.class);
 	}
 
 	@Test
 	public void test_createsNonEmptyName() {
-		HumanoidName name = nameGenerator.create(1L, MALE);
+		HumanoidName name = nameGenerator.create("Dwarven", 1L, MALE);
 
 		assertThat(name.getFirstName()).isNotEmpty();
 		assertThat(name.getLastName()).isNotEmpty();
@@ -36,7 +37,7 @@ public class DwarvenNameGeneratorTest {
 	public void bigNamePrintoutTest() {
 		Random random = new RandomXS128();
 		for (int i = 0; i < 100; i++) {
-			System.out.println(nameGenerator.create(random.nextLong(), random.nextBoolean() ? MALE : FEMALE));
+			System.out.println(nameGenerator.create("Orcish", random.nextLong(), MALE));
 		}
 	}
 
@@ -48,7 +49,7 @@ public class DwarvenNameGeneratorTest {
 		Random random = new RandomXS128();
 		int total = 10000;
 		for (int i = 0; i < total; i++) {
-			HumanoidName name = nameGenerator.create(random.nextLong(), random.nextBoolean() ? MALE : FEMALE);
+			HumanoidName name = nameGenerator.create("Dwarven", random.nextLong(), random.nextBoolean() ? MALE : FEMALE);
 
 			String firstLetter = name.getFirstName().substring(0, 1);
 			if (name.getLastName().startsWith(firstLetter)) {
