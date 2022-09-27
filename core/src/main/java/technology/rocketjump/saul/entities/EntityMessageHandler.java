@@ -787,6 +787,10 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 
 		dropEquippedItems(deceased, deceasedPosition);
+		ItemAssignmentComponent itemAssignmentComponent = deceased.getComponent(ItemAssignmentComponent.class);
+		if (itemAssignmentComponent != null) {
+			itemAssignmentComponent.destroy(deceased, messageDispatcher, gameContext);
+		}
 		deceased.removeComponent(NeedsComponent.class);
 
 		HistoryComponent historyComponent = deceased.getOrCreateComponent(HistoryComponent.class);
