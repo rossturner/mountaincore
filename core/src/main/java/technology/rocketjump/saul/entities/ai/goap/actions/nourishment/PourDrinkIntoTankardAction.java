@@ -74,9 +74,15 @@ public class PourDrinkIntoTankardAction extends Action implements EntityCreatedC
 					// correctly cancelled allocation
 
 					Entity tankardEntity = createTankardContaining(cancelledAllocation.getAllocationAmount(), liquidMaterial, gameContext);
+					EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
 
-					if (tankardEntity != null) {
-						equip(tankardEntity);
+					if (tankardEntity != null && equippedItemComponent.isMainHandEnabled()) {
+						equippedItemComponent.setMainHandItem(tankardEntity, parent.parentEntity, parent.messageDispatcher);
+
+						// Pseudo-create food allocation so PlaceFoodOrDrinkOnFurniture action works
+						FoodAllocation foodAllocation = new FoodAllocation(FoodAllocation.FoodAllocationType.LIQUID_CONTAINER, tankardEntity, (LiquidAllocation) null);
+						parent.setFoodAllocation(foodAllocation);
+
 						playBeerTapperSound();
 						pouringInProgress = true;
 						elapsedTime += deltaTime;
@@ -126,15 +132,6 @@ public class PourDrinkIntoTankardAction extends Action implements EntityCreatedC
 			parent.messageDispatcher.dispatchMessage(MessageType.LIQUID_SPLASH, new LiquidSplashMessage(parent.parentEntity, liquidMaterial));
 			return createdEntity;
 		}
-	}
-
-	private void equip(Entity tankardEntity) {
-		EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
-		equippedItemComponent.setMainHandItem(tankardEntity, parent.parentEntity, parent.messageDispatcher);
-
-		// Pseudo-create food allocation so PlaceFoodOrDrinkOnFurniture action works
-		FoodAllocation foodAllocation = new FoodAllocation(FoodAllocation.FoodAllocationType.LIQUID_CONTAINER, tankardEntity, (LiquidAllocation) null);
-		parent.setFoodAllocation(foodAllocation);
 	}
 
 	@Override

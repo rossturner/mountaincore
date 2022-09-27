@@ -117,7 +117,7 @@ public class ConsumeLiquidFromContainerAction extends Action {
 				Entity mainHandItem = equipped.getMainHandItem();
 				if (mainHandItem != null && containerId.equals(mainHandItem.getId())) {
 					return mainHandItem;
-				} else if (inInventory != null) {
+				} else if (inInventory != null && equipped.isMainHandEnabled()) {
 					inInventory = inventory.remove(inInventory.getId());
 					equipped.clearMainHandItem();
 					equipped.setMainHandItem(inInventory, parent.parentEntity, parent.messageDispatcher);
