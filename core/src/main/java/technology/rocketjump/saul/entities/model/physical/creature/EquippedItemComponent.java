@@ -119,18 +119,17 @@ public class EquippedItemComponent implements EntityComponent {
 		return equipment;
 	}
 
-	public void disableMainHand() {
-		clearMainHandItem(); //todo return me
+	public Entity disableMainHand() {
 		mainHandEnabled = false;
+		return clearMainHandItem();
 	}
 
-	public void disableOffHand() {
-		clearOffHandItem();
-		offHandEnabled = false; //todo return me
-
+	public Entity disableOffHand() {
+		offHandEnabled = false;
 		if (requiresTwoHands(mainHandItem)) {
-			clearMainHandItem(); //todo return me
+			return clearMainHandItem();
 		}
+		return clearOffHandItem();
 	}
 
 	public boolean isMainHandEnabled() {
