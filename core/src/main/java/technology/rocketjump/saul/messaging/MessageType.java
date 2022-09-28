@@ -170,6 +170,7 @@ public class MessageType {
 	public static final int ROOF_TILE_COLLAPSE = 820;
 	public static final int FLOOR_MATERIAL_SELECTED = 821;
 	public static final int DAMAGE_FURNITURE = 822;
+	public static final int LOOKUP_FURNITURE_TYPE = 823;
 
 	// Construction-specific messages
 	public static final int CANCEL_CONSTRUCTION = 900;

@@ -30,13 +30,17 @@ public class InvasionCreatureGroup extends CreatureGroup {
 		if (hoursInCurrentStage > invasionStage.durationHours) {
 			switch (invasionStage) {
 				case ARRIVING -> {
-
+					this.pendingSpecialGoal = SpecialGoal.CREATE_CAMPFIRE;
+					this.invasionStage = InvasionStage.PREPARING;
+					this.hoursInCurrentStage = 0;
 				}
 				case PREPARING -> {
-
+					removeCampfire();
+					this.invasionStage = InvasionStage.RAIDING;
+					this.hoursInCurrentStage = 0;
 				}
 				case RAIDING -> {
-
+					//
 				}
 				case RETREATING -> {
 					// Do nothing
@@ -44,10 +48,9 @@ public class InvasionCreatureGroup extends CreatureGroup {
 			}
 		}
 
-
-		// TODO if invasionStage is arriving, get someone to set up camp
-
-		// TODO at end of preparing, destroy all campfires
+		if (invasionStage.equals(InvasionStage.RETREATING)) {
+			this.pendingSpecialGoal = SpecialGoal.INVASION_RETREAT;
+		}
 	}
 
 	public int getVictoryPointsTarget() {

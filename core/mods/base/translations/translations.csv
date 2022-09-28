@@ -406,6 +406,7 @@ GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {
 GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION,,Moving into combat
 GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION,,Guarding a position
 GOAL.MILITARY.TRAINING.DESCRIPTION,,Weapon training
+GOAL.INVADER.CREATE_CAMP.DESCRIPTION,,Setting up camp
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
 GUI.ADD_TILES,This should be as short as possible,Add tiles
