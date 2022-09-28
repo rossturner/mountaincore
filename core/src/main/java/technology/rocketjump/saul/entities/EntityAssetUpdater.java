@@ -22,19 +22,16 @@ import technology.rocketjump.saul.entities.components.creature.MilitaryComponent
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
+import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectAttributes;
-import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectType;
 import technology.rocketjump.saul.entities.model.physical.furniture.DoorwayEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesGrowthStage;
 import technology.rocketjump.saul.entities.tags.AssetOverrideBySkillTag;
 import technology.rocketjump.saul.entities.tags.Tag;
@@ -412,18 +409,17 @@ public class EntityAssetUpdater implements GameContextAware {
 			attachedTags.addAll(findAttachedTags(attachedEntity.entity));
 		}
 
-		if (entity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes) {
-			FurnitureType furnitureType = ((FurnitureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getFurnitureType();
-			attachedTags.addAll(furnitureType.getProcessedTags());
-		} else if (entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes) {
-			ItemType itemType = ((ItemEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getItemType();
-			attachedTags.addAll(itemType.getProcessedTags());
-		} else if (entity.getPhysicalEntityComponent().getAttributes() instanceof PlantEntityAttributes) {
-			PlantSpecies plantSpecies = ((PlantEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getSpecies();
-			attachedTags.addAll(plantSpecies.getProcessedTags());
-		} else if (entity.getPhysicalEntityComponent().getAttributes() instanceof OngoingEffectAttributes) {
-			OngoingEffectType type = ((OngoingEffectAttributes) entity.getPhysicalEntityComponent().getAttributes()).getType();
-			attachedTags.addAll(type.getProcessedTags());
+		EntityAttributes entityAttributes = entity.getPhysicalEntityComponent().getAttributes();
+		if (entityAttributes instanceof FurnitureEntityAttributes furnitureEntityAttributes) {
+			attachedTags.addAll(furnitureEntityAttributes.getFurnitureType().getProcessedTags());
+		} else if (entityAttributes instanceof ItemEntityAttributes itemEntityAttributes) {
+			attachedTags.addAll(itemEntityAttributes.getItemType().getProcessedTags());
+		} else if (entityAttributes instanceof PlantEntityAttributes plantEntityAttributes) {
+			attachedTags.addAll(plantEntityAttributes.getSpecies().getProcessedTags());
+		} else if (entityAttributes instanceof OngoingEffectAttributes ongoingEffectAttributes) {
+			attachedTags.addAll(ongoingEffectAttributes.getType().getProcessedTags());
+		} else if (entityAttributes instanceof CreatureEntityAttributes creatureAttributes) {
+			attachedTags.addAll(creatureAttributes.getRace().getProcessedTags());
 		}
 
 		return attachedTags;

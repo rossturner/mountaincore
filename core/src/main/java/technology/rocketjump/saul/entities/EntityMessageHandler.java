@@ -35,6 +35,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesItem;
+import technology.rocketjump.saul.entities.tags.TransformToItemsOnDeathTag;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.gamecontext.GameState;
@@ -833,6 +834,13 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 				messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, gameOverNotification);
 				gameContext.getSettlementState().setGameState(GameState.GAME_OVER);
 			}
+		}
+
+		TransformToItemsOnDeathTag itemsOnDeathTag = deceased.getTag(TransformToItemsOnDeathTag.class);
+		if (itemsOnDeathTag != null) {
+			List<Entity> transformedEntities = itemsOnDeathTag.createItemEntities(messageDispatcher, itemTypeDictionary, attributes.getMaterials());
+			transformedEntities.forEach(entity -> placeOnGround(entity, deceasedPosition));
+			messageDispatcher.dispatchMessage(DESTROY_ENTITY, deceased);
 		}
 
 		return true;

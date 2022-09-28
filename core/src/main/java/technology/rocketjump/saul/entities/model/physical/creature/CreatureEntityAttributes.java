@@ -11,6 +11,10 @@ import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.body.Body;
+import technology.rocketjump.saul.entities.model.physical.creature.features.BonesFeature;
+import technology.rocketjump.saul.entities.model.physical.creature.features.MeatFeature;
+import technology.rocketjump.saul.entities.model.physical.creature.features.RaceFeatures;
+import technology.rocketjump.saul.entities.model.physical.creature.features.SkinFeature;
 import technology.rocketjump.saul.entities.model.physical.plant.SpeciesColor;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
@@ -108,11 +112,29 @@ public class CreatureEntityAttributes implements EntityAttributes {
 
 	@Override
 	public Map<GameMaterialType, GameMaterial> getMaterials() {
-		if (race.getFeatures().getSkin() != null && race.getFeatures().getSkin().getMaterial() != null) {
-			return Map.of(race.getFeatures().getSkin().getMaterial().getMaterialType(), race.getFeatures().getSkin().getMaterial());
-		} else {
-			return Map.of();
+		Map<GameMaterialType, GameMaterial> materials = new EnumMap<>(GameMaterialType.class);
+
+		RaceFeatures raceFeatures = race.getFeatures();
+		SkinFeature skin = raceFeatures.getSkin();
+		MeatFeature meat = raceFeatures.getMeat();
+		BonesFeature bones = raceFeatures.getBones();
+
+		if (skin != null && skin.getMaterial() != null) {
+			GameMaterial skinMaterial = skin.getMaterial();
+			materials.put(skinMaterial.getMaterialType(), skinMaterial);
 		}
+
+		if (meat != null && meat.getMaterial() != null) {
+			GameMaterial meatMaterial = meat.getMaterial();
+			materials.put(meatMaterial.getMaterialType(), meatMaterial);
+		}
+
+		if (bones != null && bones.getMaterial() != null) {
+			GameMaterial bonesMaterial = bones.getMaterial();
+			materials.put(bonesMaterial.getMaterialType(), bonesMaterial);
+		}
+
+		return materials;
 	}
 
 	public Race getRace() {

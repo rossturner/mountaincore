@@ -291,6 +291,25 @@ public class CreatureUIFactory implements UIFactory {
         editorTable.add(new VisLabel("Features:")).left().colspan(2).row();
         editorTable.add(new RaceFeaturesWidget(race.getFeatures(), gameMaterialDictionary, itemTypeDictionary, messageDispatcher,
                 soundAssetDictionary, particleEffectTypeDictionary, skillDictionary)).left().colspan(2).row();
+
+
+
+        TagsWidget tagsWidget = new TagsWidget(race.getTags());
+        tagsWidget.setFillParent(true);
+
+        CollapsibleWidget tagsCollapsible = new CollapsibleWidget(tagsWidget);
+        tagsCollapsible.setCollapsed(race.getTags().isEmpty());
+        VisLabel tagsLabel = new VisLabel("Tags (click to show)");
+        tagsLabel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                tagsCollapsible.setCollapsed(!tagsCollapsible.isCollapsed());
+            }
+        });
+        editorTable.add(tagsLabel).row();
+        editorTable.add();
+        editorTable.add(tagsCollapsible).left().row();
+
         return editorTable;
     }
 
