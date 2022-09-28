@@ -65,4 +65,12 @@ public class TagProcessingUtils {
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
 		this.stockpileComponentUpdater = stockpileComponentUpdater;
 	}
+
+	public ItemTypeDictionary getItemTypeDictionary() {
+		return itemTypeDictionary;
+	}
+
+	public PlantSpeciesDictionary getPlantSpeciesDictionary() {
+		return plantSpeciesDictionary;
+	}
 }

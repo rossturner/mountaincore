@@ -7,6 +7,7 @@ import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructure;
 import technology.rocketjump.saul.entities.model.physical.creature.features.RaceFeatures;
 import technology.rocketjump.saul.entities.model.physical.plant.SpeciesColor;
+import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.misc.Name;
 
 import java.util.*;
@@ -36,6 +37,12 @@ public class Race {
 	private Map<Gender, RaceGenderDescriptor> genders = new EnumMap<>(Gender.class);
 
 	private RaceFeatures features = new RaceFeatures();
+
+	private Map<String, List<String>> tags = new HashMap<>();
+
+	@JsonIgnore
+	private List<Tag> processedTags = new ArrayList<>();
+
 
 	public String getName() {
 		return name;
@@ -153,4 +160,21 @@ public class Race {
 	public void setMapPlacement(CreatureMapPlacement mapPlacement) {
 		this.mapPlacement = mapPlacement;
 	}
+
+	public Map<String, List<String>> getTags() {
+		return tags;
+	}
+
+	public void setTags(Map<String, List<String>> tags) {
+		this.tags = tags;
+	}
+
+	public void setProcessedTags(List<Tag> processedTags) {
+		this.processedTags = processedTags;
+	}
+
+	public List<Tag> getProcessedTags() {
+		return processedTags;
+	}
+
 }

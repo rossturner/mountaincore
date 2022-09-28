@@ -6,6 +6,8 @@ import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.creature.Race;
+import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectType;
 import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
@@ -31,29 +33,32 @@ public class TagProcessor implements GameContextAware {
 	private final FurnitureTypeDictionary furnitureTypeDictionary;
 	private final RoomTypeDictionary roomTypeDictionary;
 	private final OngoingEffectTypeDictionary ongoingEffectTypeDictionary;
+	private final RaceDictionary raceDictionary;
 	private GameContext gameContext;
 
 	@Inject
 	public TagProcessor(TagDictionary tagDictionary, TagProcessingUtils tagProcessingUtils,
 						MessageDispatcher messageDispatcher, FurnitureTypeDictionary furnitureTypeDictionary,
-						RoomTypeDictionary roomTypeDictionary, OngoingEffectTypeDictionary ongoingEffectTypeDictionary) {
+						RoomTypeDictionary roomTypeDictionary, OngoingEffectTypeDictionary ongoingEffectTypeDictionary,
+						RaceDictionary raceDictionary) {
 		this.tagDictionary = tagDictionary;
 		this.tagProcessingUtils = tagProcessingUtils;
 		this.messageDispatcher = messageDispatcher;
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
 		this.roomTypeDictionary = roomTypeDictionary;
 		this.ongoingEffectTypeDictionary = ongoingEffectTypeDictionary;
+		this.raceDictionary = raceDictionary;
 	}
 
 	/**
 	 * This initialises processedTags on different types that require them
 	 */
 	public void init() {
-		for (ItemType itemType : tagProcessingUtils.itemTypeDictionary.getAll()) {
+		for (ItemType itemType : tagProcessingUtils.getItemTypeDictionary().getAll()) {
 			itemType.setProcessedTags(processRawTags(itemType.getTags()));
 		}
-		tagProcessingUtils.itemTypeDictionary.tagsProcessed();
-		for (PlantSpecies plantSpecies : tagProcessingUtils.plantSpeciesDictionary.getAll()) {
+		tagProcessingUtils.getItemTypeDictionary().tagsProcessed();
+		for (PlantSpecies plantSpecies : tagProcessingUtils.getPlantSpeciesDictionary().getAll()) {
 			plantSpecies.setProcessedTags(processRawTags(plantSpecies.getTags()));
 		}
 		for (FurnitureType furnitureType : furnitureTypeDictionary.getAll()) {
@@ -64,6 +69,9 @@ public class TagProcessor implements GameContextAware {
 		}
 		for (OngoingEffectType ongoingEffectType : ongoingEffectTypeDictionary.getAll()) {
 			ongoingEffectType.setProcessedTags(processRawTags(ongoingEffectType.getTags()));
+		}
+		for (Race race : raceDictionary.getAll()) {
+			race.setProcessedTags(processRawTags(race.getTags()));
 		}
 	}
 
