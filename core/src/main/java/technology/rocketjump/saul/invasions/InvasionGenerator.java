@@ -6,7 +6,10 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
+import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.InvasionCreatureGroup;
 import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
@@ -35,6 +38,8 @@ import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 
 import java.util.*;
+
+import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
 @Singleton
 public class InvasionGenerator implements GameContextAware {
@@ -66,6 +71,13 @@ public class InvasionGenerator implements GameContextAware {
 		Random random = gameContext.getRandom();
 		Map<GameMaterialType, GameMaterial> invasionMaterials = new HashMap();
 
+
+		InvasionCreatureGroup group = new InvasionCreatureGroup();
+		group.setGroupId(SequentialIdGenerator.nextId());
+		group.setHomeLocation(toGridPoint(invasionLocation));
+		group.setVictoryPointsTarget(pointsBudget);
+		group.setInvasionDefinition(definition);
+
 		int pointsSpent = 0;
 		while (pointsSpent < pointsBudget) {
 			InvasionParticipant participant = definition.getParticipants().get(random.nextInt(definition.getParticipants().size()));
@@ -73,6 +85,10 @@ public class InvasionGenerator implements GameContextAware {
 			CreatureEntityAttributes creatureAttributes = creatureEntityAttributesFactory.create(participant.getRace());
 			pointsSpent += participant.getBasePointsCost();
 			Entity invader = creatureEntityFactory.create(creatureAttributes, invasionLocation, EntityAssetOrientation.DOWN.toVector2(), gameContext, Faction.HOSTILE_INVASION);
+			if (invader.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+				creatureBehaviour.setCreatureGroup(group);
+			}
+
 			InventoryComponent inventoryComponent = invader.getOrCreateComponent(InventoryComponent.class);
 			MilitaryComponent militaryComponent = new MilitaryComponent();
 			militaryComponent.init(invader, messageDispatcher, gameContext);

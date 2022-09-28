@@ -20,7 +20,7 @@ public class Goal {
 	public final long goalId;
 	public final boolean interruptedByCombat;
 	public final boolean interruptedByLowNeeds;
-	public final List<SettlerCategory> settlerCategories;
+	public final List<CreatureCategory> creatureCategories;
 
 	private List<GoalSelector> selectors = new LinkedList<>();
 
@@ -29,14 +29,14 @@ public class Goal {
 
 	public static final Goal NULL_GOAL = new Goal("NULL_GOAL", "", 0.0, false, false, List.of());
 
-	public Goal(String name, String i18nDescription, Double expiryHours, boolean interruptedByCombat, boolean interruptedByLowNeeds, List<SettlerCategory> settlerCategories) {
+	public Goal(String name, String i18nDescription, Double expiryHours, boolean interruptedByCombat, boolean interruptedByLowNeeds, List<CreatureCategory> creatureCategories) {
 		this.name = name;
 		this.i18nDescription = i18nDescription;
 		this.expiryHours = expiryHours;
 		this.interruptedByCombat = interruptedByCombat;
 		this.interruptedByLowNeeds = interruptedByLowNeeds;
 		this.goalId = SequentialIdGenerator.nextId();
-		this.settlerCategories = settlerCategories;
+		this.creatureCategories = creatureCategories;
 	}
 
 	@Override

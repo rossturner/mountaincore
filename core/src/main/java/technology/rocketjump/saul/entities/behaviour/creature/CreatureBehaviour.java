@@ -43,9 +43,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import static technology.rocketjump.saul.entities.ai.goap.CreatureCategory.CIVILIAN;
+import static technology.rocketjump.saul.entities.ai.goap.CreatureCategory.MILITARY;
 import static technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary.NULL_SCHEDULE;
-import static technology.rocketjump.saul.entities.ai.goap.SettlerCategory.CIVILIAN;
-import static technology.rocketjump.saul.entities.ai.goap.SettlerCategory.MILITARY;
 import static technology.rocketjump.saul.entities.ai.goap.SpecialGoal.IDLE;
 import static technology.rocketjump.saul.entities.behaviour.creature.AssignedGoalFactory.*;
 import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.SAW_DEAD_BODY;
@@ -329,13 +329,13 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 	protected void addGoalsToQueue(GameContext gameContext) {
 		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
-		SettlerCategory currentSettlerCategory = militaryComponent != null && militaryComponent.isInMilitary() ? MILITARY : CIVILIAN;
+		CreatureCategory currentCreatureCategory = militaryComponent != null && militaryComponent.isInMilitary() ? MILITARY : CIVILIAN;
 		goalQueue.removeExpiredGoals(gameContext.getGameClock());
 		for (Goal potentialGoal : goalDictionary.getAllGoals()) {
 			if (potentialGoal.getSelectors().isEmpty()) {
 				continue; // Don't add goals with no selectors
 			}
-			if (!potentialGoal.settlerCategories.contains(currentSettlerCategory)) {
+			if (!potentialGoal.creatureCategories.contains(currentCreatureCategory)) {
 				// Goal does not apply to our settler category
 				continue;
 			}
@@ -361,11 +361,11 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	public void militaryAssignmentChanged() {
 		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
 		boolean inMilitary = militaryComponent.isInMilitary();
-		SettlerCategory currentSettlerCategory = inMilitary ? MILITARY : CIVILIAN;
+		CreatureCategory currentCreatureCategory = inMilitary ? MILITARY : CIVILIAN;
 
 		goalQueue.clear();
 
-		if (currentGoal != null && !currentGoal.isComplete() && !currentGoal.goal.settlerCategories.contains(currentSettlerCategory)) {
+		if (currentGoal != null && !currentGoal.isComplete() && !currentGoal.goal.creatureCategories.contains(currentCreatureCategory)) {
 			currentGoal.setInterrupted(true);
 		}
 

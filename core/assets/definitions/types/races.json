@@ -820,7 +820,7 @@
   "mapPlacement" : "NONE",
   "behaviour" : {
     "behaviourName" : "Creature",
-    "scheduleName" : "Diurnal animal",
+    "scheduleName" : "Military day shift",
     "needs" : [ "FOOD", "DRINK", "SLEEP" ],
     "aggressionResponse" : "ATTACK",
     "isSapient" : true

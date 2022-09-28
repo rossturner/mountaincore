@@ -2,6 +2,8 @@ package technology.rocketjump.saul.entities.ai.goap.actions;
 
 import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -23,7 +25,7 @@ public class LocateBedAction extends Action implements FurnitureAssignmentCallba
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
-		if (parent.parentEntity.getBehaviourComponent().isJobAssignable()) {
+		if (parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
 			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_FURNITURE_ASSIGNMENT,
 					FurnitureAssignmentRequest.requestBed(parent.parentEntity, willingToSleepOnFloor, this::furnitureAssigned));
 		} else {

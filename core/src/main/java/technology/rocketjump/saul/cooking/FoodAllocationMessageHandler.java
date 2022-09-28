@@ -116,11 +116,15 @@ public class FoodAllocationMessageHandler implements Telegraph, GameContextAware
 	}
 
 	private void handle(FoodAllocationRequestMessage requestMessage) {
-		FoodAllocation allocation = findAvailableFeastingHallFood(requestMessage.requestingEntity);
+		Faction requesterFaction = requestMessage.requestingEntity.getOrCreateComponent(FactionComponent.class).getFaction();
+		FoodAllocation allocation = null;
+		if (requesterFaction.equals(Faction.SETTLEMENT)) {
+			allocation = findAvailableFeastingHallFood(requestMessage.requestingEntity);
+		}
 		if (allocation == null) {
 			allocation = findAvailableRequesterInventoryFood(requestMessage.requestingEntity);
 		}
-		if (allocation == null) {
+		if (allocation == null && requesterFaction.equals(Faction.SETTLEMENT)) {
 			allocation = findAnyAvailableFood(requestMessage.requestingEntity);
 		}
 

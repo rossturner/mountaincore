@@ -37,8 +37,8 @@
   },
   "behaviour" : {
     "behaviourName" : "Creature",
-    "scheduleName" : "Diurnal animal",
-    "needs" : [ "FOOD", "DRINK", "SLEEP" ],
+    "scheduleName" : "Military day shift",
+    "needs" : [ "FOOD", "SLEEP" ],
     "aggressionResponse" : "ATTACK",
     "isSapient" : true
   },

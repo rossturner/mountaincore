@@ -71,22 +71,22 @@ public class GoalDictionary {
 		}
 
 
-		List<SettlerCategory> settlerCategories = new ArrayList<>();
-		JSONArray settlerCategoriesJson = goalJson.getJSONArray("settlerCategories");
-		if (settlerCategoriesJson == null || settlerCategoriesJson.isEmpty()) {
-			settlerCategories.addAll(List.of(SettlerCategory.values()));
+		List<CreatureCategory> creatureCategories = new ArrayList<>();
+		JSONArray creatureCategoriesJson = goalJson.getJSONArray("creatureCategories");
+		if (creatureCategoriesJson == null || creatureCategoriesJson.isEmpty()) {
+			creatureCategories.addAll(List.of(CreatureCategory.values()));
 		} else {
-			for (int cursor = 0; cursor < settlerCategoriesJson.size(); cursor++) {
-				SettlerCategory category = EnumUtils.getEnum(SettlerCategory.class, settlerCategoriesJson.getString(cursor));
+			for (int cursor = 0; cursor < creatureCategoriesJson.size(); cursor++) {
+				CreatureCategory category = EnumUtils.getEnum(CreatureCategory.class, creatureCategoriesJson.getString(cursor));
 				if (category == null) {
-					Logger.error("Could not parse " + settlerCategoriesJson.getString(cursor) + " to " + SettlerCategory.class.getSimpleName());
+					Logger.error("Could not parse " + creatureCategoriesJson.getString(cursor) + " to " + CreatureCategory.class.getSimpleName());
 				} else {
-					settlerCategories.add(category);
+					creatureCategories.add(category);
 				}
 			}
 		}
 		Goal goal = new Goal(goalJson.getString("name"), goalJson.getString("i18nDescription"), goalJson.getDouble("expiryHours"),
-				interruptedByCombat, interruptedByLowNeeds, settlerCategories);
+				interruptedByCombat, interruptedByLowNeeds, creatureCategories);
 
 		List<GoalSelector> selectors = objectMapper.readValue(goalJson.getJSONArray("selectors").toJSONString(),
 				objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, GoalSelector.class));

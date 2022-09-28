@@ -1,7 +1,6 @@
 {
   "name": "Eat food goal",
   "i18nDescription": "GOAL.EAT.DESCRIPTION",
-  "settlerCategories": ["CIVILIAN", "MILITARY"],
   "selectors": [
     {
       "conditions": [

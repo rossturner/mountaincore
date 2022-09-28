@@ -20,13 +20,13 @@ import java.util.*;
  */
 public class CreatureGroup implements Persistable {
 
-	private static final double GAME_TIME_BETWEEN_UPDATES = 0.2;
-	private long groupId;
-	private GridPoint2 homeLocation;
-	private double lastUpdateGameTime;
-	private Set<Long> memberEntityIds = new HashSet<>();
+	protected static final double GAME_TIME_BETWEEN_UPDATES = 0.2;
+	protected long groupId;
+	protected GridPoint2 homeLocation;
+	protected double lastUpdateGameTime;
+	protected Set<Long> memberEntityIds = new HashSet<>();
 
-	private final MemoryComponent sharedMemoryComponent = new MemoryComponent();
+	protected final MemoryComponent sharedMemoryComponent = new MemoryComponent();
 
 	public long getGroupId() {
 		return groupId;
@@ -51,7 +51,7 @@ public class CreatureGroup implements Persistable {
 		double now = gameContext.getGameClock().getCurrentGameTime();
 		if (now - lastUpdateGameTime > GAME_TIME_BETWEEN_UPDATES) {
 			lastUpdateGameTime = now;
-			moveHomeLocation(gameContext);
+			moveHomeLocationRandomly(gameContext);
 		}
 	}
 
@@ -62,7 +62,7 @@ public class CreatureGroup implements Persistable {
 	/**
 	 * This moves the home location by one tile, orthogonally, randomly
 	 */
-	private void moveHomeLocation(GameContext gameContext) {
+	private void moveHomeLocationRandomly(GameContext gameContext) {
 		List<CompassDirection> directions = new ArrayList<>(CompassDirection.CARDINAL_DIRECTIONS);
 		Collections.shuffle(directions, gameContext.getRandom());
 
