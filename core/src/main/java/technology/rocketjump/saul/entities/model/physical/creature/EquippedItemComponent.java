@@ -8,6 +8,7 @@ import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -24,8 +25,10 @@ import static technology.rocketjump.saul.entities.components.ItemAllocation.Purp
 public class EquippedItemComponent implements EntityComponent {
 
 	private Entity mainHandItem; // Note this can actually be another creature, not just an item
-	private boolean hideMainHandItem;
 	private Entity offHandItem;
+	private boolean hideMainHandItem;
+	private boolean mainHandEnabled = true;
+	private boolean offHandEnabled = true;
 	private Entity equippedClothing;
 
 	public Entity getMainHandItem() {
@@ -40,10 +43,40 @@ public class EquippedItemComponent implements EntityComponent {
 		return equippedClothing;
 	}
 
-	public void setMainHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
-		this.mainHandItem = itemToEquip;
-		this.hideMainHandItem = false; // This shouldn't be necessary, but is here to guard against forgetting to unset this flag
-		setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
+	public boolean isEquippedToAnyHand(Entity targetEntity) {
+		return targetEntity.equals(mainHandItem) || targetEntity.equals(offHandItem);
+	}
+
+	public boolean setEquippedToAnyHand(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
+		boolean successful = setMainHandItem(itemToEquip, parentEntity, messageDispatcher);
+		if (successful) {
+			return true;
+		} else {
+			return setOffHandItem(itemToEquip, parentEntity, messageDispatcher);
+		}
+	}
+
+	public void clearFromEquippedHand(Entity targetEntity) {
+		if (targetEntity.equals(mainHandItem)) {
+			clearMainHandItem();
+		} else if (targetEntity.equals(offHandItem)) {
+			clearOffHandItem();
+		}
+	}
+
+	public boolean setMainHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
+		boolean requiresTwoHands = requiresTwoHands(itemToEquip);
+		if (
+				(mainHandEnabled && !requiresTwoHands)
+				|| (requiresTwoHands && mainHandEnabled && offHandEnabled)
+		) {
+			this.mainHandItem = itemToEquip;
+			this.hideMainHandItem = false; // This shouldn't be necessary, but is here to guard against forgetting to unset this flag
+			setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public boolean isHideMainHandItem() {
@@ -54,9 +87,14 @@ public class EquippedItemComponent implements EntityComponent {
 		this.hideMainHandItem = hideMainHandItem;
 	}
 
-	public void setOffHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
-		this.offHandItem = itemToEquip;
-		setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
+	public boolean setOffHandItem(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
+		if (offHandEnabled) {
+			this.offHandItem = itemToEquip;
+			setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void setEquippedClothing(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
@@ -79,6 +117,35 @@ public class EquippedItemComponent implements EntityComponent {
 			equipment.add(clothing);
 		}
 		return equipment;
+	}
+
+	public Entity disableMainHand() {
+		mainHandEnabled = false;
+		return clearMainHandItem();
+	}
+
+	public Entity disableOffHand() {
+		offHandEnabled = false;
+		if (requiresTwoHands(mainHandItem)) {
+			return clearMainHandItem();
+		}
+		return clearOffHandItem();
+	}
+
+	public boolean isMainHandEnabled() {
+		return mainHandEnabled;
+	}
+
+	public boolean isOffHandEnabled() {
+		return offHandEnabled;
+	}
+
+	private boolean requiresTwoHands(Entity item) {
+		if (item != null && item.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
+			WeaponInfo weaponInfo = itemAttributes.getItemType().getWeaponInfo();
+			return weaponInfo != null && weaponInfo.isTwoHanded();
+		}
+		return false;
 	}
 
 	public Entity clearMainHandItem() {
@@ -156,6 +223,8 @@ public class EquippedItemComponent implements EntityComponent {
 			clonedComponent.setEquippedClothing(equippedClothing.clone(messageDispatcher, gameContext), equippedClothing.getLocationComponent().getContainerEntity(), messageDispatcher);
 		}
 		clonedComponent.hideMainHandItem = this.hideMainHandItem;
+		clonedComponent.mainHandEnabled = this.mainHandEnabled;
+		clonedComponent.offHandEnabled = this.offHandEnabled;
 		return clonedComponent;
 	}
 
@@ -176,6 +245,8 @@ public class EquippedItemComponent implements EntityComponent {
 			equippedClothing.writeTo(savedGameStateHolder);
 			asJson.put("equippedClothing", equippedClothing.getId());
 		}
+		asJson.put("mainHandEnabled", mainHandEnabled);
+		asJson.put("offHandEnabled", offHandEnabled);
 	}
 
 	@Override
@@ -205,5 +276,18 @@ public class EquippedItemComponent implements EntityComponent {
 				throw new InvalidSaveException("Could not find entity with ID " + equippedClothingId);
 			}
 		}
+
+		if (asJson.containsKey("mainHandEnabled")) {
+			this.mainHandEnabled = asJson.getBooleanValue("mainHandEnabled");
+		} else {
+			this.mainHandEnabled = true;
+		}
+
+		if (asJson.containsKey("offHandEnabled")) {
+			this.offHandEnabled = asJson.getBooleanValue("offHandEnabled");
+		} else {
+			this.offHandEnabled = true;
+		}
 	}
+
 }

@@ -40,6 +40,7 @@ public class SteeringComponent implements ChildPersistable {
 	private static float DEFAULT_PAUSE_TIME = 0.9f;
 	private boolean isSlowed;
 	private boolean movementImpaired;
+	private boolean immobilised;
 
 	public SteeringComponent() {
 
@@ -165,6 +166,9 @@ public class SteeringComponent implements ChildPersistable {
 			maxSpeed *= 2f;
 		}
 
+		if (immobilised) {
+			maxSpeed = 0.01f;
+		}
 
 		if (pauseTime > 0) {
 			pauseTime -= deltaTime;
@@ -312,6 +316,10 @@ public class SteeringComponent implements ChildPersistable {
 		return movementImpaired;
 	}
 
+	public void setImmobilised(boolean immobilised) {
+		this.immobilised = immobilised;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		if (destination != null) {
@@ -323,6 +331,9 @@ public class SteeringComponent implements ChildPersistable {
 		if (movementImpaired) {
 			asJson.put("movementImpaired", true);
 		}
+		if (immobilised) {
+			asJson.put("immobilised", true);
+		}
 	}
 
 	@Override
@@ -330,6 +341,7 @@ public class SteeringComponent implements ChildPersistable {
 		this.destination = JSONUtils.vector2(asJson.getJSONObject("destination"));
 		this.nextWaypoint = JSONUtils.vector2(asJson.getJSONObject("destination"));
 		this.movementImpaired = asJson.getBooleanValue("movementImpaired");
+		this.immobilised = asJson.getBooleanValue("immobilised");
 	}
 
 }

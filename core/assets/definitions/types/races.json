@@ -75,7 +75,8 @@
     "blood" : {
       "colorCode" : "#e62d23"
     }
-  }
+  },
+  "tags" : { }
 }, {
   "name" : "Deer",
   "i18nKey" : "RACE.DEER",
@@ -147,7 +148,8 @@
     "blood" : {
       "colorCode" : "#e62d23"
     }
-  }
+  },
+  "tags" : { }
 }, {
   "name" : "Elephant",
   "i18nKey" : "RACE.ELEPHANT",
@@ -228,7 +230,8 @@
     "blood" : {
       "colorCode" : "#e62d23"
     }
-  }
+  },
+  "tags" : { }
 }, {
   "name" : "Fox",
   "i18nKey" : "RACE.FOX",
@@ -288,7 +291,8 @@
     "blood" : {
       "colorCode" : "#e62d23"
     }
-  }
+  },
+  "tags" : { }
 }, {
   "name" : "Dwarf",
   "i18nKey" : "RACE.DWARF",
@@ -387,7 +391,8 @@
     "blood" : {
       "colorCode" : "#e62d23"
     }
-  }
+  },
+  "tags" : { }
 }, {
   "name" : "Carp",
   "i18nKey" : "RACE.CARP",
@@ -429,7 +434,8 @@
     "blood" : {
       "colorCode" : "#e62d23"
     }
-  }
+  },
+  "tags" : { }
 }, {
   "name" : "Perch",
   "i18nKey" : "RACE.PERCH",
@@ -471,7 +477,8 @@
     "blood" : {
       "colorCode" : "#e62d23"
     }
-  }
+  },
+  "tags" : { }
 }, {
   "name" : "Pike",
   "i18nKey" : "RACE.PIKE",
@@ -513,7 +520,8 @@
     "blood" : {
       "colorCode" : "#e62d23"
     }
-  }
+  },
+  "tags" : { }
 }, {
   "name" : "Fungolem",
   "i18nKey" : "RACE.FUNGOLEM",
@@ -575,7 +583,8 @@
       "animatedSpriteEffectName" : "Weapon slash",
       "ranged" : false
     }
-  }
+  },
+  "tags" : { }
 }, {
   "name" : "Spider",
   "i18nKey" : "RACE.SPIDER",
@@ -641,7 +650,8 @@
       "animatedSpriteEffectName" : "Weapon slash",
       "ranged" : false
     }
-  }
+  },
+  "tags" : { }
 }, {
   "name" : "Undead Dwarf",
   "i18nKey" : "RACE.UNDEAD_DWARF",
@@ -712,6 +722,9 @@
     "bones" : {
       "materialName" : "Bone"
     }
+  },
+  "tags" : {
+    "TRANSFORM_TO_ITEMS_ON_DEATH" : [ "Resource-Bone-Medium", "2", "Resource-Planks", "10" ]
   }
 }, {
   "name" : "Wurm",
@@ -774,7 +787,8 @@
       "animatedSpriteEffectName" : "Weapon slash",
       "ranged" : false
     }
-  }
+  },
+  "tags" : { }
 }, {
   "name" : "Orc",
   "i18nKey" : "RACE.ORC",
@@ -864,5 +878,6 @@
     "blood" : {
       "colorCode" : "#e62d23"
     }
-  }
+  },
+  "tags" : { }
 } ]

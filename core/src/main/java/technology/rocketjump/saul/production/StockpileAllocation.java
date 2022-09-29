@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.rooms;
+package technology.rocketjump.saul.production;
 
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.GridPoint2;

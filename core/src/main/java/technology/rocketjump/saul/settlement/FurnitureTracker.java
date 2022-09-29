@@ -15,6 +15,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.FurnitureAssignmentRequest;
+import technology.rocketjump.saul.messaging.types.GetFurnitureByTagMessage;
 
 import java.util.*;
 
@@ -35,6 +36,7 @@ public class FurnitureTracker implements GameContextAware, Telegraph {
 	@Inject
 	public FurnitureTracker(MessageDispatcher messageDispatcher) {
 		messageDispatcher.addListener(this, MessageType.REQUEST_FURNITURE_ASSIGNMENT);
+		messageDispatcher.addListener(this, MessageType.GET_FURNITURE_BY_TAG);
 	}
 
 	public void furnitureAdded(Entity entity) {
@@ -122,6 +124,12 @@ public class FurnitureTracker implements GameContextAware, Telegraph {
 					attributes.setAssignedToEntityId(request.requestingEntity.getId());
 				}
 				request.callback.accept(nearest);
+				return true;
+			}
+			case MessageType.GET_FURNITURE_BY_TAG: {
+				GetFurnitureByTagMessage message = (GetFurnitureByTagMessage) msg.extraInfo;
+				Collection<Entity> found = findByTag(message.type(), false);
+				message.callback().accept(found);
 				return true;
 			}
 			default:

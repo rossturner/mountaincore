@@ -15,6 +15,7 @@ public class BodyPartDefinition {
 	private List<BoneType> bones = new ArrayList<>();
 	private List<BodyPartOrgan> organs = new ArrayList<>();
 	private List<String> childParts = new ArrayList<>();
+	private BodyPartFunction function;
 
 	public String getName() {
 		return name;
@@ -54,6 +55,14 @@ public class BodyPartDefinition {
 
 	public void setChildParts(List<String> childParts) {
 		this.childParts = childParts;
+	}
+
+	public BodyPartFunction getFunction() {
+		return function;
+	}
+
+	public void setFunction(BodyPartFunction function) {
+		this.function = function;
 	}
 
 	@Override

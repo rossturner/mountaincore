@@ -8,6 +8,7 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
+import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
@@ -25,9 +26,13 @@ public class FaceTowardsLocationAction extends Action {
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
 		Vector2 target = selectTargetLocation();
-		Vector2 vectorToTarget = target.sub(parent.parentEntity.getLocationComponent().getWorldPosition());
-		parent.parentEntity.getLocationComponent().setFacing(vectorToTarget);
-		completionType = SUCCESS;
+		if (target == null) {
+			completionType = FAILURE;
+		} else {
+			Vector2 vectorToTarget = target.sub(parent.parentEntity.getLocationComponent().getWorldPosition());
+			parent.parentEntity.getLocationComponent().setFacing(vectorToTarget);
+			completionType = SUCCESS;
+		}
 	}
 
 	private Vector2 selectTargetLocation() {

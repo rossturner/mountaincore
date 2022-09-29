@@ -19,10 +19,7 @@ import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.*;
 import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.*;
-import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
-import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
-import technology.rocketjump.saul.entities.components.furniture.FurnitureParticleEffectsComponent;
-import technology.rocketjump.saul.entities.components.furniture.PoweredFurnitureComponent;
+import technology.rocketjump.saul.entities.components.furniture.*;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -38,6 +35,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesItem;
+import technology.rocketjump.saul.entities.tags.TransformToItemsOnDeathTag;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.gamecontext.GameState;
@@ -61,7 +59,7 @@ import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomStore;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.settlement.*;
 import technology.rocketjump.saul.settlement.notifications.Notification;
@@ -475,8 +473,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						switch (allocation.getTargetPositionType()) {
 							case ROOM -> {
 								Room targetRoom = roomStore.getById(allocation.getTargetId());
-								if (targetRoom != null && targetRoom.getComponent(StockpileComponent.class) != null) {
-									targetRoom.getComponent(StockpileComponent.class).allocationCancelled(allocation, targetItemEntity);
+								if (targetRoom != null && targetRoom.getComponent(StockpileRoomComponent.class) != null) {
+									targetRoom.getComponent(StockpileRoomComponent.class).allocationCancelled(allocation, targetItemEntity);
 								}
 							}
 							case CONSTRUCTION -> {
@@ -498,8 +496,12 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 								Entity targetFurnitureEntity = entityStore.getById(allocation.getTargetId());
 								if (targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
 									((CraftingStationBehaviour) targetFurnitureEntity.getBehaviourComponent()).allocationCancelled(allocation);
-								} else if (targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour ||
-										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof InnoculationLogBehaviour) {
+								} else if (targetFurnitureEntity != null && targetFurnitureEntity.getComponent(FurnitureStockpileComponent.class) != null) {
+									targetFurnitureEntity.getComponent(FurnitureStockpileComponent.class).getStockpile().cancelAllocation(allocation);
+								} else if (
+										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour ||
+										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof InnoculationLogBehaviour
+								) {
 									// Do nothing, CollectItemFurnitureBehaviour will deal with cancelled allocations, eventually, might want to improve this
 								} else {
 									// FIXME perhaps this is fine and we can do nothing
@@ -786,6 +788,10 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 
 		dropEquippedItems(deceased, deceasedPosition);
+		ItemAssignmentComponent itemAssignmentComponent = deceased.getComponent(ItemAssignmentComponent.class);
+		if (itemAssignmentComponent != null) {
+			itemAssignmentComponent.destroy(deceased, messageDispatcher, gameContext);
+		}
 		deceased.removeComponent(NeedsComponent.class);
 
 		HistoryComponent historyComponent = deceased.getOrCreateComponent(HistoryComponent.class);
@@ -828,6 +834,13 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 				messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, gameOverNotification);
 				gameContext.getSettlementState().setGameState(GameState.GAME_OVER);
 			}
+		}
+
+		TransformToItemsOnDeathTag itemsOnDeathTag = deceased.getTag(TransformToItemsOnDeathTag.class);
+		if (itemsOnDeathTag != null) {
+			List<Entity> transformedEntities = itemsOnDeathTag.createItemEntities(messageDispatcher, itemTypeDictionary, attributes.getMaterials());
+			transformedEntities.forEach(entity -> placeOnGround(entity, deceasedPosition));
+			messageDispatcher.dispatchMessage(DESTROY_ENTITY, deceased);
 		}
 
 		return true;

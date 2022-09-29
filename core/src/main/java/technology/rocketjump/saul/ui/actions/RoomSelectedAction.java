@@ -2,8 +2,8 @@ package technology.rocketjump.saul.ui.actions;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rooms.RoomType;
-import technology.rocketjump.saul.rooms.StockpileGroup;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.views.GuiViewName;
 

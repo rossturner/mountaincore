@@ -304,7 +304,7 @@ public class SettlerManagementScreen extends ManagementScreen {
 
 
 			Table needsTable = new Table(uiSkin);
-			populateNeedsTable(needsTable, settler, i18nWidgetFactory.createNeedsLabels(), uiSkin);
+			populateNeedsTable(needsTable, settler, i18nWidgetFactory.createNeedsLabels());
 			singleSettlerTable.add(needsTable).pad(4).top().left();
 
 			singleSettlerTable.setWidth(UI_WIDTH_REQUIRED_PER_SETTLER);

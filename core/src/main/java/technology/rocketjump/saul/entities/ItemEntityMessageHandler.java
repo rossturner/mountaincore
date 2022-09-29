@@ -12,6 +12,7 @@ import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
+import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -35,8 +36,13 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
-import technology.rocketjump.saul.rooms.*;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.misc.VectorUtils;
+import technology.rocketjump.saul.production.AbstractStockpile;
+import technology.rocketjump.saul.rooms.HaulingAllocation;
+import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
+import technology.rocketjump.saul.rooms.Room;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
+import technology.rocketjump.saul.rooms.tags.StockpileTag;
 import technology.rocketjump.saul.settlement.ItemTracker;
 
 import java.util.*;
@@ -51,7 +57,6 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 	private final MessageDispatcher messageDispatcher;
 	private final ItemEntityFactory itemEntityFactory;
 	private final GameMaterialDictionary gameMaterialDictionary;
-	private final RoomStore roomStore;
 	private final ItemTracker itemTracker;
 	private final JobStore jobStore;
 	private GameContext gameContext;
@@ -61,14 +66,13 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 	@Inject
 	public ItemEntityMessageHandler(MessageDispatcher messageDispatcher,
 									ItemEntityFactory itemEntityFactory, GameMaterialDictionary gameMaterialDictionary,
-									JobStore jobStore, JobTypeDictionary jobTypeDictionary, RoomStore roomStore,
+									JobStore jobStore, JobTypeDictionary jobTypeDictionary,
 									ItemTracker itemTracker, ItemTypeDictionary itemTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.itemEntityFactory = itemEntityFactory;
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.jobStore = jobStore;
 		this.haulingJobType = jobTypeDictionary.getByName("HAULING");
-		this.roomStore = roomStore;
 		this.itemTracker = itemTracker;
 		this.itemTypeDictionary = itemTypeDictionary;
 		messageDispatcher.addListener(this, MessageType.ITEM_CREATION_REQUEST);
@@ -252,34 +256,47 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		return true;
 	}
 
-	public static HaulingAllocation findStockpileAllocation(TiledMap areaMap, Entity entity, RoomStore roomStore, Entity requestingEntity) {
+	public static HaulingAllocation findStockpileAllocation(TiledMap areaMap, Entity entity, Entity requestingEntity, MessageDispatcher messageDispatcher) {
 		Vector2 entityPosition = entity.getLocationComponent().getWorldOrParentPosition();
 		int sourceRegionId = areaMap.getTile(entityPosition).getRegionId();
-		Map<JobPriority, Map<Float, Room>> stockpilesByDistanceByPriority = new EnumMap<>(JobPriority.class);
+		Map<JobPriority, Map<Float, AbstractStockpile>> stockpilesByDistanceByPriority = new EnumMap<>(JobPriority.class);
+		for (JobPriority jobPriority : JobPriority.values()) {
+			stockpilesByDistanceByPriority.put(jobPriority, new TreeMap<>(Comparator.comparingInt(o -> (int) (o * 10))));
+		}
 
 		JobPriority currentStockpilePriority = getStockpilePriority(entity, entityPosition, areaMap);
 
-		for (Room stockpile : roomStore.getByComponent(StockpileComponent.class)) {
-			StockpileComponent stockpileComponent = stockpile.getComponent(StockpileComponent.class);
-			if (stockpileComponent.canHold(entity)) {
-				int roomRegionId = stockpile.getRoomTiles().values().iterator().next().getTile().getRegionId();
-				if (sourceRegionId == roomRegionId) {
-					Map<Float, Room> byDistance = stockpilesByDistanceByPriority.computeIfAbsent(stockpileComponent.getPriority(), a -> new TreeMap<>(Comparator.comparingInt(o -> (int) (o * 10))));
-					byDistance.put(entityPosition.dst2(stockpile.getAvgWorldPosition()), stockpile);
+		messageDispatcher.dispatchMessage(MessageType.GET_ROOMS_BY_COMPONENT, new GetRoomsByComponentMessage(StockpileRoomComponent.class, rooms -> {
+			for (Room room : rooms) {
+				StockpileRoomComponent stockpileRoomComponent = room.getComponent(StockpileRoomComponent.class);
+				if (stockpileRoomComponent.getStockpileSettings().canHold(entity)) {
+					int roomRegionId = room.getRoomTiles().values().iterator().next().getTile().getRegionId();
+					if (sourceRegionId == roomRegionId) {
+						Map<Float, AbstractStockpile> byDistance = stockpilesByDistanceByPriority.get(stockpileRoomComponent.getPriority());
+						byDistance.put(entityPosition.dst2(room.getAvgWorldPosition()), stockpileRoomComponent.getStockpile());
+					}
 				}
 			}
-		}
+		}));
 
+		messageDispatcher.dispatchMessage(MessageType.GET_FURNITURE_BY_TAG, new GetFurnitureByTagMessage(StockpileTag.class, furniture -> {
+			for (Entity pieceOfFurniture : furniture) {
+				FurnitureStockpileComponent stockpileComponent = pieceOfFurniture.getComponent(FurnitureStockpileComponent.class);
+				if (stockpileComponent != null && stockpileComponent.getStockpileSettings().canHold(entity) && pieceOfFurniture.getLocationComponent().getWorldPosition() != null) {
+					Map<Float, AbstractStockpile> byDistance = stockpilesByDistanceByPriority.get(stockpileComponent.getPriority());
+					byDistance.put(entityPosition.dst2(pieceOfFurniture.getLocationComponent().getWorldPosition()), stockpileComponent.getStockpile());
+				}
+			}
+		}));
 
 		for (int i = 0; i < currentStockpilePriority.ordinal(); i++) {
 			JobPriority priority = JobPriority.values()[i];
 
-			Map<Float, Room> byDistance = stockpilesByDistanceByPriority.getOrDefault(priority, Collections.emptyMap());
-			for (Room room : byDistance.values()) {
-				StockpileAllocationResponse stockpileAllocationResponse = room.getComponent(StockpileComponent.class).requestAllocation(entity, areaMap);
-				if (stockpileAllocationResponse != null) {
-					return HaulingAllocationBuilder.createWithItemAllocation(stockpileAllocationResponse.quantity, entity, requestingEntity)
-							.toRoom(room, stockpileAllocationResponse.position);
+			Map<Float, AbstractStockpile> byDistance = stockpilesByDistanceByPriority.getOrDefault(priority, Collections.emptyMap());
+			for (AbstractStockpile stockpile : byDistance.values()) {
+				HaulingAllocation haulingAllocation = stockpile.requestAllocation(entity, areaMap, requestingEntity);
+				if (haulingAllocation != null) {
+					return haulingAllocation;
 				}
 			}
 		}
@@ -297,7 +314,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 	}
 
 	private boolean handle(RequestHaulingMessage message) {
-		HaulingAllocation haulingAllocation = findStockpileAllocation(gameContext.getAreaMap(), message.getEntityToBeMoved(), roomStore, message.requestingEntity);
+		HaulingAllocation haulingAllocation = findStockpileAllocation(gameContext.getAreaMap(), message.getEntityToBeMoved(), message.requestingEntity, messageDispatcher);
 
 		if (haulingAllocation == null && message.forceHaulingEvenWithoutStockpile()) {
 			ItemEntityAttributes itemAttributes = (ItemEntityAttributes) message.getEntityToBeMoved().getPhysicalEntityComponent().getAttributes();
@@ -320,13 +337,16 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			Entity containerEntity = itemToBeMoved.getLocationComponent().getContainerEntity();
 			if (containerEntity != null) {
 				FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(containerEntity, gameContext.getAreaMap());
-				if (navigableWorkspace == null) {
+				if (navigableWorkspace != null) {
+					haulingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
+					haulingJob.setJobState(JobState.ASSIGNABLE);
+				} else if (containerEntity.getComponent(FurnitureStockpileComponent.class) != null) {
+					haulingJob.setJobLocation(VectorUtils.toGridPoint(containerEntity.getLocationComponent().getWorldPosition()));
+					haulingJob.setJobState(JobState.ASSIGNABLE);
+				} else {
 					Logger.error("Item created but not accessible to collect - investigate and fix");
 					messageDispatcher.dispatchMessage(MessageType.CANCEL_ITEM_ALLOCATION, haulingAllocation.getItemAllocation());
 					return true;
-				} else {
-					haulingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
-					haulingJob.setJobState(JobState.ASSIGNABLE);
 				}
 			}
 
@@ -402,11 +422,17 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 	private static JobPriority getStockpilePriority(Entity entity, Vector2 worldPosition, TiledMap areaMap) {
 		MapTile tile = areaMap.getTile(worldPosition);
+		if (entity.getLocationComponent().getContainerEntity() != null) {
+			FurnitureStockpileComponent component = entity.getLocationComponent().getContainerEntity().getComponent(FurnitureStockpileComponent.class);
+			if (component != null) {
+				return component.getPriority();
+			}
+		}
 		if (tile.getRoomTile() != null) {
 			Room room = tile.getRoomTile().getRoom();
-			StockpileComponent stockpileComponent = room.getComponent(StockpileComponent.class);
-			if (stockpileComponent != null && stockpileComponent.canHold(entity)) {
-				return stockpileComponent.getPriority();
+			StockpileRoomComponent stockpileRoomComponent = room.getComponent(StockpileRoomComponent.class);
+			if (stockpileRoomComponent != null && stockpileRoomComponent.getStockpileSettings().canHold(entity)) {
+				return stockpileRoomComponent.getPriority();
 			}
 		}
 		return JobPriority.DISABLED;

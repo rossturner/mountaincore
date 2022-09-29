@@ -37,9 +37,9 @@ import technology.rocketjump.saul.materials.DynamicMaterialFactory;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.military.SquadFormationDictionary;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
+import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
-import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
 import technology.rocketjump.saul.rooms.components.RoomComponentDictionary;
 import technology.rocketjump.saul.sprites.BridgeTypeDictionary;
 

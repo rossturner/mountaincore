@@ -10,9 +10,9 @@ import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.underground.UnderTile;
+import technology.rocketjump.saul.production.StockpileAllocation;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
-import technology.rocketjump.saul.rooms.StockpileAllocation;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -82,9 +82,9 @@ public class TileSelectedGuiView implements GuiView {
 				}
 				if (GlobalSettings.DEV_MODE) {
 					if (tile.getRoomTile() != null) {
-						StockpileComponent stockpileComponent = tile.getRoomTile().getRoom().getComponent(StockpileComponent.class);
-						if (stockpileComponent != null) {
-							StockpileAllocation stockpileAllocation = stockpileComponent.getAllocationAt(tile.getTilePosition());
+						StockpileRoomComponent stockpileRoomComponent = tile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class);
+						if (stockpileRoomComponent != null) {
+							StockpileAllocation stockpileAllocation = stockpileRoomComponent.getAllocationAt(tile.getTilePosition());
 							if (stockpileAllocation == null) {
 								descriptionTable.add(new Label("Stockpile allocations - null", uiSkin)).left().row();
 							} else {

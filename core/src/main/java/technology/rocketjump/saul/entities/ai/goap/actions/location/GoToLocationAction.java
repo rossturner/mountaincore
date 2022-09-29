@@ -14,6 +14,7 @@ import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
+import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
@@ -219,8 +220,11 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 					.getEntity(targetEntityId);
 			if (targetFurniture != null) {
 				FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(targetFurniture, gameContext.getAreaMap());
+				FurnitureStockpileComponent stockpileComponent = targetFurniture.getComponent(FurnitureStockpileComponent.class);
 				if (navigableWorkspace != null) {
 					return toVector(navigableWorkspace.getAccessedFrom());
+				} else if (stockpileComponent != null) {
+					return toVector(allocationPosition);
 				} else {
 					Logger.error("Could not navigate to any workspaces when picking destination");
 					return null;

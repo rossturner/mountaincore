@@ -1,12 +1,16 @@
 package technology.rocketjump.saul.rooms;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.gamecontext.Updatable;
+import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.GetRoomsByComponentMessage;
 import technology.rocketjump.saul.rooms.components.RoomComponent;
 
 import java.util.*;
@@ -14,7 +18,7 @@ import java.util.*;
 import static java.util.Collections.EMPTY_LIST;
 
 @Singleton
-public class RoomStore implements Updatable, GameContextAware {
+public class RoomStore implements Updatable, GameContextAware, Telegraph {
 
 	private final Map<RoomType, List<Room>> byType = new HashMap<>();
 	private final Map<String, Room> byName = new HashMap<>();
@@ -29,6 +33,7 @@ public class RoomStore implements Updatable, GameContextAware {
 	@Inject
 	public RoomStore(MessageDispatcher messageDispatcher) {
 		this.messageDispatcher = messageDispatcher;
+		messageDispatcher.addListener(this, MessageType.GET_ROOMS_BY_COMPONENT);
 	}
 
 	void add(Room room) {
@@ -149,6 +154,18 @@ public class RoomStore implements Updatable, GameContextAware {
 		withBehaviour.clear();
 		byComponent.clear();
 		updateCursor = 0;
+	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.GET_ROOMS_BY_COMPONENT -> {
+				GetRoomsByComponentMessage message = (GetRoomsByComponentMessage) msg.extraInfo;
+				message.callback().accept(this.getByComponent(message.type()));
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static class RoomNameCollisionException extends Exception {

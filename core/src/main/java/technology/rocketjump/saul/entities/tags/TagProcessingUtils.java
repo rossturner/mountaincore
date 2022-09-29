@@ -16,7 +16,8 @@ import technology.rocketjump.saul.jobs.JobTypeDictionary;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
-import technology.rocketjump.saul.rooms.StockpileGroupDictionary;
+import technology.rocketjump.saul.production.StockpileComponentUpdater;
+import technology.rocketjump.saul.production.StockpileGroupDictionary;
 
 public class TagProcessingUtils {
 
@@ -36,6 +37,7 @@ public class TagProcessingUtils {
 	public final SoundAssetDictionary soundAssetDictionary;
 	public final JobStore jobStore;
 	public final ParticleEffectTypeDictionary particleEffectTypeDictionary;
+	public final StockpileComponentUpdater stockpileComponentUpdater;
 
 	@Inject
 	public TagProcessingUtils(MessageDispatcher messageDispatcher, EntityAssetTypeDictionary entityAssetTypeDictionary, FloorTypeDictionary floorTypeDictionary,
@@ -43,7 +45,8 @@ public class TagProcessingUtils {
 							  StockpileGroupDictionary stockpileGroupDictionary, CookingRecipeDictionary cookingRecipeDictionary,
 							  SkillDictionary skillDictionary, JobTypeDictionary jobTypeDictionary,
 							  CraftingTypeDictionary craftingTypeDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
-							  SoundAssetDictionary soundAssetDictionary, JobStore jobStore, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
+							  SoundAssetDictionary soundAssetDictionary, JobStore jobStore,
+							  ParticleEffectTypeDictionary particleEffectTypeDictionary, StockpileComponentUpdater stockpileComponentUpdater) {
 		this.messageDispatcher = messageDispatcher;
 		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
 		this.floorTypeDictionary = floorTypeDictionary;
@@ -60,5 +63,6 @@ public class TagProcessingUtils {
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.jobStore = jobStore;
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
+		this.stockpileComponentUpdater = stockpileComponentUpdater;
 	}
 }

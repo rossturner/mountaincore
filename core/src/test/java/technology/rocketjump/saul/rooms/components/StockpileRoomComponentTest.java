@@ -6,30 +6,35 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
+import technology.rocketjump.saul.production.StockpileAllocation;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomTile;
-import technology.rocketjump.saul.rooms.StockpileAllocation;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 
 @RunWith(MockitoJUnitRunner.class)
-public class StockpileComponentTest {
+public class StockpileRoomComponentTest {
 
-	private StockpileComponent stockpileComponent;
+	private StockpileRoomComponent stockpileRoomComponent;
 
 	@Mock
 	private Room mockRoom;
@@ -56,7 +61,7 @@ public class StockpileComponentTest {
 
 	@Before
 	public void setUp() throws Exception {
-		stockpileComponent = new StockpileComponent(mockRoom, mockMessageDispatcher);
+		stockpileRoomComponent = new StockpileRoomComponent(mockRoom, mockMessageDispatcher);
 
 		roomTiles = new HashMap<>();
 
@@ -95,14 +100,21 @@ public class StockpileComponentTest {
 
 	@Test
 	public void allocate_stacks_items_into_same_tile() {
+		Entity mockRequestingEntity = Mockito.mock(Entity.class);
+		ItemAllocation mockItemAllocation = Mockito.mock(ItemAllocation.class);
+		LocationComponent mockLocationComponent = Mockito.mock(LocationComponent.class);
+		when(mockItem.getOrCreateComponent(ItemAllocationComponent.class)).thenReturn(mockItemAllocationComponent);
+		when(mockItemAllocationComponent.createAllocation(anyInt(), any(), any())).thenReturn(mockItemAllocation);
+		when(mockItem.getLocationComponent()).thenReturn(mockLocationComponent);
+
 
 		for (int i = 1; i <= 10; i++) {
-			stockpileComponent.requestAllocation(mockItem, mockMap);
+			stockpileRoomComponent.getStockpile().requestAllocation(mockItem, mockMap, mockRequestingEntity);
 		}
 
-		StockpileAllocation allocation = stockpileComponent.getAllocationAt(new GridPoint2(0, 0));
+		StockpileAllocation allocation = stockpileRoomComponent.getAllocationAt(new GridPoint2(0, 0));
 		if (allocation == null) {
-			allocation = stockpileComponent.getAllocationAt(new GridPoint2(0, 1));
+			allocation = stockpileRoomComponent.getAllocationAt(new GridPoint2(0, 1));
 		}
 
 		assertThat(allocation.getTotalQuantity()).isEqualTo(100);

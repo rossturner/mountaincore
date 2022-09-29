@@ -11,6 +11,7 @@ import technology.rocketjump.saul.entities.behaviour.furniture.MushroomShockTank
 import technology.rocketjump.saul.entities.components.CopyGameMaterialsFromInventoryComponent;
 import technology.rocketjump.saul.entities.components.EntityComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
+import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -27,7 +28,7 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -70,10 +71,10 @@ public class PlaceEntityAction extends Action {
 						Logger.error("Not in nearest workspace for furniture to place item into");
 						completionType = FAILURE;
 					} else {
-						placeEntityInFurniture(containerComponent, targetFurniture, gameContext);
+						placeEntityInFurniture(containerComponent, targetFurniture, gameContext, haulingAllocation);
 					}
 				} else if (adjacentTo(targetFurniture)) {
-					placeEntityInFurniture(containerComponent, targetFurniture, gameContext);
+					placeEntityInFurniture(containerComponent, targetFurniture, gameContext, haulingAllocation);
 				} else {
 					// Not adjacent or not in workspace
 					completionType = FAILURE;
@@ -131,7 +132,7 @@ public class PlaceEntityAction extends Action {
 		// No state to read
 	}
 
-	private void placeEntityInFurniture(EntityComponent currentContainer, Entity targetFurniture, GameContext gameContext) {
+	private void placeEntityInFurniture(EntityComponent currentContainer, Entity targetFurniture, GameContext gameContext, HaulingAllocation haulingAllocation) {
 		Entity itemToPlace = getTargetFrom(currentContainer);
 		if (targetFurniture == null) {
 			completionType = FAILURE; // Could not find furniture to place item into
@@ -144,6 +145,10 @@ public class PlaceEntityAction extends Action {
 				copyColorComponent.apply(itemToPlace, targetFurniture);
 			}
 			parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, targetFurniture);
+			FurnitureStockpileComponent stockpileComponent = targetFurniture.getComponent(FurnitureStockpileComponent.class);
+			if (stockpileComponent != null) {
+				stockpileComponent.getStockpile().cancelAllocation(haulingAllocation);
+			}
 
 			if (targetFurniture.getBehaviourComponent() instanceof CraftingStationBehaviour) {
 				CraftingStationBehaviour craftingStationBehaviour = (CraftingStationBehaviour) targetFurniture.getBehaviourComponent();
@@ -223,9 +228,9 @@ public class PlaceEntityAction extends Action {
 				}
 			}
 
-			if (completionType.equals(SUCCESS) && currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileComponent.class) != null) {
-				StockpileComponent stockpileComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileComponent.class);
-				stockpileComponent.itemPlaced(currentTile, itemToPlaceAttributes, quantityToPlace);
+			if (completionType.equals(SUCCESS) && currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class) != null) {
+				StockpileRoomComponent stockpileRoomComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class);
+				stockpileRoomComponent.itemPlaced(currentTile, itemToPlaceAttributes, quantityToPlace);
 			}
 
 		} else { // not of type ITEM
@@ -238,9 +243,9 @@ public class PlaceEntityAction extends Action {
 			completionType = SUCCESS;
 
 			if (entityToPlace.getType().equals(EntityType.CREATURE) && entityToPlace.getBehaviourComponent() instanceof CorpseBehaviour &&
-					currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileComponent.class) != null) {
-				StockpileComponent stockpileComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileComponent.class);
-				stockpileComponent.corpsePlaced(currentTile, (CreatureEntityAttributes)entityToPlace.getPhysicalEntityComponent().getAttributes());
+					currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class) != null) {
+				StockpileRoomComponent stockpileRoomComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class);
+				stockpileRoomComponent.corpsePlaced(currentTile, (CreatureEntityAttributes)entityToPlace.getPhysicalEntityComponent().getAttributes());
 			}
 		}
 	}

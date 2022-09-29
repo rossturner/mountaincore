@@ -1594,6 +1594,7 @@
   "defenseInfo" : {
     "type" : "SHIELD",
     "maxDefensePoints" : 10,
+    "maxDefenseRegainedPerRound" : 2,
     "damageReduction" : {
       "STABBING" : 0,
       "SLASHING" : 0,

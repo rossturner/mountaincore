@@ -102,7 +102,9 @@
     "furnitureNames": [
       "BARRACKS_BED",
       "TRAINING_DUMMY",
-      "ARCHERY_TARGET"
+      "ARCHERY_TARGET",
+      "Armour_Stand",
+      "Weapon_Rack"
     ]
   },
   {
@@ -184,7 +186,9 @@
     "tags": {
     },
     "furnitureNames": [
-      "FLETCHERS_WORKBENCH"
+      "FLETCHERS_WORKBENCH",
+      "Armour_Stand",
+      "Weapon_Rack"
     ]
   },
   {

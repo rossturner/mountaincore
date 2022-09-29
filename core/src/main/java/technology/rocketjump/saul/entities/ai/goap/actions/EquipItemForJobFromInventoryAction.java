@@ -32,9 +32,9 @@ public class EquipItemForJobFromInventoryAction extends Action {
 		} else {
 			itemInInventory = inventoryComponent.findByItemType(requiredItemType, gameContext.getGameClock());
 		}
-		if (itemInInventory != null) {
+		EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
+		if (itemInInventory != null && equippedItemComponent.isMainHandEnabled()) {
 			inventoryComponent.remove(itemInInventory.entity.getId());
-			EquippedItemComponent equippedItemComponent = parent.parentEntity.getOrCreateComponent(EquippedItemComponent.class);
 			equippedItemComponent.setMainHandItem(itemInInventory.entity, parent.parentEntity, parent.messageDispatcher);
 			completionType = SUCCESS;
 		} else {

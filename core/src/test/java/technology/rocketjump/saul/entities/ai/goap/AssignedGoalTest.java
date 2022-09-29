@@ -109,7 +109,7 @@ public class AssignedGoalTest {
 
 	private CreatureBehaviour resetBehaviour() {
 		CreatureBehaviour behaviour = new CreatureBehaviour();
-		behaviour.constructWith(goalDictionary, roomStore);
+		behaviour.constructWith(goalDictionary);
 		behaviour.init(entity, mockMessageDispatcher, gameContext);
 		entity.replaceBehaviourComponent(behaviour);
 		return behaviour;

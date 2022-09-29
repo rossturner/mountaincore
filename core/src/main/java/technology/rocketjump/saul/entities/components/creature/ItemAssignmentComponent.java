@@ -53,7 +53,7 @@ public class ItemAssignmentComponent implements EntityComponent, Destructible {
 
     @Override
     public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-        for (HaulingAllocation haulingAllocation : haulingAllocations) {
+        for (HaulingAllocation haulingAllocation : new ArrayList<>(haulingAllocations)) {
             messageDispatcher.dispatchMessage(MessageType.HAULING_ALLOCATION_CANCELLED, haulingAllocation);
         }
         haulingAllocations.clear();

@@ -1,4 +1,4 @@
-package technology.rocketjump.saul.rooms;
+package technology.rocketjump.saul.production;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -10,7 +10,6 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
-import technology.rocketjump.saul.rooms.components.StockpileComponent;
 
 @Singleton
 public class StockpileComponentUpdater implements GameContextAware {
@@ -27,86 +26,86 @@ public class StockpileComponentUpdater implements GameContextAware {
 		this.raceDictionary = raceDictionary;
 	}
 
-	public void toggleGroup(StockpileComponent stockpileComponent, StockpileGroup group, boolean enabled, boolean recurseToChildren) {
-		stockpileComponent.toggleGroup(group, enabled);
+	public void toggleGroup(StockpileSettings stockpileSettings, StockpileGroup group, boolean enabled, boolean recurseToChildren) {
+		stockpileSettings.toggle(group, enabled);
 
 		if (recurseToChildren) {
 			for (ItemType itemType : itemTypeDictionary.getByStockpileGroup(group)) {
-				toggleItem(stockpileComponent, itemType, enabled, false, true);
+				toggleItem(stockpileSettings, itemType, enabled, false, true);
 			}
 			if (group.isIncludesCreatureCorpses()) {
-				toggleCorpseGroup(stockpileComponent, enabled, group,false, true);
+				toggleCorpseGroup(stockpileSettings, enabled, group,false, true);
 			}
 		}
 	}
 
-	public void toggleItem(StockpileComponent stockpileComponent, ItemType itemType, boolean enabled, boolean recurseToParent, boolean recurseToChildren) {
-		stockpileComponent.toggleItem(itemType, enabled);
+	public void toggleItem(StockpileSettings stockpileSettings, ItemType itemType, boolean enabled, boolean recurseToParent, boolean recurseToChildren) {
+		stockpileSettings.toggle(itemType, enabled);
 
 		if (recurseToChildren) {
 			for (GameMaterial gameMaterial : gameMaterialDictionary.getByType(itemType.getPrimaryMaterialType())) {
-				stockpileComponent.toggleMaterial(itemType, gameMaterial, enabled);
-				toggleMaterial(stockpileComponent, itemType, gameMaterial, enabled, false);
+				stockpileSettings.toggle(itemType, gameMaterial, enabled);
+				toggleMaterial(stockpileSettings, itemType, gameMaterial, enabled, false);
 			}
 		}
 
 		if (recurseToParent) {
-			boolean allGroupChildrenDisabled = allGroupChildrenDisabled(stockpileComponent, itemType.getStockpileGroup());
+			boolean allGroupChildrenDisabled = allGroupChildrenDisabled(itemType.getStockpileGroup(), stockpileSettings);
 
 			if (enabled) {
 				// when enabled, always enable parent(s)
-				toggleGroup(stockpileComponent, itemType.getStockpileGroup(), true, false);
+				toggleGroup(stockpileSettings, itemType.getStockpileGroup(), true, false);
 			}
 			if (allGroupChildrenDisabled) {
-				toggleGroup(stockpileComponent, itemType.getStockpileGroup(), false, false);
+				toggleGroup(stockpileSettings, itemType.getStockpileGroup(), false, false);
 			}
 		}
 	}
 
-	public void toggleCorpseGroup(StockpileComponent stockpileComponent, boolean enabled, StockpileGroup parentGroup, boolean recurseToParent, boolean recurseToChildren) {
-		stockpileComponent.toggleAcceptingCorpses(enabled);
+	public void toggleCorpseGroup(StockpileSettings stockpileSettings, boolean enabled, StockpileGroup parentGroup, boolean recurseToParent, boolean recurseToChildren) {
+		stockpileSettings.setAcceptingCorpses(enabled);
 
 		if (recurseToChildren) {
 			for (Race race : raceDictionary.getAll()) {
 				if (race.equals(gameContext.getSettlementState().getSettlerRace())) {
 					continue;
 				}
-				stockpileComponent.toggleRaceCorpse(race, enabled);
-				toggleRaceCorpse(stockpileComponent, race, parentGroup, enabled, false);
+				stockpileSettings.toggleCorpse(race, enabled);
+				toggleRaceCorpse(stockpileSettings, race, parentGroup, enabled, false);
 			}
 		}
 
 		if (recurseToParent) {
-			boolean allGroupChildrenDisabled = allGroupChildrenDisabled(stockpileComponent, parentGroup);
+			boolean allGroupChildrenDisabled = allGroupChildrenDisabled(parentGroup, stockpileSettings);
 
 			if (enabled) {
 				// when enabled, always enable parent(s)
-				toggleGroup(stockpileComponent, parentGroup, true, false);
+				toggleGroup(stockpileSettings, parentGroup, true, false);
 			}
 			if (allGroupChildrenDisabled) {
-				toggleGroup(stockpileComponent, parentGroup, false, false);
+				toggleGroup(stockpileSettings, parentGroup, false, false);
 			}
 		}
 	}
 
-	private boolean allGroupChildrenDisabled(StockpileComponent stockpileComponent, StockpileGroup group) {
-		boolean allSiblingsDisabled = true;
+	private boolean allGroupChildrenDisabled(StockpileGroup group, StockpileSettings stockpileSettings) {
 
+		boolean allSiblingsDisabled = true;
 		for (ItemType siblingItem : itemTypeDictionary.getByStockpileGroup(group)) {
-			if (stockpileComponent.isEnabled(siblingItem)) {
+			if (stockpileSettings.isEnabled(siblingItem)) {
 				allSiblingsDisabled = false;
 				break;
 			}
 		}
 
-		if (group.isIncludesCreatureCorpses() && stockpileComponent.isAcceptingCorpses()) {
+		if (group.isIncludesCreatureCorpses() && stockpileSettings.isAcceptingCorpses()) {
 			allSiblingsDisabled = false;
 		}
 		return allSiblingsDisabled;
 	}
 
-	public void toggleRaceCorpse(StockpileComponent stockpileComponent, Race race, StockpileGroup parentGroup, boolean enabled, boolean recurseToParent) {
-		stockpileComponent.toggleRaceCorpse(race, enabled);
+	public void toggleRaceCorpse(StockpileSettings stockpileSettings, Race race, StockpileGroup parentGroup, boolean enabled, boolean recurseToParent) {
+		stockpileSettings.toggleCorpse(race, enabled);
 
 		if (recurseToParent) {
 			boolean allSiblingsDisabled = true;
@@ -115,7 +114,7 @@ public class StockpileComponentUpdater implements GameContextAware {
 				if (race.equals(gameContext.getSettlementState().getSettlerRace())) {
 					continue;
 				}
-				if (stockpileComponent.isEnabled(sibling)) {
+				if (stockpileSettings.isEnabled(sibling)) {
 					allSiblingsDisabled = false;
 					break;
 				}
@@ -123,23 +122,23 @@ public class StockpileComponentUpdater implements GameContextAware {
 
 			if (enabled) {
 				// when enabled, always enable parents
-				toggleCorpseGroup(stockpileComponent, true, parentGroup, true, false);
-				toggleGroup(stockpileComponent, parentGroup, true, false);
+				toggleCorpseGroup(stockpileSettings, true, parentGroup, true, false);
+				toggleGroup(stockpileSettings, parentGroup, true, false);
 			}
 			if (allSiblingsDisabled) {
-				toggleCorpseGroup(stockpileComponent,false, parentGroup, true, false); // recurseToParent to toggle group is necessary
+				toggleCorpseGroup(stockpileSettings, false, parentGroup, true, false); // recurseToParent to toggle group is necessary
 			}
 		}
 	}
 
-	public void toggleMaterial(StockpileComponent stockpileComponent, ItemType itemType, GameMaterial gameMaterial, boolean enabled, boolean recurseToParent) {
-		stockpileComponent.toggleMaterial(itemType, gameMaterial, enabled);
+	public void toggleMaterial(StockpileSettings stockpileSettings, ItemType itemType, GameMaterial gameMaterial, boolean enabled, boolean recurseToParent) {
+		stockpileSettings.toggle(itemType, gameMaterial, enabled);
 
 		if (recurseToParent) {
 			boolean allSiblingsDisabled = true;
 
 			for (GameMaterial material : gameMaterialDictionary.getByType(itemType.getPrimaryMaterialType())) {
-				if (stockpileComponent.isEnabled(material, itemType)) {
+				if (stockpileSettings.isEnabled(material, itemType)) {
 					allSiblingsDisabled = false;
 					break;
 				}
@@ -147,11 +146,11 @@ public class StockpileComponentUpdater implements GameContextAware {
 
 			if (enabled) {
 				// when enabled, always enable parents
-				toggleItem(stockpileComponent, itemType, true, true, false);
-				toggleGroup(stockpileComponent, itemType.getStockpileGroup(), true, false);
+				toggleItem(stockpileSettings, itemType, true, true, false);
+				toggleGroup(stockpileSettings, itemType.getStockpileGroup(), true, false);
 			}
 			if (allSiblingsDisabled) {
-				toggleItem(stockpileComponent, itemType, false, true, false); // recurseToParent to toggle group is necessary
+				toggleItem(stockpileSettings, itemType, false, true, false); // recurseToParent to toggle group is necessary
 			}
 		}
 	}
