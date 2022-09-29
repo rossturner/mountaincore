@@ -1,13 +1,18 @@
 package technology.rocketjump.saul.entities.behaviour.creature;
 
 import com.alibaba.fastjson.JSONObject;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.entities.ai.goap.SpecialGoal;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.invasions.model.InvasionDefinition;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+
+import static technology.rocketjump.saul.entities.ai.goap.actions.invasion.CreateCampfireAction.CAMPFIRE_FURNITURE_TYPE_NAME;
 
 public class InvasionCreatureGroup extends CreatureGroup {
 
@@ -20,8 +25,12 @@ public class InvasionCreatureGroup extends CreatureGroup {
 	private SpecialGoal pendingSpecialGoal;
 
 	@Override
-	public void infrequentUpdate(GameContext gameContext) {
+	public void infrequentUpdate(GameContext gameContext, MessageDispatcher messageDispatcher) {
 		double now = gameContext.getGameClock().getCurrentGameTime();
+		if (lastUpdateGameTime == 0) {
+			lastUpdateGameTime = now;
+		}
+
 		double elapsed = now - lastUpdateGameTime;
 		lastUpdateGameTime = now;
 
@@ -35,7 +44,7 @@ public class InvasionCreatureGroup extends CreatureGroup {
 					this.hoursInCurrentStage = 0;
 				}
 				case PREPARING -> {
-					removeCampfire();
+					removeCampfire(gameContext, messageDispatcher);
 					this.invasionStage = InvasionStage.RAIDING;
 					this.hoursInCurrentStage = 0;
 				}
@@ -49,7 +58,7 @@ public class InvasionCreatureGroup extends CreatureGroup {
 		}
 
 		if (invasionStage.equals(InvasionStage.RETREATING)) {
-			this.pendingSpecialGoal = SpecialGoal.INVASION_RETREAT;
+//			this.pendingSpecialGoal = SpecialGoal.INVASION_RETREAT;
 		}
 	}
 
@@ -65,8 +74,28 @@ public class InvasionCreatureGroup extends CreatureGroup {
 		return invasionDefinition;
 	}
 
+	public SpecialGoal popSpecialGoal() {
+		if (pendingSpecialGoal != null) {
+			SpecialGoal temp = this.pendingSpecialGoal;
+			this.pendingSpecialGoal = null;
+			return temp;
+		} else {
+			return null;
+		}
+	}
+
 	public void setInvasionDefinition(InvasionDefinition invasionDefinition) {
 		this.invasionDefinition = invasionDefinition;
+	}
+
+	private void removeCampfire(GameContext gameContext, MessageDispatcher messageDispatcher) {
+		gameContext.getAreaMap().getTile(homeLocation).getEntities()
+				.stream().filter(e -> e.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes attributes &&
+						attributes.getFurnitureType().equals(CAMPFIRE_FURNITURE_TYPE_NAME))
+				.findAny()
+				.ifPresent(entity -> {
+					messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, entity);
+				});
 	}
 
 	@Override
@@ -81,6 +110,10 @@ public class InvasionCreatureGroup extends CreatureGroup {
 				asJson.put("invasionStage", invasionStage.name());
 			}
 			asJson.put("hoursInCurrentStage", hoursInCurrentStage);
+
+			if (pendingSpecialGoal != null) {
+				asJson.put("pendingSpecialGoal", pendingSpecialGoal.name());
+			}
 
 			asJson.put("victoryPointsEarned", victoryPointsEarned);
 			asJson.put("victoryPointsTarget", victoryPointsTarget);
@@ -98,6 +131,8 @@ public class InvasionCreatureGroup extends CreatureGroup {
 
 		this.invasionStage = EnumParser.getEnumValue(asJson, "invasionStage", InvasionStage.class, InvasionStage.ARRIVING);
 		this.hoursInCurrentStage = asJson.getDoubleValue("hoursInCurrentStage");
+
+		this.pendingSpecialGoal = EnumParser.getEnumValue(asJson, "pendingSpecialGoal", SpecialGoal.class, null);
 
 		this.victoryPointsEarned = asJson.getIntValue("victoryPointsEarned");
 		this.victoryPointsTarget = asJson.getIntValue("victoryPointsTarget");

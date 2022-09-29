@@ -821,7 +821,7 @@
   "behaviour" : {
     "behaviourName" : "Creature",
     "scheduleName" : "Military day shift",
-    "needs" : [ "FOOD", "DRINK", "SLEEP" ],
+    "needs" : [ "FOOD", "SLEEP" ],
     "aggressionResponse" : "ATTACK",
     "isSapient" : true
   },

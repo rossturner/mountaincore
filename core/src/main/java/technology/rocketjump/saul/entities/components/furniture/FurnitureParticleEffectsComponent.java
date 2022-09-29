@@ -98,10 +98,10 @@ public class FurnitureParticleEffectsComponent implements ParentDependentEntityC
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		if (!permanentParticleEffects.isEmpty()) {
 			JSONArray permanentEffectsJson = new JSONArray();
-			for (ParticleEffectType permanentParticleEffect : permanentParticleEffects) {
-				permanentEffectsJson.add(permanentParticleEffect.getName());
+			for (ParticleEffectType particleEffectType : permanentParticleEffects) {
+				permanentEffectsJson.add(particleEffectType.getName());
 			}
-			asJson.put("permanentParticleEffects", permanentParticleEffects);
+			asJson.put("permanentParticleEffects", permanentEffectsJson);
 		}
 
 		if (!particleEffectsWhenProcessing.isEmpty()) {

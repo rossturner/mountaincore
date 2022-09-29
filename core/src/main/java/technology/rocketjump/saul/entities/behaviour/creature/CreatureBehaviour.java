@@ -185,7 +185,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		lastUpdateGameTime = gameTime;
 
 		if (creatureGroup != null) {
-			creatureGroup.infrequentUpdate(gameContext);
+			creatureGroup.infrequentUpdate(gameContext, messageDispatcher);
 		}
 
 		NeedsComponent needsComponent = parentEntity.getComponent(NeedsComponent.class);
@@ -271,6 +271,13 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		AssignedGoal placeInventoryItemsGoal = checkToPlaceInventoryItems(parentEntity, roomStore, messageDispatcher, gameContext);
 		if (placeInventoryItemsGoal != null) {
 			return placeInventoryItemsGoal;
+		}
+
+		if (creatureGroup != null && creatureGroup instanceof InvasionCreatureGroup invasionCreatureGroup) {
+			SpecialGoal specialGoal = invasionCreatureGroup.popSpecialGoal();
+			if (specialGoal != null) {
+				return new AssignedGoal(specialGoal.getInstance(), parentEntity, messageDispatcher);
+			}
 		}
 
 		List<ScheduleCategory> currentScheduleCategories = getCurrentSchedule().getCurrentApplicableCategories(gameContext.getGameClock());

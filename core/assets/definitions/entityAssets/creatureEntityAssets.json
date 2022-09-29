@@ -37743,6 +37743,61 @@
     }
   }
 }, {
+  "uniqueName" : "Orc-Male-Creature_Eyes-Not_Awake",
+  "type" : "CREATURE_EYES",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ "SLEEPING", "KNOCKED_UNCONSCIOUS", "DEAD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Eyes-Not_Awake_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 4.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Eyes-Not_Awake_Down_Left.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -8.0,
+        "y" : 3.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Eyes-Not_Awake_Down_Left.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 8.0,
+        "y" : 3.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Basic orc left hand",
   "type" : "CREATURE_LEFT_HAND",
   "raceName" : "Orc",

@@ -4,22 +4,14 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.model.WallType;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
-import technology.rocketjump.saul.entities.EntityStore;
-import technology.rocketjump.saul.entities.behaviour.furniture.FurnitureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
-import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
-import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
-import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
-import technology.rocketjump.saul.entities.components.furniture.PoweredFurnitureComponent;
 import technology.rocketjump.saul.entities.factories.FurnitureEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.FurnitureEntityFactory;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
@@ -30,15 +22,10 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEnt
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
-import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
-import technology.rocketjump.saul.entities.tags.*;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
-import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
-import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.jobs.model.JobTarget;
-import technology.rocketjump.saul.mapping.RoofConstructionManager;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.floor.BridgeTile;
 import technology.rocketjump.saul.materials.model.GameMaterial;
@@ -64,39 +51,33 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 
 	private final MessageDispatcher messageDispatcher;
 	private final ConstructionStore constructionStore;
-	private final ItemTypeDictionary itemTypeDictionary;
 	private final FurnitureEntityAttributesFactory furnitureEntityAttributesFactory;
 	private final FurnitureEntityFactory furnitureEntityFactory;
-	private final EntityStore entityStore;
-	private final CraftingTypeDictionary craftingTypeDictionary;
 	private final ItemEntityAttributesFactory itemEntityAttributesFactory;
 	private final ItemEntityFactory itemEntityFactory;
-	private final TagProcessor tagProcessor;
-	private final RoofConstructionManager roofConstructionManager;
-
+	private final ParticleEffectType dustCloudParticleEffect;
 	private final Map<GameMaterialType, SoundAsset> completionSoundMapping = new EnumMap<>(GameMaterialType.class);
+
 	private GameContext gameContext;
-	private ParticleEffectType dustCloudParticleEffect;
 
 	@Inject
 	public ConstructionMessageHandler(MessageDispatcher messageDispatcher, ConstructionStore constructionStore,
-									  ItemTypeDictionary itemTypeDictionary,
 									  FurnitureEntityAttributesFactory furnitureEntityAttributesFactory,
-									  FurnitureEntityFactory furnitureEntityFactory, EntityStore entityStore,
-									  CraftingTypeDictionary craftingTypeDictionary, ItemEntityAttributesFactory itemEntityAttributesFactory,
-									  ItemEntityFactory itemEntityFactory, SoundAssetDictionary soundAssetDictionary, TagProcessor tagProcessor,
-									  RoofConstructionManager roofConstructionManager, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
+									  FurnitureEntityFactory furnitureEntityFactory,
+									  ItemEntityAttributesFactory itemEntityAttributesFactory,
+									  ItemEntityFactory itemEntityFactory, SoundAssetDictionary soundAssetDictionary,
+									  ParticleEffectTypeDictionary particleEffectTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.constructionStore = constructionStore;
-		this.itemTypeDictionary = itemTypeDictionary;
 		this.furnitureEntityAttributesFactory = furnitureEntityAttributesFactory;
 		this.furnitureEntityFactory = furnitureEntityFactory;
-		this.entityStore = entityStore;
-		this.craftingTypeDictionary = craftingTypeDictionary;
 		this.itemEntityAttributesFactory = itemEntityAttributesFactory;
 		this.itemEntityFactory = itemEntityFactory;
-		this.tagProcessor = tagProcessor;
-		this.roofConstructionManager = roofConstructionManager;
+
+		dustCloudParticleEffect = particleEffectTypeDictionary.getByName("Dust cloud above"); // MODDING expose this
+		// FIXME this is also duplicated in FurnitureMessageHandler
+		completionSoundMapping.put(GameMaterialType.WOOD, soundAssetDictionary.getByName("HeavyWoodItem")); // MODDING Expose this
+		completionSoundMapping.put(GameMaterialType.STONE, soundAssetDictionary.getByName("HeavyStoneItem")); // MODDING Expose this
 
 		messageDispatcher.addListener(this, MessageType.FURNITURE_PLACEMENT);
 		messageDispatcher.addListener(this, MessageType.DOOR_PLACEMENT);
@@ -107,11 +88,6 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.TRANSFORM_CONSTRUCTION);
 		messageDispatcher.addListener(this, MessageType.DECONSTRUCT_BRIDGE);
 		messageDispatcher.addListener(this, MessageType.CONSTRUCTION_PRIORITY_CHANGED);
-
-		completionSoundMapping.put(GameMaterialType.WOOD, soundAssetDictionary.getByName("HeavyWoodItem")); // MODDING Expose this
-		completionSoundMapping.put(GameMaterialType.STONE, soundAssetDictionary.getByName("HeavyStoneItem")); // MODDING Expose this
-
-		dustCloudParticleEffect = particleEffectTypeDictionary.getByName("Dust cloud above"); // MODDING expose this
 	}
 
 
@@ -238,7 +214,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 	private void handleFurnitureConstructionCompleted(FurnitureConstruction construction) {
 		// Remove items in all covered tiles
 		Map<Long, Entity> itemsRemovedFromConstruction = new HashMap<>();
-		Room placedOnRoom = null;
+		Room tempPlacedOnRoom = null;
 		for (GridPoint2 tileLocation : construction.getTileLocations()) {
 			MapTile tileAtLocation = gameContext.getAreaMap().getTile(tileLocation);
 			if (tileAtLocation != null) {
@@ -256,10 +232,11 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 				}
 
 				if (tileAtLocation.hasRoom()) {
-					placedOnRoom = tileAtLocation.getRoomTile().getRoom();
+					tempPlacedOnRoom = tileAtLocation.getRoomTile().getRoom();
 				}
 			}
 		}
+		final Room placedOnRoom = tempPlacedOnRoom;
 
 		constructionStore.remove(construction);
 
@@ -278,125 +255,15 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 				constructionAttributes.getFurnitureType(), findApplicableMaterial(itemsRemovedFromConstruction.values(), constructionAttributes.getPrimaryMaterialType()));
 		createdAttributes.setCurrentLayout(constructionAttributes.getCurrentLayout());
 
-		copyMaterials(createdAttributes, itemsRemovedFromConstruction);
-
-		Entity createdFurnitureEntity = furnitureEntityFactory.create(createdAttributes, construction.getPrimaryLocation(), new FurnitureBehaviour(), gameContext);
-
-		ConstructedEntityComponent constructedEntityComponent = new ConstructedEntityComponent();
-		constructedEntityComponent.init(createdFurnitureEntity, messageDispatcher, gameContext);
-		constructedEntityComponent.setAutoConstructed(constructionAttributes.getFurnitureType().isAutoConstructed());
-		createdFurnitureEntity.addComponent(constructedEntityComponent);
-
-		createdFurnitureEntity.getBehaviourComponent().init(createdFurnitureEntity, messageDispatcher, gameContext);
-
-		copyLiquids(createdFurnitureEntity, itemsRemovedFromConstruction);
-
-		// Add some applicable tools
-		CraftingStationBehaviourTag craftingStationBehaviourTag = createdFurnitureEntity.getTag(CraftingStationBehaviourTag.class);
-		if (craftingStationBehaviourTag != null) {
-			CraftingType craftingType = craftingTypeDictionary.getByName(craftingStationBehaviourTag.getArgs().get(0));
-			if (craftingType == null) {
-				Logger.error("Could not find crafting type by name " + craftingStationBehaviourTag.getArgs().get(0) + " in " + this.getClass().getSimpleName());
-			} else if (!craftingType.isUsesWorkstationTool()) {
-				List<ItemType> itemsForCraftingType = itemTypeDictionary.getByCraftingType(craftingType);
-				if (itemsForCraftingType != null && itemsForCraftingType.size() > 0) {
-					Collections.shuffle(itemsForCraftingType, new RandomXS128(createdAttributes.getSeed()));
-					DecorationInventoryComponent decorationInventoryComponent = new DecorationInventoryComponent();
-					decorationInventoryComponent.init(createdFurnitureEntity, messageDispatcher, gameContext);
-
-					Entity attachedItem = createAttachedItem(itemsForCraftingType.get(0));
-					if (attachedItem != null) {
-						decorationInventoryComponent.add(attachedItem);
+		messageDispatcher.dispatchMessage(MessageType.FURNITURE_CREATION_REQUEST, new FurnitureCreationRequestMessage(
+				createdAttributes, itemsRemovedFromConstruction, construction.getPrimaryLocation(), construction.getTileLocations(),
+				furnitureEntity -> {
+					if (placedOnRoom != null && furnitureEntity.getBehaviourComponent() instanceof Prioritisable &&
+							placedOnRoom.getBehaviourComponent() instanceof Prioritisable) {
+						((Prioritisable)furnitureEntity.getBehaviourComponent()).setPriority(((Prioritisable)placedOnRoom.getBehaviourComponent()).getPriority());
 					}
-
-					if (itemsForCraftingType.size() > 1) {
-						Entity attachedItem2 = createAttachedItem(itemsForCraftingType.get(1));
-						if (attachedItem2 != null) {
-							decorationInventoryComponent.add(attachedItem2);
-						}
-					}
-
-					createdFurnitureEntity.addComponent(decorationInventoryComponent);
 				}
-			}
-		}
-
-		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, createdFurnitureEntity);
-		SoundAsset soundAsset = completionSoundMapping.get(construction.getPrimaryMaterialType());
-		if (soundAsset != null) {
-			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(soundAsset, createdFurnitureEntity));
-		}
-
-		// Fudge to update attached lightsource position
-		createdFurnitureEntity.getLocationComponent().setWorldPosition(toVector(construction.getPrimaryLocation()), false);
-
-		tagProcessor.apply(createdFurnitureEntity.getTags(), createdFurnitureEntity);
-		DecorationFromInputTag decorationFromInputTag = createdFurnitureEntity.getTag(DecorationFromInputTag.class);
-		if (decorationFromInputTag != null) {
-			decorationFromInputTag.apply(createdFurnitureEntity, itemsRemovedFromConstruction, itemTypeDictionary,
-					messageDispatcher, gameContext);
-		}
-		RequirementToColorMappingsTag requirementToColorMappingsTag = createdFurnitureEntity.getTag(RequirementToColorMappingsTag.class);
-		if (requirementToColorMappingsTag != null) {
-			requirementToColorMappingsTag.apply(createdFurnitureEntity, itemsRemovedFromConstruction, itemTypeDictionary);
-		}
-		PoweredFurnitureComponent poweredFurnitureComponent = createdFurnitureEntity.getComponent(PoweredFurnitureComponent.class);
-		if (poweredFurnitureComponent != null) {
-			poweredFurnitureComponent.updatePowerGridAtParentLocation();
-		}
-		if (createdFurnitureEntity.getTag(SupportsRoofTag.class) != null) {
-			for (GridPoint2 tileLocation : construction.getTileLocations()) {
-				MapTile tileAtLocation = gameContext.getAreaMap().getTile(tileLocation);
-				if (tileAtLocation != null) {
-					roofConstructionManager.supportConstructed(tileAtLocation);
-				}
-			}
-		}
-
-		if (placedOnRoom != null && createdFurnitureEntity.getBehaviourComponent() instanceof Prioritisable &&
-				placedOnRoom.getBehaviourComponent() instanceof Prioritisable) {
-			((Prioritisable)createdFurnitureEntity.getBehaviourComponent()).setPriority(((Prioritisable)placedOnRoom.getBehaviourComponent()).getPriority());
-		}
-	}
-
-	private void copyMaterials(FurnitureEntityAttributes createdAttributes, Map<Long, Entity> itemsRemovedFromConstruction) {
-		List<GameMaterial> materialsToApply = new LinkedList<>();
-		materialsToApply.addAll(getAllMaterials(itemsRemovedFromConstruction));
-		// Then override with most common type
-		for (GameMaterialType gameMaterialType : createdAttributes.getMaterials().keySet()) {
-			GameMaterial applicableMaterialFromConstruction = findApplicableMaterial(itemsRemovedFromConstruction.values(), gameMaterialType);
-			if (applicableMaterialFromConstruction != null) {
-				materialsToApply.add(applicableMaterialFromConstruction);
-			}
-		}
-
-		for (GameMaterial gameMaterial : materialsToApply) {
-			createdAttributes.setMaterial(gameMaterial, false);
-		}
-
-		// Also copy over other colors
-		for (Entity itemRemoved : itemsRemovedFromConstruction.values()) {
-			ItemEntityAttributes attributes = (ItemEntityAttributes) itemRemoved.getPhysicalEntityComponent().getAttributes();
-
-			for (ColoringLayer coloringLayer : otherColorsToCopy) {
-				createdAttributes.setColor(coloringLayer, attributes.getColor(coloringLayer));
-			}
-		}
-
-	}
-
-	public static final List<ColoringLayer> otherColorsToCopy = Arrays.asList(ColoringLayer.BRANCHES_COLOR);
-
-	private void copyLiquids(Entity createdFurnitureEntity, Map<Long, Entity> itemsRemovedFromConstruction) {
-		LiquidContainerComponent furnitureLiquidContainer = createdFurnitureEntity.getComponent(LiquidContainerComponent.class);
-		for (Entity entity : itemsRemovedFromConstruction.values()) {
-			LiquidContainerComponent itemLiquidContainer = entity.getComponent(LiquidContainerComponent.class);
-			if (itemLiquidContainer != null && itemLiquidContainer.getLiquidQuantity() > 0) {
-				furnitureLiquidContainer.setTargetLiquidMaterial(itemLiquidContainer.getTargetLiquidMaterial());
-				furnitureLiquidContainer.setLiquidQuantity(itemLiquidContainer.getLiquidQuantity());
-				break;
-			}
-		}
+		));
 	}
 
 	private void handleWallConstructionCompleted(WallConstruction construction) {
@@ -530,23 +397,10 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 		return true;
 	}
 
-	private Entity callbackItem;
-
-	private Entity createAttachedItem(ItemType requiredItemType) {
-		callbackItem = null;
-		messageDispatcher.dispatchMessage(MessageType.ITEM_CREATION_REQUEST, new ItemCreationRequestMessage(requiredItemType, false, item -> {
-			callbackItem = item;
-		}));
-		if (callbackItem != null) {
-			messageDispatcher.dispatchMessage(MessageType.ENTITY_DO_NOT_TRACK, callbackItem);
-		}
-		return callbackItem;
-	}
-
 	/**
 	 * This method picks out the majority material for the supplied type in the furniture's construction
 	 */
-	private GameMaterial findApplicableMaterial(Collection<Entity> itemsUsed, GameMaterialType gameMaterialType) {
+	public static GameMaterial findApplicableMaterial(Collection<Entity> itemsUsed, GameMaterialType gameMaterialType) {
 		Map<GameMaterial, Integer> materialCounter = new HashMap<>();
 
 		for (Entity itemEntity : itemsUsed) {
@@ -573,17 +427,6 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 		}
 
 		return majorityMaterial;
-	}
-
-	/**
-	 * This method picks out the majority material for the supplied type in the furniture's construction
-	 */
-	private List<GameMaterial> getAllMaterials(Map<Long, Entity> entitiesRemovedFromConstruction) {
-		List<GameMaterial> allInputMaterials = new ArrayList<>();
-		for (Entity entity : entitiesRemovedFromConstruction.values()) {
-			allInputMaterials.addAll(((ItemEntityAttributes)entity.getPhysicalEntityComponent().getAttributes()).getAllMaterials());
-		}
-		return allInputMaterials;
 	}
 
 	private void requestConstructionSoundAsset(Construction construction) {

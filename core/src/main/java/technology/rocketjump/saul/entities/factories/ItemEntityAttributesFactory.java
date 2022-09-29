@@ -29,7 +29,7 @@ import technology.rocketjump.saul.materials.model.GameMaterialType;
 import java.util.*;
 import java.util.stream.Stream;
 
-import static technology.rocketjump.saul.rooms.constructions.ConstructionMessageHandler.otherColorsToCopy;
+import static technology.rocketjump.saul.entities.FurnitureEntityMessageHandler.otherColorsToCopy;
 
 @Singleton
 public class ItemEntityAttributesFactory {

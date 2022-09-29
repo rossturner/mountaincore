@@ -51,7 +51,7 @@ public class SelectInvasionCampLocationAction extends Action {
 					});
 			averageSettlerLocation.scl(1 / (float) numSettlers.get());
 
-			Vector2 towardsSettlers = averageSettlerLocation.sub(homeAsVector);
+			Vector2 towardsSettlers = averageSettlerLocation.cpy().sub(homeAsVector);
 			towardsSettlers.scl(0.2f);
 
 			GridPoint2 targetArea = toGridPoint(homeAsVector.add(towardsSettlers));

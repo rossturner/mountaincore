@@ -323,6 +323,21 @@
   "initialActions" : [ "Idle" ],
   "interruptedByLowNeeds" : true
 }, {
+  "i18nDescription" : "GOAL.INVADER.CREATE_CAMP.DESCRIPTION",
+  "creatureCategories" : [ "INVADER" ],
+  "name" : "Create camp fire",
+  "actionRelationships" : {
+    "SelectInvasionCampLocation" : {
+      "pass" : [ "GoToGoalTargetLocation" ]
+    },
+    "GoToGoalTargetLocation" : {
+      "pass" : [ "CreateCampfire" ]
+    },
+    "CreateCampfire" : { }
+  },
+  "selectors" : [ ],
+  "initialActions" : [ "SelectInvasionCampLocation" ]
+}, {
   "i18nDescription" : "GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION",
   "creatureCategories" : [ "MILITARY" ],
   "name" : "Attack squad target",

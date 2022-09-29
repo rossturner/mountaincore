@@ -4,6 +4,9 @@
   "furnitureTypeName" : "INVADER_CAMPFIRE",
   "furnitureLayoutName" : "1x1",
   "validMaterialTypes" : [ "WOOD" ],
+  "tags": {
+    "ATTACHES_LIGHT_SOURCE": ["#f7ffa9", "#f8cc5d", "#ff8f2c"]
+  },
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Campfire_placeholder.png",

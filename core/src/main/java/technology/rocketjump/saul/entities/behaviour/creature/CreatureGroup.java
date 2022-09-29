@@ -2,6 +2,7 @@ package technology.rocketjump.saul.entities.behaviour.creature;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -47,7 +48,7 @@ public class CreatureGroup implements Persistable {
 	/**
 	 * This is called by child entity infrequent updates so it is not accurately updated, but "every so often" is good enough
 	 */
-	public void infrequentUpdate(GameContext gameContext) {
+	public void infrequentUpdate(GameContext gameContext, MessageDispatcher messageDispatcher) {
 		double now = gameContext.getGameClock().getCurrentGameTime();
 		if (now - lastUpdateGameTime > GAME_TIME_BETWEEN_UPDATES) {
 			lastUpdateGameTime = now;

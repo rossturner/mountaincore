@@ -808,6 +808,8 @@ NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven
 NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental break
 NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy that they are throwing a tantrum!
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!
+NOTIFICATION.INVASION.DESCRIPTION,,A raiding party of orcs has arrived. Prepare yourselves! They will attack after preparing for a while.
+NOTIFICATION.INVASION.TITLE,,You are being invaded!
 
 ORE.BAUXITE.ADJECTIVE,,Bauxite
 ORE.BAUXITE.NOUN,,Bauxite
