@@ -2,9 +2,9 @@ package technology.rocketjump.saul.entities.behaviour.creature;
 
 public enum InvasionStage {
 
-	ARRIVING(0.5),
-	PREPARING(48.0),
-	RAIDING(12.0),
+	ARRIVING(0.2),
+	PREPARING(24.0),
+	RAIDING(18.0),
 	RETREATING(100.0);
 
 	public final double durationHours;

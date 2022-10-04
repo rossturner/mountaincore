@@ -315,14 +315,14 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 			case KILL_CREATURE: {
 				for (Entity entity : tile.getEntities()) {
 					if (entity.getType().equals(CREATURE) && !(entity.getBehaviourComponent() instanceof CorpseBehaviour)) {
-						messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(entity, DeathReason.UNKNOWN));
+						messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(entity, DeathReason.UNKNOWN, null));
 						break;
 					}
 					if (entity.getType().equals(FURNITURE)) {
 						InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 						for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
 							if (inventoryEntry.entity.getType().equals(CREATURE) && !(inventoryEntry.entity.getBehaviourComponent() instanceof CorpseBehaviour)) {
-								messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(inventoryEntry.entity, DeathReason.UNKNOWN));
+								messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(inventoryEntry.entity, DeathReason.UNKNOWN, null));
 								break;
 							}
 						}
@@ -337,7 +337,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 					EntityAttributes attributes = entity.getPhysicalEntityComponent().getAttributes();
 					if (attributes instanceof CreatureEntityAttributes creatureAttributes) {
 						creatureAttributes.getBody().setDamage(bodyPart, BodyPartDamageLevel.Destroyed);
-						combatMessageHandler.bodyPartDestroyed(bodyPart, creatureAttributes.getBody(), entity);
+						combatMessageHandler.bodyPartDestroyed(bodyPart, creatureAttributes.getBody(), entity, null);
 					}
 				}
 				break;

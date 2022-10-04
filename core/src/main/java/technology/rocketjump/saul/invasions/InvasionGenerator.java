@@ -117,7 +117,7 @@ public class InvasionGenerator implements GameContextAware {
 				weaponEntity = buildEquipment(weaponOption, quality, invasionMaterials);
 				if (weaponEntity != null) {
 					militaryComponent.setAssignedWeaponId(weaponEntity.getId());
-					equippedItemComponent.setMainHandItem(weaponEntity, invader, messageDispatcher);
+					inventoryComponent.add(weaponEntity, invader, messageDispatcher, gameContext.getGameClock());
 					skillsComponent.setSkillLevel(weaponOption.getItemType().getWeaponInfo().getCombatSkill(),
 							MIN_WEAPON_SKILL + gameContext.getRandom().nextInt(MAX_WEAPON_SKILL - MIN_WEAPON_SKILL));
 				}
@@ -139,7 +139,7 @@ public class InvasionGenerator implements GameContextAware {
 				Entity shieldEntity = buildEquipment(shieldOption, quality, invasionMaterials);
 				if (shieldEntity != null) {
 					militaryComponent.setAssignedShieldId(shieldEntity.getId());
-					equippedItemComponent.setOffHandItem(shieldEntity, invader, messageDispatcher);
+					inventoryComponent.add(shieldEntity, invader, messageDispatcher, gameContext.getGameClock());
 				}
 			}
 

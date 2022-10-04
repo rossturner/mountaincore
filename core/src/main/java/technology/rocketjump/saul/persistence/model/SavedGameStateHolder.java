@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.GridPoint2;
+import org.reflections.ReflectionUtils;
 import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureGroup;
@@ -36,6 +37,7 @@ import technology.rocketjump.saul.settlement.SettlementState;
 import technology.rocketjump.saul.settlement.production.ProductionAssignment;
 import technology.rocketjump.saul.zones.Zone;
 
+import java.lang.reflect.Constructor;
 import java.util.*;
 
 public class SavedGameStateHolder {
@@ -287,7 +289,16 @@ public class SavedGameStateHolder {
 		for (int cursor = 0; cursor < jsonArray.size(); cursor++) {
 			try {
 				JSONObject asJson = jsonArray.getJSONObject(cursor);
-				Persistable persistable = persistableType.getDeclaredConstructor().newInstance();
+				Constructor<? extends Persistable> constructor = persistableType.getDeclaredConstructor();
+				if (asJson.containsKey("_class")) {
+					Class<? extends Persistable> subClass = (Class<? extends Persistable>) ReflectionUtils.forName(asJson.getString("_class"));
+					if (persistableType.isAssignableFrom(subClass)) {
+						constructor = subClass.getDeclaredConstructor();
+					} else {
+						throw new InvalidSaveException(subClass.getSimpleName() + " is not a subclass of " + persistableType.getSimpleName());
+					}
+				}
+				Persistable persistable = constructor.newInstance();
 				persistable.readFrom(asJson, this, relatedStores);
 			} catch (ReflectiveOperationException e) {
 				throw new RuntimeException(e); // This should only happen by programmer error - the persistable classes not having a no-arg constructor

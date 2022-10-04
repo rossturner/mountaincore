@@ -38,6 +38,8 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
 import technology.rocketjump.saul.misc.VectorUtils;
 import technology.rocketjump.saul.production.AbstractStockpile;
+import technology.rocketjump.saul.production.StockpileGroup;
+import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 import technology.rocketjump.saul.rooms.Room;
@@ -62,12 +64,13 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 	private GameContext gameContext;
 	private JobType haulingJobType;
 	private final ItemTypeDictionary itemTypeDictionary;
+	public final StockpileGroupDictionary stockpileGroupDictionary;
 
 	@Inject
 	public ItemEntityMessageHandler(MessageDispatcher messageDispatcher,
 									ItemEntityFactory itemEntityFactory, GameMaterialDictionary gameMaterialDictionary,
 									JobStore jobStore, JobTypeDictionary jobTypeDictionary,
-									ItemTracker itemTracker, ItemTypeDictionary itemTypeDictionary) {
+									ItemTracker itemTracker, ItemTypeDictionary itemTypeDictionary, StockpileGroupDictionary stockpileGroupDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.itemEntityFactory = itemEntityFactory;
 		this.gameMaterialDictionary = gameMaterialDictionary;
@@ -75,6 +78,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		this.haulingJobType = jobTypeDictionary.getByName("HAULING");
 		this.itemTracker = itemTracker;
 		this.itemTypeDictionary = itemTypeDictionary;
+		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		messageDispatcher.addListener(this, MessageType.ITEM_CREATION_REQUEST);
 		messageDispatcher.addListener(this, MessageType.REQUEST_ENTITY_HAULING);
 		messageDispatcher.addListener(this, MessageType.REQUEST_HAULING_ALLOCATION);
@@ -82,6 +86,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.LOOKUP_ITEM_TYPES_BY_TAG_CLASS);
 		messageDispatcher.addListener(this, MessageType.SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE);
 		messageDispatcher.addListener(this, MessageType.CANCEL_ITEM_ALLOCATION);
+		messageDispatcher.addListener(this, MessageType.LOOKUP_ITEM_TYPES_BY_STOCKPILE_GROUP);
 	}
 
 	@Override
@@ -97,10 +102,13 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 				return handle((RequestHaulingAllocationMessage)msg.extraInfo);
 			}
 			case MessageType.LOOKUP_ITEM_TYPE: {
-				return handle((LookupMessage)msg.extraInfo);
+				return handle((LookupItemTypeMessage)msg.extraInfo);
 			}
 			case MessageType.LOOKUP_ITEM_TYPES_BY_TAG_CLASS: {
 				return handle((LookupItemTypesByTagClassMessage)msg.extraInfo);
+			}
+			case MessageType.LOOKUP_ITEM_TYPES_BY_STOCKPILE_GROUP: {
+				return handleLookupByStockpileGroup((LookupItemTypeMessage)msg.extraInfo);
 			}
 			case MessageType.SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE: {
 				return handle((ItemMaterialSelectionMessage)msg.extraInfo);
@@ -117,6 +125,12 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 	private boolean handle(LookupItemTypesByTagClassMessage message) {
 		message.callback.itemTypesFound(itemTypeDictionary.getByTagClass(message.tagClass));
+		return true;
+	}
+
+	private boolean handleLookupByStockpileGroup(LookupItemTypeMessage message) {
+		StockpileGroup stockpileGroup = stockpileGroupDictionary.getByName(message.typeName);
+		message.callback.itemTypesFound(itemTypeDictionary.getByStockpileGroup(stockpileGroup));
 		return true;
 	}
 
@@ -137,19 +151,15 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 
 	}
 
-	private boolean handle(LookupMessage itemTypeLookupMessage) {
-		if (itemTypeLookupMessage.entityType.equals(EntityType.ITEM)) {
-			AmmoType ammoType = EnumUtils.getEnum(AmmoType.class, itemTypeLookupMessage.typeName);
-			if (ammoType != null) {
-				itemTypeLookupMessage.callback.itemTypesFound(new ArrayList<>(itemTypeDictionary.getByAmmoType(ammoType)));
-			} else {
-				ItemType itemType = itemTypeDictionary.getByName(itemTypeLookupMessage.typeName);
-				itemTypeLookupMessage.callback.itemTypeFound(Optional.ofNullable(itemType));
-			}
-			return true;
+	private boolean handle(LookupItemTypeMessage itemTypeLookupItemTypeMessage) {
+		AmmoType ammoType = EnumUtils.getEnum(AmmoType.class, itemTypeLookupItemTypeMessage.typeName);
+		if (ammoType != null) {
+			itemTypeLookupItemTypeMessage.callback.itemTypesFound(new ArrayList<>(itemTypeDictionary.getByAmmoType(ammoType)));
 		} else {
-			return false;
+			ItemType itemType = itemTypeDictionary.getByName(itemTypeLookupItemTypeMessage.typeName);
+			itemTypeLookupItemTypeMessage.callback.itemTypeFound(Optional.ofNullable(itemType));
 		}
+		return true;
 	}
 
 	private boolean handle(RequestHaulingAllocationMessage message) {

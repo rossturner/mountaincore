@@ -724,7 +724,7 @@
     }
   },
   "tags" : {
-    "TRANSFORM_TO_ITEMS_ON_DEATH" : [ "Resource-Bone-Medium", "2", "Resource-Planks", "10" ]
+    "TRANSFORM_TO_ITEMS_ON_DEATH" : [ "Resource-Bone-Medium", "2" ]
   }
 }, {
   "name" : "Wurm",

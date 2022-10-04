@@ -81,6 +81,7 @@ public class EntityAssetUpdater implements GameContextAware {
 	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT;
 	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT_2;
 	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT_3;
+	private final SkillDictionary skillDictionary;
 	private GameContext gameContext;
 	private Skill UNARMORED_MILITARY_OVERRIDE;
 
@@ -89,7 +90,7 @@ public class EntityAssetUpdater implements GameContextAware {
 							  PlantEntityAssetDictionary plantEntityAssetDictionary, MechanismEntityAssetDictionary mechanismEntityAssetDictionary,
 							  EntityAssetTypeDictionary entityAssetTypeDictionary,
 							  SkillDictionary skillDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary,
-							  TagProcessor tagProcessor) {
+							  TagProcessor tagProcessor, SkillDictionary skillDictionary1) {
 		this.itemEntityAssetDictionary = itemEntityAssetDictionary;
 		this.plantEntityAssetDictionary = plantEntityAssetDictionary;
 		this.furnitureEntityAssetDictionary = furnitureEntityAssetDictionary;
@@ -129,6 +130,7 @@ public class EntityAssetUpdater implements GameContextAware {
 
 		this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
 		this.tagProcessor = tagProcessor;
+		this.skillDictionary = skillDictionary1;
 	}
 
 	public void updateEntityAssets(Entity entity) {
@@ -173,7 +175,7 @@ public class EntityAssetUpdater implements GameContextAware {
 			Entity equippedClothing = equippedItemComponent.getEquippedClothing();
 			AssetOverrideBySkillTag assetOverrideBySkillTag = equippedClothing.getTag(AssetOverrideBySkillTag.class);
 			if (assetOverrideBySkillTag != null && equippedClothing.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes clothingAttributes) {
-				primaryProfession = assetOverrideBySkillTag.getSkill();
+				primaryProfession = assetOverrideBySkillTag.getSkill(skillDictionary);
 				attributes.setColor(assetOverrideBySkillTag.getColoringLayer(), clothingAttributes.getPrimaryMaterial().getColor());
 			}
 		}

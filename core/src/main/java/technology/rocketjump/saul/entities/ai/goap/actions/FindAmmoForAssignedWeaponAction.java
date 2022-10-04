@@ -2,20 +2,19 @@ package technology.rocketjump.saul.entities.ai.goap.actions;
 
 import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
-import technology.rocketjump.saul.entities.ai.goap.GoalSelectionCondition;
 import technology.rocketjump.saul.entities.ai.goap.GoalSelector;
 import technology.rocketjump.saul.entities.ai.goap.ScheduleCategory;
 import technology.rocketjump.saul.entities.ai.goap.condition.GoalSelectionByWeaponAmmo;
+import technology.rocketjump.saul.entities.ai.goap.condition.GoalSelectionCondition;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.messaging.types.LookupMessage;
+import technology.rocketjump.saul.messaging.types.LookupItemTypeMessage;
 import technology.rocketjump.saul.messaging.types.RequestHaulingAllocationMessage;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -77,7 +76,7 @@ public class FindAmmoForAssignedWeaponAction extends Action implements ItemTypeL
 			}
 		}
 
-		parent.messageDispatcher.dispatchMessage(MessageType.LOOKUP_ITEM_TYPE, new LookupMessage(EntityType.ITEM, requiredAmmoType.name(), this));
+		parent.messageDispatcher.dispatchMessage(MessageType.LOOKUP_ITEM_TYPE, new LookupItemTypeMessage(requiredAmmoType.name(), this));
 
 		if (foundItemType != null) {
 			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(parent.parentEntity, parent.parentEntity.getLocationComponent().getWorldOrParentPosition(), foundItemType, null, true, amountRequired, null, (allocation) -> {

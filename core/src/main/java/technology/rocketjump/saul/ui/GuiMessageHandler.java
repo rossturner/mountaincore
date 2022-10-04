@@ -417,7 +417,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 						selectables.add(selectableEntity);
 					}
 					MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
-					if (militaryComponent != null && militaryComponent.isInMilitary()) {
+					if (militaryComponent != null && militaryComponent.isInMilitary() && militaryComponent.getSquadId() != null) {
 						Squad entitySquad = gameContext.getSquads().get(militaryComponent.getSquadId());
 						if (entitySquad != null) {
 							Selectable selectableSquad = new Selectable(entitySquad);

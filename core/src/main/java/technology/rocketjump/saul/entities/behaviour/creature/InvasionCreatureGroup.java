@@ -49,7 +49,10 @@ public class InvasionCreatureGroup extends CreatureGroup {
 					this.hoursInCurrentStage = 0;
 				}
 				case RAIDING -> {
-					//
+					// TODO check for "victory"
+
+					this.invasionStage = InvasionStage.RETREATING;
+					this.hoursInCurrentStage = 0;
 				}
 				case RETREATING -> {
 					// Do nothing
@@ -74,6 +77,10 @@ public class InvasionCreatureGroup extends CreatureGroup {
 		return invasionDefinition;
 	}
 
+	public void addVictoryPoints(int points) {
+		this.victoryPointsEarned += points;
+	}
+
 	public SpecialGoal popSpecialGoal() {
 		if (pendingSpecialGoal != null) {
 			SpecialGoal temp = this.pendingSpecialGoal;
@@ -91,11 +98,15 @@ public class InvasionCreatureGroup extends CreatureGroup {
 	private void removeCampfire(GameContext gameContext, MessageDispatcher messageDispatcher) {
 		gameContext.getAreaMap().getTile(homeLocation).getEntities()
 				.stream().filter(e -> e.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes attributes &&
-						attributes.getFurnitureType().equals(CAMPFIRE_FURNITURE_TYPE_NAME))
+						attributes.getFurnitureType().getName().equals(CAMPFIRE_FURNITURE_TYPE_NAME))
 				.findAny()
 				.ifPresent(entity -> {
 					messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, entity);
 				});
+	}
+
+	public InvasionStage getInvasionStage() {
+		return invasionStage;
 	}
 
 	@Override
@@ -104,6 +115,8 @@ public class InvasionCreatureGroup extends CreatureGroup {
 
 		JSONObject asJson = savedGameStateHolder.creatureGroupJson.getJSONObject(savedGameStateHolder.creatureGroupJson.size() - 1);
 		if (asJson.getLongValue("groupId") == this.groupId) {
+			asJson.put("_class", getClass().getName());
+
 			asJson.put("invasionDefinition", invasionDefinition.getName());
 
 			if (!invasionStage.equals(InvasionStage.ARRIVING)) {
@@ -137,5 +150,4 @@ public class InvasionCreatureGroup extends CreatureGroup {
 		this.victoryPointsEarned = asJson.getIntValue("victoryPointsEarned");
 		this.victoryPointsTarget = asJson.getIntValue("victoryPointsTarget");
 	}
-
 }

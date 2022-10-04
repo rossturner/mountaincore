@@ -291,7 +291,7 @@ public class FireMessageHandler implements GameContextAware, Telegraph {
 
 		switch (entity.getType()) {
 			case CREATURE:
-				messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(entity, DeathReason.BURNING));
+				messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(entity, DeathReason.BURNING, null));
 				if (entity.getBehaviourComponent() instanceof CorpseBehaviour) {
 					CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 					CorpseBehaviour corpseBehaviour = (CorpseBehaviour) entity.getBehaviourComponent();

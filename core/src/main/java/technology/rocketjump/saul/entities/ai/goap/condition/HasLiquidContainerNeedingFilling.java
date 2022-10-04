@@ -1,7 +1,6 @@
 package technology.rocketjump.saul.entities.ai.goap.condition;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import technology.rocketjump.saul.entities.ai.goap.GoalSelectionCondition;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;

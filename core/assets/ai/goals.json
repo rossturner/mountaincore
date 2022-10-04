@@ -338,6 +338,38 @@
   "selectors" : [ ],
   "initialActions" : [ "SelectInvasionCampLocation" ]
 }, {
+  "i18nDescription" : "GOAL.INVADER.STEAL_RESOURCES.DESCRIPTION",
+  "creatureCategories" : [ "INVADER" ],
+  "name" : "Steal resources",
+  "actionRelationships" : {
+    "CancelHaulingAllocation" : { },
+    "SelectItemToSteal" : {
+      "pass" : [ "GoToLocation" ]
+    },
+    "GoToLocation" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "ShortPause" ]
+    },
+    "ShortPause" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "PickUpEntity" ]
+    },
+    "VictoryPointsForStealing" : { },
+    "PickUpEntity" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "VictoryPointsForStealing" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "MILITARY_DUTY",
+    "conditions" : [ {
+      "invasionStage" : "RAIDING",
+      "type" : "INVASION_IN_STAGE"
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "initialActions" : [ "SelectItemToSteal" ]
+}, {
   "i18nDescription" : "GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION",
   "creatureCategories" : [ "MILITARY" ],
   "name" : "Attack squad target",

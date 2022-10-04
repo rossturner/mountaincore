@@ -102,7 +102,7 @@ public class EquippedItemComponent implements EntityComponent {
 		setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
 	}
 
-	public List<Entity> clearAllEquipment() {
+	public List<Entity> clearHeldEquipment() {
 		List<Entity> equipment = new ArrayList<>();
 		Entity handItem = clearMainHandItem();
 		if (handItem != null) {
@@ -111,10 +111,6 @@ public class EquippedItemComponent implements EntityComponent {
 		Entity offHandItem = clearOffHandItem();
 		if (offHandItem != null) {
 			equipment.add(offHandItem);
-		}
-		Entity clothing = clearEquippedClothing();
-		if (clothing != null) {
-			equipment.add(clothing);
 		}
 		return equipment;
 	}

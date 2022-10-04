@@ -109,7 +109,7 @@ public class AudioMessageHandler implements Telegraph {
 
 	private boolean handle(RequestSoundAssetMessage requestSoundAssetMessage) {
 		SoundAsset asset = soundAssetDictionary.getByName(requestSoundAssetMessage.assetName);
-		requestSoundAssetMessage.callback.assetFound(asset);
+		requestSoundAssetMessage.callback.accept(asset);
 		return true;
 	}
 }

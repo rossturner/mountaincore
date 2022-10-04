@@ -280,6 +280,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 							} else {
 								militaryComponent.setAssignedWeaponId(null);
 							}
+							militaryComponent.infrequentUpdate(0.0);
 						}
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
 					}));
@@ -297,6 +298,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 							} else {
 								militaryComponent.setAssignedShieldId(null);
 							}
+							militaryComponent.infrequentUpdate(0.0);
 						}
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
 					}));
@@ -314,6 +316,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 							} else {
 								militaryComponent.setAssignedArmorId(null);
 							}
+							militaryComponent.infrequentUpdate(0.0);
 						}
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
 					}));

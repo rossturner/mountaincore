@@ -10,7 +10,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 public class Exhausted extends StatusEffect {
 
 	public Exhausted() {
-		super(Death.class, 56.0, DeathReason.EXHAUSTION);
+		super(Death.class, 56.0, DeathReason.EXHAUSTION, null);
 	}
 
 	@Override

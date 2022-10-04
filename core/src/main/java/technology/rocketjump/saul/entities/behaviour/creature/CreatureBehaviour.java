@@ -8,6 +8,7 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ai.combat.EnteringCombatException;
 import technology.rocketjump.saul.entities.ai.combat.ExitingCombatException;
 import technology.rocketjump.saul.entities.ai.goap.*;
+import technology.rocketjump.saul.entities.ai.goap.condition.GoalSelectionCondition;
 import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
@@ -41,8 +42,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import static technology.rocketjump.saul.entities.ai.goap.CreatureCategory.CIVILIAN;
-import static technology.rocketjump.saul.entities.ai.goap.CreatureCategory.MILITARY;
+import static technology.rocketjump.saul.entities.ai.goap.CreatureCategory.getCategoryFor;
 import static technology.rocketjump.saul.entities.ai.goap.ScheduleDictionary.NULL_SCHEDULE;
 import static technology.rocketjump.saul.entities.ai.goap.SpecialGoal.IDLE;
 import static technology.rocketjump.saul.entities.behaviour.creature.AssignedGoalFactory.*;
@@ -200,10 +200,12 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		}
 
 		addGoalsToQueue(gameContext);
-
-		lookAtNearbyThings(gameContext);
-
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
+
+		if (attributes.getConsciousness().equals(AWAKE)) {
+			lookAtNearbyThings(gameContext);
+		}
+
 		if (attributes.getRace().getBehaviour().getIsSapient() && !isInMilitary) {
 			if (attributes.getSanity().equals(Sanity.SANE) && attributes.getConsciousness().equals(AWAKE) &&
 					happinessComponent != null && happinessComponent.getNetModifier() <= MIN_HAPPINESS_VALUE) {
@@ -331,8 +333,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	}
 
 	protected void addGoalsToQueue(GameContext gameContext) {
-		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
-		CreatureCategory currentCreatureCategory = militaryComponent != null && militaryComponent.isInMilitary() ? MILITARY : CIVILIAN;
+		CreatureCategory currentCreatureCategory = getCategoryFor(parentEntity);
 		goalQueue.removeExpiredGoals(gameContext.getGameClock());
 		for (Goal potentialGoal : goalDictionary.getAllGoals()) {
 			if (potentialGoal.getSelectors().isEmpty()) {
@@ -362,13 +363,9 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	}
 
 	public void militaryAssignmentChanged() {
-		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
-		boolean inMilitary = militaryComponent.isInMilitary();
-		CreatureCategory currentCreatureCategory = inMilitary ? MILITARY : CIVILIAN;
-
 		goalQueue.clear();
 
-		if (currentGoal != null && !currentGoal.isComplete() && !currentGoal.goal.creatureCategories.contains(currentCreatureCategory)) {
+		if (currentGoal != null && !currentGoal.isComplete() && !currentGoal.goal.creatureCategories.contains(getCategoryFor(parentEntity))) {
 			currentGoal.setInterrupted(true);
 		}
 
@@ -403,7 +400,6 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 					if (entityInTile.getType().equals(CREATURE)) {
 
 						CreatureEntityAttributes creatureEntityAttributes = (CreatureEntityAttributes) entityInTile.getPhysicalEntityComponent().getAttributes();
-						Faction targetFaction = entityInTile.getOrCreateComponent(FactionComponent.class).getFaction();
 						if (creatureEntityAttributes.getConsciousness().equals(DEAD)
 								&& creatureEntityAttributes.getRace().equals(((CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes()).getRace())) {
 							// Saw a dead body!
@@ -413,6 +409,11 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 						}
 
+						if (!creatureEntityAttributes.getConsciousness().equals(AWAKE)) {
+							continue;
+						}
+
+						Faction targetFaction = entityInTile.getOrCreateComponent(FactionComponent.class).getFaction();
 						MemoryComponent memoryComponent = parentEntity.getOrCreateComponent(MemoryComponent.class);
 						if (hostileFactions(myFaction, targetFaction)) {
 							Memory attackCreatureMemory = new Memory(MemoryType.ABOUT_TO_ATTACK_CREATURE, gameContext.getGameClock());
@@ -428,6 +429,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 	private boolean hostileFactions(Faction myFaction, Faction targetFaction) {
 		return (myFaction == Faction.MONSTERS && myFaction != targetFaction) ||
+				(myFaction == Faction.HOSTILE_INVASION && targetFaction == Faction.SETTLEMENT) ||
 				(myFaction == Faction.SETTLEMENT && (targetFaction == Faction.MONSTERS || targetFaction == Faction.HOSTILE_INVASION));
 	}
 
@@ -443,7 +445,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 	public Schedule getCurrentSchedule() {
 		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
-		if (militaryComponent != null && militaryComponent.isInMilitary()) {
+		if (militaryComponent != null && militaryComponent.isInMilitary() && militaryComponent.getSquadId() != null) {
 			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
 			return ScheduleDictionary.getScheduleForSquadShift(squad.getShift());
 		}

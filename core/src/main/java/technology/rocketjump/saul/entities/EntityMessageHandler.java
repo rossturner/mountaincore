@@ -232,7 +232,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 							CreatureEntityAttributes entityAttributes = (CreatureEntityAttributes) removedEntity.getPhysicalEntityComponent().getAttributes();
 							if (!entityAttributes.getConsciousness().equals(DEAD)) {
 								// Destroying non-dead settler entity
-								handle(new CreatureDeathMessage(removedEntity, DeathReason.UNKNOWN));
+								handle(new CreatureDeathMessage(removedEntity, DeathReason.UNKNOWN, null));
 							}
 						} else {
 							creatureTracker.creatureRemoved(removedEntity);
@@ -771,10 +771,15 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 
 		Vector2 deceasedPosition = deceased.getLocationComponent().getWorldOrParentPosition();
 
+		HistoryComponent historyComponent = deceased.getOrCreateComponent(HistoryComponent.class);
 		DeathReason deathReason = deathMessage.reason;
 		if (originalBehaviour instanceof BrokenDwarfBehaviour) {
 			deathReason = DeathReason.GIVEN_UP_ON_LIFE;
+		} else if (deathMessage.killer != null) {
+			deathReason = DeathReason.KILLED_BY_ENTITY;
+			historyComponent.setKilledBy(deathMessage.killer);
 		}
+		historyComponent.setDeathReason(deathReason);
 
 		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
 			Notification deathNotification = new Notification(NotificationType.DEATH, deceasedPosition);
@@ -794,8 +799,6 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 		deceased.removeComponent(NeedsComponent.class);
 
-		HistoryComponent historyComponent = deceased.getOrCreateComponent(HistoryComponent.class);
-		historyComponent.setDeathReason(deathReason);
 
 		MilitaryComponent militaryComponent = deceased.getComponent(MilitaryComponent.class);
 		if (militaryComponent != null && militaryComponent.isInMilitary()) {
@@ -1082,7 +1085,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 		EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
 		if (equippedItemComponent != null) {
-			for (Entity equipmentEntity : equippedItemComponent.clearAllEquipment()) {
+			for (Entity equipmentEntity : equippedItemComponent.clearHeldEquipment()) {
 				placeOnGround(equipmentEntity, entityPosition);
 			}
 			entity.removeComponent(EquippedItemComponent.class);

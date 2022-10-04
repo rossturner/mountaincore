@@ -172,8 +172,19 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 			DeathReason reason = historyComponent.getDeathReason();
 
 			Map<String, I18nString> replacements = new HashMap<>();
-			replacements.put("reason", i18nTranslator.getDictionary().getWord(reason.getI18nKey()));
-			I18nText deathDescriptionString = i18nTranslator.getTranslatedWordWithReplacements("NOTIFICATION.DEATH.SHORT_DESCRIPTION", replacements);
+			I18nText deathDescriptionString;
+			if (reason.equals(DeathReason.KILLED_BY_ENTITY)) {
+
+				if (historyComponent.getKilledBy() == null) {
+					replacements.put("killer", i18nTranslator.getDictionary().getWord("DEATH_REASON.MURDERED.UNKNOWN_KILLER"));
+				} else {
+					replacements.put("killer", i18nTranslator.getDescription(historyComponent.getKilledBy()));
+				}
+				deathDescriptionString = i18nTranslator.getTranslatedWordWithReplacements("NOTIFICATION.DEATH.KILLED_BY_DESCRIPTION", replacements);
+			} else {
+				replacements.put("reason", i18nTranslator.getDictionary().getWord(reason.getI18nKey()));
+				deathDescriptionString = i18nTranslator.getTranslatedWordWithReplacements("NOTIFICATION.DEATH.SHORT_DESCRIPTION", replacements);
+			}
 			return List.of(deathDescriptionString);
 		} else {
 			return List.of(i18nTranslator.getTranslatedString("CREATURE.STATUS.DEAD"));

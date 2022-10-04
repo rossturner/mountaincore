@@ -1,0 +1,37 @@
+{
+  "name": "Steal resources",
+  "i18nDescription": "GOAL.INVADER.STEAL_RESOURCES.DESCRIPTION",
+  "creatureCategories": ["INVADER"],
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "INVASION_IN_STAGE",
+          "invasionStage": "RAIDING"
+        }
+      ],
+      "priority": "JOB_NORMAL",
+      "scheduleCategory": "MILITARY_DUTY"
+    }
+  ],
+  "initialActions": ["SelectItemToSteal"],
+  "actionRelationships": {
+    "SelectItemToSteal": {
+      "pass": ["GoToLocation"]
+    },
+    "GoToLocation": {
+      "pass": ["ShortPause"],
+      "fail": ["CancelHaulingAllocation"]
+    },
+    "ShortPause": {
+      "pass": ["PickUpEntity"],
+      "fail": ["CancelHaulingAllocation"]
+    },
+    "PickUpEntity": {
+      "pass": ["VictoryPointsForStealing"],
+      "fail": ["CancelHaulingAllocation"]
+    },
+    "VictoryPointsForStealing": {},
+    "CancelHaulingAllocation": {}
+  }
+}

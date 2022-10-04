@@ -2,9 +2,9 @@ package technology.rocketjump.saul.entities.ai.goap.actions;
 
 import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
-import technology.rocketjump.saul.entities.ai.goap.GoalSelectionCondition;
 import technology.rocketjump.saul.entities.ai.goap.GoalSelector;
 import technology.rocketjump.saul.entities.ai.goap.QueuedGoal;
+import technology.rocketjump.saul.entities.ai.goap.condition.GoalSelectionCondition;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;

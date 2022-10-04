@@ -11,11 +11,14 @@ public class CreatureOrganDamagedMessage {
 	public final BodyPart impactedBodyPart;
 	public final BodyPartOrgan impactedOrgan;
 	public final OrganDamageLevel organDamageLevel;
+	public final Entity aggressorEntity;
 
-	public CreatureOrganDamagedMessage(Entity targetEntity, BodyPart impactedBodyPart, BodyPartOrgan impactedOrgan, OrganDamageLevel organDamageLevel) {
+	public CreatureOrganDamagedMessage(Entity targetEntity, BodyPart impactedBodyPart, BodyPartOrgan impactedOrgan,
+									   OrganDamageLevel organDamageLevel, Entity aggressorEntity) {
 		this.targetEntity = targetEntity;
 		this.impactedBodyPart = impactedBodyPart;
 		this.impactedOrgan = impactedOrgan;
 		this.organDamageLevel = organDamageLevel;
+		this.aggressorEntity = aggressorEntity;
 	}
 }
