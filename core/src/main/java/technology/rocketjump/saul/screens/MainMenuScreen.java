@@ -18,7 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.lang3.NotImplementedException;
@@ -43,8 +44,8 @@ import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.*;
-import static technology.rocketjump.saul.rendering.camera.DisplaySettings.DEFAULT_UI_SCALE;
+import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.MAIN_MENU_BACKGROUND_SCROLLING;
+import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.TWITCH_INTEGRATION_ENABLED;
 import static technology.rocketjump.saul.rendering.camera.GlobalSettings.VERSION;
 
 /**
@@ -66,6 +67,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 	private final Skin uiSkin;
 	private final SpriteBatch basicSpriteBatch = new SpriteBatch();
 	private final OrthographicCamera camera = new OrthographicCamera();
+	private final Viewport viewport = new ExtendViewport(1920, 1080);
 
 	private Texture backgroundImage;
 	private boolean scrollBackgroundImage;
@@ -111,9 +113,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 
 		scrollBackgroundImage = Boolean.parseBoolean(userPreferences.getPreference(MAIN_MENU_BACKGROUND_SCROLLING, "false"));
 
-		String savedScale = userPreferences.getPreference(UI_SCALE, DEFAULT_UI_SCALE);
-		ScreenViewport viewport = new ScreenViewport();
-		viewport.setUnitsPerPixel(1 / Float.parseFloat(savedScale));
 		stage = new Stage(viewport);
 		stage.addActor(containerTable);
 
@@ -175,6 +174,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 						case TOP_LEVEL_MENU:
 							currentMenu = topLevelMenu;
 							break;
+						case PRIVACY_OPT_IN_MENU:
 						case OPTIONS_MENU:
 							currentMenu = optionsMenu;
 							break;
@@ -186,9 +186,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 							break;
 						case MODS_MENU:
 							currentMenu = modsMenu;
-							break;
-						case PRIVACY_OPT_IN_MENU:
-							currentMenu = optionsMenu;
 							break;
 						default:
 							throw new NotImplementedException("not yet implemented:" + targetMenuType.name());
@@ -344,10 +341,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			backgroundScale += 0.2f;
 		}
 
-		ScreenViewport viewport = new ScreenViewport(new OrthographicCamera(width, height));
-		viewport.setUnitsPerPixel(1 / uiScale);
-		stage.setViewport(viewport);
-		stage.getViewport().update(width, height, true);
+		viewport.update(width, height, true);
 
 		reset();
 	}
