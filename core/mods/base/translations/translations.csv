@@ -723,11 +723,12 @@ MECHANISM.STONE.GEAR.TOOLTIP,,This contraption links up mechanical power in all 
 MECHANISM.WOODEN.SHAFT.NOUN,,Shaft
 MECHANISM.WOODEN.SHAFT.TOOLTIP,,A wooden shaft links mechanical power in 2 directions.
 
-MENU.CONTINUE_GAME,,Continue game
-MENU.LOAD_GAME,,Load game
+MENU.CONTINUE_GAME,,Continue
+MENU.LOAD_GAME,,Load
 MENU.MODS,,Mods
-MENU.NEW_GAME,,Start new game
+MENU.NEW_GAME,,New Game
 MENU.OPTIONS,,Options
+MENU.CREDITS,,Credits
 MENU.QUIT,,Quit
 MENU.TOGGLE_FULLSCREEN,,Toggle fullscreen
 
