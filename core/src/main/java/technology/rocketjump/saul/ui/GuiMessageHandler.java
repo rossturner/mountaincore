@@ -86,6 +86,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.FURNITURE_MATERIAL_SELECTED);
 		messageDispatcher.addListener(this, MessageType.GUI_FURNITURE_TYPE_SELECTED);
 		messageDispatcher.addListener(this, MessageType.ROTATE_FURNITURE);
+		messageDispatcher.addListener(this, MessageType.DESTROY_ENTITY_AND_ALL_INVENTORY);
 		messageDispatcher.addListener(this, MessageType.DESTROY_ENTITY);
 		messageDispatcher.addListener(this, MessageType.WALL_MATERIAL_SELECTED);
 		messageDispatcher.addListener(this, MessageType.FLOOR_MATERIAL_SELECTED);
@@ -179,6 +180,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 				}
 				return true;
 			}
+			case MessageType.DESTROY_ENTITY_AND_ALL_INVENTORY: // fall through
 			case MessageType.DESTROY_ENTITY: { // Need to stop showing destroyed entities
 				if (interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type.equals(ENTITY)) {
 					Entity entity = (Entity) msg.extraInfo;

@@ -170,9 +170,9 @@ DEATH_REASON.GIVEN_UP_ON_LIFE,,having given up on life
 DEATH_REASON.INTERNAL_BLEEDING,,Internal bleeding
 DEATH_REASON.STARVATION,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Starvation
 DEATH_REASON.SUFFOCATION,,Suffocation
-DEATH_REASON.MURDERED,,Murdered
+DEATH_REASON.KILLED_BY_ENTITY,,wounds suffered in combat
 DEATH_REASON.MURDERED.UNKNOWN_KILLER,,someone
-DEATH_REASON.UNKNOWN,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Mysterious circumstances
+DEATH_REASON.UNKNOWN,,Mysterious circumstances
 
 EARTH.DIRT,,Dirt
 EARTH.GRASS,,Grass
@@ -416,6 +416,7 @@ GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION,,Guarding a position
 GOAL.MILITARY.TRAINING.DESCRIPTION,,Weapon training
 GOAL.INVADER.CREATE_CAMP.DESCRIPTION,,Setting up camp
 GOAL.INVADER.STEAL_RESOURCES.DESCRIPTION,,Raiding stockpiles
+GOAL.INVADER.RETREAT.DESCRIPTION,,Retreating from map
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
 GUI.ADD_TILES,This should be as short as possible,Add tiles

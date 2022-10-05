@@ -71,7 +71,6 @@ public class MessageType {
 	public static final int ENTITY_POSITION_CHANGED = 310;
 	public static final int PLANT_SEED_DISPERSED = 321;
 	public static final int REQUEST_PLANT_REMOVAL = 322;
-	public static final int DESTROY_ENTITY = 323;
 	public static final int TREE_FELLED = 324;
 	public static final int ENTITY_ASSET_UPDATE_REQUIRED = 325;
 	public static final int ENTITY_CREATED = 326;
@@ -103,6 +102,8 @@ public class MessageType {
 
 	public static final int SETTLER_TANTRUM = 348;
 	public static final int LOCATE_SETTLERS_IN_REGION = 349;
+	public static final int DESTROY_ENTITY = 350;
+	public static final int DESTROY_ENTITY_AND_ALL_INVENTORY = 351;
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;

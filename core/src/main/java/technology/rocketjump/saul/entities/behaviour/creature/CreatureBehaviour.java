@@ -70,7 +70,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	protected AssignedGoal currentGoal;
 	protected final GoalQueue goalQueue = new GoalQueue();
 	protected transient double lastUpdateGameTime;
-	protected static final int DISTANCE_TO_LOOK_AROUND = 5;
+	protected static final int DISTANCE_TO_LOOK_AROUND = 7;
 
 	private float stunTime;
 
@@ -429,7 +429,6 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 	private boolean hostileFactions(Faction myFaction, Faction targetFaction) {
 		return (myFaction == Faction.MONSTERS && myFaction != targetFaction) ||
-				(myFaction == Faction.HOSTILE_INVASION && targetFaction == Faction.SETTLEMENT) ||
 				(myFaction == Faction.SETTLEMENT && (targetFaction == Faction.MONSTERS || targetFaction == Faction.HOSTILE_INVASION));
 	}
 
@@ -459,13 +458,20 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 	@Override
 	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
+
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		if (attributes.getConsciousness().equals(KNOCKED_UNCONSCIOUS)) {
 			return List.of(i18nTranslator.getTranslatedString("ACTION.KNOCKED_UNCONSCIOUS"));
 		}
 
 		List<I18nText> descriptionStrings = new ArrayList<>();
-		descriptionStrings.add(i18nTranslator.getCurrentGoalDescription(parentEntity, currentGoal, gameContext));
+
+		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
+		if (combatStateComponent != null && combatStateComponent.isInCombat()) {
+			descriptionStrings.addAll(combatBehaviour.getDescription(i18nTranslator, gameContext, messageDispatcher));
+		} else {
+			descriptionStrings.add(i18nTranslator.getCurrentGoalDescription(parentEntity, currentGoal, gameContext));
+		}
 		if (stunTime > 0) {
 			descriptionStrings.add(i18nTranslator.getTranslatedString("ACTION.STUNNED"));
 		}

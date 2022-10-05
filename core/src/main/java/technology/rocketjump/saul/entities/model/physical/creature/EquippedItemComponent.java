@@ -206,6 +206,18 @@ public class EquippedItemComponent implements EntityComponent {
 		}
 	}
 
+	public void destroyAllEntities(MessageDispatcher messageDispatcher) {
+		if (mainHandItem != null) {
+			messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, mainHandItem);
+		}
+		if (offHandItem != null) {
+			messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, offHandItem);
+		}
+		if (equippedClothing != null) {
+			messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedClothing);
+		}
+	}
+
 	@Override
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
 		EquippedItemComponent clonedComponent = new EquippedItemComponent();
@@ -285,5 +297,4 @@ public class EquippedItemComponent implements EntityComponent {
 			this.offHandEnabled = true;
 		}
 	}
-
 }

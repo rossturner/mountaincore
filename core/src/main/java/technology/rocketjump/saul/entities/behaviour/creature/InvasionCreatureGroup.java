@@ -3,6 +3,9 @@ package technology.rocketjump.saul.entities.behaviour.creature;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.entities.ai.goap.SpecialGoal;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
+import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.invasions.model.InvasionDefinition;
@@ -13,8 +16,11 @@ import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
 import static technology.rocketjump.saul.entities.ai.goap.actions.invasion.CreateCampfireAction.CAMPFIRE_FURNITURE_TYPE_NAME;
+import static technology.rocketjump.saul.entities.ai.goap.actions.invasion.VictoryPointsForStealingAction.VICTORY_POINTS_FOR_KILLING_SETTLER;
 
 public class InvasionCreatureGroup extends CreatureGroup {
+
+	private static final int POINTS_LOST_ON_MEMBER_DEATH = 80;
 
 	private InvasionDefinition invasionDefinition;
 	private InvasionStage invasionStage = InvasionStage.ARRIVING;
@@ -36,6 +42,11 @@ public class InvasionCreatureGroup extends CreatureGroup {
 
 		hoursInCurrentStage += elapsed;
 
+		if (invasionStage.equals(InvasionStage.RAIDING) && victoryPointsEarned >= victoryPointsTarget) {
+			this.invasionStage = InvasionStage.RETREATING;
+			this.hoursInCurrentStage = 0;
+		}
+
 		if (hoursInCurrentStage > invasionStage.durationHours) {
 			switch (invasionStage) {
 				case ARRIVING -> {
@@ -49,8 +60,6 @@ public class InvasionCreatureGroup extends CreatureGroup {
 					this.hoursInCurrentStage = 0;
 				}
 				case RAIDING -> {
-					// TODO check for "victory"
-
 					this.invasionStage = InvasionStage.RETREATING;
 					this.hoursInCurrentStage = 0;
 				}
@@ -61,7 +70,7 @@ public class InvasionCreatureGroup extends CreatureGroup {
 		}
 
 		if (invasionStage.equals(InvasionStage.RETREATING)) {
-//			this.pendingSpecialGoal = SpecialGoal.INVASION_RETREAT;
+			this.pendingSpecialGoal = SpecialGoal.INVASION_RETREAT;
 		}
 	}
 
@@ -107,6 +116,18 @@ public class InvasionCreatureGroup extends CreatureGroup {
 
 	public InvasionStage getInvasionStage() {
 		return invasionStage;
+	}
+
+	public void killedEnemy(Entity deceased) {
+		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+			addVictoryPoints(VICTORY_POINTS_FOR_KILLING_SETTLER);
+		}
+	}
+
+	@Override
+	public void removeMemberId(long entityId) {
+		super.removeMemberId(entityId);
+		this.victoryPointsTarget -= POINTS_LOST_ON_MEMBER_DEATH;
 	}
 
 	@Override

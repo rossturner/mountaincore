@@ -158,8 +158,27 @@ public class InvasionMessageHandler implements Telegraph, GameContextAware {
 		}
 
 		int targetRegionId = randomSettlerTile.getRegionId();
-		List<MapTile> eligibleBorderTiles = new ArrayList<>();
+		List<MapTile> eligibleBorderTiles = getNavigableMapEdgeTiles(targetRegionId, gameContext);
 
+		if (eligibleBorderTiles.isEmpty()) {
+			return null;
+		} else {
+			MapTile invasionTile = eligibleBorderTiles.get(gameContext.getRandom().nextInt(eligibleBorderTiles.size()));
+			// Figure out which edge is map edge
+			if (gameContext.getAreaMap().getTile(invasionTile.getTileX(), invasionTile.getTileY() + 1) == null) {
+				return toVector(invasionTile.getTilePosition()).add(0, 0.48f);
+			} else if (gameContext.getAreaMap().getTile(invasionTile.getTileX(), invasionTile.getTileY() - 1) == null) {
+				return toVector(invasionTile.getTilePosition()).add(0, -0.48f);
+			} else if (gameContext.getAreaMap().getTile(invasionTile.getTileX() - 1, invasionTile.getTileY()) == null) {
+				return toVector(invasionTile.getTilePosition()).add(-0.48f, 0f);
+			} else {
+				return toVector(invasionTile.getTilePosition()).add(0.48f, 0f);
+			}
+		}
+	}
+
+	public static List<MapTile> getNavigableMapEdgeTiles(int targetRegionId, GameContext gameContext) {
+		List<MapTile> eligibleBorderTiles = new ArrayList<>();
 		for (int x = 0; x < gameContext.getAreaMap().getWidth(); x++) {
 			MapTile bottomEdgeTile = gameContext.getAreaMap().getTile(x, 0);
 			if (bottomEdgeTile.getRegionId() == targetRegionId && bottomEdgeTile.isNavigable(null)) {
@@ -180,22 +199,7 @@ public class InvasionMessageHandler implements Telegraph, GameContextAware {
 				eligibleBorderTiles.add(rightEdgeTile);
 			}
 		}
-
-		if (eligibleBorderTiles.isEmpty()) {
-			return null;
-		} else {
-			MapTile invasionTile = eligibleBorderTiles.get(gameContext.getRandom().nextInt(eligibleBorderTiles.size()));
-			// Figure out which edge is map edge
-			if (gameContext.getAreaMap().getTile(invasionTile.getTileX(), invasionTile.getTileY() + 1) == null) {
-				return toVector(invasionTile.getTilePosition()).add(0, 0.48f);
-			} else if (gameContext.getAreaMap().getTile(invasionTile.getTileX(), invasionTile.getTileY() - 1) == null) {
-				return toVector(invasionTile.getTilePosition()).add(0, -0.48f);
-			} else if (gameContext.getAreaMap().getTile(invasionTile.getTileX() - 1, invasionTile.getTileY()) == null) {
-				return toVector(invasionTile.getTilePosition()).add(-0.48f, 0f);
-			} else {
-				return toVector(invasionTile.getTilePosition()).add(0.48f, 0f);
-			}
-		}
+		return eligibleBorderTiles;
 	}
 
 	@Override

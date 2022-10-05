@@ -16,6 +16,7 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.behaviour.creature.BrokenDwarfBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.InvasionCreatureGroup;
 import technology.rocketjump.saul.entities.behaviour.furniture.*;
 import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.*;
@@ -177,6 +178,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.DAMAGE_FURNITURE);
 		messageDispatcher.addListener(this, MessageType.MATERIAL_OXIDISED);
 		messageDispatcher.addListener(this, MessageType.FIND_BUTCHERABLE_UNALLOCATED_CORPSE);
+		messageDispatcher.addListener(this, MessageType.DESTROY_ENTITY_AND_ALL_INVENTORY);
 	}
 
 	@Override
@@ -209,6 +211,22 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 				}
 
 				return true;
+			}
+			case MessageType.DESTROY_ENTITY_AND_ALL_INVENTORY: {
+				Entity entity = (Entity) msg.extraInfo;
+				if (entity == null) {
+					return true;
+				}
+
+				InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
+				if (inventoryComponent != null) {
+					inventoryComponent.destroyAllEntities(messageDispatcher);
+				}
+				EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
+				if (equippedItemComponent != null) {
+					equippedItemComponent.destroyAllEntities(messageDispatcher);
+				}
+				// Fall-through to DESTROY_ENTITY
 			}
 			case MessageType.DESTROY_ENTITY: {
 				Entity entity = (Entity) msg.extraInfo;
@@ -846,6 +864,10 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			messageDispatcher.dispatchMessage(DESTROY_ENTITY, deceased);
 		}
 
+		if (deathMessage.killer != null && deathMessage.killer.getBehaviourComponent() instanceof CreatureBehaviour killerBehaviour &&
+			killerBehaviour.getCreatureGroup() instanceof InvasionCreatureGroup invasionCreatureGroup) {
+			invasionCreatureGroup.killedEnemy(deceased);
+		}
 		return true;
 	}
 

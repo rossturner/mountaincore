@@ -14,6 +14,7 @@ import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 public class VictoryPointsForStealingAction extends Action {
 	// Just hard-coded for now, should be data-driven
 	private static final int VICTORY_POINTS_FOR_STEALING = 40;
+	public static final int VICTORY_POINTS_FOR_KILLING_SETTLER = 40;
 
 	public VictoryPointsForStealingAction(AssignedGoal parent) {
 		super(parent);
