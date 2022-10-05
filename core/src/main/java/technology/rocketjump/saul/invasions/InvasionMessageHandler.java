@@ -92,7 +92,7 @@ public class InvasionMessageHandler implements Telegraph, GameContextAware {
 
 		// TODO figure out AI of invasion
 
-		messageDispatcher.dispatchMessage(1.5f, POST_NOTIFICATION, new Notification(NotificationType.INVASION, invasionLocation));
+		messageDispatcher.dispatchMessage(4.5f, POST_NOTIFICATION, new Notification(NotificationType.INVASION, invasionLocation));
 	}
 
 	private void onDayElapsed() {

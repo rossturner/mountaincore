@@ -20,8 +20,8 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.ProductionAssignmentRequestMessage;
 import technology.rocketjump.saul.rendering.ScreenWriter;
-import technology.rocketjump.saul.settlement.ItemTracker;
 import technology.rocketjump.saul.settlement.LiquidTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
 
 import java.util.*;
@@ -36,7 +36,7 @@ public class ProductionManager implements Updatable, Telegraph {
 
 	private static float UPDATE_PERIOD_IN_SECONDS = 1.313f;
 
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final LiquidTracker liquidTracker;
 	private final SettlerTracker settlerTracker;
 	private final CraftingRecipeDictionary craftingRecipeDictionary;
@@ -46,10 +46,10 @@ public class ProductionManager implements Updatable, Telegraph {
 	private GameContext gameContext;
 
 	@Inject
-	public ProductionManager(ItemTracker itemTracker, SettlerTracker settlerTracker,
+	public ProductionManager(SettlementItemTracker settlementItemTracker, SettlerTracker settlerTracker,
 							 MessageDispatcher messageDispatcher, LiquidTracker liquidTracker,
 							 CraftingRecipeDictionary craftingRecipeDictionary, ScreenWriter screenWriter) {
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.settlerTracker = settlerTracker;
 		this.liquidTracker = liquidTracker;
 		this.craftingRecipeDictionary = craftingRecipeDictionary;
@@ -156,9 +156,9 @@ public class ProductionManager implements Updatable, Telegraph {
 
 					List<Entity> unallocatedItems;
 					if (input.getMaterial() == null) {
-						unallocatedItems = itemTracker.getItemsByType(input.getItemType(), true);
+						unallocatedItems = settlementItemTracker.getItemsByType(input.getItemType(), true);
 					} else {
-						unallocatedItems = itemTracker.getItemsByTypeAndMaterial(input.getItemType(), input.getMaterial(), true);
+						unallocatedItems = settlementItemTracker.getItemsByTypeAndMaterial(input.getItemType(), input.getMaterial(), true);
 					}
 
 					int quantityFound = 0;
@@ -261,7 +261,7 @@ public class ProductionManager implements Updatable, Telegraph {
 			ItemType itemType = quotaEntry.getKey();
 			int requiredAmount = quotaEntry.getValue().getRequiredAmount(numSettlers);
 			int currentAmount = 0;
-			for (Entity item : itemTracker.getItemsByType(itemType, false)) {
+			for (Entity item : settlementItemTracker.getItemsByType(itemType, false)) {
 				currentAmount += ((ItemEntityAttributes) item.getPhysicalEntityComponent().getAttributes()).getQuantity();
 			}
 			int inProduction = 0;

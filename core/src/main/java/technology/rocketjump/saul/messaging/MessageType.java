@@ -71,6 +71,7 @@ public class MessageType {
 	public static final int ENTITY_POSITION_CHANGED = 310;
 	public static final int PLANT_SEED_DISPERSED = 321;
 	public static final int REQUEST_PLANT_REMOVAL = 322;
+	public static final int ENTITY_FACTION_CHANGED = 323;
 	public static final int TREE_FELLED = 324;
 	public static final int ENTITY_ASSET_UPDATE_REQUIRED = 325;
 	public static final int ENTITY_CREATED = 326;

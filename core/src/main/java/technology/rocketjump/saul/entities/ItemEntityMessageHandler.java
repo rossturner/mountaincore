@@ -45,7 +45,7 @@ import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.rooms.tags.StockpileTag;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -59,7 +59,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 	private final MessageDispatcher messageDispatcher;
 	private final ItemEntityFactory itemEntityFactory;
 	private final GameMaterialDictionary gameMaterialDictionary;
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final JobStore jobStore;
 	private GameContext gameContext;
 	private JobType haulingJobType;
@@ -70,13 +70,13 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 	public ItemEntityMessageHandler(MessageDispatcher messageDispatcher,
 									ItemEntityFactory itemEntityFactory, GameMaterialDictionary gameMaterialDictionary,
 									JobStore jobStore, JobTypeDictionary jobTypeDictionary,
-									ItemTracker itemTracker, ItemTypeDictionary itemTypeDictionary, StockpileGroupDictionary stockpileGroupDictionary) {
+									SettlementItemTracker settlementItemTracker, ItemTypeDictionary itemTypeDictionary, StockpileGroupDictionary stockpileGroupDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.itemEntityFactory = itemEntityFactory;
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.jobStore = jobStore;
 		this.haulingJobType = jobTypeDictionary.getByName("HAULING");
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		messageDispatcher.addListener(this, MessageType.ITEM_CREATION_REQUEST);
@@ -166,9 +166,9 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		int requesterRegionId = gameContext.getAreaMap().getTile(message.requesterPosition).getRegionId();
 		List<Entity> unallocatedItems;
 		if (message.requiredMaterial != null) {
-			unallocatedItems = itemTracker.getItemsByTypeAndMaterial(message.requiredItemType, message.requiredMaterial, true);
+			unallocatedItems = settlementItemTracker.getItemsByTypeAndMaterial(message.requiredItemType, message.requiredMaterial, true);
 		} else {
-			unallocatedItems = itemTracker.getItemsByType(message.requiredItemType, true);
+			unallocatedItems = settlementItemTracker.getItemsByType(message.requiredItemType, true);
 		}
 
 		unallocatedItems.sort(new NearestDistanceSorter(message.requesterPosition));
@@ -234,7 +234,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 	}
 
 	private boolean handle(ItemMaterialSelectionMessage itemMaterialSelectionMessage) {
-		List<Entity> itemsByType = itemTracker.getItemsByType(itemMaterialSelectionMessage.itemType, true);
+		List<Entity> itemsByType = settlementItemTracker.getItemsByType(itemMaterialSelectionMessage.itemType, true);
 		if (!itemsByType.isEmpty()) {
 			// Select most popular material available in this resource
 			Map<GameMaterial, Integer> availabilityMap = new HashMap<>();

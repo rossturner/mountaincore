@@ -22,10 +22,10 @@ import java.util.*;
 import static java.util.Collections.emptyMap;
 
 /**
- * This class is responsible for keeping track of all items (allocated or not) on the map
+ * This class is responsible for keeping track of all furniture (allocated or not) on the map BELONGING TO THE SETTLEMENT
  */
 @Singleton
-public class FurnitureTracker implements GameContextAware, Telegraph {
+public class SettlementFurnitureTracker implements GameContextAware, Telegraph {
 
 	private GameContext gameContext;
 
@@ -34,7 +34,7 @@ public class FurnitureTracker implements GameContextAware, Telegraph {
 	private final Map<Class<? extends Tag>, Map<Long, Entity>> byTag = new HashMap<>();
 
 	@Inject
-	public FurnitureTracker(MessageDispatcher messageDispatcher) {
+	public SettlementFurnitureTracker(MessageDispatcher messageDispatcher) {
 		messageDispatcher.addListener(this, MessageType.REQUEST_FURNITURE_ASSIGNMENT);
 		messageDispatcher.addListener(this, MessageType.GET_FURNITURE_BY_TAG);
 	}

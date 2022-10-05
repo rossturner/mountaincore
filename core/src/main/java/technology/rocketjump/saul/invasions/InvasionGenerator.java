@@ -104,7 +104,7 @@ public class InvasionGenerator implements GameContextAware {
 					inventoryItemAttributes.setItemQuality(pickQuality(participant.getItemQualities()));
 				}
 				Entity inventoryEntity = itemEntityFactory.create(inventoryItemAttributes, null, true, gameContext);
-				inventoryEntity.getOrCreateComponent(FactionComponent.class).setFaction(Faction.HOSTILE_INVASION);
+				inventoryEntity.getComponent(FactionComponent.class).setFaction(Faction.HOSTILE_INVASION);
 				inventoryComponent.add(inventoryEntity, invader, messageDispatcher, gameContext.getGameClock());
 			}
 
@@ -176,7 +176,7 @@ public class InvasionGenerator implements GameContextAware {
 		itemAttributes.setItemQuality(quality);
 
 		Entity itemEntity = itemEntityFactory.create(itemAttributes, null, true, gameContext);
-		itemEntity.getOrCreateComponent(FactionComponent.class).setFaction(Faction.HOSTILE_INVASION);
+		itemEntity.getComponent(FactionComponent.class).setFaction(Faction.HOSTILE_INVASION);
 
 		return itemEntity;
 	}

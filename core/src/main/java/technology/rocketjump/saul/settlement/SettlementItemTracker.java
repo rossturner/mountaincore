@@ -16,10 +16,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 
 /**
- * This class is responsible for keeping track of all items (allocated or not) on the map
+ * This class is responsible for keeping track of all items (allocated or not) on the map BELONGING TO THE SETTLEMENT
  */
 @Singleton
-public class ItemTracker implements GameContextAware {
+public class SettlementItemTracker implements GameContextAware {
 
 	private static final Map<GameMaterial, Map<Long, Entity>> EMPTY_1 = new HashMap<>();
 	private static final Map<Long, Entity> EMPTY_2 = new HashMap<>();

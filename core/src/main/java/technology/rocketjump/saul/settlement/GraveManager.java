@@ -34,7 +34,7 @@ public class GraveManager implements Updatable {
 	private static final float TIME_BETWEEN_INFREQUENT_UPDATE_SECONDS = 3.4f;
 
 	private final MessageDispatcher messageDispatcher;
-	private final FurnitureTracker furnitureTracker;
+	private final SettlementFurnitureTracker settlementFurnitureTracker;
 	private final SettlerTracker settlerTracker;
 	private final JobStore jobStore;
 	private final JobType haulingJobType;
@@ -43,10 +43,10 @@ public class GraveManager implements Updatable {
 	private float timeSinceLastUpdate = 0f;
 
 	@Inject
-	public GraveManager(MessageDispatcher messageDispatcher, FurnitureTracker furnitureTracker,
+	public GraveManager(MessageDispatcher messageDispatcher, SettlementFurnitureTracker settlementFurnitureTracker,
 						SettlerTracker settlerTracker, JobStore jobStore, JobTypeDictionary jobTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
-		this.furnitureTracker = furnitureTracker;
+		this.settlementFurnitureTracker = settlementFurnitureTracker;
 		this.settlerTracker = settlerTracker;
 		this.jobStore = jobStore;
 		this.haulingJobType = jobTypeDictionary.getByName("HAULING");
@@ -94,7 +94,7 @@ public class GraveManager implements Updatable {
 	}
 
 	private Entity findAvailableDeceasedContainer() {
-		for (Entity deceasedContainer : furnitureTracker.findByTag(DeceasedContainerTag.class, true)) {
+		for (Entity deceasedContainer : settlementFurnitureTracker.findByTag(DeceasedContainerTag.class, true)) {
 			ConstructedEntityComponent constructedEntityComponent = deceasedContainer.getComponent(ConstructedEntityComponent.class);
 			if (constructedEntityComponent != null && constructedEntityComponent.isBeingDeconstructed()) {
 				continue;

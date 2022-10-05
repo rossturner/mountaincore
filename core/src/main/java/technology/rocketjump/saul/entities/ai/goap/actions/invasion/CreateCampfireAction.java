@@ -41,6 +41,7 @@ public class CreateCampfireAction extends Action {
 						parent.messageDispatcher.dispatchMessage(MessageType.FURNITURE_CREATION_REQUEST, new FurnitureCreationRequestMessage(
 								furnitureAttributes, Map.of(), targetTile.getTilePosition(), Set.of(targetTile.getTilePosition()), furnitureEntity -> {
 							FactionComponent factionComponent = furnitureEntity.getOrCreateComponent(FactionComponent.class);
+							factionComponent.init(furnitureEntity, parent.messageDispatcher, gameContext);
 							factionComponent.setFaction(parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction());
 							completionType = CompletionType.SUCCESS;
 						}));

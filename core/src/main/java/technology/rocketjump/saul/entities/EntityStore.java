@@ -29,13 +29,14 @@ import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.settlement.CreatureTracker;
-import technology.rocketjump.saul.settlement.FurnitureTracker;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static technology.rocketjump.saul.entities.components.Faction.SETTLEMENT;
 import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
@@ -55,8 +56,8 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 	private final Map<Long, Entity> jobAssignableEntities = new ConcurrentHashMap<>();
 
 	private GameContext gameContext;
-	private final FurnitureTracker furnitureTracker;
-	private final ItemTracker itemTracker;
+	private final SettlementFurnitureTracker settlementFurnitureTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final SettlerTracker settlerTracker;
 	private final CreatureTracker creatureTracker;
 	private final CombatTracker combatTracker;
@@ -66,16 +67,16 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 	public EntityStore(SettlerCreatureAttributesFactory settlerCreatureAttributesFactory,
 					   PlantEntityAttributesFactory plantEntityAttributesFactory, PlantEntityFactory plantEntityFactory,
 					   ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory,
-					   FurnitureTracker furnitureTracker,
-					   ItemTracker itemTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker,
+					   SettlementFurnitureTracker settlementFurnitureTracker,
+					   SettlementItemTracker settlementItemTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker,
 					   CombatTracker combatTracker, ConstantsRepo constantsRepo) {
 		this.settlerCreatureAttributesFactory = settlerCreatureAttributesFactory;
 		this.plantEntityAttributesFactory = plantEntityAttributesFactory;
 		this.plantEntityFactory = plantEntityFactory;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.itemEntityFactory = itemEntityFactory;
-		this.furnitureTracker = furnitureTracker;
-		this.itemTracker = itemTracker;
+		this.settlementFurnitureTracker = settlementFurnitureTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.settlerTracker = settlerTracker;
 		this.creatureTracker = creatureTracker;
 		this.combatTracker = combatTracker;
@@ -267,36 +268,41 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 		if (gameContext != null) {
 			for (Entity entity : gameContext.getEntities().values()) {
 				add(entity, false);
+				Faction faction = entity.getOrCreateComponent(FactionComponent.class).getFaction();
 
 				switch (entity.getType()) {
 					case ITEM:
-						itemTracker.itemAdded(entity);
+						if (faction.equals(SETTLEMENT)) {
+							settlementItemTracker.itemAdded(entity);
+						}
 						break;
 					case FURNITURE:
-						furnitureTracker.furnitureAdded(entity);
+						if (faction.equals(SETTLEMENT)) {
+							settlementFurnitureTracker.furnitureAdded(entity);
+						}
 						break;
 					case CREATURE:
 
 						if (entity.getBehaviourComponent() instanceof CorpseBehaviour) {
-							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
 								settlerTracker.settlerDied(entity);
 							} else {
 								creatureTracker.creatureDied(entity);
 							}
 						} else {
-							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
 								settlerTracker.settlerAdded(entity);
 								for (InventoryComponent.InventoryEntry inventoryEntry : entity.getComponent(InventoryComponent.class).getInventoryEntries()) {
 									add(inventoryEntry.entity);
 									if (inventoryEntry.entity.getType().equals(ITEM)) {
-										itemTracker.itemAdded(inventoryEntry.entity);
+										settlementItemTracker.itemAdded(inventoryEntry.entity);
 									}
 								}
 								HaulingComponent haulingComponent = entity.getComponent(HaulingComponent.class);
 								if (haulingComponent != null && haulingComponent.getHauledEntity() != null) {
 									add(haulingComponent.getHauledEntity());
 									if (haulingComponent.getHauledEntity().getType().equals(ITEM)) {
-										itemTracker.itemAdded(haulingComponent.getHauledEntity());
+										settlementItemTracker.itemAdded(haulingComponent.getHauledEntity());
 									}
 								}
 							} else {

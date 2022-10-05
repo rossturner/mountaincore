@@ -263,6 +263,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			Entity pickedUpItem = entityToPickUp.clone(parent.messageDispatcher, gameContext);
 			pickedUpItem.getLocationComponent().clearWorldPosition();
 			pickedUpItem.getOrCreateComponent(ItemAllocationComponent.class).cancelAll();
+			pickedUpItem.getComponent(FactionComponent.class).setFaction(parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction());
 
 			ItemEntityAttributes cloneAttributes = (ItemEntityAttributes) pickedUpItem.getPhysicalEntityComponent().getAttributes();
 			cloneAttributes.setQuantity(quantityToPick);

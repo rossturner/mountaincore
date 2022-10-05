@@ -40,7 +40,7 @@ import static technology.rocketjump.saul.settlement.notifications.NotificationTy
 public class ImmigrationManager implements Updatable, Telegraph {
 
 	private final MessageDispatcher messageDispatcher;
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final SettlerTracker settlerTracker;
 	private final SettlerFactory settlerFactory;
 	private final SkillDictionary skillDictionary;
@@ -60,7 +60,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 	private float timeSinceLastUpdate;
 
 	@Inject
-	public ImmigrationManager(MessageDispatcher messageDispatcher, ItemTracker itemTracker, SettlerTracker settlerTracker,
+	public ImmigrationManager(MessageDispatcher messageDispatcher, SettlementItemTracker settlementItemTracker, SettlerTracker settlerTracker,
 							  SettlerFactory settlerFactory, SkillDictionary skillDictionary, CreaturePopulator creaturePopulator) {
 		this.creaturePopulator = creaturePopulator;
 		FileHandle settingsJsonFile = new FileHandle("assets/settings/immigrationSettings.json");
@@ -79,7 +79,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 		immigrationCapMaxImmigrationPerPopulation = immigrationSettings.getJSONObject("immigrationCaps").getFloatValue("maxImmigrationPerPopulation");
 
 		this.messageDispatcher = messageDispatcher;
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.settlerTracker = settlerTracker;
 		this.settlerFactory = settlerFactory;
 		this.skillDictionary = skillDictionary;
@@ -167,7 +167,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 
 		if (extraFoodImmigrationEnabled) {
 			int foodAmount = 0;
-			for (Entity entity : itemTracker.getUnallocatedEdibleItems()) {
+			for (Entity entity : settlementItemTracker.getUnallocatedEdibleItems()) {
 				foodAmount += entity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated();
 			}
 

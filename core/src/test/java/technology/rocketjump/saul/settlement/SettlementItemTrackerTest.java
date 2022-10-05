@@ -28,9 +28,9 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ItemTrackerTest {
+public class SettlementItemTrackerTest {
 
-	private ItemTracker itemTracker;
+	private SettlementItemTracker settlementItemTracker;
 	private ItemTypeDictionary itemTypeDictionary;
 	private GameMaterialDictionary gameMaterialDictionary;
 	@Mock
@@ -55,7 +55,7 @@ public class ItemTrackerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		itemTracker = new ItemTracker();
+		settlementItemTracker = new SettlementItemTracker();
 
 		Injector injector = Guice.createInjector(new SaulGuiceModule());
 		itemTypeDictionary = injector.getInstance(ItemTypeDictionary.class);
@@ -73,13 +73,13 @@ public class ItemTrackerTest {
 	public void itemRemoved_cleansUpTree_whenItemRemoved() {
 		Entity plankItem = buildItem("Resource-Planks", "Oak");
 
-		itemTracker.itemAdded(plankItem);
+		settlementItemTracker.itemAdded(plankItem);
 
-		assertThat(itemTracker.getAllByItemType().values()).hasSize(1);
+		assertThat(settlementItemTracker.getAllByItemType().values()).hasSize(1);
 
-		itemTracker.itemRemoved(plankItem);
+		settlementItemTracker.itemRemoved(plankItem);
 
-		assertThat(itemTracker.getAllByItemType().values()).isEmpty();
+		assertThat(settlementItemTracker.getAllByItemType().values()).isEmpty();
 	}
 
 	private Entity buildItem(String itemTypeName, String... materialNames) {
