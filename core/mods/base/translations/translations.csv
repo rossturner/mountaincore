@@ -724,6 +724,8 @@ MECHANISM.WOODEN.SHAFT.NOUN,,Shaft
 MECHANISM.WOODEN.SHAFT.TOOLTIP,,A wooden shaft links mechanical power in 2 directions.
 
 MENU.CONTINUE_GAME,,Continue
+MENU.JOIN_DISCORD,,Join Discord
+MENU.LINK_TWITCH_ACCOUNT,,Link Account
 MENU.LOAD_GAME,,Load
 MENU.MODS,,Mods
 MENU.NEW_GAME,,New Game
