@@ -2,7 +2,10 @@ package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
@@ -20,8 +23,6 @@ import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static technology.rocketjump.saul.screens.menus.TopLevelMenu.buildLanguageSelect;
 
 @Singleton
 public class PrivacyOptInMenu implements Menu {
@@ -103,4 +104,62 @@ public class PrivacyOptInMenu implements Menu {
 		menuTable.add(doNotAcceptButton).pad(10).row();
 	}
 
+
+
+	static SelectBox<LanguageType> buildLanguageSelect(MessageDispatcher messageDispatcher, I18nRepo i18nRepo,
+													   UserPreferences userPreferences, Skin uiSkin, Menu parent,
+													   TextureAtlasRepository textureAtlasRepository, FontRepository fontRepository,
+													   GuiSkinRepository guiSkinRepository) {
+		i18nRepo.init(textureAtlasRepository);
+		String languageCode = userPreferences.getPreference(UserPreferences.PreferenceKey.LANGUAGE, "en-gb");
+		List<LanguageType> allLanguages = i18nRepo.getAllLanguages();
+
+		LanguageType selectedLanguage = null;
+		for (LanguageType languageType : allLanguages) {
+			if (languageType.getCode().equals(languageCode)) {
+				selectedLanguage = languageType;
+				break;
+			}
+		}
+		if (selectedLanguage == null) {
+			selectedLanguage = allLanguages.get(0);
+		}
+
+		SelectBox<LanguageType> languageSelect = new SelectBox<>(uiSkin);
+		// Override font with unicode-guaranteed font to show east asian characters
+		SelectBox.SelectBoxStyle style = new SelectBox.SelectBoxStyle(languageSelect.getStyle());
+		style.font = fontRepository.getUnicodeFont().getBitmapFont();
+		com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle listStyle = new com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle(style.listStyle);
+		listStyle.font = fontRepository.getUnicodeFont().getBitmapFont();
+		style.listStyle = listStyle;
+		languageSelect.setStyle(style);
+
+		Array<LanguageType> languageEntries = new Array<>();
+		for (LanguageType language : allLanguages) {
+			languageEntries.add(language);
+		}
+
+		languageSelect.setItems(languageEntries);
+		languageSelect.setSelected(selectedLanguage);
+		languageSelect.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				LanguageType selectedLanguage = languageSelect.getSelected();
+				changeLanguage(selectedLanguage, userPreferences, fontRepository, i18nRepo, messageDispatcher, guiSkinRepository);
+				parent.reset();
+			}
+		});
+
+		return languageSelect;
+	}
+
+	private static void changeLanguage(LanguageType selectedLanguage, UserPreferences userPreferences,
+									   FontRepository fontRepository, I18nRepo i18nRepo, MessageDispatcher messageDispatcher,
+									   GuiSkinRepository guiSkinRepository) {
+		userPreferences.setPreference(UserPreferences.PreferenceKey.LANGUAGE, selectedLanguage.getCode());
+		fontRepository.changeFontName(selectedLanguage.getFontName());
+		guiSkinRepository.fontChanged();
+		i18nRepo.setCurrentLanguage(selectedLanguage);
+		messageDispatcher.dispatchMessage(MessageType.LANGUAGE_CHANGED);
+	}
 }

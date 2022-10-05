@@ -21,7 +21,7 @@ public class FontRepository {
 	private String currentFontName;
 	private GameFont largestFont;
 	private GameFont defaultUIFont;
-	private GameFont guaranteedUnicodeFont;
+	private final GameFont guaranteedUnicodeFont;
 
 	@Inject
 	public FontRepository(I18nRepo i18nRepo, ConstantsRepo constantsRepo) {
@@ -53,7 +53,7 @@ public class FontRepository {
 	private void loadFontFile() {
 		FileHandle fontFile = Gdx.files.internal("assets/ui/fonts/" + this.currentFontName);
 		if (!fontFile.exists()) {
-			Logger.error(fontFile.toString() + " does not exist");
+			Logger.error(fontFile + " does not exist");
 			return;
 		}
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
@@ -89,6 +89,22 @@ public class FontRepository {
 
 		this.defaultUIFont = font16pt;
 		this.largestFont = font20pt;
+	}
+
+
+	public boolean changeFontName(String fontName) {
+		if (fontName == null) {
+			fontName = uiConstants.getDefaultFont();
+		}
+		if (!fontName.equals(currentFontName)) {
+			this.currentFontName = fontName;
+			this.defaultUIFont.dispose();
+			this.largestFont.dispose();
+			loadFontFile();
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public GameFont getDefaultFontForUI() {
