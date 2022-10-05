@@ -38,21 +38,6 @@ public class FontRepository {
 		this.guaranteedUnicodeFont = generateFont(UNICODE_FONT_FILENAME);
 	}
 
-	public boolean changeFontName(String fontName) {
-		if (fontName == null) {
-			fontName = uiConstants.getDefaultFont();
-		}
-		if (!fontName.equals(currentFontName)) {
-			this.currentFontName = fontName;
-			this.defaultUIFont.dispose();
-			this.largestFont.dispose();
-			loadFontFile();
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	private GameFont generateFont(String fontFilename) {
 		FileHandle fontFile = Gdx.files.internal("assets/ui/fonts/" + fontFilename);
 		if (!fontFile.exists()) {
