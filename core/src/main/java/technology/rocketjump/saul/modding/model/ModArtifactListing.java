@@ -245,8 +245,13 @@ public class ModArtifactListing {
 				def("ui/fonts", null, COPY_ORIGINAL_FILES, TTF, null,
 						"ui/fonts", "*.[ot]tf", TTF, ADDITIVE, CopyFilesProcessor.class),
 				// TODO MODDING add in skin
-				def("ui/skin", null, COPY_ORIGINAL_FILES, JSON_OBJECT, null,
+				//TODO: figure better rules than these
+				def("ui/skin", null, SINGLE_FILE, JSON_OBJECT, null,
 						"ui/skin", "*skin.json", JSON_OBJECT, ADDITIVE, CopyFilesProcessor.class),
+				def("ui/skin", null, SINGLE_FILE, PACKR_ATLAS, null,
+						"ui/skin", "*.atlas", PACKR_ATLAS, ADDITIVE, CopyFilesProcessor.class),
+				def("ui/skin", null, SINGLE_FILE, PNG, null,
+						"ui/skin", "*.png", PNG, ADDITIVE, CopyFilesProcessor.class),
 
 				def("ui/notifications", null, COPY_ORIGINAL_FILES, PNG, null,
 						"ui/notifications", "*.png", PNG, ADDITIVE, CopyFilesProcessor.class),
