@@ -245,6 +245,9 @@ public class ModArtifactListing {
 				def("ui/fonts", null, COPY_ORIGINAL_FILES, TTF, null,
 						"ui/fonts", "*.[ot]tf", TTF, ADDITIVE, CopyFilesProcessor.class),
 				// TODO MODDING add in skin
+				def("ui/skin", null, COPY_ORIGINAL_FILES, JSON_OBJECT, null,
+						"ui/skin", "*skin.json", JSON_OBJECT, ADDITIVE, CopyFilesProcessor.class),
+
 				def("ui/notifications", null, COPY_ORIGINAL_FILES, PNG, null,
 						"ui/notifications", "*.png", PNG, ADDITIVE, CopyFilesProcessor.class),
 				def("ui", "hints", SINGLE_FILE, JSON_ARRAY, Hint.class,
