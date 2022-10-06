@@ -1,0 +1,62 @@
+
+menu-skin.png
+size: 4096, 4096
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+asset_bg_banner
+  rotate: false
+  xy: 1, 273
+  size: 762, 2122
+  orig: 762, 2122
+  offset: 0, 0
+  index: -1
+btn_banner_1
+  rotate: false
+  xy: 765, 2323
+  size: 329, 72
+  orig: 329, 72
+  offset: 0, 0
+  index: -1
+btn_banner_2
+  rotate: false
+  xy: 1, 107
+  size: 329, 72
+  orig: 329, 72
+  offset: 0, 0
+  index: -1
+btn_banner_3
+  rotate: false
+  xy: 765, 2249
+  size: 329, 72
+  orig: 329, 72
+  offset: 0, 0
+  index: -1
+btn_banner_4
+  rotate: false
+  xy: 1096, 2323
+  size: 329, 72
+  orig: 329, 72
+  offset: 0, 0
+  index: -1
+btn_banner_hover_state
+  rotate: false
+  xy: 1, 181
+  size: 449, 90
+  orig: 449, 90
+  offset: 0, 0
+  index: -1
+icon_discord
+  rotate: false
+  xy: 452, 185
+  size: 110, 86
+  orig: 110, 86
+  offset: 0, 0
+  index: -1
+icon_twitch
+  rotate: false
+  xy: 1, 1
+  size: 90, 104
+  orig: 90, 104
+  offset: 0, 0
+  index: -1

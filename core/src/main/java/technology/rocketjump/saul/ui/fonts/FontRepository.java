@@ -2,6 +2,7 @@ package technology.rocketjump.saul.ui.fonts;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -10,13 +11,21 @@ import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.constants.UiConstants;
 import technology.rocketjump.saul.ui.i18n.I18nRepo;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
 @Singleton
 public class FontRepository {
 
+	private static final Set<Integer> DEFAULT_FONT_POINT_SIZES = Set.of(12, 14, 16, 18, 20);
+	private static final Set<Integer> HEADER_FONT_POINT_SIZES = Set.of(36, 39, 47);
 	public static final String UNICODE_FONT_FILENAME = "NotoSansCJKjp-Regular.otf";
 
 	private final I18nRepo i18nRepo;
 	private final UiConstants uiConstants;
+	private final GameFont[] defaultGameFonts;
+	private final GameFont[] headerGameFonts;
 
 	private String currentFontName;
 	private GameFont largestFont;
@@ -33,7 +42,12 @@ public class FontRepository {
 		if (i18nRepo.getCurrentLanguageType().getFontName() != null) {
 			this.currentFontName = i18nRepo.getCurrentLanguageType().getFontName();
 		}
-		loadFontFile();
+		defaultGameFonts = generateGameFonts(this.currentFontName, DEFAULT_FONT_POINT_SIZES);
+		this.largestFont = getFont(defaultGameFonts, 20);
+		this.defaultUIFont = getFont(defaultGameFonts, 16);
+
+		headerGameFonts = generateGameFonts(uiConstants.getHeaderFont(), HEADER_FONT_POINT_SIZES);
+
 
 		this.guaranteedUnicodeFont = generateFont(UNICODE_FONT_FILENAME);
 	}
@@ -50,45 +64,49 @@ public class FontRepository {
 		return new GameFont(generator.generateFont(parameter), 16);
 	}
 
-	private void loadFontFile() {
-		FileHandle fontFile = Gdx.files.internal("assets/ui/fonts/" + this.currentFontName);
+	private GameFont[] generateGameFonts(String fontFileName, Set<Integer> pointSizes) {
+		FileHandle fontFile = Gdx.files.internal("assets/ui/fonts/" + fontFileName);
 		if (!fontFile.exists()) {
 			Logger.error(fontFile + " does not exist");
-			return;
+			return null;
 		}
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.characters = i18nRepo.getAllCharacters(FreeTypeFontGenerator.DEFAULT_CHARS);
 
-		parameter.size = 12;
-		GameFont font12pt = new GameFont(generator.generateFont(parameter), 12);
+		List<Integer> fontPointSizes = new java.util.ArrayList<>(pointSizes);
+		Collections.sort(fontPointSizes);
+		GameFont[] gameFonts = new GameFont[fontPointSizes.get(fontPointSizes.size() - 1)];
 
-		parameter.size = 14;
-		GameFont font14pt = new GameFont(generator.generateFont(parameter), 14);
-
-		parameter.size = 16;
-		GameFont font16pt = new GameFont(generator.generateFont(parameter), 16);
-
-		parameter.size = 18;
-		GameFont font18pt = new GameFont(generator.generateFont(parameter), 18);
-
-		parameter.size = 20;
-		GameFont font20pt = new GameFont(generator.generateFont(parameter), 20);
-
+		GameFont previous = null;
+		for (Integer fontPointSize : fontPointSizes) {
+			parameter.size = fontPointSize;
+			BitmapFont bitmapFont = generator.generateFont(parameter);
+			GameFont generated = new GameFont(bitmapFont, fontPointSize);
+			if (previous != null) {
+				previous.setBigger(generated);
+				generated.setSmaller(previous);
+			}
+			previous = generated;
+			gameFonts[fontPointSize - 1] = generated;
+		}
 		generator.dispose(); // don't forget to dispose to avoid memory leaks!
+		return gameFonts;
+	}
 
-		font20pt.setSmaller(font18pt);
-		font18pt.setSmaller(font16pt);
-		font16pt.setSmaller(font14pt);
-		font14pt.setSmaller(font12pt);
+	private GameFont getFont(GameFont[] gameFonts, int pointSize) {
+		int pointSizeToUse = pointSize;
+		GameFont gameFont = null;
+		if (pointSizeToUse > gameFonts.length) {
+			pointSizeToUse = gameFonts.length;
+		}
+		while (gameFont == null) {
+			gameFont = gameFonts[pointSizeToUse - 1];
+			pointSizeToUse--;
+		}
 
-		font12pt.setBigger(font14pt);
-		font14pt.setBigger(font16pt);
-		font16pt.setBigger(font18pt);
-		font18pt.setBigger(font20pt);
-
-		this.defaultUIFont = font16pt;
-		this.largestFont = font20pt;
+		//todo: warn requesting point size is different;
+		return gameFont;
 	}
 
 
@@ -100,7 +118,8 @@ public class FontRepository {
 			this.currentFontName = fontName;
 			this.defaultUIFont.dispose();
 			this.largestFont.dispose();
-			loadFontFile();
+			generateGameFonts(this.currentFontName, DEFAULT_FONT_POINT_SIZES);
+			//TODO: header fonts?
 			return true;
 		} else {
 			return false;
@@ -117,5 +136,13 @@ public class FontRepository {
 
 	public GameFont getUnicodeFont() {
 		return this.guaranteedUnicodeFont;
+	}
+
+	public GameFont getHeaderFont(int fontPointSize) {
+		return getFont(headerGameFonts, fontPointSize);
+	}
+
+	public GameFont getDefaultFont(int fontPointSize) {
+		return getFont(defaultGameFonts, fontPointSize);
 	}
 }
