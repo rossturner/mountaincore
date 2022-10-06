@@ -14,7 +14,6 @@ public enum SpecialGoal {
 	DOUSE_SELF("Douse self goal"),
 	EXTINGUISH_FIRE("Extinguish fire goal"),
 	CREATE_CAMPFIRE("Create camp fire"),
-	INVASION_RETREAT("Invasion retreat"),
 	ABANDON_JOB("Abandon job goal");
 
 	public final String goalName;
