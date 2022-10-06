@@ -13,7 +13,7 @@ import static technology.rocketjump.saul.entities.ai.memory.MemoryType.CONSUMED_
 public class AlcoholDependent extends StatusEffect {
 
     public AlcoholDependent() {
-        super(AlcoholWithdrawl.class, 24.0 * 3.0, null);
+        super(AlcoholWithdrawl.class, 24.0 * 3.0, null, null);
     }
 
     @Override

@@ -1,7 +1,7 @@
 {
   "name": "Attack squad target",
   "i18nDescription": "GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION",
-  "settlerCategories": ["MILITARY"],
+  "creatureCategories": ["MILITARY"],
   "selectors": [
     {
       "conditions": [

@@ -1,6 +1,7 @@
 {
   "name" : "Dwarf",
   "i18nKey" : "RACE.DWARF",
+  "nameGeneration": "Dwarven",
   "minStrength" : 7.0,
   "maxStrength" : 19.0,
   "bodyStructureName" : "Humanoid",

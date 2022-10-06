@@ -10,7 +10,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 public class MovementImpaired extends StatusEffect {
 
 	public MovementImpaired() {
-		super(null, null, null);
+		super(null, null, null, null);
 	}
 
 	@Override

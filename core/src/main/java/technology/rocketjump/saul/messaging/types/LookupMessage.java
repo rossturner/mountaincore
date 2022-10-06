@@ -1,15 +1,13 @@
 package technology.rocketjump.saul.messaging.types;
 
-import technology.rocketjump.saul.entities.ai.goap.actions.ItemTypeLookupCallback;
-import technology.rocketjump.saul.entities.model.EntityType;
+import java.util.function.Consumer;
 
-public class LookupMessage {
-    public final EntityType entityType;
+public class LookupMessage<T> {
+
     public final String typeName;
-    public final ItemTypeLookupCallback callback;
+    public final Consumer<T> callback;
 
-    public LookupMessage(EntityType entityType, String typeName, ItemTypeLookupCallback callback) {
-        this.entityType = entityType;
+    public LookupMessage(String typeName, Consumer<T> callback) {
         this.typeName = typeName;
         this.callback = callback;
     }

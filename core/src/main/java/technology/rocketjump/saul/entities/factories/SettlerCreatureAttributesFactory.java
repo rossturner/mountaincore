@@ -2,6 +2,7 @@ package technology.rocketjump.saul.entities.factories;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.entities.factories.names.NameGenerator;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
@@ -13,13 +14,13 @@ import technology.rocketjump.saul.persistence.UserPreferences;
 @Singleton
 public class SettlerCreatureAttributesFactory {
 
-	private final DwarvenNameGenerator nameGenerator;
 	private final UserPreferences userPreferences;
 	private final TwitchDataStore twitchDataStore;
 	private final Race dwarfRace;
+	private final NameGenerator nameGenerator;
 
 	@Inject
-	public SettlerCreatureAttributesFactory(DwarvenNameGenerator nameGenerator,
+	public SettlerCreatureAttributesFactory(NameGenerator nameGenerator,
 											UserPreferences userPreferences, TwitchDataStore twitchDataStore,
 											RaceDictionary raceDictionary) {
 		this.nameGenerator = nameGenerator;
@@ -42,8 +43,8 @@ public class SettlerCreatureAttributesFactory {
 			}
 		}
 
-		if (attributes.getName() == null) {
-			attributes.setName(nameGenerator.create(attributes.getSeed(), attributes.getGender()));
+		if (attributes.getName() == null && dwarfRace.getNameGeneration() != null) {
+			attributes.setName(nameGenerator.create(dwarfRace.getNameGeneration(), attributes.getSeed(), attributes.getGender()));
 		}
 
 		return attributes;

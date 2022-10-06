@@ -1,7 +1,6 @@
 {
   "name": "Sleep in bed goal",
   "i18nDescription": "GOAL.SLEEP.DESCRIPTION",
-  "settlerCategories": ["CIVILIAN", "MILITARY"],
   "selectors": [
     {
       "conditions": [

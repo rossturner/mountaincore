@@ -16,7 +16,7 @@ public class NorseNameGeneratorTest {
 
 	@Before
 	public void setUp() throws Exception {
-		norseNameGenerator = new NorseNameGenerator(new File("assets/text/old_norse/given_names.csv"));
+		norseNameGenerator = new NorseNameGenerator(new File("assets/text/csv/norse_given_names.csv"));
 	}
 
 	@Test

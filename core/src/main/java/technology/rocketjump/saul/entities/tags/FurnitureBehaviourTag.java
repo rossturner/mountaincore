@@ -112,6 +112,7 @@ public class FurnitureBehaviourTag extends Tag {
 		EDIBLE_LIQUID_SOURCE(EdibleLiquidSourceBehaviour.class),
 		MUSHROOM_SHOCK_TANK(MushroomShockTankBehaviour.class),
 		TRANSFORM_UPON_JOB_COMPLETION(TransformUponJobCompletionFurnitureBehaviour.class),
+		UPDATE_EVERY_FRAME(UpdateEveryFrameFurnitureBehaviour.class),
 		TRANSFORM_AFTER_SET_TIME(TransformAfterSetTimeBehaviour.class);
 
 		public final Class<? extends FurnitureBehaviour> behaviourClass;

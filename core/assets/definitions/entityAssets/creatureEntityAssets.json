@@ -33736,7 +33736,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 25.0,
+          "y" : 8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : 14.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "DOWN_RIGHT" : {
@@ -33808,7 +33836,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 25.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -10.0,
+          "y" : 10.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 4.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 28.0,
+          "y" : -4.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "DOWN" : {
@@ -33881,7 +33937,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -20.0,
+          "y" : 12.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -20.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 20.0,
+          "y" : -6.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "DOWN_LEFT" : {
@@ -33953,7 +34037,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -18.0,
+          "y" : -13.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -22.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 5.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
@@ -34018,7 +34130,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 14.0,
+          "y" : 14.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -14.0,
+          "y" : -4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -28.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "UP" : {
@@ -34069,7 +34209,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 20.0,
+          "y" : 16.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -22.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     }
   }
@@ -36857,7 +37025,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 25.0,
+          "y" : 8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : 14.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "DOWN_RIGHT" : {
@@ -36929,7 +37125,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 25.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -10.0,
+          "y" : 10.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 4.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 28.0,
+          "y" : -4.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "DOWN" : {
@@ -37002,7 +37226,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -20.0,
+          "y" : 12.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -20.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 20.0,
+          "y" : -6.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "DOWN_LEFT" : {
@@ -37074,7 +37326,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -18.0,
+          "y" : -13.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -22.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 5.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
@@ -37125,7 +37405,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 14.0,
+          "y" : 14.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -14.0,
+          "y" : -4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -28.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "UP" : {
@@ -37176,7 +37484,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 20.0,
+          "y" : 16.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -22.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     }
   }
@@ -37406,6 +37742,269 @@
       "parentEntityAssets" : [ ]
     }
   }
+}, {
+  "uniqueName" : "Orc-Male-Creature_Eyes-Not_Awake",
+  "type" : "CREATURE_EYES",
+  "raceName" : "Orc",
+  "gender" : "MALE",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ "SLEEPING", "KNOCKED_UNCONSCIOUS", "DEAD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Orc-Male-Creature_Eyes-Not_Awake_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 4.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Orc-Male-Creature_Eyes-Not_Awake_Down_Left.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -8.0,
+        "y" : 3.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Orc-Male-Creature_Eyes-Not_Awake_Down_Left.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 8.0,
+        "y" : 3.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Basic orc left hand",
+  "type" : "CREATURE_LEFT_HAND",
+  "raceName" : "Orc",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "basic dwarf hand.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "basic dwarf hand.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "basic dwarf hand.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "basic dwarf hand.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "basic dwarf hand.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "basic dwarf hand.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  },
+  "overrideRenderLayer" : 100
+}, {
+  "uniqueName" : "Basic orc right hand",
+  "type" : "CREATURE_RIGHT_HAND",
+  "raceName" : "Orc",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "basic dwarf hand.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "basic dwarf hand.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "basic dwarf hand.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "basic dwarf hand.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "basic dwarf hand.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "basic dwarf hand.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  },
+  "overrideRenderLayer" : 100
 }, {
   "uniqueName" : "Orc-Male-Strong-Heavy_Armor-Body_Clothing",
   "type" : "BODY_CLOTHING",
@@ -38771,7 +39370,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 25.0,
+          "y" : 8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : 14.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 26.0,
+          "y" : 2.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -33.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "DOWN_RIGHT" : {
@@ -38843,7 +39470,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 25.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -10.0,
+          "y" : 10.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 32.0,
+          "y" : -4.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "DOWN" : {
@@ -38916,7 +39571,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -20.0,
+          "y" : 12.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -24.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 22.0,
+          "y" : -6.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "DOWN_LEFT" : {
@@ -38988,7 +39671,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -18.0,
+          "y" : -13.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -26.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 7.0,
+          "y" : -8.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
@@ -39039,7 +39750,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 14.0,
+          "y" : 14.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -10.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -32.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     },
     "UP" : {
@@ -39090,7 +39829,35 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 8.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 20.0,
+          "y" : 16.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 24.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -28.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     }
   }

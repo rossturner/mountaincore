@@ -65,7 +65,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		SelectableDescription {
 
 	private static final Double SERIOUSLY_LOW_NEED_VALUE = 10.0;
-	private static final float MAX_DISTANCE_FROM_COMBAT_START = 25f;
+	private static final float MAX_DISTANCE_FROM_COMBAT_START = 18f;
 	private static final float MAX_DISTANCE_FROM_COMBAT_START_SQUARED = MAX_DISTANCE_FROM_COMBAT_START * MAX_DISTANCE_FROM_COMBAT_START;
 	private Entity parentEntity;
 	private MessageDispatcher messageDispatcher;

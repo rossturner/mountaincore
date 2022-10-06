@@ -8,7 +8,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 public class Drunk extends StatusEffect {
 
     public Drunk() {
-        super(AlcoholDependent.class, 24.0 * 3.0, null);
+        super(AlcoholDependent.class, 24.0 * 3.0, null, null);
     }
 
     @Override

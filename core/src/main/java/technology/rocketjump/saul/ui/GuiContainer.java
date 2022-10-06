@@ -205,6 +205,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		timeDateGuiView.update();
 		minimapGuiView.update();
 		hintGuiView.update();
+		notificationGuiView.update();
 
 		primaryStage.act(deltaTime);
 		timeAndDateStage.act(deltaTime);

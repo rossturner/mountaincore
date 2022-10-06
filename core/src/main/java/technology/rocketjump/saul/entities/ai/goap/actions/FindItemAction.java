@@ -2,11 +2,10 @@ package technology.rocketjump.saul.entities.ai.goap.actions;
 
 import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
-import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.messaging.types.LookupMessage;
+import technology.rocketjump.saul.messaging.types.LookupItemTypeMessage;
 import technology.rocketjump.saul.messaging.types.RequestHaulingAllocationMessage;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -31,7 +30,7 @@ public class FindItemAction extends Action implements ItemTypeLookupCallback {
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
 		if (parent.getRelevantMemory().getRelatedAmmoType() != null) {
-			parent.messageDispatcher.dispatchMessage(MessageType.LOOKUP_ITEM_TYPE, new LookupMessage(EntityType.ITEM,
+			parent.messageDispatcher.dispatchMessage(MessageType.LOOKUP_ITEM_TYPE, new LookupItemTypeMessage(
 					parent.getRelevantMemory().getRelatedAmmoType().name(), this));
 
 		} else if (parent.getRelevantMemory().getRelatedItemType() != null) {

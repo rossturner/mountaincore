@@ -249,8 +249,8 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 					if (newOrganDamage.isGreaterThan(currentOrganDamage)) {
 						defenderAttributes.getBody().setOrganDamage(impactedBodyPart, targetOrgan, newOrganDamage);
 						messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
-								attackMessage.defenderEntity, impactedBodyPart, targetOrgan, newOrganDamage
-						));
+								attackMessage.defenderEntity, impactedBodyPart, targetOrgan, newOrganDamage,
+								attackMessage.attackerEntity));
 					}
 				} else {
 					// impacted with body part only
@@ -263,10 +263,10 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 						));
 
 						if (newDamageLevel.equals(Destroyed)) {
-							bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity);
+							bodyPartDestroyed(impactedBodyPart, defenderAttributes.getBody(), attackMessage.defenderEntity, attackMessage.attackerEntity);
 							if(impactedBodyPart.getPartDefinition().getName().equals(defenderAttributes.getBody().getBodyStructure().getRootPartName())) {
 								messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH,
-										new CreatureDeathMessage(attackMessage.defenderEntity, DeathReason.EXTENSIVE_INJURIES));
+										new CreatureDeathMessage(attackMessage.defenderEntity, DeathReason.EXTENSIVE_INJURIES, attackMessage.attackerEntity));
 							}
 						}
 					}
@@ -528,7 +528,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 			switch (organDamageEffect) {
 				case DEAD:
 					messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH,
-							new CreatureDeathMessage(message.targetEntity, DeathReason.CRITICAL_ORGAN_DAMAGE));
+							new CreatureDeathMessage(message.targetEntity, DeathReason.CRITICAL_ORGAN_DAMAGE, message.aggressorEntity));
 					break;
 				case BLINDED:
 					statusComponent.apply(new Blinded());
@@ -541,13 +541,13 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 					break;
 				case SUFFOCATION:
 					messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH,
-							new CreatureDeathMessage(message.targetEntity, DeathReason.SUFFOCATION));
+							new CreatureDeathMessage(message.targetEntity, DeathReason.SUFFOCATION, message.aggressorEntity));
 					break;
 				case VISION_IMPAIRED:
 					statusComponent.apply(new TemporaryBlinded());
 					break;
 				case INTERNAL_BLEEDING:
-					statusComponent.apply(new InternalBleeding());
+					statusComponent.apply(new InternalBleeding(message.aggressorEntity));
 					break;
 				default:
 					Logger.error("Unrecognised " + OrganDamageEffect.class.getSimpleName() + ": ");
@@ -555,7 +555,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		}
 	}
 
-	public void bodyPartDestroyed(BodyPart impactedBodyPart, Body body, Entity targetEntity) {
+	public void bodyPartDestroyed(BodyPart impactedBodyPart, Body body, Entity targetEntity, Entity attackerEntity) {
 		StatusComponent statusComponent = targetEntity.getOrCreateComponent(StatusComponent.class);
 		for (BodyPart child : body.iterateRecursively(impactedBodyPart)) {
 			body.setDamage(child, Destroyed);
@@ -563,8 +563,8 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 				if (!body.getOrganDamage(child, organ).equals(OrganDamageLevel.DESTROYED)) {
 					body.setOrganDamage(child, organ, OrganDamageLevel.DESTROYED);
 					messageDispatcher.dispatchMessage(MessageType.CREATURE_ORGAN_DAMAGE_APPLIED, new CreatureOrganDamagedMessage(
-							targetEntity, child, organ, OrganDamageLevel.DESTROYED
-					));
+							targetEntity, child, organ, OrganDamageLevel.DESTROYED,
+							attackerEntity));
 				}
 			}
 

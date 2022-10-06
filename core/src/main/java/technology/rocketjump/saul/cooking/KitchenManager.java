@@ -34,8 +34,8 @@ import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.rooms.constructions.ConstructionStore;
-import technology.rocketjump.saul.settlement.FurnitureTracker;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -59,9 +59,9 @@ public class KitchenManager implements Telegraph, Updatable {
 	private final MessageDispatcher messageDispatcher;
 	private final ConstructionStore constructionStore;
 	private final Skill cookingProfession;
-	private final FurnitureTracker furnitureTracker;
+	private final SettlementFurnitureTracker settlementFurnitureTracker;
 	private final JobType haulingJobType;
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 
 	private GameContext gameContext;
 	private float timeSinceLastUpdate = 0f;
@@ -69,13 +69,13 @@ public class KitchenManager implements Telegraph, Updatable {
 
 	@Inject
 	public KitchenManager(MessageDispatcher messageDispatcher, ConstructionStore constructionStore,
-						  SkillDictionary skillDictionary, FurnitureTracker furnitureTracker,
-						  JobTypeDictionary jobTypeDictionary, ConstantsRepo constantsRepo, ItemTracker itemTracker) {
+						  SkillDictionary skillDictionary, SettlementFurnitureTracker settlementFurnitureTracker,
+						  JobTypeDictionary jobTypeDictionary, ConstantsRepo constantsRepo, SettlementItemTracker settlementItemTracker) {
 		this.messageDispatcher = messageDispatcher;
 		this.constructionStore = constructionStore;
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.cookingProfession = skillDictionary.getByName(constantsRepo.getSettlementConstants().getKitchenProfession());
-		this.furnitureTracker = furnitureTracker;
+		this.settlementFurnitureTracker = settlementFurnitureTracker;
 		this.haulingJobType = jobTypeDictionary.getByName(constantsRepo.getSettlementConstants().getHaulingJobType());
 
 		messageDispatcher.addListener(this, MessageType.COOKING_COMPLETE);
@@ -130,7 +130,7 @@ public class KitchenManager implements Telegraph, Updatable {
 	}
 
 	private void setupHaulingToCollectionFurniture(List<Entity> furnitureWithItemsToMove) {
-		for (Entity collectItemsFurniture : furnitureTracker.findByTag(CollectItemsBehaviourTag.class, false)) {
+		for (Entity collectItemsFurniture : settlementFurnitureTracker.findByTag(CollectItemsBehaviourTag.class, false)) {
 			if (collectItemsFurniture.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour collectItemFurnitureBehaviour) {
 
 				for (Entity cookingFurniture : new ArrayList<>(furnitureWithItemsToMove)) {
@@ -223,7 +223,7 @@ public class KitchenManager implements Telegraph, Updatable {
 		}
 
 		// Try any lost items containing edible liquid
-		for (Entity itemEntity : itemTracker.getItemsByType(constructionRequirement.getItemType(), true)) {
+		for (Entity itemEntity : settlementItemTracker.getItemsByType(constructionRequirement.getItemType(), true)) {
 			LiquidContainerComponent liquidContainerComponent = itemEntity.getComponent(LiquidContainerComponent.class);
 			if (liquidContainerComponent != null && liquidContainerComponent.getTargetLiquidMaterial() != null) {
 				if (liquidContainerComponent.getTargetLiquidMaterial().isEdible() && liquidContainerComponent.getNumUnallocated() > 0) {

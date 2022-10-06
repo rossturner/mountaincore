@@ -52,9 +52,9 @@ public class EntityMessageHandlerTest {
 	@Mock
 	private JobFactory mockJobFactory;
 	@Mock
-	private ItemTracker mockItemTracker;
+	private SettlementItemTracker mockSettlementItemTracker;
 	@Mock
-	private FurnitureTracker mockFurnitureTracker;
+	private SettlementFurnitureTracker mockSettlementFurnitureTracker;
 	@Mock
 	private SettlerTracker mockSettlerTracker;
 	@Mock
@@ -85,7 +85,7 @@ public class EntityMessageHandlerTest {
 		messageDispatcher = new MessageDispatcher();
 
 		entityMessageHandler = new EntityMessageHandler(messageDispatcher, mockAssetUpdater, mockJobFactory,
-				mockEntityStore, mockItemTracker, mockFurnitureTracker, mockSettlerTracker, mockCreatureTracker, mockOngoingEffectTracker, mockRoomStore,
+				mockEntityStore, mockSettlementItemTracker, mockSettlementFurnitureTracker, mockSettlerTracker, mockCreatureTracker, mockOngoingEffectTracker, mockRoomStore,
 				mockItemEntityAttributesFactory, mockItemEntityFactory, mockItemTypeDictionary, mockI18nTranslator, mockJobStore,
 				mockMaterialDictionary, mockSoundAssetDictionary, mockParticleEffectDictionary);
 

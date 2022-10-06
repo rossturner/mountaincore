@@ -16,14 +16,14 @@ import static technology.rocketjump.saul.entities.ai.memory.MemoryType.CONSUMED_
 public class AlcoholWithdrawl extends StatusEffect {
 
     public AlcoholWithdrawl() {
-        super(null, 24.0 * 3.0, null);
+        super(null, 24.0 * 3.0, null, null);
     }
 
     @Override
     public void applyOngoingEffect(GameContext gameContext, MessageDispatcher messageDispatcher) {
         if (recentDrink(gameContext)) {
-            messageDispatcher.dispatchMessage(MessageType.REMOVE_STATUS, new StatusMessage(parentEntity, this.getClass(), null));
-            messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parentEntity, AlcoholDependent.class, null));
+            messageDispatcher.dispatchMessage(MessageType.REMOVE_STATUS, new StatusMessage(parentEntity, this.getClass(), null, null));
+            messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parentEntity, AlcoholDependent.class, null, null));
         } else {
             parentEntity.getComponent(HappinessComponent.class).add(HappinessComponent.HappinessModifier.ALCOHOL_WITHDRAWAL);
         }

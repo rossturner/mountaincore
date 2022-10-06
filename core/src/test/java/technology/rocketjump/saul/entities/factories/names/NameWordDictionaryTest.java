@@ -9,7 +9,7 @@ public class NameWordDictionaryTest {
 
 	public static void main(String... args) throws IOException {
 		// Example of words
-		for (String filename : Arrays.asList("core/assets/text/adjective_noun/adjectives.csv", "core/assets/text/adjective_noun/nouns.csv")) {
+		for (String filename : Arrays.asList("core/assets/text/csv/adjectives.csv", "core/assets/text/csv/nouns.csv")) {
 			showFilenameExample(filename);
 		}
 

@@ -13,6 +13,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.RequestSoundAssetMessage;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -66,9 +67,11 @@ public class FillContainerAction extends Action {
 							hauledLiquidContainer.setLiquidQuantity(hauledLiquidContainer.getLiquidQuantity() + amountToTransfer);
 
 							ItemUsageSoundTag itemUsageSoundTag = hauledItem.getTag(ItemUsageSoundTag.class);
-							if (itemUsageSoundTag != null && itemUsageSoundTag.getSoundAsset() != null) {
-								parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(
-										itemUsageSoundTag.getSoundAsset(), parent.parentEntity.getId(), parent.parentEntity.getLocationComponent().getWorldOrParentPosition(), null));
+							if (itemUsageSoundTag != null && itemUsageSoundTag.getSoundAssetName() != null) {
+								parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND_ASSET, new RequestSoundAssetMessage(itemUsageSoundTag.getSoundAssetName(), (soundAsset) -> {
+									parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(
+											soundAsset, parent.parentEntity.getId(), parent.parentEntity.getLocationComponent().getWorldOrParentPosition(), null));
+								}));
 							}
 
 

@@ -16,6 +16,7 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.behaviour.creature.BrokenDwarfBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.InvasionCreatureGroup;
 import technology.rocketjump.saul.entities.behaviour.furniture.*;
 import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.*;
@@ -75,6 +76,7 @@ import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrient
 import static technology.rocketjump.saul.entities.ai.goap.actions.CancelLiquidAllocationAction.cancelLiquidAllocation;
 import static technology.rocketjump.saul.entities.ai.goap.actions.SleepOnFloorAction.changeToConsciousnessOnFloor;
 import static technology.rocketjump.saul.entities.ai.goap.actions.SleepOnFloorAction.showAsRotatedOnSide;
+import static technology.rocketjump.saul.entities.components.Faction.SETTLEMENT;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.AllocationState.CANCELLED;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.HAULING;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.HELD_IN_INVENTORY;
@@ -84,8 +86,8 @@ import static technology.rocketjump.saul.entities.model.physical.creature.Consci
 import static technology.rocketjump.saul.entities.model.physical.furniture.EntityDestructionCause.OXIDISED;
 import static technology.rocketjump.saul.jobs.JobMessageHandler.deconstructFurniture;
 import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
-import static technology.rocketjump.saul.messaging.MessageType.DESTROY_ENTITY;
-import static technology.rocketjump.saul.messaging.MessageType.TRANSFORM_ITEM_TYPE;
+import static technology.rocketjump.saul.messaging.MessageType.*;
+import static technology.rocketjump.saul.military.model.SquadOrderType.COMBAT;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.CREATURE;
 
@@ -96,8 +98,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 	private final EntityAssetUpdater entityAssetUpdater;
 	private final JobFactory jobFactory;
 	private final EntityStore entityStore;
-	private final ItemTracker itemTracker;
-	private final FurnitureTracker furnitureTracker;
+	private final SettlementItemTracker settlementItemTracker;
+	private final SettlementFurnitureTracker settlementFurnitureTracker;
 	private final SettlerTracker settlerTracker;
 	private final CreatureTracker creatureTracker;
 	private final OngoingEffectTracker ongoingEffectTracker;
@@ -119,8 +121,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 
 	@Inject
 	public EntityMessageHandler(MessageDispatcher messageDispatcher, EntityAssetUpdater entityAssetUpdater,
-								JobFactory jobFactory, EntityStore entityStore, ItemTracker itemTracker,
-								FurnitureTracker furnitureTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker,
+								JobFactory jobFactory, EntityStore entityStore, SettlementItemTracker settlementItemTracker,
+								SettlementFurnitureTracker settlementFurnitureTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker,
 								OngoingEffectTracker ongoingEffectTracker, RoomStore roomStore,
 								ItemEntityAttributesFactory itemEntityAttributesFactory, ItemEntityFactory itemEntityFactory,
 								ItemTypeDictionary itemTypeDictionary, I18nTranslator i18nTranslator, JobStore jobStore,
@@ -130,8 +132,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		this.entityAssetUpdater = entityAssetUpdater;
 		this.jobFactory = jobFactory;
 		this.entityStore = entityStore;
-		this.itemTracker = itemTracker;
-		this.furnitureTracker = furnitureTracker;
+		this.settlementItemTracker = settlementItemTracker;
+		this.settlementFurnitureTracker = settlementFurnitureTracker;
 		this.settlerTracker = settlerTracker;
 		this.creatureTracker = creatureTracker;
 		this.ongoingEffectTracker = ongoingEffectTracker;
@@ -177,6 +179,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.DAMAGE_FURNITURE);
 		messageDispatcher.addListener(this, MessageType.MATERIAL_OXIDISED);
 		messageDispatcher.addListener(this, MessageType.FIND_BUTCHERABLE_UNALLOCATED_CORPSE);
+		messageDispatcher.addListener(this, MessageType.DESTROY_ENTITY_AND_ALL_INVENTORY);
+		messageDispatcher.addListener(this, MessageType.ENTITY_FACTION_CHANGED);
 	}
 
 	@Override
@@ -185,6 +189,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			case MessageType.ENTITY_CREATED: {
 				Entity createdEntity = (Entity) msg.extraInfo;
 				entityStore.add(createdEntity);
+				Faction faction = createdEntity.getOrCreateComponent(FactionComponent.class).getFaction();
 
 				if (createdEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
 					if (createdEntity.isSettler()) {
@@ -195,20 +200,54 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					InventoryComponent inventoryComponent = createdEntity.getComponent(InventoryComponent.class);
 					if (inventoryComponent != null) {
 						for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
-							if (inventoryEntry.entity.getType().equals(ITEM)) {
-								itemTracker.itemAdded(inventoryEntry.entity);
+							if (inventoryEntry.entity.getType().equals(ITEM) && faction.equals(SETTLEMENT)) {
+								settlementItemTracker.itemAdded(inventoryEntry.entity);
 							}
 						}
 					}
-				} else if (createdEntity.getType().equals(ITEM)) {
-					itemTracker.itemAdded(createdEntity);
-				} else if (createdEntity.getType().equals(EntityType.FURNITURE)) {
-					furnitureTracker.furnitureAdded(createdEntity);
+				} else if (createdEntity.getType().equals(ITEM) && faction.equals(SETTLEMENT)) {
+					settlementItemTracker.itemAdded(createdEntity);
+				} else if (createdEntity.getType().equals(EntityType.FURNITURE) && faction.equals(SETTLEMENT)) {
+					settlementFurnitureTracker.furnitureAdded(createdEntity);
 				} else if (createdEntity.getType().equals(ONGOING_EFFECT)) {
 					ongoingEffectTracker.entityAdded(createdEntity);
 				}
 
 				return true;
+			}
+			case ENTITY_FACTION_CHANGED: {
+				FactionChangedMessage message = (FactionChangedMessage) msg.extraInfo;
+
+				if (message.entity().getType().equals(ITEM)) {
+					if (message.newFaction().equals(SETTLEMENT)) {
+						settlementItemTracker.itemAdded(message.entity());
+					} else {
+						settlementItemTracker.itemRemoved(message.entity());
+					}
+				} else if (message.entity().getType().equals(FURNITURE)) {
+					if (message.newFaction().equals(SETTLEMENT)) {
+						settlementFurnitureTracker.furnitureAdded(message.entity());
+					} else {
+						settlementFurnitureTracker.furnitureRemoved(message.entity());
+					}
+				}
+				return true;
+			}
+			case MessageType.DESTROY_ENTITY_AND_ALL_INVENTORY: {
+				Entity entity = (Entity) msg.extraInfo;
+				if (entity == null) {
+					return true;
+				}
+
+				InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
+				if (inventoryComponent != null) {
+					inventoryComponent.destroyAllEntities(messageDispatcher);
+				}
+				EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
+				if (equippedItemComponent != null) {
+					equippedItemComponent.destroyAllEntities(messageDispatcher);
+				}
+				// Fall-through to DESTROY_ENTITY
 			}
 			case MessageType.DESTROY_ENTITY: {
 				Entity entity = (Entity) msg.extraInfo;
@@ -221,9 +260,9 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					// Need to remove after destroy() so things can clean their state up while the entity still exists
 					entityStore.remove(entity.getId());
 					if (removedEntity.getType().equals(ITEM)) {
-						itemTracker.itemRemoved(removedEntity);
+						settlementItemTracker.itemRemoved(removedEntity);
 					} else if (removedEntity.getType().equals(EntityType.FURNITURE)) {
-						furnitureTracker.furnitureRemoved(removedEntity);
+						settlementFurnitureTracker.furnitureRemoved(removedEntity);
 					} else if (removedEntity.getType().equals(ONGOING_EFFECT)) {
 						ongoingEffectTracker.entityRemoved(removedEntity);
 					} else if (removedEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
@@ -232,11 +271,12 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 							CreatureEntityAttributes entityAttributes = (CreatureEntityAttributes) removedEntity.getPhysicalEntityComponent().getAttributes();
 							if (!entityAttributes.getConsciousness().equals(DEAD)) {
 								// Destroying non-dead settler entity
-								handle(new CreatureDeathMessage(removedEntity, DeathReason.UNKNOWN));
+								handle(new CreatureDeathMessage(removedEntity, DeathReason.UNKNOWN, null));
 							}
 						} else {
 							creatureTracker.creatureRemoved(removedEntity);
 						}
+						removeFromSquadOrders(removedEntity);
 					}
 
 					if (removedEntity.getLocationComponent().getWorldPosition() != null) {
@@ -308,9 +348,9 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 				entity.getLocationComponent().setUntracked(true);
 
 				if (entity.getType().equals(ITEM)) {
-					itemTracker.itemRemoved(entity);
+					settlementItemTracker.itemRemoved(entity);
 				} else if (entity.getType().equals(EntityType.FURNITURE)) {
-					furnitureTracker.furnitureRemoved(entity);
+					settlementFurnitureTracker.furnitureRemoved(entity);
 				} else if (entity.getType().equals(CREATURE)) {
 					if (entity.isSettler()) {
 						settlerTracker.settlerRemoved(entity);
@@ -323,7 +363,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			}
 			case MessageType.ITEM_PRIMARY_MATERIAL_CHANGED: {
 				ItemPrimaryMaterialChangedMessage message = (ItemPrimaryMaterialChangedMessage) msg.extraInfo;
-				itemTracker.primaryMaterialChanged(message.item, message.oldPrimaryMaterial);
+				settlementItemTracker.primaryMaterialChanged(message.item, message.oldPrimaryMaterial);
 				return true;
 			}
 			case MessageType.JOB_REMOVED: {
@@ -697,7 +737,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 
 	private boolean handle(TransformFurnitureMessage transformFurnitureMessage) {
 		entityStore.remove(transformFurnitureMessage.furnitureEntity.getId(), true);
-		furnitureTracker.furnitureRemoved(transformFurnitureMessage.furnitureEntity);
+		settlementFurnitureTracker.furnitureRemoved(transformFurnitureMessage.furnitureEntity);
 
 		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) transformFurnitureMessage.furnitureEntity.getPhysicalEntityComponent().getAttributes();
 		FurnitureLayout originalLayout = attributes.getCurrentLayout();
@@ -737,12 +777,14 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 
 		entityStore.add(transformFurnitureMessage.furnitureEntity);
-		furnitureTracker.furnitureAdded(transformFurnitureMessage.furnitureEntity);
+		if (transformFurnitureMessage.furnitureEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
+			settlementFurnitureTracker.furnitureAdded(transformFurnitureMessage.furnitureEntity);
+		}
 		return true;
 	}
 
 	private boolean handle(TransformItemMessage transformItemMessage) {
-		itemTracker.itemRemoved(transformItemMessage.itemEntity);
+		settlementItemTracker.itemRemoved(transformItemMessage.itemEntity);
 
 		ItemEntityAttributes attributes = (ItemEntityAttributes) transformItemMessage.itemEntity.getPhysicalEntityComponent().getAttributes();
 		attributes.setItemType(transformItemMessage.transformToItemType);
@@ -750,7 +792,9 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		// Also re-applies any tags
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, transformItemMessage.itemEntity);
 
-		itemTracker.itemAdded(transformItemMessage.itemEntity);
+		if (transformItemMessage.itemEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
+			settlementItemTracker.itemAdded(transformItemMessage.itemEntity);
+		}
 		return true;
 	}
 
@@ -771,12 +815,17 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 
 		Vector2 deceasedPosition = deceased.getLocationComponent().getWorldOrParentPosition();
 
+		HistoryComponent historyComponent = deceased.getOrCreateComponent(HistoryComponent.class);
 		DeathReason deathReason = deathMessage.reason;
 		if (originalBehaviour instanceof BrokenDwarfBehaviour) {
 			deathReason = DeathReason.GIVEN_UP_ON_LIFE;
+		} else if (deathMessage.killer != null) {
+			deathReason = DeathReason.KILLED_BY_ENTITY;
+			historyComponent.setKilledBy(deathMessage.killer);
 		}
+		historyComponent.setDeathReason(deathReason);
 
-		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
 			Notification deathNotification = new Notification(NotificationType.DEATH, deceasedPosition);
 			deathNotification.addTextReplacement("character", i18nTranslator.getDescription(deceased));
 			deathNotification.addTextReplacement("reason", i18nTranslator.getDictionary().getWord(deathReason.getI18nKey()));
@@ -794,8 +843,6 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 		deceased.removeComponent(NeedsComponent.class);
 
-		HistoryComponent historyComponent = deceased.getOrCreateComponent(HistoryComponent.class);
-		historyComponent.setDeathReason(deathReason);
 
 		MilitaryComponent militaryComponent = deceased.getComponent(MilitaryComponent.class);
 		if (militaryComponent != null && militaryComponent.isInMilitary()) {
@@ -810,16 +857,9 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 		showAsRotatedOnSide(deceased, gameContext);
 
-		for (Squad squad : gameContext.getSquads().values()) {
-			if (squad.getAttackEntityIds().contains(deceased.getId())) {
-				squad.getAttackEntityIds().remove(deceased.getId());
-				if (squad.getAttackEntityIds().isEmpty()) {
-					messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.TRAINING));
-				}
-			}
-		}
+		removeFromSquadOrders(deceased);
 
-		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
 			boolean allDead = true;
 			for (Entity settler : settlerTracker.getAll()) {
 				CreatureEntityAttributes otherSettlerAttributes = (CreatureEntityAttributes) settler.getPhysicalEntityComponent().getAttributes();
@@ -843,7 +883,22 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			messageDispatcher.dispatchMessage(DESTROY_ENTITY, deceased);
 		}
 
+		if (deathMessage.killer != null && deathMessage.killer.getBehaviourComponent() instanceof CreatureBehaviour killerBehaviour &&
+			killerBehaviour.getCreatureGroup() instanceof InvasionCreatureGroup invasionCreatureGroup) {
+			invasionCreatureGroup.killedEnemy(deceased);
+		}
 		return true;
+	}
+
+	private void removeFromSquadOrders(Entity creatureEntity) {
+		for (Squad squad : gameContext.getSquads().values()) {
+			if (squad.getAttackEntityIds().contains(creatureEntity.getId())) {
+				squad.getAttackEntityIds().remove(creatureEntity.getId());
+				if (squad.getAttackEntityIds().isEmpty() && squad.getCurrentOrderType().equals(COMBAT)) {
+					messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.TRAINING));
+				}
+			}
+		}
 	}
 
 	private boolean handleInsanity(Entity entity) {
@@ -918,7 +973,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 
 		// Removes from usage such as beds
-		furnitureTracker.furnitureRemoved(message.targetEntity);
+		settlementFurnitureTracker.furnitureRemoved(message.targetEntity);
 
 		InventoryComponent inventoryComponent = message.targetEntity.getComponent(InventoryComponent.class);
 		if (inventoryComponent != null) {
@@ -960,20 +1015,24 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 				if (newMaterial == null) {
 					Logger.error("Can not find material with name " + message.oxidisedMaterial.getOxidisation().getChangesTo() + " for oxidisation of " + message.oxidisedMaterial.getMaterialName());
 				} else if (entityAttributes instanceof ItemEntityAttributes) {
-					itemTracker.itemRemoved(message.targetEntity);
+					settlementItemTracker.itemRemoved(message.targetEntity);
 					ItemEntityAttributes attributes = (ItemEntityAttributes) entityAttributes;
 					attributes.removeMaterial(message.oxidisedMaterial.getMaterialType());
 					attributes.setMaterial(newMaterial);
 					if (message.oxidisedMaterial.getOxidisation().getSetsItemQualityTo() != null) {
 						attributes.setItemQuality(message.oxidisedMaterial.getOxidisation().getSetsItemQualityTo());
 					}
-					itemTracker.itemAdded(message.targetEntity);
+					if (message.targetEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
+						settlementItemTracker.itemAdded(message.targetEntity);
+					}
 				} else if (entityAttributes instanceof FurnitureEntityAttributes) {
-					furnitureTracker.furnitureRemoved(message.targetEntity);
+					settlementFurnitureTracker.furnitureRemoved(message.targetEntity);
 					FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) entityAttributes;
 					attributes.removeMaterial(message.oxidisedMaterial.getMaterialType());
 					attributes.setMaterial(newMaterial);
-					furnitureTracker.furnitureAdded(message.targetEntity);
+					if (message.targetEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
+						settlementFurnitureTracker.furnitureAdded(message.targetEntity);
+					}
 				} else {
 					Logger.error("Not yet implemented: material oxidised within " + entityAttributes.getClass().getSimpleName());
 				}
@@ -1082,7 +1141,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 		EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
 		if (equippedItemComponent != null) {
-			for (Entity equipmentEntity : equippedItemComponent.clearAllEquipment()) {
+			for (Entity equipmentEntity : equippedItemComponent.clearHeldEquipment()) {
 				placeOnGround(equipmentEntity, entityPosition);
 			}
 			entity.removeComponent(EquippedItemComponent.class);
@@ -1097,6 +1156,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 
 		hauledEntity.getLocationComponent().setWorldPosition(position, false);
 		hauledEntity.getLocationComponent().setFacing(DOWN.toVector2());
+		hauledEntity.getOrCreateComponent(FactionComponent.class).setFaction(SETTLEMENT);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, hauledEntity);
 	}
 

@@ -10,6 +10,7 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.behaviour.items.ItemBehaviour;
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.OxidisationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -26,7 +27,6 @@ import technology.rocketjump.saul.messaging.MessageType;
 
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class ItemEntityFactory {
 
@@ -53,7 +53,7 @@ public class ItemEntityFactory {
 
 		for (GameMaterialType requiredMaterialType : itemType.getMaterialTypes()) {
 			List<GameMaterial> materialsToPickFrom = gameMaterialDictionary.getByType(requiredMaterialType).stream()
-					.filter(GameMaterial::isUseInRandomGeneration).collect(Collectors.toList());
+					.filter(GameMaterial::isUseInRandomGeneration).toList();
 			if (materialsToPickFrom.isEmpty()) {
 				// No use-in-random-generation materials
 				Logger.error("Needed a material of type " + requiredMaterialType + " to use in random generation");
@@ -76,6 +76,7 @@ public class ItemEntityFactory {
 
 		Entity entity = new Entity(EntityType.ITEM, physicalComponent, behaviorComponent, locationComponent, messageDispatcher, gameContext);
 		entity.addComponent(new ItemAllocationComponent());
+		entity.addComponent(new FactionComponent());
 		entity.init(messageDispatcher, gameContext);
 
 		attributes.getAllMaterials().stream().filter(m -> m.getOxidisation() != null)

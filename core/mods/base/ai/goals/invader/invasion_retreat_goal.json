@@ -1,0 +1,27 @@
+{
+  "name": "Invasion retreat",
+  "i18nDescription": "GOAL.INVADER.RETREAT.DESCRIPTION",
+  "creatureCategories": ["INVADER"],
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "INVASION_IN_STAGE",
+          "invasionStage": "RETREATING"
+        }
+      ],
+      "priority": "HIGHEST",
+      "scheduleCategory": "ANY"
+    }
+  ],
+  "initialActions": ["SelectRetreatLocation"],
+  "actionRelationships": {
+    "SelectRetreatLocation": {
+      "pass": ["GoToGoalTargetLocation"]
+    },
+    "GoToGoalTargetLocation": {
+      "pass": ["RemoveFromMap"]
+    },
+    "RemoveFromMap": {}
+  }
+}

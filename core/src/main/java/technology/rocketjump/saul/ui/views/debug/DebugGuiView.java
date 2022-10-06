@@ -43,6 +43,8 @@ import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesGrow
 import technology.rocketjump.saul.environment.WeatherManager;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.invasions.InvasionDefinitionDictionary;
+import technology.rocketjump.saul.invasions.model.InvasionDefinition;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.TileExploration;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
@@ -100,6 +102,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	private final WeatherManager weatherManager;
 	private final ImmigrationManager immigrationManager;
 	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
+	private final InvasionDefinitionDictionary invasionDefinitionDictionary;
 	private Table layoutTable;
 	private GameContext gameContext;
 
@@ -117,7 +120,8 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 						RaceDictionary raceDictionary, PlantSpeciesDictionary plantSpeciesDictionary,
 						PlantEntityAttributesFactory plantEntityAttributesFactory, PlantEntityFactory plantEntityFactory,
 						CombatMessageHandler combatMessageHandler, ItemEntityFactory itemEntityFactory, SettlerFactory settlerFactory, WeatherManager weatherManager,
-						ImmigrationManager immigrationManager, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
+						ImmigrationManager immigrationManager, ParticleEffectTypeDictionary particleEffectTypeDictionary,
+						InvasionDefinitionDictionary invasionDefinitionDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.uiSkin = guiSkinRepository.getDefault();
 		this.itemTypeDictionary = itemTypeDictionary;
@@ -133,6 +137,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 		this.weatherManager = weatherManager;
 		this.immigrationManager = immigrationManager;
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
+		this.invasionDefinitionDictionary = invasionDefinitionDictionary;
 
 		layoutTable = new Table(uiSkin);
 
@@ -310,14 +315,14 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 			case KILL_CREATURE: {
 				for (Entity entity : tile.getEntities()) {
 					if (entity.getType().equals(CREATURE) && !(entity.getBehaviourComponent() instanceof CorpseBehaviour)) {
-						messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(entity, DeathReason.UNKNOWN));
+						messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(entity, DeathReason.UNKNOWN, null));
 						break;
 					}
 					if (entity.getType().equals(FURNITURE)) {
 						InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 						for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
 							if (inventoryEntry.entity.getType().equals(CREATURE) && !(inventoryEntry.entity.getBehaviourComponent() instanceof CorpseBehaviour)) {
-								messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(inventoryEntry.entity, DeathReason.UNKNOWN));
+								messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(inventoryEntry.entity, DeathReason.UNKNOWN, null));
 								break;
 							}
 						}
@@ -332,7 +337,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 					EntityAttributes attributes = entity.getPhysicalEntityComponent().getAttributes();
 					if (attributes instanceof CreatureEntityAttributes creatureAttributes) {
 						creatureAttributes.getBody().setDamage(bodyPart, BodyPartDamageLevel.Destroyed);
-						combatMessageHandler.bodyPartDestroyed(bodyPart, creatureAttributes.getBody(), entity);
+						combatMessageHandler.bodyPartDestroyed(bodyPart, creatureAttributes.getBody(), entity, null);
 					}
 				}
 				break;
@@ -414,6 +419,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 							messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(effectType, Optional.of(entity),
 									Optional.empty(), (p) -> {}));
 						});
+				break;
 			}
 			case PRETEND_ATTACKED_BY_NEARBY_CREATURE: {
 				tile.getEntities().stream().filter(e -> e.getType().equals(CREATURE))
@@ -437,6 +443,12 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 								}
 							}
 						});
+				break;
+			}
+			case TRIGGER_INVASION: {
+				InvasionDefinition invasionDefinition = new ArrayList<InvasionDefinition>(invasionDefinitionDictionary.getAll()).get(gameContext.getRandom().nextInt(invasionDefinitionDictionary.getAll().size()));
+				messageDispatcher.dispatchMessage(MessageType.TRIGGER_INVASION, invasionDefinition);
+				break;
 			}
 			case NONE:
 			default:
