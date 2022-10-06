@@ -1,7 +1,7 @@
 {
   "name": "Military training",
   "i18nDescription": "GOAL.MILITARY.TRAINING.DESCRIPTION",
-  "settlerCategories": ["MILITARY"],
+  "creatureCategories": ["MILITARY"],
   "selectors": [
     {
       "conditions": [

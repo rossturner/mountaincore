@@ -1,7 +1,7 @@
 {
   "name": "Stand in formation",
   "i18nDescription": "GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION",
-  "settlerCategories": ["MILITARY"],
+  "creatureCategories": ["MILITARY"],
   "selectors": [
     {
       "conditions": [

@@ -1,6 +1,6 @@
 {
-  "name": "Dwarven",
-  "firstName": "given_names",
+  "descriptorName": "Dwarven",
+  "firstName": "norse_given_names",
   "familyName": "adjective_noun",
   "goodSpheres": [
     "Colour",

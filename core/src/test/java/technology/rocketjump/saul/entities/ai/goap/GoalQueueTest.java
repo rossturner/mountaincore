@@ -24,7 +24,7 @@ public class GoalQueueTest {
 	private Goal mockGoal;
 	@Mock
 	private GameClock mockClock;
-	private List<SettlerCategory> settlerCategories = List.of(SettlerCategory.CIVILIAN);
+	private List<CreatureCategory> settlerCategories = List.of(CreatureCategory.CIVILIAN);
 
 	@Before
 	public void setUp() throws Exception {

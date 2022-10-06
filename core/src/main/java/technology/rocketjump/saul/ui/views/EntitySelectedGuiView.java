@@ -280,6 +280,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 							} else {
 								militaryComponent.setAssignedWeaponId(null);
 							}
+							militaryComponent.infrequentUpdate(0.0);
 						}
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
 					}));
@@ -297,6 +298,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 							} else {
 								militaryComponent.setAssignedShieldId(null);
 							}
+							militaryComponent.infrequentUpdate(0.0);
 						}
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
 					}));
@@ -314,6 +316,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 							} else {
 								militaryComponent.setAssignedArmorId(null);
 							}
+							militaryComponent.infrequentUpdate(0.0);
 						}
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
 					}));
@@ -729,15 +732,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 
 		if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
-			List<I18nText> description;
-
-
-			CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
-			if (combatStateComponent != null && combatStateComponent.isInCombat()) {
-				description = creatureBehaviour.getCombatBehaviour().getDescription(i18nTranslator, gameContext, messageDispatcher);
-			} else {
-				description = creatureBehaviour.getDescription(i18nTranslator, gameContext, messageDispatcher);
-			}
+			List<I18nText> description = creatureBehaviour.getDescription(i18nTranslator, gameContext, messageDispatcher);
 			for (I18nText i18nText : description) {
 				nameTable.add(new I18nTextWidget(i18nText, uiSkin, messageDispatcher)).left().row();
 			}

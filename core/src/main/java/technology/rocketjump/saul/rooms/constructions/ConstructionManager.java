@@ -31,7 +31,7 @@ import technology.rocketjump.saul.messaging.types.RequestHaulingAllocationMessag
 import technology.rocketjump.saul.messaging.types.RequestHaulingMessage;
 import technology.rocketjump.saul.messaging.types.RequestPlantRemovalMessage;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ import static technology.rocketjump.saul.rooms.constructions.ConstructionState.*
 public class ConstructionManager implements Updatable {
 
 	private final ConstructionStore constructionStore;
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final MessageDispatcher messageDispatcher;
 	private final JobFactory jobFactory;
 	private final JobType haulingJobType;
@@ -57,10 +57,10 @@ public class ConstructionManager implements Updatable {
 	private GameContext gameContext;
 
 	@Inject
-	public ConstructionManager(ConstructionStore constructionStore, ItemTracker itemTracker, MessageDispatcher messageDispatcher,
+	public ConstructionManager(ConstructionStore constructionStore, SettlementItemTracker settlementItemTracker, MessageDispatcher messageDispatcher,
 							   JobFactory jobFactory, JobTypeDictionary jobTypeDictionary) {
 		this.constructionStore = constructionStore;
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.messageDispatcher = messageDispatcher;
 		this.jobFactory = jobFactory;
 		this.haulingJobType = jobTypeDictionary.getByName("HAULING");

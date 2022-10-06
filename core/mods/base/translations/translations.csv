@@ -170,7 +170,9 @@ DEATH_REASON.GIVEN_UP_ON_LIFE,,having given up on life
 DEATH_REASON.INTERNAL_BLEEDING,,Internal bleeding
 DEATH_REASON.STARVATION,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Starvation
 DEATH_REASON.SUFFOCATION,,Suffocation
-DEATH_REASON.UNKNOWN,These are used in conjunction with the NOTIFICATION.DEATH.DESCRIPTION translation,Mysterious circumstances
+DEATH_REASON.KILLED_BY_ENTITY,,wounds suffered in combat
+DEATH_REASON.MURDERED.UNKNOWN_KILLER,,someone
+DEATH_REASON.UNKNOWN,,Mysterious circumstances
 
 EARTH.DIRT,,Dirt
 EARTH.GRASS,,Grass
@@ -311,6 +313,7 @@ FURNITURE.WINDMILL,,Windmill
 FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.
 FURNITURE.WOODCUTTERS_BENCH,,Woodcutting bench
 FURNITURE.WOODCUTTERS_BENCH.TOOLTIP,,A {{PROFESSION.WOODCUTTER}} works here to turn {{RESOURCE.LOGS.PLURAL}} into {{RESOURCE.PLANKS.PLURAL}}.
+FURNITURE.INVADER_CAMPFIRE,,Campfire
 
 GEM.AMETHYST.ADJECTIVE,,Amethyst
 GEM.AMETHYST.NOUN,,Amethyst
@@ -411,6 +414,9 @@ GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {
 GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION,,Moving into combat
 GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION,,Guarding a position
 GOAL.MILITARY.TRAINING.DESCRIPTION,,Weapon training
+GOAL.INVADER.CREATE_CAMP.DESCRIPTION,,Setting up camp
+GOAL.INVADER.STEAL_RESOURCES.DESCRIPTION,,Raiding stockpiles
+GOAL.INVADER.RETREAT.DESCRIPTION,,Retreating from map
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
 GUI.ADD_TILES,This should be as short as possible,Add tiles
@@ -793,6 +799,7 @@ NOTIFICATION.AREA_REVEALED.DESCRIPTION,,Your miners have discovered a new area!
 NOTIFICATION.AREA_REVEALED.TITLE,,Exploration
 NOTIFICATION.DEATH.DESCRIPTION,,"{{character}}, has died due to {{reason}}."
 NOTIFICATION.DEATH.SHORT_DESCRIPTION,,Died due to {{reason}}
+NOTIFICATION.DEATH.KILLED_BY_DESCRIPTION,,Killed by {{killer}}
 NOTIFICATION.DEATH.TITLE,,Settler death
 NOTIFICATION.FIRE_STARTED.DESCRIPTION,,A fire has broken out in your settlement!
 NOTIFICATION.FIRE_STARTED.TITLE,,Fire!
@@ -812,6 +819,8 @@ NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven
 NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental break
 NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy that they are throwing a tantrum!
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!
+NOTIFICATION.INVASION.DESCRIPTION,,A raiding party of orcs has arrived. Prepare yourselves! They will attack after preparing for a while.
+NOTIFICATION.INVASION.TITLE,,You are being invaded!
 
 ORE.BAUXITE.ADJECTIVE,,Bauxite
 ORE.BAUXITE.NOUN,,Bauxite
@@ -1063,6 +1072,8 @@ RACE.PIKE.NOUN,,Pike
 RACE.SPIDER,,Spider
 RACE.UNDEAD_DWARF,,Undead dwarf
 RACE.WURM,,Wurm
+RACE.ORC.MALE_NOUN,Orcs are only male,Orc
+RACE.ORC.MALE_ADJECTIVE,,Orcish
 
 RESOURCE.BONE.LARGE.NOUN,,Large Bone
 RESOURCE.BONE.LARGE.PLURAL,,Large Bones

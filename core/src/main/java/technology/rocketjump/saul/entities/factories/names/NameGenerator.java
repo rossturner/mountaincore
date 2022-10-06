@@ -1,89 +1,92 @@
 package technology.rocketjump.saul.entities.factories.names;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.creature.HumanoidName;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 @Singleton
-public abstract class NameGenerator {
+public class NameGenerator {
 
-	protected final NameWordDictionary adjectiveDictionary;
-	protected final NameWordDictionary nounDictionary;
-	protected final NorseNameGenerator norseNameGenerator;
+	private final NameGenerationDescriptorDictionary nameGenerationDescriptorDictionary;
 
-	protected final List<String> goodSpheres = new LinkedList<>();
-	protected final List<String> badSpheres = new LinkedList<>();
-	private final JSONObject descriptor;
+	protected NameWordDictionary adjectiveDictionary;
+	protected NameWordDictionary nounDictionary;
+
+	protected final Map<String, GivenNameList> givenNamesMapping = new HashMap<>();
 
 	@Inject
-	public NameGenerator(File descriptorFile, NorseNameGenerator norseNameGenerator) throws IOException {
-		this.norseNameGenerator = norseNameGenerator;
-		adjectiveDictionary = new NameWordDictionary(new File("assets/text/adjective_noun/adjectives.csv"));
-		nounDictionary = new NameWordDictionary(new File("assets/text/adjective_noun/nouns.csv"));
+	public NameGenerator(NameGenerationDescriptorDictionary nameGenerationDescriptorDictionary) throws IOException {
+		this.nameGenerationDescriptorDictionary = nameGenerationDescriptorDictionary;
 
-		descriptor = JSON.parseObject(FileUtils.readFileToString(descriptorFile));
-
-		JSONArray goodSpheres = descriptor.getJSONArray("goodSpheres");
-		for (Object goodSphere : goodSpheres) {
-			this.goodSpheres.add((String)goodSphere);
-		}
-
-		JSONArray badSpheres = descriptor.getJSONArray("badSpheres");
-		for (Object badSphere : badSpheres) {
-			this.badSpheres.add((String)badSphere);
-		}
-	}
-
-	public HumanoidName create(long seed, Gender gender) {
-		HumanoidName name = new HumanoidName();
-		name.setFirstName(generateUsingScheme(descriptor.getString("firstName"), seed, gender, null));
-		name.setLastName(generateUsingScheme(descriptor.getString("familyName"), seed, gender, name.getFirstName().length() > 0 ? name.getFirstName().substring(0, 1) : null));
-		return name;
-	}
-
-	public String generateUsingScheme(String scheme, long seed, Gender gender, String alliterationMatcher) {
-		switch (scheme) {
-			case "none":
-				return "";
-			case "adjective_noun":
-				return createAdjectiveNounName(seed, alliterationMatcher);
-			case "given_names":
-				return norseNameGenerator.createGivenName(seed, gender);
-			default:
-				Logger.error("Unrecognised name generation scheme: " + scheme);
-				return "ERROR";
+		for (Path csvFile : Files.list(Path.of("assets/text/csv")).toList()) {
+			if (csvFile.toString().endsWith(".csv")) {
+				if (csvFile.toString().endsWith("adjectives.csv")) {
+					adjectiveDictionary = new NameWordDictionary(csvFile.toFile());
+				} else if (csvFile.toString().endsWith("nouns.csv")) {
+					nounDictionary = new NameWordDictionary(csvFile.toFile());
+				} else if (csvFile.toString().endsWith("given_names.csv")) {
+					GivenNameList givenNameList = new GivenNameList(csvFile.toFile());
+					givenNamesMapping.put(FilenameUtils.removeExtension(csvFile.getFileName().toString()), givenNameList);
+				} else {
+					Logger.error(String.format("Unrecognised file of %s in %s", csvFile, csvFile.getParent().toAbsolutePath()));
+				}
+			}
 		}
 	}
 
-	protected String createAdjectiveNounName(long seed, String alliterationMatcher) {
+	public HumanoidName create(String descriptorName, long seed, Gender gender) {
+		NameGenerationDescriptor descriptor = nameGenerationDescriptorDictionary.getByDescriptorName(descriptorName);
+		if (descriptor == null) {
+			Logger.error("Could not find name generation descriptor: " + descriptorName);
+			return null;
+		} else {
+			HumanoidName name = new HumanoidName();
+			name.setFirstName(generateUsingScheme(descriptor.getFirstName(), seed, gender, null, descriptor));
+			name.setLastName(generateUsingScheme(descriptor.getFamilyName(), seed, gender, name.getFirstName().length() > 0 ? name.getFirstName().substring(0, 1) : null, descriptor));
+			return name;
+		}
+	}
+
+	public String generateUsingScheme(String scheme, long seed, Gender gender, String alliterationMatcher, NameGenerationDescriptor descriptor) {
+		if (scheme.endsWith("given_names")) {
+			return givenNamesMapping.get(scheme).createGivenName(seed, gender);
+		} else if (scheme.equals("adjective_noun")) {
+			return createAdjectiveNounName(seed, alliterationMatcher, descriptor);
+		} else if (scheme.equals("none")) {
+			return null;
+		} else {
+			Logger.error("Unrecognised name generation scheme: " + scheme);
+			return "ERROR";
+		}
+	}
+
+	protected String createAdjectiveNounName(long seed, String alliterationMatcher, NameGenerationDescriptor descriptor) {
 		Random random = new RandomXS128(seed);
 
-		String adjective = pickFrom(adjectiveDictionary, random, alliterationMatcher);
-		String noun = pickFrom(nounDictionary, random, null);
+		String adjective = pickFrom(adjectiveDictionary, random, alliterationMatcher, descriptor.getGoodSpheres(), descriptor.getBadSpheres());
+		String noun = pickFrom(nounDictionary, random, null, descriptor.getGoodSpheres(), descriptor.getBadSpheres());
 
 		String lastOfAdjective = adjective.substring(adjective.length() - 1).toLowerCase();
 		String firstOfNoun = noun.substring(0, 1).toLowerCase();
 		if (lastOfAdjective.equals(firstOfNoun)) {
-			return createAdjectiveNounName(seed + 1, alliterationMatcher);
+			return createAdjectiveNounName(seed + 1, alliterationMatcher, descriptor);
 		}
 
 		String combined = adjective + noun;
 		return WordUtils.capitalize(combined.toLowerCase());
 	}
 
-	protected String pickFrom(NameWordDictionary adjectiveDictionary, Random random, String alliterationMatcher) {
+	protected String pickFrom(NameWordDictionary adjectiveDictionary, Random random, String alliterationMatcher, List<String> goodSpheres, List<String> badSpheres) {
 		List<NameWord> toPickFrom = new ArrayList<>();
 
 		for (String goodSphere : goodSpheres) {

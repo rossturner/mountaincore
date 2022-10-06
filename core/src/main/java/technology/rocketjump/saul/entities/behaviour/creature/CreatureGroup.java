@@ -2,6 +2,7 @@ package technology.rocketjump.saul.entities.behaviour.creature;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -20,13 +21,13 @@ import java.util.*;
  */
 public class CreatureGroup implements Persistable {
 
-	private static final double GAME_TIME_BETWEEN_UPDATES = 0.2;
-	private long groupId;
-	private GridPoint2 homeLocation;
-	private double lastUpdateGameTime;
-	private Set<Long> memberEntityIds = new HashSet<>();
+	protected static final double GAME_TIME_BETWEEN_UPDATES = 0.2;
+	protected long groupId;
+	protected GridPoint2 homeLocation;
+	protected double lastUpdateGameTime;
+	protected Set<Long> memberEntityIds = new HashSet<>();
 
-	private final MemoryComponent sharedMemoryComponent = new MemoryComponent();
+	protected final MemoryComponent sharedMemoryComponent = new MemoryComponent();
 
 	public long getGroupId() {
 		return groupId;
@@ -47,11 +48,11 @@ public class CreatureGroup implements Persistable {
 	/**
 	 * This is called by child entity infrequent updates so it is not accurately updated, but "every so often" is good enough
 	 */
-	public void infrequentUpdate(GameContext gameContext) {
+	public void infrequentUpdate(GameContext gameContext, MessageDispatcher messageDispatcher) {
 		double now = gameContext.getGameClock().getCurrentGameTime();
 		if (now - lastUpdateGameTime > GAME_TIME_BETWEEN_UPDATES) {
 			lastUpdateGameTime = now;
-			moveHomeLocation(gameContext);
+			moveHomeLocationRandomly(gameContext);
 		}
 	}
 
@@ -62,7 +63,7 @@ public class CreatureGroup implements Persistable {
 	/**
 	 * This moves the home location by one tile, orthogonally, randomly
 	 */
-	private void moveHomeLocation(GameContext gameContext) {
+	private void moveHomeLocationRandomly(GameContext gameContext) {
 		List<CompassDirection> directions = new ArrayList<>(CompassDirection.CARDINAL_DIRECTIONS);
 		Collections.shuffle(directions, gameContext.getRandom());
 

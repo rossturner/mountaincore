@@ -33,7 +33,7 @@ import technology.rocketjump.saul.messaging.types.RequestLiquidRemovalMessage;
 import technology.rocketjump.saul.messaging.types.RequestLiquidTransferMessage;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.zones.Zone;
 import technology.rocketjump.saul.zones.ZoneTile;
 
@@ -57,18 +57,18 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 	private final JobType moveLiquidInItemJobType;
 	private final JobType removeLiquidJobType;
 	private final JobType dumpLiquidJobType;
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 
 	@Inject
 	public LiquidMessageHandler(MessageDispatcher messageDispatcher, GameMaterialDictionary gameMaterialDictionary,
-	                            JobTypeDictionary jobTypeDictionary, ItemTracker itemTracker) {
+	                            JobTypeDictionary jobTypeDictionary, SettlementItemTracker settlementItemTracker) {
 		this.messageDispatcher = messageDispatcher;
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.transferLiquidJobType = jobTypeDictionary.getByName("TRANSFER_LIQUID");
 		this.moveLiquidInItemJobType = jobTypeDictionary.getByName("MOVE_LIQUID_IN_ITEM");
 		this.removeLiquidJobType = jobTypeDictionary.getByName("REMOVE_LIQUID");
 		this.dumpLiquidJobType = jobTypeDictionary.getByName("DUMP_LIQUID_FROM_CONTAINER");
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		messageDispatcher.addListener(this, MessageType.REQUEST_LIQUID_TRANSFER);
 		messageDispatcher.addListener(this, MessageType.REQUEST_LIQUID_ALLOCATION);
 		messageDispatcher.addListener(this, MessageType.REQUEST_LIQUID_REMOVAL);
@@ -180,7 +180,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 	}
 
 	private Job createMoveItemInLiquidJob(RequestLiquidTransferMessage message) {
-		List<Entity> unallocatedItems = itemTracker.getItemsByType(message.liquidContainerItemType, true);
+		List<Entity> unallocatedItems = settlementItemTracker.getItemsByType(message.liquidContainerItemType, true);
 		unallocatedItems.sort(new ItemEntityMessageHandler.NearestDistanceSorter(message.requesterPosition));
 
 		for (Entity itemEntity : unallocatedItems) {

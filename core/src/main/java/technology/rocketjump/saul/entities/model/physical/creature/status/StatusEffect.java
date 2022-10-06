@@ -20,22 +20,24 @@ public abstract class StatusEffect implements ChildPersistable {
 	protected final Class<? extends StatusEffect> nextStage;
 	protected final Double hoursUntilNextStage;
 	protected final DeathReason deathReason; // Only used if this statuseffect applies death
+	protected Entity inflictedBy;
 
-	protected StatusEffect(Class<? extends StatusEffect> nextStage, Double hoursUntilNextStage, DeathReason deathReason) {
+	protected StatusEffect(Class<? extends StatusEffect> nextStage, Double hoursUntilNextStage, DeathReason deathReason, Entity inflictedBy) {
 		this.nextStage = nextStage;
 		this.hoursUntilNextStage = hoursUntilNextStage;
 		this.deathReason = deathReason;
+		this.inflictedBy = inflictedBy;
 	}
 
 	public void infrequentUpdate(double elapsedTime, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		timeApplied += elapsedTime;
 
 		if (checkForRemoval(gameContext)) {
-			messageDispatcher.dispatchMessage(MessageType.REMOVE_STATUS, new StatusMessage(parentEntity, this.getClass(), null));
+			messageDispatcher.dispatchMessage(MessageType.REMOVE_STATUS, new StatusMessage(parentEntity, this.getClass(), null, inflictedBy));
 		} else if (hoursUntilNextStage != null && timeApplied > hoursUntilNextStage) {
-			messageDispatcher.dispatchMessage(MessageType.REMOVE_STATUS, new StatusMessage(parentEntity, this.getClass(), null));
+			messageDispatcher.dispatchMessage(MessageType.REMOVE_STATUS, new StatusMessage(parentEntity, this.getClass(), null, inflictedBy));
 			if (nextStage != null) {
-				messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parentEntity, nextStage, deathReason));
+				messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parentEntity, nextStage, deathReason, inflictedBy));
 			}
 		} else {
 			applyOngoingEffect(gameContext, messageDispatcher);
@@ -57,13 +59,27 @@ public abstract class StatusEffect implements ChildPersistable {
 		this.parentEntity = parentEntity;
 	}
 
+	transient boolean writtenInflictedBy;
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		asJson.put("applied", timeApplied);
+
+		if (inflictedBy != null) {
+			if (!writtenInflictedBy) {
+				writtenInflictedBy = true;
+				inflictedBy.writeTo(savedGameStateHolder);
+			}
+			asJson.put("inflictedBy", inflictedBy.getId());
+		}
 	}
 
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
 		this.timeApplied = asJson.getDoubleValue("applied");
+
+		Long inflictedById = asJson.getLong("inflictedBy");
+		if (inflictedById != null) {
+			this.inflictedBy = savedGameStateHolder.entities.get(inflictedById);
+		}
 	}
 }

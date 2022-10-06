@@ -7,7 +7,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.utils.HexColors;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameViewMode;
 import technology.rocketjump.saul.ui.actions.SetInteractionMode;
@@ -24,7 +24,7 @@ import java.util.List;
 @Singleton
 public class BuildRoofingGuiView implements GuiView {
 
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final I18nTranslator i18nTranslator;
 	private final MessageDispatcher messageDispatcher;
 
@@ -33,10 +33,10 @@ public class BuildRoofingGuiView implements GuiView {
 
 	@Inject
 	public BuildRoofingGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-							   IconButtonFactory iconButtonFactory, ItemTracker itemTracker,
+							   IconButtonFactory iconButtonFactory, SettlementItemTracker settlementItemTracker,
 							   I18nTranslator i18nTranslator, I18nWidgetFactory i18NWidgetFactory) {
 		this.messageDispatcher = messageDispatcher;
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.i18nTranslator = i18nTranslator;
 
 		Skin uiSkin = guiSkinRepository.getDefault();

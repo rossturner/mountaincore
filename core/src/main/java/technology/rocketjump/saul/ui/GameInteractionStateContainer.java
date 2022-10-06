@@ -41,7 +41,7 @@ import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 import technology.rocketjump.saul.rooms.*;
 import technology.rocketjump.saul.rooms.constructions.BridgeConstruction;
 import technology.rocketjump.saul.rooms.constructions.WallConstruction;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.sprites.model.BridgeOrientation;
 import technology.rocketjump.saul.sprites.model.BridgeType;
 import technology.rocketjump.saul.ui.i18n.I18nText;
@@ -74,7 +74,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 	private final RoomFactory roomFactory;
 	private final ScreenWriter screenWriter;
 	private final I18nTranslator i18nTranslator;
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final MessageDispatcher messageDispatcher;
 	private final SoundAsset dragAreaSoundAsset;
 	private GameContext gameContext;
@@ -123,13 +123,13 @@ public class GameInteractionStateContainer implements GameContextAware {
 
 	@Inject
 	public GameInteractionStateContainer(PrimaryCameraWrapper primaryCameraWrapper, RoomFactory roomFactory, ScreenWriter screenWriter,
-										 I18nTranslator i18nTranslator, ItemTracker itemTracker, MessageDispatcher messageDispatcher,
+										 I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker, MessageDispatcher messageDispatcher,
 										 SoundAssetDictionary soundAssetDictionary) {
 		this.primaryCameraWrapper = primaryCameraWrapper;
 		this.roomFactory = roomFactory;
 		this.screenWriter = screenWriter;
 		this.i18nTranslator = i18nTranslator;
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.messageDispatcher = messageDispatcher;
 		this.dragAreaSoundAsset = soundAssetDictionary.getByName("DragArea"); // MODDING expose this
 
@@ -394,7 +394,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 			}
 		}
 
-		List<Entity> unallocatedItems = itemTracker.getItemsByType(bridgeTypeToPlace.getBuildingRequirement().getItemType(), false);
+		List<Entity> unallocatedItems = settlementItemTracker.getItemsByType(bridgeTypeToPlace.getBuildingRequirement().getItemType(), false);
 		for (Entity unallocatedItem : unallocatedItems) {
 			MapTile itemTile = gameContext.getAreaMap().getTile(unallocatedItem.getLocationComponent().getWorldOrParentPosition());
 			if (itemTile != null) {

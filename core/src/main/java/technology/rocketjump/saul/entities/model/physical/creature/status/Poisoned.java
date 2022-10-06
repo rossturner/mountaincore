@@ -10,7 +10,7 @@ public class Poisoned extends StatusEffect {
 	private static final float CHANCE_TO_REMOVE_ON_TICK = 1f / 25f;
 
 	public Poisoned() {
-		super(Death.class, 4.0, DeathReason.FOOD_POISONING);
+		super(Death.class, 4.0, DeathReason.FOOD_POISONING, null);
 	}
 
 	@Override

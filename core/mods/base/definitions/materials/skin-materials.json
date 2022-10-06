@@ -3,6 +3,7 @@
     "materialName": "Dwarf Hide",
     "materialType": "SKIN",
     "combustible": true,
+    "useInRandomGeneration": false,
     "colorCode": "#c69784"
   },
   {

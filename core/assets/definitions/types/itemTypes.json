@@ -69,7 +69,9 @@
   "hoursInInventoryUntilUnused" : 38.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
-  "tags" : { },
+  "tags" : {
+    "ASSET_OVERRIDE_BY_SKILL" : [ "HEAVY_ARMOR", "CLOTHING_COLOR" ]
+  },
   "defenseInfo" : {
     "type" : "ARMOR",
     "maxDefensePoints" : 16,
@@ -96,7 +98,9 @@
   "hoursInInventoryUntilUnused" : 38.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
-  "tags" : { },
+  "tags" : {
+    "ASSET_OVERRIDE_BY_SKILL" : [ "LIGHT_ARMOR", "CLOTHING_COLOR" ]
+  },
   "defenseInfo" : {
     "type" : "ARMOR",
     "maxDefensePoints" : 10,
@@ -1161,6 +1165,19 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "weaponInfo" : {
+    "range" : 1,
+    "damageType" : "STABBING",
+    "modifiedByStrength" : true,
+    "minDamage" : 2,
+    "maxDamage" : 6,
+    "armorNegation" : 0,
+    "twoHanded" : false,
+    "combatSkillName" : "SWORDSMANSHIP",
+    "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Slicing",
+    "animatedSpriteEffectName" : "Weapon slash",
+    "ranged" : false
+  },
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.KITCHEN.KNIFE"
 }, {

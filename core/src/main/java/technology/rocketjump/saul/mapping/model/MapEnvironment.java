@@ -36,7 +36,7 @@ public class MapEnvironment implements ChildPersistable {
 		return sunlightColor;
 	}
 
-	private void setSunlightColor(Color sunlightColor) {
+	public void setSunlightColor(Color sunlightColor) {
 		this.sunlightColor = sunlightColor;
 		this.sunlightAmount = (sunlightColor.r + sunlightColor.g + sunlightColor.b) / 3f;
 	}

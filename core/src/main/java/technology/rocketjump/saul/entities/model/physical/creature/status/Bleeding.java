@@ -15,7 +15,7 @@ public class Bleeding extends StatusEffect implements ParticleRequestMessage.Par
 	private ParticleEffectInstance particleEffectInstance;
 
 	public Bleeding() {
-		super(null, 4.0, null);
+		super(null, 4.0, null, null);
 	}
 
 	@Override

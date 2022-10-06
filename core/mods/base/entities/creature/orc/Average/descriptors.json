@@ -44,6 +44,30 @@
           "x" : -1.0,
           "y" : 12.5
         }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 25.0,
+          "y" : 8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : 14.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : 4.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -25.0
+        }
       } ]
     },
     "DOWN_RIGHT" : {
@@ -101,6 +125,31 @@
         "offsetPixels" : {
           "x" : 1.5,
           "y" : 10.5
+        }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 25.0,
+          "y" : 4.0
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -10.0,
+          "y" : 10.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 4.0,
+          "y" : -8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 28.0,
+          "y" : -4.0
         }
       } ]
     },
@@ -160,6 +209,30 @@
           "x" : 0.5,
           "y" : 9.0
         }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "y" : 4.0
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -20.0,
+          "y" : 12.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -20.0,
+          "y" : -8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 20.0,
+          "y" : -6.0
+        }
       } ]
     },
     "DOWN_LEFT" : {
@@ -217,6 +290,31 @@
           "x" : -1.5,
           "y" : 10.5
         }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 4.0
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -18.0,
+          "y" : -13.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -22.0,
+          "y" : -8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 5.0,
+          "y" : -8.0
+        }
       } ]
     },
     "UP_LEFT" : {
@@ -269,6 +367,30 @@
           "x" : 1.0,
           "y" : 12.5
         }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 14.0,
+          "y" : 14.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -14.0,
+          "y" : -4.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -28.0
+        }
       } ]
     },
     "UP" : {
@@ -307,6 +429,29 @@
         "offsetPixels" : {
           "x" : 1.0,
           "y" : 9.5
+        }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "y" : 8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 20.0,
+          "y" : 16.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -22.0,
+          "y" : 4.0
         }
       } ]
     }

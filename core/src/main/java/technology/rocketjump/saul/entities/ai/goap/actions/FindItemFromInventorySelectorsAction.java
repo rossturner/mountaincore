@@ -2,18 +2,17 @@ package technology.rocketjump.saul.entities.ai.goap.actions;
 
 import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
-import technology.rocketjump.saul.entities.ai.goap.GoalSelectionCondition;
 import technology.rocketjump.saul.entities.ai.goap.GoalSelector;
 import technology.rocketjump.saul.entities.ai.goap.ScheduleCategory;
 import technology.rocketjump.saul.entities.ai.goap.condition.GoalSelectionByInventory;
+import technology.rocketjump.saul.entities.ai.goap.condition.GoalSelectionCondition;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.messaging.types.LookupMessage;
+import technology.rocketjump.saul.messaging.types.LookupItemTypeMessage;
 import technology.rocketjump.saul.messaging.types.RequestHaulingAllocationMessage;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -66,7 +65,7 @@ public class FindItemFromInventorySelectorsAction extends Action implements Item
 
 
 		if (itemTypeName != null) {
-			parent.messageDispatcher.dispatchMessage(MessageType.LOOKUP_ITEM_TYPE, new LookupMessage(EntityType.ITEM, itemTypeName, this));
+			parent.messageDispatcher.dispatchMessage(MessageType.LOOKUP_ITEM_TYPE, new LookupItemTypeMessage(itemTypeName, this));
 		} else {
 			//something gone wrong here
 		}

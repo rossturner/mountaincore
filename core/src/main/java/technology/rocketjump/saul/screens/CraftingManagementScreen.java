@@ -33,8 +33,8 @@ import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
-import technology.rocketjump.saul.settlement.ItemTracker;
 import technology.rocketjump.saul.settlement.LiquidTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.settlement.production.ProductionManager;
 import technology.rocketjump.saul.settlement.production.ProductionQuota;
@@ -88,7 +88,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 	private final Set<CraftingType> expandedCraftingTypes = new HashSet<>();
 	private final Set<ItemType> expandedItemTypes = new HashSet<>();
 	private final Set<GameMaterial> expandedLiquidMaterials = new HashSet<>();
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final LiquidTracker liquidTracker;
 	private final List<ToggleButtonSet.ToggleButtonDefinition> buttonDefinitions;
 
@@ -100,7 +100,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 									RoomTypeDictionary roomTypeDictionary, CraftingRecipeDictionary craftingRecipeDictionary,
 									ClickableTableFactory clickableTableFactory, ExampleItemDictionary exampleItemDictionary,
 									EntityRenderer entityRenderer, ProductionManager productionManager,
-									SettlerTracker settlerTracker, ItemTracker itemTracker, LiquidTracker liquidTracker,
+									SettlerTracker settlerTracker, SettlementItemTracker settlementItemTracker, LiquidTracker liquidTracker,
 									TextureAtlasRepository textureAtlasRepository, GameMaterialDictionary gameMaterialDictionary) {
 		super(userPreferences, messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
 		this.clickableTableFactory = clickableTableFactory;
@@ -113,7 +113,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 		this.productionManager = productionManager;
 		this.settlerTracker = settlerTracker;
 		this.gameMaterialDictionary = gameMaterialDictionary;
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.liquidTracker = liquidTracker;
 
 		scrollableTable = new Table(uiSkin);
@@ -514,10 +514,10 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 			Collection<Entity> unallocatedItems;
 			if (NULL_MATERIAL.equals(material)) {
 				labelBuilder.append(i18nTranslator.getTranslatedString("MATERIAL_TYPE.ANY").toString()).append(" (");
-				unallocatedItems = itemTracker.getItemsByType(inputRequirement.getItemType(), true);
+				unallocatedItems = settlementItemTracker.getItemsByType(inputRequirement.getItemType(), true);
 			} else {
 				labelBuilder.append(material.getI18nValue()).append(" (");
-				unallocatedItems = itemTracker.getItemsByTypeAndMaterial(inputRequirement.getItemType(), material, true);
+				unallocatedItems = settlementItemTracker.getItemsByTypeAndMaterial(inputRequirement.getItemType(), material, true);
 				if (unallocatedItems.isEmpty() && !(selectedMaterial.orElse(NULL_MATERIAL).equals(material))) {
 					continue;
 				}
@@ -631,7 +631,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 		if (craftingOutput.isLiquid) {
 			return (int) liquidTracker.getCurrentLiquidAmount(craftingOutput.liquidMaterial);
 		} else {
-			return itemTracker.getItemsByType(craftingOutput.itemType, false).stream()
+			return settlementItemTracker.getItemsByType(craftingOutput.itemType, false).stream()
 					.map(entity -> ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getQuantity())
 					.reduce(0, Integer::sum);
 		}

@@ -20,7 +20,7 @@ import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.FoodAllocationRequestMessage;
 import technology.rocketjump.saul.rooms.Room;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,18 +29,18 @@ import static technology.rocketjump.saul.cooking.model.FoodAllocation.FoodAlloca
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.FOOD_ALLOCATION;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.HELD_IN_INVENTORY;
 import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
-import static technology.rocketjump.saul.settlement.ItemTracker.isItemEdible;
+import static technology.rocketjump.saul.settlement.SettlementItemTracker.isItemEdible;
 
 @Singleton
 public class FoodAllocationMessageHandler implements Telegraph, GameContextAware {
 
 	private static final float AMOUNT_LIQUID_FOOD_USED = 1f;
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private GameContext gameContext;
 
 	@Inject
-	public FoodAllocationMessageHandler(MessageDispatcher messageDispatcher, ItemTracker itemTracker) {
-		this.itemTracker = itemTracker;
+	public FoodAllocationMessageHandler(MessageDispatcher messageDispatcher, SettlementItemTracker settlementItemTracker) {
+		this.settlementItemTracker = settlementItemTracker;
 
 		messageDispatcher.addListener(this, MessageType.FOOD_ALLOCATION_REQUESTED);
 		messageDispatcher.addListener(this, MessageType.FOOD_ALLOCATION_CANCELLED);
@@ -116,11 +116,15 @@ public class FoodAllocationMessageHandler implements Telegraph, GameContextAware
 	}
 
 	private void handle(FoodAllocationRequestMessage requestMessage) {
-		FoodAllocation allocation = findAvailableFeastingHallFood(requestMessage.requestingEntity);
+		Faction requesterFaction = requestMessage.requestingEntity.getOrCreateComponent(FactionComponent.class).getFaction();
+		FoodAllocation allocation = null;
+		if (requesterFaction.equals(Faction.SETTLEMENT)) {
+			allocation = findAvailableFeastingHallFood(requestMessage.requestingEntity);
+		}
 		if (allocation == null) {
 			allocation = findAvailableRequesterInventoryFood(requestMessage.requestingEntity);
 		}
-		if (allocation == null) {
+		if (allocation == null && requesterFaction.equals(Faction.SETTLEMENT)) {
 			allocation = findAnyAvailableFood(requestMessage.requestingEntity);
 		}
 
@@ -248,7 +252,7 @@ public class FoodAllocationMessageHandler implements Telegraph, GameContextAware
 		}
 		final int requesterRegionId = requesterTile.getRegionId();
 
-		Optional<Entity> unallocatedEdibleItem = itemTracker.getUnallocatedEdibleItems().stream()
+		Optional<Entity> unallocatedEdibleItem = settlementItemTracker.getUnallocatedEdibleItems().stream()
 				.filter(item -> {
 					Vector2 position = item.getLocationComponent().getWorldOrParentPosition();
 					MapTile positionTile = gameContext.getAreaMap().getTile(position);

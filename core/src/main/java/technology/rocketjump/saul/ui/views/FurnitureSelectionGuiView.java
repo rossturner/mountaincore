@@ -18,7 +18,7 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rooms.RoomType;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.actions.FurnitureSelectedAction;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -40,7 +40,7 @@ public class FurnitureSelectionGuiView implements GuiView, FurnitureSelectedCall
 	private final int ITEMS_PER_ROW = 4;
 	private final IconButtonFactory iconButtonFactory;
 	private final FurnitureTypeDictionary furnitureTypeDictionary;
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final I18nTranslator i18nTranslator;
 	private final MessageDispatcher messageDispatcher;
 	private final Table furnitureTable;
@@ -70,11 +70,11 @@ public class FurnitureSelectionGuiView implements GuiView, FurnitureSelectedCall
 	@Inject
 	public FurnitureSelectionGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 									 IconButtonFactory iconButtonFactory, FurnitureTypeDictionary furnitureTypeDictionary,
-									 ItemTracker itemTracker, I18nTranslator i18nTranslator, I18nWidgetFactory i18NWidgetFactory) {
+									 SettlementItemTracker settlementItemTracker, I18nTranslator i18nTranslator, I18nWidgetFactory i18NWidgetFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.iconButtonFactory = iconButtonFactory;
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.i18nTranslator = i18nTranslator;
 
 
@@ -283,7 +283,7 @@ public class FurnitureSelectionGuiView implements GuiView, FurnitureSelectedCall
 
 		ItemType itemTypeForMaterialType = resourceTypeMap.get(selectedMaterialType);
 		if (itemTypeForMaterialType != null) {
-			Set<GameMaterial> materialsByItemType = itemTracker.getMaterialsByItemType(itemTypeForMaterialType);
+			Set<GameMaterial> materialsByItemType = settlementItemTracker.getMaterialsByItemType(itemTypeForMaterialType);
 			if (materialsByItemType != null) {
 				for (GameMaterial gameMaterial : materialsByItemType) {
 					materialTypes.add(gameMaterial.getI18nValue().toString());

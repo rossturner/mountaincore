@@ -22,7 +22,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.utils.HexColors;
-import technology.rocketjump.saul.settlement.FurnitureTracker;
+import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.ui.Scene2DUtils;
 import technology.rocketjump.saul.ui.Selectable;
@@ -46,7 +46,7 @@ public class SettlerManagementScreen extends ManagementScreen {
 	private int numSettlerTablesPerRow = 3;
 	private final MessageDispatcher messageDispatcher;
 	private final SettlerTracker settlerTracker;
-	private final FurnitureTracker furnitureTracker;
+	private final SettlementFurnitureTracker settlementFurnitureTracker;
 	private final EntityDrawableFactory entityDrawableFactory;
 	private final Table sortingOptionsTable;
 	private SettlerSorting selectedSortOption = SettlerSorting.BY_NAME;
@@ -64,13 +64,13 @@ public class SettlerManagementScreen extends ManagementScreen {
 								   I18nWidgetFactory i18nWidgetFactory,
 								   EntityDrawableFactory entityDrawableFactory, I18nTranslator i18nTranslator,
 								   ClickableTableFactory clickableTableFactory, IconButtonFactory iconButtonFactory,
-								   SoundAssetDictionary soundAssetDictionary, FurnitureTracker furnitureTracker) {
+								   SoundAssetDictionary soundAssetDictionary, SettlementFurnitureTracker settlementFurnitureTracker) {
 		super(userPreferences, messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
 		this.settlerTracker = settlerTracker;
 		this.messageDispatcher = messageDispatcher;
 		this.entityDrawableFactory = entityDrawableFactory;
 		this.clickableTableFactory = clickableTableFactory;
-		this.furnitureTracker = furnitureTracker;
+		this.settlementFurnitureTracker = settlementFurnitureTracker;
 
 		professionsTable = new Table(uiSkin);
 		settlerTable = new Table(uiSkin);
@@ -125,7 +125,7 @@ public class SettlerManagementScreen extends ManagementScreen {
 
 		int living = settlerTracker.getLiving().size();
 		int dead = settlerTracker.getDead().size();
-		int numBeds = furnitureTracker.findByTag(BedSleepingPositionTag.class, false).size();
+		int numBeds = settlementFurnitureTracker.findByTag(BedSleepingPositionTag.class, false).size();
 
 		containerTable.clearChildren();
 		containerTable.add(titleLabel).center().pad(5).row();

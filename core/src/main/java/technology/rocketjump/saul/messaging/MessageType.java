@@ -71,7 +71,7 @@ public class MessageType {
 	public static final int ENTITY_POSITION_CHANGED = 310;
 	public static final int PLANT_SEED_DISPERSED = 321;
 	public static final int REQUEST_PLANT_REMOVAL = 322;
-	public static final int DESTROY_ENTITY = 323;
+	public static final int ENTITY_FACTION_CHANGED = 323;
 	public static final int TREE_FELLED = 324;
 	public static final int ENTITY_ASSET_UPDATE_REQUIRED = 325;
 	public static final int ENTITY_CREATED = 326;
@@ -103,13 +103,15 @@ public class MessageType {
 
 	public static final int SETTLER_TANTRUM = 348;
 	public static final int LOCATE_SETTLERS_IN_REGION = 349;
+	public static final int DESTROY_ENTITY = 350;
+	public static final int DESTROY_ENTITY_AND_ALL_INVENTORY = 351;
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;
 
 	// Game clock and environment messages
-	public static final int DAY_ELAPSED = 500;
-	public static final int SEASON_ELAPSED = 501;
+	public static final int HOUR_ELAPSED = 500;
+	public static final int DAY_ELAPSED = 501;
 	public static final int YEAR_ELAPSED = 502;
 
 	// Job messages
@@ -144,8 +146,9 @@ public class MessageType {
 	public static final int REQUEST_HAULING_ALLOCATION = 703;
 	public static final int LOOKUP_ITEM_TYPE = 704;
 	public static final int LOOKUP_ITEM_TYPES_BY_TAG_CLASS = 705;
-	public static final int SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE = 706;
-	public static final int CANCEL_ITEM_ALLOCATION = 707;
+	public static final int LOOKUP_ITEM_TYPES_BY_STOCKPILE_GROUP = 706;
+	public static final int SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE = 707;
+	public static final int CANCEL_ITEM_ALLOCATION = 708;
 
 	// Furniture & doorway specific messages
 	public static final int CREATE_DOORWAY = 801;
@@ -172,6 +175,9 @@ public class MessageType {
 	public static final int DAMAGE_FURNITURE = 822;
 	public static final int GET_ROOMS_BY_COMPONENT = 823;
 	public static final int GET_FURNITURE_BY_TAG = 824;
+	public static final int LOOKUP_FURNITURE_TYPE = 825;
+	public static final int FURNITURE_ATTRIBUTES_CREATION_REQUEST = 826;
+	public static final int FURNITURE_CREATION_REQUEST = 827;
 
 	// Construction-specific messages
 	public static final int CANCEL_CONSTRUCTION = 900;
@@ -276,6 +282,9 @@ public class MessageType {
 	public static final int MILITARY_ASSIGNMENT_CHANGED = 2000;
 	public static final int MILITARY_SQUAD_SHIFT_CHANGED = 2001;
 	public static final int MILITARY_SQUAD_ORDERS_CHANGED = 2002;
+
+	// Invasion messages
+	public static final int TRIGGER_INVASION = 2100;
 
 	// Asset Editor messages
 	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;

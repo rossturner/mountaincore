@@ -682,7 +682,8 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		// Randomly add any missing material types
 		for (GameMaterialType requiredMaterialType : outputAttributes.getItemType().getMaterialTypes()) {
 			if (outputAttributes.getMaterial(requiredMaterialType) == null) {
-				List<GameMaterial> materialsToPickFrom = gameMaterialDictionary.getByType(requiredMaterialType);
+				List<GameMaterial> materialsToPickFrom = gameMaterialDictionary.getByType(requiredMaterialType).stream()
+						.filter(GameMaterial::isUseInRandomGeneration).toList();
 				GameMaterial material = materialsToPickFrom.get(gameContext.getRandom().nextInt(materialsToPickFrom.size()));
 				outputAttributes.setMaterial(material);
 			}
