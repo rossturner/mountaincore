@@ -2,6 +2,7 @@ package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -59,14 +60,32 @@ public class I18nTextWidget extends VerticalGroup {
 					style.fontColor = ERROR_COLOR;
 				}
 				Label label = new Label(i18nTextElement.getText(), style);
-//				if (i18nTextElement.getText().equals(" ")) {
-//					label.setWidth(100f);
-//				}
 				if (i18nTextElement.getTooltipI18nKey() != null) {
 					label.addListener(new TooltipListener(label, i18nTextElement.getTooltipI18nKey(), messageDispatcher));
 				}
 				label.setAlignment(alignment);
-				horizontalGroup.addActor(label);
+
+				if (i18nTextElement.getText().equals(" ")) {
+					int currentIndex = i18nText.getElements().indexOf(i18nTextElement);
+					if (currentIndex != i18nText.getElements().size() - 1 && currentIndex > 0) {
+						I18nTextElement previousElement = i18nText.getElements().get(currentIndex - 1);
+						I18nTextElement nextElement = i18nText.getElements().get(currentIndex + 1);
+
+
+						Label dummy1 = new Label(previousElement.getText() + " " + nextElement.getText(), style);
+						Label dummy2 = new Label(previousElement.getText(), style);
+						Label dummy3 = new Label(nextElement.getText(), style);
+						float widthOfSpaceBetweenChars = dummy1.getPrefWidth() - dummy2.getPrefWidth() - dummy3.getPrefWidth();
+
+						Actor fakeSpace = new Actor();
+						fakeSpace.setWidth(widthOfSpaceBetweenChars);
+						horizontalGroup.addActor(fakeSpace);
+					}
+
+				} else {
+					horizontalGroup.addActor(label);
+				}
+
 
 			}
 		}
