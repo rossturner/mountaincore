@@ -6,56 +6,63 @@ filter: Linear, Linear
 repeat: none
 asset_bg_banner
   rotate: false
-  xy: 1, 273
+  xy: 1, 1703
   size: 762, 2122
   orig: 762, 2122
   offset: 0, 0
   index: -1
+asset_bg_banner_pole
+  rotate: false
+  xy: 1, 3827
+  size: 3840, 124
+  orig: 3840, 124
+  offset: 0, 0
+  index: -1
 btn_banner_1
   rotate: false
-  xy: 765, 2323
+  xy: 765, 3753
   size: 329, 72
   orig: 329, 72
   offset: 0, 0
   index: -1
 btn_banner_2
   rotate: false
-  xy: 1, 107
+  xy: 1, 1537
   size: 329, 72
   orig: 329, 72
   offset: 0, 0
   index: -1
 btn_banner_3
   rotate: false
-  xy: 765, 2249
+  xy: 765, 3679
   size: 329, 72
   orig: 329, 72
   offset: 0, 0
   index: -1
 btn_banner_4
   rotate: false
-  xy: 1096, 2323
+  xy: 1096, 3753
   size: 329, 72
   orig: 329, 72
   offset: 0, 0
   index: -1
 btn_banner_hover_state
   rotate: false
-  xy: 1, 181
+  xy: 1, 1611
   size: 449, 90
   orig: 449, 90
   offset: 0, 0
   index: -1
 icon_discord
   rotate: false
-  xy: 452, 185
+  xy: 3843, 3865
   size: 110, 86
   orig: 110, 86
   offset: 0, 0
   index: -1
 icon_twitch
   rotate: false
-  xy: 1, 1
+  xy: 1, 1431
   size: 90, 104
   orig: 90, 104
   offset: 0, 0

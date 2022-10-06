@@ -64,5 +64,23 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		up: btn_banner_1
 		over: btn_banner_hover_state
 	}
+	btn_banner_2: {
+		parent: default
+		font: placeholder-header-font
+		up: btn_banner_2
+		over: btn_banner_hover_state
+	}
+	btn_banner_3: {
+		parent: default
+		font: placeholder-header-font
+		up: btn_banner_3
+		over: btn_banner_hover_state
+	}
+	btn_banner_4: {
+		parent: default
+		font: placeholder-header-font
+		up: btn_banner_4
+		over: btn_banner_hover_state
+	}
 }
 }
