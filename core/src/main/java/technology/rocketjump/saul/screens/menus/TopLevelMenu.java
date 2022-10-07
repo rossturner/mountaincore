@@ -65,14 +65,16 @@ public class TopLevelMenu implements Menu {
         Container<TextButton> discordButton = menuButtonFactory.createButton("MENU.JOIN_DISCORD", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_3)
                 .withHeaderFont(36)
                 .build();
-        discordButton.debugAll();
 
         Container<TextButton> twitchButton = menuButtonFactory.createButton("MENU.LINK_TWITCH_ACCOUNT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4)
                 .withHeaderFont(36)
                 .build();
 
-        discordButton.getActor().add(discordIconImage).size(50, 43).padRight(44f);
-//        twitchButton.getActor().add(twitchIconImage);
+        discordButton.getActor().add(discordIconImage).size(50, 43).padLeft(10f).padRight(44f);
+        discordButton.getActor().getLabel().setAlignment(Align.right);
+
+        twitchButton.getActor().add(twitchIconImage).size(45, 50).padLeft(10f).padRight(50f);
+        twitchButton.getActor().getLabel().setAlignment(Align.right);
 
         Table table = new Table();
         table.defaults().padBottom(44f);
@@ -80,7 +82,6 @@ public class TopLevelMenu implements Menu {
         table.add(discordButton).padLeft(36f);
         table.bottom().left();
 
-        table.debug();
         return table;
     }
 
