@@ -31,7 +31,7 @@ public class TopLevelMenu implements Menu {
 
         this.discordIconImage = new Image(menuSkin.getDrawable("icon_discord"), Scaling.fit);
         this.twitchIconImage = new Image(menuSkin.getDrawable("icon_twitch"), Scaling.fit);
-        this.bannerPoleImage = new Image(menuSkin.getDrawable("asset_bg_banner_pole"), Scaling.fit);
+        this.bannerPoleImage = new Image(menuSkin.getDrawable("asset_bg_banner_pole"), Scaling.fit); //TODO: Decide on what to do about the pole
 
         bannerPoleImage.setAlign(Align.top);
 
@@ -65,12 +65,13 @@ public class TopLevelMenu implements Menu {
         Container<TextButton> discordButton = menuButtonFactory.createButton("MENU.JOIN_DISCORD", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_3)
                 .withHeaderFont(36)
                 .build();
+        discordButton.debugAll();
 
         Container<TextButton> twitchButton = menuButtonFactory.createButton("MENU.LINK_TWITCH_ACCOUNT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4)
                 .withHeaderFont(36)
                 .build();
 
-//        discordButton.getActor().add(discordIconImage).size(32, 32);
+        discordButton.getActor().add(discordIconImage).size(50, 43).padRight(44f);
 //        twitchButton.getActor().add(twitchIconImage);
 
         Table table = new Table();
@@ -78,6 +79,8 @@ public class TopLevelMenu implements Menu {
         table.add(twitchButton).padLeft(41f);
         table.add(discordButton).padLeft(36f);
         table.bottom().left();
+
+        table.debug();
         return table;
     }
 
@@ -86,6 +89,7 @@ public class TopLevelMenu implements Menu {
 
         Container<TextButton> continueButton = menuButtonFactory.createButton("MENU.CONTINUE_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
                 .withHeaderFont(47)
+//                .withScaleUpOnHoverBy(0.2f)
                 .withAction(() -> {
                     //todo: thinking the gameStarted should be in a context somewhere, not in here?
 //                    if (gameStarted) {

@@ -2,6 +2,7 @@ package technology.rocketjump.saul.ui.fonts;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.google.inject.Inject;
@@ -72,6 +73,9 @@ public class FontRepository {
 		}
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.genMipMaps = true;
+		parameter.minFilter = Texture.TextureFilter.MipMapLinearLinear;
+		parameter.magFilter = Texture.TextureFilter.MipMapLinearLinear;
 		parameter.characters = i18nRepo.getAllCharacters(FreeTypeFontGenerator.DEFAULT_CHARS);
 
 		List<Integer> fontPointSizes = new java.util.ArrayList<>(pointSizes);
