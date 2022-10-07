@@ -9,6 +9,8 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -43,8 +45,8 @@ import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.MAIN_MENU_BACKGROUND_SCROLLING;
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.TWITCH_INTEGRATION_ENABLED;
 import static technology.rocketjump.saul.rendering.camera.GlobalSettings.VERSION;
 
@@ -70,10 +72,11 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 	private final Viewport viewport = new ExtendViewport(1920, 1080);
 
 	private Texture backgroundImage;
-	private boolean scrollBackgroundImage;
+    private float backgroundScale = 1f;
+	private GridPoint2 backgroundOffset = new GridPoint2();
+	private TextureRegion backgroundRegion;
+	private GridPoint2 backgroundRegionSize;
 
-	private float xCursor = 0f;
-	private float backgroundScale = 1f;
 
 	private final Stage stage;
 
@@ -110,8 +113,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		containerTable= new Table(uiSkin);
 		containerTable.setFillParent(true);
 		containerTable.center();
-
-		scrollBackgroundImage = Boolean.parseBoolean(userPreferences.getPreference(MAIN_MENU_BACKGROUND_SCROLLING, "false"));
 
 		stage = new Stage(viewport);
 		stage.addActor(containerTable);
@@ -152,7 +153,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		messageDispatcher.addListener(this, MessageType.SWITCH_MENU);
 		messageDispatcher.addListener(this, MessageType.GUI_SET_SCALE);
 		messageDispatcher.addListener(this, MessageType.GUI_SCALE_CHANGED);
-		messageDispatcher.addListener(this, MessageType.SET_MAIN_MENU_BACKGROUND_SCROLLING);
 		messageDispatcher.addListener(this, MessageType.TWITCH_ACCOUNT_INFO_UPDATED);
 		messageDispatcher.addListener(this, MessageType.PREFERENCE_CHANGED);
 		messageDispatcher.addListener(this, MessageType.SAVED_GAMES_LIST_UPDATED);
@@ -202,10 +202,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			}
 			case MessageType.GUI_SCALE_CHANGED: {
 				resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-				return true;
-			}
-			case MessageType.SET_MAIN_MENU_BACKGROUND_SCROLLING: {
-				this.scrollBackgroundImage = (Boolean) msg.extraInfo;
 				return true;
 			}
 			case MessageType.TWITCH_ACCOUNT_INFO_UPDATED: {
@@ -266,7 +262,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			backgroundImage = new Texture("assets/main_menu/Dwarf Realm.jpg");
 		}
 
-		xCursor = 0f;
+        setupBackgroundRegion();
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(stage);
@@ -274,6 +270,46 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	}
+
+    private void setupBackgroundRegion() {
+        backgroundScale = 1f;
+        determineBackgroundScale();
+        determineBackgroundOffset();
+		backgroundRegion = new TextureRegion(backgroundImage, backgroundOffset.x, backgroundOffset.y,
+				Math.round(Gdx.graphics.getWidth() * (1f / backgroundScale)), Math.round(Gdx.graphics.getHeight() * (1f / backgroundScale)));
+//		backgroundRegion = new TextureRegion(backgroundImage, 3500, 500,
+//				Math.round(Gdx.graphics.getWidth() * (1f / backgroundScale)), Math.round(Gdx.graphics.getHeight() * (1f / backgroundScale)));
+    }
+
+    private void determineBackgroundScale() {
+		if (backgroundImage.getWidth() < Gdx.graphics.getWidth() || backgroundImage.getHeight() < Gdx.graphics.getHeight()) {
+			backgroundScale = 2f;
+		} else {
+			while (canHalveBackgroundResolution()) {
+				backgroundScale *= 0.5f;
+			}
+		}
+		backgroundRegionSize = new GridPoint2(
+				Math.round(Gdx.graphics.getWidth() * (1f / backgroundScale)),
+				Math.round(Gdx.graphics.getHeight() * (1f / backgroundScale))
+		);
+	}
+
+	private void determineBackgroundOffset() {
+		GridPoint2 maxOffset = new GridPoint2(
+				backgroundImage.getWidth() - backgroundRegionSize.x,
+				backgroundImage.getHeight() - backgroundRegionSize.y
+		);
+		Random random = new RandomXS128();
+		this.backgroundOffset.set(
+            random.nextInt(maxOffset.x), random.nextInt(maxOffset.y)
+        );
+	}
+
+	private boolean canHalveBackgroundResolution() {
+		return (float)backgroundImage.getWidth() * backgroundScale > Gdx.graphics.getWidth() * 2f &&
+				(float)backgroundImage.getHeight() * backgroundScale > Gdx.graphics.getHeight() * 2f;
 	}
 
 	@Override
@@ -297,24 +333,10 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			}
 		}
 
-		float minXPosition = -((backgroundImage.getWidth() * backgroundScale) - Gdx.graphics.getWidth())/2f;
-
-		if (scrollBackgroundImage) {
-			xCursor -= (delta * PIXEL_SCROLL_PER_SECOND);
-			if (xCursor < minXPosition) {
-				xCursor = minXPosition;
-			}
-		}
-
-
-		float yPosition = calcYPosition();
-
 		// Show middle section of background from xCursor to xCursor + width
-		float width = xCursor + backgroundImage.getWidth();
-		float height = yPosition + backgroundImage.getHeight();
 		basicSpriteBatch.begin();
 		basicSpriteBatch.setProjectionMatrix(camera.combined);
-		basicSpriteBatch.draw(backgroundImage, xCursor, yPosition, width * backgroundScale, height * backgroundScale);
+		basicSpriteBatch.draw(backgroundRegion, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		basicSpriteBatch.end();
 
 		stage.draw();
@@ -336,18 +358,11 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 	public void resize(int width, int height) {
 		camera.setToOrtho(false, width, height);
 
-		backgroundScale = 1f;
-		while (calcYPosition() + (backgroundImage.getHeight() * backgroundScale) < Gdx.graphics.getHeight() + 200) {
-			backgroundScale += 0.2f;
-		}
+		setupBackgroundRegion();
 
 		viewport.update(width, height, true);
 
 		reset();
-	}
-
-	private float calcYPosition() {
-		return -Math.abs(backgroundImage.getHeight() - Gdx.graphics.getHeight())/4f - 100f;
 	}
 
 	@Override

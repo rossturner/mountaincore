@@ -22,20 +22,21 @@ import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.screens.ScreenManager;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.*;
+import technology.rocketjump.saul.ui.widgets.I18nCheckbox;
+import technology.rocketjump.saul.ui.widgets.I18nLabel;
+import technology.rocketjump.saul.ui.widgets.I18nTextButton;
+import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.CRASH_REPORTING;
-import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.MAIN_MENU_BACKGROUND_SCROLLING;
 
 @Singleton
 public class MiscOptionsTab implements OptionsTab, Telegraph, GameContextAware {
 
 	private final I18nLabel miscTitle;
 	private final I18nCheckbox crashReportingCheckbox;
-	private final I18nCheckbox mainMenuScrollingCheckbox;
 	private final CheckBox stressTestCheckbox;
 	private final I18nTranslator i18nTranslator;
 	private final Skin uiSkin;
@@ -44,7 +45,7 @@ public class MiscOptionsTab implements OptionsTab, Telegraph, GameContextAware {
 
 	@Inject
 	public MiscOptionsTab(UserPreferences userPreferences, GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-						  IconButtonFactory iconButtonFactory, I18nWidgetFactory i18NWidgetFactory, SoundAssetDictionary soundAssetDictionary,
+						  I18nWidgetFactory i18NWidgetFactory, SoundAssetDictionary soundAssetDictionary,
 						  I18nTranslator i18nTranslator) {
 		uiSkin = guiSkinRepository.getDefault();
 		final SoundAsset clickSoundAsset = soundAssetDictionary.getByName("MenuClick");
@@ -86,18 +87,6 @@ public class MiscOptionsTab implements OptionsTab, Telegraph, GameContextAware {
 			return true;
 		});
 
-		mainMenuScrollingCheckbox = i18NWidgetFactory.createCheckbox("GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING");
-		mainMenuScrollingCheckbox.setProgrammaticChangeEvents(false); // Used so that message triggered below does not loop endlessly
-		mainMenuScrollingCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(MAIN_MENU_BACKGROUND_SCROLLING, "false")));
-		mainMenuScrollingCheckbox.addListener((event) -> {
-			if (event instanceof ChangeListener.ChangeEvent) {
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
-				userPreferences.setPreference(MAIN_MENU_BACKGROUND_SCROLLING, String.valueOf(mainMenuScrollingCheckbox.isChecked()));
-				messageDispatcher.dispatchMessage(MessageType.SET_MAIN_MENU_BACKGROUND_SCROLLING, mainMenuScrollingCheckbox.isChecked());
-			}
-			return true;
-		});
-
 		messageDispatcher.addListener(this, MessageType.CRASH_REPORTING_OPT_IN_MODIFIED);
 	}
 
@@ -122,8 +111,6 @@ public class MiscOptionsTab implements OptionsTab, Telegraph, GameContextAware {
 
 		menuTable.add(new Container<>()); // pad out 1 cell
 		menuTable.add(crashReportingCheckbox).colspan(2).left().pad(10).row();
-		menuTable.add(new Container<>()); // pad out 1 cell
-		menuTable.add(mainMenuScrollingCheckbox).colspan(2).left().pad(10).row();
 
 		if (GlobalSettings.DEV_MODE) {
 			menuTable.add(new Container<>()); // pad out 1 cell
