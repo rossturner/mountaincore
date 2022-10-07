@@ -222,13 +222,13 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 				}
 			}
 			case MessageType.SAVED_GAMES_LIST_UPDATED: {
-//				topLevelMenu.savedGamesUpdated();
+				topLevelMenu.savedGamesUpdated();
 				loadGameMenu.savedGamesUpdated();
 				return true;
 			}
 			case MessageType.PERFORM_LOAD:
 			case MessageType.START_NEW_GAME: {
-//				topLevelMenu.gameStarted();
+				topLevelMenu.gameStarted();
 				return false;
 			}
 			default:

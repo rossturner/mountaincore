@@ -3,6 +3,8 @@ package technology.rocketjump.saul.screens.menus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
@@ -10,6 +12,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.GameSaveMessage;
+import technology.rocketjump.saul.persistence.PersistenceCallback;
+import technology.rocketjump.saul.persistence.SavedGameStore;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
 
@@ -22,12 +26,17 @@ public class TopLevelMenu implements Menu {
     private final Image discordIconImage;
     private final Image twitchIconImage;
     private final Image bannerPoleImage;
+    private final SavedGameStore savedGameStore;
+    private Container<TextButton> continueGameButton;
+    private Container<TextButton> loadGameButton;
+    private boolean gameStarted = false;
 
     @Inject
-    public TopLevelMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory, MessageDispatcher messageDispatcher) {
+    public TopLevelMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory, MessageDispatcher messageDispatcher, SavedGameStore savedGameStore) {
         this.menuSkin = skinRepository.getMenuSkin();
         this.menuButtonFactory = menuButtonFactory;
         this.messageDispatcher = messageDispatcher;
+        this.savedGameStore = savedGameStore;
 
         this.discordIconImage = new Image(menuSkin.getDrawable("icon_discord"), Scaling.fit);
         this.twitchIconImage = new Image(menuSkin.getDrawable("icon_twitch"), Scaling.fit);
@@ -54,11 +63,11 @@ public class TopLevelMenu implements Menu {
     @Override
     public void populate(Table containerTable) {
         containerTable.add(sceneStack).expand().fill();
+        savedGamesUpdated();
     }
 
     @Override
     public void reset() {
-
     }
 
     private Table buildSocialMediaLayer() {
@@ -90,18 +99,16 @@ public class TopLevelMenu implements Menu {
 
         Container<TextButton> continueButton = menuButtonFactory.createButton("MENU.CONTINUE_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
                 .withHeaderFont(47)
-//                .withScaleUpOnHoverBy(0.2f)
                 .withAction(() -> {
-                    //todo: thinking the gameStarted should be in a context somewhere, not in here?
-//                    if (gameStarted) {
-//                        messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
-//                    } else {
-//                        messageDispatcher.dispatchMessage(MessageType.TRIGGER_QUICKLOAD, (PersistenceCallback) wasSuccessful -> {
-//                            if (wasSuccessful) {
-//                                gameStarted = true;
-//                            }
-//                        });
-//                    }
+                    if (gameStarted) {
+                        messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+                    } else {
+                        messageDispatcher.dispatchMessage(MessageType.TRIGGER_QUICKLOAD, (PersistenceCallback) wasSuccessful -> {
+                            if (wasSuccessful) {
+                                gameStarted = true;
+                            }
+                        });
+                    }
                 })
                 .build();
 
@@ -167,6 +174,38 @@ public class TopLevelMenu implements Menu {
         positioningTable.padTop(16f).padRight(115f);
         positioningTable.add(buttonsTable).expandY().fillY().width(380);
 
+        this.continueGameButton = continueButton;
+        this.loadGameButton = loadGameButton;
+
+        disableButton(continueButton);
+        disableButton(loadGameButton);
+
         return positioningTable;
+    }
+
+    public void savedGamesUpdated() {
+        if (savedGameStore.hasSave()) {
+            enableButton(loadGameButton);
+        }
+        if (savedGameStore.hasSave() || gameStarted) {
+            enableButton(continueGameButton);
+        }
+    }
+
+    public void gameStarted() {
+        this.gameStarted = true;
+    }
+
+    private void disableButton(Container<TextButton> button) {
+        button.addAction(Actions.alpha(0.5f));
+        button.getActor().setDisabled(true);
+        button.getActor().setTouchable(Touchable.disabled);
+    }
+
+    private void enableButton(Container<TextButton> button) {
+        button.clearActions();
+        button.addAction(Actions.fadeIn(0.5f));
+        button.getActor().setDisabled(false);
+        button.getActor().setTouchable(Touchable.enabled);
     }
 }
