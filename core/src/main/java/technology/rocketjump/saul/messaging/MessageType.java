@@ -57,7 +57,6 @@ public class MessageType {
 	public static final int HINT_ACTION_TRIGGERED = 274;
 	public static final int REPLACE_JOB_PRIORITY = 275;
 	public static final int SHOW_SPECIFIC_CRAFTING = 278;
-	public static final int SET_MAIN_MENU_BACKGROUND_SCROLLING = 279;
 	public static final int PREFERENCE_CHANGED = 280;
 	public static final int GUI_CANCEL_CURRENT_VIEW_OR_GO_TO_MAIN_MENU = 281;
 	public static final int TOGGLE_DEBUG_VIEW = 282;
