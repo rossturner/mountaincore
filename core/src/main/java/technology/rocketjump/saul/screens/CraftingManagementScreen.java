@@ -29,7 +29,6 @@ import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
@@ -93,7 +92,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 	private final List<ToggleButtonSet.ToggleButtonDefinition> buttonDefinitions;
 
 	@Inject
-	public CraftingManagementScreen(UserPreferences userPreferences, MessageDispatcher messageDispatcher,
+	public CraftingManagementScreen(MessageDispatcher messageDispatcher,
 									GuiSkinRepository guiSkinRepository, I18nWidgetFactory i18nWidgetFactory,
 									I18nTranslator i18nTranslator, IconButtonFactory iconButtonFactory,
 									CraftingTypeDictionary craftingTypeDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
@@ -102,7 +101,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 									EntityRenderer entityRenderer, ProductionManager productionManager,
 									SettlerTracker settlerTracker, SettlementItemTracker settlementItemTracker, LiquidTracker liquidTracker,
 									TextureAtlasRepository textureAtlasRepository, GameMaterialDictionary gameMaterialDictionary) {
-		super(userPreferences, messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
+		super(messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
 		this.clickableTableFactory = clickableTableFactory;
 		this.exampleItemDictionary = exampleItemDictionary;
 		this.entityRenderer = entityRenderer;
@@ -179,34 +178,30 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 
 	@Override
 	public boolean handleMessage(Telegram msg) {
-		if (msg.message == MessageType.GUI_SCALE_CHANGED) {
-			return super.handleMessage(msg);
-		} else {
-			switch (msg.message) {
-				case MessageType.SHOW_SPECIFIC_CRAFTING: {
-					if (!initialised) {
-						initialise();
-					}
-					hiddenCrafringTypes.clear();
-					expandedCraftingTypes.clear();
-					expandedItemTypes.clear();
-					expandedLiquidMaterials.clear();
-					CraftingType craftingTypeToShow = (CraftingType) msg.extraInfo;
-					for (CraftingType type : craftingTypeDictionary.getAll()) {
-						if (type.equals(craftingTypeToShow)) {
-							expandedCraftingTypes.add(type);
-							expandedItemTypes.addAll(producedItemTypesByCraftingRecipe.get(type).keySet());
-							expandedLiquidMaterials.addAll(producedLiquidsByCraftingRecipe.get(type).keySet());
-						} else {
-							hiddenCrafringTypes.add(type);
-						}
-					}
-					reset();
-					return true;
+		switch (msg.message) {
+			case MessageType.SHOW_SPECIFIC_CRAFTING: {
+				if (!initialised) {
+					initialise();
 				}
-				default:
-					throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
+				hiddenCrafringTypes.clear();
+				expandedCraftingTypes.clear();
+				expandedItemTypes.clear();
+				expandedLiquidMaterials.clear();
+				CraftingType craftingTypeToShow = (CraftingType) msg.extraInfo;
+				for (CraftingType type : craftingTypeDictionary.getAll()) {
+					if (type.equals(craftingTypeToShow)) {
+						expandedCraftingTypes.add(type);
+						expandedItemTypes.addAll(producedItemTypesByCraftingRecipe.get(type).keySet());
+						expandedLiquidMaterials.addAll(producedLiquidsByCraftingRecipe.get(type).keySet());
+					} else {
+						hiddenCrafringTypes.add(type);
+					}
+				}
+				reset();
+				return true;
 			}
+			default:
+				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
 		}
 	}
 

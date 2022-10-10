@@ -3,7 +3,10 @@ package technology.rocketjump.saul.screens.menus.options;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
@@ -26,8 +29,8 @@ import java.util.Map;
 
 import static technology.rocketjump.saul.persistence.UserPreferences.FullscreenMode.BORDERLESS_FULLSCREEN;
 import static technology.rocketjump.saul.persistence.UserPreferences.FullscreenMode.WINDOWED;
-import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.*;
-import static technology.rocketjump.saul.rendering.camera.DisplaySettings.DEFAULT_UI_SCALE;
+import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.DISPLAY_FULLSCREEN;
+import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.FULLSCREEN_MODE;
 
 @Singleton
 public class GraphicsOptionsTab implements OptionsTab, I18nUpdatable {
@@ -40,8 +43,6 @@ public class GraphicsOptionsTab implements OptionsTab, I18nUpdatable {
 	private final SelectBox<Resolution> resolutionSelect;
 	private final I18nLabel fullscreenLabel;
 	private final SelectBox<String> fullscreenSelect;
-	private final Label uiScaleLabel;
-	private final Slider uiScaleSlider;
 	private final EventListener fullscreenSelectListener;
 	private boolean restartRequiredNotified;
 
@@ -55,7 +56,6 @@ public class GraphicsOptionsTab implements OptionsTab, I18nUpdatable {
 		Skin uiSkin = guiSkinRepository.getDefault();
 		graphicsTitle = i18NWidgetFactory.createLabel("GUI.OPTIONS.GRAPHICS.TITLE");
 
-		final SoundAsset sliderSoundAsset = soundAssetDictionary.getByName("Slider");
 		final SoundAsset clickSoundAsset = soundAssetDictionary.getByName("MenuClick");
 
 		fullscreenLabel = i18NWidgetFactory.createLabel("GUI.GRAPHICS.FULLSCREEN");
@@ -96,21 +96,6 @@ public class GraphicsOptionsTab implements OptionsTab, I18nUpdatable {
 			}
 		});
 
-		uiScaleLabel = i18NWidgetFactory.createLabel("GUI.UI_SCALE");
-		uiScaleSlider = new Slider(0.5f, 3, 0.25f, false, uiSkin);
-
-		String savedScale = userPreferences.getPreference(UI_SCALE, DEFAULT_UI_SCALE);
-		uiScaleSlider.setValue(Float.valueOf(savedScale));
-		uiScaleSlider.addListener((event) -> {
-			if (event instanceof ChangeListener.ChangeEvent) {
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(sliderSoundAsset));
-				Float scaleSliderValue = uiScaleSlider.getValue();
-				userPreferences.setPreference(UI_SCALE, String.valueOf(scaleSliderValue));
-				messageDispatcher.dispatchMessage(MessageType.GUI_SET_SCALE, scaleSliderValue);
-			}
-			return true;
-		});
-
 	}
 
 	@Override
@@ -123,10 +108,6 @@ public class GraphicsOptionsTab implements OptionsTab, I18nUpdatable {
 
 		menuTable.add(resolutionLabel).pad(10).right();
 		menuTable.add(resolutionSelect).pad(10).left();
-		menuTable.add(new Container<>()).row(); // pad out 1 cell
-
-		menuTable.add(uiScaleLabel).pad(10).right();
-		menuTable.add(uiScaleSlider).pad(10);
 		menuTable.add(new Container<>()).row(); // pad out 1 cell
 	}
 

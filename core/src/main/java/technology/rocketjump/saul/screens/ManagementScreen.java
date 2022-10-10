@@ -3,28 +3,24 @@ package technology.rocketjump.saul.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.ai.msg.Telegram;
-import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.*;
 
-import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.UI_SCALE;
-import static technology.rocketjump.saul.rendering.camera.DisplaySettings.DEFAULT_UI_SCALE;
+import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 
-public abstract class ManagementScreen implements GameScreen, Telegraph, GameContextAware {
+public abstract class ManagementScreen implements GameScreen, GameContextAware {
 
     protected final MessageDispatcher messageDispatcher;
     protected final I18nTranslator i18nTranslator;
@@ -35,10 +31,9 @@ public abstract class ManagementScreen implements GameScreen, Telegraph, GameCon
     protected final Skin uiSkin;
     protected final Stage stage;
     protected final I18nLabel titleLabel;
-    protected Float uiScale;
     protected GameContext gameContext;
 
-    public ManagementScreen(UserPreferences userPreferences, MessageDispatcher messageDispatcher,
+    public ManagementScreen(MessageDispatcher messageDispatcher,
                                    GuiSkinRepository guiSkinRepository, I18nWidgetFactory i18nWidgetFactory,
                                    I18nTranslator i18nTranslator, IconButtonFactory iconButtonFactory) {
         this.uiSkin = guiSkinRepository.getDefault();
@@ -50,9 +45,7 @@ public abstract class ManagementScreen implements GameScreen, Telegraph, GameCon
         containerTable.setFillParent(true);
         containerTable.center().top();
 
-        uiScale = Float.valueOf(userPreferences.getPreference(UI_SCALE, DEFAULT_UI_SCALE));
-        ScreenViewport viewport = new ScreenViewport();
-        viewport.setUnitsPerPixel(1 / Float.valueOf(uiScale));
+        ExtendViewport viewport = new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y);
         stage = new Stage(viewport);
         stage.addActor(containerTable);
 
@@ -63,8 +56,6 @@ public abstract class ManagementScreen implements GameScreen, Telegraph, GameCon
         stage.addActor(backButtonContainer);
 
         titleLabel = i18nWidgetFactory.createLabel(getTitleI18nKey());
-
-        messageDispatcher.addListener(this, MessageType.GUI_SCALE_CHANGED);
     }
 
     public abstract String getTitleI18nKey();
@@ -89,9 +80,6 @@ public abstract class ManagementScreen implements GameScreen, Telegraph, GameCon
     public void resize(int width, int height) {
         camera.setToOrtho(false, width, height);
 
-        ScreenViewport viewport = new ScreenViewport(new OrthographicCamera(width, height));
-        viewport.setUnitsPerPixel(1 / uiScale);
-        stage.setViewport(viewport);
         stage.getViewport().update(width, height, true);
 
         reset();
@@ -106,19 +94,6 @@ public abstract class ManagementScreen implements GameScreen, Telegraph, GameCon
         stage.act(delta);
 
         stage.draw();
-    }
-
-    @Override
-    public boolean handleMessage(Telegram msg) {
-        switch (msg.message) {
-            case MessageType.GUI_SCALE_CHANGED: {
-                this.uiScale = (Float) msg.extraInfo;
-                resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                return true;
-            }
-            default:
-                throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
-        }
     }
 
     @Override

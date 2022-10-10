@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Random;
 
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.TWITCH_INTEGRATION_ENABLED;
+import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 import static technology.rocketjump.saul.rendering.camera.GlobalSettings.VERSION;
 
 /**
@@ -69,7 +70,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 	private final Skin uiSkin;
 	private final SpriteBatch basicSpriteBatch = new SpriteBatch();
 	private final OrthographicCamera camera = new OrthographicCamera();
-	private final Viewport viewport = new ExtendViewport(1920, 1080);
+	private final Viewport viewport = new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y);
 
 	private Texture backgroundImage;
     private float backgroundScale = 1f;
@@ -85,8 +86,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 
 	private Menu currentMenu;
 
-	private float uiScaleChangeTimer;
-	private float uiScale;
 	private final UserPreferences userPreferences;
 	private final TwitchDataStore twitchDataStore;
 	private final I18nTranslator i18nTranslator;
@@ -106,7 +105,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		this.optionsMenu = optionsMenu;
 		this.modsMenu = modsMenu;
 		this.userPreferences = userPreferences;
-		this.uiScale = Float.parseFloat(userPreferences.getPreference(UserPreferences.PreferenceKey.UI_SCALE, "1"));
 		this.twitchDataStore = twitchDataStore;
 		this.i18nTranslator = i18nTranslator;
 
@@ -151,8 +149,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		currentMenu.show();
 
 		messageDispatcher.addListener(this, MessageType.SWITCH_MENU);
-		messageDispatcher.addListener(this, MessageType.GUI_SET_SCALE);
-		messageDispatcher.addListener(this, MessageType.GUI_SCALE_CHANGED);
 		messageDispatcher.addListener(this, MessageType.TWITCH_ACCOUNT_INFO_UPDATED);
 		messageDispatcher.addListener(this, MessageType.PREFERENCE_CHANGED);
 		messageDispatcher.addListener(this, MessageType.SAVED_GAMES_LIST_UPDATED);
@@ -193,15 +189,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 					currentMenu.show();
 					reset();
 				}
-				return true;
-			}
-			case MessageType.GUI_SET_SCALE: {
-				this.uiScaleChangeTimer = 1f;
-				this.uiScale = (Float)msg.extraInfo;
-				return true;
-			}
-			case MessageType.GUI_SCALE_CHANGED: {
-				resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 				return true;
 			}
 			case MessageType.TWITCH_ACCOUNT_INFO_UPDATED: {
@@ -320,18 +307,8 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 
 	@Override
 	public void render(float delta) {
-
 		camera.update();
 		stage.act(delta);
-
-
-		// Delay changing ui scale when dragging
-		if (uiScaleChangeTimer > 0) {
-			uiScaleChangeTimer -= delta;
-			if (uiScaleChangeTimer <= 0) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SCALE_CHANGED, uiScale);
-			}
-		}
 
 		// Show middle section of background from xCursor to xCursor + width
 		basicSpriteBatch.begin();

@@ -40,8 +40,6 @@ public class MessageType {
 	public static final int GUI_ROOM_TYPE_SELECTED = 256;
 	public static final int GUI_FURNITURE_TYPE_SELECTED = 257;
 	public static final int SET_GAME_SPEED = 258;
-	public static final int GUI_SET_SCALE = 259;
-	public static final int GUI_SCALE_CHANGED = 260;
 	public static final int GUI_CHANGE_MUSIC_VOLUME = 261;
 	public static final int GUI_CHANGE_SOUND_EFFECT_VOLUME = 262;
 	public static final int GUI_CHANGE_AMBIENT_EFFECT_VOLUME = 263;

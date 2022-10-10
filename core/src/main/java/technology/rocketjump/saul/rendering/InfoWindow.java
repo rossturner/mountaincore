@@ -1,6 +1,5 @@
 package technology.rocketjump.saul.rendering;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -19,8 +18,7 @@ import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.fonts.GameFont;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
-import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.UI_SCALE;
-import static technology.rocketjump.saul.rendering.camera.DisplaySettings.DEFAULT_UI_SCALE;
+import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 
 @Singleton
 public class InfoWindow implements Telegraph {
@@ -34,9 +32,7 @@ public class InfoWindow implements Telegraph {
 	@Inject
 	public InfoWindow(UserPreferences userPreferences, FontRepository fontRepository,
 					  MessageDispatcher messageDispatcher, I18nWidgetFactory i18NWidgetFactory) {
-		String savedScale = userPreferences.getPreference(UI_SCALE, DEFAULT_UI_SCALE);
-		ScreenViewport viewport = new ScreenViewport();
-		viewport.setUnitsPerPixel(1 / Float.valueOf(savedScale));
+		ExtendViewport viewport = new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y);
 		stage = new Stage(viewport);
 
 		Skin uiSkin = new Skin(new FileHandle("assets/ui/libgdx-default/uiskin.json")); // MODDING expose this or change uiskin.json
@@ -66,14 +62,6 @@ public class InfoWindow implements Telegraph {
 
 	public void onResize(int screenWidth, int screenHeight) {
 		stage.getViewport().update(screenWidth, screenHeight, true);
-	}
-
-	public void guiScaleChanged(Float scale) {
-		ScreenViewport viewport = new ScreenViewport();
-		viewport.setUnitsPerPixel(1 / scale);
-		stage.setViewport(viewport);
-		onResize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		stage.act();
 	}
 
 	@Override

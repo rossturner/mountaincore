@@ -6,10 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.StringBuilder;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.rendering.camera.DisplaySettings;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
 /**
@@ -31,7 +32,7 @@ public class ScreenWriter {
 
 	@Inject
 	public ScreenWriter(GuiSkinRepository guiSkinRepository) {
-		viewport = new ScreenViewport(); // Default viewport sets up the screen in window pixel size, 0, 0 bottom-left
+		viewport = new ExtendViewport(DisplaySettings.GUI_DESIGN_SIZE.x, DisplaySettings.GUI_DESIGN_SIZE.y);
 		stage = new Stage(viewport);
 
 		label = new Label("Default text", guiSkinRepository.getDefault());

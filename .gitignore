@@ -24,6 +24,7 @@ out/
 core/assets/temp
 core/assets/editor-state.json
 core/assets/ui/skin
+core/mods/base/ui/skin/skin-composer-project-data
 
 ## Release stuff
 
