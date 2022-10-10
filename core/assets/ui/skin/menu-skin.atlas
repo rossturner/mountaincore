@@ -4,6 +4,13 @@ size: 4096, 4096
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
+white-pixel
+  rotate: false
+  xy: 765, 3676
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
 asset_bg_banner
   rotate: false
   xy: 1, 1703
@@ -65,5 +72,21 @@ icon_twitch
   xy: 1, 1431
   size: 90, 104
   orig: 90, 104
+  offset: 0, 0
+  index: -1
+scroll_bg
+  rotate: false
+  xy: 332, 1581
+  size: 28, 28
+  split: 1, 1, 0, 0
+  orig: 28, 28
+  offset: 0, 0
+  index: -1
+scroll_fg
+  rotate: false
+  xy: 452, 1673
+  size: 28, 28
+  split: 1, 1, 0, 0
+  orig: 28, 28
   offset: 0, 0
   index: -1

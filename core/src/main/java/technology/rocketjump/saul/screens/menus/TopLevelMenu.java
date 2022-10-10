@@ -14,13 +14,17 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.GameSaveMessage;
 import technology.rocketjump.saul.persistence.PersistenceCallback;
 import technology.rocketjump.saul.persistence.SavedGameStore;
+import technology.rocketjump.saul.ui.i18n.LanguageType;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.CustomSelect;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
+import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
 @Singleton
 public class TopLevelMenu implements Menu {
     private final Skin menuSkin;
     private final MenuButtonFactory menuButtonFactory;
+    private final WidgetFactory widgetFactory;
     private final MessageDispatcher messageDispatcher;
     private final Stack sceneStack = new Stack();
     private final Image discordIconImage;
@@ -32,9 +36,10 @@ public class TopLevelMenu implements Menu {
     private boolean gameStarted = false;
 
     @Inject
-    public TopLevelMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory, MessageDispatcher messageDispatcher, SavedGameStore savedGameStore) {
+    public TopLevelMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory, WidgetFactory widgetFactory, MessageDispatcher messageDispatcher, SavedGameStore savedGameStore) {
         this.menuSkin = skinRepository.getMenuSkin();
         this.menuButtonFactory = menuButtonFactory;
+        this.widgetFactory = widgetFactory;
         this.messageDispatcher = messageDispatcher;
         this.savedGameStore = savedGameStore;
 
@@ -156,6 +161,7 @@ public class TopLevelMenu implements Menu {
                 })
                 .build();
 
+        CustomSelect<LanguageType> languageList = widgetFactory.createLanguageSelectBox(menuSkin);
 
 
         Table buttonsTable = new Table();
@@ -166,7 +172,8 @@ public class TopLevelMenu implements Menu {
         buttonsTable.add(optionsButton).padBottom(15f).width(277).row();
         buttonsTable.add(modsButton).padBottom(15f).width(277).row();
         buttonsTable.add(creditsButton).padBottom(15f).width(277).row();
-        buttonsTable.add(quitButton).padBottom(208f).width(277).row();
+        buttonsTable.add(quitButton).padBottom(15f).width(277).row();
+        buttonsTable.add(languageList).padBottom(208f).width(277).row();
         buttonsTable.bottom();
 
         Table positioningTable = new Table();
