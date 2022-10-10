@@ -72,8 +72,8 @@ public class ViewAreaInputHandler implements InputProcessor {
 	}
 
 	@Override
-	public boolean scrolled(int amount) {
-		camera.zoom += (amount * 0.05f);
+	public boolean scrolled(float amountX, float amountY) {
+		camera.zoom += (amountY * 0.05f);
 		camera.zoom = Math.max(0.1f, Math.min(1.2f, camera.zoom));
 		return true;
 	}

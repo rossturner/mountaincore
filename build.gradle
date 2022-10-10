@@ -27,7 +27,7 @@ allprojects {
     version = 'Early Access 1.0.4'
     ext {
         appName = 'saul'
-        gdxVersion = '1.9.10'
+        gdxVersion = '1.11.0'
         visUiVersion = '1.4.4'
         roboVMVersion = '1.0.0-SNAPSHOT'
         ashleyVersion = '1.3.1'
