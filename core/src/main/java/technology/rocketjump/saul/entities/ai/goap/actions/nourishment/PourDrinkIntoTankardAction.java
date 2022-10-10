@@ -10,7 +10,6 @@ import technology.rocketjump.saul.entities.ai.goap.actions.ItemTypeLookupCallbac
 import technology.rocketjump.saul.entities.components.LiquidAllocation;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -114,7 +113,7 @@ public class PourDrinkIntoTankardAction extends Action implements EntityCreatedC
 	}
 
 	private Entity createTankardContaining(float liquidAmount, GameMaterial liquidMaterial, GameContext gameContext) {
-		parent.messageDispatcher.dispatchMessage(MessageType.LOOKUP_ITEM_TYPE, new LookupMessage(EntityType.ITEM, TANKARD_ITEM_TYPE_NAME, this));
+		parent.messageDispatcher.dispatchMessage(MessageType.LOOKUP_ITEM_TYPE, new LookupItemTypeMessage(TANKARD_ITEM_TYPE_NAME, this));
 		if (itemTypeLookup.isEmpty()) {
 			Logger.error("Could not find item type with name " + TANKARD_ITEM_TYPE_NAME);
 			return null;

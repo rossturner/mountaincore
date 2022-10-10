@@ -43,7 +43,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.*;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
-import technology.rocketjump.saul.settlement.FurnitureTracker;
+import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 
 import java.util.*;
@@ -69,7 +69,7 @@ public class FireMessageHandler implements GameContextAware, Telegraph {
 	private final OngoingEffectAttributesFactory ongoingEffectAttributesFactory;
 	private final OngoingEffectEntityFactory ongoingEffectEntityFactory;
 	private final EntityStore entityStore;
-	private final FurnitureTracker furnitureTracker;
+	private final SettlementFurnitureTracker settlementFurnitureTracker;
 
 	private GameContext gameContext;
 	private GameMaterial boneMaterial;
@@ -78,7 +78,7 @@ public class FireMessageHandler implements GameContextAware, Telegraph {
 	public FireMessageHandler(MessageDispatcher messageDispatcher, FloorTypeDictionary floorTypeDictionary,
 							  GameMaterialDictionary gameMaterialDictionary, OngoingEffectAttributesFactory ongoingEffectAttributesFactory,
 							  OngoingEffectEntityFactory ongoingEffectEntityFactory, ItemTypeDictionary itemTypeDictionary,
-							  EntityStore entityStore, FurnitureTracker furnitureTracker) {
+							  EntityStore entityStore, SettlementFurnitureTracker settlementFurnitureTracker) {
 		this.messageDispatcher = messageDispatcher;
 		this.ashFloor = floorTypeDictionary.getByFloorTypeName("ash");
 		this.ashMaterial = gameMaterialDictionary.getByName("Ash");
@@ -87,7 +87,7 @@ public class FireMessageHandler implements GameContextAware, Telegraph {
 		this.ongoingEffectAttributesFactory = ongoingEffectAttributesFactory;
 		this.ongoingEffectEntityFactory = ongoingEffectEntityFactory;
 		this.entityStore = entityStore;
-		this.furnitureTracker = furnitureTracker;
+		this.settlementFurnitureTracker = settlementFurnitureTracker;
 
 
 		messageDispatcher.addListener(this, MessageType.SPREAD_FIRE_FROM_LOCATION);
@@ -291,7 +291,7 @@ public class FireMessageHandler implements GameContextAware, Telegraph {
 
 		switch (entity.getType()) {
 			case CREATURE:
-				messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(entity, DeathReason.BURNING));
+				messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(entity, DeathReason.BURNING, null));
 				if (entity.getBehaviourComponent() instanceof CorpseBehaviour) {
 					CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 					CorpseBehaviour corpseBehaviour = (CorpseBehaviour) entity.getBehaviourComponent();

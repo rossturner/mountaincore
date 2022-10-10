@@ -6,7 +6,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 public class TemporaryBlinded extends StatusEffect {
 
 	public TemporaryBlinded() {
-		super(null, 0.3, null);
+		super(null, 0.3, null, null);
 	}
 
 	@Override

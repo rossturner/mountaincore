@@ -9,7 +9,7 @@ import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismTyp
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismTypeDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.utils.HexColors;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.GameViewMode;
@@ -29,7 +29,7 @@ import static technology.rocketjump.saul.ui.GameInteractionMode.DESIGNATE_MECHAN
 @Singleton
 public class BuildMechanismsGuiView implements GuiView {
 
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final I18nTranslator i18nTranslator;
 	private final MessageDispatcher messageDispatcher;
 	private final GameInteractionStateContainer interactionStateContainer;
@@ -39,11 +39,11 @@ public class BuildMechanismsGuiView implements GuiView {
 
 	@Inject
 	public BuildMechanismsGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-								  IconButtonFactory iconButtonFactory, ItemTracker itemTracker,
+								  IconButtonFactory iconButtonFactory, SettlementItemTracker settlementItemTracker,
 								  I18nTranslator i18nTranslator, I18nWidgetFactory i18NWidgetFactory,
 								  GameInteractionStateContainer interactionStateContainer, MechanismTypeDictionary mechanismTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.i18nTranslator = i18nTranslator;
 		this.interactionStateContainer = interactionStateContainer;
 

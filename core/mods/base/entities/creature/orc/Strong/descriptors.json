@@ -44,6 +44,31 @@
           "x" : 4.5,
           "y" : 10.0
         }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 25.0,
+          "y" : 8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : 14.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 26.0,
+          "y" : 2.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -33.0,
+          "y" : 4.0
+        }
       } ]
     },
     "DOWN_RIGHT" : {
@@ -102,6 +127,30 @@
           "x" : 4.5,
           "y" : 8.0
         }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : 25.0,
+          "y" : 4.0
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -10.0,
+          "y" : 10.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "y" : -8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 32.0,
+          "y" : -4.0
+        }
       } ]
     },
     "DOWN" : {
@@ -150,6 +199,30 @@
         "type" : "CREATURE_TUSKS",
         "offsetPixels" : {
           "y" : 8.0
+        }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "y" : 4.0
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -20.0,
+          "y" : 12.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -24.0,
+          "y" : -8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 22.0,
+          "y" : -6.0
         }
       } ]
     },
@@ -208,6 +281,31 @@
           "x" : -4.5,
           "y" : 8.0
         }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 4.0
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : -18.0,
+          "y" : -13.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -26.0,
+          "y" : -8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 7.0,
+          "y" : -8.0
+        }
       } ]
     },
     "UP_LEFT" : {
@@ -248,6 +346,30 @@
           "x" : -4.5,
           "y" : 10.0
         }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "x" : -25.0,
+          "y" : 8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 14.0,
+          "y" : 14.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -10.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -32.0,
+          "y" : 4.0
+        }
       } ]
     },
     "UP" : {
@@ -280,6 +402,29 @@
         "type" : "CREATURE_TUSKS",
         "offsetPixels" : {
           "y" : 11.5
+        }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_FRONT_OF_BODY",
+        "offsetPixels" : {
+          "y" : 8.0
+        }
+      }, {
+        "type" : "ATTACHMENT_ON_RIGHT_SHOULDER",
+        "offsetPixels" : {
+          "x" : 20.0,
+          "y" : 16.0
+        }
+      }, {
+        "type" : "ATTACHMENT_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 24.0
+        }
+      }, {
+        "type" : "ATTACHMENT_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -28.0,
+          "y" : 4.0
         }
       } ]
     }

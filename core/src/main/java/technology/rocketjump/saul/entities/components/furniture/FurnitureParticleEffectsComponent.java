@@ -26,6 +26,7 @@ public class FurnitureParticleEffectsComponent implements ParentDependentEntityC
 	private Entity parentEntity;
 	private MessageDispatcher messageDispatcher;
 
+	private final List<ParticleEffectType> permanentParticleEffects = new ArrayList<>();
 	private final List<ParticleEffectType> particleEffectsWhenInUse = new ArrayList<>();
 	private final List<ParticleEffectType> particleEffectsWhenProcessing = new ArrayList<>();
 
@@ -34,6 +35,7 @@ public class FurnitureParticleEffectsComponent implements ParentDependentEntityC
 	@Override
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
 		FurnitureParticleEffectsComponent clone = new FurnitureParticleEffectsComponent();
+		clone.permanentParticleEffects.addAll(this.permanentParticleEffects);
 		clone.particleEffectsWhenInUse.addAll(this.particleEffectsWhenInUse);
 		clone.particleEffectsWhenProcessing.addAll(particleEffectsWhenProcessing);
 		return clone;
@@ -43,6 +45,10 @@ public class FurnitureParticleEffectsComponent implements ParentDependentEntityC
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		this.parentEntity = parentEntity;
 		this.messageDispatcher = messageDispatcher;
+	}
+
+	public List<ParticleEffectType> getPermanentParticleEffects() {
+		return permanentParticleEffects;
 	}
 
 	public List<ParticleEffectType> getParticleEffectsWhenInUse() {
@@ -56,7 +62,21 @@ public class FurnitureParticleEffectsComponent implements ParentDependentEntityC
 	public List<ParticleEffectInstance> getCurrentParticleInstances() {
 		return currentParticleInstances;
 	}
-	
+
+	public void triggerPermanentEffects() {
+		this.getCurrentParticleInstances().removeIf(p -> p == null || !p.isActive());
+		if (!this.getPermanentParticleEffects().isEmpty() && this.getCurrentParticleInstances().isEmpty()) {
+			Optional<Entity> optionalParent = Optional.of(parentEntity);
+
+			for (ParticleEffectType effectType : this.getPermanentParticleEffects()) {
+				messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(effectType,
+						optionalParent,
+						parentEntity == null ? Optional.empty() : Optional.of(new JobTarget(parentEntity)),
+						this.getCurrentParticleInstances()::add));
+			}
+		}
+	}
+
 	public void triggerProcessingEffects(Optional<JobTarget> effectTarget) {
 		this.getCurrentParticleInstances().removeIf(p -> p == null || !p.isActive());
 		if (!this.getParticleEffectsWhenProcessing().isEmpty() && this.getCurrentParticleInstances().isEmpty()) {
@@ -76,6 +96,13 @@ public class FurnitureParticleEffectsComponent implements ParentDependentEntityC
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
+		if (!permanentParticleEffects.isEmpty()) {
+			JSONArray permanentEffectsJson = new JSONArray();
+			for (ParticleEffectType particleEffectType : permanentParticleEffects) {
+				permanentEffectsJson.add(particleEffectType.getName());
+			}
+			asJson.put("permanentParticleEffects", permanentEffectsJson);
+		}
 
 		if (!particleEffectsWhenProcessing.isEmpty()) {
 			JSONArray particleEffectsJson = new JSONArray();
@@ -96,6 +123,17 @@ public class FurnitureParticleEffectsComponent implements ParentDependentEntityC
 
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
+		JSONArray permanentParticleEffectsJson = asJson.getJSONArray("permanentParticleEffects");
+		if (permanentParticleEffectsJson != null) {
+			for (int cursor = 0; cursor < permanentParticleEffectsJson.size(); cursor++) {
+				ParticleEffectType particleEffectType = relatedStores.particleEffectTypeDictionary.getByName(permanentParticleEffectsJson.getString(cursor));
+				if (particleEffectType == null) {
+					throw new InvalidSaveException("Could not find particleEffectType with name " + permanentParticleEffectsJson.getString(cursor));
+				} else {
+					permanentParticleEffects.add(particleEffectType);
+				}
+			}
+		}
 
 		JSONArray particleEffectsJson = asJson.getJSONArray("particleEffectsWhenProcessing");
 		if (particleEffectsJson != null) {

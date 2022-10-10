@@ -12,7 +12,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.PopulateSelectItemViewMessage;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -34,7 +34,7 @@ public class SelectItemGuiView implements GuiView {
 	private final I18nWidgetFactory i18nWidgetFactory;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final ItemTypeDictionary itemTypeDictionary;
 	private final ImageButtonFactory imageButtonFactory;
 	private final Table selectNoneTable;
@@ -53,8 +53,8 @@ public class SelectItemGuiView implements GuiView {
 	public SelectItemGuiView(I18nWidgetFactory i18nWidgetFactory,
 							 GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 							 GameInteractionStateContainer gameInteractionStateContainer, I18nTranslator i18nTranslator,
-							 ItemTracker itemTracker, ItemTypeDictionary itemTypeDictionary, ImageButtonFactory imageButtonFactory) {
-		this.itemTracker = itemTracker;
+							 SettlementItemTracker settlementItemTracker, ItemTypeDictionary itemTypeDictionary, ImageButtonFactory imageButtonFactory) {
+		this.settlementItemTracker = settlementItemTracker;
 		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;
 
@@ -116,7 +116,7 @@ public class SelectItemGuiView implements GuiView {
 		for (ItemType itemType : itemTypeDictionary.getAll()) {
 			if (includedItemType(itemType, message)) {
 				// Going to assume that equippable items are always not stackable
-				for (Entity itemEntity : itemTracker.getItemsByType(itemType, true)) {
+				for (Entity itemEntity : settlementItemTracker.getItemsByType(itemType, true)) {
 					itemsTable.add(buildItemButton(itemEntity, message.callback));
 					numAdded++;
 

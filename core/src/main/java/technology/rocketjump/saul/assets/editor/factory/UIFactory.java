@@ -1,7 +1,7 @@
 package technology.rocketjump.saul.assets.editor.factory;
 
 import com.kotcrab.vis.ui.widget.VisTable;
-import technology.rocketjump.saul.assets.editor.message.ShowCreateAssetDialogMessage;
+import technology.rocketjump.saul.assets.editor.model.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;

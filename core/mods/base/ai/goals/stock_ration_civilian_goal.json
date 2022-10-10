@@ -4,7 +4,7 @@
   "i18nDescription": "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
   "interruptedByLowNeeds": true,
   "interruptedByCombat": true,
-  "settlerCategories": ["CIVILIAN"],
+  "creatureCategories": ["CIVILIAN"],
   "selectors": [
     {
       "conditions": [

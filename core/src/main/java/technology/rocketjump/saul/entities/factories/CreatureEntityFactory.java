@@ -66,7 +66,9 @@ public class CreatureEntityFactory  {
 		entity.addComponent(new MemoryComponent());
 		entity.getOrCreateComponent(CombatStateComponent.class).init(entity, messageDispatcher, gameContext);
 		entity.getOrCreateComponent(StatusComponent.class).init(entity, messageDispatcher, gameContext);
-		entity.getOrCreateComponent(FactionComponent.class).setFaction(faction);
+		FactionComponent factionComponent = new FactionComponent(faction);
+		entity.addComponent(factionComponent);
+		factionComponent.init(entity, messageDispatcher, gameContext);
 
 		entityAssetUpdater.updateEntityAssets(entity);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, entity);

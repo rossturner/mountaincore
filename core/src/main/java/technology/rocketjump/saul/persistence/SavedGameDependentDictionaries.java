@@ -27,6 +27,7 @@ import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDict
 import technology.rocketjump.saul.entities.tags.TagDictionary;
 import technology.rocketjump.saul.environment.DailyWeatherTypeDictionary;
 import technology.rocketjump.saul.environment.WeatherTypeDictionary;
+import technology.rocketjump.saul.invasions.InvasionDefinitionDictionary;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
@@ -87,6 +88,7 @@ public class SavedGameDependentDictionaries {
 	public final OrganDefinitionDictionary organDefinitionDictionary;
 	public final RaceDictionary raceDictionary;
 	public final SquadFormationDictionary squadFormationDictionary;
+	public final InvasionDefinitionDictionary invasionDefinitionDictionary;
 
 	@Inject
 	public SavedGameDependentDictionaries(DynamicMaterialFactory dynamicMaterialFactory, GameMaterialDictionary gameMaterialDictionary,
@@ -107,7 +109,7 @@ public class SavedGameDependentDictionaries {
 										  OngoingEffectTypeDictionary ongoingEffectTypeDictionary,
 										  WeatherTypeDictionary weatherTypeDictionary, DailyWeatherTypeDictionary dailyWeatherTypeDictionary,
 										  MechanismTypeDictionary mechanismTypeDictionary, BodyStructureDictionary bodyStructureDictionary,
-										  OrganDefinitionDictionary organDefinitionDictionary, RaceDictionary raceDictionary, SquadFormationDictionary squadFormationDictionary) {
+										  OrganDefinitionDictionary organDefinitionDictionary, RaceDictionary raceDictionary, SquadFormationDictionary squadFormationDictionary, InvasionDefinitionDictionary invasionDefinitionDictionary) {
 		this.dynamicMaterialFactory = dynamicMaterialFactory;
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.craftingOutputQualityDictionary = craftingOutputQualityDictionary;
@@ -147,5 +149,6 @@ public class SavedGameDependentDictionaries {
 		this.organDefinitionDictionary = organDefinitionDictionary;
 		this.raceDictionary = raceDictionary;
 		this.squadFormationDictionary = squadFormationDictionary;
+		this.invasionDefinitionDictionary = invasionDefinitionDictionary;
 	}
 }

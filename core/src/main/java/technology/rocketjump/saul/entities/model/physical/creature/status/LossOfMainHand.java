@@ -9,7 +9,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 public class LossOfMainHand extends StatusEffect {
 
     public LossOfMainHand() {
-        super(null, null, null);
+        super(null, null, null, null);
     }
 
     @Override

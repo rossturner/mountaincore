@@ -10,7 +10,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 public class DyingOfHunger extends StatusEffect {
 
 	public DyingOfHunger() {
-		super(Death.class, 16.0, DeathReason.STARVATION);
+		super(Death.class, 16.0, DeathReason.STARVATION, null);
 	}
 
 	@Override

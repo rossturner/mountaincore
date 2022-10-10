@@ -102,7 +102,7 @@ public class EquippedItemComponent implements EntityComponent {
 		setContainerAndItemAllocations(itemToEquip, parentEntity, messageDispatcher);
 	}
 
-	public List<Entity> clearAllEquipment() {
+	public List<Entity> clearHeldEquipment() {
 		List<Entity> equipment = new ArrayList<>();
 		Entity handItem = clearMainHandItem();
 		if (handItem != null) {
@@ -111,10 +111,6 @@ public class EquippedItemComponent implements EntityComponent {
 		Entity offHandItem = clearOffHandItem();
 		if (offHandItem != null) {
 			equipment.add(offHandItem);
-		}
-		Entity clothing = clearEquippedClothing();
-		if (clothing != null) {
-			equipment.add(clothing);
 		}
 		return equipment;
 	}
@@ -188,7 +184,7 @@ public class EquippedItemComponent implements EntityComponent {
 		if (itemToEquip.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
 			itemAttributes.setItemPlacement(ItemPlacement.BEING_CARRIED);
 			itemToEquip.getLocationComponent().setOrientation(parentEntity.getLocationComponent().getOrientation());
-			messageDispatcher.dispatchMessage(null, MessageType.ENTITY_ASSET_UPDATE_REQUIRED, itemToEquip);
+			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, itemToEquip);
 
 			ItemAllocationComponent itemAllocationComponent = itemToEquip.getOrCreateComponent(ItemAllocationComponent.class);
 			if (itemAllocationComponent.getNumAllocated() == 0) {
@@ -207,6 +203,18 @@ public class EquippedItemComponent implements EntityComponent {
 		if (entity.getType().equals(EntityType.ITEM)) {
 			ItemAllocationComponent itemAllocationComponent = entity.getOrCreateComponent(ItemAllocationComponent.class);
 			itemAllocationComponent.cancelAll(EQUIPPED);
+		}
+	}
+
+	public void destroyAllEntities(MessageDispatcher messageDispatcher) {
+		if (mainHandItem != null) {
+			messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, mainHandItem);
+		}
+		if (offHandItem != null) {
+			messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, offHandItem);
+		}
+		if (equippedClothing != null) {
+			messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, equippedClothing);
 		}
 	}
 
@@ -289,5 +297,4 @@ public class EquippedItemComponent implements EntityComponent {
 			this.offHandEnabled = true;
 		}
 	}
-
 }

@@ -16,6 +16,8 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionar
 import technology.rocketjump.saul.environment.DailyWeatherTypeDictionary;
 import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.environment.WeatherTypeDictionary;
+import technology.rocketjump.saul.invasions.InvasionDefinitionDictionary;
+import technology.rocketjump.saul.invasions.model.InvasionDefinition;
 import technology.rocketjump.saul.mapping.model.MapEnvironment;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
@@ -26,6 +28,8 @@ import technology.rocketjump.saul.settlement.SettlementState;
 import technology.rocketjump.saul.settlement.production.ProductionQuota;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 import static technology.rocketjump.saul.environment.WeatherManager.selectDailyWeather;
 import static technology.rocketjump.saul.gamecontext.GameState.SELECT_SPAWN_LOCATION;
@@ -42,17 +46,19 @@ public class GameContextFactory {
 	private final JSONObject liquidProductionDefaultsJson;
 	private final SettlementConstants settlementConstants;
 	private final UserPreferences userPreferences;
+	private final InvasionDefinitionDictionary invasionDefinitionDictionary;
 	private Race settlerRace;
 
 	@Inject
 	public GameContextFactory(ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary gameMaterialDictionary,
 							  WeatherTypeDictionary weatherTypeDictionary, DailyWeatherTypeDictionary dailyWeatherTypeDictionary,
-							  ConstantsRepo constantsRepo, UserPreferences userPreferences, RaceDictionary raceDictionary) {
+							  ConstantsRepo constantsRepo, UserPreferences userPreferences, InvasionDefinitionDictionary invasionDefinitionDictionary, RaceDictionary raceDictionary) {
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.weatherTypeDictionary = weatherTypeDictionary;
 		this.dailyWeatherTypeDictionary = dailyWeatherTypeDictionary;
 		this.userPreferences = userPreferences;
+		this.invasionDefinitionDictionary = invasionDefinitionDictionary;
 		FileHandle itemProductionDefaultsFile = new FileHandle("assets/definitions/crafting/itemProductionDefaults.json");
 		itemProductionDefaultsJson = JSON.parseObject(itemProductionDefaultsFile.readString());
 		FileHandle liquidProductionDefaultsFile = new FileHandle("assets/definitions/crafting/liquidProductionDefaults.json");
@@ -78,7 +84,7 @@ public class GameContextFactory {
 		context.setRandom(new RandomXS128(worldSeed));
 		context.setGameClock(clock);
 		context.setMapEnvironment(new MapEnvironment());
-		initialise(context.getSettlementState());
+		initialise(context.getSettlementState(), context.getRandom());
 		initialise(context.getMapEnvironment(), context);
 		return context;
 	}
@@ -112,7 +118,7 @@ public class GameContextFactory {
 		mapEnvironment.setCurrentWeather(weatherTypeDictionary.getByName("Perfect"));
 	}
 
-	private void initialise(SettlementState settlementState) {
+	private void initialise(SettlementState settlementState, Random random) {
 		for (String itemTypeString : itemProductionDefaultsJson.keySet()) {
 			ItemType itemType = itemTypeDictionary.getByName(itemTypeString);
 			if (itemType != null) {
@@ -152,5 +158,16 @@ public class GameContextFactory {
 				Logger.error("Unrecognised material name from liquidProductionDefaults.json: " + liquidMaterialName);
 			}
 		}
+
+		initialise(settlementState.daysUntilNextInvasionCheck, random);
+	}
+
+	private void initialise(Map<InvasionDefinition, Integer> daysUntilNextInvasionCheck, Random random) {
+		for (InvasionDefinition invasionDefinition : invasionDefinitionDictionary.getAll()) {
+			int daysUntilFirstCheck = invasionDefinition.getMinDaysUntilFirstInvasion() +
+					random.nextInt(invasionDefinition.getInvasionHappensWithinDays());
+			daysUntilNextInvasionCheck.put(invasionDefinition, daysUntilFirstCheck);
+		}
+
 	}
 }

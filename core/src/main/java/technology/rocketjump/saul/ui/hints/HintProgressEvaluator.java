@@ -22,8 +22,8 @@ import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
 import technology.rocketjump.saul.rooms.components.FarmPlotComponent;
 import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
-import technology.rocketjump.saul.settlement.FurnitureTracker;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.ui.hints.model.HintProgress;
 import technology.rocketjump.saul.ui.hints.model.HintProgressDescriptor;
@@ -45,9 +45,9 @@ public class HintProgressEvaluator implements GameContextAware {
 	private final SkillDictionary skillDictionary;
 	private final SettlerTracker settlerTracker;
 	private final FurnitureTypeDictionary furnitureTypeDictionary;
-	private final FurnitureTracker furnitureTracker;
+	private final SettlementFurnitureTracker settlementFurnitureTracker;
 	private final ItemTypeDictionary itemTypeDictionary;
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 
 	private GameContext gameContext;
@@ -55,8 +55,8 @@ public class HintProgressEvaluator implements GameContextAware {
 	@Inject
 	public HintProgressEvaluator(I18nTranslator i18nTranslator, RoomTypeDictionary roomTypeDictionary, RoomStore roomStore,
 								 SkillDictionary skillDictionary, SettlerTracker settlerTracker,
-								 FurnitureTypeDictionary furnitureTypeDictionary, FurnitureTracker furnitureTracker,
-								 ItemTypeDictionary itemTypeDictionary, ItemTracker itemTracker,
+								 FurnitureTypeDictionary furnitureTypeDictionary, SettlementFurnitureTracker settlementFurnitureTracker,
+								 ItemTypeDictionary itemTypeDictionary, SettlementItemTracker settlementItemTracker,
 								 StockpileGroupDictionary stockpileGroupDictionary) {
 		this.i18nTranslator = i18nTranslator;
 		this.roomTypeDictionary = roomTypeDictionary;
@@ -64,9 +64,9 @@ public class HintProgressEvaluator implements GameContextAware {
 		this.skillDictionary = skillDictionary;
 		this.settlerTracker = settlerTracker;
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
-		this.furnitureTracker = furnitureTracker;
+		this.settlementFurnitureTracker = settlementFurnitureTracker;
 		this.itemTypeDictionary = itemTypeDictionary;
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 	}
 
@@ -153,7 +153,7 @@ public class HintProgressEvaluator implements GameContextAware {
 				if (requiredType == null) {
 					Logger.error("Could not find furniture by type " + descriptor.getTargetTypeName() + " when evaluating " + descriptor.toString());
 				} else {
-					quantity = furnitureTracker.findByFurnitureType(requiredType, false).size();
+					quantity = settlementFurnitureTracker.findByFurnitureType(requiredType, false).size();
 					targetDescription = i18nTranslator.getTranslatedString(requiredType.getI18nKey(), I18nWordClass.PLURAL);
 				}
 				break;
@@ -163,7 +163,7 @@ public class HintProgressEvaluator implements GameContextAware {
 				if (requiredType == null) {
 					Logger.error("Could not find item by type " + descriptor.getTargetTypeName() + " when evaluating " + descriptor.toString());
 				} else {
-					for (Entity entity : itemTracker.getItemsByType(requiredType, false)) {
+					for (Entity entity : settlementItemTracker.getItemsByType(requiredType, false)) {
 						ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 						quantity += attributes.getQuantity();
 					}

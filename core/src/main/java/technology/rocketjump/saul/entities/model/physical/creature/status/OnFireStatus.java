@@ -27,7 +27,7 @@ public class OnFireStatus extends StatusEffect {
 	private boolean initialised;
 
 	public OnFireStatus() {
-		super(Death.class, Double.MAX_VALUE, DeathReason.BURNING);
+		super(Death.class, Double.MAX_VALUE, DeathReason.BURNING, null);
 	}
 
 	@Override

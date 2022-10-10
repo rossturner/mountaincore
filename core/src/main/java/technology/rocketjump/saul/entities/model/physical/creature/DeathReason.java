@@ -14,6 +14,7 @@ public enum DeathReason {
 	SUFFOCATION,
 	GIVEN_UP_ON_LIFE,
 	EXTENSIVE_INJURIES,
+	KILLED_BY_ENTITY,
 	UNKNOWN;
 
 	public String getI18nKey() {

@@ -11,6 +11,7 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.Consciousness;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.DeathReason;
+import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPart;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamage;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyPartDamageLevel;
@@ -105,7 +106,7 @@ public class SleepOnFloorAction extends Action {
 				if (OPEN.equals(currentTile.getRoof().getState()) && gameContext.getMapEnvironment().getCurrentWeather().getChanceToFreezeToDeathFromSleeping() != null) {
 					float roll = gameContext.getRandom().nextFloat();
 					if (roll < gameContext.getMapEnvironment().getCurrentWeather().getChanceToFreezeToDeathFromSleeping()) {
-						parent.messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(parent.parentEntity, DeathReason.FROZEN));
+						parent.messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(parent.parentEntity, DeathReason.FROZEN, null));
 						completionType = FAILURE;
 						return;
 					}
@@ -149,9 +150,8 @@ public class SleepOnFloorAction extends Action {
 		entity.getLocationComponent().setLinearVelocity(Vector2.Zero);
 		entity.getBehaviourComponent().getSteeringComponent().destinationReached();
 
-		if (entity.isJobAssignable()) {
-			// Only job assignable rotate and face certain direction
-
+		Race race = ((CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getRace();
+		if (race.getBehaviour().getIsSapient()) {
 			// face in a direction and rotate as appropriate
 			showAsRotatedOnSide(entity, gameContext);
 		}
@@ -189,7 +189,7 @@ public class SleepOnFloorAction extends Action {
 		parent.parentEntity.getLocationComponent().setRotation(0);
 
 		attributes.setConsciousness(Consciousness.AWAKE);
-		if (parent.parentEntity.isJobAssignable()) {
+		if (parent.parentEntity.isSettler()) {
 			parent.messageDispatcher.dispatchMessage(MessageType.SETTLER_WOKE_UP);
 		}
 		parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, parent.parentEntity);

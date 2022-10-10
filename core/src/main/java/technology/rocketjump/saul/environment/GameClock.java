@@ -69,6 +69,9 @@ public class GameClock implements Persistable {
 		double elapsedHours = realTimeToGameHours(deltaRealtimeSeconds);
 		timeOfDay += elapsedHours;
 		currentGameTime += elapsedHours;
+		if (Math.floor(currentGameTime) > Math.floor(currentGameTime - elapsedHours)) {
+			messageDispatcher.dispatchMessage(MessageType.HOUR_ELAPSED);
+		}
 		if (timeOfDay > HOURS_IN_DAY) {
 			timeOfDay -= HOURS_IN_DAY;
 

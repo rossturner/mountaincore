@@ -17,7 +17,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.UserPreferences;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.hints.model.Hint;
 import technology.rocketjump.saul.ui.hints.model.HintAction;
 import technology.rocketjump.saul.ui.hints.model.HintTrigger;
@@ -37,19 +37,19 @@ public class HintMessageHandler implements Telegraph, Updatable {
 	private final HintGuiView hintGuiView;
 	private final UserPreferences userPreferences;
 	private final ItemTypeDictionary itemTypeDictionary;
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private GameContext gameContext;
 	private float timeSinceLastUpdate;
 
 	@Inject
 	public HintMessageHandler(MessageDispatcher messageDispatcher, HintDictionary hintDictionary,
-							  HintGuiView hintGuiView, UserPreferences userPreferences, ItemTypeDictionary itemTypeDictionary, ItemTracker itemTracker) {
+							  HintGuiView hintGuiView, UserPreferences userPreferences, ItemTypeDictionary itemTypeDictionary, SettlementItemTracker settlementItemTracker) {
 		this.messageDispatcher = messageDispatcher;
 		this.hintDictionary = hintDictionary;
 		this.hintGuiView = hintGuiView;
 		this.userPreferences = userPreferences;
 		this.itemTypeDictionary = itemTypeDictionary;
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 
 		messageDispatcher.addListener(this, MessageType.START_NEW_GAME);
 		messageDispatcher.addListener(this, MessageType.GUI_SWITCH_VIEW);
@@ -80,7 +80,7 @@ public class HintMessageHandler implements Telegraph, Updatable {
 						if (itemType == null) {
 							Logger.error("Unrecognised item type " + trigger.getRelatedTypeName() + " for hint " + hint.getHintId());
 						} else {
-							Integer totalQuantity = itemTracker.getItemsByType(itemType, false).stream()
+							Integer totalQuantity = settlementItemTracker.getItemsByType(itemType, false).stream()
 									.map(entity -> ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getQuantity())
 									.reduce(0, Integer::sum);
 							if (trigger.getQuantity() == totalQuantity && canBeShown(hint)) {

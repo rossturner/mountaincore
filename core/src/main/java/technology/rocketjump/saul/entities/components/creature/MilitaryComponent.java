@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import org.apache.commons.lang3.NotImplementedException;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
-import technology.rocketjump.saul.entities.components.EntityComponent;
-import technology.rocketjump.saul.entities.components.InfrequentlyUpdatableComponent;
-import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
+import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -23,6 +20,8 @@ import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static technology.rocketjump.saul.entities.components.Faction.HOSTILE_INVASION;
 
 public class MilitaryComponent implements InfrequentlyUpdatableComponent, Destructible {
 
@@ -84,12 +83,10 @@ public class MilitaryComponent implements InfrequentlyUpdatableComponent, Destru
 
 	public void setAssignedWeaponId(Long assignedWeaponId) {
 		this.assignedWeaponId = assignedWeaponId;
-		infrequentUpdate(0.0);
 	}
 
 	public void setAssignedShieldId(Long assignedShieldId) {
 		this.assignedShieldId = assignedShieldId;
-		infrequentUpdate(0.0);
 	}
 
 	public void setAssignedArmorId(Long assignedArmorId) {
@@ -97,7 +94,6 @@ public class MilitaryComponent implements InfrequentlyUpdatableComponent, Destru
 			unequipArmor();
 		}
 		this.assignedArmorId = assignedArmorId;
-		infrequentUpdate(0.0);
 	}
 
 	@Override
@@ -185,7 +181,7 @@ public class MilitaryComponent implements InfrequentlyUpdatableComponent, Destru
 	}
 
 	public boolean isInMilitary() {
-		return squadId != null;
+		return squadId != null || parentEntity.getOrCreateComponent(FactionComponent.class).getFaction().equals(HOSTILE_INVASION);
 	}
 
 	public List<Long> getItemIdsToHoldOnto() {

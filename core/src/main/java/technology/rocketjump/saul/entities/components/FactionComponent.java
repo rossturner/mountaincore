@@ -2,15 +2,35 @@ package technology.rocketjump.saul.entities.components;
 
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.FactionChangedMessage;
 import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-public class FactionComponent implements EntityComponent {
+public class FactionComponent implements ParentDependentEntityComponent {
 
 	private Faction faction = Faction.SETTLEMENT;
+	private transient Entity parentEntity;
+	private transient MessageDispatcher messageDispatcher;
+
+	public FactionComponent() {
+
+	}
+
+	public FactionComponent(Faction startingFaction) {
+		this.faction = startingFaction;
+	}
+
+	@Override
+	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+		this.parentEntity = parentEntity;
+		this.messageDispatcher = messageDispatcher;
+	}
 
 	@Override
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -24,7 +44,14 @@ public class FactionComponent implements EntityComponent {
 	}
 
 	public void setFaction(Faction faction) {
-		this.faction = faction;
+		if (this.faction != faction) {
+			if (this.parentEntity == null || this.messageDispatcher == null) {
+				Logger.error("Setting faction in " + getClass().getSimpleName() + " without having been initialised");
+			} else {
+				messageDispatcher.dispatchMessage(MessageType.ENTITY_FACTION_CHANGED, new FactionChangedMessage(parentEntity, this.faction, faction));
+			}
+			this.faction = faction;
+		}
 	}
 
 	@Override
