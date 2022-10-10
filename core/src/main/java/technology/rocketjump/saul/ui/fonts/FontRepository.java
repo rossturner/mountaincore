@@ -61,6 +61,9 @@ public class FontRepository {
 		}
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.genMipMaps = true;
+		parameter.minFilter = Texture.TextureFilter.MipMapLinearLinear;
+		parameter.magFilter = Texture.TextureFilter.MipMapLinearLinear;
 		parameter.characters = i18nRepo.getAllCharacters(FreeTypeFontGenerator.DEFAULT_CHARS);
 		return new GameFont(generator.generateFont(parameter), 16);
 	}
