@@ -38,6 +38,7 @@ import static technology.rocketjump.saul.entities.tags.ItemAssignmentTag.ItemAss
  * Attach to an item for automatic inventory allocation
  */
 public class ItemAssignmentTag extends Tag {
+
     @Override
     public String getTagName() {
         return "ITEM_ASSIGNMENT";

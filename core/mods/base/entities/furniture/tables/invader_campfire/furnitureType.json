@@ -1,0 +1,17 @@
+{
+  "name" : "INVADER_CAMPFIRE",
+  "i18nKey" : "FURNITURE.INVADER_CAMPFIRE",
+  "defaultLayoutName" : "1x1",
+  "colorCode" : "#F0B70E",
+  "iconName" : "flame",
+  "placeAnywhere" : true,
+  "autoConstructed" : true,
+  "requirements" : {
+    "WOOD" : [ ]
+  },
+  "tags": {
+    "FURNITURE_BEHAVIOUR": ["UPDATE_EVERY_FRAME"],
+    "PERMANENT_PARTICLE_EFFECTS":  ["Smoking (small offset)", "Fire"]
+  },
+  "hiddenFromPlacementMenu" : false
+}

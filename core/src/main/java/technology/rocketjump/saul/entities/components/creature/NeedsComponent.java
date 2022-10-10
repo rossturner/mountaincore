@@ -73,7 +73,7 @@ public class NeedsComponent implements EntityComponent {
 			}
 
 			if (getValue(SLEEP) <= 0) {
-				messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parentEntity, Exhausted.class, null));
+				messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parentEntity, Exhausted.class, null, null));
 			}
 		}
 
@@ -81,7 +81,7 @@ public class NeedsComponent implements EntityComponent {
 			updateNeed(elapsedGameHours, FOOD, HOURS_TO_STARVING_FROM_FULL);
 
 			if (getValue(FOOD) <= 0) {
-				messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parentEntity, VeryHungry.class, null));
+				messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parentEntity, VeryHungry.class, null, null));
 			}
 		}
 
@@ -89,7 +89,7 @@ public class NeedsComponent implements EntityComponent {
 			updateNeed(elapsedGameHours, EntityNeed.DRINK, HOURS_TO_DEHYDRATED_FROM_QUENCHED);
 
 			if (getValue(DRINK) <= 0) {
-				messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parentEntity, VeryThirsty.class, null));
+				messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parentEntity, VeryThirsty.class, null, null));
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 {
-  "name": "Old Norse",
-  "firstName": "given_names",
+  "descriptorName": "Old Norse",
+  "firstName": "norse_given_names",
   "surname": "patronym"
 }

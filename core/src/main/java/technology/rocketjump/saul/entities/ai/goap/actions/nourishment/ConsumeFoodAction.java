@@ -71,7 +71,7 @@ public class ConsumeFoodAction extends Action {
 			GameMaterial primaryMaterial = itemEntityAttributes.getMaterial(itemEntityAttributes.getItemType().getPrimaryMaterialType());
 			// FIXME Investigate how primary material is sometimes null. Perhaps generated materials?
 			if (primaryMaterial != null && primaryMaterial.isPoisonous()) {
-				parent.messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parent.parentEntity, Poisoned.class, null));
+				parent.messageDispatcher.dispatchMessage(MessageType.APPLY_STATUS, new StatusMessage(parent.parentEntity, Poisoned.class, null, null));
 			}
 
 			NeedsComponent needsComponent = parent.parentEntity.getComponent(NeedsComponent.class);

@@ -7,9 +7,11 @@ public class CreatureDeathMessage {
 
 	public final Entity deceased;
 	public final DeathReason reason;
+	public final Entity killer;
 
-	public CreatureDeathMessage(Entity deceased, DeathReason reason) {
+	public CreatureDeathMessage(Entity deceased, DeathReason reason, Entity killer) {
 		this.deceased = deceased;
+		this.killer = killer;
 		if (reason == null) {
 			this.reason = DeathReason.UNKNOWN;
 		} else {

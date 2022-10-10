@@ -26,12 +26,10 @@ import technology.rocketjump.saul.mapping.tile.wall.Wall;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
-import static technology.rocketjump.saul.rooms.constructions.ConstructionMessageHandler.otherColorsToCopy;
+import static technology.rocketjump.saul.entities.FurnitureEntityMessageHandler.otherColorsToCopy;
 
 @Singleton
 public class ItemEntityAttributesFactory {
@@ -138,7 +136,7 @@ public class ItemEntityAttributesFactory {
 	}
 
 	public ItemEntityAttributes createItemAttributes(ItemType itemTypeToCreate, int quantityToCreate, GameMaterial... materials) {
-		return createItemAttributes(itemTypeToCreate, quantityToCreate, List.of(materials));
+		return createItemAttributes(itemTypeToCreate, quantityToCreate, Stream.of(materials).filter(Objects::nonNull).toList());
 	}
 
 	public ItemEntityAttributes createItemAttributes(ItemType itemTypeToCreate, int quantityToCreate, List<GameMaterial> materials) {

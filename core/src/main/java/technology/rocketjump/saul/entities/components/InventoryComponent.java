@@ -251,6 +251,7 @@ public class InventoryComponent implements EntityComponent, Destructible {
 		entityToAdd.getLocationComponent().setWorldPosition(null, false);
 		entityToAdd.getLocationComponent().setContainerEntity(parentEntity);
 		entityToAdd.getLocationComponent().setOrientation(EntityAssetOrientation.DOWN);
+		entityToAdd.getOrCreateComponent(FactionComponent.class).setFaction(parentEntity.getOrCreateComponent(FactionComponent.class).getFaction());
 		InventoryEntry entry = new InventoryEntry(entityToAdd, gameClock, preferredPosition);
 		inventoryEntries.put(entityToAdd.getId(), entry);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entityToAdd);

@@ -39,12 +39,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import static technology.rocketjump.saul.cooking.model.FoodAllocation.FoodAllocationType.REQUESTER_INVENTORY;
+import static technology.rocketjump.saul.entities.FurnitureEntityMessageHandler.otherColorsToCopy;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
 import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.CARRIED_DEAD_BODY;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FURNITURE;
-import static technology.rocketjump.saul.rooms.constructions.ConstructionMessageHandler.otherColorsToCopy;
 
 public class PickUpEntityAction extends Action implements EntityCreatedCallback {
 	public PickUpEntityAction(AssignedGoal parent) {
@@ -263,6 +263,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			Entity pickedUpItem = entityToPickUp.clone(parent.messageDispatcher, gameContext);
 			pickedUpItem.getLocationComponent().clearWorldPosition();
 			pickedUpItem.getOrCreateComponent(ItemAllocationComponent.class).cancelAll();
+			pickedUpItem.getComponent(FactionComponent.class).setFaction(parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction());
 
 			ItemEntityAttributes cloneAttributes = (ItemEntityAttributes) pickedUpItem.getPhysicalEntityComponent().getAttributes();
 			cloneAttributes.setQuantity(quantityToPick);

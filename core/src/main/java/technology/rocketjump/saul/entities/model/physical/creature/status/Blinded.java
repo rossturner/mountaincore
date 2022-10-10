@@ -7,7 +7,7 @@ public class Blinded extends StatusEffect {
 
 	// Lasts permanently
 	public Blinded() {
-		super(null, null, null);
+		super(null, null, null, null);
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package technology.rocketjump.saul.entities.ai.goap;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import technology.rocketjump.saul.entities.ai.goap.condition.GoalSelectionCondition;
 
 import java.util.List;
 

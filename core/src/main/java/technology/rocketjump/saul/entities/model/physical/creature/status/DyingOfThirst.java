@@ -10,7 +10,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 public class DyingOfThirst extends StatusEffect {
 
 	public DyingOfThirst() {
-		super(Death.class, 12.0, DeathReason.DEHYDRATION);
+		super(Death.class, 12.0, DeathReason.DEHYDRATION, null);
 	}
 
 	@Override

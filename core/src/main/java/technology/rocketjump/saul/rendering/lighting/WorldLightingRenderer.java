@@ -83,6 +83,7 @@ public class WorldLightingRenderer implements GameContextAware, AssetDisposable 
 		int maxY = getMaxY(camera, tiledMap);
 
 		Color sunlightColor = sunlightCalculator.getSunlightColor(gameContext.getGameClock().getGameTimeInHours());
+		mapEnvironment.setSunlightColor(sunlightColor);
 		sunlightColor.r = Math.min(sunlightColor.r, gameContext.getMapEnvironment().getWeatherColor().r);
 		sunlightColor.g = Math.min(sunlightColor.g, gameContext.getMapEnvironment().getWeatherColor().g);
 		sunlightColor.b = Math.min(sunlightColor.b, gameContext.getMapEnvironment().getWeatherColor().b);

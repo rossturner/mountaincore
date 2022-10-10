@@ -1,9 +1,10 @@
 package technology.rocketjump.saul.entities.factories;
 
+import com.google.inject.Guice;
 import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import technology.rocketjump.saul.entities.factories.names.NorseNameGenerator;
+import technology.rocketjump.saul.entities.factories.names.SettlementNameGenerator;
 
 import java.io.IOException;
 
@@ -14,12 +15,12 @@ public class SettlementNameGeneratorTest {
 
 	@Before
 	public void setup() throws IOException {
-		settlementNameGenerator = new SettlementNameGenerator("../core/assets/text/settlement/descriptor.json", new NorseNameGenerator());
+		settlementNameGenerator = Guice.createInjector().getInstance(SettlementNameGenerator.class);
 	}
 
 	@Test
 	public void simpleTest() {
-		Assertions.assertThat(settlementNameGenerator.create(1L)).isEqualTo("Wildstream");
+		Assertions.assertThat(settlementNameGenerator.create(1L)).isEqualTo("Vulgarden");
 
 //		Random random = new RandomXS128();
 //		for (int i = 0; i < 100; i++) {

@@ -14,7 +14,7 @@ import com.google.inject.Singleton;
 import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
-import technology.rocketjump.saul.entities.factories.SettlementNameGenerator;
+import technology.rocketjump.saul.entities.factories.names.SettlementNameGenerator;
 import technology.rocketjump.saul.messaging.InfoType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;

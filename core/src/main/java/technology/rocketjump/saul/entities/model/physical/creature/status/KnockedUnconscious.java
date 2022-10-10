@@ -13,7 +13,7 @@ public class KnockedUnconscious extends StatusEffect {
 
 
 	public KnockedUnconscious() {
-		super(null, 1.0, null);
+		super(null, 1.0, null, null);
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class VeryHungry extends StatusEffect {
 	 * Note that this will get re-added to a humanoid when DyingOfHunger kicks in, but the happiness modifier will only apply for DyingOfHunger
 	 */
 	public VeryHungry() {
-		super(DyingOfHunger.class, 16.0, DeathReason.STARVATION);
+		super(DyingOfHunger.class, 16.0, DeathReason.STARVATION, null);
 	}
 
 	@Override

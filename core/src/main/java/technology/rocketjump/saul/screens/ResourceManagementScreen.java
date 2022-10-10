@@ -18,7 +18,7 @@ import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
-import technology.rocketjump.saul.settlement.ItemTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.Scene2DUtils;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.i18n.I18nText;
@@ -36,7 +36,7 @@ import java.util.*;
 public class ResourceManagementScreen extends ManagementScreen {
 
 	private static final float INDENT_WIDTH = 50f;
-	private final ItemTracker itemTracker;
+	private final SettlementItemTracker settlementItemTracker;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 	private final ClickableTableFactory clickableTableFactory;
 
@@ -52,10 +52,10 @@ public class ResourceManagementScreen extends ManagementScreen {
 	public ResourceManagementScreen(UserPreferences userPreferences, MessageDispatcher messageDispatcher,
 									GuiSkinRepository guiSkinRepository, I18nWidgetFactory i18nWidgetFactory,
 									I18nTranslator i18nTranslator, IconButtonFactory iconButtonFactory,
-									ItemTracker itemTracker, ClickableTableFactory clickableTableFactory,
+									SettlementItemTracker settlementItemTracker, ClickableTableFactory clickableTableFactory,
 									EntityRenderer entityRenderer, StockpileGroupDictionary stockpileGroupDictionary) {
 		super(userPreferences, messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
-		this.itemTracker = itemTracker;
+		this.settlementItemTracker = settlementItemTracker;
 		this.clickableTableFactory = clickableTableFactory;
 		this.entityRenderer = entityRenderer;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
@@ -75,7 +75,7 @@ public class ResourceManagementScreen extends ManagementScreen {
 		scrollableTable.clearChildren();
 
 		Map<StockpileGroup, Map<ItemType, Map<GameMaterial, Map<Long, Entity>>>> itemsByGroupByType = new LinkedHashMap<>();
-		Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> allByItemType = itemTracker.getAllByItemType();
+		Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> allByItemType = settlementItemTracker.getAllByItemType();
 		for (Map.Entry<ItemType, Map<GameMaterial, Map<Long, Entity>>> itemTypeMapEntry : allByItemType.entrySet()) {
 			if (itemTypeMapEntry.getKey().getStockpileGroup() != null) {
 				itemsByGroupByType.computeIfAbsent(itemTypeMapEntry.getKey().getStockpileGroup(), a -> new LinkedHashMap<>())

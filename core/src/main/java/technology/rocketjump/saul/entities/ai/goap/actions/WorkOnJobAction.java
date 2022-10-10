@@ -24,6 +24,7 @@ import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
@@ -189,8 +190,10 @@ public class WorkOnJobAction extends Action {
 			itemUsageSoundTag = equippedItemComponent.getMainHandItem().getTag(ItemUsageSoundTag.class);
 		}
 
-		if (itemUsageSoundTag != null && itemUsageSoundTag.getSoundAsset() != null) {
-			return itemUsageSoundTag.getSoundAsset();
+		if (itemUsageSoundTag != null && itemUsageSoundTag.getSoundAssetName() != null) {
+			AtomicReference<SoundAsset> assetHolder = new AtomicReference<>();
+			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND_ASSET, new RequestSoundAssetMessage(itemUsageSoundTag.getSoundAssetName(), assetHolder::set));
+			return assetHolder.get();
 		} else if (assignedJob.getCookingRecipe() != null && assignedJob.getCookingRecipe().getActiveSoundAsset() != null) {
 			return assignedJob.getCookingRecipe().getActiveSoundAsset();
 		} else if (assignedJob.getType().getActiveSoundAsset() != null) {

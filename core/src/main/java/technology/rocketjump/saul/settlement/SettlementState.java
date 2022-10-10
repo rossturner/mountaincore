@@ -10,6 +10,7 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameState;
+import technology.rocketjump.saul.invasions.model.InvasionDefinition;
 import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.mapping.model.ImpendingMiningCollapse;
 import technology.rocketjump.saul.mapping.tile.MapTile;
@@ -56,6 +57,7 @@ public class SettlementState implements Persistable {
 	public final Map<String, Boolean> previousHints = new HashMap<>();
 	public final List<String> currentHints = new ArrayList<>();
 	public final Set<TwitchViewer> usedTwitchViewers = new HashSet<>();
+	public final Map<InvasionDefinition, Integer> daysUntilNextInvasionCheck = new HashMap<>();
 
 	private int immigrantsDue;
 	private int immigrantCounter;
@@ -65,6 +67,9 @@ public class SettlementState implements Persistable {
 	private float currentCombatRoundElapsed;
 	private GameState gameState;
 	private Race settlerRace;
+
+	private InvasionDefinition incomingInvasion;
+	private Double hoursUntilInvasion;
 
 	public String getSettlementName() {
 		return settlementName;
@@ -132,6 +137,22 @@ public class SettlementState implements Persistable {
 
 	public void setFishRemainingInRiver(int fishRemainingInRiver) {
 		this.fishRemainingInRiver = fishRemainingInRiver;
+	}
+
+	public InvasionDefinition getIncomingInvasion() {
+		return incomingInvasion;
+	}
+
+	public void setIncomingInvasion(InvasionDefinition incomingInvasion) {
+		this.incomingInvasion = incomingInvasion;
+	}
+
+	public Double getHoursUntilInvasion() {
+		return hoursUntilInvasion;
+	}
+
+	public void setHoursUntilInvasion(Double hoursUntilInvasion) {
+		this.hoursUntilInvasion = hoursUntilInvasion;
 	}
 
 	@Override
@@ -289,6 +310,19 @@ public class SettlementState implements Persistable {
 		}
 
 		asJson.put("currentCombatRoundElapsed", currentCombatRoundElapsed);
+
+		JSONObject invasionCheckJson = new JSONObject(true);
+		for (Map.Entry<InvasionDefinition, Integer> entry : daysUntilNextInvasionCheck.entrySet()) {
+			invasionCheckJson.put(entry.getKey().getName(), entry.getValue());
+		}
+		asJson.put("daysUntilNextInvasionCheck", invasionCheckJson);
+
+		if (incomingInvasion != null) {
+			asJson.put("incomingInvasion", incomingInvasion.getName());
+		}
+		if (hoursUntilInvasion != null) {
+			asJson.put("hoursUntilInvasion", hoursUntilInvasion);
+		}
 
 		savedGameStateHolder.setSettlementState(this);
 	}
@@ -499,6 +533,24 @@ public class SettlementState implements Persistable {
 		this.settlerRace = relatedStores.raceDictionary.getByName(settlerRaceName);
 
 		this.fishRemainingInRiver = asJson.getIntValue("fishRemaining");
+
+		JSONObject invasionCheckJson = asJson.getJSONObject("daysUntilNextInvasionCheck");
+		for (String invasionName : invasionCheckJson.keySet()) {
+			InvasionDefinition invasionDefinition = relatedStores.invasionDefinitionDictionary.getByName(invasionName);
+			if (invasionDefinition == null) {
+				throw new InvalidSaveException("Could not find invasion with name " + invasionName);
+			} else {
+				daysUntilNextInvasionCheck.put(invasionDefinition, invasionCheckJson.getInteger(invasionName));
+			}
+		}
+
+		if (asJson.getString("incomingInvasion") != null) {
+			this.incomingInvasion = relatedStores.invasionDefinitionDictionary.getByName(asJson.getString("incomingInvasion"));
+			if (this.incomingInvasion == null) {
+				throw new InvalidSaveException("Could not find invasion with name " + asJson.getString("incomingInvasion"));
+			}
+		}
+		this.hoursUntilInvasion = asJson.getDouble("hoursUntilInvasion");
 	}
 
 	public Race getSettlerRace() {

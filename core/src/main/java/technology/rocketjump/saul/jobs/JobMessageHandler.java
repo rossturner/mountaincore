@@ -986,7 +986,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 
 				CreatureEntityAttributes fishAttributes = creatureEntityAttributesFactory.create(fishType);
 				Entity fishEntity = creatureEntityFactory.create(fishAttributes, null, new Vector2(), gameContext, Faction.WILD_ANIMALS);
-				messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(fishEntity, DeathReason.SUFFOCATION));
+				messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(fishEntity, DeathReason.SUFFOCATION, completedByEntity));
 				fishEntity.getLocationComponent().setRotation(0);
 
 				HaulingComponent haulingComponent = completedByEntity.getOrCreateComponent(HaulingComponent.class);

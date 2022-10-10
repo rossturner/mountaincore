@@ -172,7 +172,7 @@ public class RoofingMessageHandler implements Telegraph, GameContextAware {
 			for (Entity entity : tile.getEntities()) {
 				if (entity.getType().equals(EntityType.CREATURE)) {
 					if (gameContext.getRandom().nextFloat() < CHANCE_OF_DEATH_FROM_ROOF_DEBRIS) {
-						messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(entity, DeathReason.CRUSHED_BY_FALLING_DEBRIS));
+						messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(entity, DeathReason.CRUSHED_BY_FALLING_DEBRIS, null));
 					}
 				}
 			}

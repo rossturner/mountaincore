@@ -1,6 +1,7 @@
 {
   "name" : "Orc",
   "i18nKey" : "RACE.ORC",
+  "nameGeneration" : "Orcish",
   "minStrength" : 8.0,
   "maxStrength" : 23.0,
   "bodyStructureName" : "Humanoid",
@@ -36,9 +37,10 @@
   },
   "behaviour" : {
     "behaviourName" : "Creature",
-    "scheduleName" : "Diurnal animal",
-    "needs" : [ "FOOD", "DRINK", "SLEEP" ],
-    "aggressionResponse" : "ATTACK"
+    "scheduleName" : "Military day shift",
+    "needs" : [ "FOOD", "SLEEP" ],
+    "aggressionResponse" : "ATTACK",
+    "isSapient" : true
   },
   "genders" : {
     "MALE" : {

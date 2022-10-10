@@ -21844,6 +21844,112 @@
     }
   }
 }, {
+  "uniqueName" : "Tool-Kitchen-Knife-Blade-Being-Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Tool-Kitchen-Knife",
+  "minQuantity" : 1,
+  "maxQuantity" : 1,
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-F.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-F34.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-F34.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-B.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-B34.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-B34.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Tool-Kitchen-Knife-Handle-Being-Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Tool-Kitchen-Knife",
@@ -22010,16 +22116,16 @@
     }
   }
 }, {
-  "uniqueName" : "Tool-Kitchen-Knife-Blade-Being-Carried",
+  "uniqueName" : "Tool-Kitchen-Knife-Blade-On-Ground",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Tool-Kitchen-Knife",
   "minQuantity" : 1,
   "maxQuantity" : 1,
   "itemQualities" : [ ],
-  "itemPlacements" : [ "BEING_CARRIED" ],
+  "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-F.png",
+      "filename" : "Tool-Kitchen-Knife-Blade-On-Ground.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "scale" : 1.0,
@@ -22029,86 +22135,6 @@
         "unit" : false
       },
       "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-F34.png",
-      "coloringLayer" : "METAL_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-F34.png",
-      "coloringLayer" : "METAL_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP" : {
-      "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-B.png",
-      "coloringLayer" : "METAL_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-B34.png",
-      "coloringLayer" : "METAL_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-B34.png",
-      "coloringLayer" : "METAL_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
       "flipY" : false,
       "childAssets" : [ ],
       "attachmentPoints" : [ ],
@@ -22143,32 +22169,6 @@
           "unit" : false
         }
       } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Tool-Kitchen-Knife-Blade-On-Ground",
-  "type" : "ABOVE_LAYER_1",
-  "itemTypeName" : "Tool-Kitchen-Knife",
-  "minQuantity" : 1,
-  "maxQuantity" : 1,
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Tool-Kitchen-Knife-Blade-On-Ground.png",
-      "coloringLayer" : "METAL_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }

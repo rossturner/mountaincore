@@ -296,6 +296,7 @@
 }, {
   "name" : "Dwarf",
   "i18nKey" : "RACE.DWARF",
+  "nameGeneration" : "Dwarven",
   "minStrength" : 7.0,
   "maxStrength" : 19.0,
   "bodyStructureName" : "Humanoid",
@@ -791,6 +792,7 @@
 }, {
   "name" : "Orc",
   "i18nKey" : "RACE.ORC",
+  "nameGeneration" : "Orcish",
   "minStrength" : 8.0,
   "maxStrength" : 23.0,
   "bodyStructureName" : "Humanoid",
@@ -832,10 +834,10 @@
   "mapPlacement" : "NONE",
   "behaviour" : {
     "behaviourName" : "Creature",
-    "scheduleName" : "Diurnal animal",
-    "needs" : [ "FOOD", "DRINK", "SLEEP" ],
+    "scheduleName" : "Military day shift",
+    "needs" : [ "FOOD", "SLEEP" ],
     "aggressionResponse" : "ATTACK",
-    "isSapient" : false
+    "isSapient" : true
   },
   "genders" : {
     "MALE" : {

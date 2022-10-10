@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.entities.model.physical.creature.status;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.DeathReason;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -11,14 +12,14 @@ public class Death extends StatusEffect {
 
 	private DeathReason deathReason;
 
-	public Death() {
-		super(null, null, null);
+	public Death(Entity inflictedBy) {
+		super(null, null, null, inflictedBy);
 	}
 
 	@Override
 	public void applyOngoingEffect(GameContext gameContext, MessageDispatcher messageDispatcher) {
 		if (parentEntity.getType().equals(EntityType.CREATURE)) {
-			messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(parentEntity, deathReason));
+			messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(parentEntity, deathReason, inflictedBy));
 		}
 	}
 

@@ -10,7 +10,7 @@
 }, {
   "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
   "expiryHours" : 12,
-  "settlerCategories" : [ "CIVILIAN", "MILITARY" ],
+  "creatureCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Add to inventory goal",
   "actionRelationships" : {
     "CancelHaulingAllocation" : { },
@@ -43,7 +43,7 @@
 }, {
   "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
   "expiryHours" : 12,
-  "settlerCategories" : [ "CIVILIAN", "MILITARY" ],
+  "creatureCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Collect assigned item",
   "actionRelationships" : {
     "CancelHaulingAllocation" : { },
@@ -86,7 +86,7 @@
   "initialActions" : [ "GoToDrinkLocation", "DouseSelf" ]
 }, {
   "i18nDescription" : "GOAL.DRINK.DESCRIPTION",
-  "settlerCategories" : [ "CIVILIAN", "MILITARY" ],
+  "creatureCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Drink goal",
   "actionRelationships" : {
     "LocateDrink" : {
@@ -185,7 +185,6 @@
   "initialActions" : [ "GoToLocation", "PickUpEntity" ]
 }, {
   "i18nDescription" : "GOAL.EAT.DESCRIPTION",
-  "settlerCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Eat food goal",
   "actionRelationships" : {
     "GoToFoodLocation" : {
@@ -324,8 +323,77 @@
   "initialActions" : [ "Idle" ],
   "interruptedByLowNeeds" : true
 }, {
+  "i18nDescription" : "GOAL.INVADER.CREATE_CAMP.DESCRIPTION",
+  "creatureCategories" : [ "INVADER" ],
+  "name" : "Create camp fire",
+  "actionRelationships" : {
+    "SelectInvasionCampLocation" : {
+      "pass" : [ "GoToGoalTargetLocation" ]
+    },
+    "GoToGoalTargetLocation" : {
+      "pass" : [ "CreateCampfire" ]
+    },
+    "CreateCampfire" : { }
+  },
+  "selectors" : [ ],
+  "initialActions" : [ "SelectInvasionCampLocation" ]
+}, {
+  "i18nDescription" : "GOAL.INVADER.RETREAT.DESCRIPTION",
+  "creatureCategories" : [ "INVADER" ],
+  "name" : "Invasion retreat",
+  "actionRelationships" : {
+    "SelectRetreatLocation" : {
+      "pass" : [ "GoToGoalTargetLocation" ]
+    },
+    "GoToGoalTargetLocation" : {
+      "pass" : [ "RemoveFromMap" ]
+    },
+    "RemoveFromMap" : { }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "invasionStage" : "RETREATING",
+      "type" : "INVASION_IN_STAGE"
+    } ],
+    "priority" : "HIGHEST"
+  } ],
+  "initialActions" : [ "SelectRetreatLocation" ]
+}, {
+  "i18nDescription" : "GOAL.INVADER.STEAL_RESOURCES.DESCRIPTION",
+  "creatureCategories" : [ "INVADER" ],
+  "name" : "Steal resources",
+  "actionRelationships" : {
+    "CancelHaulingAllocation" : { },
+    "SelectItemToSteal" : {
+      "pass" : [ "GoToLocation" ]
+    },
+    "GoToLocation" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "ShortPause" ]
+    },
+    "ShortPause" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "PickUpEntity" ]
+    },
+    "VictoryPointsForStealing" : { },
+    "PickUpEntity" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "VictoryPointsForStealing" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "MILITARY_DUTY",
+    "conditions" : [ {
+      "invasionStage" : "RAIDING",
+      "type" : "INVASION_IN_STAGE"
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "initialActions" : [ "SelectItemToSteal" ]
+}, {
   "i18nDescription" : "GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION",
-  "settlerCategories" : [ "MILITARY" ],
+  "creatureCategories" : [ "MILITARY" ],
   "name" : "Attack squad target",
   "actionRelationships" : {
     "RequeueThisGoal" : { },
@@ -350,7 +418,7 @@
   "initialActions" : [ "SelectOpponent" ]
 }, {
   "i18nDescription" : "GOAL.MILITARY.TRAINING.DESCRIPTION",
-  "settlerCategories" : [ "MILITARY" ],
+  "creatureCategories" : [ "MILITARY" ],
   "name" : "Military training",
   "actionRelationships" : {
     "AttackTrainingFurniture" : {
@@ -396,7 +464,7 @@
   "initialActions" : [ "CheckAmmoAvailable" ]
 }, {
   "i18nDescription" : "GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION",
-  "settlerCategories" : [ "MILITARY" ],
+  "creatureCategories" : [ "MILITARY" ],
   "name" : "Stand in formation",
   "actionRelationships" : {
     "StandToAttention" : {
@@ -419,7 +487,7 @@
 }, {
   "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
   "expiryHours" : 12,
-  "settlerCategories" : [ "MILITARY" ],
+  "creatureCategories" : [ "MILITARY" ],
   "name" : "Stock ammunition (military)",
   "actionRelationships" : {
     "CancelHaulingAllocation" : { },
@@ -450,7 +518,7 @@
 }, {
   "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
   "expiryHours" : 12,
-  "settlerCategories" : [ "MILITARY" ],
+  "creatureCategories" : [ "MILITARY" ],
   "name" : "Stock ration (military)",
   "actionRelationships" : {
     "CancelHaulingAllocation" : { },
@@ -533,7 +601,7 @@
   "initialActions" : [ "GoToLocation" ]
 }, {
   "i18nDescription" : "GOAL.REFILL_WATERSKIN.DESCRIPTION",
-  "settlerCategories" : [ "CIVILIAN", "MILITARY" ],
+  "creatureCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Refill inventory liquid containers",
   "actionRelationships" : {
     "RefillInventoryLiquidContainers" : {
@@ -602,7 +670,6 @@
   "initialActions" : [ "RollAround" ]
 }, {
   "i18nDescription" : "GOAL.SLEEP.DESCRIPTION",
-  "settlerCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Sleep in bed goal",
   "actionRelationships" : {
     "SleepInBed" : {
@@ -644,7 +711,7 @@
 }, {
   "i18nDescription" : "GOAL.ADD_TO_INVENTORY.DESCRIPTION",
   "expiryHours" : 12,
-  "settlerCategories" : [ "CIVILIAN" ],
+  "creatureCategories" : [ "CIVILIAN" ],
   "name" : "Stock ration (civilian)",
   "actionRelationships" : {
     "CancelHaulingAllocation" : { },
@@ -712,7 +779,7 @@
   "interruptedByLowNeeds" : true
 }, {
   "i18nDescription" : "ACTION.SELECT_JOB.DESCRIPTION",
-  "settlerCategories" : [ "CIVILIAN" ],
+  "creatureCategories" : [ "CIVILIAN" ],
   "name" : "Work on job goal",
   "actionRelationships" : {
     "WorkOnJob" : {
