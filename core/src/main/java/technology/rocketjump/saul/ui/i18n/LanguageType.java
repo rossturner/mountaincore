@@ -22,6 +22,7 @@ public class LanguageType {
 	private boolean enabled = true;
 	private int breakAfterLineLength = DEFAULT_LINE_LENGTH;
 	private String fontName;
+	private String headerFontName;
 
 	public String getLabel() {
 		return label;
@@ -106,6 +107,14 @@ public class LanguageType {
 
 	public void setFontName(String fontName) {
 		this.fontName = fontName;
+	}
+
+	public String getHeaderFontName() {
+		return headerFontName;
+	}
+
+	public void setHeaderFontName(String headerFontName) {
+		this.headerFontName = headerFontName;
 	}
 
 	@Override

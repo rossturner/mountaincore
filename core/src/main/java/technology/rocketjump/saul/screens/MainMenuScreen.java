@@ -458,8 +458,9 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		public boolean mouseMoved(int screenX, int screenY) {
 			return false;
 		}
+
 		@Override
-		public boolean scrolled(int amount) {
+		public boolean scrolled(float amountX, float amountY) {
 			return false;
 		}
 	}

@@ -157,7 +157,7 @@ public class PrivacyOptInMenu implements Menu {
 									  FontRepository fontRepository, I18nRepo i18nRepo, MessageDispatcher messageDispatcher,
 									  GuiSkinRepository guiSkinRepository) {
 		userPreferences.setPreference(UserPreferences.PreferenceKey.LANGUAGE, selectedLanguage.getCode());
-		fontRepository.changeFontName(selectedLanguage.getFontName());
+		fontRepository.changeFonts(selectedLanguage);
 		guiSkinRepository.fontChanged();
 		i18nRepo.setCurrentLanguage(selectedLanguage);
 		messageDispatcher.dispatchMessage(MessageType.LANGUAGE_CHANGED);

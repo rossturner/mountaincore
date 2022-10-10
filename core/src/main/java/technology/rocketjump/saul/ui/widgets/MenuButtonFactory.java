@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.ui.widgets;
 
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -10,12 +11,20 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.ui.actions.ButtonAction;
 import technology.rocketjump.saul.ui.fonts.FontRepository;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Singleton
-public class MenuButtonFactory {
+public class MenuButtonFactory implements I18nUpdatable {
     private final I18nTranslator translator;
     private final FontRepository fontRepository;
+    private final MessageDispatcher messageDispatcher;
+
+    private final List<MenuButtonBuilder> buttonBuilders = new ArrayList<>();
 
     public enum ButtonStyle {
         DEFAULT("default"),
@@ -37,19 +46,42 @@ public class MenuButtonFactory {
 
 
     @Inject
-    public MenuButtonFactory(I18nTranslator translator, FontRepository fontRepository) {
+    public MenuButtonFactory(I18nTranslator translator, FontRepository fontRepository, MessageDispatcher messageDispatcher) {
         this.translator = translator;
         this.fontRepository = fontRepository;
+        this.messageDispatcher = messageDispatcher;
     }
 
     public MenuButtonBuilder createButton(String i18nKey, Skin skin, ButtonStyle buttonStyle) {
-        return new MenuButtonBuilder(i18nKey, skin, buttonStyle);
+        MenuButtonBuilder menuButtonBuilder = new MenuButtonBuilder(i18nKey, skin, buttonStyle);
+        buttonBuilders.add(menuButtonBuilder);
+        return menuButtonBuilder;
+    }
+
+    @Override
+    public void onLanguageUpdated() {
+        for (MenuButtonBuilder builder : buttonBuilders) {
+            TextButton textButton = builder.buttonContainer.getActor();
+            I18nText translatedString = translator.getTranslatedString(builder.i18nKey);
+
+            if (builder.useHeaderFont) {
+                builder.withHeaderFont(builder.fontPointSize);
+            } else {
+                builder.withDefaultFont(builder.fontPointSize);
+            }
+            textButton.setText(translatedString.toString());
+
+        }
     }
 
     public class MenuButtonBuilder {
+        private final String i18nKey;
         private final Container<TextButton> buttonContainer;
+        private boolean useHeaderFont = false;
+        private int fontPointSize = FontRepository.DEFAULT_FONT_SIZE;
 
         private MenuButtonBuilder(String i18nKey, Skin skin, ButtonStyle buttonStyle) {
+            this.i18nKey = i18nKey;
             String text = translator.getTranslatedString(i18nKey).toString();
 
             TextButton.TextButtonStyle cloned = new TextButton.TextButtonStyle(skin.get(buttonStyle.getStyleName(), TextButton.TextButtonStyle.class));
@@ -61,6 +93,8 @@ public class MenuButtonFactory {
         }
 
         public MenuButtonBuilder withHeaderFont(int fontPointSize) {
+            this.useHeaderFont = true;
+            this.fontPointSize = fontPointSize;
             TextButton button = buttonContainer.getActor();
             TextButton.TextButtonStyle style = button.getStyle();
             style.font = fontRepository.getHeaderFont(fontPointSize).getBitmapFont();
@@ -69,6 +103,8 @@ public class MenuButtonFactory {
         }
 
         public MenuButtonBuilder withDefaultFont(int fontPointSize) {
+            this.useHeaderFont = false;
+            this.fontPointSize = fontPointSize;
             TextButton button = buttonContainer.getActor();
             TextButton.TextButtonStyle style = button.getStyle();
             style.font = fontRepository.getDefaultFont(fontPointSize).getBitmapFont();

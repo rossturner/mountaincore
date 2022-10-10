@@ -176,6 +176,7 @@ public class TopLevelMenu implements Menu {
         buttonsTable.add(languageList).padBottom(208f).width(277).row();
         buttonsTable.bottom();
 
+
         Table positioningTable = new Table();
         positioningTable.right().top();
         positioningTable.padTop(16f).padRight(115f);
