@@ -97,7 +97,8 @@ public class ModArtifactDefinition implements Comparable<ModArtifactDefinition> 
 		PNG(".png"),
 		PNG_PLUS_NORMALS(".png"),
 		PACKR_ATLAS_PLUS_NORMALS(".atlas"),
-		PACKR_ATLAS(".atlas");
+		PACKR_ATLAS(".atlas"),
+		SKIN_ATLAS(".atlas");
 
 		public final String fileExtension;
 
