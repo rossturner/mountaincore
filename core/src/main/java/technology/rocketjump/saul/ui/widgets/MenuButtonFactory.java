@@ -4,6 +4,7 @@ package technology.rocketjump.saul.ui.widgets;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -70,7 +71,7 @@ public class MenuButtonFactory implements I18nUpdatable {
                 builder.withDefaultFont(builder.fontPointSize);
             }
             textButton.setText(translatedString.toString());
-
+            builder.scaleFont(textButton.getWidth(), textButton.getLabel());
         }
     }
 
@@ -90,6 +91,28 @@ public class MenuButtonFactory implements I18nUpdatable {
             buttonContainer = new Container<>(button);
             buttonContainer.setTransform(true);
             buttonContainer.setOrigin(button.getPrefWidth() / 2, button.getPrefHeight() / 2);
+        }
+
+
+        public MenuButtonBuilder withEssentialWidth(float width) {
+            Label currentLabel = buttonContainer.getActor().getLabel();
+            buttonContainer.setWidth(width);
+            buttonContainer.getActor().setWidth(width);
+            scaleFont(width, currentLabel);
+            return this;
+        }
+
+        private void scaleFont(float width, Label currentLabel) {
+            currentLabel.setFontScale(1);
+            currentLabel.layout();
+            float glyphWidth = currentLabel.getGlyphLayout().width;
+
+            float targetWidth = width * 0.92f;
+
+            if (glyphWidth >= targetWidth) {
+                float increase = (glyphWidth - targetWidth) / glyphWidth;
+                currentLabel.setFontScale(1 - increase);
+            }
         }
 
         public MenuButtonBuilder withHeaderFont(int fontPointSize) {

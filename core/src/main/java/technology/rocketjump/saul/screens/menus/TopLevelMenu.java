@@ -104,6 +104,7 @@ public class TopLevelMenu implements Menu {
 
         Container<TextButton> continueButton = menuButtonFactory.createButton("MENU.CONTINUE_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
                 .withHeaderFont(47)
+                .withEssentialWidth(307)
                 .withAction(() -> {
                     if (gameStarted) {
                         messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
@@ -119,6 +120,7 @@ public class TopLevelMenu implements Menu {
 
         Container<TextButton> loadGameButton = menuButtonFactory.createButton("MENU.LOAD_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
                 .withHeaderFont(47)
+                .withEssentialWidth(307)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.LOAD_GAME_MENU);
                 })
@@ -126,6 +128,7 @@ public class TopLevelMenu implements Menu {
 
         Container<TextButton> newGameButton = menuButtonFactory.createButton("MENU.NEW_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
                 .withHeaderFont(47)
+                .withEssentialWidth(307)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.EMBARK_MENU);
                 })
@@ -134,6 +137,7 @@ public class TopLevelMenu implements Menu {
         Container<TextButton> optionsButton = menuButtonFactory.createButton("MENU.OPTIONS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
                 .withHeaderFont(47)
                 .withScaleBy(-0.1f)
+                .withEssentialWidth(277)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.OPTIONS_MENU);
                 })
@@ -142,6 +146,7 @@ public class TopLevelMenu implements Menu {
         Container<TextButton> modsButton = menuButtonFactory.createButton("MENU.MODS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_2)
                 .withHeaderFont(47)
                 .withScaleBy(-0.1f)
+                .withEssentialWidth(277)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.MODS_MENU);
                 })
@@ -150,11 +155,13 @@ public class TopLevelMenu implements Menu {
         Container<TextButton> creditsButton = menuButtonFactory.createButton("MENU.CREDITS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_3)
                 .withHeaderFont(47)
                 .withScaleBy(-0.1f)
+                .withEssentialWidth(277)
                 .build();
 
         Container<TextButton> quitButton = menuButtonFactory.createButton("MENU.QUIT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4)
                 .withHeaderFont(47)
                 .withScaleBy(-0.1f)
+                .withEssentialWidth(277)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
                     Gdx.app.exit();
@@ -166,13 +173,13 @@ public class TopLevelMenu implements Menu {
 
         Table buttonsTable = new Table();
         buttonsTable.background(menuSkin.getDrawable("asset_bg_banner"));
-        buttonsTable.add(continueButton).padBottom(17f).width(307).row();
-        buttonsTable.add(loadGameButton).padBottom(17f).width(307).row();
-        buttonsTable.add(newGameButton).padBottom(17f).width(307).row();
-        buttonsTable.add(optionsButton).padBottom(15f).width(277).row();
-        buttonsTable.add(modsButton).padBottom(15f).width(277).row();
-        buttonsTable.add(creditsButton).padBottom(15f).width(277).row();
-        buttonsTable.add(quitButton).padBottom(15f).width(277).row();
+        buttonsTable.add(continueButton).padBottom(17f).row();
+        buttonsTable.add(loadGameButton).padBottom(17f).row();
+        buttonsTable.add(newGameButton).padBottom(17f).row();
+        buttonsTable.add(optionsButton).padBottom(15f).row();
+        buttonsTable.add(modsButton).padBottom(15f).row();
+        buttonsTable.add(creditsButton).padBottom(15f).row();
+        buttonsTable.add(quitButton).padBottom(15f).row();
         buttonsTable.add(languageList).padBottom(208f).width(277).row();
         buttonsTable.bottom();
 
