@@ -262,6 +262,26 @@ atlasData: {
 			type: NINE_PATCH
 			hidden: false
 		}
+		{
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/select_full.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: select_full
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
 	]
 	fontDrawables: []
 }
@@ -406,7 +426,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: dropdown_body_hover
+						value: select_full
 					}
 					scrollStyle: {
 						type: com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle
@@ -6858,5 +6878,134 @@ preferences: {
 }
 saveFile: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project.scmp
 version: 52
-sceneComposer: null
+sceneComposer: {
+	children: [
+		{
+			class: com.ray3k.skincomposer.dialog.scenecomposer.DialogSceneComposerModel$SimTable
+			cells: [
+				{
+					child: {
+						class: com.ray3k.skincomposer.dialog.scenecomposer.DialogSceneComposerModel$SimSelectBox
+						name: null
+						style: {
+							name: default
+							clazz: com.badlogic.gdx.scenes.scene2d.ui.SelectBox
+							properties: {
+								font: {
+									type: com.badlogic.gdx.graphics.g2d.BitmapFont
+									name: font
+									optional: false
+									value: placeholder-font
+								}
+								fontColor: {
+									type: com.badlogic.gdx.graphics.Color
+									name: fontColor
+									optional: false
+									value: white
+								}
+								disabledFontColor: {
+									type: com.badlogic.gdx.graphics.Color
+									name: disabledFontColor
+									optional: true
+									value: null
+								}
+								background: {
+									type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+									name: background
+									optional: true
+									value: select_full
+								}
+								scrollStyle: {
+									type: com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle
+									name: scrollStyle
+									optional: false
+									value: default
+								}
+								listStyle: {
+									type: com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle
+									name: listStyle
+									optional: false
+									value: default
+								}
+								backgroundOver: {
+									type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+									name: backgroundOver
+									optional: true
+									value: null
+								}
+								backgroundOpen: {
+									type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+									name: backgroundOpen
+									optional: true
+									value: null
+								}
+								backgroundDisabled: {
+									type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+									name: backgroundDisabled
+									optional: true
+									value: null
+								}
+							}
+							deletable: false
+							parent: null
+						}
+						disabled: false
+						maxListCount: 0
+						list: [
+							English
+							French
+						]
+						alignment: 1
+						selected: 0
+						scrollingDisabled: true
+						touchable: enabled
+						visible: true
+					}
+					row: 0
+					column: 0
+					padLeft: 0
+					padRight: 0
+					padTop: 0
+					padBottom: 0
+					spaceLeft: 0
+					spaceRight: 0
+					spaceTop: 0
+					spaceBottom: 0
+					expandX: false
+					expandY: false
+					fillX: false
+					fillY: false
+					growX: false
+					growY: false
+					alignment: 1
+					minWidth: -1
+					minHeight: -1
+					maxWidth: 277
+					maxHeight: 40
+					preferredWidth: -1
+					preferredHeight: -1
+					uniformX: false
+					uniformY: false
+					colSpan: 1
+				}
+			]
+			name: null
+			background: null
+			color: null
+			padLeft: 0
+			padRight: 0
+			padTop: 0
+			padBottom: 0
+			paddingEnabled: false
+			alignment: 1
+			fillParent: true
+			touchable: childrenOnly
+			visible: true
+		}
+	]
+	backgroundColor: null
+	skinPath: skin.json
+	packageString: com.mygdx.game
+	classString: Core
+}
 }

@@ -97,7 +97,7 @@ com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 	default: {
 		font: placeholder-font
 		fontColor: white
-		background: dropdown_body_hover
+		background: select_full
 		scrollStyle: default
 		listStyle: default
 	}

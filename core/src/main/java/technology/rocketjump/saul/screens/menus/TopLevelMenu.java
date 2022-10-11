@@ -134,10 +134,11 @@ public class TopLevelMenu implements Menu {
                 })
                 .build();
 
+        int lesserImportanceWidth = 277;
         Container<TextButton> optionsButton = menuButtonFactory.createButton("MENU.OPTIONS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
                 .withHeaderFont(47)
-                .withScaleBy(-0.1f)
-                .withEssentialWidth(277)
+//                .withScaleBy(-0.1f)
+                .withEssentialWidth(lesserImportanceWidth)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.OPTIONS_MENU);
                 })
@@ -145,8 +146,8 @@ public class TopLevelMenu implements Menu {
 
         Container<TextButton> modsButton = menuButtonFactory.createButton("MENU.MODS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_2)
                 .withHeaderFont(47)
-                .withScaleBy(-0.1f)
-                .withEssentialWidth(277)
+//                .withScaleBy(-0.1f)
+                .withEssentialWidth(lesserImportanceWidth)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.MODS_MENU);
                 })
@@ -154,22 +155,27 @@ public class TopLevelMenu implements Menu {
 
         Container<TextButton> creditsButton = menuButtonFactory.createButton("MENU.CREDITS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_3)
                 .withHeaderFont(47)
-                .withScaleBy(-0.1f)
-                .withEssentialWidth(277)
+//                .withScaleBy(-0.1f)
+                .withEssentialWidth(lesserImportanceWidth)
                 .build();
 
         Container<TextButton> quitButton = menuButtonFactory.createButton("MENU.QUIT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4)
                 .withHeaderFont(47)
-                .withScaleBy(-0.1f)
-                .withEssentialWidth(277)
+//                .withScaleBy(-0.1f)
+                .withEssentialWidth(lesserImportanceWidth)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
                     Gdx.app.exit();
                 })
                 .build();
 
-        CustomSelect<LanguageType> languageList = widgetFactory.createLanguageSelectBox(menuSkin);
+        float quitButtonScale = (lesserImportanceWidth - quitButton.getPrefWidth()) / quitButton.getPrefWidth();
+        optionsButton.scaleBy(quitButtonScale);
+        modsButton.scaleBy(quitButtonScale);
+        creditsButton.scaleBy(quitButtonScale);
+        quitButton.scaleBy(quitButtonScale);
 
+        CustomSelect<LanguageType> languageSelect = widgetFactory.createLanguageSelectBox(menuSkin);
 
         Table buttonsTable = new Table();
         buttonsTable.background(menuSkin.getDrawable("asset_bg_banner"));
@@ -180,9 +186,11 @@ public class TopLevelMenu implements Menu {
         buttonsTable.add(modsButton).padBottom(15f).row();
         buttonsTable.add(creditsButton).padBottom(15f).row();
         buttonsTable.add(quitButton).padBottom(15f).row();
-        buttonsTable.add(languageList).padBottom(208f).width(277).row();
+        buttonsTable.add(languageSelect).padBottom(208f).height(40).width(lesserImportanceWidth).row();
         buttonsTable.bottom();
 
+        
+        
 
         Table positioningTable = new Table();
         positioningTable.right().top();

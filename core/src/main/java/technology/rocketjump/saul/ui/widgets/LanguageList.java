@@ -51,7 +51,7 @@ public class LanguageList extends List<LanguageType> {
 
         float itemHeight = getItemHeight();
         batch.draw(iconSprite, x + 3, y - 18, itemHeight, itemHeight);
-        return font.draw(batch, string, x + itemHeight + 5, y, 0, string.length(), width - itemHeight - 5, alignment, false, "...");
+        return font.draw(batch, string, x, y, 0, string.length(), width, alignment, false, "...");
     }
 
     @Override
