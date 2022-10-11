@@ -22,6 +22,7 @@ import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
 @Singleton
 public class TopLevelMenu implements Menu {
+    public static final String DISCORD_URL = "https://discord.gg/M57GrFp";
     private final Skin menuSkin;
     private final MenuButtonFactory menuButtonFactory;
     private final WidgetFactory widgetFactory;
@@ -78,10 +79,16 @@ public class TopLevelMenu implements Menu {
     private Table buildSocialMediaLayer() {
         Container<TextButton> discordButton = menuButtonFactory.createButton("MENU.JOIN_DISCORD", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_3)
                 .withHeaderFont(36)
+                .withAction(() -> {
+                    Gdx.net.openURI(DISCORD_URL);
+                })
                 .build();
 
         Container<TextButton> twitchButton = menuButtonFactory.createButton("MENU.LINK_TWITCH_ACCOUNT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4)
                 .withHeaderFont(36)
+                .withAction(() -> {
+                    messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.OPTIONS_MENU);
+                })
                 .build();
 
         discordButton.getActor().add(discordIconImage).size(50, 43).padLeft(10f).padRight(44f);
