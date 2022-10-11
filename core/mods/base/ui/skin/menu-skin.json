@@ -1,5 +1,11 @@
 {
 com.badlogic.gdx.graphics.Color: {
+	dropdown_body_colour: {
+		hex: a44929ff
+	}
+	dropdown_body_hover_colour: {
+		hex: 913613ff
+	}
 	primary_font_colour_red: {
 		hex: 913614ff
 	}
@@ -8,6 +14,16 @@ com.badlogic.gdx.graphics.Color: {
 	}
 	white: {
 		hex: ffffffff
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	dropdown_body: {
+		name: white-pixel
+		color: dropdown_body_colour
+	}
+	dropdown_body_hover: {
+		name: white-pixel
+		color: dropdown_body_hover_colour
 	}
 }
 com.kotcrab.vis.ui.Sizes: {
@@ -51,6 +67,39 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
 		font: placeholder-font
 		fontColor: primary_font_colour_red
+		up: btn_banner_1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: placeholder-font
+		fontColor: primary_font_colour_red
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
+	default: {
+		font: placeholder-font
+		fontColorSelected: primary_font_colour_yellow_alt
+		fontColorUnselected: white
+		selection: dropdown_body_hover
+		background: dropdown_body
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		hScroll: scroll_bg
+		hScrollKnob: scroll_fg
+		vScroll: scroll_bg
+		vScrollKnob: scroll_fg
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
+	default: {
+		font: placeholder-font
+		fontColor: white
+		background: select_full
+		scrollStyle: default
+		listStyle: default
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
@@ -81,6 +130,11 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		font: placeholder-header-font
 		up: btn_banner_4
 		over: btn_banner_hover_state
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
 	}
 }
 }

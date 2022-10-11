@@ -182,11 +182,131 @@ atlasData: {
 			type: TEXTURE
 			hidden: false
 		}
+		{
+			file: null
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: dropdown_body_colour
+			name: dropdown_body
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: PIXEL
+			hidden: false
+		}
+		{
+			file: null
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: dropdown_body_hover_colour
+			name: dropdown_body_hover
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: PIXEL
+			hidden: false
+		}
+		{
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/scroll_fg.9.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: scroll_fg
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: NINE_PATCH
+			hidden: false
+		}
+		{
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/scroll_bg.9.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: scroll_bg
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: NINE_PATCH
+			hidden: false
+		}
+		{
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/select_full.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: select_full
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
 	]
 	fontDrawables: []
 }
 jsonData: {
 	colors: [
+		{
+			class: com.ray3k.skincomposer.data.ColorData
+			color: {
+				r: 0.6431373
+				g: 0.28627452
+				b: 0.16078432
+				a: 1
+			}
+			name: dropdown_body_colour
+		}
+		{
+			class: com.ray3k.skincomposer.data.ColorData
+			color: {
+				r: 0.5686275
+				g: 0.21176471
+				b: 0.07450981
+				a: 1
+			}
+			name: dropdown_body_hover_colour
+		}
 		{
 			class: com.ray3k.skincomposer.data.ColorData
 			color: {
@@ -288,13 +408,13 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: placeholder-font
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
 						name: fontColor
 						optional: false
-						value: null
+						value: white
 					}
 					disabledFontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -306,13 +426,13 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: null
+						value: select_full
 					}
 					scrollStyle: {
 						type: com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle
 						name: scrollStyle
 						optional: false
-						value: select-box
+						value: default
 					}
 					listStyle: {
 						type: com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle
@@ -771,25 +891,25 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: hScroll
 						optional: true
-						value: null
+						value: scroll_bg
 					}
 					hScrollKnob: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: hScrollKnob
 						optional: true
-						value: null
+						value: scroll_fg
 					}
 					vScroll: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: vScroll
 						optional: true
-						value: null
+						value: scroll_bg
 					}
 					vScrollKnob: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: vScrollKnob
 						optional: true
-						value: null
+						value: scroll_fg
 					}
 				}
 				deletable: false
@@ -2853,31 +2973,31 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: placeholder-font
 					}
 					fontColorSelected: {
 						type: com.badlogic.gdx.graphics.Color
 						name: fontColorSelected
 						optional: false
-						value: null
+						value: primary_font_colour_yellow_alt
 					}
 					fontColorUnselected: {
 						type: com.badlogic.gdx.graphics.Color
 						name: fontColorUnselected
 						optional: false
-						value: null
+						value: white
 					}
 					selection: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: selection
 						optional: false
-						value: null
+						value: dropdown_body_hover
 					}
 					background: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: null
+						value: dropdown_body
 					}
 				}
 				deletable: false
@@ -6758,5 +6878,134 @@ preferences: {
 }
 saveFile: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project.scmp
 version: 52
-sceneComposer: null
+sceneComposer: {
+	children: [
+		{
+			class: com.ray3k.skincomposer.dialog.scenecomposer.DialogSceneComposerModel$SimTable
+			cells: [
+				{
+					child: {
+						class: com.ray3k.skincomposer.dialog.scenecomposer.DialogSceneComposerModel$SimSelectBox
+						name: null
+						style: {
+							name: default
+							clazz: com.badlogic.gdx.scenes.scene2d.ui.SelectBox
+							properties: {
+								font: {
+									type: com.badlogic.gdx.graphics.g2d.BitmapFont
+									name: font
+									optional: false
+									value: placeholder-font
+								}
+								fontColor: {
+									type: com.badlogic.gdx.graphics.Color
+									name: fontColor
+									optional: false
+									value: white
+								}
+								disabledFontColor: {
+									type: com.badlogic.gdx.graphics.Color
+									name: disabledFontColor
+									optional: true
+									value: null
+								}
+								background: {
+									type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+									name: background
+									optional: true
+									value: select_full
+								}
+								scrollStyle: {
+									type: com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle
+									name: scrollStyle
+									optional: false
+									value: default
+								}
+								listStyle: {
+									type: com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle
+									name: listStyle
+									optional: false
+									value: default
+								}
+								backgroundOver: {
+									type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+									name: backgroundOver
+									optional: true
+									value: null
+								}
+								backgroundOpen: {
+									type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+									name: backgroundOpen
+									optional: true
+									value: null
+								}
+								backgroundDisabled: {
+									type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+									name: backgroundDisabled
+									optional: true
+									value: null
+								}
+							}
+							deletable: false
+							parent: null
+						}
+						disabled: false
+						maxListCount: 0
+						list: [
+							English
+							French
+						]
+						alignment: 1
+						selected: 0
+						scrollingDisabled: true
+						touchable: enabled
+						visible: true
+					}
+					row: 0
+					column: 0
+					padLeft: 0
+					padRight: 0
+					padTop: 0
+					padBottom: 0
+					spaceLeft: 0
+					spaceRight: 0
+					spaceTop: 0
+					spaceBottom: 0
+					expandX: false
+					expandY: false
+					fillX: false
+					fillY: false
+					growX: false
+					growY: false
+					alignment: 1
+					minWidth: -1
+					minHeight: -1
+					maxWidth: 277
+					maxHeight: 40
+					preferredWidth: -1
+					preferredHeight: -1
+					uniformX: false
+					uniformY: false
+					colSpan: 1
+				}
+			]
+			name: null
+			background: null
+			color: null
+			padLeft: 0
+			padRight: 0
+			padTop: 0
+			padBottom: 0
+			paddingEnabled: false
+			alignment: 1
+			fillParent: true
+			touchable: childrenOnly
+			visible: true
+		}
+	]
+	backgroundColor: null
+	skinPath: skin.json
+	packageString: com.mygdx.game
+	classString: Core
+}
 }

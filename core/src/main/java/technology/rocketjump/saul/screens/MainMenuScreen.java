@@ -36,6 +36,7 @@ import technology.rocketjump.saul.rendering.ScreenWriter;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.screens.menus.*;
+import technology.rocketjump.saul.screens.menus.options.OptionsTabName;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -170,6 +171,8 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 						case TOP_LEVEL_MENU:
 							currentMenu = topLevelMenu;
 							break;
+						case TWITCH_OPTIONS_MENU:
+							optionsMenu.setCurrentTab(OptionsTabName.TWITCH);
 						case PRIVACY_OPT_IN_MENU:
 						case OPTIONS_MENU:
 							currentMenu = optionsMenu;
@@ -234,7 +237,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		currentMenu.populate(containerTable);
 
 		stage.addActor(containerTable);
-//		stage.addActor(versionTable);
+		stage.addActor(versionTable);
 
 		for (Dialog outstandingDialog : outstandingDialogs) {
 			stage.addActor(outstandingDialog);
@@ -361,7 +364,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 	private void resetVersionTable() {
 
 		versionTable.clearChildren();
-		versionTable.left().bottom();
+		versionTable.top().left().padTop(50f).padLeft(25f);
 
 		if (twitchEnabled()) {
 			TwitchAccountInfo accountInfo = twitchDataStore.getAccountInfo();
@@ -436,8 +439,9 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		public boolean mouseMoved(int screenX, int screenY) {
 			return false;
 		}
+
 		@Override
-		public boolean scrolled(int amount) {
+		public boolean scrolled(float amountX, float amountY) {
 			return false;
 		}
 	}

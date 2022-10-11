@@ -11,6 +11,7 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.constants.UiConstants;
 import technology.rocketjump.saul.ui.i18n.I18nRepo;
+import technology.rocketjump.saul.ui.i18n.LanguageType;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,16 +20,16 @@ import java.util.Set;
 @Singleton
 public class FontRepository {
 
-	private static final Set<Integer> DEFAULT_FONT_POINT_SIZES = Set.of(12, 14, 16, 18, 20);
-	private static final Set<Integer> HEADER_FONT_POINT_SIZES = Set.of(36, 39, 47);
+	public static final int DEFAULT_FONT_SIZE = 16;
+	private static final Set<Integer> DEFAULT_FONT_POINT_SIZES = Set.of(12, 14, DEFAULT_FONT_SIZE, 18, 20);
+	private static final Set<Integer> HEADER_FONT_POINT_SIZES = Set.of(30, 36, 39, 47);
 	public static final String UNICODE_FONT_FILENAME = "NotoSansCJKjp-Regular.otf";
 
 	private final I18nRepo i18nRepo;
 	private final UiConstants uiConstants;
-	private final GameFont[] defaultGameFonts;
-	private final GameFont[] headerGameFonts;
+	private GameFont[] defaultGameFonts;
+	private GameFont[] headerGameFonts;
 
-	private String currentFontName;
 	private GameFont largestFont;
 	private GameFont defaultUIFont;
 	private final GameFont guaranteedUnicodeFont;
@@ -39,17 +40,7 @@ public class FontRepository {
 		this.uiConstants = constantsRepo.getUiConstants();
 		// MODDING - Expose the font selction and sizes from small to large
 
-		this.currentFontName = uiConstants.getDefaultFont();
-		if (i18nRepo.getCurrentLanguageType().getFontName() != null) {
-			this.currentFontName = i18nRepo.getCurrentLanguageType().getFontName();
-		}
-		defaultGameFonts = generateGameFonts(this.currentFontName, DEFAULT_FONT_POINT_SIZES);
-		this.largestFont = getFont(defaultGameFonts, 20);
-		this.defaultUIFont = getFont(defaultGameFonts, 16);
-
-		headerGameFonts = generateGameFonts(uiConstants.getHeaderFont(), HEADER_FONT_POINT_SIZES);
-
-
+		changeFonts(i18nRepo.getCurrentLanguageType());
 		this.guaranteedUnicodeFont = generateFont(UNICODE_FONT_FILENAME);
 	}
 
@@ -59,10 +50,14 @@ public class FontRepository {
 			Logger.error(fontFile.toString() + " does not exist");
 			return defaultUIFont;
 		}
+		FreeTypeFontGenerator.setMaxTextureSize(4096);
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.genMipMaps = true;
+		parameter.minFilter = Texture.TextureFilter.MipMapLinearLinear;
+		parameter.magFilter = Texture.TextureFilter.MipMapLinearLinear;
 		parameter.characters = i18nRepo.getAllCharacters(FreeTypeFontGenerator.DEFAULT_CHARS);
-		return new GameFont(generator.generateFont(parameter), 16);
+		return new GameFont(generator.generateFont(parameter), DEFAULT_FONT_SIZE);
 	}
 
 	private GameFont[] generateGameFonts(String fontFileName, Set<Integer> pointSizes) {
@@ -71,8 +66,10 @@ public class FontRepository {
 			Logger.error(fontFile + " does not exist");
 			return null;
 		}
+		FreeTypeFontGenerator.setMaxTextureSize(4096);
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.renderCount = 1;
 		parameter.genMipMaps = true;
 		parameter.minFilter = Texture.TextureFilter.MipMapLinearLinear;
 		parameter.magFilter = Texture.TextureFilter.MipMapLinearLinear;
@@ -114,20 +111,37 @@ public class FontRepository {
 	}
 
 
-	public boolean changeFontName(String fontName) {
+	public void changeFonts(LanguageType selectedLanguage) {
+		String fontName = selectedLanguage.getFontName();
+		String headerFontName = selectedLanguage.getHeaderFontName();
 		if (fontName == null) {
 			fontName = uiConstants.getDefaultFont();
 		}
-		if (!fontName.equals(currentFontName)) {
-			this.currentFontName = fontName;
-			this.defaultUIFont.dispose();
-			this.largestFont.dispose();
-			generateGameFonts(this.currentFontName, DEFAULT_FONT_POINT_SIZES);
-			//TODO: header fonts?
-			return true;
-		} else {
-			return false;
+		if (headerFontName == null) {
+			headerFontName = uiConstants.getHeaderFont();
 		}
+
+		if (defaultGameFonts != null) {
+			for (GameFont defaultGameFont : defaultGameFonts) {
+				if (defaultGameFont != null) {
+					defaultGameFont.dispose();
+				}
+			}
+		}
+
+		if (headerGameFonts != null) {
+			for (GameFont headerGameFont : headerGameFonts) {
+				if (headerGameFont != null) {
+					headerGameFont.dispose();
+				}
+			}
+		}
+
+		defaultGameFonts = generateGameFonts(fontName, DEFAULT_FONT_POINT_SIZES);
+		headerGameFonts = generateGameFonts(headerFontName, HEADER_FONT_POINT_SIZES);
+
+		this.largestFont = getFont(defaultGameFonts, 20);
+		this.defaultUIFont = getFont(defaultGameFonts, DEFAULT_FONT_SIZE);
 	}
 
 	public GameFont getDefaultFontForUI() {

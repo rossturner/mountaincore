@@ -244,10 +244,11 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		return true;
 	}
 
+
 	@Override
-	public boolean scrolled(int amount) {
+	public boolean scrolled(float amountX, float amountY) {
 		if (!buttonsPressed.get(Input.Buttons.MIDDLE)) { //Don't zoom when holding in middle button
-			primaryCameraWrapper.zoom(amount);
+			primaryCameraWrapper.zoom((int) amountY);
 		}
 		return true;
 	}

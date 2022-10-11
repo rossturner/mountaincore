@@ -62,7 +62,8 @@
     "code": "ru",
     "icon": "Russia",
     "fallback": "en-gb",
-    "filename": "russian.csv"
+    "filename": "russian.csv",
+    "headerFontName" : "Roboto-Bold.otf"
   },
   {
     "label": "Türkçe",
@@ -132,7 +133,8 @@
     "fallback": "en-gb",
     "filename": "japanese.csv",
     "breakAfterLineLength": 20,
-    "fontName": "NotoSansCJKjp-Bold.otf"
+    "fontName": "NotoSansCJKjp-Bold.otf",
+    "headerFontName" : "NotoSansCJKjp-Bold.otf"
   },
   {
     "label": "简体中文",
@@ -143,7 +145,8 @@
     "fallback": "en-gb",
     "filename": "simplified-chinese.csv",
     "breakAfterLineLength": 20,
-    "fontName": "NotoSansCJKjp-Bold.otf"
+    "fontName": "NotoSansCJKjp-Bold.otf",
+    "headerFontName" : "NotoSansCJKjp-Bold.otf"
   },
   {
     "label": "한국어",
@@ -154,6 +157,7 @@
     "fallback": "en-gb",
     "filename": "korean.csv",
     "breakAfterLineLength": 20,
-    "fontName": "NotoSansCJKjp-Bold.otf"
+    "fontName": "NotoSansCJKjp-Bold.otf",
+    "headerFontName" : "NotoSansCJKjp-Bold.otf"
   }
 ]
