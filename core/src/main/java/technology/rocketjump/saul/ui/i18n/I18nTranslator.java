@@ -432,10 +432,9 @@ public class I18nTranslator implements I18nUpdatable {
 		}
 		Map<String, I18nString> replacements = new HashMap<>();
 		replacements.put("timeOfDay", new I18nWord(gameClock.getFormattedGameTime()));
-		replacements.put("dayNumber", new I18nWord(String.valueOf(gameClock.getDayOfSeason())));
-		replacements.put("season", dictionary.getWord(gameClock.getCurrentSeason().getI18nKey()));
+		replacements.put("dayNumber", new I18nWord(String.valueOf(gameClock.getDayOfYear())));
 		replacements.put("year", new I18nWord(String.valueOf(gameClock.getCurrentYear())));
-		return applyReplacements(dictionary.getWord("GUI.DATE_TIME_LABEL"), replacements, Gender.ANY);
+		return applyReplacements(dictionary.getWord("GUI.DATE_TIME_YEAR_LABEL"), replacements, Gender.ANY);
 	}
 
 

@@ -16,6 +16,7 @@ public class GuiSkinRepository {
 	private final FontRepository fontRepository;
 	private final Skin uiSkin = new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")); // MODDING expose this or change uiskin.json
 	private final Skin menuSkin;
+	private final Skin mainGameSkin;
 
 	@Inject
 	public GuiSkinRepository(FontRepository fontRepository) {
@@ -23,26 +24,37 @@ public class GuiSkinRepository {
 
 		fontChanged();
 
-		FileHandle menuSkinFile = Gdx.files.internal("assets/ui/skin/menu-skin.json");
-		FileHandle menuSkinAtlasFile = menuSkinFile.sibling(menuSkinFile.nameWithoutExtension() + ".atlas");
-
-		menuSkin = new Skin();
-		menuSkin.add("placeholder-font", fontRepository.getDefaultFontForUI().getBitmapFont(), BitmapFont.class);
-		menuSkin.add("placeholder-header-font", fontRepository.getDefaultFontForUI().getBitmapFont(), BitmapFont.class);
-		menuSkin.addRegions(new TextureAtlas(menuSkinAtlasFile));
-		menuSkin.load(menuSkinFile);
+		menuSkin = loadSkin("assets/ui/skin/menu-skin.json");
+		mainGameSkin = loadSkin("assets/ui/skin/main-game-skin.json");
 
 		if (!VisUI.isLoaded()) {
 			VisUI.load();
 		}
 	}
 
+	private Skin loadSkin(String skinJsonPath) {
+		FileHandle menuSkinFile = Gdx.files.internal(skinJsonPath);
+		FileHandle menuSkinAtlasFile = menuSkinFile.sibling(menuSkinFile.nameWithoutExtension() + ".atlas");
+
+		Skin skin = new Skin();
+		skin.add("placeholder-font", fontRepository.getDefaultFontForUI().getBitmapFont(), BitmapFont.class);
+		skin.add("placeholder-header-font", fontRepository.getDefaultFontForUI().getBitmapFont(), BitmapFont.class);
+		skin.addRegions(new TextureAtlas(menuSkinAtlasFile));
+		skin.load(menuSkinFile);
+		return skin;
+	}
+
+	@Deprecated
 	public Skin getDefault() {
 		return uiSkin;
 	}
 
 	public Skin getMenuSkin() {
 		return menuSkin;
+	}
+
+	public Skin getMainGameSkin() {
+		return mainGameSkin;
 	}
 
 	public void fontChanged() {

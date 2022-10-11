@@ -27,6 +27,7 @@ public class GameClock implements Persistable {
 	private boolean paused;
 
 	private int dayOfSeason;
+	private int dayOfYear;
 	public final int DAYS_IN_SEASON;
 
 	private int currentDayNumber;
@@ -46,6 +47,7 @@ public class GameClock implements Persistable {
 
 		currentSeason = Season.valueOf(timeDaySettings.getString("initialSeason"));
 		dayOfSeason = timeDaySettings.getInteger("initialDayOfSeason");
+		dayOfYear = dayOfSeason;
 		timeOfDay = timeDaySettings.getDouble("initialTimeOfDay");
 		currentGameTime = timeOfDay;
 		currentDayNumber = 1;
@@ -76,6 +78,7 @@ public class GameClock implements Persistable {
 			timeOfDay -= HOURS_IN_DAY;
 
 			dayOfSeason++;
+			dayOfYear++;
 			currentDayNumber++;
 			if (dayOfSeason > DAYS_IN_SEASON) {
 				dayOfSeason = 1;
@@ -83,6 +86,7 @@ public class GameClock implements Persistable {
 //				messageDispatcher.dispatchMessage(MessageType.SEASON_ELAPSED);
 				if (currentSeason.equals(Season.SPRING)) {
 					currentYear++;
+					dayOfYear = 1;
 					messageDispatcher.dispatchMessage(MessageType.YEAR_ELAPSED);
 				}
 			}
@@ -146,6 +150,10 @@ public class GameClock implements Persistable {
 		return dayOfSeason;
 	}
 
+	public int getDayOfYear() {
+		return dayOfYear;
+	}
+
 	public Season getCurrentSeason() {
 		return currentSeason;
 	}
@@ -176,6 +184,7 @@ public class GameClock implements Persistable {
 			asJson.put("paused", true);
 		}
 		asJson.put("dayOfSeason", dayOfSeason);
+		asJson.put("dayOfYear", dayOfYear);
 		asJson.put("currentDayNumber", currentDayNumber);
 		asJson.put("currentSeason", currentSeason.name());
 		asJson.put("currentYear", currentYear);
@@ -190,6 +199,7 @@ public class GameClock implements Persistable {
 		this.currentGameTime = asJson.getDoubleValue("currentGameTime");
 		this.paused = asJson.getBooleanValue("paused");
 		this.dayOfSeason = asJson.getIntValue("dayOfSeason");
+		this.dayOfYear = asJson.getIntValue("dayOfYear");
 		this.currentDayNumber = asJson.getIntValue("currentDayNumber");
 		this.currentSeason = EnumParser.getEnumValue(asJson, "currentSeason", Season.class, null);
 		this.currentYear = asJson.getIntValue("currentYear");

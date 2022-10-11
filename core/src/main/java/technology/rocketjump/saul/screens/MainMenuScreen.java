@@ -264,7 +264,8 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
         determineBackgroundScale();
         determineBackgroundOffset();
 		backgroundRegion = new TextureRegion(backgroundImage, backgroundOffset.x, backgroundOffset.y,
-				Math.round(Gdx.graphics.getWidth() * (1f / backgroundScale)), Math.round(Gdx.graphics.getHeight() * (1f / backgroundScale)));
+				backgroundRegionSize.x, backgroundRegionSize.y);
+//				Math.round(Gdx.graphics.getWidth() * (1f / backgroundScale)), Math.round(Gdx.graphics.getHeight() * (1f / backgroundScale)));
 //		backgroundRegion = new TextureRegion(backgroundImage, 3500, 500,
 //				Math.round(Gdx.graphics.getWidth() * (1f / backgroundScale)), Math.round(Gdx.graphics.getHeight() * (1f / backgroundScale)));
     }
