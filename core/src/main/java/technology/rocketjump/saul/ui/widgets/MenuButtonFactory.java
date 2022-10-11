@@ -2,6 +2,7 @@ package technology.rocketjump.saul.ui.widgets;
 
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -10,6 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.ui.actions.ButtonAction;
 import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.i18n.I18nText;
@@ -24,6 +29,10 @@ public class MenuButtonFactory implements I18nUpdatable {
     private final I18nTranslator translator;
     private final FontRepository fontRepository;
     private final MessageDispatcher messageDispatcher;
+    private final SoundAssetDictionary soundAssetDictionary;
+
+    private final SoundAsset onEnterSoundAsset;
+    private final SoundAsset onClickSoundAsset;
 
     private final List<MenuButtonBuilder> buttonBuilders = new ArrayList<>();
 
@@ -47,10 +56,15 @@ public class MenuButtonFactory implements I18nUpdatable {
 
 
     @Inject
-    public MenuButtonFactory(I18nTranslator translator, FontRepository fontRepository, MessageDispatcher messageDispatcher) {
+    public MenuButtonFactory(I18nTranslator translator, FontRepository fontRepository,
+                             MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
         this.translator = translator;
         this.fontRepository = fontRepository;
         this.messageDispatcher = messageDispatcher;
+        this.soundAssetDictionary = soundAssetDictionary;
+
+        this.onEnterSoundAsset = soundAssetDictionary.getByName("MenuHover");
+        this.onClickSoundAsset = soundAssetDictionary.getByName("MenuClick");
     }
 
     public MenuButtonBuilder createButton(String i18nKey, Skin skin, ButtonStyle buttonStyle) {
@@ -91,6 +105,20 @@ public class MenuButtonFactory implements I18nUpdatable {
             buttonContainer = new Container<>(button);
             buttonContainer.setTransform(true);
             buttonContainer.setOrigin(button.getPrefWidth() / 2, button.getPrefHeight() / 2);
+
+            button.addListener(new ClickListener() {
+                @Override
+                public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                    super.enter(event, x, y, pointer, fromActor);
+                    messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onEnterSoundAsset));
+                }
+
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onClickSoundAsset));
+                }
+            });
         }
 
 
