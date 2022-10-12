@@ -186,18 +186,16 @@ public class TopLevelMenu implements Menu {
 
         Table buttonsTable = new Table();
         buttonsTable.background(menuSkin.getDrawable("asset_bg_banner"));
-        buttonsTable.add(continueButton).padBottom(17f).row();
-        buttonsTable.add(loadGameButton).padBottom(17f).row();
-        buttonsTable.add(newGameButton).padBottom(17f).row();
-        buttonsTable.add(optionsButton).padBottom(15f).row();
-        buttonsTable.add(modsButton).padBottom(15f).row();
-        buttonsTable.add(creditsButton).padBottom(15f).row();
-        buttonsTable.add(quitButton).padBottom(15f).row();
+        buttonsTable.add(continueButton).padBottom(15f).row();
+        buttonsTable.add(loadGameButton).padBottom(15f).row();
+        buttonsTable.add(newGameButton).padBottom(15f).row();
+        buttonsTable.add(optionsButton).padBottom(13f).height(58).row();
+        buttonsTable.add(modsButton).padBottom(13f).height(58).row();
+        buttonsTable.add(creditsButton).padBottom(13f).height(58).row();
+        buttonsTable.add(quitButton).padBottom(13f).height(58).row();
         buttonsTable.add(languageSelect).padBottom(208f).height(40).width(lesserImportanceWidth).row();
         buttonsTable.bottom();
 
-        
-        
 
         Table positioningTable = new Table();
         positioningTable.right().top();
