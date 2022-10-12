@@ -68,10 +68,6 @@ public class InvasionCreatureGroup extends CreatureGroup {
 				}
 			}
 		}
-
-		if (invasionStage.equals(InvasionStage.RETREATING)) {
-			this.pendingSpecialGoal = SpecialGoal.INVASION_RETREAT;
-		}
 	}
 
 	public int getVictoryPointsTarget() {

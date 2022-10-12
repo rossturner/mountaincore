@@ -83,7 +83,7 @@ public class StageAreaOnlyInputHandler implements InputProcessor {
 	 * mostly so scrolling in the game world zooms in and out while a Widget has focus
 	 */
 	@Override
-	public boolean scrolled(int amount) {
+	public boolean scrolled(float amountX, float amountY) {
 		Vector2 mouseStageCoords = parent.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 
 		Actor target = parent.hit(mouseStageCoords.x, mouseStageCoords.y, true);
@@ -97,7 +97,8 @@ public class StageAreaOnlyInputHandler implements InputProcessor {
 			InputEvent event = Pools.obtain(InputEvent.class);
 			event.setStage(parent);
 			event.setType(InputEvent.Type.scrolled);
-			event.setScrollAmount(amount);
+			event.setScrollAmountX(amountX);
+			event.setScrollAmountY(amountY);
 			event.setStageX(mouseStageCoords.x);
 			event.setStageY(mouseStageCoords.y);
 			target.fire(event);

@@ -1,0 +1,92 @@
+
+menu-skin.png
+size: 4096, 4096
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+white-pixel
+  rotate: false
+  xy: 765, 3676
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+asset_bg_banner
+  rotate: false
+  xy: 1, 1703
+  size: 762, 2122
+  orig: 762, 2122
+  offset: 0, 0
+  index: -1
+asset_bg_banner_pole
+  rotate: false
+  xy: 1, 3827
+  size: 3840, 124
+  orig: 3840, 124
+  offset: 0, 0
+  index: -1
+btn_banner_1
+  rotate: false
+  xy: 765, 3753
+  size: 329, 72
+  orig: 329, 72
+  offset: 0, 0
+  index: -1
+btn_banner_2
+  rotate: false
+  xy: 1, 1537
+  size: 329, 72
+  orig: 329, 72
+  offset: 0, 0
+  index: -1
+btn_banner_3
+  rotate: false
+  xy: 765, 3679
+  size: 329, 72
+  orig: 329, 72
+  offset: 0, 0
+  index: -1
+btn_banner_4
+  rotate: false
+  xy: 1096, 3753
+  size: 329, 72
+  orig: 329, 72
+  offset: 0, 0
+  index: -1
+btn_banner_hover_state
+  rotate: false
+  xy: 1, 1611
+  size: 449, 90
+  orig: 449, 90
+  offset: 0, 0
+  index: -1
+icon_discord
+  rotate: false
+  xy: 3843, 3865
+  size: 110, 86
+  orig: 110, 86
+  offset: 0, 0
+  index: -1
+icon_twitch
+  rotate: false
+  xy: 1, 1431
+  size: 90, 104
+  orig: 90, 104
+  offset: 0, 0
+  index: -1
+scroll_bg
+  rotate: false
+  xy: 332, 1581
+  size: 28, 28
+  split: 1, 1, 0, 0
+  orig: 28, 28
+  offset: 0, 0
+  index: -1
+scroll_fg
+  rotate: false
+  xy: 452, 1673
+  size: 28, 28
+  split: 1, 1, 0, 0
+  orig: 28, 28
+  offset: 0, 0
+  index: -1

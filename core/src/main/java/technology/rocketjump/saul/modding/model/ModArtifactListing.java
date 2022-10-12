@@ -245,7 +245,13 @@ public class ModArtifactListing {
 						"ui/cursors", null, PNG, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
 				def("ui/fonts", "*.[ot]tf", TTF, null,
 						"ui/fonts", null, TTF, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
-				// TODO MODDING add in skin
+
+				def("ui/skin", "menu-skin.*", SKIN_ATLAS, null,
+						"ui/skin", "menu-skin", SKIN_ATLAS, SPECIAL, REPLACES_EXISTING, SkinFilesProcessor.class),
+				def("ui/skin", "main-game-skin.*", SKIN_ATLAS, null,
+						"ui/skin", "main-game-skin", SKIN_ATLAS, SPECIAL, REPLACES_EXISTING, SkinFilesProcessor.class),
+
+
 				def("ui/notifications", "*.png", PNG, null,
 						"ui/notifications", null, PNG, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
 				def("ui/hints", "*.json", JSON_ARRAY, Hint.class,

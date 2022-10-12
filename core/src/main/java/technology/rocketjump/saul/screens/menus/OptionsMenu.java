@@ -115,4 +115,8 @@ public class OptionsMenu implements Menu {
 			this.tabs.put(optionsTabClass.getTabName(), optionsTabClass);
 		}
 	}
+
+	public void setCurrentTab(OptionsTabName currentTab) {
+		this.currentTab = currentTab;
+	}
 }

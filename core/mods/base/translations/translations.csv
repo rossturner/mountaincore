@@ -506,7 +506,6 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options "
 GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Allow automatic crash reports
 GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game
-GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING,,Scroll the background on the main menu
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous
 GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Ask to start the tutorial at game start
 GUI.OPTIONS.TAB.AUDIO,,Audio
@@ -729,11 +728,14 @@ MECHANISM.STONE.GEAR.TOOLTIP,,This contraption links up mechanical power in all 
 MECHANISM.WOODEN.SHAFT.NOUN,,Shaft
 MECHANISM.WOODEN.SHAFT.TOOLTIP,,A wooden shaft links mechanical power in 2 directions.
 
-MENU.CONTINUE_GAME,,Continue game
-MENU.LOAD_GAME,,Load game
+MENU.CONTINUE_GAME,,Continue
+MENU.JOIN_DISCORD,,Join Discord
+MENU.LINK_TWITCH_ACCOUNT,,Link Twitch
+MENU.LOAD_GAME,,Load
 MENU.MODS,,Mods
-MENU.NEW_GAME,,Start new game
+MENU.NEW_GAME,,New Game
 MENU.OPTIONS,,Options
+MENU.CREDITS,,Credits
 MENU.QUIT,,Quit
 MENU.TOGGLE_FULLSCREEN,,Toggle fullscreen
 

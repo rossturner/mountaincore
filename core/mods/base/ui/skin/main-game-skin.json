@@ -1,0 +1,140 @@
+{
+com.badlogic.gdx.graphics.Color: {
+	dropdown_body_colour: {
+		hex: a44929ff
+	}
+	dropdown_body_hover_colour: {
+		hex: 913613ff
+	}
+	primary_font_colour_red: {
+		hex: 913614ff
+	}
+	primary_font_colour_yellow_alt: {
+		hex: ffd171ff
+	}
+	white: {
+		hex: ffffffff
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	dropdown_body: {
+		name: white-pixel
+		color: dropdown_body_colour
+	}
+	dropdown_body_hover: {
+		name: white-pixel
+		color: dropdown_body_hover_colour
+	}
+}
+com.kotcrab.vis.ui.Sizes: {
+	default: {
+		scaleFactor: 1
+		spacingBottom: 8
+		spacingRight: 6
+		buttonBarSpacing: 10
+		menuItemIconSize: 22
+		borderSize: 1
+		spinnerButtonHeight: 12
+		spinnerFieldSize: 50
+		fileChooserViewModeBigIconsSize: 200
+		fileChooserViewModeMediumIconsSize: 128
+		fileChooserViewModeSmallIconsSize: 64
+		fileChooserViewModeListWidthSize: 150
+	}
+}
+com.kotcrab.vis.ui.widget.Separator$SeparatorStyle: {
+	default: {
+		thickness: 4
+	}
+	menu: {
+		thickness: 1
+	}
+}
+com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane$TabbedPaneStyle: {
+	default: {
+		vertical: false
+		draggable: false
+	}
+}
+com.kotcrab.vis.ui.widget.BusyBar$BusyBarStyle: {
+	default: {
+		height: 5
+		segmentWidth: 150
+		segmentOverflow: 10
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
+	default: {
+		font: placeholder-font
+		fontColor: primary_font_colour_red
+		up: btn_banner_1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: placeholder-font
+		fontColor: primary_font_colour_red
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
+	default: {
+		font: placeholder-font
+		fontColorSelected: primary_font_colour_yellow_alt
+		fontColorUnselected: white
+		selection: dropdown_body_hover
+		background: dropdown_body
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		hScroll: scroll_bg
+		hScrollKnob: scroll_fg
+		vScroll: scroll_bg
+		vScrollKnob: scroll_fg
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
+	default: {
+		font: placeholder-font
+		fontColor: white
+		background: dropdown_body_hover
+		scrollStyle: default
+		listStyle: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: placeholder-font
+		fontColor: primary_font_colour_red
+	}
+	btn_banner_1: {
+		parent: default
+		font: placeholder-header-font
+		up: btn_banner_1
+		over: btn_banner_hover_state
+	}
+	btn_banner_2: {
+		parent: default
+		font: placeholder-header-font
+		up: btn_banner_2
+		over: btn_banner_hover_state
+	}
+	btn_banner_3: {
+		parent: default
+		font: placeholder-header-font
+		up: btn_banner_3
+		over: btn_banner_hover_state
+	}
+	btn_banner_4: {
+		parent: default
+		font: placeholder-header-font
+		up: btn_banner_4
+		over: btn_banner_hover_state
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
+	}
+}
+}

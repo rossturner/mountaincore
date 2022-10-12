@@ -1,3 +1,4 @@
 {
-  "defaultFont": "NotoSans-Medium.ttf"
+  "defaultFont": "Roboto-Bold.ttf",
+  "headerFont": "GermaniaOne-Regular.ttf"
 }

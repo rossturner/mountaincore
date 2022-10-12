@@ -17,7 +17,7 @@
 package com.badlogic.gdx.backends.lwjgl;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.backends.lwjgl.audio.OpenALAudio;
+import com.badlogic.gdx.backends.lwjgl.audio.OpenALLwjglAudio;
 import com.badlogic.gdx.utils.*;
 import org.apache.commons.lang3.NotImplementedException;
 import org.lwjgl.LWJGLException;
@@ -33,7 +33,7 @@ import java.io.File;
  */
 public class SaulLwjglApplication implements Application {
 	protected final LwjglGraphics graphics;
-	protected OpenALAudio audio;
+	protected OpenALLwjglAudio audio;
 	protected final LwjglFiles files;
 	protected final LwjglInput input;
 	protected final LwjglNet net;
@@ -75,7 +75,7 @@ public class SaulLwjglApplication implements Application {
 		this.graphics = graphics;
 		if (!LwjglApplicationConfiguration.disableAudio) {
 			try {
-				audio = new OpenALAudio(config.audioDeviceSimultaneousSources, config.audioDeviceBufferCount,
+				audio = new OpenALLwjglAudio(config.audioDeviceSimultaneousSources, config.audioDeviceBufferCount,
 						config.audioDeviceBufferSize);
 			} catch (Throwable t) {
 				log("LwjglApplication", "Couldn't initialize audio, disabling audio", t);
@@ -83,7 +83,7 @@ public class SaulLwjglApplication implements Application {
 			}
 		}
 		files = new LwjglFiles();
-		input = new LwjglInput();
+		input = new DefaultLwjglInput();
 		net = new LwjglNet(config);
 		this.listener = listener;
 		this.preferencesdir = config.preferencesDirectory;

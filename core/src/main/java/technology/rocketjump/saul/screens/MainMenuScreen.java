@@ -9,6 +9,8 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,7 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.lang3.NotImplementedException;
@@ -33,6 +36,7 @@ import technology.rocketjump.saul.rendering.ScreenWriter;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.screens.menus.*;
+import technology.rocketjump.saul.screens.menus.options.OptionsTabName;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -42,9 +46,9 @@ import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.*;
-import static technology.rocketjump.saul.rendering.camera.DisplaySettings.DEFAULT_UI_SCALE;
+import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.TWITCH_INTEGRATION_ENABLED;
 import static technology.rocketjump.saul.rendering.camera.GlobalSettings.VERSION;
 
 /**
@@ -63,23 +67,22 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 	private final ModsMenu modsMenu;
 	private final EmbarkMenu embarkMenu;
 	private final LoadGameMenu loadGameMenu;
-	private final PrivacyOptInMenu privacyOptInMenu;
 	private final Skin uiSkin;
-	private final I18nTextButton newVersionButton;
-	private final I18nTextButton viewRoadmapButton;
-	private SpriteBatch basicSpriteBatch = new SpriteBatch();
+	private final SpriteBatch basicSpriteBatch = new SpriteBatch();
+	private final OrthographicCamera camera = new OrthographicCamera();
+	private final Viewport viewport = new ExtendViewport(1920, 1080);
 
-	private OrthographicCamera camera = new OrthographicCamera();
 	private Texture backgroundImage;
-	private boolean scrollBackgroundImage;
+    private float backgroundScale = 1f;
+	private GridPoint2 backgroundOffset = new GridPoint2();
+	private TextureRegion backgroundRegion;
+	private GridPoint2 backgroundRegionSize;
 
-	private float xCursor = 0f;
-	private float backgroundScale = 1f;
 
-	private Stage stage;
+	private final Stage stage;
 
-	private Table containerTable;
-	private Table versionTable;
+	private final Table containerTable;
+	private final Table versionTable;
 
 	private Menu currentMenu;
 
@@ -88,7 +91,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 	private final UserPreferences userPreferences;
 	private final TwitchDataStore twitchDataStore;
 	private final I18nTranslator i18nTranslator;
-	private GameContext gameContext;
 
 	@Inject
 	public MainMenuScreen(MessageDispatcher messageDispatcher, ScreenWriter screenWriter, EmbarkMenu embarkMenu,
@@ -104,7 +106,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		this.topLevelMenu = topLevelMenu;
 		this.optionsMenu = optionsMenu;
 		this.modsMenu = modsMenu;
-		this.privacyOptInMenu = privacyOptInMenu;
 		this.userPreferences = userPreferences;
 		this.uiScale = Float.parseFloat(userPreferences.getPreference(UserPreferences.PreferenceKey.UI_SCALE, "1"));
 		this.twitchDataStore = twitchDataStore;
@@ -113,13 +114,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		containerTable= new Table(uiSkin);
 		containerTable.setFillParent(true);
 		containerTable.center();
-//		containerTable.setDebug(true);
 
-		scrollBackgroundImage = Boolean.parseBoolean(userPreferences.getPreference(MAIN_MENU_BACKGROUND_SCROLLING, "false"));
-
-		String savedScale = userPreferences.getPreference(UI_SCALE, DEFAULT_UI_SCALE);
-		ScreenViewport viewport = new ScreenViewport();
-		viewport.setUnitsPerPixel(1 / Float.parseFloat(savedScale));
 		stage = new Stage(viewport);
 		stage.addActor(containerTable);
 
@@ -131,7 +126,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			versionText += " (DEV MODE ENABLED)";
 		}
 		versionTable.add(new Label(versionText, uiSkin)).left().pad(5);
-		newVersionButton = i18nWidgetFactory.createTextButton("GUI.NEW_VERSION_AVAILABLE");
+		I18nTextButton newVersionButton = i18nWidgetFactory.createTextButton("GUI.NEW_VERSION_AVAILABLE");
 		newVersionButton.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
@@ -139,7 +134,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			}
 		});
 
-		viewRoadmapButton = i18nWidgetFactory.createTextButton("GUI.VIEW_ROADMAP");
+		I18nTextButton viewRoadmapButton = i18nWidgetFactory.createTextButton("GUI.VIEW_ROADMAP");
 		viewRoadmapButton.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
@@ -147,7 +142,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			}
 		});
 
-		stage.addActor(versionTable);
+//		stage.addActor(versionTable);
 
 		if (crashHandler.isOptInConfirmationRequired()) {
 			currentMenu = privacyOptInMenu;
@@ -159,7 +154,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		messageDispatcher.addListener(this, MessageType.SWITCH_MENU);
 		messageDispatcher.addListener(this, MessageType.GUI_SET_SCALE);
 		messageDispatcher.addListener(this, MessageType.GUI_SCALE_CHANGED);
-		messageDispatcher.addListener(this, MessageType.SET_MAIN_MENU_BACKGROUND_SCROLLING);
 		messageDispatcher.addListener(this, MessageType.TWITCH_ACCOUNT_INFO_UPDATED);
 		messageDispatcher.addListener(this, MessageType.PREFERENCE_CHANGED);
 		messageDispatcher.addListener(this, MessageType.SAVED_GAMES_LIST_UPDATED);
@@ -181,6 +175,9 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 						case TOP_LEVEL_MENU:
 							currentMenu = topLevelMenu;
 							break;
+						case TWITCH_OPTIONS_MENU:
+							optionsMenu.setCurrentTab(OptionsTabName.TWITCH);
+						case PRIVACY_OPT_IN_MENU:
 						case OPTIONS_MENU:
 							currentMenu = optionsMenu;
 							break;
@@ -192,9 +189,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 							break;
 						case MODS_MENU:
 							currentMenu = modsMenu;
-							break;
-						case PRIVACY_OPT_IN_MENU:
-							currentMenu = optionsMenu;
 							break;
 						default:
 							throw new NotImplementedException("not yet implemented:" + targetMenuType.name());
@@ -211,10 +205,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			}
 			case MessageType.GUI_SCALE_CHANGED: {
 				resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-				return true;
-			}
-			case MessageType.SET_MAIN_MENU_BACKGROUND_SCROLLING: {
-				this.scrollBackgroundImage = (Boolean) msg.extraInfo;
 				return true;
 			}
 			case MessageType.TWITCH_ACCOUNT_INFO_UPDATED: {
@@ -241,7 +231,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 				return false;
 			}
 			default:
-				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
+				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this + ", " + msg);
 		}
 	}
 
@@ -275,14 +265,54 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			backgroundImage = new Texture("assets/main_menu/Dwarf Realm.jpg");
 		}
 
-		xCursor = 0f;
+        setupBackgroundRegion();
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(stage);
-		inputMultiplexer.addProcessor(new MainMenuInputHandler(messageDispatcher));
+		inputMultiplexer.addProcessor(new MainMenuInputHandler());
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	}
+
+    private void setupBackgroundRegion() {
+        backgroundScale = 1f;
+        determineBackgroundScale();
+        determineBackgroundOffset();
+		backgroundRegion = new TextureRegion(backgroundImage, backgroundOffset.x, backgroundOffset.y,
+				Math.round(Gdx.graphics.getWidth() * (1f / backgroundScale)), Math.round(Gdx.graphics.getHeight() * (1f / backgroundScale)));
+//		backgroundRegion = new TextureRegion(backgroundImage, 3500, 500,
+//				Math.round(Gdx.graphics.getWidth() * (1f / backgroundScale)), Math.round(Gdx.graphics.getHeight() * (1f / backgroundScale)));
+    }
+
+    private void determineBackgroundScale() {
+		if (backgroundImage.getWidth() < Gdx.graphics.getWidth() || backgroundImage.getHeight() < Gdx.graphics.getHeight()) {
+			backgroundScale = 2f;
+		} else {
+			while (canHalveBackgroundResolution()) {
+				backgroundScale *= 0.5f;
+			}
+		}
+		backgroundRegionSize = new GridPoint2(
+				Math.round(Gdx.graphics.getWidth() * (1f / backgroundScale)),
+				Math.round(Gdx.graphics.getHeight() * (1f / backgroundScale))
+		);
+	}
+
+	private void determineBackgroundOffset() {
+		GridPoint2 maxOffset = new GridPoint2(
+				backgroundImage.getWidth() - backgroundRegionSize.x,
+				backgroundImage.getHeight() - backgroundRegionSize.y
+		);
+		Random random = new RandomXS128();
+		this.backgroundOffset.set(
+            random.nextInt(maxOffset.x), random.nextInt(maxOffset.y)
+        );
+	}
+
+	private boolean canHalveBackgroundResolution() {
+		return (float)backgroundImage.getWidth() * backgroundScale > Gdx.graphics.getWidth() * 2f &&
+				(float)backgroundImage.getHeight() * backgroundScale > Gdx.graphics.getHeight() * 2f;
 	}
 
 	@Override
@@ -306,24 +336,10 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			}
 		}
 
-		float minXPosition = -((backgroundImage.getWidth() * backgroundScale) - Gdx.graphics.getWidth())/2f;
-
-		if (scrollBackgroundImage) {
-			xCursor -= (delta * PIXEL_SCROLL_PER_SECOND);
-			if (xCursor < minXPosition) {
-				xCursor = minXPosition;
-			}
-		}
-
-
-		float yPosition = calcYPosition();
-
 		// Show middle section of background from xCursor to xCursor + width
-		float width = xCursor + backgroundImage.getWidth();
-		float height = yPosition + backgroundImage.getHeight();
 		basicSpriteBatch.begin();
 		basicSpriteBatch.setProjectionMatrix(camera.combined);
-		basicSpriteBatch.draw(backgroundImage, xCursor, yPosition, width * backgroundScale, height * backgroundScale);
+		basicSpriteBatch.draw(backgroundRegion, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		basicSpriteBatch.end();
 
 		stage.draw();
@@ -345,21 +361,11 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 	public void resize(int width, int height) {
 		camera.setToOrtho(false, width, height);
 
-		backgroundScale = 1f;
-		while (calcYPosition() + (backgroundImage.getHeight() * backgroundScale) < Gdx.graphics.getHeight() + 200) {
-			backgroundScale += 0.2f;
-		}
+		setupBackgroundRegion();
 
-		ScreenViewport viewport = new ScreenViewport(new OrthographicCamera(width, height));
-		viewport.setUnitsPerPixel(1 / uiScale);
-		stage.setViewport(viewport);
-		stage.getViewport().update(width, height, true);
+		viewport.update(width, height, true);
 
 		reset();
-	}
-
-	private float calcYPosition() {
-		return -Math.abs(backgroundImage.getHeight() - Gdx.graphics.getHeight())/4f - 100f;
 	}
 
 	@Override
@@ -380,7 +386,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 	private void resetVersionTable() {
 
 		versionTable.clearChildren();
-		versionTable.left().bottom();
+		versionTable.top().left().padTop(50f).padLeft(25f);
 
 		if (twitchEnabled()) {
 			TwitchAccountInfo accountInfo = twitchDataStore.getAccountInfo();
@@ -395,8 +401,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			}
 			versionTable.add(twitchLabel).colspan(3).left().pad(5).row();
 		}
-
-//		versionTable.add(viewRoadmapButton).colspan(3).left().pad(5).row();
 
 		String versionText = VERSION.toString();
 		if (GlobalSettings.DEV_MODE) {
@@ -417,26 +421,17 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 
 	@Override
 	public void onContextChange(GameContext gameContext) {
-		this.gameContext = gameContext;
 		resetVersionTable();
 		reset();
 	}
 
 	@Override
 	public void clearContextRelatedState() {
-		this.gameContext = null;
 		resetVersionTable();
 		reset();
 	}
 
 	private static class MainMenuInputHandler implements InputProcessor {
-
-
-		private final MessageDispatcher messageDispatcher;
-
-		public MainMenuInputHandler(MessageDispatcher messageDispatcher) {
-			this.messageDispatcher = messageDispatcher;
-		}
 
 		@Override
 		public boolean keyDown(int keycode) {
@@ -466,8 +461,9 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		public boolean mouseMoved(int screenX, int screenY) {
 			return false;
 		}
+
 		@Override
-		public boolean scrolled(int amount) {
+		public boolean scrolled(float amountX, float amountY) {
 			return false;
 		}
 	}

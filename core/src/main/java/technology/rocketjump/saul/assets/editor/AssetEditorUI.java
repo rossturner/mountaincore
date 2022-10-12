@@ -112,8 +112,10 @@ public class AssetEditorUI implements Telegraph {
 		reload();
 
 		stage.addListener(new InputListener() {
+
+
 			@Override
-			public boolean scrolled(InputEvent event, float x, float y, int amount) {
+			public boolean scrolled(InputEvent event, float x, float y, float amountX, float amountY) {
 				// Setting scrollfocus when scrolling over a scrollpane as this is not default behaviour
 				if (stage.getScrollFocus() == null) {
 					Actor hitActor = stage.hit(x, y, false);
