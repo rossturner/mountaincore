@@ -78,7 +78,7 @@
   "filename" : "russian.csv",
   "enabled" : true,
   "breakAfterLineLength" : 110,
-  "headerFontName" : "Roboto-Bold.ttf"
+  "headerFontName" : "Roboto-Bold.otf"
 }, {
   "label" : "Türkçe",
   "labelEn" : "Turkish",
