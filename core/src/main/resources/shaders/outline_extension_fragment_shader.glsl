@@ -6,7 +6,7 @@ varying vec2 v_position;
 uniform sampler2D u_texture;
 uniform vec2 u_viewportResolution;
 
-const int numSteps = 4;
+const float numSteps = 4.0;
 
 void main() {
     vec2 correctedCoords = vec2(
@@ -22,8 +22,8 @@ void main() {
 
     float radius2 = (numSteps/2.0) * (numSteps/2.0);
 
-    for (int x = -numSteps/2; x < numSteps/2; x++) {
-        for (int y = -numSteps/2; y < numSteps/2; y++) {
+    for (float x = -numSteps/2.0; x < numSteps/2.0; x++) {
+        for (float y = -numSteps/2.0; y < numSteps/2.0; y++) {
             vec2 samplePosition = vec2(
                 correctedCoords.x + (xStep * x),
                 correctedCoords.y + (yStep * y)
