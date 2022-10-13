@@ -60,7 +60,6 @@ import static technology.rocketjump.saul.rendering.camera.GlobalSettings.VERSION
 @Singleton
 public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, GameContextAware {
 
-	private static final float PIXEL_SCROLL_PER_SECOND = 70f;
 	private final MessageDispatcher messageDispatcher;
 	private final ScreenWriter screenWriter;
 	private final TopLevelMenu topLevelMenu;
