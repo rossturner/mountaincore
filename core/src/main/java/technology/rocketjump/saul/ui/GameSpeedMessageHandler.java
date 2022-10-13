@@ -14,7 +14,6 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
-import technology.rocketjump.saul.ui.widgets.IconOnlyButton;
 
 import static technology.rocketjump.saul.gamecontext.GameState.SELECT_SPAWN_LOCATION;
 import static technology.rocketjump.saul.gamecontext.GameState.STARTING_SPAWN;
@@ -90,11 +89,7 @@ public class GameSpeedMessageHandler implements Telegraph, GameContextAware {
 					gameContext.getGameClock().setCurrentGameSpeed(selectedSpeed);
 				}
 
-				for (IconOnlyButton gameSpeedButton : iconButtonFactory.getIconOnlyButtons()) {
-					boolean highlight = gameSpeedButton.gameSpeed.equals(selectedSpeed);
-					gameSpeedButton.setHighlighted(highlight);
-				}
-
+				messageDispatcher.dispatchMessage(MessageType.GAME_SPEED_CHANGED, selectedSpeed);
 				return true;
 			}
 			default:

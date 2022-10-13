@@ -4,51 +4,40 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.environment.WeatherTypeDictionary;
-import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.gamecontext.GameState;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.screens.GameScreenDictionary;
 import technology.rocketjump.saul.screens.ManagementScreen;
-import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.*;
+import technology.rocketjump.saul.ui.widgets.I18nTextButton;
+import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 import technology.rocketjump.saul.ui.widgets.maingame.TimeDateWidget;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Singleton
 public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
 
 	private final I18nTranslator i18nTranslator;
-	private final I18nTextWidget dateTimeLabel;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nWidgetFactory i18nWidgetFactory;
-	private final Label settlementNameLabel;
-	private final I18nTextWidget weatherLabel;
 	private Table layoutTable;
 	private Table timeDateTable;
 	private Table managementScreenButtonTable;
 	private GameContext gameContext;
 
-	private TimeDateWidget timeDateWidget;
-
-	private List<IconOnlyButton> speedButtons = new ArrayList<>();
+	private final TimeDateWidget timeDateWidget;
 
 	@Inject
 	public TimeDateGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-						   I18nTranslator i18nTranslator,
-						   IconButtonFactory iconButtonFactory, I18nWidgetFactory i18nWidgetFactory, WeatherTypeDictionary weatherTypeDictionary) {
+						   I18nTranslator i18nTranslator, TimeDateWidget timeDateWidget,
+						   I18nWidgetFactory i18nWidgetFactory) {
 		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;
 		Skin uiSkin = guiSkinRepository.getDefault();
@@ -58,29 +47,9 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
 		timeDateTable.background("default-rect");
 		timeDateTable.pad(5);
 
-		timeDateWidget = new TimeDateWidget(guiSkinRepository.getMainGameSkin(), i18nTranslator, weatherTypeDictionary);
+		this.timeDateWidget = timeDateWidget;
 
 		managementScreenButtonTable = new Table(uiSkin);
-
-		for (GameSpeed gameSpeed : GameSpeed.VISIBLE_TO_UI) {
-			IconOnlyButton button = iconButtonFactory.create(gameSpeed);
-			button.setAction(() -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, gameSpeed));
-			speedButtons.add(button);
-		}
-
-		settlementNameLabel = new Label("", uiSkin);
-		timeDateTable.add(settlementNameLabel).colspan(speedButtons.size()).center().padBottom(4).row();
-
-		for (IconOnlyButton speedButton : speedButtons) {
-			timeDateTable.add(speedButton);
-		}
-		timeDateTable.row();
-
-		this.weatherLabel = new I18nTextWidget(new I18nText(""), uiSkin, messageDispatcher);
-		timeDateTable.add(weatherLabel).colspan(speedButtons.size()).center().padTop(4).row();
-
-		this.dateTimeLabel = new I18nTextWidget(new I18nText(""), uiSkin, messageDispatcher);
-		timeDateTable.add(dateTimeLabel).colspan(speedButtons.size()).center().padTop(4);
 
 		layoutTable = new Table(uiSkin);
 		reset(null);
@@ -89,7 +58,6 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
 	}
 
 	private void reset(GameContext gameContext) {
-		timeDateWidget.reset(gameContext);
 		layoutTable.clearChildren();
 		if (gameContext == null || !gameContext.getSettlementState().getGameState().equals(GameState.SELECT_SPAWN_LOCATION)) {
 			layoutTable.add(managementScreenButtonTable).right().top();
@@ -123,9 +91,6 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
 	public void update() {
 		if (gameContext != null) {
 			timeDateWidget.update(gameContext);
-
-			weatherLabel.setI18nText(i18nTranslator.getTranslatedString(gameContext.getMapEnvironment().getCurrentWeather().getI18nKey()));
-			dateTimeLabel.setI18nText(i18nTranslator.getDateTimeString(gameContext.getGameClock()));
 		}
 	}
 
@@ -156,20 +121,6 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
 	@Override
 	public void onContextChange(GameContext gameContext) {
 		this.gameContext = gameContext;
-		if (gameContext != null) {
-			settlementNameLabel.setText(gameContext.getSettlementState().getSettlementName());
-		}
-		if (gameContext.getGameClock().isPaused()) {
-			for (IconOnlyButton speedButton : speedButtons) {
-				boolean highlight = speedButton.gameSpeed.equals(GameSpeed.PAUSED);
-				speedButton.setHighlighted(highlight);
-			}
-		} else {
-			for (IconOnlyButton speedButton : speedButtons) {
-				boolean highlight = speedButton.gameSpeed.equals(gameContext.getGameClock().getCurrentGameSpeed());
-				speedButton.setHighlighted(highlight);
-			}
-		}
 		reset(gameContext);
 	}
 
