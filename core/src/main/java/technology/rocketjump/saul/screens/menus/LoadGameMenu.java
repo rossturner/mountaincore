@@ -70,40 +70,43 @@ public class LoadGameMenu implements Menu, GameContextAware {
 		table1.padTop(0.0f);
 		table1.padBottom(0.0f);
 
-		Table table2 = new Table();
-		table2.setName("title");
-
 		Image image = new Image(skin, "title_ribbon_bg_left");
-		table2.add(image);
 
+		Table titleTable = new Table();
+		titleTable.setName("title");
+		titleTable.add(image);
 		image = new Image(skin, "title_ribbon_bg_middle");
-		table2.add(image);
+
+		titleTable.add(image);
 
 		image = new Image(skin, "title_ribbon_bg_right");
-		table2.add(image);
-		table1.add(table2).padTop(84.0f).padBottom(84.0f).colspan(5);
+		titleTable.add(image);
 
+		table1.add(titleTable).padTop(84.0f).padBottom(84.0f).colspan(5);
 		table1.row();
-		Button button = new Button(skin, "left_arrow");
-		table1.add(button).maxWidth(58.0f).maxHeight(127.0f); //.preferredWidth(58.0f).preferredHeight(127.0f);
 
-		table2 = new Table();
-		table2.setName("slot1");
-		table2.setBackground(skin.getDrawable("save_greyed_out_bg"));
-		table1.add(table2).width(412.0f).height(572.0f);
+		Button leftArrow = new Button(skin, "left_arrow");
 
-		table2 = new Table();
-		table2.setName("slot2");
-		table2.setBackground(skin.getDrawable("save_greyed_out_bg"));
-		table1.add(table2).width(412.0f).height(572.0f);
+		Table slot1 = new Table();
+		slot1.setName("slot1");
+		slot1.setBackground(skin.getDrawable("save_greyed_out_bg"));
 
-		table2 = new Table();
-		table2.setName("slot3");
-		table2.setBackground(skin.getDrawable("save_greyed_out_bg"));
-		table1.add(table2).width(412.0f).height(572.0f);
+		Table slot2 = new Table();
+		slot2.setName("slot2");
+		slot2.setBackground(skin.getDrawable("save_greyed_out_bg"));
 
-		button = new Button(skin, "right_arrow");
-		table1.add(button).width(58.0f).height(127.0f);
+		Table slot3 = new Table();
+		slot3.setName("slot3");
+		slot3.setBackground(skin.getDrawable("save_greyed_out_bg"));
+
+		Button rightArrow = new Button(skin, "right_arrow");
+
+
+		table1.add(leftArrow).maxWidth(58.0f).maxHeight(127.0f);
+		table1.add(slot1).width(412.0f).height(572.0f);
+		table1.add(slot2).width(412.0f).height(572.0f);
+		table1.add(slot3).width(412.0f).height(572.0f);
+		table1.add(rightArrow).width(58.0f).height(127.0f);
 
 		table1.row();
 

@@ -6,7 +6,7 @@ filter: MipMapLinearLinear, Linear
 repeat: none
 white-pixel
   rotate: false
-  xy: 3788, 7939
+  xy: 3846, 7956
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -55,7 +55,7 @@ asset_bg_banner_pole
   index: -1
 btn_banner_1
   rotate: false
-  xy: 4504, 7996
+  xy: 5272, 7996
   size: 329, 72
   orig: 329, 72
   offset: 0, 0
@@ -76,7 +76,7 @@ btn_banner_3
   index: -1
 btn_banner_4
   rotate: false
-  xy: 4837, 7996
+  xy: 5605, 7996
   size: 329, 72
   orig: 329, 72
   offset: 0, 0
@@ -130,6 +130,22 @@ paper_texture_bg_pattern_large
   orig: 126, 2162
   offset: 0, 0
   index: -1
+save_bg_scalable
+  rotate: false
+  xy: 3788, 7920
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+save_title_ribbon_bg
+  rotate: false
+  xy: 3846, 7961
+  size: 764, 107
+  split: 0, 0, 0, 0
+  pad: 62, 62, 10, 10
+  orig: 764, 107
+  offset: 0, 0
+  index: -1
 scroll_bg
   rotate: false
   xy: 736, 3590
@@ -148,7 +164,7 @@ scroll_fg
   index: -1
 select_full
   rotate: false
-  xy: 3846, 7973
+  xy: 4614, 7973
   size: 654, 95
   orig: 654, 95
   offset: 0, 0

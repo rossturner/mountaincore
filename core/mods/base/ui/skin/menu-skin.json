@@ -40,6 +40,28 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		color: btn_scalable_colour
 	}
 }
+com.ray3k.tenpatch.TenPatchDrawable: {
+	save_bg_scalable_ten_patch: {
+		region: save_bg_scalable
+		horizontalStretchAreas: [ 1, 18 ]
+		verticalStretchAreas: [ 1, 18 ]
+		tiling: false
+		minWidth: 20
+		minHeight: 20
+		rightWidth: 0
+		leftWidth: 0
+		bottomHeight: 0
+		topHeight: 0
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
+}
 com.kotcrab.vis.ui.Sizes: {
 	default: {
 		scaleFactor: 1
@@ -98,6 +120,15 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
 		font: placeholder-header-font
 		fontColor: primary_font_colour_red
+	}
+	white_text: {
+		font: placeholder-font
+		fontColor: white
+	}
+	save_title_ribbon: {
+		font: placeholder-header-font
+		fontColor: primary_font_colour_yellow_alt
+		background: save_title_ribbon_bg
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
