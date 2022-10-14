@@ -149,7 +149,7 @@ public class PrivacyOptInMenu implements Menu {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				LanguageType selectedLanguage = languageSelect.getSelected();
-				changeLanguage(selectedLanguage, userPreferences, i18nRepo, messageDispatcher);
+				changeLanguage(selectedLanguage, userPreferences, i18nRepo, messageDispatcher, fontRepository);
 				parent.reset();
 			}
 		});
@@ -158,9 +158,10 @@ public class PrivacyOptInMenu implements Menu {
 	}
 
 	public static void changeLanguage(LanguageType selectedLanguage, UserPreferences userPreferences,
-									  I18nRepo i18nRepo, MessageDispatcher messageDispatcher) {
+									  I18nRepo i18nRepo, MessageDispatcher messageDispatcher, FontRepository fontRepository) {
 		userPreferences.setPreference(UserPreferences.PreferenceKey.LANGUAGE, selectedLanguage.getCode());
 		i18nRepo.setCurrentLanguage(selectedLanguage);
+		fontRepository.changeFonts(selectedLanguage);
 		messageDispatcher.dispatchMessage(MessageType.LANGUAGE_CHANGED);
 	}
 }

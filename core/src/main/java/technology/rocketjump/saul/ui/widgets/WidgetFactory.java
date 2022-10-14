@@ -63,7 +63,7 @@ public class WidgetFactory {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 LanguageType selectedLanguage = selectBox.getSelected();
-                PrivacyOptInMenu.changeLanguage(selectedLanguage, userPreferences, i18nRepo, messageDispatcher);
+                PrivacyOptInMenu.changeLanguage(selectedLanguage, userPreferences, i18nRepo, messageDispatcher, fontRepository);
 //                parent.reset();
             }
         });
