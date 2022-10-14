@@ -11,7 +11,6 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
-import technology.rocketjump.saul.rendering.utils.HexColors;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +27,6 @@ public class ImageButtonFactory {
 
 	private Map<String, ImageButton> byIconName = new HashMap<>();
 	private final Map<Long, ImageButton> entityButtonsByEntityId = new HashMap<>();
-	private final Map<Long, ImageButton> ghostButtonsByEntityId = new HashMap<>();
 	private final EntityRenderer entityRenderer;
 
 	@Inject
@@ -62,14 +60,6 @@ public class ImageButtonFactory {
 
 	public ImageButton getOrCreate(Entity entity) {
 		return entityButtonsByEntityId.computeIfAbsent(entity.getId(), a -> new ImageButton(new EntityDrawable(entity, entityRenderer, true, messageDispatcher), buttonNinePatch, false));
-	}
-
-	public ImageButton getOrCreateGhostButton(Entity entity) {
-		return ghostButtonsByEntityId.computeIfAbsent(entity.getId(), a -> {
-			EntityDrawable entityDrawable = new EntityDrawable(entity, entityRenderer, true, messageDispatcher);
-			entityDrawable.setOverrideColor(HexColors.get("#D4534C88"));
-			return new ImageButton(entityDrawable, buttonNinePatch, false);
-		});
 	}
 
 }

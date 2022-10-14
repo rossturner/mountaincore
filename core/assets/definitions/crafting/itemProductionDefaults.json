@@ -55,8 +55,7 @@
     "perSettler" : 0.0
   },
   "Product-Leather" : {
-    "fixedAmount" : 400,
-    "perSettler" : 0.0
+    "perSettler" : 3.0
   },
   "Product-Linen" : {
     "fixedAmount" : 6,
@@ -96,7 +95,7 @@
     "perSettler" : 0.0
   },
   "Resource-Flour-Sack" : {
-    "fixedAmount" : 200,
+    "fixedAmount" : 16,
     "perSettler" : 0.0
   },
   "Resource-Gem" : {
@@ -108,7 +107,7 @@
     "perSettler" : 0.0
   },
   "Resource-Metal-Ingot" : {
-    "fixedAmount" : 400,
+    "fixedAmount" : 20,
     "perSettler" : 0.0
   },
   "Resource-Metal-Plate" : {
@@ -116,15 +115,15 @@
     "perSettler" : 0.0
   },
   "Resource-Ore-Crushed" : {
-    "fixedAmount" : 400,
+    "fixedAmount" : 20,
     "perSettler" : 0.0
   },
   "Resource-Planks" : {
-    "fixedAmount" : 160,
+    "fixedAmount" : 20,
     "perSettler" : 0.0
   },
   "Resource-Stone-Block" : {
-    "fixedAmount" : 300,
+    "fixedAmount" : 20,
     "perSettler" : 0.0
   },
   "Tool-Axe" : {
