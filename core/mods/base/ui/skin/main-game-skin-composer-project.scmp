@@ -856,62 +856,6 @@ jsonData: {
 			magFilter: Nearest
 			incremental: false
 		}
-		{
-			class: com.ray3k.skincomposer.data.FreeTypeFontData
-			name: placeholder-font
-			previewTTF: IBMPlexSerif-Medium
-			useCustomSerializer: false
-			size: 16
-			mono: false
-			hinting: AutoMedium
-			color: null
-			gamma: 1.8
-			renderCount: 2
-			borderWidth: 0
-			borderColor: null
-			borderStraight: false
-			borderGamma: 1.8
-			shadowOffsetX: 0
-			shadowOffsetY: 0
-			shadowColor: null
-			spaceX: 0
-			spaceY: 0
-			characters: ""
-			kerning: true
-			flip: false
-			genMipMaps: false
-			minFilter: Nearest
-			magFilter: Nearest
-			incremental: false
-		}
-		{
-			class: com.ray3k.skincomposer.data.FreeTypeFontData
-			name: placeholder-header-font
-			previewTTF: PressStart2P-Regular
-			useCustomSerializer: false
-			size: 16
-			mono: false
-			hinting: AutoMedium
-			color: null
-			gamma: 1.8
-			renderCount: 2
-			borderWidth: 0
-			borderColor: null
-			borderStraight: false
-			borderGamma: 1.8
-			shadowOffsetX: 0
-			shadowOffsetY: 0
-			shadowColor: null
-			spaceX: 0
-			spaceY: 0
-			characters: ""
-			kerning: true
-			flip: false
-			genMipMaps: false
-			minFilter: Nearest
-			magFilter: Nearest
-			incremental: false
-		}
 	]
 	classStyleMap: {
 		com.badlogic.gdx.scenes.scene2d.ui.CheckBox: [
@@ -954,7 +898,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: default-font-16
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -1232,7 +1176,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: default-font-16
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -1883,7 +1827,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: titleFont
 						optional: false
-						value: null
+						value: header-font-32
 					}
 					titleFontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -2785,7 +2729,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: placeholder-font
+						value: default-font-16
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -2951,7 +2895,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: placeholder-font
+						value: default-font-16
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -3773,7 +3717,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: default-font-16
 					}
 					fontColorSelected: {
 						type: com.badlogic.gdx.graphics.Color
@@ -3930,7 +3874,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: default-font-16
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -3995,7 +3939,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: placeholder-font
+						value: default-font-16
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color

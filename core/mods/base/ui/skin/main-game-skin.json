@@ -81,13 +81,13 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
-		font: placeholder-font
+		font: default-font-16
 		fontColor: primary_font_colour_red
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
-		font: placeholder-font
+		font: default-font-16
 		fontColor: white
 	}
 	settlement-name-label: {
@@ -97,7 +97,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
-		font: placeholder-font
+		font: default-font-16
 		fontColor: primary_font_colour_red
 	}
 	btn_banner_1: {
@@ -116,6 +116,11 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
 		label: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		titleFont: header-font-32
 	}
 }
 }
