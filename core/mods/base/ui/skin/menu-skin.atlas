@@ -1,32 +1,12 @@
 
 menu-skin.png
-size: 4096, 4096
-format: RGBA8888
-filter: MipMapLinearLinear, Linear
-repeat: none
-asset_bg_banner_pole
-  rotate: false
-  xy: 2, 3714
-  size: 3840, 124
-  orig: 3840, 124
-  offset: 0, 0
-  index: -1
-paper_texture_bg
-  rotate: false
-  xy: 2, 1550
-  size: 3782, 2160
-  orig: 3782, 2160
-  offset: 0, 0
-  index: -1
-
-menu-skin2.png
-size: 4096, 4096
+size: 8192, 8192
 format: RGBA8888
 filter: MipMapLinearLinear, Linear
 repeat: none
 white-pixel
   rotate: false
-  xy: 272, 1179
+  xy: 3788, 7939
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -61,21 +41,28 @@ arrow_right
   index: -1
 asset_bg_banner
   rotate: false
-  xy: 2, 1529
+  xy: 2, 3654
   size: 762, 2122
   orig: 762, 2122
   offset: 0, 0
   index: -1
+asset_bg_banner_pole
+  rotate: false
+  xy: 2, 7944
+  size: 3840, 124
+  orig: 3840, 124
+  offset: 0, 0
+  index: -1
 btn_banner_1
   rotate: false
-  xy: 2, 1260
+  xy: 4504, 7996
   size: 329, 72
   orig: 329, 72
   offset: 0, 0
   index: -1
 btn_banner_2
   rotate: false
-  xy: 1388, 3579
+  xy: 1221, 5704
   size: 329, 72
   orig: 329, 72
   offset: 0, 0
@@ -89,56 +76,63 @@ btn_banner_3
   index: -1
 btn_banner_4
   rotate: false
-  xy: 1388, 3503
+  xy: 4837, 7996
   size: 329, 72
   orig: 329, 72
   offset: 0, 0
   index: -1
 btn_banner_hover_state
   rotate: false
-  xy: 2, 1336
+  xy: 768, 5686
   size: 449, 90
   orig: 449, 90
   offset: 0, 0
   index: -1
 icon_discord
   rotate: false
-  xy: 455, 1340
+  xy: 622, 3564
   size: 110, 86
   orig: 110, 86
   offset: 0, 0
   index: -1
 icon_twitch
   rotate: false
-  xy: 335, 1228
+  xy: 122, 362
   size: 90, 104
   orig: 90, 104
   offset: 0, 0
   index: -1
 menu_bg_left
   rotate: false
-  xy: 768, 1261
+  xy: 2, 1260
   size: 411, 2162
   orig: 411, 2162
   offset: 0, 0
   index: -1
 menu_bg_right
   rotate: false
-  xy: 1183, 1261
+  xy: 768, 3520
   size: 390, 2162
   orig: 390, 2162
   offset: 0, 0
   index: -1
+paper_texture_bg
+  rotate: false
+  xy: 2, 5780
+  size: 3782, 2160
+  orig: 3782, 2160
+  offset: 0, 0
+  index: -1
 paper_texture_bg_pattern_large
   rotate: false
-  xy: 1577, 1337
+  xy: 417, 1260
   size: 126, 2162
   orig: 126, 2162
   offset: 0, 0
   index: -1
 scroll_bg
   rotate: false
-  xy: 1721, 3623
+  xy: 736, 3590
   size: 28, 28
   split: 1, 1, 0, 0
   orig: 28, 28
@@ -146,7 +140,7 @@ scroll_bg
   index: -1
 scroll_fg
   rotate: false
-  xy: 660, 1497
+  xy: 736, 3622
   size: 28, 28
   split: 1, 1, 0, 0
   orig: 28, 28
@@ -154,7 +148,7 @@ scroll_fg
   index: -1
 select_full
   rotate: false
-  xy: 2, 1430
+  xy: 3846, 7973
   size: 654, 95
   orig: 654, 95
   offset: 0, 0
@@ -168,7 +162,7 @@ title_ribbon_bg_left
   index: -1
 title_ribbon_bg_middle
   rotate: false
-  xy: 768, 3427
+  xy: 2, 3426
   size: 616, 224
   orig: 616, 224
   offset: 0, 0

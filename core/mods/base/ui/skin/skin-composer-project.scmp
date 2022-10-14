@@ -7841,7 +7841,7 @@ sceneComposer: {
 														name: null
 														text: Delete
 														style: {
-															name: btn_small_2
+															name: btn_scalable
 															clazz: com.badlogic.gdx.scenes.scene2d.ui.TextButton
 															properties: {
 																font: {
@@ -7984,8 +7984,8 @@ sceneComposer: {
 													spaceBottom: 0
 													expandX: false
 													expandY: false
-													fillX: false
-													fillY: false
+													fillX: true
+													fillY: true
 													growX: false
 													growY: false
 													alignment: 1
@@ -8005,7 +8005,7 @@ sceneComposer: {
 														name: null
 														text: Back
 														style: {
-															name: btn_small_2
+															name: btn_scalable
 															clazz: com.badlogic.gdx.scenes.scene2d.ui.TextButton
 															properties: {
 																font: {
@@ -8169,7 +8169,7 @@ sceneComposer: {
 														name: null
 														text: Play
 														style: {
-															name: btn_small_2
+															name: btn_scalable
 															clazz: com.badlogic.gdx.scenes.scene2d.ui.TextButton
 															properties: {
 																font: {
