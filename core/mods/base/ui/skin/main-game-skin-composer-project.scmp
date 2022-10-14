@@ -802,6 +802,62 @@ jsonData: {
 	freeTypeFonts: [
 		{
 			class: com.ray3k.skincomposer.data.FreeTypeFontData
+			name: default-font-16
+			previewTTF: IBMPlexSerif-Medium
+			useCustomSerializer: false
+			size: 16
+			mono: false
+			hinting: AutoMedium
+			color: null
+			gamma: 1.8
+			renderCount: 2
+			borderWidth: 0
+			borderColor: null
+			borderStraight: false
+			borderGamma: 1.8
+			shadowOffsetX: 0
+			shadowOffsetY: 0
+			shadowColor: null
+			spaceX: 0
+			spaceY: 0
+			characters: ""
+			kerning: true
+			flip: false
+			genMipMaps: false
+			minFilter: Nearest
+			magFilter: Nearest
+			incremental: false
+		}
+		{
+			class: com.ray3k.skincomposer.data.FreeTypeFontData
+			name: header-font-32
+			previewTTF: PressStart2P-Regular
+			useCustomSerializer: false
+			size: 16
+			mono: false
+			hinting: AutoMedium
+			color: null
+			gamma: 1.8
+			renderCount: 2
+			borderWidth: 0
+			borderColor: null
+			borderStraight: false
+			borderGamma: 1.8
+			shadowOffsetX: 0
+			shadowOffsetY: 0
+			shadowColor: null
+			spaceX: 0
+			spaceY: 0
+			characters: ""
+			kerning: true
+			flip: false
+			genMipMaps: false
+			minFilter: Nearest
+			magFilter: Nearest
+			incremental: false
+		}
+		{
+			class: com.ray3k.skincomposer.data.FreeTypeFontData
 			name: placeholder-font
 			previewTTF: IBMPlexSerif-Medium
 			useCustomSerializer: false
@@ -3018,7 +3074,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: placeholder-header-font
+						value: null
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -3177,7 +3233,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: placeholder-header-font
+						value: null
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -3336,7 +3392,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: placeholder-header-font
+						value: null
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -3495,7 +3551,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: placeholder-header-font
+						value: null
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -3966,7 +4022,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: placeholder-header-font
+						value: header-font-32
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color

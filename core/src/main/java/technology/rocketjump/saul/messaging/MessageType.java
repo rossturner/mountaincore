@@ -62,8 +62,9 @@ public class MessageType {
 	public static final int GAME_SPEED_CHANGED = 284;
 
 	// i18n Messages
-	public static final int LANGUAGE_CHANGED = 290;
-	public static final int LANGUAGE_TRANSLATION_INCOMPLETE = 291;
+	public static final int FONTS_CHANGED = 300;
+	public static final int LANGUAGE_CHANGED = 301;
+	public static final int LANGUAGE_TRANSLATION_INCOMPLETE = 302;
 
 	// Entity messages
 	public static final int ENTITY_POSITION_CHANGED = 310;

@@ -14,14 +14,14 @@ import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.fonts.GameFont;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Singleton
-public class IconButtonFactory implements I18nUpdatable {
+public class IconButtonFactory implements DisplaysText {
 
 	private final I18nTranslator translator;
 	private final TextureAtlas textureAtlas;
@@ -86,7 +86,7 @@ public class IconButtonFactory implements I18nUpdatable {
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		for (IconButton button : allInstances) {
 			if (button.getI18nKey() != null) {
 				button.setFont(fontRepository.getDefaultFontForUI());

@@ -9,37 +9,41 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.materials.GameMaterialI18nUpdater;
 import technology.rocketjump.saul.messaging.InfoType;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.ui.fonts.OnDemandFontRepository;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * This class keeps track of all I18nUpdateable implementations for notifying of language changes
+ * This class keeps track of all DisplaysText implementations for notifying of language/font changes
  */
 @Singleton
-public class I18nUpdatableRegister implements Telegraph {
+public class DisplaysTextRegister implements Telegraph {
 
 	private final GameMaterialI18nUpdater gameMaterialI18nUpdater;
-	private final Map<String, I18nUpdatable> registered = new HashMap<>();
+	private final Map<String, DisplaysText> registered = new HashMap<>();
 	private final I18nTranslator i18nTranslator;
 	private final MessageDispatcher messageDispatcher;
+	private final OnDemandFontRepository onDemandFontRepository;
 
 	@Inject
-	public I18nUpdatableRegister(MessageDispatcher messageDispatcher, GameMaterialI18nUpdater gameMaterialI18nUpdater, I18nTranslator i18nTranslator) {
+	public DisplaysTextRegister(MessageDispatcher messageDispatcher, GameMaterialI18nUpdater gameMaterialI18nUpdater,
+								I18nTranslator i18nTranslator, OnDemandFontRepository onDemandFontRepository) {
 		this.gameMaterialI18nUpdater = gameMaterialI18nUpdater;
 		this.i18nTranslator = i18nTranslator;
 		this.messageDispatcher = messageDispatcher;
+		this.onDemandFontRepository = onDemandFontRepository;
 
 		messageDispatcher.addListener(this, MessageType.LANGUAGE_CHANGED);
 	}
 
-	public void registerClasses(Set<Class<? extends I18nUpdatable>> updatableClasses, Injector injector) {
+	public void registerClasses(Set<Class<? extends DisplaysText>> updatableClasses, Injector injector) {
 		for (Class updatableClass : updatableClasses) {
 			if (!updatableClass.isInterface()) {
-				register((I18nUpdatable)injector.getInstance(updatableClass));
+				register((DisplaysText)injector.getInstance(updatableClass));
 			}
 		}
 	}
@@ -49,11 +53,12 @@ public class I18nUpdatableRegister implements Telegraph {
 		switch (msg.message) {
 			case MessageType.LANGUAGE_CHANGED: {
 				// Add any PRE-LANGUAGE CHANGED stuff here
-				i18nTranslator.onLanguageUpdated();
-				gameMaterialI18nUpdater.onLanguageUpdated();
-				// Then the onLanguageUpdated() callbacks are called
-				for (I18nUpdatable i18nUpdatable : registered.values()) {
-					i18nUpdatable.onLanguageUpdated();
+				i18nTranslator.preLanguageUpdated();
+				onDemandFontRepository.preLanguageUpdated();
+				gameMaterialI18nUpdater.preLanguageUpdated();
+				// Then the rebuildUI() callbacks are called
+				for (DisplaysText displaysTextInstance : registered.values()) {
+					displaysTextInstance.rebuildUI();
 				}
 
 				// Post-language changed
@@ -67,7 +72,7 @@ public class I18nUpdatableRegister implements Telegraph {
 		}
 	}
 
-	private void register(I18nUpdatable updatableInstance) {
+	private void register(DisplaysText updatableInstance) {
 		String className = updatableInstance.getClass().getName();
 		if (registered.containsKey(className)) {
 			throw new RuntimeException("Duplicate class registered in " + this.getClass().getName() + ": " + className);

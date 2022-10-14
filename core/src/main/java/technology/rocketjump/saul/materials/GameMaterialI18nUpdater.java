@@ -19,7 +19,7 @@ public class GameMaterialI18nUpdater {
 		this.gameMaterialDictionary = gameMaterialDictionary;
 	}
 
-	public void onLanguageUpdated() {
+	public void preLanguageUpdated() {
 		I18nLanguageDictionary currentLanguage = i18nRepo.getCurrentLanguage();
 		for (GameMaterialType materialType : GameMaterialType.values()) {
 			materialType.setI18NValue(currentLanguage.getWord(materialType.getI18nKey()));

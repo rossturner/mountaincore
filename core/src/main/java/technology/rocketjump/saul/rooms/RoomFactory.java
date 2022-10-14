@@ -11,15 +11,15 @@ import technology.rocketjump.saul.mapping.tile.TileNeighbours;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rooms.components.RoomComponent;
 import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 
 import java.util.Iterator;
 import java.util.Map;
 
 @Singleton
-public class RoomFactory implements GameContextAware, I18nUpdatable {
+public class RoomFactory implements GameContextAware, DisplaysText {
 
 	private final TagProcessor tagProcessor;
 	private final RoomStore roomStore;
@@ -90,7 +90,7 @@ public class RoomFactory implements GameContextAware, I18nUpdatable {
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		for (Room room : roomStore.getAll()) {
 			if (!room.isNameChangedByPlayer()) {
 				I18nText translatedName = i18nTranslator.getTranslatedString(room.getRoomType().getI18nKey());
@@ -120,7 +120,7 @@ public class RoomFactory implements GameContextAware, I18nUpdatable {
 	@Override
 	public void onContextChange(GameContext gameContext) {
 		this.gameContext = gameContext;
-		onLanguageUpdated();
+		rebuildUI();
 	}
 
 	@Override

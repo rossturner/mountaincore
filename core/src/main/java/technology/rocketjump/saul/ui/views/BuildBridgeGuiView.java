@@ -20,8 +20,8 @@ import technology.rocketjump.saul.sprites.BridgeTypeDictionary;
 import technology.rocketjump.saul.sprites.model.BridgeType;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.actions.SetInteractionMode;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.ButtonStyle;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
@@ -34,7 +34,7 @@ import java.util.*;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 
 @Singleton
-public class BuildBridgeGuiView implements GuiView, I18nUpdatable {
+public class BuildBridgeGuiView implements GuiView, DisplaysText {
 
 	private final SettlementItemTracker settlementItemTracker;
 	private final I18nTranslator i18nTranslator;
@@ -145,7 +145,7 @@ public class BuildBridgeGuiView implements GuiView, I18nUpdatable {
 		viewTable.add(backButton).pad(10).left().colspan(2);
 
 		resetMaterialTypeSelect();
-		onLanguageUpdated();
+		rebuildUI();
 		initialised = true;
 	}
 
@@ -174,7 +174,7 @@ public class BuildBridgeGuiView implements GuiView, I18nUpdatable {
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		resetMaterialTypeSelect(); // For different material names
 	}
 

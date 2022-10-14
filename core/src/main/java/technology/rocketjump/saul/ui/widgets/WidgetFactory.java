@@ -15,6 +15,7 @@ import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.screens.menus.PrivacyOptInMenu;
 import technology.rocketjump.saul.ui.fonts.FontRepository;
+import technology.rocketjump.saul.ui.fonts.OnDemandFontRepository;
 import technology.rocketjump.saul.ui.i18n.I18nRepo;
 import technology.rocketjump.saul.ui.i18n.LanguageType;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -26,16 +27,19 @@ public class WidgetFactory {
     private final UserPreferences userPreferences;
     private final TextureAtlasRepository textureAtlasRepository;
     private final FontRepository fontRepository;
+    private final OnDemandFontRepository onDemandFontRepository;
     private final GuiSkinRepository guiSkinRepository;
 
     @Inject
     public WidgetFactory(MessageDispatcher messageDispatcher, I18nRepo i18nRepo, UserPreferences userPreferences,
-                         TextureAtlasRepository textureAtlasRepository, FontRepository fontRepository, GuiSkinRepository guiSkinRepository) {
+                         TextureAtlasRepository textureAtlasRepository, FontRepository fontRepository,
+                         OnDemandFontRepository onDemandFontRepository, GuiSkinRepository guiSkinRepository) {
         this.messageDispatcher = messageDispatcher;
         this.i18nRepo = i18nRepo;
         this.userPreferences = userPreferences;
         this.textureAtlasRepository = textureAtlasRepository;
         this.fontRepository = fontRepository;
+        this.onDemandFontRepository = onDemandFontRepository;
         this.guiSkinRepository = guiSkinRepository;
     }
 
@@ -59,7 +63,7 @@ public class WidgetFactory {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 LanguageType selectedLanguage = selectBox.getSelected();
-                PrivacyOptInMenu.changeLanguage(selectedLanguage, userPreferences, fontRepository, i18nRepo, messageDispatcher, guiSkinRepository);
+                PrivacyOptInMenu.changeLanguage(selectedLanguage, userPreferences, i18nRepo, messageDispatcher);
 //                parent.reset();
             }
         });

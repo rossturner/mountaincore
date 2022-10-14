@@ -18,8 +18,10 @@ import technology.rocketjump.saul.environment.model.WeatherType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -27,14 +29,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Singleton
-public class TimeDateWidget extends Container<Table> implements Telegraph, GameContextAware {
+public class TimeDateWidget extends Container<Table> implements Telegraph, GameContextAware, DisplaysText {
 
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
 
-	private final Table layoutTable;
+	private final Table layoutTable = new Table();
 
-	private final Label settlementNameLabel;
+	private Label settlementNameLabel;
 
 	private final Table seasonWeatherTable = new Table();
 	private final Skin mainGameSkin;
@@ -46,10 +48,10 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 	private final Table gameSpeedControlsTable = new Table();
 	private final ArrayList<Button> speedButtons = new ArrayList<>();
 
-	private final Label dateTimeText;
-
+	private Label dateTimeText;
 	private final Map<Season, Drawable> seasonDrawables = new EnumMap<>(Season.class);
 	private final Map<WeatherType, Drawable> weatherDrawables = new HashMap<>();
+	private GameContext gameContext;
 
 	@Inject
 	public TimeDateWidget(GuiSkinRepository skinRepository, I18nTranslator i18nTranslator, WeatherTypeDictionary weatherTypeDictionary,
@@ -61,20 +63,6 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 		Drawable background = mainGameSkin.getDrawable("info_box_bg");
 		this.setBackground(background);
 		this.size(background.getMinWidth() / 2f, background.getMinHeight() / 2f);
-
-		layoutTable = new Table();
-
-		settlementNameLabel = new Label("...", mainGameSkin.get("settlement-name-label", Label.LabelStyle.class));
-
-		buildGameSpeedTable();
-		buildSeasonWeatherTable();
-
-		dateTimeText = new Label("date/time", mainGameSkin);
-
-
-		Container<Table> seasonWeatherContainer = new Container<>();
-		seasonWeatherContainer.setActor(seasonWeatherTable);
-		seasonWeatherContainer.center();
 
 		for (Season season : Season.values()) {
 			String drawableName = "asset_season_" + season.name().toLowerCase() + "_icon";
@@ -94,8 +82,23 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 			}
 		}
 
+		rebuildUI();
 
-		layoutTable.setDebug(true);
+		this.setActor(layoutTable);
+
+		messageDispatcher.addListener(this, MessageType.GAME_SPEED_CHANGED);
+	}
+
+	@Override
+	public void rebuildUI() {
+		settlementNameLabel = new ScaledToFitLabel("...", mainGameSkin.get("settlement-name-label", Label.LabelStyle.class), 247);
+
+		buildGameSpeedTable();
+		buildSeasonWeatherTable();
+
+		dateTimeText = new Label("date/time", mainGameSkin);
+
+		layoutTable.clearChildren();
 		layoutTable.padLeft(35);
 		layoutTable.padTop(49);
 		layoutTable.center();
@@ -104,13 +107,13 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 		layoutTable.add(centeredContainer(gameSpeedControlsTable)).center().width(279).row();
 		layoutTable.add(centeredContainer(seasonWeatherTable)).center().width(279).row();
 		layoutTable.add(centeredContainer(dateTimeText)).center().width(279).row();
-		this.setActor(layoutTable);
 
-		messageDispatcher.addListener(this, MessageType.GAME_SPEED_CHANGED);
+		onContextChange(gameContext);
 	}
 
 	private void buildGameSpeedTable() {
-		gameSpeedControlsTable.setDebug(true);
+		speedButtons.clear();
+		gameSpeedControlsTable.clearChildren();
 		gameSpeedControlsTable.defaults().padLeft(22);
 
 		for (GameSpeed gameSpeed : GameSpeed.VISIBLE_TO_UI) {
@@ -152,6 +155,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 	}
 
 	private void buildSeasonWeatherTable() {
+		seasonWeatherTable.clearChildren();
 		seasonWeatherTable.defaults().padLeft(4);
 
 		seasonLabel = new Label("SEASON", mainGameSkin);
@@ -169,6 +173,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 
 	@Override
 	public void onContextChange(GameContext gameContext) {
+		this.gameContext = gameContext;
 		if (gameContext == null) {
 			settlementNameLabel.setText("...");
 		} else {
@@ -187,7 +192,6 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 		weatherLabel.setText(i18nTranslator.getTranslatedString(gameContext.getMapEnvironment().getCurrentWeather().getI18nKey()).toString());
 		weatherIcon.setDrawable(weatherDrawables.get(gameContext.getMapEnvironment().getCurrentWeather()));
 	}
-
 
 	private Container<Actor> centeredContainer(Actor actor) {
 		Container<Actor> container = new Container<>();

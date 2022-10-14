@@ -27,6 +27,7 @@ public class FontRepository {
 
 	private final I18nRepo i18nRepo;
 	private final UiConstants uiConstants;
+	// Aiming to move away from the static arrays below to more dynamic request-as-needed font sizes
 	private GameFont[] defaultGameFonts;
 	private GameFont[] headerGameFonts;
 

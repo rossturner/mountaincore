@@ -4,8 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.i18n.I18nWordClass;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
@@ -17,7 +17,7 @@ import java.util.Map;
 import static technology.rocketjump.saul.entities.ai.goap.EntityNeed.*;
 
 @Singleton
-public class I18nWidgetFactory implements I18nUpdatable {
+public class I18nWidgetFactory implements DisplaysText {
 
 	private final I18nTranslator i18nTranslator;
 	private final Skin uiSkin;
@@ -60,7 +60,7 @@ public class I18nWidgetFactory implements I18nUpdatable {
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		for (I18nLabel i18nLabel : labels.values()) {
 			i18nLabel.setStyle(i18nLabel.getStyle());
 			i18nLabel.setText(i18nTranslator.getTranslatedString(i18nLabel.getI18nKey(), i18nLabel.getI18nWordClass()).toString());

@@ -64,7 +64,7 @@ import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPosit
 import static technology.rocketjump.saul.ui.i18n.I18nText.BLANK;
 
 @Singleton
-public class I18nTranslator implements I18nUpdatable {
+public class I18nTranslator {
 
 	public static DecimalFormat oneDecimalFormat = new DecimalFormat("#.#");
 
@@ -800,8 +800,7 @@ public class I18nTranslator implements I18nUpdatable {
 		return (bodyPart.getDiscriminator() != null ? bodyPart.getDiscriminator() + " " : "") + bodyPart.getPartDefinition().getName();
 	}
 
-	@Override
-	public void onLanguageUpdated() {
+	public void preLanguageUpdated() {
 		dictionary = repo.getCurrentLanguage();
 	}
 

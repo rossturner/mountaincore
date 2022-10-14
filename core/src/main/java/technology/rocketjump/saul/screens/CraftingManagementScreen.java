@@ -38,9 +38,9 @@ import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.settlement.production.ProductionManager;
 import technology.rocketjump.saul.settlement.production.ProductionQuota;
 import technology.rocketjump.saul.ui.Scene2DUtils;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.ImageButton;
@@ -56,7 +56,7 @@ import static technology.rocketjump.saul.entities.tags.CraftingStationBehaviourT
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 
 @Singleton
-public class CraftingManagementScreen extends ManagementScreen implements I18nUpdatable, Telegraph {
+public class CraftingManagementScreen extends ManagementScreen implements DisplaysText, Telegraph {
 
 	private static final float INDENT_WIDTH = 50f;
 	public static final int DEFAULT_ROW_WIDTH = 1050;
@@ -170,7 +170,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 			}
 		}
 
-		onLanguageUpdated();
+		rebuildUI();
 
 		initialised = true;
 	}
@@ -663,7 +663,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		displayedCraftingTypes.sort(Comparator.comparing(a -> i18nTranslator.getTranslatedString(a.getI18nKey()).toString()));
 
 		QuotaSetting.FIXED_AMOUNT.i18nValue = i18nTranslator.getTranslatedString("QUOTA.FIXED_AMOUNT").toString();

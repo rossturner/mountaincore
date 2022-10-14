@@ -18,8 +18,8 @@ import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.camera.DisplaySettings;
 import technology.rocketjump.saul.screens.menus.Resolution;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.I18nLabel;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
@@ -33,7 +33,7 @@ import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceK
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.FULLSCREEN_MODE;
 
 @Singleton
-public class GraphicsOptionsTab implements OptionsTab, I18nUpdatable {
+public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 
 	private final I18nTranslator i18nTranslator;
 	private final UserPreferences userPreferences;
@@ -146,7 +146,7 @@ public class GraphicsOptionsTab implements OptionsTab, I18nUpdatable {
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		refreshFullscreenModeOptions();
 	}
 }

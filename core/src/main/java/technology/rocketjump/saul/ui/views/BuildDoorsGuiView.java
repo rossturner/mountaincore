@@ -22,8 +22,8 @@ import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.actions.SetInteractionMode;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.ButtonStyle;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
@@ -36,7 +36,7 @@ import java.util.*;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 
 @Singleton
-public class BuildDoorsGuiView implements GuiView, I18nUpdatable {
+public class BuildDoorsGuiView implements GuiView, DisplaysText {
 
 	private final SettlementItemTracker settlementItemTracker;
 	private final I18nTranslator i18nTranslator;
@@ -170,7 +170,7 @@ public class BuildDoorsGuiView implements GuiView, I18nUpdatable {
 
 		resetMaterialTypeSelect();
 
-		onLanguageUpdated();
+		rebuildUI();
 
 		initialised = true;
 	}
@@ -200,7 +200,7 @@ public class BuildDoorsGuiView implements GuiView, I18nUpdatable {
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		resetMaterialTypeSelect(); // For different material names
 	}
 

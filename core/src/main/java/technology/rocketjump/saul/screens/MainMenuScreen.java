@@ -37,8 +37,8 @@ import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.screens.menus.*;
 import technology.rocketjump.saul.screens.menus.options.OptionsTabName;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.GameDialog;
 import technology.rocketjump.saul.ui.widgets.I18nTextButton;
@@ -58,7 +58,7 @@ import static technology.rocketjump.saul.rendering.camera.GlobalSettings.VERSION
  * Should slowly pan across a background image
  */
 @Singleton
-public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, GameContextAware {
+public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, GameContextAware {
 
 	private final MessageDispatcher messageDispatcher;
 	private final ScreenWriter screenWriter;
@@ -388,7 +388,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		// Not translated but needs triggering for font change
 		resetVersionTable();
 	}

@@ -12,6 +12,7 @@ import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.ui.fonts.FontRepository;
+import technology.rocketjump.saul.ui.fonts.OnDemandFontRepository;
 import technology.rocketjump.saul.ui.i18n.I18nRepo;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.LanguageType;
@@ -36,16 +37,19 @@ public class PrivacyOptInMenu implements Menu {
 	private final I18nRepo i18nRepo;
 	private Table menuTable;
 	private final I18nTranslator i18nTranslator;
+	private final OnDemandFontRepository onDemandFontRepository;
 
 	private final SelectBox<LanguageType> languageSelect;
 
 	@Inject
 	public PrivacyOptInMenu(UserPreferences userPreferences, GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 							IconButtonFactory iconButtonFactory, I18nTranslator i18nTranslator, I18nRepo i18nRepo,
-							I18nWidgetFactory i18NWidgetFactory, TextureAtlasRepository textureAtlasRepository, FontRepository fontRepository) {
+							I18nWidgetFactory i18NWidgetFactory, OnDemandFontRepository onDemandFontRepository,
+							TextureAtlasRepository textureAtlasRepository, FontRepository fontRepository) {
 		this.i18nTranslator = i18nTranslator;
 		this.i18nRepo = i18nRepo;
 		this.uiSkin = guiSkinRepository.getDefault();
+		this.onDemandFontRepository = onDemandFontRepository;
 
 
 		menuTable = new Table(uiSkin);
@@ -145,7 +149,7 @@ public class PrivacyOptInMenu implements Menu {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				LanguageType selectedLanguage = languageSelect.getSelected();
-				changeLanguage(selectedLanguage, userPreferences, fontRepository, i18nRepo, messageDispatcher, guiSkinRepository);
+				changeLanguage(selectedLanguage, userPreferences, i18nRepo, messageDispatcher);
 				parent.reset();
 			}
 		});
@@ -154,11 +158,8 @@ public class PrivacyOptInMenu implements Menu {
 	}
 
 	public static void changeLanguage(LanguageType selectedLanguage, UserPreferences userPreferences,
-									  FontRepository fontRepository, I18nRepo i18nRepo, MessageDispatcher messageDispatcher,
-									  GuiSkinRepository guiSkinRepository) {
+									  I18nRepo i18nRepo, MessageDispatcher messageDispatcher) {
 		userPreferences.setPreference(UserPreferences.PreferenceKey.LANGUAGE, selectedLanguage.getCode());
-		fontRepository.changeFonts(selectedLanguage);
-		guiSkinRepository.fontChanged();
 		i18nRepo.setCurrentLanguage(selectedLanguage);
 		messageDispatcher.dispatchMessage(MessageType.LANGUAGE_CHANGED);
 	}
