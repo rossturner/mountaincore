@@ -1,195 +1,302 @@
 package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.messaging.types.GameSaveMessage;
-import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.modding.ModCompatibilityChecker;
-import technology.rocketjump.saul.persistence.SavedGameInfo;
 import technology.rocketjump.saul.persistence.SavedGameStore;
 import technology.rocketjump.saul.persistence.UserPreferences;
-import technology.rocketjump.saul.ui.Scene2DUtils;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
 
 @Singleton
 public class LoadGameMenu implements Menu, GameContextAware {
 
-	private final Table outerTable;
+//	private final Table outerTable;
+//
+//	private final Table savedGamesTable;
+//	private final ClickableTableFactory clickableTableFactory;
+//	private final SoundAsset startGameSound;
+//	private ScrollPane scrollPane;
+//
+//	private final IconButton backButton;
+//	private final Skin uiSkin;
+//	private final MessageDispatcher messageDispatcher;
+//	private final I18nWidgetFactory i18NWidgetFactory;
+//	private final SavedGameStore savedGameStore;
+//	private final ModCompatibilityChecker modCompatibilityChecker;
+//	private final IconButtonFactory iconButtonFactory;
+//	private final I18nTranslator i18nTranslator;
 
-	private final Table savedGamesTable;
-	private final ClickableTableFactory clickableTableFactory;
-	private final SoundAsset startGameSound;
-	private ScrollPane scrollPane;
+//	private boolean displayed;
+//	private GameContext gameContext;
 
-	private final IconButton backButton;
-	private final Skin uiSkin;
-	private final MessageDispatcher messageDispatcher;
-	private final I18nWidgetFactory i18NWidgetFactory;
-	private final SavedGameStore savedGameStore;
-	private final ModCompatibilityChecker modCompatibilityChecker;
-	private final IconButtonFactory iconButtonFactory;
-	private final I18nTranslator i18nTranslator;
-
-	private boolean displayed;
-	private GameContext gameContext;
+	private final Skin skin;
+	private final Stack stack = new Stack();
 
 	@Inject
-	public LoadGameMenu(UserPreferences userPreferences, GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-						IconButtonFactory iconButtonFactory, I18nWidgetFactory i18NWidgetFactory, SoundAssetDictionary soundAssetDictionary,
-						SavedGameStore savedGameStore, ModCompatibilityChecker modCompatibilityChecker, ClickableTableFactory clickableTableFactory,
-						I18nTranslator i18nTranslator) {
-		this.uiSkin = guiSkinRepository.getDefault();
-		this.messageDispatcher = messageDispatcher;
-		this.i18NWidgetFactory = i18NWidgetFactory;
-		this.iconButtonFactory = iconButtonFactory;
-		this.savedGameStore = savedGameStore;
-		this.modCompatibilityChecker = modCompatibilityChecker;
-		this.clickableTableFactory = clickableTableFactory;
-		this.i18nTranslator = i18nTranslator;
+	public LoadGameMenu(UserPreferences userPreferences, GuiSkinRepository skinRepository, MessageDispatcher messageDispatcher,
+						SoundAssetDictionary soundAssetDictionary, MenuButtonFactory menuButtonFactory,
+						SavedGameStore savedGameStore, ModCompatibilityChecker modCompatibilityChecker, I18nTranslator i18nTranslator) {
 
-		startGameSound = soundAssetDictionary.getByName("GameStart");
+		this.skin = skinRepository.getMenuSkin();
 
-		outerTable = new Table(uiSkin);
-		outerTable.setFillParent(false);
-		outerTable.center();
-		outerTable.background("default-rect");
-//		outerTable.setDebug(true);
+		Table table1 = new Table();
+		table1.setName("backgroundBase");
+		stack.addActor(table1);
 
-		savedGamesTable = new Table(uiSkin);
+		table1 = new Table();
+		table1.setName("background");
+		table1.setBackground(skin.getDrawable("paper_texture_bg"));
 
-		scrollPane = Scene2DUtils.wrapWithScrollPane(savedGamesTable, uiSkin);
+		table1.add().padLeft(121.0f); //.preferredWidth(38.0f);
 
-		backButton = iconButtonFactory.create("GUI.BACK_LABEL", null, Color.LIGHT_GRAY, ButtonStyle.SMALL);
-		backButton.setAction(() -> {
-			messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-		});
+		table1.add().expandX();
+
+		table1.add().padRight(121.0f);
+		stack.addActor(table1);
+
+		table1 = new Table();
+		table1.setName("loadGameComponents");
+		table1.padLeft(197.0f);
+		table1.padRight(197.0f);
+		table1.padTop(0.0f);
+		table1.padBottom(0.0f);
+
+		Table table2 = new Table();
+		table2.setName("title");
+
+		Image image = new Image(skin, "title_ribbon_bg_left");
+		table2.add(image);
+
+		image = new Image(skin, "title_ribbon_bg_middle");
+		table2.add(image);
+
+		image = new Image(skin, "title_ribbon_bg_right");
+		table2.add(image);
+		table1.add(table2).padTop(84.0f).padBottom(84.0f).colspan(5);
+
+		table1.row();
+		Button button = new Button(skin, "left_arrow");
+		table1.add(button).maxWidth(58.0f).maxHeight(127.0f); //.preferredWidth(58.0f).preferredHeight(127.0f);
+
+		table2 = new Table();
+		table2.setName("slot1");
+		table2.setBackground(skin.getDrawable("save_greyed_out_bg"));
+		table1.add(table2).width(412.0f).height(572.0f);
+
+		table2 = new Table();
+		table2.setName("slot2");
+		table2.setBackground(skin.getDrawable("save_greyed_out_bg"));
+		table1.add(table2).width(412.0f).height(572.0f);
+
+		table2 = new Table();
+		table2.setName("slot3");
+		table2.setBackground(skin.getDrawable("save_greyed_out_bg"));
+		table1.add(table2).width(412.0f).height(572.0f);
+
+		button = new Button(skin, "right_arrow");
+		table1.add(button).width(58.0f).height(127.0f);
+
+		table1.row();
+
+		Table loadControls = new Table();
+		loadControls.setName("loadControls");
+		Container<TextButton> deleteButton = menuButtonFactory.createButton("GUI.LOAD_GAME.TABLE.DELETE", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE)
+				.withHeaderFont(50).withEssentialWidth(168.0f) //todo: this is needed else the font isn't sizing properly
+				.withAction(() -> {
+/*
+//					NotificationDialog dialog = new NotificationDialog(
+//							i18nTranslator.getTranslatedString("GUI.DIALOG.INFO_TITLE"),
+//							uiSkin,
+//							messageDispatcher
+//					);
+//					dialog.withText(i18nTranslator.getTranslatedWordWithReplacements("GUI.DIALOG.CONFIRM_DELETE_SAVE",
+//							Map.of("name", new I18nWord(savedGameInfo.settlementName)))
+//							.breakAfterLength(i18nTranslator.getCurrentLanguageType().getBreakAfterLineLength()));
+//
+//					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON"), (Runnable) () -> {
+//						savedGameStore.delete(savedGameInfo);
+//						reset();
+//					});
+//					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CANCEL_BUTTON"));
+//					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+ */
+
+
+				})
+				.build();
+
+		Container<TextButton> backButton = menuButtonFactory.createButton("GUI.BACK_LABEL", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE)
+				.withHeaderFont(50).withEssentialWidth(168.0f) //todo: this is needed else the font isn't sizing properly
+				.withAction(() -> {
+					messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+				})
+				.build();
+		Container<TextButton> playButton = menuButtonFactory.createButton("GUI.LOAD_GAME.TABLE.PLAY", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE)
+				.withHeaderFont(50).withEssentialWidth(168.0f) //todo: this is needed else the font isn't sizing properly
+				.withAction(() -> {
+//					messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+				})
+				.build();
+
+		deleteButton.width(168f).height(72.0f);
+		backButton.width(168f).height(72.0f);
+		playButton.width(168f).height(72.0f);
+
+		loadControls.add(playButton).fill().spaceRight(18.0f);
+		loadControls.add(backButton).fill().spaceLeft(18.0f).spaceRight(18.0f);
+		loadControls.add(deleteButton).fill().spaceLeft(18.0f);
+
+
+		table1.add(loadControls).spaceTop(90.0f).spaceBottom(90.0f).expandX().align(Align.right).colspan(5);
+		stack.addActor(table1);
+
+
+
+//		this.uiSkin = guiSkinRepository.getDefault();
+//		this.messageDispatcher = messageDispatcher;
+//		this.i18NWidgetFactory = i18NWidgetFactory;
+//		this.iconButtonFactory = iconButtonFactory;
+//		this.savedGameStore = savedGameStore;
+//		this.modCompatibilityChecker = modCompatibilityChecker;
+//		this.clickableTableFactory = clickableTableFactory;
+//		this.i18nTranslator = i18nTranslator;
+//
+//		startGameSound = soundAssetDictionary.getByName("GameStart");
+//
+//		outerTable = new Table(uiSkin);
+//		outerTable.setFillParent(false);
+//		outerTable.center();
+//		outerTable.background("default-rect");
+////		outerTable.setDebug(true);
+//
+//		savedGamesTable = new Table(uiSkin);
+//
+//		scrollPane = Scene2DUtils.wrapWithScrollPane(savedGamesTable, uiSkin);
+//
+//		backButton = iconButtonFactory.create("GUI.BACK_LABEL", null, Color.LIGHT_GRAY, ButtonStyle.SMALL);
+//		backButton.setAction(() -> {
+//			messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+//		});
 
 	}
 
 	@Override
 	public void show() {
-		displayed = true;
-		reset();
+//		displayed = true;
+//		reset();
 	}
 
 	@Override
 	public void hide() {
-		displayed = false;
+//		displayed = false;
 	}
 
 	@Override
 	public void populate(Table containerTable) {
-		containerTable.add(outerTable).center();
+//		containerTable.add(outerTable).center();
+		containerTable.add(stack).grow();
 	}
 
 	@Override
 	public void reset() {
-		outerTable.clearChildren();
-
-		savedGamesTable.clearChildren();
-
-		savedGamesTable.add(i18NWidgetFactory.createLabel("GUI.LOAD_GAME.TABLE.SETTLEMENT_NAME")).pad(10);
-		savedGamesTable.add(i18NWidgetFactory.createLabel("GUI.LOAD_GAME.TABLE.VERSION")).pad(10);
-		savedGamesTable.add(i18NWidgetFactory.createLabel("GUI.LOAD_GAME.TABLE.GAME_TIME")).pad(10);
-		savedGamesTable.add(i18NWidgetFactory.createLabel("GUI.LOAD_GAME.TABLE.DATE_TIME")).pad(10);
-		savedGamesTable.add(new Container<>()).pad(10);
-
-		savedGamesTable.row();
-
-
-		List<SavedGameInfo> savesInOrder = new ArrayList<>(savedGameStore.getAll());
-		savesInOrder.sort((o1, o2) -> o2.lastModifiedTime.compareTo(o1.lastModifiedTime));
-
-		for (SavedGameInfo savedGameInfo : savesInOrder) {
-			if (savedGameInfo.settlementName == null) {
-				continue;
-			}
-
-			ClickableTable saveRow = clickableTableFactory.create();
-			saveRow.setBackground("default-rect");
-
-			saveRow.add(new Label(savedGameInfo.settlementName, uiSkin)).pad(5).expandX();
-			saveRow.add(new Label(savedGameInfo.version, uiSkin)).pad(5).expandX();
-			saveRow.add(new Label(savedGameInfo.formattedGameTime, uiSkin)).pad(5).expandX();
-			saveRow.add(new Label(savedGameInfo.formattedFileModifiedTime, uiSkin)).pad(5).expandX();
-			saveRow.setAction(() -> {
-				if (gameContext != null) {
-					if (gameContext.getSettlementState().getSettlementName().equals(savedGameInfo.settlementName)) {
-						// Same game, just go back to it
-						messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-						messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
-					} else {
-						// different game, save this first
-						messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
-						messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, savedGameInfo);
-					}
-				} else {
-					messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, savedGameInfo);
-				}
-			});
-			saveRow.setOnClickSoundAction(() -> {
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(startGameSound));
-			});
-
-			savedGamesTable.add(saveRow).colspan(4).width(600);
-
-			TextButton deleteButton = new TextButton(i18nTranslator.getTranslatedString("GUI.LOAD_GAME.TABLE.DELETE").toString(), uiSkin);
-			deleteButton.addListener(new ClickListener() {
-				@Override
-				public void clicked (InputEvent event, float x, float y) {
-					NotificationDialog dialog = new NotificationDialog(
-							i18nTranslator.getTranslatedString("GUI.DIALOG.INFO_TITLE"),
-							uiSkin,
-							messageDispatcher
-					);
-					dialog.withText(i18nTranslator.getTranslatedWordWithReplacements("GUI.DIALOG.CONFIRM_DELETE_SAVE",
-							Map.of("name", new I18nWord(savedGameInfo.settlementName)))
-							.breakAfterLength(i18nTranslator.getCurrentLanguageType().getBreakAfterLineLength()));
-
-					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON"), (Runnable) () -> {
-						savedGameStore.delete(savedGameInfo);
-						reset();
-					});
-					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CANCEL_BUTTON"));
-					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
-
-				}
-			});
-			savedGamesTable.add(deleteButton).pad(5).center().row();
-		}
-
-		outerTable.add(scrollPane).colspan(2).pad(10).left().row();
-
-		outerTable.add(backButton).colspan(2).pad(10).left().row();
+//		outerTable.clearChildren();
+//
+//		savedGamesTable.clearChildren();
+//
+//		savedGamesTable.add(i18NWidgetFactory.createLabel("GUI.LOAD_GAME.TABLE.SETTLEMENT_NAME")).pad(10);
+//		savedGamesTable.add(i18NWidgetFactory.createLabel("GUI.LOAD_GAME.TABLE.VERSION")).pad(10);
+//		savedGamesTable.add(i18NWidgetFactory.createLabel("GUI.LOAD_GAME.TABLE.GAME_TIME")).pad(10);
+//		savedGamesTable.add(i18NWidgetFactory.createLabel("GUI.LOAD_GAME.TABLE.DATE_TIME")).pad(10);
+//		savedGamesTable.add(new Container<>()).pad(10);
+//
+//		savedGamesTable.row();
+//
+//
+//		List<SavedGameInfo> savesInOrder = new ArrayList<>(savedGameStore.getAll());
+//		savesInOrder.sort((o1, o2) -> o2.lastModifiedTime.compareTo(o1.lastModifiedTime));
+//
+//		for (SavedGameInfo savedGameInfo : savesInOrder) {
+//			if (savedGameInfo.settlementName == null) {
+//				continue;
+//			}
+//
+//			ClickableTable saveRow = clickableTableFactory.create();
+//			saveRow.setBackground("default-rect");
+//
+//			saveRow.add(new Label(savedGameInfo.settlementName, uiSkin)).pad(5).expandX();
+//			saveRow.add(new Label(savedGameInfo.version, uiSkin)).pad(5).expandX();
+//			saveRow.add(new Label(savedGameInfo.formattedGameTime, uiSkin)).pad(5).expandX();
+//			saveRow.add(new Label(savedGameInfo.formattedFileModifiedTime, uiSkin)).pad(5).expandX();
+//			saveRow.setAction(() -> {
+//				if (gameContext != null) {
+//					if (gameContext.getSettlementState().getSettlementName().equals(savedGameInfo.settlementName)) {
+//						// Same game, just go back to it
+//						messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+//						messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+//					} else {
+//						// different game, save this first
+//						messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
+//						messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, savedGameInfo);
+//					}
+//				} else {
+//					messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, savedGameInfo);
+//				}
+//			});
+//			saveRow.setOnClickSoundAction(() -> {
+//				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(startGameSound));
+//			});
+//
+//			savedGamesTable.add(saveRow).colspan(4).width(600);
+//
+//			TextButton deleteButton = new TextButton(i18nTranslator.getTranslatedString("GUI.LOAD_GAME.TABLE.DELETE").toString(), uiSkin);
+//			deleteButton.addListener(new ClickListener() {
+//				@Override
+//				public void clicked (InputEvent event, float x, float y) {
+//					NotificationDialog dialog = new NotificationDialog(
+//							i18nTranslator.getTranslatedString("GUI.DIALOG.INFO_TITLE"),
+//							uiSkin,
+//							messageDispatcher
+//					);
+//					dialog.withText(i18nTranslator.getTranslatedWordWithReplacements("GUI.DIALOG.CONFIRM_DELETE_SAVE",
+//							Map.of("name", new I18nWord(savedGameInfo.settlementName)))
+//							.breakAfterLength(i18nTranslator.getCurrentLanguageType().getBreakAfterLineLength()));
+//
+//					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON"), (Runnable) () -> {
+//						savedGameStore.delete(savedGameInfo);
+//						reset();
+//					});
+//					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CANCEL_BUTTON"));
+//					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+//
+//				}
+//			});
+//			savedGamesTable.add(deleteButton).pad(5).center().row();
+//		}
+//
+//		outerTable.add(scrollPane).colspan(2).pad(10).left().row();
+//
+//		outerTable.add(backButton).colspan(2).pad(10).left().row();
 
 	}
 
 	public void savedGamesUpdated() {
-		if (displayed) {
-			reset();
-		}
+//		if (displayed) {
+//			reset();
+//		}
 	}
 
 	@Override
 	public void onContextChange(GameContext gameContext) {
-		this.gameContext = gameContext;
+//		this.gameContext = gameContext;
 	}
 
 	@Override

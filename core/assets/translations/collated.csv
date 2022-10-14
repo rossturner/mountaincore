@@ -483,6 +483,7 @@ GUI.LEAVE_CROP_FALLOW,None (Leave fallow),,Keine (Brachfläche),Vide (en jachèr
 GUI.LOAD_GAME.TABLE.DATE_TIME,Last modified,,Zuletzt geändert,,Ultima modifica,última modificación,,,,Последнее изменение,,,,,,,,最終更新,上次修改,
 GUI.LOAD_GAME.TABLE.DELETE,Delete,,Löschen,,Elimina,Borrar,,,,Удалить,,,,,,,,削除,删除,
 GUI.LOAD_GAME.TABLE.GAME_TIME,World time,,Uhrzeit,,Tempo del mondo,Hora,,,,Мировое время,,,,,,,,時間,世界时间,
+GUI.LOAD_GAME.TABLE.PLAY,Play,,,,,,,,,,,,,,,,,,,
 GUI.LOAD_GAME.TABLE.SETTLEMENT_NAME,Name,,Name,,Nome,Nombre,,,,Имя,,,,,,,,名前,名字,
 GUI.LOAD_GAME.TABLE.VERSION,Version,,Version,,Versione,Versión,,,,Версия,,,,,,,,バージョン,版本,
 GUI.LOAD_GAME.TITLE,Load Game,,Lade Spiel,,Carica il gioco,Cargar partida,,,,Загрузить игру,,,,,,,,ロード,加载游戏,

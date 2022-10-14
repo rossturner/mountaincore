@@ -38,6 +38,7 @@ public class MenuButtonFactory implements I18nUpdatable {
 
     public enum ButtonStyle {
         DEFAULT("default"),
+        BTN_SCALABLE("btn_scalable"),
         BTN_BANNER_1("btn_banner_1"),
         BTN_BANNER_2("btn_banner_2"),
         BTN_BANNER_3("btn_banner_3"),
