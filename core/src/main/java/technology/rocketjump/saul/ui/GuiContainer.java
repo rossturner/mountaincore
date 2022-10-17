@@ -153,7 +153,11 @@ public class GuiContainer implements Telegraph, GameContextAware {
 			}
 			case MessageType.GUI_SWITCH_INTERACTION_MODE: {
 				GameInteractionMode targetMode = (GameInteractionMode)msg.extraInfo;
-				cursorManager.switchToCursor(targetMode.cursorName);
+				if (targetMode.cursor != null) {
+					cursorManager.pushCursor(targetMode.cursor);
+				} else {
+					cursorManager.popCursor();
+				}
 				interactionStateContainer.setInteractionMode(targetMode);
 				return true;
 			}

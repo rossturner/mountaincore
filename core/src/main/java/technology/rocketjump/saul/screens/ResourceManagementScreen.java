@@ -35,6 +35,7 @@ import java.util.*;
 public class ResourceManagementScreen extends ManagementScreen {
 
 	private static final float INDENT_WIDTH = 50f;
+	public static final String NAME = "RESOURCES";
 	private final SettlementItemTracker settlementItemTracker;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 	private final ClickableTableFactory clickableTableFactory;
@@ -211,8 +212,13 @@ public class ResourceManagementScreen extends ManagementScreen {
 	}
 
 	@Override
+	public String getButtonName() {
+		return "btn_top_resources";
+	}
+
+	@Override
 	public String getName() {
-		return "RESOURCES";
+		return NAME;
 	}
 
 	@Override

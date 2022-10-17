@@ -41,6 +41,7 @@ import static technology.rocketjump.saul.ui.views.EntitySelectedGuiView.*;
 public class SettlerManagementScreen extends ManagementScreen {
 
 	public static final int UI_WIDTH_REQUIRED_PER_SETTLER = 600;
+	public static final String NAME = "SETTLER_MANAGEMENT";
 	private final ClickableTableFactory clickableTableFactory;
 	private int numSettlerTablesPerRow = 3;
 	private final MessageDispatcher messageDispatcher;
@@ -183,8 +184,13 @@ public class SettlerManagementScreen extends ManagementScreen {
 	}
 
 	@Override
+	public String getButtonName() {
+		return "btn_top_settlers";
+	}
+
+	@Override
 	public String getName() {
-		return "SETTLER_MANAGEMENT";
+		return NAME;
 	}
 
 	@Override

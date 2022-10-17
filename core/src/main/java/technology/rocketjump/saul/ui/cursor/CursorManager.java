@@ -2,6 +2,9 @@ package technology.rocketjump.saul.ui.cursor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Cursor;
@@ -9,20 +12,63 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.utils.Disposable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.messaging.MessageType;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
 @Singleton
-public class CursorManager {
+public class CursorManager implements Telegraph {
 
 	private static final int DEFAULT_HOTSPOT_OFFSET = 12;
 	private final Map<String, Cursor> cursorsByName = new HashMap<>();
-	private String currentCursorName;
+	private Deque<GameCursor> currentCursorStack = new ArrayDeque<>();
 
 	@Inject
-	public CursorManager() {
+	public CursorManager(MessageDispatcher messageDispatcher) {
 		// note that main application onResize is called at startup
+
+		messageDispatcher.addListener(this, MessageType.PUSH_CURSOR_TO_STACK);
+		messageDispatcher.addListener(this, MessageType.POP_CURSOR_FROM_STACK);
+	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.PUSH_CURSOR_TO_STACK -> {
+				pushCursor((GameCursor)msg.extraInfo);
+				return true;
+			}
+			case MessageType.POP_CURSOR_FROM_STACK -> {
+				popCursor();
+				return true;
+			}
+			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + getClass().getSimpleName());
+		}
+	}
+
+	public void pushCursor(GameCursor cursor) {
+		if (cursor == null) {
+			cursor = GameCursor.CURSOR;
+		}
+		if (currentCursorStack.isEmpty() || !currentCursorStack.peek().equals(cursor)) {
+			currentCursorStack.push(cursor);
+		}
+		resetCursor();
+	}
+
+	public void popCursor() {
+		if (!currentCursorStack.isEmpty()) {
+			currentCursorStack.pop();
+		}
+
+		if (currentCursorStack.isEmpty()) {
+			pushCursor(GameCursor.CURSOR);
+		}
+
+		resetCursor();
 	}
 
 	public void onResize() {
@@ -31,19 +77,16 @@ public class CursorManager {
 
 		createCursors();
 
-		switchToCursor(currentCursorName);
+		currentCursorStack.clear();
+		pushCursor(GameCursor.CURSOR);
 	}
 
-	public void switchToCursor(String cursorName) {
-		if (cursorName == null) {
-			cursorName = "cursor";
-		}
+	private void resetCursor() {
+		String cursorName = currentCursorStack.peek().cursorName();
 		if (!cursorsByName.containsKey(cursorName)) {
 			Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
-			this.currentCursorName = null;
 		} else {
 			Gdx.graphics.setCursor(cursorsByName.get(cursorName));
-			this.currentCursorName = cursorName;
 		}
 	}
 
@@ -85,5 +128,4 @@ public class CursorManager {
 		Graphics.DisplayMode desktopMode = LwjglApplicationConfiguration.getDesktopDisplayMode();
 		return desktopMode.width < 2000;
 	}
-
 }

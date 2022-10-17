@@ -60,7 +60,7 @@ public abstract class ManagementScreen implements GameScreen, GameContextAware {
 
     public abstract String getTitleI18nKey();
 
-
+    public abstract String getButtonName();
 
     @Override
     public void show() {

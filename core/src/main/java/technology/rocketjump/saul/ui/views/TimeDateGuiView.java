@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -15,9 +16,10 @@ import technology.rocketjump.saul.gamecontext.GameState;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.screens.GameScreenDictionary;
 import technology.rocketjump.saul.screens.ManagementScreen;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.I18nTextButton;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 import technology.rocketjump.saul.ui.widgets.maingame.TimeDateWidget;
 
@@ -27,6 +29,7 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
 	private final I18nTranslator i18nTranslator;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nWidgetFactory i18nWidgetFactory;
+	private final Skin skin;
 	private Table layoutTable;
 	private Table managementScreenButtonTable;
 	private GameContext gameContext;
@@ -40,12 +43,15 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
 		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;
 		Skin uiSkin = guiSkinRepository.getDefault();
+		this.skin = guiSkinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
 
 		this.timeDateWidget = timeDateWidget;
 
 		managementScreenButtonTable = new Table(uiSkin);
-		managementScreenButtonTable.setDebug(true);
+		managementScreenButtonTable.padTop(19);
+		managementScreenButtonTable.padRight(26);
+		managementScreenButtonTable.defaults().padLeft(11);
 
 		layoutTable = new Table(uiSkin);
 		reset(null);
@@ -65,15 +71,18 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
 	public void init(GameScreenDictionary gameScreenDictionary) {
 		managementScreenButtonTable.clearChildren();
 
-		for (ManagementScreen managementScreen : gameScreenDictionary.getAllManagementScreens()) {
-			I18nTextButton screenButton = i18nWidgetFactory.createTextButton(managementScreen.getTitleI18nKey());
+		for (ManagementScreen managementScreen : gameScreenDictionary.getManagementScreensOrderedForUI()) {
+			Button screenButton = new Button(skin, managementScreen.getButtonName());
+
+			screenButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+
 			screenButton.addListener(new ClickListener() {
 				@Override
 				public void clicked (InputEvent event, float x, float y) {
 					messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, managementScreen.getName());
 				}
 			});
-			managementScreenButtonTable.add(screenButton).pad(2);
+			managementScreenButtonTable.add(screenButton).size(157f/2f,170f/2f);
 		}
 	}
 

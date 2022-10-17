@@ -34,42 +34,42 @@ asset_season_winter_icon
   index: -1
 asset_weather_cloudy_grey_icon
   rotate: false
-  xy: 354, 458
-  size: 46, 29
-  orig: 46, 29
+  xy: 163, 157
+  size: 46, 46
+  orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_nice_icon
   rotate: false
-  xy: 730, 622
+  xy: 354, 441
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_rain_icon
   rotate: false
-  xy: 730, 572
+  xy: 730, 622
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_snow_icon
   rotate: false
-  xy: 730, 522
+  xy: 730, 572
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_storm_icon
   rotate: false
-  xy: 810, 724
+  xy: 730, 522
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_windy_icon
   rotate: false
-  xy: 163, 157
+  xy: 810, 724
   size: 46, 46
   orig: 46, 46
   offset: 0, 0

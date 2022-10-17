@@ -639,6 +639,11 @@ public class CraftingManagementScreen extends ManagementScreen implements Displa
 	}
 
 	@Override
+	public String getButtonName() {
+		return "btn_top_crafting";
+	}
+
+	@Override
 	public String getName() {
 		return NAME;
 	}
