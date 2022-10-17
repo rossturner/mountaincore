@@ -28,7 +28,6 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
 	private final MessageDispatcher messageDispatcher;
 	private final I18nWidgetFactory i18nWidgetFactory;
 	private Table layoutTable;
-	private Table timeDateTable;
 	private Table managementScreenButtonTable;
 	private GameContext gameContext;
 
@@ -43,13 +42,10 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
 		Skin uiSkin = guiSkinRepository.getDefault();
 		this.i18nTranslator = i18nTranslator;
 
-		timeDateTable = new Table(uiSkin);
-		timeDateTable.background("default-rect");
-		timeDateTable.pad(5);
-
 		this.timeDateWidget = timeDateWidget;
 
 		managementScreenButtonTable = new Table(uiSkin);
+		managementScreenButtonTable.setDebug(true);
 
 		layoutTable = new Table(uiSkin);
 		reset(null);

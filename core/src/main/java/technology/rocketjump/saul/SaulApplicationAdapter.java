@@ -61,7 +61,7 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 	private ScreenWriter screenWriter;
 	private MessageDispatcher messageDispatcher;
 	private BackgroundTaskManager backgroundTaskManager; // Unused directly but needs creating for dispatched messages
-	private CursorManager cursorManager; // Also unused directly
+	private CursorManager cursorManager;
 	private ImageButtonFactory imageButtonFactory; // Unused, to init profession image buttons
 	private DisplaysTextRegister displaysTextRegister;
 	private AssetDisposableRegister assetDisposableRegister;
@@ -201,6 +201,7 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 			gameRenderer.onResize(width, height);
 			guiContainer.onResize(width, height);
 			screenManager.onResize(width, height);
+			cursorManager.onResize();
 		} catch (Exception e) {
 			CrashHandler.logCrash(e);
 			throw e;

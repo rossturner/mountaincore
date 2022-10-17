@@ -78,6 +78,33 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		over: btn_speed_4_on
 		checked: btn_speed_4_on
 	}
+	btn_top_resources: {
+		up: btn_top_resources
+	}
+	btn_bottom_construction: {
+		up: btn_bottom_construction
+	}
+	btn_bottom_orders: {
+		up: btn_bottom_orders
+	}
+	btn_bottom_priority: {
+		up: btn_bottom_priority
+	}
+	btn_bottom_zones: {
+		up: btn_bottom_zones
+	}
+	btn_top_crafting: {
+		up: btn_top_crafting
+	}
+	btn_top_military: {
+		up: btn_top_military
+	}
+	btn_top_settlers: {
+		up: btn_top_settlers
+	}
+	btn_top_trading: {
+		up: btn_top_trading
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
