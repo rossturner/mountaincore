@@ -1036,13 +1036,13 @@
     "input": [
       {
         "itemTypeName": "Resource-Bone-Small",
-        "quantity": 1
+        "quantity": 3
       }
     ],
     "output": [
       {
         "itemTypeName": "Weapon-Bone-Arrow-Heads",
-        "quantity": 3
+        "quantity": 10
       }
     ],
     "itemTypeRequiredName": "Tool-Chisel",

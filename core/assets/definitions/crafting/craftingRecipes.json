@@ -887,11 +887,11 @@
   "itemTypeRequiredName" : "Tool-Chisel",
   "input" : [ {
     "itemTypeName" : "Resource-Bone-Small",
-    "quantity" : 1
+    "quantity" : 3
   } ],
   "output" : [ {
     "itemTypeName" : "Weapon-Bone-Arrow-Heads",
-    "quantity" : 3
+    "quantity" : 10
   } ],
   "materialTypesToCopyOver" : [ "BONE", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
