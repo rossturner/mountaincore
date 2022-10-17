@@ -62,7 +62,10 @@ public class SettlementFurnitureTracker implements GameContextAware, Telegraph {
 			return;
 		}
 		FurnitureType furnitureType = attributes.getFurnitureType();
-		byFurnitureType.get(furnitureType).remove(entity.getId());
+		Map<Long, Entity> byFurnitureType = this.byFurnitureType.get(furnitureType);
+		if (byFurnitureType != null) {
+			byFurnitureType.remove(entity.getId());
+		}
 		for (Tag tag : entity.getTags()) {
 			byTag.getOrDefault(tag.getClass(), emptyMap()).remove(entity.getId());
 		}
