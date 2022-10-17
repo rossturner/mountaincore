@@ -606,7 +606,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 
 		militaryToggleTable.add(militaryToggleCheckbox).center().row();
-		if (militaryComponent.isInMilitary()) {
+		if (militaryComponent.isInMilitary() && militaryComponent.getSquadId() != null) {
 			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
 			if (squad != null) {
 				squadTextButton.add(new Label(squad.getName(), uiSkin));
