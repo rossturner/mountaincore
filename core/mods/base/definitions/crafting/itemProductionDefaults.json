@@ -7,19 +7,19 @@
   },
 
   "Resource-Metal-Ingot": {
-    "fixedAmount": 400
+    "fixedAmount": 20
   },
   "Resource-Planks": {
-    "fixedAmount": 160
+    "fixedAmount": 20
   },
   "Resource-Stone-Block": {
-    "fixedAmount": 300
+    "fixedAmount": 20
   },
   "Resource-Gem": {
     "fixedAmount": 200
   },
   "Resource-Ore-Crushed": {
-    "fixedAmount": 400
+    "fixedAmount": 20
   },
   "Resource-Crushed-Vitriol": {
     "fixedAmount": 200
@@ -59,7 +59,7 @@
     "fixedAmount": 2
   },
   "Resource-Flour-Sack": {
-    "fixedAmount": 200
+    "fixedAmount": 16
   },
   "Product-Bread-Dough": {
     "fixedAmount": 30
@@ -68,7 +68,7 @@
     "fixedAmount": 1
   },
   "Product-Leather": {
-    "fixedAmount": 400
+    "perSettler": 3
   },
   "Product-Linen": {
     "fixedAmount": 6

@@ -45,7 +45,7 @@ public class Skill {
 	}
 
 	public void setImageButton(ImageButton imageButton) {
-		this.imageButton = imageButton;
+		this.imageButton = imageButton.clone();
 	}
 
 	public SkillType getType() {

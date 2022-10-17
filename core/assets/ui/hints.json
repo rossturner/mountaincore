@@ -277,7 +277,7 @@
     "quantityRequired" : 1
   }, {
     "type" : "FURNITURE_CONSTRUCTED",
-    "targetTypeName" : "STONEMASON_WORKBENCH",
+    "targetTypeName" : "Stonemason_Bench",
     "quantityRequired" : 1
   } ],
   "actions" : [ {
