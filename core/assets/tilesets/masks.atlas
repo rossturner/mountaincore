@@ -1,8 +1,8 @@
 
 masks.png
-size: 512,512
+size: 512, 512
 format: RGBA8888
-filter: MipMapLinearLinear,Linear
+filter: MipMapLinearLinear, Linear
 repeat: none
 grass_0
   rotate: false
