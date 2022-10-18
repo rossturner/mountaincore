@@ -9,20 +9,19 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
-import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.fonts.GameFont;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Singleton
-public class IconButtonFactory implements I18nUpdatable {
+public class IconButtonFactory implements DisplaysText {
 
 	private final I18nTranslator translator;
 	private final TextureAtlas textureAtlas;
@@ -82,21 +81,12 @@ public class IconButtonFactory implements I18nUpdatable {
 		return iconOnlyButton;
 	}
 
-	public IconOnlyButton create(GameSpeed gameSpeed) {
-		IconOnlyButton gameSpeedButton = new IconOnlyButton(gameSpeed);
-		if (gameSpeed.iconName != null) {
-			gameSpeedButton.setIconSprite(this.textureAtlas.createSprite(gameSpeed.iconName));
-		}
-		iconOnlyButtons.add(gameSpeedButton);
-		return gameSpeedButton;
-	}
-
 	public void remove(IconButton iconButton) {
 		allInstances.remove(iconButton);
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		for (IconButton button : allInstances) {
 			if (button.getI18nKey() != null) {
 				button.setFont(fontRepository.getDefaultFontForUI());
@@ -105,7 +95,4 @@ public class IconButtonFactory implements I18nUpdatable {
 		}
 	}
 
-	public Set<IconOnlyButton> getIconOnlyButtons() {
-		return iconOnlyButtons;
-	}
 }

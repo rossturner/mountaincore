@@ -401,7 +401,7 @@ GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting,制作
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}},目前总数：{{quantity}}
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total),（总计{{quantity}}）
 GUI.CROP_SELECTION,,Crop:,农作物：
-GUI.DATE_TIME_LABEL,"E.g. 09:20, day 4, spring","{{timeOfDay}}, day {{dayNumber}}, {{season}}, year {{year}}",{{timeOfDay}}，第{{dayNumber}}天，{{season}}，第{{year}}年
+GUI.DATE_TIME_YEAR_LABEL,"E.g. 09:20, day 4, spring","{{timeOfDay}}, day {{dayNumber}}, {{season}}, year {{year}}",{{timeOfDay}}，第{{dayNumber}}天，第{{year}}年
 GUI.DECONSTRUCT_LABEL,This should be as short as possible,Demolish,拆除
 GUI.DIALOG.CANCEL_BUTTON,,Cancel,取消
 GUI.DIALOG.CONFIRM_DELETE_SAVE,,Are you sure you wish to delete {{name}}?,确定删除{{name}}？

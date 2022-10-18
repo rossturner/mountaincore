@@ -21,6 +21,7 @@ public class WeatherType {
 	private String particleEffectTypeName;
 	@JsonIgnore
 	private ParticleEffectType particleEffectType;
+	private String drawableIconName;
 
 	private String maxSunlight;
 	@JsonIgnore
@@ -47,6 +48,14 @@ public class WeatherType {
 
 	public void setLightningStrikesPerHour(Double lightningStrikesPerHour) {
 		this.lightningStrikesPerHour = lightningStrikesPerHour;
+	}
+
+	public String getDrawableIconName() {
+		return drawableIconName;
+	}
+
+	public void setDrawableIconName(String drawableIconName) {
+		this.drawableIconName = drawableIconName;
 	}
 
 	public enum HappinessInteraction {

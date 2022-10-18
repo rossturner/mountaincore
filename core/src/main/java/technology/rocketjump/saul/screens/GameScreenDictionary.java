@@ -6,7 +6,7 @@ import com.google.inject.Singleton;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Modifier;
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -36,7 +36,13 @@ public class GameScreenDictionary {
 		return byName.get(name);
 	}
 
-	public Collection<ManagementScreen> getAllManagementScreens() {
-		return managementScreensByName.values();
+	public List<ManagementScreen> getManagementScreensOrderedForUI() {
+		return List.of(
+//				managementScreensByName.get(MilitaryManagementScreen.NAME),
+//				managementScreensByName.get(TradingManagementScreen.NAME),
+				managementScreensByName.get(CraftingManagementScreen.NAME),
+				managementScreensByName.get(SettlerManagementScreen.NAME),
+				managementScreensByName.get(ResourceManagementScreen.NAME)
+		);
 	}
 }

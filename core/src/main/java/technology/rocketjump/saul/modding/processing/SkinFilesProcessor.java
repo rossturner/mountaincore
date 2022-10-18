@@ -58,6 +58,9 @@ public class SkinFilesProcessor extends ModArtifactProcessor {
 	@Override
 	public void write(Path assetsDir) throws IOException {
 		Path outputDir = assetsDir.resolve(definition.assetDir);
+		if (!Files.exists(outputDir)) {
+			Files.createDirectory(outputDir);
+		}
 		Files.copy(combinedListing.atlasFile, outputDir.resolve(definition.outputFileName + ".atlas"), StandardCopyOption.REPLACE_EXISTING);
 		Files.copy(combinedListing.jsonFile, outputDir.resolve(definition.outputFileName + ".json"), StandardCopyOption.REPLACE_EXISTING);
 

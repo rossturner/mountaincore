@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Disposable;
 /**
  * This is a wrapper around GDX's BitmapFont to provide access to larger or smaller versions of the same font
  */
+@Deprecated
 public class GameFont implements Disposable {
 
 	private final BitmapFont bitmapFont;

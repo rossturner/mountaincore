@@ -40,8 +40,6 @@ public class MessageType {
 	public static final int GUI_ROOM_TYPE_SELECTED = 256;
 	public static final int GUI_FURNITURE_TYPE_SELECTED = 257;
 	public static final int SET_GAME_SPEED = 258;
-	public static final int GUI_SET_SCALE = 259;
-	public static final int GUI_SCALE_CHANGED = 260;
 	public static final int GUI_CHANGE_MUSIC_VOLUME = 261;
 	public static final int GUI_CHANGE_SOUND_EFFECT_VOLUME = 262;
 	public static final int GUI_CHANGE_AMBIENT_EFFECT_VOLUME = 263;
@@ -61,10 +59,14 @@ public class MessageType {
 	public static final int GUI_CANCEL_CURRENT_VIEW_OR_GO_TO_MAIN_MENU = 281;
 	public static final int TOGGLE_DEBUG_VIEW = 282;
 	public static final int PREPOPULATE_SELECT_ITEM_VIEW = 283;
+	public static final int GAME_SPEED_CHANGED = 284;
+	public static final int PUSH_CURSOR_TO_STACK = 285;
+	public static final int POP_CURSOR_FROM_STACK = 286;
 
 	// i18n Messages
-	public static final int LANGUAGE_CHANGED = 290;
-	public static final int LANGUAGE_TRANSLATION_INCOMPLETE = 291;
+	public static final int FONTS_CHANGED = 300;
+	public static final int LANGUAGE_CHANGED = 301;
+	public static final int LANGUAGE_TRANSLATION_INCOMPLETE = 302;
 
 	// Entity messages
 	public static final int ENTITY_POSITION_CHANGED = 310;

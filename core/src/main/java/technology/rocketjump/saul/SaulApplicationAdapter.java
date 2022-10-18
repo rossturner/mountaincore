@@ -40,11 +40,11 @@ import technology.rocketjump.saul.screens.GameScreenDictionary;
 import technology.rocketjump.saul.screens.ScreenManager;
 import technology.rocketjump.saul.screens.menus.OptionsMenu;
 import technology.rocketjump.saul.screens.menus.options.OptionsTab;
+import technology.rocketjump.saul.ui.DisplaysTextRegister;
 import technology.rocketjump.saul.ui.GuiContainer;
-import technology.rocketjump.saul.ui.I18nUpdatableRegister;
 import technology.rocketjump.saul.ui.cursor.CursorManager;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nRepo;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.views.TimeDateGuiView;
 import technology.rocketjump.saul.ui.widgets.ImageButtonFactory;
 
@@ -61,9 +61,9 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 	private ScreenWriter screenWriter;
 	private MessageDispatcher messageDispatcher;
 	private BackgroundTaskManager backgroundTaskManager; // Unused directly but needs creating for dispatched messages
-	private CursorManager cursorManager; // Also unused directly
+	private CursorManager cursorManager;
 	private ImageButtonFactory imageButtonFactory; // Unused, to init profession image buttons
-	private I18nUpdatableRegister i18nUpdatableRegister;
+	private DisplaysTextRegister displaysTextRegister;
 	private AssetDisposableRegister assetDisposableRegister;
 	private GuiContainer guiContainer;
 	private GameContextRegister gameContextRegister;
@@ -100,7 +100,7 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 
 			gameContextRegister = injector.getInstance(GameContextRegister.class);
 			gameUpdateRegister = injector.getInstance(GameUpdateRegister.class);
-			i18nUpdatableRegister = injector.getInstance(I18nUpdatableRegister.class);
+			displaysTextRegister = injector.getInstance(DisplaysTextRegister.class);
 			assetDisposableRegister = injector.getInstance(AssetDisposableRegister.class);
 			UserFileManager userFileManager = injector.getInstance(UserFileManager.class);
 
@@ -114,9 +114,9 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 			gameContextAwareClasses.forEach(this::checkForSingleton);
 			gameContextRegister.registerClasses(gameContextAwareClasses, injector);
 
-			Set<Class<? extends I18nUpdatable>> i18nUpdateableClasses = reflections.getSubTypesOf(I18nUpdatable.class);
-			i18nUpdateableClasses.forEach(this::checkForSingleton);
-			i18nUpdatableRegister.registerClasses(i18nUpdateableClasses, injector);
+			Set<Class<? extends DisplaysText>> displaysTextClasses = reflections.getSubTypesOf(DisplaysText.class);
+			displaysTextClasses.forEach(this::checkForSingleton);
+			displaysTextRegister.registerClasses(displaysTextClasses, injector);
 
 			Set<Class<? extends AssetDisposable>> assetUpdatableClasses = reflections.getSubTypesOf(AssetDisposable.class);
 			assetUpdatableClasses.forEach(this::checkForSingleton);
@@ -201,6 +201,7 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 			gameRenderer.onResize(width, height);
 			guiContainer.onResize(width, height);
 			screenManager.onResize(width, height);
+			cursorManager.onResize();
 		} catch (Exception e) {
 			CrashHandler.logCrash(e);
 			throw e;

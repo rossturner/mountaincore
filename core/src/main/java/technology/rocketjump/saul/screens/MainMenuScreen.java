@@ -37,8 +37,8 @@ import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.screens.menus.*;
 import technology.rocketjump.saul.screens.menus.options.OptionsTabName;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.GameDialog;
 import technology.rocketjump.saul.ui.widgets.I18nTextButton;
@@ -49,17 +49,17 @@ import java.util.List;
 import java.util.Random;
 
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.TWITCH_INTEGRATION_ENABLED;
+import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 import static technology.rocketjump.saul.rendering.camera.GlobalSettings.VERSION;
 
 /**
  * Just to show some basic start game / options / quit etc.
- *
+ * <p>
  * Should slowly pan across a background image
  */
 @Singleton
-public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, GameContextAware {
+public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, GameContextAware {
 
-	private static final float PIXEL_SCROLL_PER_SECOND = 70f;
 	private final MessageDispatcher messageDispatcher;
 	private final ScreenWriter screenWriter;
 	private final TopLevelMenu topLevelMenu;
@@ -70,10 +70,10 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 	private final Skin uiSkin;
 	private final SpriteBatch basicSpriteBatch = new SpriteBatch();
 	private final OrthographicCamera camera = new OrthographicCamera();
-	private final Viewport viewport = new ExtendViewport(1920, 1080);
+	private final Viewport viewport = new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y);
 
 	private Texture backgroundImage;
-    private float backgroundScale = 1f;
+	private float backgroundScale = 1f;
 	private GridPoint2 backgroundOffset = new GridPoint2();
 	private TextureRegion backgroundRegion;
 	private GridPoint2 backgroundRegionSize;
@@ -86,8 +86,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 
 	private Menu currentMenu;
 
-	private float uiScaleChangeTimer;
-	private float uiScale;
 	private final UserPreferences userPreferences;
 	private final TwitchDataStore twitchDataStore;
 	private final I18nTranslator i18nTranslator;
@@ -97,7 +95,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 						  LoadGameMenu loadGameMenu, GuiSkinRepository guiSkinRepository,
 						  UserPreferences userPreferences, TopLevelMenu topLevelMenu, OptionsMenu optionsMenu,
 						  PrivacyOptInMenu privacyOptInMenu, CrashHandler crashHandler, I18nWidgetFactory i18nWidgetFactory,
-						  ModsMenu modsMenu, TwitchDataStore twitchDataStore, I18nTranslator i18nTranslator){
+						  ModsMenu modsMenu, TwitchDataStore twitchDataStore, I18nTranslator i18nTranslator) {
 		this.messageDispatcher = messageDispatcher;
 		this.screenWriter = screenWriter;
 		this.embarkMenu = embarkMenu;
@@ -107,11 +105,10 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		this.optionsMenu = optionsMenu;
 		this.modsMenu = modsMenu;
 		this.userPreferences = userPreferences;
-		this.uiScale = Float.parseFloat(userPreferences.getPreference(UserPreferences.PreferenceKey.UI_SCALE, "1"));
 		this.twitchDataStore = twitchDataStore;
 		this.i18nTranslator = i18nTranslator;
 
-		containerTable= new Table(uiSkin);
+		containerTable = new Table(uiSkin);
 		containerTable.setFillParent(true);
 		containerTable.center();
 
@@ -129,7 +126,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		I18nTextButton newVersionButton = i18nWidgetFactory.createTextButton("GUI.NEW_VERSION_AVAILABLE");
 		newVersionButton.addListener(new ClickListener() {
 			@Override
-			public void clicked (InputEvent event, float x, float y) {
+			public void clicked(InputEvent event, float x, float y) {
 				Gdx.net.openURI("https://rocketjumptechnology.itch.io/king-under-the-mountain");
 			}
 		});
@@ -137,7 +134,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		I18nTextButton viewRoadmapButton = i18nWidgetFactory.createTextButton("GUI.VIEW_ROADMAP");
 		viewRoadmapButton.addListener(new ClickListener() {
 			@Override
-			public void clicked (InputEvent event, float x, float y) {
+			public void clicked(InputEvent event, float x, float y) {
 				Gdx.net.openURI("http://kingunderthemounta.in/roadmap/");
 			}
 		});
@@ -152,8 +149,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		currentMenu.show();
 
 		messageDispatcher.addListener(this, MessageType.SWITCH_MENU);
-		messageDispatcher.addListener(this, MessageType.GUI_SET_SCALE);
-		messageDispatcher.addListener(this, MessageType.GUI_SCALE_CHANGED);
 		messageDispatcher.addListener(this, MessageType.TWITCH_ACCOUNT_INFO_UPDATED);
 		messageDispatcher.addListener(this, MessageType.PREFERENCE_CHANGED);
 		messageDispatcher.addListener(this, MessageType.SAVED_GAMES_LIST_UPDATED);
@@ -198,15 +193,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 				}
 				return true;
 			}
-			case MessageType.GUI_SET_SCALE: {
-				this.uiScaleChangeTimer = 1f;
-				this.uiScale = (Float)msg.extraInfo;
-				return true;
-			}
-			case MessageType.GUI_SCALE_CHANGED: {
-				resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-				return true;
-			}
 			case MessageType.TWITCH_ACCOUNT_INFO_UPDATED: {
 				resetVersionTable();
 				return false;
@@ -239,7 +225,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		List<Dialog> outstandingDialogs = new ArrayList<>();
 		for (Actor child : stage.getRoot().getChildren()) {
 			if (child instanceof Dialog) {
-				outstandingDialogs.add((Dialog)child);
+				outstandingDialogs.add((Dialog) child);
 			}
 		}
 
@@ -265,7 +251,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 			backgroundImage = new Texture("assets/main_menu/Dwarf Realm.jpg");
 		}
 
-        setupBackgroundRegion();
+		setupBackgroundRegion();
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(stage);
@@ -275,17 +261,15 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 
-    private void setupBackgroundRegion() {
-        backgroundScale = 1f;
-        determineBackgroundScale();
-        determineBackgroundOffset();
+	private void setupBackgroundRegion() {
+		backgroundScale = 1f;
+		determineBackgroundScale();
+		determineBackgroundOffset();
 		backgroundRegion = new TextureRegion(backgroundImage, backgroundOffset.x, backgroundOffset.y,
-				Math.round(Gdx.graphics.getWidth() * (1f / backgroundScale)), Math.round(Gdx.graphics.getHeight() * (1f / backgroundScale)));
-//		backgroundRegion = new TextureRegion(backgroundImage, 3500, 500,
-//				Math.round(Gdx.graphics.getWidth() * (1f / backgroundScale)), Math.round(Gdx.graphics.getHeight() * (1f / backgroundScale)));
-    }
+				backgroundRegionSize.x, backgroundRegionSize.y);
+	}
 
-    private void determineBackgroundScale() {
+	private void determineBackgroundScale() {
 		if (backgroundImage.getWidth() < Gdx.graphics.getWidth() || backgroundImage.getHeight() < Gdx.graphics.getHeight()) {
 			backgroundScale = 2f;
 		} else {
@@ -306,13 +290,13 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		);
 		Random random = new RandomXS128();
 		this.backgroundOffset.set(
-            random.nextInt(maxOffset.x), random.nextInt(maxOffset.y)
-        );
+				random.nextInt(maxOffset.x), random.nextInt(maxOffset.y)
+		);
 	}
 
 	private boolean canHalveBackgroundResolution() {
-		return (float)backgroundImage.getWidth() * backgroundScale > Gdx.graphics.getWidth() * 2f &&
-				(float)backgroundImage.getHeight() * backgroundScale > Gdx.graphics.getHeight() * 2f;
+		return (float) backgroundImage.getWidth() * backgroundScale > Gdx.graphics.getWidth() * 2f &&
+				(float) backgroundImage.getHeight() * backgroundScale > Gdx.graphics.getHeight() * 2f;
 	}
 
 	@Override
@@ -323,18 +307,8 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 
 	@Override
 	public void render(float delta) {
-
 		camera.update();
 		stage.act(delta);
-
-
-		// Delay changing ui scale when dragging
-		if (uiScaleChangeTimer > 0) {
-			uiScaleChangeTimer -= delta;
-			if (uiScaleChangeTimer <= 0) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SCALE_CHANGED, uiScale);
-			}
-		}
 
 		// Show middle section of background from xCursor to xCursor + width
 		basicSpriteBatch.begin();
@@ -414,7 +388,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		// Not translated but needs triggering for font change
 		resetVersionTable();
 	}
@@ -437,26 +411,32 @@ public class MainMenuScreen implements Telegraph, GameScreen, I18nUpdatable, Gam
 		public boolean keyDown(int keycode) {
 			return false;
 		}
+
 		@Override
 		public boolean keyUp(int keycode) {
 			return false;
 		}
+
 		@Override
 		public boolean keyTyped(char character) {
 			return false;
 		}
+
 		@Override
 		public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 			return false;
 		}
+
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 			return false;
 		}
+
 		@Override
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
 			return false;
 		}
+
 		@Override
 		public boolean mouseMoved(int screenX, int screenY) {
 			return false;

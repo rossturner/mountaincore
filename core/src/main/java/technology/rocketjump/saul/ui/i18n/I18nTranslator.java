@@ -64,7 +64,7 @@ import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPosit
 import static technology.rocketjump.saul.ui.i18n.I18nText.BLANK;
 
 @Singleton
-public class I18nTranslator implements I18nUpdatable {
+public class I18nTranslator {
 
 	public static DecimalFormat oneDecimalFormat = new DecimalFormat("#.#");
 
@@ -432,10 +432,9 @@ public class I18nTranslator implements I18nUpdatable {
 		}
 		Map<String, I18nString> replacements = new HashMap<>();
 		replacements.put("timeOfDay", new I18nWord(gameClock.getFormattedGameTime()));
-		replacements.put("dayNumber", new I18nWord(String.valueOf(gameClock.getDayOfSeason())));
-		replacements.put("season", dictionary.getWord(gameClock.getCurrentSeason().getI18nKey()));
+		replacements.put("dayNumber", new I18nWord(String.valueOf(gameClock.getDayOfYear())));
 		replacements.put("year", new I18nWord(String.valueOf(gameClock.getCurrentYear())));
-		return applyReplacements(dictionary.getWord("GUI.DATE_TIME_LABEL"), replacements, Gender.ANY);
+		return applyReplacements(dictionary.getWord("GUI.DATE_TIME_YEAR_LABEL"), replacements, Gender.ANY);
 	}
 
 
@@ -801,8 +800,7 @@ public class I18nTranslator implements I18nUpdatable {
 		return (bodyPart.getDiscriminator() != null ? bodyPart.getDiscriminator() + " " : "") + bodyPart.getPartDefinition().getName();
 	}
 
-	@Override
-	public void onLanguageUpdated() {
+	public void preLanguageUpdated() {
 		dictionary = repo.getCurrentLanguage();
 	}
 

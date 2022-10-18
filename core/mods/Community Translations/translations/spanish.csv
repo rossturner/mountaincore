@@ -401,7 +401,7 @@ GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting,Creando
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}},Total actual: {{quantity}}
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total),({{quantity}} en total}}
 GUI.CROP_SELECTION,,Crop:,Cosecha:
-GUI.DATE_TIME_LABEL,"E.g. 09:20, day 4, spring","{{timeOfDay}}, day {{dayNumber}}, {{season}}, year {{year}}","{{timeOfDay}}, día {{dayNumber}}, {{season}}"
+GUI.DATE_TIME_YEAR_LABEL,"E.g. 09:20, day 4, spring","{{timeOfDay}}, day {{dayNumber}}, {{season}}, year {{year}}","{{timeOfDay}}, día {{dayNumber}}"
 GUI.DECONSTRUCT_LABEL,This should be as short as possible,Demolish,Demoler
 GUI.DIALOG.CANCEL_BUTTON,,Cancel,"Cancelar "
 GUI.DIALOG.CONFIRM_DELETE_SAVE,,Are you sure you wish to delete {{name}}?,¿Seguro que quieres eliminar {{name}}?

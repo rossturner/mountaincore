@@ -1,42 +1,74 @@
 package technology.rocketjump.saul.ui.skins;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.VisUI;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.ui.fonts.FontRepository;
+import technology.rocketjump.saul.ui.fonts.OnDemandFontRepository;
+
+import static java.util.List.of;
 
 @Singleton
-public class GuiSkinRepository {
+public class GuiSkinRepository implements Telegraph {
 
+	public static final String MAIN_GAME_SKIN_FILE_PATH = "assets/ui/skin/main-game-skin.json";
+	private static final String MENU_SKIN_FILE_PATH = "assets/ui/skin/menu-skin.json";
 	private final FontRepository fontRepository;
+	private final OnDemandFontRepository onDemandFontRepository;
 	private final Skin uiSkin = new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")); // MODDING expose this or change uiskin.json
 	private final Skin menuSkin;
+	private final Skin mainGameSkin;
 
 	@Inject
-	public GuiSkinRepository(FontRepository fontRepository) {
+	public GuiSkinRepository(FontRepository fontRepository, OnDemandFontRepository onDemandFontRepository, MessageDispatcher messageDispatcher) {
 		this.fontRepository = fontRepository;
+		this.onDemandFontRepository = onDemandFontRepository;
 
-		fontChanged();
-
-		FileHandle menuSkinFile = Gdx.files.internal("assets/ui/skin/menu-skin.json");
-		FileHandle menuSkinAtlasFile = menuSkinFile.sibling(menuSkinFile.nameWithoutExtension() + ".atlas");
-
-		menuSkin = new Skin();
-		menuSkin.add("placeholder-font", fontRepository.getDefaultFontForUI().getBitmapFont(), BitmapFont.class);
-		menuSkin.add("placeholder-header-font", fontRepository.getDefaultFontForUI().getBitmapFont(), BitmapFont.class);
-		menuSkin.addRegions(new TextureAtlas(menuSkinAtlasFile));
-		menuSkin.load(menuSkinFile);
+		mainGameSkin = loadSkin(MAIN_GAME_SKIN_FILE_PATH);
+		menuSkin = loadSkin(MENU_SKIN_FILE_PATH);
 
 		if (!VisUI.isLoaded()) {
 			VisUI.load();
 		}
+
+		messageDispatcher.addListener(this, MessageType.FONTS_CHANGED);
 	}
 
+	private Skin loadSkin(String skinJsonPath) {
+		FileHandle menuSkinFile = Gdx.files.internal(skinJsonPath);
+		FileHandle menuSkinAtlasFile = menuSkinFile.sibling(menuSkinFile.nameWithoutExtension() + ".atlas");
+
+		Skin skin = new Skin();
+		skin.add("placeholder-font", fontRepository.getDefaultFontForUI().getBitmapFont(), BitmapFont.class);
+		skin.add("placeholder-header-font", fontRepository.getDefaultFontForUI().getBitmapFont(), BitmapFont.class);
+
+		skin.add("header-font-32", onDemandFontRepository.getHeaderFont(32));
+		skin.add("default-font-16", onDemandFontRepository.getDefaultFont(16));
+
+		skin.addRegions(new TextureAtlas(menuSkinAtlasFile));
+		skin.load(menuSkinFile);
+		return skin;
+	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		return switch (msg.message) {
+			case MessageType.FONTS_CHANGED -> fontChanged();
+			default -> throw new IllegalArgumentException("Unexpected message type handled: " + msg.message);
+		};
+	}
+
+	@Deprecated
 	public Skin getDefault() {
 		return uiSkin;
 	}
@@ -45,7 +77,14 @@ public class GuiSkinRepository {
 		return menuSkin;
 	}
 
-	public void fontChanged() {
+	public Skin getMainGameSkin() {
+		return mainGameSkin;
+	}
+
+	public boolean fontChanged() {
+		reassignFonts(mainGameSkin, MAIN_GAME_SKIN_FILE_PATH);
+		reassignFonts(menuSkin, MENU_SKIN_FILE_PATH);
+
 		BitmapFont bitmapFont = fontRepository.getDefaultFontForUI().getBitmapFont();
 		uiSkin.add("default-font", bitmapFont);
 
@@ -57,6 +96,48 @@ public class GuiSkinRepository {
 		uiSkin.get(SelectBox.SelectBoxStyle.class).font = bitmapFont;
 		uiSkin.get(SelectBox.SelectBoxStyle.class).listStyle.font = bitmapFont;
 		uiSkin.get(TextButton.TextButtonStyle.class).font = bitmapFont;
+
+		return true;
+	}
+
+	private static final java.util.List<Class<?>> scene2DClassesWithFontProperty = of(
+			TextField.TextFieldStyle.class, Label.LabelStyle.class, CheckBox.CheckBoxStyle.class, Window.WindowStyle.class,
+			List.ListStyle.class, SelectBox.SelectBoxStyle.class, TextButton.TextButtonStyle.class
+	);
+
+	private void reassignFonts(Skin currentSkin, String pathToSkin) {
+		Skin originalSkin = loadSkin(pathToSkin);
+
+		currentSkin.add("header-font-32", onDemandFontRepository.getHeaderFont(32));
+		currentSkin.add("default-font-16", onDemandFontRepository.getDefaultFont(16));
+
+		for (Class<?> styleClass : scene2DClassesWithFontProperty) {
+			ObjectMap<String, ?> styles = currentSkin.getAll(styleClass);
+			if (styles != null) {
+				for (ObjectMap.Entry<String, ?> styleEntry : styles) {
+					Object originalStyle = originalSkin.get(styleEntry.key, styleClass);
+					Object currentStyle = styleEntry.value;
+
+					if (originalStyle instanceof TextField.TextFieldStyle originalTextFieldStyle && currentStyle instanceof TextField.TextFieldStyle currentTextFieldStyle) {
+						currentTextFieldStyle.font = originalTextFieldStyle.font;
+					} else if (originalStyle instanceof Label.LabelStyle originalLabelStyle && currentStyle instanceof Label.LabelStyle currentLabelStyle) {
+						currentLabelStyle.font = originalLabelStyle.font;
+					} else if (originalStyle instanceof CheckBox.CheckBoxStyle originalCheckboxStyle && currentStyle instanceof CheckBox.CheckBoxStyle currentCheckboxStyle) {
+						currentCheckboxStyle.font = originalCheckboxStyle.font;
+					} else if (originalStyle instanceof Window.WindowStyle originalWindowStyle && currentStyle instanceof Window.WindowStyle currentWindowStyle) {
+						currentWindowStyle.titleFont = originalWindowStyle.titleFont;
+					} else if (originalStyle instanceof List.ListStyle originalListStyle && currentStyle instanceof List.ListStyle currentListStyle) {
+						currentListStyle.font = originalListStyle.font;
+					} else if (originalStyle instanceof SelectBox.SelectBoxStyle originalSelectStyle && currentStyle instanceof SelectBox.SelectBoxStyle currentSelectStyle) {
+						currentSelectStyle.font = originalSelectStyle.font;
+						currentSelectStyle.listStyle.font = originalSelectStyle.listStyle.font;
+					} else if (originalStyle instanceof TextButton.TextButtonStyle originalTextButtonStyle && currentStyle instanceof TextButton.TextButtonStyle currentTextButtonStyle) {
+						currentTextButtonStyle.font = originalTextButtonStyle.font;
+					}
+				}
+			}
+		}
+
 	}
 
 }

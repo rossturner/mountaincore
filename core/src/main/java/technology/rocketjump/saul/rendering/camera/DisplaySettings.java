@@ -1,10 +1,11 @@
 package technology.rocketjump.saul.rendering.camera;
 
+import com.badlogic.gdx.math.GridPoint2;
 import technology.rocketjump.saul.screens.menus.Resolution;
 
 public class DisplaySettings {
 
-	public static final String DEFAULT_UI_SCALE = "1.0";
+	public final static GridPoint2 GUI_DESIGN_SIZE = new GridPoint2(1920, 1080);
 
 	public static boolean showGui = true;
 

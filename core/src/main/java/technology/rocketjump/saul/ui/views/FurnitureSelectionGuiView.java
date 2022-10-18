@@ -21,8 +21,8 @@ import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.actions.FurnitureSelectedAction;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 import technology.rocketjump.saul.ui.widgets.IconButton;
@@ -35,7 +35,7 @@ import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATER
 import static technology.rocketjump.saul.ui.widgets.ButtonStyle.LARGE;
 
 @Singleton
-public class FurnitureSelectionGuiView implements GuiView, FurnitureSelectedCallback, I18nUpdatable {
+public class FurnitureSelectionGuiView implements GuiView, FurnitureSelectedCallback, DisplaysText {
 
 	private final int ITEMS_PER_ROW = 4;
 	private final IconButtonFactory iconButtonFactory;
@@ -152,7 +152,7 @@ public class FurnitureSelectionGuiView implements GuiView, FurnitureSelectedCall
 		});
 		viewTable.add(nextButton).pad(10).right().colspan(1);
 
-		onLanguageUpdated();
+		rebuildUI();
 
 		initialised = true;
 	}
@@ -312,7 +312,7 @@ public class FurnitureSelectionGuiView implements GuiView, FurnitureSelectedCall
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		resetFurnitureTable(); // To catch material type names
 		resetMaterialTypeSelect();
 	}

@@ -20,7 +20,6 @@ import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntit
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
-import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
@@ -42,6 +41,7 @@ import static technology.rocketjump.saul.ui.views.EntitySelectedGuiView.*;
 public class SettlerManagementScreen extends ManagementScreen {
 
 	public static final int UI_WIDTH_REQUIRED_PER_SETTLER = 600;
+	public static final String NAME = "SETTLER_MANAGEMENT";
 	private final ClickableTableFactory clickableTableFactory;
 	private int numSettlerTablesPerRow = 3;
 	private final MessageDispatcher messageDispatcher;
@@ -59,13 +59,13 @@ public class SettlerManagementScreen extends ManagementScreen {
 	private Set<Skill> selectedProfessions = new HashSet<>();
 
 	@Inject
-	public SettlerManagementScreen(UserPreferences userPreferences, MessageDispatcher messageDispatcher,
+	public SettlerManagementScreen(MessageDispatcher messageDispatcher,
 								   GuiSkinRepository guiSkinRepository, SettlerTracker settlerTracker,
 								   I18nWidgetFactory i18nWidgetFactory,
 								   EntityDrawableFactory entityDrawableFactory, I18nTranslator i18nTranslator,
 								   ClickableTableFactory clickableTableFactory, IconButtonFactory iconButtonFactory,
 								   SoundAssetDictionary soundAssetDictionary, SettlementFurnitureTracker settlementFurnitureTracker) {
-		super(userPreferences, messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
+		super(messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
 		this.settlerTracker = settlerTracker;
 		this.messageDispatcher = messageDispatcher;
 		this.entityDrawableFactory = entityDrawableFactory;
@@ -158,7 +158,7 @@ public class SettlerManagementScreen extends ManagementScreen {
 
 	@Override
 	public void resize(int width, int height) {
-		numSettlerTablesPerRow = (int)((float)width / ((float)UI_WIDTH_REQUIRED_PER_SETTLER * uiScale));
+		numSettlerTablesPerRow = (int)((float)width / ((float)UI_WIDTH_REQUIRED_PER_SETTLER));
 		super.resize(width, height);
 	}
 
@@ -184,8 +184,13 @@ public class SettlerManagementScreen extends ManagementScreen {
 	}
 
 	@Override
+	public String getButtonName() {
+		return "btn_top_settlers";
+	}
+
+	@Override
 	public String getName() {
-		return "SETTLER_MANAGEMENT";
+		return NAME;
 	}
 
 	@Override

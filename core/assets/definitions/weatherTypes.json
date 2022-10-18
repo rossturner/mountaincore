@@ -1,6 +1,7 @@
 [ {
   "name" : "Perfect",
   "i18nKey" : "WEATHER.TYPE.PERFECT",
+  "drawableIconName" : "asset_weather_nice_icon",
   "maxSunlight" : "#ffffff",
   "dayAmbienceSoundAssetName" : "Daytime",
   "nightAmbienceSoundAssetName" : "Nighttime",
@@ -10,6 +11,7 @@
 }, {
   "name" : "Cloudy",
   "i18nKey" : "WEATHER.TYPE.CLOUDY",
+  "drawableIconName" : "asset_weather_cloudy_grey_icon",
   "maxSunlight" : "#c8c8c8",
   "dayAmbienceSoundAssetName" : "Daytime",
   "nightAmbienceSoundAssetName" : "Nighttime",
@@ -20,6 +22,7 @@
   "name" : "Rain",
   "i18nKey" : "WEATHER.TYPE.RAIN",
   "particleEffectTypeName" : "Rain",
+  "drawableIconName" : "asset_weather_rain_icon",
   "maxSunlight" : "#c8c8c8",
   "dayAmbienceSoundAssetName" : "Rain",
   "nightAmbienceSoundAssetName" : "Rain",
@@ -35,6 +38,7 @@
   "name" : "Wet Thunderstorm",
   "i18nKey" : "WEATHER.TYPE.THUNDERSTORM",
   "particleEffectTypeName" : "Rain",
+  "drawableIconName" : "asset_weather_storm_icon",
   "maxSunlight" : "#b8b8b8",
   "dayAmbienceSoundAssetName" : "Thunderstorm with rain",
   "nightAmbienceSoundAssetName" : "Thunderstorm with rain",
@@ -50,6 +54,7 @@
 }, {
   "name" : "Dry Thunderstorm",
   "i18nKey" : "WEATHER.TYPE.THUNDERSTORM",
+  "drawableIconName" : "asset_weather_storm_icon",
   "maxSunlight" : "#DDDDDD",
   "dayAmbienceSoundAssetName" : "Isolated thunder",
   "nightAmbienceSoundAssetName" : "Isolated thunder",
@@ -61,6 +66,7 @@
   "name" : "Snow",
   "i18nKey" : "WEATHER.TYPE.SNOW",
   "particleEffectTypeName" : "Snow",
+  "drawableIconName" : "asset_weather_snow_icon",
   "maxSunlight" : "#EEEEEE",
   "dayAmbienceSoundAssetName" : "Wind",
   "nightAmbienceSoundAssetName" : "Wind",
@@ -74,6 +80,7 @@
 }, {
   "name" : "Cold winds",
   "i18nKey" : "WEATHER.TYPE.COLD_WINDS",
+  "drawableIconName" : "asset_weather_windy_icon",
   "maxSunlight" : "#EEEEEE",
   "dayAmbienceSoundAssetName" : "Wind",
   "nightAmbienceSoundAssetName" : "Wind",

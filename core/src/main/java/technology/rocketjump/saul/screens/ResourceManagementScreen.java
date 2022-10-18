@@ -14,7 +14,6 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttribu
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
@@ -36,6 +35,7 @@ import java.util.*;
 public class ResourceManagementScreen extends ManagementScreen {
 
 	private static final float INDENT_WIDTH = 50f;
+	public static final String NAME = "RESOURCES";
 	private final SettlementItemTracker settlementItemTracker;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 	private final ClickableTableFactory clickableTableFactory;
@@ -49,12 +49,12 @@ public class ResourceManagementScreen extends ManagementScreen {
 	private final Set<String> selectedRows = new HashSet<>();
 
 	@Inject
-	public ResourceManagementScreen(UserPreferences userPreferences, MessageDispatcher messageDispatcher,
+	public ResourceManagementScreen(MessageDispatcher messageDispatcher,
 									GuiSkinRepository guiSkinRepository, I18nWidgetFactory i18nWidgetFactory,
 									I18nTranslator i18nTranslator, IconButtonFactory iconButtonFactory,
 									SettlementItemTracker settlementItemTracker, ClickableTableFactory clickableTableFactory,
 									EntityRenderer entityRenderer, StockpileGroupDictionary stockpileGroupDictionary) {
-		super(userPreferences, messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
+		super(messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
 		this.settlementItemTracker = settlementItemTracker;
 		this.clickableTableFactory = clickableTableFactory;
 		this.entityRenderer = entityRenderer;
@@ -212,8 +212,13 @@ public class ResourceManagementScreen extends ManagementScreen {
 	}
 
 	@Override
+	public String getButtonName() {
+		return "btn_top_resources";
+	}
+
+	@Override
 	public String getName() {
-		return "RESOURCES";
+		return NAME;
 	}
 
 	@Override
