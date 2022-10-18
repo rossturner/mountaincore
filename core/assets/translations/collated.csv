@@ -445,6 +445,7 @@ GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,({{quantity}} in total),,({{quantity
 GUI.CROP_SELECTION,Crop:,,Pflanze:,Culture:,Coltura:,Cosecha:,Plantação:,Cultivo:,,Обрезать:,Mahsül:,Afgrøde:,,Beskära:,,,,Crop:,农作物：,자르기:
 GUI.DATE_TIME_LABEL,,,,,,,,,,,,,,"{{timeOfDay}}, dag {{dayNumber}}",,,,,,
 GUI.DATE_TIME_YEAR_LABEL,"{{timeOfDay}}, Day {{dayNumber}}, Year {{year}}",,"{{timeOfDay}}, Tag {{dayNumber}}","{{timeOfDay}}, jour {{dayNumber}}","{{timeOfDay}}, giorno {{dayNumber}}, anno {{year}}","{{timeOfDay}}, día {{dayNumber}}","{{timeOfDay}}, dia {{dayNumber}}","{{timeOfDay}}, dia {{dayNumber}}",,"{{timeOfDay}}, день {{dayNumber}}, год {{year}}","{{timeOfDay}}, Gün {{dayNumber}}","{{timeOfDay}}, dag {{dayNumber}}",,,,,,{{year}}年目/{{dayNumber}}日目/{{timeOfDay}},{{timeOfDay}}，第{{dayNumber}}天，第{{year}}年,"{{timeOfDay}}, 일 {{일 번호}}, {{dayNumber}}"
+GUI.DAY_LABEL,Day {{dayNumber}},,,,,,,,,,,,,,,,,,,
 GUI.DECONSTRUCT_LABEL,Demolish,,Abreißen,,Demolisci,Demoler,,,,Снести,Yık,,,,,,,破壊,拆除,
 GUI.DIALOG.CANCEL_BUTTON,Cancel,,Abbrechen,,Annulla,"Cancelar ",,,,Отмена,,,,,,,,キャンセル,取消,
 GUI.DIALOG.CONFIRM_DELETE_SAVE,Are you sure you wish to delete {{name}}?,,Bist du sicher dass du {{name}} löschen willst?,,Sei sicuro di voler cancellare {{name}}?,¿Seguro que quieres eliminar {{name}}?,,,,Вы действительно хотите удалить {{name}} ?,,,,,,,,{{name}}を削除してもよろしいですか？,确定删除{{name}}？,
@@ -561,6 +562,7 @@ GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,Total: {{count}},,Gesamt: {{count}},
 GUI.SOUND_EFFECT_VOLUME,Sound effect volume,,Soundeffektlautstärke,Volume des effets sonores,Volume degli effetti sonori,Volumen de los efectos de sonido,Volume de efeitos sonoros,Volume dos efeitos sonoros,,Громкость эффектов,Ses efekti seviyesi,Lydeffektvolumen,,Ljudeffektvolym,,,,効果音の音量,音效音量,사운드 효과 볼륨
 GUI.UI_SCALE,UI scale:,,Interfacegröße,Dimension de l'interface:,Dimensione dell'interfaccia:,Tamaño de la interfaz:,Tamanho da interface:,Tamanho da interface:,,Размер интерфейса:,Arayüz ölçeği:,UI-skala:,,Gränssnittskala:,,,,UIスケール:,UI缩放：,UI 배율:
 GUI.VIEW_ROADMAP,View development roadmap,,Entwicklungsroadmap anschauen,,Vedi la roadmap di sviluppo,Ver la hoja de ruta del desarrollo,,,,Посмотреть планы разработки,Geliştirme yol haritasını görüntüle,,,,,,,開発ロードマップを見る,查看开发路线图,
+GUI.YEAR_LABEL,Year {{year}},,,,,,,,,,,,,,,,,,,
 GUI.ZONES_LABEL,Zones,,Zonen,Zones,Zone,Zonas,Áreas,Zonas,,Зоны,Bölgeler,Zoner,,Zoner,,,,ゾーン,区域,영역
 
 HAPPINESS_MODIFIER.ALCOHOL_WITHDRAWAL,Going sober,,Wird gerade nüchtern,,Diventare sobrio,Quedándose sobrio,,,,"Трезвый ",Ayılıyor,,,,,,,酔いが醒めている,戒酒,

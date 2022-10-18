@@ -141,8 +141,6 @@ save_title_ribbon_bg
   rotate: false
   xy: 3846, 7961
   size: 764, 107
-  split: 0, 0, 0, 0
-  pad: 62, 62, 10, 10
   orig: 764, 107
   offset: 0, 0
   index: -1

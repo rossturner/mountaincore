@@ -3,7 +3,7 @@ atlasData: {
 	atlasCurrent: true
 	drawables: [
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/btn_banner_1.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/btn_banner_1.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -23,7 +23,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/btn_banner_hover_state.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/btn_banner_hover_state.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -43,7 +43,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/icon_discord.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/icon_discord.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -63,7 +63,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/icon_twitch.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/icon_twitch.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -83,7 +83,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/btn_banner_2.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/btn_banner_2.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -103,7 +103,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/btn_banner_3.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/btn_banner_3.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -123,7 +123,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/btn_banner_4.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/btn_banner_4.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -143,7 +143,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/asset_bg_banner.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/asset_bg_banner.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -163,7 +163,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/asset_bg_banner_pole.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/asset_bg_banner_pole.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -223,7 +223,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/scroll_fg.9.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/scroll_fg.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -243,7 +243,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/scroll_bg.9.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/scroll_bg.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -263,7 +263,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/select_full.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/select_full.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -283,7 +283,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/paper_texture_bg.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/paper_texture_bg.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -303,7 +303,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/menu_bg_left.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/menu_bg_left.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -323,7 +323,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/menu_bg_right.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/menu_bg_right.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -343,7 +343,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/paper_texture_bg_pattern_large.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/paper_texture_bg_pattern_large.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -363,7 +363,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/arrow_greyed_out.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/arrow_greyed_out.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -383,7 +383,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/arrow.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/arrow.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -423,7 +423,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/arrow_right.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/arrow_right.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -443,7 +443,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/arrow_greyed_out_right.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/arrow_greyed_out_right.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -463,7 +463,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/title_ribbon_bg_left.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/title_ribbon_bg_left.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -483,7 +483,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/title_ribbon_bg_middle.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/title_ribbon_bg_middle.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -503,7 +503,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/title_ribbon_bg_right.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/title_ribbon_bg_right.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -543,7 +543,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/save_bg_scalable.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/save_bg_scalable.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -563,7 +563,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/save_bg_scalable.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/save_bg_scalable.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -612,7 +612,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/save_title_ribbon_bg.9.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/save_title_ribbon_bg.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -2197,7 +2197,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: save_title_ribbon_bg
+						value: null
 					}
 				}
 				deletable: true
@@ -7147,7 +7147,7 @@ preferences: {
 		value: C:/Users/miker/Desktop/load-game-menu.json
 	}
 }
-saveFile: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project.scmp
+saveFile: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project.scmp
 version: 52
 sceneComposer: {
 	children: [

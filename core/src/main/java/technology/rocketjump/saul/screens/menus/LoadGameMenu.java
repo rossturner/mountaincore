@@ -6,15 +6,20 @@ import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.modding.ModCompatibilityChecker;
+import technology.rocketjump.saul.persistence.SavedGameInfo;
 import technology.rocketjump.saul.persistence.SavedGameStore;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Singleton
 public class LoadGameMenu implements Menu, GameContextAware {
@@ -30,7 +35,6 @@ public class LoadGameMenu implements Menu, GameContextAware {
 //	private final Skin uiSkin;
 //	private final MessageDispatcher messageDispatcher;
 //	private final I18nWidgetFactory i18NWidgetFactory;
-//	private final SavedGameStore savedGameStore;
 //	private final ModCompatibilityChecker modCompatibilityChecker;
 //	private final IconButtonFactory iconButtonFactory;
 //	private final I18nTranslator i18nTranslator;
@@ -38,15 +42,22 @@ public class LoadGameMenu implements Menu, GameContextAware {
 //	private boolean displayed;
 //	private GameContext gameContext;
 
+	private final SavedGameStore savedGameStore;
 	private final Skin skin;
+	private final I18nTranslator i18nTranslator;
 	private final Stack stack = new Stack();
+	private final Table slot1;
+	private final Table slot2;
+	private final Table slot3;
+	private final java.util.List<Table> slots;
 
 	@Inject
 	public LoadGameMenu(UserPreferences userPreferences, GuiSkinRepository skinRepository, MessageDispatcher messageDispatcher,
 						SoundAssetDictionary soundAssetDictionary, MenuButtonFactory menuButtonFactory,
 						SavedGameStore savedGameStore, ModCompatibilityChecker modCompatibilityChecker, I18nTranslator i18nTranslator) {
-
+		this.savedGameStore = savedGameStore;
 		this.skin = skinRepository.getMenuSkin();
+		this.i18nTranslator = i18nTranslator;
 
 		Table table1 = new Table();
 		table1.setName("backgroundBase");
@@ -87,20 +98,21 @@ public class LoadGameMenu implements Menu, GameContextAware {
 
 		Button leftArrow = new Button(skin, "left_arrow");
 
-		Table slot1 = new Table();
+		this.slot1 = new Table();
 		slot1.setName("slot1");
 		slot1.setBackground(skin.getDrawable("save_greyed_out_bg"));
 
-		Table slot2 = new Table();
+		this.slot2 = new Table();
 		slot2.setName("slot2");
 		slot2.setBackground(skin.getDrawable("save_greyed_out_bg"));
 
-		Table slot3 = new Table();
+		this.slot3 = new Table();
 		slot3.setName("slot3");
 		slot3.setBackground(skin.getDrawable("save_greyed_out_bg"));
 
-		Button rightArrow = new Button(skin, "right_arrow");
+		this.slots = Arrays.asList(slot1, slot2, slot3);
 
+		Button rightArrow = new Button(skin, "right_arrow");
 
 		table1.add(leftArrow).maxWidth(58.0f).maxHeight(127.0f);
 		table1.add(slot1).width(412.0f).height(572.0f);
@@ -292,10 +304,29 @@ public class LoadGameMenu implements Menu, GameContextAware {
 	}
 
 	public void savedGamesUpdated() {
+		//TODO: update save slots
+		java.util.List<SavedGameInfo> savesInOrder = new ArrayList<>(savedGameStore.getAll());
+		savesInOrder.sort((o1, o2) -> o2.lastModifiedTime.compareTo(o1.lastModifiedTime));
+
+		for (int i = 0; i < Math.min(slots.size(), savesInOrder.size()); i++) {
+			Table slotTable = slots.get(i);
+			SavedGameInfo savedGame = savesInOrder.get(i);
+			populateSaveSlot(savedGame, slotTable);
+		}
+
+//		SavedGameInfo slot1Save = null;
+//		if (savesInOrder.size() > 0) {
+//			slot1Save = savesInOrder.get(0);
+//		}
+//
+//		if (slot1Save != null) {
+//		}
+
 //		if (displayed) {
 //			reset();
 //		}
 	}
+
 
 	@Override
 	public void onContextChange(GameContext gameContext) {
@@ -305,5 +336,45 @@ public class LoadGameMenu implements Menu, GameContextAware {
 	@Override
 	public void clearContextRelatedState() {
 
+	}
+
+
+	private void populateSaveSlot(SavedGameInfo slot1Save, Table saveSlot) {
+		GameClock gameClock = slot1Save.gameClock;
+
+		saveSlot.setBackground(skin.getDrawable("save_bg_scalable_ten_patch"));
+
+		saveSlot.add();
+		saveSlot.row();
+		saveSlot.debugAll();
+
+
+		Label settlementName = new Label(slot1Save.settlementName, skin, "save_title_ribbon");
+		settlementName.setAlignment(Align.center);
+		settlementName.setHeight(54);
+
+		Container<Label> settlementNameContainer = new Container<>(settlementName);
+		settlementNameContainer.height(54);
+		settlementNameContainer.setBackground(skin.getDrawable("save_title_ribbon_bg"));
+
+		saveSlot.add(settlementNameContainer);
+
+		saveSlot.row();
+		saveSlot.add(new Label(gameClock.getFormattedGameTime(), skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
+
+		saveSlot.row();
+
+//			seasonIcon.setDrawable(seasonDrawables.get(gameContext.getGameClock().getCurrentSeason()));
+		//TODO: refactor a season widget (label and icon)
+		saveSlot.add(new Label(i18nTranslator.getTranslatedString(gameClock.getCurrentSeason().getI18nKey()).toString(), skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
+
+		saveSlot.row();
+		saveSlot.add(new Label(i18nTranslator.getDayString(gameClock).toString(), skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
+
+		saveSlot.row();
+		saveSlot.add(new Label(i18nTranslator.getYearString(gameClock).toString(), skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
+
+		saveSlot.row();
+		saveSlot.add(new Label(slot1Save.version, skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
 	}
 }
