@@ -779,19 +779,19 @@ atlasData: {
 			customized: false
 			tenPatchData: {
 				horizontalStretchAreas: {
+					items: [ 134, 134 ]
+					size: 2
+					ordered: true
+				}
+				verticalStretchAreas: {
 					items: []
 					size: 0
 					ordered: true
 				}
-				verticalStretchAreas: {
-					items: [ 0, 65 ]
-					size: 2
-					ordered: true
-				}
-				contentLeft: 133
-				contentRight: 133
+				contentLeft: 18
+				contentRight: 18
 				contentTop: 0
-				contentBottom: 12
+				contentBottom: 7
 				tile: false
 				colorName: null
 				color1Name: null

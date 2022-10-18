@@ -29,7 +29,6 @@ public class TooltipFactory implements DisplaysText {
 
 	public void simpleTooltip(Actor parentActor, String i18nKey, TooltipLocationHint locationHint) {
 		Table tooltipTable = new Table();
-		tooltipTable.setDebug(true);
 
 		if (locationHint.equals(BELOW)) {
 			tooltipTable.add(new Image(skin.getDrawable("hover_state_label_arrow_up"))).size(76f/2f, 40f/2f).center().row();
