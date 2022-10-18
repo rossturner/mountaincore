@@ -882,6 +882,21 @@
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
 }, {
+  "recipeName" : "Craft bone arrow heads from small bones",
+  "craftingTypeName" : "BONE_CRAFTING",
+  "itemTypeRequiredName" : "Tool-Chisel",
+  "input" : [ {
+    "itemTypeName" : "Resource-Bone-Small",
+    "quantity" : 3
+  } ],
+  "output" : [ {
+    "itemTypeName" : "Weapon-Bone-Arrow-Heads",
+    "quantity" : 10
+  } ],
+  "materialTypesToCopyOver" : [ "BONE", "WOOD" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 7.5
+}, {
   "recipeName" : "Fletch metal arrows",
   "verbOverrideI18nKey" : "CRAFTING_TYPE.FLETCHING",
   "craftingTypeName" : "FLETCHING",

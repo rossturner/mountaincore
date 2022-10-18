@@ -17,7 +17,7 @@ public class GoToSquadFormationPositionAction extends GoToLocationAction {
 	@Override
 	protected Vector2 selectDestination(GameContext gameContext) {
 		MilitaryComponent militaryComponent = parent.parentEntity.getComponent(MilitaryComponent.class);
-		if (militaryComponent != null) {
+		if (militaryComponent != null && militaryComponent.getSquadId() != null) {
 			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
 			if (squad != null && squad.getGuardingLocation() != null) {
 				return toVector(squad.getFormation().getFormationPosition(squad.getMemberIndex(parent.parentEntity.getId()),
