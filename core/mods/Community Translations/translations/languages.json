@@ -153,7 +153,7 @@
     "labelEn": "Korean",
     "code": "ko",
     "icon": "South-Korea",
-    "enabled": true,
+    "enabled": false,
     "fallback": "en-gb",
     "filename": "korean.csv",
     "breakAfterLineLength": 20,
