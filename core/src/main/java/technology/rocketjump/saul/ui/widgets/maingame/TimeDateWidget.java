@@ -18,6 +18,8 @@ import technology.rocketjump.saul.environment.model.WeatherType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -124,6 +126,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 					messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, gameSpeed);
 				}
 			});
+			speedButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
 			Cell<Button> cell = gameSpeedControlsTable.add(speedButton);
 			if (gameSpeed.equals(GameSpeed.PAUSED)) {
 				cell.padLeft(0);

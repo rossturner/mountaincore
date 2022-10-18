@@ -14,20 +14,23 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.gamecontext.GameState;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.screens.GameScreenDictionary;
-import technology.rocketjump.saul.screens.ManagementScreen;
+import technology.rocketjump.saul.screens.ManagementScreenName;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 import technology.rocketjump.saul.ui.widgets.maingame.TimeDateWidget;
 
 @Singleton
-public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
+public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, DisplaysText {
 
 	private final I18nTranslator i18nTranslator;
 	private final MessageDispatcher messageDispatcher;
+	private final TooltipFactory tooltipFactory;
 	private final I18nWidgetFactory i18nWidgetFactory;
 	private final Skin skin;
 	private Table layoutTable;
@@ -39,9 +42,10 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
 	@Inject
 	public TimeDateGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 						   I18nTranslator i18nTranslator, TimeDateWidget timeDateWidget,
-						   I18nWidgetFactory i18nWidgetFactory) {
+						   I18nWidgetFactory i18nWidgetFactory, TooltipFactory tooltipFactory) {
 		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;
+		this.tooltipFactory = tooltipFactory;
 		Skin uiSkin = guiSkinRepository.getDefault();
 		this.skin = guiSkinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
@@ -67,19 +71,20 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph {
 		}
 	}
 
-
-	public void init(GameScreenDictionary gameScreenDictionary) {
+	@Override
+	public void rebuildUI() {
 		managementScreenButtonTable.clearChildren();
 
-		for (ManagementScreen managementScreen : gameScreenDictionary.getManagementScreensOrderedForUI()) {
-			Button screenButton = new Button(skin, managementScreen.getButtonName());
+		for (ManagementScreenName managementScreen : ManagementScreenName.managementScreensOrderedForUI) {
+			Button screenButton = new Button(skin, managementScreen.buttonStyleName);
 
 			screenButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+			tooltipFactory.simpleTooltip(screenButton, managementScreen.titleI18nKey, TooltipLocationHint.BELOW);
 
 			screenButton.addListener(new ClickListener() {
 				@Override
 				public void clicked (InputEvent event, float x, float y) {
-					messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, managementScreen.getName());
+					messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, managementScreen.name());
 				}
 			});
 			managementScreenButtonTable.add(screenButton).size(157f/2f,170f/2f);

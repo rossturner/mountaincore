@@ -762,6 +762,55 @@ atlasData: {
 			type: TEXTURE
 			hidden: false
 		}
+		{
+			file: C:/workspace/project-saul/core/mods/base/ui/skin/main-game-skin-composer-project_data/hover_state_label.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: hover_state_label_patch
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: {
+				horizontalStretchAreas: {
+					items: []
+					size: 0
+					ordered: true
+				}
+				verticalStretchAreas: {
+					items: [ 0, 65 ]
+					size: 2
+					ordered: true
+				}
+				contentLeft: 133
+				contentRight: 133
+				contentTop: 0
+				contentBottom: 12
+				tile: false
+				colorName: null
+				color1Name: null
+				color2Name: null
+				color3Name: null
+				color4Name: null
+				offsetX: 0
+				offsetY: 0
+				offsetXspeed: 0
+				offsetYspeed: 0
+				frameDuration: 0.03
+				regionNames: []
+				playMode: 2
+				crushMode: 0
+			}
+			tvgData: null
+			type: TENPATCH
+			hidden: false
+		}
 	]
 	fontDrawables: []
 }
@@ -803,6 +852,34 @@ jsonData: {
 		{
 			class: com.ray3k.skincomposer.data.FreeTypeFontData
 			name: default-font-16
+			previewTTF: IBMPlexSerif-Medium
+			useCustomSerializer: false
+			size: 16
+			mono: false
+			hinting: AutoMedium
+			color: null
+			gamma: 1.8
+			renderCount: 2
+			borderWidth: 0
+			borderColor: null
+			borderStraight: false
+			borderGamma: 1.8
+			shadowOffsetX: 0
+			shadowOffsetY: 0
+			shadowColor: null
+			spaceX: 0
+			spaceY: 0
+			characters: ""
+			kerning: true
+			flip: false
+			genMipMaps: false
+			minFilter: Nearest
+			magFilter: Nearest
+			incremental: false
+		}
+		{
+			class: com.ray3k.skincomposer.data.FreeTypeFontData
+			name: default-font-19
 			previewTTF: IBMPlexSerif-Medium
 			useCustomSerializer: false
 			size: 16
@@ -4864,6 +4941,33 @@ jsonData: {
 						name: fontColor
 						optional: true
 						value: primary_font_colour_yellow_alt
+					}
+					background: {
+						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+						name: background
+						optional: true
+						value: null
+					}
+				}
+				deletable: true
+				parent: null
+			}
+			{
+				class: com.ray3k.skincomposer.data.StyleData
+				name: tooltip-text
+				clazz: com.badlogic.gdx.scenes.scene2d.ui.Label
+				properties: {
+					font: {
+						type: com.badlogic.gdx.graphics.g2d.BitmapFont
+						name: font
+						optional: false
+						value: default-font-19
+					}
+					fontColor: {
+						type: com.badlogic.gdx.graphics.Color
+						name: fontColor
+						optional: true
+						value: primary_font_colour_red
 					}
 					background: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable

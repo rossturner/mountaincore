@@ -55,12 +55,15 @@ public abstract class ManagementScreen implements GameScreen, GameContextAware {
         backButtonContainer.left().bottom();
         stage.addActor(backButtonContainer);
 
-        titleLabel = i18nWidgetFactory.createLabel(getTitleI18nKey());
+        titleLabel = i18nWidgetFactory.createLabel(getManagementScreenName().titleI18nKey);
     }
 
-    public abstract String getTitleI18nKey();
+    public abstract ManagementScreenName getManagementScreenName();
 
-    public abstract String getButtonName();
+    @Override
+    public String getName() {
+        return getManagementScreenName().name();
+    }
 
     @Override
     public void show() {

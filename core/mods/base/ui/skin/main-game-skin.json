@@ -10,6 +10,28 @@ com.badlogic.gdx.graphics.Color: {
 		hex: ffffffff
 	}
 }
+com.ray3k.tenpatch.TenPatchDrawable: {
+	hover_state_label_patch: {
+		region: hover_state_label
+		horizontalStretchAreas: [ 0, 267 ]
+		verticalStretchAreas: [ 0, 65 ]
+		tiling: false
+		minWidth: 268
+		minHeight: 66
+		rightWidth: 133
+		leftWidth: 133
+		bottomHeight: 12
+		topHeight: 0
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
+}
 com.kotcrab.vis.ui.Sizes: {
 	default: {
 		scaleFactor: 1
@@ -120,6 +142,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	settlement-name-label: {
 		font: header-font-32
 		fontColor: primary_font_colour_yellow_alt
+	}
+	tooltip-text: {
+		font: default-font-19
+		fontColor: primary_font_colour_red
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {

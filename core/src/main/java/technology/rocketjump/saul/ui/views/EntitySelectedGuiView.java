@@ -57,7 +57,7 @@ import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.Room;
-import technology.rocketjump.saul.screens.CraftingManagementScreen;
+import technology.rocketjump.saul.screens.ManagementScreenName;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.actions.ButtonAction;
@@ -184,7 +184,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				BehaviourComponent behaviourComponent = selectable.getEntity().getBehaviourComponent();
 				if (behaviourComponent instanceof CraftingStationBehaviour) {
 					messageDispatcher.dispatchMessage(MessageType.SHOW_SPECIFIC_CRAFTING, ((CraftingStationBehaviour) behaviourComponent).getCraftingType());
-					messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, CraftingManagementScreen.NAME);
+					messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, ManagementScreenName.CRAFTING.name());
 				}
 			}
 		});
