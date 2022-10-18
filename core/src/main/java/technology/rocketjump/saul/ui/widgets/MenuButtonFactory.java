@@ -16,6 +16,8 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.ui.actions.ButtonAction;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
@@ -120,6 +122,7 @@ public class MenuButtonFactory implements DisplaysText {
                     messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onClickSoundAsset));
                 }
             });
+            button.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
         }
 
 
