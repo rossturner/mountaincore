@@ -1,7 +1,10 @@
 package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -46,10 +49,10 @@ public class LoadGameMenu implements Menu, GameContextAware {
 	private final Skin skin;
 	private final I18nTranslator i18nTranslator;
 	private final Stack stack = new Stack();
-	private final Table slot1;
-	private final Table slot2;
-	private final Table slot3;
 	private final java.util.List<Table> slots;
+	private final Button leftArrow;
+	private final Button rightArrow;
+	private int carouselIndex = 0;
 
 	@Inject
 	public LoadGameMenu(UserPreferences userPreferences, GuiSkinRepository skinRepository, MessageDispatcher messageDispatcher,
@@ -96,23 +99,39 @@ public class LoadGameMenu implements Menu, GameContextAware {
 		table1.add(titleTable).padTop(84.0f).padBottom(84.0f).colspan(5);
 		table1.row();
 
-		Button leftArrow = new Button(skin, "left_arrow");
+		this.leftArrow = new Button(skin, "left_arrow");
+		leftArrow.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				carouselIndex--;
+				savedGamesUpdated();
+			}
+		});
 
-		this.slot1 = new Table();
+		Table slot1 = new Table();
 		slot1.setName("slot1");
 		slot1.setBackground(skin.getDrawable("save_greyed_out_bg"));
 
-		this.slot2 = new Table();
+		Table slot2 = new Table();
 		slot2.setName("slot2");
 		slot2.setBackground(skin.getDrawable("save_greyed_out_bg"));
 
-		this.slot3 = new Table();
+		Table slot3 = new Table();
 		slot3.setName("slot3");
 		slot3.setBackground(skin.getDrawable("save_greyed_out_bg"));
 
 		this.slots = Arrays.asList(slot1, slot2, slot3);
 
-		Button rightArrow = new Button(skin, "right_arrow");
+		this.rightArrow = new Button(skin, "right_arrow");
+		rightArrow.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				carouselIndex++;
+				savedGamesUpdated();
+			}
+		});
 
 		table1.add(leftArrow).maxWidth(58.0f).maxHeight(127.0f);
 		table1.add(slot1).width(412.0f).height(572.0f);
@@ -308,23 +327,35 @@ public class LoadGameMenu implements Menu, GameContextAware {
 		java.util.List<SavedGameInfo> savesInOrder = new ArrayList<>(savedGameStore.getAll());
 		savesInOrder.sort((o1, o2) -> o2.lastModifiedTime.compareTo(o1.lastModifiedTime));
 
-		for (int i = 0; i < Math.min(slots.size(), savesInOrder.size()); i++) {
-			Table slotTable = slots.get(i);
-			SavedGameInfo savedGame = savesInOrder.get(i);
-			populateSaveSlot(savedGame, slotTable);
+		if (carouselIndex < 0) {
+			carouselIndex = 0;
+		} else if (carouselIndex == savesInOrder.size()) {
+			//todo: do something
 		}
 
-//		SavedGameInfo slot1Save = null;
-//		if (savesInOrder.size() > 0) {
-//			slot1Save = savesInOrder.get(0);
-//		}
-//
-//		if (slot1Save != null) {
-//		}
+		if (carouselIndex > 0) {
+			leftArrow.setTouchable(Touchable.enabled);
+			leftArrow.setDisabled(false);
+		} else {
+			leftArrow.setTouchable(Touchable.disabled);
+			leftArrow.setDisabled(true);
+		}
 
-//		if (displayed) {
-//			reset();
-//		}
+		if (carouselIndex < savesInOrder.size() - 3) {
+			rightArrow.setTouchable(Touchable.enabled);
+			rightArrow.setDisabled(false);
+		} else {
+			rightArrow.setTouchable(Touchable.disabled);
+			rightArrow.setDisabled(true);
+		}
+
+
+		for (int i = 0; i < Math.min(slots.size(), savesInOrder.size()); i++) {
+			Table slotTable = slots.get(i);
+			slotTable.clearChildren();
+			SavedGameInfo savedGame = savesInOrder.get(i + carouselIndex);
+			populateSaveSlot(savedGame, slotTable);
+		}
 	}
 
 
