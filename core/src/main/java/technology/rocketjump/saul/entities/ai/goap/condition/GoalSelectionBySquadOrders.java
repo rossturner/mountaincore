@@ -24,7 +24,7 @@ public class GoalSelectionBySquadOrders implements GoalSelectionCondition {
 	@Override
 	public boolean apply(Entity parentEntity, GameContext gameContext) {
 		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
-		if (militaryComponent != null) {
+		if (militaryComponent != null && militaryComponent.getSquadId() != null) {
 			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
 			if (squad != null) {
 				return squad.getCurrentOrderType().equals(orderType);

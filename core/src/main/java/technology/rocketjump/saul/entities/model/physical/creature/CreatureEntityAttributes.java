@@ -87,8 +87,9 @@ public class CreatureEntityAttributes implements EntityAttributes {
 	private void updateHiddenAssetTypes() {
 		Random random = new RandomXS128(seed);
 		this.hiddenAssetTypes.clear();
-		if (this.race.getGenders().get(gender).getHideAssetTypes() != null) {
-			for (Map.Entry<EntityAssetType, Float> hideAssetTypeEntry : this.race.getGenders().get(gender).getHideAssetTypes().entrySet()) {
+		RaceGenderDescriptor raceGenderDescriptor = this.race.getGenders().get(gender);
+		if (raceGenderDescriptor != null && raceGenderDescriptor.getHideAssetTypes() != null) {
+			for (Map.Entry<EntityAssetType, Float> hideAssetTypeEntry : raceGenderDescriptor.getHideAssetTypes().entrySet()) {
 				if (random.nextFloat() < hideAssetTypeEntry.getValue()) {
 					hiddenAssetTypes.add(hideAssetTypeEntry.getKey());
 				}

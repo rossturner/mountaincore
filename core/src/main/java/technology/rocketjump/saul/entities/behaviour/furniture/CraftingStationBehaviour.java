@@ -459,6 +459,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		}
 
 		if (!allMaterialsAvailable) {
+			messageDispatcher.dispatchMessage(MessageType.PRODUCTION_ASSIGNMENT_CANCELLED, currentProductionAssignment);
 			currentProductionAssignment = null;
 		}
 	}
