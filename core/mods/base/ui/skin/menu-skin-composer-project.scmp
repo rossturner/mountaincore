@@ -612,7 +612,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/save_title_ribbon_bg.9.png
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/save_title_ribbon_bg.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -628,7 +628,76 @@ atlasData: {
 			customized: false
 			tenPatchData: null
 			tvgData: null
-			type: NINE_PATCH
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/save_bg_2.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: save_bg_2
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/save_bg_2.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: save_bg_2_scalable
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: {
+				horizontalStretchAreas: {
+					items: [ 5, 406, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+					size: 2
+					ordered: true
+				}
+				verticalStretchAreas: {
+					items: [ 5, 565, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+					size: 2
+					ordered: true
+				}
+				contentLeft: 0
+				contentRight: 0
+				contentTop: 0
+				contentBottom: 0
+				tile: false
+				colorName: null
+				color1Name: null
+				color2Name: null
+				color3Name: null
+				color4Name: null
+				offsetX: 0
+				offsetY: 0
+				offsetXspeed: 0
+				offsetYspeed: 0
+				frameDuration: 0.03
+				regionNames: []
+				playMode: 2
+				crushMode: 0
+			}
+			tvgData: null
+			type: TENPATCH
 			hidden: false
 		}
 	]
@@ -7185,47 +7254,86 @@ sceneComposer: {
 				}
 				{
 					child: {
-						class: com.ray3k.skincomposer.dialog.scenecomposer.DialogSceneComposerModel$SimLabel
+						class: com.ray3k.skincomposer.dialog.scenecomposer.DialogSceneComposerModel$SimContainer
 						name: null
-						style: {
-							name: save_title_ribbon
-							clazz: com.badlogic.gdx.scenes.scene2d.ui.Label
-							properties: {
-								font: {
-									type: com.badlogic.gdx.graphics.g2d.BitmapFont
-									name: font
-									optional: false
-									value: placeholder-header-font
-								}
-								fontColor: {
-									type: com.badlogic.gdx.graphics.Color
-									name: fontColor
-									optional: true
-									value: primary_font_colour_yellow_alt
-								}
-								background: {
-									type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
-									name: background
-									optional: true
-									value: save_title_ribbon_bg
-								}
+						alignment: 1
+						background: {
+							file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/save_title_ribbon_bg.png
+							bgColor: {
+								r: 1
+								g: 1
+								b: 1
+								a: 1
 							}
-							deletable: true
-							parent: null
+							tint: null
+							tintName: null
+							name: save_title_ribbon_bg
+							tiled: false
+							minWidth: -1
+							minHeight: -1
+							customized: false
+							tenPatchData: null
+							tvgData: null
+							type: TEXTURE
+							hidden: false
 						}
-						text: Hammerforge
-						textAlignment: 1
-						ellipsis: false
-						ellipsisString: ...
-						wrap: false
-						color: null
+						fillX: false
+						fillY: false
+						minWidth: -1
+						minHeight: -1
+						maxWidth: -1
+						maxHeight: 54
+						preferredWidth: -1
+						preferredHeight: -1
+						padLeft: 0
+						padRight: 0
+						padTop: 0
+						padBottom: 0
+						child: {
+							class: com.ray3k.skincomposer.dialog.scenecomposer.DialogSceneComposerModel$SimLabel
+							name: null
+							style: {
+								name: save_title_ribbon
+								clazz: com.badlogic.gdx.scenes.scene2d.ui.Label
+								properties: {
+									font: {
+										type: com.badlogic.gdx.graphics.g2d.BitmapFont
+										name: font
+										optional: false
+										value: placeholder-header-font
+									}
+									fontColor: {
+										type: com.badlogic.gdx.graphics.Color
+										name: fontColor
+										optional: true
+										value: primary_font_colour_yellow_alt
+									}
+									background: {
+										type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+										name: background
+										optional: true
+										value: null
+									}
+								}
+								deletable: true
+								parent: null
+							}
+							text: Lorem ipsum
+							textAlignment: 1
+							ellipsis: false
+							ellipsisString: ...
+							wrap: false
+							color: null
+							touchable: enabled
+							visible: true
+						}
 						touchable: enabled
 						visible: true
 					}
 					row: 1
 					column: 0
-					padLeft: 0
-					padRight: 0
+					padLeft: 50
+					padRight: 50
 					padTop: 0
 					padBottom: 0
 					spaceLeft: 0
@@ -7582,7 +7690,7 @@ sceneComposer: {
 			]
 			name: null
 			background: {
-				file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/skin-composer-project_data/save_bg_scalable.png
+				file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/save_bg_scalable.png
 				bgColor: {
 					r: 1
 					g: 1

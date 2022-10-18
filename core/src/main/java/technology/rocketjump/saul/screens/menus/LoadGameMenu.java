@@ -225,6 +225,8 @@ public class LoadGameMenu implements Menu, GameContextAware {
 
 	@Override
 	public void show() {
+		carouselIndex = 0; //todo: not super happy with this, thinking might be better way to show what save was last loaded
+		savedGamesUpdated();
 //		displayed = true;
 //		reset();
 	}
@@ -373,11 +375,10 @@ public class LoadGameMenu implements Menu, GameContextAware {
 	private void populateSaveSlot(SavedGameInfo slot1Save, Table saveSlot) {
 		GameClock gameClock = slot1Save.gameClock;
 
-		saveSlot.setBackground(skin.getDrawable("save_bg_scalable_ten_patch"));
+		saveSlot.setBackground(skin.getDrawable("save_bg_2_scalable"));
 
 		saveSlot.add();
 		saveSlot.row();
-		saveSlot.debugAll();
 
 
 		Label settlementName = new Label(slot1Save.settlementName, skin, "save_title_ribbon");
@@ -388,7 +389,7 @@ public class LoadGameMenu implements Menu, GameContextAware {
 		settlementNameContainer.height(54);
 		settlementNameContainer.setBackground(skin.getDrawable("save_title_ribbon_bg"));
 
-		saveSlot.add(settlementNameContainer);
+		saveSlot.add(settlementNameContainer).padLeft(10).padRight(10);
 
 		saveSlot.row();
 		saveSlot.add(new Label(gameClock.getFormattedGameTime(), skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
