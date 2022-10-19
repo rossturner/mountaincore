@@ -22,9 +22,8 @@ import java.util.Map;
 @Singleton
 public class CursorManager implements Telegraph {
 
-	private static final int DEFAULT_HOTSPOT_OFFSET = 12;
-	private final Map<String, Cursor> cursorsByName = new HashMap<>();
-	private Deque<GameCursor> currentCursorStack = new ArrayDeque<>();
+	private final Map<GameCursor, Cursor> allCursors = new HashMap<>();
+	private final Deque<GameCursor> currentCursorStack = new ArrayDeque<>();
 
 	@Inject
 	public CursorManager(MessageDispatcher messageDispatcher) {
@@ -72,8 +71,8 @@ public class CursorManager implements Telegraph {
 	}
 
 	public void onResize() {
-		cursorsByName.values().forEach(Disposable::dispose);
-		cursorsByName.clear();
+		allCursors.values().forEach(Disposable::dispose);
+		allCursors.clear();
 
 		createCursors();
 
@@ -82,11 +81,11 @@ public class CursorManager implements Telegraph {
 	}
 
 	private void resetCursor() {
-		String cursorName = currentCursorStack.peek().cursorName();
-		if (!cursorsByName.containsKey(cursorName)) {
+		GameCursor topOfStack = currentCursorStack.peek();
+		if (!allCursors.containsKey(topOfStack)) {
 			Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 		} else {
-			Gdx.graphics.setCursor(cursorsByName.get(cursorName));
+			Gdx.graphics.setCursor(allCursors.get(topOfStack));
 		}
 	}
 
@@ -101,13 +100,14 @@ public class CursorManager implements Telegraph {
 
 	private void createCursor(FileHandle cursorFile) {
 		Pixmap cursorPixmap = new Pixmap(cursorFile);
-		Cursor cursor = Gdx.graphics.newCursor(cursorPixmap,
-				// The following offsets the hotspot for the cursor from the top left corner of the image to (12,12) or (6,6) depending on scale
-				isResolution1080pOrLower() ? DEFAULT_HOTSPOT_OFFSET / 2 : DEFAULT_HOTSPOT_OFFSET,
-				isResolution1080pOrLower() ? DEFAULT_HOTSPOT_OFFSET / 2 : DEFAULT_HOTSPOT_OFFSET);
 		String name = cursorFile.nameWithoutExtension();
 		name = name.substring(7);
-		cursorsByName.put(name, cursor);
+		GameCursor gameCursor = GameCursor.forName(name);
+		Cursor cursor = Gdx.graphics.newCursor(cursorPixmap,
+				// The following offsets the hotspot for the cursor from the top left corner of the image to (12,12) or (6,6) depending on scale
+				isResolution1080pOrLower() ? gameCursor.hotspotX / 2 : gameCursor.hotspotX,
+				isResolution1080pOrLower() ? gameCursor.hotspotY / 2 : gameCursor.hotspotY);
+		allCursors.put(gameCursor, cursor);
 		cursorPixmap.dispose();
 	}
 
