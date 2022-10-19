@@ -17,14 +17,14 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.async.BackgroundTaskManager;
 import technology.rocketjump.saul.messaging.async.BackgroundTaskResult;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 
 import java.io.*;
 import java.util.*;
 
 @Singleton
-public class SavedGameStore implements Telegraph, I18nUpdatable {
+public class SavedGameStore implements Telegraph, DisplaysText {
 
 	public static final String ARCHIVE_HEADER_ENTRY_NAME = "header.json";
 	private final UserFileManager userFileManager;
@@ -169,7 +169,7 @@ public class SavedGameStore implements Telegraph, I18nUpdatable {
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		// Game clock display requires translation
 		refresh();
 	}

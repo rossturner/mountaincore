@@ -402,7 +402,7 @@ GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting,Ремесло
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}},Текущий итог: {{quantity}}
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total),Всего ({{quantity}}
 GUI.CROP_SELECTION,,Crop:,Обрезать:
-GUI.DATE_TIME_LABEL,"E.g. 09:20, day 4, spring","{{timeOfDay}}, day {{dayNumber}}, {{season}}, year {{year}}","{{timeOfDay}}, день {{dayNumber}}, сезон {{season}}, год {{year}}"
+GUI.DATE_TIME_YEAR_LABEL,"E.g. 09:20, day 4, spring","{{timeOfDay}}, day {{dayNumber}}, {{season}}, year {{year}}","{{timeOfDay}}, день {{dayNumber}}, год {{year}}"
 GUI.DECONSTRUCT_LABEL,This should be as short as possible,Demolish,Снести
 GUI.DIALOG.CANCEL_BUTTON,,Cancel,Отмена
 GUI.DIALOG.CONFIRM_DELETE_SAVE,,Are you sure you wish to delete {{name}}?,Вы действительно хотите удалить {{name}} ?

@@ -2,13 +2,13 @@ package technology.rocketjump.saul.rooms;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 
 import java.io.IOException;
 
 @Singleton
-public class RoomTypeI18nProcessor implements I18nUpdatable {
+public class RoomTypeI18nProcessor implements DisplaysText {
 
 	private final RoomTypeDictionary roomTypeDictionary;
 	private final I18nTranslator translator;
@@ -17,11 +17,11 @@ public class RoomTypeI18nProcessor implements I18nUpdatable {
 	private RoomTypeI18nProcessor(RoomTypeDictionary roomTypeDictionary, I18nTranslator translator) throws IOException {
 		this.roomTypeDictionary = roomTypeDictionary;
 		this.translator = translator;
-		onLanguageUpdated();
+		rebuildUI();
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		roomTypeDictionary.byTranslatedName.clear();
 		for (RoomType roomType : roomTypeDictionary.getAll()) {
 			roomType.setI18nValue(translator.getTranslatedString(roomType.getI18nKey()));

@@ -1,102 +1,118 @@
 package technology.rocketjump.saul.ui.cursor;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.utils.Disposable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.assets.TextureAtlasRepository;
+import technology.rocketjump.saul.messaging.MessageType;
 
-import java.nio.ByteBuffer;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
-import static technology.rocketjump.saul.assets.TextureAtlasRepository.TextureAtlasType.GUI_TEXTURE_ATLAS;
-
 @Singleton
-public class CursorManager {
+public class CursorManager implements Telegraph {
 
-	private static final int BUFFER_WIDTH_HEIGHT = 64;
-
-	private final TextureAtlas textureAtlas;
-
-	private final Map<String, Cursor> cursorsByName = new HashMap<>();
+	private final Map<GameCursor, Cursor> allCursors = new HashMap<>();
+	private final Deque<GameCursor> currentCursorStack = new ArrayDeque<>();
 
 	@Inject
-	public CursorManager(TextureAtlasRepository textureAtlasRepository) {
-		this.textureAtlas = textureAtlasRepository.get(GUI_TEXTURE_ATLAS);
-		createCursors();
+	public CursorManager(MessageDispatcher messageDispatcher) {
+		// note that main application onResize is called at startup
+
+		messageDispatcher.addListener(this, MessageType.PUSH_CURSOR_TO_STACK);
+		messageDispatcher.addListener(this, MessageType.POP_CURSOR_FROM_STACK);
 	}
 
-	public void switchToCursor(String cursorName) {
-		if (cursorName == null || !cursorsByName.containsKey(cursorName)) {
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.PUSH_CURSOR_TO_STACK -> {
+				pushCursor((GameCursor)msg.extraInfo);
+				return true;
+			}
+			case MessageType.POP_CURSOR_FROM_STACK -> {
+				popCursor();
+				return true;
+			}
+			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + getClass().getSimpleName());
+		}
+	}
+
+	public void pushCursor(GameCursor cursor) {
+		if (cursor == null) {
+			cursor = GameCursor.CURSOR;
+		}
+		if (currentCursorStack.isEmpty() || !currentCursorStack.peek().equals(cursor)) {
+			currentCursorStack.push(cursor);
+		}
+		resetCursor();
+	}
+
+	public void popCursor() {
+		if (!currentCursorStack.isEmpty()) {
+			currentCursorStack.pop();
+		}
+
+		if (currentCursorStack.isEmpty()) {
+			pushCursor(GameCursor.CURSOR);
+		}
+
+		resetCursor();
+	}
+
+	public void onResize() {
+		allCursors.values().forEach(Disposable::dispose);
+		allCursors.clear();
+
+		createCursors();
+
+		currentCursorStack.clear();
+		pushCursor(GameCursor.CURSOR);
+	}
+
+	private void resetCursor() {
+		GameCursor topOfStack = currentCursorStack.peek();
+		if (!allCursors.containsKey(topOfStack)) {
 			Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 		} else {
-			Gdx.graphics.setCursor(cursorsByName.get(cursorName));
+			Gdx.graphics.setCursor(allCursors.get(topOfStack));
 		}
 	}
 
 	private void createCursors() {
-		FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, BUFFER_WIDTH_HEIGHT, BUFFER_WIDTH_HEIGHT, /* hasDepth */ false, /* hasStencil */ false);
-		frameBuffer.begin();
-
-		Camera camera = new OrthographicCamera(64, 64);
-		SpriteBatch batch = new SpriteBatch();
-		batch.setProjectionMatrix(camera.combined);
-
-		FileHandle cursorsDir = Gdx.files.internal("assets/ui/cursors");
+		FileHandle cursorsDir = isResolution1080pOrLower() ? Gdx.files.internal("assets/ui/cursors/1080p") : Gdx.files.internal("assets/ui/cursors/4k");
 		for (FileHandle cursorFile : cursorsDir.list()) {
-			if (cursorFile.name().endsWith(".png")) {
-				createCursor(cursorFile.nameWithoutExtension(), cursorFile.path(), batch);
+			if (cursorFile.name().startsWith("cursor_") && cursorFile.name().endsWith(".png")) {
+				createCursor(cursorFile);
 			}
 		}
-
-
-		batch.dispose();
-		frameBuffer.end();
-		frameBuffer.dispose();
 	}
 
-	private void createCursor(String cursorName, String texturePath, SpriteBatch batch) {
-		Gdx.gl20.glClearColor(0f, 0f, 0f, 0f); //transparent black
-		Gdx.gl20.glClear(GL_COLOR_BUFFER_BIT); //clearContextRelatedState the color buffer
-
-		Texture cursorImg = new Texture(texturePath);
-
-		batch.begin();
-		batch.draw(cursorImg, -(BUFFER_WIDTH_HEIGHT/2), -(BUFFER_WIDTH_HEIGHT/2));
-		batch.end();
-
-		Pixmap frameBufferPixmap = getFrameBufferPixmap();
-
-		Cursor newCursor = Gdx.graphics.newCursor(frameBufferPixmap, 0, BUFFER_WIDTH_HEIGHT - cursorImg.getHeight());
-		cursorsByName.put(cursorName, newCursor);
-
-		frameBufferPixmap.dispose();
-		cursorImg.dispose();
+	private void createCursor(FileHandle cursorFile) {
+		Pixmap cursorPixmap = new Pixmap(cursorFile);
+		String name = cursorFile.nameWithoutExtension();
+		name = name.substring(7);
+		GameCursor gameCursor = GameCursor.forName(name);
+		Cursor cursor = Gdx.graphics.newCursor(cursorPixmap,
+				// The following offsets the hotspot for the cursor from the top left corner of the image to (12,12) or (6,6) depending on scale
+				isResolution1080pOrLower() ? gameCursor.hotspotX / 2 : gameCursor.hotspotX,
+				isResolution1080pOrLower() ? gameCursor.hotspotY / 2 : gameCursor.hotspotY);
+		allCursors.put(gameCursor, cursor);
+		cursorPixmap.dispose();
 	}
 
-	private Pixmap getFrameBufferPixmap() {
-		Pixmap frameBufferPixmap = ScreenUtils.getFrameBufferPixmap(0, 0, BUFFER_WIDTH_HEIGHT, BUFFER_WIDTH_HEIGHT);
-		// Flip the pixmap upside down
-		ByteBuffer pixels = frameBufferPixmap.getPixels();
-		int numBytes = BUFFER_WIDTH_HEIGHT * BUFFER_WIDTH_HEIGHT * 4;
-		byte[] lines = new byte[numBytes];
-		int numBytesPerLine = BUFFER_WIDTH_HEIGHT * 4;
-		for (int i = 0; i < BUFFER_WIDTH_HEIGHT; i++) {
-			pixels.position((BUFFER_WIDTH_HEIGHT - i - 1) * numBytesPerLine);
-			pixels.get(lines, i * numBytesPerLine, numBytesPerLine);
-		}
-		pixels.clear();
-		pixels.put(lines);
-		pixels.clear();
-		return frameBufferPixmap;
+	private boolean isResolution1080pOrLower() {
+		Graphics.DisplayMode desktopMode = LwjglApplicationConfiguration.getDesktopDisplayMode();
+		return desktopMode.width < 2000;
 	}
-
-
 }

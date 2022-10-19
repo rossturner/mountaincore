@@ -20,7 +20,6 @@ import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntit
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
-import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
@@ -36,6 +35,7 @@ import javax.inject.Singleton;
 import java.util.*;
 
 import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.screens.ManagementScreenName.SETTLERS;
 import static technology.rocketjump.saul.ui.views.EntitySelectedGuiView.*;
 
 @Singleton
@@ -59,13 +59,13 @@ public class SettlerManagementScreen extends ManagementScreen {
 	private Set<Skill> selectedProfessions = new HashSet<>();
 
 	@Inject
-	public SettlerManagementScreen(UserPreferences userPreferences, MessageDispatcher messageDispatcher,
+	public SettlerManagementScreen(MessageDispatcher messageDispatcher,
 								   GuiSkinRepository guiSkinRepository, SettlerTracker settlerTracker,
 								   I18nWidgetFactory i18nWidgetFactory,
 								   EntityDrawableFactory entityDrawableFactory, I18nTranslator i18nTranslator,
 								   ClickableTableFactory clickableTableFactory, IconButtonFactory iconButtonFactory,
 								   SoundAssetDictionary soundAssetDictionary, SettlementFurnitureTracker settlementFurnitureTracker) {
-		super(userPreferences, messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
+		super(messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
 		this.settlerTracker = settlerTracker;
 		this.messageDispatcher = messageDispatcher;
 		this.entityDrawableFactory = entityDrawableFactory;
@@ -158,7 +158,7 @@ public class SettlerManagementScreen extends ManagementScreen {
 
 	@Override
 	public void resize(int width, int height) {
-		numSettlerTablesPerRow = (int)((float)width / ((float)UI_WIDTH_REQUIRED_PER_SETTLER * uiScale));
+		numSettlerTablesPerRow = (int)((float)width / ((float)UI_WIDTH_REQUIRED_PER_SETTLER));
 		super.resize(width, height);
 	}
 
@@ -179,13 +179,8 @@ public class SettlerManagementScreen extends ManagementScreen {
 	}
 
 	@Override
-	public String getTitleI18nKey() {
-		return "GUI.SETTLER_MANAGEMENT.TITLE";
-	}
-
-	@Override
-	public String getName() {
-		return "SETTLER_MANAGEMENT";
+	public ManagementScreenName getManagementScreenName() {
+		return SETTLERS;
 	}
 
 	@Override

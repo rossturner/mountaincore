@@ -17,15 +17,15 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.ui.actions.ButtonAction;
 import technology.rocketjump.saul.ui.fonts.FontRepository;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
-public class MenuButtonFactory implements I18nUpdatable {
+public class MenuButtonFactory implements DisplaysText {
     private final I18nTranslator translator;
     private final FontRepository fontRepository;
     private final MessageDispatcher messageDispatcher;
@@ -74,7 +74,7 @@ public class MenuButtonFactory implements I18nUpdatable {
     }
 
     @Override
-    public void onLanguageUpdated() {
+    public void rebuildUI() {
         for (MenuButtonBuilder builder : buttonBuilders) {
             TextButton textButton = builder.buttonContainer.getActor();
             I18nText translatedString = translator.getTranslatedString(builder.i18nKey);

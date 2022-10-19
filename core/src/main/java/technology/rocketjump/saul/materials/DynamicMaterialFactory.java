@@ -10,8 +10,8 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Singleton
-public class DynamicMaterialFactory implements I18nUpdatable, GameContextAware {
+public class DynamicMaterialFactory implements DisplaysText, GameContextAware {
 
 	private final GameMaterialDictionary gameMaterialDictionary;
 	private final I18nTranslator i18nTranslator;
@@ -67,7 +67,7 @@ public class DynamicMaterialFactory implements I18nUpdatable, GameContextAware {
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		if (gameContext != null) {
 			for (GameMaterial gameMaterial : gameContext.getDynamicallyCreatedMaterialsByCombinedId().values()) {
 				updateI18nValue(gameMaterial);

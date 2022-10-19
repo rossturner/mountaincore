@@ -1,11 +1,5 @@
 {
 com.badlogic.gdx.graphics.Color: {
-	dropdown_body_colour: {
-		hex: a44929ff
-	}
-	dropdown_body_hover_colour: {
-		hex: 913613ff
-	}
 	primary_font_colour_red: {
 		hex: 913614ff
 	}
@@ -16,14 +10,26 @@ com.badlogic.gdx.graphics.Color: {
 		hex: ffffffff
 	}
 }
-com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
-	dropdown_body: {
-		name: white-pixel
-		color: dropdown_body_colour
-	}
-	dropdown_body_hover: {
-		name: white-pixel
-		color: dropdown_body_hover_colour
+com.ray3k.tenpatch.TenPatchDrawable: {
+	hover_state_label_patch: {
+		region: hover_state_label
+		horizontalStretchAreas: [ 134, 134 ]
+		verticalStretchAreas: [ 0, 65 ]
+		tiling: false
+		minWidth: 268
+		minHeight: 66
+		rightWidth: 18
+		leftWidth: 18
+		bottomHeight: 7
+		topHeight: 0
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
 	}
 }
 com.kotcrab.vis.ui.Sizes: {
@@ -63,78 +69,111 @@ com.kotcrab.vis.ui.widget.BusyBar$BusyBarStyle: {
 		segmentOverflow: 10
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	game-speed-paused: {
+		up: btn_pause_off
+		down: btn_pause_on
+		over: btn_pause_on
+		checked: btn_pause_on
+	}
+	game-speed-normal: {
+		up: btn_speed_1_off
+		down: btn_speed_1_on
+		over: btn_speed_1_on
+		checked: btn_speed_1_on
+	}
+	game-speed-speed2: {
+		up: btn_speed_2_off
+		down: btn_speed_2_on
+		over: btn_speed_2_on
+		checked: btn_speed_2_on
+	}
+	game-speed-speed3: {
+		up: btn_speed_3_off
+		down: btn_speed_3_on
+		over: btn_speed_3_on
+		checked: btn_speed_3_on
+	}
+	game-speed-speed4: {
+		up: btn_speed_4_off
+		down: btn_speed_4_on
+		over: btn_speed_4_on
+		checked: btn_speed_4_on
+	}
+	btn_top_resources: {
+		up: btn_top_resources
+	}
+	btn_bottom_construction: {
+		up: btn_bottom_construction
+	}
+	btn_bottom_orders: {
+		up: btn_bottom_orders
+	}
+	btn_bottom_priority: {
+		up: btn_bottom_priority
+	}
+	btn_bottom_zones: {
+		up: btn_bottom_zones
+	}
+	btn_top_crafting: {
+		up: btn_top_crafting
+	}
+	btn_top_military: {
+		up: btn_top_military
+	}
+	btn_top_settlers: {
+		up: btn_top_settlers
+	}
+	btn_top_trading: {
+		up: btn_top_trading
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
-		font: placeholder-font
+		font: default-font-16
 		fontColor: primary_font_colour_red
-		up: btn_banner_1
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
-		font: placeholder-font
-		fontColor: primary_font_colour_red
-	}
-}
-com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
-	default: {
-		font: placeholder-font
-		fontColorSelected: primary_font_colour_yellow_alt
-		fontColorUnselected: white
-		selection: dropdown_body_hover
-		background: dropdown_body
-	}
-}
-com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
-	default: {
-		hScroll: scroll_bg
-		hScrollKnob: scroll_fg
-		vScroll: scroll_bg
-		vScrollKnob: scroll_fg
-	}
-}
-com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
-	default: {
-		font: placeholder-font
+		font: default-font-16
 		fontColor: white
-		background: dropdown_body_hover
-		scrollStyle: default
-		listStyle: default
+	}
+	settlement-name-label: {
+		font: header-font-32
+		fontColor: primary_font_colour_yellow_alt
+	}
+	tooltip-text: {
+		font: default-font-19
+		fontColor: primary_font_colour_red
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
-		font: placeholder-font
+		font: default-font-16
 		fontColor: primary_font_colour_red
 	}
 	btn_banner_1: {
 		parent: default
-		font: placeholder-header-font
-		up: btn_banner_1
-		over: btn_banner_hover_state
 	}
 	btn_banner_2: {
 		parent: default
-		font: placeholder-header-font
-		up: btn_banner_2
-		over: btn_banner_hover_state
 	}
 	btn_banner_3: {
 		parent: default
-		font: placeholder-header-font
-		up: btn_banner_3
-		over: btn_banner_hover_state
 	}
 	btn_banner_4: {
 		parent: default
-		font: placeholder-header-font
-		up: btn_banner_4
-		over: btn_banner_hover_state
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
 		label: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		titleFont: header-font-32
 	}
 }
 }

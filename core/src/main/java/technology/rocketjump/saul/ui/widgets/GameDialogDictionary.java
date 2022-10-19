@@ -9,10 +9,10 @@ import technology.rocketjump.saul.messaging.InfoType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.async.ErrorType;
 import technology.rocketjump.saul.settlement.notifications.Notification;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.tooltips.I18nTextElement;
 
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Singleton
-public class GameDialogDictionary implements I18nUpdatable {
+public class GameDialogDictionary implements DisplaysText {
 
 	private final I18nTranslator translator;
 	private final Skin uiSkin;
@@ -49,7 +49,7 @@ public class GameDialogDictionary implements I18nUpdatable {
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		byErrorType.clear();
 		createDialogs();
 	}

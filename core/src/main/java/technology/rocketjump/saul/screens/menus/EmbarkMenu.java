@@ -22,9 +22,9 @@ import technology.rocketjump.saul.messaging.types.StartNewGameMessage;
 import technology.rocketjump.saul.persistence.SavedGameInfo;
 import technology.rocketjump.saul.persistence.SavedGameStore;
 import technology.rocketjump.saul.rendering.utils.HexColors;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.*;
@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.Random;
 
 @Singleton
-public class EmbarkMenu implements Menu, I18nUpdatable {
+public class EmbarkMenu implements Menu, DisplaysText {
 
 	private final MessageDispatcher messageDispatcher;
 	private final Table outerTable;
@@ -92,7 +92,7 @@ public class EmbarkMenu implements Menu, I18nUpdatable {
 			}
 		});
 
-		onLanguageUpdated();
+		rebuildUI();
 
 		I18nLabel nameLabel = i18nWidgetFactory.createLabel("GUI.EMBARK.SETTLEMENT_NAME");
 		nameInput = new TextField("", uiSkin);
@@ -180,7 +180,7 @@ public class EmbarkMenu implements Menu, I18nUpdatable {
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		I18nText disclaimerContent = i18nTranslator.getTranslatedString("GUI.EMBARK.DISCLAIMER");
 		disclaimerContent.breakAfterLength(i18nTranslator.getCurrentLanguageType().getBreakAfterLineLength());
 		disclaimerText = new I18nTextWidget(disclaimerContent, uiSkin, messageDispatcher);

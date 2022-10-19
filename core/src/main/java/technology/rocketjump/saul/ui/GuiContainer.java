@@ -1,6 +1,5 @@
 package technology.rocketjump.saul.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
@@ -8,7 +7,7 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
@@ -29,8 +28,7 @@ import technology.rocketjump.saul.ui.widgets.tooltips.Tooltip;
 import java.util.Arrays;
 import java.util.List;
 
-import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.UI_SCALE;
-import static technology.rocketjump.saul.rendering.camera.DisplaySettings.DEFAULT_UI_SCALE;
+import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 
 @Singleton
 public class GuiContainer implements Telegraph, GameContextAware {
@@ -54,9 +52,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 	private final NotificationGuiView notificationGuiView;
 	private final MinimapGuiView minimapGuiView;
 	private Stage primaryStage;
-	private Stage timeAndDateStage;
 	private StageAreaOnlyInputHandler primaryStageInputHandler;
-	private StageAreaOnlyInputHandler timeAndDateStageInputHandler;
 
 	private final GuiViewRepository guiViewRepository;
 	private GuiViewName currentViewName;
@@ -79,10 +75,8 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		this.cursorManager = cursorManager;
 		this.interactionStateContainer = interactionStateContainer;
 
-		ScreenViewport viewport = new ScreenViewport();
+		ExtendViewport viewport = new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y);
 
-		float savedScale = Float.valueOf(userPreferences.getPreference(UI_SCALE, DEFAULT_UI_SCALE));
-		viewport.setUnitsPerPixel(1 / savedScale);
 		primaryStage = new Stage(viewport);
 		primaryStageInputHandler = new StageAreaOnlyInputHandler(primaryStage, interactionStateContainer);
 
@@ -95,7 +89,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 
 		this.messageDispatcher = messageDispatcher;
 		messageDispatcher.addListener(this, MessageType.GUI_SWITCH_VIEW);
-		messageDispatcher.addListener(this, MessageType.GUI_SCALE_CHANGED);
 		messageDispatcher.addListener(this, MessageType.GUI_SWITCH_INTERACTION_MODE);
 		messageDispatcher.addListener(this, MessageType.GUI_SWITCH_VIEW_MODE);
 		messageDispatcher.addListener(this, MessageType.GUI_CANCEL_CURRENT_VIEW);
@@ -103,8 +96,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 
 		this.guiViewRepository = guiViewRepository;
 		switchView(GuiViewName.DEFAULT_MENU);
-
-		timeAndDateStage = new Stage(viewport);
 
 		timeAndDateContainerTable = new Table(uiSkin);
 		timeAndDateContainerTable.right().top();
@@ -134,9 +125,9 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		lowerRightContainerTable.add(minimapContainerTable).bottom().right().row();
 		lowerRightContainerTable.setFillParent(true);
 
-		timeAndDateStage.addActor(upperRightContainerTable);
+		primaryStage.addActor(upperRightContainerTable);
 		primaryStage.addActor(upperLeftContainerTable);
-		timeAndDateStage.addActor(lowerRightContainerTable);
+		primaryStage.addActor(lowerRightContainerTable);
 		timeDateGuiView.populate(timeAndDateContainerTable);
 		timeAndDateContainerTable.row();
 		notificationGuiView.populate(timeAndDateContainerTable);
@@ -144,8 +135,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		hintGuiView.populate(hintContainerTable);
 		debugGuiView.populate(debugContainerTable);
 		debugGuiView.update();
-
-		timeAndDateStageInputHandler = new StageAreaOnlyInputHandler(timeAndDateStage, interactionStateContainer);
 	}
 
 	@Override
@@ -156,19 +145,13 @@ public class GuiContainer implements Telegraph, GameContextAware {
 				switchView(targetView);
 				return true;
 			}
-			case MessageType.GUI_SCALE_CHANGED: {
-				Float scale = (Float)msg.extraInfo;
-				ScreenViewport viewport = new ScreenViewport();
-				viewport.setUnitsPerPixel(1 / scale);
-				primaryStage.setViewport(viewport);
-				timeAndDateStage.setViewport(viewport);
-				onResize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-				infoWindow.guiScaleChanged(scale);
-				return true;
-			}
 			case MessageType.GUI_SWITCH_INTERACTION_MODE: {
 				GameInteractionMode targetMode = (GameInteractionMode)msg.extraInfo;
-				cursorManager.switchToCursor(targetMode.cursorName);
+				if (targetMode.cursor != null) {
+					cursorManager.pushCursor(targetMode.cursor);
+				} else {
+					cursorManager.popCursor();
+				}
 				interactionStateContainer.setInteractionMode(targetMode);
 				return true;
 			}
@@ -208,7 +191,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		notificationGuiView.update();
 
 		primaryStage.act(deltaTime);
-		timeAndDateStage.act(deltaTime);
 
 		timeSinceLastUpdate += deltaTime;
 		if (timeSinceLastUpdate > 1f) {
@@ -221,7 +203,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 
 	public void render() {
 		primaryStage.draw();
-		timeAndDateStage.draw();
 		infoWindow.render();
 	}
 
@@ -231,7 +212,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 	}
 
 	public List<InputProcessor> getInputProcessors() {
-		return Arrays.asList(primaryStageInputHandler, timeAndDateStageInputHandler);
+		return Arrays.asList(primaryStageInputHandler);
 	}
 
 	private void switchView(GuiViewName viewName) {

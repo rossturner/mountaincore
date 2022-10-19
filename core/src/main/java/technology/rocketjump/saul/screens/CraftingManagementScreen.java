@@ -29,7 +29,6 @@ import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
@@ -39,9 +38,9 @@ import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.settlement.production.ProductionManager;
 import technology.rocketjump.saul.settlement.production.ProductionQuota;
 import technology.rocketjump.saul.ui.Scene2DUtils;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nUpdatable;
 import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.ImageButton;
@@ -55,13 +54,13 @@ import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.entities.tags.CraftingStationBehaviourTag.CRAFTING_STATION_BEHAVIOUR_TAGNAME;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
+import static technology.rocketjump.saul.screens.ManagementScreenName.CRAFTING;
 
 @Singleton
-public class CraftingManagementScreen extends ManagementScreen implements I18nUpdatable, Telegraph {
+public class CraftingManagementScreen extends ManagementScreen implements DisplaysText, Telegraph {
 
 	private static final float INDENT_WIDTH = 50f;
 	public static final int DEFAULT_ROW_WIDTH = 1050;
-	public static final String NAME = "CRAFTING";
 
 	private final ClickableTableFactory clickableTableFactory;
 	private final ExampleItemDictionary exampleItemDictionary;
@@ -93,7 +92,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 	private final List<ToggleButtonSet.ToggleButtonDefinition> buttonDefinitions;
 
 	@Inject
-	public CraftingManagementScreen(UserPreferences userPreferences, MessageDispatcher messageDispatcher,
+	public CraftingManagementScreen(MessageDispatcher messageDispatcher,
 									GuiSkinRepository guiSkinRepository, I18nWidgetFactory i18nWidgetFactory,
 									I18nTranslator i18nTranslator, IconButtonFactory iconButtonFactory,
 									CraftingTypeDictionary craftingTypeDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
@@ -102,7 +101,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 									EntityRenderer entityRenderer, ProductionManager productionManager,
 									SettlerTracker settlerTracker, SettlementItemTracker settlementItemTracker, LiquidTracker liquidTracker,
 									TextureAtlasRepository textureAtlasRepository, GameMaterialDictionary gameMaterialDictionary) {
-		super(userPreferences, messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
+		super(messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
 		this.clickableTableFactory = clickableTableFactory;
 		this.exampleItemDictionary = exampleItemDictionary;
 		this.entityRenderer = entityRenderer;
@@ -171,7 +170,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 			}
 		}
 
-		onLanguageUpdated();
+		rebuildUI();
 
 		initialised = true;
 	}
@@ -179,34 +178,30 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 
 	@Override
 	public boolean handleMessage(Telegram msg) {
-		if (msg.message == MessageType.GUI_SCALE_CHANGED) {
-			return super.handleMessage(msg);
-		} else {
-			switch (msg.message) {
-				case MessageType.SHOW_SPECIFIC_CRAFTING: {
-					if (!initialised) {
-						initialise();
-					}
-					hiddenCrafringTypes.clear();
-					expandedCraftingTypes.clear();
-					expandedItemTypes.clear();
-					expandedLiquidMaterials.clear();
-					CraftingType craftingTypeToShow = (CraftingType) msg.extraInfo;
-					for (CraftingType type : craftingTypeDictionary.getAll()) {
-						if (type.equals(craftingTypeToShow)) {
-							expandedCraftingTypes.add(type);
-							expandedItemTypes.addAll(producedItemTypesByCraftingRecipe.get(type).keySet());
-							expandedLiquidMaterials.addAll(producedLiquidsByCraftingRecipe.get(type).keySet());
-						} else {
-							hiddenCrafringTypes.add(type);
-						}
-					}
-					reset();
-					return true;
+		switch (msg.message) {
+			case MessageType.SHOW_SPECIFIC_CRAFTING: {
+				if (!initialised) {
+					initialise();
 				}
-				default:
-					throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
+				hiddenCrafringTypes.clear();
+				expandedCraftingTypes.clear();
+				expandedItemTypes.clear();
+				expandedLiquidMaterials.clear();
+				CraftingType craftingTypeToShow = (CraftingType) msg.extraInfo;
+				for (CraftingType type : craftingTypeDictionary.getAll()) {
+					if (type.equals(craftingTypeToShow)) {
+						expandedCraftingTypes.add(type);
+						expandedItemTypes.addAll(producedItemTypesByCraftingRecipe.get(type).keySet());
+						expandedLiquidMaterials.addAll(producedLiquidsByCraftingRecipe.get(type).keySet());
+					} else {
+						hiddenCrafringTypes.add(type);
+					}
+				}
+				reset();
+				return true;
 			}
+			default:
+				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
 		}
 	}
 
@@ -637,15 +632,9 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 		}
 	}
 
-
 	@Override
-	public String getTitleI18nKey() {
-		return "GUI.CRAFTING_MANAGEMENT.TITLE";
-	}
-
-	@Override
-	public String getName() {
-		return NAME;
+	public ManagementScreenName getManagementScreenName() {
+		return CRAFTING;
 	}
 
 	@Override
@@ -668,7 +657,7 @@ public class CraftingManagementScreen extends ManagementScreen implements I18nUp
 	}
 
 	@Override
-	public void onLanguageUpdated() {
+	public void rebuildUI() {
 		displayedCraftingTypes.sort(Comparator.comparing(a -> i18nTranslator.getTranslatedString(a.getI18nKey()).toString()));
 
 		QuotaSetting.FIXED_AMOUNT.i18nValue = i18nTranslator.getTranslatedString("QUOTA.FIXED_AMOUNT").toString();

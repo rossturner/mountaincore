@@ -6,7 +6,6 @@ import com.google.inject.Singleton;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Modifier;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -15,7 +14,6 @@ import java.util.TreeMap;
 public class GameScreenDictionary {
 
 	private final Map<String, GameScreen> byName = new TreeMap<>();
-	private final Map<String, ManagementScreen> managementScreensByName = new TreeMap<>();
 
 	@Inject
 	public GameScreenDictionary(Injector injector) {
@@ -25,9 +23,6 @@ public class GameScreenDictionary {
 			if (!screenType.isInterface() && !Modifier.isAbstract(screenType.getModifiers())) {
 				GameScreen instance = injector.getInstance(screenType);
 				byName.put(instance.getName(), instance);
-				if (instance instanceof ManagementScreen) {
-					managementScreensByName.put(instance.getName(), (ManagementScreen) instance);
-				}
 			}
 		}
 	}
@@ -36,7 +31,4 @@ public class GameScreenDictionary {
 		return byName.get(name);
 	}
 
-	public Collection<ManagementScreen> getAllManagementScreens() {
-		return managementScreensByName.values();
-	}
 }

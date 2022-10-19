@@ -1,92 +1,272 @@
 
-menu-skin.png
-size: 4096, 4096
+main-game-skin.png
+size: 1024, 1024
 format: RGBA8888
-filter: Linear, Linear
+filter: MipMapLinearLinear, Linear
 repeat: none
-white-pixel
+asset_season_autumn_icon
   rotate: false
-  xy: 765, 3676
-  size: 1, 1
-  orig: 1, 1
+  xy: 354, 441
+  size: 46, 46
+  orig: 46, 46
   offset: 0, 0
   index: -1
-asset_bg_banner
+asset_season_spring_icon
   rotate: false
-  xy: 1, 1703
-  size: 762, 2122
-  orig: 762, 2122
+  xy: 730, 622
+  size: 46, 46
+  orig: 46, 46
   offset: 0, 0
   index: -1
-asset_bg_banner_pole
+asset_season_summer_icon
   rotate: false
-  xy: 1, 3827
-  size: 3840, 124
-  orig: 3840, 124
+  xy: 730, 572
+  size: 46, 46
+  orig: 46, 46
   offset: 0, 0
   index: -1
-btn_banner_1
+asset_season_winter_icon
   rotate: false
-  xy: 765, 3753
-  size: 329, 72
-  orig: 329, 72
+  xy: 730, 522
+  size: 46, 46
+  orig: 46, 46
   offset: 0, 0
   index: -1
-btn_banner_2
+asset_weather_cloudy_grey_icon
   rotate: false
-  xy: 1, 1537
-  size: 329, 72
-  orig: 329, 72
+  xy: 213, 109
+  size: 46, 46
+  orig: 46, 46
   offset: 0, 0
   index: -1
-btn_banner_3
+asset_weather_nice_icon
   rotate: false
-  xy: 765, 3679
-  size: 329, 72
-  orig: 329, 72
+  xy: 810, 724
+  size: 46, 46
+  orig: 46, 46
   offset: 0, 0
   index: -1
-btn_banner_4
+asset_weather_rain_icon
   rotate: false
-  xy: 1096, 3753
-  size: 329, 72
-  orig: 329, 72
+  xy: 163, 157
+  size: 46, 46
+  orig: 46, 46
   offset: 0, 0
   index: -1
-btn_banner_hover_state
+asset_weather_snow_icon
   rotate: false
-  xy: 1, 1611
-  size: 449, 90
-  orig: 449, 90
+  xy: 163, 107
+  size: 46, 46
+  orig: 46, 46
   offset: 0, 0
   index: -1
-icon_discord
+asset_weather_storm_icon
   rotate: false
-  xy: 3843, 3865
-  size: 110, 86
-  orig: 110, 86
+  xy: 163, 57
+  size: 46, 46
+  orig: 46, 46
   offset: 0, 0
   index: -1
-icon_twitch
+asset_weather_windy_icon
   rotate: false
-  xy: 1, 1431
-  size: 90, 104
-  orig: 90, 104
+  xy: 213, 159
+  size: 46, 46
+  orig: 46, 46
   offset: 0, 0
   index: -1
-scroll_bg
+btn_bottom_construction
   rotate: false
-  xy: 332, 1581
-  size: 28, 28
-  split: 1, 1, 0, 0
-  orig: 28, 28
+  xy: 2, 207
+  size: 197, 210
+  orig: 197, 210
   offset: 0, 0
   index: -1
-scroll_fg
+btn_bottom_orders
   rotate: false
-  xy: 452, 1673
-  size: 28, 28
-  split: 1, 1, 0, 0
-  orig: 28, 28
+  xy: 203, 209
+  size: 197, 208
+  orig: 197, 208
+  offset: 0, 0
+  index: -1
+btn_bottom_priority
+  rotate: false
+  xy: 404, 277
+  size: 197, 210
+  orig: 197, 210
+  offset: 0, 0
+  index: -1
+btn_bottom_zones
+  rotate: false
+  xy: 605, 277
+  size: 197, 210
+  orig: 197, 210
+  offset: 0, 0
+  index: -1
+btn_map_resize
+  rotate: false
+  xy: 730, 672
+  size: 54, 54
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+btn_pause_off
+  rotate: false
+  xy: 788, 699
+  size: 18, 27
+  orig: 18, 27
+  offset: 0, 0
+  index: -1
+btn_pause_on
+  rotate: false
+  xy: 90, 2
+  size: 18, 27
+  orig: 18, 27
+  offset: 0, 0
+  index: -1
+btn_speed_1_off
+  rotate: false
+  xy: 263, 178
+  size: 21, 27
+  orig: 21, 27
+  offset: 0, 0
+  index: -1
+btn_speed_1_on
+  rotate: false
+  xy: 213, 78
+  size: 21, 27
+  orig: 21, 27
+  offset: 0, 0
+  index: -1
+btn_speed_2_off
+  rotate: false
+  xy: 775, 491
+  size: 31, 27
+  orig: 31, 27
+  offset: 0, 0
+  index: -1
+btn_speed_2_on
+  rotate: false
+  xy: 55, 2
+  size: 31, 27
+  orig: 31, 27
+  offset: 0, 0
+  index: -1
+btn_speed_3_off
+  rotate: false
+  xy: 730, 491
+  size: 41, 27
+  orig: 41, 27
+  offset: 0, 0
+  index: -1
+btn_speed_3_on
+  rotate: false
+  xy: 771, 960
+  size: 41, 27
+  orig: 41, 27
+  offset: 0, 0
+  index: -1
+btn_speed_4_off
+  rotate: false
+  xy: 2, 2
+  size: 49, 27
+  orig: 49, 27
+  offset: 0, 0
+  index: -1
+btn_speed_4_on
+  rotate: false
+  xy: 773, 991
+  size: 49, 27
+  orig: 49, 27
+  offset: 0, 0
+  index: -1
+btn_top_crafting
+  rotate: false
+  xy: 2, 33
+  size: 157, 170
+  orig: 157, 170
+  offset: 0, 0
+  index: -1
+btn_top_military
+  rotate: false
+  xy: 404, 103
+  size: 157, 170
+  orig: 157, 170
+  offset: 0, 0
+  index: -1
+btn_top_resources
+  rotate: false
+  xy: 565, 103
+  size: 157, 170
+  orig: 157, 170
+  offset: 0, 0
+  index: -1
+btn_top_settlers
+  rotate: false
+  xy: 726, 103
+  size: 157, 170
+  orig: 157, 170
+  offset: 0, 0
+  index: -1
+btn_top_trading
+  rotate: false
+  xy: 730, 774
+  size: 157, 170
+  orig: 157, 170
+  offset: 0, 0
+  index: -1
+hover_state_label
+  rotate: false
+  xy: 2, 421
+  size: 268, 66
+  orig: 268, 66
+  offset: 0, 0
+  index: -1
+hover_state_label_arrow_down
+  rotate: false
+  xy: 274, 447
+  size: 76, 40
+  orig: 76, 40
+  offset: 0, 0
+  index: -1
+hover_state_label_arrow_up
+  rotate: false
+  xy: 730, 730
+  size: 76, 40
+  orig: 76, 40
+  offset: 0, 0
+  index: -1
+info_box_bg
+  rotate: false
+  xy: 2, 491
+  size: 724, 453
+  orig: 724, 453
+  offset: 0, 0
+  index: -1
+map_border_bottom
+  rotate: false
+  xy: 2, 948
+  size: 765, 39
+  orig: 765, 39
+  offset: 0, 0
+  index: -1
+map_border_left
+  rotate: false
+  xy: 923, 306
+  size: 27, 712
+  orig: 27, 712
+  offset: 0, 0
+  index: -1
+map_border_right
+  rotate: false
+  xy: 891, 306
+  size: 28, 712
+  orig: 28, 712
+  offset: 0, 0
+  index: -1
+map_border_top
+  rotate: false
+  xy: 2, 991
+  size: 767, 27
+  orig: 767, 27
   offset: 0, 0
   index: -1

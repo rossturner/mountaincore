@@ -1,6 +1,9 @@
 package technology.rocketjump.saul.ui.fonts;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -18,7 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 @Singleton
-public class FontRepository {
+public class FontRepository implements Telegraph {
 
 	public static final int DEFAULT_FONT_SIZE = 16;
 	private static final Set<Integer> DEFAULT_FONT_POINT_SIZES = Set.of(12, 14, DEFAULT_FONT_SIZE, 18, 20);
@@ -27,6 +30,7 @@ public class FontRepository {
 
 	private final I18nRepo i18nRepo;
 	private final UiConstants uiConstants;
+	// Aiming to move away from the static arrays below to more dynamic request-as-needed font sizes
 	private GameFont[] defaultGameFonts;
 	private GameFont[] headerGameFonts;
 
@@ -35,7 +39,7 @@ public class FontRepository {
 	private final GameFont guaranteedUnicodeFont;
 
 	@Inject
-	public FontRepository(I18nRepo i18nRepo, ConstantsRepo constantsRepo) {
+	public FontRepository(I18nRepo i18nRepo, ConstantsRepo constantsRepo, MessageDispatcher messageDispatcher) {
 		this.i18nRepo = i18nRepo;
 		this.uiConstants = constantsRepo.getUiConstants();
 		// MODDING - Expose the font selction and sizes from small to large
@@ -142,6 +146,11 @@ public class FontRepository {
 
 		this.largestFont = getFont(defaultGameFonts, 20);
 		this.defaultUIFont = getFont(defaultGameFonts, DEFAULT_FONT_SIZE);
+	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		return false;
 	}
 
 	public GameFont getDefaultFontForUI() {
