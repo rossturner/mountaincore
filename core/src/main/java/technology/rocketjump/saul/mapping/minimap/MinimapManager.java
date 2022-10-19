@@ -31,7 +31,6 @@ public class MinimapManager implements Updatable, Telegraph {
 	private int height;
 	private Texture minimapTexture;
 	private Future<Pixmap> futurePixmap;
-	private Boolean minimapDisplayed = true;
 
 	@Inject
 	public MinimapManager(BackgroundTaskManager backgroundTaskManager, MessageDispatcher messageDispatcher) {
@@ -39,7 +38,6 @@ public class MinimapManager implements Updatable, Telegraph {
 		this.messageDispatcher = messageDispatcher;
 
 		messageDispatcher.addListener(this, MessageType.WALL_REMOVED);
-		messageDispatcher.addListener(this, MessageType.SHOW_MINIMAP);
 	}
 
 	@Override
@@ -53,11 +51,6 @@ public class MinimapManager implements Updatable, Telegraph {
 	@Override
 	public boolean handleMessage(Telegram msg) {
 		switch (msg.message) {
-			case MessageType.SHOW_MINIMAP: {
-				this.minimapDisplayed = (Boolean) msg.extraInfo;
-				doUpdate();
-				return true;
-			}
 			case MessageType.WALL_REMOVED: {
 				doUpdate();
 				return true;
@@ -69,9 +62,6 @@ public class MinimapManager implements Updatable, Telegraph {
 
 	private void doUpdate() {
 		timeSinceLastUpdate = 0f;
-		if (!minimapDisplayed) {
-			return;
-		}
 		if (futurePixmap != null) {
 			if (futurePixmap.isDone()) {
 				try {

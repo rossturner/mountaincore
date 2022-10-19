@@ -1,44 +1,35 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.ai.msg.Telegram;
-import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.mapping.minimap.MinimapContainer;
 import technology.rocketjump.saul.mapping.minimap.MinimapManager;
-import technology.rocketjump.saul.mapping.minimap.MinimapWidget;
-import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.I18nTextButton;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
 @Singleton
-public class MinimapGuiView implements GuiView, Telegraph {
+public class MinimapGuiView implements GuiView, GameContextAware {
 
 	private final MessageDispatcher messageDispatcher;
 	private final MinimapManager minimapManager;
 	private final PrimaryCameraWrapper primaryCameraWrapper;
-	private final MinimapWidget minimapWidget;
+	private final MinimapContainer minimapContainer;
 	private final Texture minimapSelectionTexture;
-	private final I18nTextButton minimapToggleButton;
 	private Table table;
-	private Boolean minimapDisplayed = true;
+	private GameContext gameContext;
 
 	@Inject
 	public MinimapGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-						  MinimapManager minimapManager, PrimaryCameraWrapper primaryCameraWrapper,
-						  I18nWidgetFactory i18nWidgetFactory) {
+						  MinimapManager minimapManager, PrimaryCameraWrapper primaryCameraWrapper) {
 		this.messageDispatcher = messageDispatcher;
 		this.minimapManager = minimapManager;
 		this.primaryCameraWrapper = primaryCameraWrapper;
@@ -46,41 +37,10 @@ public class MinimapGuiView implements GuiView, Telegraph {
 		Skin uiSkin = guiSkinRepository.getDefault();
 		table = new Table(uiSkin);
 
-		minimapWidget = new MinimapWidget();
-
-		minimapToggleButton = i18nWidgetFactory.createTextButton("GUI.MINIMAP.LABEL");
-		minimapToggleButton.setTouchable(Touchable.enabled);
-		minimapToggleButton.addListener(new ClickListener() {
-			public void clicked (InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.SHOW_MINIMAP, !minimapDisplayed);
-			}
-		});
 
 		minimapSelectionTexture = new Texture("assets/ui/minimapSelection.png");
-		minimapWidget.setSelectionDrawable(new TextureRegionDrawable(new TextureRegion(minimapSelectionTexture)));
-		minimapWidget.setTouchable(Touchable.enabled);
-
-		minimapWidget.addListener(new ClickListener() {
-			@Override
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, new Vector2(
-						(x / minimapWidget.getWidth()) * minimapWidget.getMapWidth(),
-						(y / minimapWidget.getHeight()) * minimapWidget.getMapHeight()
-				));
-				return super.touchDown(event, x, y, pointer, button);
-			}
-
-			@Override
-			public void touchDragged (InputEvent event, float x, float y, int pointer) {
-				messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, new Vector2(
-						(x / minimapWidget.getWidth()) * minimapWidget.getMapWidth(),
-						(y / minimapWidget.getHeight()) * minimapWidget.getMapHeight()
-				));
-				super.touchDragged(event, x, y, pointer);
-			}
-		});
-
-		messageDispatcher.addListener(this, MessageType.SHOW_MINIMAP);
+		TextureRegionDrawable selectionDrawable = new TextureRegionDrawable(new TextureRegion(minimapSelectionTexture));
+		minimapContainer = new MinimapContainer(selectionDrawable, guiSkinRepository.getMainGameSkin(), messageDispatcher);
 	}
 
 	@Override
@@ -91,17 +51,15 @@ public class MinimapGuiView implements GuiView, Telegraph {
 
 	@Override
 	public void update() {
-		if (!minimapDisplayed) {
-			return;
+		if (minimapManager.getCurrentTexture() != null) {
+			minimapContainer.updateTexture(minimapManager.getCurrentTexture());
 		}
-		if (minimapManager.getCurrentTexture() != null && minimapDisplayed) {
-			minimapWidget.setDrawable(new TextureRegionDrawable(new TextureRegion(minimapManager.getCurrentTexture())));
-		}
-		minimapWidget.setMapSize(minimapManager.getWidth(), minimapManager.getHeight());
 
 		OrthographicCamera camera = primaryCameraWrapper.getCamera();
-		minimapWidget.setCameraPosition(camera.position);
-		minimapWidget.setViewportSize(camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom);
+
+		minimapContainer.setMapSize(gameContext.getAreaMap().getWidth(), gameContext.getAreaMap().getHeight());
+		minimapContainer.setCameraPosition(camera.position);
+		minimapContainer.setViewportSize(camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom);
 	}
 
 	@Override
@@ -115,26 +73,22 @@ public class MinimapGuiView implements GuiView, Telegraph {
 		return null;
 	}
 
-	@Override
-	public boolean handleMessage(Telegram msg) {
-		switch (msg.message) {
-			case MessageType.SHOW_MINIMAP: {
-				this.minimapDisplayed = (Boolean) msg.extraInfo;
-				resetTable();
-				update();
-				return true;
-			}
-			default:
-				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
-		}
-	}
-
 	private void resetTable() {
 		table.clearChildren();
-		table.add(minimapToggleButton).right().row();
-		if (minimapDisplayed) {
-			table.add(minimapWidget).right();
+		table.add(minimapContainer).right();
+	}
+
+	@Override
+	public void onContextChange(GameContext gameContext) {
+		if (gameContext != null) {
+			// TODO set minimapContainer size smaller when map is large
+			this.gameContext = gameContext;
+			minimapContainer.setSize(gameContext.getAreaMap().getWidth(), gameContext.getAreaMap().getHeight());
 		}
 	}
 
+	@Override
+	public void clearContextRelatedState() {
+
+	}
 }
