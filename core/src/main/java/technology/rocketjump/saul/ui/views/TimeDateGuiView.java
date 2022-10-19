@@ -20,35 +20,29 @@ import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
-import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 import technology.rocketjump.saul.ui.widgets.maingame.TimeDateWidget;
 
 @Singleton
 public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, DisplaysText {
 
-	private final I18nTranslator i18nTranslator;
 	private final MessageDispatcher messageDispatcher;
 	private final TooltipFactory tooltipFactory;
-	private final I18nWidgetFactory i18nWidgetFactory;
 	private final Skin skin;
-	private Table layoutTable;
-	private Table managementScreenButtonTable;
+	private final Table layoutTable;
+	private final Table managementScreenButtonTable;
 	private GameContext gameContext;
 
 	private final TimeDateWidget timeDateWidget;
 
 	@Inject
 	public TimeDateGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-						   I18nTranslator i18nTranslator, TimeDateWidget timeDateWidget,
-						   I18nWidgetFactory i18nWidgetFactory, TooltipFactory tooltipFactory) {
-		this.i18nWidgetFactory = i18nWidgetFactory;
+						   TimeDateWidget timeDateWidget,
+						   TooltipFactory tooltipFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		Skin uiSkin = guiSkinRepository.getDefault();
 		this.skin = guiSkinRepository.getMainGameSkin();
-		this.i18nTranslator = i18nTranslator;
 
 		this.timeDateWidget = timeDateWidget;
 

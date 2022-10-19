@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.ui.eventlistener;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -8,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
-import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
@@ -16,7 +16,7 @@ import static technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint.AB
 import static technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint.BELOW;
 
 @Singleton
-public class TooltipFactory implements DisplaysText {
+public class TooltipFactory {
 
 	private final Skin skin;
 	private final I18nTranslator i18nTranslator;
@@ -72,14 +72,35 @@ public class TooltipFactory implements DisplaysText {
 
 			@Override
 			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				tooltipTable.remove();
+				Vector2 stageCoords = parentActor.getStage().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+				if (!hoveringOverAny(stageCoords, tooltipTable, parentActor)) {
+					tooltipTable.remove();
+				}
+			}
+		});
+
+		tooltipTable.addListener(new InputListener() {
+			@Override
+			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				Vector2 stageCoords = parentActor.getStage().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+				if (!hoveringOverAny(stageCoords, tooltipTable, parentActor)) {
+					tooltipTable.remove();
+				}
 			}
 		});
 	}
 
-
-	@Override
-	public void rebuildUI() {
-		// TODO update tooltip text with current language translation
+	private boolean hoveringOverAny(Vector2 stageCoords, Actor... actors) {
+		boolean hoveringOnAny = false;
+		for (Actor actor : actors) {
+			Vector2 localCoords = actor.stageToLocalCoordinates(stageCoords.cpy());
+			hoveringOnAny = 0 <= localCoords.x && localCoords.x <= actor.getWidth() &&
+					0 <= localCoords.y && localCoords.y <= actor.getHeight();
+			if (hoveringOnAny) {
+				break;
+			}
+		}
+		return hoveringOnAny;
 	}
+
 }
