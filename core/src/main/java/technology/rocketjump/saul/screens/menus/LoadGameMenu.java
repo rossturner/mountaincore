@@ -13,6 +13,7 @@ import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.GameSaveMessage;
 import technology.rocketjump.saul.modding.ModCompatibilityChecker;
 import technology.rocketjump.saul.persistence.SavedGameInfo;
 import technology.rocketjump.saul.persistence.SavedGameStore;
@@ -46,7 +47,6 @@ public class LoadGameMenu implements Menu, GameContextAware {
 //	private final I18nTranslator i18nTranslator;
 
 //	private boolean displayed;
-//	private GameContext gameContext;
 
 	private final SavedGameStore savedGameStore;
 	private final Skin skin;
@@ -57,6 +57,7 @@ public class LoadGameMenu implements Menu, GameContextAware {
 	private final Button rightArrow;
 	private int carouselIndex = 0;
 
+	private GameContext gameContext;
 	private SavedGameInfo selectedSavedGame;
 	private Container<TextButton> deleteButton;
 	private Container<TextButton> playButton;
@@ -183,7 +184,21 @@ public class LoadGameMenu implements Menu, GameContextAware {
 		this.playButton = menuButtonFactory.createButton("GUI.LOAD_GAME.TABLE.PLAY", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE)
 				.withHeaderFont(50).withEssentialWidth(168.0f) //todo: this is needed else the font isn't sizing properly
 				.withAction(() -> {
-//					messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+					if (gameContext != null) {
+						if (gameContext.getSettlementState().getSettlementName().equals(selectedSavedGame.settlementName)) {
+							// Same game, just go back to it
+							messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+							messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+						} else {
+							// different game, save this first
+							messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
+							messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, selectedSavedGame);
+						}
+					} else {
+						messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, selectedSavedGame);
+					}
+
+
 				})
 				.build();
 
