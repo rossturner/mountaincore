@@ -3,6 +3,12 @@ com.badlogic.gdx.graphics.Color: {
 	btn_scalable_colour: {
 		hex: d2ab73ff
 	}
+	dialog_bg_colour: {
+		hex: 524851ff
+	}
+	dialog_stage_colour: {
+		hex: ffffff96
+	}
 	dropdown_body_colour: {
 		hex: a44929ff
 	}
@@ -38,6 +44,14 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	btn_scalable: {
 		name: white-pixel
 		color: btn_scalable_colour
+	}
+	dialog_bg: {
+		name: white-pixel
+		color: dialog_bg_colour
+	}
+	dialog_stage: {
+		name: white-pixel
+		color: dialog_stage_colour
 	}
 }
 com.ray3k.tenpatch.TenPatchDrawable: {
@@ -208,12 +222,21 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	btn_scalable: {
 		font: placeholder-font
 		fontColor: primary_font_colour_red
+		disabledFontColor: saved_greyed_out_bg_colour
 		up: btn_scalable
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
 		label: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		background: dialog_bg
+		titleFont: placeholder-font
+		titleFontColor: white
+		stageBackground: dialog_stage
 	}
 }
 }

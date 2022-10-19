@@ -18,11 +18,14 @@ import technology.rocketjump.saul.persistence.SavedGameInfo;
 import technology.rocketjump.saul.persistence.SavedGameStore;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
+import technology.rocketjump.saul.ui.widgets.NotificationDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 @Singleton
 public class LoadGameMenu implements Menu, GameContextAware {
@@ -53,6 +56,11 @@ public class LoadGameMenu implements Menu, GameContextAware {
 	private final Button leftArrow;
 	private final Button rightArrow;
 	private int carouselIndex = 0;
+
+	private SavedGameInfo selectedSavedGame;
+	private Container<TextButton> deleteButton;
+	private Container<TextButton> playButton;
+
 
 	@Inject
 	public LoadGameMenu(UserPreferences userPreferences, GuiSkinRepository skinRepository, MessageDispatcher messageDispatcher,
@@ -111,15 +119,12 @@ public class LoadGameMenu implements Menu, GameContextAware {
 
 		Table slot1 = new Table();
 		slot1.setName("slot1");
-		slot1.setBackground(skin.getDrawable("save_greyed_out_bg"));
 
 		Table slot2 = new Table();
 		slot2.setName("slot2");
-		slot2.setBackground(skin.getDrawable("save_greyed_out_bg"));
 
 		Table slot3 = new Table();
 		slot3.setName("slot3");
-		slot3.setBackground(skin.getDrawable("save_greyed_out_bg"));
 
 		this.slots = Arrays.asList(slot1, slot2, slot3);
 
@@ -143,28 +148,29 @@ public class LoadGameMenu implements Menu, GameContextAware {
 
 		Table loadControls = new Table();
 		loadControls.setName("loadControls");
-		Container<TextButton> deleteButton = menuButtonFactory.createButton("GUI.LOAD_GAME.TABLE.DELETE", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE)
+		this.deleteButton = menuButtonFactory.createButton("GUI.LOAD_GAME.TABLE.DELETE", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE)
 				.withHeaderFont(50).withEssentialWidth(168.0f) //todo: this is needed else the font isn't sizing properly
 				.withAction(() -> {
-/*
-//					NotificationDialog dialog = new NotificationDialog(
-//							i18nTranslator.getTranslatedString("GUI.DIALOG.INFO_TITLE"),
-//							uiSkin,
-//							messageDispatcher
-//					);
-//					dialog.withText(i18nTranslator.getTranslatedWordWithReplacements("GUI.DIALOG.CONFIRM_DELETE_SAVE",
-//							Map.of("name", new I18nWord(savedGameInfo.settlementName)))
-//							.breakAfterLength(i18nTranslator.getCurrentLanguageType().getBreakAfterLineLength()));
-//
-//					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON"), (Runnable) () -> {
-//						savedGameStore.delete(savedGameInfo);
-//						reset();
-//					});
-//					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CANCEL_BUTTON"));
-//					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
- */
+					if (selectedSavedGame == null) {
+						return;
+					}
 
+					NotificationDialog dialog = new NotificationDialog(
+							i18nTranslator.getTranslatedString("GUI.DIALOG.INFO_TITLE"),
+							skin,
+							messageDispatcher
+					);
+					dialog.withText(i18nTranslator.getTranslatedWordWithReplacements("GUI.DIALOG.CONFIRM_DELETE_SAVE",
+							Map.of("name", new I18nWord(selectedSavedGame.settlementName)))
+							.breakAfterLength(i18nTranslator.getCurrentLanguageType().getBreakAfterLineLength()));
 
+					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON"), (Runnable) () -> {
+						savedGameStore.delete(selectedSavedGame);
+						carouselIndex = 0;
+						savedGamesUpdated();
+					});
+					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CANCEL_BUTTON"));
+					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
 				})
 				.build();
 
@@ -174,7 +180,7 @@ public class LoadGameMenu implements Menu, GameContextAware {
 					messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
 				})
 				.build();
-		Container<TextButton> playButton = menuButtonFactory.createButton("GUI.LOAD_GAME.TABLE.PLAY", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE)
+		this.playButton = menuButtonFactory.createButton("GUI.LOAD_GAME.TABLE.PLAY", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE)
 				.withHeaderFont(50).withEssentialWidth(168.0f) //todo: this is needed else the font isn't sizing properly
 				.withAction(() -> {
 //					messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
@@ -205,22 +211,8 @@ public class LoadGameMenu implements Menu, GameContextAware {
 //		this.i18nTranslator = i18nTranslator;
 //
 //		startGameSound = soundAssetDictionary.getByName("GameStart");
-//
-//		outerTable = new Table(uiSkin);
-//		outerTable.setFillParent(false);
-//		outerTable.center();
-//		outerTable.background("default-rect");
-////		outerTable.setDebug(true);
-//
-//		savedGamesTable = new Table(uiSkin);
-//
-//		scrollPane = Scene2DUtils.wrapWithScrollPane(savedGamesTable, uiSkin);
-//
-//		backButton = iconButtonFactory.create("GUI.BACK_LABEL", null, Color.LIGHT_GRAY, ButtonStyle.SMALL);
-//		backButton.setAction(() -> {
-//			messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-//		});
 
+//		savedGamesTable = new Table(uiSkin);
 	}
 
 	@Override
@@ -326,6 +318,13 @@ public class LoadGameMenu implements Menu, GameContextAware {
 
 	public void savedGamesUpdated() {
 		//TODO: update save slots
+		for (Table slot : slots) {
+			slot.clearChildren();
+			slot.setBackground(skin.getDrawable("save_greyed_out_bg"));
+		}
+
+		selectedSavedGame = null;
+		disablePlayAndDeleteButtons();
 		java.util.List<SavedGameInfo> savesInOrder = new ArrayList<>(savedGameStore.getAll());
 		savesInOrder.sort((o1, o2) -> o2.lastModifiedTime.compareTo(o1.lastModifiedTime));
 
@@ -354,7 +353,6 @@ public class LoadGameMenu implements Menu, GameContextAware {
 
 		for (int i = 0; i < Math.min(slots.size(), savesInOrder.size()); i++) {
 			Table slotTable = slots.get(i);
-			slotTable.clearChildren();
 			SavedGameInfo savedGame = savesInOrder.get(i + carouselIndex);
 			populateSaveSlot(savedGame, slotTable);
 		}
@@ -372,16 +370,31 @@ public class LoadGameMenu implements Menu, GameContextAware {
 	}
 
 
-	private void populateSaveSlot(SavedGameInfo slot1Save, Table saveSlot) {
-		GameClock gameClock = slot1Save.gameClock;
+	private void populateSaveSlot(SavedGameInfo savedGameInfo, Table saveSlot) {
+		GameClock gameClock = savedGameInfo.gameClock;
+
+		saveSlot.setTouchable(Touchable.enabled);
+		saveSlot.clearListeners();
+		saveSlot.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				if (selectedSavedGame != savedGameInfo) {
+					selectedSavedGame = savedGameInfo;
+					enablePlayAndDeleteButtons();
+				} else {
+					selectedSavedGame = null;
+					disablePlayAndDeleteButtons();
+				}
+				return super.touchDown(event, x, y, pointer, button);
+			}
+		});
 
 		saveSlot.setBackground(skin.getDrawable("save_bg_2_scalable"));
 
 		saveSlot.add();
 		saveSlot.row();
 
-
-		Label settlementName = new Label(slot1Save.settlementName, skin, "save_title_ribbon");
+		Label settlementName = new Label(savedGameInfo.settlementName, skin, "save_title_ribbon");
 		settlementName.setAlignment(Align.center);
 		settlementName.setHeight(54);
 
@@ -407,6 +420,20 @@ public class LoadGameMenu implements Menu, GameContextAware {
 		saveSlot.add(new Label(i18nTranslator.getYearString(gameClock).toString(), skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
 
 		saveSlot.row();
-		saveSlot.add(new Label(slot1Save.version, skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
+		saveSlot.add(new Label(savedGameInfo.version, skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
+	}
+
+	private void enablePlayAndDeleteButtons() {
+		this.playButton.getActor().setDisabled(false);
+		this.playButton.getActor().setTouchable(Touchable.enabled);
+		this.deleteButton.getActor().setDisabled(false);
+		this.deleteButton.getActor().setTouchable(Touchable.enabled);
+	}
+
+	private void disablePlayAndDeleteButtons() {
+		this.playButton.getActor().setDisabled(true);
+		this.playButton.getActor().setTouchable(Touchable.disabled);
+		this.deleteButton.getActor().setDisabled(true);
+		this.deleteButton.getActor().setTouchable(Touchable.disabled);
 	}
 }
