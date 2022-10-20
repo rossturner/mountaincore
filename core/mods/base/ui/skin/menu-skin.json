@@ -243,6 +243,22 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		parent: btn_banner_2
 		font: header-font-47
 	}
+	btn_banner_3_header-font-36: {
+		parent: btn_banner_3
+		font: header-font-36
+	}
+	btn_banner_3_header-font-47: {
+		parent: btn_banner_3
+		font: header-font-47
+	}
+	btn_banner_4_header-font-36: {
+		parent: btn_banner_4
+		font: header-font-36
+	}
+	btn_banner_4_header-font-47: {
+		parent: btn_banner_4
+		font: header-font-47
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {

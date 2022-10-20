@@ -76,15 +76,13 @@ public class TopLevelMenu implements Menu, DisplaysText {
     }
 
     private Table buildSocialMediaLayer() {
-        Container<TextButton> discordButton = menuButtonFactory.createButton("MENU.JOIN_DISCORD", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_3)
-                .withHeaderFont(36)
+        Container<TextButton> discordButton = menuButtonFactory.createButton("MENU.JOIN_DISCORD", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_3_36PT)
                 .withAction(() -> {
                     Gdx.net.openURI(DISCORD_URL);
                 })
                 .build();
 
-        Container<TextButton> twitchButton = menuButtonFactory.createButton("MENU.LINK_TWITCH_ACCOUNT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4)
-                .withHeaderFont(36)
+        Container<TextButton> twitchButton = menuButtonFactory.createButton("MENU.LINK_TWITCH_ACCOUNT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4_36PT)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.OPTIONS_MENU);
                 })
@@ -152,13 +150,11 @@ public class TopLevelMenu implements Menu, DisplaysText {
                 })
                 .build();
 
-        Container<TextButton> creditsButton = menuButtonFactory.createButton("MENU.CREDITS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_3)
-                .withHeaderFont(47)
+        Container<TextButton> creditsButton = menuButtonFactory.createButton("MENU.CREDITS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_3_47PT)
                 .withScaledToFitLabel(lesserImportanceWidth)
                 .build();
 
-        Container<TextButton> quitButton = menuButtonFactory.createButton("MENU.QUIT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4)
-                .withHeaderFont(47)
+        Container<TextButton> quitButton = menuButtonFactory.createButton("MENU.QUIT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4_47PT)
                 .withScaledToFitLabel(lesserImportanceWidth)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));

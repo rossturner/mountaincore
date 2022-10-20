@@ -302,7 +302,6 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 					messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
 				})
 				.build();
-		backButton.debugAll();
 
 		this.playButton = menuButtonFactory.createButton("GUI.LOAD_GAME.TABLE.PLAY", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE_50PT)
 				.withAction(() -> {

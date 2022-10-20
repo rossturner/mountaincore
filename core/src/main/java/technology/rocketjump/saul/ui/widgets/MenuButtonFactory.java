@@ -34,10 +34,11 @@ public class MenuButtonFactory {
     public enum ButtonStyle {
         BTN_SCALABLE_50PT("btn_scalable_header-font-50"),
         BTN_BANNER_1_47PT("btn_banner_1_header-font-47"),
-        BTN_BANNER_2("btn_banner_2"),
         BTN_BANNER_2_47PT("btn_banner_2_header-font-47"),
-        BTN_BANNER_3("btn_banner_3"),
-        BTN_BANNER_4("btn_banner_4");
+        BTN_BANNER_3_36PT("btn_banner_3_header-font-36"),
+        BTN_BANNER_3_47PT("btn_banner_3_header-font-47"),
+        BTN_BANNER_4_36PT("btn_banner_4_header-font-36"),
+        BTN_BANNER_4_47PT("btn_banner_4_header-font-47");
 
         private final String styleName;
 
@@ -99,14 +100,6 @@ public class MenuButtonFactory {
             ScaledToFitLabel label = new ScaledToFitLabel(currentLabel.getText(), currentLabel.getStyle(), width);
             label.setAlignment(Align.center);
             buttonContainer.getActor().setLabel(label);
-            return this;
-        }
-
-        public MenuButtonBuilder withHeaderFont(int fontPointSize) {
-            TextButton button = buttonContainer.getActor();
-            TextButton.TextButtonStyle style = button.getStyle();
-            style.font = fontRepository.getHeaderFont(fontPointSize).getBitmapFont();
-            button.setStyle(style);
             return this;
         }
 
