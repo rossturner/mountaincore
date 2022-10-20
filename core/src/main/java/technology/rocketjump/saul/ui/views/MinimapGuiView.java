@@ -12,7 +12,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
-import technology.rocketjump.saul.mapping.minimap.MinimapImage;
+import technology.rocketjump.saul.mapping.minimap.MinimapContainer;
 import technology.rocketjump.saul.mapping.minimap.MinimapManager;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -23,7 +23,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 	private final MessageDispatcher messageDispatcher;
 	private final MinimapManager minimapManager;
 	private final PrimaryCameraWrapper primaryCameraWrapper;
-	private final MinimapImage minimapImage;
+	private final MinimapContainer minimapContainer;
 	private final Texture minimapSelectionTexture;
 	private Table table;
 	private GameContext gameContext;
@@ -41,7 +41,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 
 		minimapSelectionTexture = new Texture("assets/ui/minimapSelection.png");
 		TextureRegionDrawable selectionDrawable = new TextureRegionDrawable(new TextureRegion(minimapSelectionTexture));
-		minimapImage = new MinimapImage(selectionDrawable, messageDispatcher, guiSkinRepository.getMainGameSkin());
+		minimapContainer = new MinimapContainer(selectionDrawable, messageDispatcher, guiSkinRepository.getMainGameSkin());
 	}
 
 	@Override
@@ -53,14 +53,14 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 	@Override
 	public void update() {
 		if (minimapManager.getCurrentTexture() != null) {
-			minimapImage.updateTexture(minimapManager.getCurrentTexture());
+			minimapContainer.updateTexture(minimapManager.getCurrentTexture());
 		}
 
 		OrthographicCamera camera = primaryCameraWrapper.getCamera();
 
-		minimapImage.setMapSize(gameContext.getAreaMap().getWidth(), gameContext.getAreaMap().getHeight());
-		minimapImage.setCameraPosition(camera.position);
-		minimapImage.setViewportSize(camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom);
+		minimapContainer.setMapSize(gameContext.getAreaMap().getWidth(), gameContext.getAreaMap().getHeight());
+		minimapContainer.setCameraPosition(camera.position);
+		minimapContainer.setViewportSize(camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom);
 	}
 
 	@Override
@@ -76,10 +76,9 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 
 	private void resetTable() {
 		table.clearChildren();
-		Cell<MinimapImage> cell = table.add(minimapImage).right().expand(false, false);
-		if (gameContext != null) {
-			cell.size(gameContext.getAreaMap().getWidth(), gameContext.getAreaMap().getHeight());
-		}
+		Cell<MinimapContainer> cell = table.add(minimapContainer).right().expand(false, false)
+				.size(minimapContainer.getContainerWidth(), minimapContainer.getContainerHeight())
+				.padRight(8).padBottom(8);
 	}
 
 	@Override
@@ -87,6 +86,8 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 		if (gameContext != null) {
 			// TODO set minimapContainer size smaller when map is large
 			this.gameContext = gameContext;
+			minimapContainer.setContainerWidth(gameContext.getAreaMap().getWidth());
+			minimapContainer.setContainerHeight(gameContext.getAreaMap().getHeight());
 			resetTable();
 		}
 	}
