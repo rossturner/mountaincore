@@ -56,6 +56,7 @@ public class GuiSkinRepository implements Telegraph {
 		skin.add("header-font-36", onDemandFontRepository.getHeaderFont(36));
 		skin.add("header-font-47", onDemandFontRepository.getHeaderFont(47));
 		skin.add("header-font-50", onDemandFontRepository.getHeaderFont(50));
+		skin.add("header-font-65", onDemandFontRepository.getHeaderFont(65));
 		skin.add("default-font-16", onDemandFontRepository.getDefaultFont(16));
 
 		skin.addRegions(new TextureAtlas(menuSkinAtlasFile));
@@ -115,6 +116,7 @@ public class GuiSkinRepository implements Telegraph {
 		currentSkin.add("header-font-36", onDemandFontRepository.getHeaderFont(36));
 		currentSkin.add("header-font-47", onDemandFontRepository.getHeaderFont(47));
 		currentSkin.add("header-font-50", onDemandFontRepository.getHeaderFont(50));
+		currentSkin.add("header-font-65", onDemandFontRepository.getHeaderFont(65));
 		currentSkin.add("default-font-16", onDemandFontRepository.getDefaultFont(16));
 
 		for (Class<?> styleClass : scene2DClassesWithFontProperty) {

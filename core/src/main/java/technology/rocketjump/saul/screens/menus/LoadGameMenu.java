@@ -216,17 +216,14 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		table.padTop(0.0f);
 		table.padBottom(0.0f);
 
-		Image image = new Image(skin, "title_ribbon_bg_left");
-
 		Table titleTable = new Table();
 		titleTable.setName("title");
-		titleTable.add(image);
-		image = new Image(skin, "title_ribbon_bg_middle");
 
-		titleTable.add(image);
+		Label titleRibbon = new Label(i18nTranslator.getTranslatedString("MENU.LOAD_GAME").toString(), skin, "title_ribbon");
 
-		image = new Image(skin, "title_ribbon_bg_right");
-		titleTable.add(image);
+		titleRibbon.setAlignment(Align.center);
+		titleTable.add(titleRibbon); //.maxHeight(111.5f).maxWidth(573);
+
 
 		table.add(titleTable).padTop(84.0f).padBottom(84.0f).colspan(5);
 		table.row();

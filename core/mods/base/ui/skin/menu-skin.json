@@ -56,19 +56,15 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		name: white-pixel
 		color: dialog_stage_colour
 	}
-	btn_scalable_disabled: {
-		name: white-pixel
-		color: btn_scalable_colour_alpha_50pc
-	}
 }
 com.ray3k.tenpatch.TenPatchDrawable: {
-	save_bg_scalable_ten_patch: {
-		region: save_bg_scalable
-		horizontalStretchAreas: [ 1, 18 ]
-		verticalStretchAreas: [ 1, 18 ]
+	save_bg_2_scalable: {
+		region: save_bg_2
+		horizontalStretchAreas: [ 5, 406 ]
+		verticalStretchAreas: [ 5, 565 ]
 		tiling: false
-		minWidth: 20
-		minHeight: 20
+		minWidth: 412
+		minHeight: 571
 		rightWidth: 0
 		leftWidth: 0
 		bottomHeight: 0
@@ -82,17 +78,37 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
-	save_bg_2_scalable: {
-		region: save_bg_2
-		horizontalStretchAreas: [ 5, 406 ]
-		verticalStretchAreas: [ 5, 565 ]
+	title_ribbon_bg_10patch: {
+		region: title_ribbon_bg
+		horizontalStretchAreas: [ 266, 878 ]
+		verticalStretchAreas: [ 0, 222 ]
 		tiling: false
-		minWidth: 412
-		minHeight: 571
-		rightWidth: 0
-		leftWidth: 0
-		bottomHeight: 0
-		topHeight: 0
+		minWidth: 1146
+		minHeight: 223
+		rightWidth: 267
+		leftWidth: 266
+		bottomHeight: 59
+		topHeight: 25
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
+	title_ribbon_bg_mike_10patch: {
+		region: title_ribbon_bg_mike
+		horizontalStretchAreas: [ 266, 278 ]
+		verticalStretchAreas: [ 0, 221 ]
+		tiling: false
+		minWidth: 545
+		minHeight: 222
+		rightWidth: 266
+		leftWidth: 266
+		bottomHeight: 37
+		topHeight: 3
 		offsetX: 0
 		offsetY: 0
 		offsetXspeed: 0
@@ -169,6 +185,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	save_title_ribbon: {
 		font: placeholder-header-font
 		fontColor: primary_font_colour_yellow_alt
+	}
+	title_ribbon: {
+		font: header-font-65
+		fontColor: primary_font_colour_red
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
