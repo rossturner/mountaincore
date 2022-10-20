@@ -14,6 +14,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.GameSaveMessage;
 import technology.rocketjump.saul.persistence.PersistenceCallback;
 import technology.rocketjump.saul.persistence.SavedGameStore;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.LanguageType;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.CustomSelect;
@@ -21,7 +22,7 @@ import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
 import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
 @Singleton
-public class TopLevelMenu implements Menu {
+public class TopLevelMenu implements Menu, DisplaysText {
     public static final String DISCORD_URL = "https://discord.gg/M57GrFp";
     private final Skin menuSkin;
     private final MenuButtonFactory menuButtonFactory;
@@ -50,9 +51,7 @@ public class TopLevelMenu implements Menu {
 
         bannerPoleImage.setAlign(Align.top);
 
-        sceneStack.add(bannerPoleImage);
-        sceneStack.add(buildSocialMediaLayer());
-        sceneStack.add(buildMainMenuLayer());
+        rebuildUI();
     }
 
 
@@ -111,7 +110,7 @@ public class TopLevelMenu implements Menu {
 
         Container<TextButton> continueButton = menuButtonFactory.createButton("MENU.CONTINUE_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
                 .withHeaderFont(47)
-                .withEssentialWidth(307)
+                .withScaledToFitLabel(307)
                 .withAction(() -> {
                     if (gameStarted) {
                         messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
@@ -127,7 +126,7 @@ public class TopLevelMenu implements Menu {
 
         Container<TextButton> loadGameButton = menuButtonFactory.createButton("MENU.LOAD_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
                 .withHeaderFont(47)
-                .withEssentialWidth(307)
+                .withScaledToFitLabel(307)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.LOAD_GAME_MENU);
                 })
@@ -135,7 +134,7 @@ public class TopLevelMenu implements Menu {
 
         Container<TextButton> newGameButton = menuButtonFactory.createButton("MENU.NEW_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
                 .withHeaderFont(47)
-                .withEssentialWidth(307)
+                .withScaledToFitLabel(307)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.EMBARK_MENU);
                 })
@@ -144,8 +143,7 @@ public class TopLevelMenu implements Menu {
         int lesserImportanceWidth = 277;
         Container<TextButton> optionsButton = menuButtonFactory.createButton("MENU.OPTIONS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
                 .withHeaderFont(47)
-//                .withScaleBy(-0.1f)
-                .withEssentialWidth(lesserImportanceWidth)
+                .withScaledToFitLabel(lesserImportanceWidth)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.OPTIONS_MENU);
                 })
@@ -153,8 +151,7 @@ public class TopLevelMenu implements Menu {
 
         Container<TextButton> modsButton = menuButtonFactory.createButton("MENU.MODS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_2)
                 .withHeaderFont(47)
-//                .withScaleBy(-0.1f)
-                .withEssentialWidth(lesserImportanceWidth)
+                .withScaledToFitLabel(lesserImportanceWidth)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.MODS_MENU);
                 })
@@ -162,14 +159,12 @@ public class TopLevelMenu implements Menu {
 
         Container<TextButton> creditsButton = menuButtonFactory.createButton("MENU.CREDITS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_3)
                 .withHeaderFont(47)
-//                .withScaleBy(-0.1f)
-                .withEssentialWidth(lesserImportanceWidth)
+                .withScaledToFitLabel(lesserImportanceWidth)
                 .build();
 
         Container<TextButton> quitButton = menuButtonFactory.createButton("MENU.QUIT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4)
                 .withHeaderFont(47)
-//                .withScaleBy(-0.1f)
-                .withEssentialWidth(lesserImportanceWidth)
+                .withScaledToFitLabel(lesserImportanceWidth)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
                     Gdx.app.exit();
@@ -195,6 +190,7 @@ public class TopLevelMenu implements Menu {
         buttonsTable.add(quitButton).padBottom(13f).height(58).row();
         buttonsTable.add(languageSelect).padBottom(208f).height(40).width(lesserImportanceWidth).row();
         buttonsTable.bottom();
+        buttonsTable.debugAll();
 
 
         Table positioningTable = new Table();
@@ -232,8 +228,16 @@ public class TopLevelMenu implements Menu {
 
     private void enableButton(Container<TextButton> button) {
         button.clearActions();
-        button.addAction(Actions.fadeIn(0.5f));
+        button.addAction(Actions.alpha(1f));
         button.getActor().setDisabled(false);
         button.getActor().setTouchable(Touchable.enabled);
+    }
+
+    @Override
+    public void rebuildUI() {
+        sceneStack.clear();
+        sceneStack.add(bannerPoleImage);
+        sceneStack.add(buildSocialMediaLayer());
+        sceneStack.add(buildMainMenuLayer());
     }
 }
