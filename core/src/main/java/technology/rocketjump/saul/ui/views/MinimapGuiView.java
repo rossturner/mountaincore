@@ -1,11 +1,10 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.ai.msg.Telegram;
-import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -13,21 +12,18 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
-import technology.rocketjump.saul.mapping.minimap.MinimapFrame;
 import technology.rocketjump.saul.mapping.minimap.MinimapImage;
 import technology.rocketjump.saul.mapping.minimap.MinimapManager;
-import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
 @Singleton
-public class MinimapGuiView implements GuiView, GameContextAware, Telegraph {
+public class MinimapGuiView implements GuiView, GameContextAware {
 
 	private final MessageDispatcher messageDispatcher;
 	private final MinimapManager minimapManager;
 	private final PrimaryCameraWrapper primaryCameraWrapper;
 	private final MinimapImage minimapImage;
-	private final MinimapFrame minimapFrame;
 	private final Texture minimapSelectionTexture;
 	private Table table;
 	private GameContext gameContext;
@@ -45,10 +41,7 @@ public class MinimapGuiView implements GuiView, GameContextAware, Telegraph {
 
 		minimapSelectionTexture = new Texture("assets/ui/minimapSelection.png");
 		TextureRegionDrawable selectionDrawable = new TextureRegionDrawable(new TextureRegion(minimapSelectionTexture));
-		minimapImage = new MinimapImage(selectionDrawable, messageDispatcher);
-		minimapFrame = new MinimapFrame(minimapImage, guiSkinRepository.getMainGameSkin());
-
-		messageDispatcher.addListener(this, MessageType.MINIMAP_SIZE_CHANGED);
+		minimapImage = new MinimapImage(selectionDrawable, messageDispatcher, guiSkinRepository.getMainGameSkin());
 	}
 
 	@Override
@@ -83,7 +76,10 @@ public class MinimapGuiView implements GuiView, GameContextAware, Telegraph {
 
 	private void resetTable() {
 		table.clearChildren();
-		table.add(minimapFrame).right();
+		Cell<MinimapImage> cell = table.add(minimapImage).right().expand(false, false);
+		if (gameContext != null) {
+			cell.size(gameContext.getAreaMap().getWidth(), gameContext.getAreaMap().getHeight());
+		}
 	}
 
 	@Override
@@ -91,7 +87,7 @@ public class MinimapGuiView implements GuiView, GameContextAware, Telegraph {
 		if (gameContext != null) {
 			// TODO set minimapContainer size smaller when map is large
 			this.gameContext = gameContext;
-			minimapImage.setSize(gameContext.getAreaMap().getWidth(), gameContext.getAreaMap().getHeight());
+			resetTable();
 		}
 	}
 
@@ -100,15 +96,15 @@ public class MinimapGuiView implements GuiView, GameContextAware, Telegraph {
 
 	}
 
-	@Override
-	public boolean handleMessage(Telegram msg) {
-		switch (msg.message) {
-			case MessageType.MINIMAP_SIZE_CHANGED -> {
-				minimapFrame.reset();
-				return true;
-			}
-			default ->
-				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + getClass().getSimpleName());
-		}
-	}
+//	@Override
+//	public boolean handleMessage(Telegram msg) {
+//		switch (msg.message) {
+//			case MessageType.MINIMAP_SIZE_CHANGED -> {
+//				minimapFrame.reset();
+//				return true;
+//			}
+//			default ->
+//				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + getClass().getSimpleName());
+//		}
+//	}
 }

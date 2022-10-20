@@ -31,6 +31,26 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
+	map_bg_full_patch: {
+		region: map_bg_full
+		horizontalStretchAreas: [ 41, 751 ]
+		verticalStretchAreas: [ 41, 751 ]
+		tiling: false
+		minWidth: 792
+		minHeight: 792
+		rightWidth: 396
+		leftWidth: 396
+		bottomHeight: 396
+		topHeight: 396
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.kotcrab.vis.ui.Sizes: {
 	default: {

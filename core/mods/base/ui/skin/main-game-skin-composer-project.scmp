@@ -731,6 +731,75 @@ atlasData: {
 			type: TENPATCH
 			hidden: false
 		}
+		{
+			file: C:/workspace/project-saul/core/mods/base/ui/skin/main-game-skin-composer-project_data/map_bg_full.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: map_bg_full
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/core/mods/base/ui/skin/main-game-skin-composer-project_data/map_bg_full.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: map_bg_full_patch
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: {
+				horizontalStretchAreas: {
+					items: [ 41, 751 ]
+					size: 2
+					ordered: true
+				}
+				verticalStretchAreas: {
+					items: [ 41, 751 ]
+					size: 2
+					ordered: true
+				}
+				contentLeft: 396
+				contentRight: 396
+				contentTop: 396
+				contentBottom: 396
+				tile: false
+				colorName: null
+				color1Name: null
+				color2Name: null
+				color3Name: null
+				color4Name: null
+				offsetX: 0
+				offsetY: 0
+				offsetXspeed: 0
+				offsetYspeed: 0
+				frameDuration: 0.03
+				regionNames: []
+				playMode: 2
+				crushMode: 0
+			}
+			tvgData: null
+			type: TENPATCH
+			hidden: false
+		}
 	]
 	fontDrawables: []
 }

@@ -232,7 +232,6 @@ public class MessageType {
 
 	// Map messages
 	public static final int FLOOD_FILL_EXPLORATION = 1300;
-	public static final int MINIMAP_SIZE_CHANGED = 1301;
 	public static final int REPLACE_REGION = 1302;
 	public static final int AMBIENCE_UPDATE = 1303;
 	public static final int AMBIENCE_PAUSE = 1304;

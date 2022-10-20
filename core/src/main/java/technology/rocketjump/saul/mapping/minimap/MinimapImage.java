@@ -10,8 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.ray3k.tenpatch.TenPatchDrawable;
 import technology.rocketjump.saul.messaging.MessageType;
 
 public class MinimapImage extends Container<Image> {
@@ -28,45 +30,46 @@ public class MinimapImage extends Container<Image> {
 	private int mapWidth;
 	private int mapHeight;
 
-	public MinimapImage(TextureRegionDrawable selectionDrawable, MessageDispatcher messageDispatcher) {
+	public MinimapImage(TextureRegionDrawable selectionDrawable, MessageDispatcher messageDispatcher, Skin skin) {
 		this.setTouchable(Touchable.enabled);
+		this.setDebug(true);
 		this.messageDispatcher = messageDispatcher;
-
 		this.selectionDrawable = selectionDrawable;
 
-		this.addListener(new ClickListener() {
-			@Override
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, new Vector2(
-						(x / getWidth()) * mapWidth,
-						(y / getHeight()) * mapHeight
-				));
-				return super.touchDown(event, x, y, pointer, button);
-			}
+		TenPatchDrawable backgroundDrawable = skin.get("map_bg_full_patch", TenPatchDrawable.class);
+		backgroundDrawable.setScale(0.5f);
+		this.setBackground(backgroundDrawable, false);
+		this.pad(41f / 2f);
 
-			@Override
-			public void touchDragged (InputEvent event, float x, float y, int pointer) {
-				messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, new Vector2(
-						(x / getWidth()) * mapWidth,
-						(y / getHeight()) * mapHeight
-				));
-				super.touchDragged(event, x, y, pointer);
-			}
-		});
 	}
 
 	public void updateTexture(Texture minimapTexture) {
 		if (minimapDrawable == null || !minimapDrawable.getRegion().getTexture().equals(minimapTexture)) {
 			this.minimapDrawable = new TextureRegionDrawable(new TextureRegion(minimapTexture));
 			minimapImage = new Image(minimapDrawable);
+
+			minimapImage.addListener(new ClickListener() {
+				@Override
+				public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, new Vector2(
+							(x / minimapImage.getWidth()) * mapWidth,
+							(y / minimapImage.getHeight()) * mapHeight
+					));
+					return super.touchDown(event, x, y, pointer, button);
+				}
+
+				@Override
+				public void touchDragged (InputEvent event, float x, float y, int pointer) {
+					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, new Vector2(
+							(x / minimapImage.getWidth()) * mapWidth,
+							(y / minimapImage.getHeight()) * mapHeight
+					));
+					super.touchDragged(event, x, y, pointer);
+				}
+			});
+
 			this.setActor(minimapImage);
 		}
-	}
-
-	@Override
-	public void setSize(float width, float height) {
-		super.setSize(width, height);
-		messageDispatcher.dispatchMessage(MessageType.MINIMAP_SIZE_CHANGED);
 	}
 
 	@Override

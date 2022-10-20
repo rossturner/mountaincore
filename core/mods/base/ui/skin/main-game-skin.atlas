@@ -1,244 +1,251 @@
 
 main-game-skin.png
-size: 1024, 1024
+size: 2048, 2048
 format: RGBA8888
 filter: MipMapLinearLinear, Linear
 repeat: none
 asset_season_autumn_icon
   rotate: false
-  xy: 525, 341
+  xy: 565, 698
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_spring_icon
   rotate: false
-  xy: 931, 928
+  xy: 798, 1321
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_summer_icon
   rotate: false
-  xy: 261, 97
+  xy: 2, 52
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_winter_icon
   rotate: false
-  xy: 525, 291
+  xy: 730, 1097
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_cloudy_grey_icon
   rotate: false
-  xy: 625, 341
+  xy: 2, 2
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_nice_icon
   rotate: false
-  xy: 575, 341
+  xy: 999, 1850
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_rain_icon
   rotate: false
-  xy: 931, 878
+  xy: 565, 648
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_snow_icon
   rotate: false
-  xy: 311, 97
+  xy: 615, 698
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_storm_icon
   rotate: false
-  xy: 525, 241
+  xy: 798, 1271
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_windy_icon
   rotate: false
-  xy: 575, 291
+  xy: 848, 1321
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 btn_bottom_construction
   rotate: false
-  xy: 730, 808
+  xy: 2, 534
   size: 197, 210
   orig: 197, 210
   offset: 0, 0
   index: -1
 btn_bottom_orders
   rotate: false
-  xy: 2, 283
+  xy: 798, 1719
   size: 197, 208
   orig: 197, 208
   offset: 0, 0
   index: -1
 btn_bottom_priority
   rotate: false
-  xy: 730, 594
+  xy: 2, 320
   size: 197, 210
   orig: 197, 210
   offset: 0, 0
   index: -1
 btn_bottom_zones
   rotate: false
-  xy: 2, 69
+  xy: 203, 534
   size: 197, 210
   orig: 197, 210
   offset: 0, 0
   index: -1
 btn_map_resize
   rotate: false
-  xy: 203, 89
+  xy: 730, 1147
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 btn_pause_off
   rotate: false
-  xy: 364, 155
+  xy: 256, 329
   size: 18, 27
   orig: 18, 27
   offset: 0, 0
   index: -1
 btn_pause_on
   rotate: false
-  xy: 417, 186
+  xy: 52, 71
   size: 18, 27
   orig: 18, 27
   offset: 0, 0
   index: -1
 btn_speed_1_off
   rotate: false
-  xy: 274, 503
+  xy: 364, 503
   size: 21, 27
   orig: 21, 27
   offset: 0, 0
   index: -1
 btn_speed_1_on
   rotate: false
-  xy: 327, 534
+  xy: 82, 115
   size: 21, 27
   orig: 21, 27
   offset: 0, 0
   index: -1
 btn_speed_2_off
   rotate: false
-  xy: 686, 534
+  xy: 959, 1688
   size: 31, 27
   orig: 31, 27
   offset: 0, 0
   index: -1
 btn_speed_2_on
   rotate: false
-  xy: 82, 38
+  xy: 163, 289
   size: 31, 27
   orig: 31, 27
   offset: 0, 0
   index: -1
 btn_speed_3_off
   rotate: false
-  xy: 981, 947
+  xy: 404, 543
   size: 41, 27
   orig: 41, 27
   offset: 0, 0
   index: -1
 btn_speed_3_on
   rotate: false
-  xy: 981, 916
+  xy: 1150, 1970
   size: 41, 27
   orig: 41, 27
   offset: 0, 0
   index: -1
 btn_speed_4_off
   rotate: false
-  xy: 274, 534
+  xy: 999, 1900
   size: 49, 27
   orig: 49, 27
   offset: 0, 0
   index: -1
 btn_speed_4_on
   rotate: false
-  xy: 364, 186
+  xy: 203, 329
   size: 49, 27
   orig: 49, 27
   offset: 0, 0
   index: -1
 btn_top_crafting
   rotate: false
-  xy: 203, 321
+  xy: 798, 1545
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 btn_top_military
   rotate: false
-  xy: 203, 147
+  xy: 2, 146
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 btn_top_resources
   rotate: false
-  xy: 364, 391
+  xy: 203, 360
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 btn_top_settlers
   rotate: false
-  xy: 364, 217
+  xy: 404, 574
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 btn_top_trading
   rotate: false
-  xy: 525, 391
+  xy: 798, 1371
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 hover_state_label
   rotate: false
-  xy: 2, 495
+  xy: 798, 1931
   size: 268, 66
   orig: 268, 66
   offset: 0, 0
   index: -1
 hover_state_label_arrow_down
   rotate: false
-  xy: 931, 978
+  xy: 1070, 1957
   size: 76, 40
   orig: 76, 40
   offset: 0, 0
   index: -1
 hover_state_label_arrow_up
   rotate: false
-  xy: 2, 25
+  xy: 2, 102
   size: 76, 40
   orig: 76, 40
   offset: 0, 0
   index: -1
 info_box_bg
   rotate: false
-  xy: 2, 565
+  xy: 2, 748
   size: 724, 453
   orig: 724, 453
+  offset: 0, 0
+  index: -1
+map_bg_full
+  rotate: false
+  xy: 2, 1205
+  size: 792, 792
+  orig: 792, 792
   offset: 0, 0
   index: -1
