@@ -31,6 +31,86 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
+	map_border_bottom_patch: {
+		region: map_border_bottom
+		horizontalStretchAreas: [ 30, 738 ]
+		verticalStretchAreas: [ 0, 38 ]
+		tiling: false
+		minWidth: 765
+		minHeight: 39
+		rightWidth: 26
+		leftWidth: 27
+		bottomHeight: 0
+		topHeight: 0
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
+	map_border_left_patch: {
+		region: map_border_left
+		horizontalStretchAreas: [ 0, 26 ]
+		verticalStretchAreas: [ 9, 398 ]
+		tiling: false
+		minWidth: 27
+		minHeight: 712
+		rightWidth: 0
+		leftWidth: 0
+		bottomHeight: 0
+		topHeight: 0
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 1
+	}
+	map_border_right_patch: {
+		region: map_border_right
+		horizontalStretchAreas: [ 0, 27 ]
+		verticalStretchAreas: [ 159, 711 ]
+		tiling: false
+		minWidth: 28
+		minHeight: 712
+		rightWidth: 0
+		leftWidth: 0
+		bottomHeight: 0
+		topHeight: 0
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 1
+	}
+	map_border_top_patch: {
+		region: map_border_top
+		horizontalStretchAreas: [ 27, 739 ]
+		verticalStretchAreas: [ 0, 26 ]
+		tiling: false
+		minWidth: 767
+		minHeight: 27
+		rightWidth: 28
+		leftWidth: 26
+		bottomHeight: 0
+		topHeight: 0
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.kotcrab.vis.ui.Sizes: {
 	default: {

@@ -1,6 +1,8 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,18 +13,21 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
-import technology.rocketjump.saul.mapping.minimap.MinimapContainer;
+import technology.rocketjump.saul.mapping.minimap.MinimapFrame;
+import technology.rocketjump.saul.mapping.minimap.MinimapImage;
 import technology.rocketjump.saul.mapping.minimap.MinimapManager;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
 @Singleton
-public class MinimapGuiView implements GuiView, GameContextAware {
+public class MinimapGuiView implements GuiView, GameContextAware, Telegraph {
 
 	private final MessageDispatcher messageDispatcher;
 	private final MinimapManager minimapManager;
 	private final PrimaryCameraWrapper primaryCameraWrapper;
-	private final MinimapContainer minimapContainer;
+	private final MinimapImage minimapImage;
+	private final MinimapFrame minimapFrame;
 	private final Texture minimapSelectionTexture;
 	private Table table;
 	private GameContext gameContext;
@@ -40,7 +45,10 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 
 		minimapSelectionTexture = new Texture("assets/ui/minimapSelection.png");
 		TextureRegionDrawable selectionDrawable = new TextureRegionDrawable(new TextureRegion(minimapSelectionTexture));
-		minimapContainer = new MinimapContainer(selectionDrawable, guiSkinRepository.getMainGameSkin(), messageDispatcher);
+		minimapImage = new MinimapImage(selectionDrawable, messageDispatcher);
+		minimapFrame = new MinimapFrame(minimapImage, guiSkinRepository.getMainGameSkin());
+
+		messageDispatcher.addListener(this, MessageType.MINIMAP_SIZE_CHANGED);
 	}
 
 	@Override
@@ -52,14 +60,14 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 	@Override
 	public void update() {
 		if (minimapManager.getCurrentTexture() != null) {
-			minimapContainer.updateTexture(minimapManager.getCurrentTexture());
+			minimapImage.updateTexture(minimapManager.getCurrentTexture());
 		}
 
 		OrthographicCamera camera = primaryCameraWrapper.getCamera();
 
-		minimapContainer.setMapSize(gameContext.getAreaMap().getWidth(), gameContext.getAreaMap().getHeight());
-		minimapContainer.setCameraPosition(camera.position);
-		minimapContainer.setViewportSize(camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom);
+		minimapImage.setMapSize(gameContext.getAreaMap().getWidth(), gameContext.getAreaMap().getHeight());
+		minimapImage.setCameraPosition(camera.position);
+		minimapImage.setViewportSize(camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom);
 	}
 
 	@Override
@@ -75,7 +83,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 
 	private void resetTable() {
 		table.clearChildren();
-		table.add(minimapContainer).right();
+		table.add(minimapFrame).right();
 	}
 
 	@Override
@@ -83,12 +91,24 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 		if (gameContext != null) {
 			// TODO set minimapContainer size smaller when map is large
 			this.gameContext = gameContext;
-			minimapContainer.setSize(gameContext.getAreaMap().getWidth(), gameContext.getAreaMap().getHeight());
+			minimapImage.setSize(gameContext.getAreaMap().getWidth(), gameContext.getAreaMap().getHeight());
 		}
 	}
 
 	@Override
 	public void clearContextRelatedState() {
 
+	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.MINIMAP_SIZE_CHANGED -> {
+				minimapFrame.reset();
+				return true;
+			}
+			default ->
+				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + getClass().getSimpleName());
+		}
 	}
 }

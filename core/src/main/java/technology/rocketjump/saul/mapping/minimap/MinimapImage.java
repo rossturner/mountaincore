@@ -10,14 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import technology.rocketjump.saul.messaging.MessageType;
 
-public class MinimapContainer extends Container<Image> {
+public class MinimapImage extends Container<Image> {
 
 	private final TextureRegionDrawable selectionDrawable;
+	private final MessageDispatcher messageDispatcher;
 	private TextureRegionDrawable minimapDrawable;
 	private Image minimapImage;
 
@@ -28,8 +28,9 @@ public class MinimapContainer extends Container<Image> {
 	private int mapWidth;
 	private int mapHeight;
 
-	public MinimapContainer(TextureRegionDrawable selectionDrawable, Skin mainGameSkin, MessageDispatcher messageDispatcher) {
+	public MinimapImage(TextureRegionDrawable selectionDrawable, MessageDispatcher messageDispatcher) {
 		this.setTouchable(Touchable.enabled);
+		this.messageDispatcher = messageDispatcher;
 
 		this.selectionDrawable = selectionDrawable;
 
@@ -60,6 +61,12 @@ public class MinimapContainer extends Container<Image> {
 			minimapImage = new Image(minimapDrawable);
 			this.setActor(minimapImage);
 		}
+	}
+
+	@Override
+	public void setSize(float width, float height) {
+		super.setSize(width, height);
+		messageDispatcher.dispatchMessage(MessageType.MINIMAP_SIZE_CHANGED);
 	}
 
 	@Override
