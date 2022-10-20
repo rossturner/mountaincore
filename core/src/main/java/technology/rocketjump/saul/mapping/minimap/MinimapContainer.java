@@ -11,9 +11,6 @@ import com.ray3k.tenpatch.TenPatchDrawable;
 
 public class MinimapContainer extends Container<MinimapImage> {
 
-	private final TextureRegionDrawable selectionDrawable;
-	private final MessageDispatcher messageDispatcher;
-	private TextureRegionDrawable minimapDrawable;
 	private final MinimapImage minimapImage;
 
 	private static final float MINIMAP_FRAME_BORDER_SIZE = 41f / 2f;
@@ -23,9 +20,6 @@ public class MinimapContainer extends Container<MinimapImage> {
 
 	public MinimapContainer(TextureRegionDrawable selectionDrawable, MessageDispatcher messageDispatcher, Skin skin) {
 		this.setTouchable(Touchable.enabled);
-		this.setDebug(true);
-		this.messageDispatcher = messageDispatcher;
-		this.selectionDrawable = selectionDrawable;
 
 		TenPatchDrawable backgroundDrawable = skin.get("map_bg_full_patch", TenPatchDrawable.class);
 		backgroundDrawable.setScale(0.5f);

@@ -31,7 +31,6 @@ public class MinimapImage extends Container<Image> {
 
 	public MinimapImage(TextureRegionDrawable selectionDrawable, MessageDispatcher messageDispatcher, Skin skin) {
 		this.setTouchable(Touchable.enabled);
-		this.setDebug(true);
 		this.messageDispatcher = messageDispatcher;
 		this.selectionDrawable = selectionDrawable;
 
