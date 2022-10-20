@@ -362,5 +362,6 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		stack.addActor(buildBackgroundBaseLayer());
 		stack.addActor(buildBackgroundLayer());
 		stack.addActor(buildComponentLayer());
+		savedGamesUpdated();
 	}
 }

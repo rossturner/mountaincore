@@ -49,7 +49,7 @@ public class OnDemandFontRepository implements Disposable {
 		LanguageType currentLanguage = i18nRepo.getCurrentLanguageType();
 
 		String defaultFontName = currentLanguage.getFontName() != null ? currentLanguage.getFontName() : uiConstants.getDefaultFont();
-		String headerFontName = currentLanguage.getFontName() != null ? currentLanguage.getHeaderFontName() : uiConstants.getHeaderFont();
+		String headerFontName = currentLanguage.getHeaderFontName() != null ? currentLanguage.getHeaderFontName() : uiConstants.getHeaderFont();
 
 		if (!defaultFontName.equals(this.defaultFontName) || !headerFontName.equals(this.headerFontName)) {
 			dispose();

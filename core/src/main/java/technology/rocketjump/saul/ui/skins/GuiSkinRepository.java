@@ -112,6 +112,9 @@ public class GuiSkinRepository implements Telegraph {
 		Skin originalSkin = loadSkin(pathToSkin);
 
 		currentSkin.add("header-font-32", onDemandFontRepository.getHeaderFont(32));
+		currentSkin.add("header-font-36", onDemandFontRepository.getHeaderFont(36));
+		currentSkin.add("header-font-47", onDemandFontRepository.getHeaderFont(47));
+		currentSkin.add("header-font-50", onDemandFontRepository.getHeaderFont(50));
 		currentSkin.add("default-font-16", onDemandFontRepository.getDefaultFont(16));
 
 		for (Class<?> styleClass : scene2DClassesWithFontProperty) {

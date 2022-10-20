@@ -108,8 +108,7 @@ public class TopLevelMenu implements Menu, DisplaysText {
 
     private Actor buildMainMenuLayer() {
 
-        Container<TextButton> continueButton = menuButtonFactory.createButton("MENU.CONTINUE_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
-                .withHeaderFont(47)
+        Container<TextButton> continueButton = menuButtonFactory.createButton("MENU.CONTINUE_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1_47PT)
                 .withScaledToFitLabel(307)
                 .withAction(() -> {
                     if (gameStarted) {
@@ -124,16 +123,14 @@ public class TopLevelMenu implements Menu, DisplaysText {
                 })
                 .build();
 
-        Container<TextButton> loadGameButton = menuButtonFactory.createButton("MENU.LOAD_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
-                .withHeaderFont(47)
+        Container<TextButton> loadGameButton = menuButtonFactory.createButton("MENU.LOAD_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1_47PT)
                 .withScaledToFitLabel(307)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.LOAD_GAME_MENU);
                 })
                 .build();
 
-        Container<TextButton> newGameButton = menuButtonFactory.createButton("MENU.NEW_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
-                .withHeaderFont(47)
+        Container<TextButton> newGameButton = menuButtonFactory.createButton("MENU.NEW_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1_47PT)
                 .withScaledToFitLabel(307)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.EMBARK_MENU);
@@ -141,16 +138,14 @@ public class TopLevelMenu implements Menu, DisplaysText {
                 .build();
 
         int lesserImportanceWidth = 277;
-        Container<TextButton> optionsButton = menuButtonFactory.createButton("MENU.OPTIONS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1)
-                .withHeaderFont(47)
+        Container<TextButton> optionsButton = menuButtonFactory.createButton("MENU.OPTIONS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1_47PT)
                 .withScaledToFitLabel(lesserImportanceWidth)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.OPTIONS_MENU);
                 })
                 .build();
 
-        Container<TextButton> modsButton = menuButtonFactory.createButton("MENU.MODS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_2)
-                .withHeaderFont(47)
+        Container<TextButton> modsButton = menuButtonFactory.createButton("MENU.MODS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_2_47PT)
                 .withScaledToFitLabel(lesserImportanceWidth)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.MODS_MENU);
@@ -190,8 +185,6 @@ public class TopLevelMenu implements Menu, DisplaysText {
         buttonsTable.add(quitButton).padBottom(13f).height(58).row();
         buttonsTable.add(languageSelect).padBottom(208f).height(40).width(lesserImportanceWidth).row();
         buttonsTable.bottom();
-        buttonsTable.debugAll();
-
 
         Table positioningTable = new Table();
         positioningTable.right().top();
