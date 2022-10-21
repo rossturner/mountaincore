@@ -20,7 +20,7 @@ public class MinimapImage extends Container<Image> {
 	private final TextureRegionDrawable selectionDrawable;
 	private final MessageDispatcher messageDispatcher;
 	private TextureRegionDrawable minimapDrawable;
-	private Image minimapImage;
+	private Image image;
 
 	private float cameraPositionX;
 	private float cameraPositionY;
@@ -31,6 +31,7 @@ public class MinimapImage extends Container<Image> {
 
 	public MinimapImage(TextureRegionDrawable selectionDrawable, MessageDispatcher messageDispatcher, Skin skin) {
 		this.setTouchable(Touchable.enabled);
+		this.setDebug(true);
 		this.messageDispatcher = messageDispatcher;
 		this.selectionDrawable = selectionDrawable;
 
@@ -58,8 +59,8 @@ public class MinimapImage extends Container<Image> {
 	public void updateTexture(Texture minimapTexture) {
 		if (minimapDrawable == null || !minimapDrawable.getRegion().getTexture().equals(minimapTexture)) {
 			this.minimapDrawable = new TextureRegionDrawable(new TextureRegion(minimapTexture));
-			minimapImage = new Image(minimapDrawable);
-			this.setActor(minimapImage);
+			image = new Image(minimapDrawable);
+			this.setActor(image);
 		}
 	}
 
@@ -92,5 +93,13 @@ public class MinimapImage extends Container<Image> {
 	public void setMapSize(int mapWidth, int mapHeight) {
 		this.mapWidth = mapWidth;
 		this.mapHeight = mapHeight;
+	}
+
+	@Override
+	public void setSize (float width, float height) {
+		super.setSize(width, height);
+		if (image != null) {
+//			image.setScale(1.5f);
+		}
 	}
 }

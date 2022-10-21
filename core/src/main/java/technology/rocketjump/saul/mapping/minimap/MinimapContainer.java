@@ -51,15 +51,27 @@ public class MinimapContainer extends Container<MinimapImage> {
 		return containerWidth;
 	}
 
-	public void setContainerWidth(float containerWidth) {
-		this.containerWidth = MINIMAP_FRAME_BORDER_SIZE + containerWidth + MINIMAP_FRAME_BORDER_SIZE;
+	public void setContainerWidth(float containerWidth, boolean addBorder) {
+		this.containerWidth = containerWidth;
+		if (addBorder) {
+			this.containerWidth += (2 * MINIMAP_FRAME_BORDER_SIZE);
+		}
 	}
 
 	public float getContainerHeight() {
 		return containerHeight;
 	}
 
-	public void setContainerHeight(float containerHeight) {
-		this.containerHeight = MINIMAP_FRAME_BORDER_SIZE + containerHeight + MINIMAP_FRAME_BORDER_SIZE;
+	public void setContainerHeight(float containerHeight, boolean addBorder) {
+		this.containerHeight = containerHeight;
+		if (addBorder) {
+			this.containerHeight += (2 * MINIMAP_FRAME_BORDER_SIZE);
+		}
+	}
+
+ 	@Override
+	public void setSize (float width, float height) {
+		super.setSize(width, height);
+		minimapImage.setSize(width - (2 * MINIMAP_FRAME_BORDER_SIZE), height - (2 * MINIMAP_FRAME_BORDER_SIZE));
 	}
 }

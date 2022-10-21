@@ -52,9 +52,7 @@ public class CursorManager implements Telegraph {
 		if (cursor == null) {
 			cursor = GameCursor.CURSOR;
 		}
-		if (currentCursorStack.isEmpty() || !currentCursorStack.peek().equals(cursor)) {
-			currentCursorStack.push(cursor);
-		}
+		currentCursorStack.push(cursor);
 		resetCursor();
 	}
 

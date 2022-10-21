@@ -1,23 +1,27 @@
 package technology.rocketjump.saul.ui.views;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.mapping.minimap.MinimapContainer;
 import technology.rocketjump.saul.mapping.minimap.MinimapManager;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
@@ -35,6 +39,8 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 	private Table table;
 	private final Button resizeButton;
 	private GameContext gameContext;
+	private Vector2 initialDragStageCoords = new Vector2();
+	private Vector2 initialContainerSize = new Vector2();
 
 	@Inject
 	public MinimapGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
@@ -62,10 +68,34 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 		minimapGroup.addActor(minimapContainer);
 		minimapGroup.addActor(resizeButton);
 
-		minimapGroup.addListener(new ClickListener() {
+		resizeButton.addListener(new InputListener() {
+
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				messageDispatcher.dispatchMessage(MessageType.PUSH_CURSOR_TO_STACK, GameCursor.RESIZE);
+				initialDragStageCoords = table.getStage().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+				initialContainerSize = new Vector2(minimapContainer.getContainerWidth(), minimapContainer.getContainerHeight());
+				Logger.info("Touch down, set to " + initialDragStageCoords);
+				return true;
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				messageDispatcher.dispatchMessage(MessageType.POP_CURSOR_FROM_STACK);
+				Logger.info("Touch up");
+			}
+
+			@Override
+			public void touchDragged(InputEvent event, float x, float y, int pointer) {
+				Vector2 initialLocalCoords = minimapContainer.stageToLocalCoordinates(initialDragStageCoords.cpy());
+				Vector2 newLocalCoords = minimapContainer.stageToLocalCoordinates(minimapContainer.getStage().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY())));
+				Vector2 diff = initialLocalCoords.sub(newLocalCoords);
+
+				float aspectRatio = minimapContainer.getActor().getWidth() / minimapContainer.getActor().getHeight();
+				minimapContainer.setContainerWidth(initialContainerSize.x + diff.x, false);
+				minimapContainer.setContainerHeight(initialContainerSize.y + (diff.x / aspectRatio), false);
+				resetTable();
+				table.layout();
 			}
 		});
 	}
@@ -103,13 +133,15 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 	private void resetTable() {
 		table.clearChildren();
 
-		resizeButton.setPosition(resizeButton.getX(), resizeButton.getY() + minimapContainer.getContainerHeight() - (resizeButton.getHeight() / 2f));
 		minimapContainer.setSize(minimapContainer.getContainerWidth(), minimapContainer.getContainerHeight());
+
 //		minimapGroup.setSize(minimapContainer.getContainerWidth(), minimapContainer.getContainerHeight());
 
 		table.add(minimapGroup).right().expand(true, true)
 				.size(minimapContainer.getContainerWidth(), minimapContainer.getContainerHeight())
 				.padRight(8).padBottom(8);
+
+		resizeButton.setPosition(minimapContainer.getX(), minimapContainer.getY() + minimapContainer.getContainerHeight() - resizeButton.getHeight());
 	}
 
 	@Override
@@ -117,8 +149,8 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 		if (gameContext != null) {
 			// TODO set minimapContainer size smaller when map is large
 			this.gameContext = gameContext;
-			minimapContainer.setContainerWidth(gameContext.getAreaMap().getWidth());
-			minimapContainer.setContainerHeight(gameContext.getAreaMap().getHeight());
+			minimapContainer.setContainerWidth(gameContext.getAreaMap().getWidth(), true);
+			minimapContainer.setContainerHeight(gameContext.getAreaMap().getHeight(), true);
 			resetTable();
 		}
 	}
@@ -128,15 +160,4 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 
 	}
 
-//	@Override
-//	public boolean handleMessage(Telegram msg) {
-//		switch (msg.message) {
-//			case MessageType.MINIMAP_SIZE_CHANGED -> {
-//				minimapFrame.reset();
-//				return true;
-//			}
-//			default ->
-//				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + getClass().getSimpleName());
-//		}
-//	}
 }
