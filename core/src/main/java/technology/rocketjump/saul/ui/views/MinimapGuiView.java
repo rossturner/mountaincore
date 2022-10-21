@@ -67,7 +67,6 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 		minimapContainer = new MinimapContainer(selectionDrawable, messageDispatcher, mainGameSkin);
 
 		minimapGroup = new WidgetGroup();
-		minimapGroup.setFillParent(true);
 
 		minimapGroup.addActor(minimapContainer);
 		minimapGroup.addActor(resizeButton);
@@ -148,8 +147,6 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 		table.clearChildren();
 
 		minimapContainer.setSize(minimapContainer.getContainerWidth(), minimapContainer.getContainerHeight());
-
-//		minimapGroup.setSize(minimapContainer.getContainerWidth(), minimapContainer.getContainerHeight());
 
 		table.add(minimapGroup).right()
 				.size(minimapContainer.getContainerWidth(), minimapContainer.getContainerHeight())

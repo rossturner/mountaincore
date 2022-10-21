@@ -385,7 +385,6 @@ public class Entity implements Persistable, Disposable {
 		if (savedGameStateHolder.entities.containsKey(id)) {
 			return;
 		}
-		savedGameStateHolder.entities.put(id, this);
 
 		JSONObject asJson = new JSONObject(true);
 		asJson.put("id", id);
@@ -409,6 +408,7 @@ public class Entity implements Persistable, Disposable {
 		}
 
 		savedGameStateHolder.entitiesJson.add(asJson);
+		savedGameStateHolder.entities.put(id, this);
 	}
 
 	@Override
