@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -65,6 +66,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 		Drawable background = mainGameSkin.getDrawable("info_box_bg");
 		this.setBackground(background);
 		this.size(background.getMinWidth() / 2f, background.getMinHeight() / 2f);
+		this.setTouchable(Touchable.enabled); // Prevent click-through to game world below this section of the UI
 
 		for (Season season : Season.values()) {
 			String drawableName = "asset_season_" + season.name().toLowerCase() + "_icon";
