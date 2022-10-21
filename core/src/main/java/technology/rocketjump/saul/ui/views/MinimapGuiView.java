@@ -44,7 +44,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 	private Vector2 initialContainerSize = new Vector2();
 
 	private static final float MIN_CONTAINER_WIDTH = 200f;
-	private static final float MAX_CONTAINER_WIDTH = 1000f;
+	private static final float MAX_CONTAINER_HEIGHT = 800f;
 
 	@Inject
 	public MinimapGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
@@ -102,9 +102,9 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 				if (newContainerWidth < MIN_CONTAINER_WIDTH) {
 					newContainerWidth = MIN_CONTAINER_WIDTH;
 					newContainerHeight = MIN_CONTAINER_WIDTH / aspectRatio;
-				} else if (newContainerWidth > MAX_CONTAINER_WIDTH) {
-					newContainerWidth = MAX_CONTAINER_WIDTH;
-					newContainerHeight = MAX_CONTAINER_WIDTH / aspectRatio;
+				} else if (newContainerHeight > MAX_CONTAINER_HEIGHT) {
+					newContainerWidth = MAX_CONTAINER_HEIGHT * aspectRatio;
+					newContainerHeight = MAX_CONTAINER_HEIGHT;
 				}
 
 				minimapContainer.setContainerWidth(newContainerWidth, false);
@@ -165,7 +165,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 			if (gameContext.getAreaMap() != null) {
 				minimapContainer.setContainerWidth(gameContext.getAreaMap().getWidth(), true);
 				minimapContainer.setContainerHeight(gameContext.getAreaMap().getHeight(), true);
-				while (minimapContainer.getContainerWidth() > MAX_CONTAINER_WIDTH) {
+				while (minimapContainer.getContainerWidth() > MAX_CONTAINER_HEIGHT) {
 					minimapContainer.setContainerWidth(minimapContainer.getContainerWidth() / 2f, false);
 					minimapContainer.setContainerHeight(minimapContainer.getContainerHeight() / 2f, false);
 				}
