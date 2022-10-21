@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.mapping.minimap.MinimapContainer;
@@ -26,6 +25,8 @@ import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+
+import static technology.rocketjump.saul.mapping.minimap.MinimapContainer.MINIMAP_FRAME_BORDER_SIZE;
 
 @Singleton
 public class MinimapGuiView implements GuiView, GameContextAware {
@@ -41,6 +42,9 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 	private GameContext gameContext;
 	private Vector2 initialDragStageCoords = new Vector2();
 	private Vector2 initialContainerSize = new Vector2();
+
+	private static final float MIN_CONTAINER_WIDTH = 200f;
+	private static final float MAX_CONTAINER_WIDTH = 1000f;
 
 	@Inject
 	public MinimapGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
@@ -75,14 +79,12 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 				messageDispatcher.dispatchMessage(MessageType.PUSH_CURSOR_TO_STACK, GameCursor.RESIZE);
 				initialDragStageCoords = table.getStage().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 				initialContainerSize = new Vector2(minimapContainer.getContainerWidth(), minimapContainer.getContainerHeight());
-				Logger.info("Touch down, set to " + initialDragStageCoords);
 				return true;
 			}
 
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				messageDispatcher.dispatchMessage(MessageType.POP_CURSOR_FROM_STACK);
-				Logger.info("Touch up");
 			}
 
 			@Override
@@ -91,11 +93,23 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 				Vector2 newLocalCoords = minimapContainer.stageToLocalCoordinates(minimapContainer.getStage().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY())));
 				Vector2 diff = initialLocalCoords.sub(newLocalCoords);
 
-				float aspectRatio = minimapContainer.getActor().getWidth() / minimapContainer.getActor().getHeight();
-				minimapContainer.setContainerWidth(initialContainerSize.x + diff.x, false);
-				minimapContainer.setContainerHeight(initialContainerSize.y + (diff.x / aspectRatio), false);
+				float aspectRatio = ((float) gameContext.getAreaMap().getWidth() + (2 * MINIMAP_FRAME_BORDER_SIZE))
+						/ ((float) gameContext.getAreaMap().getHeight() + (2 * MINIMAP_FRAME_BORDER_SIZE));
+
+				float newContainerWidth = initialContainerSize.x + diff.x;
+				float newContainerHeight = initialContainerSize.y + (diff.x / aspectRatio);
+
+				if (newContainerWidth < MIN_CONTAINER_WIDTH) {
+					newContainerWidth = MIN_CONTAINER_WIDTH;
+					newContainerHeight = MIN_CONTAINER_WIDTH / aspectRatio;
+				} else if (newContainerWidth > MAX_CONTAINER_WIDTH) {
+					newContainerWidth = MAX_CONTAINER_WIDTH;
+					newContainerHeight = MAX_CONTAINER_WIDTH / aspectRatio;
+				}
+
+				minimapContainer.setContainerWidth(newContainerWidth, false);
+				minimapContainer.setContainerHeight(newContainerHeight, false);
 				resetTable();
-				table.layout();
 			}
 		});
 	}
@@ -137,7 +151,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 
 //		minimapGroup.setSize(minimapContainer.getContainerWidth(), minimapContainer.getContainerHeight());
 
-		table.add(minimapGroup).right().expand(true, true)
+		table.add(minimapGroup).right()
 				.size(minimapContainer.getContainerWidth(), minimapContainer.getContainerHeight())
 				.padRight(8).padBottom(8);
 
@@ -147,11 +161,16 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 	@Override
 	public void onContextChange(GameContext gameContext) {
 		if (gameContext != null) {
-			// TODO set minimapContainer size smaller when map is large
 			this.gameContext = gameContext;
-			minimapContainer.setContainerWidth(gameContext.getAreaMap().getWidth(), true);
-			minimapContainer.setContainerHeight(gameContext.getAreaMap().getHeight(), true);
-			resetTable();
+			if (gameContext.getAreaMap() != null) {
+				minimapContainer.setContainerWidth(gameContext.getAreaMap().getWidth(), true);
+				minimapContainer.setContainerHeight(gameContext.getAreaMap().getHeight(), true);
+				while (minimapContainer.getContainerWidth() > MAX_CONTAINER_WIDTH) {
+					minimapContainer.setContainerWidth(minimapContainer.getContainerWidth() / 2f, false);
+					minimapContainer.setContainerHeight(minimapContainer.getContainerHeight() / 2f, false);
+				}
+				resetTable();
+			}
 		}
 	}
 

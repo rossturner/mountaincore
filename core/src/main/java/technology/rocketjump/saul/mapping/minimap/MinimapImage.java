@@ -6,21 +6,20 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import technology.rocketjump.saul.messaging.MessageType;
 
-public class MinimapImage extends Container<Image> {
+public class MinimapImage extends Container<Actor> {
 
 	private final TextureRegionDrawable selectionDrawable;
 	private final MessageDispatcher messageDispatcher;
 	private TextureRegionDrawable minimapDrawable;
-	private Image image;
 
 	private float cameraPositionX;
 	private float cameraPositionY;
@@ -31,7 +30,6 @@ public class MinimapImage extends Container<Image> {
 
 	public MinimapImage(TextureRegionDrawable selectionDrawable, MessageDispatcher messageDispatcher, Skin skin) {
 		this.setTouchable(Touchable.enabled);
-		this.setDebug(true);
 		this.messageDispatcher = messageDispatcher;
 		this.selectionDrawable = selectionDrawable;
 
@@ -59,8 +57,7 @@ public class MinimapImage extends Container<Image> {
 	public void updateTexture(Texture minimapTexture) {
 		if (minimapDrawable == null || !minimapDrawable.getRegion().getTexture().equals(minimapTexture)) {
 			this.minimapDrawable = new TextureRegionDrawable(new TextureRegion(minimapTexture));
-			image = new Image(minimapDrawable);
-			this.setActor(image);
+			this.setBackground(minimapDrawable);
 		}
 	}
 
@@ -95,11 +92,4 @@ public class MinimapImage extends Container<Image> {
 		this.mapHeight = mapHeight;
 	}
 
-	@Override
-	public void setSize (float width, float height) {
-		super.setSize(width, height);
-		if (image != null) {
-//			image.setScale(1.5f);
-		}
-	}
 }

@@ -7,13 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.ray3k.tenpatch.TenPatchDrawable;
 
 public class MinimapContainer extends Container<MinimapImage> {
 
 	private final MinimapImage minimapImage;
 
-	private static final float MINIMAP_FRAME_BORDER_SIZE = 41f / 2f;
+	public static final float MINIMAP_FRAME_BORDER_SIZE = 41f / 2f;
 
 	private float containerWidth;
 	private float containerHeight;
@@ -28,6 +29,7 @@ public class MinimapContainer extends Container<MinimapImage> {
 
 		this.minimapImage = new MinimapImage(selectionDrawable, messageDispatcher, skin);
 		this.setActor(this.minimapImage);
+		this.align(Align.bottomLeft);
 	}
 
 
@@ -69,9 +71,9 @@ public class MinimapContainer extends Container<MinimapImage> {
 		}
 	}
 
- 	@Override
-	public void setSize (float width, float height) {
-		super.setSize(width, height);
-		minimapImage.setSize(width - (2 * MINIMAP_FRAME_BORDER_SIZE), height - (2 * MINIMAP_FRAME_BORDER_SIZE));
+	@Override
+	public void sizeChanged() {
+		minimapImage.setSize(getWidth() - (2 * MINIMAP_FRAME_BORDER_SIZE), getHeight() - (2 * MINIMAP_FRAME_BORDER_SIZE));
 	}
+
 }
