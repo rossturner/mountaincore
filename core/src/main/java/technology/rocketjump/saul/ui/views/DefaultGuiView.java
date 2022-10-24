@@ -35,9 +35,9 @@ public class DefaultGuiView implements GuiView, DisplaysText {
 		this.tooltipFactory = tooltipFactory;
 
 		buttonsTable.setTouchable(Touchable.enabled);
-		buttonsTable.defaults().padRight(14f);
-		buttonsTable.padLeft(23f / 2f);
-		buttonsTable.padBottom(17f / 2f);
+		buttonsTable.defaults().padRight(28f);
+		buttonsTable.padLeft(23f);
+		buttonsTable.padBottom(17f);
 
 		rebuildUI();
 	}
@@ -75,7 +75,7 @@ public class DefaultGuiView implements GuiView, DisplaysText {
 					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.JOB_PRIORITY);
 				})
 		)) {
-			buttonsTable.add(button).size(button.getMinWidth() / 2f, button.getMinHeight() / 2f);
+			buttonsTable.add(button);
 		}
 	}
 

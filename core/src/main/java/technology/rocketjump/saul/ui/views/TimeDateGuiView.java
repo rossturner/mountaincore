@@ -47,9 +47,9 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 		this.timeDateWidget = timeDateWidget;
 
 		managementScreenButtonTable = new Table(uiSkin);
-		managementScreenButtonTable.padTop(19);
-		managementScreenButtonTable.padRight(26);
-		managementScreenButtonTable.defaults().padLeft(11);
+		managementScreenButtonTable.padTop(38);
+		managementScreenButtonTable.padRight(52);
+		managementScreenButtonTable.defaults().padLeft(22);
 
 		layoutTable = new Table(uiSkin);
 		reset(null);
@@ -81,7 +81,7 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 				}
 			});
 			tooltipFactory.simpleTooltip(screenButton, managementScreen.titleI18nKey, TooltipLocationHint.BELOW);
-			managementScreenButtonTable.add(screenButton).size(157f/2f,170f/2f);
+			managementScreenButtonTable.add(screenButton).size(157f,170f);
 		}
 	}
 

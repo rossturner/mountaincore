@@ -14,7 +14,7 @@ public class MinimapContainer extends Container<MinimapImage> {
 
 	private final MinimapImage minimapImage;
 
-	public static final float MINIMAP_FRAME_BORDER_SIZE = 41f / 2f;
+	public static final float MINIMAP_FRAME_BORDER_SIZE = 41f;
 
 	private float containerWidth;
 	private float containerHeight;
@@ -23,11 +23,10 @@ public class MinimapContainer extends Container<MinimapImage> {
 		this.setTouchable(Touchable.enabled);
 
 		TenPatchDrawable backgroundDrawable = skin.get("map_bg_full_patch", TenPatchDrawable.class);
-		backgroundDrawable.setScale(0.5f);
 		this.setBackground(backgroundDrawable, false);
-		this.pad(41f / 2f);
+		this.pad(41f);
 
-		this.minimapImage = new MinimapImage(selectionDrawable, messageDispatcher, skin);
+		this.minimapImage = new MinimapImage(selectionDrawable, messageDispatcher);
 		this.setActor(this.minimapImage);
 		this.align(Align.bottomLeft);
 	}

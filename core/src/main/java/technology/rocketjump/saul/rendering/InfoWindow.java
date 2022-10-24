@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.fonts.GameFont;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
@@ -30,7 +29,7 @@ public class InfoWindow implements Telegraph {
 	private boolean isDisplayed = false;
 
 	@Inject
-	public InfoWindow(UserPreferences userPreferences, FontRepository fontRepository,
+	public InfoWindow(FontRepository fontRepository,
 					  MessageDispatcher messageDispatcher, I18nWidgetFactory i18NWidgetFactory) {
 		ExtendViewport viewport = new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y);
 		stage = new Stage(viewport);

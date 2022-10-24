@@ -47,7 +47,7 @@ public class DynamicMaterialFactoryTest {
 	public void setUp() throws Exception {
 		Injector injector = Guice.createInjector(new SaulGuiceModule());
 		gameMaterialDictionary = injector.getInstance(GameMaterialDictionary.class);
-		injector.getInstance(GameMaterialI18nUpdater.class).onLanguageUpdated();
+		injector.getInstance(GameMaterialI18nUpdater.class).preLanguageUpdated();
 		when(mockUserPreferences.getPreference(eq(LANGUAGE), any())).thenReturn("en-gb");
 
 		I18nRepo i18nRepo = new I18nRepo(mockUserPreferences);

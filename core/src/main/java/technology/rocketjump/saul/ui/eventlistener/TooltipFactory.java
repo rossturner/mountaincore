@@ -37,7 +37,7 @@ public class TooltipFactory {
 		Table tooltipTable = new Table();
 
 		if (locationHint.equals(BELOW)) {
-			tooltipTable.add(new Image(skin.getDrawable("hover_state_label_arrow_up"))).size(76f/2f, 40f/2f).center().row();
+			tooltipTable.add(new Image(skin.getDrawable("hover_state_label_arrow_up"))).size(76f, 40f).center().row();
 		}
 
 		Container<Label> labelContainer = new Container<>();
@@ -51,7 +51,7 @@ public class TooltipFactory {
 		tooltipTable.add(labelContainer).center().row();
 
 		if (locationHint.equals(ABOVE)) {
-			tooltipTable.add(new Image(skin.getDrawable("hover_state_label_arrow_down"))).size(76f/2f, 40f/2f).center().row();
+			tooltipTable.add(new Image(skin.getDrawable("hover_state_label_arrow_down"))).size(76f, 40f).center().row();
 		}
 
 		parentActor.addListener(new InputListener() {

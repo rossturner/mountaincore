@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -18,7 +17,6 @@ import technology.rocketjump.saul.messaging.MessageType;
 public class MinimapImage extends Container<Actor> {
 
 	private final TextureRegionDrawable selectionDrawable;
-	private final MessageDispatcher messageDispatcher;
 	private TextureRegionDrawable minimapDrawable;
 
 	private float cameraPositionX;
@@ -28,9 +26,8 @@ public class MinimapImage extends Container<Actor> {
 	private int mapWidth;
 	private int mapHeight;
 
-	public MinimapImage(TextureRegionDrawable selectionDrawable, MessageDispatcher messageDispatcher, Skin skin) {
+	public MinimapImage(TextureRegionDrawable selectionDrawable, MessageDispatcher messageDispatcher) {
 		this.setTouchable(Touchable.enabled);
-		this.messageDispatcher = messageDispatcher;
 		this.selectionDrawable = selectionDrawable;
 
 		this.addListener(new ClickListener() {
