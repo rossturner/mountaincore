@@ -503,75 +503,6 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/save_bg_2.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			tint: null
-			tintName: null
-			name: save_bg_2
-			tiled: false
-			minWidth: -1
-			minHeight: -1
-			customized: false
-			tenPatchData: null
-			tvgData: null
-			type: TEXTURE
-			hidden: false
-		}
-		{
-			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/save_bg_2.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			tint: null
-			tintName: null
-			name: save_bg_2_scalable
-			tiled: false
-			minWidth: -1
-			minHeight: -1
-			customized: false
-			tenPatchData: {
-				horizontalStretchAreas: {
-					items: [ 5, 406, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
-					size: 2
-					ordered: true
-				}
-				verticalStretchAreas: {
-					items: [ 5, 565, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
-					size: 2
-					ordered: true
-				}
-				contentLeft: 0
-				contentRight: 0
-				contentTop: 0
-				contentBottom: 0
-				tile: false
-				colorName: null
-				color1Name: null
-				color2Name: null
-				color3Name: null
-				color4Name: null
-				offsetX: 0
-				offsetY: 0
-				offsetXspeed: 0
-				offsetYspeed: 0
-				frameDuration: 0.03
-				regionNames: []
-				playMode: 2
-				crushMode: 0
-			}
-			tvgData: null
-			type: TENPATCH
-			hidden: false
-		}
-		{
 			file: null
 			bgColor: {
 				r: 1
@@ -747,6 +678,46 @@ atlasData: {
 			}
 			tvgData: null
 			type: TENPATCH
+			hidden: false
+		}
+		{
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/save_bg_scalable.9.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: save_bg_scalable
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: NINE_PATCH
+			hidden: false
+		}
+		{
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/selected_save_bg.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: selected_save_bg
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
 			hidden: false
 		}
 	]

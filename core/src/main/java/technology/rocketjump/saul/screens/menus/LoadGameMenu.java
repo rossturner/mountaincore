@@ -34,6 +34,8 @@ import java.util.Map;
 @Singleton
 public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 
+	private static final float SAVE_SLOT_WIDTH = 824.0f;
+	private static final float SAVE_SLOT_HEIGHT = 1144.0f;
 	private final SoundAsset startGameSound;
 	private final MessageDispatcher messageDispatcher;
 	private final MenuButtonFactory menuButtonFactory;
@@ -93,8 +95,6 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 			slot.setBackground(skin.getDrawable("save_greyed_out_bg"));
 		}
 
-		selectedSavedGame = null;
-		disablePlayAndDeleteButtons();
 		java.util.List<SavedGameInfo> savesInOrder = new ArrayList<>(savedGameStore.getAll());
 		savesInOrder.sort((o1, o2) -> o2.lastModifiedTime.compareTo(o1.lastModifiedTime));
 
@@ -138,14 +138,25 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 	}
 
 	private void populateSaveSlot(SavedGameInfo savedGameInfo, Table saveSlot) {
+
+
 		GameClock gameClock = savedGameInfo.gameClock;
 
 		saveSlot.setTouchable(Touchable.enabled);
 		saveSlot.clearListeners();
+
 		saveSlot.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				for (Table slot : slots) {
+					if (!slot.getChildren().isEmpty()) {
+						slot.setBackground(skin.getDrawable("save_bg_scalable"));
+					}
+				}
+
 				if (selectedSavedGame != savedGameInfo) {
+					saveSlot.setBackground(skin.getDrawable("selected_save_bg"));
+
 					selectedSavedGame = savedGameInfo;
 					enablePlayAndDeleteButtons();
 				} else {
@@ -156,7 +167,11 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 			}
 		});
 
-		saveSlot.setBackground(skin.getDrawable("save_bg_2_scalable"));
+		if (selectedSavedGame == savedGameInfo) {
+			saveSlot.setBackground(skin.getDrawable("selected_save_bg"));
+		} else {
+			saveSlot.setBackground(skin.getDrawable("save_bg_scalable"));
+		}
 
 		saveSlot.add();
 		saveSlot.row();
@@ -266,9 +281,9 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		});
 
 		table.add(leftArrow);
-		table.add(slot1).width(824.0f).height(1144.0f);
-		table.add(slot2).width(824.0f).height(1144.0f);
-		table.add(slot3).width(825.0f).height(1144.0f);
+		table.add(slot1).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
+		table.add(slot2).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
+		table.add(slot3).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
 		table.add(rightArrow);
 
 		table.row();
@@ -293,6 +308,8 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON"), (Runnable) () -> {
 						savedGameStore.delete(selectedSavedGame);
 						carouselIndex = 0;
+						selectedSavedGame = null;
+						disablePlayAndDeleteButtons();
 						savedGamesUpdated();
 					});
 					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CANCEL_BUTTON"));
