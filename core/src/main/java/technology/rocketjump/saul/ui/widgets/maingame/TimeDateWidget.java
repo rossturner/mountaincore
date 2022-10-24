@@ -186,8 +186,9 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 	public void update(GameContext gameContext) {
 		dateTimeText.setText(i18nTranslator.getDateTimeString(gameContext.getGameClock()).toString());
 
-		seasonLabel.setText(i18nTranslator.getTranslatedString(gameContext.getGameClock().getCurrentSeason().getI18nKey()).toString());
-		seasonIcon.setDrawable(seasonDrawables.get(gameContext.getGameClock().getCurrentSeason()));
+		Season currentSeason = gameContext.getGameClock().getCurrentSeason();
+		seasonLabel.setText(i18nTranslator.getTranslatedString(currentSeason.getI18nKey()).toString());
+		seasonIcon.setDrawable(seasonDrawables.get(currentSeason));
 
 		weatherLabel.setText(i18nTranslator.getTranslatedString(gameContext.getMapEnvironment().getCurrentWeather().getI18nKey()).toString());
 		weatherIcon.setDrawable(weatherDrawables.get(gameContext.getMapEnvironment().getCurrentWeather()));

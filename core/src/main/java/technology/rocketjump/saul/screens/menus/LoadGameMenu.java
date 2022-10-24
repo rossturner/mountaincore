@@ -39,6 +39,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 	private final MenuButtonFactory menuButtonFactory;
 	private final SavedGameStore savedGameStore;
 	private final Skin skin;
+	private final Skin mainGameSkin;
 	private final I18nTranslator i18nTranslator;
 	private final Stack stack = new Stack();
 	private int carouselIndex = 0;
@@ -60,6 +61,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		this.menuButtonFactory = menuButtonFactory;
 		this.savedGameStore = savedGameStore;
 		this.skin = skinRepository.getMenuSkin();
+		this.mainGameSkin = skinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.startGameSound = soundAssetDictionary.getByName("GameStart");
 
@@ -137,7 +139,6 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 
 	private void populateSaveSlot(SavedGameInfo savedGameInfo, Table saveSlot) {
 		GameClock gameClock = savedGameInfo.gameClock;
-		saveSlot.debugAll();
 
 		saveSlot.setTouchable(Touchable.enabled);
 		saveSlot.clearListeners();
@@ -170,9 +171,15 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		saveSlot.add(new Label(gameClock.getFormattedGameTime(), skin, "white_text_default-font-23")).spaceTop(26.0f).spaceBottom(26.0f);
 		saveSlot.row();
 
-//			seasonIcon.setDrawable(seasonDrawables.get(gameContext.getGameClock().getCurrentSeason()));
 		//TODO: refactor a season widget (label and icon)
-		saveSlot.add(new Label(i18nTranslator.getTranslatedString(gameClock.getCurrentSeason().getI18nKey()).toString(), skin, "white_text_default-font-23")).spaceTop(26.0f).spaceBottom(26.0f);
+		Label seasonLabel = new Label(i18nTranslator.getTranslatedString(gameClock.getCurrentSeason().getI18nKey()).toString(), skin, "white_text_default-font-23");
+		Image seasonIcon = new Image(mainGameSkin.getDrawable("asset_season_" + gameClock.getCurrentSeason().name().toLowerCase() + "_icon"));
+
+		HorizontalGroup season = new HorizontalGroup();
+		season.space(12f);
+		season.addActor(seasonLabel);
+		season.addActor(seasonIcon);
+		saveSlot.add(season).spaceTop(26.0f).spaceBottom(26.0f);
 
 		saveSlot.row();
 		saveSlot.add(new Label(i18nTranslator.getDayString(gameClock).toString(), skin, "white_text_default-font-23")).spaceTop(26.0f).spaceBottom(26.0f);
@@ -182,6 +189,9 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 
 		saveSlot.row();
 		saveSlot.add(new Label(savedGameInfo.version, skin, "white_text_default-font-23")).spaceTop(26.0f).spaceBottom(26.0f);
+
+		saveSlot.row();
+		saveSlot.add(new Label(savedGameInfo.formattedFileModifiedTime, skin, "white_text_default-font-23")).spaceTop(26.0f).spaceBottom(26.0f);
 	}
 
 	private void enablePlayAndDeleteButtons() {
