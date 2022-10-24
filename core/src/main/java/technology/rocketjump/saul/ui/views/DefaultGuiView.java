@@ -1,51 +1,45 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.ui.GameViewMode;
-import technology.rocketjump.saul.ui.actions.ButtonAction;
-import technology.rocketjump.saul.ui.actions.SwitchGuiViewAction;
-import technology.rocketjump.saul.ui.widgets.ButtonStyle;
-import technology.rocketjump.saul.ui.widgets.IconButton;
-import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Singleton
-public class DefaultGuiView implements GuiView {
+public class DefaultGuiView implements GuiView, DisplaysText {
 
-	private List<Actor> buttons = new LinkedList<>();
+	private final MessageDispatcher messageDispatcher;
+	private final TooltipFactory tooltipFactory;
+	private final Skin skin;
+	private Table buttonsTable = new Table();
 
 	@Inject
-	public DefaultGuiView(IconButtonFactory iconButtonFactory, MessageDispatcher messageDispatcher) {
-		IconButton orders = iconButtonFactory.create("GUI.ORDERS_LABEL", "dig-dug", HexColors.get("#A1D479"), ButtonStyle.DEFAULT);
-		orders.setAction(new SwitchGuiViewAction(GuiViewName.ORDER_SELECTION, messageDispatcher));
-		buttons.add(orders);
+	public DefaultGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory) {
+		this.messageDispatcher = messageDispatcher;
+		this.skin = guiSkinRepository.getMainGameSkin();
+		this.tooltipFactory = tooltipFactory;
 
-		IconButton build = iconButtonFactory.create("GUI.BUILD_LABEL", "concrete-bag", HexColors.get("#539CD9"), ButtonStyle.DEFAULT);
-		build.setAction(new SwitchGuiViewAction(GuiViewName.BUILD_MENU, messageDispatcher));
-		buttons.add(build);
+		buttonsTable.setTouchable(Touchable.enabled);
+		buttonsTable.defaults().padRight(14f);
+		buttonsTable.padLeft(23f / 2f);
+		buttonsTable.padBottom(17f / 2f);
 
-		IconButton zones = iconButtonFactory.create("GUI.ZONES_LABEL", "bed", HexColors.get("#C48C7A"), ButtonStyle.DEFAULT);
-		zones.setAction(new SwitchGuiViewAction(GuiViewName.ROOM_SELECTION, messageDispatcher));
-		buttons.add(zones);
-
-		IconButton priority = iconButtonFactory.create("GUI.PRIORITY_LABEL", JobPriority.HIGHER.iconName, JobPriority.HIGHER.color, ButtonStyle.DEFAULT);
-		priority.setAction(new ButtonAction() {
-			@Override
-			public void onClick() {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.PRIORITY_MENU);
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.JOB_PRIORITY);
-			}
-		});
-		buttons.add(priority);
+		rebuildUI();
 	}
 
 	@Override
@@ -60,10 +54,7 @@ public class DefaultGuiView implements GuiView {
 
 	@Override
 	public void populate(Table containerTable) {
-		for (Actor button : buttons) {
-			containerTable.add(button).pad(5);
-		}
-
+		containerTable.add(buttonsTable);
 	}
 
 	@Override
@@ -71,4 +62,33 @@ public class DefaultGuiView implements GuiView {
 		// Doesn't yet need to update every second
 	}
 
+	@Override
+	public void rebuildUI() {
+		buttonsTable.clearChildren();
+
+		for (Button button : List.of(
+				buildButton("btn_bottom_orders", "GUI.ORDERS_LABEL", () -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ORDER_SELECTION)),
+				buildButton("btn_bottom_construction", "GUI.BUILD_LABEL", () -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.BUILD_MENU)),
+				buildButton("btn_bottom_zones", "GUI.ZONES_LABEL", () -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ROOM_SELECTION)),
+				buildButton("btn_bottom_priority", "GUI.PRIORITY_LABEL", () -> {
+					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.PRIORITY_MENU);
+					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.JOB_PRIORITY);
+				})
+		)) {
+			buttonsTable.add(button).size(button.getMinWidth() / 2f, button.getMinHeight() / 2f);
+		}
+	}
+
+	private Button buildButton(String styleName, String i18nKey, Runnable onClick) {
+		Button button = new Button(skin.get(styleName, Button.ButtonStyle.class));
+		button.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				onClick.run();
+			}
+		});
+		button.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		tooltipFactory.simpleTooltip(button, i18nKey, TooltipLocationHint.ABOVE);
+		return button;
+	}
 }
