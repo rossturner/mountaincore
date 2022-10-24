@@ -95,9 +95,9 @@ public class TopLevelMenu implements Menu, DisplaysText {
         twitchButton.getActor().getLabel().setAlignment(Align.right);
 
         Table table = new Table();
-        table.defaults().padBottom(44f);
-        table.add(twitchButton).padLeft(41f);
-        table.add(discordButton).padLeft(36f);
+        table.defaults().padBottom(88f);
+        table.add(twitchButton).padLeft(82f);
+        table.add(discordButton).padLeft(72f);
         table.bottom().left();
 
         return table;
@@ -107,7 +107,7 @@ public class TopLevelMenu implements Menu, DisplaysText {
     private Actor buildMainMenuLayer() {
 
         Container<TextButton> continueButton = menuButtonFactory.createButton("MENU.CONTINUE_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1_47PT)
-                .withScaledToFitLabel(307)
+//                .withScaledToFitLabel(614)
                 .withAction(() -> {
                     if (gameStarted) {
                         messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
@@ -122,20 +122,20 @@ public class TopLevelMenu implements Menu, DisplaysText {
                 .build();
 
         Container<TextButton> loadGameButton = menuButtonFactory.createButton("MENU.LOAD_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1_47PT)
-                .withScaledToFitLabel(307)
+//                .withScaledToFitLabel(614)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.LOAD_GAME_MENU);
                 })
                 .build();
 
         Container<TextButton> newGameButton = menuButtonFactory.createButton("MENU.NEW_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1_47PT)
-                .withScaledToFitLabel(307)
+//                .withScaledToFitLabel(614)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.EMBARK_MENU);
                 })
                 .build();
 
-        int lesserImportanceWidth = 277;
+        int lesserImportanceWidth = 554;
         Container<TextButton> optionsButton = menuButtonFactory.createButton("MENU.OPTIONS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1_47PT)
                 .withScaledToFitLabel(lesserImportanceWidth)
                 .withAction(() -> {
@@ -172,20 +172,22 @@ public class TopLevelMenu implements Menu, DisplaysText {
 
         Table buttonsTable = new Table();
         buttonsTable.background(menuSkin.getDrawable("asset_bg_banner"));
-        buttonsTable.add(continueButton).padBottom(15f).row();
-        buttonsTable.add(loadGameButton).padBottom(15f).row();
-        buttonsTable.add(newGameButton).padBottom(15f).row();
-        buttonsTable.add(optionsButton).padBottom(13f).height(58).row();
-        buttonsTable.add(modsButton).padBottom(13f).height(58).row();
-        buttonsTable.add(creditsButton).padBottom(13f).height(58).row();
-        buttonsTable.add(quitButton).padBottom(13f).height(58).row();
-        buttonsTable.add(languageSelect).padBottom(208f).height(40).width(lesserImportanceWidth).row();
+        buttonsTable.add(continueButton).padBottom(30f).row();
+        buttonsTable.add(loadGameButton).padBottom(30f).row();
+        buttonsTable.add(newGameButton).padBottom(30f).row();
+        buttonsTable.add(optionsButton).padBottom(30f).height(116).row();
+        buttonsTable.add(modsButton).padBottom(26f).height(116).row();
+        buttonsTable.add(creditsButton).padBottom(26f).height(116).row();
+        buttonsTable.add(quitButton).padBottom(26f).height(116).row();
+        buttonsTable.add(languageSelect).padBottom(416f).height(80).width(lesserImportanceWidth).row();
         buttonsTable.bottom();
+
+        buttonsTable.debug();
 
         Table positioningTable = new Table();
         positioningTable.right().top();
-        positioningTable.padTop(16f).padRight(115f);
-        positioningTable.add(buttonsTable).expandY().fillY().width(380);
+        positioningTable.padTop(32f).padRight(230f);
+        positioningTable.add(buttonsTable);//.expandY().fillY().width(380);
 
         this.continueGameButton = continueButton;
         this.loadGameButton = loadGameButton;

@@ -2391,7 +2391,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: null
+						value: save_title_ribbon_bg
 					}
 				}
 				deletable: true
@@ -2418,7 +2418,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: null
+						value: title_ribbon_bg_mike_10patch
 					}
 				}
 				deletable: true
@@ -8512,7 +8512,7 @@ sceneComposer: {
 									type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 									name: background
 									optional: true
-									value: null
+									value: title_ribbon_bg_mike_10patch
 								}
 							}
 							deletable: true
