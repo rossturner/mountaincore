@@ -5,7 +5,7 @@ import technology.rocketjump.saul.screens.menus.Resolution;
 
 public class DisplaySettings {
 
-	public final static GridPoint2 GUI_DESIGN_SIZE = new GridPoint2(1920, 1080);
+	public final static GridPoint2 GUI_DESIGN_SIZE = new GridPoint2(3840, 2160);
 
 	public static boolean showGui = true;
 

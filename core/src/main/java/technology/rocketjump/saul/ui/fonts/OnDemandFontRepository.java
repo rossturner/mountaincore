@@ -40,7 +40,7 @@ public class OnDemandFontRepository implements Disposable {
 		this.i18nRepo = i18nRepo;
 		this.uiConstants = constantsRepo.getUiConstants();
 		this.messageDispatcher = messageDispatcher;
-		FreeTypeFontGenerator.setMaxTextureSize(4096);
+		FreeTypeFontGenerator.setMaxTextureSize(8192);
 
 		this.guaranteedUnicodeFont = generateFont(UNICODE_FONT_FILENAME, 16);
 	}
@@ -82,6 +82,7 @@ public class OnDemandFontRepository implements Disposable {
 		parameter.minFilter = Texture.TextureFilter.MipMapLinearLinear;
 		parameter.magFilter = Texture.TextureFilter.MipMapLinearLinear;
 		parameter.characters = i18nRepo.getAllCharacters(FreeTypeFontGenerator.DEFAULT_CHARS);
+		parameter.padBottom = parameter.padLeft = parameter.padRight = parameter.padTop = 1;
 		BitmapFont font = generator.generateFont(parameter);
 		generator.dispose();
 		return font;

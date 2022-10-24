@@ -65,7 +65,6 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 
 		Drawable background = mainGameSkin.getDrawable("info_box_bg");
 		this.setBackground(background);
-		this.size(background.getMinWidth() / 2f, background.getMinHeight() / 2f);
 		this.setTouchable(Touchable.enabled); // Prevent click-through to game world below this section of the UI
 
 		for (Season season : Season.values()) {
@@ -95,7 +94,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 
 	@Override
 	public void rebuildUI() {
-		settlementNameLabel = new ScaledToFitLabel("...", mainGameSkin.get("settlement-name-label", Label.LabelStyle.class), 247);
+		settlementNameLabel = new ScaledToFitLabel("...", mainGameSkin.get("settlement-name-label", Label.LabelStyle.class), 494);
 
 		buildGameSpeedTable();
 		buildSeasonWeatherTable();
@@ -103,14 +102,14 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 		dateTimeText = new Label("date/time", mainGameSkin);
 
 		layoutTable.clearChildren();
-		layoutTable.padLeft(35);
-		layoutTable.padTop(49);
+		layoutTable.padLeft(70);
+		layoutTable.padTop(98);
 		layoutTable.center();
-		layoutTable.defaults().padBottom(8);
-		layoutTable.add(centeredContainer(settlementNameLabel)).size(247, 35).center().row();
-		layoutTable.add(centeredContainer(gameSpeedControlsTable)).center().width(279).row();
-		layoutTable.add(centeredContainer(seasonWeatherTable)).center().width(279).row();
-		layoutTable.add(centeredContainer(dateTimeText)).center().width(279).row();
+		layoutTable.defaults().padBottom(16);
+		layoutTable.add(centeredContainer(settlementNameLabel)).size(494, 70).center().row();
+		layoutTable.add(centeredContainer(gameSpeedControlsTable)).center().width(558).row();
+		layoutTable.add(centeredContainer(seasonWeatherTable)).center().width(558).row();
+		layoutTable.add(centeredContainer(dateTimeText)).center().width(558).row();
 
 		onContextChange(gameContext);
 	}
@@ -118,7 +117,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 	private void buildGameSpeedTable() {
 		speedButtons.clear();
 		gameSpeedControlsTable.clearChildren();
-		gameSpeedControlsTable.defaults().padLeft(22);
+		gameSpeedControlsTable.defaults().padLeft(44);
 
 		for (GameSpeed gameSpeed : GameSpeed.VISIBLE_TO_UI) {
 			Button speedButton = new Button(mainGameSkin, "game-speed-"+gameSpeed.name().toLowerCase());
@@ -167,13 +166,13 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 		seasonWeatherTable.add(seasonLabel);
 
 		seasonIcon = new Image();
-		seasonWeatherTable.add(centeredContainer(seasonIcon)).size(23, 23);
+		seasonWeatherTable.add(centeredContainer(seasonIcon)).size(46, 46);
 
 		weatherLabel = new Label("WEATHER", mainGameSkin);
 		seasonWeatherTable.add(weatherLabel);
 
 		weatherIcon = new Image();
-		seasonWeatherTable.add(centeredContainer(weatherIcon)).size(23, 23);
+		seasonWeatherTable.add(centeredContainer(weatherIcon)).size(46, 46);
 	}
 
 	@Override

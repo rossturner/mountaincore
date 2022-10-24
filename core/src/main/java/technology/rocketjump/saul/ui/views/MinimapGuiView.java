@@ -43,8 +43,8 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 	private Vector2 initialDragStageCoords = new Vector2();
 	private Vector2 initialContainerSize = new Vector2();
 
-	private static final float MIN_CONTAINER_WIDTH = 200f;
-	private static final float MAX_CONTAINER_HEIGHT = 800f;
+	private static final float MIN_CONTAINER_WIDTH = 300f;
+	private static final float MAX_CONTAINER_HEIGHT = 1600f;
 
 	@Inject
 	public MinimapGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
@@ -58,7 +58,6 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 		Skin mainGameSkin = guiSkinRepository.getMainGameSkin();
 		Drawable resizeButtonDrawable = mainGameSkin.getDrawable("btn_map_resize");
 		resizeButton = new Button(resizeButtonDrawable);
-		resizeButton.setSize(resizeButtonDrawable.getMinWidth() / 2f, resizeButtonDrawable.getMinHeight() / 2f);
 		resizeButton.addListener(new ChangeCursorOnHover(GameCursor.RESIZE, messageDispatcher));
 
 		minimapSelectionTexture = new Texture("assets/ui/minimapSelection.png");
