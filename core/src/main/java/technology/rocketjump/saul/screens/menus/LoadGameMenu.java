@@ -127,7 +127,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 
 	@Override
 	public void onContextChange(GameContext gameContext) {
-//		this.gameContext = gameContext;
+		this.gameContext = gameContext;
 	}
 
 	@Override
@@ -137,6 +137,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 
 	private void populateSaveSlot(SavedGameInfo savedGameInfo, Table saveSlot) {
 		GameClock gameClock = savedGameInfo.gameClock;
+		saveSlot.debugAll();
 
 		saveSlot.setTouchable(Touchable.enabled);
 		saveSlot.clearListeners();
@@ -161,31 +162,26 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 
 		Label settlementName = new Label(savedGameInfo.settlementName, skin, "save_title_ribbon");
 		settlementName.setAlignment(Align.center);
-//		settlementName.setHeight(54);
-//
-//		Container<Label> settlementNameContainer = new Container<>(settlementName);
-//		settlementNameContainer.height(54);
-//		settlementNameContainer.setBackground(skin.getDrawable("save_title_ribbon_bg"));
 
 		saveSlot.add(settlementName).padLeft(10).padRight(10);
 
 		saveSlot.row();
-		saveSlot.add(new Label(gameClock.getFormattedGameTime(), skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
 
+		saveSlot.add(new Label(gameClock.getFormattedGameTime(), skin, "white_text_default-font-23")).spaceTop(26.0f).spaceBottom(26.0f);
 		saveSlot.row();
 
 //			seasonIcon.setDrawable(seasonDrawables.get(gameContext.getGameClock().getCurrentSeason()));
 		//TODO: refactor a season widget (label and icon)
-		saveSlot.add(new Label(i18nTranslator.getTranslatedString(gameClock.getCurrentSeason().getI18nKey()).toString(), skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
+		saveSlot.add(new Label(i18nTranslator.getTranslatedString(gameClock.getCurrentSeason().getI18nKey()).toString(), skin, "white_text_default-font-23")).spaceTop(26.0f).spaceBottom(26.0f);
 
 		saveSlot.row();
-		saveSlot.add(new Label(i18nTranslator.getDayString(gameClock).toString(), skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
+		saveSlot.add(new Label(i18nTranslator.getDayString(gameClock).toString(), skin, "white_text_default-font-23")).spaceTop(26.0f).spaceBottom(26.0f);
 
 		saveSlot.row();
-		saveSlot.add(new Label(i18nTranslator.getYearString(gameClock).toString(), skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
+		saveSlot.add(new Label(i18nTranslator.getYearString(gameClock).toString(), skin, "white_text_default-font-23")).spaceTop(26.0f).spaceBottom(26.0f);
 
 		saveSlot.row();
-		saveSlot.add(new Label(savedGameInfo.version, skin, "white_text")).spaceTop(26.0f).spaceBottom(26.0f);
+		saveSlot.add(new Label(savedGameInfo.version, skin, "white_text_default-font-23")).spaceTop(26.0f).spaceBottom(26.0f);
 	}
 
 	private void enablePlayAndDeleteButtons() {
@@ -211,8 +207,8 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 	private Actor buildComponentLayer() {
 		Table table = new Table();
 		table.setName("loadGameComponents");
-		table.padLeft(197.0f);
-		table.padRight(197.0f);
+		table.padLeft(36.0f);
+		table.padRight(36.0f);
 		table.padTop(0.0f);
 		table.padBottom(0.0f);
 
@@ -326,24 +322,23 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		backButton.width(336f).height(144.0f);
 		playButton.width(336f).height(144.0f);
 
-		loadControls.add(playButton).fill().spaceRight(36.0f);
-		loadControls.add(backButton).fill().spaceLeft(36.0f).spaceRight(36.0f);
 		loadControls.add(deleteButton).fill().spaceLeft(36.0f);
+		loadControls.add(backButton).fill().spaceLeft(36.0f).spaceRight(36.0f);
+		loadControls.add(playButton).fill().spaceRight(36.0f);
 
 
 		table.add(loadControls).spaceTop(180.0f).spaceBottom(180.0f).expandX().align(Align.right).colspan(5);
-		stack.addActor(table);
 
 		return table;
 	}
 
-	private Actor buildBackgroundLayer() {
+	private Actor buildBackgroundAndComponents() {
 		Table table = new Table();
 		table.setName("background");
 		table.setBackground(skin.getDrawable("paper_texture_bg"));
-		table.add(new Image(skin.getDrawable("paper_texture_bg_pattern_large"))).padLeft(242.0f);
-		table.add().expandX();
-		table.add(new Image(skin.getDrawable("paper_texture_bg_pattern_large"))).padRight(242.0f);
+		table.add(new Image(skin.getDrawable("paper_texture_bg_pattern_large"))).growY().padLeft(242.0f);
+		table.add(buildComponentLayer()).expandX().fill();
+		table.add(new Image(skin.getDrawable("paper_texture_bg_pattern_large"))).growY().padRight(242.0f);
 		return table;
 	}
 
@@ -359,8 +354,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 	@Override
 	public void rebuildUI() {
 		stack.addActor(buildBackgroundBaseLayer());
-		stack.addActor(buildBackgroundLayer());
-		stack.addActor(buildComponentLayer());
+		stack.addActor(buildBackgroundAndComponents());
 		savedGamesUpdated();
 	}
 }

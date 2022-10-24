@@ -52,12 +52,14 @@ public class GuiSkinRepository implements Telegraph {
 		skin.add("placeholder-font", fontRepository.getDefaultFontForUI().getBitmapFont(), BitmapFont.class);
 		skin.add("placeholder-header-font", fontRepository.getDefaultFontForUI().getBitmapFont(), BitmapFont.class);
 
+		//todo: rename to match point size
 		skin.add("header-font-32", onDemandFontRepository.getHeaderFont(64));
 		skin.add("header-font-36", onDemandFontRepository.getHeaderFont(72));
 		skin.add("header-font-47", onDemandFontRepository.getHeaderFont(96));
 		skin.add("header-font-50", onDemandFontRepository.getHeaderFont(100));
 		skin.add("header-font-65", onDemandFontRepository.getHeaderFont(130));
 		skin.add("default-font-16", onDemandFontRepository.getDefaultFont(16));
+		skin.add("default-font-23", onDemandFontRepository.getDefaultFont(46));
 
 		skin.addRegions(new TextureAtlas(menuSkinAtlasFile));
 		skin.load(menuSkinFile);

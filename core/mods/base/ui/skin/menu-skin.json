@@ -183,7 +183,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		fontColor: white
 	}
 	save_title_ribbon: {
-		font: placeholder-header-font
+		font: header-font-36
 		fontColor: primary_font_colour_yellow_alt
 		background: save_title_ribbon_bg
 	}
@@ -191,6 +191,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: header-font-65
 		fontColor: primary_font_colour_red
 		background: title_ribbon_bg_mike_10patch
+	}
+	white_text_default-font-23: {
+		font: default-font-23
+		fontColor: white
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
