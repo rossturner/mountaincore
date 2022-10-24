@@ -52,7 +52,7 @@ public class DesktopLauncher {
         UserPreferences.FullscreenMode fullscreenMode = getFullscreenMode(userPreferences);
 
         if (fullscreenMode.equals(BORDERLESS_FULLSCREEN)) {
-            System.setProperty("org.lwjgl.opengl.Window.undecorated", "true");
+            config.undecorated = true;
         }
         config.fullscreen = fullscreenMode.equals(EXCLUSIVE_FULLSCREEN);
 
