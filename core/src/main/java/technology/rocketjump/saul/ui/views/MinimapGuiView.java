@@ -53,8 +53,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 		this.minimapManager = minimapManager;
 		this.primaryCameraWrapper = primaryCameraWrapper;
 
-		Skin uiSkin = guiSkinRepository.getDefault();
-		table = new Table(uiSkin);
+		table = new Table();
 
 		Skin mainGameSkin = guiSkinRepository.getMainGameSkin();
 		Drawable resizeButtonDrawable = mainGameSkin.getDrawable("btn_map_resize");

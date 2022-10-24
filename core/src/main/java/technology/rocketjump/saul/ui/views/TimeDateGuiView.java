@@ -73,7 +73,6 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 			Button screenButton = new Button(skin, managementScreen.buttonStyleName);
 
 			screenButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
-			tooltipFactory.simpleTooltip(screenButton, managementScreen.titleI18nKey, TooltipLocationHint.BELOW);
 
 			screenButton.addListener(new ClickListener() {
 				@Override
@@ -81,6 +80,7 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 					messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, managementScreen.name());
 				}
 			});
+			tooltipFactory.simpleTooltip(screenButton, managementScreen.titleI18nKey, TooltipLocationHint.BELOW);
 			managementScreenButtonTable.add(screenButton).size(157f/2f,170f/2f);
 		}
 	}
