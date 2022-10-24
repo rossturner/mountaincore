@@ -88,10 +88,10 @@ public class TopLevelMenu implements Menu, DisplaysText {
                 })
                 .build();
 
-        discordButton.getActor().add(discordIconImage).size(50, 43).padLeft(10f).padRight(44f);
+        discordButton.getActor().add(discordIconImage).size(100, 86).padLeft(20f).padRight(88f);
         discordButton.getActor().getLabel().setAlignment(Align.right);
 
-        twitchButton.getActor().add(twitchIconImage).size(45, 50).padLeft(10f).padRight(50f);
+        twitchButton.getActor().add(twitchIconImage).size(90, 100).padLeft(20f).padRight(100f);
         twitchButton.getActor().getLabel().setAlignment(Align.right);
 
         Table table = new Table();
@@ -107,7 +107,7 @@ public class TopLevelMenu implements Menu, DisplaysText {
     private Actor buildMainMenuLayer() {
 
         Container<TextButton> continueButton = menuButtonFactory.createButton("MENU.CONTINUE_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1_47PT)
-//                .withScaledToFitLabel(614)
+                .withScaledToFitLabel(614)
                 .withAction(() -> {
                     if (gameStarted) {
                         messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
@@ -122,14 +122,14 @@ public class TopLevelMenu implements Menu, DisplaysText {
                 .build();
 
         Container<TextButton> loadGameButton = menuButtonFactory.createButton("MENU.LOAD_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1_47PT)
-//                .withScaledToFitLabel(614)
+                .withScaledToFitLabel(614)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.LOAD_GAME_MENU);
                 })
                 .build();
 
         Container<TextButton> newGameButton = menuButtonFactory.createButton("MENU.NEW_GAME", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_1_47PT)
-//                .withScaledToFitLabel(614)
+                .withScaledToFitLabel(614)
                 .withAction(() -> {
                     messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.EMBARK_MENU);
                 })
@@ -182,12 +182,11 @@ public class TopLevelMenu implements Menu, DisplaysText {
         buttonsTable.add(languageSelect).padBottom(416f).height(80).width(lesserImportanceWidth).row();
         buttonsTable.bottom();
 
-        buttonsTable.debug();
 
         Table positioningTable = new Table();
         positioningTable.right().top();
         positioningTable.padTop(32f).padRight(230f);
-        positioningTable.add(buttonsTable);//.expandY().fillY().width(380);
+        positioningTable.add(buttonsTable);
 
         this.continueGameButton = continueButton;
         this.loadGameButton = loadGameButton;
@@ -230,5 +229,10 @@ public class TopLevelMenu implements Menu, DisplaysText {
         sceneStack.add(bannerPoleImage);
         sceneStack.add(buildSocialMediaLayer());
         sceneStack.add(buildMainMenuLayer());
+    }
+
+    @Override
+    public boolean showVersionDetails() {
+        return true;
     }
 }

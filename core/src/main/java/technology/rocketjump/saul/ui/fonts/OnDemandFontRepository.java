@@ -42,7 +42,7 @@ public class OnDemandFontRepository implements Disposable {
 		this.messageDispatcher = messageDispatcher;
 		FreeTypeFontGenerator.setMaxTextureSize(8192);
 
-		this.guaranteedUnicodeFont = generateFont(UNICODE_FONT_FILENAME, 16);
+		this.guaranteedUnicodeFont = generateFont(UNICODE_FONT_FILENAME, 16 * 2);
 	}
 
 	public void preLanguageUpdated() {

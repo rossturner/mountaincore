@@ -53,13 +53,13 @@ public class GuiSkinRepository implements Telegraph {
 		skin.add("placeholder-header-font", fontRepository.getDefaultFontForUI().getBitmapFont(), BitmapFont.class);
 
 		//todo: rename to match point size
-		skin.add("header-font-32", onDemandFontRepository.getHeaderFont(64));
-		skin.add("header-font-36", onDemandFontRepository.getHeaderFont(72));
-		skin.add("header-font-47", onDemandFontRepository.getHeaderFont(96));
-		skin.add("header-font-50", onDemandFontRepository.getHeaderFont(100));
-		skin.add("header-font-65", onDemandFontRepository.getHeaderFont(130));
-		skin.add("default-font-16", onDemandFontRepository.getDefaultFont(16));
-		skin.add("default-font-23", onDemandFontRepository.getDefaultFont(46));
+		skin.add("header-font-32", onDemandFontRepository.getHeaderFont(32 * 2));
+		skin.add("header-font-36", onDemandFontRepository.getHeaderFont(36 * 2));
+		skin.add("header-font-47", onDemandFontRepository.getHeaderFont(47 * 2));
+		skin.add("header-font-50", onDemandFontRepository.getHeaderFont(50 * 2));
+		skin.add("header-font-65", onDemandFontRepository.getHeaderFont(65 * 2));
+		skin.add("default-font-16", onDemandFontRepository.getDefaultFont(16 * 2));
+		skin.add("default-font-23", onDemandFontRepository.getDefaultFont(23 * 2));
 
 		skin.addRegions(new TextureAtlas(menuSkinAtlasFile));
 		skin.load(menuSkinFile);
@@ -114,12 +114,12 @@ public class GuiSkinRepository implements Telegraph {
 	private void reassignFonts(Skin currentSkin, String pathToSkin) {
 		Skin originalSkin = loadSkin(pathToSkin);
 
-		currentSkin.add("header-font-32", onDemandFontRepository.getHeaderFont(32));
-		currentSkin.add("header-font-36", onDemandFontRepository.getHeaderFont(36));
-		currentSkin.add("header-font-47", onDemandFontRepository.getHeaderFont(47));
-		currentSkin.add("header-font-50", onDemandFontRepository.getHeaderFont(50));
-		currentSkin.add("header-font-65", onDemandFontRepository.getHeaderFont(65));
-		currentSkin.add("default-font-16", onDemandFontRepository.getDefaultFont(16));
+		currentSkin.add("header-font-32", onDemandFontRepository.getHeaderFont(32 * 2));
+		currentSkin.add("header-font-36", onDemandFontRepository.getHeaderFont(36 * 2));
+		currentSkin.add("header-font-47", onDemandFontRepository.getHeaderFont(47 * 2));
+		currentSkin.add("header-font-50", onDemandFontRepository.getHeaderFont(50 * 2));
+		currentSkin.add("header-font-65", onDemandFontRepository.getHeaderFont(65 * 2));
+		currentSkin.add("default-font-16", onDemandFontRepository.getDefaultFont(16 * 2));
 
 		for (Class<?> styleClass : scene2DClassesWithFontProperty) {
 			ObjectMap<String, ?> styles = currentSkin.getAll(styleClass);

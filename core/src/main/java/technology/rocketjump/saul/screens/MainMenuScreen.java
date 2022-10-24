@@ -235,7 +235,9 @@ public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, Game
 		currentMenu.populate(containerTable);
 
 		stage.addActor(containerTable);
-		stage.addActor(versionTable);
+		if (currentMenu.showVersionDetails()) {
+			stage.addActor(versionTable);
+		}
 
 		for (Dialog outstandingDialog : outstandingDialogs) {
 			stage.addActor(outstandingDialog);
@@ -359,7 +361,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, Game
 	private void resetVersionTable() {
 
 		versionTable.clearChildren();
-		versionTable.top().left().padTop(50f).padLeft(25f);
+		versionTable.top().left().padTop(100f).padLeft(50f);
 
 		if (twitchEnabled()) {
 			TwitchAccountInfo accountInfo = twitchDataStore.getAccountInfo();

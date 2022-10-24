@@ -58,26 +58,6 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	}
 }
 com.ray3k.tenpatch.TenPatchDrawable: {
-	title_ribbon_bg_10patch: {
-		region: title_ribbon_bg
-		horizontalStretchAreas: [ 266, 878 ]
-		verticalStretchAreas: [ 0, 222 ]
-		tiling: false
-		minWidth: 1146
-		minHeight: 223
-		rightWidth: 267
-		leftWidth: 266
-		bottomHeight: 59
-		topHeight: 25
-		offsetX: 0
-		offsetY: 0
-		offsetXspeed: 0
-		offsetYspeed: 0
-		frameDuration: 0.03
-		regions: []
-		playMode: 2
-		crushMode: 0
-	}
 	title_ribbon_bg_mike_10patch: {
 		region: title_ribbon_bg_mike
 		horizontalStretchAreas: [ 266, 278 ]
@@ -150,7 +130,6 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
 		font: placeholder-font
 		fontColor: primary_font_colour_red
-		up: btn_banner_1
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
@@ -179,7 +158,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {
-		font: placeholder-font
+		font: default-font-16
 		fontColorSelected: primary_font_colour_yellow_alt
 		fontColorUnselected: white
 		selection: dropdown_body_hover
@@ -196,7 +175,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 	default: {
-		font: placeholder-font
+		font: default-font-16
 		fontColor: white
 		background: select_full
 		scrollStyle: default

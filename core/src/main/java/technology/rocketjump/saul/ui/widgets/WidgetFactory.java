@@ -43,14 +43,11 @@ public class WidgetFactory {
         this.guiSkinRepository = guiSkinRepository;
     }
 
-    public LanguageList createLanguageList(Skin skin) {
-        return new LanguageList(messageDispatcher, i18nRepo, userPreferences, skin, textureAtlasRepository, fontRepository);
-    }
-
     public CustomSelect<LanguageType> createLanguageSelectBox(Skin skin) {
-        LanguageList languageList = createLanguageList(skin);
+        LanguageList languageList = new LanguageList(i18nRepo, userPreferences, skin, textureAtlasRepository, onDemandFontRepository.getGuaranteedUnicodeFont());
+
         SelectBox.SelectBoxStyle selectBoxStyle = new SelectBox.SelectBoxStyle(skin.get(SelectBox.SelectBoxStyle.class));
-        selectBoxStyle.font = fontRepository.getUnicodeFont().getBitmapFont();
+        selectBoxStyle.font = onDemandFontRepository.getGuaranteedUnicodeFont();
         CustomSelect<LanguageType> selectBox = new CustomSelect<>(selectBoxStyle, languageList, new CustomSelect.DrawItemProcedure<LanguageType>() {
             @Override
             public GlyphLayout drawItem(Batch batch, BitmapFont font, LanguageType item, float x, float y, float width) {

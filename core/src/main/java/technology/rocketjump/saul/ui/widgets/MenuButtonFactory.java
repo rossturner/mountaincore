@@ -103,6 +103,11 @@ public class MenuButtonFactory {
             return this;
         }
 
+        public MenuButtonBuilder withScaleUpOnHoverBy(float scaleBy) {
+            buttonContainer.getActor().addListener(new EnlargeOnHoverListener(buttonContainer, scaleBy));
+            return this;
+        }
+
         public MenuButtonBuilder withAction(ButtonAction action) {
             buttonContainer.getActor().addListener(new ClickListener() {
                 @Override
