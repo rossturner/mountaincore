@@ -800,6 +800,146 @@ atlasData: {
 			type: TEXTURE
 			hidden: false
 		}
+		{
+			file: C:/workspace/project-saul/core/mods/base/ui/skin/main-game-skin-composer-project_data/asset_dwarf_select_bg.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: asset_dwarf_select_bg
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/core/mods/base/ui/skin/main-game-skin-composer-project_data/btn_back.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: btn_back
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/core/mods/base/ui/skin/main-game-skin-composer-project_data/btn_current_orders_cancel.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: btn_current_orders_cancel
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/core/mods/base/ui/skin/main-game-skin-composer-project_data/btn_current_orders_chop.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: btn_current_orders_chop
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/core/mods/base/ui/skin/main-game-skin-composer-project_data/btn_current_orders_clear.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: btn_current_orders_clear
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/core/mods/base/ui/skin/main-game-skin-composer-project_data/btn_current_orders_extinguish.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: btn_current_orders_extinguish
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/core/mods/base/ui/skin/main-game-skin-composer-project_data/btn_current_orders_mine.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: btn_current_orders_mine
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
 	]
 	fontDrawables: []
 }

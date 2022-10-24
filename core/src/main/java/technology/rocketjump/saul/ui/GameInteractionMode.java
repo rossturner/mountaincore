@@ -5,7 +5,6 @@ import technology.rocketjump.saul.entities.model.physical.effect.OngoingEffectAt
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesGrowthStage;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.designation.Designation;
 import technology.rocketjump.saul.mapping.tile.designation.DesignationDictionary;
@@ -18,7 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static technology.rocketjump.saul.entities.model.EntityType.*;
-import static technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesGrowthStage.PlantSpeciesHarvestType.FORAGING;
 import static technology.rocketjump.saul.mapping.tile.TileExploration.EXPLORED;
 import static technology.rocketjump.saul.mapping.tile.roof.RoofConstructionState.NONE;
 import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.CONSTRUCTED;
@@ -59,16 +57,6 @@ public enum GameInteractionMode {
 			}
 		}
 		return false;
-	}, true),
-	DESIGNATE_HARVEST_PLANTS(GameCursor.SICKLE, "HARVEST", mapTile -> {
-		Entity plant = mapTile.getPlant();
-		if (plant != null && mapTile.getExploration().equals(EXPLORED) && mapTile.getDesignation() == null) {
-			PlantEntityAttributes attributes = (PlantEntityAttributes) plant.getPhysicalEntityComponent().getAttributes();
-			PlantSpeciesGrowthStage growthStage = attributes.getSpecies().getGrowthStages().get(attributes.getGrowthStageCursor());
-			return FORAGING.equals(growthStage.getHarvestType());
-		} else {
-			return false;
-		}
 	}, true),
 	DESIGNATE_EXTINGUISH_FLAMES(GameCursor.SPLASH, "EXTINGUISH_FLAMES", mapTile -> {
 		if (!mapTile.getExploration().equals(EXPLORED) || mapTile.getDesignation() != null) {

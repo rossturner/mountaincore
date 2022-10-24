@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.StringBuilder;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.rendering.camera.DisplaySettings;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
 /**
@@ -18,12 +20,13 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
  * mostly used for debugging purposes, but also renders dragged area size as WidthxHeight near cursor
  */
 @Singleton
-public class ScreenWriter {
+public class ScreenWriter implements DisplaysText {
 
 	private static final float LINE_HEIGHT = 20f;
 	private final Viewport viewport;
-	private final Label label;
-	private final Label dragSizeLabel;
+	private Label label;
+	private Label dragSizeLabel;
+	private final Skin skin;
 	private Stage stage;
 	private Array<String> lines = new Array<>();
 	public Vector2 offsetPosition = new Vector2();
@@ -34,11 +37,22 @@ public class ScreenWriter {
 	public ScreenWriter(GuiSkinRepository guiSkinRepository) {
 		viewport = new ExtendViewport(DisplaySettings.GUI_DESIGN_SIZE.x, DisplaySettings.GUI_DESIGN_SIZE.y);
 		stage = new Stage(viewport);
+		skin = guiSkinRepository.getMainGameSkin();
 
-		label = new Label("Default text", guiSkinRepository.getDefault());
-		label.setPosition(20f, Gdx.graphics.getHeight() -  30f);
 
-		dragSizeLabel = new Label("Test", guiSkinRepository.getDefault());
+		rebuildUI();
+	}
+
+	@Override
+	public void rebuildUI() {
+		if (label != null) {
+			label.remove();
+		}
+		label = new Label("Default text", skin);
+		dragSizeLabel = new Label("Test", skin);
+
+		Vector2 mainLabelCoords = stage.screenToStageCoordinates(new Vector2(50f, Gdx.graphics.getHeight() - 60f - label.getHeight()));
+		label.setPosition(mainLabelCoords.x, mainLabelCoords.y);
 
 		stage.addActor(label);
 	}
@@ -65,7 +79,8 @@ public class ScreenWriter {
 			if (!dragSizeLabel.hasParent()) {
 				stage.addActor(dragSizeLabel);
 			}
-			dragSizeLabel.setPosition(Gdx.input.getX() + 5, Gdx.graphics.getHeight() - Gdx.input.getY() + 5);
+			Vector2 stageCoords = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX() + 10, Gdx.input.getY() - 10));
+			dragSizeLabel.setPosition(stageCoords.x, stageCoords.y);
 		} else {
 			dragSizeLabel.remove();
 		}
@@ -79,8 +94,8 @@ public class ScreenWriter {
 	public void onResize(int screenWidth, int screenHeight) {
 		viewport.update(screenWidth, screenHeight, true);
 	}
-
 	private int currentTileWidth = 0;
+
 	private int currentTileHeight = 0;
 
 	public int getCurrentTileWidth() {

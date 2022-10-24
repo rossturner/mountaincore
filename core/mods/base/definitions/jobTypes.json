@@ -112,14 +112,6 @@
     "requiredProfessionName": "FARMER"
   },
   {
-    "name": "HARVESTING",
-    "minimumTimeToCompleteJob": 0.75,
-    "maximumTimeToCompleteJob": 5.25,
-    "overrideI18nKey": "ACTION.JOB.HARVESTING",
-    "activeSoundAssetName": "HarvestingCrops",
-    "workOnJobParticleEffectNames": ["Small leaf explosion"]
-  },
-  {
     "name": "HARVEST_FROM_FURNITURE",
     "minimumTimeToCompleteJob": 0.75,
     "maximumTimeToCompleteJob": 5.25,

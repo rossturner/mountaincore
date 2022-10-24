@@ -41,7 +41,10 @@ public class CursorManager implements Telegraph {
 				return true;
 			}
 			case MessageType.POP_CURSOR_FROM_STACK -> {
-				popCursor();
+				GameCursor specificCursor = (GameCursor) msg.extraInfo;
+				if (specificCursor == null || specificCursor.equals(currentCursorStack.peek())) {
+					popCursor();
+				}
 				return true;
 			}
 			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + getClass().getSimpleName());

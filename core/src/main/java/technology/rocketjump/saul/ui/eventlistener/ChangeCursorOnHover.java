@@ -24,6 +24,6 @@ public class ChangeCursorOnHover extends InputListener {
 
 	@Override
 	public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-		messageDispatcher.dispatchMessage(MessageType.POP_CURSOR_FROM_STACK);
+		messageDispatcher.dispatchMessage(MessageType.POP_CURSOR_FROM_STACK, cursor);
 	}
 }

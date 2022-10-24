@@ -409,9 +409,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				}
 				break;
 			}
-			case "HARVEST_FROM_FURNITURE":
-			case "HARVESTING": {
-
+			case "HARVEST_FROM_FURNITURE": {
 				Entity completedByEntity = jobCompletedMessage.getCompletedByEntity();
 				if (completedByEntity != null && completedByEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
 					Entity targetEntity;

@@ -34,7 +34,7 @@ public class TooltipFactory {
 	 * so that the tooltip can be removed when the parentActor is clicked
 	 */
 	public void simpleTooltip(Actor parentActor, String i18nKey, TooltipLocationHint locationHint) {
-		Table tooltipTable = new Table();
+		TooltipTable tooltipTable = new TooltipTable();
 
 		if (locationHint.equals(BELOW)) {
 			tooltipTable.add(new Image(skin.getDrawable("hover_state_label_arrow_up"))).size(76f, 40f).center().row();

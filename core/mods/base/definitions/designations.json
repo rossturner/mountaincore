@@ -14,13 +14,6 @@
     "designationColor": { "r": 1, "g": 1, "b": 1, "a": 0.4 }
   },
   {
-    "designationName": "HARVEST",
-    "iconName": "sickle",
-    "createsJobTypeName": "HARVESTING",
-    "selectionColor": { "r": 1, "g": 1, "b": 0.6, "a": 0.4 },
-    "designationColor": { "r": 1, "g": 1, "b": 1, "a": 0.4 }
-  },
-  {
     "designationName": "CLEAR_GROUND",
     "iconName": "spade",
     "createsJobTypeName": "CLEAR_GROUND",

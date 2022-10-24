@@ -4,6 +4,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -19,6 +20,7 @@ import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.InfoWindow;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.ui.cursor.CursorManager;
+import technology.rocketjump.saul.ui.eventlistener.TooltipTable;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.views.*;
 import technology.rocketjump.saul.ui.views.debug.DebugGuiView;
@@ -125,13 +127,13 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		lowerRightContainerTable.add(minimapContainerTable).bottom().right().row();
 		lowerRightContainerTable.setFillParent(true);
 
+		primaryStage.addActor(lowerRightContainerTable);
 		primaryStage.addActor(upperRightContainerTable);
 		primaryStage.addActor(upperLeftContainerTable);
-		primaryStage.addActor(lowerRightContainerTable);
+		minimapGuiView.populate(minimapContainerTable);
 		timeDateGuiView.populate(timeAndDateContainerTable);
 		timeAndDateContainerTable.row();
 		notificationGuiView.populate(timeAndDateContainerTable);
-		minimapGuiView.populate(minimapContainerTable);
 		hintGuiView.populate(hintContainerTable);
 		debugGuiView.populate(debugContainerTable);
 		debugGuiView.update();
@@ -146,11 +148,11 @@ public class GuiContainer implements Telegraph, GameContextAware {
 				return true;
 			}
 			case MessageType.GUI_SWITCH_INTERACTION_MODE: {
+
+				cursorManager.popCursor();
 				GameInteractionMode targetMode = (GameInteractionMode)msg.extraInfo;
 				if (targetMode.cursor != null) {
 					cursorManager.pushCursor(targetMode.cursor);
-				} else {
-					cursorManager.popCursor();
 				}
 				interactionStateContainer.setInteractionMode(targetMode);
 				return true;
@@ -224,12 +226,21 @@ public class GuiContainer implements Telegraph, GameContextAware {
 			if (currentView != null) {
 				currentView.onClose();
 			}
+			removeAllTooltips();
 			containerTable.clear();
 			newView.populate(containerTable);
 		}
 		currentView = newView;
 		if (GlobalSettings.DEV_MODE) {
 			debugGuiView.update();
+		}
+	}
+
+	private void removeAllTooltips() {
+		for (Actor actor : primaryStage.getActors()) {
+			if (actor instanceof TooltipTable) {
+				actor.remove();
+			}
 		}
 	}
 
