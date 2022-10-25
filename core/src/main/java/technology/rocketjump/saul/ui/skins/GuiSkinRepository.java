@@ -112,6 +112,7 @@ public class GuiSkinRepository implements Telegraph {
 		currentSkin.add("header-font-65", onDemandFontRepository.getHeaderFont(65 * 2));
 		currentSkin.add("default-font-16", onDemandFontRepository.getDefaultFont(16 * 2));
 		currentSkin.add("default-font-19", onDemandFontRepository.getDefaultFont(19 * 2));
+		currentSkin.add("default-font-23", onDemandFontRepository.getDefaultFont(23 * 2));
 
 
 		currentSkin.load(Gdx.files.internal(pathToSkin));

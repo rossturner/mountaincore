@@ -711,6 +711,26 @@ atlasData: {
 			type: NINE_PATCH
 			hidden: false
 		}
+		{
+			file: null
+			bgColor: {
+				r: 0
+				g: 0
+				b: 0
+				a: 1
+			}
+			tint: null
+			tintName: grey_30pc
+			name: default-rect
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: PIXEL
+			hidden: false
+		}
 	]
 	fontDrawables: []
 }
@@ -805,6 +825,16 @@ jsonData: {
 				a: 1
 			}
 			name: saved_greyed_out_bg_colour
+		}
+		{
+			class: com.ray3k.skincomposer.data.ColorData
+			color: {
+				r: 0.80784315
+				g: 0.80784315
+				b: 0.80784315
+				a: 0.29803923
+			}
+			name: grey_30pc
 		}
 		{
 			class: com.ray3k.skincomposer.data.ColorData
