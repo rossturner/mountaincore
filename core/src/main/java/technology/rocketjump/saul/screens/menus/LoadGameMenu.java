@@ -36,6 +36,8 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 
 	private static final float SAVE_SLOT_WIDTH = 824.0f;
 	private static final float SAVE_SLOT_HEIGHT = 1144.0f;
+	public static final String SAVE_BG = "save_bg_patch";
+	public static final String SELECTED_SAVE_BG = "selected_save_bg_patch";
 	private final SoundAsset startGameSound;
 	private final MessageDispatcher messageDispatcher;
 	private final MenuButtonFactory menuButtonFactory;
@@ -150,12 +152,12 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				for (Table slot : slots) {
 					if (!slot.getChildren().isEmpty()) {
-						slot.setBackground(skin.getDrawable("save_bg_scalable"));
+						slot.setBackground(skin.getDrawable(SAVE_BG));
 					}
 				}
 
 				if (selectedSavedGame != savedGameInfo) {
-					saveSlot.setBackground(skin.getDrawable("selected_save_bg"));
+					saveSlot.setBackground(skin.getDrawable(SELECTED_SAVE_BG));
 
 					selectedSavedGame = savedGameInfo;
 					enablePlayAndDeleteButtons();
@@ -168,9 +170,9 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		});
 
 		if (selectedSavedGame == savedGameInfo) {
-			saveSlot.setBackground(skin.getDrawable("selected_save_bg"));
+			saveSlot.setBackground(skin.getDrawable(SELECTED_SAVE_BG));
 		} else {
-			saveSlot.setBackground(skin.getDrawable("save_bg_scalable"));
+			saveSlot.setBackground(skin.getDrawable(SAVE_BG));
 		}
 
 		saveSlot.add();
