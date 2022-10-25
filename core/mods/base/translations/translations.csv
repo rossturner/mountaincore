@@ -443,8 +443,10 @@ GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}}
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total)
 GUI.CROP_SELECTION,,Crop:
 GUI.DATE_TIME_YEAR_LABEL,"E.g. 09:20, Day 4, Year 2","{{timeOfDay}}, Day {{dayNumber}}, Year {{year}}"
+GUI.DAY_LABEL,,Day {{dayNumber}}
 GUI.DECONSTRUCT_LABEL,This should be as short as possible,Demolish
 GUI.DIALOG.CANCEL_BUTTON,,Cancel
+GUI.DIALOG.CONFIRM,,Confirm
 GUI.DIALOG.CONFIRM_DELETE_SAVE,,Are you sure you wish to delete {{name}}?
 GUI.DIALOG.DISMISS,,Dismiss
 GUI.DIALOG.ERROR_ROOM_NAME_ALREADY_EXISTS,Error message when the player attempts to rename a room to the same name as another room,A room with that name already exists.
@@ -482,6 +484,7 @@ GUI.LEAVE_CROP_FALLOW,,None (Leave fallow)
 GUI.LOAD_GAME.TABLE.DATE_TIME,,Last modified
 GUI.LOAD_GAME.TABLE.DELETE,,Delete
 GUI.LOAD_GAME.TABLE.GAME_TIME,,World time
+GUI.LOAD_GAME.TABLE.PLAY,,Play
 GUI.LOAD_GAME.TABLE.SETTLEMENT_NAME,,Name
 GUI.LOAD_GAME.TABLE.VERSION,,Version
 GUI.LOAD_GAME.TITLE,,Load Game
@@ -557,6 +560,7 @@ GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}}
 GUI.SOUND_EFFECT_VOLUME,,Sound effect volume
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:
 GUI.VIEW_ROADMAP,,View development roadmap
+GUI.YEAR_LABEL,,Year {{year}}
 GUI.ZONES_LABEL,This should be as short as possible,Zones
 
 HAPPINESS_MODIFIER.ALCOHOL_WITHDRAWAL,,Going sober

@@ -248,7 +248,7 @@ public class ModArtifactListing {
 				def("ui/fonts", "*.[ot]tf", TTF, null,
 						"ui/fonts", null, TTF, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
 
-				def("ui/skin", "menu-skin.*", SKIN_ATLAS, null,
+				def("ui/skin", "menu-skin[0-9]?.*", SKIN_ATLAS, null,
 						"ui/skin", "menu-skin", SKIN_ATLAS, SPECIAL, REPLACES_EXISTING, SkinFilesProcessor.class),
 				def("ui/skin", "main-game-skin.*", SKIN_ATLAS, null,
 						"ui/skin", "main-game-skin", SKIN_ATLAS, SPECIAL, REPLACES_EXISTING, SkinFilesProcessor.class),

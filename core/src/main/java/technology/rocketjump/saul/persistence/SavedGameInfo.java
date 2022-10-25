@@ -16,6 +16,7 @@ public class SavedGameInfo {
 
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").withZone(ZoneId.systemDefault());
 
+	public final GameClock gameClock;
 	public final File file;
 	public final String settlementName;
 	public final String version;
@@ -25,15 +26,15 @@ public class SavedGameInfo {
 	private boolean isCompressed = true;
 
 	public SavedGameInfo(File saveFile, JSONObject headerJson, I18nTranslator i18nTranslator) throws InvalidSaveException, IOException {
-		GameClock clock = new GameClock();
-		clock.readFrom(headerJson.getJSONObject("clock"), null, null);
+		this.gameClock = new GameClock();
+		this.gameClock.readFrom(headerJson.getJSONObject("clock"), null, null);
 
 		this.file = saveFile;
 		this.settlementName = headerJson.getString("name");
 		this.version = headerJson.getString("version");
 		this.lastModifiedTime = Files.getLastModifiedTime(file.toPath()).toInstant();
 		this.formattedFileModifiedTime = DATE_TIME_FORMATTER.format(lastModifiedTime);
-		this.formattedGameTime = i18nTranslator.getDateTimeString(clock).toString();
+		this.formattedGameTime = i18nTranslator.getDateTimeString(gameClock).toString();
 	}
 
 	public boolean isCompressed() {

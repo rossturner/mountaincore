@@ -1,5 +1,17 @@
 {
 com.badlogic.gdx.graphics.Color: {
+	btn_scalable_colour: {
+		hex: d2ab73ff
+	}
+	btn_scalable_colour_alpha_50pc: {
+		hex: d2ab737f
+	}
+	dialog_bg_colour: {
+		hex: 524851ff
+	}
+	dialog_stage_colour: {
+		hex: ffffff96
+	}
 	dropdown_body_colour: {
 		hex: a44929ff
 	}
@@ -11,6 +23,12 @@ com.badlogic.gdx.graphics.Color: {
 	}
 	primary_font_colour_yellow_alt: {
 		hex: ffd171ff
+	}
+	saved_greyed_out_bg_colour: {
+		hex: d7b17aff
+	}
+	grey_30pc: {
+		hex: cecece4c
 	}
 	white: {
 		hex: ffffffff
@@ -24,6 +42,48 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	dropdown_body_hover: {
 		name: white-pixel
 		color: dropdown_body_hover_colour
+	}
+	save_greyed_out_bg: {
+		name: white-pixel
+		color: saved_greyed_out_bg_colour
+	}
+	btn_scalable: {
+		name: white-pixel
+		color: btn_scalable_colour
+	}
+	dialog_bg: {
+		name: white-pixel
+		color: dialog_bg_colour
+	}
+	dialog_stage: {
+		name: white-pixel
+		color: dialog_stage_colour
+	}
+	default-rect: {
+		name: white-pixel
+		color: grey_30pc
+	}
+}
+com.ray3k.tenpatch.TenPatchDrawable: {
+	title_ribbon_bg_mike_10patch: {
+		region: title_ribbon_bg_mike
+		horizontalStretchAreas: [ 266, 278 ]
+		verticalStretchAreas: [ 0, 221 ]
+		tiling: false
+		minWidth: 545
+		minHeight: 222
+		rightWidth: 266
+		leftWidth: 266
+		bottomHeight: 37
+		topHeight: 3
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
 	}
 }
 com.kotcrab.vis.ui.Sizes: {
@@ -63,22 +123,55 @@ com.kotcrab.vis.ui.widget.BusyBar$BusyBarStyle: {
 		segmentOverflow: 10
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: {
+		up: btn_scalable
+	}
+	left_arrow: {
+		up: arrow
+		disabled: arrow_greyed_out
+	}
+	right_arrow: {
+		up: arrow_right
+		disabled: arrow_greyed_out_right
+	}
+	btn_exit: {
+		up: btn_exit
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
 		font: placeholder-font
 		fontColor: primary_font_colour_red
-		up: btn_banner_1
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
-		font: placeholder-font
+		font: placeholder-header-font
 		fontColor: primary_font_colour_red
+	}
+	white_text: {
+		font: placeholder-font
+		fontColor: white
+	}
+	save_title_ribbon: {
+		font: header-font-36
+		fontColor: primary_font_colour_yellow_alt
+		background: save_title_ribbon_bg
+	}
+	title_ribbon: {
+		font: header-font-65
+		fontColor: primary_font_colour_red
+		background: title_ribbon_bg_mike_10patch
+	}
+	white_text_default-font-23: {
+		font: default-font-23
+		fontColor: white
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {
-		font: placeholder-font
+		font: default-font-16
 		fontColorSelected: primary_font_colour_yellow_alt
 		fontColorUnselected: white
 		selection: dropdown_body_hover
@@ -95,7 +188,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 	default: {
-		font: placeholder-font
+		font: default-font-16
 		fontColor: white
 		background: select_full
 		scrollStyle: default
@@ -131,10 +224,55 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		up: btn_banner_4
 		over: btn_banner_hover_state
 	}
+	btn_scalable: {
+		font: placeholder-font
+		fontColor: primary_font_colour_red
+		up: btn_scalable
+	}
+	btn_scalable_header-font-50: {
+		parent: btn_scalable
+		font: header-font-50
+	}
+	btn_banner_1_header-font-47: {
+		parent: btn_banner_1
+		font: header-font-47
+	}
+	btn_banner_2_header-font-47: {
+		parent: btn_banner_2
+		font: header-font-47
+	}
+	btn_banner_3_header-font-36: {
+		parent: btn_banner_3
+		font: header-font-36
+	}
+	btn_banner_3_header-font-47: {
+		parent: btn_banner_3
+		font: header-font-47
+	}
+	btn_banner_4_header-font-36: {
+		parent: btn_banner_4
+		font: header-font-36
+	}
+	btn_banner_4_header-font-47: {
+		parent: btn_banner_4
+		font: header-font-47
+	}
+	btn_dialog_1: {
+		font: default-font-23
+		up: btn_01
+		unpressedOffsetY: 6
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
 		label: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		background: bg_dialogue_box
+		titleFont: placeholder-font
+		titleFontColor: white
 	}
 }
 }

@@ -50,8 +50,13 @@ public class GuiSkinRepository implements Telegraph {
 		skin.add("placeholder-header-font", fontRepository.getDefaultFontForUI().getBitmapFont(), BitmapFont.class);
 
 		skin.add("header-font-32", onDemandFontRepository.getHeaderFont(32 * 2));
+		skin.add("header-font-36", onDemandFontRepository.getHeaderFont(36 * 2));
+		skin.add("header-font-47", onDemandFontRepository.getHeaderFont(47 * 2));
+		skin.add("header-font-50", onDemandFontRepository.getHeaderFont(50 * 2));
+		skin.add("header-font-65", onDemandFontRepository.getHeaderFont(65 * 2));
 		skin.add("default-font-16", onDemandFontRepository.getDefaultFont(16 * 2));
 		skin.add("default-font-19", onDemandFontRepository.getDefaultFont(19 * 2));
+		skin.add("default-font-23", onDemandFontRepository.getDefaultFont(23 * 2));
 
 		skin.addRegions(new TextureAtlas(menuSkinAtlasFile));
 		skin.load(menuSkinFile);
@@ -101,8 +106,14 @@ public class GuiSkinRepository implements Telegraph {
 
 	private void reassignFonts(Skin currentSkin, String pathToSkin) {
 		currentSkin.add("header-font-32", onDemandFontRepository.getHeaderFont(32 * 2));
+		currentSkin.add("header-font-36", onDemandFontRepository.getHeaderFont(36 * 2));
+		currentSkin.add("header-font-47", onDemandFontRepository.getHeaderFont(47 * 2));
+		currentSkin.add("header-font-50", onDemandFontRepository.getHeaderFont(50 * 2));
+		currentSkin.add("header-font-65", onDemandFontRepository.getHeaderFont(65 * 2));
 		currentSkin.add("default-font-16", onDemandFontRepository.getDefaultFont(16 * 2));
 		currentSkin.add("default-font-19", onDemandFontRepository.getDefaultFont(19 * 2));
+		currentSkin.add("default-font-23", onDemandFontRepository.getDefaultFont(23 * 2));
+
 
 		currentSkin.load(Gdx.files.internal(pathToSkin));
 	}

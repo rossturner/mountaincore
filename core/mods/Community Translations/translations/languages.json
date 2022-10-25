@@ -63,7 +63,7 @@
     "icon": "Russia",
     "fallback": "en-gb",
     "filename": "russian.csv",
-    "headerFontName" : "Roboto-Bold.otf"
+    "headerFontName" : "Roboto-Bold.ttf"
   },
   {
     "label": "Türkçe",

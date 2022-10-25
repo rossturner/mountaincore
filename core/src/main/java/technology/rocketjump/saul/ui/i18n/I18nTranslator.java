@@ -426,6 +426,18 @@ public class I18nTranslator {
 		return applyReplacements(dictionary.getWord("FLOOR.POWER.DESCRIPTION"), replacements, Gender.ANY);
 	}
 
+	public I18nText getDayString(GameClock gameClock) {
+		Map<String, I18nString> replacements = new HashMap<>();
+		replacements.put("dayNumber", new I18nWord(String.valueOf(gameClock.getDayOfYear())));
+		return applyReplacements(dictionary.getWord("GUI.DAY_LABEL"), replacements, Gender.ANY);
+	}
+
+	public I18nText getYearString(GameClock gameClock) {
+		Map<String, I18nString> replacements = new HashMap<>();
+		replacements.put("year", new I18nWord(String.valueOf(gameClock.getCurrentYear())));
+		return applyReplacements(dictionary.getWord("GUI.YEAR_LABEL"), replacements, Gender.ANY);
+	}
+
 	public I18nText getDateTimeString(GameClock gameClock) {
 		if (gameClock == null) {
 			return new I18nText("");

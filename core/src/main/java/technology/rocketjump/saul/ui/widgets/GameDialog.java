@@ -2,9 +2,7 @@ package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Disposable;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 
@@ -42,6 +40,10 @@ public abstract class GameDialog implements Disposable {
 		dialog.show(stage);
 	}
 
+	public Table getContentTable() {
+		return dialog.getContentTable();
+	}
+
 	public GameDialog withText(I18nText descriptionText) {
 		dialog.getContentTable().add(new I18nTextWidget(descriptionText, uiSkin, messageDispatcher)).row();
 		return this;
@@ -54,6 +56,11 @@ public abstract class GameDialog implements Disposable {
 
 	public GameDialog withButton(I18nText buttonText, Runnable runnable) {
 		dialog.button(buttonText.toString(), runnable);
+		return this;
+	}
+
+	public GameDialog withButton(I18nText buttonText, Runnable runnable, TextButton.TextButtonStyle style) {
+		dialog.button(buttonText.toString(), runnable, style);
 		return this;
 	}
 
