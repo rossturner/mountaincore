@@ -170,6 +170,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: default-font-19
 		fontColor: primary_font_colour_red
 	}
+	title-header: {
+		font: header-font-32
+		fontColor: primary_font_colour_red
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {

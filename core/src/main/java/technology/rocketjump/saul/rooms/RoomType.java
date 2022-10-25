@@ -19,10 +19,10 @@ public class RoomType {
 	private String roomName;
 	private String i18nKey;
 	private I18nText i18nValue;
+	private String drawableName;
 	private String colorCode;
 	@JsonIgnore
 	private Color color;
-	private String iconName;
 	private GameMaterialType requiredFloorMaterialType;
 	private List<String> furnitureNames = new ArrayList<>();
 	private Map<String, List<String>> tags = new HashMap<>();
@@ -68,14 +68,6 @@ public class RoomType {
 
 	public void setColor(Color color) {
 		this.color = color;
-	}
-
-	public String getIconName() {
-		return iconName;
-	}
-
-	public void setIconName(String iconName) {
-		this.iconName = iconName;
 	}
 
 	public List<String> getFurnitureNames() {
@@ -126,5 +118,13 @@ public class RoomType {
 	@Override
 	public String toString() {
 		return roomName;
+	}
+
+	public String getDrawableName() {
+		return drawableName;
+	}
+
+	public void setDrawableName(String drawableName) {
+		this.drawableName = drawableName;
 	}
 }

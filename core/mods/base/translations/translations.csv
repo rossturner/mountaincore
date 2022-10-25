@@ -557,7 +557,7 @@ GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}}
 GUI.SOUND_EFFECT_VOLUME,,Sound effect volume
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:
 GUI.VIEW_ROADMAP,,View development roadmap
-GUI.ZONES_LABEL,This should be as short as possible,Zones
+GUI.ROOMS_LABEL,,Rooms
 
 HAPPINESS_MODIFIER.ALCOHOL_WITHDRAWAL,,Going sober
 HAPPINESS_MODIFIER.ATE_NICELY_PREPARED_FOOD,,Ate a nicely prepared meal
