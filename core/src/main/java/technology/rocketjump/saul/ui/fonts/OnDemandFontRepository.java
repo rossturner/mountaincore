@@ -82,10 +82,7 @@ public class OnDemandFontRepository implements Disposable {
 		parameter.minFilter = Texture.TextureFilter.MipMapLinearLinear;
 		parameter.magFilter = Texture.TextureFilter.MipMapLinearLinear;
 		parameter.characters = i18nRepo.getAllCharacters(FreeTypeFontGenerator.DEFAULT_CHARS);
-		parameter.padTop = 1;
-		parameter.padLeft = 1;
-		parameter.padRight = 1;
-		parameter.padBottom = 1;
+		parameter.padBottom = parameter.padLeft = parameter.padRight = parameter.padTop = 1;
 		BitmapFont font = generator.generateFont(parameter);
 		generator.dispose();
 		return font;

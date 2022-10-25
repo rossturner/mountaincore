@@ -1,8 +1,8 @@
 
 normal-entities.png
-size: 4096,4096
+size: 4096, 4096
 format: RGBA8888
-filter: MipMapLinearLinear,Linear
+filter: MipMapLinearLinear, Linear
 repeat: none
 1x2 Stone tank trench
   rotate: false

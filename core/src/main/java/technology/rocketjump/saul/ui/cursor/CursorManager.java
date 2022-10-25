@@ -22,9 +22,8 @@ import java.util.Map;
 @Singleton
 public class CursorManager implements Telegraph {
 
-	private static final int DEFAULT_HOTSPOT_OFFSET = 12;
-	private final Map<String, Cursor> cursorsByName = new HashMap<>();
-	private Deque<GameCursor> currentCursorStack = new ArrayDeque<>();
+	private final Map<GameCursor, Cursor> allCursors = new HashMap<>();
+	private final Deque<GameCursor> currentCursorStack = new ArrayDeque<>();
 
 	@Inject
 	public CursorManager(MessageDispatcher messageDispatcher) {
@@ -53,9 +52,7 @@ public class CursorManager implements Telegraph {
 		if (cursor == null) {
 			cursor = GameCursor.CURSOR;
 		}
-		if (currentCursorStack.isEmpty() || !currentCursorStack.peek().equals(cursor)) {
-			currentCursorStack.push(cursor);
-		}
+		currentCursorStack.push(cursor);
 		resetCursor();
 	}
 
@@ -72,8 +69,8 @@ public class CursorManager implements Telegraph {
 	}
 
 	public void onResize() {
-		cursorsByName.values().forEach(Disposable::dispose);
-		cursorsByName.clear();
+		allCursors.values().forEach(Disposable::dispose);
+		allCursors.clear();
 
 		createCursors();
 
@@ -82,16 +79,16 @@ public class CursorManager implements Telegraph {
 	}
 
 	private void resetCursor() {
-		String cursorName = currentCursorStack.peek().cursorName();
-		if (!cursorsByName.containsKey(cursorName)) {
+		GameCursor topOfStack = currentCursorStack.peek();
+		if (!allCursors.containsKey(topOfStack)) {
 			Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 		} else {
-			Gdx.graphics.setCursor(cursorsByName.get(cursorName));
+			Gdx.graphics.setCursor(allCursors.get(topOfStack));
 		}
 	}
 
 	private void createCursors() {
-		FileHandle cursorsDir = Gdx.files.internal("assets/ui/cursors");
+		FileHandle cursorsDir = isResolution1080pOrLower() ? Gdx.files.internal("assets/ui/cursors/1080p") : Gdx.files.internal("assets/ui/cursors/4k");
 		for (FileHandle cursorFile : cursorsDir.list()) {
 			if (cursorFile.name().startsWith("cursor_") && cursorFile.name().endsWith(".png")) {
 				createCursor(cursorFile);
@@ -101,30 +98,18 @@ public class CursorManager implements Telegraph {
 
 	private void createCursor(FileHandle cursorFile) {
 		Pixmap cursorPixmap = new Pixmap(cursorFile);
-		if (shouldHalfSize()) {
-			cursorPixmap = halfSize(cursorPixmap);
-		}
-		Cursor cursor = Gdx.graphics.newCursor(cursorPixmap,
-				// The following offsets the hotspot for the cursor from the top left corner of the image to (12,12) or (6,6) depending on scale
-				shouldHalfSize() ? DEFAULT_HOTSPOT_OFFSET / 2 : DEFAULT_HOTSPOT_OFFSET,
-				shouldHalfSize() ? DEFAULT_HOTSPOT_OFFSET / 2 : DEFAULT_HOTSPOT_OFFSET);
 		String name = cursorFile.nameWithoutExtension();
 		name = name.substring(7);
-		cursorsByName.put(name, cursor);
+		GameCursor gameCursor = GameCursor.forName(name);
+		Cursor cursor = Gdx.graphics.newCursor(cursorPixmap,
+				// The following offsets the hotspot for the cursor from the top left corner of the image to (12,12) or (6,6) depending on scale
+				isResolution1080pOrLower() ? gameCursor.hotspotX / 2 : gameCursor.hotspotX,
+				isResolution1080pOrLower() ? gameCursor.hotspotY / 2 : gameCursor.hotspotY);
+		allCursors.put(gameCursor, cursor);
 		cursorPixmap.dispose();
 	}
 
-	private Pixmap halfSize(Pixmap fullSize) {
-		Pixmap halfSize = new Pixmap(fullSize.getWidth() / 2, fullSize.getHeight() / 2, fullSize.getFormat());
-		halfSize.drawPixmap(fullSize,
-				0, 0, fullSize.getWidth(), fullSize.getWidth(),
-				0, 0, halfSize.getWidth(), halfSize.getHeight()
-		);
-		fullSize.dispose();
-		return halfSize;
-	}
-
-	private boolean shouldHalfSize() {
+	private boolean isResolution1080pOrLower() {
 		Graphics.DisplayMode desktopMode = LwjglApplicationConfiguration.getDesktopDisplayMode();
 		return desktopMode.width < 2000;
 	}

@@ -52,9 +52,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 	private final NotificationGuiView notificationGuiView;
 	private final MinimapGuiView minimapGuiView;
 	private Stage primaryStage;
-	private Stage timeAndDateStage;
 	private StageAreaOnlyInputHandler primaryStageInputHandler;
-	private StageAreaOnlyInputHandler timeAndDateStageInputHandler;
 
 	private final GuiViewRepository guiViewRepository;
 	private GuiViewName currentViewName;
@@ -99,8 +97,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		this.guiViewRepository = guiViewRepository;
 		switchView(GuiViewName.DEFAULT_MENU);
 
-		timeAndDateStage = new Stage(viewport);
-
 		timeAndDateContainerTable = new Table(uiSkin);
 		timeAndDateContainerTable.right().top();
 
@@ -129,9 +125,9 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		lowerRightContainerTable.add(minimapContainerTable).bottom().right().row();
 		lowerRightContainerTable.setFillParent(true);
 
-		timeAndDateStage.addActor(upperRightContainerTable);
+		primaryStage.addActor(upperRightContainerTable);
 		primaryStage.addActor(upperLeftContainerTable);
-		timeAndDateStage.addActor(lowerRightContainerTable);
+		primaryStage.addActor(lowerRightContainerTable);
 		timeDateGuiView.populate(timeAndDateContainerTable);
 		timeAndDateContainerTable.row();
 		notificationGuiView.populate(timeAndDateContainerTable);
@@ -139,8 +135,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		hintGuiView.populate(hintContainerTable);
 		debugGuiView.populate(debugContainerTable);
 		debugGuiView.update();
-
-		timeAndDateStageInputHandler = new StageAreaOnlyInputHandler(timeAndDateStage, interactionStateContainer);
 	}
 
 	@Override
@@ -197,7 +191,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		notificationGuiView.update();
 
 		primaryStage.act(deltaTime);
-		timeAndDateStage.act(deltaTime);
 
 		timeSinceLastUpdate += deltaTime;
 		if (timeSinceLastUpdate > 1f) {
@@ -210,7 +203,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 
 	public void render() {
 		primaryStage.draw();
-		timeAndDateStage.draw();
 		infoWindow.render();
 	}
 
@@ -220,7 +212,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 	}
 
 	public List<InputProcessor> getInputProcessors() {
-		return Arrays.asList(primaryStageInputHandler, timeAndDateStageInputHandler);
+		return Arrays.asList(primaryStageInputHandler);
 	}
 
 	private void switchView(GuiViewName viewName) {

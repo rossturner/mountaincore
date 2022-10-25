@@ -36,7 +36,6 @@ import technology.rocketjump.saul.persistence.UserFileManager;
 import technology.rocketjump.saul.rendering.GameRenderer;
 import technology.rocketjump.saul.rendering.ScreenWriter;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
-import technology.rocketjump.saul.screens.GameScreenDictionary;
 import technology.rocketjump.saul.screens.ScreenManager;
 import technology.rocketjump.saul.screens.menus.OptionsMenu;
 import technology.rocketjump.saul.screens.menus.options.OptionsTab;
@@ -132,7 +131,7 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 			injector.getInstance(OptionsMenu.class).setTabImplementations(optionsTabInstances);
 
 			injector.getInstance(TagProcessor.class).init();
-			injector.getInstance(TimeDateGuiView.class).init(injector.getInstance(GameScreenDictionary.class));
+			injector.getInstance(TimeDateGuiView.class).rebuildUI();
 
 			messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_MENU");
 

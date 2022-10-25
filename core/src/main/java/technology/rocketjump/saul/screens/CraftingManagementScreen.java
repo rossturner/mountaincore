@@ -54,13 +54,13 @@ import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.entities.tags.CraftingStationBehaviourTag.CRAFTING_STATION_BEHAVIOUR_TAGNAME;
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
+import static technology.rocketjump.saul.screens.ManagementScreenName.CRAFTING;
 
 @Singleton
 public class CraftingManagementScreen extends ManagementScreen implements DisplaysText, Telegraph {
 
 	private static final float INDENT_WIDTH = 50f;
 	public static final int DEFAULT_ROW_WIDTH = 1050;
-	public static final String NAME = "CRAFTING";
 
 	private final ClickableTableFactory clickableTableFactory;
 	private final ExampleItemDictionary exampleItemDictionary;
@@ -632,20 +632,9 @@ public class CraftingManagementScreen extends ManagementScreen implements Displa
 		}
 	}
 
-
 	@Override
-	public String getTitleI18nKey() {
-		return "GUI.CRAFTING_MANAGEMENT.TITLE";
-	}
-
-	@Override
-	public String getButtonName() {
-		return "btn_top_crafting";
-	}
-
-	@Override
-	public String getName() {
-		return NAME;
+	public ManagementScreenName getManagementScreenName() {
+		return CRAFTING;
 	}
 
 	@Override

@@ -35,13 +35,13 @@ import javax.inject.Singleton;
 import java.util.*;
 
 import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
+import static technology.rocketjump.saul.screens.ManagementScreenName.SETTLERS;
 import static technology.rocketjump.saul.ui.views.EntitySelectedGuiView.*;
 
 @Singleton
 public class SettlerManagementScreen extends ManagementScreen {
 
 	public static final int UI_WIDTH_REQUIRED_PER_SETTLER = 600;
-	public static final String NAME = "SETTLER_MANAGEMENT";
 	private final ClickableTableFactory clickableTableFactory;
 	private int numSettlerTablesPerRow = 3;
 	private final MessageDispatcher messageDispatcher;
@@ -179,18 +179,8 @@ public class SettlerManagementScreen extends ManagementScreen {
 	}
 
 	@Override
-	public String getTitleI18nKey() {
-		return "GUI.SETTLER_MANAGEMENT.TITLE";
-	}
-
-	@Override
-	public String getButtonName() {
-		return "btn_top_settlers";
-	}
-
-	@Override
-	public String getName() {
-		return NAME;
+	public ManagementScreenName getManagementScreenName() {
+		return SETTLERS;
 	}
 
 	@Override

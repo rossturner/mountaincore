@@ -1,8 +1,8 @@
 
 diffuse-terrain.png
-size: 4096,256
+size: 4096, 256
 format: RGBA8888
-filter: MipMapLinearLinear,Linear
+filter: MipMapLinearLinear, Linear
 repeat: none
 Horizontal Stone Bridge Bottom Left
   rotate: false

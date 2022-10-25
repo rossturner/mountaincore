@@ -241,8 +241,10 @@ public class ModArtifactListing {
 
 				////////// ui //////////
 				// TODO MODDING this also wants some work
-				def("ui/cursors", "*.png", PNG, null,
-						"ui/cursors", null, PNG, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
+				def("ui/cursors/4k", "*.png", PNG, null,
+						"ui/cursors/4k", null, PNG, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
+				def("ui/cursors/1080p", "*.png", PNG, null,
+						"ui/cursors/1080p", null, PNG, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
 				def("ui/fonts", "*.[ot]tf", TTF, null,
 						"ui/fonts", null, TTF, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
 

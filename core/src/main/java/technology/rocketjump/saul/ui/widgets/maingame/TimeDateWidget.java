@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -18,6 +19,8 @@ import technology.rocketjump.saul.environment.model.WeatherType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -62,7 +65,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 
 		Drawable background = mainGameSkin.getDrawable("info_box_bg");
 		this.setBackground(background);
-		this.size(background.getMinWidth() / 2f, background.getMinHeight() / 2f);
+		this.setTouchable(Touchable.enabled); // Prevent click-through to game world below this section of the UI
 
 		for (Season season : Season.values()) {
 			String drawableName = "asset_season_" + season.name().toLowerCase() + "_icon";
@@ -91,7 +94,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 
 	@Override
 	public void rebuildUI() {
-		settlementNameLabel = new ScaledToFitLabel("...", mainGameSkin.get("settlement-name-label", Label.LabelStyle.class), 247);
+		settlementNameLabel = new ScaledToFitLabel("...", mainGameSkin.get("settlement-name-label", Label.LabelStyle.class), 494);
 
 		buildGameSpeedTable();
 		buildSeasonWeatherTable();
@@ -99,14 +102,14 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 		dateTimeText = new Label("date/time", mainGameSkin);
 
 		layoutTable.clearChildren();
-		layoutTable.padLeft(35);
-		layoutTable.padTop(49);
+		layoutTable.padLeft(70);
+		layoutTable.padTop(98);
 		layoutTable.center();
-		layoutTable.defaults().padBottom(8);
-		layoutTable.add(centeredContainer(settlementNameLabel)).size(247, 35).center().row();
-		layoutTable.add(centeredContainer(gameSpeedControlsTable)).center().width(279).row();
-		layoutTable.add(centeredContainer(seasonWeatherTable)).center().width(279).row();
-		layoutTable.add(centeredContainer(dateTimeText)).center().width(279).row();
+		layoutTable.defaults().padBottom(16);
+		layoutTable.add(centeredContainer(settlementNameLabel)).size(494, 70).center().row();
+		layoutTable.add(centeredContainer(gameSpeedControlsTable)).center().width(558).row();
+		layoutTable.add(centeredContainer(seasonWeatherTable)).center().width(558).row();
+		layoutTable.add(centeredContainer(dateTimeText)).center().width(558).row();
 
 		onContextChange(gameContext);
 	}
@@ -114,7 +117,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 	private void buildGameSpeedTable() {
 		speedButtons.clear();
 		gameSpeedControlsTable.clearChildren();
-		gameSpeedControlsTable.defaults().padLeft(22);
+		gameSpeedControlsTable.defaults().padLeft(44);
 
 		for (GameSpeed gameSpeed : GameSpeed.VISIBLE_TO_UI) {
 			Button speedButton = new Button(mainGameSkin, "game-speed-"+gameSpeed.name().toLowerCase());
@@ -124,6 +127,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 					messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, gameSpeed);
 				}
 			});
+			speedButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
 			Cell<Button> cell = gameSpeedControlsTable.add(speedButton);
 			if (gameSpeed.equals(GameSpeed.PAUSED)) {
 				cell.padLeft(0);
@@ -162,13 +166,13 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 		seasonWeatherTable.add(seasonLabel);
 
 		seasonIcon = new Image();
-		seasonWeatherTable.add(centeredContainer(seasonIcon)).size(23, 23);
+		seasonWeatherTable.add(centeredContainer(seasonIcon)).size(46, 46);
 
 		weatherLabel = new Label("WEATHER", mainGameSkin);
 		seasonWeatherTable.add(weatherLabel);
 
 		weatherIcon = new Image();
-		seasonWeatherTable.add(centeredContainer(weatherIcon)).size(23, 23);
+		seasonWeatherTable.add(centeredContainer(weatherIcon)).size(46, 46);
 	}
 
 	@Override

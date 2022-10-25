@@ -23,8 +23,6 @@ out/
 
 core/assets/temp
 core/assets/editor-state.json
-core/assets/ui/skin
-core/mods/base/ui/skin/skin-composer-project-data
 
 ## Release stuff
 
@@ -42,5 +40,6 @@ core/log.txt
 core/client.txt
 
 log.txt
-/core/mods/base/ui/skin/skin-composer-project_data/
-/core/mods/base/ui/skin/main-game-skin-composer-project_data/
+core/mods/base/ui/skin/skin-composer-project-data
+core/mods/base/ui/skin/skin-composer-project_data
+core/mods/base/ui/skin/main-game-skin-composer-project_data

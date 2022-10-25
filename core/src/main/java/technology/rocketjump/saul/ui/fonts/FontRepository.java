@@ -54,7 +54,6 @@ public class FontRepository implements Telegraph {
 			Logger.error(fontFile.toString() + " does not exist");
 			return defaultUIFont;
 		}
-		FreeTypeFontGenerator.setMaxTextureSize(4096);
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.genMipMaps = true;
@@ -70,7 +69,6 @@ public class FontRepository implements Telegraph {
 			Logger.error(fontFile + " does not exist");
 			return null;
 		}
-		FreeTypeFontGenerator.setMaxTextureSize(4096);
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.renderCount = 1;
