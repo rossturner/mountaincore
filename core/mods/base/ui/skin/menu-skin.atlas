@@ -57,8 +57,8 @@ bg_dialogue_box
   rotate: false
   xy: 2, 5094
   size: 1726, 804
-  split: 58, 58, 58, 58
-  pad: 58, 58, 58, 88
+  split: 68, 58, 68, 58
+  pad: 68, 68, 68, 88
   orig: 1726, 804
   offset: 0, 0
   index: -1

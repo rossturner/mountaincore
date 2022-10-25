@@ -253,6 +253,7 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	btn_dialog_1: {
 		font: default-font-23
 		up: btn_01
+		unpressedOffsetY: 6
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
