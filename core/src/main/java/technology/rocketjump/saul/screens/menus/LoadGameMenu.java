@@ -21,11 +21,12 @@ import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.SavedGameInfo;
 import technology.rocketjump.saul.persistence.SavedGameStore;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.EmptyDialog;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
-import technology.rocketjump.saul.ui.widgets.NotificationDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -298,23 +299,21 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 						return;
 					}
 
-					NotificationDialog dialog = new NotificationDialog(
-							i18nTranslator.getTranslatedString("GUI.DIALOG.INFO_TITLE"),
-							skin,
-							messageDispatcher
-					);
-					dialog.withText(i18nTranslator.getTranslatedWordWithReplacements("GUI.DIALOG.CONFIRM_DELETE_SAVE",
-									Map.of("name", new I18nWord(selectedSavedGame.settlementName)))
-							.breakAfterLength(i18nTranslator.getCurrentLanguageType().getBreakAfterLineLength()));
+					EmptyDialog dialog = new EmptyDialog(skin, messageDispatcher);
 
-					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON"), (Runnable) () -> {
+
+					I18nText dialogText = i18nTranslator.getTranslatedWordWithReplacements("GUI.DIALOG.CONFIRM_DELETE_SAVE",
+									Map.of("name", new I18nWord(selectedSavedGame.settlementName)))
+							.breakAfterLength(i18nTranslator.getCurrentLanguageType().getBreakAfterLineLength());
+					dialog.getContentTable().add(new Label(dialogText.toString(), skin, "white_text_default-font-23")).growY();
+
+					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CONFIRM"), (Runnable) () -> {
 						savedGameStore.delete(selectedSavedGame);
 						carouselIndex = 0;
 						selectedSavedGame = null;
 						disablePlayAndDeleteButtons();
 						savedGamesUpdated();
-					});
-					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CANCEL_BUTTON"));
+					}, skin.get("btn_dialog_1", TextButton.TextButtonStyle.class));
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
 				})
 				.build();

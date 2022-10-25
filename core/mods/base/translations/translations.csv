@@ -446,6 +446,7 @@ GUI.DATE_TIME_YEAR_LABEL,"E.g. 09:20, Day 4, Year 2","{{timeOfDay}}, Day {{dayNu
 GUI.DAY_LABEL,,Day {{dayNumber}}
 GUI.DECONSTRUCT_LABEL,This should be as short as possible,Demolish
 GUI.DIALOG.CANCEL_BUTTON,,Cancel
+GUI.DIALOG.CONFIRM,,Confirm
 GUI.DIALOG.CONFIRM_DELETE_SAVE,,Are you sure you wish to delete {{name}}?
 GUI.DIALOG.DISMISS,,Dismiss
 GUI.DIALOG.ERROR_ROOM_NAME_ALREADY_EXISTS,Error message when the player attempts to rename a room to the same name as another room,A room with that name already exists.

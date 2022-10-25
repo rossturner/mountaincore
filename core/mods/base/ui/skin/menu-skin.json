@@ -117,6 +117,9 @@ com.kotcrab.vis.ui.widget.BusyBar$BusyBarStyle: {
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: {
+		up: btn_scalable
+	}
 	left_arrow: {
 		up: arrow
 		disabled: arrow_greyed_out
@@ -124,6 +127,9 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	right_arrow: {
 		up: arrow_right
 		disabled: arrow_greyed_out_right
+	}
+	btn_exit: {
+		up: btn_exit
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
@@ -244,6 +250,10 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		parent: btn_banner_4
 		font: header-font-47
 	}
+	btn_dialog_1: {
+		font: default-font-23
+		up: btn_01
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
@@ -252,7 +262,7 @@ com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	default: {
-		background: dialog_bg
+		background: bg_dialogue_box
 		titleFont: placeholder-font
 		titleFontColor: white
 	}
