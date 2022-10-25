@@ -27,6 +27,9 @@ com.badlogic.gdx.graphics.Color: {
 	saved_greyed_out_bg_colour: {
 		hex: d7b17aff
 	}
+	grey_30pc: {
+		hex: cecece4c
+	}
 	white: {
 		hex: ffffffff
 	}
@@ -55,6 +58,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	dialog_stage: {
 		name: white-pixel
 		color: dialog_stage_colour
+	}
+	default-rect: {
+		name: white-pixel
+		color: grey_30pc
 	}
 }
 com.ray3k.tenpatch.TenPatchDrawable: {

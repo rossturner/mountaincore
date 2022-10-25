@@ -28,9 +28,9 @@ public abstract class GameDialog implements Disposable {
 		};
 		this.uiSkin = uiSkin;
 
-//		fullScreenOverlay = new Image(uiSkin, "default-rect");
-//		fullScreenOverlay.setFillParent(true);
-//		fullScreenOverlay.setColor(1, 1, 1, 0.6f);
+		fullScreenOverlay = new Image(uiSkin, "default-rect");
+		fullScreenOverlay.setFillParent(true);
+		fullScreenOverlay.setColor(1, 1, 1, 0.6f);
 	}
 
 	public void show(Stage stage) {

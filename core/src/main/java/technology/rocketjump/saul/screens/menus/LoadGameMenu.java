@@ -25,8 +25,8 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.EmptyDialog;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
+import technology.rocketjump.saul.ui.widgets.NoTitleDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -299,7 +299,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 						return;
 					}
 
-					EmptyDialog dialog = new EmptyDialog(skin, messageDispatcher);
+					NoTitleDialog dialog = new NoTitleDialog(skin, messageDispatcher);
 
 
 					I18nText dialogText = i18nTranslator.getTranslatedWordWithReplacements("GUI.DIALOG.CONFIRM_DELETE_SAVE",
