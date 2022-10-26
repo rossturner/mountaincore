@@ -73,7 +73,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				messageDispatcher.dispatchMessage(MessageType.PUSH_CURSOR_TO_STACK, GameCursor.RESIZE);
+				messageDispatcher.dispatchMessage(MessageType.SET_SPECIAL_CURSOR, GameCursor.RESIZE);
 				initialDragStageCoords = table.getStage().screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 				initialContainerSize = new Vector2(minimapContainer.getContainerWidth(), minimapContainer.getContainerHeight());
 				return true;
@@ -81,7 +81,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				messageDispatcher.dispatchMessage(MessageType.POP_CURSOR_FROM_STACK);
+				messageDispatcher.dispatchMessage(MessageType.SET_SPECIAL_CURSOR, null);
 			}
 
 			@Override

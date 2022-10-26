@@ -16,10 +16,8 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.gamecontext.GameState;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.InfoWindow;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
-import technology.rocketjump.saul.ui.cursor.CursorManager;
 import technology.rocketjump.saul.ui.eventlistener.TooltipTable;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.views.*;
@@ -46,7 +44,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 	private final Table notificationTable;
 	private final Table minimapContainerTable;
 	private final MessageDispatcher messageDispatcher;
-	private final CursorManager cursorManager;
 	private final GameInteractionStateContainer interactionStateContainer;
 	private final TimeDateGuiView timeDateGuiView;
 	private final HintGuiView hintGuiView;
@@ -62,9 +59,9 @@ public class GuiContainer implements Telegraph, GameContextAware {
 	private float timeSinceLastUpdate = 0;
 
 	@Inject
-	public GuiContainer(MessageDispatcher messageDispatcher, CursorManager cursorManager, GameInteractionStateContainer interactionStateContainer,
+	public GuiContainer(MessageDispatcher messageDispatcher, GameInteractionStateContainer interactionStateContainer,
 						GuiSkinRepository guiSkinRepository, GuiViewRepository guiViewRepository, TimeDateGuiView timeDateGuiView,
-						UserPreferences userPreferences, InfoWindow infoWindow, HintGuiView hintGuiView,
+						InfoWindow infoWindow, HintGuiView hintGuiView,
 						DebugGuiView debugGuiView, NotificationGuiView notificationGuiView,
 						MinimapGuiView minimapGuiView) {
 		this.infoWindow = infoWindow;
@@ -74,7 +71,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		Skin uiSkin = guiSkinRepository.getDefault();
 		this.timeDateGuiView = timeDateGuiView;
 		this.minimapGuiView = minimapGuiView;
-		this.cursorManager = cursorManager;
 		this.interactionStateContainer = interactionStateContainer;
 
 		ExtendViewport viewport = new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y);
@@ -148,12 +144,8 @@ public class GuiContainer implements Telegraph, GameContextAware {
 				return true;
 			}
 			case MessageType.GUI_SWITCH_INTERACTION_MODE: {
-
-				cursorManager.popCursor();
 				GameInteractionMode targetMode = (GameInteractionMode)msg.extraInfo;
-				if (targetMode.cursor != null) {
-					cursorManager.pushCursor(targetMode.cursor);
-				}
+				messageDispatcher.dispatchMessage(MessageType.SET_INTERACTION_MODE_CURSOR, targetMode.cursor);
 				interactionStateContainer.setInteractionMode(targetMode);
 				return true;
 			}

@@ -19,11 +19,11 @@ public class ChangeCursorOnHover extends InputListener {
 
 	@Override
 	public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-		messageDispatcher.dispatchMessage(MessageType.PUSH_CURSOR_TO_STACK, cursor);
+		messageDispatcher.dispatchMessage(MessageType.SET_HOVER_CURSOR, cursor);
 	}
 
 	@Override
 	public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-		messageDispatcher.dispatchMessage(MessageType.POP_CURSOR_FROM_STACK, cursor);
+		messageDispatcher.dispatchMessage(MessageType.SET_HOVER_CURSOR, null);
 	}
 }

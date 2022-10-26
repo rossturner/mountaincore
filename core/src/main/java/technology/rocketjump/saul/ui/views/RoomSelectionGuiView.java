@@ -110,6 +110,7 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 					}
 				}
 			});
+			roomButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
 			tooltipFactory.simpleTooltip(roomButton, roomType.getI18nKey(), TooltipLocationHint.ABOVE);
 
 			buttonsTable.add(roomButton);

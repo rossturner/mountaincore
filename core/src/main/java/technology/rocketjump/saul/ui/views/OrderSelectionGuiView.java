@@ -66,7 +66,6 @@ public class OrderSelectionGuiView implements GuiView, DisplaysText {
 
 		Button backButton = buildButton("btn_back", "GUI.BACK_LABEL",
 				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName()));
-		backButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
 		layoutTable.add(backButton).padLeft(40).padRight(30);
 
 		Button mineButton = buildButton("btn_current_orders_mine", "GUI.ORDERS.MINE",
@@ -94,8 +93,7 @@ public class OrderSelectionGuiView implements GuiView, DisplaysText {
 
 	private Button buildButton(String drawableName, String tooltipI18nKey, Runnable onClick) {
 		Button button = new Button(skin.getDrawable(drawableName));
-		// select cursor on hover gets messy with different cursors for interaction modes
-//		button.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		button.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {

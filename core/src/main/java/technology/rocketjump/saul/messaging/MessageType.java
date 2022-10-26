@@ -60,8 +60,9 @@ public class MessageType {
 	public static final int TOGGLE_DEBUG_VIEW = 282;
 	public static final int PREPOPULATE_SELECT_ITEM_VIEW = 283;
 	public static final int GAME_SPEED_CHANGED = 284;
-	public static final int PUSH_CURSOR_TO_STACK = 285;
-	public static final int POP_CURSOR_FROM_STACK = 286;
+	public static final int SET_HOVER_CURSOR = 285;
+	public static final int SET_SPECIAL_CURSOR = 286;
+	public static final int SET_INTERACTION_MODE_CURSOR = 287;
 
 	// i18n Messages
 	public static final int FONTS_CHANGED = 300;
