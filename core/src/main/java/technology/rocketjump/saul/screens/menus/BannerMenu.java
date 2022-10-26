@@ -91,12 +91,24 @@ public abstract class BannerMenu implements Menu {
         buttonsTable.background(menuSkin.getDrawable("asset_bg_banner"));
         addMainBannerComponents(buttonsTable);
 
+        Table secondaryBanner = new Table();
+        float secondaryBannerPadTop = 0f;
+        secondaryBanner.setBackground(menuSkin.getDrawable("asset_bg_options_banner_rolled"));
+        addSecondaryBannerComponents(secondaryBanner);
+        if (!secondaryBanner.getChildren().isEmpty()) {
+            secondaryBannerPadTop = 32f;
+            secondaryBanner.setBackground(menuSkin.getDrawable("asset_secondary_banner_bg"));
+        }
+
         Table positioningTable = new Table();
         positioningTable.right().top();
-        positioningTable.padTop(32f).padRight(230f);
-        positioningTable.add(buttonsTable);
+        positioningTable.padRight(230f);
+        positioningTable.add(secondaryBanner).top().padTop(secondaryBannerPadTop).padRight(128f);
+        positioningTable.add(buttonsTable).padTop(32f);
         return positioningTable;
     }
+
+    protected abstract void addSecondaryBannerComponents(Table secondaryBanner);
 
     protected abstract void addMainBannerComponents(Table mainBanner);
 

@@ -8,4 +8,8 @@ public enum OptionsTabName {
 	TWITCH,
 	MISC;
 
+	public String getI18nKey() {
+		return "GUI.OPTIONS.TAB." + this.name();
+	}
+
 }

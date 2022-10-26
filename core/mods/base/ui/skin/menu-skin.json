@@ -181,6 +181,11 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		fontColor: white
 		background: btn_check_box_body
 	}
+	secondary_banner_title: {
+		font: header-font-36
+		fontColor: primary_font_colour_red
+		background: asset_secondary_banner_title_bg
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {

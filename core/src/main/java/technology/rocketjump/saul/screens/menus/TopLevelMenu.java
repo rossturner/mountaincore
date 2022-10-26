@@ -132,6 +132,11 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
         }
     }
 
+    @Override
+    protected void addSecondaryBannerComponents(Table secondaryBanner) {
+
+    }
+
 
     public void gameStarted() {
         this.gameStarted = true;

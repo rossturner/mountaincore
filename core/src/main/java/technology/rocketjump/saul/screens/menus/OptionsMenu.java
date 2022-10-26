@@ -58,13 +58,6 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 		this.widgetFactory = widgetFactory;
 	}
 
-//	@Override
-//	public void populate(Table containerTable) {
-//		containerTable.add(tabsTable).left().row();
-//		containerTable.add(menuContainer).center().row();
-//		containerTable.add(backButton).left().pad(10).row();
-//
-//}
 	@Override
 	public void reset() {
 //		menuTable.clearChildren();
@@ -83,6 +76,13 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 	}
 
 	@Override
+	protected void addSecondaryBannerComponents(Table secondaryBanner) {
+		if (currentTab != null) {
+			tabs.get(currentTab).populate(secondaryBanner);
+		}
+	}
+
+	@Override
 	protected void addMainBannerComponents(Table mainBanner) {
 		Label titleRibbon = new ScaledToFitLabel(i18nTranslator.getTranslatedString("MENU.OPTIONS").toString(), menuSkin, "title_ribbon", 1132);
 
@@ -92,7 +92,7 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 
 		for (OptionsTabName tab : OptionsTabName.values()) {
 
-			Container<TextButton> tabButton = menuButtonFactory.createButton("GUI.OPTIONS.TAB." + tab.name(), menuSkin, MenuButtonFactory.ButtonStyle.BTN_SMALL_1_50PT)
+			Container<TextButton> tabButton = menuButtonFactory.createButton(tab.getI18nKey(), menuSkin, MenuButtonFactory.ButtonStyle.BTN_SMALL_1_50PT)
 					.withAction(() -> {
 						this.currentTab = tab;
 						this.rebuildUI();//todo: this right?
