@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
@@ -17,6 +16,7 @@ import technology.rocketjump.saul.screens.menus.PrivacyOptInMenu;
 import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.fonts.OnDemandFontRepository;
 import technology.rocketjump.saul.ui.i18n.I18nRepo;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.LanguageType;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
@@ -29,11 +29,13 @@ public class WidgetFactory {
     private final FontRepository fontRepository;
     private final OnDemandFontRepository onDemandFontRepository;
     private final GuiSkinRepository guiSkinRepository;
+    private final I18nTranslator i18nTranslator;
 
     @Inject
     public WidgetFactory(MessageDispatcher messageDispatcher, I18nRepo i18nRepo, UserPreferences userPreferences,
                          TextureAtlasRepository textureAtlasRepository, FontRepository fontRepository,
-                         OnDemandFontRepository onDemandFontRepository, GuiSkinRepository guiSkinRepository) {
+                         OnDemandFontRepository onDemandFontRepository, GuiSkinRepository guiSkinRepository,
+                         I18nTranslator i18nTranslator) {
         this.messageDispatcher = messageDispatcher;
         this.i18nRepo = i18nRepo;
         this.userPreferences = userPreferences;
@@ -41,6 +43,7 @@ public class WidgetFactory {
         this.fontRepository = fontRepository;
         this.onDemandFontRepository = onDemandFontRepository;
         this.guiSkinRepository = guiSkinRepository;
+        this.i18nTranslator = i18nTranslator;
     }
 
     public CustomSelect<LanguageType> createLanguageSelectBox(Skin skin) {
@@ -66,5 +69,18 @@ public class WidgetFactory {
         });
 
         return selectBox;
+    }
+
+    public CheckBox createLeftLabelledCheckbox(String i18nKey, Skin skin, float labelMaxWidth) {
+        CheckBox checkbox = new CheckBox("", skin);
+        Label realLabel = new ScaledToFitLabel(i18nTranslator.getTranslatedString(i18nKey).toString(), skin, "checkbox_label", labelMaxWidth);
+        realLabel.setAlignment(Align.center);
+        checkbox.getLabel().setStyle(skin.get("checkbox_label", Label.LabelStyle.class));
+        Image image = checkbox.getImage();
+        checkbox.clearChildren();
+        checkbox.add(realLabel).growX().padRight(28f);
+        checkbox.add(image);
+
+        return checkbox;
     }
 }

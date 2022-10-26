@@ -1,103 +1,149 @@
 package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
+import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.screens.menus.options.OptionsTab;
 import technology.rocketjump.saul.screens.menus.options.OptionsTabName;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.ButtonStyle;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
-import technology.rocketjump.saul.ui.widgets.IconButton;
-import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
+import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
+import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
+import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.CRASH_REPORTING;
+import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.ENABLE_TUTORIAL;
+
 @Singleton
-public class OptionsMenu implements Menu {
+public class OptionsMenu extends BannerMenu implements DisplaysText {
 
-	private final IconButton backButton;
-	private final Skin uiSkin;
-
-	private final Table menuContainer;
-	private final Table menuTable;
-	private final Table tabsTable;
-	private final Texture twitchLogo;
+//	private final IconButton backButton;
+//
+//	private final Table menuContainer;
+//	private final Table menuTable;
+//	private final Table tabsTable;
+//	private final Texture twitchLogo;
+	private final I18nTranslator i18nTranslator;
+	private final UserPreferences userPreferences;
+	private final SoundAsset clickSoundAsset;
+	private final WidgetFactory widgetFactory;
 
 	private final Map<OptionsTabName, OptionsTab> tabs = new EnumMap<>(OptionsTabName.class);
 	private OptionsTabName currentTab = OptionsTabName.GRAPHICS;
 
 	@Inject
-	public OptionsMenu(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-					   IconButtonFactory iconButtonFactory, I18nWidgetFactory i18NWidgetFactory) {
-		this.uiSkin = guiSkinRepository.getDefault();
+	public OptionsMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory, SoundAssetDictionary soundAssetDictionary,
+					   MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator, UserPreferences userPreferences,
+					   WidgetFactory widgetFactory) {
+		super(skinRepository, menuButtonFactory, messageDispatcher);
+//		twitchLogo = new Texture("assets/ui/TwitchGlitchPurple.png");
 
-		twitchLogo = new Texture("assets/ui/TwitchGlitchPurple.png");
-
-		tabsTable = new Table(uiSkin);
-		OptionsMenu This = this;
-		for (OptionsTabName tab : OptionsTabName.values()) {
-			Table tabButton = new Table(uiSkin);
-			tabButton.background("default-rect");
-			tabButton.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					super.clicked(event, x, y);
-					This.currentTab = tab;
-					This.reset();
-				}
-			});
-			if (tab.equals(OptionsTabName.TWITCH)) {
-				Image twitchImage = new Image(twitchLogo);
-				tabButton.add(twitchImage).pad(2);
-			}
-			tabButton.add(i18NWidgetFactory.createLabel("GUI.OPTIONS.TAB."+tab.name())).pad(5);
-			tabsTable.add(tabButton).left().padRight(10);
-		}
-
-		backButton = iconButtonFactory.create("GUI.BACK_LABEL", null, Color.LIGHT_GRAY, ButtonStyle.SMALL);
-		backButton.setAction(() -> {
-			messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-		});
-
-		menuTable = new Table(uiSkin);
-		menuTable.setFillParent(true);
-		menuTable.left().top();
-
-		menuContainer = new Table(uiSkin);
-		menuContainer.background(uiSkin.getDrawable("default-rect"));
-		menuContainer.add(menuTable).left().top().width(700).height(500).pad(3).row();
-
+		this.i18nTranslator = i18nTranslator;
+		this.userPreferences = userPreferences;
+		this.clickSoundAsset = soundAssetDictionary.getByName("MenuClick");
+		this.widgetFactory = widgetFactory;
 	}
 
-	@Override
-	public void populate(Table containerTable) {
-		containerTable.add(tabsTable).left().row();
-		containerTable.add(menuContainer).center().row();
-		containerTable.add(backButton).left().pad(10).row();
-	}
-
+//	@Override
+//	public void populate(Table containerTable) {
+//		containerTable.add(tabsTable).left().row();
+//		containerTable.add(menuContainer).center().row();
+//		containerTable.add(backButton).left().pad(10).row();
+//
+//}
 	@Override
 	public void reset() {
-		menuTable.clearChildren();
+//		menuTable.clearChildren();
 
 		OptionsTab currentTab = tabs.get(this.currentTab);
 		if (currentTab == null) {
 			Logger.error("No tab for name " + this.currentTab.name());
 		} else {
-			currentTab.populate(menuTable);
+//			currentTab.populate(menuTable);
 		}
+	}
+
+	@Override
+	public void savedGamesUpdated() {
+
+	}
+
+	@Override
+	protected void addMainBannerComponents(Table mainBanner) {
+		Label titleRibbon = new ScaledToFitLabel(i18nTranslator.getTranslatedString("MENU.OPTIONS").toString(), menuSkin, "title_ribbon", 1132);
+
+		titleRibbon.setAlignment(Align.center);
+
+//		mainBanner.add(titleRibbon).width(1132).row(); //TODO: title ribbon stretches out the banner and looks like it overlaps this banner and the minor banner
+
+		for (OptionsTabName tab : OptionsTabName.values()) {
+
+			Container<TextButton> tabButton = menuButtonFactory.createButton("GUI.OPTIONS.TAB." + tab.name(), menuSkin, MenuButtonFactory.ButtonStyle.BTN_SMALL_1_50PT)
+					.withAction(() -> {
+						this.currentTab = tab;
+						this.rebuildUI();//todo: this right?
+					})
+					.build();
+
+			//TODO: add twitch logo?
+//			if (tab.equals(OptionsTabName.TWITCH)) {
+//				Image twitchImage = new Image(twitchLogo);
+//				tabButton.add(twitchImage).pad(2);
+//			}
+
+
+			mainBanner.add(tabButton).spaceBottom(48f).row();
+		}
+
+		CheckBox crashReportCheckbox = widgetFactory.createLeftLabelledCheckbox("GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED", menuSkin, 524f);
+		crashReportCheckbox.setProgrammaticChangeEvents(false); // Used so that message triggered below does not loop endlessly
+		crashReportCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(CRASH_REPORTING, "true")));
+		crashReportCheckbox.addListener((event) -> {
+			if (event instanceof ChangeListener.ChangeEvent) {
+				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
+				messageDispatcher.dispatchMessage(MessageType.CRASH_REPORTING_OPT_IN_MODIFIED, crashReportCheckbox.isChecked());
+			}
+			return true;
+		});
+
+		CheckBox tutorialCheckbox = widgetFactory.createLeftLabelledCheckbox("GUI.OPTIONS.MISC.TUTORIAL_ENABLED", menuSkin, 524f);
+		tutorialCheckbox.setProgrammaticChangeEvents(false); // Used so that message triggered below does not loop endlessly
+		tutorialCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(ENABLE_TUTORIAL, "true")));
+		tutorialCheckbox.addListener((event) -> {
+			if (event instanceof ChangeListener.ChangeEvent) {
+				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
+				userPreferences.setPreference(ENABLE_TUTORIAL, String.valueOf(tutorialCheckbox.isChecked()));
+			}
+			return true;
+		});
+
+		mainBanner.add(crashReportCheckbox).padBottom(46f).row();
+		mainBanner.add(tutorialCheckbox).padBottom(142f).row();
+
+
+
+		Container<TextButton> backButton = menuButtonFactory.createButton("GUI.BACK_LABEL", menuSkin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE_50PT)
+				.withAction(() -> {
+					messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+				})
+				.build();
+
+
+		mainBanner.add(backButton).padBottom(416f).row();
 	}
 
 	@Override
@@ -118,5 +164,10 @@ public class OptionsMenu implements Menu {
 
 	public void setCurrentTab(OptionsTabName currentTab) {
 		this.currentTab = currentTab;
+	}
+
+	@Override
+	public void rebuildUI() {
+		super.rebuild();
 	}
 }

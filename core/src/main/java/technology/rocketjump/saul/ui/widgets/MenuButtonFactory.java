@@ -33,6 +33,7 @@ public class MenuButtonFactory {
 
     public enum ButtonStyle {
         BTN_SCALABLE_50PT("btn_scalable_header-font-50"),
+        BTN_SMALL_1_50PT("btn_small_1_header-font-50"),
         BTN_BANNER_1_47PT("btn_banner_1_header-font-47"),
         BTN_BANNER_2_47PT("btn_banner_2_header-font-47"),
         BTN_BANNER_3_36PT("btn_banner_3_header-font-36"),
