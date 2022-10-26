@@ -1,6 +1,5 @@
 package technology.rocketjump.saul.ui.widgets;
 
-import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.utils.Align;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.persistence.UserPreferences;
-import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.i18n.I18nRepo;
 import technology.rocketjump.saul.ui.i18n.LanguageType;
 
@@ -20,9 +18,9 @@ public class LanguageList extends List<LanguageType> {
     private int alignment = Align.left;
 
 
-    public LanguageList(MessageDispatcher messageDispatcher, I18nRepo i18nRepo, UserPreferences userPreferences, Skin skin, TextureAtlasRepository textureAtlasRepository, FontRepository fontRepository) {
+    public LanguageList(I18nRepo i18nRepo, UserPreferences userPreferences, Skin skin, TextureAtlasRepository textureAtlasRepository, BitmapFont unicodeFont) {
         super(new ListStyle(skin.get(ListStyle.class))); //clone the style for future mutation
-        getStyle().font = fontRepository.getUnicodeFont().getBitmapFont();
+        getStyle().font = unicodeFont;
 
         i18nRepo.init(textureAtlasRepository);
         String languageCode = userPreferences.getPreference(UserPreferences.PreferenceKey.LANGUAGE, "en-gb");
@@ -50,7 +48,7 @@ public class LanguageList extends List<LanguageType> {
         Sprite iconSprite = item.getIconSprite();
 
         float itemHeight = getItemHeight();
-        batch.draw(iconSprite, x + 3, y - 18, itemHeight, itemHeight);
+        batch.draw(iconSprite, x + 6, y - 36, itemHeight, itemHeight);
         return font.draw(batch, string, x, y, 0, string.length(), width, alignment, false, "...");
     }
 

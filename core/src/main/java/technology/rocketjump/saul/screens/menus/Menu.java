@@ -12,4 +12,7 @@ public interface Menu {
 
 	void reset();
 
+	default boolean showVersionDetails() {
+		return false;
+	}
 }

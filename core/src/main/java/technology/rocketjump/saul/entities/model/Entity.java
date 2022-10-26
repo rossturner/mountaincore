@@ -6,6 +6,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.*;
@@ -385,6 +386,7 @@ public class Entity implements Persistable, Disposable {
 		if (savedGameStateHolder.entities.containsKey(id)) {
 			return;
 		}
+		savedGameStateHolder.entities.put(id, this); //This comes first to help prevent duplicate entities in save file
 
 		JSONObject asJson = new JSONObject(true);
 		asJson.put("id", id);
@@ -408,13 +410,17 @@ public class Entity implements Persistable, Disposable {
 		}
 
 		savedGameStateHolder.entitiesJson.add(asJson);
-		savedGameStateHolder.entities.put(id, this);
+
 	}
 
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
 		this.id = asJson.getLongValue("id");
 		this.type = EnumParser.getEnumValue(asJson, "type", EntityType.class, null);
+		if (savedGameStateHolder.entities.containsKey(id)) {
+			Logger.warn("Entity with id " + id + " already in savedGameStateHolder.entities. Using previous entity");
+			return;
+		}
 		savedGameStateHolder.entities.put(id, this);
 
 		JSONArray componentsJson = asJson.getJSONArray("components");
