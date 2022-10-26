@@ -420,7 +420,7 @@ GOAL.INVADER.RETREAT.DESCRIPTION,,Retreating from map
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
 GUI.ADD_TILES,This should be as short as possible,Add tiles
-GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient atmosphere effect volume:
+GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient Atmosphere
 GUI.BACK_LABEL,This should be as short as possible,Back
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors
@@ -493,7 +493,7 @@ GUI.MAP_SEED_DISPLAY,,"Current map seed: "
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical
 GUI.MINIMAP.LABEL,,Minimap
-GUI.MUSIC_VOLUME,,Music volume:
+GUI.MUSIC_VOLUME,,Music
 GUI.NEXT_LABEL,This should be as short as possible,Next
 GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this version of the game
 GUI.OK_LABEL,This should be as short as possible,Ok
@@ -557,7 +557,7 @@ GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name
 GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers
 GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}}
-GUI.SOUND_EFFECT_VOLUME,,Sound effect volume
+GUI.SOUND_EFFECT_VOLUME,,Sound Effects
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:
 GUI.VIEW_ROADMAP,,View development roadmap
 GUI.YEAR_LABEL,,Year {{year}}

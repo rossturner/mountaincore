@@ -39,6 +39,14 @@ arrow_right
   orig: 116, 254
   offset: 0, 0
   index: -1
+asset_audio_slider_cropped
+  rotate: false
+  xy: 904, 4796
+  size: 18, 18
+  split: 2, 2, 2, 2
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
 asset_bg_banner
   rotate: false
   xy: 2, 2656
@@ -88,6 +96,13 @@ btn_01
   xy: 2, 236
   size: 406, 100
   orig: 406, 100
+  offset: 0, 0
+  index: -1
+btn_audio_slider
+  rotate: false
+  xy: 2394, 5538
+  size: 36, 78
+  orig: 36, 78
   offset: 0, 0
   index: -1
 btn_banner_1
@@ -233,7 +248,7 @@ save_title_ribbon_bg
   index: -1
 scroll_bg
   rotate: false
-  xy: 3098, 5641
+  xy: 2169, 5320
   size: 28, 28
   split: 1, 1, 0, 0
   orig: 28, 28
@@ -241,7 +256,7 @@ scroll_bg
   index: -1
 scroll_fg
   rotate: false
-  xy: 2394, 5588
+  xy: 3098, 5641
   size: 28, 28
   split: 1, 1, 0, 0
   orig: 28, 28

@@ -1,8 +1,12 @@
 package technology.rocketjump.saul.screens.menus.options;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAsset;
@@ -10,10 +14,9 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.I18nLabel;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
-import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
 
 import static technology.rocketjump.saul.audio.AmbientSoundManager.DEFAULT_AMBIENT_AUDIO_VOLUME_AS_STRING;
 import static technology.rocketjump.saul.audio.MusicJukebox.DEFAULT_VOLUME_AS_STRING;
@@ -21,28 +24,65 @@ import static technology.rocketjump.saul.audio.SoundEffectManager.DEFAULT_SOUND_
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.*;
 
 @Singleton
-public class AudioOptionsTab implements OptionsTab {
+public class AudioOptionsTab implements OptionsTab, DisplaysText {
 
-	private final I18nLabel audioTitle;
-	private final Label musicLabel;
-	private final Slider musicSlider;
-	private final Label soundEffectLabel;
-	private final Slider soundEffectSlider;
-	private final Label ambientEffectLabel;
-	private final Slider ambientEffectSlider;
+	private final Skin skin;
+	private final UserPreferences userPreferences;
+	private final MessageDispatcher messageDispatcher;
+	private final I18nTranslator i18nTranslator;
+	private final SoundAsset sliderSoundAsset;
+
+	private Label audioTitle;
+	private Label musicLabel;
+	private Slider musicSlider;
+	private Label soundEffectLabel;
+	private Slider soundEffectSlider;
+	private Label ambientEffectLabel;
+	private Slider ambientEffectSlider;
 
 	@Inject
 	public AudioOptionsTab(UserPreferences userPreferences, GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-						   IconButtonFactory iconButtonFactory, I18nWidgetFactory i18NWidgetFactory, SoundAssetDictionary soundAssetDictionary) {
-		Skin uiSkin = guiSkinRepository.getDefault();
-		audioTitle = i18NWidgetFactory.createLabel("GUI.OPTIONS.AUDIO.TITLE");
+						   I18nTranslator i18nTranslator, SoundAssetDictionary soundAssetDictionary) {
+		this.userPreferences = userPreferences;
+		this.messageDispatcher = messageDispatcher;
+		this.skin = guiSkinRepository.getMenuSkin();
+		this.i18nTranslator = i18nTranslator;
+		this.sliderSoundAsset = soundAssetDictionary.getByName("Slider");
 
-		final SoundAsset sliderSoundAsset = soundAssetDictionary.getByName("Slider");
+		rebuildUI();
+	}
 
-		musicLabel = i18NWidgetFactory.createLabel("GUI.MUSIC_VOLUME");
-		musicSlider = new Slider(0, 0.8f, 0.08f, false, uiSkin);
+	@Override
+	public void populate(Table menuTable) {
+
+		// AUDIO
+		menuTable.add(audioTitle).pad(10).row();
+
+		menuTable.add(musicLabel).row();
+		menuTable.add(musicSlider).growX().row();
+
+		menuTable.add(soundEffectLabel).row();
+		menuTable.add(soundEffectSlider).growX().row();
+
+		menuTable.add(ambientEffectLabel).row();
+		menuTable.add(ambientEffectSlider).growX().row();
+	}
+
+	@Override
+	public OptionsTabName getTabName() {
+		return OptionsTabName.AUDIO;
+	}
+
+	@Override
+	public void rebuildUI() {
+		audioTitle = new Label(i18nTranslator.getTranslatedString(getTabName().getI18nKey()).toString(), skin, "secondary_banner_title");
+		audioTitle.setAlignment(Align.center);
+
+
+		musicLabel = new Label(i18nTranslator.getTranslatedString("GUI.MUSIC_VOLUME").toString(), skin, "options_menu_label");
+		musicSlider = new Slider(0, 0.8f, 0.08f, false, skin);
 		String savedVolume = userPreferences.getPreference(MUSIC_VOLUME, DEFAULT_VOLUME_AS_STRING);
-		musicSlider.setValue(Float.valueOf(savedVolume));
+		musicSlider.setValue(Float.parseFloat(savedVolume));
 		musicSlider.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(sliderSoundAsset));
@@ -52,10 +92,10 @@ public class AudioOptionsTab implements OptionsTab {
 			return true;
 		});
 
-		soundEffectLabel = i18NWidgetFactory.createLabel("GUI.SOUND_EFFECT_VOLUME");
-		soundEffectSlider = new Slider(0, 1, 0.1f, false, uiSkin);
+		soundEffectLabel = new Label(i18nTranslator.getTranslatedString("GUI.SOUND_EFFECT_VOLUME").toString(), skin, "options_menu_label");
+		soundEffectSlider = new Slider(0, 1, 0.1f, false, skin);
 		String savedSoundEffectVolume = userPreferences.getPreference(SOUND_EFFECT_VOLUME, DEFAULT_SOUND_VOLUME_AS_STRING);
-		soundEffectSlider.setValue(Float.valueOf(savedSoundEffectVolume));
+		soundEffectSlider.setValue(Float.parseFloat(savedSoundEffectVolume));
 		soundEffectSlider.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(sliderSoundAsset));
@@ -65,10 +105,10 @@ public class AudioOptionsTab implements OptionsTab {
 			return true;
 		});
 
-		ambientEffectLabel = i18NWidgetFactory.createLabel("GUI.AMBIENT_EFFECT_VOLUME");
-		ambientEffectSlider = new Slider(0, 1, 0.1f, false, uiSkin);
+		ambientEffectLabel = new Label(i18nTranslator.getTranslatedString("GUI.AMBIENT_EFFECT_VOLUME").toString(), skin, "options_menu_label");
+		ambientEffectSlider = new Slider(0, 1, 0.1f, false, skin);
 		String savedAmbientEffectVolume = userPreferences.getPreference(AMBIENT_EFFECT_VOLUME, DEFAULT_AMBIENT_AUDIO_VOLUME_AS_STRING);
-		ambientEffectSlider.setValue(Float.valueOf(savedAmbientEffectVolume));
+		ambientEffectSlider.setValue(Float.parseFloat(savedAmbientEffectVolume));
 		ambientEffectSlider.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(sliderSoundAsset));
@@ -77,32 +117,5 @@ public class AudioOptionsTab implements OptionsTab {
 			}
 			return true;
 		});
-
-
-	}
-
-	@Override
-	public void populate(Table menuTable) {
-
-		// AUDIO
-		menuTable.add(audioTitle).width(250).left().pad(10);
-		menuTable.add(new Container<>()).colspan(2).row();
-
-		menuTable.add(musicLabel).pad(10).right();
-		menuTable.add(musicSlider).pad(10);
-		menuTable.add(new Container<>()).row(); // pad out 1 cell
-
-		menuTable.add(soundEffectLabel).pad(10).right();
-		menuTable.add(soundEffectSlider).pad(10);
-		menuTable.add(new Container<>()).row(); // pad out 1 cell
-
-		menuTable.add(ambientEffectLabel).pad(10).right();
-		menuTable.add(ambientEffectSlider).pad(10);
-		menuTable.add(new Container<>()).row(); // pad out 1 cell
-	}
-
-	@Override
-	public OptionsTabName getTabName() {
-		return OptionsTabName.AUDIO;
 	}
 }
