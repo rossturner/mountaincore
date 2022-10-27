@@ -549,6 +549,7 @@ GUI.REMOVE_TILES,Remove tiles,,Felder entfernen,Retirer des cases,Rimuovi casell
 GUI.RESOURCE_MANAGEMENT.TITLE,Resources,,Ressourcen,Ressources,Risorse,Recursos,Recursos,,,Ресурсы,Kaynaklar,Ressourcer,,Resurser,,,,資源,资源,
 GUI.RESOURCE_MANAGEMENT.UNALLOCATED_LABEL,Available: {{count}},,Verfügbar: {{count}},Disponible: {{count}},Disponibile: {{count}},Disponible: {{count}},Disponível: {{count}},,,Доступно: {{count}},"Mevcut: {{count}}  ",Tilgængelig: {{count},,Tillgänglig: {{count}},,,,利用可能:{{count}},可用：{{count}},
 GUI.ROOFING.ADD,Add,,Hinzufügen,,Aggiungi,Añadir,,,,Добавить,,,,,,,,追加,添加,
+GUI.ROOMS_LABEL,Rooms,,,,,,,,,,,,,,,,,,,
 GUI.ROTATE_FURNITURE.HINT,Press (R) to rotate furniture,,Zum Rotieren der Möbel (R) drücken,Appuyez sur (R) pour pivoter les meubles,Premi (R) per ruotare le mobili,Pulsa (R) para rotar los muebles,Premir (R) para rodar mobília,Aperte (R) para girar a mobília,,"Нажмите (R), чтобы повернуть мебель",Mobilyayı döndürmek içni (R) bas.,Tryk (R) for at rotere møbler,,Tryck på (R) för att rotera möbler,,,,(R) を押すと建築物を回転させます,按R旋转家具,
 GUI.SAVING_PROMPT,Saving…,,Spiel wird gespeichert…,Sauvegarde en cours...,Salvataggio...,Guardando...,A guardar…,Salvando…,,Сохранение…,Kaydediliyor,Redder...,,Räddar...,,,,セーブ中…,正在保存…,
 GUI.SELECT_WEAPON.LABEL,Select weapon,,,,,,,,,,,,,,,,,,,
@@ -564,7 +565,7 @@ GUI.SOUND_EFFECT_VOLUME,Sound effect volume,,Soundeffektlautstärke,Volume des e
 GUI.UI_SCALE,UI scale:,,Interfacegröße,Dimension de l'interface:,Dimensione dell'interfaccia:,Tamaño de la interfaz:,Tamanho da interface:,Tamanho da interface:,,Размер интерфейса:,Arayüz ölçeği:,UI-skala:,,Gränssnittskala:,,,,UIスケール:,UI缩放：,
 GUI.VIEW_ROADMAP,View development roadmap,,Entwicklungsroadmap anschauen,,Vedi la roadmap di sviluppo,Ver la hoja de ruta del desarrollo,,,,Посмотреть планы разработки,Geliştirme yol haritasını görüntüle,,,,,,,開発ロードマップを見る,查看开发路线图,
 GUI.YEAR_LABEL,Year {{year}},,,,,,,,,,,,,,,,,,,
-GUI.ZONES_LABEL,Zones,,Zonen,Zones,Zone,Zonas,Áreas,Zonas,,Зоны,Bölgeler,Zoner,,Zoner,,,,ゾーン,区域,
+GUI.ZONES_LABEL,,,Zonen,Zones,Zone,Zonas,Áreas,Zonas,,Зоны,Bölgeler,Zoner,,Zoner,,,,ゾーン,区域,
 
 HAPPINESS_MODIFIER.ALCOHOL_WITHDRAWAL,Going sober,,Wird gerade nüchtern,,Diventare sobrio,Quedándose sobrio,,,,"Трезвый ",Ayılıyor,,,,,,,酔いが醒めている,戒酒,
 HAPPINESS_MODIFIER.ATE_NICELY_PREPARED_FOOD,Ate a nicely prepared meal,,Hat eine gute Mahlzeit gegessen,A mangé un repas cuisiné,Mangiato un pasto ben preparato,Comió una comida bien preparada,Comi uma refeição bem preparada,,,"Съел хорошо приготовленную еду ",Güzel hazırlanmış bir yemek yedi,Spiste et pænt tilberedt måltid,,Åt en fint tillagad måltid,,,,おいしい食事を食べた,享用了美味的食物,

@@ -58,7 +58,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 		Skin mainGameSkin = guiSkinRepository.getMainGameSkin();
 		Drawable resizeButtonDrawable = mainGameSkin.getDrawable("btn_map_resize");
 		resizeButton = new Button(resizeButtonDrawable);
-		resizeButton.addListener(new ChangeCursorOnHover(GameCursor.RESIZE, messageDispatcher));
+		resizeButton.addListener(new ChangeCursorOnHover(resizeButton, GameCursor.RESIZE, messageDispatcher));
 
 		minimapSelectionTexture = new Texture("assets/ui/minimapSelection.png");
 		TextureRegionDrawable selectionDrawable = new TextureRegionDrawable(new TextureRegion(minimapSelectionTexture));
@@ -132,8 +132,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 
 	@Override
 	public GuiViewName getName() {
-		// This is a special case GuiView which lives outside of the normal usage
-		return null;
+		return GuiViewName.MINIMAP;
 	}
 
 	@Override

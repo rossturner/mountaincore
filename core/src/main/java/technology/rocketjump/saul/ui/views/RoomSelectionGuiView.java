@@ -63,7 +63,7 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName());
 			}
 		});
-		backButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		backButton.addListener(new ChangeCursorOnHover(backButton, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(backButton, "GUI.BACK_LABEL", TooltipLocationHint.ABOVE);
 
 		mainTable = new Table();
@@ -110,7 +110,7 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 					}
 				}
 			});
-			roomButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+			roomButton.addListener(new ChangeCursorOnHover(roomButton, GameCursor.SELECT, messageDispatcher));
 			tooltipFactory.simpleTooltip(roomButton, roomType.getI18nKey(), TooltipLocationHint.ABOVE);
 
 			buttonsTable.add(roomButton);

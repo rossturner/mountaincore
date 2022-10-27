@@ -5,10 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.google.inject.ConfigurationException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.spi.Message;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import technology.rocketjump.saul.assets.AssetDisposable;
@@ -47,9 +45,7 @@ import technology.rocketjump.saul.ui.i18n.I18nRepo;
 import technology.rocketjump.saul.ui.views.TimeDateGuiView;
 import technology.rocketjump.saul.ui.widgets.ImageButtonFactory;
 
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -105,20 +101,20 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 
 			Reflections reflections = new Reflections("technology.rocketjump.saul", new SubTypesScanner());
 			Set<Class<? extends Updatable>> updateableClasses = reflections.getSubTypesOf(Updatable.class);
-			updateableClasses.forEach(this::checkForSingleton);
+			updateableClasses.forEach(SaulGuiceModule::checkForSingleton);
 			gameUpdateRegister.registerClasses(updateableClasses, injector);
 
 			// Get all implementations of GameContextAware and instantiate them
 			Set<Class<? extends GameContextAware>> gameContextAwareClasses = reflections.getSubTypesOf(GameContextAware.class);
-			gameContextAwareClasses.forEach(this::checkForSingleton);
+			gameContextAwareClasses.forEach(SaulGuiceModule::checkForSingleton);
 			gameContextRegister.registerClasses(gameContextAwareClasses, injector);
 
 			Set<Class<? extends DisplaysText>> displaysTextClasses = reflections.getSubTypesOf(DisplaysText.class);
-			displaysTextClasses.forEach(this::checkForSingleton);
+			displaysTextClasses.forEach(SaulGuiceModule::checkForSingleton);
 			displaysTextRegister.registerClasses(displaysTextClasses, injector);
 
 			Set<Class<? extends AssetDisposable>> assetUpdatableClasses = reflections.getSubTypesOf(AssetDisposable.class);
-			assetUpdatableClasses.forEach(this::checkForSingleton);
+			assetUpdatableClasses.forEach(SaulGuiceModule::checkForSingleton);
 			assetDisposableRegister.registerClasses(assetUpdatableClasses, injector);
 
 			Set<Class<? extends OptionsTab>> optionsTabClasses = reflections.getSubTypesOf(OptionsTab.class);
@@ -179,14 +175,6 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 		}
 		messageDispatcher.dispatchMessage(MessageType.SHUTDOWN_IN_PROGRESS);
 		Gdx.app.exit();
-	}
-
-	private void checkForSingleton(Class aClass) {
-		if (!aClass.isInterface() && !Modifier.isAbstract(aClass.getModifiers()) && !(
-				aClass.isAnnotationPresent(javax.inject.Singleton.class) || aClass.isAnnotationPresent(com.google.inject.Singleton.class)
-		)) {
-			throw new ConfigurationException(Arrays.asList(new Message(aClass.getName() + " must be annotated with Singleton")));
-		}
 	}
 
 	@Override

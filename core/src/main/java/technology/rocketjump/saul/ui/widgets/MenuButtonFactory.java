@@ -91,7 +91,7 @@ public class MenuButtonFactory {
                     messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onClickSoundAsset));
                 }
             });
-            button.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+            button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
         }
 
 

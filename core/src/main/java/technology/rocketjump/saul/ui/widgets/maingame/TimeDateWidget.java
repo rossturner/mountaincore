@@ -127,7 +127,7 @@ public class TimeDateWidget extends Container<Table> implements Telegraph, GameC
 					messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, gameSpeed);
 				}
 			});
-			speedButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+			speedButton.addListener(new ChangeCursorOnHover(speedButton, GameCursor.SELECT, messageDispatcher));
 			Cell<Button> cell = gameSpeedControlsTable.add(speedButton);
 			if (gameSpeed.equals(GameSpeed.PAUSED)) {
 				cell.padLeft(0);

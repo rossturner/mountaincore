@@ -4,7 +4,11 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.Singleton;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
+import technology.rocketjump.saul.guice.SaulGuiceModule;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.PopulateSelectItemViewMessage;
 import technology.rocketjump.saul.rooms.RoomType;
@@ -12,6 +16,7 @@ import technology.rocketjump.saul.ui.GameInteractionMode;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Set;
 
 @Singleton
 public class GuiViewRepository implements Telegraph {
@@ -19,34 +24,12 @@ public class GuiViewRepository implements Telegraph {
 	private Map<GuiViewName, GuiView> byName = new EnumMap<>(GuiViewName.class);
 
 	@Inject
-	public GuiViewRepository(DefaultGuiView defaultGuiView, OrderSelectionGuiView orderSelectionGuiView, RoomSelectionGuiView roomSelectionGuiView,
-							 RoomSizingGuiView roomSizingGuiView, FurnitureSelectionGuiView furnitureSelectionGuiView, EntitySelectedGuiView entitySelectedGuiView,
-							 BuildMenuGuiView buildMenuGuiView, BuildFlooringGuiView buildFlooringGuiView,
-							 BuildWallsGuiView buildWallsGuiView, ConstructionSelectedGuiView constructionSelectedGuiView,
-							 BuildDoorsGuiView buildDoorsGuiView, DoorwaySelectedGuiView doorwaySelectedGuiView, TileSelectedGuiView tileSelectedGuiView,
-							 BuildRoofingGuiView buildRoofingGuiView, BuildPipingGuiView buildPipingGuiView,
-							 BuildMechanismsGuiView buildMechanismsGuiView,
-							 RoomSelectedGuiView roomSelectedGuiView, StockpileSelectionGuiView stockpileSelectionGuiView,
-							 ChangeProfessionGuiView changeProfessionGuiView,
-							 BuildBridgeGuiView buildBridgeGuiView,
-							 BridgeSelectedGuiView bridgeSelectedGuiView, PrioritiesGuiView prioritiesGuiView,
-							 SelectStartLocationGuiView selectStartLocationGuiView,
-							 SelectItemGuiView selectItemGuiView,
-							 SquadSelectedGuiView squadSelectedGuiView,
-							 MessageDispatcher messageDispatcher) {
-		this(messageDispatcher, defaultGuiView, orderSelectionGuiView, roomSelectionGuiView, roomSizingGuiView, constructionSelectedGuiView,
-				furnitureSelectionGuiView, entitySelectedGuiView, buildMenuGuiView, buildFlooringGuiView, buildWallsGuiView,
-				buildDoorsGuiView, doorwaySelectedGuiView,
-				tileSelectedGuiView, buildRoofingGuiView, buildPipingGuiView, roomSelectedGuiView, stockpileSelectionGuiView,
-				changeProfessionGuiView, buildBridgeGuiView, buildMechanismsGuiView,
-				bridgeSelectedGuiView, prioritiesGuiView, selectStartLocationGuiView,
-				squadSelectedGuiView,
-				selectItemGuiView);
-	}
-
-	public GuiViewRepository(MessageDispatcher messageDispatcher, GuiView... views) {
-		for (GuiView view : views) {
-			add(view);
+	public GuiViewRepository(Injector injector, MessageDispatcher messageDispatcher) {
+		Reflections reflections = new Reflections(getClass().getPackageName(), new SubTypesScanner());
+		Set<Class<? extends GuiView>> viewClasses = reflections.getSubTypesOf(GuiView.class);
+		viewClasses.forEach(SaulGuiceModule::checkForSingleton);
+		for (Class<? extends GuiView> viewClass : viewClasses) {
+			add(injector.getInstance(viewClass));
 		}
 
 		messageDispatcher.addListener(this, MessageType.GUI_ROOM_TYPE_SELECTED);

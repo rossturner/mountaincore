@@ -93,7 +93,7 @@ public class OrderSelectionGuiView implements GuiView, DisplaysText {
 
 	private Button buildButton(String drawableName, String tooltipI18nKey, Runnable onClick) {
 		Button button = new Button(skin.getDrawable(drawableName));
-		button.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {

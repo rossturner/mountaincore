@@ -87,7 +87,7 @@ public class DefaultGuiView implements GuiView, DisplaysText {
 				onClick.run();
 			}
 		});
-		button.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(button, i18nKey, TooltipLocationHint.ABOVE);
 		return button;
 	}
