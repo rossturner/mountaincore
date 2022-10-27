@@ -6,10 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.screens.menus.options.OptionsTab;
 import technology.rocketjump.saul.screens.menus.options.OptionsTabName;
@@ -30,16 +28,11 @@ import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceK
 @Singleton
 public class OptionsMenu extends BannerMenu implements DisplaysText {
 
-//	private final IconButton backButton;
-//
-//	private final Table menuContainer;
-//	private final Table menuTable;
-//	private final Table tabsTable;
-//	private final Texture twitchLogo;
+	//	private final Texture twitchLogo;
 	private final I18nTranslator i18nTranslator;
 	private final UserPreferences userPreferences;
-	private final SoundAsset clickSoundAsset;
 	private final WidgetFactory widgetFactory;
+	private final SoundAssetDictionary soundAssetDictionary;
 
 	private final Map<OptionsTabName, OptionsTab> tabs = new EnumMap<>(OptionsTabName.class);
 	private OptionsTabName currentTab = OptionsTabName.GRAPHICS;
@@ -49,11 +42,11 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 					   MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator, UserPreferences userPreferences,
 					   WidgetFactory widgetFactory) {
 		super(skinRepository, menuButtonFactory, messageDispatcher);
+		this.soundAssetDictionary = soundAssetDictionary;
 //		twitchLogo = new Texture("assets/ui/TwitchGlitchPurple.png");
 
 		this.i18nTranslator = i18nTranslator;
 		this.userPreferences = userPreferences;
-		this.clickSoundAsset = soundAssetDictionary.getByName("MenuClick");
 		this.widgetFactory = widgetFactory;
 	}
 
@@ -84,10 +77,12 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 	@Override
 	protected void addMainBannerComponents(Table mainBanner) {
 		Label titleRibbon = new ScaledToFitLabel(i18nTranslator.getTranslatedString("MENU.OPTIONS").toString(), menuSkin, "title_ribbon", 1132);
-
 		titleRibbon.setAlignment(Align.center);
-
 //		mainBanner.add(titleRibbon).width(1132).row(); //TODO: title ribbon stretches out the banner and looks like it overlaps this banner and the minor banner
+
+		Table buttonsTable = new Table();
+		buttonsTable.defaults().uniformX();
+		buttonsTable.debugAll();
 
 		for (OptionsTabName tab : OptionsTabName.values()) {
 
@@ -105,7 +100,7 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 //			}
 
 
-			mainBanner.add(tabButton).spaceBottom(48f).row();
+			buttonsTable.add(tabButton).spaceBottom(44f).row();
 		}
 
 		CheckBox crashReportCheckbox = widgetFactory.createLeftLabelledCheckbox("GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED", menuSkin, 524f);
@@ -113,7 +108,6 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 		crashReportCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(CRASH_REPORTING, "true")));
 		crashReportCheckbox.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
 				messageDispatcher.dispatchMessage(MessageType.CRASH_REPORTING_OPT_IN_MODIFIED, crashReportCheckbox.isChecked());
 			}
 			return true;
@@ -124,15 +118,15 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 		tutorialCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(ENABLE_TUTORIAL, "true")));
 		tutorialCheckbox.addListener((event) -> {
 			if (event instanceof ChangeListener.ChangeEvent) {
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
 				userPreferences.setPreference(ENABLE_TUTORIAL, String.valueOf(tutorialCheckbox.isChecked()));
 			}
 			return true;
 		});
 
-		mainBanner.add(crashReportCheckbox).padBottom(46f).row();
-		mainBanner.add(tutorialCheckbox).padBottom(142f).row();
+		buttonsTable.add(crashReportCheckbox).fillX().padBottom(46f).row();
+		buttonsTable.add(tutorialCheckbox).fillX().padBottom(142f).row();
 
+		mainBanner.add(buttonsTable).row();
 
 
 		Container<TextButton> backButton = menuButtonFactory.createButton("GUI.BACK_LABEL", menuSkin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE_50PT)
@@ -141,8 +135,8 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 				})
 				.build();
 
-
-		mainBanner.add(backButton).padBottom(416f).row();
+		backButton.width(330f);
+		mainBanner.add(backButton).fill().row();
 	}
 
 	@Override
