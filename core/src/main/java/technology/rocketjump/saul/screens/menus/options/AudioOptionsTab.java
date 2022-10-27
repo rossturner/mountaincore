@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAsset;
@@ -32,7 +31,6 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 	private final I18nTranslator i18nTranslator;
 	private final SoundAsset sliderSoundAsset;
 
-	private Label audioTitle;
 	private Label musicLabel;
 	private Slider musicSlider;
 	private Label soundEffectLabel;
@@ -56,8 +54,6 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 	public void populate(Table menuTable) {
 
 		// AUDIO
-		menuTable.add(audioTitle).row();
-
 		menuTable.add(musicLabel).row();
 		menuTable.add(musicSlider).growX().row();
 
@@ -75,9 +71,6 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 
 	@Override
 	public void rebuildUI() {
-		audioTitle = new Label(i18nTranslator.getTranslatedString(getTabName().getI18nKey()).toString(), skin, "secondary_banner_title");
-		audioTitle.setAlignment(Align.center);
-
 
 		musicLabel = new Label(i18nTranslator.getTranslatedString("GUI.MUSIC_VOLUME").toString(), skin, "options_menu_label");
 		musicSlider = new Slider(0, 0.8f, 0.08f, false, skin);

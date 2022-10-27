@@ -3,7 +3,6 @@ package technology.rocketjump.saul.screens.menus.options;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -40,7 +39,6 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 	private final Skin skin;
 	private final SoundAsset clickSoundAsset;
 
-	private Label graphicsTitle;
 	private SelectBox<Resolution> resolutionSelect;
 	private SelectBox<String> fullscreenSelect;
 	private EventListener fullscreenSelectListener;
@@ -62,8 +60,6 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 
 	@Override
 	public void populate(Table menuTable) {
-		menuTable.add(graphicsTitle).top().row();
-
 		menuTable.add(fullscreenSelect).padBottom(48f).row();
 		menuTable.add(resolutionSelect).padBottom(48f).row();
 	}
@@ -104,9 +100,6 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 
 	@Override
 	public void rebuildUI() {
-		graphicsTitle = new Label(i18nTranslator.getTranslatedString(getTabName().getI18nKey()).toString(), skin, "secondary_banner_title");
-		graphicsTitle.setAlignment(Align.center);
-
 		fullscreenSelect = new SelectBox<>(skin);
 		fullscreenSelect.setAlignment(Align.center);
 		fullscreenSelect.getScrollPane().getList().setAlignment(Align.center);

@@ -41,7 +41,7 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 	public OptionsMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory, SoundAssetDictionary soundAssetDictionary,
 					   MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator, UserPreferences userPreferences,
 					   WidgetFactory widgetFactory) {
-		super(skinRepository, menuButtonFactory, messageDispatcher);
+		super(skinRepository, menuButtonFactory, messageDispatcher, i18nTranslator);
 		this.soundAssetDictionary = soundAssetDictionary;
 //		twitchLogo = new Texture("assets/ui/TwitchGlitchPurple.png");
 
@@ -164,5 +164,13 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 	@Override
 	public void rebuildUI() {
 		super.rebuild();
+	}
+
+	@Override
+	protected String getSecondaryBannerTitleI18nKey() {
+		if (currentTab == null) {
+			return null;
+		}
+		return currentTab.getI18nKey();
 	}
 }

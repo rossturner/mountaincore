@@ -4,11 +4,9 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAsset;
@@ -34,7 +32,6 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 	private final I18nTranslator i18nTranslator;
 	private final WidgetFactory widgetFactory;
 
-	private Label gameplayTitle;
 	private CheckBox edgeScrollingCheckbox;
 	private CheckBox zoomToCursorCheckbox;
 	private CheckBox treeTransparencyCheckbox;
@@ -55,8 +52,6 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 	@Override
 	public void populate(Table menuTable) {
 		// GAMEPLAY
-		menuTable.add(gameplayTitle).row();
-
 		menuTable.add(edgeScrollingCheckbox).row();
 		menuTable.add(zoomToCursorCheckbox).row();
 		menuTable.add(treeTransparencyCheckbox).row();
@@ -89,11 +84,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 	@Override
 	public void rebuildUI() {
 
-
-		gameplayTitle = new Label(i18nTranslator.getTranslatedString(getTabName().getI18nKey()).toString(), skin, "secondary_banner_title");
-		gameplayTitle.setAlignment(Align.center);
-
-		edgeScrollingCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.USE_EDGE_SCROLLING", skin, 550f);
+		edgeScrollingCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.USE_EDGE_SCROLLING", skin, 428f);
 		GlobalSettings.USE_EDGE_SCROLLING = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.EDGE_SCROLLING, "true"));;
 		edgeScrollingCheckbox.setChecked(GlobalSettings.USE_EDGE_SCROLLING);
 		edgeScrollingCheckbox.addListener((event) -> {
@@ -105,7 +96,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 			return true;
 		});
 
-		zoomToCursorCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.ZOOM_TO_CURSOR", skin, 550f);
+		zoomToCursorCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.ZOOM_TO_CURSOR", skin, 428f);
 		GlobalSettings.ZOOM_TO_CURSOR = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.ZOOM_TO_CURSOR, "true"));;
 		zoomToCursorCheckbox.setChecked(GlobalSettings.ZOOM_TO_CURSOR);
 		zoomToCursorCheckbox.addListener((event) -> {
@@ -117,7 +108,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 			return true;
 		});
 
-		treeTransparencyCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.HIDE_TREES_OBSCURING_SETTLERS", skin, 550f);
+		treeTransparencyCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.HIDE_TREES_OBSCURING_SETTLERS", skin, 428f);
 		GlobalSettings.TREE_TRANSPARENCY_ENABLED = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.TREE_TRANSPARENCY, "true"));;
 		treeTransparencyCheckbox.setChecked(GlobalSettings.TREE_TRANSPARENCY_ENABLED);
 		treeTransparencyCheckbox.addListener((event) -> {
@@ -129,7 +120,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 			return true;
 		});
 
-		pauseOnNotificationCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.PAUSE_ON_NOTIFICATION", skin, 550f);
+		pauseOnNotificationCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.PAUSE_ON_NOTIFICATION", skin, 428f);
 		GlobalSettings.PAUSE_FOR_NOTIFICATIONS = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.PAUSE_FOR_NOTIFICATIONS, "true"));;
 		pauseOnNotificationCheckbox.setChecked(GlobalSettings.PAUSE_FOR_NOTIFICATIONS);
 		pauseOnNotificationCheckbox.addListener((event) -> {
@@ -141,7 +132,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 			return true;
 		});
 
-		enableHintsCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.MISC.HINTS_ENABLED", skin, 550f);
+		enableHintsCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.MISC.HINTS_ENABLED", skin, 428f);
 		enableHintsCheckbox.setProgrammaticChangeEvents(false); // Used so that message triggered below does not loop endlessly
 		enableHintsCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(ALLOW_HINTS, "true")));
 		enableHintsCheckbox.addListener((event) -> {

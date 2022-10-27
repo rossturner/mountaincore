@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
 
@@ -20,14 +21,16 @@ public abstract class BannerMenu implements Menu {
     protected final Image discordIconImage;
     protected final Image twitchIconImage;
     protected final Image bannerPoleImage;
+    protected final I18nTranslator i18nTranslator;
 
     private final Stack sceneStack = new Stack();
 
 
-    public BannerMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory, MessageDispatcher messageDispatcher) {
+    public BannerMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator) {
         this.menuSkin = skinRepository.getMenuSkin();
         this.menuButtonFactory = menuButtonFactory;
         this.messageDispatcher = messageDispatcher;
+        this.i18nTranslator = i18nTranslator;
         this.discordIconImage = new Image(menuSkin.getDrawable("icon_discord"), Scaling.fit);
         this.twitchIconImage = new Image(menuSkin.getDrawable("icon_twitch"), Scaling.fit);
         this.bannerPoleImage = new Image(menuSkin.getDrawable("asset_bg_banner_pole"), Scaling.fit); //TODO: Decide on what to do about the pole
@@ -92,20 +95,38 @@ public abstract class BannerMenu implements Menu {
         addMainBannerComponents(buttonsTable);
 
         Table secondaryBanner = new Table();
-        float secondaryBannerPadTop = 0f;
+        secondaryBanner.debugAll();
+        secondaryBanner.defaults().maxWidth(576f);
         secondaryBanner.setBackground(menuSkin.getDrawable("asset_bg_options_banner_rolled"));
-        addSecondaryBannerComponents(secondaryBanner);
-        if (!secondaryBanner.getChildren().isEmpty()) {
-            secondaryBannerPadTop = 32f;
-            secondaryBanner.setBackground(menuSkin.getDrawable("asset_secondary_banner_bg"));
+
+        float secondaryBannerPadTop = 0f;
+        String secondaryBannerTitleI18nKey = getSecondaryBannerTitleI18nKey();
+        if (secondaryBannerTitleI18nKey != null) {
+            Label secondaryBannerTitle = new Label(i18nTranslator.getTranslatedString(secondaryBannerTitleI18nKey).toString(), menuSkin, "secondary_banner_title");
+            secondaryBannerTitle.setAlignment(Align.center);
+            secondaryBanner.add(secondaryBannerTitle).top().padTop(110f).row();
         }
+
+        Table secondaryBannerComponents = new Table();
+        secondaryBannerComponents.defaults().maxWidth(576f);
+        addSecondaryBannerComponents(secondaryBannerComponents);
+        if (!secondaryBannerComponents.getChildren().isEmpty()) {
+            secondaryBannerPadTop = 32f; //this deals with the asset_secondary_banner_bg not having same padding baked in asset like rolled is
+            secondaryBanner.setBackground(menuSkin.getDrawable("asset_secondary_banner_bg"));
+            secondaryBanner.add(secondaryBannerComponents).expand().fillX();
+        }
+
 
         Table positioningTable = new Table();
         positioningTable.right().top();
         positioningTable.padRight(230f);
-        positioningTable.add(secondaryBanner).top().padTop(secondaryBannerPadTop).padRight(128f);
+        positioningTable.add(secondaryBanner).width(644f).top().padTop(secondaryBannerPadTop).padRight(128f);
         positioningTable.add(buttonsTable).padTop(32f);
         return positioningTable;
+    }
+
+    protected String getSecondaryBannerTitleI18nKey() {
+        return null;
     }
 
     protected abstract void addSecondaryBannerComponents(Table secondaryBanner);

@@ -6,7 +6,6 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAsset;
@@ -40,7 +39,6 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 	private final MenuButtonFactory menuButtonFactory;
 
 
-	private Label pageTitle;
 	private CheckBox viewersAsSettersCheckbox;
 	private CheckBox prioritiseSubsCheckbox;
 	private Container<TextButton> disconnectAccountButton;
@@ -87,9 +85,6 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 		if (menuTable == null) {
 			return;
 		}
-
-		menuTable.clearChildren();
-		menuTable.add(pageTitle).row();
 
 		menuTable.add(twitchEnabledCheckbox).row();
 
@@ -141,9 +136,6 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 	@Override
 	public void rebuildUI() {
-		pageTitle = new Label(i18nTranslator.getTranslatedString(getTabName().getI18nKey()).toString(), skin, "secondary_banner_title");
-		pageTitle.setAlignment(Align.center);
-
 		twitchEnabledCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.TWITCH.ENABLED", skin, 550f);
 		twitchEnabledCheckbox.setProgrammaticChangeEvents(false);
 		twitchEnabled = Boolean.parseBoolean(userPreferences.getPreference(TWITCH_INTEGRATION_ENABLED, "false"));

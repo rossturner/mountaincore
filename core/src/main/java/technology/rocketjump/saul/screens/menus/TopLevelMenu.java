@@ -12,6 +12,7 @@ import technology.rocketjump.saul.messaging.types.GameSaveMessage;
 import technology.rocketjump.saul.persistence.PersistenceCallback;
 import technology.rocketjump.saul.persistence.SavedGameStore;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.LanguageType;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.CustomSelect;
@@ -27,8 +28,8 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
     protected boolean gameStarted = false;
 
     @Inject
-    public TopLevelMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory, WidgetFactory widgetFactory, MessageDispatcher messageDispatcher, SavedGameStore savedGameStore) {
-        super(skinRepository, menuButtonFactory, messageDispatcher);
+    public TopLevelMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory, WidgetFactory widgetFactory, MessageDispatcher messageDispatcher, SavedGameStore savedGameStore, I18nTranslator i18nTranslator) {
+        super(skinRepository, menuButtonFactory, messageDispatcher, i18nTranslator);
         this.savedGameStore = savedGameStore;
         this.widgetFactory = widgetFactory;
 
