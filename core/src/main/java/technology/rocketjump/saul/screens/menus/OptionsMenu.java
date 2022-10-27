@@ -1,9 +1,11 @@
 package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
@@ -15,7 +17,6 @@ import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
-import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
 import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
 import java.util.EnumMap;
@@ -76,13 +77,12 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 
 	@Override
 	protected void addMainBannerComponents(Table mainBanner) {
-		Label titleRibbon = new ScaledToFitLabel(i18nTranslator.getTranslatedString("MENU.OPTIONS").toString(), menuSkin, "title_ribbon", 1132);
-		titleRibbon.setAlignment(Align.center);
-//		mainBanner.add(titleRibbon).width(1132).row(); //TODO: title ribbon stretches out the banner and looks like it overlaps this banner and the minor banner
+//		Label titleRibbon = new ScaledToFitLabel(i18nTranslator.getTranslatedString("MENU.OPTIONS").toString(), menuSkin, "title_ribbon", 1132);
+//		titleRibbon.setAlignment(Align.center);
+////		mainBanner.add(titleRibbon).width(1132).row(); //TODO: title ribbon stretches out the banner and looks like it overlaps this banner and the minor banner
 
 		Table buttonsTable = new Table();
 		buttonsTable.defaults().uniformX();
-		buttonsTable.debugAll();
 
 		for (OptionsTabName tab : OptionsTabName.values()) {
 

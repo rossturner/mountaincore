@@ -90,12 +90,16 @@ public abstract class BannerMenu implements Menu {
     }
 
     private Actor buildMainMenuLayer() {
-        Table buttonsTable = new Table();
-        buttonsTable.background(menuSkin.getDrawable("asset_bg_banner"));
-        addMainBannerComponents(buttonsTable);
+        //main banner
+        Table mainBanner = new Table();
+        mainBanner.background(menuSkin.getDrawable("asset_bg_banner"));
 
+        Table mainBannerComponents = new Table();
+        addMainBannerComponents(mainBannerComponents);
+        mainBanner.add(mainBannerComponents).top().padTop(478f).expand().fillX();
+
+        //secondary/side banner
         Table secondaryBanner = new Table();
-        secondaryBanner.debugAll();
         secondaryBanner.defaults().maxWidth(576f);
         secondaryBanner.setBackground(menuSkin.getDrawable("asset_bg_options_banner_rolled"));
 
@@ -113,7 +117,7 @@ public abstract class BannerMenu implements Menu {
         if (!secondaryBannerComponents.getChildren().isEmpty()) {
             secondaryBannerPadTop = 32f; //this deals with the asset_secondary_banner_bg not having same padding baked in asset like rolled is
             secondaryBanner.setBackground(menuSkin.getDrawable("asset_secondary_banner_bg"));
-            secondaryBanner.add(secondaryBannerComponents).expand().fillX();
+            secondaryBanner.add(secondaryBannerComponents).top().padTop(258f).expand().fillX();
         }
 
 
@@ -121,7 +125,7 @@ public abstract class BannerMenu implements Menu {
         positioningTable.right().top();
         positioningTable.padRight(230f);
         positioningTable.add(secondaryBanner).width(644f).top().padTop(secondaryBannerPadTop).padRight(128f);
-        positioningTable.add(buttonsTable).padTop(32f);
+        positioningTable.add(mainBanner).padTop(32f);
         return positioningTable;
     }
 

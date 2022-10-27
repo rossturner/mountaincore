@@ -13,6 +13,8 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -54,14 +56,14 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 	public void populate(Table menuTable) {
 
 		// AUDIO
-		menuTable.add(musicLabel).row();
-		menuTable.add(musicSlider).growX().row();
+		menuTable.add(musicLabel).spaceBottom(30f).row();
+		menuTable.add(musicSlider).spaceBottom(50f).growX().row();
 
-		menuTable.add(soundEffectLabel).row();
-		menuTable.add(soundEffectSlider).growX().row();
+		menuTable.add(soundEffectLabel).spaceBottom(30f).row();
+		menuTable.add(soundEffectSlider).spaceBottom(50f).growX().row();
 
-		menuTable.add(ambientEffectLabel).row();
-		menuTable.add(ambientEffectSlider).growX().row();
+		menuTable.add(ambientEffectLabel).spaceBottom(30f).row();
+		menuTable.add(ambientEffectSlider).spaceBottom(50f).growX().row();
 	}
 
 	@Override
@@ -84,6 +86,7 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 			}
 			return true;
 		});
+		musicSlider.addListener(new ChangeCursorOnHover(GameCursor.REORDER_HORIZONTAL, messageDispatcher));
 
 		soundEffectLabel = new Label(i18nTranslator.getTranslatedString("GUI.SOUND_EFFECT_VOLUME").toString(), skin, "options_menu_label");
 		soundEffectSlider = new Slider(0, 1, 0.1f, false, skin);
@@ -97,6 +100,7 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 			}
 			return true;
 		});
+		soundEffectSlider.addListener(new ChangeCursorOnHover(GameCursor.REORDER_HORIZONTAL, messageDispatcher));
 
 		ambientEffectLabel = new Label(i18nTranslator.getTranslatedString("GUI.AMBIENT_EFFECT_VOLUME").toString(), skin, "options_menu_label");
 		ambientEffectSlider = new Slider(0, 1, 0.1f, false, skin);
@@ -110,5 +114,6 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 			}
 			return true;
 		});
+		ambientEffectSlider.addListener(new ChangeCursorOnHover(GameCursor.REORDER_HORIZONTAL, messageDispatcher));
 	}
 }

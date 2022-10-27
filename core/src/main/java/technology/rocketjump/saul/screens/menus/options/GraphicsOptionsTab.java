@@ -18,6 +18,9 @@ import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.camera.DisplaySettings;
 import technology.rocketjump.saul.screens.menus.Resolution;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -34,6 +37,7 @@ import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceK
 public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 
 	private final MessageDispatcher messageDispatcher;
+	private final SoundAssetDictionary soundAssetDictionary;
 	private final I18nTranslator i18nTranslator;
 	private final UserPreferences userPreferences;
 	private final Skin skin;
@@ -50,6 +54,7 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 	public GraphicsOptionsTab(UserPreferences userPreferences, GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 							  SoundAssetDictionary soundAssetDictionary, I18nTranslator i18nTranslator) {
 		this.messageDispatcher = messageDispatcher;
+		this.soundAssetDictionary = soundAssetDictionary;
 		this.i18nTranslator = i18nTranslator;
 		this.userPreferences = userPreferences;
 		this.skin = guiSkinRepository.getMenuSkin();
@@ -115,6 +120,8 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 				}
 			}
 		};
+		fullscreenSelect.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		fullscreenSelect.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
 		refreshFullscreenModeOptions();
 
 		resolutionSelect = new SelectBox<>(skin);
@@ -138,6 +145,8 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 				}
 			}
 		});
+		resolutionSelect.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		resolutionSelect.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
 
 	}
 }

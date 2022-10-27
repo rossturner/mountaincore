@@ -52,11 +52,11 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 	@Override
 	public void populate(Table menuTable) {
 		// GAMEPLAY
-		menuTable.add(edgeScrollingCheckbox).row();
-		menuTable.add(zoomToCursorCheckbox).row();
-		menuTable.add(treeTransparencyCheckbox).row();
-		menuTable.add(pauseOnNotificationCheckbox).row();
-		menuTable.add(enableHintsCheckbox).row();
+		menuTable.add(edgeScrollingCheckbox).spaceBottom(50f).row();
+		menuTable.add(zoomToCursorCheckbox).spaceBottom(50f).row();
+		menuTable.add(treeTransparencyCheckbox).spaceBottom(50f).row();
+		menuTable.add(pauseOnNotificationCheckbox).spaceBottom(50f).row();
+		menuTable.add(enableHintsCheckbox).spaceBottom(50f).row();
 	}
 
 	@Override
