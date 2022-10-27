@@ -419,7 +419,7 @@ GOAL.INVADER.STEAL_RESOURCES.DESCRIPTION,,Raiding stockpiles
 GOAL.INVADER.RETREAT.DESCRIPTION,,Retreating from map
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
-GUI.ADD_TILES,This should be as short as possible,Add tiles
+GUI.ADD_TILES,,Add tiles
 GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient atmosphere effect volume:
 GUI.BACK_LABEL,This should be as short as possible,Back
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge
@@ -542,7 +542,7 @@ GUI.ORDERS_LABEL,This should be as short as possible,Orders
 GUI.PLACE_BRIDGE.HINT,This is a longer label as a hint to the player,A bridge must cover both sides of the river and be at least 3x3 tiles in size
 GUI.PRIORITY_LABEL,This should be as short as possible,Priority
 GUI.REMOVE_LABEL,This should be as short as possible,Remove
-GUI.REMOVE_TILES,This should be as short as possible,Remove tiles
+GUI.REMOVE_TILES,,Remove tiles
 GUI.RESOURCE_MANAGEMENT.TITLE,,Resources
 GUI.RESOURCE_MANAGEMENT.UNALLOCATED_LABEL,,Available: {{count}}
 GUI.ROOFING.ADD,,Add

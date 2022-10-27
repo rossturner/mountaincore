@@ -13,7 +13,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
 import technology.rocketjump.saul.rooms.tags.StockpileTag;
-import technology.rocketjump.saul.ui.actions.RoomSelectedAction;
+import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
@@ -103,10 +103,12 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 			roomButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
+					messageDispatcher.dispatchMessage(MessageType.GUI_ROOM_TYPE_SELECTED, roomType);
 					if (roomType.getProcessedTags().stream().anyMatch(tag -> tag instanceof StockpileTag)) {
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, STOCKPILE_SELECTION);
 					} else {
-						new RoomSelectedAction(roomType, messageDispatcher).onClick();
+						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_ROOM);
+						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ROOM_EDITING);
 					}
 				}
 			});

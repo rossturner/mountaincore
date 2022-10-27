@@ -6,504 +6,533 @@ filter: MipMapLinearLinear, Linear
 repeat: none
 asset_bg
   rotate: false
-  xy: 798, 520
+  xy: 798, 521
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 asset_bg_ribbon_title
   rotate: false
-  xy: 1496, 1971
+  xy: 1496, 1972
   size: 486, 74
   orig: 486, 74
   offset: 0, 0
   index: -1
 asset_dwarf_select_bg
   rotate: false
-  xy: 2, 1413
+  xy: 2, 1414
   size: 1490, 632
   orig: 1490, 632
   offset: 0, 0
   index: -1
 asset_season_autumn_icon
   rotate: false
-  xy: 2, 52
+  xy: 1898, 1864
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_spring_icon
   rotate: false
-  xy: 1898, 1863
+  xy: 1639, 490
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_summer_icon
   rotate: false
-  xy: 1373, 489
+  xy: 170, 111
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_winter_icon
   rotate: false
-  xy: 1478, 167
+  xy: 68, 53
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
+asset_selection_bg_cropped
+  rotate: false
+  xy: 2, 2
+  size: 39, 39
+  split: 18, 17, 18, 17
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
 asset_weather_cloudy_grey_icon
   rotate: false
-  xy: 1898, 1813
+  xy: 270, 111
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_nice_icon
   rotate: false
-  xy: 1547, 359
+  xy: 1898, 1814
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_rain_icon
   rotate: false
-  xy: 1639, 475
+  xy: 1639, 440
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_snow_icon
   rotate: false
-  xy: 170, 110
+  xy: 220, 111
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_storm_icon
   rotate: false
-  xy: 2, 2
+  xy: 118, 53
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_windy_icon
   rotate: false
-  xy: 52, 52
+  xy: 1898, 1764
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
+btn_add_tile
+  rotate: false
+  xy: 1373, 495
+  size: 85, 85
+  orig: 85, 85
+  offset: 0, 0
+  index: -1
 btn_back
   rotate: false
-  xy: 1478, 217
+  xy: 1478, 129
   size: 65, 188
   orig: 65, 188
   offset: 0, 0
   index: -1
 btn_bottom_construction
   rotate: false
-  xy: 1496, 1757
+  xy: 1496, 1758
   size: 197, 210
   orig: 197, 210
   offset: 0, 0
   index: -1
 btn_bottom_orders
   rotate: false
-  xy: 798, 1131
+  xy: 798, 1132
   size: 197, 208
   orig: 197, 208
   offset: 0, 0
   index: -1
 btn_bottom_priority
   rotate: false
-  xy: 1496, 1543
+  xy: 1496, 1544
   size: 197, 210
   orig: 197, 210
   offset: 0, 0
   index: -1
 btn_bottom_zones
   rotate: false
-  xy: 1697, 1757
+  xy: 1697, 1758
   size: 197, 210
   orig: 197, 210
   offset: 0, 0
   index: -1
 btn_current_orders_cancel
   rotate: false
-  xy: 798, 919
+  xy: 798, 920
   size: 197, 208
   orig: 197, 208
   offset: 0, 0
   index: -1
 btn_current_orders_chop
   rotate: false
-  xy: 1697, 1545
+  xy: 1697, 1546
   size: 197, 208
   orig: 197, 208
   offset: 0, 0
   index: -1
 btn_current_orders_clear
   rotate: false
-  xy: 798, 707
+  xy: 798, 708
   size: 197, 208
   orig: 197, 208
   offset: 0, 0
   index: -1
 btn_current_orders_extinguish
   rotate: false
-  xy: 1496, 1331
+  xy: 1496, 1332
   size: 197, 208
   orig: 197, 208
   offset: 0, 0
   index: -1
 btn_current_orders_mine
   rotate: false
-  xy: 1697, 1333
+  xy: 1697, 1334
   size: 197, 208
   orig: 197, 208
   offset: 0, 0
   index: -1
 btn_map_resize
   rotate: false
-  xy: 1986, 1991
+  xy: 1986, 1992
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 btn_pause_off
   rotate: false
-  xy: 1705, 525
+  xy: 1898, 1590
   size: 36, 54
   orig: 36, 54
   offset: 0, 0
   index: -1
 btn_pause_on
   rotate: false
-  xy: 1639, 417
+  xy: 1898, 1532
   size: 36, 54
   orig: 36, 54
   offset: 0, 0
   index: -1
+btn_remove_tile
+  rotate: false
+  xy: 1478, 321
+  size: 85, 85
+  orig: 85, 85
+  offset: 0, 0
+  index: -1
 btn_room_armory
   rotate: false
-  xy: 730, 333
+  xy: 730, 334
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_artisan
   rotate: false
-  xy: 730, 146
+  xy: 730, 147
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_bedroom
   rotate: false
-  xy: 999, 1156
+  xy: 999, 1157
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_brewery
   rotate: false
-  xy: 999, 969
+  xy: 999, 970
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_carpentry
   rotate: false
-  xy: 999, 782
+  xy: 999, 783
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_earth
   rotate: false
-  xy: 1186, 1226
+  xy: 1186, 1227
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_farming
   rotate: false
-  xy: 1186, 1039
+  xy: 1186, 1040
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_feast
   rotate: false
-  xy: 1186, 852
+  xy: 1186, 853
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_graveyard
   rotate: false
-  xy: 999, 595
+  xy: 999, 596
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_kitchen
   rotate: false
-  xy: 1186, 665
+  xy: 1186, 666
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_leather
   rotate: false
-  xy: 1186, 478
+  xy: 1186, 479
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_lumber
   rotate: false
-  xy: 917, 333
+  xy: 917, 334
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_metalworks
   rotate: false
-  xy: 917, 146
+  xy: 917, 147
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_mushrooms
   rotate: false
-  xy: 1104, 291
+  xy: 1104, 292
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_stockpiles
   rotate: false
-  xy: 1104, 104
+  xy: 1104, 105
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_stonemason
   rotate: false
-  xy: 1291, 291
+  xy: 1291, 292
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_room_weaver
   rotate: false
-  xy: 1291, 104
+  xy: 1291, 105
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_small_arrow_left
   rotate: false
-  xy: 1948, 1849
+  xy: 1948, 1850
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_small_arrow_right
   rotate: false
-  xy: 1898, 1749
+  xy: 1689, 476
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_speed_1_off
   rotate: false
-  xy: 1478, 109
+  xy: 1898, 1706
   size: 42, 54
   orig: 42, 54
   offset: 0, 0
   index: -1
 btn_speed_1_on
   rotate: false
-  xy: 1547, 301
+  xy: 1898, 1648
   size: 42, 54
   orig: 42, 54
   offset: 0, 0
   index: -1
 btn_speed_2_off
   rotate: false
-  xy: 1639, 525
+  xy: 104, 103
   size: 62, 54
   orig: 62, 54
   offset: 0, 0
   index: -1
 btn_speed_2_on
   rotate: false
-  xy: 104, 102
+  xy: 2, 45
   size: 62, 54
   orig: 62, 54
   offset: 0, 0
   index: -1
 btn_speed_3_off
   rotate: false
-  xy: 1373, 1355
+  xy: 1373, 1356
   size: 82, 54
   orig: 82, 54
   offset: 0, 0
   index: -1
 btn_speed_3_on
   rotate: false
-  xy: 1898, 1913
+  xy: 1898, 1914
   size: 82, 54
   orig: 82, 54
   offset: 0, 0
   index: -1
 btn_speed_4_off
   rotate: false
-  xy: 2, 102
+  xy: 2, 103
   size: 98, 54
   orig: 98, 54
   offset: 0, 0
   index: -1
 btn_speed_4_on
   rotate: false
-  xy: 1070, 1355
+  xy: 1070, 1356
   size: 98, 54
   orig: 98, 54
   offset: 0, 0
   index: -1
 btn_stockpile_food
   rotate: false
-  xy: 1373, 1144
+  xy: 1373, 1145
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_stockpile_fuel
   rotate: false
-  xy: 1373, 957
+  xy: 1373, 958
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_stockpile_grain
   rotate: false
-  xy: 1373, 770
+  xy: 1373, 771
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_stockpile_products
   rotate: false
-  xy: 1373, 583
+  xy: 1373, 584
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_stockpile_raw_materials
   rotate: false
-  xy: 1560, 1144
+  xy: 1560, 1145
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_stockpile_seeds
   rotate: false
-  xy: 1560, 957
+  xy: 1560, 958
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_stockpile_tools
   rotate: false
-  xy: 1560, 770
+  xy: 1560, 771
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_stockpile_weapons
   rotate: false
-  xy: 1560, 583
+  xy: 1560, 584
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
   index: -1
 btn_top_crafting
   rotate: false
-  xy: 1747, 1159
+  xy: 1747, 1160
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 btn_top_military
   rotate: false
-  xy: 1747, 985
+  xy: 1747, 986
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 btn_top_resources
   rotate: false
-  xy: 1747, 811
+  xy: 1747, 812
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 btn_top_settlers
   rotate: false
-  xy: 1747, 637
+  xy: 1747, 638
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 btn_top_trading
   rotate: false
-  xy: 1478, 409
+  xy: 1478, 410
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 hover_state_label
   rotate: false
-  xy: 798, 1343
+  xy: 798, 1344
   size: 268, 66
   orig: 268, 66
   offset: 0, 0
   index: -1
 hover_state_label_arrow_down
   rotate: false
-  xy: 1747, 593
+  xy: 1747, 594
   size: 76, 40
   orig: 76, 40
   offset: 0, 0
   index: -1
 hover_state_label_arrow_up
   rotate: false
-  xy: 1373, 539
+  xy: 1639, 540
   size: 76, 40
   orig: 76, 40
   offset: 0, 0
   index: -1
+icon_edit
+  rotate: false
+  xy: 1567, 346
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
 info_box_bg
   rotate: false
-  xy: 2, 160
+  xy: 2, 161
   size: 724, 453
   orig: 724, 453
   offset: 0, 0
   index: -1
 map_bg_full
   rotate: false
-  xy: 2, 617
+  xy: 2, 618
   size: 792, 792
   orig: 792, 792
   offset: 0, 0
   index: -1
 placeholder
   rotate: false
-  xy: 730, 549
+  xy: 730, 550
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

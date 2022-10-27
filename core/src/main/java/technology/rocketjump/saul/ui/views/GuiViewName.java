@@ -25,7 +25,6 @@ public enum GuiViewName {
 
 	// TODO the following can be removed
 	STOCKPILE_SELECTION,
-	ROOM_SIZING,
 	ROOM_FURNITURE_SELECTION,
 
 

@@ -114,7 +114,7 @@ public class BuildMechanismsGuiView implements GuiView {
 	}
 
 	@Override
-	public void onClose() {
+	public void onHide() {
 		messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.DEFAULT);
 	}
 }

@@ -63,6 +63,7 @@ public class MessageType {
 	public static final int SET_HOVER_CURSOR = 285;
 	public static final int SET_SPECIAL_CURSOR = 286;
 	public static final int SET_INTERACTION_MODE_CURSOR = 287;
+	public static final int INTERACTION_MODE_CHANGED = 288;
 
 	// i18n Messages
 	public static final int FONTS_CHANGED = 300;

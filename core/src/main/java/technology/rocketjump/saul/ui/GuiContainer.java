@@ -147,6 +147,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 				GameInteractionMode targetMode = (GameInteractionMode)msg.extraInfo;
 				messageDispatcher.dispatchMessage(MessageType.SET_INTERACTION_MODE_CURSOR, targetMode.cursor);
 				interactionStateContainer.setInteractionMode(targetMode);
+				messageDispatcher.dispatchMessage(MessageType.INTERACTION_MODE_CHANGED);
 				return true;
 			}
 			case MessageType.GUI_SWITCH_VIEW_MODE: {
@@ -216,10 +217,11 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		} else {
 			this.currentViewName = viewName;
 			if (currentView != null) {
-				currentView.onClose();
+				currentView.onHide();
 			}
 			removeAllTooltips();
 			containerTable.clear();
+			newView.onShow();
 			newView.populate(containerTable);
 		}
 		currentView = newView;

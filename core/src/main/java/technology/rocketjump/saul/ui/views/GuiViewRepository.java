@@ -13,6 +13,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.PopulateSelectItemViewMessage;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.ui.GameInteractionMode;
+import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -22,9 +23,11 @@ import java.util.Set;
 public class GuiViewRepository implements Telegraph {
 
 	private Map<GuiViewName, GuiView> byName = new EnumMap<>(GuiViewName.class);
+	private final GameInteractionStateContainer gameInteractionStateContainer;
 
 	@Inject
-	public GuiViewRepository(Injector injector, MessageDispatcher messageDispatcher) {
+	public GuiViewRepository(Injector injector, MessageDispatcher messageDispatcher, GameInteractionStateContainer gameInteractionStateContainer) {
+		this.gameInteractionStateContainer = gameInteractionStateContainer;
 		Reflections reflections = new Reflections(getClass().getPackageName(), new SubTypesScanner());
 		Set<Class<? extends GuiView>> viewClasses = reflections.getSubTypesOf(GuiView.class);
 		viewClasses.forEach(SaulGuiceModule::checkForSingleton);
@@ -41,11 +44,7 @@ public class GuiViewRepository implements Telegraph {
 		switch (msg.message) {
 			case MessageType.GUI_ROOM_TYPE_SELECTED -> {
 				RoomType selectedRoomType = (RoomType) msg.extraInfo;
-				FurnitureSelectionGuiView furnitureSelectionView = (FurnitureSelectionGuiView) byName.get(GuiViewName.ROOM_FURNITURE_SELECTION);
-				furnitureSelectionView.setCurrentRoomType(selectedRoomType);
-
-				RoomSizingGuiView guiView = (RoomSizingGuiView) byName.get(GuiViewName.ROOM_SIZING);
-				guiView.setCurrentRoomType(selectedRoomType);
+				gameInteractionStateContainer.setSelectedRoomType(selectedRoomType);
 				GameInteractionMode.PLACE_ROOM.setRoomType(selectedRoomType);
 				return true;
 			}
