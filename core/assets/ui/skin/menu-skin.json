@@ -70,6 +70,14 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		name: white-pixel
 		color: textfield_bg_colour
 	}
+	textfield_cursor: {
+		name: white-pixel
+		color: white
+	}
+	textfield_selected: {
+		name: white-pixel
+		color: dropdown_body_hover_colour
+	}
 }
 com.ray3k.tenpatch.TenPatchDrawable: {
 	title_ribbon_bg_mike_10patch: {
@@ -314,12 +322,19 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		parent: btn_small_1
 		font: header-font-50
 	}
+	btn_key_bindings_key: {
+		font: default-font-18
+		fontColor: white
+		up: btn_key_bindings_key
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: {
 		font: default-font-16
 		fontColor: white
 		background: textfield_pixel_bg
+		cursor: textfield_cursor
+		selection: textfield_selected
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {

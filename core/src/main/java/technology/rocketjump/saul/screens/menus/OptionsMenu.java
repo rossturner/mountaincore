@@ -141,7 +141,6 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 
 	@Override
 	public void show() {
-		this.currentTab = null;
 		rebuildUI();
 	}
 

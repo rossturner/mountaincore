@@ -523,7 +523,7 @@ GUI.OPTIONS.TWITCH.DISCONNECT,,Disconnect
 GUI.OPTIONS.TWITCH.DISCONNECTED_LABEL,,Twitch account disconnected
 GUI.OPTIONS.TWITCH.ENABLED,,Twitch integration enabled
 GUI.OPTIONS.TWITCH.GENERAL_ERROR,,An error occured while communicating with Twitch
-GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Click here to connect your Twitch account
+GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Link Twitch account
 GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration

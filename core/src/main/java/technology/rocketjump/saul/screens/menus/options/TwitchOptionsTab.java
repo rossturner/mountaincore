@@ -49,12 +49,14 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 	private Container<TextButton> linkAccountButton;
 	private Container<TextButton> codeSubmitButton;
+	private Label loginLabel;
 	private Label authCodeFailureLabel;
 	private Label codeLabel;
 	private TextField codeInput;
+	private Table unauthenticatedTable;
+	private Table authenticatedTable;
 
 	private boolean authCodeFailure = false;
-	private Table menuTable;
 
 	@Inject
 	public TwitchOptionsTab(GuiSkinRepository guiSkinRepository, I18nTranslator i18nTranslator, SoundAssetDictionary soundAssetDictionary,
@@ -72,40 +74,49 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 		messageDispatcher.addListener(this, MessageType.TWITCH_AUTH_CODE_FAILURE);
 		messageDispatcher.addListener(this, MessageType.TWITCH_ACCOUNT_INFO_UPDATED);
-		rebuildUI();
 	}
 
 	@Override
 	public void populate(Table menuTable) {
-		this.menuTable = menuTable;
-		reset();
+		authenticatedTable.clear();
+		unauthenticatedTable.clear();
+
+		Stack loginStack = new Stack();
+		loginStack.add(unauthenticatedTable);
+		loginStack.add(authenticatedTable);
+
+		menuTable.add(twitchEnabledCheckbox).spaceBottom(50f).row();
+		menuTable.add(loginStack).row();
+		authCodeFailureLabel.setWrap(true);
+
+		linkAccountButton.fillX();
+
+		authenticatedTable.add(loginLabel).spaceBottom(50f).row();
+		authenticatedTable.add(disconnectAccountButton).spaceBottom(50f).row();
+		authenticatedTable.add(viewersAsSettersCheckbox).spaceBottom(50f).row();
+		authenticatedTable.add(prioritiseSubsCheckbox).spaceBottom(50f).row();
+
+		unauthenticatedTable.add(linkAccountButton).padBottom(30f).growX().row();
+		unauthenticatedTable.add(codeLabel).spaceBottom(30f).row();
+		unauthenticatedTable.add(codeInput).spaceBottom(30f).growX().row();
+		unauthenticatedTable.add(codeSubmitButton).spaceBottom(50f).row();
+		unauthenticatedTable.add(authCodeFailureLabel).growX().row();
 	}
 
 	private void reset() {
-		if (menuTable == null) {
-			return;
-		}
-
-		menuTable.add(twitchEnabledCheckbox).row();
+		unauthenticatedTable.setVisible(false);
+		authenticatedTable.setVisible(false);
+		authCodeFailureLabel.setVisible(false);
 
 		if (twitchEnabled) {
 			if (accountInfo != null) {
-
-				menuTable.add(new Label(accountInfo.getLogin(), skin, "options_menu_label")).row();
-				menuTable.add(disconnectAccountButton).row();
-
-				menuTable.add(viewersAsSettersCheckbox).row();
-				menuTable.add(prioritiseSubsCheckbox).row();
-
+				loginLabel.setText(accountInfo.getLogin());
+				authenticatedTable.setVisible(true);
 			} else {
-				menuTable.add(linkAccountButton).padBottom(30f).row();
-
-				menuTable.add(codeLabel).row();
-				menuTable.add(codeInput).row();
-				menuTable.add(codeSubmitButton).row();
+				unauthenticatedTable.setVisible(true);
 
 				if (authCodeFailure) {
-					menuTable.add(authCodeFailureLabel).row();
+					authCodeFailureLabel.setVisible(true);
 				}
 			}
 		}
@@ -136,7 +147,10 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 	@Override
 	public void rebuildUI() {
-		twitchEnabledCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.TWITCH.ENABLED", skin, 550f);
+		this.unauthenticatedTable = new Table();
+		this.authenticatedTable = new Table();
+
+		twitchEnabledCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.TWITCH.ENABLED", skin, 428f);
 		twitchEnabledCheckbox.setProgrammaticChangeEvents(false);
 		twitchEnabled = Boolean.parseBoolean(userPreferences.getPreference(TWITCH_INTEGRATION_ENABLED, "false"));
 		twitchEnabledCheckbox.setChecked(twitchEnabled);
@@ -152,13 +166,14 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 		this.accountInfo = twitchDataStore.getAccountInfo();
 
-		linkAccountButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON", skin, MenuButtonFactory.ButtonStyle.BTN_SMALL_1_50PT)
+		loginLabel = new Label("", skin, "options_menu_label");
+		linkAccountButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON", skin, MenuButtonFactory.ButtonStyle.BTN_KEY_BINDINGS_KEY)
 				.withAction(() -> {
 					Gdx.net.openURI(INTEGRATION_URL);
 				})
 				.build();
 
-		disconnectAccountButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.DISCONNECT", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE_50PT)
+		disconnectAccountButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.DISCONNECT", skin, MenuButtonFactory.ButtonStyle.BTN_KEY_BINDINGS_KEY)
 				.withAction(() -> {
 					twitchDataStore.setCurrentToken(null);
 					twitchDataStore.setAccountInfo(null);
@@ -170,7 +185,7 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 		codeLabel = new Label(i18nTranslator.getTranslatedString("GUI.OPTIONS.TWITCH.CODE_LABEL").toString(), skin, "options_menu_label");
 		codeInput = new TextField("", skin);
 
-		codeSubmitButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.SUBMIT_BUTTON", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE_50PT)
+		codeSubmitButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.SUBMIT_BUTTON", skin, MenuButtonFactory.ButtonStyle.BTN_KEY_BINDINGS_KEY)
 				.withAction(() -> {
 					String code = codeInput.getText();
 					if (!code.isEmpty()) {
@@ -181,10 +196,10 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 				.build();
 
 
-		authCodeFailureLabel = new Label("GUI.OPTIONS.TWITCH.GENERAL_ERROR", skin, "options_menu_label");
+		authCodeFailureLabel = new Label(i18nTranslator.getTranslatedString("GUI.OPTIONS.TWITCH.GENERAL_ERROR").toString(), skin, "options_menu_label");
 		authCodeFailureLabel.setColor(HexColors.NEGATIVE_COLOR);
 
-		viewersAsSettersCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.TWITCH.VIEWERS_AS_SETTLERS", skin, 550f);
+		viewersAsSettersCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.TWITCH.VIEWERS_AS_SETTLERS", skin, 428f);
 		viewersAsSettersCheckbox.setProgrammaticChangeEvents(false);
 		viewersAsSettersCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(TWITCH_VIEWERS_AS_SETTLER_NAMES, "false")));
 		viewersAsSettersCheckbox.addListener((event) -> {
@@ -194,7 +209,7 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 			return true;
 		});
 
-		prioritiseSubsCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS", skin, 550f);
+		prioritiseSubsCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS", skin, 428f);
 		prioritiseSubsCheckbox.setProgrammaticChangeEvents(false);
 		prioritiseSubsCheckbox.setChecked(Boolean.parseBoolean(userPreferences.getPreference(TWITCH_PRIORITISE_SUBSCRIBERS, "false")));
 		prioritiseSubsCheckbox.addListener((event) -> {
@@ -203,5 +218,7 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 			}
 			return true;
 		});
+
+		reset();
 	}
 }

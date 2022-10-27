@@ -41,7 +41,7 @@ arrow_right
   index: -1
 asset_audio_slider_cropped
   rotate: false
-  xy: 904, 4796
+  xy: 1183, 2630
   size: 18, 18
   split: 2, 2, 2, 2
   orig: 18, 18
@@ -182,6 +182,14 @@ btn_exit
   orig: 54, 54
   offset: 0, 0
   index: -1
+btn_key_bindings_key
+  rotate: false
+  xy: 1732, 5149
+  size: 284, 98
+  split: 1, 1, 1, 13
+  orig: 284, 98
+  offset: 0, 0
+  index: -1
 btn_small_1
   rotate: false
   xy: 904, 4818
@@ -248,7 +256,7 @@ save_title_ribbon_bg
   index: -1
 scroll_bg
   rotate: false
-  xy: 2169, 5320
+  xy: 904, 4786
   size: 28, 28
   split: 1, 1, 0, 0
   orig: 28, 28
@@ -271,7 +279,7 @@ select_full
   index: -1
 selected_save_bg_patch
   rotate: false
-  xy: 1732, 5151
+  xy: 2169, 5252
   size: 127, 96
   split: 32, 32, 32, 32
   orig: 127, 96

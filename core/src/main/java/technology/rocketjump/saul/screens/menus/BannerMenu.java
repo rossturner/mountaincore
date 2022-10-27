@@ -70,7 +70,7 @@ public abstract class BannerMenu implements Menu {
 
         Container<TextButton> twitchButton = menuButtonFactory.createButton("MENU.LINK_TWITCH_ACCOUNT", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_4_36PT)
                 .withAction(() -> {
-                    messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.OPTIONS_MENU);
+                    messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TWITCH_OPTIONS_MENU);
                 })
                 .build();
 
