@@ -951,6 +951,26 @@ atlasData: {
 			type: NINE_PATCH
 			hidden: false
 		}
+		{
+			file: null
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: textfield_bg_colour
+			name: textfield_pixel_bg
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: PIXEL
+			hidden: false
+		}
 	]
 	fontDrawables: []
 }
@@ -1019,6 +1039,16 @@ jsonData: {
 		{
 			class: com.ray3k.skincomposer.data.ColorData
 			color: {
+				r: 0.80784315
+				g: 0.80784315
+				b: 0.80784315
+				a: 0.29803923
+			}
+			name: grey_30pc
+		}
+		{
+			class: com.ray3k.skincomposer.data.ColorData
+			color: {
 				r: 0.5686275
 				g: 0.21176471
 				b: 0.078431375
@@ -1049,12 +1079,12 @@ jsonData: {
 		{
 			class: com.ray3k.skincomposer.data.ColorData
 			color: {
-				r: 0.80784315
-				g: 0.80784315
-				b: 0.80784315
-				a: 0.29803923
+				r: 0.6392157
+				g: 0.28235295
+				b: 0.16078432
+				a: 1
 			}
-			name: grey_30pc
+			name: textfield_bg_colour
 		}
 		{
 			class: com.ray3k.skincomposer.data.ColorData
@@ -2763,13 +2793,13 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: default-font-16
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
 						name: fontColor
 						optional: false
-						value: null
+						value: white
 					}
 					focusedFontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -2787,7 +2817,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: null
+						value: textfield_pixel_bg
 					}
 					focusedBackground: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable

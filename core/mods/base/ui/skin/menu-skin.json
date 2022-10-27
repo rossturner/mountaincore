@@ -18,6 +18,9 @@ com.badlogic.gdx.graphics.Color: {
 	dropdown_body_hover_colour: {
 		hex: 913613ff
 	}
+	grey_30pc: {
+		hex: cecece4c
+	}
 	primary_font_colour_red: {
 		hex: 913614ff
 	}
@@ -27,8 +30,8 @@ com.badlogic.gdx.graphics.Color: {
 	saved_greyed_out_bg_colour: {
 		hex: d7b17aff
 	}
-	grey_30pc: {
-		hex: cecece4c
+	textfield_bg_colour: {
+		hex: a34829ff
 	}
 	white: {
 		hex: ffffffff
@@ -62,6 +65,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	default-rect: {
 		name: white-pixel
 		color: grey_30pc
+	}
+	textfield_pixel_bg: {
+		name: white-pixel
+		color: textfield_bg_colour
 	}
 }
 com.ray3k.tenpatch.TenPatchDrawable: {
@@ -306,6 +313,13 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	btn_small_1_header-font-50: {
 		parent: btn_small_1
 		font: header-font-50
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	default: {
+		font: default-font-16
+		fontColor: white
+		background: textfield_pixel_bg
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
