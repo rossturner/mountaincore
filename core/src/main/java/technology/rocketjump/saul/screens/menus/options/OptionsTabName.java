@@ -5,8 +5,7 @@ public enum OptionsTabName {
 	GRAPHICS,
 	AUDIO,
 	GAMEPLAY,
-	TWITCH,
-	MISC;
+	TWITCH;
 
 	public String getI18nKey() {
 		return "GUI.OPTIONS.TAB." + this.name();

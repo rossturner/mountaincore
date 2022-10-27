@@ -146,6 +146,10 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 		checkboxOver: btn_check_box_hover_state
 		font: default-font-16
 	}
+	checkbox_no_bg: {
+		parent: default
+		fontColor: primary_font_colour_red
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
@@ -188,6 +192,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	}
 	options_menu_label: {
 		font: default-font-18
+		fontColor: primary_font_colour_red
+	}
+	checkbox_label_no_bg: {
+		font: default-font-16
 		fontColor: primary_font_colour_red
 	}
 }

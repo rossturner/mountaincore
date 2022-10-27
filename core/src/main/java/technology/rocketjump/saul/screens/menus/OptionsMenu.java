@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -62,12 +61,12 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 	public void reset() {
 //		menuTable.clearChildren();
 
-		OptionsTab currentTab = tabs.get(this.currentTab);
-		if (currentTab == null) {
-			Logger.error("No tab for name " + this.currentTab.name());
-		} else {
+//		OptionsTab currentTab = tabs.get(this.currentTab);
+//		if (currentTab == null) {
+//			Logger.error("No tab for name " + this.currentTab.name());
+//		} else {
 //			currentTab.populate(menuTable);
-		}
+//		}
 	}
 
 	@Override
@@ -148,7 +147,8 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 
 	@Override
 	public void show() {
-
+		this.currentTab = null;
+		rebuildUI();
 	}
 
 	@Override
@@ -164,6 +164,7 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 
 	public void setCurrentTab(OptionsTabName currentTab) {
 		this.currentTab = currentTab;
+		rebuildUI();
 	}
 
 	@Override

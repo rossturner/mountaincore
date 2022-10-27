@@ -56,7 +56,7 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 	public void populate(Table menuTable) {
 
 		// AUDIO
-		menuTable.add(audioTitle).pad(10).row();
+		menuTable.add(audioTitle).row();
 
 		menuTable.add(musicLabel).row();
 		menuTable.add(musicSlider).growX().row();
