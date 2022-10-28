@@ -159,7 +159,6 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
 				int tapCount = getTapCount();
 
 				if (tapCount == 1) {
@@ -274,7 +273,6 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		leftArrow.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
 				carouselIndex--;
 				savedGamesUpdated();
 			}
@@ -295,7 +293,6 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		rightArrow.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
 				carouselIndex++;
 				savedGamesUpdated();
 			}
