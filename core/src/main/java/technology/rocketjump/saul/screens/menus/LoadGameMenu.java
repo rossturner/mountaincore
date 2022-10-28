@@ -158,24 +158,34 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		saveSlot.addListener(new ClickListener() {
 
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				for (Table slot : slots) {
-					if (!slot.getChildren().isEmpty()) {
-						slot.setBackground(skin.getDrawable(SAVE_BG));
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				int tapCount = getTapCount();
+
+				if (tapCount == 1) {
+					for (Table slot : slots) {
+						if (!slot.getChildren().isEmpty()) {
+							slot.setBackground(skin.getDrawable(SAVE_BG));
+						}
 					}
-				}
 
-				if (selectedSavedGame != savedGameInfo) {
-					saveSlot.setBackground(skin.getDrawable(SELECTED_SAVE_BG));
+					if (selectedSavedGame != savedGameInfo) {
+						saveSlot.setBackground(skin.getDrawable(SELECTED_SAVE_BG));
 
+						selectedSavedGame = savedGameInfo;
+						enablePlayAndDeleteButtons();
+					} else {
+						selectedSavedGame = null;
+						disablePlayAndDeleteButtons();
+					}
+				} else if (tapCount == 2) {
 					selectedSavedGame = savedGameInfo;
-					enablePlayAndDeleteButtons();
-				} else {
-					selectedSavedGame = null;
-					disablePlayAndDeleteButtons();
+					playSavedGame();
 				}
-				return super.touchDown(event, x, y, pointer, button);
+
 			}
+
+
 		});
 
 		if (selectedSavedGame == savedGameInfo) {
@@ -333,23 +343,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 
 		this.playButton = menuButtonFactory.createButton("GUI.LOAD_GAME.TABLE.PLAY", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE_50PT)
 				.withAction(() -> {
-					if (gameContext != null) {
-						if (gameContext.getSettlementState().getSettlementName().equals(selectedSavedGame.settlementName)) {
-							// Same game, just go back to it
-							messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-							messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
-						} else {
-							// different game, save this first
-							messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
-							messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(startGameSound));
-							messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, selectedSavedGame);
-						}
-					} else {
-						messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(startGameSound));
-						messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, selectedSavedGame);
-					}
-
-
+					playSavedGame();
 				})
 				.build();
 
@@ -366,6 +360,24 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		table.add(loadControls).spaceTop(180.0f).spaceBottom(180.0f).expandX().align(Align.right).colspan(5);
 
 		return table;
+	}
+
+	private void playSavedGame() {
+		if (gameContext != null) {
+			if (gameContext.getSettlementState().getSettlementName().equals(selectedSavedGame.settlementName)) {
+				// Same game, just go back to it
+				messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+			} else {
+				// different game, save this first
+				messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
+				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(startGameSound));
+				messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, selectedSavedGame);
+			}
+		} else {
+			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(startGameSound));
+			messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, selectedSavedGame);
+		}
 	}
 
 	private Actor buildBackgroundAndComponents() {
