@@ -3,6 +3,7 @@ package technology.rocketjump.saul.ui.views;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -10,14 +11,24 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
+import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
+import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
+import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.jobs.model.JobPriority;
+import technology.rocketjump.saul.materials.model.GameMaterial;
+import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
+import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.RoomType;
+import technology.rocketjump.saul.rooms.components.RoomComponent;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
@@ -29,16 +40,22 @@ import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.TextInputDialog;
 
 @Singleton
 public class RoomEditingView implements GuiView, GameContextAware, DisplaysText, Telegraph {
+
+	private static final int FURNITURE_PER_ROW = 8;
 
 	private final MessageDispatcher messageDispatcher;
 	private final TooltipFactory tooltipFactory;
 	private final Skin skin;
 	private final I18nTranslator i18nTranslator;
 	private final GameInteractionStateContainer interactionStateContainer;
+	private final FurnitureTypeDictionary furnitureTypeDictionary;
+	private final RoomEditorFurnitureMap furnitureMap;
+	private final EntityRenderer entityRenderer;
 	private final RoomStore roomStore;
 	private final Table headerContainer;
 	private final Button changeRoomNameButton;
@@ -49,14 +66,22 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private Table mainTable;
 	private boolean displayed;
 
+	private FurnitureType selectedFurnitureType;
+	private GameMaterialType selectedFurnitureMaterialType;
+	private GameMaterial selectedFurniturePrimaryMaterial;
+
 	@Inject
 	public RoomEditingView(MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository,
-						   I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer, RoomStore roomStore) {
+						   I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
+						   FurnitureTypeDictionary furnitureTypeDictionary, RoomEditorFurnitureMap furnitureMap, EntityRenderer entityRenderer, RoomStore roomStore) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.interactionStateContainer = interactionStateContainer;
+		this.furnitureMap = furnitureMap;
+		this.furnitureTypeDictionary = furnitureTypeDictionary;
+		this.entityRenderer = entityRenderer;
 		this.roomStore = roomStore;
 
 		backButton = new Button(skin.getDrawable("btn_back"));
@@ -180,8 +205,91 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		topRow.add(headerContainer).center().expandY();
 		topRow.add(sizingButtonsContainer).right().expandX().width(sizingButtonsContainer.getWidth());
 
-		mainTable.add(topRow).expandX().fillX().padBottom(20).row();
+		mainTable.add(topRow).top().expandX().fillX().padBottom(20).row();
 
+		if (selectedRoom != null) {
+			for (RoomComponent roomComponent : selectedRoom.getAllComponents()) {
+				if (roomComponent instanceof SelectableDescription) {
+					for (I18nText description : ((SelectableDescription) roomComponent).getDescription(i18nTranslator, gameContext, messageDispatcher)) {
+						Label textLabel = new Label(description.toString(), skin.get("default-red", Label.LabelStyle.class));
+						mainTable.add(textLabel).center().row();
+					}
+				}
+				if (roomComponent instanceof Prioritisable prioritisableComponent) {
+
+					Table priorityTable = new Table();
+					priorityTable.setDebug(GlobalSettings.UI_DEBUG);
+					priorityTable.pad(4);
+
+					// TODO grab buttons from skin with up and checked/hover states for each priority, setting current priority as checked
+					for (JobPriority priority : JobPriority.values()) {
+
+					}
+				}
+			}
+		}
+
+		// TODO seed selection if farm plot
+
+		if (!selectedRoomType.getFurnitureNames().isEmpty()) {
+			int furnitureCursor = 0;
+			Table furnitureTable = new Table();
+			furnitureTable.defaults().padRight(5);
+			furnitureTable.setDebug(GlobalSettings.UI_DEBUG);
+
+			for (String furnitureName : selectedRoomType.getFurnitureNames()) {
+				FurnitureType furnitureType = furnitureTypeDictionary.getByName(furnitureName);
+				if (furnitureType == null) {
+					Logger.error("Could not find furniture type with name " + furnitureName + " for room " + selectedRoomType.getRoomName());
+				} else if (!furnitureType.isHiddenFromPlacementMenu()) {
+					furnitureTable.add(buildFurnitureButton(furnitureType));
+					furnitureCursor++;
+					if (furnitureCursor % FURNITURE_PER_ROW == 0) {
+						furnitureTable.row();
+					}
+				}
+			}
+
+			// TODO get place in any room furniture and also add
+
+			while (furnitureCursor % FURNITURE_PER_ROW != 0) {
+				Image spacerImage = new Image(skin.getDrawable("asset_catalogue_bg"));
+				furnitureTable.add(spacerImage);
+				furnitureCursor++;
+			}
+
+			mainTable.add(furnitureTable).row();
+		}
+
+	}
+
+	private Actor buildFurnitureButton(FurnitureType furnitureType) {
+		Container<Button> buttonContainer = new Container<>();
+		if (furnitureType.equals(selectedFurnitureType)) {
+			buttonContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
+		}
+		buttonContainer.pad(18);
+
+		Button furnitureButton = new Button(new EntityDrawable(
+				furnitureMap.getByFurnitureType(furnitureType), entityRenderer, true, messageDispatcher
+		));
+		furnitureButton.setBackground(skin.getDrawable("asset_bg"));
+		var This = this;
+		furnitureButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				This.selectedFurnitureType = furnitureType;
+				GameInteractionMode.PLACE_FURNITURE.setFurnitureType(selectedFurnitureType);
+				messageDispatcher.dispatchMessage(MessageType.GUI_FURNITURE_TYPE_SELECTED, selectedFurnitureType);
+				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FURNITURE);
+				rebuildUI();
+			}
+		});
+		furnitureButton.addListener(new ChangeCursorOnHover(furnitureButton, GameCursor.SELECT, messageDispatcher));
+		tooltipFactory.simpleTooltip(furnitureButton, furnitureType.getI18nKey(), TooltipLocationHint.ABOVE);
+
+		buttonContainer.setActor(furnitureButton);
+		return buttonContainer;
 	}
 
 	private void buildSizingButtonsTable() {
@@ -247,6 +355,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	@Override
 	public void onHide() {
 		this.displayed = false;
+		this.selectedFurnitureType = null;
 	}
 
 	@Override
@@ -256,7 +365,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 	@Override
 	public void clearContextRelatedState() {
-
+		this.selectedFurnitureType = null;
 	}
 
 	@Override

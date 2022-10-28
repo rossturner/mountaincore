@@ -11,6 +11,13 @@ asset_bg
   orig: 183, 183
   offset: 0, 0
   index: -1
+asset_catalogue_bg
+  rotate: false
+  xy: 798, 521
+  size: 183, 183
+  orig: 183, 183
+  offset: 0, 0
+  index: -1
 asset_bg_ribbon_title
   rotate: false
   xy: 1496, 1972

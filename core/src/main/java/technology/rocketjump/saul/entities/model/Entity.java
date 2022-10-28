@@ -65,7 +65,7 @@ public class Entity implements Persistable, Disposable {
 		componentMap.add(physicalEntityComponent);
 		componentMap.add(locationComponent);
 
-		if (gameContext.getAreaMap() != null && behaviourComponent != null) {
+		if (gameContext != null && gameContext.getAreaMap() != null && behaviourComponent != null) {
 			this.behaviourComponent = behaviourComponent;
 			behaviourComponent.init(this, messageDispatcher, gameContext);
 			componentMap.add(behaviourComponent);

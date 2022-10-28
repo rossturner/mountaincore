@@ -124,7 +124,7 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 		}
 
 		while (rowCursor % ROOMS_PER_ROW != 0) {
-			Image spacerImage = new Image(skin.getDrawable("asset_bg"));
+			Image spacerImage = new Image(skin.getDrawable("asset_catalogue_bg"));
 			buttonsTable.add(spacerImage);
 			rowCursor++;
 		}
