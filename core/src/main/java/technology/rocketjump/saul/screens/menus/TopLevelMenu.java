@@ -2,6 +2,7 @@ package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -136,6 +137,11 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
     @Override
     protected void addSecondaryBannerComponents(Table secondaryBanner) {
 
+    }
+
+    @Override
+    protected Actor getMainBannerLogo() {
+        return new Table();
     }
 
 

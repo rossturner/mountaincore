@@ -96,7 +96,8 @@ public abstract class BannerMenu implements Menu {
 
         Table mainBannerComponents = new Table();
         addMainBannerComponents(mainBannerComponents);
-        mainBanner.add(mainBannerComponents).top().padTop(478f).expand().fillX();
+        mainBanner.add(getMainBannerLogo()).top().height(478f).width(576f).row();
+        mainBanner.add(mainBannerComponents).top().expand().fillX();
 
         //secondary/side banner
         Table secondaryBanner = new Table();
@@ -134,6 +135,8 @@ public abstract class BannerMenu implements Menu {
     }
 
     protected abstract void addSecondaryBannerComponents(Table secondaryBanner);
+
+    protected abstract Actor getMainBannerLogo();
 
     protected abstract void addMainBannerComponents(Table mainBanner);
 

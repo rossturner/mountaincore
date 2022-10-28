@@ -1,11 +1,10 @@
 package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Container;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
@@ -76,11 +75,20 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 	}
 
 	@Override
-	protected void addMainBannerComponents(Table mainBanner) {
-//		Label titleRibbon = new ScaledToFitLabel(i18nTranslator.getTranslatedString("MENU.OPTIONS").toString(), menuSkin, "title_ribbon", 1132);
-//		titleRibbon.setAlignment(Align.center);
-////		mainBanner.add(titleRibbon).width(1132).row(); //TODO: title ribbon stretches out the banner and looks like it overlaps this banner and the minor banner
+	protected Actor getMainBannerLogo() {
+		Label titleRibbon = new Label(i18nTranslator.getTranslatedString("MENU.OPTIONS").toString(), menuSkin, "title_ribbon");
+		titleRibbon.setAlignment(Align.center);
+		titleRibbon.setWidth(1132f);
+		Table titleRibbonTable = new Table();
+		titleRibbonTable.add(titleRibbon).width(1132f);
 
+//		mainBanner.add(titleRibbonTable).width(576f).row(); //TODO: title ribbon stretches out the banner and looks like it overlaps this banner and the minor banner
+
+		return titleRibbonTable;
+	}
+
+	@Override
+	protected void addMainBannerComponents(Table mainBanner) {
 		Table buttonsTable = new Table();
 		buttonsTable.defaults().uniformX();
 
