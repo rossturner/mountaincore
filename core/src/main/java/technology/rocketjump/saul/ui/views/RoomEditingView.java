@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
@@ -46,7 +47,7 @@ import technology.rocketjump.saul.ui.widgets.TextInputDialog;
 @Singleton
 public class RoomEditingView implements GuiView, GameContextAware, DisplaysText, Telegraph {
 
-	private static final int FURNITURE_PER_ROW = 8;
+	private static final int FURNITURE_PER_ROW = 9;
 
 	private final MessageDispatcher messageDispatcher;
 	private final TooltipFactory tooltipFactory;
@@ -253,8 +254,11 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			// TODO get place in any room furniture and also add
 
 			while (furnitureCursor % FURNITURE_PER_ROW != 0) {
+				Container<Image> spacerContainer = new Container<>();
 				Image spacerImage = new Image(skin.getDrawable("asset_catalogue_bg"));
-				furnitureTable.add(spacerImage);
+				spacerContainer.setActor(spacerImage);
+				spacerContainer.pad(18);
+				furnitureTable.add(spacerContainer);
 				furnitureCursor++;
 			}
 
@@ -270,10 +274,11 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		}
 		buttonContainer.pad(18);
 
+		Drawable background = skin.getDrawable("asset_bg");
 		Button furnitureButton = new Button(new EntityDrawable(
 				furnitureMap.getByFurnitureType(furnitureType), entityRenderer, true, messageDispatcher
-		));
-		furnitureButton.setBackground(skin.getDrawable("asset_bg"));
+		).withBackground(background));
+		buttonContainer.size(background.getMinWidth(), background.getMinHeight());
 		var This = this;
 		furnitureButton.addListener(new ClickListener() {
 			@Override

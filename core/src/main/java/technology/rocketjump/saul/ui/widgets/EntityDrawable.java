@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
@@ -28,6 +29,7 @@ public class EntityDrawable extends BaseDrawable {
 
     private final boolean showItemAsPlacedOnGround;
     private ItemPlacement revertToItemPlacement;
+    private Drawable backgroundDrawable;
 
     public EntityDrawable(Entity entity, EntityRenderer entityRenderer, boolean showItemAsPlacedOnGround, MessageDispatcher messageDispatcher) {
         this.entity = entity;
@@ -41,6 +43,10 @@ public class EntityDrawable extends BaseDrawable {
 
     @Override
     public void draw (Batch batch, float x, float y, float width, float height) {
+        if (backgroundDrawable != null) {
+            backgroundDrawable.draw(batch, x, y, width, height);
+        }
+
         LocationComponent originalLocationComponent = entity.getLocationComponent();
         LocationComponent overrideLocationComponent = originalLocationComponent.clone(null, null);
         Vector2 screenPosition = new Vector2(x + (width / 2), y + (width / 2));
@@ -90,7 +96,10 @@ public class EntityDrawable extends BaseDrawable {
         int tileHeight = 1 + maxY - minY;
         int maxTileAmount = Math.max(tileWidth, tileHeight);
         // scale down a bit more
-        float amountAsFloat = 1.15f * (float)maxTileAmount;
+        float amountAsFloat = 1.05f * (float)maxTileAmount;
+        if (tileWidth == 1 && tileHeight == 1) {
+            amountAsFloat *= 1.35f; // make 1x1 furniture smaller to match with the others
+        }
 
         PIXELS_PER_TILE = PIXELS_PER_TILE * amountAsFloat;
 
@@ -127,5 +136,10 @@ public class EntityDrawable extends BaseDrawable {
 
     public void setOverrideColor(Color overrideColor) {
         this.overrideColor = overrideColor;
+    }
+
+    public EntityDrawable withBackground(Drawable backgroundDrawable) {
+        this.backgroundDrawable = backgroundDrawable;
+        return this;
     }
 }
