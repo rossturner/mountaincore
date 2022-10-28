@@ -379,7 +379,6 @@ GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles,添加/移除区格
 GUI.ADD_TILES,This should be as short as possible,Add tiles,添加区格
-GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient atmosphere effect volume:,周围环境效果的音量：
 GUI.BACK_LABEL,This should be as short as possible,Back,返回
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge,桥
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors,门
@@ -449,7 +448,6 @@ GUI.MAP_SEED_DISPLAY,,"Current map seed: ","当前的地图种子： "
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal,水平
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical,垂直
 GUI.MINIMAP.LABEL,,Minimap,小地图
-GUI.MUSIC_VOLUME,,Music volume:,音乐音量：
 GUI.NEXT_LABEL,This should be as short as possible,Next,下一个
 GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this version of the game,此家具在该游戏版本中无法旋转
 GUI.OK_LABEL,This should be as short as possible,Ok,Ok
@@ -463,11 +461,9 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,,Borderless,无边框
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen,独占全屏
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed,窗口化
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options ","图像设置 "
-GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Allow automatic crash reports,允许自动报告崩溃
 GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game,显示游戏中的提示
 GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING,,Scroll the background on the main menu,在主菜单滚动背景
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous,其他
-GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Ask to start the tutorial at game start,游戏开始时询问是否开始教程
 GUI.OPTIONS.TAB.AUDIO,,Audio,声音
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay,游戏
 GUI.OPTIONS.TAB.GRAPHICS,,Graphics,图像
@@ -480,7 +476,6 @@ GUI.OPTIONS.TWITCH.DISCONNECT,,Disconnect,断开连接
 GUI.OPTIONS.TWITCH.DISCONNECTED_LABEL,,Twitch account disconnected,Twitch账户断开连接
 GUI.OPTIONS.TWITCH.ENABLED,,Twitch integration enabled,开启Twitch整合
 GUI.OPTIONS.TWITCH.GENERAL_ERROR,,An error occured while communicating with Twitch,连接Twitch时发生错误
-GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Click here to connect your Twitch account,点击此处连接Twitch账户
 GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,优先订阅者
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit,提交
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,Twitch整合
@@ -513,7 +508,6 @@ GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,按名字排序
 GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,按不满意度排序
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,殖民者
 GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},总计：{{count}}
-GUI.SOUND_EFFECT_VOLUME,,Sound effect volume,音效音量
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,UI缩放：
 GUI.VIEW_ROADMAP,,View development roadmap,查看开发路线图
 GUI.ZONES_LABEL,This should be as short as possible,Zones,区域

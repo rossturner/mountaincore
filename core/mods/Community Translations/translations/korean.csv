@@ -379,7 +379,6 @@ GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles,타일 추가/제거
 GUI.ADD_TILES,This should be as short as possible,Add tiles,타일 추가
-GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient atmosphere effect volume:,주변 대기 효과 볼륨:
 GUI.BACK_LABEL,This should be as short as possible,Back,뒤로
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge,다리
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors,문
@@ -449,7 +448,6 @@ GUI.MAP_SEED_DISPLAY,,"Current map seed: ",
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal,
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical,
 GUI.MINIMAP.LABEL,,Minimap,미니맵
-GUI.MUSIC_VOLUME,,Music volume:,음악 볼륨:
 GUI.NEXT_LABEL,This should be as short as possible,Next,다음
 GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this version of the game,이 가구는 게임의이 버전에서 회전 할 수 없습니다
 GUI.OK_LABEL,This should be as short as possible,Ok,좋아
@@ -463,11 +461,9 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,,Borderless,
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen,
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed,
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options ",그래픽 옵션
-GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Allow automatic crash reports,자동 충돌 보고서 허용
 GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game,
 GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING,,Scroll the background on the main menu,
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous,기타
-GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Ask to start the tutorial at game start,
 GUI.OPTIONS.TAB.AUDIO,,Audio,
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay,
 GUI.OPTIONS.TAB.GRAPHICS,,Graphics,
@@ -480,7 +476,6 @@ GUI.OPTIONS.TWITCH.DISCONNECT,,Disconnect,
 GUI.OPTIONS.TWITCH.DISCONNECTED_LABEL,,Twitch account disconnected,
 GUI.OPTIONS.TWITCH.ENABLED,,Twitch integration enabled,
 GUI.OPTIONS.TWITCH.GENERAL_ERROR,,An error occured while communicating with Twitch,
-GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Click here to connect your Twitch account,
 GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit,
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,
@@ -513,7 +508,6 @@ GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,
 GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,정착민
 GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},합계: {{count}}
-GUI.SOUND_EFFECT_VOLUME,,Sound effect volume,사운드 효과 볼륨
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,UI 배율:
 GUI.VIEW_ROADMAP,,View development roadmap,
 GUI.ZONES_LABEL,This should be as short as possible,Zones,영역

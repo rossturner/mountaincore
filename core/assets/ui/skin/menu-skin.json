@@ -18,6 +18,9 @@ com.badlogic.gdx.graphics.Color: {
 	dropdown_body_hover_colour: {
 		hex: 913613ff
 	}
+	grey_30pc: {
+		hex: cecece4c
+	}
 	primary_font_colour_red: {
 		hex: 913614ff
 	}
@@ -27,8 +30,8 @@ com.badlogic.gdx.graphics.Color: {
 	saved_greyed_out_bg_colour: {
 		hex: d7b17aff
 	}
-	grey_30pc: {
-		hex: cecece4c
+	textfield_bg_colour: {
+		hex: a34829ff
 	}
 	white: {
 		hex: ffffffff
@@ -62,6 +65,18 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	default-rect: {
 		name: white-pixel
 		color: grey_30pc
+	}
+	textfield_pixel_bg: {
+		name: white-pixel
+		color: textfield_bg_colour
+	}
+	textfield_cursor: {
+		name: white-pixel
+		color: white
+	}
+	textfield_selected: {
+		name: white-pixel
+		color: dropdown_body_hover_colour
 	}
 }
 com.ray3k.tenpatch.TenPatchDrawable: {
@@ -139,6 +154,18 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		up: btn_exit
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
+	default: {
+		checkboxOn: btn_check_box_ticked
+		checkboxOff: btn_check_box_unticked
+		checkboxOver: btn_check_box_hover_state
+		font: default-font-16
+	}
+	checkbox_no_bg: {
+		parent: default
+		fontColor: primary_font_colour_red
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
 		font: placeholder-font
@@ -168,6 +195,24 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: default-font-23
 		fontColor: white
 	}
+	checkbox_label: {
+		font: default-font-16
+		fontColor: white
+		background: btn_check_box_body
+	}
+	secondary_banner_title: {
+		font: header-font-36
+		fontColor: primary_font_colour_red
+		background: asset_secondary_banner_title_bg
+	}
+	options_menu_label: {
+		font: default-font-18
+		fontColor: primary_font_colour_red
+	}
+	checkbox_label_no_bg: {
+		font: default-font-16
+		fontColor: primary_font_colour_red
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {
@@ -193,6 +238,12 @@ com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 		background: select_full
 		scrollStyle: default
 		listStyle: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
+	default-horizontal: {
+		background: asset_audio_slider_cropped
+		knob: btn_audio_slider
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
@@ -261,6 +312,29 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		font: default-font-23
 		up: btn_01
 		unpressedOffsetY: 6
+	}
+	btn_small_1: {
+		font: placeholder-header-font
+		fontColor: primary_font_colour_red
+		up: btn_small_1
+	}
+	btn_small_1_header-font-50: {
+		parent: btn_small_1
+		font: header-font-50
+	}
+	btn_key_bindings_key: {
+		font: default-font-18
+		fontColor: white
+		up: btn_key_bindings_key
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	default: {
+		font: default-font-16
+		fontColor: white
+		background: textfield_pixel_bg
+		cursor: textfield_cursor
+		selection: textfield_selected
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {

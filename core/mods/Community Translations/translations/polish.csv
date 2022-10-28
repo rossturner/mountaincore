@@ -379,7 +379,6 @@ GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles,Dodaj/usuń kafelki
 GUI.ADD_TILES,This should be as short as possible,Add tiles,Dodaj kafelki
-GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient atmosphere effect volume:,Objętość efektu atmosfery otoczenia:
 GUI.BACK_LABEL,This should be as short as possible,Back,"Wstecz "
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge,Most
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors,Drzwi
@@ -449,7 +448,6 @@ GUI.MAP_SEED_DISPLAY,,"Current map seed: ",
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal,
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical,
 GUI.MINIMAP.LABEL,,Minimap,Minimapa
-GUI.MUSIC_VOLUME,,Music volume:,Głośność muzyki:
 GUI.NEXT_LABEL,This should be as short as possible,Next,Dalej
 GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this version of the game,Meble te nie mogą być obracane w tej wersji gry
 GUI.OK_LABEL,This should be as short as possible,Ok,OK
@@ -463,11 +461,9 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,,Borderless,
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen,
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed,
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options ","Ustawienia Grafiki "
-GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Allow automatic crash reports,Zezwalaj na automatyczne raporty awarii
 GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game,
 GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING,,Scroll the background on the main menu,
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous,Różne
-GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Ask to start the tutorial at game start,
 GUI.OPTIONS.TAB.AUDIO,,Audio,
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay,
 GUI.OPTIONS.TAB.GRAPHICS,,Graphics,
@@ -480,7 +476,6 @@ GUI.OPTIONS.TWITCH.DISCONNECT,,Disconnect,
 GUI.OPTIONS.TWITCH.DISCONNECTED_LABEL,,Twitch account disconnected,
 GUI.OPTIONS.TWITCH.ENABLED,,Twitch integration enabled,
 GUI.OPTIONS.TWITCH.GENERAL_ERROR,,An error occured while communicating with Twitch,
-GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Click here to connect your Twitch account,
 GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit,
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,
@@ -513,7 +508,6 @@ GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,
 GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,Osadnicy
 GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},Łącznie: {{count}}
-GUI.SOUND_EFFECT_VOLUME,,Sound effect volume,"Głośność efektów "
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,Rozmiar interfejsu:
 GUI.VIEW_ROADMAP,,View development roadmap,
 GUI.ZONES_LABEL,This should be as short as possible,Zones,Strefy

@@ -379,7 +379,6 @@ GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles,タイルの追加/削除
 GUI.ADD_TILES,This should be as short as possible,Add tiles,タイル追加
-GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient atmosphere effect volume:,環境音の音量:
 GUI.BACK_LABEL,This should be as short as possible,Back,戻る
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge,架橋
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors,ドア
@@ -449,7 +448,6 @@ GUI.MAP_SEED_DISPLAY,,"Current map seed: ",現在のマップシード:
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal,水平
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical,垂直
 GUI.MINIMAP.LABEL,,Minimap,ミニマップ
-GUI.MUSIC_VOLUME,,Music volume:,音楽の音量
 GUI.NEXT_LABEL,This should be as short as possible,Next,次
 GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this version of the game,この建築物は、現在のバージョンでは回転できません
 GUI.OK_LABEL,This should be as short as possible,Ok,OK
@@ -463,11 +461,9 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,,Borderless,ボーダ�
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen,排他的フルスクリーン
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed,ウインドウモード
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options ",グラフィックオプション
-GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Allow automatic crash reports,自動クラッシュレポートを許可する
 GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game,ゲーム中にヒントを表示する
 GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING,,Scroll the background on the main menu,メインメニューの背景をスクロールする
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous,その他のオプション
-GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Ask to start the tutorial at game start,ゲーム開始時にチュートリアルを表示するか尋ねる
 GUI.OPTIONS.TAB.AUDIO,,Audio,音声
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay,ゲームプレイ
 GUI.OPTIONS.TAB.GRAPHICS,,Graphics,グラフィック
@@ -480,7 +476,6 @@ GUI.OPTIONS.TWITCH.DISCONNECT,,Disconnect,連携を解除
 GUI.OPTIONS.TWITCH.DISCONNECTED_LABEL,,Twitch account disconnected,Twitchアカウントと連携していません
 GUI.OPTIONS.TWITCH.ENABLED,,Twitch integration enabled,Twitchとの連携を有効にする
 GUI.OPTIONS.TWITCH.GENERAL_ERROR,,An error occured while communicating with Twitch,Twitchとの接続にエラーが発生しました
-GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Click here to connect your Twitch account,クリックでTwitchアカウントと接続します
 GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,サブスクライブ者に優先権を与える
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit,送信
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,Twitchとの連携機能
@@ -513,7 +508,6 @@ GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,名前順でソート
 GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,不幸な順にソート
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,入植者
 GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},合計:{{count}}
-GUI.SOUND_EFFECT_VOLUME,,Sound effect volume,効果音の音量
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,UIスケール:
 GUI.VIEW_ROADMAP,,View development roadmap,開発ロードマップを見る
 GUI.ZONES_LABEL,This should be as short as possible,Zones,ゾーン

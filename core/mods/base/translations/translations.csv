@@ -420,7 +420,7 @@ GOAL.INVADER.RETREAT.DESCRIPTION,,Retreating from map
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
 GUI.ADD_TILES,This should be as short as possible,Add tiles
-GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient atmosphere effect volume:
+GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient Atmosphere
 GUI.BACK_LABEL,This should be as short as possible,Back
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors
@@ -493,7 +493,7 @@ GUI.MAP_SEED_DISPLAY,,"Current map seed: "
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical
 GUI.MINIMAP.LABEL,,Minimap
-GUI.MUSIC_VOLUME,,Music volume:
+GUI.MUSIC_VOLUME,,Music
 GUI.NEXT_LABEL,This should be as short as possible,Next
 GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this version of the game
 GUI.OK_LABEL,This should be as short as possible,Ok
@@ -507,10 +507,10 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,,Borderless
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options "
-GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Allow automatic crash reports
+GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Opt In For Crash Reports
 GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous
-GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Ask to start the tutorial at game start
+GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Always Ask For Tutorial
 GUI.OPTIONS.TAB.AUDIO,,Audio
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay
 GUI.OPTIONS.TAB.GRAPHICS,,Graphics
@@ -523,7 +523,7 @@ GUI.OPTIONS.TWITCH.DISCONNECT,,Disconnect
 GUI.OPTIONS.TWITCH.DISCONNECTED_LABEL,,Twitch account disconnected
 GUI.OPTIONS.TWITCH.ENABLED,,Twitch integration enabled
 GUI.OPTIONS.TWITCH.GENERAL_ERROR,,An error occured while communicating with Twitch
-GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Click here to connect your Twitch account
+GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Link Twitch account
 GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration
@@ -557,7 +557,7 @@ GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name
 GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers
 GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}}
-GUI.SOUND_EFFECT_VOLUME,,Sound effect volume
+GUI.SOUND_EFFECT_VOLUME,,Sound Effects
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:
 GUI.VIEW_ROADMAP,,View development roadmap
 GUI.YEAR_LABEL,,Year {{year}}
