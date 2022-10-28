@@ -19,9 +19,9 @@ public class GlobalSettings {
 	public static boolean PAUSE_FOR_NOTIFICATIONS = true;
 	public static boolean TREE_TRANSPARENCY_ENABLED = true;
 	public static final Version VERSION;
-    public static boolean STRESS_TEST = false;
+	public static boolean STRESS_TEST = false;
 
-    static {
+	static {
 		String loadedVersion = "UNKNOWN 0";
 		try {
 			URL resourceUrl = Resources.getResource("version.txt");
