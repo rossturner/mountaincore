@@ -20,6 +20,9 @@ import technology.rocketjump.saul.messaging.types.GameSaveMessage;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.SavedGameInfo;
 import technology.rocketjump.saul.persistence.SavedGameStore;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -41,6 +44,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 	public static final String SELECTED_SAVE_BG = "selected_save_bg_patch";
 	private final SoundAsset startGameSound;
 	private final MessageDispatcher messageDispatcher;
+	private final SoundAssetDictionary soundAssetDictionary;
 	private final MenuButtonFactory menuButtonFactory;
 	private final SavedGameStore savedGameStore;
 	private final Skin skin;
@@ -63,6 +67,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 						SoundAssetDictionary soundAssetDictionary, MenuButtonFactory menuButtonFactory,
 						SavedGameStore savedGameStore, I18nTranslator i18nTranslator) {
 		this.messageDispatcher = messageDispatcher;
+		this.soundAssetDictionary = soundAssetDictionary;
 		this.menuButtonFactory = menuButtonFactory;
 		this.savedGameStore = savedGameStore;
 		this.skin = skinRepository.getMenuSkin();
@@ -148,7 +153,10 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		saveSlot.setTouchable(Touchable.enabled);
 		saveSlot.clearListeners();
 
+		saveSlot.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		saveSlot.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		saveSlot.addListener(new ClickListener() {
+
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				for (Table slot : slots) {
@@ -299,8 +307,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 						return;
 					}
 
-					NoTitleDialog dialog = new NoTitleDialog(skin, messageDispatcher);
-
+					NoTitleDialog dialog = new NoTitleDialog(skin, messageDispatcher, soundAssetDictionary);
 
 					I18nText dialogText = i18nTranslator.getTranslatedWordWithReplacements("GUI.DIALOG.CONFIRM_DELETE_SAVE",
 									Map.of("name", new I18nWord(selectedSavedGame.settlementName)))
@@ -354,6 +361,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		loadControls.add(backButton).fill().spaceLeft(36.0f).spaceRight(36.0f);
 		loadControls.add(playButton).fill().spaceRight(36.0f);
 
+		disablePlayAndDeleteButtons();
 
 		table.add(loadControls).spaceTop(180.0f).spaceBottom(180.0f).expandX().align(Align.right).colspan(5);
 
