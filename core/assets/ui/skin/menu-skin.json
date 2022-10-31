@@ -230,6 +230,12 @@ com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 		vScroll: scroll_bg
 		vScrollKnob: scroll_fg
 	}
+	list: {
+		parent: default
+	}
+	select-box: {
+		parent: default
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 	default: {
@@ -326,6 +332,13 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		font: default-font-18
 		fontColor: white
 		up: btn_key_bindings_key
+		over: btn_key_bindings_key_hover_state
+		checked: btn_key_bindings_key_changed
+	}
+	btn_options_secondary: {
+		font: default-font-18
+		fontColor: white
+		up: btn_key_bindings_key
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
@@ -347,6 +360,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 		background: bg_dialogue_box
 		titleFont: placeholder-font
 		titleFontColor: white
+	}
+	square_dialog: {
+		background: asset_square_bg
+		titleFont: default-font-16
 	}
 }
 }

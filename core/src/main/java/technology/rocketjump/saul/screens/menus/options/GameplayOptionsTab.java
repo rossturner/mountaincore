@@ -3,10 +3,9 @@ package technology.rocketjump.saul.screens.menus.options;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAsset;
@@ -16,8 +15,11 @@ import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.BlurredBackgroundDialog;
+import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
 import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.ALLOW_HINTS;
@@ -31,7 +33,9 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
 	private final WidgetFactory widgetFactory;
+	private final MenuButtonFactory menuButtonFactory;
 
+	private Container<TextButton> keyBindingsButton;
 	private CheckBox edgeScrollingCheckbox;
 	private CheckBox zoomToCursorCheckbox;
 	private CheckBox treeTransparencyCheckbox;
@@ -40,18 +44,21 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 	@Inject
 	public GameplayOptionsTab(UserPreferences userPreferences, MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
-							  SoundAssetDictionary soundAssetDictionary, I18nTranslator i18nTranslator, WidgetFactory widgetFactory) {
+	                          SoundAssetDictionary soundAssetDictionary, I18nTranslator i18nTranslator, WidgetFactory widgetFactory,
+	                          MenuButtonFactory menuButtonFactory) {
 		this.userPreferences = userPreferences;
 		this.messageDispatcher = messageDispatcher;
 		this.clickSoundAsset = soundAssetDictionary.getByName("MenuClick");
 		this.i18nTranslator = i18nTranslator;
 		this.skin = guiSkinRepository.getMenuSkin();
 		this.widgetFactory = widgetFactory;
+		this.menuButtonFactory = menuButtonFactory;
 	}
 
 	@Override
 	public void populate(Table menuTable) {
 		// GAMEPLAY
+		menuTable.add(keyBindingsButton).spaceBottom(50f).row();
 		menuTable.add(edgeScrollingCheckbox).spaceBottom(50f).row();
 		menuTable.add(zoomToCursorCheckbox).spaceBottom(50f).row();
 		menuTable.add(treeTransparencyCheckbox).spaceBottom(50f).row();
@@ -83,6 +90,39 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 	@Override
 	public void rebuildUI() {
+
+		keyBindingsButton = menuButtonFactory.createButton("GUI.OPTIONS.KEY_BINDINGS", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+				.withAction(() -> {
+
+					BlurredBackgroundDialog dialog = new BlurredBackgroundDialog(I18nText.BLANK, skin, messageDispatcher, skin.get("square_dialog", Window.WindowStyle.class));
+					Label titleRibbon = new Label(i18nTranslator.getTranslatedString("GUI.OPTIONS.KEY_BINDINGS").toString(), skin, "title_ribbon");
+					Label gameplayLabel = new Label(i18nTranslator.getTranslatedString(OptionsTabName.GAMEPLAY.getI18nKey()).toString(), skin, "secondary_banner_title");
+					gameplayLabel.setAlignment(Align.center);
+
+					Table assignableButtonsTable = new Table();
+
+					ScrollPane scrollPane = new ScrollPane(assignableButtonsTable, skin);
+					scrollPane.setForceScroll(false, true);
+					scrollPane.setScrollBarPositions(true, true);
+					scrollPane.setScrollBarTouch(false);
+
+					dialog.getContentTable().add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
+					dialog.getContentTable().add(gameplayLabel).align(Align.left).row();
+					dialog.getContentTable().add(scrollPane).fillX().row();
+
+
+					//TODO: loop me and proper name actions
+					Label label = new Label("Lorem ipsum", skin, "options_menu_label");
+					TextButton primaryKey = new TextButton("Up", skin, "btn_key_bindings_key");
+					TextButton secondaryKey = new TextButton("w", skin, "btn_key_bindings_key");
+					assignableButtonsTable.add(label).growX();
+					assignableButtonsTable.add(primaryKey);
+					assignableButtonsTable.add(secondaryKey);
+
+
+					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+				})
+				.build();
 
 		edgeScrollingCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.USE_EDGE_SCROLLING", skin, 428f);
 		GlobalSettings.USE_EDGE_SCROLLING = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.EDGE_SCROLLING, "true"));;
