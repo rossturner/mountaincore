@@ -170,6 +170,18 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	btn_map_resize: {
 		up: btn_map_resize
 	}
+	btn_material_type: {
+		up: temp_btn_trade
+		checked: btn_trade
+	}
+	btn_arrow_small_left: {
+		up: btn_arrow_small_left
+		disabled: btn_arrow_small_left_disabled
+	}
+	btn_arrow_small_right: {
+		up: btn_arrow_small
+		disabled: btn_arrow_small_right_disabled
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {

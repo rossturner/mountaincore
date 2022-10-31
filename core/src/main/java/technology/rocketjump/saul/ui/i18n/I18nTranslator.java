@@ -593,6 +593,18 @@ public class I18nTranslator {
 
 
 
+	public I18nText getAvailabilityDescription(ItemType itemType, int quantity, GameMaterial material) {
+		Map<String, I18nString> replacements = new HashMap<>();
+		replacements.put("itemType", dictionary.getWord(itemType.getI18nKey()));
+		replacements.put("quantity", new I18nWord(String.valueOf(quantity)));
+		if (material == null) {
+			replacements.put("material", BLANK);
+		} else {
+			replacements.put("material", dictionary.getWord(material.getI18nKey()));
+		}
+		return applyReplacements(dictionary.getWord("ITEM.AVAILABILITY.DESCRIPTION"), replacements, Gender.ANY);
+	}
+
 	private I18nText getDescription(Entity entity, PlantEntityAttributes attributes) {
 		Map<String, I18nString> replacements = new HashMap<>();
 
@@ -861,5 +873,4 @@ public class I18nTranslator {
 			);
 		}
 	}
-
 }

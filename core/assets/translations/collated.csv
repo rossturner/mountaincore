@@ -654,6 +654,7 @@ INGREDIENT.VEGETABLE.SACK.PLURAL,Vegetables (sack),,Gemüse (Sack),,Verdure (sac
 
 INVENTORY.CONTAINS.LABEL,Inventory:,,Inventar:,Inventaire:,Inventario:,Inventario:,Inventário:,Inventário:,,Инвентарь:,Envanter:,Fortegnelse:,,Inventering:,,,,インベントリ:,背包：,
 
+ITEM.AVAILABILITY.DESCRIPTION,{{quantity}} {{materialType.adjective}} {{itemType.noun_or_plural}} available,,,,,,,,,,,,,,,,,,,
 ITEM.DESCRIPTION,{{quantity_if_multiple}} {{quality.adjective}} {{materialType.adjective}} {{itemType.noun_or_plural}},,{{quantity_if_multiple}}{{itemType.noun_or_plural}} aus {{materialType}},{{quantity_if_multiple}}{{itemType.noun_or_plural}} {{materialType.adjective}},{{quantity_if_multiple}}{{itemType.noun_or_plural}} {{materialType.adjective}},{{quantity_if_multiple}}{{itemType.noun_or_plural}} {{materialType.adjective}},{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}}{{itemType.noun_or_plural}} {{materialType.adjective}},,{{quantity_if_multiple}}{{itemType.noun_or_plural}} {{materialType.adjective}},"{{quantity_if_multiple}} {{materialType}} {{itemType.noun_or_plural}} ",{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}} {{ItemType.noun_or_plural}},,{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}},,,,{{quantity_if_multiple}} {{materialType.adjective}} {{itemType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.adjective}} {{itemType.noun_or_plural}},
 ITEM.INGREDIENT.DESCRIPTION,{{quantity_if_multiple}} {{materialType.noun_or_plural}},,{{quantity_if_multiple}}{{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}},,{{quantity_if_multiple}}{{materialType.noun_or_plural}},{{quantity_if_multiple}} {{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}} {{materialType.noun_or_plural}},,{{quantity_if_multiple}} {{MaterialType.noun_or_plural}},,,,{{quantity_if_multiple}} {{materialType.noun_or_plural}},{{quantity_if_multiple}}{{materialType.noun_or_plural}},
 ITEM.QUALITY.PREFIX.AWFUL.ADJECTIVE,Awful,,,,,,,,,,,,,,,,,,,
@@ -687,6 +688,7 @@ MATERIAL,Material,,Material,Matériau,Materiale,Material,Material,Material,,Ма
 
 MATERIAL_TYPE,Type,,Art,Sorte,Tipo,Tipo de material,Tipo,Tipo,,Тип,Tip,Type,,Sort,,,,種別,类型,
 MATERIAL_TYPE.ANY,Any,,Beliebig,Tous,Qualsiasi,Cualquiera,Qualquer,Qualquer,,Любой,Hepsi,Enhver,,Någon,,,,全て,任意,
+MATERIAL_TYPE.ANY.LABEL,Any material,,,,,,,,,,,,,,,,,,,
 MATERIAL_TYPE.CLOTH.ADJECTIVE," ",,,," ",de tela,,,,Одежда,,,,,,,,," ",
 MATERIAL_TYPE.CLOTH.NOUN," ",,,," ",Tela,,,,Одежда,,,,,,,,," ",
 MATERIAL_TYPE.EARTH.ADJECTIVE,Earthen,,Erde,En terre,Terrestre,de tierra,Terráqueo,,,Землю,Topraktan,Jordens,,Jord,,,,土の,土制的,

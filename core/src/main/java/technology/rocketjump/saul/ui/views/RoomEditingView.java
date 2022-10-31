@@ -21,8 +21,6 @@ import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.model.JobPriority;
-import technology.rocketjump.saul.materials.model.GameMaterial;
-import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
@@ -42,6 +40,7 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
+import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
 import technology.rocketjump.saul.ui.widgets.TextInputDialog;
 
 @Singleton
@@ -61,6 +60,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final Table headerContainer;
 	private final Button changeRoomNameButton;
 	private final Table sizingButtons;
+	private final FurnitureMaterialsWidget furnitureMaterialsWidget;
 	private GameContext gameContext;
 
 	private Button backButton;
@@ -68,13 +68,12 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private boolean displayed;
 
 	private FurnitureType selectedFurnitureType;
-	private GameMaterialType selectedFurnitureMaterialType;
-	private GameMaterial selectedFurniturePrimaryMaterial;
 
 	@Inject
 	public RoomEditingView(MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository,
 						   I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
-						   FurnitureTypeDictionary furnitureTypeDictionary, RoomEditorFurnitureMap furnitureMap, EntityRenderer entityRenderer, RoomStore roomStore) {
+						   FurnitureTypeDictionary furnitureTypeDictionary, RoomEditorFurnitureMap furnitureMap,
+						   EntityRenderer entityRenderer, RoomStore roomStore, FurnitureMaterialsWidget furnitureMaterialsWidget) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
@@ -84,6 +83,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
 		this.entityRenderer = entityRenderer;
 		this.roomStore = roomStore;
+		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
 
 		backButton = new Button(skin.getDrawable("btn_back"));
 		mainTable = new Table();
@@ -265,6 +265,9 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			mainTable.add(furnitureTable).row();
 		}
 
+		if (selectedFurnitureType != null) {
+			mainTable.add(furnitureMaterialsWidget).expandX().row();
+		}
 	}
 
 	private Actor buildFurnitureButton(FurnitureType furnitureType) {
@@ -284,10 +287,11 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				This.selectedFurnitureType = furnitureType;
+				furnitureMaterialsWidget.changeSelectedFurniture(furnitureType);
+				rebuildUI();
 				GameInteractionMode.PLACE_FURNITURE.setFurnitureType(selectedFurnitureType);
 				messageDispatcher.dispatchMessage(MessageType.GUI_FURNITURE_TYPE_SELECTED, selectedFurnitureType);
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FURNITURE);
-				rebuildUI();
 			}
 		});
 		furnitureButton.addListener(new ChangeCursorOnHover(furnitureButton, GameCursor.SELECT, messageDispatcher));
@@ -295,6 +299,10 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 		buttonContainer.setActor(furnitureButton);
 		return buttonContainer;
+	}
+
+	public FurnitureType getSelectedFurnitureType() {
+		return selectedFurnitureType;
 	}
 
 	private void buildSizingButtonsTable() {

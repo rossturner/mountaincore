@@ -652,6 +652,7 @@ INVENTORY.CONTAINS.LABEL,This is the label of “inventory” to go above a list
 
 ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}} {{quality.adjective}} {{materialType.adjective}} {{itemType.noun_or_plural}}
 ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}} {{materialType.noun_or_plural}}
+ITEM.AVAILABILITY.DESCRIPTION,E.g. “2 potatoes”,{{quantity}} {{materialType.adjective}} {{itemType.noun_or_plural}} available
 ITEM.QUALITY.PREFIX.AWFUL.ADJECTIVE,,Awful
 ITEM.QUALITY.PREFIX.AWFUL.TOOLTIP,,"This item is terribly made, difficult to use, and would not be worth very much"
 ITEM.QUALITY.PREFIX.MASTERWORK.ADJECTIVE,,Masterwork
@@ -683,6 +684,7 @@ MATERIAL,Used for specifying which material something is made out of,Material
 
 MATERIAL_TYPE,,Type
 MATERIAL_TYPE.ANY,For allowing any kind of material to be used,Any
+MATERIAL_TYPE.ANY.LABEL,For allowing any kind of material to be used,Any material
 MATERIAL_TYPE.CLOTH.ADJECTIVE,," "
 MATERIAL_TYPE.CLOTH.NOUN,," "
 MATERIAL_TYPE.EARTH.ADJECTIVE,,Earthen
@@ -1321,26 +1323,37 @@ STONE.SLATE.NOUN,,Slate
 STONE.SLATE.TOOLTIP,,A metamorphic rock that is usually formed out of {{STONE.SHALE.NOUN}}. It is often made into tiles for roofing or writing.
 
 TOOL.AXE.NOUN,,Axe
+TOOL.AXE.PLURAL,,Axes
 TOOL.AXE.TOOLTIP,,Used to chop down trees. The primary tool of a {{PROFESSION.WOODCUTTER}}.
 TOOL.CHISEL.NOUN,,Chisel
+TOOL.CHISEL.PLURAL,,Chisels
 TOOL.CHISEL.TOOLTIP,,Used to sculpt rock into shape. One of the tools used by a {{PROFESSION.STONEMASON}}.
 TOOL.FISHING.ROD.NOUN,,Fishing rod
+TOOL.FISHING.ROD.PLURAL,,Fishing rods
 TOOL.FISHING.ROD.TOOLTIP,,Used to catch fish from a body of water. The primary tool of a {{PROFESSION.FISHER}}.
 TOOL.KITCHEN.KNIFE.NOUN,,Kitchen knife
+TOOL.KITCHEN.KNIFE.PLURAL,,Kitchen knives
 TOOL.KITCHEN.KNIFE.TOOLTIP,,"Used to prepare food, particularly meat."
 TOOL.LARGE.HAMMER.NOUN,,Large hammer
+TOOL.LARGE.HAMMER.PLURAL,,Large hammers
 TOOL.LARGE.HAMMER.TOOLTIP,,Used to bash large items of stone and metal into shape. The primary tool of a {{PROFESSION.BLACKSMITH}}.
 TOOL.PICKAXE.NOUN,,Pickaxe
+TOOL.PICKAXE.PLURAL,,Pickaxes
 TOOL.PICKAXE.TOOLTIP,,Used to break stone into smaller pieces. The primary tool of a {{PROFESSION.MiNER}}.
 TOOL.PLANE.NOUN,A carpenter's plane,Plane
+TOOL.PLANE.PLURAL,A carpenter's plane,Planes
 TOOL.PLANE.TOOLTIP,,Used to shave wooden furniture and items into shape. The primary tool of a {{PROFESSION.CARPENTER}}.
 TOOL.ROLLING.PIN.NOUN,,Rolling pin
+TOOL.ROLLING.PIN.PLURAL,,Rolling pins
 TOOL.ROLLING.PIN.TOOLTIP,,Used to prepare dough. One of the tools used by a {{PROFESSION.CHEF}}.
 TOOL.SAW.NOUN,A carpenter's saw,Saw
+TOOL.SAW.PLURAL,A carpenter's saw,Saws
 TOOL.SAW.TOOLTIP,,Used to cut wood into shape. Required for cutting lumber in the {{ROOMS.SAWMILL}}.
 TOOL.SMALL.HAMMER.NOUN,,Hammer
+TOOL.SMALL.HAMMER.PLURAL,,Hammers
 TOOL.SMALL.HAMMER.TOOLTIP,,Used to bash small items of stone and metal into shape. One of the tools used by a {{PROFESSION.BLACKSMITH}}.
 TOOL.TONGS.NOUN,A blacksmith's tongs,Tongs
+TOOL.TONGS.PLURAL,A blacksmith's tongs,Sets of tongs
 TOOL.TONGS.TOOLTIP,,Used to hold extremely hot metal items. Used in the process of smelting metal ore.
 
 TREE.DESCRIPTION,E.g. “Oak tree”,{{materialType.noun}} tree
