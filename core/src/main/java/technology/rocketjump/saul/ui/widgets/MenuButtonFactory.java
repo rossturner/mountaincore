@@ -2,7 +2,6 @@ package technology.rocketjump.saul.ui.widgets;
 
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -12,13 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
-import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.ui.actions.ButtonAction;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
@@ -27,12 +24,13 @@ public class MenuButtonFactory {
     private final I18nTranslator translator;
     private final FontRepository fontRepository;
     private final MessageDispatcher messageDispatcher;
+    private final SoundAssetDictionary soundAssetDictionary;
 
-    private final SoundAsset onEnterSoundAsset;
-    private final SoundAsset onClickSoundAsset;
 
     public enum ButtonStyle {
+        BTN_KEY_BINDINGS_KEY("btn_key_bindings_key"),
         BTN_SCALABLE_50PT("btn_scalable_header-font-50"),
+        BTN_SMALL_1_50PT("btn_small_1_header-font-50"),
         BTN_BANNER_1_47PT("btn_banner_1_header-font-47"),
         BTN_BANNER_2_47PT("btn_banner_2_header-font-47"),
         BTN_BANNER_3_36PT("btn_banner_3_header-font-36"),
@@ -58,9 +56,7 @@ public class MenuButtonFactory {
         this.translator = translator;
         this.fontRepository = fontRepository;
         this.messageDispatcher = messageDispatcher;
-
-        this.onEnterSoundAsset = soundAssetDictionary.getByName("MenuHover");
-        this.onClickSoundAsset = soundAssetDictionary.getByName("MenuClick");
+        this.soundAssetDictionary = soundAssetDictionary;
     }
 
     public MenuButtonBuilder createButton(String i18nKey, Skin skin, ButtonStyle buttonStyle) {
@@ -78,19 +74,7 @@ public class MenuButtonFactory {
             buttonContainer.setTransform(true);
             buttonContainer.setOrigin(button.getPrefWidth() / 2, button.getPrefHeight() / 2);
 
-            button.addListener(new ClickListener() {
-                @Override
-                public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                    super.enter(event, x, y, pointer, fromActor);
-                    messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onEnterSoundAsset));
-                }
-
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    super.clicked(event, x, y);
-                    messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onClickSoundAsset));
-                }
-            });
+            button.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
             button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
         }
 

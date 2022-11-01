@@ -20,6 +20,9 @@ import technology.rocketjump.saul.messaging.types.GameSaveMessage;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.SavedGameInfo;
 import technology.rocketjump.saul.persistence.SavedGameStore;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -41,6 +44,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 	public static final String SELECTED_SAVE_BG = "selected_save_bg_patch";
 	private final SoundAsset startGameSound;
 	private final MessageDispatcher messageDispatcher;
+	private final SoundAssetDictionary soundAssetDictionary;
 	private final MenuButtonFactory menuButtonFactory;
 	private final SavedGameStore savedGameStore;
 	private final Skin skin;
@@ -63,6 +67,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 						SoundAssetDictionary soundAssetDictionary, MenuButtonFactory menuButtonFactory,
 						SavedGameStore savedGameStore, I18nTranslator i18nTranslator) {
 		this.messageDispatcher = messageDispatcher;
+		this.soundAssetDictionary = soundAssetDictionary;
 		this.menuButtonFactory = menuButtonFactory;
 		this.savedGameStore = savedGameStore;
 		this.skin = skinRepository.getMenuSkin();
@@ -148,26 +153,38 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		saveSlot.setTouchable(Touchable.enabled);
 		saveSlot.clearListeners();
 
+		saveSlot.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		saveSlot.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		saveSlot.addListener(new ClickListener() {
+
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				for (Table slot : slots) {
-					if (!slot.getChildren().isEmpty()) {
-						slot.setBackground(skin.getDrawable(SAVE_BG));
+			public void clicked(InputEvent event, float x, float y) {
+				int tapCount = getTapCount();
+
+				if (tapCount == 1) {
+					for (Table slot : slots) {
+						if (!slot.getChildren().isEmpty()) {
+							slot.setBackground(skin.getDrawable(SAVE_BG));
+						}
 					}
-				}
 
-				if (selectedSavedGame != savedGameInfo) {
-					saveSlot.setBackground(skin.getDrawable(SELECTED_SAVE_BG));
+					if (selectedSavedGame != savedGameInfo) {
+						saveSlot.setBackground(skin.getDrawable(SELECTED_SAVE_BG));
 
+						selectedSavedGame = savedGameInfo;
+						enablePlayAndDeleteButtons();
+					} else {
+						selectedSavedGame = null;
+						disablePlayAndDeleteButtons();
+					}
+				} else if (tapCount == 2) {
 					selectedSavedGame = savedGameInfo;
-					enablePlayAndDeleteButtons();
-				} else {
-					selectedSavedGame = null;
-					disablePlayAndDeleteButtons();
+					playSavedGame();
 				}
-				return super.touchDown(event, x, y, pointer, button);
+
 			}
+
+
 		});
 
 		if (selectedSavedGame == savedGameInfo) {
@@ -256,7 +273,6 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		leftArrow.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
 				carouselIndex--;
 				savedGamesUpdated();
 			}
@@ -277,7 +293,6 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		rightArrow.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
 				carouselIndex++;
 				savedGamesUpdated();
 			}
@@ -299,8 +314,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 						return;
 					}
 
-					NoTitleDialog dialog = new NoTitleDialog(skin, messageDispatcher);
-
+					NoTitleDialog dialog = new NoTitleDialog(skin, messageDispatcher, soundAssetDictionary);
 
 					I18nText dialogText = i18nTranslator.getTranslatedWordWithReplacements("GUI.DIALOG.CONFIRM_DELETE_SAVE",
 									Map.of("name", new I18nWord(selectedSavedGame.settlementName)))
@@ -326,23 +340,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 
 		this.playButton = menuButtonFactory.createButton("GUI.LOAD_GAME.TABLE.PLAY", skin, MenuButtonFactory.ButtonStyle.BTN_SCALABLE_50PT)
 				.withAction(() -> {
-					if (gameContext != null) {
-						if (gameContext.getSettlementState().getSettlementName().equals(selectedSavedGame.settlementName)) {
-							// Same game, just go back to it
-							messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-							messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
-						} else {
-							// different game, save this first
-							messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
-							messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(startGameSound));
-							messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, selectedSavedGame);
-						}
-					} else {
-						messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(startGameSound));
-						messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, selectedSavedGame);
-					}
-
-
+					playSavedGame();
 				})
 				.build();
 
@@ -354,10 +352,29 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		loadControls.add(backButton).fill().spaceLeft(36.0f).spaceRight(36.0f);
 		loadControls.add(playButton).fill().spaceRight(36.0f);
 
+		disablePlayAndDeleteButtons();
 
 		table.add(loadControls).spaceTop(180.0f).spaceBottom(180.0f).expandX().align(Align.right).colspan(5);
 
 		return table;
+	}
+
+	private void playSavedGame() {
+		if (gameContext != null) {
+			if (gameContext.getSettlementState().getSettlementName().equals(selectedSavedGame.settlementName)) {
+				// Same game, just go back to it
+				messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+			} else {
+				// different game, save this first
+				messageDispatcher.dispatchMessage(MessageType.PERFORM_SAVE, new GameSaveMessage(false));
+				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(startGameSound));
+				messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, selectedSavedGame);
+			}
+		} else {
+			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(startGameSound));
+			messageDispatcher.dispatchMessage(MessageType.PERFORM_LOAD, selectedSavedGame);
+		}
 	}
 
 	private Actor buildBackgroundAndComponents() {

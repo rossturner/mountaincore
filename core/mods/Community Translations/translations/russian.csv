@@ -380,7 +380,6 @@ GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles,Добавление/удаление клеток
 GUI.ADD_TILES,This should be as short as possible,Add tiles,Добавить клетки
-GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient atmosphere effect volume:,Объем эффекта окружающей атмосферы:
 GUI.BACK_LABEL,This should be as short as possible,Back,Назад
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge,Мост
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors,Двери
@@ -450,7 +449,6 @@ GUI.MAP_SEED_DISPLAY,,"Current map seed: ",Текущее значение ка�
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal,Горизонтальный
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical,Вертикальный
 GUI.MINIMAP.LABEL,,Minimap,Миникарта
-GUI.MUSIC_VOLUME,,Music volume:,Громкость музыки:
 GUI.NEXT_LABEL,This should be as short as possible,Next,Далее
 GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this version of the game,Эта мебель не может быть повернута в этой версии игры
 GUI.OK_LABEL,This should be as short as possible,Ok,OK
@@ -464,11 +462,9 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,,Borderless,Полны
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen,"Эксклюзивный полноэкранный режим "
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed,В окне
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options ","Настройки графики "
-GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Allow automatic crash reports,Разрешить автоматические отчеты о сбоях
 GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game,"Показывать подсказки в игре "
 GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING,,Scroll the background on the main menu,"Прокрутите фон в главном меню "
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous,Разное
-GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Ask to start the tutorial at game start,"Предлагать начать обучение при запуске игры "
 GUI.OPTIONS.TAB.AUDIO,,Audio,Аудио
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay,Игра
 GUI.OPTIONS.TAB.GRAPHICS,,Graphics,Графика
@@ -481,7 +477,6 @@ GUI.OPTIONS.TWITCH.DISCONNECT,,Disconnect,Отключен
 GUI.OPTIONS.TWITCH.DISCONNECTED_LABEL,,Twitch account disconnected,Аккаунт Twitch отключен
 GUI.OPTIONS.TWITCH.ENABLED,,Twitch integration enabled,"Интеграция с Twitch включена "
 GUI.OPTIONS.TWITCH.GENERAL_ERROR,,An error occured while communicating with Twitch,"Произошла ошибка при подключении к Twitch "
-GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Click here to connect your Twitch account,"Нажмите здесь, чтобы подключить свою учетную запись Twitch"
 GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,"Отдавайте приоритет подписчикам "
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit,Отправить
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,"Интеграция с Twitch "
@@ -514,7 +509,6 @@ GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,Сортировать по и
 GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,Сортировать по уровню счастья
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,Поселенцы
 GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},Всего: {{count}}
-GUI.SOUND_EFFECT_VOLUME,,Sound effect volume,Громкость эффектов
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,Размер интерфейса:
 GUI.VIEW_ROADMAP,,View development roadmap,Посмотреть планы разработки
 GUI.ZONES_LABEL,This should be as short as possible,Zones,Зоны

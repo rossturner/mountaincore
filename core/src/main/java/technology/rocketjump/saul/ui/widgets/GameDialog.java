@@ -9,7 +9,7 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 public abstract class GameDialog implements Disposable {
 
 	private final Skin uiSkin;
-	private final MessageDispatcher messageDispatcher;
+	protected final MessageDispatcher messageDispatcher;
 	protected Dialog dialog;
 	protected Image fullScreenOverlay;
 

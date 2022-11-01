@@ -379,7 +379,6 @@ GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles,Añadir/eliminar casillas
 GUI.ADD_TILES,This should be as short as possible,Add tiles,Añadir casillas
-GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient atmosphere effect volume:,Volumen ambiente:
 GUI.BACK_LABEL,This should be as short as possible,Back,Atrás
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge,Puente
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors,Puertas
@@ -449,7 +448,6 @@ GUI.MAP_SEED_DISPLAY,,"Current map seed: ",Semilla del mapa actual:
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal,Horizontal
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical,Vertical
 GUI.MINIMAP.LABEL,,Minimap,Minimapa
-GUI.MUSIC_VOLUME,,Music volume:,Volumen de la música:
 GUI.NEXT_LABEL,This should be as short as possible,Next,Siguiente
 GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this version of the game,Este mueble no se puede girar en esta versión del juego
 GUI.OK_LABEL,This should be as short as possible,Ok,Ok
@@ -463,11 +461,9 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,,Borderless,Sin bordes
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen,Pantalla completa exclusiva
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed,En ventana
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options ","Ajustes de vídeo "
-GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Allow automatic crash reports,Permitir informes de fallos automáticos
 GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game,Mostrar consejos y tutorial durante la partida
 GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING,,Scroll the background on the main menu,Alternar el fondo en el menú principal
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous,Varios
-GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Ask to start the tutorial at game start,
 GUI.OPTIONS.TAB.AUDIO,,Audio,Audio
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay,Jugabilidad
 GUI.OPTIONS.TAB.GRAPHICS,,Graphics,Vídeo
@@ -480,7 +476,6 @@ GUI.OPTIONS.TWITCH.DISCONNECT,,Disconnect,Desconectar
 GUI.OPTIONS.TWITCH.DISCONNECTED_LABEL,,Twitch account disconnected,Cuenta de Twitch desconectada
 GUI.OPTIONS.TWITCH.ENABLED,,Twitch integration enabled,Integración de Twitch habilitada
 GUI.OPTIONS.TWITCH.GENERAL_ERROR,,An error occured while communicating with Twitch,Ocurrió un error al comunicar con Twitch
-GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Click here to connect your Twitch account,Haz click aquí para conectar tu cuenta de Twitch
 GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,Dar prioridad a los subscriptores
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit,Enviar
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,Integración con Twitch
@@ -513,7 +508,6 @@ GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,Ordenar por nombre
 GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,Ordenar por infelicidad
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,Colonos
 GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},Total: {{count}}
-GUI.SOUND_EFFECT_VOLUME,,Sound effect volume,Volumen de los efectos de sonido
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,Tamaño de la interfaz:
 GUI.VIEW_ROADMAP,,View development roadmap,Ver la hoja de ruta del desarrollo
 GUI.ZONES_LABEL,This should be as short as possible,Zones,Zonas

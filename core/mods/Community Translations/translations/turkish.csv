@@ -379,7 +379,6 @@ GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {
 
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles,Karo ekle/çıkar
 GUI.ADD_TILES,This should be as short as possible,Add tiles,Karo ekle
-GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient atmosphere effect volume:,Ambians atmosfer müzik sesi
 GUI.BACK_LABEL,This should be as short as possible,Back,Geri
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge,Köprü
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors,Kapı
@@ -449,7 +448,6 @@ GUI.MAP_SEED_DISPLAY,,"Current map seed: ",
 GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal,
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical,
 GUI.MINIMAP.LABEL,,Minimap,El Haritası
-GUI.MUSIC_VOLUME,,Music volume:,Müzik seviyesi:
 GUI.NEXT_LABEL,This should be as short as possible,Next,Sonraki
 GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this version of the game,Oyunun bu versiyonunda mobilyalar döndürülemiyor.
 GUI.OK_LABEL,This should be as short as possible,Ok,Tamam
@@ -463,11 +461,9 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,,Borderless,
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen,
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed,
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options ",Grafik Ayarları
-GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Allow automatic crash reports,Otomatik çökme raporlarına izin ver.
 GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game,Oyun içinde ipucu ve öğreticilere izin ver.
 GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING,,Scroll the background on the main menu,Ana ekrandaki arka planı kaydır.
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous,Çeşitli
-GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Ask to start the tutorial at game start,
 GUI.OPTIONS.TAB.AUDIO,,Audio,Ses
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay,Oynanış
 GUI.OPTIONS.TAB.GRAPHICS,,Graphics,Grafikler
@@ -480,7 +476,6 @@ GUI.OPTIONS.TWITCH.DISCONNECT,,Disconnect,Bağlantıyı kopart
 GUI.OPTIONS.TWITCH.DISCONNECTED_LABEL,,Twitch account disconnected,Twitch hesap bağlantısı koparıldı
 GUI.OPTIONS.TWITCH.ENABLED,,Twitch integration enabled,Twitch entagrasyonu aktif.
 GUI.OPTIONS.TWITCH.GENERAL_ERROR,,An error occured while communicating with Twitch,Twitch ile iletişimde bir hata oluştu.
-GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON,,Click here to connect your Twitch account,Twitch hesabı ile bağlanmak için tıkla
 GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers,Abonelere öncelik ver
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit,Gönder
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration,Twitch Entagrasyonu
@@ -513,7 +508,6 @@ GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,İsime göre sırala
 GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,Mutsuzluğa göre sırala
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,Vatandaşlar
 GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},Toplam: {{count}}
-GUI.SOUND_EFFECT_VOLUME,,Sound effect volume,Ses efekti seviyesi
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,Arayüz ölçeği:
 GUI.VIEW_ROADMAP,,View development roadmap,Geliştirme yol haritasını görüntüle
 GUI.ZONES_LABEL,This should be as short as possible,Zones,Bölgeler

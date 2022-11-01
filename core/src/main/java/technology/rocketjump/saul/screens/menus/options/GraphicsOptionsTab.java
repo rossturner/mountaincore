@@ -3,11 +3,11 @@ package technology.rocketjump.saul.screens.menus.options;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -18,11 +18,12 @@ import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.camera.DisplaySettings;
 import technology.rocketjump.saul.screens.menus.Resolution;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.I18nLabel;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -35,80 +36,37 @@ import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceK
 @Singleton
 public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 
+	private final MessageDispatcher messageDispatcher;
+	private final SoundAssetDictionary soundAssetDictionary;
 	private final I18nTranslator i18nTranslator;
 	private final UserPreferences userPreferences;
+	private final Skin skin;
+	private final SoundAsset clickSoundAsset;
 
-	private final I18nLabel graphicsTitle;
-	private final I18nLabel resolutionLabel;
-	private final SelectBox<Resolution> resolutionSelect;
-	private final I18nLabel fullscreenLabel;
-	private final SelectBox<String> fullscreenSelect;
-	private final EventListener fullscreenSelectListener;
+	private SelectBox<Resolution> resolutionSelect;
+	private SelectBox<String> fullscreenSelect;
+	private EventListener fullscreenSelectListener;
 	private boolean restartRequiredNotified;
 
 	private final Map<String, UserPreferences.FullscreenMode> translatedFullscreenModes = new LinkedHashMap<>();
 
 	@Inject
 	public GraphicsOptionsTab(UserPreferences userPreferences, GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-							  I18nWidgetFactory i18NWidgetFactory, SoundAssetDictionary soundAssetDictionary, I18nTranslator i18nTranslator) {
+							  SoundAssetDictionary soundAssetDictionary, I18nTranslator i18nTranslator) {
+		this.messageDispatcher = messageDispatcher;
+		this.soundAssetDictionary = soundAssetDictionary;
 		this.i18nTranslator = i18nTranslator;
 		this.userPreferences = userPreferences;
-		Skin uiSkin = guiSkinRepository.getDefault();
-		graphicsTitle = i18NWidgetFactory.createLabel("GUI.OPTIONS.GRAPHICS.TITLE");
+		this.skin = guiSkinRepository.getMenuSkin();
+		this.clickSoundAsset = soundAssetDictionary.getByName("MenuClick");
 
-		final SoundAsset clickSoundAsset = soundAssetDictionary.getByName("MenuClick");
-
-		fullscreenLabel = i18NWidgetFactory.createLabel("GUI.GRAPHICS.FULLSCREEN");
-
-		fullscreenSelect = new SelectBox<>(uiSkin);
-		fullscreenSelectListener = new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
-				UserPreferences.FullscreenMode selectedMode = translatedFullscreenModes.get(fullscreenSelect.getSelected());
-				userPreferences.setPreference(FULLSCREEN_MODE, selectedMode.name());
-				if (!restartRequiredNotified) {
-					messageDispatcher.dispatchMessage(MessageType.NOTIFY_RESTART_REQUIRED);
-					restartRequiredNotified = true;
-				}
-			}
-		};
-		refreshFullscreenModeOptions();
-
-		resolutionLabel = i18NWidgetFactory.createLabel("GUI.GRAPHICS.RESOLUTION");
-		resolutionSelect = new SelectBox<>(uiSkin);
-		Array<Resolution> resolutionList = Resolution.defaultResolutions;
-		if (!resolutionList.contains(DisplaySettings.currentResolution, false)) {
-			resolutionList.insert(0, DisplaySettings.currentResolution);
-		}
-		resolutionSelect.setItems(resolutionList);
-		resolutionSelect.setSelected(DisplaySettings.currentResolution);
-		resolutionSelect.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
-				Resolution selectedResolution = resolutionSelect.getSelected();
-				userPreferences.setPreference(UserPreferences.PreferenceKey.DISPLAY_RESOLUTION, selectedResolution.toString());
-				if (!restartRequiredNotified) {
-					messageDispatcher.dispatchMessage(MessageType.NOTIFY_RESTART_REQUIRED);
-					restartRequiredNotified = true;
-				}
-			}
-		});
-
+		rebuildUI();
 	}
 
 	@Override
 	public void populate(Table menuTable) {
-		menuTable.add(graphicsTitle).width(250).left().pad(10);
-		menuTable.add(new Container<>()).colspan(2).row();
-
-		menuTable.add(fullscreenLabel).pad(10).right(); // pad out 1 cell
-		menuTable.add(fullscreenSelect).colspan(2).left().pad(10).row();
-
-		menuTable.add(resolutionLabel).pad(10).right();
-		menuTable.add(resolutionSelect).pad(10).left();
-		menuTable.add(new Container<>()).row(); // pad out 1 cell
+		menuTable.add(fullscreenSelect).padBottom(48f).row();
+		menuTable.add(resolutionSelect).padBottom(48f).row();
 	}
 
 	@Override
@@ -147,6 +105,48 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 
 	@Override
 	public void rebuildUI() {
+		fullscreenSelect = new SelectBox<>(skin);
+		fullscreenSelect.setAlignment(Align.center);
+		fullscreenSelect.getScrollPane().getList().setAlignment(Align.center);
+		fullscreenSelectListener = new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
+				UserPreferences.FullscreenMode selectedMode = translatedFullscreenModes.get(fullscreenSelect.getSelected());
+				userPreferences.setPreference(FULLSCREEN_MODE, selectedMode.name());
+				if (!restartRequiredNotified) {
+					messageDispatcher.dispatchMessage(MessageType.NOTIFY_RESTART_REQUIRED);
+					restartRequiredNotified = true;
+				}
+			}
+		};
+		fullscreenSelect.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		fullscreenSelect.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
 		refreshFullscreenModeOptions();
+
+		resolutionSelect = new SelectBox<>(skin);
+		resolutionSelect.setAlignment(Align.center);
+		resolutionSelect.getScrollPane().getList().setAlignment(Align.center);
+		Array<Resolution> resolutionList = Resolution.defaultResolutions;
+		if (!resolutionList.contains(DisplaySettings.currentResolution, false)) {
+			resolutionList.insert(0, DisplaySettings.currentResolution);
+		}
+		resolutionSelect.setItems(resolutionList);
+		resolutionSelect.setSelected(DisplaySettings.currentResolution);
+		resolutionSelect.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
+				Resolution selectedResolution = resolutionSelect.getSelected();
+				userPreferences.setPreference(UserPreferences.PreferenceKey.DISPLAY_RESOLUTION, selectedResolution.toString());
+				if (!restartRequiredNotified) {
+					messageDispatcher.dispatchMessage(MessageType.NOTIFY_RESTART_REQUIRED);
+					restartRequiredNotified = true;
+				}
+			}
+		});
+		resolutionSelect.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		resolutionSelect.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+
 	}
 }
