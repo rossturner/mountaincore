@@ -86,7 +86,7 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 			}
 			return true;
 		});
-		musicSlider.addListener(new ChangeCursorOnHover(GameCursor.REORDER_HORIZONTAL, messageDispatcher));
+		musicSlider.addListener(new ChangeCursorOnHover(musicSlider, GameCursor.REORDER_HORIZONTAL, messageDispatcher));
 
 		soundEffectLabel = new Label(i18nTranslator.getTranslatedString("GUI.SOUND_EFFECT_VOLUME").toString(), skin, "options_menu_label");
 		soundEffectSlider = new Slider(0, 1, 0.1f, false, skin);
@@ -100,7 +100,7 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 			}
 			return true;
 		});
-		soundEffectSlider.addListener(new ChangeCursorOnHover(GameCursor.REORDER_HORIZONTAL, messageDispatcher));
+		soundEffectSlider.addListener(new ChangeCursorOnHover(soundEffectSlider, GameCursor.REORDER_HORIZONTAL, messageDispatcher));
 
 		ambientEffectLabel = new Label(i18nTranslator.getTranslatedString("GUI.AMBIENT_EFFECT_VOLUME").toString(), skin, "options_menu_label");
 		ambientEffectSlider = new Slider(0, 1, 0.1f, false, skin);
@@ -114,6 +114,6 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 			}
 			return true;
 		});
-		ambientEffectSlider.addListener(new ChangeCursorOnHover(GameCursor.REORDER_HORIZONTAL, messageDispatcher));
+		ambientEffectSlider.addListener(new ChangeCursorOnHover(ambientEffectSlider, GameCursor.REORDER_HORIZONTAL, messageDispatcher));
 	}
 }

@@ -121,7 +121,7 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 			}
 		};
 		fullscreenSelect.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-		fullscreenSelect.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		fullscreenSelect.addListener(new ChangeCursorOnHover(fullscreenSelect, GameCursor.SELECT, messageDispatcher));
 		refreshFullscreenModeOptions();
 
 		resolutionSelect = new SelectBox<>(skin);
@@ -146,7 +146,7 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 			}
 		});
 		resolutionSelect.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-		resolutionSelect.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		resolutionSelect.addListener(new ChangeCursorOnHover(resolutionSelect, GameCursor.SELECT, messageDispatcher));
 
 	}
 }
