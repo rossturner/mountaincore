@@ -16,6 +16,7 @@ import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.ItemAvailabilityChecker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -35,6 +36,7 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 	private final RoomEditorFurnitureMap roomEditorFurnitureMap;
 	private final RoomEditorItemMap roomEditorItemMap;
 	private final EntityRenderer entityRenderer;
+	private final TooltipFactory tooltipFactory;
 
 	private FurnitureType selectedFurnitureType;
 	private GameMaterialType selectedMaterialType;
@@ -47,7 +49,7 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 	@Inject
 	public FurnitureMaterialsWidget(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 									ItemAvailabilityChecker itemAvailabilityChecker, I18nTranslator i18nTranslator,
-									RoomEditorFurnitureMap roomEditorFurnitureMap, RoomEditorItemMap roomEditorItemMap, EntityRenderer entityRenderer) {
+									RoomEditorFurnitureMap roomEditorFurnitureMap, RoomEditorItemMap roomEditorItemMap, EntityRenderer entityRenderer, TooltipFactory tooltipFactory) {
 		this.skin = guiSkinRepository.getMainGameSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.itemAvailabilityChecker = itemAvailabilityChecker;
@@ -55,6 +57,7 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 		this.roomEditorFurnitureMap = roomEditorFurnitureMap;
 		this.roomEditorItemMap = roomEditorItemMap;
 		this.entityRenderer = entityRenderer;
+		this.tooltipFactory = tooltipFactory;
 
 		this.setDebug(GlobalSettings.UI_DEBUG);
 	}
@@ -126,7 +129,7 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 
 			FurnitureRequirementWidget furnitureRequirementWidget = new FurnitureRequirementWidget(requirement, roomEditorItemMap.getByItemType(requirement.getItemType()),
 					skin, messageDispatcher, itemAvailabilityChecker, i18nTranslator, entityRenderer,
-					roomEditorFurnitureMap.getExampleMaterialFor(requirement.getItemType().getPrimaryMaterialType()));
+					tooltipFactory, roomEditorFurnitureMap.getExampleMaterialFor(requirement.getItemType().getPrimaryMaterialType()));
 			furnitureRequirementWidget.onMaterialSelection(material -> {
 				List<ItemTypeWithMaterial> otherMaterialSelections = new ArrayList<>(materialSelections.stream()
 						.filter(s -> !s.getItemType().equals(requirement.getItemType()))

@@ -14,6 +14,8 @@ import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.ItemAvailabilityChecker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class FurnitureRequirementWidget extends Table {
 	private final GameMaterial defaultDisplayMaterial;
 	private final Skin skin;
 	private final Button leftButton, rightButton;
-	private final EntityDrawable entityDrawable;
+	private final Image entityImage;
 	private int selectionIndex;
 
 	private Label label;
@@ -41,7 +43,7 @@ public class FurnitureRequirementWidget extends Table {
 
 	public FurnitureRequirementWidget(QuantifiedItemType requirement, Entity itemEntity, Skin skin, MessageDispatcher messageDispatcher,
 									  ItemAvailabilityChecker itemAvailabilityChecker, I18nTranslator i18nTranslator, EntityRenderer entityRenderer,
-									  GameMaterial defaultDisplayMaterial) {
+									  TooltipFactory tooltipFactory, GameMaterial defaultDisplayMaterial) {
 		this.requirement = requirement;
 		this.skin = skin;
 		this.messageDispatcher = messageDispatcher;
@@ -82,7 +84,8 @@ public class FurnitureRequirementWidget extends Table {
 		} else {
 			rightButton.setDisabled(true);
 		}
-		entityDrawable = new EntityDrawable(itemEntity, entityRenderer, true, messageDispatcher);
+		entityImage = new Image(new EntityDrawable(itemEntity, entityRenderer, true, messageDispatcher));
+		tooltipFactory.simpleTooltip(entityImage, requirement.getItemType().getI18nKey(), TooltipLocationHint.ABOVE);
 
 		resetLabel();
 	}
@@ -90,7 +93,7 @@ public class FurnitureRequirementWidget extends Table {
 	private void rebuildUI() {
 		this.clearChildren();
 		this.add(leftButton);
-		this.add(new Image(entityDrawable)).size(100, 100);
+		this.add(entityImage).size(100, 100);
 		this.add(rightButton).row();
 		this.add(label).colspan(3).expandX().center().row();
 	}

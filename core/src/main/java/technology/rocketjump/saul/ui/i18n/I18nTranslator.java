@@ -684,10 +684,10 @@ public class I18nTranslator {
 				String[] split = token.split("\\.");
 				replacement = replacements.getOrDefault(split[0], new I18nWord(split[0]));
 				if (split[split.length - 1].equals("noun_or_plural")) {
-					if (getQuantity(replacements) > 1) {
-						replacementWordclass = I18nWordClass.PLURAL;
-					} else {
+					if (getQuantity(replacements) == 1) {
 						replacementWordclass = I18nWordClass.NOUN;
+					} else {
+						replacementWordclass = I18nWordClass.PLURAL;
 					}
 				} else {
 					replacementWordclass = I18nWordClass.valueOf(split[split.length - 1].toUpperCase());
