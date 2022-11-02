@@ -171,6 +171,10 @@ public class ModArtifactListing {
 						"music/peaceful", null, OGG, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
 				def("music/skirmish", "*.ogg", OGG, null,
 						"music/skirmish", null, OGG, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
+				def("music/invasion", "*.ogg", OGG, null,
+						"music/invasion", null, OGG, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
+				def("music/invasion_stinger", "*.ogg", OGG, null,
+						"music/invasion_stinger", null, OGG, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
 
 				////////// particles //////////
 				def("particles/libgdx", "**/*.p", P_FILE, null,

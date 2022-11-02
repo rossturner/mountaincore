@@ -156,9 +156,12 @@ public class InvasionGenerator implements GameContextAware {
 			}
 
 			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, invader);
+			participants.add(invader);
 		}
 
-		// TODO put all participants into group?
+		if (!participants.isEmpty()) {
+			messageDispatcher.dispatchMessage(4f, MessageType.INVASION_ABOUT_TO_BEGIN, participants.get(0));
+		}
 
 		return participants;
 	}
