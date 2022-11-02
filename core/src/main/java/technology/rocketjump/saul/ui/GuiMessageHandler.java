@@ -493,7 +493,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 			case CONSTRUCTION -> GuiViewName.CONSTRUCTION_SELECTED;
 			case DOORWAY -> GuiViewName.DOORWAY_SELECTED;
 			case TILE -> GuiViewName.TILE_SELECTED;
-			case ROOM -> GuiViewName.ROOM_SELECTED;
+			case ROOM -> GuiViewName.ROOM_EDITING;
 			case BRIDGE -> GuiViewName.BRIDGE_SELECTED;
 			case SQUAD -> GuiViewName.SQUAD_SELECTED;
 		};

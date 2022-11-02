@@ -87,14 +87,12 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 		backButton = new Button(skin.getDrawable("btn_back"));
 		mainTable = new Table();
-		mainTable.setDebug(GlobalSettings.UI_DEBUG);
 		mainTable.setTouchable(Touchable.enabled);
 		mainTable.setBackground(skin.getDrawable("asset_dwarf_select_bg"));
 		mainTable.pad(20);
 
 
 		headerContainer = new Table();
-//		headerContainer.setDebug(GlobalSettings.UI_DEBUG);
 		headerContainer.setBackground(skin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
 
 		changeRoomNameButton = new Button(skin.getDrawable("icon_edit"));
@@ -115,7 +113,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 					String originalRoomName = getSelectedRoom().getRoomName();
 
-					TextInputDialog textInputDialog = new TextInputDialog(renameRoomDialogTitle, descriptionText, originalRoomName, buttonText, skin, (newRoomName) -> {
+					TextInputDialog textInputDialog = new TextInputDialog(renameRoomDialogTitle, descriptionText, originalRoomName, buttonText, skinRepository.getDefault(), (newRoomName) -> {
 						if (performPause) {
 							messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
 						}
@@ -180,7 +178,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		headerContainer.clearChildren();
 
 		Room selectedRoom = getSelectedRoom();
-		RoomType selectedRoomType = selectedRoom != null ? selectedRoom.getRoomType() : interactionStateContainer.getSelectedRoomType();
+		RoomType selectedRoomType = getSelectedRoomType();
 		if (selectedRoom == null && selectedRoomType == null) {
 			return;
 		}
@@ -203,7 +201,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		Table topRow = new Table();
 		topRow.setDebug(true);
 		topRow.add(new Container<>()).left().expandX().width(sizingButtonsContainer.getWidth());
-		topRow.add(headerContainer).center().expandY();
+		topRow.add(headerContainer).center().width(1000).expandY();
 		topRow.add(sizingButtonsContainer).right().expandX().width(sizingButtonsContainer.getWidth());
 
 		mainTable.add(topRow).top().expandX().fillX().padBottom(20).row();
@@ -270,6 +268,11 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		}
 	}
 
+	private RoomType getSelectedRoomType() {
+		Room selectedRoom = getSelectedRoom();
+		return selectedRoom != null ? selectedRoom.getRoomType() : interactionStateContainer.getSelectedRoomType();
+	}
+
 	private Actor buildFurnitureButton(FurnitureType furnitureType) {
 		Container<Button> buttonContainer = new Container<>();
 		if (furnitureType.equals(selectedFurnitureType)) {
@@ -317,6 +320,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_ROOM);
+				interactionStateContainer.getInteractionMode().setRoomType(getSelectedRoomType());
 			}
 		});
 		addTilesButton.addListener(new ChangeCursorOnHover(addTilesContainer, GameCursor.SELECT, messageDispatcher));
@@ -353,9 +357,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	@Override
 	public void populate(Table containerTable) {
 		containerTable.clear();
-		if (!getParentViewName().equals(GuiViewName.DEFAULT_MENU)) {
-			containerTable.add(backButton).left().bottom().padLeft(30).padRight(50);
-		}
+		containerTable.add(backButton).left().bottom().padLeft(30).padRight(50);
 		containerTable.add(mainTable);
 	}
 
