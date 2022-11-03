@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import technology.rocketjump.saul.persistence.UserPreferences;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -21,22 +23,29 @@ public class KeyBindingUIWidget extends Table {
 
 	private final Skin skin;
 	private final UserPreferences userPreferences;
+	private final I18nTranslator i18nTranslator;
 
-	public KeyBindingUIWidget(Skin skin, UserPreferences userPreferences) {
+	public KeyBindingUIWidget(Skin skin, UserPreferences userPreferences, I18nTranslator i18nTranslator) {
 		this.skin = skin;
 		this.userPreferences = userPreferences;
+		this.i18nTranslator = i18nTranslator;
 
 		defaults().padRight(30f).padLeft(30f);
 
 		//TODO: loop me and proper name actions
-		for (CommandName action : CommandName.values()) {
-			Label actionLabel = new Label(action.name(), this.skin, "options_menu_label");
-			TextButton primaryKey = createTextButton(action, true, userPreferences);
-			TextButton secondaryKey = createTextButton(action, false, userPreferences);
-			add(actionLabel).growX();
-			add(primaryKey);
-			add(secondaryKey);
-			row();
+		for (CommandName commandName : CommandName.values()) {
+			String name = commandName.name();
+			if (!GlobalSettings.DEV_MODE && name.startsWith("DEBUG_")) {
+
+			} else {
+				Label actionLabel = new Label(i18nTranslator.getTranslatedString(commandName.getI18nKey()).toString(), this.skin, "options_menu_label");
+				TextButton primaryKey = createTextButton(commandName, true, userPreferences);
+				TextButton secondaryKey = createTextButton(commandName, false, userPreferences);
+				add(actionLabel).growX();
+				add(primaryKey);
+				add(secondaryKey);
+				row();
+			}
 		}
 	}
 

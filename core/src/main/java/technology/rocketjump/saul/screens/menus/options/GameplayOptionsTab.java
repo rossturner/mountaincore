@@ -100,7 +100,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 					Label gameplayLabel = new Label(i18nTranslator.getTranslatedString(OptionsTabName.GAMEPLAY.getI18nKey()).toString(), skin, "secondary_banner_title");
 					gameplayLabel.setAlignment(Align.center);
 
-					ScrollPane scrollPane = new ScrollPane(new KeyBindingUIWidget(skin, userPreferences), skin);
+					ScrollPane scrollPane = new ScrollPane(new KeyBindingUIWidget(skin, userPreferences, i18nTranslator), skin);
 					scrollPane.setForceScroll(false, true);
 					scrollPane.setFadeScrollBars(false);
 					scrollPane.setScrollbarsVisible(true);
