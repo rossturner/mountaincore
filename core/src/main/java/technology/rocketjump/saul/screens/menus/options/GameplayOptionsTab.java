@@ -1,21 +1,16 @@
 package technology.rocketjump.saul.screens.menus.options;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
-import technology.rocketjump.saul.input.CommandName;
-import technology.rocketjump.saul.input.KeyBindingInputProcessor;
+import technology.rocketjump.saul.input.KeyBindingUIWidget;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
@@ -27,8 +22,6 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.BlurredBackgroundDialog;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
 import technology.rocketjump.saul.ui.widgets.WidgetFactory;
-
-import java.util.Set;
 
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.ALLOW_HINTS;
 
@@ -107,9 +100,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 					Label gameplayLabel = new Label(i18nTranslator.getTranslatedString(OptionsTabName.GAMEPLAY.getI18nKey()).toString(), skin, "secondary_banner_title");
 					gameplayLabel.setAlignment(Align.center);
 
-					Table assignableButtonsTable = new Table();
-
-					ScrollPane scrollPane = new ScrollPane(assignableButtonsTable, skin);
+					ScrollPane scrollPane = new ScrollPane(new KeyBindingUIWidget(skin, userPreferences), skin);
 					scrollPane.setForceScroll(false, true);
 					scrollPane.setScrollBarPositions(true, true);
 					scrollPane.setScrollBarTouch(false);
@@ -117,60 +108,6 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 					dialog.getContentTable().add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
 					dialog.getContentTable().add(gameplayLabel).align(Align.left).row();
 					dialog.getContentTable().add(scrollPane).fillX().row();
-
-
-
-					//TODO: loop me and proper name actions
-					for (CommandName action : CommandName.values()) {
-						Label actionLabel = new Label(action.name(), skin, "options_menu_label");
-						TextButton primaryKey = new TextButton(userPreferences.getInputFor(action, true), skin, "btn_key_bindings_key");
-						TextButton secondaryKey = new TextButton(userPreferences.getInputFor(action, false), skin, "btn_key_bindings_key");
-						primaryKey.addListener(new ClickListener(){
-							@Override
-							public void clicked(InputEvent event, float x, float y) {
-								primaryKey.setText("...");
-								InputProcessor currentInputProcessor = Gdx.input.getInputProcessor();
-								Gdx.input.setInputProcessor(new KeyBindingInputProcessor(currentInputProcessor,
-								keyboardKeys -> {
-									primaryKey.setChecked(false);
-									userPreferences.assignInput(action, false, keyboardKeys, true);
-									String inputDescription = userPreferences.getInputFor(action, true);
-									primaryKey.setText(inputDescription);
-									//TODO: loop through all buttons to clear existing allocation?
-								}, mouseButton -> {
-									primaryKey.setChecked(false);
-									userPreferences.assignInput(action, true, Set.of(mouseButton), true);
-									primaryKey.setText(userPreferences.getInputFor(action, true));
-								}));
-
-							}
-						});
-
-						secondaryKey.addListener(new ClickListener(){
-							@Override
-							public void clicked(InputEvent event, float x, float y) {
-								secondaryKey.setText("...");
-								InputProcessor currentInputProcessor = Gdx.input.getInputProcessor();
-								Gdx.input.setInputProcessor(new KeyBindingInputProcessor(currentInputProcessor, keyboardKeys -> {
-									secondaryKey.setChecked(false);
-									userPreferences.assignInput(action, false, keyboardKeys, false);
-									String inputDescription = userPreferences.getInputFor(action, false);
-									secondaryKey.setText(inputDescription);
-									//TODO: loop through all buttons to clear existing allocation?
-								}, mouseButton -> {
-									secondaryKey.setChecked(false);
-									userPreferences.assignInput(action, true, Set.of(mouseButton), false);
-									secondaryKey.setText(userPreferences.getInputFor(action, false));
-								}));
-
-							}
-						});
-						assignableButtonsTable.add(actionLabel).growX();
-						assignableButtonsTable.add(primaryKey);
-						assignableButtonsTable.add(secondaryKey);
-						assignableButtonsTable.row();
-					}
-
 
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
 				})

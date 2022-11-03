@@ -20,7 +20,7 @@ import java.util.*;
 @ProvidedBy(UserPreferencesProvider.class)
 public class UserPreferences {
 
-	private record KeyBinding(CommandName commandName, Set<Integer> keys, boolean isMouse, boolean isPrimary) {
+	private record KeyBinding(CommandName commandName, Set<Integer> keys, boolean isPrimary) {
 		public String getPropertyKey() {
 			if (isPrimary) {
 				return commandName.name() + "_PRIMARY";
@@ -30,11 +30,7 @@ public class UserPreferences {
 		}
 
 		public String getPropertyValue() {
-			if (isMouse) {
-				return "MOUSE_" + keys;
-			} else {
-				return "KEYBOARD_" + keys;
-			}
+			return "KEYBOARD_" + keys;
 		}
 
 		public String getInputKeyDescription() {
@@ -42,18 +38,7 @@ public class UserPreferences {
 
 
 			for (Integer key : keys) {
-				if (isMouse) {
-					return switch (key) {
-						case Input.Buttons.LEFT -> "LMB";
-						case Input.Buttons.MIDDLE ->"MMB";
-						case Input.Buttons.RIGHT ->"RMB";
-						case Input.Buttons.FORWARD ->"Forward";
-						case Input.Buttons.BACK ->"Backward";
-						default -> null;
-					};
-				} else {
-					keyDescription.add(Input.Keys.toString(key));
-				}
+				keyDescription.add(Input.Keys.toString(key));
 			}
 
 			return keyDescription.toString();
@@ -85,18 +70,14 @@ public class UserPreferences {
 		}
 	}
 
-	//TODO: not keen on this design, need to be careful as otherPressedKeys build up from a queue, so might want to avoid duplicate commands returned
-	public Set<CommandName> getCommandsFor(int keycode, Set<Integer> otherPressedKeys) {
+
+	public Set<CommandName> getCommandsFor(Set<Integer> pressedKeys) {
 		Set<CommandName> commandNames = new HashSet<>();
 		for (KeyBinding keyBinding : keyBindings) {
-			Set<Integer> chordPressed = new HashSet<>(keyBinding.keys());
-			chordPressed.removeAll(otherPressedKeys);
-
-			if (!keyBinding.isMouse && chordPressed.size() == 1 && chordPressed.contains(keycode)) {
+			if (pressedKeys.containsAll(keyBinding.keys())) {
 				commandNames.add(keyBinding.commandName);
 			}
 		}
-
 		return commandNames;
 	}
 
@@ -111,22 +92,22 @@ public class UserPreferences {
 	}
 
 	//TODO: collisions
-	public void assignInput(CommandName commandName, boolean isMouse, Set<Integer> keys, boolean isPrimary) {
+	public void assignInput(CommandName commandName, Set<Integer> keys, boolean isPrimary) {
 
 		//TODO: this needs to propagate out somehow to tell to clear?
-		Optional<KeyBinding> existingAllocationForInput = keyBindings.stream().filter(allocation -> allocation.isMouse == isMouse && allocation.keys.equals(keys)).findFirst();
+		Optional<KeyBinding> existingAllocationForInput = keyBindings.stream().filter(allocation -> allocation.keys.equals(keys)).findFirst();
 		existingAllocationForInput.ifPresent(a -> {
 			removePreference(a.getPropertyKey());
 			keyBindings.remove(a);
 		});
+
 
 		Optional<KeyBinding> toReplace = keyBindings.stream().filter(allocation -> allocation.commandName == commandName && allocation.isPrimary == isPrimary).findFirst();
 		toReplace.ifPresent(a -> {
 			removePreference(a.getPropertyKey());
 			keyBindings.remove(a);
 		});
-
-		KeyBinding newAllocation = new KeyBinding(commandName, keys, isMouse, isPrimary);
+		KeyBinding newAllocation = new KeyBinding(commandName, keys, isPrimary);
 		keyBindings.add(newAllocation);
 		setPreference(newAllocation.getPropertyKey(), newAllocation.getPropertyValue());
 	}
