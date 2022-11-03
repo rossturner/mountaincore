@@ -39,7 +39,7 @@ public class KeyBindingUIWidget extends Table {
 	}
 
 	private TextButton createTextButton(CommandName action, boolean isPrimary, UserPreferences userPreferences) {
-		TextButton textButton = new TextButton(this.userPreferences.getInputFor(action, isPrimary), this.skin, "btn_key_bindings_key");
+		TextButton textButton = new TextButton(this.userPreferences.getInputKeyDescriptionFor(action, isPrimary), this.skin, "btn_key_bindings_key");
 		textButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -48,7 +48,7 @@ public class KeyBindingUIWidget extends Table {
 				Gdx.input.setInputProcessor(new KeyBindingInputProcessor(currentInputProcessor, keyboardKeys -> {
 					textButton.setChecked(false);
 					userPreferences.assignInput(action, keyboardKeys, isPrimary);
-					String inputDescription = userPreferences.getInputFor(action, isPrimary);
+					String inputDescription = userPreferences.getInputKeyDescriptionFor(action, isPrimary);
 					textButton.setText(inputDescription);
 					//TODO: loop through all buttons to clear existing allocation?
 				}));

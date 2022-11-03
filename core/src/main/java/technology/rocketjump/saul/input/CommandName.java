@@ -15,8 +15,17 @@ public enum CommandName {
 	GAME_SPEED_FASTER,
 	GAME_SPEED_FASTEST,
 	QUICKSAVE,
-	QUICKLOAD
+	QUICKLOAD;
 
 	//TODO: translations
 	//TODO: fill in all available
+
+	public static CommandName parse(String value) {
+		for (CommandName commandName : values()) {
+			if (commandName.name().equals(value)) {
+				return commandName;
+			}
+		}
+		return null;
+	}
 }

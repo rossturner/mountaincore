@@ -15,30 +15,42 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Singleton
 @ProvidedBy(UserPreferencesProvider.class)
 public class UserPreferences {
 
 	private record KeyBinding(CommandName commandName, Set<Integer> keys, boolean isPrimary) {
+		static final Pattern KEY_PATTERN = Pattern.compile("(\\w+)(_(PRIMARY|SECONDARY))");
+		static final Pattern INTEGER_PATTERN = Pattern.compile("[0-9]+");
+		static final String VALUE_PREFIX = "KEYBOARD_";
+		static final String PRIMARY_SUFFIX = "_PRIMARY";
+
 		public String getPropertyKey() {
 			if (isPrimary) {
-				return commandName.name() + "_PRIMARY";
+				return commandName.name() + PRIMARY_SUFFIX;
 			} else {
 				return commandName.name() + "_SECONDARY";
 			}
 		}
 
 		public String getPropertyValue() {
-			return "KEYBOARD_" + keys;
+			return VALUE_PREFIX + keys;
 		}
 
 		public String getInputKeyDescription() {
 			StringJoiner keyDescription = new StringJoiner("+");
-
+			List<String> terms = new ArrayList<>();
 
 			for (Integer key : keys) {
-				keyDescription.add(Input.Keys.toString(key));
+				terms.add(Input.Keys.toString(key));
+			}
+			terms.sort(Comparator.comparing(String::length).reversed());
+
+			for (String term : terms) {
+				keyDescription.add(term);
 			}
 
 			return keyDescription.toString();
@@ -58,7 +70,7 @@ public class UserPreferences {
 		try {
 			inputStream = FileUtils.openInputStream(propertiesFile);
 			properties.load(inputStream);
-
+			loadKeyBindings();
 
 			preferencesJson = JSONObject.toJSONString(properties);
 		} catch (IOException e) {
@@ -70,7 +82,6 @@ public class UserPreferences {
 		}
 	}
 
-
 	public Set<CommandName> getCommandsFor(Set<Integer> pressedKeys) {
 		Set<CommandName> commandNames = new HashSet<>();
 		for (KeyBinding keyBinding : keyBindings) {
@@ -81,8 +92,7 @@ public class UserPreferences {
 		return commandNames;
 	}
 
-	//TODO: maybe better datastructure?
-	public String getInputFor(CommandName action, boolean isPrimary) {
+	public String getInputKeyDescriptionFor(CommandName action, boolean isPrimary) {
 		for (KeyBinding keyBinding : keyBindings) {
 			if (keyBinding.commandName == action && keyBinding.isPrimary == isPrimary) {
 				return keyBinding.getInputKeyDescription();
@@ -199,6 +209,29 @@ public class UserPreferences {
 
 		FullscreenMode(String i18nKey) {
 			this.i18nKey = i18nKey;
+		}
+	}
+
+
+	private void loadKeyBindings() {
+		for (Map.Entry<Object, Object> entry : properties.entrySet()) {
+			String key = entry.getKey().toString();
+			String value = entry.getValue().toString();
+
+			Matcher keyMatcher = KeyBinding.KEY_PATTERN.matcher(key);
+			Matcher integerMatcher = KeyBinding.INTEGER_PATTERN.matcher(value);
+			if (keyMatcher.matches() && value.startsWith(KeyBinding.VALUE_PREFIX)) {
+				Set<Integer> keys = new HashSet<>();
+				while (integerMatcher.find()) {
+					keys.add(Integer.parseInt(integerMatcher.group()));
+				}
+				CommandName commandName = CommandName.parse(keyMatcher.group(1));
+				boolean isPrimary = KeyBinding.PRIMARY_SUFFIX.equals(keyMatcher.group(2));
+				if (commandName != null && !keys.isEmpty()) {
+					keyBindings.add(new KeyBinding(commandName, keys, isPrimary));
+				}
+			}
+
 		}
 	}
 
