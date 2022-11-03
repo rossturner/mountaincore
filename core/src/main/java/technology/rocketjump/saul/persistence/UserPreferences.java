@@ -1,27 +1,68 @@
 package technology.rocketjump.saul.persistence;
 
 import com.alibaba.fastjson.JSONObject;
+import com.badlogic.gdx.Input;
 import com.google.inject.Inject;
 import com.google.inject.ProvidedBy;
 import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.input.CommandName;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 @Singleton
 @ProvidedBy(UserPreferencesProvider.class)
 public class UserPreferences {
 
+	private record KeyBinding(CommandName commandName, Set<Integer> keys, boolean isMouse, boolean isPrimary) {
+		public String getPropertyKey() {
+			if (isPrimary) {
+				return commandName.name() + "_PRIMARY";
+			} else {
+				return commandName.name() + "_SECONDARY";
+			}
+		}
+
+		public String getPropertyValue() {
+			if (isMouse) {
+				return "MOUSE_" + keys;
+			} else {
+				return "KEYBOARD_" + keys;
+			}
+		}
+
+		public String getInputKeyDescription() {
+			StringJoiner keyDescription = new StringJoiner("+");
+
+
+			for (Integer key : keys) {
+				if (isMouse) {
+					return switch (key) {
+						case Input.Buttons.LEFT -> "LMB";
+						case Input.Buttons.MIDDLE ->"MMB";
+						case Input.Buttons.RIGHT ->"RMB";
+						case Input.Buttons.FORWARD ->"Forward";
+						case Input.Buttons.BACK ->"Backward";
+						default -> null;
+					};
+				} else {
+					keyDescription.add(Input.Keys.toString(key));
+				}
+			}
+
+			return keyDescription.toString();
+		}
+	}
+
 	private final File propertiesFile;
 	private final Properties properties = new Properties();
+	private List<KeyBinding> keyBindings = new ArrayList<>();
 
 	public static String preferencesJson; // for CrashHandler to use statically
 
@@ -32,6 +73,8 @@ public class UserPreferences {
 		try {
 			inputStream = FileUtils.openInputStream(propertiesFile);
 			properties.load(inputStream);
+
+
 			preferencesJson = JSONObject.toJSONString(properties);
 		} catch (IOException e) {
 			Logger.error(e, "Failed to load " + propertiesFile.getAbsolutePath());
@@ -42,7 +85,51 @@ public class UserPreferences {
 		}
 	}
 
+	//TODO: not keen on this design, need to be careful as otherPressedKeys build up from a queue, so might want to avoid duplicate commands returned
+	public Set<CommandName> getCommandsFor(int keycode, Set<Integer> otherPressedKeys) {
+		Set<CommandName> commandNames = new HashSet<>();
+		for (KeyBinding keyBinding : keyBindings) {
+			Set<Integer> chordPressed = new HashSet<>(keyBinding.keys());
+			chordPressed.removeAll(otherPressedKeys);
 
+			if (!keyBinding.isMouse && chordPressed.size() == 1 && chordPressed.contains(keycode)) {
+				commandNames.add(keyBinding.commandName);
+			}
+		}
+
+		return commandNames;
+	}
+
+	//TODO: maybe better datastructure?
+	public String getInputFor(CommandName action, boolean isPrimary) {
+		for (KeyBinding keyBinding : keyBindings) {
+			if (keyBinding.commandName == action && keyBinding.isPrimary == isPrimary) {
+				return keyBinding.getInputKeyDescription();
+			}
+		}
+		return null;
+	}
+
+	//TODO: collisions
+	public void assignInput(CommandName commandName, boolean isMouse, Set<Integer> keys, boolean isPrimary) {
+
+		//TODO: this needs to propagate out somehow to tell to clear?
+		Optional<KeyBinding> existingAllocationForInput = keyBindings.stream().filter(allocation -> allocation.isMouse == isMouse && allocation.keys.equals(keys)).findFirst();
+		existingAllocationForInput.ifPresent(a -> {
+			removePreference(a.getPropertyKey());
+			keyBindings.remove(a);
+		});
+
+		Optional<KeyBinding> toReplace = keyBindings.stream().filter(allocation -> allocation.commandName == commandName && allocation.isPrimary == isPrimary).findFirst();
+		toReplace.ifPresent(a -> {
+			removePreference(a.getPropertyKey());
+			keyBindings.remove(a);
+		});
+
+		KeyBinding newAllocation = new KeyBinding(commandName, keys, isMouse, isPrimary);
+		keyBindings.add(newAllocation);
+		setPreference(newAllocation.getPropertyKey(), newAllocation.getPropertyValue());
+	}
 
 	/**
 	 * Best not to rename these as any existing saved preferences will be lost
@@ -88,12 +175,20 @@ public class UserPreferences {
 	}
 
 	public void setPreference(PreferenceKey preferenceKey, String value) {
-		properties.setProperty(preferenceKey.name(), value);
-		persist();
+		setPreference(preferenceKey.name(), value);
 	}
 
 	public void removePreference(PreferenceKey preferenceKey) {
-		properties.remove(preferenceKey.name());
+		removePreference(preferenceKey.name());
+	}
+
+	private void setPreference(String propertyKey, String value) {
+		properties.setProperty(propertyKey, value);
+		persist();
+	}
+
+	private void removePreference(String propertyKey) {
+		properties.remove(propertyKey);
 		persist();
 	}
 

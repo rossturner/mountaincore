@@ -13,13 +13,16 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.MouseChangeMessage;
+import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.RenderingOptions;
 import technology.rocketjump.saul.rendering.camera.DisplaySettings;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This class is for input directly in the game world, as compared to some input that was caught by the GUI instead
@@ -31,16 +34,19 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	public static final int SCROLL_BORDER = 2;
 
+	private final UserPreferences userPreferences;
 	private final PrimaryCameraWrapper primaryCameraWrapper;
 	private final RenderingOptions renderingOptions;
 	private final MessageDispatcher messageDispatcher;
 	private GameContext gameContext;
+	private Set<Integer> keysPressed = new HashSet<>();
 	private Map<Integer, Boolean> buttonsPressed = new HashMap<>();
 	private float startX, startY;
 
 	@Inject
-	public GameWorldInputHandler(PrimaryCameraWrapper primaryCameraWrapper, RenderingOptions renderingOptions,
-								 MessageDispatcher messageDispatcher) {
+	public GameWorldInputHandler(UserPreferences userPreferences, PrimaryCameraWrapper primaryCameraWrapper,
+	                             RenderingOptions renderingOptions, MessageDispatcher messageDispatcher) {
+		this.userPreferences = userPreferences;
 		this.primaryCameraWrapper = primaryCameraWrapper;
 		this.renderingOptions = renderingOptions;
 		this.messageDispatcher = messageDispatcher;
@@ -53,12 +59,20 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	@Override
 	public boolean keyDown(int keycode) {
+		Set<CommandName> commandNames = userPreferences.getCommandsFor(keycode, keysPressed);
+		keysPressed.add(keycode);
+
+		for (CommandName commandName : commandNames) {
+			if (CommandName.PAN_CAMERA_LEFT == commandName) { //keycode == Input.Keys.A || keycode == Input.Keys.LEFT
+				primaryCameraWrapper.setMovementX(-1);
+			} else if (CommandName.PAN_CAMERA_RIGHT == commandName) { //keycode == Input.Keys.D || keycode == Input.Keys.RIGHT
+				primaryCameraWrapper.setMovementX(1);
+			}
+		}
+
+
 		if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT) {
 			primaryCameraWrapper.setPanSpeedMultiplier(true);
-		} else if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-			primaryCameraWrapper.setMovementX(-1);
-		} else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-			primaryCameraWrapper.setMovementX(1);
 		} else if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
 			primaryCameraWrapper.setMovementY(1);
 		} else if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
@@ -74,11 +88,25 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		} else {
 			return false;
 		}
+
 		return true;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
+		Set<CommandName> commandNames = userPreferences.getCommandsFor(keycode, keysPressed);
+		keysPressed.remove(keycode);
+
+
+		for (CommandName commandName : commandNames) {
+			if (CommandName.PAN_CAMERA_LEFT == commandName || CommandName.PAN_CAMERA_RIGHT == commandName) {
+				primaryCameraWrapper.setMovementX(0);
+			}
+		}
+
+
+
+
 		boolean leftControlPressed = Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT);
 		if (GlobalSettings.DEV_MODE) {
 			if (leftControlPressed && keycode >= Input.Keys.NUM_0 && keycode <= Input.Keys.NUM_9) {
@@ -142,6 +170,7 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		} else {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -215,6 +244,7 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		int width = Gdx.graphics.getWidth();
 		int height = Gdx.graphics.getHeight();
 
+		//TODO: need to do something for these
 		if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) ||
 				Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) ||
 				Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) ||
