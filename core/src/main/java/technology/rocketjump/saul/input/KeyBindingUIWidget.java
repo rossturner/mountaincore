@@ -23,16 +23,13 @@ public class KeyBindingUIWidget extends Table {
 
 	private final Skin skin;
 	private final UserPreferences userPreferences;
-	private final I18nTranslator i18nTranslator;
 
 	public KeyBindingUIWidget(Skin skin, UserPreferences userPreferences, I18nTranslator i18nTranslator) {
 		this.skin = skin;
 		this.userPreferences = userPreferences;
-		this.i18nTranslator = i18nTranslator;
 
 		defaults().padRight(30f).padLeft(30f);
 
-		//TODO: loop me and proper name actions
 		for (CommandName commandName : CommandName.values()) {
 			String name = commandName.name();
 			if (!GlobalSettings.DEV_MODE && name.startsWith("DEBUG_")) {

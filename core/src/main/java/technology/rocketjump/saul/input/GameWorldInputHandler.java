@@ -218,11 +218,10 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		int width = Gdx.graphics.getWidth();
 		int height = Gdx.graphics.getHeight();
 
-		//TODO: need to do something for these
-		if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) ||
-				Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) ||
-				Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) ||
-				Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+		if (activeCommands.contains(CommandName.PAN_CAMERA_LEFT) ||
+				activeCommands.contains(CommandName.PAN_CAMERA_RIGHT) ||
+				activeCommands.contains(CommandName.PAN_CAMERA_UP) ||
+				activeCommands.contains(CommandName.PAN_CAMERA_DOWN) ) {
 			return false; // Don't do anything if already scrolling by key
 		}
 

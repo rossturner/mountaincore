@@ -17,7 +17,6 @@ public enum CommandName {
 	QUICKSAVE,
 	QUICKLOAD,
 
-	//debug options
 	DEBUG_SHOW_MENU,
 	DEBUG_SHOW_JOB_STATUS,
 	DEBUG_SHOW_LIQUID_FLOW,
@@ -39,8 +38,6 @@ public enum CommandName {
 	DEBUG_FRAME_BUFFER_8,
 	DEBUG_FRAME_BUFFER_9
 	;
-
-	//TODO: translations
 
 	public static CommandName parse(String value) {
 		for (CommandName commandName : values()) {
