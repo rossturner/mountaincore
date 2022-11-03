@@ -9,6 +9,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.AssetDisposable;
 import technology.rocketjump.saul.audio.model.JukeboxState;
 import technology.rocketjump.saul.combat.CombatTracker;
@@ -22,14 +23,14 @@ import technology.rocketjump.saul.persistence.UserPreferences;
 
 import java.util.*;
 
-import static technology.rocketjump.saul.audio.model.JukeboxState.INVASION_STINGER;
-import static technology.rocketjump.saul.audio.model.JukeboxState.PEACEFUL;
+import static technology.rocketjump.saul.audio.model.JukeboxState.*;
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.MUSIC_VOLUME;
 
 @Singleton
 public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAware {
 
 	public static final String DEFAULT_VOLUME_AS_STRING = "0.24";
+	private static final float TIME_AFTER_STINGER_TO_SWITCH_STATE = 3f;
 	private static final float VOLUME_CHANGE_IN_SECONDS = 5f;
 	private static final float DELAY_BEFORE_EXITING_COMBAT = CombatTracker.COMBAT_ROUND_DURATION * 1.5f;
 	private final UserPreferences userPreferences;
@@ -44,6 +45,7 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 	private Music skirmishTrack;
 	private Music invasionStinger;
 	private Music invasionTrack;
+	private float invasionStingerDuration;
 	private JukeboxState currentState = JukeboxState.PEACEFUL;
 	private float timeInCurrentState = 0f;
 	private boolean shutdown;
@@ -135,7 +137,8 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 				return true;
 			}
 			case MessageType.INVASION_ABOUT_TO_BEGIN: {
-				this.currentState = INVASION_STINGER;
+				setState(INVASION_STINGER);
+				this.timeInCurrentState = 0f;
 				Entity invasionEntity = (Entity) msg.extraInfo;
 				if (invasionEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour &&
 						creatureBehaviour.getCreatureGroup() != null && creatureBehaviour.getCreatureGroup() instanceof InvasionCreatureGroup invasionGroup) {
@@ -153,11 +156,17 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 		if (shutdown || stopped) {
 			return;
 		}
+		timeInCurrentState += Gdx.graphics.getDeltaTime();
+
+		if (invasionStinger != null && !invasionStinger.isPlaying()) {
+			disposeTrack(invasionStinger);
+			invasionStinger = null;
+		}
 
 		switch (currentState) {
 			case PEACEFUL -> {
 				if (!combatTracker.getEntitiesInCombat().isEmpty()) {
-					this.currentState = JukeboxState.SKIRMISH_COMBAT;
+					setState(JukeboxState.SKIRMISH_COMBAT);
 					update();
 				}
 
@@ -211,8 +220,7 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 				}
 
 				if (combatTracker.getEntitiesInCombat().isEmpty()) {
-					this.currentState = JukeboxState.EXITING_COMBAT;
-					this.timeInCurrentState = 0f;
+					setState(JukeboxState.EXITING_COMBAT);
 				}
 			}
 			case INVASION_STINGER -> {
@@ -233,14 +241,16 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 					return;
 				}
 
+				// Only want to do this once in case it would repeat
 				if (invasionStinger == null) {
 					loadInvasionStinger();
 					invasionStinger.play();
+					timeInCurrentState = 0f;
 				}
 
-				if (!invasionStinger.isPlaying()) {
-					invasionStinger = null;
-					this.currentState = JukeboxState.INVASION_IN_PROGRESS;
+				if (timeInCurrentState > invasionStingerDuration * 0.7f) {
+					Logger.debug("Time in current state: " + timeInCurrentState);
+					setState(INVASION_IN_PROGRESS);
 				}
 			}
 			case INVASION_IN_PROGRESS -> {
@@ -251,18 +261,14 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 				invasionTrack.play();
 
 				if (currentInvasion.getMemberIds().isEmpty()) {
-					this.currentState = JukeboxState.PEACEFUL;
+					setState(JukeboxState.PEACEFUL);
 				}
 			}
 			case EXITING_COMBAT -> {
-				if (!gamePaused) {
-					timeInCurrentState += Gdx.graphics.getDeltaTime();
-				}
-
 				if (!combatTracker.getEntitiesInCombat().isEmpty()) {
-					this.currentState = JukeboxState.SKIRMISH_COMBAT;
+					setState(JukeboxState.SKIRMISH_COMBAT);
 				} else if (timeInCurrentState > DELAY_BEFORE_EXITING_COMBAT) {
-					this.currentState = JukeboxState.PEACEFUL;
+					setState(JukeboxState.PEACEFUL);
 				}
 			}
 		}
@@ -295,6 +301,7 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 	private void loadInvasionStinger() {
 		this.invasionStinger = Gdx.audio.newMusic(invasionStingerFileList.get(random.nextInt(invasionStingerFileList.size())));
 		this.invasionStinger.setVolume(volume);
+		this.invasionStingerDuration = 3f;
 	}
 
 	private void loadInvasionTrack() {
@@ -326,15 +333,20 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 		}
 	}
 
+	private void setState(JukeboxState state) {
+		this.currentState = state;
+		this.timeInCurrentState = 0f;
+	}
+
 	@Override
 	public void onContextChange(GameContext gameContext) {
-		this.currentState = PEACEFUL;
+		setState(PEACEFUL);
 		if (gameContext != null && gameContext.getEntities() != null) {
 			for (Entity entity : gameContext.getEntities().values()) {
 				if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour &&
 					creatureBehaviour.getCreatureGroup() != null && creatureBehaviour.getCreatureGroup() instanceof InvasionCreatureGroup invasionCreatureGroup) {
 					this.currentInvasion = invasionCreatureGroup;
-					this.currentState = INVASION_STINGER;
+					setState(INVASION_STINGER);
 					break;
 				}
 			}
