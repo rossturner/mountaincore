@@ -26,6 +26,8 @@ public class KeyBindingUIWidget extends Table {
 		this.skin = skin;
 		this.userPreferences = userPreferences;
 
+		defaults().padRight(30f).padLeft(30f);
+
 		//TODO: loop me and proper name actions
 		for (CommandName action : CommandName.values()) {
 			Label actionLabel = new Label(action.name(), this.skin, "options_menu_label");

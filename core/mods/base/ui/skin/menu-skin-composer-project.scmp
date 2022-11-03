@@ -1091,6 +1091,46 @@ atlasData: {
 			type: NINE_PATCH
 			hidden: false
 		}
+		{
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/vertical_scrollbar.9.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: vertical_scrollbar
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: NINE_PATCH
+			hidden: false
+		}
+		{
+			file: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/menu-skin-composer-project_data/vertical_scrollbar_fg.9.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: vertical_scrollbar_fg
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: NINE_PATCH
+			hidden: false
+		}
 	]
 	fontDrawables: []
 }
@@ -2113,13 +2153,13 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: vScroll
 						optional: true
-						value: scroll_bg
+						value: vertical_scrollbar
 					}
 					vScrollKnob: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: vScrollKnob
 						optional: true
-						value: scroll_fg
+						value: vertical_scrollbar_fg
 					}
 				}
 				deletable: false
@@ -10359,7 +10399,7 @@ sceneComposer: {
 									type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 									name: vScroll
 									optional: true
-									value: scroll_bg
+									value: vertical_scrollbar
 								}
 								vScrollKnob: {
 									type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
@@ -10371,7 +10411,7 @@ sceneComposer: {
 							deletable: false
 							parent: null
 						}
-						fadeScrollBars: true
+						fadeScrollBars: false
 						child: {
 							class: com.ray3k.skincomposer.dialog.scenecomposer.DialogSceneComposerModel$SimTable
 							cells: [

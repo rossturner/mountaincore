@@ -14,7 +14,9 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.MouseChangeMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
+import technology.rocketjump.saul.rendering.DebugRenderingOptions;
 import technology.rocketjump.saul.rendering.RenderingOptions;
+import technology.rocketjump.saul.rendering.camera.DisplaySettings;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 
@@ -82,39 +84,27 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		keyUpActions.put(CommandName.GAME_SPEED_FASTEST, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED4));
 		keyUpActions.put(CommandName.ROTATE, () -> messageDispatcher.dispatchMessage(MessageType.ROTATE_FURNITURE));
 
-
-
-		/*
-		boolean leftControlPressed = Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT);
-		if (GlobalSettings.DEV_MODE) {
-			if (leftControlPressed && keycode >= Input.Keys.NUM_0 && keycode <= Input.Keys.NUM_9) {
-				renderingOptions.debug().setFrameBufferIndex(keycode - Input.Keys.NUM_0);
-			} else if (keycode == Input.Keys.J) {
-				renderingOptions.debug().setShowJobStatus(!renderingOptions.debug().showJobStatus());
-			} else if (keycode == Input.Keys.O) {
-				renderingOptions.toggleFloorOverlapRenderingEnabled();
-			} else if (keycode == Input.Keys.L) {
-				renderingOptions.debug().setShowIndividualLightingBuffers(!renderingOptions.debug().showIndividualLightingBuffers());
-			} else if (keycode == Input.Keys.F) {
-				renderingOptions.debug().setShowLiquidFlow(!renderingOptions.debug().isShowLiquidFlow());
-			} else if (keycode == Input.Keys.Z) {
-				renderingOptions.debug().setShowZones(!renderingOptions.debug().isShowZones());
-			} else if (keycode == Input.Keys.T) {
-				renderingOptions.debug().setShowPathfindingNodes(!renderingOptions.debug().showPathfindingNodes());
-			} else if (keycode == Input.Keys.G) {
-				DisplaySettings.showGui = !DisplaySettings.showGui;
-			} else if (keycode == Input.Keys.NUM_5 && gameContext != null) {
-				messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED5);
-			} else if (keycode == Input.Keys.NUM_6 && gameContext != null) {
-				messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.VERY_SLOW);
-			} else if (keycode == Input.Keys.GRAVE) {
-				messageDispatcher.dispatchMessage(MessageType.TOGGLE_DEBUG_VIEW);
-			}
-		}
-
-
-
-		 */
+		DebugRenderingOptions debug = renderingOptions.debug();
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_0, () -> debug.setFrameBufferIndex(0));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_1, () -> debug.setFrameBufferIndex(1));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_2, () -> debug.setFrameBufferIndex(2));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_3, () -> debug.setFrameBufferIndex(3));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_4, () -> debug.setFrameBufferIndex(4));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_5, () -> debug.setFrameBufferIndex(5));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_6, () -> debug.setFrameBufferIndex(6));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_7, () -> debug.setFrameBufferIndex(7));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_8, () -> debug.setFrameBufferIndex(8));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_9, () -> debug.setFrameBufferIndex(9));
+		keyUpActions.put(CommandName.DEBUG_SHOW_JOB_STATUS, () -> debug.setShowJobStatus(!debug.showJobStatus()));
+		keyUpActions.put(CommandName.DEBUG_TOGGLE_FLOOR_OVERLAP_RENDERING, renderingOptions::toggleFloorOverlapRenderingEnabled);
+		keyUpActions.put(CommandName.DEBUG_SHOW_INDIVIDUAL_LIGHTING_BUFFERS, debug::toggleShowIndividualLightingBuffers);
+		keyUpActions.put(CommandName.DEBUG_SHOW_LIQUID_FLOW, debug::toggleShowLiquidFlow);
+		keyUpActions.put(CommandName.DEBUG_SHOW_ZONES, debug::toggleShowZones);
+		keyUpActions.put(CommandName.DEBUG_SHOW_PATHFINDING_NODES, debug::toggleShowPathfindingNodes);
+		keyUpActions.put(CommandName.DEBUG_HIDE_GUI, () -> DisplaySettings.showGui = !DisplaySettings.showGui);
+		keyUpActions.put(CommandName.DEBUG_GAME_SPEED_ULTRA_FAST, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED5));
+		keyUpActions.put(CommandName.DEBUG_GAME_SPEED_SLOW, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.VERY_SLOW));
+		keyUpActions.put(CommandName.DEBUG_SHOW_MENU, () -> messageDispatcher.dispatchMessage(MessageType.TOGGLE_DEBUG_VIEW));
 	}
 
 	@Override

@@ -227,8 +227,8 @@ com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 	default: {
 		hScroll: scroll_bg
 		hScrollKnob: scroll_fg
-		vScroll: scroll_bg
-		vScrollKnob: scroll_fg
+		vScroll: vertical_scrollbar
+		vScrollKnob: vertical_scrollbar_fg
 	}
 	list: {
 		parent: default

@@ -102,12 +102,14 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 					ScrollPane scrollPane = new ScrollPane(new KeyBindingUIWidget(skin, userPreferences), skin);
 					scrollPane.setForceScroll(false, true);
+					scrollPane.setFadeScrollBars(false);
+					scrollPane.setScrollbarsVisible(true);
 					scrollPane.setScrollBarPositions(true, true);
-					scrollPane.setScrollBarTouch(false);
 
+					dialog.getContentTable().defaults().padLeft(120f).padRight(120f);
 					dialog.getContentTable().add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
 					dialog.getContentTable().add(gameplayLabel).align(Align.left).row();
-					dialog.getContentTable().add(scrollPane).fillX().row();
+					dialog.getContentTable().add(scrollPane).fillX().height(1256f).padBottom(100f).row();
 
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
 				})

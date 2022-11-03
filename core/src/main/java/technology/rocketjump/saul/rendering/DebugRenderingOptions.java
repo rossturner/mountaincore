@@ -12,6 +12,10 @@ public class DebugRenderingOptions {
 	private boolean showLiquidFlow = false;
 	private int frameBufferIndex = 0;
 
+	public void toggleShowIndividualLightingBuffers() {
+		this.showIndividualLightingBuffers = !this.showIndividualLightingBuffers;
+	}
+
 	public boolean showIndividualLightingBuffers() {
 		return showIndividualLightingBuffers;
 	}
@@ -36,12 +40,20 @@ public class DebugRenderingOptions {
 		}
 	}
 
+	public void toggleShowZones() {
+		this.showZones = !this.showZones;
+	}
+
 	public boolean isShowZones() {
 		return showZones;
 	}
 
 	public void setShowZones(boolean showZones) {
 		this.showZones = showZones;
+	}
+
+	public void toggleShowPathfindingNodes() {
+		this.showPathfindingNodes = !this.showPathfindingNodes;
 	}
 
 	public boolean showPathfindingNodes() {
@@ -66,6 +78,10 @@ public class DebugRenderingOptions {
 
 	public void setShowPathfindingSlowdown(boolean showPathfindingSlowdown) {
 		this.showPathfindingSlowdown = showPathfindingSlowdown;
+	}
+
+	public void toggleShowLiquidFlow() {
+		this.showLiquidFlow = !this.showLiquidFlow;
 	}
 
 	public boolean isShowLiquidFlow() {

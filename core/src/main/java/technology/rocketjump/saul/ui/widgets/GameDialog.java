@@ -41,7 +41,6 @@ public abstract class GameDialog implements Disposable {
 		if (fullScreenOverlay != null) {
 			stage.addActor(fullScreenOverlay);
 		}
-		dialog.debugAll();
 		dialog.show(stage);
 	}
 
