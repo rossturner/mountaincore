@@ -93,6 +93,10 @@ public class FarmPlotBehaviour extends RoomBehaviourComponent implements JobCrea
 		clearUnnavigableJobs(gameContext);
 		clearCompletedJobs();
 
+		if (priority.equals(JobPriority.DISABLED)) {
+			return;
+		}
+
 		boolean allTilesTilled = allTilesTilled(gameContext);
 
 		for (GridPoint2 tileLocation : parent.getRoomTiles().keySet()) {

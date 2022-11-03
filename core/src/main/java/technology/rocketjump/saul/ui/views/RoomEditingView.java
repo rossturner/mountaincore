@@ -20,7 +20,6 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureTyp
 import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
-import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
@@ -42,6 +41,7 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
 import technology.rocketjump.saul.ui.widgets.TextInputDialog;
+import technology.rocketjump.saul.ui.widgets.rooms.RoomPriorityWidget;
 
 @Singleton
 public class RoomEditingView implements GuiView, GameContextAware, DisplaysText, Telegraph {
@@ -168,6 +168,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName());
+				interactionStateContainer.setSelectable(null);
 			}
 		});
 		backButton.addListener(new ChangeCursorOnHover(backButton, GameCursor.SELECT, messageDispatcher));
@@ -201,7 +202,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		Table topRow = new Table();
 		topRow.setDebug(true);
 		topRow.add(new Container<>()).left().expandX().width(sizingButtonsContainer.getWidth());
-		topRow.add(headerContainer).center().width(1000).expandY();
+		topRow.add(headerContainer).center().width(900).expandY();
 		topRow.add(sizingButtonsContainer).right().expandX().width(sizingButtonsContainer.getWidth());
 
 		mainTable.add(topRow).top().expandX().fillX().padBottom(20).row();
@@ -215,15 +216,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 					}
 				}
 				if (roomComponent instanceof Prioritisable prioritisableComponent) {
-
-					Table priorityTable = new Table();
-					priorityTable.setDebug(GlobalSettings.UI_DEBUG);
-					priorityTable.pad(4);
-
-					// TODO grab buttons from skin with up and checked/hover states for each priority, setting current priority as checked
-					for (JobPriority priority : JobPriority.values()) {
-
-					}
+					mainTable.add(new RoomPriorityWidget(selectedRoom, prioritisableComponent, skin, tooltipFactory, messageDispatcher)).center().row();
 				}
 			}
 		}

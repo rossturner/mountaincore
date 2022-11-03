@@ -192,6 +192,8 @@ public class ScreenManager implements Telegraph, GameContextAware {
 			}
 			case MessageType.SWITCH_SCREEN: {
 				// Reset interaction state so cursor is not left in an odd setting
+				messageDispatcher.dispatchMessage(MessageType.SET_HOVER_CURSOR, null);
+				messageDispatcher.dispatchMessage(MessageType.SET_SPECIAL_CURSOR, null);
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DEFAULT);
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.DEFAULT);
 				if (gameContext != null && gameContext.getSettlementState().getGameState().equals(GameState.SELECT_SPAWN_LOCATION)) {
