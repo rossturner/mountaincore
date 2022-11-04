@@ -3,6 +3,9 @@ package technology.rocketjump.saul.screens.menus.options;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
@@ -103,6 +106,19 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 					gameplayLabel.setAlignment(Align.center);
 
 					ScrollPane scrollPane = new ScrollPane(new KeyBindingUIWidget(skin, userPreferences, i18nTranslator, messageDispatcher, soundAssetDictionary), skin);
+					scrollPane.addListener(new InputListener() {
+						@Override
+						public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+							super.enter(event, x, y, pointer, fromActor);
+							scrollPane.getStage().setScrollFocus(scrollPane);
+						}
+
+						@Override
+						public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+							super.exit(event, x, y, pointer, toActor);
+							scrollPane.getStage().setScrollFocus(null);
+						}
+					});
 					scrollPane.setForceScroll(false, true);
 					scrollPane.setFadeScrollBars(false);
 					scrollPane.setScrollbarsVisible(true);
