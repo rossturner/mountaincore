@@ -9,20 +9,28 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.AssetDisposable;
 import technology.rocketjump.saul.audio.model.JukeboxState;
 import technology.rocketjump.saul.combat.CombatTracker;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.InvasionCreatureGroup;
+import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.UserPreferences;
 
 import java.util.*;
 
+import static technology.rocketjump.saul.audio.model.JukeboxState.*;
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.MUSIC_VOLUME;
 
 @Singleton
-public class MusicJukebox implements Telegraph, AssetDisposable {
+public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAware {
 
 	public static final String DEFAULT_VOLUME_AS_STRING = "0.24";
+	private static final float TIME_AFTER_STINGER_TO_SWITCH_STATE = 3f;
 	private static final float VOLUME_CHANGE_IN_SECONDS = 5f;
 	private static final float DELAY_BEFORE_EXITING_COMBAT = CombatTracker.COMBAT_ROUND_DURATION * 1.5f;
 	private final UserPreferences userPreferences;
@@ -31,12 +39,18 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 	private Deque<FileHandle> peacefulPlaylist = new ArrayDeque<>();
 	private List<FileHandle> peacefulFileList = new ArrayList<>();
 	private List<FileHandle> skirmishFileList = new ArrayList<>();
+	private List<FileHandle> invasionFileList = new ArrayList<>();
+	private List<FileHandle> invasionStingerFileList = new ArrayList<>();
 	private Music peacefulTrack;
 	private Music skirmishTrack;
+	private Music invasionStinger;
+	private Music invasionTrack;
+	private float invasionStingerDuration;
 	private JukeboxState currentState = JukeboxState.PEACEFUL;
 	private float timeInCurrentState = 0f;
 	private boolean shutdown;
 	private final CombatTracker combatTracker;
+	private InvasionCreatureGroup currentInvasion;
 	private Random random = new RandomXS128();
 	private boolean gamePaused;
 
@@ -68,6 +82,16 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 				skirmishFileList.add(fileHandle);
 			}
 		}
+		for (FileHandle fileHandle : new FileHandle("assets/music/invasion_stinger").list()) {
+			if (fileHandle.extension().equals("ogg")) {
+				invasionStingerFileList.add(fileHandle);
+			}
+		}
+		for (FileHandle fileHandle : new FileHandle("assets/music/invasion").list()) {
+			if (fileHandle.extension().equals("ogg")) {
+				invasionFileList.add(fileHandle);
+			}
+		}
 
 		if (mainMusic != null) {
 			peacefulFileList.remove(mainMusic);
@@ -81,6 +105,7 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 
 		messageDispatcher.addListener(this, MessageType.GUI_CHANGE_MUSIC_VOLUME);
 		messageDispatcher.addListener(this, MessageType.GAME_PAUSED);
+		messageDispatcher.addListener(this, MessageType.INVASION_ABOUT_TO_BEGIN);
 	}
 
 	@Override
@@ -89,11 +114,10 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 			case MessageType.GUI_CHANGE_MUSIC_VOLUME: {
 				Float newVolume = (Float)msg.extraInfo;
 				this.volume = SoundEffectManager.GLOBAL_VOLUME_MULTIPLIER * newVolume;
-				if (peacefulTrack != null) {
-					peacefulTrack.setVolume(volume);
-				}
-				if (skirmishTrack != null) {
-					skirmishTrack.setVolume(volume);
+				for (Music track : Arrays.asList(peacefulTrack, skirmishTrack, invasionStinger, invasionTrack)) {
+					if (track != null) {
+						track.setVolume(volume);
+					}
 				}
 				userPreferences.setPreference(MUSIC_VOLUME, String.valueOf(newVolume));
 
@@ -112,6 +136,16 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 				this.gamePaused = (boolean) msg.extraInfo;
 				return true;
 			}
+			case MessageType.INVASION_ABOUT_TO_BEGIN: {
+				setState(INVASION_STINGER);
+				this.timeInCurrentState = 0f;
+				Entity invasionEntity = (Entity) msg.extraInfo;
+				if (invasionEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour &&
+						creatureBehaviour.getCreatureGroup() != null && creatureBehaviour.getCreatureGroup() instanceof InvasionCreatureGroup invasionGroup) {
+					this.currentInvasion = invasionGroup;
+				}
+				return true;
+			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
 		}
@@ -122,11 +156,17 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 		if (shutdown || stopped) {
 			return;
 		}
+		timeInCurrentState += Gdx.graphics.getDeltaTime();
+
+		if (invasionStinger != null && !invasionStinger.isPlaying()) {
+			disposeTrack(invasionStinger);
+			invasionStinger = null;
+		}
 
 		switch (currentState) {
 			case PEACEFUL -> {
 				if (!combatTracker.getEntitiesInCombat().isEmpty()) {
-					this.currentState = JukeboxState.SKIRMISH_COMBAT;
+					setState(JukeboxState.SKIRMISH_COMBAT);
 					update();
 				}
 
@@ -138,8 +178,16 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 					}
 				}
 
+				if (invasionTrack != null) {
+					fadeOut(invasionTrack);
+					if (invasionTrack.getVolume() < 0.01f) {
+						disposeTrack(invasionTrack);
+						invasionTrack = null;
+					}
+				}
 
-				if (skirmishTrack == null && (peacefulTrack == null || !peacefulTrack.isPlaying())) {
+
+				if (skirmishTrack == null && invasionTrack == null && (peacefulTrack == null || !peacefulTrack.isPlaying())) {
 					startNewPeacefulTrack();
 				}
 			}
@@ -156,6 +204,14 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 					}
 				}
 
+				if (invasionTrack != null) {
+					fadeOut(invasionTrack);
+					if (invasionTrack.getVolume() < 0.01f) {
+						disposeTrack(invasionTrack);
+						invasionTrack = null;
+					}
+				}
+
 				if (peacefulTrack == null && (skirmishTrack == null || !skirmishTrack.isPlaying())) {
 					if (skirmishTrack == null) {
 						loadSkirmishTrack();
@@ -164,19 +220,55 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 				}
 
 				if (combatTracker.getEntitiesInCombat().isEmpty()) {
-					this.currentState = JukeboxState.EXITING_COMBAT;
-					this.timeInCurrentState = 0f;
+					setState(JukeboxState.EXITING_COMBAT);
+				}
+			}
+			case INVASION_STINGER -> {
+				if (peacefulTrack != null) {
+					fadeOut(peacefulTrack);
+					if (peacefulTrack.getVolume() < 0.01f) {
+						disposeTrack(peacefulTrack);
+						peacefulTrack = null;
+					}
+					return;
+				}
+				if (skirmishTrack != null) {
+					fadeOut(skirmishTrack);
+					if (skirmishTrack.getVolume() < 0.01f) {
+						disposeTrack(skirmishTrack);
+						skirmishTrack = null;
+					}
+					return;
+				}
+
+				// Only want to do this once in case it would repeat
+				if (invasionStinger == null) {
+					loadInvasionStinger();
+					invasionStinger.play();
+					timeInCurrentState = 0f;
+				}
+
+				if (timeInCurrentState > invasionStingerDuration * 0.7f) {
+					Logger.debug("Time in current state: " + timeInCurrentState);
+					setState(INVASION_IN_PROGRESS);
+				}
+			}
+			case INVASION_IN_PROGRESS -> {
+				if (invasionTrack == null) {
+					loadInvasionTrack();
+				}
+
+				invasionTrack.play();
+
+				if (currentInvasion.getMemberIds().isEmpty()) {
+					setState(JukeboxState.PEACEFUL);
 				}
 			}
 			case EXITING_COMBAT -> {
-				if (!gamePaused) {
-					timeInCurrentState += Gdx.graphics.getDeltaTime();
-				}
-
 				if (!combatTracker.getEntitiesInCombat().isEmpty()) {
-					this.currentState = JukeboxState.SKIRMISH_COMBAT;
+					setState(JukeboxState.SKIRMISH_COMBAT);
 				} else if (timeInCurrentState > DELAY_BEFORE_EXITING_COMBAT) {
-					this.currentState = JukeboxState.PEACEFUL;
+					setState(JukeboxState.PEACEFUL);
 				}
 			}
 		}
@@ -206,6 +298,17 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 		this.skirmishTrack.setVolume(volume);
 	}
 
+	private void loadInvasionStinger() {
+		this.invasionStinger = Gdx.audio.newMusic(invasionStingerFileList.get(random.nextInt(invasionStingerFileList.size())));
+		this.invasionStinger.setVolume(volume);
+		this.invasionStingerDuration = 3f;
+	}
+
+	private void loadInvasionTrack() {
+		this.invasionTrack = Gdx.audio.newMusic(invasionFileList.get(random.nextInt(invasionFileList.size())));
+		this.invasionTrack.setVolume(volume);
+	}
+
 	@Override
 	public void dispose() {
 		disposeTrack(peacefulTrack);
@@ -213,6 +316,12 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 
 		disposeTrack(skirmishTrack);
 		skirmishTrack = null;
+
+		disposeTrack(invasionStinger);
+		invasionStinger = null;
+
+		disposeTrack(invasionTrack);
+		invasionTrack = null;
 
 		this.shutdown = true;
 	}
@@ -222,5 +331,30 @@ public class MusicJukebox implements Telegraph, AssetDisposable {
 			musicTrack.stop();
 			musicTrack.dispose();
 		}
+	}
+
+	private void setState(JukeboxState state) {
+		this.currentState = state;
+		this.timeInCurrentState = 0f;
+	}
+
+	@Override
+	public void onContextChange(GameContext gameContext) {
+		setState(PEACEFUL);
+		if (gameContext != null && gameContext.getEntities() != null) {
+			for (Entity entity : gameContext.getEntities().values()) {
+				if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour &&
+					creatureBehaviour.getCreatureGroup() != null && creatureBehaviour.getCreatureGroup() instanceof InvasionCreatureGroup invasionCreatureGroup) {
+					this.currentInvasion = invasionCreatureGroup;
+					setState(INVASION_STINGER);
+					break;
+				}
+			}
+		}
+	}
+
+	@Override
+	public void clearContextRelatedState() {
+		this.currentInvasion = null;
 	}
 }
