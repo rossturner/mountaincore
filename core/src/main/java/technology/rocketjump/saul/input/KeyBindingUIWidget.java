@@ -4,29 +4,38 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class KeyBindingUIWidget extends Table {
 
 	private final Skin skin;
 	private final UserPreferences userPreferences;
+	private final MessageDispatcher messageDispatcher;
+	private final SoundAssetDictionary soundAssetDictionary;
+	private final Map<CommandName, TextButton> primaryButtons = new HashMap<>();
+	private final Map<CommandName, TextButton> secondaryButtons = new HashMap<>();
 
-	public KeyBindingUIWidget(Skin skin, UserPreferences userPreferences, I18nTranslator i18nTranslator) {
+	public KeyBindingUIWidget(Skin skin, UserPreferences userPreferences, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
 		this.skin = skin;
 		this.userPreferences = userPreferences;
+		this.messageDispatcher = messageDispatcher;
+		this.soundAssetDictionary = soundAssetDictionary;
 
 		defaults().padRight(30f).padLeft(30f);
 
@@ -42,6 +51,8 @@ public class KeyBindingUIWidget extends Table {
 				add(primaryKey);
 				add(secondaryKey);
 				row();
+				primaryButtons.put(commandName, primaryKey);
+				secondaryButtons.put(commandName, secondaryKey);
 			}
 		}
 	}
@@ -56,14 +67,26 @@ public class KeyBindingUIWidget extends Table {
 				Gdx.input.setInputProcessor(new KeyBindingInputProcessor(currentInputProcessor, keyboardKeys -> {
 					textButton.setChecked(false);
 					userPreferences.assignInput(action, keyboardKeys, isPrimary);
-					String inputDescription = userPreferences.getInputKeyDescriptionFor(action, isPrimary);
-					textButton.setText(inputDescription);
-					//TODO: loop through all buttons to clear existing allocation?
+					resetTextButtons();
 				}));
 
 			}
 		});
+
+		textButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		textButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
 		return textButton;
+	}
+
+	private void resetTextButtons() {
+		primaryButtons.forEach((key, value) -> {
+			String inputDescription = userPreferences.getInputKeyDescriptionFor(key, true);
+			value.setText(inputDescription);
+		});
+		secondaryButtons.forEach((key, value) -> {
+			String inputDescription = userPreferences.getInputKeyDescriptionFor(key, false);
+			value.setText(inputDescription);
+		});
 	}
 
 	public static class KeyBindingInputProcessor extends InputAdapter {

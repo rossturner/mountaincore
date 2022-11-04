@@ -83,14 +83,14 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 	title_ribbon_bg_mike_10patch: {
 		region: title_ribbon_bg_mike
 		horizontalStretchAreas: [ 266, 278 ]
-		verticalStretchAreas: [ 0, 221 ]
+		verticalStretchAreas: [ 135, 208 ]
 		tiling: false
 		minWidth: 545
 		minHeight: 222
 		rightWidth: 266
 		leftWidth: 266
-		bottomHeight: 37
-		topHeight: 3
+		bottomHeight: 67
+		topHeight: 14
 		offsetX: 0
 		offsetY: 0
 		offsetXspeed: 0

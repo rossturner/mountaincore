@@ -9,13 +9,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 
 public class BlurredBackgroundDialog extends GameDialog {
 
-	public BlurredBackgroundDialog(I18nText titleText, Skin uiSkin, MessageDispatcher messageDispatcher, Window.WindowStyle windowStyle) {
+	public BlurredBackgroundDialog(I18nText titleText, Skin uiSkin, MessageDispatcher messageDispatcher, Window.WindowStyle windowStyle, SoundAssetDictionary soundAssetDictionary) {
 		super(titleText, uiSkin, messageDispatcher, windowStyle);
 
 		Button exitButton = new Button(uiSkin, "btn_exit");
@@ -30,7 +32,7 @@ public class BlurredBackgroundDialog extends GameDialog {
 			}
 		});
 		exitButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
-//		exitButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		exitButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		dialog.getContentTable().add(exitButton).expandX().align(Align.topLeft);
 		dialog.getContentTable().row();
 	}

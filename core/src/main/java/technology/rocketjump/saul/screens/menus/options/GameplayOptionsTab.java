@@ -35,6 +35,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 	private final I18nTranslator i18nTranslator;
 	private final WidgetFactory widgetFactory;
 	private final MenuButtonFactory menuButtonFactory;
+	private final SoundAssetDictionary soundAssetDictionary;
 
 	private Container<TextButton> keyBindingsButton;
 	private CheckBox edgeScrollingCheckbox;
@@ -46,7 +47,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 	@Inject
 	public GameplayOptionsTab(UserPreferences userPreferences, MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 	                          SoundAssetDictionary soundAssetDictionary, I18nTranslator i18nTranslator, WidgetFactory widgetFactory,
-	                          MenuButtonFactory menuButtonFactory) {
+	                          MenuButtonFactory menuButtonFactory, SoundAssetDictionary soundAssetDictionary1) {
 		this.userPreferences = userPreferences;
 		this.messageDispatcher = messageDispatcher;
 		this.clickSoundAsset = soundAssetDictionary.getByName("MenuClick");
@@ -54,6 +55,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 		this.skin = guiSkinRepository.getMenuSkin();
 		this.widgetFactory = widgetFactory;
 		this.menuButtonFactory = menuButtonFactory;
+		this.soundAssetDictionary = soundAssetDictionary1;
 	}
 
 	@Override
@@ -95,12 +97,12 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 		keyBindingsButton = menuButtonFactory.createButton("GUI.OPTIONS.KEY_BINDINGS", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
 				.withAction(() -> {
 
-					BlurredBackgroundDialog dialog = new BlurredBackgroundDialog(I18nText.BLANK, skin, messageDispatcher, skin.get("square_dialog", Window.WindowStyle.class));
+					BlurredBackgroundDialog dialog = new BlurredBackgroundDialog(I18nText.BLANK, skin, messageDispatcher, skin.get("square_dialog", Window.WindowStyle.class), soundAssetDictionary);
 					Label titleRibbon = new Label(i18nTranslator.getTranslatedString("GUI.OPTIONS.KEY_BINDINGS").toString(), skin, "title_ribbon");
 					Label gameplayLabel = new Label(i18nTranslator.getTranslatedString(OptionsTabName.GAMEPLAY.getI18nKey()).toString(), skin, "secondary_banner_title");
 					gameplayLabel.setAlignment(Align.center);
 
-					ScrollPane scrollPane = new ScrollPane(new KeyBindingUIWidget(skin, userPreferences, i18nTranslator), skin);
+					ScrollPane scrollPane = new ScrollPane(new KeyBindingUIWidget(skin, userPreferences, i18nTranslator, messageDispatcher, soundAssetDictionary), skin);
 					scrollPane.setForceScroll(false, true);
 					scrollPane.setFadeScrollBars(false);
 					scrollPane.setScrollbarsVisible(true);

@@ -464,14 +464,14 @@ atlasData: {
 					ordered: true
 				}
 				verticalStretchAreas: {
-					items: []
-					size: 0
+					items: [ 135, 208 ]
+					size: 2
 					ordered: true
 				}
 				contentLeft: 266
 				contentRight: 266
-				contentTop: 3
-				contentBottom: 37
+				contentTop: 14
+				contentBottom: 67
 				tile: false
 				colorName: null
 				color1Name: null

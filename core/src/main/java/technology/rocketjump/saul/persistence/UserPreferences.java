@@ -102,10 +102,7 @@ public class UserPreferences {
 		return null;
 	}
 
-	//TODO: collisions
 	public void assignInput(CommandName commandName, Set<Integer> keys, boolean isPrimary) {
-
-		//TODO: this needs to propagate out somehow to tell to clear?
 		Optional<KeyBinding> existingAllocationForInput = keyBindings.stream().filter(allocation -> allocation.keys.equals(keys)).findFirst();
 		existingAllocationForInput.ifPresent(a -> {
 			removePreference(a.getPropertyKey());
