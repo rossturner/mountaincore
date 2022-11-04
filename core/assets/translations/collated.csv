@@ -550,6 +550,7 @@ GUI.OPTIONS.MISC.HINTS_ENABLED,Show hints in-game,,Zeige Hinweise und Tutorials 
 GUI.OPTIONS.MISC.MAIN_MENU_BACKGROUND_SCROLLING,,,Scrolle den Hintergrund im Hauptmenü,,Scorrere lo sfondo del menu principale,Alternar el fondo en el menú principal,,,,"Прокрутите фон в главном меню ",Ana ekrandaki arka planı kaydır.,,,,,,,メインメニューの背景をスクロールする,在主菜单滚动背景,
 GUI.OPTIONS.MISC.TITLE,Miscellaneous,,Verschiedenes,Divers,Varie,Varios,Diversos,,,Разное,Çeşitli,Diverse,,Diverse,,,,その他のオプション,其他,
 GUI.OPTIONS.MISC.TUTORIAL_ENABLED,Always Ask For Tutorial,,,,,,,,,,,,,,,,,,,
+GUI.OPTIONS.RESET,Reset,,,,,,,,,,,,,,,,,,,
 GUI.OPTIONS.TAB.AUDIO,Audio,,Audio,,Audio,Audio,,,,Аудио,Ses,,,,,,,音声,声音,
 GUI.OPTIONS.TAB.GAMEPLAY,Gameplay,,Gameplay,,Gameplay,Jugabilidad,,,,Игра,Oynanış,,,,,,,ゲームプレイ,游戏,
 GUI.OPTIONS.TAB.GRAPHICS,Graphics,,Graphik,,Grafica,Vídeo,,,,Графика,Grafikler,,,,,,,グラフィック,图像,

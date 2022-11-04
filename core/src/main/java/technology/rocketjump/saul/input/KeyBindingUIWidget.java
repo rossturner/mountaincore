@@ -57,6 +57,11 @@ public class KeyBindingUIWidget extends Table {
 		}
 	}
 
+	public void resetToDefaultSettings() {
+		userPreferences.resetToDefaultKeyBindings();
+		resetTextButtons();
+	}
+
 	private TextButton createTextButton(CommandName action, boolean isPrimary, UserPreferences userPreferences) {
 		TextButton textButton = new TextButton(this.userPreferences.getInputKeyDescriptionFor(action, isPrimary), this.skin, "btn_key_bindings_key");
 		textButton.addListener(new ClickListener(){

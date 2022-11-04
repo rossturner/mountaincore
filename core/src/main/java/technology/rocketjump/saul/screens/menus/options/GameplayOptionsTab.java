@@ -6,6 +6,7 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
@@ -104,19 +105,28 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 					Label titleRibbon = new Label(i18nTranslator.getTranslatedString("GUI.OPTIONS.KEY_BINDINGS").toString(), skin, "title_ribbon");
 					Label gameplayLabel = new Label(i18nTranslator.getTranslatedString(OptionsTabName.GAMEPLAY.getI18nKey()).toString(), skin, "secondary_banner_title");
 					gameplayLabel.setAlignment(Align.center);
+					KeyBindingUIWidget keyBindingUIWidget = new KeyBindingUIWidget(skin, userPreferences, i18nTranslator, messageDispatcher, soundAssetDictionary);
+					Container<TextButton> resetBindingsButton = menuButtonFactory.createButton("GUI.OPTIONS.RESET", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+							.withAction(() -> keyBindingUIWidget.resetToDefaultSettings())
+							.build();
 
-					ScrollPane scrollPane = new ScrollPane(new KeyBindingUIWidget(skin, userPreferences, i18nTranslator, messageDispatcher, soundAssetDictionary), skin);
+					ScrollPane scrollPane = new ScrollPane(keyBindingUIWidget, skin);
+					Stage stage = scrollPane.getStage();
 					scrollPane.addListener(new InputListener() {
 						@Override
 						public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 							super.enter(event, x, y, pointer, fromActor);
-							scrollPane.getStage().setScrollFocus(scrollPane);
+							if (stage != null) {
+								stage.setScrollFocus(scrollPane);
+							}
 						}
 
 						@Override
 						public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
 							super.exit(event, x, y, pointer, toActor);
-							scrollPane.getStage().setScrollFocus(null);
+							if (stage != null) {
+								stage.setScrollFocus(null);
+							}
 						}
 					});
 					scrollPane.setForceScroll(false, true);
@@ -127,7 +137,9 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 					dialog.getContentTable().defaults().padLeft(120f).padRight(120f);
 					dialog.getContentTable().add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
 					dialog.getContentTable().add(gameplayLabel).align(Align.left).row();
-					dialog.getContentTable().add(scrollPane).fillX().height(1256f).padBottom(100f).row();
+					dialog.getContentTable().add(scrollPane).fillX().height(1256f).padBottom(50f).row();
+					dialog.getContentTable().add(resetBindingsButton).padBottom(100f).row();
+
 
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
 				})
