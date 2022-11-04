@@ -19317,6 +19317,222 @@
     }
   }
 }, {
+  "uniqueName" : "Ingredient-Seeds-Barley-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Barley Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Barley-Label_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Carrot-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Carrot Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Carrot-Label_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Corn-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Corn Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Corn-Label_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Hemp-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Hemp Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Hemp-Label_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Hops-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Hops Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Hops-Label_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Potato-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Potato Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Potato-Label_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Tomato-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Tomato Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Tomato-Label_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Wheat-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Wheat Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Wheat-Label_Down.png",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Ingredient-Seeds-Bag-Rope-Carried",
   "type" : "ABOVE_LAYER_2",
   "itemTypeName" : "Ingredient-Seeds",
@@ -19445,7 +19661,14 @@
       },
       "flipX" : false,
       "flipY" : false,
-      "childAssets" : [ ],
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
@@ -19466,8 +19689,8 @@
       "isAnimated" : false,
       "scale" : 0.7,
       "offsetPixels" : {
-        "x" : 16.0,
-        "y" : 19.0,
+        "x" : 0.0,
+        "y" : 0.0,
         "unit" : false
       },
       "flipX" : false,

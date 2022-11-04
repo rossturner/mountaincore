@@ -42,16 +42,7 @@
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
   "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [
-    "Barley Seed",
-    "Carrot Seed",
-    "Corn Seed",
-    "Hemp Seed",
-    "Hops Seed",
-    "Potato Seed",
-    "Tomato Seed",
-    "Wheat Seed"
-  ],
+  "applicableMaterialNames" : [ "Barley Seed", "Carrot Seed", "Corn Seed", "Hemp Seed", "Hops Seed", "Potato Seed", "Tomato Seed", "Wheat Seed" ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Ingredient-Seeds-Bag-Rope.png",
@@ -60,7 +51,10 @@
       "offsetPixels" : {
         "x" : 16.0,
         "y" : 19.0
-      }
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ]
     }
   }
 }, {
@@ -73,11 +67,7 @@
     "DOWN" : {
       "filename" : "Bag-Rope.png",
       "coloringLayer" : "ROPE_COLOR",
-      "scale" : 0.7,
-      "offsetPixels" : {
-        "x" : 16.0,
-        "y" : 19.0
-      }
+      "scale" : 0.7
     }
   }
 } ]
