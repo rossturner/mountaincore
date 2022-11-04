@@ -1,55 +1,83 @@
-[
-  {
-    "uniqueName": "Ingredient-Seeds-Bag-Rope-Ground",
-    "type": "ABOVE_LAYER_1",
-    "itemTypeName": "Ingredient-Seeds",
-    "itemPlacements": ["ON_GROUND"],
-    "minQuantity": 1,
-    "maxQuantity": 50,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Bag-Rope.png",
-        "scale": 0.7,
-        "coloringLayer": "ROPE_COLOR"
-      }
-    }
-  }, {
-  "uniqueName": "Ingredient-Seeds-Bag-Rope-Carried",
-  "type": "ABOVE_LAYER_1",
-  "itemTypeName": "Ingredient-Seeds",
-  "itemPlacements": ["BEING_CARRIED"],
-  "minQuantity": 1,
-  "maxQuantity": 50,
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "Bag-Rope.png",
-      "scale": 0.7,
-      "coloringLayer": "ROPE_COLOR"
+[ {
+  "uniqueName" : "Ingredient-Seeds-Bag-Rope-Carried",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Ingredient-Seeds",
+  "maxQuantity" : 50,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Bag-Rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7
     },
-    "DOWN_RIGHT": {
-      "filename": "Bag-Rope.png",
-      "scale": 0.7,
-      "coloringLayer": "ROPE_COLOR"
+    "DOWN_RIGHT" : {
+      "filename" : "Bag-Rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7
     },
-    "DOWN_LEFT": {
-      "filename": "Bag-Rope.png",
-      "scale": 0.7,
-      "coloringLayer": "ROPE_COLOR"
+    "DOWN_LEFT" : {
+      "filename" : "Bag-Rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7
     },
-    "UP": {
-      "filename": "Bag-Rope.png",
-      "scale": 0.7,
-      "coloringLayer": "ROPE_COLOR"
+    "UP" : {
+      "filename" : "Bag-Rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7
     },
-    "UP_RIGHT": {
-      "filename": "Bag-Rope.png",
-      "scale": 0.7,
-      "coloringLayer": "ROPE_COLOR"
+    "UP_RIGHT" : {
+      "filename" : "Bag-Rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7
     },
-    "UP_LEFT": {
-      "filename": "Bag-Rope.png",
-      "scale": 0.7,
-      "coloringLayer": "ROPE_COLOR"
+    "UP_LEFT" : {
+      "filename" : "Bag-Rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7
     }
   }
-}]
+}, {
+  "uniqueName" : "Ingredient-Seeds-Bag-Rope-With-Attachment-Ground",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Ingredient-Seeds",
+  "maxQuantity" : 50,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [
+    "Barley Seed",
+    "Carrot Seed",
+    "Corn Seed",
+    "Hemp Seed",
+    "Hops Seed",
+    "Potato Seed",
+    "Tomato Seed",
+    "Wheat Seed"
+  ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Bag-Rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 16.0,
+        "y" : 19.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Bag-Rope-Without-Attachment-Ground",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Ingredient-Seeds",
+  "maxQuantity" : 50,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Bag-Rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 16.0,
+        "y" : 19.0
+      }
+    }
+  }
+} ]

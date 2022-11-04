@@ -8,6 +8,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Leather-Above_Layer_1-Being_Carried_Down.png",
@@ -110,6 +111,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Leather-Above_Layer_1-On_Ground_Down.png",
@@ -138,6 +140,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Leather-Above_Layer_2-Being_Carried_Down.png",
@@ -223,6 +226,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Leather-Above_Layer_2-On_Ground_Down.png",
@@ -250,6 +254,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Leather-Item_Base_Layer-On_Ground_Down.png",
@@ -484,6 +489,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Leather-Item_Base_Layer-On_Ground_Down.png",
@@ -524,6 +530,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Metal-Above_Layer_1-On_Ground_Down.png",
@@ -624,6 +631,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Metal-Above_Layer_1-On_Ground_Down.png",
@@ -649,6 +657,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Metal-Above_Layer_2-On_Ground_Down.png",
@@ -749,6 +758,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Metal-Above_Layer_2-On_Ground_Down.png",
@@ -775,6 +785,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Plate-Above_Layer_3-On_Ground_Down.png",
@@ -875,6 +886,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Plate-Above_Layer_3-On_Ground_Down.png",
@@ -900,6 +912,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Metal-Item_Base_Layer-On_Ground_Down.png",
@@ -1220,6 +1233,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Metal-Item_Base_Layer-On_Ground_Down.png",
@@ -1268,6 +1282,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_1-On_Ground_Down.png",
@@ -1375,6 +1390,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_1-On_Ground_Down.png",
@@ -1402,6 +1418,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_2-On_Ground_Down.png",
@@ -1509,6 +1526,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Above_Layer_2-On_Ground_Down.png",
@@ -1536,6 +1554,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Below_Layer_1-On_Ground_Down.png",
@@ -1643,6 +1662,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Below_Layer_1-On_Ground_Down.png",
@@ -1670,6 +1690,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Item_Base_Layer-On_Ground_Down.png",
@@ -1983,6 +2004,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Orc-Heavy-Item_Base_Layer-On_Ground_Down.png",
@@ -2030,6 +2052,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "UP_RIGHT" : {
       "filename" : "Armour-Orc-Light-Above_Layer_1-On_Ground_Down.png",
@@ -2137,6 +2160,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Orc-Light-Above_Layer_1-On_Ground_Down.png",
@@ -2164,6 +2188,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "UP_RIGHT" : {
       "filename" : "Armour-Orc-Light-Below_Layer_1-On_Ground_Down.png",
@@ -2265,6 +2290,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Orc-Light-Below_Layer_1-On_Ground_Down.png",
@@ -2291,6 +2317,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "UP_RIGHT" : {
       "filename" : "Armour-Orc-Light-Below_Layer_2-On_Ground_Down.png",
@@ -2398,6 +2425,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Orc-Light-Below_Layer_2-On_Ground_Down.png",
@@ -2425,6 +2453,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "UP_RIGHT" : {
       "filename" : "Armour-Orc-Light-Item_Base_Layer-On_Ground_Down.png",
@@ -2744,6 +2773,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Armour-Orc-Light-Item_Base_Layer-On_Ground_Down.png",
@@ -2791,6 +2821,7 @@
   "maxQuantity" : 4,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "CarpFillet.png",
@@ -2816,6 +2847,7 @@
   "maxQuantity" : 16,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "CarpFillet.png",
@@ -2918,6 +2950,7 @@
   "maxQuantity" : 4,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "RedMeatLarge.png",
@@ -2943,6 +2976,7 @@
   "maxQuantity" : 4,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "RedMeatLarge.png",
@@ -3068,6 +3102,7 @@
   "maxQuantity" : 6,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "RedMeatMedium.png",
@@ -3093,6 +3128,7 @@
   "maxQuantity" : 6,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "RedMeatMedium.png",
@@ -3218,6 +3254,7 @@
   "maxQuantity" : 10,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "RedMeatSmall.png",
@@ -3243,6 +3280,7 @@
   "maxQuantity" : 10,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "RedMeatSmall.png",
@@ -3368,6 +3406,7 @@
   "maxQuantity" : 4,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "PerchFillet.png",
@@ -3393,6 +3432,7 @@
   "maxQuantity" : 16,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "PerchFillet.png",
@@ -3495,6 +3535,7 @@
   "maxQuantity" : 4,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "PikeFillet.png",
@@ -3520,6 +3561,7 @@
   "maxQuantity" : 16,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "PikeFillet.png",
@@ -3624,6 +3666,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Carcass-Hide-Item_Base_Layer-Being_Carried_Down.png",
@@ -3791,6 +3834,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground_Down.png",
@@ -3819,6 +3863,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Carcass-Hide-Item_Base_Layer-On_Ground-Many_Down.png",
@@ -3845,6 +3890,7 @@
   "maxQuantity" : 32,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Crushed Ore Cloth Top.png",
@@ -3878,6 +3924,7 @@
   "maxQuantity" : 16,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Crushed Ore Cloth Top.png",
@@ -4090,6 +4137,7 @@
   "maxQuantity" : 32,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Crushed Ore Contents.png",
@@ -4116,6 +4164,7 @@
   "maxQuantity" : 16,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Crushed Ore Contents.png",
@@ -4222,6 +4271,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -4255,6 +4305,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -4467,6 +4518,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -4493,6 +4545,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -4599,6 +4652,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -4632,6 +4686,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -4844,6 +4899,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -4870,6 +4926,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -4976,6 +5033,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Ingredient-Soup-Bowl-Wood-Base.png",
@@ -5148,6 +5206,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Ingredient-Soup-Bowl-Liquid.png",
@@ -5254,6 +5313,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Wooden tankard.png",
@@ -5384,6 +5444,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Metal tankard.png",
@@ -5514,6 +5575,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Stone tankard.png",
@@ -5644,6 +5706,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Vegetable-Crate-Body-Carried-NS.png",
@@ -5814,6 +5877,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Vegetable-Crate-Body-Floor.png",
@@ -5847,6 +5911,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Vegetable-Crate-Label-Floor.png",
@@ -5873,6 +5938,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -5913,6 +5979,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -6146,6 +6213,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack label.png",
@@ -6172,6 +6240,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack label.png",
@@ -6230,6 +6299,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -6256,6 +6326,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -6362,6 +6433,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "ash-pile.png",
@@ -6492,6 +6564,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "ash-pile.png",
@@ -6622,6 +6695,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Anvil.png",
@@ -6648,6 +6722,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Anvil.png",
@@ -6818,6 +6893,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Barrel-Body-Carried-NS.png",
@@ -7046,6 +7122,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Barrel-Hoops-Carried-NS.png",
@@ -7152,6 +7229,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Barrel-Body-Floor.png",
@@ -7199,6 +7277,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Barrel-Hoops-Floor.png",
@@ -7225,6 +7304,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Barrel-Lid-Floor.png",
@@ -7251,6 +7331,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Barrel-Contents-Floor.png",
@@ -7277,6 +7358,7 @@
   "maxQuantity" : 12,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Barrel hoops.png",
@@ -7303,6 +7385,7 @@
   "maxQuantity" : 12,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Barrel hoops.png",
@@ -7473,6 +7556,7 @@
   "maxQuantity" : 15,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Barrel staves.png",
@@ -7499,6 +7583,7 @@
   "maxQuantity" : 15,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Barrel staves.png",
@@ -7669,6 +7754,7 @@
   "maxQuantity" : 28,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Bread-Dough.png",
@@ -7695,6 +7781,7 @@
   "maxQuantity" : 7,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Bread-Dough.png",
@@ -7865,6 +7952,7 @@
   "maxQuantity" : 13,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Bread-Loaf.png",
@@ -7891,6 +7979,7 @@
   "maxQuantity" : 13,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Bread-Loaf.png",
@@ -8061,6 +8150,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bucket-Body-Carried.png",
@@ -8273,6 +8363,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bucket-Hoops-Carried.png",
@@ -8379,6 +8470,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bucket-Body-Floor.png",
@@ -8426,6 +8518,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bucket-Contents-Floor.png",
@@ -8452,6 +8545,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bucket-Hoops-Floor.png",
@@ -8478,6 +8572,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bucket-Rope-Floor.png",
@@ -8504,6 +8599,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Cauldron-Carried-Underside.png",
@@ -8694,6 +8790,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Cauldron-Body-Carried.png",
@@ -8864,6 +8961,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Cauldron-Liquid-Carried.png",
@@ -8970,6 +9068,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Cauldron-Body-Floor.png",
@@ -9024,6 +9123,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Cauldron-Fireplace-Floor.png",
@@ -9050,6 +9150,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Cauldron-Liquid-Floor.png",
@@ -9076,6 +9177,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Cauldron-Stand-Floor.png",
@@ -9102,6 +9204,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Cauldron-Rope-Floor.png",
@@ -9130,6 +9233,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Stone-Gear-On-Ground_Down.png",
@@ -9302,6 +9406,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Stone-Gear-On-Ground_Down.png",
@@ -9330,6 +9435,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Stone-Gear-On-Ground-Many_Down.png",
@@ -9358,6 +9464,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Fabric_Plain.png",
@@ -9530,6 +9637,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Linen-On-Ground_Down.png",
@@ -9558,6 +9666,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Linen-On-Ground-Many_Down.png",
@@ -9584,6 +9693,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Liquid-Tank.png",
@@ -9610,6 +9720,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Liquid-Tank.png",
@@ -9780,6 +9891,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Millstone.png",
@@ -9806,6 +9918,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Millstone.png",
@@ -9976,6 +10089,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resources_Half-pipe centre-to-north.png",
@@ -10002,6 +10116,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resources_Half-pipe centre-to-north.png",
@@ -10174,6 +10289,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Leather-Item_Base_Layer-Being_Carried_Down.png",
@@ -10341,6 +10457,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Leather-Item_Base_Layer-On_Ground_Down.png",
@@ -10369,6 +10486,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Leather-Item_Base_Layer-On_Ground-Many_Down.png",
@@ -10397,6 +10515,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Waterskin-Item_Base_Layer-On_Ground_Down.png",
@@ -10499,6 +10618,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Waterskin-Item_Base_Layer-On_Ground_Down.png",
@@ -10525,6 +10645,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Bread-Loaf.png",
@@ -10655,6 +10776,7 @@
   "maxQuantity" : 28,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Bread-Dough.png",
@@ -10681,6 +10803,7 @@
   "maxQuantity" : 7,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Product-Bread-Dough.png",
@@ -10851,6 +10974,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Rope.png",
@@ -11021,6 +11145,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Rope.png",
@@ -11049,6 +11174,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Bone-Large-Item_Base_Layer-On_Ground_Down.png",
@@ -11090,6 +11216,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Bone-Large-Item_Base_Layer-On_Ground_Down.png",
@@ -11117,6 +11244,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Bone-Large-Item_Base_Layer-On_Ground-Large_Down.png",
@@ -11144,6 +11272,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Bone-Large-Item_Base_Layer-On_Ground-Medium_Down.png",
@@ -11171,6 +11300,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground_Down.png",
@@ -11212,6 +11342,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground_Down.png",
@@ -11239,6 +11370,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground-Large_Down.png",
@@ -11266,6 +11398,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Bone-Medium-Item_Base_Layer-On_Ground-Medium_Down.png",
@@ -11293,6 +11426,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Bone-Small-Item_Base_Layer-On_Ground_Down.png",
@@ -11334,6 +11468,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Bone-Small-Item_Base_Layer-On_Ground_Down.png",
@@ -11361,6 +11496,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Bone-Small-Item_Base_Layer-On_Ground-Large_Down.png",
@@ -11388,6 +11524,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Bone-Small-Item_Base_Layer-On_Ground-Medium_Down.png",
@@ -11413,6 +11550,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -11446,6 +11584,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -11658,6 +11797,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -11684,6 +11824,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -11790,6 +11931,7 @@
   "maxQuantity" : 2,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Gem-Cut-Pile01.png",
@@ -11816,6 +11958,7 @@
   "maxQuantity" : 5,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Gem-Cut-Pile02.png",
@@ -11842,6 +11985,7 @@
   "maxQuantity" : 14,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Gem-Cut-Pile03.png",
@@ -11868,6 +12012,7 @@
   "maxQuantity" : 32,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Gem-Cut-Pile04.png",
@@ -11894,6 +12039,7 @@
   "maxQuantity" : 4,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Gem-Cut-Single.png",
@@ -12000,6 +12146,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Gems-Unrefined01.png",
@@ -12148,6 +12295,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Unrefined01.png",
@@ -12318,6 +12466,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Gems-Unrefined02.png",
@@ -12466,6 +12615,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Unrefined02.png",
@@ -12636,6 +12786,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Gems-Unrefined03.png",
@@ -12784,6 +12935,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Unrefined03.png",
@@ -12954,6 +13106,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -12994,6 +13147,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -13227,6 +13381,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack label.png",
@@ -13253,6 +13408,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack label.png",
@@ -13311,6 +13467,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -13337,6 +13494,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -13443,6 +13601,7 @@
   "maxQuantity" : 4,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Hemp_Bundle.png",
@@ -13469,6 +13628,7 @@
   "maxQuantity" : 4,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Hemp_Bundle.png",
@@ -13623,6 +13783,7 @@
   "maxQuantity" : 4,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Hemp_Bundle.png",
@@ -13649,6 +13810,7 @@
   "maxQuantity" : 4,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Hemp_Bundle.png",
@@ -13803,6 +13965,7 @@
   "maxQuantity" : 2,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Metal-Ingot-Pile01.png",
@@ -13829,6 +13992,7 @@
   "maxQuantity" : 7,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Metal-Ingot-Pile02.png",
@@ -13855,6 +14019,7 @@
   "maxQuantity" : 18,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Metal-Ingot-Pile03.png",
@@ -13881,6 +14046,7 @@
   "maxQuantity" : 32,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Metal-Ingot-Pile04.png",
@@ -13907,6 +14073,7 @@
   "maxQuantity" : 2,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Metal-Ingot-Single.png",
@@ -14059,6 +14226,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "drop.png",
@@ -14087,6 +14255,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large01-Pile01-Exterior.png",
@@ -14123,6 +14292,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large-Pile01-Interior.png",
@@ -14151,6 +14321,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large-Single-Interior.png",
@@ -14259,6 +14430,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large01-Pile01-Exterior.png",
@@ -14295,6 +14467,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large-Pile01-Interior.png",
@@ -14323,6 +14496,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large-Single-Interior.png",
@@ -14431,6 +14605,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large01-Pile01-Exterior.png",
@@ -14467,6 +14642,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large-Pile01-Interior.png",
@@ -14495,6 +14671,7 @@
   "itemStyle" : "STYLE_2",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large02-Pile01-Exterior.png",
@@ -14531,6 +14708,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small01-Pile01-Exterior.png",
@@ -14567,6 +14745,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small-Pile01-Interior.png",
@@ -14595,6 +14774,7 @@
   "itemStyle" : "STYLE_2",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small02-Pile01-Exterior.png",
@@ -14631,6 +14811,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large01-Pile02-Exterior.png",
@@ -14667,6 +14848,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large-Pile02-Interior.png",
@@ -14695,6 +14877,7 @@
   "itemStyle" : "STYLE_2",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large02-Pile02-Exterior.png",
@@ -14731,6 +14914,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small01-Pile02-Exterior.png",
@@ -14767,6 +14951,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small-Pile02-Interior.png",
@@ -14795,6 +14980,7 @@
   "itemStyle" : "STYLE_2",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small02-Pile02-Exterior.png",
@@ -14831,6 +15017,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large01-Pile03-Exterior.png",
@@ -14867,6 +15054,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large-Pile03-Interior.png",
@@ -14895,6 +15083,7 @@
   "itemStyle" : "STYLE_2",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large02-Pile03-Exterior.png",
@@ -14931,6 +15120,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small01-Pile03-Exterior.png",
@@ -14967,6 +15157,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small-Pile03-Interior.png",
@@ -14995,6 +15186,7 @@
   "itemStyle" : "STYLE_2",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small02-Pile03-Exterior.png",
@@ -15031,6 +15223,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large01-Pile04-Exterior.png",
@@ -15067,6 +15260,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large-Pile04-Interior.png",
@@ -15095,6 +15289,7 @@
   "itemStyle" : "STYLE_2",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large02-Pile04-Exterior.png",
@@ -15131,6 +15326,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small01-Pile04-Exterior.png",
@@ -15167,6 +15363,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small-Pile04-Interior.png",
@@ -15195,6 +15392,7 @@
   "itemStyle" : "STYLE_2",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small02-Pile04-Exterior.png",
@@ -15231,6 +15429,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large01-Single-Exterior.png",
@@ -15435,6 +15634,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large-Single-Interior.png",
@@ -15543,6 +15743,7 @@
   "itemStyle" : "STYLE_2",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Large02-Single-Exterior.png",
@@ -15747,6 +15948,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small01-Single-Exterior.png",
@@ -15951,6 +16153,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small-Single-Interior.png",
@@ -16059,6 +16262,7 @@
   "itemStyle" : "STYLE_2",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Logs-Small02-Single-Exterior.png",
@@ -16261,6 +16465,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bloom.png",
@@ -16287,6 +16492,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bloom.png",
@@ -16457,6 +16663,7 @@
   "maxQuantity" : 2,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Metal Plate Single.png",
@@ -16483,6 +16690,7 @@
   "maxQuantity" : 6,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Metal Plate Small Pile.png",
@@ -16509,6 +16717,7 @@
   "maxQuantity" : 12,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Metal Plate Medium Pile.png",
@@ -16535,6 +16744,7 @@
   "maxQuantity" : 2,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Metal Plate Single.png",
@@ -16691,6 +16901,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Giant Mushroom Carried Vertical.png",
@@ -16847,6 +17058,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Giant Mushroom Single Pile.png",
@@ -16875,6 +17087,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Giant Mushroom Small Pile.png",
@@ -16903,6 +17116,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Giant Mushroom Medium Pile.png",
@@ -16931,6 +17145,7 @@
   "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Giant Mushroom Large Pile.png",
@@ -16957,6 +17172,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bag.png",
@@ -16990,6 +17206,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bag.png",
@@ -17162,6 +17379,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bag-Rope.png",
@@ -17188,6 +17406,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bag-Rope.png",
@@ -17294,6 +17513,7 @@
   "maxQuantity" : 32,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Crushed Ore Contents.png",
@@ -17320,6 +17540,7 @@
   "maxQuantity" : 16,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Crushed Ore Contents.png",
@@ -17426,6 +17647,7 @@
   "maxQuantity" : 32,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Crushed Ore Cloth Top.png",
@@ -17459,6 +17681,7 @@
   "maxQuantity" : 16,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Crushed Ore Cloth Top.png",
@@ -17671,6 +17894,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Ore-Unrefined01.png",
@@ -17819,6 +18043,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Unrefined01.png",
@@ -17989,6 +18214,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Ore-Unrefined02.png",
@@ -18137,6 +18363,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Unrefined02.png",
@@ -18307,6 +18534,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Ore-Unrefined03.png",
@@ -18455,6 +18683,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Unrefined03.png",
@@ -18625,6 +18854,7 @@
   "maxQuantity" : 2,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Planks-Pile01.png",
@@ -18651,6 +18881,7 @@
   "maxQuantity" : 5,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Planks-Pile02.png",
@@ -18677,6 +18908,7 @@
   "maxQuantity" : 9,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Planks-Pile03.png",
@@ -18703,6 +18935,7 @@
   "maxQuantity" : 16,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Planks-Pile04.png",
@@ -18729,6 +18962,7 @@
   "maxQuantity" : 2,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Planks-Single-F.png",
@@ -18876,39 +19110,6 @@
     }
   }
 }, {
-  "uniqueName" : "Ingredient-Seeds-Bag-Ground",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Ingredient-Seeds",
-  "minQuantity" : 1,
-  "maxQuantity" : 50,
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Bag.png",
-      "coloringLayer" : "SEED_COLOR",
-      "isAnimated" : false,
-      "scale" : 0.7,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1",
-        "offsetPixels" : {
-          "x" : 8.0,
-          "y" : 9.5,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Ingredient-Seeds-Bag-Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Ingredient-Seeds",
@@ -18916,6 +19117,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bag.png",
@@ -18930,7 +19132,7 @@
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1",
+        "type" : "ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 8.0,
           "y" : 9.5,
@@ -18961,7 +19163,7 @@
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1",
+        "type" : "ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 8.0,
           "y" : 9.5,
@@ -18992,7 +19194,7 @@
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1",
+        "type" : "ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 8.0,
           "y" : 9.5,
@@ -19023,7 +19225,7 @@
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1",
+        "type" : "ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 8.0,
           "y" : 9.5,
@@ -19046,7 +19248,7 @@
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1",
+        "type" : "ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 8.0,
           "y" : 9.5,
@@ -19069,7 +19271,7 @@
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1",
+        "type" : "ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 8.0,
           "y" : 9.5,
@@ -19081,17 +19283,18 @@
     }
   }
 }, {
-  "uniqueName" : "Ingredient-Seeds-Bag-Rope-Ground",
-  "type" : "ABOVE_LAYER_1",
+  "uniqueName" : "Ingredient-Seeds-Bag-Ground",
+  "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Bag-Rope.png",
-      "coloringLayer" : "ROPE_COLOR",
+      "filename" : "Bag.png",
+      "coloringLayer" : "SEED_COLOR",
       "isAnimated" : false,
       "scale" : 0.7,
       "offsetPixels" : {
@@ -19101,19 +19304,27 @@
       },
       "flipX" : false,
       "flipY" : false,
-      "childAssets" : [ ],
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 8.0,
+          "y" : 9.5,
+          "unit" : false
+        }
+      } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
   }
 }, {
   "uniqueName" : "Ingredient-Seeds-Bag-Rope-Carried",
-  "type" : "ABOVE_LAYER_1",
+  "type" : "ABOVE_LAYER_2",
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bag-Rope.png",
@@ -19203,6 +19414,60 @@
       "offsetPixels" : {
         "x" : 0.0,
         "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Bag-Rope-With-Attachment-Ground",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Ingredient-Seeds",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Barley Seed", "Carrot Seed", "Corn Seed", "Hemp Seed", "Hops Seed", "Potato Seed", "Tomato Seed", "Wheat Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Bag-Rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 16.0,
+        "y" : 19.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Bag-Rope-Without-Attachment-Ground",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Ingredient-Seeds",
+  "minQuantity" : 1,
+  "maxQuantity" : 50,
+  "itemQualities" : [ ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Bag-Rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "isAnimated" : false,
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 16.0,
+        "y" : 19.0,
         "unit" : false
       },
       "flipX" : false,
@@ -19220,6 +19485,7 @@
   "maxQuantity" : 2,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Block-Pile01.png",
@@ -19246,6 +19512,7 @@
   "maxQuantity" : 5,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Block-Pile02.png",
@@ -19272,6 +19539,7 @@
   "maxQuantity" : 9,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Block-Pile03.png",
@@ -19298,6 +19566,7 @@
   "maxQuantity" : 16,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Block-Pile04.png",
@@ -19324,6 +19593,7 @@
   "maxQuantity" : 2,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Block-Single-F.png",
@@ -19478,6 +19748,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Unrefined01.png",
@@ -19648,6 +19919,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Unrefined02.png",
@@ -19818,6 +20090,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Resource-Stone-Unrefined03.png",
@@ -19988,6 +20261,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -20021,6 +20295,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -20233,6 +20508,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -20259,6 +20535,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -20365,6 +20642,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -20405,6 +20683,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack body.png",
@@ -20638,6 +20917,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack label.png",
@@ -20664,6 +20944,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack label.png",
@@ -20722,6 +21003,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -20748,6 +21030,7 @@
   "maxQuantity" : 30,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Sack rope.png",
@@ -20854,6 +21137,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-F.png",
@@ -21026,6 +21310,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Axe-Head-Being-Carried-F.png",
@@ -21132,6 +21417,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Axe-Handle-On-Ground.png",
@@ -21165,6 +21451,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Axe-Head-On-Ground.png",
@@ -21191,6 +21478,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-F.png",
@@ -21357,6 +21645,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Chisel-Blade-Being-Carried-F.png",
@@ -21463,6 +21752,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Chisel-Handle-On-Ground.png",
@@ -21495,6 +21785,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Chisel-Blade-On-Ground.png",
@@ -21521,6 +21812,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-F.png",
@@ -21687,6 +21979,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Fishing-Rod-Line-Being-Carried-F.png",
@@ -21793,6 +22086,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Fishing-Rod-Handle-On-Ground.png",
@@ -21825,6 +22119,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Fishing-Rod-Line-On-Ground.png",
@@ -21851,6 +22146,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-F.png",
@@ -21957,6 +22253,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Kitchen-Knife-Handle-Being-Carried-F.png",
@@ -22123,6 +22420,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Kitchen-Knife-Blade-On-Ground.png",
@@ -22149,6 +22447,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Kitchen-Knife-Handle-On-Ground.png",
@@ -22181,6 +22480,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Large-Hammer-Extras-Being-Carried-F.png",
@@ -22281,6 +22581,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Large-Hammer-Handle-Being-Carried-F.png",
@@ -22495,6 +22796,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Large-Hammer-Head-Being-Carried-F.png",
@@ -22601,6 +22903,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Large-Hammer-Extras-On-Ground.png",
@@ -22626,6 +22929,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Large-Hammer-Handle-On-Ground.png",
@@ -22652,6 +22956,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Large-Hammer-Head-On-Ground.png",
@@ -22692,6 +22997,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Pickaxe-Extras-Being-Carried-F.png",
@@ -22792,6 +23098,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-F.png",
@@ -23006,6 +23313,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Pickaxe-Head-Being-Carried-F.png",
@@ -23112,6 +23420,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Pickaxe-Extras-On-Ground.png",
@@ -23137,6 +23446,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Pickaxe-Handle-On-Ground.png",
@@ -23177,6 +23487,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Pickaxe-Head-On-Ground.png",
@@ -23203,6 +23514,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Plane-Extra-Being-Carried-F.png",
@@ -23369,6 +23681,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Plane-Body-Being-Carried-F.png",
@@ -23475,6 +23788,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Plane-Extra-On-Ground.png",
@@ -23507,6 +23821,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Plane-Body-On-Ground.png",
@@ -23533,6 +23848,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Rolling-Pin-Being-Carried-F.png",
@@ -23663,6 +23979,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Rolling-Pin-On-Ground.png",
@@ -23689,6 +24006,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-F.png",
@@ -23903,6 +24221,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Saw-Blade-Being-Carried-F.png",
@@ -24009,6 +24328,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Saw-Extras-Being-Carried-F.png",
@@ -24109,6 +24429,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Saw-Blade-On-Ground.png",
@@ -24149,6 +24470,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Saw-Handle-On-Ground.png",
@@ -24175,6 +24497,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Saw-Extras-On-Ground.png",
@@ -24200,6 +24523,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Small-Hammer-Being-Carried-F.png",
@@ -24330,6 +24654,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Small-Hammer-On-Ground.png",
@@ -24356,6 +24681,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Tongs-Extra-Being-Carried-F.png",
@@ -24522,6 +24848,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Tongs-Body-Being-Carried-F.png",
@@ -24628,6 +24955,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Tongs-Extra-On-Ground.png",
@@ -24660,6 +24988,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Tongs-Body-On-Ground.png",
@@ -24688,6 +25017,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "arrow-bodies.png",
@@ -24894,6 +25224,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "arrow-heads.png",
@@ -25000,6 +25331,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "arrow-bodies.png",
@@ -25032,6 +25364,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "arrow-heads.png",
@@ -25058,6 +25391,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "PROJECTILE" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "arrow-projectile.png",
@@ -25086,6 +25420,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : { }
 }, {
   "uniqueName" : "Weapon-Bone-Arrow-Heads-Item_Base_Layer-On_Ground",
@@ -25097,6 +25432,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "arrow-heads.png",
@@ -25125,6 +25461,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : { }
 }, {
   "uniqueName" : "Weapon-Metal-Arrow-Heads-Item_Base_Layer-On_Ground",
@@ -25136,6 +25473,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "arrow-heads.png",
@@ -25162,6 +25500,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "arrow-bodies.png",
@@ -25194,6 +25533,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "PROJECTILE" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "arrow-projectile.png",
@@ -25220,6 +25560,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "arrow-bodies.png",
@@ -25426,6 +25767,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "arrow-heads.png",
@@ -25452,6 +25794,7 @@
   "maxQuantity" : 50,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "arrow-heads.png",
@@ -25560,6 +25903,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
@@ -25722,6 +26066,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Metal-Bolts-Item_Base_Layer-On_Ground_Down.png",
@@ -25747,6 +26092,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bow-B.png",
@@ -25883,6 +26229,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Bow.png",
@@ -25916,6 +26263,7 @@
   "maxQuantity" : 1,
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "String-TrueColor.png",
@@ -25943,6 +26291,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Battle-Axe-Handle-Being_Carried_Down.png",
@@ -26129,6 +26478,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Battle-Axe-Handle-On_Ground_Down.png",
@@ -26164,6 +26514,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Battle-Axe-Head-Being_Carried_Down.png",
@@ -26272,6 +26623,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Battle-Axe-Head-On_Ground_Down.png",
@@ -26300,6 +26652,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Battle-Hammer-Grip-Being_Carried_Down.png",
@@ -26408,6 +26761,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Battle-Hammer-Grip-On_Ground_Down.png",
@@ -26436,6 +26790,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Battle-Hammer-Main-Being_Carried_Down.png",
@@ -26614,6 +26969,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Battle-Hammer-Main-On_Ground_Down.png",
@@ -26649,6 +27005,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Crossbow-Mechanism-Being_Carried_Down.png",
@@ -26757,6 +27114,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Crossbow-Mechanism-On_Ground_Down.png",
@@ -26785,6 +27143,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Crossbow-Stock-Being_Carried_Down.png",
@@ -27000,6 +27359,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Crossbow-Stock-On_Ground_Down.png",
@@ -27042,6 +27402,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Crossbow-String-Being_Carried_Down.png",
@@ -27144,6 +27505,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Crossbow-String-On_Ground_Down.png",
@@ -27171,6 +27533,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "UP" : {
       "filename" : "Weapon-Metal-Shield-Above_Layer_1-Being_Carried_Up.png",
@@ -27228,6 +27591,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Metal-Shield-Item_Base_Layer-Being_Carried_Down.png",
@@ -27357,6 +27721,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Metal-Shield-Item_Base_Layer-On_Ground_Down.png",
@@ -27385,6 +27750,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Sword-Blade-Being_Carried_Down.png",
@@ -27556,6 +27922,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Sword-Item_Base_Layer-On_Ground_Down.png",
@@ -27591,6 +27958,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Sword-Handle-Being_Carried_Down.png",
@@ -27693,6 +28061,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Sword-Above_Layer_1-On_Ground_Down.png",
@@ -27720,6 +28089,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "UP" : {
       "filename" : "Weapon-Wooden-Shield-Above_Layer_1-Being_Carried_Up.png",
@@ -27777,6 +28147,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Wooden-Shield-Item_Base_Layer-Being_Carried_Down.png",
@@ -27906,6 +28277,7 @@
   "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Weapon-Wooden-Shield-Item_Base_Layer-On_Ground_Down.png",

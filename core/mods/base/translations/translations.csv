@@ -1139,7 +1139,7 @@ RESOURCE.SHOCKED.MUSHROOM.LOG.PLURAL,,Mushroom logs
 RESOURCE.SHOCKED.MUSHROOM.LOG.TOOLTIP,,This mushroom-infused log has been “shocked” in water to encourage the mushrooms to develop and should produce a harvest soon.
 RESOURCE.STONE.BLOCK.NOUN,,Block
 RESOURCE.STONE.BLOCK.PLURAL,,Blocks
-RESOURCE.STONE.BLOCK.TOOLTIP,,Stone that has been shaped into a cube so that is can be easily used in construction or crafting.
+RESOURCE.STONE.BLOCK.TOOLTIP,,Stone that has been shaped into a cube so that i can be easily used in construction or crafting.
 RESOURCE.STONE.UNREFINED.NOUN,,Rough stone boulder
 RESOURCE.STONE.UNREFINED.PLURAL,,Rough stone boulders
 RESOURCE.STONE.UNREFINED.TOOLTIP,,A huge piece of stone that must be chiselled into a more useful shape by a {{PROFESSION.STONEMASON}}.
