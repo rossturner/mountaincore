@@ -204,6 +204,19 @@ public class TiledMap {
 		return getTile(tilePosition.x, tilePosition.y);
 	}
 
+	public MapTile getTileWithinBounds(Vector2 worldPosition) {
+		MapTile tile = getTile(worldPosition);
+		if (tile == null) {
+			Vector2 clonedWorldPosition = worldPosition.cpy();
+			clonedWorldPosition.x = Math.max(Math.min(clonedWorldPosition.x, width), 0);
+			clonedWorldPosition.y = Math.max(Math.min(clonedWorldPosition.y, height), 0);
+			return getTile(clonedWorldPosition);
+		} else {
+			return tile;
+		}
+	}
+
+
 	public MapTile getTile(Vector2 worldPosition) {
 		if (worldPosition == null) {
 			return null;
@@ -288,4 +301,5 @@ public class TiledMap {
 	public List<MapTile> getTilesForPercentile(int percentile) {
 		return tilesByPercentile.getOrDefault(percentile, emptyList());
 	}
+
 }
