@@ -139,6 +139,18 @@
   "requiredProfessionName" : "FARMER",
   "accessedFromAdjacentTile" : true
 }, {
+  "name" : "HARVESTING",
+  "overrideI18nKey" : "ACTION.JOB.HARVESTING",
+  "removeJobWhenAssignmentCancelled" : false,
+  "haulItemWhileWorking" : false,
+  "usesWorkstationTool" : false,
+  "minimumTimeToCompleteJob" : 0.75,
+  "maximumTimeToCompleteJob" : 5.25,
+  "experienceAwardedOnCompletion" : 1,
+  "activeSoundAssetName" : "HarvestingCrops",
+  "workOnJobParticleEffectNames" : [ "Small leaf explosion" ],
+  "accessedFromAdjacentTile" : false
+}, {
   "name" : "HARVEST_FROM_FURNITURE",
   "overrideI18nKey" : "ACTION.JOB.HARVESTING",
   "removeJobWhenAssignmentCancelled" : false,

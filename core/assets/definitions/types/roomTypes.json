@@ -72,7 +72,7 @@
 }, {
   "roomName" : "BARRAKCS",
   "i18nKey" : "ROOMS.BARRACKS",
-  "drawableName" : "MISSING",
+  "drawableName" : "btn_room_barracks",
   "colorCode" : "#c4b2c5",
   "furnitureNames" : [ "BARRACKS_BED", "TRAINING_DUMMY", "ARCHERY_TARGET", "Armour_Stand", "Weapon_Rack" ],
   "tags" : { }

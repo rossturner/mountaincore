@@ -6,7 +6,7 @@ filter: MipMapLinearLinear, Linear
 repeat: none
 asset_add
   rotate: false
-  xy: 1679, 219
+  xy: 1840, 206
   size: 108, 108
   orig: 108, 108
   offset: 0, 0
@@ -41,28 +41,28 @@ asset_dwarf_select_bg
   index: -1
 asset_season_autumn_icon
   rotate: false
-  xy: 1791, 281
+  xy: 1952, 268
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_spring_icon
   rotate: false
-  xy: 1791, 231
+  xy: 1952, 218
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_summer_icon
   rotate: false
-  xy: 1840, 455
+  xy: 542, 111
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_winter_icon
   rotate: false
-  xy: 1840, 405
+  xy: 592, 111
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
@@ -84,42 +84,42 @@ asset_small_title_bg_ribbon
   index: -1
 asset_weather_cloudy_grey_icon
   rotate: false
-  xy: 1993, 1942
+  xy: 1586, 1160
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_nice_icon
   rotate: false
-  xy: 1840, 355
+  xy: 642, 111
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_rain_icon
   rotate: false
-  xy: 1644, 55
+  xy: 1679, 94
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_snow_icon
   rotate: false
-  xy: 1644, 5
+  xy: 1729, 94
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_storm_icon
   rotate: false
-  xy: 1694, 71
+  xy: 1779, 94
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_windy_icon
   rotate: false
-  xy: 1694, 21
+  xy: 1588, 1210
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
@@ -133,35 +133,35 @@ btn_add_tile
   index: -1
 btn_arrow_small
   rotate: false
-  xy: 1744, 57
+  xy: 1898, 1696
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_arrow_small_left
   rotate: false
-  xy: 1769, 155
+  xy: 1898, 1632
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_arrow_small_left_disabled
   rotate: false
-  xy: 1799, 167
+  xy: 1898, 1568
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_arrow_small_right_disabled
   rotate: false
-  xy: 1884, 1484
+  xy: 1926, 142
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_back
   rotate: false
-  xy: 1924, 1780
+  xy: 1588, 1260
   size: 65, 188
   orig: 65, 188
   offset: 0, 0
@@ -196,49 +196,49 @@ btn_bottom_zones
   index: -1
 btn_crafting_priority
   rotate: false
-  xy: 1679, 121
+  xy: 1104, 7
   size: 86, 94
   orig: 86, 94
   offset: 0, 0
   index: -1
 btn_crafting_priority_0
   rotate: false
-  xy: 1104, 7
+  xy: 1194, 7
   size: 86, 94
   orig: 86, 94
   offset: 0, 0
   index: -1
 btn_crafting_priority_1
   rotate: false
-  xy: 1194, 7
+  xy: 1284, 7
   size: 86, 94
   orig: 86, 94
   offset: 0, 0
   index: -1
 btn_crafting_priority_2
   rotate: false
-  xy: 1284, 7
+  xy: 1374, 7
   size: 86, 94
   orig: 86, 94
   offset: 0, 0
   index: -1
 btn_crafting_priority_3
   rotate: false
-  xy: 1374, 7
+  xy: 1464, 7
   size: 86, 94
   orig: 86, 94
   offset: 0, 0
   index: -1
 btn_crafting_priority_4
   rotate: false
-  xy: 1464, 7
+  xy: 1554, 7
   size: 86, 94
   orig: 86, 94
   offset: 0, 0
   index: -1
 btn_crafting_priority_5
   rotate: false
-  xy: 1554, 7
+  xy: 1924, 1874
   size: 86, 94
   orig: 86, 94
   offset: 0, 0
@@ -287,14 +287,14 @@ btn_map_resize
   index: -1
 btn_pause_off
   rotate: false
-  xy: 1993, 1768
+  xy: 1657, 1394
   size: 36, 54
   orig: 36, 54
   offset: 0, 0
   index: -1
 btn_pause_on
   rotate: false
-  xy: 1898, 1702
+  xy: 1657, 1336
   size: 36, 54
   orig: 36, 54
   offset: 0, 0
@@ -316,6 +316,13 @@ btn_room_armory
 btn_room_artisan
   rotate: false
   xy: 1697, 1361
+  size: 183, 183
+  orig: 183, 183
+  offset: 0, 0
+  index: -1
+btn_room_barracks
+  rotate: false
+  xy: 1560, 666
   size: 183, 183
   orig: 183, 183
   offset: 0, 0
@@ -427,56 +434,56 @@ btn_room_weaver
   index: -1
 btn_small_arrow_left
   rotate: false
-  xy: 1898, 1638
+  xy: 1644, 41
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_small_arrow_right
   rotate: false
-  xy: 1898, 1574
+  xy: 1657, 1272
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_speed_1_off
   rotate: false
-  xy: 1993, 1884
+  xy: 2004, 1816
   size: 42, 54
   orig: 42, 54
   offset: 0, 0
   index: -1
 btn_speed_1_on
   rotate: false
-  xy: 1993, 1826
+  xy: 1586, 1102
   size: 42, 54
   orig: 42, 54
   offset: 0, 0
   index: -1
 btn_speed_2_off
   rotate: false
-  xy: 282, 45
+  xy: 1924, 1772
   size: 62, 54
   orig: 62, 54
   offset: 0, 0
   index: -1
 btn_speed_2_on
   rotate: false
-  xy: 348, 45
+  xy: 282, 45
   size: 62, 54
   orig: 62, 54
   offset: 0, 0
   index: -1
 btn_speed_3_off
   rotate: false
-  xy: 376, 103
+  xy: 1840, 148
   size: 82, 54
   orig: 82, 54
   offset: 0, 0
   index: -1
 btn_speed_3_on
   rotate: false
-  xy: 462, 103
+  xy: 376, 103
   size: 82, 54
   orig: 82, 54
   offset: 0, 0
@@ -553,35 +560,35 @@ btn_stockpile_weapons
   index: -1
 btn_top_crafting
   rotate: false
-  xy: 1560, 679
+  xy: 1560, 492
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 btn_top_military
   rotate: false
-  xy: 1560, 505
+  xy: 1679, 318
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 btn_top_resources
   rotate: false
-  xy: 1721, 679
+  xy: 1679, 144
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 btn_top_settlers
   rotate: false
-  xy: 1721, 505
+  xy: 1721, 492
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
   index: -1
 btn_top_trading
   rotate: false
-  xy: 1679, 331
+  xy: 1840, 318
   size: 157, 170
   orig: 157, 170
   offset: 0, 0
@@ -602,28 +609,28 @@ hover_state_label
   index: -1
 hover_state_label_arrow_down
   rotate: false
-  xy: 548, 117
+  xy: 1924, 1830
   size: 76, 40
   orig: 76, 40
   offset: 0, 0
   index: -1
 hover_state_label_arrow_up
   rotate: false
-  xy: 628, 117
+  xy: 462, 117
   size: 76, 40
   orig: 76, 40
   offset: 0, 0
   index: -1
 icon_alert_small
   rotate: false
-  xy: 470, 54
+  xy: 404, 54
   size: 49, 45
   orig: 49, 45
   offset: 0, 0
   index: -1
 icon_edit
   rotate: false
-  xy: 414, 39
+  xy: 348, 39
   size: 52, 60
   orig: 52, 60
   offset: 0, 0

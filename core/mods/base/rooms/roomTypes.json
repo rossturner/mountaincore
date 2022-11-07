@@ -98,7 +98,7 @@
     "roomName": "BARRAKCS",
     "i18nKey": "ROOMS.BARRACKS",
     "colorCode": "#c4b2c5",
-    "drawableName": "MISSING",
+    "drawableName": "btn_room_barracks",
     "furnitureNames": [
       "BARRACKS_BED",
       "TRAINING_DUMMY",
