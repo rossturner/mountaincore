@@ -9,7 +9,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.AssetDisposable;
 import technology.rocketjump.saul.audio.model.JukeboxState;
 import technology.rocketjump.saul.combat.CombatTracker;
@@ -30,7 +29,7 @@ import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceK
 public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAware {
 
 	public static final String DEFAULT_VOLUME_AS_STRING = "0.24";
-	private static final float TIME_AFTER_STINGER_TO_SWITCH_STATE = 3f;
+	private static final float TIME_AFTER_STINGER_TO_SWITCH_STATE = 2f;
 	private static final float VOLUME_CHANGE_IN_SECONDS = 5f;
 	private static final float DELAY_BEFORE_EXITING_COMBAT = CombatTracker.COMBAT_ROUND_DURATION * 1.5f;
 	private final UserPreferences userPreferences;
@@ -45,7 +44,6 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 	private Music skirmishTrack;
 	private Music invasionStinger;
 	private Music invasionTrack;
-	private float invasionStingerDuration;
 	private JukeboxState currentState = JukeboxState.PEACEFUL;
 	private float timeInCurrentState = 0f;
 	private boolean shutdown;
@@ -248,8 +246,7 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 					timeInCurrentState = 0f;
 				}
 
-				if (timeInCurrentState > invasionStingerDuration * 0.7f) {
-					Logger.debug("Time in current state: " + timeInCurrentState);
+				if (timeInCurrentState > TIME_AFTER_STINGER_TO_SWITCH_STATE) {
 					setState(INVASION_IN_PROGRESS);
 				}
 			}
@@ -296,17 +293,18 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 	private void loadSkirmishTrack() {
 		this.skirmishTrack = Gdx.audio.newMusic(skirmishFileList.get(random.nextInt(skirmishFileList.size())));
 		this.skirmishTrack.setVolume(volume);
+		this.skirmishTrack.setLooping(true);
 	}
 
 	private void loadInvasionStinger() {
 		this.invasionStinger = Gdx.audio.newMusic(invasionStingerFileList.get(random.nextInt(invasionStingerFileList.size())));
 		this.invasionStinger.setVolume(volume);
-		this.invasionStingerDuration = 3f;
 	}
 
 	private void loadInvasionTrack() {
 		this.invasionTrack = Gdx.audio.newMusic(invasionFileList.get(random.nextInt(invasionFileList.size())));
 		this.invasionTrack.setVolume(volume);
+		this.invasionTrack.setLooping(true);
 	}
 
 	@Override
