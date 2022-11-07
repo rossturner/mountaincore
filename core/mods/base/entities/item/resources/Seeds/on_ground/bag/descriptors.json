@@ -3,6 +3,7 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -104,6 +105,7 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

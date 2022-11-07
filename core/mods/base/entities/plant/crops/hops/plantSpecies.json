@@ -1,5 +1,6 @@
 {
   "speciesName": "Hops",
+  "usageI18nKey" : "VEGETABLE.FOR_BEER.USAGE",
   "plantType": "CROP",
   "materialName": "Plant",
   "maxGrowthSpeedVariance": 0.01,

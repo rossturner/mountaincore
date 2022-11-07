@@ -3,6 +3,7 @@
   "type" : "ABOVE_LAYER_2",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -41,6 +42,7 @@
   "type" : "ABOVE_LAYER_2",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Barley Seed", "Carrot Seed", "Corn Seed", "Hemp Seed", "Hops Seed", "Potato Seed", "Tomato Seed", "Wheat Seed" ],
   "spriteDescriptors" : {
@@ -62,6 +64,7 @@
   "type" : "ABOVE_LAYER_2",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
+  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

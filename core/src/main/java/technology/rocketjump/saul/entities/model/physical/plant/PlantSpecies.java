@@ -14,6 +14,7 @@ public class PlantSpecies {
 
 	@Name
 	private String speciesName;
+	private String usageI18nKey; // to describe how the plant is used
 	private PlantSpeciesType plantType;
 	private String representativeColor;
 	private String materialName;
@@ -212,4 +213,13 @@ public class PlantSpecies {
 	public void setIgnoresMoisture(boolean ignoresMoisture) {
 		this.ignoresMoisture = ignoresMoisture;
 	}
+
+	public String getUsageI18nKey() {
+		return usageI18nKey;
+	}
+
+	public void setUsageI18nKey(String usageI18nKey) {
+		this.usageI18nKey = usageI18nKey;
+	}
+
 }

@@ -11,7 +11,6 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemTypeWithMater
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
-import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.ItemAvailabilityChecker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -59,7 +58,6 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 		this.entityRenderer = entityRenderer;
 		this.tooltipFactory = tooltipFactory;
 
-		this.setDebug(GlobalSettings.UI_DEBUG);
 	}
 
 	public void changeSelectedFurniture(FurnitureType furnitureType) {

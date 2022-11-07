@@ -17,15 +17,16 @@ import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
+import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.RoomType;
+import technology.rocketjump.saul.rooms.components.FarmPlotComponent;
 import technology.rocketjump.saul.rooms.components.RoomComponent;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
@@ -41,6 +42,8 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
 import technology.rocketjump.saul.ui.widgets.TextInputDialog;
+import technology.rocketjump.saul.ui.widgets.rooms.FarmPlotDescriptionWidget;
+import technology.rocketjump.saul.ui.widgets.rooms.FarmPlotWidget;
 import technology.rocketjump.saul.ui.widgets.rooms.RoomPriorityWidget;
 
 @Singleton
@@ -57,6 +60,8 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final RoomEditorFurnitureMap furnitureMap;
 	private final EntityRenderer entityRenderer;
 	private final RoomStore roomStore;
+	private final RoomEditorItemMap itemMap;
+	private final PlantSpeciesDictionary plantSpeciesDictionary;
 	private final Table headerContainer;
 	private final Button changeRoomNameButton;
 	private final Table sizingButtons;
@@ -73,7 +78,8 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	public RoomEditingView(MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository,
 						   I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
 						   FurnitureTypeDictionary furnitureTypeDictionary, RoomEditorFurnitureMap furnitureMap,
-						   EntityRenderer entityRenderer, RoomStore roomStore, FurnitureMaterialsWidget furnitureMaterialsWidget) {
+						   EntityRenderer entityRenderer, RoomStore roomStore, RoomEditorItemMap itemMap,
+						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
@@ -83,6 +89,8 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
 		this.entityRenderer = entityRenderer;
 		this.roomStore = roomStore;
+		this.itemMap = itemMap;
+		this.plantSpeciesDictionary = plantSpeciesDictionary;
 		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
 
 		backButton = new Button(skin.getDrawable("btn_back"));
@@ -200,14 +208,21 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		sizingButtonsContainer.right();
 
 		Table topRow = new Table();
-		topRow.setDebug(true);
 		topRow.add(new Container<>()).left().expandX().width(sizingButtonsContainer.getWidth());
 		topRow.add(headerContainer).center().width(900).expandY();
 		topRow.add(sizingButtonsContainer).right().expandX().width(sizingButtonsContainer.getWidth());
 
-		mainTable.add(topRow).top().expandX().fillX().padBottom(20).row();
+		mainTable.defaults().padBottom(20);
+		mainTable.add(topRow).top().expandX().fillX().row();
 
 		if (selectedRoom != null) {
+			FarmPlotComponent farmPlotComponent = selectedRoom.getComponent(FarmPlotComponent.class);
+			FarmPlotDescriptionWidget farmPlotDescriptionWidget = new FarmPlotDescriptionWidget(farmPlotComponent, i18nTranslator, skin);
+
+			if (farmPlotComponent != null) {
+				mainTable.add(farmPlotDescriptionWidget).center().row();
+			}
+
 			for (RoomComponent roomComponent : selectedRoom.getAllComponents()) {
 				if (roomComponent instanceof SelectableDescription) {
 					for (I18nText description : ((SelectableDescription) roomComponent).getDescription(i18nTranslator, gameContext, messageDispatcher)) {
@@ -219,6 +234,13 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 					mainTable.add(new RoomPriorityWidget(selectedRoom, prioritisableComponent, skin, tooltipFactory, messageDispatcher)).center().row();
 				}
 			}
+
+			if (farmPlotComponent != null) {
+				FarmPlotWidget farmPlotWidget = new FarmPlotWidget(selectedRoom, farmPlotComponent, skin, tooltipFactory, messageDispatcher,
+						plantSpeciesDictionary, itemMap, entityRenderer, i18nTranslator);
+				farmPlotWidget.setOnSeedChange(farmPlotDescriptionWidget::cropChanged);
+				mainTable.add(farmPlotWidget).center().row();
+			}
 		}
 
 		// TODO seed selection if farm plot
@@ -227,7 +249,6 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			int furnitureCursor = 0;
 			Table furnitureTable = new Table();
 			furnitureTable.defaults().padRight(5);
-			furnitureTable.setDebug(GlobalSettings.UI_DEBUG);
 
 			for (String furnitureName : selectedRoomType.getFurnitureNames()) {
 				FurnitureType furnitureType = furnitureTypeDictionary.getByName(furnitureName);

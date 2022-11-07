@@ -442,6 +442,12 @@ GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}}
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total)
 GUI.CROP_SELECTION,,Crop:
+GUI.CROP_SELECTION.DESCRIPTION,,"{{plantDescription}} - {{planting}} - {{usage}}"
+GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_0,,Can not be planted
+GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_1,,Plant in {{season1}}
+GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_2,,Plant in {{season1}} or {{season2}}
+GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_3,,"Plant in {{season1}}, {{season2}} or {{season3}}"
+GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_4,,Planted all year round
 GUI.DATE_TIME_YEAR_LABEL,"E.g. 09:20, Day 4, Year 2","{{timeOfDay}}, Day {{dayNumber}}, Year {{year}}"
 GUI.DAY_LABEL,,Day {{dayNumber}}
 GUI.DECONSTRUCT_LABEL,This should be as short as possible,Demolish
@@ -480,7 +486,7 @@ GUI.FURNITURE_BEING_REMOVED,Label for when a piece of furniture is in the proces
 GUI.FURNITURE_REQUIRES_FLOOR_MATERIALTYPE,,This furniture must be placed on {{materialType}}.
 GUI.GRAPHICS.FULLSCREEN,,Fullscreen
 GUI.GRAPHICS.RESOLUTION,,Resolution
-GUI.LEAVE_CROP_FALLOW,,None (Leave fallow)
+GUI.LEAVE_CROP_FALLOW,,No crop is currently selected to be planted
 GUI.LOAD_GAME.TABLE.DATE_TIME,,Last modified
 GUI.LOAD_GAME.TABLE.DELETE,,Delete
 GUI.LOAD_GAME.TABLE.GAME_TIME,,World time
@@ -891,11 +897,11 @@ OTHER.CLAY_SOIL.NOUN,,Clay soil
 OTHER.GRASS.NOUN,,
 
 PRIORITY.DISABLED,,Disabled
-PRIORITY.HIGHER,,Higher
-PRIORITY.HIGHEST,,Highest
-PRIORITY.LOWER,,Lower
-PRIORITY.LOWEST,,Lowest
-PRIORITY.NORMAL,,Normal
+PRIORITY.HIGHER,,Higher priority
+PRIORITY.HIGHEST,,Highest priority
+PRIORITY.LOWER,,Lower priority
+PRIORITY.LOWEST,,Lowest priority
+PRIORITY.NORMAL,,Normal priority
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting
@@ -1399,12 +1405,14 @@ TUTORIAL.TIME.D,,You can also click the speed icons to change the speed or pause
 VEGETABLE.BARLEY,,Barley
 VEGETABLE.BARLEY.PLURAL,,Barley
 VEGETABLE.BARLEY.TOOLTIP,,"A grain used only in the production of beer. Can be planted in {{SEASON.SPRING}}, {{SEASON.SUMMER}} or {{SEASON.AUTUMN}}."
+VEGETABLE.FOR_BEER.USAGE,,"used in the brewing of {{LIQUID.BEER}}"
 VEGETABLE.BERSERKER_MUSHROOM,,Berserker mushroom
 VEGETABLE.BERSERKER_MUSHROOM.PLURAL,,Berserker mushrooms
 VEGETABLE.BERSERKER_MUSHROOM.TOOLTIP,,A mushroom with a pink-red cap bearing white spots. It has hallucinogenic properties which warriors sometimes use in preparation for battle.
 VEGETABLE.CARROT,,Carrot
 VEGETABLE.CARROT.PLURAL,,Carrots
 VEGETABLE.CARROT.TOOLTIP,,"A hardy root vegetable that survives the {{SEASON.WINTER}} frost. Carrots grow quickly but only produce a small crop. Can be planted in {{SEASON.SPRING}}, {{SEASON.SUMMER}} or {{SEASON.AUTUMN}}."
+VEGETABLE.INGREDIENT.USAGE,,"used in the cooking of soup, or can be eaten raw"
 VEGETABLE.CORN,,Sweetcorn
 VEGETABLE.CORN.PLURAL,,Sweetcorn
 VEGETABLE.CORN.TOOLTIP,,"A cereal grain also known as maize. It produces a bountiful crop but takes around 2 seasons to grow and can not survive {{SEASON.WINTER}}, so it requires planting in early {{SEASON.SPRING}}."
@@ -1425,6 +1433,7 @@ VEGETABLE.GLOW_MUSHROOM.TOOLTIP,,A magic-infused mushroom that gives off light a
 VEGETABLE.HEMP,,Hemp
 VEGETABLE.HEMP.PLURAL,,Hemp
 VEGETABLE.HEMP.TOOLTIP,,This is processed at the {{ROOMS.TEXTILE_WORKSHOP}} to a useful material.
+VEGETABLE.HEMP.USAGE,,"a material required to produce {{PRODUCT.LINEN}} in a {{ROOMS.TEXTILE_WORKSHOP}}"
 VEGETABLE.HEMP_FIBRE,,Hemp fibre
 VEGETABLE.HEMP_FIBRE.PLURAL,,Hemp fibre
 VEGETABLE.HOPS,,Hops
@@ -1459,6 +1468,7 @@ VEGETABLE.TOMATO.PLURAL,,Tomatoes
 VEGETABLE.TOMATO.TOOLTIP,,A plant which grows large red berries often used as a vegetable. Can only be planted in {{SEASON.SPRING}}.
 VEGETABLE.WHEAT,,Wheat
 VEGETABLE.WHEAT.PLURAL,,Wheat
+VEGETABLE.WHEAT.USAGE,,used to bake bread
 VEGETABLE.WHEAT.TOOLTIP,,"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}."
 
 VITRIOL.GREEN_VITRIOL.ADJECTIVE,,Green

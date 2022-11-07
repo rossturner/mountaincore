@@ -1,5 +1,6 @@
 {
   "speciesName": "Maize",
+  "usageI18nKey" : "VEGETABLE.INGREDIENT.USAGE",
   "plantType": "CROP",
   "materialName": "Plant",
   "maxGrowthSpeedVariance": 0.01,

@@ -114,7 +114,7 @@ public class I18nText implements I18nString {
 			textElements.add(new I18nTextElement(combinedText, null));
 		}
 
-		boolean initialCapitalised = false;
+		boolean initialCapitalised = !firstInvocation;
 		boolean previousEndedWithSpace = false;
 		ListIterator<I18nTextElement> iterator = textElements.listIterator();
 		while (iterator.hasNext()) {

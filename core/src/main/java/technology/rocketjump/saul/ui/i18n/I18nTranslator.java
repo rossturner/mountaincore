@@ -132,7 +132,7 @@ public class I18nTranslator {
 				MechanismEntityAttributes mechanismEntityAttributes = (MechanismEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 				return getMechanismDescription(mechanismEntityAttributes.getMechanismType(), mechanismEntityAttributes.getPrimaryMaterial());
 			case PLANT:
-				return getDescription(entity, (PlantEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
+				return getDescription((PlantEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
 			case FURNITURE:
 				return getDescription((FurnitureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
 			default:
@@ -605,7 +605,7 @@ public class I18nTranslator {
 		return applyReplacements(dictionary.getWord("ITEM.AVAILABILITY.DESCRIPTION"), replacements, Gender.ANY);
 	}
 
-	private I18nText getDescription(Entity entity, PlantEntityAttributes attributes) {
+	public I18nText getDescription(PlantEntityAttributes attributes) {
 		Map<String, I18nString> replacements = new HashMap<>();
 
 		switch (attributes.getSpecies().getPlantType()) {

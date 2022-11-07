@@ -1,16 +1,15 @@
-[{
-  "uniqueName": "Barley-Late",
-  "type": "PLANT_BRANCHES",
-  "speciesName": "Barley",
-  "growthStages": [3, 4, 5],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "crop_wheat_late.png",
-      "coloringLayer": "BRANCHES_COLOR",
-      "offsetPixels": {
-        "x": 0,
-        "y": 16
+[ {
+  "uniqueName" : "Barley-Late",
+  "type" : "PLANT_BRANCHES",
+  "speciesName" : "Barley",
+  "growthStages" : [ 3, 4, 5 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "crop_wheat_late.png",
+      "coloringLayer" : "BRANCHES_COLOR",
+      "offsetPixels" : {
+        "y" : 16.0
       }
     }
   }
-}]
+} ]

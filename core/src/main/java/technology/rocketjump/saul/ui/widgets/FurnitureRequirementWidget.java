@@ -9,7 +9,6 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttribu
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.ItemAvailabilityChecker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -52,7 +51,6 @@ public class FurnitureRequirementWidget extends Table {
 		this.itemEntity = itemEntity;
 		this.defaultDisplayMaterial = defaultDisplayMaterial;
 
-		this.setDebug(GlobalSettings.UI_DEBUG);
 		this.defaults().pad(4);
 
 		materials = new ArrayList<>(itemAvailabilityChecker.getAvailableMaterialsFor(requirement.getItemType(), requirement.getQuantity()));
