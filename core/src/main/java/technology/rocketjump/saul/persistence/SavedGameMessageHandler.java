@@ -326,6 +326,7 @@ public class SavedGameMessageHandler implements Telegraph, GameContextAware, Ass
 		headerJson.put("version", mainJsonContent.getString("version"));
 		headerJson.put("mods", mainJsonContent.getJSONObject("mods"));
 		headerJson.put("clock", mainJsonContent.getJSONObject("clock"));
+		headerJson.put("peacefulMode", mainJsonContent.getJSONObject("settlementState").getBooleanValue("peacefulMode"));
 		return headerJson;
 	}
 

@@ -67,8 +67,9 @@ public class GameContextFactory {
 		this.settlerRace = raceDictionary.getByName("Dwarf"); // MODDING expose and test this
 	}
 
-	public GameContext create(String settlementName, TiledMap areaMap, long worldSeed, GameClock clock) {
+	public GameContext create(String settlementName, TiledMap areaMap, long worldSeed, GameClock clock, boolean peacefulMode) {
 		GameContext context = new GameContext();
+		context.getSettlementState().setPeacefulMode(peacefulMode);
 		context.getSettlementState().setSettlementName(settlementName);
 		context.getSettlementState().setSettlerRace(settlerRace);
 
@@ -158,8 +159,9 @@ public class GameContextFactory {
 				Logger.error("Unrecognised material name from liquidProductionDefaults.json: " + liquidMaterialName);
 			}
 		}
-
-		initialise(settlementState.daysUntilNextInvasionCheck, random);
+		if (!settlementState.isPeacefulMode()) {
+			initialise(settlementState.daysUntilNextInvasionCheck, random);
+		}
 	}
 
 	private void initialise(Map<InvasionDefinition, Integer> daysUntilNextInvasionCheck, Random random) {

@@ -238,7 +238,7 @@ public class UserPreferences {
 		assignInput(CommandName.DEBUG_GAME_SPEED_SLOW, Set.of(Input.Keys.NUM_6), true);
 
 		assignInput(CommandName.QUICKSAVE, Set.of(Input.Keys.F5), true);
-		assignInput(CommandName.QUICKLOAD, Set.of(Input.Keys.F5), true);
+		assignInput(CommandName.QUICKLOAD, Set.of(Input.Keys.F8), true);
 
 		assignInput(CommandName.DEBUG_SHOW_MENU, Set.of(Input.Keys.GRAVE), true);
 		assignInput(CommandName.DEBUG_SHOW_JOB_STATUS, Set.of(Input.Keys.J), true);

@@ -70,6 +70,7 @@ public class SettlementState implements Persistable {
 
 	private InvasionDefinition incomingInvasion;
 	private Double hoursUntilInvasion;
+	private boolean peacefulMode;
 
 	public String getSettlementName() {
 		return settlementName;
@@ -155,11 +156,20 @@ public class SettlementState implements Persistable {
 		this.hoursUntilInvasion = hoursUntilInvasion;
 	}
 
+	public boolean isPeacefulMode() {
+		return peacefulMode;
+	}
+
+	public void setPeacefulMode(boolean peacefulMode) {
+		this.peacefulMode = peacefulMode;
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		JSONObject asJson = savedGameStateHolder.settlementStateJson;
 
 		asJson.put("settlementName", settlementName);
+		asJson.put("peacefulMode", peacefulMode);
 
 		JSONObject furnitureEntityJson = new JSONObject(true);
 		for (Map.Entry<Long, Entity> entry : furnitureHoldingCompletedCooking.entrySet()) {
@@ -333,6 +343,7 @@ public class SettlementState implements Persistable {
 		if (this.settlementName == null) {
 			throw new InvalidSaveException("Settlement name not specified");
 		}
+		this.peacefulMode = asJson.getBooleanValue("peacefulMode");
 
 		JSONObject furnitureEntityJson = asJson.getJSONObject("furnitureHoldingCompletedCooking");
 		for (String keyString : furnitureEntityJson.keySet()) {
