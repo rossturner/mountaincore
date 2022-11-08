@@ -36,7 +36,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 @Singleton
-public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
+public class LoadGameMenu extends PaperMenu implements GameContextAware, DisplaysText {
 
 	private static final float SAVE_SLOT_WIDTH = 824.0f;
 	private static final float SAVE_SLOT_HEIGHT = 1144.0f;
@@ -47,10 +47,8 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 	private final SoundAssetDictionary soundAssetDictionary;
 	private final MenuButtonFactory menuButtonFactory;
 	private final SavedGameStore savedGameStore;
-	private final Skin skin;
 	private final Skin mainGameSkin;
 	private final I18nTranslator i18nTranslator;
-	private final Stack stack = new Stack();
 	private int carouselIndex = 0;
 
 	private java.util.List<Table> slots;
@@ -66,11 +64,11 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 	public LoadGameMenu(GuiSkinRepository skinRepository, MessageDispatcher messageDispatcher,
 						SoundAssetDictionary soundAssetDictionary, MenuButtonFactory menuButtonFactory,
 						SavedGameStore savedGameStore, I18nTranslator i18nTranslator) {
+		super(skinRepository);
 		this.messageDispatcher = messageDispatcher;
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.menuButtonFactory = menuButtonFactory;
 		this.savedGameStore = savedGameStore;
-		this.skin = skinRepository.getMenuSkin();
 		this.mainGameSkin = skinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.startGameSound = soundAssetDictionary.getByName("GameStart");
@@ -79,24 +77,6 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 	}
 
 	@Override
-	public void show() {
-		carouselIndex = 0; //todo: not super happy with this, thinking might be better way to show what save was last loaded
-		savedGamesUpdated();
-	}
-
-	@Override
-	public void hide() {
-	}
-
-	@Override
-	public void populate(Table containerTable) {
-		containerTable.add(stack).grow();
-	}
-
-	@Override
-	public void reset() {
-	}
-
 	public void savedGamesUpdated() {
 		for (Table slot : slots) {
 			slot.clearChildren();
@@ -249,7 +229,8 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		this.deleteButton.addAction(Actions.alpha(0.5f));
 	}
 
-	private Actor buildComponentLayer() {
+	@Override
+	protected Actor buildComponentLayer() {
 		Table table = new Table();
 		table.setName("loadGameComponents");
 		table.padLeft(36.0f);
@@ -263,7 +244,7 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		Label titleRibbon = new Label(i18nTranslator.getTranslatedString("MENU.LOAD_GAME").toString(), skin, "title_ribbon");
 
 		titleRibbon.setAlignment(Align.center);
-		titleTable.add(titleRibbon).width(1146); //.maxHeight(111.5f).maxWidth(573);
+		titleTable.add(titleRibbon).width(1146);
 
 
 		table.add(titleTable).padTop(84.0f).padBottom(84.0f).colspan(5);
@@ -377,29 +358,14 @@ public class LoadGameMenu implements Menu, GameContextAware, DisplaysText {
 		}
 	}
 
-	private Actor buildBackgroundAndComponents() {
-		Table table = new Table();
-		table.setName("background");
-		table.setBackground(skin.getDrawable("paper_texture_bg"));
-		table.add(new Image(skin.getDrawable("paper_texture_bg_pattern_large"))).growY().padLeft(242.0f);
-		table.add(buildComponentLayer()).expandX().fill();
-		table.add(new Image(skin.getDrawable("paper_texture_bg_pattern_large"))).growY().padRight(242.0f);
-		return table;
-	}
-
-	private Actor buildBackgroundBaseLayer() {
-		Table table = new Table();
-		table.setName("backgroundBase");
-		table.add(new Image(skin.getDrawable("menu_bg_left"))).left();
-		table.add().expandX();
-		table.add(new Image(skin.getDrawable("menu_bg_right"))).right();
-		return table;
+	@Override
+	public void show() {
+		carouselIndex = 0; //todo: not super happy with this, thinking might be better way to show what save was last loaded
+		savedGamesUpdated();
 	}
 
 	@Override
 	public void rebuildUI() {
-		stack.addActor(buildBackgroundBaseLayer());
-		stack.addActor(buildBackgroundAndComponents());
-		savedGamesUpdated();
+		rebuild();
 	}
 }

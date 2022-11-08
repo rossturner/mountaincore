@@ -1,148 +1,64 @@
 package technology.rocketjump.saul.screens.menus;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.RandomXS128;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.lang3.StringUtils;
-import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.factories.names.SettlementNameGenerator;
 import technology.rocketjump.saul.messaging.InfoType;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.messaging.types.StartNewGameMessage;
 import technology.rocketjump.saul.persistence.SavedGameInfo;
 import technology.rocketjump.saul.persistence.SavedGameStore;
-import technology.rocketjump.saul.rendering.utils.HexColors;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
-import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.*;
+import technology.rocketjump.saul.ui.widgets.GameDialog;
+import technology.rocketjump.saul.ui.widgets.GameDialogDictionary;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Random;
 
 @Singleton
-public class EmbarkMenu implements Menu, DisplaysText {
+public class EmbarkMenu extends PaperMenu implements DisplaysText {
 
 	private final MessageDispatcher messageDispatcher;
-	private final Table outerTable;
 	private final I18nTranslator i18nTranslator;
 	private final SavedGameStore savedGameStore;
-	private final GameDialogDictionary gameDialogDictionary;
-
-	private final Skin uiSkin;
 	private final SettlementNameGenerator settlementNameGenerator;
-	private final IconButton backButton;
-	private final IconButton startButton;
-	private final I18nLabel title;
-	private final Table nameTable;
-	private final TextField nameInput;
-	private final ImageButton randomiseNameButton;
-	private final Table seedTable;
-	private final TextField seedInput;
-	private final ImageButton randomiseSeedButton;
-	private final I18nTextButton discordLink;
-	private I18nTextWidget disclaimerText;
+	private final SoundAssetDictionary soundAssetDictionary;
+	private final GameDialogDictionary gameDialogDictionary;
 	private final Random random = new RandomXS128();
+	private TextField nameInput;
+	private TextField seedInput;
+	private int selectedMapWidth;
+	private int selectedMapHeight;
 
 	@Inject
-	public EmbarkMenu(GuiSkinRepository guiSkinRepository, IconButtonFactory iconButtonFactory, MessageDispatcher messageDispatcher,
-					  I18nTranslator i18nTranslator, SavedGameStore savedGameStore, I18nWidgetFactory i18nWidgetFactory,
-					  SettlementNameGenerator settlementNameGenerator, ImageButtonFactory imageButtonFactory,
-					  SoundAssetDictionary soundAssetDictionary, GameDialogDictionary gameDialogDictionary) {
-		this.uiSkin = guiSkinRepository.getDefault();
+	public EmbarkMenu(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
+	                  I18nTranslator i18nTranslator, SavedGameStore savedGameStore,
+	                  SettlementNameGenerator settlementNameGenerator,
+	                  SoundAssetDictionary soundAssetDictionary, GameDialogDictionary gameDialogDictionary) {
+		super(guiSkinRepository);
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
 		this.savedGameStore = savedGameStore;
 		this.settlementNameGenerator = settlementNameGenerator;
+		this.soundAssetDictionary = soundAssetDictionary;
 		this.gameDialogDictionary = gameDialogDictionary;
-
-		this.outerTable = new Table(uiSkin);
-		outerTable.background("default-rect");
-
-		title = i18nWidgetFactory.createLabel("GUI.EMBARK.TITLE");
-
-		backButton = iconButtonFactory.create("GUI.BACK_LABEL", null, Color.LIGHT_GRAY, ButtonStyle.SMALL);
-		backButton.setAction(() -> {
-			messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-		});
-
-		startButton = iconButtonFactory.create("GUI.EMBARK.START", "flying-flag", HexColors.POSITIVE_COLOR, ButtonStyle.DEFAULT);
-		final SoundAsset startGameSound = soundAssetDictionary.getByName("GameStart");
-		startButton.setOnClickSoundAction(() -> {
-			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(startGameSound));
-		});
-
-		discordLink = i18nWidgetFactory.createTextButton("GUI.EMBARK.DISCORD_LINK");
-		discordLink.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Gdx.net.openURI("https://discord.gg/M57GrFp");
-			}
-		});
-
-		rebuildUI();
-
-		I18nLabel nameLabel = i18nWidgetFactory.createLabel("GUI.EMBARK.SETTLEMENT_NAME");
-		nameInput = new TextField("", uiSkin);
-		randomiseNameButton = imageButtonFactory.getOrCreate("clockwise-rotation", true);
-		randomiseNameButton.setAction(() -> nameInput.setText(settlementNameGenerator.create(random.nextLong())));
-
-
-		I18nLabel seedLabel = i18nWidgetFactory.createLabel("GUI.EMBARK.MAP_SEED");
-		seedInput = new TextField("", uiSkin);
-		randomiseSeedButton = imageButtonFactory.getOrCreate("clockwise-rotation", true).clone();
-		randomiseSeedButton.setAction(() -> seedInput.setText(String.valueOf(Math.abs(random.nextLong()))));
-
-		nameTable = new Table(uiSkin);
-		nameTable.add(nameLabel).right().pad(5);
-		nameTable.add(nameInput).width(300).pad(5);
-		nameTable.add(randomiseNameButton).left().pad(5);
-
-		seedTable = new Table(uiSkin);
-		seedTable.add(seedLabel).right().pad(5);
-		seedTable.add(seedInput).width(300).pad(5);
-		seedTable.add(randomiseSeedButton).left().pad(5);
-
-
-		startButton.setAction(() -> {
-			String settlementName = getSettlementName();
-			SavedGameInfo existingSave = savedGameStore.getByName(settlementName);
-			if (settlementName.isBlank()) {
-				ModalDialog dialog = gameDialogDictionary.getInfoDialog(InfoType.SETTLEMENT_NAME_NOT_SPECIFIED);
-				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
-			} else if (existingSave != null) {
-				NotificationDialog dialog = new NotificationDialog(
-						i18nTranslator.getTranslatedString("GUI.DIALOG.INFO_TITLE"),
-						uiSkin,
-						messageDispatcher
-				);
-				dialog.withText(i18nTranslator.getTranslatedWordWithReplacements("GUI.DIALOG.SETTLEMENT_NAME_ALREADY_IN_USE",
-						Map.of("name", new I18nWord(settlementName)))
-					.breakAfterLength(i18nTranslator.getCurrentLanguageType().getBreakAfterLineLength()));
-
-				dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON"), (Runnable) () -> {
-					messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-					messageDispatcher.dispatchMessage(MessageType.START_NEW_GAME, new StartNewGameMessage(getSettlementName(), parseSeed()));
-				});
-				dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CANCEL_BUTTON"));
-				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
-			} else {
-				messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-				messageDispatcher.dispatchMessage(MessageType.START_NEW_GAME, new StartNewGameMessage(getSettlementName(), parseSeed()));
-			}
-		});
 	}
 
 	@Override
@@ -156,34 +72,181 @@ public class EmbarkMenu implements Menu, DisplaysText {
 	}
 
 	@Override
-	public void populate(Table containerTable) {
-		outerTable.clearChildren();
-
-		outerTable.add(title).center().pad(5).colspan(3).row();
-
-		outerTable.add(nameTable).center().pad(5).colspan(3).row();
-		outerTable.add(seedTable).center().pad(5).colspan(3).row();
-
-		outerTable.add(disclaimerText).center().pad(30).colspan(3).row();
-
-		outerTable.add(backButton).left().pad(5);
-		outerTable.add(discordLink).center().pad(5);
-		outerTable.add(startButton).right().pad(5).row();
-
-		containerTable.add(outerTable);
-	}
-
-	@Override
 	public void reset() {
 		this.nameInput.setText(settlementNameGenerator.create(random.nextLong()));
 		this.seedInput.setText(String.valueOf(Math.abs(random.nextLong())));
 	}
 
 	@Override
-	public void rebuildUI() {
-		I18nText disclaimerContent = i18nTranslator.getTranslatedString("GUI.EMBARK.DISCLAIMER");
-		disclaimerContent.breakAfterLength(i18nTranslator.getCurrentLanguageType().getBreakAfterLineLength());
-		disclaimerText = new I18nTextWidget(disclaimerContent, uiSkin, messageDispatcher);
+	public void savedGamesUpdated() {
+		//todo: shouldn't be here
+	}
+
+	@Override
+	protected Actor buildComponentLayer() {
+
+
+		Label titleRibbon = new Label(i18nTranslator.getTranslatedString("GUI.EMBARK.TITLE").toString(), skin, "title_ribbon");
+		titleRibbon.setAlignment(Align.top);
+		titleRibbon.setWidth(1576f);
+		Table titleTable = new Table();
+		titleTable.add(titleRibbon).width(1576).padTop(13f);
+
+		Label nameLabel = new Label(i18nTranslator.getTranslatedString("GUI.EMBARK.SETTLEMENT_NAME").toString(), skin, "embark_ribbon");
+		nameLabel.setAlignment(Align.top);  //this uses padding to make it off center for aesthetics
+
+
+		this.nameInput = new TextField("", skin);
+		this.nameInput.addListener(new ChangeCursorOnHover(GameCursor.I_BEAM, messageDispatcher));
+		this.nameInput.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		this.nameInput.setAlignment(Align.center);
+		Button randomiseNameButton = new Button(skin, "btn_random");
+		randomiseNameButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		randomiseNameButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		randomiseNameButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				nameInput.setText(settlementNameGenerator.create(random.nextLong()));
+			}
+		});
+
+
+		Label mapSizeLabel = new Label(i18nTranslator.getTranslatedString("GUI.EMBARK.MAP_SIZE").toString(), skin, "embark_ribbon");
+		mapSizeLabel.setAlignment(Align.top);  //this uses padding to make it off center for aesthetics
+
+		//fudge, first one added to group is default checked
+		ButtonGroup<ImageButton> mapRadioSelectionGroup = new ButtonGroup<>();
+		Table mediumMap = buildMapButton(mapRadioSelectionGroup, "GUI.EMBARK.MAP_SIZE.MEDIUM", "medium_map_btn", 0.8f, 400, 300);
+		Table smallMap = buildMapButton(mapRadioSelectionGroup, "GUI.EMBARK.MAP_SIZE.SMALL", "small_map_btn", 0.5f, 200, 150);
+		Table largeMap = buildMapButton(mapRadioSelectionGroup, "GUI.EMBARK.MAP_SIZE.LARGE", "large_map_btn", 1.0f, 600, 450);
+
+
+		Label seedLabel = new Label(i18nTranslator.getTranslatedString("GUI.EMBARK.MAP_SEED").toString(), skin, "embark_seed_label");
+		this.seedInput = new TextField("", skin);
+		this.seedInput.addListener(new ChangeCursorOnHover(GameCursor.I_BEAM, messageDispatcher));
+		this.seedInput.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		this.seedInput.setAlignment(Align.center);
+
+		Button randomiseSeedButton = new Button(skin, "btn_random");
+		randomiseSeedButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		randomiseSeedButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		randomiseSeedButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				seedInput.setText(String.valueOf(Math.abs(random.nextLong())));
+			}
+		});
+
+		Button backButton = new Button(skin, "btn_embark_back");
+		backButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		backButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		backButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+			}
+		});
+
+		Button startButton = new Button(skin, "btn_embark_next");
+		startButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "GameStart"));
+		startButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+
+		startButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				String settlementName = getSettlementName();
+				SavedGameInfo existingSave = savedGameStore.getByName(settlementName);
+				if (settlementName.isBlank()) {
+					GameDialog dialog = gameDialogDictionary.createInfoDialog(skin, InfoType.SETTLEMENT_NAME_NOT_SPECIFIED, Collections.emptyMap());
+					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+				} else if (existingSave != null) {
+					GameDialog dialog = gameDialogDictionary.createInfoDialog(skin, InfoType.SETTLEMENT_NAME_ALREADY_IN_USE, Map.of("name", new I18nWord(settlementName)));
+					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CONFIRM"), (Runnable) () -> {
+						startGame();
+					}, skin.get("btn_dialog_1", TextButton.TextButtonStyle.class));
+					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+				} else {
+					startGame();
+				}
+			}
+		});
+
+		//colspan of 3 to keep center aligned
+		Table table = new Table();
+		table.padLeft(36.0f);
+		table.padRight(36.0f);
+		table.padTop(0.0f);
+		table.padBottom(0.0f);
+		table.add(titleTable).width(1576f).padTop(84.0f).padBottom(84.0f).colspan(3).row();
+
+		float ribbonWidth = 880;
+		table.add().width(1100f).fillX();
+		table.add(nameLabel).width(ribbonWidth).padTop(13f).spaceBottom(48f);
+		table.add().width(1100f).fillX();
+		table.row();
+
+		table.add();
+		table.add(nameInput).width(ribbonWidth).height(85f).spaceBottom(164f);
+		table.add(randomiseNameButton).left().padLeft(40f).spaceBottom(164f);
+		table.row();
+
+		table.add();
+		table.add(mapSizeLabel).width(ribbonWidth).padTop(13f).spaceBottom(60f);
+		table.add();
+		table.row();
+
+		table.add(smallMap).fillY();
+		table.add(mediumMap).fillY();
+		table.add(largeMap).fillY();
+		table.row();
+
+
+		Table bottomLeftCorner = new Table();
+		bottomLeftCorner.add(backButton).left();
+		bottomLeftCorner.add(seedLabel).right().padRight(34f).expandX();
+		Table bottomRightCorner = new Table();
+		bottomRightCorner.add(randomiseSeedButton).left().padLeft(40f).expandX();
+		bottomRightCorner.add(startButton).right();
+
+		table.add(bottomLeftCorner).fillX();
+		table.add(seedInput).width(ribbonWidth).height(85f).spaceBottom(232f);
+		table.add(bottomRightCorner).fillX();
+
+		table.row();
+
+
+
+		return table;
+	}
+
+	private void startGame() {
+		messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+		messageDispatcher.dispatchMessage(MessageType.START_NEW_GAME, new StartNewGameMessage(getSettlementName(), parseSeed(), selectedMapWidth, selectedMapHeight));
+	}
+
+	private Table buildMapButton(ButtonGroup<ImageButton> mapRadioSelectionGroup, String labelI18nKey, String mapDrawableName, float scale, int mapWidth, int mapHeight) {
+		Label sizeLabel = new Label(i18nTranslator.getTranslatedString(labelI18nKey).toString(), skin, "map_size_label");
+		ImageButton mapButton = new ImageButton(skin, mapDrawableName);
+		mapButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		mapButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		mapButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if (mapButton.isChecked()) {
+					selectedMapWidth = mapWidth;
+					selectedMapHeight = mapHeight;
+				}
+			}
+		});
+		Image image = mapButton.getImage();
+		mapButton.getImageCell().size(image.getDrawable().getMinWidth() * scale, image.getDrawable().getMinHeight() * scale);
+		Table layout = new Table();
+		layout.add(mapButton).expandY().row();
+		layout.add(sizeLabel);
+		mapRadioSelectionGroup.add(mapButton);
+		return layout;
 	}
 
 	private long parseSeed() {
@@ -205,5 +268,11 @@ public class EmbarkMenu implements Menu, DisplaysText {
 	private String getSettlementName() {
 		return nameInput.getText().trim();
 	}
+
+	@Override
+	public void rebuildUI() {
+		rebuild();
+	}
+
 
 }

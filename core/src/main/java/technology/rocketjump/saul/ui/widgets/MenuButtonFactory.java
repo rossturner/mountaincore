@@ -28,7 +28,7 @@ public class MenuButtonFactory {
 
 
     public enum ButtonStyle {
-        BTN_KEY_BINDINGS_KEY("btn_key_bindings_key"),
+        BTN_OPTIONS_SECONDARY("btn_options_secondary"),
         BTN_SCALABLE_50PT("btn_scalable_header-font-50"),
         BTN_SMALL_1_50PT("btn_small_1_header-font-50"),
         BTN_BANNER_1_47PT("btn_banner_1_header-font-47"),

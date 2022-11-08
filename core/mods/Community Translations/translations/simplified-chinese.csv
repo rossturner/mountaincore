@@ -424,10 +424,7 @@ GUI.DIALOG.SETTLEMENT_NAME_NOT_SPECIFIED,,A name for the settlement must be spec
 GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE,,Stockpile settings,贮存处设置
 GUI.EMBARK.DISCLAIMER,,"This is an early alpha version of King under the Mountain. There are many, many features still to be added, and bugs are to be expected. In a future update you will be able to use this screen to customise your starting settlers, resources and even map and gameplay settings. Please join our Discord community to report any bugs you find or offer feedback, so we can work together to guide King under the Mountain to become the best possible version of itself. Thank you for playing!",King under the Mountain仍处于早期测试阶段。许多功能尚未实装，同时也会遇到BUG。在未来的更新中，你可以使用该界面自定义初始殖民者、资源，地图以及游戏设置。欢迎加入我们的Discord频道，方便提交BUG或提供反馈，让我们齐心协力打造出更优秀的King under the Mountain。感谢游玩！
 GUI.EMBARK.DISCORD_LINK,,Click here to join our Discord community,点击此处加入Discord频道
-GUI.EMBARK.MAP_SEED,,Map seed:,地图种子：
-GUI.EMBARK.SETTLEMENT_NAME,,Settlement name:,殖民地名字：
 GUI.EMBARK.START,,Begin!,开始！
-GUI.EMBARK.TITLE,,Embark Options,设置
 GUI.EMPTY_CONTAINER_LABEL,This should be as short as possible,Empty,空
 GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED,,Contents are being emptied.,正在清空中。
 GUI.EMPTY_CONTAINER_LABEL.HINT,,Dump the contents of this container on the ground.,将此容器内的东西放在地上。

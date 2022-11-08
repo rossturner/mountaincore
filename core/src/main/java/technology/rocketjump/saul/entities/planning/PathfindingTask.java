@@ -45,10 +45,10 @@ public class PathfindingTask implements Callable<BackgroundTaskResult> {
 		this.flags = requestMessage.getFlags();
 
 		this.origin = requestMessage.getOrigin();
-		this.originCell = map.getTile(origin);
+		this.originCell = map.getTileWithinBounds(origin);
 
 		this.destination = requestMessage.getDestination();
-		this.destinationCell = map.getTile(destination);
+		this.destinationCell = map.getTileWithinBounds(destination);
 	}
 
 	@Override

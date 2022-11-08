@@ -13,13 +13,14 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.MouseChangeMessage;
+import technology.rocketjump.saul.persistence.UserPreferences;
+import technology.rocketjump.saul.rendering.DebugRenderingOptions;
 import technology.rocketjump.saul.rendering.RenderingOptions;
 import technology.rocketjump.saul.rendering.camera.DisplaySettings;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class is for input directly in the game world, as compared to some input that was caught by the GUI instead
@@ -31,16 +32,23 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 
 	public static final int SCROLL_BORDER = 2;
 
+	private final UserPreferences userPreferences;
 	private final PrimaryCameraWrapper primaryCameraWrapper;
 	private final RenderingOptions renderingOptions;
 	private final MessageDispatcher messageDispatcher;
 	private GameContext gameContext;
-	private Map<Integer, Boolean> buttonsPressed = new HashMap<>();
+	private final Set<CommandName> activeCommands = EnumSet.noneOf(CommandName.class);
+	private final Set<Integer> keysPressed = new HashSet<>();
+	private final Map<Integer, Boolean> buttonsPressed = new HashMap<>();
 	private float startX, startY;
 
+	private final Map<CommandName, Runnable> keyDownActions;
+	private final Map<CommandName, Runnable> keyUpActions;
+
 	@Inject
-	public GameWorldInputHandler(PrimaryCameraWrapper primaryCameraWrapper, RenderingOptions renderingOptions,
-								 MessageDispatcher messageDispatcher) {
+	public GameWorldInputHandler(UserPreferences userPreferences, PrimaryCameraWrapper primaryCameraWrapper,
+	                             RenderingOptions renderingOptions, MessageDispatcher messageDispatcher) {
+		this.userPreferences = userPreferences;
 		this.primaryCameraWrapper = primaryCameraWrapper;
 		this.renderingOptions = renderingOptions;
 		this.messageDispatcher = messageDispatcher;
@@ -49,99 +57,94 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		buttonsPressed.put(Input.Buttons.RIGHT, false);
 		buttonsPressed.put(Input.Buttons.FORWARD, false);
 		buttonsPressed.put(Input.Buttons.BACK, false);
+
+		keyDownActions = new HashMap<>();
+		keyDownActions.put(CommandName.PAN_CAMERA_LEFT, () -> primaryCameraWrapper.setMovementX(-1));
+		keyDownActions.put(CommandName.PAN_CAMERA_RIGHT, () -> primaryCameraWrapper.setMovementX(1));
+		keyDownActions.put(CommandName.PAN_CAMERA_UP, () -> primaryCameraWrapper.setMovementY(1));
+		keyDownActions.put(CommandName.PAN_CAMERA_DOWN, () -> primaryCameraWrapper.setMovementY(-1));
+		keyDownActions.put(CommandName.FAST_PAN, () -> primaryCameraWrapper.setPanSpeedMultiplier(true));
+		keyDownActions.put(CommandName.ZOOM_IN, () -> primaryCameraWrapper.setMovementZ(-0.075f));
+		keyDownActions.put(CommandName.ZOOM_OUT, () -> primaryCameraWrapper.setMovementZ(0.075f));
+		keyDownActions.put(CommandName.QUICKSAVE, () -> messageDispatcher.dispatchMessage(MessageType.REQUEST_SAVE));
+		keyDownActions.put(CommandName.QUICKLOAD, () -> messageDispatcher.dispatchMessage(MessageType.TRIGGER_QUICKLOAD));
+
+		keyUpActions = new HashMap<>();
+		keyUpActions.put(CommandName.PAN_CAMERA_LEFT, () -> primaryCameraWrapper.setMovementX(0));
+		keyUpActions.put(CommandName.PAN_CAMERA_RIGHT, () -> primaryCameraWrapper.setMovementX(0));
+		keyUpActions.put(CommandName.PAN_CAMERA_UP, () -> primaryCameraWrapper.setMovementY(0));
+		keyUpActions.put(CommandName.PAN_CAMERA_DOWN, () -> primaryCameraWrapper.setMovementY(0));
+		keyUpActions.put(CommandName.FAST_PAN, () -> primaryCameraWrapper.setPanSpeedMultiplier(false));
+		keyUpActions.put(CommandName.ZOOM_IN, () -> primaryCameraWrapper.setMovementZ(0));
+		keyUpActions.put(CommandName.ZOOM_OUT, () -> primaryCameraWrapper.setMovementZ(0));
+		keyUpActions.put(CommandName.PAUSE, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED));
+		keyUpActions.put(CommandName.GAME_SPEED_NORMAL, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.NORMAL));
+		keyUpActions.put(CommandName.GAME_SPEED_FAST, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED2));
+		keyUpActions.put(CommandName.GAME_SPEED_FASTER, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED3));
+		keyUpActions.put(CommandName.GAME_SPEED_FASTEST, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED4));
+		keyUpActions.put(CommandName.ROTATE, () -> messageDispatcher.dispatchMessage(MessageType.ROTATE_FURNITURE));
+
+		DebugRenderingOptions debug = renderingOptions.debug();
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_0, () -> debug.setFrameBufferIndex(0));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_1, () -> debug.setFrameBufferIndex(1));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_2, () -> debug.setFrameBufferIndex(2));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_3, () -> debug.setFrameBufferIndex(3));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_4, () -> debug.setFrameBufferIndex(4));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_5, () -> debug.setFrameBufferIndex(5));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_6, () -> debug.setFrameBufferIndex(6));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_7, () -> debug.setFrameBufferIndex(7));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_8, () -> debug.setFrameBufferIndex(8));
+		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_9, () -> debug.setFrameBufferIndex(9));
+		keyUpActions.put(CommandName.DEBUG_SHOW_JOB_STATUS, () -> debug.setShowJobStatus(!debug.showJobStatus()));
+		keyUpActions.put(CommandName.DEBUG_TOGGLE_FLOOR_OVERLAP_RENDERING, renderingOptions::toggleFloorOverlapRenderingEnabled);
+		keyUpActions.put(CommandName.DEBUG_SHOW_INDIVIDUAL_LIGHTING_BUFFERS, debug::toggleShowIndividualLightingBuffers);
+		keyUpActions.put(CommandName.DEBUG_SHOW_LIQUID_FLOW, debug::toggleShowLiquidFlow);
+		keyUpActions.put(CommandName.DEBUG_SHOW_ZONES, debug::toggleShowZones);
+		keyUpActions.put(CommandName.DEBUG_SHOW_PATHFINDING_NODES, debug::toggleShowPathfindingNodes);
+		keyUpActions.put(CommandName.DEBUG_HIDE_GUI, () -> DisplaySettings.showGui = !DisplaySettings.showGui);
+		keyUpActions.put(CommandName.DEBUG_GAME_SPEED_ULTRA_FAST, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED5));
+		keyUpActions.put(CommandName.DEBUG_GAME_SPEED_SLOW, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.VERY_SLOW));
+		keyUpActions.put(CommandName.DEBUG_SHOW_MENU, () -> messageDispatcher.dispatchMessage(MessageType.TOGGLE_DEBUG_VIEW));
 	}
 
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT) {
-			primaryCameraWrapper.setPanSpeedMultiplier(true);
-		} else if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-			primaryCameraWrapper.setMovementX(-1);
-		} else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-			primaryCameraWrapper.setMovementX(1);
-		} else if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
-			primaryCameraWrapper.setMovementY(1);
-		} else if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
-			primaryCameraWrapper.setMovementY(-1);
-		} else if (keycode == Input.Keys.Q || keycode == Input.Keys.PAGE_DOWN) {
-			primaryCameraWrapper.setMovementZ(0.075f);
-		} else if (keycode == Input.Keys.E || keycode == Input.Keys.PAGE_UP) {
-			primaryCameraWrapper.setMovementZ(-0.075f);
-		} else if (keycode == Input.Keys.F5) {
-			messageDispatcher.dispatchMessage(MessageType.REQUEST_SAVE);
-		} else if (keycode == Input.Keys.F8) {
-			messageDispatcher.dispatchMessage(MessageType.TRIGGER_QUICKLOAD);
-		} else {
-			return false;
+		keysPressed.add(keycode);
+
+		Set<CommandName> commandNames = userPreferences.getCommandsFor(keysPressed);
+
+		for (CommandName commandName : commandNames) {
+			if (activeCommands.add(commandName)) {
+				Runnable action = keyDownActions.get(commandName);
+				if (action != null) {
+					action.run();
+				}
+			}
 		}
+
 		return true;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		boolean leftControlPressed = Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT);
-		if (GlobalSettings.DEV_MODE) {
-			if (leftControlPressed && keycode >= Input.Keys.NUM_0 && keycode <= Input.Keys.NUM_9) {
-				renderingOptions.debug().setFrameBufferIndex(keycode - Input.Keys.NUM_0);
-			} else if (keycode == Input.Keys.J) {
-				renderingOptions.debug().setShowJobStatus(!renderingOptions.debug().showJobStatus());
-			} else if (keycode == Input.Keys.O) {
-				renderingOptions.toggleFloorOverlapRenderingEnabled();
-			} else if (keycode == Input.Keys.L) {
-				renderingOptions.debug().setShowIndividualLightingBuffers(!renderingOptions.debug().showIndividualLightingBuffers());
-			} else if (keycode == Input.Keys.F) {
-				renderingOptions.debug().setShowLiquidFlow(!renderingOptions.debug().isShowLiquidFlow());
-			} else if (keycode == Input.Keys.Z) {
-				renderingOptions.debug().setShowZones(!renderingOptions.debug().isShowZones());
-			} else if (keycode == Input.Keys.T) {
-				renderingOptions.debug().setShowPathfindingNodes(!renderingOptions.debug().showPathfindingNodes());
-			} else if (keycode == Input.Keys.G) {
-				DisplaySettings.showGui = !DisplaySettings.showGui;
-			} else if (keycode == Input.Keys.NUM_5 && gameContext != null) {
-				messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED5);
-			} else if (keycode == Input.Keys.NUM_6 && gameContext != null) {
-				messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.VERY_SLOW);
-			} else if (keycode == Input.Keys.GRAVE) {
-				messageDispatcher.dispatchMessage(MessageType.TOGGLE_DEBUG_VIEW);
+		keysPressed.remove(keycode);
+
+		Set<CommandName> commandNames = userPreferences.getCommandsFor(keysPressed);
+		Set<CommandName> inactiveCommands = new HashSet<>(activeCommands);
+		inactiveCommands.removeAll(commandNames);
+		activeCommands.removeAll(inactiveCommands);
+
+		if (keycode == Input.Keys.ESCAPE) {
+			messageDispatcher.dispatchMessage(MessageType.CANCEL_SCREEN_OR_GO_TO_MAIN_MENU);
+		} else {
+			for (CommandName commandName : inactiveCommands) {
+				Runnable action = keyUpActions.get(commandName);
+				if (action != null) {
+					action.run();
+				}
 			}
 		}
 
-
-		if (leftControlPressed) {
-			return true;
-		}
-		if (keycode == Input.Keys.SHIFT_LEFT || keycode == Input.Keys.SHIFT_RIGHT) {
-			primaryCameraWrapper.setPanSpeedMultiplier(false);
-		} else if (keycode == Input.Keys.NUM_1 && gameContext != null) {
-			messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.NORMAL);
-		} else if (keycode == Input.Keys.SPACE && gameContext != null) {
-			messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
-		} else if (keycode == Input.Keys.NUM_2 && gameContext != null) {
-			messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED2);
-		} else if (keycode == Input.Keys.NUM_3 && gameContext != null) {
-			messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED3);
-		} else if (keycode == Input.Keys.NUM_4 && gameContext != null) {
-			messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED4);
-
-		} else if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-			primaryCameraWrapper.setMovementX(0);
-		} else if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-			primaryCameraWrapper.setMovementX(0);
-		} else if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
-			primaryCameraWrapper.setMovementY(0);
-		} else if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
-			primaryCameraWrapper.setMovementY(0);
-		} else if (keycode == Input.Keys.O || keycode == Input.Keys.P || keycode == Input.Keys.K || keycode == Input.Keys.L
-				|| keycode == Input.Keys.Q || keycode == Input.Keys.E || keycode == Input.Keys.PAGE_UP || keycode == Input.Keys.PAGE_DOWN) {
-			primaryCameraWrapper.setMovementZ(0);
-
-		} else if (keycode == Input.Keys.R) {
-			messageDispatcher.dispatchMessage(MessageType.ROTATE_FURNITURE);
-		} else if (keycode == Input.Keys.ESCAPE) {
-			messageDispatcher.dispatchMessage(MessageType.CANCEL_SCREEN_OR_GO_TO_MAIN_MENU);
-		} else {
-			return false;
-		}
 		return true;
 	}
 
@@ -215,10 +218,10 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		int width = Gdx.graphics.getWidth();
 		int height = Gdx.graphics.getHeight();
 
-		if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) ||
-				Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) ||
-				Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) ||
-				Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+		if (activeCommands.contains(CommandName.PAN_CAMERA_LEFT) ||
+				activeCommands.contains(CommandName.PAN_CAMERA_RIGHT) ||
+				activeCommands.contains(CommandName.PAN_CAMERA_UP) ||
+				activeCommands.contains(CommandName.PAN_CAMERA_DOWN) ) {
 			return false; // Don't do anything if already scrolling by key
 		}
 

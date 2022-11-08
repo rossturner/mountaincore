@@ -474,10 +474,14 @@ GUI.DIALOG.SETTLEMENT_NAME_NOT_SPECIFIED,,A name for the settlement must be spec
 GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE,,Stockpile settings
 GUI.EMBARK.DISCLAIMER,,"This is an early alpha version of King under the Mountain. There are many, many features still to be added, and bugs are to be expected. In a future update you will be able to use this screen to customise your starting settlers, resources and even map and gameplay settings. Please join our Discord community to report any bugs you find or offer feedback, so we can work together to guide King under the Mountain to become the best possible version of itself. Thank you for playing!"
 GUI.EMBARK.DISCORD_LINK,,Click here to join our Discord community
-GUI.EMBARK.MAP_SEED,,Map seed:
-GUI.EMBARK.SETTLEMENT_NAME,,Settlement name:
+GUI.EMBARK.MAP_SEED,,Random Seed
+GUI.EMBARK.MAP_SIZE,,Map Size
+GUI.EMBARK.MAP_SIZE.LARGE,,Large
+GUI.EMBARK.MAP_SIZE.MEDIUM,,Medium
+GUI.EMBARK.MAP_SIZE.SMALL,,Small
+GUI.EMBARK.SETTLEMENT_NAME,,Name
 GUI.EMBARK.START,,Begin!
-GUI.EMBARK.TITLE,,Embark Options
+GUI.EMBARK.TITLE,,Choose Kingdom
 GUI.EMPTY_CONTAINER_LABEL,This should be as short as possible,Empty
 GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED,,Contents are being emptied.
 GUI.EMPTY_CONTAINER_LABEL.HINT,,Dump the contents of this container on the ground.
@@ -486,6 +490,41 @@ GUI.FURNITURE_BEING_REMOVED,Label for when a piece of furniture is in the proces
 GUI.FURNITURE_REQUIRES_FLOOR_MATERIALTYPE,,This furniture must be placed on {{materialType}}.
 GUI.GRAPHICS.FULLSCREEN,,Fullscreen
 GUI.GRAPHICS.RESOLUTION,,Resolution
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_0,,Debug frame buffer 0
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_1,,Debug frame buffer 1
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_2,,Debug frame buffer 2
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_3,,Debug frame buffer 3
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_4,,Debug frame buffer 4
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_5,,Debug frame buffer 5
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_6,,Debug frame buffer 6
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_7,,Debug frame buffer 7
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_8,,Debug frame buffer 8
+GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_9,,Debug frame buffer 9
+GUI.KEY_BINDING.DEBUG_GAME_SPEED_SLOW,,Debug game speed slow
+GUI.KEY_BINDING.DEBUG_GAME_SPEED_ULTRA_FAST,,Debug game speed ultra fast
+GUI.KEY_BINDING.DEBUG_HIDE_GUI,,Debug hide gui
+GUI.KEY_BINDING.DEBUG_SHOW_INDIVIDUAL_LIGHTING_BUFFERS,,Debug show individual lighting buffers
+GUI.KEY_BINDING.DEBUG_SHOW_JOB_STATUS,,Debug show job status
+GUI.KEY_BINDING.DEBUG_SHOW_LIQUID_FLOW,,Debug show liquid flow
+GUI.KEY_BINDING.DEBUG_SHOW_MENU,,Debug show menu
+GUI.KEY_BINDING.DEBUG_SHOW_PATHFINDING_NODES,,Debug show pathfinding nodes
+GUI.KEY_BINDING.DEBUG_SHOW_ZONES,,Debug show zones
+GUI.KEY_BINDING.DEBUG_TOGGLE_FLOOR_OVERLAP_RENDERING,,Debug toggle floor overlap rendering
+GUI.KEY_BINDING.FAST_PAN,,Fast pan
+GUI.KEY_BINDING.GAME_SPEED_FAST,,Game speed fast
+GUI.KEY_BINDING.GAME_SPEED_FASTER,,Game speed faster
+GUI.KEY_BINDING.GAME_SPEED_FASTEST,,Game speed fastest
+GUI.KEY_BINDING.GAME_SPEED_NORMAL,,Game speed normal
+GUI.KEY_BINDING.PAN_CAMERA_DOWN,,Pan camera down
+GUI.KEY_BINDING.PAN_CAMERA_LEFT,,Pan camera left
+GUI.KEY_BINDING.PAN_CAMERA_RIGHT,,Pan camera right
+GUI.KEY_BINDING.PAN_CAMERA_UP,,Pan camera up
+GUI.KEY_BINDING.PAUSE,,Pause
+GUI.KEY_BINDING.QUICKLOAD,,Quickload
+GUI.KEY_BINDING.QUICKSAVE,,Quicksave
+GUI.KEY_BINDING.ROTATE,,Rotate
+GUI.KEY_BINDING.ZOOM_IN,,Zoom in
+GUI.KEY_BINDING.ZOOM_OUT,,Zoom out
 GUI.LEAVE_CROP_FALLOW,,No crop is currently selected to be planted
 GUI.LOAD_GAME.TABLE.DATE_TIME,,Last modified
 GUI.LOAD_GAME.TABLE.DELETE,,Delete
@@ -513,10 +552,12 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,,Borderless
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,,Exclusive fullscreen
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,,Windowed
 GUI.OPTIONS.GRAPHICS.TITLE,,"Graphics Options "
+GUI.OPTIONS.KEY_BINDINGS,,Key Bindings
 GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,,Opt In For Crash Reports
 GUI.OPTIONS.MISC.HINTS_ENABLED,,Show hints in-game
 GUI.OPTIONS.MISC.TITLE,,Miscellaneous
 GUI.OPTIONS.MISC.TUTORIAL_ENABLED,,Always Ask For Tutorial
+GUI.OPTIONS.RESET,,Reset
 GUI.OPTIONS.TAB.AUDIO,,Audio
 GUI.OPTIONS.TAB.GAMEPLAY,,Gameplay
 GUI.OPTIONS.TAB.GRAPHICS,,Graphics

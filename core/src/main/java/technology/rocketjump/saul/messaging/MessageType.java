@@ -287,6 +287,7 @@ public class MessageType {
 
 	// Invasion messages
 	public static final int TRIGGER_INVASION = 2100;
+	public static final int INVASION_ABOUT_TO_BEGIN = 2101;
 
 	// Asset Editor messages
 	public static final int EDITOR_NAVIGATOR_TREE_RIGHT_CLICK = 99001;

@@ -110,6 +110,7 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
 
         disableButton(continueButton);
         disableButton(loadGameButton);
+        disableButton(modsButton);
 
 
         buttonsTable.add(continueButton).padBottom(30f).row();

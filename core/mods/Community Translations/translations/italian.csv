@@ -424,10 +424,7 @@ GUI.DIALOG.SETTLEMENT_NAME_NOT_SPECIFIED,,A name for the settlement must be spec
 GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE,,Stockpile settings,Impostazioni del magazzino
 GUI.EMBARK.DISCLAIMER,,"This is an early alpha version of King under the Mountain. There are many, many features still to be added, and bugs are to be expected. In a future update you will be able to use this screen to customise your starting settlers, resources and even map and gameplay settings. Please join our Discord community to report any bugs you find or offer feedback, so we can work together to guide King under the Mountain to become the best possible version of itself. Thank you for playing!","Questa è una prima versione alfa di King under the Mountain. Ci sono molte, molte caratteristiche ancora da aggiungere, e i bug sono da aspettarsi. In un futuro aggiornamento sarete in grado di usare questa schermata per personalizzare i vostri coloni iniziali, le risorse e persino le impostazioni della mappa e del gioco. Vi preghiamo di unirvi alla nostra comunità Discord per segnalare eventuali bug che trovate o per offrire un feedback, in modo da poter lavorare insieme per guidare King under the Mountain a diventare la migliore versione possibile di se stesso. Grazie per aver giocato!"
 GUI.EMBARK.DISCORD_LINK,,Click here to join our Discord community,Clicca qui per unirti alla nostra comunità Discord
-GUI.EMBARK.MAP_SEED,,Map seed:,Seme della mappa:
-GUI.EMBARK.SETTLEMENT_NAME,,Settlement name:,Nome dell'insediamento:
 GUI.EMBARK.START,,Begin!,Andiamo!
-GUI.EMBARK.TITLE,,Embark Options,Opzioni di imbarco
 GUI.EMPTY_CONTAINER_LABEL,This should be as short as possible,Empty,Vuoto
 GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED,,Contents are being emptied.,Il contenuto viene svuotato.
 GUI.EMPTY_CONTAINER_LABEL.HINT,,Dump the contents of this container on the ground.,Scaricate il contenuto di questo contenitore a terra.

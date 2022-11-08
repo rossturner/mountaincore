@@ -1,3 +1,4 @@
 {
-  "defaultFont": "OpenDyslexic3-Regular.ttf"
+  "defaultFont": "OpenDyslexic3-Regular.ttf",
+  "headerFont": "OpenDyslexic3-Bold.ttf"
 }

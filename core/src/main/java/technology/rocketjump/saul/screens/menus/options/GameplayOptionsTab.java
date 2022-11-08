@@ -3,21 +3,28 @@ package technology.rocketjump.saul.screens.menus.options;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.input.KeyBindingUIWidget;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.BlurredBackgroundDialog;
+import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
 import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.ALLOW_HINTS;
@@ -31,7 +38,10 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
 	private final WidgetFactory widgetFactory;
+	private final MenuButtonFactory menuButtonFactory;
+	private final SoundAssetDictionary soundAssetDictionary;
 
+	private Container<TextButton> keyBindingsButton;
 	private CheckBox edgeScrollingCheckbox;
 	private CheckBox zoomToCursorCheckbox;
 	private CheckBox treeTransparencyCheckbox;
@@ -40,18 +50,22 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 	@Inject
 	public GameplayOptionsTab(UserPreferences userPreferences, MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
-							  SoundAssetDictionary soundAssetDictionary, I18nTranslator i18nTranslator, WidgetFactory widgetFactory) {
+	                          SoundAssetDictionary soundAssetDictionary, I18nTranslator i18nTranslator, WidgetFactory widgetFactory,
+	                          MenuButtonFactory menuButtonFactory, SoundAssetDictionary soundAssetDictionary1) {
 		this.userPreferences = userPreferences;
 		this.messageDispatcher = messageDispatcher;
 		this.clickSoundAsset = soundAssetDictionary.getByName("MenuClick");
 		this.i18nTranslator = i18nTranslator;
 		this.skin = guiSkinRepository.getMenuSkin();
 		this.widgetFactory = widgetFactory;
+		this.menuButtonFactory = menuButtonFactory;
+		this.soundAssetDictionary = soundAssetDictionary1;
 	}
 
 	@Override
 	public void populate(Table menuTable) {
 		// GAMEPLAY
+		menuTable.add(keyBindingsButton).spaceBottom(50f).row();
 		menuTable.add(edgeScrollingCheckbox).spaceBottom(50f).row();
 		menuTable.add(zoomToCursorCheckbox).spaceBottom(50f).row();
 		menuTable.add(treeTransparencyCheckbox).spaceBottom(50f).row();
@@ -83,6 +97,53 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 	@Override
 	public void rebuildUI() {
+
+		keyBindingsButton = menuButtonFactory.createButton("GUI.OPTIONS.KEY_BINDINGS", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+				.withAction(() -> {
+
+					BlurredBackgroundDialog dialog = new BlurredBackgroundDialog(I18nText.BLANK, skin, messageDispatcher, skin.get("square_dialog", Window.WindowStyle.class), soundAssetDictionary);
+					Label titleRibbon = new Label(i18nTranslator.getTranslatedString("GUI.OPTIONS.KEY_BINDINGS").toString(), skin, "title_ribbon");
+					Label gameplayLabel = new Label(i18nTranslator.getTranslatedString(OptionsTabName.GAMEPLAY.getI18nKey()).toString(), skin, "secondary_banner_title");
+					gameplayLabel.setAlignment(Align.center);
+					KeyBindingUIWidget keyBindingUIWidget = new KeyBindingUIWidget(skin, userPreferences, i18nTranslator, messageDispatcher, soundAssetDictionary);
+					Container<TextButton> resetBindingsButton = menuButtonFactory.createButton("GUI.OPTIONS.RESET", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
+							.withAction(() -> keyBindingUIWidget.resetToDefaultSettings())
+							.build();
+
+					ScrollPane scrollPane = new ScrollPane(keyBindingUIWidget, skin);
+					Stage stage = scrollPane.getStage();
+					scrollPane.addListener(new InputListener() {
+						@Override
+						public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+							super.enter(event, x, y, pointer, fromActor);
+							if (stage != null) {
+								stage.setScrollFocus(scrollPane);
+							}
+						}
+
+						@Override
+						public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+							super.exit(event, x, y, pointer, toActor);
+							if (stage != null) {
+								stage.setScrollFocus(null);
+							}
+						}
+					});
+					scrollPane.setForceScroll(false, true);
+					scrollPane.setFadeScrollBars(false);
+					scrollPane.setScrollbarsVisible(true);
+					scrollPane.setScrollBarPositions(true, true);
+
+					dialog.getContentTable().defaults().padLeft(120f).padRight(120f);
+					dialog.getContentTable().add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
+					dialog.getContentTable().add(gameplayLabel).align(Align.left).row();
+					dialog.getContentTable().add(scrollPane).fillX().height(1256f).padBottom(50f).row();
+					dialog.getContentTable().add(resetBindingsButton).padBottom(100f).row();
+
+
+					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+				})
+				.build();
 
 		edgeScrollingCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.USE_EDGE_SCROLLING", skin, 428f);
 		GlobalSettings.USE_EDGE_SCROLLING = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.EDGE_SCROLLING, "true"));;

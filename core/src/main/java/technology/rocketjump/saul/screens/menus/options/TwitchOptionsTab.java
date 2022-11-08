@@ -15,6 +15,8 @@ import technology.rocketjump.saul.misc.twitch.TwitchDataStore;
 import technology.rocketjump.saul.misc.twitch.model.TwitchAccountInfo;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.utils.HexColors;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -167,13 +169,13 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 		this.accountInfo = twitchDataStore.getAccountInfo();
 
 		loginLabel = new Label("", skin, "options_menu_label");
-		linkAccountButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON", skin, MenuButtonFactory.ButtonStyle.BTN_KEY_BINDINGS_KEY)
+		linkAccountButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.LINK_ACCOUNT_BUTTON", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
 				.withAction(() -> {
 					Gdx.net.openURI(INTEGRATION_URL);
 				})
 				.build();
 
-		disconnectAccountButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.DISCONNECT", skin, MenuButtonFactory.ButtonStyle.BTN_KEY_BINDINGS_KEY)
+		disconnectAccountButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.DISCONNECT", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
 				.withAction(() -> {
 					twitchDataStore.setCurrentToken(null);
 					twitchDataStore.setAccountInfo(null);
@@ -184,8 +186,9 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 		codeLabel = new Label(i18nTranslator.getTranslatedString("GUI.OPTIONS.TWITCH.CODE_LABEL").toString(), skin, "options_menu_label");
 		codeInput = new TextField("", skin);
+		codeInput.addListener(new ChangeCursorOnHover(GameCursor.I_BEAM, messageDispatcher));
 
-		codeSubmitButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.SUBMIT_BUTTON", skin, MenuButtonFactory.ButtonStyle.BTN_KEY_BINDINGS_KEY)
+		codeSubmitButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.SUBMIT_BUTTON", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
 				.withAction(() -> {
 					String code = codeInput.getText();
 					if (!code.isEmpty()) {

@@ -14,6 +14,9 @@ public abstract class GameDialog implements Disposable {
 	protected Image fullScreenOverlay;
 
 	public GameDialog(I18nText titleText, Skin uiSkin, MessageDispatcher messageDispatcher) {
+		this(titleText, uiSkin, messageDispatcher, uiSkin.get(Window.WindowStyle.class));
+	}
+	public GameDialog(I18nText titleText, Skin uiSkin, MessageDispatcher messageDispatcher, Window.WindowStyle windowStyle) {
 		this.messageDispatcher = messageDispatcher;
 		dialog = new Dialog(titleText.toString(), uiSkin) {
 			public void result(Object obj) {
@@ -26,6 +29,7 @@ public abstract class GameDialog implements Disposable {
 				dispose();
 			}
 		};
+		dialog.setStyle(windowStyle);
 		this.uiSkin = uiSkin;
 
 		fullScreenOverlay = new Image(uiSkin, "default-rect");

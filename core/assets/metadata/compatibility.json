@@ -39,6 +39,8 @@
   "definitions/types/overlapTypes.json" : "Alpha 3",
   "music/peaceful/*.ogg" : "Early Access 1.0.3",
   "music/skirmish/*.ogg" : "Early Access 1.0.3",
+  "music/invasion/*.ogg" : "Early Access 1.0.5",
+  "music/invasion_stinger/*.ogg" : "Early Access 1.0.5",
   "definitions/particles/*.p" : "Alpha 5.0.1",
   "definitions/types/particleTypes.json" : "Alpha 5.0.1",
   "definitions/shaders/*.glsl" : "Alpha 5.3",
