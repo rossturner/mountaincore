@@ -103,6 +103,7 @@ public class RoomType {
 		this.processedTags = processedTags;
 	}
 
+	@JsonIgnore
 	public boolean isStockpile() {
 		return getProcessedTags().stream().anyMatch(tag -> tag instanceof StockpileTag);
 	}
