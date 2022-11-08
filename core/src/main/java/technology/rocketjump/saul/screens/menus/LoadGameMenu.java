@@ -23,6 +23,8 @@ import technology.rocketjump.saul.persistence.SavedGameStore;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -49,6 +51,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 	private final SavedGameStore savedGameStore;
 	private final Skin mainGameSkin;
 	private final I18nTranslator i18nTranslator;
+	private final TooltipFactory tooltipFactory;
 	private int carouselIndex = 0;
 
 	private java.util.List<Table> slots;
@@ -63,8 +66,9 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 
 	@Inject
 	public LoadGameMenu(GuiSkinRepository skinRepository, MessageDispatcher messageDispatcher,
-						SoundAssetDictionary soundAssetDictionary, MenuButtonFactory menuButtonFactory,
-						SavedGameStore savedGameStore, I18nTranslator i18nTranslator) {
+	                    SoundAssetDictionary soundAssetDictionary, MenuButtonFactory menuButtonFactory,
+	                    SavedGameStore savedGameStore, I18nTranslator i18nTranslator,
+	                    TooltipFactory tooltipFactory) {
 		super(skinRepository);
 		this.messageDispatcher = messageDispatcher;
 		this.soundAssetDictionary = soundAssetDictionary;
@@ -73,6 +77,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		this.mainGameSkin = skinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.startGameSound = soundAssetDictionary.getByName("GameStart");
+		this.tooltipFactory = tooltipFactory;
 
 		rebuildUI();
 	}
@@ -134,7 +139,8 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 
 		if (savedGameInfo.peacefulMode) {
 			Image peacefulModeImage = new Image(skin.getDrawable("icon_peaceful_mode"));
-			peacefulModeImage.setTouchable(Touchable.disabled);
+//			peacefulModeImage.setTouchable(Touchable.disabled);
+			tooltipFactory.simpleTooltip(peacefulModeImage, "GUI.EMBARK.PEACEFUL_MODE", TooltipLocationHint.BELOW);
 			slotOverlay.add(peacefulModeImage).top().left().padLeft(60f).padTop(50f).expand();
 		}
 
