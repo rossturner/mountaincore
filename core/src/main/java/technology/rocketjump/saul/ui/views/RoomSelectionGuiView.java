@@ -12,7 +12,6 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
-import technology.rocketjump.saul.rooms.tags.StockpileTag;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
@@ -30,7 +29,7 @@ import static technology.rocketjump.saul.ui.views.GuiViewName.STOCKPILE_SELECTIO
 @Singleton
 public class RoomSelectionGuiView implements GuiView, DisplaysText {
 
-	private final int ROOMS_PER_ROW = 9;
+	private final int ITEMS_PER_ROW = 9;
 	private final Skin skin;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
@@ -82,7 +81,7 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 		buttonsTable = new Table();
 
 		int rowCursor = 0;
-		java.util.List<RoomType> roomTypes = new ArrayList<>(roomTypeDictionary.getAll());
+		ArrayList<RoomType> roomTypes = new ArrayList<>(roomTypeDictionary.getAll());
 		roomTypes.sort((o1, o2) -> {
 			String o1Translated = i18nTranslator.getTranslatedString(o1.getI18nKey()).toString();
 			String o2Translated = i18nTranslator.getTranslatedString(o2.getI18nKey()).toString();
@@ -102,7 +101,7 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					messageDispatcher.dispatchMessage(MessageType.GUI_ROOM_TYPE_SELECTED, roomType);
-					if (roomType.getProcessedTags().stream().anyMatch(tag -> tag instanceof StockpileTag)) {
+					if (roomType.isStockpile()) {
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, STOCKPILE_SELECTION);
 					} else {
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_ROOM);
@@ -121,12 +120,12 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 			buttonsTable.add(buttonContainer);
 
 			rowCursor++;
-			if (rowCursor % ROOMS_PER_ROW == 0) {
+			if (rowCursor % ITEMS_PER_ROW == 0) {
 				buttonsTable.row();
 			}
 		}
 
-		while (rowCursor % ROOMS_PER_ROW != 0) {
+		while (rowCursor % ITEMS_PER_ROW != 0) {
 			Image spacerImage = new Image(skin.getDrawable("room_bg_small"));
 			buttonsTable.add(spacerImage).size(201, 201);
 			rowCursor++;
@@ -135,6 +134,7 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 
 		mainTable.add(buttonsTable).padLeft(30).padRight(30).padBottom(50).center().row();
 	}
+
 
 	@Override
 	public GuiViewName getName() {

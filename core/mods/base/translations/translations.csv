@@ -1192,6 +1192,8 @@ ROOMS.STOCKPILE,,Stockpile
 ROOMS.STOCKPILE.TOOLTIP,,This area stores different kinds of items depending on settings.
 ROOMS.STOCKPILES,,Stockpiles
 ROOMS.STOCKPILES.TOOLTIP,,Unused items are placed in stockpiles for easy access.
+ROOMS.STOCKPILE_WITH_GROUP_NAME,,{{stockpileGroupName}} {{roomTypeName}}
+ROOMS.ITERATIVE_NAMED_ROOM,,{{roomName}} #{{number}}
 ROOMS.TEXTILE_WORKSHOP,,Textile workshop
 ROOMS.TEXTILE_WORKSHOP.TOOLTIP,,Processes {{SEED.HEMP_SEED}} into textiles for a variety of uses.
 

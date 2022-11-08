@@ -6,6 +6,7 @@ import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.Name;
 import technology.rocketjump.saul.rendering.utils.HexColors;
+import technology.rocketjump.saul.rooms.tags.StockpileTag;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 
 import java.util.ArrayList;
@@ -100,6 +101,10 @@ public class RoomType {
 
 	public void setProcessedTags(List<Tag> processedTags) {
 		this.processedTags = processedTags;
+	}
+
+	public boolean isStockpile() {
+		return getProcessedTags().stream().anyMatch(tag -> tag instanceof StockpileTag);
 	}
 
 	@Override

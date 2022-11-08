@@ -24,6 +24,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rooms.Room;
+import technology.rocketjump.saul.rooms.RoomFactory;
 import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.rooms.components.FarmPlotComponent;
@@ -66,6 +67,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final Button changeRoomNameButton;
 	private final Table sizingButtons;
 	private final FurnitureMaterialsWidget furnitureMaterialsWidget;
+	private final RoomFactory roomFactory;
 	private GameContext gameContext;
 
 	private Button backButton;
@@ -79,7 +81,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 						   I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
 						   FurnitureTypeDictionary furnitureTypeDictionary, RoomEditorFurnitureMap furnitureMap,
 						   EntityRenderer entityRenderer, RoomStore roomStore, RoomEditorItemMap itemMap,
-						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget) {
+						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget, RoomFactory roomFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
@@ -92,12 +94,14 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		this.itemMap = itemMap;
 		this.plantSpeciesDictionary = plantSpeciesDictionary;
 		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
+		this.roomFactory = roomFactory;
 
 		backButton = new Button(skin.getDrawable("btn_back"));
 		mainTable = new Table();
 		mainTable.setTouchable(Touchable.enabled);
 		mainTable.setBackground(skin.getDrawable("asset_dwarf_select_bg"));
 		mainTable.pad(20);
+		mainTable.top();
 
 
 		headerContainer = new Table();
@@ -130,6 +134,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 								roomStore.rename(getSelectedRoom(), newRoomName);
 								rebuildUI();
 							} catch (RoomStore.RoomNameCollisionException e) {
+								// TODO put this back in
 //								ModalDialog errorDialog = gameDialogDictionary.getErrorDialog(ErrorType.ROOM_NAME_ALREADY_EXISTS);
 //								messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, errorDialog);
 							}
@@ -192,7 +197,14 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			return;
 		}
 
-		String headerText = selectedRoom != null ? selectedRoom.getRoomName() : i18nTranslator.getTranslatedString(selectedRoomType.getI18nKey()).toString();
+		String headerText;
+		if (selectedRoom != null) {
+			headerText = selectedRoom.getRoomName();
+		} else if (selectedRoomType.isStockpile()) {
+			headerText = roomFactory.getStockpileRoomName(selectedRoomType, interactionStateContainer.getSelectedStockpileGroup()).toString();
+		} else {
+			headerText = i18nTranslator.getTranslatedString(selectedRoomType.getI18nKey()).toString();
+		}
 		Label headerLabel = new Label(headerText, skin.get("title-header", Label.LabelStyle.class));
 		headerContainer.add(new Container<>()).left().expandX().width(changeRoomNameButton.getWidth());
 		headerContainer.add(headerLabel).center();

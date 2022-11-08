@@ -3,6 +3,7 @@ package technology.rocketjump.saul.rooms;
 import com.badlogic.gdx.math.GridPoint2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.tags.TagProcessor;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
@@ -14,6 +15,7 @@ import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+import technology.rocketjump.saul.ui.i18n.I18nWord;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -38,7 +40,7 @@ public class RoomFactory implements GameContextAware, DisplaysText {
 		Room room = new Room(roomType);
 		I18nText translatedName = i18nTranslator.getTranslatedString(roomType.getI18nKey());
 		tagProcessor.apply(roomType.getProcessedTags(), room);
-		room.setRoomName(generateSequentialName(translatedName.toString(), null, 1));
+		room.setRoomName(generateSequentialName(translatedName, 1));
 		if (!roomType.getRoomName().equals("VIRTUAL_PLACING_ROOM")) {
 			roomStore.add(room);
 		}
@@ -53,10 +55,8 @@ public class RoomFactory implements GameContextAware, DisplaysText {
 			if (cloned instanceof StockpileRoomComponent) {
 				Iterator<StockpileGroup> groupIterator = ((StockpileRoomComponent) cloned).getEnabledGroups().iterator();
 				if (groupIterator.hasNext()) {
-					String translatedName =  i18nTranslator.getTranslatedString(newRoom.getRoomType().getI18nKey()).toString();
-					String groupTranslated = i18nTranslator.getTranslatedString(groupIterator.next().getI18nKey()).toString();
 					String originalName = newRoom.getRoomName();
-					newRoom.setRoomName(generateSequentialName(translatedName, groupTranslated, 1));
+					newRoom.setRoomName(generateSequentialName(getStockpileRoomName(newRoom.getRoomType(), groupIterator.next()), 1));
 					roomStore.nameChanged(newRoom, originalName);
 				}
 			}
@@ -93,27 +93,24 @@ public class RoomFactory implements GameContextAware, DisplaysText {
 	public void rebuildUI() {
 		for (Room room : roomStore.getAll()) {
 			if (!room.isNameChangedByPlayer()) {
-				I18nText translatedName = i18nTranslator.getTranslatedString(room.getRoomType().getI18nKey());
-				String translatedStockpileGroup = null;
+				I18nText roomNameText = i18nTranslator.getTranslatedString(room.getRoomType().getI18nKey());
 				StockpileRoomComponent stockpileRoomComponent = room.getComponent(StockpileRoomComponent.class);
 				if (stockpileRoomComponent != null) {
 					if (!stockpileRoomComponent.getEnabledGroups().isEmpty()) {
 						StockpileGroup group = stockpileRoomComponent.getEnabledGroups().iterator().next();
-						translatedStockpileGroup = i18nTranslator.getTranslatedString(group.getI18nKey()).toString();
+						roomNameText = getStockpileRoomName(room.getRoomType(), group);
 					}
 				}
 				String originalName = room.getRoomName();
-				room.setRoomName(generateSequentialName(translatedName.toString(), translatedStockpileGroup, 1));
+				room.setRoomName(generateSequentialName(roomNameText, 1));
 				roomStore.nameChanged(room, originalName);
 			}
 		}
 	}
 
 	public void updateRoomNameForStockpileGroup(Room room, StockpileGroup stockpileGroup) {
-		String translatedName =  i18nTranslator.getTranslatedString(room.getRoomType().getI18nKey()).toString();
-		String groupTranslated = i18nTranslator.getTranslatedString(stockpileGroup.getI18nKey()).toString();
 		String originalName = room.getRoomName();
-		room.setRoomName(generateSequentialName(translatedName, groupTranslated, 1));
+		room.setRoomName(generateSequentialName(getStockpileRoomName(room.getRoomType(), stockpileGroup), 1));
 		roomStore.nameChanged(room, originalName);
 	}
 
@@ -128,18 +125,24 @@ public class RoomFactory implements GameContextAware, DisplaysText {
 
 	}
 
-	private String generateSequentialName(String translatedRoomType, String translatedStockpileGroup, int counter) {
-		String sequentialName;
-		if (translatedStockpileGroup != null) {
-			sequentialName = translatedStockpileGroup + " " + translatedRoomType.toLowerCase() + " #" + counter;
-		} else {
-			sequentialName = translatedRoomType + " #" + counter;
-		}
+	public I18nText getStockpileRoomName(RoomType roomType, StockpileGroup stockpileGroup) {
+		return i18nTranslator.applyReplacements(i18nTranslator.getWord("ROOMS.STOCKPILE_WITH_GROUP_NAME"), Map.of(
+				"roomTypeName", i18nTranslator.getTranslatedString(roomType.getI18nKey()),
+				"stockpileGroupName", i18nTranslator.getTranslatedString(stockpileGroup.getI18nKey()).toLowerCase()
+		), Gender.ANY);
+	}
+
+	private String generateSequentialName(I18nText roomNameText, int counter) {
+		String sequentialName = i18nTranslator.applyReplacements(i18nTranslator.getWord("ROOMS.ITERATIVE_NAMED_ROOM"),
+				Map.of(
+						"roomName", roomNameText,
+						"number", new I18nWord(String.valueOf(counter))
+				), Gender.ANY).toString();
 
 		if (roomStore.getByName(sequentialName) == null) {
 			return sequentialName;
 		} else {
-			return generateSequentialName(translatedRoomType, translatedStockpileGroup, counter + 1);
+			return generateSequentialName(roomNameText, counter + 1);
 		}
 	}
 

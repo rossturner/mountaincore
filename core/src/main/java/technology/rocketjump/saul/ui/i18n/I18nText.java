@@ -106,6 +106,11 @@ public class I18nText implements I18nString {
 		}
 	}
 
+	public I18nText toLowerCase() {
+		textElements.forEach(t -> t.setText(t.getText().toLowerCase()));
+		return this;
+	}
+
 	public I18nText tidy(boolean firstInvocation) {
 		if (firstInvocation && textElements.size() > 1 && textElements.stream().allMatch(e -> e.getTooltipI18nKey() == null)) {
 			// no tooltips, merge all text together

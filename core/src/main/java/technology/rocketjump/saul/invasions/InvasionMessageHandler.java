@@ -90,8 +90,6 @@ public class InvasionMessageHandler implements Telegraph, GameContextAware {
 
 		invasionGenerator.generateInvasionParticipants(invasionDefinition, invasionLocation, calculatePointsBudget(invasionDefinition.getTriggeredBy()));
 
-		// TODO figure out AI of invasion
-
 		messageDispatcher.dispatchMessage(4.5f, POST_NOTIFICATION, new Notification(NotificationType.INVASION, invasionLocation));
 	}
 
