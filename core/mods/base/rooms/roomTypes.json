@@ -95,7 +95,7 @@
     ]
   },
   {
-    "roomName": "BARRAKCS",
+    "roomName": "BARRACKS",
     "i18nKey": "ROOMS.BARRACKS",
     "colorCode": "#c4b2c5",
     "drawableName": "btn_room_barracks",

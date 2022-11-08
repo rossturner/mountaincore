@@ -70,7 +70,7 @@
   "furnitureNames" : [ "SINGLE_BED", "SLEEPING_SPOT" ],
   "tags" : { }
 }, {
-  "roomName" : "BARRAKCS",
+  "roomName" : "BARRACKS",
   "i18nKey" : "ROOMS.BARRACKS",
   "drawableName" : "btn_room_barracks",
   "colorCode" : "#c4b2c5",

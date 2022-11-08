@@ -30,7 +30,7 @@ import static technology.rocketjump.saul.ui.views.GuiViewName.STOCKPILE_SELECTIO
 @Singleton
 public class RoomSelectionGuiView implements GuiView, DisplaysText {
 
-	private final int ROOMS_PER_ROW = 10;
+	private final int ROOMS_PER_ROW = 9;
 	private final Skin skin;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
@@ -80,8 +80,6 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 		mainTable.add(headerContainer).center().expandY().padBottom(20).row();
 
 		buttonsTable = new Table();
-		buttonsTable.defaults().pad(10);
-		// TODO scrolling left and right to show more than 20 rooms
 
 		int rowCursor = 0;
 		java.util.List<RoomType> roomTypes = new ArrayList<>(roomTypeDictionary.getAll());
@@ -115,7 +113,12 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 			roomButton.addListener(new ChangeCursorOnHover(roomButton, GameCursor.SELECT, messageDispatcher));
 			tooltipFactory.simpleTooltip(roomButton, roomType.getI18nKey(), TooltipLocationHint.ABOVE);
 
-			buttonsTable.add(roomButton);
+			Container<Button> buttonContainer = new Container<>();
+			buttonContainer.setBackground(skin.getDrawable("room_bg_small"));
+			buttonContainer.pad(10);
+			buttonContainer.setActor(roomButton);
+
+			buttonsTable.add(buttonContainer);
 
 			rowCursor++;
 			if (rowCursor % ROOMS_PER_ROW == 0) {
@@ -124,8 +127,8 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 		}
 
 		while (rowCursor % ROOMS_PER_ROW != 0) {
-			Image spacerImage = new Image(skin.getDrawable("asset_catalogue_bg"));
-			buttonsTable.add(spacerImage);
+			Image spacerImage = new Image(skin.getDrawable("room_bg_small"));
+			buttonsTable.add(spacerImage).size(201, 201);
 			rowCursor++;
 		}
 
