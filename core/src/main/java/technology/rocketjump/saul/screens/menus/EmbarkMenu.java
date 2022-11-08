@@ -27,6 +27,7 @@ import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.GameDialog;
 import technology.rocketjump.saul.ui.widgets.GameDialogDictionary;
+import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
 import java.util.Collections;
 import java.util.Map;
@@ -39,6 +40,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 	private final I18nTranslator i18nTranslator;
 	private final SavedGameStore savedGameStore;
 	private final SettlementNameGenerator settlementNameGenerator;
+	private final WidgetFactory widgetFactory;
 	private final SoundAssetDictionary soundAssetDictionary;
 	private final GameDialogDictionary gameDialogDictionary;
 	private final Random random = new RandomXS128();
@@ -46,17 +48,19 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 	private TextField seedInput;
 	private int selectedMapWidth;
 	private int selectedMapHeight;
+	private boolean peacefulMode = false;
 
 	@Inject
 	public EmbarkMenu(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 	                  I18nTranslator i18nTranslator, SavedGameStore savedGameStore,
-	                  SettlementNameGenerator settlementNameGenerator,
+	                  SettlementNameGenerator settlementNameGenerator, WidgetFactory widgetFactory,
 	                  SoundAssetDictionary soundAssetDictionary, GameDialogDictionary gameDialogDictionary) {
 		super(guiSkinRepository);
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
 		this.savedGameStore = savedGameStore;
 		this.settlementNameGenerator = settlementNameGenerator;
+		this.widgetFactory = widgetFactory;
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.gameDialogDictionary = gameDialogDictionary;
 	}
@@ -127,6 +131,18 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		this.seedInput.addListener(new ChangeCursorOnHover(GameCursor.I_BEAM, messageDispatcher));
 		this.seedInput.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		this.seedInput.setAlignment(Align.center);
+
+		CheckBox peacefulModeCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.EMBARK.PEACEFUL_MODE", skin, 320);
+		peacefulModeCheckbox.setChecked(peacefulMode);
+		peacefulModeCheckbox.addListener((event) -> {
+			if (event instanceof ChangeListener.ChangeEvent) {
+				this.peacefulMode = peacefulModeCheckbox.isChecked();
+//				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
+//				GlobalSettings.ZOOM_TO_CURSOR = zoomToCursorCheckbox.isChecked();
+//				userPreferences.setPreference(UserPreferences.PreferenceKey.ZOOM_TO_CURSOR, String.valueOf(GlobalSettings.ZOOM_TO_CURSOR));
+			}
+			return true;
+		});
 
 		Button randomiseSeedButton = new Button(skin, "btn_random");
 		randomiseSeedButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
@@ -206,24 +222,27 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		Table bottomLeftCorner = new Table();
 		bottomLeftCorner.add(backButton).left();
 		bottomLeftCorner.add(seedLabel).right().padRight(34f).expandX();
+
+		Table bottomMiddle = new Table();
+		bottomMiddle.add(seedInput).width(ribbonWidth).height(84f).spaceBottom(46f);
+		bottomMiddle.row();
+		bottomMiddle.add(new Container<>(peacefulModeCheckbox));
+
 		Table bottomRightCorner = new Table();
 		bottomRightCorner.add(randomiseSeedButton).left().padLeft(40f).expandX();
 		bottomRightCorner.add(startButton).right();
 
 		table.add(bottomLeftCorner).fillX();
-		table.add(seedInput).width(ribbonWidth).height(85f).spaceBottom(232f);
+		table.add(bottomMiddle).bottom();
 		table.add(bottomRightCorner).fillX();
-
 		table.row();
-
-
 
 		return table;
 	}
 
 	private void startGame() {
 		messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-		messageDispatcher.dispatchMessage(MessageType.START_NEW_GAME, new StartNewGameMessage(getSettlementName(), parseSeed(), selectedMapWidth, selectedMapHeight));
+		messageDispatcher.dispatchMessage(MessageType.START_NEW_GAME, new StartNewGameMessage(getSettlementName(), parseSeed(), selectedMapWidth, selectedMapHeight, peacefulMode));
 	}
 
 	private Table buildMapButton(ButtonGroup<ImageButton> mapRadioSelectionGroup, String labelI18nKey, String mapDrawableName, float scale, int mapWidth, int mapHeight) {

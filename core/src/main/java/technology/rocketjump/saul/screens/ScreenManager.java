@@ -90,7 +90,7 @@ public class ScreenManager implements Telegraph, GameContextAware {
 		GameSeed worldSeed = newGameSeed(newGameMessage.seed, newGameMessage.mapWidth, newGameMessage.mapHeight);
 
 		GameClock gameClock = new GameClock();
-		GameContext gameContext = gameContextFactory.create(newGameMessage.settlementName, null, worldSeed.seed, gameClock);
+		GameContext gameContext = gameContextFactory.create(newGameMessage.settlementName, null, worldSeed.seed, gameClock, newGameMessage.peacefulMode);
 		gameContextRegister.setNewContext(gameContext); // FIXME Should be able to remove this
 
 		TiledMap map = null;

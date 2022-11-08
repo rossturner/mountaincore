@@ -23,6 +23,7 @@ public class SavedGameInfo {
 	public final Instant lastModifiedTime;
 	public final String formattedFileModifiedTime;
 	public final String formattedGameTime;
+	public final boolean peacefulMode;
 	private boolean isCompressed = true;
 
 	public SavedGameInfo(File saveFile, JSONObject headerJson, I18nTranslator i18nTranslator) throws InvalidSaveException, IOException {
@@ -32,6 +33,7 @@ public class SavedGameInfo {
 		this.file = saveFile;
 		this.settlementName = headerJson.getString("name");
 		this.version = headerJson.getString("version");
+		this.peacefulMode = headerJson.getBooleanValue("peacefulMode");
 		this.lastModifiedTime = Files.getLastModifiedTime(file.toPath()).toInstant();
 		this.formattedFileModifiedTime = DATE_TIME_FORMATTER.format(lastModifiedTime);
 		this.formattedGameTime = i18nTranslator.getDateTimeString(gameClock).toString();

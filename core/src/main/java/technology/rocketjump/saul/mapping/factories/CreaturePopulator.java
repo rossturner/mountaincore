@@ -61,7 +61,9 @@ public class CreaturePopulator {
 		Logger.debug("Adding " + animalsToAdd + " animals");
 
 		addAnimalsToMap(animalsToAdd, false, gameContext);
-		addMonstersToMap(100, gameContext);
+		if (!gameContext.getSettlementState().isPeacefulMode()) {
+			addMonstersToMap(100, gameContext);
+		}
 	}
 
 	public void addAnimalsAtEdge(GameContext gameContext) {
