@@ -16,9 +16,13 @@ public class ClickableSoundsListener extends ClickListener {
     private final SoundAsset onClickSoundAsset;
 
     public ClickableSoundsListener(MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
+        this(messageDispatcher, soundAssetDictionary, "MenuClick");
+    }
+
+    public ClickableSoundsListener(MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary, String clickSoundName) {
         this.messageDispatcher = messageDispatcher;
         this.onEnterSoundAsset = soundAssetDictionary.getByName("MenuHover");
-        this.onClickSoundAsset = soundAssetDictionary.getByName("MenuClick");
+        this.onClickSoundAsset = soundAssetDictionary.getByName(clickSoundName);
     }
 
 

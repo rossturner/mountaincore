@@ -8,7 +8,6 @@
 	"mainclass": "technology.rocketjump.saul.launcher.DesktopLauncher",
 	"vmargs": ["Xms1200m", "-Dfile.encoding=UTF-8"],
 	"resources": [
-		"../core/seed.txt",
 		"../core/changelog.txt",
 		"../core/assets",
 		"../core/mods",

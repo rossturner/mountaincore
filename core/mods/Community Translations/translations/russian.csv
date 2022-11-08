@@ -425,10 +425,7 @@ GUI.DIALOG.SETTLEMENT_NAME_NOT_SPECIFIED,,A name for the settlement must be spec
 GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE,,Stockpile settings,Настройка хранилища
 GUI.EMBARK.DISCLAIMER,,"This is an early alpha version of King under the Mountain. There are many, many features still to be added, and bugs are to be expected. In a future update you will be able to use this screen to customise your starting settlers, resources and even map and gameplay settings. Please join our Discord community to report any bugs you find or offer feedback, so we can work together to guide King under the Mountain to become the best possible version of itself. Thank you for playing!","Это ранняя альфа-версия King Under the Mountain. В будущем в игру будут добавляться новые возможности, пока возможны ошибки. В будущем обновлении вы сможете использовать этот экран, чтобы настроить начальных поселенцев, ресурсы, карту и игровой процесс. Присоединяйтесь к нашему сообществу Discord, чтобы сообщать о любых обнаруженных вами ошибках или оставлять отзывы, чтобы мы могли вместе работать над тем, чтобы помочь King Under the Mountain стать лучше. Спасибо ты за игру!"
 GUI.EMBARK.DISCORD_LINK,,Click here to join our Discord community,Нажмите чтобы присоединиться к нашему сообществу в Discord
-GUI.EMBARK.MAP_SEED,,Map seed:,Значение карты:
-GUI.EMBARK.SETTLEMENT_NAME,,Settlement name:,Название поселения:
 GUI.EMBARK.START,,Begin!,Начать!
-GUI.EMBARK.TITLE,,Embark Options,Начало игры
 GUI.EMPTY_CONTAINER_LABEL,This should be as short as possible,Empty,Пусто
 GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED,,Contents are being emptied.,"Содержимое опорожняется "
 GUI.EMPTY_CONTAINER_LABEL.HINT,,Dump the contents of this container on the ground.,"Вылейте содержимое этого контейнера на землю. "

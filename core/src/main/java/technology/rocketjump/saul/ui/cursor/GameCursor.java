@@ -12,6 +12,7 @@ public enum GameCursor {
 	DECONSTRUCT(6, 6),
 	DOOR(6, 6),
 	FLOOR(6, 6),
+	I_BEAM(32, 32),
 	GEARS(6, 6),
 	LOGGING(6, 6),
 	MINING(6, 6),

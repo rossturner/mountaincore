@@ -2,9 +2,11 @@ package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.messaging.InfoType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.async.ErrorType;
@@ -27,15 +29,18 @@ public class GameDialogDictionary implements DisplaysText {
 	private final I18nTranslator translator;
 	private final Skin uiSkin;
 	private final MessageDispatcher messageDispatcher;
+	private final SoundAssetDictionary soundAssetDictionary;
 
 	private final Map<ErrorType, ModalDialog> byErrorType = new EnumMap<>(ErrorType.class);
 	private final Map<InfoType, ModalDialog> byInfoType = new EnumMap<>(InfoType.class);
 
 	@Inject
-	public GameDialogDictionary(I18nTranslator translator, GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher) {
+	public GameDialogDictionary(I18nTranslator translator, GuiSkinRepository guiSkinRepository,
+	                            MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
 		this.translator = translator;
 		this.uiSkin = guiSkinRepository.getDefault();
 		this.messageDispatcher = messageDispatcher;
+		this.soundAssetDictionary = soundAssetDictionary;
 
 		createDialogs();
 	}
@@ -160,5 +165,13 @@ public class GameDialogDictionary implements DisplaysText {
 
 		}
 		return new String[] {};
+	}
+
+	public GameDialog createInfoDialog(Skin skin, InfoType infoType, Map<String, I18nString> replacements) {
+		NoTitleDialog dialog = new NoTitleDialog(skin, messageDispatcher, soundAssetDictionary);
+		I18nText translatedString = translator.getTranslatedWordWithReplacements(infoType.i18nKey, replacements);
+		I18nText descriptionText = translatedString.breakAfterLength(translator.getCurrentLanguageType().getBreakAfterLineLength());
+		dialog.getContentTable().add(new Label(descriptionText.toString(), skin, "white_text_default-font-23")).padRight(180f).padLeft(180f).growY();
+		return dialog;
 	}
 }

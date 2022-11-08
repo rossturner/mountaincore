@@ -100,6 +100,26 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
+	embark_1_peaceful_mode_ribbon_10patch: {
+		region: embark_1_peaceful_mode_ribbon
+		horizontalStretchAreas: [ 0, 879 ]
+		verticalStretchAreas: [ 0, 139 ]
+		tiling: false
+		minWidth: 880
+		minHeight: 140
+		rightWidth: 0
+		leftWidth: 0
+		bottomHeight: 121
+		topHeight: 6
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.kotcrab.vis.ui.Sizes: {
 	default: {
@@ -153,6 +173,15 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	btn_exit: {
 		up: btn_exit
 	}
+	btn_random: {
+		up: btn_random
+	}
+	btn_embark_next: {
+		up: btn_embark_next
+	}
+	btn_embark_back: {
+		up: btn_embark_back
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: {
@@ -164,6 +193,26 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	checkbox_no_bg: {
 		parent: default
 		fontColor: primary_font_colour_red
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+	default: {
+		up: btn_small_1
+	}
+	small_map_btn: {
+		imageUp: embark_2_small_preview
+		up: transparent_selection_bg_patch_v2
+		checked: transparent_selected_bg_patch
+	}
+	medium_map_btn: {
+		imageUp: embark_2_medium_preview
+		up: transparent_selection_bg_patch_v2
+		checked: transparent_selected_bg_patch
+	}
+	large_map_btn: {
+		imageUp: embark_2_large_preview
+		up: transparent_selection_bg_patch_v2
+		checked: transparent_selected_bg_patch
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
@@ -211,6 +260,19 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	}
 	checkbox_label_no_bg: {
 		font: default-font-16
+		fontColor: primary_font_colour_red
+	}
+	embark_ribbon: {
+		font: header-font-50
+		fontColor: primary_font_colour_red
+		background: embark_1_peaceful_mode_ribbon
+	}
+	embark_seed_label: {
+		font: default-font-23
+		fontColor: textfield_bg_colour
+	}
+	map_size_label: {
+		font: default-font-18
 		fontColor: primary_font_colour_red
 	}
 }
@@ -343,7 +405,14 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: {
-		font: default-font-16
+		font: default-font-18
+		fontColor: white
+		background: textfield_pixel_bg
+		cursor: textfield_cursor
+		selection: textfield_selected
+	}
+	embark_textfield: {
+		font: default-font-23
 		fontColor: white
 		background: textfield_pixel_bg
 		cursor: textfield_cursor

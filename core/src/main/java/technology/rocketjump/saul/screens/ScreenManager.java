@@ -1,6 +1,5 @@
 package technology.rocketjump.saul.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
@@ -8,7 +7,6 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.apache.commons.io.IOUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.environment.GameClock;
@@ -33,10 +31,6 @@ import technology.rocketjump.saul.ui.widgets.GameDialog;
 import technology.rocketjump.saul.ui.widgets.GameDialogDictionary;
 import technology.rocketjump.saul.ui.widgets.ModalDialog;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +87,7 @@ public class ScreenManager implements Telegraph, GameContextAware {
 	private void startNewGame(StartNewGameMessage newGameMessage) {
 		clearState();
 
-		GameSeed worldSeed = newGameSeed(newGameMessage.seed);
+		GameSeed worldSeed = newGameSeed(newGameMessage.seed, newGameMessage.mapWidth, newGameMessage.mapHeight);
 
 		GameClock gameClock = new GameClock();
 		GameContext gameContext = gameContextFactory.create(newGameMessage.settlementName, null, worldSeed.seed, gameClock);
@@ -105,7 +99,7 @@ public class ScreenManager implements Telegraph, GameContextAware {
 				map = mapFactory.create(worldSeed.seed, worldSeed.mapWidth, worldSeed.mapHeight, gameContext);
 			} catch (InvalidMapGenerationException e) {
 				Logger.warn("Invalid map generated: " + e.getMessage());
-				worldSeed = newGameSeed(new RandomXS128(newGameMessage.seed).nextLong());
+				worldSeed = newGameSeed(new RandomXS128(newGameMessage.seed).nextLong(), newGameMessage.mapWidth, newGameMessage.mapHeight);
 				Logger.info("Retrying generation with new seed: " + worldSeed);
 			}
 		}
@@ -262,30 +256,12 @@ public class ScreenManager implements Telegraph, GameContextAware {
 		messageDispatcher.clearQueue(); // FIXME #31 on loading a game need to re-instantiate things on the queue or else reset job state and other timed tasks
 	}
 
-	private GameSeed newGameSeed(long seed) {
-		try {
-			File file = Gdx.files.internal("seed.txt").file();
-			Reader reader = new FileReader(file);
-			List<String> lines = IOUtils.readLines(reader);
-			int mapWidth = 400;
-			int mapHeight = 300;
-			if (lines.size() > 1) {
-				String mapSize = lines.get(1);
-				if (mapSize.contains("x")) {
-					String[] split = mapSize.split("x");
-					mapWidth = Integer.valueOf(split[0]);
-					mapHeight = Integer.valueOf(split[1]);
-				}
-			}
-			reader.close();
-			if (seed == 0L) {
-				seed = new RandomXS128().nextLong();
-			}
-
-			return new GameSeed(seed, mapWidth, mapHeight);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
+	private GameSeed newGameSeed(long seed, int mapWidth, int mapHeight) {
+		if (seed == 0L) {
+			seed = new RandomXS128().nextLong();
 		}
+
+		return new GameSeed(seed, mapWidth, mapHeight);
 	}
 
 	@Override

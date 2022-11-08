@@ -424,10 +424,7 @@ GUI.DIALOG.SETTLEMENT_NAME_NOT_SPECIFIED,,A name for the settlement must be spec
 GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE,,Stockpile settings,貯蔵所の設定:
 GUI.EMBARK.DISCLAIMER,,"This is an early alpha version of King under the Mountain. There are many, many features still to be added, and bugs are to be expected. In a future update you will be able to use this screen to customise your starting settlers, resources and even map and gameplay settings. Please join our Discord community to report any bugs you find or offer feedback, so we can work together to guide King under the Mountain to become the best possible version of itself. Thank you for playing!",これはKing under the Mountainの初期のアルファバージョンです。多くの機能が追加されている最中であり、バグも予想されます。将来的にはこの画面を使って、スタート時の入植者や資源、さらにはマップやゲームプレイの設定をカスタマイズできるようアップデートする予定です。もしバグを見つけたら、どうかDiscordコミュニティに参加して報告したり、フィードバックを提供してください。\nKing　under　the　Mountainが可能な限り最高のバージョンになるよう、 一緒に取り組んでくれれば嬉しいです。\nThank　you　for　playing!
 GUI.EMBARK.DISCORD_LINK,,Click here to join our Discord community,クリックでDiscord communityに加入します
-GUI.EMBARK.MAP_SEED,,Map seed:,マップシード:
-GUI.EMBARK.SETTLEMENT_NAME,,Settlement name:,入植地名:
 GUI.EMBARK.START,,Begin!,開始！
-GUI.EMBARK.TITLE,,Embark Options,開始オプション
 GUI.EMPTY_CONTAINER_LABEL,This should be as short as possible,Empty,空にする
 GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED,,Contents are being emptied.,空にしている
 GUI.EMPTY_CONTAINER_LABEL.HINT,,Dump the contents of this container on the ground.,この容器の中身を地面に捨てます。
