@@ -7,8 +7,7 @@
   "iconName": "pyre",
   "hiddenFromPlacementMenu": true,
   "requirements": {
-    "ORE": [
-    ]
+    "WOOD": []
   },
   "tags": {
     "CHARCOAL_CLAMP_BEHAVIOUR": []

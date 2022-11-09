@@ -318,7 +318,7 @@
   "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
-    "ORE" : [ ]
+    "WOOD" : [ ]
   },
   "tags" : {
     "CHARCOAL_CLAMP_BEHAVIOUR" : [ ]

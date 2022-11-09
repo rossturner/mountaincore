@@ -24,6 +24,7 @@ import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.DefenseIn
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.TagsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WeaponInfoWidget;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.item.ItemApplicableMaterialsWidget;
 import technology.rocketjump.saul.assets.editor.widgets.vieweditor.ItemAttributesPane;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
@@ -47,6 +48,7 @@ import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.mapping.model.TiledMap;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -79,13 +81,15 @@ public class ItemUIFactory implements UIFactory {
     private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
     private final SkillDictionary skillDictionary;
     private final RaceDictionary raceDictionary;
+    private final GameMaterialDictionary materialDictionary;
 
     @Inject
     public ItemUIFactory(MessageDispatcher messageDispatcher, ItemEntityFactory itemEntityFactory, ItemTypeDictionary itemTypeDictionary,
                          ItemAttributesPane viewEditorControls, EntityAssetTypeDictionary entityAssetTypeDictionary,
                          CompleteAssetDictionary completeAssetDictionary, CraftingTypeDictionary craftingTypeDictionary,
                          StockpileGroupDictionary stockpileGroupDictionary, SoundAssetDictionary soundAssetDictionary,
-                         ParticleEffectTypeDictionary particleEffectTypeDictionary, SkillDictionary skillDictionary, RaceDictionary raceDictionary) {
+                         ParticleEffectTypeDictionary particleEffectTypeDictionary, SkillDictionary skillDictionary,
+                         RaceDictionary raceDictionary, GameMaterialDictionary materialDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.itemEntityFactory = itemEntityFactory;
         this.itemTypeDictionary = itemTypeDictionary;
@@ -98,6 +102,7 @@ public class ItemUIFactory implements UIFactory {
         this.particleEffectTypeDictionary = particleEffectTypeDictionary;
         this.skillDictionary = skillDictionary;
         this.raceDictionary = raceDictionary;
+        this.materialDictionary = materialDictionary;
     }
 
     @Override
@@ -510,6 +515,7 @@ public class ItemUIFactory implements UIFactory {
         assetComponents.row().padTop(15);
         assetComponents.addComponent(WidgetBuilder.checkboxGroup("Placements", itemEntityAsset.getItemPlacements(), itemPlacements, itemEntityAsset.getItemPlacements()::add, itemEntityAsset.getItemPlacements()::remove));
         assetComponents.row().padTop(15);
+        assetComponents.add(new ItemApplicableMaterialsWidget(itemEntityAsset.getApplicableMaterialNames(), materialDictionary)).colspan(2).row();
         assetComponents.addComponent(WidgetBuilder.selectField("Size", itemEntityAsset.getItemSize(), itemSizes, null, itemEntityAsset::setItemSize));
         assetComponents.addComponent(WidgetBuilder.selectField("Style", itemEntityAsset.getItemStyle(), itemStyles, null, itemEntityAsset::setItemStyle));
 

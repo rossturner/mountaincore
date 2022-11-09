@@ -20,9 +20,14 @@ public enum GuiViewName {
 	PRIORITY_MENU,
 
 	ROOM_SELECTION,
+	ROOM_EDITING,
+
+
+	// TODO the following can be removed
 	STOCKPILE_SELECTION,
-	ROOM_SIZING,
 	ROOM_FURNITURE_SELECTION,
+
+
 
 	ROOM_SELECTED,
 	BRIDGE_SELECTED,
@@ -33,6 +38,13 @@ public enum GuiViewName {
 	TILE_SELECTED,
 
 	CHANGE_PROFESSION,
-	SELECT_ITEM
+	SELECT_ITEM,
+
+	// Special cases which shouldn't be hidden
+	DEBUG,
+	HINTS,
+	MINIMAP,
+	NOTIFICATION,
+	TIME_DATE
 
 }

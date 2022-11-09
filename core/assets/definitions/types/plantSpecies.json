@@ -1,5 +1,6 @@
 [ {
   "speciesName" : "Barley",
+  "usageI18nKey" : "VEGETABLE.FOR_BEER.USAGE",
   "plantType" : "CROP",
   "materialName" : "Plant",
   "maxGrowthSpeedVariance" : 0.02,
@@ -164,6 +165,7 @@
   } ]
 }, {
   "speciesName" : "Carrot",
+  "usageI18nKey" : "VEGETABLE.INGREDIENT.USAGE",
   "plantType" : "CROP",
   "materialName" : "Plant",
   "maxGrowthSpeedVariance" : 0.02,
@@ -349,6 +351,7 @@
   } ]
 }, {
   "speciesName" : "Hemp",
+  "usageI18nKey" : "VEGETABLE.HEMP.USAGE",
   "plantType" : "CROP",
   "materialName" : "Plant",
   "maxGrowthSpeedVariance" : 0.03,
@@ -489,6 +492,7 @@
   } ]
 }, {
   "speciesName" : "Hops",
+  "usageI18nKey" : "VEGETABLE.FOR_BEER.USAGE",
   "plantType" : "CROP",
   "materialName" : "Plant",
   "maxGrowthSpeedVariance" : 0.01,
@@ -642,6 +646,7 @@
   } ]
 }, {
   "speciesName" : "Maize",
+  "usageI18nKey" : "VEGETABLE.INGREDIENT.USAGE",
   "plantType" : "CROP",
   "materialName" : "Plant",
   "maxGrowthSpeedVariance" : 0.01,
@@ -839,6 +844,7 @@
   } ]
 }, {
   "speciesName" : "Potato",
+  "usageI18nKey" : "VEGETABLE.INGREDIENT.USAGE",
   "plantType" : "CROP",
   "materialName" : "Plant",
   "maxGrowthSpeedVariance" : 0.02,
@@ -1024,6 +1030,7 @@
   } ]
 }, {
   "speciesName" : "Tomato",
+  "usageI18nKey" : "VEGETABLE.INGREDIENT.USAGE",
   "plantType" : "CROP",
   "materialName" : "Plant",
   "maxGrowthSpeedVariance" : 0.03,
@@ -1214,6 +1221,7 @@
   } ]
 }, {
   "speciesName" : "Wheat",
+  "usageI18nKey" : "VEGETABLE.WHEAT.USAGE",
   "plantType" : "CROP",
   "materialName" : "Plant",
   "maxGrowthSpeedVariance" : 0.02,

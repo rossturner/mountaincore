@@ -20,6 +20,7 @@ public class ItemEntityAssetDescriptor {
 	private ItemStyle itemStyle;
 	private List<ItemQuality> itemQualities = new ArrayList<>();
 	private List<ItemPlacement> itemPlacements = new ArrayList<>();
+	private List<String> applicableMaterialNames = new ArrayList<>();
 
 	public boolean matches(ItemEntityAttributes entityAttributes) {
 		if (itemTypeName != null && !itemTypeName.equals(entityAttributes.getItemType().getItemTypeName())) {
@@ -35,6 +36,9 @@ public class ItemEntityAssetDescriptor {
 			return false;
 		}
 		if (itemQualities != null && !itemQualities.isEmpty() && entityAttributes.getItemQuality() != null && !itemQualities.contains(entityAttributes.getItemQuality())) {
+			return false;
+		}
+		if (applicableMaterialNames != null && !applicableMaterialNames.isEmpty() && !applicableMaterialNames.contains(entityAttributes.getPrimaryMaterial())) {
 			return false;
 		}
 		return true;
@@ -110,5 +114,13 @@ public class ItemEntityAssetDescriptor {
 
 	public void setItemPlacements(List<ItemPlacement> itemPlacements) {
 		this.itemPlacements = itemPlacements;
+	}
+
+	public List<String> getApplicableMaterialNames() {
+		return applicableMaterialNames;
+	}
+
+	public void setApplicableMaterialNames(List<String> applicableMaterialNames) {
+		this.applicableMaterialNames = applicableMaterialNames;
 	}
 }

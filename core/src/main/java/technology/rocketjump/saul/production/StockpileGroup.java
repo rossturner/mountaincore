@@ -16,6 +16,7 @@ public class StockpileGroup {
 	@Name
 	private String name;
 	private String i18nKey;
+	private String drawableName;
 	private String colorCode;
 	@JsonIgnore
 	private Color color = HexColors.POSITIVE_COLOR;
@@ -102,5 +103,13 @@ public class StockpileGroup {
 
 	public void setIncludesCreatureCorpses(boolean includesCreatureCorpses) {
 		this.includesCreatureCorpses = includesCreatureCorpses;
+	}
+
+	public String getDrawableName() {
+		return drawableName;
+	}
+
+	public void setDrawableName(String drawableName) {
+		this.drawableName = drawableName;
 	}
 }

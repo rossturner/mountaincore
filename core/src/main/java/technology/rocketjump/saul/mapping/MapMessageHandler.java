@@ -59,6 +59,7 @@ import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.settlement.notifications.Notification;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
+import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.zones.Zone;
 
@@ -246,6 +247,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 		Map<GridPoint2, RoomTile> roomTilesToPlace = roomPlacementMessage.getRoomTiles();
 
 		List<Room> newRooms = new LinkedList<>();
+		Room roomToSelect = null;
 
 		while (!roomTilesToPlace.isEmpty()) {
 			Room newRoom = roomFactory.create(roomPlacementMessage.getRoomType(), roomTilesToPlace);
@@ -255,6 +257,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 				roomFactory.updateRoomNameForStockpileGroup(newRoom, roomPlacementMessage.stockpileGroup);
 			}
 			newRooms.add(newRoom);
+			roomToSelect = newRoom;
 		}
 
 		for (Room newRoom : newRooms) {
@@ -283,11 +286,17 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 					roomToMergeTo.mergeFrom(newRoom);
 					roomStore.remove(newRoom);
 					newRoom = roomToMergeTo;
+					roomToSelect = newRoom;
 				}
 
 				// Update all tile layouts
 				newRoom.updateLayout(gameContext.getAreaMap());
 			}
+		}
+
+		if (roomToSelect != null) {
+			Selectable selected = new Selectable(roomToSelect);
+			messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, selected);
 		}
 
 		return true;

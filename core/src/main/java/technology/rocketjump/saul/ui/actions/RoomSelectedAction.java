@@ -13,7 +13,7 @@ public class RoomSelectedAction extends SwitchGuiViewAction {
 	private StockpileGroup stockpileGroup;
 
 	public RoomSelectedAction(RoomType selectedRoomType, MessageDispatcher messageDispatcher) {
-		super(GuiViewName.ROOM_SIZING, messageDispatcher);
+		super(GuiViewName.ROOM_EDITING, messageDispatcher);
 		this.selectedRoomType = selectedRoomType;
 	}
 

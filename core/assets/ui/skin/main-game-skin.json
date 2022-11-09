@@ -51,6 +51,46 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
+	asset_bg_ribbon_title_patch: {
+		region: asset_bg_ribbon_title
+		horizontalStretchAreas: [ 242, 243 ]
+		verticalStretchAreas: [ 0, 73 ]
+		tiling: false
+		minWidth: 486
+		minHeight: 74
+		rightWidth: 80
+		leftWidth: 80
+		bottomHeight: 6
+		topHeight: 6
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
+	asset_dwarf_select_bg_patch: {
+		region: asset_dwarf_select_bg
+		horizontalStretchAreas: [ 0, 1489 ]
+		verticalStretchAreas: [ 0, 631 ]
+		tiling: false
+		minWidth: 1490
+		minHeight: 632
+		rightWidth: 26
+		leftWidth: 26
+		bottomHeight: 39
+		topHeight: 25
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.kotcrab.vis.ui.Sizes: {
 	default: {
@@ -150,6 +190,18 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	btn_map_resize: {
 		up: btn_map_resize
 	}
+	btn_material_type: {
+		up: btn_small_50pc
+		checked: btn_small
+	}
+	btn_arrow_small_left: {
+		up: btn_arrow_small_left
+		disabled: btn_arrow_small_left_disabled
+	}
+	btn_arrow_small_right: {
+		up: btn_arrow_small
+		disabled: btn_arrow_small_right_disabled
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
@@ -168,6 +220,14 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	}
 	tooltip-text: {
 		font: default-font-19
+		fontColor: primary_font_colour_red
+	}
+	title-header: {
+		font: header-font-32
+		fontColor: primary_font_colour_red
+	}
+	default-red: {
+		font: default-font-16
 		fontColor: primary_font_colour_red
 	}
 }

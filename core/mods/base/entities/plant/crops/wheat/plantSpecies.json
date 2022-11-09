@@ -1,5 +1,6 @@
 {
   "speciesName": "Wheat",
+  "usageI18nKey" : "VEGETABLE.WHEAT.USAGE",
   "plantType": "CROP",
   "materialName": "Plant",
   "maxGrowthSpeedVariance": 0.02,

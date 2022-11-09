@@ -186,7 +186,7 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 		codeLabel = new Label(i18nTranslator.getTranslatedString("GUI.OPTIONS.TWITCH.CODE_LABEL").toString(), skin, "options_menu_label");
 		codeInput = new TextField("", skin);
-		codeInput.addListener(new ChangeCursorOnHover(GameCursor.I_BEAM, messageDispatcher));
+		codeInput.addListener(new ChangeCursorOnHover(codeInput, GameCursor.I_BEAM, messageDispatcher));
 
 		codeSubmitButton = menuButtonFactory.createButton("GUI.OPTIONS.TWITCH.SUBMIT_BUTTON", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
 				.withAction(() -> {

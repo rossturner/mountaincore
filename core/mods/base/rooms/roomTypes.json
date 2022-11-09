@@ -3,7 +3,7 @@
     "roomName": "STOCKPILE",
     "i18nKey": "ROOMS.STOCKPILE",
     "colorCode": "#F2ED5A",
-    "iconName": "brick-pile",
+    "drawableName": "btn_room_stockpiles",
     "tags": {
       "STOCKPILE": []
     },
@@ -14,7 +14,7 @@
     "roomName": "FARM_PLOT",
     "i18nKey": "ROOMS.FARM",
     "colorCode": "#47301f",
-    "iconName": "wheat",
+    "drawableName": "btn_room_farming",
     "requiredFloorMaterialType": "EARTH",
     "tags": {
       "FARM_PLOT": ["tilled_earth", "Tilled earth", "TILLING", "PLANTING", "HARVESTING"]
@@ -25,7 +25,7 @@
     "roomName": "MUSHROOM_FARM",
     "i18nKey": "ROOMS.MUSHROOM_FARM",
     "colorCode": "#e1cebf",
-    "iconName": "mushrooms",
+    "drawableName": "btn_room_mushrooms",
     "tags": {
       "MUSHROOM_FARM_BEHAVIOUR": []
     },
@@ -35,7 +35,7 @@
     "roomName": "EARTHWORKS",
     "i18nKey": "ROOMS.EARTHWORKS",
     "colorCode": "#79ba78",
-    "iconName": "grass",
+    "drawableName": "btn_room_earth",
     "requiredFloorMaterialType": "EARTH",
     "tags": {
     },
@@ -49,7 +49,7 @@
     "roomName": "SAWMILL",
     "i18nKey": "ROOMS.SAWMILL",
     "colorCode": "#f19144",
-    "iconName": "log",
+    "drawableName": "btn_room_lumber",
     "furnitureNames": [
       "WOODCUTTERS_BENCH"
     ]
@@ -58,7 +58,7 @@
     "roomName": "CARPENTRY_WORKSHOP",
     "i18nKey": "ROOMS.CARPENTRY_WORKSHOP",
     "colorCode": "#be926e",
-    "iconName": "hammer-nails",
+    "drawableName": "btn_room_carpentry",
     "furnitureNames": [
       "Carpentry_Bench"
     ]
@@ -67,7 +67,7 @@
     "roomName": "MASONRY_WORKSHOP",
     "i18nKey": "ROOMS.MASONRY_WORKSHOP",
     "colorCode": "#c9c9c9",
-    "iconName": "stone-pile",
+    "drawableName": "btn_room_stonemason",
     "furnitureNames": [
       "Stonemason_Bench"
     ]
@@ -76,7 +76,7 @@
     "roomName": "METALWORKS",
     "i18nKey": "ROOMS.METALWORKS",
     "colorCode": "#8e8e8e",
-    "iconName": "black-bar",
+    "drawableName": "btn_room_metalworks",
     "furnitureNames": [
       "ORE_CRUSHING_STATION",
       "COKE_OVEN",
@@ -88,17 +88,17 @@
     "roomName": "BEDROOM",
     "i18nKey": "ROOMS.BEDROOM",
     "colorCode": "#c17200",
-    "iconName": "bed",
+    "drawableName": "btn_room_bedroom",
     "furnitureNames": [
       "SINGLE_BED",
       "SLEEPING_SPOT"
     ]
   },
   {
-    "roomName": "BARRAKCS",
+    "roomName": "BARRACKS",
     "i18nKey": "ROOMS.BARRACKS",
     "colorCode": "#c4b2c5",
-    "iconName": "barracks",
+    "drawableName": "btn_room_barracks",
     "furnitureNames": [
       "BARRACKS_BED",
       "TRAINING_DUMMY",
@@ -111,7 +111,7 @@
     "roomName": "KITCHEN",
     "i18nKey": "ROOMS.KITCHEN",
     "colorCode": "#1d8898",
-    "iconName": "chef-toque",
+    "drawableName": "btn_room_kitchen",
     "tags": {
       "KITCHEN_BEHAVIOUR": []
     },
@@ -130,7 +130,7 @@
     "roomName": "FEASTING_HALL",
     "i18nKey": "ROOMS.FEASTING_HALL",
     "colorCode": "#a42f1f",
-    "iconName": "knife-fork",
+    "drawableName": "btn_room_feast",
     "furnitureNames": [
       "SERVING_TABLE",
       "FEASTING_TABLE",
@@ -144,7 +144,7 @@
     "roomName": "BREWERY",
     "i18nKey": "ROOMS.BREWERY",
     "colorCode": "#e5b95b",
-    "iconName": "beer-stein",
+    "drawableName": "btn_room_brewery",
     "furnitureNames": [
       "WATER_BARREL",
       "MALTING_STATION",
@@ -157,7 +157,7 @@
     "roomName": "TEXTILE_WORKSHOP",
     "i18nKey": "ROOMS.TEXTILE_WORKSHOP",
     "colorCode": "#cccc8f",
-    "iconName": "yarn",
+    "drawableName": "btn_room_weaver",
     "furnitureNames": [
       "RETTING_TANK",
       "LOOM"
@@ -168,7 +168,7 @@
     "roomName": "GRAVEYARD",
     "i18nKey": "ROOMS.GRAVEYARD",
     "colorCode": "#7b7575",
-    "iconName": "graveyard",
+    "drawableName": "btn_room_graveyard",
     "tags": {
       "GRAVEYARD_BEHAVIOUR": []
     },
@@ -182,7 +182,7 @@
     "roomName": "ARMOURY",
     "i18nKey": "ROOMS.ARMOURY",
     "colorCode": "#e17151",
-    "iconName": "crossed-swords",
+    "drawableName": "btn_room_armory",
     "tags": {
     },
     "furnitureNames": [
@@ -195,7 +195,7 @@
     "roomName": "LEATHER_WORKSHOP",
     "i18nKey": "ROOMS.LEATHER_WORKSHOP",
     "colorCode": "#aa7252",
-    "iconName": "animal-hide",
+    "drawableName": "btn_room_leather",
     "furnitureNames": [
       "Tanning_Frame","Leatherworking_Station"
     ]
@@ -204,7 +204,7 @@
     "roomName": "ARTISAN_WORKSHOP",
     "i18nKey": "ROOMS.ARTISAN_WORKSHOP",
     "colorCode": "#aa1a1c",
-    "iconName": "gems",
+    "drawableName": "btn_room_artisan",
     "furnitureNames": [
       "BONE_CRAFTING_BENCH"
     ]

@@ -69,7 +69,7 @@ public class DefaultGuiView implements GuiView, DisplaysText {
 		for (Button button : List.of(
 				buildButton("btn_bottom_orders", "GUI.ORDERS_LABEL", () -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ORDER_SELECTION)),
 				buildButton("btn_bottom_construction", "GUI.BUILD_LABEL", () -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.BUILD_MENU)),
-				buildButton("btn_bottom_zones", "GUI.ZONES_LABEL", () -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ROOM_SELECTION)),
+				buildButton("btn_bottom_zones", "GUI.ROOMS_LABEL", () -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ROOM_SELECTION)),
 				buildButton("btn_bottom_priority", "GUI.PRIORITY_LABEL", () -> {
 					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.PRIORITY_MENU);
 					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.JOB_PRIORITY);
@@ -87,7 +87,7 @@ public class DefaultGuiView implements GuiView, DisplaysText {
 				onClick.run();
 			}
 		});
-		button.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(button, i18nKey, TooltipLocationHint.ABOVE);
 		return button;
 	}

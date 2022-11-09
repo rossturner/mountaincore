@@ -90,6 +90,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 	private JobPriority jobPriorityToApply = JobPriority.NORMAL;
 
 	// Room placement Info
+	private RoomType selectedRoomType;
 	private StockpileGroup selectedStockpileGroup;
 
 	// Furniture placement info
@@ -851,5 +852,13 @@ public class GameInteractionStateContainer implements GameContextAware {
 
 	public void setMechanismTypeToPlace(MechanismType mechanismTypeToPlace) {
 		this.mechanismTypeToPlace = mechanismTypeToPlace;
+	}
+
+	public void setSelectedRoomType(RoomType selectedRoomType) {
+		this.selectedRoomType = selectedRoomType;
+	}
+
+	public RoomType getSelectedRoomType() {
+		return selectedRoomType;
 	}
 }

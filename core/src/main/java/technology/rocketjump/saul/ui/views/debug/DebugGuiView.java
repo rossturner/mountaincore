@@ -499,7 +499,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	@Override
 	public GuiViewName getName() {
 		// This is a special case GuiView which lives outside of the normal usage
-		return null;
+		return GuiViewName.DEBUG;
 	}
 
 	@Override

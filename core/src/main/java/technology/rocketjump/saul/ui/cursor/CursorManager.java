@@ -14,8 +14,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,49 +21,39 @@ import java.util.Map;
 public class CursorManager implements Telegraph {
 
 	private final Map<GameCursor, Cursor> allCursors = new HashMap<>();
-	private final Deque<GameCursor> currentCursorStack = new ArrayDeque<>();
+	private GameCursor hoverCursor; // has priority
+	private GameCursor specialCursor;
+	private GameCursor interactionModeCursor;
 
 	@Inject
 	public CursorManager(MessageDispatcher messageDispatcher) {
 		// note that main application onResize is called at startup
 
-		messageDispatcher.addListener(this, MessageType.PUSH_CURSOR_TO_STACK);
-		messageDispatcher.addListener(this, MessageType.POP_CURSOR_FROM_STACK);
+		messageDispatcher.addListener(this, MessageType.SET_HOVER_CURSOR);
+		messageDispatcher.addListener(this, MessageType.SET_SPECIAL_CURSOR);
+		messageDispatcher.addListener(this, MessageType.SET_INTERACTION_MODE_CURSOR);
 	}
 
 	@Override
 	public boolean handleMessage(Telegram msg) {
 		switch (msg.message) {
-			case MessageType.PUSH_CURSOR_TO_STACK -> {
-				pushCursor((GameCursor)msg.extraInfo);
+			case MessageType.SET_HOVER_CURSOR -> {
+				hoverCursor = (GameCursor)msg.extraInfo;
+				resetCursor();
 				return true;
 			}
-			case MessageType.POP_CURSOR_FROM_STACK -> {
-				popCursor();
+			case MessageType.SET_SPECIAL_CURSOR -> {
+				specialCursor = (GameCursor)msg.extraInfo;
+				resetCursor();
+				return true;
+			}
+			case MessageType.SET_INTERACTION_MODE_CURSOR -> {
+				interactionModeCursor = (GameCursor)msg.extraInfo;
+				resetCursor();
 				return true;
 			}
 			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + getClass().getSimpleName());
 		}
-	}
-
-	public void pushCursor(GameCursor cursor) {
-		if (cursor == null) {
-			cursor = GameCursor.CURSOR;
-		}
-		currentCursorStack.push(cursor);
-		resetCursor();
-	}
-
-	public void popCursor() {
-		if (!currentCursorStack.isEmpty()) {
-			currentCursorStack.pop();
-		}
-
-		if (currentCursorStack.isEmpty()) {
-			pushCursor(GameCursor.CURSOR);
-		}
-
-		resetCursor();
 	}
 
 	public void onResize() {
@@ -74,16 +62,26 @@ public class CursorManager implements Telegraph {
 
 		createCursors();
 
-		currentCursorStack.clear();
-		pushCursor(GameCursor.CURSOR);
+		resetCursor();
 	}
 
 	private void resetCursor() {
-		GameCursor topOfStack = currentCursorStack.peek();
-		if (!allCursors.containsKey(topOfStack)) {
+		GameCursor selected;
+		// Essentially the cursor properties on this class are a series of priorities for which to use
+		if (hoverCursor != null) {
+			selected = hoverCursor;
+		} else if (specialCursor != null) {
+			selected = specialCursor;
+		} else if (interactionModeCursor != null) {
+			selected = interactionModeCursor;
+		} else {
+			selected = GameCursor.CURSOR;
+		}
+
+		if (!allCursors.containsKey(selected)) {
 			Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
 		} else {
-			Gdx.graphics.setCursor(allCursors.get(topOfStack));
+			Gdx.graphics.setCursor(allCursors.get(selected));
 		}
 	}
 

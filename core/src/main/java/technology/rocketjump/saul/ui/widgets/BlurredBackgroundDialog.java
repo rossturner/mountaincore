@@ -31,7 +31,7 @@ public class BlurredBackgroundDialog extends GameDialog {
 				dispose();
 			}
 		});
-		exitButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		exitButton.addListener(new ChangeCursorOnHover(exitButton, GameCursor.SELECT, messageDispatcher));
 		exitButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		dialog.getContentTable().add(exitButton).expandX().align(Align.topLeft);
 		dialog.getContentTable().row();

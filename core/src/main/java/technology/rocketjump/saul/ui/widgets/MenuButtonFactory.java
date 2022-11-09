@@ -75,7 +75,7 @@ public class MenuButtonFactory {
             buttonContainer.setOrigin(button.getPrefWidth() / 2, button.getPrefHeight() / 2);
 
             button.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-            button.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+            button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
         }
 
 
