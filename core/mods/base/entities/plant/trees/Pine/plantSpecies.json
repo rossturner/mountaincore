@@ -39,9 +39,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Pine",
-          "quantity": 2,
-          "itemSize": "SMALL",
-          "itemStyle": "STYLE_1"
+          "quantity": 2
         }
       ]
     },
@@ -58,9 +56,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Pine",
-          "quantity": 3,
-          "itemSize": "SMALL",
-          "itemStyle": "STYLE_1"
+          "quantity": 3
         }
       ]
     }

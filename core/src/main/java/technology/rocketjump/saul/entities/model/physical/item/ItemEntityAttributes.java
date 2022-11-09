@@ -3,10 +3,9 @@ package technology.rocketjump.saul.entities.model.physical.item;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.graphics.Color;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.EnumUtils;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
-import technology.rocketjump.saul.assets.entities.item.model.ItemSize;
-import technology.rocketjump.saul.assets.entities.item.model.ItemStyle;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.EntityDestructionCause;
@@ -28,8 +27,10 @@ public class ItemEntityAttributes implements EntityAttributes {
 	private EnumMap<GameMaterialType, GameMaterial> materials = new EnumMap<>(GameMaterialType.class);
 	private EnumMap<ColoringLayer, Color> otherColors = new EnumMap<>(ColoringLayer.class); // Others such as plant_branches
 	private ItemType itemType;
-	private ItemSize itemSize = ItemSize.AVERAGE; // Used for displaying larger or smaller than normal item types
-	private ItemStyle itemStyle = ItemStyle.DEFAULT;
+	@Deprecated
+	private String itemSize;
+	@Deprecated
+	private String itemStyle;
 	private ItemPlacement itemPlacement = ItemPlacement.ON_GROUND;
 	private ItemQuality itemQuality = ItemQuality.STANDARD;
 
@@ -55,8 +56,6 @@ public class ItemEntityAttributes implements EntityAttributes {
 			cloned.otherColors.put(entry.getKey(), entry.getValue().cpy());
 		}
 		cloned.itemType = this.itemType;
-		cloned.itemSize = this.itemSize;
-		cloned.itemStyle = this.itemStyle;
 		cloned.itemPlacement = this.itemPlacement;
 		cloned.itemQuality = this.itemQuality;
 
@@ -96,9 +95,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 	}
 
 	public boolean canMerge(ItemEntityAttributes other) {
-		if (this.itemType.equals(other.itemType) &&
-				this.itemSize.equals(other.itemSize) &&
-				this.itemStyle.equals(other.itemStyle)) {
+		if (this.itemType.equals(other.itemType)) {
 			GameMaterial primaryMaterial = this.getMaterial(this.itemType.getPrimaryMaterialType());
 			GameMaterial otherPrimaryMaterial = other.getMaterial(other.itemType.getPrimaryMaterialType());
 			if (primaryMaterial.equals(otherPrimaryMaterial)) {
@@ -152,19 +149,23 @@ public class ItemEntityAttributes implements EntityAttributes {
 		this.quantity = quantity;
 	}
 
-	public ItemSize getItemSize() {
+	@Deprecated
+	@JsonIgnore
+	public String getItemSize() {
 		return itemSize;
 	}
 
-	public void setItemSize(ItemSize itemSize) {
+	public void setItemSize(String itemSize) {
 		this.itemSize = itemSize;
 	}
 
-	public ItemStyle getItemStyle() {
+	@Deprecated
+	@JsonIgnore
+	public String getItemStyle() {
 		return itemStyle;
 	}
 
-	public void setItemStyle(ItemStyle itemStyle) {
+	public void setItemStyle(String itemStyle) {
 		this.itemStyle = itemStyle;
 	}
 
@@ -200,8 +201,6 @@ public class ItemEntityAttributes implements EntityAttributes {
 	public String toString() {
 		return "ItemEntityAttributes{" +
 				"itemType=" + itemType +
-				", itemSize=" + itemSize +
-				", itemStyle=" + itemStyle +
 				", itemPlacement=" + itemPlacement +
 				", itemQuality=" + itemQuality +
 				", quantity=" + quantity +
@@ -224,12 +223,6 @@ public class ItemEntityAttributes implements EntityAttributes {
 			asJson.put("otherColors", otherColorsJson);
 		}
 		asJson.put("type", itemType.getItemTypeName());
-		if (!itemSize.equals(ItemSize.AVERAGE)) {
-			asJson.put("size", itemSize.name());
-		}
-		if (!itemStyle.equals(ItemStyle.DEFAULT)) {
-			asJson.put("style", itemStyle.name());
-		}
 		if (!itemPlacement.equals(ItemPlacement.ON_GROUND)) {
 			asJson.put("placement", itemPlacement.name());
 		}
@@ -272,8 +265,6 @@ public class ItemEntityAttributes implements EntityAttributes {
 		if (itemType == null) {
 			throw new InvalidSaveException("Could not find item type by name " + asJson.getString("type"));
 		}
-		itemSize = EnumParser.getEnumValue(asJson, "size", ItemSize.class, ItemSize.AVERAGE);
-		itemStyle = EnumParser.getEnumValue(asJson, "style", ItemStyle.class, ItemStyle.DEFAULT);
 		itemPlacement = EnumParser.getEnumValue(asJson, "placement", ItemPlacement.class, ItemPlacement.ON_GROUND);
 		itemQuality = EnumParser.getEnumValue(asJson, "quality", ItemQuality.class, ItemQuality.STANDARD);
 		Integer quantity = asJson.getInteger("quantity");

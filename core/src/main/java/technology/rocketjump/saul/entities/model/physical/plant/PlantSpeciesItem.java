@@ -2,11 +2,8 @@ package technology.rocketjump.saul.entities.model.physical.plant;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import technology.rocketjump.saul.assets.entities.item.model.ItemSize;
-import technology.rocketjump.saul.assets.entities.item.model.ItemStyle;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.materials.model.GameMaterial;
-import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.ChildPersistable;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -17,8 +14,6 @@ public class PlantSpeciesItem implements ChildPersistable {
 	private String itemTypeName;
 	private String materialName;
 	private int quantity = 1;
-	private ItemSize itemSize = ItemSize.AVERAGE;
-	private ItemStyle itemStyle = ItemStyle.DEFAULT;
 	private float chance = 1;
 
 	@JsonIgnore
@@ -50,22 +45,6 @@ public class PlantSpeciesItem implements ChildPersistable {
 		this.quantity = quantity;
 	}
 
-	public ItemSize getItemSize() {
-		return itemSize;
-	}
-
-	public void setItemSize(ItemSize itemSize) {
-		this.itemSize = itemSize;
-	}
-
-	public ItemStyle getItemStyle() {
-		return itemStyle;
-	}
-
-	public void setItemStyle(ItemStyle itemStyle) {
-		this.itemStyle = itemStyle;
-	}
-
 	public ItemType getItemType() {
 		return itemType;
 	}
@@ -87,12 +66,6 @@ public class PlantSpeciesItem implements ChildPersistable {
 		asJson.put("itemType", itemType.getItemTypeName());
 		asJson.put("material", material.getMaterialName());
 		asJson.put("quantity", quantity);
-		if (!itemSize.equals(ItemSize.AVERAGE)) {
-			asJson.put("size", itemSize.name());
-		}
-		if (!itemStyle.equals(ItemStyle.DEFAULT)) {
-			asJson.put("style", itemStyle.name());
-		}
 	}
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
@@ -107,8 +80,6 @@ public class PlantSpeciesItem implements ChildPersistable {
 			throw new InvalidSaveException("Could not find material by name " + materialName + " in " + getClass().getSimpleName());
 		}
 		quantity = asJson.getIntValue("quantity");
-		itemSize = EnumParser.getEnumValue(asJson, "size", ItemSize.class, ItemSize.AVERAGE);
-		itemStyle = EnumParser.getEnumValue(asJson, "style", ItemStyle.class, ItemStyle.DEFAULT);
 	}
 
 	public float getChance() {

@@ -47,9 +47,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Baobab",
-          "quantity": 2,
-          "itemSize": "LARGE",
-          "itemStyle": "STYLE_2"
+          "quantity": 2
         }
       ]
     },
@@ -66,9 +64,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Baobab",
-          "quantity": 3,
-          "itemSize": "LARGE",
-          "itemStyle": "STYLE_2"
+          "quantity": 3
         }
       ]
     }

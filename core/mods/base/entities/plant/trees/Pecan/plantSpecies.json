@@ -55,9 +55,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Pecan",
-          "quantity": 2,
-          "itemSize": "LARGE",
-          "itemStyle": "STYLE_1"
+          "quantity": 2
         }
       ]
     },
@@ -74,9 +72,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Pecan",
-          "quantity": 3,
-          "itemSize": "LARGE",
-          "itemStyle": "STYLE_1"
+          "quantity": 3
         }
       ]
     }

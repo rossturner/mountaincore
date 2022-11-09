@@ -29,8 +29,6 @@ import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
-import technology.rocketjump.saul.assets.entities.item.model.ItemSize;
-import technology.rocketjump.saul.assets.entities.item.model.ItemStyle;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;

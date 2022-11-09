@@ -39,9 +39,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Spruce",
-          "quantity": 2,
-          "itemSize": "LARGE",
-          "itemStyle": "STYLE_1"
+          "quantity": 2
         }
       ]
     },
@@ -58,9 +56,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Spruce",
-          "quantity": 3,
-          "itemSize": "LARGE",
-          "itemStyle": "STYLE_1"
+          "quantity": 3
         }
       ]
     }

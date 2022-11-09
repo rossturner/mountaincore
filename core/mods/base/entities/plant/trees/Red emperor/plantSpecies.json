@@ -62,9 +62,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Red emperor",
-          "quantity": 2,
-          "itemSize": "SMALL",
-          "itemStyle": "STYLE_1"
+          "quantity": 2
         }
       ]
     },
@@ -81,9 +79,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Red emperor",
-          "quantity": 3,
-          "itemSize": "SMALL",
-          "itemStyle": "STYLE_1"
+          "quantity": 3
         }
       ]
     }

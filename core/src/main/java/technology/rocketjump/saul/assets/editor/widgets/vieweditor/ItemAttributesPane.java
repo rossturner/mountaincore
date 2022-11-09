@@ -6,8 +6,6 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
-import technology.rocketjump.saul.assets.entities.item.model.ItemSize;
-import technology.rocketjump.saul.assets.entities.item.model.ItemStyle;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
