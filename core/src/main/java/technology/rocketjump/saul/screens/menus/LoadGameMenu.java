@@ -23,6 +23,8 @@ import technology.rocketjump.saul.persistence.SavedGameStore;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -49,9 +51,11 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 	private final SavedGameStore savedGameStore;
 	private final Skin mainGameSkin;
 	private final I18nTranslator i18nTranslator;
+	private final TooltipFactory tooltipFactory;
 	private int carouselIndex = 0;
 
 	private java.util.List<Table> slots;
+	private java.util.List<Table> slotOverlays;
 	private Button leftArrow;
 	private Button rightArrow;
 	private GameContext gameContext;
@@ -62,8 +66,9 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 
 	@Inject
 	public LoadGameMenu(GuiSkinRepository skinRepository, MessageDispatcher messageDispatcher,
-						SoundAssetDictionary soundAssetDictionary, MenuButtonFactory menuButtonFactory,
-						SavedGameStore savedGameStore, I18nTranslator i18nTranslator) {
+	                    SoundAssetDictionary soundAssetDictionary, MenuButtonFactory menuButtonFactory,
+	                    SavedGameStore savedGameStore, I18nTranslator i18nTranslator,
+	                    TooltipFactory tooltipFactory) {
 		super(skinRepository);
 		this.messageDispatcher = messageDispatcher;
 		this.soundAssetDictionary = soundAssetDictionary;
@@ -72,6 +77,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		this.mainGameSkin = skinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.startGameSound = soundAssetDictionary.getByName("GameStart");
+		this.tooltipFactory = tooltipFactory;
 
 		rebuildUI();
 	}
@@ -81,6 +87,9 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		for (Table slot : slots) {
 			slot.clearChildren();
 			slot.setBackground(skin.getDrawable("save_greyed_out_bg"));
+		}
+		for (Table slotOverlay : slotOverlays) {
+			slotOverlay.clearChildren();
 		}
 
 		java.util.List<SavedGameInfo> savesInOrder = new ArrayList<>(savedGameStore.getAll());
@@ -109,8 +118,9 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 
 		for (int i = 0; i < Math.min(slots.size(), savesInOrder.size()); i++) {
 			Table slotTable = slots.get(i);
+			Table slotOverlay = slotOverlays.get(i);
 			SavedGameInfo savedGame = savesInOrder.get(i + carouselIndex);
-			populateSaveSlot(savedGame, slotTable);
+			populateSaveSlot(savedGame, slotTable, slotOverlay);
 		}
 	}
 
@@ -125,8 +135,14 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 
 	}
 
-	private void populateSaveSlot(SavedGameInfo savedGameInfo, Table saveSlot) {
+	private void populateSaveSlot(SavedGameInfo savedGameInfo, Table saveSlot, Table slotOverlay) {
 
+		if (savedGameInfo.peacefulMode) {
+			Image peacefulModeImage = new Image(skin.getDrawable("icon_peaceful_mode"));
+//			peacefulModeImage.setTouchable(Touchable.disabled);
+			tooltipFactory.simpleTooltip(peacefulModeImage, "GUI.EMBARK.PEACEFUL_MODE", TooltipLocationHint.BELOW);
+			slotOverlay.add(peacefulModeImage).top().left().padLeft(60f).padTop(50f).expand();
+		}
 
 		GameClock gameClock = savedGameInfo.gameClock;
 
@@ -268,7 +284,24 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		Table slot3 = new Table();
 		slot3.setName("slot3");
 
+		Table slot1Overlay = new Table();
+		Table slot2Overlay = new Table();
+		Table slot3Overlay = new Table();
+
+		Stack stack1 = new Stack();
+		stack1.add(slot1);
+		stack1.add(slot1Overlay);
+		Stack stack2 = new Stack();
+		stack2.add(slot2);
+		stack2.add(slot2Overlay);
+		Stack stack3 = new Stack();
+		stack3.add(slot3);
+		stack3.add(slot3Overlay);
+
+
 		this.slots = Arrays.asList(slot1, slot2, slot3);
+		this.slotOverlays = Arrays.asList(slot1Overlay, slot2Overlay, slot3Overlay);
+
 
 		this.rightArrow = new Button(skin, "right_arrow");
 		rightArrow.addListener(new ClickListener() {
@@ -280,9 +313,9 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		});
 
 		table.add(leftArrow);
-		table.add(slot1).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
-		table.add(slot2).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
-		table.add(slot3).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
+		table.add(stack1).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
+		table.add(stack2).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
+		table.add(stack3).width(SAVE_SLOT_WIDTH).height(SAVE_SLOT_HEIGHT);
 		table.add(rightArrow);
 
 		table.row();

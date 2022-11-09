@@ -194,6 +194,12 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 		parent: default
 		fontColor: primary_font_colour_red
 	}
+	peaceful_mode_checkbox: {
+		checkboxOn: btn_check_box_ticked
+		checkboxOff: btn_check_box_unticked
+		checkboxOver: btn_check_box_hover_state
+		font: default-font-18
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	default: {

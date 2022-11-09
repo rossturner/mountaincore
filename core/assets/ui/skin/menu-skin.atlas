@@ -269,6 +269,13 @@ icon_discord
   orig: 110, 86
   offset: 0, 0
   index: -1
+icon_peaceful_mode
+  rotate: false
+  xy: 570, 16
+  size: 83, 83
+  orig: 83, 83
+  offset: 0, 0
+  index: -1
 icon_twitch
   rotate: false
   xy: 4337, 6147
