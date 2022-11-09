@@ -3,7 +3,6 @@ package technology.rocketjump.saul.assets.entities.mechanism;
 import technology.rocketjump.saul.assets.entities.mechanism.model.MechanismEntityAsset;
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismType;
-import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismTypeDictionary;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,23 +12,19 @@ public class MechanismEntityAssetsByMechanismType {
 
 	private Map<MechanismType, MechanismEntityAssetsByLayout> typeMap = new HashMap<>();
 
-	public MechanismEntityAssetsByMechanismType(MechanismTypeDictionary mechanismTypeDictionary) {
-		for (MechanismType mechanismType : mechanismTypeDictionary.getAll()) {
-			typeMap.put(mechanismType, new MechanismEntityAssetsByLayout());
-		}
-	}
-
 	public void add(MechanismType mechanismType, MechanismEntityAsset asset) {
 		// Assuming all entities have a type specified
-		typeMap.get(mechanismType).add(asset);
+		typeMap.computeIfAbsent(mechanismType, a -> new MechanismEntityAssetsByLayout()).add(asset);
 	}
 
 	public MechanismEntityAsset get(MechanismEntityAttributes attributes) {
-		return typeMap.get(attributes.getMechanismType()).get(attributes);
+		MechanismEntityAssetsByLayout childMap = typeMap.get(attributes.getMechanismType());
+		return childMap != null ? childMap.get(attributes) : null;
 	}
 
 	public List<MechanismEntityAsset> getAll(MechanismEntityAttributes attributes) {
-		return typeMap.get(attributes.getMechanismType()).getAll(attributes);
+		MechanismEntityAssetsByLayout childMap = typeMap.get(attributes.getMechanismType());
+		return childMap != null ? childMap.getAll(attributes) : List.of();
 	}
 
 }

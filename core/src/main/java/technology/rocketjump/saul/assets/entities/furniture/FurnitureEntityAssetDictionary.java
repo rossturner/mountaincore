@@ -3,11 +3,9 @@ package technology.rocketjump.saul.assets.entities.furniture;
 import com.google.inject.ProvidedBy;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.furniture.model.FurnitureEntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
-import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureLayoutDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 
@@ -20,16 +18,11 @@ import java.util.Map;
 public class FurnitureEntityAssetDictionary {
 
 	private final Map<String, FurnitureEntityAsset> assetsByName = new HashMap<>();
-	private final EntityAssetTypeDictionary assetTypeDictionary;
-	private final FurnitureTypeDictionary typeDictionary;
-	private final FurnitureLayoutDictionary layoutDictionary;
+	private final FurnitureTypeDictionary furnitureTypeDictionary;
 	private FurnitureEntityAssetsByAssetType byAssetType;
 
-	public FurnitureEntityAssetDictionary(List<FurnitureEntityAsset> completeAssetList, EntityAssetTypeDictionary assetTypeDictionary,
-										  FurnitureTypeDictionary typeDictionary, FurnitureLayoutDictionary layoutDictionary) {
-		this.assetTypeDictionary = assetTypeDictionary;
-		this.typeDictionary = typeDictionary;
-		this.layoutDictionary = layoutDictionary;
+	public FurnitureEntityAssetDictionary(List<FurnitureEntityAsset> completeAssetList, FurnitureTypeDictionary furnitureTypeDictionary) {
+		this.furnitureTypeDictionary = furnitureTypeDictionary;
 
 		for (FurnitureEntityAsset asset : completeAssetList) {
 			assetsByName.put(asset.getUniqueName(), asset);
@@ -66,7 +59,7 @@ public class FurnitureEntityAssetDictionary {
 	}
 
 	public void rebuild() {
-		byAssetType = new FurnitureEntityAssetsByAssetType(assetTypeDictionary, typeDictionary, layoutDictionary);
+		byAssetType = new FurnitureEntityAssetsByAssetType(furnitureTypeDictionary);
 		for (FurnitureEntityAsset asset : assetsByName.values()) {
 			byAssetType.add(asset);
 		}

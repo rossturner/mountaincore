@@ -3,7 +3,6 @@ package technology.rocketjump.saul.assets.entities.mechanism;
 import com.google.inject.ProvidedBy;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.mechanism.model.MechanismEntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
@@ -21,9 +20,9 @@ public class MechanismEntityAssetDictionary {
 	private final MechanismEntityAssetsByAssetType byAssetType;
 	private final Map<String, MechanismEntityAsset> assetsByName = new HashMap<>();
 
-	public MechanismEntityAssetDictionary(List<MechanismEntityAsset> completeAssetList, EntityAssetTypeDictionary entityAssetTypeDictionary, 
+	public MechanismEntityAssetDictionary(List<MechanismEntityAsset> completeAssetList,
 										  MechanismTypeDictionary mechanismTypeDictionary) {
-		this.byAssetType = new MechanismEntityAssetsByAssetType(entityAssetTypeDictionary, mechanismTypeDictionary);
+		this.byAssetType = new MechanismEntityAssetsByAssetType(mechanismTypeDictionary);
 		for (MechanismEntityAsset asset : completeAssetList) {
 			byAssetType.add(asset);
 			assetsByName.put(asset.getUniqueName(), asset);

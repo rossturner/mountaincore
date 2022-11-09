@@ -1,9 +1,7 @@
 package technology.rocketjump.saul.assets.entities.plant;
 
-import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
-import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 
@@ -13,25 +11,26 @@ import java.util.Map;
 
 public class PlantEntityAssetsByType {
 
-	private Map<EntityAssetType, PlantEntityAssetsByGrowthStage> typeMap = new HashMap<>();
+	private final PlantSpeciesDictionary plantSpeciesDictionary;
+	private final Map<EntityAssetType, PlantEntityAssetsByGrowthStage> typeMap = new HashMap<>();
 
-	public PlantEntityAssetsByType(EntityAssetTypeDictionary typeDictionary, PlantSpeciesDictionary plantSpeciesDictionary) {
-		for (EntityAssetType assetType : typeDictionary.getByEntityType(EntityType.PLANT)) {
-			typeMap.put(assetType, new PlantEntityAssetsByGrowthStage(plantSpeciesDictionary));
-		}
+	public PlantEntityAssetsByType(PlantSpeciesDictionary plantSpeciesDictionary) {
+		this.plantSpeciesDictionary = plantSpeciesDictionary;
 	}
 
 	public void add(PlantEntityAsset asset) {
 		// Assuming all entities have a type specified
-		typeMap.get(asset.getType()).add(asset);
+		typeMap.computeIfAbsent(asset.getType(), a -> new PlantEntityAssetsByGrowthStage(plantSpeciesDictionary)).add(asset);
 	}
 
 	public PlantEntityAsset get(EntityAssetType type, PlantEntityAttributes attributes) {
-		return typeMap.get(type).get(attributes);
+		PlantEntityAssetsByGrowthStage childMap = typeMap.get(type);
+		return childMap != null ? childMap.get(attributes) : null;
 	}
 
 	public List<PlantEntityAsset> getAll(EntityAssetType type, PlantEntityAttributes attributes) {
-		return typeMap.get(type).getAll(attributes);
+		PlantEntityAssetsByGrowthStage childMap = typeMap.get(type);
+		return childMap != null ? childMap.getAll(attributes) : List.of();
 	}
 
 }

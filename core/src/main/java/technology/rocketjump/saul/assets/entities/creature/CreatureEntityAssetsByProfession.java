@@ -38,12 +38,7 @@ public class CreatureEntityAssetsByProfession {
 		if (professionName == null) {
 			professionName = NULL_PROFESSION.getName();
 		}
-		List<CreatureEntityAsset> assets = professionNameMap.get(professionName);
-		if (assets == null) {
-			assets = new ArrayList<>();
-			professionNameMap.put(professionName, assets);
-		}
-		assets.add(asset);
+		professionNameMap.computeIfAbsent(professionName, a -> new ArrayList<>()).add(asset);
 	}
 
 	public CreatureEntityAsset get(CreatureEntityAttributes attributes, Skill primaryProfession) {

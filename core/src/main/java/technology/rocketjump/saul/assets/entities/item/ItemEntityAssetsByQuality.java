@@ -11,21 +11,15 @@ public class ItemEntityAssetsByQuality {
 
 	private EnumMap<ItemQuality, ItemEntityAssetsByPlacement> byItemQuality = new EnumMap<>(ItemQuality.class);
 
-	public ItemEntityAssetsByQuality() {
-		for (ItemQuality itemQuality : ItemQuality.values()) {
-			byItemQuality.put(itemQuality, new ItemEntityAssetsByPlacement());
-		}
-	}
-
 	public void add(ItemEntityAsset asset) {
 		List<ItemQuality> itemQualities = asset.getItemQualities();
 		if (itemQualities == null || itemQualities.isEmpty()) {
 			// Add to all
 			for (ItemQuality itemQuality : ItemQuality.values()) {
-				byItemQuality.get(itemQuality).add(asset);
+				byItemQuality.computeIfAbsent(itemQuality, a -> new ItemEntityAssetsByPlacement()).add(asset);
 			}
 		} else {
-			itemQualities.forEach(iq -> byItemQuality.get(iq).add(asset));
+			itemQualities.forEach(iq -> byItemQuality.computeIfAbsent(iq, a -> new ItemEntityAssetsByPlacement()).add(asset));
 		}
 	}
 
@@ -34,7 +28,8 @@ public class ItemEntityAssetsByQuality {
 		if (itemQuality == null) {
 			itemQuality = ItemQuality.STANDARD;
 		}
-		return byItemQuality.get(itemQuality).get(attributes);
+		ItemEntityAssetsByPlacement childMap = byItemQuality.get(itemQuality);
+		return childMap != null ? childMap.get(attributes) : null;
 	}
 
 	public List<ItemEntityAsset> getAll(ItemEntityAttributes attributes) {
@@ -42,10 +37,8 @@ public class ItemEntityAssetsByQuality {
 		if (itemQuality == null) {
 			itemQuality = ItemQuality.STANDARD;
 		}
-		return byItemQuality.get(itemQuality).getAll(attributes);
+		ItemEntityAssetsByPlacement childMap = byItemQuality.get(itemQuality);
+		return childMap != null ? childMap.getAll(attributes) : List.of();
 	}
 
-	public ItemEntityAssetsByPlacement getSizeMapByQuality(ItemQuality itemQuality) {
-		return byItemQuality.get(itemQuality);
-	}
 }

@@ -1,7 +1,6 @@
 package technology.rocketjump.saul.assets.entities.item;
 
 import com.badlogic.gdx.utils.IntMap;
-import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -15,10 +14,10 @@ public class ItemEntityAssetsByQuantity {
 
 	private static final int MIN_QUANTITY = 0;
 
-	public ItemEntityAssetsByQuantity(EntityAssetTypeDictionary entityAssetTypeDictionary, ItemTypeDictionary itemTypeDictionary) {
+	public ItemEntityAssetsByQuantity(ItemTypeDictionary itemTypeDictionary) {
 		final int MAX_QUANTITY = itemTypeDictionary.getConstantsRepo().getWorldConstants().getMaxItemStackSize();
 		for (int q = MIN_QUANTITY; q <= MAX_QUANTITY; q++) {
-			quantityMap.put(q, new ItemEntityAssetsByAssetType(entityAssetTypeDictionary, itemTypeDictionary));
+			quantityMap.put(q, new ItemEntityAssetsByAssetType(itemTypeDictionary));
 		}
 	}
 
@@ -34,10 +33,6 @@ public class ItemEntityAssetsByQuantity {
 
 	public List<ItemEntityAsset> getAll(EntityAssetType assetType, ItemEntityAttributes attributes) {
 		return quantityMap.get(attributes.getQuantity()).getAll(assetType, attributes);
-	}
-
-	public ItemEntityAssetsByAssetType getAssetTypeMapByQuantity(int quantity) {
-		return quantityMap.get(quantity);
 	}
 
 }
