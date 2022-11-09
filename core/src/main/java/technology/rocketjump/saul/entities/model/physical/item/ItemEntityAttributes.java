@@ -3,7 +3,6 @@ package technology.rocketjump.saul.entities.model.physical.item;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.graphics.Color;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.EnumUtils;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
@@ -27,10 +26,6 @@ public class ItemEntityAttributes implements EntityAttributes {
 	private EnumMap<GameMaterialType, GameMaterial> materials = new EnumMap<>(GameMaterialType.class);
 	private EnumMap<ColoringLayer, Color> otherColors = new EnumMap<>(ColoringLayer.class); // Others such as plant_branches
 	private ItemType itemType;
-	@Deprecated
-	private String itemSize;
-	@Deprecated
-	private String itemStyle;
 	private ItemPlacement itemPlacement = ItemPlacement.ON_GROUND;
 	private ItemQuality itemQuality = ItemQuality.STANDARD;
 
@@ -147,26 +142,6 @@ public class ItemEntityAttributes implements EntityAttributes {
 	// TODO get this to be only called from one place which also manages ItemAllocations
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}
-
-	@Deprecated
-	@JsonIgnore
-	public String getItemSize() {
-		return itemSize;
-	}
-
-	public void setItemSize(String itemSize) {
-		this.itemSize = itemSize;
-	}
-
-	@Deprecated
-	@JsonIgnore
-	public String getItemStyle() {
-		return itemStyle;
-	}
-
-	public void setItemStyle(String itemStyle) {
-		this.itemStyle = itemStyle;
 	}
 
 	public ItemPlacement getItemPlacement() {

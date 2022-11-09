@@ -37,14 +37,9 @@ public class ItemAttributesPane extends AbstractAttributesPane {
         ItemEntityAttributes attributes = (ItemEntityAttributes) currentEntity.getPhysicalEntityComponent().getAttributes();
         ItemType itemType = attributes.getItemType();
 
-        Collection<ItemSize> itemSizes = Arrays.asList(ItemSize.values());
-        Collection<ItemStyle> itemStyles = Arrays.asList(ItemStyle.values());
         Collection<ItemQuality> itemQualities = Arrays.asList(ItemQuality.values());
         List<GameMaterialType> itemMaterialTypes = itemType.getMaterialTypes();
         List<ItemPlacement> itemPlacements = Arrays.asList(ItemPlacement.values());
-
-        add(WidgetBuilder.selectField("Size", attributes.getItemSize(), itemSizes, null, update(attributes::setItemSize)));
-        add(WidgetBuilder.selectField("Style", attributes.getItemStyle(), itemStyles, null, update(attributes::setItemStyle)));
 
         for (GameMaterialType type : itemMaterialTypes) {
             List<GameMaterial> materials = materialDictionary.getByType(type);

@@ -9,11 +9,11 @@ import java.util.List;
 
 public class ItemEntityAssetsByQuality {
 
-	private EnumMap<ItemQuality, ItemEntityAssetsBySize> byItemQuality = new EnumMap<>(ItemQuality.class);
+	private EnumMap<ItemQuality, ItemEntityAssetsByPlacement> byItemQuality = new EnumMap<>(ItemQuality.class);
 
 	public ItemEntityAssetsByQuality() {
 		for (ItemQuality itemQuality : ItemQuality.values()) {
-			byItemQuality.put(itemQuality, new ItemEntityAssetsBySize());
+			byItemQuality.put(itemQuality, new ItemEntityAssetsByPlacement());
 		}
 	}
 
@@ -45,7 +45,7 @@ public class ItemEntityAssetsByQuality {
 		return byItemQuality.get(itemQuality).getAll(attributes);
 	}
 
-	public ItemEntityAssetsBySize getSizeMapByQuality(ItemQuality itemQuality) {
+	public ItemEntityAssetsByPlacement getSizeMapByQuality(ItemQuality itemQuality) {
 		return byItemQuality.get(itemQuality);
 	}
 }

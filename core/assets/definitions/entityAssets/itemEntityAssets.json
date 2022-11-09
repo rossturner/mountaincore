@@ -4,8 +4,6 @@
   "itemTypeName" : "Armour-Leather",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -107,8 +105,6 @@
   "itemTypeName" : "Armour-Leather",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -136,8 +132,6 @@
   "itemTypeName" : "Armour-Leather",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -222,8 +216,6 @@
   "itemTypeName" : "Armour-Leather",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -250,8 +242,6 @@
   "itemTypeName" : "Armour-Leather",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -485,8 +475,6 @@
   "itemTypeName" : "Armour-Leather",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -1279,7 +1267,6 @@
   "itemTypeName" : "Armour-Orc-Heavy",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -1387,7 +1374,6 @@
   "itemTypeName" : "Armour-Orc-Heavy",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -1415,7 +1401,6 @@
   "itemTypeName" : "Armour-Orc-Heavy",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -1523,7 +1508,6 @@
   "itemTypeName" : "Armour-Orc-Heavy",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -1551,7 +1535,6 @@
   "itemTypeName" : "Armour-Orc-Heavy",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -1659,7 +1642,6 @@
   "itemTypeName" : "Armour-Orc-Heavy",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -1687,7 +1669,6 @@
   "itemTypeName" : "Armour-Orc-Heavy",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -2001,7 +1982,6 @@
   "itemTypeName" : "Armour-Orc-Heavy",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -2049,7 +2029,6 @@
   "itemTypeName" : "Armour-Orc-Light",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -2157,7 +2136,6 @@
   "itemTypeName" : "Armour-Orc-Light",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -2185,7 +2163,6 @@
   "itemTypeName" : "Armour-Orc-Light",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -2287,7 +2264,6 @@
   "itemTypeName" : "Armour-Orc-Light",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -2314,7 +2290,6 @@
   "itemTypeName" : "Armour-Orc-Light",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -2422,7 +2397,6 @@
   "itemTypeName" : "Armour-Orc-Light",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -2450,7 +2424,6 @@
   "itemTypeName" : "Armour-Orc-Light",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -2770,7 +2743,6 @@
   "itemTypeName" : "Armour-Orc-Light",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -3662,8 +3634,6 @@
   "itemTypeName" : "Carcass-Hide",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -3830,8 +3800,6 @@
   "itemTypeName" : "Carcass-Hide",
   "minQuantity" : 1,
   "maxQuantity" : 4,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -3859,8 +3827,6 @@
   "itemTypeName" : "Carcass-Hide",
   "minQuantity" : 5,
   "maxQuantity" : 10,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -9229,8 +9195,6 @@
   "itemTypeName" : "Product-Stone-Gear",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -9402,8 +9366,6 @@
   "itemTypeName" : "Product-Stone-Gear",
   "minQuantity" : 1,
   "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -9431,8 +9393,6 @@
   "itemTypeName" : "Product-Stone-Gear",
   "minQuantity" : 3,
   "maxQuantity" : 6,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -9460,8 +9420,6 @@
   "itemTypeName" : "Product-Linen",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -9633,8 +9591,6 @@
   "itemTypeName" : "Product-Linen",
   "minQuantity" : 1,
   "maxQuantity" : 4,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -9662,8 +9618,6 @@
   "itemTypeName" : "Product-Linen",
   "minQuantity" : 5,
   "maxQuantity" : 12,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -10285,8 +10239,6 @@
   "itemTypeName" : "Product-Leather",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -10453,8 +10405,6 @@
   "itemTypeName" : "Product-Leather",
   "minQuantity" : 1,
   "maxQuantity" : 5,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -10482,8 +10432,6 @@
   "itemTypeName" : "Product-Leather",
   "minQuantity" : 6,
   "maxQuantity" : 10,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -10511,8 +10459,6 @@
   "itemTypeName" : "Product-Waterskin",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -10614,8 +10560,6 @@
   "itemTypeName" : "Product-Waterskin",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -11170,8 +11114,6 @@
   "itemTypeName" : "Resource-Bone-Large",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -11212,8 +11154,6 @@
   "itemTypeName" : "Resource-Bone-Large",
   "minQuantity" : 1,
   "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -11240,8 +11180,6 @@
   "itemTypeName" : "Resource-Bone-Large",
   "minQuantity" : 6,
   "maxQuantity" : 10,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -11268,8 +11206,6 @@
   "itemTypeName" : "Resource-Bone-Large",
   "minQuantity" : 3,
   "maxQuantity" : 5,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -11296,8 +11232,6 @@
   "itemTypeName" : "Resource-Bone-Medium",
   "minQuantity" : 1,
   "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -11338,8 +11272,6 @@
   "itemTypeName" : "Resource-Bone-Medium",
   "minQuantity" : 1,
   "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -11366,8 +11298,6 @@
   "itemTypeName" : "Resource-Bone-Medium",
   "minQuantity" : 6,
   "maxQuantity" : 10,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -11394,8 +11324,6 @@
   "itemTypeName" : "Resource-Bone-Medium",
   "minQuantity" : 3,
   "maxQuantity" : 5,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -11422,8 +11350,6 @@
   "itemTypeName" : "Resource-Bone-Small",
   "minQuantity" : 1,
   "maxQuantity" : 3,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -11464,8 +11390,6 @@
   "itemTypeName" : "Resource-Bone-Small",
   "minQuantity" : 1,
   "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -11492,8 +11416,6 @@
   "itemTypeName" : "Resource-Bone-Small",
   "minQuantity" : 6,
   "maxQuantity" : 10,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -11520,8 +11442,6 @@
   "itemTypeName" : "Resource-Bone-Small",
   "minQuantity" : 3,
   "maxQuantity" : 5,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -14251,8 +14171,6 @@
   "itemTypeName" : "Resource-Mushroom-Log",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "LARGE",
-  "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -14288,8 +14206,6 @@
   "itemTypeName" : "Resource-Mushroom-Log",
   "minQuantity" : 0,
   "maxQuantity" : 0,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -14317,8 +14233,6 @@
   "itemTypeName" : "Resource-Mushroom-Log",
   "minQuantity" : 0,
   "maxQuantity" : 0,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -14426,8 +14340,6 @@
   "itemTypeName" : "Resource-Shocked-Mushroom-Log",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "LARGE",
-  "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -14463,8 +14375,6 @@
   "itemTypeName" : "Resource-Shocked-Mushroom-Log",
   "minQuantity" : 0,
   "maxQuantity" : 0,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -14492,8 +14402,6 @@
   "itemTypeName" : "Resource-Shocked-Mushroom-Log",
   "minQuantity" : 0,
   "maxQuantity" : 0,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -14601,8 +14509,6 @@
   "itemTypeName" : "Resource-Logs",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "LARGE",
-  "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -14638,8 +14544,6 @@
   "itemTypeName" : "Resource-Logs",
   "minQuantity" : 0,
   "maxQuantity" : 0,
-  "itemSize" : "LARGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -14662,153 +14566,11 @@
     }
   }
 }, {
-  "uniqueName" : "Resource-Logs-Large02-Pile01-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 1,
-  "maxQuantity" : 1,
-  "itemSize" : "LARGE",
-  "itemStyle" : "STYLE_2",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Large02-Pile01-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Large-Pile01-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -17.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small01-Pile01-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 1,
-  "maxQuantity" : 2,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_1",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small01-Pile01-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Pile01-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -18.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small-Pile01-Interior",
-  "type" : "BELOW_LAYER_1",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 0,
-  "maxQuantity" : 0,
-  "itemSize" : "SMALL",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small-Pile01-Interior.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small02-Pile01-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 1,
-  "maxQuantity" : 2,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_2",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small02-Pile01-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Pile01-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -18.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Resource-Logs-Large01-Pile02-Exterior",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Resource-Logs",
   "minQuantity" : 2,
   "maxQuantity" : 4,
-  "itemSize" : "LARGE",
-  "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -14844,8 +14606,6 @@
   "itemTypeName" : "Resource-Logs",
   "minQuantity" : 0,
   "maxQuantity" : 0,
-  "itemSize" : "LARGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -14868,153 +14628,11 @@
     }
   }
 }, {
-  "uniqueName" : "Resource-Logs-Large02-Pile02-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 2,
-  "maxQuantity" : 4,
-  "itemSize" : "LARGE",
-  "itemStyle" : "STYLE_2",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Large02-Pile02-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Large-Pile02-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -17.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small01-Pile02-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 3,
-  "maxQuantity" : 5,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_1",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small01-Pile02-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Pile02-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -18.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small-Pile02-Interior",
-  "type" : "BELOW_LAYER_1",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 0,
-  "maxQuantity" : 0,
-  "itemSize" : "SMALL",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small-Pile02-Interior.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small02-Pile02-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 3,
-  "maxQuantity" : 5,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_2",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small02-Pile02-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Pile02-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -18.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Resource-Logs-Large01-Pile03-Exterior",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Resource-Logs",
   "minQuantity" : 5,
   "maxQuantity" : 8,
-  "itemSize" : "LARGE",
-  "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -15050,8 +14668,6 @@
   "itemTypeName" : "Resource-Logs",
   "minQuantity" : 0,
   "maxQuantity" : 0,
-  "itemSize" : "LARGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -15074,153 +14690,11 @@
     }
   }
 }, {
-  "uniqueName" : "Resource-Logs-Large02-Pile03-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 5,
-  "maxQuantity" : 8,
-  "itemSize" : "LARGE",
-  "itemStyle" : "STYLE_2",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Large02-Pile03-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Large-Pile03-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -17.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small01-Pile03-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 6,
-  "maxQuantity" : 10,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_1",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small01-Pile03-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Pile03-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -18.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small-Pile03-Interior",
-  "type" : "BELOW_LAYER_1",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 0,
-  "maxQuantity" : 0,
-  "itemSize" : "SMALL",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small-Pile03-Interior.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small02-Pile03-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 6,
-  "maxQuantity" : 10,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_2",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small02-Pile03-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Pile03-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -18.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Resource-Logs-Large01-Pile04-Exterior",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Resource-Logs",
   "minQuantity" : 9,
   "maxQuantity" : 16,
-  "itemSize" : "LARGE",
-  "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -15256,8 +14730,6 @@
   "itemTypeName" : "Resource-Logs",
   "minQuantity" : 0,
   "maxQuantity" : 0,
-  "itemSize" : "LARGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -15280,153 +14752,11 @@
     }
   }
 }, {
-  "uniqueName" : "Resource-Logs-Large02-Pile04-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 9,
-  "maxQuantity" : 16,
-  "itemSize" : "LARGE",
-  "itemStyle" : "STYLE_2",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Large02-Pile04-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Large-Pile04-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -17.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small01-Pile04-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 11,
-  "maxQuantity" : 16,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_1",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small01-Pile04-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Pile04-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -18.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small-Pile04-Interior",
-  "type" : "BELOW_LAYER_1",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 11,
-  "maxQuantity" : 16,
-  "itemSize" : "SMALL",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small-Pile04-Interior.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small02-Pile04-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 11,
-  "maxQuantity" : 16,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_2",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "ON_GROUND" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small02-Pile04-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Pile04-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -18.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
   "uniqueName" : "Resource-Logs-Large01-Single-Exterior",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Resource-Logs",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "LARGE",
-  "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -15630,8 +14960,6 @@
   "itemTypeName" : "Resource-Logs",
   "minQuantity" : 0,
   "maxQuantity" : 0,
-  "itemSize" : "LARGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -15731,730 +15059,6 @@
       "childAssets" : [ ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Large02-Single-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 1,
-  "maxQuantity" : 1,
-  "itemSize" : "LARGE",
-  "itemStyle" : "STYLE_2",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "BEING_CARRIED" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Large02-Single-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Large-Single-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -14.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : -8.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Resource-Logs-Large02-Single-Exterior-34.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Large-Single-Interior",
-        "offsetPixels" : {
-          "x" : 10.0,
-          "y" : -11.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : -8.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Resource-Logs-Large02-Single-Exterior-34.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Large-Single-Interior",
-        "offsetPixels" : {
-          "x" : -10.0,
-          "y" : -11.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : -8.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "UP" : {
-      "filename" : "Resource-Logs-Large02-Single-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Large-Single-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -14.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : 8.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Resource-Logs-Large02-Single-Exterior-34.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Large-Single-Interior",
-        "offsetPixels" : {
-          "x" : -10.0,
-          "y" : -11.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : 8.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Resource-Logs-Large02-Single-Exterior-34.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Large-Single-Interior",
-        "offsetPixels" : {
-          "x" : 10.0,
-          "y" : -11.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : 6.0,
-          "y" : 2.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : -100
-      } ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small01-Single-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 1,
-  "maxQuantity" : 1,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_1",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "BEING_CARRIED" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small01-Single-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Single-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -18.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : -6.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Resource-Logs-Small01-Single-Exterior-34.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Single-Interior",
-        "offsetPixels" : {
-          "x" : 11.0,
-          "y" : -13.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : -6.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Resource-Logs-Small01-Single-Exterior-34.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Single-Interior",
-        "offsetPixels" : {
-          "x" : -11.0,
-          "y" : -13.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : -6.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "UP" : {
-      "filename" : "Resource-Logs-Small01-Single-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Single-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -18.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : 6.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Resource-Logs-Small01-Single-Exterior-34.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Single-Interior",
-        "offsetPixels" : {
-          "x" : -11.0,
-          "y" : -13.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : 6.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Resource-Logs-Small01-Single-Exterior-34.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Single-Interior",
-        "offsetPixels" : {
-          "x" : 11.0,
-          "y" : -13.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : 4.0,
-          "y" : 2.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : -100
-      } ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small-Single-Interior",
-  "type" : "BELOW_LAYER_1",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 0,
-  "maxQuantity" : 0,
-  "itemSize" : "SMALL",
-  "itemStyle" : "DEFAULT",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "BEING_CARRIED" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small-Single-Interior.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Resource-Logs-Small-Single-Interior-34.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Resource-Logs-Small-Single-Interior-34.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP" : {
-      "filename" : "Resource-Logs-Small-Single-Interior.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Resource-Logs-Small-Single-Interior-34.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Resource-Logs-Small-Single-Interior-34.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Resource-Logs-Small02-Single-Exterior",
-  "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Logs",
-  "minQuantity" : 1,
-  "maxQuantity" : 1,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_2",
-  "itemQualities" : [ ],
-  "itemPlacements" : [ "BEING_CARRIED" ],
-  "applicableMaterialNames" : [ ],
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Resource-Logs-Small02-Single-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Single-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -18.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : -6.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "DOWN_RIGHT" : {
-      "filename" : "Resource-Logs-Small02-Single-Exterior-34.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Single-Interior",
-        "offsetPixels" : {
-          "x" : 11.0,
-          "y" : -13.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : -6.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "DOWN_LEFT" : {
-      "filename" : "Resource-Logs-Small02-Single-Exterior-34.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Single-Interior",
-        "offsetPixels" : {
-          "x" : -11.0,
-          "y" : -13.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : -6.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "UP" : {
-      "filename" : "Resource-Logs-Small02-Single-Exterior.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Single-Interior",
-        "offsetPixels" : {
-          "x" : 0.0,
-          "y" : -18.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : 6.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "UP_RIGHT" : {
-      "filename" : "Resource-Logs-Small02-Single-Exterior-34.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Single-Interior",
-        "offsetPixels" : {
-          "x" : -11.0,
-          "y" : -13.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : 6.0,
-          "y" : 0.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : 100
-      } ]
-    },
-    "UP_LEFT" : {
-      "filename" : "Resource-Logs-Small02-Single-Exterior-34.png",
-      "coloringLayer" : "BRANCHES_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ {
-        "type" : "BELOW_LAYER_1",
-        "specificAssetName" : "Resource-Logs-Small-Single-Interior",
-        "offsetPixels" : {
-          "x" : 11.0,
-          "y" : -13.0,
-          "unit" : false
-        }
-      } ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ {
-        "type" : "CREATURE_RIGHT_HAND",
-        "offsetPixels" : {
-          "x" : 4.0,
-          "y" : 2.0,
-          "unit" : false
-        },
-        "overrideRenderLayer" : -100
-      } ]
     }
   }
 }, {
@@ -16897,8 +15501,6 @@
   "itemTypeName" : "Resource-Mushroom-Lumber",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -17054,8 +15656,6 @@
   "itemTypeName" : "Resource-Mushroom-Lumber",
   "minQuantity" : 1,
   "maxQuantity" : 2,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -17083,8 +15683,6 @@
   "itemTypeName" : "Resource-Mushroom-Lumber",
   "minQuantity" : 3,
   "maxQuantity" : 6,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -17112,8 +15710,6 @@
   "itemTypeName" : "Resource-Mushroom-Lumber",
   "minQuantity" : 7,
   "maxQuantity" : 11,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -17141,8 +15737,6 @@
   "itemTypeName" : "Resource-Mushroom-Lumber",
   "minQuantity" : 12,
   "maxQuantity" : 16,
-  "itemSize" : "SMALL",
-  "itemStyle" : "STYLE_1",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -19115,7 +17709,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -19289,7 +17882,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -19324,7 +17916,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Barley Seed" ],
@@ -19351,7 +17942,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Carrot Seed" ],
@@ -19378,7 +17968,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Corn Seed" ],
@@ -19405,7 +17994,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Hemp Seed" ],
@@ -19432,7 +18020,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Hops Seed" ],
@@ -19459,7 +18046,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Potato Seed" ],
@@ -19486,7 +18072,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Tomato Seed" ],
@@ -19513,7 +18098,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Wheat Seed" ],
@@ -19540,7 +18124,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -19648,7 +18231,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Barley Seed", "Carrot Seed", "Corn Seed", "Hemp Seed", "Hops Seed", "Potato Seed", "Tomato Seed", "Wheat Seed" ],
@@ -19683,7 +18265,6 @@
   "itemTypeName" : "Ingredient-Seeds",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -25241,8 +23822,6 @@
   "itemTypeName" : "Weapon-Bone-Arrows",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -25644,8 +24223,6 @@
   "itemTypeName" : "Weapon-Bone-Arrow-Heads",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -25656,8 +24233,6 @@
   "itemTypeName" : "Weapon-Bone-Arrow-Heads",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -25685,8 +24260,6 @@
   "itemTypeName" : "Weapon-Metal-Arrow-Heads",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -25697,8 +24270,6 @@
   "itemTypeName" : "Weapon-Metal-Arrow-Heads",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -26127,8 +24698,6 @@
   "itemTypeName" : "Weapon-Metal-Bolts",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -26290,8 +24859,6 @@
   "itemTypeName" : "Weapon-Metal-Bolts",
   "minQuantity" : 1,
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -26515,8 +25082,6 @@
   "itemTypeName" : "Weapon-Battle-Axe",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -26702,8 +25267,6 @@
   "itemTypeName" : "Weapon-Battle-Axe",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -26738,8 +25301,6 @@
   "itemTypeName" : "Weapon-Battle-Axe",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -26847,8 +25408,6 @@
   "itemTypeName" : "Weapon-Battle-Axe",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -26876,8 +25435,6 @@
   "itemTypeName" : "Weapon-Battle-Hammer",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -26985,8 +25542,6 @@
   "itemTypeName" : "Weapon-Battle-Hammer",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -27014,8 +25569,6 @@
   "itemTypeName" : "Weapon-Battle-Hammer",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -27193,8 +25746,6 @@
   "itemTypeName" : "Weapon-Battle-Hammer",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -27229,8 +25780,6 @@
   "itemTypeName" : "Weapon-Crossbow",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -27338,8 +25887,6 @@
   "itemTypeName" : "Weapon-Crossbow",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -27367,8 +25914,6 @@
   "itemTypeName" : "Weapon-Crossbow",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -27583,8 +26128,6 @@
   "itemTypeName" : "Weapon-Crossbow",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -27626,8 +26169,6 @@
   "itemTypeName" : "Weapon-Crossbow",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -27729,8 +26270,6 @@
   "itemTypeName" : "Weapon-Crossbow",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -27757,8 +26296,6 @@
   "itemTypeName" : "Weapon-Metal-Shield",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -27815,8 +26352,6 @@
   "itemTypeName" : "Weapon-Metal-Shield",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -27945,8 +26480,6 @@
   "itemTypeName" : "Weapon-Metal-Shield",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -27974,8 +26507,6 @@
   "itemTypeName" : "Weapon-Sword",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -28146,8 +26677,6 @@
   "itemTypeName" : "Weapon-Sword",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -28182,8 +26711,6 @@
   "itemTypeName" : "Weapon-Sword",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -28285,8 +26812,6 @@
   "itemTypeName" : "Weapon-Sword",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],
@@ -28313,8 +26838,6 @@
   "itemTypeName" : "Weapon-Wooden-Shield",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -28371,8 +26894,6 @@
   "itemTypeName" : "Weapon-Wooden-Shield",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "applicableMaterialNames" : [ ],
@@ -28501,8 +27022,6 @@
   "itemTypeName" : "Weapon-Wooden-Shield",
   "minQuantity" : 1,
   "maxQuantity" : 1,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ ],
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ ],

@@ -107,15 +107,11 @@
       "itemTypeName" : "Resource-Grain-Sack",
       "materialName" : "Barley",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Barley Seed",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   }, {
@@ -290,15 +286,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Crate",
       "materialName" : "Carrot",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Carrot Seed",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   }, {
@@ -443,15 +435,11 @@
       "itemTypeName" : "Resource-Hemp-Bundle",
       "materialName" : "Hemp",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Hemp Seed",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   }, {
@@ -614,15 +602,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Sack",
       "materialName" : "Hops",
       "quantity" : 4,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Hops Seed",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   } ],
@@ -783,15 +767,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Sack",
       "materialName" : "Corn",
       "quantity" : 3,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Corn Seed",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   }, {
@@ -969,15 +949,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Sack",
       "materialName" : "Potato",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Potato Seed",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   }, {
@@ -1163,15 +1139,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Crate",
       "materialName" : "Tomato",
       "quantity" : 3,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Tomato Seed",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   }, {
@@ -1328,15 +1300,11 @@
       "itemTypeName" : "Resource-Wheat-Sack",
       "materialName" : "Wheat",
       "quantity" : 3,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Wheat Seed",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   }, {
@@ -1421,15 +1389,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Crate",
       "materialName" : "Berserker Mushroom",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Mushroom-Spawn",
       "materialName" : "Berserker Mushroom Spawn",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   } ],
@@ -1488,15 +1452,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Crate",
       "materialName" : "Death Cap Mushroom",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Mushroom-Spawn",
       "materialName" : "Death Cap Spawn",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   } ],
@@ -1555,15 +1515,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Crate",
       "materialName" : "Elfsbane Mushroom",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Mushroom-Spawn",
       "materialName" : "Elfsbane Spawn",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   } ],
@@ -1622,15 +1578,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Crate",
       "materialName" : "Fist Mushroom",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Mushroom-Spawn",
       "materialName" : "Fist Spawn",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   } ],
@@ -1690,15 +1642,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Crate",
       "materialName" : "Glow Mushroom",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Mushroom-Spawn",
       "materialName" : "Glow Spawn",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   } ],
@@ -1757,15 +1705,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Crate",
       "materialName" : "Miltonia Mushroom",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Mushroom-Spawn",
       "materialName" : "Miltonia Spawn",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   } ],
@@ -1824,15 +1768,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Crate",
       "materialName" : "Purple Helmet Mushroom",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Mushroom-Spawn",
       "materialName" : "Purple Helmet Spawn",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   } ],
@@ -1891,15 +1831,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Crate",
       "materialName" : "Rociomycota Mushroom",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Mushroom-Spawn",
       "materialName" : "Rociomycota Mushroom Spawn",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   } ],
@@ -1958,15 +1894,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Crate",
       "materialName" : "Sunglow Mushroom",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Mushroom-Spawn",
       "materialName" : "Sunglow Spawn",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   } ],
@@ -2025,15 +1957,11 @@
       "itemTypeName" : "Ingredient-Vegetable-Crate",
       "materialName" : "Syrup Powder Mushroom",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     }, {
       "itemTypeName" : "Ingredient-Mushroom-Spawn",
       "materialName" : "Syrup Powder Spawn",
       "quantity" : 2,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 1.0
     } ]
   } ],
@@ -2115,8 +2043,6 @@
       "itemTypeName" : "Resource-Mushroom-Lumber",
       "materialName" : "Barkshroom",
       "quantity" : 2,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -2190,8 +2116,6 @@
       "itemTypeName" : "Resource-Mushroom-Lumber",
       "materialName" : "Fungiwood",
       "quantity" : 2,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -2262,57 +2186,41 @@
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Hops Seed",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 0.0125
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Barley Seed",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 0.0125
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Carrot Seed",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 0.0125
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Hemp Seed",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 0.0125
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Corn Seed",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 0.0125
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Potato Seed",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 0.0125
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Tomato Seed",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 0.0125
     }, {
       "itemTypeName" : "Ingredient-Seeds",
       "materialName" : "Wheat Seed",
       "quantity" : 1,
-      "itemSize" : "AVERAGE",
-      "itemStyle" : "DEFAULT",
       "chance" : 0.0125
     } ]
   } ],
@@ -2408,8 +2316,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Aspen",
       "quantity" : 2,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_2",
       "chance" : 1.0
     } ]
   }, {
@@ -2429,8 +2335,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Aspen",
       "quantity" : 3,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_2",
       "chance" : 1.0
     } ]
   } ],
@@ -2519,8 +2423,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Baobab",
       "quantity" : 2,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_2",
       "chance" : 1.0
     } ]
   }, {
@@ -2540,8 +2442,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Baobab",
       "quantity" : 3,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_2",
       "chance" : 1.0
     } ]
   } ],
@@ -2637,8 +2537,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Beech",
       "quantity" : 2,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   }, {
@@ -2658,8 +2556,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Beech",
       "quantity" : 3,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -2758,8 +2654,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Birch",
       "quantity" : 2,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_2",
       "chance" : 1.0
     } ]
   }, {
@@ -2779,8 +2673,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Birch",
       "quantity" : 3,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_2",
       "chance" : 1.0
     } ]
   } ],
@@ -2865,8 +2757,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Ironwood",
       "quantity" : 2,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_2",
       "chance" : 1.0
     } ]
   }, {
@@ -2886,8 +2776,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Ironwood",
       "quantity" : 3,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_2",
       "chance" : 1.0
     } ]
   } ],
@@ -2961,8 +2849,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Fir",
       "quantity" : 2,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   }, {
@@ -2982,8 +2868,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Fir",
       "quantity" : 3,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -3077,8 +2961,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Ebony",
       "quantity" : 2,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   }, {
@@ -3098,8 +2980,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Ebony",
       "quantity" : 3,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -3198,8 +3078,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Maple",
       "quantity" : 2,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   }, {
@@ -3219,8 +3097,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Maple",
       "quantity" : 3,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -3310,8 +3186,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Nuytsia",
       "quantity" : 2,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   }, {
@@ -3331,8 +3205,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Nuytsia",
       "quantity" : 3,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -3429,8 +3301,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Oak",
       "quantity" : 2,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_2",
       "chance" : 1.0
     } ]
   }, {
@@ -3450,8 +3320,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Oak",
       "quantity" : 3,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_2",
       "chance" : 1.0
     } ]
   } ],
@@ -3550,8 +3418,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Pecan",
       "quantity" : 2,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   }, {
@@ -3571,8 +3437,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Pecan",
       "quantity" : 3,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -3651,8 +3515,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Pine",
       "quantity" : 2,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   }, {
@@ -3672,8 +3534,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Pine",
       "quantity" : 3,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -3753,8 +3613,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Red cedar",
       "quantity" : 2,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   }, {
@@ -3774,8 +3632,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Red cedar",
       "quantity" : 3,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -3879,8 +3735,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Red emperor",
       "quantity" : 2,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   }, {
@@ -3900,8 +3754,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Red emperor",
       "quantity" : 3,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -4003,8 +3855,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Rosewood",
       "quantity" : 2,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_2",
       "chance" : 1.0
     } ]
   }, {
@@ -4024,8 +3874,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Rosewood",
       "quantity" : 3,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_2",
       "chance" : 1.0
     } ]
   } ],
@@ -4104,8 +3952,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Spruce",
       "quantity" : 2,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   }, {
@@ -4125,8 +3971,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Spruce",
       "quantity" : 3,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -4200,8 +4044,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Star pine",
       "quantity" : 2,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   }, {
@@ -4221,8 +4063,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Star pine",
       "quantity" : 3,
-      "itemSize" : "SMALL",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],
@@ -4316,8 +4156,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Sycamore",
       "quantity" : 2,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   }, {
@@ -4337,8 +4175,6 @@
       "itemTypeName" : "Resource-Logs",
       "materialName" : "Sycamore",
       "quantity" : 3,
-      "itemSize" : "LARGE",
-      "itemStyle" : "STYLE_1",
       "chance" : 1.0
     } ]
   } ],

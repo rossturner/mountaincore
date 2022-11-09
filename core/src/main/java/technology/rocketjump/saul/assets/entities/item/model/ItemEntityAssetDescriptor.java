@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.assets.entities.item.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
@@ -16,8 +17,10 @@ public class ItemEntityAssetDescriptor {
 	private String itemTypeName;
 	private int minQuantity = 1; // The fewest amount that this asset represents
 	private int maxQuantity = 1; // The largest amount that this asset can represent
-	private ItemSize itemSize;
-	private ItemStyle itemStyle;
+	@Deprecated
+	private String itemSize;
+	@Deprecated
+	private String itemStyle;
 	private List<ItemQuality> itemQualities = new ArrayList<>();
 	private List<ItemPlacement> itemPlacements = new ArrayList<>();
 	private List<String> applicableMaterialNames = new ArrayList<>();
@@ -29,16 +32,10 @@ public class ItemEntityAssetDescriptor {
 		if (minQuantity > entityAttributes.getQuantity() || maxQuantity < entityAttributes.getQuantity()) {
 			return false;
 		}
-		if (itemSize != null && entityAttributes.getItemSize() != null && !itemSize.equals(entityAttributes.getItemSize())) {
-			return false;
-		}
-		if (itemStyle != null && entityAttributes.getItemStyle() != null && !itemStyle.equals(entityAttributes.getItemStyle())) {
-			return false;
-		}
 		if (itemQualities != null && !itemQualities.isEmpty() && entityAttributes.getItemQuality() != null && !itemQualities.contains(entityAttributes.getItemQuality())) {
 			return false;
 		}
-		if (applicableMaterialNames != null && !applicableMaterialNames.isEmpty() && !applicableMaterialNames.contains(entityAttributes.getPrimaryMaterial())) {
+		if (applicableMaterialNames != null && !applicableMaterialNames.isEmpty() && !applicableMaterialNames.contains(entityAttributes.getPrimaryMaterial().getMaterialName())) {
 			return false;
 		}
 		return true;
@@ -68,14 +65,6 @@ public class ItemEntityAssetDescriptor {
 		this.itemTypeName = itemTypeName;
 	}
 
-	public ItemSize getItemSize() {
-		return itemSize;
-	}
-
-	public void setItemSize(ItemSize itemSize) {
-		this.itemSize = itemSize;
-	}
-
 	public List<ItemQuality> getItemQualities() {
 		return itemQualities;
 	}
@@ -100,11 +89,21 @@ public class ItemEntityAssetDescriptor {
 		this.maxQuantity = maxQuantity;
 	}
 
-	public ItemStyle getItemStyle() {
+	@JsonIgnore
+	public String getItemSize() {
+		return itemSize;
+	}
+
+	public void setItemSize(String itemSize) {
+		this.itemSize = itemSize;
+	}
+
+	@JsonIgnore
+	public String getItemStyle() {
 		return itemStyle;
 	}
 
-	public void setItemStyle(ItemStyle itemStyle) {
+	public void setItemStyle(String itemStyle) {
 		this.itemStyle = itemStyle;
 	}
 
