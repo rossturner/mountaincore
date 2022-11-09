@@ -62,7 +62,7 @@ public class PlantEntityAssetDictionary {
 	}
 
 	public void rebuild() {
-		this.typeMap = new PlantEntityAssetsByType(entityAssetTypeDictionary, plantSpeciesDictionary);
+		this.typeMap = new PlantEntityAssetsByType(plantSpeciesDictionary);
 		for (PlantEntityAsset asset : assetsByName.values()) {
 			if (NULL_ENTITY_ASSET != asset) {
 				typeMap.add(asset);

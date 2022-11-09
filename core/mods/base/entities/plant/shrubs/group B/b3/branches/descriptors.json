@@ -2,6 +2,7 @@
   "uniqueName": "Bush-B3-Branches",
   "type": "PLANT_BRANCHES",
   "speciesName": "Shrub",
+  "growthStages": [0, 1],
   "spriteDescriptors": {
     "DOWN": {
       "filename": "shrub_03_t.png",
