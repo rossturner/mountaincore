@@ -1,0 +1,13 @@
+{
+com.badlogic.gdx.graphics.Color: {
+	semi_transparent_accent_colour: {
+		hex: d7b17a3f
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	accent_bg: {
+		name: white-pixel
+		color: semi_transparent_accent_colour
+	}
+}
+}

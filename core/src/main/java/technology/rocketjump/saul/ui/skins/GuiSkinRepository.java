@@ -20,11 +20,13 @@ public class GuiSkinRepository implements Telegraph {
 
 	public static final String MAIN_GAME_SKIN_FILE_PATH = "assets/ui/skin/main-game-skin.json";
 	private static final String MENU_SKIN_FILE_PATH = "assets/ui/skin/menu-skin.json";
+	private static final String MANAGEMENT_SKIN_FILE_PATH = "assets/ui/skin/management-skin.json";
 	private final FontRepository fontRepository;
 	private final OnDemandFontRepository onDemandFontRepository;
 	private final Skin uiSkin = new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")); // MODDING expose this or change uiskin.json
 	private final Skin menuSkin;
 	private final Skin mainGameSkin;
+	private final Skin managementSkin;
 
 	@Inject
 	public GuiSkinRepository(FontRepository fontRepository, OnDemandFontRepository onDemandFontRepository, MessageDispatcher messageDispatcher) {
@@ -33,6 +35,7 @@ public class GuiSkinRepository implements Telegraph {
 
 		mainGameSkin = loadSkin(MAIN_GAME_SKIN_FILE_PATH);
 		menuSkin = loadSkin(MENU_SKIN_FILE_PATH);
+		managementSkin = loadSkin(MANAGEMENT_SKIN_FILE_PATH);
 
 		if (!VisUI.isLoaded()) {
 			VisUI.load();
@@ -83,6 +86,10 @@ public class GuiSkinRepository implements Telegraph {
 
 	public Skin getMainGameSkin() {
 		return mainGameSkin;
+	}
+
+	public Skin getManagementSkin() {
+		return managementSkin;
 	}
 
 	public boolean fontChanged() {

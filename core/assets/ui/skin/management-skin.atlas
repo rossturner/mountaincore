@@ -1,0 +1,101 @@
+
+management-skin.png
+size: 1024, 1024
+format: RGBA8888
+filter: MipMapLinearLinear, Linear
+repeat: none
+white-pixel
+  rotate: false
+  xy: 474, 669
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+search_bar
+  rotate: false
+  xy: 2, 674
+  size: 528, 58
+  split: 56, 56, 0, 0
+  pad: 0, 0, 0, 0
+  orig: 528, 58
+  offset: 0, 0
+  index: -1
+vertical_scrollbar
+  rotate: false
+  xy: 272, 394
+  size: 28, 62
+  split: 0, 0, 26, 26
+  orig: 28, 62
+  offset: 0, 0
+  index: -1
+vertical_scrollbar_fg
+  rotate: false
+  xy: 406, 514
+  size: 28, 80
+  split: 1, 1, 26, 26
+  orig: 28, 80
+  offset: 0, 0
+  index: -1
+asset_quality_star
+  rotate: false
+  xy: 534, 686
+  size: 48, 46
+  orig: 48, 46
+  offset: 0, 0
+  index: -1
+btn_info
+  rotate: false
+  xy: 204, 384
+  size: 64, 72
+  orig: 64, 72
+  offset: 0, 0
+  index: -1
+btn_info_hover_state
+  rotate: false
+  xy: 406, 598
+  size: 64, 72
+  orig: 64, 72
+  offset: 0, 0
+  index: -1
+btn_resources_item_01
+  rotate: false
+  xy: 2, 460
+  size: 198, 210
+  orig: 198, 210
+  offset: 0, 0
+  index: -1
+btn_resources_item_02
+  rotate: false
+  xy: 2, 246
+  size: 198, 210
+  orig: 198, 210
+  offset: 0, 0
+  index: -1
+btn_resources_item_03
+  rotate: false
+  xy: 204, 460
+  size: 198, 210
+  orig: 198, 210
+  offset: 0, 0
+  index: -1
+btn_resources_item_04
+  rotate: false
+  xy: 2, 32
+  size: 198, 210
+  orig: 198, 210
+  offset: 0, 0
+  index: -1
+btn_sort_by_toggle_off
+  rotate: false
+  xy: 2, 2
+  size: 30, 26
+  orig: 30, 26
+  offset: 0, 0
+  index: -1
+btn_sort_by_toggle_on
+  rotate: false
+  xy: 204, 354
+  size: 30, 26
+  orig: 30, 26
+  offset: 0, 0
+  index: -1
