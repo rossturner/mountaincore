@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static technology.rocketjump.saul.assets.entities.model.EntityAssetType.NULL_ENTITY_ASSET_TYPE;
-
 public class ItemEntityAssetsByAssetType {
 
 	private final ItemTypeDictionary itemTypeDictionary;
@@ -20,7 +18,6 @@ public class ItemEntityAssetsByAssetType {
 
 	public ItemEntityAssetsByAssetType(ItemTypeDictionary itemTypeDictionary) {
 		this.itemTypeDictionary = itemTypeDictionary;
-		typeMap.put(NULL_ENTITY_ASSET_TYPE, new ItemEntityAssetsByItemType());
 	}
 
 	public void add(ItemEntityAsset asset) {
@@ -31,13 +28,9 @@ public class ItemEntityAssetsByAssetType {
 		}
 		typeMap.computeIfAbsent(asset.getType(), a -> new ItemEntityAssetsByItemType())
 				.add(itemType, asset);
-		typeMap.get(NULL_ENTITY_ASSET_TYPE).add(itemTypeDictionary.getByName(asset.getItemTypeName()), asset);
 	}
 
 	public ItemEntityAsset get(EntityAssetType entityAssetType, ItemEntityAttributes attributes) {
-		if (entityAssetType == null) {
-			entityAssetType = NULL_ENTITY_ASSET_TYPE;
-		}
 		ItemEntityAssetsByItemType childMap = typeMap.get(entityAssetType);
 		return childMap != null ? childMap.get(attributes) : null;
 	}
