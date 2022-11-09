@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.ray3k.tenpatch.TenPatchDrawable;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
@@ -62,7 +63,7 @@ public class StockpileSelectionGuiView implements GuiView, DisplaysText {
 
 		mainTable = new Table();
 		mainTable.setTouchable(Touchable.enabled);
-		mainTable.setBackground(skin.getDrawable("asset_dwarf_select_bg"));
+		mainTable.setBackground(skin.get("asset_dwarf_select_bg_patch", TenPatchDrawable.class));
 		mainTable.pad(20);
 
 		Container<Label> headerContainer = new Container<>();
@@ -105,6 +106,7 @@ public class StockpileSelectionGuiView implements GuiView, DisplaysText {
 
 			Container<Button> buttonContainer = new Container<>();
 			buttonContainer.pad(10);
+			buttonContainer.setBackground(skin.getDrawable("stockpile_bg"));
 			buttonContainer.setActor(stockpileGroupButton);
 
 			buttonsTable.add(buttonContainer);

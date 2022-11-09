@@ -255,8 +255,6 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			}
 		}
 
-		// TODO seed selection if farm plot
-
 		if (!selectedRoomType.getFurnitureNames().isEmpty()) {
 			int furnitureCursor = 0;
 			Table furnitureTable = new Table();
@@ -277,20 +275,11 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 			// TODO get place in any room furniture and also add
 
-			while (furnitureCursor % FURNITURE_PER_ROW != 0) {
-				Container<Image> spacerContainer = new Container<>();
-				Image spacerImage = new Image(skin.getDrawable("asset_catalogue_bg"));
-				spacerContainer.setActor(spacerImage);
-				spacerContainer.pad(18);
-				furnitureTable.add(spacerContainer);
-				furnitureCursor++;
-			}
-
-			mainTable.add(furnitureTable).row();
+			mainTable.add(furnitureTable).center().row();
 		}
 
 		if (selectedFurnitureType != null) {
-			mainTable.add(furnitureMaterialsWidget).expandX().row();
+			mainTable.add(furnitureMaterialsWidget).center().expandX().row();
 		}
 	}
 

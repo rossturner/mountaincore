@@ -128,7 +128,7 @@ public class RoomFactory implements GameContextAware, DisplaysText {
 	public I18nText getStockpileRoomName(RoomType roomType, StockpileGroup stockpileGroup) {
 		return i18nTranslator.applyReplacements(i18nTranslator.getWord("ROOMS.STOCKPILE_WITH_GROUP_NAME"), Map.of(
 				"roomTypeName", i18nTranslator.getTranslatedString(roomType.getI18nKey()),
-				"stockpileGroupName", i18nTranslator.getTranslatedString(stockpileGroup.getI18nKey()).toLowerCase()
+				"stockpileGroupName", stockpileGroup != null ? i18nTranslator.getTranslatedString(stockpileGroup.getI18nKey()).toLowerCase() : I18nWord.BLANK
 		), Gender.ANY);
 	}
 

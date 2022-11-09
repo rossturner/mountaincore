@@ -71,6 +71,26 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
+	asset_dwarf_select_bg_patch: {
+		region: asset_dwarf_select_bg
+		horizontalStretchAreas: [ 0, 1489 ]
+		verticalStretchAreas: [ 0, 631 ]
+		tiling: false
+		minWidth: 1490
+		minHeight: 632
+		rightWidth: 26
+		leftWidth: 26
+		bottomHeight: 39
+		topHeight: 25
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.kotcrab.vis.ui.Sizes: {
 	default: {
@@ -171,8 +191,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		up: btn_map_resize
 	}
 	btn_material_type: {
-		up: temp_btn_trade
-		checked: btn_trade
+		up: btn_small_50pc
+		checked: btn_small
 	}
 	btn_arrow_small_left: {
 		up: btn_arrow_small_left
