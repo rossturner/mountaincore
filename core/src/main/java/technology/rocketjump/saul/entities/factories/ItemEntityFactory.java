@@ -33,14 +33,12 @@ public class ItemEntityFactory {
 	private static final float MAX_POSITION_OFFSET = 0.05f;
 	private static final float ITEM_RADIUS = 0.4f;
 
-	private final ItemEntityAttributesFactory itemEntityAttributesFactory;
 	private final MessageDispatcher messageDispatcher;
 	private final GameMaterialDictionary gameMaterialDictionary;
 	private final EntityAssetUpdater entityAssetUpdater;
 
 	@Inject
-	public ItemEntityFactory(ItemEntityAttributesFactory itemEntityAttributesFactory, MessageDispatcher messageDispatcher, GameMaterialDictionary gameMaterialDictionary, EntityAssetUpdater entityAssetUpdater) {
-		this.itemEntityAttributesFactory = itemEntityAttributesFactory;
+	public ItemEntityFactory(MessageDispatcher messageDispatcher, GameMaterialDictionary gameMaterialDictionary, EntityAssetUpdater entityAssetUpdater) {
 		this.messageDispatcher = messageDispatcher;
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.entityAssetUpdater = entityAssetUpdater;
@@ -49,7 +47,6 @@ public class ItemEntityFactory {
 	public Entity createByItemType(ItemType itemType, GameContext gameContext, boolean addToGameContext) {
 		ItemEntityAttributes attributes = new ItemEntityAttributes(gameContext.getRandom().nextLong());
 		attributes.setItemType(itemType);
-		itemEntityAttributesFactory.setItemSizeAndStyle(attributes);
 
 		for (GameMaterialType requiredMaterialType : itemType.getMaterialTypes()) {
 			List<GameMaterial> materialsToPickFrom = gameMaterialDictionary.getByType(requiredMaterialType).stream()
@@ -69,7 +66,6 @@ public class ItemEntityFactory {
 
 	public Entity create(ItemEntityAttributes attributes, GridPoint2 tilePosition, boolean addToGameContext, GameContext gameContext) {
 		PhysicalEntityComponent physicalComponent = new PhysicalEntityComponent();
-		itemEntityAttributesFactory.setItemSizeAndStyle(attributes);
 		physicalComponent.setAttributes(attributes);
 		BehaviourComponent behaviorComponent = new ItemBehaviour();
 		LocationComponent locationComponent = createLocationComponent(tilePosition, attributes.getSeed());

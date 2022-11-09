@@ -2,8 +2,6 @@
   "uniqueName" : "Resource-Bone-Large-Item_Base_Layer-Being_Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Resource-Bone-Large",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -33,8 +31,6 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Resource-Bone-Large",
   "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -51,8 +47,6 @@
   "itemTypeName" : "Resource-Bone-Large",
   "minQuantity" : 6,
   "maxQuantity" : 10,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -68,8 +62,6 @@
   "itemTypeName" : "Resource-Bone-Large",
   "minQuantity" : 3,
   "maxQuantity" : 5,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

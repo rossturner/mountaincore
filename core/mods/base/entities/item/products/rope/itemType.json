@@ -1,8 +1,6 @@
 {
-  "itemTypeId" : 33,
   "itemTypeName" : "Product-Rope",
   "maxStackSize" : 4,
-  "maxHauledAtOnce" : 1,
   "materialTypes" : [ "ROPE" ],
   "primaryMaterialType" : "ROPE",
   "hoursInInventoryUntilUnused" : 1.0,

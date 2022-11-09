@@ -1,11 +1,12 @@
 {
-  "itemTypeName": "Product-Bread-Loaf",
-  "materialTypes": ["FOODSTUFF"],
-  "primaryMaterialType": "FOODSTUFF",
-  "stockpileGroupName": "FOOD",
-  "hoursInInventoryUntilUnused": 1,
-  "maxStackSize": 13,
-  "maxHauledAtOnce": 13,
-  "equippedWhileWorkingOnJob": false,
-  "consumeSoundAssetName": "EatFood"
+  "itemTypeName" : "Product-Bread-Loaf",
+  "maxStackSize" : 13,
+  "maxHauledAtOnce" : 13,
+  "materialTypes" : [ "FOODSTUFF" ],
+  "primaryMaterialType" : "FOODSTUFF",
+  "equippedWhileWorkingOnJob" : false,
+  "hoursInInventoryUntilUnused" : 1.0,
+  "stockpileGroupName" : "FOOD",
+  "consumeSoundAssetName" : "EatFood",
+  "i18nKey" : "PRODUCT.BREAD.LOAF"
 }

@@ -3,16 +3,12 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Metal-Arrow-Heads",
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ]
 }, {
   "uniqueName" : "Weapon-Metal-Arrow-Heads-Item_Base_Layer-On_Ground",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Metal-Arrow-Heads",
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

@@ -710,8 +710,6 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					}
 
 					ItemEntityAttributes itemEntityAttributes = new ItemEntityAttributes(gameContext.getRandom().nextLong());
-					itemEntityAttributes.setItemSize(itemToCreate.getItemSize());
-					itemEntityAttributes.setItemStyle(itemToCreate.getItemStyle());
 					itemEntityAttributes.setColor(ColoringLayer.BRANCHES_COLOR, treeFallenMessage.getBranchColor());
 					itemEntityAttributes.setQuantity(logsToCreateAtNextTile);
 					itemEntityAttributes.setMaterial(itemToCreate.getMaterial());

@@ -1,12 +1,12 @@
 {
-  "itemTypeName": "Resource-Planks",
-  "materialTypes": ["WOOD"],
-  "primaryMaterialType": "WOOD",
-  "maxStackSize": 16,
-  "maxHauledAtOnce": 2,
-  "stockpileGroupName": "PRODUCTS",
-  "holdPosition": "ON_SHOULDER",
-  "impedesMovement": true,
-  "blocksMovement": false,
-  "placementSoundAssetName": "HeavyWoodItem"
+  "itemTypeName" : "Resource-Planks",
+  "maxStackSize" : 16,
+  "maxHauledAtOnce" : 2,
+  "materialTypes" : [ "WOOD" ],
+  "primaryMaterialType" : "WOOD",
+  "holdPosition" : "ON_SHOULDER",
+  "impedesMovement" : true,
+  "stockpileGroupName" : "PRODUCTS",
+  "placementSoundAssetName" : "HeavyWoodItem",
+  "i18nKey" : "RESOURCE.PLANKS"
 }

@@ -1,7 +1,6 @@
 {
-  "itemTypeName": "Resource-Liquid-Example",
-  "materialTypes": ["LIQUID"],
-  "primaryMaterialType": "LIQUID",
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1
+  "itemTypeName" : "Resource-Liquid-Example",
+  "materialTypes" : [ "LIQUID" ],
+  "primaryMaterialType" : "LIQUID",
+  "i18nKey" : "RESOURCE.LIQUID.EXAMPLE"
 }

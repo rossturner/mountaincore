@@ -1,10 +1,8 @@
 {
-  "itemTypeName": "Product-Liquid-Tank",
-  "materialTypes": ["METAL"],
-  "primaryMaterialType": "METAL",
-  "stockpileGroupName": "PRODUCTS",
-  "hoursInInventoryUntilUnused": 1,
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "equippedWhileWorkingOnJob": true
+  "itemTypeName" : "Product-Liquid-Tank",
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "hoursInInventoryUntilUnused" : 1.0,
+  "stockpileGroupName" : "PRODUCTS",
+  "i18nKey" : "PRODUCT.LIQUID.TANK"
 }

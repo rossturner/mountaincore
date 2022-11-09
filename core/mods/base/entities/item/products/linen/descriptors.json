@@ -1,185 +1,146 @@
-[
-  {
-    "uniqueName": "Product-Linen-Carried",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Product-Linen",
-    "itemSize": "AVERAGE",
-    "itemStyle": "DEFAULT",
-    "itemPlacements": [
-      "BEING_CARRIED"
-    ],
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Fabric_Plain.png",
-        "coloringLayer": "CLOTH_COLOR",
-        "scale": 0.6,
-        "offsetPixels": {
-          "y": -11.0,
-          "x": -0.5
-        },
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "offsetPixels": {
-              "x": 26.0
-            },
-            "overrideRenderLayer": 100
-          },
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "offsetPixels": {
-              "x": -20.0
-            },
-            "overrideRenderLayer": 100
-          }
-        ]
+[ {
+  "uniqueName" : "Product-Linen-Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Product-Linen",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Fabric_Plain.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "scale" : 0.6,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -11.0
       },
-      "DOWN_RIGHT": {
-        "filename": "Fabric_Plain.png",
-        "coloringLayer": "CLOTH_COLOR",
-        "scale": 0.6,
-        "offsetPixels": {
-          "y": -11.0,
-          "x": -0.5
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 26.0
         },
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "offsetPixels": {
-              "x": -20.0
-            },
-            "overrideRenderLayer": 100
-          }
-        ]
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -20.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Fabric_Plain.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "scale" : 0.6,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -11.0
       },
-      "DOWN_LEFT": {
-        "filename": "Fabric_Plain.png",
-        "coloringLayer": "CLOTH_COLOR",
-        "scale": 0.6,
-        "offsetPixels": {
-          "y": -11.0,
-          "x": -0.5
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -20.0
         },
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "offsetPixels": {
-              "x": 20.0
-            },
-            "overrideRenderLayer": 100
-          }
-        ]
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Fabric_Plain.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "scale" : 0.6,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -11.0
       },
-      "UP": {
-        "filename": "Fabric_Plain.png",
-        "coloringLayer": "CLOTH_COLOR",
-        "scale": 0.6,
-        "offsetPixels": {
-          "y": -11.0,
-          "x": -0.5
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 20.0
         },
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "offsetPixels": {
-              "x": 22.0
-            },
-            "overrideRenderLayer": 100
-          },
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "offsetPixels": {
-              "x": -22.0
-            },
-            "overrideRenderLayer": 100
-          }
-        ]
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP" : {
+      "filename" : "Fabric_Plain.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "scale" : 0.6,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -11.0
       },
-      "UP_LEFT": {
-        "filename": "Fabric_Plain.png",
-        "coloringLayer": "CLOTH_COLOR",
-        "scale": 0.6,
-        "offsetPixels": {
-          "y": -11.0,
-          "x": -0.5
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 22.0
         },
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "offsetPixels": {
-              "x": -12.0
-            },
-            "overrideRenderLayer": 100
-          }
-        ]
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -22.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Fabric_Plain.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "scale" : 0.6,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -11.0
       },
-      "UP_RIGHT": {
-        "filename": "Fabric_Plain.png",
-        "coloringLayer": "CLOTH_COLOR",
-        "scale": 0.6,
-        "offsetPixels": {
-          "y": -11.0,
-          "x": -0.5
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -12.0
         },
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "offsetPixels": {
-              "x": 12.0
-            },
-            "overrideRenderLayer": 100
-          }
-        ]
-      }
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Fabric_Plain.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "scale" : 0.6,
+      "offsetPixels" : {
+        "x" : -0.5,
+        "y" : -11.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 12.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
     }
-  },
-  {
-    "uniqueName": "Product-Linen-On-Ground",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Product-Linen",
-    "maxQuantity": 4,
-    "itemSize": "AVERAGE",
-    "itemStyle": "DEFAULT",
-    "itemQualities": [
-      "STANDARD"
-    ],
-    "itemPlacements": [
-      "ON_GROUND"
-    ],
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Product-Linen-On-Ground_Down.png",
-        "coloringLayer": "CLOTH_COLOR",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 0.0
-        }
-      }
+  }
+}, {
+  "uniqueName" : "Product-Linen-On-Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Product-Linen",
+  "maxQuantity" : 4,
+  "itemQualities" : [ "STANDARD" ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Product-Linen-On-Ground_Down.png",
+      "coloringLayer" : "CLOTH_COLOR"
     }
-  },
-  {
-    "uniqueName": "Product-Linen-On-Ground-Many",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Product-Linen",
-    "minQuantity": 5,
-    "maxQuantity": 12,
-    "itemSize": "AVERAGE",
-    "itemStyle": "DEFAULT",
-    "itemQualities": [
-      "STANDARD"
-    ],
-    "itemPlacements": [
-      "ON_GROUND"
-    ],
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Product-Linen-On-Ground-Many_Down.png",
-        "coloringLayer": "CLOTH_COLOR",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 0.5
-        }
+  }
+}, {
+  "uniqueName" : "Product-Linen-On-Ground-Many",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Product-Linen",
+  "minQuantity" : 5,
+  "maxQuantity" : 12,
+  "itemQualities" : [ "STANDARD" ],
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Product-Linen-On-Ground-Many_Down.png",
+      "coloringLayer" : "CLOTH_COLOR",
+      "offsetPixels" : {
+        "y" : 0.5
       }
     }
   }
-]
+} ]

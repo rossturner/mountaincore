@@ -1,11 +1,9 @@
 {
-  "itemTypeName": "Resource-Stone-Unrefined",
-  "materialTypes": ["STONE"],
-  "primaryMaterialType": "STONE",
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "stockpileGroupName": "RAW_MATERIALS",
-  "impedesMovement": true,
-  "blocksMovement": false,
-  "placementSoundAssetName": "HeavyStoneItem"
+  "itemTypeName" : "Resource-Stone-Unrefined",
+  "materialTypes" : [ "STONE" ],
+  "primaryMaterialType" : "STONE",
+  "impedesMovement" : true,
+  "stockpileGroupName" : "RAW_MATERIALS",
+  "placementSoundAssetName" : "HeavyStoneItem",
+  "i18nKey" : "RESOURCE.STONE.UNREFINED"
 }

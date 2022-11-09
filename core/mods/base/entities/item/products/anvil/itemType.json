@@ -1,10 +1,8 @@
 {
-  "itemTypeName": "Product-Anvil",
-  "materialTypes": ["METAL"],
-  "primaryMaterialType": "METAL",
-  "stockpileGroupName": "TOOLS",
-  "hoursInInventoryUntilUnused": 0,
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "equippedWhileWorkingOnJob": true
+  "itemTypeName" : "Product-Anvil",
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "hoursInInventoryUntilUnused" : 0.0,
+  "stockpileGroupName" : "TOOLS",
+  "i18nKey" : "PRODUCT.ANVIL"
 }

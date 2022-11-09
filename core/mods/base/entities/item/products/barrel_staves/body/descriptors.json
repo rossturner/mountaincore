@@ -1,134 +1,112 @@
-[
-  {
-    "uniqueName": "Product-Barrel-Staves-Body-Ground",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Product-Barrel-Staves",
-    "itemPlacements": [
-      "ON_GROUND"
-    ],
-    "minQuantity": 1,
-    "maxQuantity": 15,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Barrel staves.png",
-        "coloringLayer": "WOOD_COLOR"
-      }
-    }
-  },
-  {
-    "uniqueName": "Product-Barrel-Staves-Body-Carried",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Product-Barrel-Staves",
-    "itemPlacements": [
-      "BEING_CARRIED"
-    ],
-    "minQuantity": 1,
-    "maxQuantity": 15,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Barrel staves.png",
-        "scale": 0.8,
-        "coloringLayer": "WOOD_COLOR",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": 18,
-              "y": -16
-            }
-          },
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -18,
-              "y": -16
-            }
-          }
-        ]
-      },
-      "DOWN_RIGHT": {
-        "filename": "Barrel staves.png",
-        "scale": 0.8,
-        "coloringLayer": "WOOD_COLOR",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -16,
-              "y": -16
-            }
-          },
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": -100,
-            "offsetPixels": {
-              "x": 22,
-              "y": -10
-            }
-          }
-        ]
-      },
-      "DOWN_LEFT": {
-        "filename": "Barrel staves.png",
-        "scale": 0.8,
-        "coloringLayer": "WOOD_COLOR",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": 16,
-              "y": -16
-            }
-          },
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": -100,
-            "offsetPixels": {
-              "x": -22,
-              "y": -10
-            }
-          }
-        ]
-      },
-      "UP_RIGHT": {
-        "filename": "Barrel staves.png",
-        "scale": 0.8,
-        "coloringLayer": "WOOD_COLOR",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": 16,
-              "y": -16
-            }
-          }
-        ]
-      },
-      "UP_LEFT": {
-        "filename": "Barrel staves.png",
-        "scale": 0.8,
-        "coloringLayer": "WOOD_COLOR",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -16,
-              "y": -16
-            }
-          }
-        ]
-      },
-      "UP": {
-        "filename": "Barrel staves.png",
-        "scale": 0.8,
-        "coloringLayer": "WOOD_COLOR"
-      }
+[ {
+  "uniqueName" : "Product-Barrel-Staves-Body-Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Product-Barrel-Staves",
+  "maxQuantity" : 15,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Barrel staves.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.8,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -18.0,
+          "y" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Barrel staves.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.8,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 22.0,
+          "y" : -10.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Barrel staves.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.8,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -22.0,
+          "y" : -10.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Barrel staves.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.8,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Barrel staves.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.8,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP" : {
+      "filename" : "Barrel staves.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.8
     }
   }
-]
+}, {
+  "uniqueName" : "Product-Barrel-Staves-Body-Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Product-Barrel-Staves",
+  "maxQuantity" : 15,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Barrel staves.png",
+      "coloringLayer" : "WOOD_COLOR"
+    }
+  }
+} ]

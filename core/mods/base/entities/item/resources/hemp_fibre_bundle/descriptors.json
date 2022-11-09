@@ -1,149 +1,120 @@
-[
-  {
-    "uniqueName": "Resource-Hemp-Fibre-Bundle-Base",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Resource-Hemp-Fibre-Bundle",
-    "itemPlacements": ["ON_GROUND"],
-    "minQuantity": 1,
-    "maxQuantity": 4,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Hemp_Bundle.png",
-        "coloringLayer": "VEGETABLE_COLOR",
-        "offsetPixels": {
-          "x": 0,
-          "y": 0
-        }
-      }
-    }
-  },
-  {
-    "uniqueName": "Resource-Hemp-Fibre-Bundle-Single01",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Resource-Hemp-Fibre-Bundle",
-    "itemPlacements": ["BEING_CARRIED"],
-    "minQuantity": 1,
-    "maxQuantity": 4,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Hemp_Bundle.png",
-        "scale": 0.8,
-        "coloringLayer": "VEGETABLE_COLOR",
-        "offsetPixels": {
-          "x": 0,
-          "y": -6
-        },
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": 18,
-              "y": -16
-            }
-          },
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -18,
-              "y": 0
-            }
-          }
-        ]
-      },
-      "DOWN_RIGHT": {
-        "filename": "Hemp_Bundle.png",
-        "scale": 0.8,
-        "coloringLayer": "VEGETABLE_COLOR",
-        "offsetPixels": {
-          "x": -4,
-          "y": -6
-        },
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -16,
-              "y": 0
-            }
-          },
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": -100,
-            "offsetPixels": {
-              "x": 22,
-              "y": -10
-            }
-          }
-        ]
-      },
-      "DOWN_LEFT": {
-        "filename": "Hemp_Bundle.png",
-        "scale": 0.8,
-        "coloringLayer": "VEGETABLE_COLOR",
-        "offsetPixels": {
-          "x": 4,
-          "y": -6
-        },
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": 16,
-              "y": -16
-            }
-          },
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": -100,
-            "offsetPixels": {
-              "x": -22,
-              "y": 0
-            }
-          }
-        ]
-      },
-      "UP_LEFT": {
-        "filename": "Hemp_Bundle.png",
-        "scale": 0.8,
-        "coloringLayer": "VEGETABLE_COLOR",
-        "offsetPixels": {
-          "x": 0,
-          "y": -6
-        },
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -16,
-              "y": 0
-            }
-          }
-        ]
-      },
-      "UP_RIGHT": {
-        "filename": "Hemp_Bundle.png",
-        "scale": 0.8,
-        "coloringLayer": "VEGETABLE_COLOR",
-        "offsetPixels": {
-          "x": 0,
-          "y": -6
-        },
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": 16,
-              "y": -16
-            }
-          }
-        ]
-      }
+[ {
+  "uniqueName" : "Resource-Hemp-Fibre-Bundle-Base",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Hemp-Fibre-Bundle",
+  "maxQuantity" : 4,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Hemp_Bundle.png",
+      "coloringLayer" : "VEGETABLE_COLOR"
     }
   }
-]
+}, {
+  "uniqueName" : "Resource-Hemp-Fibre-Bundle-Single01",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Hemp-Fibre-Bundle",
+  "maxQuantity" : 4,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Hemp_Bundle.png",
+      "coloringLayer" : "VEGETABLE_COLOR",
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "y" : -6.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -18.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Hemp_Bundle.png",
+      "coloringLayer" : "VEGETABLE_COLOR",
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : -4.0,
+        "y" : -6.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 22.0,
+          "y" : -10.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Hemp_Bundle.png",
+      "coloringLayer" : "VEGETABLE_COLOR",
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : -6.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -22.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Hemp_Bundle.png",
+      "coloringLayer" : "VEGETABLE_COLOR",
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "y" : -6.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Hemp_Bundle.png",
+      "coloringLayer" : "VEGETABLE_COLOR",
+      "scale" : 0.8,
+      "offsetPixels" : {
+        "y" : -6.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    }
+  }
+} ]

@@ -49,9 +49,7 @@ public class SettlementItemTrackerTest {
 	private ItemEntityAssetsByItemType mockItemTypeMap;
 	@Mock
 	private ItemEntityAssetsByQuality mockQualityMap;
-	private ItemEntityAssetsBySize blankMap;
-	@Mock
-	private ItemEntityAttributesFactory mockItemEntityAttributesFactory;
+	private ItemEntityAssetsByPlacement blankMap;
 
 	@Before
 	public void setUp() throws Exception {
@@ -60,7 +58,7 @@ public class SettlementItemTrackerTest {
 		Injector injector = Guice.createInjector(new SaulGuiceModule());
 		itemTypeDictionary = injector.getInstance(ItemTypeDictionary.class);
 		gameMaterialDictionary = injector.getInstance(GameMaterialDictionary.class);
-		blankMap = new ItemEntityAssetsBySize();
+		blankMap = new ItemEntityAssetsByPlacement();
 
 		when(mockItemEntityAssetDictionary.getQuantityMap()).thenReturn(mockQuantityMap);
 		when(mockQuantityMap.getAssetTypeMapByQuantity(anyInt())).thenReturn(mockAssetTypeMap);
@@ -93,7 +91,7 @@ public class SettlementItemTrackerTest {
 		}
 
 		ItemEntityAttributes itemAttributes = new ItemEntityAttributesFactory(mockItemEntityAssetDictionary, mockEntityAssetUpdater).createItemAttributes(itemType, 1, materialArray);
-		return new ItemEntityFactory(mockItemEntityAttributesFactory, new MessageDispatcher(), gameMaterialDictionary, mockAssetUpdater).create(
+		return new ItemEntityFactory(new MessageDispatcher(), gameMaterialDictionary, mockAssetUpdater).create(
 				itemAttributes, new GridPoint2(), true, mockContext
 		);
 	}

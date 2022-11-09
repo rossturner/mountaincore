@@ -1,6 +1,5 @@
 {
   "itemTypeName" : "Weapon-Battle-Hammer",
-  "maxHauledAtOnce" : 1,
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
   "holdPosition" : "RIGHT_HAND",

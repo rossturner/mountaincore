@@ -5,12 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.ItemEntityAssetDictionary;
-import technology.rocketjump.saul.assets.entities.item.ItemEntityAssetsByPlacement;
-import technology.rocketjump.saul.assets.entities.item.ItemEntityAssetsBySize;
-import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
-import technology.rocketjump.saul.assets.entities.item.model.ItemSize;
-import technology.rocketjump.saul.assets.entities.item.model.ItemStyle;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.model.WallType;
 import technology.rocketjump.saul.doors.Doorway;
@@ -26,7 +21,9 @@ import technology.rocketjump.saul.mapping.tile.wall.Wall;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import static technology.rocketjump.saul.entities.FurnitureEntityMessageHandler.otherColorsToCopy;
@@ -36,23 +33,11 @@ public class ItemEntityAttributesFactory {
 
 	private final ItemEntityAssetDictionary itemEntityAssetDictionary;
 	private final EntityAssetUpdater entityAssetUpdater;
-	private final List<ItemSize> sizesToCheckInOrder;
-	private final List<ItemStyle> stylesToCheckInOrder;
 
 	@Inject
 	public ItemEntityAttributesFactory(ItemEntityAssetDictionary itemEntityAssetDictionary, EntityAssetUpdater entityAssetUpdater) {
 		this.itemEntityAssetDictionary = itemEntityAssetDictionary;
 		this.entityAssetUpdater = entityAssetUpdater;
-
-		sizesToCheckInOrder = new ArrayList<>();
-		sizesToCheckInOrder.addAll(Arrays.asList(ItemSize.values()));
-		sizesToCheckInOrder.remove(ItemSize.AVERAGE);
-		sizesToCheckInOrder.add(0, ItemSize.AVERAGE);
-
-		stylesToCheckInOrder = new ArrayList<>();
-		stylesToCheckInOrder.addAll(Arrays.asList(ItemStyle.values()));
-		stylesToCheckInOrder.remove(ItemStyle.DEFAULT);
-		stylesToCheckInOrder.add(ItemStyle.DEFAULT);
 	}
 
 	public ItemEntityAttributes resourceFromDoorway(Doorway doorway) {
@@ -72,9 +57,6 @@ public class ItemEntityAttributesFactory {
 		if (coloringLayer != null) {
 			newItemAttributes.setColor(coloringLayer, attributes.getColor(coloringLayer));
 		}
-
-		setItemSizeAndStyle(newItemAttributes);
-
 
 		return newItemAttributes;
 	}
@@ -96,8 +78,6 @@ public class ItemEntityAttributesFactory {
 			if (coloringLayer != null) {
 				newItemAttributes.setColor(coloringLayer, wall.getMaterial().getColor());
 			}
-
-			setItemSizeAndStyle(newItemAttributes);
 
 			return newItemAttributes;
 		} else {
@@ -147,7 +127,6 @@ public class ItemEntityAttributesFactory {
 		for (GameMaterial material : materials) {
 			newItemAttributes.setMaterial(material);
 		}
-		setItemSizeAndStyle(newItemAttributes);
 		return newItemAttributes;
 	}
 
@@ -163,8 +142,6 @@ public class ItemEntityAttributesFactory {
 				newItemAttributes.setMaterial(gameMaterial);
 			}
 		}
-
-		setItemSizeAndStyle(newItemAttributes);
 
 		ColoringLayer coloringLayer = ColoringLayer.getByMaterialType(furnitureAttributes.getPrimaryMaterialType());
 		if (coloringLayer != null) {
@@ -182,28 +159,4 @@ public class ItemEntityAttributesFactory {
 		return newItemAttributes;
 	}
 
-	/**
-	 * This method should determine if non-default item size and style needs to be used
-	 */
-	public void setItemSizeAndStyle(ItemEntityAttributes newItemAttributes) {
-		ItemEntityAssetsBySize sizeMap = itemEntityAssetDictionary.getQuantityMap()
-				.getAssetTypeMapByQuantity(newItemAttributes.getQuantity())
-				.getItemTypeMapByAssetType(entityAssetUpdater.ITEM_BASE_LAYER)
-				.getQualityMapByItemType(newItemAttributes.getItemType())
-				.getSizeMapByQuality(newItemAttributes.getItemQuality());
-
-		for (ItemSize itemSize : sizesToCheckInOrder) {
-			ItemEntityAssetsByPlacement bySize = sizeMap.getBySize(itemSize);
-			if (bySize != null) {
-				for (ItemStyle itemStyle : stylesToCheckInOrder) {
-					List<ItemEntityAsset> assets = bySize.getByPlacement(newItemAttributes.getItemPlacement()).getByStyle(itemStyle);
-					if (!assets.isEmpty()) {
-						newItemAttributes.setItemSize(itemSize);
-						newItemAttributes.setItemStyle(itemStyle);
-						return;
-					}
-				}
-			}
-		}
-	}
 }

@@ -1,15 +1,12 @@
 {
-  "itemTypeName": "Tool-Saw",
-  "materialTypes": ["METAL", "WOOD"],
-  "primaryMaterialType": "METAL",
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "stockpileGroupName": "TOOLS",
-  "holdPosition": "RIGHT_HAND",
-  "impedesMovement": false,
-  "blocksMovement": false,
-  "relatedCraftingTypeNames": ["WOODCUTTING", "CARPENTRY"],
-  "tags": {
-    "USAGE_SOUND": ["Sawing"]
-  }
+  "itemTypeName" : "Tool-Saw",
+  "materialTypes" : [ "METAL", "WOOD" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "relatedCraftingTypeNames" : [ "WOODCUTTING", "CARPENTRY" ],
+  "stockpileGroupName" : "TOOLS",
+  "tags" : {
+    "USAGE_SOUND" : [ "Sawing" ]
+  },
+  "i18nKey" : "TOOL.SAW"
 }

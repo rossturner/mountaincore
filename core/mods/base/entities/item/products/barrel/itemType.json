@@ -1,13 +1,11 @@
 {
-  "itemTypeName": "Product-Barrel",
-  "materialTypes": ["WOOD", "METAL"],
-  "primaryMaterialType": "WOOD",
-  "stockpileGroupName": "PRODUCTS",
-  "hoursInInventoryUntilUnused": 2,
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "equippedWhileWorkingOnJob": true,
-  "tags": {
-    "LIQUID_CONTAINER": ["6"]
-  }
+  "itemTypeName" : "Product-Barrel",
+  "materialTypes" : [ "WOOD", "METAL" ],
+  "primaryMaterialType" : "WOOD",
+  "hoursInInventoryUntilUnused" : 2.0,
+  "stockpileGroupName" : "PRODUCTS",
+  "tags" : {
+    "LIQUID_CONTAINER" : [ "6" ]
+  },
+  "i18nKey" : "PRODUCT.BARREL"
 }

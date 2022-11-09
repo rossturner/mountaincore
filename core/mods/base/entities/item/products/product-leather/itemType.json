@@ -1,8 +1,6 @@
 {
-  "itemTypeId" : 30,
   "itemTypeName" : "Product-Leather",
   "maxStackSize" : 10,
-  "maxHauledAtOnce" : 1,
   "materialTypes" : [ "SKIN" ],
   "primaryMaterialType" : "SKIN",
   "relatedCraftingTypeNames" : [ "TANNING_HIDE" ],

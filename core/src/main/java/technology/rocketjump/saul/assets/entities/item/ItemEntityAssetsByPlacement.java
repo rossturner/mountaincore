@@ -9,11 +9,11 @@ import java.util.List;
 
 public class ItemEntityAssetsByPlacement {
 
-	private EnumMap<ItemPlacement, ItemEntityAssetsByStyle> byItemPlacement = new EnumMap<>(ItemPlacement.class);
+	private EnumMap<ItemPlacement, ItemEntityAssetsByMaterial> byItemPlacement = new EnumMap<>(ItemPlacement.class);
 
 	public ItemEntityAssetsByPlacement() {
 		for (ItemPlacement iItemPlacement : ItemPlacement.values()) {
-			byItemPlacement.put(iItemPlacement, new ItemEntityAssetsByStyle());
+			byItemPlacement.put(iItemPlacement, new ItemEntityAssetsByMaterial());
 		}
 	}
 
@@ -47,7 +47,7 @@ public class ItemEntityAssetsByPlacement {
 		return byItemPlacement.get(itemPlacement).getAll(attributes);
 	}
 
-	public ItemEntityAssetsByStyle getByPlacement(ItemPlacement itemPlacement) {
+	public ItemEntityAssetsByMaterial getByPlacement(ItemPlacement itemPlacement) {
 		return byItemPlacement.get(itemPlacement);
 	}
 }

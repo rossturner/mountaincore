@@ -1,84 +1,72 @@
-[
-  {
-    "uniqueName": "Ingredient-Milled-Malt-Sack-Rope-Ground",
-    "type": "ABOVE_LAYER_2",
-    "itemTypeName": "Ingredient-Milled-Malt-Sack",
-    "itemPlacements": ["ON_GROUND"],
-    "minQuantity": 1,
-    "maxQuantity": 30,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Sack rope.png",
-        "offsetPixels": {
-          "x": 0,
-          "y": 17
-        },
-        "coloringLayer": "ROPE_COLOR"
-      }
-    }
-  },
-  {
-    "uniqueName": "Unlabelled-Milled-Malt-Sack-Rope-Carried",
-    "type": "ABOVE_LAYER_2",
-    "itemTypeName": "Ingredient-Milled-Malt-Sack",
-    "itemPlacements": ["BEING_CARRIED"],
-    "minQuantity": 1,
-    "maxQuantity": 30,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Sack rope.png",
-        "scale": 0.7,
-        "offsetPixels": {
-          "x": 0,
-          "y": 11.9
-        },
-        "coloringLayer": "ROPE_COLOR"
-      },
-      "DOWN_RIGHT": {
-        "filename": "Sack rope.png",
-        "scale": 0.7,
-        "offsetPixels": {
-          "x": 0,
-          "y": 11.9
-        },
-        "coloringLayer": "ROPE_COLOR"
-      },
-      "DOWN_LEFT": {
-        "filename": "Sack rope.png",
-        "scale": 0.7,
-        "offsetPixels": {
-          "x": 0,
-          "y": 11.9
-        },
-        "coloringLayer": "ROPE_COLOR"
-      },
-      "UP_RIGHT": {
-        "filename": "Sack rope.png",
-        "scale": 0.7,
-        "offsetPixels": {
-          "x": 0,
-          "y": 11.9
-        },
-        "coloringLayer": "ROPE_COLOR"
-      },
-      "UP_LEFT": {
-        "filename": "Sack rope.png",
-        "scale": 0.7,
-        "offsetPixels": {
-          "x": 0,
-          "y": 11.9
-        },
-        "coloringLayer": "ROPE_COLOR"
-      },
-      "UP": {
-        "filename": "Sack rope.png",
-        "scale": 0.7,
-        "offsetPixels": {
-          "x": 0,
-          "y": 11.9
-        },
-        "coloringLayer": "ROPE_COLOR"
+[ {
+  "uniqueName" : "Ingredient-Milled-Malt-Sack-Rope-Ground",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Ingredient-Milled-Malt-Sack",
+  "maxQuantity" : 30,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "offsetPixels" : {
+        "y" : 17.0
       }
     }
   }
-]
+}, {
+  "uniqueName" : "Unlabelled-Milled-Malt-Sack-Rope-Carried",
+  "type" : "ABOVE_LAYER_2",
+  "itemTypeName" : "Ingredient-Milled-Malt-Sack",
+  "maxQuantity" : 30,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : 11.9
+      }
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : 11.9
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : 11.9
+      }
+    },
+    "UP_RIGHT" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : 11.9
+      }
+    },
+    "UP_LEFT" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : 11.9
+      }
+    },
+    "UP" : {
+      "filename" : "Sack rope.png",
+      "coloringLayer" : "ROPE_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : 11.9
+      }
+    }
+  }
+} ]

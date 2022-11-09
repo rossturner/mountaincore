@@ -1,5 +1,4 @@
 {
-  "itemTypeId" : 32,
   "itemTypeName" : "Product-Waterskin",
   "maxStackSize" : 50,
   "maxHauledAtOnce" : 10,
@@ -10,7 +9,7 @@
   "tags" : {
     "LIQUID_CONTAINER" : [ "1", "Water" ],
     "USAGE_SOUND" : [ "WaterCollect" ],
-    "ITEM_ASSIGNMENT": [ "PREFER_MILITARY"]
+    "ITEM_ASSIGNMENT" : [ "PREFER_MILITARY" ]
   },
   "i18nKey" : "PRODUCT.WATERSKIN"
 }
