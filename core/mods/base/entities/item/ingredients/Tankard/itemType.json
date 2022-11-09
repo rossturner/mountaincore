@@ -1,12 +1,10 @@
 {
-  "itemTypeName": "Ingredient-Tankard",
-  "describeAsMaterialOnly": true,
-  "materialTypes": ["LIQUID", "WOOD", "METAL", "STONE"],
-  "primaryMaterialType": "LIQUID",
-  "hoursInInventoryUntilUnused": 4,
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "holdPosition": "RIGHT_HAND",
-  "equippedWhileWorkingOnJob": true,
-  "consumeSoundAssetName": "DrinkSoup"
+  "itemTypeName" : "Ingredient-Tankard",
+  "materialTypes" : [ "LIQUID", "WOOD", "METAL", "STONE" ],
+  "primaryMaterialType" : "LIQUID",
+  "holdPosition" : "RIGHT_HAND",
+  "hoursInInventoryUntilUnused" : 4.0,
+  "consumeSoundAssetName" : "DrinkSoup",
+  "describeAsMaterialOnly" : true,
+  "i18nKey" : "INGREDIENT.TANKARD"
 }

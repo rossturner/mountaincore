@@ -1,8 +1,9 @@
 {
-  "itemTypeName": "Resource-Crushed-Vitriol",
-  "materialTypes": ["VITRIOL", "CLOTH", "ROPE"],
-  "primaryMaterialType": "VITRIOL",
-  "maxStackSize": 16,
-  "maxHauledAtOnce": 16,
-  "stockpileGroupName": "PRODUCTS"
+  "itemTypeName" : "Resource-Crushed-Vitriol",
+  "maxStackSize" : 16,
+  "maxHauledAtOnce" : 16,
+  "materialTypes" : [ "VITRIOL", "CLOTH", "ROPE" ],
+  "primaryMaterialType" : "VITRIOL",
+  "stockpileGroupName" : "PRODUCTS",
+  "i18nKey" : "RESOURCE.CRUSHED.VITRIOL"
 }

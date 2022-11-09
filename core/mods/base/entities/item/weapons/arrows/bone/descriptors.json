@@ -3,8 +3,6 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Bone-Arrows",
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -244,8 +242,6 @@
   "uniqueName" : "Weapon-Projectile-Bone",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Metal-Arrows",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "PROJECTILE" ],
   "spriteDescriptors" : {
     "DOWN" : {

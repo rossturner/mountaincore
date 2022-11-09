@@ -2,8 +2,6 @@
   "uniqueName" : "Product-Stone-Gear-Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Product-Stone-Gear",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -114,8 +112,6 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Product-Stone-Gear",
   "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -129,8 +125,6 @@
   "itemTypeName" : "Product-Stone-Gear",
   "minQuantity" : 3,
   "maxQuantity" : 6,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

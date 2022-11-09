@@ -2,8 +2,6 @@
   "uniqueName" : "Product-Leather-Item_Base_Layer-Being_Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Product-Leather",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
@@ -122,8 +120,6 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Product-Leather",
   "maxQuantity" : 5,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -140,8 +136,6 @@
   "itemTypeName" : "Product-Leather",
   "minQuantity" : 6,
   "maxQuantity" : 10,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

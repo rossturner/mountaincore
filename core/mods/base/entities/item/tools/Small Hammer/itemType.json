@@ -1,12 +1,9 @@
 {
-  "itemTypeName": "Tool-Small-Hammer",
-  "materialTypes": ["METAL"],
-  "primaryMaterialType": "METAL",
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "stockpileGroupName": "TOOLS",
-  "holdPosition": "RIGHT_HAND",
-  "impedesMovement": false,
-  "blocksMovement": false,
-  "relatedCraftingTypeNames": ["CARPENTRY", "STONEMASONRY", "BLACKSMITHING"]
+  "itemTypeName" : "Tool-Small-Hammer",
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "relatedCraftingTypeNames" : [ "CARPENTRY", "STONEMASONRY", "BLACKSMITHING" ],
+  "stockpileGroupName" : "TOOLS",
+  "i18nKey" : "TOOL.SMALL.HAMMER"
 }

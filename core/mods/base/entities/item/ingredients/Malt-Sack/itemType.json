@@ -1,10 +1,10 @@
 {
-  "itemTypeName": "Ingredient-Malt-Sack",
-  "materialTypes": ["VEGETABLE", "CLOTH", "ROPE"],
-  "primaryMaterialType": "VEGETABLE",
-  "stockpileGroupName": "GRANARY",
-  "hoursInInventoryUntilUnused": 1,
-  "maxStackSize": 30,
-  "maxHauledAtOnce": 30,
-  "equippedWhileWorkingOnJob": true
+  "itemTypeName" : "Ingredient-Malt-Sack",
+  "maxStackSize" : 30,
+  "maxHauledAtOnce" : 30,
+  "materialTypes" : [ "VEGETABLE", "CLOTH", "ROPE" ],
+  "primaryMaterialType" : "VEGETABLE",
+  "hoursInInventoryUntilUnused" : 1.0,
+  "stockpileGroupName" : "GRANARY",
+  "i18nKey" : "INGREDIENT.MALT.SACK"
 }

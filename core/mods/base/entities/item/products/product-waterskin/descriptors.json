@@ -3,8 +3,6 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Product-Waterskin",
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -78,8 +76,6 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Product-Waterskin",
   "maxQuantity" : 50,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

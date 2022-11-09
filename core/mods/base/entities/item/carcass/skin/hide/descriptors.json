@@ -2,8 +2,6 @@
   "uniqueName" : "Carcass-Hide-Item_Base_Layer-Being_Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Carcass-Hide",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -121,8 +119,6 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Carcass-Hide",
   "maxQuantity" : 4,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
@@ -141,8 +137,6 @@
   "itemTypeName" : "Carcass-Hide",
   "minQuantity" : 5,
   "maxQuantity" : 10,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemQualities" : [ "STANDARD" ],
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {

@@ -1,6 +1,5 @@
 {
   "itemTypeName" : "Tool-Large-Hammer",
-  "maxHauledAtOnce" : 1,
   "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "METAL",
   "holdPosition" : "RIGHT_HAND",

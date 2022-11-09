@@ -1,13 +1,11 @@
 {
-  "itemTypeName": "Product-Cauldron",
-  "materialTypes": ["METAL", "WOOD", "ROPE"],
-  "primaryMaterialType": "METAL",
-  "stockpileGroupName": "PRODUCTS",
-  "hoursInInventoryUntilUnused": 1,
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "equippedWhileWorkingOnJob": true,
-  "tags": {
-    "LIQUID_CONTAINER": ["6"]
-  }
+  "itemTypeName" : "Product-Cauldron",
+  "materialTypes" : [ "METAL", "WOOD", "ROPE" ],
+  "primaryMaterialType" : "METAL",
+  "hoursInInventoryUntilUnused" : 1.0,
+  "stockpileGroupName" : "PRODUCTS",
+  "tags" : {
+    "LIQUID_CONTAINER" : [ "6" ]
+  },
+  "i18nKey" : "PRODUCT.CAULDRON"
 }

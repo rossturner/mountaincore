@@ -1,6 +1,5 @@
 {
   "itemTypeName" : "Weapon-Metal-Shield",
-  "maxHauledAtOnce" : 1,
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
   "holdPosition" : "LEFT_HAND",

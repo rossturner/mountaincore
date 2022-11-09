@@ -1,82 +1,73 @@
-[{
-  "uniqueName": "Resource-Gem-Single",
-  "type": "ITEM_BASE_LAYER",
-  "itemTypeName": "Resource-Gem",
-  "itemPlacements": ["BEING_CARRIED"],
-  "minQuantity": 1,
-  "maxQuantity": 4,
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "Resource-Gem-Cut-Single.png",
-      "coloringLayer": "GEM_COLOR",
-      "offsetPixels": {
-        "x": -10,
-        "y": -4
+[ {
+  "uniqueName" : "Resource-Gem-Single",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Gem",
+  "maxQuantity" : 4,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Gem-Cut-Single.png",
+      "coloringLayer" : "GEM_COLOR",
+      "offsetPixels" : {
+        "x" : -10.0,
+        "y" : -4.0
       },
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": -6,
-            "y": -6
-          }
-        }
-      ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -6.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
     },
-    "DOWN_RIGHT": {
-      "filename": "Resource-Gem-Cut-Single.png",
-      "coloringLayer": "GEM_COLOR",
-      "offsetPixels": {
-        "x": -16,
-        "y": -4
+    "DOWN_RIGHT" : {
+      "filename" : "Resource-Gem-Cut-Single.png",
+      "coloringLayer" : "GEM_COLOR",
+      "offsetPixels" : {
+        "x" : -16.0,
+        "y" : -4.0
       },
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": -6,
-            "y": -6
-          }
-        }
-      ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -6.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
     },
-    "DOWN_LEFT": {
-      "filename": "Resource-Gem-Cut-Single.png",
-      "coloringLayer": "GEM_COLOR",
-      "offsetPixels": {
-        "x": -3,
-        "y": -4
+    "DOWN_LEFT" : {
+      "filename" : "Resource-Gem-Cut-Single.png",
+      "coloringLayer" : "GEM_COLOR",
+      "offsetPixels" : {
+        "x" : -3.0,
+        "y" : -4.0
       },
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": -100,
-          "offsetPixels": {
-            "x": 2,
-            "y": -6
-          }
-        }
-      ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
     },
-    "UP_RIGHT": {
-      "filename": "Resource-Gem-Cut-Single.png",
-      "coloringLayer": "GEM_COLOR",
-      "offsetPixels": {
-        "x": 6,
-        "y": -4
+    "UP_RIGHT" : {
+      "filename" : "Resource-Gem-Cut-Single.png",
+      "coloringLayer" : "GEM_COLOR",
+      "offsetPixels" : {
+        "x" : 6.0,
+        "y" : -4.0
       },
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": -6,
-            "y": -6
-          }
-        }
-      ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -6.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
     }
   }
-}]
+} ]

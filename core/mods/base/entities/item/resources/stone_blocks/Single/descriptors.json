@@ -1,131 +1,114 @@
-[{
-  "uniqueName": "Resource-Stone-Block-Single01",
-  "type": "ITEM_BASE_LAYER",
-  "itemTypeName": "Resource-Stone-Block",
-  "itemPlacements": ["BEING_CARRIED"],
-  "minQuantity": 1,
-  "maxQuantity": 2,
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "Resource-Stone-Block-Single-F.png",
-      "scale": 0.5,
-      "coloringLayer": "STONE_COLOR",
-      "offsetPixels": {
-        "x": 0,
-        "y": -6
+[ {
+  "uniqueName" : "Resource-Stone-Block-Single01",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Stone-Block",
+  "maxQuantity" : 2,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Stone-Block-Single-F.png",
+      "coloringLayer" : "STONE_COLOR",
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "y" : -6.0
       },
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_LEFT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": 18,
-            "y": -16
-          }
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : -16.0
         },
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": -18,
-            "y": -16
-          }
-        }
-      ]
-    },
-    "DOWN_RIGHT": {
-      "filename": "Resource-Stone-Block-Single-F34.png",
-      "scale": 0.5,
-      "coloringLayer": "STONE_COLOR",
-      "offsetPixels": {
-        "x": -4,
-        "y": -6
-      },
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": -16,
-            "y": -16
-          }
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -18.0,
+          "y" : -16.0
         },
-        {
-          "type": "CREATURE_LEFT_HAND",
-          "overrideRenderLayer": -100,
-          "offsetPixels": {
-            "x": 22,
-            "y": -10
-          }
-        }
-      ]
+        "overrideRenderLayer" : 100
+      } ]
     },
-    "DOWN_LEFT": {
-      "filename": "Resource-Stone-Block-Single-F34.png",
-      "scale": 0.5,
-      "flipX": true,
-      "coloringLayer": "STONE_COLOR",
-      "offsetPixels": {
-        "x": 4,
-        "y": -6
+    "DOWN_RIGHT" : {
+      "filename" : "Resource-Stone-Block-Single-F34.png",
+      "coloringLayer" : "STONE_COLOR",
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "x" : -4.0,
+        "y" : -6.0
       },
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_LEFT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": 16,
-            "y": -16
-          }
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : -16.0
         },
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": -100,
-          "offsetPixels": {
-            "x": -22,
-            "y": -10
-          }
-        }
-      ]
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 22.0,
+          "y" : -10.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
     },
-    "UP_LEFT": {
-      "filename": "Resource-Stone-Block-Single-F34.png",
-      "scale": 0.5,
-      "coloringLayer": "STONE_COLOR",
-      "offsetPixels": {
-        "x": 0,
-        "y": -6
+    "DOWN_LEFT" : {
+      "filename" : "Resource-Stone-Block-Single-F34.png",
+      "coloringLayer" : "STONE_COLOR",
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : -6.0
       },
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": -16,
-            "y": -16
-          }
-        }
-      ]
+      "flipX" : true,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -22.0,
+          "y" : -10.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
     },
-    "UP_RIGHT": {
-      "filename": "Resource-Stone-Block-Single-F34.png",
-      "scale": 0.5,
-      "flipX": true,
-      "coloringLayer": "STONE_COLOR",
-      "offsetPixels": {
-        "x": 0,
-        "y": -6
+    "UP_LEFT" : {
+      "filename" : "Resource-Stone-Block-Single-F34.png",
+      "coloringLayer" : "STONE_COLOR",
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "y" : -6.0
       },
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_LEFT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": 16,
-            "y": -16
-          }
-        }
-      ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Resource-Stone-Block-Single-F34.png",
+      "coloringLayer" : "STONE_COLOR",
+      "scale" : 0.5,
+      "offsetPixels" : {
+        "y" : -6.0
+      },
+      "flipX" : true,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : -16.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
     }
   }
-}]
+} ]

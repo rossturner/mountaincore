@@ -2,8 +2,6 @@
   "uniqueName" : "Weapon-Sword-Blade-Being_Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Sword",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -124,8 +122,6 @@
   "uniqueName" : "Weapon-Sword-Blade-On_Ground",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Sword",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -148,8 +144,6 @@
   "uniqueName" : "Weapon-Sword-Handle-Being_Carried",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Weapon-Sword",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -201,8 +195,6 @@
   "uniqueName" : "Weapon-Sword-Handle-On_Ground",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Weapon-Sword",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

@@ -1,14 +1,14 @@
-[{
-  "uniqueName": "Resource-Planks-Pile03",
-  "type": "ITEM_BASE_LAYER",
-  "itemTypeName": "Resource-Planks",
-  "itemPlacements": ["ON_GROUND"],
-  "minQuantity": 6,
-  "maxQuantity": 9,
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "Resource-Planks-Pile03.png",
-      "coloringLayer": "WOOD_COLOR"
+[ {
+  "uniqueName" : "Resource-Planks-Pile03",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Planks",
+  "minQuantity" : 6,
+  "maxQuantity" : 9,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Planks-Pile03.png",
+      "coloringLayer" : "WOOD_COLOR"
     }
   }
-}]
+} ]

@@ -1,10 +1,9 @@
 {
-  "itemTypeName": "Product-Stone-Pipe",
-  "materialTypes": ["STONE"],
-  "primaryMaterialType": "STONE",
-  "stockpileGroupName": "PRODUCTS",
-  "hoursInInventoryUntilUnused": 1,
-  "maxStackSize": 4,
-  "maxHauledAtOnce": 1,
-  "equippedWhileWorkingOnJob": true
+  "itemTypeName" : "Product-Stone-Pipe",
+  "maxStackSize" : 4,
+  "materialTypes" : [ "STONE" ],
+  "primaryMaterialType" : "STONE",
+  "hoursInInventoryUntilUnused" : 1.0,
+  "stockpileGroupName" : "PRODUCTS",
+  "i18nKey" : "PRODUCT.STONE.PIPE"
 }
