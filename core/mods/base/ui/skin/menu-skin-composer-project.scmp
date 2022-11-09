@@ -7162,7 +7162,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: up
 						optional: true
-						value: btn_small_1
+						value: transparent_selection_bg_patch_v2
 					}
 					down: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
@@ -7192,7 +7192,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: checked
 						optional: true
-						value: null
+						value: transparent_selected_bg_patch
 					}
 					checkedOver: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable

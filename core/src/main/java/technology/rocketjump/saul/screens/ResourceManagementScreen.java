@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
@@ -29,6 +30,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private final Stage stage;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
+	private final StockpileGroupDictionary stockpileGroupDictionary;
 	private final OrthographicCamera camera = new OrthographicCamera();
 	private final Skin menuSkin;
 	private final Skin mainGameSkin;
@@ -53,6 +55,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 									EntityRenderer entityRenderer, StockpileGroupDictionary stockpileGroupDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
+		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.stage = new Stage(new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y));
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
@@ -138,9 +141,10 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		stack.setFillParent(true);
 
 		Table baseLayer = new Table();
+		baseLayer.debugAll();
 		baseLayer.setBackground(menuSkin.getDrawable("paper_texture_bg"));
 		baseLayer.add(new Image(menuSkin.getDrawable("paper_texture_bg_pattern_large"))).growY().padLeft(146.0f);
-		baseLayer.add(buildComponentLayer()).expandX().fill();
+		baseLayer.add(buildComponentLayer()).expandX();
 		baseLayer.add(new Image(menuSkin.getDrawable("paper_texture_bg_pattern_large"))).growY().padRight(146.0f);
 
 
@@ -155,9 +159,24 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		Label titleLabel = new Label(translate("GUI.RESOURCE_MANAGEMENT.TITLE"), menuSkin, "title_ribbon");
 		titleLabel.setAlignment(Align.center);
 
+		Table stockpileGroupButtons = new Table();
+		//32 pad between buttons, 42 to the outer sides
+		ButtonGroup<ImageButton> stockpileButtonGroup = new ButtonGroup<>();
+		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll()) {
+			String drawableName = stockpileGroup.getDrawableName();
+			ImageButton.ImageButtonStyle clonedStyle = new ImageButton.ImageButtonStyle(menuSkin.get("default", ImageButton.ImageButtonStyle.class));
+			clonedStyle.imageUp = mainGameSkin.getDrawable(drawableName);
+			ImageButton stockpileButton = new ImageButton(clonedStyle);
+
+			stockpileGroupButtons.add(stockpileButton).padLeft(2f).padRight(2f);
+
+			stockpileButtonGroup.add(stockpileButton);
+		}
+
+
 		Table mainTable = new Table();
 		mainTable.setBackground(managementSkin.getDrawable("accent_bg"));
-
+		mainTable.add(stockpileGroupButtons).row();
 
 		Table table = new Table();
 		table.add(titleLabel).padTop(54f).row();
