@@ -1,10 +1,10 @@
 {
-  "itemTypeName": "Resource-Metal-Plate",
-  "materialTypes": ["METAL"],
-  "primaryMaterialType": "METAL",
-  "maxStackSize": 12,
-  "maxHauledAtOnce": 2,
-  "stockpileGroupName": "PRODUCTS",
-  "impedesMovement": true,
-  "blocksMovement": false
+  "itemTypeName" : "Resource-Metal-Plate",
+  "maxStackSize" : 12,
+  "maxHauledAtOnce" : 2,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "impedesMovement" : true,
+  "stockpileGroupName" : "PRODUCTS",
+  "i18nKey" : "RESOURCE.METAL.PLATE"
 }

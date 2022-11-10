@@ -30,8 +30,6 @@ import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
-import technology.rocketjump.saul.assets.entities.item.model.ItemSize;
-import technology.rocketjump.saul.assets.entities.item.model.ItemStyle;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
@@ -446,7 +444,6 @@ public class ItemUIFactory implements UIFactory {
 
         ItemEntityAsset itemEntityAsset = new ItemEntityAsset();
         itemEntityAsset.setItemTypeName(((ItemType) message.typeDescriptor()).getItemTypeName());
-        itemEntityAsset.setItemStyle(ItemStyle.DEFAULT);
         OkCancelDialog dialog = new OkCancelDialog("Create asset under " + directory) {
             @Override
             public void onOk() {
@@ -490,8 +487,6 @@ public class ItemUIFactory implements UIFactory {
 
         Collection<EntityAssetType> entityAssetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType());
         Collection<String> itemTypeNames = itemTypeDictionary.getAll().stream().map(ItemType::getItemTypeName).toList();
-        Collection<ItemSize> itemSizes = Arrays.asList(ItemSize.values());
-        Collection<ItemStyle> itemStyles = Arrays.asList(ItemStyle.values());
         Collection<ItemPlacement> itemPlacements = Arrays.asList(ItemPlacement.values());
         Collection<ItemQuality> itemQualities = Arrays.asList(ItemQuality.values());
 
@@ -518,8 +513,6 @@ public class ItemUIFactory implements UIFactory {
         assetComponents.addComponent(WidgetBuilder.checkboxGroup("Placements", itemEntityAsset.getItemPlacements(), itemPlacements, itemEntityAsset.getItemPlacements()::add, itemEntityAsset.getItemPlacements()::remove));
         assetComponents.row().padTop(15);
         assetComponents.add(new ItemApplicableMaterialsWidget(itemEntityAsset.getApplicableMaterialNames(), materialDictionary)).colspan(2).row();
-        assetComponents.addComponent(WidgetBuilder.selectField("Size", itemEntityAsset.getItemSize(), itemSizes, null, itemEntityAsset::setItemSize));
-        assetComponents.addComponent(WidgetBuilder.selectField("Style", itemEntityAsset.getItemStyle(), itemStyles, null, itemEntityAsset::setItemStyle));
 
         VisTable parentTable = new VisTable();
         parentTable.add(assetComponents).left().row();

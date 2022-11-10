@@ -1,38 +1,30 @@
 package technology.rocketjump.saul.assets.entities.plant;
 
-import com.badlogic.gdx.utils.IntMap;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlantEntityAssetsByGrowthStage {
 
-	private static final int MAX_GROWTH_STAGES = 10;
+	private Map<Integer, PlantEntityAssetsBySpecies> byGrowthStageIndex = new HashMap<>();
+	private final PlantSpeciesDictionary plantSpeciesDictionary;
 
-	private IntMap<PlantEntityAssetsBySpecies> byGrowthStageIndex = new IntMap<>();
-
-	public PlantEntityAssetsByGrowthStage(PlantSpeciesDictionary speciesDictionary) {
-		for (int cursor = 0; cursor < MAX_GROWTH_STAGES; cursor++) {
-			byGrowthStageIndex.put(cursor, new PlantEntityAssetsBySpecies(speciesDictionary));
-		}
+	public PlantEntityAssetsByGrowthStage(PlantSpeciesDictionary plantSpeciesDictionary) {
+		this.plantSpeciesDictionary = plantSpeciesDictionary;
 	}
 
 	public void add(PlantEntityAsset asset) {
 		if (asset.getGrowthStages().isEmpty()) {
 			// Add to all
-			for (int cursor = 0; cursor < MAX_GROWTH_STAGES; cursor++) {
-				byGrowthStageIndex.get(cursor).add(asset);
-			}
+			Logger.error(asset.getUniqueName() + " must have growth stages specified");
 		} else {
 			for (Integer growthStage : asset.getGrowthStages()) {
-				if (growthStage >= MAX_GROWTH_STAGES) {
-					throw new RuntimeException("Too many growth stages for " + asset.getUniqueName() + ", hard limit of " + MAX_GROWTH_STAGES + " needs increasing");
-				}
-				byGrowthStageIndex.get(growthStage).add(asset);
+				byGrowthStageIndex.computeIfAbsent(growthStage, a -> new PlantEntityAssetsBySpecies(plantSpeciesDictionary)).add(asset);
 			}
 		}
 	}
@@ -50,7 +42,7 @@ public class PlantEntityAssetsByGrowthStage {
 		PlantEntityAssetsBySpecies bySpecies = byGrowthStageIndex.get(attributes.getGrowthStageCursor());
 		if (bySpecies == null) {
 			Logger.error("No list of plant assets for height: " + attributes.getGrowthStageCursor());
-			return new LinkedList<>();
+			return List.of();
 		}
 		return bySpecies.getAll(attributes);
 	}

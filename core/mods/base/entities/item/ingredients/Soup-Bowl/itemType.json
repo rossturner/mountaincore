@@ -1,12 +1,10 @@
 {
-  "itemTypeName": "Ingredient-Soup-Bowl",
-  "describeAsMaterialOnly": true,
-  "materialTypes": ["LIQUID", "WOOD"],
-  "primaryMaterialType": "LIQUID",
-  "hoursInInventoryUntilUnused": 4,
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "holdPosition": "RIGHT_HAND",
-  "equippedWhileWorkingOnJob": true,
-  "consumeSoundAssetName": "DrinkSoup"
+  "itemTypeName" : "Ingredient-Soup-Bowl",
+  "materialTypes" : [ "LIQUID", "WOOD" ],
+  "primaryMaterialType" : "LIQUID",
+  "holdPosition" : "RIGHT_HAND",
+  "hoursInInventoryUntilUnused" : 4.0,
+  "consumeSoundAssetName" : "DrinkSoup",
+  "describeAsMaterialOnly" : true,
+  "i18nKey" : "INGREDIENT.SOUP.BOWL"
 }

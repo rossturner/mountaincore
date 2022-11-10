@@ -1,11 +1,11 @@
 {
-  "itemTypeName": "Resource-Wheat-Sack",
-  "describeAsMaterialOnly": true,
-  "materialTypes": ["VEGETABLE", "CLOTH", "ROPE"],
-  "primaryMaterialType": "VEGETABLE",
-  "stockpileGroupName": "GRANARY",
-  "hoursInInventoryUntilUnused": 2,
-  "maxStackSize": 30,
-  "maxHauledAtOnce": 30,
-  "equippedWhileWorkingOnJob": true
+  "itemTypeName" : "Resource-Wheat-Sack",
+  "maxStackSize" : 30,
+  "maxHauledAtOnce" : 30,
+  "materialTypes" : [ "VEGETABLE", "CLOTH", "ROPE" ],
+  "primaryMaterialType" : "VEGETABLE",
+  "hoursInInventoryUntilUnused" : 2.0,
+  "stockpileGroupName" : "GRANARY",
+  "describeAsMaterialOnly" : true,
+  "i18nKey" : "RESOURCE.WHEAT.SACK"
 }

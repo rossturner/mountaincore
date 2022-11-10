@@ -1,101 +1,79 @@
-[
-  {
-    "uniqueName": "Carcass-Perch-Prepared-Pile",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Carcass-Perch-Prepared",
-    "itemPlacements": [
-      "ON_GROUND"
-    ],
-    "minQuantity": 1,
-    "maxQuantity": 4,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "PerchFillet.png",
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 0.5
-        }
-      }
+[ {
+  "uniqueName" : "Carcass-Perch-Prepared-Carried-1",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Carcass-Perch-Prepared",
+  "maxQuantity" : 16,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "PerchFillet.png",
+      "offsetPixels" : {
+        "y" : 0.5
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -6.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "PerchFillet.png",
+      "offsetPixels" : {
+        "y" : 0.5
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -6.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "PerchFillet.png",
+      "offsetPixels" : {
+        "y" : 0.5
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "PerchFillet.png",
+      "offsetPixels" : {
+        "y" : 0.5
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -6.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
     }
-  },
-  {
-    "uniqueName": "Carcass-Perch-Prepared-Carried-1",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Carcass-Perch-Prepared",
-    "itemPlacements": [
-      "BEING_CARRIED"
-    ],
-    "minQuantity": 1,
-    "maxQuantity": 16,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "PerchFillet.png",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -6,
-              "y": -6
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 0.5
-        }
-      },
-      "DOWN_RIGHT": {
-        "filename": "PerchFillet.png",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -6,
-              "y": -6
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 0.5
-        }
-      },
-      "DOWN_LEFT": {
-        "filename": "PerchFillet.png",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": -100,
-            "offsetPixels": {
-              "x": 2,
-              "y": -6
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 0.5
-        }
-      },
-      "UP_RIGHT": {
-        "filename": "PerchFillet.png",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -6,
-              "y": -6
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": 0.0,
-          "y": 0.5
-        }
+  }
+}, {
+  "uniqueName" : "Carcass-Perch-Prepared-Pile",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Carcass-Perch-Prepared",
+  "maxQuantity" : 4,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "PerchFillet.png",
+      "offsetPixels" : {
+        "y" : 0.5
       }
     }
   }
-]
+} ]

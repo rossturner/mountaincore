@@ -1,10 +1,10 @@
 {
-  "itemTypeName": "Ashes",
-  "materialTypes": ["OTHER"],
-  "primaryMaterialType": "OTHER",
-  "stockpileGroupName": null,
-  "hoursInInventoryUntilUnused": 0.5,
-  "maxStackSize": 50,
-  "maxHauledAtOnce": 50,
-  "equippedWhileWorkingOnJob": false
+  "itemTypeName" : "Ashes",
+  "maxStackSize" : 50,
+  "maxHauledAtOnce" : 50,
+  "materialTypes" : [ "OTHER" ],
+  "primaryMaterialType" : "OTHER",
+  "equippedWhileWorkingOnJob" : false,
+  "hoursInInventoryUntilUnused" : 0.5,
+  "i18nKey" : "ASHES"
 }

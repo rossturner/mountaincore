@@ -2,8 +2,6 @@
   "uniqueName" : "Weapon-Wooden-Shield-Above_Layer_1-Being_Carried",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Weapon-Wooden-Shield",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "UP" : {
@@ -33,8 +31,6 @@
   "uniqueName" : "Weapon-Wooden-Shield-Item_Base_Layer-Being_Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Wooden-Shield",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -101,8 +97,6 @@
   "uniqueName" : "Weapon-Wooden-Shield-Item_Base_Layer-On_Ground",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Wooden-Shield",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

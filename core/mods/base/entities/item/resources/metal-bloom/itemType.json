@@ -1,7 +1,6 @@
 {
-  "itemTypeName": "Resource-Metal-Bloom",
-  "materialTypes": ["METAL"],
-  "primaryMaterialType": "METAL",
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1
+  "itemTypeName" : "Resource-Metal-Bloom",
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "i18nKey" : "RESOURCE.METAL.BLOOM"
 }

@@ -1,10 +1,10 @@
 {
-  "itemTypeName": "Product-Barrel-Hoops",
-  "materialTypes": ["METAL"],
-  "primaryMaterialType": "METAL",
-  "stockpileGroupName": "PRODUCTS",
-  "hoursInInventoryUntilUnused": 2,
-  "maxStackSize": 12,
-  "maxHauledAtOnce": 3,
-  "equippedWhileWorkingOnJob": true
+  "itemTypeName" : "Product-Barrel-Hoops",
+  "maxStackSize" : 12,
+  "maxHauledAtOnce" : 3,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "hoursInInventoryUntilUnused" : 2.0,
+  "stockpileGroupName" : "PRODUCTS",
+  "i18nKey" : "PRODUCT.BARREL.HOOPS"
 }

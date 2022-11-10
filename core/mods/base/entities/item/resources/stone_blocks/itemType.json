@@ -1,10 +1,10 @@
 {
-  "itemTypeName": "Resource-Stone-Block",
-  "materialTypes": ["STONE"],
-  "primaryMaterialType": "STONE",
-  "maxStackSize": 16,
-  "maxHauledAtOnce": 2,
-  "stockpileGroupName": "PRODUCTS",
-  "impedesMovement": true,
-  "blocksMovement": false
+  "itemTypeName" : "Resource-Stone-Block",
+  "maxStackSize" : 16,
+  "maxHauledAtOnce" : 2,
+  "materialTypes" : [ "STONE" ],
+  "primaryMaterialType" : "STONE",
+  "impedesMovement" : true,
+  "stockpileGroupName" : "PRODUCTS",
+  "i18nKey" : "RESOURCE.STONE.BLOCK"
 }

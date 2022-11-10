@@ -1,101 +1,84 @@
-[
-  {
-    "uniqueName": "Carcass-Pike-Prepared-Pile",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Carcass-Pike-Prepared",
-    "itemPlacements": [
-      "ON_GROUND"
-    ],
-    "minQuantity": 1,
-    "maxQuantity": 4,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "PikeFillet.png",
-        "offsetPixels": {
-          "x": -1.0,
-          "y": -2.0
-        }
-      }
+[ {
+  "uniqueName" : "Carcass-Pike-Prepared-Carried-1",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Carcass-Pike-Prepared",
+  "maxQuantity" : 16,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "PikeFillet.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -2.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -6.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "PikeFillet.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -2.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -6.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "PikeFillet.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -2.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "PikeFillet.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -2.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -6.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
     }
-  },
-  {
-    "uniqueName": "Carcass-Pike-Prepared-Carried-1",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Carcass-Pike-Prepared",
-    "itemPlacements": [
-      "BEING_CARRIED"
-    ],
-    "minQuantity": 1,
-    "maxQuantity": 16,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "PikeFillet.png",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -6,
-              "y": -6
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": -1.0,
-          "y": -2.0
-        }
-      },
-      "DOWN_RIGHT": {
-        "filename": "PikeFillet.png",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -6,
-              "y": -6
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": -1.0,
-          "y": -2.0
-        }
-      },
-      "DOWN_LEFT": {
-        "filename": "PikeFillet.png",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": -100,
-            "offsetPixels": {
-              "x": 2,
-              "y": -6
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": -1.0,
-          "y": -2.0
-        }
-      },
-      "UP_RIGHT": {
-        "filename": "PikeFillet.png",
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -6,
-              "y": -6
-            }
-          }
-        ],
-        "offsetPixels": {
-          "x": -1.0,
-          "y": -2.0
-        }
+  }
+}, {
+  "uniqueName" : "Carcass-Pike-Prepared-Pile",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Carcass-Pike-Prepared",
+  "maxQuantity" : 4,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "PikeFillet.png",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : -2.0
       }
     }
   }
-]
+} ]

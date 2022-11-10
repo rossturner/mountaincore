@@ -1,0 +1,19 @@
+[ {
+  "uniqueName" : "Resource-Logs-Large01-Pile01-Exterior",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Logs",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Logs-Large01-Pile01-Exterior.png",
+      "coloringLayer" : "BRANCHES_COLOR",
+      "childAssets" : [ {
+        "type" : "BELOW_LAYER_1",
+        "specificAssetName" : "Resource-Logs-Large-Pile01-Interior",
+        "offsetPixels" : {
+          "y" : -17.0
+        }
+      } ]
+    }
+  }
+} ]

@@ -1,10 +1,11 @@
 {
-  "itemTypeName": "Product-Ration",
-  "materialTypes": ["FOODSTUFF"],
-  "primaryMaterialType": "FOODSTUFF",
-  "stockpileGroupName": "FOOD",
-  "hoursInInventoryUntilUnused": 999999999,
-  "maxStackSize": 50,
-  "maxHauledAtOnce": 50,
-  "equippedWhileWorkingOnJob": false
+  "itemTypeName" : "Product-Ration",
+  "maxStackSize" : 50,
+  "maxHauledAtOnce" : 50,
+  "materialTypes" : [ "FOODSTUFF" ],
+  "primaryMaterialType" : "FOODSTUFF",
+  "equippedWhileWorkingOnJob" : false,
+  "hoursInInventoryUntilUnused" : 9.99999999E8,
+  "stockpileGroupName" : "FOOD",
+  "i18nKey" : "PRODUCT.RATION"
 }

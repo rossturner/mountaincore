@@ -1,17 +1,13 @@
-[
-  {
-    "uniqueName": "Resource-Liquid-Example-Drop",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Resource-Liquid-Example",
-    "itemPlacements": ["ON_GROUND"],
-    "minQuantity": 1,
-    "maxQuantity": 1,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "drop.png",
-        "scale": 0.8,
-        "coloringLayer": "LIQUID_COLOR"
-      }
+[ {
+  "uniqueName" : "Resource-Liquid-Example-Drop",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Liquid-Example",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "drop.png",
+      "coloringLayer" : "LIQUID_COLOR",
+      "scale" : 0.8
     }
   }
-]
+} ]

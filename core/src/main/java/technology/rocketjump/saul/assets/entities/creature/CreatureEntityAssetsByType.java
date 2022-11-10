@@ -1,10 +1,8 @@
 package technology.rocketjump.saul.assets.entities.creature;
 
-import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
 
 import java.util.HashMap;
@@ -15,15 +13,8 @@ public class CreatureEntityAssetsByType {
 
 	private Map<EntityAssetType, CreatureEntityAssetsByRace> typeMap = new HashMap<>();
 
-	public CreatureEntityAssetsByType(EntityAssetTypeDictionary typeDictionary, RaceDictionary raceDictionary) {
-		for (EntityAssetType assetType : typeDictionary.getAll()) {
-			typeMap.put(assetType, new CreatureEntityAssetsByRace(raceDictionary));
-		}
-	}
-
 	public void add(CreatureEntityAsset asset) {
-		// Assuming all entities have a type specified
-		typeMap.get(asset.getType()).add(asset);
+		typeMap.computeIfAbsent(asset.getType(), a -> new CreatureEntityAssetsByRace()).add(asset);
 	}
 
 	public CreatureEntityAsset get(EntityAssetType type, CreatureEntityAttributes attributes, Skill primaryProfession) {

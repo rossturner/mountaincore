@@ -1,11 +1,12 @@
 {
-  "itemTypeName": "Ingredient-Mushroom-Spawn",
-  "materialTypes": ["SEED", "ROPE"],
-  "primaryMaterialType": "SEED",
-  "holdPosition": "RIGHT_HAND",
-  "stockpileGroupName": "SEEDS",
-  "hoursInInventoryUntilUnused": 3,
-  "maxStackSize": 50,
-  "maxHauledAtOnce": 15,
-  "equippedWhileWorkingOnJob": false
+  "itemTypeName" : "Ingredient-Mushroom-Spawn",
+  "maxStackSize" : 50,
+  "maxHauledAtOnce" : 15,
+  "materialTypes" : [ "SEED", "ROPE" ],
+  "primaryMaterialType" : "SEED",
+  "holdPosition" : "RIGHT_HAND",
+  "equippedWhileWorkingOnJob" : false,
+  "hoursInInventoryUntilUnused" : 3.0,
+  "stockpileGroupName" : "SEEDS",
+  "i18nKey" : "INGREDIENT.MUSHROOM.SPAWN"
 }

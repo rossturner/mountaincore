@@ -2,8 +2,6 @@
   "uniqueName" : "Weapon-Battle-Axe-Handle-Being_Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Battle-Axe",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -131,8 +129,6 @@
   "uniqueName" : "Weapon-Battle-Axe-Handle-On_Ground",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Battle-Axe",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -155,8 +151,6 @@
   "uniqueName" : "Weapon-Battle-Axe-Head-Being_Carried",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Weapon-Battle-Axe",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -214,8 +208,6 @@
   "uniqueName" : "Weapon-Battle-Axe-Head-On_Ground",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Weapon-Battle-Axe",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

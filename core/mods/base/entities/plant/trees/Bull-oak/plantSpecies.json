@@ -42,9 +42,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Ironwood",
-          "quantity": 2,
-          "itemSize": "SMALL",
-          "itemStyle": "STYLE_2"
+          "quantity": 2
         }
       ]
     },
@@ -61,9 +59,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Ironwood",
-          "quantity": 3,
-          "itemSize": "SMALL",
-          "itemStyle": "STYLE_2"
+          "quantity": 3
         }
       ]
     }

@@ -1,6 +1,5 @@
 {
   "itemTypeName" : "Weapon-Battle-Axe",
-  "maxHauledAtOnce" : 1,
   "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "METAL",
   "holdPosition" : "RIGHT_HAND",

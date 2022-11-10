@@ -3,7 +3,6 @@
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Barley Seed" ],
   "spriteDescriptors" : {
@@ -17,7 +16,6 @@
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Carrot Seed" ],
   "spriteDescriptors" : {
@@ -31,7 +29,6 @@
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Corn Seed" ],
   "spriteDescriptors" : {
@@ -45,7 +42,6 @@
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Hemp Seed" ],
   "spriteDescriptors" : {
@@ -59,7 +55,6 @@
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Hops Seed" ],
   "spriteDescriptors" : {
@@ -73,7 +68,6 @@
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Potato Seed" ],
   "spriteDescriptors" : {
@@ -87,7 +81,6 @@
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Tomato Seed" ],
   "spriteDescriptors" : {
@@ -101,7 +94,6 @@
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Ingredient-Seeds",
   "maxQuantity" : 50,
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "applicableMaterialNames" : [ "Wheat Seed" ],
   "spriteDescriptors" : {

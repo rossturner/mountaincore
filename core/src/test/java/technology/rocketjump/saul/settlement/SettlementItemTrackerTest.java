@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import technology.rocketjump.saul.assets.entities.item.*;
+import technology.rocketjump.saul.assets.entities.item.ItemEntityAssetDictionary;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
@@ -23,9 +23,6 @@ import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SettlementItemTrackerTest {
@@ -41,17 +38,6 @@ public class SettlementItemTrackerTest {
 	private ItemEntityAssetDictionary mockItemEntityAssetDictionary;
 	@Mock
 	private EntityAssetUpdater mockEntityAssetUpdater;
-	@Mock
-	private ItemEntityAssetsByQuantity mockQuantityMap;
-	@Mock
-	private ItemEntityAssetsByAssetType mockAssetTypeMap;
-	@Mock
-	private ItemEntityAssetsByItemType mockItemTypeMap;
-	@Mock
-	private ItemEntityAssetsByQuality mockQualityMap;
-	private ItemEntityAssetsBySize blankMap;
-	@Mock
-	private ItemEntityAttributesFactory mockItemEntityAttributesFactory;
 
 	@Before
 	public void setUp() throws Exception {
@@ -60,13 +46,6 @@ public class SettlementItemTrackerTest {
 		Injector injector = Guice.createInjector(new SaulGuiceModule());
 		itemTypeDictionary = injector.getInstance(ItemTypeDictionary.class);
 		gameMaterialDictionary = injector.getInstance(GameMaterialDictionary.class);
-		blankMap = new ItemEntityAssetsBySize();
-
-		when(mockItemEntityAssetDictionary.getQuantityMap()).thenReturn(mockQuantityMap);
-		when(mockQuantityMap.getAssetTypeMapByQuantity(anyInt())).thenReturn(mockAssetTypeMap);
-		when(mockAssetTypeMap.getItemTypeMapByAssetType(any())).thenReturn(mockItemTypeMap);
-		when(mockItemTypeMap.getQualityMapByItemType(any())).thenReturn(mockQualityMap);
-		when(mockQualityMap.getSizeMapByQuality(any())).thenReturn(blankMap);
 	}
 
 	@Test
@@ -93,7 +72,7 @@ public class SettlementItemTrackerTest {
 		}
 
 		ItemEntityAttributes itemAttributes = new ItemEntityAttributesFactory(mockItemEntityAssetDictionary, mockEntityAssetUpdater).createItemAttributes(itemType, 1, materialArray);
-		return new ItemEntityFactory(mockItemEntityAttributesFactory, new MessageDispatcher(), gameMaterialDictionary, mockAssetUpdater).create(
+		return new ItemEntityFactory(new MessageDispatcher(), gameMaterialDictionary, mockAssetUpdater).create(
 				itemAttributes, new GridPoint2(), true, mockContext
 		);
 	}
