@@ -6,14 +6,14 @@ filter: MipMapLinearLinear, Linear
 repeat: none
 white-pixel
   rotate: false
-  xy: 2, 11
+  xy: 2, 14
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 search_bar
   rotate: false
-  xy: 2, 16
+  xy: 2, 19
   size: 89, 56
   split: 25, 57, 0, 0
   pad: 25, 57, 12, 17
@@ -22,7 +22,7 @@ search_bar
   index: -1
 search_bar_v3.9
   rotate: false
-  xy: 2, 16
+  xy: 2, 19
   size: 89, 56
   split: 25, 57, 0, 0
   pad: 25, 57, 7, 7
@@ -31,7 +31,7 @@ search_bar_v3.9
   index: -1
 vertical_scrollbar
   rotate: false
-  xy: 474, 408
+  xy: 406, 188
   size: 28, 62
   split: 0, 0, 26, 26
   orig: 28, 62
@@ -39,71 +39,78 @@ vertical_scrollbar
   index: -1
 vertical_scrollbar_fg
   rotate: false
-  xy: 406, 238
+  xy: 406, 104
   size: 28, 80
   split: 1, 1, 26, 26
   orig: 28, 80
   offset: 0, 0
   index: -1
+icon_coin
+  rotate: false
+  xy: 406, 436
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
 asset_quality_star
   rotate: false
-  xy: 95, 26
+  xy: 95, 29
   size: 48, 46
   orig: 48, 46
   offset: 0, 0
   index: -1
 btn_info
   rotate: false
-  xy: 406, 428
+  xy: 406, 360
   size: 64, 72
   orig: 64, 72
   offset: 0, 0
   index: -1
 btn_info_hover_state
   rotate: false
-  xy: 406, 352
+  xy: 406, 284
   size: 64, 72
   orig: 64, 72
   offset: 0, 0
   index: -1
 btn_resources_item_01
   rotate: false
-  xy: 2, 290
+  xy: 2, 293
   size: 198, 210
   orig: 198, 210
   offset: 0, 0
   index: -1
 btn_resources_item_02
   rotate: false
-  xy: 2, 76
+  xy: 2, 79
   size: 198, 210
   orig: 198, 210
   offset: 0, 0
   index: -1
 btn_resources_item_03
   rotate: false
-  xy: 204, 290
+  xy: 204, 293
   size: 198, 210
   orig: 198, 210
   offset: 0, 0
   index: -1
 btn_resources_item_04
   rotate: false
-  xy: 204, 76
+  xy: 204, 79
   size: 198, 210
   orig: 198, 210
   offset: 0, 0
   index: -1
 btn_sort_by_toggle_off
   rotate: false
-  xy: 474, 474
+  xy: 477, 477
   size: 30, 26
   orig: 30, 26
   offset: 0, 0
   index: -1
 btn_sort_by_toggle_on
   rotate: false
-  xy: 406, 322
+  xy: 406, 254
   size: 30, 26
   orig: 30, 26
   offset: 0, 0

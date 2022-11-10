@@ -256,9 +256,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				}
 			}
 
-
-
-			//column: Entity image, Text
 			Entity exampleEntity = byGameMaterial.values().iterator().next().values().iterator().next();
 			Drawable btnResourceItemBg = randomBtnResourceItemBg();
 			Button itemTypeButton = new Button(new EntityDrawable(
@@ -271,26 +268,27 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			itemTypeColumn.add(itemTypeButton).size(205).row();
 			itemTypeColumn.add(itemTypeNameLabel);
 
-			Table itemTypeGoldColumn = new Table();
-
-			Table itemTypeQuantityColumn = new Table();
-
-			//todo: consider refactoring this out
-			HorizontalGroup itemTypeAvailableGroup = new HorizontalGroup();
-			itemTypeAvailableGroup.addActor(new Label(translate("GUI.RESOURCE_MANAGEMENT.AVAILABLE"), managementSkin, "table_value_label"));
-			itemTypeAvailableGroup.addActor(new Label(" " + totalUnallocated, managementSkin, "table_value_label"));
-			itemTypeAvailableGroup.debugAll();
-			Table itemTypeAvailableColumn = new Table();
-			itemTypeAvailableColumn.add(itemTypeAvailableGroup);
+			HorizontalGroup itemTypeGoldGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalGold);
+			itemTypeGoldGroup.addActorAt(1, new Image(managementSkin, "icon_coin"));
+			HorizontalGroup itemTypeQuantityGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalQuantity);
+			HorizontalGroup itemTypeAvailableGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.AVAILABLE", totalUnallocated);
 
 			Table itemTypeTable = new Table();
 			itemTypeTable.add(itemTypeColumn);
-			itemTypeTable.add(itemTypeGoldColumn);
-			itemTypeTable.add(itemTypeQuantityColumn);
-			itemTypeTable.add(itemTypeAvailableColumn);
+			itemTypeTable.add(itemTypeGoldGroup);
+			itemTypeTable.add(itemTypeQuantityGroup);
+			itemTypeTable.add(itemTypeAvailableGroup);
 
 			itemsTable.add(itemTypeTable).padTop(44f).padBottom(50f).row();//todo: structure nicer for indent etc
 		}
+	}
+
+	private HorizontalGroup buildMeasureLabel(String i18nKey, int value) {
+		HorizontalGroup itemTypeAvailableGroup = new HorizontalGroup();
+		itemTypeAvailableGroup.space(managementSkin.getFont("default-font-24").getSpaceXadvance());
+		itemTypeAvailableGroup.addActor(new Label(translate(i18nKey), managementSkin, "table_value_label"));
+		itemTypeAvailableGroup.addActor(new Label(String.valueOf(value), managementSkin, "table_value_label"));
+		return itemTypeAvailableGroup;
 	}
 
 	private Drawable randomBtnResourceItemBg() {
