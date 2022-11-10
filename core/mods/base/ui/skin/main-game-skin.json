@@ -91,6 +91,26 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
+	asset_bg_tooltip_patch: {
+		region: asset_bg_tooltip_cropped
+		horizontalStretchAreas: [ 0, 18, 77, 95 ]
+		verticalStretchAreas: [ 37, 79 ]
+		tiling: false
+		minWidth: 96
+		minHeight: 80
+		rightWidth: 4
+		leftWidth: 4
+		bottomHeight: 39
+		topHeight: 4
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.kotcrab.vis.ui.Sizes: {
 	default: {
@@ -229,6 +249,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default-red: {
 		font: default-font-16
 		fontColor: primary_font_colour_red
+	}
+	complex-tooltip-header: {
+		font: header-font-32
+		fontColor: white
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {

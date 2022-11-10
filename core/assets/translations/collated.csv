@@ -490,6 +490,8 @@ GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED,Contents are being emptied.,,Der Inhalt
 GUI.EMPTY_CONTAINER_LABEL.HINT,Dump the contents of this container on the ground.,,Schüttet den Inhalt dieses Behälters auf den Boden.,,Scaricate il contenuto di questo contenitore a terra.,Vaciar el contenido en el suelo.,,,,"Вылейте содержимое этого контейнера на землю. ",,,,,,,,この容器の中身を地面に捨てます。,将此容器内的东西放在地上。,
 GUI.FURNITURE_ASSIGNED_TO,Assigned to {{name}},,Zugewiesen zu {{name}},Appartient à {{name}},Oggetto assegnato a: {{name}},Asignado a {{name}},Atribuído a {{name}},Atribuição: {{name}},,Принадлежит: {{name}}," {{name}} a atandı",Tildelt til {{name},,Tilldelas till {{name}},,,,{{name}}に割り当て済,分配给{{name}},
 GUI.FURNITURE_BEING_REMOVED,Currently being removed,,Wird gerade entfernt,Retrait en cours,Rimozione in corso,Se está eliminando,Atualmente em remoção,Em remoção,,В процессе удаления,Şuanda kaldırılıyor,I øjeblikket er ved at blive fjernet,,För närvarande tas bort,,,,撤去しようとしている,正在移除,
+GUI.FURNITURE_REQUIREMENT.ALL_MATERIALS,{{amount}} available,,,,,,,,,,,,,,,,,,,
+GUI.FURNITURE_REQUIREMENT.SPECIFIED_MATERIALS,{{amount}} {{material}} available,,,,,,,,,,,,,,,,,,,
 GUI.FURNITURE_REQUIRES_FLOOR_MATERIALTYPE,This furniture must be placed on {{materialType}}.,,Dieses Möbelstück muss auf {{materialType}} platziert werden.,Ce meuble doit être placé sur {{materialType}}.,Questi mobili devono essere collocati su {{materialType}}.,Este mueble debe colocarse en {{materialType}}.,Este mobiliário deve ser colocado em {{materialType}}.,,,Эта мебель должна быть размещена на {{materialType}}.,Bu mobilya  {{materialType}} üzerine yerleştirilmeli,Møblerne skal placeres på {{materialType}}.,,Möblerna måste placeras på {{MaterialType}}.,,,,この建築物は{{materialType}}に置かれる必要があります。,此家具必须放置于{{materialType}}。,
 GUI.GRAPHICS.FULLSCREEN,Fullscreen,,Vollbild,Plein écran,Schermo intero,Pantalla completa,Ecrã inteiro,Tela cheia,,Во весь экран,Tam ekran,Fuldskærm,,Helskärm,,,,画面設定,全屏,
 GUI.GRAPHICS.RESOLUTION,Resolution,,Auflösung,Résolution,Risoluzione,Resolución,Resolução,Resolução,,Разрешение экрана,Çözünürlük,Opløsning,,Upplösning,,,,解像度,分辨率,
@@ -736,7 +738,6 @@ MATERIAL,Material,,Material,Matériau,Materiale,Material,Material,Material,,Ма
 
 MATERIAL_TYPE,Type,,Art,Sorte,Tipo,Tipo de material,Tipo,Tipo,,Тип,Tip,Type,,Sort,,,,種別,类型,
 MATERIAL_TYPE.ANY,Any,,Beliebig,Tous,Qualsiasi,Cualquiera,Qualquer,Qualquer,,Любой,Hepsi,Enhver,,Någon,,,,全て,任意,
-MATERIAL_TYPE.ANY.LABEL,Any material,,,,,,,,,,,,,,,,,,,
 MATERIAL_TYPE.CLOTH.ADJECTIVE," ",,,," ",de tela,,,,Одежда,,,,,,,,," ",
 MATERIAL_TYPE.CLOTH.NOUN," ",,,," ",Tela,,,,Одежда,,,,,,,,," ",
 MATERIAL_TYPE.EARTH.ADJECTIVE,Earthen,,Erde,En terre,Terrestre,de tierra,Terráqueo,,,Землю,Topraktan,Jordens,,Jord,,,,土の,土制的,

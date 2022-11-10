@@ -9,7 +9,6 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
-import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.ItemAvailabilityChecker;
@@ -43,7 +42,6 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 
 	private final Table materialTypeSelection = new Table();
 	private final Table itemMaterialSelection = new Table();
-	private final Table availabilityTable = new Table();
 
 	@Inject
 	public FurnitureMaterialsWidget(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
@@ -80,7 +78,7 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 		this.clearChildren();
 		materialTypeSelection.clearChildren();
 		itemMaterialSelection.clearChildren();
-		availabilityTable.clearChildren();
+		itemMaterialSelection.defaults().padRight(20);
 
 		if (selectedFurnitureType == null) {
 			return;
@@ -112,8 +110,6 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 
 		rebuildMaterialSelections();
 		this.add(itemMaterialSelection).center();
-
-		this.add(availabilityTable).right();
 	}
 
 	private void rebuildMaterialSelections() {
@@ -142,30 +138,9 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 				this.materialSelections = otherMaterialSelections;
 
 				// TODO virtual placing room changed?
-
-				rebuildAvailability();
 			});
 
 			itemMaterialSelection.add(furnitureRequirementWidget);
-		}
-
-		rebuildAvailability();
-	}
-
-	private void rebuildAvailability() {
-		availabilityTable.clearChildren();
-
-		List<QuantifiedItemType> requirements = selectedFurnitureType.getRequirements().get(selectedMaterialType);
-		for (QuantifiedItemType requirement : requirements) {
-
-			GameMaterial selectedMaterial = materialSelections.stream().filter(s -> s.getItemType().equals(requirement.getItemType()))
-					.map(ItemTypeWithMaterial::getMaterial)
-					.findFirst().orElse(null);
-
-
-			String labelText = i18nTranslator.getAvailabilityDescription(requirement.getItemType(), itemAvailabilityChecker.getAmountAvailable(requirement.getItemType(), selectedMaterial), selectedMaterial).toString();
-
-			availabilityTable.add(new Label(labelText, skin.get("default-red", Label.LabelStyle.class))).left().row();
 		}
 	}
 
