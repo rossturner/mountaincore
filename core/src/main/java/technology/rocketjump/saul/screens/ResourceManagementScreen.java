@@ -12,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
@@ -243,6 +245,18 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		for (Map.Entry<ItemType, Map<GameMaterial, Map<Long, Entity>>> entry : filteredByStockpileGroup.entrySet()) {
 			ItemType itemType = entry.getKey();
 			Map<GameMaterial, Map<Long, Entity>> byGameMaterial = entry.getValue();
+			int totalQuantity = 0;
+			int totalUnallocated = 0;
+			int totalGold = 0; //todo: semi yagni, fill me when we do trading
+			for (Map<Long, Entity> entityMap : byGameMaterial.values()) {
+				for (Entity itemEntity : entityMap.values()) {
+					ItemEntityAttributes attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();
+					totalQuantity += attributes.getQuantity();
+					totalUnallocated += itemEntity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated();
+				}
+			}
+
+
 
 			//column: Entity image, Text
 			Entity exampleEntity = byGameMaterial.values().iterator().next().values().iterator().next();
@@ -257,14 +271,23 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			itemTypeColumn.add(itemTypeButton).size(205).row();
 			itemTypeColumn.add(itemTypeNameLabel);
 
+			Table itemTypeGoldColumn = new Table();
+
+			Table itemTypeQuantityColumn = new Table();
+
+			//todo: consider refactoring this out
+			HorizontalGroup itemTypeAvailableGroup = new HorizontalGroup();
+			itemTypeAvailableGroup.addActor(new Label(translate("GUI.RESOURCE_MANAGEMENT.AVAILABLE"), managementSkin, "table_value_label"));
+			itemTypeAvailableGroup.addActor(new Label(" " + totalUnallocated, managementSkin, "table_value_label"));
+			itemTypeAvailableGroup.debugAll();
+			Table itemTypeAvailableColumn = new Table();
+			itemTypeAvailableColumn.add(itemTypeAvailableGroup);
+
 			Table itemTypeTable = new Table();
 			itemTypeTable.add(itemTypeColumn);
-
-			/*
-			Column: Total Gold
-			column: total items
-			Column: available items
-			 */
+			itemTypeTable.add(itemTypeGoldColumn);
+			itemTypeTable.add(itemTypeQuantityColumn);
+			itemTypeTable.add(itemTypeAvailableColumn);
 
 			itemsTable.add(itemTypeTable).padTop(44f).padBottom(50f).row();//todo: structure nicer for indent etc
 		}
@@ -287,15 +310,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 //
 //					Entity firstEntity = itemTypeMapEntry.getValue().values().iterator().next().values().iterator().next();
 //
-//					int totalQuantity = 0;
-//					int totalUnallocated = 0;
-//					for (Map<Long, Entity> entityMap : itemTypeMapEntry.getValue().values()) {
-//						for (Entity itemEntity : entityMap.values()) {
-//							ItemEntityAttributes attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();
-//							totalQuantity += attributes.getQuantity();
-//							totalUnallocated += itemEntity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated();
-//						}
-//					}
+
 //
 //					I18nText itemTypeDisplayName = i18nTranslator.getTranslatedString(itemType.getI18nKey());
 //

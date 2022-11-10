@@ -40,6 +40,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: default-font-16
 		fontColor: primary_font_colour_red
 	}
+	table_value_label: {
+		font: default-font-24
+		fontColor: primary_font_colour_red
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	search_bar_input: {
