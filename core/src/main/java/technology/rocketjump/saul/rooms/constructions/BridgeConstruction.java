@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterial;
@@ -13,7 +14,10 @@ import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rooms.Bridge;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 import static technology.rocketjump.saul.rooms.constructions.ConstructionType.BRIDGE_CONSTRUCTION;
 
@@ -34,7 +38,10 @@ public class BridgeConstruction extends Construction {
 		constructionRequirements.setItemType(tileRequirement.getItemType());
 		constructionRequirements.setQuantity(tileRequirement.getQuantity() * bridge.getLocations().size());
 		if (!bridge.getMaterial().equals(GameMaterial.NULL_MATERIAL)) {
-			this.setPlayerSpecifiedPrimaryMaterial(Optional.of(bridge.getMaterial()));
+			ItemTypeWithMaterial playerRequirement = new ItemTypeWithMaterial();
+			playerRequirement.setItemType(tileRequirement.getItemType());
+			playerRequirement.setMaterial(bridge.getMaterial());
+			playerRequirementSelections.add(playerRequirement);
 		}
 
 		this.requirements.add(constructionRequirements);

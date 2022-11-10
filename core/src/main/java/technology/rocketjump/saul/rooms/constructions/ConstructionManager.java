@@ -13,6 +13,7 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
@@ -23,7 +24,6 @@ import technology.rocketjump.saul.jobs.model.Job;
 import technology.rocketjump.saul.jobs.model.JobState;
 import technology.rocketjump.saul.jobs.model.JobType;
 import technology.rocketjump.saul.mapping.tile.MapTile;
-import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.ItemMaterialSelectionMessage;
@@ -35,6 +35,7 @@ import technology.rocketjump.saul.settlement.SettlementItemTracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static technology.rocketjump.saul.entities.ItemEntityMessageHandler.createHaulingJob;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.ON_FIRE;
@@ -107,7 +108,7 @@ public class ConstructionManager implements Updatable {
 		if (construction.getState().equals(CLEARING_WORK_SITE) || construction.getState().equals(SELECTING_MATERIALS)) {
 			// work site cleared
 			construction.setState(SELECTING_MATERIALS);
-			reselectMaterials(construction); // sets to WAITING_FOR_RESOURCES when all materials chosen
+			populateRequirementMaterials(construction); // sets to WAITING_FOR_RESOURCES when all materials chosen
 			return;
 		}
 
@@ -129,45 +130,28 @@ public class ConstructionManager implements Updatable {
 		}
 	}
 
-	private void reselectMaterials(Construction construction) {
-		boolean allMaterialsAvailable = true;
+	private void populateRequirementMaterials(Construction construction) {
 
-		List<GameMaterial> requiredMaterials = new ArrayList<>(construction.getRequirements().size());
 		for (QuantifiedItemTypeWithMaterial requirement : construction.getRequirements()) {
-			GameMaterial selectedMaterial = requirement.getMaterial();
+			if (requirement.getMaterial() == null) {
+				Optional<ItemTypeWithMaterial> matchedPlayerRequirement = construction.getPlayerRequirementSelections().stream()
+						.filter(playerRequirement -> playerRequirement.getItemType().equals(requirement.getItemType()))
+						.findAny();
+				if (matchedPlayerRequirement.isPresent()) {
+					requirement.setMaterial(matchedPlayerRequirement.get().getMaterial());
+					continue;
+				}
 
-			if (requirement.getMaterial() != null) {
-				requiredMaterials.add(selectedMaterial);
-				continue;
-			}
-
-			if (construction.getPlayerSpecifiedPrimaryMaterial().isPresent() &&
-					construction.getPlayerSpecifiedPrimaryMaterial().get().getMaterialType().equals(requirement.getItemType().getPrimaryMaterialType())) {
-				requiredMaterials.add(construction.getPlayerSpecifiedPrimaryMaterial().get());
-				continue;
-			}
-
-			messageDispatcher.dispatchMessage(MessageType.SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE, new ItemMaterialSelectionMessage(
-					requirement.getItemType(),
-					requirement.getQuantity(),
-					requiredMaterials::add
-			));
-		}
-
-		for (GameMaterial requiredMaterial : requiredMaterials) {
-			if (requiredMaterial == null) {
-				allMaterialsAvailable = false;
+				messageDispatcher.dispatchMessage(MessageType.SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE, new ItemMaterialSelectionMessage(
+						requirement.getItemType(),
+						requirement.getQuantity(),
+						requirement::setMaterial
+				));
 			}
 		}
 
-		if (allMaterialsAvailable) {
-
-			for (int i = 0; i < requiredMaterials.size(); i++) {
-				QuantifiedItemTypeWithMaterial requirement = construction.getRequirements().get(i);
-				GameMaterial material = requiredMaterials.get(i);
-				requirement.setMaterial(material);
-			}
-
+		boolean allMaterialsPopulated = construction.getRequirements().stream().allMatch(r -> r.getMaterial() != null);
+		if (allMaterialsPopulated) {
 			construction.setState(WAITING_FOR_RESOURCES);
 		}
 	}
@@ -264,11 +248,10 @@ public class ConstructionManager implements Updatable {
 			while (amountRequired > 0) {
 				Job haulingJobForNewAllocation = createNewIncomingHaulingAllocation(construction, requirement, amountRequired);
 				if (haulingJobForNewAllocation == null) {
-					if (amountRequired == requirement.getQuantity()) {
-						// None of this item available, go back to selecting materials
-						construction.setState(SELECTING_MATERIALS);
-						reselectMaterials(construction);
-					}
+					// Not enough of this material available, cancel material selection and go back to selecting materials
+					requirement.setMaterial(null);
+					construction.setState(SELECTING_MATERIALS);
+					populateRequirementMaterials(construction);
 					break;
 				} else {
 					messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, haulingJobForNewAllocation);

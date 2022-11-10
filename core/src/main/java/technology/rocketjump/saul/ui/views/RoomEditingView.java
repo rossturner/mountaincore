@@ -16,6 +16,8 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
+import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 import technology.rocketjump.saul.environment.model.GameSpeed;
@@ -280,6 +282,19 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 		if (selectedFurnitureType != null) {
 			mainTable.add(furnitureMaterialsWidget).center().expandX().row();
+
+			Entity furnitureEntity = furnitureMap.getByFurnitureType(selectedFurnitureType);
+			FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
+			furnitureMaterialsWidget.onMaterialSelection(material -> {
+				attributes.setMaterial(material);
+				messageDispatcher.dispatchMessage(MessageType.FURNITURE_MATERIAL_SELECTED);
+				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
+			});
+			furnitureMaterialsWidget.onMaterialTypeSelection(materialType -> {
+				attributes.setPrimaryMaterialType(materialType);
+				messageDispatcher.dispatchMessage(MessageType.FURNITURE_MATERIAL_SELECTED);
+				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
+			});
 		}
 	}
 

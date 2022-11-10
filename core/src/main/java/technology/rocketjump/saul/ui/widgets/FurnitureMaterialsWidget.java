@@ -9,7 +9,9 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
+import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.ItemAvailabilityChecker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -23,6 +25,7 @@ import technology.rocketjump.saul.ui.views.RoomEditorItemMap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Singleton
 public class FurnitureMaterialsWidget extends Table implements DisplaysText {
@@ -42,6 +45,8 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 
 	private final Table materialTypeSelection = new Table();
 	private final Table itemMaterialSelection = new Table();
+	private Consumer<GameMaterial> materialSelectionMade;
+	private Consumer<GameMaterialType> materialTypeSelectionMade;
 
 	@Inject
 	public FurnitureMaterialsWidget(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
@@ -134,19 +139,45 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 					newSelection.setItemType(requirement.getItemType());
 					newSelection.setMaterial(material);
 					otherMaterialSelections.add(newSelection);
+
+					if (this.materialSelectionMade != null) {
+						this.materialSelectionMade.accept(material);
+					}
 				}
 				this.materialSelections = otherMaterialSelections;
 
-				// TODO virtual placing room changed?
+				messageDispatcher.dispatchMessage(MessageType.FURNITURE_MATERIAL_SELECTED);
 			});
 
 			itemMaterialSelection.add(furnitureRequirementWidget);
 		}
 	}
 
+	public void onMaterialSelection(Consumer<GameMaterial> materialSelectionMade) {
+		this.materialSelectionMade = materialSelectionMade;
+	}
+
+	public void onMaterialTypeSelection(Consumer<GameMaterialType> materialTypeSelectionMade) {
+		this.materialTypeSelectionMade = materialTypeSelectionMade;
+	}
+
 	private void materialTypeChanged(GameMaterialType materialType) {
 		this.selectedMaterialType = materialType;
-
+		if (this.materialTypeSelectionMade != null) {
+			this.materialTypeSelectionMade.accept(materialType);
+		}
 		rebuildMaterialSelections();
+	}
+
+	public GameMaterialType getSelectedMaterialType() {
+		return selectedMaterialType;
+	}
+
+	public List<ItemTypeWithMaterial> getSelections() {
+		return materialSelections;
+	}
+
+	public FurnitureType getSelectedFurnitureType() {
+		return selectedFurnitureType;
 	}
 }
