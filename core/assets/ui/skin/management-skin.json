@@ -32,12 +32,20 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: header-font-36
 		fontColor: primary_font_colour_red
 	}
+	sort_by_label: {
+		font: default-font-23
+		fontColor: primary_font_colour_red
+	}
+	item_type_name_label: {
+		font: default-font-16
+		fontColor: primary_font_colour_red
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	search_bar_input: {
 		font: default-font-18
 		fontColor: white
-		background: search_bar
+		background: search_bar_v3.9
 		cursor: search_bar_cursor
 		selection: search_bar_selection
 	}

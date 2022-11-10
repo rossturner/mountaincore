@@ -302,6 +302,26 @@ atlasData: {
 			type: NINE_PATCH
 			hidden: false
 		}
+		{
+			file: C:/Users/miker/Desktop/nine-patch-work/search_bar_v3.9.9.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: search_bar_v3.9
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: NINE_PATCH
+			hidden: false
+		}
 	]
 	fontDrawables: []
 }
@@ -352,7 +372,63 @@ jsonData: {
 	freeTypeFonts: [
 		{
 			class: com.ray3k.skincomposer.data.FreeTypeFontData
+			name: default-font-16
+			previewTTF: IBMPlexSerif-Medium
+			useCustomSerializer: false
+			size: 16
+			mono: false
+			hinting: AutoMedium
+			color: null
+			gamma: 1.8
+			renderCount: 2
+			borderWidth: 0
+			borderColor: null
+			borderStraight: false
+			borderGamma: 1.8
+			shadowOffsetX: 0
+			shadowOffsetY: 0
+			shadowColor: null
+			spaceX: 0
+			spaceY: 0
+			characters: ""
+			kerning: true
+			flip: false
+			genMipMaps: false
+			minFilter: Nearest
+			magFilter: Nearest
+			incremental: false
+		}
+		{
+			class: com.ray3k.skincomposer.data.FreeTypeFontData
 			name: default-font-18
+			previewTTF: IBMPlexSerif-Medium
+			useCustomSerializer: false
+			size: 16
+			mono: false
+			hinting: AutoMedium
+			color: null
+			gamma: 1.8
+			renderCount: 2
+			borderWidth: 0
+			borderColor: null
+			borderStraight: false
+			borderGamma: 1.8
+			shadowOffsetX: 0
+			shadowOffsetY: 0
+			shadowColor: null
+			spaceX: 0
+			spaceY: 0
+			characters: ""
+			kerning: true
+			flip: false
+			genMipMaps: false
+			minFilter: Nearest
+			magFilter: Nearest
+			incremental: false
+		}
+		{
+			class: com.ray3k.skincomposer.data.FreeTypeFontData
+			name: default-font-23
 			previewTTF: IBMPlexSerif-Medium
 			useCustomSerializer: false
 			size: 16
@@ -1287,7 +1363,7 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: background
 						optional: true
-						value: search_bar
+						value: search_bar_v3.9
 					}
 					focusedBackground: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
@@ -1368,6 +1444,60 @@ jsonData: {
 						name: font
 						optional: false
 						value: header-font-36
+					}
+					fontColor: {
+						type: com.badlogic.gdx.graphics.Color
+						name: fontColor
+						optional: true
+						value: primary_font_colour_red
+					}
+					background: {
+						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+						name: background
+						optional: true
+						value: null
+					}
+				}
+				deletable: true
+				parent: null
+			}
+			{
+				class: com.ray3k.skincomposer.data.StyleData
+				name: sort_by_label
+				clazz: com.badlogic.gdx.scenes.scene2d.ui.Label
+				properties: {
+					font: {
+						type: com.badlogic.gdx.graphics.g2d.BitmapFont
+						name: font
+						optional: false
+						value: default-font-23
+					}
+					fontColor: {
+						type: com.badlogic.gdx.graphics.Color
+						name: fontColor
+						optional: true
+						value: primary_font_colour_red
+					}
+					background: {
+						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+						name: background
+						optional: true
+						value: null
+					}
+				}
+				deletable: true
+				parent: null
+			}
+			{
+				class: com.ray3k.skincomposer.data.StyleData
+				name: item_type_name_label
+				clazz: com.badlogic.gdx.scenes.scene2d.ui.Label
+				properties: {
+					font: {
+						type: com.badlogic.gdx.graphics.g2d.BitmapFont
+						name: font
+						optional: false
+						value: default-font-16
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color

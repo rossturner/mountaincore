@@ -20,6 +20,15 @@ search_bar
   orig: 89, 56
   offset: 0, 0
   index: -1
+search_bar_v3.9
+  rotate: false
+  xy: 2, 16
+  size: 89, 56
+  split: 25, 57, 0, 0
+  pad: 25, 57, 7, 7
+  orig: 89, 56
+  offset: 0, 0
+  index: -1
 vertical_scrollbar
   rotate: false
   xy: 474, 408

@@ -4,14 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
@@ -19,10 +24,15 @@ import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
+import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.GameDialog;
+import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 import static technology.rocketjump.saul.screens.ManagementScreenName.RESOURCES;
@@ -32,6 +42,8 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private final Stage stage;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
+	private final SettlementItemTracker settlementItemTracker;
+	private final EntityRenderer entityRenderer;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 	private final OrthographicCamera camera = new OrthographicCamera();
 	private final Skin menuSkin;
@@ -39,18 +51,13 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private final Skin managementSkin;
 
 	private StockpileGroup selectedStockpileGroup;
+	private final RandomXS128 random = new RandomXS128();
+	private final Drawable[] btnResourceItemVariants;
+	private final Table stockpileGroupComponents = new Table(); //to be cleared and repopulated on filter changes
 
 //	private static final float INDENT_WIDTH = 50f;
-//	private final SettlementItemTracker settlementItemTracker;
 //	private final StockpileGroupDictionary stockpileGroupDictionary;
 //	private final ClickableTableFactory clickableTableFactory;
-//
-//	private final Map<StockpileGroup, I18nLabel> groupLabels = new HashMap<>();
-//	private final EntityRenderer entityRenderer;
-//
-//	private final Table scrollableTable;
-//	private final ScrollPane scrollableTablePane;
-//
 //	private final Set<String> selectedRows = new HashSet<>();
 
 	@Inject
@@ -59,22 +66,19 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 									EntityRenderer entityRenderer, StockpileGroupDictionary stockpileGroupDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
+		this.settlementItemTracker = settlementItemTracker;
+		this.entityRenderer = entityRenderer;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.stage = new Stage(new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y));
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
-
-//		this.settlementItemTracker = settlementItemTracker;
-//		this.entityRenderer = entityRenderer;
-//		this.stockpileGroupDictionary = stockpileGroupDictionary;
-//
-//		for (StockpileGroup group : stockpileGroupDictionary.getAll()) {
-//			groupLabels.put(group, i18nWidgetFactory.createLabel(group.getI18nKey(), I18nWordClass.PLURAL));
-//		}
-//
-//		scrollableTable = new Table(uiSkin);
-//		scrollableTablePane = Scene2DUtils.wrapWithScrollPane(scrollableTable, uiSkin);
+		btnResourceItemVariants = new Drawable[]{
+				managementSkin.getDrawable("btn_resources_item_01"),
+				managementSkin.getDrawable("btn_resources_item_02"),
+				managementSkin.getDrawable("btn_resources_item_03"),
+				managementSkin.getDrawable("btn_resources_item_04")
+		};
 	}
 
 	@Override
@@ -176,6 +180,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				public void changed(ChangeEvent event, Actor actor) {
 					if (stockpileButton.isChecked()) {
 						selectedStockpileGroup = stockpileGroup;
+						rebuildStockpileComponents();
 					}
 				}
 			});
@@ -184,18 +189,11 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			stockpileGroupButtons.add(stockpileButton).padLeft(2f).padRight(2f);
 		}
 
-		Table filters = new Table();
-		Label stockpileGroupNameLabel = new Label(translate(selectedStockpileGroup.getI18nKey()), managementSkin, "stockpile_group_filter_label");
-		TextField searchBar = new TextField("", managementSkin, "search_bar_input");
-		searchBar.setMessageText(translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
-		filters.add(stockpileGroupNameLabel);
-		filters.add(searchBar).width(524);
-
 
 		Table mainTable = new Table();
 		mainTable.setBackground(managementSkin.getDrawable("accent_bg"));
 		mainTable.add(stockpileGroupButtons).row();
-		mainTable.add(filters).row();
+		mainTable.add(stockpileGroupComponents);
 
 
 		Table table = new Table();
@@ -204,30 +202,82 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		return table;
 	}
 
+	//When stockpile group selection changes, or any filter/sorts change below
+	private void rebuildStockpileComponents() {
+		stockpileGroupComponents.clearChildren();
+		Label stockpileGroupNameLabel = new Label(translate(selectedStockpileGroup.getI18nKey()), managementSkin, "stockpile_group_filter_label"); //probably should be scaled to fit label
+		TextField searchBar = new TextField("", managementSkin, "search_bar_input");
+		searchBar.setMessageText(translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
+		Label sortByLabel  = new Label(translate("GUI.RESOURCE_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
+
+		Table filters = new Table();
+		filters.add(stockpileGroupNameLabel);
+		filters.add(searchBar).width(524);
+		filters.add(sortByLabel);
+		//TODO: more sort by and filters
+		stockpileGroupComponents.add(filters).row();
+
+
+		Table itemsTable = new Table();
+		ScrollPane scrollPane = new EnhancedScrollPane(itemsTable, menuSkin);
+		scrollPane.setForceScroll(false, true);
+		scrollPane.setFadeScrollBars(false);
+		scrollPane.setScrollbarsVisible(true);
+		scrollPane.setScrollBarPositions(true, true);
+		stockpileGroupComponents.add(scrollPane).expandX().fill();
+
+		buildItemsTable(itemsTable);
+	}
+
+	private void buildItemsTable(Table itemsTable) {
+		Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> filteredByStockpileGroup = new LinkedHashMap<>();
+		Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> allByItemType = settlementItemTracker.getAllByItemType();
+		for (Map.Entry<ItemType, Map<GameMaterial, Map<Long, Entity>>> itemTypeMapEntry : allByItemType.entrySet()) {
+			StockpileGroup itemStockpileGroup = itemTypeMapEntry.getKey().getStockpileGroup();
+			if (itemStockpileGroup != null && itemStockpileGroup.equals(selectedStockpileGroup)) {
+				filteredByStockpileGroup.put(itemTypeMapEntry.getKey(), itemTypeMapEntry.getValue());
+			}
+		}
+
+
+		for (Map.Entry<ItemType, Map<GameMaterial, Map<Long, Entity>>> entry : filteredByStockpileGroup.entrySet()) {
+			ItemType itemType = entry.getKey();
+			Map<GameMaterial, Map<Long, Entity>> byGameMaterial = entry.getValue();
+
+			//column: Entity image, Text
+			Entity exampleEntity = byGameMaterial.values().iterator().next().values().iterator().next();
+			Drawable btnResourceItemBg = randomBtnResourceItemBg();
+			Button itemTypeButton = new Button(new EntityDrawable(
+					exampleEntity, entityRenderer, true, messageDispatcher
+			).withBackground(btnResourceItemBg));
+
+			Label itemTypeNameLabel = new ScaledToFitLabel(translate(itemType.getI18nKey()), managementSkin, "item_type_name_label", 205);
+			itemTypeNameLabel.setAlignment(Align.center);
+			Table itemTypeColumn = new Table();
+			itemTypeColumn.add(itemTypeButton).size(205).row();
+			itemTypeColumn.add(itemTypeNameLabel);
+
+			Table itemTypeTable = new Table();
+			itemTypeTable.add(itemTypeColumn);
+
+			/*
+			Column: Total Gold
+			column: total items
+			Column: available items
+			 */
+
+			itemsTable.add(itemTypeTable).padTop(44f).padBottom(50f).row();//todo: structure nicer for indent etc
+		}
+	}
+
+	private Drawable randomBtnResourceItemBg() {
+		return btnResourceItemVariants[random.nextInt(btnResourceItemVariants.length)];
+	}
+
 	private String translate(String key) {
 		return i18nTranslator.getTranslatedString(key).toString();
 	}
 
-//	@Override
-//	public void reset() {
-//		containerTable.clearChildren();
-//		containerTable.add(titleLabel).center().pad(5).row();
-//		scrollableTable.clearChildren();
-//
-//		Map<StockpileGroup, Map<ItemType, Map<GameMaterial, Map<Long, Entity>>>> itemsByGroupByType = new LinkedHashMap<>();
-//		Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> allByItemType = settlementItemTracker.getAllByItemType();
-//		for (Map.Entry<ItemType, Map<GameMaterial, Map<Long, Entity>>> itemTypeMapEntry : allByItemType.entrySet()) {
-//			if (itemTypeMapEntry.getKey().getStockpileGroup() != null) {
-//				itemsByGroupByType.computeIfAbsent(itemTypeMapEntry.getKey().getStockpileGroup(), a -> new LinkedHashMap<>())
-//						.put(itemTypeMapEntry.getKey(), itemTypeMapEntry.getValue());
-//			}
-//		}
-//
-//
-//		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll()) {
-//			if (itemsByGroupByType.containsKey(stockpileGroup)) {
-//				Table groupTable = new Table(uiSkin);
-//
 //				groupTable.add(groupLabels.get(stockpileGroup)).center().row();
 //
 //				Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> itemsByType = itemsByGroupByType.get(stockpileGroup);
@@ -287,9 +337,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 //
 //				}
 //				scrollableTable.add(groupTable).center().pad(5).row();
-//
-//			}
-//		}
 //
 //		containerTable.add(scrollableTablePane).pad(2);
 //	}
