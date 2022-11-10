@@ -591,6 +591,7 @@ GUI.PLACE_BRIDGE.HINT,This is a longer label as a hint to the player,A bridge mu
 GUI.PRIORITY_LABEL,This should be as short as possible,Priority
 GUI.REMOVE_LABEL,This should be as short as possible,Remove
 GUI.REMOVE_TILES,,Remove tiles
+GUI.RESOURCE_MANAGEMENT.SEARCH,,Search
 GUI.RESOURCE_MANAGEMENT.TITLE,,Resources
 GUI.RESOURCE_MANAGEMENT.UNALLOCATED_LABEL,,Available: {{count}}
 GUI.ROOFING.ADD,,Add

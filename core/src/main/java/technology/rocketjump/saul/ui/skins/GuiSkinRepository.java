@@ -95,6 +95,7 @@ public class GuiSkinRepository implements Telegraph {
 	public boolean fontChanged() {
 		reassignFonts(mainGameSkin, MAIN_GAME_SKIN_FILE_PATH);
 		reassignFonts(menuSkin, MENU_SKIN_FILE_PATH);
+		reassignFonts(managementSkin, MANAGEMENT_SKIN_FILE_PATH);
 
 		// All of the following is for the now defunct UI skin
 		BitmapFont bitmapFont = fontRepository.getDefaultFontForUI().getBitmapFont();

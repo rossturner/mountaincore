@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -35,6 +37,8 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private final Skin menuSkin;
 	private final Skin mainGameSkin;
 	private final Skin managementSkin;
+
+	private StockpileGroup selectedStockpileGroup;
 
 //	private static final float INDENT_WIDTH = 50f;
 //	private final SettlementItemTracker settlementItemTracker;
@@ -167,20 +171,36 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			ImageButton.ImageButtonStyle clonedStyle = new ImageButton.ImageButtonStyle(menuSkin.get("default", ImageButton.ImageButtonStyle.class));
 			clonedStyle.imageUp = mainGameSkin.getDrawable(drawableName);
 			ImageButton stockpileButton = new ImageButton(clonedStyle);
-
-			stockpileGroupButtons.add(stockpileButton).padLeft(2f).padRight(2f);
+			stockpileButton.addListener(new ChangeListener() {
+				@Override
+				public void changed(ChangeEvent event, Actor actor) {
+					if (stockpileButton.isChecked()) {
+						selectedStockpileGroup = stockpileGroup;
+					}
+				}
+			});
 
 			stockpileButtonGroup.add(stockpileButton);
+			stockpileGroupButtons.add(stockpileButton).padLeft(2f).padRight(2f);
 		}
+
+		Table filters = new Table();
+		Label stockpileGroupNameLabel = new Label(translate(selectedStockpileGroup.getI18nKey()), managementSkin, "stockpile_group_filter_label");
+		TextField searchBar = new TextField("", managementSkin, "search_bar_input");
+		searchBar.setMessageText(translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
+		filters.add(stockpileGroupNameLabel);
+		filters.add(searchBar).width(524);
 
 
 		Table mainTable = new Table();
 		mainTable.setBackground(managementSkin.getDrawable("accent_bg"));
 		mainTable.add(stockpileGroupButtons).row();
+		mainTable.add(filters).row();
+
 
 		Table table = new Table();
 		table.add(titleLabel).padTop(54f).row();
-		table.add(mainTable).padLeft(38f).padRight(38f).spaceTop(48f).grow();
+		table.add(mainTable).padLeft(38f).padRight(38f).spaceTop(48f).fill();
 		return table;
 	}
 

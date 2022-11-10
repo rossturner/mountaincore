@@ -1,13 +1,45 @@
 {
 com.badlogic.gdx.graphics.Color: {
+	primary_font_colour_red: {
+		hex: 913614ff
+	}
+	search_bar_selection_colour: {
+		hex: a44929ff
+	}
 	semi_transparent_accent_colour: {
 		hex: d7b17a3f
+	}
+	white: {
+		hex: ffffffff
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	accent_bg: {
 		name: white-pixel
 		color: semi_transparent_accent_colour
+	}
+	search_bar_cursor: {
+		name: white-pixel
+		color: white
+	}
+	search_bar_selection: {
+		name: white-pixel
+		color: search_bar_selection_colour
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	stockpile_group_filter_label: {
+		font: header-font-36
+		fontColor: primary_font_colour_red
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	search_bar_input: {
+		font: default-font-18
+		fontColor: white
+		background: search_bar
+		cursor: search_bar_cursor
+		selection: search_bar_selection
 	}
 }
 }
