@@ -5,10 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.RandomXS128;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -63,7 +60,8 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private final RandomXS128 random = new RandomXS128();
 	private final Drawable[] btnResourceItemVariants;
 	private final Map<ItemQuality, Drawable> qualityStars;
-	private final Table stockpileListing = new Table(); //to be cleared and repopulated on filter changes
+	private final ScrollPane scrollPane;
+//	private final Table stockpileListing = new Table(); //to be cleared and repopulated on filter changes
 
 
 	@Inject
@@ -92,7 +90,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				ItemQuality.SUPERIOR, managementSkin.getDrawable("asset_quality_star_04"),
 				ItemQuality.MASTERWORK, managementSkin.getDrawable("asset_quality_star_05")
 		);
-
+		scrollPane = new EnhancedScrollPane(null, menuSkin);
 	}
 
 	@Override
@@ -162,7 +160,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 		stage.addActor(stack);
 	}
-
 	//copied from PaperMenu
 	private Actor buildBackgroundBaseLayer() {
 		Table table = new Table();
@@ -199,6 +196,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 					if (stockpileButton.isChecked()) {
 						selectedStockpileGroup = stockpileGroup;
 						rebuildStockpileComponents();
+						//TODO Fill me
 					}
 				}
 			});
@@ -207,23 +205,16 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			stockpileButtons.add(stockpileButton).padLeft(2f).padRight(2f);
 		}
 
-
-		Table mainTable = new Table();
-		mainTable.add(stockpileButtons).row();
-		mainTable.add(stockpileListing).growX();
-
-
-		Table table = new Table();
-		table.add(titleLabel).padTop(54f).row();
-		table.add(mainTable).padLeft(38f).padRight(38f).spaceTop(48f).fill().growY();
-		return table;
-	}
-
-	//When stockpile group selection changes, or any filter/sorts change below
-	private void rebuildStockpileComponents() {
 		Label stockpileGroupNameLabel = new Label(translate(selectedStockpileGroup.getI18nKey()), managementSkin, "stockpile_group_filter_label"); //probably should be scaled to fit label
 		TextField searchBar = new TextField("", managementSkin, "search_bar_input");
 		searchBar.setMessageText(translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
+		searchBar.addListener(new InputListener() {
+			@Override
+			public boolean keyTyped(InputEvent event, char character) {
+
+				return true;
+			}
+		});
 		Label sortByLabel  = new Label(translate("GUI.RESOURCE_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
 
 		Button sortByTotal = buildTextSortButton("GUI.RESOURCE_MANAGEMENT.TOTAL");
@@ -243,37 +234,29 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		filters.add(sortByGold);
 		filters.add(sortByQuality);
 
-		ScrollPane scrollPane = new EnhancedScrollPane(buildItemsTable(), menuSkin);
+
 		scrollPane.setForceScroll(false, true);
 		scrollPane.setFadeScrollBars(false);
 		scrollPane.setScrollbarsVisible(true);
 		scrollPane.setScrollBarPositions(true, true);
 
-		stockpileListing.clearChildren();
-		stockpileListing.add(filters).growX().row();
-		stockpileListing.add(new Image(managementSkin.getDrawable("asset_resources_line"))).row();
-		stockpileListing.add(scrollPane).height(1426).grow();
+		Table mainTable = new Table();
+		mainTable.add(stockpileButtons).row();
+		mainTable.add(filters).growX().row();
+		mainTable.add(new Image(managementSkin.getDrawable("asset_resources_line"))).row();
+		mainTable.add(scrollPane).height(1426).grow();
+
+		Table table = new Table();
+		table.add(titleLabel).padTop(54f).row();
+		table.add(mainTable).padLeft(38f).padRight(38f).spaceTop(48f).fill().growY();
+		return table;
 	}
 
-	private Button buildIconSortButton(String drawableName) {
-		Image icon = new Image(managementSkin.getDrawable(drawableName));
-		ImageTextButton button = new ImageTextButton("", managementSkin, "sort_by_button");
-		button.defaults().padRight(9f);
-		button.add(icon);
-		Image image = button.getImage(); //Swap actors or cells doesn't work, absolute agony
-		button.removeActor(image);
-		button.add(image);
-		return button;
+	//When stockpile group selection changes, or any filter/sorts change below
+	private void rebuildStockpileComponents() {
+		scrollPane.setActor(buildItemsTable());
 	}
 
-	private Button buildTextSortButton(String i18nKey) {
-		ImageTextButton button = new ImageTextButton(translate(i18nKey), managementSkin, "sort_by_button");
-		button.defaults().padRight(9f);
-		Image image = button.getImage(); //Swap actors or cells doesn't work, absolute agony
-		button.removeActor(image);
-		button.add(image);
-		return button;
-	}
 
 	private Table buildItemsTable() {
 		Table itemsTable = new Table();
@@ -428,6 +411,28 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private String translate(String key) {
 		return i18nTranslator.getTranslatedString(key).toString();
 	}
+
+	private Button buildIconSortButton(String drawableName) {
+		Image icon = new Image(managementSkin.getDrawable(drawableName));
+		ImageTextButton button = new ImageTextButton("", managementSkin, "sort_by_button");
+		button.defaults().padRight(9f);
+		button.add(icon);
+		Image image = button.getImage(); //Swap actors or cells doesn't work, absolute agony
+		button.removeActor(image);
+		button.add(image);
+		return button;
+	}
+
+	private Button buildTextSortButton(String i18nKey) {
+		ImageTextButton button = new ImageTextButton(translate(i18nKey), managementSkin, "sort_by_button");
+		button.defaults().padRight(9f);
+		Image image = button.getImage(); //Swap actors or cells doesn't work, absolute agony
+		button.removeActor(image);
+		button.add(image);
+		return button;
+	}
+	
+	//TODO: do we want this still, some way to jump to the real world item
 //			clickableRow.setAction(() -> {
 //				Entity target = itemEntity;
 //				while (target.getLocationComponent().getContainerEntity() != null) {
