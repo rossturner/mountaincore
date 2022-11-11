@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.kotcrab.vis.ui.widget.CollapsibleWidget;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -63,10 +64,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private final Drawable[] btnResourceItemVariants;
 	private final Table stockpileListing = new Table(); //to be cleared and repopulated on filter changes
 
-//	private static final float INDENT_WIDTH = 50f;
-//	private final StockpileGroupDictionary stockpileGroupDictionary;
-//	private final ClickableTableFactory clickableTableFactory;
-//	private final Set<String> selectedRows = new HashSet<>();
 
 	@Inject
 	public ResourceManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
@@ -211,7 +208,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 	//When stockpile group selection changes, or any filter/sorts change below
 	private void rebuildStockpileComponents() {
-		stockpileListing.clearChildren();
 		Label stockpileGroupNameLabel = new Label(translate(selectedStockpileGroup.getI18nKey()), managementSkin, "stockpile_group_filter_label"); //probably should be scaled to fit label
 		TextField searchBar = new TextField("", managementSkin, "search_bar_input");
 		searchBar.setMessageText(translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
@@ -223,15 +219,17 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		filters.add(searchBar).width(524);
 		filters.add(sortByLabel);
 		//TODO: more sort by and filters
-		stockpileListing.add(filters).growX().row();
 
-		stockpileListing.add(new Image(managementSkin.getDrawable("asset_resources_line"))).row();
 
 		ScrollPane scrollPane = new EnhancedScrollPane(buildItemsTable(), menuSkin);
 		scrollPane.setForceScroll(false, true);
 		scrollPane.setFadeScrollBars(false);
 		scrollPane.setScrollbarsVisible(true);
 		scrollPane.setScrollBarPositions(true, true);
+
+		stockpileListing.clearChildren();
+		stockpileListing.add(filters).growX().row();
+		stockpileListing.add(new Image(managementSkin.getDrawable("asset_resources_line"))).row();
 		stockpileListing.add(scrollPane).grow();
 	}
 
@@ -248,10 +246,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			}
 		}
 
-
-		Tree<TableNode, Table> resourceTree = new Tree<>(managementSkin);
-		resourceTree.setYSpacing(50f);
-		resourceTree.setIndentSpacing(100f);
 
 		for (Map.Entry<ItemType, Map<GameMaterial, Map<Long, Entity>>> entry : filteredByStockpileGroup.entrySet()) {
 			ItemType itemType = entry.getKey();
@@ -284,40 +278,35 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			HorizontalGroup itemTypeQuantityGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalQuantity);
 			HorizontalGroup itemTypeAvailableGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.AVAILABLE", totalUnallocated);
 
-			Table itemTypeTable = new Table() {
-				@Override
-				public float getPrefWidth() {
-					return 1850;
-				}
-			};
+			Table itemTypeTable = new Table();
 			itemTypeTable.defaults().growX();
 			itemTypeTable.add(itemTypeColumn);
 			itemTypeTable.add(itemTypeGoldGroup);
 			itemTypeTable.add(itemTypeQuantityGroup);
 			itemTypeTable.add(itemTypeAvailableGroup);
+			itemTypeTable.row();
 
-			TableNode itemTypeNode = new TableNode(itemTypeTable);
-			resourceTree.add(itemTypeNode);
-			addMaterialAndQualityRows(itemTypeNode, byGameMaterial, itemType);
-
+			CollapsibleWidget collapsibleWidget = new CollapsibleWidget(addMaterialAndQualityRows(byGameMaterial, itemType));
+			collapsibleWidget.setCollapsed(true);
 			itemTypeTable.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-					itemTypeNode.setExpanded(!itemTypeNode.isExpanded());
+					//todo: show children
+					collapsibleWidget.setCollapsed(!collapsibleWidget.isCollapsed(), false);
 				}
 			});
 			itemTypeTable.setTouchable(Touchable.enabled);
 
-//			itemsTable.add(itemTypeTable).padTop(44f).padBottom(50f).row();//todo: structure nicer for indent etc
+			itemsTable.add(itemTypeTable).growX().padTop(40).padBottom(50).row();
+			itemsTable.add(collapsibleWidget).growX().row();
 		}
-
-		itemsTable.add(resourceTree).fillX();
-		itemsTable.debug();
 
 		return itemsTable;
 	}
 
-	private void addMaterialAndQualityRows(TableNode parent, Map<GameMaterial, Map<Long, Entity>> byGameMaterial, ItemType itemType) {
+	private Table addMaterialAndQualityRows(Map<GameMaterial, Map<Long, Entity>> byGameMaterial, ItemType itemType) {
+		Table nestedTable = new Table();
+		nestedTable.setFillParent(true);
 		//TODO: not keen on the maps of maps, makes this harder to read
 		for (GameMaterial material : byGameMaterial.keySet()) {
 			Map<ItemQuality,  Map<Long, Entity>> byItemQuality = new HashMap<>();
@@ -375,14 +364,10 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				itemTypeTable.add(itemTypeQuantityGroup);
 				itemTypeTable.add(itemTypeAvailableGroup);
 
-
-				parent.add(new TableNode(itemTypeTable));
+				nestedTable.add(itemTypeTable).padLeft(50f).padBottom(100f).growX().row();
 			}
-
 		}
-
-
-
+		return nestedTable;
 	}
 
 	private HorizontalGroup buildMeasureLabel(String i18nKey, int value) {
@@ -401,59 +386,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		return i18nTranslator.getTranslatedString(key).toString();
 	}
 
-	private static class TableNode extends Tree.Node<TableNode, Table, Table> {
-		public TableNode(Table actor) {
-			super(actor);
-		}
-	}
-
-//				groupTable.add(groupLabels.get(stockpileGroup)).center().row();
-//
-//				Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> itemsByType = itemsByGroupByType.get(stockpileGroup);
-//				for (Map.Entry<ItemType, Map<GameMaterial, Map<Long, Entity>>> itemTypeMapEntry : itemsByType.entrySet()) {
-//					String itemTypeRowName = "itemType:"+itemType.getItemTypeName();
-//
-//					addRowToTable(groupTable, firstEntity, itemTypeRowName, itemTypeDisplayName, totalUnallocated, totalQuantity, 0, false);
-//
-//
-//					if (selectedRows.contains(itemTypeRowName)) {
-//						for (Map.Entry<GameMaterial, Map<Long, Entity>> gameMaterialMapEntry : itemTypeMapEntry.getValue().entrySet()) {
-//							GameMaterial material = gameMaterialMapEntry.getKey();
-//							String materialRowName = itemTypeRowName + ":material:" + material.getMaterialName();
-//
-//							Entity firstMaterialEntity = gameMaterialMapEntry.getValue().values().iterator().next();
-//
-//							I18nText materialDescription = i18nTranslator.getItemDescription(1, material, itemType, null);
-//
-//							int totalMaterialQuantity = 0;
-//							int totalMaterialUnallocated = 0;
-//
-//							for (Entity itemEntity : gameMaterialMapEntry.getValue().values()) {
-//								ItemEntityAttributes attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();
-//								totalMaterialQuantity += attributes.getQuantity();
-//								totalMaterialUnallocated += itemEntity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated();
-//							}
-//
-//							addRowToTable(groupTable, firstMaterialEntity, materialRowName, materialDescription, totalMaterialUnallocated, totalMaterialQuantity, 1, false);
-//
-//							if (selectedRows.contains(materialRowName)) {
-//								for (Entity itemEntity : gameMaterialMapEntry.getValue().values()) {
-//									String entityRowName = materialRowName + ":" + itemEntity.getId();
-//
-//									ItemEntityAttributes attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();
-//
-//									addRowToTable(groupTable, itemEntity, entityRowName, i18nTranslator.getDescription(itemEntity), itemEntity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated(), attributes.getQuantity(), 2, true);
-//								}
-//
-//							}
-//						}
-//					}
-//
-//				}
-//				scrollableTable.add(groupTable).center().pad(5).row();
-//
-//		containerTable.add(scrollableTablePane).pad(2);
-//	}
 //
 //	private void addRowToTable(Table groupTable, Entity itemEntity, String rowName, I18nText displayName, int unallocated, int total, int indents, boolean clickToEntity) {
 //		Table rowContainerTable = new Table(uiSkin);
