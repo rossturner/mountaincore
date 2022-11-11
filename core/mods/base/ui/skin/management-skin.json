@@ -1,5 +1,8 @@
 {
 com.badlogic.gdx.graphics.Color: {
+	invisible: {
+		hex: ffffff00
+	}
 	primary_font_colour_red: {
 		hex: 913614ff
 	}
@@ -25,6 +28,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	search_bar_selection: {
 		name: white-pixel
 		color: search_bar_selection_colour
+	}
+	invisible_pixel: {
+		name: white-pixel
+		color: invisible
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
@@ -52,6 +59,12 @@ com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 		background: search_bar_v3.9
 		cursor: search_bar_cursor
 		selection: search_bar_selection
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
+	default: {
+		plus: invisible_pixel
+		minus: invisible_pixel
 	}
 }
 }

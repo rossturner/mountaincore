@@ -83,7 +83,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_quality_star.png
+			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_quality_star_01.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -342,11 +342,141 @@ atlasData: {
 			type: TEXTURE
 			hidden: false
 		}
+		{
+			file: null
+			bgColor: {
+				r: 0
+				g: 0
+				b: 0
+				a: 1
+			}
+			tint: null
+			tintName: invisible
+			name: invisible_pixel
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: PIXEL
+			hidden: false
+		}
+		{
+			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_quality_star_02.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: asset_quality_star_02
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_quality_star_03.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: asset_quality_star_03
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_quality_star_04.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: asset_quality_star_04
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_quality_star_05.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: asset_quality_star_05
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_resources_line.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: asset_resources_line
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
 	]
 	fontDrawables: []
 }
 jsonData: {
 	colors: [
+		{
+			class: com.ray3k.skincomposer.data.ColorData
+			color: {
+				r: 1
+				g: 1
+				b: 1
+				a: 0
+			}
+			name: invisible
+		}
 		{
 			class: com.ray3k.skincomposer.data.ColorData
 			color: {
@@ -2010,13 +2140,13 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: plus
 						optional: false
-						value: null
+						value: invisible_pixel
 					}
 					minus: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: minus
 						optional: false
-						value: null
+						value: invisible_pixel
 					}
 					plusOver: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable

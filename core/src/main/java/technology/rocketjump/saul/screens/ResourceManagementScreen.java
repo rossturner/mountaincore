@@ -6,15 +6,19 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
@@ -24,6 +28,7 @@ import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
@@ -33,6 +38,7 @@ import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -55,7 +61,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private StockpileGroup selectedStockpileGroup;
 	private final RandomXS128 random = new RandomXS128();
 	private final Drawable[] btnResourceItemVariants;
-	private final Table stockpileGroupComponents = new Table(); //to be cleared and repopulated on filter changes
+	private final Table stockpileListing = new Table(); //to be cleared and repopulated on filter changes
 
 //	private static final float INDENT_WIDTH = 50f;
 //	private final StockpileGroupDictionary stockpileGroupDictionary;
@@ -119,7 +125,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	public void resize(int width, int height) {
 		camera.setToOrtho(false, width, height);
 		stage.getViewport().update(width, height, true);
-		rebuildUI();
+//		rebuildUI();
 	}
 
 	@Override
@@ -151,7 +157,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		stack.setFillParent(true);
 
 		Table baseLayer = new Table();
-		baseLayer.debugAll();
 		baseLayer.setBackground(menuSkin.getDrawable("paper_texture_bg"));
 		baseLayer.add(new Image(menuSkin.getDrawable("paper_texture_bg_pattern_large"))).growY().padLeft(146.0f);
 		baseLayer.add(buildComponentLayer()).expandX();
@@ -169,7 +174,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		Label titleLabel = new Label(translate("GUI.RESOURCE_MANAGEMENT.TITLE"), menuSkin, "title_ribbon");
 		titleLabel.setAlignment(Align.center);
 
-		Table stockpileGroupButtons = new Table();
+		Table stockpileButtons = new Table();
 		//32 pad between buttons, 42 to the outer sides
 		ButtonGroup<ImageButton> stockpileButtonGroup = new ButtonGroup<>();
 		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll()) {
@@ -188,14 +193,14 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			});
 
 			stockpileButtonGroup.add(stockpileButton);
-			stockpileGroupButtons.add(stockpileButton).padLeft(2f).padRight(2f);
+			stockpileButtons.add(stockpileButton).padLeft(2f).padRight(2f);
 		}
 
 
 		Table mainTable = new Table();
 		mainTable.setBackground(managementSkin.getDrawable("accent_bg"));
-		mainTable.add(stockpileGroupButtons).row();
-		mainTable.add(stockpileGroupComponents);
+		mainTable.add(stockpileButtons).row(); //todo: pad left and right
+		mainTable.add(stockpileListing).growX();
 
 
 		Table table = new Table();
@@ -206,32 +211,34 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 	//When stockpile group selection changes, or any filter/sorts change below
 	private void rebuildStockpileComponents() {
-		stockpileGroupComponents.clearChildren();
+		stockpileListing.clearChildren();
 		Label stockpileGroupNameLabel = new Label(translate(selectedStockpileGroup.getI18nKey()), managementSkin, "stockpile_group_filter_label"); //probably should be scaled to fit label
 		TextField searchBar = new TextField("", managementSkin, "search_bar_input");
 		searchBar.setMessageText(translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
 		Label sortByLabel  = new Label(translate("GUI.RESOURCE_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
 
 		Table filters = new Table();
+		filters.defaults().growX();
 		filters.add(stockpileGroupNameLabel);
 		filters.add(searchBar).width(524);
 		filters.add(sortByLabel);
 		//TODO: more sort by and filters
-		stockpileGroupComponents.add(filters).row();
+		stockpileListing.add(filters).growX().row();
 
+		stockpileListing.add(new Image(managementSkin.getDrawable("asset_resources_line"))).row();
 
-		Table itemsTable = new Table();
-		ScrollPane scrollPane = new EnhancedScrollPane(itemsTable, menuSkin);
+		ScrollPane scrollPane = new EnhancedScrollPane(buildItemsTable(), menuSkin);
 		scrollPane.setForceScroll(false, true);
 		scrollPane.setFadeScrollBars(false);
 		scrollPane.setScrollbarsVisible(true);
 		scrollPane.setScrollBarPositions(true, true);
-		stockpileGroupComponents.add(scrollPane).expandX().fill();
-
-		buildItemsTable(itemsTable);
+		stockpileListing.add(scrollPane).grow();
 	}
 
-	private void buildItemsTable(Table itemsTable) {
+	private Table buildItemsTable() {
+		Table itemsTable = new Table();
+
+
 		Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> filteredByStockpileGroup = new LinkedHashMap<>();
 		Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> allByItemType = settlementItemTracker.getAllByItemType();
 		for (Map.Entry<ItemType, Map<GameMaterial, Map<Long, Entity>>> itemTypeMapEntry : allByItemType.entrySet()) {
@@ -241,6 +248,10 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			}
 		}
 
+
+		Tree<TableNode, Table> resourceTree = new Tree<>(managementSkin);
+		resourceTree.setYSpacing(50f);
+		resourceTree.setIndentSpacing(100f);
 
 		for (Map.Entry<ItemType, Map<GameMaterial, Map<Long, Entity>>> entry : filteredByStockpileGroup.entrySet()) {
 			ItemType itemType = entry.getKey();
@@ -273,14 +284,105 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			HorizontalGroup itemTypeQuantityGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalQuantity);
 			HorizontalGroup itemTypeAvailableGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.AVAILABLE", totalUnallocated);
 
-			Table itemTypeTable = new Table();
+			Table itemTypeTable = new Table() {
+				@Override
+				public float getPrefWidth() {
+					return 1850;
+				}
+			};
+			itemTypeTable.defaults().growX();
 			itemTypeTable.add(itemTypeColumn);
 			itemTypeTable.add(itemTypeGoldGroup);
 			itemTypeTable.add(itemTypeQuantityGroup);
 			itemTypeTable.add(itemTypeAvailableGroup);
 
-			itemsTable.add(itemTypeTable).padTop(44f).padBottom(50f).row();//todo: structure nicer for indent etc
+			TableNode itemTypeNode = new TableNode(itemTypeTable);
+			resourceTree.add(itemTypeNode);
+			addMaterialAndQualityRows(itemTypeNode, byGameMaterial, itemType);
+
+			itemTypeTable.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					itemTypeNode.setExpanded(!itemTypeNode.isExpanded());
+				}
+			});
+			itemTypeTable.setTouchable(Touchable.enabled);
+
+//			itemsTable.add(itemTypeTable).padTop(44f).padBottom(50f).row();//todo: structure nicer for indent etc
 		}
+
+		itemsTable.add(resourceTree).fillX();
+		itemsTable.debug();
+
+		return itemsTable;
+	}
+
+	private void addMaterialAndQualityRows(TableNode parent, Map<GameMaterial, Map<Long, Entity>> byGameMaterial, ItemType itemType) {
+		//TODO: not keen on the maps of maps, makes this harder to read
+		for (GameMaterial material : byGameMaterial.keySet()) {
+			Map<ItemQuality,  Map<Long, Entity>> byItemQuality = new HashMap<>();
+			for (Entity entity : byGameMaterial.get(material).values()) {
+				ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+				if (!byItemQuality.containsKey(attributes.getItemQuality())) {
+					byItemQuality.put(attributes.getItemQuality(), new HashMap<>());
+				}
+				byItemQuality.get(attributes.getItemQuality()).put(entity.getId(), entity);
+			}
+
+			for (Map.Entry<ItemQuality, Map<Long, Entity>> entry : byItemQuality.entrySet()) {
+				//TODO: mostly a copy and paste
+				int totalGold = 0;
+				int totalQuantity = 0;
+				int totalUnallocated = 0;
+				Entity exampleEntity = null;
+				for (Entity entity : entry.getValue().values()) {
+					exampleEntity = entity;
+					ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+					totalQuantity += attributes.getQuantity();
+					totalUnallocated += entity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated();
+				}
+
+				Drawable btnResourceItemBg = randomBtnResourceItemBg();
+				Button itemTypeButton = new Button(new EntityDrawable(
+						exampleEntity, entityRenderer, true, messageDispatcher
+				).withBackground(btnResourceItemBg));
+
+
+				I18nText materialDescription = i18nTranslator.getItemDescription(1, material, itemType, null);
+
+				Label itemTypeNameLabel = new ScaledToFitLabel(materialDescription.toString(), managementSkin, "item_type_name_label", 205);
+				itemTypeNameLabel.setAlignment(Align.center);
+				Table itemTypeColumn = new Table();
+				itemTypeColumn.add(itemTypeButton).size(205).row();
+				itemTypeColumn.add(itemTypeNameLabel);
+
+				HorizontalGroup itemTypeGoldGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalGold);
+				itemTypeGoldGroup.addActorAt(1, new Image(managementSkin, "icon_coin"));
+				itemTypeGoldGroup.removeActorAt(0, false);//fudge to remove the Total
+				HorizontalGroup itemTypeQuantityGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalQuantity);
+				HorizontalGroup itemTypeAvailableGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.AVAILABLE", totalUnallocated);
+
+				Table itemTypeTable = new Table() {
+					@Override
+					public float getPrefWidth() {
+						return 1850; //dirty hack due to bug in tree not growing width
+					}
+				};
+				itemTypeTable.defaults().growX();
+				itemTypeTable.add(itemTypeColumn);
+				//todo: quality column
+				itemTypeTable.add(itemTypeGoldGroup);
+				itemTypeTable.add(itemTypeQuantityGroup);
+				itemTypeTable.add(itemTypeAvailableGroup);
+
+
+				parent.add(new TableNode(itemTypeTable));
+			}
+
+		}
+
+
+
 	}
 
 	private HorizontalGroup buildMeasureLabel(String i18nKey, int value) {
@@ -299,18 +401,17 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		return i18nTranslator.getTranslatedString(key).toString();
 	}
 
+	private static class TableNode extends Tree.Node<TableNode, Table, Table> {
+		public TableNode(Table actor) {
+			super(actor);
+		}
+	}
+
 //				groupTable.add(groupLabels.get(stockpileGroup)).center().row();
 //
 //				Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> itemsByType = itemsByGroupByType.get(stockpileGroup);
 //				for (Map.Entry<ItemType, Map<GameMaterial, Map<Long, Entity>>> itemTypeMapEntry : itemsByType.entrySet()) {
-//					ItemType itemType = itemTypeMapEntry.getKey();
 //					String itemTypeRowName = "itemType:"+itemType.getItemTypeName();
-//
-//					Entity firstEntity = itemTypeMapEntry.getValue().values().iterator().next().values().iterator().next();
-//
-
-//
-//					I18nText itemTypeDisplayName = i18nTranslator.getTranslatedString(itemType.getI18nKey());
 //
 //					addRowToTable(groupTable, firstEntity, itemTypeRowName, itemTypeDisplayName, totalUnallocated, totalQuantity, 0, false);
 //
