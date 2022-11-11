@@ -62,6 +62,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private StockpileGroup selectedStockpileGroup;
 	private final RandomXS128 random = new RandomXS128();
 	private final Drawable[] btnResourceItemVariants;
+	private final Map<ItemQuality, Drawable> qualityStars;
 	private final Table stockpileListing = new Table(); //to be cleared and repopulated on filter changes
 
 
@@ -84,6 +85,14 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				managementSkin.getDrawable("btn_resources_item_03"),
 				managementSkin.getDrawable("btn_resources_item_04")
 		};
+		this.qualityStars = Map.of(
+				ItemQuality.AWFUL, managementSkin.getDrawable("asset_quality_star_01"),
+				ItemQuality.POOR, managementSkin.getDrawable("asset_quality_star_02"),
+				ItemQuality.STANDARD, managementSkin.getDrawable("asset_quality_star_03"),
+				ItemQuality.SUPERIOR, managementSkin.getDrawable("asset_quality_star_04"),
+				ItemQuality.MASTERWORK, managementSkin.getDrawable("asset_quality_star_05")
+		);
+
 	}
 
 	@Override
@@ -105,9 +114,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		inputMultiplexer.addProcessor(stage);
 		inputMultiplexer.addProcessor(new ManagementScreenInputHandler(messageDispatcher));
 		Gdx.input.setInputProcessor(inputMultiplexer);
-
-		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); //TODO: should this resize?
-
 		rebuildUI();
 	}
 
@@ -122,7 +128,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	public void resize(int width, int height) {
 		camera.setToOrtho(false, width, height);
 		stage.getViewport().update(width, height, true);
-//		rebuildUI();
 	}
 
 	@Override
@@ -152,27 +157,36 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	public void rebuildUI() {
 		Stack stack = new Stack();
 		stack.setFillParent(true);
-
-		Table baseLayer = new Table();
-		baseLayer.setBackground(menuSkin.getDrawable("paper_texture_bg"));
-		baseLayer.add(new Image(menuSkin.getDrawable("paper_texture_bg_pattern_large"))).growY().padLeft(146.0f);
-		baseLayer.add(buildComponentLayer()).expandX();
-		baseLayer.add(new Image(menuSkin.getDrawable("paper_texture_bg_pattern_large"))).growY().padRight(146.0f);
-
-
-		Table baseLayerWrapper = new Table();
-		baseLayerWrapper.add(baseLayer).width(2354f);
-		stack.add(baseLayerWrapper);
+		stack.add(buildBackgroundBaseLayer());
+		stack.add(buildPaperLayer());
 
 		stage.addActor(stack);
 	}
 
-	private Table buildComponentLayer() {
+	//copied from PaperMenu
+	private Actor buildBackgroundBaseLayer() {
+		Table table = new Table();
+		table.setName("backgroundBase");
+		table.add(new Image(menuSkin.getDrawable("menu_bg_left"))).left();
+		table.add().expandX();
+		table.add(new Image(menuSkin.getDrawable("menu_bg_right"))).right();
+		return table;
+	}
+
+	private Table buildPaperLayer() {
+		Table baseLayer = new Table();
+		baseLayer.setBackground(menuSkin.getDrawable("paper_texture_bg"));
+		baseLayer.add(new Image(menuSkin.getDrawable("paper_texture_bg_pattern_large"))).growY().padLeft(257);
+		baseLayer.add(buildPaperComponents()).expandX();
+		baseLayer.add(new Image(menuSkin.getDrawable("paper_texture_bg_pattern_large"))).growY().padRight(257);
+		return baseLayer;
+	}
+
+	private Table buildPaperComponents() {
 		Label titleLabel = new Label(translate("GUI.RESOURCE_MANAGEMENT.TITLE"), menuSkin, "title_ribbon");
 		titleLabel.setAlignment(Align.center);
 
 		Table stockpileButtons = new Table();
-		//32 pad between buttons, 42 to the outer sides
 		ButtonGroup<ImageButton> stockpileButtonGroup = new ButtonGroup<>();
 		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll()) {
 			String drawableName = stockpileGroup.getDrawableName();
@@ -195,14 +209,13 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 
 		Table mainTable = new Table();
-		mainTable.setBackground(managementSkin.getDrawable("accent_bg"));
-		mainTable.add(stockpileButtons).row(); //todo: pad left and right
+		mainTable.add(stockpileButtons).row();
 		mainTable.add(stockpileListing).growX();
 
 
 		Table table = new Table();
 		table.add(titleLabel).padTop(54f).row();
-		table.add(mainTable).padLeft(38f).padRight(38f).spaceTop(48f).fill();
+		table.add(mainTable).padLeft(38f).padRight(38f).spaceTop(48f).fill().growY();
 		return table;
 	}
 
@@ -213,13 +226,22 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		searchBar.setMessageText(translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
 		Label sortByLabel  = new Label(translate("GUI.RESOURCE_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
 
+		Button sortByTotal = buildTextSortButton("GUI.RESOURCE_MANAGEMENT.TOTAL");
+		Button sortByAvailability = buildTextSortButton("GUI.RESOURCE_MANAGEMENT.AVAILABLE");
+		Button sortByGold = buildIconSortButton("icon_coin");
+		Button sortByQuality = buildIconSortButton("asset_quality_star_01");
+		ButtonGroup<Button> buttonGroup = new ButtonGroup<>(sortByTotal, sortByAvailability, sortByGold, sortByQuality);
+		buttonGroup.setMinCheckCount(0);
+
 		Table filters = new Table();
 		filters.defaults().growX();
 		filters.add(stockpileGroupNameLabel);
 		filters.add(searchBar).width(524);
 		filters.add(sortByLabel);
-		//TODO: more sort by and filters
-
+		filters.add(sortByTotal);
+		filters.add(sortByAvailability);
+		filters.add(sortByGold);
+		filters.add(sortByQuality);
 
 		ScrollPane scrollPane = new EnhancedScrollPane(buildItemsTable(), menuSkin);
 		scrollPane.setForceScroll(false, true);
@@ -230,12 +252,32 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		stockpileListing.clearChildren();
 		stockpileListing.add(filters).growX().row();
 		stockpileListing.add(new Image(managementSkin.getDrawable("asset_resources_line"))).row();
-		stockpileListing.add(scrollPane).grow();
+		stockpileListing.add(scrollPane).height(1426).grow();
+	}
+
+	private Button buildIconSortButton(String drawableName) {
+		Image icon = new Image(managementSkin.getDrawable(drawableName));
+		ImageTextButton button = new ImageTextButton("", managementSkin, "sort_by_button");
+		button.defaults().padRight(9f);
+		button.add(icon);
+		Image image = button.getImage(); //Swap actors or cells doesn't work, absolute agony
+		button.removeActor(image);
+		button.add(image);
+		return button;
+	}
+
+	private Button buildTextSortButton(String i18nKey) {
+		ImageTextButton button = new ImageTextButton(translate(i18nKey), managementSkin, "sort_by_button");
+		button.defaults().padRight(9f);
+		Image image = button.getImage(); //Swap actors or cells doesn't work, absolute agony
+		button.removeActor(image);
+		button.add(image);
+		return button;
 	}
 
 	private Table buildItemsTable() {
 		Table itemsTable = new Table();
-
+		itemsTable.align(Align.top);
 
 		Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> filteredByStockpileGroup = new LinkedHashMap<>();
 		Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> allByItemType = settlementItemTracker.getAllByItemType();
@@ -291,7 +333,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			itemTypeTable.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-					//todo: show children
 					collapsibleWidget.setCollapsed(!collapsibleWidget.isCollapsed(), false);
 				}
 			});
@@ -299,6 +340,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 			itemsTable.add(itemTypeTable).growX().padTop(40).padBottom(50).row();
 			itemsTable.add(collapsibleWidget).growX().row();
+			itemsTable.debug();
 		}
 
 		return itemsTable;
@@ -345,25 +387,26 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				itemTypeColumn.add(itemTypeButton).size(205).row();
 				itemTypeColumn.add(itemTypeNameLabel);
 
+				Image qualityImage = new Image(qualityStars.get(entry.getKey()));
+//				qualityImage.setWidth(192);
+//				qualityImage.setHeight(92);
+
 				HorizontalGroup itemTypeGoldGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalGold);
 				itemTypeGoldGroup.addActorAt(1, new Image(managementSkin, "icon_coin"));
 				itemTypeGoldGroup.removeActorAt(0, false);//fudge to remove the Total
 				HorizontalGroup itemTypeQuantityGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalQuantity);
 				HorizontalGroup itemTypeAvailableGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.AVAILABLE", totalUnallocated);
 
-				Table itemTypeTable = new Table() {
-					@Override
-					public float getPrefWidth() {
-						return 1850; //dirty hack due to bug in tree not growing width
-					}
-				};
+				Table itemTypeTable = new Table();
 				itemTypeTable.defaults().growX();
 				itemTypeTable.add(itemTypeColumn);
-				//todo: quality column
+				itemTypeTable.add(qualityImage).fill(false, false);
 				itemTypeTable.add(itemTypeGoldGroup);
 				itemTypeTable.add(itemTypeQuantityGroup);
 				itemTypeTable.add(itemTypeAvailableGroup);
 
+//				todo: add hover accent
+//				mainTable.setBackground(managementSkin.getDrawable("accent_bg"));
 				nestedTable.add(itemTypeTable).padLeft(50f).padBottom(100f).growX().row();
 			}
 		}
@@ -385,18 +428,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private String translate(String key) {
 		return i18nTranslator.getTranslatedString(key).toString();
 	}
-
-//
-//	private void addRowToTable(Table groupTable, Entity itemEntity, String rowName, I18nText displayName, int unallocated, int total, int indents, boolean clickToEntity) {
-//		Table rowContainerTable = new Table(uiSkin);
-//		if (indents > 0) {
-//			rowContainerTable.add(new Container<>()).width(indents * INDENT_WIDTH);
-//		}
-//
-//		ClickableTable clickableRow = clickableTableFactory.create();
-//		clickableRow.setBackground("default-rect");
-//		clickableRow.pad(2);
-//		if (clickToEntity) {
 //			clickableRow.setAction(() -> {
 //				Entity target = itemEntity;
 //				while (target.getLocationComponent().getContainerEntity() != null) {
@@ -412,32 +443,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 //					Logger.error("Attempting to move to entity with no position or container");
 //				}
 //			});
-//		} else {
-//			clickableRow.setAction(() -> {
-//				if (selectedRows.contains(rowName)) {
-//					selectedRows.remove(rowName);
-//				} else {
-//					selectedRows.add(rowName);
-//				}
-//				reset();
-//			});
-//		}
-//
-//		EntityDrawable materialDrawable = new EntityDrawable(itemEntity, entityRenderer, false, messageDispatcher);
-//		clickableRow.add(new Image(materialDrawable)).center().width(80).pad(5);
-//
-//		clickableRow.add(new I18nTextWidget(displayName, uiSkin, messageDispatcher)).left().width(400f - (indents * INDENT_WIDTH)).pad(2);
-//
-//		clickableRow.add(new I18nTextWidget(i18nTranslator.getTranslatedWordWithReplacements(
-//				"GUI.RESOURCE_MANAGEMENT.UNALLOCATED_LABEL", ImmutableMap.of("count", new I18nWord(String.valueOf(unallocated)))), uiSkin, messageDispatcher)
-//		).center().width(100);
-//		clickableRow.add(new I18nTextWidget(i18nTranslator.getTranslatedWordWithReplacements(
-//				"GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL", ImmutableMap.of("count", new I18nWord(String.valueOf(total)))), uiSkin, messageDispatcher)
-//		).center().width(100);
-//
-//		rowContainerTable.add(clickableRow);
-//		groupTable.add(rowContainerTable).right().row();
-//	}
 
 
 }
