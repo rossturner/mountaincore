@@ -17,16 +17,13 @@ import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
-import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
-import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
-import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
@@ -36,9 +33,12 @@ import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 import static technology.rocketjump.saul.screens.ManagementScreenName.RESOURCES;
@@ -55,14 +55,14 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private final Skin menuSkin;
 	private final Skin mainGameSkin;
 	private final Skin managementSkin;
-
-	private StockpileGroup selectedStockpileGroup;
 	private final RandomXS128 random = new RandomXS128();
 	private final Drawable[] btnResourceItemVariants;
 	private final Map<ItemQuality, Drawable> qualityStars;
 	private final ScrollPane scrollPane;
-//	private final Table stockpileListing = new Table(); //to be cleared and repopulated on filter changes
 
+	private StockpileGroup selectedStockpileGroup;
+	private Label stockpileGroupNameLabel;
+	private String searchBarText = "";
 
 	@Inject
 	public ResourceManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
@@ -183,6 +183,8 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		Label titleLabel = new Label(translate("GUI.RESOURCE_MANAGEMENT.TITLE"), menuSkin, "title_ribbon");
 		titleLabel.setAlignment(Align.center);
 
+		stockpileGroupNameLabel = new Label("", managementSkin, "stockpile_group_filter_label"); //probably should be scaled to fit label
+
 		Table stockpileButtons = new Table();
 		ButtonGroup<ImageButton> stockpileButtonGroup = new ButtonGroup<>();
 		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll()) {
@@ -196,7 +198,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 					if (stockpileButton.isChecked()) {
 						selectedStockpileGroup = stockpileGroup;
 						rebuildStockpileComponents();
-						//TODO Fill me
 					}
 				}
 			});
@@ -205,13 +206,14 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			stockpileButtons.add(stockpileButton).padLeft(2f).padRight(2f);
 		}
 
-		Label stockpileGroupNameLabel = new Label(translate(selectedStockpileGroup.getI18nKey()), managementSkin, "stockpile_group_filter_label"); //probably should be scaled to fit label
+
 		TextField searchBar = new TextField("", managementSkin, "search_bar_input");
 		searchBar.setMessageText(translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
 		searchBar.addListener(new InputListener() {
 			@Override
 			public boolean keyTyped(InputEvent event, char character) {
-
+				searchBarText = searchBar.getText();
+				rebuildStockpileComponents();
 				return true;
 			}
 		});
@@ -254,103 +256,72 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 	//When stockpile group selection changes, or any filter/sorts change below
 	private void rebuildStockpileComponents() {
+		stockpileGroupNameLabel.setText(translate(selectedStockpileGroup.getI18nKey()));
 		scrollPane.setActor(buildItemsTable());
 	}
-
 
 	private Table buildItemsTable() {
 		Table itemsTable = new Table();
 		itemsTable.align(Align.top);
 
-		Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> filteredByStockpileGroup = new LinkedHashMap<>();
-		Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> allByItemType = settlementItemTracker.getAllByItemType();
-		for (Map.Entry<ItemType, Map<GameMaterial, Map<Long, Entity>>> itemTypeMapEntry : allByItemType.entrySet()) {
-			StockpileGroup itemStockpileGroup = itemTypeMapEntry.getKey().getStockpileGroup();
-			if (itemStockpileGroup != null && itemStockpileGroup.equals(selectedStockpileGroup)) {
-				filteredByStockpileGroup.put(itemTypeMapEntry.getKey(), itemTypeMapEntry.getValue());
-			}
-		}
+		//TODO: could add filters to here
+		Set<Entity> allEntities = settlementItemTracker.getAllByItemType()
+				.values().stream()
+				.flatMap(it -> it.values().stream())
+				.flatMap(it -> it.values().stream())
+				.collect(Collectors.toSet());
 
 
-		for (Map.Entry<ItemType, Map<GameMaterial, Map<Long, Entity>>> entry : filteredByStockpileGroup.entrySet()) {
-			ItemType itemType = entry.getKey();
-			Map<GameMaterial, Map<Long, Entity>> byGameMaterial = entry.getValue();
-			int totalQuantity = 0;
-			int totalUnallocated = 0;
-			int totalGold = 0; //todo: semi yagni, fill me when we do trading
-			for (Map<Long, Entity> entityMap : byGameMaterial.values()) {
-				for (Entity itemEntity : entityMap.values()) {
-					ItemEntityAttributes attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();
-					totalQuantity += attributes.getQuantity();
-					totalUnallocated += itemEntity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated();
-				}
-			}
+		Function<Entity, String> levelOneDisplayName = entity -> {
+			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+			return i18nTranslator.getTranslatedString(attributes.getItemType().getI18nKey()).toString();
+		};
 
-			Entity exampleEntity = byGameMaterial.values().iterator().next().values().iterator().next();
-			Drawable btnResourceItemBg = randomBtnResourceItemBg();
-			Button itemTypeButton = new Button(new EntityDrawable(
-					exampleEntity, entityRenderer, true, messageDispatcher
-			).withBackground(btnResourceItemBg));
+		Function<Entity, String> levelTwoDisplayName = entity -> {
+			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+			return i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), null).toString();
+		};
 
-			Label itemTypeNameLabel = new ScaledToFitLabel(translate(itemType.getI18nKey()), managementSkin, "item_type_name_label", 205);
-			itemTypeNameLabel.setAlignment(Align.center);
-			Table itemTypeColumn = new Table();
-			itemTypeColumn.add(itemTypeButton).size(205).row();
-			itemTypeColumn.add(itemTypeNameLabel);
+		Function<Entity, String> levelThreeDisplayName = entity -> {
+			return i18nTranslator.getDescription(entity).toString();
+		};
 
-			HorizontalGroup itemTypeGoldGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalGold);
-			itemTypeGoldGroup.addActorAt(1, new Image(managementSkin, "icon_coin"));
-			HorizontalGroup itemTypeQuantityGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalQuantity);
-			HorizontalGroup itemTypeAvailableGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.AVAILABLE", totalUnallocated);
+		Function<Entity, String> levelOneGroup = entity -> {
+			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+			return attributes.getItemType().getItemTypeName();
+		};
 
-			Table itemTypeTable = new Table();
-			itemTypeTable.defaults().growX();
-			itemTypeTable.add(itemTypeColumn);
-			itemTypeTable.add(itemTypeGoldGroup);
-			itemTypeTable.add(itemTypeQuantityGroup);
-			itemTypeTable.add(itemTypeAvailableGroup);
-			itemTypeTable.row();
+		Function<Entity, String> levelTwoGroup = entity -> {
+			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+			return levelOneGroup.apply(entity) + ":" + attributes.getPrimaryMaterial().getMaterialName() + ":" + attributes.getItemQuality();
+		};
 
-			CollapsibleWidget collapsibleWidget = new CollapsibleWidget(addMaterialAndQualityRows(byGameMaterial, itemType));
-			collapsibleWidget.setCollapsed(true);
-			itemTypeTable.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					collapsibleWidget.setCollapsed(!collapsibleWidget.isCollapsed(), false);
-				}
-			});
-			itemTypeTable.setTouchable(Touchable.enabled);
+		Function<Entity, String> levelThreeGroup = entity -> {
+			return levelTwoGroup.apply(entity) + ":" + entity.getId();
+		};
 
-			itemsTable.add(itemTypeTable).growX().padTop(40).padBottom(50).row();
-			itemsTable.add(collapsibleWidget).growX().row();
-			itemsTable.debug();
-		}
+		List<Function<Entity, String>> groupings = List.of(levelOneGroup, levelTwoGroup, levelThreeGroup);
+		List<Function<Entity, String>> displayNameFunctions = List.of(levelOneDisplayName, levelTwoDisplayName, levelThreeDisplayName);
+
+		recursivelyAdd(itemsTable, allEntities, groupings, 0, displayNameFunctions);
 
 		return itemsTable;
 	}
 
-	private Table addMaterialAndQualityRows(Map<GameMaterial, Map<Long, Entity>> byGameMaterial, ItemType itemType) {
-		Table nestedTable = new Table();
-		nestedTable.setFillParent(true);
-		//TODO: not keen on the maps of maps, makes this harder to read
-		for (GameMaterial material : byGameMaterial.keySet()) {
-			Map<ItemQuality,  Map<Long, Entity>> byItemQuality = new HashMap<>();
-			for (Entity entity : byGameMaterial.get(material).values()) {
-				ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-				if (!byItemQuality.containsKey(attributes.getItemQuality())) {
-					byItemQuality.put(attributes.getItemQuality(), new HashMap<>());
-				}
-				byItemQuality.get(attributes.getItemQuality()).put(entity.getId(), entity);
-			}
+	private void recursivelyAdd(Table parent, Collection<Entity> allEntities, List<Function<Entity, String>> groupings, int groupingIndex, List<Function<Entity, String>> displayNameFunctions) {
+		if (groupingIndex == groupings.size()) {
 
-			for (Map.Entry<ItemQuality, Map<Long, Entity>> entry : byItemQuality.entrySet()) {
-				//TODO: mostly a copy and paste
-				int totalGold = 0;
+		} else {
+			Function<Entity, String> displayNameFunction = displayNameFunctions.get(groupingIndex);
+			Function<Entity, String> groupFunction = groupings.get(groupingIndex);
+			Map<String, List<Entity>> groupedEntities = allEntities.stream().collect(Collectors.groupingBy(groupFunction));
+			for (List<Entity> group : groupedEntities.values()) {
+				//aggregate stats
 				int totalQuantity = 0;
 				int totalUnallocated = 0;
-				Entity exampleEntity = null;
-				for (Entity entity : entry.getValue().values()) {
-					exampleEntity = entity;
+				int totalGold = 0; //todo: semi yagni, fill me when we do trading
+				Entity exampleEntity = group.get(0);
+				for (Entity entity : group) {
 					ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 					totalQuantity += attributes.getQuantity();
 					totalUnallocated += entity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated();
@@ -361,39 +332,56 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 						exampleEntity, entityRenderer, true, messageDispatcher
 				).withBackground(btnResourceItemBg));
 
-
-				I18nText materialDescription = i18nTranslator.getItemDescription(1, material, itemType, null);
-
-				Label itemTypeNameLabel = new ScaledToFitLabel(materialDescription.toString(), managementSkin, "item_type_name_label", 205);
+				Label itemTypeNameLabel = new ScaledToFitLabel(displayNameFunction.apply(exampleEntity), managementSkin, "item_type_name_label", 250);
 				itemTypeNameLabel.setAlignment(Align.center);
 				Table itemTypeColumn = new Table();
 				itemTypeColumn.add(itemTypeButton).size(205).row();
 				itemTypeColumn.add(itemTypeNameLabel);
 
-				Image qualityImage = new Image(qualityStars.get(entry.getKey()));
-//				qualityImage.setWidth(192);
-//				qualityImage.setHeight(92);
-
 				HorizontalGroup itemTypeGoldGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalGold);
 				itemTypeGoldGroup.addActorAt(1, new Image(managementSkin, "icon_coin"));
-				itemTypeGoldGroup.removeActorAt(0, false);//fudge to remove the Total
 				HorizontalGroup itemTypeQuantityGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalQuantity);
 				HorizontalGroup itemTypeAvailableGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.AVAILABLE", totalUnallocated);
+//				Image qualityImage = new Image(qualityStars.get(entry.getKey())); //TODO: qualtity
 
 				Table itemTypeTable = new Table();
 				itemTypeTable.defaults().growX();
 				itemTypeTable.add(itemTypeColumn);
-				itemTypeTable.add(qualityImage).fill(false, false);
+//				itemTypeTable.add(qualityImage).fill(false, false); //todo: fill me
 				itemTypeTable.add(itemTypeGoldGroup);
 				itemTypeTable.add(itemTypeQuantityGroup);
 				itemTypeTable.add(itemTypeAvailableGroup);
+				itemTypeTable.row();
+				parent.add(itemTypeTable).growX().padTop(40).padBottom(50).padLeft(50 * groupingIndex).row();
 
-//				todo: add hover accent
-//				mainTable.setBackground(managementSkin.getDrawable("accent_bg"));
-				nestedTable.add(itemTypeTable).padLeft(50f).padBottom(100f).growX().row();
+
+				Table childTable = new Table();
+				childTable.setFillParent(true);
+				recursivelyAdd(childTable, group, groupings, groupingIndex+1, displayNameFunctions);
+
+				CollapsibleWidget collapsibleWidget = new CollapsibleWidget(childTable);
+				collapsibleWidget.setCollapsed(true);
+				itemTypeTable.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						collapsibleWidget.setCollapsed(!collapsibleWidget.isCollapsed(), false);
+					}
+				});
+				itemTypeTable.addListener(new InputListener() {
+					@Override
+					public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+						itemTypeTable.setBackground(managementSkin.getDrawable("accent_bg"));
+					}
+
+					@Override
+					public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+						itemTypeTable.setBackground((Drawable) null);
+					}
+				});
+				itemTypeTable.setTouchable(Touchable.enabled);
+				parent.add(collapsibleWidget).growX().row();
 			}
 		}
-		return nestedTable;
 	}
 
 	private HorizontalGroup buildMeasureLabel(String i18nKey, int value) {
