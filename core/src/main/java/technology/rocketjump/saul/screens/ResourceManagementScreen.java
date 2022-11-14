@@ -38,9 +38,11 @@ import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
@@ -64,6 +66,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private final ScrollPane scrollPane;
 
 	private StockpileGroup selectedStockpileGroup;
+	private Comparator<List<Entity>> selectedSortFunction;
 	private Label stockpileGroupNameLabel;
 	private String searchBarText = "";
 
@@ -150,7 +153,9 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 	@Override
 	public void clearContextRelatedState() {
-
+		selectedStockpileGroup = null;
+		selectedSortFunction = null;
+		searchBarText = "";
 	}
 
 	//Called from Screen.show() and elsewhere when language changes
@@ -222,11 +227,13 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		});
 		Label sortByLabel  = new Label(translate("GUI.RESOURCE_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
 
-		Button sortByTotal = buildTextSortButton("GUI.RESOURCE_MANAGEMENT.TOTAL");
-		Button sortByAvailability = buildTextSortButton("GUI.RESOURCE_MANAGEMENT.AVAILABLE");
-		Button sortByGold = buildIconSortButton("icon_coin");
-		Button sortByQuality = buildIconSortButton("asset_quality_star_01");
-		ButtonGroup<Button> buttonGroup = new ButtonGroup<>(sortByTotal, sortByAvailability, sortByGold, sortByQuality);
+		Comparator<List<Entity>> quantityComparator = Comparator.comparing((Function<List<Entity>, Integer>) entities -> groupSum(entities, entity -> ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getQuantity())).reversed();
+		Comparator<List<Entity>> availabilityComparator = Comparator.comparing((Function<List<Entity>, Integer>) entities -> groupSum(entities, entity -> entity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated())).reversed();
+		Comparator<List<Entity>> goldComparator = Comparator.comparing((Function<List<Entity>, Integer>) entities -> 0).reversed();
+		Button sortByTotal = buildTextSortButton("GUI.RESOURCE_MANAGEMENT.TOTAL", quantityComparator);
+		Button sortByAvailability = buildTextSortButton("GUI.RESOURCE_MANAGEMENT.AVAILABLE", availabilityComparator);
+		Button sortByGold = buildIconSortButton("icon_coin", goldComparator);
+		ButtonGroup<Button> buttonGroup = new ButtonGroup<>(sortByTotal, sortByAvailability, sortByGold);
 		buttonGroup.setMinCheckCount(0);
 
 		Table filters = new Table();
@@ -237,7 +244,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		filters.add(sortByTotal);
 		filters.add(sortByAvailability);
 		filters.add(sortByGold);
-		filters.add(sortByQuality);
 
 
 		scrollPane.setForceScroll(false, true);
@@ -328,6 +334,10 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		return itemsTable;
 	}
 
+	private int groupSum(List<Entity> entities, ToIntFunction<Entity> property) {
+		return entities.stream().mapToInt(property).sum();
+	}
+
 	private void recursivelyAdd(Table parent, Collection<Entity> entities, List<Function<Entity, String>> groupings, int groupingIndex, List<Function<Entity, String>> displayNameFunctions) {
 		if (groupingIndex == groupings.size()) {
 
@@ -335,18 +345,20 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			Function<Entity, String> displayNameFunction = displayNameFunctions.get(groupingIndex);
 			Function<Entity, String> groupFunction = groupings.get(groupingIndex);
 			Map<String, List<Entity>> groupedEntities = entities.stream().collect(Collectors.groupingBy(groupFunction));
-			for (List<Entity> group : groupedEntities.values()) {
+
+			if (selectedSortFunction == null) {
+				selectedSortFunction =  Comparator.comparing(entitiesToSort -> displayNameFunction.apply(entitiesToSort.get(0)));
+			}
+
+			for (List<Entity> group : groupedEntities.values().stream().sorted(selectedSortFunction).toList()) {
 				//aggregate stats
-				int totalQuantity = 0;
-				int totalUnallocated = 0;
+				int totalQuantity = groupSum(group, entity -> ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getQuantity());
+				int totalUnallocated = groupSum(group, entity -> entity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated());
 				int totalGold = 0; //todo: semi yagni, fill me when we do trading
 				ItemQuality itemQuality = null;
 				Entity exampleEntity = group.get(0);
 				for (Entity entity : group) {
-					ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-					totalQuantity += attributes.getQuantity();
-					totalUnallocated += entity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated();
-					itemQuality = attributes.getItemQuality();
+					itemQuality =  ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getItemQuality();
 				}
 
 				Drawable btnResourceItemBg = bgForExampleEntity(exampleEntity.getId());
@@ -377,7 +389,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				itemTypeTable.add(itemTypeQuantityGroup);
 				itemTypeTable.add(itemTypeAvailableGroup);
 				itemTypeTable.row();
-				parent.add(itemTypeTable).growX().padTop(40).padBottom(50).padLeft(50 * groupingIndex).row();
+				parent.add(itemTypeTable).growX().padTop(40).padBottom(50).padLeft(100 * groupingIndex).row();
 
 
 				Table childTable = new Table();
@@ -447,7 +459,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		return i18nTranslator.getTranslatedString(key).toString();
 	}
 
-	private Button buildIconSortButton(String drawableName) {
+	private Button buildIconSortButton(String drawableName, Comparator<List<Entity>> sortFunction) {
 		Image icon = new Image(managementSkin.getDrawable(drawableName));
 		ImageTextButton button = new ImageTextButton("", managementSkin, "sort_by_button");
 		button.defaults().padRight(9f);
@@ -455,15 +467,37 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		Image image = button.getImage(); //Swap actors or cells doesn't work, absolute agony
 		button.removeActor(image);
 		button.add(image);
+		button.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if (button.isChecked()) {
+					selectedSortFunction = sortFunction;
+				} else {
+					selectedSortFunction = null;
+				}
+				rebuildStockpileComponents();
+			}
+		});
 		return button;
 	}
 
-	private Button buildTextSortButton(String i18nKey) {
+	private Button buildTextSortButton(String i18nKey, Comparator<List<Entity>> sortFunction) {
 		ImageTextButton button = new ImageTextButton(translate(i18nKey), managementSkin, "sort_by_button");
 		button.defaults().padRight(9f);
 		Image image = button.getImage(); //Swap actors or cells doesn't work, absolute agony
 		button.removeActor(image);
 		button.add(image);
+		button.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if (button.isChecked()) {
+					selectedSortFunction = sortFunction;
+				} else {
+					selectedSortFunction = null;
+				}
+				rebuildStockpileComponents();
+			}
+		});
 		return button;
 	}
 }
