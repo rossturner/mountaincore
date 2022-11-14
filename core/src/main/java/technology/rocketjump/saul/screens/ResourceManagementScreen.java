@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.RandomXS128;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -13,16 +14,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.kotcrab.vis.ui.widget.CollapsibleWidget;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
+import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -36,7 +40,6 @@ import javax.inject.Singleton;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -264,14 +267,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		Table itemsTable = new Table();
 		itemsTable.align(Align.top);
 
-		//TODO: could add filters to here
-		Set<Entity> allEntities = settlementItemTracker.getAllByItemType()
-				.values().stream()
-				.flatMap(it -> it.values().stream())
-				.flatMap(it -> it.values().stream())
-				.collect(Collectors.toSet());
-
-
 		Function<Entity, String> levelOneDisplayName = entity -> {
 			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 			return i18nTranslator.getTranslatedString(attributes.getItemType().getI18nKey()).toString();
@@ -303,31 +298,58 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		List<Function<Entity, String>> groupings = List.of(levelOneGroup, levelTwoGroup, levelThreeGroup);
 		List<Function<Entity, String>> displayNameFunctions = List.of(levelOneDisplayName, levelTwoDisplayName, levelThreeDisplayName);
 
+		List<Entity> allEntities = settlementItemTracker.getAllByItemType()
+				.values().stream()
+				.flatMap(it -> it.values().stream())
+				.flatMap(it -> it.values().stream())
+				.filter(entity -> {
+					ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+					StockpileGroup stockpileGroup = attributes.getItemType().getStockpileGroup();
+					return stockpileGroup != null && stockpileGroup.equals(selectedStockpileGroup);
+				})
+				.filter(entity -> {
+					if (searchBarText.isEmpty()) {
+						return true;
+					} else {
+						for (Function<Entity, String> nameFunction : displayNameFunctions) {
+							String displayName = nameFunction.apply(entity);
+							if (displayName.toLowerCase().contains(searchBarText.toLowerCase())) {
+								return true;
+							}
+						}
+						return false;
+					}
+				})
+				.collect(Collectors.toList());
+
+
 		recursivelyAdd(itemsTable, allEntities, groupings, 0, displayNameFunctions);
 
 		return itemsTable;
 	}
 
-	private void recursivelyAdd(Table parent, Collection<Entity> allEntities, List<Function<Entity, String>> groupings, int groupingIndex, List<Function<Entity, String>> displayNameFunctions) {
+	private void recursivelyAdd(Table parent, Collection<Entity> entities, List<Function<Entity, String>> groupings, int groupingIndex, List<Function<Entity, String>> displayNameFunctions) {
 		if (groupingIndex == groupings.size()) {
 
 		} else {
 			Function<Entity, String> displayNameFunction = displayNameFunctions.get(groupingIndex);
 			Function<Entity, String> groupFunction = groupings.get(groupingIndex);
-			Map<String, List<Entity>> groupedEntities = allEntities.stream().collect(Collectors.groupingBy(groupFunction));
+			Map<String, List<Entity>> groupedEntities = entities.stream().collect(Collectors.groupingBy(groupFunction));
 			for (List<Entity> group : groupedEntities.values()) {
 				//aggregate stats
 				int totalQuantity = 0;
 				int totalUnallocated = 0;
 				int totalGold = 0; //todo: semi yagni, fill me when we do trading
+				ItemQuality itemQuality = null;
 				Entity exampleEntity = group.get(0);
 				for (Entity entity : group) {
 					ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 					totalQuantity += attributes.getQuantity();
 					totalUnallocated += entity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated();
+					itemQuality = attributes.getItemQuality();
 				}
 
-				Drawable btnResourceItemBg = randomBtnResourceItemBg();
+				Drawable btnResourceItemBg = bgForExampleEntity(exampleEntity.getId());
 				Button itemTypeButton = new Button(new EntityDrawable(
 						exampleEntity, entityRenderer, true, messageDispatcher
 				).withBackground(btnResourceItemBg));
@@ -342,12 +364,15 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				itemTypeGoldGroup.addActorAt(1, new Image(managementSkin, "icon_coin"));
 				HorizontalGroup itemTypeQuantityGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalQuantity);
 				HorizontalGroup itemTypeAvailableGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.AVAILABLE", totalUnallocated);
-//				Image qualityImage = new Image(qualityStars.get(entry.getKey())); //TODO: qualtity
+				Image qualityImage = new Image(qualityStars.get(itemQuality));
 
 				Table itemTypeTable = new Table();
 				itemTypeTable.defaults().growX();
 				itemTypeTable.add(itemTypeColumn);
-//				itemTypeTable.add(qualityImage).fill(false, false); //todo: fill me
+				//this is a fudge as quality doesn't appear on first row
+				if (groupingIndex > 0) {
+					itemTypeTable.add(qualityImage).fill(false, false);
+				}
 				itemTypeTable.add(itemTypeGoldGroup);
 				itemTypeTable.add(itemTypeQuantityGroup);
 				itemTypeTable.add(itemTypeAvailableGroup);
@@ -359,14 +384,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				childTable.setFillParent(true);
 				recursivelyAdd(childTable, group, groupings, groupingIndex+1, displayNameFunctions);
 
-				CollapsibleWidget collapsibleWidget = new CollapsibleWidget(childTable);
-				collapsibleWidget.setCollapsed(true);
-				itemTypeTable.addListener(new ClickListener() {
-					@Override
-					public void clicked(InputEvent event, float x, float y) {
-						collapsibleWidget.setCollapsed(!collapsibleWidget.isCollapsed(), false);
-					}
-				});
+				itemTypeTable.setTouchable(Touchable.enabled);
 				itemTypeTable.addListener(new InputListener() {
 					@Override
 					public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -378,8 +396,37 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 						itemTypeTable.setBackground((Drawable) null);
 					}
 				});
-				itemTypeTable.setTouchable(Touchable.enabled);
-				parent.add(collapsibleWidget).growX().row();
+
+				if (childTable.hasChildren()) {
+					CollapsibleWidget collapsibleWidget = new CollapsibleWidget(childTable);
+					collapsibleWidget.setCollapsed(searchBarText.isEmpty(), false);
+					itemTypeTable.addListener(new ClickListener() {
+						@Override
+						public void clicked(InputEvent event, float x, float y) {
+							collapsibleWidget.setCollapsed(!collapsibleWidget.isCollapsed(), false);
+						}
+					});
+					parent.add(collapsibleWidget).growX().row();
+				} else {
+					itemTypeTable.addListener(new ClickListener() {
+						@Override
+						public void clicked(InputEvent event, float x, float y) {
+							Entity target = exampleEntity;
+							while (target.getLocationComponent().getContainerEntity() != null) {
+								target = target.getLocationComponent().getContainerEntity();
+							}
+							Vector2 position = target.getLocationComponent().getWorldOrParentPosition();
+
+							if (position != null) {
+								messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+								messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, position);
+								messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(target, 0));
+							} else {
+								Logger.error("Attempting to move to entity with no position or container");
+							}
+						}
+					});
+				}
 			}
 		}
 	}
@@ -392,8 +439,8 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		return itemTypeAvailableGroup;
 	}
 
-	private Drawable randomBtnResourceItemBg() {
-		return btnResourceItemVariants[random.nextInt(btnResourceItemVariants.length)];
+	private Drawable bgForExampleEntity(long entityId) {
+		return btnResourceItemVariants[(int) (entityId % btnResourceItemVariants.length)];
 	}
 
 	private String translate(String key) {
@@ -419,23 +466,4 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		button.add(image);
 		return button;
 	}
-	
-	//TODO: do we want this still, some way to jump to the real world item
-//			clickableRow.setAction(() -> {
-//				Entity target = itemEntity;
-//				while (target.getLocationComponent().getContainerEntity() != null) {
-//					target = target.getLocationComponent().getContainerEntity();
-//				}
-//				Vector2 position = target.getLocationComponent().getWorldOrParentPosition();
-//
-//				if (position != null) {
-//					messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
-//					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, position);
-//					messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(target, 0));
-//				} else {
-//					Logger.error("Attempting to move to entity with no position or container");
-//				}
-//			});
-
-
 }
