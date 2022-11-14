@@ -6,9 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -38,6 +41,7 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 	private final RoomEditorItemMap roomEditorItemMap;
 	private final EntityRenderer entityRenderer;
 	private final TooltipFactory tooltipFactory;
+	private final GameMaterialDictionary gameMaterialDictionary;
 
 	private FurnitureType selectedFurnitureType;
 	private GameMaterialType selectedMaterialType;
@@ -51,7 +55,8 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 	@Inject
 	public FurnitureMaterialsWidget(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 									ItemAvailabilityChecker itemAvailabilityChecker, I18nTranslator i18nTranslator,
-									RoomEditorFurnitureMap roomEditorFurnitureMap, RoomEditorItemMap roomEditorItemMap, EntityRenderer entityRenderer, TooltipFactory tooltipFactory) {
+									RoomEditorFurnitureMap roomEditorFurnitureMap, RoomEditorItemMap roomEditorItemMap,
+									EntityRenderer entityRenderer, TooltipFactory tooltipFactory, GameMaterialDictionary gameMaterialDictionary) {
 		this.skin = guiSkinRepository.getMainGameSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.itemAvailabilityChecker = itemAvailabilityChecker;
@@ -60,7 +65,7 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 		this.roomEditorItemMap = roomEditorItemMap;
 		this.entityRenderer = entityRenderer;
 		this.tooltipFactory = tooltipFactory;
-
+		this.gameMaterialDictionary = gameMaterialDictionary;
 	}
 
 	public void changeSelectedFurniture(FurnitureType furnitureType) {
@@ -71,7 +76,9 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 
 		if (!furnitureType.equals(selectedFurnitureType)) {
 			this.selectedFurnitureType = furnitureType;
-			this.selectedMaterialType = furnitureType.getRequirements().isEmpty() ? null : furnitureType.getRequirements().keySet().iterator().next();
+			Entity furnitureEntity = roomEditorFurnitureMap.getByFurnitureType(furnitureType);
+			FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
+			this.selectedMaterialType = attributes.getPrimaryMaterialType();
 			this.materialSelections.clear();
 
 			rebuildUI();
@@ -128,7 +135,7 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 
 			FurnitureRequirementWidget furnitureRequirementWidget = new FurnitureRequirementWidget(requirement, roomEditorItemMap.getByItemType(requirement.getItemType()),
 					skin, messageDispatcher, itemAvailabilityChecker, i18nTranslator, entityRenderer,
-					tooltipFactory, roomEditorFurnitureMap.getExampleMaterialFor(requirement.getItemType().getPrimaryMaterialType()));
+					tooltipFactory, gameMaterialDictionary.getExampleMaterial(requirement.getItemType().getPrimaryMaterialType()));
 			furnitureRequirementWidget.onMaterialSelection(material -> {
 				List<ItemTypeWithMaterial> otherMaterialSelections = new ArrayList<>(materialSelections.stream()
 						.filter(s -> !s.getItemType().equals(requirement.getItemType()))

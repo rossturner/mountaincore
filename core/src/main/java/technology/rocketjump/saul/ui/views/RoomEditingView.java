@@ -23,6 +23,7 @@ import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDict
 import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rooms.Room;
@@ -70,6 +71,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final Table sizingButtons;
 	private final FurnitureMaterialsWidget furnitureMaterialsWidget;
 	private final RoomFactory roomFactory;
+	private final GameMaterialDictionary materialDictionary;
 	private GameContext gameContext;
 
 	private Button backButton;
@@ -83,7 +85,8 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 						   I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
 						   FurnitureTypeDictionary furnitureTypeDictionary, RoomEditorFurnitureMap furnitureMap,
 						   EntityRenderer entityRenderer, RoomStore roomStore, RoomEditorItemMap itemMap,
-						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget, RoomFactory roomFactory) {
+						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget,
+						   RoomFactory roomFactory, GameMaterialDictionary materialDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
@@ -97,6 +100,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		this.plantSpeciesDictionary = plantSpeciesDictionary;
 		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
 		this.roomFactory = roomFactory;
+		this.materialDictionary = materialDictionary;
 
 		backButton = new Button(skin.getDrawable("btn_back"));
 		mainTable = new Table();
@@ -292,6 +296,9 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			});
 			furnitureMaterialsWidget.onMaterialTypeSelection(materialType -> {
 				attributes.setPrimaryMaterialType(materialType);
+				if (!attributes.getMaterials().containsKey(materialType)) {
+					attributes.setMaterial(materialDictionary.getExampleMaterial(materialType));
+				}
 				messageDispatcher.dispatchMessage(MessageType.FURNITURE_MATERIAL_SELECTED);
 				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
 			});

@@ -3,6 +3,7 @@
     "materialName": "Iron",
     "materialType": "METAL",
     "colorCode": "#a8b5c1",
+    "useAsExampleMaterialForMaterialType": true,
     "oxidisation": {
       "effect": "CONVERT_MATERIAL",
       "changesTo": "Rusted Iron",

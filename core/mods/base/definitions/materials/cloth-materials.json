@@ -9,7 +9,8 @@
     "materialName": "Hemp-Linen",
     "materialType": "CLOTH",
     "colorCode": "#e9dcc2",
-    "combustible": true
+    "combustible": true,
+    "useAsExampleMaterialForMaterialType": true
   },
   {
     "materialName": "Light hemp",

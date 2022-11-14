@@ -10,6 +10,7 @@
     "materialType": "FOODSTUFF",
     "edible": true,
     "colorCode": "#ab8a49",
-    "combustible": true
+    "combustible": true,
+    "useAsExampleMaterialForMaterialType": true
   }
 ]

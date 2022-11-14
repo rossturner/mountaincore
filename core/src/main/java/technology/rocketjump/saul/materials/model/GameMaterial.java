@@ -51,12 +51,13 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 	private String dynamicMaterialId;
 	private boolean useMaterialTypeAsAdjective; // Used for not-fully implemented materials that aren't craftable and not translated
 	private boolean useInRandomGeneration = true;
+	private boolean useAsExampleMaterialForMaterialType;
 	private boolean excludeFromItemDescription;
 
 	private MaterialOxidisation oxidisation;
 
 	public static final GameMaterial NULL_MATERIAL = new GameMaterial("null-material", -1, GameMaterialType.OTHER, "#FF00FF", null, 0f, RockGroup.None,
-			false, false,false, false, false, null, false);
+			false, false,false, false, false, null, false, false);
 
 	// Empty constructor for initialising from saved game
 	public GameMaterial() {
@@ -66,7 +67,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 
 	// Simple constructor for testing
 	public GameMaterial(String materialName, long materialId, GameMaterialType type) {
-		this(materialName, materialId, type, null, null, null, null, false, false, false, false, false, null, false);
+		this(materialName, materialId, type, null, null, null, null, false, false, false, false, false, null, false, false);
 	}
 
 	// TODO try to remove usage of this
@@ -104,7 +105,8 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 						@JsonProperty("edible") boolean edible, @JsonProperty("poisonous") boolean poisonous,
 						@JsonProperty("quenchesThirst") boolean quenchesThirst,
 						@JsonProperty("oxidisation") MaterialOxidisation oxidisation,
-						@JsonProperty("includeInItemDescription") boolean excludeFromItemDescription) {
+						@JsonProperty("includeInItemDescription") boolean excludeFromItemDescription,
+						@JsonProperty("useAsExampleMaterialForMaterialType") boolean useAsExampleMaterialForMaterialType) {
 		this.materialName = materialName;
 		this.materialId = materialId;
 		this.colorCode = colorCode;
@@ -119,6 +121,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		this.constituentMaterials = null;
 		this.oxidisation = oxidisation;
 		this.excludeFromItemDescription = excludeFromItemDescription;
+		this.useAsExampleMaterialForMaterialType = useAsExampleMaterialForMaterialType;
 
 		if (materialType != null) {
 			this.materialType = materialType;
@@ -275,6 +278,14 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		this.useInRandomGeneration = useInRandomGeneration;
 	}
 
+	public boolean isUseAsExampleMaterialForMaterialType() {
+		return useAsExampleMaterialForMaterialType;
+	}
+
+	public void setUseAsExampleMaterialForMaterialType(boolean useAsExampleMaterialForMaterialType) {
+		this.useAsExampleMaterialForMaterialType = useAsExampleMaterialForMaterialType;
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		if (dynamicMaterialId == null || savedGameStateHolder.dynamicMaterials.containsKey(this.dynamicMaterialId)) {
@@ -336,6 +347,9 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		}
 		if (useMaterialTypeAsAdjective) {
 			asJson.put("useMaterialTypeAsAdjective", true);
+		}
+		if (useAsExampleMaterialForMaterialType) {
+			asJson.put("useAsExampleMaterialForMaterialType", true);
 		}
 		if (useInRandomGeneration) {
 			asJson.put("useInRandomGeneration", true);
@@ -419,6 +433,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		}
 		this.useMaterialTypeAsAdjective = asJson.getBooleanValue("useMaterialTypeAsAdjective");
 		this.useInRandomGeneration = asJson.getBooleanValue("useInRandomGeneration");
+		this.useAsExampleMaterialForMaterialType = asJson.getBooleanValue("useAsExampleMaterialForMaterialType");
 
 		savedGameStateHolder.dynamicMaterials.put(dynamicMaterialId, this);
 	}

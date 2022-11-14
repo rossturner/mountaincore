@@ -100,4 +100,11 @@ public class GameMaterialDictionary {
 			typeMap.get(dynamicMaterial.getMaterialType()).remove(dynamicMaterial);
 		}
 	}
+
+	public GameMaterial getExampleMaterial(GameMaterialType materialType) {
+		return getByType(materialType).stream()
+				.filter(GameMaterial::isUseAsExampleMaterialForMaterialType)
+				.findFirst()
+				.orElse(NULL_MATERIAL);
+	}
 }

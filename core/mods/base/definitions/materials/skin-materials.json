@@ -16,6 +16,7 @@
     "materialName": "Deer Hide",
     "materialType": "SKIN",
     "combustible": true,
+    "useAsExampleMaterialForMaterialType": true,
     "colorCode": "#aa7252"
   },
   {
