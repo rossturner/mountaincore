@@ -359,11 +359,13 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			Function<Entity, String> groupFunction = groupings.get(groupingIndex);
 			Map<String, List<Entity>> groupedEntities = entities.stream().collect(Collectors.groupingBy(groupFunction));
 
-			if (selectedSortFunction == null) {
-				selectedSortFunction =  Comparator.comparing(entitiesToSort -> displayNameFunction.apply(entitiesToSort.get(0)));
+			Comparator<List<Entity>> sortToUse = selectedSortFunction;
+
+			if (sortToUse == null) {
+				sortToUse =  Comparator.comparing(entitiesToSort -> displayNameFunction.apply(entitiesToSort.get(0)));
 			}
 
-			for (List<Entity> group : groupedEntities.values().stream().sorted(selectedSortFunction).toList()) {
+			for (List<Entity> group : groupedEntities.values().stream().sorted(sortToUse).toList()) {
 				//aggregate stats
 				int totalQuantity = groupSum(group, entity -> ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getQuantity());
 				int totalUnallocated = groupSum(group, entity -> entity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated());
