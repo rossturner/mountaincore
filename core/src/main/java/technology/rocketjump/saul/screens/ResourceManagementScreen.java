@@ -337,7 +337,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 		Function<Entity, String> levelTwoDisplayName = entity -> {
 			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-			return i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), null).toString();
+			return i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality()).toString();
 		};
 
 		Function<Entity, String> levelThreeDisplayName = entity -> {
@@ -386,7 +386,23 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				.collect(Collectors.toList());
 
 
-		recursivelyAdd(itemsTable, allEntities, groupings, 0, displayNameFunctions);
+		//Rocky: Dislike this code underneath, feels mad
+		Comparator<List<Entity>> reverseQualityOrder = Comparator.comparing((Function<List<Entity>, Integer>) entitiesToSort ->  {
+			ItemEntityAttributes attributes = (ItemEntityAttributes) entitiesToSort.get(0).getPhysicalEntityComponent().getAttributes();
+			return attributes.getItemQuality().ordinal();
+		}).reversed();
+
+		Comparator<List<Entity>> levelTwoSort = Comparator.comparing((Function<List<Entity>, String>) entitiesToSort ->  {
+			ItemEntityAttributes attributes = (ItemEntityAttributes) entitiesToSort.get(0).getPhysicalEntityComponent().getAttributes();
+			return i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), null).toString();
+		}).thenComparing(reverseQualityOrder);
+		List<Comparator<List<Entity>>> defaultSorts = List.of(
+				Comparator.comparing(entitiesToSort -> levelOneDisplayName.apply(entitiesToSort.get(0))),
+				levelTwoSort,
+				Comparator.comparing(entitiesToSort -> levelThreeDisplayName.apply(entitiesToSort.get(0)))
+		);
+
+		recursivelyAdd(itemsTable, allEntities, groupings, 0, displayNameFunctions, defaultSorts);
 
 		return itemsTable;
 	}
@@ -395,7 +411,8 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		return entities.stream().mapToInt(property).sum();
 	}
 
-	private void recursivelyAdd(Table parent, Collection<Entity> entities, List<Function<Entity, String>> groupings, int groupingIndex, List<Function<Entity, String>> displayNameFunctions) {
+	private void recursivelyAdd(Table parent, Collection<Entity> entities, List<Function<Entity, String>> groupings, int groupingIndex, List<Function<Entity, String>> displayNameFunctions,
+	                            List<Comparator<List<Entity>>> defaultSorts) {
 		if (groupingIndex != groupings.size()) {
 			Function<Entity, String> displayNameFunction = displayNameFunctions.get(groupingIndex);
 			Function<Entity, String> groupFunction = groupings.get(groupingIndex);
@@ -404,7 +421,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			Comparator<List<Entity>> sortToUse = selectedSortFunction;
 
 			if (sortToUse == null) {
-				sortToUse =  Comparator.comparing(entitiesToSort -> displayNameFunction.apply(entitiesToSort.get(0)));
+				sortToUse =  defaultSorts.get(groupingIndex);
 			}
 
 			for (List<Entity> group : groupedEntities.values().stream().sorted(sortToUse).toList()) {
@@ -481,7 +498,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 				Table childTable = new Table();
 				childTable.setFillParent(true);
-				recursivelyAdd(childTable, group, groupings, groupingIndex+1, displayNameFunctions);
+				recursivelyAdd(childTable, group, groupings, groupingIndex+1, displayNameFunctions, defaultSorts);
 
 				itemRow.setTouchable(Touchable.enabled);
 				itemRow.addListener(new InputListener() {
