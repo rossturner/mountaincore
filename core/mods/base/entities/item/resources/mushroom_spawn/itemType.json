@@ -1,12 +1,27 @@
 {
-  "itemTypeName" : "Ingredient-Mushroom-Spawn",
-  "maxStackSize" : 50,
-  "maxHauledAtOnce" : 15,
-  "materialTypes" : [ "SEED", "ROPE" ],
-  "primaryMaterialType" : "SEED",
-  "holdPosition" : "RIGHT_HAND",
-  "equippedWhileWorkingOnJob" : false,
-  "hoursInInventoryUntilUnused" : 3.0,
-  "stockpileGroupName" : "SEEDS",
-  "i18nKey" : "INGREDIENT.MUSHROOM.SPAWN"
+  "itemTypeName": "Ingredient-Mushroom-Spawn",
+  "maxStackSize": 50,
+  "maxHauledAtOnce": 15,
+  "materialTypes": [
+    "SEED",
+    "ROPE"
+  ],
+  "primaryMaterialType": "SEED",
+  "holdPosition": "RIGHT_HAND",
+  "equippedWhileWorkingOnJob": false,
+  "hoursInInventoryUntilUnused": 3.0,
+  "stockpileGroupName": "SEEDS",
+  "i18nKey": "INGREDIENT.MUSHROOM.SPAWN",
+  "specificMaterialNames": [
+    "Purple Helmet Spawn",
+    "Death Cap Spawn",
+    "Fist Spawn",
+    "Berserker Mushroom Spawn",
+    "Rociomycota Mushroom Spawn",
+    "Miltonia Spawn",
+    "Elfsbane Spawn",
+    "Sunglow Spawn",
+    "Glow Spawn",
+    "Syrup Powder Spawn"
+  ]
 }

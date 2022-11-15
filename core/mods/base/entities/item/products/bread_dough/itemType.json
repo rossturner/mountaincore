@@ -7,5 +7,6 @@
   "equippedWhileWorkingOnJob" : false,
   "hoursInInventoryUntilUnused" : 1.0,
   "stockpileGroupName" : "FOOD",
-  "i18nKey" : "PRODUCT.BREAD.DOUGH"
+  "i18nKey" : "PRODUCT.BREAD.DOUGH",
+  "specificMaterialNames": ["Wheat"]
 }

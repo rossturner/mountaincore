@@ -1242,6 +1242,10 @@ ROOMS.TEXTILE_WORKSHOP,,Textile workshop
 ROOMS.TEXTILE_WORKSHOP.TOOLTIP,,Processes {{SEED.HEMP_SEED}} into textiles for a variety of uses.
 
 ROPE.HEMP-ROPE,,Hemp
+ROPE.AGED_ROPE,,Aged
+ROPE.TOBACCO_ROPE,Just to describe a light colour,Light
+ROPE.GRAY_ROPE,,Gray
+ROPE.BRONZED_ROPE,,Bronzed
 
 RUSTED_SCRAP.NOUN,,Scrap
 RUSTED_SCRAP.TOOLTIP,,These are the remains of an item that has completed corroded due to rust.

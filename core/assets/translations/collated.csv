@@ -1249,7 +1249,11 @@ ROOMS.STOCKPILE_WITH_GROUP_NAME,{{stockpileGroupName}} {{roomTypeName}},,,,,,,,,
 ROOMS.TEXTILE_WORKSHOP,Textile workshop,,,,Laboratorio tessile,Taller textil,,,,Швейная мастерская,,,,,,,,紡績場,纺织车间,
 ROOMS.TEXTILE_WORKSHOP.TOOLTIP,Processes {{SEED.HEMP_SEED}} into textiles for a variety of uses.,,Verarbeitet {{SEED.HEMP_SEED}} zu Textilien für eine Vielzahl von Anwendungen.,,Lavora {{SEED.HEMP_SEED}} in tessuti per una varietà di usi.,Aquí se procesa {{SEED.HEMP_SEED}} para obtener textiles para varios usos.,,,,Превращает {{SEED.HEMP_SEED}} в различные ткани,,,,,,,,{{SEED.HEMP_SEED}}を色々な用途に使える繊維に加工します。,将{{SEED.HEMP_SEED}}加工成用途广泛的纺织品。,
 
+ROPE.AGED_ROPE,Aged,,,,,,,,,,,,,,,,,,,
+ROPE.BRONZED_ROPE,Bronzed,,,,,,,,,,,,,,,,,,,
+ROPE.GRAY_ROPE,Gray,,,,,,,,,,,,,,,,,,,
 ROPE.HEMP-ROPE,Hemp,,Hanf,,Canapa,Cuerda de cáñamo,,,,Пенька,,,,,,,,麻,大麻,
+ROPE.TOBACCO_ROPE,Light,,,,,,,,,,,,,,,,,,,
 
 RUSTED_SCRAP.NOUN,Scrap,,Schrott,,Rottami,Chatarra,,,,Лом,,,,,,,,スクラップ,废料,
 RUSTED_SCRAP.TOOLTIP,These are the remains of an item that has completed corroded due to rust.,,"Dies sind die Überreste eines Gegenstandes, der auf Grund von Rost korrodiert ist.",,Questi sono i resti di un oggetto che si è completato corroso a causa della ruggine.,Estos son los restos de un articulo completamente corroído por el óxido.,,,,"Это остатки предмета, который полностью разрушился из-за ржавчины.",,,,,,,,錆びて使用できなくなったアイテムの残骸です。,已经彻底锈蚀的无用之物。,

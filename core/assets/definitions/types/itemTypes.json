@@ -14,6 +14,7 @@
   "tags" : {
     "ASSET_OVERRIDE_BY_SKILL" : [ "LIGHT_ARMOR", "CLOTHING_COLOR" ]
   },
+  "specificMaterialNames" : [ ],
   "defenseInfo" : {
     "type" : "ARMOR",
     "maxDefensePoints" : 12,
@@ -43,6 +44,7 @@
   "tags" : {
     "ASSET_OVERRIDE_BY_SKILL" : [ "HEAVY_ARMOR", "CLOTHING_COLOR" ]
   },
+  "specificMaterialNames" : [ ],
   "defenseInfo" : {
     "type" : "ARMOR",
     "maxDefensePoints" : 20,
@@ -72,6 +74,7 @@
   "tags" : {
     "ASSET_OVERRIDE_BY_SKILL" : [ "HEAVY_ARMOR", "CLOTHING_COLOR" ]
   },
+  "specificMaterialNames" : [ ],
   "defenseInfo" : {
     "type" : "ARMOR",
     "maxDefensePoints" : 16,
@@ -101,6 +104,7 @@
   "tags" : {
     "ASSET_OVERRIDE_BY_SKILL" : [ "LIGHT_ARMOR", "CLOTHING_COLOR" ]
   },
+  "specificMaterialNames" : [ ],
   "defenseInfo" : {
     "type" : "ARMOR",
     "maxDefensePoints" : 10,
@@ -128,6 +132,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.CARP.PREPARED"
 }, {
@@ -144,6 +149,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.MEAT.LARGE"
 }, {
@@ -160,6 +166,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.MEAT.MEDIUM"
 }, {
@@ -176,6 +183,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.MEAT.SMALL"
 }, {
@@ -192,6 +200,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.PERCH.PREPARED"
 }, {
@@ -208,6 +217,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.PIKE.PREPARED"
 }, {
@@ -224,6 +234,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "CARCASS.HIDE"
 }, {
@@ -240,6 +251,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FUEL",
   "tags" : { },
+  "specificMaterialNames" : [ "Coke", "Charcoal" ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "FUEL.SACK"
 }, {
@@ -256,6 +268,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
+  "specificMaterialNames" : [ "Barley" ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MALT.SACK"
 }, {
@@ -272,6 +285,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
+  "specificMaterialNames" : [ "Barley" ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MILLED.MALT.SACK"
 }, {
@@ -288,6 +302,7 @@
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
   "consumeSoundAssetName" : "DrinkSoup",
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.SOUP.BOWL"
 }, {
@@ -304,6 +319,7 @@
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
   "consumeSoundAssetName" : "DrinkSoup",
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.TANKARD"
 }, {
@@ -321,6 +337,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "consumeSoundAssetName" : "EatFood",
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.VEGETABLE.CRATE"
 }, {
@@ -338,6 +355,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "consumeSoundAssetName" : "EatFood",
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.VEGETABLE.SACK"
 }, {
@@ -353,6 +371,7 @@
   "hoursInInventoryUntilUnused" : 0.5,
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ASHES"
 }, {
@@ -368,6 +387,7 @@
   "hoursInInventoryUntilUnused" : 0.5,
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RUSTED_SCRAP"
 }, {
@@ -384,6 +404,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.ANVIL"
 }, {
@@ -402,6 +423,7 @@
   "tags" : {
     "LIQUID_CONTAINER" : [ "6" ]
   },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BARREL"
 }, {
@@ -418,6 +440,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BARREL.HOOPS"
 }, {
@@ -434,6 +457,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BARREL.STAVES"
 }, {
@@ -450,6 +474,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
+  "specificMaterialNames" : [ "Wheat" ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BREAD.DOUGH"
 }, {
@@ -467,6 +492,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "consumeSoundAssetName" : "EatFood",
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BREAD.LOAF"
 }, {
@@ -486,6 +512,7 @@
     "LIQUID_CONTAINER" : [ "2" ],
     "USAGE_SOUND" : [ "WaterCollect" ]
   },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BUCKET"
 }, {
@@ -504,6 +531,7 @@
   "tags" : {
     "LIQUID_CONTAINER" : [ "6" ]
   },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.CAULDRON"
 }, {
@@ -520,6 +548,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.STONE.GEAR"
 }, {
@@ -536,6 +565,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LINEN"
 }, {
@@ -552,6 +582,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LIQUID.TANK"
 }, {
@@ -568,6 +599,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.MILLSTONE"
 }, {
@@ -584,6 +616,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.STONE.PIPE"
 }, {
@@ -600,6 +633,7 @@
   "relatedCraftingTypeNames" : [ "TANNING_HIDE" ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LEATHER"
 }, {
@@ -620,6 +654,7 @@
     "USAGE_SOUND" : [ "WaterCollect" ],
     "ITEM_ASSIGNMENT" : [ "PREFER_MILITARY" ]
   },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.WATERSKIN"
 }, {
@@ -636,6 +671,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.RATION"
 }, {
@@ -652,6 +688,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
+  "specificMaterialNames" : [ "Wheat" ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.RATION.DOUGH"
 }, {
@@ -668,6 +705,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.ROPE"
 }, {
@@ -684,6 +722,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.BONE.LARGE"
 }, {
@@ -700,6 +739,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.BONE.MEDIUM"
 }, {
@@ -716,6 +756,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.BONE.SMALL"
 }, {
@@ -732,6 +773,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
+  "specificMaterialNames" : [ "Wheat" ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.FLOUR.SACK"
 }, {
@@ -748,6 +790,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.GEM"
 }, {
@@ -764,6 +807,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.GEMS.UNREFINED"
 }, {
@@ -780,6 +824,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
+  "specificMaterialNames" : [ "Barley" ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.GRAIN.SACK"
 }, {
@@ -796,6 +841,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
+  "specificMaterialNames" : [ "Hemp" ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.BUNDLE"
 }, {
@@ -812,6 +858,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
+  "specificMaterialNames" : [ "Hemp_Fibre" ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.FIBRE.BUNDLE"
 }, {
@@ -828,6 +875,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.INGOT"
 }, {
@@ -843,6 +891,7 @@
   "hoursInInventoryUntilUnused" : 38.0,
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LIQUID.EXAMPLE"
 }, {
@@ -859,6 +908,7 @@
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.MUSHROOM.LOG"
 }, {
@@ -875,6 +925,7 @@
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.SHOCKED.MUSHROOM.LOG"
 }, {
@@ -892,6 +943,7 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LOGS"
 }, {
@@ -907,6 +959,7 @@
   "hoursInInventoryUntilUnused" : 38.0,
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.BLOOM"
 }, {
@@ -923,6 +976,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.PLATE"
 }, {
@@ -940,6 +994,7 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
+  "specificMaterialNames" : [ "Fungiwood", "Barkshroom" ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.MUSHROOM.LUMBER"
 }, {
@@ -956,6 +1011,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "SEEDS",
   "tags" : { },
+  "specificMaterialNames" : [ "Purple Helmet Spawn", "Death Cap Spawn", "Fist Spawn", "Berserker Mushroom Spawn", "Rociomycota Mushroom Spawn", "Miltonia Spawn", "Elfsbane Spawn", "Sunglow Spawn", "Glow Spawn", "Syrup Powder Spawn" ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MUSHROOM.SPAWN"
 }, {
@@ -972,6 +1028,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.ORE.CRUSHED"
 }, {
@@ -988,6 +1045,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.ORE.UNREFINED"
 }, {
@@ -1005,6 +1063,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.PLANKS"
 }, {
@@ -1021,6 +1080,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "SEEDS",
   "tags" : { },
+  "specificMaterialNames" : [ "Wheat Seed", "Hemp Seed", "Barley Seed", "Tomato Seed", "Potato Seed", "Carrot Seed", "Hops Seed", "Corn Seed" ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.SEEDS"
 }, {
@@ -1037,6 +1097,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.STONE.BLOCK"
 }, {
@@ -1054,6 +1115,7 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "placementSoundAssetName" : "HeavyStoneItem",
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.STONE.UNREFINED"
 }, {
@@ -1070,6 +1132,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.CRUSHED.VITRIOL"
 }, {
@@ -1086,6 +1149,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
+  "specificMaterialNames" : [ "Wheat" ],
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.WHEAT.SACK"
 }, {
@@ -1102,6 +1166,7 @@
   "relatedCraftingTypeNames" : [ "WOODCUTTING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "weaponInfo" : {
     "range" : 1,
     "damageType" : "SLASHING",
@@ -1133,6 +1198,7 @@
   "tags" : {
     "USAGE_SOUND" : [ "StonemasonChipping" ]
   },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.CHISEL"
 }, {
@@ -1149,6 +1215,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.FISHING.ROD"
 }, {
@@ -1165,6 +1232,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "weaponInfo" : {
     "range" : 1,
     "damageType" : "STABBING",
@@ -1194,6 +1262,7 @@
   "relatedCraftingTypeNames" : [ "STONEMASONRY", "BLACKSMITHING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "weaponInfo" : {
     "range" : 1,
     "damageType" : "CRUSHING",
@@ -1223,6 +1292,7 @@
   "relatedCraftingTypeNames" : [ "SMELTING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "weaponInfo" : {
     "range" : 1,
     "damageType" : "STABBING",
@@ -1254,6 +1324,7 @@
   "tags" : {
     "USAGE_SOUND" : [ "Sawing" ]
   },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PLANE"
 }, {
@@ -1270,6 +1341,7 @@
   "relatedCraftingTypeNames" : [ "DOUGH_PREPARATION" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.ROLLING.PIN"
 }, {
@@ -1288,6 +1360,7 @@
   "tags" : {
     "USAGE_SOUND" : [ "Sawing" ]
   },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.SAW"
 }, {
@@ -1304,6 +1377,7 @@
   "relatedCraftingTypeNames" : [ "CARPENTRY", "STONEMASONRY", "BLACKSMITHING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.SMALL.HAMMER"
 }, {
@@ -1320,6 +1394,7 @@
   "relatedCraftingTypeNames" : [ "BLACKSMITHING", "SMELTING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.TONGS"
 }, {
@@ -1336,6 +1411,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "isAmmoType" : "ARROWS",
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BONE.ARROWS"
@@ -1353,6 +1429,7 @@
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BONE.ARROW.HEADS"
 }, {
@@ -1369,6 +1446,7 @@
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.ARROW.HEADS"
 }, {
@@ -1385,6 +1463,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "isAmmoType" : "ARROWS",
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.ARROWS"
@@ -1402,6 +1481,7 @@
   "relatedCraftingTypeNames" : [ "FLETCHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "isAmmoType" : "BOLTS",
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.BOLTS"
@@ -1419,6 +1499,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "weaponInfo" : {
     "range" : 9,
     "damageType" : "STABBING",
@@ -1450,6 +1531,7 @@
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "weaponInfo" : {
     "range" : 1,
     "damageType" : "SLASHING",
@@ -1479,6 +1561,7 @@
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "weaponInfo" : {
     "range" : 1,
     "damageType" : "CRUSHING",
@@ -1508,6 +1591,7 @@
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "weaponInfo" : {
     "range" : 7,
     "damageType" : "STABBING",
@@ -1539,6 +1623,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "defenseInfo" : {
     "type" : "SHIELD",
     "maxDefensePoints" : 16,
@@ -1566,6 +1651,7 @@
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "weaponInfo" : {
     "range" : 1,
     "damageType" : "SLASHING",
@@ -1595,6 +1681,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
+  "specificMaterialNames" : [ ],
   "defenseInfo" : {
     "type" : "SHIELD",
     "maxDefensePoints" : 10,

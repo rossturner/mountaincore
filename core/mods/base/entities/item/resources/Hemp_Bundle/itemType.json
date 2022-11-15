@@ -7,5 +7,6 @@
   "hoursInInventoryUntilUnused" : 0.25,
   "stockpileGroupName" : "GRANARY",
   "describeAsMaterialOnly" : true,
-  "i18nKey" : "RESOURCE.HEMP.BUNDLE"
+  "i18nKey" : "RESOURCE.HEMP.BUNDLE",
+  "specificMaterialNames": ["Hemp"]
 }

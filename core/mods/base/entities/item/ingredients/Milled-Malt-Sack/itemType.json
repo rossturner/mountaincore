@@ -6,5 +6,6 @@
   "primaryMaterialType" : "VEGETABLE",
   "hoursInInventoryUntilUnused" : 1.0,
   "stockpileGroupName" : "GRANARY",
-  "i18nKey" : "INGREDIENT.MILLED.MALT.SACK"
+  "i18nKey" : "INGREDIENT.MILLED.MALT.SACK",
+  "specificMaterialNames": ["Barley"]
 }
