@@ -16,11 +16,14 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
+import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rooms.Room;
@@ -68,6 +71,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final Table sizingButtons;
 	private final FurnitureMaterialsWidget furnitureMaterialsWidget;
 	private final RoomFactory roomFactory;
+	private final GameMaterialDictionary materialDictionary;
 	private GameContext gameContext;
 
 	private Button backButton;
@@ -81,7 +85,8 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 						   I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
 						   FurnitureTypeDictionary furnitureTypeDictionary, RoomEditorFurnitureMap furnitureMap,
 						   EntityRenderer entityRenderer, RoomStore roomStore, RoomEditorItemMap itemMap,
-						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget, RoomFactory roomFactory) {
+						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget,
+						   RoomFactory roomFactory, GameMaterialDictionary materialDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
@@ -95,6 +100,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		this.plantSpeciesDictionary = plantSpeciesDictionary;
 		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
 		this.roomFactory = roomFactory;
+		this.materialDictionary = materialDictionary;
 
 		backButton = new Button(skin.getDrawable("btn_back"));
 		mainTable = new Table();
@@ -280,6 +286,22 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 		if (selectedFurnitureType != null) {
 			mainTable.add(furnitureMaterialsWidget).center().expandX().row();
+
+			Entity furnitureEntity = furnitureMap.getByFurnitureType(selectedFurnitureType);
+			FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
+			furnitureMaterialsWidget.onMaterialSelection(material -> {
+				attributes.setMaterial(material);
+				messageDispatcher.dispatchMessage(MessageType.FURNITURE_MATERIAL_SELECTED);
+				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
+			});
+			furnitureMaterialsWidget.onMaterialTypeSelection(materialType -> {
+				attributes.setPrimaryMaterialType(materialType);
+				if (!attributes.getMaterials().containsKey(materialType)) {
+					attributes.setMaterial(materialDictionary.getExampleMaterial(materialType));
+				}
+				messageDispatcher.dispatchMessage(MessageType.FURNITURE_MATERIAL_SELECTED);
+				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
+			});
 		}
 	}
 

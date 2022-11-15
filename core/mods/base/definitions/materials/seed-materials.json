@@ -2,6 +2,7 @@
   {
     "materialName": "Wheat Seed",
     "materialType": "SEED",
+    "useAsExampleMaterialForMaterialType": true,
     "colorCode": "#ead025"
   },
   {

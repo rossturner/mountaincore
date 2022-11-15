@@ -2,11 +2,9 @@ package technology.rocketjump.saul.assets.entities.creature;
 
 import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.ProvidedBy;
-import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
-import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
 
 import java.util.HashMap;
@@ -24,13 +22,9 @@ import static technology.rocketjump.saul.assets.entities.creature.CreatureEntity
 public class CreatureEntityAssetDictionary {
 
 	private final Map<String, CreatureEntityAsset> assetsByName = new HashMap<>();
-	private final EntityAssetTypeDictionary entityAssetTypeDictionary;
-	private final RaceDictionary raceDictionary;
 	private CreatureEntityAssetsByType typeMap;
 
-	public CreatureEntityAssetDictionary(List<CreatureEntityAsset> completeAssetList, EntityAssetTypeDictionary entityAssetTypeDictionary, RaceDictionary raceDictionary) {
-		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
-		this.raceDictionary = raceDictionary;
+	public CreatureEntityAssetDictionary(List<CreatureEntityAsset> completeAssetList) {
 		for (CreatureEntityAsset asset : completeAssetList) {
 			assetsByName.put(asset.getUniqueName(), asset);
 		}
@@ -44,7 +38,7 @@ public class CreatureEntityAssetDictionary {
 	}
 
 	public void rebuild() {
-		this.typeMap = new CreatureEntityAssetsByType(entityAssetTypeDictionary, raceDictionary);
+		this.typeMap = new CreatureEntityAssetsByType();
 		for (CreatureEntityAsset asset : assetsByName.values()) {
 			if (!NULL_ENTITY_ASSET.equals(asset)) {
 				typeMap.add(asset);

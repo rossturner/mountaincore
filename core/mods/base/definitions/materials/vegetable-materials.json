@@ -3,6 +3,7 @@
     "materialName": "Wheat",
     "materialType": "VEGETABLE",
     "colorCode": "#d7ce86",
+    "useAsExampleMaterialForMaterialType": true,
     "combustible": true
   },
   {

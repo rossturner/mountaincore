@@ -11,7 +11,6 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
-import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.assets.entities.model.SpriteDescriptor;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
@@ -29,16 +28,13 @@ public class CreatureEntityAssetDictionaryProvider implements Provider<CreatureE
 
 	public static final float EPSILON = 0.0001f;
 
-	private final EntityAssetTypeDictionary entityAssetTypeDictionary;
 	private final TextureAtlasRepository textureAtlasRepository;
 
 	private CreatureEntityAssetDictionary instance;
 	private RaceDictionary raceDictionary;
 
 	@Inject
-	public CreatureEntityAssetDictionaryProvider(EntityAssetTypeDictionary entityAssetTypeDictionary,
-												 TextureAtlasRepository textureAtlasRepository, RaceDictionary raceDictionary) {
-		this.entityAssetTypeDictionary = entityAssetTypeDictionary;
+	public CreatureEntityAssetDictionaryProvider(TextureAtlasRepository textureAtlasRepository, RaceDictionary raceDictionary) {
 		this.textureAtlasRepository = textureAtlasRepository;
 		this.raceDictionary = raceDictionary;
 	}
@@ -76,7 +72,7 @@ public class CreatureEntityAssetDictionaryProvider implements Provider<CreatureE
 				}
 			}
 
-			return new CreatureEntityAssetDictionary(assetList, entityAssetTypeDictionary, raceDictionary);
+			return new CreatureEntityAssetDictionary(assetList);
 		} catch (IOException e) {
 			// TODO better exception handling
 			throw new RuntimeException(e);

@@ -75,7 +75,7 @@ public class FurnitureEntityAssetDictionaryProvider implements Provider<Furnitur
 				}
 			}
 
-			return new FurnitureEntityAssetDictionary(assetList, assetTypeDictionary, typeDictionary, layoutDictionary);
+			return new FurnitureEntityAssetDictionary(assetList, typeDictionary);
 		} catch (IOException e) {
 			// TODO better exception handling
 			throw new RuntimeException(e);

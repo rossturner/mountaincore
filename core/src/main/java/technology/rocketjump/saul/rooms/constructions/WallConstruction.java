@@ -6,6 +6,8 @@ import com.google.common.collect.Sets;
 import technology.rocketjump.saul.assets.model.WallType;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeWithMaterial;
+import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
 import technology.rocketjump.saul.mapping.tile.layout.WallConstructionLayout;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.persistence.JSONUtils;
@@ -13,7 +15,6 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-import java.util.Optional;
 import java.util.Set;
 
 import static technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial.convert;
@@ -38,8 +39,15 @@ public class WallConstruction extends Construction {
 		this.wallTypeToConstruct = wallTypeToConstruct;
 		this.primaryMaterialType = wallTypeToConstruct.getMaterialType();
 		this.requirements = convert(wallTypeToConstruct.getRequirements().get(primaryMaterialType));
+
+		// FIXME this only works if the wall requirements are all items with the same PrimaryMaterialType
 		if (material != null && !material.equals(NULL_MATERIAL)) {
-			this.setPlayerSpecifiedPrimaryMaterial(Optional.of(material));
+			for (QuantifiedItemTypeWithMaterial requirement : this.requirements) {
+				ItemTypeWithMaterial playerRequirement = new ItemTypeWithMaterial();
+				playerRequirement.setItemType(requirement.getItemType());
+				playerRequirement.setMaterial(material);
+				playerRequirementSelections.add(playerRequirement);
+			}
 		}
 	}
 

@@ -489,6 +489,8 @@ GUI.EMPTY_CONTAINER_LABEL.HINT,,Dump the contents of this container on the groun
 GUI.FURNITURE_ASSIGNED_TO,Used to show who owns a piece of furniture,Assigned to {{name}}
 GUI.FURNITURE_BEING_REMOVED,Label for when a piece of furniture is in the process of being removed,Currently being removed
 GUI.FURNITURE_REQUIRES_FLOOR_MATERIALTYPE,,This furniture must be placed on {{materialType}}.
+GUI.FURNITURE_REQUIREMENT.ALL_MATERIALS,,{{amount}} available
+GUI.FURNITURE_REQUIREMENT.SPECIFIED_MATERIALS,,{{amount}} {{material}} available
 GUI.GRAPHICS.FULLSCREEN,,Fullscreen
 GUI.GRAPHICS.RESOLUTION,,Resolution
 GUI.KEY_BINDING.DEBUG_FRAME_BUFFER_0,,Debug frame buffer 0
@@ -737,7 +739,6 @@ MATERIAL,Used for specifying which material something is made out of,Material
 
 MATERIAL_TYPE,,Type
 MATERIAL_TYPE.ANY,For allowing any kind of material to be used,Any
-MATERIAL_TYPE.ANY.LABEL,For allowing any kind of material to be used,Any material
 MATERIAL_TYPE.CLOTH.ADJECTIVE,," "
 MATERIAL_TYPE.CLOTH.NOUN,," "
 MATERIAL_TYPE.EARTH.ADJECTIVE,,Earthen
@@ -964,7 +965,7 @@ PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings
 PRIVACY.OPT_IN.LINE_9,,- Your options settings
 
 PRODUCT.ANVIL,,Anvil
-PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.
+PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}}.
 PRODUCT.BARREL.HOOPS,,Barrel hoops
 PRODUCT.BARREL.HOOPS.TOOLTIP,,Metal hoops used to construct a {{PRODUCT.BARREL.NOUN}}. Also used in some machinery.
 PRODUCT.BARREL.NOUN,,Barrel
@@ -988,6 +989,7 @@ PRODUCT.CAULDRON.TOOLTIP,,"Used by a {{PROFESSION.CHEF}} to prepare soup in a {{
 PRODUCT.LEATHER,,Leather
 PRODUCT.LINEN.NOUN,,Linen
 PRODUCT.LINEN.PLURAL,,Linen
+PRODUCT.LINEN.TOOLTIP,,"A roll of fabric, primarily used for bedding."
 PRODUCT.LIQUID.TANK,,Tank
 PRODUCT.LIQUID.TANK.TOOLTIP,,"This is a metal container used to store liquids, which must be crafted at the {{FURNITURE.FORGE}}."
 PRODUCT.MILLSTONE,,Millstone
@@ -1192,7 +1194,7 @@ RESOURCE.SHOCKED.MUSHROOM.LOG.PLURAL,,Mushroom logs
 RESOURCE.SHOCKED.MUSHROOM.LOG.TOOLTIP,,This mushroom-infused log has been “shocked” in water to encourage the mushrooms to develop and should produce a harvest soon.
 RESOURCE.STONE.BLOCK.NOUN,,Block
 RESOURCE.STONE.BLOCK.PLURAL,,Blocks
-RESOURCE.STONE.BLOCK.TOOLTIP,,Stone that has been shaped into a cube so that i can be easily used in construction or crafting.
+RESOURCE.STONE.BLOCK.TOOLTIP,,Stone that has been shaped into a cube so that it can be easily used in construction or crafting.
 RESOURCE.STONE.UNREFINED.NOUN,,Rough stone boulder
 RESOURCE.STONE.UNREFINED.PLURAL,,Rough stone boulders
 RESOURCE.STONE.UNREFINED.TOOLTIP,,A huge piece of stone that must be chiselled into a more useful shape by a {{PROFESSION.STONEMASON}}.

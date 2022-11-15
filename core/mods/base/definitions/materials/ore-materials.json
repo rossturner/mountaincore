@@ -10,6 +10,7 @@
     "materialType": "ORE",
     "prevalence": 2.2,
     "colorCode": "#3E3E3E",
+    "useAsExampleMaterialForMaterialType": true,
     "combustible": true
   },
   {

@@ -12,9 +12,6 @@ public class MechanismEntityAssetsByLayout {
 
 	private Map<Integer, List<MechanismEntityAsset>> layoutMap = new HashMap<>();
 
-	public MechanismEntityAssetsByLayout() {
-	}
-
 	public void add(MechanismEntityAsset asset) {
 		Integer layoutId = asset.getLayoutId();
 		if (layoutId == null) {
@@ -39,9 +36,5 @@ public class MechanismEntityAssetsByLayout {
 		Integer layoutId = attributes.getPipeLayout() == null ? 0 : attributes.getPipeLayout().getId();
 		return layoutMap.getOrDefault(layoutId, List.of());
 	}
-
-//	public MechanismEntityAssetsByAssetType getAssetTypeMapByQuantity(int quantity) {
-//		return layoutMap.get(quantity);
-//	}
 
 }

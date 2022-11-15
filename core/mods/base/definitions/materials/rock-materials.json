@@ -39,6 +39,7 @@
     "rockGroup": "Metamorphic",
     "prevalence": 1,
     "colorCode": "#c3c6ce",
+    "useAsExampleMaterialForMaterialType": true,
     "oreNames": ["Malachite", "Chrysocolla", "Galena", "Thorium", "Pyrite", "Ilmenite"]
   },
   {

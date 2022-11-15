@@ -1,57 +1,42 @@
 package technology.rocketjump.saul.assets.entities.creature;
 
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
-import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CreatureEntityAssetsByRace {
+import static technology.rocketjump.saul.assets.entities.creature.CreatureEntityAssetsByProfession.NULL_ENTITY_ASSET;
 
-	private static final Race NO_RACE = new Race();
+public class CreatureEntityAssetsByRace {
 
 	private Map<Race, CreatureEntityAssetsByBodyType> raceMap = new HashMap<>();
 
-	public CreatureEntityAssetsByRace(RaceDictionary raceDictionary) {
-		NO_RACE.setName("None");
-		// not adding all race placeholders
-		for (Race race : raceDictionary.getAll()) {
-			raceMap.put(race, new CreatureEntityAssetsByBodyType(race));
-		}
+	public CreatureEntityAssetsByRace() {
 	}
 
 	public void add(CreatureEntityAsset asset) {
 		Race race = asset.getRace();
-//		if (race == null) {
-			// Any race, add to all lists
-//			for (CreatureEntityAssetsByBodyType assetsByBodyType : raceMap.values()) {
-//				assetsByBodyType.add(asset);
-//			}
-//		} else {
-			// currently assuming all creature assets are race-specific
-			// Specific race only
-			raceMap.computeIfAbsent(race, a -> new CreatureEntityAssetsByBodyType(race)).add(asset);
-//			raceMap.get(NO_RACE).add(asset);
-//		}
+		if (race == null) {
+			Logger.error("Race must be specified on CreatureEntityAsset " + asset.getUniqueName());
+			return;
+		}
+		raceMap.computeIfAbsent(race, a -> new CreatureEntityAssetsByBodyType()).add(asset);
 	}
 
 	public CreatureEntityAsset get(CreatureEntityAttributes attributes, Skill primaryProfession) {
 		Race race = attributes.getRace();
-//		if (race == null) {
-//			race = NO_RACE;
-//		}
-		return raceMap.get(race).get(attributes, primaryProfession);
+		CreatureEntityAssetsByBodyType childMap = raceMap.get(race);
+		return childMap != null ? childMap.get(attributes, primaryProfession) : NULL_ENTITY_ASSET;
 	}
 
 	public List<CreatureEntityAsset> getAll(CreatureEntityAttributes attributes, Skill primaryProfession) {
 		Race race = attributes.getRace();
-//		if (race == null) {
-//			race = Race.ANY;
-//		}
-		return raceMap.get(race).getAll(attributes, primaryProfession);
+		CreatureEntityAssetsByBodyType childMap = raceMap.get(race);
+		return childMap != null ? childMap.getAll(attributes, primaryProfession) : List.of();
 	}
 }

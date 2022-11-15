@@ -14,7 +14,8 @@
     "materialName": "Deer Meat",
     "materialType": "MEAT",
     "combustible": true,
-    "colorCode": "#ac684d"
+    "colorCode": "#ac684d",
+    "useAsExampleMaterialForMaterialType": true
   },
   {
     "materialName": "Fox Meat",
