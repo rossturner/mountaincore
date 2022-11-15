@@ -147,7 +147,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			FurnitureParticleEffectsComponent particleEffectsComponent = parentEntity.getComponent(FurnitureParticleEffectsComponent.class);
 			if (particleEffectsComponent != null) {
 				particleEffectsComponent.triggerProcessingEffects(
-						Optional.ofNullable( currentProductionAssignment != null ? new JobTarget(currentProductionAssignment.targetRecipe, parentEntity) : null));
+						Optional.ofNullable(currentProductionAssignment != null ? new JobTarget(currentProductionAssignment.targetRecipe, parentEntity) : null));
 			}
 
 			double elapsedTime = gameContext.getGameClock().getCurrentGameTime() - lastUpdateGameTime;
@@ -319,7 +319,6 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		}
 
 
-
 		InventoryComponent inventoryComponent = parentEntity.getOrCreateComponent(InventoryComponent.class);
 		for (InventoryComponent.InventoryEntry entry : inventoryComponent.getInventoryEntries()) {
 			if (entry.entity.getType().equals(EntityType.ITEM)) {
@@ -382,7 +381,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		GameMaterial requiredMaterial = requirement.getMaterial();
 		if (requiredMaterial == null) {
 			Optional<GameMaterial> selection = gameContext.getSettlementState().craftingRecipeMaterialSelections.computeIfAbsent(this.currentProductionAssignment.targetRecipe,
-					a -> new CraftingRecipeMaterialSelection(this.currentProductionAssignment.targetRecipe))
+							a -> new CraftingRecipeMaterialSelection(this.currentProductionAssignment.targetRecipe))
 					.getSelection(requirement);
 			if (selection.isPresent()) {
 				requiredMaterial = selection.get();
@@ -391,7 +390,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 
 		messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION,
 				new RequestHaulingAllocationMessage(parentEntity, parentEntity.getLocationComponent().getWorldOrParentPosition(), requirement.getItemType(), requiredMaterial,
-				true, amountRequired, null, this));
+						true, amountRequired, null, this));
 
 		if (haulingAllocation != null) {
 			haulingInputAllocations.add(haulingAllocation);
@@ -444,7 +443,6 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 							}
 					));
 				}
-
 
 
 				if (inputRequirement.getMaterial() != null) {
@@ -683,8 +681,15 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		// Randomly add any missing material types
 		for (GameMaterialType requiredMaterialType : outputAttributes.getItemType().getMaterialTypes()) {
 			if (outputAttributes.getMaterial(requiredMaterialType) == null) {
-				List<GameMaterial> materialsToPickFrom = gameMaterialDictionary.getByType(requiredMaterialType).stream()
-						.filter(GameMaterial::isUseInRandomGeneration).toList();
+				List<GameMaterial> materialsToPickFrom;
+
+				if (requiredMaterialType.equals(outputAttributes.getItemType().getPrimaryMaterialType()) &&
+						!outputAttributes.getItemType().getSpecificMaterials().isEmpty()) {
+					materialsToPickFrom = outputAttributes.getItemType().getSpecificMaterials();
+				} else {
+					materialsToPickFrom = gameMaterialDictionary.getByType(requiredMaterialType).stream()
+							.filter(GameMaterial::isUseInRandomGeneration).toList();
+				}
 				GameMaterial material = materialsToPickFrom.get(gameContext.getRandom().nextInt(materialsToPickFrom.size()));
 				outputAttributes.setMaterial(material);
 			}

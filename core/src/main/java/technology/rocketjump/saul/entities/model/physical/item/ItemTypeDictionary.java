@@ -12,6 +12,8 @@ import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.jobs.model.SkillType;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
+import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
@@ -32,6 +34,7 @@ public class ItemTypeDictionary {
 	private final ConstantsRepo constantsRepo;
 	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
 	private final SkillDictionary skillDictionary;
+	private final GameMaterialDictionary materialDictionary;
 	private Map<String, ItemType> byName = new HashMap<>();
 	private List<ItemType> allTypesList = new ArrayList<>();
 	private List<ItemType> itemTypesWithWeaponInfo = new ArrayList<>();
@@ -46,13 +49,14 @@ public class ItemTypeDictionary {
 							  SoundAssetDictionary soundAssetDictionary,
 							  ConstantsRepo constantsRepo,
 							  ParticleEffectTypeDictionary particleEffectTypeDictionary,
-							  SkillDictionary skillDictionary) throws IOException {
+							  SkillDictionary skillDictionary, GameMaterialDictionary materialDictionary) throws IOException {
 		this.craftingTypeDictionary = craftingTypeDictionary;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.constantsRepo = constantsRepo;
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
 		this.skillDictionary = skillDictionary;
+		this.materialDictionary = materialDictionary;
 		ObjectMapper objectMapper = new ObjectMapper();
 		File itemTypeJsonFile = new File("assets/definitions/types/itemTypes.json");
 		List<ItemType> itemTypeList = objectMapper.readValue(FileUtils.readFileToString(itemTypeJsonFile, "UTF-8"),
@@ -165,6 +169,21 @@ public class ItemTypeDictionary {
 		}
 		if (itemType.getIsAmmoType() != null) {
 			byAmmoType.computeIfAbsent(itemType.getIsAmmoType(), a -> new ArrayList<>()).add(itemType);
+		}
+		if (itemType.getSpecificMaterialNames() != null) {
+			for (String materialName : itemType.getSpecificMaterialNames()) {
+				GameMaterial material = materialDictionary.getByName(materialName);
+				if (material == null) {
+					Logger.error(String.format("Could not find material with name %s for item type %s", materialName, itemType.getItemTypeName()));
+				} else {
+					if (!material.getMaterialType().equals(itemType.getPrimaryMaterialType())) {
+						Logger.error(String.format("Material %s must be of type %s to be specified for item %s",
+								material.getMaterialName(), itemType.getPrimaryMaterialType(), itemType.getItemTypeName()));
+					} else {
+						itemType.getSpecificMaterials().add(material);
+					}
+				}
+			}
 		}
 	}
 

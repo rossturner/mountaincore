@@ -17,21 +17,23 @@ import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.production.StockpileComponentUpdater;
+import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
-import technology.rocketjump.saul.rooms.Room;
-import technology.rocketjump.saul.rooms.RoomFactory;
-import technology.rocketjump.saul.rooms.RoomStore;
-import technology.rocketjump.saul.rooms.RoomType;
+import technology.rocketjump.saul.rooms.*;
 import technology.rocketjump.saul.rooms.components.FarmPlotComponent;
 import technology.rocketjump.saul.rooms.components.RoomComponent;
+import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
@@ -45,6 +47,7 @@ import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
+import technology.rocketjump.saul.ui.widgets.StockpileManagementTree;
 import technology.rocketjump.saul.ui.widgets.TextInputDialog;
 import technology.rocketjump.saul.ui.widgets.rooms.FarmPlotDescriptionWidget;
 import technology.rocketjump.saul.ui.widgets.rooms.FarmPlotWidget;
@@ -79,6 +82,11 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private boolean displayed;
 
 	private FurnitureType selectedFurnitureType;
+	private boolean stockpileSettingsExpanded;
+	private final StockpileComponentUpdater stockpileComponentUpdater;
+	private final StockpileGroupDictionary stockpileGroupDictionary;
+	private final ItemTypeDictionary itemTypeDictionary;
+	private final RaceDictionary raceDictionary;
 
 	@Inject
 	public RoomEditingView(MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository,
@@ -86,7 +94,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 						   FurnitureTypeDictionary furnitureTypeDictionary, RoomEditorFurnitureMap furnitureMap,
 						   EntityRenderer entityRenderer, RoomStore roomStore, RoomEditorItemMap itemMap,
 						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget,
-						   RoomFactory roomFactory, GameMaterialDictionary materialDictionary) {
+						   RoomFactory roomFactory, GameMaterialDictionary materialDictionary, StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary, ItemTypeDictionary itemTypeDictionary, RaceDictionary raceDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
@@ -101,6 +109,10 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
 		this.roomFactory = roomFactory;
 		this.materialDictionary = materialDictionary;
+		this.stockpileComponentUpdater = stockpileComponentUpdater;
+		this.stockpileGroupDictionary = stockpileGroupDictionary;
+		this.itemTypeDictionary = itemTypeDictionary;
+		this.raceDictionary = raceDictionary;
 
 		backButton = new Button(skin.getDrawable("btn_back"));
 		mainTable = new Table();
@@ -169,10 +181,14 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 				}
 				return true;
 			}
-			case MessageType.GUI_ROOM_TYPE_SELECTED -> rebuildUI();
+			case MessageType.GUI_ROOM_TYPE_SELECTED -> {
+				stockpileSettingsExpanded = false;
+				rebuildUI();
+			}
 			case MessageType.CHOOSE_SELECTABLE -> {
 				Selectable selectable = (Selectable) msg.extraInfo;
 				if (selectable.getRoom() != null) {
+					stockpileSettingsExpanded = false;
 					rebuildUI();
 				}
 			}
@@ -220,15 +236,15 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			headerContainer.add(new Container<>()).right().expandX().width(changeRoomNameButton.getWidth());
 		}
 
-		buildSizingButtonsTable();
+		buildSizingButtonsTable(selectedRoom);
 		Container<Table> sizingButtonsContainer = new Container<>();
 		sizingButtonsContainer.setActor(sizingButtons);
 		sizingButtonsContainer.right();
 
 		Table topRow = new Table();
-		topRow.add(new Container<>()).left().expandX().width(sizingButtonsContainer.getWidth());
+		topRow.add(new Container<>()).left().expandX().width(400);
 		topRow.add(headerContainer).center().width(900).expandY();
-		topRow.add(sizingButtonsContainer).right().expandX().width(sizingButtonsContainer.getWidth());
+		topRow.add(sizingButtonsContainer).right().expandX().width(400);
 
 		mainTable.defaults().padBottom(20);
 		mainTable.add(topRow).top().expandX().fillX().row();
@@ -258,6 +274,17 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 						plantSpeciesDictionary, itemMap, entityRenderer, i18nTranslator);
 				farmPlotWidget.setOnSeedChange(farmPlotDescriptionWidget::cropChanged);
 				mainTable.add(farmPlotWidget).center().row();
+			}
+
+			StockpileRoomComponent stockpileComponent = selectedRoom.getComponent(StockpileRoomComponent.class);
+			if (stockpileComponent != null && stockpileSettingsExpanded) {
+				StockpileManagementTree stockpileManagementTree = new StockpileManagementTree(skin, messageDispatcher,
+						stockpileComponentUpdater, stockpileGroupDictionary,
+						i18nTranslator, itemTypeDictionary, materialDictionary, raceDictionary,
+						gameContext.getSettlementState().getSettlerRace(), selectedRoom.getRoomId(),
+						HaulingAllocation.AllocationPositionType.ROOM, stockpileComponent.getStockpileSettings());
+				stockpileManagementTree.setSize(1700, 600);
+				mainTable.add(stockpileManagementTree).left().row();
 			}
 		}
 
@@ -345,8 +372,28 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		return selectedFurnitureType;
 	}
 
-	private void buildSizingButtonsTable() {
+	private void buildSizingButtonsTable(Room selectedRoom) {
 		sizingButtons.clearChildren();
+
+		if (selectedRoom != null && selectedRoom.getRoomType().isStockpile()) {
+			Container<Button> stockpileSettingsContainer = new Container<>();
+			if (stockpileSettingsExpanded) {
+				stockpileSettingsContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
+			}
+			stockpileSettingsContainer.pad(18);
+			Button stockpileSettingsButton = new Button(skin.getDrawable("btn_settings"));
+			stockpileSettingsButton.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					toggleStockpileSettings();
+				}
+			});
+			stockpileSettingsButton.addListener(new ChangeCursorOnHover(stockpileSettingsButton, GameCursor.SELECT, messageDispatcher));
+			tooltipFactory.simpleTooltip(stockpileSettingsButton, "GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE", TooltipLocationHint.ABOVE);
+			stockpileSettingsContainer.setActor(stockpileSettingsButton);
+			sizingButtons.add(stockpileSettingsContainer);
+		}
+
 		Container<Button> addTilesContainer = new Container<>();
 		if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.PLACE_ROOM)) {
 			addTilesContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
@@ -381,6 +428,11 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		tooltipFactory.simpleTooltip(removeTilesButton, "GUI.REMOVE_TILES", TooltipLocationHint.ABOVE);
 		removeTilesContainer.setActor(removeTilesButton);
 		sizingButtons.add(removeTilesContainer).padRight(20);
+	}
+
+	private void toggleStockpileSettings() {
+		this.stockpileSettingsExpanded = !this.stockpileSettingsExpanded;
+		rebuildUI();
 	}
 
 	private Room getSelectedRoom() {

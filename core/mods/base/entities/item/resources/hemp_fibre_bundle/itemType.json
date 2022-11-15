@@ -7,5 +7,6 @@
   "hoursInInventoryUntilUnused" : 0.25,
   "stockpileGroupName" : "RAW_MATERIALS",
   "describeAsMaterialOnly" : true,
-  "i18nKey" : "RESOURCE.HEMP.FIBRE.BUNDLE"
+  "i18nKey" : "RESOURCE.HEMP.FIBRE.BUNDLE",
+  "specificMaterialNames": ["Hemp_Fibre"]
 }

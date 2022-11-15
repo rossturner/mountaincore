@@ -7,6 +7,7 @@ import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.jobs.model.CraftingType;
+import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.Name;
 import technology.rocketjump.saul.production.StockpileGroup;
@@ -59,6 +60,10 @@ public class ItemType {
 	private String consumeSoundAssetName;
 	@JsonIgnore
 	private SoundAsset consumeSoundAsset;
+
+	private List<String> specificMaterialNames = new ArrayList<>();
+	@JsonIgnore
+	private List<GameMaterial> specificMaterials = new ArrayList<>();
 
 	private WeaponInfo weaponInfo;
 	private AmmoType isAmmoType;
@@ -289,6 +294,22 @@ public class ItemType {
 
 	public void setDefenseInfo(DefenseInfo defenseInfo) {
 		this.defenseInfo = defenseInfo;
+	}
+
+	public List<String> getSpecificMaterialNames() {
+		return specificMaterialNames;
+	}
+
+	public void setSpecificMaterialNames(List<String> specificMaterialNames) {
+		this.specificMaterialNames = specificMaterialNames;
+	}
+
+	public List<GameMaterial> getSpecificMaterials() {
+		return specificMaterials;
+	}
+
+	public void setSpecificMaterials(List<GameMaterial> specificMaterials) {
+		this.specificMaterials = specificMaterials;
 	}
 
 	@JsonIgnore

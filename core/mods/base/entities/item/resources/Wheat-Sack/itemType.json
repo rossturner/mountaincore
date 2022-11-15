@@ -7,5 +7,6 @@
   "hoursInInventoryUntilUnused" : 2.0,
   "stockpileGroupName" : "GRANARY",
   "describeAsMaterialOnly" : true,
-  "i18nKey" : "RESOURCE.WHEAT.SACK"
+  "i18nKey" : "RESOURCE.WHEAT.SACK",
+  "specificMaterialNames": ["Wheat"]
 }
