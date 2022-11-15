@@ -3,8 +3,6 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Resource-Bone-Medium",
   "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -34,8 +32,6 @@
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Resource-Bone-Medium",
   "maxQuantity" : 2,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -52,8 +48,6 @@
   "itemTypeName" : "Resource-Bone-Medium",
   "minQuantity" : 6,
   "maxQuantity" : 10,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -70,8 +64,6 @@
   "itemTypeName" : "Resource-Bone-Medium",
   "minQuantity" : 3,
   "maxQuantity" : 5,
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

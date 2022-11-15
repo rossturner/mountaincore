@@ -38,7 +38,7 @@ public class ItemEntityAssetDictionary {
 	}
 
 	public void rebuild() {
-		this.quantityMap = new ItemEntityAssetsByQuantity(entityAssetTypeDictionary, itemTypeDictionary);
+		this.quantityMap = new ItemEntityAssetsByQuantity(itemTypeDictionary);
 		for (ItemEntityAsset asset : assetsByName.values()) {
 			quantityMap.add(asset);
 		}
@@ -64,10 +64,6 @@ public class ItemEntityAssetDictionary {
 
 	public Map<? extends String, ? extends EntityAsset> getAll() {
 		return assetsByName;
-	}
-
-	public ItemEntityAssetsByQuantity getQuantityMap() {
-		return quantityMap;
 	}
 
 }

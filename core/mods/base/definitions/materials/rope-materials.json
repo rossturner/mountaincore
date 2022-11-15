@@ -3,6 +3,7 @@
     "materialName": "Hemp-Rope",
     "materialType": "ROPE",
     "colorCode": "#d9bc8b",
+    "useAsExampleMaterialForMaterialType": true,
     "combustible": true
   },
   {

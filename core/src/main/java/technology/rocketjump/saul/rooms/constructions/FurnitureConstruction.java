@@ -9,22 +9,20 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
-import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
 import technology.rocketjump.saul.entities.tags.ConstructionOverrideTag;
 import technology.rocketjump.saul.entities.tags.Tag;
-import technology.rocketjump.saul.materials.model.GameMaterial;
-import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.persistence.JSONUtils;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial.convert;
-import static technology.rocketjump.saul.entities.tags.ConstructionOverrideTag.ConstructionOverrideSetting.DO_NOT_ALLOCATE;
-import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
 public class FurnitureConstruction extends Construction {
@@ -67,16 +65,6 @@ public class FurnitureConstruction extends Construction {
 			this.requirements = new ArrayList<>();
 		} else {
 			this.requirements = convert(requirements);
-			if (!getConstructionOverrideSettings().contains(DO_NOT_ALLOCATE)) {
-				// Do not match up materials when construction is DO_NOT_ALLOCATE tag, so any type of cauldron can match
-				EnumMap<GameMaterialType, GameMaterial> existingMaterials = attributes.getMaterials();
-				for (QuantifiedItemTypeWithMaterial requirement : this.requirements) {
-					GameMaterial matchingMaterial = existingMaterials.get(requirement.getItemType().getPrimaryMaterialType());
-					if (matchingMaterial != null && !matchingMaterial.equals(NULL_MATERIAL) && matchingMaterial.getMaterialType().equals(primaryMaterialType)) {
-						this.playerSpecifiedPrimaryMaterial = Optional.of(matchingMaterial);
-					}
-				}
-			}
 		}
 
 	}

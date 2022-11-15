@@ -9,24 +9,18 @@ import java.util.List;
 
 public class ItemEntityAssetsByPlacement {
 
-	private EnumMap<ItemPlacement, ItemEntityAssetsByStyle> byItemPlacement = new EnumMap<>(ItemPlacement.class);
-
-	public ItemEntityAssetsByPlacement() {
-		for (ItemPlacement iItemPlacement : ItemPlacement.values()) {
-			byItemPlacement.put(iItemPlacement, new ItemEntityAssetsByStyle());
-		}
-	}
+	private EnumMap<ItemPlacement, ItemEntityAssetsByMaterial> byItemPlacement = new EnumMap<>(ItemPlacement.class);
 
 	public void add(ItemEntityAsset asset) {
 		List<ItemPlacement> itemPlacements = asset.getItemPlacements();
 		if (itemPlacements == null || itemPlacements.isEmpty()) {
 			// Not specified, so add to all
 			for (ItemPlacement itemPlacement : ItemPlacement.values()) {
-				byItemPlacement.get(itemPlacement).add(asset);
+				byItemPlacement.computeIfAbsent(itemPlacement, a -> new ItemEntityAssetsByMaterial()).add(asset);
 			}
 		} else {
 			for (ItemPlacement itemPlacement : itemPlacements) {
-				byItemPlacement.get(itemPlacement).add(asset);
+				byItemPlacement.computeIfAbsent(itemPlacement, a -> new ItemEntityAssetsByMaterial()).add(asset);
 			}
 		}
 	}
@@ -36,7 +30,8 @@ public class ItemEntityAssetsByPlacement {
 		if (itemPlacement == null) {
 			itemPlacement = ItemPlacement.ON_GROUND;
 		}
-		return byItemPlacement.get(itemPlacement).get(attributes);
+		ItemEntityAssetsByMaterial childMap = byItemPlacement.get(itemPlacement);
+		return childMap != null ? childMap.get(attributes) : null;
 	}
 
 	public List<ItemEntityAsset> getAll(ItemEntityAttributes attributes) {
@@ -44,10 +39,8 @@ public class ItemEntityAssetsByPlacement {
 		if (itemPlacement == null) {
 			itemPlacement = ItemPlacement.ON_GROUND;
 		}
-		return byItemPlacement.get(itemPlacement).getAll(attributes);
+		ItemEntityAssetsByMaterial childMap = byItemPlacement.get(itemPlacement);
+		return childMap != null ? childMap.getAll(attributes) : List.of();
 	}
 
-	public ItemEntityAssetsByStyle getByPlacement(ItemPlacement itemPlacement) {
-		return byItemPlacement.get(itemPlacement);
-	}
 }

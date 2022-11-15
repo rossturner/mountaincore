@@ -2,8 +2,6 @@
   "uniqueName" : "Weapon-Crossbow-Mechanism-Being_Carried",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Weapon-Crossbow",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -61,8 +59,6 @@
   "uniqueName" : "Weapon-Crossbow-Mechanism-On_Ground",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Weapon-Crossbow",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -77,8 +73,6 @@
   "uniqueName" : "Weapon-Crossbow-Stock-Being_Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Crossbow",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -234,8 +228,6 @@
   "uniqueName" : "Weapon-Crossbow-Stock-On_Ground",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Weapon-Crossbow",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -264,8 +256,6 @@
   "uniqueName" : "Weapon-Crossbow-String-Being_Carried",
   "type" : "ABOVE_LAYER_2",
   "itemTypeName" : "Weapon-Crossbow",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -312,8 +302,6 @@
   "uniqueName" : "Weapon-Crossbow-String-On_Ground",
   "type" : "ABOVE_LAYER_2",
   "itemTypeName" : "Weapon-Crossbow",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

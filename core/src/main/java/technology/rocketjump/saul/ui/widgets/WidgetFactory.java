@@ -89,7 +89,7 @@ public class WidgetFactory {
         checkbox.add(image);
 
         checkbox.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-        checkbox.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+        checkbox.addListener(new ChangeCursorOnHover(checkbox, GameCursor.SELECT, messageDispatcher));
 
         return checkbox;
     }
@@ -107,7 +107,7 @@ public class WidgetFactory {
         checkbox.add(image);
 
         checkbox.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-        checkbox.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+        checkbox.addListener(new ChangeCursorOnHover(checkbox, GameCursor.SELECT, messageDispatcher));
 
         return checkbox;
     }

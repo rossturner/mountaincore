@@ -1,5 +1,6 @@
 {
   "speciesName": "Hemp",
+  "usageI18nKey" : "VEGETABLE.HEMP.USAGE",
   "plantType": "CROP",
   "materialName": "Plant",
   "maxGrowthSpeedVariance": 0.03,

@@ -3,30 +3,25 @@ package technology.rocketjump.saul.assets.entities.creature;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShape;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureBodyShapeDescriptor;
 import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
-import technology.rocketjump.saul.entities.model.physical.creature.*;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.Gender;
+import technology.rocketjump.saul.entities.model.physical.creature.Race;
+import technology.rocketjump.saul.entities.model.physical.creature.RaceGenderDescriptor;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 
 import java.util.List;
 import java.util.Map;
 
 import static org.fest.assertions.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreatureEntityAssetDictionaryTest {
-
-    @Mock
-    private EntityAssetTypeDictionary entityAssetTypeDictionary;
-    @Mock
-    private RaceDictionary raceDictionary;
 
     @Test
     public void getMatching_GivenDictionaryRebuilds_CanFindByTheUpdatedProperties() {
@@ -36,9 +31,7 @@ public class CreatureEntityAssetDictionaryTest {
         race.setName("MyRace");
         race.setBodyShapes(List.of(bodyShape));
         race.setGenders(Map.of(Gender.MALE, Mockito.mock(RaceGenderDescriptor.class), Gender.FEMALE, Mockito.mock(RaceGenderDescriptor.class)));
-        when(raceDictionary.getAll()).thenReturn(List.of(race));
         EntityAssetType assetType = new EntityAssetType("MyAssetType");
-        when(entityAssetTypeDictionary.getAll()).thenReturn(List.of(assetType));
 
         CreatureEntityAsset expectedAsset = new CreatureEntityAsset();
         expectedAsset.setUniqueName("MyAssetName");
@@ -51,7 +44,7 @@ public class CreatureEntityAssetDictionaryTest {
         attributes.setGender(Gender.MALE);
 
 
-        CreatureEntityAssetDictionary dictionary = new CreatureEntityAssetDictionary(List.of(expectedAsset), entityAssetTypeDictionary, raceDictionary);
+        CreatureEntityAssetDictionary dictionary = new CreatureEntityAssetDictionary(List.of(expectedAsset));
 
         assertThat(dictionary.getMatching(assetType, attributes, SkillDictionary.NULL_PROFESSION)).isSameAs(expectedAsset);
 

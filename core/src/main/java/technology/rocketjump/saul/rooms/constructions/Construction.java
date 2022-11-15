@@ -14,6 +14,7 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
 import technology.rocketjump.saul.entities.tags.ConstructionOverrideTag;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -62,7 +63,7 @@ public abstract class Construction implements Persistable, SelectableDescription
 	protected Map<GridPoint2, ItemAllocation> placedItemAllocations = new HashMap<>();
 	protected GameMaterialType primaryMaterialType;
 	protected List<QuantifiedItemTypeWithMaterial> requirements = new ArrayList<>(); // Note that material will be null initially
-	protected Optional<GameMaterial> playerSpecifiedPrimaryMaterial = Optional.empty();
+	protected List<ItemTypeWithMaterial> playerRequirementSelections = new ArrayList<>();
 	protected Set<ConstructionOverrideTag.ConstructionOverrideSetting> constructionOverrideSettings = new HashSet<>();
 
 	@Override
@@ -195,12 +196,13 @@ public abstract class Construction implements Persistable, SelectableDescription
 		return constructionOverrideSettings;
 	}
 
-	public Optional<GameMaterial> getPlayerSpecifiedPrimaryMaterial() {
-		return playerSpecifiedPrimaryMaterial;
+	public List<ItemTypeWithMaterial> getPlayerRequirementSelections() {
+		return playerRequirementSelections;
 	}
 
-	public void setPlayerSpecifiedPrimaryMaterial(Optional<GameMaterial> playerSpecifiedPrimaryMaterial) {
-		this.playerSpecifiedPrimaryMaterial = playerSpecifiedPrimaryMaterial;
+	public void setPlayerRequirementSelections(List<ItemTypeWithMaterial> playerRequirementSelections) {
+		this.playerRequirementSelections.clear();
+		this.playerRequirementSelections.addAll(playerRequirementSelections);
 	}
 
 	@Override
@@ -259,9 +261,15 @@ public abstract class Construction implements Persistable, SelectableDescription
 			asJson.put("overrides", overrideSettingsJson);
 		}
 
-		playerSpecifiedPrimaryMaterial.ifPresent(gameMaterial ->
-				asJson.put("playerSpecifiedPrimaryMaterial", gameMaterial.getMaterialName())
-		);
+		if (!playerRequirementSelections.isEmpty()) {
+			JSONArray playerRequirementJson = new JSONArray();
+			for (ItemTypeWithMaterial playerRequirementSelection : playerRequirementSelections) {
+				JSONObject requirementJson = new JSONObject(true);
+				playerRequirementSelection.writeTo(requirementJson, savedGameStateHolder);
+				playerRequirementJson.add(requirementJson);
+			}
+			asJson.put("playerRequirementSelections", playerRequirementJson);
+		}
 
 		savedGameStateHolder.constructions.put(getId(), this);
 		savedGameStateHolder.constructionsJson.add(asJson);
@@ -335,11 +343,12 @@ public abstract class Construction implements Persistable, SelectableDescription
 
 		this.primaryMaterialType = EnumParser.getEnumValue(asJson, "primaryMaterialType", GameMaterialType.class, null);
 
-		String playerSpecifiedPrimaryMaterialName = asJson.getString("playerSpecifiedPrimaryMaterial");
-		if (playerSpecifiedPrimaryMaterialName != null) {
-			playerSpecifiedPrimaryMaterial = Optional.ofNullable(relatedStores.gameMaterialDictionary.getByName(playerSpecifiedPrimaryMaterialName));
-			if (playerSpecifiedPrimaryMaterial.isEmpty()) {
-				throw new InvalidSaveException("Could not find material with name " + playerSpecifiedPrimaryMaterialName);
+		JSONArray playerRequirementsJson = asJson.getJSONArray("playerRequirementSelections");
+		if (playerRequirementsJson != null) {
+			for (int cursor = 0; cursor < playerRequirementsJson.size(); cursor++) {
+				ItemTypeWithMaterial requirement = new ItemTypeWithMaterial();
+				requirement.readFrom(playerRequirementsJson.getJSONObject(cursor), savedGameStateHolder, relatedStores);
+				this.playerRequirementSelections.add(requirement);
 			}
 		}
 

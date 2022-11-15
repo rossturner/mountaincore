@@ -256,12 +256,12 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			}
 
 			if (mostCommonQuantity >= itemMaterialSelectionMessage.minimumQuantity) {
-				itemMaterialSelectionMessage.callback.materialFound(mostCommonMaterial);
+				itemMaterialSelectionMessage.callback.accept(mostCommonMaterial);
 			} else {
-				itemMaterialSelectionMessage.callback.materialFound(null);
+				itemMaterialSelectionMessage.callback.accept(null);
 			}
 		} else {
-			itemMaterialSelectionMessage.callback.materialFound(null);
+			itemMaterialSelectionMessage.callback.accept(null);
 		}
 		return true;
 	}

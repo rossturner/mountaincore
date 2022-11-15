@@ -39,9 +39,7 @@
         {
           "itemTypeName": "Resource-Mushroom-Lumber",
           "materialName": "Barkshroom",
-          "quantity": 2,
-          "itemSize": "SMALL",
-          "itemStyle": "STYLE_1"
+          "quantity": 2
         }
       ]
     }

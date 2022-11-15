@@ -1,96 +1,78 @@
-[{
-  "uniqueName": "Resource-Planks-Single",
-  "type": "ITEM_BASE_LAYER",
-  "itemTypeName": "Resource-Planks",
-  "itemPlacements": ["BEING_CARRIED"],
-  "minQuantity": 1,
-  "maxQuantity": 2,
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "Resource-Planks-Single-F.png",
-      "coloringLayer": "WOOD_COLOR",
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": -8,
-            "y": 0
-          }
-        }
-      ]
+[ {
+  "uniqueName" : "Resource-Planks-Single",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Planks",
+  "maxQuantity" : 2,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Planks-Single-F.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -8.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
     },
-    "DOWN_RIGHT": {
-      "filename": "Resource-Planks-Single-F34.png",
-      "coloringLayer": "WOOD_COLOR",
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": -8,
-            "y": 0
-          }
-        }
-      ]
+    "DOWN_RIGHT" : {
+      "filename" : "Resource-Planks-Single-F34.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -8.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
     },
-    "DOWN_LEFT": {
-      "filename": "Resource-Planks-Single-F34.png",
-      "flipX": true,
-      "coloringLayer": "WOOD_COLOR",
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": -8,
-            "y": 0
-          }
-        }
-      ]
+    "DOWN_LEFT" : {
+      "filename" : "Resource-Planks-Single-F34.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "flipX" : true,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -8.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
     },
-    "UP": {
-      "filename": "Resource-Planks-Single-F.png",
-      "coloringLayer": "WOOD_COLOR",
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": 8,
-            "y": 0
-          }
-        }
-      ]
+    "UP" : {
+      "filename" : "Resource-Planks-Single-F.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 8.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
     },
-    "UP_RIGHT": {
-      "filename": "Resource-Planks-Single-F34.png",
-      "flipX": true,
-      "coloringLayer": "WOOD_COLOR",
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": 100,
-          "offsetPixels": {
-            "x": 8,
-            "y": 0
-          }
-        }
-      ]
+    "UP_RIGHT" : {
+      "filename" : "Resource-Planks-Single-F34.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "flipX" : true,
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 8.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
     },
-    "UP_LEFT": {
-      "filename": "Resource-Planks-Single-F34.png",
-      "coloringLayer": "WOOD_COLOR",
-      "parentEntityAssets": [
-        {
-          "type": "CREATURE_RIGHT_HAND",
-          "overrideRenderLayer": -100,
-          "offsetPixels": {
-            "x": 6,
-            "y": 2
-          }
-        }
-      ]
+    "UP_LEFT" : {
+      "filename" : "Resource-Planks-Single-F34.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 6.0,
+          "y" : 2.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
     }
   }
-}]
+} ]

@@ -152,10 +152,13 @@ public class PlantUIFactory implements UIFactory {
         controls.add(nameTextField); //TODO: make editable and update child entity asset types
         controls.row();
 
+        controls.add(WidgetBuilder.label("Usage I18nKey"));
+        controls.add(WidgetBuilder.textField(plantSpecies.getUsageI18nKey(), plantSpecies::setUsageI18nKey));
+        controls.row();
+
         controls.add(WidgetBuilder.label("Type"));
         controls.add(WidgetBuilder.select(plantSpecies.getPlantType(), PlantSpeciesType.values(), null, plantSpecies::setPlantType));
         controls.row();
-
 
         controls.add(WidgetBuilder.label("Material"));
         controls.add(WidgetBuilder.select(plantSpecies.getMaterial(), materialDictionary.getAll(), null, material -> {

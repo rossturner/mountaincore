@@ -1,10 +1,11 @@
 {
-  "itemTypeName": "Product-Ration-Dough",
-  "materialTypes": ["VEGETABLE"],
-  "primaryMaterialType": "VEGETABLE",
-  "stockpileGroupName": "FOOD",
-  "hoursInInventoryUntilUnused": 1,
-  "maxStackSize": 28,
-  "maxHauledAtOnce": 7,
-  "equippedWhileWorkingOnJob": false
+  "itemTypeName" : "Product-Ration-Dough",
+  "maxStackSize" : 28,
+  "maxHauledAtOnce" : 7,
+  "materialTypes" : [ "VEGETABLE" ],
+  "primaryMaterialType" : "VEGETABLE",
+  "equippedWhileWorkingOnJob" : false,
+  "hoursInInventoryUntilUnused" : 1.0,
+  "stockpileGroupName" : "FOOD",
+  "i18nKey" : "PRODUCT.RATION.DOUGH"
 }

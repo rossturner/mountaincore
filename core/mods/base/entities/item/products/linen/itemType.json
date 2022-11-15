@@ -1,8 +1,6 @@
 {
-  "itemTypeId" : 25,
   "itemTypeName" : "Product-Linen",
   "maxStackSize" : 12,
-  "maxHauledAtOnce" : 1,
   "materialTypes" : [ "CLOTH" ],
   "primaryMaterialType" : "CLOTH",
   "hoursInInventoryUntilUnused" : 1.0,

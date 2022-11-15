@@ -1,26 +1,19 @@
-[{
-  "uniqueName": "Resource-Mushroom-Log-Large01-Pile01-Exterior",
-  "type": "ITEM_BASE_LAYER",
-  "itemTypeName": "Resource-Mushroom-Log",
-  "itemSize": "LARGE",
-  "itemStyle": "STYLE_1",
-  "itemPlacements": ["ON_GROUND"],
-  "minQuantity": 1,
-  "maxQuantity": 1,
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "Resource-Logs-Large01-Pile01-Exterior.png",
-      "coloringLayer": "BRANCHES_COLOR",
-      "childAssets": [
-        {
-          "type": "BELOW_LAYER_1",
-          "specificAssetName": "Resource-Logs-Large-Pile01-Interior",
-          "offsetPixels": {
-            "x": 0,
-            "y": -17
-          }
+[ {
+  "uniqueName" : "Resource-Mushroom-Log-Large01-Pile01-Exterior",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Resource-Mushroom-Log",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Logs-Large01-Pile01-Exterior.png",
+      "coloringLayer" : "BRANCHES_COLOR",
+      "childAssets" : [ {
+        "type" : "BELOW_LAYER_1",
+        "specificAssetName" : "Resource-Logs-Large-Pile01-Interior",
+        "offsetPixels" : {
+          "y" : -17.0
         }
-      ]
+      } ]
     }
   }
-}]
+} ]

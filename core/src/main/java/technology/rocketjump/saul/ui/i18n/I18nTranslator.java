@@ -132,7 +132,7 @@ public class I18nTranslator {
 				MechanismEntityAttributes mechanismEntityAttributes = (MechanismEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 				return getMechanismDescription(mechanismEntityAttributes.getMechanismType(), mechanismEntityAttributes.getPrimaryMaterial());
 			case PLANT:
-				return getDescription(entity, (PlantEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
+				return getDescription((PlantEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
 			case FURNITURE:
 				return getDescription((FurnitureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
 			default:
@@ -593,7 +593,19 @@ public class I18nTranslator {
 
 
 
-	private I18nText getDescription(Entity entity, PlantEntityAttributes attributes) {
+	public I18nText getAvailabilityDescription(ItemType itemType, int quantity, GameMaterial material) {
+		Map<String, I18nString> replacements = new HashMap<>();
+		replacements.put("itemType", dictionary.getWord(itemType.getI18nKey()));
+		replacements.put("quantity", new I18nWord(String.valueOf(quantity)));
+		if (material == null) {
+			replacements.put("material", BLANK);
+		} else {
+			replacements.put("material", dictionary.getWord(material.getI18nKey()));
+		}
+		return applyReplacements(dictionary.getWord("ITEM.AVAILABILITY.DESCRIPTION"), replacements, Gender.ANY);
+	}
+
+	public I18nText getDescription(PlantEntityAttributes attributes) {
 		Map<String, I18nString> replacements = new HashMap<>();
 
 		switch (attributes.getSpecies().getPlantType()) {
@@ -672,10 +684,10 @@ public class I18nTranslator {
 				String[] split = token.split("\\.");
 				replacement = replacements.getOrDefault(split[0], new I18nWord(split[0]));
 				if (split[split.length - 1].equals("noun_or_plural")) {
-					if (getQuantity(replacements) > 1) {
-						replacementWordclass = I18nWordClass.PLURAL;
-					} else {
+					if (getQuantity(replacements) == 1) {
 						replacementWordclass = I18nWordClass.NOUN;
+					} else {
+						replacementWordclass = I18nWordClass.PLURAL;
 					}
 				} else {
 					replacementWordclass = I18nWordClass.valueOf(split[split.length - 1].toUpperCase());
@@ -861,5 +873,4 @@ public class I18nTranslator {
 			);
 		}
 	}
-
 }

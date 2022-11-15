@@ -6,6 +6,7 @@ import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.Name;
 import technology.rocketjump.saul.rendering.utils.HexColors;
+import technology.rocketjump.saul.rooms.tags.StockpileTag;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 
 import java.util.ArrayList;
@@ -19,10 +20,10 @@ public class RoomType {
 	private String roomName;
 	private String i18nKey;
 	private I18nText i18nValue;
+	private String drawableName;
 	private String colorCode;
 	@JsonIgnore
 	private Color color;
-	private String iconName;
 	private GameMaterialType requiredFloorMaterialType;
 	private List<String> furnitureNames = new ArrayList<>();
 	private Map<String, List<String>> tags = new HashMap<>();
@@ -70,14 +71,6 @@ public class RoomType {
 		this.color = color;
 	}
 
-	public String getIconName() {
-		return iconName;
-	}
-
-	public void setIconName(String iconName) {
-		this.iconName = iconName;
-	}
-
 	public List<String> getFurnitureNames() {
 		return furnitureNames;
 	}
@@ -110,6 +103,11 @@ public class RoomType {
 		this.processedTags = processedTags;
 	}
 
+	@JsonIgnore
+	public boolean isStockpile() {
+		return getProcessedTags().stream().anyMatch(tag -> tag instanceof StockpileTag);
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -126,5 +124,13 @@ public class RoomType {
 	@Override
 	public String toString() {
 		return roomName;
+	}
+
+	public String getDrawableName() {
+		return drawableName;
+	}
+
+	public void setDrawableName(String drawableName) {
+		this.drawableName = drawableName;
 	}
 }

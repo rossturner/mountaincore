@@ -136,7 +136,7 @@ public class FurnitureSelectionGuiView implements GuiView, FurnitureSelectedCall
 		backButton.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ROOM_SIZING);
+				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ROOM_SELECTION);
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DEFAULT);
 			}
 		});
@@ -167,7 +167,7 @@ public class FurnitureSelectionGuiView implements GuiView, FurnitureSelectedCall
 		if (currentRoomType == null) {
 			return GuiViewName.BUILD_MENU;
 		} else {
-			return GuiViewName.ROOM_SIZING;
+			return GuiViewName.ROOM_SELECTION;
 		}
 	}
 

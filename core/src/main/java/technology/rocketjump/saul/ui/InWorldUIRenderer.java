@@ -273,16 +273,17 @@ public class InWorldUIRenderer {
 			return;
 		}
 
-		if (interactionStateContainer.getInteractionMode().equals(DEFAULT)) {
-			Selectable selectable = interactionStateContainer.getSelectable();
-			if (selectable != null) {
-				selectableOutlineRenderer.render(selectable, shapeRenderer, gameContext);
 
-				if (GlobalSettings.DEV_MODE) {
-					showCreatureGroupLocation(gameContext, selectable);
-				}
+		Selectable selectable = interactionStateContainer.getSelectable();
+		if (selectable != null) {
+			selectableOutlineRenderer.render(selectable, shapeRenderer, gameContext);
+
+			if (GlobalSettings.DEV_MODE) {
+				showCreatureGroupLocation(gameContext, selectable);
 			}
-		} else if (interactionStateContainer.getInteractionMode().equals(PLACE_FURNITURE)) {
+		}
+
+		if (interactionStateContainer.getInteractionMode().equals(PLACE_FURNITURE)) {
 			Color furnitureColor = VALID_PLACEMENT_COLOR;
 			if (!interactionStateContainer.isValidFurniturePlacement()) {
 				furnitureColor = INVALID_PLACEMENT_COLOR;

@@ -79,7 +79,7 @@ public class KeyBindingUIWidget extends Table {
 		});
 
 		textButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-		textButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		textButton.addListener(new ChangeCursorOnHover(textButton, GameCursor.SELECT, messageDispatcher));
 		return textButton;
 	}
 

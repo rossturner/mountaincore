@@ -2,6 +2,7 @@
   {
     "materialName": "Green Vitriol",
     "materialType": "VITRIOL",
+    "useAsExampleMaterialForMaterialType": true,
     "colorCode": "#7fccbb"
   },
   {
@@ -16,6 +17,7 @@
   {
     "materialName": "Grass",
     "materialType": "EARTH",
+    "useAsExampleMaterialForMaterialType": true,
     "colorCode": "#639448"
   },
   {
@@ -35,6 +37,7 @@
   {
     "materialName": "Gravel",
     "materialType": "OTHER",
+    "useAsExampleMaterialForMaterialType": true,
     "colorCode": "#7e796f"
   },
   {
@@ -46,6 +49,7 @@
     "materialName": "Bone",
     "materialType": "BONE",
     "colorCode": "#fbfbf9",
+    "useAsExampleMaterialForMaterialType": true,
     "excludeFromItemDescription": true
   },
   {

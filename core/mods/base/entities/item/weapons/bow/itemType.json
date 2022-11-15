@@ -1,6 +1,5 @@
 {
   "itemTypeName" : "Weapon-Bow",
-  "maxHauledAtOnce" : 1,
   "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
   "holdPosition" : "LEFT_HAND",
@@ -16,7 +15,8 @@
     "combatSkillName" : "ARCHERY",
     "fireWeaponSoundAssetName" : "SFX_Hunting_Attack_Bow",
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Stabbing_Bow",
-    "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow"
+    "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow",
+    "ranged" : true
   },
   "i18nKey" : "WEAPON.BOW"
 }

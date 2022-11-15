@@ -3479,7 +3479,7 @@
   "uniqueName" : "Bush-B1-Branches",
   "type" : "PLANT_BRANCHES",
   "speciesName" : "Shrub",
-  "growthStages" : [ ],
+  "growthStages" : [ 0, 1 ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -3510,7 +3510,7 @@
   "uniqueName" : "Bush-B1-Leaves",
   "type" : "PLANT_LEAVES",
   "speciesName" : "Shrub",
-  "growthStages" : [ ],
+  "growthStages" : [ 0, 1 ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -3541,7 +3541,7 @@
   "uniqueName" : "Bush-B2-Branches",
   "type" : "PLANT_BRANCHES",
   "speciesName" : "Shrub",
-  "growthStages" : [ ],
+  "growthStages" : [ 0, 1 ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -3572,7 +3572,7 @@
   "uniqueName" : "Bush-B2-Leaves",
   "type" : "PLANT_LEAVES",
   "speciesName" : "Shrub",
-  "growthStages" : [ ],
+  "growthStages" : [ 0, 1 ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -3603,7 +3603,7 @@
   "uniqueName" : "Bush-B3-Branches",
   "type" : "PLANT_BRANCHES",
   "speciesName" : "Shrub",
-  "growthStages" : [ ],
+  "growthStages" : [ 0, 1 ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -3634,7 +3634,7 @@
   "uniqueName" : "Bush-B3-Leaves",
   "type" : "PLANT_LEAVES",
   "speciesName" : "Shrub",
-  "growthStages" : [ ],
+  "growthStages" : [ 0, 1 ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -3665,7 +3665,7 @@
   "uniqueName" : "Bush-B4-Branches",
   "type" : "PLANT_BRANCHES",
   "speciesName" : "Shrub",
-  "growthStages" : [ ],
+  "growthStages" : [ 0, 1 ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -3696,7 +3696,7 @@
   "uniqueName" : "Bush-B4-Leaves",
   "type" : "PLANT_LEAVES",
   "speciesName" : "Shrub",
-  "growthStages" : [ ],
+  "growthStages" : [ 0, 1 ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -3727,7 +3727,7 @@
   "uniqueName" : "Bush-B5-Branches",
   "type" : "PLANT_BRANCHES",
   "speciesName" : "Shrub",
-  "growthStages" : [ ],
+  "growthStages" : [ 0, 1 ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -3758,7 +3758,7 @@
   "uniqueName" : "Bush-B5-Leaves",
   "type" : "PLANT_LEAVES",
   "speciesName" : "Shrub",
-  "growthStages" : [ ],
+  "growthStages" : [ 0, 1 ],
   "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {

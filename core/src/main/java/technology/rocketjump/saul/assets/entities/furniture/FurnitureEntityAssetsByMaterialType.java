@@ -14,19 +14,13 @@ public class FurnitureEntityAssetsByMaterialType {
 
 	private Map<GameMaterialType, List<FurnitureEntityAsset>> byMaterialType = new EnumMap<>(GameMaterialType.class);
 
-	public FurnitureEntityAssetsByMaterialType() {
-		for (GameMaterialType gameMaterialType : GameMaterialType.values()) {
-			byMaterialType.put(gameMaterialType, new ArrayList<>());
-		}
-	}
-
 	public void add(FurnitureEntityAsset asset) {
 		List<GameMaterialType> materialTypes = asset.getValidMaterialTypes();
 		if (materialTypes == null) {
 			throw new RuntimeException("Material types must be specified for " + asset);
 		} else {
 			for (GameMaterialType materialType : materialTypes) {
-				byMaterialType.get(materialType).add(asset);
+				byMaterialType.computeIfAbsent(materialType, a -> new ArrayList<>()).add(asset);
 			}
 		}
 	}
@@ -34,7 +28,7 @@ public class FurnitureEntityAssetsByMaterialType {
 	public FurnitureEntityAsset get(FurnitureEntityAttributes attributes) {
 		List<FurnitureEntityAsset> assets = byMaterialType.get(attributes.getPrimaryMaterialType());
 		if (assets.size() == 0) {
-			Logger.error("Could not find applicable asset for " + attributes.toString());
+			Logger.error("Could not find applicable asset for " + attributes);
 			return null;
 		} else {
 			return assets.get((Math.abs((int)attributes.getSeed())) % assets.size());
@@ -43,7 +37,7 @@ public class FurnitureEntityAssetsByMaterialType {
 	}
 
 	public List<FurnitureEntityAsset> getAll(FurnitureEntityAttributes attributes) {
-		return byMaterialType.get(attributes.getPrimaryMaterialType());
+		return byMaterialType.getOrDefault(attributes.getPrimaryMaterialType(), List.of());
 	}
 
 }

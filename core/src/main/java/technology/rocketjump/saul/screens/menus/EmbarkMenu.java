@@ -101,11 +101,11 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 
 
 		this.nameInput = new TextField("", skin);
-		this.nameInput.addListener(new ChangeCursorOnHover(GameCursor.I_BEAM, messageDispatcher));
+		this.nameInput.addListener(new ChangeCursorOnHover(nameInput, GameCursor.I_BEAM, messageDispatcher));
 		this.nameInput.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		this.nameInput.setAlignment(Align.center);
 		Button randomiseNameButton = new Button(skin, "btn_random");
-		randomiseNameButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		randomiseNameButton.addListener(new ChangeCursorOnHover(randomiseNameButton, GameCursor.SELECT, messageDispatcher));
 		randomiseNameButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		randomiseNameButton.addListener(new ClickListener() {
 			@Override
@@ -128,7 +128,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 
 		Label seedLabel = new Label(i18nTranslator.getTranslatedString("GUI.EMBARK.MAP_SEED").toString(), skin, "embark_seed_label");
 		this.seedInput = new TextField("", skin);
-		this.seedInput.addListener(new ChangeCursorOnHover(GameCursor.I_BEAM, messageDispatcher));
+		this.seedInput.addListener(new ChangeCursorOnHover(this.seedInput, GameCursor.I_BEAM, messageDispatcher));
 		this.seedInput.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		this.seedInput.setAlignment(Align.center);
 
@@ -145,7 +145,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		});
 
 		Button randomiseSeedButton = new Button(skin, "btn_random");
-		randomiseSeedButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		randomiseSeedButton.addListener(new ChangeCursorOnHover(randomiseSeedButton, GameCursor.SELECT, messageDispatcher));
 		randomiseSeedButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		randomiseSeedButton.addListener(new ClickListener() {
 			@Override
@@ -157,7 +157,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 
 		Button backButton = new Button(skin, "btn_embark_back");
 		backButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-		backButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		backButton.addListener(new ChangeCursorOnHover(backButton, GameCursor.SELECT, messageDispatcher));
 		backButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -167,7 +167,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 
 		Button startButton = new Button(skin, "btn_embark_next");
 		startButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "GameStart"));
-		startButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		startButton.addListener(new ChangeCursorOnHover(startButton, GameCursor.SELECT, messageDispatcher));
 
 		startButton.addListener(new ClickListener() {
 			@Override
@@ -249,7 +249,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		Label sizeLabel = new Label(i18nTranslator.getTranslatedString(labelI18nKey).toString(), skin, "map_size_label");
 		ImageButton mapButton = new ImageButton(skin, mapDrawableName);
 		mapButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-		mapButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		mapButton.addListener(new ChangeCursorOnHover(mapButton, GameCursor.SELECT, messageDispatcher));
 		mapButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {

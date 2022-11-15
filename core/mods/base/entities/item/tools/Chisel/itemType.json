@@ -1,15 +1,12 @@
 {
-  "itemTypeName": "Tool-Chisel",
-  "materialTypes": ["METAL"],
-  "primaryMaterialType": "METAL",
-  "maxStackSize": 1,
-  "maxHauledAtOnce": 1,
-  "stockpileGroupName": "TOOLS",
-  "holdPosition": "RIGHT_HAND",
-  "impedesMovement": false,
-  "blocksMovement": false,
-  "relatedCraftingTypeNames": ["STONEMASONRY", "SMELTING"],
-  "tags": {
-    "USAGE_SOUND": ["StonemasonChipping"]
-  }
+  "itemTypeName" : "Tool-Chisel",
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "relatedCraftingTypeNames" : [ "STONEMASONRY", "SMELTING" ],
+  "stockpileGroupName" : "TOOLS",
+  "tags" : {
+    "USAGE_SOUND" : [ "StonemasonChipping" ]
+  },
+  "i18nKey" : "TOOL.CHISEL"
 }

@@ -1,60 +1,41 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.rendering.utils.HexColors;
-import technology.rocketjump.saul.ui.GameInteractionMode;
-import technology.rocketjump.saul.ui.actions.SetInteractionMode;
-import technology.rocketjump.saul.ui.actions.SwitchGuiViewAction;
-import technology.rocketjump.saul.ui.widgets.ButtonStyle;
-import technology.rocketjump.saul.ui.widgets.IconButton;
-import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
+import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
-import java.util.LinkedList;
-import java.util.List;
+import static technology.rocketjump.saul.ui.GameInteractionMode.*;
 
 @Singleton
-public class OrderSelectionGuiView implements GuiView {
+public class OrderSelectionGuiView implements GuiView, DisplaysText {
 
-	private List<IconButton> iconButtons = new LinkedList<>();
+	private final Skin skin;
+	private final Table layoutTable = new Table();
+	private final MessageDispatcher messageDispatcher;
+	private final TooltipFactory tooltipFactory;
 
 	@Inject
-	public OrderSelectionGuiView(IconButtonFactory iconButtonFactory, MessageDispatcher messageDispatcher) {
+	public OrderSelectionGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory) {
+		this.skin = guiSkinRepository.getMainGameSkin();
+		this.messageDispatcher = messageDispatcher;
+		this.tooltipFactory = tooltipFactory;
 
-		IconButton back = iconButtonFactory.create("GUI.BACK_LABEL", "arrow-left", HexColors.get("#D9D9D9"), ButtonStyle.DEFAULT);
-		back.setAction(new SwitchGuiViewAction(GuiViewName.DEFAULT_MENU, messageDispatcher));
-		iconButtons.add(back);
+		layoutTable.setTouchable(Touchable.enabled);
 
-		IconButton mine = iconButtonFactory.create("GUI.ORDERS.MINE", "mining", HexColors.get("#97CFC7"), ButtonStyle.DEFAULT);
-		mine.setAction(new SetInteractionMode(GameInteractionMode.DESIGNATE_MINING, messageDispatcher));
-		iconButtons.add(mine);
-
-		IconButton chopTrees = iconButtonFactory.create("GUI.ORDERS.CHOP_WOOD", "logging", HexColors.get("#41AB44"), ButtonStyle.DEFAULT);
-		chopTrees.setAction(new SetInteractionMode(GameInteractionMode.DESIGNATE_CHOP_WOOD, messageDispatcher));
-		iconButtons.add(chopTrees);
-
-		IconButton harvest = iconButtonFactory.create("GUI.ORDERS.HARVEST_PLANTS", "sickle", HexColors.get("#e0dc6a"), ButtonStyle.DEFAULT);
-		harvest.setAction(new SetInteractionMode(GameInteractionMode.DESIGNATE_HARVEST_PLANTS, messageDispatcher));
-		iconButtons.add(harvest);
-
-		IconButton clearGround = iconButtonFactory.create("GUI.ORDERS.CLEAR_GROUND", "spade", HexColors.get("#e1a774"), ButtonStyle.DEFAULT);
-		clearGround.setAction(new SetInteractionMode(GameInteractionMode.DESIGNATE_CLEAR_GROUND, messageDispatcher));
-		iconButtons.add(clearGround);
-
-		IconButton digChannels = iconButtonFactory.create("GUI.ORDERS.DIG_CHANNELS", "trench", HexColors.get("#b56a28"), ButtonStyle.DEFAULT);
-		digChannels.setAction(new SetInteractionMode(GameInteractionMode.DESIGNATE_DIG_CHANNEL, messageDispatcher));
-		iconButtons.add(digChannels);
-
-		IconButton extinguishFlames = iconButtonFactory.create("GUI.ORDERS.EXTINGUISH_FLAMES", "water-splash", HexColors.get("#5ae9f0"), ButtonStyle.DEFAULT);
-		extinguishFlames.setAction(new SetInteractionMode(GameInteractionMode.DESIGNATE_EXTINGUISH_FLAMES, messageDispatcher));
-		iconButtons.add(extinguishFlames);
-
-		IconButton removeDesignations = iconButtonFactory.create("GUI.REMOVE_LABEL", "cancel", HexColors.NEGATIVE_COLOR, ButtonStyle.DEFAULT);
-		removeDesignations.setAction(new SetInteractionMode(GameInteractionMode.REMOVE_DESIGNATIONS, messageDispatcher));
-		iconButtons.add(removeDesignations);
-
+		rebuildUI();
 	}
 
 	@Override
@@ -69,10 +50,7 @@ public class OrderSelectionGuiView implements GuiView {
 
 	@Override
 	public void populate(Table containerTable) {
-
-		for (IconButton iconButton : iconButtons) {
-			containerTable.add(iconButton).pad(5);
-		}
+		containerTable.add(layoutTable);
 	}
 
 	@Override
@@ -80,4 +58,49 @@ public class OrderSelectionGuiView implements GuiView {
 		// Doesn't yet need to update every second
 	}
 
+	@Override
+	public void rebuildUI() {
+		layoutTable.clearChildren();
+
+		layoutTable.defaults().padLeft(24);
+
+		Button backButton = buildButton("btn_back", "GUI.BACK_LABEL",
+				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName()));
+		layoutTable.add(backButton).padLeft(40).padRight(30);
+
+		Button mineButton = buildButton("btn_current_orders_mine", "GUI.ORDERS.MINE",
+				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, DESIGNATE_MINING));
+		layoutTable.add(mineButton);
+
+		Button chopButton = buildButton("btn_current_orders_chop", "GUI.ORDERS.CHOP_WOOD",
+				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, DESIGNATE_CHOP_WOOD));
+		layoutTable.add(chopButton);
+
+		Button clearButton = buildButton("btn_current_orders_clear", "GUI.ORDERS.CLEAR_GROUND",
+				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, DESIGNATE_CLEAR_GROUND));
+		layoutTable.add(clearButton);
+
+		Button extinguishButton = buildButton("btn_current_orders_extinguish", "GUI.ORDERS.EXTINGUISH_FLAMES",
+				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, DESIGNATE_EXTINGUISH_FLAMES));
+		layoutTable.add(extinguishButton);
+
+		Button removeDesignationButton = buildButton("btn_current_orders_cancel", "GUI.REMOVE_LABEL",
+				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, REMOVE_DESIGNATIONS));
+		layoutTable.add(removeDesignationButton);
+
+		// TODO up/down buttons to change view level
+	}
+
+	private Button buildButton(String drawableName, String tooltipI18nKey, Runnable onClick) {
+		Button button = new Button(skin.getDrawable(drawableName));
+		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
+		button.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				onClick.run();
+			}
+		});
+		tooltipFactory.simpleTooltip(button, tooltipI18nKey, TooltipLocationHint.ABOVE);
+		return button;
+	}
 }

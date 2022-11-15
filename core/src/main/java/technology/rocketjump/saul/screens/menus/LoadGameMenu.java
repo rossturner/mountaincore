@@ -149,7 +149,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		saveSlot.setTouchable(Touchable.enabled);
 		saveSlot.clearListeners();
 
-		saveSlot.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+		saveSlot.addListener(new ChangeCursorOnHover(saveSlot, GameCursor.SELECT, messageDispatcher));
 		saveSlot.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		saveSlot.addListener(new ClickListener() {
 

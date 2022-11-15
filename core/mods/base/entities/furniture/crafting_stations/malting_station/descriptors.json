@@ -408,9 +408,30 @@
     }
   },
   {
-    "uniqueName": "malting-station-kiln-above",
+    "uniqueName": "malting-station-kiln-above-EW",
     "type": "FURNITURE_ABOVE_LAYER_1",
     "furnitureTypeName": "MALTING_STATION",
+    "furnitureLayoutName": "4x1 EW",
+    "validMaterialTypes": [
+      "WOOD",
+      "STONE"
+    ],
+    "spriteDescriptors": {
+      "DOWN": {
+        "filename": "Kiln.png",
+        "coloringLayer": "STONE_COLOR",
+        "offsetPixels": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    }
+  },
+  {
+    "uniqueName": "malting-station-kiln-above-NS",
+    "type": "FURNITURE_ABOVE_LAYER_1",
+    "furnitureTypeName": "MALTING_STATION",
+    "furnitureLayoutName": "1x4 NS",
     "validMaterialTypes": [
       "WOOD",
       "STONE"

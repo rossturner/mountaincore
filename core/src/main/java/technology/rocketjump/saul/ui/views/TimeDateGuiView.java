@@ -72,7 +72,7 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 		for (ManagementScreenName managementScreen : ManagementScreenName.managementScreensOrderedForUI) {
 			Button screenButton = new Button(skin, managementScreen.buttonStyleName);
 
-			screenButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+			screenButton.addListener(new ChangeCursorOnHover(screenButton, GameCursor.SELECT, messageDispatcher));
 
 			screenButton.addListener(new ClickListener() {
 				@Override
@@ -102,7 +102,7 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 	@Override
 	public GuiViewName getName() {
 		// This is a special case GuiView which lives outside of the normal usage
-		return null;
+		return GuiViewName.TIME_DATE;
 	}
 
 	@Override

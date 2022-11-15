@@ -1,6 +1,7 @@
 [ {
   "name" : "RAW_MATERIALS",
   "i18nKey" : "STOCKPILE.GROUP.RAW_MATERIALS",
+  "drawableName" : "btn_stockpile_raw_materials",
   "colorCode" : "#F2ED5A",
   "iconName" : "stone-pile",
   "sortOrder" : 1,
@@ -8,6 +9,7 @@
 }, {
   "name" : "PRODUCTS",
   "i18nKey" : "STOCKPILE.GROUP.PRODUCTS",
+  "drawableName" : "btn_stockpile_products",
   "colorCode" : "#edc154",
   "iconName" : "gold-stack",
   "sortOrder" : 2,
@@ -15,6 +17,7 @@
 }, {
   "name" : "TOOLS",
   "i18nKey" : "STOCKPILE.GROUP.TOOLS",
+  "drawableName" : "btn_stockpile_tools",
   "colorCode" : "#c6c6c6",
   "iconName" : "stone-crafting",
   "sortOrder" : 3,
@@ -22,6 +25,7 @@
 }, {
   "name" : "FUEL",
   "i18nKey" : "STOCKPILE.GROUP.FUEL",
+  "drawableName" : "btn_stockpile_fuel",
   "colorCode" : "#565757",
   "iconName" : "pyre",
   "sortOrder" : 4,
@@ -29,6 +33,7 @@
 }, {
   "name" : "SEEDS",
   "i18nKey" : "STOCKPILE.GROUP.SEEDS",
+  "drawableName" : "btn_stockpile_seeds",
   "colorCode" : "#975a2c",
   "iconName" : "swap-bag",
   "sortOrder" : 5,
@@ -36,6 +41,7 @@
 }, {
   "name" : "GRANARY",
   "i18nKey" : "STOCKPILE.GROUP.GRANARY",
+  "drawableName" : "btn_stockpile_grain",
   "colorCode" : "#eda948",
   "iconName" : "grain",
   "sortOrder" : 6,
@@ -43,6 +49,7 @@
 }, {
   "name" : "FOOD",
   "i18nKey" : "STOCKPILE.GROUP.FOOD",
+  "drawableName" : "btn_stockpile_food",
   "colorCode" : "#7cb167",
   "iconName" : "fruit-bowl",
   "sortOrder" : 7,
@@ -50,6 +57,7 @@
 }, {
   "name" : "WEAPONS",
   "i18nKey" : "STOCKPILE.GROUP.WEAPONS",
+  "drawableName" : "btn_stockpile_weapons",
   "colorCode" : "#7a6ede",
   "iconName" : "crossed-swords",
   "sortOrder" : 8,

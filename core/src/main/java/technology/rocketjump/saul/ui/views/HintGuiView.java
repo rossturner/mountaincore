@@ -174,8 +174,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 
 	@Override
 	public GuiViewName getName() {
-		// This is a special case GuiView which lives outside of the normal usage
-		return null;
+		return GuiViewName.HINTS;
 	}
 
 	@Override

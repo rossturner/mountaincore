@@ -46,9 +46,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Nuytsia",
-          "quantity": 2,
-          "itemSize": "SMALL",
-          "itemStyle": "STYLE_1"
+          "quantity": 2
         }
       ]
     },
@@ -65,9 +63,7 @@
         {
           "itemTypeName": "Resource-Logs",
           "materialName": "Nuytsia",
-          "quantity": 3,
-          "itemSize": "SMALL",
-          "itemStyle": "STYLE_1"
+          "quantity": 3
         }
       ]
     }

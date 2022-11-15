@@ -3,6 +3,7 @@
     "materialName": "Beech",
     "materialType": "WOOD",
     "colorCode": "#e2c793",
+    "useAsExampleMaterialForMaterialType": true,
     "combustible": true
   },
   {

@@ -37,7 +37,7 @@ public class NoTitleDialog extends GameDialog {
                 dispose();
             }
         });
-        exitButton.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+        exitButton.addListener(new ChangeCursorOnHover(exitButton, GameCursor.SELECT, messageDispatcher));
         exitButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
         dialog.getContentTable().add(exitButton).expandX().align(Align.topLeft);
         dialog.getContentTable().row();
@@ -52,7 +52,7 @@ public class NoTitleDialog extends GameDialog {
     public void show(Stage stage) {
         if (!addedCursorChangeListeners) {
             for (Actor child : dialog.getButtonTable().getChildren()) {
-                child.addListener(new ChangeCursorOnHover(GameCursor.SELECT, messageDispatcher));
+                child.addListener(new ChangeCursorOnHover(child, GameCursor.SELECT, messageDispatcher));
                 child.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
             }
             addedCursorChangeListeners = true;

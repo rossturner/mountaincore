@@ -70,7 +70,7 @@ public class MechanismEntityAssetDictionaryProvider implements Provider<Mechanis
 				}
 			}
 
-			return new MechanismEntityAssetDictionary(assetList, entityAssetTypeDictionary, mechanismTypeDictionary);
+			return new MechanismEntityAssetDictionary(assetList, mechanismTypeDictionary);
 		} catch (IOException e) {
 			// TODO better exception handling
 			throw new RuntimeException(e);

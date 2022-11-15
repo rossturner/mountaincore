@@ -81,7 +81,8 @@
     "materialType": "GEM",
     "rockGroup": "Metamorphic",
     "prevalence": 0.4,
-    "colorCode": "#009473"
+    "colorCode": "#009473",
+    "useAsExampleMaterialForMaterialType": true
   },
   {
     "materialName": "Morganite",

@@ -12,7 +12,10 @@ public interface GuiView {
 
 	GuiViewName getParentViewName();
 
-	default void onClose() {
+	default void onShow() {
+
+	}
+	default void onHide() {
 
 	}
 

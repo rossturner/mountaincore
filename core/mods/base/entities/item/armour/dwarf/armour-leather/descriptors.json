@@ -2,8 +2,6 @@
   "uniqueName" : "Armour-Leather-Above_Layer_1-Being_Carried",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Armour-Leather",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -55,8 +53,6 @@
   "uniqueName" : "Armour-Leather-Above_Layer_1-On_Ground",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Armour-Leather",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -71,8 +67,6 @@
   "uniqueName" : "Armour-Leather-Above_Layer_2-Being_Carried",
   "type" : "ABOVE_LAYER_2",
   "itemTypeName" : "Armour-Leather",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -107,8 +101,6 @@
   "uniqueName" : "Armour-Leather-Above_Layer_2-On_Ground",
   "type" : "ABOVE_LAYER_2",
   "itemTypeName" : "Armour-Leather",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -123,8 +115,6 @@
   "uniqueName" : "Armour-Leather-Item_Base_Layer-Being_Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Armour-Leather",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -272,8 +262,6 @@
   "uniqueName" : "Armour-Leather-Item_Base_Layer-On_Ground",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Armour-Leather",
-  "itemSize" : "AVERAGE",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {

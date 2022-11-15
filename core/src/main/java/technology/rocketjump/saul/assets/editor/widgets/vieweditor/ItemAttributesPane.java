@@ -6,8 +6,6 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
-import technology.rocketjump.saul.assets.entities.item.model.ItemSize;
-import technology.rocketjump.saul.assets.entities.item.model.ItemStyle;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
@@ -39,14 +37,9 @@ public class ItemAttributesPane extends AbstractAttributesPane {
         ItemEntityAttributes attributes = (ItemEntityAttributes) currentEntity.getPhysicalEntityComponent().getAttributes();
         ItemType itemType = attributes.getItemType();
 
-        Collection<ItemSize> itemSizes = Arrays.asList(ItemSize.values());
-        Collection<ItemStyle> itemStyles = Arrays.asList(ItemStyle.values());
         Collection<ItemQuality> itemQualities = Arrays.asList(ItemQuality.values());
         List<GameMaterialType> itemMaterialTypes = itemType.getMaterialTypes();
         List<ItemPlacement> itemPlacements = Arrays.asList(ItemPlacement.values());
-
-        add(WidgetBuilder.selectField("Size", attributes.getItemSize(), itemSizes, null, update(attributes::setItemSize)));
-        add(WidgetBuilder.selectField("Style", attributes.getItemStyle(), itemStyles, null, update(attributes::setItemStyle)));
 
         for (GameMaterialType type : itemMaterialTypes) {
             List<GameMaterial> materials = materialDictionary.getByType(type);

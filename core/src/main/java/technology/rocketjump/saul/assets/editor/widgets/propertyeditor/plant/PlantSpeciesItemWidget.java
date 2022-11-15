@@ -2,8 +2,6 @@ package technology.rocketjump.saul.assets.editor.widgets.propertyeditor.plant;
 
 import com.kotcrab.vis.ui.widget.VisTable;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
-import technology.rocketjump.saul.assets.entities.item.model.ItemSize;
-import technology.rocketjump.saul.assets.entities.item.model.ItemStyle;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesGrowthStage;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesItem;
@@ -55,14 +53,6 @@ public class PlantSpeciesItemWidget extends VisTable {
 
             this.add(WidgetBuilder.label("Chance"));
             this.add(WidgetBuilder.floatSpinner(harvestedItem.getChance(), 0.0f, Float.MAX_VALUE, harvestedItem::setChance));
-            this.row();
-
-            this.add(WidgetBuilder.label("Size"));
-            this.add(WidgetBuilder.select(harvestedItem.getItemSize(), ItemSize.values(), null, harvestedItem::setItemSize));
-            this.row();
-
-            this.add(WidgetBuilder.label("Style"));
-            this.add(WidgetBuilder.select(harvestedItem.getItemStyle(), ItemStyle.values(), null, harvestedItem::setItemStyle));
             this.row().padBottom(15);
         }
     }

@@ -34,7 +34,7 @@ public class TooltipFactory {
 	 * so that the tooltip can be removed when the parentActor is clicked
 	 */
 	public void simpleTooltip(Actor parentActor, String i18nKey, TooltipLocationHint locationHint) {
-		Table tooltipTable = new Table();
+		TooltipTable tooltipTable = new TooltipTable();
 
 		if (locationHint.equals(BELOW)) {
 			tooltipTable.add(new Image(skin.getDrawable("hover_state_label_arrow_up"))).size(76f, 40f).center().row();
@@ -54,33 +54,36 @@ public class TooltipFactory {
 			tooltipTable.add(new Image(skin.getDrawable("hover_state_label_arrow_down"))).size(76f, 40f).center().row();
 		}
 
-		parentActor.addListener(new InputListener() {
-			@Override
-			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				// add to stage first or table size will be 0 (rarrrgghhh)
-				parentActor.getStage().addActor(tooltipTable);
-				// layout after adding to stage or else subsequent displaying of actor will be positioned differently (FFS)
-				tooltipTable.layout();
-				// Position here is lower-left corner of parent actor
-				Vector2 position = parentActor.localToStageCoordinates(new Vector2(0, 0));
+		parentActor.addListener(new TooltipHoverListener(parentActor, tooltipTable, () -> labelContainer.getHeight() / 2f, locationHint));
 
-				if (locationHint.equals(ABOVE)) {
-					position.add(parentActor.getWidth() / 2f, parentActor.getHeight());
-					position.add(0, labelContainer.getHeight() / 2f);
-				} else if (locationHint.equals(BELOW)) {
-					position.add(parentActor.getWidth() / 2f, 0);
-					position.sub(0, labelContainer.getHeight() / 2f);
-				}
-
-				// setPosition() ***centers*** the actor being positioned around the point specified (internal screaming)
-				tooltipTable.setPosition(position.x, position.y);
-			}
-
+		tooltipTable.addListener(new InputListener() {
 			@Override
 			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
 				checkToRemove(tooltipTable, parentActor);
 			}
 		});
+
+		if (hasClickListener(parentActor)) {
+			parentActor.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					tooltipTable.remove();
+				}
+			});
+		}
+	}
+
+	public void complexTooltip(Actor parentActor, Actor tooltipContents) {
+		TooltipTable tooltipTable = new TooltipTable();
+
+		Container<Actor> contentContainer = new Container<>();
+		contentContainer.setBackground(skin.get("asset_bg_tooltip_patch", TenPatchDrawable.class));
+		contentContainer.setActor(tooltipContents);
+		contentContainer.pad(40).padBottom(80);
+
+		tooltipTable.add(contentContainer).center().row();
+
+		parentActor.addListener(new TooltipHoverListener(parentActor, tooltipTable, () -> (contentContainer.getHeight() / 2f) - 20f, ABOVE));
 
 		tooltipTable.addListener(new InputListener() {
 			@Override
@@ -128,6 +131,52 @@ public class TooltipFactory {
 			}
 		}
 		return false;
+	}
+
+	private class TooltipHoverListener extends InputListener {
+
+		private final Actor parentActor;
+		private final TooltipTable tooltipTable;
+		private final TooltipLocationHint locationHint;
+		private final NonThrowingCallable<Float> yOffsetCallback;
+
+		public TooltipHoverListener(Actor parentActor, TooltipTable tooltipTable, NonThrowingCallable<Float> yOffsetCallback, TooltipLocationHint locationHint) {
+			this.parentActor = parentActor;
+			this.tooltipTable = tooltipTable;
+			this.yOffsetCallback = yOffsetCallback;
+			this.locationHint = locationHint;
+		}
+
+		@Override
+		public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+			// add to stage first or table size will be 0 (rarrrgghhh)
+			parentActor.getStage().addActor(tooltipTable);
+			// layout after adding to stage or else subsequent displaying of actor will be positioned differently (FFS)
+			tooltipTable.layout();
+			// Position here is lower-left corner of parent actor
+			Vector2 position = parentActor.localToStageCoordinates(new Vector2(0, 0));
+
+			if (locationHint.equals(ABOVE)) {
+				position.add(parentActor.getWidth() / 2f, parentActor.getHeight());
+				position.add(0, yOffsetCallback.call()); // This has to be run here or the width/height values will not be set!
+			} else if (locationHint.equals(BELOW)) {
+				position.add(parentActor.getWidth() / 2f, 0);
+				position.sub(0, yOffsetCallback.call());
+			}
+
+			// setPosition() ***centers*** the actor being positioned around the point specified (internal screaming)
+			tooltipTable.setPosition(position.x, position.y);
+		}
+
+		@Override
+		public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+			checkToRemove(tooltipTable, parentActor);
+		}
+
+	}
+
+	public interface NonThrowingCallable<V> {
+		V call();
 	}
 
 }

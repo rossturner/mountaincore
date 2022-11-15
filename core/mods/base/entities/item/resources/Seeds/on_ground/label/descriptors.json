@@ -1,0 +1,105 @@
+[ {
+  "uniqueName" : "Ingredient-Seeds-Barley-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "maxQuantity" : 50,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Barley Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Barley-Label_Down.png",
+      "scale" : 0.7
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Carrot-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "maxQuantity" : 50,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Carrot Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Carrot-Label_Down.png",
+      "scale" : 0.7
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Corn-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "maxQuantity" : 50,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Corn Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Corn-Label_Down.png",
+      "scale" : 0.7
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Hemp-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "maxQuantity" : 50,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Hemp Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Hemp-Label_Down.png",
+      "scale" : 0.7
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Hops-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "maxQuantity" : 50,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Hops Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Hops-Label_Down.png",
+      "scale" : 0.7
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Potato-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "maxQuantity" : 50,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Potato Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Potato-Label_Down.png",
+      "scale" : 0.7
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Tomato-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "maxQuantity" : 50,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Tomato Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Tomato-Label_Down.png",
+      "scale" : 0.7
+    }
+  }
+}, {
+  "uniqueName" : "Ingredient-Seeds-Wheat-Label",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Ingredient-Seeds",
+  "maxQuantity" : 50,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "applicableMaterialNames" : [ "Wheat Seed" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ingredient-Seeds-Wheat-Label_Down.png",
+      "scale" : 0.7
+    }
+  }
+} ]

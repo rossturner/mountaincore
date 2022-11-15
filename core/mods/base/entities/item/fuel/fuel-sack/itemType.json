@@ -1,8 +1,9 @@
 {
-  "itemTypeName": "Fuel-Sack",
-  "materialTypes": ["CLOTH", "ORE"],
-  "primaryMaterialType": "ORE",
-  "maxStackSize": 16,
-  "maxHauledAtOnce": 16,
-  "stockpileGroupName": "FUEL"
+  "itemTypeName" : "Fuel-Sack",
+  "maxStackSize" : 16,
+  "maxHauledAtOnce" : 16,
+  "materialTypes" : [ "CLOTH", "ORE" ],
+  "primaryMaterialType" : "ORE",
+  "stockpileGroupName" : "FUEL",
+  "i18nKey" : "FUEL.SACK"
 }

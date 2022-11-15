@@ -1,146 +1,115 @@
-[
-  {
-    "uniqueName": "Product-Bucket-Body-Carried",
-    "type": "ITEM_BASE_LAYER",
-    "itemTypeName": "Product-Bucket",
-    "itemPlacements": ["BEING_CARRIED"],
-    "minQuantity": 1,
-    "maxQuantity": 1,
-    "spriteDescriptors": {
-      "DOWN": {
-        "filename": "Bucket-Body-Carried.png",
-        "coloringLayer": "WOOD_COLOR",
-        "scale": 0.8,
-        "childAssets": [
-          {
-            "type": "ABOVE_LAYER_1"
-          }
-        ],
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": 18,
-              "y": -6
-            }
-          },
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -18,
-              "y": -6
-            }
-          }
-        ]
-      },
-      "DOWN_RIGHT": {
-        "filename": "Bucket-Body-Carried.png",
-        "coloringLayer": "WOOD_COLOR",
-        "scale": 0.8,
-        "childAssets": [
-          {
-            "type": "ABOVE_LAYER_1"
-          }
-        ],
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -16,
-              "y": -6
-            }
-          },
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": -100,
-            "offsetPixels": {
-              "x": 22,
-              "y": 0
-            }
-          }
-        ]
-      },
-      "DOWN_LEFT": {
-        "filename": "Bucket-Body-Carried.png",
-        "coloringLayer": "WOOD_COLOR",
-        "scale": 0.8,
-        "childAssets": [
-          {
-            "type": "ABOVE_LAYER_1"
-          }
-        ],
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": 16,
-              "y": -6
-            }
-          },
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": -100,
-            "offsetPixels": {
-              "x": -22,
-              "y": 0
-            }
-          }
-        ]
-      },
-      "UP_RIGHT": {
-        "filename": "Bucket-Body-Carried.png",
-        "coloringLayer": "WOOD_COLOR",
-        "scale": 0.8,
-        "childAssets": [
-          {
-            "type": "ABOVE_LAYER_1"
-          }
-        ],
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_LEFT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": 16,
-              "y": -6
-            }
-          }
-        ]
-      },
-      "UP_LEFT": {
-        "filename": "Bucket-Body-Carried.png",
-        "coloringLayer": "WOOD_COLOR",
-        "scale": 0.8,
-        "childAssets": [
-          {
-            "type": "ABOVE_LAYER_1"
-          }
-        ],
-        "parentEntityAssets": [
-          {
-            "type": "CREATURE_RIGHT_HAND",
-            "overrideRenderLayer": 100,
-            "offsetPixels": {
-              "x": -16,
-              "y": -6
-            }
-          }
-        ]
-      },
-      "UP": {
-        "filename": "Bucket-Body-Carried.png",
-        "coloringLayer": "WOOD_COLOR",
-        "scale": 0.8,
-        "childAssets": [
-          {
-            "type": "ABOVE_LAYER_1"
-          }
-        ]
-      }
+[ {
+  "uniqueName" : "Product-Bucket-Body-Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Product-Bucket",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Bucket-Body-Carried.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.8,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 18.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -18.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Bucket-Body-Carried.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.8,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 22.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Bucket-Body-Carried.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.8,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -22.0
+        },
+        "overrideRenderLayer" : -100
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Bucket-Body-Carried.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.8,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 16.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Bucket-Body-Carried.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.8,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -16.0,
+          "y" : -6.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP" : {
+      "filename" : "Bucket-Body-Carried.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.8,
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ]
     }
   }
-]
+} ]

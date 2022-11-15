@@ -2,7 +2,6 @@
   "uniqueName" : "Armour-Orc-Light-Above_Layer_1-Being_Carried",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Armour-Orc-Light",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "UP_RIGHT" : {
@@ -64,7 +63,6 @@
   "uniqueName" : "Armour-Orc-Light-Above_Layer_1-On_Ground",
   "type" : "ABOVE_LAYER_1",
   "itemTypeName" : "Armour-Orc-Light",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -81,7 +79,6 @@
   "uniqueName" : "Armour-Orc-Light-Below_Layer_1-Being_Carried",
   "type" : "BELOW_LAYER_1",
   "itemTypeName" : "Armour-Orc-Light",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "UP_RIGHT" : {
@@ -137,7 +134,6 @@
   "uniqueName" : "Armour-Orc-Light-Below_Layer_1-On_Ground",
   "type" : "BELOW_LAYER_1",
   "itemTypeName" : "Armour-Orc-Light",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -153,7 +149,6 @@
   "uniqueName" : "Armour-Orc-Light-Below_Layer_2-Being_Carried",
   "type" : "BELOW_LAYER_2",
   "itemTypeName" : "Armour-Orc-Light",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "UP_RIGHT" : {
@@ -215,7 +210,6 @@
   "uniqueName" : "Armour-Orc-Light-Below_Layer_2-On_Ground",
   "type" : "BELOW_LAYER_2",
   "itemTypeName" : "Armour-Orc-Light",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
@@ -232,7 +226,6 @@
   "uniqueName" : "Armour-Orc-Light-Item_Base_Layer-Being_Carried",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Armour-Orc-Light",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {
     "UP_RIGHT" : {
@@ -464,7 +457,6 @@
   "uniqueName" : "Armour-Orc-Light-Item_Base_Layer-On_Ground",
   "type" : "ITEM_BASE_LAYER",
   "itemTypeName" : "Armour-Orc-Light",
-  "itemStyle" : "DEFAULT",
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {
     "DOWN" : {
