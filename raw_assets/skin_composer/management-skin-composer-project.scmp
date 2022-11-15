@@ -3,7 +3,7 @@ atlasData: {
 	atlasCurrent: true
 	drawables: [
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/btn_resources_item_01.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/btn_resources_item_01.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -23,7 +23,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/btn_resources_item_02.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/btn_resources_item_02.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -43,7 +43,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/btn_resources_item_03.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/btn_resources_item_03.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -63,7 +63,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/btn_resources_item_04.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/btn_resources_item_04.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -83,7 +83,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_quality_star_01.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/asset_quality_star_01.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -103,7 +103,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/btn_info.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/btn_info.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -123,7 +123,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/btn_info_hover_state.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/btn_info_hover_state.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -143,7 +143,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/btn_sort_by_toggle_off.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/btn_sort_by_toggle_off.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -163,7 +163,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/btn_sort_by_toggle_on.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/btn_sort_by_toggle_on.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -183,7 +183,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Desktop/nine-patch-work/vertical_scrollbar.9.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/vertical_scrollbar.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -203,7 +203,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Desktop/nine-patch-work/vertical_scrollbar_fg.9.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/vertical_scrollbar_fg.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -283,7 +283,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Desktop/nine-patch-work/search_bar.9.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/search_bar.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -303,7 +303,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Desktop/nine-patch-work/search_bar_v3.9.9.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/search_bar_v3.9.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -323,7 +323,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/EMBARK AND LOAD BG/icon_coin.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_coin.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -363,7 +363,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_quality_star_02.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/asset_quality_star_02.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -383,7 +383,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_quality_star_03.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/asset_quality_star_03.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -403,7 +403,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_quality_star_04.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/asset_quality_star_04.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -423,7 +423,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_quality_star_05.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/asset_quality_star_05.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -443,7 +443,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/asset_resources_line.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/asset_resources_line.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -463,7 +463,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/btn_go_to_dwarf_info.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/btn_go_to_dwarf_info.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -483,7 +483,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/Users/miker/Desktop/nine-patch-work/asset_more_info_bg_strip.9.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/asset_more_info_bg_strip.9.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -3085,14 +3085,14 @@ preferences: {
 	}
 	resources-relative: {
 		class: java.lang.Boolean
-		value: false
+		value: true
 	}
 	maxUndos: {
 		class: java.lang.Integer
 		value: 30
 	}
 }
-saveFile: C:/Users/miker/Code/project-saul/core/mods/base/ui/skin/management-skin-composer-project.scmp
+saveFile: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project.scmp
 version: 52
 sceneComposer: {
 	children: [
