@@ -31,7 +31,9 @@ import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
@@ -258,9 +260,9 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		filters.add(stockpileGroupNameLabel).width(400f).padLeft(8f);
 		filters.add(searchBar).width(524);
 		filters.add(sortByLabel);
-		filters.add(sortByTotal);
-		filters.add(sortByAvailability);
 		filters.add(sortByGold);
+		filters.add(sortByAvailability);
+		filters.add(sortByTotal);
 
 		rebuildStockpileComponents();
 		scrollPane.setForceScroll(false, true);
@@ -417,12 +419,24 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				itemTypeColumn.add(itemTypeButton).size(205).row();
 				itemTypeColumn.add(itemTypeNameLabel);
 
-				HorizontalGroup itemTypeGoldGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalGold);
-				itemTypeGoldGroup.addActorAt(1, new Image(managementSkin, "icon_coin"));
-				HorizontalGroup itemTypeQuantityGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalQuantity);
-				HorizontalGroup itemTypeAvailableGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.AVAILABLE", totalUnallocated);
+				HorizontalGroup itemTypeGoldGroup = new HorizontalGroup();
+				itemTypeGoldGroup.space(managementSkin.getFont("default-font-24").getSpaceXadvance());
+				itemTypeGoldGroup.addActor(new Label(String.valueOf(totalGold), managementSkin, "table_value_label"));
+				itemTypeGoldGroup.addActor(new Image(managementSkin, "icon_coin"));
+				itemTypeGoldGroup.align(Align.right);
+
+				I18nText availableOfTotal = i18nTranslator.getTranslatedWordWithReplacements("GUI.RESOURCE_MANAGEMENT.AVAILABLE_OF_TOTAL",
+						Map.of("available", new I18nWord(String.valueOf(totalUnallocated)),
+								"total", new I18nWord(String.valueOf(totalQuantity))));
+				HorizontalGroup itemTypeAvailableGroup = new HorizontalGroup();
+				itemTypeAvailableGroup.space(managementSkin.getFont("default-font-24").getSpaceXadvance());
+				itemTypeAvailableGroup.addActor(new Label(availableOfTotal.toString(), managementSkin, "table_value_label"));
+
+				Button infoButton = new Button(managementSkin, "info_button");
+				itemTypeAvailableGroup.addActor(infoButton);
+				itemTypeAvailableGroup.align(Align.right);
+
 				if (totalUnallocated != totalQuantity) {
-					Button infoButton = new Button(managementSkin, "info_button");
 					infoButton.addListener(new ChangeListener() {
 						@Override
 						public void changed(ChangeEvent event, Actor actor) {
@@ -434,22 +448,24 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 						}
 					});
 					attachClickCursor(infoButton, GameCursor.SELECT);
-					itemTypeAvailableGroup.addActor(infoButton);
+				} else {
+					infoButton.setVisible(false);
 				}
+
 				Image qualityImage = new Image(qualityStars.get(itemQuality));
+				Container<Image> qualityImageContainer = new Container<>(qualityImage);
 
 				Table itemRow = new Table();
-				itemRow.defaults().growX().uniformX();
-				itemRow.add(itemTypeColumn);
+//				itemRow.defaults().expandX();
+				itemRow.add(itemTypeColumn).left().padLeft(100 * groupingIndex).growX();
+				itemRow.add(qualityImageContainer).width(300);
 				//this is a fudge as quality doesn't appear on first row
-				if (groupingIndex > 0) {
-					itemRow.add(qualityImage).fill(false, false);
+				if (groupingIndex == 0) {
+					qualityImage.setVisible(false);
 				}
-				itemRow.add(itemTypeGoldGroup);
-				itemRow.add(itemTypeQuantityGroup);
-				itemRow.add(itemTypeAvailableGroup);
-				itemRow.row();
-				parent.add(itemRow).growX().padTop(40).padBottom(50).padLeft(100 * groupingIndex).row();
+				itemRow.add(itemTypeGoldGroup).right().width(400);
+				itemRow.add(itemTypeAvailableGroup).right().padRight(50).width(800);
+				parent.add(itemRow).padTop(40).padBottom(50).right().growX().row();
 
 
 				Table childTable = new Table();
@@ -511,14 +527,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		return table;
 	}
 
-
-	private HorizontalGroup buildMeasureLabel(String i18nKey, int value) {
-		HorizontalGroup itemTypeAvailableGroup = new HorizontalGroup();
-		itemTypeAvailableGroup.space(managementSkin.getFont("default-font-24").getSpaceXadvance());
-		itemTypeAvailableGroup.addActor(new Label(translate(i18nKey), managementSkin, "table_value_label"));
-		itemTypeAvailableGroup.addActor(new Label(String.valueOf(value), managementSkin, "table_value_label"));
-		return itemTypeAvailableGroup;
-	}
 
 	private Drawable bgForExampleEntity(long entityId) {
 		return btnResourceItemVariants[(int) (entityId % btnResourceItemVariants.length)];

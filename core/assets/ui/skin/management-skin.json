@@ -68,7 +68,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		fontColor: primary_font_colour_red
 	}
 	table_value_label: {
-		font: default-font-24
+		font: default-font-23
 		fontColor: primary_font_colour_red
 	}
 }

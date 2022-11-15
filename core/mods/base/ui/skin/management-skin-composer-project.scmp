@@ -2042,7 +2042,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: default-font-24
+						value: default-font-23
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color

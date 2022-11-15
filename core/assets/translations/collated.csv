@@ -595,6 +595,7 @@ GUI.PRIORITY_LABEL,Priority,,Priorität,,Priorità,Prioridad,,,,Приорите
 GUI.REMOVE_LABEL,Remove,,Entfernen,Retirer,Rimuovi,Eliminar,Remover,Remover,,Удалить,Kaldır,Fjern,,Ta bort,,,,除去,移除,
 GUI.REMOVE_TILES,Remove tiles,,Felder entfernen,Retirer des cases,Rimuovi caselle,Eliminar casillas,Remover mosaicos,Remover áreas,,Удалить квадраты,Karoları Sil,Fjern fliser,,Ta bort paneler,,,,タイル縮小,移除区格,
 GUI.RESOURCE_MANAGEMENT.AVAILABLE,Available,,,,,,,,,,,,,,,,,,,
+GUI.RESOURCE_MANAGEMENT.AVAILABLE_OF_TOTAL,{{available}} / {{total}} Available,,,,,,,,,,,,,,,,,,,
 GUI.RESOURCE_MANAGEMENT.SEARCH,Search,,,,,,,,,,,,,,,,,,,
 GUI.RESOURCE_MANAGEMENT.SORT_BY,Sort By,,,,,,,,,,,,,,,,,,,
 GUI.RESOURCE_MANAGEMENT.TITLE,Resources,,Ressourcen,Ressources,Risorse,Recursos,Recursos,,,Ресурсы,Kaynaklar,Ressourcer,,Resurser,,,,資源,资源,
