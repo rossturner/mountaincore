@@ -11,9 +11,18 @@ white-pixel
   orig: 1, 1
   offset: 0, 0
   index: -1
+asset_more_info_bg_strip
+  rotate: false
+  xy: 2, 1824
+  size: 699, 45
+  split: 348, 349, 22, 22
+  pad: 21, 10, 10, 10
+  orig: 699, 45
+  offset: 0, 0
+  index: -1
 search_bar
   rotate: false
-  xy: 406, 1763
+  xy: 204, 1360
   size: 89, 56
   split: 25, 57, 0, 0
   pad: 25, 57, 12, 17
@@ -22,7 +31,7 @@ search_bar
   index: -1
 search_bar_v3.9
   rotate: false
-  xy: 406, 1763
+  xy: 204, 1360
   size: 89, 56
   split: 25, 57, 0, 0
   pad: 25, 57, 7, 7
@@ -31,7 +40,7 @@ search_bar_v3.9
   index: -1
 vertical_scrollbar
   rotate: false
-  xy: 406, 1697
+  xy: 102, 1022
   size: 28, 62
   split: 0, 0, 26, 26
   orig: 28, 62
@@ -39,7 +48,7 @@ vertical_scrollbar
   index: -1
 vertical_scrollbar_fg
   rotate: false
-  xy: 2, 980
+  xy: 204, 1276
   size: 28, 80
   split: 1, 1, 26, 26
   orig: 28, 80
@@ -47,42 +56,42 @@ vertical_scrollbar_fg
   index: -1
 icon_coin
   rotate: false
-  xy: 2, 1064
+  xy: 406, 1563
   size: 67, 67
   orig: 67, 67
   offset: 0, 0
   index: -1
 asset_quality_star_01
   rotate: false
-  xy: 352, 1609
+  xy: 352, 1466
   size: 48, 46
   orig: 48, 46
   offset: 0, 0
   index: -1
 asset_quality_star_02
   rotate: false
-  xy: 406, 1823
+  xy: 587, 1774
   size: 96, 46
   orig: 96, 46
   offset: 0, 0
   index: -1
 asset_quality_star_03
   rotate: false
-  xy: 2, 1135
+  xy: 406, 1634
   size: 96, 92
   orig: 96, 92
   offset: 0, 0
   index: -1
 asset_quality_star_04
   rotate: false
-  xy: 204, 1467
+  xy: 2, 992
   size: 96, 92
   orig: 96, 92
   offset: 0, 0
   index: -1
 asset_quality_star_05
   rotate: false
-  xy: 204, 1563
+  xy: 204, 1420
   size: 144, 92
   orig: 144, 92
   offset: 0, 0
@@ -94,58 +103,65 @@ asset_resources_line
   orig: 1880, 10
   offset: 0, 0
   index: -1
+btn_go_to_dwarf_info
+  rotate: false
+  xy: 2, 1730
+  size: 581, 90
+  orig: 581, 90
+  offset: 0, 0
+  index: -1
 btn_info
   rotate: false
-  xy: 102, 1155
+  xy: 506, 1654
   size: 64, 72
   orig: 64, 72
   offset: 0, 0
   index: -1
 btn_info_hover_state
   rotate: false
-  xy: 204, 1391
+  xy: 2, 916
   size: 64, 72
   orig: 64, 72
   offset: 0, 0
   index: -1
 btn_resources_item_01
   rotate: false
-  xy: 2, 1659
+  xy: 2, 1516
   size: 198, 210
   orig: 198, 210
   offset: 0, 0
   index: -1
 btn_resources_item_02
   rotate: false
-  xy: 2, 1445
+  xy: 2, 1302
   size: 198, 210
   orig: 198, 210
   offset: 0, 0
   index: -1
 btn_resources_item_03
   rotate: false
-  xy: 204, 1659
+  xy: 204, 1516
   size: 198, 210
   orig: 198, 210
   offset: 0, 0
   index: -1
 btn_resources_item_04
   rotate: false
-  xy: 2, 1231
+  xy: 2, 1088
   size: 198, 210
   orig: 198, 210
   offset: 0, 0
   index: -1
 btn_sort_by_toggle_off
   rotate: false
-  xy: 506, 1843
+  xy: 705, 1843
   size: 30, 26
   orig: 30, 26
   offset: 0, 0
   index: -1
 btn_sort_by_toggle_on
   rotate: false
-  xy: 304, 1533
+  xy: 587, 1744
   size: 30, 26
   orig: 30, 26
   offset: 0, 0

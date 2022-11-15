@@ -34,6 +34,12 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		color: invisible
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	info_button: {
+		up: btn_info
+		over: btn_info_hover_state
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	sort_by_button: {
 		imageUp: btn_sort_by_toggle_off
@@ -64,6 +70,13 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	table_value_label: {
 		font: default-font-24
 		fontColor: primary_font_colour_red
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	goto_dwarf_button: {
+		font: default-font-24
+		fontColor: white
+		up: btn_go_to_dwarf_info
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {

@@ -68,6 +68,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private final Map<ItemQuality, Drawable> qualityStars;
 	private final ScrollPane scrollPane;
 
+	private Stack stack;
 	private StockpileGroup selectedStockpileGroup;
 	private Comparator<List<Entity>> selectedSortFunction;
 	private Label stockpileGroupNameLabel;
@@ -164,13 +165,14 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	//Called from Screen.show() and elsewhere when language changes
 	@Override
 	public void rebuildUI() {
-		Stack stack = new Stack();
+		stack = new Stack();
 		stack.setFillParent(true);
 		stack.add(buildBackgroundBaseLayer());
 		stack.add(buildPaperLayer());
 
 		stage.addActor(stack);
 	}
+
 	//copied from PaperMenu
 	private Actor buildBackgroundBaseLayer() {
 		Table table = new Table();
@@ -276,6 +278,34 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		table.add(titleLabel).padTop(54f).row();
 		table.add(mainTable).padLeft(38f).padRight(38f).spaceTop(48f).fill().growY();
 		return table;
+	}
+
+
+	private Actor buildInfoPanel() {
+		//TODO: toggle visibility
+		//TODO: close when clicked off of? or should it be a hover thing?
+		ScrollPane infoScrollPane = new EnhancedScrollPane(buildItemAllocationTable(), menuSkin);
+		infoScrollPane.setForceScroll(false, true);
+		infoScrollPane.setFadeScrollBars(false);
+		infoScrollPane.setScrollbarsVisible(true);
+		infoScrollPane.setScrollBarPositions(true, true);
+
+
+		//TODO: remove function
+		Table table = new Table();
+		Table sideTable = new Table();
+		sideTable.setBackground(managementSkin.getDrawable("asset_more_info_bg_strip"));
+		sideTable.add(infoScrollPane).row();
+		table.add().grow();
+		table.add(sideTable).right();//todo: pad right
+		return table;
+	}
+
+
+	//when row is selected for info
+	private void rebuildInfoComponents() {
+		Actor infoPanel = buildInfoPanel();
+		stack.add(infoPanel);
 	}
 
 	//When stockpile group selection changes, or any filter/sorts change below
@@ -391,10 +421,25 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				itemTypeGoldGroup.addActorAt(1, new Image(managementSkin, "icon_coin"));
 				HorizontalGroup itemTypeQuantityGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.TOTAL", totalQuantity);
 				HorizontalGroup itemTypeAvailableGroup = buildMeasureLabel("GUI.RESOURCE_MANAGEMENT.AVAILABLE", totalUnallocated);
+				if (totalUnallocated != totalQuantity) {
+					Button infoButton = new Button(managementSkin, "info_button");
+					infoButton.addListener(new ChangeListener() {
+						@Override
+						public void changed(ChangeEvent event, Actor actor) {
+							if (infoButton.isChecked()) {
+								rebuildInfoComponents();
+							} else {
+								//todo: remove info panel
+							}
+						}
+					});
+					attachClickCursor(infoButton, GameCursor.SELECT);
+					itemTypeAvailableGroup.addActor(infoButton);
+				}
 				Image qualityImage = new Image(qualityStars.get(itemQuality));
 
 				Table itemRow = new Table();
-				itemRow.defaults().growX();
+				itemRow.defaults().growX().uniformX();
 				itemRow.add(itemTypeColumn);
 				//this is a fudge as quality doesn't appear on first row
 				if (groupingIndex > 0) {
@@ -458,6 +503,14 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			}
 		}
 	}
+
+
+	private Table buildItemAllocationTable() {
+		Table table = new Table();
+
+		return table;
+	}
+
 
 	private HorizontalGroup buildMeasureLabel(String i18nKey, int value) {
 		HorizontalGroup itemTypeAvailableGroup = new HorizontalGroup();
