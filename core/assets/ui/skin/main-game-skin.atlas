@@ -27,7 +27,7 @@ asset_catalogue_bg
   index: -1
 asset_bg_for_amount
   rotate: false
-  xy: 1967, 1616
+  xy: 1967, 1732
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -55,35 +55,35 @@ asset_dwarf_select_bg
   index: -1
 asset_season_autumn_icon
   rotate: false
-  xy: 1884, 1285
+  xy: 646, 67
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_spring_icon
   rotate: false
-  xy: 1884, 1235
+  xy: 1898, 1334
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_summer_icon
   rotate: false
-  xy: 1884, 1185
+  xy: 1884, 1284
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_winter_icon
   rotate: false
-  xy: 1884, 1135
+  xy: 1884, 1234
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_selection_bg_cropped
   rotate: false
-  xy: 282, 2
+  xy: 283, 2
   size: 39, 39
   split: 18, 17, 18, 17
   orig: 39, 39
@@ -98,77 +98,77 @@ asset_small_title_bg_ribbon
   index: -1
 asset_weather_cloudy_grey_icon
   rotate: false
-  xy: 1876, 835
+  xy: 1876, 934
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_nice_icon
   rotate: false
-  xy: 1876, 1085
+  xy: 1884, 1184
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_rain_icon
   rotate: false
-  xy: 1876, 1035
+  xy: 1884, 1134
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_snow_icon
   rotate: false
-  xy: 1876, 985
+  xy: 1876, 1084
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_storm_icon
   rotate: false
-  xy: 1876, 935
+  xy: 1876, 1034
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_windy_icon
   rotate: false
-  xy: 1876, 885
+  xy: 1876, 984
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 btn_add_tile
   rotate: false
-  xy: 104, 2
+  xy: 194, 2
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
   index: -1
 btn_arrow_small
   rotate: false
-  xy: 2014, 1828
+  xy: 1934, 1206
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_arrow_small_left
   rotate: false
-  xy: 1964, 1372
+  xy: 1934, 1142
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_arrow_small_left_disabled
   rotate: false
-  xy: 2014, 1764
+  xy: 1815, 625
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_arrow_small_right_disabled
   rotate: false
-  xy: 2013, 1700
+  xy: 1845, 639
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
@@ -301,21 +301,21 @@ btn_map_resize
   index: -1
 btn_pause_off
   rotate: false
-  xy: 1967, 1558
+  xy: 1967, 1674
   size: 36, 54
   orig: 36, 54
   offset: 0, 0
   index: -1
 btn_pause_on
   rotate: false
-  xy: 1966, 1500
+  xy: 1967, 1616
   size: 36, 54
   orig: 36, 54
   offset: 0, 0
   index: -1
 btn_remove_tile
   rotate: false
-  xy: 193, 2
+  xy: 1386, 1162
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
@@ -446,6 +446,13 @@ btn_room_weaver
   orig: 181, 181
   offset: 0, 0
   index: -1
+btn_settings
+  rotate: false
+  xy: 104, 2
+  size: 86, 85
+  orig: 86, 85
+  offset: 0, 0
+  index: -1
 btn_small
   rotate: false
   xy: 798, 1278
@@ -462,28 +469,28 @@ btn_small_50pc
   index: -1
 btn_small_arrow_left
   rotate: false
-  xy: 1964, 1436
+  xy: 696, 53
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_small_arrow_right
   rotate: false
-  xy: 2014, 1892
+  xy: 1934, 1270
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_speed_1_off
   rotate: false
-  xy: 1967, 1718
+  xy: 1876, 876
   size: 42, 54
   orig: 42, 54
   offset: 0, 0
   index: -1
 btn_speed_1_on
   rotate: false
-  xy: 1967, 1660
+  xy: 1876, 818
   size: 42, 54
   orig: 42, 54
   offset: 0, 0
@@ -504,14 +511,14 @@ btn_speed_2_on
   index: -1
 btn_speed_3_off
   rotate: false
-  xy: 1386, 1193
+  xy: 283, 45
   size: 82, 54
   orig: 82, 54
   offset: 0, 0
   index: -1
 btn_speed_3_on
   rotate: false
-  xy: 282, 45
+  xy: 1475, 1182
   size: 82, 54
   orig: 82, 54
   offset: 0, 0
@@ -586,6 +593,34 @@ btn_stockpile_weapons
   orig: 181, 181
   offset: 0, 0
   index: -1
+btn_tinycheck_add
+  rotate: false
+  xy: 915, 603
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+btn_tinycheck_blank
+  rotate: false
+  xy: 952, 603
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+btn_tinycheck_subtract
+  rotate: false
+  xy: 326, 8
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+btn_tinycheck_tickbox
+  rotate: false
+  xy: 1967, 1579
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
 btn_top_crafting
   rotate: false
   xy: 1554, 975
@@ -644,21 +679,21 @@ hover_state_label_arrow_down
   index: -1
 hover_state_label_arrow_up
   rotate: false
-  xy: 646, 73
+  xy: 1561, 1196
   size: 76, 40
   orig: 76, 40
   offset: 0, 0
   index: -1
 icon_alert_small
   rotate: false
-  xy: 1898, 1335
+  xy: 1432, 1365
   size: 49, 45
   orig: 49, 45
   offset: 0, 0
   index: -1
 icon_edit
   rotate: false
-  xy: 1432, 1350
+  xy: 1641, 1176
   size: 52, 60
   orig: 52, 60
   offset: 0, 0
@@ -694,9 +729,25 @@ room_bg_small
   index: -1
 stockpile_bg
   rotate: false
-  xy: 1697, 1866
+  xy: 1827, 689
   size: 10, 10
   split: 0, 0, 0, 0
   orig: 10, 10
+  offset: 0, 0
+  index: -1
+vertical_scrollbar
+  rotate: false
+  xy: 2014, 1890
+  size: 28, 62
+  split: 0, 0, 26, 26
+  orig: 28, 62
+  offset: 0, 0
+  index: -1
+vertical_scrollbar_fg
+  rotate: false
+  xy: 2014, 1806
+  size: 28, 80
+  split: 1, 1, 26, 26
+  orig: 28, 80
   offset: 0, 0
   index: -1

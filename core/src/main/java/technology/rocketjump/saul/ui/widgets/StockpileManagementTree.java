@@ -20,7 +20,11 @@ import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.production.StockpileSettings;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.ui.Scene2DUtils;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+
+import java.util.List;
 
 public class StockpileManagementTree extends Table {
 
@@ -120,7 +124,11 @@ public class StockpileManagementTree extends Table {
 				boolean allMaterialsEnabled = true;
 				boolean allMaterialsDisabled = true;
 
-				for (GameMaterial material : gameMaterialDictionary.getByType(itemType.getPrimaryMaterialType())) {
+				List<GameMaterial> materialsForItem = itemType.getSpecificMaterials();
+				if (materialsForItem.isEmpty()) {
+					materialsForItem = gameMaterialDictionary.getByType(itemType.getPrimaryMaterialType());
+				}
+				for (GameMaterial material : materialsForItem) {
 					if (material.isUseMaterialTypeAsAdjective()) {
 						// This is for wood types from bushes that should not show up anywhere, so skip them here
 						continue;
@@ -153,7 +161,13 @@ public class StockpileManagementTree extends Table {
 
 		scrollPane = Scene2DUtils.wrapWithScrollPane(treeRoot, uiSkin);
 		this.add(scrollPane).width(350).height(400).left();
+	}
 
+	@Override
+	public void setSize(float width, float height) {
+		super.setSize(width, height);
+		this.clearChildren();
+		this.add(scrollPane).width(width).height(height).left();
 	}
 
 	private void createCheckbox(StockpileTreeNode node, String i18nKey) {
@@ -161,6 +175,7 @@ public class StockpileManagementTree extends Table {
 		checkbox.getLabelCell().padLeft(5f);
 		checkbox.setProgrammaticChangeEvents(false);
 		checkbox.addListener(new StockpileTreeNodeEventListener(node));
+		checkbox.addListener(new ChangeCursorOnHover(checkbox, GameCursor.SELECT, messageDispatcher));
 		node.setActor(checkbox);
 		updateCheckedState(node);
 	}
@@ -177,7 +192,7 @@ public class StockpileManagementTree extends Table {
 		} else if (node.getValue().isRace()) {
 			node.getActor().setChecked(stockpileSettings.isEnabled(node.getValue().race));
 		}
- 	}
+	}
 
 	private void updateChildren(StockpileTreeNode node) {
 		Array<StockpileTreeNode> children = node.getChildren();

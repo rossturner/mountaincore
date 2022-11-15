@@ -374,15 +374,22 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 	}
 
 	private boolean handle(ItemCreationRequestMessage message) {
+		ItemType itemType = message.getRequiredItemType();
 		ItemEntityAttributes attributes = message.getAttributes();
 		if (attributes == null) {
 			attributes = new ItemEntityAttributes(gameContext.getRandom().nextLong());
-			attributes.setItemType(message.getRequiredItemType());
+			attributes.setItemType(itemType);
 
-			for (GameMaterialType requiredMaterialType : message.getRequiredItemType().getMaterialTypes()) {
-				List<GameMaterial> materialsToPickFrom = gameMaterialDictionary.getByType(requiredMaterialType).stream()
-						.filter(GameMaterial::isUseInRandomGeneration)
-						.collect(Collectors.toList());
+			for (GameMaterialType requiredMaterialType : itemType.getMaterialTypes()) {
+				List<GameMaterial> materialsToPickFrom;
+				if (requiredMaterialType.equals(itemType.getPrimaryMaterialType()) && !itemType.getSpecificMaterials().isEmpty()) {
+					materialsToPickFrom = itemType.getSpecificMaterials();
+				} else {
+					materialsToPickFrom = gameMaterialDictionary.getByType(requiredMaterialType).stream()
+							.filter(GameMaterial::isUseInRandomGeneration)
+							.collect(Collectors.toList());
+				}
+
 				if (!materialsToPickFrom.isEmpty()) {
 					GameMaterial material = materialsToPickFrom.get(gameContext.getRandom().nextInt(materialsToPickFrom.size()));
 					attributes.setMaterial(material);

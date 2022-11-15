@@ -27,6 +27,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class ItemEntityFactory {
 
@@ -49,8 +50,14 @@ public class ItemEntityFactory {
 		attributes.setItemType(itemType);
 
 		for (GameMaterialType requiredMaterialType : itemType.getMaterialTypes()) {
-			List<GameMaterial> materialsToPickFrom = gameMaterialDictionary.getByType(requiredMaterialType).stream()
-					.filter(GameMaterial::isUseInRandomGeneration).toList();
+			List<GameMaterial> materialsToPickFrom;
+			if (requiredMaterialType.equals(itemType.getPrimaryMaterialType()) && !itemType.getSpecificMaterials().isEmpty()) {
+				materialsToPickFrom = itemType.getSpecificMaterials();
+			} else {
+				materialsToPickFrom = gameMaterialDictionary.getByType(requiredMaterialType).stream()
+						.filter(GameMaterial::isUseInRandomGeneration)
+						.collect(Collectors.toList());
+			}
 			if (materialsToPickFrom.isEmpty()) {
 				// No use-in-random-generation materials
 				Logger.error("Needed a material of type " + requiredMaterialType + " to use in random generation");

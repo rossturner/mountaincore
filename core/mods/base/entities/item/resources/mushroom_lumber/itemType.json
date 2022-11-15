@@ -7,5 +7,6 @@
   "impedesMovement" : true,
   "stockpileGroupName" : "RAW_MATERIALS",
   "placementSoundAssetName" : "HeavyWoodItem",
-  "i18nKey" : "RESOURCE.MUSHROOM.LUMBER"
+  "i18nKey" : "RESOURCE.MUSHROOM.LUMBER",
+  "specificMaterialNames": ["Fungiwood", "Barkshroom"]
 }

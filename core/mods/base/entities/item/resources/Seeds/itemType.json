@@ -1,12 +1,25 @@
 {
-  "itemTypeName" : "Ingredient-Seeds",
-  "maxStackSize" : 50,
-  "maxHauledAtOnce" : 15,
-  "materialTypes" : [ "SEED", "ROPE" ],
-  "primaryMaterialType" : "SEED",
-  "holdPosition" : "RIGHT_HAND",
-  "equippedWhileWorkingOnJob" : false,
-  "hoursInInventoryUntilUnused" : 3.0,
-  "stockpileGroupName" : "SEEDS",
-  "i18nKey" : "INGREDIENT.SEEDS"
+  "itemTypeName": "Ingredient-Seeds",
+  "maxStackSize": 50,
+  "maxHauledAtOnce": 15,
+  "materialTypes": [
+    "SEED",
+    "ROPE"
+  ],
+  "primaryMaterialType": "SEED",
+  "holdPosition": "RIGHT_HAND",
+  "equippedWhileWorkingOnJob": false,
+  "hoursInInventoryUntilUnused": 3.0,
+  "stockpileGroupName": "SEEDS",
+  "i18nKey": "INGREDIENT.SEEDS",
+  "specificMaterialNames": [
+    "Wheat Seed",
+    "Hemp Seed",
+    "Barley Seed",
+    "Tomato Seed",
+    "Potato Seed",
+    "Carrot Seed",
+    "Hops Seed",
+    "Corn Seed"
+  ]
 }

@@ -18,7 +18,6 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureTyp
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
-import technology.rocketjump.saul.messaging.MessageType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +55,6 @@ public class RoomEditorFurnitureMap {
 					}
 
 					Entity entity = furnitureEntityFactory.create(attributes, new GridPoint2(), null, null);
-					messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 					for (EntityAsset asset : entity.getPhysicalEntityComponent().getTypeMap().values()) {
 						SpriteDescriptor spriteDescriptor = asset.getSpriteDescriptors().get(EntityAssetOrientation.DOWN);
 						if (spriteDescriptor != null && spriteDescriptor.getColoringLayer() != null) {
