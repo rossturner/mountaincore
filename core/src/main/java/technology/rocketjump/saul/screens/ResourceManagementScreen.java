@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -38,7 +39,6 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.GameDialog;
-import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -127,6 +127,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		inputMultiplexer.addProcessor(new ManagementScreenInputHandler(messageDispatcher));
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		rebuildUI();
+		stage.setKeyboardFocus(null);
 	}
 
 	@Override
@@ -236,6 +237,15 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		searchBar.setText(searchBarText);
 		searchBar.setMessageText(translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
 		searchBar.addListener(new InputListener() {
+			@Override
+			public boolean keyDown(InputEvent event, int keycode) {
+				if (event.getKeyCode() == Input.Keys.ESCAPE) {
+					stage.setKeyboardFocus(null);
+					return false;
+				}
+				return super.keyDown(event, keycode);
+			}
+
 			@Override
 			public boolean keyTyped(InputEvent event, char character) {
 				searchBarText = searchBar.getText();
@@ -413,11 +423,12 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 						exampleEntity, entityRenderer, true, messageDispatcher
 				).withBackground(btnResourceItemBg));
 
-				Label itemTypeNameLabel = new ScaledToFitLabel(displayNameFunction.apply(exampleEntity), managementSkin, "item_type_name_label", 250);
-				itemTypeNameLabel.setAlignment(Align.center);
-				Table itemTypeColumn = new Table();
-				itemTypeColumn.add(itemTypeButton).size(205).row();
-				itemTypeColumn.add(itemTypeNameLabel);
+				Label entityLabel = new Label(displayNameFunction.apply(exampleEntity), managementSkin, "item_type_name_label");
+				entityLabel.setWrap(true);
+				entityLabel.setAlignment(Align.center);
+				Table exampleEntityColumn = new Table();
+				exampleEntityColumn.add(itemTypeButton).size(205).row();
+				exampleEntityColumn.add(entityLabel).width(240);
 
 				HorizontalGroup itemTypeGoldGroup = new HorizontalGroup();
 				itemTypeGoldGroup.space(managementSkin.getFont("default-font-24").getSpaceXadvance());
@@ -457,7 +468,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 				Table itemRow = new Table();
 //				itemRow.defaults().expandX();
-				itemRow.add(itemTypeColumn).left().padLeft(100 * groupingIndex).growX();
+				itemRow.add(exampleEntityColumn).left().padLeft(100 * groupingIndex).growX();
 				itemRow.add(qualityImageContainer).width(300);
 				//this is a fudge as quality doesn't appear on first row
 				if (groupingIndex == 0) {
@@ -489,6 +500,15 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				if (childTable.hasChildren()) {
 					CollapsibleWidget collapsibleWidget = new CollapsibleWidget(childTable);
 					collapsibleWidget.setCollapsed(searchBarText.isEmpty(), false);
+					collapsibleWidget.addListener(new InputListener() {
+						@Override
+						public boolean keyUp(InputEvent event, int keycode) {
+							if (event.getKeyCode() == Input.Keys.ESCAPE) {
+								return false;
+							}
+							return super.keyUp(event, keycode);
+						}
+					});
 					itemRow.addListener(new ClickListener() {
 						@Override
 						public void clicked(InputEvent event, float x, float y) {
