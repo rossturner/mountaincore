@@ -14,8 +14,6 @@ public class NotificationDialog extends GameDialog {
 
 	public NotificationDialog(I18nText titleText, Skin uiSkin, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
 		super(titleText, uiSkin, messageDispatcher, soundAssetDictionary);
-//		dialog.getContentTable().pad(4);
-//		dialog.getButtonTable().pad(4).padBottom(8);
 	}
 
 	@Override
