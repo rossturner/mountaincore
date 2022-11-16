@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
+import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 
@@ -44,7 +45,11 @@ public class TextInputDialog extends GameDialog {
 		inputBox.setAlignment(Align.center);
 		contentTable.add(inputBox).width(910).height(96).center().row();
 		withButton(buttonText, (Runnable) () -> {
-			onButtonClick.accept(inputBox.getText());
+			String text = inputBox.getText();
+			if (StringUtils.isEmpty(text)) {
+				text = inputPlaceholder;
+			}
+			onButtonClick.accept(text);
 		}, uiSkin.get(textButtonStyleName, TextButton.TextButtonStyle.class));
 	}
 

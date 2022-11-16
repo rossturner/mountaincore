@@ -15,7 +15,7 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 
 public abstract class GameDialog implements Disposable {
 
-	private final Skin uiSkin;
+	private final Skin skin;
 	protected final MessageDispatcher messageDispatcher;
 	protected final SoundAssetDictionary soundAssetDictionary;
 	protected Dialog dialog;
@@ -25,8 +25,8 @@ public abstract class GameDialog implements Disposable {
 	protected final Table layoutTable = new Table();
 	protected final Table contentTable = new Table();
 
-	public GameDialog(I18nText titleText, Skin uiSkin, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
-		this(titleText, uiSkin, messageDispatcher, uiSkin.get(Window.WindowStyle.class), soundAssetDictionary);
+	public GameDialog(I18nText titleText, Skin skin, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
+		this(titleText, skin, messageDispatcher, skin.get(Window.WindowStyle.class), soundAssetDictionary);
 	}
 	public GameDialog(I18nText titleText, Skin skin, MessageDispatcher messageDispatcher,
 					  Window.WindowStyle windowStyle, SoundAssetDictionary soundAssetDictionary) {
@@ -44,7 +44,7 @@ public abstract class GameDialog implements Disposable {
 			}
 		};
 		dialog.setStyle(windowStyle);
-		this.uiSkin = skin;
+		this.skin = skin;
 
 		fullScreenOverlay = new Image(skin, "default-rect");
 		fullScreenOverlay.setFillParent(true);
@@ -99,18 +99,17 @@ public abstract class GameDialog implements Disposable {
 	}
 
 	public GameDialog withText(I18nText descriptionText) {
-		contentTable.add(new I18nTextWidget(descriptionText, uiSkin, messageDispatcher)).row();
+		Label label = new Label(descriptionText.toString(), skin.get("dialog_title", Label.LabelStyle.class));
+		contentTable.add(label).row();
 		return this;
 	}
 
 	public GameDialog withButton(I18nText buttonText) {
-		dialog.button(buttonText.toString());
-		return this;
+		return withButton(buttonText, null);
 	}
 
 	public GameDialog withButton(I18nText buttonText, Runnable runnable) {
-		dialog.button(buttonText.toString(), runnable);
-		return this;
+		return withButton(buttonText, runnable, skin.get("btn_dialog_1", TextButton.TextButtonStyle.class));
 	}
 
 	public GameDialog withButton(I18nText buttonText, Runnable runnable, TextButton.TextButtonStyle style) {
