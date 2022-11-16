@@ -74,7 +74,7 @@
   "i18nKey" : "ROOMS.BARRACKS",
   "drawableName" : "btn_room_barracks",
   "colorCode" : "#c4b2c5",
-  "furnitureNames" : [ "BARRACKS_BED", "TRAINING_DUMMY", "ARCHERY_TARGET", "Armour_Stand", "Weapon_Rack" ],
+  "furnitureNames" : [ "BARRACKS_BED", "BARRACKS_SLEEPING_SPOT", "TRAINING_DUMMY", "ARCHERY_TARGET", "Armour_Stand", "Weapon_Rack" ],
   "tags" : { }
 }, {
   "roomName" : "KITCHEN",

@@ -1,0 +1,12 @@
+{
+  "name": "BARRACKS_SLEEPING_SPOT",
+  "i18nKey": "FURNITURE.SLEEPING_SPOT",
+  "defaultLayoutName": "1x1",
+  "colorCode": "#9f7d60",
+  "iconName": "sleeping-bag",
+  "placeAnywhere": false,
+  "autoConstructed": true,
+  "requirements": {
+    "EARTH": []
+  }
+}
