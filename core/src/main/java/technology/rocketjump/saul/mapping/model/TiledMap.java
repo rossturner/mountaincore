@@ -208,8 +208,8 @@ public class TiledMap {
 		MapTile tile = getTile(worldPosition);
 		if (tile == null) {
 			Vector2 clonedWorldPosition = worldPosition.cpy();
-			clonedWorldPosition.x = Math.max(Math.min(clonedWorldPosition.x, width), 0);
-			clonedWorldPosition.y = Math.max(Math.min(clonedWorldPosition.y, height), 0);
+			clonedWorldPosition.x = Math.max(Math.min(clonedWorldPosition.x, width - 1), 0);
+			clonedWorldPosition.y = Math.max(Math.min(clonedWorldPosition.y, height - 1), 0);
 			return getTile(clonedWorldPosition);
 		} else {
 			return tile;
