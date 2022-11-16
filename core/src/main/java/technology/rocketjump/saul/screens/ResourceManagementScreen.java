@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.kotcrab.vis.ui.widget.CollapsibleWidget;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -39,6 +40,7 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.GameDialog;
+import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -69,6 +71,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private final Drawable[] btnResourceItemVariants;
 	private final Map<ItemQuality, Drawable> qualityStars;
 	private final ScrollPane scrollPane;
+	private final Image fullScreenOverlay;
 
 	private Stack stack;
 	private Actor currentInfoPane;
@@ -77,6 +80,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private Label stockpileGroupNameLabel;
 	private String searchBarText = "";
 	private ButtonGroup<Button> infoButtonGroup = new ButtonGroup<>();
+	private GameContext gameContext;
 
 	@Inject
 	public ResourceManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
@@ -107,6 +111,16 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				ItemQuality.MASTERWORK, managementSkin.getDrawable("asset_quality_star_05")
 		);
 		scrollPane = new EnhancedScrollPane(null, menuSkin);
+
+		fullScreenOverlay = new Image(menuSkin, "default-rect");
+		fullScreenOverlay.setFillParent(true);
+		fullScreenOverlay.setColor(0, 0, 0, 0.6f);
+		fullScreenOverlay.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				removeInfoPane();
+			}
+		});
 	}
 
 	@Override
@@ -160,6 +174,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	//Game Context implementation
 	@Override
 	public void onContextChange(GameContext gameContext) {
+		this.gameContext = gameContext;
 	}
 
 	@Override
@@ -220,7 +235,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
 					if (stockpileButton.isChecked()) {
-						stack.removeActor(currentInfoPane);
+						removeInfoPane();
 
 						selectedStockpileGroup = stockpileGroup;
 						rebuildStockpileComponents();
@@ -302,15 +317,50 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 	//when row is selected for info
 	private void rebuildInfoComponents(List<Entity> group, Function<Entity, String> displayNameFunction) {
-		Drawable assetMoreInfoBgStrip = managementSkin.getDrawable("asset_more_info_bg_strip");
-
+		Drawable assetMoreInfoBgStrip = managementSkin.getDrawable("asset_more_info_bg_10patch");
+		float wrappedLabelWidth = assetMoreInfoBgStrip.getMinWidth() - assetMoreInfoBgStrip.getLeftWidth() - assetMoreInfoBgStrip.getRightWidth();
 		Entity exampleEntity = group.get(0);
-		Label infoTitle = new Label(displayNameFunction.apply(exampleEntity), managementSkin, "stockpile_group_filter_label");
-		infoTitle.setWrap(true);
+		Label infoTitle = new ScaledToFitLabel(displayNameFunction.apply(exampleEntity), menuSkin, "secondary_banner_title", wrappedLabelWidth);
 		infoTitle.setAlignment(Align.center);
 
 
 		Table entitiesTable = new Table();
+		entitiesTable.top();
+		for (Entity entity : group) {
+			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+			ItemAllocationComponent itemAllocationComponent = entity.getComponent(ItemAllocationComponent.class);
+			if (itemAllocationComponent != null && itemAllocationComponent.getNumAllocated() > 0) {
+				List<ItemAllocation> all = itemAllocationComponent.getAll();
+				for (ItemAllocation itemAllocation : all) {
+					String itemAllocationName = i18nTranslator.getItemDescription(itemAllocation.getAllocationAmount(), attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality()).toString();
+					Label itemAllocationLabel = new Label(itemAllocationName, managementSkin, "table_value_label");
+					itemAllocationLabel.setWrap(true);
+					itemAllocationLabel.setAlignment(Align.center);
+
+					entitiesTable.add(itemAllocationLabel).width(wrappedLabelWidth).row();
+
+					Long owningEntityId = itemAllocation.getOwningEntityId();
+					if (owningEntityId != null) {
+						Entity owningEntity = gameContext.getEntities().get(owningEntityId);
+						String owningEntityDescription = i18nTranslator.getDescription(owningEntity).toString();
+
+						TextButton gotoOwnerButton = new TextButton(owningEntityDescription, managementSkin, "goto_dwarf_button");
+						attachClickCursor(gotoOwnerButton, GameCursor.SELECT);
+						gotoOwnerButton.addListener(new ClickListener() {
+							@Override
+							public void clicked(InputEvent event, float x, float y) {
+								super.clicked(event, x, y);
+								gotoEntity(owningEntity);
+							}
+						});
+
+						entitiesTable.add(gotoOwnerButton).growX().padTop(30).padBottom(100).padRight(32).padLeft(48).row();
+					}
+				}
+			}
+		}
+		entitiesTable.add().growY();
+
 
 		ScrollPane entitiesScrollpane = new EnhancedScrollPane(entitiesTable, menuSkin);
 		entitiesScrollpane.setForceScroll(false, true);
@@ -319,15 +369,31 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		entitiesScrollpane.setScrollBarPositions(true, true);
 		Table sideTable = new Table();
 		sideTable.setBackground(assetMoreInfoBgStrip);
-		sideTable.add(infoTitle).width(assetMoreInfoBgStrip.getMinWidth() - assetMoreInfoBgStrip.getLeftWidth() - assetMoreInfoBgStrip.getRightWidth());
-		sideTable.add(entitiesScrollpane).row();
+
+		Button exitButton = new Button(menuSkin, "btn_exit");
+		exitButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				removeInfoPane();
+			}
+		});
+		attachClickCursor(exitButton, GameCursor.SELECT);
+		sideTable.add(exitButton).expandX().align(Align.topLeft).pad(5f).row();
+		sideTable.add(infoTitle).width(wrappedLabelWidth).padBottom(100).row();
+		sideTable.add(entitiesScrollpane).growY().row();
 
 		Table table = new Table();
 		table.add().grow();
-		table.add(sideTable).right().padRight(200f);//todo: pad right
+		table.add(sideTable).right().growY().padRight(200f);//todo: pad right
 		this.currentInfoPane = table;
 
+		stack.add(fullScreenOverlay);
 		stack.add(currentInfoPane);
+	}
+
+	private void removeInfoPane() {
+		stack.removeActor(currentInfoPane);
+		stack.removeActor(fullScreenOverlay);
 	}
 
 	//When stockpile group selection changes, or any filter/sorts change below
@@ -492,7 +558,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 					infoButton.addListener(new ChangeListener() {
 						@Override
 						public void changed(ChangeEvent event, Actor actor) {
-							stack.removeActor(currentInfoPane);
+							removeInfoPane();
 
 							if (infoButton.isChecked()) {
 								rebuildInfoComponents(group, displayNameFunction);
@@ -571,22 +637,26 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 							}
 
 							Entity target = exampleEntity;
-							while (target.getLocationComponent().getContainerEntity() != null) {
-								target = target.getLocationComponent().getContainerEntity();
-							}
-							Vector2 position = target.getLocationComponent().getWorldOrParentPosition();
-
-							if (position != null) {
-								messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
-								messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, position);
-								messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(target, 0));
-							} else {
-								Logger.error("Attempting to move to entity with no position or container");
-							}
+							gotoEntity(target);
 						}
 					});
 				}
 			}
+		}
+	}
+
+	private void gotoEntity(Entity target) {
+		while (target.getLocationComponent().getContainerEntity() != null) {
+			target = target.getLocationComponent().getContainerEntity();
+		}
+		Vector2 position = target.getLocationComponent().getWorldOrParentPosition();
+
+		if (position != null) {
+			messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+			messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, position);
+			messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(target, 0));
+		} else {
+			Logger.error("Attempting to move to entity with no position or container");
 		}
 	}
 
