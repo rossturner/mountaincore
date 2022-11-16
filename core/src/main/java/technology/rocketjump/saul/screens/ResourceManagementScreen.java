@@ -71,10 +71,12 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private final ScrollPane scrollPane;
 
 	private Stack stack;
+	private Actor currentInfoPane;
 	private StockpileGroup selectedStockpileGroup;
 	private Comparator<List<Entity>> selectedSortFunction;
 	private Label stockpileGroupNameLabel;
 	private String searchBarText = "";
+	private ButtonGroup<Button> infoButtonGroup = new ButtonGroup<>();
 
 	@Inject
 	public ResourceManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
@@ -168,6 +170,9 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	//Called from Screen.show() and elsewhere when language changes
 	@Override
 	public void rebuildUI() {
+		infoButtonGroup.clear();
+		infoButtonGroup.setMinCheckCount(0);
+
 		stack = new Stack();
 		stack.setFillParent(true);
 		stack.add(buildBackgroundBaseLayer());
@@ -215,6 +220,8 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
 					if (stockpileButton.isChecked()) {
+						stack.removeActor(currentInfoPane);
+
 						selectedStockpileGroup = stockpileGroup;
 						rebuildStockpileComponents();
 					}
@@ -293,31 +300,34 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	}
 
 
-	private Actor buildInfoPanel() {
-		//TODO: toggle visibility
-		//TODO: close when clicked off of? or should it be a hover thing?
-		ScrollPane infoScrollPane = new EnhancedScrollPane(buildItemAllocationTable(), menuSkin);
-		infoScrollPane.setForceScroll(false, true);
-		infoScrollPane.setFadeScrollBars(false);
-		infoScrollPane.setScrollbarsVisible(true);
-		infoScrollPane.setScrollBarPositions(true, true);
-
-
-		//TODO: remove function
-		Table table = new Table();
-		Table sideTable = new Table();
-		sideTable.setBackground(managementSkin.getDrawable("asset_more_info_bg_strip"));
-		sideTable.add(infoScrollPane).row();
-		table.add().grow();
-		table.add(sideTable).right();//todo: pad right
-		return table;
-	}
-
-
 	//when row is selected for info
-	private void rebuildInfoComponents() {
-		Actor infoPanel = buildInfoPanel();
-		stack.add(infoPanel);
+	private void rebuildInfoComponents(List<Entity> group, Function<Entity, String> displayNameFunction) {
+		Drawable assetMoreInfoBgStrip = managementSkin.getDrawable("asset_more_info_bg_strip");
+
+		Entity exampleEntity = group.get(0);
+		Label infoTitle = new Label(displayNameFunction.apply(exampleEntity), managementSkin, "stockpile_group_filter_label");
+		infoTitle.setWrap(true);
+		infoTitle.setAlignment(Align.center);
+
+
+		Table entitiesTable = new Table();
+
+		ScrollPane entitiesScrollpane = new EnhancedScrollPane(entitiesTable, menuSkin);
+		entitiesScrollpane.setForceScroll(false, true);
+		entitiesScrollpane.setFadeScrollBars(false);
+		entitiesScrollpane.setScrollbarsVisible(true);
+		entitiesScrollpane.setScrollBarPositions(true, true);
+		Table sideTable = new Table();
+		sideTable.setBackground(assetMoreInfoBgStrip);
+		sideTable.add(infoTitle).width(assetMoreInfoBgStrip.getMinWidth() - assetMoreInfoBgStrip.getLeftWidth() - assetMoreInfoBgStrip.getRightWidth());
+		sideTable.add(entitiesScrollpane).row();
+
+		Table table = new Table();
+		table.add().grow();
+		table.add(sideTable).right().padRight(200f);//todo: pad right
+		this.currentInfoPane = table;
+
+		stack.add(currentInfoPane);
 	}
 
 	//When stockpile group selection changes, or any filter/sorts change below
@@ -464,15 +474,31 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				itemTypeAvailableGroup.addActor(infoButton);
 				itemTypeAvailableGroup.align(Align.right);
 
+				infoButtonGroup.add(infoButton);
+
 				if (totalUnallocated != totalQuantity) {
+					infoButton.addListener(new ClickListener() {
+						@Override
+						public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+							event.cancel(); //prevent propagation to the table row's clicked
+						}
+
+						@Override
+						public void clicked(InputEvent event, float x, float y) {
+							event.cancel();
+						}
+					});
+
 					infoButton.addListener(new ChangeListener() {
 						@Override
 						public void changed(ChangeEvent event, Actor actor) {
+							stack.removeActor(currentInfoPane);
+
 							if (infoButton.isChecked()) {
-								rebuildInfoComponents();
-							} else {
-								//todo: remove info panel
+								rebuildInfoComponents(group, displayNameFunction);
 							}
+
+							event.stop();
 						}
 					});
 					attachClickCursor(infoButton, GameCursor.SELECT);
@@ -484,7 +510,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				Container<Image> qualityImageContainer = new Container<>(qualityImage);
 
 				Table itemRow = new Table();
-//				itemRow.defaults().expandX();
 				itemRow.add(exampleEntityColumn).left().padLeft(100 * groupingIndex).growX();
 				itemRow.add(qualityImageContainer).width(300);
 				//this is a fudge as quality doesn't appear on first row
@@ -529,6 +554,10 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 					itemRow.addListener(new ClickListener() {
 						@Override
 						public void clicked(InputEvent event, float x, float y) {
+							if (event.isCancelled()) {
+								return;
+							}
+
 							collapsibleWidget.setCollapsed(!collapsibleWidget.isCollapsed(), false);
 						}
 					});
@@ -537,6 +566,10 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 					itemRow.addListener(new ClickListener() {
 						@Override
 						public void clicked(InputEvent event, float x, float y) {
+							if (event.isCancelled()) {
+								return;
+							}
+
 							Entity target = exampleEntity;
 							while (target.getLocationComponent().getContainerEntity() != null) {
 								target = target.getLocationComponent().getContainerEntity();
@@ -556,14 +589,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			}
 		}
 	}
-
-
-	private Table buildItemAllocationTable() {
-		Table table = new Table();
-
-		return table;
-	}
-
 
 	private Drawable bgForExampleEntity(long entityId) {
 		return btnResourceItemVariants[(int) (entityId % btnResourceItemVariants.length)];
