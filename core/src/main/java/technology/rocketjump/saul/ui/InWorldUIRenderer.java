@@ -552,7 +552,7 @@ public class InWorldUIRenderer {
 				priority = interactionStateContainer.getJobPriorityToApply();
 			}
 
-			spriteBatch.setColor(priority.semiTransparentColor);
+			spriteBatch.setColor(Color.WHITE);
 			Sprite iconSprite = iconSpriteCache.getByName(priority.iconName);
 			spriteBatch.draw(iconSprite, x, y, 1f, 1f);
 		}
