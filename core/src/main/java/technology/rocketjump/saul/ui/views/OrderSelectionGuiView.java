@@ -34,6 +34,9 @@ public class OrderSelectionGuiView implements GuiView, DisplaysText {
 		this.tooltipFactory = tooltipFactory;
 
 		layoutTable.setTouchable(Touchable.enabled);
+		layoutTable.defaults().padRight(10f);
+		layoutTable.padLeft(23f);
+		layoutTable.padBottom(17f);
 
 		rebuildUI();
 	}
@@ -66,7 +69,7 @@ public class OrderSelectionGuiView implements GuiView, DisplaysText {
 
 		Button backButton = buildButton("btn_back", "GUI.BACK_LABEL",
 				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName()));
-		layoutTable.add(backButton).padLeft(40).padRight(30);
+		layoutTable.add(backButton);
 
 		Button mineButton = buildButton("btn_current_orders_mine", "GUI.ORDERS.MINE",
 				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, DESIGNATE_MINING));
@@ -87,8 +90,6 @@ public class OrderSelectionGuiView implements GuiView, DisplaysText {
 		Button removeDesignationButton = buildButton("btn_current_orders_cancel", "GUI.REMOVE_LABEL",
 				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, REMOVE_DESIGNATIONS));
 		layoutTable.add(removeDesignationButton);
-
-		// TODO up/down buttons to change view level
 	}
 
 	private Button buildButton(String drawableName, String tooltipI18nKey, Runnable onClick) {
