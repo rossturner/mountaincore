@@ -320,7 +320,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		Drawable assetMoreInfoBgStrip = managementSkin.getDrawable("asset_more_info_bg_10patch");
 		float wrappedLabelWidth = assetMoreInfoBgStrip.getMinWidth() - assetMoreInfoBgStrip.getLeftWidth() - assetMoreInfoBgStrip.getRightWidth();
 		Entity exampleEntity = group.get(0);
-		Label infoTitle = new ScaledToFitLabel(displayNameFunction.apply(exampleEntity), menuSkin, "secondary_banner_title", wrappedLabelWidth);
+		Label infoTitle = new ScaledToFitLabel(displayNameFunction.apply(exampleEntity), menuSkin, "secondary_banner_title", 500);
 		infoTitle.setAlignment(Align.center);
 
 
@@ -330,14 +330,20 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 			ItemAllocationComponent itemAllocationComponent = entity.getComponent(ItemAllocationComponent.class);
 			if (itemAllocationComponent != null && itemAllocationComponent.getNumAllocated() > 0) {
-				List<ItemAllocation> all = itemAllocationComponent.getAll();
-				for (ItemAllocation itemAllocation : all) {
-					String itemAllocationName = i18nTranslator.getItemDescription(itemAllocation.getAllocationAmount(), attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality()).toString();
-					Label itemAllocationLabel = new Label(itemAllocationName, managementSkin, "table_value_label");
+				for (ItemAllocation itemAllocation : itemAllocationComponent.getAll()) {
+					String itemName = i18nTranslator.getItemDescription(itemAllocation.getAllocationAmount(), attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality()).toString();
+					String itemAllocationLabelText = itemName;
+					if (itemAllocation.getPurpose() != null) {
+						itemAllocationLabelText = i18nTranslator.getTranslatedWordWithReplacements("GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE." + itemAllocation.getPurpose().name(),
+								Map.of("item", new I18nWord(itemName))).toString();
+					}
+
+					Label itemAllocationLabel = new Label(itemAllocationLabelText, managementSkin, "table_value_label");
 					itemAllocationLabel.setWrap(true);
 					itemAllocationLabel.setAlignment(Align.center);
 
-					entitiesTable.add(itemAllocationLabel).width(wrappedLabelWidth).row();
+					entitiesTable.add(itemAllocationLabel).width(wrappedLabelWidth-50f).row();
+
 
 					Long owningEntityId = itemAllocation.getOwningEntityId();
 					if (owningEntityId != null) {
