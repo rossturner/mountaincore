@@ -199,7 +199,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 
 		deconstructButton = iconButtonFactory.create("GUI.REMOVE_LABEL", "cancel", HexColors.NEGATIVE_COLOR, ButtonStyle.SMALL);
-		final EntitySelectedGuiView This = this;
 		deconstructButton.setAction(() -> {
 			Selectable selectable = gameInteractionStateContainer.getSelectable();
 			if (selectable != null && selectable.type.equals(ENTITY)) {
@@ -207,7 +206,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				ConstructedEntityComponent constructedEntityComponent = entity.getComponent(ConstructedEntityComponent.class);
 				if (constructedEntityComponent != null && !constructedEntityComponent.isBeingDeconstructed()) {
 					messageDispatcher.dispatchMessage(MessageType.REQUEST_FURNITURE_REMOVAL, selectable.getEntity());
-					This.update();
+					update();
 				}
 			}
 		});
@@ -218,7 +217,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			if (isItemContainingLiquidOnGroundAndNoneAllocated(selectable.getEntity())) {
 				Entity entity = selectable.getEntity();
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_DUMP_LIQUID_CONTENTS, entity);
-				This.update();
+				update();
 			}
 		});
 
@@ -239,7 +238,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					} else {
 						militaryComponent.removeFromMilitary();
 					}
-					This.update();
+					update();
 				}
 			}
 		});

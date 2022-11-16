@@ -186,9 +186,8 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 		});
 
 		manageStockpileButton = iconButtonFactory.create("GUI.SETTINGS.LABEL", "gears", HexColors.get("#edc154"), ButtonStyle.SMALL);
-		RoomSelectedGuiView This = this;
 		manageStockpileButton.setAction(() -> {
-			This.showStockpileManagement = !This.showStockpileManagement;
+			RoomSelectedGuiView.this.showStockpileManagement = !RoomSelectedGuiView.this.showStockpileManagement;
 			doUpdate();
 		});
 

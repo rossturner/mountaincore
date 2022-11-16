@@ -48,7 +48,6 @@ public class DoorwaySelectedGuiView implements GuiView {
 		entityDescriptionTable.pad(10);
 
 		deconstructButton = iconButtonFactory.create("GUI.REMOVE_LABEL", "cancel", HexColors.NEGATIVE_COLOR, ButtonStyle.SMALL);
-		final DoorwaySelectedGuiView This = this;
 		deconstructButton.setAction(() -> {
 			Selectable selectable = gameInteractionStateContainer.getSelectable();
 			if (selectable != null && selectable.type.equals(DOORWAY)) {
@@ -57,7 +56,7 @@ public class DoorwaySelectedGuiView implements GuiView {
 				ConstructedEntityComponent constructedEntityComponent = doorwayEntity.getComponent(ConstructedEntityComponent.class);
 				if (constructedEntityComponent != null && !constructedEntityComponent.isBeingDeconstructed()) {
 					messageDispatcher.dispatchMessage(MessageType.REQUEST_FURNITURE_REMOVAL, doorwayEntity);
-					This.update();
+					update();
 				}
 			}
 		});

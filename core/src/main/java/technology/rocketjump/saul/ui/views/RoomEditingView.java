@@ -350,11 +350,10 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 				furnitureMap.getByFurnitureType(furnitureType), entityRenderer, true, messageDispatcher
 		).withBackground(background));
 		buttonContainer.size(background.getMinWidth(), background.getMinHeight());
-		var This = this;
 		furnitureButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				This.selectedFurnitureType = furnitureType;
+				RoomEditingView.this.selectedFurnitureType = furnitureType;
 				furnitureMaterialsWidget.changeSelectedFurniture(furnitureType);
 				rebuildUI();
 				GameInteractionMode.PLACE_FURNITURE.setFurnitureType(selectedFurnitureType);

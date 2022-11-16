@@ -48,12 +48,11 @@ public class BridgeSelectedGuiView implements GuiView, GameContextAware {
 		descriptionTable.pad(10);
 
 		removeButton = iconButtonFactory.create("GUI.REMOVE_LABEL", "cancel", HexColors.NEGATIVE_COLOR, ButtonStyle.SMALL);
-		final BridgeSelectedGuiView This = this;
 		removeButton.setAction(() -> {
 			Selectable selectable = gameInteractionStateContainer.getSelectable();
 			if (selectable != null && selectable.type.equals(BRIDGE)) {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_BRIDGE_REMOVAL, selectable.getBridge());
-				This.doUpdate();
+				doUpdate();
 			}
 		});
 
