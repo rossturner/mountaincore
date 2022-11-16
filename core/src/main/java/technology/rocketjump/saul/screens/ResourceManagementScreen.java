@@ -390,7 +390,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 		Table table = new Table();
 		table.add().grow();
-		table.add(sideTable).right().growY().padRight(200f);//todo: pad right
+		table.add(sideTable).right().growY().padRight(200f);
 		this.currentInfoPane = table;
 
 		stack.add(fullScreenOverlay);
