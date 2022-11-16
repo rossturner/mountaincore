@@ -91,6 +91,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.GUI_SWITCH_VIEW_MODE);
 		messageDispatcher.addListener(this, MessageType.GUI_CANCEL_CURRENT_VIEW);
 		messageDispatcher.addListener(this, MessageType.GUI_CANCEL_CURRENT_VIEW_OR_GO_TO_MAIN_MENU);
+		messageDispatcher.addListener(this, MessageType.GUI_REMOVE_ALL_TOOLTIPS);
 
 		this.guiViewRepository = guiViewRepository;
 		switchView(GuiViewName.DEFAULT_MENU);
@@ -172,6 +173,10 @@ public class GuiContainer implements Telegraph, GameContextAware {
 				} else {
 					Logger.error("Don't know how to cancel current view from " + currentViewName.name());
 				}
+				return true;
+			}
+			case MessageType.GUI_REMOVE_ALL_TOOLTIPS: {
+				removeAllTooltips();
 				return true;
 			}
 			default:

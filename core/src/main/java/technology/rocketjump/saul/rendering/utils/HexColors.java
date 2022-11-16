@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.Color;
 public class HexColors {
 
 	public static final Color POSITIVE_COLOR = HexColors.get("#36ba3f");
-	public static final Color NEGATIVE_COLOR = HexColors.get("#D4534C");
+	public static final Color NEGATIVE_COLOR = HexColors.get("#a24929");
+	public static final Color GHOST_NEGATIVE_COLOR = HexColors.get("#a2492944");
 
 	public static Color get(String hexString) {
 		if (hexString == null) {

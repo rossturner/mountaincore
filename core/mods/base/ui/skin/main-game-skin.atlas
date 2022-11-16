@@ -98,42 +98,42 @@ asset_small_title_bg_ribbon
   index: -1
 asset_weather_cloudy_grey_icon
   rotate: false
-  xy: 1876, 934
+  xy: 1884, 1184
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_nice_icon
   rotate: false
-  xy: 1884, 1184
+  xy: 1884, 1134
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_rain_icon
   rotate: false
-  xy: 1884, 1134
+  xy: 1876, 1084
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_snow_icon
   rotate: false
-  xy: 1876, 1084
+  xy: 1876, 1034
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_storm_icon
   rotate: false
-  xy: 1876, 1034
+  xy: 1876, 984
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_windy_icon
   rotate: false
-  xy: 1876, 984
+  xy: 1876, 934
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
@@ -147,28 +147,28 @@ btn_add_tile
   index: -1
 btn_arrow_small
   rotate: false
-  xy: 1934, 1206
+  xy: 696, 53
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_arrow_small_left
   rotate: false
-  xy: 1934, 1142
+  xy: 1934, 1270
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_arrow_small_left_disabled
   rotate: false
-  xy: 1815, 625
+  xy: 1934, 1206
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_arrow_small_right_disabled
   rotate: false
-  xy: 1845, 639
+  xy: 1934, 1142
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
@@ -469,14 +469,14 @@ btn_small_50pc
   index: -1
 btn_small_arrow_left
   rotate: false
-  xy: 696, 53
+  xy: 1815, 625
   size: 26, 60
   orig: 26, 60
   offset: 0, 0
   index: -1
 btn_small_arrow_right
   rotate: false
-  xy: 1934, 1270
+  xy: 1845, 639
   size: 26, 60
   orig: 26, 60
   offset: 0, 0

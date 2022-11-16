@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.ai.combat.CombatAction;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
@@ -85,6 +86,7 @@ import static technology.rocketjump.saul.ui.Selectable.SelectableType.ENTITY;
 @Singleton
 public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
+	private final SoundAssetDictionary soundAssetDictionary;
 	private final ImageButton UNARMED_IMAGE_BUTTON;
 	private final ImageButton UNSHIELDED_IMAGE_BUTTON;
 	private final ImageButton UNARMORED_IMAGE_BUTTON;
@@ -152,7 +154,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 								 ImageButtonFactory imageButtonFactory, ClickableTableFactory clickableTableFactory,
 								 StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
 								 GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
-								 ItemTypeDictionary itemTypeDictionary, TextureAtlasRepository textureAtlasRepository) {
+								 ItemTypeDictionary itemTypeDictionary, TextureAtlasRepository textureAtlasRepository, SoundAssetDictionary soundAssetDictionary) {
 		uiSkin = guiSkinRepository.getDefault();
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
@@ -166,6 +168,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.raceDictionary = raceDictionary;
 		this.itemTypeDictionary = itemTypeDictionary;
+		this.soundAssetDictionary = soundAssetDictionary;
 
 		outerTable = new Table(uiSkin);
 		outerTable.background("default-rect");
@@ -196,7 +199,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 
 		deconstructButton = iconButtonFactory.create("GUI.REMOVE_LABEL", "cancel", HexColors.NEGATIVE_COLOR, ButtonStyle.SMALL);
-		final EntitySelectedGuiView This = this;
 		deconstructButton.setAction(() -> {
 			Selectable selectable = gameInteractionStateContainer.getSelectable();
 			if (selectable != null && selectable.type.equals(ENTITY)) {
@@ -204,7 +206,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				ConstructedEntityComponent constructedEntityComponent = entity.getComponent(ConstructedEntityComponent.class);
 				if (constructedEntityComponent != null && !constructedEntityComponent.isBeingDeconstructed()) {
 					messageDispatcher.dispatchMessage(MessageType.REQUEST_FURNITURE_REMOVAL, selectable.getEntity());
-					This.update();
+					update();
 				}
 			}
 		});
@@ -215,7 +217,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			if (isItemContainingLiquidOnGroundAndNoneAllocated(selectable.getEntity())) {
 				Entity entity = selectable.getEntity();
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_DUMP_LIQUID_CONTENTS, entity);
-				This.update();
+				update();
 			}
 		});
 
@@ -236,7 +238,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					} else {
 						militaryComponent.removeFromMilitary();
 					}
-					This.update();
+					update();
 				}
 			}
 		});
@@ -545,7 +547,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		upperRow.clear();
 		lowerRow.clear();
 
-		populateSettlerNameTable(entity, nameTable, i18nTranslator, uiSkin, gameContext, messageDispatcher, changeSettlerNameButton);
+		populateSettlerNameTable(entity, nameTable, i18nTranslator, uiSkin, gameContext, messageDispatcher, changeSettlerNameButton, soundAssetDictionary);
 
 		InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 		if (containsSomething(inventoryComponent, null)) {
@@ -697,7 +699,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	}
 
 	public static void populateSettlerNameTable(Entity entity, Table nameTable, I18nTranslator i18nTranslator, Skin uiSkin,
-												GameContext gameContext, MessageDispatcher messageDispatcher, ImageButton renameButton) {
+												GameContext gameContext, MessageDispatcher messageDispatcher, ImageButton renameButton,
+												SoundAssetDictionary soundAssetDictionary) {
 		Cell<I18nTextWidget> nameCell = nameTable.add(new I18nTextWidget(i18nTranslator.getDescription(entity), uiSkin, messageDispatcher)).left();
 
 		if (renameButton != null) {
@@ -715,7 +718,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 				String originalName = attributes.getName().toString();
 
-				TextInputDialog textInputDialog = new TextInputDialog(renameDialogTitle, descriptionText, originalName, buttonText, uiSkin, (newName) -> {
+				TextInputDialog textInputDialog = new TextInputDialog(renameDialogTitle, originalName, buttonText, uiSkin, (newName) -> {
 					if (performPause) {
 						// unpause from forced pause
 						messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
@@ -723,7 +726,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					if (!originalName.equals(newName) && !newName.isEmpty()) {
 						attributes.getName().rename(newName);
 					}
-				}, messageDispatcher);
+				}, messageDispatcher, soundAssetDictionary);
 				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
 			});
 			nameTable.add(renameButton).left().padLeft(5).row();

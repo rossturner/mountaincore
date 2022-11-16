@@ -128,6 +128,8 @@ public class I18NTranslatorTest {
 	private RaceDictionary mockRaceDictionary;
 	@Mock
 	private ParticleEffectTypeDictionary mockParticleEffectTypeDictionary;
+	@Mock
+	private GameMaterialDictionary mockMaterialDictionary;
 
 	@Before
 	public void setup() throws IOException {
@@ -136,11 +138,12 @@ public class I18NTranslatorTest {
 		when(mockCraftingTypeDictionary.getByName(Mockito.anyString())).thenReturn(mockCraftingType);
 		when(mockWallType.getI18nKey()).thenReturn("WALL.STONE_BLOCK");
 		when(mockSkillDictionary.getByName(anyString())).thenReturn(SkillDictionary.UNARMED_COMBAT_SKILL);
+		when(mockMaterialDictionary.getByName(anyString())).thenReturn(NULL_MATERIAL);
 
 		I18nRepo i18nRepo = new I18nRepo(mockUserPreferences);
 
 		itemTypeDictionary = new ItemTypeDictionary(mockCraftingTypeDictionary, new StockpileGroupDictionary(), mockSoundAssetDictionary,
-				mockConstantsRepo, mockParticleEffectTypeDictionary, mockSkillDictionary, materialDictionary);
+				mockConstantsRepo, mockParticleEffectTypeDictionary, mockSkillDictionary, mockMaterialDictionary);
 		gameMaterialDictionary = new GameMaterialDictionary();
 		new GameMaterialI18nUpdater(i18nRepo, gameMaterialDictionary).preLanguageUpdated();
 
@@ -428,7 +431,7 @@ public class I18NTranslatorTest {
 			@Override
 			public Object answer(InvocationOnMock invocation) throws Throwable {
 				ItemMaterialSelectionMessage messageInfo = invocation.getArgument(1, ItemMaterialSelectionMessage.class);
-				messageInfo.callback.materialFound(null);
+				messageInfo.callback.accept(null);
 				return null;
 			}
 		}).when(mockMessageDispatcher).dispatchMessage(eq(MessageType.SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE), any(ItemMaterialSelectionMessage.class));

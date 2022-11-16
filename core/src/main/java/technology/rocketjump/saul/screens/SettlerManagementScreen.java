@@ -48,6 +48,7 @@ public class SettlerManagementScreen extends ManagementScreen {
 	private final SettlerTracker settlerTracker;
 	private final SettlementFurnitureTracker settlementFurnitureTracker;
 	private final EntityDrawableFactory entityDrawableFactory;
+	private final SoundAssetDictionary soundAssetDictionary;
 	private final Table sortingOptionsTable;
 	private SettlerSorting selectedSortOption = SettlerSorting.BY_NAME;
 	Map<SettlerSorting, I18nCheckbox> sortingCheckboxes = new LinkedHashMap<>();
@@ -64,13 +65,14 @@ public class SettlerManagementScreen extends ManagementScreen {
 								   I18nWidgetFactory i18nWidgetFactory,
 								   EntityDrawableFactory entityDrawableFactory, I18nTranslator i18nTranslator,
 								   ClickableTableFactory clickableTableFactory, IconButtonFactory iconButtonFactory,
-								   SoundAssetDictionary soundAssetDictionary, SettlementFurnitureTracker settlementFurnitureTracker) {
+								   SoundAssetDictionary soundAssetDictionary, SettlementFurnitureTracker settlementFurnitureTracker, SoundAssetDictionary soundAssetDictionary1) {
 		super(messageDispatcher, guiSkinRepository, i18nWidgetFactory, i18nTranslator, iconButtonFactory);
 		this.settlerTracker = settlerTracker;
 		this.messageDispatcher = messageDispatcher;
 		this.entityDrawableFactory = entityDrawableFactory;
 		this.clickableTableFactory = clickableTableFactory;
 		this.settlementFurnitureTracker = settlementFurnitureTracker;
+		this.soundAssetDictionary = soundAssetDictionary1;
 
 		professionsTable = new Table(uiSkin);
 		settlerTable = new Table(uiSkin);
@@ -286,7 +288,7 @@ public class SettlerManagementScreen extends ManagementScreen {
 			Table nameHappinessBlockTable = new Table(uiSkin);
 
 			Table nameTable = new Table(uiSkin);
-			populateSettlerNameTable(settler, nameTable, i18nTranslator, uiSkin, gameContext, messageDispatcher, null);
+			populateSettlerNameTable(settler, nameTable, i18nTranslator, uiSkin, gameContext, messageDispatcher, null, soundAssetDictionary);
 			nameHappinessBlockTable.add(nameTable).left().row();
 
 			Table happinessTable = new Table(uiSkin);
