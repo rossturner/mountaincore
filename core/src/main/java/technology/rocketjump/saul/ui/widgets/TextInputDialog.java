@@ -8,17 +8,24 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.utils.Align;
+import org.apache.commons.lang3.StringUtils;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.ui.i18n.I18nText;
+
+import java.util.function.Consumer;
 
 public class TextInputDialog extends GameDialog {
 
 	public final TextField inputBox;
 
-	public TextInputDialog(I18nText titleText, I18nText descriptionText, String inputPlaceholder,
-						   I18nText buttonText, Skin uiSkin, TextInputDialogCallback onButtonClick, MessageDispatcher messageDispatcher) {
-		super(titleText, uiSkin, messageDispatcher);
-//		withText(descriptionText);
-		inputBox = new TextField(inputPlaceholder, uiSkin) {
+	public TextInputDialog(I18nText titleText, String inputPlaceholder,
+						   I18nText buttonText, Skin uiSkin, Consumer<String> onButtonClick,
+						   MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
+		super(titleText, uiSkin, messageDispatcher, soundAssetDictionary);
+
+		TextField.TextFieldStyle textFieldStyle = uiSkin.get("input-dialog-text", TextField.TextFieldStyle.class);
+		inputBox = new TextField(inputPlaceholder, textFieldStyle) {
 			@Override
 			protected InputListener createInputListener () {
 				return new TextFieldClickListener(){
@@ -34,9 +41,14 @@ public class TextInputDialog extends GameDialog {
 				};
 			}
 		};
-		dialog.getContentTable().add(inputBox).width(200).row();
-		withButton(buttonText, () -> {
-			onButtonClick.onOkButtonClick(inputBox.getText());
+		inputBox.setAlignment(Align.center);
+		contentTable.add(inputBox).width(910).height(96).center().row();
+		withButton(buttonText, (Runnable) () -> {
+			String text = inputBox.getText();
+			if (StringUtils.isEmpty(text)) {
+				text = inputPlaceholder;
+			}
+			onButtonClick.accept(text);
 		});
 	}
 
@@ -53,9 +65,4 @@ public class TextInputDialog extends GameDialog {
 		
 	}
 
-	public interface TextInputDialogCallback {
-
-		void onOkButtonClick(String text);
-
-	}
 }

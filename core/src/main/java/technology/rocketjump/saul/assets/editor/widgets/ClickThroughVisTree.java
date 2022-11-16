@@ -8,7 +8,6 @@ import com.kotcrab.vis.ui.widget.VisTree;
 public class ClickThroughVisTree extends VisTree {
 
 	public ClickThroughVisTree() {
-		ClickThroughVisTree This = this;
 		// This listener fakes a click event onto the actor of a node on a row that has been clicked
 		this.addListener(new PassThroughClickListener(this, Input.Buttons.LEFT));
 		this.addListener(new PassThroughClickListener(this, Input.Buttons.RIGHT));

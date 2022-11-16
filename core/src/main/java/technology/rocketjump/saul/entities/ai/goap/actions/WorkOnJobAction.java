@@ -86,8 +86,6 @@ public class WorkOnJobAction extends Action {
 				happinessComponent.add(gameContext.getMapEnvironment().getCurrentWeather().getHappinessModifiers().get(WORKING));
 			}
 
-			Action This = this;
-
 			updateProgressBarEffect();
 
 			List<ParticleEffectType> relatedParticleEffectTypes = getRelatedParticleEffectTypes();
@@ -100,7 +98,7 @@ public class WorkOnJobAction extends Action {
 								Optional.of(parent.parentEntity),
 								Optional.ofNullable(assignedJob.getTargetOfJob(gameContext)
 								), instance -> {
-							This.spawnedParticles.add(instance);
+							WorkOnJobAction.this.spawnedParticles.add(instance);
 						}));
 					}
 				}
@@ -134,7 +132,6 @@ public class WorkOnJobAction extends Action {
 	public void updateProgressBarEffect() {
 		Job assignedJob = parent.getAssignedJob();
 		SkillsComponent skillsComponent = parent.parentEntity.getComponent(SkillsComponent.class);
-		Action This = this;
 		parent.messageDispatcher.dispatchMessage(MessageType.GET_PROGRESS_BAR_EFFECT_TYPE, (ParticleEffectTypeCallback) progressBarType -> {
 			if (spawnedParticles.stream().noneMatch(p -> p.getType().equals(progressBarType))) {
 				parent.messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(
@@ -142,7 +139,7 @@ public class WorkOnJobAction extends Action {
 						Optional.of(parent.parentEntity),
 						Optional.empty(),
 						instance -> {
-					This.spawnedParticles.add(instance);
+					WorkOnJobAction.this.spawnedParticles.add(instance);
 				}));
 			}
 		});

@@ -38,7 +38,7 @@ public class GameDialogDictionary implements DisplaysText {
 	public GameDialogDictionary(I18nTranslator translator, GuiSkinRepository guiSkinRepository,
 	                            MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
 		this.translator = translator;
-		this.uiSkin = guiSkinRepository.getDefault();
+		this.uiSkin = guiSkinRepository.getMenuSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.soundAssetDictionary = soundAssetDictionary;
 
@@ -78,7 +78,7 @@ public class GameDialogDictionary implements DisplaysText {
 		I18nText descriptionText = translator.getTranslatedString(errorType.i18nKey).breakAfterLength(translator.getCurrentLanguageType().getBreakAfterLineLength());
 		I18nText buttonText = translator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
 
-		return new ModalDialog(title, descriptionText, buttonText, uiSkin, messageDispatcher);
+		return new ModalDialog(title, descriptionText, buttonText, uiSkin, messageDispatcher, soundAssetDictionary);
 	}
 
 	private ModalDialog create(InfoType infoType) {
@@ -86,7 +86,7 @@ public class GameDialogDictionary implements DisplaysText {
 		I18nText descriptionText = translator.getTranslatedString(infoType.i18nKey).breakAfterLength(translator.getCurrentLanguageType().getBreakAfterLineLength());
 		I18nText buttonText = translator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
 
-		return new ModalDialog(title, descriptionText, buttonText, uiSkin, messageDispatcher);
+		return new ModalDialog(title, descriptionText, buttonText, uiSkin, messageDispatcher, soundAssetDictionary);
 	}
 
 	public NotificationDialog create(Notification notification) {
@@ -101,7 +101,7 @@ public class GameDialogDictionary implements DisplaysText {
 
 		I18nText dismissText = translator.getTranslatedString("GUI.DIALOG.DISMISS");
 
-		NotificationDialog notificationDialog = new NotificationDialog(title, uiSkin, messageDispatcher);
+		NotificationDialog notificationDialog = new NotificationDialog(title, uiSkin, messageDispatcher, soundAssetDictionary);
 
 		if (notification.getType().getImageFilename() != null) {
 			Texture texture = new Texture("assets/ui/notifications/"+notification.getType().getImageFilename());
@@ -136,7 +136,7 @@ public class GameDialogDictionary implements DisplaysText {
 		}
 		I18nText buttonText = translator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
 
-		return new ModalDialog(title, descriptionText, buttonText, uiSkin, messageDispatcher);
+		return new ModalDialog(title, descriptionText, buttonText, uiSkin, messageDispatcher, soundAssetDictionary);
 	}
 
 	public ModalDialog createModsMissingSaveExceptionDialog(List<String> missingModNames) {
@@ -150,7 +150,7 @@ public class GameDialogDictionary implements DisplaysText {
 		}
 		I18nText buttonText = translator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
 
-		return new ModalDialog(title, descriptionText, buttonText, uiSkin, messageDispatcher);
+		return new ModalDialog(title, descriptionText, buttonText, uiSkin, messageDispatcher, soundAssetDictionary);
 	}
 
 	static String[] splitLines(String translatedString) {

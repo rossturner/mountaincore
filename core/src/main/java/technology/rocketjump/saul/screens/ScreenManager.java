@@ -231,6 +231,8 @@ public class ScreenManager implements Telegraph, GameContextAware {
 			}
 			case MessageType.SHOW_DIALOG: {
 				GameDialog dialog = (GameDialog) msg.extraInfo;
+				messageDispatcher.dispatchMessage(MessageType.SET_HOVER_CURSOR, null);
+				messageDispatcher.dispatchMessage(MessageType.GUI_REMOVE_ALL_TOOLTIPS);
 				currentScreen.showDialog(dialog);
 				primaryCameraWrapper.setMovementX(0);
 				primaryCameraWrapper.setMovementY(0);

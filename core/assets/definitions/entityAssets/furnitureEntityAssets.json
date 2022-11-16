@@ -531,6 +531,32 @@
     }
   }
 }, {
+  "uniqueName" : "barracks-sleeping-spot-1x1",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "BARRACKS_SLEEPING_SPOT",
+  "furnitureLayoutName" : "1x1",
+  "validMaterialTypes" : [ "EARTH" ],
+  "tags" : {
+    "BED_SLEEPING_POSITION" : [ "DOWN", "MILITARY_ONLY", "ON_GROUND" ]
+  },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "sleep_spot.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "bed-1x2N-wood-base",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "SINGLE_BED",

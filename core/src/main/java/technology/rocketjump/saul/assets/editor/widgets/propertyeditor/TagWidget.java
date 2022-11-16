@@ -26,15 +26,14 @@ public class TagWidget extends VisTable {
 		this.sourceMap = sourceMap;
 
 
-		TagWidget This = this;
 		keyField = new VisTextField(key);
 		keyField.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				String newKey = keyField.getText();
-				sourceMap.remove(This.key);
-				sourceMap.put(newKey, This.values);
-				This.key = newKey;
+				sourceMap.remove(TagWidget.this.key);
+				sourceMap.put(newKey, TagWidget.this.values);
+				TagWidget.this.key = newKey;
 			}
 		});
 

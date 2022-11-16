@@ -25,7 +25,7 @@ public class PriorityButton extends Container<Image> {
 		// container background is when button is "checked"
 		this.priority = priority;
 		this.backgroundDrawable = skin.getDrawable("btn_crafting_priority");
-		this.priorityDrawable = skin.getDrawable(priority.drawableName);
+		this.priorityDrawable = skin.getDrawable(priority.craftingDrawableName);
 		Image priorityImage = new Image(priorityDrawable);
 
 		priorityImage.addListener(new ClickListener() {

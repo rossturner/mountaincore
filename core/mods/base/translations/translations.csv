@@ -466,8 +466,8 @@ GUI.DIALOG.LANGUAGE_TRANSLATION_INCOMPLETE,,The selected language translation is
 GUI.DIALOG.MOD_CHANGES_OUTSTANDING,,You have selected a different set of mods to be applied to the game. These will be applied when the game is next restarted.
 GUI.DIALOG.MOD_INCOMPATIBLE,,One or more mods are incompatible with this version of the game and have been deactivated. You can check for updates in the mods menu.
 GUI.DIALOG.OK_BUTTON,Single button shown to dismiss an error dialog,Ok
-GUI.DIALOG.RENAME_ROOM_TITLE,,Rename room
-GUI.DIALOG.RENAME_SETTLER_TITLE,,Rename settler
+GUI.DIALOG.RENAME_ROOM_TITLE,,Rename Room
+GUI.DIALOG.RENAME_SETTLER_TITLE,,Rename Settler
 GUI.DIALOG.RESTART_REQUIRED,,You must restart the game for this change to take effect
 GUI.DIALOG.SETTLEMENT_NAME_ALREADY_IN_USE,,You already have a saved game for the settlement {{name}}. Starting a new game will overwrite the existing save file. Are you sure you want to continue?
 GUI.DIALOG.SETTLEMENT_NAME_NOT_SPECIFIED,,A name for the settlement must be specified.

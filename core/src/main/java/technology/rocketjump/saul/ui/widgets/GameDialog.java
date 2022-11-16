@@ -1,24 +1,38 @@
 package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 
 public abstract class GameDialog implements Disposable {
 
-	private final Skin uiSkin;
+	private final Skin skin;
 	protected final MessageDispatcher messageDispatcher;
+	protected final SoundAssetDictionary soundAssetDictionary;
 	protected Dialog dialog;
 	protected Image fullScreenOverlay;
+	protected boolean addedCursorChangeListeners;
 
-	public GameDialog(I18nText titleText, Skin uiSkin, MessageDispatcher messageDispatcher) {
-		this(titleText, uiSkin, messageDispatcher, uiSkin.get(Window.WindowStyle.class));
+	protected final Table layoutTable = new Table();
+	protected final Table contentTable = new Table();
+
+	public GameDialog(I18nText titleText, Skin skin, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
+		this(titleText, skin, messageDispatcher, skin.get(Window.WindowStyle.class), soundAssetDictionary);
 	}
-	public GameDialog(I18nText titleText, Skin uiSkin, MessageDispatcher messageDispatcher, Window.WindowStyle windowStyle) {
+	public GameDialog(I18nText titleText, Skin skin, MessageDispatcher messageDispatcher,
+					  Window.WindowStyle windowStyle, SoundAssetDictionary soundAssetDictionary) {
 		this.messageDispatcher = messageDispatcher;
-		dialog = new Dialog(titleText.toString(), uiSkin) {
+		this.soundAssetDictionary = soundAssetDictionary;
+		dialog = new Dialog("", skin) {
 			public void result(Object obj) {
 				if (obj instanceof Runnable) {
 					((Runnable)obj).run();
@@ -30,37 +44,72 @@ public abstract class GameDialog implements Disposable {
 			}
 		};
 		dialog.setStyle(windowStyle);
-		this.uiSkin = uiSkin;
+		this.skin = skin;
 
-		fullScreenOverlay = new Image(uiSkin, "default-rect");
+		fullScreenOverlay = new Image(skin, "default-rect");
 		fullScreenOverlay.setFillParent(true);
 		fullScreenOverlay.setColor(1, 1, 1, 0.6f);
+
+		Button exitButton = new Button(skin, "btn_exit");
+		exitButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				close();
+			}
+		});
+		exitButton.addListener(new ChangeCursorOnHover(exitButton, GameCursor.SELECT, messageDispatcher));
+		exitButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+
+		layoutTable.defaults().pad(10);
+		layoutTable.add(exitButton).align(Align.topLeft).expandX().padBottom(0).row();
+		if (titleText != null) {
+			Label titleLabel = new Label(titleText.toString(), skin.get("dialog_title", Label.LabelStyle.class));
+			layoutTable.add(titleLabel).center().top().padTop(0).row();
+		}
+		layoutTable.add(contentTable).grow().center().row();
+
+		dialog.getContentTable().add(layoutTable).grow();
 	}
 
 	public void show(Stage stage) {
+		if (!addedCursorChangeListeners) {
+			for (Actor child : dialog.getButtonTable().getChildren()) {
+				child.addListener(new ChangeCursorOnHover(child, GameCursor.SELECT, messageDispatcher));
+				child.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+			}
+			addedCursorChangeListeners = true;
+		}
+
 		if (fullScreenOverlay != null) {
 			stage.addActor(fullScreenOverlay);
 		}
 		dialog.show(stage);
 	}
 
+	public void close() {
+		if (fullScreenOverlay != null) {
+			fullScreenOverlay.remove();
+		}
+		dialog.hide();
+		dispose();
+	}
+
 	public Table getContentTable() {
-		return dialog.getContentTable();
+		return contentTable;
 	}
 
 	public GameDialog withText(I18nText descriptionText) {
-		dialog.getContentTable().add(new I18nTextWidget(descriptionText, uiSkin, messageDispatcher)).row();
+		Label label = new Label(descriptionText.toString(), skin.get("dialog_title", Label.LabelStyle.class));
+		contentTable.add(label).row();
 		return this;
 	}
 
 	public GameDialog withButton(I18nText buttonText) {
-		dialog.button(buttonText.toString());
-		return this;
+		return withButton(buttonText, null);
 	}
 
 	public GameDialog withButton(I18nText buttonText, Runnable runnable) {
-		dialog.button(buttonText.toString(), runnable);
-		return this;
+		return withButton(buttonText, runnable, skin.get("btn_dialog_1", TextButton.TextButtonStyle.class));
 	}
 
 	public GameDialog withButton(I18nText buttonText, Runnable runnable, TextButton.TextButtonStyle style) {
