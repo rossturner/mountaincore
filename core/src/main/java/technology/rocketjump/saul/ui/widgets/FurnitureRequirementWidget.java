@@ -11,6 +11,7 @@ import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTyp
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
+import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.settlement.ItemAvailabilityChecker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
@@ -41,6 +42,7 @@ public class FurnitureRequirementWidget extends Table {
 	private final Image entityImage;
 	private final Stack entityStack;
 	private final Table tooltipTable;
+	private final EntityDrawable entityDrawable;
 	private int selectionIndex;
 
 	private Label label;
@@ -63,7 +65,6 @@ public class FurnitureRequirementWidget extends Table {
 		materials = new ArrayList<>(itemAvailabilityChecker.getAvailableMaterialsFor(requirement.getItemType(), requirement.getQuantity()));
 		materials.add(0, null);
 
-		updateEntity();
 
 		leftButton = new Button(skin.get("btn_arrow_small_left", Button.ButtonStyle.class));
 		if (materials.size() > 1) {
@@ -92,8 +93,11 @@ public class FurnitureRequirementWidget extends Table {
 
 		entityStack = new Stack();
 
-		entityImage = new Image(new EntityDrawable(itemEntity, entityRenderer, true, messageDispatcher));
+		entityDrawable = new EntityDrawable(itemEntity, entityRenderer, true, messageDispatcher);
+		entityImage = new Image(entityDrawable);
 		entityImage.setFillParent(true);
+
+		updateEntity();
 
 		Container<Label> amountContainer = new Container<>();
 		amountContainer.setBackground(skin.getDrawable("asset_bg_for_amount"));
@@ -172,6 +176,13 @@ public class FurnitureRequirementWidget extends Table {
 			selected = defaultDisplayMaterial;
 		}
 		attributes.setMaterial(selected);
+
+		boolean isAvailable = itemAvailabilityChecker.getAmountAvailable(requirement.getItemType(), materials.get(selectionIndex)) >= requirement.getQuantity();
+		if (isAvailable) {
+			entityDrawable.setOverrideColor(null);
+		} else {
+			entityDrawable.setOverrideColor(HexColors.GHOST_NEGATIVE_COLOR);
+		}
 
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, itemEntity);
 	}

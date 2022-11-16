@@ -6,6 +6,7 @@ public class HexColors {
 
 	public static final Color POSITIVE_COLOR = HexColors.get("#36ba3f");
 	public static final Color NEGATIVE_COLOR = HexColors.get("#D4534C");
+	public static final Color GHOST_NEGATIVE_COLOR = HexColors.get("#D4534C44");
 
 	public static Color get(String hexString) {
 		if (hexString == null) {
