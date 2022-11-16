@@ -59,6 +59,7 @@ public class GuiSkinRepository implements Telegraph {
 		skin.add("default-font-18", onDemandFontRepository.getDefaultFont(18 * FONT_SCALE));
 		skin.add("default-font-19", onDemandFontRepository.getDefaultFont(19 * FONT_SCALE));
 		skin.add("default-font-23", onDemandFontRepository.getDefaultFont(23 * FONT_SCALE));
+		skin.add("default-font-24", onDemandFontRepository.getDefaultFont(24 * FONT_SCALE));
 
 		skin.addRegions(new TextureAtlas(menuSkinAtlasFile));
 		skin.load(menuSkinFile);

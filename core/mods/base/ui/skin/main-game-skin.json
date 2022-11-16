@@ -262,6 +262,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: header-font-32
 		fontColor: white
 	}
+	white_text_default-font-23: {
+		font: default-font-23
+		fontColor: white
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 	default: {
@@ -285,6 +289,10 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	}
 	btn_banner_4: {
 		parent: default
+	}
+	btn_dialog_1: {
+		font: default-font-23
+		fontColor: white
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {

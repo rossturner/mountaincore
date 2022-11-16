@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
@@ -65,6 +66,7 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 	private final RaceDictionary raceDictionary;
 	private final IconButton addTilesButton;
 	private final IconButton removeTilesButton;
+	private final SoundAssetDictionary soundAssetDictionary;
 	private Table outerTable;
 	private Table descriptionTable;
 
@@ -89,7 +91,7 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 							   ImageButtonFactory imageButtonFactory, IconButtonFactory iconButtonFactory,
 							   RoomStore roomStore, PlantSpeciesDictionary plantSpeciesDictionary,
 							   TextureAtlasRepository textureAtlasRepository, ItemTypeDictionary itemTypeDictionary,
-							   RaceDictionary raceDictionary, StockpileComponentUpdater stockpileComponentUpdater,
+							   RaceDictionary raceDictionary, SoundAssetDictionary soundAssetDictionary, StockpileComponentUpdater stockpileComponentUpdater,
 							   StockpileGroupDictionary stockpileGroupDictionary, GameMaterialDictionary gameMaterialDictionary) {
 		uiSkin = guiSkinRepository.getDefault();
 		this.messageDispatcher = messageDispatcher;
@@ -100,6 +102,7 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 		this.plantSpeciesDictionary = plantSpeciesDictionary;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.raceDictionary = raceDictionary;
+		this.soundAssetDictionary = soundAssetDictionary;
 		this.stockpileComponentUpdater = stockpileComponentUpdater;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.gameMaterialDictionary = gameMaterialDictionary;
@@ -163,7 +166,7 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 
 				String originalRoomName = currentSelectable.getRoom().getRoomName();
 
-				TextInputDialog textInputDialog = new TextInputDialog(renameRoomDialogTitle, descriptionText, originalRoomName, buttonText, uiSkin, (newRoomName) -> {
+				TextInputDialog textInputDialog = new TextInputDialog(renameRoomDialogTitle, originalRoomName, buttonText, uiSkin, (newRoomName) -> {
 					if (performPause) {
 						// unpause from forced pause
 						messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
@@ -177,7 +180,7 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 							messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, errorDialog);
 						}
 					}
-				}, messageDispatcher);
+				}, messageDispatcher, this.soundAssetDictionary, "btn_dialog_1");
 				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
 			}
 		});

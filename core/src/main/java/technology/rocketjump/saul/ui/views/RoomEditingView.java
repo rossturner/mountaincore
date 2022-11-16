@@ -13,6 +13,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
@@ -27,6 +28,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.async.ErrorType;
 import technology.rocketjump.saul.production.StockpileComponentUpdater;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
@@ -45,10 +47,7 @@ import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.EntityDrawable;
-import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
-import technology.rocketjump.saul.ui.widgets.StockpileManagementTree;
-import technology.rocketjump.saul.ui.widgets.TextInputDialog;
+import technology.rocketjump.saul.ui.widgets.*;
 import technology.rocketjump.saul.ui.widgets.rooms.FarmPlotDescriptionWidget;
 import technology.rocketjump.saul.ui.widgets.rooms.FarmPlotWidget;
 import technology.rocketjump.saul.ui.widgets.rooms.RoomPriorityWidget;
@@ -75,6 +74,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final FurnitureMaterialsWidget furnitureMaterialsWidget;
 	private final RoomFactory roomFactory;
 	private final GameMaterialDictionary materialDictionary;
+	private final GameDialogDictionary gameDialogDictionary;
 	private GameContext gameContext;
 
 	private Button backButton;
@@ -87,6 +87,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 	private final ItemTypeDictionary itemTypeDictionary;
 	private final RaceDictionary raceDictionary;
+	private final SoundAssetDictionary soundAssetDictionary;
 
 	@Inject
 	public RoomEditingView(MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository,
@@ -94,7 +95,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 						   FurnitureTypeDictionary furnitureTypeDictionary, RoomEditorFurnitureMap furnitureMap,
 						   EntityRenderer entityRenderer, RoomStore roomStore, RoomEditorItemMap itemMap,
 						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget,
-						   RoomFactory roomFactory, GameMaterialDictionary materialDictionary, StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary, ItemTypeDictionary itemTypeDictionary, RaceDictionary raceDictionary) {
+						   RoomFactory roomFactory, GameMaterialDictionary materialDictionary, GameDialogDictionary gameDialogDictionary, StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary, ItemTypeDictionary itemTypeDictionary, RaceDictionary raceDictionary, SoundAssetDictionary soundAssetDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
@@ -109,10 +110,12 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
 		this.roomFactory = roomFactory;
 		this.materialDictionary = materialDictionary;
+		this.gameDialogDictionary = gameDialogDictionary;
 		this.stockpileComponentUpdater = stockpileComponentUpdater;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.raceDictionary = raceDictionary;
+		this.soundAssetDictionary = soundAssetDictionary;
 
 		backButton = new Button(skin.getDrawable("btn_back"));
 		mainTable = new Table();
@@ -133,7 +136,6 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 				if (getSelectedRoom() != null) {
 					// Grabbing translations here so they're always for the correct language
 					I18nText renameRoomDialogTitle = i18nTranslator.getTranslatedString("GUI.DIALOG.RENAME_ROOM_TITLE");
-					I18nText descriptionText = i18nTranslator.getTranslatedString("RENAME_DESC");
 					I18nText buttonText = i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
 
 					final boolean performPause = !gameContext.getGameClock().isPaused();
@@ -143,7 +145,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 					String originalRoomName = getSelectedRoom().getRoomName();
 
-					TextInputDialog textInputDialog = new TextInputDialog(renameRoomDialogTitle, descriptionText, originalRoomName, buttonText, skinRepository.getDefault(), (newRoomName) -> {
+					TextInputDialog textInputDialog = new TextInputDialog(renameRoomDialogTitle, originalRoomName, buttonText, skinRepository.getMenuSkin(), (newRoomName) -> {
 						if (performPause) {
 							messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
 						}
@@ -152,12 +154,11 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 								roomStore.rename(getSelectedRoom(), newRoomName);
 								rebuildUI();
 							} catch (RoomStore.RoomNameCollisionException e) {
-								// TODO put this back in
-//								ModalDialog errorDialog = gameDialogDictionary.getErrorDialog(ErrorType.ROOM_NAME_ALREADY_EXISTS);
-//								messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, errorDialog);
+								ModalDialog errorDialog = RoomEditingView.this.gameDialogDictionary.getErrorDialog(ErrorType.ROOM_NAME_ALREADY_EXISTS);
+								messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, errorDialog);
 							}
 						}
-					}, messageDispatcher);
+					}, messageDispatcher, RoomEditingView.this.soundAssetDictionary, "btn_dialog_1");
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
 				}
 			}

@@ -194,12 +194,6 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 		parent: default
 		fontColor: primary_font_colour_red
 	}
-	peaceful_mode_checkbox: {
-		checkboxOn: btn_check_box_ticked
-		checkboxOff: btn_check_box_unticked
-		checkboxOver: btn_check_box_hover_state
-		font: default-font-18
-	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	default: {
@@ -280,6 +274,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	map_size_label: {
 		font: default-font-18
 		fontColor: primary_font_colour_red
+	}
+	dialog_title: {
+		font: default-font-24
+		fontColor: white
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
@@ -419,6 +417,13 @@ com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	}
 	embark_textfield: {
 		font: default-font-23
+		fontColor: white
+		background: textfield_pixel_bg
+		cursor: textfield_cursor
+		selection: textfield_selected
+	}
+	input-dialog-text: {
+		font: default-font-24
 		fontColor: white
 		background: textfield_pixel_bg
 		cursor: textfield_cursor
