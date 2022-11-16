@@ -158,7 +158,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 								messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, errorDialog);
 							}
 						}
-					}, messageDispatcher, RoomEditingView.this.soundAssetDictionary, "btn_dialog_1");
+					}, messageDispatcher, RoomEditingView.this.soundAssetDictionary);
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
 				}
 			}

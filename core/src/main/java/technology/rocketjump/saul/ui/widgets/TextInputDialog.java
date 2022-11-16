@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
 import org.apache.commons.lang3.StringUtils;
@@ -22,7 +21,7 @@ public class TextInputDialog extends GameDialog {
 
 	public TextInputDialog(I18nText titleText, String inputPlaceholder,
 						   I18nText buttonText, Skin uiSkin, Consumer<String> onButtonClick,
-						   MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary, String textButtonStyleName) {
+						   MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
 		super(titleText, uiSkin, messageDispatcher, soundAssetDictionary);
 
 		TextField.TextFieldStyle textFieldStyle = uiSkin.get("input-dialog-text", TextField.TextFieldStyle.class);
@@ -50,7 +49,7 @@ public class TextInputDialog extends GameDialog {
 				text = inputPlaceholder;
 			}
 			onButtonClick.accept(text);
-		}, uiSkin.get(textButtonStyleName, TextButton.TextButtonStyle.class));
+		});
 	}
 
 	@Override

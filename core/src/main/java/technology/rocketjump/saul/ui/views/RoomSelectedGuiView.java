@@ -180,7 +180,7 @@ public class RoomSelectedGuiView implements GuiView, GameContextAware {
 							messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, errorDialog);
 						}
 					}
-				}, messageDispatcher, this.soundAssetDictionary, "btn_dialog_1");
+				}, messageDispatcher, this.soundAssetDictionary);
 				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
 			}
 		});

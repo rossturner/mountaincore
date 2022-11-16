@@ -727,7 +727,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					if (!originalName.equals(newName) && !newName.isEmpty()) {
 						attributes.getName().rename(newName);
 					}
-				}, messageDispatcher, soundAssetDictionary, "btn_dialog_1");
+				}, messageDispatcher, soundAssetDictionary);
 				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
 			});
 			nameTable.add(renameButton).left().padLeft(5).row();
