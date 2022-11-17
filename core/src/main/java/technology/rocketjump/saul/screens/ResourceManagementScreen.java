@@ -192,8 +192,24 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		stack.setFillParent(true);
 		stack.add(buildBackgroundBaseLayer());
 		stack.add(buildPaperLayer());
+		stack.add(buildExitTable());
 
 		stage.addActor(stack);
+	}
+
+	private Actor buildExitTable() {
+		Table table = new Table();
+		Button exitButton = new Button(menuSkin, "btn_exit");
+		exitButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+			}
+		});
+		attachClickCursor(exitButton, GameCursor.SELECT);
+		table.add(exitButton).expandX().align(Align.topLeft).padLeft(257 + menuSkin.getDrawable("paper_texture_bg_pattern_large").getMinWidth() + 5f).padTop(5f).row();
+		table.add().grow();
+		return table;
 	}
 
 	//copied from PaperMenu
