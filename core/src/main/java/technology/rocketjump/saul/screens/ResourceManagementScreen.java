@@ -517,16 +517,13 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 					itemQuality =  ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getItemQuality();
 				}
 
-				Drawable btnResourceItemBg = bgForExampleEntity(exampleEntity.getId());
-				Button itemTypeButton = new Button(new EntityDrawable(
-						exampleEntity, entityRenderer, true, messageDispatcher
-				).withBackground(btnResourceItemBg));
+
 
 				Label entityLabel = new Label(displayNameFunction.apply(exampleEntity), managementSkin, "item_type_name_label");
 				entityLabel.setWrap(true);
 				entityLabel.setAlignment(Align.center);
 				Table exampleEntityColumn = new Table();
-				exampleEntityColumn.add(itemTypeButton).size(205).row();
+				exampleEntityColumn.add(buildEntityButton(exampleEntity, totalQuantity)).size(205).row();
 				exampleEntityColumn.add(entityLabel).width(240);
 
 				HorizontalGroup itemTypeGoldGroup = new HorizontalGroup();
@@ -721,5 +718,29 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	private void attachClickCursor(Actor actor, GameCursor gameCursor) {
 		actor.addListener(new ChangeCursorOnHover(actor, gameCursor, messageDispatcher));
 		actor.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+	}
+
+	private Actor buildEntityButton(Entity exampleEntity, int quantity) {
+		Stack entityStack = new Stack();
+
+		Drawable btnResourceItemBg = bgForExampleEntity(exampleEntity.getId());
+		Button itemTypeButton = new Button(new EntityDrawable(
+				exampleEntity, entityRenderer, true, messageDispatcher
+		).withBackground(btnResourceItemBg));
+
+		Label amountLabel = new Label(String.valueOf(quantity), managementSkin, "entity_drawable_quantity_label");
+		amountLabel.setAlignment(Align.center);
+
+		Table amountTable = new Table();
+		amountTable.add(amountLabel).left().top();
+		amountTable.add(new Container<>()).width(btnResourceItemBg.getMinWidth()-32f).expandX().row();
+		amountTable.add(new Container<>()).colspan(2).height(btnResourceItemBg.getMinHeight()-32f).expandY();
+
+		entityStack.add(itemTypeButton);
+		if (quantity > 1) {
+			entityStack.add(amountTable);
+		}
+
+		return entityStack;
 	}
 }

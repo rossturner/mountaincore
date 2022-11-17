@@ -80,14 +80,14 @@ btn_go_to_dwarf_info
   index: -1
 btn_info
   rotate: false
-  xy: 506, 1250
+  xy: 2, 512
   size: 64, 72
   orig: 64, 72
   offset: 0, 0
   index: -1
 btn_info_hover_state
   rotate: false
-  xy: 2, 512
+  xy: 102, 608
   size: 64, 72
   orig: 64, 72
   offset: 0, 0
@@ -141,6 +141,15 @@ icon_coin
   orig: 67, 67
   offset: 0, 0
   index: -1
+icon_number_bg
+  rotate: false
+  xy: 506, 1257
+  size: 65, 65
+  split: 32, 32, 0, 0
+  pad: 6, 6, 0, 0
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
 search_bar
   rotate: false
   xy: 204, 956
@@ -161,7 +170,7 @@ search_bar_v3.9
   index: -1
 vertical_scrollbar
   rotate: false
-  xy: 102, 618
+  xy: 204, 890
   size: 28, 62
   split: 0, 0, 26, 26
   orig: 28, 62
@@ -169,7 +178,7 @@ vertical_scrollbar
   index: -1
 vertical_scrollbar_fg
   rotate: false
-  xy: 204, 872
+  xy: 2, 428
   size: 28, 80
   split: 1, 1, 26, 26
   orig: 28, 80

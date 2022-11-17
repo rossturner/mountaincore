@@ -93,6 +93,11 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: default-font-23
 		fontColor: primary_font_colour_red
 	}
+	entity_drawable_quantity_label: {
+		font: default-font-16
+		fontColor: white
+		background: icon_number_bg
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	goto_dwarf_button: {
