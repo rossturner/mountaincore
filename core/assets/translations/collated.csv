@@ -426,6 +426,7 @@ GUI.BACK_LABEL,Back,,Zurück,"Retour ",Indietro,Atrás,Anterior,Voltar,,Наза
 GUI.BUILD.BRIDGE,Bridge,,Brücke,Pont,Ponte,Puente,Ponte,,,Мост,Köprü,Broen,,Bron,,,,架橋,桥,
 GUI.BUILD.DOORS,Doors,,Türen,Portes,Porte,Puertas,Portas,Portas,,Двери,Kapı,Døre,,Dörrar,,,,ドア,门,
 GUI.BUILD.FLOOR,Flooring,,Fussboden,,Pavimentazione,Suelo,,,,Полы,,,,,,,,床,地板,
+GUI.BUILD.PILLARS,Pillars,,,,,,,,,,,,,,,,,,,
 GUI.BUILD.PIPING,Pipes,,Rohre,,Tubi,Tuberías,,,,Трубы,,,,,,,,配管,管道,
 GUI.BUILD.POWER,Power,,Strom,,Potenza,Energía,,,,Энергия,,,,,,,,動力,动力,
 GUI.BUILD.ROOFING,Roofing,,Dächer,,Tetto,Tejado,,,,Крыша,,,,,,,,屋根,屋顶,

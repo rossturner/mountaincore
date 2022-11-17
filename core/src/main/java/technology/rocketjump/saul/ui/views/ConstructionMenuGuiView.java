@@ -76,7 +76,7 @@ public class ConstructionMenuGuiView implements GuiView, DisplaysText {
 
 		Button powerWaterButton = buildButton("btn_construction_power_and_water", "GUI.POWER_LABEL",
 //				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.POWER_WATER_MENU));
-			() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.BUILD_MENU));
+			() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.OLD_BUILD_MENU));
 		layoutTable.add(powerWaterButton);
 
 		Button deconstructButton = buildButton("btn_construction_deconstruct", "GUI.DECONSTRUCT_LABEL",

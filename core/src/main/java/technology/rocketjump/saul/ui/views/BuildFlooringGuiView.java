@@ -155,7 +155,7 @@ public class BuildFlooringGuiView implements GuiView, DisplaysText {
 
 	@Override
 	public GuiViewName getParentViewName() {
-		return GuiViewName.BUILD_MENU;
+		return GuiViewName.OLD_BUILD_MENU;
 	}
 
 	@Override
