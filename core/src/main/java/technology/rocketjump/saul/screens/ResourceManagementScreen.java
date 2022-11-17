@@ -19,6 +19,8 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -32,10 +34,7 @@ import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
-import technology.rocketjump.saul.ui.i18n.DisplaysText;
-import technology.rocketjump.saul.ui.i18n.I18nText;
-import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nWord;
+import technology.rocketjump.saul.ui.i18n.*;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
@@ -348,12 +347,35 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 			ItemAllocationComponent itemAllocationComponent = entity.getComponent(ItemAllocationComponent.class);
 			if (itemAllocationComponent != null && itemAllocationComponent.getNumAllocated() > 0) {
 				for (ItemAllocation itemAllocation : itemAllocationComponent.getAll()) {
-					String itemName = i18nTranslator.getItemDescription(itemAllocation.getAllocationAmount(), attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality()).toString();
+					Gender gender = Gender.ANY;
+					I18nWordClass wordClass = I18nWordClass.UNSPECIFIED;
+					int allocationAmount = itemAllocation.getAllocationAmount();
+					if (allocationAmount > 1) {
+						wordClass = PLURAL;
+					}
+					Long owningEntityId = itemAllocation.getOwningEntityId();
+					final Entity owningEntity;
+					if (owningEntityId != null) {
+						owningEntity = gameContext.getEntities().get(owningEntityId);
+						if (owningEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes creatureEntityAttributes) {
+							gender =  creatureEntityAttributes.getGender();
+						}
+					} else {
+						owningEntity = null;
+					}
+					String itemName = i18nTranslator.getItemDescription(allocationAmount, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality()).toString();
+
 					String itemAllocationLabelText = itemName;
 					if (itemAllocation.getPurpose() != null) {
-						itemAllocationLabelText = i18nTranslator.getTranslatedWordWithReplacements("GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE." + itemAllocation.getPurpose().name(),
-								Map.of("item", new I18nWord(itemName))).toString();
+						I18nWord word = i18nTranslator.getDictionary().getWord("GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE." + itemAllocation.getPurpose().name());
+						itemAllocationLabelText = i18nTranslator.applyReplacements(word, Map.of("item", new I18nWord(itemName)), wordClass, gender).toString();
 					}
+
+
+
+
+
+
 
 					Label itemAllocationLabel = new Label(itemAllocationLabelText, managementSkin, "table_value_label");
 					itemAllocationLabel.setWrap(true);
@@ -362,9 +384,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 					entitiesTable.add(itemAllocationLabel).width(wrappedLabelWidth-50f).row();
 
 
-					Long owningEntityId = itemAllocation.getOwningEntityId();
-					if (owningEntityId != null) {
-						Entity owningEntity = gameContext.getEntities().get(owningEntityId);
+					if (owningEntity != null) {
 						String owningEntityDescription = i18nTranslator.getDescription(owningEntity).toString();
 
 						TextButton gotoOwnerButton = new TextButton(owningEntityDescription, managementSkin, "goto_dwarf_button");
