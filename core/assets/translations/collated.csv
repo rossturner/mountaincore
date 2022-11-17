@@ -596,6 +596,7 @@ GUI.PLACE_BRIDGE.HINT,A bridge must cover both sides of the river and be at leas
 GUI.PRIORITY_LABEL,Priority,,Priorität,,Priorità,Prioridad,,,,Приоритеты,Öncelik,,,,,,,優先度,优先级,
 GUI.REMOVE_LABEL,Remove,,Entfernen,Retirer,Rimuovi,Eliminar,Remover,Remover,,Удалить,Kaldır,Fjern,,Ta bort,,,,除去,移除,
 GUI.REMOVE_TILES,Remove tiles,,Felder entfernen,Retirer des cases,Rimuovi caselle,Eliminar casillas,Remover mosaicos,Remover áreas,,Удалить квадраты,Karoları Sil,Fjern fliser,,Ta bort paneler,,,,タイル縮小,移除区格,
+GUI.RESOURCE_MANAGEMENT.ALL_OF,All {{item}},,,,,,,,,,,,,,,,,,,
 GUI.RESOURCE_MANAGEMENT.AVAILABLE,Available,,,,,,,,,,,,,,,,,,,
 GUI.RESOURCE_MANAGEMENT.AVAILABLE_OF_TOTAL,{{available}} / {{total}} Available,,,,,,,,,,,,,,,,,,,
 GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.CONTENTS_TO_BE_DUMPED,{{item}} is having contents dumpted by,,,,,,,,,,,,,,,,,,,

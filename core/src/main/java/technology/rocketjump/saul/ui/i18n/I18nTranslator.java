@@ -670,7 +670,7 @@ public class I18nTranslator {
 			I18nWordClass replacementWordclass = I18nWordClass.UNSPECIFIED;
 
 			if (token.equals("quantity_if_multiple")) {
-				if (getQuantity(replacements) > 1) {
+				if (getQuantity(replacements) > 1 && getQuantity(replacements) < Integer.MAX_VALUE) {
 					replacement = new I18nWord(String.valueOf(getQuantity(replacements)));
 				} else {
 					replacement = I18nWord.BLANK;

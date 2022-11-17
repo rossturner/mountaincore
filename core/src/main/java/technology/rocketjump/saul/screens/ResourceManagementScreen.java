@@ -54,6 +54,7 @@ import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 import static technology.rocketjump.saul.screens.ManagementScreenName.RESOURCES;
+import static technology.rocketjump.saul.ui.i18n.I18nWordClass.PLURAL;
 
 @Singleton
 public class ResourceManagementScreen implements GameScreen, GameContextAware, DisplaysText {
@@ -430,12 +431,16 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 		Function<Entity, String> levelOneDisplayName = entity -> {
 			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-			return i18nTranslator.getTranslatedString(attributes.getItemType().getI18nKey()).toString();
+			I18nText levelOneName = i18nTranslator.getTranslatedString(attributes.getItemType().getI18nKey(), PLURAL);
+
+			return i18nTranslator.getTranslatedWordWithReplacements("GUI.RESOURCE_MANAGEMENT.ALL_OF", Map.of("item", levelOneName)).toString();
+
 		};
 
 		Function<Entity, String> levelTwoDisplayName = entity -> {
 			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-			return i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality()).toString();
+			I18nText levelTwoName = i18nTranslator.getItemDescription(Integer.MAX_VALUE, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality());
+			return i18nTranslator.getTranslatedWordWithReplacements("GUI.RESOURCE_MANAGEMENT.ALL_OF", Map.of("item", levelTwoName)).toString();
 		};
 
 		Function<Entity, String> levelThreeDisplayName = entity -> {
