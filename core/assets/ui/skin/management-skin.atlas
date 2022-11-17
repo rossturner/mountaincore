@@ -1,0 +1,186 @@
+
+management-skin.png
+size: 2048, 2048
+format: RGBA8888
+filter: MipMapLinearLinear, Linear
+repeat: none
+white-pixel
+  rotate: false
+  xy: 1886, 1882
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+asset_more_info_bg
+  rotate: false
+  xy: 2, 1420
+  size: 688, 400
+  orig: 688, 400
+  offset: 0, 0
+  index: -1
+asset_more_info_bg_strip
+  rotate: false
+  xy: 2, 1824
+  size: 699, 45
+  split: 348, 349, 22, 22
+  pad: 21, 10, 10, 10
+  orig: 699, 45
+  offset: 0, 0
+  index: -1
+asset_quality_star_01
+  rotate: false
+  xy: 352, 1062
+  size: 48, 46
+  orig: 48, 46
+  offset: 0, 0
+  index: -1
+asset_quality_star_02
+  rotate: false
+  xy: 587, 1370
+  size: 96, 46
+  orig: 96, 46
+  offset: 0, 0
+  index: -1
+asset_quality_star_03
+  rotate: false
+  xy: 406, 1230
+  size: 96, 92
+  orig: 96, 92
+  offset: 0, 0
+  index: -1
+asset_quality_star_04
+  rotate: false
+  xy: 2, 588
+  size: 96, 92
+  orig: 96, 92
+  offset: 0, 0
+  index: -1
+asset_quality_star_05
+  rotate: false
+  xy: 204, 1016
+  size: 144, 92
+  orig: 144, 92
+  offset: 0, 0
+  index: -1
+asset_resources_line
+  rotate: false
+  xy: 2, 1873
+  size: 1880, 10
+  orig: 1880, 10
+  offset: 0, 0
+  index: -1
+btn_go_to_dwarf_info
+  rotate: false
+  xy: 2, 1326
+  size: 581, 90
+  split: 40, 40, 0, 0
+  pad: 31, 31, 23, 25
+  orig: 581, 90
+  offset: 0, 0
+  index: -1
+btn_info
+  rotate: false
+  xy: 2, 512
+  size: 64, 72
+  orig: 64, 72
+  offset: 0, 0
+  index: -1
+btn_info_hover_state
+  rotate: false
+  xy: 102, 608
+  size: 64, 72
+  orig: 64, 72
+  offset: 0, 0
+  index: -1
+btn_resources_item_01
+  rotate: false
+  xy: 2, 1112
+  size: 198, 210
+  orig: 198, 210
+  offset: 0, 0
+  index: -1
+btn_resources_item_02
+  rotate: false
+  xy: 2, 898
+  size: 198, 210
+  orig: 198, 210
+  offset: 0, 0
+  index: -1
+btn_resources_item_03
+  rotate: false
+  xy: 204, 1112
+  size: 198, 210
+  orig: 198, 210
+  offset: 0, 0
+  index: -1
+btn_resources_item_04
+  rotate: false
+  xy: 2, 684
+  size: 198, 210
+  orig: 198, 210
+  offset: 0, 0
+  index: -1
+btn_sort_by_toggle_off
+  rotate: false
+  xy: 705, 1843
+  size: 30, 26
+  orig: 30, 26
+  offset: 0, 0
+  index: -1
+btn_sort_by_toggle_on
+  rotate: false
+  xy: 587, 1340
+  size: 30, 26
+  orig: 30, 26
+  offset: 0, 0
+  index: -1
+icon_coin
+  rotate: false
+  xy: 406, 1159
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+icon_number_bg
+  rotate: false
+  xy: 506, 1257
+  size: 65, 65
+  split: 32, 32, 0, 0
+  pad: 6, 6, 0, 0
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+search_bar
+  rotate: false
+  xy: 204, 956
+  size: 89, 56
+  split: 25, 57, 0, 0
+  pad: 25, 57, 12, 17
+  orig: 89, 56
+  offset: 0, 0
+  index: -1
+search_bar_v3.9
+  rotate: false
+  xy: 204, 956
+  size: 89, 56
+  split: 25, 57, 0, 0
+  pad: 25, 57, 7, 7
+  orig: 89, 56
+  offset: 0, 0
+  index: -1
+vertical_scrollbar
+  rotate: false
+  xy: 204, 890
+  size: 28, 62
+  split: 0, 0, 26, 26
+  orig: 28, 62
+  offset: 0, 0
+  index: -1
+vertical_scrollbar_fg
+  rotate: false
+  xy: 2, 428
+  size: 28, 80
+  split: 1, 1, 26, 26
+  orig: 28, 80
+  offset: 0, 0
+  index: -1

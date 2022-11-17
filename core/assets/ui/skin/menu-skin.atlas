@@ -390,18 +390,18 @@ transparent_selection_bg_patch_v2
   index: -1
 vertical_scrollbar
   rotate: false
-  xy: 1471, 436
-  size: 28, 62
-  split: 0, 0, 26, 26
-  orig: 28, 62
+  xy: 1471, 438
+  size: 26, 60
+  split: 0, 0, 25, 25
+  orig: 26, 60
   offset: 0, 0
   index: -1
 vertical_scrollbar_fg
   rotate: false
-  xy: 3705, 5801
-  size: 28, 80
-  split: 1, 1, 26, 26
-  orig: 28, 80
+  xy: 5332, 8095
+  size: 26, 78
+  split: 0, 0, 38, 38
+  orig: 26, 78
   offset: 0, 0
   index: -1
 white-pixel

@@ -653,7 +653,11 @@ public class I18nTranslator {
 	}
 
 	public I18nText applyReplacements(I18nWord originalWord, Map<String, I18nString> replacements, Gender gender) {
-		String string = originalWord.get(I18nWordClass.UNSPECIFIED, gender);
+		return applyReplacements(originalWord, replacements, I18nWordClass.UNSPECIFIED, gender);
+	}
+
+	public I18nText applyReplacements(I18nWord originalWord, Map<String, I18nString> replacements, I18nWordClass wordClass, Gender gender) {
+		String string = originalWord.get(wordClass, gender);
 		I18nText i18nText = new I18nText(string, originalWord.hasTooltip() ? originalWord.get(I18nWordClass.TOOLTIP) : null);
 
 		String REGEX_START = Pattern.quote("{{");
@@ -670,7 +674,7 @@ public class I18nTranslator {
 			I18nWordClass replacementWordclass = I18nWordClass.UNSPECIFIED;
 
 			if (token.equals("quantity_if_multiple")) {
-				if (getQuantity(replacements) > 1) {
+				if (getQuantity(replacements) > 1 && getQuantity(replacements) < Integer.MAX_VALUE) {
 					replacement = new I18nWord(String.valueOf(getQuantity(replacements)));
 				} else {
 					replacement = I18nWord.BLANK;

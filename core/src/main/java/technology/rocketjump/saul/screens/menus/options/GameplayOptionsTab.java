@@ -3,10 +3,6 @@ package technology.rocketjump.saul.screens.menus.options;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
@@ -24,6 +20,7 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.BlurredBackgroundDialog;
+import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
 import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
@@ -110,25 +107,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 							.withAction(() -> keyBindingUIWidget.resetToDefaultSettings())
 							.build();
 
-					ScrollPane scrollPane = new ScrollPane(keyBindingUIWidget, skin);
-					Stage stage = scrollPane.getStage();
-					scrollPane.addListener(new InputListener() {
-						@Override
-						public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-							super.enter(event, x, y, pointer, fromActor);
-							if (stage != null) {
-								stage.setScrollFocus(scrollPane);
-							}
-						}
-
-						@Override
-						public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-							super.exit(event, x, y, pointer, toActor);
-							if (stage != null) {
-								stage.setScrollFocus(null);
-							}
-						}
-					});
+					ScrollPane scrollPane = new EnhancedScrollPane(keyBindingUIWidget, skin);
 					scrollPane.setForceScroll(false, true);
 					scrollPane.setFadeScrollBars(false);
 					scrollPane.setScrollbarsVisible(true);

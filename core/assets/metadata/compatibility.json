@@ -69,6 +69,7 @@
   "ui/cursors/1080p/*.png" : "Early Access 1.0.5",
   "ui/fonts/*.ttf" : "Alpha 3",
   "ui/skin/menu-skin.atlas" : "Early Access 1.0.4",
+  "ui/skin/management-skin.atlas" : "Early Access 1.0.5",
   "ui/skin/main-game-skin.atlas" : "Early Access 1.0.4",
   "ui/notifications/*.png" : "Alpha 3",
   "ui/hints.json" : "Alpha 3.2",

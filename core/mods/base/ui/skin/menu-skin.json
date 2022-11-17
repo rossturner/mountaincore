@@ -197,7 +197,8 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	default: {
-		up: btn_small_1
+		up: transparent_selection_bg_patch_v2
+		checked: transparent_selected_bg_patch
 	}
 	small_map_btn: {
 		imageUp: embark_2_small_preview

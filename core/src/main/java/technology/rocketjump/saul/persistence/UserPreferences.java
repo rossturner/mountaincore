@@ -211,7 +211,12 @@ public class UserPreferences {
 	}
 
 	public void resetToDefaultKeyBindings() {
+		for (KeyBinding keyBinding : keyBindings) {
+			removePreference(keyBinding.getPropertyKey());
+		}
+
 		keyBindings.clear();
+
 
 		assignInput(CommandName.PAN_CAMERA_UP, Set.of(Input.Keys.W), true);
 		assignInput(CommandName.PAN_CAMERA_UP, Set.of(Input.Keys.UP), false);
