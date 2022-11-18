@@ -77,8 +77,8 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final GameDialogDictionary gameDialogDictionary;
 	private GameContext gameContext;
 
-	private Button backButton;
-	private Table mainTable;
+	private final Button backButton;
+	private final Table mainTable;
 	private boolean displayed;
 
 	private FurnitureType selectedFurnitureType;
