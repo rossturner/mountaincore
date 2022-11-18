@@ -33,9 +33,7 @@ public class OnDemandFontRepository implements Disposable {
 	private Map<Integer, BitmapFont> defaultFonts = new HashMap<>();
 	private Map<Integer, BitmapFont> headerFonts = new HashMap<>();
 
-	public static final String UNICODE_FONT_FILENAME = "NotoSansCJKjp-Regular.otf";
 	public static final String UNICODE_BOLD_FONT_FILENAME = "NotoSansCJKjp-Bold.otf";
-	private final BitmapFont guaranteedUnicodeFont;
 
 	@Inject
 	public OnDemandFontRepository(I18nRepo i18nRepo, ConstantsRepo constantsRepo, MessageDispatcher messageDispatcher) {
@@ -46,8 +44,6 @@ public class OnDemandFontRepository implements Disposable {
 
 		this.headerFontName = uiConstants.getHeaderFont();
 		this.defaultFontName = uiConstants.getDefaultFont();
-
-		this.guaranteedUnicodeFont = generateFont(UNICODE_FONT_FILENAME, 16 * 2);
 	}
 
 	public void preLanguageUpdated() {
@@ -82,7 +78,7 @@ public class OnDemandFontRepository implements Disposable {
 		FileHandle fontFile = Gdx.files.internal("assets/ui/fonts/" + fontName);
 		if (!fontFile.exists()) {
 			Logger.error(fontFile + " does not exist");
-			return guaranteedUnicodeFont;
+			fontName = UNICODE_BOLD_FONT_FILENAME;
 		}
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -99,21 +95,18 @@ public class OnDemandFontRepository implements Disposable {
 
 	@Override
 	public void dispose() {
+		for (BitmapFont font : guaranteedFonts.values()) {
+			font.dispose();
+		}
+		guaranteedFonts.clear();
 		for (BitmapFont font : defaultFonts.values()) {
-			if (!font.equals(guaranteedUnicodeFont)) {
-				font.dispose();
-			}
+			font.dispose();
 		}
 		defaultFonts.clear();
 		for (BitmapFont font : headerFonts.values()) {
-			if (!font.equals(guaranteedUnicodeFont)) {
-				font.dispose();
-			}
+			font.dispose();
 		}
 		headerFonts.clear();
 	}
 
-	public BitmapFont getGuaranteedUnicodeFont() {
-		return guaranteedUnicodeFont;
-	}
 }
