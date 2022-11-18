@@ -14,7 +14,6 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.UserPreferences;
 
-import static com.badlogic.gdx.graphics.GL20.*;
 import static technology.rocketjump.saul.persistence.UserPreferences.PreferenceKey.CRASH_REPORTING;
 import static technology.rocketjump.saul.rendering.camera.GlobalSettings.VERSION;
 
@@ -62,8 +61,6 @@ public class CrashHandler implements Telegraph {
 			OkHttpClient client = new OkHttpClient();
 			JSONObject payload = new JSONObject();
 			payload.put("gameVersion", VERSION.toString());
-			payload.put("operatingSystem", buildOSName());
-			payload.put("graphicsCard", getGraphicsInfo());
 			payload.put("displaySettings", Gdx.graphics.getDisplayMode(Gdx.graphics.getMonitor()).toString());
 			payload.put("stackTrace", ExceptionUtils.getStackTrace(exception));
 			payload.put("preferencesJson", UserPreferences.preferencesJson);
@@ -81,11 +78,4 @@ public class CrashHandler implements Telegraph {
 		}
 	}
 
-	private static String getGraphicsInfo() {
-		return Gdx.gl20.glGetString(GL_VENDOR) + " " + Gdx.gl20.glGetString(GL_RENDERER) + " version: " + Gdx.gl20.glGetString(GL_VERSION);
-	}
-
-	private static String buildOSName() {
-		return System.getProperty("os.name") + " (" + System.getProperty("os.version") + ") " + System.getProperty("os.arch");
-	}
 }

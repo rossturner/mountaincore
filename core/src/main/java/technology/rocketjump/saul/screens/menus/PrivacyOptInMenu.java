@@ -1,79 +1,49 @@
 package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.persistence.UserPreferences;
-import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.fonts.OnDemandFontRepository;
-import technology.rocketjump.saul.ui.i18n.I18nRepo;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.LanguageType;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.ButtonStyle;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
-import technology.rocketjump.saul.ui.widgets.IconButton;
-import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
-
-import java.util.ArrayList;
-import java.util.List;
+import technology.rocketjump.saul.ui.widgets.CustomSelect;
+import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
+import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
 @Singleton
-public class PrivacyOptInMenu implements Menu {
+public class PrivacyOptInMenu implements Menu, DisplaysText {
 
-	public static final int NUM_PRIVACY_OPT_IN_LINES = 10;
-	private final List<Label> textLabels = new ArrayList<>();
-	private final IconButton acceptButton;
-	private final IconButton doNotAcceptButton;
-
-	private final Skin uiSkin;
-	private final I18nRepo i18nRepo;
-	private Table menuTable;
+	public static final int NUM_PRIVACY_OPT_IN_LINES = 3;
+	private final Skin menuSkin;
+	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
-	private final OnDemandFontRepository onDemandFontRepository;
+	private final WidgetFactory widgetFactory;
+	private final Drawable bgDialogueBoxBackground;
+	private final MenuButtonFactory menuButtonFactory;
 
-	private final SelectBox<LanguageType> languageSelect;
+	private Table menuTable;
 
 	@Inject
-	public PrivacyOptInMenu(UserPreferences userPreferences, GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-							IconButtonFactory iconButtonFactory, I18nTranslator i18nTranslator, I18nRepo i18nRepo,
-							I18nWidgetFactory i18NWidgetFactory, OnDemandFontRepository onDemandFontRepository,
-							TextureAtlasRepository textureAtlasRepository, FontRepository fontRepository) {
+	public PrivacyOptInMenu(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
+	                        I18nTranslator i18nTranslator, OnDemandFontRepository onDemandFontRepository,
+	                        WidgetFactory widgetFactory, MenuButtonFactory menuButtonFactory) {
+		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
-		this.i18nRepo = i18nRepo;
-		this.uiSkin = guiSkinRepository.getDefault();
-		this.onDemandFontRepository = onDemandFontRepository;
+		this.menuSkin = guiSkinRepository.getMenuSkin();
+		this.widgetFactory = widgetFactory;
+		this.menuButtonFactory = menuButtonFactory;
+		bgDialogueBoxBackground = menuSkin.getDrawable("bg_dialogue_box");
 
 
-		menuTable = new Table(uiSkin);
+		menuTable = new Table();
 		menuTable.setFillParent(false);
 		menuTable.center();
-		menuTable.background("default-rect");
-
-		for (int line = 1; line <= NUM_PRIVACY_OPT_IN_LINES; line++) {
-			textLabels.add(i18NWidgetFactory.createLabel("PRIVACY.OPT_IN.LINE_"+line));
-		}
-
-		acceptButton = iconButtonFactory.create("PRIVACY.OPT_IN.ACCEPT_BUTTON", null, Color.LIGHT_GRAY, ButtonStyle.EXTRA_WIDE);
-		acceptButton.setAction(() -> {
-			messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-			messageDispatcher.dispatchMessage(MessageType.CRASH_REPORTING_OPT_IN_MODIFIED, Boolean.TRUE);
-		});
-
-		doNotAcceptButton = iconButtonFactory.create("PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON", null, Color.LIGHT_GRAY, ButtonStyle.SMALL);
-		doNotAcceptButton.setAction(() -> {
-			messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-			messageDispatcher.dispatchMessage(MessageType.CRASH_REPORTING_OPT_IN_MODIFIED, Boolean.FALSE);
-		});
-
-		this.languageSelect = buildLanguageSelect(messageDispatcher, i18nRepo, userPreferences, uiSkin, this, textureAtlasRepository, fontRepository, guiSkinRepository);
+		menuTable.background(bgDialogueBoxBackground);
 	}
 
 	@Override
@@ -94,74 +64,55 @@ public class PrivacyOptInMenu implements Menu {
 	@Override
 	public void reset() {
 		menuTable.clearChildren();
+		CustomSelect<LanguageType> languageSelect = widgetFactory.createLanguageSelectBox(menuSkin);
 
-		Table languageRow = new Table(uiSkin);
-		languageRow.add(new Image(i18nRepo.getCurrentLanguageType().getIconSprite()));
-		languageRow.add(languageSelect).padLeft(5);
-		menuTable.add(languageRow).row();
+		Table languageRow = new Table();
+		languageRow.add(languageSelect).width(580f).height(80).padLeft(5);
+		Label descriptionLabel = new Label(translate("PRIVACY.OPT_IN.DESCRIPTION"), menuSkin, "white_text");
+		descriptionLabel.setWrap(true);
 
-		for (Label label : textLabels) {
-			menuTable.add(label).left().pad(0, 10, 0, 10).row();
+		float sidePadding = 178f;
+		menuTable.add(languageRow).padTop(57f).padBottom(57f).row();
+		menuTable.add(descriptionLabel).width(bgDialogueBoxBackground.getMinWidth() - 100f - sidePadding * 2).row();
+
+		for (int dataPointIndex = 1; dataPointIndex <= NUM_PRIVACY_OPT_IN_LINES; dataPointIndex++) {
+			Label dataPointLabel = new Label(translate("PRIVACY.OPT_IN.DATA_POINT."+dataPointIndex), menuSkin, "white_text");
+			dataPointLabel.setWrap(true);
+			menuTable.add(dataPointLabel).width(bgDialogueBoxBackground.getMinWidth() - 100f - sidePadding * 2).padTop(10f).left().row();
 		}
 
-		menuTable.add(acceptButton).pad(10).row();
-		menuTable.add(doNotAcceptButton).pad(10).row();
+		Container<TextButton> acceptButton = menuButtonFactory.createButton("PRIVACY.OPT_IN.ACCEPT_BUTTON", menuSkin, MenuButtonFactory.ButtonStyle.BTN_DIALOG_1)
+				.withAction(() -> {
+					messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+					messageDispatcher.dispatchMessage(MessageType.CRASH_REPORTING_OPT_IN_MODIFIED, Boolean.TRUE);
+				})
+				.build();
+
+		Container<TextButton> doNotAcceptButton = menuButtonFactory.createButton("PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON", menuSkin, MenuButtonFactory.ButtonStyle.BTN_DIALOG_2)
+				.withAction(() -> {
+					messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+					messageDispatcher.dispatchMessage(MessageType.CRASH_REPORTING_OPT_IN_MODIFIED, Boolean.FALSE);
+				})
+				.build();
+
+		acceptButton.getActor().getLabelCell().padLeft(10f).padRight(10f);
+		doNotAcceptButton.getActor().getLabelCell().padLeft(10f).padRight(10f);
+
+		menuTable.add(acceptButton).spaceTop(62f).row();
+		menuTable.add(doNotAcceptButton).spaceTop(46f).row();
+
+		menuTable.layout();
+
+		Cell<Container<TextButton>> doNotAcceptCell = menuTable.getCell(doNotAcceptButton);
+		acceptButton.size(doNotAcceptCell.getPrefWidth() * 1.2f, doNotAcceptCell.getPrefHeight() * 1.2f);
 	}
 
-
-
-	static SelectBox<LanguageType> buildLanguageSelect(MessageDispatcher messageDispatcher, I18nRepo i18nRepo,
-													   UserPreferences userPreferences, Skin uiSkin, Menu parent,
-													   TextureAtlasRepository textureAtlasRepository, FontRepository fontRepository,
-													   GuiSkinRepository guiSkinRepository) {
-		i18nRepo.init(textureAtlasRepository);
-		String languageCode = userPreferences.getPreference(UserPreferences.PreferenceKey.LANGUAGE, "en-gb");
-		List<LanguageType> allLanguages = i18nRepo.getAllLanguages();
-
-		LanguageType selectedLanguage = null;
-		for (LanguageType languageType : allLanguages) {
-			if (languageType.getCode().equals(languageCode)) {
-				selectedLanguage = languageType;
-				break;
-			}
-		}
-		if (selectedLanguage == null) {
-			selectedLanguage = allLanguages.get(0);
-		}
-
-		SelectBox<LanguageType> languageSelect = new SelectBox<>(uiSkin);
-		// Override font with unicode-guaranteed font to show east asian characters
-		SelectBox.SelectBoxStyle style = new SelectBox.SelectBoxStyle(languageSelect.getStyle());
-		style.font = fontRepository.getUnicodeFont().getBitmapFont();
-		com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle listStyle = new com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle(style.listStyle);
-		listStyle.font = fontRepository.getUnicodeFont().getBitmapFont();
-		style.listStyle = listStyle;
-		languageSelect.setStyle(style);
-
-		Array<LanguageType> languageEntries = new Array<>();
-		for (LanguageType language : allLanguages) {
-			languageEntries.add(language);
-		}
-
-		languageSelect.setItems(languageEntries);
-		languageSelect.setSelected(selectedLanguage);
-		languageSelect.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				LanguageType selectedLanguage = languageSelect.getSelected();
-				changeLanguage(selectedLanguage, userPreferences, i18nRepo, messageDispatcher, fontRepository);
-				parent.reset();
-			}
-		});
-
-		return languageSelect;
+	private String translate(String i18nKey) {
+		return i18nTranslator.getTranslatedString(i18nKey).toString();
 	}
 
-	public static void changeLanguage(LanguageType selectedLanguage, UserPreferences userPreferences,
-									  I18nRepo i18nRepo, MessageDispatcher messageDispatcher, FontRepository fontRepository) {
-		userPreferences.setPreference(UserPreferences.PreferenceKey.LANGUAGE, selectedLanguage.getCode());
-		i18nRepo.setCurrentLanguage(selectedLanguage);
-		fontRepository.changeFonts(selectedLanguage);
-		messageDispatcher.dispatchMessage(MessageType.LANGUAGE_CHANGED);
+	@Override
+	public void rebuildUI() {
+		reset();
 	}
 }

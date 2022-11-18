@@ -12,8 +12,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.UserPreferences;
-import technology.rocketjump.saul.screens.menus.PrivacyOptInMenu;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
@@ -53,10 +53,11 @@ public class WidgetFactory {
     }
 
     public CustomSelect<LanguageType> createLanguageSelectBox(Skin skin) {
-        LanguageList languageList = new LanguageList(i18nRepo, userPreferences, skin, textureAtlasRepository, onDemandFontRepository.getGuaranteedUnicodeFont());
+        BitmapFont guaranteedBoldFont = onDemandFontRepository.getGuaranteedBoldFont(18 * 2);
+        LanguageList languageList = new LanguageList(i18nRepo, userPreferences, skin, textureAtlasRepository, guaranteedBoldFont);
 
         SelectBox.SelectBoxStyle selectBoxStyle = new SelectBox.SelectBoxStyle(skin.get(SelectBox.SelectBoxStyle.class));
-        selectBoxStyle.font = onDemandFontRepository.getGuaranteedUnicodeFont();
+        selectBoxStyle.font = guaranteedBoldFont;
         CustomSelect<LanguageType> selectBox = new CustomSelect<>(selectBoxStyle, languageList, new CustomSelect.DrawItemProcedure<LanguageType>() {
             @Override
             public GlyphLayout drawItem(Batch batch, BitmapFont font, LanguageType item, float x, float y, float width) {
@@ -69,8 +70,10 @@ public class WidgetFactory {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 LanguageType selectedLanguage = selectBox.getSelected();
-                PrivacyOptInMenu.changeLanguage(selectedLanguage, userPreferences, i18nRepo, messageDispatcher, fontRepository);
-//                parent.reset();
+                userPreferences.setPreference(UserPreferences.PreferenceKey.LANGUAGE, selectedLanguage.getCode());
+                i18nRepo.setCurrentLanguage(selectedLanguage);
+                fontRepository.changeFonts(selectedLanguage);
+                messageDispatcher.dispatchMessage(MessageType.LANGUAGE_CHANGED);
             }
         });
 

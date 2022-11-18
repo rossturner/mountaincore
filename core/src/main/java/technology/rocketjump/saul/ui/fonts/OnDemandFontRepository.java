@@ -29,10 +29,12 @@ public class OnDemandFontRepository implements Disposable {
 	private String defaultFontName;
 	private String headerFontName;
 
+	private Map<Integer, BitmapFont> guaranteedFonts = new HashMap<>();
 	private Map<Integer, BitmapFont> defaultFonts = new HashMap<>();
 	private Map<Integer, BitmapFont> headerFonts = new HashMap<>();
 
 	public static final String UNICODE_FONT_FILENAME = "NotoSansCJKjp-Regular.otf";
+	public static final String UNICODE_BOLD_FONT_FILENAME = "NotoSansCJKjp-Bold.otf";
 	private final BitmapFont guaranteedUnicodeFont;
 
 	@Inject
@@ -62,6 +64,10 @@ public class OnDemandFontRepository implements Disposable {
 
 			messageDispatcher.dispatchMessage(MessageType.FONTS_CHANGED);
 		}
+	}
+
+	public BitmapFont getGuaranteedBoldFont(int pointSize) {
+		return guaranteedFonts.computeIfAbsent(pointSize, a -> generateFont(UNICODE_BOLD_FONT_FILENAME, pointSize));
 	}
 
 	public BitmapFont getDefaultFont(int pointSize) {

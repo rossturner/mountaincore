@@ -28,6 +28,8 @@ public class MenuButtonFactory {
 
 
     public enum ButtonStyle {
+        BTN_DIALOG_1("btn_dialog_1"),
+        BTN_DIALOG_2("btn_dialog_2"),
         BTN_OPTIONS_SECONDARY("btn_options_secondary"),
         BTN_SCALABLE_50PT("btn_scalable_header-font-50"),
         BTN_SMALL_1_50PT("btn_small_1_header-font-50"),
