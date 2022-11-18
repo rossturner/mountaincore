@@ -8,10 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.FloorTypeDictionary;
 import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
@@ -127,7 +129,21 @@ public class BuildFlooringGuiView implements GuiView, DisplaysText {
 		applicableFloorTypes().forEach(this::addFlooringButton);
 		mainTable.add(flooringTable).center().row();
 
-//		mainTable.add(furnitureMaterialsWidget).center().expandX().row();
+		furnitureMaterialsWidget.changeSelectedFurniture(fakeFurnitureTypeForFlooring());
+		furnitureMaterialsWidget.onMaterialSelection(material -> {
+			if (material == null) {
+				material = GameMaterial.NULL_MATERIAL;
+			}
+			FloorType floorType = interactionStateContainer.getFloorTypeToPlace();
+			messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
+					floorType.getMaterialType(), material, floorType.getRequirements().get(floorType.getMaterialType()).get(0).getItemType()));
+			rebuildUI();
+		});
+		furnitureMaterialsWidget.onMaterialTypeSelection(materialType -> {
+			Logger.error("Not yet implemented: Switching material type of flooring");
+		});
+
+		mainTable.add(furnitureMaterialsWidget).center().expandX().row();
 	}
 
 	private Stream<FloorType> applicableFloorTypes() {
@@ -139,11 +155,17 @@ public class BuildFlooringGuiView implements GuiView, DisplaysText {
 	private void addFlooringButton(FloorType floorType) {
 		String drawableName = floorType.getSelectionDrawableName() != null ? floorType.getSelectionDrawableName() : "placeholder";
 		Image flooringButton = new Image(skin.getDrawable(drawableName));
-		flooringButton.setColor(materialDictionary.getExampleMaterial(floorType.getMaterialType()).getColor());
+
+		GameMaterial floorMaterial = materialDictionary.getExampleMaterial(floorType.getMaterialType());
+		if (floorType.equals(interactionStateContainer.getFloorTypeToPlace()) && !interactionStateContainer.getFloorMaterialSelection().selectedMaterial.equals(GameMaterial.NULL_MATERIAL)) {
+			floorMaterial = interactionStateContainer.getFloorMaterialSelection().selectedMaterial;
+		}
+		flooringButton.setColor(floorMaterial.getColor());
 		flooringButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				interactionStateContainer.setFloorTypeToPlace(floorType);
+				messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
+						floorType.getMaterialType(), GameMaterial.NULL_MATERIAL, floorType.getRequirements().get(floorType.getMaterialType()).get(0).getItemType()));
 				rebuildUI();
 			}
 		});
@@ -186,5 +208,15 @@ public class BuildFlooringGuiView implements GuiView, DisplaysText {
 	@Override
 	public GuiViewName getParentViewName() {
 		return GuiViewName.BUILD_MENU;
+	}
+
+	private FurnitureType fakeFurnitureTypeForFlooring() {
+		FloorType floorType = interactionStateContainer.getFloorTypeToPlace();
+		MaterialSelectionMessage materialSelection = interactionStateContainer.getFloorMaterialSelection();
+		FurnitureType fakeFurnitureType = new FurnitureType();
+		fakeFurnitureType.setName(floorType.getFloorTypeName());
+		fakeFurnitureType.setRequirements(floorType.getRequirements());
+
+		return fakeFurnitureType;
 	}
 }
