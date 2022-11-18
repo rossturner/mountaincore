@@ -26,7 +26,6 @@ public class FontRepository implements Telegraph {
 	public static final int DEFAULT_FONT_SIZE = 16;
 	private static final Set<Integer> DEFAULT_FONT_POINT_SIZES = Set.of(12, 14, DEFAULT_FONT_SIZE, 18, 20);
 	private static final Set<Integer> HEADER_FONT_POINT_SIZES = Set.of(30, 36, 39, 47);
-	public static final String UNICODE_FONT_FILENAME = "NotoSansCJKjp-Regular.otf";
 
 	private final I18nRepo i18nRepo;
 	private final UiConstants uiConstants;
@@ -36,7 +35,6 @@ public class FontRepository implements Telegraph {
 
 	private GameFont largestFont;
 	private GameFont defaultUIFont;
-	private final GameFont guaranteedUnicodeFont;
 
 	@Inject
 	public FontRepository(I18nRepo i18nRepo, ConstantsRepo constantsRepo, MessageDispatcher messageDispatcher) {
@@ -45,7 +43,6 @@ public class FontRepository implements Telegraph {
 		// MODDING - Expose the font selction and sizes from small to large
 
 		changeFonts(i18nRepo.getCurrentLanguageType());
-		this.guaranteedUnicodeFont = generateFont(UNICODE_FONT_FILENAME);
 	}
 
 	private GameFont generateFont(String fontFilename) {
@@ -157,10 +154,6 @@ public class FontRepository implements Telegraph {
 
 	public GameFont getLargestFont() {
 		return largestFont;
-	}
-
-	public GameFont getUnicodeFont() {
-		return this.guaranteedUnicodeFont;
 	}
 
 	public GameFont getHeaderFont(int fontPointSize) {

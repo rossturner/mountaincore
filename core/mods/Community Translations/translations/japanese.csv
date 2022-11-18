@@ -828,16 +828,6 @@ PRIORITY.NORMAL,,Normal,通常
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept,同意する
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting,レポートを無効にする
-PRIVACY.OPT_IN.LINE_1,,King under the Mountain is in active development. To help,King under the Mountainの開発は活発に進んでいます。助けるには
-PRIVACY.OPT_IN.LINE_10,,- The stack trace of the exception which caused the crash,
-PRIVACY.OPT_IN.LINE_2,,"diagnose and fix bugs, please click ""I accept"" below to",発生したバグを開発者に伝え、修正するには、下の「同意する」をクリックしてください。
-PRIVACY.OPT_IN.LINE_3,,send anonymous crash reports automatically.,匿名のクラッシュレポートが自動的に送信されるようになります。
-PRIVACY.OPT_IN.LINE_4,," ",
-PRIVACY.OPT_IN.LINE_5,,This is made up of only the following data:,これは、次のデータのみで構成されています。
-PRIVACY.OPT_IN.LINE_6,,- The version of the game client,
-PRIVACY.OPT_IN.LINE_7,,- Your operating system,
-PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings,
-PRIVACY.OPT_IN.LINE_9,,- Your options settings,
 
 PRODUCT.ANVIL,,Anvil,金床
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.,熱した金属をハンマーで叩いて形を作る、大きな金属のかたまりです。{{FURNITURE.FORGE}}に必要です。

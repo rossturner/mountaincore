@@ -829,16 +829,6 @@ PRIORITY.NORMAL,,Normal,Нормальный
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept,Я принимаю
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting,Отключить отчеты
-PRIVACY.OPT_IN.LINE_1,,King under the Mountain is in active development. To help,King under the Mountain находится в раннем доступе. Помочь
-PRIVACY.OPT_IN.LINE_10,,- The stack trace of the exception which caused the crash,"- Трассировка стека исключения, это вызвало сбой"
-PRIVACY.OPT_IN.LINE_2,,"diagnose and fix bugs, please click ""I accept"" below to","Диагностировать и исправлять ошибки, нажмите кнопку «Я принимаю» ниже, чтобы"
-PRIVACY.OPT_IN.LINE_3,,send anonymous crash reports automatically.,автоматически отправлять анонимные отчеты о сбоях.
-PRIVACY.OPT_IN.LINE_4,," "," "
-PRIVACY.OPT_IN.LINE_5,,This is made up of only the following data:,Это состоит только из следующих данных:
-PRIVACY.OPT_IN.LINE_6,,- The version of the game client,- Версия игрового клиента
-PRIVACY.OPT_IN.LINE_7,,- Your operating system,- Ваша операционная система
-PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings,- Ваша видеокарта и настройки дисплея
-PRIVACY.OPT_IN.LINE_9,,- Your options settings,- Настройки параметров
 
 PRODUCT.ANVIL,,Anvil,Наковальня
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.,"Большой блок металла, используемый для придания формы нагретому металлу. Требуется для создания {{FURNITURE.FORGE}."

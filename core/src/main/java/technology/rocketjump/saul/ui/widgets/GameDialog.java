@@ -48,7 +48,7 @@ public abstract class GameDialog implements Disposable {
 
 		fullScreenOverlay = new Image(skin, "default-rect");
 		fullScreenOverlay.setFillParent(true);
-		fullScreenOverlay.setColor(1, 1, 1, 0.6f);
+		fullScreenOverlay.setColor(0, 0, 0, 0.6f);
 
 		Button exitButton = new Button(skin, "btn_exit");
 		exitButton.addListener(new ChangeListener() {
@@ -100,7 +100,7 @@ public abstract class GameDialog implements Disposable {
 
 	public GameDialog withText(I18nText descriptionText) {
 		Label label = new Label(descriptionText.toString(), skin.get("dialog_title", Label.LabelStyle.class));
-		contentTable.add(label).row();
+		contentTable.add(label).padRight(180f).padLeft(180f).row();
 		return this;
 	}
 

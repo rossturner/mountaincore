@@ -6,28 +6,28 @@ filter: MipMapLinearLinear, Linear
 repeat: none
 arrow
   rotate: false
-  xy: 1732, 3317
+  xy: 1732, 3215
   size: 116, 254
   orig: 116, 254
   offset: 0, 0
   index: -1
 arrow_greyed_out
   rotate: false
-  xy: 1852, 3341
+  xy: 1852, 3239
   size: 116, 230
   orig: 116, 230
   offset: 0, 0
   index: -1
 arrow_greyed_out_right
   rotate: false
-  xy: 1972, 3341
+  xy: 4436, 7832
   size: 116, 230
   orig: 116, 230
   offset: 0, 0
   index: -1
 arrow_right
   rotate: false
-  xy: 4436, 7808
+  xy: 4436, 7574
   size: 116, 254
   orig: 116, 254
   offset: 0, 0
@@ -95,6 +95,15 @@ btn_01
   rotate: false
   xy: 1968, 4109
   size: 406, 100
+  split: 14, 14, 34, 39
+  orig: 406, 100
+  offset: 0, 0
+  index: -1
+btn_02
+  rotate: false
+  xy: 3788, 5925
+  size: 406, 100
+  split: 14, 14, 34, 39
   orig: 406, 100
   offset: 0, 0
   index: -1
@@ -163,14 +172,14 @@ btn_check_box_hover_state
   index: -1
 btn_check_box_ticked
   rotate: false
-  xy: 4076, 5927
+  xy: 4436, 7472
   size: 98, 98
   orig: 98, 98
   offset: 0, 0
   index: -1
 btn_check_box_unticked
   rotate: false
-  xy: 1732, 3215
+  xy: 664, 195
   size: 98, 98
   orig: 98, 98
   offset: 0, 0
@@ -198,7 +207,7 @@ btn_exit
   index: -1
 btn_key_bindings_key
   rotate: false
-  xy: 3788, 5927
+  xy: 1183, 400
   size: 284, 98
   split: 1, 1, 1, 13
   orig: 284, 98
@@ -214,7 +223,7 @@ btn_key_bindings_key_changed
   index: -1
 btn_key_bindings_key_hover_state
   rotate: false
-  xy: 1183, 400
+  xy: 1732, 3473
   size: 284, 98
   split: 1, 1, 1, 13
   orig: 284, 98
@@ -222,7 +231,7 @@ btn_key_bindings_key_hover_state
   index: -1
 btn_random
   rotate: false
-  xy: 1544, 3037
+  xy: 4198, 5935
   size: 126, 90
   orig: 126, 90
   offset: 0, 0
@@ -306,7 +315,7 @@ paper_texture_bg
   index: -1
 paper_texture_bg_pattern_large
   rotate: false
-  xy: 1577, 871
+  xy: 1577, 965
   size: 126, 2162
   orig: 126, 2162
   offset: 0, 0
@@ -328,7 +337,7 @@ save_title_ribbon_bg
   index: -1
 scroll_bg
   rotate: false
-  xy: 823, 2955
+  xy: 3788, 5893
   size: 28, 28
   split: 1, 1, 0, 0
   orig: 28, 28
@@ -336,7 +345,7 @@ scroll_bg
   index: -1
 scroll_fg
   rotate: false
-  xy: 886, 3000
+  xy: 823, 2955
   size: 28, 28
   split: 1, 1, 0, 0
   orig: 28, 28
@@ -398,7 +407,7 @@ vertical_scrollbar
   index: -1
 vertical_scrollbar_fg
   rotate: false
-  xy: 5332, 8095
+  xy: 2020, 3493
   size: 26, 78
   split: 0, 0, 38, 38
   orig: 26, 78
@@ -406,7 +415,14 @@ vertical_scrollbar_fg
   index: -1
 white-pixel
   rotate: false
-  xy: 1544, 3032
+  xy: 4614, 8071
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+white-pixel
+  rotate: false
+  xy: 4614, 8071
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
