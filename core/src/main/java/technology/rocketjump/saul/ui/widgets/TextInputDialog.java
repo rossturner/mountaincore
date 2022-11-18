@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
 import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 
 import java.util.function.Consumer;
@@ -41,6 +43,7 @@ public class TextInputDialog extends GameDialog {
 				};
 			}
 		};
+		inputBox.addListener(new ChangeCursorOnHover(inputBox, GameCursor.I_BEAM, messageDispatcher));
 		inputBox.setAlignment(Align.center);
 		contentTable.add(inputBox).width(910).height(96).center().row();
 		withButton(buttonText, (Runnable) () -> {
