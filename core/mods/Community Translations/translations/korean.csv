@@ -828,16 +828,6 @@ PRIORITY.NORMAL,,Normal,
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept,나는 받아들인다.
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting,보고 사용 안 함
-PRIVACY.OPT_IN.LINE_1,,King under the Mountain is in active development. To help,산 아래 왕은 활발한 개발 중입니다. 도움이 필요하기
-PRIVACY.OPT_IN.LINE_10,,- The stack trace of the exception which caused the crash,- 충돌을 일으킨 예외의 스택 추적
-PRIVACY.OPT_IN.LINE_2,,"diagnose and fix bugs, please click ""I accept"" below to","진단 및 버그 수정, 아래의 “동의함”을 클릭하십시오"
-PRIVACY.OPT_IN.LINE_3,,send anonymous crash reports automatically.,익명 충돌 보고서를 자동으로 보냅니다.
-PRIVACY.OPT_IN.LINE_4,," "," "
-PRIVACY.OPT_IN.LINE_5,,This is made up of only the following data:,이 데이터는 다음 데이터로만 구성됩니다.
-PRIVACY.OPT_IN.LINE_6,,- The version of the game client,- 게임 클라이언트의 버전
-PRIVACY.OPT_IN.LINE_7,,- Your operating system,- 운영 체제
-PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings,- 그래픽 카드 및 디스플레이 설정
-PRIVACY.OPT_IN.LINE_9,,- Your options settings,- 옵션 설정
 
 PRODUCT.ANVIL,,Anvil,앤빌
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.,가열 된 금속을 망치로 만드는 데 사용되는 큰 금속 블록. {{가구.포지}} 를 건설하는 데 필요합니다.

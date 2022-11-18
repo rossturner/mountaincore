@@ -828,16 +828,6 @@ PRIORITY.NORMAL,,Normal,
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept,Jag accepterar
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting,Inaktivera rapportering
-PRIVACY.OPT_IN.LINE_1,,King under the Mountain is in active development. To help,Kung under berget är i aktiv utveckling. För att hjälpa
-PRIVACY.OPT_IN.LINE_10,,- The stack trace of the exception which caused the crash,- Stacken spår av undantaget som orsakade kraschen
-PRIVACY.OPT_IN.LINE_2,,"diagnose and fix bugs, please click ""I accept"" below to","diagnostisera och åtgärda fel, klicka på ”Jag accepterar” nedan för att"
-PRIVACY.OPT_IN.LINE_3,,send anonymous crash reports automatically.,skicka anonyma kraschrapporter automatiskt.
-PRIVACY.OPT_IN.LINE_4,," "," "
-PRIVACY.OPT_IN.LINE_5,,This is made up of only the following data:,Detta består av endast följande data:
-PRIVACY.OPT_IN.LINE_6,,- The version of the game client,- Versionen av spelet klienten
-PRIVACY.OPT_IN.LINE_7,,- Your operating system,- Ditt operativsystem
-PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings,- Dina grafikkort och bildskärmsinställningar
-PRIVACY.OPT_IN.LINE_9,,- Your options settings,- Inställningar för dina alternativ
 
 PRODUCT.ANVIL,,Anvil,städ
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.,Ett stort block av metall som används för att hamra uppvärmd metall i form. Krävs för att konstruera en {{FURNITURE.FORGE}.

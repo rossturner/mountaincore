@@ -828,16 +828,6 @@ PRIORITY.NORMAL,,Normal,
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept,Eu aceito.
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting,Desativar relatórios
-PRIVACY.OPT_IN.LINE_1,,King under the Mountain is in active development. To help,Rei sob a Montanha está em desenvolvimento ativo. Para ajudar
-PRIVACY.OPT_IN.LINE_10,,- The stack trace of the exception which caused the crash,- O rastreamento de pilha da exceção que causou a falha
-PRIVACY.OPT_IN.LINE_2,,"diagnose and fix bugs, please click ""I accept"" below to","diagnosticar e corrigir bugs, clique em “Aceito” abaixo para"
-PRIVACY.OPT_IN.LINE_3,,send anonymous crash reports automatically.,enviar relatórios de falha anônimos automaticamente.
-PRIVACY.OPT_IN.LINE_4,," "," "
-PRIVACY.OPT_IN.LINE_5,,This is made up of only the following data:,Isso é composto apenas dos seguintes dados:
-PRIVACY.OPT_IN.LINE_6,,- The version of the game client,- A versão do cliente do jogo
-PRIVACY.OPT_IN.LINE_7,,- Your operating system,- Seu sistema operacional
-PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings,- Sua placa gráfica e configurações de exibição
-PRIVACY.OPT_IN.LINE_9,,- Your options settings,- Configurações de suas opções
 
 PRODUCT.ANVIL,,Anvil,Bigorna
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.,Um grande bloco de metal usado para martelar metal aquecido em forma. Necessário para construir um {{FURITURE.FORGE}.

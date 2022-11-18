@@ -828,16 +828,6 @@ PRIORITY.NORMAL,,Normal,
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept,Akceptuję
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting,Wyłącz raportowanie
-PRIVACY.OPT_IN.LINE_1,,King under the Mountain is in active development. To help,Król pod Górą jest w aktywnym rozwoju. Aby pomóc
-PRIVACY.OPT_IN.LINE_10,,- The stack trace of the exception which caused the crash,"- Ślad stosu wyjątku, który spowodował awarię"
-PRIVACY.OPT_IN.LINE_2,,"diagnose and fix bugs, please click ""I accept"" below to","diagnozowania i naprawiania błędów, proszę kliknąć „Akceptuję” poniżej, aby"
-PRIVACY.OPT_IN.LINE_3,,send anonymous crash reports automatically.,automatyczne wysyłanie anonimowych raportów o awariach.
-PRIVACY.OPT_IN.LINE_4,," "," "
-PRIVACY.OPT_IN.LINE_5,,This is made up of only the following data:,Skład ten składa się tylko z następujących danych:
-PRIVACY.OPT_IN.LINE_6,,- The version of the game client,- Wersja klienta gry
-PRIVACY.OPT_IN.LINE_7,,- Your operating system,- Twój system operacyjny
-PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings,- Ustawienia karty graficznej i wyświetlania
-PRIVACY.OPT_IN.LINE_9,,- Your options settings,- Ustawienia opcji
 
 PRODUCT.ANVIL,,Anvil,Kowadło
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.,Duży blok metalu używany do młotkowania podgrzewanego metalu w kształt. Wymagane do skonstruowania {{FURITURE.FORGE}}.

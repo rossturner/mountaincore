@@ -828,16 +828,6 @@ PRIORITY.NORMAL,,Normal,Normale
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept,Accetto
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting,Disabilita la segnalazione
-PRIVACY.OPT_IN.LINE_1,,King under the Mountain is in active development. To help,Re sotto la montagna è in sviluppo attivo. Per aiutare
-PRIVACY.OPT_IN.LINE_10,,- The stack trace of the exception which caused the crash,- La traccia dello stack dell'eccezione che ha causato l'arresto anomalo
-PRIVACY.OPT_IN.LINE_2,,"diagnose and fix bugs, please click ""I accept"" below to","diagnosticare e correggere i bug, fare clic su «Accetto» qui sotto per"
-PRIVACY.OPT_IN.LINE_3,,send anonymous crash reports automatically.,invia automaticamente rapporti anonimi sugli arresti anomali.
-PRIVACY.OPT_IN.LINE_4,," "," "
-PRIVACY.OPT_IN.LINE_5,,This is made up of only the following data:,Questo è costituito solo dai seguenti dati:
-PRIVACY.OPT_IN.LINE_6,,- The version of the game client,- La versione del client di gioco
-PRIVACY.OPT_IN.LINE_7,,- Your operating system,- Il tuo sistema operativo
-PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings,- Le impostazioni della scheda grafica e dello schermo
-PRIVACY.OPT_IN.LINE_9,,- Your options settings,- Impostazioni delle opzioni
 
 PRODUCT.ANVIL,,Anvil,Incudine
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.,Un grande blocco di metallo utilizzato per martellare il metallo riscaldato in forma. Richiesto per costruire un {{FURNITURE.FORGE}.
