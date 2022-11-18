@@ -968,9 +968,9 @@ PRIORITY.LOWER,,Lower priority
 PRIORITY.LOWEST,,Lowest priority
 PRIORITY.NORMAL,,Normal priority
 
-PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept
-PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting
-PRIVACY.OPT_IN.DESCRIPTION,,"Project Saul is in active development. To help diagnose and fix bugs, please click ""I accept"" below to send anonymous crash reports automatically. \n\nThis is made up of only the following data:"
+PRIVACY.OPT_IN.ACCEPT_BUTTON,,I Accept
+PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable Reporting
+PRIVACY.OPT_IN.DESCRIPTION,,"Project Saul is in active development. To help diagnose and fix bugs, please click ""I Accept"" below to send anonymous crash reports automatically. \n\nThis is made up of only the following data:"
 PRIVACY.OPT_IN.DATA_POINT.1,,• The version of the game client
 PRIVACY.OPT_IN.DATA_POINT.2,,• Your options settings
 PRIVACY.OPT_IN.DATA_POINT.3,,• The status of the game at the time of the crash, and about what caused the crash

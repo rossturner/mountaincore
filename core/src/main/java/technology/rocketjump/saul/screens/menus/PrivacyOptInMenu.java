@@ -105,6 +105,7 @@ public class PrivacyOptInMenu implements Menu, DisplaysText {
 
 		Cell<Container<TextButton>> doNotAcceptCell = menuTable.getCell(doNotAcceptButton);
 		acceptButton.size(doNotAcceptCell.getPrefWidth() * 1.2f, doNotAcceptCell.getPrefHeight() * 1.2f);
+		doNotAcceptButton.setScale(0.94f);
 	}
 
 	private String translate(String i18nKey) {
