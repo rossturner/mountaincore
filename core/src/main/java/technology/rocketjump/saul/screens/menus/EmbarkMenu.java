@@ -27,6 +27,7 @@ import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.GameDialog;
 import technology.rocketjump.saul.ui.widgets.GameDialogDictionary;
+import technology.rocketjump.saul.ui.widgets.LabelFactory;
 import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
 import java.util.Collections;
@@ -43,6 +44,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 	private final WidgetFactory widgetFactory;
 	private final SoundAssetDictionary soundAssetDictionary;
 	private final GameDialogDictionary gameDialogDictionary;
+	private final LabelFactory labelFactory;
 	private final Random random = new RandomXS128();
 	private TextField nameInput;
 	private TextField seedInput;
@@ -54,7 +56,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 	public EmbarkMenu(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 	                  I18nTranslator i18nTranslator, SavedGameStore savedGameStore,
 	                  SettlementNameGenerator settlementNameGenerator, WidgetFactory widgetFactory,
-	                  SoundAssetDictionary soundAssetDictionary, GameDialogDictionary gameDialogDictionary) {
+	                  SoundAssetDictionary soundAssetDictionary, GameDialogDictionary gameDialogDictionary, LabelFactory labelFactory) {
 		super(guiSkinRepository);
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
@@ -63,6 +65,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		this.widgetFactory = widgetFactory;
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.gameDialogDictionary = gameDialogDictionary;
+		this.labelFactory = labelFactory;
 	}
 
 	@Override
@@ -90,8 +93,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 	protected Actor buildComponentLayer() {
 
 
-		Label titleRibbon = new Label(i18nTranslator.translate("GUI.EMBARK.TITLE"), skin, "title_ribbon");
-		titleRibbon.setAlignment(Align.top);
+		Label titleRibbon = labelFactory.titleRibbon("GUI.EMBARK.TITLE");
 		titleRibbon.setWidth(1576f);
 		Table titleTable = new Table();
 		titleTable.add(titleRibbon).width(1576).padTop(13f);

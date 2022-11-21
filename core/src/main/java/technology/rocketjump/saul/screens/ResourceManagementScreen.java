@@ -40,6 +40,7 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
+import technology.rocketjump.saul.ui.widgets.LabelFactory;
 import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
 
 import javax.inject.Inject;
@@ -70,6 +71,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	private final Map<ItemQuality, Drawable> qualityStars;
 	private final ScrollPane scrollPane;
 	private final Image fullScreenOverlay;
+	private final LabelFactory labelFactory;
 
 	private Stack stack;
 	private Actor currentInfoPane;
@@ -84,7 +86,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	public ResourceManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 	                                I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker,
 	                                EntityRenderer entityRenderer, StockpileGroupDictionary stockpileGroupDictionary,
-	                                SoundAssetDictionary soundAssetDictionary) {
+	                                SoundAssetDictionary soundAssetDictionary, LabelFactory labelFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
 		this.settlementItemTracker = settlementItemTracker;
@@ -94,6 +96,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
+		this.labelFactory = labelFactory;
 		btnResourceItemVariants = new Drawable[]{
 				managementSkin.getDrawable("btn_resources_item_01"),
 				managementSkin.getDrawable("btn_resources_item_02"),
@@ -183,8 +186,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	}
 
 	private Table buildPaperComponents() {
-		Label titleLabel = new Label(i18nTranslator.translate("GUI.RESOURCE_MANAGEMENT.TITLE"), menuSkin, "title_ribbon");
-		titleLabel.setAlignment(Align.center);
+		Label titleLabel = labelFactory.titleRibbon("GUI.RESOURCE_MANAGEMENT.TITLE");
 
 		stockpileGroupNameLabel = new Label("", managementSkin, "stockpile_group_filter_label"); //probably should be scaled to fit label
 		stockpileGroupNameLabel.setAlignment(Align.left);

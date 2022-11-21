@@ -1,12 +1,14 @@
 package technology.rocketjump.saul.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.inject.Inject;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
+import technology.rocketjump.saul.ui.widgets.LabelFactory;
 
 import javax.inject.Singleton;
 
@@ -14,10 +16,12 @@ import javax.inject.Singleton;
 public class SettlerManagementScreen extends AbstractGameScreen implements DisplaysText {
 	private Stack stack;
 	private final MenuSkin menuSkin;
+	private final LabelFactory labelFactory;
 
 	@Inject
-	public SettlerManagementScreen(GuiSkinRepository guiSkinRepository) {
+	public SettlerManagementScreen(GuiSkinRepository guiSkinRepository, LabelFactory labelFactory) {
 		this.menuSkin = guiSkinRepository.getMenuSkin();
+		this.labelFactory = labelFactory;
 	}
 
 	@Override
@@ -46,7 +50,10 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	}
 
 	private Actor buildPaperComponents() {
+		Label titleLabel = labelFactory.titleRibbon("GUI.SETTLER_MANAGEMENT.TITLE");
+
 		Table table = new Table();
+		table.add(titleLabel).row();
 
 
 		return table;

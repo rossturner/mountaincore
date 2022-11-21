@@ -30,6 +30,7 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.LabelFactory;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
 import technology.rocketjump.saul.ui.widgets.NoTitleDialog;
 
@@ -52,6 +53,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 	private final Skin mainGameSkin;
 	private final I18nTranslator i18nTranslator;
 	private final TooltipFactory tooltipFactory;
+	private final LabelFactory labelFactory;
 	private int carouselIndex = 0;
 
 	private java.util.List<Table> slots;
@@ -68,7 +70,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 	public LoadGameMenu(GuiSkinRepository skinRepository, MessageDispatcher messageDispatcher,
 	                    SoundAssetDictionary soundAssetDictionary, MenuButtonFactory menuButtonFactory,
 	                    SavedGameStore savedGameStore, I18nTranslator i18nTranslator,
-	                    TooltipFactory tooltipFactory) {
+	                    TooltipFactory tooltipFactory, LabelFactory labelFactory) {
 		super(skinRepository);
 		this.messageDispatcher = messageDispatcher;
 		this.soundAssetDictionary = soundAssetDictionary;
@@ -78,6 +80,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		this.i18nTranslator = i18nTranslator;
 		this.startGameSound = soundAssetDictionary.getByName("GameStart");
 		this.tooltipFactory = tooltipFactory;
+		this.labelFactory = labelFactory;
 
 		rebuildUI();
 	}
@@ -257,9 +260,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		Table titleTable = new Table();
 		titleTable.setName("title");
 
-		Label titleRibbon = new Label(i18nTranslator.translate("MENU.LOAD_GAME"), skin, "title_ribbon");
-
-		titleRibbon.setAlignment(Align.center);
+		Label titleRibbon = labelFactory.titleRibbon("MENU.LOAD_GAME");
 		titleTable.add(titleRibbon).width(1146);
 
 
