@@ -4,15 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.kotcrab.vis.ui.widget.CollapsibleWidget;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
@@ -38,7 +39,6 @@ import technology.rocketjump.saul.ui.i18n.*;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
-import technology.rocketjump.saul.ui.widgets.GameDialog;
 import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
 
 import javax.inject.Inject;
@@ -51,20 +51,17 @@ import java.util.function.Function;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
-import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 import static technology.rocketjump.saul.screens.ManagementScreenName.RESOURCES;
 import static technology.rocketjump.saul.ui.i18n.I18nWordClass.PLURAL;
 
 @Singleton
-public class ResourceManagementScreen implements GameScreen, GameContextAware, DisplaysText {
-	private final Stage stage;
+public class ResourceManagementScreen extends AbstractGameScreen implements GameContextAware, DisplaysText {
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
 	private final SettlementItemTracker settlementItemTracker;
 	private final EntityRenderer entityRenderer;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 	private final SoundAssetDictionary soundAssetDictionary;
-	private final OrthographicCamera camera = new OrthographicCamera();
 	private final Skin menuSkin;
 	private final Skin mainGameSkin;
 	private final Skin managementSkin;
@@ -93,7 +90,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		this.entityRenderer = entityRenderer;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
-		this.stage = new Stage(new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y));
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
@@ -128,11 +124,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		return RESOURCES.name();
 	}
 
-	@Override
-	public void showDialog(GameDialog dialog) {
-		//Does nothing, no dialog spawned from this screen so far
-	}
-
 	//Screen implementation
 	@Override
 	public void show() {
@@ -145,28 +136,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		rebuildUI();
 		stage.setKeyboardFocus(null);
 	}
-
-	@Override
-	public void render(float delta) {
-		camera.update();
-		stage.act(delta);
-		stage.draw();
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		camera.setToOrtho(false, width, height);
-		stage.getViewport().update(width, height, true);
-	}
-
-	@Override
-	public void pause() { }
-
-	@Override
-	public void resume() { }
-
-	@Override
-	public void hide() { }
 
 	@Override
 	public void dispose() { }
