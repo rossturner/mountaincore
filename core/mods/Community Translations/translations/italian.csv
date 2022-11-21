@@ -498,13 +498,7 @@ GUI.ROOFING.ADD,,Add,Aggiungi
 GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (R) to rotate furniture,Premi (R) per ruotare le mobili
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…,Salvataggio...
 GUI.SETTINGS.LABEL,,Settings,Impostazioni
-GUI.SETTLER_MANAGEMENT.BEDS_COUNTER,,Number of beds: {{count}},Numero di letti: {{count}}
-GUI.SETTLER_MANAGEMENT.DEAD_COUNTER,,Dead: {{count}},Morti: {{count}}
-GUI.SETTLER_MANAGEMENT.LIVING_COUNTER,,Population: {{count}},Popolazione: {{count}}
-GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,Ordina per nome
-GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,Ordina per infelicità
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,Coloni
-GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},Totale: {{count}}
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,Dimensione dell'interfaccia:
 GUI.VIEW_ROADMAP,,View development roadmap,Vedi la roadmap di sviluppo
 GUI.ZONES_LABEL,This should be as short as possible,Zones,Zone

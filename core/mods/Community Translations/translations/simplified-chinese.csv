@@ -498,13 +498,7 @@ GUI.ROOFING.ADD,,Add,添加
 GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (R) to rotate furniture,按R旋转家具
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…,正在保存…
 GUI.SETTINGS.LABEL,,Settings,设置
-GUI.SETTLER_MANAGEMENT.BEDS_COUNTER,,Number of beds: {{count}},床位数量：{{count}}
-GUI.SETTLER_MANAGEMENT.DEAD_COUNTER,,Dead: {{count}},死亡：{{count}}
-GUI.SETTLER_MANAGEMENT.LIVING_COUNTER,,Population: {{count}},人口：{{count}}
-GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,按名字排序
-GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,按不满意度排序
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,殖民者
-GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},总计：{{count}}
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,UI缩放：
 GUI.VIEW_ROADMAP,,View development roadmap,查看开发路线图
 GUI.ZONES_LABEL,This should be as short as possible,Zones,区域

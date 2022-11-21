@@ -498,13 +498,7 @@ GUI.ROOFING.ADD,,Add,
 GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (R) to rotate furniture,Mobilyayı döndürmek içni (R) bas.
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…,Kaydediliyor
 GUI.SETTINGS.LABEL,,Settings,
-GUI.SETTLER_MANAGEMENT.BEDS_COUNTER,,Number of beds: {{count}},
-GUI.SETTLER_MANAGEMENT.DEAD_COUNTER,,Dead: {{count}},Ölü: {{count}}
-GUI.SETTLER_MANAGEMENT.LIVING_COUNTER,,Population: {{count}},Popülasyon: {{count}}
-GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,İsime göre sırala
-GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,Mutsuzluğa göre sırala
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,Vatandaşlar
-GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},Toplam: {{count}}
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,Arayüz ölçeği:
 GUI.VIEW_ROADMAP,,View development roadmap,Geliştirme yol haritasını görüntüle
 GUI.ZONES_LABEL,This should be as short as possible,Zones,Bölgeler
