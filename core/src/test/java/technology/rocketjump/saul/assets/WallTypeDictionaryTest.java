@@ -36,8 +36,6 @@ public class WallTypeDictionaryTest {
 
 		assertThat(result.getWallTypeName()).isEqualTo("brickwall");
 		assertThat(result.getMaterialType()).isEqualTo(GameMaterialType.STONE);
-
-		assertThat(wallTypeDictionary.getByWallTypeId(result.getWallTypeId()).getWallTypeName()).isEqualTo("brickwall");
 	}
 
 	@Test

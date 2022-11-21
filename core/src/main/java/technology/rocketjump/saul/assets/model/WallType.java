@@ -29,6 +29,7 @@ public class WallType {
 	private final String craftingTypeName; // Informs us which profession and tool is needed to construct the wall
 	@JsonIgnore
 	private CraftingType craftingType;
+	private String selectionDrawableName;
 	// This is the list of items (with quantities) needed to build the type for each listed GameMaterialType
 	private Map<GameMaterialType, List<QuantifiedItemType>> requirements;
 
@@ -40,6 +41,7 @@ public class WallType {
 					@JsonProperty("useMaterialColor") boolean useMaterialColor,
 					@JsonProperty("overlayWallTypeName") String overlayWallTypeName,
 					@JsonProperty("craftingTypeName") String craftingTypeName,
+					@JsonProperty("selectionDrawableName") String selectionDrawableName,
 					@JsonProperty("requirements") Map<GameMaterialType, List<QuantifiedItemType>> requirements) {
 		this.wallTypeName = wallTypeName;
 		this.i18nKey = i18nKey;
@@ -48,6 +50,7 @@ public class WallType {
 		this.useMaterialColor = useMaterialColor;
 		this.overlayWallTypeName = overlayWallTypeName;
 		this.craftingTypeName = craftingTypeName;
+		this.selectionDrawableName = selectionDrawableName;
 		this.requirements = requirements;
 	}
 
@@ -110,5 +113,9 @@ public class WallType {
 
 	public void setOverlayWallType(WallType overlayWallType) {
 		this.overlayWallType = overlayWallType;
+	}
+
+	public String getSelectionDrawableName() {
+		return selectionDrawableName;
 	}
 }

@@ -30,7 +30,7 @@ public class TileLayout {
 	private static final GameMaterial MOCK_MATERIAL = new GameMaterial("brick", 1, GameMaterialType.OTHER);
 	private static final FloorType MOCK_FLOOR_DEFINITION = new FloorType("mock floor definition", null,
 			-1L, GameMaterialType.OTHER, 0, 0, new OverlapType("mock overlap type"), false, 1f, null, null, null, null, null);
-	private static final WallType MOCK_WALL_TYPE = new WallType("Mock wall type", "TEST.I18NKEY", 0L, GameMaterialType.OTHER, false, null,null, null);
+	private static final WallType MOCK_WALL_TYPE = new WallType("Mock wall type", "TEST.I18NKEY", 0L, GameMaterialType.OTHER, false, null,null, null, null);
 
 	private final int id;
 	private final LayoutCheck layoutCheck;

@@ -107,7 +107,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 	private Set<GridPoint2> virtualRoofConstructions = new HashSet<>();
 	// Wall placement info
 	private MaterialSelectionMessage wallMaterialSelection = new MaterialSelectionMessage(GameMaterialType.STONE, NULL_MATERIAL, null);
-	private WallPlacementMode wallPlacementMode;
+	private WallPlacementMode wallPlacementMode = WallPlacementMode.L_SHAPE;
 	private WallType wallTypeToPlace;
 	private List<WallConstruction> virtualWallConstructions = new LinkedList<>();
 	// Bridge placement info
@@ -766,6 +766,10 @@ public class GameInteractionStateContainer implements GameContextAware {
 		this.selectable = selectable;
 	}
 
+	public WallType getWallTypeToPlace() {
+		return wallTypeToPlace;
+	}
+
 	public void setDoorMaterialSelection(MaterialSelectionMessage materialSelectionMessage) {
 		this.doorMaterialSelection = materialSelectionMessage;
 	}
@@ -860,5 +864,9 @@ public class GameInteractionStateContainer implements GameContextAware {
 
 	public RoomType getSelectedRoomType() {
 		return selectedRoomType;
+	}
+
+	public MaterialSelectionMessage getWallMaterialSelection() {
+		return wallMaterialSelection;
 	}
 }

@@ -429,9 +429,6 @@ GUI.BUILD.PIPING,,Pipes
 GUI.BUILD.POWER,,Power
 GUI.BUILD.ROOFING,,Roofing
 GUI.BUILD.WALLS,,Walls
-GUI.BUILD.WALLS.LSHAPE,For building two walls in an L-shape,L-shape
-GUI.BUILD.WALLS.ROOM,For building 4 walls and a roof at once,Room
-GUI.BUILD.WALLS.SINGLE,For building a single wall,Single
 GUI.BUILD.PILLARS,,Pillars
 GUI.BUILD_FURNITURE,,Furniture
 GUI.BUILD_LABEL,,Build
