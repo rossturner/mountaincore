@@ -182,7 +182,7 @@
       "liquid" : false
     } ]
   },
-  "selectionDrawableName" : "preview_flooring_slabs",
+  "selectionDrawableName" : "preview_flooring_paving",
   "constructed" : false
 }, {
   "floorTypeName" : "stone_slab",

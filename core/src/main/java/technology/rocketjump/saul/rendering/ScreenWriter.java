@@ -22,7 +22,7 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 @Singleton
 public class ScreenWriter implements DisplaysText {
 
-	private static final float LINE_HEIGHT = 20f;
+	private static final float LINE_HEIGHT = 60f;
 	private final Viewport viewport;
 	private Label label;
 	private Label dragSizeLabel;
@@ -39,7 +39,6 @@ public class ScreenWriter implements DisplaysText {
 		stage = new Stage(viewport);
 		skin = guiSkinRepository.getMainGameSkin();
 
-
 		rebuildUI();
 	}
 
@@ -51,7 +50,7 @@ public class ScreenWriter implements DisplaysText {
 		label = new Label("Default text", skin);
 		dragSizeLabel = new Label("Test", skin);
 
-		Vector2 mainLabelCoords = stage.screenToStageCoordinates(new Vector2(50f, Gdx.graphics.getHeight() - 60f - label.getHeight()));
+		Vector2 mainLabelCoords = stage.screenToStageCoordinates(new Vector2(150f, DisplaySettings.GUI_DESIGN_SIZE.y - 60f - label.getHeight()));
 		label.setPosition(mainLabelCoords.x, mainLabelCoords.y);
 
 		stage.addActor(label);
@@ -71,7 +70,7 @@ public class ScreenWriter implements DisplaysText {
 			linesBuilder.append(line).append("\n");
 		}
 		label.setText(linesBuilder.toString());
-		Vector2 basePosition = new Vector2(20f, Gdx.graphics.getHeight() - 20f - (lines.size * LINE_HEIGHT));
+		Vector2 basePosition = new Vector2(150f, DisplaySettings.GUI_DESIGN_SIZE.y - 60f - (lines.size * LINE_HEIGHT));
 		basePosition.add(offsetPosition);
 		label.setPosition(basePosition.x, basePosition.y);
 
@@ -79,7 +78,7 @@ public class ScreenWriter implements DisplaysText {
 			if (!dragSizeLabel.hasParent()) {
 				stage.addActor(dragSizeLabel);
 			}
-			Vector2 stageCoords = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX() + 10, Gdx.input.getY() - 10));
+			Vector2 stageCoords = stage.screenToStageCoordinates(new Vector2(Gdx.input.getX() + 30, Gdx.input.getY() - 30));
 			dragSizeLabel.setPosition(stageCoords.x, stageCoords.y);
 		} else {
 			dragSizeLabel.remove();
