@@ -11,18 +11,11 @@ import com.ray3k.tenpatch.TenPatchDrawable;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.FloorTypeDictionary;
 import technology.rocketjump.saul.assets.model.FloorType;
-import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
-import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
-import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
-import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.MaterialSelectionMessage;
-import technology.rocketjump.saul.rendering.entities.EntityRenderer;
-import technology.rocketjump.saul.rooms.RoomFactory;
-import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -33,7 +26,6 @@ import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
-import technology.rocketjump.saul.ui.widgets.GameDialogDictionary;
 
 import java.util.Comparator;
 import java.util.stream.Stream;
@@ -58,11 +50,8 @@ public class BuildFlooringGuiView implements GuiView, DisplaysText {
 	@Inject
 	public BuildFlooringGuiView(MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository,
 								I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
-								FurnitureTypeDictionary furnitureTypeDictionary, RoomEditorFurnitureMap furnitureMap,
-								EntityRenderer entityRenderer, RoomStore roomStore, RoomEditorItemMap itemMap,
-								PlantSpeciesDictionary plantSpeciesDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget,
-								RoomFactory roomFactory, GameMaterialDictionary materialDictionary, GameDialogDictionary gameDialogDictionary,
-								ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary, FloorTypeDictionary floorTypeDictionary) {
+								FurnitureMaterialsWidget furnitureMaterialsWidget,
+								GameMaterialDictionary materialDictionary, FloorTypeDictionary floorTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();

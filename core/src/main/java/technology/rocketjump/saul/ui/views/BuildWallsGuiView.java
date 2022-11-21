@@ -1,171 +1,192 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.ray3k.tenpatch.TenPatchDrawable;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.assets.WallTypeDictionary;
-import technology.rocketjump.saul.assets.model.WallType;
-import technology.rocketjump.saul.entities.model.physical.item.ItemType;
-import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
-import technology.rocketjump.saul.mapping.model.WallPlacementMode;
+import technology.rocketjump.saul.assets.FloorTypeDictionary;
+import technology.rocketjump.saul.assets.model.FloorType;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
-import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.MaterialSelectionMessage;
-import technology.rocketjump.saul.rendering.utils.HexColors;
-import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.GameInteractionMode;
+import technology.rocketjump.saul.ui.GameInteractionStateContainer;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.ButtonStyle;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
-import technology.rocketjump.saul.ui.widgets.IconButton;
-import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
+import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
 
-import java.util.List;
-import java.util.*;
-
-import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
+import java.util.Comparator;
+import java.util.stream.Stream;
 
 @Singleton
 public class BuildWallsGuiView implements GuiView, DisplaysText {
 
-	private final SettlementItemTracker settlementItemTracker;
-	private final I18nTranslator i18nTranslator;
+	private final Button backButton;
+	private final Table mainTable;
+	private final Table headerContainer;
 	private final MessageDispatcher messageDispatcher;
-
-
-	private Table viewTable;
-	private final SelectBox<GameMaterialType> materialTypeSelect;
-	private final SelectBox<String> materialSelect;
-	// I18nUpdatable
-	private final Label headingLabel;
-	private final Label typeLabel;
-	private final Label materialLabel;
-	private final TextButton backButton;
-
-	private final Map<GameMaterialType, ItemType> resourceTypeMap = new TreeMap<>();
-	private final Map<String, GameMaterial> currentMaterialNamesMap = new HashMap<>();
-	private final List<IconButton> iconButtons = new LinkedList<>();
-
-	private GameMaterialType selectedMaterialType;
-	private GameMaterial selectedMaterial;
-	boolean initialised;
+	private final TooltipFactory tooltipFactory;
+	private final Skin skin;
+	private final I18nTranslator i18nTranslator;
+	private final GameInteractionStateContainer interactionStateContainer;
+	private final FurnitureMaterialsWidget furnitureMaterialsWidget;
+	private final GameMaterialDictionary materialDictionary;
+	private final FloorTypeDictionary floorTypeDictionary;
+	private Table wallsTable;
+	private boolean displayed;
 
 	@Inject
-	public BuildWallsGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-							 IconButtonFactory iconButtonFactory, WallTypeDictionary wallTypeDictionary, SettlementItemTracker settlementItemTracker,
-							 I18nTranslator i18nTranslator, I18nWidgetFactory i18NWidgetFactory) {
+	public BuildWallsGuiView(MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository,
+							 I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
+							 FurnitureMaterialsWidget furnitureMaterialsWidget,
+							 GameMaterialDictionary materialDictionary, FloorTypeDictionary floorTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
-		this.settlementItemTracker = settlementItemTracker;
+		this.tooltipFactory = tooltipFactory;
+		skin = skinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
+		this.interactionStateContainer = interactionStateContainer;
+		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
+		this.materialDictionary = materialDictionary;
+		this.floorTypeDictionary = floorTypeDictionary;
 
-		for (WallType wallType : wallTypeDictionary.getAllDefinitions()) {
-			if (wallType.isConstructed()) {
-				List<QuantifiedItemType> requirements = wallType.getRequirements().get(wallType.getMaterialType());
-				if (requirements.size() == 1) {
-					resourceTypeMap.put(wallType.getMaterialType(), requirements.get(0).getItemType());
-				} else {
-					Logger.error(wallType.getWallTypeName() + " must only have a single requirements ingredient");
-				}
-			}
+		backButton = new Button(skin.getDrawable("btn_back"));
+		mainTable = new Table();
+		mainTable.setTouchable(Touchable.enabled);
+		mainTable.setBackground(skin.getDrawable("asset_dwarf_select_bg"));
+		mainTable.pad(20);
+		mainTable.top();
+
+		wallsTable = new Table();
+
+		headerContainer = new Table();
+		headerContainer.setBackground(skin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
+	}
+
+	@Override
+	public void onShow() {
+		this.displayed = true;
+		FloorType floorType = applicableFloorTypes().findFirst().orElseThrow();
+//		interactionStateContainer.setFloorTypeToPlace(floorType);
+		messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
+				floorType.getMaterialType(), GameMaterial.NULL_MATERIAL, floorType.getRequirements().get(floorType.getMaterialType()).get(0).getItemType()));
+		rebuildUI();
+	}
+
+	@Override
+	public void rebuildUI() {
+		if (!this.displayed) {
+			return;
 		}
-
-		Skin uiSkin = guiSkinRepository.getDefault();
-
-		viewTable = new Table(uiSkin);
-		viewTable.background("default-rect");
-//		viewTable.setDebug(true);
-
-
-		headingLabel = i18NWidgetFactory.createLabel("GUI.BUILD.WALLS");
-		viewTable.add(headingLabel).center().colspan(2);
-		viewTable.row();
-
-		Table materialTable = new Table(uiSkin);
-
-		this.typeLabel = i18NWidgetFactory.createLabel("MATERIAL_TYPE");
-		materialTable.add(typeLabel);
-		materialTable.row();
-
-
-		materialTypeSelect = new SelectBox<>(uiSkin);
-		materialTypeSelect.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				selectedMaterialType = materialTypeSelect.getSelected();
-				resetMaterialSelect();
-			}
-		});
-		materialTable.add(materialTypeSelect).pad(5);
-		materialTable.row();
-
-		this.materialLabel = i18NWidgetFactory.createLabel("MATERIAL");
-		materialTable.add(materialLabel);
-		materialTable.row();
-
-
-		materialSelect = new SelectBox<>(uiSkin);
-		Array<String> materialNamesArray = new Array<>();
-		materialNamesArray.add("SOMETHING");
-		materialSelect.setItems(materialNamesArray);
-		materialSelect.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				onMaterialSelectionChange();
-			}
-		});
-
-		materialTable.add(materialSelect).pad(5);
-		materialTable.row();
-
-
-		viewTable.add(materialTable);
-
-		Table iconTable = new Table(uiSkin);
-
-		IconButton single = iconButtonFactory.create("GUI.BUILD.WALLS.SINGLE", "straight-line", HexColors.get("#DDF1E0"), ButtonStyle.DEFAULT);
-		single.setAction(() -> messageDispatcher.dispatchMessage(MessageType.WALL_PLACEMENT_SELECTED, WallPlacementMode.STRAIGHT_LINE));
-		iconButtons.add(single);
-
-		IconButton lShape = iconButtonFactory.create("GUI.BUILD.WALLS.LSHAPE", "l-shape", HexColors.get("#DDF0F1"), ButtonStyle.DEFAULT);
-		lShape.setAction(() -> messageDispatcher.dispatchMessage(MessageType.WALL_PLACEMENT_SELECTED, WallPlacementMode.L_SHAPE));
-		iconButtons.add(lShape);
-
-		IconButton room = iconButtonFactory.create("GUI.BUILD.WALLS.ROOM", "square", HexColors.get("#c8d1ec"), ButtonStyle.DEFAULT);
-		room.setAction(() -> messageDispatcher.dispatchMessage(MessageType.WALL_PLACEMENT_SELECTED, WallPlacementMode.ROOM));
-		iconButtons.add(room);
-
-		for (IconButton iconButton : iconButtons) {
-			iconTable.add(iconButton).pad(5);
-		}
-
-
-		viewTable.add(iconTable);
-
-		viewTable.row();
-
-		backButton = i18NWidgetFactory.createTextButton("GUI.BACK_LABEL");
+		backButton.clearListeners();
 		backButton.addListener(new ClickListener() {
 			@Override
-			public void clicked (InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.OLD_BUILD_MENU);
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DEFAULT);
+			public void clicked(InputEvent event, float x, float y) {
+				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName());
 			}
 		});
-		viewTable.add(backButton).pad(10).left().colspan(1);
+		backButton.addListener(new ChangeCursorOnHover(backButton, GameCursor.SELECT, messageDispatcher));
+		tooltipFactory.simpleTooltip(backButton, "GUI.BACK_LABEL", TooltipLocationHint.ABOVE);
 
-		resetMaterialTypeSelect();
-		rebuildUI();
-		initialised = true;
+		mainTable.clearChildren();
+		headerContainer.clearChildren();
+
+		String headerText = headerText = i18nTranslator.getTranslatedString("GUI.BUILD.FLOOR").toString();
+		Label headerLabel = new Label(headerText, skin.get("title-header", Label.LabelStyle.class));
+		headerContainer.add(headerLabel).center();
+
+		Table topRow = new Table();
+		topRow.add(new Container<>()).left().expandX();
+		topRow.add(headerContainer).center().width(800).expandY();
+		topRow.add(new Container<>()).right().expandX();
+
+		mainTable.defaults().padBottom(20);
+		mainTable.add(topRow).top().expandX().fillX().row();
+
+		wallsTable.clearChildren();
+		applicableFloorTypes().forEach(this::addFlooringButton);
+		mainTable.add(wallsTable).center().row();
+
+		furnitureMaterialsWidget.changeSelectedFurniture(fakeFurnitureTypeForFlooring());
+		furnitureMaterialsWidget.onMaterialSelection(material -> {
+			if (material == null) {
+				material = GameMaterial.NULL_MATERIAL;
+			}
+			FloorType floorType = interactionStateContainer.getFloorTypeToPlace();
+			messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
+					floorType.getMaterialType(), material, floorType.getRequirements().get(floorType.getMaterialType()).get(0).getItemType()));
+			rebuildUI();
+		});
+		furnitureMaterialsWidget.onMaterialTypeSelection(materialType -> {
+			Logger.error("Not yet implemented: Switching material type of flooring");
+		});
+
+		mainTable.add(furnitureMaterialsWidget).center().expandX().row();
+	}
+
+	private Stream<FloorType> applicableFloorTypes() {
+		return floorTypeDictionary.getAllDefinitions()
+				.stream().filter(FloorType::isConstructed)
+				.sorted(Comparator.comparing(t -> i18nTranslator.getTranslatedString(t.getI18nKey()).toString()));
+	}
+
+	private void addFlooringButton(FloorType floorType) {
+		String drawableName = floorType.getSelectionDrawableName() != null ? floorType.getSelectionDrawableName() : "placeholder";
+		Image flooringButton = new Image(skin.getDrawable(drawableName));
+
+		GameMaterial floorMaterial = materialDictionary.getExampleMaterial(floorType.getMaterialType());
+		if (floorType.equals(interactionStateContainer.getFloorTypeToPlace()) && !interactionStateContainer.getFloorMaterialSelection().selectedMaterial.equals(GameMaterial.NULL_MATERIAL)) {
+			floorMaterial = interactionStateContainer.getFloorMaterialSelection().selectedMaterial;
+		}
+		flooringButton.setColor(floorMaterial.getColor());
+		flooringButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
+						floorType.getMaterialType(), GameMaterial.NULL_MATERIAL, floorType.getRequirements().get(floorType.getMaterialType()).get(0).getItemType()));
+				rebuildUI();
+			}
+		});
+		flooringButton.addListener(new ChangeCursorOnHover(flooringButton, GameCursor.SELECT, messageDispatcher));
+		tooltipFactory.simpleTooltip(flooringButton, floorType.getI18nKey(), TooltipLocationHint.ABOVE);
+
+		Container<Image> container = new Container<>();
+		container.pad(18);
+		container.setActor(flooringButton);
+		if (floorType.equals(interactionStateContainer.getFloorTypeToPlace())) {
+			container.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FLOORING);
+		}
+
+		wallsTable.add(container);
+	}
+
+	@Override
+	public void onHide() {
+		this.displayed = false;
+	}
+
+	@Override
+	public void populate(Table containerTable) {
+		containerTable.clear();
+		containerTable.add(backButton).left().bottom().padLeft(30).padRight(50);
+		containerTable.add(mainTable);
+	}
+
+	@Override
+	public void update() {
+
 	}
 
 	@Override
@@ -175,71 +196,16 @@ public class BuildWallsGuiView implements GuiView, DisplaysText {
 
 	@Override
 	public GuiViewName getParentViewName() {
-		return GuiViewName.OLD_BUILD_MENU;
+		return GuiViewName.BUILD_MENU;
 	}
 
-	@Override
-	public void populate(Table containerTable) {
-		containerTable.clear();
+	private FurnitureType fakeFurnitureTypeForFlooring() {
+		FloorType floorType = interactionStateContainer.getFloorTypeToPlace();
+		MaterialSelectionMessage materialSelection = interactionStateContainer.getFloorMaterialSelection();
+		FurnitureType fakeFurnitureType = new FurnitureType();
+		fakeFurnitureType.setName(floorType.getFloorTypeName());
+		fakeFurnitureType.setRequirements(floorType.getRequirements());
 
-		resetMaterialSelect();
-
-		containerTable.add(viewTable);
-	}
-
-	@Override
-	public void update() {
-		// Doesn't yet need to update every second
-	}
-
-	@Override
-	public void rebuildUI() {
-		resetMaterialTypeSelect(); // For different material names
-	}
-
-	private void resetMaterialTypeSelect() {
-		Array<GameMaterialType> itemsArray = new Array<>();
-		for (GameMaterialType gameMaterialType : resourceTypeMap.keySet()) {
-			itemsArray.add(gameMaterialType);
-		}
-		materialTypeSelect.setItems(itemsArray);
-		materialTypeSelect.setSelected(itemsArray.get(0));
-		resetMaterialSelect();
-	}
-
-	private void resetMaterialSelect() {
-		currentMaterialNamesMap.clear();
-		Array<String> materialTypes = new Array<>();
-
-		String anyString = i18nTranslator.getTranslatedString("MATERIAL_TYPE.ANY").toString();
-		currentMaterialNamesMap.put(anyString, NULL_MATERIAL);
-		materialTypes.add(anyString);
-
-		ItemType itemTypeForMaterialType = resourceTypeMap.get(selectedMaterialType);
-
-		if (itemTypeForMaterialType != null) {
-			Set<GameMaterial> materialsByItemType = settlementItemTracker.getMaterialsByItemType(itemTypeForMaterialType);
-			if (materialsByItemType != null) {
-				for (GameMaterial gameMaterial : materialsByItemType) {
-					materialTypes.add(gameMaterial.getMaterialName());
-					currentMaterialNamesMap.put(gameMaterial.getMaterialName(), gameMaterial);
-				}
-			}
-		}
-
-		materialSelect.setItems(materialTypes);
-		if (materialTypes.size > 0) {
-			materialSelect.setSelected(materialTypes.get(0));
-			selectedMaterial = currentMaterialNamesMap.get(materialTypes.get(0));
-		}
-		onMaterialSelectionChange();
-	}
-
-	private void onMaterialSelectionChange() {
-		selectedMaterial = currentMaterialNamesMap.get(materialSelect.getSelected());
-		if (initialised) {
-			messageDispatcher.dispatchMessage(MessageType.WALL_MATERIAL_SELECTED, new MaterialSelectionMessage(
-					selectedMaterialType, selectedMaterial, resourceTypeMap.get(selectedMaterialType)));
-		}
+		return fakeFurnitureType;
 	}
 }

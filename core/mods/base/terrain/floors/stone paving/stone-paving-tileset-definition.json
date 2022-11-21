@@ -10,7 +10,7 @@
   },
   "useMaterialColor": true,
   "speedModifier": 1.3,
-  "selectionDrawableName": "preview_flooring_slabs",
+  "selectionDrawableName": "preview_flooring_paving",
   "craftingTypeName": "STONEMASONRY",
   "requirements": {
     "STONE": [
