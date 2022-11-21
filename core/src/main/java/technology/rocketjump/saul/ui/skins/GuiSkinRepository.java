@@ -25,7 +25,7 @@ public class GuiSkinRepository implements Telegraph {
 	private final FontRepository fontRepository;
 	private final OnDemandFontRepository onDemandFontRepository;
 	private final Skin uiSkin = new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")); // MODDING expose this or change uiskin.json
-	private final Skin menuSkin;
+	private final MenuSkin menuSkin;
 	private final Skin mainGameSkin;
 	private final Skin managementSkin;
 
@@ -34,9 +34,9 @@ public class GuiSkinRepository implements Telegraph {
 		this.fontRepository = fontRepository;
 		this.onDemandFontRepository = onDemandFontRepository;
 
-		mainGameSkin = loadSkin(MAIN_GAME_SKIN_FILE_PATH);
-		menuSkin = loadSkin(MENU_SKIN_FILE_PATH);
-		managementSkin = loadSkin(MANAGEMENT_SKIN_FILE_PATH);
+		mainGameSkin = loadSkin(MAIN_GAME_SKIN_FILE_PATH, new Skin());
+		menuSkin = loadSkin(MENU_SKIN_FILE_PATH, new MenuSkin());
+		managementSkin = loadSkin(MANAGEMENT_SKIN_FILE_PATH, new Skin());
 
 		if (!VisUI.isLoaded()) {
 			VisUI.load();
@@ -45,11 +45,10 @@ public class GuiSkinRepository implements Telegraph {
 		messageDispatcher.addListener(this, MessageType.FONTS_CHANGED);
 	}
 
-	private Skin loadSkin(String skinJsonPath) {
+	private <T extends Skin> T loadSkin(String skinJsonPath, T skin) {
 		FileHandle menuSkinFile = Gdx.files.internal(skinJsonPath);
 		FileHandle menuSkinAtlasFile = menuSkinFile.sibling(menuSkinFile.nameWithoutExtension() + ".atlas");
 
-		Skin skin = new Skin();
 		skin.add("header-font-32", onDemandFontRepository.getHeaderFont(32 * FONT_SCALE));
 		skin.add("header-font-36", onDemandFontRepository.getHeaderFont(36 * FONT_SCALE));
 		skin.add("header-font-47", onDemandFontRepository.getHeaderFont(47 * FONT_SCALE));
@@ -79,7 +78,7 @@ public class GuiSkinRepository implements Telegraph {
 		return uiSkin;
 	}
 
-	public Skin getMenuSkin() {
+	public MenuSkin getMenuSkin() {
 		return menuSkin;
 	}
 

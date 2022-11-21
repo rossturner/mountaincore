@@ -37,6 +37,7 @@ import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.*;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
@@ -62,7 +63,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	private final EntityRenderer entityRenderer;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 	private final SoundAssetDictionary soundAssetDictionary;
-	private final Skin menuSkin;
+	private final MenuSkin menuSkin;
 	private final Skin mainGameSkin;
 	private final Skin managementSkin;
 	private final Drawable[] btnResourceItemVariants;
@@ -159,8 +160,8 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 		stack = new Stack();
 		stack.setFillParent(true);
-		stack.add(buildBackgroundBaseLayer());
-		stack.add(buildPaperLayer());
+		stack.add(menuSkin.buildBackgroundBaseLayer());
+		stack.add(menuSkin.buildPaperLayer(buildPaperComponents()));
 		stack.add(buildExitTable());
 
 		stage.addActor(stack);
@@ -179,25 +180,6 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		table.add(exitButton).expandX().align(Align.topLeft).padLeft(257 + menuSkin.getDrawable("paper_texture_bg_pattern_large").getMinWidth() + 5f).padTop(5f).row();
 		table.add().grow();
 		return table;
-	}
-
-	//copied from PaperMenu
-	private Actor buildBackgroundBaseLayer() {
-		Table table = new Table();
-		table.setName("backgroundBase");
-		table.add(new Image(menuSkin.getDrawable("menu_bg_left"))).left();
-		table.add().expandX();
-		table.add(new Image(menuSkin.getDrawable("menu_bg_right"))).right();
-		return table;
-	}
-
-	private Table buildPaperLayer() {
-		Table baseLayer = new Table();
-		baseLayer.setBackground(menuSkin.getDrawable("paper_texture_bg"));
-		baseLayer.add(new Image(menuSkin.getDrawable("paper_texture_bg_pattern_large"))).growY().padLeft(257);
-		baseLayer.add(buildPaperComponents()).expandX();
-		baseLayer.add(new Image(menuSkin.getDrawable("paper_texture_bg_pattern_large"))).growY().padRight(257);
-		return baseLayer;
 	}
 
 	private Table buildPaperComponents() {
