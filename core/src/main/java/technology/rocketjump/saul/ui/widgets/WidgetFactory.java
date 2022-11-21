@@ -82,7 +82,7 @@ public class WidgetFactory {
 
     public CheckBox createLeftLabelledCheckbox(String i18nKey, Skin skin, float labelMaxWidth) {
         CheckBox checkbox = new CheckBox("", skin);
-        Label realLabel = new ScaledToFitLabel(i18nTranslator.getTranslatedString(i18nKey).toString(), skin, "checkbox_label", labelMaxWidth);
+        Label realLabel = new ScaledToFitLabel(i18nTranslator.translate(i18nKey), skin, "checkbox_label", labelMaxWidth);
         realLabel.setAlignment(Align.center);
         checkbox.getLabel().setStyle(skin.get("checkbox_label", Label.LabelStyle.class));
         Image image = checkbox.getImage();
@@ -99,7 +99,7 @@ public class WidgetFactory {
 
     public CheckBox createLeftLabelledCheckboxNoBackground(String i18nKey, Skin skin, float labelMaxWidth) {
         CheckBox checkbox = new CheckBox("", skin, "checkbox_no_bg");
-        Label realLabel = new Label(i18nTranslator.getTranslatedString(i18nKey).toString(), skin, "checkbox_label_no_bg");
+        Label realLabel = new Label(i18nTranslator.translate(i18nKey), skin, "checkbox_label_no_bg");
         realLabel.setWrap(true);
         realLabel.setAlignment(Align.center);
         checkbox.getLabel().setStyle(skin.get("checkbox_label_no_bg", Label.LabelStyle.class));

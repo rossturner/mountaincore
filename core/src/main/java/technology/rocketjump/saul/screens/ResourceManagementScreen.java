@@ -183,7 +183,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	}
 
 	private Table buildPaperComponents() {
-		Label titleLabel = new Label(translate("GUI.RESOURCE_MANAGEMENT.TITLE"), menuSkin, "title_ribbon");
+		Label titleLabel = new Label(i18nTranslator.translate("GUI.RESOURCE_MANAGEMENT.TITLE"), menuSkin, "title_ribbon");
 		titleLabel.setAlignment(Align.center);
 
 		stockpileGroupNameLabel = new Label("", managementSkin, "stockpile_group_filter_label"); //probably should be scaled to fit label
@@ -224,7 +224,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 		TextField searchBar = new TextField("", managementSkin, "search_bar_input");
 		searchBar.setText(searchBarText);
-		searchBar.setMessageText(translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
+		searchBar.setMessageText(i18nTranslator.translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
 		searchBar.addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
@@ -243,7 +243,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 			}
 		});
 		attachClickCursor(searchBar, GameCursor.I_BEAM);
-		Label sortByLabel  = new Label(translate("GUI.RESOURCE_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
+		Label sortByLabel  = new Label(i18nTranslator.translate("GUI.RESOURCE_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
 
 		Comparator<List<Entity>> quantityComparator = Comparator.comparing((Function<List<Entity>, Integer>) entities -> groupSum(entities, entity -> ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getQuantity())).reversed();
 		Comparator<List<Entity>> availabilityComparator = Comparator.comparing((Function<List<Entity>, Integer>) entities -> groupSum(entities, entity -> entity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated())).reversed();
@@ -392,7 +392,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 	//When stockpile group selection changes, or any filter/sorts change below
 	private void rebuildStockpileComponents() {
-		stockpileGroupNameLabel.setText(translate(selectedStockpileGroup.getI18nKey()));
+		stockpileGroupNameLabel.setText(i18nTranslator.translate(selectedStockpileGroup.getI18nKey()));
 		scrollPane.setActor(buildItemsTable());
 	}
 
@@ -659,10 +659,6 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		return btnResourceItemVariants[(int) (entityId % btnResourceItemVariants.length)];
 	}
 
-	private String translate(String key) {
-		return i18nTranslator.getTranslatedString(key).toString();
-	}
-
 	private Button buildIconSortButton(String drawableName, Comparator<List<Entity>> sortFunction) {
 		Image icon = new Image(managementSkin.getDrawable(drawableName));
 		ImageTextButton button = new ImageTextButton("", managementSkin, "sort_by_button");
@@ -687,7 +683,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	}
 
 	private Button buildTextSortButton(String i18nKey, Comparator<List<Entity>> sortFunction) {
-		ImageTextButton button = new ImageTextButton(translate(i18nKey), managementSkin, "sort_by_button");
+		ImageTextButton button = new ImageTextButton(i18nTranslator.translate(i18nKey), managementSkin, "sort_by_button");
 		button.defaults().padRight(9f).spaceLeft(12f);
 		Image image = button.getImage(); //Swap actors or cells doesn't work, absolute agony
 		button.removeActor(image);

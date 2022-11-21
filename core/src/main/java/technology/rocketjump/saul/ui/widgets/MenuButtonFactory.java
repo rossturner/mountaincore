@@ -69,7 +69,7 @@ public class MenuButtonFactory {
         private final Container<TextButton> buttonContainer;
 
         private MenuButtonBuilder(String i18nKey, Skin skin, ButtonStyle buttonStyle) {
-            String text = translator.getTranslatedString(i18nKey).toString();
+            String text = translator.translate(i18nKey);
 
             TextButton button = new TextButton(text, skin.get(buttonStyle.getStyleName(), TextButton.TextButtonStyle.class));
             buttonContainer = new Container<>(button);

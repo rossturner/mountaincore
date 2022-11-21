@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.screens;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.inject.Inject;
@@ -39,8 +40,15 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		stack = new Stack();
 		stack.setFillParent(true);
 		stack.add(menuSkin.buildBackgroundBaseLayer());
-		stack.add(menuSkin.buildPaperLayer(new Table()));
+		stack.add(menuSkin.buildPaperLayer(buildPaperComponents()));
 
 		stage.addActor(stack);
+	}
+
+	private Actor buildPaperComponents() {
+		Table table = new Table();
+
+
+		return table;
 	}
 }

@@ -74,7 +74,7 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 	@Override
 	public void rebuildUI() {
 
-		musicLabel = new Label(i18nTranslator.getTranslatedString("GUI.MUSIC_VOLUME").toString(), skin, "options_menu_label");
+		musicLabel = new Label(i18nTranslator.translate("GUI.MUSIC_VOLUME"), skin, "options_menu_label");
 		musicSlider = new Slider(0, 0.8f, 0.08f, false, skin);
 		String savedVolume = userPreferences.getPreference(MUSIC_VOLUME, DEFAULT_VOLUME_AS_STRING);
 		musicSlider.setValue(Float.parseFloat(savedVolume));
@@ -88,7 +88,7 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 		});
 		musicSlider.addListener(new ChangeCursorOnHover(musicSlider, GameCursor.REORDER_HORIZONTAL, messageDispatcher));
 
-		soundEffectLabel = new Label(i18nTranslator.getTranslatedString("GUI.SOUND_EFFECT_VOLUME").toString(), skin, "options_menu_label");
+		soundEffectLabel = new Label(i18nTranslator.translate("GUI.SOUND_EFFECT_VOLUME"), skin, "options_menu_label");
 		soundEffectSlider = new Slider(0, 1, 0.1f, false, skin);
 		String savedSoundEffectVolume = userPreferences.getPreference(SOUND_EFFECT_VOLUME, DEFAULT_SOUND_VOLUME_AS_STRING);
 		soundEffectSlider.setValue(Float.parseFloat(savedSoundEffectVolume));
@@ -102,7 +102,7 @@ public class AudioOptionsTab implements OptionsTab, DisplaysText {
 		});
 		soundEffectSlider.addListener(new ChangeCursorOnHover(soundEffectSlider, GameCursor.REORDER_HORIZONTAL, messageDispatcher));
 
-		ambientEffectLabel = new Label(i18nTranslator.getTranslatedString("GUI.AMBIENT_EFFECT_VOLUME").toString(), skin, "options_menu_label");
+		ambientEffectLabel = new Label(i18nTranslator.translate("GUI.AMBIENT_EFFECT_VOLUME"), skin, "options_menu_label");
 		ambientEffectSlider = new Slider(0, 1, 0.1f, false, skin);
 		String savedAmbientEffectVolume = userPreferences.getPreference(AMBIENT_EFFECT_VOLUME, DEFAULT_AMBIENT_AUDIO_VOLUME_AS_STRING);
 		ambientEffectSlider.setValue(Float.parseFloat(savedAmbientEffectVolume));

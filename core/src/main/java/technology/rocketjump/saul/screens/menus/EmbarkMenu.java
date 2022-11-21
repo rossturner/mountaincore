@@ -90,13 +90,13 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 	protected Actor buildComponentLayer() {
 
 
-		Label titleRibbon = new Label(i18nTranslator.getTranslatedString("GUI.EMBARK.TITLE").toString(), skin, "title_ribbon");
+		Label titleRibbon = new Label(i18nTranslator.translate("GUI.EMBARK.TITLE"), skin, "title_ribbon");
 		titleRibbon.setAlignment(Align.top);
 		titleRibbon.setWidth(1576f);
 		Table titleTable = new Table();
 		titleTable.add(titleRibbon).width(1576).padTop(13f);
 
-		Label nameLabel = new Label(i18nTranslator.getTranslatedString("GUI.EMBARK.SETTLEMENT_NAME").toString(), skin, "embark_ribbon");
+		Label nameLabel = new Label(i18nTranslator.translate("GUI.EMBARK.SETTLEMENT_NAME"), skin, "embark_ribbon");
 		nameLabel.setAlignment(Align.top);  //this uses padding to make it off center for aesthetics
 
 
@@ -116,7 +116,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		});
 
 
-		Label mapSizeLabel = new Label(i18nTranslator.getTranslatedString("GUI.EMBARK.MAP_SIZE").toString(), skin, "embark_ribbon");
+		Label mapSizeLabel = new Label(i18nTranslator.translate("GUI.EMBARK.MAP_SIZE"), skin, "embark_ribbon");
 		mapSizeLabel.setAlignment(Align.top);  //this uses padding to make it off center for aesthetics
 
 		//fudge, first one added to group is default checked
@@ -126,7 +126,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		Table largeMap = buildMapButton(mapRadioSelectionGroup, "GUI.EMBARK.MAP_SIZE.LARGE", "large_map_btn", 1.0f, 600, 450);
 
 
-		Label seedLabel = new Label(i18nTranslator.getTranslatedString("GUI.EMBARK.MAP_SEED").toString(), skin, "embark_seed_label");
+		Label seedLabel = new Label(i18nTranslator.translate("GUI.EMBARK.MAP_SEED"), skin, "embark_seed_label");
 		this.seedInput = new TextField("", skin);
 		this.seedInput.addListener(new ChangeCursorOnHover(this.seedInput, GameCursor.I_BEAM, messageDispatcher));
 		this.seedInput.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));

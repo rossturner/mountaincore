@@ -76,7 +76,7 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 
 	@Override
 	protected Actor getMainBannerLogo() {
-		Label titleRibbon = new Label(i18nTranslator.getTranslatedString("MENU.OPTIONS").toString(), menuSkin, "title_ribbon");
+		Label titleRibbon = new Label(i18nTranslator.translate("MENU.OPTIONS"), menuSkin, "title_ribbon");
 		titleRibbon.setAlignment(Align.center);
 		titleRibbon.setWidth(1132f);
 		Table titleRibbonTable = new Table();

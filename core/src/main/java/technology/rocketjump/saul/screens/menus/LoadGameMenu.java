@@ -203,7 +203,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		saveSlot.row();
 
 		//TODO: refactor a season widget (label and icon)
-		Label seasonLabel = new Label(i18nTranslator.getTranslatedString(gameClock.getCurrentSeason().getI18nKey()).toString(), skin, "white_text_default-font-23");
+		Label seasonLabel = new Label(i18nTranslator.translate(gameClock.getCurrentSeason().getI18nKey()), skin, "white_text_default-font-23");
 		Image seasonIcon = new Image(mainGameSkin.getDrawable("asset_season_" + gameClock.getCurrentSeason().name().toLowerCase() + "_icon"));
 
 		HorizontalGroup season = new HorizontalGroup();
@@ -257,7 +257,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		Table titleTable = new Table();
 		titleTable.setName("title");
 
-		Label titleRibbon = new Label(i18nTranslator.getTranslatedString("MENU.LOAD_GAME").toString(), skin, "title_ribbon");
+		Label titleRibbon = new Label(i18nTranslator.translate("MENU.LOAD_GAME"), skin, "title_ribbon");
 
 		titleRibbon.setAlignment(Align.center);
 		titleTable.add(titleRibbon).width(1146);
