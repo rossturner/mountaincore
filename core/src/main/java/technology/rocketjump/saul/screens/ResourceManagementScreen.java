@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -38,10 +39,7 @@ import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.*;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
-import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
-import technology.rocketjump.saul.ui.widgets.EntityDrawable;
-import technology.rocketjump.saul.ui.widgets.LabelFactory;
-import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
+import technology.rocketjump.saul.ui.widgets.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -72,6 +70,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	private final ScrollPane scrollPane;
 	private final Image fullScreenOverlay;
 	private final LabelFactory labelFactory;
+	private final ButtonFactory buttonFactory;
 
 	private Stack stack;
 	private Actor currentInfoPane;
@@ -86,7 +85,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	public ResourceManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 	                                I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker,
 	                                EntityRenderer entityRenderer, StockpileGroupDictionary stockpileGroupDictionary,
-	                                SoundAssetDictionary soundAssetDictionary, LabelFactory labelFactory) {
+	                                SoundAssetDictionary soundAssetDictionary, LabelFactory labelFactory, ButtonFactory buttonFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
 		this.settlementItemTracker = settlementItemTracker;
@@ -97,6 +96,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.labelFactory = labelFactory;
+		this.buttonFactory = buttonFactory;
 		btnResourceItemVariants = new Drawable[]{
 				managementSkin.getDrawable("btn_resources_item_01"),
 				managementSkin.getDrawable("btn_resources_item_02"),
@@ -194,10 +194,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		Table stockpileButtons = new Table();
 		ButtonGroup<ImageButton> stockpileButtonGroup = new ButtonGroup<>();
 		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll()) {
-			String drawableName = stockpileGroup.getDrawableName();
-			ImageButton.ImageButtonStyle clonedStyle = new ImageButton.ImageButtonStyle(menuSkin.get("default", ImageButton.ImageButtonStyle.class));
-			clonedStyle.imageUp = mainGameSkin.getDrawable(drawableName);
-			ImageButton stockpileButton = new ImageButton(clonedStyle);
+			ImageButton stockpileButton = buttonFactory.checkableButton(mainGameSkin.getDrawable(stockpileGroup.getDrawableName()));
 
 			stockpileButtonGroup.add(stockpileButton);
 			stockpileButton.addListener(new ChangeListener() {
@@ -211,7 +208,6 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 					}
 				}
 			});
-			attachClickCursor(stockpileButton, GameCursor.SELECT);
 
 			stockpileButtons.add(stockpileButton).padLeft(2f).padRight(2f);
 			if (stockpileGroup.equals(selectedStockpileGroup)) {

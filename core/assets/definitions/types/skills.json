@@ -2,32 +2,32 @@
   "name" : "CHEF",
   "i18nKey" : "PROFESSION.CHEF",
   "type" : "PROFESSION",
-  "icon" : "profession-bread"
+  "icon" : "btn_room_kitchen"
 }, {
   "name" : "BLACKSMITH",
   "i18nKey" : "PROFESSION.BLACKSMITH",
   "type" : "PROFESSION",
-  "icon" : "profession-tongs"
+  "icon" : "btn_room_metalworks"
 }, {
   "name" : "CARPENTER",
   "i18nKey" : "PROFESSION.CARPENTER",
   "type" : "PROFESSION",
-  "icon" : "profession-plane"
+  "icon" : "btn_room_carpentry"
 }, {
   "name" : "FARMER",
   "i18nKey" : "PROFESSION.FARMER",
   "type" : "PROFESSION",
-  "icon" : "profession-seeds"
+  "icon" : "btn_room_farming"
 }, {
   "name" : "WEAVER",
   "i18nKey" : "PROFESSION.WEAVER",
   "type" : "PROFESSION",
-  "icon" : "profession-rope"
+  "icon" : "btn_room_weaver"
 }, {
   "name" : "LUMBERJACK",
   "i18nKey" : "PROFESSION.WOODCUTTER",
   "type" : "PROFESSION",
-  "icon" : "profession-axe"
+  "icon" : "btn_room_lumber"
 }, {
   "name" : "MINER",
   "i18nKey" : "PROFESSION.MINER",
@@ -37,12 +37,12 @@
   "name" : "STONEMASON",
   "i18nKey" : "PROFESSION.STONEMASON",
   "type" : "PROFESSION",
-  "icon" : "profession-chisel"
+  "icon" : "btn_room_stonemason"
 }, {
   "name" : "BREWER",
   "i18nKey" : "PROFESSION.BREWER",
   "type" : "PROFESSION",
-  "icon" : "profession-brewer"
+  "icon" : "btn_room_brewery"
 }, {
   "name" : "FISHER",
   "i18nKey" : "PROFESSION.FISHER",
@@ -52,7 +52,7 @@
   "name" : "LEATHERWORKER",
   "i18nKey" : "PROFESSION.LEATHERWORKER",
   "type" : "PROFESSION",
-  "icon" : "profession-knife"
+  "icon" : "btn_room_leather"
 }, {
   "name" : "ARCHERY",
   "i18nKey" : "SKILL.ARCHERY",
