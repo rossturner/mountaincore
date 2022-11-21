@@ -609,6 +609,11 @@ GUI.SETTLER_MANAGEMENT.TITLE,,Settlers
 GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}}
 GUI.SOUND_EFFECT_VOLUME,,Sound Effects
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:
+GUI.VIEW_MODE.DEFAULT,,Default view
+GUI.VIEW_MODE.JOB_PRIORITY,,Priority view
+GUI.VIEW_MODE.ROOFING_INFO,,Roof view
+GUI.VIEW_MODE.PIPING,,Piping view
+GUI.VIEW_MODE.MECHANISMS,,Power view
 GUI.VIEW_ROADMAP,,View development roadmap
 GUI.ROOMS_LABEL,,Rooms
 GUI.YEAR_LABEL,,Year {{year}}

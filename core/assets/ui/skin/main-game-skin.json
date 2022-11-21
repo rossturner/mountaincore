@@ -222,6 +222,26 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		up: btn_arrow_small
 		disabled: btn_arrow_small_right_disabled
 	}
+	view_mode_default: {
+		up: btn_view_normal_off
+		checked: btn_view_normal
+	}
+	view_mode_job_priority: {
+		up: btn_view_priority_off
+		checked: btn_view_priority
+	}
+	view_mode_roofing_info: {
+		up: btn_view_roof_off
+		checked: btn_view_roof
+	}
+	view_mode_piping: {
+		up: btn_view_water_off
+		checked: btn_view_water
+	}
+	view_mode_mechanisms: {
+		up: btn_view_power_off
+		checked: btn_view_power
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: {
