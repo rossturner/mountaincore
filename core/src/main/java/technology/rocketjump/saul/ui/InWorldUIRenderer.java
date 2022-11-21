@@ -13,6 +13,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
+import technology.rocketjump.saul.assets.FloorTypeDictionary;
+import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureGroup;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
@@ -26,6 +28,7 @@ import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.jobs.model.Job;
@@ -34,6 +37,7 @@ import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.MapVertex;
 import technology.rocketjump.saul.mapping.tile.designation.Designation;
+import technology.rocketjump.saul.mapping.tile.designation.DesignationDictionary;
 import technology.rocketjump.saul.mapping.tile.floor.BridgeTile;
 import technology.rocketjump.saul.mapping.tile.underground.TileLiquidFlow;
 import technology.rocketjump.saul.messaging.types.DoorwayPlacementMessage;
@@ -53,6 +57,7 @@ import technology.rocketjump.saul.rendering.piping.PipingViewModeRenderer;
 import technology.rocketjump.saul.rendering.roofing.RoofingViewModeRenderer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.rooms.constructions.BridgeConstruction;
+import technology.rocketjump.saul.sprites.DiffuseTerrainSpriteCacheProvider;
 import technology.rocketjump.saul.sprites.IconSpriteCache;
 import technology.rocketjump.saul.sprites.TerrainSpriteCache;
 import technology.rocketjump.saul.zones.Zone;
@@ -90,19 +95,24 @@ public class InWorldUIRenderer {
 	private final RenderingOptions renderingOptions;
 	private final JobStore jobStore;
 	private final IconSpriteCache iconSpriteCache;
+	private final TerrainSpriteCache diffuseTerrainSpriteCache;
 	private final Sprite doorIconSprite;
 	private boolean blinkState = true;
 	private float elapsedSeconds;
 
 	private Set<Entity> targetedCreatures = new HashSet<>();
 	private Set<Entity> currentSquadTargetedCreatures = new HashSet<>();
+	private final Designation flooringDesignation;
+	private final Map<ItemType, FloorType> floorTypeMap = new HashMap<>();
 
 	@Inject
 	public InWorldUIRenderer(GameInteractionStateContainer interactionStateContainer, EntityRenderer entityRenderer,
 							 TerrainRenderer terrainRenderer, RoomRenderer roomRenderer, RenderingOptions renderingOptions, JobStore jobStore,
 							 FurnitureTypeDictionary furnitureTypeDictionary, IconSpriteCache iconSpriteCache,
 							 SelectableOutlineRenderer selectableOutlineRenderer, RoofingViewModeRenderer roofingViewModeRenderer,
-							 PipingViewModeRenderer pipingViewModeRenderer, MechanismsViewModeRenderer mechanismsViewModeRenderer) {
+							 PipingViewModeRenderer pipingViewModeRenderer, MechanismsViewModeRenderer mechanismsViewModeRenderer,
+							 DesignationDictionary designationDictionary, DiffuseTerrainSpriteCacheProvider diffuseTerrainSpriteCacheProvider,
+							 FloorTypeDictionary floorTypeDictionary) {
 		this.interactionStateContainer = interactionStateContainer;
 		this.entityRenderer = entityRenderer;
 		this.terrainRenderer = terrainRenderer;
@@ -123,6 +133,20 @@ public class InWorldUIRenderer {
 		FileHandle vertexShaderFile = ShaderLoader.DEFAULT_VERTEX_SHADER;
 		FileHandle alphaPreservingFragmentShader = Gdx.files.classpath("shaders/alpha_preserving_fragment_shader.glsl");
 		this.selectedEntitySpriteBatch = new SpriteBatch(100, ShaderLoader.createShader(vertexShaderFile, alphaPreservingFragmentShader));
+
+		this.diffuseTerrainSpriteCache = diffuseTerrainSpriteCacheProvider.get();
+
+		this.flooringDesignation = designationDictionary.getByName("FLOORING");
+		if (this.flooringDesignation == null) {
+			throw new RuntimeException("Could not find designation for flooring");
+		}
+
+		floorTypeDictionary.getAllDefinitions().stream()
+				.filter(FloorType::isConstructed)
+				.forEach(ft -> {
+					ItemType itemType = ft.getRequirements().values().iterator().next().get(0).getItemType();
+					floorTypeMap.put(itemType, ft);
+				});
 	}
 
 	public boolean renderEntityMasks(OrthographicCamera camera, GameContext gameContext) {
@@ -350,14 +374,18 @@ public class InWorldUIRenderer {
 				if (mapTile != null) {
 
 					if (insideSelectionArea(minDraggingTile, maxDraggingTile, x, y, interactionStateContainer)) {
-						if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.REMOVE_DESIGNATIONS)) {
+						if (interactionStateContainer.getInteractionMode().equals(REMOVE_DESIGNATIONS)) {
 							// Don't show designations
 						} else if (interactionStateContainer.getInteractionMode().designationName != null) { // Is a designation
 							// This is within dragging area
 							if (shouldHighlight(mapTile)) {
 								Designation designationToApply = interactionStateContainer.getInteractionMode().getDesignationToApply();
 								spriteBatch.setColor(designationToApply.getSelectionColor());
-								spriteBatch.draw(designationToApply.getIconSprite(), x, y, 1, 1);
+								if (designationToApply.equals(flooringDesignation)) {
+									renderFloorToBeConstructed(mapTile, interactionStateContainer.getFloorTypeToPlace());
+								} else {
+									renderDesignationSprite(designationToApply.getIconSprite(), x, y);
+								}
 							} else {
 								renderExistingDesignation(x, y, mapTile);
 							}
@@ -407,7 +435,7 @@ public class InWorldUIRenderer {
 								shapeRenderer.line(jobAtLocation.getJobLocation().x + 0.5f, jobAtLocation.getJobLocation().y + 0.5f,
 										jobAtLocation.getHaulingAllocation().getTargetPosition().x + 0.5f, jobAtLocation.getHaulingAllocation().getTargetPosition().y + 0.5f);
 							} else if (mapTile.getDesignation() != null) {
-								spriteBatch.draw(mapTile.getDesignation().getIconSprite(), x, y, 1, 1);
+								renderDesignationSprite(mapTile.getDesignation().getIconSprite(), x, y);
 							}
 
 
@@ -571,8 +599,26 @@ public class InWorldUIRenderer {
 			}
 
 			spriteBatch.setColor(designation.getDesignationColor());
-			spriteBatch.draw(designation.getIconSprite(), x, y, 1, 1);
+			if (designation.equals(flooringDesignation)) {
+				Job flooringJob = jobStore.getJobsAtLocation(mapTile.getTilePosition())
+						.stream().filter(j -> j.getType().equals(designation.getCreatesJobType()))
+						.findFirst().orElse(null);
+				if (flooringJob != null) {
+					renderFloorToBeConstructed(mapTile, floorTypeMap.get(flooringJob.getRequiredItemType()));
+				}
+			} else {
+				renderDesignationSprite(designation.getIconSprite(), x, y);
+			}
 		}
+	}
+
+	private void renderFloorToBeConstructed(MapTile mapTile, FloorType floorType) {
+		Sprite spriteForFloor = diffuseTerrainSpriteCache.getFloorSpriteForType(floorType, mapTile.getSeed());
+		spriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), 1, 1);
+	}
+
+	private void renderDesignationSprite(Sprite designation, int x, int y) {
+		spriteBatch.draw(designation, x, y, 1, 1);
 	}
 
 	public static boolean insideSelectionArea(GridPoint2 minDraggingTile, GridPoint2 maxDraggingTile, int x, int y, GameInteractionStateContainer interactionStateContainer) {

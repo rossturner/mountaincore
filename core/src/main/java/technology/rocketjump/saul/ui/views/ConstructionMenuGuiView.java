@@ -17,10 +17,11 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
-import static technology.rocketjump.saul.ui.GameInteractionMode.*;
+import static technology.rocketjump.saul.ui.GameInteractionMode.DECONSTRUCT;
+import static technology.rocketjump.saul.ui.GameInteractionMode.REMOVE_DESIGNATIONS;
 
 @Singleton
-public class OrderSelectionGuiView implements GuiView, DisplaysText {
+public class ConstructionMenuGuiView implements GuiView, DisplaysText {
 
 	private final Skin skin;
 	private final Table layoutTable = new Table();
@@ -28,7 +29,7 @@ public class OrderSelectionGuiView implements GuiView, DisplaysText {
 	private final TooltipFactory tooltipFactory;
 
 	@Inject
-	public OrderSelectionGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory) {
+	public ConstructionMenuGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory) {
 		this.skin = guiSkinRepository.getMainGameSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
@@ -43,7 +44,7 @@ public class OrderSelectionGuiView implements GuiView, DisplaysText {
 
 	@Override
 	public GuiViewName getName() {
-		return GuiViewName.ORDER_SELECTION;
+		return GuiViewName.CONSTRUCTION_MENU;
 	}
 
 	@Override
@@ -69,25 +70,22 @@ public class OrderSelectionGuiView implements GuiView, DisplaysText {
 				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName()));
 		layoutTable.add(backButton);
 
-		Button buildButton = buildButton("btn_current_orders_mine", "GUI.ORDERS.MINE",
-				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, DESIGNATE_MINING));
+		Button buildButton = buildButton("btn_construction_build", "GUI.BUILD_LABEL",
+				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.BUILD_MENU));
 		layoutTable.add(buildButton);
 
-		Button chopButton = buildButton("btn_current_orders_chop", "GUI.ORDERS.CHOP_WOOD",
-				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, DESIGNATE_CHOP_WOOD));
-		layoutTable.add(chopButton);
+		Button powerWaterButton = buildButton("btn_construction_power_and_water", "GUI.POWER_LABEL",
+//				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.POWER_WATER_MENU));
+			() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.OLD_BUILD_MENU));
+		layoutTable.add(powerWaterButton);
 
-		Button clearButton = buildButton("btn_current_orders_clear", "GUI.ORDERS.CLEAR_GROUND",
-				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, DESIGNATE_CLEAR_GROUND));
-		layoutTable.add(clearButton);
+		Button deconstructButton = buildButton("btn_construction_deconstruct", "GUI.DECONSTRUCT_LABEL",
+				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, DECONSTRUCT));
+		layoutTable.add(deconstructButton);
 
-		Button extinguishButton = buildButton("btn_current_orders_extinguish", "GUI.ORDERS.EXTINGUISH_FLAMES",
-				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, DESIGNATE_EXTINGUISH_FLAMES));
-		layoutTable.add(extinguishButton);
-
-		Button removeDesignationButton = buildButton("btn_current_orders_cancel", "GUI.REMOVE_LABEL",
+		Button cancelButton = buildButton("btn_current_orders_cancel", "GUI.CANCEL_LABEL",
 				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, REMOVE_DESIGNATIONS));
-		layoutTable.add(removeDesignationButton);
+		layoutTable.add(cancelButton);
 	}
 
 	private Button buildButton(String drawableName, String tooltipI18nKey, Runnable onClick) {

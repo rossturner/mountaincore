@@ -89,6 +89,7 @@
       "liquid" : false
     } ]
   },
+  "selectionDrawableName" : "preview_flooring_floorboards",
   "constructed" : false
 }, {
   "floorTypeName" : "grass",
@@ -181,6 +182,7 @@
       "liquid" : false
     } ]
   },
+  "selectionDrawableName" : "preview_flooring_slabs",
   "constructed" : false
 }, {
   "floorTypeName" : "stone_slab",

@@ -178,4 +178,17 @@ public class FurnitureType {
 	public void setBlocksMovement(boolean blocksMovement) {
 		this.blocksMovement = blocksMovement;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		FurnitureType that = (FurnitureType) o;
+		return name.equals(that.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
 }

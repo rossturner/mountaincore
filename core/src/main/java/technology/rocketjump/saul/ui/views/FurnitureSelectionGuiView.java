@@ -165,7 +165,7 @@ public class FurnitureSelectionGuiView implements GuiView, FurnitureSelectedCall
 	@Override
 	public GuiViewName getParentViewName() {
 		if (currentRoomType == null) {
-			return GuiViewName.BUILD_MENU;
+			return GuiViewName.OLD_BUILD_MENU;
 		} else {
 			return GuiViewName.ROOM_SELECTION;
 		}
