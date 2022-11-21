@@ -2,57 +2,57 @@
   "name" : "CHEF",
   "i18nKey" : "PROFESSION.CHEF",
   "type" : "PROFESSION",
-  "icon" : "btn_room_kitchen"
+  "icon" : "settlers_job_cook"
 }, {
   "name" : "BLACKSMITH",
   "i18nKey" : "PROFESSION.BLACKSMITH",
   "type" : "PROFESSION",
-  "icon" : "btn_room_metalworks"
+  "icon" : "settlers_job_blacksmith"
 }, {
   "name" : "CARPENTER",
   "i18nKey" : "PROFESSION.CARPENTER",
   "type" : "PROFESSION",
-  "icon" : "btn_room_carpentry"
+  "icon" : "settlers_job_carpenter"
 }, {
   "name" : "FARMER",
   "i18nKey" : "PROFESSION.FARMER",
   "type" : "PROFESSION",
-  "icon" : "btn_room_farming"
+  "icon" : "settlers_job_farmer"
 }, {
   "name" : "WEAVER",
   "i18nKey" : "PROFESSION.WEAVER",
   "type" : "PROFESSION",
-  "icon" : "btn_room_weaver"
+  "icon" : "settlers_job_weaver"
 }, {
   "name" : "LUMBERJACK",
   "i18nKey" : "PROFESSION.WOODCUTTER",
   "type" : "PROFESSION",
-  "icon" : "btn_room_lumber"
+  "icon" : "settlers_job_woodcutter"
 }, {
   "name" : "MINER",
   "i18nKey" : "PROFESSION.MINER",
   "type" : "PROFESSION",
-  "icon" : "profession-pickaxe"
+  "icon" : "settlers_job_miner"
 }, {
   "name" : "STONEMASON",
   "i18nKey" : "PROFESSION.STONEMASON",
   "type" : "PROFESSION",
-  "icon" : "btn_room_stonemason"
+  "icon" : "settlers_job_stonemason"
 }, {
   "name" : "BREWER",
   "i18nKey" : "PROFESSION.BREWER",
   "type" : "PROFESSION",
-  "icon" : "btn_room_brewery"
+  "icon" : "settlers_job_brewer"
 }, {
   "name" : "FISHER",
   "i18nKey" : "PROFESSION.FISHER",
   "type" : "PROFESSION",
-  "icon" : "profession-fishing-rod"
+  "icon" : "settlers_job_fisher"
 }, {
   "name" : "LEATHERWORKER",
   "i18nKey" : "PROFESSION.LEATHERWORKER",
   "type" : "PROFESSION",
-  "icon" : "btn_room_leather"
+  "icon" : "settlers_job_leatherworker"
 }, {
   "name" : "ARCHERY",
   "i18nKey" : "SKILL.ARCHERY",
@@ -86,5 +86,5 @@
   "name" : "ARTISAN",
   "i18nKey" : "PROFESSION.ARTISAN",
   "type" : "PROFESSION",
-  "icon" : "profession-chisel"
+  "icon" : "settlers_job_artisan"
 } ]

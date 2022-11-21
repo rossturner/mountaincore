@@ -22,6 +22,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private Stack stack;
 	private final MessageDispatcher messageDispatcher;
 	private final Skin mainGameSkin;
+	private final Skin managementSkin;
 	private final MenuSkin menuSkin;
 	private final LabelFactory labelFactory;
 	private final ButtonFactory buttonFactory;
@@ -32,6 +33,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	                               LabelFactory labelFactory, ButtonFactory buttonFactory, SkillDictionary skillDictionary) {
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.menuSkin = guiSkinRepository.getMenuSkin();
+		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.labelFactory = labelFactory;
 		this.buttonFactory = buttonFactory;
 		this.skillDictionary = skillDictionary;
@@ -77,7 +79,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 		//TODO: consider a horizontal scrollbar for when more than designed professions exist
 		for (Skill profession : skillDictionary.getAllProfessions()) {
-			Drawable drawable = mainGameSkin.getDrawable(profession.getIcon());
+			Drawable drawable = managementSkin.getDrawable(profession.getIcon());
 			ImageButton button = buttonFactory.checkableButton(drawable);
 
 			professionButtons.add(button);

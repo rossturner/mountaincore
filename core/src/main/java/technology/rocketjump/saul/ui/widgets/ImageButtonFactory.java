@@ -24,7 +24,7 @@ import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 @Singleton
 public class ImageButtonFactory {
 
-	private final Skin mainGameSkin;
+	private final Skin managementSkin;
 	private final TextureAtlas textureAtlas;
 	private final NinePatch buttonNinePatch;
 
@@ -37,7 +37,7 @@ public class ImageButtonFactory {
 	@Inject
 	public ImageButtonFactory(TextureAtlasRepository textureAtlasRepository, SkillDictionary skillDictionary,
 	                          MessageDispatcher messageDispatcher, EntityRenderer entityRenderer, GuiSkinRepository guiSkinRepository) {
-		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
+		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.textureAtlas = textureAtlasRepository.get(TextureAtlasRepository.TextureAtlasType.GUI_TEXTURE_ATLAS);
 		this.messageDispatcher = messageDispatcher;
 		this.entityRenderer = entityRenderer;
@@ -57,8 +57,8 @@ public class ImageButtonFactory {
 
 		return byIconName.computeIfAbsent(iconName, (i) -> {
 			//TODO: this is backwards compatibility for remainder of game, as drawables moving to skin
-			if (mainGameSkin.has(iconName, Drawable.class) || mainGameSkin.has(iconName, TextureRegion.class)) {
-				return new ImageButton(mainGameSkin.getDrawable(iconName), buttonNinePatch, halfSize);
+			if (managementSkin.has(iconName, Drawable.class) || managementSkin.has(iconName, TextureRegion.class)) {
+				return new ImageButton(managementSkin.getDrawable(iconName), buttonNinePatch, halfSize);
 			}
 
 			Sprite iconSprite = this.textureAtlas.createSprite(iconName);
