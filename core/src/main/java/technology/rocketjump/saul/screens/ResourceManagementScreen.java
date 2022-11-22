@@ -35,6 +35,7 @@ import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.i18n.*;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.*;
 
@@ -60,8 +61,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 	private final MenuSkin menuSkin;
 	private final Skin mainGameSkin;
-	private final Skin managementSkin;
-	private final Drawable[] btnResourceItemVariants;
+	private final ManagementSkin managementSkin;
 	private final Map<ItemQuality, Drawable> qualityStars;
 	private final ScrollPane scrollPane;
 	private final Image fullScreenOverlay;
@@ -92,12 +92,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.labelFactory = labelFactory;
 		this.buttonFactory = buttonFactory;
-		btnResourceItemVariants = new Drawable[]{
-				managementSkin.getDrawable("btn_resources_item_01"),
-				managementSkin.getDrawable("btn_resources_item_02"),
-				managementSkin.getDrawable("btn_resources_item_03"),
-				managementSkin.getDrawable("btn_resources_item_04")
-		};
+
 		this.qualityStars = Map.of(
 				ItemQuality.AWFUL, managementSkin.getDrawable("asset_quality_star_01"),
 				ItemQuality.POOR, managementSkin.getDrawable("asset_quality_star_02"),
@@ -648,10 +643,6 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		}
 	}
 
-	private Drawable bgForExampleEntity(long entityId) {
-		return btnResourceItemVariants[(int) (entityId % btnResourceItemVariants.length)];
-	}
-
 	private Button buildIconSortButton(String drawableName, Comparator<List<Entity>> sortFunction) {
 		Image icon = new Image(managementSkin.getDrawable(drawableName));
 		ImageTextButton button = new ImageTextButton("", managementSkin, "sort_by_button");
@@ -699,7 +690,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	private Actor buildEntityButton(Entity exampleEntity, int quantity) {
 		Stack entityStack = new Stack();
 
-		Drawable btnResourceItemBg = bgForExampleEntity(exampleEntity.getId());
+		Drawable btnResourceItemBg = managementSkin.bgForExampleEntity(exampleEntity.getId());
 		Button itemTypeButton = new Button(new EntityDrawable(
 				exampleEntity, entityRenderer, true, messageDispatcher
 		).withBackground(btnResourceItemBg));

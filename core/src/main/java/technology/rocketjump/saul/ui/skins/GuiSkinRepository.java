@@ -27,7 +27,7 @@ public class GuiSkinRepository implements Telegraph {
 	private final Skin uiSkin = new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")); // MODDING expose this or change uiskin.json
 	private final MenuSkin menuSkin;
 	private final Skin mainGameSkin;
-	private final Skin managementSkin;
+	private final ManagementSkin managementSkin;
 
 	@Inject
 	public GuiSkinRepository(FontRepository fontRepository, OnDemandFontRepository onDemandFontRepository, MessageDispatcher messageDispatcher) {
@@ -36,7 +36,7 @@ public class GuiSkinRepository implements Telegraph {
 
 		mainGameSkin = loadSkin(MAIN_GAME_SKIN_FILE_PATH, new Skin());
 		menuSkin = loadSkin(MENU_SKIN_FILE_PATH, new MenuSkin());
-		managementSkin = loadSkin(MANAGEMENT_SKIN_FILE_PATH, new Skin());
+		managementSkin = loadSkin(MANAGEMENT_SKIN_FILE_PATH, new ManagementSkin());
 
 		if (!VisUI.isLoaded()) {
 			VisUI.load();
@@ -86,7 +86,7 @@ public class GuiSkinRepository implements Telegraph {
 		return mainGameSkin;
 	}
 
-	public Skin getManagementSkin() {
+	public ManagementSkin getManagementSkin() {
 		return managementSkin;
 	}
 

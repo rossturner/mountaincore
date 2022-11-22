@@ -9,29 +9,40 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
+import technology.rocketjump.saul.rendering.entities.EntityRenderer;
+import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.ButtonFactory;
+import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
+import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.LabelFactory;
 
 import javax.inject.Singleton;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.function.Function;
 
 @Singleton
-public class SettlerManagementScreen extends AbstractGameScreen implements DisplaysText {
+public class SettlerManagementScreen extends AbstractGameScreen implements DisplaysText, GameContextAware {
 	private static final Comparator<Entity> SORT_HAPPINESS = Comparator.comparingInt(settler -> settler.getComponent(HappinessComponent.class).getNetModifier());
-	private static final Comparator<Entity> SORT_NAME = Comparator.comparing(settler -> ((CreatureEntityAttributes)settler.getPhysicalEntityComponent().getAttributes()).getName().toString());
+	private static final Comparator<Entity> SORT_NAME = Comparator.comparing(SettlerManagementScreen::getName);
 	private static final Comparator<Entity> SORT_SKILL_LEVEL = Comparator.comparing(settler -> {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		java.util.List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
@@ -50,22 +61,30 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		}
 	}).thenComparing(SORT_NAME);
 
+	private static String getName(Entity settler) {
+		return ((CreatureEntityAttributes) settler.getPhysicalEntityComponent().getAttributes()).getName().toString();
+	}
+
 	private final MessageDispatcher messageDispatcher;
-	private final Skin managementSkin;
+	private final ManagementSkin managementSkin;
 	private final MenuSkin menuSkin;
 	private final I18nTranslator i18nTranslator;
 	private final LabelFactory labelFactory;
 	private final ButtonFactory buttonFactory;
 	private final SkillDictionary skillDictionary;
+	private final SettlerTracker settlerTracker;
+	private final EntityRenderer entityRenderer;
 
+	private GameContext gameContext;
 	private Stack stack;
+	private ScrollPane scrollPane;
 	private Label filterNameLabel;
 	private Comparator<Entity> selectedSortFunction;
 
 	@Inject
 	public SettlerManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 	                               I18nTranslator i18nTranslator, LabelFactory labelFactory, ButtonFactory buttonFactory,
-	                               SkillDictionary skillDictionary) {
+	                               SkillDictionary skillDictionary, SettlerTracker settlerTracker, EntityRenderer entityRenderer) {
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.i18nTranslator = i18nTranslator;
@@ -73,6 +92,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		this.buttonFactory = buttonFactory;
 		this.skillDictionary = skillDictionary;
 		this.messageDispatcher = messageDispatcher;
+		this.settlerTracker = settlerTracker;
+		this.entityRenderer = entityRenderer;
 	}
 
 	@Override
@@ -102,6 +123,12 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		filterNameLabel = new Label("", managementSkin, "stockpile_group_filter_label"); //probably should be scaled to fit label
 		filterNameLabel.setAlignment(Align.left);
 
+		scrollPane = new EnhancedScrollPane(null, menuSkin);
+		scrollPane.setForceScroll(false, true);
+		scrollPane.setFadeScrollBars(false);
+		scrollPane.setScrollbarsVisible(true);
+		scrollPane.setScrollBarPositions(true, true);
+
 		stack = new Stack();
 		stack.setFillParent(true);
 		stack.add(menuSkin.buildBackgroundBaseLayer());
@@ -116,7 +143,6 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		//TODO: consider a horizontal scrollbar for when more than designed professions exist
 		Table professionButtons = new Table();
 		ButtonGroup<ImageButton> professionButtonGroup = new ButtonGroup<>();
-
 		professionFilterButton(professionButtonGroup, professionButtons, "settlers_all", "GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN");
 		professionFilterButton(professionButtonGroup, professionButtons, "settlers_military", "GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY");
 		for (Skill profession : skillDictionary.getAllProfessions()) {
@@ -147,7 +173,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		table.add(titleLabel).row();
 		table.add(professionButtons).row();
 		table.add(filters).growX().row();
-
+		table.add(new Image(managementSkin.getDrawable("asset_resources_line"))).row();
+		table.add(scrollPane).row();
 		return table;
 	}
 
@@ -160,7 +187,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				if (button.isChecked()) {
 					filterNameLabel.setText(i18nTranslator.translate(i18nKey));
 					//
-					//				rebuildSettlerTable();
+					rebuildSettlerTable();
 				}
 			}
 		});
@@ -185,10 +212,78 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				} else {
 					selectedSortFunction = null;
 				}
-//				rebuildSettlerTable();
+				rebuildSettlerTable();
 			}
 		});
 		buttonFactory.attachClickCursor(button, GameCursor.SELECT);
 		return button;
+	}
+
+	private void rebuildSettlerTable() {
+		Collection<Entity> settlers = settlerTracker.getLiving();
+		//TODO: apply filters and sorts here
+
+		Table settlersTable = new Table();
+		//TODO: most of these components should be reusable on entity selection views
+		for (Entity settler : settlers) {
+			Table mugshotColumn = mugshot(settler);
+			Table textSummaryColumn = textSummary(settler);
+
+
+			Table row = new Table();
+			row.debugAll();
+			row.add(mugshotColumn).spaceRight(50f);
+			row.add(textSummaryColumn).fillX().spaceRight(50f);
+
+			settlersTable.add(row).left().uniformX().row();
+		}
+
+		scrollPane.setActor(settlersTable);
+	}
+
+	private Table textSummary(Entity settler) {
+		String settlerName = getName(settler);
+		java.util.List<String> behaviourDescriptions = new ArrayList<>();
+		//TODO: if in military, get rank
+		if (settler.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+			java.util.List<I18nText> description = creatureBehaviour.getDescription(i18nTranslator, gameContext, messageDispatcher);
+			for (I18nText i18nText : description) {
+				behaviourDescriptions.add(i18nText.toString());
+			}
+		}
+
+		Table table = new Table();
+		Label nameLabel = new Label(settlerName, managementSkin, "table_value_label");
+		nameLabel.setAlignment(Align.left);
+		table.add(nameLabel).fillX().row();
+
+		for (String behaviourDescription : behaviourDescriptions) {
+			Label descriptionLabel = new Label(behaviourDescription, managementSkin, "table_value_label");
+			descriptionLabel.setAlignment(Align.left);
+			table.add(descriptionLabel).fillX().row();
+		}
+
+		return table;
+	}
+
+	private Table mugshot(Entity settler) {
+		Table table = new Table();
+		float scaleFactor = 0.9f;
+		Drawable background = managementSkin.bgForExampleEntity(settler.getId());
+		table.setBackground(background);
+		EntityDrawable entityDrawable = new EntityDrawable(settler, entityRenderer, true, messageDispatcher);
+		entityDrawable.setMinSize(background.getMinWidth() * scaleFactor, background.getMinHeight()  * scaleFactor);
+		table.add(new Image(entityDrawable));
+		return table;
+	}
+
+	@Override
+	public void onContextChange(GameContext gameContext) {
+		this.gameContext = gameContext;
+	}
+
+	@Override
+	public void clearContextRelatedState() {
+
 	}
 }
