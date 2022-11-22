@@ -3,15 +3,19 @@ package technology.rocketjump.saul.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
+import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
+import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
@@ -20,6 +24,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
+import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
@@ -235,6 +240,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table mugshotColumn = mugshot(settler);
 			Table textSummaryColumn = textSummary(settler);
 			Table happinessColumn = happiness(settler);
+			Table needsColumn = needs(settler);
 
 
 
@@ -242,11 +248,50 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			settlersTable.add(mugshotColumn).spaceRight(50f);
 			settlersTable.add(textSummaryColumn).fillX().spaceRight(50f);
 			settlersTable.add(happinessColumn).spaceRight(50f);
+			settlersTable.add(needsColumn).spaceRight(50f);
 
 			settlersTable.left().row();
 		}
 
 		scrollPane.setActor(settlersTable);
+	}
+
+	private Table needs(Entity settler) {
+		Table table = new Table();
+		NeedsComponent needsComponent = settler.getComponent(NeedsComponent.class);
+		if (needsComponent != null) {
+			for (Map.Entry<EntityNeed, Double> entry : needsComponent.getAll()) {
+				EntityNeed need = entry.getKey();
+				Double needValue = entry.getValue();
+				if (needValue != null) {
+					Label needLabel = new Label(i18nTranslator.translate(need.getI18nKey()), managementSkin, "item_type_name_label");
+					ProgressBar progressBar = new ProgressBar((float) NeedsComponent.MIN_NEED_VALUE, (float) NeedsComponent.MAX_NEED_VALUE, 1, false, managementSkin);
+					progressBar.setValue(Math.round(needValue));
+					progressBar.setDisabled(true);
+					progressBar.setWidth(318);
+					progressBar.setHeight(42);
+					Color progressBarColour;
+					if (needValue >= 55f) {
+						progressBarColour = ColorMixer.interpolate(55f, (float) NeedsComponent.MAX_NEED_VALUE, needValue.floatValue(), managementSkin.getColor("progress_bar_yellow"), managementSkin.getColor("progress_bar_green"));
+					} else {
+						progressBarColour = ColorMixer.interpolate((float) NeedsComponent.MIN_NEED_VALUE, 55f, needValue.floatValue(), managementSkin.getColor("progress_bar_red"), managementSkin.getColor("progress_bar_yellow"));
+					}
+//					progressBar.setColor(progressBarColour);
+					ProgressBar.ProgressBarStyle clonedStyle = new ProgressBar.ProgressBarStyle(progressBar.getStyle());
+					if (clonedStyle.knobBefore instanceof NinePatchDrawable ninePatchDrawable) {
+						clonedStyle.knobBefore = ninePatchDrawable.tint(progressBarColour);
+					}
+					progressBar.setStyle(clonedStyle);
+
+
+					table.add(needLabel).right().spaceRight(5);
+					table.add(progressBar).left().width(318).height(42);
+					table.row();
+				}
+			}
+
+		}
+		return table;
 	}
 
 	private Table happiness(Entity settler) {

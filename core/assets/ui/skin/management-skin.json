@@ -6,6 +6,15 @@ com.badlogic.gdx.graphics.Color: {
 	primary_font_colour_red: {
 		hex: 913614ff
 	}
+	progress_bar_green: {
+		hex: 9fc100ff
+	}
+	progress_bar_red: {
+		hex: c10035ff
+	}
+	progress_bar_yellow: {
+		hex: edb000ff
+	}
 	search_bar_selection_colour: {
 		hex: a44929ff
 	}
@@ -77,6 +86,9 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: default-font-16
+	}
 	stockpile_group_filter_label: {
 		font: header-font-36
 		fontColor: primary_font_colour_red
@@ -99,6 +111,12 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		background: icon_number_bg
 	}
 }
+com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
+	default-horizontal: {
+		background: bar_bg
+		knobBefore: progress_bar_knob
+	}
+}
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	goto_dwarf_button: {
 		font: default-font-24
@@ -113,6 +131,11 @@ com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 		background: search_bar_v3.9
 		cursor: search_bar_cursor
 		selection: search_bar_selection
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
