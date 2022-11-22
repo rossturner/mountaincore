@@ -911,6 +911,46 @@ atlasData: {
 			type: TEXTURE
 			hidden: false
 		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_happy.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: icon_happy
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_sad.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: icon_sad
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
 	]
 	fontDrawables: []
 }
@@ -2343,7 +2383,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: default-font-16
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color
@@ -3536,35 +3576,38 @@ sceneComposer: {
 			class: com.ray3k.skincomposer.dialog.scenecomposer.DialogSceneComposerModel$SimTable
 			cells: [
 				{
-					child: {
-						class: com.ray3k.skincomposer.dialog.scenecomposer.DialogSceneComposerModel$SimImage
-						name: null
-						drawable: {
-							file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/btn_go_to_dwarf_info.png
-							bgColor: {
-								r: 1
-								g: 1
-								b: 1
-								a: 1
-							}
-							tint: null
-							tintName: null
-							name: btn_go_to_dwarf_info
-							tiled: false
-							minWidth: -1
-							minHeight: -1
-							customized: false
-							tenPatchData: null
-							tvgData: null
-							type: TEXTURE
-							hidden: false
-						}
-						scaling: stretch
-						touchable: enabled
-						visible: true
-					}
+					child: null
 					row: 0
 					column: 0
+					padLeft: 0
+					padRight: 0
+					padTop: 0
+					padBottom: 0
+					spaceLeft: 0
+					spaceRight: 0
+					spaceTop: 0
+					spaceBottom: 0
+					expandX: false
+					expandY: false
+					fillX: false
+					fillY: false
+					growX: false
+					growY: false
+					alignment: 1
+					minWidth: -1
+					minHeight: -1
+					maxWidth: -1
+					maxHeight: -1
+					preferredWidth: -1
+					preferredHeight: -1
+					uniformX: false
+					uniformY: false
+					colSpan: 1
+				}
+				{
+					child: null
+					row: 0
+					column: 1
 					padLeft: 0
 					padRight: 0
 					padTop: 0
@@ -3621,6 +3664,35 @@ sceneComposer: {
 				}
 				{
 					child: null
+					row: 1
+					column: 1
+					padLeft: 0
+					padRight: 0
+					padTop: 0
+					padBottom: 0
+					spaceLeft: 0
+					spaceRight: 0
+					spaceTop: 0
+					spaceBottom: 0
+					expandX: false
+					expandY: false
+					fillX: false
+					fillY: false
+					growX: false
+					growY: false
+					alignment: 1
+					minWidth: -1
+					minHeight: -1
+					maxWidth: -1
+					maxHeight: -1
+					preferredWidth: -1
+					preferredHeight: -1
+					uniformX: false
+					uniformY: false
+					colSpan: 1
+				}
+				{
+					child: null
 					row: 2
 					column: 0
 					padLeft: 0
@@ -3650,92 +3722,8 @@ sceneComposer: {
 				}
 				{
 					child: null
-					row: 3
-					column: 0
-					padLeft: 0
-					padRight: 0
-					padTop: 0
-					padBottom: 0
-					spaceLeft: 0
-					spaceRight: 0
-					spaceTop: 0
-					spaceBottom: 0
-					expandX: false
-					expandY: false
-					fillX: false
-					fillY: false
-					growX: false
-					growY: false
-					alignment: 1
-					minWidth: -1
-					minHeight: -1
-					maxWidth: -1
-					maxHeight: -1
-					preferredWidth: -1
-					preferredHeight: -1
-					uniformX: false
-					uniformY: false
-					colSpan: 1
-				}
-				{
-					child: {
-						class: com.ray3k.skincomposer.dialog.scenecomposer.DialogSceneComposerModel$SimImage
-						name: null
-						drawable: {
-							file: G:/Shared drives/Rocket Jump Technology team/Artwork/Project Saul/Project Saul - UI And Art Assets/UI_Assets/4K/RESOURCES_MENU/btn_go_to_dwarf_info.png
-							bgColor: {
-								r: 1
-								g: 1
-								b: 1
-								a: 1
-							}
-							tint: null
-							tintName: null
-							name: btn_go_to_dwarf_info
-							tiled: false
-							minWidth: -1
-							minHeight: -1
-							customized: false
-							tenPatchData: null
-							tvgData: null
-							type: TEXTURE
-							hidden: false
-						}
-						scaling: stretch
-						touchable: enabled
-						visible: true
-					}
-					row: 4
-					column: 0
-					padLeft: 0
-					padRight: 0
-					padTop: 0
-					padBottom: 0
-					spaceLeft: 0
-					spaceRight: 0
-					spaceTop: 0
-					spaceBottom: 0
-					expandX: false
-					expandY: false
-					fillX: false
-					fillY: false
-					growX: false
-					growY: false
-					alignment: 1
-					minWidth: -1
-					minHeight: -1
-					maxWidth: -1
-					maxHeight: -1
-					preferredWidth: -1
-					preferredHeight: -1
-					uniformX: false
-					uniformY: false
-					colSpan: 1
-				}
-				{
-					child: null
-					row: 5
-					column: 0
+					row: 2
+					column: 1
 					padLeft: 0
 					padRight: 0
 					padTop: 0
@@ -3763,55 +3751,7 @@ sceneComposer: {
 				}
 			]
 			name: null
-			background: {
-				file: C:/Users/miker/Desktop/nine-patch-work/asset_more_info_bg.png
-				bgColor: {
-					r: 1
-					g: 1
-					b: 1
-					a: 1
-				}
-				tint: null
-				tintName: null
-				name: asset_more_info_bg_10patch
-				tiled: false
-				minWidth: -1
-				minHeight: -1
-				customized: false
-				tenPatchData: {
-					horizontalStretchAreas: {
-						items: [ 65, 730, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
-						size: 2
-						ordered: true
-					}
-					verticalStretchAreas: {
-						items: [ 0, 10, 390, 399, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
-						size: 4
-						ordered: true
-					}
-					contentLeft: 65
-					contentRight: 13
-					contentTop: 0
-					contentBottom: 0
-					tile: false
-					colorName: null
-					color1Name: null
-					color2Name: null
-					color3Name: null
-					color4Name: null
-					offsetX: 0
-					offsetY: 0
-					offsetXspeed: 0
-					offsetYspeed: 0
-					frameDuration: 0.03
-					regionNames: []
-					playMode: 2
-					crushMode: 0
-				}
-				tvgData: null
-				type: TENPATCH
-				hidden: false
-			}
+			background: null
 			color: null
 			padLeft: 0
 			padRight: 0

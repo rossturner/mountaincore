@@ -22,9 +22,12 @@ import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
@@ -37,6 +40,7 @@ import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.function.Function;
 
 @Singleton
@@ -74,6 +78,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private final SkillDictionary skillDictionary;
 	private final SettlerTracker settlerTracker;
 	private final EntityRenderer entityRenderer;
+	private final TooltipFactory tooltipFactory;
 
 	private GameContext gameContext;
 	private Stack stack;
@@ -84,7 +89,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	@Inject
 	public SettlerManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 	                               I18nTranslator i18nTranslator, LabelFactory labelFactory, ButtonFactory buttonFactory,
-	                               SkillDictionary skillDictionary, SettlerTracker settlerTracker, EntityRenderer entityRenderer) {
+	                               SkillDictionary skillDictionary, SettlerTracker settlerTracker, EntityRenderer entityRenderer,
+	                               TooltipFactory tooltipFactory) {
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.i18nTranslator = i18nTranslator;
@@ -94,6 +100,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		this.messageDispatcher = messageDispatcher;
 		this.settlerTracker = settlerTracker;
 		this.entityRenderer = entityRenderer;
+		this.tooltipFactory = tooltipFactory;
 	}
 
 	@Override
@@ -224,21 +231,63 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		//TODO: apply filters and sorts here
 
 		Table settlersTable = new Table();
-		//TODO: most of these components should be reusable on entity selection views
 		for (Entity settler : settlers) {
 			Table mugshotColumn = mugshot(settler);
 			Table textSummaryColumn = textSummary(settler);
+			Table happinessColumn = happiness(settler);
 
 
-			Table row = new Table();
-			row.debugAll();
-			row.add(mugshotColumn).spaceRight(50f);
-			row.add(textSummaryColumn).fillX().spaceRight(50f);
 
-			settlersTable.add(row).left().uniformX().row();
+			settlersTable.debugAll();
+			settlersTable.add(mugshotColumn).spaceRight(50f);
+			settlersTable.add(textSummaryColumn).fillX().spaceRight(50f);
+			settlersTable.add(happinessColumn).spaceRight(50f);
+
+			settlersTable.left().row();
 		}
 
 		scrollPane.setActor(settlersTable);
+	}
+
+	private Table happiness(Entity settler) {
+		HappinessComponent happinessComponent = settler.getComponent(HappinessComponent.class);
+		int netHappiness = happinessComponent.getNetModifier();
+		String netHappinessString = (netHappiness > 0 ? "+" : "") + netHappiness;
+		String happinessText = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.HAPPINESS", Map.of(
+				"happinessValue", new I18nWord(netHappinessString)
+		)).toString();
+		Label happinessLabel = tableLabel(happinessText);
+
+		Table modifiersTable = new Table();
+		int modifierCount = 1;
+		for (HappinessComponent.HappinessModifier modifier : happinessComponent.currentModifiers()) {
+			int modifierAmount = modifier.modifierAmount;
+			final String drawableName;
+			if (modifierAmount > 0) {
+				drawableName = "icon_happy";
+			} else {
+				drawableName = "icon_sad";
+			}
+			Image modifierImage = new Image(managementSkin.getDrawable(drawableName));
+			tooltipFactory.simpleTooltip(modifierImage, modifier.getI18nKey(), TooltipLocationHint.BELOW);
+
+			modifiersTable.add(modifierImage).space(10f);
+
+			if (modifierCount % 5 == 0) {
+				modifiersTable.row();
+			}
+			modifierCount++;
+		}
+
+
+
+		Table table = new Table();
+		table.add(happinessLabel).row();
+		table.add(modifiersTable);
+
+
+
+		return table;
 	}
 
 	private Table textSummary(Entity settler) {
@@ -253,14 +302,14 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		}
 
 		Table table = new Table();
-		Label nameLabel = new Label(settlerName, managementSkin, "table_value_label");
+		Label nameLabel = tableLabel(settlerName);
 		nameLabel.setAlignment(Align.left);
-		table.add(nameLabel).fillX().row();
+		table.add(nameLabel).growX().row();
 
 		for (String behaviourDescription : behaviourDescriptions) {
-			Label descriptionLabel = new Label(behaviourDescription, managementSkin, "table_value_label");
+			Label descriptionLabel = tableLabel(behaviourDescription);
 			descriptionLabel.setAlignment(Align.left);
-			table.add(descriptionLabel).fillX().row();
+			table.add(descriptionLabel).growX().row();
 		}
 
 		return table;
@@ -285,5 +334,9 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	@Override
 	public void clearContextRelatedState() {
 
+	}
+
+	private Label tableLabel(String text) {
+		return new Label(text, managementSkin, "table_value_label");
 	}
 }
