@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.CollapsibleWidget;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -34,8 +33,6 @@ import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
-import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.*;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
@@ -61,7 +58,6 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	private final SettlementItemTracker settlementItemTracker;
 	private final EntityRenderer entityRenderer;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
-	private final SoundAssetDictionary soundAssetDictionary;
 	private final MenuSkin menuSkin;
 	private final Skin mainGameSkin;
 	private final Skin managementSkin;
@@ -85,13 +81,12 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	public ResourceManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 	                                I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker,
 	                                EntityRenderer entityRenderer, StockpileGroupDictionary stockpileGroupDictionary,
-	                                SoundAssetDictionary soundAssetDictionary, LabelFactory labelFactory, ButtonFactory buttonFactory) {
+	                                LabelFactory labelFactory, ButtonFactory buttonFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
 		this.settlementItemTracker = settlementItemTracker;
 		this.entityRenderer = entityRenderer;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
-		this.soundAssetDictionary = soundAssetDictionary;
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
@@ -179,7 +174,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
 			}
 		});
-		attachClickCursor(exitButton, GameCursor.SELECT);
+		buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
 		table.add(exitButton).expandX().align(Align.topLeft).padLeft(257 + menuSkin.getDrawable("paper_texture_bg_pattern_large").getMinWidth() + 5f).padTop(5f).row();
 		table.add().grow();
 		return table;
@@ -240,7 +235,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 				return true;
 			}
 		});
-		attachClickCursor(searchBar, GameCursor.I_BEAM);
+		buttonFactory.attachClickCursor(searchBar, GameCursor.I_BEAM);
 		Label sortByLabel  = new Label(i18nTranslator.translate("GUI.RESOURCE_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
 
 		Comparator<List<Entity>> quantityComparator = Comparator.comparing((Function<List<Entity>, Integer>) entities -> groupSum(entities, entity -> ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getQuantity())).reversed();
@@ -337,7 +332,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 						String owningEntityDescription = i18nTranslator.getDescription(owningEntity).toString();
 
 						TextButton gotoOwnerButton = new TextButton(owningEntityDescription, managementSkin, "goto_dwarf_button");
-						attachClickCursor(gotoOwnerButton, GameCursor.SELECT);
+						buttonFactory.attachClickCursor(gotoOwnerButton, GameCursor.SELECT);
 						gotoOwnerButton.addListener(new ClickListener() {
 							@Override
 							public void clicked(InputEvent event, float x, float y) {
@@ -369,7 +364,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 				removeInfoPane();
 			}
 		});
-		attachClickCursor(exitButton, GameCursor.SELECT);
+		buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
 		sideTable.add(exitButton).expandX().align(Align.topLeft).pad(5f).row();
 		sideTable.add(infoTitle).width(wrappedLabelWidth).padBottom(100).row();
 		sideTable.add(entitiesScrollpane).growY().row();
@@ -560,7 +555,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 							event.stop();
 						}
 					});
-					attachClickCursor(infoButton, GameCursor.SELECT);
+					buttonFactory.attachClickCursor(infoButton, GameCursor.SELECT);
 				} else {
 					infoButton.setVisible(false);
 				}
@@ -596,7 +591,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 						itemRow.setBackground((Drawable) null);
 					}
 				});
-				attachClickCursor(itemRow, GameCursor.SELECT);
+				buttonFactory.attachClickCursor(itemRow, GameCursor.SELECT);
 
 				if (childTable.hasChildren()) {
 					CollapsibleWidget collapsibleWidget = new CollapsibleWidget(childTable);
@@ -676,7 +671,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 				rebuildStockpileComponents();
 			}
 		});
-		attachClickCursor(button, GameCursor.SELECT);
+		buttonFactory.attachClickCursor(button, GameCursor.SELECT);
 		return button;
 	}
 
@@ -697,13 +692,8 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 				rebuildStockpileComponents();
 			}
 		});
-		attachClickCursor(button, GameCursor.SELECT);
+		buttonFactory.attachClickCursor(button, GameCursor.SELECT);
 		return button;
-	}
-
-	private void attachClickCursor(Actor actor, GameCursor gameCursor) {
-		actor.addListener(new ChangeCursorOnHover(actor, gameCursor, messageDispatcher));
-		actor.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 	}
 
 	private Actor buildEntityButton(Entity exampleEntity, int quantity) {

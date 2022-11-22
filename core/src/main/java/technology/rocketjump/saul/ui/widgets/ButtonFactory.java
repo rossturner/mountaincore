@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
@@ -34,8 +35,12 @@ public class ButtonFactory {
 		ImageButton.ImageButtonStyle clonedStyle = new ImageButton.ImageButtonStyle(menuSkin.get("default", ImageButton.ImageButtonStyle.class));
 		clonedStyle.imageUp = drawable;
 		ImageButton button = new ImageButton(clonedStyle);
-		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
-		button.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		attachClickCursor(button, GameCursor.SELECT);
 		return button;
+	}
+
+	public void attachClickCursor(Actor button, GameCursor cursor) {
+		button.addListener(new ChangeCursorOnHover(button, cursor, messageDispatcher));
+		button.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 	}
 }

@@ -627,10 +627,10 @@ GUI.SELECT_WEAPON.LABEL,,Select weapon
 GUI.SETTINGS.LABEL,,Settings
 GUI.SETTLER_MANAGEMENT.HAPPINESS,,Happiness {{happinessValue}}
 GUI.SETTLER_MANAGEMENT.POPULATION_CAP,,Population Cap
-GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}})
+GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}}
 GUI.SETTLER_MANAGEMENT.SEARCH,,Search
 GUI.SETTLER_MANAGEMENT.SORT.HAPPINESS,,Happiness
-GUI.SETTLER_MANAGEMENT.SORT.MILITARY,,Military/Civilian
+GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN,,Military/Civilian
 GUI.SETTLER_MANAGEMENT.SORT.NAME,,Name
 GUI.SETTLER_MANAGEMENT.SORT.SKILL_LEVEL,,Skill Level
 GUI.SETTLER_MANAGEMENT.SORT_BY,,Sort By
