@@ -40,7 +40,7 @@ public class RoofingViewModeRenderer {
 		this.jobStore = jobStore;
 
 		TextureAtlas guiAtlas = textureAtlasRepository.get(TextureAtlasRepository.TextureAtlasType.GUI_TEXTURE_ATLAS);
-		roofingSprite = guiAtlas.createSprite("triple-gate");
+		roofingSprite = guiAtlas.createSprite("roof_tile_sized");
 //		deconstructSprite = guiAtlas.createSprite("demolish");
 	}
 

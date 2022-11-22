@@ -118,6 +118,8 @@ public class GameInteractionStateContainer implements GameContextAware {
 	// Floor placement info
 	private MaterialSelectionMessage floorMaterialSelection = new MaterialSelectionMessage(GameMaterialType.STONE, NULL_MATERIAL, null);
 	private FloorType floorTypeToPlace;
+	// Roof placement info
+	private MaterialSelectionMessage roofMaterialSelection = new MaterialSelectionMessage(GameMaterialType.WOOD, NULL_MATERIAL, null);
 	// Mechanism placement info
 	private MechanismType mechanismTypeToPlace;
 
@@ -824,6 +826,14 @@ public class GameInteractionStateContainer implements GameContextAware {
 
 	public MaterialSelectionMessage getFloorMaterialSelection() {
 		return floorMaterialSelection;
+	}
+
+	public MaterialSelectionMessage getRoofMaterialSelection() {
+		return roofMaterialSelection;
+	}
+
+	public void setRoofMaterialSelection(MaterialSelectionMessage roofMaterialSelection) {
+		this.roofMaterialSelection = roofMaterialSelection;
 	}
 
 	private boolean channelIsUnderEndOfBridge(int minX, int maxX, int minY, int maxY, BridgeOrientation orientation) {

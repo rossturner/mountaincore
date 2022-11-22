@@ -63,6 +63,7 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 		reset(null);
 
 		messageDispatcher.addListener(this, MessageType.SETTLEMENT_SPAWNED);
+		messageDispatcher.addListener(this, MessageType.GUI_VIEW_MODE_CHANGED);
 	}
 
 	private void reset(GameContext gameContext) {
@@ -150,6 +151,10 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 		switch (msg.message) {
 			case MessageType.SETTLEMENT_SPAWNED: {
 				reset(gameContext);
+				return true;
+			}
+			case MessageType.GUI_VIEW_MODE_CHANGED: {
+				rebuildUI();
 				return true;
 			}
 			default:

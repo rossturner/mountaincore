@@ -28,6 +28,7 @@ public class MessageType {
 	public static final int TRIGGER_SCREEN_SHAKE = 206;
 
 	// GUI Messages
+	public static final int GUI_VIEW_MODE_CHANGED = 246;
 	public static final int ROOM_PLACEMENT = 247;
 	public static final int AREA_SELECTION = 248;
 	public static final int GUI_SWITCH_VIEW = 249;
@@ -182,6 +183,7 @@ public class MessageType {
 	public static final int LOOKUP_FURNITURE_TYPE = 825;
 	public static final int FURNITURE_ATTRIBUTES_CREATION_REQUEST = 826;
 	public static final int FURNITURE_CREATION_REQUEST = 827;
+	public static final int ROOF_MATERIAL_SELECTED = 828;
 
 	// Construction-specific messages
 	public static final int CANCEL_CONSTRUCTION = 900;

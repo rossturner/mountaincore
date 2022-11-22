@@ -105,6 +105,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.GUI_STOCKPILE_GROUP_SELECTED);
 		messageDispatcher.addListener(this, MessageType.CANCEL_SCREEN_OR_GO_TO_MAIN_MENU);
 		messageDispatcher.addListener(this, MessageType.BEGIN_SPAWN_SETTLEMENT);
+		messageDispatcher.addListener(this, MessageType.ROOF_MATERIAL_SELECTED);
 		// FIXME Should these really live here?
 		for (WallType wallType : wallTypeDictionary.getAllDefinitions()) {
 			if (wallType.isConstructed()) {
@@ -216,6 +217,11 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 				MaterialSelectionMessage materialSelectionMessage = (MaterialSelectionMessage) msg.extraInfo;
 				interactionStateContainer.setWallMaterialSelection(materialSelectionMessage);
 				interactionStateContainer.setWallTypeToPlace(wallTypeMapping.get(materialSelectionMessage.selectedMaterialType));
+				return true;
+			}
+			case MessageType.ROOF_MATERIAL_SELECTED: {
+				MaterialSelectionMessage materialSelectionMessage = (MaterialSelectionMessage) msg.extraInfo;
+				interactionStateContainer.setRoofMaterialSelection(materialSelectionMessage);
 				return true;
 			}
 			case MessageType.FLOOR_MATERIAL_SELECTED: {
