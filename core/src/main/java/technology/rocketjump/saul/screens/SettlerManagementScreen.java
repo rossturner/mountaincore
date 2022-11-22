@@ -78,6 +78,11 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Table professionButtons = new Table();
 
 		//TODO: consider a horizontal scrollbar for when more than designed professions exist
+		ImageButton civilianButton = buttonFactory.checkableButton(managementSkin.getDrawable("settlers_all"));
+		ImageButton militaryButton = buttonFactory.checkableButton(managementSkin.getDrawable("settlers_military"));
+
+		professionButtons.add(civilianButton);
+		professionButtons.add(militaryButton);
 		for (Skill profession : skillDictionary.getAllProfessions()) {
 			Drawable drawable = managementSkin.getDrawable(profession.getIcon());
 			ImageButton button = buttonFactory.checkableButton(drawable);
@@ -85,6 +90,9 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			professionButtons.add(button);
 		}
 
+		ImageButton villagerButton = buttonFactory.checkableButton(managementSkin.getDrawable("settlers_job_villager"));
+
+		professionButtons.add(villagerButton);
 
 
 		Table table = new Table();

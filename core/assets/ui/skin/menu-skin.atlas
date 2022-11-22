@@ -34,7 +34,7 @@ arrow_right
   index: -1
 asset_audio_slider_cropped
   rotate: false
-  xy: 2870, 5709
+  xy: 1549, 844
   size: 18, 18
   split: 2, 2, 2, 2
   orig: 18, 18
@@ -364,6 +364,22 @@ selected_save_bg_patch
   size: 127, 96
   split: 32, 32, 32, 32
   orig: 127, 96
+  offset: 0, 0
+  index: -1
+thin-selected_bg
+  rotate: false
+  xy: 2870, 5707
+  size: 20, 20
+  split: 8, 8, 8, 8
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+thin-transparent_selected_bg
+  rotate: false
+  xy: 886, 3008
+  size: 20, 20
+  split: 8, 8, 8, 8
+  orig: 20, 20
   offset: 0, 0
   index: -1
 title_ribbon_bg_mike
