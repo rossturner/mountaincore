@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
@@ -58,6 +59,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private final SkillDictionary skillDictionary;
 
 	private Stack stack;
+	private Label filterNameLabel;
 	private Comparator<Entity> selectedSortFunction;
 
 	@Inject
@@ -97,6 +99,9 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 	@Override
 	public void rebuildUI() {
+		filterNameLabel = new Label("", managementSkin, "stockpile_group_filter_label"); //probably should be scaled to fit label
+		filterNameLabel.setAlignment(Align.left);
+
 		stack = new Stack();
 		stack.setFillParent(true);
 		stack.add(menuSkin.buildBackgroundBaseLayer());
@@ -110,19 +115,14 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 		//TODO: consider a horizontal scrollbar for when more than designed professions exist
 		Table professionButtons = new Table();
-		ImageButton civilianButton = buttonFactory.checkableButton(managementSkin.getDrawable("settlers_all"));
-		ImageButton militaryButton = buttonFactory.checkableButton(managementSkin.getDrawable("settlers_military"));
-		professionButtons.add(civilianButton);
-		professionButtons.add(militaryButton);
+		ButtonGroup<ImageButton> professionButtonGroup = new ButtonGroup<>();
+
+		professionFilterButton(professionButtonGroup, professionButtons, "settlers_all", "GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN");
+		professionFilterButton(professionButtonGroup, professionButtons, "settlers_military", "GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY");
 		for (Skill profession : skillDictionary.getAllProfessions()) {
-			Drawable drawable = managementSkin.getDrawable(profession.getIcon());
-			ImageButton button = buttonFactory.checkableButton(drawable);
-
-			professionButtons.add(button);
+			professionFilterButton(professionButtonGroup, professionButtons, profession.getIcon(), profession.getI18nKey());
 		}
-
-		ImageButton villagerButton = buttonFactory.checkableButton(managementSkin.getDrawable("settlers_job_villager"));
-		professionButtons.add(villagerButton);
+		professionFilterButton(professionButtonGroup, professionButtons, "settlers_job_villager", "GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER");
 
 
 		Label sortByLabel  = new Label(i18nTranslator.translate("GUI.SETTLER_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
@@ -134,7 +134,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 		Table filters = new Table();
 		filters.defaults().growX();
-//		filters.add(stockpileGroupNameLabel).width(400f).padLeft(8f);
+		filters.add(filterNameLabel).width(400f).padLeft(8f);
 //		filters.add(searchBar).width(524);
 		filters.add(sortByLabel);
 		filters.add(sortByHappiness);
@@ -149,6 +149,24 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		table.add(filters).growX().row();
 
 		return table;
+	}
+
+	private void professionFilterButton(ButtonGroup<ImageButton> professionButtonGroup, Table professionButtons, String drawableName, String i18nKey) {
+		Drawable drawable = managementSkin.getDrawable(drawableName);
+		ImageButton button = buttonFactory.checkableButton(drawable);
+		button.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if (button.isChecked()) {
+					filterNameLabel.setText(i18nTranslator.translate(i18nKey));
+					//
+					//				rebuildSettlerTable();
+				}
+			}
+		});
+
+		professionButtons.add(button);
+		professionButtonGroup.add(button);
 	}
 
 
