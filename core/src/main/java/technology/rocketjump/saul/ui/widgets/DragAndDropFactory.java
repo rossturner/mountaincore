@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
+import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
@@ -64,6 +65,10 @@ public class DragAndDropFactory {
 
 				column.add(draggableImage).spaceTop(10f).spaceBottom(6f).row();
 				column.add(progressRow);
+
+				if (SkillDictionary.NULL_PROFESSION.equals(skill)) {
+					progressRow.setVisible(false);
+				}
 
 			} else {
 				//todo: fill with villager thing
