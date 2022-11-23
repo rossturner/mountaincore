@@ -10,7 +10,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
-import technology.rocketjump.saul.ui.GameViewMode;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
@@ -80,10 +79,6 @@ public class BuildMenuGuiView implements GuiView, DisplaysText {
 		});
 		addButton("GUI.BUILD.WALLS", "btn_build_icon_walls", () -> {
 			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, BUILD_WALLS);
-		});
-		addButton("GUI.BUILD.ROOFING", "btn_build_icon_roofing", () -> {
-			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.ROOFING_INFO);
-			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, BUILD_ROOFING);
 		});
 		addButton("GUI.BUILD.DOORS", "btn_build_icon_doors", () -> {
 			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, BUILD_DOORS);
