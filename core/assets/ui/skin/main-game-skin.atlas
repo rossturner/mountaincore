@@ -27,7 +27,7 @@ asset_catalogue_bg
   index: -1
 asset_bg_for_amount
   rotate: false
-  xy: 283, 1781
+  xy: 82, 5
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
@@ -83,35 +83,35 @@ asset_dwarf_select_bg
   index: -1
 asset_season_autumn_icon
   rotate: false
-  xy: 2686, 3086
+  xy: 2777, 3086
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_spring_icon
   rotate: false
-  xy: 2736, 3086
+  xy: 2827, 3086
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_summer_icon
   rotate: false
-  xy: 2786, 3086
+  xy: 2877, 3086
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_season_winter_icon
   rotate: false
-  xy: 2836, 3086
+  xy: 2927, 3086
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_selection_bg_cropped
   rotate: false
-  xy: 329, 1840
+  xy: 126, 7
   size: 39, 39
   split: 18, 17, 18, 17
   orig: 39, 39
@@ -126,49 +126,49 @@ asset_small_title_bg_ribbon
   index: -1
 asset_weather_cloudy_grey_icon
   rotate: false
-  xy: 2886, 3086
+  xy: 2977, 3086
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_nice_icon
   rotate: false
-  xy: 2936, 3086
+  xy: 3027, 3086
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_rain_icon
   rotate: false
-  xy: 2986, 3086
+  xy: 3077, 3086
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_snow_icon
   rotate: false
-  xy: 3036, 3086
+  xy: 2406, 2908
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_storm_icon
   rotate: false
-  xy: 3086, 3086
+  xy: 2456, 2908
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 asset_weather_windy_icon
   rotate: false
-  xy: 2406, 2908
+  xy: 2506, 2908
   size: 46, 46
   orig: 46, 46
   offset: 0, 0
   index: -1
 btn_add_tile
   rotate: false
-  xy: 2342, 3047
+  xy: 2396, 2958
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
@@ -285,6 +285,13 @@ btn_build_icon_walls
   orig: 184, 184
   offset: 0, 0
   index: -1
+btn_cancel_small
+  rotate: false
+  xy: 2342, 3047
+  size: 86, 85
+  orig: 86, 85
+  offset: 0, 0
+  index: -1
 btn_construction_build
   rotate: false
   xy: 2732, 3881
@@ -390,9 +397,16 @@ btn_current_orders_mine
   orig: 197, 208
   offset: 0, 0
   index: -1
+btn_demolish_small
+  rotate: false
+  xy: 2432, 3047
+  size: 86, 85
+  orig: 86, 85
+  offset: 0, 0
+  index: -1
 btn_furniture
   rotate: false
-  xy: 2396, 2958
+  xy: 2485, 2958
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
@@ -406,14 +420,14 @@ btn_map_resize
   index: -1
 btn_pause_off
   rotate: false
-  xy: 283, 1723
+  xy: 3173, 3099
   size: 36, 54
   orig: 36, 54
   offset: 0, 0
   index: -1
 btn_pause_on
   rotate: false
-  xy: 283, 1665
+  xy: 3213, 3099
   size: 36, 54
   orig: 36, 54
   offset: 0, 0
@@ -462,7 +476,7 @@ btn_priority_5
   index: -1
 btn_remove_tile
   rotate: false
-  xy: 2431, 3047
+  xy: 2522, 3047
   size: 85, 85
   orig: 85, 85
   offset: 0, 0
@@ -630,14 +644,14 @@ btn_small_arrow_right
   index: -1
 btn_speed_1_off
   rotate: false
-  xy: 2485, 2989
+  xy: 2574, 2989
   size: 42, 54
   orig: 42, 54
   offset: 0, 0
   index: -1
 btn_speed_1_on
   rotate: false
-  xy: 283, 1825
+  xy: 3127, 3078
   size: 42, 54
   orig: 42, 54
   offset: 0, 0
@@ -665,7 +679,7 @@ btn_speed_3_off
   index: -1
 btn_speed_3_on
   rotate: false
-  xy: 2520, 3078
+  xy: 2611, 3078
   size: 82, 54
   orig: 82, 54
   offset: 0, 0
@@ -742,28 +756,28 @@ btn_stockpile_weapons
   index: -1
 btn_tinycheck_add
   rotate: false
-  xy: 82, 12
+  xy: 169, 13
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 btn_tinycheck_blank
   rotate: false
-  xy: 372, 1846
+  xy: 3253, 3120
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 btn_tinycheck_subtract
   rotate: false
-  xy: 409, 1846
+  xy: 3290, 3120
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 btn_tinycheck_tickbox
   rotate: false
-  xy: 446, 1873
+  xy: 3327, 3120
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
@@ -896,7 +910,7 @@ hover_state_label_arrow_down
   index: -1
 hover_state_label_arrow_up
   rotate: false
-  xy: 2606, 3092
+  xy: 2697, 3092
   size: 76, 40
   orig: 76, 40
   offset: 0, 0
@@ -1001,7 +1015,7 @@ preview_walls_wood
   index: -1
 room_bg_small
   rotate: false
-  xy: 483, 1874
+  xy: 3364, 3121
   size: 32, 32
   split: 0, 0, 0, 0
   orig: 32, 32
