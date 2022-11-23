@@ -25,49 +25,54 @@ public class DragAndDropFactory {
 		this.managementSkin = skinRepository.getManagementSkin();
 	}
 
-	public Table buildDragAndDropSkill(DragAndDrop dragAndDrop, SkillsComponent skillsComponent, int index) {
-		Table column = new Table();
-		Image numberIcon = new Image(managementSkin.getDrawable("icon_" + (index + 1)));
-		column.add(numberIcon).row();
+	public void buildReorderTable(SkillsComponent skillsComponent, Table table) {
+		table.clearChildren();
+		DragAndDrop dragAndDrop = new DragAndDrop();
+		for (int i = 0; i < SkillsComponent.MAX_PROFESSIONS; i++) {
+			Table column = new Table();
+			Image numberIcon = new Image(managementSkin.getDrawable("icon_" + (i + 1)));
+			column.add(numberIcon).row();
 
-		java.util.List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
-		if (index < activeProfessions.size()) {
-			SkillsComponent.QuantifiedSkill activeSkill = activeProfessions.get(index);
-			Skill skill = activeSkill.getSkill();
+			java.util.List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
+			if (i < activeProfessions.size()) {
+				SkillsComponent.QuantifiedSkill activeSkill = activeProfessions.get(i);
+				Skill skill = activeSkill.getSkill();
 
-			Image draggableImage = new Image(managementSkin.getDrawable(skill.getDraggableIcon()));
-			dragAndDrop.addSource(new DraggableProfession(dragAndDrop, draggableImage, index));
-			dragAndDrop.addTarget(new DraggableProfessionTarget(draggableImage, column, index, skillsComponent, managementSkin));
+				Image draggableImage = new Image(managementSkin.getDrawable(skill.getDraggableIcon()));
+				dragAndDrop.addSource(new DraggableProfession(dragAndDrop, draggableImage, i));
+				dragAndDrop.addTarget(new DraggableProfessionTarget(column, i, skillsComponent, managementSkin, table));
 
-			int percent = (int) (skillsComponent.getNextLevelProgressPercent(skill) * 100);
-			int skillLevel = skillsComponent.getSkillLevel(skill);
-			int nextLevel = skillLevel + 1;
-			ProgressBar progressBar = new ProgressBar(0, 100, 1, false, managementSkin);
-			progressBar.setValue(percent);
-			progressBar.setDisabled(true);
-			ProgressBar.ProgressBarStyle clonedStyle = new ProgressBar.ProgressBarStyle(progressBar.getStyle());
-			if (clonedStyle.knobBefore instanceof NinePatchDrawable ninePatchDrawable) {
-				clonedStyle.knobBefore = ninePatchDrawable.tint(managementSkin.getColor("progress_bar_green"));
+				int percent = (int) (skillsComponent.getNextLevelProgressPercent(skill) * 100);
+				int skillLevel = skillsComponent.getSkillLevel(skill);
+				int nextLevel = skillLevel + 1;
+				ProgressBar progressBar = new ProgressBar(0, 100, 1, false, managementSkin);
+				progressBar.setValue(percent);
+				progressBar.setDisabled(true);
+				ProgressBar.ProgressBarStyle clonedStyle = new ProgressBar.ProgressBarStyle(progressBar.getStyle());
+				if (clonedStyle.knobBefore instanceof NinePatchDrawable ninePatchDrawable) {
+					clonedStyle.knobBefore = ninePatchDrawable.tint(managementSkin.getColor("progress_bar_green"));
+				}
+				progressBar.setStyle(clonedStyle);
+
+				Label currentLevelLabel = new Label(String.valueOf(skillLevel), managementSkin, "item_type_name_label");
+				Label nextLevelLabel = new Label(String.valueOf(nextLevel), managementSkin, "item_type_name_label");
+				Table progressRow = new Table();
+				progressRow.add(currentLevelLabel).spaceRight(12f);
+				progressRow.add(progressBar).spaceRight(12f);
+				progressRow.add(nextLevelLabel);
+
+
+				column.add(draggableImage).spaceTop(10f).spaceBottom(6f).row();
+				column.add(progressRow);
+
+			} else {
+				//todo: fill with villager thing
 			}
-			progressBar.setStyle(clonedStyle);
 
-			Label currentLevelLabel = new Label(String.valueOf(skillLevel), managementSkin, "item_type_name_label");
-			Label nextLevelLabel = new Label(String.valueOf(nextLevel), managementSkin, "item_type_name_label");
-			Table progressRow = new Table();
-			progressRow.add(currentLevelLabel).spaceRight(12f);
-			progressRow.add(progressBar).spaceRight(12f);
-			progressRow.add(nextLevelLabel);
-
-
-			column.add(draggableImage).spaceTop(10f).spaceBottom(6f).row();
-			column.add(progressRow);
-
-		} else {
-			//todo: fill with villager thing
+			table.add(column).spaceRight(24).spaceLeft(24);
 		}
-
-		return column;
 	}
+
 
 	class DraggableProfession extends DragAndDrop.Source {
 		private Image originalImage;
@@ -92,19 +97,19 @@ public class DragAndDropFactory {
 	}
 
 	class DraggableProfessionTarget extends DragAndDrop.Target {
-		private final Image originalImage;
 		private final Table column;
 		private final int professionPriority;
 		private final SkillsComponent skillsComponent;
 		private final Drawable dragOverTint;
+		private final Table wholeTable;
 
-		public DraggableProfessionTarget(Image originalImage, Table column, int professionPriority, SkillsComponent skillsComponent, ManagementSkin managementSkin) {
+		public DraggableProfessionTarget(Table column, int professionPriority, SkillsComponent skillsComponent, ManagementSkin managementSkin, Table wholeTable) {
 			super(column);
-			this.originalImage = originalImage;
 			this.column = column;
 			this.professionPriority = professionPriority;
 			this.skillsComponent = skillsComponent;
 			this.dragOverTint = managementSkin.getDrawable("drag_over_tint");
+			this.wholeTable = wholeTable;
 		}
 
 		@Override
@@ -122,13 +127,16 @@ public class DragAndDropFactory {
 		@Override
 		public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
 			if (source instanceof DraggableProfession draggableProfession) {
-
-				//TODO: consider rebuilding whole column for progress bar
-				Drawable toSwap = draggableProfession.originalImage.getDrawable();
-				draggableProfession.originalImage.setDrawable(this.originalImage.getDrawable());
-				this.originalImage.setDrawable(toSwap);
-
 				skillsComponent.swapActiveProfessionPositions(draggableProfession.professionPriority, this.professionPriority);
+				DragAndDropFactory.this.buildReorderTable(skillsComponent, wholeTable);
+
+
+
+//				//TODO: consider rebuilding whole column for progress bar
+//				Drawable toSwap = draggableProfession.originalImage.getDrawable();
+//				draggableProfession.originalImage.setDrawable(this.originalImage.getDrawable());
+//				this.originalImage.setDrawable(toSwap);
+
 			}
 		}
 	}

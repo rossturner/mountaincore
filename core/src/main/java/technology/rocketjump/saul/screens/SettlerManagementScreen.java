@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -291,11 +290,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		}
 
 		Table table = new Table();
-		DragAndDrop dragAndDrop = new DragAndDrop();
-		for (int i = 0; i < SkillsComponent.MAX_PROFESSIONS; i++) {
-			table.add(dragAndDropFactory.buildDragAndDropSkill(dragAndDrop, skillsComponent, i)).spaceRight(24).spaceLeft(24);
-		}
-
+		dragAndDropFactory.buildReorderTable(skillsComponent, table);
 		return table;
 	}
 
