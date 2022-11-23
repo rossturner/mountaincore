@@ -3,6 +3,7 @@ package technology.rocketjump.saul.ui.views;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -13,12 +14,17 @@ import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.FloorTypeDictionary;
+import technology.rocketjump.saul.assets.WallTypeDictionary;
 import technology.rocketjump.saul.assets.model.FloorType;
+import technology.rocketjump.saul.assets.model.WallType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
+import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.MaterialSelectionMessage;
+import technology.rocketjump.saul.sprites.BridgeTypeDictionary;
+import technology.rocketjump.saul.sprites.model.BridgeType;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -53,6 +59,8 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	private final FloorTypeDictionary floorTypeDictionary;
 	private Table furnitureTable;
 	private final Table cancelDeconstructButtons = new Table();
+	private final WallTypeDictionary wallTypeDictionary;
+	private final BridgeTypeDictionary bridgeTypeDictionary;
 	private boolean displayed;
 
 	private BuildMenuSelection currentSelection;
@@ -62,7 +70,8 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	public BuildMenuGuiView(MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository,
 							I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
 							FurnitureMaterialsWidget furnitureMaterialsWidget,
-							GameMaterialDictionary materialDictionary, FloorTypeDictionary floorTypeDictionary) {
+							GameMaterialDictionary materialDictionary, FloorTypeDictionary floorTypeDictionary,
+							WallTypeDictionary wallTypeDictionary, BridgeTypeDictionary bridgeTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
@@ -71,6 +80,8 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
 		this.materialDictionary = materialDictionary;
 		this.floorTypeDictionary = floorTypeDictionary;
+		this.wallTypeDictionary = wallTypeDictionary;
+		this.bridgeTypeDictionary = bridgeTypeDictionary;
 
 		backButton = new Button(skin.getDrawable("btn_back"));
 		mainTable = new Table();
@@ -158,7 +169,25 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 					if (material.equals(GameMaterial.NULL_MATERIAL)) {
 						material = materialDictionary.getExampleMaterial(floorType.getMaterialType());
 					}
-					selectionImageButtons.get(BuildMenuSelection.FLOORING).setColor(material.getColor());
+					selectionImageButtons.get(currentSelection).setColor(material.getColor());
+				}
+				case WALLS -> {
+					WallType wallType = interactionStateContainer.getWallTypeToPlace();
+					messageDispatcher.dispatchMessage(MessageType.WALL_MATERIAL_SELECTED, new MaterialSelectionMessage(
+							wallType.getMaterialType(), material, wallType.getRequirements().get(wallType.getMaterialType()).get(0).getItemType()));
+					if (material.equals(GameMaterial.NULL_MATERIAL)) {
+						material = materialDictionary.getExampleMaterial(wallType.getMaterialType());
+					}
+					selectionImageButtons.get(currentSelection).setColor(material.getColor());
+				}
+				case BRIDGE -> {
+					BridgeType bridgeType = interactionStateContainer.getBridgeTypeToPlace();
+					messageDispatcher.dispatchMessage(MessageType.BRIDGE_MATERIAL_SELECTED, new MaterialSelectionMessage(
+							bridgeType.getMaterialType(), material, bridgeType.getBuildingRequirement().getItemType()));
+					if (material.equals(GameMaterial.NULL_MATERIAL)) {
+						material = materialDictionary.getExampleMaterial(bridgeType.getMaterialType());
+					}
+					selectionImageButtons.get(currentSelection).setColor(material.getColor());
 				}
 				default -> Logger.error("Not yet implemented: Switching material type of " + currentSelection);
 			}
@@ -172,8 +201,26 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 					messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
 							materialType, GameMaterial.NULL_MATERIAL, floorType.getRequirements().get(floorType.getMaterialType()).get(0).getItemType()));
 
-					Image imageButton = selectionImageButtons.get(BuildMenuSelection.FLOORING);
+					Image imageButton = selectionImageButtons.get(currentSelection);
 					imageButton.setDrawable(skin.getDrawable(floorType.getSelectionDrawableName()));
+					imageButton.setColor(materialDictionary.getExampleMaterial(materialType).getColor());
+				}
+				case WALLS -> {
+					WallType wallType = applicableWallTypes().filter(ft -> ft.getMaterialType().equals(materialType)).findFirst().orElseThrow();
+					messageDispatcher.dispatchMessage(MessageType.WALL_MATERIAL_SELECTED, new MaterialSelectionMessage(
+							materialType, GameMaterial.NULL_MATERIAL, wallType.getRequirements().get(wallType.getMaterialType()).get(0).getItemType()));
+
+					Image imageButton = selectionImageButtons.get(currentSelection);
+					imageButton.setDrawable(skin.getDrawable(wallType.getSelectionDrawableName()));
+					imageButton.setColor(materialDictionary.getExampleMaterial(materialType).getColor());
+				}
+				case BRIDGE -> {
+					BridgeType bridgeType = applicableBridgeTypes().filter(ft -> ft.getMaterialType().equals(materialType)).findFirst().orElseThrow();
+					messageDispatcher.dispatchMessage(MessageType.BRIDGE_MATERIAL_SELECTED, new MaterialSelectionMessage(
+							materialType, GameMaterial.NULL_MATERIAL, bridgeType.getBuildingRequirement().getItemType()));
+
+					Image imageButton = selectionImageButtons.get(currentSelection);
+					imageButton.setDrawable(skin.getDrawable(bridgeType.getSelectionDrawableName()));
 					imageButton.setColor(materialDictionary.getExampleMaterial(materialType).getColor());
 				}
 				default -> Logger.error("Not yet implemented: Switching material type of " + currentSelection);
@@ -187,7 +234,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	}
 
 	private Actor buildFakeFurnitureButton(BuildMenuSelection buildSelection) {
-		Container<Image> buttonContainer = new Container<>();
+		Container<Container<Image>> buttonContainer = new Container<>();
 		if (buildSelection.equals(currentSelection)) {
 			buttonContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
 		}
@@ -202,7 +249,10 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		buttonContainer.size(183, 183);
 		fakeFurnitureButton.addListener(new ChangeCursorOnHover(fakeFurnitureButton, GameCursor.SELECT, messageDispatcher));
 
-		buttonContainer.setActor(fakeFurnitureButton);
+		Container<Image> innerContainer = new Container<>();
+		innerContainer.setBackground(skin.getDrawable("asset_bg"));
+		innerContainer.setActor(fakeFurnitureButton);
+		buttonContainer.setActor(innerContainer);
 		return buttonContainer;
 	}
 
@@ -210,39 +260,136 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		Image image = null;
 		switch (buildSelection) {
 			case FLOORING -> {
-				MaterialSelectionMessage floorMaterialSelection = interactionStateContainer.getFloorMaterialSelection();
+				MaterialSelectionMessage materialSelection = interactionStateContainer.getFloorMaterialSelection();
 
-				FloorType floorType = applicableFloorTypes().filter(ft -> ft.getMaterialType().equals(floorMaterialSelection.selectedMaterialType))
+				FloorType floorType = applicableFloorTypes().filter(ft -> ft.getMaterialType().equals(materialSelection.selectedMaterialType))
 						.findFirst().orElseThrow();
 
 				image = new Image(skin.getDrawable(floorType.getSelectionDrawableName()));
+				final Image imageRef = image;
 				tooltipFactory.simpleTooltip(image, floorType.getI18nKey(), TooltipLocationHint.ABOVE);
 
-				GameMaterial material = floorMaterialSelection.selectedMaterial;
+				GameMaterial material = materialSelection.selectedMaterial;
 				if (material.equals(GameMaterial.NULL_MATERIAL)) {
-					material = materialDictionary.getExampleMaterial(floorMaterialSelection.selectedMaterialType);
+					material = materialDictionary.getExampleMaterial(materialSelection.selectedMaterialType);
 				}
 				image.setColor(material.getColor());
 
 				image.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
+						MaterialSelectionMessage newMaterialSelection = new MaterialSelectionMessage(
+								interactionStateContainer.getFloorMaterialSelection().selectedMaterialType,
+								GameMaterial.NULL_MATERIAL, // need to go back to null material for furniture requirements to match up
+								interactionStateContainer.getFloorMaterialSelection().resourceItemType
+						);
+						FloorType floorType = applicableFloorTypes().filter(ft -> ft.getMaterialType().equals(newMaterialSelection.selectedMaterialType))
+								.findFirst().orElseThrow();
+
 						BuildMenuGuiView.this.currentSelection = buildSelection;
 						FurnitureType fakeFurnitureType = new FurnitureType();
 						fakeFurnitureType.setName(floorType.getFloorTypeName());
 						fakeFurnitureType.setI18nKey(floorType.getI18nKey());
 						fakeFurnitureType.setRequirements(new HashMap<>());
-						applicableFloorTypes().forEach(floorType -> {
-							fakeFurnitureType.getRequirements().putAll(floorType.getRequirements());
+						applicableFloorTypes().forEach(applicableType -> {
+							fakeFurnitureType.getRequirements().putAll(applicableType.getRequirements());
 						});
 						furnitureMaterialsWidget.changeSelectedFurniture(fakeFurnitureType);
 						// need to set initial materialType to be what is currently showing
 						furnitureMaterialsWidget.setSelectedMaterialType(floorType.getMaterialType());
+						imageRef.setColor(actualOrExampleColor(newMaterialSelection.selectedMaterial, newMaterialSelection.selectedMaterialType));
 
-						messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
-								floorType.getMaterialType(), GameMaterial.NULL_MATERIAL, floorType.getRequirements().values().iterator().next().get(0).getItemType()
-						));
+						messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, newMaterialSelection);
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FLOORING);
+					}
+				});
+			}
+			case WALLS -> {
+				MaterialSelectionMessage materialSelection = interactionStateContainer.getWallMaterialSelection();
+
+				WallType wallType = applicableWallTypes().filter(ft -> ft.getMaterialType().equals(materialSelection.selectedMaterialType))
+						.findFirst().orElseThrow();
+
+				image = new Image(skin.getDrawable(wallType.getSelectionDrawableName()));
+				final Image imageRef = image;
+				tooltipFactory.simpleTooltip(image, wallType.getI18nKey(), TooltipLocationHint.ABOVE);
+
+				GameMaterial material = materialSelection.selectedMaterial;
+				if (material.equals(GameMaterial.NULL_MATERIAL)) {
+					material = materialDictionary.getExampleMaterial(materialSelection.selectedMaterialType);
+				}
+				image.setColor(material.getColor());
+
+				image.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						MaterialSelectionMessage newMaterialSelection = new MaterialSelectionMessage(
+								interactionStateContainer.getWallMaterialSelection().selectedMaterialType,
+								GameMaterial.NULL_MATERIAL, // need to go back to null material for furniture requirements to match up
+								interactionStateContainer.getWallMaterialSelection().resourceItemType
+						);
+						WallType wallType = applicableWallTypes().filter(ft -> ft.getMaterialType().equals(newMaterialSelection.selectedMaterialType))
+								.findFirst().orElseThrow();
+
+						BuildMenuGuiView.this.currentSelection = buildSelection;
+						FurnitureType fakeFurnitureType = new FurnitureType();
+						fakeFurnitureType.setName(wallType.getWallTypeName());
+						fakeFurnitureType.setI18nKey(wallType.getI18nKey());
+						fakeFurnitureType.setRequirements(new HashMap<>());
+						applicableWallTypes().forEach(applicableType -> {
+							fakeFurnitureType.getRequirements().putAll(applicableType.getRequirements());
+						});
+						furnitureMaterialsWidget.changeSelectedFurniture(fakeFurnitureType);
+						// need to set initial materialType to be what is currently showing
+						furnitureMaterialsWidget.setSelectedMaterialType(wallType.getMaterialType());
+						imageRef.setColor(actualOrExampleColor(newMaterialSelection.selectedMaterial, newMaterialSelection.selectedMaterialType));
+
+						messageDispatcher.dispatchMessage(MessageType.WALL_MATERIAL_SELECTED, newMaterialSelection);
+						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_WALLS);
+					}
+				});
+			}
+			case BRIDGE -> {
+				MaterialSelectionMessage materialSelection = interactionStateContainer.getBridgeMaterialSelection();
+				BridgeType bridgeType = applicableBridgeTypes().filter(type -> type.getMaterialType().equals(materialSelection.selectedMaterialType))
+						.findFirst().orElseThrow();
+
+				image = new Image(skin.getDrawable(bridgeType.getSelectionDrawableName()));
+				final Image imageRef = image;
+				tooltipFactory.simpleTooltip(image, bridgeType.getI18nKey(), TooltipLocationHint.ABOVE);
+
+				GameMaterial material = materialSelection.selectedMaterial;
+				if (material.equals(GameMaterial.NULL_MATERIAL)) {
+					material = materialDictionary.getExampleMaterial(materialSelection.selectedMaterialType);
+				}
+				image.setColor(material.getColor());
+
+				image.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						MaterialSelectionMessage newMaterialSelection = new MaterialSelectionMessage(
+								interactionStateContainer.getBridgeMaterialSelection().selectedMaterialType,
+								GameMaterial.NULL_MATERIAL, // need to go back to null material for furniture requirements to match up
+								interactionStateContainer.getBridgeMaterialSelection().resourceItemType
+						);
+						BridgeType bridgeType = applicableBridgeTypes().filter(type -> type.getMaterialType().equals(newMaterialSelection.selectedMaterialType))
+								.findFirst().orElseThrow();
+
+						BuildMenuGuiView.this.currentSelection = buildSelection;
+						FurnitureType fakeFurnitureType = new FurnitureType();
+						fakeFurnitureType.setName(bridgeType.getMaterialType().name()+"_BRIDGE");
+						fakeFurnitureType.setI18nKey(bridgeType.getI18nKey());
+						fakeFurnitureType.setRequirements(new HashMap<>());
+						applicableWallTypes().forEach(wallType -> {
+							fakeFurnitureType.getRequirements().putAll(wallType.getRequirements());
+						});
+						furnitureMaterialsWidget.changeSelectedFurniture(fakeFurnitureType);
+						// need to set initial materialType to be what is currently showing
+						furnitureMaterialsWidget.setSelectedMaterialType(bridgeType.getMaterialType());
+						imageRef.setColor(actualOrExampleColor(newMaterialSelection.selectedMaterial, newMaterialSelection.selectedMaterialType));
+
+						messageDispatcher.dispatchMessage(MessageType.BRIDGE_MATERIAL_SELECTED, newMaterialSelection);
+						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_BRIDGE);
 					}
 				});
 			}
@@ -253,9 +400,29 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		return image;
 	}
 
+	private Color actualOrExampleColor(GameMaterial material, GameMaterialType materialType) {
+		if (material.equals(GameMaterial.NULL_MATERIAL)) {
+			return materialDictionary.getExampleMaterial(materialType).getColor();
+		} else {
+			return material.getColor();
+		}
+	}
+
 	private Stream<FloorType> applicableFloorTypes() {
 		return floorTypeDictionary.getAllDefinitions()
 				.stream().filter(FloorType::isConstructed)
+				.sorted(Comparator.comparing(t -> i18nTranslator.getTranslatedString(t.getI18nKey()).toString()));
+	}
+
+	private Stream<WallType> applicableWallTypes() {
+		return wallTypeDictionary.getAllDefinitions()
+				.stream().filter(WallType::isConstructed)
+				.sorted(Comparator.comparing(t -> i18nTranslator.getTranslatedString(t.getI18nKey()).toString()));
+	}
+
+	private Stream<BridgeType> applicableBridgeTypes() {
+		return bridgeTypeDictionary.getAll()
+				.stream()
 				.sorted(Comparator.comparing(t -> i18nTranslator.getTranslatedString(t.getI18nKey()).toString()));
 	}
 
@@ -315,15 +482,6 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	@Override
 	public GuiViewName getParentViewName() {
 		return GuiViewName.CONSTRUCTION_MENU;
-	}
-
-	private FurnitureType fakeFurnitureType(FloorType floorType) {
-//		MaterialSelectionMessage materialSelection = interactionStateContainer.getFloorMaterialSelection();
-		FurnitureType fakeFurnitureType = new FurnitureType();
-		fakeFurnitureType.setName(floorType.getFloorTypeName());
-		fakeFurnitureType.setRequirements(floorType.getRequirements());
-
-		return fakeFurnitureType;
 	}
 
 	private void buildCancelDeconstructButtons() {

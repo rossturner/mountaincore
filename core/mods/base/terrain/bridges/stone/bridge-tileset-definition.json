@@ -2,6 +2,7 @@
   "materialType": "STONE",
   "i18nKey": "ROOMS.BRIDGE",
   "craftingTypeName": "STONEMASONRY",
+  "selectionDrawableName": "preview_bridge_stone",
   "buildingRequirement": {
     "itemTypeName": "Resource-Stone-Block",
     "quantity": 2

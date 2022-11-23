@@ -188,6 +188,9 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 		rebuildUI();
 	}
 
+	public void setSelectedMaterial(GameMaterial material) {
+	}
+
 	public List<ItemTypeWithMaterial> getSelections() {
 		return materialSelections;
 	}

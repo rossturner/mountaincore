@@ -332,7 +332,11 @@ public class GameInteractionStateContainer implements GameContextAware {
 					}
 				}
 
-				Bridge bridge = new Bridge(bridgeTiles, bridgeMaterialSelection.selectedMaterial, orientation, bridgeTypeToPlace);
+				GameMaterial bridgeMaterial = bridgeMaterialSelection.selectedMaterial;
+				if (bridgeMaterial.equals(NULL_MATERIAL)) {
+					bridgeMaterial = GameMaterial.nullMaterialWithType(bridgeMaterialSelection.selectedMaterialType);
+				}
+				Bridge bridge = new Bridge(bridgeTiles, bridgeMaterial, orientation, bridgeTypeToPlace);
 				virtualBridgeConstruction = new BridgeConstruction(bridge);
 				tileSelected = true;
 			}
