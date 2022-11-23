@@ -24,7 +24,8 @@ public class SkillDictionary {
 		NULL_PROFESSION.setName("NULL_PROFESSION");
 		NULL_PROFESSION.setType(SkillType.PROFESSION);
 		NULL_PROFESSION.setI18nKey("PROFESSION.VILLAGER");
-		NULL_PROFESSION.setIcon("profession-none");
+		NULL_PROFESSION.setIcon("settlers_job_villager");
+		NULL_PROFESSION.setDraggableIcon("btn_drag_job_villager");
 		CONTEXT_DEPENDENT_PROFESSION_REQUIRED.setName("Specific profession required");
 
 		UNARMED_COMBAT_SKILL.setName("UNARMED_COMBAT");

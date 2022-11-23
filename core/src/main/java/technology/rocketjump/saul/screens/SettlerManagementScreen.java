@@ -5,8 +5,10 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -36,10 +38,7 @@ import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
-import technology.rocketjump.saul.ui.widgets.ButtonFactory;
-import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
-import technology.rocketjump.saul.ui.widgets.EntityDrawable;
-import technology.rocketjump.saul.ui.widgets.LabelFactory;
+import technology.rocketjump.saul.ui.widgets.*;
 
 import javax.inject.Singleton;
 import java.util.ArrayList;
@@ -84,6 +83,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private final SettlerTracker settlerTracker;
 	private final EntityRenderer entityRenderer;
 	private final TooltipFactory tooltipFactory;
+	private final DragAndDropFactory dragAndDropFactory;
 
 	private GameContext gameContext;
 	private Stack stack;
@@ -95,7 +95,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	public SettlerManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 	                               I18nTranslator i18nTranslator, LabelFactory labelFactory, ButtonFactory buttonFactory,
 	                               SkillDictionary skillDictionary, SettlerTracker settlerTracker, EntityRenderer entityRenderer,
-	                               TooltipFactory tooltipFactory) {
+	                               TooltipFactory tooltipFactory, DragAndDropFactory dragAndDropFactory) {
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.i18nTranslator = i18nTranslator;
@@ -106,6 +106,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		this.settlerTracker = settlerTracker;
 		this.entityRenderer = entityRenderer;
 		this.tooltipFactory = tooltipFactory;
+		this.dragAndDropFactory = dragAndDropFactory;
 	}
 
 	@Override
@@ -241,7 +242,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table textSummaryColumn = textSummary(settler);
 			Table happinessColumn = happiness(settler);
 			Table needsColumn = needs(settler);
-
+			Table professionsColumn = professions(settler);
 
 
 			settlersTable.debugAll();
@@ -249,6 +250,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			settlersTable.add(textSummaryColumn).fillX().spaceRight(50f);
 			settlersTable.add(happinessColumn).spaceRight(50f);
 			settlersTable.add(needsColumn).spaceRight(50f);
+			settlersTable.add(professionsColumn).spaceRight(50f);
 
 			settlersTable.left().row();
 		}
@@ -256,8 +258,25 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		scrollPane.setActor(settlersTable);
 	}
 
+	private Table professions(Entity settler) {
+		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
+		if (skillsComponent == null) {
+			return new Table();
+		}
+
+		Table table = new Table();
+		DragAndDrop dragAndDrop = new DragAndDrop();
+		for (int i = 0; i < SkillsComponent.MAX_PROFESSIONS; i++) {
+			table.add(dragAndDropFactory.buildDragAndDropSkill(dragAndDrop, skillsComponent, i)).spaceRight(24).spaceLeft(24);
+		}
+
+		return table;
+	}
+
+
 	private Table needs(Entity settler) {
 		Table table = new Table();
+		table.defaults().spaceBottom(30f);
 		NeedsComponent needsComponent = settler.getComponent(NeedsComponent.class);
 		if (needsComponent != null) {
 			for (Map.Entry<EntityNeed, Double> entry : needsComponent.getAll()) {
@@ -276,7 +295,6 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					} else {
 						progressBarColour = ColorMixer.interpolate((float) NeedsComponent.MIN_NEED_VALUE, 55f, needValue.floatValue(), managementSkin.getColor("progress_bar_red"), managementSkin.getColor("progress_bar_yellow"));
 					}
-//					progressBar.setColor(progressBarColour);
 					ProgressBar.ProgressBarStyle clonedStyle = new ProgressBar.ProgressBarStyle(progressBar.getStyle());
 					if (clonedStyle.knobBefore instanceof NinePatchDrawable ninePatchDrawable) {
 						clonedStyle.knobBefore = ninePatchDrawable.tint(progressBarColour);
@@ -284,7 +302,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					progressBar.setStyle(clonedStyle);
 
 
-					table.add(needLabel).right().spaceRight(5);
+					table.add(needLabel).right().spaceRight(28);
 					table.add(progressBar).left().width(318).height(42);
 					table.row();
 				}

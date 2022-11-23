@@ -3,67 +3,78 @@
     "name": "CHEF",
     "i18nKey": "PROFESSION.CHEF",
     "type": "PROFESSION",
-    "icon": "settlers_job_cook"
+    "icon": "settlers_job_cook",
+    "draggableIcon": "btn_drag_job_cook"
   },
   {
     "name": "BLACKSMITH",
     "i18nKey": "PROFESSION.BLACKSMITH",
     "type": "PROFESSION",
-    "icon": "settlers_job_blacksmith"
+    "icon": "settlers_job_blacksmith",
+    "draggableIcon": "btn_drag_job_blacksmith"
   },
   {
     "name": "CARPENTER",
     "i18nKey": "PROFESSION.CARPENTER",
     "type": "PROFESSION",
-    "icon": "settlers_job_carpenter"
+    "icon": "settlers_job_carpenter",
+    "draggableIcon": "btn_drag_job_carpenter"
   },
   {
     "name": "FARMER",
     "i18nKey": "PROFESSION.FARMER",
     "type": "PROFESSION",
-    "icon": "settlers_job_farmer"
+    "icon": "settlers_job_farmer",
+    "draggableIcon": "btn_drag_job_farmer"
   },
   {
     "name": "WEAVER",
     "i18nKey": "PROFESSION.WEAVER",
     "type": "PROFESSION",
-    "icon": "settlers_job_weaver"
+    "icon": "settlers_job_weaver",
+    "draggableIcon": "btn_drag_job_weaver"
   },
   {
     "name": "LUMBERJACK",
     "i18nKey": "PROFESSION.WOODCUTTER",
     "type": "PROFESSION",
-    "icon": "settlers_job_woodcutter"
+    "icon": "settlers_job_woodcutter",
+    "draggableIcon": "btn_drag_job_woodcutter"
   },
   {
     "name": "MINER",
     "i18nKey": "PROFESSION.MINER",
     "type": "PROFESSION",
-    "icon": "settlers_job_miner"
+    "icon": "settlers_job_miner",
+    "draggableIcon": "btn_drag_job_miner"
   },
   {
     "name": "STONEMASON",
     "i18nKey": "PROFESSION.STONEMASON",
     "type": "PROFESSION",
-    "icon": "settlers_job_stonemason"
+    "icon": "settlers_job_stonemason",
+    "draggableIcon": "btn_drag_job_stonemason"
   },
   {
     "name": "BREWER",
     "i18nKey": "PROFESSION.BREWER",
     "type": "PROFESSION",
-    "icon": "settlers_job_brewer"
+    "icon": "settlers_job_brewer",
+    "draggableIcon": "btn_drag_job_brewer"
   },
   {
     "name": "FISHER",
     "i18nKey": "PROFESSION.FISHER",
     "type": "PROFESSION",
-    "icon": "settlers_job_fisher"
+    "icon": "settlers_job_fisher",
+    "draggableIcon": "btn_drag_job_fisher"
   },
   {
     "name": "LEATHERWORKER",
     "i18nKey": "PROFESSION.LEATHERWORKER",
     "type": "PROFESSION",
-    "icon": "settlers_job_leatherworker"
+    "icon": "settlers_job_leatherworker",
+    "draggableIcon": "btn_drag_job_leatherworker"
   },
 
   {
@@ -108,6 +119,7 @@
     "name": "ARTISAN",
     "i18nKey": "PROFESSION.ARTISAN",
     "type": "PROFESSION",
-    "icon": "settlers_job_artisan"
+    "icon": "settlers_job_artisan",
+    "draggableIcon": "btn_drag_job_artisan"
   }
 ]
