@@ -99,6 +99,12 @@ public class SkillsComponent implements EntityComponent {
 		experiencePoints.put(profession, currentExperience);
 	}
 
+	public float getNextLevelProgressPercent(Skill skill) {
+		int skillLevel = getSkillLevel(skill);
+		int nextLevelExp = experienceRequiredForLevel(skillLevel + 1);
+		return (experiencePoints.getOrDefault(skill, 0) / (float) nextLevelExp);
+	}
+
 	private int experienceRequiredForLevel(int level) {
 		return 4 + (level / 2);
 	}

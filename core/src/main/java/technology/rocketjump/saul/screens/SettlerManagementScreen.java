@@ -46,12 +46,36 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Singleton
 public class SettlerManagementScreen extends AbstractGameScreen implements DisplaysText, GameContextAware {
+	private static final Predicate<Entity> IS_CIVILIAN = settler -> {
+		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
+		return militaryComponent == null || militaryComponent.getSquadId() == null;
+	};
+	private static final Predicate<Entity> IS_MILITARY = IS_CIVILIAN.negate();
+
+	private record MatchesActiveProfession(Skill skill) implements Predicate<Entity> {
+
+		@Override
+			public boolean test(Entity entity) {
+				SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
+				if (skillsComponent != null) {
+					for (SkillsComponent.QuantifiedSkill activeProfession : skillsComponent.getActiveProfessions()) {
+						if (skill.equals(activeProfession.getSkill())) {
+							return true;
+						}
+					}
+				}
+				return false;
+			}
+		}
+
 	private static final Comparator<Entity> SORT_HAPPINESS = Comparator.comparingInt(settler -> settler.getComponent(HappinessComponent.class).getNetModifier());
 	private static final Comparator<Entity> SORT_NAME = Comparator.comparing(SettlerManagementScreen::getName);
-	private static final Comparator<Entity> SORT_SKILL_LEVEL = Comparator.comparing(settler -> {
+	private static final Comparator<Entity> SORT_SKILL_LEVEL = Comparator.comparing((Function<Entity, Integer>) settler -> {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		java.util.List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
 		if (activeProfessions.isEmpty()) {
@@ -59,10 +83,10 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		} else {
 			return activeProfessions.get(0).getLevel();
 		}
-	});
+	}).reversed();
 	private static final Comparator<Entity> SORT_MILITARY_CIVILIAN = Comparator.comparing((Function<Entity, Long>) settler -> {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
-		if (militaryComponent != null) {
+		if (militaryComponent != null && militaryComponent.getSquadId() != null) {
 			return militaryComponent.getSquadId();
 		} else {
 			return Long.MAX_VALUE;
@@ -89,7 +113,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private Stack stack;
 	private ScrollPane scrollPane;
 	private Label filterNameLabel;
-	private Comparator<Entity> selectedSortFunction;
+	private Comparator<Entity> selectedSortFunction = SORT_HAPPINESS;
+	private Predicate<Entity> selectedFilter;
 
 	@Inject
 	public SettlerManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
@@ -156,20 +181,21 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		//TODO: consider a horizontal scrollbar for when more than designed professions exist
 		Table professionButtons = new Table();
 		ButtonGroup<ImageButton> professionButtonGroup = new ButtonGroup<>();
-		professionFilterButton(professionButtonGroup, professionButtons, "settlers_all", "GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN");
-		professionFilterButton(professionButtonGroup, professionButtons, "settlers_military", "GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY");
+		professionFilterButton(professionButtonGroup, professionButtons, "settlers_all", "GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN", IS_CIVILIAN);
+		professionFilterButton(professionButtonGroup, professionButtons, "settlers_military", "GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY", IS_MILITARY);
 		for (Skill profession : skillDictionary.getAllProfessions()) {
-			professionFilterButton(professionButtonGroup, professionButtons, profession.getIcon(), profession.getI18nKey());
+			professionFilterButton(professionButtonGroup, professionButtons, profession.getIcon(), profession.getI18nKey(), new MatchesActiveProfession(profession));
 		}
-		professionFilterButton(professionButtonGroup, professionButtons, "settlers_job_villager", "GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER");
+		professionFilterButton(professionButtonGroup, professionButtons, "settlers_job_villager", "GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER", new MatchesActiveProfession(SkillDictionary.NULL_PROFESSION));
 
 
+		ButtonGroup<Button> sortByButtonGroup = new ButtonGroup<>();
 		Label sortByLabel  = new Label(i18nTranslator.translate("GUI.SETTLER_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
 		Button sortByHappiness = buildTextSortButton("GUI.SETTLER_MANAGEMENT.SORT.HAPPINESS", SORT_HAPPINESS);
 		Button sortByName = buildTextSortButton("GUI.SETTLER_MANAGEMENT.SORT.NAME", SORT_NAME);
 		Button sortBySkillLevel = buildTextSortButton("GUI.SETTLER_MANAGEMENT.SORT.SKILL_LEVEL", SORT_SKILL_LEVEL);
 		Button sortByMilitaryCivilian = buildTextSortButton("GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN", SORT_MILITARY_CIVILIAN);
-		new ButtonGroup<>(sortByHappiness, sortByName, sortBySkillLevel, sortByMilitaryCivilian);
+		sortByButtonGroup.add(sortByHappiness, sortByName, sortBySkillLevel, sortByMilitaryCivilian);
 
 		Table filters = new Table();
 		filters.defaults().growX();
@@ -191,7 +217,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return table;
 	}
 
-	private void professionFilterButton(ButtonGroup<ImageButton> professionButtonGroup, Table professionButtons, String drawableName, String i18nKey) {
+	private void professionFilterButton(ButtonGroup<ImageButton> professionButtonGroup, Table professionButtons, String drawableName, String i18nKey, Predicate<Entity> filter) {
 		Drawable drawable = managementSkin.getDrawable(drawableName);
 		ImageButton button = buttonFactory.checkableButton(drawable);
 		button.addListener(new ChangeListener() {
@@ -199,7 +225,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			public void changed(ChangeEvent event, Actor actor) {
 				if (button.isChecked()) {
 					filterNameLabel.setText(i18nTranslator.translate(i18nKey));
-					//
+					selectedFilter = filter;
 					rebuildSettlerTable();
 				}
 			}
@@ -222,8 +248,6 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			public void changed(ChangeEvent event, Actor actor) {
 				if (button.isChecked()) {
 					selectedSortFunction = sortFunction;
-				} else {
-					selectedSortFunction = null;
 				}
 				rebuildSettlerTable();
 			}
@@ -233,8 +257,11 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	}
 
 	private void rebuildSettlerTable() {
-		Collection<Entity> settlers = settlerTracker.getLiving();
-		//TODO: apply filters and sorts here
+		Collection<Entity> settlers = settlerTracker.getLiving()
+				.stream()
+				.filter(selectedFilter)
+				.sorted(selectedSortFunction)
+				.collect(Collectors.toList());
 
 		Table settlersTable = new Table();
 		for (Entity settler : settlers) {
@@ -245,12 +272,11 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table professionsColumn = professions(settler);
 
 
-			settlersTable.debugAll();
 			settlersTable.add(mugshotColumn).spaceRight(50f);
 			settlersTable.add(textSummaryColumn).fillX().spaceRight(50f);
 			settlersTable.add(happinessColumn).spaceRight(50f);
 			settlersTable.add(needsColumn).spaceRight(50f);
-			settlersTable.add(professionsColumn).spaceRight(50f);
+			settlersTable.add(professionsColumn).spaceRight(50f).spaceBottom(76f).spaceTop(38f);
 
 			settlersTable.left().row();
 		}
