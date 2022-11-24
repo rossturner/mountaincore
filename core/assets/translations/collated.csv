@@ -437,7 +437,7 @@ GUI.BUILD.WALLS.SINGLE,Single,,Einzeln,Simple,Singola,Sencillo,Simples,Individua
 GUI.BUILD_FURNITURE,Furniture,,Möbel,Meubles,Mobili,Muebles,Mobília,Mobília,,Мебель,Mobilya,Møbler,,Möbler,,,,建造物,家具,
 GUI.BUILD_LABEL,Build,,Bauen,"Construire ",Costruisci,"Construir ","Construir ",Construir,,Строить,İnşa Et,Byg,,Bygg,,,,建築,建造,
 GUI.CANCEL_LABEL,Cancel,,Abbrechen,"Annuler ",Annulla,"Cancelar ","Cancelar ",Cancelar,,Отмена,İptal,Aflys,,"Avbryt ",,,,取消,取消,
-GUI.CHANGE_PROFESSION_LABEL,Change profession,,Beruf wechseln,Changer de profession,Cambia professione,Cambiar profesión,Mudar de profissão,,,Сменить профессию,Meslek Değiştir,Skift erhverv,,Byt yrke,,,,職業を割り当てる,更改职业,
+GUI.CHANGE_PROFESSION_LABEL,Choose New Profession,,Beruf wechseln,Changer de profession,Cambia professione,Cambiar profesión,Mudar de profissão,,,Сменить профессию,Meslek Değiştir,Skift erhverv,,Byt yrke,,,,職業を割り当てる,更改职业,
 GUI.CHANGE_WEAPON_LABEL,Select weapon,,Waffe auswählen,,Seleziona l'arma,Seleccionar arma,,,,Сменить оружие,,,,,,,,武器を選択,选择武器,
 GUI.CONSTRUCTION_LABEL,Construction,,,,,,,,,,,,,,,,,,,
 GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,Maintaining,,Beibehalten,,Mantenere,Mantener,,,,"Поддержание ",Sabit Düzey,,,,,,,生産目標,维持,

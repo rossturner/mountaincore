@@ -112,7 +112,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private final SettlerTracker settlerTracker;
 	private final EntityRenderer entityRenderer;
 	private final TooltipFactory tooltipFactory;
-	private final DragAndDropFactory dragAndDropFactory;
+	private final SettlerProfessionFactory settlerProfessionFactory;
 
 	private GameContext gameContext;
 	private Stack stack;
@@ -125,7 +125,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	public SettlerManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 	                               I18nTranslator i18nTranslator, LabelFactory labelFactory, ButtonFactory buttonFactory,
 	                               SkillDictionary skillDictionary, SettlerTracker settlerTracker, EntityRenderer entityRenderer,
-	                               TooltipFactory tooltipFactory, DragAndDropFactory dragAndDropFactory) {
+	                               TooltipFactory tooltipFactory, SettlerProfessionFactory settlerProfessionFactory) {
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.i18nTranslator = i18nTranslator;
@@ -136,7 +136,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		this.settlerTracker = settlerTracker;
 		this.entityRenderer = entityRenderer;
 		this.tooltipFactory = tooltipFactory;
-		this.dragAndDropFactory = dragAndDropFactory;
+		this.settlerProfessionFactory = settlerProfessionFactory;
 	}
 
 	@Override
@@ -313,7 +313,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		}
 
 		Table table = new Table();
-		dragAndDropFactory.buildReorderTable(skillsComponent, table);
+		settlerProfessionFactory.addProfessionComponents(settler, table);
 		return table;
 	}
 

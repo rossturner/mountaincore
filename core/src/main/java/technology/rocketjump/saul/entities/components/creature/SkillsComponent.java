@@ -39,6 +39,15 @@ public class SkillsComponent implements EntityComponent {
 		return cloned;
 	}
 
+	public void replace(Skill professionToReplace, Skill newProfession) {
+		int indexToReplace = activeProfessions.indexOf(professionToReplace);
+		if (indexToReplace == -1) {
+			indexToReplace = activeProfessions.size() - 1;
+		}
+		activeProfessions.set(indexToReplace, newProfession);
+	}
+
+
 	public void activateProfession(Skill profession) {
 		if (!activeProfessions.contains(profession)) {
 			// Insert new active profession before last entry (which is NULL_PROFESSION)
@@ -202,6 +211,7 @@ public class SkillsComponent implements EntityComponent {
 		}
 		activeProfessions = reordered;
 	}
+
 
 
 	public static class QuantifiedSkill {

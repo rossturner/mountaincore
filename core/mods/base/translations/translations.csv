@@ -437,7 +437,7 @@ GUI.BUILD_FURNITURE,,Furniture
 GUI.BUILD_LABEL,,Build
 GUI.CANCEL_LABEL,,Cancel
 GUI.CONSTRUCTION_LABEL,For the menu that further gives options for build and power and roofing,Construction
-GUI.CHANGE_PROFESSION_LABEL,,Change profession
+GUI.CHANGE_PROFESSION_LABEL,,Choose New Profession
 GUI.CHANGE_WEAPON_LABEL,,Select weapon
 GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items in stock,Maintaining
 GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting
