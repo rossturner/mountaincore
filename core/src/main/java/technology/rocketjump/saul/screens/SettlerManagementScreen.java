@@ -4,10 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -24,9 +28,11 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.settlement.SettlerTracker;
+import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
@@ -199,6 +205,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Table filters = new Table();
 		filters.defaults().growX();
 		filters.add(filterNameLabel).width(400f).padLeft(8f);
+
 //		filters.add(searchBar).width(524);
 		filters.add(sortByLabel);
 		filters.add(sortByHappiness);
@@ -270,6 +277,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table needsColumn = needs(settler);
 			Table professionsColumn = professions(settler);
 
+			addGotoSettlerBehaviour(mugshotColumn, settler);
 
 			settlersTable.add(mugshotColumn).spaceRight(50f);
 			settlersTable.add(textSummaryColumn).fillX().spaceRight(50f);
@@ -281,6 +289,21 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		}
 
 		scrollPane.setActor(settlersTable);
+	}
+
+	private void addGotoSettlerBehaviour(Table mugshotColumn, Entity settler) {
+		mugshotColumn.setTouchable(Touchable.enabled);
+		mugshotColumn.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				Vector2 position = settler.getLocationComponent().getWorldOrParentPosition();
+				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+				messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, position);
+				messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(settler, 0));
+			}
+		});
+		buttonFactory.attachClickCursor(mugshotColumn, GameCursor.SELECT);
 	}
 
 	private Table professions(Entity settler) {
