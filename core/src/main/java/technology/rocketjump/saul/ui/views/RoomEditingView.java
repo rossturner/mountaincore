@@ -55,7 +55,7 @@ import technology.rocketjump.saul.ui.widgets.rooms.RoomPriorityWidget;
 @Singleton
 public class RoomEditingView implements GuiView, GameContextAware, DisplaysText, Telegraph {
 
-	private static final int FURNITURE_PER_ROW = 9;
+	public static final int FURNITURE_PER_ROW = 9;
 
 	private final MessageDispatcher messageDispatcher;
 	private final TooltipFactory tooltipFactory;
@@ -81,7 +81,6 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final Table mainTable;
 	private boolean displayed;
 
-	private FurnitureType selectedFurnitureType;
 	private boolean stockpileSettingsExpanded;
 	private final StockpileComponentUpdater stockpileComponentUpdater;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
@@ -312,10 +311,10 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			mainTable.add(furnitureTable).center().row();
 		}
 
-		if (selectedFurnitureType != null) {
+		if (interactionStateContainer.getFurnitureTypeToPlace() != null) {
 			mainTable.add(furnitureMaterialsWidget).center().expandX().row();
 
-			Entity furnitureEntity = furnitureMap.getByFurnitureType(selectedFurnitureType);
+			Entity furnitureEntity = furnitureMap.getByFurnitureType(interactionStateContainer.getFurnitureTypeToPlace());
 			FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
 			furnitureMaterialsWidget.onMaterialSelection(material -> {
 				if (material != null) {
@@ -342,7 +341,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 	private Actor buildFurnitureButton(FurnitureType furnitureType) {
 		Container<Button> buttonContainer = new Container<>();
-		if (furnitureType.equals(selectedFurnitureType)) {
+		if (furnitureType.equals(interactionStateContainer.getFurnitureTypeToPlace())) {
 			buttonContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
 		}
 		buttonContainer.pad(18);
@@ -355,11 +354,11 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		furnitureButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				RoomEditingView.this.selectedFurnitureType = furnitureType;
+				interactionStateContainer.setFurnitureTypeToPlace(furnitureType);
 				furnitureMaterialsWidget.changeSelectedFurniture(furnitureType);
 				rebuildUI();
-				GameInteractionMode.PLACE_FURNITURE.setFurnitureType(selectedFurnitureType);
-				messageDispatcher.dispatchMessage(MessageType.GUI_FURNITURE_TYPE_SELECTED, selectedFurnitureType);
+				GameInteractionMode.PLACE_FURNITURE.setFurnitureType(interactionStateContainer.getFurnitureTypeToPlace());
+				messageDispatcher.dispatchMessage(MessageType.GUI_FURNITURE_TYPE_SELECTED, interactionStateContainer.getFurnitureTypeToPlace());
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FURNITURE);
 			}
 		});
@@ -368,10 +367,6 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 		buttonContainer.setActor(furnitureButton);
 		return buttonContainer;
-	}
-
-	public FurnitureType getSelectedFurnitureType() {
-		return selectedFurnitureType;
 	}
 
 	private void buildSizingButtonsTable(Room selectedRoom) {
@@ -461,7 +456,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	@Override
 	public void onHide() {
 		this.displayed = false;
-		this.selectedFurnitureType = null;
+		this.interactionStateContainer.setFurnitureTypeToPlace(null);
 	}
 
 	@Override
@@ -471,7 +466,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 	@Override
 	public void clearContextRelatedState() {
-		this.selectedFurnitureType = null;
+		this.interactionStateContainer.setFurnitureTypeToPlace(null);
 	}
 
 	@Override

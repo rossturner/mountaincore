@@ -278,8 +278,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private void rebuildFurnitureEntity() {
-		FurnitureType selectedFurnitureType = roomEditingView.getSelectedFurnitureType();
-
+		FurnitureType selectedFurnitureType = interactionStateContainer.getFurnitureTypeToPlace();
 
 		GameMaterialType selectedMaterialType = furnitureMaterialsWidget.getSelectedMaterialType();
 		List<ItemTypeWithMaterial> materialSelections = furnitureMaterialsWidget.getSelections();

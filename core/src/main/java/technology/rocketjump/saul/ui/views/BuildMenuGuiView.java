@@ -44,10 +44,12 @@ import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import static technology.rocketjump.saul.ui.GameInteractionMode.REMOVE_DESIGNATIONS;
+import static technology.rocketjump.saul.ui.views.RoomEditingView.FURNITURE_PER_ROW;
 
 @Singleton
 public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
@@ -64,6 +66,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	private final GameMaterialDictionary materialDictionary;
 	private final FloorTypeDictionary floorTypeDictionary;
 	private final FurnitureType doorFurnitureType;
+	private final List<FurnitureType> placeAnywhereFurniture;
 	private Table furnitureTable;
 	private final Table cancelDeconstructButtons = new Table();
 	private final WallTypeDictionary wallTypeDictionary;
@@ -110,6 +113,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 
 		// MODDING move the selection of door furniture types to be based on an "IS_DOOR" tag
 		doorFurnitureType = furnitureTypeDictionary.getByName("SINGLE_DOOR");
+		placeAnywhereFurniture = furnitureTypeDictionary.getPlaceAnywhereFurniture();
 
 		messageDispatcher.addListener(this, MessageType.INTERACTION_MODE_CHANGED);
 	}
@@ -163,10 +167,18 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		furnitureTable.clearChildren();
 
 		selectionImageButtons.clear();
+		int furnitureTableCursor = 0;
 		for (BuildMenuSelection buildMenuSelection : BuildMenuSelection.values()) {
 			furnitureTable.add(buildFakeFurnitureButton(buildMenuSelection));
+			furnitureTableCursor++;
 		}
-		// TODO probably do lantern (and other furniture differently)
+		for (FurnitureType furnitureType : placeAnywhereFurniture) {
+			furnitureTable.add(buildFurnitureButton(furnitureType));
+			furnitureTableCursor++;
+			if (furnitureTableCursor % FURNITURE_PER_ROW == 0) {
+				furnitureTable.row();
+			}
+		}
 
 		mainTable.add(furnitureTable).center().row();
 
@@ -176,103 +188,151 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 				material = GameMaterial.NULL_MATERIAL;
 			}
 
-			switch (currentSelection) {
-				case DOOR -> {
-					Entity furnitureEntity = furnitureMap.getByFurnitureType(doorFurnitureType);
-					FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
-					if (!material.equals(GameMaterial.NULL_MATERIAL)) {
-						attributes.setMaterial(material);
-						messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
-					}
-					messageDispatcher.dispatchMessage(MessageType.DOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
-							attributes.getPrimaryMaterialType(), material, doorFurnitureType.getRequirements().get(attributes.getPrimaryMaterialType()).get(0).getItemType()
-					));
+			if (currentSelection != null) {
+				switch (currentSelection) {
+					case DOOR -> {
+						Entity furnitureEntity = furnitureMap.getByFurnitureType(doorFurnitureType);
+						FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
+						if (!material.equals(GameMaterial.NULL_MATERIAL)) {
+							attributes.setMaterial(material);
+							messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
+						}
+						messageDispatcher.dispatchMessage(MessageType.DOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
+								attributes.getPrimaryMaterialType(), material, doorFurnitureType.getRequirements().get(attributes.getPrimaryMaterialType()).get(0).getItemType()
+						));
 
-					if (material.equals(GameMaterial.NULL_MATERIAL)) {
-						attributes.setMaterial(materialDictionary.getExampleMaterial(attributes.getPrimaryMaterialType()));
+						if (material.equals(GameMaterial.NULL_MATERIAL)) {
+							attributes.setMaterial(materialDictionary.getExampleMaterial(attributes.getPrimaryMaterialType()));
+						}
 					}
-				}
-				case FLOORING -> {
-					FloorType floorType = interactionStateContainer.getFloorTypeToPlace();
-					messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
-							floorType.getMaterialType(), material, floorType.getRequirements().get(floorType.getMaterialType()).get(0).getItemType()));
-					if (material.equals(GameMaterial.NULL_MATERIAL)) {
-						material = materialDictionary.getExampleMaterial(floorType.getMaterialType());
+					case FLOORING -> {
+						FloorType floorType = interactionStateContainer.getFloorTypeToPlace();
+						messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
+								floorType.getMaterialType(), material, floorType.getRequirements().get(floorType.getMaterialType()).get(0).getItemType()));
+						if (material.equals(GameMaterial.NULL_MATERIAL)) {
+							material = materialDictionary.getExampleMaterial(floorType.getMaterialType());
+						}
+						selectionImageButtons.get(currentSelection).setColor(material.getColor());
 					}
-					selectionImageButtons.get(currentSelection).setColor(material.getColor());
-				}
-				case WALLS -> {
-					WallType wallType = interactionStateContainer.getWallTypeToPlace();
-					messageDispatcher.dispatchMessage(MessageType.WALL_MATERIAL_SELECTED, new MaterialSelectionMessage(
-							wallType.getMaterialType(), material, wallType.getRequirements().get(wallType.getMaterialType()).get(0).getItemType()));
-					if (material.equals(GameMaterial.NULL_MATERIAL)) {
-						material = materialDictionary.getExampleMaterial(wallType.getMaterialType());
+					case WALLS -> {
+						WallType wallType = interactionStateContainer.getWallTypeToPlace();
+						messageDispatcher.dispatchMessage(MessageType.WALL_MATERIAL_SELECTED, new MaterialSelectionMessage(
+								wallType.getMaterialType(), material, wallType.getRequirements().get(wallType.getMaterialType()).get(0).getItemType()));
+						if (material.equals(GameMaterial.NULL_MATERIAL)) {
+							material = materialDictionary.getExampleMaterial(wallType.getMaterialType());
+						}
+						selectionImageButtons.get(currentSelection).setColor(material.getColor());
 					}
-					selectionImageButtons.get(currentSelection).setColor(material.getColor());
-				}
-				case BRIDGE -> {
-					BridgeType bridgeType = interactionStateContainer.getBridgeTypeToPlace();
-					messageDispatcher.dispatchMessage(MessageType.BRIDGE_MATERIAL_SELECTED, new MaterialSelectionMessage(
-							bridgeType.getMaterialType(), material, bridgeType.getBuildingRequirement().getItemType()));
-					if (material.equals(GameMaterial.NULL_MATERIAL)) {
-						material = materialDictionary.getExampleMaterial(bridgeType.getMaterialType());
+					case BRIDGE -> {
+						BridgeType bridgeType = interactionStateContainer.getBridgeTypeToPlace();
+						messageDispatcher.dispatchMessage(MessageType.BRIDGE_MATERIAL_SELECTED, new MaterialSelectionMessage(
+								bridgeType.getMaterialType(), material, bridgeType.getBuildingRequirement().getItemType()));
+						if (material.equals(GameMaterial.NULL_MATERIAL)) {
+							material = materialDictionary.getExampleMaterial(bridgeType.getMaterialType());
+						}
+						selectionImageButtons.get(currentSelection).setColor(material.getColor());
 					}
-					selectionImageButtons.get(currentSelection).setColor(material.getColor());
+					default -> Logger.error("Not yet implemented: Switching material type of " + currentSelection);
 				}
-				default -> Logger.error("Not yet implemented: Switching material type of " + currentSelection);
-			}
-
-//			rebuildUI();
-		});
-		furnitureMaterialsWidget.onMaterialTypeSelection(materialType -> {
-			switch (currentSelection) {
-				case DOOR -> {
-					Entity furnitureEntity = furnitureMap.getByFurnitureType(doorFurnitureType);
+			} else if (interactionStateContainer.getFurnitureTypeToPlace() != null) {
+				if (material != null) {
+					Entity furnitureEntity = furnitureMap.getByFurnitureType(interactionStateContainer.getFurnitureTypeToPlace());
 					FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
-					attributes.setPrimaryMaterialType(materialType);
-					if (!attributes.getMaterials().containsKey(materialType)) {
-						attributes.setMaterial(materialDictionary.getExampleMaterial(materialType));
-					}
-					messageDispatcher.dispatchMessage(MessageType.DOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
-							materialType, GameMaterial.NULL_MATERIAL, doorFurnitureType.getRequirements().get(materialType).get(0).getItemType()
-					));
+					attributes.setMaterial(material);
+					messageDispatcher.dispatchMessage(MessageType.FURNITURE_MATERIAL_SELECTED);
 					messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
 				}
-				case FLOORING -> {
-					FloorType floorType = applicableFloorTypes().filter(ft -> ft.getMaterialType().equals(materialType)).findFirst().orElseThrow();
-					messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
-							materialType, GameMaterial.NULL_MATERIAL, floorType.getRequirements().get(floorType.getMaterialType()).get(0).getItemType()));
+			}
+		});
+		furnitureMaterialsWidget.onMaterialTypeSelection(materialType -> {
+			if (currentSelection != null) {
+				switch (currentSelection) {
+					case DOOR -> {
+						Entity furnitureEntity = furnitureMap.getByFurnitureType(doorFurnitureType);
+						FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
+						attributes.setPrimaryMaterialType(materialType);
+						if (!attributes.getMaterials().containsKey(materialType)) {
+							attributes.setMaterial(materialDictionary.getExampleMaterial(materialType));
+						}
+						messageDispatcher.dispatchMessage(MessageType.DOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
+								materialType, GameMaterial.NULL_MATERIAL, doorFurnitureType.getRequirements().get(materialType).get(0).getItemType()
+						));
+						messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
+					}
+					case FLOORING -> {
+						FloorType floorType = applicableFloorTypes().filter(ft -> ft.getMaterialType().equals(materialType)).findFirst().orElseThrow();
+						messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
+								materialType, GameMaterial.NULL_MATERIAL, floorType.getRequirements().get(floorType.getMaterialType()).get(0).getItemType()));
 
-					Image imageButton = selectionImageButtons.get(currentSelection);
-					imageButton.setDrawable(skin.getDrawable(floorType.getSelectionDrawableName()));
-					imageButton.setColor(materialDictionary.getExampleMaterial(materialType).getColor());
-				}
-				case WALLS -> {
-					WallType wallType = applicableWallTypes().filter(ft -> ft.getMaterialType().equals(materialType)).findFirst().orElseThrow();
-					messageDispatcher.dispatchMessage(MessageType.WALL_MATERIAL_SELECTED, new MaterialSelectionMessage(
-							materialType, GameMaterial.NULL_MATERIAL, wallType.getRequirements().get(wallType.getMaterialType()).get(0).getItemType()));
+						Image imageButton = selectionImageButtons.get(currentSelection);
+						imageButton.setDrawable(skin.getDrawable(floorType.getSelectionDrawableName()));
+						imageButton.setColor(materialDictionary.getExampleMaterial(materialType).getColor());
+					}
+					case WALLS -> {
+						WallType wallType = applicableWallTypes().filter(ft -> ft.getMaterialType().equals(materialType)).findFirst().orElseThrow();
+						messageDispatcher.dispatchMessage(MessageType.WALL_MATERIAL_SELECTED, new MaterialSelectionMessage(
+								materialType, GameMaterial.NULL_MATERIAL, wallType.getRequirements().get(wallType.getMaterialType()).get(0).getItemType()));
 
-					Image imageButton = selectionImageButtons.get(currentSelection);
-					imageButton.setDrawable(skin.getDrawable(wallType.getSelectionDrawableName()));
-					imageButton.setColor(materialDictionary.getExampleMaterial(materialType).getColor());
-				}
-				case BRIDGE -> {
-					BridgeType bridgeType = applicableBridgeTypes().filter(ft -> ft.getMaterialType().equals(materialType)).findFirst().orElseThrow();
-					messageDispatcher.dispatchMessage(MessageType.BRIDGE_MATERIAL_SELECTED, new MaterialSelectionMessage(
-							materialType, GameMaterial.NULL_MATERIAL, bridgeType.getBuildingRequirement().getItemType()));
+						Image imageButton = selectionImageButtons.get(currentSelection);
+						imageButton.setDrawable(skin.getDrawable(wallType.getSelectionDrawableName()));
+						imageButton.setColor(materialDictionary.getExampleMaterial(materialType).getColor());
+					}
+					case BRIDGE -> {
+						BridgeType bridgeType = applicableBridgeTypes().filter(ft -> ft.getMaterialType().equals(materialType)).findFirst().orElseThrow();
+						messageDispatcher.dispatchMessage(MessageType.BRIDGE_MATERIAL_SELECTED, new MaterialSelectionMessage(
+								materialType, GameMaterial.NULL_MATERIAL, bridgeType.getBuildingRequirement().getItemType()));
 
-					Image imageButton = selectionImageButtons.get(currentSelection);
-					imageButton.setDrawable(skin.getDrawable(bridgeType.getSelectionDrawableName()));
-					imageButton.setColor(materialDictionary.getExampleMaterial(materialType).getColor());
+						Image imageButton = selectionImageButtons.get(currentSelection);
+						imageButton.setDrawable(skin.getDrawable(bridgeType.getSelectionDrawableName()));
+						imageButton.setColor(materialDictionary.getExampleMaterial(materialType).getColor());
+					}
+					default -> Logger.error("Not yet implemented: Switching material type of " + currentSelection);
 				}
-				default -> Logger.error("Not yet implemented: Switching material type of " + currentSelection);
+			} else if (interactionStateContainer.getFurnitureTypeToPlace() != null) {
+				Entity furnitureEntity = furnitureMap.getByFurnitureType(interactionStateContainer.getFurnitureTypeToPlace());
+				FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
+				attributes.setPrimaryMaterialType(materialType);
+				if (!attributes.getMaterials().containsKey(materialType)) {
+					attributes.setMaterial(materialDictionary.getExampleMaterial(materialType));
+				}
+				messageDispatcher.dispatchMessage(MessageType.FURNITURE_MATERIAL_SELECTED);
+				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
 			}
 			rebuildUI();
 		});
 
-		if (currentSelection != null) {
+		if (currentSelection != null || interactionStateContainer.getFurnitureTypeToPlace() != null) {
 			mainTable.add(furnitureMaterialsWidget).center().expandX().row();
 		}
+	}
+
+	private Actor buildFurnitureButton(FurnitureType furnitureType) {
+		Container<Button> buttonContainer = new Container<>();
+		if (furnitureType.equals(interactionStateContainer.getFurnitureTypeToPlace())) {
+			buttonContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
+		}
+		buttonContainer.pad(18);
+
+		Drawable background = skin.getDrawable("asset_bg");
+		Button furnitureButton = new Button(new EntityDrawable(
+				furnitureMap.getByFurnitureType(furnitureType), entityRenderer, true, messageDispatcher
+		).withBackground(background));
+		buttonContainer.size(background.getMinWidth(), background.getMinHeight());
+		furnitureButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				setSelectedFurniture(furnitureType);
+				furnitureMaterialsWidget.changeSelectedFurniture(furnitureType);
+				GameInteractionMode.PLACE_FURNITURE.setFurnitureType(interactionStateContainer.getFurnitureTypeToPlace());
+				messageDispatcher.dispatchMessage(MessageType.GUI_FURNITURE_TYPE_SELECTED, interactionStateContainer.getFurnitureTypeToPlace());
+				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FURNITURE);
+			}
+		});
+		furnitureButton.addListener(new ChangeCursorOnHover(furnitureButton, GameCursor.SELECT, messageDispatcher));
+		tooltipFactory.simpleTooltip(furnitureButton, furnitureType.getI18nKey(), TooltipLocationHint.ABOVE);
+
+		buttonContainer.setActor(furnitureButton);
+		return buttonContainer;
 	}
 
 	private Actor buildFakeFurnitureButton(BuildMenuSelection buildSelection) {
@@ -316,7 +376,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 								GameMaterial.NULL_MATERIAL, // need to go back to null material for furniture requirements to match up
 								doorFurnitureType.getRequirements().get(attributes.getPrimaryMaterialType()).get(0).getItemType()
 						);
-						BuildMenuGuiView.this.currentSelection = buildSelection;
+						setCurrentSelection(buildSelection);
 						furnitureMaterialsWidget.changeSelectedFurniture(doorFurnitureType);
 						messageDispatcher.dispatchMessage(MessageType.DOOR_MATERIAL_SELECTED, newMaterialSelection);
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_DOOR);
@@ -352,7 +412,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 						FloorType floorType = applicableFloorTypes().filter(ft -> ft.getMaterialType().equals(newMaterialSelection.selectedMaterialType))
 								.findFirst().orElseThrow();
 
-						BuildMenuGuiView.this.currentSelection = buildSelection;
+						setCurrentSelection(buildSelection);
 						FurnitureType fakeFurnitureType = new FurnitureType();
 						fakeFurnitureType.setName(floorType.getFloorTypeName());
 						fakeFurnitureType.setI18nKey(floorType.getI18nKey());
@@ -398,7 +458,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 						WallType wallType = applicableWallTypes().filter(ft -> ft.getMaterialType().equals(newMaterialSelection.selectedMaterialType))
 								.findFirst().orElseThrow();
 
-						BuildMenuGuiView.this.currentSelection = buildSelection;
+						setCurrentSelection(buildSelection);
 						FurnitureType fakeFurnitureType = new FurnitureType();
 						fakeFurnitureType.setName(wallType.getWallTypeName());
 						fakeFurnitureType.setI18nKey(wallType.getI18nKey());
@@ -444,7 +504,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 						BridgeType bridgeType = applicableBridgeTypes().filter(type -> type.getMaterialType().equals(newMaterialSelection.selectedMaterialType))
 								.findFirst().orElseThrow();
 
-						BuildMenuGuiView.this.currentSelection = buildSelection;
+						setCurrentSelection(buildSelection);
 						FurnitureType fakeFurnitureType = new FurnitureType();
 						fakeFurnitureType.setName(bridgeType.getMaterialType().name()+"_BRIDGE");
 						fakeFurnitureType.setI18nKey(bridgeType.getI18nKey());
@@ -468,6 +528,16 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 				return null;
 			}
 		}
+	}
+
+	private void setCurrentSelection(BuildMenuSelection buildSelection) {
+		this.currentSelection = buildSelection;
+		this.interactionStateContainer.setFurnitureTypeToPlace(null);
+	}
+
+	private void setSelectedFurniture(FurnitureType furnitureType) {
+		this.currentSelection = null;
+		this.interactionStateContainer.setFurnitureTypeToPlace(furnitureType);
 	}
 
 	private Actor wrapWithBackground(Image image) {
@@ -537,6 +607,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	@Override
 	public void onHide() {
 		this.displayed = false;
+		this.interactionStateContainer.setFurnitureTypeToPlace(null);
 	}
 
 	@Override
@@ -613,8 +684,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		FLOORING,
 		WALLS,
 		DOOR,
-		BRIDGE,
-		PILLAR
+		BRIDGE
 
 	}
 

@@ -19,6 +19,7 @@ import technology.rocketjump.saul.doors.DoorwaySize;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
@@ -95,6 +96,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 
 	// Furniture placement info
 	private RoomType currentRoomType;
+	private FurnitureType furnitureTypeToPlace;
 	private Entity furnitureEntityToPlace;
 	private boolean validFurniturePlacement;
 	private DoorwayPlacementMessage virtualDoorPlacement;
@@ -886,5 +888,13 @@ public class GameInteractionStateContainer implements GameContextAware {
 
 	public MaterialSelectionMessage getWallMaterialSelection() {
 		return wallMaterialSelection;
+	}
+
+	public FurnitureType getFurnitureTypeToPlace() {
+		return furnitureTypeToPlace;
+	}
+
+	public void setFurnitureTypeToPlace(FurnitureType furnitureTypeToPlace) {
+		this.furnitureTypeToPlace = furnitureTypeToPlace;
 	}
 }
