@@ -1,12 +1,16 @@
-[{
-  "uniqueName": "Tree-Oak-Size3-Leaves",
-  "type": "PLANT_LEAVES",
-  "speciesName": "Oak",
-  "growthStages": [2],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "oak-2-l.png",
-      "coloringLayer": "LEAF_COLOR"
+[ {
+  "uniqueName" : "Tree-Oak-Size3-Leaves",
+  "type" : "PLANT_LEAVES",
+  "speciesName" : "Oak",
+  "growthStages" : [ 2 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "oak-2-l.png",
+      "coloringLayer" : "LEAF_COLOR",
+      "offsetPixels" : {
+        "x" : 2.0,
+        "y" : 22.0
+      }
     }
   }
-}]
+} ]

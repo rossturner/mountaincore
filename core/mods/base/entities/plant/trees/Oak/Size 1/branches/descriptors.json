@@ -1,25 +1,22 @@
-[{
-  "uniqueName": "Tree-Oak-Size1-Branches",
-  "type": "PLANT_BRANCHES",
-  "speciesName": "Oak",
-  "growthStages": [0],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "oak-0-t.png",
-      "coloringLayer": "BRANCHES_COLOR",
-      "offsetPixels": {
-        "x": 0,
-        "y": 8
+[ {
+  "uniqueName" : "Tree-Oak-Size1-Branches",
+  "type" : "PLANT_BRANCHES",
+  "speciesName" : "Oak",
+  "growthStages" : [ 0 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "oak-0-t.png",
+      "coloringLayer" : "BRANCHES_COLOR",
+      "offsetPixels" : {
+        "y" : 8.0
       },
-      "childAssets": [
-        {
-          "type": "PLANT_LEAVES",
-          "offsetPixels": {
-            "x": 2,
-            "y": 10
-          }
+      "childAssets" : [ {
+        "type" : "PLANT_LEAVES",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : 10.0
         }
-      ]
+      } ]
     }
   }
-}]
+} ]

@@ -1,12 +1,12 @@
-[{
-  "uniqueName": "Tree-Pine-Size3-Leaves",
-  "type": "PLANT_LEAVES",
-  "speciesName": "Pine",
-  "growthStages": [2],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "pine_03_l.png",
-      "coloringLayer": "LEAF_COLOR"
+[ {
+  "uniqueName" : "Tree-Pine-Size3-Leaves",
+  "type" : "PLANT_LEAVES",
+  "speciesName" : "Pine",
+  "growthStages" : [ 2 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "pine_03_l.png",
+      "coloringLayer" : "LEAF_COLOR"
     }
   }
-}]
+} ]

@@ -1,12 +1,12 @@
-[{
-  "uniqueName": "Tree-Fir-Size4-Leaves",
-  "type": "PLANT_LEAVES",
-  "speciesName": "Fir",
-  "growthStages": [3],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "fir-3-l.png",
-      "coloringLayer": "LEAF_COLOR"
+[ {
+  "uniqueName" : "Tree-Fir-Size4-Leaves",
+  "type" : "PLANT_LEAVES",
+  "speciesName" : "Fir",
+  "growthStages" : [ 3 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "fir-3-l.png",
+      "coloringLayer" : "LEAF_COLOR"
     }
   }
-}]
+} ]
