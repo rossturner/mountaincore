@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
@@ -17,12 +18,16 @@ import technology.rocketjump.saul.assets.FloorTypeDictionary;
 import technology.rocketjump.saul.assets.WallTypeDictionary;
 import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.assets.model.WallType;
+import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
+import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.MaterialSelectionMessage;
+import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.sprites.BridgeTypeDictionary;
 import technology.rocketjump.saul.sprites.model.BridgeType;
 import technology.rocketjump.saul.ui.GameInteractionMode;
@@ -34,6 +39,7 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
 
 import java.util.Comparator;
@@ -57,10 +63,13 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	private final FurnitureMaterialsWidget furnitureMaterialsWidget;
 	private final GameMaterialDictionary materialDictionary;
 	private final FloorTypeDictionary floorTypeDictionary;
+	private final FurnitureType doorFurnitureType;
 	private Table furnitureTable;
 	private final Table cancelDeconstructButtons = new Table();
 	private final WallTypeDictionary wallTypeDictionary;
 	private final BridgeTypeDictionary bridgeTypeDictionary;
+	private final EntityRenderer entityRenderer;
+	private final RoomEditorFurnitureMap furnitureMap;
 	private boolean displayed;
 
 	private BuildMenuSelection currentSelection;
@@ -71,7 +80,8 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 							I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
 							FurnitureMaterialsWidget furnitureMaterialsWidget,
 							GameMaterialDictionary materialDictionary, FloorTypeDictionary floorTypeDictionary,
-							WallTypeDictionary wallTypeDictionary, BridgeTypeDictionary bridgeTypeDictionary) {
+							WallTypeDictionary wallTypeDictionary, BridgeTypeDictionary bridgeTypeDictionary,
+							FurnitureTypeDictionary furnitureTypeDictionary, EntityRenderer entityRenderer, RoomEditorFurnitureMap furnitureMap) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
@@ -82,6 +92,8 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		this.floorTypeDictionary = floorTypeDictionary;
 		this.wallTypeDictionary = wallTypeDictionary;
 		this.bridgeTypeDictionary = bridgeTypeDictionary;
+		this.entityRenderer = entityRenderer;
+		this.furnitureMap = furnitureMap;
 
 		backButton = new Button(skin.getDrawable("btn_back"));
 		mainTable = new Table();
@@ -95,6 +107,9 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 
 		headerContainer = new Table();
 		headerContainer.setBackground(skin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
+
+		// MODDING move the selection of door furniture types to be based on an "IS_DOOR" tag
+		doorFurnitureType = furnitureTypeDictionary.getByName("SINGLE_DOOR");
 
 		messageDispatcher.addListener(this, MessageType.INTERACTION_MODE_CHANGED);
 	}
@@ -162,6 +177,21 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 			}
 
 			switch (currentSelection) {
+				case DOOR -> {
+					Entity furnitureEntity = furnitureMap.getByFurnitureType(doorFurnitureType);
+					FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
+					if (!material.equals(GameMaterial.NULL_MATERIAL)) {
+						attributes.setMaterial(material);
+						messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
+					}
+					messageDispatcher.dispatchMessage(MessageType.DOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
+							attributes.getPrimaryMaterialType(), material, doorFurnitureType.getRequirements().get(attributes.getPrimaryMaterialType()).get(0).getItemType()
+					));
+
+					if (material.equals(GameMaterial.NULL_MATERIAL)) {
+						attributes.setMaterial(materialDictionary.getExampleMaterial(attributes.getPrimaryMaterialType()));
+					}
+				}
 				case FLOORING -> {
 					FloorType floorType = interactionStateContainer.getFloorTypeToPlace();
 					messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
@@ -196,6 +226,18 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		});
 		furnitureMaterialsWidget.onMaterialTypeSelection(materialType -> {
 			switch (currentSelection) {
+				case DOOR -> {
+					Entity furnitureEntity = furnitureMap.getByFurnitureType(doorFurnitureType);
+					FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
+					attributes.setPrimaryMaterialType(materialType);
+					if (!attributes.getMaterials().containsKey(materialType)) {
+						attributes.setMaterial(materialDictionary.getExampleMaterial(materialType));
+					}
+					messageDispatcher.dispatchMessage(MessageType.DOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
+							materialType, GameMaterial.NULL_MATERIAL, doorFurnitureType.getRequirements().get(materialType).get(0).getItemType()
+					));
+					messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
+				}
 				case FLOORING -> {
 					FloorType floorType = applicableFloorTypes().filter(ft -> ft.getMaterialType().equals(materialType)).findFirst().orElseThrow();
 					messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
@@ -234,38 +276,62 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	}
 
 	private Actor buildFakeFurnitureButton(BuildMenuSelection buildSelection) {
-		Container<Container<Image>> buttonContainer = new Container<>();
+		Container<Actor> buttonContainer = new Container<>();
 		if (buildSelection.equals(currentSelection)) {
 			buttonContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
 		}
 		buttonContainer.pad(18);
 
-		Image fakeFurnitureButton = buildSelectionImageButton(buildSelection);
+		Actor fakeFurnitureButton = buildSelectionButton(buildSelection);
 		if (fakeFurnitureButton == null) {
 			Logger.error("Not yet implemented: " + buildSelection);
 			return new Container<>();
 		}
-		selectionImageButtons.put(buildSelection, fakeFurnitureButton);
+		if (fakeFurnitureButton instanceof Image imageButton) {
+			selectionImageButtons.put(buildSelection, imageButton);
+		}
 		buttonContainer.size(183, 183);
 		fakeFurnitureButton.addListener(new ChangeCursorOnHover(fakeFurnitureButton, GameCursor.SELECT, messageDispatcher));
 
-		Container<Image> innerContainer = new Container<>();
-		innerContainer.setBackground(skin.getDrawable("asset_bg"));
-		innerContainer.setActor(fakeFurnitureButton);
-		buttonContainer.setActor(innerContainer);
+		buttonContainer.setActor(fakeFurnitureButton);
 		return buttonContainer;
 	}
 
-	private Image buildSelectionImageButton(BuildMenuSelection buildSelection) {
-		Image image = null;
+	private Actor buildSelectionButton(BuildMenuSelection buildSelection) {
 		switch (buildSelection) {
+			case DOOR -> {
+				Drawable background = skin.getDrawable("asset_bg");
+				Entity doorEntity = furnitureMap.getByFurnitureType(doorFurnitureType);
+				EntityDrawable entityDrawable = new EntityDrawable(
+						doorEntity, entityRenderer, true, messageDispatcher
+				).withBackground(background);
+				entityDrawable.setScreenPositionOffset(0, 64);
+				Button furnitureButton = new Button(entityDrawable);
+				furnitureButton.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) doorEntity.getPhysicalEntityComponent().getAttributes();
+						MaterialSelectionMessage newMaterialSelection = new MaterialSelectionMessage(
+								attributes.getPrimaryMaterialType(),
+								GameMaterial.NULL_MATERIAL, // need to go back to null material for furniture requirements to match up
+								doorFurnitureType.getRequirements().get(attributes.getPrimaryMaterialType()).get(0).getItemType()
+						);
+						BuildMenuGuiView.this.currentSelection = buildSelection;
+						furnitureMaterialsWidget.changeSelectedFurniture(doorFurnitureType);
+						messageDispatcher.dispatchMessage(MessageType.DOOR_MATERIAL_SELECTED, newMaterialSelection);
+						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_DOOR);
+					}
+				});
+				tooltipFactory.simpleTooltip(furnitureButton, doorFurnitureType.getI18nKey(), TooltipLocationHint.ABOVE);
+				return furnitureButton;
+			}
 			case FLOORING -> {
 				MaterialSelectionMessage materialSelection = interactionStateContainer.getFloorMaterialSelection();
 
 				FloorType floorType = applicableFloorTypes().filter(ft -> ft.getMaterialType().equals(materialSelection.selectedMaterialType))
 						.findFirst().orElseThrow();
 
-				image = new Image(skin.getDrawable(floorType.getSelectionDrawableName()));
+				Image image = new Image(skin.getDrawable(floorType.getSelectionDrawableName()));
 				final Image imageRef = image;
 				tooltipFactory.simpleTooltip(image, floorType.getI18nKey(), TooltipLocationHint.ABOVE);
 
@@ -303,6 +369,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FLOORING);
 					}
 				});
+				return wrapWithBackground(image);
 			}
 			case WALLS -> {
 				MaterialSelectionMessage materialSelection = interactionStateContainer.getWallMaterialSelection();
@@ -310,7 +377,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 				WallType wallType = applicableWallTypes().filter(ft -> ft.getMaterialType().equals(materialSelection.selectedMaterialType))
 						.findFirst().orElseThrow();
 
-				image = new Image(skin.getDrawable(wallType.getSelectionDrawableName()));
+				Image image = new Image(skin.getDrawable(wallType.getSelectionDrawableName()));
 				final Image imageRef = image;
 				tooltipFactory.simpleTooltip(image, wallType.getI18nKey(), TooltipLocationHint.ABOVE);
 
@@ -348,13 +415,15 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_WALLS);
 					}
 				});
+
+				return wrapWithBackground(image);
 			}
 			case BRIDGE -> {
 				MaterialSelectionMessage materialSelection = interactionStateContainer.getBridgeMaterialSelection();
 				BridgeType bridgeType = applicableBridgeTypes().filter(type -> type.getMaterialType().equals(materialSelection.selectedMaterialType))
 						.findFirst().orElseThrow();
 
-				image = new Image(skin.getDrawable(bridgeType.getSelectionDrawableName()));
+				Image image = new Image(skin.getDrawable(bridgeType.getSelectionDrawableName()));
 				final Image imageRef = image;
 				tooltipFactory.simpleTooltip(image, bridgeType.getI18nKey(), TooltipLocationHint.ABOVE);
 
@@ -392,12 +461,20 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_BRIDGE);
 					}
 				});
+
+				return wrapWithBackground(image);
+			}
+			default -> {
+				return null;
 			}
 		}
-//		new EntityDrawable(
-//				furnitureMap.getByFurnitureType(furnitureType), entityRenderer, true, messageDispatcher
-//		).withBackground(background)
-		return image;
+	}
+
+	private Actor wrapWithBackground(Image image) {
+		Container<Actor> imageContainer = new Container<>();
+		imageContainer.setBackground(skin.getDrawable("asset_bg"));
+		imageContainer.setActor(image);
+		return imageContainer;
 	}
 
 	private Color actualOrExampleColor(GameMaterial material, GameMaterialType materialType) {

@@ -780,6 +780,10 @@ public class GameInteractionStateContainer implements GameContextAware {
 		this.doorMaterialSelection = materialSelectionMessage;
 	}
 
+	public MaterialSelectionMessage getDoorMaterialSelection() {
+		return doorMaterialSelection;
+	}
+
 	public StockpileGroup getSelectedStockpileGroup() {
 		return selectedStockpileGroup;
 	}
