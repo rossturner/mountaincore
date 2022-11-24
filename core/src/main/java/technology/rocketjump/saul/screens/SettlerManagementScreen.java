@@ -118,6 +118,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private Stack stack;
 	private ScrollPane scrollPane;
 	private Label filterNameLabel;
+	private Label filterCountLabel;
 	private Comparator<Entity> selectedSortFunction = SORT_HAPPINESS;
 	private Predicate<Entity> selectedFilter;
 
@@ -166,6 +167,9 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		filterNameLabel = new Label("", managementSkin, "stockpile_group_filter_label"); //probably should be scaled to fit label
 		filterNameLabel.setAlignment(Align.left);
 
+		filterCountLabel = new Label("", managementSkin, "sort_by_label");
+		filterCountLabel.setAlignment(Align.left);
+
 		scrollPane = new EnhancedScrollPane(null, menuSkin);
 		scrollPane.setForceScroll(false, true);
 		scrollPane.setFadeScrollBars(false);
@@ -202,17 +206,20 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Button sortByMilitaryCivilian = buildTextSortButton("GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN", SORT_MILITARY_CIVILIAN);
 		sortByButtonGroup.add(sortByHappiness, sortByName, sortBySkillLevel, sortByMilitaryCivilian);
 
+		Table filterLabels = new Table();
+		filterLabels.add(filterNameLabel).spaceRight(30f);
+		filterLabels.add(filterCountLabel).bottom();
 		Table filters = new Table();
-		filters.defaults().growX();
-		filters.add(filterNameLabel).width(400f).padLeft(8f);
-
-//		filters.add(searchBar).width(524);
+		filters.defaults().bottom().growX();
+		filters.add(filterLabels).left().width(400f);
 		filters.add(sortByLabel);
 		filters.add(sortByHappiness);
 		filters.add(sortByName);
 		filters.add(sortBySkillLevel);
 		filters.add(sortByMilitaryCivilian);
 
+		filterLabels.debug();
+		filters.debug();
 
 		Table table = new Table();
 		table.add(titleLabel).row();
@@ -268,6 +275,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				.filter(selectedFilter)
 				.sorted(selectedSortFunction)
 				.collect(Collectors.toList());
+
+		filterCountLabel.setText(settlers.size());
 
 		Table settlersTable = new Table();
 		for (Entity settler : settlers) {
