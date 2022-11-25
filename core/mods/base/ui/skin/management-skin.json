@@ -162,6 +162,11 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: default-font-16
 		fontColor: white
 	}
+	military_highest_proficiency_label: {
+		font: default-font-18
+		fontColor: primary_font_colour_red
+		background: asset_bg_miliatry_skill
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
 	default-horizontal: {

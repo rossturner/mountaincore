@@ -347,6 +347,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 			addGotoSettlerBehaviour(mugshotColumn, settler);
 
+
 			settlersTable.add(mugshotColumn).spaceRight(50f);
 			settlersTable.add(textSummaryColumn).fillX().spaceRight(50f);
 			settlersTable.add(happinessColumn).growX().spaceRight(50f);
@@ -388,8 +389,29 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			}
 		});
 
+		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
+		String militaryProficiencyText = "";
+		if (skillsComponent != null) {
+			Skill highestSkill = SkillDictionary.UNARMED_COMBAT_SKILL;
+			int highestSkillLevel = skillsComponent.getSkillLevel(highestSkill);
+			for (Skill combatSkill : skillDictionary.getAllCombatSkills()) {
+				int combatSkillLevel = skillsComponent.getSkillLevel(combatSkill);
+				if (combatSkillLevel > highestSkillLevel) {
+					highestSkill = combatSkill;
+					highestSkillLevel = combatSkillLevel;
+				}
+			}
+
+			militaryProficiencyText = i18nTranslator.getSkilledProfessionDescription(highestSkill, highestSkillLevel,
+					((CreatureEntityAttributes) settler.getPhysicalEntityComponent().getAttributes()).getGender()).toString();
+		}
+
+		Label militaryProficiencyLabel = new Label(militaryProficiencyText, managementSkin, "military_highest_proficiency_label");
+		militaryProficiencyLabel.setAlignment(Align.center);
+
 		Table table = new Table();
 		table.add(toggle).row();
+		table.add(militaryProficiencyLabel);
 		return table;
 	}
 
