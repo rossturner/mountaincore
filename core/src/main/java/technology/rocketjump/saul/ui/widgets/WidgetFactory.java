@@ -80,12 +80,15 @@ public class WidgetFactory {
         return selectBox;
     }
 
-    public ImageTextButton createLeftLabelledToggle(String i18nKey, Skin skin) {
+    public ImageTextButton createLeftLabelledToggle(String i18nKey, Skin skin, Image prefixImage) {
         ImageTextButton toggle = new ImageTextButton(i18nTranslator.translate(i18nKey), skin, "text_toggle");
         Label label = toggle.getLabel();
         Image toggleImage = toggle.getImage();
         toggle.clearChildren();
-        toggle.add(label).padRight(28f);
+        if (prefixImage != null) {
+            toggle.add(prefixImage).padRight(24f);
+        }
+        toggle.add(label).padRight(22f);
         toggle.add(toggleImage);
         toggle.addActorBefore(toggle.getImage(), label);
 

@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -223,7 +224,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Label populationStatisticsLabel = new Label(populationStatisticsText.toString(), managementSkin, "sort_by_label");
 		populationRow.add(populationStatisticsLabel);
 
-		ImageTextButton immigrationToggle = widgetFactory.createLeftLabelledToggle("GUI.SETTLER_MANAGEMENT.IMMIGRATION", managementSkin);
+		ImageTextButton immigrationToggle = widgetFactory.createLeftLabelledToggle("GUI.SETTLER_MANAGEMENT.IMMIGRATION", managementSkin, null);
 		if (gameContext != null) {
 			immigrationToggle.setChecked(gameContext.getSettlementState().isAllowImmigration());
 		}
@@ -236,7 +237,6 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		populationRow.add(immigrationToggle).padLeft(150f).spaceRight(38);
 
 
-		populationStatisticsLabel.debug();
 		//TODO: consider a horizontal scrollbar for when more than designed professions exist
 		Table professionButtons = new Table();
 		ButtonGroup<ImageButton> professionButtonGroup = new ButtonGroup<>();
@@ -369,6 +369,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table happinessColumn = happiness(settler);
 			Table needsColumn = needs(settler);
 			Table professionsColumn = professions(settler);
+			Table militaryToggleColumn = militaryToggle(settler, mugshotColumn, textSummaryColumn, happinessColumn, needsColumn, professionsColumn);
 
 			addGotoSettlerBehaviour(mugshotColumn, settler);
 
@@ -377,6 +378,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			settlersTable.add(happinessColumn).spaceRight(50f);
 			settlersTable.add(needsColumn).spaceRight(50f);
 			settlersTable.add(professionsColumn).spaceRight(50f).spaceBottom(76f).spaceTop(38f);
+			settlersTable.add(militaryToggleColumn).spaceRight(36f);
 
 			settlersTable.left().row();
 		}
@@ -384,20 +386,54 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		scrollPane.setActor(settlersTable);
 	}
 
-	private void addGotoSettlerBehaviour(Table mugshotColumn, Entity settler) {
-		mugshotColumn.setTouchable(Touchable.enabled);
-		mugshotColumn.addListener(new ClickListener() {
+	private Table militaryToggle(Entity settler, Actor... civilianComponents) {
+		boolean isMilitaryScreen = selectedFilter == IS_MILITARY;
+		boolean isCivilianScreen = !isMilitaryScreen;
+		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
+
+		Image image = new Image(managementSkin.getDrawable("icon_military"));
+		ImageTextButton toggle = widgetFactory.createLeftLabelledToggle("GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY", managementSkin, image);
+		toggle.setChecked(IS_MILITARY.test(settler));
+		toggle.addListener(new ChangeListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
-				Vector2 position = settler.getLocationComponent().getWorldOrParentPosition();
-				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
-				messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, position);
-				messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(settler, 0));
+			public void changed(ChangeEvent event, Actor actor) {
+				boolean checked = toggle.isChecked();
+				disableComponents(civilianComponents);
+				//TODO disable military column
+
+				if (checked) {
+					militaryComponent.addToMilitary(1L);
+
+				} else {
+					militaryComponent.removeFromMilitary();
+					if (isCivilianScreen) {
+						enableComponents(civilianComponents);
+					}
+				}
 			}
 		});
-		buttonFactory.attachClickCursor(mugshotColumn, GameCursor.SELECT);
+
+		Table table = new Table();
+		table.add(toggle).row();
+		return table;
 	}
+
+	private void enableComponents(Actor[] components) {
+		for (Actor component : components) {
+			component.clearActions();
+			component.addAction(Actions.alpha(1f));
+			component.setTouchable(Touchable.enabled);
+		}
+	}
+
+	private void disableComponents(Actor[] components) {
+		for (Actor component : components) {
+			component.clearActions();
+			component.addAction(Actions.alpha(0.5f));
+			component.setTouchable(Touchable.disabled);
+		}
+	}
+
 
 	private Table professions(Entity settler) {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
@@ -544,6 +580,21 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	@Override
 	public void clearContextRelatedState() {
 
+	}
+
+	private void addGotoSettlerBehaviour(Table mugshotColumn, Entity settler) {
+		mugshotColumn.setTouchable(Touchable.enabled);
+		mugshotColumn.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				Vector2 position = settler.getLocationComponent().getWorldOrParentPosition();
+				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+				messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, position);
+				messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(settler, 0));
+			}
+		});
+		buttonFactory.attachClickCursor(mugshotColumn, GameCursor.SELECT);
 	}
 
 	private Label tableLabel(String text) {
