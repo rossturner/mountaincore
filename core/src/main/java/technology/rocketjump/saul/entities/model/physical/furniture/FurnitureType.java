@@ -8,8 +8,11 @@ import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.Name;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.rooms.RoomType;
+import technology.rocketjump.saul.ui.views.GuiViewName;
 
 import java.util.*;
+
+import static technology.rocketjump.saul.ui.views.GuiViewName.NULL;
 
 public class FurnitureType {
 
@@ -28,7 +31,7 @@ public class FurnitureType {
 
 	private String iconName;
 
-	private boolean placeAnywhere; // Not restricted by room type
+	private GuiViewName showInGuiView; // Not restricted by room type
 	@JsonIgnore
 	private final Set<RoomType> validRoomTypes = new HashSet<>(); // Only set by code on load
 
@@ -123,12 +126,9 @@ public class FurnitureType {
 		return name;
 	}
 
+	@JsonIgnore
 	public boolean isPlaceAnywhere() {
-		return placeAnywhere;
-	}
-
-	public void setPlaceAnywhere(boolean placeAnywhere) {
-		this.placeAnywhere = placeAnywhere;
+		return showInGuiView != null;
 	}
 
 	public Set<RoomType> getValidRoomTypes() {
@@ -190,5 +190,17 @@ public class FurnitureType {
 	@Override
 	public int hashCode() {
 		return name.hashCode();
+	}
+
+	public GuiViewName getShowInGuiView() {
+		return showInGuiView;
+	}
+
+	public void setShowInGuiView(GuiViewName showInGuiView) {
+		if (NULL.equals(showInGuiView)) {
+			this.showInGuiView = null;
+		} else {
+			this.showInGuiView = showInGuiView;
+		}
 	}
 }

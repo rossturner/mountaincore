@@ -5,7 +5,7 @@
   "defaultLayoutName": "2x2 with lower workspaces",
   "colorCode": "#26e1ed",
   "iconName": "well",
-  "placeAnywhere": true,
+  "showInGuiView": "POWER_WATER_MENU",
   "autoConstructed": false,
   "requirements": {
     "STONE": [

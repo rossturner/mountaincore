@@ -5,7 +5,6 @@
   "defaultLayoutName": "2x2 with lower workspaces",
   "colorCode": "#ab8a49",
   "iconName": "sliced-bread",
-  "placeAnywhere": false,
   "requirements": {
     "STONE": [
       {

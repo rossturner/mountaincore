@@ -226,8 +226,7 @@ public class FurnitureSelectionGuiView implements GuiView, FurnitureSelectedCall
 				}
 			}
 		} else {
-			// Place-anywhere furniture only in non-room furniture collection
-			furnitureTypesForRoom.addAll(furnitureTypeDictionary.getPlaceAnywhereFurniture());
+			furnitureTypesForRoom.addAll(furnitureTypeDictionary.getForGuiView(getName()));
 		}
 
 

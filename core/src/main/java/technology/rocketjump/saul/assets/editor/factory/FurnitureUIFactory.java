@@ -40,10 +40,13 @@ import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
 import technology.rocketjump.saul.rendering.utils.HexColors;
+import technology.rocketjump.saul.ui.views.GuiViewName;
 
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Consumer;
+
+import static technology.rocketjump.saul.ui.views.GuiViewName.NULL;
 
 @Singleton
 public class FurnitureUIFactory implements UIFactory {
@@ -179,8 +182,8 @@ public class FurnitureUIFactory implements UIFactory {
         }));
         controls.row();
 
-        controls.add(WidgetBuilder.label("Place Anywhere"));
-        controls.add(WidgetBuilder.toggle(furnitureType.isPlaceAnywhere(), furnitureType::setPlaceAnywhere));
+        controls.add(WidgetBuilder.label("Show in GUI View"));
+        controls.add(WidgetBuilder.select(furnitureType.getShowInGuiView(), GuiViewName.values(), NULL, furnitureType::setShowInGuiView));
         controls.row();
 
 

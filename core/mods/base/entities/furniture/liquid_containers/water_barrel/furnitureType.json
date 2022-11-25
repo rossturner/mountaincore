@@ -5,7 +5,6 @@
   "defaultLayoutName": "1x1 with workspaces",
   "colorCode": "#26e1ed",
   "iconName": "barrel",
-  "placeAnywhere": false,
   "autoConstructed": true,
   "requirements": {
     "WOOD": [

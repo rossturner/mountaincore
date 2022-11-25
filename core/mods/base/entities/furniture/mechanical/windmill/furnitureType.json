@@ -5,7 +5,7 @@
   "defaultLayoutName": "2x2",
   "colorCode": "#c14545",
   "iconName": "windmill",
-  "placeAnywhere": true,
+  "showInGuiView": "POWER_WATER_MENU",
   "requirements": {
     "WOOD": [
       {

@@ -46,6 +46,7 @@ public enum GuiViewName {
 	SELECT_ITEM,
 
 	// Special cases which shouldn't be hidden
+	NULL,
 	DEBUG,
 	HINTS,
 	MINIMAP,

@@ -5,7 +5,6 @@
   "defaultLayoutName": "mashtun layout",
   "colorCode": "#ac7e28",
   "iconName": "mashtun",
-  "placeAnywhere": false,
   "requirements": {
     "METAL": [
       {

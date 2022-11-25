@@ -5,7 +5,6 @@
   "defaultLayoutName": "1x2N",
   "colorCode": "#a04b00",
   "iconName": "bed",
-  "placeAnywhere": false,
   "requirements": {
     "WOOD": [
       {

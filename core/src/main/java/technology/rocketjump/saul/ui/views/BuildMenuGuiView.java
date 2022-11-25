@@ -66,7 +66,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	private final GameMaterialDictionary materialDictionary;
 	private final FloorTypeDictionary floorTypeDictionary;
 	private final FurnitureType doorFurnitureType;
-	private final List<FurnitureType> placeAnywhereFurniture;
+	private final List<FurnitureType> furnitureTypes;
 	private Table furnitureTable;
 	private final Table cancelDeconstructButtons = new Table();
 	private final WallTypeDictionary wallTypeDictionary;
@@ -113,7 +113,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 
 		// MODDING move the selection of door furniture types to be based on an "IS_DOOR" tag
 		doorFurnitureType = furnitureTypeDictionary.getByName("SINGLE_DOOR");
-		placeAnywhereFurniture = furnitureTypeDictionary.getPlaceAnywhereFurniture();
+		furnitureTypes = furnitureTypeDictionary.getForGuiView(getName());
 
 		messageDispatcher.addListener(this, MessageType.INTERACTION_MODE_CHANGED);
 	}
@@ -172,7 +172,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 			furnitureTable.add(buildFakeFurnitureButton(buildMenuSelection));
 			furnitureTableCursor++;
 		}
-		for (FurnitureType furnitureType : placeAnywhereFurniture) {
+		for (FurnitureType furnitureType : furnitureTypes) {
 			furnitureTable.add(buildFurnitureButton(furnitureType));
 			furnitureTableCursor++;
 			if (furnitureTableCursor % FURNITURE_PER_ROW == 0) {
