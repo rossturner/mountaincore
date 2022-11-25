@@ -118,6 +118,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private ScrollPane scrollPane;
 	private Label filterNameLabel;
 	private Label filterCountLabel;
+	private Label populationStatisticsLabel;
 	private String searchBarText = "";
 	private Comparator<Entity> selectedSortFunction = SORT_HAPPINESS;
 	private Predicate<Entity> selectedFilter;
@@ -191,38 +192,9 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Label titleLabel = labelFactory.titleRibbon("GUI.SETTLER_MANAGEMENT.TITLE");
 
 		Table populationRow = new Table();
-		int civilianCount = 0;
-		int civilianBedCount = 0;
-		int militaryCount = 0;
-		int militaryBedCount = 0;
-
-		for (Entity bed : settlementFurnitureTracker.findByTag(BedSleepingPositionTag.class, false)) {
-			SleepingPositionComponent sleepingComponent = bed.getComponent(SleepingPositionComponent.class);
-			if (sleepingComponent != null) {
-				if (sleepingComponent.getAssignmentType() == BedSleepingPositionTag.BedAssignment.MILITARY_ONLY) {
-					militaryBedCount++;
-				} else if (sleepingComponent.getAssignmentType() == BedSleepingPositionTag.BedAssignment.CIVILIAN_ONLY) {
-					civilianBedCount++;
-				}
-			}
-		}
-		Collection<Entity> livingSettlers = settlerTracker.getLiving();
-		for (Entity livingSettler : livingSettlers) {
-			if (IS_MILITARY.test(livingSettler)) {
-				militaryCount++;
-			} else if (IS_CIVILIAN.test(livingSettler)) {
-				civilianCount++;
-			}
-		}
-		I18nText populationStatisticsText = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS", Map.of(
-				"civilianCount", new I18nWord(String.valueOf(civilianCount)),
-				"civilianBedCount", new I18nWord(String.valueOf(civilianBedCount)),
-				"militaryCount", new I18nWord(String.valueOf(militaryCount)),
-				"militaryBedCount", new I18nWord(String.valueOf(militaryBedCount)),
-				"populationCount", new I18nWord(String.valueOf(livingSettlers.size()))
-		));
-		Label populationStatisticsLabel = new Label(populationStatisticsText.toString(), managementSkin, "sort_by_label");
+		populationStatisticsLabel = new Label("", managementSkin, "sort_by_label");
 		populationRow.add(populationStatisticsLabel);
+		rebuildPopulationStatistics();
 
 		ImageTextButton immigrationToggle = widgetFactory.createLeftLabelledToggle("GUI.SETTLER_MANAGEMENT.IMMIGRATION", managementSkin, null);
 		if (gameContext != null) {
@@ -308,8 +280,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		table.add(professionButtons).padTop(80).row();
 		table.add(populationRow).right().row();
 		table.add(filters).left().row();
-		table.add(new Image(managementSkin.getDrawable("asset_line"))).padTop(40f).row();
-		table.add(scrollPane).row();
+		table.add(new Image(managementSkin.getDrawable("asset_line"))).height(12f).padTop(40f).row();
+		table.add(scrollPane).height(1300).grow().row();
 		return table;
 	}
 
@@ -363,6 +335,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		filterCountLabel.setText(settlers.size());
 
 		Table settlersTable = new Table();
+		settlersTable.align(Align.top);
+
 		for (Entity settler : settlers) {
 			Table mugshotColumn = mugshot(settler);
 			Table textSummaryColumn = textSummary(settler);
@@ -375,10 +349,10 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 			settlersTable.add(mugshotColumn).spaceRight(50f);
 			settlersTable.add(textSummaryColumn).fillX().spaceRight(50f);
-			settlersTable.add(happinessColumn).spaceRight(50f);
-			settlersTable.add(needsColumn).spaceRight(50f);
-			settlersTable.add(professionsColumn).spaceRight(50f).spaceBottom(76f).spaceTop(38f);
-			settlersTable.add(militaryToggleColumn).spaceRight(36f);
+			settlersTable.add(happinessColumn).growX().spaceRight(50f);
+			settlersTable.add(needsColumn).growX().spaceRight(50f);
+			settlersTable.add(professionsColumn).growX().spaceRight(50f).spaceBottom(76f).spaceTop(38f);
+			settlersTable.add(militaryToggleColumn).growX().spaceRight(36f);
 
 			settlersTable.left().row();
 		}
@@ -400,6 +374,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				boolean checked = toggle.isChecked();
 				disableComponents(civilianComponents);
 				//TODO disable military column
+				rebuildPopulationStatistics();
 
 				if (checked) {
 					militaryComponent.addToMilitary(1L);
@@ -571,6 +546,42 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		table.add(new Image(entityDrawable));
 		return table;
 	}
+
+
+	private void rebuildPopulationStatistics() {
+		int civilianCount = 0;
+		int civilianBedCount = 0;
+		int militaryCount = 0;
+		int militaryBedCount = 0;
+
+		for (Entity bed : settlementFurnitureTracker.findByTag(BedSleepingPositionTag.class, false)) {
+			SleepingPositionComponent sleepingComponent = bed.getComponent(SleepingPositionComponent.class);
+			if (sleepingComponent != null) {
+				if (sleepingComponent.getAssignmentType() == BedSleepingPositionTag.BedAssignment.MILITARY_ONLY) {
+					militaryBedCount++;
+				} else if (sleepingComponent.getAssignmentType() == BedSleepingPositionTag.BedAssignment.CIVILIAN_ONLY) {
+					civilianBedCount++;
+				}
+			}
+		}
+		Collection<Entity> livingSettlers = settlerTracker.getLiving();
+		for (Entity livingSettler : livingSettlers) {
+			if (IS_MILITARY.test(livingSettler)) {
+				militaryCount++;
+			} else if (IS_CIVILIAN.test(livingSettler)) {
+				civilianCount++;
+			}
+		}
+		I18nText populationStatisticsText = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS", Map.of(
+				"civilianCount", new I18nWord(String.valueOf(civilianCount)),
+				"civilianBedCount", new I18nWord(String.valueOf(civilianBedCount)),
+				"militaryCount", new I18nWord(String.valueOf(militaryCount)),
+				"militaryBedCount", new I18nWord(String.valueOf(militaryBedCount)),
+				"populationCount", new I18nWord(String.valueOf(livingSettlers.size()))
+		));
+		populationStatisticsLabel.setText(populationStatisticsText.toString());
+	}
+
 
 	@Override
 	public void onContextChange(GameContext gameContext) {
