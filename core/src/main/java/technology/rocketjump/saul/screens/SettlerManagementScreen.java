@@ -18,12 +18,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
+import technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
+import technology.rocketjump.saul.entities.components.furniture.SleepingPositionComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -33,6 +35,7 @@ import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
+import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -106,6 +109,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private final EntityRenderer entityRenderer;
 	private final TooltipFactory tooltipFactory;
 	private final SettlerProfessionFactory settlerProfessionFactory;
+	private final SettlementFurnitureTracker settlementFurnitureTracker;
 
 	private GameContext gameContext;
 	private Stack stack;
@@ -120,7 +124,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	public SettlerManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 	                               I18nTranslator i18nTranslator, LabelFactory labelFactory, ButtonFactory buttonFactory,
 	                               SkillDictionary skillDictionary, SettlerTracker settlerTracker, EntityRenderer entityRenderer,
-	                               TooltipFactory tooltipFactory, SettlerProfessionFactory settlerProfessionFactory) {
+	                               TooltipFactory tooltipFactory, SettlerProfessionFactory settlerProfessionFactory,
+	                               SettlementFurnitureTracker settlementFurnitureTracker) {
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.i18nTranslator = i18nTranslator;
@@ -132,6 +137,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		this.entityRenderer = entityRenderer;
 		this.tooltipFactory = tooltipFactory;
 		this.settlerProfessionFactory = settlerProfessionFactory;
+		this.settlementFurnitureTracker = settlementFurnitureTracker;
 	}
 
 	@Override
@@ -180,6 +186,41 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 	private Actor buildPaperComponents() {
 		Label titleLabel = labelFactory.titleRibbon("GUI.SETTLER_MANAGEMENT.TITLE");
+
+		Table populationRow = new Table();
+		int civilianCount = 0;
+		int civilianBedCount = 0;
+		int militaryCount = 0;
+		int militaryBedCount = 0;
+
+		for (Entity bed : settlementFurnitureTracker.findByTag(BedSleepingPositionTag.class, false)) {
+			SleepingPositionComponent sleepingComponent = bed.getComponent(SleepingPositionComponent.class);
+			if (sleepingComponent != null) {
+				if (sleepingComponent.getAssignmentType() == BedSleepingPositionTag.BedAssignment.MILITARY_ONLY) {
+					militaryBedCount++;
+				} else if (sleepingComponent.getAssignmentType() == BedSleepingPositionTag.BedAssignment.CIVILIAN_ONLY) {
+					civilianBedCount++;
+				}
+			}
+		}
+		Collection<Entity> livingSettlers = settlerTracker.getLiving();
+		for (Entity livingSettler : livingSettlers) {
+			if (IS_MILITARY.test(livingSettler)) {
+				militaryCount++;
+			} else if (IS_CIVILIAN.test(livingSettler)) {
+				civilianCount++;
+			}
+		}
+		I18nText populationStatisticsText = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS", Map.of(
+				"civilianCount", new I18nWord(String.valueOf(civilianCount)),
+				"civilianBedCount", new I18nWord(String.valueOf(civilianBedCount)),
+				"militaryCount", new I18nWord(String.valueOf(militaryCount)),
+				"militaryBedCount", new I18nWord(String.valueOf(militaryBedCount)),
+				"populationCount", new I18nWord(String.valueOf(livingSettlers.size()))
+		));
+		Label populationStatisticsLabel = new Label(populationStatisticsText.toString(), managementSkin, "sort_by_label");
+		populationRow.add(populationStatisticsLabel);
+
 
 		//TODO: consider a horizontal scrollbar for when more than designed professions exist
 		Table professionButtons = new Table();
@@ -248,8 +289,9 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		filters.add(sortByMilitaryCivilian).spaceRight(38);
 
 		Table table = new Table();
-		table.add(titleLabel).row();
-		table.add(professionButtons).row();
+		table.add(titleLabel).padTop(54).row();
+		table.add(professionButtons).padTop(80).row();
+		table.add(populationRow).row();
 		table.add(filters).left().row();
 		table.add(new Image(managementSkin.getDrawable("asset_line"))).padTop(40f).row();
 		table.add(scrollPane).row();
