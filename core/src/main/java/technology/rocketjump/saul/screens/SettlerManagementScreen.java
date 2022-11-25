@@ -1,12 +1,14 @@
 package technology.rocketjump.saul.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -119,6 +121,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private ScrollPane scrollPane;
 	private Label filterNameLabel;
 	private Label filterCountLabel;
+	private String searchBarText = "";
 	private Comparator<Entity> selectedSortFunction = SORT_HAPPINESS;
 	private Predicate<Entity> selectedFilter;
 
@@ -197,6 +200,27 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		}
 		professionFilterButton(professionButtonGroup, professionButtons, "settlers_job_villager", "GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER", new MatchesActiveProfession(SkillDictionary.NULL_PROFESSION));
 
+		TextField searchBar = new TextField("", managementSkin, "search_bar_input");
+		searchBar.setText(searchBarText);
+		searchBar.setMessageText(i18nTranslator.translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
+		searchBar.addListener(new InputListener() {
+			@Override
+			public boolean keyDown(InputEvent event, int keycode) {
+				if (event.getKeyCode() == Input.Keys.ESCAPE) {
+					stage.setKeyboardFocus(null);
+					return false;
+				}
+				return super.keyDown(event, keycode);
+			}
+
+			@Override
+			public boolean keyTyped(InputEvent event, char character) {
+				searchBarText = searchBar.getText();
+				rebuildSettlerTable();
+				return true;
+			}
+		});
+		buttonFactory.attachClickCursor(searchBar, GameCursor.I_BEAM);
 
 		ButtonGroup<Button> sortByButtonGroup = new ButtonGroup<>();
 		Label sortByLabel  = new Label(i18nTranslator.translate("GUI.SETTLER_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
@@ -207,16 +231,17 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		sortByButtonGroup.add(sortByHappiness, sortByName, sortBySkillLevel, sortByMilitaryCivilian);
 
 		Table filterLabels = new Table();
-		filterLabels.add(filterNameLabel).spaceRight(30f);
-		filterLabels.add(filterCountLabel).bottom();
+		filterLabels.add(filterNameLabel).left().spaceRight(30f);
+		filterLabels.add(filterCountLabel).left().growX().bottom();
 		Table filters = new Table();
-		filters.defaults().bottom().growX();
-		filters.add(filterLabels).left().width(400f);
-		filters.add(sortByLabel);
-		filters.add(sortByHappiness);
-		filters.add(sortByName);
-		filters.add(sortBySkillLevel);
-		filters.add(sortByMilitaryCivilian);
+		filters.defaults().bottom();
+		filters.add(filterLabels).width(600f).spaceRight(70f);
+		filters.add(searchBar).width(524).spaceRight(70f);
+		filters.add(sortByLabel).spaceRight(56f);
+		filters.add(sortByHappiness).spaceRight(38);
+		filters.add(sortByName).spaceRight(38);
+		filters.add(sortBySkillLevel).spaceRight(38);
+		filters.add(sortByMilitaryCivilian).spaceRight(38);
 
 		filterLabels.debug();
 		filters.debug();
@@ -224,8 +249,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Table table = new Table();
 		table.add(titleLabel).row();
 		table.add(professionButtons).row();
-		table.add(filters).growX().row();
-		table.add(new Image(managementSkin.getDrawable("asset_resources_line"))).row();
+		table.add(filters).left().row();
+		table.add(new Image(managementSkin.getDrawable("asset_line"))).row();
 		table.add(scrollPane).row();
 		return table;
 	}
@@ -273,6 +298,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Collection<Entity> settlers = settlerTracker.getLiving()
 				.stream()
 				.filter(selectedFilter)
+				.filter(settler -> getName(settler).toLowerCase().contains(searchBarText.toLowerCase()))
 				.sorted(selectedSortFunction)
 				.collect(Collectors.toList());
 
