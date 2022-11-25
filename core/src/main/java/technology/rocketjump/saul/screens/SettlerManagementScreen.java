@@ -405,14 +405,23 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		int modifierCount = 1;
 		for (HappinessComponent.HappinessModifier modifier : happinessComponent.currentModifiers()) {
 			int modifierAmount = modifier.modifierAmount;
+			StringBuilder modifierBuilder = new StringBuilder();
+			modifierBuilder.append(" ");
 			final String drawableName;
 			if (modifierAmount > 0) {
 				drawableName = "icon_happy";
+				modifierBuilder.append("+");
 			} else {
 				drawableName = "icon_sad";
 			}
 			Image modifierImage = new Image(managementSkin.getDrawable(drawableName));
-			tooltipFactory.simpleTooltip(modifierImage, modifier.getI18nKey(), TooltipLocationHint.BELOW);
+
+			modifierBuilder.append(modifierAmount);
+
+			I18nText happinessModifierText = i18nTranslator.getTranslatedString(modifier.getI18nKey());
+			happinessModifierText.append(new I18nWord(modifierBuilder.toString()));
+
+			tooltipFactory.simpleTooltip(modifierImage, happinessModifierText, TooltipLocationHint.BELOW);
 
 			modifiersTable.add(modifierImage).space(10f);
 

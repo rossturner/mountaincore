@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
@@ -34,6 +35,11 @@ public class TooltipFactory {
 	 * so that the tooltip can be removed when the parentActor is clicked
 	 */
 	public void simpleTooltip(Actor parentActor, String i18nKey, TooltipLocationHint locationHint) {
+		I18nText i18nText = i18nTranslator.getTranslatedString(i18nKey);
+		simpleTooltip(parentActor, i18nText, locationHint);
+	}
+
+	public void simpleTooltip(Actor parentActor, I18nText i18nText, TooltipLocationHint locationHint) {
 		TooltipTable tooltipTable = new TooltipTable();
 
 		if (locationHint.equals(BELOW)) {
@@ -43,7 +49,7 @@ public class TooltipFactory {
 		Container<Label> labelContainer = new Container<>();
 		labelContainer.setBackground(skin.get("hover_state_label_patch", TenPatchDrawable.class));
 
-		String text = i18nTranslator.getTranslatedString(i18nKey).toString();
+		String text = i18nText.toString();
 		Label label = new Label(text, skin.get("tooltip-text", Label.LabelStyle.class));
 		labelContainer.center();
 		labelContainer.setActor(label);
