@@ -252,21 +252,21 @@ btn_sort_by_toggle_on
   index: -1
 icon_1
   rotate: false
-  xy: 1383, 3995
+  xy: 1587, 3995
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_2
   rotate: false
-  xy: 1449, 3995
+  xy: 1653, 3995
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_3
   rotate: false
-  xy: 1515, 3995
+  xy: 1719, 3995
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
@@ -276,6 +276,20 @@ icon_coin
   xy: 966, 3894
   size: 67, 67
   orig: 67, 67
+  offset: 0, 0
+  index: -1
+icon_drink
+  rotate: false
+  xy: 1383, 3993
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+icon_food
+  rotate: false
+  xy: 1451, 3993
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 icon_happy
@@ -299,6 +313,13 @@ icon_sad
   xy: 1227, 3974
   size: 83, 83
   orig: 83, 83
+  offset: 0, 0
+  index: -1
+icon_sleep
+  rotate: false
+  xy: 1519, 3993
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 progress_bar_knob
@@ -442,7 +463,7 @@ settlers_military
   index: -1
 vertical_scrollbar
   rotate: false
-  xy: 1581, 3995
+  xy: 1785, 3995
   size: 28, 62
   split: 0, 0, 26, 26
   orig: 28, 62

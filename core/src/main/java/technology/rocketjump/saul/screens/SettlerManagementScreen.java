@@ -363,7 +363,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				EntityNeed need = entry.getKey();
 				Double needValue = entry.getValue();
 				if (needValue != null) {
-					Label needLabel = new Label(i18nTranslator.translate(need.getI18nKey()), managementSkin, "item_type_name_label");
+					Image icon = new Image(managementSkin.getDrawable(need.iconName()));
+					tooltipFactory.simpleTooltip(icon, need.getI18nKey(), TooltipLocationHint.BELOW);
 					ProgressBar progressBar = new ProgressBar((float) NeedsComponent.MIN_NEED_VALUE, (float) NeedsComponent.MAX_NEED_VALUE, 1, false, managementSkin);
 					progressBar.setValue(Math.round(needValue));
 					progressBar.setDisabled(true);
@@ -382,7 +383,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					progressBar.setStyle(clonedStyle);
 
 
-					table.add(needLabel).right().spaceRight(28);
+					table.add(icon).right().spaceRight(28);
 					table.add(progressBar).left().width(318).height(42);
 					table.row();
 				}
