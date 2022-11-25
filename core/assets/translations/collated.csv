@@ -630,7 +630,7 @@ GUI.SAVING_PROMPT,Saving…,,Spiel wird gespeichert…,Sauvegarde en cours...,Sa
 GUI.SELECT_WEAPON.LABEL,Select weapon,,,,,,,,,,,,,,,,,,,
 GUI.SETTINGS.LABEL,Settings,,Einstellungen,,Impostazioni,Configuración,,,,Настройки,,,,,,,,設定,设置,
 GUI.SETTLER_MANAGEMENT.HAPPINESS,Happiness {{happinessValue}},,,,,,,,,,,,,,,,,,,
-GUI.SETTLER_MANAGEMENT.POPULATION_CAP,Population Cap,,,,,,,,,,,,,,,,,,,
+GUI.SETTLER_MANAGEMENT.IMMIGRATION,Immigration,,,,,,,,,,,,,,,,,,,
 GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}},,,,,,,,,,,,,,,,,,,
 GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN,Civilian,,,,,,,,,,,,,,,,,,,
 GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY,Military,,,,,,,,,,,,,,,,,,,

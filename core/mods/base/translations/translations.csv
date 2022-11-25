@@ -626,7 +626,7 @@ GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving
 GUI.SELECT_WEAPON.LABEL,,Select weapon
 GUI.SETTINGS.LABEL,,Settings
 GUI.SETTLER_MANAGEMENT.HAPPINESS,,Happiness {{happinessValue}}
-GUI.SETTLER_MANAGEMENT.POPULATION_CAP,,Population Cap
+GUI.SETTLER_MANAGEMENT.IMMIGRATION,,Immigration
 GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}}
 GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN,,Civilian
 GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY,,Military

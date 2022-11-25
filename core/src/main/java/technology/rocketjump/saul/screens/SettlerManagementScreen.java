@@ -221,7 +221,27 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Label populationStatisticsLabel = new Label(populationStatisticsText.toString(), managementSkin, "sort_by_label");
 		populationRow.add(populationStatisticsLabel);
 
+		ImageTextButton immigrationToggle = new ImageTextButton(i18nTranslator.translate("GUI.SETTLER_MANAGEMENT.IMMIGRATION"), managementSkin, "text_toggle");
+		Label immigrationLabel = immigrationToggle.getLabel();
+		Image immigrationImage = immigrationToggle.getImage();
+		immigrationToggle.clearChildren();
+		immigrationToggle.add(immigrationLabel).padRight(28f);
+		immigrationToggle.add(immigrationImage);
+		immigrationToggle.addActorBefore(immigrationToggle.getImage(), immigrationLabel);
+		buttonFactory.attachClickCursor(immigrationToggle, GameCursor.SELECT);
+		if (gameContext != null) {
+			immigrationToggle.setChecked(gameContext.getSettlementState().isAllowImmigration());
+		}
+		immigrationToggle.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				gameContext.getSettlementState().setAllowImmigration(immigrationToggle.isChecked());
+			}
+		});
+		populationRow.add(immigrationToggle).padLeft(150f).spaceRight(38);
 
+
+		populationStatisticsLabel.debug();
 		//TODO: consider a horizontal scrollbar for when more than designed professions exist
 		Table professionButtons = new Table();
 		ButtonGroup<ImageButton> professionButtonGroup = new ButtonGroup<>();
@@ -291,7 +311,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Table table = new Table();
 		table.add(titleLabel).padTop(54).row();
 		table.add(professionButtons).padTop(80).row();
-		table.add(populationRow).row();
+		table.add(populationRow).right().row();
 		table.add(filters).left().row();
 		table.add(new Image(managementSkin.getDrawable("asset_line"))).padTop(40f).row();
 		table.add(scrollPane).row();

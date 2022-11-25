@@ -193,13 +193,15 @@ public class ImmigrationManager implements Updatable, Telegraph {
 		int numImmigrants = gameContext.getSettlementState().getImmigrantsDue();
 		gameContext.getSettlementState().setImmigrantsDue(0);
 		gameContext.getSettlementState().setNextImmigrationGameTime(null);
-		gameContext.getSettlementState().setImmigrantCounter(numImmigrants);
-		gameContext.getSettlementState().setImmigrationPoint(pickImmigrationPoint());
-		if (gameContext.getSettlementState().getImmigrationPoint() == null) {
-			Logger.warn("Could not find valid map edge to spawn immigration from");
-		} else {
-			Notification notification = new Notification(IMMIGRANTS_ARRIVED, gameContext.getSettlementState().getImmigrationPoint());
-			messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, notification);
+		if (gameContext.getSettlementState().isAllowImmigration()) {
+			gameContext.getSettlementState().setImmigrantCounter(numImmigrants);
+			gameContext.getSettlementState().setImmigrationPoint(pickImmigrationPoint());
+			if (gameContext.getSettlementState().getImmigrationPoint() == null) {
+				Logger.warn("Could not find valid map edge to spawn immigration from");
+			} else {
+				Notification notification = new Notification(IMMIGRANTS_ARRIVED, gameContext.getSettlementState().getImmigrationPoint());
+				messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, notification);
+			}
 		}
 	}
 

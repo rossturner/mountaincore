@@ -104,6 +104,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		up: btn_info
 		over: btn_info_hover_state
 	}
+	toggle: {
+		up: btn_toggle_off
+		checked: btn_toggle_on
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	sort_by_button: {
@@ -115,6 +119,12 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	sort_by_button: {
 		imageUp: btn_sort_by_toggle_off
 		imageChecked: btn_sort_by_toggle_on
+		font: default-font-23
+		fontColor: primary_font_colour_red
+	}
+	text_toggle: {
+		imageUp: btn_toggle_off
+		imageChecked: btn_toggle_on
 		font: default-font-23
 		fontColor: primary_font_colour_red
 	}
