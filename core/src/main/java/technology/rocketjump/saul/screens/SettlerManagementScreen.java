@@ -82,15 +82,6 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 	private static final Comparator<Entity> SORT_HAPPINESS = Comparator.comparingInt(settler -> settler.getComponent(HappinessComponent.class).getNetModifier());
 	private static final Comparator<Entity> SORT_NAME = Comparator.comparing(SettlerManagementScreen::getName);
-	private static final Comparator<Entity> SORT_SKILL_LEVEL = Comparator.comparing((Function<Entity, Integer>) settler -> {
-		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
-		java.util.List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
-		if (activeProfessions.isEmpty()) {
-			return 0;
-		} else {
-			return activeProfessions.get(0).getLevel();
-		}
-	}).reversed();
 	private static final Comparator<Entity> SORT_MILITARY_CIVILIAN = Comparator.comparing((Function<Entity, Long>) settler -> {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 		if (militaryComponent != null && militaryComponent.getSquadId() != null) {
@@ -226,7 +217,20 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Label sortByLabel  = new Label(i18nTranslator.translate("GUI.SETTLER_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
 		Button sortByHappiness = buildTextSortButton("GUI.SETTLER_MANAGEMENT.SORT.HAPPINESS", SORT_HAPPINESS);
 		Button sortByName = buildTextSortButton("GUI.SETTLER_MANAGEMENT.SORT.NAME", SORT_NAME);
-		Button sortBySkillLevel = buildTextSortButton("GUI.SETTLER_MANAGEMENT.SORT.SKILL_LEVEL", SORT_SKILL_LEVEL);
+		Button sortBySkillLevel = buildTextSortButton("GUI.SETTLER_MANAGEMENT.SORT.SKILL_LEVEL", Comparator.comparing((Function<Entity, Float>) settler -> {
+			SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
+			java.util.List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
+
+			if (selectedFilter instanceof MatchesActiveProfession matchesProfessionFilter) {
+				activeProfessions = activeProfessions.stream().filter(quantifiedSkill -> matchesProfessionFilter.skill.equals(quantifiedSkill.getSkill())).toList();
+			}
+			if (activeProfessions.isEmpty()) {
+				return 0.0f;
+			} else {
+				SkillsComponent.QuantifiedSkill quantifiedSkill = activeProfessions.get(0);
+				return quantifiedSkill.getLevel() + skillsComponent.getNextLevelProgressPercent(quantifiedSkill.getSkill());
+			}
+		}).reversed());
 		Button sortByMilitaryCivilian = buildTextSortButton("GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN", SORT_MILITARY_CIVILIAN);
 		sortByButtonGroup.add(sortByHappiness, sortByName, sortBySkillLevel, sortByMilitaryCivilian);
 
@@ -243,14 +247,11 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		filters.add(sortBySkillLevel).spaceRight(38);
 		filters.add(sortByMilitaryCivilian).spaceRight(38);
 
-		filterLabels.debug();
-		filters.debug();
-
 		Table table = new Table();
 		table.add(titleLabel).row();
 		table.add(professionButtons).row();
 		table.add(filters).left().row();
-		table.add(new Image(managementSkin.getDrawable("asset_line"))).row();
+		table.add(new Image(managementSkin.getDrawable("asset_line"))).padTop(40f).row();
 		table.add(scrollPane).row();
 		return table;
 	}
