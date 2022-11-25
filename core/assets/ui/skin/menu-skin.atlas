@@ -320,6 +320,13 @@ paper_texture_bg_pattern_large
   orig: 126, 2162
   offset: 0, 0
   index: -1
+paper_texture_bg_pattern_thin
+  rotate: false
+  xy: 1707, 967
+  size: 80, 2160
+  orig: 80, 2160
+  offset: 0, 0
+  index: -1
 save_bg_patch
   rotate: false
   xy: 3574, 5785

@@ -80,6 +80,20 @@ public class WidgetFactory {
         return selectBox;
     }
 
+    public ImageTextButton createLeftLabelledToggle(String i18nKey, Skin skin) {
+        ImageTextButton toggle = new ImageTextButton(i18nTranslator.translate(i18nKey), skin, "text_toggle");
+        Label label = toggle.getLabel();
+        Image toggleImage = toggle.getImage();
+        toggle.clearChildren();
+        toggle.add(label).padRight(28f);
+        toggle.add(toggleImage);
+        toggle.addActorBefore(toggle.getImage(), label);
+
+        toggle.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+        toggle.addListener(new ChangeCursorOnHover(toggle, GameCursor.SELECT, messageDispatcher));
+        return toggle;
+    }
+
     public CheckBox createLeftLabelledCheckbox(String i18nKey, Skin skin, float labelMaxWidth) {
         CheckBox checkbox = new CheckBox("", skin);
         Label realLabel = new ScaledToFitLabel(i18nTranslator.translate(i18nKey), skin, "checkbox_label", labelMaxWidth);

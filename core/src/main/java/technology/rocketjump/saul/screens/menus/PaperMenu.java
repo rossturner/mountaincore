@@ -36,7 +36,7 @@ public abstract class PaperMenu implements Menu {
 
 	public void rebuild() {
 		stack.addActor(skin.buildBackgroundBaseLayer());
-		stack.addActor(skin.buildPaperLayer(buildComponentLayer()));
+		stack.addActor(skin.buildPaperLayer(buildComponentLayer(), 257, false));
 		savedGamesUpdated();
 	}
 }

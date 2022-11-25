@@ -19,12 +19,16 @@ public class MenuSkin extends Skin {
 		return table;
 	}
 
-	public Table buildPaperLayer(Actor paperComponents) {
+	public Table buildPaperLayer(Actor paperComponents, int outsidePadding, boolean thinPattern) {
+		String patternName = "paper_texture_bg_pattern_large";
+		if (thinPattern) {
+			patternName = "paper_texture_bg_pattern_thin";
+		}
 		Table baseLayer = new Table();
 		baseLayer.setBackground(getDrawable("paper_texture_bg"));
-		baseLayer.add(new Image(getDrawable("paper_texture_bg_pattern_large"))).growY().padLeft(257); //TODO : change from padding from outside to just pad from paperComponents out?
+		baseLayer.add(new Image(getDrawable(patternName))).growY().padLeft(outsidePadding); //TODO : change from padding from outside to just pad from paperComponents out?
 		baseLayer.add(paperComponents).expandX();
-		baseLayer.add(new Image(getDrawable("paper_texture_bg_pattern_large"))).growY().padRight(257);
+		baseLayer.add(new Image(getDrawable(patternName))).growY().padRight(outsidePadding);
 		return baseLayer;
 	}
 }

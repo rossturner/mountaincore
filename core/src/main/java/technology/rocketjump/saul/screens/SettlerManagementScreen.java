@@ -104,6 +104,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private final I18nTranslator i18nTranslator;
 	private final LabelFactory labelFactory;
 	private final ButtonFactory buttonFactory;
+	private final WidgetFactory widgetFactory;
 	private final SkillDictionary skillDictionary;
 	private final SettlerTracker settlerTracker;
 	private final EntityRenderer entityRenderer;
@@ -123,14 +124,15 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	@Inject
 	public SettlerManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 	                               I18nTranslator i18nTranslator, LabelFactory labelFactory, ButtonFactory buttonFactory,
-	                               SkillDictionary skillDictionary, SettlerTracker settlerTracker, EntityRenderer entityRenderer,
-	                               TooltipFactory tooltipFactory, SettlerProfessionFactory settlerProfessionFactory,
+	                               WidgetFactory widgetFactory, SkillDictionary skillDictionary, SettlerTracker settlerTracker,
+	                               EntityRenderer entityRenderer, TooltipFactory tooltipFactory, SettlerProfessionFactory settlerProfessionFactory,
 	                               SettlementFurnitureTracker settlementFurnitureTracker) {
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.labelFactory = labelFactory;
 		this.buttonFactory = buttonFactory;
+		this.widgetFactory = widgetFactory;
 		this.skillDictionary = skillDictionary;
 		this.messageDispatcher = messageDispatcher;
 		this.settlerTracker = settlerTracker;
@@ -179,7 +181,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		stack = new Stack();
 		stack.setFillParent(true);
 		stack.add(menuSkin.buildBackgroundBaseLayer());
-		stack.add(menuSkin.buildPaperLayer(buildPaperComponents()));
+		stack.add(menuSkin.buildPaperLayer(buildPaperComponents(), 136, true));
 
 		stage.addActor(stack);
 	}
@@ -221,14 +223,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Label populationStatisticsLabel = new Label(populationStatisticsText.toString(), managementSkin, "sort_by_label");
 		populationRow.add(populationStatisticsLabel);
 
-		ImageTextButton immigrationToggle = new ImageTextButton(i18nTranslator.translate("GUI.SETTLER_MANAGEMENT.IMMIGRATION"), managementSkin, "text_toggle");
-		Label immigrationLabel = immigrationToggle.getLabel();
-		Image immigrationImage = immigrationToggle.getImage();
-		immigrationToggle.clearChildren();
-		immigrationToggle.add(immigrationLabel).padRight(28f);
-		immigrationToggle.add(immigrationImage);
-		immigrationToggle.addActorBefore(immigrationToggle.getImage(), immigrationLabel);
-		buttonFactory.attachClickCursor(immigrationToggle, GameCursor.SELECT);
+		ImageTextButton immigrationToggle = widgetFactory.createLeftLabelledToggle("GUI.SETTLER_MANAGEMENT.IMMIGRATION", managementSkin);
 		if (gameContext != null) {
 			immigrationToggle.setChecked(gameContext.getSettlementState().isAllowImmigration());
 		}
