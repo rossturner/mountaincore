@@ -41,10 +41,11 @@ public class SkillsComponent implements EntityComponent {
 
 	public void replace(Skill professionToReplace, Skill newProfession) {
 		int indexToReplace = activeProfessions.indexOf(professionToReplace);
-		if (indexToReplace == -1) {
-			indexToReplace = activeProfessions.size() - 1;
+		if (indexToReplace == -1 && activeProfessions.size() < MAX_PROFESSIONS) {
+			activeProfessions.add(newProfession);
+		} else {
+			activeProfessions.set(indexToReplace, newProfession);
 		}
-		activeProfessions.set(indexToReplace, newProfession);
 	}
 
 
@@ -199,6 +200,10 @@ public class SkillsComponent implements EntityComponent {
 	}
 
 	public void swapActiveProfessionPositions(int a, int b) {
+		int lastIndex = activeProfessions.size() - 1;
+		if (a > lastIndex || b > lastIndex) {
+			return;
+		}
 		List<Skill> reordered = new ArrayList<>();
 		for (int cursor = 0; cursor < activeProfessions.size(); cursor++) {
 			if (cursor == a) {

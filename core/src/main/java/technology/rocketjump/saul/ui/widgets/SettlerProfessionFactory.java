@@ -57,29 +57,28 @@ public class SettlerProfessionFactory {
 			column.add(numberIcon).row();
 			java.util.List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
 
+			final Skill skill;
 			if (i < activeProfessions.size()) {
-				SkillsComponent.QuantifiedSkill activeSkill = activeProfessions.get(i);
-				Skill skill = activeSkill.getSkill();
-
-				Image draggableImage = new Image(managementSkin.getDrawable(skill.getDraggableIcon()));
-				dragAndDrop.addSource(new DraggableProfession(dragAndDrop, draggableImage, i));
-				dragAndDrop.addTarget(new DraggableProfessionTarget(column, i, skillsComponent, managementSkin, table, settler));
-				draggableImage.addListener(new ClickListener() {
-					@Override
-					public void clicked(InputEvent event, float x, float y) {
-						messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new ChangeProfessionDialog(i18nTranslator, menuSkin, messageDispatcher, skillDictionary, soundAssetDictionary, settler, skill, table));
-					}
-				});
-
-				Table progressRow = buildProgressBarRow(skillsComponent, skill, false);
-
-
-				column.add(draggableImage).spaceTop(10f).spaceBottom(6f).row();
-				column.add(progressRow);
-
+				skill = activeProfessions.get(i).getSkill();
 			} else {
-				//todo: fill with villager thing
+				skill = SkillDictionary.NULL_PROFESSION;
 			}
+
+			Image draggableImage = new Image(managementSkin.getDrawable(skill.getDraggableIcon()));
+			dragAndDrop.addSource(new DraggableProfession(dragAndDrop, draggableImage, i));
+			dragAndDrop.addTarget(new DraggableProfessionTarget(column, i, skillsComponent, managementSkin, table, settler));
+			draggableImage.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new ChangeProfessionDialog(i18nTranslator, menuSkin, messageDispatcher, skillDictionary, soundAssetDictionary, settler, skill, table));
+				}
+			});
+
+			Table progressRow = buildProgressBarRow(skillsComponent, skill, false);
+
+
+			column.add(draggableImage).spaceTop(10f).spaceBottom(6f).row();
+			column.add(progressRow);
 
 			table.add(column).spaceRight(24).spaceLeft(24);
 		}
