@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -56,6 +55,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -253,7 +253,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			@Override
 			public boolean keyTyped(InputEvent event, char character) {
 				searchBarText = searchBar.getText();
-				rebuildSettlerTable();
+				filterAndRebuildSettlerTable();
 				return true;
 			}
 		});
@@ -312,7 +312,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				if (button.isChecked()) {
 					filterNameLabel.setText(i18nTranslator.translate(i18nKey));
 					selectedFilter = filter;
-					rebuildSettlerTable();
+					filterAndRebuildSettlerTable();
 				}
 			}
 		});
@@ -335,14 +335,14 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				if (button.isChecked()) {
 					selectedSortFunction = sortFunction;
 				}
-				rebuildSettlerTable();
+				filterAndRebuildSettlerTable();
 			}
 		});
 		buttonFactory.attachClickCursor(button, GameCursor.SELECT);
 		return button;
 	}
 
-	private void rebuildSettlerTable() {
+	private void filterAndRebuildSettlerTable() {
 		Collection<Entity> settlers = settlerTracker.getLiving()
 				.stream()
 				.filter(selectedFilter)
@@ -350,38 +350,53 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				.sorted(selectedSortFunction)
 				.collect(Collectors.toList());
 
+		rebuildSettlerTable(settlers);
+	}
+
+	private void rebuildSettlerTable(Collection<Entity> settlers) {
 		filterCountLabel.setText(settlers.size());
 
 		Table settlersTable = new Table();
 		settlersTable.align(Align.top);
 
 		for (Entity settler : settlers) {
+			boolean isMilitary = IS_MILITARY.test(settler);
+			Consumer<Entity> rebuildSettlerView = me -> {
+				rebuildPopulationStatistics();
+				rebuildSettlerTable(settlers);
+			};
 			Table mugshotColumn = mugshot(settler);
 			Table textSummaryColumn = textSummary(settler);
 			Table happinessColumn = happiness(settler);
 			Table needsColumn = needs(settler);
-			Table professionsColumn = professions(settler);
-			Table militaryToggleColumn = militaryToggle(settler, mugshotColumn, textSummaryColumn, happinessColumn, needsColumn, professionsColumn);
+			Table professionsColumn = professions(settler, rebuildSettlerView);
+			Table militaryToggleColumn = militaryToggle(settler, rebuildSettlerView);
 
 			addGotoSettlerBehaviour(mugshotColumn, settler);
 
 
 			settlersTable.add(mugshotColumn).spaceRight(50f);
 			settlersTable.add(textSummaryColumn).fillX().spaceRight(50f);
-			settlersTable.add(happinessColumn).growX().spaceRight(50f);
-			settlersTable.add(needsColumn).growX().spaceRight(50f);
-			settlersTable.add(professionsColumn).growX().spaceRight(50f).spaceBottom(76f).spaceTop(38f);
+			if (isMilitary) {
+				settlersTable.add(new Table()).growX().spaceRight(50f);
+				settlersTable.add(needsColumn).growX().spaceRight(50f);
+				settlersTable.add(new Table()).growX().spaceRight(50f);
+			} else {
+				settlersTable.add(happinessColumn).growX().spaceRight(50f);
+				settlersTable.add(needsColumn).growX().spaceRight(50f);
+				settlersTable.add(professionsColumn).growX().spaceRight(50f).spaceBottom(76f).spaceTop(38f);
+			}
+
 			settlersTable.add(militaryToggleColumn).growX().spaceRight(36f);
 
+			settlersTable.debug();
 			settlersTable.left().row();
 		}
 
 		scrollPane.setActor(settlersTable);
 	}
 
-	private Table militaryToggle(Entity settler, Actor... civilianComponents) {
-		boolean isMilitaryScreen = selectedFilter == IS_MILITARY;
-		boolean isCivilianScreen = !isMilitaryScreen;
+	private Table militaryToggle(Entity settler, Consumer<Entity> onMilitaryChange) {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 
 		Image image = new Image(managementSkin.getDrawable("icon_military"));
@@ -391,37 +406,19 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				boolean checked = toggle.isChecked();
-				disableComponents(civilianComponents);
-				//TODO disable military column
-				rebuildPopulationStatistics();
-
 				if (checked) {
 					militaryComponent.addToMilitary(1L);
-
 				} else {
 					militaryComponent.removeFromMilitary();
-					if (isCivilianScreen) {
-						enableComponents(civilianComponents);
-					}
 				}
+				onMilitaryChange.accept(settler);
 			}
 		});
 
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		String militaryProficiencyText = "";
 		if (skillsComponent != null) {
-			Skill highestSkill = SkillDictionary.UNARMED_COMBAT_SKILL;
-			int highestSkillLevel = skillsComponent.getSkillLevel(highestSkill);
-			for (Skill combatSkill : skillDictionary.getAllCombatSkills()) {
-				int combatSkillLevel = skillsComponent.getSkillLevel(combatSkill);
-				if (combatSkillLevel > highestSkillLevel) {
-					highestSkill = combatSkill;
-					highestSkillLevel = combatSkillLevel;
-				}
-			}
-
-			militaryProficiencyText = i18nTranslator.getSkilledProfessionDescription(highestSkill, highestSkillLevel,
-					((CreatureEntityAttributes) settler.getPhysicalEntityComponent().getAttributes()).getGender()).toString();
+			militaryProficiencyText = getMilitaryProficiencyText(settler, skillsComponent);
 		}
 
 		Label militaryProficiencyLabel = new Label(militaryProficiencyText, managementSkin, "military_highest_proficiency_label");
@@ -433,31 +430,14 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return table;
 	}
 
-	private void enableComponents(Actor[] components) {
-		for (Actor component : components) {
-			component.clearActions();
-			component.addAction(Actions.alpha(1f));
-			component.setTouchable(Touchable.enabled);
-		}
-	}
-
-	private void disableComponents(Actor[] components) {
-		for (Actor component : components) {
-			component.clearActions();
-			component.addAction(Actions.alpha(0.5f));
-			component.setTouchable(Touchable.disabled);
-		}
-	}
-
-
-	private Table professions(Entity settler) {
+	private Table professions(Entity settler, Consumer<Entity> rebuildSettlerView) {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		if (skillsComponent == null) {
 			return new Table();
 		}
 
 		Table table = new Table();
-		settlerProfessionFactory.addProfessionComponents(settler, table);
+		settlerProfessionFactory.addProfessionComponents(settler, table, rebuildSettlerView);
 		return table;
 	}
 
@@ -552,9 +532,25 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	}
 
 	private Table textSummary(Entity settler) {
+		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
+
 		String settlerName = getName(settler);
-		java.util.List<String> behaviourDescriptions = new ArrayList<>();
+		String currentProfessionName = "";
 		//TODO: if in military, get rank
+		if (skillsComponent != null) {
+			if (IS_MILITARY.test(settler)) {
+				currentProfessionName = getMilitaryProficiencyText(settler, skillsComponent);
+			} else {
+				java.util.List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
+				if (!activeProfessions.isEmpty()) {
+					SkillsComponent.QuantifiedSkill quantifiedSkill = activeProfessions.get(0);
+					currentProfessionName = i18nTranslator.getSkilledProfessionDescription(quantifiedSkill.getSkill(), quantifiedSkill.getLevel(),
+							((CreatureEntityAttributes) settler.getPhysicalEntityComponent().getAttributes()).getGender()).toString();
+				}
+			}
+		}
+
+		java.util.List<String> behaviourDescriptions = new ArrayList<>();
 		if (settler.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
 			java.util.List<I18nText> description = creatureBehaviour.getDescription(i18nTranslator, gameContext, messageDispatcher);
 			for (I18nText i18nText : description) {
@@ -566,6 +562,10 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Label nameLabel = tableLabel(settlerName);
 		nameLabel.setAlignment(Align.left);
 		table.add(nameLabel).growX().row();
+
+		Label professionLabel = tableLabel(currentProfessionName);
+		professionLabel.setAlignment(Align.left);
+		table.add(professionLabel).growX().row();
 
 		for (String behaviourDescription : behaviourDescriptions) {
 			Label descriptionLabel = tableLabel(behaviourDescription);
@@ -585,6 +585,24 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		entityDrawable.setMinSize(background.getMinWidth() * scaleFactor, background.getMinHeight()  * scaleFactor);
 		table.add(new Image(entityDrawable));
 		return table;
+	}
+
+
+	private String getMilitaryProficiencyText(Entity settler, SkillsComponent skillsComponent) {
+		String militaryProficiencyText;
+		Skill highestSkill = SkillDictionary.UNARMED_COMBAT_SKILL;
+		int highestSkillLevel = skillsComponent.getSkillLevel(highestSkill);
+		for (Skill combatSkill : skillDictionary.getAllCombatSkills()) {
+			int combatSkillLevel = skillsComponent.getSkillLevel(combatSkill);
+			if (combatSkillLevel > highestSkillLevel) {
+				highestSkill = combatSkill;
+				highestSkillLevel = combatSkillLevel;
+			}
+		}
+
+		militaryProficiencyText = i18nTranslator.getSkilledProfessionDescription(highestSkill, highestSkillLevel,
+				((CreatureEntityAttributes) settler.getPhysicalEntityComponent().getAttributes()).getGender()).toString();
+		return militaryProficiencyText;
 	}
 
 

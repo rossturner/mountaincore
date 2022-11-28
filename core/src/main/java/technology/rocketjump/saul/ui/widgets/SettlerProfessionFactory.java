@@ -30,6 +30,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Singleton
 public class SettlerProfessionFactory {
@@ -56,7 +57,7 @@ public class SettlerProfessionFactory {
 
 	//todo: really needs refactoring, lots of things happening
 	//TODO: change this to just return a table instead - bah it passes it in to clear the children and rebuild, bit dirty
-	public void addProfessionComponents(Entity settler, Table table) {
+	public void addProfessionComponents(Entity settler, Table table, Consumer<Entity> onProfessionChange) {
 		table.clearChildren();
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		DragAndDrop dragAndDrop = new DragAndDrop();
@@ -100,11 +101,11 @@ public class SettlerProfessionFactory {
 			column.add(progressRow);
 
 			dragAndDrop.addSource(new DraggableProfession(dragAndDrop, draggingCursorWidget, draggableImage, i));
-			dragAndDrop.addTarget(new DraggableProfessionTarget(column, i, skillsComponent, managementSkin, table, settler));
+			dragAndDrop.addTarget(new DraggableProfessionTarget(column, i, skillsComponent, managementSkin, table, settler, onProfessionChange));
 			clickingCursorWidget.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new ChangeProfessionDialog(i18nTranslator, menuSkin, messageDispatcher, skillDictionary, soundAssetDictionary, settler, skill, table));
+					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new ChangeProfessionDialog(i18nTranslator, menuSkin, messageDispatcher, skillDictionary, soundAssetDictionary, settler, skill, table, onProfessionChange));
 				}
 			});
 
@@ -178,8 +179,9 @@ public class SettlerProfessionFactory {
 		private final Drawable dragOverTint;
 		private final Table wholeTable;
 		private final Entity settler;
+		private final Consumer<Entity> onProfessionChange;
 
-		public DraggableProfessionTarget(Table column, int professionPriority, SkillsComponent skillsComponent, ManagementSkin managementSkin, Table wholeTable, Entity settler) {
+		public DraggableProfessionTarget(Table column, int professionPriority, SkillsComponent skillsComponent, ManagementSkin managementSkin, Table wholeTable, Entity settler, Consumer<Entity> onProfessionChange) {
 			super(column);
 			this.column = column;
 			this.professionPriority = professionPriority;
@@ -187,6 +189,7 @@ public class SettlerProfessionFactory {
 			this.dragOverTint = managementSkin.getDrawable("drag_over_tint");
 			this.wholeTable = wholeTable;
 			this.settler = settler;
+			this.onProfessionChange = onProfessionChange;
 		}
 
 		@Override
@@ -206,7 +209,8 @@ public class SettlerProfessionFactory {
 			if (source instanceof DraggableProfession draggableProfession) {
 				skillsComponent.swapActiveProfessionPositions(draggableProfession.professionPriority, this.professionPriority);
 				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, settler);
-				SettlerProfessionFactory.this.addProfessionComponents(settler, wholeTable);
+				SettlerProfessionFactory.this.addProfessionComponents(settler, wholeTable, onProfessionChange);
+				onProfessionChange.accept(settler);
 			}
 		}
 	}
@@ -217,7 +221,7 @@ public class SettlerProfessionFactory {
 
 		public ChangeProfessionDialog(I18nTranslator i18nTranslator, Skin skin,
 		                              MessageDispatcher messageDispatcher, SkillDictionary skillDictionary,
-		                              SoundAssetDictionary soundAssetDictionary, Entity settler, Skill professionToReplace, Table wholeTable) {
+		                              SoundAssetDictionary soundAssetDictionary, Entity settler, Skill professionToReplace, Table wholeTable, Consumer<Entity> onProfessionChange) {
 			super(i18nTranslator.getTranslatedString("GUI.CHANGE_PROFESSION_LABEL"), skin, messageDispatcher, soundAssetDictionary);
 
 			int numAdded = 0;
@@ -242,7 +246,7 @@ public class SettlerProfessionFactory {
 								settler, professionToReplace, profession
 						));
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ENTITY_SELECTED);
-						SettlerProfessionFactory.this.addProfessionComponents(settler, wholeTable);
+						SettlerProfessionFactory.this.addProfessionComponents(settler, wholeTable, onProfessionChange);
 						close();
 					}
 				});
