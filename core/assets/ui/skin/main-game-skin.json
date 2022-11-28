@@ -242,6 +242,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		up: btn_view_power_off
 		checked: btn_view_power
 	}
+	btn_info: {
+		up: btn_info
+		over: btn_info_hover_state
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: {

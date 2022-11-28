@@ -122,10 +122,6 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	public void onShow() {
 		this.displayed = true;
 		this.currentSelection = null;
-//		FloorType floorType = applicableFloorTypes().findFirst().orElseThrow();
-//		interactionStateContainer.setFloorTypeToPlace(floorType);
-//		messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, new MaterialSelectionMessage(
-//				floorType.getMaterialType(), GameMaterial.NULL_MATERIAL, floorType.getRequirements().get(floorType.getMaterialType()).get(0).getItemType()));
 		rebuildUI();
 	}
 
