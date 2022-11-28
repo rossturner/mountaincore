@@ -15,6 +15,11 @@ import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.ChangeProfessionMessage;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
@@ -33,16 +38,19 @@ public class SettlerProfessionFactory {
 	private final SoundAssetDictionary soundAssetDictionary;
 	private final I18nTranslator i18nTranslator;
 	private final SkillDictionary skillDictionary;
+	private final TooltipFactory tooltipFactory;
 
 	@Inject
 	public SettlerProfessionFactory(GuiSkinRepository skinRepository, MessageDispatcher messageDispatcher,
-	                                SoundAssetDictionary soundAssetDictionary, I18nTranslator i18nTranslator, SkillDictionary skillDictionary) {
+	                                SoundAssetDictionary soundAssetDictionary, I18nTranslator i18nTranslator,
+	                                SkillDictionary skillDictionary, TooltipFactory tooltipFactory) {
 		this.menuSkin = skinRepository.getMenuSkin();
 		this.managementSkin = skinRepository.getManagementSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.i18nTranslator = i18nTranslator;
 		this.skillDictionary = skillDictionary;
+		this.tooltipFactory = tooltipFactory;
 	}
 
 	//todo: really needs refactoring, lots of things happening
@@ -76,7 +84,7 @@ public class SettlerProfessionFactory {
 
 			Table progressRow = buildProgressBarRow(skillsComponent, skill, false);
 
-
+			tooltipFactory.simpleTooltip(draggableImage, skill.getI18nKey(), TooltipLocationHint.ABOVE);
 			column.add(draggableImage).spaceTop(10f).spaceBottom(6f).row();
 			column.add(progressRow);
 
@@ -221,7 +229,9 @@ public class SettlerProfessionFactory {
 
 				innerTable.add(image).pad(10).row();
 				innerTable.add(buildProgressBarRow(skillsComponent, profession, true));
-
+				image.addListener(new ChangeCursorOnHover(image, GameCursor.SELECT, messageDispatcher));
+				image.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+				tooltipFactory.simpleTooltip(image, profession.getI18nKey(), TooltipLocationHint.ABOVE);
 				contentTable.add(innerTable).pad(3);
 				numAdded++;
 

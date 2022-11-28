@@ -315,7 +315,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				}
 			}
 		});
-
+		tooltipFactory.simpleTooltip(button, i18nKey, TooltipLocationHint.ABOVE);
 		professionButtons.add(button);
 		professionButtonGroup.add(button);
 	}
