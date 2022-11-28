@@ -389,7 +389,6 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 			settlersTable.add(militaryToggleColumn).growX().spaceRight(36f);
 
-			settlersTable.debug();
 			settlersTable.left().row();
 		}
 
