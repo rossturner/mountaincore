@@ -184,8 +184,25 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		stack.setFillParent(true);
 		stack.add(menuSkin.buildBackgroundBaseLayer());
 		stack.add(menuSkin.buildPaperLayer(buildPaperComponents(), 136, true));
+		stack.add(buildExitTable(136 + menuSkin.getDrawable("paper_texture_bg_pattern_thin").getMinWidth() + 5f));
 
 		stage.addActor(stack);
+	}
+
+
+	private Actor buildExitTable(float leftPadding) {
+		Table table = new Table();
+		Button exitButton = new Button(menuSkin, "btn_exit");
+		exitButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+			}
+		});
+		buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
+		table.add(exitButton).expandX().align(Align.topLeft).padLeft(leftPadding).padTop(5f).row();
+		table.add().grow();
+		return table;
 	}
 
 	private Actor buildPaperComponents() {
@@ -206,7 +223,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				gameContext.getSettlementState().setAllowImmigration(immigrationToggle.isChecked());
 			}
 		});
-		populationRow.add(immigrationToggle).padLeft(150f).spaceRight(38);
+		populationRow.add(immigrationToggle).padTop(66f).padBottom(66f).padLeft(150f).spaceRight(38);
 
 
 		//TODO: consider a horizontal scrollbar for when more than designed professions exist
