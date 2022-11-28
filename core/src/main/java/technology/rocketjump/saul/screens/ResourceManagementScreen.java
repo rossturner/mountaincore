@@ -129,6 +129,8 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		rebuildUI();
 		stage.setKeyboardFocus(null);
+
+		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 
 	@Override

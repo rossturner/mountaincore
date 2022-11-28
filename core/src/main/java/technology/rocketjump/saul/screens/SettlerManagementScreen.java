@@ -159,6 +159,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		rebuildUI();
 
 		stage.setKeyboardFocus(null);
+		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 
 	@Override

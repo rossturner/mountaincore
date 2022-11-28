@@ -743,26 +743,6 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/workspace/project-saul/raw_assets/skin_composer/menu-skin-composer-project_data/paper_texture_bg.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			tint: null
-			tintName: null
-			name: paper_texture_bg
-			tiled: false
-			minWidth: -1
-			minHeight: -1
-			customized: false
-			tenPatchData: null
-			tvgData: null
-			type: TEXTURE
-			hidden: false
-		}
-		{
 			file: C:/workspace/project-saul/raw_assets/skin_composer/menu-skin-composer-project_data/paper_texture_bg_pattern_large.png
 			bgColor: {
 				r: 1
@@ -1491,6 +1471,26 @@ atlasData: {
 			tint: null
 			tintName: null
 			name: paper_texture_bg_pattern_thin
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/menu-skin-composer-project_data/paper_texture_bg_stretch.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: paper_texture_bg_stretch
 			tiled: false
 			minWidth: -1
 			minHeight: -1
