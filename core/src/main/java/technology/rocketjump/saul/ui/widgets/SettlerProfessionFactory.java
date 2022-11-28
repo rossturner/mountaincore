@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -73,20 +74,39 @@ public class SettlerProfessionFactory {
 			}
 
 			Image draggableImage = new Image(managementSkin.getDrawable(skill.getDraggableIcon()));
-			dragAndDrop.addSource(new DraggableProfession(dragAndDrop, draggableImage, i));
+
+
+			Table progressRow = buildProgressBarRow(skillsComponent, skill, false);
+
+			tooltipFactory.simpleTooltip(draggableImage, skill.getI18nKey(), TooltipLocationHint.ABOVE);
+
+			Actor draggingCursorWidget = new Actor();
+			draggingCursorWidget.addListener(new ChangeCursorOnHover(draggingCursorWidget, GameCursor.REORDER_HORIZONTAL, messageDispatcher));
+			draggingCursorWidget.setWidth(draggableImage.getWidth() * 0.34f);
+			draggingCursorWidget.setHeight(draggableImage.getHeight());
+			Actor clickingCursorWidget = new Actor();
+			clickingCursorWidget.addListener(new ChangeCursorOnHover(clickingCursorWidget, GameCursor.SELECT, messageDispatcher));
+			clickingCursorWidget.setWidth(draggableImage.getWidth() * (1-0.34f));
+			clickingCursorWidget.setHeight(draggableImage.getHeight());
+
+			Table draggableCursors = new Table();
+			draggableCursors.add(draggingCursorWidget);
+			draggableCursors.add(clickingCursorWidget);
+
+			Stack complexCursorStack = new Stack();
+			complexCursorStack.add(draggableImage);
+			complexCursorStack.add(draggableCursors);
+			column.add(complexCursorStack).spaceTop(10f).spaceBottom(6f).row();
+			column.add(progressRow);
+
+			dragAndDrop.addSource(new DraggableProfession(dragAndDrop, draggingCursorWidget, draggableImage, i));
 			dragAndDrop.addTarget(new DraggableProfessionTarget(column, i, skillsComponent, managementSkin, table, settler));
-			draggableImage.addListener(new ClickListener() {
+			clickingCursorWidget.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new ChangeProfessionDialog(i18nTranslator, menuSkin, messageDispatcher, skillDictionary, soundAssetDictionary, settler, skill, table));
 				}
 			});
-
-			Table progressRow = buildProgressBarRow(skillsComponent, skill, false);
-
-			tooltipFactory.simpleTooltip(draggableImage, skill.getI18nKey(), TooltipLocationHint.ABOVE);
-			column.add(draggableImage).spaceTop(10f).spaceBottom(6f).row();
-			column.add(progressRow);
 
 			table.add(column).spaceRight(24).spaceLeft(24);
 		}
@@ -134,9 +154,9 @@ public class SettlerProfessionFactory {
 		private final DragAndDrop dragAndDrop;
 		private final int professionPriority;
 
-		public DraggableProfession(DragAndDrop dragAndDrop, Image actor, int professionPriority) {
+		public DraggableProfession(DragAndDrop dragAndDrop, Actor actor, Image originalImage, int professionPriority) {
 			super(actor);
-			this.originalImage = actor;
+			this.originalImage = originalImage;
 			this.dragAndDrop = dragAndDrop;
 			this.professionPriority = professionPriority;
 		}
