@@ -167,7 +167,6 @@ public class MessageType {
 	public static final int REMOVE_ROOM = 809;
 	public static final int REMOVE_ROOM_TILES = 810;
 	public static final int WALL_MATERIAL_SELECTED = 811;
-	public static final int WALL_PLACEMENT_SELECTED = 812;
 	public static final int WALL_PLACEMENT = 813;
 	public static final int BRIDGE_MATERIAL_SELECTED = 814;
 	public static final int REQUEST_FURNITURE_REMOVAL = 815;

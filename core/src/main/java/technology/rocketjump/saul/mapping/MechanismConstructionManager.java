@@ -47,9 +47,11 @@ public class MechanismConstructionManager implements GameContextAware {
 
 	public void mechanismConstructionAdded(MapTile mapTile, MechanismType mechanismType) {
 		UnderTile underTile = mapTile.getOrCreateUnderTile();
-		if (underTile.getPowerMechanismEntity() != null) {
-			return;
+
+		if (underTile.getQueuedMechanismType() != null) {
+			mechanismConstructionRemoved(mapTile);
 		}
+
 		underTile.setQueuedMechanismType(mechanismType);
 
 		Job constructionJob = new Job(constructMechanismJobType);

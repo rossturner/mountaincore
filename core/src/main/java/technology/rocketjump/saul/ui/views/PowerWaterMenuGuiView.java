@@ -168,12 +168,12 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DESIGNATE_PIPING);
 				})
 		);
-		furnitureTable.add(buildInteractionModeButton(GameInteractionMode.DESIGNATE_MECHANISMS,
+		furnitureTable.add(buildInteractionModeButton(GameInteractionMode.DESIGNATE_POWER_LINES,
 				"btn_power_and_water_power", "GUI.BUILD.POWER",
 				() -> {
 					interactionStateContainer.setFurnitureTypeToPlace(null);
 					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.MECHANISMS);
-					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DESIGNATE_MECHANISMS);
+					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DESIGNATE_POWER_LINES);
 				})
 		);
 

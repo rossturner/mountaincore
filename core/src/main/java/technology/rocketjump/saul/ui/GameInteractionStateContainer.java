@@ -21,15 +21,18 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEnt
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismType;
+import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismTypeDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.mapping.MapMessageHandler;
+import technology.rocketjump.saul.mapping.model.MechanismPlacement;
 import technology.rocketjump.saul.mapping.model.TiledMap;
-import technology.rocketjump.saul.mapping.model.WallPlacementMode;
+import technology.rocketjump.saul.mapping.tile.CompassDirection;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.TileExploration;
+import technology.rocketjump.saul.mapping.tile.TileNeighbours;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -109,7 +112,6 @@ public class GameInteractionStateContainer implements GameContextAware {
 	private Set<GridPoint2> virtualRoofConstructions = new HashSet<>();
 	// Wall placement info
 	private MaterialSelectionMessage wallMaterialSelection = new MaterialSelectionMessage(GameMaterialType.STONE, NULL_MATERIAL, null);
-	private WallPlacementMode wallPlacementMode = WallPlacementMode.L_SHAPE;
 	private WallType wallTypeToPlace;
 	private List<WallConstruction> virtualWallConstructions = new LinkedList<>();
 	// Bridge placement info
@@ -123,13 +125,14 @@ public class GameInteractionStateContainer implements GameContextAware {
 	// Roof placement info
 	private MaterialSelectionMessage roofMaterialSelection = new MaterialSelectionMessage(GameMaterialType.WOOD, NULL_MATERIAL, null);
 	// Mechanism placement info
-	private MechanismType mechanismTypeToPlace;
+	private List<MechanismType> powerMechanismTypes = new ArrayList<>();
+	private List<MechanismPlacement> virtualPowerMechanismPlacements = new ArrayList<>();
 
 
 	@Inject
 	public GameInteractionStateContainer(PrimaryCameraWrapper primaryCameraWrapper, RoomFactory roomFactory, ScreenWriter screenWriter,
 										 I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker, MessageDispatcher messageDispatcher,
-										 SoundAssetDictionary soundAssetDictionary) {
+										 SoundAssetDictionary soundAssetDictionary, MechanismTypeDictionary mechanismTypeDictionary) {
 		this.primaryCameraWrapper = primaryCameraWrapper;
 		this.roomFactory = roomFactory;
 		this.screenWriter = screenWriter;
@@ -137,6 +140,10 @@ public class GameInteractionStateContainer implements GameContextAware {
 		this.settlementItemTracker = settlementItemTracker;
 		this.messageDispatcher = messageDispatcher;
 		this.dragAreaSoundAsset = soundAssetDictionary.getByName("DragArea"); // MODDING expose this
+
+		powerMechanismTypes = mechanismTypeDictionary.getAll()
+						.stream().filter(t -> t.getPowerTransmission() != null && !t.getPowerTransmission().isEmpty())
+						.toList();
 
 		clearContextRelatedState();
 	}
@@ -236,22 +243,11 @@ public class GameInteractionStateContainer implements GameContextAware {
 
 				validFurniturePlacement = isFurniturePlacementValid(map, tilePosition, attributes);
 			}
-
-		} else if (interactionMode.equals(GameInteractionMode.DESIGNATE_MECHANISMS)) {
 		} else if (interactionMode.equals(GameInteractionMode.PLACE_WALLS)) {
 			GameMaterial selectedMaterial = wallMaterialSelection.selectedMaterial;
 
 			if (dragging) {
-				Set<GridPoint2> potentialLocations;
-				if (WallPlacementMode.ROOM.equals(wallPlacementMode)) {
-					potentialLocations = getPotentialWallLocationsForRoomPlacement(startPoint, currentPoint);
-					virtualRoofConstructions = getPotentialRoofLocationsForRoomPlacement(startPoint, currentPoint);
-				} else if (WallPlacementMode.L_SHAPE.equals(wallPlacementMode)) {
-					potentialLocations = getPotentialWallLocationsForLShapePlacement(startPoint, currentPoint);
-				} else {
-					potentialLocations = getPotentialWallLocationsForLinePlacement(startPoint, currentPoint);
-				}
-
+				Set<GridPoint2> potentialLocations = getPotentialWallLocationsForLShapePlacement(startPoint, currentPoint);
 
 				for (GridPoint2 potentialLocation : potentialLocations) {
 					MapTile tile = map.getTile(potentialLocation);
@@ -276,6 +272,26 @@ public class GameInteractionStateContainer implements GameContextAware {
 					MapMessageHandler.updateTile(tile, gameContext, messageDispatcher);
 				}
 			}
+		} else if (interactionMode.equals(GameInteractionMode.DESIGNATE_POWER_LINES)) {
+			virtualPowerMechanismPlacements.clear();
+			Set<GridPoint2> potentialLocations = Set.of(tilePosition);
+			if (dragging) {
+				potentialLocations = getPotentialWallLocationsForLShapePlacement(startPoint, currentPoint);
+			}
+			MechanismType tempType = powerMechanismTypes.get(0);
+
+			for (GridPoint2 potentialLocation : potentialLocations) {
+				MapTile tile = map.getTile(potentialLocation);
+				if (tile == null) {
+					continue;
+				}
+				if (interactionMode.tileDesignationCheck.shouldDesignationApply(tile)) {
+					virtualPowerMechanismPlacements.add(new MechanismPlacement(potentialLocation, tempType));
+				}
+			}
+
+			virtualPowerMechanismPlacements.forEach(this::applyCorrectPowerMechanismType);
+
 		} else if (interactionMode.equals(GameInteractionMode.PLACE_BRIDGE)) {
 			screenWriter.printLine(i18nTranslator.getTranslatedString("GUI.PLACE_BRIDGE.HINT").toString());
 			if (dragging) {
@@ -366,6 +382,35 @@ public class GameInteractionStateContainer implements GameContextAware {
 		}
 	}
 
+	private void applyCorrectPowerMechanismType(MechanismPlacement mechanismPlacement) {
+		TileNeighbours orthogonalNeighbours = gameContext.getAreaMap().getOrthogonalNeighbours(mechanismPlacement.location.x, mechanismPlacement.location.y);
+
+		List<CompassDirection> neighbourDirections = new ArrayList<>();
+		for (Map.Entry<CompassDirection, MapTile> entry : orthogonalNeighbours.entrySet()) {
+			boolean powerMechanishmInDirection = existingOrQueuedPowerMechanism(entry.getValue()) ||
+					virtualPowerMechanismPlacements.stream().anyMatch(p -> p.location.equals(entry.getValue().getTilePosition()));
+			if (powerMechanishmInDirection) {
+				neighbourDirections.add(entry.getKey());
+			}
+		}
+
+		if (!neighbourDirections.isEmpty()) {
+			MechanismType matchedType = powerMechanismTypes.stream()
+					.filter(type -> neighbourDirections.stream().allMatch(d -> type.getPowerTransmission().contains(d)))
+					.min(Comparator.comparing(t -> t.getPowerTransmission().size())).orElseThrow();
+			mechanismPlacement.setMechanismType(matchedType);
+		}
+	}
+
+	private boolean existingOrQueuedPowerMechanism(MapTile mapTile) {
+		if (mapTile.getUnderTile() != null) {
+			return mapTile.getUnderTile().getPowerMechanismEntity() != null ||
+					mapTile.getUnderTile().getQueuedMechanismType() != null;
+		} else {
+			return false;
+		}
+	}
+
 	private boolean crossesChannels(List<MapTile> bridgeTiles, int minX, int maxX, int minY, int maxY) {
 		boolean minCornerNavigable = true;
 		boolean maxCornerNavigable = true;
@@ -417,39 +462,6 @@ public class GameInteractionStateContainer implements GameContextAware {
 		return false;
 	}
 
-	private Set<GridPoint2> getPotentialWallLocationsForRoomPlacement(Vector2 startPoint, Vector2 currentPoint) {
-		int minX = (int) Math.floor(Math.min(startPoint.x, currentPoint.x));
-		int maxX = (int) Math.floor(Math.max(startPoint.x, currentPoint.x));
-		int minY = (int) Math.floor(Math.min(startPoint.y, currentPoint.y));
-		int maxY = (int) Math.floor(Math.max(startPoint.y, currentPoint.y));
-
-		Set<GridPoint2> locations = new HashSet<>();
-		for (int x = minX; x <= maxX; x++) {
-			locations.add(new GridPoint2(x, minY));
-			locations.add(new GridPoint2(x, maxY));
-		}
-		for (int y = minY; y <= maxY; y++) {
-			locations.add(new GridPoint2(minX, y));
-			locations.add(new GridPoint2(maxX, y));
-		}
-		return locations;
-	}
-
-	private Set<GridPoint2> getPotentialRoofLocationsForRoomPlacement(Vector2 startPoint, Vector2 currentPoint) {
-		int minX = (int) Math.floor(Math.min(startPoint.x, currentPoint.x));
-		int maxX = (int) Math.floor(Math.max(startPoint.x, currentPoint.x));
-		int minY = (int) Math.floor(Math.min(startPoint.y, currentPoint.y));
-		int maxY = (int) Math.floor(Math.max(startPoint.y, currentPoint.y));
-
-		Set<GridPoint2> locations = new HashSet<>();
-		for (int x = minX + 1; x < maxX; x++) {
-			for (int y = minY + 1; y < maxY; y++) {
-				locations.add(new GridPoint2(x, y));
-			}
-		}
-		return locations;
-	}
-
 	private Set<GridPoint2> getPotentialWallLocationsForLShapePlacement(Vector2 startPoint, Vector2 currentPoint) {
 		int minX = (int) Math.floor(Math.min(startPoint.x, currentPoint.x));
 		int maxX = (int) Math.floor(Math.max(startPoint.x, currentPoint.x));
@@ -474,30 +486,6 @@ public class GameInteractionStateContainer implements GameContextAware {
 			}
 			for (int x = minX; x <= maxX; x++) {
 				locations.add(new GridPoint2(x, (int) Math.floor(currentPoint.y)));
-			}
-		}
-
-		return locations;
-	}
-
-	private Set<GridPoint2> getPotentialWallLocationsForLinePlacement(Vector2 startPoint, Vector2 currentPoint) {
-		int minX = (int) Math.floor(Math.min(startPoint.x, currentPoint.x));
-		int maxX = (int) Math.floor(Math.max(startPoint.x, currentPoint.x));
-		int minY = (int) Math.floor(Math.min(startPoint.y, currentPoint.y));
-		int maxY = (int) Math.floor(Math.max(startPoint.y, currentPoint.y));
-
-		float xDiff = Math.abs(startPoint.x - currentPoint.x);
-		float yDiff = Math.abs(startPoint.y - currentPoint.y);
-		Set<GridPoint2> locations = new HashSet<>();
-
-		if (xDiff > yDiff) {
-			// Difference in x is greater
-			for (int x = minX; x <= maxX; x++) {
-				locations.add(new GridPoint2(x, (int) Math.floor(startPoint.y)));
-			}
-		} else {
-			for (int y = minY; y <= maxY; y++) {
-				locations.add(new GridPoint2((int) Math.floor(startPoint.x), y));
 			}
 		}
 
@@ -745,10 +733,6 @@ public class GameInteractionStateContainer implements GameContextAware {
 		this.wallMaterialSelection = wallMaterialSelection;
 	}
 
-	public void setWallPlacementMode(WallPlacementMode wallPlacementMode) {
-		this.wallPlacementMode = wallPlacementMode;
-	}
-
 	public void setWallTypeToPlace(WallType wallTypeToPlace) {
 		this.wallTypeToPlace = wallTypeToPlace;
 	}
@@ -870,12 +854,8 @@ public class GameInteractionStateContainer implements GameContextAware {
 		return false;
 	}
 
-	public MechanismType getMechanismTypeToPlace() {
-		return mechanismTypeToPlace;
-	}
-
-	public void setMechanismTypeToPlace(MechanismType mechanismTypeToPlace) {
-		this.mechanismTypeToPlace = mechanismTypeToPlace;
+	public List<MechanismPlacement> getVirtualPowerMechanismPlacements() {
+		return virtualPowerMechanismPlacements;
 	}
 
 	public void setSelectedRoomType(RoomType selectedRoomType) {
