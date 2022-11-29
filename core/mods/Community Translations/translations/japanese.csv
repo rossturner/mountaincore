@@ -498,13 +498,7 @@ GUI.ROOFING.ADD,,Add,追加
 GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (R) to rotate furniture,(R) を押すと建築物を回転させます
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…,セーブ中…
 GUI.SETTINGS.LABEL,,Settings,設定
-GUI.SETTLER_MANAGEMENT.BEDS_COUNTER,,Number of beds: {{count}},ベッドの数:{{count}}
-GUI.SETTLER_MANAGEMENT.DEAD_COUNTER,,Dead: {{count}},死者の数:{{count}}
-GUI.SETTLER_MANAGEMENT.LIVING_COUNTER,,Population: {{count}},入植者の数:{{count}}
-GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,名前順でソート
-GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,不幸な順にソート
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,入植者
-GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},合計:{{count}}
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,UIスケール:
 GUI.VIEW_ROADMAP,,View development roadmap,開発ロードマップを見る
 GUI.ZONES_LABEL,This should be as short as possible,Zones,ゾーン

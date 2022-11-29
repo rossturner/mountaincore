@@ -90,11 +90,4 @@ public class CrashHandler implements Telegraph {
 		return filtered.toJSONString();
 	}
 
-	private static String getGraphicsInfo() {
-		return Gdx.gl20.glGetString(GL_VENDOR) + " " + Gdx.gl20.glGetString(GL_RENDERER) + " version: " + Gdx.gl20.glGetString(GL_VERSION);
-	}
-
-	private static String buildOSName() {
-		return System.getProperty("os.name") + " (" + System.getProperty("os.version") + ") " + System.getProperty("os.arch");
-	}
 }

@@ -80,9 +80,26 @@ public class WidgetFactory {
         return selectBox;
     }
 
+    public ImageTextButton createLeftLabelledToggle(String i18nKey, Skin skin, Image prefixImage) {
+        ImageTextButton toggle = new ImageTextButton(i18nTranslator.translate(i18nKey), skin, "text_toggle");
+        Label label = toggle.getLabel();
+        Image toggleImage = toggle.getImage();
+        toggle.clearChildren();
+        if (prefixImage != null) {
+            toggle.add(prefixImage).padRight(24f);
+        }
+        toggle.add(label).padRight(22f);
+        toggle.add(toggleImage);
+        toggle.addActorBefore(toggle.getImage(), label);
+
+        toggle.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+        toggle.addListener(new ChangeCursorOnHover(toggle, GameCursor.SELECT, messageDispatcher));
+        return toggle;
+    }
+
     public CheckBox createLeftLabelledCheckbox(String i18nKey, Skin skin, float labelMaxWidth) {
         CheckBox checkbox = new CheckBox("", skin);
-        Label realLabel = new ScaledToFitLabel(i18nTranslator.getTranslatedString(i18nKey).toString(), skin, "checkbox_label", labelMaxWidth);
+        Label realLabel = new ScaledToFitLabel(i18nTranslator.translate(i18nKey), skin, "checkbox_label", labelMaxWidth);
         realLabel.setAlignment(Align.center);
         checkbox.getLabel().setStyle(skin.get("checkbox_label", Label.LabelStyle.class));
         Image image = checkbox.getImage();
@@ -99,7 +116,7 @@ public class WidgetFactory {
 
     public CheckBox createLeftLabelledCheckboxNoBackground(String i18nKey, Skin skin, float labelMaxWidth) {
         CheckBox checkbox = new CheckBox("", skin, "checkbox_no_bg");
-        Label realLabel = new Label(i18nTranslator.getTranslatedString(i18nKey).toString(), skin, "checkbox_label_no_bg");
+        Label realLabel = new Label(i18nTranslator.translate(i18nKey), skin, "checkbox_label_no_bg");
         realLabel.setWrap(true);
         realLabel.setAlignment(Align.center);
         checkbox.getLabel().setStyle(skin.get("checkbox_label_no_bg", Label.LabelStyle.class));

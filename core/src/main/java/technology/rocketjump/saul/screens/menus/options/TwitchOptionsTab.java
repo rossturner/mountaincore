@@ -184,7 +184,7 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 
 
 
-		codeLabel = new Label(i18nTranslator.getTranslatedString("GUI.OPTIONS.TWITCH.CODE_LABEL").toString(), skin, "options_menu_label");
+		codeLabel = new Label(i18nTranslator.translate("GUI.OPTIONS.TWITCH.CODE_LABEL"), skin, "options_menu_label");
 		codeInput = new TextField("", skin);
 		codeInput.addListener(new ChangeCursorOnHover(codeInput, GameCursor.I_BEAM, messageDispatcher));
 
@@ -199,7 +199,7 @@ public class TwitchOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 				.build();
 
 
-		authCodeFailureLabel = new Label(i18nTranslator.getTranslatedString("GUI.OPTIONS.TWITCH.GENERAL_ERROR").toString(), skin, "options_menu_label");
+		authCodeFailureLabel = new Label(i18nTranslator.translate("GUI.OPTIONS.TWITCH.GENERAL_ERROR"), skin, "options_menu_label");
 		authCodeFailureLabel.setColor(HexColors.NEGATIVE_COLOR);
 
 		viewersAsSettersCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.TWITCH.VIEWERS_AS_SETTLERS", skin, 428f);

@@ -498,13 +498,7 @@ GUI.ROOFING.ADD,,Add,
 GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (R) to rotate furniture,Tryck på (R) för att rotera möbler
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…,Räddar...
 GUI.SETTINGS.LABEL,,Settings,
-GUI.SETTLER_MANAGEMENT.BEDS_COUNTER,,Number of beds: {{count}},
-GUI.SETTLER_MANAGEMENT.DEAD_COUNTER,,Dead: {{count}},Döda: {{count}}
-GUI.SETTLER_MANAGEMENT.LIVING_COUNTER,,Population: {{count}},Befolkning: {{count}}
-GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,
-GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,Nybyggare
-GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},Totalt: {{count}}
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,Gränssnittskala:
 GUI.VIEW_ROADMAP,,View development roadmap,
 GUI.ZONES_LABEL,This should be as short as possible,Zones,Zoner

@@ -85,6 +85,10 @@ public class I18nTranslator {
 		return dictionary.getWord(i18nKey);
 	}
 
+	public String translate(String key) {
+		return getTranslatedString(key).toString();
+	}
+
 	public I18nText getTranslatedString(String i18nKey) {
 		return getTranslatedString(i18nKey, I18nWordClass.UNSPECIFIED);
 	}
@@ -877,4 +881,5 @@ public class I18nTranslator {
 			);
 		}
 	}
+
 }

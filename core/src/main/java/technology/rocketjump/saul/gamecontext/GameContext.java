@@ -80,6 +80,13 @@ public class GameContext {
 		return entities;
 	}
 
+	public Entity getEntity(Long entityId) {
+		if (entityId != null) {
+			return entities.get(entityId);
+		}
+		return null;
+	}
+
 	public Map<Long, Room> getRooms() {
 		return rooms;
 	}

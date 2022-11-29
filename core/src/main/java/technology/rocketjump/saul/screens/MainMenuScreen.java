@@ -6,20 +6,16 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.lang3.NotImplementedException;
@@ -37,7 +33,6 @@ import technology.rocketjump.saul.screens.menus.options.OptionsTabName;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.GameDialog;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
 import java.util.ArrayList;
@@ -53,7 +48,7 @@ import static technology.rocketjump.saul.rendering.camera.GlobalSettings.VERSION
  * Should slowly pan across a background image
  */
 @Singleton
-public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, GameContextAware {
+public class MainMenuScreen extends AbstractGameScreen implements Telegraph, DisplaysText, GameContextAware {
 
 	private final MessageDispatcher messageDispatcher;
 	private final ScreenWriter screenWriter;
@@ -64,17 +59,12 @@ public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, Game
 	private final LoadGameMenu loadGameMenu;
 	private final Skin uiSkin;
 	private final SpriteBatch basicSpriteBatch = new SpriteBatch();
-	private final OrthographicCamera camera = new OrthographicCamera();
-	private final Viewport viewport = new ExtendViewport(3840, 2160);
 
 	private Texture backgroundImage;
 	private float backgroundScale = 1f;
 	private GridPoint2 backgroundOffset = new GridPoint2();
 	private TextureRegion backgroundRegion;
 	private GridPoint2 backgroundRegionSize;
-
-
-	private final Stage stage;
 
 	private final Table containerTable;
 	private final Table versionTable;
@@ -107,7 +97,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, Game
 		containerTable.setFillParent(true);
 		containerTable.center();
 
-		stage = new Stage(viewport);
 		stage.addActor(containerTable);
 
 		versionTable = new Table(uiSkin);
@@ -304,11 +293,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, Game
 	}
 
 	@Override
-	public void showDialog(GameDialog dialog) {
-		dialog.show(stage);
-	}
-
-	@Override
 	public void resize(int width, int height) {
 		camera.setToOrtho(false, width, height);
 
@@ -319,15 +303,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, Game
 		reset();
 	}
 
-	@Override
-	public void pause() {
-
-	}
-
-	@Override
-	public void resume() {
-
-	}
 
 	@Override
 	public void dispose() {

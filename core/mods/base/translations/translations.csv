@@ -437,7 +437,7 @@ GUI.BUILD_FURNITURE,,Furniture
 GUI.BUILD_LABEL,,Build
 GUI.CANCEL_LABEL,,Cancel
 GUI.CONSTRUCTION_LABEL,For the menu that further gives options for build and power and roofing,Construction
-GUI.CHANGE_PROFESSION_LABEL,,Change profession
+GUI.CHANGE_PROFESSION_LABEL,,Choose New Profession
 GUI.CHANGE_WEAPON_LABEL,,Select weapon
 GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items in stock,Maintaining
 GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting
@@ -626,13 +626,19 @@ GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…
 GUI.SELECT_WEAPON.LABEL,,Select weapon
 GUI.SETTINGS.LABEL,,Settings
-GUI.SETTLER_MANAGEMENT.BEDS_COUNTER,,Number of beds: {{count}}
-GUI.SETTLER_MANAGEMENT.DEAD_COUNTER,,Dead: {{count}}
-GUI.SETTLER_MANAGEMENT.LIVING_COUNTER,,Population: {{count}}
-GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name
-GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness
+GUI.SETTLER_MANAGEMENT.HAPPINESS,,Happiness {{happinessValue}}
+GUI.SETTLER_MANAGEMENT.IMMIGRATION,,Immigration
+GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}}
+GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN,,Civilian
+GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY,,Military
+GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Villager
+GUI.SETTLER_MANAGEMENT.SEARCH,,Search
+GUI.SETTLER_MANAGEMENT.SORT.HAPPINESS,,Happiness
+GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN,,Military/Civilian
+GUI.SETTLER_MANAGEMENT.SORT.NAME,,Name
+GUI.SETTLER_MANAGEMENT.SORT.SKILL_LEVEL,,Skill Level
+GUI.SETTLER_MANAGEMENT.SORT_BY,,Sort By
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers
-GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}}
 GUI.SOUND_EFFECT_VOLUME,,Sound Effects
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:
 GUI.VIEW_MODE.DEFAULT,,Default view

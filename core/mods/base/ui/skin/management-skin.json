@@ -1,19 +1,58 @@
 {
 com.badlogic.gdx.graphics.Color: {
+	black_20pc: {
+		r: 0
+		g: 0
+		b: 0
+		a: 0.19607843
+	}
 	invisible: {
-		hex: ffffff00
+		r: 1
+		g: 1
+		b: 1
+		a: 0
 	}
 	primary_font_colour_red: {
-		hex: 913614ff
+		r: 0.5686275
+		g: 0.21176471
+		b: 0.078431375
+		a: 1
+	}
+	progress_bar_green: {
+		r: 0.62352943
+		g: 0.75686276
+		b: 0
+		a: 1
+	}
+	progress_bar_red: {
+		r: 0.75686276
+		g: 0
+		b: 0.20784314
+		a: 1
+	}
+	progress_bar_yellow: {
+		r: 0.92941177
+		g: 0.6901961
+		b: 0
+		a: 1
 	}
 	search_bar_selection_colour: {
-		hex: a44929ff
+		r: 0.6431373
+		g: 0.28627452
+		b: 0.16078432
+		a: 1
 	}
 	semi_transparent_accent_colour: {
-		hex: d7b17a3f
+		r: 0.84313726
+		g: 0.69411767
+		b: 0.47843137
+		a: 0.24719101
 	}
 	white: {
-		hex: ffffffff
+		r: 1
+		g: 1
+		b: 1
+		a: 1
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
@@ -32,6 +71,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	invisible_pixel: {
 		name: white-pixel
 		color: invisible
+	}
+	drag_over_tint: {
+		name: white-pixel
+		color: black_20pc
 	}
 }
 com.ray3k.tenpatch.TenPatchDrawable: {
@@ -61,11 +104,18 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		up: btn_info
 		over: btn_info_hover_state
 	}
+	toggle: {
+		up: btn_toggle_off
+		checked: btn_toggle_on
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	sort_by_button: {
 		imageUp: btn_sort_by_toggle_off
 		imageChecked: btn_sort_by_toggle_on
+	}
+	military_equipment_assignment: {
+		up: btn_military_slot_bg
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
@@ -75,8 +125,17 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 		font: default-font-23
 		fontColor: primary_font_colour_red
 	}
+	text_toggle: {
+		imageUp: btn_toggle_off
+		imageChecked: btn_toggle_on
+		font: default-font-23
+		fontColor: primary_font_colour_red
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: default-font-16
+	}
 	stockpile_group_filter_label: {
 		font: header-font-36
 		fontColor: primary_font_colour_red
@@ -98,6 +157,29 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		fontColor: white
 		background: icon_number_bg
 	}
+	progress_bar_label: {
+		font: default-font-16
+		fontColor: primary_font_colour_red
+	}
+	progress_bar_white_label: {
+		font: default-font-16
+		fontColor: white
+	}
+	military_highest_proficiency_label: {
+		font: default-font-18
+		fontColor: primary_font_colour_red
+		background: asset_bg_miliatry_skill
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
+	default-horizontal: {
+		background: bar_bg
+		knobBefore: progress_bar_knob
+	}
+	progress_bar_darker_bg-horizontal: {
+		background: bar_bg_dark
+		knobBefore: progress_bar_knob
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	goto_dwarf_button: {
@@ -113,6 +195,11 @@ com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 		background: search_bar_v3.9
 		cursor: search_bar_cursor
 		selection: search_bar_selection
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {

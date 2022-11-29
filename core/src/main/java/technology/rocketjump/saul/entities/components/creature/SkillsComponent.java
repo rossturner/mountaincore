@@ -39,6 +39,16 @@ public class SkillsComponent implements EntityComponent {
 		return cloned;
 	}
 
+	public void replace(Skill professionToReplace, Skill newProfession) {
+		int indexToReplace = activeProfessions.indexOf(professionToReplace);
+		if (indexToReplace == -1 && activeProfessions.size() < MAX_PROFESSIONS) {
+			activeProfessions.add(newProfession);
+		} else {
+			activeProfessions.set(indexToReplace, newProfession);
+		}
+	}
+
+
 	public void activateProfession(Skill profession) {
 		if (!activeProfessions.contains(profession)) {
 			// Insert new active profession before last entry (which is NULL_PROFESSION)
@@ -97,6 +107,12 @@ public class SkillsComponent implements EntityComponent {
 
 		skillLevels.put(profession, currentSkillLevel);
 		experiencePoints.put(profession, currentExperience);
+	}
+
+	public float getNextLevelProgressPercent(Skill skill) {
+		int skillLevel = getSkillLevel(skill);
+		int nextLevelExp = experienceRequiredForLevel(skillLevel + 1);
+		return (experiencePoints.getOrDefault(skill, 0) / (float) nextLevelExp);
 	}
 
 	private int experienceRequiredForLevel(int level) {
@@ -184,6 +200,10 @@ public class SkillsComponent implements EntityComponent {
 	}
 
 	public void swapActiveProfessionPositions(int a, int b) {
+		int lastIndex = activeProfessions.size() - 1;
+		if (a > lastIndex || b > lastIndex) {
+			return;
+		}
 		List<Skill> reordered = new ArrayList<>();
 		for (int cursor = 0; cursor < activeProfessions.size(); cursor++) {
 			if (cursor == a) {
@@ -196,6 +216,7 @@ public class SkillsComponent implements EntityComponent {
 		}
 		activeProfessions = reordered;
 	}
+
 
 
 	public static class QuantifiedSkill {
