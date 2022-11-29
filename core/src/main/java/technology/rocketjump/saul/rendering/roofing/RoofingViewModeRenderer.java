@@ -2,12 +2,12 @@ package technology.rocketjump.saul.rendering.roofing;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.jobs.model.Job;
@@ -30,18 +30,19 @@ public class RoofingViewModeRenderer {
 	private final GameInteractionStateContainer interactionStateContainer;
 	private final JobStore jobStore;
 
-	// MODDING expose this
-	private final Sprite roofingSprite;
-//	private final Sprite deconstructSprite;
-
 	@Inject
 	public RoofingViewModeRenderer(GameInteractionStateContainer interactionStateContainer, JobStore jobStore, TextureAtlasRepository textureAtlasRepository) {
 		this.interactionStateContainer = interactionStateContainer;
 		this.jobStore = jobStore;
 
 		TextureAtlas guiAtlas = textureAtlasRepository.get(TextureAtlasRepository.TextureAtlasType.GUI_TEXTURE_ATLAS);
-		roofingSprite = guiAtlas.createSprite("triple-gate");
-//		deconstructSprite = guiAtlas.createSprite("demolish");
+
+		for (RoofConstructionState roofConstructionState : RoofConstructionState.values()) {
+			roofConstructionState.icon = guiAtlas.createSprite(roofConstructionState.iconName);
+			if (roofConstructionState.icon == null) {
+				Logger.error(String.format("Could not find icon with name %s for roof state %s", roofConstructionState.iconName, roofConstructionState.name()));
+			}
+		}
 	}
 
 	public void render(TiledMap map, OrthographicCamera camera, Batch spriteBatch, ShapeRenderer shapeRenderer, boolean blinkState) {
@@ -88,14 +89,14 @@ public class RoofingViewModeRenderer {
 							// This is within dragging area
 							if (shouldHighlight(mapTile)) {
 								spriteBatch.setColor(RoofConstructionState.PENDING.renderColor);
-								spriteBatch.draw(roofingSprite, x, y, 1, 1);
+								spriteBatch.draw(RoofConstructionState.PENDING.icon, x, y, 1, 1);
 							} else {
 								renderExistingRoofConstruction(x, y, mapTile, spriteBatch, blinkState);
 							}
 						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT_ROOFING)) {
 							if (shouldHighlight(mapTile)) {
 								spriteBatch.setColor(RoofConstructionState.PENDING_DECONSTRUCTION.renderColor);
-								spriteBatch.draw(roofingSprite, x, y, 1, 1);
+								spriteBatch.draw(RoofConstructionState.PENDING_DECONSTRUCTION.icon, x, y, 1, 1);
 							} else {
 								renderExistingRoofConstruction(x, y, mapTile, spriteBatch, blinkState);
 							}
@@ -126,7 +127,7 @@ public class RoofingViewModeRenderer {
 			}
 
 			spriteBatch.setColor(roofConstructionState.renderColor);
-			spriteBatch.draw(roofingSprite, x, y, 1, 1);
+			spriteBatch.draw(roofConstructionState.icon, x, y, 1, 1);
 		}
 	}
 

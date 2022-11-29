@@ -26,6 +26,7 @@ import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
 import technology.rocketjump.saul.jobs.model.Job;
 import technology.rocketjump.saul.jobs.model.JobType;
+import technology.rocketjump.saul.mapping.model.MechanismPlacement;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.underground.PipeConstructionState;
@@ -45,7 +46,8 @@ import static technology.rocketjump.saul.mapping.tile.TileExploration.UNEXPLORED
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.rendering.WorldRenderer.CONSTRUCTION_COLOR;
 import static technology.rocketjump.saul.rendering.camera.TileBoundingBox.*;
-import static technology.rocketjump.saul.ui.InWorldUIRenderer.*;
+import static technology.rocketjump.saul.ui.InWorldUIRenderer.VALID_PLACEMENT_COLOR;
+import static technology.rocketjump.saul.ui.InWorldUIRenderer.insideSelectionArea;
 
 @Singleton
 public class MechanismsViewModeRenderer {
@@ -173,19 +175,11 @@ public class MechanismsViewModeRenderer {
 				}
 			}
 		}
-		if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DESIGNATE_MECHANISMS)) {
-			// TODO Show mechanism at current mouse tile
-			MapTile cursorTile = map.getTile(cursorTilePosition);
-			if (cursorTile != null) {
-				boolean hasOtherMechanismConstruction = cursorTile.getUnderTile() != null && cursorTile.getUnderTile().getQueuedMechanismType() != null;
-				if (!hasOtherMechanismConstruction) {
-					Color placementColor = GameInteractionMode.DESIGNATE_MECHANISMS.tileDesignationCheck.shouldDesignationApply(cursorTile)
-							? VALID_PLACEMENT_COLOR : INVALID_PLACEMENT_COLOR;
-					renderPlacingEntity(cursorTilePosition.x, cursorTilePosition.y, interactionStateContainer.getMechanismTypeToPlace(),
-							spriteBatch, placementColor);
-				}
+		if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DESIGNATE_POWER_LINES)) {
+			for (MechanismPlacement virtualPlacement : interactionStateContainer.getVirtualPowerMechanismPlacements()) {
+				renderPlacingEntity(virtualPlacement.location.x, virtualPlacement.location.y, virtualPlacement.mechanismType,
+						spriteBatch, VALID_PLACEMENT_COLOR);
 			}
-
 		}
 		for (MapTile tile : tilesWithSourceOrConsumer) {
 			if (tile.getUnderTile().isPowerSource()) {

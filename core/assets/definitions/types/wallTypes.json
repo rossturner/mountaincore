@@ -34,6 +34,7 @@
   "materialType" : "STONE",
   "useMaterialColor" : true,
   "craftingTypeName" : "STONEMASONRY",
+  "selectionDrawableName" : "preview_walls_brick",
   "requirements" : {
     "STONE" : [ {
       "itemTypeName" : "Resource-Stone-Block",
@@ -63,6 +64,7 @@
   "materialType" : "WOOD",
   "useMaterialColor" : true,
   "craftingTypeName" : "CARPENTRY",
+  "selectionDrawableName" : "preview_walls_wood",
   "requirements" : {
     "WOOD" : [ {
       "itemTypeName" : "Resource-Planks",

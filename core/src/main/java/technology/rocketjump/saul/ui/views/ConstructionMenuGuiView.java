@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.ui.GameViewMode;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
@@ -19,6 +20,7 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
 import static technology.rocketjump.saul.ui.GameInteractionMode.DECONSTRUCT;
 import static technology.rocketjump.saul.ui.GameInteractionMode.REMOVE_DESIGNATIONS;
+import static technology.rocketjump.saul.ui.views.GuiViewName.BUILD_ROOFING;
 
 @Singleton
 public class ConstructionMenuGuiView implements GuiView, DisplaysText {
@@ -74,9 +76,14 @@ public class ConstructionMenuGuiView implements GuiView, DisplaysText {
 				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.BUILD_MENU));
 		layoutTable.add(buildButton);
 
+		Button roofButton = buildButton("btn_bottom_roofing", "GUI.BUILD.ROOFING", () -> {
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.ROOFING_INFO);
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, BUILD_ROOFING);
+		});
+		layoutTable.add(roofButton);
+
 		Button powerWaterButton = buildButton("btn_construction_power_and_water", "GUI.POWER_LABEL",
-//				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.POWER_WATER_MENU));
-			() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.OLD_BUILD_MENU));
+			() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.POWER_WATER_MENU));
 		layoutTable.add(powerWaterButton);
 
 		Button deconstructButton = buildButton("btn_construction_deconstruct", "GUI.DECONSTRUCT_LABEL",

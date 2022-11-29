@@ -88,8 +88,8 @@ public enum GameInteractionMode {
 			mapTile.getUnderTile() != null && mapTile.getUnderTile().getPipeConstructionState().equals(PipeConstructionState.READY_FOR_CONSTRUCTION), true),
 	DECONSTRUCT_PIPING(GameCursor.DECONSTRUCT, null, mapTile -> mapTile.getExploration().equals(EXPLORED) && mapTile.hasPipe(), true),
 
-	DESIGNATE_MECHANISMS(GameCursor.GEARS, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
-			!mapTile.getFloor().isRiverTile() && !mapTile.hasPowerMechanism() && (mapTile.getUnderTile() == null || mapTile.getUnderTile().getQueuedMechanismType() == null), false),
+	DESIGNATE_POWER_LINES(GameCursor.GEARS, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
+			!mapTile.getFloor().isRiverTile(), true),
 	CANCEL_MECHANISMS(GameCursor.CANCEL, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
 			mapTile.getUnderTile() != null && mapTile.getUnderTile().getQueuedMechanismType() != null, true),
 	DECONSTRUCT_MECHANISMS(GameCursor.DECONSTRUCT, null, mapTile -> mapTile.getExploration().equals(EXPLORED) && mapTile.hasPowerMechanism(), true),

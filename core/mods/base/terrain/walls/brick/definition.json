@@ -4,6 +4,7 @@
   "materialType": "STONE",
   "useMaterialColor": true,
   "craftingTypeName": "STONEMASONRY",
+  "selectionDrawableName": "preview_walls_brick",
   "requirements": {
     "STONE": [
       {

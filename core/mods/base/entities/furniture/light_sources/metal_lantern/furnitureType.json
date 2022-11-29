@@ -4,7 +4,7 @@
   "defaultLayoutName": "1x1",
   "colorCode": "#6dc14c",
   "iconName": "lantern-flame",
-  "placeAnywhere": true,
+  "showInGuiView": "BUILD_MENU",
   "requirements": {
     "METAL": [
       {

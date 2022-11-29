@@ -1,6 +1,5 @@
 package technology.rocketjump.saul.ui.views;
 
-import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Inject;
@@ -35,8 +34,7 @@ public class RoomEditorFurnitureMap {
 	public RoomEditorFurnitureMap(FurnitureEntityAttributesFactory furnitureEntityAttributesFactory,
 								  FurnitureEntityFactory furnitureEntityFactory,
 								  FurnitureTypeDictionary furnitureTypeDictionary,
-								  GameMaterialDictionary materialDictionary,
-								  MessageDispatcher messageDispatcher) {
+								  GameMaterialDictionary materialDictionary) {
 		this.materialDictionary = materialDictionary;
 		random = new RandomXS128();
 

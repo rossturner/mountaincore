@@ -5,7 +5,7 @@
   "defaultLayoutName": "Waterwheel S side",
   "colorCode": "#8ee1da",
   "iconName": "water-mill",
-  "placeAnywhere": true,
+  "showInGuiView": "POWER_WATER_MENU",
   "requirements": {
     "WOOD": [
       {

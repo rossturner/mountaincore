@@ -2,6 +2,7 @@
   "materialType": "WOOD",
   "i18nKey": "ROOMS.BRIDGE",
   "craftingTypeName": "CARPENTRY",
+  "selectionDrawableName": "preview_bridge_wood",
   "buildingRequirement": {
     "itemTypeName": "Resource-Planks",
     "quantity": 2

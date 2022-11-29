@@ -183,6 +183,14 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 		return selectedMaterialType;
 	}
 
+	public void setSelectedMaterialType(GameMaterialType materialType) {
+		this.selectedMaterialType = materialType;
+		rebuildUI();
+	}
+
+	public void setSelectedMaterial(GameMaterial material) {
+	}
+
 	public List<ItemTypeWithMaterial> getSelections() {
 		return materialSelections;
 	}

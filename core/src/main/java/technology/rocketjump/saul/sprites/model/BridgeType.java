@@ -20,6 +20,7 @@ public class BridgeType {
 	private String craftingTypeName; // Informs us which profession and tool is needed to construct the wall
 	@JsonIgnore
 	private CraftingType craftingType;
+	private String selectionDrawableName;
 
 	public GameMaterialType getMaterialType() {
 		return materialType;
@@ -78,4 +79,11 @@ public class BridgeType {
 		return Objects.hash(materialType);
 	}
 
+	public String getSelectionDrawableName() {
+		return selectionDrawableName;
+	}
+
+	public void setSelectionDrawableName(String selectionDrawableName) {
+		this.selectionDrawableName = selectionDrawableName;
+	}
 }

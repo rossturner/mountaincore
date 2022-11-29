@@ -28,6 +28,7 @@ public class EntityDrawable extends BaseDrawable {
     private Color overrideColor = null;
 
     private final boolean showItemAsPlacedOnGround;
+    private final Vector2 screenPositionOffset = new Vector2();
     private ItemPlacement revertToItemPlacement;
     private Drawable backgroundDrawable;
 
@@ -49,7 +50,7 @@ public class EntityDrawable extends BaseDrawable {
 
         LocationComponent originalLocationComponent = entity.getLocationComponent();
         LocationComponent overrideLocationComponent = originalLocationComponent.clone(null, null);
-        Vector2 screenPosition = new Vector2(x + (width / 2), y + (width / 2));
+        Vector2 screenPosition = new Vector2(x + (width / 2) + screenPositionOffset.x, y + (width / 2) + screenPositionOffset.y);
         overrideLocationComponent.setWorldPosition(screenPosition, false);
         overrideLocationComponent.setFacing(DOWN.toVector2());
         entity.setLocationComponent(overrideLocationComponent);
@@ -127,7 +128,7 @@ public class EntityDrawable extends BaseDrawable {
             tileWidth++;
         }
 
-        overrideLocationComponent.setWorldPosition(positionFromCorner.add(x, y), false);
+        overrideLocationComponent.setWorldPosition(positionFromCorner.add(x, y).add(screenPositionOffset), false);
     }
 
     public Color getOverrideColor() {
@@ -141,5 +142,9 @@ public class EntityDrawable extends BaseDrawable {
     public EntityDrawable withBackground(Drawable backgroundDrawable) {
         this.backgroundDrawable = backgroundDrawable;
         return this;
+    }
+
+    public void setScreenPositionOffset(float x, float y) {
+        this.screenPositionOffset.set(x, y);
     }
 }

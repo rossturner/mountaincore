@@ -13,6 +13,7 @@ import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,7 +36,7 @@ public class WallTypeDictionary {
 				objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, WallType.class));
 
 		for (WallType wallType : wallTypes) {
-			if (wallTypeIdMap.containsKey(wallType.getWallTypeId())) {
+			if (nameMap.containsKey(wallType.getWallTypeName())) {
 				throw new IOException("Duplicate ID for wall: " + wallType);
 			}
 			if (wallType.getCraftingTypeName() != null) {
@@ -78,7 +79,7 @@ public class WallTypeDictionary {
 		return nameMap.get(name);
 	}
 
-	public Iterable<WallType> getAllDefinitions() {
-		return wallTypeIdMap.values();
+	public Collection<WallType> getAllDefinitions() {
+		return nameMap.values();
 	}
 }

@@ -28,6 +28,7 @@ public class MessageType {
 	public static final int TRIGGER_SCREEN_SHAKE = 206;
 
 	// GUI Messages
+	public static final int GUI_VIEW_MODE_CHANGED = 246;
 	public static final int ROOM_PLACEMENT = 247;
 	public static final int AREA_SELECTION = 248;
 	public static final int GUI_SWITCH_VIEW = 249;
@@ -166,7 +167,6 @@ public class MessageType {
 	public static final int REMOVE_ROOM = 809;
 	public static final int REMOVE_ROOM_TILES = 810;
 	public static final int WALL_MATERIAL_SELECTED = 811;
-	public static final int WALL_PLACEMENT_SELECTED = 812;
 	public static final int WALL_PLACEMENT = 813;
 	public static final int BRIDGE_MATERIAL_SELECTED = 814;
 	public static final int REQUEST_FURNITURE_REMOVAL = 815;
@@ -182,6 +182,7 @@ public class MessageType {
 	public static final int LOOKUP_FURNITURE_TYPE = 825;
 	public static final int FURNITURE_ATTRIBUTES_CREATION_REQUEST = 826;
 	public static final int FURNITURE_CREATION_REQUEST = 827;
+	public static final int ROOF_MATERIAL_SELECTED = 828;
 
 	// Construction-specific messages
 	public static final int CANCEL_CONSTRUCTION = 900;

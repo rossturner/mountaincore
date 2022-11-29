@@ -23,7 +23,6 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.gamecontext.GameState;
 import technology.rocketjump.saul.jobs.model.JobPriority;
-import technology.rocketjump.saul.mapping.model.WallPlacementMode;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.designation.DesignationDictionary;
 import technology.rocketjump.saul.mapping.tile.roof.RoofConstructionState;
@@ -48,6 +47,7 @@ import java.util.*;
 
 import static technology.rocketjump.saul.mapping.tile.TileExploration.EXPLORED;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
+import static technology.rocketjump.saul.ui.GameInteractionMode.DESIGNATE_POWER_LINES;
 import static technology.rocketjump.saul.ui.GameInteractionMode.PLACE_ROOM;
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.*;
 
@@ -94,7 +94,6 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.WALL_MATERIAL_SELECTED);
 		messageDispatcher.addListener(this, MessageType.FLOOR_MATERIAL_SELECTED);
 		messageDispatcher.addListener(this, MessageType.DOOR_MATERIAL_SELECTED);
-		messageDispatcher.addListener(this, MessageType.WALL_PLACEMENT_SELECTED);
 		messageDispatcher.addListener(this, MessageType.BRIDGE_MATERIAL_SELECTED);
 		messageDispatcher.addListener(this, MessageType.CONSTRUCTION_REMOVED);
 		messageDispatcher.addListener(this, MessageType.CONSTRUCTION_COMPLETED);
@@ -105,6 +104,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.GUI_STOCKPILE_GROUP_SELECTED);
 		messageDispatcher.addListener(this, MessageType.CANCEL_SCREEN_OR_GO_TO_MAIN_MENU);
 		messageDispatcher.addListener(this, MessageType.BEGIN_SPAWN_SETTLEMENT);
+		messageDispatcher.addListener(this, MessageType.ROOF_MATERIAL_SELECTED);
 		// FIXME Should these really live here?
 		for (WallType wallType : wallTypeDictionary.getAllDefinitions()) {
 			if (wallType.isConstructed()) {
@@ -218,16 +218,15 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 				interactionStateContainer.setWallTypeToPlace(wallTypeMapping.get(materialSelectionMessage.selectedMaterialType));
 				return true;
 			}
+			case MessageType.ROOF_MATERIAL_SELECTED: {
+				MaterialSelectionMessage materialSelectionMessage = (MaterialSelectionMessage) msg.extraInfo;
+				interactionStateContainer.setRoofMaterialSelection(materialSelectionMessage);
+				return true;
+			}
 			case MessageType.FLOOR_MATERIAL_SELECTED: {
 				MaterialSelectionMessage materialSelectionMessage = (MaterialSelectionMessage) msg.extraInfo;
 				interactionStateContainer.setFloorMaterialSelection(materialSelectionMessage);
 				interactionStateContainer.setFloorTypeToPlace(floorTypeMapping.get(materialSelectionMessage.selectedMaterialType));
-				return true;
-			}
-			case MessageType.WALL_PLACEMENT_SELECTED: {
-				WallPlacementMode wallPlacementMode = (WallPlacementMode) msg.extraInfo;
-				interactionStateContainer.setWallPlacementMode(wallPlacementMode);
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_WALLS);
 				return true;
 			}
 			case MessageType.BRIDGE_MATERIAL_SELECTED: {
@@ -272,8 +271,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private void rebuildFurnitureEntity() {
-		FurnitureType selectedFurnitureType = roomEditingView.getSelectedFurnitureType();
-
+		FurnitureType selectedFurnitureType = interactionStateContainer.getFurnitureTypeToPlace();
 
 		GameMaterialType selectedMaterialType = furnitureMaterialsWidget.getSelectedMaterialType();
 		List<ItemTypeWithMaterial> materialSelections = furnitureMaterialsWidget.getSelections();
@@ -316,6 +314,13 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 					}
 				}
 
+			} else if (interactionStateContainer.getInteractionMode().equals(DESIGNATE_POWER_LINES)) {
+				interactionStateContainer.getVirtualPowerMechanismPlacements().forEach(placement -> {
+					messageDispatcher.dispatchMessage(MessageType.MECHANISM_CONSTRUCTION_ADDED, new MechanismPlacementMessage(
+							gameContext.getAreaMap().getTile(placement.location), placement.mechanismType
+					));
+				});
+				interactionStateContainer.getVirtualPowerMechanismPlacements().clear();
 			} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.PLACE_BRIDGE)) {
 				if (interactionStateContainer.isValidBridgePlacement() && interactionStateContainer.getVirtualBridgeConstruction() != null) {
 					messageDispatcher.dispatchMessage(MessageType.BRIDGE_PLACEMENT, interactionStateContainer.getVirtualBridgeConstruction().getBridge());
@@ -336,13 +341,6 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 			} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.PLACE_DOOR)) {
 				if (interactionStateContainer.isValidDoorPlacement()) {
 					messageDispatcher.dispatchMessage(MessageType.DOOR_PLACEMENT, interactionStateContainer.getVirtualDoorPlacement());
-				}
-			} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DESIGNATE_MECHANISMS)) {
-				MapTile cursorTile = gameContext.getAreaMap().getTile(mouseChangeMessage.getWorldPosition());
-				if (cursorTile != null && interactionStateContainer.getInteractionMode().tileDesignationCheck.shouldDesignationApply(cursorTile)) {
-					messageDispatcher.dispatchMessage(MessageType.MECHANISM_CONSTRUCTION_ADDED, new MechanismPlacementMessage(
-							cursorTile, interactionStateContainer.getMechanismTypeToPlace()
-					));
 				}
 			} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.SQUAD_MOVE_TO_LOCATION)) {
 				MapTile cursorTile = gameContext.getAreaMap().getTile(mouseChangeMessage.getWorldPosition());

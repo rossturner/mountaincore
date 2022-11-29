@@ -154,6 +154,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 			case MessageType.GUI_SWITCH_VIEW_MODE: {
 				GameViewMode targetMode = (GameViewMode)msg.extraInfo;
 				interactionStateContainer.setGameViewMode(targetMode);
+				messageDispatcher.dispatchMessage(MessageType.GUI_VIEW_MODE_CHANGED);
 				return true;
 			}
 			case MessageType.GUI_CANCEL_CURRENT_VIEW: {

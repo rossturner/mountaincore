@@ -4,9 +4,8 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -15,6 +14,8 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.gamecontext.GameState;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.screens.ManagementScreenName;
+import technology.rocketjump.saul.ui.GameInteractionStateContainer;
+import technology.rocketjump.saul.ui.GameViewMode;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
@@ -31,6 +32,8 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 	private final Skin skin;
 	private final Table layoutTable;
 	private final Table managementScreenButtonTable;
+	private final Table viewModeButtons;
+	private final GameInteractionStateContainer gameInteractionStateContainer;
 	private GameContext gameContext;
 
 	private final TimeDateWidget timeDateWidget;
@@ -38,9 +41,10 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 	@Inject
 	public TimeDateGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 						   TimeDateWidget timeDateWidget,
-						   TooltipFactory tooltipFactory) {
+						   TooltipFactory tooltipFactory, GameInteractionStateContainer gameInteractionStateContainer) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
+		this.gameInteractionStateContainer = gameInteractionStateContainer;
 		Skin uiSkin = guiSkinRepository.getDefault();
 		this.skin = guiSkinRepository.getMainGameSkin();
 
@@ -51,17 +55,24 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 		managementScreenButtonTable.padRight(52);
 		managementScreenButtonTable.defaults().padLeft(22);
 
+		viewModeButtons = new Table();
+		viewModeButtons.defaults().padLeft(20);
+		viewModeButtons.setTouchable(Touchable.enabled);
+
 		layoutTable = new Table(uiSkin);
 		reset(null);
 
 		messageDispatcher.addListener(this, MessageType.SETTLEMENT_SPAWNED);
+		messageDispatcher.addListener(this, MessageType.GUI_VIEW_MODE_CHANGED);
 	}
 
 	private void reset(GameContext gameContext) {
 		layoutTable.clearChildren();
 		if (gameContext == null || !gameContext.getSettlementState().getGameState().equals(GameState.SELECT_SPAWN_LOCATION)) {
 			layoutTable.add(managementScreenButtonTable).right().top();
-			layoutTable.add(timeDateWidget).top().right().padTop(6);
+			layoutTable.add(timeDateWidget).top().right().padTop(6).row();
+			layoutTable.add(new Container<>()); // pad out this cell
+			layoutTable.add(viewModeButtons).padLeft(40).center().row();
 		}
 	}
 
@@ -83,6 +94,31 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 			tooltipFactory.simpleTooltip(screenButton, managementScreen.titleI18nKey, TooltipLocationHint.BELOW);
 			managementScreenButtonTable.add(screenButton).size(157f,170f);
 		}
+
+		viewModeButtons.clearChildren();
+		ButtonGroup<Button> viewModeGroup = new ButtonGroup<>();
+		viewModeGroup.setMaxCheckCount(1);
+		for (GameViewMode viewMode : GameViewMode.values()) {
+			Button viewModeButton = new Button(skin.get(viewMode.getButtonStyleName(), Button.ButtonStyle.class));
+			if (viewMode.equals(gameInteractionStateContainer.getGameViewMode())) {
+				viewModeButton.setChecked(true);
+			}
+			viewModeButton.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, viewMode);
+					rebuildUI();
+				}
+			});
+			viewModeButton.addListener(new ChangeCursorOnHover(viewModeButton, GameCursor.SELECT, messageDispatcher));
+			tooltipFactory.simpleTooltip(viewModeButton, viewMode.getI18nKey(), TooltipLocationHint.BELOW);
+
+			viewModeGroup.add(viewModeButton);
+			viewModeButtons.add(viewModeButton);
+		}
+		viewModeGroup.setMinCheckCount(1);
+		viewModeGroup.setUncheckLast(true);
+
 	}
 
 	@Override
@@ -115,6 +151,10 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 		switch (msg.message) {
 			case MessageType.SETTLEMENT_SPAWNED: {
 				reset(gameContext);
+				return true;
+			}
+			case MessageType.GUI_VIEW_MODE_CHANGED: {
+				rebuildUI();
 				return true;
 			}
 			default:

@@ -17,7 +17,6 @@ public enum GuiViewName {
 	BUILD_BRIDGE,
 	BUILD_ROOFING,
 	BUILD_PIPING,
-	BUILD_MECHANISMS,
 	BUILD_PILLAR,
 
 	ORDER_SELECTION,
@@ -46,6 +45,7 @@ public enum GuiViewName {
 	SELECT_ITEM,
 
 	// Special cases which shouldn't be hidden
+	NULL,
 	DEBUG,
 	HINTS,
 	MINIMAP,

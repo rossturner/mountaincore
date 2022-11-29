@@ -5,7 +5,7 @@
   "defaultLayoutName": "Water Pump WE Layout",
   "colorCode": "#26e1ed",
   "iconName": "tap",
-  "placeAnywhere": true,
+  "showInGuiView": "POWER_WATER_MENU",
   "requirements": {
     "METAL": [
       {

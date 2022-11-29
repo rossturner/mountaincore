@@ -5,7 +5,6 @@
   "defaultLayoutName": "1x1 with workspaces",
   "colorCode": "#ba4b1a",
   "iconName": "cauldron",
-  "placeAnywhere": false,
   "autoConstructed": true,
   "requirements": {
     "METAL": [

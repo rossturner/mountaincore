@@ -89,4 +89,5 @@ public class CrashHandler implements Telegraph {
 		}
 		return filtered.toJSONString();
 	}
+
 }

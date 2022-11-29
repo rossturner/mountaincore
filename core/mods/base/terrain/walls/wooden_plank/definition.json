@@ -4,6 +4,7 @@
   "materialType": "WOOD",
   "useMaterialColor": true,
   "craftingTypeName": "CARPENTRY",
+  "selectionDrawableName": "preview_walls_wood",
   "requirements": {
     "WOOD": [
       {

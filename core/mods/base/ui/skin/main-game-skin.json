@@ -111,6 +111,26 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
+	asset_bg_tooltip_patch_light: {
+		region: asset_bg_tooltip
+		horizontalStretchAreas: [ 0, 470, 531, 997 ]
+		verticalStretchAreas: [ 38, 239 ]
+		tiling: false
+		minWidth: 998
+		minHeight: 240
+		rightWidth: 5
+		leftWidth: 5
+		bottomHeight: 40
+		topHeight: 5
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.kotcrab.vis.ui.Sizes: {
 	default: {
@@ -221,6 +241,30 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	btn_arrow_small_right: {
 		up: btn_arrow_small
 		disabled: btn_arrow_small_right_disabled
+	}
+	view_mode_default: {
+		up: btn_view_normal_off
+		checked: btn_view_normal
+	}
+	view_mode_job_priority: {
+		up: btn_view_priority_off
+		checked: btn_view_priority
+	}
+	view_mode_roofing_info: {
+		up: btn_view_roof_off
+		checked: btn_view_roof
+	}
+	view_mode_piping: {
+		up: btn_view_water_off
+		checked: btn_view_water
+	}
+	view_mode_mechanisms: {
+		up: btn_view_power_off
+		checked: btn_view_power
+	}
+	btn_info: {
+		up: btn_info
+		over: btn_info_hover_state
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {

@@ -113,7 +113,7 @@ public class FurnitureRequirementWidget extends Table {
 		tooltipTable = new Table();
 		rebuildTooltipTable();
 
-		tooltipFactory.complexTooltip(entityStack, tooltipTable);
+		tooltipFactory.complexTooltip(entityStack, tooltipTable, TooltipFactory.TooltipBackground.LARGE_PATCH_DARK);
 		entityStack.add(entityImage);
 		entityStack.add(amountTable);
 

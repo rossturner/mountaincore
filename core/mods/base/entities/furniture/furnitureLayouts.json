@@ -761,6 +761,19 @@
     ]
   },
 
+
+  {
+    "uniqueName": "2x3 no rotation",
+    "rotatesToName": null,
+    "extraTiles": [
+      { "x": 1, "y": 0 },
+      { "x": 0, "y": 1 },
+      { "x": 1, "y": 1 },
+      { "x": 0, "y": 2 },
+      { "x": 1, "y": 2 }
+    ]
+  },
+
   {
     "uniqueName": "2x3L",
     "rotatesToName": "2x3L1R",

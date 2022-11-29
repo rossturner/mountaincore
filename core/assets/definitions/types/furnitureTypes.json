@@ -5,7 +5,6 @@
   "defaultLayoutName" : "1x2N",
   "colorCode" : "#a04b00",
   "iconName" : "bed",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -27,7 +26,6 @@
   "defaultLayoutName" : "1x1",
   "colorCode" : "#9f7d60",
   "iconName" : "sleeping-bag",
-  "placeAnywhere" : false,
   "autoConstructed" : true,
   "requirements" : {
     "EARTH" : [ ]
@@ -41,7 +39,6 @@
   "defaultLayoutName" : "1x2N",
   "colorCode" : "#a04b00",
   "iconName" : "bed",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -63,7 +60,6 @@
   "defaultLayoutName" : "1x1",
   "colorCode" : "#9f7d60",
   "iconName" : "sleeping-bag",
-  "placeAnywhere" : false,
   "autoConstructed" : true,
   "requirements" : {
     "EARTH" : [ ]
@@ -77,7 +73,6 @@
   "defaultLayoutName" : "1x1E",
   "colorCode" : "#e0a275",
   "iconName" : "stone-throne",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -102,7 +97,6 @@
   "defaultLayoutName" : "2x3BL1R",
   "colorCode" : "#b8ad4e",
   "iconName" : "swap-bag",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -158,7 +152,6 @@
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#ab8a49",
   "iconName" : "sliced-bread",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -178,7 +171,6 @@
   "defaultLayoutName" : "2x2+SW with lower workspaces",
   "colorCode" : "#d44545",
   "iconName" : "metal-bar",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -210,7 +202,6 @@
   "defaultLayoutName" : "2x3BL1R",
   "colorCode" : "#fbfbf9",
   "iconName" : "chisel",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -239,7 +230,6 @@
   "defaultLayoutName" : "mashtun layout",
   "colorCode" : "#c67852",
   "iconName" : "round-bottom-flask-uncorked",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "METAL" : [ {
@@ -266,7 +256,6 @@
   "defaultLayoutName" : "2x1 with workspaces, no rotation",
   "colorCode" : "#b25b47",
   "iconName" : "kitchen-knives",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -291,7 +280,6 @@
   "defaultLayoutName" : "carpentry-bench-layout",
   "colorCode" : "#e7c467",
   "iconName" : "planks",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -329,7 +317,6 @@
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#746044",
   "iconName" : "pyre",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ ]
@@ -345,7 +332,6 @@
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#746044",
   "iconName" : "pyre",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -366,7 +352,6 @@
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#746044",
   "iconName" : "pyre",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -387,7 +372,6 @@
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#b3a5a1",
   "iconName" : "fireplace",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -411,7 +395,6 @@
   "defaultLayoutName" : "1x1 with workspaces",
   "colorCode" : "#EBDEB0",
   "iconName" : "sliced-bread",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -432,7 +415,6 @@
   "defaultLayoutName" : "1x1 with workspaces",
   "colorCode" : "#e6c974",
   "iconName" : "chemical-tank",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "METAL" : [ {
@@ -458,7 +440,6 @@
   "defaultLayoutName" : "2x3L3R",
   "colorCode" : "#8dd68a",
   "iconName" : "bow-arrow",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -500,7 +481,6 @@
   "defaultLayoutName" : "3x1 with workspaces",
   "colorCode" : "#d7ce86",
   "iconName" : "grain",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -536,7 +516,6 @@
   "defaultLayoutName" : "inverted-U",
   "colorCode" : "#666666",
   "iconName" : "anvil",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -573,7 +552,6 @@
   "defaultLayoutName" : "leatherwork-bench-layout",
   "colorCode" : "#AA7252",
   "iconName" : "animal-hide",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -612,7 +590,6 @@
   "defaultLayoutName" : "1x1 with S workspace",
   "colorCode" : "#dce551",
   "iconName" : "sewing-string",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -633,7 +610,6 @@
   "defaultLayoutName" : "4x1 WE",
   "colorCode" : "#e29a39",
   "iconName" : "powder",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -672,7 +648,6 @@
   "defaultLayoutName" : "mashtun layout",
   "colorCode" : "#ac7e28",
   "iconName" : "mashtun",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "METAL" : [ {
@@ -703,7 +678,6 @@
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#b5411d",
   "iconName" : "ore",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "METAL" : [ {
@@ -735,7 +709,6 @@
   "defaultLayoutName" : "stonemason-bench-layout",
   "colorCode" : "#C9C9C9",
   "iconName" : "stone-pile",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -768,7 +741,6 @@
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#BE926E",
   "iconName" : "wood-frame",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -789,7 +761,6 @@
   "defaultLayoutName" : "2x3BL1R",
   "colorCode" : "#f19144",
   "iconName" : "hand-saw",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -844,7 +815,6 @@
   "defaultLayoutName" : "1x1EW",
   "colorCode" : "#be926e",
   "iconName" : "wooden-door",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -872,7 +842,6 @@
   "defaultLayoutName" : "1x1EW",
   "colorCode" : "#be926e",
   "iconName" : "wooden-door",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -900,7 +869,6 @@
   "defaultLayoutName" : "1x1EW",
   "colorCode" : "#be926e",
   "iconName" : "wooden-door",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -928,7 +896,6 @@
   "defaultLayoutName" : "1x2 with workspaces",
   "colorCode" : "#9a7555",
   "iconName" : "tombstone",
-  "placeAnywhere" : false,
   "autoConstructed" : true,
   "requirements" : {
     "EARTH" : [ ]
@@ -947,7 +914,6 @@
   "defaultLayoutName" : "1x2 with workspaces",
   "colorCode" : "#9a7555",
   "iconName" : "tombstone",
-  "placeAnywhere" : false,
   "autoConstructed" : true,
   "requirements" : {
     "EARTH" : [ ]
@@ -966,7 +932,6 @@
   "defaultLayoutName" : "1x2N",
   "colorCode" : "#665a5a",
   "iconName" : "sarcophagus",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -986,7 +951,7 @@
   "defaultLayoutName" : "1x1",
   "colorCode" : "#6dc14c",
   "iconName" : "lantern-flame",
-  "placeAnywhere" : true,
+  "showInGuiView" : "BUILD_MENU",
   "autoConstructed" : false,
   "requirements" : {
     "METAL" : [ {
@@ -1004,7 +969,6 @@
   "defaultLayoutName" : "2x1 with workspaces",
   "colorCode" : "#e3e369",
   "iconName" : "beer-stein",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1029,7 +993,6 @@
   "defaultLayoutName" : "1x1 with workspaces",
   "colorCode" : "#ba4b1a",
   "iconName" : "cauldron",
-  "placeAnywhere" : false,
   "autoConstructed" : true,
   "requirements" : {
     "METAL" : [ {
@@ -1049,7 +1012,6 @@
   "defaultLayoutName" : "1x1 with workspaces",
   "colorCode" : "#ba4b1a",
   "iconName" : "cauldron",
-  "placeAnywhere" : false,
   "autoConstructed" : true,
   "requirements" : {
     "METAL" : [ {
@@ -1071,7 +1033,6 @@
   "defaultLayoutName" : "2x1 with workspaces",
   "colorCode" : "#25a2d0",
   "iconName" : "drop",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -1097,7 +1058,6 @@
   "defaultLayoutName" : "2x1 with workspaces",
   "colorCode" : "#25a2d0",
   "iconName" : "drop",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -1123,7 +1083,6 @@
   "defaultLayoutName" : "1x1 with workspaces",
   "colorCode" : "#26e1ed",
   "iconName" : "barrel",
-  "placeAnywhere" : false,
   "autoConstructed" : true,
   "requirements" : {
     "WOOD" : [ {
@@ -1144,7 +1103,7 @@
   "defaultLayoutName" : "2x2 with lower workspaces",
   "colorCode" : "#26e1ed",
   "iconName" : "well",
-  "placeAnywhere" : true,
+  "showInGuiView" : "POWER_WATER_MENU",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -1177,7 +1136,7 @@
   "defaultLayoutName" : "Waterwheel S side",
   "colorCode" : "#8ee1da",
   "iconName" : "water-mill",
-  "placeAnywhere" : true,
+  "showInGuiView" : "POWER_WATER_MENU",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1202,7 +1161,7 @@
   "defaultLayoutName" : "Water Pump WE Layout",
   "colorCode" : "#26e1ed",
   "iconName" : "tap",
-  "placeAnywhere" : true,
+  "showInGuiView" : "POWER_WATER_MENU",
   "autoConstructed" : false,
   "requirements" : {
     "METAL" : [ {
@@ -1224,10 +1183,10 @@
   "name" : "WINDMILL",
   "i18nKey" : "FURNITURE.WINDMILL",
   "blocksMovement" : true,
-  "defaultLayoutName" : "2x2",
+  "defaultLayoutName" : "2x3 no rotation",
   "colorCode" : "#c14545",
   "iconName" : "windmill",
-  "placeAnywhere" : true,
+  "showInGuiView" : "POWER_WATER_MENU",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1256,7 +1215,6 @@
   "defaultLayoutName" : "1x1 with S workspace offset 6",
   "colorCode" : "#E38B20",
   "iconName" : "archery-target",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1279,7 +1237,6 @@
   "defaultLayoutName" : "1x1 with S workspace",
   "colorCode" : "#3CC9C2",
   "iconName" : "target-dummy",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1302,7 +1259,6 @@
   "defaultLayoutName" : "1x1EW with workspaces",
   "colorCode" : "#963482",
   "iconName" : "mushroom-gills",
-  "placeAnywhere" : false,
   "autoConstructed" : true,
   "requirements" : {
     "SEED" : [ {
@@ -1322,7 +1278,6 @@
   "defaultLayoutName" : "1x1EW with workspaces",
   "colorCode" : "#963482",
   "iconName" : "mushroom-gills",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1342,7 +1297,6 @@
   "defaultLayoutName" : "1x1EW with workspaces",
   "colorCode" : "#963482",
   "iconName" : "mushroom-gills",
-  "placeAnywhere" : false,
   "autoConstructed" : true,
   "requirements" : {
     "SEED" : [ {
@@ -1363,7 +1317,7 @@
   "defaultLayoutName" : "1x1",
   "colorCode" : "#988568",
   "iconName" : "ionic-column",
-  "placeAnywhere" : true,
+  "showInGuiView" : "BUILD_MENU",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -1388,7 +1342,6 @@
   "defaultLayoutName" : "1x1 with workspaces",
   "colorCode" : "#E9B775",
   "iconName" : "armor-vest",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1408,7 +1361,6 @@
   "defaultLayoutName" : "1x1NS",
   "colorCode" : "#E2C793",
   "iconName" : "crossed-swords",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1429,7 +1381,6 @@
   "defaultLayoutName" : "4x2",
   "colorCode" : "#e0a275",
   "iconName" : "meal",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -1452,7 +1403,6 @@
   "defaultLayoutName" : "1x1",
   "colorCode" : "#F0B70E",
   "iconName" : "flame",
-  "placeAnywhere" : true,
   "autoConstructed" : true,
   "requirements" : {
     "WOOD" : [ ]
@@ -1469,7 +1419,6 @@
   "defaultLayoutName" : "2x1 with workspaces",
   "colorCode" : "#f8981e",
   "iconName" : "carrot",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -1495,7 +1444,6 @@
   "defaultLayoutName" : "4x1 with workspaces",
   "colorCode" : "#ab8a49",
   "iconName" : "chicken-oven",
-  "placeAnywhere" : false,
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {

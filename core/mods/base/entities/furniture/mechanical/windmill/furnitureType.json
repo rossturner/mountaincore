@@ -2,10 +2,10 @@
   "name": "WINDMILL",
   "i18nKey": "FURNITURE.WINDMILL",
   "blocksMovement": true,
-  "defaultLayoutName": "2x2",
+  "defaultLayoutName": "2x3 no rotation",
   "colorCode": "#c14545",
   "iconName": "windmill",
-  "placeAnywhere": true,
+  "showInGuiView": "POWER_WATER_MENU",
   "requirements": {
     "WOOD": [
       {

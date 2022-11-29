@@ -8,6 +8,7 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureTyp
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
+import technology.rocketjump.saul.ui.views.GuiViewName;
 
 import java.io.IOException;
 import java.util.*;
@@ -16,7 +17,7 @@ import java.util.*;
 public class FurnitureTypeDictionary {
 
 	private final Map<String, FurnitureType> byName = new HashMap<>();
-	private final List<FurnitureType> placeAnywhereFurniture = new LinkedList<>();
+	private final Map<GuiViewName, List<FurnitureType>> byGuiView = new HashMap<>();
 
 	public static FurnitureType NULL_TYPE = new FurnitureType();
 	static {
@@ -51,15 +52,15 @@ public class FurnitureTypeDictionary {
 		initialiseFurnitureType(furnitureType);
 
 		byName.put(furnitureType.getName(), furnitureType);
-		if (furnitureType.isPlaceAnywhere()) {
-			placeAnywhereFurniture.add(furnitureType);
+		if (furnitureType.getShowInGuiView() != null) {
+			byGuiView.computeIfAbsent(furnitureType.getShowInGuiView(), a -> new ArrayList<>()).add(furnitureType);
 		}
 	}
 
-
-	public List<FurnitureType> getPlaceAnywhereFurniture() {
-		return placeAnywhereFurniture;
+	public List<FurnitureType> getForGuiView(GuiViewName guiViewName) {
+		return byGuiView.getOrDefault(guiViewName, List.of());
 	}
+
 
 	private void initialiseFurnitureType(FurnitureType furnitureType) {
 		furnitureType.setDefaultLayout(layoutDictionary.getByName(furnitureType.getDefaultLayoutName()));
