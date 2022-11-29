@@ -49,6 +49,9 @@ public class MechanismConstructionManager implements GameContextAware {
 		UnderTile underTile = mapTile.getOrCreateUnderTile();
 
 		if (underTile.getQueuedMechanismType() != null) {
+			if (underTile.getQueuedMechanismType().equals(mechanismType)) {
+				return;
+			}
 			mechanismConstructionRemoved(mapTile);
 		}
 

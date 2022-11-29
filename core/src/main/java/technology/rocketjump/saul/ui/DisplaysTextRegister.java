@@ -12,6 +12,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.ui.fonts.OnDemandFontRepository;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+import technology.rocketjump.saul.ui.widgets.text.DecoratedStringFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,14 +29,17 @@ public class DisplaysTextRegister implements Telegraph {
 	private final I18nTranslator i18nTranslator;
 	private final MessageDispatcher messageDispatcher;
 	private final OnDemandFontRepository onDemandFontRepository;
+	private final DecoratedStringFactory decoratedStringFactory;
 
 	@Inject
 	public DisplaysTextRegister(MessageDispatcher messageDispatcher, GameMaterialI18nUpdater gameMaterialI18nUpdater,
-								I18nTranslator i18nTranslator, OnDemandFontRepository onDemandFontRepository) {
+								I18nTranslator i18nTranslator, OnDemandFontRepository onDemandFontRepository,
+								DecoratedStringFactory decoratedStringFactory) {
 		this.gameMaterialI18nUpdater = gameMaterialI18nUpdater;
 		this.i18nTranslator = i18nTranslator;
 		this.messageDispatcher = messageDispatcher;
 		this.onDemandFontRepository = onDemandFontRepository;
+		this.decoratedStringFactory = decoratedStringFactory;
 
 		messageDispatcher.addListener(this, MessageType.LANGUAGE_CHANGED);
 	}
@@ -54,6 +58,7 @@ public class DisplaysTextRegister implements Telegraph {
 			case MessageType.LANGUAGE_CHANGED: {
 				// Add any PRE-LANGUAGE CHANGED stuff here
 				i18nTranslator.preLanguageUpdated();
+				decoratedStringFactory.preLanguageUpdated();
 				onDemandFontRepository.preLanguageUpdated();
 				gameMaterialI18nUpdater.preLanguageUpdated();
 				// Then the rebuildUI() callbacks are called

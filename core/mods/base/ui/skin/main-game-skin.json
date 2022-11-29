@@ -111,6 +111,26 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
+	asset_bg_tooltip_patch_light: {
+		region: asset_bg_tooltip
+		horizontalStretchAreas: [ 0, 470, 531, 997 ]
+		verticalStretchAreas: [ 38, 239 ]
+		tiling: false
+		minWidth: 998
+		minHeight: 240
+		rightWidth: 5
+		leftWidth: 5
+		bottomHeight: 40
+		topHeight: 5
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.kotcrab.vis.ui.Sizes: {
 	default: {

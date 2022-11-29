@@ -300,18 +300,21 @@ FURNITURE.TANNING_FRAME,,Tanning frame
 FURNITURE.TANNING_FRAME.TOOLTIP,,Turn your Animal Skins into Leather.
 FURNITURE.TRAINING_DUMMY,,Training dummy
 FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here
-FURNITURE.WATERWHEEL,,Water wheel
+FURNITURE.WATERWHEEL,,Water Wheel
+FURNITURE.WATERWHEEL.PLURAL,,Water Wheels
 FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.
-FURNITURE.WATER_BARREL,,Water barrel
+FURNITURE.WATER_BARREL,,Water Barrel
 FURNITURE.WATER_BARREL.TOOLTIP,,"A water barrel is a place for your settlers to get a thirst-quenching drink, rather than having to find a natural water source like the river."
-FURNITURE.WATER_PUMP,,Water pump
+FURNITURE.WATER_PUMP,,Water Pump
+FURNITURE.WATER_PUMP.PLURAL,,Water Pumps
 FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.
-FURNITURE.WEAPON_RACK,,Weapon rack
+FURNITURE.WEAPON_RACK,,Weapon Rack
 FURNITURE.WELL,,Well
 FURNITURE.WELL.TOOLTIP,,"A well provides a source of water, but must be connected to a working pipe system."
 FURNITURE.WINDMILL,,Windmill
+FURNITURE.WINDMILL.PLURAL,,Windmills
 FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts.
-FURNITURE.WOODCUTTERS_BENCH,,Woodcutting bench
+FURNITURE.WOODCUTTERS_BENCH,,Woodcutting Bench
 FURNITURE.WOODCUTTERS_BENCH.TOOLTIP,,A {{PROFESSION.WOODCUTTER}} works here to turn {{RESOURCE.LOGS.PLURAL}} into {{RESOURCE.PLANKS.PLURAL}}.
 FURNITURE.INVADER_CAMPFIRE,,Campfire
 
@@ -579,7 +582,7 @@ GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration
 GUI.OPTIONS.TWITCH.VIEWERS_AS_SETTLERS,,Use viewers as settler names
 GUI.ORDERS.CHOP_WOOD,,Chop
 GUI.ORDERS.CLEAR_GROUND,,Clear
-GUI.ORDERS.DIG_CHANNELS, - used to dig channels in the ground for water to run through to irrigate crops,Irrigation
+GUI.ORDERS.DIG_CHANNELS,Used to dig channels in the ground for water to run through to irrigate crops,Irrigation
 GUI.ORDERS.DIG_CHANNELS.TOOLTIP,,This order is used to dig channels in the ground.
 GUI.ORDERS.EXTINGUISH_FLAMES, - used to put out fires by throwing buckets of water on them,Extinguish
 GUI.ORDERS.EXTINGUISH_FLAMES.TOOLTIP,,This order is used to extinguish fires that are currently burning.
@@ -590,6 +593,7 @@ GUI.ORDERS.MINE,,Mine
 GUI.ORDERS_LABEL,,Orders
 GUI.PLACE_BRIDGE.HINT,This is a longer label as a hint to the player,A bridge must cover both sides of the river and be at least 3x3 tiles in size
 GUI.POWER_LABEL,,Power & Water
+GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}}
 GUI.PRIORITY_LABEL,,Priority
 GUI.REMOVE_LABEL,,Remove
 GUI.REMOVE_TILES,,Remove tiles

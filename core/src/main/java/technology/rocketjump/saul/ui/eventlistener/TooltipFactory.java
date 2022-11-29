@@ -73,11 +73,23 @@ public class TooltipFactory {
 		}
 	}
 
-	public void complexTooltip(Actor parentActor, Actor tooltipContents) {
+	public enum TooltipBackground {
+
+		LARGE_PATCH_DARK("asset_bg_tooltip_patch"),
+		LARGE_PATCH_LIGHT("asset_bg_tooltip_patch_light");
+
+		public final String tenPatchName;
+
+		TooltipBackground(String tenPatchName) {
+			this.tenPatchName = tenPatchName;
+		}
+	}
+
+	public void complexTooltip(Actor parentActor, Actor tooltipContents, TooltipBackground background) {
 		TooltipTable tooltipTable = new TooltipTable();
 
 		Container<Actor> contentContainer = new Container<>();
-		contentContainer.setBackground(skin.get("asset_bg_tooltip_patch", TenPatchDrawable.class));
+		contentContainer.setBackground(skin.get(background.tenPatchName, TenPatchDrawable.class));
 		contentContainer.setActor(tooltipContents);
 		contentContainer.pad(40).padBottom(80);
 

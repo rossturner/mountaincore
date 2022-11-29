@@ -34,6 +34,10 @@ import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
+import technology.rocketjump.saul.ui.widgets.text.DecoratedString;
+import technology.rocketjump.saul.ui.widgets.text.DecoratedStringFactory;
+import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabel;
+import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabelFactory;
 
 import java.util.List;
 
@@ -57,6 +61,8 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	private final List<FurnitureType> furnitureTypes;
 	private Table furnitureTable;
 	private final Table cancelDeconstructButtons = new Table();
+	private final DecoratedStringFactory decoratedStringFactory;
+	private final DecoratedStringLabelFactory decoratedStringLabelFactory;
 	private final EntityRenderer entityRenderer;
 	private final RoomEditorFurnitureMap furnitureMap;
 	private boolean displayed;
@@ -65,7 +71,8 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	public PowerWaterMenuGuiView(MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository,
 								 I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
 								 FurnitureMaterialsWidget furnitureMaterialsWidget,
-								 GameMaterialDictionary materialDictionary,
+								 GameMaterialDictionary materialDictionary, DecoratedStringFactory decoratedStringFactory,
+								 DecoratedStringLabelFactory decoratedStringLabelFactory,
 								 FurnitureTypeDictionary furnitureTypeDictionary, EntityRenderer entityRenderer, RoomEditorFurnitureMap furnitureMap) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
@@ -74,6 +81,8 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		this.interactionStateContainer = interactionStateContainer;
 		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
 		this.materialDictionary = materialDictionary;
+		this.decoratedStringFactory = decoratedStringFactory;
+		this.decoratedStringLabelFactory = decoratedStringLabelFactory;
 		this.entityRenderer = entityRenderer;
 		this.furnitureMap = furnitureMap;
 
@@ -129,7 +138,11 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		infoContainer.pad(18);
 		infoContainer.align(Align.left);
 		Button infoButton = new Button(skin.get("btn_info", Button.ButtonStyle.class));
-		tooltipFactory.simpleTooltip(infoButton, "TODO", TooltipLocationHint.ABOVE);
+
+		DecoratedString infoString = decoratedStringFactory.translate("GUI.POWER_WATER_INFO");
+		DecoratedStringLabel infoContents = decoratedStringLabelFactory.create(infoString, "tooltip-text", skin);
+		tooltipFactory.complexTooltip(infoButton, infoContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
+
 		infoContainer.setActor(infoButton);
 		cancelDeconstructButtons.add(infoContainer);
 
@@ -261,6 +274,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 				GameInteractionMode.PLACE_FURNITURE.setFurnitureType(interactionStateContainer.getFurnitureTypeToPlace());
 				messageDispatcher.dispatchMessage(MessageType.GUI_FURNITURE_TYPE_SELECTED, interactionStateContainer.getFurnitureTypeToPlace());
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FURNITURE);
+				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.DEFAULT);
 			}
 		});
 		furnitureButton.addListener(new ChangeCursorOnHover(furnitureButton, GameCursor.SELECT, messageDispatcher));
