@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -27,7 +28,10 @@ import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.components.furniture.SleepingPositionComponent;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.SkillDictionary;
@@ -398,51 +402,107 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 	private Table weaponSelection(Entity settler) {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
+		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
+		EquippedItemComponent equippedItemComponent = settler.getComponent(EquippedItemComponent.class);
 
 		Table table = new Table();
 
-		if (skillsComponent != null) {
+		if (skillsComponent != null && militaryComponent != null) {
+			Drawable notEquippedIcon = managementSkin.getDrawable("icon_not_equipped");
 
-			Skill weaponSkill = skillDictionary.getByName("SWORDSMANSHIP");//this comes from the WeaponInfo of an item or if no weapon, SkillsDictionary.UNARMED_COMBAT_SKILL
+			Drawable weaponDrawable = managementSkin.getDrawable("icon_brawl");
+			Drawable shieldDrawable = notEquippedIcon;
+			Drawable armourDrawable = notEquippedIcon;
+
+			Entity assignedWeapon = gameContext.getEntity(militaryComponent.getAssignedWeaponId());
+			Entity assignedShield = gameContext.getEntity(militaryComponent.getAssignedShieldId());
+			Entity assignedArmour = gameContext.getEntity(militaryComponent.getAssignedArmorId());
+			Skill weaponSkill = SkillDictionary.UNARMED_COMBAT_SKILL;
+			boolean weaponIsTwoHanded = false;
+			if (assignedWeapon == null) {
+				militaryComponent.setAssignedWeaponId(null);
+			} else {
+				WeaponInfo weaponInfo = getWeaponInfo(assignedWeapon);
+				if (weaponInfo != null) {
+					weaponIsTwoHanded = weaponInfo.isTwoHanded();
+					weaponSkill = weaponInfo.getCombatSkill();
+					weaponDrawable = new EntityDrawable(assignedWeapon, entityRenderer, true, messageDispatcher);
+				}
+			}
+			if (assignedShield == null) {
+				militaryComponent.setAssignedShieldId(null);
+			} else {
+				shieldDrawable = new EntityDrawable(assignedShield, entityRenderer, true, messageDispatcher);
+			}
+			if (assignedArmour == null) {
+				militaryComponent.setAssignedArmorId(null);
+			} else {
+				armourDrawable = new EntityDrawable(assignedArmour, entityRenderer, true, messageDispatcher);
+			}
+
+			boolean canUseMainHand = equippedItemComponent == null || equippedItemComponent.isMainHandEnabled();
+			boolean canUseOffHand = equippedItemComponent == null || equippedItemComponent.isOffHandEnabled();
+			boolean canUseWeapon = canUseMainHand;
+			boolean canUseShield = !weaponIsTwoHanded && canUseOffHand;
 
 			//TODO: need main hand and off hand enabling/disabling
 			Table weaponColumn = new Table();
 			Image weaponIcon = new Image(managementSkin.getDrawable("icon_military_equip_weapon"));
 			ImageButton.ImageButtonStyle weaponStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
+			weaponStyle.imageUp = weaponDrawable;
 			ImageButton weaponSelectButton = new ImageButton(weaponStyle);
 			buttonFactory.attachClickCursor(weaponSelectButton, GameCursor.SELECT);
 			Table weaponProgress = settlerProfessionFactory.buildProgressBarRow(skillsComponent, weaponSkill, false);
 			weaponColumn.add(weaponIcon).row();
 			weaponColumn.add(weaponSelectButton).spaceTop(10f).spaceBottom(6f).row();
 			weaponColumn.add(weaponProgress);
-			table.add(weaponColumn).growX().top().spaceRight(24).spaceLeft(24); //todo fix the position when switching between military and civilian
 
 
 			//todo: if two handed weapon, make semi-transparent and disabled
 			Table shieldColumn = new Table();
 			Image shieldIcon = new Image(managementSkin.getDrawable("icon_military_equip_shield"));
 			ImageButton.ImageButtonStyle shieldStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
+			shieldStyle.imageUp = shieldDrawable;
 			ImageButton shieldSelectButton = new ImageButton(shieldStyle);
 			buttonFactory.attachClickCursor(shieldSelectButton, GameCursor.SELECT);
 			shieldColumn.add(shieldIcon).expandX().row();
 			shieldColumn.add(shieldSelectButton).spaceTop(10f).spaceBottom(6f).row();
-			table.add(shieldColumn).growX().top().spaceRight(24).spaceLeft(24);
 
 			Table armourColumn = new Table();
 			Image armourIcon = new Image(managementSkin.getDrawable("icon_military_equip_armour"));
 			ImageButton.ImageButtonStyle armourStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
+			armourStyle.imageUp = armourDrawable;
 			ImageButton armourSelectButton = new ImageButton(armourStyle);
 			buttonFactory.attachClickCursor(armourSelectButton, GameCursor.SELECT);
 			armourColumn.add(armourIcon).expandX().row();
 			armourColumn.add(armourSelectButton).spaceTop(10f).spaceBottom(6f).row();
-			table.add(armourColumn).growX().top().spaceRight(24).spaceLeft(24);
 
+			if (canUseWeapon) {
+				enable(weaponColumn);
+			} else {
+				disable(weaponColumn);
+			}
+
+			if (canUseShield) {
+				enable(shieldColumn);
+			} else {
+				disable(shieldColumn);
+			}
+
+			table.add(weaponColumn).growX().top().spaceRight(24).spaceLeft(24); //todo fix the position when switching between military and civilian
+			table.add(shieldColumn).growX().top().spaceRight(24).spaceLeft(24);
+			table.add(armourColumn).growX().top().spaceRight(24).spaceLeft(24);
 		}
 
-
-
-
 		return table;
+	}
+
+	//nearly used optional, but kept consistent of nulls
+	private WeaponInfo getWeaponInfo(Entity weapon) {
+		if (weapon.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
+			return attributes.getItemType().getWeaponInfo();
+		}
+		return null;
 	}
 
 	private Table militaryToggle(Entity settler, Consumer<Entity> onMilitaryChange) {
@@ -698,6 +758,17 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	@Override
 	public void clearContextRelatedState() {
 
+	}
+
+	protected void disable(Actor actor) {
+		actor.addAction(Actions.alpha(0.5f));
+		actor.setTouchable(Touchable.disabled);
+	}
+
+	protected void enable(Actor actor) {
+		actor.clearActions();
+		actor.addAction(Actions.alpha(1f));
+		actor.setTouchable(Touchable.enabled);
 	}
 
 	private void addGotoSettlerBehaviour(Table mugshotColumn, Entity settler) {
