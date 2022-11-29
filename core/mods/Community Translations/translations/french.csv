@@ -828,16 +828,6 @@ PRIORITY.NORMAL,,Normal,
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept,J'accepte
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting,Désactiver les rapports
-PRIVACY.OPT_IN.LINE_1,,King under the Mountain is in active development. To help,King Under The Mountain est en cours développement. Pour aider
-PRIVACY.OPT_IN.LINE_10,,- The stack trace of the exception which caused the crash,- La trace de la pile de l'exception qui a causé le crash
-PRIVACY.OPT_IN.LINE_2,,"diagnose and fix bugs, please click ""I accept"" below to","Diagnostiquer et corriger les bugs, veuillez cliquer sur «J'accepte» ci-dessous pour"
-PRIVACY.OPT_IN.LINE_3,,send anonymous crash reports automatically.,Envoyer automatiquement des rapports d'incident de façon anonyme.
-PRIVACY.OPT_IN.LINE_4,," "," "
-PRIVACY.OPT_IN.LINE_5,,This is made up of only the following data:,Il ne s'agit que des données suivantes:
-PRIVACY.OPT_IN.LINE_6,,- The version of the game client,- La version du client de jeu
-PRIVACY.OPT_IN.LINE_7,,- Your operating system,- Votre système d'exploitation
-PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings,- Vos paramètres de carte graphique et d'affichage
-PRIVACY.OPT_IN.LINE_9,,- Your options settings,- Paramètres de vos options
 
 PRODUCT.ANVIL,,Anvil,Enclume
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.,Un grand bloc de métal utilisé pour marteler le métal chauffé en forme. Requis pour construire un {{FURNITURE.FORGE}.

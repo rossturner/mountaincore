@@ -597,7 +597,29 @@ GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_wind
 GUI.PRIORITY_LABEL,,Priority
 GUI.REMOVE_LABEL,,Remove
 GUI.REMOVE_TILES,,Remove tiles
+GUI.RESOURCE_MANAGEMENT.ALL_OF,,All {{item}}
+GUI.RESOURCE_MANAGEMENT.AVAILABLE,,Available
+GUI.RESOURCE_MANAGEMENT.AVAILABLE_OF_TOTAL,,{{available}} / {{total}} Available
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.CONTENTS_TO_BE_DUMPED,,{{item}} is having it's contents dumped by
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.CONTENTS_TO_BE_DUMPED.PLURAL,,{{item}} are having their contents dumped by
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.DUE_TO_BE_HAULED,,{{item}} is due for hauling
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.DUE_TO_BE_HAULED.PLURAL,,{{item}} are due for hauling
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.EQUIPPED,,{{item}} is equipped by
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.EQUIPPED.PLURAL,,{{item}} are equipped by
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.FOOD_ALLOCATION,,{{item}} is allocated to
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.FOOD_ALLOCATION.PLURAL,,{{item}} are allocated to
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.HAULING,,{{item}} is being hauled by
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.HAULING.PLURAL,,{{item}} are being hauled by
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.HELD_IN_INVENTORY,,{{item}} is in the inventory of
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.HELD_IN_INVENTORY.PLURAL,,{{item}} are in the inventory of
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.ON_FIRE,,{{item}} is on fire
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.ON_FIRE.PLURAL,,{{item}} are on fire
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION,,{{item}} is being placed for construction
+GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE.PLACED_FOR_CONSTRUCTION.PLURAL,,{{item}} are being placed for construction
+GUI.RESOURCE_MANAGEMENT.SEARCH,,Search
+GUI.RESOURCE_MANAGEMENT.SORT_BY,,Sort By
 GUI.RESOURCE_MANAGEMENT.TITLE,,Resources
+GUI.RESOURCE_MANAGEMENT.TOTAL,,Total
 GUI.RESOURCE_MANAGEMENT.UNALLOCATED_LABEL,,Available: {{count}}
 GUI.ROOFING.ADD,,Add
 GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (R) to rotate furniture
@@ -955,18 +977,12 @@ PRIORITY.LOWER,,Lower priority
 PRIORITY.LOWEST,,Lowest priority
 PRIORITY.NORMAL,,Normal priority
 
-PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept
-PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting
-PRIVACY.OPT_IN.LINE_1,,King under the Mountain is in active development. To help
-PRIVACY.OPT_IN.LINE_10,,- The stack trace of the exception which caused the crash
-PRIVACY.OPT_IN.LINE_2,,"diagnose and fix bugs, please click ""I accept"" below to"
-PRIVACY.OPT_IN.LINE_3,,send anonymous crash reports automatically.
-PRIVACY.OPT_IN.LINE_4,," "
-PRIVACY.OPT_IN.LINE_5,,This is made up of only the following data:
-PRIVACY.OPT_IN.LINE_6,,- The version of the game client
-PRIVACY.OPT_IN.LINE_7,,- Your operating system
-PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings
-PRIVACY.OPT_IN.LINE_9,,- Your options settings
+PRIVACY.OPT_IN.ACCEPT_BUTTON,,I Accept
+PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable Reporting
+PRIVACY.OPT_IN.DESCRIPTION,,"Project Saul is in active development. To help diagnose and fix bugs, please click ""I Accept"" below to send anonymous crash reports automatically. \n\nThis is made up of only the following data:"
+PRIVACY.OPT_IN.DATA_POINT.1,,• The version of the game client
+PRIVACY.OPT_IN.DATA_POINT.2,,• Your options settings
+PRIVACY.OPT_IN.DATA_POINT.3,,• The status of the game at the time of the crash, and about what caused the crash
 
 PRODUCT.ANVIL,,Anvil
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}}.

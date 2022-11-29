@@ -828,16 +828,6 @@ PRIORITY.NORMAL,,Normal,Normal
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept,Ich stimme zu
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting,Berichte deaktivieren
-PRIVACY.OPT_IN.LINE_1,,King under the Mountain is in active development. To help,King under the Mountain befindet sich in aktiver Entwicklung.
-PRIVACY.OPT_IN.LINE_10,,- The stack trace of the exception which caused the crash,Hilf uns die Ursache des Absturzes feststellen zu können
-PRIVACY.OPT_IN.LINE_2,,"diagnose and fix bugs, please click ""I accept"" below to","indem du unten auf 'Ich stimme zu' klickst,"
-PRIVACY.OPT_IN.LINE_3,,send anonymous crash reports automatically.," um anonyme Absturzberichte zu senden."
-PRIVACY.OPT_IN.LINE_4,," "," "
-PRIVACY.OPT_IN.LINE_5,,This is made up of only the following data:,Diese bestehen aus folgenden Daten:
-PRIVACY.OPT_IN.LINE_6,,- The version of the game client,Die Version des Spielclients
-PRIVACY.OPT_IN.LINE_7,,- Your operating system,Dein Betriebssystem
-PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings,Deine Graphikkarte und Bildschirmeinstellungen
-PRIVACY.OPT_IN.LINE_9,,- Your options settings,Deine Spieleinstellungen
 
 PRODUCT.ANVIL,,Anvil,Amboss
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.,"Ein großer Metallblock auf dem erhitztes Metall in Form gehämmert wird. Erforderlich, um eine {{FURNITURE.FORGE} zu errichten."

@@ -62,10 +62,6 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		name: white-pixel
 		color: dialog_stage_colour
 	}
-	default-rect: {
-		name: white-pixel
-		color: grey_30pc
-	}
 	textfield_pixel_bg: {
 		name: white-pixel
 		color: textfield_bg_colour
@@ -77,6 +73,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	textfield_selected: {
 		name: white-pixel
 		color: dropdown_body_hover_colour
+	}
+	default-rect: {
+		name: white-pixel
+		color: white
 	}
 }
 com.ray3k.tenpatch.TenPatchDrawable: {
@@ -197,7 +197,8 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	default: {
-		up: btn_small_1
+		up: transparent_selection_bg_patch_v2
+		checked: transparent_selected_bg_patch
 	}
 	small_map_btn: {
 		imageUp: embark_2_small_preview
@@ -405,6 +406,11 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		font: default-font-18
 		fontColor: white
 		up: btn_key_bindings_key
+	}
+	btn_dialog_2: {
+		font: default-font-23
+		up: btn_02
+		unpressedOffsetY: 6
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {

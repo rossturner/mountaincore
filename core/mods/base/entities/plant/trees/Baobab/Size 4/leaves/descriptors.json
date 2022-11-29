@@ -1,12 +1,16 @@
-[{
-  "uniqueName": "Tree-Baobab-Size4-Leaves",
-  "type": "PLANT_LEAVES",
-  "speciesName": "Baobab",
-  "growthStages": [3],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "oak-3-l.png",
-      "coloringLayer": "LEAF_COLOR"
+[ {
+  "uniqueName" : "Tree-Baobab-Size4-Leaves",
+  "type" : "PLANT_LEAVES",
+  "speciesName" : "Baobab",
+  "growthStages" : [ 3 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "oak-3-l.png",
+      "coloringLayer" : "LEAF_COLOR",
+      "offsetPixels" : {
+        "x" : 8.0,
+        "y" : -35.0
+      }
     }
   }
-}]
+} ]

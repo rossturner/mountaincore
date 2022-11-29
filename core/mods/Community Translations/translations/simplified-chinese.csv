@@ -828,16 +828,6 @@ PRIORITY.NORMAL,,Normal,普通
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept,我接受
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting,禁用报告
-PRIVACY.OPT_IN.LINE_1,,King under the Mountain is in active development. To help,King under the Mountain仍处于开发阶段。若想帮助
-PRIVACY.OPT_IN.LINE_10,,- The stack trace of the exception which caused the crash,"#NAME?"
-PRIVACY.OPT_IN.LINE_2,,"diagnose and fix bugs, please click ""I accept"" below to",诊断和修理BUG，请点击下方的“我接受”
-PRIVACY.OPT_IN.LINE_3,,send anonymous crash reports automatically.,自动发送匿名的游戏崩溃报告。
-PRIVACY.OPT_IN.LINE_4,," "," "
-PRIVACY.OPT_IN.LINE_5,,This is made up of only the following data:,报告仅包含以下数据：
-PRIVACY.OPT_IN.LINE_6,,- The version of the game client,"#NAME?"
-PRIVACY.OPT_IN.LINE_7,,- Your operating system,"#NAME?"
-PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings,"#NAME?"
-PRIVACY.OPT_IN.LINE_9,,- Your options settings,"#NAME?"
 
 PRODUCT.ANVIL,,Anvil,铁砧
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.,用来锻捶金属用的铁铸砧板。建造{{FURNITURE.FORGE}所需的物品。

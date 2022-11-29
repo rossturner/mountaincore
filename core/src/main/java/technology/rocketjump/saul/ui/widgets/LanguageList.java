@@ -48,7 +48,7 @@ public class LanguageList extends List<LanguageType> {
         Sprite iconSprite = item.getIconSprite();
 
         float itemHeight = getItemHeight();
-        batch.draw(iconSprite, x + 6, y - 36, itemHeight, itemHeight);
+        batch.draw(iconSprite, x + 12, y - 40, itemHeight, itemHeight);
         return font.draw(batch, string, x, y, 0, string.length(), width, alignment, false, "...");
     }
 

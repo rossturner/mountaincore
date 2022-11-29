@@ -20,12 +20,14 @@ public class GuiSkinRepository implements Telegraph {
 
 	public static final String MAIN_GAME_SKIN_FILE_PATH = "assets/ui/skin/main-game-skin.json";
 	private static final String MENU_SKIN_FILE_PATH = "assets/ui/skin/menu-skin.json";
+	private static final String MANAGEMENT_SKIN_FILE_PATH = "assets/ui/skin/management-skin.json";
 	private static final int FONT_SCALE = 2;
 	private final FontRepository fontRepository;
 	private final OnDemandFontRepository onDemandFontRepository;
 	private final Skin uiSkin = new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")); // MODDING expose this or change uiskin.json
 	private final Skin menuSkin;
 	private final Skin mainGameSkin;
+	private final Skin managementSkin;
 
 	@Inject
 	public GuiSkinRepository(FontRepository fontRepository, OnDemandFontRepository onDemandFontRepository, MessageDispatcher messageDispatcher) {
@@ -34,6 +36,7 @@ public class GuiSkinRepository implements Telegraph {
 
 		mainGameSkin = loadSkin(MAIN_GAME_SKIN_FILE_PATH);
 		menuSkin = loadSkin(MENU_SKIN_FILE_PATH);
+		managementSkin = loadSkin(MANAGEMENT_SKIN_FILE_PATH);
 
 		if (!VisUI.isLoaded()) {
 			VisUI.load();
@@ -84,9 +87,14 @@ public class GuiSkinRepository implements Telegraph {
 		return mainGameSkin;
 	}
 
+	public Skin getManagementSkin() {
+		return managementSkin;
+	}
+
 	public boolean fontChanged() {
 		reassignFonts(mainGameSkin, MAIN_GAME_SKIN_FILE_PATH);
 		reassignFonts(menuSkin, MENU_SKIN_FILE_PATH);
+		reassignFonts(managementSkin, MANAGEMENT_SKIN_FILE_PATH);
 
 		// All of the following is for the now defunct UI skin
 		BitmapFont bitmapFont = fontRepository.getDefaultFontForUI().getBitmapFont();
@@ -114,6 +122,7 @@ public class GuiSkinRepository implements Telegraph {
 		currentSkin.add("default-font-18", onDemandFontRepository.getDefaultFont(18 * 2));
 		currentSkin.add("default-font-19", onDemandFontRepository.getDefaultFont(19 * 2));
 		currentSkin.add("default-font-23", onDemandFontRepository.getDefaultFont(23 * 2));
+		currentSkin.add("default-font-24", onDemandFontRepository.getDefaultFont(24 * 2));
 
 
 		currentSkin.load(Gdx.files.internal(pathToSkin));

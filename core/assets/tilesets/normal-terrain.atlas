@@ -998,170 +998,219 @@ rough_stone_wall_0
   orig: 64, 64
   offset: 0, 0
   index: 0
-rough_stone_wall_24
+rough_stone_wall_0
   rotate: false
   xy: 2994, 38
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-rough_stone_wall_255
+  index: 1
+rough_stone_wall_24
   rotate: false
   xy: 3062, 106
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 0
-rough_stone_wall_66
+rough_stone_wall_24
   rotate: false
   xy: 3130, 174
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-rough_stone_wall_90
+  index: 2
+rough_stone_wall_24
   rotate: false
   xy: 3062, 38
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-stone_block_0
+  index: 4
+rough_stone_wall_255
   rotate: false
   xy: 3130, 106
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 0
-stone_block_24
+rough_stone_wall_66
   rotate: false
   xy: 3198, 174
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 0
-stone_block_255
+rough_stone_wall_66
   rotate: false
   xy: 3130, 38
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-stone_block_66
+  index: 1
+rough_stone_wall_66
   rotate: false
   xy: 3198, 106
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-stone_block_90
+  index: 2
+rough_stone_wall_66
   rotate: false
   xy: 3266, 174
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-stone_slab
+  index: 3
+rough_stone_wall_90
   rotate: false
   xy: 3198, 38
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 0
-stone_slab
+rough_stone_wall_90
   rotate: false
   xy: 3266, 106
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 1
-stone_slab
+stone_block_0
   rotate: false
   xy: 3334, 174
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 2
-stone_slab
+  index: 0
+stone_block_24
   rotate: false
   xy: 3266, 38
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 3
-stone_slab
+  index: 0
+stone_block_255
   rotate: false
   xy: 3334, 106
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 4
-tilled_earth
+  index: 0
+stone_block_66
   rotate: false
   xy: 3402, 174
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 0
-tilled_earth
+stone_block_90
   rotate: false
   xy: 3334, 38
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 1
-tilled_earth
+  index: 0
+stone_slab
   rotate: false
   xy: 3402, 106
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 2
-tilled_earth
+  index: 0
+stone_slab
   rotate: false
   xy: 3470, 174
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 3
-tilled_earth
+  index: 1
+stone_slab
   rotate: false
   xy: 3402, 38
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 4
-wooden_plank_wall_0
+  index: 2
+stone_slab
   rotate: false
   xy: 3470, 106
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-wooden_plank_wall_24
+  index: 3
+stone_slab
   rotate: false
   xy: 3538, 174
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
-  index: 0
-wooden_plank_wall_255
+  index: 4
+tilled_earth
   rotate: false
   xy: 3470, 38
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 0
-wooden_plank_wall_66
+tilled_earth
   rotate: false
   xy: 3538, 106
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+tilled_earth
+  rotate: false
+  xy: 3606, 174
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+tilled_earth
+  rotate: false
+  xy: 3538, 38
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+tilled_earth
+  rotate: false
+  xy: 3606, 106
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 4
+wooden_plank_wall_0
+  rotate: false
+  xy: 3674, 174
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+wooden_plank_wall_24
+  rotate: false
+  xy: 3606, 38
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+wooden_plank_wall_255
+  rotate: false
+  xy: 3674, 106
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+wooden_plank_wall_66
+  rotate: false
+  xy: 3742, 174
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 0
 wooden_plank_wall_90
   rotate: false
-  xy: 3606, 174
+  xy: 3674, 38
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

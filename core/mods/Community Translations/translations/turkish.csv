@@ -828,16 +828,6 @@ PRIORITY.NORMAL,,Normal,Normal
 
 PRIVACY.OPT_IN.ACCEPT_BUTTON,,I accept,Kabul ediyorum
 PRIVACY.OPT_IN.DO_NOT_ACCEPT_BUTTON,,Disable reporting,Raporlamayı kapat
-PRIVACY.OPT_IN.LINE_1,,King under the Mountain is in active development. To help,King under the Mountain halihazırda yapım aşamasında. Yardımcı olmak için
-PRIVACY.OPT_IN.LINE_10,,- The stack trace of the exception which caused the crash,Çökmeye neden olan durumun stack track dosyası.
-PRIVACY.OPT_IN.LINE_2,,"diagnose and fix bugs, please click ""I accept"" below to","Hataları teşhis etmek ve düzeltmek için, lütfen aşağıda bulunan ‘Kabul Ediyorum’a tıklayın."
-PRIVACY.OPT_IN.LINE_3,,send anonymous crash reports automatically.,anonim çökme raporlarını otomatik gönder.
-PRIVACY.OPT_IN.LINE_4,," "," "
-PRIVACY.OPT_IN.LINE_5,,This is made up of only the following data:,Bu rapor şu bilgileri içermektedir:
-PRIVACY.OPT_IN.LINE_6,,- The version of the game client,- Oyun istemcisinin versiyonu
-PRIVACY.OPT_IN.LINE_7,,- Your operating system,- Sizin işletim sisteminiz
-PRIVACY.OPT_IN.LINE_8,,- Your graphics card and display settings,- Ekran katınız ve görüntüleme ayarlarınız
-PRIVACY.OPT_IN.LINE_9,,- Your options settings,- Ayarlarınız
 
 PRODUCT.ANVIL,,Anvil,Örs
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}.,Sıcak metal parçalarının şekil vermek için üzerinde dövüldüğü büyük metal blok. {{FURNITURE.FORGE} inşa etmek için gereklidir.
