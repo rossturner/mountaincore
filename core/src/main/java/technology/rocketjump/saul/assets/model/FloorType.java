@@ -34,6 +34,7 @@ public class FloorType {
 	private final String craftingTypeName; // Informs us which profession and tool is needed to construct the wall
 	@JsonIgnore
 	private CraftingType craftingType;
+	private String selectionDrawableName;
 	// This is the list of items (with quantities) needed to build the type for each listed GameMaterialType
 	private Map<GameMaterialType, List<QuantifiedItemType>> requirements;
 
@@ -45,7 +46,7 @@ public class FloorType {
 	private Color highColor;
 
 	public static FloorType NULL_FLOOR = new FloorType("NULL_FLOOR", "NULL_FLOOR", -1L, GameMaterialType.OTHER, -1, 0,
-			null, false, 1f, null, null, "000000", "ffffff");
+			null, false, 1f, null, null, "000000", "ffffff", null);
 
 	@JsonCreator
 	public FloorType(@JsonProperty("floorTypeName") String floorTypeName,
@@ -57,7 +58,9 @@ public class FloorType {
 					 @JsonProperty("speedModifier") float speedModifier,
 					 @JsonProperty("craftingTypeName") String craftingTypeName,
 					 @JsonProperty("requirements") Map<GameMaterialType, List<QuantifiedItemType>> requirements,
-					 @JsonProperty("lowColorCode") String lowColorCode, @JsonProperty("highColorCode") String highColorCode) {
+					 @JsonProperty("lowColorCode") String lowColorCode,
+					 @JsonProperty("highColorCode") String highColorCode,
+					 @JsonProperty("selectionDrawableName") String selectionDrawableName) {
 		this.floorTypeName = floorTypeName;
 		this.i18nKey = i18nKey;
 		this.floorTypeId = floorTypeId;
@@ -78,6 +81,7 @@ public class FloorType {
 		if (highColorCode != null) {
 			highColor = HexColors.get(highColorCode);
 		}
+		this.selectionDrawableName = selectionDrawableName;
 	}
 
 	public boolean isConstructed() {
@@ -217,6 +221,14 @@ public class FloorType {
 
 	public Map<GameMaterialType, List<QuantifiedItemType>> getRequirements() {
 		return requirements;
+	}
+
+	public String getSelectionDrawableName() {
+		return selectionDrawableName;
+	}
+
+	public void setSelectionDrawableName(String selectionDrawableName) {
+		this.selectionDrawableName = selectionDrawableName;
 	}
 
 	public static class FloorDefinitionComparator implements Comparator<FloorOverlap> {

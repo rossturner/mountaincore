@@ -13,6 +13,7 @@ public class Skill {
 	private String i18nKey;
 	private SkillType type;
 	private String icon;
+	private String draggableIcon;
 	@JsonIgnore
 	private ImageButton imageButton;
 
@@ -74,4 +75,11 @@ public class Skill {
 		return new HashCodeBuilder(17, 37).append(name).toHashCode();
 	}
 
+	public String getDraggableIcon() {
+		return draggableIcon;
+	}
+
+	public void setDraggableIcon(String draggableIcon) {
+		this.draggableIcon = draggableIcon;
+	}
 }

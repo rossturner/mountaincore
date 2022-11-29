@@ -1,8 +1,8 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -21,7 +21,6 @@ import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 @Singleton
@@ -30,8 +29,7 @@ public class PrioritiesGuiView implements GuiView, DisplaysText {
 	private final MessageDispatcher messageDispatcher;
 	private final Skin skin;
 	private final TooltipFactory tooltipFactory;
-	private List<Actor> buttons = new LinkedList<>();
-	private Button backButton;
+	private final Table layoutTable = new Table();
 
 	@Inject
 	public PrioritiesGuiView(GuiSkinRepository skinRepository, MessageDispatcher messageDispatcher,
@@ -39,11 +37,18 @@ public class PrioritiesGuiView implements GuiView, DisplaysText {
 		this.messageDispatcher = messageDispatcher;
 		this.skin = skinRepository.getMainGameSkin();
 		this.tooltipFactory = tooltipFactory;
+
+		layoutTable.setTouchable(Touchable.enabled);
+		layoutTable.defaults().padRight(28f);
+		layoutTable.padLeft(23f);
+		layoutTable.padBottom(17f);
 	}
 
 	@Override
 	public void rebuildUI() {
-		backButton = new Button(skin.getDrawable("btn_back"));
+		layoutTable.clearChildren();
+
+		Button backButton = new Button(skin.getDrawable("btn_back"));
 		backButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -52,6 +57,7 @@ public class PrioritiesGuiView implements GuiView, DisplaysText {
 		});
 		backButton.addListener(new ChangeCursorOnHover(backButton, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(backButton, "GUI.BACK_LABEL", TooltipLocationHint.ABOVE);
+		layoutTable.add(backButton);
 
 		List<JobPriority> prioritiesLowToHigh = Arrays.asList(JobPriority.LOWEST, JobPriority.LOWER, JobPriority.NORMAL, JobPriority.HIGHER, JobPriority.HIGHEST);
 		for (JobPriority jobPriority : prioritiesLowToHigh) {
@@ -65,7 +71,7 @@ public class PrioritiesGuiView implements GuiView, DisplaysText {
 			});
 			button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
 			tooltipFactory.simpleTooltip(button, jobPriority.i18nKey, TooltipLocationHint.ABOVE);
-			buttons.add(button);
+			layoutTable.add(button);
 		}
 	}
 
@@ -81,11 +87,7 @@ public class PrioritiesGuiView implements GuiView, DisplaysText {
 
 	@Override
 	public void populate(Table containerTable) {
-		containerTable.clear();
-		containerTable.add(backButton).center().padLeft(30f).padRight(23f).padBottom(10f);
-		for (Actor button : buttons) {
-			containerTable.add(button).padLeft(23f).padBottom(17f);
-		}
+		containerTable.add(layoutTable);
 	}
 
 	@Override

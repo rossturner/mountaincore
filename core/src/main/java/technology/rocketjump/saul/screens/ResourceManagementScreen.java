@@ -4,18 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.kotcrab.vis.ui.widget.CollapsibleWidget;
 import org.pmw.tinylog.Logger;
-import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -32,14 +33,11 @@ import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
-import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.*;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
-import technology.rocketjump.saul.ui.widgets.EntityDrawable;
-import technology.rocketjump.saul.ui.widgets.GameDialog;
-import technology.rocketjump.saul.ui.widgets.ScaledToFitLabel;
+import technology.rocketjump.saul.ui.skins.ManagementSkin;
+import technology.rocketjump.saul.ui.skins.MenuSkin;
+import technology.rocketjump.saul.ui.widgets.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -51,27 +49,24 @@ import java.util.function.Function;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
-import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 import static technology.rocketjump.saul.screens.ManagementScreenName.RESOURCES;
 import static technology.rocketjump.saul.ui.i18n.I18nWordClass.PLURAL;
 
 @Singleton
-public class ResourceManagementScreen implements GameScreen, GameContextAware, DisplaysText {
-	private final Stage stage;
+public class ResourceManagementScreen extends AbstractGameScreen implements GameContextAware, DisplaysText {
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
 	private final SettlementItemTracker settlementItemTracker;
 	private final EntityRenderer entityRenderer;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
-	private final SoundAssetDictionary soundAssetDictionary;
-	private final OrthographicCamera camera = new OrthographicCamera();
-	private final Skin menuSkin;
+	private final MenuSkin menuSkin;
 	private final Skin mainGameSkin;
-	private final Skin managementSkin;
-	private final Drawable[] btnResourceItemVariants;
+	private final ManagementSkin managementSkin;
 	private final Map<ItemQuality, Drawable> qualityStars;
 	private final ScrollPane scrollPane;
 	private final Image fullScreenOverlay;
+	private final LabelFactory labelFactory;
+	private final ButtonFactory buttonFactory;
 
 	private Stack stack;
 	private Actor currentInfoPane;
@@ -86,23 +81,18 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 	public ResourceManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 	                                I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker,
 	                                EntityRenderer entityRenderer, StockpileGroupDictionary stockpileGroupDictionary,
-	                                SoundAssetDictionary soundAssetDictionary) {
+	                                LabelFactory labelFactory, ButtonFactory buttonFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
 		this.settlementItemTracker = settlementItemTracker;
 		this.entityRenderer = entityRenderer;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
-		this.soundAssetDictionary = soundAssetDictionary;
-		this.stage = new Stage(new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y));
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
-		btnResourceItemVariants = new Drawable[]{
-				managementSkin.getDrawable("btn_resources_item_01"),
-				managementSkin.getDrawable("btn_resources_item_02"),
-				managementSkin.getDrawable("btn_resources_item_03"),
-				managementSkin.getDrawable("btn_resources_item_04")
-		};
+		this.labelFactory = labelFactory;
+		this.buttonFactory = buttonFactory;
+
 		this.qualityStars = Map.of(
 				ItemQuality.AWFUL, managementSkin.getDrawable("asset_quality_star_01"),
 				ItemQuality.POOR, managementSkin.getDrawable("asset_quality_star_02"),
@@ -128,11 +118,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		return RESOURCES.name();
 	}
 
-	@Override
-	public void showDialog(GameDialog dialog) {
-		//Does nothing, no dialog spawned from this screen so far
-	}
-
 	//Screen implementation
 	@Override
 	public void show() {
@@ -144,29 +129,9 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		rebuildUI();
 		stage.setKeyboardFocus(null);
+
+		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
-
-	@Override
-	public void render(float delta) {
-		camera.update();
-		stage.act(delta);
-		stage.draw();
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		camera.setToOrtho(false, width, height);
-		stage.getViewport().update(width, height, true);
-	}
-
-	@Override
-	public void pause() { }
-
-	@Override
-	public void resume() { }
-
-	@Override
-	public void hide() { }
 
 	@Override
 	public void dispose() { }
@@ -190,8 +155,8 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 		stack = new Stack();
 		stack.setFillParent(true);
-		stack.add(buildBackgroundBaseLayer());
-		stack.add(buildPaperLayer());
+		stack.add(menuSkin.buildBackgroundBaseLayer());
+		stack.add(menuSkin.buildPaperLayer(buildPaperComponents(), 257, false));
 		stack.add(buildExitTable());
 
 		stage.addActor(stack);
@@ -206,34 +171,14 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
 			}
 		});
-		attachClickCursor(exitButton, GameCursor.SELECT);
+		buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
 		table.add(exitButton).expandX().align(Align.topLeft).padLeft(257 + menuSkin.getDrawable("paper_texture_bg_pattern_large").getMinWidth() + 5f).padTop(5f).row();
 		table.add().grow();
 		return table;
 	}
 
-	//copied from PaperMenu
-	private Actor buildBackgroundBaseLayer() {
-		Table table = new Table();
-		table.setName("backgroundBase");
-		table.add(new Image(menuSkin.getDrawable("menu_bg_left"))).left();
-		table.add().expandX();
-		table.add(new Image(menuSkin.getDrawable("menu_bg_right"))).right();
-		return table;
-	}
-
-	private Table buildPaperLayer() {
-		Table baseLayer = new Table();
-		baseLayer.setBackground(menuSkin.getDrawable("paper_texture_bg"));
-		baseLayer.add(new Image(menuSkin.getDrawable("paper_texture_bg_pattern_large"))).growY().padLeft(257);
-		baseLayer.add(buildPaperComponents()).expandX();
-		baseLayer.add(new Image(menuSkin.getDrawable("paper_texture_bg_pattern_large"))).growY().padRight(257);
-		return baseLayer;
-	}
-
 	private Table buildPaperComponents() {
-		Label titleLabel = new Label(translate("GUI.RESOURCE_MANAGEMENT.TITLE"), menuSkin, "title_ribbon");
-		titleLabel.setAlignment(Align.center);
+		Label titleLabel = labelFactory.titleRibbon("GUI.RESOURCE_MANAGEMENT.TITLE");
 
 		stockpileGroupNameLabel = new Label("", managementSkin, "stockpile_group_filter_label"); //probably should be scaled to fit label
 		stockpileGroupNameLabel.setAlignment(Align.left);
@@ -241,10 +186,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		Table stockpileButtons = new Table();
 		ButtonGroup<ImageButton> stockpileButtonGroup = new ButtonGroup<>();
 		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll()) {
-			String drawableName = stockpileGroup.getDrawableName();
-			ImageButton.ImageButtonStyle clonedStyle = new ImageButton.ImageButtonStyle(menuSkin.get("default", ImageButton.ImageButtonStyle.class));
-			clonedStyle.imageUp = mainGameSkin.getDrawable(drawableName);
-			ImageButton stockpileButton = new ImageButton(clonedStyle);
+			ImageButton stockpileButton = buttonFactory.checkableButton(mainGameSkin.getDrawable(stockpileGroup.getDrawableName()));
 
 			stockpileButtonGroup.add(stockpileButton);
 			stockpileButton.addListener(new ChangeListener() {
@@ -258,7 +200,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 					}
 				}
 			});
-			attachClickCursor(stockpileButton, GameCursor.SELECT);
 
 			stockpileButtons.add(stockpileButton).padLeft(2f).padRight(2f);
 			if (stockpileGroup.equals(selectedStockpileGroup)) {
@@ -273,7 +214,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 		TextField searchBar = new TextField("", managementSkin, "search_bar_input");
 		searchBar.setText(searchBarText);
-		searchBar.setMessageText(translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
+		searchBar.setMessageText(i18nTranslator.translate("GUI.RESOURCE_MANAGEMENT.SEARCH"));
 		searchBar.addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
@@ -291,8 +232,8 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				return true;
 			}
 		});
-		attachClickCursor(searchBar, GameCursor.I_BEAM);
-		Label sortByLabel  = new Label(translate("GUI.RESOURCE_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
+		buttonFactory.attachClickCursor(searchBar, GameCursor.I_BEAM);
+		Label sortByLabel  = new Label(i18nTranslator.translate("GUI.RESOURCE_MANAGEMENT.SORT_BY"), managementSkin, "sort_by_label");
 
 		Comparator<List<Entity>> quantityComparator = Comparator.comparing((Function<List<Entity>, Integer>) entities -> groupSum(entities, entity -> ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getQuantity())).reversed();
 		Comparator<List<Entity>> availabilityComparator = Comparator.comparing((Function<List<Entity>, Integer>) entities -> groupSum(entities, entity -> entity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated())).reversed();
@@ -388,7 +329,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 						String owningEntityDescription = i18nTranslator.getDescription(owningEntity).toString();
 
 						TextButton gotoOwnerButton = new TextButton(owningEntityDescription, managementSkin, "goto_dwarf_button");
-						attachClickCursor(gotoOwnerButton, GameCursor.SELECT);
+						buttonFactory.attachClickCursor(gotoOwnerButton, GameCursor.SELECT);
 						gotoOwnerButton.addListener(new ClickListener() {
 							@Override
 							public void clicked(InputEvent event, float x, float y) {
@@ -420,7 +361,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				removeInfoPane();
 			}
 		});
-		attachClickCursor(exitButton, GameCursor.SELECT);
+		buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
 		sideTable.add(exitButton).expandX().align(Align.topLeft).pad(5f).row();
 		sideTable.add(infoTitle).width(wrappedLabelWidth).padBottom(100).row();
 		sideTable.add(entitiesScrollpane).growY().row();
@@ -441,7 +382,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 
 	//When stockpile group selection changes, or any filter/sorts change below
 	private void rebuildStockpileComponents() {
-		stockpileGroupNameLabel.setText(translate(selectedStockpileGroup.getI18nKey()));
+		stockpileGroupNameLabel.setText(i18nTranslator.translate(selectedStockpileGroup.getI18nKey()));
 		scrollPane.setActor(buildItemsTable());
 	}
 
@@ -611,7 +552,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 							event.stop();
 						}
 					});
-					attachClickCursor(infoButton, GameCursor.SELECT);
+					buttonFactory.attachClickCursor(infoButton, GameCursor.SELECT);
 				} else {
 					infoButton.setVisible(false);
 				}
@@ -647,7 +588,7 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 						itemRow.setBackground((Drawable) null);
 					}
 				});
-				attachClickCursor(itemRow, GameCursor.SELECT);
+				buttonFactory.attachClickCursor(itemRow, GameCursor.SELECT);
 
 				if (childTable.hasChildren()) {
 					CollapsibleWidget collapsibleWidget = new CollapsibleWidget(childTable);
@@ -704,14 +645,6 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 		}
 	}
 
-	private Drawable bgForExampleEntity(long entityId) {
-		return btnResourceItemVariants[(int) (entityId % btnResourceItemVariants.length)];
-	}
-
-	private String translate(String key) {
-		return i18nTranslator.getTranslatedString(key).toString();
-	}
-
 	private Button buildIconSortButton(String drawableName, Comparator<List<Entity>> sortFunction) {
 		Image icon = new Image(managementSkin.getDrawable(drawableName));
 		ImageTextButton button = new ImageTextButton("", managementSkin, "sort_by_button");
@@ -731,12 +664,12 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				rebuildStockpileComponents();
 			}
 		});
-		attachClickCursor(button, GameCursor.SELECT);
+		buttonFactory.attachClickCursor(button, GameCursor.SELECT);
 		return button;
 	}
 
 	private Button buildTextSortButton(String i18nKey, Comparator<List<Entity>> sortFunction) {
-		ImageTextButton button = new ImageTextButton(translate(i18nKey), managementSkin, "sort_by_button");
+		ImageTextButton button = new ImageTextButton(i18nTranslator.translate(i18nKey), managementSkin, "sort_by_button");
 		button.defaults().padRight(9f).spaceLeft(12f);
 		Image image = button.getImage(); //Swap actors or cells doesn't work, absolute agony
 		button.removeActor(image);
@@ -752,19 +685,14 @@ public class ResourceManagementScreen implements GameScreen, GameContextAware, D
 				rebuildStockpileComponents();
 			}
 		});
-		attachClickCursor(button, GameCursor.SELECT);
+		buttonFactory.attachClickCursor(button, GameCursor.SELECT);
 		return button;
-	}
-
-	private void attachClickCursor(Actor actor, GameCursor gameCursor) {
-		actor.addListener(new ChangeCursorOnHover(actor, gameCursor, messageDispatcher));
-		actor.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 	}
 
 	private Actor buildEntityButton(Entity exampleEntity, int quantity) {
 		Stack entityStack = new Stack();
 
-		Drawable btnResourceItemBg = bgForExampleEntity(exampleEntity.getId());
+		Drawable btnResourceItemBg = managementSkin.bgForExampleEntity(exampleEntity.getId());
 		Button itemTypeButton = new Button(new EntityDrawable(
 				exampleEntity, entityRenderer, true, messageDispatcher
 		).withBackground(btnResourceItemBg));

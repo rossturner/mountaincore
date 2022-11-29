@@ -10,4 +10,7 @@ public enum EntityNeed {
 		return "NEEDS." + name();
 	}
 
+	public String iconName() {
+		return "icon_" + name().toLowerCase();
+	}
 }

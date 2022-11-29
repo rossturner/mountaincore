@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import okhttp3.*;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -63,7 +64,7 @@ public class CrashHandler implements Telegraph {
 			payload.put("gameVersion", VERSION.toString());
 			payload.put("displaySettings", Gdx.graphics.getDisplayMode(Gdx.graphics.getMonitor()).toString());
 			payload.put("stackTrace", ExceptionUtils.getStackTrace(exception));
-			payload.put("preferencesJson", UserPreferences.preferencesJson);
+			payload.put("preferencesJson", removeKeybindings(UserPreferences.preferencesJson));
 
 			RequestBody body = RequestBody.create(JSON, payload.toJSONString());
 			Request request = new Request.Builder()
@@ -78,4 +79,14 @@ public class CrashHandler implements Telegraph {
 		}
 	}
 
+	private static String removeKeybindings(String preferencesJson) {
+		JSONObject preferences = JSONObject.parseObject(preferencesJson);
+		JSONObject filtered = new JSONObject(true);
+		for (String key : preferences.keySet()) {
+			if (EnumUtils.getEnum(UserPreferences.PreferenceKey.class, key) != null) {
+				filtered.put(key, preferences.getString(key));
+			}
+		}
+		return filtered.toJSONString();
+	}
 }

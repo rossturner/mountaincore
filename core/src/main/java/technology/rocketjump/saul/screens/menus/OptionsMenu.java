@@ -4,7 +4,6 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
@@ -15,6 +14,7 @@ import technology.rocketjump.saul.screens.menus.options.OptionsTabName;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.LabelFactory;
 import technology.rocketjump.saul.ui.widgets.MenuButtonFactory;
 import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
@@ -32,6 +32,7 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 	private final I18nTranslator i18nTranslator;
 	private final UserPreferences userPreferences;
 	private final WidgetFactory widgetFactory;
+	private final LabelFactory labelFactory;
 	private final SoundAssetDictionary soundAssetDictionary;
 
 	private final Map<OptionsTabName, OptionsTab> tabs = new EnumMap<>(OptionsTabName.class);
@@ -39,8 +40,8 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 
 	@Inject
 	public OptionsMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory, SoundAssetDictionary soundAssetDictionary,
-					   MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator, UserPreferences userPreferences,
-					   WidgetFactory widgetFactory) {
+	                   MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator, UserPreferences userPreferences,
+	                   WidgetFactory widgetFactory, LabelFactory labelFactory) {
 		super(skinRepository, menuButtonFactory, messageDispatcher, i18nTranslator);
 		this.soundAssetDictionary = soundAssetDictionary;
 //		twitchLogo = new Texture("assets/ui/TwitchGlitchPurple.png");
@@ -48,18 +49,11 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 		this.i18nTranslator = i18nTranslator;
 		this.userPreferences = userPreferences;
 		this.widgetFactory = widgetFactory;
+		this.labelFactory = labelFactory;
 	}
 
 	@Override
 	public void reset() {
-//		menuTable.clearChildren();
-
-//		OptionsTab currentTab = tabs.get(this.currentTab);
-//		if (currentTab == null) {
-//			Logger.error("No tab for name " + this.currentTab.name());
-//		} else {
-//			currentTab.populate(menuTable);
-//		}
 	}
 
 	@Override
@@ -76,13 +70,10 @@ public class OptionsMenu extends BannerMenu implements DisplaysText {
 
 	@Override
 	protected Actor getMainBannerLogo() {
-		Label titleRibbon = new Label(i18nTranslator.getTranslatedString("MENU.OPTIONS").toString(), menuSkin, "title_ribbon");
-		titleRibbon.setAlignment(Align.center);
+		Label titleRibbon = labelFactory.titleRibbon("MENU.OPTIONS");
 		titleRibbon.setWidth(1132f);
 		Table titleRibbonTable = new Table();
 		titleRibbonTable.add(titleRibbon).width(1132f);
-
-//		mainBanner.add(titleRibbonTable).width(576f).row(); //TODO: title ribbon stretches out the banner and looks like it overlaps this banner and the minor banner
 
 		return titleRibbonTable;
 	}

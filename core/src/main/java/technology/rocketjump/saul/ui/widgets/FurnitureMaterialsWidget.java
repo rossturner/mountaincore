@@ -77,8 +77,12 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 		if (!furnitureType.equals(selectedFurnitureType)) {
 			this.selectedFurnitureType = furnitureType;
 			Entity furnitureEntity = roomEditorFurnitureMap.getByFurnitureType(furnitureType);
-			FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
-			this.selectedMaterialType = attributes.getPrimaryMaterialType();
+			if (furnitureEntity != null) {
+				FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
+				this.selectedMaterialType = attributes.getPrimaryMaterialType();
+			} else {
+				this.selectedMaterialType = furnitureType.getRequirements().keySet().iterator().next();
+			}
 			this.materialSelections.clear();
 
 			rebuildUI();
@@ -146,10 +150,9 @@ public class FurnitureMaterialsWidget extends Table implements DisplaysText {
 					newSelection.setItemType(requirement.getItemType());
 					newSelection.setMaterial(material);
 					otherMaterialSelections.add(newSelection);
-
-					if (this.materialSelectionMade != null) {
-						this.materialSelectionMade.accept(material);
-					}
+				}
+				if (this.materialSelectionMade != null) {
+					this.materialSelectionMade.accept(material);
 				}
 				this.materialSelections = otherMaterialSelections;
 

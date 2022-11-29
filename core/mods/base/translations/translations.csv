@@ -421,7 +421,7 @@ GOAL.INVADER.RETREAT.DESCRIPTION,,Retreating from map
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
 GUI.ADD_TILES,,Add tiles
 GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient Atmosphere
-GUI.BACK_LABEL,This should be as short as possible,Back
+GUI.BACK_LABEL,,Back
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors
 GUI.BUILD.FLOOR,For building floorboards/stone slabs across the ground,Flooring
@@ -432,10 +432,12 @@ GUI.BUILD.WALLS,,Walls
 GUI.BUILD.WALLS.LSHAPE,For building two walls in an L-shape,L-shape
 GUI.BUILD.WALLS.ROOM,For building 4 walls and a roof at once,Room
 GUI.BUILD.WALLS.SINGLE,For building a single wall,Single
-GUI.BUILD_FURNITURE,This should be as short as possible,Furniture
-GUI.BUILD_LABEL,This should be as short as possible,Build
-GUI.CANCEL_LABEL,This should be as short as possible,Cancel
-GUI.CHANGE_PROFESSION_LABEL,,Change profession
+GUI.BUILD.PILLARS,,Pillars
+GUI.BUILD_FURNITURE,,Furniture
+GUI.BUILD_LABEL,,Build
+GUI.CANCEL_LABEL,,Cancel
+GUI.CONSTRUCTION_LABEL,For the menu that further gives options for build and power and roofing,Construction
+GUI.CHANGE_PROFESSION_LABEL,,Choose New Profession
 GUI.CHANGE_WEAPON_LABEL,,Select weapon
 GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items in stock,Maintaining
 GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting
@@ -450,7 +452,7 @@ GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_3,,"Plant in {{season1}}, {{season2}} o
 GUI.CROP_SELECTION.PLANTING_HINT.SEASONS_4,,Planted all year round
 GUI.DATE_TIME_YEAR_LABEL,"E.g. 09:20, Day 4, Year 2","{{timeOfDay}}, Day {{dayNumber}}, Year {{year}}"
 GUI.DAY_LABEL,,Day {{dayNumber}}
-GUI.DECONSTRUCT_LABEL,This should be as short as possible,Demolish
+GUI.DECONSTRUCT_LABEL,,Demolish
 GUI.DIALOG.CANCEL_BUTTON,,Cancel
 GUI.DIALOG.CONFIRM,,Confirm
 GUI.DIALOG.CONFIRM_DELETE_SAVE,,Are you sure you wish to delete {{name}}?
@@ -483,7 +485,7 @@ GUI.EMBARK.PEACEFUL_MODE,,Peaceful Mode
 GUI.EMBARK.SETTLEMENT_NAME,,Name
 GUI.EMBARK.START,,Begin!
 GUI.EMBARK.TITLE,,Choose Kingdom
-GUI.EMPTY_CONTAINER_LABEL,This should be as short as possible,Empty
+GUI.EMPTY_CONTAINER_LABEL,,Empty
 GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED,,Contents are being emptied.
 GUI.EMPTY_CONTAINER_LABEL.HINT,,Dump the contents of this container on the ground.
 GUI.FURNITURE_ASSIGNED_TO,Used to show who owns a piece of furniture,Assigned to {{name}}
@@ -542,9 +544,9 @@ GUI.MECHANISM.SHAFT.HORIZONTAL,,Horizontal
 GUI.MECHANISM.SHAFT.VERTICAL,,Vertical
 GUI.MINIMAP.LABEL,,Minimap
 GUI.MUSIC_VOLUME,,Music
-GUI.NEXT_LABEL,This should be as short as possible,Next
+GUI.NEXT_LABEL,,Next
 GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this version of the game
-GUI.OK_LABEL,This should be as short as possible,Ok
+GUI.OK_LABEL,,Ok
 GUI.OPTIONS.AUDIO.TITLE,,Sound Options
 GUI.OPTIONS.GAMEPLAY.HIDE_TREES_OBSCURING_SETTLERS,This is an option that makes trees partially transparent when a settler moves behind them,Make trees transparent when obscuring settlers
 GUI.OPTIONS.GAMEPLAY.PAUSE_ON_NOTIFICATION,,Pause for notifications
@@ -578,20 +580,21 @@ GUI.OPTIONS.TWITCH.PRIORITISE_SUBSCRIBERS,,Give priority to subscribers
 GUI.OPTIONS.TWITCH.SUBMIT_BUTTON,,Submit
 GUI.OPTIONS.TWITCH.TITLE,,Twitch Integration
 GUI.OPTIONS.TWITCH.VIEWERS_AS_SETTLERS,,Use viewers as settler names
-GUI.ORDERS.CHOP_WOOD,This should be as short as possible,Chop
-GUI.ORDERS.CLEAR_GROUND,This should be as short as possible,Clear
-GUI.ORDERS.DIG_CHANNELS,This should be as short as possible - used to dig channels in the ground for water to run through to irrigate crops,Irrigation
+GUI.ORDERS.CHOP_WOOD,,Chop
+GUI.ORDERS.CLEAR_GROUND,,Clear
+GUI.ORDERS.DIG_CHANNELS, - used to dig channels in the ground for water to run through to irrigate crops,Irrigation
 GUI.ORDERS.DIG_CHANNELS.TOOLTIP,,This order is used to dig channels in the ground.
-GUI.ORDERS.EXTINGUISH_FLAMES,This should be as short as possible - used to put out fires by throwing buckets of water on them,Extinguish
+GUI.ORDERS.EXTINGUISH_FLAMES, - used to put out fires by throwing buckets of water on them,Extinguish
 GUI.ORDERS.EXTINGUISH_FLAMES.TOOLTIP,,This order is used to extinguish fires that are currently burning.
-GUI.ORDERS.HARVEST_PLANTS,This should be as short as possible,Harvest
-GUI.ORDERS.HUNT,This should be as short as possible - used to select animals to be hunted,Hunt
+GUI.ORDERS.HARVEST_PLANTS,,Harvest
+GUI.ORDERS.HUNT, - used to select animals to be hunted,Hunt
 GUI.ORDERS.HUNT.TOOLTIP,,This order is used to select animals to be hunted.
-GUI.ORDERS.MINE,This should be as short as possible,Mine
-GUI.ORDERS_LABEL,This should be as short as possible,Orders
+GUI.ORDERS.MINE,,Mine
+GUI.ORDERS_LABEL,,Orders
 GUI.PLACE_BRIDGE.HINT,This is a longer label as a hint to the player,A bridge must cover both sides of the river and be at least 3x3 tiles in size
-GUI.PRIORITY_LABEL,This should be as short as possible,Priority
-GUI.REMOVE_LABEL,This should be as short as possible,Remove
+GUI.POWER_LABEL,,Power & Water
+GUI.PRIORITY_LABEL,,Priority
+GUI.REMOVE_LABEL,,Remove
 GUI.REMOVE_TILES,,Remove tiles
 GUI.RESOURCE_MANAGEMENT.ALL_OF,,All {{item}}
 GUI.RESOURCE_MANAGEMENT.AVAILABLE,,Available
@@ -622,13 +625,19 @@ GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…
 GUI.SELECT_WEAPON.LABEL,,Select weapon
 GUI.SETTINGS.LABEL,,Settings
-GUI.SETTLER_MANAGEMENT.BEDS_COUNTER,,Number of beds: {{count}}
-GUI.SETTLER_MANAGEMENT.DEAD_COUNTER,,Dead: {{count}}
-GUI.SETTLER_MANAGEMENT.LIVING_COUNTER,,Population: {{count}}
-GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name
-GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness
+GUI.SETTLER_MANAGEMENT.HAPPINESS,,Happiness {{happinessValue}}
+GUI.SETTLER_MANAGEMENT.IMMIGRATION,,Immigration
+GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}}
+GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN,,Civilian
+GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY,,Military
+GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER,,Villager
+GUI.SETTLER_MANAGEMENT.SEARCH,,Search
+GUI.SETTLER_MANAGEMENT.SORT.HAPPINESS,,Happiness
+GUI.SETTLER_MANAGEMENT.SORT.MILITARY_CIVILIAN,,Military/Civilian
+GUI.SETTLER_MANAGEMENT.SORT.NAME,,Name
+GUI.SETTLER_MANAGEMENT.SORT.SKILL_LEVEL,,Skill Level
+GUI.SETTLER_MANAGEMENT.SORT_BY,,Sort By
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers
-GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}}
 GUI.SOUND_EFFECT_VOLUME,,Sound Effects
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:
 GUI.VIEW_ROADMAP,,View development roadmap

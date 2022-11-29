@@ -138,7 +138,7 @@ public class BuildBridgeGuiView implements GuiView, DisplaysText {
 		backButton.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.BUILD_MENU);
+				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.OLD_BUILD_MENU);
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DEFAULT);
 			}
 		});
@@ -156,7 +156,7 @@ public class BuildBridgeGuiView implements GuiView, DisplaysText {
 
 	@Override
 	public GuiViewName getParentViewName() {
-		return GuiViewName.BUILD_MENU;
+		return GuiViewName.OLD_BUILD_MENU;
 	}
 
 	@Override

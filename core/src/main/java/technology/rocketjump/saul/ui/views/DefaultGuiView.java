@@ -68,7 +68,7 @@ public class DefaultGuiView implements GuiView, DisplaysText {
 
 		for (Button button : List.of(
 				buildButton("btn_bottom_orders", "GUI.ORDERS_LABEL", () -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ORDER_SELECTION)),
-				buildButton("btn_bottom_construction", "GUI.BUILD_LABEL", () -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.BUILD_MENU)),
+				buildButton("btn_bottom_construction", "GUI.CONSTRUCTION_LABEL", () -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.CONSTRUCTION_MENU)),
 				buildButton("btn_bottom_zones", "GUI.ROOMS_LABEL", () -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ROOM_SELECTION)),
 				buildButton("btn_bottom_priority", "GUI.PRIORITY_LABEL", () -> {
 					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.PRIORITY_MENU);

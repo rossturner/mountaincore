@@ -107,7 +107,7 @@ public abstract class BannerMenu implements Menu {
         float secondaryBannerPadTop = 0f;
         String secondaryBannerTitleI18nKey = getSecondaryBannerTitleI18nKey();
         if (secondaryBannerTitleI18nKey != null) {
-            Label secondaryBannerTitle = new Label(i18nTranslator.getTranslatedString(secondaryBannerTitleI18nKey).toString(), menuSkin, "secondary_banner_title");
+            Label secondaryBannerTitle = new Label(i18nTranslator.translate(secondaryBannerTitleI18nKey), menuSkin, "secondary_banner_title");
             secondaryBannerTitle.setAlignment(Align.center);
             secondaryBanner.add(secondaryBannerTitle).top().padTop(110f).row();
         }

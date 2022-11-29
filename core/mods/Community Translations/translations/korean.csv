@@ -498,13 +498,7 @@ GUI.ROOFING.ADD,,Add,
 GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (R) to rotate furniture,가구를 회전하려면 (R) 키를 누릅니다.
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…,저장하는 중...
 GUI.SETTINGS.LABEL,,Settings,
-GUI.SETTLER_MANAGEMENT.BEDS_COUNTER,,Number of beds: {{count}},
-GUI.SETTLER_MANAGEMENT.DEAD_COUNTER,,Dead: {{count}},죽은: {{count}}
-GUI.SETTLER_MANAGEMENT.LIVING_COUNTER,,Population: {{count}},인구: {{count}}
-GUI.SETTLER_MANAGEMENT.SORT.BY_NAME,,Sort by name,
-GUI.SETTLER_MANAGEMENT.SORT.BY_UNHAPPINESS,,Sort by unhappiness,
 GUI.SETTLER_MANAGEMENT.TITLE,,Settlers,정착민
-GUI.SETTLER_MANAGEMENT.TOTAL_QUANTITY_LABEL,,Total: {{count}},합계: {{count}}
 GUI.UI_SCALE,Used to make the game interface larger or smaller,UI scale:,UI 배율:
 GUI.VIEW_ROADMAP,,View development roadmap,
 GUI.ZONES_LABEL,This should be as short as possible,Zones,영역

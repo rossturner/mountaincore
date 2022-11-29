@@ -68,7 +68,7 @@ public class PrivacyOptInMenu implements Menu, DisplaysText {
 
 		Table languageRow = new Table();
 		languageRow.add(languageSelect).width(580f).height(80).padLeft(5);
-		Label descriptionLabel = new Label(translate("PRIVACY.OPT_IN.DESCRIPTION"), menuSkin, "white_text");
+		Label descriptionLabel = new Label(i18nTranslator.translate("PRIVACY.OPT_IN.DESCRIPTION"), menuSkin, "white_text");
 		descriptionLabel.setWrap(true);
 
 		float sidePadding = 178f;
@@ -76,7 +76,7 @@ public class PrivacyOptInMenu implements Menu, DisplaysText {
 		menuTable.add(descriptionLabel).width(bgDialogueBoxBackground.getMinWidth() - 100f - sidePadding * 2).row();
 
 		for (int dataPointIndex = 1; dataPointIndex <= NUM_PRIVACY_OPT_IN_LINES; dataPointIndex++) {
-			Label dataPointLabel = new Label(translate("PRIVACY.OPT_IN.DATA_POINT."+dataPointIndex), menuSkin, "white_text");
+			Label dataPointLabel = new Label(i18nTranslator.translate("PRIVACY.OPT_IN.DATA_POINT." + dataPointIndex), menuSkin, "white_text");
 			dataPointLabel.setWrap(true);
 			menuTable.add(dataPointLabel).width(bgDialogueBoxBackground.getMinWidth() - 100f - sidePadding * 2).padTop(10f).left().row();
 		}
@@ -106,10 +106,6 @@ public class PrivacyOptInMenu implements Menu, DisplaysText {
 		Cell<Container<TextButton>> doNotAcceptCell = menuTable.getCell(doNotAcceptButton);
 		acceptButton.size(doNotAcceptCell.getPrefWidth() * 1.2f, doNotAcceptCell.getPrefHeight() * 1.2f);
 		doNotAcceptButton.setScale(0.94f);
-	}
-
-	private String translate(String i18nKey) {
-		return i18nTranslator.getTranslatedString(i18nKey).toString();
 	}
 
 	@Override

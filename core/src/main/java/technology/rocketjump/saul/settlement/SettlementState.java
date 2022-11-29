@@ -59,6 +59,7 @@ public class SettlementState implements Persistable {
 	public final Set<TwitchViewer> usedTwitchViewers = new HashSet<>();
 	public final Map<InvasionDefinition, Integer> daysUntilNextInvasionCheck = new HashMap<>();
 
+	private boolean allowImmigration = true;
 	private int immigrantsDue;
 	private int immigrantCounter;
 	private Vector2 immigrationPoint;
@@ -78,6 +79,14 @@ public class SettlementState implements Persistable {
 
 	public void setSettlementName(String settlementName) {
 		this.settlementName = settlementName;
+	}
+
+	public boolean isAllowImmigration() {
+		return allowImmigration;
+	}
+
+	public void setAllowImmigration(boolean allowImmigration) {
+		this.allowImmigration = allowImmigration;
 	}
 
 	public int getImmigrantsDue() {
@@ -246,6 +255,8 @@ public class SettlementState implements Persistable {
 			currentHintsJson.addAll(currentHints);
 			asJson.put("currentHints", currentHintsJson);
 		}
+
+		asJson.put("allowImmigration", allowImmigration);
 
 		if (immigrantsDue != 0) {
 			asJson.put("immigrantsDue", immigrantsDue);
@@ -474,6 +485,7 @@ public class SettlementState implements Persistable {
 			}
 		}
 
+		this.allowImmigration = asJson.getBooleanValue("allowImmigration");
 		this.immigrantsDue = asJson.getIntValue("immigrantsDue");
 		this.immigrantCounter = asJson.getIntValue("immigrantCounter");
 		this.immigrationPoint = JSONUtils.vector2(asJson.getJSONObject("immigrationPoint"));

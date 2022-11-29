@@ -99,8 +99,8 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 				.withAction(() -> {
 
 					BlurredBackgroundDialog dialog = new BlurredBackgroundDialog(I18nText.BLANK, skin, messageDispatcher, skin.get("square_dialog", Window.WindowStyle.class), soundAssetDictionary);
-					Label titleRibbon = new Label(i18nTranslator.getTranslatedString("GUI.OPTIONS.KEY_BINDINGS").toString(), skin, "title_ribbon");
-					Label gameplayLabel = new Label(i18nTranslator.getTranslatedString(OptionsTabName.GAMEPLAY.getI18nKey()).toString(), skin, "secondary_banner_title");
+					Label titleRibbon = new Label(i18nTranslator.translate("GUI.OPTIONS.KEY_BINDINGS"), skin, "title_ribbon");
+					Label gameplayLabel = new Label(i18nTranslator.translate(OptionsTabName.GAMEPLAY.getI18nKey()), skin, "secondary_banner_title");
 					gameplayLabel.setAlignment(Align.center);
 					KeyBindingUIWidget keyBindingUIWidget = new KeyBindingUIWidget(skin, userPreferences, i18nTranslator, messageDispatcher, soundAssetDictionary);
 					Container<TextButton> resetBindingsButton = menuButtonFactory.createButton("GUI.OPTIONS.RESET", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)

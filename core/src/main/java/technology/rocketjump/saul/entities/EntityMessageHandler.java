@@ -85,7 +85,6 @@ import static technology.rocketjump.saul.entities.model.physical.creature.Consci
 import static technology.rocketjump.saul.entities.model.physical.creature.Consciousness.DEAD;
 import static technology.rocketjump.saul.entities.model.physical.furniture.EntityDestructionCause.OXIDISED;
 import static technology.rocketjump.saul.jobs.JobMessageHandler.deconstructFurniture;
-import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.messaging.MessageType.*;
 import static technology.rocketjump.saul.military.model.SquadOrderType.COMBAT;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
@@ -653,15 +652,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 
 		SkillsComponent skillsComponent = changeProfessionMessage.entity.getComponent(SkillsComponent.class);
-
-		if (changeProfessionMessage.professionToReplace != null && !changeProfessionMessage.professionToReplace.equals(NULL_PROFESSION)) {
-			skillsComponent.deactivateProfession(changeProfessionMessage.professionToReplace);
-		}
-
-		if (!changeProfessionMessage.newProfession.getName().equals("VILLAGER")) {
-			if (!skillsComponent.hasActiveProfession(changeProfessionMessage.newProfession)) {
-				skillsComponent.activateProfession(changeProfessionMessage.newProfession);
-			}
+		if (changeProfessionMessage.professionToReplace != null && changeProfessionMessage.newProfession != null) {
+			skillsComponent.replace(changeProfessionMessage.professionToReplace, changeProfessionMessage.newProfession);
 		}
 
 		// Remove any attached light sources so changing between mining helmet and not does not leave a rogue lightsource

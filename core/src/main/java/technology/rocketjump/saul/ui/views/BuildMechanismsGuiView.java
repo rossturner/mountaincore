@@ -56,7 +56,7 @@ public class BuildMechanismsGuiView implements GuiView {
 		IconButton back = iconButtonFactory.create("GUI.BACK_LABEL", "arrow-left", HexColors.get("#D9D9D9"), ButtonStyle.DEFAULT);
 		back.setAction(() -> {
 			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.DEFAULT);
-			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.BUILD_MENU);
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.OLD_BUILD_MENU);
 			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DEFAULT);
 		});
 		iconButtons.add(back);
@@ -98,7 +98,7 @@ public class BuildMechanismsGuiView implements GuiView {
 
 	@Override
 	public GuiViewName getParentViewName() {
-		return GuiViewName.BUILD_MENU;
+		return GuiViewName.OLD_BUILD_MENU;
 	}
 
 	@Override

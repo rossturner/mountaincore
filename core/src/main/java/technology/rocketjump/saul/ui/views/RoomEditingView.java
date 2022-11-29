@@ -77,8 +77,8 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final GameDialogDictionary gameDialogDictionary;
 	private GameContext gameContext;
 
-	private Button backButton;
-	private Table mainTable;
+	private final Button backButton;
+	private final Table mainTable;
 	private boolean displayed;
 
 	private FurnitureType selectedFurnitureType;
@@ -318,9 +318,11 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			Entity furnitureEntity = furnitureMap.getByFurnitureType(selectedFurnitureType);
 			FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
 			furnitureMaterialsWidget.onMaterialSelection(material -> {
-				attributes.setMaterial(material);
-				messageDispatcher.dispatchMessage(MessageType.FURNITURE_MATERIAL_SELECTED);
-				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
+				if (material != null) {
+					attributes.setMaterial(material);
+					messageDispatcher.dispatchMessage(MessageType.FURNITURE_MATERIAL_SELECTED);
+					messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
+				}
 			});
 			furnitureMaterialsWidget.onMaterialTypeSelection(materialType -> {
 				attributes.setPrimaryMaterialType(materialType);

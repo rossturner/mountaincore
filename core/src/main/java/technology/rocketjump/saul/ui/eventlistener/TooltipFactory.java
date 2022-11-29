@@ -3,14 +3,13 @@ package technology.rocketjump.saul.ui.eventlistener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
@@ -34,6 +33,11 @@ public class TooltipFactory {
 	 * so that the tooltip can be removed when the parentActor is clicked
 	 */
 	public void simpleTooltip(Actor parentActor, String i18nKey, TooltipLocationHint locationHint) {
+		I18nText i18nText = i18nTranslator.getTranslatedString(i18nKey);
+		simpleTooltip(parentActor, i18nText, locationHint);
+	}
+
+	public void simpleTooltip(Actor parentActor, I18nText i18nText, TooltipLocationHint locationHint) {
 		TooltipTable tooltipTable = new TooltipTable();
 
 		if (locationHint.equals(BELOW)) {
@@ -43,7 +47,7 @@ public class TooltipFactory {
 		Container<Label> labelContainer = new Container<>();
 		labelContainer.setBackground(skin.get("hover_state_label_patch", TenPatchDrawable.class));
 
-		String text = i18nTranslator.getTranslatedString(i18nKey).toString();
+		String text = i18nText.toString();
 		Label label = new Label(text, skin.get("tooltip-text", Label.LabelStyle.class));
 		labelContainer.center();
 		labelContainer.setActor(label);
@@ -63,14 +67,18 @@ public class TooltipFactory {
 			}
 		});
 
-		if (hasClickListener(parentActor)) {
-			parentActor.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					tooltipTable.remove();
+		parentActor.addCaptureListener(event -> {
+			if (event instanceof InputEvent inputEvent) {
+				switch (inputEvent.getType()) {
+					case touchDown:
+					case touchUp:
+					case touchDragged:
+						tooltipTable.remove();
+					default:
 				}
-			});
-		}
+			}
+			return false;
+		});
 	}
 
 	public void complexTooltip(Actor parentActor, Actor tooltipContents) {
@@ -92,14 +100,18 @@ public class TooltipFactory {
 			}
 		});
 
-		if (hasClickListener(parentActor)) {
-			parentActor.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					tooltipTable.remove();
+		parentActor.addCaptureListener(event -> {
+			if (event instanceof InputEvent inputEvent) {
+				switch (inputEvent.getType()) {
+					case touchDown:
+					case touchUp:
+					case touchDragged:
+						tooltipTable.remove();
+					default:
 				}
-			});
-		}
+			}
+			return false;
+		});
 	}
 
 	private void checkToRemove(Table tooltipTable, Actor parentActor) {
@@ -124,15 +136,6 @@ public class TooltipFactory {
 		return hoveringOnAny;
 	}
 
-	private boolean hasClickListener(Actor actor) {
-		for (EventListener listener : actor.getListeners()) {
-			if (listener instanceof ClickListener) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	private class TooltipHoverListener extends InputListener {
 
 		private final Actor parentActor;
@@ -149,6 +152,9 @@ public class TooltipFactory {
 
 		@Override
 		public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+			if (pointer != -1) {
+				return;
+			}
 			// add to stage first or table size will be 0 (rarrrgghhh)
 			parentActor.getStage().addActor(tooltipTable);
 			// layout after adding to stage or else subsequent displaying of actor will be positioned differently (FFS)

@@ -73,12 +73,12 @@ public class ColorMixer {
 	}
 
 	public static Color interpolate(int minValue, int maxValue, int actualValue, Color minColor, Color maxColor) {
-		float interpolationAmount = (float) actualValue / ((float) maxValue - (float) minValue);
+		float interpolationAmount = (float) (actualValue - minValue) / ((float) maxValue - (float) minValue);
 		return minColor.cpy().lerp(maxColor, interpolationAmount);
 	}
 
 	public static Color interpolate(float minValue, float maxValue, float actualValue, Color minColor, Color maxColor) {
-		float interpolationAmount = actualValue / (maxValue - minValue);
+		float interpolationAmount = (actualValue - minValue) / (maxValue - minValue);
 		return minColor.cpy().lerp(maxColor, interpolationAmount);
 	}
 }

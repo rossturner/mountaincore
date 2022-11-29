@@ -6,22 +6,21 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.lang3.NotImplementedException;
@@ -34,14 +33,13 @@ import technology.rocketjump.saul.misc.twitch.model.TwitchAccountInfo;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.ScreenWriter;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
-import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.screens.menus.*;
 import technology.rocketjump.saul.screens.menus.options.OptionsTabName;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.GameDialog;
 import technology.rocketjump.saul.ui.widgets.I18nTextButton;
+import technology.rocketjump.saul.ui.widgets.GameDialog;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
 import java.util.ArrayList;
@@ -57,7 +55,7 @@ import static technology.rocketjump.saul.rendering.camera.GlobalSettings.VERSION
  * Should slowly pan across a background image
  */
 @Singleton
-public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, GameContextAware {
+public class MainMenuScreen extends AbstractGameScreen implements Telegraph, DisplaysText, GameContextAware {
 
 	private final MessageDispatcher messageDispatcher;
 	private final ScreenWriter screenWriter;
@@ -68,17 +66,12 @@ public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, Game
 	private final LoadGameMenu loadGameMenu;
 	private final Skin uiSkin;
 	private final SpriteBatch basicSpriteBatch = new SpriteBatch();
-	private final OrthographicCamera camera = new OrthographicCamera();
-	private final Viewport viewport = new ExtendViewport(3840, 2160);
 
 	private Texture backgroundImage;
 	private float backgroundScale = 1f;
 	private GridPoint2 backgroundOffset = new GridPoint2();
 	private TextureRegion backgroundRegion;
 	private GridPoint2 backgroundRegionSize;
-
-
-	private final Stage stage;
 
 	private final Table containerTable;
 	private final Table versionTable;
@@ -99,7 +92,7 @@ public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, Game
 		this.screenWriter = screenWriter;
 		this.embarkMenu = embarkMenu;
 		this.loadGameMenu = loadGameMenu;
-		this.uiSkin = guiSkinRepository.getDefault();
+		this.uiSkin = guiSkinRepository.getMenuSkin();
 		this.topLevelMenu = topLevelMenu;
 		this.optionsMenu = optionsMenu;
 		this.modsMenu = modsMenu;
@@ -111,32 +104,11 @@ public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, Game
 		containerTable.setFillParent(true);
 		containerTable.center();
 
-		stage = new Stage(viewport);
 		stage.addActor(containerTable);
 
 		versionTable = new Table(uiSkin);
 		versionTable.setFillParent(true);
 		versionTable.left().bottom();
-		String versionText = VERSION.toString();
-		if (GlobalSettings.DEV_MODE) {
-			versionText += " (DEV MODE ENABLED)";
-		}
-		versionTable.add(new Label(versionText, uiSkin)).left().pad(5);
-		I18nTextButton newVersionButton = i18nWidgetFactory.createTextButton("GUI.NEW_VERSION_AVAILABLE");
-		newVersionButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Gdx.net.openURI("https://rocketjumptechnology.itch.io/king-under-the-mountain");
-			}
-		});
-
-		I18nTextButton viewRoadmapButton = i18nWidgetFactory.createTextButton("GUI.VIEW_ROADMAP");
-		viewRoadmapButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Gdx.net.openURI("http://kingunderthemounta.in/roadmap/");
-			}
-		});
 
 //		stage.addActor(versionTable);
 
@@ -328,11 +300,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, Game
 	}
 
 	@Override
-	public void showDialog(GameDialog dialog) {
-		dialog.show(stage);
-	}
-
-	@Override
 	public void resize(int width, int height) {
 		camera.setToOrtho(false, width, height);
 
@@ -343,15 +310,6 @@ public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, Game
 		reset();
 	}
 
-	@Override
-	public void pause() {
-
-	}
-
-	@Override
-	public void resume() {
-
-	}
 
 	@Override
 	public void dispose() {
@@ -363,25 +321,25 @@ public class MainMenuScreen implements Telegraph, GameScreen, DisplaysText, Game
 		versionTable.clearChildren();
 		versionTable.top().left().padTop(100f).padLeft(50f);
 
+		String versionText = VERSION.toString();
+		if (GlobalSettings.DEV_MODE) {
+			versionText += " (DEV MODE ENABLED)";
+		}
+		versionTable.add(new Label(versionText, uiSkin.get("white_text", Label.LabelStyle.class))).left().pad(5).row();
+
 		if (twitchEnabled()) {
 			TwitchAccountInfo accountInfo = twitchDataStore.getAccountInfo();
 			Label twitchLabel;
 			if (accountInfo == null) {
 				String twitchLabelText = i18nTranslator.getTranslatedString("GUI.OPTIONS.TWITCH.DISCONNECTED_LABEL").toString();
-				twitchLabel = new Label(twitchLabelText, uiSkin);
-				twitchLabel.setColor(HexColors.NEGATIVE_COLOR);
+				twitchLabel = new Label(twitchLabelText, uiSkin.get("white_text", Label.LabelStyle.class));
 			} else {
 				String twitchLabelText = i18nTranslator.getTranslatedString("GUI.OPTIONS.TWITCH.CONNECTED_LABEL").toString() + " (" + accountInfo.getLogin() + ")";
-				twitchLabel = new Label(twitchLabelText, uiSkin);
+				twitchLabel = new Label(twitchLabelText, uiSkin.get("white_text", Label.LabelStyle.class));
 			}
 			versionTable.add(twitchLabel).colspan(3).left().pad(5).row();
 		}
 
-		String versionText = VERSION.toString();
-		if (GlobalSettings.DEV_MODE) {
-			versionText += " (DEV MODE ENABLED)";
-		}
-		versionTable.add(new Label(versionText, uiSkin)).left().pad(5).row();
 	}
 
 	private boolean twitchEnabled() {
