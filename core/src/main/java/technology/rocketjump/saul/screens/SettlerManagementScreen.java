@@ -530,7 +530,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		String militaryProficiencyText = "";
 		if (skillsComponent != null) {
-			militaryProficiencyText = getMilitaryProficiencyText(settler, skillsComponent);
+			militaryProficiencyText = getAssignedWeaponText(settler, skillsComponent);
 		}
 
 		Label militaryProficiencyLabel = new Label(militaryProficiencyText, managementSkin, "military_highest_proficiency_label");
@@ -651,7 +651,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		//TODO: if in military, get rank
 		if (skillsComponent != null) {
 			if (IS_MILITARY.test(settler)) {
-				currentProfessionName = getMilitaryProficiencyText(settler, skillsComponent);
+				currentProfessionName = getAssignedWeaponText(settler, skillsComponent);
 			} else {
 				java.util.List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
 				if (!activeProfessions.isEmpty()) {
@@ -700,19 +700,23 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	}
 
 
-	private String getMilitaryProficiencyText(Entity settler, SkillsComponent skillsComponent) {
+	private String getAssignedWeaponText(Entity settler, SkillsComponent skillsComponent) {
 		String militaryProficiencyText;
-		Skill highestSkill = SkillDictionary.UNARMED_COMBAT_SKILL;
-		int highestSkillLevel = skillsComponent.getSkillLevel(highestSkill);
-		for (Skill combatSkill : skillDictionary.getAllCombatSkills()) {
-			int combatSkillLevel = skillsComponent.getSkillLevel(combatSkill);
-			if (combatSkillLevel > highestSkillLevel) {
-				highestSkill = combatSkill;
-				highestSkillLevel = combatSkillLevel;
+		Skill currentCombatSkill = SkillDictionary.UNARMED_COMBAT_SKILL;
+		int currentCombatSkillLevel = skillsComponent.getSkillLevel(currentCombatSkill);
+		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
+		if (militaryComponent != null) {
+			Entity assignedWeapon = gameContext.getEntity(militaryComponent.getAssignedWeaponId());
+			if (assignedWeapon != null) {
+				WeaponInfo weaponInfo = getWeaponInfo(assignedWeapon);
+				if (weaponInfo != null) {
+					currentCombatSkill = weaponInfo.getCombatSkill();
+					currentCombatSkillLevel = skillsComponent.getSkillLevel(weaponInfo.getCombatSkill());
+				}
 			}
 		}
 
-		militaryProficiencyText = i18nTranslator.getSkilledProfessionDescription(highestSkill, highestSkillLevel,
+		militaryProficiencyText = i18nTranslator.getSkilledProfessionDescription(currentCombatSkill, currentCombatSkillLevel,
 				((CreatureEntityAttributes) settler.getPhysicalEntityComponent().getAttributes()).getGender()).toString();
 		return militaryProficiencyText;
 	}
