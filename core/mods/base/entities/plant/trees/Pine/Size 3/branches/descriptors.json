@@ -1,25 +1,23 @@
-[{
-  "uniqueName": "Tree-Pine-Size3-Branches",
-  "type": "PLANT_BRANCHES",
-  "speciesName": "Pine",
-  "growthStages": [2],
-  "spriteDescriptors": {
-    "DOWN": {
-      "filename": "pine_03_t.png",
-      "coloringLayer": "BRANCHES_COLOR",
-      "offsetPixels": {
-        "x": 3,
-        "y": 80
+[ {
+  "uniqueName" : "Tree-Pine-Size3-Branches",
+  "type" : "PLANT_BRANCHES",
+  "speciesName" : "Pine",
+  "growthStages" : [ 2 ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "pine_03_t.png",
+      "coloringLayer" : "BRANCHES_COLOR",
+      "offsetPixels" : {
+        "x" : 3.0,
+        "y" : 80.0
       },
-      "childAssets": [
-        {
-          "type": "PLANT_LEAVES",
-          "offsetPixels": {
-            "x": -1,
-            "y": 30
-          }
+      "childAssets" : [ {
+        "type" : "PLANT_LEAVES",
+        "offsetPixels" : {
+          "x" : -1.0,
+          "y" : 30.0
         }
-      ]
+      } ]
     }
   }
-}]
+} ]

@@ -4214,8 +4214,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 8.0,
+        "y" : -35.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5888,8 +5888,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 1.0,
-        "y" : 80.0,
+        "x" : 5.0,
+        "y" : 85.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5919,8 +5919,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 2.0,
+        "y" : 22.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5943,7 +5943,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -6.0,
+        "x" : -59.0,
         "y" : 138.0,
         "unit" : false
       },
@@ -5974,14 +5974,21 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 7.0,
+        "y" : -36.0,
         "unit" : false
       },
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ ],
-      "attachmentPoints" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "PLANT_LEAVES",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
       "parentEntityAssets" : [ ]
     }
   }
