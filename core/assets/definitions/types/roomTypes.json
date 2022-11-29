@@ -1,8 +1,8 @@
 [ {
   "roomName" : "STOCKPILE",
   "i18nKey" : "ROOMS.STOCKPILE",
+  "drawableName" : "btn_room_stockpiles",
   "colorCode" : "#c88a64",
-  "iconName" : "brick-pile",
   "furnitureNames" : [ ],
   "tags" : {
     "STOCKPILE" : [ ]
@@ -10,8 +10,8 @@
 }, {
   "roomName" : "FARM_PLOT",
   "i18nKey" : "ROOMS.FARM",
+  "drawableName" : "btn_room_farming",
   "colorCode" : "#a7a96e",
-  "iconName" : "wheat",
   "requiredFloorMaterialType" : "EARTH",
   "furnitureNames" : [ ],
   "tags" : {
@@ -20,8 +20,8 @@
 }, {
   "roomName" : "MUSHROOM_FARM",
   "i18nKey" : "ROOMS.MUSHROOM_FARM",
+  "drawableName" : "btn_room_mushrooms",
   "colorCode" : "#aeb084",
-  "iconName" : "mushrooms",
   "furnitureNames" : [ "INNOCULATION_LOG", "INNOCULATED_LOG", "SHOCKED_LOG", "MUSHROOM_SHOCK_TANK" ],
   "tags" : {
     "MUSHROOM_FARM_BEHAVIOUR" : [ ]
@@ -29,58 +29,58 @@
 }, {
   "roomName" : "EARTHWORKS",
   "i18nKey" : "ROOMS.EARTHWORKS",
+  "drawableName" : "btn_room_earth",
   "colorCode" : "#639679",
-  "iconName" : "grass",
   "requiredFloorMaterialType" : "EARTH",
   "furnitureNames" : [ "CHARCOAL_CLAMP", "CHARCOAL_CLAMP_COVERED", "CHARCOAL_CLAMP_COMPLETED" ],
   "tags" : { }
 }, {
   "roomName" : "SAWMILL",
   "i18nKey" : "ROOMS.SAWMILL",
+  "drawableName" : "btn_room_lumber",
   "colorCode" : "#9f7e69",
-  "iconName" : "log",
   "furnitureNames" : [ "WOODCUTTERS_BENCH" ],
   "tags" : { }
 }, {
   "roomName" : "CARPENTRY_WORKSHOP",
   "i18nKey" : "ROOMS.CARPENTRY_WORKSHOP",
+  "drawableName" : "btn_room_carpentry",
   "colorCode" : "#c17e53",
-  "iconName" : "hammer-nails",
   "furnitureNames" : [ "Carpentry_Bench" ],
   "tags" : { }
 }, {
   "roomName" : "MASONRY_WORKSHOP",
   "i18nKey" : "ROOMS.MASONRY_WORKSHOP",
+  "drawableName" : "btn_room_stonemason",
   "colorCode" : "#8c7e8c",
-  "iconName" : "stone-pile",
   "furnitureNames" : [ "Stonemason_Bench" ],
   "tags" : { }
 }, {
   "roomName" : "METALWORKS",
   "i18nKey" : "ROOMS.METALWORKS",
+  "drawableName" : "btn_room_metalworks",
   "colorCode" : "#909a87",
-  "iconName" : "black-bar",
   "furnitureNames" : [ "ORE_CRUSHING_STATION", "COKE_OVEN", "BLOOMERY_FURNACE", "FORGE" ],
   "tags" : { }
 }, {
   "roomName" : "BEDROOM",
   "i18nKey" : "ROOMS.BEDROOM",
+  "drawableName" : "btn_room_bedroom",
   "colorCode" : "#88a4b7",
-  "iconName" : "bed",
   "furnitureNames" : [ "SINGLE_BED", "SLEEPING_SPOT" ],
   "tags" : { }
 }, {
-  "roomName" : "BARRAKCS",
+  "roomName" : "BARRACKS",
   "i18nKey" : "ROOMS.BARRACKS",
+  "drawableName" : "btn_room_barracks",
   "colorCode" : "#6e3f43",
-  "iconName" : "barracks",
-  "furnitureNames" : [ "BARRACKS_BED", "TRAINING_DUMMY", "ARCHERY_TARGET", "Armour_Stand", "Weapon_Rack" ],
+  "furnitureNames" : [ "BARRACKS_BED", "BARRACKS_SLEEPING_SPOT", "TRAINING_DUMMY", "ARCHERY_TARGET", "Armour_Stand", "Weapon_Rack" ],
   "tags" : { }
 }, {
   "roomName" : "KITCHEN",
   "i18nKey" : "ROOMS.KITCHEN",
+  "drawableName" : "btn_room_kitchen",
   "colorCode" : "#b98da0",
-  "iconName" : "chef-toque",
   "furnitureNames" : [ "WATER_BARREL", "BUTCHERY_WORKTOP", "KITCHEN_WORKTOP", "CHEFS_CAULDRON", "FLOUR_MILL", "BAKERS_WORKTOP", "BAKING_OVEN", "Dough_Proofing_Table" ],
   "tags" : {
     "KITCHEN_BEHAVIOUR" : [ ]
@@ -88,29 +88,29 @@
 }, {
   "roomName" : "FEASTING_HALL",
   "i18nKey" : "ROOMS.FEASTING_HALL",
+  "drawableName" : "btn_room_feast",
   "colorCode" : "#946769",
-  "iconName" : "knife-fork",
   "furnitureNames" : [ "SERVING_TABLE", "FEASTING_TABLE", "FEASTING_CHAIR", "FEASTING_CAULDRON", "BEER_TAPPER", "WATER_BARREL" ],
   "tags" : { }
 }, {
   "roomName" : "BREWERY",
   "i18nKey" : "ROOMS.BREWERY",
+  "drawableName" : "btn_room_brewery",
   "colorCode" : "#a08750",
-  "iconName" : "beer-stein",
   "furnitureNames" : [ "WATER_BARREL", "MALTING_STATION", "MASH_TUN", "BREW_KETTLE", "FERMENTATION_TANK" ],
   "tags" : { }
 }, {
   "roomName" : "TEXTILE_WORKSHOP",
   "i18nKey" : "ROOMS.TEXTILE_WORKSHOP",
+  "drawableName" : "btn_room_weaver",
   "colorCode" : "#95619d",
-  "iconName" : "yarn",
   "furnitureNames" : [ "RETTING_TANK", "LOOM" ],
   "tags" : { }
 }, {
   "roomName" : "GRAVEYARD",
   "i18nKey" : "ROOMS.GRAVEYARD",
+  "drawableName" : "btn_room_graveyard",
   "colorCode" : "#5f5956",
-  "iconName" : "graveyard",
   "furnitureNames" : [ "SARCOPHAGUS", "DUG_GRAVE", "FILLED_GRAVE" ],
   "tags" : {
     "GRAVEYARD_BEHAVIOUR" : [ ]
@@ -118,22 +118,22 @@
 }, {
   "roomName" : "ARMOURY",
   "i18nKey" : "ROOMS.ARMOURY",
+  "drawableName" : "btn_room_armory",
   "colorCode" : "#78362a",
-  "iconName" : "crossed-swords",
   "furnitureNames" : [ "FLETCHERS_WORKBENCH", "Armour_Stand", "Weapon_Rack" ],
   "tags" : { }
 }, {
   "roomName" : "LEATHER_WORKSHOP",
   "i18nKey" : "ROOMS.LEATHER_WORKSHOP",
+  "drawableName" : "btn_room_leather",
   "colorCode" : "#8c7952",
-  "iconName" : "animal-hide",
   "furnitureNames" : [ "Tanning_Frame", "Leatherworking_Station" ],
   "tags" : { }
 }, {
   "roomName" : "ARTISAN_WORKSHOP",
   "i18nKey" : "ROOMS.ARTISAN_WORKSHOP",
+  "drawableName" : "btn_room_artisan",
   "colorCode" : "#96841d",
-  "iconName" : "gems",
   "furnitureNames" : [ "BONE_CRAFTING_BENCH" ],
   "tags" : { }
 } ]
