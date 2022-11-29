@@ -109,11 +109,12 @@ public class SettlerProfessionFactory {
 				}
 			});
 
-			table.add(column).spaceRight(24).spaceLeft(24);
+			table.add(column).growX().spaceRight(24).spaceLeft(24);
 		}
 	}
 
-	private Table buildProgressBarRow(SkillsComponent skillsComponent, Skill skill, boolean useAltStyle) {
+	//todo: move somewhere better
+	public Table buildProgressBarRow(SkillsComponent skillsComponent, Skill skill, boolean useAltStyle) {
 		final String labelStyleName;
 		final String progressBarStyleName;
 		if (useAltStyle) {

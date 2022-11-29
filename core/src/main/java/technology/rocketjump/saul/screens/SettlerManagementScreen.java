@@ -73,7 +73,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		@Override
 			public boolean test(Entity entity) {
 				SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
-				if (skillsComponent != null) {
+				if (IS_CIVILIAN.test(entity) && skillsComponent != null) {
 					for (SkillsComponent.QuantifiedSkill activeProfession : skillsComponent.getActiveProfessions()) {
 						if (skill.equals(activeProfession.getSkill())) {
 							return true;
@@ -370,6 +370,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table happinessColumn = happiness(settler);
 			Table needsColumn = needs(settler);
 			Table professionsColumn = professions(settler, rebuildSettlerView);
+			Table weaponSelectColumn = weaponSelection(settler);
 			Table militaryToggleColumn = militaryToggle(settler, rebuildSettlerView);
 
 			addGotoSettlerBehaviour(mugshotColumn, settler);
@@ -380,7 +381,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			if (isMilitary) {
 				settlersTable.add(new Table()).growX().spaceRight(50f);
 				settlersTable.add(needsColumn).growX().spaceRight(50f);
-				settlersTable.add(new Table()).growX().spaceRight(50f);
+				settlersTable.add(weaponSelectColumn).growX().spaceRight(50f).spaceBottom(76f).spaceTop(38f);
 			} else {
 				settlersTable.add(happinessColumn).growX().spaceRight(50f);
 				settlersTable.add(needsColumn).growX().spaceRight(50f);
@@ -393,6 +394,55 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		}
 
 		scrollPane.setActor(settlersTable);
+	}
+
+	private Table weaponSelection(Entity settler) {
+		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
+
+		Table table = new Table();
+
+		if (skillsComponent != null) {
+
+			Skill weaponSkill = skillDictionary.getByName("SWORDSMANSHIP");//this comes from the WeaponInfo of an item or if no weapon, SkillsDictionary.UNARMED_COMBAT_SKILL
+
+			//TODO: need main hand and off hand enabling/disabling
+			Table weaponColumn = new Table();
+			Image weaponIcon = new Image(managementSkin.getDrawable("icon_military_equip_weapon"));
+			ImageButton.ImageButtonStyle weaponStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
+			ImageButton weaponSelectButton = new ImageButton(weaponStyle);
+			buttonFactory.attachClickCursor(weaponSelectButton, GameCursor.SELECT);
+			Table weaponProgress = settlerProfessionFactory.buildProgressBarRow(skillsComponent, weaponSkill, false);
+			weaponColumn.add(weaponIcon).row();
+			weaponColumn.add(weaponSelectButton).spaceTop(10f).spaceBottom(6f).row();
+			weaponColumn.add(weaponProgress);
+			table.add(weaponColumn).growX().top().spaceRight(24).spaceLeft(24); //todo fix the position when switching between military and civilian
+
+
+			//todo: if two handed weapon, make semi-transparent and disabled
+			Table shieldColumn = new Table();
+			Image shieldIcon = new Image(managementSkin.getDrawable("icon_military_equip_shield"));
+			ImageButton.ImageButtonStyle shieldStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
+			ImageButton shieldSelectButton = new ImageButton(shieldStyle);
+			buttonFactory.attachClickCursor(shieldSelectButton, GameCursor.SELECT);
+			shieldColumn.add(shieldIcon).expandX().row();
+			shieldColumn.add(shieldSelectButton).spaceTop(10f).spaceBottom(6f).row();
+			table.add(shieldColumn).growX().top().spaceRight(24).spaceLeft(24);
+
+			Table armourColumn = new Table();
+			Image armourIcon = new Image(managementSkin.getDrawable("icon_military_equip_armour"));
+			ImageButton.ImageButtonStyle armourStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
+			ImageButton armourSelectButton = new ImageButton(armourStyle);
+			buttonFactory.attachClickCursor(armourSelectButton, GameCursor.SELECT);
+			armourColumn.add(armourIcon).expandX().row();
+			armourColumn.add(armourSelectButton).spaceTop(10f).spaceBottom(6f).row();
+			table.add(armourColumn).growX().top().spaceRight(24).spaceLeft(24);
+
+		}
+
+
+
+
+		return table;
 	}
 
 	private Table militaryToggle(Entity settler, Consumer<Entity> onMilitaryChange) {

@@ -114,6 +114,9 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		imageUp: btn_sort_by_toggle_off
 		imageChecked: btn_sort_by_toggle_on
 	}
+	military_equipment_assignment: {
+		up: btn_military_slot_bg
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	sort_by_button: {

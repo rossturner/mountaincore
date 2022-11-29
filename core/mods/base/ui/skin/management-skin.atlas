@@ -64,14 +64,14 @@ asset_quality_star_02
   index: -1
 asset_quality_star_03
   rotate: false
-  xy: 1053, 3947
+  xy: 1401, 3947
   size: 96, 92
   orig: 96, 92
   offset: 0, 0
   index: -1
 asset_quality_star_04
   rotate: false
-  xy: 1153, 3947
+  xy: 1501, 3947
   size: 96, 92
   orig: 96, 92
   offset: 0, 0
@@ -92,7 +92,7 @@ asset_resources_line
   index: -1
 bar_bg
   rotate: false
-  xy: 575, 3452
+  xy: 204, 1860
   size: 4, 40
   split: 1, 1, 3, 3
   pad: 0, 0, 3, 3
@@ -101,7 +101,7 @@ bar_bg
   index: -1
 bar_bg_dark
   rotate: false
-  xy: 212, 1874
+  xy: 582, 2028
   size: 4, 40
   split: 1, 1, 3, 3
   pad: 0, 0, 3, 3
@@ -222,6 +222,13 @@ btn_info_hover_state
   orig: 64, 72
   offset: 0, 0
   index: -1
+btn_military_slot_bg
+  rotate: false
+  xy: 1227, 3857
+  size: 170, 182
+  orig: 170, 182
+  offset: 0, 0
+  index: -1
 btn_resources_item_01
   rotate: false
   xy: 2, 1690
@@ -252,49 +259,49 @@ btn_resources_item_04
   index: -1
 btn_sort_by_toggle_off
   rotate: false
-  xy: 587, 3510
+  xy: 1401, 3857
   size: 30, 26
   orig: 30, 26
   offset: 0, 0
   index: -1
 btn_sort_by_toggle_on
   rotate: false
-  xy: 1053, 3857
+  xy: 1775, 3968
   size: 30, 26
   orig: 30, 26
   offset: 0, 0
   index: -1
 btn_toggle_off
   rotate: false
-  xy: 1146, 3902
+  xy: 1494, 3902
   size: 73, 41
   orig: 73, 41
   offset: 0, 0
   index: -1
 btn_toggle_on
   rotate: false
-  xy: 1427, 3998
+  xy: 1775, 3998
   size: 73, 41
   orig: 73, 41
   offset: 0, 0
   index: -1
 icon_1
   rotate: false
-  xy: 1504, 3977
+  xy: 1107, 3791
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_2
   rotate: false
-  xy: 1570, 3977
+  xy: 1173, 3791
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_3
   rotate: false
-  xy: 1636, 3977
+  xy: 1239, 3791
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
@@ -322,7 +329,7 @@ icon_food
   index: -1
 icon_happy
   rotate: false
-  xy: 1253, 3956
+  xy: 1601, 3956
   size: 83, 83
   orig: 83, 83
   offset: 0, 0
@@ -332,6 +339,34 @@ icon_military
   xy: 694, 3785
   size: 68, 68
   orig: 68, 68
+  offset: 0, 0
+  index: -1
+icon_military_equip_armour
+  rotate: false
+  xy: 1305, 3791
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+icon_military_equip_shield
+  rotate: false
+  xy: 694, 3572
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+icon_military_equip_weapon
+  rotate: false
+  xy: 587, 3474
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+icon_not_equipped
+  rotate: false
+  xy: 1053, 3857
+  size: 170, 182
+  orig: 170, 182
   offset: 0, 0
   index: -1
 icon_number_bg
@@ -345,21 +380,21 @@ icon_number_bg
   index: -1
 icon_sad
   rotate: false
-  xy: 1340, 3956
+  xy: 1688, 3956
   size: 83, 83
   orig: 83, 83
   offset: 0, 0
   index: -1
 icon_sleep
   rotate: false
-  xy: 694, 3570
+  xy: 1039, 3789
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 progress_bar_knob
   rotate: false
-  xy: 204, 1860
+  xy: 212, 1874
   size: 4, 40
   split: 1, 1, 2, 2
   pad: 1, 1, 1, 1
@@ -368,7 +403,7 @@ progress_bar_knob
   index: -1
 search_bar
   rotate: false
-  xy: 1053, 3887
+  xy: 1401, 3887
   size: 89, 56
   split: 25, 57, 0, 0
   pad: 25, 57, 12, 17
@@ -377,7 +412,7 @@ search_bar
   index: -1
 search_bar_v3.9
   rotate: false
-  xy: 1053, 3887
+  xy: 1401, 3887
   size: 89, 56
   split: 25, 57, 0, 0
   pad: 25, 57, 7, 7
@@ -498,7 +533,7 @@ settlers_military
   index: -1
 vertical_scrollbar
   rotate: false
-  xy: 1039, 3791
+  xy: 1371, 3791
   size: 28, 62
   split: 0, 0, 26, 26
   orig: 28, 62
