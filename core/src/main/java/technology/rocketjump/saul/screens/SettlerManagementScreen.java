@@ -362,6 +362,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 		Table settlersTable = new Table();
 		settlersTable.align(Align.top);
+		settlersTable.padTop(38);
+		settlersTable.padBottom(38);
 
 		for (Entity settler : settlers) {
 			boolean isMilitary = IS_MILITARY.test(settler);
@@ -410,9 +412,13 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		if (skillsComponent != null && militaryComponent != null) {
 			Drawable notEquippedIcon = managementSkin.getDrawable("icon_not_equipped");
 
-			Drawable weaponDrawable = managementSkin.getDrawable("icon_brawl");
-			Drawable shieldDrawable = notEquippedIcon;
-			Drawable armourDrawable = notEquippedIcon;
+			float scaleFactor = 0.9f;
+			ImageButton.ImageButtonStyle weaponButtonStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
+			weaponButtonStyle.imageUp = managementSkin.getDrawable("icon_brawl");
+			ImageButton.ImageButtonStyle shieldButtonStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
+			shieldButtonStyle.imageUp = notEquippedIcon;
+			ImageButton.ImageButtonStyle armourButtonStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
+			armourButtonStyle.imageUp = notEquippedIcon;
 
 			Entity assignedWeapon = gameContext.getEntity(militaryComponent.getAssignedWeaponId());
 			Entity assignedShield = gameContext.getEntity(militaryComponent.getAssignedShieldId());
@@ -426,18 +432,24 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				if (weaponInfo != null) {
 					weaponIsTwoHanded = weaponInfo.isTwoHanded();
 					weaponSkill = weaponInfo.getCombatSkill();
-					weaponDrawable = new EntityDrawable(assignedWeapon, entityRenderer, true, messageDispatcher);
+					EntityDrawable weaponDrawable = new EntityDrawable(assignedWeapon, entityRenderer, true, messageDispatcher);
+					weaponDrawable.setMinSize(weaponButtonStyle.up.getMinWidth() * scaleFactor, weaponButtonStyle.up.getMinHeight()  * scaleFactor);
+					weaponButtonStyle.imageUp = weaponDrawable;
 				}
 			}
 			if (assignedShield == null) {
 				militaryComponent.setAssignedShieldId(null);
 			} else {
-				shieldDrawable = new EntityDrawable(assignedShield, entityRenderer, true, messageDispatcher);
+				EntityDrawable shieldDrawable = new EntityDrawable(assignedShield, entityRenderer, true, messageDispatcher);
+				shieldDrawable.setMinSize(shieldButtonStyle.up.getMinWidth() * scaleFactor, shieldButtonStyle.up.getMinHeight()  * scaleFactor);
+				shieldButtonStyle.imageUp = shieldDrawable;
 			}
 			if (assignedArmour == null) {
 				militaryComponent.setAssignedArmorId(null);
 			} else {
-				armourDrawable = new EntityDrawable(assignedArmour, entityRenderer, true, messageDispatcher);
+				EntityDrawable armourDrawable = new EntityDrawable(assignedArmour, entityRenderer, true, messageDispatcher);
+				armourDrawable.setMinSize(armourButtonStyle.up.getMinWidth() * scaleFactor, armourButtonStyle.up.getMinHeight()  * scaleFactor);
+				armourButtonStyle.imageUp = armourDrawable;
 			}
 
 			boolean canUseMainHand = equippedItemComponent == null || equippedItemComponent.isMainHandEnabled();
@@ -445,34 +457,25 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			boolean canUseWeapon = canUseMainHand;
 			boolean canUseShield = !weaponIsTwoHanded && canUseOffHand;
 
-			//TODO: need main hand and off hand enabling/disabling
 			Table weaponColumn = new Table();
 			Image weaponIcon = new Image(managementSkin.getDrawable("icon_military_equip_weapon"));
-			ImageButton.ImageButtonStyle weaponStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
-			weaponStyle.imageUp = weaponDrawable;
-			ImageButton weaponSelectButton = new ImageButton(weaponStyle);
+			ImageButton weaponSelectButton = new ImageButton(weaponButtonStyle);
 			buttonFactory.attachClickCursor(weaponSelectButton, GameCursor.SELECT);
 			Table weaponProgress = settlerProfessionFactory.buildProgressBarRow(skillsComponent, weaponSkill, false);
 			weaponColumn.add(weaponIcon).row();
 			weaponColumn.add(weaponSelectButton).spaceTop(10f).spaceBottom(6f).row();
 			weaponColumn.add(weaponProgress);
 
-
-			//todo: if two handed weapon, make semi-transparent and disabled
 			Table shieldColumn = new Table();
 			Image shieldIcon = new Image(managementSkin.getDrawable("icon_military_equip_shield"));
-			ImageButton.ImageButtonStyle shieldStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
-			shieldStyle.imageUp = shieldDrawable;
-			ImageButton shieldSelectButton = new ImageButton(shieldStyle);
+			ImageButton shieldSelectButton = new ImageButton(shieldButtonStyle);
 			buttonFactory.attachClickCursor(shieldSelectButton, GameCursor.SELECT);
 			shieldColumn.add(shieldIcon).expandX().row();
 			shieldColumn.add(shieldSelectButton).spaceTop(10f).spaceBottom(6f).row();
 
 			Table armourColumn = new Table();
 			Image armourIcon = new Image(managementSkin.getDrawable("icon_military_equip_armour"));
-			ImageButton.ImageButtonStyle armourStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
-			armourStyle.imageUp = armourDrawable;
-			ImageButton armourSelectButton = new ImageButton(armourStyle);
+			ImageButton armourSelectButton = new ImageButton(armourButtonStyle);
 			buttonFactory.attachClickCursor(armourSelectButton, GameCursor.SELECT);
 			armourColumn.add(armourIcon).expandX().row();
 			armourColumn.add(armourSelectButton).spaceTop(10f).spaceBottom(6f).row();
@@ -534,7 +537,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		militaryProficiencyLabel.setAlignment(Align.center);
 
 		Table table = new Table();
-		table.add(toggle).row();
+		table.add(toggle).spaceBottom(14).row();
 		table.add(militaryProficiencyLabel);
 		return table;
 	}
@@ -632,7 +635,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 
 		Table table = new Table();
-		table.add(happinessLabel).row();
+		table.add(happinessLabel).spaceBottom(16f).row();
 		table.add(modifiersTable);
 
 
