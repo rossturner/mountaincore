@@ -585,7 +585,9 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 					@Override
 					public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-						itemRow.setBackground((Drawable) null);
+						if (pointer == -1) {
+							itemRow.setBackground((Drawable) null);
+						}
 					}
 				});
 				buttonFactory.attachClickCursor(itemRow, GameCursor.SELECT);
