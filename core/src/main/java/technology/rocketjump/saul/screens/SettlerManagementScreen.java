@@ -380,7 +380,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table happinessColumn = happiness(settler);
 			Table needsColumn = needs(settler);
 			Table professionsColumn = professions(settler, rebuildSettlerView);
-			Table weaponSelectColumn = weaponSelection(settler);
+			Table weaponSelectColumn = weaponSelection(settler, rebuildSettlerView);
 			Table militaryToggleColumn = militaryToggle(settler, rebuildSettlerView);
 
 			addGotoSettlerBehaviour(mugshotColumn, settler);
@@ -406,7 +406,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		scrollPane.setActor(settlersTable);
 	}
 
-	private Table weaponSelection(Entity settler) {
+	private Table weaponSelection(Entity settler, Consumer<Entity> onSettlerChange) {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 		EquippedItemComponent equippedItemComponent = settler.getComponent(EquippedItemComponent.class);
@@ -465,10 +465,17 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					.filter(e -> getWeaponInfo(e) != null)
 					.collect(Collectors.groupingBy(SettlementItemTracker.GROUP_BY_ITEM_TYPE));
 
-			Map<String, List<Entity>> shieldsByMaterialAndQuality = settlementItemTracker.getAll().stream()
+			List<Entity> allShields = settlementItemTracker.getAll().stream()
 					.filter(e -> getDefenseInfo(e) != null
 							&& DefenseType.SHIELD.equals(getDefenseInfo(e).getType()))
-					.collect(Collectors.groupingBy(SettlementItemTracker.GROUP_BY_ITEM_TYPE_MATERIAL_AND_QUALITY));
+					.toList();
+
+			List<Entity> allArmour = settlementItemTracker.getAll().stream()
+					.filter(e -> getDefenseInfo(e) != null
+							&& DefenseType.ARMOR.equals(getDefenseInfo(e).getType())
+							&& getDefenseInfo(e).canBeEquippedBy(settler)
+					)
+					.toList();
 
 
 			Table weaponColumn = new Table();
@@ -494,7 +501,10 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			armourColumn.add(armourIcon).expandX().row();
 			armourColumn.add(armourSelectButton).spaceTop(10f).spaceBottom(6f).row();
 
-
+			Consumer<Entity> updateState = entity -> {
+				militaryComponent.infrequentUpdate(0.0);
+				onSettlerChange.accept(settler);
+			};
 
 			weaponSelectButton.addListener(new ClickListener() {
 				@Override
@@ -509,12 +519,58 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 						EntityDrawable entityDrawable = new EntityDrawable(exampleWeapon, entityRenderer, true, messageDispatcher);
 						entityDrawable.setMinSize(brawlDrawable.getMinWidth(), brawlDrawable.getMinHeight());
 						ItemEntityAttributes attributes = (ItemEntityAttributes) exampleWeapon.getPhysicalEntityComponent().getAttributes();
-						options.add(new SelectWeaponTypeOption(attributes.getItemType().getI18nKey(), entityDrawable, skillsComponent, getWeaponInfo(exampleWeapon).getCombatSkill(), subGroup));
+						options.add(new SelectWeaponTypeOption(attributes.getItemType().getI18nKey(), entityDrawable, skillsComponent, getWeaponInfo(exampleWeapon).getCombatSkill(), subGroup, weapon -> {
+							militaryComponent.setAssignedWeaponId(weapon.getId());
+							updateState.accept(weapon);
+						}));
 					});
 
-					options.add(new SelectWeaponTypeOption(SkillDictionary.UNARMED_COMBAT_SKILL.getI18nKey(), brawlDrawable, skillsComponent, SkillDictionary.UNARMED_COMBAT_SKILL, Collections.emptyList()));
+					//TODO: feels dirty but deals with the inconsistency of unarmed being mixed in with groups
+					options.add(new SelectWeaponTypeOption(SkillDictionary.UNARMED_COMBAT_SKILL.getI18nKey(), brawlDrawable, skillsComponent, SkillDictionary.UNARMED_COMBAT_SKILL, Collections.emptyList(), null) {
+						@Override
+						public void onSelect() {
+							militaryComponent.setAssignedWeaponId(null);
+							updateState.accept(null);
+						}
+					});
 
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_WEAPON"),
+							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options));
+				}
+			});
+
+			shieldSelectButton.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					super.clicked(event, x, y);
+					List<SelectItemDialog.Option> options = SelectItemOption.forMaterialAndQuality(allShields, entityRenderer, messageDispatcher, i18nTranslator, shield -> {
+						militaryComponent.setAssignedShieldId(shield.getId());
+						updateState.accept(shield);
+					});
+					options.add(new SelectItemOption(i18nTranslator.getTranslatedString("WEAPON.NONE"), null, managementSkin.getDrawable("military_icon_select_clear"), n -> {
+						militaryComponent.setAssignedShieldId(null);
+						updateState.accept(n);
+					}));
+
+					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_SHIELD"),
+							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options));
+				}
+			});
+
+			armourSelectButton.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					super.clicked(event, x, y);
+					List<SelectItemDialog.Option> options = SelectItemOption.forMaterialAndQuality(allArmour, entityRenderer, messageDispatcher, i18nTranslator, armour -> {
+						militaryComponent.setAssignedArmorId(armour.getId());
+						updateState.accept(armour);
+					});
+					options.add(new SelectItemOption(i18nTranslator.getTranslatedString("WEAPON.NONE"), null, managementSkin.getDrawable("military_icon_select_clear"), n -> {
+						militaryComponent.setAssignedArmorId(null);
+						updateState.accept(n);
+					}));
+
+					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_ARMOUR"),
 							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options));
 				}
 			});
@@ -582,9 +638,13 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 	static class SelectItemOption extends SelectItemDialog.Option {
 
+		private final Entity item;
 		private final Drawable drawable;
+		private final Consumer<Entity> onSelect;
 
-		public static List<SelectItemDialog.Option> forMaterialAndQuality(List<Entity> entities, EntityRenderer entityRenderer, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator) {
+		public static List<SelectItemDialog.Option> forMaterialAndQuality(List<Entity> entities, EntityRenderer entityRenderer,
+		                                                                  MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
+		                                                                  Consumer<Entity> onSelect) {
 			Map<String, List<Entity>> byMaterialAndQuality = entities.stream().collect(Collectors.groupingBy(SettlementItemTracker.GROUP_BY_ITEM_TYPE_MATERIAL_AND_QUALITY));
 
 			List<SelectItemDialog.Option> options = new ArrayList<>();
@@ -596,15 +656,17 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				EntityDrawable entityDrawable = new EntityDrawable(exampleEntity, entityRenderer, true, messageDispatcher);
 				entityDrawable.setMinSize(206, 206); //todo: fix me
 				I18nText tooltipText = i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality());
-				options.add(new SelectItemOption(tooltipText, entityDrawable));
+				options.add(new SelectItemOption(tooltipText, exampleEntity, entityDrawable, onSelect));
 			});
 
 			return options;
 		}
 
-		public SelectItemOption(I18nText tooltipText, Drawable drawable) {
+		public SelectItemOption(I18nText tooltipText, Entity item, Drawable drawable, Consumer<Entity> onSelect) {
 			super(tooltipText);
+			this.item = item;
 			this.drawable = drawable;
+			this.onSelect = onSelect;
 		}
 
 		@Override
@@ -616,8 +678,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		}
 
 		@Override
-		public void onSelect(SelectItemDialog.Option option) {
-
+		public void onSelect() {
+			onSelect.accept(item);
 		}
 	}
 
@@ -627,13 +689,15 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		private final SkillsComponent skillsComponent;
 		private final Skill skill;
 		private final List<Entity> subGroup;
+		private final Consumer<Entity> onWeaponSelect;
 
-		public SelectWeaponTypeOption(String tooltipI18nKey, Drawable drawable, SkillsComponent skillsComponent, Skill skill, List<Entity> subGroup) {
+		public SelectWeaponTypeOption(String tooltipI18nKey, Drawable drawable, SkillsComponent skillsComponent, Skill skill, List<Entity> subGroup, Consumer<Entity> onWeaponSelect) {
 			super(i18nTranslator.getTranslatedString(tooltipI18nKey));
 			this.drawable = drawable;
 			this.skillsComponent = skillsComponent;
 			this.skill = skill;
 			this.subGroup = subGroup;
+			this.onWeaponSelect = onWeaponSelect;
 		}
 
 		@Override
@@ -644,8 +708,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		}
 
 		@Override
-		public void onSelect(SelectItemDialog.Option option) {
-			List<SelectItemDialog.Option> options = SelectItemOption.forMaterialAndQuality(subGroup, entityRenderer, messageDispatcher, i18nTranslator);
+		public void onSelect() {
+			List<SelectItemDialog.Option> options = SelectItemOption.forMaterialAndQuality(subGroup, entityRenderer, messageDispatcher, i18nTranslator, onWeaponSelect);
 			messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_WEAPON"),
 					menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options));
 		}

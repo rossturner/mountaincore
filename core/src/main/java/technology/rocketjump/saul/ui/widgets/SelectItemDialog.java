@@ -33,11 +33,7 @@ public class SelectItemDialog extends GameDialog {
 
 		public abstract void addSelectionComponents(Table innerTable);
 
-		public void reloadView() {
-//			SettlerProfessionFactory.this.addProfessionComponents(settler, wholeTable, onProfessionChange);
-		}
-
-		public abstract void onSelect(Option option);
+		public abstract void onSelect();
 
 	}
 
@@ -61,8 +57,7 @@ public class SelectItemDialog extends GameDialog {
 			innerTable.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-					option.onSelect(option);
-					option.reloadView();
+					option.onSelect();
 					close();
 				}
 			});
