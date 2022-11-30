@@ -28,7 +28,7 @@ public class DecoratedString {
 		return new DecoratedString(Lists.newArrayList(new DecoratedStringToken(DecoratedStringToken.TokenType.TEXT, "")));
 	}
 
-	public DecoratedString(List<DecoratedStringToken> tokens) {
+	private DecoratedString(List<DecoratedStringToken> tokens) {
 		this.tokens = tokens;
 	}
 

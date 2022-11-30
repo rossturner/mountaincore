@@ -48,7 +48,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static technology.rocketjump.saul.ui.GameInteractionMode.REMOVE_DESIGNATIONS;
+import static technology.rocketjump.saul.ui.GameInteractionMode.CANCEL;
 import static technology.rocketjump.saul.ui.views.RoomEditingView.FURNITURE_PER_ROW;
 
 @Singleton
@@ -649,7 +649,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		cancelDeconstructButtons.add(deconstructContainer);
 
 		Container<Button> cancelContainer = new Container<>();
-		if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.REMOVE_DESIGNATIONS)) {
+		if (interactionStateContainer.getInteractionMode().equals(CANCEL)) {
 			cancelContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
 		}
 		cancelContainer.pad(18);
@@ -657,7 +657,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		cancelButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, REMOVE_DESIGNATIONS);
+				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, CANCEL);
 			}
 		});
 		cancelButton.addListener(new ChangeCursorOnHover(cancelContainer, GameCursor.SELECT, messageDispatcher));

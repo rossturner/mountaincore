@@ -8,7 +8,6 @@ import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttri
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.designation.Designation;
 import technology.rocketjump.saul.mapping.tile.designation.DesignationDictionary;
-import technology.rocketjump.saul.mapping.tile.underground.PipeConstructionState;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -19,7 +18,6 @@ import java.util.Map;
 import static technology.rocketjump.saul.entities.model.EntityType.*;
 import static technology.rocketjump.saul.mapping.tile.TileExploration.EXPLORED;
 import static technology.rocketjump.saul.mapping.tile.roof.RoofConstructionState.NONE;
-import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.CONSTRUCTED;
 import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.OPEN;
 
 // MODDING extract this enum to data-driven set of behaviours (when we know how to)
@@ -75,26 +73,19 @@ public enum GameInteractionMode {
 		return false;
 	}, true),
 
+	CANCEL(GameCursor.CANCEL, null, mapTile -> mapTile.getExploration().equals(EXPLORED), true),
+	CANCEL_ATTACK_CREATURE(GameCursor.CANCEL, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
+			mapTile.getUnderTile() != null && mapTile.getUnderTile().getQueuedMechanismType() != null, true),
+
+	DECONSTRUCT(GameCursor.DECONSTRUCT, null, mapTile -> mapTile.getExploration().equals(EXPLORED), true),
+
 	DESIGNATE_ROOFING(GameCursor.ROOFING, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
 			mapTile.getRoof().getState().equals(OPEN) && mapTile.getRoof().getConstructionState().equals(NONE), true),
-	CANCEL_ROOFING(GameCursor.CANCEL, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
-			mapTile.getRoof().getState().equals(OPEN) && !mapTile.getRoof().getConstructionState().equals(NONE), true),
-	DECONSTRUCT_ROOFING(GameCursor.DECONSTRUCT, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
-			mapTile.getRoof().getState().equals(CONSTRUCTED) && mapTile.getRoof().getConstructionState().equals(NONE), true),
-
 	DESIGNATE_PIPING(GameCursor.SPLASH, null, mapTile ->  mapTile.getExploration().equals(EXPLORED) &&
 			!isRiverEdge(mapTile) && !mapTile.getFloor().isRiverTile() && !mapTile.hasPipe(), true),
-	CANCEL_PIPING(GameCursor.CANCEL, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
-			mapTile.getUnderTile() != null && mapTile.getUnderTile().getPipeConstructionState().equals(PipeConstructionState.READY_FOR_CONSTRUCTION), true),
-	DECONSTRUCT_PIPING(GameCursor.DECONSTRUCT, null, mapTile -> mapTile.getExploration().equals(EXPLORED) && mapTile.hasPipe(), true),
-
 	DESIGNATE_POWER_LINES(GameCursor.GEARS, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
 			!mapTile.getFloor().isRiverTile(), true),
-	CANCEL_MECHANISMS(GameCursor.CANCEL, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
-			mapTile.getUnderTile() != null && mapTile.getUnderTile().getQueuedMechanismType() != null, true),
-	DECONSTRUCT_MECHANISMS(GameCursor.DECONSTRUCT, null, mapTile -> mapTile.getExploration().equals(EXPLORED) && mapTile.hasPowerMechanism(), true),
 
-	REMOVE_DESIGNATIONS(GameCursor.CANCEL, null, mapTile -> mapTile.getDesignation() != null, true),
 	PLACE_ROOM(GameCursor.ROOMS, null, mapTile -> mapTile.getExploration().equals(EXPLORED) && !mapTile.hasWall() &&
 			!mapTile.hasRoom() && !mapTile.hasDoorway() && !mapTile.isWaterSource() && !mapTile.getFloor().hasBridge(), true),
 	PLACE_FURNITURE(GameCursor.ROOMS, null, null, false),
@@ -105,18 +96,9 @@ public enum GameInteractionMode {
 	PLACE_FLOORING(GameCursor.FLOOR, "FLOORING", mapTile -> mapTile.hasFloor() && !mapTile.getFloor().isRiverTile(), true),
 	REMOVE_ROOMS(GameCursor.CANCEL, "REMOVE_ROOMS", MapTile::hasRoom, true),
 	SET_JOB_PRIORITY(GameCursor.PRIORITY, null, null, true),
-	REMOVE_CONSTRUCTIONS(GameCursor.CANCEL, "REMOVE_CONSTRUCTIONS", tile -> tile.hasConstruction() || tile.getDesignation() != null, true),
-	DECONSTRUCT(GameCursor.DECONSTRUCT, "DECONSTRUCT", mapTile -> {
-		return mapTile.getFloor().hasBridge() || mapTile.hasDoorway() || mapTile.getEntities().stream().anyMatch(e -> e.getType().equals(FURNITURE)) ||
-				mapTile.hasChannel() || (mapTile.hasFloor() && mapTile.getFloor().getFloorType().isConstructed()) ||
-				(mapTile.hasWall() && mapTile.getWall().getWallType().isConstructed());
-	}, true),
 	SQUAD_MOVE_TO_LOCATION(GameCursor.ATTACK, null, mapTile ->
 			mapTile.getExploration().equals(EXPLORED) && mapTile.isNavigable(null), false),
-	SQUAD_ATTACK_CREATURE(GameCursor.ATTACK, null, mapTile -> mapTile.getExploration().equals(EXPLORED), true),
-	CANCEL_ATTACK_CREATURE(GameCursor.CANCEL, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
-			mapTile.getUnderTile() != null && mapTile.getUnderTile().getQueuedMechanismType() != null, true);
-
+	SQUAD_ATTACK_CREATURE(GameCursor.ATTACK, null, mapTile -> mapTile.getExploration().equals(EXPLORED), true);
 
 
 	public final GameCursor cursor;
@@ -161,10 +143,6 @@ public enum GameInteractionMode {
 	}
 	public Designation getDesignationToApply() {
 		return designationToApply;
-	}
-
-	public boolean isDesignation() {
-		return REMOVE_DESIGNATIONS.equals(this) || designationName != null;
 	}
 
 	public RoomType getRoomType() {

@@ -85,8 +85,8 @@ public class OrderSelectionGuiView implements GuiView, DisplaysText {
 				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, DESIGNATE_EXTINGUISH_FLAMES));
 		layoutTable.add(extinguishButton);
 
-		Button removeDesignationButton = buildButton("btn_current_orders_cancel", "GUI.REMOVE_LABEL",
-				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, REMOVE_DESIGNATIONS));
+		Button removeDesignationButton = buildButton("btn_current_orders_cancel", "GUI.CANCEL_LABEL",
+				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, CANCEL));
 		layoutTable.add(removeDesignationButton);
 	}
 

@@ -36,6 +36,9 @@ import technology.rocketjump.saul.rooms.Bridge;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.rooms.constructions.ConstructionType;
 import technology.rocketjump.saul.sprites.TerrainSpriteCache;
+import technology.rocketjump.saul.ui.GameInteractionMode;
+import technology.rocketjump.saul.ui.GameInteractionStateContainer;
+import technology.rocketjump.saul.ui.GameViewMode;
 
 import java.util.*;
 
@@ -60,6 +63,7 @@ public class WorldRenderer implements Disposable {
 	private final MessageDispatcher messageDispatcher;
 	private final ParticleEffectStore particleEffectStore;
 	private final WeatherEffectUpdater weatherEffectUpdater;
+	private final GameInteractionStateContainer interactionStateContainer;
 
 	private final SpriteBatch basicSpriteBatch = new SpriteBatch();
 
@@ -85,7 +89,8 @@ public class WorldRenderer implements Disposable {
 	public WorldRenderer(RenderingOptions renderingOptions, TerrainRenderer terrainRenderer, EntityRenderer entityRenderer,
 						 WaterRenderer waterRenderer, FloorOverlapRenderer floorOverlapRenderer, RoomRenderer roomRenderer,
 						 ExplorationRenderer explorationRenderer, MessageDispatcher messageDispatcher,
-						 ParticleEffectStore particleEffectStore, WeatherEffectUpdater weatherEffectUpdater, LightProcessor lightProcessor) {
+						 ParticleEffectStore particleEffectStore, WeatherEffectUpdater weatherEffectUpdater,
+						 GameInteractionStateContainer interactionStateContainer, LightProcessor lightProcessor) {
 		this.renderingOptions = renderingOptions;
 		this.terrainRenderer = terrainRenderer;
 		this.entityRenderer = entityRenderer;
@@ -96,6 +101,7 @@ public class WorldRenderer implements Disposable {
 		this.messageDispatcher = messageDispatcher;
 		this.particleEffectStore = particleEffectStore;
 		this.weatherEffectUpdater = weatherEffectUpdater;
+		this.interactionStateContainer = interactionStateContainer;
 		this.lightProcessor = lightProcessor;
 	}
 
@@ -237,7 +243,7 @@ public class WorldRenderer implements Disposable {
 		}
 
 		for (Construction construction : otherConstructionsToRender.values()) {
-			if (construction.getEntity() != null) {
+			if (construction.getEntity() != null && !withinDragAreaWhenCancelling(construction, interactionStateContainer)) {
 				entityRenderer.render(construction.getEntity(), basicSpriteBatch, renderMode, null, CONSTRUCTION_COLOR, null);
 			}
 		}
@@ -296,6 +302,20 @@ public class WorldRenderer implements Disposable {
 		if (renderMode.equals(RenderMode.DIFFUSE)) { // So this only happens once per frame
 			messageDispatcher.dispatchMessage(MessageType.AMBIENCE_UPDATE, new AmbienceMessage(outdoorTiles, riverTiles.size(), totalTiles));
 		}
+	}
+
+	public static boolean withinDragAreaWhenCancelling(Construction construction, GameInteractionStateContainer interactionStateContainer) {
+		if (GameInteractionMode.CANCEL.equals(interactionStateContainer.getInteractionMode()) &&
+				GameViewMode.DEFAULT.equals(interactionStateContainer.getGameViewMode()) &&
+			interactionStateContainer.isDragging()) {
+			for (GridPoint2 tileLocation : construction.getTileLocations()) {
+				if (interactionStateContainer.getMinPoint().x <= tileLocation.x && tileLocation.x <= interactionStateContainer.getMaxPoint().x &&
+						interactionStateContainer.getMinPoint().y <= tileLocation.y && tileLocation.y <= interactionStateContainer.getMaxPoint().y) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private void addLightSourcesFromEntity(Entity entity, TiledMap tiledMap, List<PointLight> lightsToRenderThisFrame) {
