@@ -261,7 +261,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 		Table mainTable = new Table();
 		mainTable.add(stockpileButtons).row();
-		mainTable.add(filters).growX().row();
+		mainTable.add(filters).spaceTop(50).spaceBottom(40).growX().row();
 		mainTable.add(new Image(managementSkin.getDrawable("asset_resources_line"))).row();
 		mainTable.add(scrollPane).height(1426).grow();
 
