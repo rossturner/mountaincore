@@ -563,8 +563,8 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 				Table itemRow = new Table();
 				itemRow.add(exampleEntityColumn).left().padLeft(100 * groupingIndex).growX();
 				itemRow.add(qualityImageContainer).width(300);
-				//this is a fudge as quality doesn't appear on first row
-				if (groupingIndex == 0) {
+				//this is a fudge as quality doesn't appear on first row or if item is stackable
+				if (groupingIndex == 0 || (exampleEntity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes && itemAttributes.getItemType().isStackable())) {
 					qualityImage.setVisible(false);
 				}
 				itemRow.add(itemTypeGoldGroup).right().width(400);
