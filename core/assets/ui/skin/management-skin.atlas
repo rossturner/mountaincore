@@ -6,42 +6,42 @@ filter: MipMapLinearLinear, Linear
 repeat: none
 white-pixel
   rotate: false
-  xy: 3251, 4068
+  xy: 3251, 4092
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 asset_bg_miliatry_skill
   rotate: false
-  xy: 2, 3437
+  xy: 2, 3461
   size: 569, 55
   orig: 569, 55
   offset: 0, 0
   index: -1
 asset_bg_miliatry_squad
   rotate: false
-  xy: 2, 3374
+  xy: 2, 3398
   size: 498, 59
   orig: 498, 59
   offset: 0, 0
   index: -1
 asset_line
   rotate: false
-  xy: 2, 4057
+  xy: 2, 4081
   size: 3245, 12
   orig: 3245, 12
   offset: 0, 0
   index: -1
 asset_more_info_bg
   rotate: false
-  xy: 2, 3590
+  xy: 2, 3614
   size: 688, 400
   orig: 688, 400
   offset: 0, 0
   index: -1
 asset_more_info_bg_strip
   rotate: false
-  xy: 2, 3994
+  xy: 2, 4018
   size: 699, 45
   split: 348, 349, 22, 22
   pad: 21, 10, 10, 10
@@ -50,28 +50,28 @@ asset_more_info_bg_strip
   index: -1
 asset_quality_star_01
   rotate: false
-  xy: 504, 3387
+  xy: 504, 3411
   size: 48, 46
   orig: 48, 46
   offset: 0, 0
   index: -1
 asset_quality_star_02
   rotate: false
-  xy: 587, 3540
+  xy: 587, 3564
   size: 96, 46
   orig: 96, 46
   offset: 0, 0
   index: -1
 asset_quality_star_03
   rotate: false
-  xy: 1575, 3947
+  xy: 1575, 3971
   size: 96, 92
   orig: 96, 92
   offset: 0, 0
   index: -1
 asset_quality_star_04
   rotate: false
-  xy: 1675, 3947
+  xy: 1675, 3971
   size: 96, 92
   orig: 96, 92
   offset: 0, 0
@@ -85,14 +85,14 @@ asset_quality_star_05
   index: -1
 asset_resources_line
   rotate: false
-  xy: 2, 4043
+  xy: 2, 4067
   size: 1880, 10
   orig: 1880, 10
   offset: 0, 0
   index: -1
 bar_bg
   rotate: false
-  xy: 575, 3452
+  xy: 204, 1674
   size: 4, 40
   split: 1, 1, 3, 3
   pad: 0, 0, 3, 3
@@ -101,7 +101,7 @@ bar_bg
   index: -1
 bar_bg_dark
   rotate: false
-  xy: 212, 1874
+  xy: 212, 1688
   size: 4, 40
   split: 1, 1, 3, 3
   pad: 0, 0, 3, 3
@@ -110,98 +110,98 @@ bar_bg_dark
   index: -1
 btn_drag_job_artisan
   rotate: false
-  xy: 2, 470
+  xy: 2, 284
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_drag_job_blacksmith
   rotate: false
-  xy: 2, 284
+  xy: 2, 98
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_drag_job_brewer
   rotate: false
-  xy: 2, 98
+  xy: 422, 3212
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_drag_job_carpenter
   rotate: false
-  xy: 422, 3188
+  xy: 422, 3026
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_drag_job_cook
   rotate: false
-  xy: 422, 3002
+  xy: 422, 2840
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_drag_job_farmer
   rotate: false
-  xy: 422, 2816
+  xy: 422, 2654
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_drag_job_fisher
   rotate: false
-  xy: 422, 2630
+  xy: 422, 2468
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_drag_job_leatherworker
   rotate: false
-  xy: 422, 2444
+  xy: 422, 2282
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_drag_job_miner
   rotate: false
-  xy: 422, 2258
+  xy: 422, 2096
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_drag_job_stonemason
   rotate: false
-  xy: 422, 2072
+  xy: 422, 1910
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_drag_job_villager
   rotate: false
-  xy: 408, 1886
+  xy: 408, 1724
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_drag_job_weaver
   rotate: false
-  xy: 705, 3857
+  xy: 705, 3881
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_drag_job_woodcutter
   rotate: false
-  xy: 879, 3857
+  xy: 879, 3881
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_go_to_dwarf_info
   rotate: false
-  xy: 2, 3496
+  xy: 2, 3520
   size: 581, 90
   split: 40, 40, 0, 0
   pad: 31, 31, 23, 25
@@ -210,175 +210,175 @@ btn_go_to_dwarf_info
   index: -1
 btn_info
   rotate: false
-  xy: 922, 3781
+  xy: 922, 3805
   size: 64, 72
   orig: 64, 72
   offset: 0, 0
   index: -1
 btn_info_hover_state
   rotate: false
-  xy: 990, 3781
+  xy: 990, 3805
   size: 64, 72
   orig: 64, 72
   offset: 0, 0
   index: -1
 btn_military_slot_bg
   rotate: false
-  xy: 1227, 3857
+  xy: 1227, 3881
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 btn_resources_item_01
   rotate: false
-  xy: 2, 1690
+  xy: 2, 1504
   size: 198, 210
   orig: 198, 210
   offset: 0, 0
   index: -1
 btn_resources_item_02
   rotate: false
-  xy: 2, 1476
+  xy: 2, 1290
   size: 198, 210
   orig: 198, 210
   offset: 0, 0
   index: -1
 btn_resources_item_03
   rotate: false
-  xy: 2, 1262
+  xy: 2, 1076
   size: 198, 210
   orig: 198, 210
   offset: 0, 0
   index: -1
 btn_resources_item_04
   rotate: false
-  xy: 2, 1048
+  xy: 2, 862
   size: 198, 210
   orig: 198, 210
   offset: 0, 0
   index: -1
 btn_sort_by_toggle_off
   rotate: false
-  xy: 1575, 3857
+  xy: 1575, 3881
   size: 30, 26
   orig: 30, 26
   offset: 0, 0
   index: -1
 btn_sort_by_toggle_on
   rotate: false
-  xy: 587, 3510
+  xy: 587, 3534
   size: 30, 26
   orig: 30, 26
   offset: 0, 0
   index: -1
 btn_toggle_off
   rotate: false
-  xy: 1668, 3902
+  xy: 1668, 3926
   size: 73, 41
   orig: 73, 41
   offset: 0, 0
   index: -1
 btn_toggle_on
   rotate: false
-  xy: 694, 3725
+  xy: 694, 3749
   size: 73, 41
   orig: 73, 41
   offset: 0, 0
   index: -1
 icon_1
   rotate: false
-  xy: 1262, 3791
+  xy: 1262, 3815
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_2
   rotate: false
-  xy: 1328, 3791
+  xy: 1328, 3815
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_3
   rotate: false
-  xy: 1394, 3791
+  xy: 1394, 3815
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_brawl
   rotate: false
-  xy: 1401, 3857
+  xy: 1401, 3881
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 icon_coin
   rotate: false
-  xy: 694, 3654
+  xy: 694, 3678
   size: 67, 67
   orig: 67, 67
   offset: 0, 0
   index: -1
 icon_drink
   rotate: false
-  xy: 1058, 3789
+  xy: 1058, 3813
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 icon_food
   rotate: false
-  xy: 1126, 3789
+  xy: 1126, 3813
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 icon_happy
   rotate: false
-  xy: 1775, 3956
+  xy: 1775, 3980
   size: 83, 83
   orig: 83, 83
   offset: 0, 0
   index: -1
 icon_military
   rotate: false
-  xy: 781, 3785
+  xy: 781, 3809
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
 icon_military_equip_armour
   rotate: false
-  xy: 1460, 3791
+  xy: 1460, 3815
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_military_equip_shield
   rotate: false
-  xy: 694, 3588
+  xy: 694, 3612
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_military_equip_weapon
   rotate: false
-  xy: 1526, 3791
+  xy: 1526, 3815
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_not_equipped
   rotate: false
-  xy: 1053, 3857
+  xy: 1053, 3881
   size: 170, 182
   orig: 170, 182
   offset: 0, 0
   index: -1
 icon_number_bg
   rotate: false
-  xy: 853, 3788
+  xy: 853, 3812
   size: 65, 65
   split: 32, 32, 0, 0
   pad: 6, 6, 0, 0
@@ -387,21 +387,35 @@ icon_number_bg
   index: -1
 icon_sad
   rotate: false
-  xy: 694, 3770
+  xy: 694, 3794
   size: 83, 83
   orig: 83, 83
   offset: 0, 0
   index: -1
 icon_sleep
   rotate: false
-  xy: 1194, 3789
+  xy: 1194, 3813
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+military_icon_select_brawl
+  rotate: false
+  xy: 2, 1718
+  size: 206, 206
+  orig: 206, 206
+  offset: 0, 0
+  index: -1
+military_icon_select_clear
+  rotate: false
+  xy: 212, 1928
+  size: 206, 206
+  orig: 206, 206
+  offset: 0, 0
+  index: -1
 progress_bar_knob
   rotate: false
-  xy: 204, 1860
+  xy: 575, 3476
   size: 4, 40
   split: 1, 1, 2, 2
   pad: 1, 1, 1, 1
@@ -410,7 +424,7 @@ progress_bar_knob
   index: -1
 search_bar
   rotate: false
-  xy: 1575, 3887
+  xy: 1575, 3911
   size: 89, 56
   split: 25, 57, 0, 0
   pad: 25, 57, 12, 17
@@ -419,7 +433,7 @@ search_bar
   index: -1
 search_bar_v3.9
   rotate: false
-  xy: 1575, 3887
+  xy: 1575, 3911
   size: 89, 56
   split: 25, 57, 0, 0
   pad: 25, 57, 7, 7
@@ -428,112 +442,112 @@ search_bar_v3.9
   index: -1
 settlers_all
   rotate: false
-  xy: 2, 852
+  xy: 2, 666
   size: 192, 192
   orig: 192, 192
   offset: 0, 0
   index: -1
 settlers_job_artisan
   rotate: false
-  xy: 2, 3164
+  xy: 2, 3188
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_job_blacksmith
   rotate: false
-  xy: 2, 2954
+  xy: 2, 2978
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_job_brewer
   rotate: false
-  xy: 212, 3164
+  xy: 212, 3188
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_job_carpenter
   rotate: false
-  xy: 2, 2744
+  xy: 2, 2768
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_job_cook
   rotate: false
-  xy: 212, 2954
+  xy: 212, 2978
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_job_farmer
   rotate: false
-  xy: 2, 2534
+  xy: 2, 2558
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_job_fisher
   rotate: false
-  xy: 212, 2744
+  xy: 212, 2768
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_job_leatherworker
   rotate: false
-  xy: 2, 2324
+  xy: 2, 2348
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_job_military
   rotate: false
-  xy: 212, 1918
+  xy: 212, 1732
   size: 192, 192
   orig: 192, 192
   offset: 0, 0
   index: -1
 settlers_job_miner
   rotate: false
-  xy: 212, 2534
+  xy: 212, 2558
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_job_stonemason
   rotate: false
-  xy: 2, 2114
+  xy: 2, 2138
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_job_villager
   rotate: false
-  xy: 212, 2324
+  xy: 212, 2348
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_job_weaver
   rotate: false
-  xy: 2, 1904
+  xy: 2, 1928
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_job_woodcutter
   rotate: false
-  xy: 212, 2114
+  xy: 212, 2138
   size: 206, 206
   orig: 206, 206
   offset: 0, 0
   index: -1
 settlers_military
   rotate: false
-  xy: 2, 656
+  xy: 2, 470
   size: 192, 192
   orig: 192, 192
   offset: 0, 0
@@ -548,7 +562,7 @@ vertical_scrollbar
   index: -1
 vertical_scrollbar_fg
   rotate: false
-  xy: 1862, 3959
+  xy: 1862, 3983
   size: 28, 80
   split: 1, 1, 26, 26
   orig: 28, 80

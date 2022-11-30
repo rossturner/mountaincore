@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -20,11 +21,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.components.furniture.SleepingPositionComponent;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
+import technology.rocketjump.saul.entities.model.physical.combat.DefenseType;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
@@ -39,6 +43,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
+import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -51,10 +56,8 @@ import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.*;
 
 import javax.inject.Singleton;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Map;
+import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -112,6 +115,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private final TooltipFactory tooltipFactory;
 	private final SettlerProfessionFactory settlerProfessionFactory;
 	private final SettlementFurnitureTracker settlementFurnitureTracker;
+	private final SettlementItemTracker settlementItemTracker;
+	private final SoundAssetDictionary soundAssetDictionary;
 
 	private GameContext gameContext;
 	private Stack stack;
@@ -128,7 +133,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	                               I18nTranslator i18nTranslator, LabelFactory labelFactory, ButtonFactory buttonFactory,
 	                               WidgetFactory widgetFactory, SkillDictionary skillDictionary, SettlerTracker settlerTracker,
 	                               EntityRenderer entityRenderer, TooltipFactory tooltipFactory, SettlerProfessionFactory settlerProfessionFactory,
-	                               SettlementFurnitureTracker settlementFurnitureTracker) {
+	                               SettlementFurnitureTracker settlementFurnitureTracker, SettlementItemTracker settlementItemTracker,
+	                               SoundAssetDictionary soundAssetDictionary) {
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.i18nTranslator = i18nTranslator;
@@ -142,6 +148,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		this.tooltipFactory = tooltipFactory;
 		this.settlerProfessionFactory = settlerProfessionFactory;
 		this.settlementFurnitureTracker = settlementFurnitureTracker;
+		this.settlementItemTracker = settlementItemTracker;
+		this.soundAssetDictionary = soundAssetDictionary;
 	}
 
 	@Override
@@ -453,6 +461,16 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			boolean canUseWeapon = canUseMainHand;
 			boolean canUseShield = !weaponIsTwoHanded && canUseOffHand;
 
+			Map<String, List<Entity>> weaponsByItemType = settlementItemTracker.getAll().stream()
+					.filter(e -> getWeaponInfo(e) != null)
+					.collect(Collectors.groupingBy(SettlementItemTracker.GROUP_BY_ITEM_TYPE));
+
+			Map<String, List<Entity>> shieldsByMaterialAndQuality = settlementItemTracker.getAll().stream()
+					.filter(e -> getDefenseInfo(e) != null
+							&& DefenseType.SHIELD.equals(getDefenseInfo(e).getType()))
+					.collect(Collectors.groupingBy(SettlementItemTracker.GROUP_BY_ITEM_TYPE_MATERIAL_AND_QUALITY));
+
+
 			Table weaponColumn = new Table();
 			Image weaponIcon = new Image(managementSkin.getDrawable("icon_military_equip_weapon"));
 			ImageButton weaponSelectButton = new ImageButton(weaponButtonStyle);
@@ -475,6 +493,31 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			buttonFactory.attachClickCursor(armourSelectButton, GameCursor.SELECT);
 			armourColumn.add(armourIcon).expandX().row();
 			armourColumn.add(armourSelectButton).spaceTop(10f).spaceBottom(6f).row();
+
+
+
+			weaponSelectButton.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					super.clicked(event, x, y);
+					//TODO: refactor out common select dialog wizard
+					Drawable brawlDrawable = managementSkin.getDrawable("military_icon_select_brawl");
+					List<SelectItemDialog.Option> options = new ArrayList<>();
+					weaponsByItemType.keySet().stream().sorted().forEach(weaponName -> {
+						List<Entity> subGroup = weaponsByItemType.get(weaponName);
+						Entity exampleWeapon = subGroup.get(0);
+						EntityDrawable entityDrawable = new EntityDrawable(exampleWeapon, entityRenderer, true, messageDispatcher);
+						entityDrawable.setMinSize(brawlDrawable.getMinWidth(), brawlDrawable.getMinHeight());
+						ItemEntityAttributes attributes = (ItemEntityAttributes) exampleWeapon.getPhysicalEntityComponent().getAttributes();
+						options.add(new SelectWeaponTypeOption(attributes.getItemType().getI18nKey(), entityDrawable, skillsComponent, getWeaponInfo(exampleWeapon).getCombatSkill(), subGroup));
+					});
+
+					options.add(new SelectWeaponTypeOption(SkillDictionary.UNARMED_COMBAT_SKILL.getI18nKey(), brawlDrawable, skillsComponent, SkillDictionary.UNARMED_COMBAT_SKILL, Collections.emptyList()));
+
+					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_WEAPON"),
+							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options));
+				}
+			});
 
 			Stack weaponStack = new Stack();
 			weaponStack.add(weaponColumn);
@@ -537,10 +580,88 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return table;
 	}
 
+	static class SelectItemOption extends SelectItemDialog.Option {
+
+		private final Drawable drawable;
+
+		public static List<SelectItemDialog.Option> forMaterialAndQuality(List<Entity> entities, EntityRenderer entityRenderer, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator) {
+			Map<String, List<Entity>> byMaterialAndQuality = entities.stream().collect(Collectors.groupingBy(SettlementItemTracker.GROUP_BY_ITEM_TYPE_MATERIAL_AND_QUALITY));
+
+			List<SelectItemDialog.Option> options = new ArrayList<>();
+			byMaterialAndQuality.keySet().stream().sorted().forEach(key -> {
+				List<Entity> subGroup = byMaterialAndQuality.get(key);
+				Entity exampleEntity = subGroup.get(0);
+				ItemEntityAttributes attributes = (ItemEntityAttributes) exampleEntity.getPhysicalEntityComponent().getAttributes();
+
+				EntityDrawable entityDrawable = new EntityDrawable(exampleEntity, entityRenderer, true, messageDispatcher);
+				entityDrawable.setMinSize(206, 206); //todo: fix me
+				I18nText tooltipText = i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality());
+				options.add(new SelectItemOption(tooltipText, entityDrawable));
+			});
+
+			return options;
+		}
+
+		public SelectItemOption(I18nText tooltipText, Drawable drawable) {
+			super(tooltipText);
+			this.drawable = drawable;
+		}
+
+		@Override
+		public void addSelectionComponents(Table innerTable) {
+			Image image = new Image(drawable);
+			innerTable.add(image).pad(10).row();
+			//TODO: add quantity to top left
+			//todo: add quality to bottom right
+		}
+
+		@Override
+		public void onSelect(SelectItemDialog.Option option) {
+
+		}
+	}
+
+	class SelectWeaponTypeOption extends SelectItemDialog.Option {
+
+		private final Drawable drawable;
+		private final SkillsComponent skillsComponent;
+		private final Skill skill;
+		private final List<Entity> subGroup;
+
+		public SelectWeaponTypeOption(String tooltipI18nKey, Drawable drawable, SkillsComponent skillsComponent, Skill skill, List<Entity> subGroup) {
+			super(i18nTranslator.getTranslatedString(tooltipI18nKey));
+			this.drawable = drawable;
+			this.skillsComponent = skillsComponent;
+			this.skill = skill;
+			this.subGroup = subGroup;
+		}
+
+		@Override
+		public void addSelectionComponents(Table innerTable) {
+			Image image = new Image(drawable);
+			innerTable.add(image).pad(10).row();
+			innerTable.add(settlerProfessionFactory.buildProgressBarRow(skillsComponent, skill, true));
+		}
+
+		@Override
+		public void onSelect(SelectItemDialog.Option option) {
+			List<SelectItemDialog.Option> options = SelectItemOption.forMaterialAndQuality(subGroup, entityRenderer, messageDispatcher, i18nTranslator);
+			messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_WEAPON"),
+					menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options));
+		}
+	}
+
 	//nearly used optional, but kept consistent of nulls
 	private WeaponInfo getWeaponInfo(Entity weapon) {
 		if (weapon.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
 			return attributes.getItemType().getWeaponInfo();
+		}
+		return null;
+	}
+
+	private DefenseInfo getDefenseInfo(Entity entity) {
+		if (entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
+			return attributes.getItemType().getDefenseInfo();
 		}
 		return null;
 	}

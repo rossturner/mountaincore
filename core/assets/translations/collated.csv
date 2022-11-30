@@ -633,6 +633,7 @@ GUI.ROTATE_FURNITURE.HINT,Press (R) to rotate furniture,,Zum Rotieren der Möbel
 GUI.SAVING_PROMPT,Saving…,,Spiel wird gespeichert…,Sauvegarde en cours...,Salvataggio...,Guardando...,A guardar…,Salvando…,,Сохранение…,Kaydediliyor,Redder...,,Räddar...,,,,セーブ中…,正在保存…,
 GUI.SELECT_WEAPON.LABEL,Select weapon,,,,,,,,,,,,,,,,,,,
 GUI.SETTINGS.LABEL,Settings,,Einstellungen,,Impostazioni,Configuración,,,,Настройки,,,,,,,,設定,设置,
+GUI.SETTLER_MANAGEMENT.CHOOSE_WEAPON,Choose Weapon,,,,,,,,,,,,,,,,,,,
 GUI.SETTLER_MANAGEMENT.HAPPINESS,Happiness {{happinessValue}},,,,,,,,,,,,,,,,,,,
 GUI.SETTLER_MANAGEMENT.IMMIGRATION,Immigration,,,,,,,,,,,,,,,,,,,
 GUI.SETTLER_MANAGEMENT.MAIN_HAND.STATUS,The main hand cannot be used. {{status}},,,,,,,,,,,,,,,,,,,

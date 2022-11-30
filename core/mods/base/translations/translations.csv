@@ -626,6 +626,7 @@ GUI.ROTATE_FURNITURE.HINT,This is a longer label as a hint to the player,Press (
 GUI.SAVING_PROMPT,Displayed to the player when the game is paused for autosaving,Saving…
 GUI.SELECT_WEAPON.LABEL,,Select weapon
 GUI.SETTINGS.LABEL,,Settings
+GUI.SETTLER_MANAGEMENT.CHOOSE_WEAPON,,Choose Weapon
 GUI.SETTLER_MANAGEMENT.HAPPINESS,,Happiness {{happinessValue}}
 GUI.SETTLER_MANAGEMENT.IMMIGRATION,,Immigration
 GUI.SETTLER_MANAGEMENT.MAIN_HAND.STATUS,,The main hand cannot be used. {{status}}

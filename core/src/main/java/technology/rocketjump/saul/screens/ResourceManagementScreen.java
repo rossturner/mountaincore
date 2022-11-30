@@ -408,27 +408,15 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 			return i18nTranslator.getDescription(entity).toString();
 		};
 
-		Function<Entity, String> levelOneGroup = entity -> {
-			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-			return attributes.getItemType().getItemTypeName();
-		};
-
-		Function<Entity, String> levelTwoGroup = entity -> {
-			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-			return levelOneGroup.apply(entity) + ":" + attributes.getPrimaryMaterial().getMaterialName() + ":" + attributes.getItemQuality();
-		};
-
 		Function<Entity, String> levelThreeGroup = entity -> {
-			return levelTwoGroup.apply(entity) + ":" + entity.getId();
+			return SettlementItemTracker.GROUP_BY_ITEM_TYPE_MATERIAL_AND_QUALITY.apply(entity) + ":" + entity.getId();
 		};
 
-		List<Function<Entity, String>> groupings = List.of(levelOneGroup, levelTwoGroup, levelThreeGroup);
+		List<Function<Entity, String>> groupings = List.of(SettlementItemTracker.GROUP_BY_ITEM_TYPE, SettlementItemTracker.GROUP_BY_ITEM_TYPE_MATERIAL_AND_QUALITY, levelThreeGroup);
 		List<Function<Entity, String>> displayNameFunctions = List.of(levelOneDisplayName, levelTwoDisplayName, levelThreeDisplayName);
 
-		List<Entity> allEntities = settlementItemTracker.getAllByItemType()
-				.values().stream()
-				.flatMap(it -> it.values().stream())
-				.flatMap(it -> it.values().stream())
+		List<Entity> allEntities = settlementItemTracker.getAll()
+				.stream()
 				.filter(entity -> {
 					ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 					StockpileGroup stockpileGroup = attributes.getItemType().getStockpileGroup();
