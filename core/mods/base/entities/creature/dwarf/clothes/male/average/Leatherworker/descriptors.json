@@ -1,0 +1,35 @@
+[ {
+  "uniqueName" : "Dwarf-Male-Average-Leatherworker-Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "AVERAGE",
+  "gender" : "MALE",
+  "profession" : "LEATHERWORKER",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Male-Average-Leatherworker-Clothing-F.png"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Male-Average-Leatherworker-Clothing-F34.png"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Male-Average-Leatherworker-Clothing-F34.png",
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Male-Average-Leatherworker-Clothing-B34.png"
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Male-Average-Leatherworker-Clothing-B34.png",
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Dwarf-Male-Average-Leatherworker-Clothing-B.png",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
+      }
+    }
+  }
+} ]
