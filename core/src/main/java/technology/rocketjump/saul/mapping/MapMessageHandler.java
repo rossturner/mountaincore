@@ -36,6 +36,7 @@ import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.jobs.model.JobTarget;
 import technology.rocketjump.saul.mapping.tile.*;
 import technology.rocketjump.saul.mapping.tile.designation.Designation;
+import technology.rocketjump.saul.mapping.tile.designation.DesignationDictionary;
 import technology.rocketjump.saul.mapping.tile.floor.TileFloor;
 import technology.rocketjump.saul.mapping.tile.layout.WallLayout;
 import technology.rocketjump.saul.mapping.tile.roof.TileRoof;
@@ -67,7 +68,10 @@ import technology.rocketjump.saul.zones.Zone;
 import java.util.*;
 
 import static java.util.stream.Collectors.toSet;
+import static technology.rocketjump.saul.entities.model.EntityType.FURNITURE;
+import static technology.rocketjump.saul.mapping.tile.TileExploration.EXPLORED;
 import static technology.rocketjump.saul.mapping.tile.roof.RoofConstructionState.NONE;
+import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.CONSTRUCTED;
 import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.OPEN;
 import static technology.rocketjump.saul.settlement.notifications.NotificationType.AREA_REVEALED;
 
@@ -87,6 +91,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 	private final MechanismEntityFactory mechanismEntityFactory;
 	private final MechanismType pipeMechanismType;
 	private final I18nTranslator i18nTranslator;
+	private final Designation deconstructDesignation;
 
 	private GameContext gameContext;
 
@@ -101,7 +106,8 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 							 RoofConstructionManager roofConstructionManager, ParticleEffectTypeDictionary particleEffectTypeDictionary,
 							 SoundAssetDictionary soundAssetDictionary, FloorTypeDictionary floorTypeDictionary,
 							 MechanismTypeDictionary mechanismTypeDictionary, MechanismEntityAttributesFactory mechanismEntityAttributesFactory,
-							 MechanismEntityFactory mechanismEntityFactory, I18nTranslator i18nTranslator) {
+							 MechanismEntityFactory mechanismEntityFactory, I18nTranslator i18nTranslator,
+							 DesignationDictionary designationDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.outdoorLightProcessor = outdoorLightProcessor;
 		this.interactionStateContainer = interactionStateContainer;
@@ -118,6 +124,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 		this.mechanismEntityFactory = mechanismEntityFactory;
 		this.pipeMechanismType = mechanismTypeDictionary.getByName("Pipe");
 		this.i18nTranslator = i18nTranslator;
+		this.deconstructDesignation = designationDictionary.getByName("DECONSTRUCT");
 
 		for (FloorType floorType : floorTypeDictionary.getAllDefinitions()) {
 			if (floorType.isConstructed()) {
@@ -369,6 +376,37 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 									}
 								}
 							}
+							case DECONSTRUCT -> {
+								switch (interactionStateContainer.getGameViewMode()) {
+									case DEFAULT -> {
+										if (tile.getFloor().hasBridge() || tile.hasDoorway() || tile.getEntities().stream().anyMatch(e -> e.getType().equals(FURNITURE)) ||
+												tile.hasChannel() || (tile.hasFloor() && tile.getFloor().getFloorType().isConstructed()) ||
+												(tile.hasWall() && tile.getWall().getWallType().isConstructed())) {
+											if (tile.getDesignation() == null) {
+
+												tile.setDesignation(deconstructDesignation);
+												messageDispatcher.dispatchMessage(MessageType.DESIGNATION_APPLIED, new ApplyDesignationMessage(tile, deconstructDesignation, interactionStateContainer.getInteractionMode()));
+											}
+										}
+									}
+									case MECHANISMS -> {
+										if (tile.getExploration().equals(EXPLORED) && tile.hasPowerMechanism()) {
+											messageDispatcher.dispatchMessage(MessageType.MECHANISM_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
+										}
+									}
+									case PIPING -> {
+										if (tile.getExploration().equals(EXPLORED) && tile.hasPipe()) {
+											messageDispatcher.dispatchMessage(MessageType.PIPE_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
+										}
+									}
+									case ROOFING_INFO -> {
+										if (tile.getExploration().equals(EXPLORED) && tile.getRoof().getState().equals(CONSTRUCTED) &&
+												tile.getRoof().getConstructionState().equals(NONE)) {
+											messageDispatcher.dispatchMessage(MessageType.ROOF_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
+										}
+									}
+								}
+							}
 							case SET_JOB_PRIORITY -> {
 								JobPriority priorityToApply = interactionStateContainer.getJobPriorityToApply();
 
@@ -392,19 +430,10 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 									messageDispatcher.dispatchMessage(MessageType.ROOF_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, true));
 								}
 							}
-							case DECONSTRUCT_ROOFING -> {
-								messageDispatcher.dispatchMessage(MessageType.ROOF_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
-							}
 							case DESIGNATE_PIPING -> {
 								if (interactionStateContainer.getInteractionMode().tileDesignationCheck.shouldDesignationApply(tile)) {
 									messageDispatcher.dispatchMessage(MessageType.PIPE_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, true));
 								}
-							}
-							case DECONSTRUCT_PIPING -> {
-								messageDispatcher.dispatchMessage(MessageType.PIPE_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
-							}
-							case DECONSTRUCT_MECHANISMS -> {
-								messageDispatcher.dispatchMessage(MessageType.MECHANISM_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
 							}
 							default -> Logger.warn(String.format("Unhandled area selection message %s in %s", interactionStateContainer.getInteractionMode().name(), getClass().getSimpleName()));
 						}

@@ -19,6 +19,7 @@ import technology.rocketjump.saul.jobs.JobFactory;
 import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
+import technology.rocketjump.saul.mapping.tile.designation.DesignationDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
@@ -79,6 +80,8 @@ public class EntityMessageHandlerTest {
 	private GameMaterialDictionary mockMaterialDictionary;
 	@Mock
 	private CreatureTracker mockCreatureTracker;
+	@Mock
+	private DesignationDictionary mockDesignationDictionary;
 
 	@Before
 	public void setUp() throws Exception {
@@ -87,7 +90,7 @@ public class EntityMessageHandlerTest {
 		entityMessageHandler = new EntityMessageHandler(messageDispatcher, mockAssetUpdater, mockJobFactory,
 				mockEntityStore, mockSettlementItemTracker, mockSettlementFurnitureTracker, mockSettlerTracker, mockCreatureTracker, mockOngoingEffectTracker, mockRoomStore,
 				mockItemEntityAttributesFactory, mockItemEntityFactory, mockItemTypeDictionary, mockI18nTranslator, mockJobStore,
-				mockMaterialDictionary, mockSoundAssetDictionary, mockParticleEffectDictionary);
+				mockMaterialDictionary, mockSoundAssetDictionary, mockParticleEffectDictionary, mockDesignationDictionary);
 
 		gameContext = new GameContext();
 		gameContext.setAreaMap(mockAreaMap);

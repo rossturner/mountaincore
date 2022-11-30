@@ -21,6 +21,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import static technology.rocketjump.saul.mapping.tile.TileExploration.UNEXPLORED;
+import static technology.rocketjump.saul.mapping.tile.roof.RoofConstructionState.NONE;
+import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.CONSTRUCTED;
 import static technology.rocketjump.saul.rendering.camera.TileBoundingBox.*;
 import static technology.rocketjump.saul.ui.InWorldUIRenderer.insideSelectionArea;
 
@@ -93,8 +95,9 @@ public class RoofingViewModeRenderer {
 							} else {
 								renderExistingRoofConstruction(x, y, mapTile, spriteBatch, blinkState);
 							}
-						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT_ROOFING)) {
-							if (shouldHighlight(mapTile)) {
+						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT)) {
+							if (mapTile.getRoof().getState().equals(CONSTRUCTED) &&
+									mapTile.getRoof().getConstructionState().equals(NONE)) {
 								spriteBatch.setColor(RoofConstructionState.PENDING_DECONSTRUCTION.renderColor);
 								spriteBatch.draw(RoofConstructionState.PENDING_DECONSTRUCTION.icon, x, y, 1, 1);
 							} else {

@@ -157,8 +157,8 @@ public class MechanismsViewModeRenderer {
 					if (insideSelectionArea(minDraggingTile, maxDraggingTile, x, y, interactionStateContainer)) {
 						if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL)) {
 							// Don't show designations
-						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT_MECHANISMS)) {
-							if (shouldHighlight(mapTile)) {
+						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT)) {
+							if (mapTile.hasPowerMechanism()) {
 								spriteBatch.setColor(PipeConstructionState.PENDING_DECONSTRUCTION.renderColor);
 								spriteBatch.draw(deconstructSprite, x, y, 1, 1);
 							} else {

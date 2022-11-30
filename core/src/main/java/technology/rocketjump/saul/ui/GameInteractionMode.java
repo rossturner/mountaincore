@@ -18,7 +18,6 @@ import java.util.Map;
 import static technology.rocketjump.saul.entities.model.EntityType.*;
 import static technology.rocketjump.saul.mapping.tile.TileExploration.EXPLORED;
 import static technology.rocketjump.saul.mapping.tile.roof.RoofConstructionState.NONE;
-import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.CONSTRUCTED;
 import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.OPEN;
 
 // MODDING extract this enum to data-driven set of behaviours (when we know how to)
@@ -78,15 +77,7 @@ public enum GameInteractionMode {
 	CANCEL_ATTACK_CREATURE(GameCursor.CANCEL, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
 			mapTile.getUnderTile() != null && mapTile.getUnderTile().getQueuedMechanismType() != null, true),
 
-	DECONSTRUCT(GameCursor.DECONSTRUCT, "DECONSTRUCT", mapTile -> {
-		return mapTile.getFloor().hasBridge() || mapTile.hasDoorway() || mapTile.getEntities().stream().anyMatch(e -> e.getType().equals(FURNITURE)) ||
-				mapTile.hasChannel() || (mapTile.hasFloor() && mapTile.getFloor().getFloorType().isConstructed()) ||
-				(mapTile.hasWall() && mapTile.getWall().getWallType().isConstructed());
-	}, true),
-	DECONSTRUCT_MECHANISMS(GameCursor.DECONSTRUCT, null, mapTile -> mapTile.getExploration().equals(EXPLORED) && mapTile.hasPowerMechanism(), true),
-	DECONSTRUCT_PIPING(GameCursor.DECONSTRUCT, null, mapTile -> mapTile.getExploration().equals(EXPLORED) && mapTile.hasPipe(), true),
-	DECONSTRUCT_ROOFING(GameCursor.DECONSTRUCT, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
-			mapTile.getRoof().getState().equals(CONSTRUCTED) && mapTile.getRoof().getConstructionState().equals(NONE), true),
+	DECONSTRUCT(GameCursor.DECONSTRUCT, null, mapTile -> mapTile.getExploration().equals(EXPLORED), true),
 
 	DESIGNATE_ROOFING(GameCursor.ROOFING, null, mapTile -> mapTile.getExploration().equals(EXPLORED) &&
 			mapTile.getRoof().getState().equals(OPEN) && mapTile.getRoof().getConstructionState().equals(NONE), true),

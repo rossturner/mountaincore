@@ -128,8 +128,8 @@ public class PipingViewModeRenderer {
 							} else {
 								renderExistingPipeConstruction(x, y, mapTile, spriteBatch, blinkState);
 							}
-						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT_PIPING)) {
-							if (shouldHighlight(mapTile)) {
+						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT)) {
+							if (mapTile.hasPipe()) {
 								spriteBatch.setColor(PipeConstructionState.PENDING_DECONSTRUCTION.renderColor);
 								spriteBatch.draw(pipesSprite, x, y, 1, 1);
 							} else {
