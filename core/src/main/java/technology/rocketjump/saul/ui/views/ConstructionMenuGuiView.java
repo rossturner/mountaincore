@@ -18,8 +18,8 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
+import static technology.rocketjump.saul.ui.GameInteractionMode.CANCEL;
 import static technology.rocketjump.saul.ui.GameInteractionMode.DECONSTRUCT;
-import static technology.rocketjump.saul.ui.GameInteractionMode.REMOVE_DESIGNATIONS;
 import static technology.rocketjump.saul.ui.views.GuiViewName.BUILD_ROOFING;
 
 @Singleton
@@ -91,7 +91,7 @@ public class ConstructionMenuGuiView implements GuiView, DisplaysText {
 		layoutTable.add(deconstructButton);
 
 		Button cancelButton = buildButton("btn_current_orders_cancel", "GUI.CANCEL_LABEL",
-				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, REMOVE_DESIGNATIONS));
+				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, CANCEL));
 		layoutTable.add(cancelButton);
 	}
 

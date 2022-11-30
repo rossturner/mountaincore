@@ -66,22 +66,6 @@
   },
   "defaultJobPriority" : "NORMAL"
 }, {
-  "designationName" : "REMOVE_CONSTRUCTIONS",
-  "iconName" : "block",
-  "selectionColor" : {
-    "r" : 1.0,
-    "g" : 0.2,
-    "b" : 0.2,
-    "a" : 0.3
-  },
-  "designationColor" : {
-    "r" : 1.0,
-    "g" : 0.2,
-    "b" : 0.2,
-    "a" : 0.3
-  },
-  "defaultJobPriority" : "NORMAL"
-}, {
   "designationName" : "DECONSTRUCT",
   "iconName" : "demolish",
   "selectionColor" : {

@@ -33,6 +33,7 @@ import technology.rocketjump.saul.sprites.DiffuseTerrainSpriteCacheProvider;
 import technology.rocketjump.saul.sprites.TerrainSpriteCache;
 import technology.rocketjump.saul.sprites.model.BridgeTileLayout;
 import technology.rocketjump.saul.sprites.model.QuadrantSprites;
+import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 
 import java.util.Collection;
 import java.util.List;
@@ -40,6 +41,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.rendering.WorldRenderer.CONSTRUCTION_COLOR;
+import static technology.rocketjump.saul.rendering.WorldRenderer.withinDragAreaWhenCancelling;
 
 @Singleton
 public class TerrainRenderer implements Disposable {
@@ -57,6 +59,7 @@ public class TerrainRenderer implements Disposable {
 	private final AlphaMaskSpriteBatch alphaMaskSpriteBatch = new AlphaMaskSpriteBatch();
 	private final WaterRenderer waterRenderer;
 	private final TerrainSpriteCache diffuseTerrainSpriteCache;
+	private final GameInteractionStateContainer interactionStateContainer;
 	private ChannelType channelFloorType;
 	private ChannelType channelEdgeType;
 	private ChannelType channelMaskType;
@@ -64,7 +67,8 @@ public class TerrainRenderer implements Disposable {
 
 	@Inject
 	public TerrainRenderer(FloorOverlapRenderer floorOverlapRenderer, WaterRenderer waterRenderer, ChannelTypeDictionary channelTypeDictionary,
-						   GameMaterialDictionary gameMaterialDictionary, DiffuseTerrainSpriteCacheProvider diffuseTerrainSpriteCacheProvider) {
+						   GameMaterialDictionary gameMaterialDictionary, DiffuseTerrainSpriteCacheProvider diffuseTerrainSpriteCacheProvider,
+						   GameInteractionStateContainer interactionStateContainer) {
 		this.floorOverlapRenderer = floorOverlapRenderer;
 		this.waterRenderer = waterRenderer;
 		channelFloorType = channelTypeDictionary.getByName("channel_floor");
@@ -72,6 +76,7 @@ public class TerrainRenderer implements Disposable {
 		channelMaskType = channelTypeDictionary.getByName("channel_mask");
 		this.dirtMaterial = gameMaterialDictionary.getByName("Dirt");
 		this.diffuseTerrainSpriteCache = diffuseTerrainSpriteCacheProvider.get();
+		this.interactionStateContainer = interactionStateContainer;
 	}
 
 	public void renderFloors(List<MapTile> mapTiles, Camera camera, TerrainSpriteCache spriteCache, RenderMode renderMode) {
@@ -171,6 +176,10 @@ public class TerrainRenderer implements Disposable {
 		vertexColorSpriteBatch.begin();
 		vertexColorSpriteBatch.setColor(CONSTRUCTION_COLOR);
 		for (Construction terrainConstruction : terrainConstructionsToRender) {
+			if (withinDragAreaWhenCancelling(terrainConstruction, interactionStateContainer)) {
+				continue;
+			}
+
 			if (terrainConstruction.getConstructionType().equals(ConstructionType.WALL_CONSTRUCTION)) {
 				WallConstruction wallConstruction = (WallConstruction) terrainConstruction;
 				renderWall(terrainConstruction.getPrimaryLocation().x, terrainConstruction.getPrimaryLocation().y, wallConstruction.getLayout(), wallConstruction.getId(), wallConstruction.getWallTypeToConstruct(),

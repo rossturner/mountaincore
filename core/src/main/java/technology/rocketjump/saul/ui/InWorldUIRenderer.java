@@ -375,7 +375,7 @@ public class InWorldUIRenderer {
 				if (mapTile != null) {
 
 					if (insideSelectionArea(minDraggingTile, maxDraggingTile, x, y, interactionStateContainer)) {
-						if (interactionStateContainer.getInteractionMode().equals(REMOVE_DESIGNATIONS)) {
+						if (interactionStateContainer.getInteractionMode().equals(CANCEL)) {
 							// Don't show designations
 						} else if (interactionStateContainer.getInteractionMode().designationName != null) { // Is a designation
 							// This is within dragging area

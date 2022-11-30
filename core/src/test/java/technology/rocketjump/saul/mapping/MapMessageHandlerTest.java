@@ -19,6 +19,7 @@ import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.TileNeighbours;
+import technology.rocketjump.saul.mapping.tile.designation.DesignationDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
@@ -68,6 +69,8 @@ public class MapMessageHandlerTest {
 	private MechanismEntityFactory mockMechanismEntityFactory;
 	@Mock
 	private I18nTranslator mockI18nTranslator;
+	@Mock
+	private DesignationDictionary mockDesignationDictionary;
 
 	@Test
 	public void removeWall_joinsRegions_keepsZones() {
@@ -151,7 +154,8 @@ public class MapMessageHandlerTest {
 		MapMessageHandler mapMessageHandler = new MapMessageHandler(mockMessageDispatcher, mockOutdoorLightProcessor,
 				mockInteractionStateContainer, mockRoomfactory, mockRoomStore, mockJobStore, mockStockpileComponentUpdater,
 				mockRoofConstructionManager, mockParticleEffectTypeDictionary, mockSoundAssetDictionary, mockFloorTypeDictionary,
-				mockMechanismTypeDictionary, mockMechanismEntityAttributesFactory, mockMechanismEntityFactory, mockI18nTranslator);
+				mockMechanismTypeDictionary, mockMechanismEntityAttributesFactory, mockMechanismEntityFactory, mockI18nTranslator,
+				mockDesignationDictionary);
 		GameContext gameContext = new GameContext();
 		gameContext.setAreaMap(map);
 		mapMessageHandler.onContextChange(gameContext);
