@@ -22,15 +22,14 @@ import com.google.inject.Inject;
 import technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
-import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
-import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
-import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
-import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
+import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.components.furniture.SleepingPositionComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.saul.entities.model.physical.creature.status.LossOfMainHand;
+import technology.rocketjump.saul.entities.model.physical.creature.status.LossOfOffHand;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
@@ -45,10 +44,7 @@ import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
-import technology.rocketjump.saul.ui.i18n.DisplaysText;
-import technology.rocketjump.saul.ui.i18n.I18nText;
-import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nWord;
+import technology.rocketjump.saul.ui.i18n.*;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
@@ -480,20 +476,61 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			armourColumn.add(armourIcon).expandX().row();
 			armourColumn.add(armourSelectButton).spaceTop(10f).spaceBottom(6f).row();
 
+			Stack weaponStack = new Stack();
+			weaponStack.add(weaponColumn);
+			Stack shieldStack = new Stack();
+			shieldStack.add(shieldColumn);
+
 			if (canUseWeapon) {
 				enable(weaponColumn);
 			} else {
 				disable(weaponColumn);
+				final I18nText disableReason;
+
+				//TODO expand me in future or reverse lookup
+				I18nString statusReason = I18nWord.BLANK;
+				if (settler.getComponent(StatusComponent.class) != null && settler.getComponent(StatusComponent.class).contains(LossOfMainHand.class)) {
+					statusReason = i18nTranslator.getTranslatedString(new LossOfMainHand().getI18Key());
+				}
+				disableReason = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.MAIN_HAND.STATUS",
+						Map.of("status", statusReason));
+
+				//ugly but works
+				Image invisibleOverlay = new Image(managementSkin.getDrawable("invisible_pixel"));
+				invisibleOverlay.setWidth(shieldColumn.getMinWidth());
+				invisibleOverlay.setHeight(shieldColumn.getMinHeight());
+				weaponStack.add(invisibleOverlay);
+				tooltipFactory.simpleTooltip(invisibleOverlay, disableReason, TooltipLocationHint.BELOW);
 			}
 
 			if (canUseShield) {
 				enable(shieldColumn);
 			} else {
 				disable(shieldColumn);
+				final I18nText disableReason;
+				if (weaponIsTwoHanded) {
+					ItemEntityAttributes itemEntityAttributes = (ItemEntityAttributes) assignedWeapon.getPhysicalEntityComponent().getAttributes();
+					disableReason = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.OFF_HAND.TWO_HANDED_WEAPON",
+							Map.of("weaponName", i18nTranslator.getTranslatedString(itemEntityAttributes.getItemType().getI18nKey())));
+				} else {
+					//TODO expand me in future or reverse lookup
+					I18nString statusReason = I18nWord.BLANK;
+					if (settler.getComponent(StatusComponent.class) != null && settler.getComponent(StatusComponent.class).contains(LossOfOffHand.class)) {
+						statusReason = i18nTranslator.getTranslatedString(new LossOfOffHand().getI18Key());
+					}
+					disableReason = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.OFF_HAND.STATUS",
+							Map.of("status", statusReason));
+				}
+				//ugly but works
+				Image invisibleOverlay = new Image(managementSkin.getDrawable("invisible_pixel"));
+				invisibleOverlay.setWidth(shieldColumn.getMinWidth());
+				invisibleOverlay.setHeight(shieldColumn.getMinHeight());
+				shieldStack.add(invisibleOverlay);
+				tooltipFactory.simpleTooltip(invisibleOverlay, disableReason, TooltipLocationHint.BELOW);
 			}
 
-			table.add(weaponColumn).growX().top().spaceRight(24).spaceLeft(24); //todo fix the position when switching between military and civilian
-			table.add(shieldColumn).growX().top().spaceRight(24).spaceLeft(24);
+			table.add(weaponStack).growX().top().spaceRight(24).spaceLeft(24); //todo fix the position when switching between military and civilian
+			table.add(shieldStack).growX().top().spaceRight(24).spaceLeft(24);
 			table.add(armourColumn).growX().top().spaceRight(24).spaceLeft(24);
 		}
 

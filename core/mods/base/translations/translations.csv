@@ -628,6 +628,9 @@ GUI.SELECT_WEAPON.LABEL,,Select weapon
 GUI.SETTINGS.LABEL,,Settings
 GUI.SETTLER_MANAGEMENT.HAPPINESS,,Happiness {{happinessValue}}
 GUI.SETTLER_MANAGEMENT.IMMIGRATION,,Immigration
+GUI.SETTLER_MANAGEMENT.MAIN_HAND.STATUS,,The main hand cannot be used. {{status}}
+GUI.SETTLER_MANAGEMENT.OFF_HAND.STATUS,,The off hand cannot be used. {{status}}
+GUI.SETTLER_MANAGEMENT.OFF_HAND.TWO_HANDED_WEAPON,,The {{weaponName}} requires two hands to use
 GUI.SETTLER_MANAGEMENT.POPULATION_STATISTICS,,Civilian Population {{civilianCount}} (Civilian Beds {{civilianBedCount}}) - Military Population {{militaryCount}} (Military Beds {{militaryBedCount}}) - Total Population {{populationCount}}
 GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN,,Civilian
 GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY,,Military
