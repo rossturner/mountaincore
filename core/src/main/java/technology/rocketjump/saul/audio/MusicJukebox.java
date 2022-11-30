@@ -338,17 +338,20 @@ public class MusicJukebox implements Telegraph, AssetDisposable, GameContextAwar
 
 	@Override
 	public void onContextChange(GameContext gameContext) {
-		setState(PEACEFUL);
+		this.currentInvasion = getCurrentInvasion(gameContext);
+		setState(this.currentInvasion != null ? INVASION_STINGER : PEACEFUL);
+	}
+
+	public static InvasionCreatureGroup getCurrentInvasion(GameContext gameContext) {
 		if (gameContext != null && gameContext.getEntities() != null) {
 			for (Entity entity : gameContext.getEntities().values()) {
 				if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour &&
-					creatureBehaviour.getCreatureGroup() != null && creatureBehaviour.getCreatureGroup() instanceof InvasionCreatureGroup invasionCreatureGroup) {
-					this.currentInvasion = invasionCreatureGroup;
-					setState(INVASION_STINGER);
-					break;
+						creatureBehaviour.getCreatureGroup() != null && creatureBehaviour.getCreatureGroup() instanceof InvasionCreatureGroup invasionCreatureGroup) {
+					return invasionCreatureGroup;
 				}
 			}
 		}
+		return null;
 	}
 
 	@Override

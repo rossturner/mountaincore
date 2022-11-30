@@ -1,9 +1,11 @@
 package technology.rocketjump.saul.ui.views;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -12,6 +14,7 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.combat.CombatTracker;
+import technology.rocketjump.saul.entities.behaviour.creature.InvasionCreatureGroup;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -21,60 +24,71 @@ import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.settlement.notifications.Notification;
 import technology.rocketjump.saul.ui.Selectable;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.*;
+import technology.rocketjump.saul.ui.widgets.text.DecoratedStringFactory;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Singleton
-public class NotificationGuiView implements GuiView, GameContextAware, Telegraph {
+import static technology.rocketjump.saul.audio.MusicJukebox.getCurrentInvasion;
+import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
+@Singleton
+public class NotificationGuiView implements GuiView, GameContextAware, Telegraph, DisplaysText {
+
+	private static final float TIME_BETWEEN_UPDATES = 4f;
 	private final MessageDispatcher messageDispatcher;
 	private final IconButtonFactory iconButtonFactory;
 	private final GameDialogDictionary gameDialogDictionary;
 	private final CombatTracker combatTracker;
+	private final DecoratedStringFactory decoratedStringFactory;
+	private final TooltipFactory tooltipFactory;
 	private Table table;
 	private GameContext gameContext;
 	private SoundAsset receiveNotificationSound;
 	private SoundAsset openNotificationSound;
 
-	private I18nTextButton combatInProgressButton;
+	private final Button invasionInProgressButton;
+	private final Button combatInProgressButton;
 	private int combatSelectionCursor = -1;
 
 	private final Map<Notification, IconButton> currentNotificationButtons = new LinkedHashMap<>();
+	private boolean invasionInProgress; // TODO probably want this held more centrally and with messages to say when it changes
+	private float timeSinceLastUpdate;
 
 	@Inject
 	public NotificationGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 							   IconButtonFactory iconButtonFactory, GameDialogDictionary gameDialogDictionary,
 							   CombatTracker combatTracker, SoundAssetDictionary soundAssetDictionary,
-							   I18nWidgetFactory i18nWidgetFactory) {
+							   DecoratedStringFactory decoratedStringFactory, TooltipFactory tooltipFactory) {
 		this.iconButtonFactory = iconButtonFactory;
 		this.messageDispatcher = messageDispatcher;
 		this.gameDialogDictionary = gameDialogDictionary;
 		this.combatTracker = combatTracker;
-		Skin uiSkin = guiSkinRepository.getDefault();
+		this.decoratedStringFactory = decoratedStringFactory;
+		this.tooltipFactory = tooltipFactory;
+		Skin skin = guiSkinRepository.getMainGameSkin();
 		this.receiveNotificationSound = soundAssetDictionary.getByName("NewNotification");
 		this.openNotificationSound = soundAssetDictionary.getByName("NotificationOpen");
 
-		table = new Table(uiSkin);
-		table.pad(6);
+		table = new Table(skin);
+		table.pad(10);
+		table.defaults().pad(16);
 
 		messageDispatcher.addListener(this, MessageType.POST_NOTIFICATION);
+		messageDispatcher.addListener(this, MessageType.CREATURE_ENTERED_COMBAT);
+		messageDispatcher.addListener(this, MessageType.CREATURE_EXITED_COMBAT);
+		messageDispatcher.addListener(this, MessageType.INVASION_ABOUT_TO_BEGIN);
 
-		combatInProgressButton = i18nWidgetFactory.createTextButton("GUI.COMBAT_IN_PROGRESS");
-		combatInProgressButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
-				Entity entity = getNextEntityInCombat();
-				if (entity != null) {
-					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, entity.getLocationComponent().getWorldOrParentPosition());
-					messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(entity, 0));
-				}
-			}
-		});
+		invasionInProgressButton = new Button(skin.getDrawable("asset_battle_alert"));
+		combatInProgressButton = new Button(skin.getDrawable("asset_combat_alert"));
 	}
 
 	private Entity getNextEntityInCombat() {
@@ -96,16 +110,55 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 	}
 
 	@Override
-	public void update() {
-		if (gameContext != null) {
-			table.clearChildren();
-
-			if (!combatTracker.getEntitiesInCombat().isEmpty()) {
-				table.add(combatInProgressButton).right().pad(4).row();
+	public void rebuildUI() {
+		combatInProgressButton.clearListeners();
+		combatInProgressButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Entity entity = getNextEntityInCombat();
+				if (entity != null) {
+					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, entity.getLocationComponent().getWorldOrParentPosition());
+					messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(entity, 0));
+				}
 			}
+		});
+		combatInProgressButton.addListener(new ChangeCursorOnHover(combatInProgressButton, GameCursor.SELECT, messageDispatcher));
+		tooltipFactory.simpleTooltip(combatInProgressButton, "GUI.COMBAT_LABEL", TooltipLocationHint.BELOW);
 
-			for (IconButton iconButton : currentNotificationButtons.values()) {
-				table.add(iconButton).right().pad(4).row();
+		invasionInProgressButton.clearListeners();
+		invasionInProgressButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				InvasionCreatureGroup invasionGroup = getCurrentInvasion(gameContext);
+				if (invasionGroup != null) {
+					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, toVector(invasionGroup.getHomeLocation()));
+				}
+			}
+		});
+		invasionInProgressButton.addListener(new ChangeCursorOnHover(invasionInProgressButton, GameCursor.SELECT, messageDispatcher));
+		tooltipFactory.simpleTooltip(invasionInProgressButton, "GUI.INVASION_LABEL", TooltipLocationHint.BELOW);
+
+		table.clearChildren();
+
+		if (invasionInProgress) {
+			table.add(invasionInProgressButton).right().row();
+		}
+		if (!combatTracker.getEntitiesInCombat().isEmpty()) {
+			table.add(combatInProgressButton).right().row();
+		}
+
+	}
+
+	@Override
+	public void update() {
+		if (invasionInProgress) {
+			timeSinceLastUpdate += Gdx.graphics.getDeltaTime();
+			if (timeSinceLastUpdate > TIME_BETWEEN_UPDATES) {
+				InvasionCreatureGroup currentInvasion = getCurrentInvasion(gameContext);
+				if (currentInvasion == null || currentInvasion.getMemberIds().isEmpty()) {
+					invasionInProgress = false;
+					rebuildUI();
+				}
 			}
 		}
 	}
@@ -126,7 +179,8 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 		for (Notification notification : gameContext.getSettlementState().queuedNotifications) {
 			addIconButton(notification);
 		}
-		update();
+		invasionInProgress = getCurrentInvasion(gameContext) != null;
+		rebuildUI();
 	}
 
 	@Override
@@ -134,11 +188,24 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 		currentNotificationButtons.clear();
 		table.clearChildren();
 		combatSelectionCursor = -1;
+
+		timeSinceLastUpdate = 0;
+		invasionInProgress = false;
 	}
 
 	@Override
 	public boolean handleMessage(Telegram msg) {
 		switch (msg.message) {
+			case MessageType.CREATURE_ENTERED_COMBAT:
+			case MessageType.CREATURE_EXITED_COMBAT: {
+				rebuildUI();
+				return true;
+			}
+			case MessageType.INVASION_ABOUT_TO_BEGIN: {
+				this.invasionInProgress = true;
+				rebuildUI();
+				return false;
+			}
 			case MessageType.POST_NOTIFICATION: {
 				Notification notification = (Notification) msg.extraInfo;
 

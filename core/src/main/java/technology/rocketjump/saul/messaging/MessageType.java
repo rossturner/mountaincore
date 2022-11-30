@@ -278,9 +278,11 @@ public class MessageType {
 	public static final int CREATURE_DAMAGE_APPLIED = 1903;
 	public static final int CREATURE_ORGAN_DAMAGE_APPLIED = 1904;
 	public static final int CREATURE_ENTERING_COMBAT = 1905;
-	public static final int CREATURE_EXITING_COMBAT = 1906;
-	public static final int COMBAT_ACTION_CHANGED = 1907;
-	public static final int TRIGGER_ATTACK_OF_OPPORTUNITY = 1908;
+	public static final int CREATURE_ENTERED_COMBAT = 1906;
+	public static final int CREATURE_EXITING_COMBAT = 1907;
+	public static final int CREATURE_EXITED_COMBAT = 1908;
+	public static final int COMBAT_ACTION_CHANGED = 1909;
+	public static final int TRIGGER_ATTACK_OF_OPPORTUNITY = 1910;
 
 	// Military messages
 	public static final int MILITARY_ASSIGNMENT_CHANGED = 2000;

@@ -77,7 +77,7 @@ import static technology.rocketjump.saul.entities.model.EntityType.*;
 public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 
 	private final MessageDispatcher messageDispatcher;
-	private final Skin uiSkin;
+	private final Skin skin;
 	private final Label titleLabel;
 	private final SelectBox<DebugAction> actionSelect;
 	private final SelectBox<ItemType> itemTypeSelect;
@@ -123,7 +123,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 						ImmigrationManager immigrationManager, ParticleEffectTypeDictionary particleEffectTypeDictionary,
 						InvasionDefinitionDictionary invasionDefinitionDictionary) {
 		this.messageDispatcher = messageDispatcher;
-		this.uiSkin = guiSkinRepository.getDefault();
+		this.skin = guiSkinRepository.getMenuSkin();
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.materialDictionary = materialDictionary;
 		this.itemEntityAttributesFactory = itemEntityAttributesFactory;
@@ -139,11 +139,11 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
 		this.invasionDefinitionDictionary = invasionDefinitionDictionary;
 
-		layoutTable = new Table(uiSkin);
+		layoutTable = new Table(skin);
 
-		this.titleLabel = new Label("Debug Menu - press middle mouse button to trigger action", uiSkin);
+		this.titleLabel = new Label("Debug Menu - press middle mouse button to trigger action", skin.get("white_text", Label.LabelStyle.class));
 
-		this.actionSelect =  new SelectBox<>(uiSkin);
+		this.actionSelect =  new SelectBox<>(skin);
 		this.actionSelect.setItems(DebugAction.values());
 		this.actionSelect.setSelected(currentAction);
 		actionSelect.addListener(new ChangeListener() {
@@ -155,7 +155,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 			}
 		});
 
-		this.itemTypeSelect = new SelectBox<>(uiSkin);
+		this.itemTypeSelect = new SelectBox<>(skin);
 		Array<ItemType> itemTypes = new Array<>();
 		for (ItemType itemType : this.itemTypeDictionary.getAll()) {
 			itemTypes.add(itemType);
@@ -172,7 +172,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 			}
 		});
 
-		this.materialSelect = new SelectBox<>(uiSkin);
+		this.materialSelect = new SelectBox<>(skin);
 		materialSelect.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -181,14 +181,14 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 			}
 		});
 
-		this.raceSelect = new SelectBox<>(uiSkin);
+		this.raceSelect = new SelectBox<>(skin);
 		raceSelect.setItems(raceDictionary.getAll().stream().filter(race -> !"Dwarf".equals(race.getName())).toArray(Race[]::new));
 
-		this.needSelect = new SelectBox<>(uiSkin);
+		this.needSelect = new SelectBox<>(skin);
 		this.needSelect.setItems(EntityNeed.values());
 
-		this.plantSpeciesSelect = new SelectBox<>(uiSkin);
-		this.plantSpeciesGrowthStageSelect = new SelectBox<>(uiSkin);
+		this.plantSpeciesSelect = new SelectBox<>(skin);
+		this.plantSpeciesGrowthStageSelect = new SelectBox<>(skin);
 
 		this.plantSpeciesSelect.addListener(new ChangeListener() {
 			@Override
@@ -204,7 +204,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				.filter(x -> x % 10 == 0)
 				.boxed()
 				.toArray(Integer[]::new);
-		this.needValueSelect = new SelectBox<>(uiSkin);
+		this.needValueSelect = new SelectBox<>(skin);
 		this.needValueSelect.setItems(needValues);
 
 
@@ -216,7 +216,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 			}
 		}
 
-		this.bodyPartSelect = new SelectBox<>(uiSkin);
+		this.bodyPartSelect = new SelectBox<>(skin);
 		this.bodyPartSelect.setItems(stringToBodyPart.keySet().toArray(String[]::new));
 
 		messageDispatcher.addListener(this, MessageType.TOGGLE_DEBUG_VIEW);
@@ -468,27 +468,27 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 
 			layoutTable.clearChildren();
 			if (displayed) {
-				layoutTable.background("default-rect");
-				layoutTable.add(titleLabel).pad(5).row();
-				layoutTable.add(actionSelect).pad(5).left().row();
+				layoutTable.background("save_bg_patch");
+				layoutTable.add(titleLabel).pad(15).row();
+				layoutTable.add(actionSelect).pad(15).left().row();
 
 				if (currentAction.equals(DebugAction.SPAWN_ITEM)) {
-					layoutTable.add(itemTypeSelect).pad(5).left().row();
-					layoutTable.add(materialSelect).pad(5).left().row();
+					layoutTable.add(itemTypeSelect).pad(15).left().row();
+					layoutTable.add(materialSelect).pad(15).left().row();
 				} else if (currentAction.equals(DebugAction.TOGGLE_PIPE)) {
-					layoutTable.add(materialSelect).pad(5).left().row();
+					layoutTable.add(materialSelect).pad(15).left().row();
 				} else if (currentAction.equals(DebugAction.SPAWN_CREATURE)) {
-					layoutTable.add(raceSelect).pad(5).left().row();
+					layoutTable.add(raceSelect).pad(15).left().row();
 				} else if (currentAction.equals(DebugAction.CHANGE_CREATURE_NEED)) {
-					layoutTable.add(needSelect).pad(5).left().row();
-					layoutTable.add(needValueSelect).pad(5).left().row();
+					layoutTable.add(needSelect).pad(15).left().row();
+					layoutTable.add(needValueSelect).pad(15).left().row();
 				} else if (currentAction.equals(DebugAction.DESTROY_BODY_PART)) {
 
 
-					layoutTable.add(bodyPartSelect).pad(5).left().row();
+					layoutTable.add(bodyPartSelect).pad(15).left().row();
 				} else if (currentAction.equals(DebugAction.SPAWN_PLANT)) {
-					layoutTable.add(plantSpeciesSelect).pad(5).left().row();
-					layoutTable.add(plantSpeciesGrowthStageSelect).pad(5).left().row();
+					layoutTable.add(plantSpeciesSelect).pad(15).left().row();
+					layoutTable.add(plantSpeciesGrowthStageSelect).pad(15).left().row();
 				}
 			} else {
 				layoutTable.setBackground((Drawable) null);
