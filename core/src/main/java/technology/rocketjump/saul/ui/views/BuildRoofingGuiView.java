@@ -22,7 +22,7 @@ import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
-import static technology.rocketjump.saul.ui.GameInteractionMode.CANCEL_ROOFING;
+import static technology.rocketjump.saul.ui.GameInteractionMode.CANCEL;
 import static technology.rocketjump.saul.ui.GameInteractionMode.DECONSTRUCT_ROOFING;
 import static technology.rocketjump.saul.ui.views.GuiViewName.BUILD_ROOFING;
 import static technology.rocketjump.saul.ui.views.GuiViewName.CONSTRUCTION_MENU;
@@ -75,7 +75,7 @@ public class BuildRoofingGuiView implements GuiView, DisplaysText {
 		layoutTable.add(deconstructButton);
 
 		Button cancelButton = buildButton("btn_current_orders_cancel", "GUI.CANCEL_LABEL",
-				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, CANCEL_ROOFING));
+				() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, CANCEL));
 		layoutTable.add(cancelButton);
 	}
 

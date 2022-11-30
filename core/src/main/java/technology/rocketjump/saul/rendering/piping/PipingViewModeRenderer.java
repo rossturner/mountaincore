@@ -118,7 +118,7 @@ public class PipingViewModeRenderer {
 					}
 
 					if (insideSelectionArea(minDraggingTile, maxDraggingTile, x, y, interactionStateContainer)) {
-						if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL_PIPING)) {
+						if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL)) {
 							// Don't show designations
 						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DESIGNATE_PIPING)) {
 							// This is within dragging area

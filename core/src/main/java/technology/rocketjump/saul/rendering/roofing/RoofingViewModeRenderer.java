@@ -83,7 +83,7 @@ public class RoofingViewModeRenderer {
 					}
 
 					if (insideSelectionArea(minDraggingTile, maxDraggingTile, x, y, interactionStateContainer)) {
-						if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL_ROOFING)) {
+						if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL)) {
 							// Don't show designations
 						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DESIGNATE_ROOFING)) {
 							// This is within dragging area

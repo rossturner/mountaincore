@@ -41,6 +41,7 @@ import technology.rocketjump.saul.mapping.tile.layout.WallLayout;
 import technology.rocketjump.saul.mapping.tile.roof.TileRoof;
 import technology.rocketjump.saul.mapping.tile.roof.TileRoofState;
 import technology.rocketjump.saul.mapping.tile.underground.ChannelLayout;
+import technology.rocketjump.saul.mapping.tile.underground.PipeConstructionState;
 import technology.rocketjump.saul.mapping.tile.underground.UnderTile;
 import technology.rocketjump.saul.mapping.tile.wall.Wall;
 import technology.rocketjump.saul.materials.model.GameMaterial;
@@ -66,6 +67,8 @@ import technology.rocketjump.saul.zones.Zone;
 import java.util.*;
 
 import static java.util.stream.Collectors.toSet;
+import static technology.rocketjump.saul.mapping.tile.roof.RoofConstructionState.NONE;
+import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.OPEN;
 import static technology.rocketjump.saul.settlement.notifications.NotificationType.AREA_REVEALED;
 
 @Singleton
@@ -335,9 +338,35 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 						}
 					} else {
 						switch (interactionStateContainer.getInteractionMode()) {
-							case REMOVE_DESIGNATIONS -> {
-								if (tile.getDesignation() != null) {
-									messageDispatcher.dispatchMessage(MessageType.REMOVE_DESIGNATION, new RemoveDesignationMessage(tile));
+							case CANCEL -> {
+
+								switch (interactionStateContainer.getGameViewMode()) {
+									case DEFAULT -> {
+										if (tile.getDesignation() != null) {
+											messageDispatcher.dispatchMessage(MessageType.REMOVE_DESIGNATION, new RemoveDesignationMessage(tile));
+										}
+										if (tile.hasConstruction()) {
+											messageDispatcher.dispatchMessage(MessageType.CANCEL_CONSTRUCTION, tile.getConstruction());
+										}
+									}
+									case ROOFING_INFO -> {
+										if (tile.getRoof().getState().equals(OPEN) && !tile.getRoof().getConstructionState().equals(NONE)) {
+											messageDispatcher.dispatchMessage(MessageType.ROOF_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, false));
+											messageDispatcher.dispatchMessage(MessageType.ROOF_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, false));
+										}
+									}
+									case PIPING -> {
+										if (tile.getUnderTile() != null && tile.getUnderTile().getPipeConstructionState().equals(PipeConstructionState.READY_FOR_CONSTRUCTION)) {
+											messageDispatcher.dispatchMessage(MessageType.PIPE_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, false));
+											messageDispatcher.dispatchMessage(MessageType.PIPE_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, false));
+										}
+									}
+									case MECHANISMS -> {
+										if (tile.getUnderTile() != null && tile.getUnderTile().getQueuedMechanismType() != null) {
+											messageDispatcher.dispatchMessage(MessageType.MECHANISM_CONSTRUCTION_REMOVED, new TileConstructionQueueMessage(tile, false));
+											messageDispatcher.dispatchMessage(MessageType.MECHANISM_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, false));
+										}
+									}
 								}
 							}
 							case SET_JOB_PRIORITY -> {
@@ -363,10 +392,6 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 									messageDispatcher.dispatchMessage(MessageType.ROOF_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, true));
 								}
 							}
-							case CANCEL_ROOFING -> {
-								messageDispatcher.dispatchMessage(MessageType.ROOF_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, false));
-								messageDispatcher.dispatchMessage(MessageType.ROOF_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, false));
-							}
 							case DECONSTRUCT_ROOFING -> {
 								messageDispatcher.dispatchMessage(MessageType.ROOF_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
 							}
@@ -375,16 +400,8 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 									messageDispatcher.dispatchMessage(MessageType.PIPE_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, true));
 								}
 							}
-							case CANCEL_PIPING -> {
-								messageDispatcher.dispatchMessage(MessageType.PIPE_CONSTRUCTION_QUEUE_CHANGE, new TileConstructionQueueMessage(tile, false));
-								messageDispatcher.dispatchMessage(MessageType.PIPE_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, false));
-							}
 							case DECONSTRUCT_PIPING -> {
 								messageDispatcher.dispatchMessage(MessageType.PIPE_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));
-							}
-							case CANCEL_MECHANISMS -> {
-								messageDispatcher.dispatchMessage(MessageType.MECHANISM_CONSTRUCTION_REMOVED, new TileConstructionQueueMessage(tile, false));
-								messageDispatcher.dispatchMessage(MessageType.MECHANISM_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, false));
 							}
 							case DECONSTRUCT_MECHANISMS -> {
 								messageDispatcher.dispatchMessage(MessageType.MECHANISM_DECONSTRUCTION_QUEUE_CHANGE, new TileDeconstructionQueueMessage(tile, true));

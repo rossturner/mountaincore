@@ -155,7 +155,7 @@ public class MechanismsViewModeRenderer {
 					}
 
 					if (insideSelectionArea(minDraggingTile, maxDraggingTile, x, y, interactionStateContainer)) {
-						if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL_MECHANISMS)) {
+						if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL)) {
 							// Don't show designations
 						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT_MECHANISMS)) {
 							if (shouldHighlight(mapTile)) {

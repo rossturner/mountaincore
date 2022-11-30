@@ -1207,15 +1207,6 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 	private boolean handle(ApplyDesignationMessage applyDesignationMessage) {
 
 		switch (applyDesignationMessage.getInteractionMode()) {
-			case REMOVE_CONSTRUCTIONS:
-				if (applyDesignationMessage.getTargetTile().hasConstruction()) {
-					messageDispatcher.dispatchMessage(MessageType.CANCEL_CONSTRUCTION, applyDesignationMessage.getTargetTile().getConstruction());
-				}
-				Designation designation = applyDesignationMessage.getTargetTile().getDesignation();
-				if (designation != null) {
-					messageDispatcher.dispatchMessage(MessageType.REMOVE_DESIGNATION, new RemoveDesignationMessage(applyDesignationMessage.getTargetTile()));
-				}
-				break;
 			case DECONSTRUCT:
 				// deconstruction also applies designation
 				Optional<Entity> optionalFurniture = applyDesignationMessage.getTargetTile().getEntities().stream().filter(e -> e.getType().equals(FURNITURE)).findAny();
