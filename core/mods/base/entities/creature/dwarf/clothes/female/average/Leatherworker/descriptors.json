@@ -1,0 +1,38 @@
+[ {
+  "uniqueName" : "Dwarf-Female-Average-Leatherworker-Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "AVERAGE",
+  "gender" : "FEMALE",
+  "profession" : "LEATHERWORKER",
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Female-Average-Leatherworker-Clothing-F.png"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Female-Average-Leatherworker-Clothing-F34.png",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Female-Average-Leatherworker-Clothing-F34.png",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
+      },
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Female-Average-Leatherworker-Clothing-B34.png"
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Female-Average-Leatherworker-Clothing-B34.png",
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Dwarf-Female-Average-Leatherworker-Clothing-B.png"
+    }
+  }
+} ]

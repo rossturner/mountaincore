@@ -161,7 +161,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 				GuiViewName parentViewName = currentView.getParentViewName();
 				if (parentViewName != null) {
 					switchView(parentViewName);
-				} else {
 				}
 				return true;
 			}

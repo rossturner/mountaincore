@@ -47,6 +47,7 @@ import technology.rocketjump.saul.jobs.model.JobState;
 import technology.rocketjump.saul.jobs.model.JobTarget;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.designation.Designation;
+import technology.rocketjump.saul.mapping.tile.designation.DesignationDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
@@ -65,7 +66,6 @@ import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.settlement.*;
 import technology.rocketjump.saul.settlement.notifications.Notification;
 import technology.rocketjump.saul.settlement.notifications.NotificationType;
-import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 import java.util.*;
@@ -117,6 +117,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 	private ParticleEffectType treeShedLeafEffect;
 	private ParticleEffectType liquidSplashEffect;
 	private ParticleEffectType deconstructParticleEffect;
+	private Designation deconstructDesignation;
 
 	@Inject
 	public EntityMessageHandler(MessageDispatcher messageDispatcher, EntityAssetUpdater entityAssetUpdater,
@@ -126,7 +127,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 								ItemEntityAttributesFactory itemEntityAttributesFactory, ItemEntityFactory itemEntityFactory,
 								ItemTypeDictionary itemTypeDictionary, I18nTranslator i18nTranslator, JobStore jobStore,
 								GameMaterialDictionary materialDictionary, SoundAssetDictionary soundAssetDictionary,
-								ParticleEffectTypeDictionary particleEffectTypeDictionary) {
+								ParticleEffectTypeDictionary particleEffectTypeDictionary, DesignationDictionary designationDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.entityAssetUpdater = entityAssetUpdater;
 		this.jobFactory = jobFactory;
@@ -144,6 +145,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		this.jobStore = jobStore;
 		this.materialDictionary = materialDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
+		this.deconstructDesignation = designationDictionary.getByName("DECONSTRUCT");
+
 
 		this.leafExplosionParticleType = particleEffectTypeDictionary.getByName("Leaf explosion"); // MODDING expose this
 		this.chipExplosionParticleType = particleEffectTypeDictionary.getByName("Chip explosion"); // MODDING expose this
@@ -450,7 +453,6 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 							messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, deconstructionJob);
 
 							// also apply designation to other tiles
-							Designation deconstructDesignation = GameInteractionMode.DECONSTRUCT.getDesignationToApply();
 							if (deconstructDesignation != null) {
 								Set<MapTile> locations = new HashSet<>();
 								locations.add(entityTile);

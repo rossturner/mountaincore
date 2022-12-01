@@ -197,6 +197,8 @@ public class CombatTracker implements Updatable, Telegraph {
 		CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
 		combatStateComponent.setInCombat(false);
 		combatStateComponent.setDefensePool(0);
+
+		messageDispatcher.dispatchMessage(MessageType.CREATURE_EXITED_COMBAT, entity);
 	}
 
 	private Set<Long> getAllCreaturesInFaction(Faction faction) {
@@ -249,6 +251,8 @@ public class CombatTracker implements Updatable, Telegraph {
 			CombatAction combatAction = creatureBehaviour.getCombatBehaviour().selectNewActionForRound(creatureBehaviour.isStunned());
 			combatActionAdded(combatAction);
 		}
+
+		messageDispatcher.dispatchMessage(MessageType.CREATURE_ENTERED_COMBAT, creature);
 	}
 
 	private void creatureLeavingCombat(Entity creature) {

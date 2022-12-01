@@ -1,0 +1,30 @@
+[ {
+  "uniqueName" : "Dwarf-Male-Fat-Leatherworker-Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "FAT",
+  "gender" : "MALE",
+  "profession" : "LEATHERWORKER",
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Male-Fat-Leatherworker-Clothing-F.png"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Male-Fat-Leatherworker-Clothing-F34.png"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Male-Fat-Leatherworker-Clothing-F34.png",
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Male-Fat-Leatherworker-Clothing-B34.png"
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Male-Fat-Leatherworker-Clothing-B34.png",
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Dwarf-Male-Fat-Leatherworker-Clothing-B.png"
+    }
+  }
+} ]

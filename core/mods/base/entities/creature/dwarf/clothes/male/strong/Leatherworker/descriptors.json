@@ -1,0 +1,42 @@
+[ {
+  "uniqueName" : "Dwarf-Male-Strong-Leatherworker-Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "STRONG",
+  "gender" : "MALE",
+  "profession" : "LEATHERWORKER",
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Male-Strong-Leatherworker-Clothing-F.png"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Male-Strong-Leatherworker-Clothing-F34.png",
+      "scale" : 1.05,
+      "offsetPixels" : {
+        "x" : 1.0,
+        "unit" : true
+      }
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Male-Strong-Leatherworker-Clothing-F34.png",
+      "scale" : 1.05,
+      "offsetPixels" : {
+        "x" : -1.0,
+        "unit" : true
+      },
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Male-Strong-Leatherworker-Clothing-B34.png",
+      "scale" : 1.05
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Male-Strong-Leatherworker-Clothing-B34.png",
+      "scale" : 1.05,
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Dwarf-Male-Strong-Leatherworker-Clothing-B.png"
+    }
+  }
+} ]

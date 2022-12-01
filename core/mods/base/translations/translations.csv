@@ -436,6 +436,8 @@ GUI.BUILD.PILLARS,,Pillars
 GUI.BUILD_FURNITURE,,Furniture
 GUI.BUILD_LABEL,,Build
 GUI.CANCEL_LABEL,,Cancel
+GUI.COMBAT_LABEL,,Combat
+GUI.INVASION_LABEL,,Invasion
 GUI.CONSTRUCTION_LABEL,For the menu that further gives options for build and power and roofing,Construction
 GUI.CHANGE_PROFESSION_LABEL,,Choose New Profession
 GUI.CHANGE_WEAPON_LABEL,,Select weapon

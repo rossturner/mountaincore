@@ -118,7 +118,7 @@ public class PipingViewModeRenderer {
 					}
 
 					if (insideSelectionArea(minDraggingTile, maxDraggingTile, x, y, interactionStateContainer)) {
-						if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL_PIPING)) {
+						if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.CANCEL)) {
 							// Don't show designations
 						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DESIGNATE_PIPING)) {
 							// This is within dragging area
@@ -128,8 +128,8 @@ public class PipingViewModeRenderer {
 							} else {
 								renderExistingPipeConstruction(x, y, mapTile, spriteBatch, blinkState);
 							}
-						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT_PIPING)) {
-							if (shouldHighlight(mapTile)) {
+						} else if (interactionStateContainer.getInteractionMode().equals(GameInteractionMode.DECONSTRUCT)) {
+							if (mapTile.hasPipe()) {
 								spriteBatch.setColor(PipeConstructionState.PENDING_DECONSTRUCTION.renderColor);
 								spriteBatch.draw(pipesSprite, x, y, 1, 1);
 							} else {
