@@ -143,7 +143,7 @@ public class SettlerProfessionFactory {
 		Label nextLevelLabel = new Label(String.valueOf(nextLevel), managementSkin, labelStyleName);
 		Table progressRow = new Table();
 		progressRow.add(currentLevelLabel).spaceRight(12f);
-		progressRow.add(progressBar).spaceRight(12f);
+		progressRow.add(progressBar).width(70).spaceRight(12f);
 		progressRow.add(nextLevelLabel);
 
 		if (SkillDictionary.NULL_PROFESSION.equals(skill)) {

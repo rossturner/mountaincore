@@ -402,7 +402,6 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			settlersTable.left().row();
 		}
 
-		settlersTable.debug();
 		scrollPane.setActor(settlersTable);
 	}
 
