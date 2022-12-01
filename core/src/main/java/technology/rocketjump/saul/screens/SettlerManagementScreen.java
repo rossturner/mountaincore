@@ -88,7 +88,13 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			}
 		}
 
-	private static final Comparator<Entity> SORT_HAPPINESS = Comparator.comparingInt(settler -> settler.getComponent(HappinessComponent.class).getNetModifier());
+	private static final Comparator<Entity> SORT_HAPPINESS = Comparator.comparingInt(settler -> {
+		if (IS_MILITARY.test(settler)) {
+			return 0;
+		} else {
+			return settler.getComponent(HappinessComponent.class).getNetModifier();
+		}
+	});
 	private static final Comparator<Entity> SORT_NAME = Comparator.comparing(SettlerManagementScreen::getName);
 	private static final Comparator<Entity> SORT_MILITARY_CIVILIAN = Comparator.comparing((Function<Entity, Long>) settler -> {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
@@ -354,7 +360,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				.stream()
 				.filter(selectedFilter)
 				.filter(settler -> getName(settler).toLowerCase().contains(searchBarText.toLowerCase()))
-				.sorted(selectedSortFunction)
+				.sorted(selectedSortFunction.thenComparing(SORT_NAME))
 				.collect(Collectors.toList());
 
 		rebuildSettlerTable(settlers);
