@@ -254,16 +254,14 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		filters.add(sortByTotal);
 
 		rebuildStockpileComponents();
-		scrollPane.setForceScroll(false, true);
 		scrollPane.setFadeScrollBars(false);
-		scrollPane.setScrollbarsVisible(true);
 		scrollPane.setScrollBarPositions(true, true);
 
 		Table mainTable = new Table();
 		mainTable.add(stockpileButtons).row();
 		mainTable.add(filters).spaceTop(50).spaceBottom(40).growX().row();
 		mainTable.add(new Image(managementSkin.getDrawable("asset_resources_line"))).row();
-		mainTable.add(scrollPane).height(1426).grow();
+		mainTable.add(scrollPane).grow();
 
 		Table table = new Table();
 		table.add(titleLabel).padTop(54f).row();

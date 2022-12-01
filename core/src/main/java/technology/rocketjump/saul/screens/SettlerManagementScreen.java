@@ -185,9 +185,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		filterCountLabel.setAlignment(Align.left);
 
 		scrollPane = new EnhancedScrollPane(null, menuSkin);
-		scrollPane.setForceScroll(false, true);
 		scrollPane.setFadeScrollBars(false);
-		scrollPane.setScrollbarsVisible(true);
 		scrollPane.setScrollBarPositions(true, true);
 
 		stack = new Stack();
@@ -308,7 +306,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		table.add(populationRow).right().row();
 		table.add(filters).left().row();
 		table.add(new Image(managementSkin.getDrawable("asset_line"))).height(12f).padTop(40f).row();
-		table.add(scrollPane).height(1300).grow().row();
+		table.add(scrollPane).grow().row();
 		return table;
 	}
 
@@ -388,15 +386,15 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 
 			settlersTable.add(mugshotColumn).spaceRight(50f);
-			settlersTable.add(textSummaryColumn).fillX().spaceRight(50f);
+			settlersTable.add(textSummaryColumn).width(550).spaceRight(50f);
 			if (isMilitary) {
-				settlersTable.add(new Table()).growX().spaceRight(50f);
-				settlersTable.add(needsColumn).growX().spaceRight(50f);
-				settlersTable.add(weaponSelectColumn).growX().spaceRight(50f).spaceBottom(76f).spaceTop(38f);
+				settlersTable.add(new Table()).width(500).spaceRight(50f);
+				settlersTable.add(needsColumn).spaceRight(50f);
+				settlersTable.add(weaponSelectColumn).spaceRight(50f).spaceBottom(76f).spaceTop(38f);
 			} else {
-				settlersTable.add(happinessColumn).growX().spaceRight(50f);
-				settlersTable.add(needsColumn).growX().spaceRight(50f);
-				settlersTable.add(professionsColumn).growX().spaceRight(50f).spaceBottom(76f).spaceTop(38f);
+				settlersTable.add(happinessColumn).width(500).spaceRight(50f);
+				settlersTable.add(needsColumn).spaceRight(50f);
+				settlersTable.add(professionsColumn).spaceRight(50f).spaceBottom(76f).spaceTop(38f);
 			}
 
 			settlersTable.add(militaryToggleColumn).growX().spaceRight(36f);
@@ -404,6 +402,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			settlersTable.left().row();
 		}
 
+		settlersTable.debug();
 		scrollPane.setActor(settlersTable);
 	}
 
