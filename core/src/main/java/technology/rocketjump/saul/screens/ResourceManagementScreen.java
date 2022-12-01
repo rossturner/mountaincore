@@ -415,7 +415,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		List<Function<Entity, String>> groupings = List.of(SettlementItemTracker.GROUP_BY_ITEM_TYPE, SettlementItemTracker.GROUP_BY_ITEM_TYPE_MATERIAL_AND_QUALITY, levelThreeGroup);
 		List<Function<Entity, String>> displayNameFunctions = List.of(levelOneDisplayName, levelTwoDisplayName, levelThreeDisplayName);
 
-		List<Entity> allEntities = settlementItemTracker.getAll()
+		List<Entity> allEntities = settlementItemTracker.getAll(false)
 				.stream()
 				.filter(entity -> {
 					ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();

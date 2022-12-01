@@ -82,15 +82,18 @@ public class MilitaryComponent implements InfrequentlyUpdatableComponent, Destru
 	}
 
 	public void setAssignedWeaponId(Long assignedWeaponId) {
+		cancelHauling(this.assignedWeaponId);
 		this.assignedWeaponId = assignedWeaponId;
 	}
 
 	public void setAssignedShieldId(Long assignedShieldId) {
+		cancelHauling(this.assignedShieldId);
 		this.assignedShieldId = assignedShieldId;
 	}
 
 	public void setAssignedArmorId(Long assignedArmorId) {
 		if (this.assignedArmorId != null) {
+			cancelHauling(this.assignedArmorId);
 			unequipArmor();
 		}
 		this.assignedArmorId = assignedArmorId;
@@ -107,6 +110,16 @@ public class MilitaryComponent implements InfrequentlyUpdatableComponent, Destru
 			equipArmor();
 		} else {
 			unequipArmor();
+		}
+	}
+
+	private void cancelHauling(Long entityId) {
+		if (entityId != null) {
+			ItemAssignmentComponent assignmentComponent = parentEntity.getOrCreateComponent(ItemAssignmentComponent.class);
+			HaulingAllocation haulingAllocation = assignmentComponent.getByHauledItemId(entityId);
+			if (haulingAllocation != null) {
+				messageDispatcher.dispatchMessage(MessageType.HAULING_ALLOCATION_CANCELLED, haulingAllocation);
+			}
 		}
 	}
 

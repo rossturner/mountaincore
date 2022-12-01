@@ -100,10 +100,17 @@ public class SettlementItemTracker implements GameContextAware {
 		}
 	}
 
-	public Collection<Entity> getAll() {
+	public Collection<Entity> getAll(boolean unallocatedOnly) {
 		return getAllByItemType().values().stream()
 				.flatMap(it -> it.values().stream())
 				.flatMap(it -> it.values().stream())
+				.filter(it -> {
+					if (unallocatedOnly) {
+						ItemAllocationComponent itemAllocationComponent = it.getOrCreateComponent(ItemAllocationComponent.class);
+						return itemAllocationComponent.getNumUnallocated() > 0;
+					}
+					return true;
+				})
 				.collect(Collectors.toList());
 	}
 
