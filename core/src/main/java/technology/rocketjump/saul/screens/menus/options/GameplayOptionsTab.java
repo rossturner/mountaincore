@@ -42,7 +42,6 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 	private CheckBox edgeScrollingCheckbox;
 	private CheckBox zoomToCursorCheckbox;
 	private CheckBox treeTransparencyCheckbox;
-	private CheckBox pauseOnNotificationCheckbox;
 	private CheckBox enableHintsCheckbox;
 
 	@Inject
@@ -66,7 +65,6 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 		menuTable.add(edgeScrollingCheckbox).spaceBottom(50f).row();
 		menuTable.add(zoomToCursorCheckbox).spaceBottom(50f).row();
 		menuTable.add(treeTransparencyCheckbox).spaceBottom(50f).row();
-		menuTable.add(pauseOnNotificationCheckbox).spaceBottom(50f).row();
 		menuTable.add(enableHintsCheckbox).spaceBottom(50f).row();
 	}
 
@@ -156,18 +154,6 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
 				GlobalSettings.TREE_TRANSPARENCY_ENABLED = treeTransparencyCheckbox.isChecked();
 				userPreferences.setPreference(UserPreferences.PreferenceKey.TREE_TRANSPARENCY, String.valueOf(GlobalSettings.TREE_TRANSPARENCY_ENABLED));
-			}
-			return true;
-		});
-
-		pauseOnNotificationCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GAMEPLAY.PAUSE_ON_NOTIFICATION", skin, 428f);
-		GlobalSettings.PAUSE_FOR_NOTIFICATIONS = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.PAUSE_FOR_NOTIFICATIONS, "true"));;
-		pauseOnNotificationCheckbox.setChecked(GlobalSettings.PAUSE_FOR_NOTIFICATIONS);
-		pauseOnNotificationCheckbox.addListener((event) -> {
-			if (event instanceof ChangeListener.ChangeEvent) {
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
-				GlobalSettings.PAUSE_FOR_NOTIFICATIONS = pauseOnNotificationCheckbox.isChecked();
-				userPreferences.setPreference(UserPreferences.PreferenceKey.PAUSE_FOR_NOTIFICATIONS, String.valueOf(GlobalSettings.PAUSE_FOR_NOTIFICATIONS));
 			}
 			return true;
 		});

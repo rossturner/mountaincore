@@ -1,7 +1,6 @@
 package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.google.inject.Inject;
@@ -96,30 +95,26 @@ public class GameDialogDictionary implements DisplaysText {
 		for (Map.Entry<String, I18nString> replacement : notification.getTextReplacements()) {
 			replacements.put(replacement.getKey(), replacement.getValue());
 		}
-		I18nText descriptionText = translator.getTranslatedWordWithReplacements(notification.getType().getI18nDescriptionKey(), replacements)
-				.breakAfterLength(translator.getCurrentLanguageType().getBreakAfterLineLength());
+		I18nText descriptionText = translator.getTranslatedWordWithReplacements(notification.getType().getI18nDescriptionKey(), replacements);
 
 		I18nText dismissText = translator.getTranslatedString("GUI.DIALOG.DISMISS");
 
-		NotificationDialog notificationDialog = new NotificationDialog(title, uiSkin, messageDispatcher, soundAssetDictionary);
+		NotificationDialog notificationDialog = new NotificationDialog(title, descriptionText, notification.getType().getImageFilename(), uiSkin, messageDispatcher, soundAssetDictionary);
 
-		if (notification.getType().getImageFilename() != null) {
-			Texture texture = new Texture("assets/ui/notifications/"+notification.getType().getImageFilename());
-			notificationDialog.addTexture(texture);
-		}
-
-		notificationDialog.withText(descriptionText);
-
-//		notificationDialog.getContentTable().add(new Label(descriptionText, uiSkin));
-
-		if (notification.getWorldPosition() != null) {
+		if (notification.getWorldPosition() != null || notification.getSelectableTarget() != null) {
 			I18nText jumpToText = translator.getTranslatedString("GUI.DIALOG.JUMP_TO");
 			notificationDialog.withButton(jumpToText, () -> {
-				messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, notification.getWorldPosition());
+				if (notification.getSelectableTarget() != null) {
+					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, notification.getSelectableTarget().getPosition());
+					messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, notification.getSelectableTarget());
+				} else {
+					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, notification.getWorldPosition());
+				}
 			});
 		}
-
 		notificationDialog.withButton(dismissText);
+
+		// TODO stop this kind of notification
 
 		return notificationDialog;
 	}

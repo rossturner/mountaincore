@@ -16,7 +16,6 @@ public class GlobalSettings {
 
 	public static boolean USE_EDGE_SCROLLING = true;
 	public static boolean ZOOM_TO_CURSOR = true;
-	public static boolean PAUSE_FOR_NOTIFICATIONS = true;
 	public static boolean TREE_TRANSPARENCY_ENABLED = true;
 	public static final Version VERSION;
 	public static boolean STRESS_TEST = false;

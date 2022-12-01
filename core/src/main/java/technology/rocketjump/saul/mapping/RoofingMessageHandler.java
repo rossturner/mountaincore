@@ -145,7 +145,7 @@ public class RoofingMessageHandler implements Telegraph, GameContextAware {
 
 	private boolean roofCollapse(RoofCollapseMessage message) {
 		messageDispatcher.dispatchMessage(MessageType.TRIGGER_SCREEN_SHAKE);
-		Notification notification = new Notification(ROOFING_COLLAPSE, toVector(message.tilesToCollapseConstructedRoofing.iterator().next().getTilePosition()));
+		Notification notification = new Notification(ROOFING_COLLAPSE, toVector(message.tilesToCollapseConstructedRoofing.iterator().next().getTilePosition()), null);
 		messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, notification);
 
 		List<MapTile> tiles = new ArrayList<>(message.tilesToCollapseConstructedRoofing);

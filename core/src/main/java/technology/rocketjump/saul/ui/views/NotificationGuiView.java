@@ -21,7 +21,6 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
-import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.settlement.notifications.Notification;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -30,12 +29,11 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.*;
-import technology.rocketjump.saul.ui.widgets.text.DecoratedStringFactory;
+import technology.rocketjump.saul.ui.widgets.GameDialogDictionary;
+import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
+import technology.rocketjump.saul.ui.widgets.NotificationDialog;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import static technology.rocketjump.saul.audio.MusicJukebox.getCurrentInvasion;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
@@ -48,18 +46,15 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 	private final IconButtonFactory iconButtonFactory;
 	private final GameDialogDictionary gameDialogDictionary;
 	private final CombatTracker combatTracker;
-	private final DecoratedStringFactory decoratedStringFactory;
 	private final TooltipFactory tooltipFactory;
+	private final SoundAsset openNotificationSound;
 	private Table table;
 	private GameContext gameContext;
-	private SoundAsset receiveNotificationSound;
-	private SoundAsset openNotificationSound;
 
 	private final Button invasionInProgressButton;
 	private final Button combatInProgressButton;
 	private int combatSelectionCursor = -1;
 
-	private final Map<Notification, IconButton> currentNotificationButtons = new LinkedHashMap<>();
 	private boolean invasionInProgress; // TODO probably want this held more centrally and with messages to say when it changes
 	private float timeSinceLastUpdate;
 
@@ -67,15 +62,13 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 	public NotificationGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 							   IconButtonFactory iconButtonFactory, GameDialogDictionary gameDialogDictionary,
 							   CombatTracker combatTracker, SoundAssetDictionary soundAssetDictionary,
-							   DecoratedStringFactory decoratedStringFactory, TooltipFactory tooltipFactory) {
+							   TooltipFactory tooltipFactory) {
 		this.iconButtonFactory = iconButtonFactory;
 		this.messageDispatcher = messageDispatcher;
 		this.gameDialogDictionary = gameDialogDictionary;
 		this.combatTracker = combatTracker;
-		this.decoratedStringFactory = decoratedStringFactory;
 		this.tooltipFactory = tooltipFactory;
 		Skin skin = guiSkinRepository.getMainGameSkin();
-		this.receiveNotificationSound = soundAssetDictionary.getByName("NewNotification");
 		this.openNotificationSound = soundAssetDictionary.getByName("NotificationOpen");
 
 		table = new Table(skin);
@@ -146,7 +139,6 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 		if (!combatTracker.getEntitiesInCombat().isEmpty()) {
 			table.add(combatInProgressButton).right().row();
 		}
-
 	}
 
 	@Override
@@ -176,16 +168,12 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 	@Override
 	public void onContextChange(GameContext gameContext) {
 		this.gameContext = gameContext;
-		for (Notification notification : gameContext.getSettlementState().queuedNotifications) {
-			addIconButton(notification);
-		}
 		invasionInProgress = getCurrentInvasion(gameContext) != null;
 		rebuildUI();
 	}
 
 	@Override
 	public void clearContextRelatedState() {
-		currentNotificationButtons.clear();
 		table.clearChildren();
 		combatSelectionCursor = -1;
 
@@ -209,23 +197,17 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 			case MessageType.POST_NOTIFICATION: {
 				Notification notification = (Notification) msg.extraInfo;
 
-				SoundAsset notificationSound = receiveNotificationSound;
+				SoundAsset notificationSound = openNotificationSound;
 				if (notification.getType().getOverrideSoundAsset() != null) {
 					notificationSound = notification.getType().getOverrideSoundAsset();
 				}
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(notificationSound));
 
-				if (GlobalSettings.PAUSE_FOR_NOTIFICATIONS) {
-					if (!gameContext.getGameClock().isPaused()) {
-						messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
-						showNotification(notification);
-					} else {
-						// If already paused, queue up the notification
-						add(notification);
-					}
-				} else {
-					add(notification);
+				if (!gameContext.getGameClock().isPaused()) {
+					messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
 				}
+				NotificationDialog notificationDialog = gameDialogDictionary.create(notification);
+				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, notificationDialog);
 				return true;
 			}
 			default:
@@ -233,37 +215,4 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 		}
 	}
 
-	private void add(Notification notification) {
-		addIconButton(notification);
-		gameContext.getSettlementState().queuedNotifications.add(notification);
-		update();
-	}
-
-	private void addIconButton(Notification notification) {
-		IconButton notificationButton = iconButtonFactory.create(null, notification.getType().getIconName(),
-				notification.getType().getIconColor(), ButtonStyle.HALF_SIZE_NO_TEXT);
-		notificationButton.setOnClickSoundAction(() -> {
-			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(openNotificationSound));
-		});
-		notificationButton.setAction(() -> {
-			showNotification(notification);
-		});
-		notificationButton.setRightClickAction(() -> {
-			removeNotification(notification);
-		});
-		currentNotificationButtons.put(notification, notificationButton);
-	}
-
-	private void showNotification(Notification notification) {
-		removeNotification(notification);
-
-		NotificationDialog notificationDialog = gameDialogDictionary.create(notification);
-		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, notificationDialog);
-	}
-
-	private void removeNotification(Notification notification) {
-		currentNotificationButtons.remove(notification);
-		gameContext.getSettlementState().queuedNotifications.remove(notification);
-		update();
-	}
 }
