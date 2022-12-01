@@ -99,6 +99,7 @@ public class SettlerProfessionFactory {
 			complexCursorStack.add(draggableCursors);
 			column.add(complexCursorStack).spaceTop(10f).spaceBottom(6f).row();
 			column.add(progressRow);
+			tooltipFactory.simpleTooltip(complexCursorStack, skill.getI18nKey(), TooltipLocationHint.BELOW);
 
 			dragAndDrop.addSource(new DraggableProfession(dragAndDrop, draggingCursorWidget, draggableImage, i));
 			dragAndDrop.addTarget(new DraggableProfessionTarget(column, i, skillsComponent, managementSkin, table, settler, onProfessionChange));
@@ -256,7 +257,7 @@ public class SettlerProfessionFactory {
 				innerTable.add(buildProgressBarRow(skillsComponent, profession, true));
 				image.addListener(new ChangeCursorOnHover(image, GameCursor.SELECT, messageDispatcher));
 				image.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-				tooltipFactory.simpleTooltip(image, profession.getI18nKey(), TooltipLocationHint.ABOVE);
+				tooltipFactory.simpleTooltip(image, profession.getI18nKey(), TooltipLocationHint.BELOW);
 				contentTable.add(innerTable).pad(3);
 				numAdded++;
 
