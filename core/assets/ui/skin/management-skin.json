@@ -120,7 +120,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	sort_by_button: {
-		imageUp: btn_sort_by_toggle_off
+		imageUp: asset_trangle_red
 		imageChecked: btn_sort_by_toggle_on
 		font: default-font-23
 		fontColor: primary_font_colour_red
