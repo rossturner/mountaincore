@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import org.apache.commons.lang3.EnumUtils;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
 import technology.rocketjump.saul.crafting.model.CraftingRecipeMaterialSelection;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -22,6 +23,7 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.Persistable;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+import technology.rocketjump.saul.settlement.notifications.NotificationType;
 import technology.rocketjump.saul.settlement.production.ProductionAssignment;
 import technology.rocketjump.saul.settlement.production.ProductionQuota;
 
@@ -56,6 +58,7 @@ public class SettlementState implements Persistable {
 	public final List<String> currentHints = new ArrayList<>();
 	public final Set<TwitchViewer> usedTwitchViewers = new HashSet<>();
 	public final Map<InvasionDefinition, Integer> daysUntilNextInvasionCheck = new HashMap<>();
+	public final Set<NotificationType> suppressedNotificationTypes = new HashSet<>();
 
 	private boolean allowImmigration = true;
 	private int immigrantsDue;
@@ -314,6 +317,14 @@ public class SettlementState implements Persistable {
 
 		asJson.put("fishRemaining", fishRemainingInRiver);
 
+		if (!suppressedNotificationTypes.isEmpty()) {
+			JSONArray suppressedNotificationJson = new JSONArray();
+			for (NotificationType notificationType : suppressedNotificationTypes) {
+				suppressedNotificationJson.add(notificationType.name());
+			}
+			asJson.put("suppressedNotificationTypes", suppressedNotificationJson);
+		}
+
 		if (settlerRace != null) {
 			asJson.put("settlerRace", settlerRace.getName());
 		}
@@ -524,6 +535,18 @@ public class SettlementState implements Persistable {
 		if (usedTwitchViewersJson != null) {
 			for (Object o : usedTwitchViewersJson) {
 				usedTwitchViewers.add(new TwitchViewer(o.toString()));
+			}
+		}
+
+		JSONArray suppressedNotificationJson = asJson.getJSONArray("suppressedNotificationTypes");
+		if (suppressedNotificationJson != null) {
+			for (Object o : suppressedNotificationJson) {
+				NotificationType type = EnumUtils.getEnum(NotificationType.class, o.toString());
+				if (type == null) {
+					throw new InvalidSaveException("No notification type with name " + o.toString());
+				} else {
+					suppressedNotificationTypes.add(type);
+				}
 			}
 		}
 

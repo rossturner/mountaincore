@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 
@@ -15,7 +16,6 @@ import java.nio.file.Path;
 public class NotificationDialog extends GameDialog {
 
 	private Texture texture;
-	private Image image;
 
 	public NotificationDialog(I18nText titleText, I18nText descriptionText, String imageFilename, Skin uiSkin, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
 		super(null, uiSkin, messageDispatcher, soundAssetDictionary);
@@ -34,14 +34,13 @@ public class NotificationDialog extends GameDialog {
 
 		if (imageFilename != null) {
 			String filePath = "assets/ui/notifications/" + imageFilename;
-			Image image;
 			if (Files.exists(Path.of(filePath))) {
 				texture = new Texture(filePath);
-				image = new Image(texture);
+				Image image = new Image(texture);
+				rightColumn.add(image).center();
 			} else {
-				image = new Image(uiSkin.getDrawable("placeholder"));
+				Logger.warn("Could not find image " + filePath + " for notification " + titleText.toString());
 			}
-			rightColumn.add(image).center();
 		}
 
 		contentTable.add(leftColumn).top();

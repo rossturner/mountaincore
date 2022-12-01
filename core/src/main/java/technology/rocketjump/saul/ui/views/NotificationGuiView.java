@@ -197,6 +197,11 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 			case MessageType.POST_NOTIFICATION: {
 				Notification notification = (Notification) msg.extraInfo;
 
+				if (gameContext.getSettlementState().suppressedNotificationTypes.contains(notification.getType())) {
+					// Player has requested not to receive any more of this type
+					return true;
+				}
+
 				SoundAsset notificationSound = openNotificationSound;
 				if (notification.getType().getOverrideSoundAsset() != null) {
 					notificationSound = notification.getType().getOverrideSoundAsset();

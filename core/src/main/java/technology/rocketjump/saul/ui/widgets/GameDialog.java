@@ -44,6 +44,7 @@ public abstract class GameDialog implements Disposable {
 			}
 		};
 		dialog.setStyle(windowStyle);
+		dialog.getButtonTable().defaults().padLeft(25).padRight(25);
 		this.skin = skin;
 
 		fullScreenOverlay = new Image(skin, "default-rect");
