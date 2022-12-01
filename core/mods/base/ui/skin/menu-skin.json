@@ -288,6 +288,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: default-font-24
 		fontColor: white
 	}
+	notification_button: {
+		font: default-font-23
+		fontColor: white
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {

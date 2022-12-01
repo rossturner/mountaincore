@@ -183,7 +183,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 					GameDialog dialog = gameDialogDictionary.createInfoDialog(skin, InfoType.SETTLEMENT_NAME_ALREADY_IN_USE, Map.of("name", new I18nWord(settlementName)));
 					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CONFIRM"), (Runnable) () -> {
 						startGame();
-					}, skin.get("btn_dialog_1", TextButton.TextButtonStyle.class));
+					});
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
 				} else {
 					startGame();

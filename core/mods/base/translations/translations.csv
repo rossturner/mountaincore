@@ -466,7 +466,7 @@ GUI.DIALOG.ERROR_WHILE_LOADING,Unexpected error while loading a previous save,Th
 GUI.DIALOG.ERROR_WHILE_SAVING,Unexpected error while saving the game,There was an unexpected error while saving the game.
 GUI.DIALOG.HIDE_FURTHER_NOTIFICATIONS,Used to ask the player if they want to stop receiving this specific kind of notification,Hide These Notifications
 GUI.DIALOG.INFO_TITLE,,Information
-GUI.DIALOG.JUMP_TO,,Go to location
+GUI.DIALOG.JUMP_TO,,Go to Location
 GUI.DIALOG.LANGUAGE_TRANSLATION_INCOMPLETE,,The selected language translation is currently incomplete and will be missing some text. A fallback language will be used.
 GUI.DIALOG.MOD_CHANGES_OUTSTANDING,,You have selected a different set of mods to be applied to the game. These will be applied when the game is next restarted.
 GUI.DIALOG.MOD_INCOMPATIBLE,,One or more mods are incompatible with this version of the game and have been deactivated. You can check for updates in the mods menu.
