@@ -74,7 +74,7 @@ public class FishingManager implements Updatable, Telegraph {
 				gameContext.getSettlementState().setFishRemainingInRiver(gameContext.getSettlementState().getFishRemainingInRiver() - 1);
 				if (gameContext.getSettlementState().getFishRemainingInRiver() <= 0) {
 					cancelAllOutstandingFishingJobs();
-					messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, new Notification(NotificationType.FISH_EXHAUSTED, null));
+					messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, new Notification(NotificationType.FISH_EXHAUSTED, null, null));
 				}
 				return true;
 			}

@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.ui;
 
+import com.badlogic.gdx.math.Vector2;
 import technology.rocketjump.saul.doors.Doorway;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.mapping.tile.MapTile;
@@ -9,6 +10,8 @@ import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 
 import java.util.Objects;
+
+import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
 /**
  * This holds and represents something which can be clicked on and selected by the UI in the game world
@@ -138,6 +141,18 @@ public class Selectable implements Comparable<Selectable> {
 
 	public Squad getSquad() {
 		return squad;
+	}
+
+	public Vector2 getPosition() {
+		return switch (type) {
+			case ENTITY -> entity.getLocationComponent().getWorldOrParentPosition();
+			case CONSTRUCTION -> toVector(construction.getPrimaryLocation());
+			case DOORWAY -> toVector(doorway.getTileLocation());
+			case BRIDGE -> bridge.getAvgWorldPosition();
+			case ROOM -> room.getAvgWorldPosition();
+			case TILE -> tile.getWorldPositionOfCenter();
+			default -> null;
+		};
 	}
 
 	public enum SelectableType {

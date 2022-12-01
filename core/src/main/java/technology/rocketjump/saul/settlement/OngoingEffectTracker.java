@@ -17,6 +17,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.settlement.notifications.Notification;
 import technology.rocketjump.saul.settlement.notifications.NotificationType;
+import technology.rocketjump.saul.ui.Selectable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +47,7 @@ public class OngoingEffectTracker implements GameContextAware {
 			NotificationType notificationType = EnumUtils.getEnum(NotificationType.class, attributes.getType().getTriggersNotification());
 			if (notificationType != null) {
 				messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, new Notification(notificationType,
-						entity.getLocationComponent().getWorldOrParentPosition()));
+						null, new Selectable(entity, 0)));
 			} else {
 				Logger.error("Could not find " + NotificationType.class.getSimpleName() + " with name " + attributes.getType().getTriggersNotification());
 			}

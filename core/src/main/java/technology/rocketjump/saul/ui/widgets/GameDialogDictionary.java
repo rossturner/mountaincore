@@ -1,12 +1,13 @@
 package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.InfoType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.async.ErrorType;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 @Singleton
-public class GameDialogDictionary implements DisplaysText {
+public class GameDialogDictionary implements DisplaysText, GameContextAware {
 
 	private final I18nTranslator translator;
 	private final Skin uiSkin;
@@ -33,6 +34,7 @@ public class GameDialogDictionary implements DisplaysText {
 
 	private final Map<ErrorType, ModalDialog> byErrorType = new EnumMap<>(ErrorType.class);
 	private final Map<InfoType, ModalDialog> byInfoType = new EnumMap<>(InfoType.class);
+	private GameContext gameContext;
 
 	@Inject
 	public GameDialogDictionary(I18nTranslator translator, GuiSkinRepository guiSkinRepository,
@@ -96,30 +98,29 @@ public class GameDialogDictionary implements DisplaysText {
 		for (Map.Entry<String, I18nString> replacement : notification.getTextReplacements()) {
 			replacements.put(replacement.getKey(), replacement.getValue());
 		}
-		I18nText descriptionText = translator.getTranslatedWordWithReplacements(notification.getType().getI18nDescriptionKey(), replacements)
-				.breakAfterLength(translator.getCurrentLanguageType().getBreakAfterLineLength());
+		I18nText descriptionText = translator.getTranslatedWordWithReplacements(notification.getType().getI18nDescriptionKey(), replacements);
 
 		I18nText dismissText = translator.getTranslatedString("GUI.DIALOG.DISMISS");
 
-		NotificationDialog notificationDialog = new NotificationDialog(title, uiSkin, messageDispatcher, soundAssetDictionary);
+		NotificationDialog notificationDialog = new NotificationDialog(title, descriptionText, notification.getType().getImageFilename(), uiSkin, messageDispatcher, soundAssetDictionary);
 
-		if (notification.getType().getImageFilename() != null) {
-			Texture texture = new Texture("assets/ui/notifications/"+notification.getType().getImageFilename());
-			notificationDialog.addTexture(texture);
-		}
-
-		notificationDialog.withText(descriptionText);
-
-//		notificationDialog.getContentTable().add(new Label(descriptionText, uiSkin));
-
-		if (notification.getWorldPosition() != null) {
+		if (notification.getWorldPosition() != null || notification.getSelectableTarget() != null) {
 			I18nText jumpToText = translator.getTranslatedString("GUI.DIALOG.JUMP_TO");
 			notificationDialog.withButton(jumpToText, () -> {
-				messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, notification.getWorldPosition());
+				if (notification.getSelectableTarget() != null) {
+					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, notification.getSelectableTarget().getPosition());
+					messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, notification.getSelectableTarget());
+				} else {
+					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, notification.getWorldPosition());
+				}
 			});
 		}
-
+		notificationDialog.withButton(translator.getTranslatedString("GUI.DIALOG.HIDE_FURTHER_NOTIFICATIONS"), () -> {
+			gameContext.getSettlementState().suppressedNotificationTypes.add(notification.getType());
+		});
 		notificationDialog.withButton(dismissText);
+
+		// TODO stop this kind of notification
 
 		return notificationDialog;
 	}
@@ -173,5 +174,15 @@ public class GameDialogDictionary implements DisplaysText {
 		I18nText descriptionText = translatedString.breakAfterLength(translator.getCurrentLanguageType().getBreakAfterLineLength());
 		dialog.getContentTable().add(new Label(descriptionText.toString(), skin, "white_text_default-font-23")).padRight(180f).padLeft(180f).growY();
 		return dialog;
+	}
+
+	@Override
+	public void onContextChange(GameContext gameContext) {
+		this.gameContext = gameContext;
+	}
+
+	@Override
+	public void clearContextRelatedState() {
+
 	}
 }

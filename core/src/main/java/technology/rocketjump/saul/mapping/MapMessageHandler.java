@@ -827,7 +827,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 				}
 			}
 			if (unexploredTile != null) {
-				Notification areaUncoveredNotification = new Notification(AREA_REVEALED, unexploredTile.getWorldPositionOfCenter());
+				Notification areaUncoveredNotification = new Notification(AREA_REVEALED, unexploredTile.getWorldPositionOfCenter(), null);
 				messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, areaUncoveredNotification);
 			}
 			if (neighbourRegionId == null) {

@@ -9,6 +9,7 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.ChildPersistable;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.widgets.IconButton;
@@ -22,6 +23,7 @@ public class Notification implements ChildPersistable {
 	private long notificationId;
 	private NotificationType type;
 	private Vector2 worldPosition;
+	private Selectable selectableTarget;
 	private IconButton iconButton;
 	private final Map<String, I18nString> textReplacements = new HashMap<>();
 
@@ -29,10 +31,11 @@ public class Notification implements ChildPersistable {
 
 	}
 
-	public Notification(NotificationType type, Vector2 worldPosition) {
+	public Notification(NotificationType type, Vector2 worldPosition, Selectable selectableTarget) {
 		this.notificationId = SequentialIdGenerator.nextId();
 		this.type = type;
 		this.worldPosition = worldPosition;
+		this.selectableTarget = selectableTarget;
 	}
 
 	public NotificationType getType() {
@@ -57,6 +60,10 @@ public class Notification implements ChildPersistable {
 
 	public void addTextReplacement(String key, I18nString value) {
 		textReplacements.put(key, value);
+	}
+
+	public Selectable getSelectableTarget() {
+		return selectableTarget;
 	}
 
 	@Override

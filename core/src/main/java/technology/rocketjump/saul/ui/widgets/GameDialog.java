@@ -44,6 +44,7 @@ public abstract class GameDialog implements Disposable {
 			}
 		};
 		dialog.setStyle(windowStyle);
+		dialog.getButtonTable().defaults().padLeft(25).padRight(25);
 		this.skin = skin;
 
 		fullScreenOverlay = new Image(skin, "default-rect");
@@ -109,11 +110,13 @@ public abstract class GameDialog implements Disposable {
 	}
 
 	public GameDialog withButton(I18nText buttonText, Runnable runnable) {
-		return withButton(buttonText, runnable, skin.get("btn_dialog_1", TextButton.TextButtonStyle.class));
-	}
+		Button button = new Button(skin.getDrawable("btn_01"));
 
-	public GameDialog withButton(I18nText buttonText, Runnable runnable, TextButton.TextButtonStyle style) {
-		dialog.button(buttonText.toString(), runnable, style);
+		Label label = new Label(buttonText.toString(), skin.get("notification_button", Label.LabelStyle.class));
+		label.setAlignment(Align.center);
+		button.add(label).padLeft(40).padRight(40);
+
+		dialog.button(button, runnable);
 		return this;
 	}
 

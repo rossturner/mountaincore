@@ -84,12 +84,14 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 		switch (msg.message) {
 			case MessageType.MOVE_CAMERA_TO: {
 				Vector2 worldPosition = (Vector2) msg.extraInfo;
-				camera.position.x = worldPosition.x;
-				camera.position.y = worldPosition.y;
-				camera.update();
-				messageDispatcher.dispatchMessage(MessageType.CAMERA_MOVED, new CameraMovedMessage(
-						camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom, camera.position, getCursorWorldPosition(),
-						minTilesForZoom, maxTilesForZoom));
+				if (worldPosition != null) {
+					camera.position.x = worldPosition.x;
+					camera.position.y = worldPosition.y;
+					camera.update();
+					messageDispatcher.dispatchMessage(MessageType.CAMERA_MOVED, new CameraMovedMessage(
+							camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom, camera.position, getCursorWorldPosition(),
+							minTilesForZoom, maxTilesForZoom));
+				}
 				return true;
 			}
 			case MessageType.TRIGGER_SCREEN_SHAKE: {
