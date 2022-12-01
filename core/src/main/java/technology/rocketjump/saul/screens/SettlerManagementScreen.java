@@ -503,6 +503,25 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			armourColumn.add(armourIcon).expandX().row();
 			armourColumn.add(armourSelectButton).spaceTop(10f).spaceBottom(6f).row();
 
+
+			if (assignedWeapon != null) {
+				ItemEntityAttributes attributes = (ItemEntityAttributes) assignedWeapon.getPhysicalEntityComponent().getAttributes();
+				I18nText tooltipText = i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality());
+				tooltipFactory.simpleTooltip(weaponSelectButton, tooltipText, TooltipLocationHint.BELOW);
+			}
+
+			if (assignedShield != null) {
+				ItemEntityAttributes attributes = (ItemEntityAttributes) assignedShield.getPhysicalEntityComponent().getAttributes();
+				I18nText tooltipText = i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality());
+				tooltipFactory.simpleTooltip(shieldSelectButton, tooltipText, TooltipLocationHint.BELOW);
+			}
+
+			if (assignedArmour != null) {
+				ItemEntityAttributes attributes = (ItemEntityAttributes) assignedArmour.getPhysicalEntityComponent().getAttributes();
+				I18nText tooltipText = i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality());
+				tooltipFactory.simpleTooltip(armourSelectButton, tooltipText, TooltipLocationHint.BELOW);
+			}
+
 			Consumer<Entity> updateState = entity -> {
 				militaryComponent.infrequentUpdate(0.0);
 				onSettlerChange.accept(settler);
@@ -656,10 +675,10 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			byMaterialAndQuality.keySet().stream().sorted().forEach(key -> {
 				List<Entity> subGroup = byMaterialAndQuality.get(key);
 				Entity exampleEntity = subGroup.get(0);
-				ItemEntityAttributes attributes = (ItemEntityAttributes) exampleEntity.getPhysicalEntityComponent().getAttributes();
 
 				EntityDrawable entityDrawable = new EntityDrawable(exampleEntity, entityRenderer, true, messageDispatcher);
 				entityDrawable.setMinSize(206, 206); //todo: fix me
+				ItemEntityAttributes attributes = (ItemEntityAttributes) exampleEntity.getPhysicalEntityComponent().getAttributes();
 				I18nText tooltipText = i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality());
 				options.add(new SelectItemOption(tooltipText, exampleEntity, entityDrawable, onSelect, managementSkin, subGroup.size(), attributes.getItemQuality()));
 			});
@@ -684,7 +703,6 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		@Override
 		public void addSelectionComponents(Table innerTable) {
 			Image image = new Image(drawable);
-			//todo: add quality to bottom right
 
 			Stack entityStack = new Stack();
 			entityStack.add(image);
