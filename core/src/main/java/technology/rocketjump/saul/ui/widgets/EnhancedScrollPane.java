@@ -25,7 +25,7 @@ public class EnhancedScrollPane extends ScrollPane {
 			@Override
 			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
 				super.exit(event, x, y, pointer, toActor);
-				if (getStage() != null) {
+				if (getStage() != null && pointer == -1) {
 					getStage().setScrollFocus(null);
 				}
 			}

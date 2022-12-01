@@ -11,8 +11,13 @@ public class InternalBleeding extends StatusEffect {
 
 	private static final float CHANCE_OF_DEATH_ON_TICK = 1f / 35f;
 
+	//Default for reflection based construction, if required
+	public InternalBleeding() {
+		this(null);
+	}
+
 	public InternalBleeding(Entity inflictedBy) {
-		super(null, 3.0, null, null);
+		super(null, 3.0, null, inflictedBy);
 	}
 
 	@Override

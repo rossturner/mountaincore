@@ -27,7 +27,7 @@ public class MenuSkin extends Skin {
 		Table baseLayer = new Table();
 		baseLayer.setBackground(getDrawable("paper_texture_bg_stretch"));
 		baseLayer.add(new Image(getDrawable(patternName))).growY().padLeft(outsidePadding); //TODO : change from padding from outside to just pad from paperComponents out?
-		baseLayer.add(paperComponents).expandX();
+		baseLayer.add(paperComponents).top().expandX();
 		baseLayer.add(new Image(getDrawable(patternName))).growY().padRight(outsidePadding);
 		return baseLayer;
 	}

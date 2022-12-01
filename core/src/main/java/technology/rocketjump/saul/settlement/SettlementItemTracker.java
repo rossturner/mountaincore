@@ -12,6 +12,8 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATERIAL;
 
@@ -21,6 +23,14 @@ import static technology.rocketjump.saul.materials.model.GameMaterial.NULL_MATER
 @Singleton
 public class SettlementItemTracker implements GameContextAware {
 
+	public static final Function<Entity, String> GROUP_BY_ITEM_TYPE = entity -> {
+		ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+		return attributes.getItemType().getItemTypeName();
+	};
+	public static final Function<Entity, String> GROUP_BY_ITEM_TYPE_MATERIAL_AND_QUALITY = entity -> {
+		ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+		return GROUP_BY_ITEM_TYPE.apply(entity) + ":" + attributes.getPrimaryMaterial().getMaterialName() + ":" + attributes.getItemQuality();
+	};
 	private static final Map<GameMaterial, Map<Long, Entity>> EMPTY_1 = new HashMap<>();
 	private static final Map<Long, Entity> EMPTY_2 = new HashMap<>();
 	private final Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> itemTypesToMaterialsToEntitiesMap = new HashMap<>();
@@ -88,6 +98,20 @@ public class SettlementItemTracker implements GameContextAware {
 		if (attributes.getPrimaryMaterial().isEdible()) {
 			edibleItems.put(entity.getId(), entity);
 		}
+	}
+
+	public Collection<Entity> getAll(boolean unallocatedOnly) {
+		return getAllByItemType().values().stream()
+				.flatMap(it -> it.values().stream())
+				.flatMap(it -> it.values().stream())
+				.filter(it -> {
+					if (unallocatedOnly) {
+						ItemAllocationComponent itemAllocationComponent = it.getOrCreateComponent(ItemAllocationComponent.class);
+						return itemAllocationComponent.getNumUnallocated() > 0;
+					}
+					return true;
+				})
+				.collect(Collectors.toList());
 	}
 
 	public Map<ItemType, Map<GameMaterial, Map<Long, Entity>>> getAllByItemType() {

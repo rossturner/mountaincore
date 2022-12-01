@@ -1,7 +1,6 @@
 package technology.rocketjump.saul.entities.model.physical.creature.status;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.DeathReason;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -12,8 +11,8 @@ public class Death extends StatusEffect {
 
 	private DeathReason deathReason;
 
-	public Death(Entity inflictedBy) {
-		super(null, null, null, inflictedBy);
+	public Death() {
+		super(null, null, null, null);
 	}
 
 	@Override

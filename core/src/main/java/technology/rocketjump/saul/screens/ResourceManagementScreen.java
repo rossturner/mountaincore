@@ -254,16 +254,14 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		filters.add(sortByTotal);
 
 		rebuildStockpileComponents();
-		scrollPane.setForceScroll(false, true);
 		scrollPane.setFadeScrollBars(false);
-		scrollPane.setScrollbarsVisible(true);
 		scrollPane.setScrollBarPositions(true, true);
 
 		Table mainTable = new Table();
 		mainTable.add(stockpileButtons).row();
-		mainTable.add(filters).growX().row();
+		mainTable.add(filters).spaceTop(50).spaceBottom(40).growX().row();
 		mainTable.add(new Image(managementSkin.getDrawable("asset_resources_line"))).row();
-		mainTable.add(scrollPane).height(1426).grow();
+		mainTable.add(scrollPane).grow();
 
 		Table table = new Table();
 		table.add(titleLabel).padTop(54f).row();
@@ -408,27 +406,15 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 			return i18nTranslator.getDescription(entity).toString();
 		};
 
-		Function<Entity, String> levelOneGroup = entity -> {
-			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-			return attributes.getItemType().getItemTypeName();
-		};
-
-		Function<Entity, String> levelTwoGroup = entity -> {
-			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-			return levelOneGroup.apply(entity) + ":" + attributes.getPrimaryMaterial().getMaterialName() + ":" + attributes.getItemQuality();
-		};
-
 		Function<Entity, String> levelThreeGroup = entity -> {
-			return levelTwoGroup.apply(entity) + ":" + entity.getId();
+			return SettlementItemTracker.GROUP_BY_ITEM_TYPE_MATERIAL_AND_QUALITY.apply(entity) + ":" + entity.getId();
 		};
 
-		List<Function<Entity, String>> groupings = List.of(levelOneGroup, levelTwoGroup, levelThreeGroup);
+		List<Function<Entity, String>> groupings = List.of(SettlementItemTracker.GROUP_BY_ITEM_TYPE, SettlementItemTracker.GROUP_BY_ITEM_TYPE_MATERIAL_AND_QUALITY, levelThreeGroup);
 		List<Function<Entity, String>> displayNameFunctions = List.of(levelOneDisplayName, levelTwoDisplayName, levelThreeDisplayName);
 
-		List<Entity> allEntities = settlementItemTracker.getAllByItemType()
-				.values().stream()
-				.flatMap(it -> it.values().stream())
-				.flatMap(it -> it.values().stream())
+		List<Entity> allEntities = settlementItemTracker.getAll(false)
+				.stream()
 				.filter(entity -> {
 					ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 					StockpileGroup stockpileGroup = attributes.getItemType().getStockpileGroup();
@@ -563,8 +549,8 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 				Table itemRow = new Table();
 				itemRow.add(exampleEntityColumn).left().padLeft(100 * groupingIndex).growX();
 				itemRow.add(qualityImageContainer).width(300);
-				//this is a fudge as quality doesn't appear on first row
-				if (groupingIndex == 0) {
+				//this is a fudge as quality doesn't appear on first row or if item is stackable
+				if (groupingIndex == 0 || (exampleEntity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes && itemAttributes.getItemType().isStackable())) {
 					qualityImage.setVisible(false);
 				}
 				itemRow.add(itemTypeGoldGroup).right().width(400);
@@ -585,7 +571,9 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 					@Override
 					public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-						itemRow.setBackground((Drawable) null);
+						if (pointer == -1) {
+							itemRow.setBackground((Drawable) null);
+						}
 					}
 				});
 				buttonFactory.attachClickCursor(itemRow, GameCursor.SELECT);
