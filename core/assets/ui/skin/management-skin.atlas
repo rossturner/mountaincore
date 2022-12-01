@@ -125,6 +125,13 @@ asset_resources_line
   orig: 1880, 10
   offset: 0, 0
   index: -1
+asset_trangle_red
+  rotate: false
+  xy: 694, 3617
+  size: 30, 26
+  orig: 30, 26
+  offset: 0, 0
+  index: -1
 bar_bg
   rotate: false
   xy: 204, 1674
