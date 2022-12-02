@@ -47,6 +47,7 @@ import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.ui.Selectable;
+import technology.rocketjump.saul.ui.Updatable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
@@ -383,7 +384,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table mugshotColumn = mugshot(settler);
 			Table textSummaryColumn = textSummary(settler);
 			Table happinessColumn = happiness(settler);
-			Table needsColumn = needs(settler);
+			Table needsColumn = needs(settler).getActor();
 			Table professionsColumn = professions(settler, rebuildSettlerView);
 			Table weaponSelectColumn = weaponSelection(settler, rebuildSettlerView);
 			Table militaryToggleColumn = militaryToggle(settler, rebuildSettlerView);
@@ -818,7 +819,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return table;
 	}
 
-	private Table professions(Entity settler, Consumer<Entity> rebuildSettlerView) {
+	public Table professions(Entity settler, Consumer<Entity> rebuildSettlerView) {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		if (skillsComponent == null) {
 			return new Table();
@@ -830,14 +831,16 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	}
 
 
-	public Table needs(Entity settler) {
+	public Updatable<Table> needs(Entity settler) {
 		Table table = new Table();
+		Updatable<Table> updatable = Updatable.of(table);
 		table.defaults().spaceBottom(30f);
 		NeedsComponent needsComponent = settler.getComponent(NeedsComponent.class);
 		if (needsComponent != null) {
 			for (Map.Entry<EntityNeed, Double> entry : needsComponent.getAll()) {
 				EntityNeed need = entry.getKey();
 				Double needValue = entry.getValue();
+
 				if (needValue != null) {
 					Image icon = new Image(managementSkin.getDrawable(need.iconName()));
 					tooltipFactory.simpleTooltip(icon, need.getI18nKey(), TooltipLocationHint.BELOW);
@@ -858,6 +861,9 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					}
 					progressBar.setStyle(clonedStyle);
 
+					updatable.regularly(() -> {
+						progressBar.setValue(Math.round(needsComponent.getValue(need)));
+					});
 
 					table.add(icon).right().spaceRight(28);
 					table.add(progressBar).left().width(318).height(42);
@@ -866,7 +872,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			}
 
 		}
-		return table;
+		return updatable;
 	}
 
 	private Table happiness(Entity settler) {

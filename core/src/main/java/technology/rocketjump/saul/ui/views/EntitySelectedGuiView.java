@@ -1,6 +1,8 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.inject.Inject;
@@ -25,6 +27,7 @@ import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.screens.SettlerManagementScreen;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
+import technology.rocketjump.saul.ui.Updatable;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.*;
@@ -59,7 +62,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 //	private final ButtonAction armorSelectionAction;
 //	private final ClickableTable squadTextButton;
 
-//	private Table outerTable;
+	private Table outerTable;
+	private List<Updatable<?>> updatables;
 //	private Table entityDescriptionTable;
 	private GameContext gameContext;
 //	private Label beingDeconstructedLabel;
@@ -298,9 +302,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	@Override
 	public void populate(Table containerTable) {
 		containerTable.clear();
-		Table table = new Table();
-		table.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg"));
-		containerTable.add(table);
+		updatables = new ArrayList<>();
+		outerTable = new Table();
+		outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg"));
+		containerTable.add(outerTable);
 
 		Selectable selectable = gameInteractionStateContainer.getSelectable();
 		if (selectable != null && ENTITY == selectable.type) {
@@ -312,8 +317,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				Happiness single icon? & task & injuries | Military squad | Professions
 				Needs | Inventory 2-col
 				 */
-				Table needsView = settlerManagementScreen.needs(entity);
-				table.add(needsView);
+				Table professions = settlerManagementScreen.professions(entity, s -> {
+
+				});
+				outerTable.add(professions).row();
+
+				Updatable<Table> needs = settlerManagementScreen.needs(entity);
+				outerTableAdd(needs);
 
 			} else {
 				EntityType entityType = entity.getType();
@@ -322,11 +332,20 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 	}
 
+	public <T extends Actor> Cell<T> outerTableAdd(Updatable<T> updatable) {
+		updatables.add(updatable);
+		return outerTable.add(updatable.getActor());
+	}
+
 	/**
 	 * Updates every second or so, not instant on show
 	 */
 	@Override
 	public void update() {
+		for (Updatable<?> updatable : updatables) {
+			updatable.update();
+		}
+
 //		outerTable.clear();
 //		entityDescriptionTable.clear();
 
