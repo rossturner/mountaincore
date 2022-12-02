@@ -830,7 +830,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	}
 
 
-	private Table needs(Entity settler) {
+	public Table needs(Entity settler) {
 		Table table = new Table();
 		table.defaults().spaceBottom(30f);
 		NeedsComponent needsComponent = settler.getComponent(NeedsComponent.class);
