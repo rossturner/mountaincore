@@ -3,16 +3,18 @@ package technology.rocketjump.saul.ui.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.kotcrab.vis.ui.widget.VisProgressBar;
+import com.ray3k.tenpatch.TenPatchDrawable;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.hints.HintDictionary;
 import technology.rocketjump.saul.ui.hints.HintProgressEvaluator;
 import technology.rocketjump.saul.ui.hints.model.*;
@@ -20,8 +22,6 @@ import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.I18nTextButton;
-import technology.rocketjump.saul.ui.widgets.I18nTextWidget;
 import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
 import java.util.ArrayList;
@@ -50,6 +50,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 	private List<HintProgress> currentProgress = new ArrayList<>();
 
 	private float timeSinceLastUpdate = 0f;
+	private final Label.LabelStyle defaultLabelStyle;
 
 	static {
 		DISMISS_ACTION.setButtonTextI18nKey("HINT.BUTTON.DISMISS");
@@ -63,12 +64,13 @@ public class HintGuiView implements GuiView, GameContextAware {
 					   HintProgressEvaluator hintProgressEvaluator) {
 		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;
-		this.uiSkin = guiSkinRepository.getDefault();
+		this.uiSkin = guiSkinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.hintDictionary = hintDictionary;
 		this.hintProgressEvaluator = hintProgressEvaluator;
 
 		layoutTable = new Table(uiSkin);
+		defaultLabelStyle = uiSkin.get("white_text_default-font-19", Label.LabelStyle.class);
 	}
 
 
@@ -107,19 +109,36 @@ public class HintGuiView implements GuiView, GameContextAware {
 		currentProgress.clear();
 
 		layoutTable.clearChildren();
-
 		for (Hint displayedHint : displayedHints) {
-			Table hintTable = new Table(uiSkin);
-			hintTable.setBackground("default-rect");
+			Table wrapperTable = new Table();
+			wrapperTable.setBackground(uiSkin.get("asset_notifications_bg_patch", TenPatchDrawable.class));
+			wrapperTable.setTouchable(Touchable.enabled);
+
+			Button exitButton = new Button(uiSkin.getDrawable("btn_exit"));
+			exitButton.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
+				}
+			});
+			exitButton.addListener(new ChangeCursorOnHover(exitButton, GameCursor.SELECT, messageDispatcher));
+			wrapperTable.add(exitButton).pad(10).left().top();
+
+			Table hintTable = new Table();
+			hintTable.defaults().padRight(60).padTop(20).padBottom(20);
+			hintTable.padBottom(20);
 
 			for (String i18nKey : displayedHint.getI18nKeys()) {
-				I18nText text = i18nTranslator.getTranslatedString(i18nKey).breakAfterLength(i18nTranslator.getCurrentLanguageType().getBreakAfterLineLength());
-				I18nTextWidget widget = new I18nTextWidget(text, uiSkin, messageDispatcher);
-				hintTable.add(widget).left().pad(5).row();
+				I18nText text = i18nTranslator.getTranslatedString(i18nKey);
+				Label label = new Label(text.toString(), defaultLabelStyle);
+				label.setWrap(true);
+
+				hintTable.add(label).left().width(1900).row();
 			}
 
 			if (!displayedHint.getProgressDescriptors().isEmpty()) {
-				hintTable.add(i18nWidgetFactory.createLabel("HINT.PROGRESS.HEADER")).left().pad(5).row();
+				Label label = new Label(i18nTranslator.getTranslatedString("HINT.PROGRESS.HEADER").toString(), defaultLabelStyle);
+				hintTable.add(label).left().row();
 				try {
 					buildProgressDescriptors(displayedHint, hintTable);
 				} catch (HintProgressComplete hintProgressComplete) {
@@ -135,7 +154,8 @@ public class HintGuiView implements GuiView, GameContextAware {
 
 			buildActions(displayedHint, hintTable);
 
-			layoutTable.add(hintTable).row();
+			wrapperTable.add(hintTable).padTop(40);
+			layoutTable.add(wrapperTable).pad(40).row();
 		}
 	}
 
@@ -211,9 +231,10 @@ public class HintGuiView implements GuiView, GameContextAware {
 				allProgressComplete = false;
 			}
 
-			VisProgressBar bar = new VisProgressBar(0, progress.total, 1, false);
+			ProgressBar bar = new ProgressBar(0, progress.total, 1, false, uiSkin);
 			bar.setValue(progress.current);
-			progressTable.add(bar).padRight(5);
+			bar.setDisabled(true);
+			progressTable.add(bar).padRight(25);
 
 			Map<String, I18nString> replacements = new HashMap<>();
 			replacements.put("currentQuantity", new I18nText(String.valueOf(progress.current)));
@@ -221,9 +242,9 @@ public class HintGuiView implements GuiView, GameContextAware {
 			replacements.put("targetDescription", progress.targetDescription);
 			I18nText text = i18nTranslator.getTranslatedWordWithReplacements("TUTORIAL.PROGRESS_DESCRIPTION.TEXT", replacements);
 
-			progressTable.add(new I18nTextWidget(text, uiSkin, messageDispatcher));
+			progressTable.add(new Label(text.toString(), defaultLabelStyle));
 
-			hintTable.add(progressTable).left().pad(5).row();
+			hintTable.add(progressTable).left().row();
 		}
 
 		if (allProgressComplete) {
@@ -239,34 +260,43 @@ public class HintGuiView implements GuiView, GameContextAware {
 		Table actionsTable = new Table(uiSkin);
 
 		for (HintAction action : displayedHint.getActions()) {
-			I18nTextButton button = i18nWidgetFactory.createTextButton(action.getButtonTextI18nKey());
-			button.addListener(new ClickListener() {
-
-				boolean triggeredOnce = false;
-
-				@Override
-				public void clicked (InputEvent event, float x, float y) {
-					if (!triggeredOnce) {
-						triggeredOnce = true;
-						messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, action);
-					}
-				}
+			Button button = buildButton(action.getButtonTextI18nKey(), () -> {
+				messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, action);
 			});
-			actionsTable.add(button).left().padRight(5);
+			actionsTable.add(button).right().padLeft(15);
 		}
 
 
 		if (displayedHint.isDismissable()) {
-			I18nTextButton button = i18nWidgetFactory.createTextButton("HINT.BUTTON.DISMISS");
-			button.addListener(new ClickListener() {
-				@Override
-				public void clicked (InputEvent event, float x, float y) {
-					messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
-				}
+			Button button = buildButton("HINT.BUTTON.DISMISS", () -> {
+				messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
 			});
-			actionsTable.add(button).left().padRight(5);
+			actionsTable.add(button).right().padLeft(15);
 		}
 
-		hintTable.add(actionsTable).left().pad(5).row();
+		if (actionsTable.hasChildren()) {
+			hintTable.add(actionsTable).right().row();
+		}
+
+	}
+
+	private Button buildButton(String i18nKey, Runnable onClick) {
+		Button button = new Button(uiSkin.getDrawable("btn_01"));
+		Label label = new Label(i18nTranslator.getTranslatedString(i18nKey).toString(), defaultLabelStyle);
+		button.add(label).padBottom(12).center();
+		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
+		button.addListener(new ClickListener() {
+
+			boolean triggeredOnce = false;
+
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (!triggeredOnce) {
+					triggeredOnce = true;
+					onClick.run();
+				}
+			}
+		});
+		return button;
 	}
 }
