@@ -71,7 +71,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 		return militaryComponent == null || militaryComponent.getSquadId() == null;
 	};
-	private static final Predicate<Entity> IS_MILITARY = IS_CIVILIAN.negate();
+	public static final Predicate<Entity> IS_MILITARY = IS_CIVILIAN.negate();
 
 	private record MatchesActiveProfession(Skill skill) implements Predicate<Entity> {
 
@@ -412,7 +412,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		scrollPane.setActor(settlersTable);
 	}
 
-	private Table weaponSelection(Entity settler, Consumer<Entity> onSettlerChange) {
+	public Table weaponSelection(Entity settler, Consumer<Entity> onSettlerChange) {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 		EquippedItemComponent equippedItemComponent = settler.getComponent(EquippedItemComponent.class);
@@ -513,18 +513,24 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				ItemEntityAttributes attributes = (ItemEntityAttributes) assignedWeapon.getPhysicalEntityComponent().getAttributes();
 				I18nText tooltipText = i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality());
 				tooltipFactory.simpleTooltip(weaponSelectButton, tooltipText, TooltipLocationHint.BELOW);
+			} else {
+				tooltipFactory.simpleTooltip(weaponSelectButton, "WEAPON.UNARMED", TooltipLocationHint.BELOW);
 			}
 
 			if (assignedShield != null) {
 				ItemEntityAttributes attributes = (ItemEntityAttributes) assignedShield.getPhysicalEntityComponent().getAttributes();
 				I18nText tooltipText = i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality());
 				tooltipFactory.simpleTooltip(shieldSelectButton, tooltipText, TooltipLocationHint.BELOW);
+			} else {
+				tooltipFactory.simpleTooltip(shieldSelectButton, "WEAPON.NO_SHIELD", TooltipLocationHint.BELOW);
 			}
 
 			if (assignedArmour != null) {
 				ItemEntityAttributes attributes = (ItemEntityAttributes) assignedArmour.getPhysicalEntityComponent().getAttributes();
 				I18nText tooltipText = i18nTranslator.getItemDescription(1, attributes.getPrimaryMaterial(), attributes.getItemType(), attributes.getItemQuality());
 				tooltipFactory.simpleTooltip(armourSelectButton, tooltipText, TooltipLocationHint.BELOW);
+			} else {
+				tooltipFactory.simpleTooltip(armourSelectButton, "WEAPON.NO_ARMOUR", TooltipLocationHint.BELOW);
 			}
 
 			Consumer<Entity> updateState = entity -> {
@@ -552,7 +558,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					});
 
 					//TODO: feels dirty but deals with the inconsistency of unarmed being mixed in with groups
-					options.add(new SelectWeaponTypeOption(SkillDictionary.UNARMED_COMBAT_SKILL.getI18nKey(), brawlDrawable, skillsComponent, SkillDictionary.UNARMED_COMBAT_SKILL, Collections.emptyList(), null) {
+					options.add(new SelectWeaponTypeOption("WEAPON.UNARMED", brawlDrawable, skillsComponent, SkillDictionary.UNARMED_COMBAT_SKILL, Collections.emptyList(), null) {
 						@Override
 						public void onSelect() {
 							militaryComponent.setAssignedWeaponId(null);
@@ -573,7 +579,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 						militaryComponent.setAssignedShieldId(shield.getId());
 						updateState.accept(shield);
 					}, managementSkin);
-					options.add(new SelectItemOption(i18nTranslator.getTranslatedString("WEAPON.NONE"), null, managementSkin.getDrawable("military_icon_select_clear"), n -> {
+					options.add(new SelectItemOption(i18nTranslator.getTranslatedString("WEAPON.NO_SHIELD"), null, managementSkin.getDrawable("military_icon_select_clear"), n -> {
 						militaryComponent.setAssignedShieldId(null);
 						updateState.accept(n);
 					}, managementSkin));
@@ -591,7 +597,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 						militaryComponent.setAssignedArmorId(armour.getId());
 						updateState.accept(armour);
 					}, managementSkin);
-					options.add(new SelectItemOption(i18nTranslator.getTranslatedString("WEAPON.NONE"), null, managementSkin.getDrawable("military_icon_select_clear"), n -> {
+					options.add(new SelectItemOption(i18nTranslator.getTranslatedString("WEAPON.NO_ARMOUR"), null, managementSkin.getDrawable("military_icon_select_clear"), n -> {
 						militaryComponent.setAssignedArmorId(null);
 						updateState.accept(n);
 					}, managementSkin));
@@ -785,7 +791,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return null;
 	}
 
-	private Table militaryToggle(Entity settler, Consumer<Entity> onMilitaryChange) {
+	public Table militaryToggle(Entity settler, Consumer<Entity> onMilitaryChange) {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 
 		Image image = new Image(managementSkin.getDrawable("icon_military"));

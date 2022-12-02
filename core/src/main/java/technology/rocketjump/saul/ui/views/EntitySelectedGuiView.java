@@ -15,7 +15,6 @@ import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpi
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
-import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
@@ -317,13 +316,14 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				Happiness single icon? & task & injuries | Military squad | Professions
 				Needs | Inventory 2-col
 				 */
-				Table professions = settlerManagementScreen.professions(entity, s -> {
 
-				});
-				outerTable.add(professions).row();
-
-				Updatable<Table> needs = settlerManagementScreen.needs(entity);
-				outerTableAdd(needs);
+				outerTableAdd(settlerManagementScreen.militaryToggle(entity, s -> populate(containerTable))); //TODO: not sure of this, but might just work
+				if (SettlerManagementScreen.IS_MILITARY.test(entity)) {
+					outerTableAdd(settlerManagementScreen.weaponSelection(entity, s -> populate(containerTable))).row(); //todo, not clear when to use Updatables, this needs updating regularly for loss of hand. Also needs updatables for appearance of item
+				} else {
+					outerTableAdd(settlerManagementScreen.professions(entity, s -> update())).row();
+				}
+				outerTableAdd(settlerManagementScreen.needs(entity));
 
 			} else {
 				EntityType entityType = entity.getType();
@@ -335,6 +335,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	public <T extends Actor> Cell<T> outerTableAdd(Updatable<T> updatable) {
 		updatables.add(updatable);
 		return outerTable.add(updatable.getActor());
+	}
+
+	public <T extends Actor> Cell<T> outerTableAdd(T actor) {
+		return outerTable.add(actor);
 	}
 
 	/**
@@ -617,80 +621,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 	}*/
 
-	private boolean isTwoHandedWeapon(Entity itemEntity) {
-		if (itemEntity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
-			if (attributes.getItemType().getWeaponInfo() != null && attributes.getItemType().getWeaponInfo().isTwoHanded()) {
-				return attributes.getItemType().getWeaponInfo().isTwoHanded();
-			}
-		}
-		return false;
-	}
-/*
-	private void populateMilitaryEquipmentTable(MilitaryComponent militaryComponent, EquippedItemComponent equippedItemComponent) {
-		// Weapon
-		Long assignedWeaponId = militaryComponent.getAssignedWeaponId();
-		Entity assignedWeapon = null;
-		boolean weaponIsTwoHanded = false;
-		if (assignedWeaponId != null) {
-			assignedWeapon = gameContext.getEntities().get(assignedWeaponId);
-			if (assignedWeapon == null) {
-				militaryComponent.setAssignedWeaponId(null);
-			} else {
-				weaponIsTwoHanded = isTwoHandedWeapon(assignedWeapon);
-			}
-		}
-		ImageButton weaponButton = UNARMED_IMAGE_BUTTON;
-		if (assignedWeapon != null) {
-			weaponButton = imageButtonFactory.getOrCreate(assignedWeapon);
-		}
-		weaponButton.setAction(weaponSelectionAction);
-
-		// Shield
-		Long assignedShieldId = militaryComponent.getAssignedShieldId();
-		Entity assignedShield = null;
-		if (assignedShieldId != null) {
-			assignedShield = gameContext.getEntities().get(assignedShieldId);
-			if (assignedShield == null) {
-				militaryComponent.setAssignedShieldId(null);
-			}
-		}
-		ImageButton shieldButton = UNSHIELDED_IMAGE_BUTTON;
-		if (assignedShield != null) {
-			shieldButton = imageButtonFactory.getOrCreate(assignedShield);
-		}
-		shieldButton.setAction(shieldSelectionAction);
-
-		// Armour
-		Long assignedArmorId = militaryComponent.getAssignedArmorId();
-		Entity assignedArmor = null;
-		if (assignedArmorId != null) {
-			assignedArmor = gameContext.getEntities().get(assignedArmorId);
-			if (assignedArmor == null) {
-				militaryComponent.setAssignedArmorId(null);
-			}
-		}
-		ImageButton armorButton = UNARMORED_IMAGE_BUTTON;
-		if (assignedArmor != null) {
-			armorButton = imageButtonFactory.getOrCreate(assignedArmor);
-		}
-		armorButton.setAction(armorSelectionAction);
-
-		if (equippedItemComponent == null || equippedItemComponent.isMainHandEnabled()) {
-			militaryEquipmentTable.add(weaponButton).center().pad(5);
-		}
-
-		if (!weaponIsTwoHanded && (equippedItemComponent == null || equippedItemComponent.isOffHandEnabled())) {
-			militaryEquipmentTable.add(shieldButton).center().pad(5);
-		}
-		militaryEquipmentTable.add(armorButton).center().pad(5);
-		// Description line
-		militaryEquipmentTable.row();
-		addLabel(assignedWeapon, "WEAPON.UNARMED");
-		if (!weaponIsTwoHanded) {
-			addLabel(assignedShield, "WEAPON.NO_SHIELD");
-		}
-		addLabel(assignedArmor, "WEAPON.NO_ARMOUR");
-	}*/
 
 /*	private void addLabel(Entity itemEntity, String defaultI18nKey) {
 		I18nText description = itemEntity != null ? i18nTranslator.getDescription(itemEntity) : i18nTranslator.getTranslatedString(defaultI18nKey);
@@ -750,101 +680,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				nameTable.add(label).left().row();
 			}
 		}
-	}*/
-
-/*	private void populateProfessionTable(Entity entity) {
-		SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
-		if (skillsComponent == null) {
-			return;
-		}
-		int rowCounter = 0;
-		List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
-		List<Table> professionRows = new ArrayList<>();
-
-		for (SkillsComponent.QuantifiedSkill quantifiedSkill : activeProfessions) {
-			if (!quantifiedSkill.getSkill().equals(NULL_PROFESSION)) {
-				rowCounter++;
-
-				if (skillsComponent.getActiveProfessions().size() > 2) {
-					Table orderingTable = new Table(uiSkin);
-					final int rowIndex = rowCounter - 1;
-
-					if (rowIndex > 0) {
-						IconOnlyButton upButton = upButtons.get(rowIndex);
-						upButton.setAction(() -> {
-							skillsComponent.swapActiveProfessionPositions(rowIndex - 1, rowIndex);
-							messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
-							update();
-						});
-						orderingTable.add(upButton).pad(2).row();
-					}
-
-					if (rowIndex < activeProfessions.size() - 2) {
-						IconOnlyButton downButton = downButtons.get(rowIndex);
-						downButton.setAction(() -> {
-							skillsComponent.swapActiveProfessionPositions(rowIndex, rowIndex + 1);
-							messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
-							update();
-						});
-						orderingTable.add(downButton).pad(2);
-					}
-
-					professionsTable.add(orderingTable).pad(3);
-				}
-
-				Table professionRow = new Table(uiSkin);
-				professionRow.add(new Label(rowCounter + ". ", uiSkin));
-				professionRow.add(new I18nTextWidget(i18nTranslator.getSkilledProfessionDescription(quantifiedSkill.getSkill(),
-						quantifiedSkill.getLevel(), ((CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getGender()),
-						uiSkin, messageDispatcher));
-				professionRow.add(new Label(" (" + quantifiedSkill.getLevel() + ")", uiSkin));
-				professionsTable.add(professionRow).align(Align.left).pad(5);
-				professionRows.add(professionRow);
-
-				ImageButton cancelButton = cancelButtons.get(rowCounter);
-				cancelButton.setAction(() -> {
-					skillsComponent.deactivateProfession(quantifiedSkill.getSkill());
-					messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
-					update();
-				});
-				professionsTable.add(cancelButton).pad(5);
-
-				professionsTable.row();
-
-			}
-		}
-
-		if (rowCounter < MAX_PROFESSIONS) {
-			I18nTextButton addAnotherButton = i18nWidgetFactory.createTextButton("PROFESSION.GUI.ADD_ANOTHER");
-			addAnotherButton.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					gameInteractionStateContainer.setProfessionToReplace(null);
-					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.CHANGE_PROFESSION);
-				}
-			});
-			professionsTable.add(addAnotherButton).colspan(3).pad(5).align(Align.left).row();
-		}
-
-	}*/
-
-/*	public static void populateNeedsTable(Table needsTable, Entity entity, Map<EntityNeed, I18nLabel> needLabels) {
-		NeedsComponent needsComponent = entity.getComponent(NeedsComponent.class);
-		if (needsComponent != null) {
-			for (Map.Entry<EntityNeed, I18nLabel> entry : needLabels.entrySet()) {
-				Double needValue = needsComponent.getValue(entry.getKey());
-				if (needValue == null) {
-					continue;
-				}
-				needsTable.add(new I18nLabel(entry.getValue())).pad(5);
-				ProgressBar progressBar = new VisProgressBar(0, 100, 1, false);
-				progressBar.setValue(Math.round(needValue));
-				progressBar.setDisabled(true);
-				needsTable.add(progressBar).left().padRight(5);
-				needsTable.row();
-			}
-		}
-
 	}*/
 
 /*	private void populateHappinessTable(Entity entity) {
