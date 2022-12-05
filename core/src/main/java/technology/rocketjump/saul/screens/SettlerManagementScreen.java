@@ -462,29 +462,6 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				armourButtonStyle.imageUp = armourDrawable;
 			}
 
-			boolean canUseMainHand = equippedItemComponent == null || equippedItemComponent.isMainHandEnabled();
-			boolean canUseOffHand = equippedItemComponent == null || equippedItemComponent.isOffHandEnabled();
-			boolean canUseWeapon = canUseMainHand;
-			boolean canUseShield = !weaponIsTwoHanded && canUseOffHand;
-
-			Map<String, List<Entity>> weaponsByItemType = settlementItemTracker.getAll(true).stream()
-					.filter(e -> getWeaponInfo(e) != null)
-					.filter(e -> !getWeaponInfo(e).isTwoHanded() || canUseOffHand)
-					.collect(Collectors.groupingBy(SettlementItemTracker.GROUP_BY_ITEM_TYPE));
-
-			List<Entity> allShields = settlementItemTracker.getAll(true).stream()
-					.filter(e -> getDefenseInfo(e) != null
-							&& DefenseType.SHIELD.equals(getDefenseInfo(e).getType()))
-					.toList();
-
-			List<Entity> allArmour = settlementItemTracker.getAll(true).stream()
-					.filter(e -> getDefenseInfo(e) != null
-							&& DefenseType.ARMOR.equals(getDefenseInfo(e).getType())
-							&& getDefenseInfo(e).canBeEquippedBy(settler)
-					)
-					.toList();
-
-
 			Table weaponColumn = new Table();
 			Image weaponIcon = new Image(managementSkin.getDrawable("icon_military_equip_weapon"));
 			ImageButton weaponSelectButton = new ImageButton(weaponButtonStyle);
@@ -538,12 +515,23 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				onSettlerChange.accept(settler);
 			};
 
+
+			boolean canUseMainHand = equippedItemComponent == null || equippedItemComponent.isMainHandEnabled();
+			boolean canUseOffHand = equippedItemComponent == null || equippedItemComponent.isOffHandEnabled();
+			boolean canUseWeapon = canUseMainHand;
+			boolean canUseShield = !weaponIsTwoHanded && canUseOffHand;
+
 			weaponSelectButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					super.clicked(event, x, y);
 					//TODO: refactor out common select dialog wizard
 					Drawable brawlDrawable = managementSkin.getDrawable("military_icon_select_brawl");
+
+					Map<String, List<Entity>> weaponsByItemType = settlementItemTracker.getAll(true).stream()
+							.filter(e -> getWeaponInfo(e) != null)
+							.filter(e -> !getWeaponInfo(e).isTwoHanded() || canUseOffHand)
+							.collect(Collectors.groupingBy(SettlementItemTracker.GROUP_BY_ITEM_TYPE));
 					List<SelectItemDialog.Option> options = new ArrayList<>();
 					weaponsByItemType.keySet().stream().sorted().forEach(weaponName -> {
 						List<Entity> subGroup = weaponsByItemType.get(weaponName);
@@ -575,6 +563,11 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					super.clicked(event, x, y);
+					List<Entity> allShields = settlementItemTracker.getAll(true).stream()
+							.filter(e -> getDefenseInfo(e) != null
+									&& DefenseType.SHIELD.equals(getDefenseInfo(e).getType()))
+							.toList();
+
 					List<SelectItemDialog.Option> options = SelectItemOption.forMaterialAndQuality(allShields, entityRenderer, messageDispatcher, i18nTranslator, shield -> {
 						militaryComponent.setAssignedShieldId(shield.getId());
 						updateState.accept(shield);
@@ -593,6 +586,14 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					super.clicked(event, x, y);
+
+					List<Entity> allArmour = settlementItemTracker.getAll(true).stream()
+							.filter(e -> getDefenseInfo(e) != null
+									&& DefenseType.ARMOR.equals(getDefenseInfo(e).getType())
+									&& getDefenseInfo(e).canBeEquippedBy(settler)
+							)
+							.toList();
+
 					List<SelectItemDialog.Option> options = SelectItemOption.forMaterialAndQuality(allArmour, entityRenderer, messageDispatcher, i18nTranslator, armour -> {
 						militaryComponent.setAssignedArmorId(armour.getId());
 						updateState.accept(armour);
@@ -660,7 +661,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				tooltipFactory.simpleTooltip(invisibleOverlay, disableReason, TooltipLocationHint.BELOW);
 			}
 
-			table.add(weaponStack).growX().top().spaceRight(24).spaceLeft(24); //todo fix the position when switching between military and civilian
+			table.add(weaponStack).growX().top().spaceRight(24).spaceLeft(24);
 			table.add(shieldStack).growX().top().spaceRight(24).spaceLeft(24);
 			table.add(armourColumn).growX().top().spaceRight(24).spaceLeft(24);
 		}
