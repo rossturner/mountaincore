@@ -1,90 +1,111 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.gamecontext.GameContext;
-import technology.rocketjump.saul.gamecontext.GameContextAware;
-import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.rendering.utils.HexColors;
+import com.ray3k.tenpatch.TenPatchDrawable;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
-import technology.rocketjump.saul.ui.Selectable;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.ButtonStyle;
-import technology.rocketjump.saul.ui.widgets.I18nTextWidget;
-import technology.rocketjump.saul.ui.widgets.IconButton;
-import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
-
-import java.util.List;
-
-import static technology.rocketjump.saul.ui.Selectable.SelectableType.CONSTRUCTION;
+import technology.rocketjump.saul.ui.widgets.constructions.ConstructionPriorityWidget;
+import technology.rocketjump.saul.ui.widgets.constructions.ConstructionRequirementsWidget;
 
 @Singleton
-public class ConstructionSelectedGuiView implements GuiView, GameContextAware {
+public class ConstructionSelectedGuiView implements GuiView, DisplaysText {
 
-	private final Skin uiSkin;
-	private final I18nTranslator i18nTranslator;
-	private final GameInteractionStateContainer gameInteractionStateContainer;
-	private final IconButton cancelButton;
+	private final Skin skin;
+	private final GameInteractionStateContainer interactionStateContainer;
 	private final MessageDispatcher messageDispatcher;
-	private Table outerTable;
-	private Table descriptionTable;
-	private GameContext gameContext;
+	private final TooltipFactory tooltipFactory;
+
+	private final Table mainTable;
+	private final Table headerContainer;
+	private final I18nTranslator i18nTranslator;
+	private final Table descriptionTable;
+	private boolean displayed;
+	private Construction selectedConstruction;
+	private final ConstructionRequirementsWidget constructionRequirementsWidget;
 
 	@Inject
-	public ConstructionSelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
-									   GameInteractionStateContainer gameInteractionStateContainer, IconButtonFactory iconButtonFactory) {
-		uiSkin = guiSkinRepository.getDefault();
+	public ConstructionSelectedGuiView(GuiSkinRepository guiSkinRepository, GameInteractionStateContainer interactionStateContainer,
+									   MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, I18nTranslator i18nTranslator,
+									   ConstructionRequirementsWidget constructionRequirementsWidget) {
+		this.skin = guiSkinRepository.getMainGameSkin();
+		this.interactionStateContainer = interactionStateContainer;
 		this.messageDispatcher = messageDispatcher;
+		this.tooltipFactory = tooltipFactory;
 		this.i18nTranslator = i18nTranslator;
-		this.gameInteractionStateContainer = gameInteractionStateContainer;
+		this.constructionRequirementsWidget = constructionRequirementsWidget;
 
-		outerTable = new Table(uiSkin);
-		outerTable.background("default-rect");
-		outerTable.pad(10);
+		mainTable = new Table();
+		mainTable.setTouchable(Touchable.enabled);
+		mainTable.setBackground(skin.getDrawable("asset_dwarf_select_bg"));
+		mainTable.pad(20);
+		mainTable.defaults().padBottom(20);
+		mainTable.top();
 
-		descriptionTable = new Table(uiSkin);
-		descriptionTable.pad(10);
+		headerContainer = new Table();
+		headerContainer.setBackground(skin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
 
-		cancelButton = iconButtonFactory.create("GUI.CANCEL_LABEL", "cancel", HexColors.get("#D4534C"), ButtonStyle.SMALL);
-		cancelButton.setAction(() -> {
-			Selectable selectable = gameInteractionStateContainer.getSelectable();
-			if (selectable != null && selectable.type.equals(CONSTRUCTION)) {
-				messageDispatcher.dispatchMessage(MessageType.CANCEL_CONSTRUCTION, selectable.getConstruction());
-			}
+		descriptionTable = new Table();
+		descriptionTable.defaults().padBottom(20).padTop(20);
+	}
+
+	@Override
+	public void rebuildUI() {
+		if (!this.displayed || interactionStateContainer.getSelectable() == null || interactionStateContainer.getSelectable().getConstruction() == null) {
+			return;
+		}
+		this.selectedConstruction = interactionStateContainer.getSelectable().getConstruction();
+
+		mainTable.clearChildren();
+		headerContainer.clearChildren();
+
+		I18nText headlineDescription = selectedConstruction.getHeadlineDescription(i18nTranslator);
+		Label headerLabel = new Label(headlineDescription.toString(), skin.get("title-header", Label.LabelStyle.class));
+		headerContainer.add(headerLabel).center();
+
+		Table topRow = new Table();
+		topRow.add(new Container<>()).width(150);
+		topRow.add(headerContainer).expandX();
+		topRow.add(new Container<>()).width(150);
+		mainTable.add(topRow).growX().row();
+
+		updateDescriptionTable();
+		mainTable.add(descriptionTable).growX().row();
+
+		mainTable.add(new ConstructionPriorityWidget(selectedConstruction, skin, tooltipFactory, messageDispatcher)).center().row();
+
+		constructionRequirementsWidget.setSelectedConstruction(selectedConstruction);
+		mainTable.add(constructionRequirementsWidget).center().row();
+	}
+
+	private void updateDescriptionTable() {
+		descriptionTable.clearChildren();
+		selectedConstruction.getConstructionStatusDescriptions(i18nTranslator, messageDispatcher).forEach((description) -> {
+			Label descriptionLabel = new Label(description.toString(), skin.get("default-red", Label.LabelStyle.class));
+			descriptionTable.add(descriptionLabel).center().row();
 		});
-
-		outerTable.add(descriptionTable).left();
-		outerTable.add(cancelButton).center();
 	}
 
 	@Override
 	public void populate(Table containerTable) {
-		update();
-
-		containerTable.clear();
-		containerTable.add(outerTable);
+		containerTable.add(mainTable);
 	}
 
 	@Override
 	public void update() {
-		descriptionTable.clear();
-
-		Selectable selectable = gameInteractionStateContainer.getSelectable();
-
-		if (selectable != null && selectable.type.equals(CONSTRUCTION)) {
-			Construction construction = selectable.getConstruction();
-			List<I18nText> description = construction.getDescription(i18nTranslator, gameContext, messageDispatcher);
-			for (I18nText line : description) {
-				descriptionTable.add(new I18nTextWidget(line, uiSkin, messageDispatcher)).left();
-				descriptionTable.row();
-			}
-		}
+		updateDescriptionTable();
+		constructionRequirementsWidget.update();
 	}
 
 	@Override
@@ -98,12 +119,13 @@ public class ConstructionSelectedGuiView implements GuiView, GameContextAware {
 	}
 
 	@Override
-	public void onContextChange(GameContext gameContext) {
-		this.gameContext = gameContext;
+	public void onShow() {
+		this.displayed = true;
+		rebuildUI();
 	}
 
 	@Override
-	public void clearContextRelatedState() {
-
+	public void onHide() {
+		this.displayed = false;
 	}
 }

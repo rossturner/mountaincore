@@ -41,7 +41,7 @@ import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.sprites.BridgeTypeDictionary;
 import technology.rocketjump.saul.ui.views.GuiViewName;
 import technology.rocketjump.saul.ui.views.RoomEditingView;
-import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
+import technology.rocketjump.saul.ui.widgets.furniture.FurnitureRequirementsWidget;
 
 import java.util.*;
 
@@ -60,7 +60,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 
 	private final FurnitureEntityAttributesFactory furnitureEntityAttributesFactory;
 	private final FurnitureEntityFactory furnitureEntityFactory;
-	private final FurnitureMaterialsWidget furnitureMaterialsWidget;
+	private final FurnitureRequirementsWidget furnitureRequirementsWidget;
 	private final RoomEditingView roomEditingView;
 	private final BridgeTypeDictionary bridgeTypeDictionary;
 	private GameContext gameContext;
@@ -73,13 +73,13 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 							 DesignationDictionary designationDictionary, WallTypeDictionary wallTypeDictionary,
 							 FurnitureEntityAttributesFactory furnitureEntityAttributesFactory, FurnitureEntityFactory furnitureEntityFactory,
 							 BridgeTypeDictionary bridgeTypeDictionary,
-							 FloorTypeDictionary floorTypeDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget, RoomEditingView roomEditingView) {
+							 FloorTypeDictionary floorTypeDictionary, FurnitureRequirementsWidget furnitureRequirementsWidget, RoomEditingView roomEditingView) {
 		this.messageDispatcher = messageDispatcher;
 		this.interactionStateContainer = interactionStateContainer;
 		this.furnitureEntityAttributesFactory = furnitureEntityAttributesFactory;
 		this.furnitureEntityFactory = furnitureEntityFactory;
 		this.bridgeTypeDictionary = bridgeTypeDictionary;
-		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
+		this.furnitureRequirementsWidget = furnitureRequirementsWidget;
 		this.roomEditingView = roomEditingView;
 
 		messageDispatcher.addListener(this, MessageType.MOUSE_DOWN);
@@ -273,8 +273,8 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 	private void rebuildFurnitureEntity() {
 		FurnitureType selectedFurnitureType = interactionStateContainer.getFurnitureTypeToPlace();
 
-		GameMaterialType selectedMaterialType = furnitureMaterialsWidget.getSelectedMaterialType();
-		List<ItemTypeWithMaterial> materialSelections = furnitureMaterialsWidget.getSelections();
+		GameMaterialType selectedMaterialType = furnitureRequirementsWidget.getSelectedMaterialType();
+		List<ItemTypeWithMaterial> materialSelections = furnitureRequirementsWidget.getSelections();
 		if (selectedFurnitureType == null) {
 			return;
 		}

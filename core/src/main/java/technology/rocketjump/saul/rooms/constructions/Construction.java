@@ -363,10 +363,9 @@ public abstract class Construction implements Persistable, SelectableDescription
 		description.addAll(getConstructionStatusDescriptions(i18nTranslator, messageDispatcher));
 
 		if (!getState().equals(SELECTING_MATERIALS)) {
-			List<HaulingAllocation> allocatedItems = getIncomingHaulingAllocations();
 			for (QuantifiedItemTypeWithMaterial requirement : getRequirements()) {
 				if (requirement.getMaterial() != null) {
-					int numberAllocated = getAllocationAmount(requirement.getItemType(), allocatedItems, getPlacedItemAllocations().values(), gameContext);
+					int numberAllocated = getAllocationAmount(requirement.getItemType(), gameContext);
 					description.add(getItemAllocationDescription(numberAllocated, requirement, i18nTranslator));
 				}
 			}
@@ -393,9 +392,9 @@ public abstract class Construction implements Persistable, SelectableDescription
 //		}
 	}
 
-	private int getAllocationAmount(ItemType itemType, List<HaulingAllocation> haulingAllocations, Collection<ItemAllocation> placedItems, GameContext gameContext) {
+	public int getAllocationAmount(ItemType itemType, GameContext gameContext) {
 		int allocated = 0;
-		for (HaulingAllocation haulingAllocation : haulingAllocations) {
+		for (HaulingAllocation haulingAllocation : getIncomingHaulingAllocations()) {
 			if (haulingAllocation.getItemAllocation() != null) {
 				Entity itemEntity = gameContext.getEntities().get(haulingAllocation.getItemAllocation().getTargetItemEntityId());
 				if (itemEntity != null && ((ItemEntityAttributes)itemEntity.getPhysicalEntityComponent().getAttributes()).getItemType().equals(itemType)) {
@@ -403,7 +402,7 @@ public abstract class Construction implements Persistable, SelectableDescription
 				}
 			}
 		}
-		for (ItemAllocation itemAllocation : placedItems) {
+		for (ItemAllocation itemAllocation : getPlacedItemAllocations().values()) {
 			Entity itemEntity = gameContext.getEntities().get(itemAllocation.getTargetItemEntityId());
 			if (itemEntity != null) {
 				ItemEntityAttributes attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();

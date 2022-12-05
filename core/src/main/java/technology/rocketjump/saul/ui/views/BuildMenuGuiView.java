@@ -40,7 +40,7 @@ import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
-import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
+import technology.rocketjump.saul.ui.widgets.furniture.FurnitureRequirementsWidget;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	private final Skin skin;
 	private final I18nTranslator i18nTranslator;
 	private final GameInteractionStateContainer interactionStateContainer;
-	private final FurnitureMaterialsWidget furnitureMaterialsWidget;
+	private final FurnitureRequirementsWidget furnitureRequirementsWidget;
 	private final GameMaterialDictionary materialDictionary;
 	private final FloorTypeDictionary floorTypeDictionary;
 	private final FurnitureType doorFurnitureType;
@@ -81,7 +81,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	@Inject
 	public BuildMenuGuiView(MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository,
 							I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
-							FurnitureMaterialsWidget furnitureMaterialsWidget,
+							FurnitureRequirementsWidget furnitureRequirementsWidget,
 							GameMaterialDictionary materialDictionary, FloorTypeDictionary floorTypeDictionary,
 							WallTypeDictionary wallTypeDictionary, BridgeTypeDictionary bridgeTypeDictionary,
 							FurnitureTypeDictionary furnitureTypeDictionary, EntityRenderer entityRenderer, RoomEditorFurnitureMap furnitureMap) {
@@ -90,7 +90,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		skin = skinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.interactionStateContainer = interactionStateContainer;
-		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
+		this.furnitureRequirementsWidget = furnitureRequirementsWidget;
 		this.materialDictionary = materialDictionary;
 		this.floorTypeDictionary = floorTypeDictionary;
 		this.wallTypeDictionary = wallTypeDictionary;
@@ -179,7 +179,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		mainTable.add(furnitureTable).center().row();
 
 //		furnitureMaterialsWidget.changeSelectedFurniture(fakeFurnitureType(interactionStateContainer.getFloorTypeToPlace()));
-		furnitureMaterialsWidget.onMaterialSelection(material -> {
+		furnitureRequirementsWidget.onMaterialSelection(material -> {
 			if (material == null) {
 				material = GameMaterial.NULL_MATERIAL;
 			}
@@ -240,7 +240,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 				}
 			}
 		});
-		furnitureMaterialsWidget.onMaterialTypeSelection(materialType -> {
+		furnitureRequirementsWidget.onMaterialTypeSelection(materialType -> {
 			if (currentSelection != null) {
 				switch (currentSelection) {
 					case DOOR -> {
@@ -298,7 +298,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		});
 
 		if (currentSelection != null || interactionStateContainer.getFurnitureTypeToPlace() != null) {
-			mainTable.add(furnitureMaterialsWidget).center().expandX().row();
+			mainTable.add(furnitureRequirementsWidget).center().expandX().row();
 		}
 	}
 
@@ -318,7 +318,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				setSelectedFurniture(furnitureType);
-				furnitureMaterialsWidget.changeSelectedFurniture(furnitureType);
+				furnitureRequirementsWidget.changeSelectedFurniture(furnitureType);
 				GameInteractionMode.PLACE_FURNITURE.setFurnitureType(interactionStateContainer.getFurnitureTypeToPlace());
 				messageDispatcher.dispatchMessage(MessageType.GUI_FURNITURE_TYPE_SELECTED, interactionStateContainer.getFurnitureTypeToPlace());
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FURNITURE);
@@ -373,7 +373,7 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 								doorFurnitureType.getRequirements().get(attributes.getPrimaryMaterialType()).get(0).getItemType()
 						);
 						setCurrentSelection(buildSelection);
-						furnitureMaterialsWidget.changeSelectedFurniture(doorFurnitureType);
+						furnitureRequirementsWidget.changeSelectedFurniture(doorFurnitureType);
 						messageDispatcher.dispatchMessage(MessageType.DOOR_MATERIAL_SELECTED, newMaterialSelection);
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_DOOR);
 					}
@@ -416,9 +416,9 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 						applicableFloorTypes().forEach(applicableType -> {
 							fakeFurnitureType.getRequirements().putAll(applicableType.getRequirements());
 						});
-						furnitureMaterialsWidget.changeSelectedFurniture(fakeFurnitureType);
+						furnitureRequirementsWidget.changeSelectedFurniture(fakeFurnitureType);
 						// need to set initial materialType to be what is currently showing
-						furnitureMaterialsWidget.setSelectedMaterialType(floorType.getMaterialType());
+						furnitureRequirementsWidget.setSelectedMaterialType(floorType.getMaterialType());
 						imageRef.setColor(actualOrExampleColor(newMaterialSelection.selectedMaterial, newMaterialSelection.selectedMaterialType));
 
 						messageDispatcher.dispatchMessage(MessageType.FLOOR_MATERIAL_SELECTED, newMaterialSelection);
@@ -462,9 +462,9 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 						applicableWallTypes().forEach(applicableType -> {
 							fakeFurnitureType.getRequirements().putAll(applicableType.getRequirements());
 						});
-						furnitureMaterialsWidget.changeSelectedFurniture(fakeFurnitureType);
+						furnitureRequirementsWidget.changeSelectedFurniture(fakeFurnitureType);
 						// need to set initial materialType to be what is currently showing
-						furnitureMaterialsWidget.setSelectedMaterialType(wallType.getMaterialType());
+						furnitureRequirementsWidget.setSelectedMaterialType(wallType.getMaterialType());
 						imageRef.setColor(actualOrExampleColor(newMaterialSelection.selectedMaterial, newMaterialSelection.selectedMaterialType));
 
 						messageDispatcher.dispatchMessage(MessageType.WALL_MATERIAL_SELECTED, newMaterialSelection);
@@ -508,9 +508,9 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 						applicableWallTypes().forEach(wallType -> {
 							fakeFurnitureType.getRequirements().putAll(wallType.getRequirements());
 						});
-						furnitureMaterialsWidget.changeSelectedFurniture(fakeFurnitureType);
+						furnitureRequirementsWidget.changeSelectedFurniture(fakeFurnitureType);
 						// need to set initial materialType to be what is currently showing
-						furnitureMaterialsWidget.setSelectedMaterialType(bridgeType.getMaterialType());
+						furnitureRequirementsWidget.setSelectedMaterialType(bridgeType.getMaterialType());
 						imageRef.setColor(actualOrExampleColor(newMaterialSelection.selectedMaterial, newMaterialSelection.selectedMaterialType));
 
 						messageDispatcher.dispatchMessage(MessageType.BRIDGE_MATERIAL_SELECTED, newMaterialSelection);

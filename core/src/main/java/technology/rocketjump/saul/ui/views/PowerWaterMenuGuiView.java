@@ -33,7 +33,7 @@ import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
-import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
+import technology.rocketjump.saul.ui.widgets.furniture.FurnitureRequirementsWidget;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedString;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringFactory;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabel;
@@ -55,7 +55,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	private final Skin skin;
 	private final I18nTranslator i18nTranslator;
 	private final GameInteractionStateContainer interactionStateContainer;
-	private final FurnitureMaterialsWidget furnitureMaterialsWidget;
+	private final FurnitureRequirementsWidget furnitureRequirementsWidget;
 	private final GameMaterialDictionary materialDictionary;
 	private final FurnitureType doorFurnitureType;
 	private final List<FurnitureType> furnitureTypes;
@@ -70,7 +70,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	@Inject
 	public PowerWaterMenuGuiView(MessageDispatcher messageDispatcher, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository,
 								 I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
-								 FurnitureMaterialsWidget furnitureMaterialsWidget,
+								 FurnitureRequirementsWidget furnitureRequirementsWidget,
 								 GameMaterialDictionary materialDictionary, DecoratedStringFactory decoratedStringFactory,
 								 DecoratedStringLabelFactory decoratedStringLabelFactory,
 								 FurnitureTypeDictionary furnitureTypeDictionary, EntityRenderer entityRenderer, RoomEditorFurnitureMap furnitureMap) {
@@ -79,7 +79,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		skin = skinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.interactionStateContainer = interactionStateContainer;
-		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
+		this.furnitureRequirementsWidget = furnitureRequirementsWidget;
 		this.materialDictionary = materialDictionary;
 		this.decoratedStringFactory = decoratedStringFactory;
 		this.decoratedStringLabelFactory = decoratedStringLabelFactory;
@@ -202,7 +202,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		mainTable.add(furnitureTable).center().row();
 
 //		furnitureMaterialsWidget.changeSelectedFurniture(fakeFurnitureType(interactionStateContainer.getFloorTypeToPlace()));
-		furnitureMaterialsWidget.onMaterialSelection(material -> {
+		furnitureRequirementsWidget.onMaterialSelection(material -> {
 			if (material == null) {
 				material = GameMaterial.NULL_MATERIAL;
 			}
@@ -214,7 +214,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
 			}
 		});
-		furnitureMaterialsWidget.onMaterialTypeSelection(materialType -> {
+		furnitureRequirementsWidget.onMaterialTypeSelection(materialType -> {
 			if (interactionStateContainer.getFurnitureTypeToPlace() != null) {
 				Entity furnitureEntity = furnitureMap.getByFurnitureType(interactionStateContainer.getFurnitureTypeToPlace());
 				FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
@@ -229,7 +229,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		});
 
 		if (interactionStateContainer.getFurnitureTypeToPlace() != null) {
-			mainTable.add(furnitureMaterialsWidget).center().expandX().row();
+			mainTable.add(furnitureRequirementsWidget).center().expandX().row();
 		}
 	}
 
@@ -270,7 +270,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				PowerWaterMenuGuiView.this.interactionStateContainer.setFurnitureTypeToPlace(furnitureType);
-				furnitureMaterialsWidget.changeSelectedFurniture(furnitureType);
+				furnitureRequirementsWidget.changeSelectedFurniture(furnitureType);
 				GameInteractionMode.PLACE_FURNITURE.setFurnitureType(interactionStateContainer.getFurnitureTypeToPlace());
 				messageDispatcher.dispatchMessage(MessageType.GUI_FURNITURE_TYPE_SELECTED, interactionStateContainer.getFurnitureTypeToPlace());
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FURNITURE);
