@@ -78,7 +78,7 @@ public class ConstructionSelectedGuiView implements GuiView, DisplaysText {
 		topRow.add(new Container<>()).width(150);
 		topRow.add(headerContainer).expandX();
 		topRow.add(new Container<>()).width(150);
-		mainTable.add(topRow).growX().row();
+		mainTable.add(topRow).padTop(20).growX().row();
 
 		updateDescriptionTable();
 		mainTable.add(descriptionTable).growX().row();
@@ -86,7 +86,7 @@ public class ConstructionSelectedGuiView implements GuiView, DisplaysText {
 		mainTable.add(new ConstructionPriorityWidget(selectedConstruction, skin, tooltipFactory, messageDispatcher)).center().row();
 
 		constructionRequirementsWidget.setSelectedConstruction(selectedConstruction);
-		mainTable.add(constructionRequirementsWidget).center().row();
+		mainTable.add(constructionRequirementsWidget).padBottom(40).center().row();
 	}
 
 	private void updateDescriptionTable() {
@@ -99,7 +99,7 @@ public class ConstructionSelectedGuiView implements GuiView, DisplaysText {
 
 	@Override
 	public void populate(Table containerTable) {
-		containerTable.add(mainTable);
+		containerTable.add(mainTable).padLeft(20).padBottom(10);
 	}
 
 	@Override
