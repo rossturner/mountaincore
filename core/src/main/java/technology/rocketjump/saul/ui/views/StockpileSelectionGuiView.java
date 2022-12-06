@@ -27,7 +27,7 @@ import java.util.ArrayList;
 @Singleton
 public class StockpileSelectionGuiView implements GuiView, DisplaysText {
 
-	private final int ITEMS_PER_ROW = 4;
+	private final int ITEMS_PER_ROW = 5;
 	private final Skin skin;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
@@ -116,13 +116,6 @@ public class StockpileSelectionGuiView implements GuiView, DisplaysText {
 				buttonsTable.row();
 			}
 		}
-
-		while (rowCursor % ITEMS_PER_ROW != 0) {
-			Image spacerImage = new Image(skin.getDrawable("asset_bg"));
-			buttonsTable.add(spacerImage).size(201, 201);
-			rowCursor++;
-		}
-
 
 		mainTable.add(buttonsTable).padLeft(30).padRight(30).padBottom(50).center().row();
 	}

@@ -1,7 +1,6 @@
 {
   "backgroundColor": "#666666FF",
 
-  "maxItemStackSize": 50,
   "maxNeighbouringShrubs": 2,
   "attachedLightSourceTogglePoint": 0.75,
   "corpseDecayHours": 480.0,

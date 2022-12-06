@@ -1,0 +1,126 @@
+[ {
+  "uniqueName" : "Treasure-Coin-Above_Layer_1-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Treasure-Coin",
+  "maxQuantity" : 100,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Treasure-Coin-Above_Layer_1-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    },
+    "UP" : {
+      "filename" : "Treasure-Coin-Above_Layer_1-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Treasure-Coin-Above_Layer_1-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Treasure-Coin-Above_Layer_1-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    },
+    "UP_LEFT" : {
+      "filename" : "Treasure-Coin-Above_Layer_1-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    },
+    "UP_RIGHT" : {
+      "filename" : "Treasure-Coin-Above_Layer_1-Being_Carried_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    }
+  },
+  "overrideRenderLayer" : 20
+}, {
+  "uniqueName" : "Treasure-Coin-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Treasure-Coin",
+  "maxQuantity" : 100,
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Treasure-Coin-Item_Base_Layer-Being_Carried_Down.png",
+      "offsetPixels" : {
+        "x" : 2.0,
+        "y" : 2.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -6.0
+        },
+        "overrideRenderLayer" : 20
+      } ]
+    },
+    "UP" : {
+      "filename" : "Treasure-Coin-Item_Base_Layer-Being_Carried_Down.png",
+      "offsetPixels" : {
+        "x" : 5.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 3.0,
+          "y" : -2.0
+        },
+        "overrideRenderLayer" : 20
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Treasure-Coin-Item_Base_Layer-Being_Carried_Down.png",
+      "offsetPixels" : {
+        "y" : 2.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "overrideRenderLayer" : 20
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Treasure-Coin-Item_Base_Layer-Being_Carried_Down.png",
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -5.0,
+          "y" : -1.0
+        },
+        "overrideRenderLayer" : 20
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Treasure-Coin-Item_Base_Layer-Being_Carried_Down.png",
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "overrideRenderLayer" : 20
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Treasure-Coin-Item_Base_Layer-Being_Carried_Down.png",
+      "offsetPixels" : {
+        "x" : 8.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -2.0
+        },
+        "overrideRenderLayer" : 20
+      } ]
+    }
+  }
+} ]

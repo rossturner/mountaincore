@@ -1,0 +1,13 @@
+[ {
+  "uniqueName" : "Treasure-Gem-Pile01",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Treasure-Gem",
+  "maxQuantity" : 2,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Resource-Gem-Cut-Pile01.png",
+      "coloringLayer" : "GEM_COLOR"
+    }
+  }
+} ]
