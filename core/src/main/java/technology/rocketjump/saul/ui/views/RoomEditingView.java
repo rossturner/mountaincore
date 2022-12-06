@@ -48,6 +48,7 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.*;
+import technology.rocketjump.saul.ui.widgets.furniture.FurnitureRequirementsWidget;
 import technology.rocketjump.saul.ui.widgets.rooms.FarmPlotDescriptionWidget;
 import technology.rocketjump.saul.ui.widgets.rooms.FarmPlotWidget;
 import technology.rocketjump.saul.ui.widgets.rooms.RoomPriorityWidget;
@@ -71,7 +72,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final Table headerContainer;
 	private final Button changeRoomNameButton;
 	private final Table sizingButtons;
-	private final FurnitureMaterialsWidget furnitureMaterialsWidget;
+	private final FurnitureRequirementsWidget furnitureRequirementsWidget;
 	private final RoomFactory roomFactory;
 	private final GameMaterialDictionary materialDictionary;
 	private final GameDialogDictionary gameDialogDictionary;
@@ -93,7 +94,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 						   I18nTranslator i18nTranslator, GameInteractionStateContainer interactionStateContainer,
 						   FurnitureTypeDictionary furnitureTypeDictionary, RoomEditorFurnitureMap furnitureMap,
 						   EntityRenderer entityRenderer, RoomStore roomStore, RoomEditorItemMap itemMap,
-						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget,
+						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureRequirementsWidget furnitureRequirementsWidget,
 						   RoomFactory roomFactory, GameMaterialDictionary materialDictionary, GameDialogDictionary gameDialogDictionary, StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary, ItemTypeDictionary itemTypeDictionary, RaceDictionary raceDictionary, SoundAssetDictionary soundAssetDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
@@ -106,7 +107,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		this.roomStore = roomStore;
 		this.itemMap = itemMap;
 		this.plantSpeciesDictionary = plantSpeciesDictionary;
-		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
+		this.furnitureRequirementsWidget = furnitureRequirementsWidget;
 		this.roomFactory = roomFactory;
 		this.materialDictionary = materialDictionary;
 		this.gameDialogDictionary = gameDialogDictionary;
@@ -121,6 +122,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		mainTable.setTouchable(Touchable.enabled);
 		mainTable.setBackground(skin.getDrawable("asset_dwarf_select_bg"));
 		mainTable.pad(20);
+		mainTable.defaults().padBottom(20);
 		mainTable.top();
 
 
@@ -246,7 +248,6 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		topRow.add(headerContainer).center().width(900).expandY();
 		topRow.add(sizingButtonsContainer).right().expandX().width(400);
 
-		mainTable.defaults().padBottom(20);
 		mainTable.add(topRow).top().expandX().fillX().row();
 
 		if (selectedRoom != null) {
@@ -312,18 +313,18 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		}
 
 		if (interactionStateContainer.getFurnitureTypeToPlace() != null) {
-			mainTable.add(furnitureMaterialsWidget).center().expandX().row();
+			mainTable.add(furnitureRequirementsWidget).center().expandX().row();
 
 			Entity furnitureEntity = furnitureMap.getByFurnitureType(interactionStateContainer.getFurnitureTypeToPlace());
 			FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
-			furnitureMaterialsWidget.onMaterialSelection(material -> {
+			furnitureRequirementsWidget.onMaterialSelection(material -> {
 				if (material != null) {
 					attributes.setMaterial(material);
 					messageDispatcher.dispatchMessage(MessageType.FURNITURE_MATERIAL_SELECTED);
 					messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, furnitureEntity);
 				}
 			});
-			furnitureMaterialsWidget.onMaterialTypeSelection(materialType -> {
+			furnitureRequirementsWidget.onMaterialTypeSelection(materialType -> {
 				attributes.setPrimaryMaterialType(materialType);
 				if (!attributes.getMaterials().containsKey(materialType)) {
 					attributes.setMaterial(materialDictionary.getExampleMaterial(materialType));
@@ -355,7 +356,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				interactionStateContainer.setFurnitureTypeToPlace(furnitureType);
-				furnitureMaterialsWidget.changeSelectedFurniture(furnitureType);
+				furnitureRequirementsWidget.changeSelectedFurniture(furnitureType);
 				rebuildUI();
 				GameInteractionMode.PLACE_FURNITURE.setFurnitureType(interactionStateContainer.getFurnitureTypeToPlace());
 				messageDispatcher.dispatchMessage(MessageType.GUI_FURNITURE_TYPE_SELECTED, interactionStateContainer.getFurnitureTypeToPlace());
