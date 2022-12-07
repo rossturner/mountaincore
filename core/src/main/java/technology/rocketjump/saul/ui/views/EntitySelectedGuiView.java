@@ -5,9 +5,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.ray3k.tenpatch.TenPatchDrawable;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
@@ -307,21 +307,21 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				Needs | Inventory 2-col
 				 */
 
-				outerTable.columnDefaults(0).padLeft(50).left();
+				outerTable.columnDefaults(0).padLeft(64).left();
 				Updatable<Table> settlerName = creatureName(entity);
-				Updatable<Table> happiness = settlerManagementScreen.happiness(entity);
+//				Updatable<Table> happiness = settlerManagementScreen.happiness(entity);
 				Table firstColumn = new Table();
 				firstColumn.add(settlerName.getActor()).row();
-				firstColumn.add(happiness.getActor()).left();
+//				firstColumn.add(happiness.getActor()).left();
 				updatables.add(settlerName);
-				updatables.add(happiness);
+//				updatables.add(happiness);
 
 				outerTableAdd(firstColumn).top();
 				outerTableAdd(settlerManagementScreen.militaryToggle(entity, false, s -> populate(containerTable))).spaceLeft(30).top(); //TODO: not sure of this, but might just work
 				if (SettlerManagementScreen.IS_MILITARY.test(entity)) {
 					outerTableAdd(settlerManagementScreen.weaponSelection(entity, 0.8f, s -> populate(containerTable))).spaceLeft(30).padRight(50).top().row(); //todo, not clear when to use Updatables, this needs updating regularly for loss of hand. Also needs updatables for appearance of item
 				} else {
-					outerTableAdd(settlerManagementScreen.professions(entity, 0.8f, s -> update())).spaceLeft(30).padRight(50).top().row();
+					outerTableAdd(settlerManagementScreen.professions(entity, 0.8f, s -> update())).spaceLeft(30).padRight(60).top().row();
 				}
 				outerTableAdd(settlerManagementScreen.needs(entity)).left();
 
@@ -717,8 +717,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 
 	private Updatable<Table> creatureName(Entity entity) {
+		Drawable background = mainGameSkin.getDrawable("asset_bg_ribbon_title");
 		Table headerContainer = new Table();
-		TenPatchDrawable background = mainGameSkin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class);
 		headerContainer.setBackground(background);
 		Updatable<Table> updatable = Updatable.of(headerContainer);
 
@@ -727,8 +727,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 		String headerText = attributes.getName().toString();
 
-		Button changeRoomNameButton = new Button(mainGameSkin.getDrawable("icon_edit"));
-		changeRoomNameButton.addListener(new ClickListener() {
+		Button changeNameButton = new Button(mainGameSkin.getDrawable("icon_edit"));
+		changeNameButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 					I18nText dialogTitle = i18nTranslator.getTranslatedString("GUI.DIALOG.RENAME_ROOM_TITLE");
@@ -752,16 +752,14 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
 			}
 		});
-		tooltipFactory.simpleTooltip(changeRoomNameButton, "GUI.DIALOG.RENAME_SETTLER_TITLE", TooltipLocationHint.ABOVE);
-		changeRoomNameButton.addListener(new ChangeCursorOnHover(changeRoomNameButton, GameCursor.SELECT, messageDispatcher));
+		tooltipFactory.simpleTooltip(changeNameButton, "GUI.DIALOG.RENAME_SETTLER_TITLE", TooltipLocationHint.ABOVE);
+		changeNameButton.addListener(new ChangeCursorOnHover(changeNameButton, GameCursor.SELECT, messageDispatcher));
 
-
-
-
-		Label headerLabel = new ScaledToFitLabel(headerText, mainGameSkin.get("title-header", Label.LabelStyle.class), background.getMinWidth() - (2 * changeRoomNameButton.getWidth()));
-		headerContainer.add(new Container<>()).left().expandX().width(changeRoomNameButton.getWidth());
-		headerContainer.add(headerLabel).center();
-		headerContainer.add(changeRoomNameButton).right().expandX().width(changeRoomNameButton.getWidth());
+		Label headerLabel = new ScaledToFitLabel(headerText, mainGameSkin.get("title-header", Label.LabelStyle.class), background.getMinWidth() - 23f - (2 * (34 + changeNameButton.getWidth())));
+		Table editableLabelTable = new Table();
+		editableLabelTable.add(headerLabel);
+		editableLabelTable.add(changeNameButton).padLeft(23f);
+		headerContainer.add(editableLabelTable).center();
 
 		updatable.regularly(() -> {
 			headerLabel.setText(attributes.getName().toString());
