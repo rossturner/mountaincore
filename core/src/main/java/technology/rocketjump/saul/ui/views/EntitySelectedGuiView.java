@@ -3,8 +3,8 @@ package technology.rocketjump.saul.ui.views;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -14,6 +14,7 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
+import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -39,12 +40,16 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.ENTITY;
 
@@ -61,7 +66,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private final JobStore jobStore;
 	private final TooltipFactory tooltipFactory;
 	private final MessageDispatcher messageDispatcher;
-	private final Skin mainGameSkin;
+	private final MainGameSkin mainGameSkin;
 	private final MenuSkin menuSkin;
 	//	private final JobType haulingJobType;
 //	private final ImageButton changeSettlerNameButton;
@@ -69,6 +74,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	private Table outerTable;
 	private List<Updatable<?>> updatables;
+
 //	private Table entityDescriptionTable;
 	private GameContext gameContext;
 //	private Label beingDeconstructedLabel;
@@ -302,14 +308,17 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			Entity entity = selectable.getEntity();
 			if (entity.isSettler()) {
 
+				boolean isMilitary = SettlerManagementScreen.IS_MILITARY.test(entity);
 				Updatable<Table> settlerName = creatureName(entity);
-//				Updatable<Table> happiness = settlerManagementScreen.happiness(entity);
+				Updatable<Table> happiness = happinessIcons(entity);
 				Table militaryToggle = settlerManagementScreen.militaryToggle(entity, false, s -> populate(containerTable));
 				Table weaponSelection = settlerManagementScreen.weaponSelection(entity, 0.8f, s -> populate(containerTable));
 				Table professionSelection = settlerManagementScreen.professions(entity, 0.8f, s -> update());
 				Updatable<Table> needs = settlerManagementScreen.needs(entity);
 				updatables.add(settlerName);
+				updatables.add(happiness);
 				updatables.add(needs);
+
 
 
 
@@ -320,8 +329,12 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				//Top left second row - Happiness and status for Civ / Squad for military
 				Table topLeftSecondRow = new Table();
-//				topLeftSecondRow.add(happiness) //TODO
-//				topLeftSecondRow.add(status texts) //TODO
+
+				if (isMilitary) {
+				} else {
+					topLeftSecondRow.add(happiness.getActor()).left();
+	//				topLeftSecondRow.add(status texts) //TODO
+				}
 
 
 				//Top Left Column - 2 rows
@@ -335,7 +348,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				topRow.columnDefaults(1).spaceRight(60f).spaceTop(51f);
 
 				topRow.add(topLeftColumn);
-				if (SettlerManagementScreen.IS_MILITARY.test(entity)) {
+				if (isMilitary) {
 					topRow.add(weaponSelection);
 				} else {
 					topRow.add(professionSelection);
@@ -363,6 +376,70 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 			}
 		}
+	}
+
+	private Updatable<Table> happinessIcons(Entity entity) {
+		HappinessComponent happinessComponent = entity.getComponent(HappinessComponent.class);
+
+		int MAX_SMILIES = 5;
+		Table table = new Table();
+		table.defaults().spaceRight(10f);
+		Updatable<Table> updatable = Updatable.of(table);
+		Runnable updater = () -> {
+			table.clear();
+
+			//TODO: add injury
+			List<HappinessComponent.HappinessModifier> sorted = new ArrayList<>(happinessComponent.currentModifiers());
+			sorted.sort(Comparator.comparing((Function<HappinessComponent.HappinessModifier, Integer>) happinessModifier -> Math.abs(happinessModifier.modifierAmount)).reversed());
+			for (int i = 0; i < MAX_SMILIES; i++) {
+
+
+				if (i < sorted.size()) {
+					HappinessComponent.HappinessModifier happinessModifier = sorted.get(i);
+					int modifierAmount = happinessModifier.modifierAmount;
+					//TODO: not the best code, but should be optimal
+					String drawableName;
+					if (modifierAmount <= -43) {
+						drawableName = MainGameSkin.MISERABLE;
+					} else if (modifierAmount <= -31) {
+						drawableName = MainGameSkin.SAD;
+					} else if (modifierAmount <= -19) {
+						drawableName = MainGameSkin.DOWN;
+					} else if (modifierAmount <= 0) {
+						drawableName = MainGameSkin.NEUTRAL;
+					} else if (modifierAmount <= 12) {
+						drawableName = MainGameSkin.CHEERY;
+					} else if (modifierAmount <= 24) {
+						drawableName = MainGameSkin.JOLLY;
+					} else if (modifierAmount <= 36) {
+						drawableName = MainGameSkin.HAPPY;
+					} else {
+						drawableName = MainGameSkin.ECSTATIC;
+					}
+
+
+					StringBuilder modifierBuilder = new StringBuilder();
+					modifierBuilder.append(" ");
+					if (modifierAmount > 0) {
+						modifierBuilder.append("+");
+					}
+					modifierBuilder.append(modifierAmount);
+					I18nText happinessModifierText = i18nTranslator.getTranslatedString(happinessModifier.getI18nKey());
+					happinessModifierText.append(new I18nWord(modifierBuilder.toString()));
+
+					Image smiley = new Image(mainGameSkin.getDrawable(drawableName));
+					tooltipFactory.simpleTooltip(smiley, happinessModifierText, TooltipLocationHint.BELOW);
+					table.add(smiley);
+				} else {
+					Image invisibleSmiley = new Image(mainGameSkin.getDrawable(MainGameSkin.NEUTRAL));
+					invisibleSmiley.setVisible(false);
+					table.add(invisibleSmiley);
+				}
+			}
+		};
+		updater.run();
+		updatable.regularly(updater);
+		return updatable;
 	}
 
 
