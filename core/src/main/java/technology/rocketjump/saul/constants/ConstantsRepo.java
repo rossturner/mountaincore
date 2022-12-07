@@ -2,7 +2,6 @@ package technology.rocketjump.saul.constants;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.badlogic.gdx.graphics.Color;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -26,12 +25,10 @@ public class ConstantsRepo implements GameContextAware {
 	private final SettlementConstants settlementConstants;
 	private JSONObject rawJson;
 
-	private Color backgroundColor;
-
 	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Inject
-	public ConstantsRepo(ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary gameMaterialDictionary) throws IOException {
+	public ConstantsRepo() throws IOException {
 		File jsonFile = new File("assets/definitions/constants.json");
 		String rawFileContents = FileUtils.readFileToString(jsonFile);
 		this.rawJson = JSON.parseObject(rawFileContents);
@@ -39,13 +36,11 @@ public class ConstantsRepo implements GameContextAware {
 		this.worldConstants = objectMapper.readValue(rawFileContents, WorldConstants.class);
 		this.uiConstants = objectMapper.readValue(rawFileContents, UiConstants.class);
 		this.settlementConstants = objectMapper.readValue(rawFileContents, SettlementConstants.class);
-
-		initialise(settlementConstants, itemTypeDictionary, gameMaterialDictionary);
 	}
 
-	private void initialise(SettlementConstants settlementConstants, ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary gameMaterialDictionary) {
+	public void initialise(ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary materialDictionary) {
 		settlementConstants.getCurrency().forEach(currencyDefinition -> {
-			currencyDefinition.setMaterial(gameMaterialDictionary.getByName(currencyDefinition.getMaterialName()));
+			currencyDefinition.setMaterial(materialDictionary.getByName(currencyDefinition.getMaterialName()));
 			if (currencyDefinition.getMaterial() == null) {
 				throw new RuntimeException("Currency material not found: " + currencyDefinition.getMaterialName());
 			}

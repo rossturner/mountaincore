@@ -147,4 +147,12 @@ public class CraftingRecipe {
 		float variableTime = getMaximumTimeToCompleteCrafting() - getMinimumTimeToCompleteCrafting();
 		return getMinimumTimeToCompleteCrafting() + (timeMultiplier * variableTime);
 	}
+
+	public CraftingRecipeValueConversion getValueConversion() {
+		return valueConversion;
+	}
+
+	public void setValueConversion(CraftingRecipeValueConversion valueConversion) {
+		this.valueConversion = valueConversion;
+	}
 }

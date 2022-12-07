@@ -2,6 +2,7 @@
   "itemTypeName" : "Resource-Mushroom-Log",
   "materialTypes" : [ "WOOD", "SEED" ],
   "primaryMaterialType" : "SEED",
+  "baseValuePerItem": 7,
   "holdPosition" : "ON_SHOULDER",
   "impedesMovement" : true,
   "placementSoundAssetName" : "HeavyWoodItem",

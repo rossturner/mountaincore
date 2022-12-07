@@ -7,6 +7,7 @@
     "ROPE"
   ],
   "primaryMaterialType": "SEED",
+  "baseValuePerItem": 2,
   "holdPosition": "RIGHT_HAND",
   "equippedWhileWorkingOnJob": false,
   "hoursInInventoryUntilUnused": 3.0,

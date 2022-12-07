@@ -3,6 +3,7 @@
   "maxStackSize" : 16,
   "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
+  "baseValuePerItem": 3,
   "holdPosition" : "ON_SHOULDER",
   "impedesMovement" : true,
   "stockpileGroupName" : "RAW_MATERIALS",
