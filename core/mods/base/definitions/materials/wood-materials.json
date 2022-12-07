@@ -15,12 +15,14 @@
   {
     "materialName": "Fir",
     "materialType": "WOOD",
+    "valueMultiplier": 0.9,
     "colorCode": "#be926e",
     "combustible": true
   },
   {
     "materialName": "Maple",
     "materialType": "WOOD",
+    "valueMultiplier": 1.1,
     "colorCode": "#e9b775",
     "combustible": true
   },
@@ -33,6 +35,7 @@
   {
     "materialName": "Oak",
     "materialType": "WOOD",
+    "valueMultiplier": 2.5,
     "colorCode": "#634735",
     "combustible": true
   },
@@ -40,6 +43,7 @@
     "materialName": "Ebony",
     "materialType": "WOOD",
     "colorCode": "#424647",
+    "valueMultiplier": 2.3,
     "useInRandomGeneration": false,
     "combustible": true
   },
@@ -61,6 +65,7 @@
     "materialName": "Ironwood",
     "materialType": "WOOD",
     "colorCode": "#74342f",
+    "valueMultiplier": 3,
     "useInRandomGeneration": false,
     "combustible": true
   },
@@ -68,6 +73,7 @@
     "materialName": "Rosewood",
     "materialType": "WOOD",
     "colorCode": "#970b28",
+    "valueMultiplier": 1.7,
     "useInRandomGeneration": false,
     "combustible": true
   },
@@ -75,6 +81,7 @@
     "materialName": "Aspen",
     "materialType": "WOOD",
     "colorCode": "#ecb35b",
+    "valueMultiplier": 1.1,
     "useInRandomGeneration": false,
     "combustible": true
   },
@@ -82,6 +89,7 @@
     "materialName": "Spruce",
     "materialType": "WOOD",
     "colorCode": "#f1d3ab",
+    "valueMultiplier": 1.1,
     "useInRandomGeneration": false,
     "combustible": true
   },
@@ -89,6 +97,7 @@
     "materialName": "Nuytsia",
     "materialType": "WOOD",
     "colorCode": "#ad9160",
+    "valueMultiplier": 1.2,
     "useInRandomGeneration": false,
     "combustible": true
   },
@@ -96,6 +105,7 @@
     "materialName": "Red cedar",
     "materialType": "WOOD",
     "colorCode": "#b9624e",
+    "valueMultiplier": 1.5,
     "useInRandomGeneration": false,
     "combustible": true
   },
@@ -103,6 +113,7 @@
     "materialName": "Red emperor",
     "materialType": "WOOD",
     "colorCode": "#832a1a",
+    "valueMultiplier": 1.9,
     "useInRandomGeneration": false,
     "combustible": true
   },
@@ -110,6 +121,7 @@
     "materialName": "Baobab",
     "materialType": "WOOD",
     "colorCode": "#daba7f",
+    "valueMultiplier": 1.3,
     "useInRandomGeneration": false,
     "combustible": true
   },
@@ -117,6 +129,7 @@
     "materialName": "Star pine",
     "materialType": "WOOD",
     "colorCode": "#c7b198",
+    "valueMultiplier": 1.4,
     "useInRandomGeneration": false,
     "combustible": true
   },
@@ -132,6 +145,7 @@
     "materialName": "Fungiwood",
     "materialType": "WOOD",
     "colorCode": "#7ca47b",
+    "valueMultiplier": 2.3,
     "useInRandomGeneration": false,
     "combustible": true
   },
@@ -139,6 +153,7 @@
     "materialName": "Barkshroom",
     "materialType": "WOOD",
     "colorCode": "#37b5b7",
+    "valueMultiplier": 2.4,
     "useInRandomGeneration": false,
     "combustible": true
   }

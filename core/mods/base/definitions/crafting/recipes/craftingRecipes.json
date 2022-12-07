@@ -1009,45 +1009,5 @@
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
-  },
-  {
-    "recipeName": "Craft bone arrow heads",
-    "craftingTypeName": "BONE_CRAFTING",
-    "input": [
-      {
-        "itemTypeName": "Resource-Bone-Medium",
-        "quantity": 1
-      }
-    ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Bone-Arrow-Heads",
-        "quantity": 10
-      }
-    ],
-    "itemTypeRequiredName": "Tool-Chisel",
-    "materialTypesToCopyOver": ["BONE", "WOOD"],
-    "minimumTimeToCompleteCrafting": 2.5,
-    "maximumTimeToCompleteCrafting": 7.5
-  },
-  {
-    "recipeName": "Craft bone arrow heads from small bones",
-    "craftingTypeName": "BONE_CRAFTING",
-    "input": [
-      {
-        "itemTypeName": "Resource-Bone-Small",
-        "quantity": 3
-      }
-    ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Bone-Arrow-Heads",
-        "quantity": 10
-      }
-    ],
-    "itemTypeRequiredName": "Tool-Chisel",
-    "materialTypesToCopyOver": ["BONE", "WOOD"],
-    "minimumTimeToCompleteCrafting": 2.5,
-    "maximumTimeToCompleteCrafting": 7.5
   }
 ]

@@ -19,6 +19,9 @@ public class SettlementConstants {
 	private String deconstructPipingJobType;
 	private String constructMechanismJobType;
 	private String deconstructMechanismJobType;
+
+	private List<CurrencyDefinition> currency = new ArrayList<>();
+
 	private String fishingJobType;
 	private List<String> fishAvailable = new ArrayList<>();
 	@JsonIgnore
@@ -129,5 +132,13 @@ public class SettlementConstants {
 
 	public void setFishRacesAvailable(List<Race> fishRacesAvailable) {
 		this.fishRacesAvailable = fishRacesAvailable;
+	}
+
+	public List<CurrencyDefinition> getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(List<CurrencyDefinition> currency) {
+		this.currency = currency;
 	}
 }

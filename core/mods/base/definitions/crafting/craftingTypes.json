@@ -116,5 +116,12 @@
     "professionRequiredName": "ARTISAN",
     "usesWorkstationTool": true,
     "defaultItemTypeName": "Tool-Chisel"
+  },
+  {
+    "name": "FINE_DETAIL_CRAFTING",
+    "i18nKey": "CRAFTING_TYPE.FINE_DETAIL_CRAFTING",
+    "professionRequiredName": "ARTISAN",
+    "usesWorkstationTool": true,
+    "defaultItemTypeName": "Tool-Chisel"
   }
 ]

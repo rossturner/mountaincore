@@ -4,6 +4,7 @@
     "materialType": "GEM",
     "rockGroup": "Igneous",
     "prevalence": 0.6,
+    "valueMultiplier": 1.9,
     "colorCode": "#9164AB"
   },
   {
@@ -11,6 +12,7 @@
     "materialType": "GEM",
     "rockGroup": "Igneous",
     "prevalence": 1,
+    "valueMultiplier": 1.4,
     "colorCode": "#FF8200"
   },
   {
@@ -18,6 +20,7 @@
     "materialType": "GEM",
     "rockGroup": "Igneous",
     "prevalence": 1,
+    "valueMultiplier": 1.6,
     "colorCode": "#953640"
   },
   {
@@ -25,6 +28,7 @@
     "materialType": "GEM",
     "rockGroup": "Igneous",
     "prevalence": 0.5,
+    "valueMultiplier": 0.9,
     "colorCode": "#D6D1C9"
   },
   {
@@ -32,6 +36,7 @@
     "materialType": "GEM",
     "rockGroup": "Igneous",
     "prevalence": 0.2,
+    "valueMultiplier": 2.3,
     "colorCode": "#b9f2ff"
   },
   {
@@ -39,6 +44,7 @@
     "materialType": "GEM",
     "rockGroup": "Igneous",
     "prevalence": 0.1,
+    "valueMultiplier": 1.1,
     "colorCode": "#440099"
   },
   {
@@ -46,6 +52,7 @@
     "materialType": "GEM",
     "rockGroup": "Igneous",
     "prevalence": 1,
+    "valueMultiplier": 1.3,
     "colorCode": "#FF0080"
   },
   {
@@ -53,6 +60,7 @@
     "materialType": "GEM",
     "rockGroup": "Igneous",
     "prevalence": 1,
+    "valueMultiplier": 1.1,
     "colorCode": "#D08344"
   },
   {
@@ -60,6 +68,7 @@
     "materialType": "GEM",
     "rockGroup": "Sedimentary",
     "prevalence": 1,
+    "valueMultiplier": 1.25,
     "colorCode": "#D73B3E"
   },
   {
@@ -67,6 +76,7 @@
     "materialType": "GEM",
     "rockGroup": "Sedimentary",
     "prevalence": 1,
+    "valueMultiplier": 0.85,
     "colorCode": "#C6E2DA"
   },
   {
@@ -74,6 +84,7 @@
     "materialType": "GEM",
     "rockGroup": "Sedimentary",
     "prevalence": 1,
+    "valueMultiplier": 0.7,
     "colorCode": "#ffffff"
   },
   {
@@ -81,6 +92,7 @@
     "materialType": "GEM",
     "rockGroup": "Metamorphic",
     "prevalence": 0.4,
+    "valueMultiplier": 2.1,
     "colorCode": "#009473",
     "useAsExampleMaterialForMaterialType": true
   },
@@ -89,6 +101,7 @@
     "materialType": "GEM",
     "rockGroup": "Metamorphic",
     "prevalence": 0.2,
+    "valueMultiplier": 1.6,
     "colorCode": "#DFCDC6"
   },
   {
@@ -96,6 +109,7 @@
     "materialType": "GEM",
     "rockGroup": "Metamorphic",
     "prevalence": 1,
+    "valueMultiplier": 1.3,
     "colorCode": "#34DDDD"
   },
   {
@@ -103,6 +117,7 @@
     "materialType": "GEM",
     "rockGroup": "Metamorphic",
     "prevalence": 1,
+    "valueMultiplier": 0.8,
     "colorCode": "#00a86b"
   },
   {
@@ -110,6 +125,7 @@
     "materialType": "GEM",
     "rockGroup": "Metamorphic",
     "prevalence": 1,
+    "valueMultiplier": 0.9,
     "colorCode": "#45B5AA"
   },
   {
@@ -117,6 +133,7 @@
     "materialType": "GEM",
     "rockGroup": "Metamorphic",
     "prevalence": 1,
+    "valueMultiplier": 1.1,
     "colorCode": "#df86a7"
   },
   {
@@ -124,6 +141,7 @@
     "materialType": "GEM",
     "rockGroup": "Metamorphic",
     "prevalence": 0.4,
+    "valueMultiplier": 2.0,
     "colorCode": "#9B111E"
   },
   {
@@ -131,6 +149,7 @@
     "materialType": "GEM",
     "rockGroup": "Metamorphic",
     "prevalence": 0.4,
+    "valueMultiplier": 1.9,
     "colorCode": "#002060"
   },
   {
@@ -138,6 +157,7 @@
     "materialType": "GEM",
     "rockGroup": "Sedimentary",
     "prevalence": 0.2,
+    "valueMultiplier": 1.1,
     "colorCode": "#cc8468"
   },
   {
@@ -145,6 +165,7 @@
     "materialType": "GEM",
     "rockGroup": "Igneous",
     "prevalence": 0.1,
+    "valueMultiplier": 1.5,
     "colorCode": "#6b4947"
   },
   {
@@ -152,6 +173,7 @@
     "materialType": "GEM",
     "rockGroup": "Sedimentary",
     "prevalence": 0.3,
+    "valueMultiplier": 1.4,
     "colorCode": "#c9699e"
   },
   {
@@ -159,6 +181,7 @@
     "materialType": "GEM",
     "rockGroup": "Sedimentary",
     "prevalence": 0.2,
+    "valueMultiplier": 1.05,
     "colorCode": "#c74c4c"
   },
   {
@@ -166,6 +189,7 @@
     "materialType": "GEM",
     "rockGroup": "Metamorphic",
     "prevalence": 1,
+    "valueMultiplier": 1.3,
     "colorCode": "#120a8f"
   },
   {
@@ -173,6 +197,7 @@
     "materialType": "GEM",
     "rockGroup": "Igneous",
     "prevalence": 0.4,
+    "valueMultiplier": 1.4,
     "colorCode": "#93bee4"
   },
   {
@@ -180,6 +205,7 @@
     "materialType": "GEM",
     "rockGroup": "Sedimentary",
     "prevalence": 0.2,
+    "valueMultiplier": 1.6,
     "colorCode": "#e7dea9"
   },
   {
@@ -187,6 +213,7 @@
     "materialType": "GEM",
     "rockGroup": "Metamorphic",
     "prevalence": 0.5,
+    "valueMultiplier": 1.5,
     "colorCode": "#ab4544"
   }
 ]

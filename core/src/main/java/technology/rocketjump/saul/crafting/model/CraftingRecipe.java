@@ -26,6 +26,8 @@ public class CraftingRecipe {
 	private List<QuantifiedItemTypeWithMaterial> input;
 	private List<QuantifiedItemTypeWithMaterial> output;
 
+	private CraftingRecipeValueConversion valueConversion = CraftingRecipeValueConversion.DEFAULT;
+
 	private List<GameMaterialType> materialTypesToCopyOver;
 	private Double extraGameHoursToComplete; // Only used in automated conversion process (for now)
 	private Float minimumTimeToCompleteCrafting;

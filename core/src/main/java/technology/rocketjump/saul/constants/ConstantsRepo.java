@@ -10,8 +10,10 @@ import org.apache.commons.io.FileUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +31,7 @@ public class ConstantsRepo implements GameContextAware {
 	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Inject
-	public ConstantsRepo() throws IOException {
+	public ConstantsRepo(ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary gameMaterialDictionary) throws IOException {
 		File jsonFile = new File("assets/definitions/constants.json");
 		String rawFileContents = FileUtils.readFileToString(jsonFile);
 		this.rawJson = JSON.parseObject(rawFileContents);
@@ -37,6 +39,21 @@ public class ConstantsRepo implements GameContextAware {
 		this.worldConstants = objectMapper.readValue(rawFileContents, WorldConstants.class);
 		this.uiConstants = objectMapper.readValue(rawFileContents, UiConstants.class);
 		this.settlementConstants = objectMapper.readValue(rawFileContents, SettlementConstants.class);
+
+		initialise(settlementConstants, itemTypeDictionary, gameMaterialDictionary);
+	}
+
+	private void initialise(SettlementConstants settlementConstants, ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary gameMaterialDictionary) {
+		settlementConstants.getCurrency().forEach(currencyDefinition -> {
+			currencyDefinition.setMaterial(gameMaterialDictionary.getByName(currencyDefinition.getMaterialName()));
+			if (currencyDefinition.getMaterial() == null) {
+				throw new RuntimeException("Currency material not found: " + currencyDefinition.getMaterialName());
+			}
+			currencyDefinition.setItemType(itemTypeDictionary.getByName(currencyDefinition.getItemTypeName()));
+			if (currencyDefinition.getItemType() == null) {
+				throw new RuntimeException("Currency item type not found: " + currencyDefinition.getItemTypeName());
+			}
+		});
 	}
 
 	public void initialise(RaceDictionary raceDictionary) {

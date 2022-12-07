@@ -30,6 +30,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 	private ItemQuality itemQuality = ItemQuality.STANDARD;
 
 	private int quantity;
+	private int valuePerItem;
 	private EntityDestructionCause destructionCause;
 
 	public ItemEntityAttributes() {
@@ -55,6 +56,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 		cloned.itemQuality = this.itemQuality;
 
 		cloned.quantity = this.quantity;
+		cloned.valuePerItem = this.valuePerItem;
 		cloned.destructionCause = this.destructionCause;
 
 		return cloned;
@@ -87,6 +89,18 @@ public class ItemEntityAttributes implements EntityAttributes {
 		} else {
 			return otherColors.get(coloringLayer);
 		}
+	}
+
+	public int getTotalValue() {
+		return quantity * valuePerItem;
+	}
+
+	public int getValuePerItem() {
+		return valuePerItem;
+	}
+
+	public void setValuePerItem(int valuePerItem) {
+		this.valuePerItem = valuePerItem;
 	}
 
 	public boolean canMerge(ItemEntityAttributes other) {
@@ -207,6 +221,9 @@ public class ItemEntityAttributes implements EntityAttributes {
 		if (quantity != 1) {
 			asJson.put("quantity", quantity);
 		}
+		if (valuePerItem != 0) {
+			asJson.put("valuePerItem", valuePerItem);
+		}
 		if (destructionCause != null) {
 			asJson.put("destructionCause", this.destructionCause);
 		}
@@ -248,6 +265,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 		} else {
 			this.quantity = quantity;
 		}
+		this.valuePerItem = asJson.getIntValue("valuePerItem");
 
 		destructionCause = EnumParser.getEnumValue(asJson, "destructionCause", EntityDestructionCause.class, null);
 	}

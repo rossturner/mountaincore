@@ -37,6 +37,8 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 	private Float prevalence;
 	private List<String> oreNames;
 
+	private float valueMultiplier = 1f;
+
 	private boolean alcoholic;
 	private boolean combustible;
 	private boolean edible;
@@ -57,7 +59,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 	private MaterialOxidisation oxidisation;
 
 	public static final GameMaterial NULL_MATERIAL = new GameMaterial("null-material", -1, GameMaterialType.OTHER, "#FF00FF", null, 0f, RockGroup.None,
-			false, false,false, false, false, null, false, false);
+			1f, false, false,false, false, false, null, false, false);
 
 	// Empty constructor for initialising from saved game
 	public GameMaterial() {
@@ -67,7 +69,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 
 	// Simple constructor for testing
 	public GameMaterial(String materialName, long materialId, GameMaterialType type) {
-		this(materialName, materialId, type, null, null, null, null, false, false, false, false, false, null, false, false);
+		this(materialName, materialId, type, null, null, null, null, 1f, false, false, false, false, false, null, false, false);
 	}
 
 	// TODO try to remove usage of this
@@ -92,6 +94,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		this.edible = edible;
 		this.quenchesThirst = quenchesThirst;
 		this.constituentMaterials = constituentMaterials;
+		this.valueMultiplier = constituentMaterials.stream().map(GameMaterial::getValueMultiplier).reduce(1f, (a, b) -> a * b);
 		this.dynamicMaterialId = dynamicMaterialId;
 		this.excludeFromItemDescription = false;
 	}
@@ -100,6 +103,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 	public GameMaterial(@JsonProperty("materialName") String materialName, @JsonProperty("materialId") long materialId,
 						@JsonProperty("materialType") GameMaterialType materialType, @JsonProperty("colorCode") String colorCode,
 						@JsonProperty("oreNames") List<String> oreNames, @JsonProperty("prevalence") Float prevalence, @JsonProperty("rockGroup") RockGroup rockGroup,
+						@JsonProperty("valueMultiplier") float valueMultiplier,
 						@JsonProperty("alcoholic") boolean alcoholic,
 						@JsonProperty("combustible") boolean combustible,
 						@JsonProperty("edible") boolean edible, @JsonProperty("poisonous") boolean poisonous,
@@ -113,6 +117,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		this.rockGroup = rockGroup;
 		this.prevalence = prevalence;
 		this.oreNames = oreNames;
+		this.valueMultiplier = valueMultiplier;
 		this.alcoholic = alcoholic;
 		this.combustible = combustible;
 		this.edible = edible;
@@ -177,6 +182,10 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 
 	public List<String> getOreNames() {
 		return oreNames;
+	}
+
+	public float getValueMultiplier() {
+		return valueMultiplier;
 	}
 
 	public boolean isAlcoholic() {
@@ -318,6 +327,10 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 			asJson.put("oreNames", new JSONArray(namesArray));
 		}
 
+		if (valueMultiplier != 1f) {
+			asJson.put("valueMultiplier", valueMultiplier);
+		}
+
 		if (alcoholic) {
 			asJson.put("alcoholic", true);
 		}
@@ -402,6 +415,11 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 			for (Object oreNameObj : oreNames) {
 				this.oreNames.add((String) oreNameObj);
 			}
+		}
+
+		this.valueMultiplier = asJson.getFloatValue("valueMultiplier");
+		if (this.valueMultiplier == 0f) {
+			this.valueMultiplier = 1f;
 		}
 
 		this.alcoholic = asJson.getBooleanValue("alcoholic");

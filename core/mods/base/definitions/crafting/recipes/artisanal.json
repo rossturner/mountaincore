@@ -1,0 +1,67 @@
+[
+  {
+    "recipeName": "Craft bone arrow heads",
+    "craftingTypeName": "BONE_CRAFTING",
+    "verbOverrideI18nKey": "CRAFTING_TYPE.CARVING_VERB",
+    "input": [
+      {
+        "itemTypeName": "Resource-Bone-Medium",
+        "quantity": 1
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Weapon-Bone-Arrow-Heads",
+        "quantity": 10
+      }
+    ],
+    "itemTypeRequiredName": "Tool-Chisel",
+    "materialTypesToCopyOver": ["BONE", "WOOD"],
+    "minimumTimeToCompleteCrafting": 3.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Craft bone arrow heads from small bones",
+    "craftingTypeName": "BONE_CRAFTING",
+    "verbOverrideI18nKey": "CRAFTING_TYPE.CARVING_VERB",
+    "input": [
+      {
+        "itemTypeName": "Resource-Bone-Small",
+        "quantity": 3
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Weapon-Bone-Arrow-Heads",
+        "quantity": 10
+      }
+    ],
+    "itemTypeRequiredName": "Tool-Chisel",
+    "materialTypesToCopyOver": ["BONE", "WOOD"],
+    "minimumTimeToCompleteCrafting": 3.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+
+
+  {
+    "recipeName": "Mint coins",
+    "craftingTypeName": "FINE_DETAIL_CRAFTING",
+    "verbOverrideI18nKey": "CRAFTING_TYPE.MINTING",
+    "input": [
+      {
+        "itemTypeName": "Resource-Metal-Ingot",
+        "quantity": 1
+      }
+    ],
+    "output": [
+      {
+        "itemTypeName": "Treasure-Coin",
+        "quantity": 10
+      }
+    ],
+    "valueConversion": "USE_OUTPUT_BASE_VALUE",
+    "materialTypesToCopyOver": ["METAL"],
+    "minimumTimeToCompleteCrafting": 3.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  }
+]
