@@ -1,9 +1,11 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.google.inject.Inject;
@@ -299,31 +301,62 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		if (selectable != null && ENTITY == selectable.type) {
 			Entity entity = selectable.getEntity();
 			if (entity.isSettler()) {
-				//TODO: RoomEditingView for reference, on title labels with rename
-				/*
-				3 columns
-				Editable Name | Military Toggle | Professions
-				Happiness single icon? & task & injuries | Military squad | Professions
-				Needs | Inventory 2-col
-				 */
 
-				outerTable.columnDefaults(0).padLeft(64).left();
 				Updatable<Table> settlerName = creatureName(entity);
 //				Updatable<Table> happiness = settlerManagementScreen.happiness(entity);
-				Table firstColumn = new Table();
-				firstColumn.add(settlerName.getActor()).row();
-//				firstColumn.add(happiness.getActor()).left();
+				Table militaryToggle = settlerManagementScreen.militaryToggle(entity, false, s -> populate(containerTable));
+				Table weaponSelection = settlerManagementScreen.weaponSelection(entity, 0.8f, s -> populate(containerTable));
+				Table professionSelection = settlerManagementScreen.professions(entity, 0.8f, s -> update());
+				Updatable<Table> needs = settlerManagementScreen.needs(entity);
 				updatables.add(settlerName);
-//				updatables.add(happiness);
+				updatables.add(needs);
 
-				outerTableAdd(firstColumn).top();
-				outerTableAdd(settlerManagementScreen.militaryToggle(entity, false, s -> populate(containerTable))).spaceLeft(30).top(); //TODO: not sure of this, but might just work
+
+
+				//Top left first row - name and toggle
+				Table topLeftFirstRow = new Table();
+				topLeftFirstRow.add(settlerName.getActor()).spaceRight(36f);
+				topLeftFirstRow.add(militaryToggle).spaceRight(86f);
+
+				//Top left second row - Happiness and status for Civ / Squad for military
+				Table topLeftSecondRow = new Table();
+//				topLeftSecondRow.add(happiness) //TODO
+//				topLeftSecondRow.add(status texts) //TODO
+
+
+				//Top Left Column - 2 rows
+				Table topLeftColumn = new Table();
+				topLeftColumn.add(topLeftFirstRow).spaceBottom(45f).row();
+				topLeftColumn.add(topLeftSecondRow);
+
+				//Top Row - 2 Cols
+				Table topRow = new Table();
+				topRow.columnDefaults(0).spaceLeft(64f).spaceTop(43f);
+				topRow.columnDefaults(1).spaceRight(60f).spaceTop(51f);
+
+				topRow.add(topLeftColumn);
 				if (SettlerManagementScreen.IS_MILITARY.test(entity)) {
-					outerTableAdd(settlerManagementScreen.weaponSelection(entity, 0.8f, s -> populate(containerTable))).spaceLeft(30).padRight(50).top().row(); //todo, not clear when to use Updatables, this needs updating regularly for loss of hand. Also needs updatables for appearance of item
+					topRow.add(weaponSelection);
 				} else {
-					outerTableAdd(settlerManagementScreen.professions(entity, 0.8f, s -> update())).spaceLeft(30).padRight(60).top().row();
+					topRow.add(professionSelection);
 				}
-				outerTableAdd(settlerManagementScreen.needs(entity)).left();
+
+//					outerTableAdd(weaponSelection).spaceLeft(30).padRight(50).top().row(); //todo, not clear when to use Updatables, this needs updating regularly for loss of hand. Also needs updatables for appearance of item
+//					outerTableAdd(professionSelection).spaceLeft(30).padRight(60).top().row();
+
+
+				//Bottom Row
+				Table bottomRow = new Table();
+				bottomRow.add(needs.getActor());
+//				bottomRow.add(inventory) //TODO: inventory aligned left, colspan rest
+
+				outerTable.columnDefaults(0).padLeft(64).left();
+				outerTable.add(topRow).left().row();
+				outerTable.add(bottomRow).left();
+
+				topRow.debugAll();
+				topLeftColumn.debugAll();
+				bottomRow.debugAll();
 
 			} else {
 				EntityType entityType = entity.getType();
@@ -332,14 +365,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 	}
 
-	public <T extends Actor> Cell<T> outerTableAdd(Updatable<T> updatable) {
-		updatables.add(updatable);
-		return outerTable.add(updatable.getActor());
-	}
-
-	public <T extends Actor> Cell<T> outerTableAdd(T actor) {
-		return outerTable.add(actor);
-	}
 
 	/**
 	 * Updates every second or so, not instant on show
