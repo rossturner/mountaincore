@@ -111,7 +111,7 @@ COMBAT.DESCRIPTION.GENERIC,,In combat
 COMBAT.DESCRIPTION.VERSUS_OPPONENT,,In combat with {{targetDescription}}
 
 CONSTRUCTION.DESCRIPTION,E.g. “Construction of granite stonemason workbench”,Construction of {{materialType.adjective}} {{furnitureType.noun}}
-CONSTRUCTION.ITEM_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{quantity}} of {{itemDescription}} allocated
+CONSTRUCTION.REQUIREMENT_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{numRequired}} required{{\n}}{{numAvailable}} available{{\n}}{{numAssigned}} assigned
 CONSTRUCTION.STATUS.CLEARING_WORK_SITE,This is to be displayed when other items need to be cleared out from an area that has something being built over it,Removing other items
 CONSTRUCTION.STATUS.CLEARING_WORK_SITE.TOOLTIP,,There are items that need to be removed from this furniture’s construction area before it can progress.
 CONSTRUCTION.STATUS.SELECTING_MATERIALS,E.g. “Waiting for more wooden planks to be available”,Waiting for more {{materialType}} {{itemDescription.plural}} to be available
@@ -464,8 +464,9 @@ GUI.DIALOG.ERROR_SAVE_INCOMPATIBLE,"Error loading a save as it is from an older,
 GUI.DIALOG.ERROR_TITLE,Shown as the title of an error dialog,An error has occurred
 GUI.DIALOG.ERROR_WHILE_LOADING,Unexpected error while loading a previous save,There was an unexpected error while loading the game.
 GUI.DIALOG.ERROR_WHILE_SAVING,Unexpected error while saving the game,There was an unexpected error while saving the game.
+GUI.DIALOG.HIDE_FURTHER_NOTIFICATIONS,Used to ask the player if they want to stop receiving this specific kind of notification,Hide These Notifications
 GUI.DIALOG.INFO_TITLE,,Information
-GUI.DIALOG.JUMP_TO,,Go to location
+GUI.DIALOG.JUMP_TO,,Go to Location
 GUI.DIALOG.LANGUAGE_TRANSLATION_INCOMPLETE,,The selected language translation is currently incomplete and will be missing some text. A fallback language will be used.
 GUI.DIALOG.MOD_CHANGES_OUTSTANDING,,You have selected a different set of mods to be applied to the game. These will be applied when the game is next restarted.
 GUI.DIALOG.MOD_INCOMPATIBLE,,One or more mods are incompatible with this version of the game and have been deactivated. You can check for updates in the mods menu.
@@ -551,7 +552,6 @@ GUI.NON_ROTATABLE_FURNITURE.HINT,,This furniture can not be rotated in this vers
 GUI.OK_LABEL,,Ok
 GUI.OPTIONS.AUDIO.TITLE,,Sound Options
 GUI.OPTIONS.GAMEPLAY.HIDE_TREES_OBSCURING_SETTLERS,This is an option that makes trees partially transparent when a settler moves behind them,Make trees transparent when obscuring settlers
-GUI.OPTIONS.GAMEPLAY.PAUSE_ON_NOTIFICATION,,Pause for notifications
 GUI.OPTIONS.GAMEPLAY.TITLE,,"Gameplay Options "
 GUI.OPTIONS.GAMEPLAY.USE_EDGE_SCROLLING,This is for a question to ask if the player would like the camera to scroll/pan by placing the mouse at the edge of the screen,Scroll when cursor is at the edge of the screen
 GUI.OPTIONS.GAMEPLAY.ZOOM_TO_CURSOR,This is for a question to ask if the player would like the camera to scroll/pan based on where the mouse cursor is when they zoom in or out,Scroll to cursor when zooming
@@ -719,7 +719,7 @@ HINT.WEAPON_SELECTION.2,,It is strongly recommended you assign a ranged weapon s
 HINT.WEAPON_SELECTION.3,,Weapons which you do not have available are displayed in red.
 HINT.WELCOME.INTRO,,"Welcome to the world of King under the Mountain! This is an early alpha version of the game with many more features and gameplay elements still to be implemented. Your intrepid band of dwarven settlers have chosen this area to found a new colony of their kingdom. Provide food, shelter and prosperity for them and who knows, maybe one day this will be the capital of a kingdom of its own!"
 HINT.WELCOME.NEXT_STEPS,,"Click “Tutorial” to be guided through the basics, “Hints only” to skip the tutorial but be provided with info as you play, or “Disable all hints” to stop showing these messages."
-HINT.WELCOME.PRE_SPAWN,,"Start the game by selecting a location on the map with enough space, and clicking the '{{GUI.EMBARK.START}}' button."
+HINT.WELCOME.PRE_SPAWN,,"Start the game by selecting a location on the map with open space near the river, and clicking the '{{GUI.EMBARK.START}}' button."
 
 HUMANOID.BROKEN.DESCRIPTION,"E.g. “Urist McScrooge, insane dwarf”","{{name}}, {{madness.adjective}} {{race.noun}}"
 HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{skillLevelDescription.adjective}} {{profession.noun}}"
@@ -902,23 +902,23 @@ NOTIFICATION.AREA_REVEALED.TITLE,,Exploration
 NOTIFICATION.DEATH.DESCRIPTION,,"{{character}}, has died due to {{reason}}."
 NOTIFICATION.DEATH.SHORT_DESCRIPTION,,Died due to {{reason}}
 NOTIFICATION.DEATH.KILLED_BY_DESCRIPTION,,Killed by {{killer}}
-NOTIFICATION.DEATH.TITLE,,Settler death
+NOTIFICATION.DEATH.TITLE,,Settler Death
 NOTIFICATION.FIRE_STARTED.DESCRIPTION,,A fire has broken out in your settlement!
 NOTIFICATION.FIRE_STARTED.TITLE,,Fire!
 NOTIFICATION.FISH_EXHAUSTED.DESCRIPTION,,You have over-fished the river to such an extent that there are no more fish left. You will have to wait until the spawning season next spring for the fish to return.
-NOTIFICATION.FISH_EXHAUSTED.TITLE,,Fish depopulated
+NOTIFICATION.FISH_EXHAUSTED.TITLE,,Fish Depopulated
 NOTIFICATION.GAME_OVER.DESCRIPTION,,All things must come to an end. Your settlement lies abandoned.
 NOTIFICATION.GAME_OVER.TITLE,,Game Over
 NOTIFICATION.IMMIGRANTS_ARRIVED.DESCRIPTION,,The prosperity of your settlement has attracted a number of new immigrants to boost your population.
 NOTIFICATION.IMMIGRANTS_ARRIVED.TITLE,,Immigration
 NOTIFICATION.MINING_COLLAPSE.DESCRIPTION,,An area has caved in due to a lack of pillars and supports.
-NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining collapse
+NOTIFICATION.MINING_COLLAPSE.TITLE,,Mining Collapse
 NOTIFICATION.OXIDISATION_DESTRUCTION.DESCRIPTION,,An item or piece of furniture has been destroyed due to prolonged exposure to rain.\nSome materials such as iron and steel should not be left outside for a long period.
-NOTIFICATION.OXIDISATION_DESTRUCTION.TITLE,,Rusted away
+NOTIFICATION.OXIDISATION_DESTRUCTION.TITLE,,Rusted Away
 NOTIFICATION.ROOFING_COLLAPSE.DESCRIPTION,,A roof has collapsed due to a lack of pillars and supports.
-NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof collapsed
+NOTIFICATION.ROOFING_COLLAPSE.TITLE,,Roof Collapsed
 NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,,The gruelling hardship has proven to be too much to handle for {{character}}.
-NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental break
+NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,,Mental Break
 NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy that they are throwing a tantrum!
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!
 NOTIFICATION.INVASION.DESCRIPTION,,A raiding party of orcs has arrived. Prepare yourselves! They will attack after preparing for a while.
@@ -1454,7 +1454,7 @@ TREE.DESCRIPTION,E.g. “Oak tree”,{{materialType.noun}} tree
 
 TUTORIAL.1.A,,"Your settlers have three basic needs to fulfil: food, drink and somewhere to sleep. Although they will complain about it for now, they can drink from the nearby river and sleep on the ground. What they can’t do is magic up some food from nowhere (at least, not without a mage around!) so we will focus on food to begin with."
 TUTORIAL.1.B,,"The first thing you should do each spring is ensure that enough crops have been planted for the harvest in autumn. Farming is a reliable and sustainable food source, but you need to make sure you have enough crops to feed your population between each annual harvest."
-TUTORIAL.1.C,,"A good rule of thumb to follow is to ensure you have 10 tiles of crops being sown for each settler in your population. Currently there are 7 settlers milling around, so go ahead and click “{{GUI.ZONES_LABEL}}” > “{{ROOMS.FARM}}”, and designate / drag out several farm plots on a grassy area."
+TUTORIAL.1.C,,"A good rule of thumb to follow is to ensure you have 10 tiles of crops being sown for each settler in your population. Currently there are 7 settlers milling around, so go ahead and click “{{GUI.ROOMS_LABEL}}” > “{{ROOMS.FARM}}”, and designate / drag out several farm plots on a grassy area."
 TUTORIAL.1.D,,Use right-click to cancel and go back in menus.
 TUTORIAL.2.A,,"With nothing else to do, your settlers will start preparing these {{ROOMS.FARM.PLURAL}} by tilling the earth to be ready for seeds to be sown. This doesn’t require any special tools or knowledge so everyone should get involved."
 TUTORIAL.2.B,,"This prepares the plot to be sown, but you need to select which crop to grow on each farm plot before a farmer will come and plant the relevant seeds. Your settlers have brought with them a selection of different seeds. You can click “Resources” in the upper-right to get a breakdown of all the items in your settlement."

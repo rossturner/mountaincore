@@ -212,7 +212,7 @@ public class MiningCollapseManager implements Telegraph, Updatable {
 
 	private void triggerCollapse(GridPoint2 epicenter) {
 		messageDispatcher.dispatchMessage(MessageType.TRIGGER_SCREEN_SHAKE);
-		Notification notification = new Notification(MINING_COLLAPSE, toVector(epicenter));
+		Notification notification = new Notification(MINING_COLLAPSE, toVector(epicenter), null);
 		messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, notification);
 		// TODO null-location sound for collapse (so it can be heard anywhere on map)
 

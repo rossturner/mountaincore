@@ -199,7 +199,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 			if (gameContext.getSettlementState().getImmigrationPoint() == null) {
 				Logger.warn("Could not find valid map edge to spawn immigration from");
 			} else {
-				Notification notification = new Notification(IMMIGRANTS_ARRIVED, gameContext.getSettlementState().getImmigrationPoint());
+				Notification notification = new Notification(IMMIGRANTS_ARRIVED, gameContext.getSettlementState().getImmigrationPoint(), null);
 				messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, notification);
 			}
 		}

@@ -66,6 +66,7 @@ import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.settlement.*;
 import technology.rocketjump.saul.settlement.notifications.Notification;
 import technology.rocketjump.saul.settlement.notifications.NotificationType;
+import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 import java.util.*;
@@ -642,7 +643,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 	}
 
 	private boolean handleSettlerTantrum(Entity tantrumEntity) {
-		Notification tantrumNotification = new Notification(NotificationType.SETTLER_TANTRUM, tantrumEntity.getLocationComponent().getWorldOrParentPosition());
+		Notification tantrumNotification = new Notification(NotificationType.SETTLER_TANTRUM,
+				tantrumEntity.getLocationComponent().getWorldOrParentPosition(), new Selectable(tantrumEntity, 0));
 		tantrumNotification.addTextReplacement("character", i18nTranslator.getDescription(tantrumEntity));
 		messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, tantrumNotification);
 		return true;
@@ -818,7 +820,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		historyComponent.setDeathReason(deathReason);
 
 		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
-			Notification deathNotification = new Notification(NotificationType.DEATH, deceasedPosition);
+			Notification deathNotification = new Notification(NotificationType.DEATH, deceasedPosition, new Selectable(deceased, 0));
 			deathNotification.addTextReplacement("character", i18nTranslator.getDescription(deceased));
 			deathNotification.addTextReplacement("reason", i18nTranslator.getDictionary().getWord(deathReason.getI18nKey()));
 			messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, deathNotification);
@@ -862,7 +864,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			}
 
 			if (allDead) {
-				Notification gameOverNotification = new Notification(NotificationType.GAME_OVER, null);
+				Notification gameOverNotification = new Notification(NotificationType.GAME_OVER, null, null);
 				messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, gameOverNotification);
 				gameContext.getSettlementState().setGameState(GameState.GAME_OVER);
 			}
@@ -906,7 +908,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		Vector2 entityPosition = entity.getLocationComponent().getWorldOrParentPosition();
 		dropEquippedItems(entity, entityPosition);
 
-		Notification brokenNotification = new Notification(NotificationType.SETTLER_MENTAL_BREAK, entityPosition);
+		Notification brokenNotification = new Notification(NotificationType.SETTLER_MENTAL_BREAK, null, new Selectable(entity, 0));
 		brokenNotification.addTextReplacement("character", i18nTranslator.getDescription(entity));
 		messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, brokenNotification);
 
@@ -1119,7 +1121,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 	}
 
 	private void showNotificationOxidisationDestroyedSomething(Entity targetEntity) {
-		Notification notification = new Notification(NotificationType.OXIDISATION_DESTRUCTION, targetEntity.getLocationComponent().getWorldOrParentPosition());
+		Notification notification = new Notification(NotificationType.OXIDISATION_DESTRUCTION, null, new Selectable(targetEntity, 0));
 		messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, notification);
 	}
 

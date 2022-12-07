@@ -38,7 +38,7 @@ import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.rooms.Bridge;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.Room;
-import technology.rocketjump.saul.ui.widgets.FurnitureMaterialsWidget;
+import technology.rocketjump.saul.ui.widgets.furniture.FurnitureRequirementsWidget;
 
 import java.util.*;
 
@@ -59,7 +59,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 	private final ItemEntityFactory itemEntityFactory;
 	private final ParticleEffectType dustCloudParticleEffect;
 	private final Map<GameMaterialType, SoundAsset> completionSoundMapping = new EnumMap<>(GameMaterialType.class);
-	private final FurnitureMaterialsWidget furnitureMaterialsWidget;
+	private final FurnitureRequirementsWidget furnitureRequirementsWidget;
 
 	private GameContext gameContext;
 
@@ -69,7 +69,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 									  FurnitureEntityFactory furnitureEntityFactory,
 									  ItemEntityAttributesFactory itemEntityAttributesFactory,
 									  ItemEntityFactory itemEntityFactory, SoundAssetDictionary soundAssetDictionary,
-									  ParticleEffectTypeDictionary particleEffectTypeDictionary, FurnitureMaterialsWidget furnitureMaterialsWidget) {
+									  ParticleEffectTypeDictionary particleEffectTypeDictionary, FurnitureRequirementsWidget furnitureRequirementsWidget) {
 		this.messageDispatcher = messageDispatcher;
 		this.constructionStore = constructionStore;
 		this.furnitureEntityAttributesFactory = furnitureEntityAttributesFactory;
@@ -78,7 +78,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 		this.itemEntityFactory = itemEntityFactory;
 
 		dustCloudParticleEffect = particleEffectTypeDictionary.getByName("Dust cloud above"); // MODDING expose this
-		this.furnitureMaterialsWidget = furnitureMaterialsWidget;
+		this.furnitureRequirementsWidget = furnitureRequirementsWidget;
 		// FIXME this is also duplicated in FurnitureMessageHandler
 		completionSoundMapping.put(GameMaterialType.WOOD, soundAssetDictionary.getByName("HeavyWoodItem")); // MODDING Expose this
 		completionSoundMapping.put(GameMaterialType.STONE, soundAssetDictionary.getByName("HeavyStoneItem")); // MODDING Expose this
@@ -201,8 +201,8 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 	private boolean handleFurniturePlacement(Entity furnitureEntityToPlace) {
 		FurnitureConstruction furnitureConstruction = new FurnitureConstruction(furnitureEntityToPlace.clone(messageDispatcher, gameContext));
 		FurnitureType furnitureType = ((FurnitureEntityAttributes)furnitureEntityToPlace.getPhysicalEntityComponent().getAttributes()).getFurnitureType();
-		if (furnitureType.equals(furnitureMaterialsWidget.getSelectedFurnitureType())) {
-			furnitureConstruction.setPlayerRequirementSelections(furnitureMaterialsWidget.getSelections());
+		if (furnitureType.equals(furnitureRequirementsWidget.getSelectedFurnitureType())) {
+			furnitureConstruction.setPlayerRequirementSelections(furnitureRequirementsWidget.getSelections());
 		}
 		requestConstructionSoundAsset(furnitureConstruction);
 		constructionStore.create(furnitureConstruction);

@@ -131,6 +131,26 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
+	asset_notifications_bg_patch: {
+		region: asset_notifications_bg_cropped
+		horizontalStretchAreas: [ 2, 13 ]
+		verticalStretchAreas: [ 2, 11 ]
+		tiling: false
+		minWidth: 16
+		minHeight: 14
+		rightWidth: 3
+		leftWidth: 3
+		bottomHeight: 3
+		topHeight: 3
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.kotcrab.vis.ui.Sizes: {
 	default: {
@@ -170,6 +190,9 @@ com.kotcrab.vis.ui.widget.BusyBar$BusyBarStyle: {
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: {
+		up: btn_01
+	}
 	game-speed-paused: {
 		up: btn_pause_off
 		down: btn_pause_on
@@ -309,6 +332,16 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	white_text_default-font-23: {
 		font: default-font-23
 		fontColor: white
+	}
+	white_text_default-font-19: {
+		font: default-font-19
+		fontColor: white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
+	default-horizontal: {
+		background: bar_bg
+		knobBefore: progress_bar_knob
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {

@@ -18,6 +18,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.StartNewGameMessage;
 import technology.rocketjump.saul.persistence.SavedGameInfo;
 import technology.rocketjump.saul.persistence.SavedGameStore;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
@@ -126,7 +127,9 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		Table mediumMap = buildMapButton(mapRadioSelectionGroup, "GUI.EMBARK.MAP_SIZE.MEDIUM", "medium_map_btn", 0.8f, 400, 300);
 		Table smallMap = buildMapButton(mapRadioSelectionGroup, "GUI.EMBARK.MAP_SIZE.SMALL", "small_map_btn", 0.5f, 200, 150);
 		Table largeMap = buildMapButton(mapRadioSelectionGroup, "GUI.EMBARK.MAP_SIZE.LARGE", "large_map_btn", 1.0f, 600, 450);
-
+		if (GlobalSettings.DEV_MODE) {
+			((ImageButton)smallMap.getChild(0)).setChecked(true);
+		}
 
 		Label seedLabel = new Label(i18nTranslator.translate("GUI.EMBARK.MAP_SEED"), skin, "embark_seed_label");
 		this.seedInput = new TextField("", skin);
@@ -183,7 +186,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 					GameDialog dialog = gameDialogDictionary.createInfoDialog(skin, InfoType.SETTLEMENT_NAME_ALREADY_IN_USE, Map.of("name", new I18nWord(settlementName)));
 					dialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CONFIRM"), (Runnable) () -> {
 						startGame();
-					}, skin.get("btn_dialog_1", TextButton.TextButtonStyle.class));
+					});
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
 				} else {
 					startGame();

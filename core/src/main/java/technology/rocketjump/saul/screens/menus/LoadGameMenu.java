@@ -342,7 +342,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 						selectedSavedGame = null;
 						disablePlayAndDeleteButtons();
 						savedGamesUpdated();
-					}, skin.get("btn_dialog_1", TextButton.TextButtonStyle.class));
+					});
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
 				})
 				.build();
