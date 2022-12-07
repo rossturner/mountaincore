@@ -383,11 +383,11 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			};
 			Table mugshotColumn = mugshot(settler);
 			Table textSummaryColumn = textSummary(settler);
-			Table happinessColumn = happiness(settler);
+			Table happinessColumn = happiness(settler).getActor();
 			Table needsColumn = needs(settler).getActor();
-			Table professionsColumn = professions(settler, rebuildSettlerView);
-			Table weaponSelectColumn = weaponSelection(settler, rebuildSettlerView);
-			Table militaryToggleColumn = militaryToggle(settler, rebuildSettlerView);
+			Table professionsColumn = professions(settler, 1f, rebuildSettlerView);
+			Table weaponSelectColumn = weaponSelection(settler, 1.0f, rebuildSettlerView);
+			Table militaryToggleColumn = militaryToggle(settler, true, rebuildSettlerView);
 
 			addGotoSettlerBehaviour(mugshotColumn, settler);
 
@@ -412,7 +412,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		scrollPane.setActor(settlersTable);
 	}
 
-	public Table weaponSelection(Entity settler, Consumer<Entity> onSettlerChange) {
+	public Table weaponSelection(Entity settler, float overallScale, Consumer<Entity> onSettlerChange) {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 		EquippedItemComponent equippedItemComponent = settler.getComponent(EquippedItemComponent.class);
@@ -792,7 +792,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return null;
 	}
 
-	public Table militaryToggle(Entity settler, Consumer<Entity> onMilitaryChange) {
+	public Table militaryToggle(Entity settler, boolean includeRibbon, Consumer<Entity> onMilitaryChange) {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 
 		Image image = new Image(managementSkin.getDrawable("icon_military"));
@@ -822,18 +822,20 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 		Table table = new Table();
 		table.add(toggle).spaceBottom(14).row();
-		table.add(militaryProficiencyLabel);
+		if (includeRibbon) {
+			table.add(militaryProficiencyLabel);
+		}
 		return table;
 	}
 
-	public Table professions(Entity settler, Consumer<Entity> rebuildSettlerView) {
+	public Table professions(Entity settler, float scale, Consumer<Entity> rebuildSettlerView) {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		if (skillsComponent == null) {
 			return new Table();
 		}
 
 		Table table = new Table();
-		settlerProfessionFactory.addProfessionComponents(settler, table, rebuildSettlerView);
+		settlerProfessionFactory.addProfessionComponents(settler, table, rebuildSettlerView, scale);
 		return table;
 	}
 
@@ -882,54 +884,58 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return updatable;
 	}
 
-	private Table happiness(Entity settler) {
+	public Updatable<Table> happiness(Entity settler) {
 		HappinessComponent happinessComponent = settler.getComponent(HappinessComponent.class);
-		int netHappiness = happinessComponent.getNetModifier();
-		String netHappinessString = (netHappiness > 0 ? "+" : "") + netHappiness;
-		String happinessText = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.HAPPINESS", Map.of(
-				"happinessValue", new I18nWord(netHappinessString)
-		)).toString();
-		Label happinessLabel = tableLabel(happinessText);
+		Label happinessLabel = tableLabel("");
 
 		Table modifiersTable = new Table();
-		int modifierCount = 1;
-		for (HappinessComponent.HappinessModifier modifier : happinessComponent.currentModifiers()) {
-			int modifierAmount = modifier.modifierAmount;
-			StringBuilder modifierBuilder = new StringBuilder();
-			modifierBuilder.append(" ");
-			final String drawableName;
-			if (modifierAmount > 0) {
-				drawableName = "icon_happy";
-				modifierBuilder.append("+");
-			} else {
-				drawableName = "icon_sad";
+		Runnable updateMethod = () -> {
+			modifiersTable.clear();
+			int netHappiness = happinessComponent.getNetModifier();
+			String netHappinessString = (netHappiness > 0 ? "+" : "") + netHappiness;
+			String happinessText = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.HAPPINESS", Map.of(
+					"happinessValue", new I18nWord(netHappinessString)
+			)).toString();
+			happinessLabel.setText(happinessText);
+			int modifierCount = 1;
+			for (HappinessComponent.HappinessModifier modifier : happinessComponent.currentModifiers()) {
+				int modifierAmount = modifier.modifierAmount;
+				StringBuilder modifierBuilder = new StringBuilder();
+				modifierBuilder.append(" ");
+				final String drawableName;
+				if (modifierAmount > 0) {
+					drawableName = "icon_happy";
+					modifierBuilder.append("+");
+				} else {
+					drawableName = "icon_sad";
+				}
+				Image modifierImage = new Image(managementSkin.getDrawable(drawableName));
+
+				modifierBuilder.append(modifierAmount);
+
+				I18nText happinessModifierText = i18nTranslator.getTranslatedString(modifier.getI18nKey());
+				happinessModifierText.append(new I18nWord(modifierBuilder.toString()));
+
+				tooltipFactory.simpleTooltip(modifierImage, happinessModifierText, TooltipLocationHint.BELOW);
+
+				modifiersTable.add(modifierImage).space(10f);
+
+				if (modifierCount % 5 == 0) {
+					modifiersTable.row();
+				}
+				modifierCount++;
 			}
-			Image modifierImage = new Image(managementSkin.getDrawable(drawableName));
+		};
 
-			modifierBuilder.append(modifierAmount);
-
-			I18nText happinessModifierText = i18nTranslator.getTranslatedString(modifier.getI18nKey());
-			happinessModifierText.append(new I18nWord(modifierBuilder.toString()));
-
-			tooltipFactory.simpleTooltip(modifierImage, happinessModifierText, TooltipLocationHint.BELOW);
-
-			modifiersTable.add(modifierImage).space(10f);
-
-			if (modifierCount % 5 == 0) {
-				modifiersTable.row();
-			}
-			modifierCount++;
-		}
-
-
+		updateMethod.run();
 
 		Table table = new Table();
 		table.add(happinessLabel).spaceBottom(16f).row();
 		table.add(modifiersTable);
+		Updatable<Table> updatable = Updatable.of(table);
+		updatable.regularly(updateMethod);
 
-
-
-		return table;
+		return updatable;
 	}
 
 	private Table textSummary(Entity settler) {

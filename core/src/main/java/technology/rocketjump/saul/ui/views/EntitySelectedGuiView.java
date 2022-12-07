@@ -39,10 +39,7 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
-import technology.rocketjump.saul.ui.widgets.StockpileManagementTree;
-import technology.rocketjump.saul.ui.widgets.TextInputDialog;
-import technology.rocketjump.saul.ui.widgets.ToggleButtonSet;
+import technology.rocketjump.saul.ui.widgets.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +106,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	                             TooltipFactory tooltipFactory, StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
 	                             GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
 	                             ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary, SettlerManagementScreen settlerManagementScreen) {
-//		uiSkin = guiSkinRepository.getDefault();
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.i18nTranslator = i18nTranslator;
@@ -297,28 +293,37 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		updatables = new ArrayList<>();
 		outerTable = new Table();
 		outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg"));
-		containerTable.add(outerTable);
+		containerTable.add(outerTable).padLeft(18f); //Value of drop shadow on bottom for equal distance
 
 		Selectable selectable = gameInteractionStateContainer.getSelectable();
 		if (selectable != null && ENTITY == selectable.type) {
 			Entity entity = selectable.getEntity();
 			if (entity.isSettler()) {
+				//TODO: RoomEditingView for reference, on title labels with rename
 				/*
 				3 columns
 				Editable Name | Military Toggle | Professions
 				Happiness single icon? & task & injuries | Military squad | Professions
 				Needs | Inventory 2-col
 				 */
-				//TODO: RoomEditingView for reference, on title labels with rename
 
-				outerTableAdd(creatureName(entity));
-				outerTableAdd(settlerManagementScreen.militaryToggle(entity, s -> populate(containerTable))); //TODO: not sure of this, but might just work
+				outerTable.columnDefaults(0).padLeft(50).left();
+				Updatable<Table> settlerName = creatureName(entity);
+				Updatable<Table> happiness = settlerManagementScreen.happiness(entity);
+				Table firstColumn = new Table();
+				firstColumn.add(settlerName.getActor()).row();
+				firstColumn.add(happiness.getActor()).left();
+				updatables.add(settlerName);
+				updatables.add(happiness);
+
+				outerTableAdd(firstColumn).top();
+				outerTableAdd(settlerManagementScreen.militaryToggle(entity, false, s -> populate(containerTable))).spaceLeft(30).top(); //TODO: not sure of this, but might just work
 				if (SettlerManagementScreen.IS_MILITARY.test(entity)) {
-					outerTableAdd(settlerManagementScreen.weaponSelection(entity, s -> populate(containerTable))).row(); //todo, not clear when to use Updatables, this needs updating regularly for loss of hand. Also needs updatables for appearance of item
+					outerTableAdd(settlerManagementScreen.weaponSelection(entity, 0.8f, s -> populate(containerTable))).spaceLeft(30).padRight(50).top().row(); //todo, not clear when to use Updatables, this needs updating regularly for loss of hand. Also needs updatables for appearance of item
 				} else {
-					outerTableAdd(settlerManagementScreen.professions(entity, s -> update())).row();
+					outerTableAdd(settlerManagementScreen.professions(entity, 0.8f, s -> update())).spaceLeft(30).padRight(50).top().row();
 				}
-				outerTableAdd(settlerManagementScreen.needs(entity));
+				outerTableAdd(settlerManagementScreen.needs(entity)).left();
 
 			} else {
 				EntityType entityType = entity.getType();
@@ -636,25 +641,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 	}*/
 
-/*	public static Label buildHappinessModifierLabel(HappinessComponent happinessComponent, Skin uiSkin) {
-		StringBuilder modifierBuilder = new StringBuilder();
-		int netModifier = happinessComponent.getNetModifier();
-		modifierBuilder.append(" ");
-		if (netModifier >= 0) {
-			modifierBuilder.append("+");
-		}
-		modifierBuilder.append(netModifier);
-		Label modifierLabel = new Label(modifierBuilder.toString(), uiSkin);
-		Label.LabelStyle modifierStyle = new Label.LabelStyle(modifierLabel.getStyle());
-		if (netModifier >= 0) {
-			modifierStyle.fontColor = ColorMixer.interpolate(0, MAX_HAPPINESS_VALUE, netModifier, Color.YELLOW, Color.GREEN);
-		} else {
-			modifierStyle.fontColor = ColorMixer.interpolate(0, MAX_HAPPINESS_VALUE, -netModifier, Color.YELLOW, Color.RED);
-		}
-		modifierLabel.setStyle(modifierStyle);
-		return modifierLabel;
-	}*/
-
 	private boolean containsSomething(InventoryComponent inventoryComponent, LiquidContainerComponent liquidContainerComponent) {
 		return (inventoryComponent != null && !inventoryComponent.getInventoryEntries().isEmpty()) ||
 				(liquidContainerComponent != null && liquidContainerComponent.getLiquidQuantity() > 0);
@@ -732,7 +718,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	private Updatable<Table> creatureName(Entity entity) {
 		Table headerContainer = new Table();
-		headerContainer.setBackground(mainGameSkin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
+		TenPatchDrawable background = mainGameSkin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class);
+		headerContainer.setBackground(background);
 		Updatable<Table> updatable = Updatable.of(headerContainer);
 
 
@@ -769,7 +756,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		changeRoomNameButton.addListener(new ChangeCursorOnHover(changeRoomNameButton, GameCursor.SELECT, messageDispatcher));
 
 
-		Label headerLabel = new Label(headerText, mainGameSkin.get("title-header", Label.LabelStyle.class));
+
+
+		Label headerLabel = new ScaledToFitLabel(headerText, mainGameSkin.get("title-header", Label.LabelStyle.class), background.getMinWidth() - (2 * changeRoomNameButton.getWidth()));
 		headerContainer.add(new Container<>()).left().expandX().width(changeRoomNameButton.getWidth());
 		headerContainer.add(headerLabel).center();
 		headerContainer.add(changeRoomNameButton).right().expandX().width(changeRoomNameButton.getWidth());
