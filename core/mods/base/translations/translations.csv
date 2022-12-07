@@ -1183,9 +1183,6 @@ RESOURCE.CRUSHED.VITRIOL.TOOLTIP,,A salt of sulphuric acid with many uses in ind
 RESOURCE.FLOUR.SACK.NOUN,,Flour
 RESOURCE.FLOUR.SACK.PLURAL,,Flour
 RESOURCE.FLOUR.SACK.TOOLTIP,,Grain that has been milled into a fine powder ready to be used as an ingredient in the production of food.
-RESOURCE.GEM.NOUN,,Gem
-RESOURCE.GEM.PLURAL,,Gems
-RESOURCE.GEM.TOOLTIP,,Gems that have been cut and polished to enhance their beauty. Most commonly used as ornamentation.
 RESOURCE.GEMS.UNREFINED.NOUN,,Uncut gem
 RESOURCE.GEMS.UNREFINED.PLURAL,,Uncut gems
 RESOURCE.GEMS.UNREFINED.TOOLTIP,,A hunk of rock containing gems ready to be cut and polished.
@@ -1387,6 +1384,7 @@ STOCKPILE.GROUP.TOOLS,,Tools
 STOCKPILE.GROUP.TOOLS.TOOLTIP,,Stores tools required for working on jobs.
 STOCKPILE.GROUP.WEAPONS,,Weapons
 STOCKPILE.GROUP.WEAPONS.TOOLTIP,,Stores harvested fruit and vegetables which can expire.
+STOCKPILE.GROUP.TREASURE,,Treasure
 
 STONE.BASALT.ADJECTIVE,,Basalt
 STONE.BASALT.NOUN,,Basalt
@@ -1449,6 +1447,13 @@ TOOL.SMALL.HAMMER.TOOLTIP,,Used to bash small items of stone and metal into shap
 TOOL.TONGS.NOUN,A blacksmith's tongs,Tongs
 TOOL.TONGS.PLURAL,A blacksmith's tongs,Sets of tongs
 TOOL.TONGS.TOOLTIP,,Used to hold extremely hot metal items. Used in the process of smelting metal ore.
+
+TREASURE.COIN.NOUN,,Coin
+TREASURE.COIN.PLURAL,,Coins
+TREASURE.COIN.TOOLTIP,,Minted coins used as a form of currency for trading.
+TREASURE.GEM.NOUN,,Gem
+TREASURE.GEM.PLURAL,,Gems
+TREASURE.GEM.TOOLTIP,,Gems that have been cut and polished to enhance their beauty. Most commonly used as ornamentation.
 
 TREE.DESCRIPTION,E.g. “Oak tree”,{{materialType.noun}} tree
 

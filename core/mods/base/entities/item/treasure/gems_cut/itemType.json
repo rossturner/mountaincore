@@ -1,0 +1,10 @@
+{
+  "itemTypeName" : "Treasure-Gem",
+  "maxStackSize" : 32,
+  "maxHauledAtOnce" : 4,
+  "materialTypes" : [ "GEM" ],
+  "primaryMaterialType" : "GEM",
+  "impedesMovement" : true,
+  "stockpileGroupName" : "TREASURE",
+  "i18nKey" : "TREASURE.GEM"
+}

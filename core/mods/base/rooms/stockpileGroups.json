@@ -63,5 +63,13 @@
     "colorCode": "#7a6ede",
     "iconName": "crossed-swords",
     "sortOrder": 8
+  },
+  {
+    "name": "TREASURE",
+    "i18nKey": "STOCKPILE.GROUP.TREASURE",
+    "drawableName": "btn_stockpile_treasure",
+    "colorCode": "#ffcd46",
+    "iconName": "crossed-swords",
+    "sortOrder": 9
   }
 ]

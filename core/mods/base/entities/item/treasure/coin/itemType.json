@@ -1,0 +1,11 @@
+{
+  "itemTypeName" : "Treasure-Coin",
+  "maxStackSize" : 100,
+  "maxHauledAtOnce" : 100,
+  "materialTypes" : [ "METAL" ],
+  "primaryMaterialType" : "METAL",
+  "holdPosition" : "RIGHT_HAND",
+  "equippedWhileWorkingOnJob" : false,
+  "stockpileGroupName" : "TREASURE",
+  "i18nKey" : "TREASURE.COIN"
+}

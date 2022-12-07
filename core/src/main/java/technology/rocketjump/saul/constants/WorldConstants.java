@@ -12,7 +12,6 @@ public class WorldConstants {
 	@JsonIgnore
 	private Color backgroundColorInstance;
 
-	private int maxItemStackSize;
 	private int maxNeighbouringShrubs;
 	private float attachedLightSourceTogglePoint;
 	private double corpseDecayHours;
@@ -36,14 +35,6 @@ public class WorldConstants {
 	public void setBackgroundColor(String backgroundColor) {
 		this.backgroundColor = backgroundColor;
 		this.backgroundColorInstance = HexColors.get(backgroundColor);
-	}
-
-	public int getMaxItemStackSize() {
-		return maxItemStackSize;
-	}
-
-	public void setMaxItemStackSize(int maxItemStackSize) {
-		this.maxItemStackSize = maxItemStackSize;
 	}
 
 	public String getStoneHarvestedItemType() {
