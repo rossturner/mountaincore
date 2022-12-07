@@ -900,7 +900,6 @@ PROFESSION.FISHER.FEMALE_NOUN,This could be “fisherman” and “fisherwoman�
 PROFESSION.FISHER.MALE_NOUN,,Fisher,Fischer
 PROFESSION.FISHER.TOOLTIP,,Catches fish from bodies of water for use as food and resources.,"Fängt Fische aus Gewässern, um sie als Nahrung und Ressource zu verwenden."
 PROFESSION.FISHER.VERB,,Fishing,Fischt
-PROFESSION.GUI.ADD_ANOTHER,,Add another,
 PROFESSION.HUNTER.FEMALE_NOUN,This could be “huntsman” and “huntress”,Hunter,Jägerin
 PROFESSION.HUNTER.MALE_NOUN,,Hunter,Jäger
 PROFESSION.HUNTER.TOOLTIP,,Tracks and kills wild animals for their meat and pelts.,Aufspüren und Töten von Wildtieren wegen ihres Fleisches und Fells.
