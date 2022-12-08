@@ -2,6 +2,7 @@
   "itemTypeName" : "Tool-Small-Hammer",
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 16,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "CARPENTRY", "STONEMASONRY", "BLACKSMITHING" ],
   "stockpileGroupName" : "TOOLS",

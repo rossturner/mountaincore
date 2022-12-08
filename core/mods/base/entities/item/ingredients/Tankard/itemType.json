@@ -2,6 +2,7 @@
   "itemTypeName" : "Ingredient-Tankard",
   "materialTypes" : [ "LIQUID", "WOOD", "METAL", "STONE" ],
   "primaryMaterialType" : "LIQUID",
+  "baseValuePerItem": 5,
   "holdPosition" : "RIGHT_HAND",
   "hoursInInventoryUntilUnused" : 4.0,
   "consumeSoundAssetName" : "DrinkSoup",

@@ -4,7 +4,7 @@
   "maxHauledAtOnce" : 50,
   "materialTypes" : [ "OTHER" ],
   "primaryMaterialType" : "OTHER",
-  "baseValuePerItem": 0,
+  "baseValuePerItem": -1,
   "equippedWhileWorkingOnJob" : false,
   "hoursInInventoryUntilUnused" : 0.5,
   "i18nKey" : "ASHES"

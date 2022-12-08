@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 4,
   "materialTypes" : [ "MEAT" ],
   "primaryMaterialType" : "MEAT",
+  "baseValuePerItem" : 5,
   "stockpileGroupName" : "FOOD",
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.CARP.PREPARED"

@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 10,
   "materialTypes" : [ "SKIN" ],
   "primaryMaterialType" : "SKIN",
+  "baseValuePerItem": 3,
   "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : {

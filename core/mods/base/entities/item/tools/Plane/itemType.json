@@ -2,6 +2,7 @@
   "itemTypeName" : "Tool-Plane",
   "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
+  "baseValuePerItem": 4,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "CARPENTRY" ],
   "stockpileGroupName" : "TOOLS",

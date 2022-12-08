@@ -2,5 +2,6 @@
   "itemTypeName" : "Resource-Liquid-Example",
   "materialTypes" : [ "LIQUID" ],
   "primaryMaterialType" : "LIQUID",
+  "baseValuePerItem": 1,
   "i18nKey" : "RESOURCE.LIQUID.EXAMPLE"
 }

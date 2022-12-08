@@ -126,6 +126,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 	public void setMaterial(GameMaterial material) {
 		if (material != null) {
 			this.materials.put(material.getMaterialType(), material);
+			recalculateValue();
 		}
 	}
 
@@ -147,6 +148,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 
 	public void setItemType(ItemType itemType) {
 		this.itemType = itemType;
+		recalculateValue();
 	}
 
 	public int getQuantity() {
@@ -172,6 +174,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 
 	public void setItemQuality(ItemQuality itemQuality) {
 		this.itemQuality = itemQuality;
+		recalculateValue();
 	}
 
 	public boolean isDestroyed() {
@@ -184,6 +187,15 @@ public class ItemEntityAttributes implements EntityAttributes {
 
 	public EntityDestructionCause getDestructionCause() {
 		return destructionCause;
+	}
+
+	private void recalculateValue() {
+		if (itemType != null) {
+			GameMaterial primaryMaterial = getPrimaryMaterial();
+			if (primaryMaterial != null) {
+				this.valuePerItem = Math.max(1, Math.round(primaryMaterial.getValueMultiplier() * itemQuality.valueMultiplier * itemType.getBaseValuePerItem()));
+			}
+		}
 	}
 
 	@Override

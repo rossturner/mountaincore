@@ -98,10 +98,6 @@
     "fixedAmount" : 16,
     "perSettler" : 0.0
   },
-  "Resource-Gem" : {
-    "fixedAmount" : 200,
-    "perSettler" : 0.0
-  },
   "Resource-Metal-Bloom" : {
     "fixedAmount" : 20,
     "perSettler" : 0.0
@@ -163,6 +159,14 @@
   },
   "Tool-Tongs" : {
     "fixedAmount" : 2,
+    "perSettler" : 0.0
+  },
+  "Treasure-Coin" : {
+    "fixedAmount" : 200,
+    "perSettler" : 0.0
+  },
+  "Treasure-Gem" : {
+    "fixedAmount" : 200,
     "perSettler" : 0.0
   },
   "Weapon-Battle-Axe" : {

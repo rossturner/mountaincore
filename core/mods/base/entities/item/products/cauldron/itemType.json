@@ -2,6 +2,7 @@
   "itemTypeName" : "Product-Cauldron",
   "materialTypes" : [ "METAL", "WOOD", "ROPE" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 68,
   "hoursInInventoryUntilUnused" : 1.0,
   "stockpileGroupName" : "PRODUCTS",
   "tags" : {

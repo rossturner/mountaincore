@@ -2,6 +2,7 @@
   "itemTypeName" : "Weapon-Bow",
   "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
+  "baseValuePerItem": 3,
   "holdPosition" : "LEFT_HAND",
   "hoursInInventoryUntilUnused" : 3.0,
   "stockpileGroupName" : "WEAPONS",

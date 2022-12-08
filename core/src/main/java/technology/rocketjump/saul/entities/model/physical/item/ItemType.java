@@ -35,7 +35,7 @@ public class ItemType {
 	private List<GameMaterialType> materialTypes = new ArrayList<>();
 	private GameMaterialType primaryMaterialType;
 
-	private int baseValuePerItem = 1;
+	private int baseValuePerItem = 0;
 
 	private ItemHoldPosition holdPosition = ItemHoldPosition.IN_FRONT;
 	private boolean impedesMovement = false;

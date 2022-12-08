@@ -15,8 +15,12 @@
   "Resource-Stone-Block": {
     "fixedAmount": 20
   },
-  "Resource-Gem": {
+  "Treasure-Gem": {
     "fixedAmount": 200
+  },
+  "Treasure-Coin" : {
+    "fixedAmount" : 200,
+    "perSettler" : 0.0
   },
   "Resource-Ore-Crushed": {
     "fixedAmount": 20

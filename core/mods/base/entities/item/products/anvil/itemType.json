@@ -2,6 +2,7 @@
   "itemTypeName" : "Product-Anvil",
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 60,
   "hoursInInventoryUntilUnused" : 0.0,
   "stockpileGroupName" : "TOOLS",
   "i18nKey" : "PRODUCT.ANVIL"

@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.CRAFTING_BONUS_VALUE;
+
 @Singleton
 public class CraftingRecipeDictionary {
 
@@ -50,6 +52,36 @@ public class CraftingRecipeDictionary {
 			byCraftingType.get(craftingRecipe.getCraftingType()).add(craftingRecipe);
 			byName.put(craftingRecipe.getRecipeName(), craftingRecipe);
 		}
+
+		for (ItemType itemType : itemTypeDictionary.getAll()) {
+			if (itemType.getBaseValuePerItem() == 0) {
+				Logger.warn("0 base value found for item " + itemType.getItemTypeName());
+
+				craftingRecipes.stream().filter(recipe ->
+								recipe.getOutput().stream().anyMatch(output -> itemType.equals(output.getItemType()))
+						)
+						.findAny()
+						.ifPresentOrElse(recipe -> {
+							int totalItemsOutput = recipe.getOutput().stream().map(QuantifiedItemTypeWithMaterial::getQuantity).reduce(0, Integer::sum);
+							int totalValueInput = recipe.getInput().stream().map(i -> i.getItemType().getBaseValuePerItem() * i.getQuantity()).reduce(0, Integer::sum);
+
+							StringBuilder stringBuilder = new StringBuilder();
+							int suggestedValue = Math.max(1, Math.round((float) totalValueInput / (float) totalItemsOutput * CRAFTING_BONUS_VALUE));
+							stringBuilder.append("Suggesting baseValuePerItem of ").append(suggestedValue);
+							stringBuilder.append(" - ").append(totalItemsOutput).append("x created from ");
+							for (QuantifiedItemTypeWithMaterial input : recipe.getInput()) {
+								if (input.getItemType() != null) {
+									stringBuilder.append("( ").append(input.getQuantity()).append(" * ").append(input.getItemType().getItemTypeName()).append(" at ").append(input.getItemType().getBaseValuePerItem()).append(") ");
+								} else if (input.isLiquid()) {
+									stringBuilder.append("( Liquid ").append(input.getMaterial().getMaterialName()).append(" * ").append(input.getQuantity()).append(")");
+								}
+							}
+							stringBuilder.append("\n");
+							Logger.warn(stringBuilder.toString());
+						}, () -> Logger.warn("No recipe to craft this item is present\n"));
+			}
+		}
+
 	}
 
 	private void initCraftingRecipe(CraftingRecipe craftingRecipe) {

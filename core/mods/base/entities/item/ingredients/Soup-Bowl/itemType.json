@@ -2,6 +2,7 @@
   "itemTypeName" : "Ingredient-Soup-Bowl",
   "materialTypes" : [ "LIQUID", "WOOD" ],
   "primaryMaterialType" : "LIQUID",
+  "baseValuePerItem": 5,
   "holdPosition" : "RIGHT_HAND",
   "hoursInInventoryUntilUnused" : 4.0,
   "consumeSoundAssetName" : "DrinkSoup",

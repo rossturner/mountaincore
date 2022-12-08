@@ -2,6 +2,7 @@
   "itemTypeName" : "Weapon-Battle-Hammer",
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 32,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",

@@ -2,6 +2,7 @@
   "itemTypeName" : "Weapon-Crossbow",
   "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
+  "baseValuePerItem": 14,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",

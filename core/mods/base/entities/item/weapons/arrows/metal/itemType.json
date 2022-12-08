@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 50,
   "materialTypes" : [ "METAL", "WOOD" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 2,
   "hoursInInventoryUntilUnused" : 3.0,
   "stockpileGroupName" : "WEAPONS",
   "isAmmoType" : "ARROWS",

@@ -2,6 +2,7 @@
   "itemTypeName" : "Tool-Chisel",
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 12,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "STONEMASONRY", "SMELTING" ],
   "stockpileGroupName" : "TOOLS",

@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 16,
   "materialTypes" : [ "VITRIOL", "CLOTH", "ROPE" ],
   "primaryMaterialType" : "VITRIOL",
+  "baseValuePerItem": 5,
   "stockpileGroupName" : "PRODUCTS",
   "i18nKey" : "RESOURCE.CRUSHED.VITRIOL"
 }

@@ -12,6 +12,7 @@ import technology.rocketjump.saul.crafting.CraftingOutputQualityDictionary;
 import technology.rocketjump.saul.crafting.model.CraftingOutputQuality;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
 import technology.rocketjump.saul.crafting.model.CraftingRecipeMaterialSelection;
+import technology.rocketjump.saul.crafting.model.CraftingRecipeValueConversion;
 import technology.rocketjump.saul.entities.ItemEntityMessageHandler;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
@@ -72,6 +73,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		Prioritisable,
 		ParentDependentEntityComponent {
 
+	public static final float CRAFTING_BONUS_VALUE = 1.6f;
 	private CraftingType craftingType;
 	private JobType craftItemJobType;
 	private JobType haulingJobType;
@@ -607,6 +609,8 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			liquidContainerComponent.setTargetLiquidMaterial(null);
 		}
 
+		int inputItemsTotalValue = calculateTotalInputValue(inventoryComponent.getInventoryEntries());
+
 		for (InventoryComponent.InventoryEntry inventoryEntry : new ArrayList<>(inventoryComponent.getInventoryEntries())) {
 			messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, inventoryEntry.entity);
 		}
@@ -614,6 +618,8 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			inventoryComponent.add(outputEntity, parentEntity, messageDispatcher, gameContext.getGameClock());
 			// Unallocate from inventory
 			outputEntity.getOrCreateComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
+
+			setItemValue(inputItemsTotalValue / output.size(), outputEntity, currentProductionAssignment.targetRecipe.getValueConversion());
 
 			if (outputHaulingAllowed()) {
 				// Request hauling to remove items in output
@@ -634,6 +640,29 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 
 		// rerun update to trigger export item/liquid jobs
 		infrequentUpdate(gameContext);
+	}
+
+	private void setItemValue(int inputItemsValue, Entity outputEntity, CraftingRecipeValueConversion valueConversion) {
+		switch (valueConversion) {
+			case DEFAULT -> {
+				ItemEntityAttributes outputAttributes = (ItemEntityAttributes) outputEntity.getPhysicalEntityComponent().getAttributes();
+				float totalValue = (float)inputItemsValue * CRAFTING_BONUS_VALUE * outputAttributes.getItemQuality().valueMultiplier;
+				int valuePerItem = Math.max(1, Math.round(totalValue / (float) outputAttributes.getQuantity()));
+				outputAttributes.setValuePerItem(valuePerItem);
+			}
+			case USE_OUTPUT_BASE_VALUE -> {
+				// Do nothing, value should have been set when item was created
+			}
+			default -> Logger.error("Not yet implemented: " + valueConversion);
+		}
+	}
+
+	private int calculateTotalInputValue(Collection<InventoryComponent.InventoryEntry> inventoryEntries) {
+		return inventoryEntries.stream()
+				.map(e -> e.entity)
+				.filter(e -> e.getType().equals(EntityType.ITEM))
+				.map(e -> ((ItemEntityAttributes) e.getPhysicalEntityComponent().getAttributes()).getTotalValue())
+				.reduce(0, Integer::sum);
 	}
 
 	@Override
