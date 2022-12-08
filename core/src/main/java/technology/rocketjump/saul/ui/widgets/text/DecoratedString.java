@@ -3,6 +3,7 @@ package technology.rocketjump.saul.ui.widgets.text;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.text.WordUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static technology.rocketjump.saul.ui.widgets.text.DecoratedStringToken.TokenType.LINEBREAK;
@@ -26,6 +27,14 @@ public class DecoratedString {
 
 	public static DecoratedString blank() {
 		return new DecoratedString(Lists.newArrayList(new DecoratedStringToken(DecoratedStringToken.TokenType.TEXT, "")));
+	}
+
+	public static DecoratedString of(DecoratedString... args) {
+		List<DecoratedStringToken> tokens = new ArrayList<>();
+		for (DecoratedString arg : args) {
+			tokens.addAll(arg.tokens);
+		}
+		return new DecoratedString(tokens);
 	}
 
 	private DecoratedString(List<DecoratedStringToken> tokens) {
