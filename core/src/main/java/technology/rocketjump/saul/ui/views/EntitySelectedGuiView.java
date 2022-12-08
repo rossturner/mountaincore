@@ -308,7 +308,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		updatables = new ArrayList<>();
 		outerTable = new Table();
 		outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg"));
-		containerTable.add(outerTable).padLeft(18f); //Value of drop shadow on bottom for equal distance
+		float dropshadowLength = 18f;
+		containerTable.add(outerTable).padLeft(dropshadowLength); //Value of drop shadow on bottom for equal distance
+
+		outerTable.debug();
 
 		Selectable selectable = gameInteractionStateContainer.getSelectable();
 		if (selectable != null && ENTITY == selectable.type) {
@@ -365,9 +368,11 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				bottomRow.add(needs.getActor());
 //				bottomRow.add(inventory) //TODO: inventory aligned left, colspan rest
 
-				outerTable.columnDefaults(0).padLeft(64).left();
+//				outerTable.columnDefaults(0).padLeft(64).left();
 				outerTable.add(topRow).left().row();
-				outerTable.add(bottomRow).left();
+				outerTable.add(bottomRow).left().padBottom(dropshadowLength);
+//				outerTable.add(topRow).left().row();
+//				outerTable.add(bottomRow).left();
 
 //				topRow.debug();
 //				topLeftFirstRow.debug();
