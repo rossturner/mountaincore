@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.EntityStore;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
@@ -156,12 +157,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 		});
 
-		for (int i = 0; i <= 4; i++) {
-			cancelButtons.add(imageButtonFactory.getOrCreate("cancel", true).clone());
-			upButtons.add(iconButtonFactory.create("arrow-up").scale(0.5f));
-			downButtons.add(iconButtonFactory.create("arrow-down").scale(0.5f));
-		}
-
 		deconstructButton = iconButtonFactory.create("GUI.REMOVE_LABEL", "cancel", HexColors.NEGATIVE_COLOR, ButtonStyle.SMALL);
 		deconstructButton.setAction(() -> {
 			Selectable selectable = gameInteractionStateContainer.getSelectable();
@@ -188,33 +183,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		beingDeconstructedLabel = i18nWidgetFactory.createLabel("GUI.FURNITURE_BEING_REMOVED");
 		inventoryLabel = i18nWidgetFactory.createLabel("INVENTORY.CONTAINS.LABEL");
 
-		militaryToggleCheckbox = new I18nCheckbox("CIVILIAN", "civilian", uiSkin);
-		militaryToggleCheckbox.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				Selectable selectable = gameInteractionStateContainer.getSelectable();
-				if (selectable.getEntity() != null) {
-					Entity entity = selectable.getEntity();
-					MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
-					boolean checked = militaryToggleCheckbox.isChecked();
-					if (checked) {
-						militaryComponent.addToMilitary(1L);
-					} else {
-						militaryComponent.removeFromMilitary();
-					}
-					update();
-				}
-			}
-		});
-
-		nameTable = new Table(uiSkin);
-		happinessTable = new Table(uiSkin);
 		injuriesTable = new Table(uiSkin);
 		inventoryTable = new Table(uiSkin);
-		militaryToggleTable = new Table(uiSkin);
-
-		upperRow = new Table(uiSkin);
-		lowerRow = new Table(uiSkin);
 
 		needLabels = i18nWidgetFactory.createNeedsLabels();
 
@@ -282,19 +252,19 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				if (isMilitary) {
 				} else {
 					topLeftSecondRow.add(happinessIcons.getActor()).left();
-					topLeftSecondRow.add(textSummary.getActor()).left().spaceLeft(25f).top();
+					topLeftSecondRow.add(textSummary.getActor()).left().spaceLeft(25f).top().grow();
 				}
 
 
 				//Top Left Column - 2 rows
 				Table topLeftColumn = new Table();
 				topLeftColumn.add(topLeftFirstRow).spaceBottom(35f).row();
-				topLeftColumn.add(topLeftSecondRow).left().top().expandY();
+				topLeftColumn.add(topLeftSecondRow).left().top().grow();
 
 				//Top Row - 2 Cols
 				Table topRow = new Table();
-				topRow.columnDefaults(0).spaceLeft(64f);//.spaceTop(43f);
-				topRow.columnDefaults(1).spaceRight(60f);//.spaceTop(51f);
+				topRow.columnDefaults(0).spaceLeft(64f);
+				topRow.columnDefaults(1).spaceRight(60f);
 
 				topRow.add(topLeftColumn).top();
 				if (isMilitary) {
@@ -573,40 +543,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		militaryEquipmentTable.add(new Label(description.toString(), uiSkin)).pad(2).center();
 	}*/
 
-
-/*	private void populateHappinessTable(Entity entity) {
-		HappinessComponent happinessComponent = entity.getComponent(HappinessComponent.class);
-
-		Label modifierLabel = buildHappinessModifierLabel(happinessComponent, uiSkin);
-
-		Table headingTable = new Table(uiSkin);
-		headingTable.add(new I18nTextWidget(i18nTranslator.getTranslatedString("HAPPINESS_MODIFIER.TITLE"), uiSkin, messageDispatcher));
-		headingTable.add(modifierLabel);
-
-		happinessTable.add(headingTable).left().row();
-
-		for (HappinessComponent.HappinessModifier modifier : happinessComponent.currentModifiers()) {
-			StringBuilder sb = new StringBuilder();
-			sb.append(i18nTranslator.getTranslatedString(modifier.getI18nKey()));
-			sb.append(" (");
-			int modifierAmount = modifier.modifierAmount;
-			if (modifierAmount > 0) {
-				sb.append("+");
-			}
-			sb.append(modifierAmount).append(")");
-
-			happinessTable.add(new Label(sb.toString(), uiSkin)).left().row();
-		}
-
-		if (GlobalSettings.DEV_MODE) {
-			StatusComponent statusComponent = entity.getComponent(StatusComponent.class);
-			if (statusComponent != null && statusComponent.count() > 0) {
-				String statuses = "Status: " + statusComponent.getAll().stream().map(s -> s.getClass().getSimpleName()).collect(Collectors.joining(", "));
-				happinessTable.add(new Label(statuses, uiSkin)).left().row();
-			}
-		}
-	}*/
-
 /*	private void populateInjuriesTable(Entity entity) {
 		injuriesTable.clearChildren();
 
@@ -707,6 +643,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		table.add(happinessLabel).left().row();
 		tooltipFactory.complexTooltip(happinessLabel, happinessLabelTooltipContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
 
+		Table behaviourTable = new Table();
+		table.add(behaviourTable).grow();
+
+		behaviourTable.debug();
 
 		Runnable happinessUpdater = () -> {
 			if (happinessComponent != null) {
@@ -746,17 +686,33 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 		};
 
+		Runnable descriptionUpdater = () -> {
+			behaviourTable.clear();
+
+			java.util.List<String> behaviourDescriptions = new ArrayList<>();
+			if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+				java.util.List<I18nText> description = creatureBehaviour.getDescription(i18nTranslator, gameContext, messageDispatcher);
+				for (I18nText i18nText : description) {
+					behaviourDescriptions.add(i18nText.toString());
+				}
+			}
+
+			for (String behaviourDescription : behaviourDescriptions) {
+				Label label = new Label(behaviourDescription, managementSkin, "default-font-18-label") {
+					@Override
+					public float getWidth() {
+						return getParent().getWidth();
+					}
+				};
+				label.setWrap(true);
+
+				behaviourTable.add(label).growX().row();
+			}
+		};
+
+
 		updatable.regularly(happinessUpdater);
-
-//		java.util.List<String> behaviourDescriptions = new ArrayList<>();
-//		if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
-//			java.util.List<I18nText> description = creatureBehaviour.getDescription(i18nTranslator, gameContext, messageDispatcher);
-//			for (I18nText i18nText : description) {
-//				behaviourDescriptions.add(i18nText.toString());
-//			}
-//		}
-
-
+		updatable.regularly(descriptionUpdater);
 		updatable.update();
 		return updatable;
 	}
