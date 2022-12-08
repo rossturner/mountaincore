@@ -13,11 +13,13 @@ import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
+import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -248,12 +250,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				//Top left second row - Happiness and status for Civ / Squad for military
 				Table topLeftSecondRow = new Table();
-
-				if (isMilitary) {
-				} else {
-					topLeftSecondRow.add(happinessIcons.getActor()).left();
-					topLeftSecondRow.add(textSummary.getActor()).left().spaceLeft(25f).top().grow();
-				}
+				topLeftSecondRow.add(happinessIcons.getActor()).left();
+				topLeftSecondRow.add(textSummary.getActor()).left().spaceLeft(25f).top().grow();
 
 
 				//Top Left Column - 2 rows
@@ -720,16 +718,46 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	private Updatable<Table> happinessIcons(Entity entity) {
 		HappinessComponent happinessComponent = entity.getComponent(HappinessComponent.class);
+		StatusComponent statusComponent = entity.getComponent(StatusComponent.class);
+		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 
-		//TODO: if military, just show injury smiley?
-		int MAX_SMILIES = 5;
 		Table table = new Table();
 		table.defaults().spaceRight(10f);
 		Updatable<Table> updatable = Updatable.of(table);
 		Runnable updater = () -> {
 			table.clear();
+			boolean isMilitary = SettlerManagementScreen.IS_MILITARY.test(entity);
+			List<String> ailments = new ArrayList<>();
+			for (StatusEffect statusEffect : statusComponent.getAll()) {
+				if (statusEffect.getI18Key() != null) {
+					ailments.add(i18nTranslator.translate(statusEffect.getI18Key()));
+				}
+			}
+			for (I18nText damageDescription : attributes.getBody().getDamageDescriptions(i18nTranslator)) {
+				ailments.add(damageDescription.toString());
+			}
 
-			//TODO: add injury
+			final int MAX_SMILIES;
+			if (isMilitary) {
+				MAX_SMILIES = 0;
+			} else if (ailments.isEmpty()) {
+				MAX_SMILIES = 5;
+			} else {
+				MAX_SMILIES = 4;
+			}
+
+			if (!ailments.isEmpty()) {
+				DecoratedString tooltipString = DecoratedString.fromString(ailments.get(0));
+				for (int i = 1; i < ailments.size(); i++) {
+					tooltipString = DecoratedString.of(tooltipString, DecoratedString.linebreak(), DecoratedString.fromString(ailments.get(i)));
+				}
+				DecoratedStringLabel tooltipContents = decoratedStringLabelFactory.create(tooltipString, "tooltip-text", mainGameSkin);
+
+				Image injurySmiley = new Image(mainGameSkin.getDrawable(MainGameSkin.INJURED));
+				tooltipFactory.complexTooltip(injurySmiley, tooltipContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
+				table.add(injurySmiley);
+			}
+
 			List<HappinessComponent.HappinessModifier> sorted = new ArrayList<>(happinessComponent.currentModifiers());
 			sorted.sort(Comparator.comparing((Function<HappinessComponent.HappinessModifier, Integer>) happinessModifier -> Math.abs(happinessModifier.modifierAmount)).reversed());
 			for (int i = 0; i < MAX_SMILIES; i++) {
