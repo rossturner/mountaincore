@@ -703,46 +703,50 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Table table = new Table();
 		Updatable<Table> updatable = Updatable.of(table);
 		Label happinessLabel = new Label("", managementSkin, "table_value_label");
+		Table happinessLabelTooltipContents = new Table();
 		table.add(happinessLabel).left().row();
-
-		if (happinessComponent != null) {
-			int netHappiness = happinessComponent.getNetModifier();
-			String netHappinessString = (netHappiness > 0 ? "+" : "") + netHappiness;
-			String happinessText = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.HAPPINESS", Map.of(
-					"happinessValue", new I18nWord(netHappinessString)
-			)).toString();
-
-			happinessLabel.setText(happinessText);
-
-			happinessLabel.clearListeners();
-
-			Set<HappinessComponent.HappinessModifier> currentModifiers = happinessComponent.currentModifiers();
-
-			List<DecoratedString> tooltipLines = new ArrayList<>();
-			for (HappinessComponent.HappinessModifier modifier : currentModifiers) {
-				DecoratedString smiley = DecoratedString.drawable(smileyDrawable(modifier.modifierAmount));
-				DecoratedString reason = DecoratedString.fromString(happinessReasonText(modifier).toString());
-				tooltipLines.add(DecoratedString.of(smiley, reason));
-			}
-
-			DecoratedString tooltipString = tooltipLines.get(0);
-			for (int i = 1; i < tooltipLines.size(); i++) {
-				tooltipString = DecoratedString.of(tooltipString, DecoratedString.linebreak(), tooltipLines.get(i));
-			}
+		tooltipFactory.complexTooltip(happinessLabel, happinessLabelTooltipContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
 
 
+		Runnable happinessUpdater = () -> {
+			if (happinessComponent != null) {
 
-			DecoratedStringLabel infoContents = decoratedStringLabelFactory.create(tooltipString, "tooltip-text", mainGameSkin);
-			for (Cell<?> cell : infoContents.getCells()) {
-				if (cell.getActor() instanceof HorizontalGroup horizontalGroup) {
-					horizontalGroup.space(25f);
+				int netHappiness = happinessComponent.getNetModifier();
+				String netHappinessString = (netHappiness > 0 ? "+" : "") + netHappiness;
+				String happinessText = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.HAPPINESS", Map.of(
+						"happinessValue", new I18nWord(netHappinessString)
+				)).toString();
+
+				happinessLabel.setText(happinessText);
+
+				Set<HappinessComponent.HappinessModifier> currentModifiers = happinessComponent.currentModifiers();
+
+				List<DecoratedString> tooltipLines = new ArrayList<>();
+				for (HappinessComponent.HappinessModifier modifier : currentModifiers) {
+					DecoratedString smiley = DecoratedString.drawable(smileyDrawable(modifier.modifierAmount));
+					DecoratedString reason = DecoratedString.fromString(happinessReasonText(modifier).toString());
+					tooltipLines.add(DecoratedString.of(smiley, reason));
 				}
-				cell.padTop(8f).padBottom(8f).padLeft(8f).padRight(8f);
+
+				DecoratedString tooltipString = tooltipLines.get(0);
+				for (int i = 1; i < tooltipLines.size(); i++) {
+					tooltipString = DecoratedString.of(tooltipString, DecoratedString.linebreak(), tooltipLines.get(i));
+				}
+
+				DecoratedStringLabel infoContents = decoratedStringLabelFactory.create(tooltipString, "tooltip-text", mainGameSkin);
+				for (Cell<?> cell : infoContents.getCells()) {
+					if (cell.getActor() instanceof HorizontalGroup horizontalGroup) {
+						horizontalGroup.space(25f);
+					}
+					cell.padTop(8f).padBottom(8f).padLeft(8f).padRight(8f);
+				}
+
+				happinessLabelTooltipContents.clear();
+				happinessLabelTooltipContents.add(infoContents);
 			}
-			tooltipFactory.complexTooltip(happinessLabel, infoContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
+		};
 
-		}
-
+		updatable.regularly(happinessUpdater);
 
 //		java.util.List<String> behaviourDescriptions = new ArrayList<>();
 //		if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
@@ -753,8 +757,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 //		}
 
 
+		updatable.update();
 		return updatable;
 	}
+
 
 	private Updatable<Table> happinessIcons(Entity entity) {
 		HappinessComponent happinessComponent = entity.getComponent(HappinessComponent.class);
