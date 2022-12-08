@@ -339,7 +339,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				if (isMilitary) {
 				} else {
 					topLeftSecondRow.add(happinessIcons.getActor()).left();
-					topLeftSecondRow.add(textSummary.getActor()).top();
+					topLeftSecondRow.add(textSummary.getActor()).left().spaceLeft(25f).top();
 				}
 
 
@@ -816,8 +816,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			List<HappinessComponent.HappinessModifier> sorted = new ArrayList<>(happinessComponent.currentModifiers());
 			sorted.sort(Comparator.comparing((Function<HappinessComponent.HappinessModifier, Integer>) happinessModifier -> Math.abs(happinessModifier.modifierAmount)).reversed());
 			for (int i = 0; i < MAX_SMILIES; i++) {
-
-
 				if (i < sorted.size()) {
 					HappinessComponent.HappinessModifier happinessModifier = sorted.get(i);
 					int modifierAmount = happinessModifier.modifierAmount;
@@ -828,10 +826,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					Image smiley = new Image(mainGameSkin.getDrawable(drawableName));
 					tooltipFactory.simpleTooltip(smiley, happinessModifierText, TooltipLocationHint.BELOW);
 					table.add(smiley);
-				} else {
-					Image invisibleSmiley = new Image(mainGameSkin.getDrawable(MainGameSkin.NEUTRAL));
-					invisibleSmiley.setVisible(false);
-					table.add(invisibleSmiley);
 				}
 			}
 		};
