@@ -38,6 +38,7 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.*;
+import technology.rocketjump.saul.ui.widgets.text.ItemValueLabel;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -237,7 +238,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 
 		Comparator<List<Entity>> quantityComparator = Comparator.comparing((Function<List<Entity>, Integer>) entities -> groupSum(entities, entity -> ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getQuantity())).reversed();
 		Comparator<List<Entity>> availabilityComparator = Comparator.comparing((Function<List<Entity>, Integer>) entities -> groupSum(entities, entity -> entity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated())).reversed();
-		Comparator<List<Entity>> goldComparator = Comparator.comparing((Function<List<Entity>, Integer>) entities -> 0).reversed();
+		Comparator<List<Entity>> goldComparator = Comparator.comparing((Function<List<Entity>, Integer>) entities -> groupSum(entities, entity -> ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getTotalValue())).reversed();
 		Button sortByTotal = buildTextSortButton("GUI.RESOURCE_MANAGEMENT.TOTAL", quantityComparator);
 		Button sortByAvailability = buildTextSortButton("GUI.RESOURCE_MANAGEMENT.AVAILABLE", availabilityComparator);
 		Button sortByGold = buildIconSortButton("icon_coin", goldComparator);
@@ -309,12 +310,6 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 						I18nWord word = i18nTranslator.getDictionary().getWord("GUI.RESOURCE_MANAGEMENT.ITEM_ALLOCATION_PURPOSE." + itemAllocation.getPurpose().name());
 						itemAllocationLabelText = i18nTranslator.applyReplacements(word, Map.of("item", new I18nWord(itemName)), wordClass, gender).toString();
 					}
-
-
-
-
-
-
 
 					Label itemAllocationLabel = new Label(itemAllocationLabelText, managementSkin, "table_value_label");
 					itemAllocationLabel.setWrap(true);
@@ -478,7 +473,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 				//aggregate stats
 				int totalQuantity = groupSum(group, entity -> ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getQuantity());
 				int totalUnallocated = groupSum(group, entity -> entity.getOrCreateComponent(ItemAllocationComponent.class).getNumUnallocated());
-				int totalGold = 0; //todo: semi yagni, fill me when we do trading
+				int totalValue = groupSum(group, entity -> ((ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getTotalValue());
 				ItemQuality itemQuality = null;
 				Entity exampleEntity = group.get(0);
 				for (Entity entity : group) {
@@ -494,11 +489,8 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 				exampleEntityColumn.add(buildEntityButton(exampleEntity, totalQuantity)).size(205).row();
 				exampleEntityColumn.add(entityLabel).width(240);
 
-				HorizontalGroup itemTypeGoldGroup = new HorizontalGroup();
-				itemTypeGoldGroup.space(managementSkin.getFont("default-font-24").getSpaceXadvance());
-				itemTypeGoldGroup.addActor(new Label(String.valueOf(totalGold), managementSkin, "table_value_label"));
-				itemTypeGoldGroup.addActor(new Image(managementSkin, "icon_coin"));
-				itemTypeGoldGroup.align(Align.right);
+				ItemValueLabel valueLabel = new ItemValueLabel(totalValue, "table_value_label", managementSkin);
+				valueLabel.align(Align.right);
 
 				I18nText availableOfTotal = i18nTranslator.getTranslatedWordWithReplacements("GUI.RESOURCE_MANAGEMENT.AVAILABLE_OF_TOTAL",
 						Map.of("available", new I18nWord(String.valueOf(totalUnallocated)),
@@ -553,7 +545,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 				if (groupingIndex == 0 || (exampleEntity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes && itemAttributes.getItemType().isStackable())) {
 					qualityImage.setVisible(false);
 				}
-				itemRow.add(itemTypeGoldGroup).right().width(400);
+				itemRow.add(valueLabel).right().width(400);
 				itemRow.add(itemTypeAvailableGroup).right().padRight(50).width(800);
 				parent.add(itemRow).padTop(40).padBottom(50).right().growX().row();
 
