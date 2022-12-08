@@ -2,10 +2,7 @@ package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.google.inject.Inject;
@@ -50,6 +47,7 @@ import technology.rocketjump.saul.ui.widgets.text.DecoratedString;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabel;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabelFactory;
 
+import java.util.List;
 import java.util.*;
 import java.util.function.Function;
 
@@ -311,7 +309,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		float dropshadowLength = 18f;
 		containerTable.add(outerTable).padLeft(dropshadowLength); //Value of drop shadow on bottom for equal distance
 
-		outerTable.debug();
+//		outerTable.debug();
 
 		Selectable selectable = gameInteractionStateContainer.getSelectable();
 		if (selectable != null && ENTITY == selectable.type) {
@@ -780,15 +778,28 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			happinessLabel.clearListeners();
 
 			Set<HappinessComponent.HappinessModifier> currentModifiers = happinessComponent.currentModifiers();
-			DecoratedString tooltipString = DecoratedString.blank();
+
+			List<DecoratedString> tooltipLines = new ArrayList<>();
 			for (HappinessComponent.HappinessModifier modifier : currentModifiers) {
 				DecoratedString smiley = DecoratedString.drawable(smileyDrawable(modifier.modifierAmount));
 				DecoratedString reason = DecoratedString.fromString(happinessReasonText(modifier).toString());
-				tooltipString = DecoratedString.of(smiley, reason, DecoratedString.linebreak(), tooltipString);
+				tooltipLines.add(DecoratedString.of(smiley, reason));
+			}
+
+			DecoratedString tooltipString = tooltipLines.get(0);
+			for (int i = 1; i < tooltipLines.size(); i++) {
+				tooltipString = DecoratedString.of(tooltipString, DecoratedString.linebreak(), tooltipLines.get(i));
 			}
 
 
+
 			DecoratedStringLabel infoContents = decoratedStringLabelFactory.create(tooltipString, "tooltip-text", mainGameSkin);
+			for (Cell<?> cell : infoContents.getCells()) {
+				if (cell.getActor() instanceof HorizontalGroup horizontalGroup) {
+					horizontalGroup.space(25f);
+				}
+				cell.padTop(8f).padBottom(8f).padLeft(8f).padRight(8f);
+			}
 			tooltipFactory.complexTooltip(happinessLabel, infoContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
 
 		}
