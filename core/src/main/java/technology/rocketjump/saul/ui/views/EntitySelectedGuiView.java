@@ -251,7 +251,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				//Top left second row - Happiness and status for Civ / Squad for military
 				Table topLeftSecondRow = new Table();
 				topLeftSecondRow.add(happinessIcons.getActor()).left();
-				topLeftSecondRow.add(textSummary.getActor()).left().spaceLeft(25f).top().grow();
+				topLeftSecondRow.add(textSummary.getActor()).left().spaceLeft(25f).padRight(25f).top().grow();
 
 
 				//Top Left Column - 2 rows
@@ -644,7 +644,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Table behaviourTable = new Table();
 		table.add(behaviourTable).grow();
 
-		behaviourTable.debug();
+//		behaviourTable.debug();
 
 		Runnable happinessUpdater = () -> {
 			if (happinessComponent != null) {
