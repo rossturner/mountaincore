@@ -228,64 +228,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		squadTextButton.setBackground(uiSkin.get(TextButton.TextButtonStyle.class).up);
 		squadTextButton.add(new Label("REPLACE ME", uiSkin));
 
-		weaponSelectionAction = () -> {
-			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
-					PopulateSelectItemViewMessage.ItemSelectionCategory.WEAPON, gameInteractionStateContainer.getSelectable().getEntity(),
-					entity -> {
-						Entity settler = gameInteractionStateContainer.getSelectable().getEntity();
-						if (settler != null) {
-							MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
-							if (entity != null) {
-								militaryComponent.setAssignedWeaponId(entity.getId());
-								if (isTwoHandedWeapon(entity)) {
-									militaryComponent.setAssignedShieldId(null);
-								}
-							} else {
-								militaryComponent.setAssignedWeaponId(null);
-							}
-							militaryComponent.infrequentUpdate(0.0);
-						}
-						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
-					}));
-			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
-		};
-		shieldSelectionAction = () -> {
-			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
-					PopulateSelectItemViewMessage.ItemSelectionCategory.SHIELD, gameInteractionStateContainer.getSelectable().getEntity(),
-					entity -> {
-						Entity settler = gameInteractionStateContainer.getSelectable().getEntity();
-						if (settler != null) {
-							MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
-							if (entity != null) {
-								militaryComponent.setAssignedShieldId(entity.getId());
-							} else {
-								militaryComponent.setAssignedShieldId(null);
-							}
-							militaryComponent.infrequentUpdate(0.0);
-						}
-						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
-					}));
-			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
-		};
-		armorSelectionAction = () -> {
-			messageDispatcher.dispatchMessage(MessageType.PREPOPULATE_SELECT_ITEM_VIEW, new PopulateSelectItemViewMessage(
-					PopulateSelectItemViewMessage.ItemSelectionCategory.ARMOR, gameInteractionStateContainer.getSelectable().getEntity(),
-					entity -> {
-						Entity settler = gameInteractionStateContainer.getSelectable().getEntity();
-						if (settler != null) {
-							MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
-							if (entity != null) {
-								militaryComponent.setAssignedArmorId(entity.getId());
-							} else {
-								militaryComponent.setAssignedArmorId(null);
-							}
-							militaryComponent.infrequentUpdate(0.0);
-						}
-						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, this.getName());
-					}));
-			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SELECT_ITEM);
-		};
-
 
 		priorityButtonDefinitions = new ArrayList<>();
 		// TODO might want to pull the below code out somewhere else
@@ -366,11 +308,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				bottomRow.add(needs.getActor());
 //				bottomRow.add(inventory) //TODO: inventory aligned left, colspan rest
 
-//				outerTable.columnDefaults(0).padLeft(64).left();
 				outerTable.add(topRow).left().row();
 				outerTable.add(bottomRow).left().padBottom(dropshadowLength);
-//				outerTable.add(topRow).left().row();
-//				outerTable.add(bottomRow).left();
 
 //				topRow.debug();
 //				topLeftFirstRow.debug();
