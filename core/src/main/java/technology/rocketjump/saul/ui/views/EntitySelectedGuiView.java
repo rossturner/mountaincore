@@ -830,7 +830,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		changeNameButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-					I18nText dialogTitle = i18nTranslator.getTranslatedString("GUI.DIALOG.RENAME_ROOM_TITLE");
+					I18nText dialogTitle = i18nTranslator.getTranslatedString("GUI.DIALOG.RENAME_SETTLER_TITLE");
 					I18nText buttonText = i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
 
 					final boolean performPause = !gameContext.getGameClock().isPaused();
