@@ -243,21 +243,15 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				updatables.add(textSummary);
 				updatables.add(needs);
 
-				//Top left first row - name and toggle
-				Table topLeftFirstRow = new Table();
-				topLeftFirstRow.add(settlerName.getActor()).spaceRight(36f);
-				topLeftFirstRow.add(militaryToggle).spaceRight(86f);
-
-				//Top left second row - Happiness and status for Civ / Squad for military
-				Table topLeftSecondRow = new Table();
-				topLeftSecondRow.add(happinessIcons.getActor()).left();
-				topLeftSecondRow.add(textSummary.getActor()).left().spaceLeft(25f).padRight(25f).top().grow();
-
 
 				//Top Left Column - 2 rows
 				Table topLeftColumn = new Table();
-				topLeftColumn.add(topLeftFirstRow).spaceBottom(35f).row();
-				topLeftColumn.add(topLeftSecondRow).left().top().grow();
+				topLeftColumn.defaults().left();
+				topLeftColumn.add(settlerName.getActor()).center().growX();
+				topLeftColumn.add(militaryToggle).spaceLeft(25f);
+				topLeftColumn.row();
+				topLeftColumn.add(happinessIcons.getActor()).top().spaceTop(35f);
+				topLeftColumn.add(textSummary.getActor()).top().spaceTop(35f).spaceLeft(25f);
 
 				//Top Row - 2 Cols
 				Table topRow = new Table();
@@ -771,6 +765,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					Image smiley = new Image(mainGameSkin.getDrawable(drawableName));
 					tooltipFactory.simpleTooltip(smiley, happinessModifierText, TooltipLocationHint.BELOW);
 					table.add(smiley);
+				} else {
+					//TODO: delete me, just for layout
+					Image smiley = new Image(mainGameSkin.getDrawable(MainGameSkin.MISERABLE));
+					table.add(smiley);
 				}
 			}
 		};
@@ -816,7 +814,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 
 	private Updatable<Table> creatureName(Entity entity) {
-		Drawable background = mainGameSkin.getDrawable("asset_bg_ribbon_title");
+		Drawable background = mainGameSkin.getDrawable("Dwarf_Name_Banner");
 		Table headerContainer = new Table();
 		headerContainer.setBackground(background);
 		Updatable<Table> updatable = Updatable.of(headerContainer);

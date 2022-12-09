@@ -86,9 +86,9 @@ public class WidgetFactory {
         Image toggleImage = toggle.getImage();
         toggle.clearChildren();
         if (prefixImage != null) {
-            toggle.add(prefixImage).padRight(24f);
+            toggle.add(prefixImage).padRight(9f);
         }
-        toggle.add(label).padRight(22f);
+        toggle.add(label).padRight(9f);
         toggle.add(toggleImage);
         toggle.addActorBefore(toggle.getImage(), label);
 
