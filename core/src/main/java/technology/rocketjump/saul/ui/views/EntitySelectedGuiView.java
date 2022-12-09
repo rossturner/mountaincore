@@ -252,7 +252,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				//Top left second row - Happiness and status for Civ / Squad for military
 				Table topLeftSecondRow = new Table();
-				topLeftSecondRow.add(happinessIcons.getActor()).left();
+				topLeftSecondRow.add(happinessIcons.getActor()).top().left();
 				topLeftSecondRow.add(textSummary.getActor()).left().spaceLeft(25f).top().grow();
 
 
@@ -638,7 +638,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		Table table = new Table();
 		Updatable<Table> updatable = Updatable.of(table);
-		Label happinessLabel = new Label("", managementSkin, "table_value_label");
+		Label happinessLabel = new Label("", managementSkin, "default-font-18-label");
 		Table happinessLabelTooltipContents = new Table();
 		table.add(happinessLabel).left().row();
 		tooltipFactory.complexTooltip(happinessLabel, happinessLabelTooltipContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
@@ -698,7 +698,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 
 			for (String behaviourDescription : behaviourDescriptions) {
-				Label label = new Label(behaviourDescription, managementSkin, "default-font-18-label") {
+				Label label = new Label(behaviourDescription, managementSkin, "default-font-14-label") {
 					@Override
 					public float getWidth() {
 						return getParent().getWidth();
@@ -724,7 +724,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 
 		Table table = new Table();
-		table.defaults().spaceRight(10f);
+		table.defaults().spaceRight(8f);
 		Updatable<Table> updatable = Updatable.of(table);
 		Runnable updater = () -> {
 			table.clear();
@@ -774,8 +774,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					tooltipFactory.simpleTooltip(smiley, happinessModifierText, TooltipLocationHint.BELOW);
 					table.add(smiley);
 				} else {
-					Image smiley = new Image(mainGameSkin.getDrawable(MainGameSkin.MISERABLE));
-					table.add(smiley);
+//					//TODO: remove me, its for layout
+//					Image smiley = new Image(mainGameSkin.getDrawable(MainGameSkin.MISERABLE));
+//					table.add(smiley);
 
 				}
 			}
