@@ -3,8 +3,6 @@
   "i18nKey" : "FURNITURE.STONEMASON_WORKBENCH",
   "blocksMovement" : true,
   "defaultLayoutName" : "stonemason-bench-layout",
-  "colorCode" : "#C9C9C9",
-  "iconName" : "stone-pile",
   "requirements" : {
     "STONE" : [ {
       "itemTypeName" : "Tool-Chisel",

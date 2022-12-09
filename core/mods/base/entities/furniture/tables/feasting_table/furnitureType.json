@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.FEASTING_TABLE",
   "blocksMovement": true,
   "defaultLayoutName": "4x2",
-  "colorCode": "#e0a275",
-  "iconName": "meal",
   "requirements": {
     "STONE": [
       {

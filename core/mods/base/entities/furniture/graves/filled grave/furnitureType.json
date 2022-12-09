@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.GRAVE",
   "blocksMovement": true,
   "defaultLayoutName": "1x2 with workspaces",
-  "colorCode": "#9a7555",
-  "iconName": "tombstone",
   "autoConstructed": true,
   "hiddenFromPlacementMenu": true,
   "requiredFloorMaterialType": "EARTH",

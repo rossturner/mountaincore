@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.BLOOMERY_FURNACE",
   "blocksMovement": true,
   "defaultLayoutName": "2x2+SW with lower workspaces",
-  "colorCode": "#d44545",
-  "iconName": "metal-bar",
   "requirements": {
     "STONE": [
       {

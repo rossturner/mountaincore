@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.SINGLE_BED",
   "blocksMovement": true,
   "defaultLayoutName": "1x2N",
-  "colorCode": "#a04b00",
-  "iconName": "bed",
   "requirements": {
     "WOOD": [
       {

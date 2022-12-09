@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.CHARCOAL_CLAMP",
   "blocksMovement": true,
   "defaultLayoutName": "2x2 with lower workspaces",
-  "colorCode": "#746044",
-  "iconName": "pyre",
   "requirements": {
     "WOOD": [
       {

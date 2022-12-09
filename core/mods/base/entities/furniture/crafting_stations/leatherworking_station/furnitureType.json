@@ -3,8 +3,6 @@
   "i18nKey" : "FURNITURE.LEATHERWORKING_STATION",
   "blocksMovement" : true,
   "defaultLayoutName" : "leatherwork-bench-layout",
-  "colorCode" : "#AA7252",
-  "iconName" : "animal-hide",
   "requirements" : {
     "WOOD" : [ {
       "itemTypeName" : "Resource-Planks",

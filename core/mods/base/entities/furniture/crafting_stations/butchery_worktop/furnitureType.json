@@ -3,8 +3,6 @@
   "i18nKey" : "FURNITURE.BUTCHERY_WORKTOP",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x1 with workspaces, no rotation",
-  "colorCode" : "#b25b47",
-  "iconName" : "kitchen-knives",
   "requirements" : {
     "WOOD" : [ {
       "itemTypeName" : "Resource-Planks",

@@ -1,12 +1,10 @@
 package technology.rocketjump.saul.entities.model.physical.furniture;
 
-import com.badlogic.gdx.graphics.Color;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.Name;
-import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.ui.views.GuiViewName;
 
@@ -24,12 +22,6 @@ public class FurnitureType {
 	private String defaultLayoutName;
 	@JsonIgnore
 	private FurnitureLayout defaultLayout;
-
-	private String colorCode;
-	@JsonIgnore
-	private Color color;
-
-	private String iconName;
 
 	private GuiViewName showInGuiView; // Not restricted by room type
 	@JsonIgnore
@@ -94,31 +86,6 @@ public class FurnitureType {
 
 	public void setRequirements(Map<GameMaterialType, List<QuantifiedItemType>> requirements) {
 		this.requirements = requirements;
-	}
-
-	public String getColorCode() {
-		return colorCode;
-	}
-
-	public void setColorCode(String colorCode) {
-		this.colorCode = colorCode;
-		setColor(HexColors.get(colorCode));
-	}
-
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
-	}
-
-	public String getIconName() {
-		return iconName;
-	}
-
-	public void setIconName(String iconName) {
-		this.iconName = iconName;
 	}
 
 	@Override

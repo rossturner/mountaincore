@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.WATER_BARREL",
   "blocksMovement": true,
   "defaultLayoutName": "1x1 with workspaces",
-  "colorCode": "#26e1ed",
-  "iconName": "barrel",
   "autoConstructed": true,
   "requirements": {
     "WOOD": [

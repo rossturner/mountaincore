@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.MUSHROOM_SHOCK_TANK",
   "blocksMovement": true,
   "defaultLayoutName": "2x1 with workspaces",
-  "colorCode": "#25a2d0",
-  "iconName": "drop",
   "requirements": {
     "STONE": [
       {

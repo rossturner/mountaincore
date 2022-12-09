@@ -2,7 +2,6 @@
   "name" : "EXPORT_PALLET",
   "i18nKey" : "FURNITURE.EXPORT_PALLET",
   "defaultLayoutName" : "1x1",
-  "colorCode": "#aabbcc",
   "requirements" : {
     "WOOD" : [ {
       "itemTypeName" : "Resource-Planks",

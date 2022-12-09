@@ -2,8 +2,6 @@
   "name": "FEASTING_CHAIR",
   "i18nKey": "FURNITURE.CHAIR",
   "defaultLayoutName": "1x1E",
-  "colorCode": "#e0a275",
-  "iconName": "stone-throne",
   "requirements": {
     "STONE": [
       {
