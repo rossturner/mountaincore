@@ -207,7 +207,8 @@
     "colorCode": "#96841d",
     "drawableName": "btn_room_artisan",
     "furnitureNames": [
-      "BONE_CRAFTING_BENCH"
+      "BONE_CRAFTING_BENCH",
+      "ARTISAN_WORKSTATION"
     ]
   }
 ]

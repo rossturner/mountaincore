@@ -1331,6 +1331,114 @@
     }
   }
 }, {
+  "uniqueName" : "Artisan_Workstation-2x3L no rotation-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "ARTISAN_WORKSTATION",
+  "furnitureLayoutName" : "2x3L no rotation",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Artisan_Workstation-2x3l no rotation-Base_Layer-Wood_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 36.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -18.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : -64.0,
+          "y" : -18.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : 66.0,
+          "y" : 36.0,
+          "unit" : false
+        }
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Artisan_Workstation-2x3L no rotation-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "ARTISAN_WORKSTATION",
+  "furnitureLayoutName" : "2x3L no rotation",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Artisan_Workstation-2x3l no rotation-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Artisan_Workstation-2x3L no rotation-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "ARTISAN_WORKSTATION",
+  "furnitureLayoutName" : "2x3L no rotation",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Artisan_Workstation-2x3l no rotation-Furniture_Above_Layer_2-Wood_Down.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "bakers-worktop-2x3BL-metal",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "BAKERS_WORKTOP",
@@ -7303,6 +7411,33 @@
     }
   }
 }, {
+  "uniqueName" : "Invader_Campfire-1x1-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "INVADER_CAMPFIRE",
+  "furnitureLayoutName" : "1x1",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : {
+    "ATTACHES_LIGHT_SOURCE" : [ "#f7ffa9", "#f8cc5d", "#ff8f2c" ]
+  },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Campfire_placeholder.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -17.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "lantern-1x1-metal",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "BASIC_LANTERN",
@@ -10719,33 +10854,6 @@
           "unit" : false
         }
       } ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Invader_Campfire-1x1-Base_Layer-Wood",
-  "type" : "BASE_LAYER",
-  "furnitureTypeName" : "INVADER_CAMPFIRE",
-  "furnitureLayoutName" : "1x1",
-  "validMaterialTypes" : [ "WOOD" ],
-  "tags" : {
-    "ATTACHES_LIGHT_SOURCE" : [ "#f7ffa9", "#f8cc5d", "#ff8f2c" ]
-  },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Campfire_placeholder.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -17.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
   }

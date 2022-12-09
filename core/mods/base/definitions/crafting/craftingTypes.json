@@ -122,6 +122,6 @@
     "i18nKey": "CRAFTING_TYPE.FINE_DETAIL_CRAFTING",
     "professionRequiredName": "ARTISAN",
     "usesWorkstationTool": true,
-    "defaultItemTypeName": "Tool-Chisel"
+    "defaultItemTypeName": "Tool-Tongs"
   }
 ]

@@ -134,6 +134,6 @@
   "i18nKey" : "ROOMS.ARTISAN_WORKSHOP",
   "drawableName" : "btn_room_artisan",
   "colorCode" : "#96841d",
-  "furnitureNames" : [ "BONE_CRAFTING_BENCH" ],
+  "furnitureNames" : [ "BONE_CRAFTING_BENCH", "ARTISAN_WORKSTATION" ],
   "tags" : { }
 } ]

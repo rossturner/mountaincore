@@ -214,6 +214,7 @@ FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{F
 
 FURNITURE.ARCHERY_TARGET,,Archery target
 FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here
+FURNITURE.ARTISAN_WORKSTATION,,Artisan workstation
 FURNITURE.ARMOUR_STAND,,Armour stand
 FURNITURE.BAKERS_WORKTOP,,Baker’s worktop
 FURNITURE.BAKERS_WORKTOP.TOOLTIP,,A {{PROFESSION.CHEF}} works here to turn {{RESOURCE.FLOUR.SACK.PLURAL}} into {{INGREDIENT.DOUGH}}.
