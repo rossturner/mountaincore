@@ -35,8 +35,8 @@
     "DOWN" : {
       "filename" : "Import_Pallet-1x1-Furniture_Above_Layer_1-Wood_Down.png",
       "offsetPixels" : {
-        "x" : 3.0,
-        "y" : -3.0
+        "x" : -23.0,
+        "y" : 30.5
       }
     }
   }

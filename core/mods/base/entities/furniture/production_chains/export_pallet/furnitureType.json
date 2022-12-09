@@ -8,7 +8,7 @@
       "quantity" : 2
     } ]
   },
-  "tags": {
-    "PRODUCTION_EXPORT": []
+  "tags" : {
+    "PRODUCTION_EXPORT" : [ ]
   }
 }
