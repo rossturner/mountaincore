@@ -10268,9 +10268,7 @@
   "furnitureTypeName" : "EXPORT_PALLET",
   "furnitureLayoutName" : "1x1",
   "validMaterialTypes" : [ "WOOD" ],
-  "tags" : {
-    "OFFSET_POSITION" : [ "0", "0.25" ]
-  },
+  "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Export_Pallet-1x1-Base_Layer-Wood_Down.png",
@@ -10333,9 +10331,7 @@
   "furnitureTypeName" : "IMPORT_PALLET",
   "furnitureLayoutName" : "1x1",
   "validMaterialTypes" : [ "WOOD" ],
-  "tags" : {
-    "OFFSET_POSITION" : [ "0", "0.25" ]
-  },
+  "tags" : { },
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Import_Pallet-1x1-Base_Layer-Wood_Down.png",
