@@ -1,10 +1,12 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
@@ -231,7 +233,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			if (entity.isSettler()) {
 
 				boolean isMilitary = SettlerManagementScreen.IS_MILITARY.test(entity);
-				Updatable<Table> settlerName = creatureName(entity);
+				Updatable<Actor> settlerName = creatureName(entity);
 				Updatable<Table> happinessIcons = happinessIcons(entity);
 				Updatable<Table> textSummary = textSummary(entity);
 				Table militaryToggle = settlerManagementScreen.militaryToggle(entity, false, s -> populate(containerTable));
@@ -247,7 +249,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				//Top Left Column - 2 rows
 				Table topLeftColumn = new Table();
 				topLeftColumn.defaults().left();
-				topLeftColumn.add(settlerName.getActor()).center().growX();
+				topLeftColumn.add(settlerName.getActor()).center();
 				topLeftColumn.add(militaryToggle).spaceLeft(25f);
 				topLeftColumn.row();
 				topLeftColumn.add(happinessIcons.getActor()).top().spaceTop(35f);
@@ -765,10 +767,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					Image smiley = new Image(mainGameSkin.getDrawable(drawableName));
 					tooltipFactory.simpleTooltip(smiley, happinessModifierText, TooltipLocationHint.BELOW);
 					table.add(smiley);
-				} else {
-					//TODO: delete me, just for layout
-					Image smiley = new Image(mainGameSkin.getDrawable(MainGameSkin.MISERABLE));
-					table.add(smiley);
 				}
 			}
 		};
@@ -813,18 +811,12 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	}
 
 
-	private Updatable<Table> creatureName(Entity entity) {
-		Drawable background = mainGameSkin.getDrawable("Dwarf_Name_Banner");
-		Table headerContainer = new Table();
-		headerContainer.setBackground(background);
-		Updatable<Table> updatable = Updatable.of(headerContainer);
-
-
-
+	private Updatable<Actor> creatureName(Entity entity) {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 		String headerText = attributes.getName().toString();
 
-		Button changeNameButton = new Button(mainGameSkin.getDrawable("icon_edit"));
+		Drawable changeButtonDrawable = mainGameSkin.getDrawable("icon_edit");
+		Button changeNameButton = new Button(changeButtonDrawable);
 		changeNameButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -852,12 +844,21 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		tooltipFactory.simpleTooltip(changeNameButton, "GUI.DIALOG.RENAME_SETTLER_TITLE", TooltipLocationHint.ABOVE);
 		changeNameButton.addListener(new ChangeCursorOnHover(changeNameButton, GameCursor.SELECT, messageDispatcher));
 
-		Label headerLabel = new ScaledToFitLabel(headerText, mainGameSkin.get("title-header", Label.LabelStyle.class), background.getMinWidth() - 23f - (2 * (34 + changeNameButton.getWidth())));
-		Table editableLabelTable = new Table();
-		editableLabelTable.add(headerLabel);
-		editableLabelTable.add(changeNameButton).padLeft(23f);
-		headerContainer.add(editableLabelTable).center();
+		Drawable background = mainGameSkin.getDrawable("Dwarf_Name_Banner");
+		float pencilWidth = changeButtonDrawable.getMinWidth();
+		float indentWidth = 27f;
+		float labelMaxWidth = background.getMinWidth() - indentWidth - pencilWidth - pencilWidth - indentWidth;
 
+		Label headerLabel = new ScaledToFitLabel(headerText, mainGameSkin.get("title-header", Label.LabelStyle.class), labelMaxWidth);
+		headerLabel.setAlignment(Align.center);
+
+		Table buttonTable = new Table();
+		buttonTable.setBackground(background);
+		buttonTable.add(new Actor()).width(pencilWidth).padLeft(indentWidth);
+		buttonTable.add(headerLabel).width(labelMaxWidth);
+		buttonTable.add(changeNameButton).padRight(indentWidth);
+
+		Updatable<Actor> updatable = Updatable.of(buttonTable);
 		updatable.regularly(() -> {
 			headerLabel.setText(attributes.getName().toString());
 		});
