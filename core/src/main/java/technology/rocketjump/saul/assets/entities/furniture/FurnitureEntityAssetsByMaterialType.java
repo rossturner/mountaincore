@@ -26,7 +26,7 @@ public class FurnitureEntityAssetsByMaterialType {
 	}
 
 	public FurnitureEntityAsset get(FurnitureEntityAttributes attributes) {
-		List<FurnitureEntityAsset> assets = byMaterialType.get(attributes.getPrimaryMaterialType());
+		List<FurnitureEntityAsset> assets = byMaterialType.getOrDefault(attributes.getPrimaryMaterialType(), List.of());
 		if (assets.size() == 0) {
 			Logger.error("Could not find applicable asset for " + attributes);
 			return null;

@@ -1,0 +1,43 @@
+[ {
+  "uniqueName" : "Import_Pallet-1x1-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "IMPORT_PALLET",
+  "furnitureLayoutName" : "1x1",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Import_Pallet-1x1-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.9,
+      "offsetPixels" : {
+        "x" : -3.0,
+        "y" : 13.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 4.0,
+          "y" : -4.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Import_Pallet-1x1-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "IMPORT_PALLET",
+  "furnitureLayoutName" : "1x1",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Import_Pallet-1x1-Furniture_Above_Layer_1-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : 3.0,
+        "y" : -3.0
+      }
+    }
+  }
+} ]

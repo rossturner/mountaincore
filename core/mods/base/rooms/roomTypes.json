@@ -51,7 +51,9 @@
     "colorCode": "#9f7e69",
     "drawableName": "btn_room_lumber",
     "furnitureNames": [
-      "WOODCUTTERS_BENCH"
+      "WOODCUTTERS_BENCH",
+      "IMPORT_PALLET",
+      "EXPORT_PALLET"
     ]
   },
   {
@@ -60,7 +62,9 @@
     "colorCode": "#c17e53",
     "drawableName": "btn_room_carpentry",
     "furnitureNames": [
-      "Carpentry_Bench"
+      "Carpentry_Bench",
+      "IMPORT_PALLET",
+      "EXPORT_PALLET"
     ]
   },
   {
@@ -69,7 +73,9 @@
     "colorCode": "#8c7e8c",
     "drawableName": "btn_room_stonemason",
     "furnitureNames": [
-      "Stonemason_Bench"
+      "Stonemason_Bench",
+      "IMPORT_PALLET",
+      "EXPORT_PALLET"
     ]
   },
   {
@@ -81,7 +87,9 @@
       "ORE_CRUSHING_STATION",
       "COKE_OVEN",
       "BLOOMERY_FURNACE",
-      "FORGE"
+      "FORGE",
+      "IMPORT_PALLET",
+      "EXPORT_PALLET"
     ]
   },
   {
@@ -151,7 +159,9 @@
       "MALTING_STATION",
       "MASH_TUN",
       "BREW_KETTLE",
-      "FERMENTATION_TANK"
+      "FERMENTATION_TANK",
+      "IMPORT_PALLET",
+      "EXPORT_PALLET"
     ]
   },
   {
@@ -161,7 +171,9 @@
     "drawableName": "btn_room_weaver",
     "furnitureNames": [
       "RETTING_TANK",
-      "LOOM"
+      "LOOM",
+      "IMPORT_PALLET",
+      "EXPORT_PALLET"
     ]
   },
 
@@ -188,6 +200,8 @@
     },
     "furnitureNames": [
       "FLETCHERS_WORKBENCH",
+      "IMPORT_PALLET",
+      "EXPORT_PALLET",
       "Armour_Stand",
       "Weapon_Rack"
     ]
@@ -198,7 +212,10 @@
     "colorCode": "#8c7952",
     "drawableName": "btn_room_leather",
     "furnitureNames": [
-      "Tanning_Frame","Leatherworking_Station"
+      "Tanning_Frame",
+      "Leatherworking_Station",
+      "IMPORT_PALLET",
+      "EXPORT_PALLET"
     ]
   },
   {
@@ -208,7 +225,9 @@
     "drawableName": "btn_room_artisan",
     "furnitureNames": [
       "BONE_CRAFTING_BENCH",
-      "ARTISAN_WORKSTATION"
+      "ARTISAN_WORKSTATION",
+      "IMPORT_PALLET",
+      "EXPORT_PALLET"
     ]
   }
 ]

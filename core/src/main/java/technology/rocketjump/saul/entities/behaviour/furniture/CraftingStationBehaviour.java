@@ -187,7 +187,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				} else {
 					// not powered, make job take longer
 
-					// MODDING It's a bit of a hack that the work duration multiplier is using the animation speed, better
+					// MODDING It's a bit dirty that the work duration multiplier is using the animation speed, better
 					// to separate this out to another variable passed into the PoweredFurnitureComponent
 					craftingJob.setWorkDurationMultiplier(poweredFurnitureComponent.getAnimationSpeed());
 				}

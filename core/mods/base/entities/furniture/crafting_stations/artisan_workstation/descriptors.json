@@ -23,14 +23,14 @@
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
-          "x" : -64.0,
-          "y" : -18.0
+          "x" : -57.0,
+          "y" : -19.0
         }
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
-          "x" : 66.0,
-          "y" : 36.0
+          "x" : 62.0,
+          "y" : 38.0
         }
       } ]
     }

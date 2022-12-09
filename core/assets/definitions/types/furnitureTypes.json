@@ -1380,6 +1380,42 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
+  "name" : "EXPORT_PALLET",
+  "i18nKey" : "FURNITURE.EXPORT_PALLET",
+  "blocksMovement" : false,
+  "defaultLayoutName" : "1x1",
+  "colorCode" : "#aabbcc",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 2,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "PRODUCTION_EXPORT" : [ ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "IMPORT_PALLET",
+  "i18nKey" : "FURNITURE.IMPORT_PALLET",
+  "blocksMovement" : false,
+  "defaultLayoutName" : "1x1",
+  "colorCode" : "#aabbcc",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 2,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "PRODUCTION_IMPORT" : [ ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "Armour_Stand",
   "i18nKey" : "FURNITURE.ARMOUR_STAND",
   "blocksMovement" : false,
