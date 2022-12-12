@@ -1,5 +1,8 @@
 package technology.rocketjump.saul.messaging;
 
+import technology.rocketjump.saul.entities.components.BehaviourComponent;
+import technology.rocketjump.saul.entities.model.Entity;
+
 /**
  * This class stores all the message types in use by MessageDispatchers (i.e. the event system)
  * <p>
@@ -110,6 +113,7 @@ public class MessageType {
 	public static final int LOCATE_SETTLERS_IN_REGION = 349;
 	public static final int DESTROY_ENTITY = 350;
 	public static final int DESTROY_ENTITY_AND_ALL_INVENTORY = 351;
+	public static final int CHANGE_ENTITY_BEHAVIOUR = 352; public record ChangeEntityBehaviourMessage(Entity entity, BehaviourComponent newBehaviour) {}
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;

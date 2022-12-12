@@ -9,6 +9,6 @@
     } ]
   },
   "tags" : {
-    "PRODUCTION_EXPORT" : [ ]
+    "PRODUCTION_EXPORT" : [ "1" ]
   }
 }
