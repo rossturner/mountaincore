@@ -54,7 +54,6 @@ public class GuiSkinRepository implements Telegraph {
 		skin.add("header-font-47", onDemandFontRepository.getHeaderFont(47 * FONT_SCALE));
 		skin.add("header-font-50", onDemandFontRepository.getHeaderFont(50 * FONT_SCALE));
 		skin.add("header-font-65", onDemandFontRepository.getHeaderFont(65 * FONT_SCALE));
-		skin.add("default-font-14", onDemandFontRepository.getDefaultFont(14 * FONT_SCALE));
 		skin.add("default-font-16", onDemandFontRepository.getDefaultFont(16 * FONT_SCALE));
 		skin.add("default-font-18", onDemandFontRepository.getDefaultFont(18 * FONT_SCALE));
 		skin.add("default-font-19", onDemandFontRepository.getDefaultFont(19 * FONT_SCALE));
@@ -119,7 +118,6 @@ public class GuiSkinRepository implements Telegraph {
 		currentSkin.add("header-font-47", onDemandFontRepository.getHeaderFont(47 * 2));
 		currentSkin.add("header-font-50", onDemandFontRepository.getHeaderFont(50 * 2));
 		currentSkin.add("header-font-65", onDemandFontRepository.getHeaderFont(65 * 2));
-		currentSkin.add("default-font-14", onDemandFontRepository.getDefaultFont(14 * 2));
 		currentSkin.add("default-font-16", onDemandFontRepository.getDefaultFont(16 * 2));
 		currentSkin.add("default-font-18", onDemandFontRepository.getDefaultFont(18 * 2));
 		currentSkin.add("default-font-19", onDemandFontRepository.getDefaultFont(19 * 2));

@@ -1931,34 +1931,6 @@ jsonData: {
 	freeTypeFonts: [
 		{
 			class: com.ray3k.skincomposer.data.FreeTypeFontData
-			name: default-font-14
-			previewTTF: IBMPlexSerif-Medium
-			useCustomSerializer: false
-			size: 16
-			mono: false
-			hinting: AutoMedium
-			color: null
-			gamma: 1.8
-			renderCount: 2
-			borderWidth: 0
-			borderColor: null
-			borderStraight: false
-			borderGamma: 1.8
-			shadowOffsetX: 0
-			shadowOffsetY: 0
-			shadowColor: null
-			spaceX: 0
-			spaceY: 0
-			characters: ""
-			kerning: true
-			flip: false
-			genMipMaps: false
-			minFilter: Nearest
-			magFilter: Nearest
-			incremental: false
-		}
-		{
-			class: com.ray3k.skincomposer.data.FreeTypeFontData
 			name: default-font-16
 			previewTTF: IBMPlexSerif-Medium
 			useCustomSerializer: false
@@ -2372,14 +2344,14 @@ jsonData: {
 			}
 			{
 				class: com.ray3k.skincomposer.data.StyleData
-				name: default-font-14-label
+				name: default-font-16-label
 				clazz: com.badlogic.gdx.scenes.scene2d.ui.Label
 				properties: {
 					font: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: default-font-14
+						value: default-font-16
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color

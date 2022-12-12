@@ -3,6 +3,7 @@ package technology.rocketjump.saul.ui.views;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -22,6 +23,7 @@ import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -32,6 +34,7 @@ import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.production.StockpileComponentUpdater;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
+import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.screens.SettlerManagementScreen;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
@@ -75,6 +78,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private final ManagementSkin managementSkin;
 	private final MenuSkin menuSkin;
 	private final DecoratedStringLabelFactory decoratedStringLabelFactory;
+	private final EntityRenderer entityRenderer;
 	//	private final JobType haulingJobType;
 //	private final ImageButton changeSettlerNameButton;
 //	private final ClickableTable squadTextButton;
@@ -119,7 +123,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	                             EntityStore entityStore, JobStore jobStore,
 	                             I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary,
 	                             TooltipFactory tooltipFactory, DecoratedStringLabelFactory decoratedStringLabelFactory,
-	                             StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
+	                             EntityRenderer entityRenderer, StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
 	                             GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
 	                             ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary, SettlerManagementScreen settlerManagementScreen) {
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
@@ -132,6 +136,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		this.decoratedStringLabelFactory = decoratedStringLabelFactory;
+		this.entityRenderer = entityRenderer;
 		this.stockpileComponentUpdater = stockpileComponentUpdater;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.gameMaterialDictionary = gameMaterialDictionary;
@@ -221,11 +226,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		containerTable.clear();
 		updatables = new ArrayList<>();
 		outerTable = new Table();
-		outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg"));
+		outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg_wide")); //TODO: might need to only use this on Settler view
 		float dropshadowLength = 18f;
 		containerTable.add(outerTable).padLeft(dropshadowLength); //Value of drop shadow on bottom for equal distance
-
-//		outerTable.debug();
 
 		Selectable selectable = gameInteractionStateContainer.getSelectable();
 		if (selectable != null && ENTITY == selectable.type) {
@@ -240,10 +243,12 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				Table weaponSelection = settlerManagementScreen.weaponSelection(entity, 0.8f, s -> populate(containerTable));
 				Table professionSelection = settlerManagementScreen.professions(entity, 0.8f, s -> update());
 				Updatable<Table> needs = settlerManagementScreen.needs(entity);
+				Updatable<Table> inventory = inventory(entity);
 				updatables.add(settlerName);
 				updatables.add(happinessIcons);
 				updatables.add(textSummary);
 				updatables.add(needs);
+				updatables.add(inventory);
 
 				//Top left first row - name and toggle
 				Table topLeftFirstRow = new Table();
@@ -276,22 +281,16 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				//Bottom Row
 				Table bottomRow = new Table();
 				bottomRow.add(needs.getActor());
-//				bottomRow.add(inventory) //TODO: inventory aligned left, colspan rest
+				bottomRow.add(inventory.getActor()).bottom();
 
 				outerTable.add(topRow).left().row();
 				outerTable.add(bottomRow).left().padBottom(dropshadowLength);
-
-//				topRow.debug();
-//				topLeftFirstRow.debug();
-//				topLeftSecondRow.debug();
-
 			} else {
 				EntityType entityType = entity.getType();
 
 			}
 		}
 	}
-
 
 	/**
 	 * Updates every second or so, not instant on show
@@ -478,86 +477,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}*/
 
 	}
-/*
-	private void buildSettlerSelectedView(Entity entity) {
-
-		nameTable.clear();
-		professionsTable.clear();
-		militaryEquipmentTable.clear();
-		militaryToggleTable.clear();
-		needsTable.clear();
-		inventoryTable.clear();
-		happinessTable.clear();
-
-		upperRow.clear();
-		lowerRow.clear();
-
-		populateSettlerNameTable(entity, nameTable, i18nTranslator, uiSkin, gameContext, messageDispatcher, changeSettlerNameButton, soundAssetDictionary);
-
-		InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
-		if (containsSomething(inventoryComponent, null)) {
-			inventoryTable.add(inventoryLabel).left().row();
-
-			for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
-				inventoryTable.add(new I18nTextWidget(i18nTranslator.getDescription(inventoryEntry.entity), uiSkin, messageDispatcher)).left().row();
-			}
-		}
-
-		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-		MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
-		EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
-
-		if (attributes.getConsciousness().equals(Consciousness.DEAD)) {
-			upperRow.add(nameTable).top().padRight(5);
-			lowerRow.add(inventoryTable).top().padRight(5);
-		} else {
-			populateProfessionTable(entity);
-			populateMilitaryEquipmentTable(militaryComponent, equippedItemComponent);
-			populateNeedsTable(needsTable, entity, needLabels);
-			populateHappinessTable(entity);
-			populateInjuriesTable(entity);
-			populateMilitaryToggleTable(entity);
-
-			upperRow.add(nameTable).top().padRight(5);
-			if (militaryComponent.isInMilitary()) {
-				upperRow.add(militaryEquipmentTable);
-			} else {
-				upperRow.add(professionsTable);
-			}
-			upperRow.add(militaryToggleTable).center().padRight(5);
-
-			lowerRow.add(needsTable).top().padRight(5);
-			lowerRow.add(inventoryTable).top().padRight(5);
-			if (!militaryComponent.isInMilitary()) {
-				lowerRow.add(happinessTable).top().padRight(5);
-			}
-			lowerRow.add(injuriesTable).top().padRight(5);
-		}
-
-		entityDescriptionTable.add(upperRow).left().row();
-		entityDescriptionTable.add(lowerRow).left();
-	}*/
-
-/*	private void addLabel(Entity itemEntity, String defaultI18nKey) {
-		I18nText description = itemEntity != null ? i18nTranslator.getDescription(itemEntity) : i18nTranslator.getTranslatedString(defaultI18nKey);
-		militaryEquipmentTable.add(new Label(description.toString(), uiSkin)).pad(2).center();
-	}*/
-
-/*	private void populateInjuriesTable(Entity entity) {
-		injuriesTable.clearChildren();
-
-		StatusComponent statusComponent = entity.getComponent(StatusComponent.class);
-		for (StatusEffect statusEffect : statusComponent.getAll()) {
-			if (statusEffect.getI18Key() != null) {
-				injuriesTable.add(i18nWidgetFactory.createLabel(statusEffect.getI18Key())).left().row();
-			}
-		}
-
-		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-		for (I18nText damageDescription : attributes.getBody().getDamageDescriptions(i18nTranslator)) {
-			injuriesTable.add(new I18nTextWidget(damageDescription, uiSkin, messageDispatcher)).left().row();
-		}
-	}*/
 
 	private boolean containsSomething(InventoryComponent inventoryComponent, LiquidContainerComponent liquidContainerComponent) {
 		return (inventoryComponent != null && !inventoryComponent.getInventoryEntries().isEmpty()) ||
@@ -698,7 +617,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 
 			for (String behaviourDescription : behaviourDescriptions) {
-				Label label = new Label(behaviourDescription, managementSkin, "default-font-14-label") {
+				Label label = new Label(behaviourDescription, managementSkin, "default-font-16-label") {
 					@Override
 					public float getWidth() {
 						return getParent().getWidth();
@@ -874,6 +793,57 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			headerLabel.setText(attributes.getName().toString());
 		});
 
+		return updatable;
+	}
+
+	private Updatable<Table> inventory(Entity entity) {
+		Table table = new Table();
+		Updatable<Table> updatable = Updatable.of(table);
+		InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
+
+		int maxSlots = 8;
+		updatable.regularly(() -> {
+			table.clear();
+			Collection<InventoryComponent.InventoryEntry> inventoryEntries;
+			if (inventoryComponent != null) {
+				inventoryEntries = inventoryComponent.getInventoryEntries();
+			} else {
+				inventoryEntries = Collections.emptyList();
+			}
+			Iterator<InventoryComponent.InventoryEntry> inventoryIterator = inventoryEntries.iterator();
+			for (int slotIndex = 0; slotIndex < maxSlots; slotIndex++) {
+				Stack entityStack = new Stack();
+				Drawable emptyBackgroundDrawable = mainGameSkin.getDrawable("asset_dwarf_select_inventory_bg");
+				entityStack.add(new Container<>(new Image(emptyBackgroundDrawable)));
+
+				if (inventoryIterator.hasNext()) {
+					InventoryComponent.InventoryEntry inventoryEntry = inventoryIterator.next();
+					Entity inventoryItem = inventoryEntry.entity;
+					ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryItem.getPhysicalEntityComponent().getAttributes();
+					int quantity = attributes.getQuantity();
+
+					EntityDrawable entityDrawable = new EntityDrawable(inventoryItem, entityRenderer, true, messageDispatcher);
+					entityDrawable.setMinSize(emptyBackgroundDrawable.getMinWidth(), emptyBackgroundDrawable.getMinHeight());
+					Image image = new Image(entityDrawable);
+					entityStack.add(image);
+
+					if (quantity > 1) {
+						Label amountLabel = new Label(String.valueOf(quantity), managementSkin, "entity_drawable_quantity_label");
+						amountLabel.setAlignment(Align.center);
+						Table amountTable = new Table();
+						amountTable.add(amountLabel).left().top();
+						amountTable.add(new Container<>()).width(emptyBackgroundDrawable.getMinWidth()-32f).expandX().row();
+						amountTable.add(new Container<>()).colspan(2).height(emptyBackgroundDrawable.getMinHeight()-32f).expandY();
+						entityStack.add(amountTable);
+					}
+
+					tooltipFactory.simpleTooltip(image, i18nTranslator.getDescription(inventoryEntry.entity), TooltipLocationHint.BELOW);
+				}
+				table.add(entityStack).spaceRight(18f);
+			}
+		});
+
+		updatable.update();
 		return updatable;
 	}
 
