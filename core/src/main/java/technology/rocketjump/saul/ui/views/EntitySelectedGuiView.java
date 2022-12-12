@@ -253,7 +253,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				//Top left first row - name and toggle
 				Table topLeftFirstRow = new Table();
 				topLeftFirstRow.add(settlerName.getActor()).center();
-				topLeftFirstRow.add(militaryToggle).spaceLeft(25f);
+				topLeftFirstRow.add(militaryToggle).growX().center().spaceLeft(25f);
 
 				//Top left second row - Happiness and status for Civ / Squad for military
 				Table topLeftSecondRow = new Table();
@@ -263,7 +263,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				//Top Left Column - 2 rows
 				Table topLeftColumn = new Table();
-				topLeftColumn.add(topLeftFirstRow).spaceBottom(35f).row();
+				topLeftColumn.add(topLeftFirstRow).left().fillX().spaceBottom(35f).row();
 				topLeftColumn.add(topLeftSecondRow).left().top().grow();
 
 				//Top Row - 2 Cols
@@ -271,7 +271,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				topRow.columnDefaults(0).spaceLeft(64f);
 				topRow.columnDefaults(1).spaceRight(60f);
 
-				topRow.add(topLeftColumn).growX().top();
+				topRow.add(topLeftColumn).left().growX().top();
 				if (isMilitary) {
 					topRow.add(weaponSelection).right();
 				} else {
@@ -281,9 +281,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				//Bottom Row
 				Table bottomRow = new Table();
 				bottomRow.add(needs.getActor());
-				bottomRow.add(inventory.getActor()).spaceLeft(48).bottom().right();
+				bottomRow.add(inventory.getActor()).spaceLeft(42).padBottom(11f).bottom().right(); //11f magic number to align with bottom progress bar
 
-				outerTable.add(topRow).left().row();
+				outerTable.add(topRow).fillX().row();
 				outerTable.add(bottomRow).left().padBottom(dropshadowLength);
 
 			} else {
