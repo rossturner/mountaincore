@@ -271,20 +271,21 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				topRow.columnDefaults(0).spaceLeft(64f);
 				topRow.columnDefaults(1).spaceRight(60f);
 
-				topRow.add(topLeftColumn).top();
+				topRow.add(topLeftColumn).growX().top();
 				if (isMilitary) {
-					topRow.add(weaponSelection);
+					topRow.add(weaponSelection).right();
 				} else {
-					topRow.add(professionSelection);
+					topRow.add(professionSelection).right();
 				}
 
 				//Bottom Row
 				Table bottomRow = new Table();
 				bottomRow.add(needs.getActor());
-				bottomRow.add(inventory.getActor()).bottom();
+				bottomRow.add(inventory.getActor()).spaceLeft(48).bottom().right();
 
 				outerTable.add(topRow).left().row();
 				outerTable.add(bottomRow).left().padBottom(dropshadowLength);
+
 			} else {
 				EntityType entityType = entity.getType();
 
@@ -813,8 +814,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			Iterator<InventoryComponent.InventoryEntry> inventoryIterator = inventoryEntries.iterator();
 			for (int slotIndex = 0; slotIndex < maxSlots; slotIndex++) {
 				Stack entityStack = new Stack();
+
+
 				Drawable emptyBackgroundDrawable = mainGameSkin.getDrawable("asset_dwarf_select_inventory_bg");
-				entityStack.add(new Container<>(new Image(emptyBackgroundDrawable)));
+
+				Container<Image> backgroundContainer = new Container<>(new Image(emptyBackgroundDrawable));
+				backgroundContainer.bottom().right();
+				entityStack.add(backgroundContainer);
 
 				if (inventoryIterator.hasNext()) {
 					InventoryComponent.InventoryEntry inventoryEntry = inventoryIterator.next();
@@ -822,24 +828,40 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryItem.getPhysicalEntityComponent().getAttributes();
 					int quantity = attributes.getQuantity();
 
+
+
 					EntityDrawable entityDrawable = new EntityDrawable(inventoryItem, entityRenderer, true, messageDispatcher);
 					entityDrawable.setMinSize(emptyBackgroundDrawable.getMinWidth(), emptyBackgroundDrawable.getMinHeight());
-					Image image = new Image(entityDrawable);
-					entityStack.add(image);
+
+					Image entityImage = new Image(entityDrawable);
+					tooltipFactory.simpleTooltip(entityImage, i18nTranslator.getDescription(inventoryEntry.entity), TooltipLocationHint.BELOW); //TODO: need to do something to prevent sticky tooltips
+
+					Container<Image> entityImageContainer = new Container<>(entityImage);
+					entityImageContainer.bottom().right();
+
+					entityStack.add(entityImageContainer);
 
 					if (quantity > 1) {
 						Label amountLabel = new Label(String.valueOf(quantity), managementSkin, "entity_drawable_quantity_label");
 						amountLabel.setAlignment(Align.center);
+						amountLabel.layout();
+
+						float xOffset = 10f;
+						float yOffset = 10f;
+						float extraWidth = backgroundContainer.getPrefWidth() + xOffset - amountLabel.getPrefWidth();
+						float extraHeight = backgroundContainer.getPrefHeight() + yOffset - amountLabel.getPrefHeight();
+
+
 						Table amountTable = new Table();
 						amountTable.add(amountLabel).left().top();
-						amountTable.add(new Container<>()).width(emptyBackgroundDrawable.getMinWidth()-32f).expandX().row();
-						amountTable.add(new Container<>()).colspan(2).height(emptyBackgroundDrawable.getMinHeight()-32f).expandY();
+						amountTable.add(new Container<>()).expandX().width(extraWidth).row();
+						amountTable.add(new Container<>()).colspan(2).height(extraHeight).expandY();
 						entityStack.add(amountTable);
 					}
-
-					tooltipFactory.simpleTooltip(image, i18nTranslator.getDescription(inventoryEntry.entity), TooltipLocationHint.BELOW);
+					table.add(entityStack).bottom().spaceLeft(8f);
+				} else {
+					table.add(entityStack).bottom().spaceLeft(18f);
 				}
-				table.add(entityStack).spaceRight(18f);
 			}
 		});
 
