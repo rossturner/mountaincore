@@ -219,11 +219,14 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 			Entity targetFurniture = gameContext.getAreaMap().getTile(allocationPosition)
 					.getEntity(targetEntityId);
 			if (targetFurniture != null) {
+				FurnitureEntityAttributes furnitureEntityAttributes = (FurnitureEntityAttributes)targetFurniture.getPhysicalEntityComponent().getAttributes();
 				FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(targetFurniture, gameContext.getAreaMap());
 				FurnitureStockpileComponent stockpileComponent = targetFurniture.getComponent(FurnitureStockpileComponent.class);
 				if (navigableWorkspace != null) {
 					return toVector(navigableWorkspace.getAccessedFrom());
 				} else if (stockpileComponent != null) {
+					return toVector(allocationPosition);
+				} else if (!furnitureEntityAttributes.getFurnitureType().isBlocksMovement()) {
 					return toVector(allocationPosition);
 				} else {
 					Logger.error("Could not navigate to any workspaces when picking destination");

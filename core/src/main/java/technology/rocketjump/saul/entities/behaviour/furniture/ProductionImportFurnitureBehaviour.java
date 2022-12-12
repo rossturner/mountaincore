@@ -3,7 +3,6 @@ package technology.rocketjump.saul.entities.behaviour.furniture;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
@@ -38,9 +37,22 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 	private JobType haulingJobType;
 
 	@Override
+	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+		super.init(parentEntity, messageDispatcher, gameContext);
+		parentEntity.getOrCreateComponent(InventoryComponent.class).setAddAsAllocationPurpose(ItemAllocation.Purpose.PRODUCTION_IMPORT);
+	}
+
+	@Override
 	public FurnitureBehaviour clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
-		Logger.error(this.getClass().getSimpleName() + ".clone() not yet implemented");
-		return new ProductionImportFurnitureBehaviour();
+		ProductionImportFurnitureBehaviour cloned = new ProductionImportFurnitureBehaviour();
+		cloned.maxNumItemStacks = this.maxNumItemStacks;
+		cloned.selectedItemType = this.selectedItemType;
+		cloned.selectedMaterial = this.selectedMaterial;
+
+		cloned.incomingHaulingJobs.addAll(this.incomingHaulingJobs);
+		cloned.haulingJobType = this.haulingJobType;
+
+		return cloned;
 	}
 
 	@Override
@@ -65,6 +77,10 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 		if (selectedMaterial != null) {
 			cancelIncomingHaulingJobs();
 		}
+	}
+
+	public void setHaulingJobType(JobType haulingJobType) {
+		this.haulingJobType = haulingJobType;
 	}
 
 	@Override
@@ -105,7 +121,7 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 				if (stackInInventory == null && incomingHaulingJobs.isEmpty()) {
 					// try to request entire stack to come in
 					amountToRequest = selectedItemType.getMaxStackSize();
-				} else {
+				} else if (stackInInventory != null) {
 					ItemEntityAttributes attributes = (ItemEntityAttributes) stackInInventory.getPhysicalEntityComponent().getAttributes();
 					if (attributes.getQuantity() < attributes.getItemType().getMaxStackSize() && incomingHaulingJobs.isEmpty()) {
 						// try to request remainder of stack to come in

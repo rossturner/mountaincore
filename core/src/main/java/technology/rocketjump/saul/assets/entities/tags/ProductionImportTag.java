@@ -19,7 +19,8 @@ public class ProductionImportTag extends Tag {
 
 	@Override
 	public boolean isValid(TagProcessingUtils tagProcessingUtils) {
-		return Integer.parseInt(args.get(0)) > 0;
+		return Integer.parseInt(args.get(0)) > 0 &&
+				tagProcessingUtils.jobTypeDictionary.getByName(args.get(1)) != null;
 	}
 
 	@Override
@@ -28,6 +29,7 @@ public class ProductionImportTag extends Tag {
 			if (!(entity.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour)) {
 				ProductionImportFurnitureBehaviour importBehaviour = new ProductionImportFurnitureBehaviour();
 				importBehaviour.setMaxNumItemStacks(Integer.parseInt(args.get(0)));
+				importBehaviour.setHaulingJobType(tagProcessingUtils.jobTypeDictionary.getByName(args.get(1)));
 
 				messageDispatcher.dispatchMessage(MessageType.CHANGE_ENTITY_BEHAVIOUR, new MessageType.ChangeEntityBehaviourMessage(entity, importBehaviour));
 			}

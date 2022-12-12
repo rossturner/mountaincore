@@ -9,6 +9,6 @@
     } ]
   },
   "tags" : {
-    "PRODUCTION_IMPORT" : [ "1" ]
+    "PRODUCTION_IMPORT" : [ "1", "HAULING" ]
   }
 }

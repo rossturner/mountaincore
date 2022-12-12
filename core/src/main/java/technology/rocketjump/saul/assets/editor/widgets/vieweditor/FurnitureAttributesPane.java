@@ -96,7 +96,7 @@ public class FurnitureAttributesPane extends AbstractAttributesPane {
         List<ItemType> itemTypes = itemTypeDictionary.getAll();
 
         InventoryComponent inventoryComponent = currentEntity.getOrCreateComponent(InventoryComponent.class);
-        inventoryComponent.setItemsUnallocated(true);
+        inventoryComponent.setAddAsAllocationPurpose(null);
         ItemType[] workspaceItemTypes = new ItemType[3];
         Arrays.fill(workspaceItemTypes, NULL_ITEM_TYPE);
         for (int i = 0; i < workspaceItemTypes.length; i++) {
