@@ -570,7 +570,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		headlineLabels.addActor(happinessLabel);
 		headlineLabels.addActor(militaryProfessionLabel);
 
-		table.add(headlineLabels).left().row();
+		table.add(headlineLabels).left().spaceBottom(5f).row();
 
 		Table behaviourTable = new Table();
 		table.add(behaviourTable).grow();
