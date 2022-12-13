@@ -1062,11 +1062,8 @@
   "craftingTypeName" : "BLACKSMITHING",
   "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
-    "itemTypeName" : "Product-Linen",
-    "quantity" : 1
-  }, {
     "itemTypeName" : "Resource-Metal-Ingot",
-    "quantity" : 2
+    "quantity" : 3
   } ],
   "output" : [ {
     "itemTypeName" : "Weapon-Battle-Hammer",

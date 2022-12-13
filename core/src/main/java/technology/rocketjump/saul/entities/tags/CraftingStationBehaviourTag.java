@@ -6,6 +6,7 @@ import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBe
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.jobs.model.JobType;
 
@@ -42,7 +43,7 @@ public class CraftingStationBehaviourTag extends Tag {
 			// Only switch behaviour if already different
 			List<ItemType> relatedItemTypes = new ArrayList<>();
 
-			CraftingType craftingType = tagProcessingUtils.craftingTypeDictionary.getByName(args.get(0));
+			CraftingType craftingType = getCraftingType(tagProcessingUtils.craftingTypeDictionary);
 			if (craftingType == null) {
 				Logger.error("Could not find crafting type with name " + args.get(0) + " for " + this.getTagName());
 			}
@@ -74,6 +75,10 @@ public class CraftingStationBehaviourTag extends Tag {
 			craftingStationBehaviour.setRelatedItemTypes(relatedItemTypes);
 			entity.replaceBehaviourComponent(craftingStationBehaviour);
 		}
+	}
+
+	public CraftingType getCraftingType(CraftingTypeDictionary craftingTypeDictionary) {
+		return craftingTypeDictionary.getByName(args.get(0));
 	}
 
 }

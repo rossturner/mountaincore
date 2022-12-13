@@ -16,6 +16,7 @@ import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpi
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -350,7 +351,8 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 				if (navigableWorkspace != null) {
 					haulingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
 					haulingJob.setJobState(JobState.ASSIGNABLE);
-				} else if (containerEntity.getComponent(FurnitureStockpileComponent.class) != null) {
+				} else if (containerEntity.getComponent(FurnitureStockpileComponent.class) != null ||
+						!((FurnitureEntityAttributes)containerEntity.getPhysicalEntityComponent().getAttributes()).getFurnitureType().isBlocksMovement()) {
 					haulingJob.setJobLocation(VectorUtils.toGridPoint(containerEntity.getLocationComponent().getWorldPosition()));
 					haulingJob.setJobState(JobState.ASSIGNABLE);
 				} else {

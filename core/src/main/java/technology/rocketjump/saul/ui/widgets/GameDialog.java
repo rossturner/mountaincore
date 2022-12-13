@@ -3,6 +3,7 @@ package technology.rocketjump.saul.ui.widgets;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
@@ -21,6 +22,7 @@ public abstract class GameDialog implements Disposable {
 	protected Dialog dialog;
 	protected Image fullScreenOverlay;
 	protected boolean addedCursorChangeListeners;
+	private boolean showWithAnimation = true;
 
 	protected final Table layoutTable = new Table();
 	protected final Table contentTable = new Table();
@@ -84,14 +86,25 @@ public abstract class GameDialog implements Disposable {
 		if (fullScreenOverlay != null) {
 			stage.addActor(fullScreenOverlay);
 		}
-		dialog.show(stage);
+
+		if (showWithAnimation) {
+			dialog.show(stage);
+		} else {
+			dialog.show(stage, Actions.alpha(1));
+			dialog.setPosition(Math.round((stage.getWidth() - dialog.getWidth()) / 2), Math.round((stage.getHeight() - dialog.getHeight()) / 2));
+		}
 	}
 
 	public void close() {
 		if (fullScreenOverlay != null) {
 			fullScreenOverlay.remove();
 		}
-		dialog.hide();
+
+		if (showWithAnimation) {
+			dialog.hide();
+		} else {
+			dialog.hide(Actions.alpha(0f));
+		}
 		dispose();
 	}
 
@@ -120,4 +133,7 @@ public abstract class GameDialog implements Disposable {
 		return this;
 	}
 
+	public void setShowWithAnimation(boolean showWithAnimation) {
+		this.showWithAnimation = showWithAnimation;
+	}
 }

@@ -1653,7 +1653,7 @@
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
-  "baseValuePerItem" : 32,
+  "baseValuePerItem" : 28,
   "holdPosition" : "RIGHT_HAND",
   "impedesMovement" : false,
   "blocksMovement" : false,
@@ -1661,7 +1661,9 @@
   "hoursInInventoryUntilUnused" : 38.0,
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
-  "tags" : { },
+  "tags" : {
+    "EXTRA_MATERIAL_TYPES" : [ "CLOTH" ]
+  },
   "specificMaterialNames" : [ ],
   "weaponInfo" : {
     "range" : 1,
