@@ -10,6 +10,7 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.behaviour.furniture.ProductionImportFurnitureBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
@@ -46,6 +47,7 @@ import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.*;
+import technology.rocketjump.saul.ui.widgets.furniture.ProductionImportFurnitureWidget;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedString;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabel;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabelFactory;
@@ -54,6 +56,7 @@ import java.util.List;
 import java.util.*;
 import java.util.function.Function;
 
+import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.ENTITY;
 
 @Singleton
@@ -109,17 +112,18 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private final RaceDictionary raceDictionary;
 	private final ItemTypeDictionary itemTypeDictionary;
 	private List<ToggleButtonSet.ToggleButtonDefinition> priorityButtonDefinitions;
+	private final ProductionImportFurnitureWidget productionImportFurnitureWidget;
 
 
 	@Inject
 	public EntitySelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
-	                             GameInteractionStateContainer gameInteractionStateContainer,
-	                             EntityStore entityStore, JobStore jobStore,
-	                             I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary,
-	                             TooltipFactory tooltipFactory, DecoratedStringLabelFactory decoratedStringLabelFactory,
-	                             StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
-	                             GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
-	                             ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary, SettlerManagementScreen settlerManagementScreen) {
+								 GameInteractionStateContainer gameInteractionStateContainer,
+								 EntityStore entityStore, JobStore jobStore,
+								 I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary,
+								 TooltipFactory tooltipFactory, DecoratedStringLabelFactory decoratedStringLabelFactory,
+								 StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
+								 GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
+								 ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary, SettlerManagementScreen settlerManagementScreen, ProductionImportFurnitureWidget productionImportFurnitureWidget) {
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.menuSkin = guiSkinRepository.getMenuSkin();
@@ -212,6 +216,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			priorityButtonDefinitions.add(new ToggleButtonSet.ToggleButtonDefinition(jobPriority.name(), sprite));
 		}*/
 		this.settlerManagementScreen = settlerManagementScreen;
+		this.productionImportFurnitureWidget = productionImportFurnitureWidget;
 	}
 
 	@Override

@@ -79,6 +79,14 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 		}
 	}
 
+	public ItemType getSelectedItemType() {
+		return selectedItemType;
+	}
+
+	public GameMaterial getSelectedMaterial() {
+		return selectedMaterial;
+	}
+
 	public void setHaulingJobType(JobType haulingJobType) {
 		this.haulingJobType = haulingJobType;
 	}
