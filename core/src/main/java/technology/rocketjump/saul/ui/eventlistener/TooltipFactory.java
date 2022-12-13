@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
@@ -182,6 +183,35 @@ public class TooltipFactory {
 				position.sub(0, yOffsetCallback.call());
 			}
 
+			float tooltipWidth = tooltipTable.getMinWidth();
+			float screenEdgePadding = 5f;
+			if (tooltipWidth / 2.0 > position.x) {
+				if (tooltipTable.getCells().size > 1) { //assumes two cells, one for arrow
+					float arrowX = parentActor.localToStageCoordinates(new Vector2(0, 0)).x +  screenEdgePadding;
+					if (locationHint == ABOVE) {
+						tooltipTable.getCells().get(1).align(Align.left).padLeft(arrowX);
+					} else {
+						tooltipTable.getCells().get(0).align(Align.left).padLeft(arrowX);
+					}
+					tooltipTable.invalidate();
+				}
+
+				position.x = (tooltipWidth / 2.0f) + screenEdgePadding;
+			} else if ((tooltipWidth / 2.0) + position.x > parentActor.getStage().getWidth()) {
+				if (tooltipTable.getCells().size > 1) { //assumes two cells, one for arrow
+					//TODO: this calc needs more work
+					float arrowX =  parentActor.getStage().getWidth() - parentActor.localToStageCoordinates(new Vector2(0, 0)).x + screenEdgePadding - parentActor.getWidth();
+					if (locationHint == ABOVE) {
+						tooltipTable.getCells().get(1).align(Align.right).padRight(arrowX);
+					} else {
+						tooltipTable.getCells().get(0).align(Align.right).padRight(arrowX);
+					}
+					tooltipTable.invalidate();
+				}
+				position.x =   parentActor.getStage().getWidth() - ((tooltipWidth / 2.0f) - screenEdgePadding);
+			}
+
+			tooltipTable.debug();
 			// setPosition() ***centers*** the actor being positioned around the point specified (internal screaming)
 			tooltipTable.setPosition(position.x, position.y);
 		}
