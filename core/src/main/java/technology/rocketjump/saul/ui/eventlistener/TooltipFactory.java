@@ -211,7 +211,6 @@ public class TooltipFactory {
 				position.x =   parentActor.getStage().getWidth() - ((tooltipWidth / 2.0f) - screenEdgePadding);
 			}
 
-			tooltipTable.debug();
 			// setPosition() ***centers*** the actor being positioned around the point specified (internal screaming)
 			tooltipTable.setPosition(position.x, position.y);
 		}

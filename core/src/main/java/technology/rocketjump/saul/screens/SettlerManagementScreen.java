@@ -421,10 +421,11 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 		if (skillsComponent != null && militaryComponent != null) {
 			Drawable notEquippedIcon = managementSkin.getDrawable("icon_not_equipped");
+			Drawable brawlIcon = managementSkin.getDrawable("icon_brawl");
 
-			float scaleFactor = 0.9f;
+			float scaleFactor = 0.9f * overallScale;
 			ImageButton.ImageButtonStyle weaponButtonStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
-			weaponButtonStyle.imageUp = managementSkin.getDrawable("icon_brawl");
+			weaponButtonStyle.imageUp = brawlIcon;
 			ImageButton.ImageButtonStyle shieldButtonStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
 			shieldButtonStyle.imageUp = notEquippedIcon;
 			ImageButton.ImageButtonStyle armourButtonStyle = new ImageButton.ImageButtonStyle(managementSkin.get("military_equipment_assignment", ImageButton.ImageButtonStyle.class));
@@ -464,7 +465,18 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 			Table weaponColumn = new Table();
 			Image weaponIcon = new Image(managementSkin.getDrawable("icon_military_equip_weapon"));
-			ImageButton weaponSelectButton = new ImageButton(weaponButtonStyle);
+			ImageButton weaponSelectButton = new ImageButton(weaponButtonStyle) {
+				@Override
+				public float getPrefWidth() {
+					return super.getPrefWidth() * overallScale;
+				}
+
+				@Override
+				public float getPrefHeight() {
+					return super.getPrefHeight() * overallScale;
+				}
+			};
+
 			buttonFactory.attachClickCursor(weaponSelectButton, GameCursor.SELECT);
 			Table weaponProgress = settlerProfessionFactory.buildProgressBarRow(skillsComponent, weaponSkill, false);
 			weaponColumn.add(weaponIcon).row();
@@ -473,14 +485,34 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 			Table shieldColumn = new Table();
 			Image shieldIcon = new Image(managementSkin.getDrawable("icon_military_equip_shield"));
-			ImageButton shieldSelectButton = new ImageButton(shieldButtonStyle);
+			ImageButton shieldSelectButton = new ImageButton(shieldButtonStyle) {
+				@Override
+				public float getPrefWidth() {
+					return super.getPrefWidth() * overallScale;
+				}
+
+				@Override
+				public float getPrefHeight() {
+					return super.getPrefHeight() * overallScale;
+				}
+			};
 			buttonFactory.attachClickCursor(shieldSelectButton, GameCursor.SELECT);
 			shieldColumn.add(shieldIcon).expandX().row();
 			shieldColumn.add(shieldSelectButton).spaceTop(10f).spaceBottom(6f).row();
 
 			Table armourColumn = new Table();
 			Image armourIcon = new Image(managementSkin.getDrawable("icon_military_equip_armour"));
-			ImageButton armourSelectButton = new ImageButton(armourButtonStyle);
+			ImageButton armourSelectButton = new ImageButton(armourButtonStyle) {
+				@Override
+				public float getPrefWidth() {
+					return super.getPrefWidth() * overallScale;
+				}
+
+				@Override
+				public float getPrefHeight() {
+					return super.getPrefHeight() * overallScale;
+				}
+			};
 			buttonFactory.attachClickCursor(armourSelectButton, GameCursor.SELECT);
 			armourColumn.add(armourIcon).expandX().row();
 			armourColumn.add(armourSelectButton).spaceTop(10f).spaceBottom(6f).row();
@@ -661,9 +693,9 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 				tooltipFactory.simpleTooltip(invisibleOverlay, disableReason, TooltipLocationHint.BELOW);
 			}
 
-			table.add(weaponStack).growX().top().spaceRight(24).spaceLeft(24);
-			table.add(shieldStack).growX().top().spaceRight(24).spaceLeft(24);
-			table.add(armourColumn).growX().top().spaceRight(24).spaceLeft(24);
+			table.add(weaponStack).growX().top().spaceRight(24 * overallScale).spaceLeft(24 * overallScale);
+			table.add(shieldStack).growX().top().spaceRight(24 * overallScale).spaceLeft(24 * overallScale);
+			table.add(armourColumn).growX().top().spaceRight(24 * overallScale).spaceLeft(24 * overallScale);
 		}
 
 		return table;
