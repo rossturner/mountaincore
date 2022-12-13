@@ -104,7 +104,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 		Button button;
 		if (selectedItemType == null) {
 			button = new Button(noneSelectedDrawable);
-			tooltipFactory.simpleTooltip(button, "SOMETHING", TooltipLocationHint.ABOVE);
+			tooltipFactory.simpleTooltip(button, "ITEM.NONE_SELECTED", TooltipLocationHint.ABOVE);
 		} else {
 			Entity displayedEntity = roomEditorItemMap.getByItemType(selectedItemType);
 			GameMaterial selectedMaterial = productionImportBehaviour.getSelectedMaterial();
@@ -150,7 +150,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 				}
 			}));
 		});
-		options.add(new SelectItemDialog.Option(i18nTranslator.getTranslatedString("WEAPON.NONE")) {
+		options.add(new SelectItemDialog.Option(i18nTranslator.getTranslatedString("ITEM.NONE_SELECTED")) {
 			@Override
 			public void addSelectionComponents(Table innerTable) {
 				Image image = new Image(noneSelectedDrawable);
@@ -162,11 +162,14 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 				productionImportBehaviour.setSelectedItemType(null);
 				productionImportBehaviour.setSelectedMaterial(null);
 				rebuildUI();
+				messageDispatcher.dispatchMessage(MessageType.GUI_REMOVE_ALL_TOOLTIPS);
 			}
 		});
 
-		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE"),
-				guiSkinRepository.getMenuSkin(), messageDispatcher, soundAssetDictionary, tooltipFactory, options));
+		SelectItemDialog selectItemDialog = new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE"),
+				guiSkinRepository.getMenuSkin(), messageDispatcher, soundAssetDictionary, tooltipFactory, options);
+		selectItemDialog.getContentTable().padLeft(60);
+		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, selectItemDialog);
 	}
 
 
@@ -188,11 +191,13 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 		public void addSelectionComponents(Table innerTable) {
 			Image image = new Image(drawable);
 			innerTable.add(image).size(183, 183).pad(10).row();
+			innerTable.add(new Container<>()).height(30).row();
 		}
 
 		@Override
 		public void onSelect() {
 			onSelection.run();
+			messageDispatcher.dispatchMessage(MessageType.GUI_REMOVE_ALL_TOOLTIPS);
 		}
 	}
 

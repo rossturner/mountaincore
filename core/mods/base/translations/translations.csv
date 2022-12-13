@@ -763,6 +763,7 @@ ITEM.QUALITY.PREFIX.POOR.ADJECTIVE,,Poor
 ITEM.QUALITY.PREFIX.POOR.TOOLTIP,,This item is poorly made and will slightly impede anyone using it
 ITEM.QUALITY.PREFIX.SUPERIOR.ADJECTIVE,,Superior
 ITEM.QUALITY.PREFIX.SUPERIOR.TOOLTIP,,"This item has been crafted with great skill, making it more valuable and easier to use"
+ITEM.NONE_SELECTED,,None selected
 
 ITEM_GROUP.FUEL.PLURAL,,Fuel
 ITEM_GROUP.PRODUCT.PLURAL,,Products
