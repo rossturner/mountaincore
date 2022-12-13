@@ -16,6 +16,7 @@ import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -555,13 +556,21 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	private Updatable<Table> textSummary(Entity entity) {
 		HappinessComponent happinessComponent = entity.getComponent(HappinessComponent.class);
+		SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
 
 		Table table = new Table();
 		Updatable<Table> updatable = Updatable.of(table);
 		Label happinessLabel = new Label("", managementSkin, "default-font-18-label");
 		Table happinessLabelTooltipContents = new Table();
-		table.add(happinessLabel).left().row();
 		tooltipFactory.complexTooltip(happinessLabel, happinessLabelTooltipContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
+
+		Label militaryProfessionLabel = new Label("", managementSkin, "default-font-18-label");
+
+		HorizontalGroup headlineLabels = new HorizontalGroup();
+		headlineLabels.addActor(happinessLabel);
+		headlineLabels.addActor(militaryProfessionLabel);
+
+		table.add(headlineLabels).left().row();
 
 		Table behaviourTable = new Table();
 		table.add(behaviourTable).grow();
@@ -569,8 +578,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 //		behaviourTable.debug();
 
 		Runnable happinessUpdater = () -> {
-			if (happinessComponent != null) {
-
+			if (happinessComponent != null && !SettlerManagementScreen.IS_MILITARY.test(entity)) {
 				int netHappiness = happinessComponent.getNetModifier();
 				String netHappinessString = (netHappiness > 0 ? "+" : "") + netHappiness;
 				String happinessText = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.HAPPINESS", Map.of(
@@ -603,6 +611,17 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				happinessLabelTooltipContents.clear();
 				happinessLabelTooltipContents.add(infoContents);
+			} else {
+				happinessLabelTooltipContents.clear();
+				happinessLabel.setText("");
+			}
+		};
+
+		Runnable militaryProfessionUpdater = () -> {
+			militaryProfessionLabel.setText("");
+			if (skillsComponent != null && SettlerManagementScreen.IS_MILITARY.test(entity)) {
+				String assignedWeaponText = settlerManagementScreen.getAssignedWeaponText(entity, skillsComponent);
+				militaryProfessionLabel.setText(assignedWeaponText);
 			}
 		};
 
@@ -632,6 +651,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 
 		updatable.regularly(happinessUpdater);
+		updatable.regularly(militaryProfessionUpdater);
 		updatable.regularly(descriptionUpdater);
 		updatable.update();
 		return updatable;

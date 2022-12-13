@@ -1027,7 +1027,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	}
 
 
-	private String getAssignedWeaponText(Entity settler, SkillsComponent skillsComponent) {
+	public String getAssignedWeaponText(Entity settler, SkillsComponent skillsComponent) {
 		String militaryProficiencyText;
 		Skill currentCombatSkill = SkillDictionary.UNARMED_COMBAT_SKILL;
 		int currentCombatSkillLevel = skillsComponent.getSkillLevel(currentCombatSkill);
