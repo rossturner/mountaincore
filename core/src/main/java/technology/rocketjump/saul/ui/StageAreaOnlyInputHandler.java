@@ -88,12 +88,7 @@ public class StageAreaOnlyInputHandler implements InputProcessor {
 
 		Actor target = parent.hit(mouseStageCoords.x, mouseStageCoords.y, true);
 		target = findParentScrollable(target);
-		if (target == null) {
-			target = parent.getRoot();
-		}
-
-		if (target.getX() <= mouseStageCoords.x && mouseStageCoords.x <= target.getX() + target.getWidth() &&
-				target.getY() <= mouseStageCoords.y && mouseStageCoords.y <= target.getY() + target.getHeight()) {
+		if (target != null && target.getStage().getScrollFocus() == target) {
 			InputEvent event = Pools.obtain(InputEvent.class);
 			event.setStage(parent);
 			event.setType(InputEvent.Type.scrolled);

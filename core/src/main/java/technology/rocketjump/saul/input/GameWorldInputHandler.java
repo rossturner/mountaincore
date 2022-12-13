@@ -24,8 +24,6 @@ import java.util.*;
 
 /**
  * This class is for input directly in the game world, as compared to some input that was caught by the GUI instead
- * <p>
- * MODDING - Keybindings should be driven by a moddable file, and later by an in-game keybindings menu
  */
 @Singleton
 public class GameWorldInputHandler implements InputProcessor, GameContextAware {

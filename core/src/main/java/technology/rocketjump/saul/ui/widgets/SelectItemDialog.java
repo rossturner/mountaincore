@@ -3,6 +3,7 @@ package technology.rocketjump.saul.ui.widgets;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -47,6 +48,7 @@ public class SelectItemDialog extends GameDialog {
 		ScrollPane scrollPane = new EnhancedScrollPane(selectionTable, skin);
 
 		int numAdded = 0;
+		int numRows = 0;
 		for (Option option : options) {
 			Table innerTable = new Table();
 
@@ -71,10 +73,22 @@ public class SelectItemDialog extends GameDialog {
 
 			if (numAdded % ITEMS_PER_ROW == 0) {
 				selectionTable.row();
+				numRows++;
 			}
 		}
 
-		contentTable.add(scrollPane).expand().fill();
+		if (numRows > 4) {
+			scrollPane.setForceScroll(false, true);
+			scrollPane.setFadeScrollBars(false);
+			scrollPane.setScrollbarsVisible(true);
+		}
+
+		Cell<ScrollPane> cell = contentTable.add(scrollPane).growX();
+		if (numRows > 4) {
+			cell.height(1000);
+		} else {
+			cell.growY();
+		}
 	}
 
 	@Override

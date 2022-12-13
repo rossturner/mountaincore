@@ -611,6 +611,7 @@ GUI.PLACE_BRIDGE.HINT,A bridge must cover both sides of the river and be at leas
 GUI.POWER_LABEL,Power & Water,,,,,,,,,,,,,,,,,,,
 GUI.POWER_WATER_INFO,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}},,,,,,,,,,,,,,,,,,,
 GUI.PRIORITY_LABEL,Priority,,Priorität,,Priorità,Prioridad,,,,Приоритеты,Öncelik,,,,,,,優先度,优先级,
+GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,Choose Item to Import,,,,,,,,,,,,,,,,,,,
 GUI.REMOVE_LABEL,Remove,,Entfernen,Retirer,Rimuovi,Eliminar,Remover,Remover,,Удалить,Kaldır,Fjern,,Ta bort,,,,除去,移除,
 GUI.REMOVE_TILES,Remove tiles,,Felder entfernen,Retirer des cases,Rimuovi caselle,Eliminar casillas,Remover mosaicos,Remover áreas,,Удалить квадраты,Karoları Sil,Fjern fliser,,Ta bort paneler,,,,タイル縮小,移除区格,
 GUI.RESOURCE_MANAGEMENT.ALL_OF,All {{item}},,,,,,,,,,,,,,,,,,,

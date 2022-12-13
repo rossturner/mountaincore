@@ -4,16 +4,19 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.behaviour.furniture.ProductionImportFurnitureBehaviour;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -23,10 +26,16 @@ import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.views.RoomEditorItemMap;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
+import technology.rocketjump.saul.ui.widgets.SelectItemDialog;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 @Singleton
 public class ProductionImportFurnitureWidget extends Table implements DisplaysText {
@@ -36,11 +45,14 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 	private final RoomEditorItemMap roomEditorItemMap;
 	private final GameMaterialDictionary gameMaterialDictionary;
 	private final EntityRenderer entityRenderer;
+	private final I18nTranslator i18nTranslator;
+	private final ItemTypeDictionary itemTypeDictionary;
+	private final SoundAssetDictionary soundAssetDictionary;
 
-	private final MainGameSkin skin;
 	private final Container<Button> buttonContainer = new Container<>();
 	private final Drawable noneSelectedDrawable;
 	private final Drawable backgroundDrawable;
+	private final GuiSkinRepository guiSkinRepository;
 	private Entity furnitureEntity;
 	private ProductionImportFurnitureBehaviour productionImportBehaviour;
 
@@ -48,13 +60,20 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 	@Inject
 	public ProductionImportFurnitureWidget(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 										   TooltipFactory tooltipFactory, RoomEditorItemMap roomEditorItemMap,
-										   GameMaterialDictionary gameMaterialDictionary, EntityRenderer entityRenderer) {
+										   GameMaterialDictionary gameMaterialDictionary, EntityRenderer entityRenderer,
+										   I18nTranslator i18nTranslator, ItemTypeDictionary itemTypeDictionary,
+										   SoundAssetDictionary soundAssetDictionary) {
 		this.messageDispatcher = messageDispatcher;
-		this.skin = guiSkinRepository.getMainGameSkin();
+		this.guiSkinRepository = guiSkinRepository;
 		this.tooltipFactory = tooltipFactory;
 		this.roomEditorItemMap = roomEditorItemMap;
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.entityRenderer = entityRenderer;
+		this.i18nTranslator = i18nTranslator;
+		this.itemTypeDictionary = itemTypeDictionary;
+		this.soundAssetDictionary = soundAssetDictionary;
+
+		MainGameSkin skin = guiSkinRepository.getMainGameSkin();
 
 		backgroundDrawable = skin.getDrawable("asset_bg");
 		buttonContainer.setBackground(backgroundDrawable);
@@ -98,7 +117,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 			EntityDrawable entityDrawable = new EntityDrawable(displayedEntity, entityRenderer, true, messageDispatcher);
 			entityDrawable.setMinSize(backgroundDrawable.getMinWidth(), backgroundDrawable.getMinHeight());
 			button = new Button(entityDrawable);
-			tooltipFactory.simpleTooltip(buttonContainer, selectedItemType.getI18nKey(), TooltipLocationHint.ABOVE);
+			tooltipFactory.simpleTooltip(button, selectedItemType.getI18nKey(), TooltipLocationHint.ABOVE);
 		}
 
 		button.addListener(new ClickListener() {
@@ -107,7 +126,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 				ProductionImportFurnitureWidget.this.onClick();
 			}
 		});
-		button.addListener(new ChangeCursorOnHover(buttonContainer, GameCursor.SELECT, messageDispatcher));
+		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
 		buttonContainer.setActor(button);
 
 		this.add(buttonContainer).center().row();
@@ -117,7 +136,64 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 	}
 
 	private void onClick() {
-		Logger.info("TODO");
+		List<ItemType> itemTypes = itemTypeDictionary.getAll().stream()
+				.sorted(Comparator.comparing(a -> i18nTranslator.getTranslatedString(a.getI18nKey()).toString()))
+				.toList();
+
+		List<SelectItemDialog.Option> options = new ArrayList<>();
+		itemTypes.forEach(itemType -> {
+			options.add(new SelectItemTypeOption(itemType, () -> {
+				if (itemType != productionImportBehaviour.getSelectedItemType()) {
+					productionImportBehaviour.setSelectedItemType(itemType);
+					productionImportBehaviour.setSelectedMaterial(null);
+					rebuildUI();
+				}
+			}));
+		});
+		options.add(new SelectItemDialog.Option(i18nTranslator.getTranslatedString("WEAPON.NONE")) {
+			@Override
+			public void addSelectionComponents(Table innerTable) {
+				Image image = new Image(noneSelectedDrawable);
+				innerTable.add(image).size(183, 183).pad(10).row();
+			}
+
+			@Override
+			public void onSelect() {
+				productionImportBehaviour.setSelectedItemType(null);
+				productionImportBehaviour.setSelectedMaterial(null);
+				rebuildUI();
+			}
+		});
+
+		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE"),
+				guiSkinRepository.getMenuSkin(), messageDispatcher, soundAssetDictionary, tooltipFactory, options));
+	}
+
+
+	class SelectItemTypeOption extends SelectItemDialog.Option {
+
+		private final Drawable drawable;
+		private final Runnable onSelection;
+
+		public SelectItemTypeOption(ItemType itemType, Runnable onSelection) {
+			super(i18nTranslator.getTranslatedString(itemType.getI18nKey()));
+			Entity itemEntity = roomEditorItemMap.getByItemType(itemType);
+			((ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes()).setQuantity(itemType.getMaxStackSize());
+			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, itemEntity);
+			this.drawable = new EntityDrawable(itemEntity, entityRenderer, true, messageDispatcher);
+			this.onSelection = onSelection;
+		}
+
+		@Override
+		public void addSelectionComponents(Table innerTable) {
+			Image image = new Image(drawable);
+			innerTable.add(image).size(183, 183).pad(10).row();
+		}
+
+		@Override
+		public void onSelect() {
+			onSelection.run();
+		}
 	}
 
 }
