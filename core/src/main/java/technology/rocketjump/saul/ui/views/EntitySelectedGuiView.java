@@ -13,6 +13,7 @@ import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.EntityStore;
+import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.FactionComponent;
@@ -62,6 +63,7 @@ import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabelFactory;
 import java.util.List;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.ENTITY;
 
@@ -295,28 +297,30 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				//TODO : Refactor out common components or modular design
 				if (entityType == EntityType.CREATURE) {
 					outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg"));
+					boolean hasInventory = entity.getComponent(InventoryComponent.class) != null;
+
 					Updatable<Actor> creatureName = creatureName(entity);
 					Updatable<Table> happinessIcons = happinessIcons(entity);
 					Updatable<Table> textSummary = textSummary(entity);
-					Updatable<Table> inventory = inventory(entity);
 
 					updatables.add(creatureName);
 					updatables.add(happinessIcons);
 					updatables.add(textSummary);
-					updatables.add(inventory);
 
 					Table middleRow = new Table();
-					middleRow.add(happinessIcons.getActor()).top().right();
+					middleRow.add(happinessIcons.getActor()).expandX().top().right();
 					middleRow.add(textSummary.getActor()).left().spaceLeft(25f).grow();
 
 					outerTable.add(creatureName.getActor()).fillX().padTop(67).padBottom(20).row();
 					outerTable.add(middleRow).expandY().fillX().row();
-					outerTable.add(inventory.getActor()).padTop(20).padBottom(67 + dropshadowLength);
-
+					if (hasInventory) {
+						Updatable<Table> inventory = inventory(entity);
+						updatables.add(inventory);
+						outerTable.add(inventory.getActor()).padTop(20).padBottom(67 + dropshadowLength);
+					} else {
+						outerTable.setBackground(mainGameSkin.getDrawable("ENTITY_SELECT_BG_SMALL"));
+					}
 				}
-
-
-
 			}
 		}
 	}
@@ -610,9 +614,12 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		Label militaryProfessionLabel = new Label("", managementSkin, "default-font-18-label");
 
+		Label deadLabel = new Label("", managementSkin, "default-font-18-label");
+
 		HorizontalGroup headlineLabels = new HorizontalGroup();
 		headlineLabels.addActor(happinessLabel);
 		headlineLabels.addActor(militaryProfessionLabel);
+		headlineLabels.addActor(deadLabel);
 
 		table.add(headlineLabels).left().spaceBottom(5f).row();
 
@@ -620,7 +627,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		table.add(behaviourTable).grow();
 
 		Runnable happinessUpdater = () -> {
-			if (happinessComponent != null && !SettlerManagementScreen.IS_MILITARY.test(entity)) {
+			boolean isNotDead = !(entity.getBehaviourComponent() instanceof CorpseBehaviour);
+			if (happinessComponent != null && !SettlerManagementScreen.IS_MILITARY.test(entity) && isNotDead) {
 				int netHappiness = happinessComponent.getNetModifier();
 				String netHappinessString = (netHappiness > 0 ? "+" : "") + netHappiness;
 				String happinessText = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.HAPPINESS", Map.of(
@@ -661,9 +669,21 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		Runnable militaryProfessionUpdater = () -> {
 			militaryProfessionLabel.setText("");
-			if (skillsComponent != null && SettlerManagementScreen.IS_MILITARY.test(entity)) {
+			boolean isNotDead = !(entity.getBehaviourComponent() instanceof CorpseBehaviour);
+			if (skillsComponent != null && SettlerManagementScreen.IS_MILITARY.test(entity) && isNotDead) {
 				String assignedWeaponText = settlerManagementScreen.getAssignedWeaponText(entity, skillsComponent);
 				militaryProfessionLabel.setText(assignedWeaponText);
+			}
+		};
+
+		Runnable deadLabelUpdater = () -> {
+			deadLabel.setText("");
+			if (entity.getBehaviourComponent() instanceof CorpseBehaviour corpseBehaviour) {
+				String deadText = corpseBehaviour.getDescription(i18nTranslator, gameContext, messageDispatcher)
+						.stream()
+						.map(I18nText::toString)
+						.collect(Collectors.joining("\n"));
+				deadLabel.setText(deadText);
 			}
 		};
 
@@ -677,6 +697,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					behaviourDescriptions.add(i18nText.toString());
 				}
 			}
+
+			behaviourDescriptions.clear();
+			behaviourDescriptions.add("Fantômas (French: [fɑ̃tomas]) is a fictional character created by French writers Marcel Allain (1885–1969) and Pierre Souvestre (1874–1914). ");
 
 			for (String behaviourDescription : behaviourDescriptions) {
 				Label label = new Label(behaviourDescription, managementSkin, "default-font-16-label") {
@@ -695,6 +718,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		updatable.regularly(happinessUpdater);
 		updatable.regularly(militaryProfessionUpdater);
 		updatable.regularly(descriptionUpdater);
+		updatable.regularly(deadLabelUpdater);
 		updatable.update();
 		return updatable;
 	}
@@ -712,6 +736,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Runnable updater = () -> {
 			table.clear();
 			boolean isMilitary = SettlerManagementScreen.IS_MILITARY.test(entity);
+			boolean isSettlement = factionComponent != null && factionComponent.getFaction() == Faction.SETTLEMENT;
+			boolean unknownHappiness = isMilitary || !isSettlement || entity.getBehaviourComponent() instanceof CorpseBehaviour; //Dead don't display happiness
+
 			List<String> ailments = new ArrayList<>();
 			for (StatusEffect statusEffect : statusComponent.getAll()) {
 				if (statusEffect.getI18Key() != null) {
@@ -723,7 +750,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 
 			final int MAX_SMILIES;
-			if (isMilitary) {
+			if (unknownHappiness) {
 				MAX_SMILIES = 0;
 			} else if (ailments.isEmpty()) {
 				MAX_SMILIES = 5;
@@ -741,14 +768,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				Image injurySmiley = new Image(mainGameSkin.getInjuredSmiley(factionComponent));
 				tooltipFactory.complexTooltip(injurySmiley, tooltipContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
 				table.add(injurySmiley);
-			} else if (isMilitary) {
-
+			} else if (unknownHappiness) {
 				Image notInjuredSmiley = new Image(mainGameSkin.getNotInjuredSmiley(factionComponent));
 				tooltipFactory.simpleTooltip(notInjuredSmiley, "BODY_STRUCTURE.DAMAGE.NOT_INJURED", TooltipLocationHint.BELOW);
 				table.add(notInjuredSmiley);
 			}
 
-			if (happinessComponent != null && factionComponent != null && factionComponent.getFaction() == Faction.SETTLEMENT) {
+			if (happinessComponent != null && isSettlement) {
 				List<HappinessComponent.HappinessModifier> sorted = new ArrayList<>(happinessComponent.currentModifiers());
 				sorted.sort(Comparator.comparing((Function<HappinessComponent.HappinessModifier, Integer>) happinessModifier -> Math.abs(happinessModifier.modifierAmount)).reversed());
 				for (int i = 0; i < MAX_SMILIES; i++) {
