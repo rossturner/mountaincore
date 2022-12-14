@@ -3,6 +3,7 @@ package technology.rocketjump.saul.entities.behaviour.furniture;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.graphics.Color;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
@@ -22,12 +23,13 @@ import technology.rocketjump.saul.messaging.types.RequestHaulingMessage;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour implements Prioritisable {
+public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour implements Prioritisable, DisplayGhostItemWhenInventoryEmpty {
 
 	private int maxNumItemStacks = 0;
 	private ItemType selectedItemType;
@@ -79,8 +81,18 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 		}
 	}
 
+	@Override
 	public ItemType getSelectedItemType() {
 		return selectedItemType;
+	}
+
+	@Override
+	public Color getOverrideColor() {
+		if (incomingHaulingJobs.isEmpty()) {
+			return HexColors.GHOST_NEGATIVE_COLOR_MORE_OPAQUE;
+		} else {
+			return HexColors.GHOST_PLAIN_COLOR;
+		}
 	}
 
 	public GameMaterial getSelectedMaterial() {

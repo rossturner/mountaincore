@@ -7,6 +7,8 @@ public class HexColors {
 	public static final Color POSITIVE_COLOR = HexColors.get("#36ba3f");
 	public static final Color NEGATIVE_COLOR = HexColors.get("#a24929");
 	public static final Color GHOST_NEGATIVE_COLOR = HexColors.get("#a2492944");
+	public static final Color GHOST_PLAIN_COLOR = HexColors.get("#FFFFFF77");
+	public static final Color GHOST_NEGATIVE_COLOR_MORE_OPAQUE = HexColors.get("#a2492999");
 
 	public static Color get(String hexString) {
 		if (hexString == null) {
