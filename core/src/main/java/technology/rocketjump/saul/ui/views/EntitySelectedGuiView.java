@@ -10,9 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.ray3k.tenpatch.TenPatchDrawable;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
@@ -227,7 +230,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		containerTable.clear();
 		updatables = new ArrayList<>();
 		outerTable = new Table();
-		outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg_wide")); //TODO: might need to only use this on Settler view
 		float dropshadowLength = 18f;
 		containerTable.add(outerTable).padLeft(dropshadowLength); //Value of drop shadow on bottom for equal distance
 
@@ -235,9 +237,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		if (selectable != null && ENTITY == selectable.type) {
 			Entity entity = selectable.getEntity();
 			if (entity.isSettler()) {
-
+				outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg_wide"));
 				boolean isMilitary = SettlerManagementScreen.IS_MILITARY.test(entity);
-				Updatable<Actor> settlerName = creatureName(entity);
+				Updatable<Actor> settlerName = editableCreatureName(entity);
 				Updatable<Table> happinessIcons = happinessIcons(entity);
 				Updatable<Table> textSummary = textSummary(entity);
 				Table militaryToggle = settlerManagementScreen.militaryToggle(entity, false, s -> populate(containerTable));
@@ -290,8 +292,55 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			} else {
 				EntityType entityType = entity.getType();
 
+				//TODO : Refactor out common components or modular design
+				if (entityType == EntityType.CREATURE) {
+					outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg"));
+					Updatable<Actor> creatureName = creatureName(entity);
+					Updatable<Table> happinessIcons = happinessIcons(entity);
+					Updatable<Table> textSummary = textSummary(entity);
+					Updatable<Table> inventory = inventory(entity);
+
+					updatables.add(creatureName);
+					updatables.add(happinessIcons);
+					updatables.add(textSummary);
+					updatables.add(inventory);
+
+					Table middleRow = new Table();
+					middleRow.add(happinessIcons.getActor()).top().right();
+					middleRow.add(textSummary.getActor()).left().spaceLeft(25f).grow();
+
+					outerTable.add(creatureName.getActor()).fillX().padTop(67).padBottom(20).row();
+					outerTable.add(middleRow).expandY().fillX().row();
+					outerTable.add(inventory.getActor()).padTop(20).padBottom(67 + dropshadowLength);
+
+				}
+
+
+
 			}
 		}
+	}
+
+	private Updatable<Actor> creatureName(Entity entity) {
+//		Table table = new Table();
+
+		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+		final String headerText;
+		if (attributes.getName() != null) {
+			headerText = attributes.getName().toString();
+		} else {
+			headerText = i18nTranslator.getCreatureDescription(entity, attributes).toString();
+		}
+
+
+		Label headerLabel = new Label(headerText, mainGameSkin.get("title-header", Label.LabelStyle.class));
+		Container<Label> headerContainer = new Container<>(headerLabel);
+		headerContainer.setBackground(mainGameSkin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
+
+//		table.add(headerContainer).growX();
+
+		Updatable<Actor> updatable = Updatable.of(headerContainer);
+		return updatable;
 	}
 
 	/**
@@ -304,11 +353,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 
 /*
-			Entity entity = selectable.getEntity();
-			if (entity.isSettler()) {
-				buildSettlerSelectedView(entity);
-				// TODO description of any dead creatures
-			} else {
 				entityDescriptionTable.add(new I18nTextWidget(i18nTranslator.getDescription(entity), uiSkin, messageDispatcher)).left().row();
 
 				for (EntityComponent component : entity.getAllComponents()) {
@@ -575,8 +619,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Table behaviourTable = new Table();
 		table.add(behaviourTable).grow();
 
-//		behaviourTable.debug();
-
 		Runnable happinessUpdater = () -> {
 			if (happinessComponent != null && !SettlerManagementScreen.IS_MILITARY.test(entity)) {
 				int netHappiness = happinessComponent.getNetModifier();
@@ -661,6 +703,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private Updatable<Table> happinessIcons(Entity entity) {
 		HappinessComponent happinessComponent = entity.getComponent(HappinessComponent.class);
 		StatusComponent statusComponent = entity.getComponent(StatusComponent.class);
+		FactionComponent factionComponent = entity.getComponent(FactionComponent.class);
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 
 		Table table = new Table();
@@ -695,30 +738,33 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				}
 				DecoratedStringLabel tooltipContents = decoratedStringLabelFactory.create(tooltipString, "tooltip-text", mainGameSkin);
 
-				Image injurySmiley = new Image(mainGameSkin.getDrawable(MainGameSkin.INJURED));
+				Image injurySmiley = new Image(mainGameSkin.getInjuredSmiley(factionComponent));
 				tooltipFactory.complexTooltip(injurySmiley, tooltipContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
 				table.add(injurySmiley);
+			} else if (isMilitary) {
+
+				Image notInjuredSmiley = new Image(mainGameSkin.getNotInjuredSmiley(factionComponent));
+				tooltipFactory.simpleTooltip(notInjuredSmiley, "BODY_STRUCTURE.DAMAGE.NOT_INJURED", TooltipLocationHint.BELOW);
+				table.add(notInjuredSmiley);
 			}
 
-			List<HappinessComponent.HappinessModifier> sorted = new ArrayList<>(happinessComponent.currentModifiers());
-			sorted.sort(Comparator.comparing((Function<HappinessComponent.HappinessModifier, Integer>) happinessModifier -> Math.abs(happinessModifier.modifierAmount)).reversed());
-			for (int i = 0; i < MAX_SMILIES; i++) {
-				if (i < sorted.size()) {
-					HappinessComponent.HappinessModifier happinessModifier = sorted.get(i);
-					int modifierAmount = happinessModifier.modifierAmount;
-					//TODO: not the best code, but should be optimal
-					String drawableName = smileyDrawable(modifierAmount);
+			if (happinessComponent != null && factionComponent != null && factionComponent.getFaction() == Faction.SETTLEMENT) {
+				List<HappinessComponent.HappinessModifier> sorted = new ArrayList<>(happinessComponent.currentModifiers());
+				sorted.sort(Comparator.comparing((Function<HappinessComponent.HappinessModifier, Integer>) happinessModifier -> Math.abs(happinessModifier.modifierAmount)).reversed());
+				for (int i = 0; i < MAX_SMILIES; i++) {
+					if (i < sorted.size()) {
+						HappinessComponent.HappinessModifier happinessModifier = sorted.get(i);
+						int modifierAmount = happinessModifier.modifierAmount;
+						//TODO: not the best code, but should be optimal
+						String drawableName = smileyDrawable(modifierAmount);
 
-					I18nText happinessModifierText = happinessReasonText(happinessModifier);
-					Image smiley = new Image(mainGameSkin.getDrawable(drawableName));
-					tooltipFactory.simpleTooltip(smiley, happinessModifierText, TooltipLocationHint.BELOW);
-					table.add(smiley);
-				} else {
-//					//TODO: remove me, its for layout
-//					Image smiley = new Image(mainGameSkin.getDrawable(MainGameSkin.MISERABLE));
-//					table.add(smiley);
-
+						I18nText happinessModifierText = happinessReasonText(happinessModifier);
+						Image smiley = new Image(mainGameSkin.getDrawable(drawableName));
+						tooltipFactory.simpleTooltip(smiley, happinessModifierText, TooltipLocationHint.BELOW);
+						table.add(smiley);
+					}
 				}
+
 			}
 		};
 		updater.run();
@@ -762,7 +808,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	}
 
 
-	private Updatable<Actor> creatureName(Entity entity) {
+	private Updatable<Actor> editableCreatureName(Entity entity) {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 		String headerText = attributes.getName().toString();
 

@@ -67,11 +67,11 @@ import java.util.stream.Collectors;
 
 @Singleton
 public class SettlerManagementScreen extends AbstractGameScreen implements DisplaysText, GameContextAware {
-	private static final Predicate<Entity> IS_CIVILIAN = settler -> {
+	public static final Predicate<Entity> IS_MILITARY = settler -> {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
-		return militaryComponent == null || militaryComponent.getSquadId() == null;
+		return militaryComponent != null && militaryComponent.isInMilitary();
 	};
-	public static final Predicate<Entity> IS_MILITARY = IS_CIVILIAN.negate();
+	private static final Predicate<Entity> IS_CIVILIAN = IS_MILITARY.negate();
 
 	private record MatchesActiveProfession(Skill skill) implements Predicate<Entity> {
 

@@ -50,6 +50,7 @@ BODY_STRUCTURE.DAMAGE.BLEEDING,Bleeding,,Blutet,,Sanguinamento,Sangrando,,,,Кр
 BODY_STRUCTURE.DAMAGE.BROKENBONES,Broken,,Gebrochen,,Ossa rotte,Roto,,,,Сломанный,,,,,,,,骨折:,断裂,
 BODY_STRUCTURE.DAMAGE.BRUISED,Bruised,,Gequetscht,,Ferito,Magullado,,,,Ушибленный,,,,,,,,痣になっている:,擦伤,
 BODY_STRUCTURE.DAMAGE.DESTROYED,Destroyed,,Zerstört,,Distrutto,Destruido,,,,Уничтоженный,,,,,,,,破壊された:,摧毁,
+BODY_STRUCTURE.DAMAGE.NOT_INJURED,Not Injured,,,,,,,,,,,,,,,,,,,
 BODY_STRUCTURE.DISCRIMINATOR.BACKLEFT,Rear left,,Hinten links,,Posteriore sinistro,Trasera izquierda,,,,Задний нижний,,,,,,,,後方左,左后,
 BODY_STRUCTURE.DISCRIMINATOR.BACKRIGHT,Rear right,,Hinten rechts,,Posteriore destro,Trasera derecha,,,,Задний правый,,,,,,,,後方右,右后,
 BODY_STRUCTURE.DISCRIMINATOR.FIRSTLEFT,First left,,,,,,,,,,,,,,,,,,,
