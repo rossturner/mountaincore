@@ -144,7 +144,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				ProductionImportFurnitureWidget.this.onClick();
+				ProductionImportFurnitureWidget.this.onClickItemType();
 			}
 		});
 		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
@@ -156,7 +156,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 
 	}
 
-	private void onClick() {
+	private void onClickItemType() {
 		MapTile tile = gameContext.getAreaMap().getTile(furnitureEntity.getLocationComponent().getWorldOrParentPosition());
 		if (tile == null || tile.getRoomTile() == null) {
 			Logger.error("No room tile found under furniture entity {}", furnitureEntity);

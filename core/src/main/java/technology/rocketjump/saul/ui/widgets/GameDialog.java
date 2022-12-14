@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.entities.SequentialIdGenerator;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
@@ -16,6 +18,7 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 
 public abstract class GameDialog implements Disposable {
 
+	private final long id;
 	private final Skin skin;
 	protected final MessageDispatcher messageDispatcher;
 	protected final SoundAssetDictionary soundAssetDictionary;
@@ -32,6 +35,7 @@ public abstract class GameDialog implements Disposable {
 	}
 	public GameDialog(I18nText titleText, Skin skin, MessageDispatcher messageDispatcher,
 					  Window.WindowStyle windowStyle, SoundAssetDictionary soundAssetDictionary) {
+		this.id = SequentialIdGenerator.nextId();
 		this.messageDispatcher = messageDispatcher;
 		this.soundAssetDictionary = soundAssetDictionary;
 		dialog = new Dialog("", skin) {
@@ -93,6 +97,7 @@ public abstract class GameDialog implements Disposable {
 			dialog.show(stage, Actions.alpha(1));
 			dialog.setPosition(Math.round((stage.getWidth() - dialog.getWidth()) / 2), Math.round((stage.getHeight() - dialog.getHeight()) / 2));
 		}
+		messageDispatcher.dispatchMessage(MessageType.DIALOG_SHOWN, this);
 	}
 
 	public void close() {
@@ -105,6 +110,7 @@ public abstract class GameDialog implements Disposable {
 		} else {
 			dialog.hide(Actions.alpha(0f));
 		}
+		messageDispatcher.dispatchMessage(MessageType.DIALOG_HIDDEN, this);
 		dispose();
 	}
 
@@ -135,5 +141,9 @@ public abstract class GameDialog implements Disposable {
 
 	public void setShowWithAnimation(boolean showWithAnimation) {
 		this.showWithAnimation = showWithAnimation;
+	}
+
+	public long getId() {
+		return id;
 	}
 }

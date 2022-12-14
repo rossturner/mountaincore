@@ -9,15 +9,22 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.utils.Pools;
+import technology.rocketjump.saul.ui.widgets.GameDialog;
+import technology.rocketjump.saul.ui.widgets.GameDialogMessageHandler;
+
+import java.util.List;
 
 public class StageAreaOnlyInputHandler implements InputProcessor {
 
 	private final Stage parent;
 	private final GameInteractionStateContainer interactionStateContainer;
+	private final GameDialogMessageHandler gameDialogMessageHandler;
 
-	public StageAreaOnlyInputHandler(Stage parent, GameInteractionStateContainer interactionStateContainer) {
+	public StageAreaOnlyInputHandler(Stage parent, GameInteractionStateContainer interactionStateContainer,
+									 GameDialogMessageHandler gameDialogMessageHandler) {
 		this.parent = parent;
 		this.interactionStateContainer = interactionStateContainer;
+		this.gameDialogMessageHandler = gameDialogMessageHandler;
 	}
 
 	@Override
@@ -40,6 +47,14 @@ public class StageAreaOnlyInputHandler implements InputProcessor {
 		Vector2 mouseStageCoords = parent.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 		Actor target = parent.hit(mouseStageCoords.x, mouseStageCoords.y, true);
 		parent.touchDown(screenX, screenY, pointer, button);
+		if (button == Input.Buttons.RIGHT) {
+			List<GameDialog> displayedDialogs = gameDialogMessageHandler.getDisplayedDialogs();
+			if (displayedDialogs.size() > 0) {
+				displayedDialogs.get(0).close();
+				return true;
+			}
+		}
+
 		if (target == null || button == Input.Buttons.RIGHT || interactionStateContainer.isDragging()) {
 			return false;
 		} else {

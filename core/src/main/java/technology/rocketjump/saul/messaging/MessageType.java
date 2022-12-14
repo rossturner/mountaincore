@@ -69,6 +69,8 @@ public class MessageType {
 	public static final int SET_INTERACTION_MODE_CURSOR = 287;
 	public static final int INTERACTION_MODE_CHANGED = 288;
 	public static final int GUI_REMOVE_ALL_TOOLTIPS = 289;
+	public static final int DIALOG_SHOWN = 290;
+	public static final int DIALOG_HIDDEN = 291;
 
 	// i18n Messages
 	public static final int FONTS_CHANGED = 300;

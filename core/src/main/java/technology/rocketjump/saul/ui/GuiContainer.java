@@ -23,6 +23,7 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.views.*;
 import technology.rocketjump.saul.ui.views.debug.DebugGuiView;
 import technology.rocketjump.saul.ui.widgets.GameDialog;
+import technology.rocketjump.saul.ui.widgets.GameDialogMessageHandler;
 import technology.rocketjump.saul.ui.widgets.tooltips.Tooltip;
 
 import java.util.Arrays;
@@ -63,6 +64,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 						GuiSkinRepository guiSkinRepository, GuiViewRepository guiViewRepository, TimeDateGuiView timeDateGuiView,
 						InfoWindow infoWindow, HintGuiView hintGuiView,
 						DebugGuiView debugGuiView, NotificationGuiView notificationGuiView,
+						GameDialogMessageHandler gameDialogMessageHandler,
 						MinimapGuiView minimapGuiView) {
 		this.infoWindow = infoWindow;
 		this.hintGuiView = hintGuiView;
@@ -76,7 +78,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		ExtendViewport viewport = new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y);
 
 		primaryStage = new Stage(viewport);
-		primaryStageInputHandler = new StageAreaOnlyInputHandler(primaryStage, interactionStateContainer);
+		primaryStageInputHandler = new StageAreaOnlyInputHandler(primaryStage, interactionStateContainer, gameDialogMessageHandler);
 
 		containerTable = new Table(uiSkin);
 		containerTable.setFillParent(true);
