@@ -308,17 +308,19 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					updatables.add(textSummary);
 
 					Table middleRow = new Table();
-					middleRow.add(happinessIcons.getActor()).expandX().top().right();
+					middleRow.add(happinessIcons.getActor()).top().right();
 					middleRow.add(textSummary.getActor()).left().spaceLeft(25f).grow();
 
 					outerTable.add(creatureName.getActor()).fillX().padTop(67).padBottom(20).row();
-					outerTable.add(middleRow).expandY().fillX().row();
+					Cell<Table> middleRowCell = outerTable.add(middleRow).expandY().fillX();
+					middleRowCell.row();
 					if (hasInventory) {
 						Updatable<Table> inventory = inventory(entity);
 						updatables.add(inventory);
 						outerTable.add(inventory.getActor()).padTop(20).padBottom(67 + dropshadowLength);
 					} else {
 						outerTable.setBackground(mainGameSkin.getDrawable("ENTITY_SELECT_BG_SMALL"));
+						middleRowCell.top();
 					}
 				}
 			}
@@ -605,6 +607,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private Updatable<Table> textSummary(Entity entity) {
 		HappinessComponent happinessComponent = entity.getComponent(HappinessComponent.class);
 		SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
+		FactionComponent factionComponent = entity.getComponent(FactionComponent.class);
 
 		Table table = new Table();
 		Updatable<Table> updatable = Updatable.of(table);
@@ -615,11 +618,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Label militaryProfessionLabel = new Label("", managementSkin, "default-font-18-label");
 
 		Label deadLabel = new Label("", managementSkin, "default-font-18-label");
+		Label factionLabel = new Label("", managementSkin, "default-font-18-label");
 
 		HorizontalGroup headlineLabels = new HorizontalGroup();
 		headlineLabels.addActor(happinessLabel);
 		headlineLabels.addActor(militaryProfessionLabel);
 		headlineLabels.addActor(deadLabel);
+		headlineLabels.addActor(factionLabel);
 
 		table.add(headlineLabels).left().spaceBottom(5f).row();
 
@@ -687,6 +692,14 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 		};
 
+		Runnable factionLabelUpdater = () -> {
+			factionLabel.setText("");
+			boolean isNotDead = !(entity.getBehaviourComponent() instanceof CorpseBehaviour);
+			if (isNotDead && factionComponent != null && (factionComponent.getFaction() == Faction.WILD_ANIMALS || factionComponent.getFaction() == Faction.MERCHANTS || factionComponent.getFaction() == Faction.MONSTERS)) {
+				factionLabel.setText(i18nTranslator.translate(factionComponent.getFaction().i18nKey));
+			}
+		};
+
 		Runnable descriptionUpdater = () -> {
 			behaviourTable.clear();
 
@@ -697,9 +710,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					behaviourDescriptions.add(i18nText.toString());
 				}
 			}
-
-			behaviourDescriptions.clear();
-			behaviourDescriptions.add("Fantômas (French: [fɑ̃tomas]) is a fictional character created by French writers Marcel Allain (1885–1969) and Pierre Souvestre (1874–1914). ");
 
 			for (String behaviourDescription : behaviourDescriptions) {
 				Label label = new Label(behaviourDescription, managementSkin, "default-font-16-label") {
@@ -719,6 +729,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		updatable.regularly(militaryProfessionUpdater);
 		updatable.regularly(descriptionUpdater);
 		updatable.regularly(deadLabelUpdater);
+		updatable.regularly(factionLabelUpdater);
 		updatable.update();
 		return updatable;
 	}

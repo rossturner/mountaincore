@@ -16,10 +16,12 @@ public enum Faction {
 
 	public final Color defensePoolShieldColor;
 	public final Color defensePoolBarColor;
+	public final String i18nKey;
 
 	Faction(String defensePoolShieldColor, String defensePoolBarColor) {
 		this.defensePoolShieldColor = HexColors.get(defensePoolShieldColor);
 		this.defensePoolBarColor = HexColors.get(defensePoolBarColor);
+		this.i18nKey = "FACTION." + name();
 	}
 
 }

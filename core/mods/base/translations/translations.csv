@@ -182,6 +182,12 @@ ENTITY.DESTRUCTION_DESCRIPTION.BURNED,,Destroyed by fire
 ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 ENTITY.DESTRUCTION_DESCRIPTION.COMBAT_DAMAGE,,Destroyed during combat
 
+FACTION.SETTLEMENT,,Settler
+FACTION.WILD_ANIMALS,,Wild Animal
+FACTION.MONSTERS,,Monster
+FACTION.HOSTILE_INVASION,,Hostile Invader
+FACTION.MERCHANTS,,Merchant
+
 FLOOR.CHANNEL.DESCRIPTION,,Irrigation channel ({{state}})
 FLOOR.CHANNEL.DESCRIPTION.TOOLTIP,,Irrigation channels provide access to water to crops within 2 tiles. Build a water pump and connect the channels to it using pipes.
 FLOOR.CHANNEL.STATE.EMPTY,,Empty
