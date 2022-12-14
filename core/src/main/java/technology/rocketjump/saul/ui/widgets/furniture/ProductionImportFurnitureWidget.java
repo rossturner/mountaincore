@@ -2,12 +2,10 @@ package technology.rocketjump.saul.ui.widgets.furniture;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Container;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
@@ -30,6 +28,7 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rooms.RoomType;
+import technology.rocketjump.saul.settlement.ItemAvailabilityChecker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
@@ -62,14 +61,21 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 	private final FurnitureTypeDictionary furnitureTypeDictionary;
 	private final CraftingTypeDictionary craftingTypeDictionary;
 	private final CraftingRecipeDictionary craftingRecipeDictionary;
+	private final GuiSkinRepository guiSkinRepository;
+	private final ItemAvailabilityChecker itemAvailabilityChecker;
 
 	private final Container<Button> buttonContainer = new Container<>();
 	private final Drawable noneSelectedDrawable;
 	private final Drawable backgroundDrawable;
-	private final GuiSkinRepository guiSkinRepository;
+	private final Button leftButton, rightButton;
+	private final MainGameSkin skin;
+
+
 	private Entity furnitureEntity;
 	private ProductionImportFurnitureBehaviour productionImportBehaviour;
 	private GameContext gameContext;
+
+	private List<GameMaterial> availableMaterials;
 
 
 	@Inject
@@ -78,7 +84,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 										   GameMaterialDictionary gameMaterialDictionary, EntityRenderer entityRenderer,
 										   I18nTranslator i18nTranslator, ItemTypeDictionary itemTypeDictionary,
 										   SoundAssetDictionary soundAssetDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
-										   CraftingTypeDictionary craftingTypeDictionary, CraftingRecipeDictionary craftingRecipeDictionary) {
+										   CraftingTypeDictionary craftingTypeDictionary, CraftingRecipeDictionary craftingRecipeDictionary, ItemAvailabilityChecker itemAvailabilityChecker) {
 		this.messageDispatcher = messageDispatcher;
 		this.guiSkinRepository = guiSkinRepository;
 		this.tooltipFactory = tooltipFactory;
@@ -92,10 +98,14 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 		this.craftingTypeDictionary = craftingTypeDictionary;
 		this.craftingRecipeDictionary = craftingRecipeDictionary;
 
-		MainGameSkin skin = guiSkinRepository.getMainGameSkin();
+		skin = guiSkinRepository.getMainGameSkin();
+		this.itemAvailabilityChecker = itemAvailabilityChecker;
 
 		backgroundDrawable = skin.getDrawable("asset_bg");
 		buttonContainer.setBackground(backgroundDrawable);
+
+		leftButton = new Button(skin.get("btn_arrow_small_left", Button.ButtonStyle.class));
+		rightButton = new Button(skin.get("btn_arrow_small_right", Button.ButtonStyle.class));
 
 		noneSelectedDrawable = skin.getDrawable("icon_not_equipped_no_bg");
 	}
@@ -132,7 +142,9 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 			if (selectedMaterial == null) {
 				selectedMaterial = gameMaterialDictionary.getExampleMaterial(selectedItemType.getPrimaryMaterialType());
 			}
-			((ItemEntityAttributes) displayedEntity.getPhysicalEntityComponent().getAttributes()).setMaterial(selectedMaterial);
+			ItemEntityAttributes attributes = (ItemEntityAttributes) displayedEntity.getPhysicalEntityComponent().getAttributes();
+			attributes.setMaterial(selectedMaterial);
+			attributes.setQuantity(selectedItemType.getMaxStackSize());
 			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, displayedEntity);
 
 			EntityDrawable entityDrawable = new EntityDrawable(displayedEntity, entityRenderer, true, messageDispatcher);
@@ -152,8 +164,64 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 
 		this.add(buttonContainer).center().row();
 
-		// TODO material selection
+		// Material selection
+		availableMaterials = new ArrayList<>(itemAvailabilityChecker.getAvailableMaterialsFor(selectedItemType, 1));
+		availableMaterials.add(0, null);
+		leftButton.clearListeners();
+		rightButton.clearListeners();
+		if (availableMaterials.size() > 1) {
+			leftButton.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					previousMaterialSelection();
+				}
+			});
+			leftButton.addListener(new ChangeCursorOnHover(leftButton, GameCursor.SELECT, messageDispatcher));
+			rightButton.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					nextMaterialSelection();
+				}
+			});
+			rightButton.addListener(new ChangeCursorOnHover(rightButton, GameCursor.SELECT, messageDispatcher));
+		} else {
+			leftButton.setDisabled(true);
+			rightButton.setDisabled(true);
+		}
 
+		GameMaterial selectedMaterial = productionImportBehaviour.getSelectedMaterial();
+		String materialI18nKey = selectedMaterial == null ? "MATERIAL_TYPE.ANY" : selectedMaterial.getI18nKey();
+		Label materialLabel = new Label(i18nTranslator.getTranslatedString(materialI18nKey).toString(), skin.get("default-red", Label.LabelStyle.class));
+		materialLabel.setAlignment(Align.center);
+		Table materialRow = new Table();
+		materialRow.add(leftButton).left().padRight(5);
+		materialRow.add(materialLabel).center().growX();
+		materialRow.add(rightButton).right().padLeft(5);
+		this.add(materialRow).center().growX().padTop(4).row();
+	}
+
+	private void previousMaterialSelection() {
+		GameMaterial previousMaterial = null;
+
+		for (GameMaterial availableMaterial : availableMaterials) {
+			if (availableMaterial == productionImportBehaviour.getSelectedMaterial()) {
+				break;
+			} else {
+				previousMaterial = availableMaterial;
+			}
+		}
+
+		productionImportBehaviour.setSelectedMaterial(previousMaterial);
+		rebuildUI();
+	}
+
+	private void nextMaterialSelection() {
+		int nextIndex = availableMaterials.indexOf(productionImportBehaviour.getSelectedMaterial()) + 1;
+		if (nextIndex == availableMaterials.size()) {
+			nextIndex = 0;
+		}
+		productionImportBehaviour.setSelectedMaterial(availableMaterials.get(nextIndex));
+		rebuildUI();
 	}
 
 	private void onClickItemType() {
