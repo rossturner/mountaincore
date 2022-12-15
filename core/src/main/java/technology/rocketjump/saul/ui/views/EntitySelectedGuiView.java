@@ -11,25 +11,28 @@ import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
-import technology.rocketjump.saul.entities.components.Faction;
-import technology.rocketjump.saul.entities.components.FactionComponent;
-import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
+import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
+import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.components.creature.StatusComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
+import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesType;
 import technology.rocketjump.saul.environment.model.GameSpeed;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
@@ -293,11 +296,11 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 			} else {
 				EntityType entityType = entity.getType();
+				boolean hasInventory = entity.getComponent(InventoryComponent.class) != null;
+				outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg"));
 
 				//TODO : Refactor out common components or modular design
 				if (entityType == EntityType.CREATURE) {
-					outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg"));
-					boolean hasInventory = entity.getComponent(InventoryComponent.class) != null;
 
 					Updatable<Actor> creatureName = creatureName(entity);
 					Updatable<Table> happinessIcons = happinessIcons(entity);
@@ -320,32 +323,116 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						outerTable.add(inventory.getActor()).padTop(20).padBottom(67 + dropshadowLength);
 					} else {
 						outerTable.setBackground(mainGameSkin.getDrawable("ENTITY_SELECT_BG_SMALL"));
-						middleRowCell.top();
+						middleRowCell.spaceTop(40).top();
+					}
+				} else {
+					Updatable<Actor> name = titleRibbon(i18nTranslator.getDescription(entity).toString());
+					Updatable<Actor> descriptions = textDescriptions(entity);
+
+
+					updatables.add(name);
+					updatables.add(descriptions);
+
+					//TODO think aligning from top and lay downwards
+					outerTable.add(name.getActor()).top().fillX().padTop(67).padBottom(20).row(); //TODO duplication from above
+					outerTable.add(descriptions.getActor()).left().growX();
+
+					//TODO: test this
+					if (hasInventory) {
+						Updatable<Table> inventory = inventory(entity);
+						updatables.add(inventory);
+						outerTable.add(inventory.getActor()).padTop(20).padBottom(67 + dropshadowLength);
 					}
 				}
 			}
 		}
 	}
 
-	private Updatable<Actor> creatureName(Entity entity) {
-//		Table table = new Table();
+	private Updatable<Actor> textDescriptions(Entity entity) {
+		InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
+		LiquidContainerComponent liquidContainerComponent = entity.getComponent(LiquidContainerComponent.class);
+		ItemAllocationComponent itemAllocationComponent = entity.getComponent(ItemAllocationComponent.class);
+		EntityAttributes entityAttributes = entity.getPhysicalEntityComponent().getAttributes();
 
-		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-		final String headerText;
-		if (attributes.getName() != null) {
-			headerText = attributes.getName().toString();
-		} else {
-			headerText = i18nTranslator.getCreatureDescription(entity, attributes).toString();
-		}
+		Table table = new Table();
+		Updatable<Actor> updatable = Updatable.of(table);
+
+		Runnable updater = () -> {
+			Collection<String> descriptions = new TreeSet<>(Comparator.comparing(String::length).reversed()); //Rocky being weird here, ordering by longest strings first, makes me wonder if we have a prioriy mechanism
+			for (EntityComponent component : entity.getAllComponents()) {
+				if (component instanceof SelectableDescription selectableDescription) {
+					for (I18nText description : selectableDescription.getDescription(i18nTranslator, gameContext, messageDispatcher)) {
+						if (!description.isEmpty()) {
+							descriptions.add(description.toString());
+						}
+					}
+				}
+			}
+
+			if (entityAttributes instanceof PlantEntityAttributes plant) {
+				if (plant.isAfflictedByPests()) {
+					descriptions.add(i18nTranslator.translate("CROP.AFFLICTED_BY_PESTS"));
+				}
+				if (PlantSpeciesType.CROP == plant.getSpecies().getPlantType()) {
+					float harvestProgress = 100f * plant.estimatedProgressToHarvesting();
+					descriptions.add(i18nTranslator.getHarvestProgress(harvestProgress).toString());
+				}
+			}
+			if (entityAttributes instanceof FurnitureEntityAttributes furniture) {
+				if (furniture.getAssignedToEntityId() != null) {
+					Entity assignedEntity = entityStore.getById(furniture.getAssignedToEntityId());
+					if (assignedEntity == null) {
+						Logger.error("Could not find furniture's assignedTo entity by ID " + furniture.getAssignedToEntityId());
+					} else {
+						descriptions.add(i18nTranslator.getAssignedToLabel(assignedEntity).toString());
+					}
+				}
+				if (furniture.isDestroyed()) {
+					descriptions.add(i18nTranslator.getTranslatedString(furniture.getDestructionCause().i18nKey).toString());
+				}
+			}
+
+			if (entityAttributes instanceof ItemEntityAttributes item) {
+				if (item.isDestroyed()) {
+					descriptions.add(i18nTranslator.getTranslatedString(item.getDestructionCause().i18nKey).toString());
+				}
+			}
+			/*
+
+				if (entity.getType().equals(ITEM)) {
+					Map<I18nText, Integer> haulingCounts = getHaulingTargetDescriptions(entity);
+					for (Map.Entry<I18nText, Integer> targetDescriptionEntry : haulingCounts.entrySet()) {
+						Map<String, I18nString> replacements = new HashMap<>();
+						replacements.put("targetDescription", targetDescriptionEntry.getKey());
+						replacements.put("quantity", new I18nWord(String.valueOf(targetDescriptionEntry.getValue())));
+						I18nText allocationDescription = i18nTranslator.getTranslatedWordWithReplacements("HAULING.ASSIGNMENT.DESCRIPTION", replacements);
+						entityDescriptionTable.add(new I18nTextWidget(allocationDescription, uiSkin, messageDispatcher)).left().row();
+					}
+
+					ItemEntityAttributes itemEntityAttributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 
 
-		Label headerLabel = new Label(headerText, mainGameSkin.get("title-header", Label.LabelStyle.class));
-		Container<Label> headerContainer = new Container<>(headerLabel);
-		headerContainer.setBackground(mainGameSkin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
+				}
+			 */
 
-//		table.add(headerContainer).growX();
+			if (liquidContainerComponent != null && liquidContainerComponent.getLiquidQuantity() > 0) {
+				for (I18nText liquidText : liquidContainerComponent.i18nDescription(i18nTranslator)) {
+					descriptions.add(liquidText.toString()); //TODO: Test me
+				}
+			}
 
-		Updatable<Actor> updatable = Updatable.of(headerContainer);
+			table.clear();
+			for (String description : descriptions) {
+				//TODO: Decide whether it wraps or just stretches
+				Label label = new Label(description, managementSkin, "default-font-18-label");
+				table.add(label).grow();
+			}
+
+
+		};
+		updatable.regularly(updater);
+		updatable.update();
+
 		return updatable;
 	}
 
@@ -359,89 +446,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 
 /*
-				entityDescriptionTable.add(new I18nTextWidget(i18nTranslator.getDescription(entity), uiSkin, messageDispatcher)).left().row();
-
-				for (EntityComponent component : entity.getAllComponents()) {
-					if (component instanceof SelectableDescription) {
-						for (I18nText description : ((SelectableDescription) component).getDescription(i18nTranslator, gameContext, messageDispatcher)) {
-							if (!description.isEmpty()) {
-								entityDescriptionTable.add(new I18nTextWidget(description, uiSkin, messageDispatcher)).left().row();
-							}
-						}
-					}
-				}
-
-				if (entity.getType().equals(CREATURE)) {
-					populateInjuriesTable(entity);
-				} else {
-					injuriesTable.clearChildren();
-				}
-
-
-				InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
-				LiquidContainerComponent liquidContainerComponent = entity.getComponent(LiquidContainerComponent.class);
-				if (containsSomething(inventoryComponent, liquidContainerComponent)) {
-					entityDescriptionTable.add(inventoryLabel).left().row();
-					if (inventoryComponent != null) {
-						for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
-							entityDescriptionTable.add(new I18nTextWidget(i18nTranslator.getDescription(inventoryEntry.entity), uiSkin, messageDispatcher)).left().row();
-						}
-					}
-					if (liquidContainerComponent != null && liquidContainerComponent.getLiquidQuantity() > 0) {
-						for (I18nText descriptionString : liquidContainerComponent.i18nDescription(i18nTranslator)) {
-							entityDescriptionTable.add(new I18nTextWidget(descriptionString, uiSkin, messageDispatcher)).left().row();
-						}
-					}
-				}
-
-				if (entity.getType().equals(EntityType.FURNITURE) && entity.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes) {
-					FurnitureEntityAttributes furnitureEntityAttributes = (FurnitureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-					if (furnitureEntityAttributes.getAssignedToEntityId() != null) {
-						Entity assignedToEntity = entityStore.getById(furnitureEntityAttributes.getAssignedToEntityId());
-						if (assignedToEntity == null) {
-							Logger.error("Could not find furniture's assignedTo entity by ID " + furnitureEntityAttributes.getAssignedToEntityId());
-						} else {
-							entityDescriptionTable.add(new I18nTextWidget(i18nTranslator.getAssignedToLabel(assignedToEntity), uiSkin, messageDispatcher)).left().row();
-						}
-					}
-					if (furnitureEntityAttributes.isDestroyed()) {
-						entityDescriptionTable.add(new I18nTextWidget(i18nTranslator.getTranslatedString(furnitureEntityAttributes.getDestructionCause().i18nKey),
-								uiSkin, messageDispatcher)).left().row();
-					}
-				}
-
-				if (entity.getType().equals(EntityType.PLANT)) {
-					PlantEntityAttributes attributes = (PlantEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-					if (attributes.isAfflictedByPests()) {
-						entityDescriptionTable.add(new I18nTextWidget(i18nTranslator.getTranslatedString("CROP.AFFLICTED_BY_PESTS"), uiSkin, messageDispatcher)).left().row();
-					}
-					if (attributes.getSpecies().getPlantType().equals(PlantSpeciesType.CROP)) {
-						float harvestProgress = 100f * attributes.estimatedProgressToHarvesting();
-						entityDescriptionTable.add(new I18nTextWidget(i18nTranslator.getHarvestProgress(harvestProgress), uiSkin, messageDispatcher)).left().row();
-					}
-				}
-
-				if (entity.getType().equals(ITEM)) {
-					Map<I18nText, Integer> haulingCounts = getHaulingTargetDescriptions(entity);
-					for (Map.Entry<I18nText, Integer> targetDescriptionEntry : haulingCounts.entrySet()) {
-						Map<String, I18nString> replacements = new HashMap<>();
-						replacements.put("targetDescription", targetDescriptionEntry.getKey());
-						replacements.put("quantity", new I18nWord(String.valueOf(targetDescriptionEntry.getValue())));
-						I18nText allocationDescription = i18nTranslator.getTranslatedWordWithReplacements("HAULING.ASSIGNMENT.DESCRIPTION", replacements);
-						entityDescriptionTable.add(new I18nTextWidget(allocationDescription, uiSkin, messageDispatcher)).left().row();
-					}
-
-					ItemEntityAttributes itemEntityAttributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-					if (itemEntityAttributes.isDestroyed()) {
-						entityDescriptionTable.add(new I18nTextWidget(i18nTranslator.getTranslatedString(itemEntityAttributes.getDestructionCause().i18nKey),
-								uiSkin, messageDispatcher)).left().row();
-					}
-
-				}
 
 				if (GlobalSettings.DEV_MODE) {
 
-					ItemAllocationComponent itemAllocationComponent = entity.getComponent(ItemAllocationComponent.class);
+
 					if (itemAllocationComponent != null) {
 						List<ItemAllocation> itemAllocations = itemAllocationComponent.getAll();
 						if (itemAllocations.size() > 0) {
@@ -528,11 +536,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 		}*/
 
-	}
-
-	private boolean containsSomething(InventoryComponent inventoryComponent, LiquidContainerComponent liquidContainerComponent) {
-		return (inventoryComponent != null && !inventoryComponent.getInventoryEntries().isEmpty()) ||
-				(liquidContainerComponent != null && liquidContainerComponent.getLiquidQuantity() > 0);
 	}
 
 /*	private Map<I18nText, Integer> getHaulingTargetDescriptions(Entity itemEntity) {
@@ -844,6 +847,24 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		return happinessModifierText;
 	}
 
+	private Updatable<Actor> creatureName(Entity entity) {
+		final String headerText;
+		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+		if (attributes.getName() != null) {
+			headerText = attributes.getName().toString();
+		} else {
+			headerText = i18nTranslator.getCreatureDescription(entity, attributes).toString();
+		}
+
+		return titleRibbon(headerText);
+	}
+
+	private Updatable<Actor> titleRibbon(String headerText) {
+		Label headerLabel = new Label(headerText, mainGameSkin.get("title-header", Label.LabelStyle.class));
+		Container<Label> headerContainer = new Container<>(headerLabel);
+		headerContainer.setBackground(mainGameSkin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
+		return Updatable.of(headerContainer);
+	}
 
 	private Updatable<Actor> editableCreatureName(Entity entity) {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
