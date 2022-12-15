@@ -14,13 +14,17 @@ import com.ray3k.tenpatch.TenPatchDrawable;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.EntityStore;
+import technology.rocketjump.saul.entities.ai.combat.CombatAction;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.*;
+import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.components.creature.StatusComponent;
+import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
+import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -38,11 +42,16 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.JobStore;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
+import technology.rocketjump.saul.jobs.model.Job;
+import technology.rocketjump.saul.jobs.model.JobType;
+import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.production.StockpileComponentUpdater;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
+import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.screens.SettlerManagementScreen;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
@@ -51,6 +60,7 @@ import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
+import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nWord;
@@ -68,6 +78,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.ENTITY;
 
 @Singleton
@@ -88,7 +99,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private final MenuSkin menuSkin;
 	private final DecoratedStringLabelFactory decoratedStringLabelFactory;
 	private final EntityRenderer entityRenderer;
-	//	private final JobType haulingJobType;
+	private final JobType haulingJobType;
 //	private final ImageButton changeSettlerNameButton;
 //	private final ClickableTable squadTextButton;
 
@@ -97,8 +108,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 //	private Table entityDescriptionTable;
 	private GameContext gameContext;
-//	private Label beingDeconstructedLabel;
-//	private I18nCheckbox militaryToggleCheckbox;
 //	private Selectable previousSelectable;
 
 //	private final Table nameTable;
@@ -152,6 +161,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		this.raceDictionary = raceDictionary;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
+
+		haulingJobType = jobTypeDictionary.getByName("HAULING");
 /*
 		outerTable = new Table(uiSkin);
 		outerTable.background("default-rect");
@@ -160,7 +171,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		entityDescriptionTable = new Table(uiSkin);
 		entityDescriptionTable.pad(10);
 
-		haulingJobType = jobTypeDictionary.getByName("HAULING");
 
 
 		viewCraftingButton = iconButtonFactory.create("GUI.CRAFTING_MANAGEMENT.TITLE", "gears", HexColors.get("#6677FF"), ButtonStyle.SMALL);
@@ -198,7 +208,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 		});
 
-		beingDeconstructedLabel = i18nWidgetFactory.createLabel("GUI.FURNITURE_BEING_REMOVED");
 		inventoryLabel = i18nWidgetFactory.createLabel("INVENTORY.CONTAINS.LABEL");
 
 		injuriesTable = new Table(uiSkin);
@@ -297,6 +306,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			} else {
 				EntityType entityType = entity.getType();
 				boolean hasInventory = entity.getComponent(InventoryComponent.class) != null;
+				outerTable.top();
 				outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg"));
 
 				//TODO : Refactor out common components or modular design
@@ -335,7 +345,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 					//TODO think aligning from top and lay downwards
 					outerTable.add(name.getActor()).top().fillX().padTop(67).padBottom(20).row(); //TODO duplication from above
-					outerTable.add(descriptions.getActor()).left().growX();
+					outerTable.add(descriptions.getActor()).center().row();
 
 					//TODO: test this
 					if (hasInventory) {
@@ -349,16 +359,16 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	}
 
 	private Updatable<Actor> textDescriptions(Entity entity) {
-		InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 		LiquidContainerComponent liquidContainerComponent = entity.getComponent(LiquidContainerComponent.class);
 		ItemAllocationComponent itemAllocationComponent = entity.getComponent(ItemAllocationComponent.class);
 		EntityAttributes entityAttributes = entity.getPhysicalEntityComponent().getAttributes();
+		ConstructedEntityComponent constructedEntityComponent = entity.getComponent(ConstructedEntityComponent.class);
 
 		Table table = new Table();
 		Updatable<Actor> updatable = Updatable.of(table);
 
 		Runnable updater = () -> {
-			Collection<String> descriptions = new TreeSet<>(Comparator.comparing(String::length).reversed()); //Rocky being weird here, ordering by longest strings first, makes me wonder if we have a prioriy mechanism
+			Collection<String> descriptions = new ArrayList<>();
 			for (EntityComponent component : entity.getAllComponents()) {
 				if (component instanceof SelectableDescription selectableDescription) {
 					for (I18nText description : selectableDescription.getDescription(i18nTranslator, gameContext, messageDispatcher)) {
@@ -367,6 +377,14 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						}
 					}
 				}
+			}
+
+			if (constructedEntityComponent != null && constructedEntityComponent.isBeingDeconstructed()) {
+				descriptions.add(i18nTranslator.translate("GUI.FURNITURE_BEING_REMOVED"));
+			}
+
+			if (itemAllocationComponent != null && itemAllocationComponent.getAllocationForPurpose(ItemAllocation.Purpose.CONTENTS_TO_BE_DUMPED) != null) {
+				descriptions.add(i18nTranslator.translate("GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED"));
 			}
 
 			if (entityAttributes instanceof PlantEntityAttributes plant) {
@@ -393,27 +411,23 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 
 			if (entityAttributes instanceof ItemEntityAttributes item) {
+				List<String> haulingDescriptions = getHaulingDescriptions(entity);
+				descriptions.addAll(haulingDescriptions); //TODO: this might be where we want them clustered/ordered together
+
 				if (item.isDestroyed()) {
 					descriptions.add(i18nTranslator.getTranslatedString(item.getDestructionCause().i18nKey).toString());
 				}
 			}
-			/*
 
-				if (entity.getType().equals(ITEM)) {
-					Map<I18nText, Integer> haulingCounts = getHaulingTargetDescriptions(entity);
-					for (Map.Entry<I18nText, Integer> targetDescriptionEntry : haulingCounts.entrySet()) {
-						Map<String, I18nString> replacements = new HashMap<>();
-						replacements.put("targetDescription", targetDescriptionEntry.getKey());
-						replacements.put("quantity", new I18nWord(String.valueOf(targetDescriptionEntry.getValue())));
-						I18nText allocationDescription = i18nTranslator.getTranslatedWordWithReplacements("HAULING.ASSIGNMENT.DESCRIPTION", replacements);
-						entityDescriptionTable.add(new I18nTextWidget(allocationDescription, uiSkin, messageDispatcher)).left().row();
+			if (GlobalSettings.DEV_MODE) {
+				if (itemAllocationComponent != null) {
+					List<ItemAllocation> itemAllocations = itemAllocationComponent.getAll();
+					for (ItemAllocation itemAllocation : itemAllocations) {
+						descriptions.add(itemAllocation.toString());
 					}
-
-					ItemEntityAttributes itemEntityAttributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-
-
 				}
-			 */
+
+			}
 
 			if (liquidContainerComponent != null && liquidContainerComponent.getLiquidQuantity() > 0) {
 				for (I18nText liquidText : liquidContainerComponent.i18nDescription(i18nTranslator)) {
@@ -425,7 +439,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			for (String description : descriptions) {
 				//TODO: Decide whether it wraps or just stretches
 				Label label = new Label(description, managementSkin, "default-font-18-label");
-				table.add(label).grow();
+				table.add(label).grow().row();
 			}
 
 
@@ -447,62 +461,19 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 /*
 
-				if (GlobalSettings.DEV_MODE) {
-
-
-					if (itemAllocationComponent != null) {
-						List<ItemAllocation> itemAllocations = itemAllocationComponent.getAll();
-						if (itemAllocations.size() > 0) {
-							String allocationsString = StringUtils.join(itemAllocations, ", ");
-							entityDescriptionTable.add(new Label("Allocations: " + allocationsString, uiSkin)).left().row();
-						}
-					}
-					if (entity.getType().equals(EntityType.CREATURE)) {
-						CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
-						if (combatStateComponent != null && combatStateComponent.isInCombat()) {
-							if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
-								CombatAction currentAction = creatureBehaviour.getCombatBehaviour().getCurrentAction();
-								String combatText;
-								if (currentAction == null) {
-									combatText = "In combat";
-								} else {
-									combatText = "In combat: " + currentAction.getClass().getSimpleName();
-								}
-								entityDescriptionTable.add(new Label(combatText, uiSkin)).left().row();
-							}
-						}
-					}
-				}
-			}
-
-			entityDescriptionTable.row();
-
-			outerTable.add(entityDescriptionTable).top();
-
-			if (injuriesTable.hasChildren() && !entity.isSettler()) {
-				outerTable.add(injuriesTable).padLeft(5);
-			}
-
 			if (entity.getBehaviourComponent() != null && entity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
 				outerTable.add(viewCraftingButton);
 			}
 
 			ConstructedEntityComponent constructedEntityComponent = entity.getComponent(ConstructedEntityComponent.class);
 			if (constructedEntityComponent != null) {
-				if (constructedEntityComponent.isBeingDeconstructed()) {
-					outerTable.add(beingDeconstructedLabel);
-				} else if (constructedEntityComponent.canBeDeconstructed()) {
+				if (constructedEntityComponent.canBeDeconstructed()) {
 					outerTable.add(deconstructButton);
 				}
 			}
 
 			if (isItemContainingLiquidOnGroundAndNoneAllocated(entity)) {
 				outerTable.add(emptyLiquidContainerButton);
-			}
-
-			ItemAllocationComponent itemAllocationComponent = entity.getComponent(ItemAllocationComponent.class);
-			if (itemAllocationComponent != null && itemAllocationComponent.getAllocationForPurpose(CONTENTS_TO_BE_DUMPED) != null) {
-				outerTable.add(i18nWidgetFactory.createLabel("GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED"));
 			}
 
 			this.currentStockpileComponent = entity.getComponent(FurnitureStockpileComponent.class);
@@ -538,7 +509,20 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	}
 
-/*	private Map<I18nText, Integer> getHaulingTargetDescriptions(Entity itemEntity) {
+	private List<String> getHaulingDescriptions(Entity entity) {
+		Map<I18nText, Integer> haulingCounts = getHaulingTargetDescriptions(entity);
+		List<String> haulingDescriptions = new ArrayList<>(haulingCounts.size());
+		for (Map.Entry<I18nText, Integer> targetDescriptionEntry : haulingCounts.entrySet()) {
+			Map<String, I18nString> replacements = new HashMap<>();
+			replacements.put("targetDescription", targetDescriptionEntry.getKey());
+			replacements.put("quantity", new I18nWord(String.valueOf(targetDescriptionEntry.getValue())));
+			I18nText allocationDescription = i18nTranslator.getTranslatedWordWithReplacements("HAULING.ASSIGNMENT.DESCRIPTION", replacements);
+			haulingDescriptions.add(allocationDescription.toString());
+		}
+		return haulingDescriptions;
+	}
+
+	private Map<I18nText, Integer> getHaulingTargetDescriptions(Entity itemEntity) {
 		Map<I18nText, Integer> haulingTargetDescriptions = new LinkedHashMap<>();
 
 		List<Job> jobsAtLocation = jobStore.getJobsAtLocation(toGridPoint(itemEntity.getLocationComponent().getWorldOrParentPosition()));
@@ -593,7 +577,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}
 
 		return haulingTargetDescriptions;
-	}*/
+	}
 
 /*	private boolean isItemContainingLiquidOnGroundAndNoneAllocated(Entity entity) {
 		if (entity == null) {
@@ -711,6 +695,18 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				java.util.List<I18nText> description = creatureBehaviour.getDescription(i18nTranslator, gameContext, messageDispatcher);
 				for (I18nText i18nText : description) {
 					behaviourDescriptions.add(i18nText.toString());
+				}
+
+				if (GlobalSettings.DEV_MODE) {
+					CombatStateComponent combatStateComponent = entity.getComponent(CombatStateComponent.class);
+					if (combatStateComponent != null && combatStateComponent.isInCombat()) {
+						CombatAction currentAction = creatureBehaviour.getCombatBehaviour().getCurrentAction();
+						if (currentAction == null) {
+							behaviourDescriptions.add("In combat");
+						} else {
+							behaviourDescriptions.add("In combat: " + currentAction.getClass().getSimpleName());
+						}
+					}
 				}
 			}
 
@@ -925,17 +921,23 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Table table = new Table();
 		Updatable<Table> updatable = Updatable.of(table);
 		InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
+		DecorationInventoryComponent decorationInventoryComponent = entity.getComponent(DecorationInventoryComponent.class);
 
 		int maxSlots = 8;
 		updatable.regularly(() -> {
 			table.clear();
-			Collection<InventoryComponent.InventoryEntry> inventoryEntries;
+
+			List<Entity> inventoryEntities = new ArrayList<>();
 			if (inventoryComponent != null) {
-				inventoryEntries = inventoryComponent.getInventoryEntries();
-			} else {
-				inventoryEntries = Collections.emptyList();
+				inventoryEntities.addAll(inventoryComponent.getInventoryEntries().stream().map(entry -> entry.entity).toList());
 			}
-			Iterator<InventoryComponent.InventoryEntry> inventoryIterator = inventoryEntries.iterator();
+			if (decorationInventoryComponent != null) {
+				inventoryEntities.addAll(decorationInventoryComponent.getDecorationEntities());
+			}
+			Iterator<Entity> inventoryIterator = inventoryEntities.iterator();
+
+
+
 			for (int slotIndex = 0; slotIndex < maxSlots; slotIndex++) {
 				Stack entityStack = new Stack();
 
@@ -947,8 +949,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				entityStack.add(backgroundContainer);
 
 				if (inventoryIterator.hasNext()) {
-					InventoryComponent.InventoryEntry inventoryEntry = inventoryIterator.next();
-					Entity inventoryItem = inventoryEntry.entity;
+					Entity inventoryItem = inventoryIterator.next();
+
 					ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryItem.getPhysicalEntityComponent().getAttributes();
 					int quantity = attributes.getQuantity();
 
@@ -958,7 +960,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					entityDrawable.setMinSize(emptyBackgroundDrawable.getMinWidth(), emptyBackgroundDrawable.getMinHeight());
 
 					Image entityImage = new Image(entityDrawable);
-					tooltipFactory.simpleTooltip(entityImage, i18nTranslator.getDescription(inventoryEntry.entity), TooltipLocationHint.BELOW); //TODO: need to do something to prevent sticky tooltips
+					tooltipFactory.simpleTooltip(entityImage, i18nTranslator.getDescription(inventoryItem), TooltipLocationHint.BELOW); //TODO: need to do something to prevent sticky tooltips
 
 					Container<Image> entityImageContainer = new Container<>(entityImage);
 					entityImageContainer.bottom().right();
