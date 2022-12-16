@@ -379,6 +379,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						}
 					}
 				});
+				if (constructedEntityComponent.isBeingDeconstructed()) {
+					buttonFactory.disable(deconstructButton);
+				}
 				buttonFactory.attachClickCursor(deconstructButton, GameCursor.SELECT);
 				table.add(deconstructButton);
 			}

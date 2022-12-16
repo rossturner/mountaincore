@@ -2,6 +2,7 @@ package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
@@ -42,5 +43,10 @@ public class ButtonFactory {
 	public void attachClickCursor(Actor button, GameCursor cursor) {
 		button.addListener(new ChangeCursorOnHover(button, cursor, messageDispatcher));
 		button.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+	}
+
+	public void disable(Actor button) {
+		button.getColor().a = 0.5f;
+		button.setTouchable(Touchable.disabled);
 	}
 }
