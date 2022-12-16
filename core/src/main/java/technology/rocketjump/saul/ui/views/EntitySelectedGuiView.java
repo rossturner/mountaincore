@@ -18,7 +18,6 @@ import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.ai.combat.CombatAction;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
-import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
@@ -54,7 +53,6 @@ import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rooms.Room;
-import technology.rocketjump.saul.screens.ManagementScreenName;
 import technology.rocketjump.saul.screens.SettlerManagementScreen;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
@@ -281,9 +279,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					updatables.add(descriptions);
 					updatables.add(actionButtons);
 
-					outerTable.add(name.getActor()).top().fillX().padTop(67).padBottom(20).row(); //TODO duplication from above
-					outerTable.add(descriptions.getActor()).center().growY().row();
-					outerTable.add(actionButtons.getActor()).row();
+					outerTable.add(name.getActor()).top().fillX().padRight(67).padLeft(67).padTop(67).padBottom(20).row(); //TODO duplication from above
+					Table viewContents = new Table();
+					viewContents.defaults().growY().spaceBottom(20);
+					outerTable.add(viewContents).growY().padBottom(67 + dropshadowLength).padRight(67).padLeft(67);
+
+					viewContents.add(descriptions.getActor()).center().row();
+					viewContents.add(actionButtons.getActor()).row();
 					//TODO: consider a central table that expands from center
 
 /*
@@ -317,13 +319,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				outerTable.add(this.stockpileManagementTree).left().pad(4).row();
 			}
 		}*/
-
-
 					//TODO: test this
 					if (hasInventory) {
 						Updatable<Table> inventory = inventory(entity);
 						updatables.add(inventory);
-						outerTable.add(inventory.getActor()).padTop(20).padBottom(67 + dropshadowLength);
+						viewContents.add(inventory.getActor()).padTop(20);
+					} else {
+						outerTable.setBackground(mainGameSkin.getDrawable("ENTITY_SELECT_BG_SMALL"));
 					}
 				}
 			}
@@ -343,7 +345,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	private Updatable<Actor> actionButtons(Entity entity) {
 		ConstructedEntityComponent constructedEntityComponent = entity.getComponent(ConstructedEntityComponent.class);
-		BehaviourComponent behaviourComponent = entity.getBehaviourComponent();
 
 		Table table = new Table();
 		Updatable<Actor> updatable = Updatable.of(table);
@@ -352,20 +353,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		Runnable updater = () -> {
 			table.clear();
-			if (behaviourComponent instanceof CraftingStationBehaviour craftingStationBehaviour) {
-				TextButton craftingButton = new TextButton(i18nTranslator.translate("GUI.CRAFTING_MANAGEMENT.TITLE"), mainGameSkin, "btn_entity_selected_action");
-				craftingButton.addListener(new ClickListener() {
-					@Override
-					public void clicked(InputEvent event, float x, float y) {
-						super.clicked(event, x, y);
-						messageDispatcher.dispatchMessage(MessageType.SHOW_SPECIFIC_CRAFTING, craftingStationBehaviour.getCraftingType());
-						messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, ManagementScreenName.CRAFTING.name());
-					}
-				});
-				buttonFactory.attachClickCursor(craftingButton, GameCursor.SELECT);
-				table.add(craftingButton);
-			}
-
 
 			if (constructedEntityComponent != null && constructedEntityComponent.canBeDeconstructed()) {
 				TextButton deconstructButton = new TextButton(i18nTranslator.translate("GUI.REMOVE_LABEL"), mainGameSkin, "btn_entity_selected_action");
@@ -433,7 +420,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 
 			if (itemAllocationComponent != null && itemAllocationComponent.getAllocationForPurpose(ItemAllocation.Purpose.CONTENTS_TO_BE_DUMPED) != null) {
-				descriptions.add(i18nTranslator.translate("GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED"));
+					descriptions.add(i18nTranslator.translate("GUI.EMPTY_CONTAINER_LABEL.BEING_ACTIONED"));
 			}
 
 			if (entityAttributes instanceof PlantEntityAttributes plant) {
@@ -458,6 +445,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					descriptions.add(i18nTranslator.getTranslatedString(furniture.getDestructionCause().i18nKey).toString());
 				}
 			}
+
+
 
 			if (entityAttributes instanceof ItemEntityAttributes item) {
 				List<String> haulingDescriptions = getHaulingDescriptions(entity);
