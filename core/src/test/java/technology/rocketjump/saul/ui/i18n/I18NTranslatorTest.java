@@ -225,7 +225,7 @@ public class I18NTranslatorTest {
 	@Test
 	public void describeFurniture() throws IOException {
 		FurnitureEntityAttributes attributes = new FurnitureEntityAttributesFactory(new FurnitureTypeDictionary(new FurnitureLayoutDictionary(),
-				itemTypeDictionary)).byName("Stonemason_Bench", gameMaterialDictionary.getByName("Granite"));
+				itemTypeDictionary)).byName("Stonemason_Bench", GameMaterialType.STONE, gameMaterialDictionary.getByName("Granite"));
 		Entity entity = new FurnitureEntityFactory(mockMessageDispatcher, mockEntityAssetUpdater).create(attributes, new GridPoint2(), null, mockGameContext);
 		I18nText description = translator.getDescription(entity);
 
@@ -235,7 +235,7 @@ public class I18NTranslatorTest {
 	@Test
 	public void describeDoor() throws IOException {
 		FurnitureEntityAttributes attributes = new FurnitureEntityAttributesFactory(new FurnitureTypeDictionary(new FurnitureLayoutDictionary(),
-				itemTypeDictionary)).byName("SINGLE_DOOR", gameMaterialDictionary.getByName("Oak"));
+				itemTypeDictionary)).byName("SINGLE_DOOR", GameMaterialType.WOOD, gameMaterialDictionary.getByName("Oak"));
 		Entity entity = new FurnitureEntityFactory(mockMessageDispatcher, mockEntityAssetUpdater).create(attributes, new GridPoint2(), null, mockGameContext);
 		I18nText description = translator.getDescription(entity);
 
@@ -246,7 +246,7 @@ public class I18NTranslatorTest {
 	public void describeFurnitureConstruction() throws IOException {
 		GameMaterial material = gameMaterialDictionary.getByName("Granite");
 		FurnitureEntityAttributes attributes = new FurnitureEntityAttributesFactory(new FurnitureTypeDictionary(new FurnitureLayoutDictionary(),
-				itemTypeDictionary)).byName("Stonemason_Bench", material);
+				itemTypeDictionary)).byName("Stonemason_Bench", GameMaterialType.STONE , material);
 		Entity furnitureEntity = new FurnitureEntityFactory(mockMessageDispatcher, mockEntityAssetUpdater).create(attributes, new GridPoint2(), null, mockGameContext);
 
 		FurnitureConstruction construction = new FurnitureConstruction(furnitureEntity);
