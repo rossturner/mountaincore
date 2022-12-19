@@ -131,7 +131,6 @@ CREATURE.STATUS.DEAD,,Dead,死んでいる
 CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other pests and needs some work to remove them,Afflicted by pests,害虫が発生しています
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!,この作物には害虫が発生しており、{{PROFESSION.FARMER}}によって駆除されなければやがて枯死する可能性があります。
 CROP.DESCRIPTION,,{{materialType.noun}} plant,{{materialType.noun}}
-CROP.HARVEST_PROGRESS,E.g. “Progress towards harvest: 30%”,Progress towards harvest: {{progress}}%,成長中:収穫まで{{progress}}%
 CROP.MOISTURE_STATE.DROUGHTED,,This plant has no access to water for a long time and has stopped growing,この植物は長い間水が与えられていないため、成長が止まっています
 CROP.MOISTURE_STATE.NEEDS_WATERING,,This plant has not been watered and is growing slowly,この植物は水が不足しており、成長が遅くなっています
 CROP.MOISTURE_STATE.NEEDS_WATERING.TOOLTIP,,You can irrigate your crops with a channel containing water with 2 tiles.,水路を掘ることによって周囲2タイル分の土地を灌漑し、継続的に水を与え続けることができます。

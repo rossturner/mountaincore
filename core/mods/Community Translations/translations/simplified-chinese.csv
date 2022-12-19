@@ -131,7 +131,6 @@ CREATURE.STATUS.DEAD,,Dead,死亡
 CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other pests and needs some work to remove them,Afflicted by pests,虫害
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!,该农作物的虫害情况非常严重，需要{{PROFESSION.FARMER}}为其除虫，否则将会影响生长。若不及时除害，农作物甚至可能会死亡！
 CROP.DESCRIPTION,,{{materialType.noun}} plant,{{materialType.noun}}植物
-CROP.HARVEST_PROGRESS,E.g. “Progress towards harvest: 30%”,Progress towards harvest: {{progress}}%,距离收获：{{progress}}%
 CROP.MOISTURE_STATE.DROUGHTED,,This plant has no access to water for a long time and has stopped growing,该植物由于长时间缺水，已经停止生长
 CROP.MOISTURE_STATE.NEEDS_WATERING,,This plant has not been watered and is growing slowly,该植物由于没有浇水而生长缓慢
 CROP.MOISTURE_STATE.NEEDS_WATERING.TOOLTIP,,You can irrigate your crops with a channel containing water with 2 tiles.,你可以用水渠灌溉农作物

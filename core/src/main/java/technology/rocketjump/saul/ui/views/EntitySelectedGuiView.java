@@ -444,6 +444,31 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				table.add(progressBar).width(318).growX().row();
 
 			}
+
+
+			if (entity.getPhysicalEntityComponent().getAttributes() instanceof PlantEntityAttributes plant) {
+				if (PlantSpeciesType.CROP == plant.getSpecies().getPlantType()) {
+					float harvestProgress = 100f * plant.estimatedProgressToHarvesting();
+					Label label = new Label(i18nTranslator.getHarvestProgress(harvestProgress).toString(), managementSkin, "default-font-18-label");
+					label.setAlignment(Align.right);
+
+					ProgressBar progressBar = new ProgressBar(0, 100, 1, false, managementSkin);
+					progressBar.setValue(harvestProgress);
+					progressBar.setDisabled(true);
+					progressBar.setHeight(42);
+					Color progressBarColour = managementSkin.getColor("progress_bar_green");
+
+					ProgressBar.ProgressBarStyle clonedStyle = new ProgressBar.ProgressBarStyle(progressBar.getStyle());
+					if (clonedStyle.knobBefore instanceof NinePatchDrawable ninePatchDrawable) {
+						clonedStyle.knobBefore = ninePatchDrawable.tint(progressBarColour);
+					}
+					progressBar.setStyle(clonedStyle);
+
+					table.add(label).spaceRight(28);
+					table.add(progressBar).width(318).growX().row();
+
+				}
+			}
 		});
 
 		updatable.update();
@@ -482,10 +507,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			if (entityAttributes instanceof PlantEntityAttributes plant) {
 				if (plant.isAfflictedByPests()) {
 					descriptions.add(i18nTranslator.translate("CROP.AFFLICTED_BY_PESTS"));
-				}
-				if (PlantSpeciesType.CROP == plant.getSpecies().getPlantType()) {
-					float harvestProgress = 100f * plant.estimatedProgressToHarvesting();
-					descriptions.add(i18nTranslator.getHarvestProgress(harvestProgress).toString());
 				}
 			}
 			if (entityAttributes instanceof FurnitureEntityAttributes furniture) {

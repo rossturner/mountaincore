@@ -131,7 +131,6 @@ CREATURE.STATUS.DEAD,,Dead,Мертвый
 CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other pests and needs some work to remove them,Afflicted by pests,Поражено вредителями
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!,"Это растение пострадало от чрезмерного количества тлей и других насекомых, которых необходимо удалить {{PROFESSION.FARMER}}, прежде чем оно сможет снова расти. Несвоевременное удаление вредителей приведет к гибели урожая!"
 CROP.DESCRIPTION,,{{materialType.noun}} plant,Растение: {{materialType.noun}}
-CROP.HARVEST_PROGRESS,E.g. “Progress towards harvest: 30%”,Progress towards harvest: {{progress}}%,Прогресс до сбора урожая: {{progress}}%
 CROP.MOISTURE_STATE.DROUGHTED,,This plant has no access to water for a long time and has stopped growing,"Это растение долгое время не имеет доступа к воде и перестало расти. "
 CROP.MOISTURE_STATE.NEEDS_WATERING,,This plant has not been watered and is growing slowly,"Это растение не поливали и оно медленно растет "
 CROP.MOISTURE_STATE.NEEDS_WATERING.TOOLTIP,,You can irrigate your crops with a channel containing water with 2 tiles.,"Вы можете поливать свои посевы с помощью канала, содержащего воду в 2 клетках."
