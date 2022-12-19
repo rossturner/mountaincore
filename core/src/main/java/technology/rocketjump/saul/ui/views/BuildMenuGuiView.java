@@ -343,8 +343,10 @@ public class BuildMenuGuiView implements GuiView, DisplaysText, Telegraph {
 			Logger.error("Not yet implemented: " + buildSelection);
 			return new Container<>();
 		}
-		if (fakeFurnitureButton instanceof Image imageButton) {
-			selectionImageButtons.put(buildSelection, imageButton);
+		if (fakeFurnitureButton instanceof Container container) {
+			if (container.getActor() instanceof Image image) {
+				selectionImageButtons.put(buildSelection, image);
+			}
 		}
 		buttonContainer.size(183, 183);
 		fakeFurnitureButton.addListener(new ChangeCursorOnHover(fakeFurnitureButton, GameCursor.SELECT, messageDispatcher));
