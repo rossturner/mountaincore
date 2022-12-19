@@ -7,8 +7,6 @@
   "definitions/crafting/cookingRecipes.json" : "Alpha 3",
   "definitions/crafting/craftingRecipes.json" : "Alpha 3",
   "definitions/crafting/craftingTypes.json" : "Alpha 3",
-  "definitions/crafting/itemProductionDefaults.json" : "Alpha 4.1",
-  "definitions/crafting/liquidProductionDefaults.json" : "Alpha 4.1",
   "definitions/crafting/craftingOutputQuality.json" : "Early Access 1",
   "definitions/materials.json" : "Alpha 3",
   "definitions/designations.json" : "Alpha 3",

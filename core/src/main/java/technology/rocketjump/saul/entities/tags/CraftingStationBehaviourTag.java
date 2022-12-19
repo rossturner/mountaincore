@@ -70,7 +70,8 @@ public class CraftingStationBehaviourTag extends Tag {
 			CraftingStationBehaviour craftingStationBehaviour = new CraftingStationBehaviour(craftingType,
 					craftItemJobType, haulingJobType,
 					tagProcessingUtils.materialDictionary,
-					tagProcessingUtils.craftingOutputQualityDictionary);
+					tagProcessingUtils.craftingOutputQualityDictionary,
+					tagProcessingUtils.craftingRecipeDictionary);
 			craftingStationBehaviour.init(entity, messageDispatcher, gameContext);
 			craftingStationBehaviour.setRelatedItemTypes(relatedItemTypes);
 			entity.replaceBehaviourComponent(craftingStationBehaviour);

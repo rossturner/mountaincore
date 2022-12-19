@@ -42,7 +42,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static technology.rocketjump.saul.entities.EntityUpdater.TIME_BETWEEN_INFREQUENT_UPDATE_SECONDS;
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
 import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 import static technology.rocketjump.saul.entities.tags.ConstructionOverrideTag.ConstructionOverrideSetting.REQUIRES_EDIBLE_LIQUID;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
@@ -166,7 +165,7 @@ public class KitchenManager implements Telegraph, Updatable {
 			haulingJob.setHaulingAllocation(HaulingAllocationBuilder.createToHaulFurniture(matchingEntity)
 					.toConstruction(construction));
 
-			FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(matchingEntity, gameContext.getAreaMap());
+			FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(matchingEntity, gameContext.getAreaMap());
 			if (navigableWorkspace == null) {
 				Logger.warn("Could not find navigable workspace of " + matchingEntity.getPhysicalEntityComponent().getAttributes().toString());
 				return null;

@@ -10,6 +10,7 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.behaviour.furniture.ProductionExportFurnitureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.ProductionImportFurnitureBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
@@ -47,6 +48,7 @@ import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.*;
+import technology.rocketjump.saul.ui.widgets.furniture.ProductionExportFurnitureWidget;
 import technology.rocketjump.saul.ui.widgets.furniture.ProductionImportFurnitureWidget;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedString;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabel;
@@ -113,6 +115,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private final ItemTypeDictionary itemTypeDictionary;
 	private List<ToggleButtonSet.ToggleButtonDefinition> priorityButtonDefinitions;
 	private final ProductionImportFurnitureWidget productionImportFurnitureWidget;
+	private final ProductionExportFurnitureWidget productionExportFurnitureWidget;
 
 
 	@Inject
@@ -121,9 +124,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 								 EntityStore entityStore, JobStore jobStore,
 								 I18nWidgetFactory i18nWidgetFactory, JobTypeDictionary jobTypeDictionary,
 								 TooltipFactory tooltipFactory, DecoratedStringLabelFactory decoratedStringLabelFactory,
-								 StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
+								 FurnitureStockpileComponent currentStockpileComponent, StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
 								 GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
-								 ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary, SettlerManagementScreen settlerManagementScreen, ProductionImportFurnitureWidget productionImportFurnitureWidget) {
+								 ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary, SettlerManagementScreen settlerManagementScreen, ProductionImportFurnitureWidget productionImportFurnitureWidget, ProductionExportFurnitureWidget productionExportFurnitureWidget) {
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.menuSkin = guiSkinRepository.getMenuSkin();
@@ -134,6 +137,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		this.decoratedStringLabelFactory = decoratedStringLabelFactory;
+		this.currentStockpileComponent = currentStockpileComponent;
 		this.stockpileComponentUpdater = stockpileComponentUpdater;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.gameMaterialDictionary = gameMaterialDictionary;
@@ -217,6 +221,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		}*/
 		this.settlerManagementScreen = settlerManagementScreen;
 		this.productionImportFurnitureWidget = productionImportFurnitureWidget;
+		this.productionExportFurnitureWidget = productionExportFurnitureWidget;
 	}
 
 	@Override

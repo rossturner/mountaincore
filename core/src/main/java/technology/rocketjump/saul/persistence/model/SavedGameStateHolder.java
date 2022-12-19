@@ -34,7 +34,7 @@ import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.rooms.constructions.ConstructionType;
 import technology.rocketjump.saul.settlement.SettlementState;
-import technology.rocketjump.saul.settlement.production.ProductionAssignment;
+import technology.rocketjump.saul.settlement.production.CraftingAssignment;
 import technology.rocketjump.saul.zones.Zone;
 
 import java.lang.reflect.Constructor;
@@ -57,7 +57,7 @@ public class SavedGameStateHolder {
 	public final Map<Long, PowerGrid> powerGrids = new HashMap<>();
 	public final Map<GridPoint2, MapTile> tiles = new HashMap<>();
 	public final Map<GridPoint2, MapVertex> vertices = new HashMap<>();
-	public final Map<Long, ProductionAssignment> productionAssignments = new HashMap<>();
+	public final Map<Long, CraftingAssignment> craftingAssignments = new HashMap<>();
 	public final Map<String, Version> activeModNamesToVersions = new LinkedHashMap<>();
 	public final Map<Long, Squad> squads = new HashMap();
 	private SettlementState settlementState;
@@ -86,7 +86,7 @@ public class SavedGameStateHolder {
 	public final JSONArray powerGridJson;
 	public final JSONArray tileJson;
 	public final JSONArray vertexJson;
-	public final JSONArray productionAssignmentsJson;
+	public final JSONArray craftingAssignmentsJson;
 	public final JSONObject settlementStateJson;
 	public final JSONArray messagesJson;
 	public final JSONObject gameClockJson;
@@ -113,7 +113,7 @@ public class SavedGameStateHolder {
 		powerGridJson = new JSONArray();
 		tileJson = new JSONArray();
 		vertexJson = new JSONArray();
-		productionAssignmentsJson = new JSONArray();
+		craftingAssignmentsJson = new JSONArray();
 		settlementStateJson = new JSONObject(true);
 		messagesJson = new JSONArray();
 		gameClockJson = new JSONObject(true);
@@ -141,7 +141,7 @@ public class SavedGameStateHolder {
 		powerGridJson = combined.getJSONArray("powerGrids");
 		tileJson = combined.getJSONArray("tiles");
 		vertexJson = combined.getJSONArray("vertices");
-		productionAssignmentsJson = combined.getJSONArray("productionAssignments");
+		craftingAssignmentsJson = combined.getJSONArray("craftingAssignments");
 		settlementStateJson = combined.getJSONObject("settlementState");
 		messagesJson = combined.getJSONArray("messages");
 		gameClockJson = combined.getJSONObject("clock");
@@ -173,7 +173,7 @@ public class SavedGameStateHolder {
 		combined.put("powerGrids", powerGridJson);
 		combined.put("tiles", tileJson);
 		combined.put("vertices", vertexJson);
-		combined.put("productionAssignments", productionAssignmentsJson);
+		combined.put("craftingAssignments", craftingAssignmentsJson);
 		combined.put("settlementState", settlementStateJson);
 		combined.put("messages", messagesJson);
 		combined.put("clock", gameClockJson);
@@ -206,7 +206,7 @@ public class SavedGameStateHolder {
 		convertJsonToInstances(zonesJson, Zone.class, relatedStores);
 		convertJsonToInstances(jobsJson, Job.class, relatedStores);
 		convertJsonToInstances(jobRequestsJson, JobRequestMessage.class, relatedStores);
-		convertJsonToInstances(productionAssignmentsJson, ProductionAssignment.class, relatedStores);
+		convertJsonToInstances(craftingAssignmentsJson, CraftingAssignment.class, relatedStores);
 		convertJsonToInstances(creatureGroupJson, CreatureGroup.class, relatedStores);
 		convertJsonToInstances(entitiesJson, Entity.class, relatedStores);
 		convertJsonToInstances(bridgesJson, Bridge.class, relatedStores);

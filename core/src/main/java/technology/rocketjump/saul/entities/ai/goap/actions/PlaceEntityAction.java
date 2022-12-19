@@ -6,7 +6,6 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
-import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.MushroomShockTankBehaviour;
 import technology.rocketjump.saul.entities.components.CopyGameMaterialsFromInventoryComponent;
 import technology.rocketjump.saul.entities.components.EntityComponent;
@@ -36,7 +35,6 @@ import java.util.List;
 import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.DOWN;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getNearestNavigableWorkspace;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FURNITURE;
 
@@ -66,7 +64,7 @@ public class PlaceEntityAction extends Action {
 					Logger.warn("Furniture not found for hauling allocation");
 					completionType = FAILURE;
 				} else if (hasWorkspaces(targetFurniture)) {
-					FurnitureLayout.Workspace nearestNavigableWorkspace = getNearestNavigableWorkspace(targetFurniture, gameContext.getAreaMap(), currentTile.getTilePosition());
+					FurnitureLayout.Workspace nearestNavigableWorkspace = FurnitureLayout.getNearestNavigableWorkspace(targetFurniture, gameContext.getAreaMap(), currentTile.getTilePosition());
 					if (nearestNavigableWorkspace == null || !nearestNavigableWorkspace.getAccessedFrom().equals(currentTile.getTilePosition())) {
 						Logger.error("Not in nearest workspace for furniture to place item into");
 						completionType = FAILURE;
@@ -150,10 +148,7 @@ public class PlaceEntityAction extends Action {
 				stockpileComponent.getStockpile().cancelAllocation(haulingAllocation);
 			}
 
-			if (targetFurniture.getBehaviourComponent() instanceof CraftingStationBehaviour) {
-				CraftingStationBehaviour craftingStationBehaviour = (CraftingStationBehaviour) targetFurniture.getBehaviourComponent();
-				craftingStationBehaviour.itemAdded(gameContext.getAreaMap());
-			} else if (targetFurniture.getBehaviourComponent() instanceof MushroomShockTankBehaviour) {
+			if (targetFurniture.getBehaviourComponent() instanceof MushroomShockTankBehaviour) {
 				// MODDING expose this, maybe move to MushroomShockTankBehavious (as above for craftingStationBehaviour.itemAdded)
 				parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND_ASSET, new RequestSoundAssetMessage("DropItemInWater", (asset) -> {
 					if (asset != null) {

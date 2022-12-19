@@ -13,12 +13,18 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rendering.utils.HexColors;
+import technology.rocketjump.saul.settlement.production.CraftingAssignment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductionExportFurnitureBehaviour extends FurnitureBehaviour implements Prioritisable, DisplayGhostItemWhenInventoryEmpty {
 
 	private int maxNumItemStacks = 0;
 	private ItemType selectedItemType;
 	private GameMaterial selectedMaterial; // null == ANY
+
+	private List<CraftingAssignment> pendingAssignments = new ArrayList<>();
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -32,7 +38,7 @@ public class ProductionExportFurnitureBehaviour extends FurnitureBehaviour imple
 		cloned.maxNumItemStacks = this.maxNumItemStacks;
 		cloned.selectedItemType = this.selectedItemType;
 		cloned.selectedMaterial = this.selectedMaterial;
-
+		cloned.pendingAssignments.addAll(this.pendingAssignments);
 		return cloned;
 	}
 
@@ -85,6 +91,13 @@ public class ProductionExportFurnitureBehaviour extends FurnitureBehaviour imple
 		}
 	}
 
+	public List<CraftingAssignment> getPendingAssignments() {
+		return pendingAssignments;
+	}
+
+	public Entity getParentEntity() {
+		return parentEntity;
+	}
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {

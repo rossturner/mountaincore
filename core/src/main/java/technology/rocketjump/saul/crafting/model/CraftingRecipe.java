@@ -24,7 +24,7 @@ public class CraftingRecipe {
 	private ItemType itemTypeRequired;
 
 	private List<QuantifiedItemTypeWithMaterial> input;
-	private List<QuantifiedItemTypeWithMaterial> output;
+	private QuantifiedItemTypeWithMaterial output;
 
 	private CraftingRecipeValueConversion valueConversion = CraftingRecipeValueConversion.DEFAULT;
 
@@ -73,11 +73,11 @@ public class CraftingRecipe {
 		this.input = input;
 	}
 
-	public List<QuantifiedItemTypeWithMaterial> getOutput() {
+	public QuantifiedItemTypeWithMaterial getOutput() {
 		return output;
 	}
 
-	public void setOutput(List<QuantifiedItemTypeWithMaterial> output) {
+	public void setOutput(QuantifiedItemTypeWithMaterial output) {
 		this.output = output;
 	}
 
@@ -154,5 +154,10 @@ public class CraftingRecipe {
 
 	public void setValueConversion(CraftingRecipeValueConversion valueConversion) {
 		this.valueConversion = valueConversion;
+	}
+
+	@Override
+	public String toString() {
+		return recipeName;
 	}
 }

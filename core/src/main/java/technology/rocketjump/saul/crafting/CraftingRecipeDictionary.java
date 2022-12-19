@@ -58,11 +58,11 @@ public class CraftingRecipeDictionary {
 				Logger.warn("0 base value found for item " + itemType.getItemTypeName());
 
 				craftingRecipes.stream().filter(recipe ->
-								recipe.getOutput().stream().anyMatch(output -> itemType.equals(output.getItemType()))
+								itemType.equals(recipe.getOutput().getItemType())
 						)
 						.findAny()
 						.ifPresentOrElse(recipe -> {
-							int totalItemsOutput = recipe.getOutput().stream().map(QuantifiedItemTypeWithMaterial::getQuantity).reduce(0, Integer::sum);
+							int totalItemsOutput = recipe.getOutput().getQuantity();
 							int totalValueInput = recipe.getInput().stream().map(i -> i.getItemType().getBaseValuePerItem() * i.getQuantity()).reduce(0, Integer::sum);
 
 							StringBuilder stringBuilder = new StringBuilder();
@@ -96,15 +96,10 @@ public class CraftingRecipeDictionary {
 		for (QuantifiedItemTypeWithMaterial quantifiedItemType : craftingRecipe.getInput()) {
 			initialise(craftingRecipe, quantifiedItemType);
 		}
-		for (QuantifiedItemTypeWithMaterial quantifiedItemType : craftingRecipe.getOutput()) {
-			initialise(craftingRecipe, quantifiedItemType);
-		}
+		initialise(craftingRecipe, craftingRecipe.getOutput());
 
 		if (craftingRecipe.getInput().stream().filter(QuantifiedItemTypeWithMaterial::isLiquid).count() > 1) {
 			throw new RuntimeException("Crafting recipe can not have more than 1 input liquid, found in " + craftingRecipe.getRecipeName());
-		}
-		if (craftingRecipe.getOutput().stream().filter(QuantifiedItemTypeWithMaterial::isLiquid).count() > 1) {
-			throw new RuntimeException("Crafting recipe can not have more than 1 output liquid, found in " + craftingRecipe.getRecipeName());
 		}
 	}
 

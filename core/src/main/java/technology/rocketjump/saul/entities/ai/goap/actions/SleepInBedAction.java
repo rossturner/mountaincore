@@ -27,7 +27,6 @@ import static technology.rocketjump.saul.assets.entities.tags.BedSleepingPositio
 import static technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag.BedCreaturePosition.ON_GROUND;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
 import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.*;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
@@ -173,7 +172,7 @@ public class SleepInBedAction extends SleepOnFloorAction {
 			Vector2 furnitureLocation = assignedFurniture.getLocationComponent().getWorldPosition().cpy();
 			parent.parentEntity.getLocationComponent().setWorldPosition(furnitureLocation, false);
 
-			FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(assignedFurniture, gameContext.getAreaMap());
+			FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(assignedFurniture, gameContext.getAreaMap());
 			if (navigableWorkspace != null) {
 				Vector2 workspaceLocation = toVector(navigableWorkspace.getAccessedFrom());
 				parent.parentEntity.getLocationComponent().setWorldPosition(workspaceLocation, true);

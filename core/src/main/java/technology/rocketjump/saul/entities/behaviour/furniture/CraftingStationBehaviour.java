@@ -1,23 +1,17 @@
 package technology.rocketjump.saul.entities.behaviour.furniture;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.math.GridPoint2;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.NotImplementedException;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.crafting.CraftingOutputQualityDictionary;
+import technology.rocketjump.saul.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.saul.crafting.model.CraftingOutputQuality;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
-import technology.rocketjump.saul.crafting.model.CraftingRecipeMaterialSelection;
 import technology.rocketjump.saul.crafting.model.CraftingRecipeValueConversion;
-import technology.rocketjump.saul.entities.ItemEntityMessageHandler;
-import technology.rocketjump.saul.entities.components.InventoryComponent;
-import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
-import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
-import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
+import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
@@ -25,7 +19,6 @@ import technology.rocketjump.saul.entities.components.furniture.FurnitureParticl
 import technology.rocketjump.saul.entities.components.furniture.PoweredFurnitureComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
-import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemQuality;
@@ -40,13 +33,16 @@ import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.messaging.types.*;
+import technology.rocketjump.saul.messaging.types.ItemCreationRequestMessage;
+import technology.rocketjump.saul.messaging.types.RequestHaulingMessage;
+import technology.rocketjump.saul.messaging.types.RequestLiquidRemovalMessage;
 import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
-import technology.rocketjump.saul.settlement.production.ProductionAssignment;
+import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
+import technology.rocketjump.saul.settlement.production.CraftingAssignment;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nWord;
@@ -54,20 +50,16 @@ import technology.rocketjump.saul.ui.i18n.I18nWord;
 import java.util.*;
 
 import static technology.rocketjump.saul.entities.behaviour.furniture.FillLiquidContainerBehaviour.relatedContainerCapacity;
-import static technology.rocketjump.saul.entities.components.ItemAllocation.AllocationState.CANCELLED;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.Purpose.HELD_IN_INVENTORY;
 import static technology.rocketjump.saul.entities.model.physical.item.ItemQuality.STANDARD;
 import static technology.rocketjump.saul.entities.tags.CraftingOverrideTag.CraftingOverrideSetting.DO_NOT_HAUL_OUTPUT;
 import static technology.rocketjump.saul.jobs.model.JobState.ASSIGNABLE;
 import static technology.rocketjump.saul.jobs.model.JobState.REMOVED;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
-import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 import static technology.rocketjump.saul.ui.i18n.I18nTranslator.oneDecimalFormat;
 
 public class CraftingStationBehaviour extends FurnitureBehaviour
-		implements ProductionAssignmentRequestMessage.ProductionAssignmentCallback,
-		RequestHaulingAllocationMessage.ItemAllocationCallback,
-		SelectableDescription,
+		implements SelectableDescription,
 		Destructible,
 		OnJobCompletion,
 		Prioritisable,
@@ -77,17 +69,15 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	private CraftingType craftingType;
 	private JobType craftItemJobType;
 	private JobType haulingJobType;
+	private CraftingRecipeDictionary craftingRecipeDictionary;
 	private GameMaterialDictionary gameMaterialDictionary;
 	private CraftingOutputQualityDictionary craftingOutputQualityDictionary;
 
-	private ProductionAssignment currentProductionAssignment;
-	private Job craftingJob;
+	private CraftingAssignment craftingAssignment;
 	private boolean requiresExtraTime;
 	private Double extraTimeToProcess;
 	private Entity jobCompletedByEntity;
 	private double lastUpdateGameTime;
-	private final List<HaulingAllocation> haulingInputAllocations = new ArrayList<>();
-	private final List<Job> liquidTransferJobs = new ArrayList<>();
 
 
 	public CraftingStationBehaviour() {
@@ -95,36 +85,29 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	public CraftingStationBehaviour(CraftingType craftingType, JobType craftItemJobType, JobType haulingJobType,
-									GameMaterialDictionary gameMaterialDictionary, CraftingOutputQualityDictionary craftingOutputQualityDictionary) {
+									GameMaterialDictionary gameMaterialDictionary, CraftingOutputQualityDictionary craftingOutputQualityDictionary,
+									CraftingRecipeDictionary craftingRecipeDictionary) {
 		this.craftingType = craftingType;
 		this.craftItemJobType = craftItemJobType;
 		this.haulingJobType = haulingJobType;
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.craftingOutputQualityDictionary = craftingOutputQualityDictionary;
+		this.craftingRecipeDictionary = craftingRecipeDictionary;
 	}
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		super.init(parentEntity, messageDispatcher, gameContext);
-		if (currentProductionAssignment != null) {
-			currentProductionAssignment.setAssignedCraftingStation(parentEntity);
-		}
 		lastUpdateGameTime = gameContext.getGameClock().getCurrentGameTime();
 	}
 
 	@Override
 	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		if (currentProductionAssignment != null) {
-			messageDispatcher.dispatchMessage(MessageType.PRODUCTION_ASSIGNMENT_CANCELLED, currentProductionAssignment);
-			currentProductionAssignment = null;
-			requiresExtraTime = false;
-		}
-		if (craftingJob != null && !craftingJob.getJobState().equals(REMOVED)) {
-			messageDispatcher.dispatchMessage(MessageType.JOB_CANCELLED, craftingJob);
-			craftingJob = null;
+		requiresExtraTime = false;
+		if (craftingAssignment != null) {
+			cancelAssignment();
 		}
 	}
-
 
 	@Override
 	public CraftingStationBehaviour clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -134,14 +117,12 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	@Override
 	public void infrequentUpdate(GameContext gameContext) {
 		super.infrequentUpdate(gameContext);
-		liquidTransferJobs.removeIf(job -> job.getJobState().equals(JobState.REMOVED));
 
 		if (parentEntity.isOnFire()) {
-			if (craftingJob != null) {
-				messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, craftingJob);
-				craftingJob = null;
+			if (craftingAssignment != null) {
+				cancelAssignment();
+				craftingAssignment = null;
 			}
-			liquidTransferJobs.forEach(job -> messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, job));
 			return;
 		}
 
@@ -149,7 +130,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			FurnitureParticleEffectsComponent particleEffectsComponent = parentEntity.getComponent(FurnitureParticleEffectsComponent.class);
 			if (particleEffectsComponent != null) {
 				particleEffectsComponent.triggerProcessingEffects(
-						Optional.ofNullable(currentProductionAssignment != null ? new JobTarget(currentProductionAssignment.targetRecipe, parentEntity) : null));
+						Optional.ofNullable(craftingAssignment != null ? new JobTarget(craftingAssignment.getTargetRecipe(), parentEntity) : null));
 			}
 
 			double elapsedTime = gameContext.getGameClock().getCurrentGameTime() - lastUpdateGameTime;
@@ -165,6 +146,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				}
 			}
 		}
+
 		lastUpdateGameTime = gameContext.getGameClock().getCurrentGameTime();
 
 		ConstructedEntityComponent constructedEntityComponent = parentEntity.getComponent(ConstructedEntityComponent.class);
@@ -173,408 +155,246 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			return;
 		}
 
-
 		PoweredFurnitureComponent poweredFurnitureComponent = parentEntity.getComponent(PoweredFurnitureComponent.class);
 		if (poweredFurnitureComponent != null) {
 			poweredFurnitureComponent.update(0, gameContext);
 		}
 
-		if (craftingJob != null) {
+		if (craftingAssignment != null) {
+
+			// TODO check if assignment should be cancelled (e.g. target output changed)
+
 			if (poweredFurnitureComponent != null) {
-				if (poweredFurnitureComponent.isPowered(poweredFurnitureComponent.getParentUnderTile(gameContext))) {
-					// powered, job should take normal length of time
-					craftingJob.setWorkDurationMultiplier(null);
-				} else {
-					// not powered, make job take longer
-
-					// MODDING It's a bit dirty that the work duration multiplier is using the animation speed, better
-					// to separate this out to another variable passed into the PoweredFurnitureComponent
-					craftingJob.setWorkDurationMultiplier(poweredFurnitureComponent.getAnimationSpeed());
-				}
+				adjustPoweredCraftingDuration(gameContext, poweredFurnitureComponent);
 			}
 
-
-			boolean jobIsNavigable = gameContext.getAreaMap().getTile(craftingJob.getJobLocation()).isNavigable(null);
-			if (!jobIsNavigable) {
-				FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
-				if (navigableWorkspace != null) {
-					craftingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
-					craftingJob.setSecondaryLocation(navigableWorkspace.getLocation());
-				}
-			}
+			updateJobLocationIfNotNavigable();
 
 			return; // Waiting for entity to craft item with materials
 		}
 
-		if (currentProductionAssignment == null) {
-
-			InventoryComponent inventoryComponent = parentEntity.getOrCreateComponent(InventoryComponent.class);
-			if (!inventoryComponent.isEmpty()) {
-				clearInventoryItems();
-				// Still waiting for items to be collected
-				return;
-			}
-
-			LiquidContainerComponent liquidContainerComponent = parentEntity.getComponent(LiquidContainerComponent.class);
-			if (liquidContainerComponent != null && liquidContainerComponent.getLiquidQuantity() > 0) {
-				clearLiquid(gameContext);
-				// Still waiting for liquid to be moved
-				return;
-			}
-
-			messageDispatcher.dispatchMessage(MessageType.REQUEST_PRODUCTION_ASSIGNMENT, new ProductionAssignmentRequestMessage(craftingType, this));
-			if (currentProductionAssignment == null) {
-				// Couldn't find a valid crafting recipe yet
-				return;
-			}
-			haulingInputAllocations.clear();
-			liquidTransferJobs.clear();
-
-		} else {
-			// Crafting in progress, check if all requirements met on item or liquid addition
-		}
-
-		if (currentProductionAssignment.inputMaterialSelections.size() != currentProductionAssignment.targetRecipe.getInput().size()) {
-			selectMaterials(gameContext);
-		}
-
-		if (currentProductionAssignment == null) {
-			return;
-		}
-
-		for (QuantifiedItemTypeWithMaterial inputRequirement : currentProductionAssignment.getInputMaterialSelections()) {
-			createMissingAllocationIfNeeded(inputRequirement, gameContext);
-		}
-
-		// Clear out items which are no longer required
-		InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
-		for (InventoryComponent.InventoryEntry entry : inventoryComponent.getInventoryEntries()) {
-			if (currentProductionAssignment.inputMaterialSelections.stream().noneMatch(requirement -> requirement.matches(entry.entity))) {
-				ItemAllocationComponent itemAllocationComponent = entry.entity.getOrCreateComponent(ItemAllocationComponent.class);
-				itemAllocationComponent.cancelAll(HELD_IN_INVENTORY);
-				if (itemAllocationComponent.getNumUnallocated() > 0) {
-					messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(entry.entity, parentEntity, true, priority, job -> {
-						// Do nothing with job
-					}));
-				}
-			}
-		}
-
-	}
-
-	@Override
-	public void productionAssignmentCallback(List<CraftingRecipe> potentialCraftingRecipes) {
-		for (CraftingRecipe potentialCraftingRecipe : potentialCraftingRecipes) {
-			if (potentialCraftingRecipe.getInput().stream().anyMatch(QuantifiedItemTypeWithMaterial::isLiquid) ||
-					potentialCraftingRecipe.getOutput().stream().anyMatch(QuantifiedItemTypeWithMaterial::isLiquid)) {
-				// Crafting requires liquid container
-				LiquidContainerComponent liquidContainerComponent = parentEntity.getComponent(LiquidContainerComponent.class);
-				if (liquidContainerComponent == null) {
-					Logger.warn("Crafting station received receipe requiring liquid but has no liquid container component");
-					continue;
-				}
-			}
-
-			// Selecting potentialCraftingRecipe for currentProductionAssignment
-
-			potentialCraftingRecipe.getInput().stream().filter(QuantifiedItemTypeWithMaterial::isLiquid).findFirst().ifPresent(liquidInput -> {
-				LiquidContainerComponent liquidContainerComponent = parentEntity.getComponent(LiquidContainerComponent.class);
-				liquidContainerComponent.setLiquidQuantity(0);
-				liquidContainerComponent.setTargetLiquidMaterial(liquidInput.getMaterial());
-			});
-
-			currentProductionAssignment = new ProductionAssignment(potentialCraftingRecipe, this.parentEntity);
-			requiresExtraTime = currentProductionAssignment.targetRecipe.getExtraGameHoursToComplete() != null;
-			messageDispatcher.dispatchMessage(MessageType.PRODUCTION_ASSIGNMENT_ACCEPTED, currentProductionAssignment);
-			break;
-		}
-
-	}
-
-	public void allocationCancelled(HaulingAllocation allocation) {
-		haulingInputAllocations.remove(allocation);
-	}
-
-	private void createMissingAllocationIfNeeded(QuantifiedItemTypeWithMaterial requirement, GameContext gameContext) {
-		if (requirement.isLiquid()) {
-			createLiquidTransferJobIfNeeded(requirement, gameContext);
-			return;
-		}
-
-		int amountRequired = requirement.getQuantity();
-		Iterator<HaulingAllocation> iterator = haulingInputAllocations.iterator();
-		while (iterator.hasNext()) {
-			HaulingAllocation haulingAllocation = iterator.next();
-			if (haulingAllocation.getItemAllocation().getState().equals(CANCELLED)) {
-				iterator.remove();
-				continue;
-			}
-			Entity incomingEntity = gameContext.getEntities().get(haulingAllocation.getItemAllocation().getTargetItemEntityId());
-			if (incomingEntity != null) {
-				ItemEntityAttributes incomingAttributes = (ItemEntityAttributes) incomingEntity.getPhysicalEntityComponent().getAttributes();
-
-				if (incomingAttributes.getItemType().equals(requirement.getItemType()) &&
-						(requirement.getMaterial() == null || incomingAttributes.getMaterial(incomingAttributes.getItemType().getPrimaryMaterialType()).equals(requirement.getMaterial()))) {
-					amountRequired -= haulingAllocation.getItemAllocation().getAllocationAmount();
-				}
-			}
-		}
-
 
 		InventoryComponent inventoryComponent = parentEntity.getOrCreateComponent(InventoryComponent.class);
-		for (InventoryComponent.InventoryEntry entry : inventoryComponent.getInventoryEntries()) {
-			if (entry.entity.getType().equals(EntityType.ITEM)) {
-				ItemEntityAttributes inventoryItemAttributes = (ItemEntityAttributes) entry.entity.getPhysicalEntityComponent().getAttributes();
-
-				if (inventoryItemAttributes.getItemType().equals(requirement.getItemType()) &&
-						(requirement.getMaterial() == null || inventoryItemAttributes.getMaterial(inventoryItemAttributes.getItemType().getPrimaryMaterialType()).equals(requirement.getMaterial()))) {
-					amountRequired -= inventoryItemAttributes.getQuantity();
-				}
-			}
+		if (!inventoryComponent.isEmpty()) {
+			clearInventoryItems();
+			// Still waiting for items to be collected
+			return;
 		}
 
-
-		if (amountRequired > 0) {
-			// TODO Probably want to keep hold of these jobs and cancel them when destroyed
-			createHaulingJob(requirement, amountRequired, gameContext);
-		}
-	}
-
-	private void createLiquidTransferJobIfNeeded(QuantifiedItemTypeWithMaterial requirement, GameContext gameContext) {
 		LiquidContainerComponent liquidContainerComponent = parentEntity.getComponent(LiquidContainerComponent.class);
-		if (liquidContainerComponent == null) {
-			Logger.error("Crafting recipe requires liquid container but crafting station parent does not have one");
-		} else if (relatedItemTypes.isEmpty()) {
-			Logger.error("Crafting recipe with liquid input requires related item type for liquid transfer but is not set");
-		} else {
-			float assignedQuantity = liquidContainerComponent.getLiquidQuantity();
-			for (Job incomingLiquidTransferJob : liquidTransferJobs) {
-				assignedQuantity += relatedContainerCapacity(relatedItemTypes.get(0));
-			}
-
-			if (assignedQuantity < requirement.getQuantity()) {
-				// Create new job
-				Skill professionRequired = currentProductionAssignment.targetRecipe.getCraftingType().getProfessionRequired();
-				FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
-				if (navigableWorkspace != null) {
-					messageDispatcher.dispatchMessage(MessageType.REQUEST_LIQUID_TRANSFER, new RequestLiquidTransferMessage(
-							requirement.getMaterial(), true, parentEntity,
-							toVector(navigableWorkspace.getLocation()), relatedItemTypes.get(0), professionRequired, priority, (job) -> {
-						if (job != null) {
-							this.liquidTransferJobs.add(job);
-						}
-					}));
-				}
-			}
+		if (liquidContainerComponent != null && liquidContainerComponent.getLiquidQuantity() > 0) {
+			clearLiquid();
+			// Still waiting for liquid to be moved
+			return;
 		}
+
+		selectCraftingAssignment();
+
+		if (craftingAssignment == null) {
+			// Couldn't find a valid crafting recipe yet
+			return;
+		}
+
 	}
 
-	private HaulingAllocation haulingAllocation;
+	private void selectCraftingAssignment() {
+		List<CraftingRecipe> recipesForCraftingType = new ArrayList<>(craftingRecipeDictionary.getByCraftingType(craftingType));
+		// Randomly sort the recipes so that different recipes with the same output are tried in different updates
+		Collections.shuffle(recipesForCraftingType, gameContext.getRandom());
 
-	private Job createHaulingJob(QuantifiedItemTypeWithMaterial requirement, int amountRequired, GameContext gameContext) {
-		FurnitureLayout.Workspace workspace = getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
-		if (workspace == null) {
-			Logger.warn("Could not find a navigable workspace to create crafting job");
-			return null;
+		MapTile mapTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
+		if (mapTile.getRoomTile() == null) {
+			Logger.error("{} for {} is not in a room", getClass().getSimpleName(), parentEntity);
 		}
 
-		// Clear temporary itemAllocation to avoid issues with lambdas
-		haulingAllocation = null;
-		GameMaterial requiredMaterial = requirement.getMaterial();
-		if (requiredMaterial == null) {
-			Optional<GameMaterial> selection = gameContext.getSettlementState().craftingRecipeMaterialSelections.computeIfAbsent(this.currentProductionAssignment.targetRecipe,
-							a -> new CraftingRecipeMaterialSelection(this.currentProductionAssignment.targetRecipe))
-					.getSelection(requirement);
-			if (selection.isPresent()) {
-				requiredMaterial = selection.get();
-			}
-		}
+		List<ProductionImportFurnitureBehaviour> importFurniture = allImportFurniture();
+		List<ProductionExportFurnitureBehaviour> exportFurniture = allExportFurniture();
 
-		messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION,
-				new RequestHaulingAllocationMessage(parentEntity, parentEntity.getLocationComponent().getWorldOrParentPosition(), requirement.getItemType(), requiredMaterial,
-						true, amountRequired, null, this));
-
-		if (haulingAllocation != null) {
-			haulingInputAllocations.add(haulingAllocation);
-
-			Job haulingJob = ItemEntityMessageHandler.createHaulingJob(haulingAllocation,
-					gameContext.getEntities().get(haulingAllocation.getHauledEntityId()), haulingJobType, priority);
-			haulingJob.setRequiredProfession(craftingType.getProfessionRequired());
-			messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, haulingJob);
-			haulingAllocation = null;
-			return haulingJob;
-		} else {
-			// No items of this type available
-			return null;
-		}
-	}
-
-	private void selectMaterials(GameContext gameContext) {
-		boolean allMaterialsAvailable = true;
-		for (int inputCursor = 0; inputCursor < currentProductionAssignment.targetRecipe.getInput().size(); inputCursor++) {
-			if (currentProductionAssignment.getInputMaterialSelections().size() > inputCursor) {
-				// Already have this one selected
+		for (ProductionExportFurnitureBehaviour exportFurnitureBehaviour : exportFurniture) {
+			ItemType desiredItemType = exportFurnitureBehaviour.getSelectedItemType();
+			if (desiredItemType == null) {
+				Logger.warn("Not yet implemented: crafting non-item output");
 				continue;
 			}
+			List<CraftingRecipe> potentialRecipes = recipesForCraftingType.stream()
+					.filter(r -> desiredItemType.equals(r.getOutput().getItemType()))
+					.toList();
+			// need to randomly pick an available receipe or else we might get stuck on one we don't have the requirements for, while ignoring another that we do
+			CraftingRecipe matchingRecipe = potentialRecipes.isEmpty() ? null : potentialRecipes.get(gameContext.getRandom().nextInt(potentialRecipes.size()));
+			if (matchingRecipe != null) {
+				int quantityRequired = getAmountRequired(exportFurnitureBehaviour);
+				GameMaterial desiredMaterial = exportFurnitureBehaviour.getSelectedMaterial();
+				if (quantityRequired > 0 && quantityRequired >= matchingRecipe.getOutput().getQuantity()) {
+					if (matchingRecipe.getInput().stream().allMatch(r -> inputIsAvailable(r, importFurniture, desiredMaterial))) {
+						// This recipe can be crafted, so use this and create a CraftingAssignment
 
-			QuantifiedItemTypeWithMaterial inputRequirement = currentProductionAssignment.targetRecipe.getInput().get(inputCursor).clone();
+						craftingAssignment = new CraftingAssignment(matchingRecipe);
 
-			if (inputRequirement.getMaterial() != null) {
-				// already have a material set
-				currentProductionAssignment.getInputMaterialSelections().add(inputRequirement);
-			} else if (inputRequirement.isLiquid()) {
-				Logger.error("Not yet implemented: Material selection for liquid crafting inputs");
-			} else {
-				// Need to pick a material
-
-				// Might be set by crafting management screen
-				CraftingRecipeMaterialSelection craftingRecipeMaterialSelection = gameContext.getSettlementState().craftingRecipeMaterialSelections.get(currentProductionAssignment.targetRecipe);
-				if (craftingRecipeMaterialSelection != null) {
-					craftingRecipeMaterialSelection.getSelection(inputRequirement).ifPresent(inputRequirement::setMaterial);
-				}
-
-				if (inputRequirement.getMaterial() == null) {
-					// Still null i.e.
-					messageDispatcher.dispatchMessage(MessageType.SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE, new ItemMaterialSelectionMessage(
-							inputRequirement.getItemType(),
-							inputRequirement.getQuantity(),
-							(gameMaterial) -> {
-								if (gameMaterial != null) {
-									inputRequirement.setMaterial(gameMaterial);
-								}
+						for (QuantifiedItemTypeWithMaterial inputRequirement : matchingRecipe.getInput()) {
+							ProductionImportFurnitureBehaviour matchedInputFurniture = getImportFurnitureForRequirement(inputRequirement, importFurniture, desiredMaterial);
+							if (matchedInputFurniture == null) {
+								Logger.error("Could not find input allocation for crafting, this should not happen");
+								continue;
 							}
-					));
-				}
+							addInputToAssignment(inputRequirement, matchedInputFurniture);
+						}
 
+						craftingAssignment.setOutputLocation(toGridPoint(exportFurnitureBehaviour.getParentEntity().getLocationComponent().getWorldOrParentPosition()));
+						exportFurnitureBehaviour.getPendingAssignments().add(craftingAssignment);
 
-				if (inputRequirement.getMaterial() != null) {
-					currentProductionAssignment.getInputMaterialSelections().add(inputRequirement);
-					currentProductionAssignment.setInputSelectionsLastUpdated(gameContext.getGameClock().getCurrentGameTime());
-				} else {
-					allMaterialsAvailable = false;
-					// Couldn't find an appropriate material for this item, break out of loop to match order of entries with targetRecipe.inputs
-					break;
-				}
-			}
-		}
+						Job craftingJob = new Job(craftItemJobType);
+						craftingAssignment.setCraftingJob(craftingJob);
+						craftingJob.setJobPriority(priority);
+						craftingJob.setJobState(ASSIGNABLE);
+						craftingJob.setTargetId(parentEntity.getId());
+						craftingJob.setCraftingRecipe(matchingRecipe);
+						ItemType itemTypeRequired = Optional.ofNullable(matchingRecipe.getItemTypeRequired()).orElse(matchingRecipe.getCraftingType().getDefaultItemType());
+						craftingJob.setRequiredItemType(itemTypeRequired);
+						craftingJob.setRequiredProfession(craftingType.getProfessionRequired());
+						craftingJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
+						updateJobLocationIfNotNavigable();
+						messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, craftingJob);
 
-		if (!allMaterialsAvailable) {
-			messageDispatcher.dispatchMessage(MessageType.PRODUCTION_ASSIGNMENT_CANCELLED, currentProductionAssignment);
-			currentProductionAssignment = null;
-		}
-	}
-
-	@Override
-	public void allocationFound(HaulingAllocation haulingAllocation) {
-		this.haulingAllocation = haulingAllocation;
-	}
-
-	public void itemAdded(TiledMap areaMap) {
-		if (currentProductionAssignment == null) {
-			Logger.error("Item added to " + this.getClass().getSimpleName() + " without a current production assignement");
-			return;
-		}
-
-		checkInputRequirementsMet(areaMap);
-	}
-
-	public void liquidAdded(float quantityAdded, TiledMap areaMap) {
-		if (currentProductionAssignment == null) {
-			Logger.error("Liquid added to " + this.getClass().getSimpleName() + " without a current production assignement");
-			return;
-		}
-
-		LiquidContainerComponent liquidContainerComponent = parentEntity.getComponent(LiquidContainerComponent.class);
-		liquidContainerComponent.assignCraftingAllocation(quantityAdded);
-
-		checkInputRequirementsMet(areaMap);
-	}
-
-	private void checkInputRequirementsMet(TiledMap areaMap) {
-		if (allLiquidRequirementsMet()) {
-			checkItemRequirementsMet(areaMap);
-		}
-	}
-
-	private boolean allLiquidRequirementsMet() {
-		LiquidContainerComponent liquidContainerComponent = parentEntity.getComponent(LiquidContainerComponent.class);
-
-		boolean allLiquidRequirementsMatched = true;
-		for (QuantifiedItemTypeWithMaterial input : currentProductionAssignment.targetRecipe.getInput()) {
-			if (input.isLiquid()) {
-				if (liquidContainerComponent.getLiquidQuantity() < input.getQuantity() ||
-						!liquidContainerComponent.getTargetLiquidMaterial().equals(input.getMaterial())) {
-					allLiquidRequirementsMatched = false;
-					break;
+						break;
+					}
 				}
 			}
 		}
-		return allLiquidRequirementsMatched;
+
 	}
 
-	private void checkItemRequirementsMet(TiledMap areaMap) {
-		InventoryComponent inventoryComponent = parentEntity.getOrCreateComponent(InventoryComponent.class);
-		boolean allRequirementsMet = true;
-		for (QuantifiedItemTypeWithMaterial requirement : currentProductionAssignment.targetRecipe.getInput()) {
-			if (requirement.isLiquid()) {
-				continue;
-			}
+	private List<ProductionImportFurnitureBehaviour> allImportFurniture() {
+		MapTile mapTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
+		if (mapTile.getRoomTile() == null) {
+			Logger.error("{} for {} is not in a room", getClass().getSimpleName(), parentEntity);
+			return List.of();
+		}
 
-			boolean thisRequirementMet = false;
-			int quantityInInventory = 0;
-			for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
-				if (inventoryEntry.entity.getType().equals(EntityType.ITEM)) {
-					ItemEntityAttributes itemAttributes = (ItemEntityAttributes) inventoryEntry.entity.getPhysicalEntityComponent().getAttributes();
-					if (itemAttributes.getItemType().equals(requirement.getItemType())) {
-						if (requirement.getMaterial() == null || itemAttributes.getPrimaryMaterial().equals(requirement.getMaterial())) {
-							quantityInInventory += itemAttributes.getQuantity();
-							if (quantityInInventory >= requirement.getQuantity()) {
-								thisRequirementMet = true;
-								break;
+		return mapTile.getRoomTile().getRoom().getRoomTiles().keySet().stream()
+				.map(gameContext.getAreaMap()::getTile)
+				.flatMap(t -> t.getEntities().stream())
+				.filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour)
+				.map(furniture -> furniture.getComponent(ProductionImportFurnitureBehaviour.class))
+				.filter(e -> e.getSelectedItemType() != null)
+				.filter(e -> e.getParentEntity().getComponent(InventoryComponent.class)
+						.findByItemTypeAndMaterial(e.getSelectedItemType(), e.getSelectedMaterial(), gameContext.getGameClock()) != null
+				)
+				.toList();
+	}
+
+	private List<ProductionExportFurnitureBehaviour> allExportFurniture() {
+		MapTile mapTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
+		if (mapTile.getRoomTile() == null) {
+			Logger.error("{} for {} is not in a room", getClass().getSimpleName(), parentEntity);
+			return List.of();
+		}
+
+		List<ProductionExportFurnitureBehaviour> exportFurniture = mapTile.getRoomTile().getRoom().getRoomTiles().keySet().stream()
+				.map(gameContext.getAreaMap()::getTile)
+				.flatMap(t -> t.getEntities().stream())
+				.filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour)
+				.map(furniture -> furniture.getComponent(ProductionExportFurnitureBehaviour.class))
+				.filter(e -> e.getSelectedItemType() != null)
+				.sorted(Comparator.comparingInt(e -> e.getPriority().ordinal()))
+				.toList();
+		return exportFurniture;
+	}
+
+	private void addInputToAssignment(QuantifiedItemTypeWithMaterial inputRequirement, ProductionImportFurnitureBehaviour matchedInputFurniture) {
+		InventoryComponent inputInventory = matchedInputFurniture.getParentEntity().getComponent(InventoryComponent.class);
+		Entity inputItemInInventory = inputInventory.findByItemType(inputRequirement.getItemType(), gameContext.getGameClock()).entity;
+		ItemAllocationComponent inputAllocationComponent = inputItemInInventory.getComponent(ItemAllocationComponent.class);
+
+		inputAllocationComponent.cancelAll(ItemAllocation.Purpose.PRODUCTION_IMPORT);
+		HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(inputRequirement.getQuantity(), inputItemInInventory, parentEntity)
+				.toEntity(parentEntity);
+		if (inputAllocationComponent.getNumUnallocated() > 0 && inputInventory.getAddAsAllocationPurpose() != null) {
+			inputAllocationComponent.createAllocation(inputAllocationComponent.getNumUnallocated(), matchedInputFurniture.getParentEntity(), inputInventory.getAddAsAllocationPurpose());
+		}
+		craftingAssignment.getInputAllocations().add(haulingAllocation);
+	}
+
+	private boolean inputIsAvailable(QuantifiedItemTypeWithMaterial requirement,
+									 List<ProductionImportFurnitureBehaviour> importFurniture, GameMaterial desiredMaterial) {
+		return getImportFurnitureForRequirement(requirement, importFurniture, desiredMaterial) != null;
+	}
+
+	private ProductionImportFurnitureBehaviour getImportFurnitureForRequirement(QuantifiedItemTypeWithMaterial requirement,
+																				List<ProductionImportFurnitureBehaviour> importFurniture, GameMaterial desiredMaterial) {
+		for (ProductionImportFurnitureBehaviour importBehaviour : importFurniture) {
+			if (importBehaviour.getSelectedItemType().equals(requirement.getItemType())) {
+				InventoryComponent importInventory = importBehaviour.getParentEntity().getComponent(InventoryComponent.class);
+				InventoryComponent.InventoryEntry inventoryEntry = importInventory.findByItemType(requirement.getItemType(), gameContext.getGameClock());
+				if (inventoryEntry != null) {
+					ItemAllocation allocationForImport = inventoryEntry.entity.getComponent(ItemAllocationComponent.class)
+							.getAllocationForPurpose(ItemAllocation.Purpose.PRODUCTION_IMPORT);
+					if (allocationForImport != null && allocationForImport.getAllocationAmount() >= requirement.getQuantity()) {
+						if (desiredMaterial == null || !requirement.getItemType().getPrimaryMaterialType().equals(desiredMaterial.getMaterialType())) {
+							return importBehaviour;
+						} else {
+							ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryEntry.entity.getPhysicalEntityComponent().getAttributes();
+							if (attributes.getPrimaryMaterial().equals(desiredMaterial)) {
+								return importBehaviour;
 							}
 						}
 					}
 				}
-			}
 
-			if (!thisRequirementMet) {
-				allRequirementsMet = false;
-				break;
 			}
 		}
+		return null;
+	}
 
-		if (allRequirementsMet) {
-			// Create crafting job to produce output
-			Job craftingJob = new Job(craftItemJobType);
-			craftingJob.setJobPriority(priority);
-			craftingJob.setJobState(ASSIGNABLE);
-			updateJobLocation(craftingJob, areaMap);
-			craftingJob.setTargetId(parentEntity.getId());
-			craftingJob.setRequiredProfession(currentProductionAssignment.targetRecipe.getCraftingType().getProfessionRequired());
-			ItemType itemTypeRequired = Optional.ofNullable(currentProductionAssignment.targetRecipe.getItemTypeRequired()).orElse(currentProductionAssignment.targetRecipe.getCraftingType().getDefaultItemType());
-			craftingJob.setRequiredItemType(itemTypeRequired);
-			craftingJob.setCraftingRecipe(currentProductionAssignment.targetRecipe);
-			messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, craftingJob);
-			this.craftingJob = craftingJob;
+	private int getAmountRequired(ProductionExportFurnitureBehaviour exportFurnitureBehaviour) {
+		int maxStackSize = exportFurnitureBehaviour.getSelectedItemType().getMaxStackSize();
+		InventoryComponent inventoryComponent = exportFurnitureBehaviour.getParentEntity().getComponent(InventoryComponent.class);
+		int currentQuantity = 0;
+		for (InventoryComponent.InventoryEntry entry : inventoryComponent.getInventoryEntries()) {
+			currentQuantity += ((ItemEntityAttributes)entry.entity.getPhysicalEntityComponent().getAttributes()).getQuantity();
+		}
+		int pendingQuantity = exportFurnitureBehaviour.getPendingAssignments().stream()
+				.map(a -> a.getTargetRecipe().getOutput().getQuantity())
+				.reduce(0, Integer::sum);
+
+		return maxStackSize - currentQuantity - pendingQuantity;
+	}
+
+	private void cancelAssignment() {
+		// TODO cancel pending inputs, revert pallet item allocations where necessary
+		if (!craftingAssignment.getCraftingJob().getJobState().equals(REMOVED)) {
+			messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, craftingAssignment.getCraftingJob());
+		}
+		craftingAssignment = null;
+	}
+
+	private void updateJobLocationIfNotNavigable() {
+		boolean jobIsNavigable = gameContext.getAreaMap().getTile(craftingAssignment.getCraftingJob().getJobLocation()).isNavigable(null);
+		if (!jobIsNavigable) {
+			FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
+			if (navigableWorkspace != null) {
+				craftingAssignment.getCraftingJob().setJobLocation(navigableWorkspace.getAccessedFrom());
+				craftingAssignment.getCraftingJob().setSecondaryLocation(navigableWorkspace.getLocation());
+			}
 		}
 	}
 
-	private boolean updateJobLocation(Job craftingJob, TiledMap areaMap) {
-		FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(parentEntity, areaMap);
-		if (navigableWorkspace == null) {
-			Logger.warn("Could not access workstation at " + parentEntity.getLocationComponent().getWorldPosition());
-			return false;
+	private void adjustPoweredCraftingDuration(GameContext gameContext, PoweredFurnitureComponent poweredFurnitureComponent) {
+		if (poweredFurnitureComponent.isPowered(poweredFurnitureComponent.getParentUnderTile(gameContext))) {
+			// powered, job should take normal length of time
+			craftingAssignment.getCraftingJob().setWorkDurationMultiplier(null);
 		} else {
-			craftingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
-			craftingJob.setSecondaryLocation(navigableWorkspace.getLocation());
-			return true;
+			// not powered, make job take longer
+
+			// MODDING It's a bit dirty that the work duration multiplier is using the animation speed, better
+			// to separate this out to another variable passed into the PoweredFurnitureComponent
+			craftingAssignment.getCraftingJob().setWorkDurationMultiplier(poweredFurnitureComponent.getAnimationSpeed());
 		}
 	}
 
 	@Override
 	public void jobCompleted(GameContext gameContext, Entity completedByEntity) {
 		if (requiresExtraTime) {
-			extraTimeToProcess = currentProductionAssignment.targetRecipe.getExtraGameHoursToComplete();
+			extraTimeToProcess = this.craftingAssignment.getTargetRecipe().getExtraGameHoursToComplete();
 			jobCompletedByEntity = completedByEntity;
 			return;
 		}
@@ -584,25 +404,24 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
 		LiquidContainerComponent liquidContainerComponent = parentEntity.getComponent(LiquidContainerComponent.class);
 
-		if (currentProductionAssignment == null || currentProductionAssignment.targetRecipe == null) {
+		if (craftingAssignment == null || craftingAssignment.getTargetRecipe() == null) {
 			// FIXME Not seen this happen but has come up in a bug report
 			Logger.error("Null production assignment in jobCompleted() in " + this.getClass().getSimpleName());
 		} else {
-			for (QuantifiedItemTypeWithMaterial outputRequirement : currentProductionAssignment.targetRecipe.getOutput()) {
-				if (outputRequirement.isLiquid()) {
-					// Just switching contents of liquid container, no material transfer possible? Implies liquids should be more than a material
-					// I.e. current materials (water, wort) are equivalent to ItemType (LiquidType?) which have one or more materials, same for soup
-					liquidContainerComponent.cancelAllAllocations();
-					liquidContainerComponent.setLiquidQuantity(outputRequirement.getQuantity());
-					liquidContainerComponent.setTargetLiquidMaterial(outputRequirement.getMaterial());
-				} else {
-					addOutputItemToList(outputRequirement, gameContext, output, completedByEntity);
-				}
+			QuantifiedItemTypeWithMaterial outputRequirement = craftingAssignment.getTargetRecipe().getOutput();
+			if (outputRequirement.isLiquid()) {
+				// Just switching contents of liquid container, no material transfer possible? Implies liquids should be more than a material
+				// I.e. current materials (water, wort) are equivalent to ItemType (LiquidType?) which have one or more materials, same for soup
+				liquidContainerComponent.cancelAllAllocations();
+				liquidContainerComponent.setLiquidQuantity(outputRequirement.getQuantity());
+				liquidContainerComponent.setTargetLiquidMaterial(outputRequirement.getMaterial());
+			} else {
+				addOutputItemToList(outputRequirement, gameContext, output, completedByEntity);
 			}
 		}
 
 		if (liquidContainerComponent != null &&
-				currentProductionAssignment.targetRecipe.getOutput().stream().filter(QuantifiedItemTypeWithMaterial::isLiquid).findAny().isEmpty()) {
+				!craftingAssignment.getTargetRecipe().getOutput().isLiquid()) {
 			// No liquid outputs but liquid container, should clear
 			liquidContainerComponent.cancelAllAllocations();
 			liquidContainerComponent.setLiquidQuantity(0);
@@ -619,24 +438,20 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			// Unallocate from inventory
 			outputEntity.getOrCreateComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
 
-			setItemValue(inputItemsTotalValue / output.size(), outputEntity, currentProductionAssignment.targetRecipe.getValueConversion());
+			setItemValue(inputItemsTotalValue / output.size(), outputEntity, craftingAssignment.getTargetRecipe().getValueConversion());
 
 			if (outputHaulingAllowed()) {
 				// Request hauling to remove items in output
 				RequestHaulingMessage requestHaulingMessage = new RequestHaulingMessage(outputEntity, parentEntity, true, priority, null);
-				if (craftingJob != null) {
-					requestHaulingMessage.setSpecificProfessionRequired(craftingJob.getRequiredProfession());
+				if (craftingAssignment != null) {
+					requestHaulingMessage.setSpecificProfessionRequired(craftingType.getProfessionRequired());
 				}
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, requestHaulingMessage);
 			}
 		}
 
-		messageDispatcher.dispatchMessage(MessageType.PRODUCTION_ASSIGNMENT_COMPLETED, currentProductionAssignment);
-		this.craftingJob = null;
-		this.currentProductionAssignment = null;
+		this.craftingAssignment = null;
 		this.requiresExtraTime = false;
-		this.haulingInputAllocations.clear();
-		this.liquidTransferJobs.clear();
 
 		// rerun update to trigger export item/liquid jobs
 		infrequentUpdate(gameContext);
@@ -646,7 +461,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		switch (valueConversion) {
 			case DEFAULT -> {
 				ItemEntityAttributes outputAttributes = (ItemEntityAttributes) outputEntity.getPhysicalEntityComponent().getAttributes();
-				float totalValue = (float)inputItemsValue * CRAFTING_BONUS_VALUE * outputAttributes.getItemQuality().valueMultiplier;
+				float totalValue = (float) inputItemsValue * CRAFTING_BONUS_VALUE * outputAttributes.getItemQuality().valueMultiplier;
 				int valuePerItem = Math.max(1, Math.round(totalValue / (float) outputAttributes.getQuantity()));
 				outputAttributes.setValuePerItem(valuePerItem);
 			}
@@ -668,11 +483,8 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	@Override
 	public void setPriority(JobPriority jobPriority) {
 		super.setPriority(jobPriority);
-		if (craftingJob != null) {
-			craftingJob.setJobPriority(priority);
-		}
-		for (Job job : liquidTransferJobs) {
-			job.setJobPriority(jobPriority);
+		if (craftingAssignment != null) {
+			craftingAssignment.getCraftingJob().setJobPriority(priority);
 		}
 	}
 
@@ -686,8 +498,8 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		}
 
 
-		if (currentProductionAssignment.targetRecipe.getMaterialTypesToCopyOver() != null) {
-			for (GameMaterialType materialTypeToCopy : currentProductionAssignment.targetRecipe.getMaterialTypesToCopyOver()) {
+		if (craftingAssignment.getTargetRecipe().getMaterialTypesToCopyOver() != null) {
+			for (GameMaterialType materialTypeToCopy : craftingAssignment.getTargetRecipe().getMaterialTypesToCopyOver()) {
 				GameMaterial materialToAdd = null;
 				for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
 					ItemEntityAttributes inventoryAttributes = (ItemEntityAttributes) inventoryEntry.entity.getPhysicalEntityComponent().getAttributes();
@@ -753,6 +565,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	private boolean outputHaulingAllowed() {
+		// TODO think we can drop this flag/tag?
 		CraftingOverrideTag craftingOverrideTag = parentEntity.getTag(CraftingOverrideTag.class);
 		return craftingOverrideTag == null || !craftingOverrideTag.includes(DO_NOT_HAUL_OUTPUT);
 	}
@@ -781,7 +594,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 
 	}
 
-	private void clearLiquid(GameContext gameContext) {
+	private void clearLiquid() {
 		if (!outputHaulingAllowed()) {
 			return;
 		}
@@ -789,72 +602,20 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		LiquidContainerComponent liquidContainerComponent = parentEntity.getComponent(LiquidContainerComponent.class);
 		if (liquidContainerComponent.getNumUnallocated() > 0) {
 			float amount = Math.min(liquidContainerComponent.getNumUnallocated(), relatedContainerCapacity(relatedItemTypes.get(0)));
-			FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
+			FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
 			if (navigableWorkspace != null) {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_LIQUID_REMOVAL, new RequestLiquidRemovalMessage(parentEntity,
 						navigableWorkspace.getAccessedFrom(), amount, relatedItemTypes.get(0), priority, job -> {
 					if (job != null) {
-						liquidTransferJobs.add(job);
+//						liquidTransferJobs.add(job);
 					}
 				}));
 			}
 		}
 	}
 
-	public static FurnitureLayout.Workspace getNearestNavigableWorkspace(Entity furnitureEntity, TiledMap areaMap, GridPoint2 origin) {
-		if (furnitureEntity == null) {
-			Logger.error("Null entity passed to getNearestNavigableWorkspace");
-			return null;
-		}
-		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
-
-		GridPoint2 furniturePosition = toGridPoint(furnitureEntity.getLocationComponent().getWorldPosition());
-		List<FurnitureLayout.Workspace> navigableWorkspaces = new ArrayList<>();
-		for (FurnitureLayout.Workspace workspace : attributes.getCurrentLayout().getWorkspaces()) {
-			GridPoint2 accessedFromLocation = furniturePosition.cpy().add(workspace.getAccessedFrom());
-			MapTile accessedFromTile = areaMap.getTile(accessedFromLocation);
-			if (accessedFromTile != null && accessedFromTile.isNavigable(null)) {
-				FurnitureLayout.Workspace worldPositionedWorkspace = new FurnitureLayout.Workspace();
-				worldPositionedWorkspace.setLocation(furniturePosition.cpy().add(workspace.getLocation()));
-				worldPositionedWorkspace.setAccessedFrom(furniturePosition.cpy().add(workspace.getAccessedFrom()));
-				navigableWorkspaces.add(worldPositionedWorkspace);
-			}
-		}
-
-		if (navigableWorkspaces.isEmpty()) {
-			return null;
-		} else {
-			return navigableWorkspaces.stream().sorted((o1, o2) -> {
-				float distanceTo1 = o1.getAccessedFrom().dst2(origin);
-				float distanceTo2 = o2.getAccessedFrom().dst2(origin);
-				return Math.round(distanceTo1 - distanceTo2);
-			}).findFirst().get();
-		}
-	}
-
-
-	public static FurnitureLayout.Workspace getAnyNavigableWorkspace(Entity furnitureEntity, TiledMap areaMap) {
-		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
-
-		GridPoint2 furniturePosition = toGridPoint(furnitureEntity.getLocationComponent().getWorldPosition());
-		List<FurnitureLayout.Workspace> workspaces = attributes.getCurrentLayout().getWorkspaces();
-		Collections.shuffle(workspaces);
-		for (FurnitureLayout.Workspace workspace : workspaces) {
-			GridPoint2 accessedFromLocation = furniturePosition.cpy().add(workspace.getAccessedFrom());
-			MapTile accessedFromTile = areaMap.getTile(accessedFromLocation);
-			if (accessedFromTile != null && accessedFromTile.isNavigable(null)) {
-				FurnitureLayout.Workspace worldPositionedWorkspace = new FurnitureLayout.Workspace();
-				worldPositionedWorkspace.setLocation(furniturePosition.cpy().add(workspace.getLocation()));
-				worldPositionedWorkspace.setAccessedFrom(furniturePosition.cpy().add(workspace.getAccessedFrom()));
-				return worldPositionedWorkspace;
-			}
-		}
-
-		return null;
-	}
-
-	public ProductionAssignment getCurrentProductionAssignment() {
-		return currentProductionAssignment;
+	public CraftingAssignment getCurrentCraftingAssignment() {
+		return craftingAssignment;
 	}
 
 	@Override
@@ -886,10 +647,9 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	public List<I18nText> getDescription(I18nTranslator i18nTranslator, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		List<I18nText> descriptions = new ArrayList<>(2);
 
-		if (currentProductionAssignment != null) {
+		if (craftingAssignment != null) {
 			I18nText targetDescription;
-			// FIXME assuming 1 output for now
-			QuantifiedItemTypeWithMaterial output = currentProductionAssignment.targetRecipe.getOutput().get(0);
+			QuantifiedItemTypeWithMaterial output = craftingAssignment.getTargetRecipe().getOutput();
 			if (output.isLiquid()) {
 				targetDescription = i18nTranslator.getLiquidDescription(output.getMaterial(), output.getQuantity());
 			} else {
@@ -902,7 +662,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 					ImmutableMap.of("targetDescription", targetDescription)));
 		}
 		if (requiresExtraTime) {
-			Double totalExtraHours = currentProductionAssignment.targetRecipe.getExtraGameHoursToComplete();
+			Double totalExtraHours = craftingAssignment.getTargetRecipe().getExtraGameHoursToComplete();
 			double progress = (totalExtraHours - (extraTimeToProcess == null ? totalExtraHours : extraTimeToProcess)) / totalExtraHours;
 			descriptions.add(i18nTranslator.getTranslatedWordWithReplacements("FURNITURE.DESCRIPTION.GENERIC_PROGRESS",
 					ImmutableMap.of("progress", new I18nWord(oneDecimalFormat.format(100f * progress)))));
@@ -912,6 +672,48 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 
 	public CraftingType getCraftingType() {
 		return this.craftingType;
+	}
+
+	public void allocationCancelled(HaulingAllocation allocation) {
+		if (craftingAssignment == null) {
+			return;
+		}
+		// an input allocation was cancelled, need to re-assign or else abandon the crafting assignment
+
+		Entity itemEntity = gameContext.getEntities().get(allocation.getHauledEntityId());
+		ItemEntityAttributes attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();
+		ItemType itemTypeRequired = attributes.getItemType();
+		int amountRequired = allocation.getItemAllocation().getAllocationAmount();
+
+		Entity targetExportFurniture = gameContext.getAreaMap().getTile(craftingAssignment.getOutputLocation())
+				.getEntities().stream().filter(e -> e.getType().equals(EntityType.FURNITURE) && e.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour)
+				.findAny().orElse(null);
+
+		if (targetExportFurniture == null) {
+			cancelAssignment();
+		} else {
+			GameMaterial desiredMaterial = ((ProductionExportFurnitureBehaviour)targetExportFurniture.getBehaviourComponent()).getSelectedMaterial();
+
+			QuantifiedItemTypeWithMaterial matchedRequirement = craftingAssignment.getTargetRecipe().getInput().stream()
+					.filter(q -> q.getItemType().equals(itemTypeRequired) && q.getQuantity() == amountRequired)
+					.findAny().orElse(null);
+
+			if (matchedRequirement == null) {
+				Logger.error("Could not match up input requirement for cancelled hauling allocation");
+				cancelAssignment();
+			} else {
+				ProductionImportFurnitureBehaviour newInputFurniture = getImportFurnitureForRequirement(matchedRequirement, allImportFurniture(), desiredMaterial);
+				if (newInputFurniture == null) {
+					cancelAssignment();
+				} else {
+					addInputToAssignment(matchedRequirement, newInputFurniture);
+				}
+			}
+		}
+	}
+
+	public void liquidAdded(float quantity, TiledMap areaMap) {
+		// TODO, still needed?
 	}
 
 	@Override
@@ -932,32 +734,9 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			asJson.put("jobCompletedByEntity", jobCompletedByEntity.getId());
 		}
 
-		if (currentProductionAssignment != null) {
-			currentProductionAssignment.writeTo(savedGameStateHolder);
-			asJson.put("currentProductionAssignment", currentProductionAssignment.productionAssignmentId);
-		}
-
-		if (craftingJob != null) {
-			craftingJob.writeTo(savedGameStateHolder);
-			asJson.put("craftingJob", craftingJob.getJobId());
-		}
-
-		if (!haulingInputAllocations.isEmpty()) {
-			JSONArray inputAllocationsJson = new JSONArray();
-			for (HaulingAllocation inputAllocation : haulingInputAllocations) {
-				inputAllocation.writeTo(savedGameStateHolder);
-				inputAllocationsJson.add(inputAllocation.getHaulingAllocationId());
-			}
-			asJson.put("inputAllocations", inputAllocationsJson);
-		}
-
-		if (!liquidTransferJobs.isEmpty()) {
-			JSONArray liquidTransferJobsJson = new JSONArray();
-			for (Job outstandingJob : liquidTransferJobs) {
-				outstandingJob.writeTo(savedGameStateHolder);
-				liquidTransferJobsJson.add(outstandingJob.getJobId());
-			}
-			asJson.put("liquidTransferJobs", liquidTransferJobsJson);
+		if (craftingAssignment != null) {
+			craftingAssignment.writeTo(savedGameStateHolder);
+			asJson.put("craftingAssignment", craftingAssignment.getCraftingAssignmentId());
 		}
 	}
 
@@ -989,47 +768,13 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 
 		this.gameMaterialDictionary = relatedStores.gameMaterialDictionary;
 		this.craftingOutputQualityDictionary = relatedStores.craftingOutputQualityDictionary;
+		this.craftingRecipeDictionary = relatedStores.craftingRecipeDictionary;
 
-		Long productionAssignmentId = asJson.getLong("currentProductionAssignment");
-		if (productionAssignmentId != null) {
-			this.currentProductionAssignment = savedGameStateHolder.productionAssignments.get(productionAssignmentId);
-			if (this.currentProductionAssignment == null) {
-				throw new InvalidSaveException("Could not find production assignment with ID " + productionAssignmentId);
-			} else {
-				this.currentProductionAssignment.setAssignedCraftingStation(parentEntity);
-			}
-		}
-
-		Long craftingJobId = asJson.getLong("craftingJob");
-		if (craftingJobId != null) {
-			this.craftingJob = savedGameStateHolder.jobs.get(craftingJobId);
-			if (this.craftingJob == null) {
-				throw new InvalidSaveException("Could not find job with ID " + craftingJobId);
-			}
-		}
-
-		JSONArray inputAllocationsJson = asJson.getJSONArray("inputAllocations");
-		if (inputAllocationsJson != null) {
-			for (int cursor = 0; cursor < inputAllocationsJson.size(); cursor++) {
-				long allocationId = inputAllocationsJson.getLongValue(cursor);
-				HaulingAllocation allocation = savedGameStateHolder.haulingAllocations.get(allocationId);
-				if (allocation == null) {
-					throw new InvalidSaveException("Could not find hauling allocation with ID " + allocationId);
-				} else {
-					this.haulingInputAllocations.add(allocation);
-				}
-			}
-		}
-
-		JSONArray liquidTransferJobsJson = asJson.getJSONArray("liquidTransferJobs");
-		if (liquidTransferJobsJson != null) {
-			for (int cursor = 0; cursor < liquidTransferJobsJson.size(); cursor++) {
-				Job job = savedGameStateHolder.jobs.get(liquidTransferJobsJson.getLong(cursor));
-				if (job == null) {
-					throw new InvalidSaveException("Could not find job with ID " + liquidTransferJobsJson.getLong(cursor));
-				} else {
-					liquidTransferJobs.add(job);
-				}
+		Long craftingAssignmentId = asJson.getLong("craftingAssignment");
+		if (craftingAssignmentId != null) {
+			craftingAssignment = savedGameStateHolder.craftingAssignments.get(craftingAssignmentId);
+			if (craftingAssignment == null) {
+				throw new InvalidSaveException("Could not find crafting assignment with ID " + craftingAssignmentId + " for " + getClass().getSimpleName());
 			}
 		}
 

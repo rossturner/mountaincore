@@ -8,7 +8,6 @@ import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.gamecontext.GameContext;
 
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getNearestNavigableWorkspace;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
@@ -60,8 +59,7 @@ public class GoToFoodLocationAction extends GoToLocationAction {
 	}
 
 	private Vector2 getNavigableWorkspace(Entity targetEntity, GameContext gameContext) {
-		FurnitureLayout.Workspace navigableWorkspace = getNearestNavigableWorkspace(targetEntity, gameContext.getAreaMap(),
-				toGridPoint(parent.parentEntity.getLocationComponent().getWorldOrParentPosition()));
+		FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getNearestNavigableWorkspace(targetEntity, gameContext.getAreaMap(), toGridPoint(parent.parentEntity.getLocationComponent().getWorldOrParentPosition()));
 		if (navigableWorkspace == null) {
 			// Could not navigate to any workspaces
 			return null;

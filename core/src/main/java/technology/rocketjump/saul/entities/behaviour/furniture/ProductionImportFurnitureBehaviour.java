@@ -191,6 +191,10 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 		incomingHaulingJobs.forEach(job -> messageDispatcher.dispatchMessage(MessageType.JOB_REMOVED, job));
 	}
 
+	public Entity getParentEntity() {
+		return parentEntity;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		super.writeTo(asJson, savedGameStateHolder);

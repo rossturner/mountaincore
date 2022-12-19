@@ -214,10 +214,6 @@ public class MessageType {
 	public static final int MECHANISM_CONSTRUCTED = 920;
 
 	// Production messages
-	public static final int REQUEST_PRODUCTION_ASSIGNMENT = 1000;
-	public static final int PRODUCTION_ASSIGNMENT_ACCEPTED = 1001;
-	public static final int PRODUCTION_ASSIGNMENT_CANCELLED = 1002;
-	public static final int PRODUCTION_ASSIGNMENT_COMPLETED = 1003;
 
 	// Food-related messages
 	public static final int REQUEST_LIQUID_TRANSFER = 1100;

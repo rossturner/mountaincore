@@ -101,6 +101,10 @@ public class InventoryComponent implements EntityComponent, Destructible {
 		}
 	}
 
+	public ItemAllocation.Purpose getAddAsAllocationPurpose() {
+		return addAsAllocationPurpose;
+	}
+
 	private MapTile pickEmptyTileOrRandom(List<MapTile> parentTiles, Random random) {
 		for (MapTile parentTile : parentTiles) {
 			if (!parentTile.hasItem()) {
@@ -129,6 +133,9 @@ public class InventoryComponent implements EntityComponent, Destructible {
 	}
 
 	public InventoryEntry findByItemTypeAndMaterial(ItemType itemType, GameMaterial material, GameClock gameClock) {
+		if (material == null) {
+			return findByItemType(itemType, gameClock);
+		}
 		for (InventoryEntry entry : inventoryEntries.values()) {
 			Entity item = entry.entity;
 			if (ITEM.equals(item.getType())) {

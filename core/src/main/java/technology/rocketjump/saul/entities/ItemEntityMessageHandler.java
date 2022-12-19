@@ -51,7 +51,6 @@ import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
 @Singleton
@@ -347,7 +346,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			Entity itemToBeMoved = message.getEntityToBeMoved();
 			Entity containerEntity = itemToBeMoved.getLocationComponent().getContainerEntity();
 			if (containerEntity != null) {
-				FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(containerEntity, gameContext.getAreaMap());
+				FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(containerEntity, gameContext.getAreaMap());
 				if (navigableWorkspace != null) {
 					haulingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
 					haulingJob.setJobState(JobState.ASSIGNABLE);

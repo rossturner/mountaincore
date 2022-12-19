@@ -9,12 +9,10 @@
         "quantity": 3
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Armour-Leather",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Armour-Leather",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Kitchen-Knife",
     "materialTypesToCopyOver": ["SKIN"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -30,12 +28,10 @@
         "quantity": 8
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Armour-Plate",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Armour-Plate",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 3.5,

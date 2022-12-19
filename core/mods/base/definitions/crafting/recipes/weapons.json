@@ -13,12 +13,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Metal-Arrows",
-        "quantity": 10
-      }
-    ],
+    "output": {
+      "itemTypeName": "Weapon-Metal-Arrows",
+      "quantity": 10
+    },
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 8.5
@@ -37,12 +35,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Bone-Arrows",
-        "quantity": 10
-      }
-    ],
+    "output": {
+      "itemTypeName": "Weapon-Bone-Arrows",
+      "quantity": 10
+    },
     "materialTypesToCopyOver": ["BONE", "WOOD"],
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 8.5
@@ -57,12 +53,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Metal-Bolts",
-        "quantity": 15
-      }
-    ],
+    "output": {
+      "itemTypeName": "Weapon-Metal-Bolts",
+      "quantity": 15
+    },
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 8.5
@@ -76,12 +70,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Bow",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Weapon-Bow",
+      "quantity": 1
+    },
     "materialTypesToCopyOver": ["WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 11.5
@@ -99,12 +91,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Battle-Axe",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Weapon-Battle-Axe",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Large-Hammer",
     "materialTypesToCopyOver": ["WOOD", "METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -119,12 +109,10 @@
         "quantity": 3
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Battle-Hammer",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Weapon-Battle-Hammer",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Large-Hammer",
     "materialTypesToCopyOver": ["CLOTH", "METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -139,12 +127,10 @@
         "quantity": 3
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Sword",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Weapon-Sword",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Large-Hammer",
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -163,12 +149,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Crossbow",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Weapon-Crossbow",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Large-Hammer",
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -184,12 +168,10 @@
         "quantity": 2
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Wooden-Shield",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Weapon-Wooden-Shield",
+      "quantity": 1
+    },
     "materialTypesToCopyOver": ["WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 11.5
@@ -203,12 +185,10 @@
         "quantity": 4
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Metal-Shield",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Weapon-Metal-Shield",
+      "quantity": 1
+    },
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 11.5
