@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.kotcrab.vis.ui.widget.CollapsibleWidget;
 import com.ray3k.tenpatch.TenPatchDrawable;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
@@ -56,6 +57,7 @@ import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
+import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.screens.SettlerManagementScreen;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
@@ -115,15 +117,12 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 
 	// For stockpiles
-	private FurnitureStockpileComponent currentStockpileComponent;
-	private StockpileManagementTree stockpileManagementTree;
+	private boolean showStockpileSettings = false;
 	private final StockpileComponentUpdater stockpileComponentUpdater;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
 	private final GameMaterialDictionary gameMaterialDictionary;
 	private final RaceDictionary raceDictionary;
 	private final ItemTypeDictionary itemTypeDictionary;
-	private List<ToggleButtonSet.ToggleButtonDefinition> priorityButtonDefinitions;
-
 
 	@Inject
 	public EntitySelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
@@ -155,32 +154,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		this.soundAssetDictionary = soundAssetDictionary;
 
 		haulingJobType = jobTypeDictionary.getByName("HAULING");
-/*
-		outerTable = new Table(uiSkin);
-		outerTable.background("default-rect");
-		outerTable.pad(10);
-
-		squadTextButton = clickableTableFactory.create();
-		squadTextButton.setBackground(uiSkin.get(TextButton.TextButtonStyle.class).up);
-		squadTextButton.add(new Label("REPLACE ME", uiSkin));
-
-
-		priorityButtonDefinitions = new ArrayList<>();
-		// TODO might want to pull the below code out somewhere else
-		TextureAtlas guiTextureAtlas = textureAtlasRepository.get(TextureAtlasRepository.TextureAtlasType.GUI_TEXTURE_ATLAS);
-		for (JobPriority jobPriority : Arrays.asList(JobPriority.LOWEST, JobPriority.LOWER, JobPriority.NORMAL, JobPriority.HIGHER, JobPriority.HIGHEST)) {
-			Sprite sprite = guiTextureAtlas.createSprite(jobPriority.iconName);
-			sprite.scale(0.5f);
-			sprite.setSize(sprite.getWidth() / 2f, sprite.getHeight() / 2f);
-			sprite.setColor(jobPriority.color);
-			priorityButtonDefinitions.add(new ToggleButtonSet.ToggleButtonDefinition(jobPriority.name(), sprite));
-		}*/
 		this.settlerManagementScreen = settlerManagementScreen;
 	}
 
 	@Override
 	public void populate(Table containerTable) {
 		containerTable.clear();
+		showStockpileSettings = false;
 		updatables = new ArrayList<>();
 		outerTable = new Table();
 		float dropshadowLength = 18f;
@@ -298,7 +278,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					Table viewContents = new Table();
 					viewContents.defaults().growY().spaceBottom(20);
 					Updatable<Table> viewContentsUpdatable = Updatable.of(viewContents); //Absolutely despise what i've done here, essentially empty tables still pad things out
-					outerTable.add(viewContents).colspan(3).growY().padBottom(67 + dropshadowLength).padRight(67).padLeft(67).padTop(20);
+					outerTable.add(viewContents).colspan(3).growY().padRight(67).padLeft(67).padTop(20).row();
 
 					viewContentsUpdatable.regularly(() -> {
 						viewContents.clear();
@@ -332,45 +312,35 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						} else {
 							outerTable.setBackground(mainGameSkin.getDrawable("ENTITY_SELECT_BG_SMALL"));
 						}
+
+
 					});
 					viewContentsUpdatable.update();
 
 					updatables.add(viewContentsUpdatable);
+					if (entity.getComponent(FurnitureStockpileComponent.class) != null) {
+						StockpileManagementTree stockpileManagementTree = new StockpileManagementTree(mainGameSkin, messageDispatcher,
+								stockpileComponentUpdater, stockpileGroupDictionary, i18nTranslator, itemTypeDictionary, gameMaterialDictionary, raceDictionary,
+								gameContext.getSettlementState().getSettlerRace(), entity.getId(), HaulingAllocation.AllocationPositionType.FURNITURE, entity.getComponent(FurnitureStockpileComponent.class).getStockpileSettings());
+						stockpileManagementTree.setSize(1700, 600);
 
-					//stockpile settings here
+						CollapsibleWidget stockpileTreeCollapsible = new CollapsibleWidget(stockpileManagementTree, true);
+						Updatable<CollapsibleWidget> stockpileTreeUpdatable = Updatable.of(stockpileTreeCollapsible);
 
-/*
-			this.currentStockpileComponent = entity.getComponent(FurnitureStockpileComponent.class);
-			if (currentStockpileComponent != null) {
-				outerTable.row();
+						stockpileTreeUpdatable.regularly(() -> {
+							//WTF was i doing with this boolean code
+							if (showStockpileSettings && stockpileTreeCollapsible.isCollapsed()) {
+								stockpileTreeCollapsible.setCollapsed(false, false);
+							} else if (!showStockpileSettings && !stockpileTreeCollapsible.isCollapsed()) {
+								stockpileTreeCollapsible.setCollapsed(true, false);
+							}
+						});
+						updatables.add(stockpileTreeUpdatable);
 
-				ToggleButtonSet priorityToggle = new ToggleButtonSet(uiSkin, priorityButtonDefinitions, (value) -> {
-					JobPriority selectedPriority = JobPriority.valueOf(value);
-					currentStockpileComponent.setPriority(selectedPriority);
-				});
-				priorityToggle.setChecked(currentStockpileComponent.getPriority().name());
+						outerTable.add(stockpileTreeCollapsible).left().colspan(3).padLeft(67).padTop(20).padRight(67).row();
+					}
 
-				Table priorityStack = new Table();
-				priorityStack.add(new Label(i18nTranslator.getTranslatedString("GUI.PRIORITY_LABEL").toString(), uiSkin)).left().row();
-				priorityStack.add(priorityToggle).left().row();
-				priorityStack.align(Align.left);
-				priorityStack.pad(2);
-
-				outerTable.add(priorityStack).colspan(3).left().row();
-
-
-				//Dirty hack for now
-				if (!sameSelectable) {
-					this.stockpileManagementTree = new StockpileManagementTree(uiSkin, messageDispatcher,
-						stockpileComponentUpdater, stockpileGroupDictionary, i18nTranslator, itemTypeDictionary, gameMaterialDictionary, raceDictionary,
-						gameContext.getSettlementState().getSettlerRace(), entity.getId(), HaulingAllocation.AllocationPositionType.FURNITURE, currentStockpileComponent.getStockpileSettings());
-
-				}
-
-				outerTable.add(this.stockpileManagementTree).left().pad(4).row();
-			}
-		}*/
-
+					outerTable.add(new Container<>()).colspan(3).padBottom(67 + dropshadowLength);
 				}
 			}
 		}
@@ -399,27 +369,32 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Runnable updater = () -> {
 			table.clear();
 
-//			if (selectedRoom != null && selectedRoom.getRoomType().isStockpile()) {
-//				Container<Button> stockpileSettingsContainer = new Container<>();
-//				if (stockpileSettingsExpanded) {
-//					stockpileSettingsContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
-//				}
-//				stockpileSettingsContainer.pad(18);
-//				Button stockpileSettingsButton = new Button(skin.getDrawable("btn_settings"));
-//				stockpileSettingsButton.addListener(new ClickListener() {
-//					@Override
-//					public void clicked(InputEvent event, float x, float y) {
-//						toggleStockpileSettings();
-//					}
-//				});
-//				stockpileSettingsButton.addListener(new ChangeCursorOnHover(stockpileSettingsButton, GameCursor.SELECT, messageDispatcher));
-//				tooltipFactory.simpleTooltip(stockpileSettingsButton, "GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE", TooltipLocationHint.ABOVE);
-//				stockpileSettingsContainer.setActor(stockpileSettingsButton);
-//				sizingButtons.add(stockpileSettingsContainer);
-//			}
+			if (furnitureStockpileComponent != null) {
+				Container<Button> stockpileSettingsContainer = new Container<>();
+				if (showStockpileSettings) {
+					stockpileSettingsContainer.setBackground(mainGameSkin.getDrawable("asset_selection_bg_cropped"));
+				}
 
+				Button stockpileSettingsButton = new Button(mainGameSkin.getDrawable("btn_settings"));
+				stockpileSettingsButton.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						showStockpileSettings = !showStockpileSettings;
+						update();
+					}
+				});
+				buttonFactory.attachClickCursor(stockpileSettingsButton, GameCursor.SELECT);
+				tooltipFactory.simpleTooltip(stockpileSettingsButton, "GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE", TooltipLocationHint.ABOVE);
+				stockpileSettingsContainer.setActor(stockpileSettingsButton);
+				table.add(stockpileSettingsContainer);
+			}
 
 			if (constructedEntityComponent != null && constructedEntityComponent.canBeDeconstructed()) {
+				Container<Button> deconstructContainer = new Container<>();
+				if (constructedEntityComponent.isBeingDeconstructed()) {
+					deconstructContainer.setBackground(mainGameSkin.getDrawable("asset_selection_bg_cropped"));
+				}
+
 				Button deconstructButton = new Button(mainGameSkin.getDrawable("btn_demolish_small"));
 				deconstructButton.addListener(new ClickListener() {
 					@Override
@@ -437,7 +412,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				}
 				buttonFactory.attachClickCursor(deconstructButton, GameCursor.SELECT);
 				tooltipFactory.simpleTooltip(deconstructButton, "GUI.DECONSTRUCT_LABEL", TooltipLocationHint.ABOVE);
-				table.add(deconstructButton);
+				deconstructContainer.setActor(deconstructButton);
+				table.add(deconstructContainer);
 			}
 
 			if (isItemContainingLiquidOnGroundAndNoneAllocated(entity)) {
@@ -1021,9 +997,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		buttonTable.add(changeNameButton).padRight(indentWidth);
 
 		Updatable<Actor> updatable = Updatable.of(buttonTable);
-		updatable.regularly(() -> {
-			headerLabel.setText(attributes.getName().toString());
-		});
+		updatable.regularly(() -> headerLabel.setText(attributes.getName().toString()));
 
 		return updatable;
 	}
