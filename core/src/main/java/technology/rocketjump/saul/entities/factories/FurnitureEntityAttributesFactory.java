@@ -9,6 +9,7 @@ import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeD
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.materials.model.GameMaterial;
+import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
@@ -29,11 +30,11 @@ public class FurnitureEntityAttributesFactory {
 		lightColors.add(HexColors.get("#f8fdff"));
 	}
 
-	public FurnitureEntityAttributes byName(String furnitureTypeName, GameMaterial primaryMaterial) {
+	public FurnitureEntityAttributes byName(String furnitureTypeName, GameMaterialType materialType, GameMaterial primaryMaterial) {
 		FurnitureEntityAttributes attributes = new FurnitureEntityAttributes(random.nextLong());
 		attributes.setFurnitureType(furnitureTypeDictionary.getByName(furnitureTypeName));
-		attributes.setPrimaryMaterialType(primaryMaterial.getMaterialType());
-		attributes.getMaterials().put(primaryMaterial.getMaterialType(), primaryMaterial);
+		attributes.setPrimaryMaterialType(materialType);
+		attributes.getMaterials().put(materialType, primaryMaterial);
 		attributes.setColor(ColoringLayer.ACCESSORY_COLOR, randomLightColor(random));
 		return attributes;
 	}

@@ -6,19 +6,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.google.common.collect.Lists;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
 import technology.rocketjump.saul.jobs.model.JobPriority;
-import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RoomPriorityWidget extends Table {
+public class PriorityWidget extends Table {
 
 	private final List<PriorityButton> priorityButtons = new ArrayList<>();
 	private Prioritisable prioritisableComponent;
 
-	public RoomPriorityWidget(Room room, Prioritisable prioritisableComponent, Skin skin, TooltipFactory tooltipFactory, MessageDispatcher messageDispatcher) {
+	public PriorityWidget(Prioritisable prioritisableComponent, Skin skin, TooltipFactory tooltipFactory, MessageDispatcher messageDispatcher) {
 		this.prioritisableComponent = prioritisableComponent;
 		this.defaults().pad(8);
 

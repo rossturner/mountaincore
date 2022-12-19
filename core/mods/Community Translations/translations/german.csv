@@ -131,7 +131,6 @@ CREATURE.STATUS.DEAD,,Dead,"Tot "
 CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other pests and needs some work to remove them,Afflicted by pests,Von Schädlingen befallen
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!,"Diese Pflanze ist von einer hohen Anzahl an Blattläusen und anderen Insekten befallen, die von einem {{PROFESSION.FARMER}} entfernt werden müssen bevor sie wieder gedeihen kann. Die Pflanze kann sterben wenn die Schädlinge nicht rechtzeitig entfernt werden!"
 CROP.DESCRIPTION,,{{materialType.noun}} plant,{{materialType.noun}}-Pflanze
-CROP.HARVEST_PROGRESS,E.g. “Progress towards harvest: 30%”,Progress towards harvest: {{progress}}%,Reifungsprozess: {{progress}} %
 CROP.MOISTURE_STATE.DROUGHTED,,This plant has no access to water for a long time and has stopped growing,Diese Pflanze hatte lange keinen Zugang zu Wasser und hat aufgehört zu wachsen
 CROP.MOISTURE_STATE.NEEDS_WATERING,,This plant has not been watered and is growing slowly,Diese Pflanze wurde nicht bewässert und wächst langsam
 CROP.MOISTURE_STATE.NEEDS_WATERING.TOOLTIP,,You can irrigate your crops with a channel containing water with 2 tiles.,Du kannst deine Pflanzen mit einem Wasserkanal innerhalb 2 Kacheln bewässern.

@@ -195,9 +195,9 @@ public class DoorwayMessageHandler implements GameContextAware, Telegraph {
 	private Entity createFrameEntity(DoorwayPlacementMessage message, EntityAssetOrientation orientation, float positionYOffset) {
 
 		FurnitureEntityAttributes attributes = new FurnitureEntityAttributes(SequentialIdGenerator.nextId());
-		attributes.setPrimaryMaterialType(message.getDoorwayMaterial().getMaterialType());
+		attributes.setPrimaryMaterialType(message.getDoorwayMaterialType());
 
-		attributes.getMaterials().put(message.getDoorwayMaterial().getMaterialType(), message.getDoorwayMaterial());
+		attributes.getMaterials().put(message.getDoorwayMaterialType(), message.getDoorwayMaterial());
 		attributes.setFurnitureType(furnitureTypeDictionary.getByName(selectFrameFurnitureTypeName(message)));
 		attributes.setCurrentLayout(pickFurnitureLayout(message));
 		Entity entity = furnitureEntityFactory.create(attributes, message.getTilePosition(), null, gameContext);
@@ -211,8 +211,8 @@ public class DoorwayMessageHandler implements GameContextAware, Telegraph {
 	private Entity createDoorEntity(DoorwayPlacementMessage message) {
 
 		FurnitureEntityAttributes attributes = new FurnitureEntityAttributes(SequentialIdGenerator.nextId());
-		attributes.setPrimaryMaterialType(message.getDoorwayMaterial().getMaterialType());
-		attributes.getMaterials().put(message.getDoorwayMaterial().getMaterialType(), message.getDoorwayMaterial());
+		attributes.setPrimaryMaterialType(message.getDoorwayMaterialType());
+		attributes.getMaterials().put(message.getDoorwayMaterialType(), message.getDoorwayMaterial());
 		attributes.setFurnitureType(furnitureTypeDictionary.getByName(selectDoorFurnitureTypeName(message)));
 		attributes.setCurrentLayout(pickFurnitureLayout(message));
 

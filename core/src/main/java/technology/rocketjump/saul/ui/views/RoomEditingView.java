@@ -51,7 +51,7 @@ import technology.rocketjump.saul.ui.widgets.*;
 import technology.rocketjump.saul.ui.widgets.furniture.FurnitureRequirementsWidget;
 import technology.rocketjump.saul.ui.widgets.rooms.FarmPlotDescriptionWidget;
 import technology.rocketjump.saul.ui.widgets.rooms.FarmPlotWidget;
-import technology.rocketjump.saul.ui.widgets.rooms.RoomPriorityWidget;
+import technology.rocketjump.saul.ui.widgets.rooms.PriorityWidget;
 
 @Singleton
 public class RoomEditingView implements GuiView, GameContextAware, DisplaysText, Telegraph {
@@ -266,7 +266,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 					}
 				}
 				if (roomComponent instanceof Prioritisable prioritisableComponent) {
-					mainTable.add(new RoomPriorityWidget(selectedRoom, prioritisableComponent, skin, tooltipFactory, messageDispatcher)).center().row();
+					mainTable.add(new PriorityWidget(prioritisableComponent, skin, tooltipFactory, messageDispatcher)).center().row();
 				}
 			}
 

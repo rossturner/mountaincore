@@ -151,6 +151,26 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
+	btn_entity_selected_bg_patch: {
+		region: asset_bg_material_bg
+		horizontalStretchAreas: [ 28, 183 ]
+		verticalStretchAreas: [ 30, 30 ]
+		tiling: false
+		minWidth: 212
+		minHeight: 61
+		rightWidth: 0
+		leftWidth: 0
+		bottomHeight: 2
+		topHeight: 2
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.kotcrab.vis.ui.Sizes: {
 	default: {
@@ -370,6 +390,11 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	btn_dialog_1: {
 		font: default-font-23
 		fontColor: white
+	}
+	btn_entity_selected_action: {
+		font: default-font-19
+		fontColor: white
+		up: btn_entity_selected_bg_patch
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {

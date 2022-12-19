@@ -211,7 +211,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 
 	private boolean handle(DoorwayPlacementMessage placeDoorwayMessage) {
 		// Create entity to act as construction base
-		FurnitureEntityAttributes attributes = furnitureEntityAttributesFactory.byName("SINGLE_DOOR_PLACEMENT", placeDoorwayMessage.getDoorwayMaterial());
+		FurnitureEntityAttributes attributes = furnitureEntityAttributesFactory.byName("SINGLE_DOOR_PLACEMENT", placeDoorwayMessage.getDoorwayMaterialType(), placeDoorwayMessage.getDoorwayMaterial());
 		Entity placementDoorwayEntity = furnitureEntityFactory.create(attributes, placeDoorwayMessage.getTilePosition(), null, gameContext);
 		DoorwayConstruction doorwayConstruction = new DoorwayConstruction(placementDoorwayEntity, placeDoorwayMessage);
 		requestConstructionSoundAsset(doorwayConstruction);
@@ -250,8 +250,8 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 
 		if (construction.getConstructionType().equals(ConstructionType.DOORWAY_CONSTRUCTION)) {
 			DoorwayConstruction doorwayConstruction = (DoorwayConstruction) construction;
-			GameMaterial originalMaterial = doorwayConstruction.getPlaceDoorwayMessage().getDoorwayMaterial();
-			GameMaterial materialFromConstruction = findApplicableMaterial(itemsRemovedFromConstruction.values(), originalMaterial.getMaterialType());
+			GameMaterialType originalMaterialType = doorwayConstruction.getPlaceDoorwayMessage().getDoorwayMaterialType();
+			GameMaterial materialFromConstruction = findApplicableMaterial(itemsRemovedFromConstruction.values(), originalMaterialType);
 			doorwayConstruction.getPlaceDoorwayMessage().setDoorwayMaterial(materialFromConstruction);
 			messageDispatcher.dispatchMessage(MessageType.REMOVE_ROOM_TILES, construction.getTileLocations());
 			messageDispatcher.dispatchMessage(MessageType.CREATE_DOORWAY, doorwayConstruction.getPlaceDoorwayMessage());

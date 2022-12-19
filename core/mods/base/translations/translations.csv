@@ -50,6 +50,7 @@ BODY_STRUCTURE.DAMAGE.BLEEDING,,Bleeding
 BODY_STRUCTURE.DAMAGE.BROKENBONES,,Broken
 BODY_STRUCTURE.DAMAGE.BRUISED,,Bruised
 BODY_STRUCTURE.DAMAGE.DESTROYED,,Destroyed
+BODY_STRUCTURE.DAMAGE.NOT_INJURED,,Not Injured
 BODY_STRUCTURE.DISCRIMINATOR.BACKLEFT,,Rear left
 BODY_STRUCTURE.DISCRIMINATOR.BACKRIGHT,,Rear right
 BODY_STRUCTURE.DISCRIMINATOR.FIRSTLEFT,,First left
@@ -155,7 +156,7 @@ CREATURE.STATUS.DEAD,,Dead
 CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other pests and needs some work to remove them,Afflicted by pests
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!
 CROP.DESCRIPTION,,{{materialType.noun}} plant
-CROP.HARVEST_PROGRESS,E.g. “Progress towards harvest: 30%”,Progress towards harvest: {{progress}}%
+CROP.HARVEST_PROGRESS,E.g. “Progress towards harvest: 30%”,Progress towards harvest ({{progress}}%):
 CROP.MOISTURE_STATE.DROUGHTED,,This plant has no access to water for a long time and has stopped growing
 CROP.MOISTURE_STATE.NEEDS_WATERING,,This plant has not been watered and is growing slowly
 CROP.MOISTURE_STATE.NEEDS_WATERING.TOOLTIP,,You can irrigate your crops with a channel containing water with 2 tiles.
@@ -183,6 +184,12 @@ EARTH.GRASS,,Grass
 ENTITY.DESTRUCTION_DESCRIPTION.BURNED,,Destroyed by fire
 ENTITY.DESTRUCTION_DESCRIPTION.OXIDISED,,Destroyed by prolonged exposure to rain
 ENTITY.DESTRUCTION_DESCRIPTION.COMBAT_DAMAGE,,Destroyed during combat
+
+FACTION.SETTLEMENT,,Settler
+FACTION.WILD_ANIMALS,,Wild Animal
+FACTION.MONSTERS,,Monster
+FACTION.HOSTILE_INVASION,,Hostile Invader
+FACTION.MERCHANTS,,Merchant
 
 FLOOR.CHANNEL.DESCRIPTION,,Irrigation channel ({{state}})
 FLOOR.CHANNEL.DESCRIPTION.TOOLTIP,,Irrigation channels provide access to water to crops within 2 tiles. Build a water pump and connect the channels to it using pipes.
@@ -430,6 +437,7 @@ GOAL.INVADER.RETREAT.DESCRIPTION,,Retreating from map
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
 GUI.ADD_TILES,,Add tiles
 GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient Atmosphere
+GUI.AVAILABLE_PROGRESS_BAR,,{{item}} Available:
 GUI.BACK_LABEL,,Back
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors
