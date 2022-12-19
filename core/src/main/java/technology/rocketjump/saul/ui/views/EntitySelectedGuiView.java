@@ -276,7 +276,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					Updatable<Actor> name = titleRibbon(i18nTranslator.getDescription(entity).toString());
 					Updatable<Actor> progressBars = progressBars(entity);
 					Updatable<Actor> descriptions = textDescriptions(entity);
-					Updatable<Actor> actionButtons = actionButtons(entity);
+					Updatable<Table> actionButtons = actionButtons(entity);
 
 
 					updatables.add(name);
@@ -284,15 +284,20 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					updatables.add(actionButtons);
 					updatables.add(progressBars);
 
-					outerTable.add(name.getActor()).top().fillX().padRight(67).padLeft(67).padTop(67).padBottom(20).row(); //TODO duplication from above
+					actionButtons.getActor().layout();
+
+					//TODO duplication from above
+					outerTable.add(new Container<>()).left().width(actionButtons.getActor().getPrefWidth()).padTop(67).padLeft(67);
+					outerTable.add(name.getActor()).fillX().padTop(67);
+					outerTable.add(actionButtons.getActor()).right().padTop(67).padRight(67);
+					outerTable.row();
+
 					Table viewContents = new Table();
 					viewContents.defaults().growY().spaceBottom(20);
-					outerTable.add(viewContents).growY().padBottom(67 + dropshadowLength).padRight(67).padLeft(67);
+					outerTable.add(viewContents).colspan(3).growY().padBottom(67 + dropshadowLength).padRight(67).padLeft(67).padTop(20);
 
 					viewContents.add(progressBars.getActor()).center().row();
 					viewContents.add(descriptions.getActor()).center().row();
-					viewContents.add(actionButtons.getActor()).row();
-					//TODO: consider a central table that expands from center
 
 /*
 			this.currentStockpileComponent = entity.getComponent(FurnitureStockpileComponent.class);
@@ -349,11 +354,11 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	}
 
 
-	private Updatable<Actor> actionButtons(Entity entity) {
+	private Updatable<Table> actionButtons(Entity entity) {
 		ConstructedEntityComponent constructedEntityComponent = entity.getComponent(ConstructedEntityComponent.class);
 
 		Table table = new Table();
-		Updatable<Actor> updatable = Updatable.of(table);
+		Updatable<Table> updatable = Updatable.of(table);
 
 		table.defaults().uniform().spaceLeft(40).spaceRight(40);
 
@@ -361,7 +366,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			table.clear();
 
 			if (constructedEntityComponent != null && constructedEntityComponent.canBeDeconstructed()) {
-				TextButton deconstructButton = new TextButton(i18nTranslator.translate("GUI.REMOVE_LABEL"), mainGameSkin, "btn_entity_selected_action");
+				Button deconstructButton = new Button(mainGameSkin.getDrawable("btn_demolish_small"));
 				deconstructButton.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -372,11 +377,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						}
 					}
 				});
+
 				if (constructedEntityComponent.isBeingDeconstructed()) {
 					buttonFactory.disable(deconstructButton);
 				}
 				buttonFactory.attachClickCursor(deconstructButton, GameCursor.SELECT);
-				table.add(deconstructButton);
+				tooltipFactory.simpleTooltip(deconstructButton, "GUI.DECONSTRUCT_LABEL", TooltipLocationHint.ABOVE);
+				table.add(deconstructButton).pad(18);
 			}
 
 			if (isItemContainingLiquidOnGroundAndNoneAllocated(entity)) {
@@ -391,7 +398,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					}
 				});
 				buttonFactory.attachClickCursor(emptyContainerButton, GameCursor.SELECT);
-				table.add(emptyContainerButton);
+				table.add(emptyContainerButton).pad(18);
 			}
 		};
 		updatable.regularly(updater);
