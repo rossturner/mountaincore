@@ -431,6 +431,7 @@ GOAL.INVADER.RETREAT.DESCRIPTION,,Retreating from map
 GUI.ADD_REMOVE_TILES,Heading to describe adding or removing an area of a zone/room,Add/remove tiles
 GUI.ADD_TILES,,Add tiles
 GUI.AMBIENT_EFFECT_VOLUME,This is a volume setting for ambient effects such as birdsong and river flowing,Ambient Atmosphere
+GUI.AVAILABLE_PROGRESS_BAR,,{{item}} Available:
 GUI.BACK_LABEL,,Back
 GUI.BUILD.BRIDGE,For building a bridge across a river,Bridge
 GUI.BUILD.DOORS,Take from FURNITURE.SINGLE_DOOR,Doors

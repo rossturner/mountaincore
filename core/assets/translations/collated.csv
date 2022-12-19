@@ -433,6 +433,7 @@ GOAL.TRANSFER_LIQUID.DESCRIPTION,Transferring {{targetZoneMaterial}},,Füllt {{t
 GUI.ADD_REMOVE_TILES,Add/remove tiles,,Felder hinzufügen/entfernen,Ajouter/retirer des cases,Aggiungi/Rimuovi caselle,Añadir/eliminar casillas,Adicionar/remover mosaicos,Adicionar/remover áreas,,Добавление/удаление клеток,Karo ekle/çıkar,Tilføj/fjern fliser,,Lägg till/ta bort brickor,,,,タイルの追加/削除,添加/移除区格,
 GUI.ADD_TILES,Add tiles,,Felder hinzufügen,Ajouter des cases,Aggiungi caselle,Añadir casillas,Adicionar mosaicos,Adicionar áreas,,Добавить клетки,Karo ekle,Tilføj fliser,,Lägg till paneler,,,,タイル追加,添加区格,
 GUI.AMBIENT_EFFECT_VOLUME,Ambient Atmosphere,,,,,,,,,,,,,,,,,,,
+GUI.AVAILABLE_PROGRESS_BAR,{{item}} Available:,,,,,,,,,,,,,,,,,,,
 GUI.BACK_LABEL,Back,,Zurück,"Retour ",Indietro,Atrás,Anterior,Voltar,,Назад,Geri,Tilbage,,"Tillbaka ",,,,戻る,返回,
 GUI.BUILD.BRIDGE,Bridge,,Brücke,Pont,Ponte,Puente,Ponte,,,Мост,Köprü,Broen,,Bron,,,,架橋,桥,
 GUI.BUILD.DOORS,Doors,,Türen,Portes,Porte,Puertas,Portas,Portas,,Двери,Kapı,Døre,,Dörrar,,,,ドア,门,

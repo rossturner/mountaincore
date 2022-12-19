@@ -1,12 +1,14 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -52,6 +54,7 @@ import technology.rocketjump.saul.production.StockpileComponentUpdater;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
+import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.screens.SettlerManagementScreen;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
@@ -271,6 +274,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					}
 				} else {
 					Updatable<Actor> name = titleRibbon(i18nTranslator.getDescription(entity).toString());
+					Updatable<Actor> progressBars = progressBars(entity);
 					Updatable<Actor> descriptions = textDescriptions(entity);
 					Updatable<Actor> actionButtons = actionButtons(entity);
 
@@ -278,12 +282,14 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					updatables.add(name);
 					updatables.add(descriptions);
 					updatables.add(actionButtons);
+					updatables.add(progressBars);
 
 					outerTable.add(name.getActor()).top().fillX().padRight(67).padLeft(67).padTop(67).padBottom(20).row(); //TODO duplication from above
 					Table viewContents = new Table();
 					viewContents.defaults().growY().spaceBottom(20);
 					outerTable.add(viewContents).growY().padBottom(67 + dropshadowLength).padRight(67).padLeft(67);
 
+					viewContents.add(progressBars.getActor()).center().row();
 					viewContents.add(descriptions.getActor()).center().row();
 					viewContents.add(actionButtons.getActor()).row();
 					//TODO: consider a central table that expands from center
@@ -394,8 +400,58 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		return updatable;
 	}
 
-	private Updatable<Actor> textDescriptions(Entity entity) {
+
+	private Updatable<Actor> progressBars(Entity entity) {
 		LiquidContainerComponent liquidContainerComponent = entity.getComponent(LiquidContainerComponent.class);
+		Table table = new Table();
+		Updatable<Actor> updatable = Updatable.of(table);
+
+		updatable.regularly(() -> {
+			table.clear();
+
+			if (liquidContainerComponent != null && liquidContainerComponent.getTargetLiquidMaterial() != null && liquidContainerComponent.getLiquidQuantity() > 0) {
+
+				Label label = new Label("", managementSkin, "default-font-18-label");
+				label.setAlignment(Align.right);
+
+				float liquidQuantity = liquidContainerComponent.getLiquidQuantity();
+				float min = 0;
+				float max = liquidQuantity;
+				float midpoint = max / 2f;
+				float value = liquidContainerComponent.getNumUnallocated();
+
+				ProgressBar progressBar = new ProgressBar(min, max, LiquidContainerComponent.SMALL_AMOUNT, false, managementSkin);
+				progressBar.setValue(value);
+				progressBar.setDisabled(true);
+				progressBar.setHeight(42);
+				Color progressBarColour;
+				if (value >= midpoint) {
+					progressBarColour = ColorMixer.interpolate(midpoint, liquidQuantity, value, managementSkin.getColor("progress_bar_yellow"), managementSkin.getColor("progress_bar_green"));
+				} else {
+					progressBarColour = ColorMixer.interpolate(min, midpoint, value, managementSkin.getColor("progress_bar_red"), managementSkin.getColor("progress_bar_yellow"));
+				}
+				ProgressBar.ProgressBarStyle clonedStyle = new ProgressBar.ProgressBarStyle(progressBar.getStyle());
+				if (clonedStyle.knobBefore instanceof NinePatchDrawable ninePatchDrawable) {
+					clonedStyle.knobBefore = ninePatchDrawable.tint(progressBarColour);
+				}
+				progressBar.setStyle(clonedStyle);
+
+
+				I18nText liquidDescription = i18nTranslator.getLiquidDescription(liquidContainerComponent.getTargetLiquidMaterial(), max);
+				label.setText(i18nTranslator.getTranslatedWordWithReplacements("GUI.AVAILABLE_PROGRESS_BAR", Map.of("item", liquidDescription)).toString());
+
+				table.add(label).spaceRight(28);
+				table.add(progressBar).width(318).growX().row();
+
+			}
+		});
+
+		updatable.update();
+		return updatable;
+	}
+
+
+	private Updatable<Actor> textDescriptions(Entity entity) {
 		ItemAllocationComponent itemAllocationComponent = entity.getComponent(ItemAllocationComponent.class);
 		EntityAttributes entityAttributes = entity.getPhysicalEntityComponent().getAttributes();
 		ConstructedEntityComponent constructedEntityComponent = entity.getComponent(ConstructedEntityComponent.class);
@@ -465,12 +521,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					}
 				}
 
-			}
-
-			if (liquidContainerComponent != null && liquidContainerComponent.getLiquidQuantity() > 0) {
-				for (I18nText liquidText : liquidContainerComponent.i18nDescription(i18nTranslator)) {
-					descriptions.add(liquidText.toString()); //TODO: Test me
-				}
 			}
 
 			table.clear();
