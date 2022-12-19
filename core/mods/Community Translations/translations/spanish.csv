@@ -131,7 +131,6 @@ CREATURE.STATUS.DEAD,,Dead,Muerto
 CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other pests and needs some work to remove them,Afflicted by pests,Infestado por plaga
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!,¡Este cultivo ha sido afectado por un número excesivo de áfidos y otros insectos que necesitan ser eliminados por un {{PROFESSION.FARMER}} antes de que pueda florecer de nuevo. ¡No eliminar las plagas a tiempo podría implicar que esta cosecha muera!
 CROP.DESCRIPTION,,{{materialType.noun}} plant,{{materialType.noun}}
-CROP.HARVEST_PROGRESS,E.g. “Progress towards harvest: 30%”,Progress towards harvest: {{progress}}%,Progreso de la cosecha: {{progress}} %
 CROP.MOISTURE_STATE.DROUGHTED,,This plant has no access to water for a long time and has stopped growing,Esta planta no ha tenido acceso a agua durante mucho tiempo y ha parado de crecer
 CROP.MOISTURE_STATE.NEEDS_WATERING,,This plant has not been watered and is growing slowly,Esta planta no ha sido regada y está creciendo lentamente
 CROP.MOISTURE_STATE.NEEDS_WATERING.TOOLTIP,,You can irrigate your crops with a channel containing water with 2 tiles.,Puedes irrigar tus cosechas con un canal de riego a 2 casillas de distancia.
@@ -899,7 +898,6 @@ PROFESSION.FISHER.FEMALE_NOUN,This could be “fisherman” and “fisherwoman�
 PROFESSION.FISHER.MALE_NOUN,,Fisher,Pescador
 PROFESSION.FISHER.TOOLTIP,,Catches fish from bodies of water for use as food and resources.,Captura peces de las masas de agua para su uso como alimento y recursos.
 PROFESSION.FISHER.VERB,,Fishing,Pescando
-PROFESSION.GUI.ADD_ANOTHER,,Add another,
 PROFESSION.HUNTER.FEMALE_NOUN,This could be “huntsman” and “huntress”,Hunter,Cazadora
 PROFESSION.HUNTER.MALE_NOUN,,Hunter,Cazador
 PROFESSION.HUNTER.TOOLTIP,,Tracks and kills wild animals for their meat and pelts.,Rastrea y mata animales salvajes por su carne y pieles.

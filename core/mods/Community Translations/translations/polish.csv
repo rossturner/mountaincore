@@ -131,7 +131,6 @@ CREATURE.STATUS.DEAD,,Dead,
 CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other pests and needs some work to remove them,Afflicted by pests,Zaatakowane przez szkodniki
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!,"Uprawa ta została dotknięta nadmierną liczbą mszyc i innych owadów, które muszą zostać usunięte przez {{PROFESSION.FARMER}}, zanim będzie mogła ponownie rozkwitnąć. Nie usunięcie szkodników w czasie może oznaczać, że ta plona umiera!"
 CROP.DESCRIPTION,,{{materialType.noun}} plant,Roślina {{materialType.noun}}
-CROP.HARVEST_PROGRESS,E.g. “Progress towards harvest: 30%”,Progress towards harvest: {{progress}}%,Postępy zbierania: {{progress}}%
 CROP.MOISTURE_STATE.DROUGHTED,,This plant has no access to water for a long time and has stopped growing,
 CROP.MOISTURE_STATE.NEEDS_WATERING,,This plant has not been watered and is growing slowly,
 CROP.MOISTURE_STATE.NEEDS_WATERING.TOOLTIP,,You can irrigate your crops with a channel containing water with 2 tiles.,
@@ -899,7 +898,6 @@ PROFESSION.FISHER.FEMALE_NOUN,This could be “fisherman” and “fisherwoman�
 PROFESSION.FISHER.MALE_NOUN,,Fisher,Rybak
 PROFESSION.FISHER.TOOLTIP,,Catches fish from bodies of water for use as food and resources.,Łowiska ryby z wód w celu wykorzystania jako żywność i zasoby.
 PROFESSION.FISHER.VERB,,Fishing,Łowić
-PROFESSION.GUI.ADD_ANOTHER,,Add another,
 PROFESSION.HUNTER.FEMALE_NOUN,This could be “huntsman” and “huntress”,Hunter,Myśliwa
 PROFESSION.HUNTER.MALE_NOUN,,Hunter,Myśliwy
 PROFESSION.HUNTER.TOOLTIP,,Tracks and kills wild animals for their meat and pelts.,Śledzi i zabija dzikie zwierzęta dla ich mięsa i skóry.

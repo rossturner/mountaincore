@@ -5,10 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.*;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -57,7 +54,7 @@ public class SettlerProfessionFactory {
 
 	//todo: really needs refactoring, lots of things happening
 	//TODO: change this to just return a table instead - bah it passes it in to clear the children and rebuild, bit dirty
-	public void addProfessionComponents(Entity settler, Table table, Consumer<Entity> onProfessionChange) {
+	public void addProfessionComponents(Entity settler, Table table, Consumer<Entity> onProfessionChange, float scale) {
 		table.clearChildren();
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 		DragAndDrop dragAndDrop = new DragAndDrop();
@@ -74,7 +71,11 @@ public class SettlerProfessionFactory {
 				skill = SkillDictionary.NULL_PROFESSION;
 			}
 
-			Image draggableImage = new Image(managementSkin.getDrawable(skill.getDraggableIcon()));
+			TextureRegionDrawable drawable = (TextureRegionDrawable) managementSkin.getDrawable(skill.getDraggableIcon());
+			drawable = new TextureRegionDrawable(drawable);
+			drawable.setMinWidth(drawable.getMinWidth() * scale);
+			drawable.setMinHeight(drawable.getMinHeight() * scale);
+			Image draggableImage = new Image(drawable);
 
 
 			Table progressRow = buildProgressBarRow(skillsComponent, skill, false);
@@ -102,15 +103,15 @@ public class SettlerProfessionFactory {
 			tooltipFactory.simpleTooltip(complexCursorStack, skill.getI18nKey(), TooltipLocationHint.BELOW);
 
 			dragAndDrop.addSource(new DraggableProfession(dragAndDrop, draggingCursorWidget, draggableImage, i));
-			dragAndDrop.addTarget(new DraggableProfessionTarget(column, i, skillsComponent, managementSkin, table, settler, onProfessionChange));
+			dragAndDrop.addTarget(new DraggableProfessionTarget(column, i, skillsComponent, managementSkin, table, settler, onProfessionChange, scale));
 			clickingCursorWidget.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new ChangeProfessionDialog(i18nTranslator, menuSkin, messageDispatcher, skillDictionary, soundAssetDictionary, settler, skill, table, onProfessionChange));
+					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new ChangeProfessionDialog(i18nTranslator, menuSkin, messageDispatcher, skillDictionary, soundAssetDictionary, settler, skill, table, onProfessionChange, scale));
 				}
 			});
 
-			table.add(column).growX().spaceRight(24).spaceLeft(24);
+			table.add(column).spaceRight(24 * scale).spaceLeft(24 * scale);
 		}
 	}
 
@@ -182,8 +183,9 @@ public class SettlerProfessionFactory {
 		private final Table wholeTable;
 		private final Entity settler;
 		private final Consumer<Entity> onProfessionChange;
+		private final float scale;
 
-		public DraggableProfessionTarget(Table column, int professionPriority, SkillsComponent skillsComponent, ManagementSkin managementSkin, Table wholeTable, Entity settler, Consumer<Entity> onProfessionChange) {
+		public DraggableProfessionTarget(Table column, int professionPriority, SkillsComponent skillsComponent, ManagementSkin managementSkin, Table wholeTable, Entity settler, Consumer<Entity> onProfessionChange, float scale) {
 			super(column);
 			this.column = column;
 			this.professionPriority = professionPriority;
@@ -192,6 +194,7 @@ public class SettlerProfessionFactory {
 			this.wholeTable = wholeTable;
 			this.settler = settler;
 			this.onProfessionChange = onProfessionChange;
+			this.scale = scale;
 		}
 
 		@Override
@@ -211,7 +214,7 @@ public class SettlerProfessionFactory {
 			if (source instanceof DraggableProfession draggableProfession) {
 				skillsComponent.swapActiveProfessionPositions(draggableProfession.professionPriority, this.professionPriority);
 				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, settler);
-				SettlerProfessionFactory.this.addProfessionComponents(settler, wholeTable, onProfessionChange);
+				SettlerProfessionFactory.this.addProfessionComponents(settler, wholeTable, onProfessionChange, scale);
 				onProfessionChange.accept(settler);
 			}
 		}
@@ -223,7 +226,7 @@ public class SettlerProfessionFactory {
 
 		public ChangeProfessionDialog(I18nTranslator i18nTranslator, Skin skin,
 		                              MessageDispatcher messageDispatcher, SkillDictionary skillDictionary,
-		                              SoundAssetDictionary soundAssetDictionary, Entity settler, Skill professionToReplace, Table wholeTable, Consumer<Entity> onProfessionChange) {
+		                              SoundAssetDictionary soundAssetDictionary, Entity settler, Skill professionToReplace, Table wholeTable, Consumer<Entity> onProfessionChange, final float scale) {
 			super(i18nTranslator.getTranslatedString("GUI.CHANGE_PROFESSION_LABEL"), skin, messageDispatcher, soundAssetDictionary);
 
 			int numAdded = 0;
@@ -248,7 +251,7 @@ public class SettlerProfessionFactory {
 								settler, professionToReplace, profession
 						));
 						messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ENTITY_SELECTED);
-						SettlerProfessionFactory.this.addProfessionComponents(settler, wholeTable, onProfessionChange);
+						SettlerProfessionFactory.this.addProfessionComponents(settler, wholeTable, onProfessionChange, scale);
 						close();
 					}
 				});

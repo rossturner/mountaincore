@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
-import com.google.common.collect.ImmutableMap;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -22,15 +21,14 @@ import technology.rocketjump.saul.misc.Destructible;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
-import technology.rocketjump.saul.ui.i18n.I18nText;
-import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nWord;
 import technology.rocketjump.saul.zones.Zone;
 import technology.rocketjump.saul.zones.ZoneClassification;
 import technology.rocketjump.saul.zones.ZoneTile;
 
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import static technology.rocketjump.saul.entities.ai.goap.actions.nourishment.LocateDrinkAction.LIQUID_AMOUNT_FOR_DRINK_CONSUMPTION;
 import static technology.rocketjump.saul.entities.components.ItemAllocation.AllocationState.ACTIVE;
@@ -41,7 +39,7 @@ import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 public class LiquidContainerComponent implements ParentDependentEntityComponent, Destructible {
 
 	private static final int MIN_CAPACITY_TO_CLASS_AS_HIGH_CAPACITY = 10;
-	private static final float SMALL_AMOUNT = 0.1f;
+	public static final float SMALL_AMOUNT = 0.1f;
 	public static DecimalFormat oneDecimalFormat = new DecimalFormat("#.#");
 
 	private Entity parentEntity;
@@ -308,22 +306,6 @@ public class LiquidContainerComponent implements ParentDependentEntityComponent,
 
 	public void setAlwaysInactive(boolean alwaysInactive) {
 		this.alwaysInactive = alwaysInactive;
-	}
-
-	public List<I18nText> i18nDescription(I18nTranslator i18nTranslator) {
-		List<I18nText> results = new ArrayList<>();
-		if (targetLiquidMaterial != null) {
-			results.add(i18nTranslator.getLiquidDescription(targetLiquidMaterial, liquidQuantity));
-			float numAllocated = getNumAllocated();
-			if (numAllocated > 0) {
-				results.add(i18nTranslator.getTranslatedWordWithReplacements("CONSTRUCTION.ITEM_ALLOCATION",
-						ImmutableMap.of(
-								"quantity", new I18nWord(oneDecimalFormat.format(numAllocated)),
-								"itemDescription", new I18nWord(oneDecimalFormat.format(liquidQuantity))
-						)));
-			}
-		}
-		return results;
 	}
 
 	@Override

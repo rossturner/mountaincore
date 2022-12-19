@@ -1,0 +1,55 @@
+[ {
+  "uniqueName" : "Coin-Above_Layer_1-On_Ground_Pile_3",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Treasure-Coin",
+  "minQuantity" : 14,
+  "maxQuantity" : 100,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Coin-Above_Layer_1-On_Ground_Pile_3_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Coin-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Treasure-Coin",
+  "maxQuantity" : 5,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Coin-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Coin-Item_Base_Layer-On_Ground_Pile_2",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Treasure-Coin",
+  "minQuantity" : 6,
+  "maxQuantity" : 13,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Coin-Item_Base_Layer-On_Ground_Pile_2_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Coin-Item_Base_Layer-On_Ground_Pile_3",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Treasure-Coin",
+  "minQuantity" : 14,
+  "maxQuantity" : 100,
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Coin-Item_Base_Layer-On_Ground_Pile_3_Down.png",
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1",
+        "specificAssetName" : "Coin-Above_Layer_1-On_Ground_Pile_3"
+      } ]
+    }
+  }
+} ]

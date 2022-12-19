@@ -1,7 +1,7 @@
 [ {
-  "uniqueName" : "Resource-Gem-Pile01",
+  "uniqueName" : "Treasure-Gem-Pile01",
   "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Gem",
+  "itemTypeName" : "Treasure-Gem",
   "maxQuantity" : 2,
   "itemPlacements" : [ "ON_GROUND" ],
   "spriteDescriptors" : {

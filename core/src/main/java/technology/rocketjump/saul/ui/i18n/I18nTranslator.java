@@ -541,7 +541,7 @@ public class I18nTranslator {
 	}
 
 
-	private I18nText getCreatureDescription(Entity entity, CreatureEntityAttributes attributes) {
+	public I18nText getCreatureDescription(Entity entity, CreatureEntityAttributes attributes) {
 		I18nWord raceWord = dictionary.getWord(attributes.getRace().getI18nKey());
 		return new I18nText(raceWord.get(I18nWordClass.NOUN, attributes.getGender()), raceWord.hasTooltip() ? raceWord.getKey() : null);
 	}

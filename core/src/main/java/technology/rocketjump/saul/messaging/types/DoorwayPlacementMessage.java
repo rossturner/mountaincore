@@ -17,6 +17,7 @@ public class DoorwayPlacementMessage implements ChildPersistable {
 
 	private DoorwaySize doorwaySize;
 	private DoorwayOrientation orientation;
+	private GameMaterialType doorwayMaterialType;
 	private GameMaterial doorwayMaterial;
 	private GridPoint2 tilePosition;
 
@@ -24,10 +25,11 @@ public class DoorwayPlacementMessage implements ChildPersistable {
 
 	}
 
-	public DoorwayPlacementMessage(DoorwaySize doorwaySize, DoorwayOrientation orientation,
+	public DoorwayPlacementMessage(DoorwaySize doorwaySize, DoorwayOrientation orientation, GameMaterialType doorwayMaterialType,
 								   GameMaterial doorwayMaterial, GridPoint2 tilePosition) {
 		this.doorwaySize = doorwaySize;
 		this.orientation = orientation;
+		this.doorwayMaterialType = doorwayMaterialType;
 		this.doorwayMaterial = doorwayMaterial;
 		this.tilePosition = tilePosition;
 	}
@@ -42,6 +44,10 @@ public class DoorwayPlacementMessage implements ChildPersistable {
 
 	public GameMaterial getDoorwayMaterial() {
 		return doorwayMaterial;
+	}
+
+	public GameMaterialType getDoorwayMaterialType() {
+		return doorwayMaterialType;
 	}
 
 	public GridPoint2 getTilePosition() {
@@ -61,12 +67,10 @@ public class DoorwayPlacementMessage implements ChildPersistable {
 			asJson.put("orientation", orientation.name());
 		}
 		if (doorwayMaterial != null) {
-			if (doorwayMaterial.equals(GameMaterial.NULL_MATERIAL)) {
-				// Need to write material type instead, not a great solution
-				asJson.put("materialType", doorwayMaterial.getMaterialType().name());
-			} else {
-				asJson.put("material", doorwayMaterial.getMaterialName());
-			}
+			asJson.put("material", doorwayMaterial.getMaterialName());
+		}
+		if (doorwayMaterialType != null) {
+			asJson.put("materialType", doorwayMaterialType.name());
 		}
 		if (tilePosition != null) {
 			asJson.put("position", JSONUtils.toJSON(tilePosition));
@@ -80,18 +84,12 @@ public class DoorwayPlacementMessage implements ChildPersistable {
 		String materialName = asJson.getString("material");
 		if (materialName != null) {
 			this.doorwayMaterial = relatedStores.gameMaterialDictionary.getByName(materialName);
-			if (this.doorwayMaterial == null || this.doorwayMaterial.equals(GameMaterial.NULL_MATERIAL)) {
+			if (this.doorwayMaterial == null) {
 				throw new InvalidSaveException("Could not find material by name " + materialName);
 			}
-		} else {
-			GameMaterialType materialType = EnumParser.getEnumValue(asJson, "materialType", GameMaterialType.class, null);
-			if (materialType == null) {
-				// This save must be from before material type was persisted
-				throw new InvalidSaveException("No material or type specific in " + this.getClass().getSimpleName());
-			}
-			this.doorwayMaterial = GameMaterial.nullMaterialWithType(materialType);
 		}
 
+		this.doorwayMaterialType = EnumParser.getEnumValue(asJson, "materialType", GameMaterialType.class, null);
 		this.tilePosition = JSONUtils.gridPoint2(asJson.getJSONObject("position"));
 	}
 }

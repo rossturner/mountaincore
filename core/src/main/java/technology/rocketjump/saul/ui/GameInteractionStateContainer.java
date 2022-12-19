@@ -508,19 +508,19 @@ public class GameInteractionStateContainer implements GameContextAware {
 		}
 
 		if (north.hasWall() && south.hasWall() && east.isEmptyExceptEntities() && west.isEmptyExceptEntities()) {
-			return new DoorwayPlacementMessage(DoorwaySize.SINGLE, DoorwayOrientation.NORTH_SOUTH,
+			return new DoorwayPlacementMessage(DoorwaySize.SINGLE, DoorwayOrientation.NORTH_SOUTH, doorMaterialSelection.selectedMaterialType,
 					doorMaterialSelection.selectedMaterial, tilePosition);
 		}
 
 
 		if (west.hasWall() && east.hasWall() && north.isEmptyExceptEntities() && south.isEmptyExceptEntities()) {
-			return new DoorwayPlacementMessage(DoorwaySize.SINGLE, DoorwayOrientation.EAST_WEST,
+			return new DoorwayPlacementMessage(DoorwaySize.SINGLE, DoorwayOrientation.EAST_WEST, doorMaterialSelection.selectedMaterialType,
 					doorMaterialSelection.selectedMaterial, tilePosition);
 		}
 
 		// FIXME #75 Try double door placements when double doors implemented
 
-		return new DoorwayPlacementMessage(null, null, doorMaterialSelection.selectedMaterial, tilePosition);
+		return new DoorwayPlacementMessage(null, null, doorMaterialSelection.selectedMaterialType, doorMaterialSelection.selectedMaterial, tilePosition);
 	}
 
 	private boolean coversBothSidesRiver(List<MapTile> bridgeTiles, int minX, int maxX, int minY, int maxY, BridgeOrientation orientation) {

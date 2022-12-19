@@ -1,7 +1,7 @@
 [ {
-  "uniqueName" : "Resource-Gem-Pile04",
+  "uniqueName" : "Treasure-Gem-Pile04",
   "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Gem",
+  "itemTypeName" : "Treasure-Gem",
   "minQuantity" : 15,
   "maxQuantity" : 32,
   "itemPlacements" : [ "ON_GROUND" ],

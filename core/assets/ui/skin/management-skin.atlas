@@ -127,7 +127,7 @@ asset_resources_line
   index: -1
 asset_trangle_red
   rotate: false
-  xy: 694, 3617
+  xy: 1609, 3881
   size: 30, 26
   orig: 30, 26
   offset: 0, 0
@@ -252,14 +252,14 @@ btn_go_to_dwarf_info
   index: -1
 btn_info
   rotate: false
-  xy: 1226, 3805
+  xy: 1297, 3805
   size: 64, 72
   orig: 64, 72
   offset: 0, 0
   index: -1
 btn_info_hover_state
   rotate: false
-  xy: 1294, 3805
+  xy: 1365, 3805
   size: 64, 72
   orig: 64, 72
   offset: 0, 0
@@ -308,7 +308,7 @@ btn_sort_by_toggle_off
   index: -1
 btn_sort_by_toggle_on
   rotate: false
-  xy: 1566, 3851
+  xy: 1569, 3851
   size: 30, 26
   orig: 30, 26
   offset: 0, 0
@@ -329,21 +329,21 @@ btn_toggle_on
   index: -1
 icon_1
   rotate: false
-  xy: 587, 3498
+  xy: 781, 3764
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_2
   rotate: false
-  xy: 781, 3764
+  xy: 847, 3764
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_3
   rotate: false
-  xy: 847, 3764
+  xy: 772, 3698
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
@@ -362,16 +362,23 @@ icon_coin
   orig: 67, 67
   offset: 0, 0
   index: -1
+icon_coin_greyscale
+  rotate: false
+  xy: 1157, 3810
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
 icon_drink
   rotate: false
-  xy: 1362, 3813
+  xy: 1433, 3813
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 icon_food
   rotate: false
-  xy: 1430, 3813
+  xy: 1501, 3813
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -392,21 +399,21 @@ icon_military
   index: -1
 icon_military_equip_armour
   rotate: false
-  xy: 772, 3698
+  xy: 838, 3698
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_military_equip_shield
   rotate: false
-  xy: 838, 3698
+  xy: 694, 3581
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: -1
 icon_military_equip_weapon
   rotate: false
-  xy: 653, 3498
+  xy: 655, 3498
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
@@ -420,7 +427,7 @@ icon_not_equipped
   index: -1
 icon_number_bg
   rotate: false
-  xy: 1157, 3812
+  xy: 1228, 3812
   size: 65, 65
   split: 32, 32, 0, 0
   pad: 6, 6, 0, 0
@@ -436,7 +443,7 @@ icon_sad
   index: -1
 icon_sleep
   rotate: false
-  xy: 1498, 3813
+  xy: 587, 3496
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

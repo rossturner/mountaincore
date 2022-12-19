@@ -10,29 +10,40 @@ import java.util.List;
 
 public class ItemEntityAssetsByQuantity {
 
+	private static final int MAX_TRACKED_QUANTITY = 32;
 	private IntMap<ItemEntityAssetsByAssetType> quantityMap = new IntMap<>();
 
 	private static final int MIN_QUANTITY = 0;
 
 	public ItemEntityAssetsByQuantity(ItemTypeDictionary itemTypeDictionary) {
-		final int MAX_QUANTITY = itemTypeDictionary.getConstantsRepo().getWorldConstants().getMaxItemStackSize();
-		for (int q = MIN_QUANTITY; q <= MAX_QUANTITY; q++) {
+		for (int q = MIN_QUANTITY; q <= MAX_TRACKED_QUANTITY; q++) {
 			quantityMap.put(q, new ItemEntityAssetsByAssetType(itemTypeDictionary));
 		}
 	}
 
 	public void add(ItemEntityAsset asset) {
 		for (int cursor = asset.getMinQuantity(); cursor <= asset.getMaxQuantity(); cursor++) {
+			if (cursor > MAX_TRACKED_QUANTITY) {
+				break;
+			}
 			quantityMap.get(cursor).add(asset);
 		}
 	}
 
 	public ItemEntityAsset get(EntityAssetType assetType, ItemEntityAttributes attributes) {
-		return quantityMap.get(attributes.getQuantity()).get(assetType, attributes);
+		if (attributes.getQuantity() > MAX_TRACKED_QUANTITY) {
+			return quantityMap.get(MAX_TRACKED_QUANTITY).get(assetType, attributes);
+		} else {
+			return quantityMap.get(attributes.getQuantity()).get(assetType, attributes);
+		}
 	}
 
 	public List<ItemEntityAsset> getAll(EntityAssetType assetType, ItemEntityAttributes attributes) {
-		return quantityMap.get(attributes.getQuantity()).getAll(assetType, attributes);
+		if (attributes.getQuantity() > MAX_TRACKED_QUANTITY) {
+			return quantityMap.get(MAX_TRACKED_QUANTITY).getAll(assetType, attributes);
+		} else {
+			return quantityMap.get(attributes.getQuantity()).getAll(assetType, attributes);
+		}
 	}
 
 }

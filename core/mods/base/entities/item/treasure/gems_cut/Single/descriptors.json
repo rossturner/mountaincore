@@ -1,7 +1,7 @@
 [ {
-  "uniqueName" : "Resource-Gem-Single",
+  "uniqueName" : "Treasure-Gem-Single",
   "type" : "ITEM_BASE_LAYER",
-  "itemTypeName" : "Resource-Gem",
+  "itemTypeName" : "Treasure-Gem",
   "maxQuantity" : 4,
   "itemPlacements" : [ "BEING_CARRIED" ],
   "spriteDescriptors" : {

@@ -909,7 +909,7 @@
   "materialName" : "Gold",
   "materialId" : 53,
   "materialType" : "METAL",
-  "colorCode" : "#feed76",
+  "colorCode" : "#ffcd46",
   "alcoholic" : false,
   "combustible" : false,
   "edible" : false,
