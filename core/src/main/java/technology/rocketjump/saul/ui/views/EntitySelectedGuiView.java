@@ -20,6 +20,7 @@ import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.ai.combat.CombatAction;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
@@ -73,6 +74,7 @@ import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.*;
+import technology.rocketjump.saul.ui.widgets.rooms.PriorityWidget;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedString;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabel;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabelFactory;
@@ -242,7 +244,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 			} else {
 				EntityType entityType = entity.getType();
-				boolean hasInventory = entity.getComponent(InventoryComponent.class) != null;
 				outerTable.top();
 				outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg"));
 
@@ -264,7 +265,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					outerTable.add(creatureName.getActor()).fillX().padTop(67).padBottom(20).row();
 					Cell<Table> middleRowCell = outerTable.add(middleRow).expandY().fillX();
 					middleRowCell.row();
-					if (hasInventory) {
+					if (entity.getComponent(InventoryComponent.class) != null) {
 						Updatable<Table> inventory = inventory(entity);
 						updatables.add(inventory);
 						outerTable.add(inventory.getActor()).padTop(20).padBottom(67 + dropshadowLength);
@@ -274,15 +275,17 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					}
 				} else {
 					Updatable<Actor> name = titleRibbon(i18nTranslator.getDescription(entity).toString());
-					Updatable<Actor> progressBars = progressBars(entity);
-					Updatable<Actor> descriptions = textDescriptions(entity);
+					Updatable<Table> progressBars = progressBars(entity);
+					Updatable<Table> descriptions = textDescriptions(entity);
 					Updatable<Table> actionButtons = actionButtons(entity);
-
+					Updatable<Table> inventory = inventory(entity);
 
 					updatables.add(name);
-					updatables.add(descriptions);
 					updatables.add(actionButtons);
+					updatables.add(descriptions);
 					updatables.add(progressBars);
+					updatables.add(inventory);
+
 
 					actionButtons.getActor().layout();
 
@@ -294,10 +297,47 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 					Table viewContents = new Table();
 					viewContents.defaults().growY().spaceBottom(20);
+					Updatable<Table> viewContentsUpdatable = Updatable.of(viewContents); //Absolutely despise what i've done here, essentially empty tables still pad things out
 					outerTable.add(viewContents).colspan(3).growY().padBottom(67 + dropshadowLength).padRight(67).padLeft(67).padTop(20);
 
-					viewContents.add(progressBars.getActor()).center().row();
-					viewContents.add(descriptions.getActor()).center().row();
+					viewContentsUpdatable.regularly(() -> {
+						viewContents.clear();
+
+						List<Prioritisable> prioritisables = entity.getAllComponents().stream()
+								.filter(Prioritisable.class::isInstance)
+								.map(Prioritisable.class::cast)
+								.toList();
+						if (prioritisables.size() > 1) {
+							Logger.warn("Multiple prioritisables have been found on entity {}",
+									prioritisables.stream()
+											.map(Prioritisable::getClass)
+											.map(Class::getSimpleName)
+											.collect(Collectors.joining()));
+						} else if (prioritisables.size() == 1) {
+							Prioritisable prioritisable = prioritisables.get(0);
+							viewContents.add(new PriorityWidget(prioritisable, mainGameSkin, tooltipFactory, messageDispatcher)).center().row();
+						}
+
+						if (progressBars.getActor().hasChildren()) {
+							viewContents.add(progressBars.getActor()).center().row();
+						}
+
+						if (descriptions.getActor().hasChildren()) {
+							viewContents.add(descriptions.getActor()).center().row();
+						}
+
+						//TODO: test this
+						if (entity.getComponent(InventoryComponent.class) != null) {
+							viewContents.add(inventory.getActor()).row();
+						} else {
+							outerTable.setBackground(mainGameSkin.getDrawable("ENTITY_SELECT_BG_SMALL"));
+						}
+					});
+					viewContentsUpdatable.update();
+
+					updatables.add(viewContentsUpdatable);
+
+					//stockpile settings here
 
 /*
 			this.currentStockpileComponent = entity.getComponent(FurnitureStockpileComponent.class);
@@ -330,14 +370,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				outerTable.add(this.stockpileManagementTree).left().pad(4).row();
 			}
 		}*/
-					//TODO: test this
-					if (hasInventory) {
-						Updatable<Table> inventory = inventory(entity);
-						updatables.add(inventory);
-						viewContents.add(inventory.getActor()).padTop(20);
-					} else {
-						outerTable.setBackground(mainGameSkin.getDrawable("ENTITY_SELECT_BG_SMALL"));
-					}
+
 				}
 			}
 		}
@@ -356,14 +389,35 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	private Updatable<Table> actionButtons(Entity entity) {
 		ConstructedEntityComponent constructedEntityComponent = entity.getComponent(ConstructedEntityComponent.class);
+		FurnitureStockpileComponent furnitureStockpileComponent = entity.getComponent(FurnitureStockpileComponent.class);
 
 		Table table = new Table();
 		Updatable<Table> updatable = Updatable.of(table);
 
-		table.defaults().uniform().spaceLeft(40).spaceRight(40);
+		table.defaults().pad(18);
 
 		Runnable updater = () -> {
 			table.clear();
+
+//			if (selectedRoom != null && selectedRoom.getRoomType().isStockpile()) {
+//				Container<Button> stockpileSettingsContainer = new Container<>();
+//				if (stockpileSettingsExpanded) {
+//					stockpileSettingsContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
+//				}
+//				stockpileSettingsContainer.pad(18);
+//				Button stockpileSettingsButton = new Button(skin.getDrawable("btn_settings"));
+//				stockpileSettingsButton.addListener(new ClickListener() {
+//					@Override
+//					public void clicked(InputEvent event, float x, float y) {
+//						toggleStockpileSettings();
+//					}
+//				});
+//				stockpileSettingsButton.addListener(new ChangeCursorOnHover(stockpileSettingsButton, GameCursor.SELECT, messageDispatcher));
+//				tooltipFactory.simpleTooltip(stockpileSettingsButton, "GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE", TooltipLocationHint.ABOVE);
+//				stockpileSettingsContainer.setActor(stockpileSettingsButton);
+//				sizingButtons.add(stockpileSettingsContainer);
+//			}
+
 
 			if (constructedEntityComponent != null && constructedEntityComponent.canBeDeconstructed()) {
 				Button deconstructButton = new Button(mainGameSkin.getDrawable("btn_demolish_small"));
@@ -383,7 +437,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				}
 				buttonFactory.attachClickCursor(deconstructButton, GameCursor.SELECT);
 				tooltipFactory.simpleTooltip(deconstructButton, "GUI.DECONSTRUCT_LABEL", TooltipLocationHint.ABOVE);
-				table.add(deconstructButton).pad(18);
+				table.add(deconstructButton);
 			}
 
 			if (isItemContainingLiquidOnGroundAndNoneAllocated(entity)) {
@@ -398,7 +452,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					}
 				});
 				buttonFactory.attachClickCursor(emptyContainerButton, GameCursor.SELECT);
-				table.add(emptyContainerButton).pad(18);
+				table.add(emptyContainerButton);
 			}
 		};
 		updatable.regularly(updater);
@@ -408,10 +462,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	}
 
 
-	private Updatable<Actor> progressBars(Entity entity) {
+	private Updatable<Table> progressBars(Entity entity) {
 		LiquidContainerComponent liquidContainerComponent = entity.getComponent(LiquidContainerComponent.class);
 		Table table = new Table();
-		Updatable<Actor> updatable = Updatable.of(table);
+		Updatable<Table> updatable = Updatable.of(table);
 
 		updatable.regularly(() -> {
 			table.clear();
@@ -483,13 +537,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	}
 
 
-	private Updatable<Actor> textDescriptions(Entity entity) {
+	private Updatable<Table> textDescriptions(Entity entity) {
 		ItemAllocationComponent itemAllocationComponent = entity.getComponent(ItemAllocationComponent.class);
 		EntityAttributes entityAttributes = entity.getPhysicalEntityComponent().getAttributes();
 		ConstructedEntityComponent constructedEntityComponent = entity.getComponent(ConstructedEntityComponent.class);
 
 		Table table = new Table();
-		Updatable<Actor> updatable = Updatable.of(table);
+		Updatable<Table> updatable = Updatable.of(table);
 
 		Runnable updater = () -> {
 			Collection<String> descriptions = new ArrayList<>();
