@@ -141,6 +141,31 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				jobCompleted(gameContext, jobCompletedByEntity);
 				jobCompletedByEntity = null;
 
+				InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
+				ProductionExportFurnitureBehaviour exportFurnitureBehaviour = gameContext.getAreaMap().getTile(craftingAssignment.getOutputLocation()).getEntities().stream()
+						.filter(e -> e.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour)
+						.map(e -> (ProductionExportFurnitureBehaviour) e.getBehaviourComponent())
+						.findFirst().orElse(null);
+				if (exportFurnitureBehaviour != null) {
+					InventoryComponent.InventoryEntry outputEntry = inventoryComponent.findByItemTypeAndMaterial(exportFurnitureBehaviour.getSelectedItemType(), exportFurnitureBehaviour.getSelectedMaterial(), gameContext.getGameClock());
+					ItemEntityAttributes attributes = (ItemEntityAttributes) outputEntry.entity.getPhysicalEntityComponent().getAttributes();
+					int quantityToHaul = Math.min(attributes.getQuantity(), attributes.getItemType().getMaxHauledAtOnce());
+
+					Job haulingJob = new Job(haulingJobType);
+					HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(quantityToHaul, outputEntry.entity, parentEntity)
+							.toEntity(exportFurnitureBehaviour.getParentEntity());
+					haulingJob.setHaulingAllocation(haulingAllocation);
+					haulingJob.setRequiredProfession(craftingType.getProfessionRequired());
+					haulingJob.setJobPriority(getPriority());
+					haulingJob.setJobState(ASSIGNABLE);
+					haulingJob.setTargetId(outputEntry.entity.getId());
+					haulingJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
+					updateJobLocationIfNotNavigable(haulingJob);
+					messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, haulingJob);
+				}
+
+				assignmentCompleted();
+
 				if (particleEffectsComponent != null) {
 					particleEffectsComponent.releaseParticles();
 				}
@@ -168,7 +193,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				adjustPoweredCraftingDuration(gameContext, poweredFurnitureComponent);
 			}
 
-			updateJobLocationIfNotNavigable();
+			updateJobLocationIfNotNavigable(craftingAssignment.getCraftingJob());
 
 			return; // Waiting for entity to craft item with materials
 		}
@@ -189,12 +214,25 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		}
 
 		selectCraftingAssignment();
+	}
 
+	public boolean allCraftingRequirementsInInventory() {
 		if (craftingAssignment == null) {
-			// Couldn't find a valid crafting recipe yet
-			return;
+			return false;
+		} else {
+			InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
+			for (QuantifiedItemTypeWithMaterial inputRequirement : craftingAssignment.getTargetRecipe().getInput()) {
+				if (inputRequirement.isLiquid()) {
+					// TODO sort out liquids
+				} else {
+					InventoryComponent.InventoryEntry entry = inventoryComponent.findByItemTypeAndMaterial(inputRequirement.getItemType(), inputRequirement.getMaterial(), gameContext.getGameClock());
+					if (entry == null || ((ItemEntityAttributes)entry.entity.getPhysicalEntityComponent().getAttributes()).getQuantity() < inputRequirement.getQuantity()) {
+						return false;
+					}
+				}
+			}
+			return true;
 		}
-
 	}
 
 	private void selectCraftingAssignment() {
@@ -252,7 +290,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 						craftingJob.setRequiredItemType(itemTypeRequired);
 						craftingJob.setRequiredProfession(craftingType.getProfessionRequired());
 						craftingJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
-						updateJobLocationIfNotNavigable();
+						updateJobLocationIfNotNavigable(craftingAssignment.getCraftingJob());
 						messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, craftingJob);
 
 						break;
@@ -367,13 +405,13 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		craftingAssignment = null;
 	}
 
-	private void updateJobLocationIfNotNavigable() {
-		boolean jobIsNavigable = gameContext.getAreaMap().getTile(craftingAssignment.getCraftingJob().getJobLocation()).isNavigable(null);
+	private void updateJobLocationIfNotNavigable(Job job) {
+		boolean jobIsNavigable = gameContext.getAreaMap().getTile(job.getJobLocation()).isNavigable(null);
 		if (!jobIsNavigable) {
 			FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
 			if (navigableWorkspace != null) {
-				craftingAssignment.getCraftingJob().setJobLocation(navigableWorkspace.getAccessedFrom());
-				craftingAssignment.getCraftingJob().setSecondaryLocation(navigableWorkspace.getLocation());
+				job.setJobLocation(navigableWorkspace.getAccessedFrom());
+				job.setSecondaryLocation(navigableWorkspace.getLocation());
 			}
 		}
 	}
@@ -389,6 +427,10 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			// to separate this out to another variable passed into the PoweredFurnitureComponent
 			craftingAssignment.getCraftingJob().setWorkDurationMultiplier(poweredFurnitureComponent.getAnimationSpeed());
 		}
+	}
+
+	public boolean needsExtraTimeToProcess() {
+		return extraTimeToProcess != null;
 	}
 
 	@Override
@@ -439,18 +481,9 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			outputEntity.getOrCreateComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
 
 			setItemValue(inputItemsTotalValue / output.size(), outputEntity, craftingAssignment.getTargetRecipe().getValueConversion());
-
-			if (outputHaulingAllowed()) {
-				// Request hauling to remove items in output
-				RequestHaulingMessage requestHaulingMessage = new RequestHaulingMessage(outputEntity, parentEntity, true, priority, null);
-				if (craftingAssignment != null) {
-					requestHaulingMessage.setSpecificProfessionRequired(craftingType.getProfessionRequired());
-				}
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, requestHaulingMessage);
-			}
 		}
 
-		this.craftingAssignment = null;
+//		this.craftingAssignment = null;
 		this.requiresExtraTime = false;
 
 		// rerun update to trigger export item/liquid jobs
@@ -672,6 +705,14 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 
 	public CraftingType getCraftingType() {
 		return this.craftingType;
+	}
+
+	public void assignmentCompleted() {
+		if (extraTimeToProcess != null)	{
+			// still waiting for time to elapse, so don't mark as completed yet
+		} else {
+			craftingAssignment = null;
+		}
 	}
 
 	public void allocationCancelled(HaulingAllocation allocation) {

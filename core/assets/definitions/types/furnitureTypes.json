@@ -198,7 +198,7 @@
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "SMELTING", "PRODUCE_ITEM", "HAULING" ],
+    "CRAFTING_STATION_BEHAVIOUR" : [ "SMELTING", "CRAFT_ITEM", "HAULING" ],
     "CRAFTING_OVERRIDE" : [ "DO_NOT_HAUL_OUTPUT" ],
     "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Stone-Unrefined", "STONE_COLOR", "MISC_COLOR_1", "Resource-Stone-Block", "STONE_COLOR", "MISC_COLOR_2" ],
     "EXTRA_MATERIAL_TYPES" : [ "CLOTH", "METAL" ],
@@ -379,7 +379,7 @@
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "COKE_OVEN_BAKING", "PRODUCE_ITEM", "HAULING" ]
+    "CRAFTING_STATION_BEHAVIOUR" : [ "COKE_OVEN_BAKING", "CRAFT_ITEM", "HAULING" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {
@@ -559,7 +559,7 @@
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "LEATHERWORKING", "PRODUCE_ITEM", "HAULING" ],
+    "CRAFTING_STATION_BEHAVIOUR" : [ "LEATHERWORKING", "CRAFT_ITEM", "HAULING" ],
     "DECORATION_FROM_INPUT" : [ "Tool-Chisel", "Tool-Kitchen-Knife" ],
     "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Product-Leather", "SKIN_COLOR", "MISC_COLOR_1", "Product-Barrel-Staves", "WOOD_COLOR", "MISC_COLOR_2", "Resource-Planks", "WOOD_COLOR", "MISC_COLOR_3" ],
     "EXTRA_MATERIAL_TYPES" : [ "WOOD" ]
@@ -614,7 +614,7 @@
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "MALTING", "PRODUCE_ITEM", "HAULING" ],
+    "CRAFTING_STATION_BEHAVIOUR" : [ "MALTING", "CRAFT_ITEM", "HAULING" ],
     "PARTICLE_EFFECTS_WHILE_IN_USE" : [ "Milling" ],
     "DECORATION_FROM_INPUT" : [ "Product-Liquid-Tank" ]
   },
@@ -669,7 +669,7 @@
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "ORE_CRUSHING", "PRODUCE_ITEM", "HAULING" ],
+    "CRAFTING_STATION_BEHAVIOUR" : [ "ORE_CRUSHING", "CRAFT_ITEM", "HAULING" ],
     "PARTICLE_EFFECTS_WHILE_IN_USE" : [ "Ore chips" ],
     "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Metal-Plate", "METAL_COLOR", "MISC_COLOR_1", "Product-Barrel-Hoops", "METAL_COLOR", "MISC_COLOR_2" ],
     "EXTRA_MATERIAL_TYPES" : [ "CLOTH" ],
@@ -720,7 +720,7 @@
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "TANNING_HIDE", "PRODUCE_ITEM", "HAULING" ],
+    "CRAFTING_STATION_BEHAVIOUR" : [ "TANNING_HIDE", "CRAFT_ITEM", "HAULING" ],
     "COPY_GAME_MATERIAL_FROM_INVENTORY" : [ "SKIN" ]
   },
   "hiddenFromPlacementMenu" : false

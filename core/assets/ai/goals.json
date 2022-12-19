@@ -68,6 +68,52 @@
   "initialActions" : [ "SelectItemAssignment" ],
   "interruptedByLowNeeds" : true
 }, {
+  "i18nDescription" : "ACTION.SELECT_JOB.DESCRIPTION",
+  "creatureCategories" : [ "CIVILIAN" ],
+  "name" : "Crafting job goal",
+  "actionRelationships" : {
+    "CheckReadyToCraft" : {
+      "fail" : [ "UnassignJob" ],
+      "pass" : [ "GoToLocation" ]
+    },
+    "WorkOnJob" : {
+      "fail" : [ "UnequipItemForJob", "UnassignJob" ],
+      "pass" : [ "CancelInterruptedFlag", "UnequipItemForJob", "CheckForPendingOutput" ]
+    },
+    "MoveInputToCraftingStation" : {
+      "fail" : [ "UnassignJob" ],
+      "pass" : [ "CheckForPendingInput" ]
+    },
+    "GoToLocation" : {
+      "fail" : [ "UnassignJob" ],
+      "pass" : [ "FaceTowardsLocation", "EquipItemForJobFromFurniture", "WorkOnJob" ]
+    },
+    "EquipItemForJobFromFurniture" : { },
+    "CheckForPendingInput" : {
+      "fail" : [ "CheckReadyToCraft" ],
+      "pass" : [ "MoveInputToCraftingStation" ]
+    },
+    "CheckForPendingOutput" : {
+      "fail" : [ "MarkCraftingAssignmentComplete" ],
+      "pass" : [ "MoveOutputToExportSpot" ]
+    },
+    "UnequipItemForJob" : { },
+    "CancelInterruptedFlag" : { },
+    "MoveOutputToExportSpot" : {
+      "fail" : [ "MarkCraftingAssignmentComplete" ],
+      "pass" : [ "CheckForPendingOutput" ]
+    },
+    "MarkCraftingAssignmentComplete" : { },
+    "EquipItemForJobFromInventory" : {
+      "fail" : [ "UnassignJob" ]
+    },
+    "UnassignJob" : { },
+    "FaceTowardsLocation" : { }
+  },
+  "selectors" : [ ],
+  "initialActions" : [ "CheckForPendingInput" ],
+  "interruptedByLowNeeds" : true
+}, {
   "i18nDescription" : "GOAL.ON_FIRE.DESCRIPTION",
   "name" : "Douse self goal",
   "actionRelationships" : {
