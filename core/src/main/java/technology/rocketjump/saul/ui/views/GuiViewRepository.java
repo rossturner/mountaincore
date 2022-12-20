@@ -10,7 +10,6 @@ import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.messaging.types.PopulateSelectItemViewMessage;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
@@ -36,7 +35,6 @@ public class GuiViewRepository implements Telegraph {
 		}
 
 		messageDispatcher.addListener(this, MessageType.GUI_ROOM_TYPE_SELECTED);
-		messageDispatcher.addListener(this, MessageType.PREPOPULATE_SELECT_ITEM_VIEW);
 	}
 
 	@Override
@@ -46,11 +44,6 @@ public class GuiViewRepository implements Telegraph {
 				RoomType selectedRoomType = (RoomType) msg.extraInfo;
 				gameInteractionStateContainer.setSelectedRoomType(selectedRoomType);
 				GameInteractionMode.PLACE_ROOM.setRoomType(selectedRoomType);
-				return true;
-			}
-			case MessageType.PREPOPULATE_SELECT_ITEM_VIEW -> {
-				PopulateSelectItemViewMessage message = (PopulateSelectItemViewMessage) msg.extraInfo;
-				((SelectItemGuiView) byName.get(GuiViewName.SELECT_ITEM)).prepopulate(message);
 				return true;
 			}
 			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg);
