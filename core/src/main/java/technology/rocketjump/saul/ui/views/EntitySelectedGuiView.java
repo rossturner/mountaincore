@@ -93,6 +93,7 @@ import static technology.rocketjump.saul.ui.Selectable.SelectableType.ENTITY;
 @Singleton
 public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
+	private static final int MAX_DWARF_NAME_PLUS_15PC = 31;
 	private final SoundAssetDictionary soundAssetDictionary;
 	private final I18nTranslator i18nTranslator;
 	private final GameInteractionStateContainer gameInteractionStateContainer;
@@ -976,6 +977,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 							attributes.getName().rename(newName);
 						}
 					}, messageDispatcher, EntitySelectedGuiView.this.soundAssetDictionary);
+					textInputDialog.setMaxLength(MAX_DWARF_NAME_PLUS_15PC);
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
 			}
 		});
