@@ -95,9 +95,9 @@ import static technology.rocketjump.saul.ui.Selectable.SelectableType.ENTITY;
 public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	private static final int MAX_DWARF_NAME_PLUS_15PC = 31;
+	protected final GameInteractionStateContainer gameInteractionStateContainer;
 	private final SoundAssetDictionary soundAssetDictionary;
 	private final I18nTranslator i18nTranslator;
-	private final GameInteractionStateContainer gameInteractionStateContainer;
 	private final EntityStore entityStore;
 	private final JobStore jobStore;
 	private final TooltipFactory tooltipFactory;
@@ -159,6 +159,15 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		this.settlerManagementScreen = settlerManagementScreen;
 	}
 
+	protected Entity getSelectedEntity() {
+		Selectable selectable = gameInteractionStateContainer.getSelectable();
+		if (selectable != null && ENTITY == selectable.type) {
+			return selectable.getEntity();
+		} else {
+			return null;
+		}
+	}
+
 	@Override
 	public void populate(Table containerTable) {
 		containerTable.clear();
@@ -169,9 +178,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		float dropshadowLength = 18f;
 		containerTable.add(outerTable).padLeft(dropshadowLength); //Value of drop shadow on bottom for equal distance
 
-		Selectable selectable = gameInteractionStateContainer.getSelectable();
-		if (selectable != null && ENTITY == selectable.type) {
-			Entity entity = selectable.getEntity();
+
+		Entity entity = getSelectedEntity();
+		if (entity != null) {
 			if (entity.isSettler()) {
 				outerTable.setBackground(mainGameSkin.getDrawable("asset_dwarf_select_bg_wide"));
 				boolean isMilitary = SettlerManagementScreen.IS_MILITARY.test(entity);
