@@ -21,7 +21,6 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipTable;
 import technology.rocketjump.saul.ui.views.*;
 import technology.rocketjump.saul.ui.views.debug.DebugGuiView;
 import technology.rocketjump.saul.ui.widgets.GameDialog;
-import technology.rocketjump.saul.ui.widgets.tooltips.Tooltip;
 
 import java.util.Arrays;
 import java.util.List;
@@ -242,10 +241,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 
 	public void showDialog(GameDialog dialog) {
 		dialog.show(primaryStage);
-	}
-
-	public void showTooltip(Tooltip tooltip) {
-		primaryStage.addActor(tooltip);
 	}
 
 	public Stage getPrimaryStage() {

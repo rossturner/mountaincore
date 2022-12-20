@@ -50,9 +50,6 @@ public class MessageType {
 	public static final int POST_NOTIFICATION = 267;
 	public static final int SHOW_DIALOG = 268;
 	public static final int CHOOSE_SELECTABLE = 270;
-	public static final int TOOLTIP_AREA_ENTERED = 271;
-	public static final int TOOLTIP_AREA_EXITED = 272;
-	public static final int CLEAR_ALL_TOOLTIPS = 273;
 	public static final int HINT_ACTION_TRIGGERED = 274;
 	public static final int REPLACE_JOB_PRIORITY = 275;
 	public static final int SHOW_SPECIFIC_CRAFTING = 278;
