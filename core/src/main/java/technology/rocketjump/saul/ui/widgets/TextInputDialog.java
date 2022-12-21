@@ -68,4 +68,8 @@ public class TextInputDialog extends GameDialog {
 		
 	}
 
+	public void setMaxLength(int maxLength) {
+		inputBox.setMaxLength(maxLength);
+	}
+
 }

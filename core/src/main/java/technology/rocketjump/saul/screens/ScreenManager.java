@@ -210,7 +210,6 @@ public class ScreenManager implements Telegraph, GameContextAware {
 						currentScreen = targetScreenInstance;
 						// Disable ambient effects when going to not main game
 						messageDispatcher.dispatchMessage(MessageType.AMBIENCE_PAUSE, !targetScreenName.equals("MAIN_GAME"));
-						messageDispatcher.dispatchMessage(MessageType.CLEAR_ALL_TOOLTIPS); // Should this be a more generic message?
 					}
 				} else {
 					Logger.error("Could not find " + GameScreen.class.getSimpleName() + " with name " + targetScreenName);
