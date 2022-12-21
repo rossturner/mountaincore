@@ -41,10 +41,8 @@ import technology.rocketjump.saul.ui.views.RoomEditorItemMap;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.SelectItemDialog;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Singleton
@@ -165,8 +163,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 		this.add(buttonContainer).center().row();
 
 		// Material selection
-		availableMaterials = new ArrayList<>(itemAvailabilityChecker.getAvailableMaterialsFor(selectedItemType, 1));
-		availableMaterials.add(0, null);
+		determineAvailableMaterials(selectedItemType);
 		leftButton.clearListeners();
 		rightButton.clearListeners();
 		if (availableMaterials.size() > 1) {
@@ -198,6 +195,42 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 		materialRow.add(materialLabel).center().growX();
 		materialRow.add(rightButton).right().padLeft(5);
 		this.add(materialRow).center().growX().padTop(4).row();
+	}
+
+	private void determineAvailableMaterials(ItemType selectedItemType) {
+		availableMaterials = new ArrayList<>();
+		Set<GameMaterial> specifiedMaterials = Set.of();
+
+		if (selectedItemType != null) {
+			MapTile tile = gameContext.getAreaMap().getTile(furnitureEntity.getLocationComponent().getWorldOrParentPosition());
+			if (tile == null || tile.getRoomTile() == null) {
+				Logger.error("No room tile found under furniture entity {}", furnitureEntity);
+				return;
+			}
+
+			RoomType currentRoomType = tile.getRoomTile().getRoom().getRoomType();
+
+			specifiedMaterials = currentRoomType.getFurnitureNames().stream()
+					.map(furnitureTypeDictionary::getByName)
+					.flatMap(f -> f.getProcessedTags().stream())
+					.filter(t -> t instanceof CraftingStationBehaviourTag)
+					.map(t -> (CraftingStationBehaviourTag) t)
+					.map(c -> c.getCraftingType(craftingTypeDictionary))
+					.flatMap(c -> craftingRecipeDictionary.getByCraftingType(c).stream())
+					.flatMap(r -> r.getInput().stream().filter(i -> selectedItemType.equals(i.getItemType())))
+					.map(QuantifiedItemTypeWithMaterial::getMaterial)
+					.collect(Collectors.toSet());
+		}
+
+		if (specifiedMaterials.isEmpty() || specifiedMaterials.contains(null)) {
+			// at least one recipe for this item type allows any input
+			availableMaterials.addAll(itemAvailabilityChecker.getAvailableMaterialsFor(selectedItemType, 1));
+			availableMaterials.add(0, null);
+		} else {
+			// specific materials only
+			availableMaterials.addAll(specifiedMaterials);
+			productionImportBehaviour.setSelectedMaterial(availableMaterials.get(0));
+		}
 	}
 
 	private void previousMaterialSelection() {

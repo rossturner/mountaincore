@@ -55,11 +55,12 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 	private boolean useInRandomGeneration = true;
 	private boolean useAsExampleMaterialForMaterialType;
 	private boolean excludeFromItemDescription;
+	private boolean hiddenFromUI;
 
 	private MaterialOxidisation oxidisation;
 
 	public static final GameMaterial NULL_MATERIAL = new GameMaterial("null-material", -1, GameMaterialType.OTHER, "#FF00FF", null, 0f, RockGroup.None,
-			1f, false, false,false, false, false, null, false, false);
+			1f, false, false,false, false, false, null, false, false, false);
 
 	// Empty constructor for initialising from saved game
 	public GameMaterial() {
@@ -69,7 +70,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 
 	// Simple constructor for testing
 	public GameMaterial(String materialName, long materialId, GameMaterialType type) {
-		this(materialName, materialId, type, null, null, null, null, 1f, false, false, false, false, false, null, false, false);
+		this(materialName, materialId, type, null, null, null, null, 1f, false, false, false, false, false, null, false, false, false);
 	}
 
 	// TODO try to remove usage of this
@@ -79,7 +80,8 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 
 	// Constructor for dynamically-created combined materials
 	public GameMaterial(String dynamicMaterialId, String materialName, long materialId, GameMaterialType type,
-						Color color, boolean alcoholic, boolean combustible, boolean poisonous, boolean edible, boolean quenchesThirst, Set<GameMaterial> constituentMaterials) {
+						Color color, boolean alcoholic, boolean combustible, boolean poisonous, boolean edible,
+						boolean quenchesThirst, Set<GameMaterial> constituentMaterials) {
 		this.materialName = materialName;
 		this.materialId = materialId;
 		this.materialType = type;
@@ -110,7 +112,8 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 						@JsonProperty("quenchesThirst") boolean quenchesThirst,
 						@JsonProperty("oxidisation") MaterialOxidisation oxidisation,
 						@JsonProperty("includeInItemDescription") boolean excludeFromItemDescription,
-						@JsonProperty("useAsExampleMaterialForMaterialType") boolean useAsExampleMaterialForMaterialType) {
+						@JsonProperty("useAsExampleMaterialForMaterialType") boolean useAsExampleMaterialForMaterialType,
+						@JsonProperty("hiddenFromUI") boolean hiddenFromUI) {
 		this.materialName = materialName;
 		this.materialId = materialId;
 		this.colorCode = colorCode;
@@ -127,6 +130,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		this.oxidisation = oxidisation;
 		this.excludeFromItemDescription = excludeFromItemDescription;
 		this.useAsExampleMaterialForMaterialType = useAsExampleMaterialForMaterialType;
+		this.hiddenFromUI = hiddenFromUI;
 
 		if (materialType != null) {
 			this.materialType = materialType;
@@ -295,6 +299,10 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		this.useAsExampleMaterialForMaterialType = useAsExampleMaterialForMaterialType;
 	}
 
+	public boolean isHiddenFromUI() {
+		return hiddenFromUI;
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		if (dynamicMaterialId == null || savedGameStateHolder.dynamicMaterials.containsKey(this.dynamicMaterialId)) {
@@ -455,5 +463,4 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 
 		savedGameStateHolder.dynamicMaterials.put(dynamicMaterialId, this);
 	}
-
 }

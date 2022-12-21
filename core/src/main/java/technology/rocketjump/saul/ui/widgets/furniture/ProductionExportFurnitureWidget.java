@@ -170,6 +170,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 				}
 			});
 			leftButton.addListener(new ChangeCursorOnHover(leftButton, GameCursor.SELECT, messageDispatcher));
+			leftButton.setDisabled(false);
 			rightButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
@@ -177,6 +178,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 				}
 			});
 			rightButton.addListener(new ChangeCursorOnHover(rightButton, GameCursor.SELECT, messageDispatcher));
+			rightButton.setDisabled(false);
 		} else {
 			leftButton.setDisabled(true);
 			rightButton.setDisabled(true);
@@ -197,7 +199,6 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 		availableMaterials = new ArrayList<>();
 		if (selectedItemType == null) {
 			availableMaterials.add(0, null);
-			productionExportBehaviour.setSelectedMaterial(null);
 		} else {
 			MapTile tile = gameContext.getAreaMap().getTile(furnitureEntity.getLocationComponent().getWorldOrParentPosition());
 			if (tile == null || tile.getRoomTile() == null) {
@@ -220,9 +221,9 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 					.collect(Collectors.toSet());
 
 			if (specificAllowedMaterials.isEmpty()) {
-				availableMaterials.addAll(gameMaterialDictionary.getByType(selectedItemType.getPrimaryMaterialType()));
+				availableMaterials.addAll(gameMaterialDictionary.getByType(selectedItemType.getPrimaryMaterialType()).stream()
+						.filter(m -> !m.isHiddenFromUI()).toList());
 				availableMaterials.sort(Comparator.comparing(m -> i18nTranslator.getTranslatedString(m.getI18nKey()).toString()));
-				productionExportBehaviour.setSelectedMaterial(null);
 				availableMaterials.add(0, null);
 			} else {
 				availableMaterials.addAll(specificAllowedMaterials);
@@ -233,7 +234,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 	}
 
 	private void previousMaterialSelection() {
-		GameMaterial previousMaterial = availableMaterials.get(0);
+		GameMaterial previousMaterial = availableMaterials.get(availableMaterials.size() - 1);
 
 		for (GameMaterial availableMaterial : availableMaterials) {
 			if (availableMaterial == productionExportBehaviour.getSelectedMaterial()) {

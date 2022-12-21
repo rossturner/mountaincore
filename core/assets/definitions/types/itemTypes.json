@@ -1163,24 +1163,6 @@
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.STONE.UNREFINED"
 }, {
-  "itemTypeName" : "Resource-Crushed-Vitriol",
-  "maxStackSize" : 16,
-  "maxHauledAtOnce" : 16,
-  "materialTypes" : [ "VITRIOL", "CLOTH", "ROPE" ],
-  "primaryMaterialType" : "VITRIOL",
-  "baseValuePerItem" : 5,
-  "holdPosition" : "IN_FRONT",
-  "impedesMovement" : false,
-  "blocksMovement" : false,
-  "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
-  "relatedCraftingTypeNames" : [ ],
-  "stockpileGroupName" : "PRODUCTS",
-  "tags" : { },
-  "specificMaterialNames" : [ ],
-  "describeAsMaterialOnly" : false,
-  "i18nKey" : "RESOURCE.CRUSHED.VITRIOL"
-}, {
   "itemTypeName" : "Resource-Wheat-Sack",
   "maxStackSize" : 30,
   "maxHauledAtOnce" : 30,

@@ -1263,13 +1263,12 @@ ROOMS.BRIDGE.TOOLTIP,,Placed across the river to allow access to the other side.
 ROOMS.CARPENTRY_WORKSHOP,,Carpentry workshop
 ROOMS.CARPENTRY_WORKSHOP.TOOLTIP,,This workshop produces most wooden tools and items.
 ROOMS.COMPONENT.STOCKPILE.DESCRIPTION,,{{allocated}} of {{total}} spaces currently in use
-ROOMS.EARTHWORKS,,Earthworks
-ROOMS.EARTHWORKS.TOOLTIP,,An outdoor area for large constructions.
 ROOMS.FARM,,Farm plot
 ROOMS.FARM.PLURAL,,Farm plots
 ROOMS.FARM.TOOLTIP,,Grows crops using {{INGREDIENT.SEEDS.PLURAL}}. Must be placed on {{MATERIAL_TYPE.EARTH.NOUN}}.
 ROOMS.FEASTING_HALL,,Feasting hall
 ROOMS.FEASTING_HALL.TOOLTIP,,"A place for settlers to gather to eat, drink and be merry!"
+ROOMS.FUEL_REFINERY,,Fuel refinery
 ROOMS.GRAVEYARD,,Graveyard
 ROOMS.GRAVEYARD.TOOLTIP,,Deceased settlers are laid to rest here.
 ROOMS.KITCHEN,,Kitchen
@@ -1501,7 +1500,7 @@ TUTORIAL.CAMERA.A,,"You can use the W, A, S and D keys or the arrow keys to pan 
 TUTORIAL.CAMERA.B,,Scrolling the mouse wheel or pressing the Q and E keys zooms the camera in or out.
 TUTORIAL.CAMERA.C,,"In the lower-right section of the screen is the minimap, and you can click on this to jump the camera to that point. Click on the “Minimap” label to show or hide the minimap."
 TUTORIAL.CAMERA.D,,Try out these camera controls and then click “Next” to proceed.
-TUTORIAL.FINAL.A,,"This covers the basics of playing King under the Mountain. For your next challenge, aim to set up a functioning {{ROOMS.METALWORKS}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore. Refined metal ores are produced at the {{FURNITURE.ORE_CRUSHING_STATION}}, and fuel can be crushed from coal or produced out of {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} with a {{FURNITURE.CHARCOAL_CLAMP}} in an {{ROOMS.EARTHWORKS}}. Good luck!"
+TUTORIAL.FINAL.A,,"This covers the basics of playing King under the Mountain. For your next challenge, aim to set up a functioning {{ROOMS.METALWORKS}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore. Refined metal ores are produced at the {{FURNITURE.ORE_CRUSHING_STATION}}, and fuel can be crushed from coal or produced out of {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} with a {{FURNITURE.CHARCOAL_CLAMP}} in the {{ROOMS.FUEL_REFINERY}}. Good luck!"
 TUTORIAL.PROGRESS_DESCRIPTION.FARM_PLOT_SELECTIONS,Used to show a progress indicator for how many farm plots have a crop selected e.g. 2 of 10 farm plots with a crop assigned,{{ROOMS.FARM.PLURAL}} with a crop assigned
 TUTORIAL.PROGRESS_DESCRIPTION.PROFESSIONS_ASSIGNED,Used to show a progress indicator for how many of a certain profession have been assigned e.g. 2 of 10 farmers assigned,{{professionPlural}} assigned
 TUTORIAL.PROGRESS_DESCRIPTION.TEXT,Used to show a progress indicator in the form: 2 of 10 stone blocks,{{currentQuantity}} of {{requiredQuantity}} {{targetDescription}}

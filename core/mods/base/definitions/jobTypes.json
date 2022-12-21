@@ -223,6 +223,7 @@
     "overrideI18nKey": "ACTION.JOB.GENERIC",
     "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
     "switchToSpecialGoal": "CRAFTING_JOB",
+    "haulItemWhileWorking": true,
     "activeSoundAssetName": "Metallic Hammering"
   },
   {
@@ -232,7 +233,8 @@
     "experienceAwardedOnCompletion": 4,
     "overrideI18nKey": "ACTION.JOB.GENERIC",
     "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
-    "switchToSpecialGoal": "CRAFTING_JOB"
+    "switchToSpecialGoal": "CRAFTING_JOB",
+    "haulItemWhileWorking": true
   },
   {
     "name": "PRODUCE_LIQUID",
@@ -240,7 +242,8 @@
     "maximumTimeToCompleteJob": 8.25,
     "experienceAwardedOnCompletion": 4,
     "overrideI18nKey": "ACTION.JOB.GENERIC",
-    "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED"
+    "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
+    "haulItemWhileWorking": true
   },
   {
     "name": "CONSTRUCT_WOODEN_FURNITURE",

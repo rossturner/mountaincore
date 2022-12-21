@@ -91,6 +91,8 @@ public class CraftingRecipeDictionary {
 			ItemType itemType = itemTypeDictionary.getByName(craftingRecipe.getItemTypeRequiredName());
 			if (itemType != null) {
 				craftingRecipe.setItemTypeRequired(itemType);
+			} else {
+				Logger.error("Could not find item type with name {} for recipe {}", craftingRecipe.getItemTypeRequiredName(), craftingRecipe.getRecipeName());
 			}
 		}
 		for (QuantifiedItemTypeWithMaterial quantifiedItemType : craftingRecipe.getInput()) {
@@ -104,9 +106,13 @@ public class CraftingRecipeDictionary {
 	}
 
 	private void initialise(CraftingRecipe craftingRecipe, QuantifiedItemTypeWithMaterial quantifiedItemType) {
-		ItemType itemType = itemTypeDictionary.getByName(quantifiedItemType.getItemTypeName());
-		if (itemType != null) {
-			quantifiedItemType.setItemType(itemType);
+		if (quantifiedItemType.getItemTypeName() != null) {
+			ItemType itemType = itemTypeDictionary.getByName(quantifiedItemType.getItemTypeName());
+			if (itemType != null) {
+				quantifiedItemType.setItemType(itemType);
+			} else {
+				Logger.error("Could not find item type with name {} for recipe {}", quantifiedItemType.getItemTypeName(), craftingRecipe.getRecipeName());
+			}
 		}
 
 		if (quantifiedItemType.getMaterialName() != null) {

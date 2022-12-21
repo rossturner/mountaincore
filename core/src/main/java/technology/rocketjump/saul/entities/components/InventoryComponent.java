@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
-import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.ai.goap.actions.nourishment.LocateDrinkAction;
@@ -180,7 +179,7 @@ public class InventoryComponent implements EntityComponent, Destructible {
 						if (allocation != null) {
 							allocation.setAllocationAmount(matchingItemAttributes.getQuantity());
 						} else {
-							Logger.error("Could not find expected allocation to adjust quantity of");
+							itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), parentEntity, addAsAllocationPurpose);
 						}
 					}
 

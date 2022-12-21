@@ -140,7 +140,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 
 		if (currentGoal == null || currentGoal.isComplete()) {
 			try {
-				currentGoal = pickNextGoalFromQueue();
+ 				currentGoal = pickNextGoalFromQueue();
 			} catch (EnteringCombatException e) {
 				combatBehaviour.onEnteringCombat();
 				// Currently assuming whatever threw this has first cleared the CombatStateComponent

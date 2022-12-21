@@ -4,11 +4,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
+import technology.rocketjump.saul.entities.components.ItemAllocation;
+import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.materials.model.GameMaterial;
+import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.RequestHaulingMessage;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
@@ -89,6 +95,37 @@ public class ProductionExportFurnitureBehaviour extends FurnitureBehaviour imple
 //			cancelIncomingHaulingJobs();
 			return;
 		}
+
+		InventoryComponent inventoryComponent = parentEntity.getOrCreateComponent(InventoryComponent.class);
+
+		List<Entity> unwantedInventoryItems = getInventoryItemsNotMatchingSelection(inventoryComponent);
+		if (unwantedInventoryItems.size() > 0) {
+			for (Entity inventoryItem : unwantedInventoryItems) {
+				ItemAllocationComponent allocationComponent = inventoryItem.getComponent(ItemAllocationComponent.class);
+				allocationComponent.cancelAll(ItemAllocation.Purpose.PRODUCTION_IMPORT);
+
+				if (allocationComponent.getNumUnallocated() > 0) {
+					messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(
+							inventoryItem, parentEntity, true, priority, null)
+					);
+				}
+			}
+		}
+	}
+
+	private List<Entity> getInventoryItemsNotMatchingSelection(InventoryComponent inventoryComponent) {
+		if (selectedItemType == null) {
+			return inventoryComponent.getInventoryEntries().stream().map(e -> e.entity).toList();
+		}
+		return inventoryComponent.getInventoryEntries().stream()
+				.map(e -> e.entity)
+				.filter(e -> e.getType().equals(EntityType.ITEM))
+				.filter(e -> !matchesCurrentSelection((ItemEntityAttributes) e.getPhysicalEntityComponent().getAttributes()))
+				.toList();
+	}
+
+	private boolean matchesCurrentSelection(ItemEntityAttributes attributes) {
+		return attributes.getItemType().equals(selectedItemType) && (selectedMaterial == null || attributes.getPrimaryMaterial().equals(selectedMaterial));
 	}
 
 	public List<CraftingAssignment> getPendingAssignments() {

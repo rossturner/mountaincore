@@ -364,7 +364,11 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				InventoryComponent importInventory = importBehaviour.getParentEntity().getComponent(InventoryComponent.class);
 				InventoryComponent.InventoryEntry inventoryEntry = importInventory.findByItemType(requirement.getItemType(), gameContext.getGameClock());
 				if (inventoryEntry != null) {
-					ItemAllocation allocationForImport = inventoryEntry.entity.getComponent(ItemAllocationComponent.class)
+					ItemAllocationComponent itemAllocationComponent = inventoryEntry.entity.getComponent(ItemAllocationComponent.class);
+					if (itemAllocationComponent.getNumUnallocated() > 0) {
+						itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), importBehaviour.getParentEntity(), ItemAllocation.Purpose.PRODUCTION_IMPORT);
+					}
+					ItemAllocation allocationForImport = itemAllocationComponent
 							.getAllocationForPurpose(ItemAllocation.Purpose.PRODUCTION_IMPORT);
 					if (allocationForImport != null && allocationForImport.getAllocationAmount() >= requirement.getQuantity()) {
 						if (desiredMaterial == null || !requirement.getItemType().getPrimaryMaterialType().equals(desiredMaterial.getMaterialType())) {
@@ -713,6 +717,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		} else {
 			craftingAssignment = null;
 		}
+		infrequentUpdate(gameContext);
 	}
 
 	public void allocationCancelled(HaulingAllocation allocation) {

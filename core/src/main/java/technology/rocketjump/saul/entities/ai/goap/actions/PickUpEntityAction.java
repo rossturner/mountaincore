@@ -272,8 +272,11 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			// Need to do this before adding to inventory, as it may be destroyed if added to an existing inventory item
 			parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, pickedUpItem);
 
-			if ((parent.getAssignedJob() != null && (parent.getAssignedJob().getType().isHaulItemWhileWorking())) ||
-				parent.getAssignedHaulingAllocation() != null) {
+			AssignedGoal parentGoal = parent;
+			if (parent.getParentGoal() != null) {
+				parentGoal = parent.getParentGoal();
+			}
+			if (parentGoal.getAssignedJob() != null && (parentGoal.getAssignedJob().getType().isHaulItemWhileWorking())) {
 				HaulingComponent haulingComponent = parent.parentEntity.getOrCreateComponent(HaulingComponent.class);
 				haulingComponent.setHauledEntity(pickedUpItem, parent.messageDispatcher, parent.parentEntity);
 			} else {

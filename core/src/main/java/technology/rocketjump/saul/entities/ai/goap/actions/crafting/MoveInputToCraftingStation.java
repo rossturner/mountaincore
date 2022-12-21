@@ -27,6 +27,7 @@ public class MoveInputToCraftingStation extends Action implements InitialisableA
 	@Override
 	public void init() {
 		if (subGoal != null) {
+			subGoal.setParentGoal(this.parent);
 			subGoal.init(parent.parentEntity, parent.messageDispatcher);
 		}
 	}
@@ -54,6 +55,7 @@ public class MoveInputToCraftingStation extends Action implements InitialisableA
 
 			subGoal = new AssignedGoal(SpecialGoal.HAUL_ITEM.getInstance(), parent.parentEntity, parent.messageDispatcher);
 			subGoal.setAssignedHaulingAllocation(haulingAllocation);
+			subGoal.setParentGoal(this.parent);
 		} else {
 			completionType = CompletionType.FAILURE;
 		}

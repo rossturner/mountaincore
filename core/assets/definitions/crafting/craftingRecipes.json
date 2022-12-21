@@ -82,6 +82,21 @@
   "minimumTimeToCompleteCrafting" : 3.5,
   "maximumTimeToCompleteCrafting" : 7.5
 }, {
+  "recipeName" : "Craft gear",
+  "craftingTypeName" : "FINE_DETAIL_CRAFTING",
+  "input" : [ {
+    "itemTypeName" : "Resource-Stone-Block",
+    "quantity" : 1
+  } ],
+  "output" : {
+    "itemTypeName" : "Product-Stone-Gear",
+    "quantity" : 1
+  },
+  "valueConversion" : "DEFAULT",
+  "materialTypesToCopyOver" : [ "STONE" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 6.5
+}, {
   "recipeName" : "Malt barley",
   "verbOverrideI18nKey" : "ACTION.MALTING",
   "craftingTypeName" : "MALTING",
@@ -204,82 +219,6 @@
   "materialTypesToCopyOver" : [ "WOOD" ],
   "minimumTimeToCompleteCrafting" : 1.0,
   "maximumTimeToCompleteCrafting" : 3.0
-}, {
-  "recipeName" : "Cut stone blocks",
-  "craftingTypeName" : "STONEMASONRY",
-  "itemTypeRequiredName" : "Tool-Chisel",
-  "input" : [ {
-    "itemTypeName" : "Resource-Stone-Unrefined",
-    "quantity" : 1
-  } ],
-  "output" : {
-    "itemTypeName" : "Resource-Stone-Block",
-    "quantity" : 2
-  },
-  "valueConversion" : "DEFAULT",
-  "materialTypesToCopyOver" : [ "STONE" ],
-  "minimumTimeToCompleteCrafting" : 2.5,
-  "maximumTimeToCompleteCrafting" : 6.5
-}, {
-  "recipeName" : "Cut gems",
-  "craftingTypeName" : "STONEMASONRY",
-  "input" : [ {
-    "itemTypeName" : "Resource-Gems-Unrefined",
-    "quantity" : 1
-  } ],
-  "output" : {
-    "itemTypeName" : "Resource-Gem",
-    "quantity" : 4
-  },
-  "valueConversion" : "DEFAULT",
-  "materialTypesToCopyOver" : [ "GEM" ],
-  "minimumTimeToCompleteCrafting" : 2.5,
-  "maximumTimeToCompleteCrafting" : 8.5
-}, {
-  "recipeName" : "Craft millstone",
-  "craftingTypeName" : "STONEMASONRY",
-  "input" : [ {
-    "itemTypeName" : "Resource-Stone-Block",
-    "quantity" : 3
-  } ],
-  "output" : {
-    "itemTypeName" : "Product-Millstone",
-    "quantity" : 1
-  },
-  "valueConversion" : "DEFAULT",
-  "materialTypesToCopyOver" : [ "STONE" ],
-  "minimumTimeToCompleteCrafting" : 2.5,
-  "maximumTimeToCompleteCrafting" : 8.5
-}, {
-  "recipeName" : "Craft gear",
-  "craftingTypeName" : "STONEMASONRY",
-  "input" : [ {
-    "itemTypeName" : "Resource-Stone-Block",
-    "quantity" : 1
-  } ],
-  "output" : {
-    "itemTypeName" : "Product-Stone-Gear",
-    "quantity" : 1
-  },
-  "valueConversion" : "DEFAULT",
-  "materialTypesToCopyOver" : [ "STONE" ],
-  "minimumTimeToCompleteCrafting" : 2.5,
-  "maximumTimeToCompleteCrafting" : 6.5
-}, {
-  "recipeName" : "Craft pipe",
-  "craftingTypeName" : "STONEMASONRY",
-  "input" : [ {
-    "itemTypeName" : "Resource-Stone-Block",
-    "quantity" : 1
-  } ],
-  "output" : {
-    "itemTypeName" : "Product-Stone-Pipe",
-    "quantity" : 1
-  },
-  "valueConversion" : "DEFAULT",
-  "materialTypesToCopyOver" : [ "STONE" ],
-  "minimumTimeToCompleteCrafting" : 2.5,
-  "maximumTimeToCompleteCrafting" : 8.5
 }, {
   "recipeName" : "Craft barrel hoops",
   "craftingTypeName" : "BLACKSMITHING",
@@ -655,38 +594,6 @@
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
 }, {
-  "recipeName" : "Crush ore",
-  "craftingTypeName" : "ORE_CRUSHING",
-  "input" : [ {
-    "itemTypeName" : "Resource-Ore-Unrefined",
-    "quantity" : 2
-  } ],
-  "output" : {
-    "itemTypeName" : "Resource-Ore-Crushed",
-    "quantity" : 5
-  },
-  "valueConversion" : "DEFAULT",
-  "materialTypesToCopyOver" : [ "ORE" ],
-  "minimumTimeToCompleteCrafting" : 2.5,
-  "maximumTimeToCompleteCrafting" : 6.5
-}, {
-  "recipeName" : "Crush pyrite to iron sulfate / green vitriol",
-  "craftingTypeName" : "ORE_CRUSHING",
-  "itemTypeRequiredName" : "Tool-Large-Hammer",
-  "input" : [ {
-    "itemTypeName" : "Resource-Ore-Crushed",
-    "quantity" : 2,
-    "materialName" : "Pyrite"
-  } ],
-  "output" : {
-    "itemTypeName" : "Resource-Crushed-Vitriol",
-    "quantity" : 2,
-    "materialName" : "Green Vitriol"
-  },
-  "valueConversion" : "DEFAULT",
-  "minimumTimeToCompleteCrafting" : 1.5,
-  "maximumTimeToCompleteCrafting" : 4.5
-}, {
   "recipeName" : "Smelt iron",
   "craftingTypeName" : "SMELTING",
   "itemTypeRequiredName" : "Tool-Tongs",
@@ -969,6 +876,82 @@
   "materialTypesToCopyOver" : [ "METAL", "WOOD" ],
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 7.5
+}, {
+  "recipeName" : "Cut stone blocks",
+  "craftingTypeName" : "STONEMASONRY",
+  "itemTypeRequiredName" : "Tool-Chisel",
+  "input" : [ {
+    "itemTypeName" : "Resource-Stone-Unrefined",
+    "quantity" : 1
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Stone-Block",
+    "quantity" : 2
+  },
+  "valueConversion" : "DEFAULT",
+  "materialTypesToCopyOver" : [ "STONE" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 6.5
+}, {
+  "recipeName" : "Cut gems",
+  "craftingTypeName" : "STONEMASONRY",
+  "input" : [ {
+    "itemTypeName" : "Resource-Gems-Unrefined",
+    "quantity" : 1
+  } ],
+  "output" : {
+    "itemTypeName" : "Treasure-Gem",
+    "quantity" : 4
+  },
+  "valueConversion" : "DEFAULT",
+  "materialTypesToCopyOver" : [ "GEM" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 8.5
+}, {
+  "recipeName" : "Craft millstone",
+  "craftingTypeName" : "STONEMASONRY",
+  "input" : [ {
+    "itemTypeName" : "Resource-Stone-Unrefined",
+    "quantity" : 1
+  } ],
+  "output" : {
+    "itemTypeName" : "Product-Millstone",
+    "quantity" : 1
+  },
+  "valueConversion" : "DEFAULT",
+  "materialTypesToCopyOver" : [ "STONE" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 8.5
+}, {
+  "recipeName" : "Craft pipe",
+  "craftingTypeName" : "STONEMASONRY",
+  "input" : [ {
+    "itemTypeName" : "Resource-Stone-Unrefined",
+    "quantity" : 1
+  } ],
+  "output" : {
+    "itemTypeName" : "Product-Stone-Pipe",
+    "quantity" : 2
+  },
+  "valueConversion" : "DEFAULT",
+  "materialTypesToCopyOver" : [ "STONE" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 8.5
+}, {
+  "recipeName" : "Crush ore",
+  "craftingTypeName" : "ORE_CRUSHING",
+  "input" : [ {
+    "itemTypeName" : "Resource-Ore-Unrefined",
+    "quantity" : 2
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 5
+  },
+  "valueConversion" : "DEFAULT",
+  "materialTypesToCopyOver" : [ "ORE" ],
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 6.5
 }, {
   "recipeName" : "Fletch metal arrows",
   "verbOverrideI18nKey" : "CRAFTING_TYPE.FLETCHING",

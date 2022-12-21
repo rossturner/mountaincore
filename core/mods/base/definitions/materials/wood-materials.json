@@ -139,6 +139,7 @@
     "colorCode": "#b08070",
     "useMaterialTypeAsAdjective": true,
     "useInRandomGeneration": false,
+    "hiddenFromUI": true,
     "combustible": true
   },
   {
