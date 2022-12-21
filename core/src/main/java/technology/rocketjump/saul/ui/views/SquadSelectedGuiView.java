@@ -1,10 +1,10 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -15,11 +15,14 @@ import technology.rocketjump.saul.military.SquadFormationDictionary;
 import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Updatable;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,29 +47,47 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	private final MessageDispatcher messageDispatcher;
 	private final MainGameSkin mainGameSkin;
 	private final ManagementSkin managementSkin;
+	private final ButtonFactory buttonFactory;
+	private final TooltipFactory tooltipFactory;
 
 	private GameContext gameContext;
+	private Tabs selectedTab = Tabs.SQUADS;
 	private List<Updatable<?>> updatables;
+
+	enum Tabs {
+		SQUADS("icon_military_tabs_squads", "GUI.MILITARY.TAB.SQUADS"),
+		DWARVES("icon_military_tabs_dwarves", "GUI.MILITARY.TAB.DWARVES"),
+		TRAINED_CIVILIANS( "icon_military_tabs_trained_civs", "GUI.MILITARY.TAB.TRAINED_CIVILIANS");
+
+		private final String drawableName;
+		private final String i18nKey;
+
+		Tabs(String drawableName, String i18nKey) {
+			this.drawableName = drawableName;
+			this.i18nKey = i18nKey;
+		}
+	}
 
 	@Inject
 	public SquadSelectedGuiView(GuiSkinRepository guiSkinRepository, GameInteractionStateContainer gameInteractionStateContainer,
 	                            I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher,
-	                            SquadFormationDictionary squadFormationDictionary) {
+	                            SquadFormationDictionary squadFormationDictionary, ButtonFactory buttonFactory,
+	                            TooltipFactory tooltipFactory) {
 
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
 		this.messageDispatcher = messageDispatcher;
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
+		this.buttonFactory = buttonFactory;
+		this.tooltipFactory = tooltipFactory;
 	}
 
 	@Override
 	public void populate(Table containerTable) {
 		containerTable.clear();
 		updatables = new ArrayList<>();
-		Table outerTable = new Table();
-		outerTable.setTouchable(Touchable.enabled);
-		outerTable.setBackground(managementSkin.getDrawable("trade_bg_left")); //Doesn't fill screen due to aspect ratio
+
 
 		Label title = new Label(i18nTranslator.translate("GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY"), managementSkin, "military_title_ribbon");
 		title.setAlignment(Align.center);
@@ -74,10 +95,40 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		Updatable<Table> squadSummaryGrid = squadSummaries();
 		updatables.add(squadSummaryGrid);
 
+		Table tabButtons = tabButtons();
+
+		Table outerTable = new Table();
+		outerTable.setTouchable(Touchable.enabled);
+		outerTable.setBackground(managementSkin.getDrawable("trade_bg_left")); //Doesn't fill screen due to aspect ratio
+
 		outerTable.add(title).spaceTop(40).width(800).row();
 		outerTable.add(squadSummaryGrid.getActor()).spaceTop(20).row();
+		outerTable.add(tabButtons).spaceTop(20).row();
 
 		containerTable.add(outerTable);
+	}
+
+	private Table tabButtons() {
+		ButtonGroup<ImageButton> buttonGroup = new ButtonGroup<>();
+		Table table = new Table();
+		for (Tabs tab : Tabs.values()) {
+			ImageButton button = buttonFactory.checkableButton(managementSkin.getDrawable(tab.drawableName));
+			button.addListener(new ChangeListener() {
+				@Override
+				public void changed(ChangeEvent event, Actor actor) {
+					if (button.isChecked()) {
+						SquadSelectedGuiView.this.selectedTab = tab;
+						update();
+					}
+				}
+			});
+			tooltipFactory.simpleTooltip(button, tab.i18nKey, TooltipLocationHint.ABOVE);
+			buttonGroup.add(button);
+			table.add(button);
+		}
+
+
+		return table;
 	}
 
 	private Updatable<Table> squadSummaries() {
