@@ -5824,8 +5824,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 32.0,
-        "y" : 33.5,
+        "x" : 0.0,
+        "y" : -2.5,
         "unit" : false
       },
       "flipX" : false,
@@ -7293,6 +7293,33 @@
       "offsetPixels" : {
         "x" : 0.0,
         "y" : 16.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Invader_Campfire-1x1-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "INVADER_CAMPFIRE",
+  "furnitureLayoutName" : "1x1",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : {
+    "ATTACHES_LIGHT_SOURCE" : [ "#f7ffa9", "#f8cc5d", "#ff8f2c" ]
+  },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Campfire_placeholder.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -17.0,
         "unit" : false
       },
       "flipX" : false,
@@ -10719,33 +10746,6 @@
           "unit" : false
         }
       } ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Invader_Campfire-1x1-Base_Layer-Wood",
-  "type" : "BASE_LAYER",
-  "furnitureTypeName" : "INVADER_CAMPFIRE",
-  "furnitureLayoutName" : "1x1",
-  "validMaterialTypes" : [ "WOOD" ],
-  "tags" : {
-    "ATTACHES_LIGHT_SOURCE" : [ "#f7ffa9", "#f8cc5d", "#ff8f2c" ]
-  },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Campfire_placeholder.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -17.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
   }

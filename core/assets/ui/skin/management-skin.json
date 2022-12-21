@@ -178,6 +178,11 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: default-font-16
 		fontColor: primary_font_colour_red
 	}
+	military_title_ribbon: {
+		font: header-font-36
+		fontColor: primary_font_colour_red
+		background: asset_title_ribbon
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
 	default-horizontal: {
