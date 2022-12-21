@@ -890,20 +890,32 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					progressBar.setDisabled(true);
 					progressBar.setWidth(318);
 					progressBar.setHeight(42);
-					Color progressBarColour;
-					if (needValue >= 55f) {
-						progressBarColour = ColorMixer.interpolate(55f, (float) NeedsComponent.MAX_NEED_VALUE, needValue.floatValue(), managementSkin.getColor("progress_bar_yellow"), managementSkin.getColor("progress_bar_green"));
-					} else {
-						progressBarColour = ColorMixer.interpolate((float) NeedsComponent.MIN_NEED_VALUE, 55f, needValue.floatValue(), managementSkin.getColor("progress_bar_red"), managementSkin.getColor("progress_bar_yellow"));
-					}
 					ProgressBar.ProgressBarStyle clonedStyle = new ProgressBar.ProgressBarStyle(progressBar.getStyle());
+
 					if (clonedStyle.knobBefore instanceof NinePatchDrawable ninePatchDrawable) {
+						Color progressBarColour;
+						if (needValue >= 55f) {
+							progressBarColour = ColorMixer.interpolate(55f, (float) NeedsComponent.MAX_NEED_VALUE, needValue.floatValue(), managementSkin.getColor("progress_bar_yellow"), managementSkin.getColor("progress_bar_green"));
+						} else {
+							progressBarColour = ColorMixer.interpolate((float) NeedsComponent.MIN_NEED_VALUE, 55f, needValue.floatValue(), managementSkin.getColor("progress_bar_red"), managementSkin.getColor("progress_bar_yellow"));
+						}
 						clonedStyle.knobBefore = ninePatchDrawable.tint(progressBarColour);
 					}
 					progressBar.setStyle(clonedStyle);
 
 					updatable.regularly(() -> {
-						progressBar.setValue(Math.round(needsComponent.getValue(need)));
+						Double newNeedValue = needsComponent.getValue(need);
+						progressBar.setValue(Math.round(newNeedValue));
+
+						if (clonedStyle.knobBefore instanceof NinePatchDrawable ninePatchDrawable) {
+							Color progressBarColour;
+							if (newNeedValue >= 55f) {
+								progressBarColour = ColorMixer.interpolate(55f, (float) NeedsComponent.MAX_NEED_VALUE, newNeedValue.floatValue(), managementSkin.getColor("progress_bar_yellow"), managementSkin.getColor("progress_bar_green"));
+							} else {
+								progressBarColour = ColorMixer.interpolate((float) NeedsComponent.MIN_NEED_VALUE, 55f, newNeedValue.floatValue(), managementSkin.getColor("progress_bar_red"), managementSkin.getColor("progress_bar_yellow"));
+							}
+							clonedStyle.knobBefore = ninePatchDrawable.tint(progressBarColour);
+						}
 					});
 
 					table.add(icon).right().spaceRight(28);
