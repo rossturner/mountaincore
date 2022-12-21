@@ -2,16 +2,20 @@ package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.military.SquadFormationDictionary;
+import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Updatable;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MainGameSkin;
@@ -19,9 +23,21 @@ import technology.rocketjump.saul.ui.skins.ManagementSkin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Singleton
 public class SquadSelectedGuiView implements GuiView, GameContextAware {
+
+	private static final String[] DEFAULT_SQUAD_EMBLEMS = {
+			"icon_military_emblem_hammer",
+			"icon_military_emblem_snow",
+			"icon_military_emblem_wolf",
+			"icon_military_emblem_tree",
+			"icon_military_emblem_helmet",
+			"icon_military_emblem_fire",
+			"icon_military_emblem_arrow",
+			"icon_military_emblem_skull"
+	};
 
 	private final GameInteractionStateContainer gameInteractionStateContainer;
 	private final I18nTranslator i18nTranslator;
@@ -54,10 +70,66 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 		Label title = new Label(i18nTranslator.translate("GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY"), managementSkin, "military_title_ribbon");
 		title.setAlignment(Align.center);
-		outerTable.add(title).spaceTop(40).width(800);
 
+		Updatable<Table> squadSummaryGrid = squadSummaries();
+		updatables.add(squadSummaryGrid);
+
+		outerTable.add(title).spaceTop(40).width(800).row();
+		outerTable.add(squadSummaryGrid.getActor()).spaceTop(20).row();
 
 		containerTable.add(outerTable);
+	}
+
+	private Updatable<Table> squadSummaries() {
+		Table table = new Table();
+		Updatable<Table> updatable = Updatable.of(table);
+		updatable.regularly(() -> {
+			table.clear();
+			if (gameContext != null) {
+				Map<Long, Squad> squadMap = gameContext.getSquads();
+				List<Squad> squads = squadMap.keySet().stream().sorted().map(squadMap::get).toList();
+				for (List<Squad> squadRow : Lists.partition(squads, 3)) {
+					for (Squad squad : squadRow) {
+						Table summary = squadSummary(squad);
+						table.add(summary).spaceLeft(30).spaceRight(30);
+					}
+					table.row();
+				}
+
+			}
+		});
+		updatable.update();
+		return updatable;
+	}
+
+	private Table squadSummary(Squad squad) {
+		String smallEmblemName = getSmallEmblemName(squad);
+		String squadName = squad.getName();
+		List<I18nText> descriptions = squad.getDescription(i18nTranslator, gameContext, messageDispatcher);
+
+		Image smallEmblem = new Image(managementSkin.getDrawable(smallEmblemName));
+
+		Table textTable = new Table();
+		textTable.defaults().left();
+		textTable.add(new Label(squadName, managementSkin, "default-font-18-label")).row();
+		for (I18nText i18nText : descriptions) {
+			textTable.add(new Label(i18nText.toString(), managementSkin, "default-font-18-label")).row();
+		}
+
+		Table table = new Table();
+		table.add(smallEmblem);
+		table.add(textTable).left().spaceLeft(10);
+
+		return table;
+	}
+
+	private String getSmallEmblemName(Squad squad) {
+		String smallEmblemName = squad.getSmallEmblemName();
+		if (smallEmblemName != null) {
+			return smallEmblemName;
+		} else {
+			return DEFAULT_SQUAD_EMBLEMS[(int) (squad.getId() % DEFAULT_SQUAD_EMBLEMS.length)] + "_small"; //code duplication, was tempted to set on the squad
+		}
 	}
 
 	/**
