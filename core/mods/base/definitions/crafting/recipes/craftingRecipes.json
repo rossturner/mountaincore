@@ -478,7 +478,7 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Hematite",
-        "quantity": 5
+        "quantity": 6
       }
     ],
     "output": {
@@ -502,7 +502,7 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Cassiterite",
-        "quantity": 5
+        "quantity": 6
       }
     ],
     "output": {
@@ -526,7 +526,7 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Native Copper",
-        "quantity": 5
+        "quantity": 6
       }
     ],
     "output": {
@@ -550,7 +550,7 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Malachite",
-        "quantity": 5
+        "quantity": 6
       }
     ],
     "output": {
@@ -574,7 +574,7 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Chrysocolla",
-        "quantity": 5
+        "quantity": 6
       }
     ],
     "output": {
@@ -598,7 +598,7 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Native Gold",
-        "quantity": 5
+        "quantity": 6
       }
     ],
     "output": {
@@ -622,7 +622,7 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Galena",
-        "quantity": 5
+        "quantity": 6
       }
     ],
     "output": {
@@ -646,7 +646,7 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Native Silver",
-        "quantity": 5
+        "quantity": 6
       }
     ],
     "output": {
@@ -687,13 +687,13 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Bituminous Coal",
-        "quantity": 16
+        "quantity": 15
       }
     ],
     "output": {
       "itemTypeName": "Fuel-Sack",
       "materialName": "Coke",
-      "quantity": 16
+      "quantity": 15
     },
     "extraGameHoursToComplete": 28.0,
     "minimumTimeToCompleteCrafting": 1.5,

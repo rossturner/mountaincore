@@ -9,6 +9,7 @@ import technology.rocketjump.saul.entities.ai.goap.actions.InitialisableAction;
 import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.ProductionExportFurnitureBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
+import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -61,15 +62,20 @@ public class MoveOutputToExportSpotAction extends Action implements Initialisabl
 				InventoryComponent.InventoryEntry itemEntry = inventoryComponent.findByItemTypeAndMaterial(targetExportBehaviour.getSelectedItemType(), targetExportBehaviour.getSelectedMaterial(), gameContext.getGameClock());
 
 				if (itemEntry != null) {
+					ItemAllocationComponent allocationComponent = itemEntry.entity.getComponent(ItemAllocationComponent.class);
 					ItemEntityAttributes itemEntityAttributes = (ItemEntityAttributes) itemEntry.entity.getPhysicalEntityComponent().getAttributes();
-					int haulingQuantity = Math.min(itemEntityAttributes.getQuantity(), itemEntityAttributes.getItemType().getMaxHauledAtOnce());
+					int haulingQuantity = Math.min(allocationComponent.getNumUnallocated(), itemEntityAttributes.getItemType().getMaxHauledAtOnce());
 
-					HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(haulingQuantity, itemEntry.entity, parent.parentEntity)
-							.toEntity(targetExportBehaviour.getParentEntity());
+					if (haulingQuantity > 0) {
+						HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(haulingQuantity, itemEntry.entity, parent.parentEntity)
+								.toEntity(targetExportBehaviour.getParentEntity());
 
-					subGoal = new AssignedGoal(SpecialGoal.HAUL_ITEM.getInstance(), parent.parentEntity, parent.messageDispatcher);
-					subGoal.setAssignedHaulingAllocation(haulingAllocation);
-					subGoal.setParentGoal(this.parent);
+						subGoal = new AssignedGoal(SpecialGoal.HAUL_ITEM.getInstance(), parent.parentEntity, parent.messageDispatcher);
+						subGoal.setAssignedHaulingAllocation(haulingAllocation);
+						subGoal.setParentGoal(this.parent);
+					} else {
+						completionType = CompletionType.FAILURE;
+					}
 					return;
 				}
 			}

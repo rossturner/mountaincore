@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -172,6 +173,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		showStockpileSettings = false;
 		updatables = new ArrayList<>();
 		outerTable = new Table();
+		outerTable.setTouchable(Touchable.enabled);
 		float dropshadowLength = 18f;
 		containerTable.add(outerTable).padLeft(dropshadowLength); //Value of drop shadow on bottom for equal distance
 

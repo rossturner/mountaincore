@@ -602,7 +602,7 @@
     "quantity" : 1
   }, {
     "itemTypeName" : "Resource-Ore-Crushed",
-    "quantity" : 5,
+    "quantity" : 6,
     "materialName" : "Hematite"
   } ],
   "output" : {
@@ -623,7 +623,7 @@
     "quantity" : 1
   }, {
     "itemTypeName" : "Resource-Ore-Crushed",
-    "quantity" : 5,
+    "quantity" : 6,
     "materialName" : "Cassiterite"
   } ],
   "output" : {
@@ -644,7 +644,7 @@
     "quantity" : 1
   }, {
     "itemTypeName" : "Resource-Ore-Crushed",
-    "quantity" : 5,
+    "quantity" : 6,
     "materialName" : "Native Copper"
   } ],
   "output" : {
@@ -665,7 +665,7 @@
     "quantity" : 1
   }, {
     "itemTypeName" : "Resource-Ore-Crushed",
-    "quantity" : 5,
+    "quantity" : 6,
     "materialName" : "Malachite"
   } ],
   "output" : {
@@ -686,7 +686,7 @@
     "quantity" : 1
   }, {
     "itemTypeName" : "Resource-Ore-Crushed",
-    "quantity" : 5,
+    "quantity" : 6,
     "materialName" : "Chrysocolla"
   } ],
   "output" : {
@@ -707,7 +707,7 @@
     "quantity" : 1
   }, {
     "itemTypeName" : "Resource-Ore-Crushed",
-    "quantity" : 5,
+    "quantity" : 6,
     "materialName" : "Native Gold"
   } ],
   "output" : {
@@ -728,7 +728,7 @@
     "quantity" : 1
   }, {
     "itemTypeName" : "Resource-Ore-Crushed",
-    "quantity" : 5,
+    "quantity" : 6,
     "materialName" : "Galena"
   } ],
   "output" : {
@@ -749,7 +749,7 @@
     "quantity" : 1
   }, {
     "itemTypeName" : "Resource-Ore-Crushed",
-    "quantity" : 5,
+    "quantity" : 6,
     "materialName" : "Native Silver"
   } ],
   "output" : {
@@ -782,12 +782,12 @@
   "craftingTypeName" : "COKE_OVEN_BAKING",
   "input" : [ {
     "itemTypeName" : "Resource-Ore-Crushed",
-    "quantity" : 16,
+    "quantity" : 15,
     "materialName" : "Bituminous Coal"
   } ],
   "output" : {
     "itemTypeName" : "Fuel-Sack",
-    "quantity" : 16,
+    "quantity" : 15,
     "materialName" : "Coke"
   },
   "valueConversion" : "DEFAULT",
@@ -942,11 +942,11 @@
   "craftingTypeName" : "ORE_CRUSHING",
   "input" : [ {
     "itemTypeName" : "Resource-Ore-Unrefined",
-    "quantity" : 2
+    "quantity" : 1
   } ],
   "output" : {
     "itemTypeName" : "Resource-Ore-Crushed",
-    "quantity" : 5
+    "quantity" : 3
   },
   "valueConversion" : "DEFAULT",
   "materialTypesToCopyOver" : [ "ORE" ],

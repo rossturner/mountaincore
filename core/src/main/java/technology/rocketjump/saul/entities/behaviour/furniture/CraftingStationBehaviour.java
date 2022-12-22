@@ -267,6 +267,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 						// This recipe can be crafted, so use this and create a CraftingAssignment
 
 						craftingAssignment = new CraftingAssignment(matchingRecipe);
+						requiresExtraTime = matchingRecipe.getExtraGameHoursToComplete() != null;
 
 						for (QuantifiedItemTypeWithMaterial inputRequirement : matchingRecipe.getInput()) {
 							ProductionImportFurnitureBehaviour matchedInputFurniture = getImportFurnitureForRequirement(inputRequirement, importFurniture, desiredMaterial);
@@ -371,11 +372,17 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 					ItemAllocation allocationForImport = itemAllocationComponent
 							.getAllocationForPurpose(ItemAllocation.Purpose.PRODUCTION_IMPORT);
 					if (allocationForImport != null && allocationForImport.getAllocationAmount() >= requirement.getQuantity()) {
+						ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryEntry.entity.getPhysicalEntityComponent().getAttributes();
 						if (desiredMaterial == null || !requirement.getItemType().getPrimaryMaterialType().equals(desiredMaterial.getMaterialType())) {
-							return importBehaviour;
+							if (requirement.getMaterial() != null && attributes.getPrimaryMaterial().equals(requirement.getMaterial())) {
+								return importBehaviour;
+							} else {
+								return importBehaviour;
+							}
 						} else {
-							ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryEntry.entity.getPhysicalEntityComponent().getAttributes();
-							if (attributes.getPrimaryMaterial().equals(desiredMaterial)) {
+							if (requirement.getMaterial() != null && attributes.getPrimaryMaterial().equals(requirement.getMaterial())) {
+								return importBehaviour;
+							} else if (attributes.getPrimaryMaterial().equals(desiredMaterial)) {
 								return importBehaviour;
 							}
 						}

@@ -77,12 +77,12 @@
     "input": [
       {
         "itemTypeName": "Resource-Ore-Unrefined",
-        "quantity": 2
+        "quantity": 1
       }
     ],
     "output": {
       "itemTypeName": "Resource-Ore-Crushed",
-      "quantity": 5
+      "quantity": 3
     },
     "materialTypesToCopyOver": ["ORE"],
     "minimumTimeToCompleteCrafting": 2.5,

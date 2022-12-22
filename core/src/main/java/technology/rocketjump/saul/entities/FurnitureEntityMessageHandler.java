@@ -4,17 +4,14 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.behaviour.furniture.FurnitureBehaviour;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
-import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
 import technology.rocketjump.saul.entities.components.furniture.PoweredFurnitureComponent;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.factories.FurnitureEntityAttributesFactory;
@@ -25,11 +22,12 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureTyp
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
-import technology.rocketjump.saul.entities.tags.*;
+import technology.rocketjump.saul.entities.tags.DecorationFromInputTag;
+import technology.rocketjump.saul.entities.tags.RequirementToColorMappingsTag;
+import technology.rocketjump.saul.entities.tags.SupportsRoofTag;
+import technology.rocketjump.saul.entities.tags.TagProcessor;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
-import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
-import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.mapping.RoofConstructionManager;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
@@ -50,7 +48,6 @@ public class FurnitureEntityMessageHandler implements GameContextAware, Telegrap
 	private final FurnitureTypeDictionary furnitureTypeDictionary;
 	private final FurnitureEntityAttributesFactory furnitureEntityAttributesFactory;
 	private final FurnitureEntityFactory furnitureEntityFactory;
-	private final CraftingTypeDictionary craftingTypeDictionary;
 	private final ItemTypeDictionary itemTypeDictionary;
 	private final Map<GameMaterialType, SoundAsset> completionSoundMapping = new EnumMap<>(GameMaterialType.class);
 	private final TagProcessor tagProcessor;
@@ -60,14 +57,13 @@ public class FurnitureEntityMessageHandler implements GameContextAware, Telegrap
 
 	@Inject
 	public FurnitureEntityMessageHandler(MessageDispatcher messageDispatcher, FurnitureTypeDictionary furnitureTypeDictionary,
-										 FurnitureEntityFactory furnitureEntityFactory, CraftingTypeDictionary craftingTypeDictionary,
+										 FurnitureEntityFactory furnitureEntityFactory,
 										 ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary,
 										 TagProcessor tagProcessor, RoofConstructionManager roofConstructionManager,
 										 FurnitureEntityAttributesFactory furnitureEntityAttributesFactory, GameMaterialDictionary gameMaterialDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
 		this.furnitureEntityFactory = furnitureEntityFactory;
-		this.craftingTypeDictionary = craftingTypeDictionary;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.tagProcessor = tagProcessor;
 		this.roofConstructionManager = roofConstructionManager;
@@ -132,36 +128,6 @@ public class FurnitureEntityMessageHandler implements GameContextAware, Telegrap
 		createdFurnitureEntity.getBehaviourComponent().init(createdFurnitureEntity, messageDispatcher, gameContext);
 
 		copyLiquids(createdFurnitureEntity, message.inputItems);
-
-		// Add some applicable tools
-		CraftingStationBehaviourTag craftingStationBehaviourTag = createdFurnitureEntity.getTag(CraftingStationBehaviourTag.class);
-		if (craftingStationBehaviourTag != null) {
-			CraftingType craftingType = craftingTypeDictionary.getByName(craftingStationBehaviourTag.getArgs().get(0));
-			if (craftingType == null) {
-				Logger.error("Could not find crafting type by name " + craftingStationBehaviourTag.getArgs().get(0) + " in " + this.getClass().getSimpleName());
-			} else if (!craftingType.isUsesWorkstationTool()) {
-				List<ItemType> itemsForCraftingType = itemTypeDictionary.getByCraftingType(craftingType);
-				if (itemsForCraftingType != null && itemsForCraftingType.size() > 0) {
-					Collections.shuffle(itemsForCraftingType, new RandomXS128(message.furnitureAttributes.getSeed()));
-					DecorationInventoryComponent decorationInventoryComponent = new DecorationInventoryComponent();
-					decorationInventoryComponent.init(createdFurnitureEntity, messageDispatcher, gameContext);
-
-					Entity attachedItem = createAttachedItem(itemsForCraftingType.get(0));
-					if (attachedItem != null) {
-						decorationInventoryComponent.add(attachedItem);
-					}
-
-					if (itemsForCraftingType.size() > 1) {
-						Entity attachedItem2 = createAttachedItem(itemsForCraftingType.get(1));
-						if (attachedItem2 != null) {
-							decorationInventoryComponent.add(attachedItem2);
-						}
-					}
-
-					createdFurnitureEntity.addComponent(decorationInventoryComponent);
-				}
-			}
-		}
 
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, createdFurnitureEntity);
 		SoundAsset soundAsset = completionSoundMapping.get(message.furnitureAttributes.getPrimaryMaterialType());
