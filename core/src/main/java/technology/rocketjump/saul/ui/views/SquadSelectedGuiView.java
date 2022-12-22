@@ -125,6 +125,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		outerTable.add(currentTab.getActor()).padTop(20).growY().row();
 
 		containerTable.add(outerTable);
+		update();
 	}
 
 	private Updatable<Table> currentTab() {
@@ -157,7 +158,6 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 			}
 		});
 
-		currentTab.debugAll();
 		return updatable;
 	}
 
@@ -183,7 +183,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		Label ordersLabel = new Label(i18nTranslator.translate("GUI.MILITARY.ORDERS"), managementSkin, "military_subtitle_ribbon");
 		ordersLabel.setAlignment(Align.center);
 
-		table.add(subtitle).row(); //TODO add remove button
+		table.add(subtitle).padBottom(20f).row(); //TODO add remove button
 		table.add(cardsScrollPane).grow().row();
 
 		table.add(ordersLabel).row();
@@ -257,9 +257,6 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 		card.add(titleRow).growX().row();
 		card.add(contentsRow).row();
-
-
-		card.debugAll();
 		return card;
 	}
 
@@ -279,6 +276,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 						squad.setName(newName);
 					}
 				}, messageDispatcher, soundAssetDictionary);
+				textInputDialog.setMaxLength(20);
 				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
 			}
 		});
