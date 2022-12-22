@@ -6,17 +6,22 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.military.SquadFormationDictionary;
 import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Updatable;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nText;
@@ -27,11 +32,10 @@ import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
+import technology.rocketjump.saul.ui.widgets.SelectItemDialog;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Singleton
 public class SquadSelectedGuiView implements GuiView, GameContextAware {
@@ -55,6 +59,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	private final MenuSkin menuSkin;
 	private final ButtonFactory buttonFactory;
 	private final TooltipFactory tooltipFactory;
+	private final SoundAssetDictionary soundAssetDictionary;
 
 	private GameContext gameContext;
 	private Tabs selectedTab = Tabs.SQUADS;
@@ -78,7 +83,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	public SquadSelectedGuiView(GuiSkinRepository guiSkinRepository, GameInteractionStateContainer gameInteractionStateContainer,
 	                            I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher,
 	                            SquadFormationDictionary squadFormationDictionary, ButtonFactory buttonFactory,
-	                            TooltipFactory tooltipFactory) {
+	                            TooltipFactory tooltipFactory, SoundAssetDictionary soundAssetDictionary) {
 
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
@@ -88,6 +93,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.buttonFactory = buttonFactory;
 		this.tooltipFactory = tooltipFactory;
+		this.soundAssetDictionary = soundAssetDictionary;
 	}
 
 	@Override
@@ -217,16 +223,15 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 
 		Table emblemColumn = new Table();
-		Drawable emblemDrawable = managementSkin.getDrawable(getEmblemName(squad));
-		Image emblem = new Image(emblemDrawable);
-		emblemColumn.add(emblem).row();
+		Updatable<Actor> selectableEmblem = selectableEmblem(squad);
+		updatables.add(selectableEmblem);
 
+		emblemColumn.add(selectableEmblem.getActor()).row();
 		for (I18nText line : squad.getDescription(i18nTranslator, gameContext, messageDispatcher)) {
 			Label emblemDescription = new Label(line.toString(), managementSkin, "default-font-16-label-white");
 			emblemColumn.add(emblemDescription).row();
 		}
 
-		//TODO: change emblem button wizard
 
 		Table contentsRow = new Table();
 		contentsRow.add(emblemColumn);
@@ -236,6 +241,59 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 
 		return card;
+	}
+
+	private Updatable<Actor> selectableEmblem(Squad squad) {
+		Drawable emblemDrawable = managementSkin.getDrawable(getEmblemName(squad));
+		Image emblem = new Image(emblemDrawable);
+		emblem.setTouchable(Touchable.enabled);
+		buttonFactory.attachClickCursor(emblem, GameCursor.SELECT);
+
+		emblem.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				List<EmblemOption> options = Arrays.stream(DEFAULT_SQUAD_EMBLEMS)
+						.map(drawableName -> new EmblemOption(squad, drawableName, managementSkin))
+						.toList();
+
+
+				I18nText title = i18nTranslator.getTranslatedWordWithReplacements("GUI.MILITARY.DIALOG.CHOOSE_EMBLEM", Map.of("squadName", new I18nText(squad.getName())));
+				SelectItemDialog dialog = new SelectItemDialog(title, menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options);
+				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+			}
+		});
+
+		Updatable<Actor> updatable = Updatable.of(emblem);
+		updatable.regularly(() -> {
+			emblem.setDrawable(managementSkin.getDrawable(getEmblemName(squad)));
+		});
+		return updatable;
+	}
+
+	class EmblemOption extends SelectItemDialog.Option {
+
+		private final Squad squad;
+		private final String drawableName;
+		private final Skin skin;
+
+		public EmblemOption(Squad squad, String drawableName, Skin skin) {
+			super(I18nText.BLANK);
+			this.squad = squad;
+			this.drawableName = drawableName;
+			this.skin = skin;
+		}
+
+		@Override
+		public void addSelectionComponents(Table innerTable) {
+			Image emblem = new Image(skin.getDrawable(drawableName));
+			innerTable.add(emblem).pad(20);
+		}
+
+		@Override
+		public void onSelect() {
+			this.squad.setEmblemName(drawableName);
+		}
 	}
 
 	private Table tabButtons() {
@@ -331,8 +389,13 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	 */
 	@Override
 	public void update() {
+		int sizeBeforeUpdate = updatables.size();
 		for (Updatable<?> updatable : updatables) {
 			updatable.update();
+		}
+		int sizeAfterUpdate = updatables.size();
+		if (sizeAfterUpdate > sizeBeforeUpdate) {
+			Logger.error("Leak in {} as more updatbles {} since {}", getClass().getSimpleName(), sizeAfterUpdate, sizeBeforeUpdate);
 		}
 	}
 
