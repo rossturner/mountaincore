@@ -22,6 +22,7 @@ import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Updatable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nText;
@@ -33,6 +34,7 @@ import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 import technology.rocketjump.saul.ui.widgets.SelectItemDialog;
+import technology.rocketjump.saul.ui.widgets.TextInputDialog;
 
 import java.util.List;
 import java.util.*;
@@ -214,12 +216,25 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		personnelWidget.addActor(personnelCountLabel);
 		personnelWidget.addActor(personnelIcon);
 
+		Label squadNameLabel = new Label(squad.getName(), mainGameSkin, "title-header");
+		Updatable<Label> updatableSquadNameLabel = Updatable.of(squadNameLabel);
+		updatableSquadNameLabel.regularly(() -> {
+			squadNameLabel.setText(squad.getName());
+		});
+		updatables.add(updatableSquadNameLabel);
+
 		HorizontalGroup titleWidget = new HorizontalGroup();
 		titleWidget.space(5);
+		titleWidget.addActor(squadNameLabel);
+		titleWidget.addActor(renameSquadButton(squad));
+
+
 
 
 		Table titleRow = new Table();
-		titleRow.add(personnelWidget);
+		titleRow.add(personnelWidget).left().padLeft(20);
+		titleRow.add(new Container<>(titleWidget)).growX();
+		titleRow.add(new Container<>()).right().width(personnelWidget.getPrefWidth()).padRight(20);
 
 
 		Table emblemColumn = new Table();
@@ -240,11 +255,36 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		Table contentsRow = new Table();
 		contentsRow.add(emblemColumn);
 
-		card.add(titleRow).row();
+		card.add(titleRow).growX().row();
 		card.add(contentsRow).row();
 
 
+		card.debugAll();
 		return card;
+	}
+
+	private Actor renameSquadButton(Squad squad) {
+		Drawable changeButtonDrawable = mainGameSkin.getDrawable("icon_edit");
+		Button changeNameButton = new Button(changeButtonDrawable);
+		changeNameButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				I18nText dialogTitle = i18nTranslator.getTranslatedString("GUI.MILITARY.DIALOG.RENAME_SQUAD");
+				I18nText buttonText = i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
+
+				String originalName = squad.getName();
+
+				TextInputDialog textInputDialog = new TextInputDialog(dialogTitle, originalName, buttonText, menuSkin, (newName) -> {
+					if (!originalName.equals(newName) && !newName.isEmpty()) {
+						squad.setName(newName);
+					}
+				}, messageDispatcher, soundAssetDictionary);
+				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
+			}
+		});
+		tooltipFactory.simpleTooltip(changeNameButton, "GUI.MILITARY.DIALOG.RENAME_SQUAD", TooltipLocationHint.ABOVE);
+		changeNameButton.addListener(new ChangeCursorOnHover(changeNameButton, GameCursor.SELECT, messageDispatcher));
+		return changeNameButton;
 	}
 
 	private Actor selectableEmblem(Squad squad) {

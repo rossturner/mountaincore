@@ -560,6 +560,7 @@ GUI.MAP_SEED_DISPLAY,"Current map seed: ",,Aktueller Karten-Seed:,,"Seme della m
 GUI.MECHANISM.SHAFT.HORIZONTAL,Horizontal,,Horizontal,,Orizzontale,Horizontal,,,,Горизонтальный,,,,,,,,水平,水平,
 GUI.MECHANISM.SHAFT.VERTICAL,Vertical,,Vertikal,,Verticale,Vertical,,,,Вертикальный,,,,,,,,垂直,垂直,
 GUI.MILITARY.DIALOG.CHOOSE_EMBLEM,Choose Emblem For {{squadName}},,,,,,,,,,,,,,,,,,,
+GUI.MILITARY.DIALOG.RENAME_SQUAD,Rename Squad,,,,,,,,,,,,,,,,,,,
 GUI.MILITARY.ORDERS,Orders,,,,,,,,,,,,,,,,,,,
 GUI.MILITARY.TAB.DWARVES,Military Dwarves,,,,,,,,,,,,,,,,,,,
 GUI.MILITARY.TAB.SQUADS,Military Squads,,,,,,,,,,,,,,,,,,,
