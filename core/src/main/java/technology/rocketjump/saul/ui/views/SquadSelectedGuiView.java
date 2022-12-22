@@ -1,10 +1,10 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -15,6 +15,7 @@ import technology.rocketjump.saul.military.SquadFormationDictionary;
 import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Updatable;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nText;
@@ -22,7 +23,9 @@ import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
+import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.ButtonFactory;
+import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	private final MessageDispatcher messageDispatcher;
 	private final MainGameSkin mainGameSkin;
 	private final ManagementSkin managementSkin;
+	private final MenuSkin menuSkin;
 	private final ButtonFactory buttonFactory;
 	private final TooltipFactory tooltipFactory;
 
@@ -79,6 +83,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		this.messageDispatcher = messageDispatcher;
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
+		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.buttonFactory = buttonFactory;
 		this.tooltipFactory = tooltipFactory;
 	}
@@ -141,6 +146,8 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 				}
 			}
 		});
+
+		currentTab.debugAll();
 		return updatable;
 	}
 
@@ -148,11 +155,89 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		Table table = new Table();
 		Label subtitle = new Label(i18nTranslator.translate(Tabs.SQUADS.i18nKey), managementSkin, "military_subtitle_ribbon");
 		subtitle.setAlignment(Align.center);
+		Table squadCardsTable = new Table();
+		ButtonGroup<Button> squadCardButtonGroup = new ButtonGroup<>();
+
+
+		Button cardOne = new Button(managementSkin, "squad_card");
+//		cardOne.setTouchable(Touchable.enabled);
+//		cardOne.setBackground(managementSkin.getDrawable("asset_squad_menu_bg"));
+		cardOne.addCaptureListener(new EventListener() {
+			@Override
+			public boolean handle(Event event) {
+				if (event instanceof InputEvent inputEvent) {
+					switch (inputEvent.getType()) {
+						case touchDown:
+						case touchUp:
+						case touchDragged:
+							//TODO: update orders at bottom
+//							cardOne.setBackground(managementSkin.getDrawable("asset_squad_menu_bg_selected"));
+							cardOne.setChecked(true);
+						default:
+					}
+				}
+				return false;
+			}
+		});
+		squadCardButtonGroup.add(cardOne);
+
+		Button cardOneFakeButton = new Button(managementSkin, "info_button");
+		cardOneFakeButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				System.out.println("C1 Button Clicked");
+			}
+		});
+		cardOne.add(cardOneFakeButton);
+		buttonFactory.attachClickCursor(cardOneFakeButton, GameCursor.SELECT);
+
+		Button cardTwo = new Button(managementSkin, "squad_card");
+//		cardTwo.setTouchable(Touchable.enabled);
+//		cardTwo.setBackground(managementSkin.getDrawable("asset_squad_menu_bg"));
+		cardTwo.addCaptureListener(new EventListener() {
+			@Override
+			public boolean handle(Event event) {
+				if (event instanceof InputEvent inputEvent) {
+					switch (inputEvent.getType()) {
+						case touchDown:
+						case touchUp:
+						case touchDragged:
+							//TODO: update orders at bottom
+//							cardTwo.setBackground(managementSkin.getDrawable("asset_squad_menu_bg_selected"));
+							cardTwo.setChecked(true);
+						default:
+					}
+				}
+				return false;
+			}
+		});
+		squadCardButtonGroup.add(cardTwo);
+
+		Button cardTwoFakeButton = new Button(managementSkin, "info_button");
+		cardTwoFakeButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				System.out.println("C2 Button Clicked");
+			}
+		});
+		cardTwo.add(cardTwoFakeButton);
+		buttonFactory.attachClickCursor(cardTwoFakeButton, GameCursor.SELECT);
+
+
+		squadCardsTable.add(cardOne).row();
+		squadCardsTable.add(cardTwo).row();
+
+		squadCardsTable.top();
+		ScrollPane scrollPane = new EnhancedScrollPane(squadCardsTable, menuSkin);
+
+
 		Label ordersLabel = new Label(i18nTranslator.translate("GUI.MILITARY.ORDERS"), managementSkin, "military_subtitle_ribbon");
 		ordersLabel.setAlignment(Align.center);
 
 
 		table.add(subtitle).row();
+		table.add(scrollPane).grow().row();
+
 		table.add(ordersLabel).row();
 		//TODO add remove button
 

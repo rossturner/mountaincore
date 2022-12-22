@@ -108,6 +108,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		up: btn_toggle_off
 		checked: btn_toggle_on
 	}
+	squad_card: {
+		up: asset_squad_menu_bg
+		checked: asset_squad_menu_bg_selected
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	sort_by_button: {
