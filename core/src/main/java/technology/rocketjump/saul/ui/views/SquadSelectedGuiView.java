@@ -223,14 +223,18 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 
 		Table emblemColumn = new Table();
-		Updatable<Actor> selectableEmblem = selectableEmblem(squad);
-		updatables.add(selectableEmblem);
 
-		emblemColumn.add(selectableEmblem.getActor()).row();
-		for (I18nText line : squad.getDescription(i18nTranslator, gameContext, messageDispatcher)) {
-			Label emblemDescription = new Label(line.toString(), managementSkin, "default-font-16-label-white");
-			emblemColumn.add(emblemDescription).row();
-		}
+		Updatable<Table> updatableEmblemColumn = Updatable.of(emblemColumn);
+		updatableEmblemColumn.regularly(() -> {
+			emblemColumn.clear();
+			emblemColumn.add(selectableEmblem(squad)).row();
+			for (I18nText line : squad.getDescription(i18nTranslator, gameContext, messageDispatcher)) {
+				Label emblemDescription = new Label(line.toString(), managementSkin, "default-font-16-label-white");
+				emblemColumn.add(emblemDescription).row();
+			}
+		});
+		updatables.add(updatableEmblemColumn);
+
 
 
 		Table contentsRow = new Table();
@@ -243,7 +247,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		return card;
 	}
 
-	private Updatable<Actor> selectableEmblem(Squad squad) {
+	private Actor selectableEmblem(Squad squad) {
 		Drawable emblemDrawable = managementSkin.getDrawable(getEmblemName(squad));
 		Image emblem = new Image(emblemDrawable);
 		emblem.setTouchable(Touchable.enabled);
@@ -264,11 +268,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 			}
 		});
 
-		Updatable<Actor> updatable = Updatable.of(emblem);
-		updatable.regularly(() -> {
-			emblem.setDrawable(managementSkin.getDrawable(getEmblemName(squad)));
-		});
-		return updatable;
+		return emblem;
 	}
 
 	class EmblemOption extends SelectItemDialog.Option {
