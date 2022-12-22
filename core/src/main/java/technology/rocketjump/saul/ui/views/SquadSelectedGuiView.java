@@ -97,15 +97,67 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 		Table tabButtons = tabButtons();
 
+		Updatable<Table> currentTab = currentTab();
+		updatables.add(currentTab);
+
 		Table outerTable = new Table();
 		outerTable.setTouchable(Touchable.enabled);
 		outerTable.setBackground(managementSkin.getDrawable("trade_bg_left")); //Doesn't fill screen due to aspect ratio
 
-		outerTable.add(title).spaceTop(40).width(800).row();
-		outerTable.add(squadSummaryGrid.getActor()).spaceTop(20).row();
-		outerTable.add(tabButtons).spaceTop(20).row();
+		outerTable.add(title).padTop(40).width(800).row();
+		outerTable.add(squadSummaryGrid.getActor()).padTop(20).row();
+		outerTable.add(tabButtons).padTop(20).row();
+		outerTable.add(currentTab.getActor()).padTop(20).growY().row();
 
 		containerTable.add(outerTable);
+	}
+
+	private Updatable<Table> currentTab() {
+		Table squadTab = squadTab();
+
+		Table currentTab = new Table();
+		Updatable<Table> updatable = Updatable.of(currentTab);
+		updatable.regularly(new Runnable() {
+			Tabs previousTab;
+
+			@Override
+			public void run() {
+				//TODO: not entirely enthusiastic about this design, but works in the framework
+				if (previousTab != SquadSelectedGuiView.this.selectedTab) {
+					previousTab = SquadSelectedGuiView.this.selectedTab;
+					currentTab.clear();
+
+					switch (previousTab) {
+						case SQUADS -> {
+							currentTab.add(squadTab).grow();
+						}
+						case DWARVES -> {
+
+						}
+						case TRAINED_CIVILIANS -> {
+						}
+					}
+
+				}
+			}
+		});
+		return updatable;
+	}
+
+	private Table squadTab() {
+		Table table = new Table();
+		Label subtitle = new Label(i18nTranslator.translate(Tabs.SQUADS.i18nKey), managementSkin, "military_subtitle_ribbon");
+		subtitle.setAlignment(Align.center);
+		Label ordersLabel = new Label(i18nTranslator.translate("GUI.MILITARY.ORDERS"), managementSkin, "military_subtitle_ribbon");
+		ordersLabel.setAlignment(Align.center);
+
+
+		table.add(subtitle).row();
+		table.add(ordersLabel).row();
+		//TODO add remove button
+
+
+		return table;
 	}
 
 	private Table tabButtons() {
