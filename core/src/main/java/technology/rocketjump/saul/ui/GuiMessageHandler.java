@@ -487,8 +487,8 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 	private GuiViewName getGuiViewName(Selectable.SelectableType type) {
 		return switch (type) {
 			case ENTITY -> GuiViewName.ENTITY_SELECTED;
-			case CONSTRUCTION -> GuiViewName.CONSTRUCTION_SELECTED;
 			case DOORWAY -> GuiViewName.DOORWAY_SELECTED;
+			case CONSTRUCTION -> GuiViewName.CONSTRUCTION_SELECTED;
 			case TILE -> GuiViewName.TILE_SELECTED;
 			case ROOM -> GuiViewName.ROOM_EDITING;
 			case BRIDGE -> GuiViewName.BRIDGE_SELECTED;
