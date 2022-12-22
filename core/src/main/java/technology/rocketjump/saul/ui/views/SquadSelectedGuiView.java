@@ -1,10 +1,12 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -15,7 +17,6 @@ import technology.rocketjump.saul.military.SquadFormationDictionary;
 import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Updatable;
-import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nText;
@@ -28,6 +29,7 @@ import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -155,94 +157,85 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		Table table = new Table();
 		Label subtitle = new Label(i18nTranslator.translate(Tabs.SQUADS.i18nKey), managementSkin, "military_subtitle_ribbon");
 		subtitle.setAlignment(Align.center);
-		Table squadCardsTable = new Table();
+
 		ButtonGroup<Button> squadCardButtonGroup = new ButtonGroup<>();
+		Table squadCardsTable = new Table();
+		squadCardsTable.defaults().spaceTop(10).spaceBottom(10);
 
-
-		Button cardOne = new Button(managementSkin, "squad_card");
-//		cardOne.setTouchable(Touchable.enabled);
-//		cardOne.setBackground(managementSkin.getDrawable("asset_squad_menu_bg"));
-		cardOne.addCaptureListener(new EventListener() {
-			@Override
-			public boolean handle(Event event) {
-				if (event instanceof InputEvent inputEvent) {
-					switch (inputEvent.getType()) {
-						case touchDown:
-						case touchUp:
-						case touchDragged:
-							//TODO: update orders at bottom
-//							cardOne.setBackground(managementSkin.getDrawable("asset_squad_menu_bg_selected"));
-							cardOne.setChecked(true);
-						default:
-					}
-				}
-				return false;
-			}
-		});
-		squadCardButtonGroup.add(cardOne);
-
-		Button cardOneFakeButton = new Button(managementSkin, "info_button");
-		cardOneFakeButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				System.out.println("C1 Button Clicked");
-			}
-		});
-		cardOne.add(cardOneFakeButton);
-		buttonFactory.attachClickCursor(cardOneFakeButton, GameCursor.SELECT);
-
-		Button cardTwo = new Button(managementSkin, "squad_card");
-//		cardTwo.setTouchable(Touchable.enabled);
-//		cardTwo.setBackground(managementSkin.getDrawable("asset_squad_menu_bg"));
-		cardTwo.addCaptureListener(new EventListener() {
-			@Override
-			public boolean handle(Event event) {
-				if (event instanceof InputEvent inputEvent) {
-					switch (inputEvent.getType()) {
-						case touchDown:
-						case touchUp:
-						case touchDragged:
-							//TODO: update orders at bottom
-//							cardTwo.setBackground(managementSkin.getDrawable("asset_squad_menu_bg_selected"));
-							cardTwo.setChecked(true);
-						default:
-					}
-				}
-				return false;
-			}
-		});
-		squadCardButtonGroup.add(cardTwo);
-
-		Button cardTwoFakeButton = new Button(managementSkin, "info_button");
-		cardTwoFakeButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				System.out.println("C2 Button Clicked");
-			}
-		});
-		cardTwo.add(cardTwoFakeButton);
-		buttonFactory.attachClickCursor(cardTwoFakeButton, GameCursor.SELECT);
-
-
-		squadCardsTable.add(cardOne).row();
-		squadCardsTable.add(cardTwo).row();
+		for (Squad squad : getSquads()) {
+			Button squadCard = squadCard(squad);
+			squadCardButtonGroup.add(squadCard);
+			squadCardsTable.add(squadCard).row();
+		}
 
 		squadCardsTable.top();
-		ScrollPane scrollPane = new EnhancedScrollPane(squadCardsTable, menuSkin);
+		ScrollPane cardsScrollPane = new EnhancedScrollPane(squadCardsTable, menuSkin);
 
 
 		Label ordersLabel = new Label(i18nTranslator.translate("GUI.MILITARY.ORDERS"), managementSkin, "military_subtitle_ribbon");
 		ordersLabel.setAlignment(Align.center);
 
-
-		table.add(subtitle).row();
-		table.add(scrollPane).grow().row();
+		table.add(subtitle).row(); //TODO add remove button
+		table.add(cardsScrollPane).grow().row();
 
 		table.add(ordersLabel).row();
-		//TODO add remove button
-
-
 		return table;
+	}
+
+	private Button squadCard(Squad squad) {
+		Button card = new Button(managementSkin, "squad_card");
+		card.addCaptureListener(event -> {
+			if (event instanceof InputEvent inputEvent) {
+				switch (inputEvent.getType()) {
+					case touchDown:
+					case touchUp:
+					case touchDragged:
+						//TODO: update orders at bottom
+						card.setChecked(true);
+					default:
+				}
+			}
+			return false;
+		});
+
+
+		Label personnelCountLabel = new Label(String.valueOf(squad.getMemberEntityIds().size()), managementSkin, "entity_drawable_quantity_label");
+		personnelCountLabel.setAlignment(Align.center);
+
+		Image personnelIcon = new Image(managementSkin.getDrawable("icon_soldier_amount"));
+		HorizontalGroup personnelWidget = new HorizontalGroup();
+		personnelWidget.space(5);
+		personnelWidget.addActor(personnelCountLabel);
+		personnelWidget.addActor(personnelIcon);
+
+		HorizontalGroup titleWidget = new HorizontalGroup();
+		titleWidget.space(5);
+
+
+		Table titleRow = new Table();
+		titleRow.add(personnelWidget);
+
+
+		Table emblemColumn = new Table();
+		Drawable emblemDrawable = managementSkin.getDrawable(getEmblemName(squad));
+		Image emblem = new Image(emblemDrawable);
+		emblemColumn.add(emblem).row();
+
+		for (I18nText line : squad.getDescription(i18nTranslator, gameContext, messageDispatcher)) {
+			Label emblemDescription = new Label(line.toString(), managementSkin, "default-font-16-label-white");
+			emblemColumn.add(emblemDescription).row();
+		}
+
+		//TODO: change emblem button wizard
+
+		Table contentsRow = new Table();
+		contentsRow.add(emblemColumn);
+
+		card.add(titleRow).row();
+		card.add(contentsRow).row();
+
+
+		return card;
 	}
 
 	private Table tabButtons() {
@@ -273,21 +266,25 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		Updatable<Table> updatable = Updatable.of(table);
 		updatable.regularly(() -> {
 			table.clear();
-			if (gameContext != null) {
-				Map<Long, Squad> squadMap = gameContext.getSquads();
-				List<Squad> squads = squadMap.keySet().stream().sorted().map(squadMap::get).toList();
-				for (List<Squad> squadRow : Lists.partition(squads, 3)) {
-					for (Squad squad : squadRow) {
-						Table summary = squadSummary(squad);
-						table.add(summary).spaceLeft(30).spaceRight(30);
-					}
-					table.row();
+			for (List<Squad> squadRow : Lists.partition(getSquads(), 3)) {
+				for (Squad squad : squadRow) {
+					Table summary = squadSummary(squad);
+					table.add(summary).spaceLeft(30).spaceRight(30);
 				}
-
+				table.row();
 			}
 		});
 		updatable.update();
 		return updatable;
+	}
+
+	private List<Squad> getSquads() {
+		if (gameContext != null) {
+			Map<Long, Squad> squadMap = gameContext.getSquads();
+			return squadMap.keySet().stream().sorted().map(squadMap::get).toList();
+		} else {
+			return Collections.emptyList();
+		}
 	}
 
 	private Table squadSummary(Squad squad) {
@@ -309,6 +306,15 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		table.add(textTable).left().spaceLeft(10);
 
 		return table;
+	}
+
+	private String getEmblemName(Squad squad) {
+		String emblemName = squad.getEmblemName();
+		if (emblemName != null) {
+			return emblemName;
+		} else {
+			return DEFAULT_SQUAD_EMBLEMS[(int) (squad.getId() % DEFAULT_SQUAD_EMBLEMS.length)]; //code duplication, was tempted to set on the squad
+		}
 	}
 
 	private String getSmallEmblemName(Squad squad) {
