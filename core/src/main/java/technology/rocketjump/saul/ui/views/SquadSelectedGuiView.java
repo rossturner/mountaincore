@@ -301,7 +301,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 
 				I18nText title = i18nTranslator.getTranslatedWordWithReplacements("GUI.MILITARY.DIALOG.CHOOSE_EMBLEM", Map.of("squadName", new I18nText(squad.getName())));
-				SelectItemDialog dialog = new SelectItemDialog(title, menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options);
+				SelectItemDialog dialog = new SelectItemDialog(title, menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, 4);
 				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
 			}
 		});

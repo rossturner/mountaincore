@@ -38,12 +38,12 @@ public class SelectItemDialog extends GameDialog {
 	}
 
 	public SelectItemDialog(I18nText titleText, Skin skin, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary,
-	                        TooltipFactory tooltipFactory, List<? extends Option> options) {
+	                        TooltipFactory tooltipFactory, List<? extends Option> options, int optionsPerRow) {
 		super(titleText, skin, messageDispatcher, soundAssetDictionary);
 
 
 		Table selectionTable = new Table();
-		selectionTable.left().top();
+		selectionTable.top();
 		ScrollPane scrollPane = new EnhancedScrollPane(selectionTable, skin);
 
 		int numAdded = 0;
@@ -71,7 +71,7 @@ public class SelectItemDialog extends GameDialog {
 			selectionTable.add(innerTable).spaceRight(40).spaceLeft(40);
 			numAdded++;
 
-			if (numAdded % ITEMS_PER_ROW == 0) {
+			if (numAdded % optionsPerRow == 0) {
 				selectionTable.row();
 			}
 		}
