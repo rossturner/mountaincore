@@ -18,6 +18,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.military.SquadFormationDictionary;
+import technology.rocketjump.saul.military.model.MilitaryShift;
 import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Updatable;
@@ -38,6 +39,7 @@ import technology.rocketjump.saul.ui.widgets.TextInputDialog;
 
 import java.util.List;
 import java.util.*;
+import java.util.function.Consumer;
 
 @Singleton
 public class SquadSelectedGuiView implements GuiView, GameContextAware {
@@ -238,7 +240,6 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 
 		Table emblemColumn = new Table();
-
 		Updatable<Table> updatableEmblemColumn = Updatable.of(emblemColumn);
 		updatableEmblemColumn.regularly(() -> {
 			emblemColumn.clear();
@@ -250,14 +251,78 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		});
 		updatables.add(updatableEmblemColumn);
 
+		Table squadActionColumn = new Table();
+		squadActionColumn.add(shiftToggle(squad)).row();
 
 
 		Table contentsRow = new Table();
 		contentsRow.add(emblemColumn);
+		contentsRow.add(squadActionColumn).padLeft(30).padRight(30);
 
 		card.add(titleRow).growX().row();
 		card.add(contentsRow).row();
 		return card;
+	}
+
+	private Actor shiftToggle(Squad squad) {
+		Label dayShiftLabel = new Label(i18nTranslator.translate(MilitaryShift.DAYTIME.getI18nKey()), managementSkin, "default-font-16-label-white");
+		Label nightShiftLabel = new Label(i18nTranslator.translate(MilitaryShift.NIGHTTIME.getI18nKey()), managementSkin, "default-font-16-label-white");
+		Button toggle = new Button(managementSkin, "toggle");
+		toggle.setChecked(squad.getShift() == MilitaryShift.NIGHTTIME);
+
+		Consumer<MilitaryShift> toggleLabels = militaryShift -> {
+			dayShiftLabel.setTouchable(Touchable.disabled);
+			nightShiftLabel.setTouchable(Touchable.disabled);
+			dayShiftLabel.getColor().a = 0.6f;
+			nightShiftLabel.getColor().a = 0.6f;
+			if (militaryShift == MilitaryShift.DAYTIME) {
+				dayShiftLabel.getColor().a = 1f;
+				nightShiftLabel.setTouchable(Touchable.enabled);
+			} else {
+				nightShiftLabel.getColor().a = 1f;
+				dayShiftLabel.setTouchable(Touchable.enabled);
+			}
+		 };
+
+		toggle.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if (toggle.isChecked()) {
+					squad.setShift(MilitaryShift.NIGHTTIME);
+				} else {
+					squad.setShift(MilitaryShift.DAYTIME);
+				}
+				toggleLabels.accept(squad.getShift());
+				messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_SHIFT_CHANGED, squad);
+			}
+		});
+
+		toggleLabels.accept(squad.getShift());
+		buttonFactory.attachClickCursor(toggle, GameCursor.SELECT);
+		buttonFactory.attachClickCursor(dayShiftLabel, GameCursor.SELECT);
+		buttonFactory.attachClickCursor(nightShiftLabel, GameCursor.SELECT);
+		dayShiftLabel.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				toggle.setChecked(false);
+
+			}
+		});
+
+		nightShiftLabel.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				toggle.setChecked(true);
+			}
+		});
+
+		Table shiftWidget = new Table();
+		shiftWidget.add(dayShiftLabel);
+		shiftWidget.add(toggle);
+		shiftWidget.add(nightShiftLabel);
+		return shiftWidget;
 	}
 
 	private Actor renameSquadButton(Squad squad) {
@@ -465,21 +530,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 //		outerTable = new Table();
 //		outerTable.pad(10);
 //
-//		shiftButton = i18nWidgetFactory.createTextButton("MILITARY.SQUAD.DAY_SHIFT_LABEL");
-//		shiftButton.addListener(new ClickListener() {
-//			@Override
-//			public void clicked(InputEvent event, float x, float y) {
-//				Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
-//				if (squad != null) {
-//					MilitaryShift newShift = squad.getShift().toggle();
-//
-//					squad.setShift(newShift);
-//					messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_SHIFT_CHANGED, squad);
-//					updateShiftButtonText(newShift);
-//				}
-//			}
-//		});
-//
+
 //		trainingOrderButton = imageButtonFactory.getOrCreate("barracks").clone();
 //		trainingOrderButton.setAction(() -> {
 //			Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
