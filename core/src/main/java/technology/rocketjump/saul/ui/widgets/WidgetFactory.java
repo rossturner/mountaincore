@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
@@ -25,7 +27,10 @@ import technology.rocketjump.saul.ui.fonts.OnDemandFontRepository;
 import technology.rocketjump.saul.ui.i18n.I18nRepo;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.LanguageType;
+import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.skins.ManagementSkin;
 
+import java.util.Comparator;
 import java.util.function.Consumer;
 
 @Singleton
@@ -39,11 +44,12 @@ public class WidgetFactory {
     private final I18nTranslator i18nTranslator;
     private final SoundAssetDictionary soundAssetDictionary;
     private final SquadFormationDictionary squadFormationDictionary;
+    private final ManagementSkin managementSkin;
 
     @Inject
     public WidgetFactory(MessageDispatcher messageDispatcher, I18nRepo i18nRepo, UserPreferences userPreferences,
                          TextureAtlasRepository textureAtlasRepository, FontRepository fontRepository,
-                         OnDemandFontRepository onDemandFontRepository,
+                         OnDemandFontRepository onDemandFontRepository, GuiSkinRepository guiSkinRepository,
                          I18nTranslator i18nTranslator, SoundAssetDictionary soundAssetDictionary, SquadFormationDictionary squadFormationDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.i18nRepo = i18nRepo;
@@ -54,6 +60,7 @@ public class WidgetFactory {
         this.i18nTranslator = i18nTranslator;
         this.soundAssetDictionary = soundAssetDictionary;
         this.squadFormationDictionary = squadFormationDictionary;
+        this.managementSkin = guiSkinRepository.getManagementSkin();
     }
 
     public CustomSelect<LanguageType> createLanguageSelectBox(Skin skin) {
@@ -85,21 +92,22 @@ public class WidgetFactory {
     }
 
     public CustomSelect<SquadFormation> createSquadFormationSelectBox(Skin skin, SquadFormation initial, Consumer<SquadFormation> listener) {
-//        List.ListStyle clonedStyle = new List.ListStyle(skin.get(List.ListStyle.class));
-//        clonedStyle.selection =  new BaseDrawable(clonedStyle.selection);
-
         var formationList = new List<SquadFormation>(skin) {
             @Override
             public GlyphLayout drawItem(Batch batch, BitmapFont font, int index, SquadFormation item, float x, float y, float width) {
-                String string = toString(item);
-//                Sprite iconSprite = item.getIconSprite();
-
-                float itemHeight = getItemHeight();
-//                batch.draw(iconSprite, x + 12, y - 40, itemHeight, itemHeight);
+                String string = item.getDescription(i18nTranslator, null, messageDispatcher).get(0).toString();
+                Drawable iconDrawable = managementSkin.getDrawable(item.getDrawableIconName());
+//                Drawable selection = getStyle().selection;
+//                float middleHeight = selection.getMinHeight() - selection.getBottomHeight() - selection.getTopHeight();
+//                float remainder = Math.max(middleHeight - iconDrawable.getMinHeight(), 0);
+//                float yOffset = font.getLineHeight() - (remainder / 2f); //TODO: figure this out properly
+                iconDrawable.draw(batch, x, y - 31, iconDrawable.getMinWidth(), iconDrawable.getMinHeight());
                 return font.draw(batch, string, x, y, 0, string.length(), width, getAlignment(), false, "...");
             }
         };
-        formationList.setItems(WidgetBuilder.orderedArray(squadFormationDictionary.getAll()));
+        Array<SquadFormation> items = WidgetBuilder.orderedArray(squadFormationDictionary.getAll());
+        items.sort(Comparator.comparing(item -> item.getDescription(i18nTranslator, null, messageDispatcher).get(0).toString()));
+        formationList.setItems(items);
 
         formationList.setAlignment(Align.center);
 
