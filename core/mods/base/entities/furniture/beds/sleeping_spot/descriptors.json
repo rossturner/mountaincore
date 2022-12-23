@@ -6,7 +6,8 @@
     "furnitureLayoutName": "1x1",
     "validMaterialTypes": ["EARTH"],
     "tags": {
-      "BED_SLEEPING_POSITION": ["DOWN", "CIVILIAN_ONLY", "ON_GROUND"]
+      "BED_SLEEPING_POSITION": ["DOWN", "CIVILIAN_ONLY", "ON_GROUND"],
+      "OFFSET_POSITION": ["0", "-0.15"]
     },
     "spriteDescriptors": {
       "DOWN": {

@@ -537,7 +537,8 @@
   "furnitureLayoutName" : "1x1",
   "validMaterialTypes" : [ "EARTH" ],
   "tags" : {
-    "BED_SLEEPING_POSITION" : [ "DOWN", "MILITARY_ONLY", "ON_GROUND" ]
+    "BED_SLEEPING_POSITION" : [ "DOWN", "MILITARY_ONLY", "ON_GROUND" ],
+    "OFFSET_POSITION" : [ "0", "-0.15" ]
   },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -1095,7 +1096,8 @@
   "furnitureLayoutName" : "1x1",
   "validMaterialTypes" : [ "EARTH" ],
   "tags" : {
-    "BED_SLEEPING_POSITION" : [ "DOWN", "CIVILIAN_ONLY", "ON_GROUND" ]
+    "BED_SLEEPING_POSITION" : [ "DOWN", "CIVILIAN_ONLY", "ON_GROUND" ],
+    "OFFSET_POSITION" : [ "0", "-0.15" ]
   },
   "spriteDescriptors" : {
     "DOWN" : {
@@ -7303,6 +7305,33 @@
     }
   }
 }, {
+  "uniqueName" : "Invader_Campfire-1x1-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "INVADER_CAMPFIRE",
+  "furnitureLayoutName" : "1x1",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : {
+    "ATTACHES_LIGHT_SOURCE" : [ "#f7ffa9", "#f8cc5d", "#ff8f2c" ]
+  },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Campfire_placeholder.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : -17.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "lantern-1x1-metal",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "BASIC_LANTERN",
@@ -10719,33 +10748,6 @@
           "unit" : false
         }
       } ],
-      "parentEntityAssets" : [ ]
-    }
-  }
-}, {
-  "uniqueName" : "Invader_Campfire-1x1-Base_Layer-Wood",
-  "type" : "BASE_LAYER",
-  "furnitureTypeName" : "INVADER_CAMPFIRE",
-  "furnitureLayoutName" : "1x1",
-  "validMaterialTypes" : [ "WOOD" ],
-  "tags" : {
-    "ATTACHES_LIGHT_SOURCE" : [ "#f7ffa9", "#f8cc5d", "#ff8f2c" ]
-  },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Campfire_placeholder.png",
-      "coloringLayer" : "WOOD_COLOR",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : -17.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
   }

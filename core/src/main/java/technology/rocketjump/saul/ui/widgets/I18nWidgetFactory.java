@@ -3,18 +3,12 @@ package technology.rocketjump.saul.ui.widgets;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
-import technology.rocketjump.saul.ui.i18n.I18nWordClass;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static technology.rocketjump.saul.entities.ai.goap.EntityNeed.*;
 
 @Singleton
 public class I18nWidgetFactory implements DisplaysText {
@@ -39,24 +33,8 @@ public class I18nWidgetFactory implements DisplaysText {
 		return labels.computeIfAbsent(i18nKey, (key) -> new I18nLabel(key, i18nTranslator.getTranslatedString(key).toString(), uiSkin));
 	}
 
-	public I18nLabel createLabel(String i18nKey, I18nWordClass wordClass) {
-		return labels.computeIfAbsent(i18nKey, (key) -> new I18nLabel(key, i18nTranslator.getTranslatedString(key, wordClass).toString(), uiSkin, wordClass));
-	}
-
 	public I18nTextButton createTextButton(String i18nKey) {
 		return buttons.computeIfAbsent(i18nKey, (key) -> new I18nTextButton(key, i18nTranslator.getTranslatedString(key).toString(), uiSkin));
-	}
-
-	public I18nCheckbox createCheckbox(String i18nKey) {
-		return checkboxes.computeIfAbsent(i18nKey, (key) -> new I18nCheckbox(key, i18nTranslator.getTranslatedString(key).toString(), uiSkin));
-	}
-
-	public Map<EntityNeed, I18nLabel> createNeedsLabels() {
-		Map<EntityNeed, I18nLabel> needsLabels = new LinkedHashMap<>();
-		for (EntityNeed need : Arrays.asList(SLEEP, FOOD, DRINK)) {
-			needsLabels.put(need, createLabel(need.getI18nKey()));
-		}
-		return needsLabels;
 	}
 
 	@Override

@@ -3,48 +3,43 @@ package technology.rocketjump.saul.rendering;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.ui.fonts.FontRepository;
-import technology.rocketjump.saul.ui.fonts.GameFont;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nTranslator;
+import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.skins.MainGameSkin;
 
 import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 
 @Singleton
-public class InfoWindow implements Telegraph {
+public class InfoWindow implements Telegraph, DisplaysText {
 
-	private final Label label;
 	private final Stage stage;
 	private final Table alignmentTable;
+	private final I18nTranslator i18nTranslator;
+	private final MainGameSkin uiSkin;
 
 	private boolean isDisplayed = false;
 
 	@Inject
-	public InfoWindow(FontRepository fontRepository,
-					  MessageDispatcher messageDispatcher, I18nWidgetFactory i18NWidgetFactory) {
+	public InfoWindow(GuiSkinRepository guiSkinRepository,
+	                  MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator) {
+		this.i18nTranslator = i18nTranslator;
+		this.uiSkin = guiSkinRepository.getMainGameSkin();
 		ExtendViewport viewport = new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y);
 		stage = new Stage(viewport);
 
-		Skin uiSkin = new Skin(new FileHandle("assets/ui/libgdx-default/uiskin.json")); // MODDING expose this or change uiskin.json
 
-		alignmentTable = new Table(uiSkin);
+		alignmentTable = new Table();
 		alignmentTable.setFillParent(true);
 
-		GameFont largestFont = fontRepository.getLargestFont();
-		Label.LabelStyle labelStyle = new Label.LabelStyle(largestFont.getBitmapFont(), Color.WHITE);
-		label = i18NWidgetFactory.createLabel("GUI.SAVING_PROMPT");
-		label.setStyle(labelStyle);
 
-		alignmentTable.add(label).top().pad(70f);
 
 		stage.addActor(alignmentTable);
 		stage.act();
@@ -79,4 +74,10 @@ public class InfoWindow implements Telegraph {
 		}
 	}
 
+	@Override
+	public void rebuildUI() {
+		alignmentTable.clearChildren();
+		Label label = new Label(i18nTranslator.translate("GUI.SAVING_PROMPT"), uiSkin, "white_text_default-font-23");
+		alignmentTable.add(label).top().pad(70f);
+	}
 }

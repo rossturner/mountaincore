@@ -49,7 +49,6 @@ public class IconButton extends Table {
 	private IconButtonOnEnter onEnter;
 	private boolean isHighlighted;
 	private float highlight = 0;
-	private TooltipListener tooltipListener;
 
 	public IconButton(GameFont font, String i18nKey) {
 		this(font, i18nKey, ButtonStyle.DEFAULT);
@@ -67,15 +66,6 @@ public class IconButton extends Table {
 	}
 
 	public void setLabelText(I18nText labelText, MessageDispatcher messageDispatcher) {
-		if (tooltipListener != null) {
-			this.removeListener(tooltipListener);
-			this.tooltipListener = null;
-		}
-		if (labelText.getFirstTooltip() != null) {
-			this.tooltipListener = new TooltipListener(this, labelText.getFirstTooltip(), messageDispatcher);
-			this.addListener(tooltipListener);
-		}
-
 		String label = labelText.toString();
 		label = wrap(label);
 		this.currentFont = defaultFont;
