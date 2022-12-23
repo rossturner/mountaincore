@@ -80,7 +80,7 @@
   "i18nKey" : "ROOMS.KITCHEN",
   "drawableName" : "btn_room_kitchen",
   "colorCode" : "#b98da0",
-  "furnitureNames" : [ "WATER_BARREL", "BUTCHERY_WORKTOP", "KITCHEN_WORKTOP", "CHEFS_CAULDRON", "FLOUR_MILL", "BAKERS_WORKTOP", "BAKING_OVEN", "Dough_Proofing_Table" ],
+  "furnitureNames" : [ "WATER_BARREL", "BUTCHERY_WORKTOP", "KITCHEN_WORKTOP", "CHEFS_CAULDRON", "FLOUR_MILL", "BAKERS_WORKTOP", "BAKING_OVEN", "Dough_Proofing_Table", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : {
     "KITCHEN_BEHAVIOUR" : [ ]
   }

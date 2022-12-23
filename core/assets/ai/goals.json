@@ -80,6 +80,10 @@
       "fail" : [ "UnequipItemForJob", "UnassignJob" ],
       "pass" : [ "CancelInterruptedFlag", "UnequipItemForJob", "CheckForPendingOutput" ]
     },
+    "CheckForPendingLiquidInput" : {
+      "fail" : [ "CheckForPendingInput" ],
+      "pass" : [ "MoveLiquidInputToCraftingStation" ]
+    },
     "MoveInputToCraftingStation" : {
       "fail" : [ "UnassignJob" ],
       "pass" : [ "CheckForPendingInput" ]
@@ -103,6 +107,10 @@
       "fail" : [ "MarkCraftingAssignmentComplete" ],
       "pass" : [ "CheckForPendingOutput" ]
     },
+    "MoveLiquidInputToCraftingStation" : {
+      "fail" : [ "UnassignJob" ],
+      "pass" : [ "CheckForPendingLiquidInput" ]
+    },
     "MarkCraftingAssignmentComplete" : { },
     "EquipItemForJobFromInventory" : {
       "fail" : [ "UnassignJob" ]
@@ -111,7 +119,7 @@
     "FaceTowardsLocation" : { }
   },
   "selectors" : [ ],
-  "initialActions" : [ "CheckForPendingInput" ],
+  "initialActions" : [ "CheckForPendingLiquidInput" ],
   "interruptedByLowNeeds" : true
 }, {
   "i18nDescription" : "GOAL.ON_FIRE.DESCRIPTION",
@@ -790,6 +798,45 @@
   } ],
   "interruptedByCombat" : true,
   "initialActions" : [ "FindItemFromInventorySelectors" ],
+  "interruptedByLowNeeds" : true
+}, {
+  "i18nDescription" : "GOAL.TRANSFER_LIQUID.DESCRIPTION",
+  "name" : "Transfer liquid for crafting goal",
+  "actionRelationships" : {
+    "CancelHaulingAllocation" : { },
+    "PourIntoTarget" : {
+      "fail" : [ ],
+      "pass" : [ "DropHauledItem" ]
+    },
+    "CancelLiquidAllocation" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "CancelHaulingAllocation" ]
+    },
+    "DropHauledItem" : {
+      "fail" : [ "GoToRandomLocation" ]
+    },
+    "GoToLocation" : {
+      "fail" : [ "CancelLiquidAllocation" ]
+    },
+    "FillContainer" : {
+      "fail" : [ "CancelLiquidAllocation" ],
+      "pass" : [ "GoToParentJobLocation", "FaceTowardsLocation", "PourIntoTarget" ]
+    },
+    "GoToRandomLocation" : {
+      "fail" : [ "DropHauledItem" ],
+      "pass" : [ "DropHauledItem" ]
+    },
+    "GoToParentJobLocation" : {
+      "fail" : [ "CancelLiquidAllocation" ]
+    },
+    "PickUpEntity" : {
+      "fail" : [ "CancelLiquidAllocation" ],
+      "pass" : [ "GoToLocation", "FillContainer" ]
+    },
+    "FaceTowardsLocation" : { }
+  },
+  "selectors" : [ ],
+  "initialActions" : [ "GoToLocation", "PickUpEntity" ],
   "interruptedByLowNeeds" : true
 }, {
   "i18nDescription" : "GOAL.TRANSFER_LIQUID.DESCRIPTION",

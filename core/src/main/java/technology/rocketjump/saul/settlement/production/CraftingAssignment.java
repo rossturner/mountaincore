@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.GridPoint2;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
+import technology.rocketjump.saul.entities.components.LiquidAllocation;
 import technology.rocketjump.saul.jobs.model.Job;
 import technology.rocketjump.saul.persistence.JSONUtils;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
@@ -22,6 +23,7 @@ public class CraftingAssignment implements Persistable {
 	private CraftingRecipe targetRecipe;
 	private Job craftingJob;
 	private final List<HaulingAllocation> inputAllocations = new ArrayList<>();
+	private final List<LiquidAllocation> inputLiquidAllocations = new ArrayList<>();
 	private GridPoint2 outputLocation;
 
 	public CraftingAssignment() {
@@ -53,6 +55,10 @@ public class CraftingAssignment implements Persistable {
 		return inputAllocations;
 	}
 
+	public List<LiquidAllocation> getInputLiquidAllocations() {
+		return inputLiquidAllocations;
+	}
+
 	public GridPoint2 getOutputLocation() {
 		return outputLocation;
 	}
@@ -80,6 +86,15 @@ public class CraftingAssignment implements Persistable {
 		}
 		asJson.put("inputAllocations", inputAllocationsJson);
 
+		if (!inputLiquidAllocations.isEmpty()) {
+			JSONArray inputLiquidAllocationsJson = new JSONArray();
+			for (LiquidAllocation liquidAllocation : inputLiquidAllocations) {
+				liquidAllocation.writeTo(savedGameStateHolder);
+				inputLiquidAllocationsJson.add(liquidAllocation.getLiquidAllocationId());
+			}
+			asJson.put("inputLiquidAllocations", inputLiquidAllocationsJson);
+		}
+
 		asJson.put("outputLocation", JSONUtils.toJSON(outputLocation));
 
 		savedGameStateHolder.craftingAssignments.put(this.craftingAssignmentId, this);
@@ -105,6 +120,17 @@ public class CraftingAssignment implements Persistable {
 				throw new InvalidSaveException("Could not find input allocation " + inputAllocationsJson.getLong(i));
 			}
 			inputAllocations.add(inputAllocation);
+		}
+
+		JSONArray inputLiquidAllocationsJson = asJson.getJSONArray("inputLiquidAllocations");
+		if (inputLiquidAllocationsJson != null) {
+			for (int i = 0; i < inputLiquidAllocationsJson.size(); i++) {
+				LiquidAllocation inputAllocation = savedGameStateHolder.liquidAllocations.get(inputLiquidAllocationsJson.getLong(i));
+				if (inputAllocation == null) {
+					throw new InvalidSaveException("Could not find input liquid allocation " + inputLiquidAllocationsJson.getLong(i));
+				}
+				inputLiquidAllocations.add(inputAllocation);
+			}
 		}
 
 		this.outputLocation = JSONUtils.gridPoint2(asJson.getJSONObject("outputLocation"));

@@ -243,6 +243,7 @@
     "experienceAwardedOnCompletion": 4,
     "overrideI18nKey": "ACTION.JOB.GENERIC",
     "requiredProfessionName": "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
+    "switchToSpecialGoal": "CRAFTING_JOB",
     "haulItemWhileWorking": true
   },
   {

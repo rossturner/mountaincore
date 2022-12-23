@@ -186,6 +186,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				Updatable<Actor> settlerName = editableCreatureName(entity);
 				Updatable<Table> happinessIcons = happinessIcons(entity);
 				Updatable<Table> textSummary = textSummary(entity);
+				Updatable<Table> debugTextSummary = debugTextSummary(entity);
 				Table militaryToggle = settlerManagementScreen.militaryToggle(entity, false, s -> populate(containerTable));
 				Table weaponSelection = settlerManagementScreen.weaponSelection(entity, 0.8f, s -> populate(containerTable));
 				Table professionSelection = settlerManagementScreen.professions(entity, 0.8f, s -> update());
@@ -196,6 +197,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				updatables.add(textSummary);
 				updatables.add(needs);
 				updatables.add(inventory);
+				updatables.add(debugTextSummary);
 
 				//Top left first row - name and toggle
 				Table topLeftFirstRow = new Table();
@@ -211,7 +213,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				//Top Left Column - 2 rows
 				Table topLeftColumn = new Table();
 				topLeftColumn.add(topLeftFirstRow).left().fillX().spaceBottom(35f).row();
-				topLeftColumn.add(topLeftSecondRow).left().top().grow();
+				topLeftColumn.add(topLeftSecondRow).left().top().grow().row();
+				if (GlobalSettings.DEV_MODE) {
+					topLeftColumn.add(debugTextSummary.getActor()).left().top().grow().row();
+				}
 
 				//Top Row - 2 Cols
 				Table topRow = new Table();
@@ -840,6 +845,31 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		updatable.regularly(deadLabelUpdater);
 		updatable.regularly(factionLabelUpdater);
 		updatable.update();
+		return updatable;
+	}
+
+	private Updatable<Table> debugTextSummary(Entity entity) {
+		Table table = new Table();
+		Updatable<Table> updatable = Updatable.of(table);
+
+		if (GlobalSettings.DEV_MODE) {
+			Label.LabelStyle debugStyle = new Label.LabelStyle(managementSkin.get("default-font-18-label", Label.LabelStyle.class));
+			debugStyle.fontColor = Color.PURPLE;
+			updatable.regularly(() -> {
+				table.clearChildren();
+
+				if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+					if (creatureBehaviour.getCurrentGoal() != null) {
+						String debugText = creatureBehaviour.getCurrentGoal().goal.name;
+						if (creatureBehaviour.getCurrentGoal().getCurrentAction() != null) {
+							debugText += ": " + creatureBehaviour.getCurrentGoal().getCurrentAction().getSimpleName();
+						}
+						table.add(new Label(debugText, debugStyle)).left().row();
+					}
+				}
+			});
+		}
+
 		return updatable;
 	}
 

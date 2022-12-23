@@ -298,6 +298,7 @@
   "removeJobWhenAssignmentCancelled" : false,
   "haulItemWhileWorking" : true,
   "usesWorkstationTool" : false,
+  "switchToSpecialGoal" : "CRAFTING_JOB",
   "minimumTimeToCompleteJob" : 0.75,
   "maximumTimeToCompleteJob" : 8.25,
   "experienceAwardedOnCompletion" : 4,

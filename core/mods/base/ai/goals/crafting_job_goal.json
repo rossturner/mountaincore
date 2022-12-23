@@ -4,8 +4,16 @@
   "interruptedByLowNeeds": true,
   "creatureCategories": ["CIVILIAN"],
   "selectors": [],
-  "initialActions": ["CheckForPendingInput"],
+  "initialActions": ["CheckForPendingLiquidInput"],
   "actionRelationships": {
+    "CheckForPendingLiquidInput": {
+      "pass": ["MoveLiquidInputToCraftingStation"],
+      "fail": ["CheckForPendingInput"]
+    },
+    "MoveLiquidInputToCraftingStation": {
+      "pass": ["CheckForPendingLiquidInput"],
+      "fail": ["UnassignJob"]
+    },
     "CheckForPendingInput": {
       "pass": ["MoveInputToCraftingStation"],
       "fail": ["CheckReadyToCraft"]

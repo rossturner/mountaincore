@@ -137,12 +137,12 @@
     "itemTypeName" : "Ingredient-Milled-Malt-Sack",
     "quantity" : 1
   }, {
-    "quantity" : 12,
+    "quantity" : 5,
     "materialName" : "Water",
     "liquid" : true
   } ],
   "output" : {
-    "quantity" : 12,
+    "quantity" : 6,
     "materialName" : "Wort",
     "liquid" : true
   },
@@ -157,12 +157,12 @@
     "quantity" : 1,
     "materialName" : "Hops"
   }, {
-    "quantity" : 12,
+    "quantity" : 6,
     "materialName" : "Wort",
     "liquid" : true
   } ],
   "output" : {
-    "quantity" : 12,
+    "quantity" : 6,
     "materialName" : "Hopped Wort",
     "liquid" : true
   },
@@ -175,7 +175,7 @@
   "verbOverrideI18nKey" : "PROFESSION.BREWER",
   "craftingTypeName" : "FERMENTING",
   "input" : [ {
-    "quantity" : 6,
+    "quantity" : 3,
     "materialName" : "Hopped Wort",
     "liquid" : true
   } ],

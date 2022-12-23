@@ -161,6 +161,10 @@ public class FurnitureBehaviour implements BehaviourComponent {
 		this.relatedMaterials = relatedMaterials;
 	}
 
+	public List<ItemType> getRelatedItemTypes() {
+		return relatedItemTypes;
+	}
+
 	public JobPriority getPriority() {
 		return priority;
 	}

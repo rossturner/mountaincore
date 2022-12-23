@@ -308,6 +308,10 @@ public class LiquidContainerComponent implements ParentDependentEntityComponent,
 		this.alwaysInactive = alwaysInactive;
 	}
 
+	public Entity getParentEntity() {
+		return parentEntity;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		if (targetLiquidMaterial != null) {

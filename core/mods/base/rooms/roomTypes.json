@@ -133,7 +133,9 @@
       "FLOUR_MILL",
       "BAKERS_WORKTOP",
       "BAKING_OVEN",
-      "Dough_Proofing_Table"
+      "Dough_Proofing_Table",
+      "IMPORT_PALLET",
+      "EXPORT_PALLET"
     ]
   },
   {

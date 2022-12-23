@@ -50,13 +50,13 @@
       {
         "liquid": true,
         "materialName": "Water",
-        "quantity": 12
+        "quantity": 5
       }
     ],
     "output": {
       "liquid": true,
       "materialName": "Wort",
-      "quantity": 12
+      "quantity": 6
     },
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 8.5
@@ -73,13 +73,13 @@
       {
         "liquid": true,
         "materialName": "Wort",
-        "quantity": 12
+        "quantity": 6
       }
     ],
     "output": {
       "liquid": true,
       "materialName": "Hopped Wort",
-      "quantity": 12
+      "quantity": 6
     },
     "extraGameHoursToComplete": 1,
     "minimumTimeToCompleteCrafting": 1.5,
@@ -93,7 +93,7 @@
       {
         "liquid": true,
         "materialName": "Hopped Wort",
-        "quantity": 6
+        "quantity": 3
       }
     ],
     "output": {
