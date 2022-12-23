@@ -159,7 +159,7 @@ asset_title_ribbon
   index: -1
 asset_trangle_red
   rotate: false
-  xy: 1506, 1979
+  xy: 1506, 1520
   size: 30, 26
   orig: 30, 26
   offset: 0, 0
@@ -333,14 +333,14 @@ btn_resources_item_04
   index: -1
 btn_sort_by_toggle_off
   rotate: false
-  xy: 1506, 2039
+  xy: 1506, 1580
   size: 30, 26
   orig: 30, 26
   offset: 0, 0
   index: -1
 btn_sort_by_toggle_on
   rotate: false
-  xy: 1506, 2009
+  xy: 1506, 1550
   size: 30, 26
   orig: 30, 26
   offset: 0, 0
@@ -413,6 +413,69 @@ icon_food
   xy: 313, 2
   size: 64, 64
   orig: 64, 64
+  offset: 0, 0
+  index: -1
+icon_formation_column
+  rotate: false
+  xy: 1506, 2018
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+icon_formation_column_double
+  rotate: false
+  xy: 1506, 1967
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+icon_formation_column_single
+  rotate: false
+  xy: 1506, 1916
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+icon_formation_grid
+  rotate: false
+  xy: 1506, 1865
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+icon_formation_grid_double
+  rotate: false
+  xy: 1506, 1814
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+icon_formation_grid_single
+  rotate: false
+  xy: 1506, 1763
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+icon_formation_line
+  rotate: false
+  xy: 1506, 1712
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+icon_formation_line_double
+  rotate: false
+  xy: 1506, 1661
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+icon_formation_line_single
+  rotate: false
+  xy: 1506, 1610
+  size: 47, 47
+  orig: 47, 47
   offset: 0, 0
   index: -1
 icon_happy
@@ -777,12 +840,14 @@ trade_bg_left
   rotate: false
   xy: 2, 1899
   size: 1282, 2160
+  split: 0, 0, 0, 0
+  pad: 133, 0, 0, 0
   orig: 1282, 2160
   offset: 0, 0
   index: -1
 vertical_scrollbar
   rotate: false
-  xy: 1506, 1913
+  xy: 1506, 1454
   size: 28, 62
   split: 0, 0, 26, 26
   orig: 28, 62
@@ -790,7 +855,7 @@ vertical_scrollbar
   index: -1
 vertical_scrollbar_fg
   rotate: false
-  xy: 1506, 1829
+  xy: 1588, 3079
   size: 28, 80
   split: 1, 1, 26, 26
   orig: 28, 80

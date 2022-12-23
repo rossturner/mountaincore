@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -17,7 +18,6 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.military.SquadFormationDictionary;
 import technology.rocketjump.saul.military.model.MilitaryShift;
 import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
@@ -32,10 +32,7 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
-import technology.rocketjump.saul.ui.widgets.ButtonFactory;
-import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
-import technology.rocketjump.saul.ui.widgets.SelectItemDialog;
-import technology.rocketjump.saul.ui.widgets.TextInputDialog;
+import technology.rocketjump.saul.ui.widgets.*;
 
 import java.util.List;
 import java.util.*;
@@ -64,6 +61,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	private final ButtonFactory buttonFactory;
 	private final TooltipFactory tooltipFactory;
 	private final SoundAssetDictionary soundAssetDictionary;
+	private final WidgetFactory widgetFactory;
 
 	private GameContext gameContext;
 	private Tabs selectedTab = Tabs.SQUADS;
@@ -86,8 +84,8 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	@Inject
 	public SquadSelectedGuiView(GuiSkinRepository guiSkinRepository, GameInteractionStateContainer gameInteractionStateContainer,
 	                            I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher,
-	                            SquadFormationDictionary squadFormationDictionary, ButtonFactory buttonFactory,
-	                            TooltipFactory tooltipFactory, SoundAssetDictionary soundAssetDictionary) {
+	                            ButtonFactory buttonFactory,
+	                            TooltipFactory tooltipFactory, SoundAssetDictionary soundAssetDictionary, WidgetFactory widgetFactory) {
 
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
@@ -98,6 +96,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		this.buttonFactory = buttonFactory;
 		this.tooltipFactory = tooltipFactory;
 		this.soundAssetDictionary = soundAssetDictionary;
+		this.widgetFactory = widgetFactory;
 	}
 
 	@Override
@@ -126,7 +125,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		outerTable.add(tabButtons).padTop(20).row();
 		outerTable.add(currentTab.getActor()).padTop(20).growY().row();
 
-		containerTable.add(outerTable);
+		containerTable.add(outerTable).growY();
 		update();
 	}
 
@@ -170,7 +169,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 		ButtonGroup<Button> squadCardButtonGroup = new ButtonGroup<>();
 		Table squadCardsTable = new Table();
-		squadCardsTable.defaults().spaceTop(10).spaceBottom(10);
+		squadCardsTable.defaults().spaceTop(10).spaceBottom(10).padRight(20);
 
 		for (Squad squad : getSquads()) {
 			Button squadCard = squadCard(squad);
@@ -180,7 +179,9 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 		squadCardsTable.top();
 		ScrollPane cardsScrollPane = new EnhancedScrollPane(squadCardsTable, menuSkin);
+		cardsScrollPane.setForceScroll(false, true);
 
+		cardsScrollPane.setFadeScrollBars(false);
 
 		Label ordersLabel = new Label(i18nTranslator.translate("GUI.MILITARY.ORDERS"), managementSkin, "military_subtitle_ribbon");
 		ordersLabel.setAlignment(Align.center);
@@ -253,6 +254,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 		Table squadActionColumn = new Table();
 		squadActionColumn.add(shiftToggle(squad)).row();
+		squadActionColumn.add(widgetFactory.createSquadFormationSelectBox(menuSkin, squad.getFormation(), formation -> squad.setFormation(formation))).row();
 
 
 		Table contentsRow = new Table();

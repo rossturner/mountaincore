@@ -1832,26 +1832,6 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/trade_bg_left.png
-			bgColor: {
-				r: 1
-				g: 1
-				b: 1
-				a: 1
-			}
-			tint: null
-			tintName: null
-			name: trade_bg_left
-			tiled: false
-			minWidth: -1
-			minHeight: -1
-			customized: false
-			tenPatchData: null
-			tvgData: null
-			type: TEXTURE
-			hidden: false
-		}
-		{
 			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/asset_title_ribbon.9.png
 			bgColor: {
 				r: 1
@@ -2322,6 +2302,206 @@ atlasData: {
 			tint: null
 			tintName: null
 			name: icon_military_emblem_wolf
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/trade_bg_left.9.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: trade_bg_left
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: NINE_PATCH
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_formation_column.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: icon_formation_column
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_formation_column_double.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: icon_formation_column_double
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_formation_column_single.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: icon_formation_column_single
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_formation_grid.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: icon_formation_grid
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_formation_grid_double.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: icon_formation_grid_double
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_formation_grid_single.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: icon_formation_grid_single
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_formation_line.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: icon_formation_line
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_formation_line_double.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: icon_formation_line_double
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_formation_line_single.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: icon_formation_line_single
 			tiled: false
 			minWidth: -1
 			minHeight: -1

@@ -11,8 +11,11 @@ import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
+import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.military.SquadFormationDictionary;
+import technology.rocketjump.saul.military.model.formations.SquadFormation;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
@@ -22,7 +25,8 @@ import technology.rocketjump.saul.ui.fonts.OnDemandFontRepository;
 import technology.rocketjump.saul.ui.i18n.I18nRepo;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.LanguageType;
-import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+
+import java.util.function.Consumer;
 
 @Singleton
 public class WidgetFactory {
@@ -32,24 +36,24 @@ public class WidgetFactory {
     private final TextureAtlasRepository textureAtlasRepository;
     private final FontRepository fontRepository;
     private final OnDemandFontRepository onDemandFontRepository;
-    private final GuiSkinRepository guiSkinRepository;
     private final I18nTranslator i18nTranslator;
     private final SoundAssetDictionary soundAssetDictionary;
+    private final SquadFormationDictionary squadFormationDictionary;
 
     @Inject
     public WidgetFactory(MessageDispatcher messageDispatcher, I18nRepo i18nRepo, UserPreferences userPreferences,
                          TextureAtlasRepository textureAtlasRepository, FontRepository fontRepository,
-                         OnDemandFontRepository onDemandFontRepository, GuiSkinRepository guiSkinRepository,
-                         I18nTranslator i18nTranslator, SoundAssetDictionary soundAssetDictionary) {
+                         OnDemandFontRepository onDemandFontRepository,
+                         I18nTranslator i18nTranslator, SoundAssetDictionary soundAssetDictionary, SquadFormationDictionary squadFormationDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.i18nRepo = i18nRepo;
         this.userPreferences = userPreferences;
         this.textureAtlasRepository = textureAtlasRepository;
         this.fontRepository = fontRepository;
         this.onDemandFontRepository = onDemandFontRepository;
-        this.guiSkinRepository = guiSkinRepository;
         this.i18nTranslator = i18nTranslator;
         this.soundAssetDictionary = soundAssetDictionary;
+        this.squadFormationDictionary = squadFormationDictionary;
     }
 
     public CustomSelect<LanguageType> createLanguageSelectBox(Skin skin) {
@@ -76,6 +80,45 @@ public class WidgetFactory {
                 messageDispatcher.dispatchMessage(MessageType.LANGUAGE_CHANGED);
             }
         });
+
+        return selectBox;
+    }
+
+    public CustomSelect<SquadFormation> createSquadFormationSelectBox(Skin skin, SquadFormation initial, Consumer<SquadFormation> listener) {
+//        List.ListStyle clonedStyle = new List.ListStyle(skin.get(List.ListStyle.class));
+//        clonedStyle.selection =  new BaseDrawable(clonedStyle.selection);
+
+        var formationList = new List<SquadFormation>(skin) {
+            @Override
+            public GlyphLayout drawItem(Batch batch, BitmapFont font, int index, SquadFormation item, float x, float y, float width) {
+                String string = toString(item);
+//                Sprite iconSprite = item.getIconSprite();
+
+                float itemHeight = getItemHeight();
+//                batch.draw(iconSprite, x + 12, y - 40, itemHeight, itemHeight);
+                return font.draw(batch, string, x, y, 0, string.length(), width, getAlignment(), false, "...");
+            }
+        };
+        formationList.setItems(WidgetBuilder.orderedArray(squadFormationDictionary.getAll()));
+
+        formationList.setAlignment(Align.center);
+
+        SelectBox.SelectBoxStyle selectBoxStyle = new SelectBox.SelectBoxStyle(skin.get(SelectBox.SelectBoxStyle.class));
+        CustomSelect<SquadFormation> selectBox = new CustomSelect<>(selectBoxStyle, formationList, new CustomSelect.DrawItemProcedure<SquadFormation>() {
+            @Override
+            public GlyphLayout drawItem(Batch batch, BitmapFont font, SquadFormation item, float x, float y, float width) {
+                return formationList.drawItem(batch, font, 0, item, x, y, width);
+            }
+        });
+        selectBox.setAlignment(Align.center);
+        selectBox.setSelected(initial);
+        selectBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                listener.accept(selectBox.getSelected());
+            }
+        });
+
 
         return selectBox;
     }
