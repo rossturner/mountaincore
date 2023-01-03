@@ -292,6 +292,9 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		});
 		updatables.add(updatableEmblemColumn);
 
+		Updatable<TextButton> removeSquadButton = removeSquadButton(squad);
+		updatables.add(removeSquadButton);
+
 		Table squadActionColumn = new Table();
 		squadActionColumn.add(shiftToggle(squad)).row();
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_FORMATION"), managementSkin, "default-font-16-label-white")).padTop(24).row();
@@ -299,9 +302,13 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_ORDERS"), managementSkin, "default-font-16-label-white")).padTop(24).row();
 		squadActionColumn.add(squadCommandSelect(squad));
 
+		Table squadRemovalColumn = new Table();
+		squadRemovalColumn.add(removeSquadButton.getActor());
+
 		Table contentsRow = new Table();
 		contentsRow.add(emblemColumn);
 		contentsRow.add(squadActionColumn).padLeft(30).padRight(30);
+		contentsRow.add(squadRemovalColumn).expandY();
 
 		card.add(titleRow).growX().row();
 		card.add(contentsRow).row();
@@ -418,6 +425,28 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		tooltipFactory.simpleTooltip(changeNameButton, "GUI.MILITARY.DIALOG.RENAME_SQUAD", TooltipLocationHint.ABOVE);
 		changeNameButton.addListener(new ChangeCursorOnHover(changeNameButton, GameCursor.SELECT, messageDispatcher));
 		return changeNameButton;
+	}
+
+	private Updatable<TextButton> removeSquadButton(Squad squad) {
+		TextButton removeSquadButton = new TextButton(i18nTranslator.translate("GUI.MILITARY.REMOVE_SQUAD"), managementSkin, "military_text_button");
+		removeSquadButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				messageDispatcher.dispatchMessage(MessageType.MILITARY_REMOVE_SQUAD, squad);
+				populate(containerTable);
+			}
+		});
+		buttonFactory.attachClickCursor(removeSquadButton, GameCursor.SELECT);
+		Updatable<TextButton> updatable = Updatable.of(removeSquadButton);
+		updatable.regularly(() -> {
+			if (gameContext.getSquads().size() > 1) {
+				buttonFactory.enable(removeSquadButton);
+			} else {
+				buttonFactory.disable(removeSquadButton);
+			}
+		});
+		updatable.update();
+		return updatable;
 	}
 
 	private Updatable<TextButton> addSquadButton() {
