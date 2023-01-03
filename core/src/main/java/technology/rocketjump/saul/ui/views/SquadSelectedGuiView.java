@@ -19,11 +19,13 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.SquadOrderChangeMessage;
+import technology.rocketjump.saul.military.MilitaryMessageHandler;
 import technology.rocketjump.saul.military.model.MilitaryShift;
 import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.military.model.SquadOrderType;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
+import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.Updatable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
@@ -70,6 +72,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	private GameContext gameContext;
 	private Tabs selectedTab = Tabs.SQUADS;
 	private List<Updatable<?>> updatables;
+	private Table containerTable;
 
 	enum Tabs {
 		SQUADS("icon_military_tabs_squads", "GUI.MILITARY.TAB.SQUADS"),
@@ -129,6 +132,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 	@Override
 	public void populate(Table containerTable) {
+		this.containerTable = containerTable;
 		containerTable.clear();
 		updatables = new ArrayList<>();
 
@@ -192,8 +196,16 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 	private Table squadTab() {
 		Table table = new Table();
+
 		Label subtitle = new Label(i18nTranslator.translate(Tabs.SQUADS.i18nKey), managementSkin, "military_subtitle_ribbon");
 		subtitle.setAlignment(Align.center);
+		Updatable<TextButton> addSquadButton = addSquadButton();
+		updatables.add(addSquadButton);
+
+		Table subtitleLine = new Table();
+		subtitleLine.add(new Container<>()).width(addSquadButton.getActor().getMinWidth());
+		subtitleLine.add(subtitle).padLeft(30).padRight(30);
+		subtitleLine.add(addSquadButton.getActor());
 
 		ButtonGroup<Button> squadCardButtonGroup = new ButtonGroup<>();
 		Table squadCardsTable = new Table();
@@ -202,7 +214,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		for (Squad squad : getSquads()) {
 			Button squadCard = squadCard(squad);
 			squadCardButtonGroup.add(squadCard);
-			squadCardsTable.add(squadCard).row();
+			squadCardsTable.add(squadCard).spaceTop(20).spaceBottom(20).row();
 		}
 
 		squadCardsTable.top();
@@ -214,7 +226,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		Label ordersLabel = new Label(i18nTranslator.translate("GUI.MILITARY.ORDERS"), managementSkin, "military_subtitle_ribbon");
 		ordersLabel.setAlignment(Align.center);
 
-		table.add(subtitle).padBottom(20f).row(); //TODO add remove button
+		table.add(subtitleLine).padTop(30).padBottom(30f).row();
 		table.add(cardsScrollPane).grow().row();
 
 		table.add(ordersLabel).row();
@@ -229,13 +241,16 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 					case touchDown:
 					case touchUp:
 					case touchDragged:
-						//TODO: update orders at bottom
+						gameInteractionStateContainer.setSelectable(new Selectable(squad)); //current select message resets gui view
 						card.setChecked(true);
 					default:
 				}
 			}
 			return false;
 		});
+		if (gameInteractionStateContainer.getSelectable() != null && squad.equals(gameInteractionStateContainer.getSelectable().getSquad())) {
+			card.setChecked(true);
+		}
 
 
 		Label personnelCountLabel = new Label(String.valueOf(squad.getMemberEntityIds().size()), managementSkin, "entity_drawable_quantity_label");
@@ -258,9 +273,6 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		titleWidget.space(5);
 		titleWidget.addActor(squadNameLabel);
 		titleWidget.addActor(renameSquadButton(squad));
-
-
-
 
 		Table titleRow = new Table();
 		titleRow.add(personnelWidget).left().padLeft(20);
@@ -285,8 +297,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_FORMATION"), managementSkin, "default-font-16-label-white")).padTop(24).row();
 		squadActionColumn.add(widgetFactory.createSquadFormationSelectBox(menuSkin, squad.getFormation(), squad::setFormation)).padTop(16f).row();
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_ORDERS"), managementSkin, "default-font-16-label-white")).padTop(24).row();
-		SelectBox<SquadCommand> commandSelection = squadCommandSelect(squad);
-		squadActionColumn.add(commandSelection);
+		squadActionColumn.add(squadCommandSelect(squad));
 
 		Table contentsRow = new Table();
 		contentsRow.add(emblemColumn);
@@ -409,6 +420,44 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		return changeNameButton;
 	}
 
+	private Updatable<TextButton> addSquadButton() {
+		TextButton addSquadButton = new TextButton(i18nTranslator.translate("GUI.MILITARY.NEW_SQUAD"), managementSkin, "military_text_button");
+		addSquadButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				I18nText dialogTitle = i18nTranslator.getTranslatedString("GUI.MILITARY.DIALOG.ADD_SQUAD");
+				I18nText buttonText = i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
+				long nextSquadId = gameContext.getSquads().keySet().stream().mapToLong(Long::longValue).max().orElse(0) + 1;
+				String suggestedSquadName = i18nTranslator.getTranslatedString("MILITARY.SQUAD.DEFAULT_NAME") + " #" + nextSquadId;
+				TextInputDialog textInputDialog = new TextInputDialog(dialogTitle, suggestedSquadName, buttonText, menuSkin, (newName) -> {
+					if (!newName.isEmpty()) {
+						Squad newSquad = new Squad();
+						newSquad.setId(nextSquadId);
+						newSquad.setName(newName);
+						newSquad.setEmblemName(getEmblemName(newSquad));
+
+						messageDispatcher.dispatchMessage(MessageType.MILITARY_CREATE_SQUAD, newSquad);
+						populate(containerTable);
+					}
+				}, messageDispatcher, soundAssetDictionary);
+				textInputDialog.setMaxLength(20);
+				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
+			}
+		});
+		buttonFactory.attachClickCursor(addSquadButton, GameCursor.SELECT);
+		Updatable<TextButton> updatable = Updatable.of(addSquadButton);
+		updatable.regularly(() -> {
+			if (gameContext.getSquads().size() < MilitaryMessageHandler.MAX_SQUAD_COUNT) {
+				buttonFactory.enable(addSquadButton);
+			} else {
+				buttonFactory.disable(addSquadButton);
+			}
+		});
+		updatable.update();
+		return updatable;
+	}
+
+
 	private Actor selectableEmblem(Squad squad) {
 		Drawable emblemDrawable = managementSkin.getDrawable(getEmblemName(squad));
 		Image emblem = new Image(emblemDrawable);
@@ -483,13 +532,14 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 	private Updatable<Table> squadSummaries() {
 		Table table = new Table();
+		table.defaults().uniform().left().space(30);
 		Updatable<Table> updatable = Updatable.of(table);
 		updatable.regularly(() -> {
 			table.clear();
 			for (List<Squad> squadRow : Lists.partition(getSquads(), 3)) {
 				for (Squad squad : squadRow) {
 					Table summary = squadSummary(squad);
-					table.add(summary).spaceLeft(30).spaceRight(30);
+					table.add(summary);
 				}
 				table.row();
 			}
@@ -533,7 +583,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		if (emblemName != null) {
 			return emblemName;
 		} else {
-			return DEFAULT_SQUAD_EMBLEMS[(int) (squad.getId() % DEFAULT_SQUAD_EMBLEMS.length)]; //code duplication, was tempted to set on the squad
+			return DEFAULT_SQUAD_EMBLEMS[(int) ((squad.getId() - 1) % DEFAULT_SQUAD_EMBLEMS.length)]; //code duplication, was tempted to set on the squad
 		}
 	}
 
@@ -542,7 +592,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		if (smallEmblemName != null) {
 			return smallEmblemName;
 		} else {
-			return DEFAULT_SQUAD_EMBLEMS[(int) (squad.getId() % DEFAULT_SQUAD_EMBLEMS.length)] + "_small"; //code duplication, was tempted to set on the squad
+			return DEFAULT_SQUAD_EMBLEMS[(int) ((squad.getId() - 1) % DEFAULT_SQUAD_EMBLEMS.length)] + "_small"; //code duplication, was tempted to set on the squad
 		}
 	}
 
@@ -584,14 +634,6 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	}
 
 //Old Code
-	/*
-
-//
-//		upperTable = new Table(uiSkin);
-//		lowerTable = new Table(uiSkin);
-	}
-
-
 	/*
 	if (squadFormationSelectBox.isListDisplayed()) {
 			// Don't refresh everything while list is open or it'll close

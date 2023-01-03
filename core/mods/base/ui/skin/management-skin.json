@@ -98,6 +98,26 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 1
 	}
+	btn_oblong_small_10patch: {
+		region: btn_oblong_small
+		horizontalStretchAreas: [ 30, 101 ]
+		verticalStretchAreas: [ 30, 30 ]
+		tiling: false
+		minWidth: 132
+		minHeight: 61
+		rightWidth: 29
+		leftWidth: 30
+		bottomHeight: 6
+		topHeight: 6
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	info_button: {
@@ -212,6 +232,11 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		font: default-font-24
 		fontColor: white
 		up: btn_go_to_dwarf_info
+	}
+	military_text_button: {
+		font: default-font-16
+		fontColor: white
+		up: btn_oblong_small_10patch
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {

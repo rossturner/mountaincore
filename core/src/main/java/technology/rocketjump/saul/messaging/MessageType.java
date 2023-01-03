@@ -284,6 +284,7 @@ public class MessageType {
 	public static final int MILITARY_ASSIGNMENT_CHANGED = 2000;
 	public static final int MILITARY_SQUAD_SHIFT_CHANGED = 2001;
 	public static final int MILITARY_SQUAD_ORDERS_CHANGED = 2002;
+	public static final int MILITARY_CREATE_SQUAD = 2003;
 
 	// Invasion messages
 	public static final int TRIGGER_INVASION = 2100;

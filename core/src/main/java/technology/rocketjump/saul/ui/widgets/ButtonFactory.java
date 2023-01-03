@@ -45,6 +45,11 @@ public class ButtonFactory {
 		button.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 	}
 
+	public void enable(Actor button) {
+		button.getColor().a = 1.0f;
+		button.setTouchable(Touchable.enabled);
+	}
+
 	public void disable(Actor button) {
 		button.getColor().a = 0.5f;
 		button.setTouchable(Touchable.disabled);

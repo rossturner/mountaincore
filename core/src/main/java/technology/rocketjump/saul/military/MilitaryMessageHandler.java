@@ -22,6 +22,7 @@ import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 @Singleton
 public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 
+	public static final int MAX_SQUAD_COUNT = 6;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
 	private final SquadFormationDictionary squadFormationDictionary;
@@ -36,6 +37,7 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.MILITARY_ASSIGNMENT_CHANGED);
 		messageDispatcher.addListener(this, MessageType.MILITARY_SQUAD_SHIFT_CHANGED);
 		messageDispatcher.addListener(this, MessageType.MILITARY_SQUAD_ORDERS_CHANGED);
+		messageDispatcher.addListener(this, MessageType.MILITARY_CREATE_SQUAD);
 	}
 
 	@Override
@@ -94,6 +96,11 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 
 				return true;
 			}
+			case MessageType.MILITARY_CREATE_SQUAD -> {
+				Squad newSquad = (Squad) msg.extraInfo;
+				createSquad(newSquad);
+				return true;
+			}
 			default ->
 					throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg);
 		}
@@ -132,12 +139,17 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 		}
 	}
 
+	//TODO: consider erroring/custom handler if someone edits the save to have more than 6 squads
 	private void createSquad(long squadId) {
 		Squad squad = new Squad();
-		squad.setFormation(squadFormationDictionary.getAll().iterator().next());
 		squad.setId(squadId);
 		squad.setName(i18nTranslator.getTranslatedString("MILITARY.SQUAD.DEFAULT_NAME") + " #" + squadId);
-		gameContext.getSquads().put(squadId, squad);
+		createSquad(squadId);
+	}
+
+	private void createSquad(Squad squad) {
+		squad.setFormation(squadFormationDictionary.getAll().iterator().next());
+		gameContext.getSquads().put(squad.getId(), squad);
 	}
 
 	@Override
