@@ -298,20 +298,21 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		Table squadActionColumn = new Table();
 		squadActionColumn.add(shiftToggle(squad)).row();
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_FORMATION"), managementSkin, "default-font-16-label-white")).padTop(24).row();
-		squadActionColumn.add(widgetFactory.createSquadFormationSelectBox(menuSkin, squad.getFormation(), squad::setFormation)).padTop(16f).row();
+		squadActionColumn.add(widgetFactory.createSquadFormationSelectBox(menuSkin, squad.getFormation(), squad::setFormation)).width(440).padTop(16f).row();
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_ORDERS"), managementSkin, "default-font-16-label-white")).padTop(24).row();
-		squadActionColumn.add(squadCommandSelect(squad));
+		squadActionColumn.add(squadCommandSelect(squad)).width(440);
 
 		Table squadRemovalColumn = new Table();
 		squadRemovalColumn.add(removeSquadButton.getActor());
 
-		Table contentsRow = new Table();
-		contentsRow.add(emblemColumn);
-		contentsRow.add(squadActionColumn).padLeft(30).padRight(30);
-		contentsRow.add(squadRemovalColumn).expandY();
 
-		card.add(titleRow).growX().row();
-		card.add(contentsRow).row();
+		Table contentsRow = new Table();
+		contentsRow.add(emblemColumn).uniformX().padLeft(38);
+		contentsRow.add(squadActionColumn).padLeft(30).padRight(30).growX();
+		contentsRow.add(squadRemovalColumn).uniformX().expandY().padRight(38);
+
+		card.add(titleRow).growX().padBottom(15).row();
+		card.add(contentsRow).growX().row();
 		return card;
 	}
 
