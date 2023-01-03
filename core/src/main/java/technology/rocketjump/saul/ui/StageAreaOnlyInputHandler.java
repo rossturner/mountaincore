@@ -92,8 +92,10 @@ public class StageAreaOnlyInputHandler implements InputProcessor {
 			target = parent.getRoot();
 		}
 
-		if (target.getX() <= mouseStageCoords.x && mouseStageCoords.x <= target.getX() + target.getWidth() &&
-				target.getY() <= mouseStageCoords.y && mouseStageCoords.y <= target.getY() + target.getHeight()) {
+		Vector2 stageCoordinatesForTarget = target.localToStageCoordinates(new Vector2(0, 0));
+
+		if (stageCoordinatesForTarget.x <= mouseStageCoords.x && mouseStageCoords.x <= stageCoordinatesForTarget.x + target.getWidth() &&
+				stageCoordinatesForTarget.y <= mouseStageCoords.y && mouseStageCoords.y <= stageCoordinatesForTarget.y + target.getHeight()) {
 			InputEvent event = Pools.obtain(InputEvent.class);
 			event.setStage(parent);
 			event.setType(InputEvent.Type.scrolled);
