@@ -18,8 +18,11 @@ import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.SquadOrderChangeMessage;
 import technology.rocketjump.saul.military.model.MilitaryShift;
 import technology.rocketjump.saul.military.model.Squad;
+import technology.rocketjump.saul.military.model.SquadOrderType;
+import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Updatable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
@@ -37,6 +40,7 @@ import technology.rocketjump.saul.ui.widgets.*;
 import java.util.List;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 @Singleton
 public class SquadSelectedGuiView implements GuiView, GameContextAware {
@@ -78,6 +82,30 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		Tabs(String drawableName, String i18nKey) {
 			this.drawableName = drawableName;
 			this.i18nKey = i18nKey;
+		}
+	}
+
+	enum SquadCommand {
+		TRAIN(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, squad -> new SquadOrderChangeMessage(squad, SquadOrderType.TRAINING)),
+		GUARD(MessageType.GUI_SWITCH_INTERACTION_MODE, x -> GameInteractionMode.SQUAD_MOVE_TO_LOCATION),
+		ATTACK(MessageType.GUI_SWITCH_INTERACTION_MODE, x -> GameInteractionMode.SQUAD_ATTACK_CREATURE),
+		CANCEL_ATTACK(MessageType.GUI_SWITCH_INTERACTION_MODE, x -> GameInteractionMode.CANCEL_ATTACK_CREATURE),
+		RETREAT(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, squad -> new SquadOrderChangeMessage(squad, SquadOrderType.RETREATING));
+
+		final int messageType;
+		final Function<Squad, Object> messageF;
+
+		SquadCommand(int messageType, Function<Squad, Object> messageFunction) {
+			this.messageType = messageType;
+			this.messageF = messageFunction;
+		}
+
+		public void apply(GameInteractionStateContainer gameInteractionStateContainer, MessageDispatcher messageDispatcher) {
+			Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DEFAULT);
+			if (squad != null) {
+				messageDispatcher.dispatchMessage(messageType, messageF.apply(squad));
+			}
 		}
 	}
 
@@ -254,8 +282,11 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 		Table squadActionColumn = new Table();
 		squadActionColumn.add(shiftToggle(squad)).row();
-		squadActionColumn.add(widgetFactory.createSquadFormationSelectBox(menuSkin, squad.getFormation(), formation -> squad.setFormation(formation))).row();
-
+		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_FORMATION"), managementSkin, "default-font-16-label-white")).padTop(24).row();
+		squadActionColumn.add(widgetFactory.createSquadFormationSelectBox(menuSkin, squad.getFormation(), squad::setFormation)).padTop(16f).row();
+		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_ORDERS"), managementSkin, "default-font-16-label-white")).padTop(24).row();
+		SelectBox<SquadCommand> commandSelection = squadCommandSelect(squad);
+		squadActionColumn.add(commandSelection);
 
 		Table contentsRow = new Table();
 		contentsRow.add(emblemColumn);
@@ -264,6 +295,32 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		card.add(titleRow).growX().row();
 		card.add(contentsRow).row();
 		return card;
+	}
+
+	private SelectBox<SquadCommand> squadCommandSelect(Squad squad) {
+		SelectBox<SquadCommand> select = new SelectBox<>(menuSkin) {
+			@Override
+			protected String toString(SquadCommand item) {
+				return i18nTranslator.translate("GUI.MILITARY.ORDERS." + item.name());
+			}
+		};
+		select.setAlignment(Align.center);
+		select.getList().setAlignment(Align.center);
+
+		select.setItems(SquadCommand.values());
+		switch (squad.getCurrentOrderType()) {
+			case TRAINING -> select.setSelected(SquadCommand.TRAIN);
+			case GUARDING -> select.setSelected(SquadCommand.GUARD);
+			case COMBAT -> select.setSelected(SquadCommand.ATTACK);
+			case RETREATING -> select.setSelected(SquadCommand.RETREAT);
+		}
+		select.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				select.getSelected().apply(gameInteractionStateContainer, messageDispatcher);
+			}
+		});
+		return select;
 	}
 
 	private Actor shiftToggle(Squad squad) {
@@ -529,79 +586,10 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 //Old Code
 	/*
 
-//		outerTable = new Table();
-//		outerTable.pad(10);
-//
-
-//		trainingOrderButton = imageButtonFactory.getOrCreate("barracks").clone();
-//		trainingOrderButton.setAction(() -> {
-//			Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
-//			if (squad != null) {
-//				messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.TRAINING));
-//				updateButtonToggle(squad);
-//			}
-//		});
-//		guardOrderButton = imageButtonFactory.getOrCreate("move").clone();
-//		guardOrderButton.setAction(() -> {
-//			Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
-//			if (squad != null) {
-//				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.SQUAD_MOVE_TO_LOCATION);
-//				updateButtonToggle(squad);
-//			}
-//		});
-//		attackOrderButton = imageButtonFactory.getOrCreate("crosshair-arrow").clone();
-//		attackOrderButton.setAction(() -> {
-//			Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
-//			if (squad != null) {
-//				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.SQUAD_ATTACK_CREATURE);
-//				updateButtonToggle(squad);
-//			}
-//		});
-//		cancelAttackOrderButton = imageButtonFactory.getOrCreate("cancel").clone();
-//		cancelAttackOrderButton.setAction(() -> {
-//			Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
-//			if (squad != null) {
-//				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.CANCEL_ATTACK_CREATURE);
-//				updateButtonToggle(squad);
-//			}
-//		});
-//		retreatOrderButton = imageButtonFactory.getOrCreate("run").clone();
-//		retreatOrderButton.setAction(() -> {
-//			Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
-//			if (squad != null) {
-//				messageDispatcher.dispatchMessage(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, new SquadOrderChangeMessage(squad, SquadOrderType.RETREATING));
-//				updateButtonToggle(squad);
-//			}
-//		});
-//
-//		squadFormationSelectBox = new SaulSelectBox<>(uiSkin);
-//		squadFormationSelectBox.setItems(orderedArray(squadFormationDictionary.getAll(), null));
-//		squadFormationSelectBox.addListener(new ChangeListener() {
-//			@Override
-//			public void changed(ChangeEvent event, Actor actor) {
-//				Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
-//				if (squad != null) {
-//					SquadFormation selectedFormation = squadFormationSelectBox.getSelected();
-//					if (!selectedFormation.equals(squad.getFormation())) {
-//						squad.setFormation(selectedFormation);
-//					}
-//				}
-//			}
-//		});
 //
 //		upperTable = new Table(uiSkin);
 //		lowerTable = new Table(uiSkin);
 	}
-
-	@Override
-	public void populate(Table containerTable) {
-//		update();
-//
-//		containerTable.clear();
-//
-//		containerTable.add(outerTable);
-	 */
-
 
 
 	/*
@@ -639,20 +627,5 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 			outerTable.add(lowerTable).left().row();
 		}
 	 */
-//
-//	private void updateShiftButtonText(MilitaryShift shift) {
-//		shiftButton.setText(shift.getI18nKey(), i18nTranslator.getTranslatedString(shift.getI18nKey()).toString());
-//	}
-//
-//	private void updateButtonToggle(Squad squad) {
-//		for (ImageButton cursorButton : List.of(trainingOrderButton, guardOrderButton, attackOrderButton, cancelAttackOrderButton, retreatOrderButton)) {
-//			cursorButton.setToggledOn(false);
-//		}
-//		switch (squad.getCurrentOrderType()) {
-//			case TRAINING -> trainingOrderButton.setToggledOn(true);
-//			case GUARDING -> guardOrderButton.setToggledOn(true);
-//			case COMBAT -> attackOrderButton.setToggledOn(true);
-//			case RETREATING -> retreatOrderButton.setToggledOn(true);
-//		}
-//	}
+
 }

@@ -188,7 +188,7 @@ btn_dropdown_body_hover_state
   rotate: false
   xy: 4614, 8076
   size: 561, 97
-  split: 1, 1, 1, 1
+  split: 11, 11, 47, 49
   pad: 11, 11, 11, 11
   orig: 561, 97
   offset: 0, 0
