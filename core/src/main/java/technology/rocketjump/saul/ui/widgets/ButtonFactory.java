@@ -32,8 +32,9 @@ public class ButtonFactory {
 	/**
 	 * @return ImageButton of the supplied drawable, and when checked gives thick outline
 	 */
-	public ImageButton checkableButton(Drawable drawable) {
-		ImageButton.ImageButtonStyle clonedStyle = new ImageButton.ImageButtonStyle(menuSkin.get("default", ImageButton.ImageButtonStyle.class));
+	public ImageButton checkableButton(Drawable drawable, boolean thickOutline) {
+		final String styleName = thickOutline ? "thick_outline" : "default";
+		ImageButton.ImageButtonStyle clonedStyle = new ImageButton.ImageButtonStyle(menuSkin.get(styleName, ImageButton.ImageButtonStyle.class));
 		clonedStyle.imageUp = drawable;
 		ImageButton button = new ImageButton(clonedStyle);
 		attachClickCursor(button, GameCursor.SELECT);

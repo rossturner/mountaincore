@@ -235,6 +235,10 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		up: transparent_selection_bg_patch_v2
 		checked: transparent_selected_bg_patch
 	}
+	thick_outline: {
+		up: transparent_selection_bg_patch_v2
+		checked: transparent_selected_bg_patch
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {

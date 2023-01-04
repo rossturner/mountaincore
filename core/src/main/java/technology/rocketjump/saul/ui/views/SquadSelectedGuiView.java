@@ -44,6 +44,8 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import static technology.rocketjump.saul.military.model.SquadOrderType.TRAINING;
+
 @Singleton
 public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
@@ -89,16 +91,18 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	}
 
 	enum SquadCommand {
-		TRAIN(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, squad -> new SquadOrderChangeMessage(squad, SquadOrderType.TRAINING)),
-		GUARD(MessageType.GUI_SWITCH_INTERACTION_MODE, x -> GameInteractionMode.SQUAD_MOVE_TO_LOCATION),
-		ATTACK(MessageType.GUI_SWITCH_INTERACTION_MODE, x -> GameInteractionMode.SQUAD_ATTACK_CREATURE),
-		CANCEL_ATTACK(MessageType.GUI_SWITCH_INTERACTION_MODE, x -> GameInteractionMode.CANCEL_ATTACK_CREATURE),
-		RETREAT(MessageType.MILITARY_SQUAD_ORDERS_CHANGED, squad -> new SquadOrderChangeMessage(squad, SquadOrderType.RETREATING));
+		TRAIN("icon_military_orders_training", MessageType.MILITARY_SQUAD_ORDERS_CHANGED, squad -> new SquadOrderChangeMessage(squad, TRAINING)),
+		GUARD("icon_military_orders_move", MessageType.GUI_SWITCH_INTERACTION_MODE, x -> GameInteractionMode.SQUAD_MOVE_TO_LOCATION),
+		ATTACK("icon_military_orders_attack", MessageType.GUI_SWITCH_INTERACTION_MODE, x -> GameInteractionMode.SQUAD_ATTACK_CREATURE),
+		CANCEL_ATTACK("icon_military_orders_stand_down", MessageType.GUI_SWITCH_INTERACTION_MODE, x -> GameInteractionMode.CANCEL_ATTACK_CREATURE),
+		RETREAT("icon_military_orders_retreat", MessageType.MILITARY_SQUAD_ORDERS_CHANGED, squad -> new SquadOrderChangeMessage(squad, SquadOrderType.RETREATING));
 
+		final String drawableName;
 		final int messageType;
 		final Function<Squad, Object> messageF;
 
-		SquadCommand(int messageType, Function<Squad, Object> messageFunction) {
+		SquadCommand(String drawableName, int messageType, Function<Squad, Object> messageFunction) {
+			this.drawableName = drawableName;
 			this.messageType = messageType;
 			this.messageF = messageFunction;
 		}
@@ -225,11 +229,14 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 		Label ordersLabel = new Label(i18nTranslator.translate("GUI.MILITARY.ORDERS"), managementSkin, "military_subtitle_ribbon");
 		ordersLabel.setAlignment(Align.center);
+		Updatable<Table> orderButtons = orderButtons();
+		updatables.add(orderButtons);
 
 		table.add(subtitleLine).padTop(30).padBottom(30f).row();
 		table.add(cardsScrollPane).grow().row();
 
-		table.add(ordersLabel).row();
+		table.add(ordersLabel).padTop(30).padBottom(30f).row();
+		table.add(orderButtons.getActor()).padBottom(30f).row();
 		return table;
 	}
 
@@ -242,6 +249,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 					case touchUp:
 					case touchDragged:
 						gameInteractionStateContainer.setSelectable(new Selectable(squad)); //current select message resets gui view
+						update();
 						card.setChecked(true);
 					default:
 				}
@@ -291,12 +299,15 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		Updatable<Button> removeSquadButton = removeSquadButton(squad);
 		updatables.add(removeSquadButton);
 
+		Updatable<SelectBox<SquadCommand>> squadCommandSelect = squadCommandSelect(squad);
+		updatables.add(squadCommandSelect);
+
 		Table squadActionColumn = new Table();
 		squadActionColumn.add(shiftToggle(squad)).row();
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_FORMATION"), managementSkin, "default-font-16-label-white")).padTop(24).row();
 		squadActionColumn.add(widgetFactory.createSquadFormationSelectBox(menuSkin, squad.getFormation(), squad::setFormation)).width(440).padTop(16f).row();
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_ORDERS"), managementSkin, "default-font-16-label-white")).padTop(24).row();
-		squadActionColumn.add(squadCommandSelect(squad)).padTop(16f).growX();
+		squadActionColumn.add(squadCommandSelect.getActor()).padTop(16f).growX();
 
 		card.add(personnelWidget).left().padLeft(20).padBottom(15);
 		card.add(new Container<>(titleWidget)).growX().padBottom(15);
@@ -308,30 +319,42 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		return card;
 	}
 
-	private SelectBox<SquadCommand> squadCommandSelect(Squad squad) {
+	private Updatable<SelectBox<SquadCommand>> squadCommandSelect(Squad squad) {
 		SelectBox<SquadCommand> select = new SelectBox<>(menuSkin, "select_narrow") {
 			@Override
 			protected String toString(SquadCommand item) {
-				return i18nTranslator.translate("GUI.MILITARY.ORDERS." + item.name());
+				return translate(item);
 			}
 		};
 		select.setAlignment(Align.center);
 		select.getList().setAlignment(Align.center);
 
 		select.setItems(SquadCommand.values());
-		switch (squad.getCurrentOrderType()) {
-			case TRAINING -> select.setSelected(SquadCommand.TRAIN);
-			case GUARDING -> select.setSelected(SquadCommand.GUARD);
-			case COMBAT -> select.setSelected(SquadCommand.ATTACK);
-			case RETREATING -> select.setSelected(SquadCommand.RETREAT);
-		}
+
+		select.getSelection().setProgrammaticChangeEvents(false);
 		select.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				select.getSelected().apply(gameInteractionStateContainer, messageDispatcher);
 			}
 		});
-		return select;
+		Updatable<SelectBox<SquadCommand>> updatable = Updatable.of(select);
+		updatable.regularly(() -> {
+//			if (gameInteractionStateContainer.getInteractionMode() == GameInteractionMode.DEFAULT) {
+				switch (squad.getCurrentOrderType()) {
+					case TRAINING -> select.setSelected(SquadCommand.TRAIN);
+					case GUARDING -> select.setSelected(SquadCommand.GUARD);
+					case COMBAT -> select.setSelected(SquadCommand.ATTACK);
+					case RETREATING -> select.setSelected(SquadCommand.RETREAT);
+				}
+//			}
+		});
+		updatable.update();
+		return updatable;
+	}
+
+	private String translate(SquadCommand item) {
+		return i18nTranslator.translate("GUI.MILITARY.ORDERS." + item.name());
 	}
 
 	private Actor shiftToggle(Squad squad) {
@@ -545,7 +568,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		ButtonGroup<ImageButton> buttonGroup = new ButtonGroup<>();
 		Table table = new Table();
 		for (Tabs tab : Tabs.values()) {
-			ImageButton button = buttonFactory.checkableButton(managementSkin.getDrawable(tab.drawableName));
+			ImageButton button = buttonFactory.checkableButton(managementSkin.getDrawable(tab.drawableName), true);
 			button.addListener(new ChangeListener() {
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
@@ -560,8 +583,45 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 			table.add(button);
 		}
 
-
 		return table;
+	}
+
+	private Updatable<Table> orderButtons() {
+		ButtonGroup<ImageButton> buttonGroup = new ButtonGroup<>();
+		Table table = new Table();
+		Map<SquadCommand, ImageButton> commandToButton = new HashMap<>();
+		for (SquadCommand squadCommand : SquadCommand.values()) {
+			ImageButton button = buttonFactory.checkableButton(managementSkin.getDrawable(squadCommand.drawableName), true);
+			button.setProgrammaticChangeEvents(false);
+			button.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					super.clicked(event, x, y);
+					squadCommand.apply(gameInteractionStateContainer, messageDispatcher);
+				}
+			});
+			tooltipFactory.simpleTooltip(button, translate(squadCommand), TooltipLocationHint.ABOVE);
+			buttonGroup.add(button);
+			table.add(button);
+			commandToButton.put(squadCommand, button);
+		}
+
+		Updatable<Table> updatable = Updatable.of(table);
+		updatable.regularly(() -> {
+			Selectable selectable = gameInteractionStateContainer.getSelectable();
+			GameInteractionMode interactionMode = gameInteractionStateContainer.getInteractionMode();
+			if ( selectable != null && selectable.getSquad() != null) {
+				Squad squad = selectable.getSquad();
+				switch (squad.getCurrentOrderType()) {
+					case TRAINING -> commandToButton.get(SquadCommand.TRAIN).setChecked(true);
+					case GUARDING -> commandToButton.get(SquadCommand.GUARD).setChecked(true);
+					case COMBAT -> commandToButton.get(SquadCommand.ATTACK).setChecked(true);
+					case RETREATING -> commandToButton.get(SquadCommand.RETREAT).setChecked(true);
+				}
+			}
+
+		});
+		return updatable;
 	}
 
 	private Updatable<Table> squadSummaries() {
@@ -666,42 +726,4 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	public void clearContextRelatedState() {
 
 	}
-
-//Old Code
-	/*
-	if (squadFormationSelectBox.isListDisplayed()) {
-			// Don't refresh everything while list is open or it'll close
-			return;
-		}
-
-		outerTable.clear();
-
-		upperTable.clear();
-
-		Selectable selectable = gameInteractionStateContainer.getSelectable();
-
-		if (selectable != null && selectable.type.equals(SQUAD)) {
-			Squad squad = selectable.getSquad();
-
-			upperTable.add(new Label(squad.getName(), uiSkin)).left().pad(5).row();
-			for (I18nText descriptionText : squad.getDescription(i18nTranslator, gameContext, messageDispatcher)) {
-				upperTable.add(new I18nTextWidget(descriptionText, uiSkin, messageDispatcher)).left().pad(5).row();
-			}
-			updateShiftButtonText(squad.getShift());
-			upperTable.add(shiftButton).left().pad(5).row();
-			upperTable.add(new Label("FORMATION:", uiSkin)).left().pad(5).row();
-			squadFormationSelectBox.setSelected(squad.getFormation());
-			upperTable.add(squadFormationSelectBox).left().pad(5).row();
-
-
-			updateButtonToggle(squad);
-			for (ImageButton cursorButton : List.of(trainingOrderButton, guardOrderButton, attackOrderButton, cancelAttackOrderButton, retreatOrderButton)) {
-				lowerTable.add(cursorButton).pad(5).left();
-			}
-
-			outerTable.add(upperTable).left().row();
-			outerTable.add(lowerTable).left().row();
-		}
-	 */
-
 }

@@ -319,7 +319,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 	private void professionFilterButton(ButtonGroup<ImageButton> professionButtonGroup, Table professionButtons, String drawableName, String i18nKey, Predicate<Entity> filter) {
 		Drawable drawable = managementSkin.getDrawable(drawableName);
-		ImageButton button = buttonFactory.checkableButton(drawable);
+		ImageButton button = buttonFactory.checkableButton(drawable, false);
 		button.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
