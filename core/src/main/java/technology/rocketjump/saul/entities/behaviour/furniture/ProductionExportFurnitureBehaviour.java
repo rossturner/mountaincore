@@ -12,6 +12,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttribu
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.model.JobPriority;
+import technology.rocketjump.saul.jobs.model.JobState;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestHaulingMessage;
@@ -95,6 +96,7 @@ public class ProductionExportFurnitureBehaviour extends FurnitureBehaviour imple
 //			cancelIncomingHaulingJobs();
 			return;
 		}
+		pendingAssignments.removeIf(p -> p.getCraftingJob().getJobState().equals(JobState.REMOVED));
 
 		InventoryComponent inventoryComponent = parentEntity.getOrCreateComponent(InventoryComponent.class);
 
