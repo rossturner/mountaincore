@@ -16,10 +16,14 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.RenderLayerDictionary;
 import technology.rocketjump.saul.assets.entities.model.*;
+import technology.rocketjump.saul.entities.behaviour.furniture.DisplayGhostItemWhenInventoryEmpty;
+import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemHoldPosition;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesGrowthStage;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -27,6 +31,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.custom_libgdx.ShaderLoader;
+import technology.rocketjump.saul.ui.views.RoomEditorItemMap;
 
 import java.util.Map;
 
@@ -42,6 +47,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 	private EntityRenderSteps entityRenderSteps = new EntityRenderSteps();
 	private final CompleteAssetDictionary assetDictionary;
 	private final RenderLayerDictionary renderLayerDictionary;
+	private final RoomEditorItemMap roomEditorItemMap;
 
 	private boolean usingNormalMapInverseShader = false;
 	private ShaderProgram defaultShader;
@@ -51,9 +57,10 @@ public class EntityRenderer implements GameContextAware, Disposable {
 
 	@Inject
 	public EntityRenderer(CompleteAssetDictionary completeAssetDictionary,
-						  RenderLayerDictionary renderLayerDictionary) {
+						  RenderLayerDictionary renderLayerDictionary, RoomEditorItemMap roomEditorItemMap) {
 		this.assetDictionary = completeAssetDictionary;
 		this.renderLayerDictionary = renderLayerDictionary;
+		this.roomEditorItemMap = roomEditorItemMap;
 
 		FileHandle defaultVertexShaderFile = ShaderLoader.DEFAULT_VERTEX_SHADER;
 		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/invert_normal_map_red_channel_fragment_shader.glsl");
@@ -96,6 +103,22 @@ public class EntityRenderer implements GameContextAware, Disposable {
 
 		for (EntityPartRenderStep renderStep : entityRenderSteps.clone().getRenderSteps()) {
 			render(renderStep, basicSpriteBatch, locationComponent, renderMode, overrideColor, extraMultiplyColor);
+		}
+
+		if (renderMode.equals(RenderMode.DIFFUSE) && entity.getBehaviourComponent() instanceof DisplayGhostItemWhenInventoryEmpty itemDisplayBehaviour) {
+			InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
+			if (inventoryComponent != null && inventoryComponent.isEmpty() && itemDisplayBehaviour.getSelectedItemType() != null) {
+				Entity itemEntity = roomEditorItemMap.getByItemType(itemDisplayBehaviour.getSelectedItemType());
+				((ItemEntityAttributes)itemEntity.getPhysicalEntityComponent().getAttributes()).setQuantity(itemDisplayBehaviour.getSelectedItemType().getMaxStackSize());
+				AttachmentDescriptor attachmentPoint = entityRenderSteps.getAttachmentPoint(ItemHoldPosition.WORKSPACES.get(0).getAttachmentType());
+				if (attachmentPoint == null) {
+					Logger.error("No attachment point for {} as expected on {} for {}", ItemHoldPosition.WORKSPACES.get(0).getAttachmentType(), entity, itemDisplayBehaviour.getClass().getSimpleName());
+				} else {
+					Vector2 position = entity.getLocationComponent().getWorldOrParentPosition().cpy().add(attachmentPoint.getOffsetPosition());
+					itemEntity.getLocationComponent().setWorldPosition(position, false, false);
+					render(itemEntity, basicSpriteBatch, renderMode, entity, itemDisplayBehaviour.getOverrideColor(), extraMultiplyColor);
+				}
+			}
 		}
 
 		if (renderMode.equals(RenderMode.NORMALS) && usingNormalMapInverseShader) {

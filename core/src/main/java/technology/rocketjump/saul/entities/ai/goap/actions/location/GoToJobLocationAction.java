@@ -11,7 +11,9 @@ public class GoToJobLocationAction extends GoToLocationAction {
 
 	@Override
 	protected Vector2 selectDestination(GameContext gameContext) {
-		if (parent.getAssignedJob() == null) {
+		if (parent.getParentGoal() != null) {
+			return new GoToJobLocationAction(parent.getParentGoal()).selectDestination(gameContext);
+		} else if (parent.getAssignedJob() == null) {
 			return null;
 		} else {
 			return getJobLocation(gameContext);

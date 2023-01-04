@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 20,
   "materialTypes" : [ "BONE" ],
   "primaryMaterialType" : "BONE",
+  "baseValuePerItem": 1,
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "i18nKey" : "WEAPON.BONE.ARROW.HEADS"

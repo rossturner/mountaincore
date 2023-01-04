@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 16,
   "materialTypes" : [ "CLOTH", "ORE" ],
   "primaryMaterialType" : "ORE",
+  "baseValuePerItem": 5,
   "stockpileGroupName" : "FUEL",
   "i18nKey" : "FUEL.SACK",
   "specificMaterialNames": ["Coke", "Charcoal"]

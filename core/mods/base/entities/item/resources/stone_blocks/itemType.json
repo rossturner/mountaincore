@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 2,
   "materialTypes" : [ "STONE" ],
   "primaryMaterialType" : "STONE",
+  "baseValuePerItem": 2,
   "impedesMovement" : true,
   "stockpileGroupName" : "PRODUCTS",
   "i18nKey" : "RESOURCE.STONE.BLOCK"

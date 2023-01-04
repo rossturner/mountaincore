@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 16,
   "materialTypes" : [ "CLOTH", "ORE" ],
   "primaryMaterialType" : "ORE",
+  "baseValuePerItem": 3,
   "stockpileGroupName" : "RAW_MATERIALS",
   "i18nKey" : "RESOURCE.ORE.CRUSHED"
 }

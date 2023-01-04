@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.FLOUR_MILL",
   "blocksMovement": true,
   "defaultLayoutName": "3x1 with workspaces",
-  "colorCode": "#d7ce86",
-  "iconName": "grain",
   "requirements": {
     "STONE": [
       {

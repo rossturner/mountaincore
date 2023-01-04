@@ -1,5 +1,8 @@
 package technology.rocketjump.saul.messaging;
 
+import technology.rocketjump.saul.entities.components.BehaviourComponent;
+import technology.rocketjump.saul.entities.model.Entity;
+
 /**
  * This class stores all the message types in use by MessageDispatchers (i.e. the event system)
  * <p>
@@ -62,6 +65,8 @@ public class MessageType {
 	public static final int SET_INTERACTION_MODE_CURSOR = 287;
 	public static final int INTERACTION_MODE_CHANGED = 288;
 	public static final int GUI_REMOVE_ALL_TOOLTIPS = 289;
+	public static final int DIALOG_SHOWN = 290;
+	public static final int DIALOG_HIDDEN = 291;
 
 	// i18n Messages
 	public static final int FONTS_CHANGED = 300;
@@ -106,6 +111,7 @@ public class MessageType {
 	public static final int LOCATE_SETTLERS_IN_REGION = 349;
 	public static final int DESTROY_ENTITY = 350;
 	public static final int DESTROY_ENTITY_AND_ALL_INVENTORY = 351;
+	public static final int CHANGE_ENTITY_BEHAVIOUR = 352; public record ChangeEntityBehaviourMessage(Entity entity, BehaviourComponent newBehaviour) {}
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;
@@ -204,10 +210,6 @@ public class MessageType {
 	public static final int MECHANISM_CONSTRUCTED = 920;
 
 	// Production messages
-	public static final int REQUEST_PRODUCTION_ASSIGNMENT = 1000;
-	public static final int PRODUCTION_ASSIGNMENT_ACCEPTED = 1001;
-	public static final int PRODUCTION_ASSIGNMENT_CANCELLED = 1002;
-	public static final int PRODUCTION_ASSIGNMENT_COMPLETED = 1003;
 
 	// Food-related messages
 	public static final int REQUEST_LIQUID_TRANSFER = 1100;

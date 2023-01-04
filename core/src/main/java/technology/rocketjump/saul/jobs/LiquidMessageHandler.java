@@ -41,7 +41,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FLOOR;
 import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.ZONE;
@@ -209,7 +208,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 						continue;
 					}
 
-					FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(containerEntity, gameContext.getAreaMap());
+					FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(containerEntity, gameContext.getAreaMap());
 					if (navigableWorkspace == null) {
 						Logger.error("Item not accessible to collect - investigate and fix");
 						messageDispatcher.dispatchMessage(MessageType.CANCEL_ITEM_ALLOCATION, haulingAllocation.getItemAllocation());

@@ -24,7 +24,9 @@ public class CraftingRecipe {
 	private ItemType itemTypeRequired;
 
 	private List<QuantifiedItemTypeWithMaterial> input;
-	private List<QuantifiedItemTypeWithMaterial> output;
+	private QuantifiedItemTypeWithMaterial output;
+
+	private CraftingRecipeValueConversion valueConversion = CraftingRecipeValueConversion.DEFAULT;
 
 	private List<GameMaterialType> materialTypesToCopyOver;
 	private Double extraGameHoursToComplete; // Only used in automated conversion process (for now)
@@ -71,11 +73,11 @@ public class CraftingRecipe {
 		this.input = input;
 	}
 
-	public List<QuantifiedItemTypeWithMaterial> getOutput() {
+	public QuantifiedItemTypeWithMaterial getOutput() {
 		return output;
 	}
 
-	public void setOutput(List<QuantifiedItemTypeWithMaterial> output) {
+	public void setOutput(QuantifiedItemTypeWithMaterial output) {
 		this.output = output;
 	}
 
@@ -144,5 +146,18 @@ public class CraftingRecipe {
 		float timeMultiplier = ((100f - (float)skillLevelForProfession) / 100f);
 		float variableTime = getMaximumTimeToCompleteCrafting() - getMinimumTimeToCompleteCrafting();
 		return getMinimumTimeToCompleteCrafting() + (timeMultiplier * variableTime);
+	}
+
+	public CraftingRecipeValueConversion getValueConversion() {
+		return valueConversion;
+	}
+
+	public void setValueConversion(CraftingRecipeValueConversion valueConversion) {
+		this.valueConversion = valueConversion;
+	}
+
+	@Override
+	public String toString() {
+		return recipeName;
 	}
 }

@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.WELL",
   "blocksMovement": true,
   "defaultLayoutName": "2x2 with lower workspaces",
-  "colorCode": "#26e1ed",
-  "iconName": "well",
   "showInGuiView": "POWER_WATER_MENU",
   "autoConstructed": false,
   "requirements": {

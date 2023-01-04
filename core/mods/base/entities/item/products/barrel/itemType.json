@@ -2,6 +2,7 @@
   "itemTypeName" : "Product-Barrel",
   "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "WOOD",
+  "baseValuePerItem": 12,
   "hoursInInventoryUntilUnused" : 2.0,
   "stockpileGroupName" : "PRODUCTS",
   "tags" : {

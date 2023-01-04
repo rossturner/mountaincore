@@ -27,7 +27,6 @@ import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
-import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.JobStore;
@@ -127,8 +126,7 @@ public class InWorldUIRenderer {
 
 		customShaderSpriteBatch = new CustomShaderSpriteBatch(1000, defaultShaderInstance);
 
-		FurnitureType singleDoorType = furnitureTypeDictionary.getByName("SINGLE_DOOR");
-		this.doorIconSprite = iconSpriteCache.getByName(singleDoorType.getIconName());
+		this.doorIconSprite = iconSpriteCache.getByName("wooden-door");
 
 		FileHandle vertexShaderFile = ShaderLoader.DEFAULT_VERTEX_SHADER;
 		FileHandle alphaPreservingFragmentShader = Gdx.files.classpath("shaders/alpha_preserving_fragment_shader.glsl");

@@ -15,8 +15,6 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
-
 public class TransformUponJobCompletionFurnitureBehaviour extends FurnitureBehaviour implements OnJobCompletion, Prioritisable {
 
 	private Job jobToComplete;
@@ -57,7 +55,7 @@ public class TransformUponJobCompletionFurnitureBehaviour extends FurnitureBehav
 		}
 
 		if (jobToComplete == null) {
-			FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
+			FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
 			if (navigableWorkspace != null) {
 				jobToComplete = new Job(relatedJobTypes.get(0));
 				jobToComplete.setJobPriority(priority);

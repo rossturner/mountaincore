@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.LOOM",
   "blocksMovement": true,
   "defaultLayoutName": "1x1 with S workspace",
-  "colorCode": "#dce551",
-  "iconName": "sewing-string",
   "requirements": {
     "WOOD": [
       {

@@ -4183,8 +4183,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -6.0,
-        "y" : 138.0,
+        "x" : -60.0,
+        "y" : 131.0,
         "unit" : false
       },
       "flipX" : false,

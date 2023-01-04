@@ -2,6 +2,7 @@
   "itemTypeName" : "Armour-Leather",
   "materialTypes" : [ "SKIN" ],
   "primaryMaterialType" : "SKIN",
+  "baseValuePerItem": 30,
   "stockpileGroupName" : "WEAPONS",
   "tags" : {
     "ASSET_OVERRIDE_BY_SKILL" : [ "LIGHT_ARMOR", "CLOTHING_COLOR" ]

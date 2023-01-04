@@ -3,6 +3,7 @@
   "maxStackSize" : 12,
   "materialTypes" : [ "CLOTH" ],
   "primaryMaterialType" : "CLOTH",
+  "baseValuePerItem": 10,
   "hoursInInventoryUntilUnused" : 1.0,
   "stockpileGroupName" : "PRODUCTS",
   "i18nKey" : "PRODUCT.LINEN"

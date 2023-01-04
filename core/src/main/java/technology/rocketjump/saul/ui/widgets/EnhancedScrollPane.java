@@ -1,5 +1,7 @@
 package technology.rocketjump.saul.ui.widgets;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -26,7 +28,11 @@ public class EnhancedScrollPane extends ScrollPane {
 			public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
 				super.exit(event, x, y, pointer, toActor);
 				if (getStage() != null && pointer == -1) {
-					getStage().setScrollFocus(null);
+					Vector2 localCoords = EnhancedScrollPane.this.screenToLocalCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+					// only actually exit when no longer over scroll pane
+					if (localCoords.x < 0 || localCoords.x > getHeight() || localCoords.y < 0 || localCoords.y > getWidth()) {
+						getStage().setScrollFocus(null);
+					}
 				}
 			}
 		});

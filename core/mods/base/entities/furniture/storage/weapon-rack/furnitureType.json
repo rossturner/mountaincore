@@ -2,8 +2,6 @@
   "name" : "Weapon_Rack",
   "i18nKey" : "FURNITURE.WEAPON_RACK",
   "defaultLayoutName" : "1x1NS",
-  "colorCode" : "#E2C793",
-  "iconName" : "crossed-swords",
   "requirements" : {
     "WOOD" : [ {
       "itemTypeName" : "Resource-Planks",

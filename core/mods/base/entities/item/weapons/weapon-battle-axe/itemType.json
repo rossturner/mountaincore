@@ -2,6 +2,7 @@
   "itemTypeName" : "Weapon-Battle-Axe",
   "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 12,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",

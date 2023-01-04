@@ -42,7 +42,6 @@ import technology.rocketjump.saul.rooms.components.RoomComponent;
 
 import java.util.*;
 
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
 import static technology.rocketjump.saul.jobs.model.JobState.REMOVED;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
@@ -332,7 +331,7 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 		haulingJob.setHaulingAllocation(haulingAllocation);
 
 		if (foundIngredient.getLocationComponent().getContainerEntity() != null) {
-			FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(foundIngredient.getLocationComponent().getContainerEntity(), gameContext.getAreaMap());
+			FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(foundIngredient.getLocationComponent().getContainerEntity(), gameContext.getAreaMap());
 			if (navigableWorkspace == null) {
 				Logger.error("Could not find navigable workspace to create hauling job from");
 			} else {

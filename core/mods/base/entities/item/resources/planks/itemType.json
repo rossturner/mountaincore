@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 2,
   "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
+  "baseValuePerItem": 2,
   "holdPosition" : "ON_SHOULDER",
   "impedesMovement" : true,
   "stockpileGroupName" : "PRODUCTS",

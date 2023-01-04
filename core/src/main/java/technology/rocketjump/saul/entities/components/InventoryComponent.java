@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
-import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.ai.goap.actions.nourishment.LocateDrinkAction;
@@ -37,10 +36,11 @@ public class InventoryComponent implements EntityComponent, Destructible {
 	private Map<Long, InventoryEntry> inventoryEntries = new HashMap<>();
 
 	/**
-	 * This flag is used to determine if items added to the inventory should default to being automatically fully allocated (false)
-	 * or not allocated when added so they can be re-allocated elsewhere (true)
+	 * This flag is used to determine if items added to the inventory should default to being automatically fully allocated
+	 * to the ItemAllocation.Purpose specified
+	 * or not allocated when added so they can be re-allocated elsewhere (null value)
 	 */
-	private boolean itemsUnallocated = false;
+	private ItemAllocation.Purpose addAsAllocationPurpose = HELD_IN_INVENTORY;
 
 	@Override
 	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
@@ -100,6 +100,10 @@ public class InventoryComponent implements EntityComponent, Destructible {
 		}
 	}
 
+	public ItemAllocation.Purpose getAddAsAllocationPurpose() {
+		return addAsAllocationPurpose;
+	}
+
 	private MapTile pickEmptyTileOrRandom(List<MapTile> parentTiles, Random random) {
 		for (MapTile parentTile : parentTiles) {
 			if (!parentTile.hasItem()) {
@@ -128,6 +132,9 @@ public class InventoryComponent implements EntityComponent, Destructible {
 	}
 
 	public InventoryEntry findByItemTypeAndMaterial(ItemType itemType, GameMaterial material, GameClock gameClock) {
+		if (material == null) {
+			return findByItemType(itemType, gameClock);
+		}
 		for (InventoryEntry entry : inventoryEntries.values()) {
 			Entity item = entry.entity;
 			if (ITEM.equals(item.getType())) {
@@ -166,13 +173,13 @@ public class InventoryComponent implements EntityComponent, Destructible {
 				if (matchingItemAttributes.getQuantity() + attributesToAdd.getQuantity() <= attributesToAdd.getItemType().getMaxStackSize()) {
 					// Can merge into existing item
 					matchingItemAttributes.setQuantity(matchingItemAttributes.getQuantity() + attributesToAdd.getQuantity());
-					if (!itemsUnallocated) {
+					if (addAsAllocationPurpose != null) {
 						ItemAllocationComponent itemAllocationComponent = matchingEntry.entity.getOrCreateComponent(ItemAllocationComponent.class);
-						ItemAllocation allocation = itemAllocationComponent.getAllocationForPurpose(HELD_IN_INVENTORY);
+						ItemAllocation allocation = itemAllocationComponent.getAllocationForPurpose(addAsAllocationPurpose);
 						if (allocation != null) {
 							allocation.setAllocationAmount(matchingItemAttributes.getQuantity());
 						} else {
-							Logger.error("Could not find expected allocation to adjust quantity of");
+							itemAllocationComponent.createAllocation(itemAllocationComponent.getNumUnallocated(), parentEntity, addAsAllocationPurpose);
 						}
 					}
 
@@ -185,8 +192,8 @@ public class InventoryComponent implements EntityComponent, Destructible {
 
 			// Add as new item in inventory
 			attributesToAdd.setItemPlacement(ItemPlacement.ON_GROUND);
-			if (!itemsUnallocated) {
-				entityToAdd.getOrCreateComponent(ItemAllocationComponent.class).createAllocation(attributesToAdd.getQuantity(), parentEntity, HELD_IN_INVENTORY);
+			if (addAsAllocationPurpose != null) {
+				entityToAdd.getOrCreateComponent(ItemAllocationComponent.class).createAllocation(attributesToAdd.getQuantity(), parentEntity, addAsAllocationPurpose);
 			}
 			return addEntity(entityToAdd, parentEntity, messageDispatcher, gameClock, preferredPosition);
 		} else {
@@ -215,8 +222,8 @@ public class InventoryComponent implements EntityComponent, Destructible {
 		}
 	}
 
-	public void setItemsUnallocated(boolean itemsUnallocated) {
-		this.itemsUnallocated = itemsUnallocated;
+	public void setAddAsAllocationPurpose(ItemAllocation.Purpose addAsAllocationPurpose) {
+		this.addAsAllocationPurpose = addAsAllocationPurpose;
 	}
 
 	@Override
@@ -288,8 +295,8 @@ public class InventoryComponent implements EntityComponent, Destructible {
 			asJson.put("items", inventoryEntriesJson);
 		}
 
-		if (itemsUnallocated) {
-			asJson.put("itemsUnallocated", true);
+		if (addAsAllocationPurpose != null) {
+			asJson.put("addAsAllocationPurpose", addAsAllocationPurpose.name());
 		}
 	}
 
@@ -306,7 +313,7 @@ public class InventoryComponent implements EntityComponent, Destructible {
 			}
 		}
 
-		this.itemsUnallocated = asJson.getBooleanValue("itemsUnallocated");
+		this.addAsAllocationPurpose = EnumParser.getEnumValue(asJson, "addAsAllocationPurpose", ItemAllocation.Purpose.class, null);
 	}
 
     public static class InventoryEntry {

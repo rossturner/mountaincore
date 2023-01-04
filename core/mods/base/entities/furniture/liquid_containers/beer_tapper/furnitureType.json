@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.BEER_TAPPER",
   "blocksMovement": true,
   "defaultLayoutName": "2x1 with workspaces",
-  "colorCode": "#e3e369",
-  "iconName": "beer-stein",
   "requirements": {
     "WOOD": [
       {

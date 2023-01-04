@@ -2,6 +2,7 @@
   "itemTypeName" : "Armour-Plate",
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem" : 50,
   "stockpileGroupName" : "WEAPONS",
   "tags" : {
     "ASSET_OVERRIDE_BY_SKILL" : [ "HEAVY_ARMOR", "CLOTHING_COLOR" ]

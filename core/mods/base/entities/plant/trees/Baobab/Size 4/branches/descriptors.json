@@ -8,8 +8,8 @@
       "filename" : "oak-3-t.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "offsetPixels" : {
-        "x" : -6.0,
-        "y" : 138.0
+        "x" : -60.0,
+        "y" : 131.0
       },
       "childAssets" : [ {
         "type" : "PLANT_LEAVES",

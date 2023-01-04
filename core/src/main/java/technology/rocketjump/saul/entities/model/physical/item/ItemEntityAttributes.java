@@ -30,6 +30,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 	private ItemQuality itemQuality = ItemQuality.STANDARD;
 
 	private int quantity;
+	private int valuePerItem;
 	private EntityDestructionCause destructionCause;
 
 	public ItemEntityAttributes() {
@@ -55,6 +56,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 		cloned.itemQuality = this.itemQuality;
 
 		cloned.quantity = this.quantity;
+		cloned.valuePerItem = this.valuePerItem;
 		cloned.destructionCause = this.destructionCause;
 
 		return cloned;
@@ -89,6 +91,18 @@ public class ItemEntityAttributes implements EntityAttributes {
 		}
 	}
 
+	public int getTotalValue() {
+		return quantity * valuePerItem;
+	}
+
+	public int getValuePerItem() {
+		return valuePerItem;
+	}
+
+	public void setValuePerItem(int valuePerItem) {
+		this.valuePerItem = valuePerItem;
+	}
+
 	public boolean canMerge(ItemEntityAttributes other) {
 		if (this.itemType.equals(other.itemType)) {
 			GameMaterial primaryMaterial = this.getMaterial(this.itemType.getPrimaryMaterialType());
@@ -112,6 +126,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 	public void setMaterial(GameMaterial material) {
 		if (material != null) {
 			this.materials.put(material.getMaterialType(), material);
+			recalculateValue();
 		}
 	}
 
@@ -133,6 +148,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 
 	public void setItemType(ItemType itemType) {
 		this.itemType = itemType;
+		recalculateValue();
 	}
 
 	public int getQuantity() {
@@ -158,6 +174,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 
 	public void setItemQuality(ItemQuality itemQuality) {
 		this.itemQuality = itemQuality;
+		recalculateValue();
 	}
 
 	public boolean isDestroyed() {
@@ -170,6 +187,15 @@ public class ItemEntityAttributes implements EntityAttributes {
 
 	public EntityDestructionCause getDestructionCause() {
 		return destructionCause;
+	}
+
+	private void recalculateValue() {
+		if (itemType != null) {
+			GameMaterial primaryMaterial = getPrimaryMaterial();
+			if (primaryMaterial != null) {
+				this.valuePerItem = Math.max(1, Math.round(primaryMaterial.getValueMultiplier() * itemQuality.valueMultiplier * itemType.getBaseValuePerItem()));
+			}
+		}
 	}
 
 	@Override
@@ -206,6 +232,9 @@ public class ItemEntityAttributes implements EntityAttributes {
 		}
 		if (quantity != 1) {
 			asJson.put("quantity", quantity);
+		}
+		if (valuePerItem != 0) {
+			asJson.put("valuePerItem", valuePerItem);
 		}
 		if (destructionCause != null) {
 			asJson.put("destructionCause", this.destructionCause);
@@ -248,6 +277,7 @@ public class ItemEntityAttributes implements EntityAttributes {
 		} else {
 			this.quantity = quantity;
 		}
+		this.valuePerItem = asJson.getIntValue("valuePerItem");
 
 		destructionCause = EnumParser.getEnumValue(asJson, "destructionCause", EntityDestructionCause.class, null);
 	}

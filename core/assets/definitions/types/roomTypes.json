@@ -27,40 +27,39 @@
     "MUSHROOM_FARM_BEHAVIOUR" : [ ]
   }
 }, {
-  "roomName" : "EARTHWORKS",
-  "i18nKey" : "ROOMS.EARTHWORKS",
+  "roomName" : "FUEL_REFINERY",
+  "i18nKey" : "ROOMS.FUEL_REFINERY",
   "drawableName" : "btn_room_earth",
   "colorCode" : "#639679",
-  "requiredFloorMaterialType" : "EARTH",
-  "furnitureNames" : [ "CHARCOAL_CLAMP", "CHARCOAL_CLAMP_COVERED", "CHARCOAL_CLAMP_COMPLETED" ],
+  "furnitureNames" : [ "CHARCOAL_CLAMP", "CHARCOAL_CLAMP_COVERED", "CHARCOAL_CLAMP_COMPLETED", "COKE_OVEN", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 }, {
   "roomName" : "SAWMILL",
   "i18nKey" : "ROOMS.SAWMILL",
   "drawableName" : "btn_room_lumber",
   "colorCode" : "#9f7e69",
-  "furnitureNames" : [ "WOODCUTTERS_BENCH" ],
+  "furnitureNames" : [ "WOODCUTTERS_BENCH", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 }, {
   "roomName" : "CARPENTRY_WORKSHOP",
   "i18nKey" : "ROOMS.CARPENTRY_WORKSHOP",
   "drawableName" : "btn_room_carpentry",
   "colorCode" : "#c17e53",
-  "furnitureNames" : [ "Carpentry_Bench" ],
+  "furnitureNames" : [ "Carpentry_Bench", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 }, {
   "roomName" : "MASONRY_WORKSHOP",
   "i18nKey" : "ROOMS.MASONRY_WORKSHOP",
   "drawableName" : "btn_room_stonemason",
   "colorCode" : "#8c7e8c",
-  "furnitureNames" : [ "Stonemason_Bench" ],
+  "furnitureNames" : [ "Stonemason_Bench", "ORE_CRUSHING_STATION", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 }, {
   "roomName" : "METALWORKS",
   "i18nKey" : "ROOMS.METALWORKS",
   "drawableName" : "btn_room_metalworks",
   "colorCode" : "#909a87",
-  "furnitureNames" : [ "ORE_CRUSHING_STATION", "COKE_OVEN", "BLOOMERY_FURNACE", "FORGE" ],
+  "furnitureNames" : [ "BLOOMERY_FURNACE", "FORGE", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 }, {
   "roomName" : "BEDROOM",
@@ -81,7 +80,7 @@
   "i18nKey" : "ROOMS.KITCHEN",
   "drawableName" : "btn_room_kitchen",
   "colorCode" : "#b98da0",
-  "furnitureNames" : [ "WATER_BARREL", "BUTCHERY_WORKTOP", "KITCHEN_WORKTOP", "CHEFS_CAULDRON", "FLOUR_MILL", "BAKERS_WORKTOP", "BAKING_OVEN", "Dough_Proofing_Table" ],
+  "furnitureNames" : [ "WATER_BARREL", "BUTCHERY_WORKTOP", "KITCHEN_WORKTOP", "CHEFS_CAULDRON", "FLOUR_MILL", "BAKERS_WORKTOP", "BAKING_OVEN", "Dough_Proofing_Table", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : {
     "KITCHEN_BEHAVIOUR" : [ ]
   }
@@ -97,14 +96,14 @@
   "i18nKey" : "ROOMS.BREWERY",
   "drawableName" : "btn_room_brewery",
   "colorCode" : "#a08750",
-  "furnitureNames" : [ "WATER_BARREL", "MALTING_STATION", "MASH_TUN", "BREW_KETTLE", "FERMENTATION_TANK" ],
+  "furnitureNames" : [ "WATER_BARREL", "MALTING_STATION", "MASH_TUN", "BREW_KETTLE", "FERMENTATION_TANK", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 }, {
   "roomName" : "TEXTILE_WORKSHOP",
   "i18nKey" : "ROOMS.TEXTILE_WORKSHOP",
   "drawableName" : "btn_room_weaver",
   "colorCode" : "#95619d",
-  "furnitureNames" : [ "RETTING_TANK", "LOOM" ],
+  "furnitureNames" : [ "RETTING_TANK", "LOOM", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 }, {
   "roomName" : "GRAVEYARD",
@@ -120,20 +119,20 @@
   "i18nKey" : "ROOMS.ARMOURY",
   "drawableName" : "btn_room_armory",
   "colorCode" : "#78362a",
-  "furnitureNames" : [ "FLETCHERS_WORKBENCH", "Armour_Stand", "Weapon_Rack" ],
+  "furnitureNames" : [ "FLETCHERS_WORKBENCH", "IMPORT_PALLET", "EXPORT_PALLET", "Armour_Stand", "Weapon_Rack" ],
   "tags" : { }
 }, {
   "roomName" : "LEATHER_WORKSHOP",
   "i18nKey" : "ROOMS.LEATHER_WORKSHOP",
   "drawableName" : "btn_room_leather",
   "colorCode" : "#8c7952",
-  "furnitureNames" : [ "Tanning_Frame", "Leatherworking_Station" ],
+  "furnitureNames" : [ "Tanning_Frame", "Leatherworking_Station", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 }, {
   "roomName" : "ARTISAN_WORKSHOP",
   "i18nKey" : "ROOMS.ARTISAN_WORKSHOP",
   "drawableName" : "btn_room_artisan",
   "colorCode" : "#96841d",
-  "furnitureNames" : [ "BONE_CRAFTING_BENCH" ],
+  "furnitureNames" : [ "BONE_CRAFTING_BENCH", "ARTISAN_WORKSTATION", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 } ]

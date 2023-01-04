@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FurnitureStockpile extends AbstractStockpile implements ChildPersistable {
+
     private Entity parentEntity;
     private int maxQuantity;
     private final Map<Long, StockpileAllocation> allocationsByHaulingAllocationId = new HashMap<>();

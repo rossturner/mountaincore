@@ -6,13 +6,13 @@ import org.apache.commons.lang3.EnumUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class ExtraMaterialTypesTag extends Tag {
 
@@ -40,8 +40,19 @@ public class ExtraMaterialTypesTag extends Tag {
 				for (String arg : args) {
 					GameMaterialType materialType = GameMaterialType.valueOf(arg);
 					List<GameMaterial> materials = tagProcessingUtils.materialDictionary.getByType(materialType).stream()
-							.filter(GameMaterial::isUseInRandomGeneration)
-							.collect(Collectors.toList());
+							.filter(GameMaterial::isUseInRandomGeneration).toList();
+
+					GameMaterial gameMaterial = materials.get(random.nextInt(materials.size()));
+					attributes.setMaterial(gameMaterial);
+				}
+				break;
+			}
+			case ITEM: {
+				ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+				for (String arg : args) {
+					GameMaterialType materialType = GameMaterialType.valueOf(arg);
+					List<GameMaterial> materials = tagProcessingUtils.materialDictionary.getByType(materialType).stream()
+							.filter(GameMaterial::isUseInRandomGeneration).toList();
 
 					GameMaterial gameMaterial = materials.get(random.nextInt(materials.size()));
 					attributes.setMaterial(gameMaterial);

@@ -1210,6 +1210,29 @@
   "workspaces" : [ ],
   "specialTiles" : [ ]
 }, {
+  "uniqueName" : "2x3L no rotation",
+  "extraTiles" : [ {
+    "x" : -1,
+    "y" : 0
+  }, {
+    "x" : 1,
+    "y" : 0
+  }, {
+    "x" : 1,
+    "y" : 1
+  } ],
+  "workspaces" : [ {
+    "location" : {
+      "x" : 0,
+      "y" : 0
+    },
+    "accessedFrom" : {
+      "x" : 0,
+      "y" : 1
+    }
+  } ],
+  "specialTiles" : [ ]
+}, {
   "uniqueName" : "2x3L",
   "rotatesToName" : "2x3L1R",
   "extraTiles" : [ {

@@ -184,6 +184,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.FIND_BUTCHERABLE_UNALLOCATED_CORPSE);
 		messageDispatcher.addListener(this, MessageType.DESTROY_ENTITY_AND_ALL_INVENTORY);
 		messageDispatcher.addListener(this, MessageType.ENTITY_FACTION_CHANGED);
+		messageDispatcher.addListener(this, MessageType.CHANGE_ENTITY_BEHAVIOUR);
 	}
 
 	@Override
@@ -542,7 +543,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 									targetFurnitureEntity.getComponent(FurnitureStockpileComponent.class).getStockpile().cancelAllocation(allocation);
 								} else if (
 										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof CollectItemFurnitureBehaviour ||
-										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof InnoculationLogBehaviour
+										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof InnoculationLogBehaviour ||
+										targetFurnitureEntity != null && targetFurnitureEntity.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour
 								) {
 									// Do nothing, CollectItemFurnitureBehaviour will deal with cancelled allocations, eventually, might want to improve this
 								} else {
@@ -635,6 +637,11 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			}
 			case MessageType.FIND_BUTCHERABLE_UNALLOCATED_CORPSE: {
 				handleFindButcherableCorpse((RequestCorpseMessage) msg.extraInfo);
+				return true;
+			}
+			case CHANGE_ENTITY_BEHAVIOUR: {
+				ChangeEntityBehaviourMessage message = (ChangeEntityBehaviourMessage) msg.extraInfo;
+				entityStore.changeBehaviour(message.entity(), message.newBehaviour(), messageDispatcher);
 				return true;
 			}
 			default:

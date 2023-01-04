@@ -3,12 +3,14 @@
     "materialName": "Rockbread",
     "materialType": "FOODSTUFF",
     "edible": true,
+    "valueMultiplier": 1.2,
     "colorCode": "#5a544e"
   },
   {
     "materialName": "Wheat-Bread",
     "materialType": "FOODSTUFF",
     "edible": true,
+    "valueMultiplier": 1.3,
     "colorCode": "#ab8a49",
     "combustible": true,
     "useAsExampleMaterialForMaterialType": true

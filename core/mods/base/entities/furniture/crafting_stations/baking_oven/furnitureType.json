@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.BAKING_OVEN",
   "blocksMovement": true,
   "defaultLayoutName": "2x2 with lower workspaces",
-  "colorCode": "#ab8a49",
-  "iconName": "sliced-bread",
   "requirements": {
     "STONE": [
       {

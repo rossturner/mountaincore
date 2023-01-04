@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 30,
   "materialTypes" : [ "VEGETABLE", "CLOTH", "ROPE" ],
   "primaryMaterialType" : "VEGETABLE",
+  "baseValuePerItem": 5,
   "hoursInInventoryUntilUnused" : 1.0,
   "stockpileGroupName" : "GRANARY",
   "i18nKey" : "RESOURCE.FLOUR.SACK",

@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 100,
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 1,
   "holdPosition" : "RIGHT_HAND",
   "equippedWhileWorkingOnJob" : false,
   "stockpileGroupName" : "TREASURE",

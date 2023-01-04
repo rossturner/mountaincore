@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.CRAFTING_BONUS_VALUE;
+
 @Singleton
 public class CraftingRecipeDictionary {
 
@@ -50,6 +52,36 @@ public class CraftingRecipeDictionary {
 			byCraftingType.get(craftingRecipe.getCraftingType()).add(craftingRecipe);
 			byName.put(craftingRecipe.getRecipeName(), craftingRecipe);
 		}
+
+		for (ItemType itemType : itemTypeDictionary.getAll()) {
+			if (itemType.getBaseValuePerItem() == 0) {
+				Logger.warn("0 base value found for item " + itemType.getItemTypeName());
+
+				craftingRecipes.stream().filter(recipe ->
+								itemType.equals(recipe.getOutput().getItemType())
+						)
+						.findAny()
+						.ifPresentOrElse(recipe -> {
+							int totalItemsOutput = recipe.getOutput().getQuantity();
+							int totalValueInput = recipe.getInput().stream().map(i -> i.getItemType().getBaseValuePerItem() * i.getQuantity()).reduce(0, Integer::sum);
+
+							StringBuilder stringBuilder = new StringBuilder();
+							int suggestedValue = Math.max(1, Math.round((float) totalValueInput / (float) totalItemsOutput * CRAFTING_BONUS_VALUE));
+							stringBuilder.append("Suggesting baseValuePerItem of ").append(suggestedValue);
+							stringBuilder.append(" - ").append(totalItemsOutput).append("x created from ");
+							for (QuantifiedItemTypeWithMaterial input : recipe.getInput()) {
+								if (input.getItemType() != null) {
+									stringBuilder.append("( ").append(input.getQuantity()).append(" * ").append(input.getItemType().getItemTypeName()).append(" at ").append(input.getItemType().getBaseValuePerItem()).append(") ");
+								} else if (input.isLiquid()) {
+									stringBuilder.append("( Liquid ").append(input.getMaterial().getMaterialName()).append(" * ").append(input.getQuantity()).append(")");
+								}
+							}
+							stringBuilder.append("\n");
+							Logger.warn(stringBuilder.toString());
+						}, () -> Logger.warn("No recipe to craft this item is present\n"));
+			}
+		}
+
 	}
 
 	private void initCraftingRecipe(CraftingRecipe craftingRecipe) {
@@ -59,27 +91,28 @@ public class CraftingRecipeDictionary {
 			ItemType itemType = itemTypeDictionary.getByName(craftingRecipe.getItemTypeRequiredName());
 			if (itemType != null) {
 				craftingRecipe.setItemTypeRequired(itemType);
+			} else {
+				Logger.error("Could not find item type with name {} for recipe {}", craftingRecipe.getItemTypeRequiredName(), craftingRecipe.getRecipeName());
 			}
 		}
 		for (QuantifiedItemTypeWithMaterial quantifiedItemType : craftingRecipe.getInput()) {
 			initialise(craftingRecipe, quantifiedItemType);
 		}
-		for (QuantifiedItemTypeWithMaterial quantifiedItemType : craftingRecipe.getOutput()) {
-			initialise(craftingRecipe, quantifiedItemType);
-		}
+		initialise(craftingRecipe, craftingRecipe.getOutput());
 
 		if (craftingRecipe.getInput().stream().filter(QuantifiedItemTypeWithMaterial::isLiquid).count() > 1) {
 			throw new RuntimeException("Crafting recipe can not have more than 1 input liquid, found in " + craftingRecipe.getRecipeName());
 		}
-		if (craftingRecipe.getOutput().stream().filter(QuantifiedItemTypeWithMaterial::isLiquid).count() > 1) {
-			throw new RuntimeException("Crafting recipe can not have more than 1 output liquid, found in " + craftingRecipe.getRecipeName());
-		}
 	}
 
 	private void initialise(CraftingRecipe craftingRecipe, QuantifiedItemTypeWithMaterial quantifiedItemType) {
-		ItemType itemType = itemTypeDictionary.getByName(quantifiedItemType.getItemTypeName());
-		if (itemType != null) {
-			quantifiedItemType.setItemType(itemType);
+		if (quantifiedItemType.getItemTypeName() != null) {
+			ItemType itemType = itemTypeDictionary.getByName(quantifiedItemType.getItemTypeName());
+			if (itemType != null) {
+				quantifiedItemType.setItemType(itemType);
+			} else {
+				Logger.error("Could not find item type with name {} for recipe {}", quantifiedItemType.getItemTypeName(), craftingRecipe.getRecipeName());
+			}
 		}
 
 		if (quantifiedItemType.getMaterialName() != null) {

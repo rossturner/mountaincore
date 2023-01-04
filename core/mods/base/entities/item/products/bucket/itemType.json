@@ -2,6 +2,7 @@
   "itemTypeName" : "Product-Bucket",
   "materialTypes" : [ "WOOD", "METAL", "ROPE" ],
   "primaryMaterialType" : "WOOD",
+  "baseValuePerItem": 11,
   "hoursInInventoryUntilUnused" : 2.0,
   "stockpileGroupName" : "PRODUCTS",
   "tags" : {

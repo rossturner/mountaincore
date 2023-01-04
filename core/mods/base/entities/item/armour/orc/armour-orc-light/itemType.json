@@ -2,6 +2,7 @@
   "itemTypeName" : "Armour-Orc-Light",
   "materialTypes" : [ "SKIN", "BONE", "CLOTH" ],
   "primaryMaterialType" : "SKIN",
+  "baseValuePerItem" : 10,
   "stockpileGroupName" : "WEAPONS",
   "tags" : {
     "ASSET_OVERRIDE_BY_SKILL" : [ "LIGHT_ARMOR", "CLOTHING_COLOR" ]

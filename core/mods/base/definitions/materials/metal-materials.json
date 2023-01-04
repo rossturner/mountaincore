@@ -2,6 +2,7 @@
   {
     "materialName": "Iron",
     "materialType": "METAL",
+    "valueMultiplier": 2,
     "colorCode": "#a8b5c1",
     "useAsExampleMaterialForMaterialType": true,
     "oxidisation": {
@@ -14,6 +15,7 @@
   {
     "materialName": "Steel",
     "materialType": "METAL",
+    "valueMultiplier": 4,
     "colorCode": "#DDDDDE",
     "oxidisation": {
       "effect": "CONVERT_MATERIAL",
@@ -25,6 +27,7 @@
   {
     "materialName": "Rusted Iron",
     "materialType": "METAL",
+    "valueMultiplier": 0.1,
     "colorCode": "#a15f33",
     "useInRandomGeneration": false,
     "oxidisation": {
@@ -36,6 +39,7 @@
   {
     "materialName": "Copper",
     "materialType": "METAL",
+    "valueMultiplier": 1,
     "colorCode": "#c67852",
     "useInRandomGeneration": false,
     "oxidisation": {
@@ -47,35 +51,41 @@
   {
     "materialName": "Copper Patina",
     "materialType": "METAL",
+    "valueMultiplier": 1.5,
     "colorCode": "#70d0b5",
     "useInRandomGeneration": false
   },
   {
     "materialName": "Tin",
     "materialType": "METAL",
+    "valueMultiplier": 1.5,
     "colorCode": "#c9c6b9"
   },
   {
     "materialName": "Bronze",
     "materialType": "METAL",
+    "valueMultiplier": 1.1,
     "colorCode": "#9d6d34",
     "useInRandomGeneration": false
   },
   {
     "materialName": "Gold",
     "materialType": "METAL",
+    "valueMultiplier": 10,
     "colorCode": "#ffcd46",
     "useInRandomGeneration": false
   },
   {
     "materialName": "Platinum",
     "materialType": "METAL",
+    "valueMultiplier": 15,
     "colorCode": "#f6f6f6",
     "useInRandomGeneration": false
   },
   {
     "materialName": "Silver",
     "materialType": "METAL",
+    "valueMultiplier": 1,
     "colorCode": "#f3f3f3",
     "useInRandomGeneration": false
   }

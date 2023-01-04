@@ -256,6 +256,10 @@ public class ItemUIFactory implements UIFactory {
 
         controls.addSeparator().colspan(2).padBottom(15).expand(false, false).row();
 
+        controls.add(WidgetBuilder.label("Base Value per Item"));
+        controls.add(WidgetBuilder.intSpinner(itemType.getBaseValuePerItem(), 1, Integer.MAX_VALUE, itemType::setBaseValuePerItem));
+        controls.row();
+
         controls.add(WidgetBuilder.label("Hold Position"));
         controls.add(WidgetBuilder.select(itemType.getHoldPosition(), ItemHoldPosition.values(), null, itemType::setHoldPosition));
         controls.row();

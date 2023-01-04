@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 4,
   "materialTypes" : [ "GEM" ],
   "primaryMaterialType" : "GEM",
+  "baseValuePerItem": 10,
   "impedesMovement" : true,
   "stockpileGroupName" : "TREASURE",
   "i18nKey" : "TREASURE.GEM"

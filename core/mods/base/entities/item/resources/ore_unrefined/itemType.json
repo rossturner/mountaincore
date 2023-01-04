@@ -2,6 +2,7 @@
   "itemTypeName" : "Resource-Ore-Unrefined",
   "materialTypes" : [ "STONE", "ORE" ],
   "primaryMaterialType" : "ORE",
+  "baseValuePerItem": 5,
   "impedesMovement" : true,
   "stockpileGroupName" : "RAW_MATERIALS",
   "i18nKey" : "RESOURCE.ORE.UNREFINED"

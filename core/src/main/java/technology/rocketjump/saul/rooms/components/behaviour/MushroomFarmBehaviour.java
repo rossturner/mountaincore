@@ -31,7 +31,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
 import static technology.rocketjump.saul.entities.behaviour.furniture.MushroomShockTankBehaviour.MushrooomShockTankState.ASSIGNED;
 import static technology.rocketjump.saul.entities.behaviour.furniture.MushroomShockTankBehaviour.MushrooomShockTankState.AVAILABLE;
 
@@ -85,7 +84,7 @@ public class MushroomFarmBehaviour extends RoomBehaviourComponent implements Pri
 		HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createToHaulFurniture(innoculatedLog)
 						.toEntity(shockTank);
 
-		FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(innoculatedLog, gameContext.getAreaMap());
+		FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(innoculatedLog, gameContext.getAreaMap());
 		if (navigableWorkspace != null) {
 			Job haulingJob = new Job(haulingJobType);
 			haulingJob.setJobPriority(priority);

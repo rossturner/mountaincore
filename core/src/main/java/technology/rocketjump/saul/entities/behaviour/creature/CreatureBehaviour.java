@@ -222,6 +222,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	public void setCurrentGoal(AssignedGoal assignedGoal) {
 		this.currentGoal = assignedGoal;
 	}
+
 	public GoalQueue getGoalQueue() {
 		return goalQueue;
 	}

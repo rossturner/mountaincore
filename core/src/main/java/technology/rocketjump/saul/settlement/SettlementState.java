@@ -5,17 +5,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import org.apache.commons.lang3.EnumUtils;
-import technology.rocketjump.saul.crafting.model.CraftingRecipe;
-import technology.rocketjump.saul.crafting.model.CraftingRecipeMaterialSelection;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
-import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameState;
 import technology.rocketjump.saul.invasions.model.InvasionDefinition;
-import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.mapping.model.ImpendingMiningCollapse;
 import technology.rocketjump.saul.mapping.tile.MapTile;
-import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.misc.twitch.model.TwitchViewer;
 import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.JSONUtils;
@@ -24,8 +19,6 @@ import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.Persistable;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.settlement.notifications.NotificationType;
-import technology.rocketjump.saul.settlement.production.ProductionAssignment;
-import technology.rocketjump.saul.settlement.production.ProductionQuota;
 
 import java.util.*;
 
@@ -41,17 +34,6 @@ public class SettlementState implements Persistable {
 
 	public final Map<Long, Entity> furnitureHoldingCompletedCooking = new HashMap<>();
 	public final List<MapTile> activeLiquidFlowTiles = new ArrayList<>();
-
-	// Crafting-related state
-	public final Map<ItemType, ProductionQuota> itemTypeProductionQuotas = new HashMap<>();
-	public final Map<ItemType, Map<Long, ProductionAssignment>> itemTypeProductionAssignments = new HashMap<>();
-	public final Map<ItemType, Integer> requiredItemCounts = new HashMap<>();
-	public final Map<GameMaterial, ProductionQuota> liquidProductionQuotas = new HashMap<>();
-	public final Map<GameMaterial, Map<Long, ProductionAssignment>> liquidProductionAssignments = new HashMap<>();
-	public final Map<GameMaterial, Float> requiredLiquidCounts = new HashMap<>();
-
-	public final Map<CraftingRecipe, JobPriority> craftingRecipePriority = new HashMap<>();
-	public final Map<CraftingRecipe, CraftingRecipeMaterialSelection> craftingRecipeMaterialSelections = new HashMap<>();
 
 	public final List<ImpendingMiningCollapse> impendingMiningCollapses = new ArrayList<>();
 	public final Map<String, Boolean> previousHints = new HashMap<>();
@@ -194,57 +176,6 @@ public class SettlementState implements Persistable {
 		}
 		asJson.put("activeFlowTiles", activeFlowTilesJson);
 
-
-		JSONObject productionQuotasJson = new JSONObject(true);
-		for (Map.Entry<ItemType, ProductionQuota> entry : itemTypeProductionQuotas.entrySet()) {
-			JSONObject quotaAsJson = new JSONObject(true);
-			entry.getValue().writeTo(quotaAsJson, savedGameStateHolder);
-			productionQuotasJson.put(entry.getKey().getItemTypeName(), quotaAsJson);
-		}
-		asJson.put("productionQuotas", productionQuotasJson);
-
-		JSONObject productionAssignmentsJson = new JSONObject(true);
-		for (Map.Entry<ItemType, Map<Long, ProductionAssignment>> itemTypeMapEntry : itemTypeProductionAssignments.entrySet()) {
-			JSONArray productionAssignmentIds = new JSONArray();
-			for (ProductionAssignment productionAssignment : itemTypeMapEntry.getValue().values()) {
-				productionAssignment.writeTo(savedGameStateHolder);
-				productionAssignmentIds.add(productionAssignment.productionAssignmentId);
-			}
-			productionAssignmentsJson.put(itemTypeMapEntry.getKey().getItemTypeName(), productionAssignmentIds);
-		}
-		asJson.put("productionAssignments", productionAssignmentsJson);
-
-		JSONObject itemCountsJson = new JSONObject(true);
-		for (Map.Entry<ItemType, Integer> entry : requiredItemCounts.entrySet()) {
-			itemCountsJson.put(entry.getKey().getItemTypeName(), entry.getValue());
-		}
-		asJson.put("requiredItemCounts", itemCountsJson);
-
-		JSONObject liquidProductionQuotasJson = new JSONObject(true);
-		for (Map.Entry<GameMaterial, ProductionQuota> entry : liquidProductionQuotas.entrySet()) {
-			JSONObject quotaAsJson = new JSONObject(true);
-			entry.getValue().writeTo(quotaAsJson, savedGameStateHolder);
-			liquidProductionQuotasJson.put(entry.getKey().getMaterialName(), quotaAsJson);
-		}
-		asJson.put("liquidProductionQuotas", liquidProductionQuotasJson);
-
-		JSONObject liquidProductionAssignmentsJson = new JSONObject(true);
-		for (Map.Entry<GameMaterial, Map<Long, ProductionAssignment>> gameMaterialMapEntry : liquidProductionAssignments.entrySet()) {
-			JSONArray productionAssignmentIds = new JSONArray();
-			for (ProductionAssignment productionAssignment : gameMaterialMapEntry.getValue().values()) {
-				productionAssignment.writeTo(savedGameStateHolder);
-				productionAssignmentIds.add(productionAssignment.productionAssignmentId);
-			}
-			liquidProductionAssignmentsJson.put(gameMaterialMapEntry.getKey().getMaterialName(), productionAssignmentIds);
-		}
-		asJson.put("liquidProductionAssignments", liquidProductionAssignmentsJson);
-
-		JSONObject liquidCountsJson = new JSONObject(true);
-		for (Map.Entry<GameMaterial, Float> entry : requiredLiquidCounts.entrySet()) {
-			liquidCountsJson.put(entry.getKey().getMaterialName(), entry.getValue());
-		}
-		asJson.put("requiredLiquidCounts", liquidCountsJson);
-
 		if (!previousHints.isEmpty()) {
 			JSONArray previousHintsJson = new JSONArray();
 			previousHintsJson.addAll(previousHints.keySet());
@@ -284,27 +215,6 @@ public class SettlementState implements Persistable {
 
 		if (!gameState.equals(NORMAL)) {
 			asJson.put("gameState", gameState.name());
-		}
-
-		if (!craftingRecipePriority.isEmpty()) {
-			JSONObject craftingRecipePriorityJson = new JSONObject();
-			for (Map.Entry<CraftingRecipe, JobPriority> entry : craftingRecipePriority.entrySet()) {
-				if (entry.getValue().equals(JobPriority.NORMAL)) {
-					continue;
-				}
-				craftingRecipePriorityJson.put(entry.getKey().getRecipeName(), entry.getValue().name());
-			}
-			asJson.put("craftingRecipePriority", craftingRecipePriorityJson);
-		}
-
-		if (!craftingRecipeMaterialSelections.isEmpty()) {
-			JSONObject craftingRecipeSelectionJson = new JSONObject();
-			for (Map.Entry<CraftingRecipe, CraftingRecipeMaterialSelection> entry : craftingRecipeMaterialSelections.entrySet()) {
-				JSONObject materialSelectionJson = new JSONObject(true);
-				entry.getValue().writeTo(materialSelectionJson, savedGameStateHolder);
-				craftingRecipeSelectionJson.put(entry.getKey().getRecipeName(), materialSelectionJson);
-			}
-			asJson.put("craftingRecipeSelections", craftingRecipeSelectionJson);
 		}
 
 		if (!usedTwitchViewers.isEmpty()) {
@@ -380,96 +290,6 @@ public class SettlementState implements Persistable {
 			}
 		}
 
-		JSONObject productionQuotasJson = asJson.getJSONObject("productionQuotas");
-		for (Map.Entry<String, Object> entry : productionQuotasJson.entrySet()) {
-			ItemType itemType = relatedStores.itemTypeDictionary.getByName(entry.getKey());
-			if (itemType == null) {
-				throw new InvalidSaveException("Could not find item type by name " + entry.getKey());
-			}
-			JSONObject quotaJson = (JSONObject) entry.getValue();
-			ProductionQuota quota = new ProductionQuota();
-			quota.readFrom(quotaJson, savedGameStateHolder, relatedStores);
-			itemTypeProductionQuotas.put(itemType, quota);
-		}
-
-		JSONObject productionAssignmentsJson = asJson.getJSONObject("productionAssignments");
-		for (Map.Entry<String, Object> entry : productionAssignmentsJson.entrySet()) {
-			ItemType itemType = relatedStores.itemTypeDictionary.getByName(entry.getKey());
-			if (itemType == null) {
-				throw new InvalidSaveException("Could not find item type by name " + entry.getKey());
-			}
-			Map<Long, ProductionAssignment> productionAssignmentMap = new HashMap<>();
-			JSONArray productionAssignmentIds = (JSONArray) entry.getValue();
-			for (int cursor = 0; cursor < productionAssignmentIds.size(); cursor++) {
-				Long productionAssignmentId = productionAssignmentIds.getLong(cursor);
-				ProductionAssignment productionAssignment = savedGameStateHolder.productionAssignments.get(productionAssignmentId);
-				if (productionAssignment == null) {
-					throw new InvalidSaveException("Could not find production assignment by ID " + productionAssignmentId);
-				}
-				productionAssignmentMap.put(productionAssignment.productionAssignmentId, productionAssignment);
-			}
-			itemTypeProductionAssignments.put(itemType, productionAssignmentMap);
-		}
-
-		JSONObject itemCounts = asJson.getJSONObject("requiredItemCounts");
-		for (Map.Entry<String, Object> entry : itemCounts.entrySet()) {
-			ItemType itemType = relatedStores.itemTypeDictionary.getByName(entry.getKey());
-			if (itemType == null) {
-				throw new InvalidSaveException("Could not find item type by name " + entry.getKey());
-			}
-			requiredItemCounts.put(itemType, (Integer) entry.getValue());
-		}
-
-		JSONObject liquidProductionQuotasJson = asJson.getJSONObject("liquidProductionQuotas");
-		if (liquidProductionQuotasJson != null) {
-			for (Map.Entry<String, Object> entry : liquidProductionQuotasJson.entrySet()) {
-				GameMaterial liquidMaterial = relatedStores.gameMaterialDictionary.getByName(entry.getKey());
-				if (liquidMaterial == null) {
-					throw new InvalidSaveException("Could not find liquid material by name " + entry.getKey());
-				}
-				JSONObject quotaJson = (JSONObject) entry.getValue();
-				ProductionQuota quota = new ProductionQuota();
-				quota.readFrom(quotaJson, savedGameStateHolder, relatedStores);
-				liquidProductionQuotas.put(liquidMaterial, quota);
-			}
-		}
-
-		JSONObject liquidProductionAssignmentsJson = asJson.getJSONObject("liquidProductionAssignments");
-		if (liquidProductionAssignmentsJson != null) {
-			for (Map.Entry<String, Object> entry : liquidProductionAssignmentsJson.entrySet()) {
-				GameMaterial liquidMaterial = relatedStores.gameMaterialDictionary.getByName(entry.getKey());
-				if (liquidMaterial == null) {
-					throw new InvalidSaveException("Could not find liquid material by name " + entry.getKey());
-				}
-				Map<Long, ProductionAssignment> productionAssignmentMap = new HashMap<>();
-				JSONArray productionAssignmentIds = (JSONArray) entry.getValue();
-				for (int cursor = 0; cursor < productionAssignmentIds.size(); cursor++) {
-					Long productionAssignmentId = productionAssignmentIds.getLong(cursor);
-					ProductionAssignment productionAssignment = savedGameStateHolder.productionAssignments.get(productionAssignmentId);
-					if (productionAssignment == null) {
-						throw new InvalidSaveException("Could not find production assignment by ID " + productionAssignmentId);
-					}
-					productionAssignmentMap.put(productionAssignment.productionAssignmentId, productionAssignment);
-				}
-				liquidProductionAssignments.put(liquidMaterial, productionAssignmentMap);
-			}
-		}
-
-		JSONObject liquidCounts = asJson.getJSONObject("requiredLiquidCounts");
-		if (liquidCounts != null) {
-			for (Map.Entry<String, Object> entry : liquidCounts.entrySet()) {
-				GameMaterial liquidMaterial = relatedStores.gameMaterialDictionary.getByName(entry.getKey());
-				if (liquidMaterial == null) {
-					throw new InvalidSaveException("Could not find liquid material by name " + entry.getKey());
-				}
-				if (entry.getValue() instanceof Number) {
-					requiredLiquidCounts.put(liquidMaterial, ((Number) entry.getValue()).floatValue());
-				} else {
-					throw new InvalidSaveException("Unrecognised type " + entry.getValue().getClass() + " for parsing requiredLiquidCounts");
-				}
-			}
-		}
-
 		JSONArray previousHintsJson = asJson.getJSONArray("previousHints");
 		if (previousHintsJson != null) {
 			for (Object hintIdObj : previousHintsJson) {
@@ -503,33 +323,6 @@ public class SettlementState implements Persistable {
 
 		this.gameState = EnumParser.getEnumValue(asJson, "gameState", GameState.class, NORMAL);
 
-
-		JSONObject craftingRecipePriorityJson = asJson.getJSONObject("craftingRecipePriority");
-		if (craftingRecipePriorityJson != null) {
-			for (Map.Entry<String, Object> entry : craftingRecipePriorityJson.entrySet()) {
-				CraftingRecipe recipe = relatedStores.craftingRecipeDictionary.getByName(entry.getKey());
-				if (recipe == null) {
-					throw new InvalidSaveException("Could not find crafting recipe by name " + entry.getKey());
-				} else {
-					craftingRecipePriority.put(recipe, JobPriority.valueOf(entry.getValue().toString()));
-				}
-			}
-		}
-
-		JSONObject craftingRecipeSelectionsJson = asJson.getJSONObject("craftingRecipeSelections");
-		if (craftingRecipeSelectionsJson != null) {
-			for (Map.Entry<String, Object> entry : craftingRecipeSelectionsJson.entrySet()) {
-				CraftingRecipe recipe = relatedStores.craftingRecipeDictionary.getByName(entry.getKey());
-				if (recipe == null) {
-					throw new InvalidSaveException("Could not find crafting recipe by name " + entry.getKey());
-				} else {
-					JSONObject selectionJson = (JSONObject) entry.getValue();
-					CraftingRecipeMaterialSelection selection = new CraftingRecipeMaterialSelection();
-					selection.readFrom(selectionJson, savedGameStateHolder, relatedStores);
-					craftingRecipeMaterialSelections.put(recipe, selection);
-				}
-			}
-		}
 
 		JSONArray usedTwitchViewersJson = asJson.getJSONArray("usedTwitchViewers");
 		if (usedTwitchViewersJson != null) {

@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.COKE_OVEN",
   "blocksMovement": true,
   "defaultLayoutName": "2x2 with lower workspaces",
-  "colorCode": "#b3a5a1",
-  "iconName": "fireplace",
   "requirements": {
     "STONE": [
       {
@@ -18,6 +16,6 @@
     ]
   },
   "tags": {
-    "CRAFTING_STATION_BEHAVIOUR": ["COKE_OVEN_BAKING", "PRODUCE_ITEM", "HAULING"]
+    "CRAFTING_STATION_BEHAVIOUR": ["COKE_OVEN_BAKING", "CRAFT_ITEM", "HAULING"]
   }
 }

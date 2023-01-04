@@ -3,8 +3,6 @@
   "i18nKey" : "FURNITURE.TRAINING_DUMMY",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with S workspace",
-  "colorCode" : "#3CC9C2",
-  "iconName" : "target-dummy",
   "requirements" : {
     "WOOD" : [ {
       "itemTypeName" : "Resource-Planks",

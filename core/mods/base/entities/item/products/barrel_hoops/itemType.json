@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 3,
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 5,
   "hoursInInventoryUntilUnused" : 2.0,
   "stockpileGroupName" : "PRODUCTS",
   "i18nKey" : "PRODUCT.BARREL.HOOPS"

@@ -34,7 +34,7 @@ public class CharcoalClampBehaviourTag extends Tag {
 			// Only switch behaviour if already different
 
 			InventoryComponent inventoryComponent = entity.getOrCreateComponent(InventoryComponent.class);
-			inventoryComponent.setItemsUnallocated(true);
+			inventoryComponent.setAddAsAllocationPurpose(null);
 			// Create 2 lots of charcoal
 			GameMaterial charcoalMaterial = tagProcessingUtils.materialDictionary.getByName("Charcoal");
 			ItemType fuelItemType = tagProcessingUtils.itemTypeDictionary.getByName("Fuel-Sack");

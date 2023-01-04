@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.FLETCHERS_WORKBENCH",
   "blocksMovement": true,
   "defaultLayoutName": "2x3L3R",
-  "colorCode": "#8dd68a",
-  "iconName": "bow-arrow",
   "requirements": {
     "STONE": [
       {

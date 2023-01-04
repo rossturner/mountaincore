@@ -9,6 +9,19 @@
   "constructMechanismJobType": "CONSTRUCT_MECHANISM",
   "deconstructMechanismJobType": "DECONSTRUCT_MECHANISM",
 
+  "currency": [
+    {
+      "itemTypeName": "Treasure-Coin",
+      "materialName": "Gold",
+      "value": 10
+    },
+    {
+      "itemTypeName": "Treasure-Coin",
+      "materialName": "Silver",
+      "value": 1
+    }
+  ],
+
   "fishingJobType": "FISHING",
   "fishAvailable": ["Carp", "Pike", "Perch"],
 

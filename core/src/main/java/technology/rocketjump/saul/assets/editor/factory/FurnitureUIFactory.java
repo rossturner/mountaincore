@@ -1,7 +1,6 @@
 package technology.rocketjump.saul.assets.editor.factory;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -12,7 +11,10 @@ import com.kotcrab.vis.ui.util.InputValidator;
 import com.kotcrab.vis.ui.widget.*;
 import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.assets.editor.UniqueAssetNameValidator;
-import technology.rocketjump.saul.assets.editor.model.*;
+import technology.rocketjump.saul.assets.editor.model.EditorEntitySelection;
+import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
+import technology.rocketjump.saul.assets.editor.model.FurnitureNameBuilders;
+import technology.rocketjump.saul.assets.editor.model.ShowCreateAssetDialogMessage;
 import technology.rocketjump.saul.assets.editor.widgets.OkCancelDialog;
 import technology.rocketjump.saul.assets.editor.widgets.ToStringDecorator;
 import technology.rocketjump.saul.assets.editor.widgets.entitybrowser.EntityBrowserValue;
@@ -39,7 +41,6 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
-import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.ui.views.GuiViewName;
 
 import java.nio.file.Path;
@@ -109,7 +110,6 @@ public class FurnitureUIFactory implements UIFactory {
                 furnitureType.setRequirements(new HashMap<>());
                 furnitureType.getRequirements().put(GameMaterialType.EARTH, new ArrayList<>());
                 furnitureType.setDefaultLayoutName("1x1");
-                furnitureType.setColorCode(HexColors.toHexString(Color.WHITE));
                 String folderName = name.toLowerCase(Locale.ROOT);
                 Path basePath = FileUtils.createDirectory(path, folderName);
 
@@ -163,22 +163,6 @@ public class FurnitureUIFactory implements UIFactory {
             FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) editorStateProvider.getState().getCurrentEntity().getPhysicalEntityComponent().getAttributes();
             attributes.setCurrentLayout(layout);
             viewEditorControls.reload();
-        }));
-        controls.row();
-
-        controls.add(WidgetBuilder.label("Color"));
-        controls.add(WidgetBuilder.colorPickerTextField(messageDispatcher, furnitureType.getColor(), (color, hex) -> {
-            furnitureType.setColor(color);
-            furnitureType.setColorCode(hex);
-        }));
-        controls.row();
-
-        controls.add(WidgetBuilder.label("Icon"));
-        controls.add(WidgetBuilder.button(furnitureType.getIconName(), click -> {
-            messageDispatcher.dispatchMessage(MessageType.EDITOR_SHOW_ICON_SELECTION_DIALOG, new ShowIconSelectDialogMessage(furnitureType.getIconName(), iconName -> {
-                furnitureType.setIconName(iconName);
-                click.setText(iconName);
-            }));
         }));
         controls.row();
 

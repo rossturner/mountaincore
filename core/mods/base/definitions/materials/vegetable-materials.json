@@ -2,6 +2,7 @@
   {
     "materialName": "Wheat",
     "materialType": "VEGETABLE",
+    "valueMultiplier": 1.3,
     "colorCode": "#d7ce86",
     "useAsExampleMaterialForMaterialType": true,
     "combustible": true
@@ -9,18 +10,21 @@
   {
     "materialName": "Hemp",
     "materialType": "VEGETABLE",
+    "valueMultiplier": 1.8,
     "colorCode": "#93b876",
     "combustible": true
   },
   {
     "materialName": "Hemp_Fibre",
     "materialType": "VEGETABLE",
+    "valueMultiplier": 1.8,
     "colorCode": "#dce551",
     "combustible": true
   },
   {
     "materialName": "Barley",
     "materialType": "VEGETABLE",
+    "valueMultiplier": 1.2,
     "colorCode": "#e29a39",
     "combustible": true
   },
@@ -42,12 +46,14 @@
     "materialName": "Carrot",
     "materialType": "VEGETABLE",
     "edible": true,
+    "valueMultiplier": 0.9,
     "colorCode": "#ff7d1f",
     "combustible": true
   },
   {
     "materialName": "Hops",
     "materialType": "VEGETABLE",
+    "valueMultiplier": 1.3,
     "colorCode": "#9dd248",
     "combustible": true
   },
@@ -55,6 +61,7 @@
     "materialName": "Corn",
     "materialType": "VEGETABLE",
     "edible": true,
+    "valueMultiplier": 1.1,
     "colorCode": "#d4ea58",
     "combustible": true
   },
@@ -63,6 +70,7 @@
     "materialName": "Purple Helmet Mushroom",
     "materialType": "VEGETABLE",
     "edible": true,
+    "valueMultiplier": 1.5,
     "colorCode": "#963482",
     "combustible": true
   },
@@ -71,6 +79,7 @@
     "materialType": "VEGETABLE",
     "edible": true,
     "poisonous": true,
+    "valueMultiplier": 0.2,
     "colorCode": "#423d3d",
     "combustible": true
   },
@@ -78,6 +87,7 @@
     "materialName": "Fist Mushroom",
     "materialType": "VEGETABLE",
     "edible": true,
+    "valueMultiplier": 1.1,
     "colorCode": "#4e4c4c",
     "combustible": true
   },
@@ -85,6 +95,7 @@
     "materialName": "Berserker Mushroom",
     "materialType": "VEGETABLE",
     "edible": true,
+    "valueMultiplier": 1.15,
     "colorCode": "#ffb6c1",
     "combustible": true
   },
@@ -92,6 +103,7 @@
     "materialName": "Rociomycota Mushroom",
     "materialType": "VEGETABLE",
     "edible": true,
+    "valueMultiplier": 1.2,
     "colorCode": "#f6f6f6",
     "combustible": true
   },
@@ -99,6 +111,7 @@
     "materialName": "Miltonia Mushroom",
     "materialType": "VEGETABLE",
     "edible": true,
+    "valueMultiplier": 1.3,
     "colorCode": "#185BBF",
     "combustible": true
   },
@@ -106,6 +119,7 @@
     "materialName": "Elfsbane Mushroom",
     "materialType": "VEGETABLE",
     "edible": true,
+    "valueMultiplier": 1.1,
     "colorCode": "#f4f2bb",
     "combustible": true
   },
@@ -113,18 +127,21 @@
     "materialName": "Sunglow Mushroom",
     "materialType": "VEGETABLE",
     "edible": true,
+    "valueMultiplier": 1.6,
     "colorCode": "#f6f76f"
   },
   {
     "materialName": "Glow Mushroom",
     "materialType": "VEGETABLE",
     "edible": true,
+    "valueMultiplier": 1.7,
     "colorCode": "#ffd5d5"
   },
   {
     "materialName": "Syrup Powder Mushroom",
     "materialType": "VEGETABLE",
     "edible": true,
+    "valueMultiplier": 1.8,
     "colorCode": "#ffe700",
     "combustible": true
   }

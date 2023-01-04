@@ -8,12 +8,14 @@
     "materialName": "Boar Meat",
     "materialType": "MEAT",
     "combustible": true,
+    "valueMultiplier": 1.5,
     "colorCode": "#814b2b"
   },
   {
     "materialName": "Deer Meat",
     "materialType": "MEAT",
     "combustible": true,
+    "valueMultiplier": 1.3,
     "colorCode": "#ac684d",
     "useAsExampleMaterialForMaterialType": true
   },
@@ -21,30 +23,35 @@
     "materialName": "Fox Meat",
     "materialType": "MEAT",
     "combustible": true,
+    "valueMultiplier": 0.8,
     "colorCode": "#b48177"
   },
   {
     "materialName": "Elephant Meat",
     "materialType": "MEAT",
     "combustible": true,
+    "valueMultiplier": 1.6,
     "colorCode": "#ba9a94"
   },
   {
     "materialName": "Carp Meat",
     "materialType": "MEAT",
     "edible": true,
+    "valueMultiplier": 1.4,
     "colorCode": "#f2c3be"
   },
   {
     "materialName": "Perch Meat",
     "materialType": "MEAT",
     "edible": true,
+    "valueMultiplier": 1.2,
     "colorCode": "#f9eccd"
   },
   {
     "materialName": "Pike Meat",
     "materialType": "MEAT",
     "edible": true,
+    "valueMultiplier": 1.3,
     "colorCode": "#f0deaf"
   }
 ]
