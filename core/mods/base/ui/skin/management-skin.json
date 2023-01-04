@@ -132,6 +132,9 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 		up: asset_squad_menu_bg
 		checked: asset_squad_menu_bg_selected
 	}
+	remove_button: {
+		up: icon_remove_military
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	sort_by_button: {

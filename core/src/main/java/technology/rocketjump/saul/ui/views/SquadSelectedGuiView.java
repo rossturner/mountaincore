@@ -274,10 +274,6 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		titleWidget.addActor(squadNameLabel);
 		titleWidget.addActor(renameSquadButton(squad));
 
-		Table titleRow = new Table();
-		titleRow.add(personnelWidget).left().padLeft(20);
-		titleRow.add(new Container<>(titleWidget)).growX();
-		titleRow.add(new Container<>()).right().width(personnelWidget.getPrefWidth()).padRight(20);
 
 
 		Table emblemColumn = new Table();
@@ -292,7 +288,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		});
 		updatables.add(updatableEmblemColumn);
 
-		Updatable<TextButton> removeSquadButton = removeSquadButton(squad);
+		Updatable<Button> removeSquadButton = removeSquadButton(squad);
 		updatables.add(removeSquadButton);
 
 		Table squadActionColumn = new Table();
@@ -302,17 +298,13 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_ORDERS"), managementSkin, "default-font-16-label-white")).padTop(24).row();
 		squadActionColumn.add(squadCommandSelect(squad)).padTop(16f).growX();
 
-		Table squadRemovalColumn = new Table();
-		squadRemovalColumn.add(removeSquadButton.getActor());
-
-
-		Table contentsRow = new Table();
-		contentsRow.add(emblemColumn).uniformX().padLeft(38);
-		contentsRow.add(squadActionColumn).padLeft(30).padRight(30).growX();
-		contentsRow.add(squadRemovalColumn).uniformX().expandY().padRight(38);
-
-		card.add(titleRow).growX().padBottom(15).row();
-		card.add(contentsRow).growX().row();
+		card.add(personnelWidget).left().padLeft(20).padBottom(15);
+		card.add(new Container<>(titleWidget)).growX().padBottom(15);
+		card.add(removeSquadButton.getActor()).right().padRight(20).padBottom(15);
+		card.row();
+		card.add(emblemColumn).uniformX().padLeft(38);
+		card.add(squadActionColumn).padLeft(30).padRight(30);
+		card.add(new Container<>()).uniformX().padRight(38);
 		return card;
 	}
 
@@ -428,17 +420,29 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		return changeNameButton;
 	}
 
-	private Updatable<TextButton> removeSquadButton(Squad squad) {
-		TextButton removeSquadButton = new TextButton(i18nTranslator.translate("GUI.MILITARY.REMOVE_SQUAD"), managementSkin, "military_text_button");
+	private Updatable<Button> removeSquadButton(Squad squad) {
+		GameDialog removeSquadDialog = new GameDialog(i18nTranslator.getTranslatedString("GUI.MILITARY.REMOVE_SQUAD"), menuSkin, messageDispatcher, soundAssetDictionary) {
+			@Override
+			public void dispose() { }
+		};
+		removeSquadDialog.withText(i18nTranslator.getTranslatedString("GUI.MILITARY.REMOVE_SQUAD.DIALOG"));
+		removeSquadDialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.CANCEL_BUTTON"));
+		removeSquadDialog.withButton(i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON"), () -> {
+			messageDispatcher.dispatchMessage(MessageType.MILITARY_REMOVE_SQUAD, squad);
+			populate(containerTable);
+		});
+
+
+		Button removeSquadButton = new Button(managementSkin, "remove_button");
 		removeSquadButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.MILITARY_REMOVE_SQUAD, squad);
-				populate(containerTable);
+				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, removeSquadDialog);
 			}
 		});
+		tooltipFactory.simpleTooltip(removeSquadButton,"GUI.MILITARY.REMOVE_SQUAD", TooltipLocationHint.ABOVE);
 		buttonFactory.attachClickCursor(removeSquadButton, GameCursor.SELECT);
-		Updatable<TextButton> updatable = Updatable.of(removeSquadButton);
+		Updatable<Button> updatable = Updatable.of(removeSquadButton);
 		updatable.regularly(() -> {
 			if (gameContext.getSquads().size() > 1) {
 				buttonFactory.enable(removeSquadButton);
