@@ -1,63 +1,58 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.ray3k.tenpatch.TenPatchDrawable;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.rooms.Bridge;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
+import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.*;
-
-import static technology.rocketjump.saul.ui.Selectable.SelectableType.BRIDGE;
+import technology.rocketjump.saul.ui.skins.MainGameSkin;
+import technology.rocketjump.saul.ui.skins.ManagementSkin;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 
 @Singleton
-public class BridgeSelectedGuiView implements GuiView, GameContextAware {
+public class BridgeSelectedGuiView implements GuiView, GameContextAware, DisplaysText {
 
-	private final Skin uiSkin;
 	private final I18nTranslator i18nTranslator;
 	private final GameInteractionStateContainer gameInteractionStateContainer;
-	private final IconButton removeButton;
 	private final MessageDispatcher messageDispatcher;
+	private final MainGameSkin mainGameSkin;
+	private final ManagementSkin managementSkin;
+	private final ButtonFactory buttonFactory;
+	private final TooltipFactory tooltipFactory;
+
+	private Selectable currentSelectable;
 	private Table outerTable;
-	private Table descriptionTable;
-	private Label beingDeconstructedLabel;
 
 	@Inject
 	public BridgeSelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
-								 GameInteractionStateContainer gameInteractionStateContainer, IconButtonFactory iconButtonFactory,
-								 I18nWidgetFactory i18nWidgetFactory) {
-		uiSkin = guiSkinRepository.getDefault();
+	                             GameInteractionStateContainer gameInteractionStateContainer, ButtonFactory buttonFactory, TooltipFactory tooltipFactory) {
+		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
+		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
 		this.messageDispatcher = messageDispatcher;
+		this.buttonFactory = buttonFactory;
+		this.tooltipFactory = tooltipFactory;
 
-		outerTable = new Table(uiSkin);
-		outerTable.background("default-rect");
-		outerTable.pad(10);
-
-		descriptionTable = new Table(uiSkin);
-		descriptionTable.pad(10);
-
-		removeButton = iconButtonFactory.create("GUI.REMOVE_LABEL", "cancel", HexColors.NEGATIVE_COLOR, ButtonStyle.SMALL);
-		removeButton.setAction(() -> {
-			Selectable selectable = gameInteractionStateContainer.getSelectable();
-			if (selectable != null && selectable.type.equals(BRIDGE)) {
-				messageDispatcher.dispatchMessage(MessageType.REQUEST_BRIDGE_REMOVAL, selectable.getBridge());
-				doUpdate();
-			}
-		});
-
-		beingDeconstructedLabel = i18nWidgetFactory.createLabel("GUI.FURNITURE_BEING_REMOVED");
-
+		this.outerTable = new Table();
 	}
 
 	@Override
@@ -68,36 +63,71 @@ public class BridgeSelectedGuiView implements GuiView, GameContextAware {
 		containerTable.add(outerTable);
 	}
 
-	private Selectable currentSelectable;
-
 	@Override
 	public void update() {
-		// Don't want to always update as this will lose focus on selectboxes
-		Selectable selectable = gameInteractionStateContainer.getSelectable();
+		outerTable.clear();
 
-		if ((selectable != null && currentSelectable == null) ||
-				(selectable != null && !selectable.equals(currentSelectable))) {
-			currentSelectable = selectable;
-			doUpdate();
+		outerTable.setTouchable(Touchable.enabled);
+		outerTable.setBackground(mainGameSkin.getDrawable("ENTITY_SELECT_BG_SMALL"));
+
+		Selectable selectable = gameInteractionStateContainer.getSelectable();
+		if (selectable != null && selectable.getBridge() != null) {
+			Bridge bridge = selectable.getBridge();
+
+			Container<Label> headerContainer = new Container<>(new Label(i18nTranslator.getDescription(bridge).toString(), mainGameSkin.get("title-header", Label.LabelStyle.class)));
+			headerContainer.setBackground(mainGameSkin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
+
+			Table actionButtons = actionButtons(bridge);
+
+			String deconstructionLabelText = i18nTranslator.translate("GUI.FURNITURE_BEING_REMOVED");
+
+			outerTable.clear();
+
+			actionButtons.layout();
+			outerTable.add(new Container<>()).left().width(actionButtons.getPrefWidth()).padTop(67).padLeft(67);
+			outerTable.add(headerContainer).fillX().padTop(67);
+			outerTable.add(actionButtons).right().padTop(67).padRight(67);
+			outerTable.row();
+
+			Table viewContents = new Table();
+			viewContents.defaults().growY().spaceBottom(20);
+			if (bridge.isBeingDeconstructed()) {
+				viewContents.add(new Label(deconstructionLabelText, managementSkin, "default-font-18-label")).grow().row();
+			}
+
+			outerTable.add(viewContents).colspan(3).growY().padRight(67).padLeft(67).padTop(20).row();
+
 		}
 	}
 
-	private void doUpdate() {
-		outerTable.clear();
-
-		descriptionTable.clear();
-		if (currentSelectable != null && currentSelectable.type.equals(BRIDGE)) {
-			Bridge bridge = currentSelectable.getBridge();
-
-			descriptionTable.add(new I18nTextWidget(i18nTranslator.getDescription(bridge), uiSkin, messageDispatcher)).left().row();
-
-			outerTable.add(descriptionTable).left();
-			if (bridge.isBeingDeconstructed()) {
-				outerTable.add(beingDeconstructedLabel).right().pad(4);
-			} else {
-				outerTable.add(removeButton).right().pad(4);
-			}
+	private Table actionButtons(Bridge bridge) {
+		Table table = new Table();
+		table.defaults().pad(18);
+		Container<Button> deconstructContainer = new Container<>();
+		if (bridge.isBeingDeconstructed()) {
+			deconstructContainer.setBackground(mainGameSkin.getDrawable("asset_selection_bg_cropped"));
 		}
+
+		Button deconstructButton = new Button(mainGameSkin.getDrawable("btn_demolish_small"));
+		deconstructButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				super.clicked(event, x, y);
+				if (!bridge.isBeingDeconstructed()) {
+					messageDispatcher.dispatchMessage(MessageType.REQUEST_BRIDGE_REMOVAL, bridge);
+					update();
+				}
+			}
+		});
+
+		if (bridge.isBeingDeconstructed()) {
+			buttonFactory.disable(deconstructButton);
+		}
+		buttonFactory.attachClickCursor(deconstructButton, GameCursor.SELECT);
+		tooltipFactory.simpleTooltip(deconstructButton, "GUI.DECONSTRUCT_LABEL", TooltipLocationHint.ABOVE);
+		deconstructContainer.setActor(deconstructButton);
+		table.add(deconstructContainer);
+		return table;
 	}
 
 	@Override
@@ -120,4 +150,8 @@ public class BridgeSelectedGuiView implements GuiView, GameContextAware {
 		currentSelectable = null;
 	}
 
+	@Override
+	public void rebuildUI() {
+		update();
+	}
 }

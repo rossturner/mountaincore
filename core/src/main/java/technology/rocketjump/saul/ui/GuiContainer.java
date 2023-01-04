@@ -6,7 +6,6 @@ import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.google.inject.Inject;
@@ -19,12 +18,10 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.InfoWindow;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.ui.eventlistener.TooltipTable;
-import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.views.*;
 import technology.rocketjump.saul.ui.views.debug.DebugGuiView;
 import technology.rocketjump.saul.ui.widgets.GameDialog;
 import technology.rocketjump.saul.ui.widgets.GameDialogMessageHandler;
-import technology.rocketjump.saul.ui.widgets.tooltips.Tooltip;
 
 import java.util.Arrays;
 import java.util.List;
@@ -61,7 +58,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 
 	@Inject
 	public GuiContainer(MessageDispatcher messageDispatcher, GameInteractionStateContainer interactionStateContainer,
-						GuiSkinRepository guiSkinRepository, GuiViewRepository guiViewRepository, TimeDateGuiView timeDateGuiView,
+	                    GuiViewRepository guiViewRepository, TimeDateGuiView timeDateGuiView,
 						InfoWindow infoWindow, HintGuiView hintGuiView,
 						DebugGuiView debugGuiView, NotificationGuiView notificationGuiView,
 						GameDialogMessageHandler gameDialogMessageHandler,
@@ -70,7 +67,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		this.hintGuiView = hintGuiView;
 		this.debugGuiView = debugGuiView;
 		this.notificationGuiView = notificationGuiView;
-		Skin uiSkin = guiSkinRepository.getDefault();
 		this.timeDateGuiView = timeDateGuiView;
 		this.minimapGuiView = minimapGuiView;
 		this.interactionStateContainer = interactionStateContainer;
@@ -80,7 +76,7 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		primaryStage = new Stage(viewport);
 		primaryStageInputHandler = new StageAreaOnlyInputHandler(primaryStage, interactionStateContainer, gameDialogMessageHandler);
 
-		containerTable = new Table(uiSkin);
+		containerTable = new Table();
 		containerTable.setFillParent(true);
 		containerTable.pad(10f); // Table edge padding
 		containerTable.left().bottom();
@@ -98,30 +94,30 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		this.guiViewRepository = guiViewRepository;
 		switchView(GuiViewName.DEFAULT_MENU);
 
-		timeAndDateContainerTable = new Table(uiSkin);
+		timeAndDateContainerTable = new Table();
 		timeAndDateContainerTable.right().top();
 
-		hintContainerTable = new Table(uiSkin);
+		hintContainerTable = new Table();
 		hintContainerTable.left().top();
-		debugContainerTable = new Table(uiSkin);
+		debugContainerTable = new Table();
 		debugContainerTable.left().top();
 
-		notificationTable = new Table(uiSkin);
-		minimapContainerTable = new Table(uiSkin);
+		notificationTable = new Table();
+		minimapContainerTable = new Table();
 
-		upperRightContainerTable = new Table(uiSkin);
+		upperRightContainerTable = new Table();
 		upperRightContainerTable.right().top();
 		upperRightContainerTable.add(timeAndDateContainerTable).top().right().row();
 		upperRightContainerTable.add(notificationTable).right();
 		upperRightContainerTable.setFillParent(true);
 
-		upperLeftContainerTable = new Table(uiSkin);
+		upperLeftContainerTable = new Table();
 		upperLeftContainerTable.left().top();
 		upperLeftContainerTable.add(hintContainerTable).top().left().pad(10).row();
 		upperLeftContainerTable.add(debugContainerTable).top().left().pad(10).row();
 		upperLeftContainerTable.setFillParent(true);
 
-		lowerRightContainerTable = new Table(uiSkin);
+		lowerRightContainerTable = new Table();
 		lowerRightContainerTable.right().bottom();
 		lowerRightContainerTable.add(minimapContainerTable).bottom().right().row();
 		lowerRightContainerTable.setFillParent(true);
@@ -247,10 +243,6 @@ public class GuiContainer implements Telegraph, GameContextAware {
 
 	public void showDialog(GameDialog dialog) {
 		dialog.show(primaryStage);
-	}
-
-	public void showTooltip(Tooltip tooltip) {
-		primaryStage.addActor(tooltip);
 	}
 
 	public Stage getPrimaryStage() {

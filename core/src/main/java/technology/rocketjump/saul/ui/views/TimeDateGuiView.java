@@ -45,12 +45,11 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
-		Skin uiSkin = guiSkinRepository.getDefault();
 		this.skin = guiSkinRepository.getMainGameSkin();
 
 		this.timeDateWidget = timeDateWidget;
 
-		managementScreenButtonTable = new Table(uiSkin);
+		managementScreenButtonTable = new Table();
 		managementScreenButtonTable.padTop(38);
 		managementScreenButtonTable.padRight(52);
 		managementScreenButtonTable.defaults().padLeft(22);
@@ -59,7 +58,7 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 		viewModeButtons.defaults().padLeft(20);
 		viewModeButtons.setTouchable(Touchable.enabled);
 
-		layoutTable = new Table(uiSkin);
+		layoutTable = new Table();
 		reset(null);
 
 		messageDispatcher.addListener(this, MessageType.SETTLEMENT_SPAWNED);
