@@ -344,6 +344,13 @@ com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 		scrollStyle: default
 		listStyle: default
 	}
+	select_narrow: {
+		font: default-font-16
+		fontColor: white
+		background: select_narrow_body
+		scrollStyle: default
+		listStyle: default
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 	default-horizontal: {

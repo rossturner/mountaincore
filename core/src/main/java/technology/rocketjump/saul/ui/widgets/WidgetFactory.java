@@ -92,7 +92,9 @@ public class WidgetFactory {
     }
 
     public CustomSelect<SquadFormation> createSquadFormationSelectBox(Skin skin, SquadFormation initial, Consumer<SquadFormation> listener) {
-        var formationList = new List<SquadFormation>(skin) {
+        SelectBox.SelectBoxStyle selectBoxStyle = new SelectBox.SelectBoxStyle(skin.get("select_narrow", SelectBox.SelectBoxStyle.class));
+
+        var formationList = new List<SquadFormation>(selectBoxStyle.listStyle) {
             @Override
             public GlyphLayout drawItem(Batch batch, BitmapFont font, int index, SquadFormation item, float x, float y, float width) {
                 String string = item.getDescription(i18nTranslator, null, messageDispatcher).get(0).toString();
@@ -105,13 +107,9 @@ public class WidgetFactory {
                 return font.draw(batch, string, x, y, 0, string.length(), width, getAlignment(), false, "...");
             }
         };
-        Array<SquadFormation> items = WidgetBuilder.orderedArray(squadFormationDictionary.getAll());
-        items.sort(Comparator.comparing(item -> item.getDescription(i18nTranslator, null, messageDispatcher).get(0).toString()));
-        formationList.setItems(items);
 
-        formationList.setAlignment(Align.center);
 
-        SelectBox.SelectBoxStyle selectBoxStyle = new SelectBox.SelectBoxStyle(skin.get(SelectBox.SelectBoxStyle.class));
+
         CustomSelect<SquadFormation> selectBox = new CustomSelect<>(selectBoxStyle, formationList, new CustomSelect.DrawItemProcedure<SquadFormation>() {
             @Override
             public GlyphLayout drawItem(Batch batch, BitmapFont font, SquadFormation item, float x, float y, float width) {
@@ -119,6 +117,9 @@ public class WidgetFactory {
             }
         });
         selectBox.setAlignment(Align.center);
+        Array<SquadFormation> items = WidgetBuilder.orderedArray(squadFormationDictionary.getAll());
+        items.sort(Comparator.comparing(item -> item.getDescription(i18nTranslator, null, messageDispatcher).get(0).toString()));
+        selectBox.setItems(items);
         selectBox.setSelected(initial);
         selectBox.addListener(new ChangeListener() {
             @Override
@@ -126,6 +127,9 @@ public class WidgetFactory {
                 listener.accept(selectBox.getSelected());
             }
         });
+
+
+        formationList.setAlignment(Align.center);
 
 
         return selectBox;

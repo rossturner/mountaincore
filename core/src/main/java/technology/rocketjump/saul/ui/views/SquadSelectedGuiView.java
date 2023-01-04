@@ -300,7 +300,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_FORMATION"), managementSkin, "default-font-16-label-white")).padTop(24).row();
 		squadActionColumn.add(widgetFactory.createSquadFormationSelectBox(menuSkin, squad.getFormation(), squad::setFormation)).width(440).padTop(16f).row();
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_ORDERS"), managementSkin, "default-font-16-label-white")).padTop(24).row();
-		squadActionColumn.add(squadCommandSelect(squad)).width(440);
+		squadActionColumn.add(squadCommandSelect(squad)).padTop(16f).growX();
 
 		Table squadRemovalColumn = new Table();
 		squadRemovalColumn.add(removeSquadButton.getActor());
@@ -317,7 +317,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	}
 
 	private SelectBox<SquadCommand> squadCommandSelect(Squad squad) {
-		SelectBox<SquadCommand> select = new SelectBox<>(menuSkin) {
+		SelectBox<SquadCommand> select = new SelectBox<>(menuSkin, "select_narrow") {
 			@Override
 			protected String toString(SquadCommand item) {
 				return i18nTranslator.translate("GUI.MILITARY.ORDERS." + item.name());

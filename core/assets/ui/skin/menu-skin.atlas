@@ -109,7 +109,7 @@ btn_02
   index: -1
 btn_audio_slider
   rotate: false
-  xy: 2550, 4251
+  xy: 4988, 7266
   size: 36, 78
   orig: 36, 78
   offset: 0, 0
@@ -209,7 +209,7 @@ btn_embark_next
   index: -1
 btn_exit
   rotate: false
-  xy: 3574, 5827
+  xy: 2550, 4275
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
@@ -338,7 +338,7 @@ paper_texture_bg_stretch
   index: -1
 placeholder
   rotate: false
-  xy: 2789, 5633
+  xy: 3574, 5817
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -379,6 +379,15 @@ select_full
   xy: 886, 3032
   size: 654, 95
   orig: 654, 95
+  offset: 0, 0
+  index: -1
+select_narrow_body
+  rotate: false
+  xy: 2789, 5650
+  size: 68, 47
+  split: 10, 47, 0, 0
+  pad: 10, 47, 10, 10
+  orig: 68, 47
   offset: 0, 0
   index: -1
 selected_save_bg_patch
@@ -438,7 +447,7 @@ transparent_selection_bg_patch_v2
   index: -1
 vertical_scrollbar
   rotate: false
-  xy: 4988, 7284
+  xy: 5460, 8113
   size: 26, 60
   split: 0, 0, 25, 25
   orig: 26, 60
@@ -446,7 +455,7 @@ vertical_scrollbar
   index: -1
 vertical_scrollbar_fg
   rotate: false
-  xy: 5460, 8095
+  xy: 570, 21
   size: 26, 78
   split: 0, 0, 38, 38
   orig: 26, 78
