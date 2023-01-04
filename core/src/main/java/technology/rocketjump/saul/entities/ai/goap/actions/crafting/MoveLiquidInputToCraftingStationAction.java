@@ -21,11 +21,11 @@ import technology.rocketjump.saul.rooms.HaulingAllocation;
 
 import java.util.List;
 
-public class MoveLiquidInputToCraftingStation extends Action implements InitialisableAction {
+public class MoveLiquidInputToCraftingStationAction extends Action implements InitialisableAction {
 
 	private AssignedGoal subGoal;
 
-	public MoveLiquidInputToCraftingStation(AssignedGoal parent) {
+	public MoveLiquidInputToCraftingStationAction(AssignedGoal parent) {
 		super(parent);
 	}
 

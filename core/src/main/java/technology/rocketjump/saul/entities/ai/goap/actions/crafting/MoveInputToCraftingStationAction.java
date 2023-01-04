@@ -16,11 +16,11 @@ import technology.rocketjump.saul.rooms.HaulingAllocation;
 
 import java.util.List;
 
-public class MoveInputToCraftingStation extends Action implements InitialisableAction {
+public class MoveInputToCraftingStationAction extends Action implements InitialisableAction {
 
 	private AssignedGoal subGoal;
 
-	public MoveInputToCraftingStation(AssignedGoal parent) {
+	public MoveInputToCraftingStationAction(AssignedGoal parent) {
 		super(parent);
 	}
 

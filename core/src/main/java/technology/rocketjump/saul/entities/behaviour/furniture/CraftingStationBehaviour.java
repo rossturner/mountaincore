@@ -259,7 +259,6 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 					return;
 				}
 			}
-
 		}
 
 		for (ProductionExportFurnitureBehaviour exportFurnitureBehaviour : exportFurniture) {
