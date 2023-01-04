@@ -339,15 +339,22 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 			}
 		});
 		Updatable<SelectBox<SquadCommand>> updatable = Updatable.of(select);
-		updatable.regularly(() -> {
-//			if (gameInteractionStateContainer.getInteractionMode() == GameInteractionMode.DEFAULT) {
-				switch (squad.getCurrentOrderType()) {
-					case TRAINING -> select.setSelected(SquadCommand.TRAIN);
-					case GUARDING -> select.setSelected(SquadCommand.GUARD);
-					case COMBAT -> select.setSelected(SquadCommand.ATTACK);
-					case RETREATING -> select.setSelected(SquadCommand.RETREAT);
+		updatable.regularly(new Runnable() {
+			SquadOrderType previousOrder = null;
+
+			@Override
+			public void run() {
+				if (previousOrder != squad.getCurrentOrderType()) {
+					previousOrder = squad.getCurrentOrderType();
+					switch (squad.getCurrentOrderType()) {
+						case TRAINING -> select.setSelected(SquadCommand.TRAIN);
+						case GUARDING -> select.setSelected(SquadCommand.GUARD);
+						case COMBAT -> select.setSelected(SquadCommand.ATTACK);
+						case RETREATING -> select.setSelected(SquadCommand.RETREAT);
+					}
+
 				}
-//			}
+			}
 		});
 		updatable.update();
 		return updatable;
@@ -607,19 +614,24 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		}
 
 		Updatable<Table> updatable = Updatable.of(table);
-		updatable.regularly(() -> {
-			Selectable selectable = gameInteractionStateContainer.getSelectable();
-			GameInteractionMode interactionMode = gameInteractionStateContainer.getInteractionMode();
-			if ( selectable != null && selectable.getSquad() != null) {
-				Squad squad = selectable.getSquad();
-				switch (squad.getCurrentOrderType()) {
-					case TRAINING -> commandToButton.get(SquadCommand.TRAIN).setChecked(true);
-					case GUARDING -> commandToButton.get(SquadCommand.GUARD).setChecked(true);
-					case COMBAT -> commandToButton.get(SquadCommand.ATTACK).setChecked(true);
-					case RETREATING -> commandToButton.get(SquadCommand.RETREAT).setChecked(true);
+		updatable.regularly(new Runnable() {
+			SquadOrderType previousOrder = null;
+			@Override
+			public void run() {
+				Selectable selectable = gameInteractionStateContainer.getSelectable();
+				if (selectable != null && selectable.getSquad() != null) {
+					Squad squad = selectable.getSquad();
+					if (previousOrder != squad.getCurrentOrderType()) {
+						previousOrder = squad.getCurrentOrderType();
+						switch (squad.getCurrentOrderType()) {
+							case TRAINING -> commandToButton.get(SquadCommand.TRAIN).setChecked(true);
+							case GUARDING -> commandToButton.get(SquadCommand.GUARD).setChecked(true);
+							case COMBAT -> commandToButton.get(SquadCommand.ATTACK).setChecked(true);
+							case RETREATING -> commandToButton.get(SquadCommand.RETREAT).setChecked(true);
+						}
+					}
 				}
 			}
-
 		});
 		return updatable;
 	}
