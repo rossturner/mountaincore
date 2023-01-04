@@ -68,6 +68,60 @@
   "initialActions" : [ "SelectItemAssignment" ],
   "interruptedByLowNeeds" : true
 }, {
+  "i18nDescription" : "ACTION.SELECT_JOB.DESCRIPTION",
+  "creatureCategories" : [ "CIVILIAN" ],
+  "name" : "Crafting job goal",
+  "actionRelationships" : {
+    "CheckReadyToCraft" : {
+      "fail" : [ "UnassignJob" ],
+      "pass" : [ "GoToLocation" ]
+    },
+    "WorkOnJob" : {
+      "fail" : [ "UnequipItemForJob", "UnassignJob" ],
+      "pass" : [ "CancelInterruptedFlag", "UnequipItemForJob", "CheckForPendingOutput" ]
+    },
+    "CheckForPendingLiquidInput" : {
+      "fail" : [ "CheckForPendingInput" ],
+      "pass" : [ "MoveLiquidInputToCraftingStation" ]
+    },
+    "MoveInputToCraftingStation" : {
+      "fail" : [ "UnassignJob" ],
+      "pass" : [ "CheckForPendingInput" ]
+    },
+    "GoToLocation" : {
+      "fail" : [ "UnassignJob" ],
+      "pass" : [ "FaceTowardsLocation", "EquipItemForJobFromFurniture", "WorkOnJob" ]
+    },
+    "EquipItemForJobFromFurniture" : { },
+    "CheckForPendingInput" : {
+      "fail" : [ "CheckReadyToCraft" ],
+      "pass" : [ "MoveInputToCraftingStation" ]
+    },
+    "CheckForPendingOutput" : {
+      "fail" : [ "MarkCraftingAssignmentComplete" ],
+      "pass" : [ "MoveOutputToExportSpot" ]
+    },
+    "UnequipItemForJob" : { },
+    "CancelInterruptedFlag" : { },
+    "MoveOutputToExportSpot" : {
+      "fail" : [ "MarkCraftingAssignmentComplete" ],
+      "pass" : [ "CheckForPendingOutput" ]
+    },
+    "MoveLiquidInputToCraftingStation" : {
+      "fail" : [ "UnassignJob" ],
+      "pass" : [ "CheckForPendingLiquidInput" ]
+    },
+    "MarkCraftingAssignmentComplete" : { },
+    "EquipItemForJobFromInventory" : {
+      "fail" : [ "UnassignJob" ]
+    },
+    "UnassignJob" : { },
+    "FaceTowardsLocation" : { }
+  },
+  "selectors" : [ ],
+  "initialActions" : [ "CheckForPendingLiquidInput" ],
+  "interruptedByLowNeeds" : true
+}, {
   "i18nDescription" : "GOAL.ON_FIRE.DESCRIPTION",
   "name" : "Douse self goal",
   "actionRelationships" : {
@@ -744,6 +798,45 @@
   } ],
   "interruptedByCombat" : true,
   "initialActions" : [ "FindItemFromInventorySelectors" ],
+  "interruptedByLowNeeds" : true
+}, {
+  "i18nDescription" : "GOAL.TRANSFER_LIQUID.DESCRIPTION",
+  "name" : "Transfer liquid for crafting goal",
+  "actionRelationships" : {
+    "CancelHaulingAllocation" : { },
+    "PourIntoTarget" : {
+      "fail" : [ ],
+      "pass" : [ "DropHauledItem" ]
+    },
+    "CancelLiquidAllocation" : {
+      "fail" : [ "CancelHaulingAllocation" ],
+      "pass" : [ "CancelHaulingAllocation" ]
+    },
+    "DropHauledItem" : {
+      "fail" : [ "GoToRandomLocation" ]
+    },
+    "GoToLocation" : {
+      "fail" : [ "CancelLiquidAllocation" ]
+    },
+    "FillContainer" : {
+      "fail" : [ "CancelLiquidAllocation" ],
+      "pass" : [ "GoToParentJobLocation", "FaceTowardsLocation", "PourIntoTarget" ]
+    },
+    "GoToRandomLocation" : {
+      "fail" : [ "DropHauledItem" ],
+      "pass" : [ "DropHauledItem" ]
+    },
+    "GoToParentJobLocation" : {
+      "fail" : [ "CancelLiquidAllocation" ]
+    },
+    "PickUpEntity" : {
+      "fail" : [ "CancelLiquidAllocation" ],
+      "pass" : [ "GoToLocation", "FillContainer" ]
+    },
+    "FaceTowardsLocation" : { }
+  },
+  "selectors" : [ ],
+  "initialActions" : [ "GoToLocation", "PickUpEntity" ],
   "interruptedByLowNeeds" : true
 }, {
   "i18nDescription" : "GOAL.TRANSFER_LIQUID.DESCRIPTION",

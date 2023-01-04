@@ -36,6 +36,7 @@ public class ItemAllocation implements Persistable {
 		PLACED_FOR_CONSTRUCTION, // TODO look closely at this one, is this where a bug is coming from?
 		FOOD_ALLOCATION,
 		CONTENTS_TO_BE_DUMPED,
+		PRODUCTION_IMPORT,
 		ON_FIRE
 
 	}

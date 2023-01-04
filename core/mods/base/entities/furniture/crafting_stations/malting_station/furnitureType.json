@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.MALTING_STATION",
   "blocksMovement": true,
   "defaultLayoutName": "4x1 WE",
-  "colorCode": "#e29a39",
-  "iconName": "powder",
   "requirements": {
     "WOOD": [
       {
@@ -32,7 +30,7 @@
     ]
   },
   "tags": {
-    "CRAFTING_STATION_BEHAVIOUR": ["MALTING", "PRODUCE_ITEM", "HAULING"],
+    "CRAFTING_STATION_BEHAVIOUR": ["MALTING", "CRAFT_ITEM", "HAULING"],
     "PARTICLE_EFFECTS_WHILE_IN_USE": ["Milling"],
     "DECORATION_FROM_INPUT": ["Product-Liquid-Tank"]
   }

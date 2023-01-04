@@ -21,6 +21,8 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.ButtonFactory;
+import technology.rocketjump.saul.ui.widgets.furniture.ProductionExportFurnitureWidget;
+import technology.rocketjump.saul.ui.widgets.furniture.ProductionImportFurnitureWidget;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabelFactory;
 
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.DOORWAY;
@@ -30,14 +32,18 @@ public class DoorwaySelectedGuiView extends EntitySelectedGuiView {
 
 	@Inject
 	public DoorwaySelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-	                              I18nTranslator i18nTranslator, GameInteractionStateContainer gameInteractionStateContainer,
-	                              EntityStore entityStore, JobStore jobStore, JobTypeDictionary jobTypeDictionary,
-	                              TooltipFactory tooltipFactory, DecoratedStringLabelFactory decoratedStringLabelFactory,
-	                              EntityRenderer entityRenderer, ButtonFactory buttonFactory, StockpileComponentUpdater stockpileComponentUpdater,
-	                              StockpileGroupDictionary stockpileGroupDictionary, GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
-	                              ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary, SettlerManagementScreen settlerManagementScreen) {
+								  I18nTranslator i18nTranslator, GameInteractionStateContainer gameInteractionStateContainer,
+								  EntityStore entityStore, JobStore jobStore, JobTypeDictionary jobTypeDictionary,
+								  TooltipFactory tooltipFactory, DecoratedStringLabelFactory decoratedStringLabelFactory,
+								  EntityRenderer entityRenderer, ButtonFactory buttonFactory, StockpileComponentUpdater stockpileComponentUpdater,
+								  StockpileGroupDictionary stockpileGroupDictionary, GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
+								  ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary,
+								  SettlerManagementScreen settlerManagementScreen,
+								  ProductionImportFurnitureWidget productionImportFurnitureWidget,
+								  ProductionExportFurnitureWidget productionExportFurnitureWidget) {
 
 		super(guiSkinRepository, messageDispatcher, i18nTranslator, gameInteractionStateContainer, entityStore, jobStore, jobTypeDictionary, tooltipFactory,
+				productionImportFurnitureWidget, productionExportFurnitureWidget,
 				decoratedStringLabelFactory, entityRenderer, buttonFactory, stockpileComponentUpdater, stockpileGroupDictionary, gameMaterialDictionary,
 				raceDictionary, itemTypeDictionary, soundAssetDictionary, settlerManagementScreen);
 	}

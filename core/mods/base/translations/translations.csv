@@ -129,13 +129,16 @@ CRAFTING_TYPE.BAKING,,Baking
 CRAFTING_TYPE.BLACKSMITHING,,Blacksmithing
 CRAFTING_TYPE.BONE_CRAFTING,,Bone crafting
 CRAFTING_TYPE.CARPENTRY,,Carpentry
+CRAFTING_TYPE.CARVING_VERB,,Carving
 CRAFTING_TYPE.COKE_OVEN_BAKING,,Coke baking
 CRAFTING_TYPE.FERMENTING,,Fermenting
 CRAFTING_TYPE.FLETCHING,,Fletching
+CRAFTING_TYPE.FINE_DETAIL_CRAFTING,,Fine detailing
 CRAFTING_TYPE.LEATHERWORKING,,Leatherworking
 CRAFTING_TYPE.MALTING,,Malting
 CRAFTING_TYPE.MALT_MASHING,,Malt mashing
 CRAFTING_TYPE.MILLING,,Milling
+CRAFTING_TYPE.MINTING,,Minting
 CRAFTING_TYPE.ORE_CRUSHING,,Ore crushing
 CRAFTING_TYPE.SMELTING,,Smelting
 CRAFTING_TYPE.STONEMASONRY,,Stonemasonry
@@ -218,6 +221,7 @@ FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{F
 
 FURNITURE.ARCHERY_TARGET,,Archery target
 FURNITURE.ARCHERY_TARGET.TOOLTIP,,Military settlers will practice their ranged combat skills here
+FURNITURE.ARTISAN_WORKSTATION,,Artisan workstation
 FURNITURE.ARMOUR_STAND,,Armour stand
 FURNITURE.BAKERS_WORKTOP,,Baker’s worktop
 FURNITURE.BAKERS_WORKTOP.TOOLTIP,,A {{PROFESSION.CHEF}} works here to turn {{RESOURCE.FLOUR.SACK.PLURAL}} into {{INGREDIENT.DOUGH}}.
@@ -324,6 +328,8 @@ FURNITURE.WINDMILL.TOOLTIP,,Provides mechanical power to other contraptions via 
 FURNITURE.WOODCUTTERS_BENCH,,Woodcutting Bench
 FURNITURE.WOODCUTTERS_BENCH.TOOLTIP,,A {{PROFESSION.WOODCUTTER}} works here to turn {{RESOURCE.LOGS.PLURAL}} into {{RESOURCE.PLANKS.PLURAL}}.
 FURNITURE.INVADER_CAMPFIRE,,Campfire
+FURNITURE.IMPORT_PALLET,,Import pallet
+FURNITURE.EXPORT_PALLET,,Export pallet
 
 GEM.AMETHYST.ADJECTIVE,,Amethyst
 GEM.AMETHYST.NOUN,,Amethyst
@@ -605,6 +611,8 @@ GUI.PLACE_BRIDGE.HINT,This is a longer label as a hint to the player,A bridge mu
 GUI.POWER_LABEL,,Power & Water
 GUI.POWER_WATER_INFO,,{{FURNITURE.WINDMILL.PLURAL}} {{drawable|tooltip_icon_windmill}} and {{FURNITURE.WATERWHEEL.PLURAL}} {{drawable|tooltip_icon_waterwheel}} connect to powerlines {{drawable|tooltip_icon_power}}{{\n}}Powerlines {{drawable|tooltip_icon_power}} power {{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and other powered furniture{{\n}}{{FURNITURE.WATER_PUMP.PLURAL}} {{drawable|tooltip_icon_pump}} and Irrigation {{drawable|tooltip_icon_irrigation}} are connected to {{PRODUCT.STONE.PIPE.PLURAL}} {{drawable|tooltip_icon_pipes}}
 GUI.PRIORITY_LABEL,,Priority
+GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE,,Choose Item to Import
+GUI.PRODUCTION_EXPORT.CHOOSE_ITEM_TYPE,,Choose Item to Export
 GUI.REMOVE_LABEL,,Remove
 GUI.REMOVE_TILES,,Remove tiles
 GUI.RESOURCE_MANAGEMENT.ALL_OF,,All {{item}}
@@ -764,6 +772,7 @@ ITEM.QUALITY.PREFIX.POOR.ADJECTIVE,,Poor
 ITEM.QUALITY.PREFIX.POOR.TOOLTIP,,This item is poorly made and will slightly impede anyone using it
 ITEM.QUALITY.PREFIX.SUPERIOR.ADJECTIVE,,Superior
 ITEM.QUALITY.PREFIX.SUPERIOR.TOOLTIP,,"This item has been crafted with great skill, making it more valuable and easier to use"
+ITEM.NONE_SELECTED,,None selected
 
 ITEM_GROUP.FUEL.PLURAL,,Fuel
 ITEM_GROUP.PRODUCT.PLURAL,,Products
@@ -1254,13 +1263,12 @@ ROOMS.BRIDGE.TOOLTIP,,Placed across the river to allow access to the other side.
 ROOMS.CARPENTRY_WORKSHOP,,Carpentry workshop
 ROOMS.CARPENTRY_WORKSHOP.TOOLTIP,,This workshop produces most wooden tools and items.
 ROOMS.COMPONENT.STOCKPILE.DESCRIPTION,,{{allocated}} of {{total}} spaces currently in use
-ROOMS.EARTHWORKS,,Earthworks
-ROOMS.EARTHWORKS.TOOLTIP,,An outdoor area for large constructions.
 ROOMS.FARM,,Farm plot
 ROOMS.FARM.PLURAL,,Farm plots
 ROOMS.FARM.TOOLTIP,,Grows crops using {{INGREDIENT.SEEDS.PLURAL}}. Must be placed on {{MATERIAL_TYPE.EARTH.NOUN}}.
 ROOMS.FEASTING_HALL,,Feasting hall
 ROOMS.FEASTING_HALL.TOOLTIP,,"A place for settlers to gather to eat, drink and be merry!"
+ROOMS.FUEL_REFINERY,,Fuel refinery
 ROOMS.GRAVEYARD,,Graveyard
 ROOMS.GRAVEYARD.TOOLTIP,,Deceased settlers are laid to rest here.
 ROOMS.KITCHEN,,Kitchen
@@ -1492,7 +1500,7 @@ TUTORIAL.CAMERA.A,,"You can use the W, A, S and D keys or the arrow keys to pan 
 TUTORIAL.CAMERA.B,,Scrolling the mouse wheel or pressing the Q and E keys zooms the camera in or out.
 TUTORIAL.CAMERA.C,,"In the lower-right section of the screen is the minimap, and you can click on this to jump the camera to that point. Click on the “Minimap” label to show or hide the minimap."
 TUTORIAL.CAMERA.D,,Try out these camera controls and then click “Next” to proceed.
-TUTORIAL.FINAL.A,,"This covers the basics of playing King under the Mountain. For your next challenge, aim to set up a functioning {{ROOMS.METALWORKS}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore. Refined metal ores are produced at the {{FURNITURE.ORE_CRUSHING_STATION}}, and fuel can be crushed from coal or produced out of {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} with a {{FURNITURE.CHARCOAL_CLAMP}} in an {{ROOMS.EARTHWORKS}}. Good luck!"
+TUTORIAL.FINAL.A,,"This covers the basics of playing King under the Mountain. For your next challenge, aim to set up a functioning {{ROOMS.METALWORKS}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore. Refined metal ores are produced at the {{FURNITURE.ORE_CRUSHING_STATION}}, and fuel can be crushed from coal or produced out of {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} with a {{FURNITURE.CHARCOAL_CLAMP}} in the {{ROOMS.FUEL_REFINERY}}. Good luck!"
 TUTORIAL.PROGRESS_DESCRIPTION.FARM_PLOT_SELECTIONS,Used to show a progress indicator for how many farm plots have a crop selected e.g. 2 of 10 farm plots with a crop assigned,{{ROOMS.FARM.PLURAL}} with a crop assigned
 TUTORIAL.PROGRESS_DESCRIPTION.PROFESSIONS_ASSIGNED,Used to show a progress indicator for how many of a certain profession have been assigned e.g. 2 of 10 farmers assigned,{{professionPlural}} assigned
 TUTORIAL.PROGRESS_DESCRIPTION.TEXT,Used to show a progress indicator in the form: 2 of 10 stone blocks,{{currentQuantity}} of {{requiredQuantity}} {{targetDescription}}

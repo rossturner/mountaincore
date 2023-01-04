@@ -9,15 +9,22 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.utils.Pools;
+import technology.rocketjump.saul.ui.widgets.GameDialog;
+import technology.rocketjump.saul.ui.widgets.GameDialogMessageHandler;
+
+import java.util.List;
 
 public class StageAreaOnlyInputHandler implements InputProcessor {
 
 	private final Stage parent;
 	private final GameInteractionStateContainer interactionStateContainer;
+	private final GameDialogMessageHandler gameDialogMessageHandler;
 
-	public StageAreaOnlyInputHandler(Stage parent, GameInteractionStateContainer interactionStateContainer) {
+	public StageAreaOnlyInputHandler(Stage parent, GameInteractionStateContainer interactionStateContainer,
+									 GameDialogMessageHandler gameDialogMessageHandler) {
 		this.parent = parent;
 		this.interactionStateContainer = interactionStateContainer;
+		this.gameDialogMessageHandler = gameDialogMessageHandler;
 	}
 
 	@Override
@@ -40,6 +47,14 @@ public class StageAreaOnlyInputHandler implements InputProcessor {
 		Vector2 mouseStageCoords = parent.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 		Actor target = parent.hit(mouseStageCoords.x, mouseStageCoords.y, true);
 		parent.touchDown(screenX, screenY, pointer, button);
+		if (button == Input.Buttons.RIGHT) {
+			List<GameDialog> displayedDialogs = gameDialogMessageHandler.getDisplayedDialogs();
+			if (displayedDialogs.size() > 0) {
+				displayedDialogs.get(0).close();
+				return true;
+			}
+		}
+
 		if (target == null || button == Input.Buttons.RIGHT || interactionStateContainer.isDragging()) {
 			return false;
 		} else {
@@ -86,37 +101,26 @@ public class StageAreaOnlyInputHandler implements InputProcessor {
 	public boolean scrolled(float amountX, float amountY) {
 		Vector2 mouseStageCoords = parent.screenToStageCoordinates(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 
-		Actor target = parent.hit(mouseStageCoords.x, mouseStageCoords.y, true);
-		target = findParentScrollable(target);
-		if (target == null) {
-			target = parent.getRoot();
+		if (parent.getScrollFocus() != null && parent.getScrollFocus() instanceof ScrollPane) {
+			Actor scrollActor = parent.getScrollFocus();
+			Vector2 localCoords = scrollActor.stageToLocalCoordinates(mouseStageCoords);
+			if (0 <= localCoords.x && localCoords.x <= scrollActor.getWidth() &&
+					0 <= localCoords.y && localCoords.y <= scrollActor.getHeight()) {
+				// Mouse is over the focused scroll pane, so let the default behaviour happen
+				InputEvent event = Pools.obtain(InputEvent.class);
+				event.setStage(parent);
+				event.setType(InputEvent.Type.scrolled);
+				event.setScrollAmountX(amountX);
+				event.setScrollAmountY(amountY);
+				event.setStageX(mouseStageCoords.x);
+				event.setStageY(mouseStageCoords.y);
+				scrollActor.fire(event);
+				boolean handled = event.isHandled();
+				Pools.free(event);
+				return handled;
+			}
 		}
-
-		if (target.getX() <= mouseStageCoords.x && mouseStageCoords.x <= target.getX() + target.getWidth() &&
-				target.getY() <= mouseStageCoords.y && mouseStageCoords.y <= target.getY() + target.getHeight()) {
-			InputEvent event = Pools.obtain(InputEvent.class);
-			event.setStage(parent);
-			event.setType(InputEvent.Type.scrolled);
-			event.setScrollAmountX(amountX);
-			event.setScrollAmountY(amountY);
-			event.setStageX(mouseStageCoords.x);
-			event.setStageY(mouseStageCoords.y);
-			target.fire(event);
-			boolean handled = event.isHandled();
-			Pools.free(event);
-			return handled;
-		} else {
-			return false;
-		}
+		return false;
 	}
 
-	private Actor findParentScrollable(Actor actor) {
-		if (actor == null) {
-			return null;
-		} else if (actor instanceof ScrollPane) {
-			return actor;
-		} else {
-			return findParentScrollable(actor.getParent());
-		}
-	}
 }

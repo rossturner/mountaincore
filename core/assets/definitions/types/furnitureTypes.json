@@ -3,8 +3,6 @@
   "i18nKey" : "FURNITURE.SINGLE_BED",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x2N",
-  "colorCode" : "#a04b00",
-  "iconName" : "bed",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -24,8 +22,6 @@
   "i18nKey" : "FURNITURE.SLEEPING_SPOT",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1",
-  "colorCode" : "#9f7d60",
-  "iconName" : "sleeping-bag",
   "autoConstructed" : true,
   "requirements" : {
     "EARTH" : [ ]
@@ -37,8 +33,6 @@
   "i18nKey" : "FURNITURE.SINGLE_BED",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x2N",
-  "colorCode" : "#a04b00",
-  "iconName" : "bed",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -58,8 +52,6 @@
   "i18nKey" : "FURNITURE.SLEEPING_SPOT",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1",
-  "colorCode" : "#9f7d60",
-  "iconName" : "sleeping-bag",
   "autoConstructed" : true,
   "requirements" : {
     "EARTH" : [ ]
@@ -71,8 +63,6 @@
   "i18nKey" : "FURNITURE.CHAIR",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1E",
-  "colorCode" : "#e0a275",
-  "iconName" : "stone-throne",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -91,12 +81,36 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
+  "name" : "ARTISAN_WORKSTATION",
+  "i18nKey" : "FURNITURE.ARTISAN_WORKSTATION",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "2x3L no rotation",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 4,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Tool-Small-Hammer",
+      "quantity" : 1,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Tool-Tongs",
+      "quantity" : 1,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "CRAFTING_STATION_BEHAVIOUR" : [ "FINE_DETAIL_CRAFTING", "CRAFT_ITEM", "HAULING" ],
+    "DECORATION_FROM_INPUT" : [ "Tool-Small-Hammer", "Tool-Tongs" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "BAKERS_WORKTOP",
   "i18nKey" : "FURNITURE.BAKERS_WORKTOP",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x3BL1R",
-  "colorCode" : "#b8ad4e",
-  "iconName" : "swap-bag",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -150,8 +164,6 @@
   "i18nKey" : "FURNITURE.BAKING_OVEN",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
-  "colorCode" : "#ab8a49",
-  "iconName" : "sliced-bread",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -169,8 +181,6 @@
   "i18nKey" : "FURNITURE.BLOOMERY_FURNACE",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x2+SW with lower workspaces",
-  "colorCode" : "#d44545",
-  "iconName" : "metal-bar",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -188,7 +198,7 @@
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "SMELTING", "PRODUCE_ITEM", "HAULING" ],
+    "CRAFTING_STATION_BEHAVIOUR" : [ "SMELTING", "CRAFT_ITEM", "HAULING" ],
     "CRAFTING_OVERRIDE" : [ "DO_NOT_HAUL_OUTPUT" ],
     "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Stone-Unrefined", "STONE_COLOR", "MISC_COLOR_1", "Resource-Stone-Block", "STONE_COLOR", "MISC_COLOR_2" ],
     "EXTRA_MATERIAL_TYPES" : [ "CLOTH", "METAL" ],
@@ -200,8 +210,6 @@
   "i18nKey" : "FURNITURE.BONE_CRAFTING_BENCH",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x3BL1R",
-  "colorCode" : "#fbfbf9",
-  "iconName" : "chisel",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -228,8 +236,6 @@
   "i18nKey" : "FURNITURE.BREW_KETTLE",
   "blocksMovement" : true,
   "defaultLayoutName" : "mashtun layout",
-  "colorCode" : "#c67852",
-  "iconName" : "round-bottom-flask-uncorked",
   "autoConstructed" : false,
   "requirements" : {
     "METAL" : [ {
@@ -254,8 +260,6 @@
   "i18nKey" : "FURNITURE.BUTCHERY_WORKTOP",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x1 with workspaces, no rotation",
-  "colorCode" : "#b25b47",
-  "iconName" : "kitchen-knives",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -278,8 +282,6 @@
   "i18nKey" : "FURNITURE.CARPENTRY_WORKBENCH",
   "blocksMovement" : true,
   "defaultLayoutName" : "carpentry-bench-layout",
-  "colorCode" : "#e7c467",
-  "iconName" : "planks",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -315,8 +317,6 @@
   "i18nKey" : "FURNITURE.CHARCOAL_CLAMP",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
-  "colorCode" : "#746044",
-  "iconName" : "pyre",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ ]
@@ -330,8 +330,6 @@
   "i18nKey" : "FURNITURE.CHARCOAL_CLAMP",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
-  "colorCode" : "#746044",
-  "iconName" : "pyre",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -350,8 +348,6 @@
   "i18nKey" : "FURNITURE.CHARCOAL_CLAMP",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
-  "colorCode" : "#746044",
-  "iconName" : "pyre",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -370,8 +366,6 @@
   "i18nKey" : "FURNITURE.COKE_OVEN",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
-  "colorCode" : "#b3a5a1",
-  "iconName" : "fireplace",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -385,7 +379,7 @@
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "COKE_OVEN_BAKING", "PRODUCE_ITEM", "HAULING" ]
+    "CRAFTING_STATION_BEHAVIOUR" : [ "COKE_OVEN_BAKING", "CRAFT_ITEM", "HAULING" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {
@@ -393,8 +387,6 @@
   "i18nKey" : "FURNITURE.DOUGH_PROOFING_TABLE",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with workspaces",
-  "colorCode" : "#EBDEB0",
-  "iconName" : "sliced-bread",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -413,8 +405,6 @@
   "i18nKey" : "FURNITURE.FERMENTATION_TANK",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with workspaces",
-  "colorCode" : "#e6c974",
-  "iconName" : "chemical-tank",
   "autoConstructed" : false,
   "requirements" : {
     "METAL" : [ {
@@ -438,8 +428,6 @@
   "i18nKey" : "FURNITURE.FLETCHERS_WORKBENCH",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x3L3R",
-  "colorCode" : "#8dd68a",
-  "iconName" : "bow-arrow",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -479,8 +467,6 @@
   "i18nKey" : "FURNITURE.FLOUR_MILL",
   "blocksMovement" : true,
   "defaultLayoutName" : "3x1 with workspaces",
-  "colorCode" : "#d7ce86",
-  "iconName" : "grain",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -514,8 +500,6 @@
   "i18nKey" : "FURNITURE.FORGE",
   "blocksMovement" : true,
   "defaultLayoutName" : "inverted-U",
-  "colorCode" : "#666666",
-  "iconName" : "anvil",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -550,8 +534,6 @@
   "i18nKey" : "FURNITURE.LEATHERWORKING_STATION",
   "blocksMovement" : true,
   "defaultLayoutName" : "leatherwork-bench-layout",
-  "colorCode" : "#AA7252",
-  "iconName" : "animal-hide",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -577,7 +559,7 @@
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "LEATHERWORKING", "PRODUCE_ITEM", "HAULING" ],
+    "CRAFTING_STATION_BEHAVIOUR" : [ "LEATHERWORKING", "CRAFT_ITEM", "HAULING" ],
     "DECORATION_FROM_INPUT" : [ "Tool-Chisel", "Tool-Kitchen-Knife" ],
     "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Product-Leather", "SKIN_COLOR", "MISC_COLOR_1", "Product-Barrel-Staves", "WOOD_COLOR", "MISC_COLOR_2", "Resource-Planks", "WOOD_COLOR", "MISC_COLOR_3" ],
     "EXTRA_MATERIAL_TYPES" : [ "WOOD" ]
@@ -588,8 +570,6 @@
   "i18nKey" : "FURNITURE.LOOM",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with S workspace",
-  "colorCode" : "#dce551",
-  "iconName" : "sewing-string",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -608,8 +588,6 @@
   "i18nKey" : "FURNITURE.MALTING_STATION",
   "blocksMovement" : true,
   "defaultLayoutName" : "4x1 WE",
-  "colorCode" : "#e29a39",
-  "iconName" : "powder",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -636,7 +614,7 @@
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "MALTING", "PRODUCE_ITEM", "HAULING" ],
+    "CRAFTING_STATION_BEHAVIOUR" : [ "MALTING", "CRAFT_ITEM", "HAULING" ],
     "PARTICLE_EFFECTS_WHILE_IN_USE" : [ "Milling" ],
     "DECORATION_FROM_INPUT" : [ "Product-Liquid-Tank" ]
   },
@@ -646,8 +624,6 @@
   "i18nKey" : "FURNITURE.MASH_TUN",
   "blocksMovement" : true,
   "defaultLayoutName" : "mashtun layout",
-  "colorCode" : "#ac7e28",
-  "iconName" : "mashtun",
   "autoConstructed" : false,
   "requirements" : {
     "METAL" : [ {
@@ -676,8 +652,6 @@
   "i18nKey" : "FURNITURE.ORE_CRUSHING_STATION",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
-  "colorCode" : "#b5411d",
-  "iconName" : "ore",
   "autoConstructed" : false,
   "requirements" : {
     "METAL" : [ {
@@ -695,7 +669,7 @@
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "ORE_CRUSHING", "PRODUCE_ITEM", "HAULING" ],
+    "CRAFTING_STATION_BEHAVIOUR" : [ "ORE_CRUSHING", "CRAFT_ITEM", "HAULING" ],
     "PARTICLE_EFFECTS_WHILE_IN_USE" : [ "Ore chips" ],
     "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Metal-Plate", "METAL_COLOR", "MISC_COLOR_1", "Product-Barrel-Hoops", "METAL_COLOR", "MISC_COLOR_2" ],
     "EXTRA_MATERIAL_TYPES" : [ "CLOTH" ],
@@ -707,8 +681,6 @@
   "i18nKey" : "FURNITURE.STONEMASON_WORKBENCH",
   "blocksMovement" : true,
   "defaultLayoutName" : "stonemason-bench-layout",
-  "colorCode" : "#C9C9C9",
-  "iconName" : "stone-pile",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -739,8 +711,6 @@
   "i18nKey" : "FURNITURE.TANNING_FRAME",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
-  "colorCode" : "#BE926E",
-  "iconName" : "wood-frame",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -750,7 +720,7 @@
     } ]
   },
   "tags" : {
-    "CRAFTING_STATION_BEHAVIOUR" : [ "TANNING_HIDE", "PRODUCE_ITEM", "HAULING" ],
+    "CRAFTING_STATION_BEHAVIOUR" : [ "TANNING_HIDE", "CRAFT_ITEM", "HAULING" ],
     "COPY_GAME_MATERIAL_FROM_INVENTORY" : [ "SKIN" ]
   },
   "hiddenFromPlacementMenu" : false
@@ -759,8 +729,6 @@
   "i18nKey" : "FURNITURE.WOODCUTTERS_BENCH",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x3BL1R",
-  "colorCode" : "#f19144",
-  "iconName" : "hand-saw",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -813,8 +781,6 @@
   "i18nKey" : "FURNITURE.SINGLE_DOOR",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1EW",
-  "colorCode" : "#be926e",
-  "iconName" : "wooden-door",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -840,8 +806,6 @@
   "i18nKey" : "FURNITURE.SINGLE_DOOR",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1EW",
-  "colorCode" : "#be926e",
-  "iconName" : "wooden-door",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -867,8 +831,6 @@
   "i18nKey" : "FURNITURE.SINGLE_DOOR_FRAME",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1EW",
-  "colorCode" : "#be926e",
-  "iconName" : "wooden-door",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -894,8 +856,6 @@
   "i18nKey" : "FURNITURE.GRAVE",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x2 with workspaces",
-  "colorCode" : "#9a7555",
-  "iconName" : "tombstone",
   "autoConstructed" : true,
   "requirements" : {
     "EARTH" : [ ]
@@ -912,8 +872,6 @@
   "i18nKey" : "FURNITURE.GRAVE",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x2 with workspaces",
-  "colorCode" : "#9a7555",
-  "iconName" : "tombstone",
   "autoConstructed" : true,
   "requirements" : {
     "EARTH" : [ ]
@@ -930,8 +888,6 @@
   "i18nKey" : "FURNITURE.SARCOPHAGUS",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x2N",
-  "colorCode" : "#665a5a",
-  "iconName" : "sarcophagus",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -949,8 +905,6 @@
   "i18nKey" : "FURNITURE.INVADER_CAMPFIRE",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1",
-  "colorCode" : "#F0B70E",
-  "iconName" : "flame",
   "showInGuiView" : "DEBUG",
   "autoConstructed" : true,
   "requirements" : {
@@ -966,8 +920,6 @@
   "i18nKey" : "FURNITURE.LANTERN",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1",
-  "colorCode" : "#6dc14c",
-  "iconName" : "lantern-flame",
   "showInGuiView" : "BUILD_MENU",
   "autoConstructed" : false,
   "requirements" : {
@@ -984,8 +936,6 @@
   "i18nKey" : "FURNITURE.BEER_TAPPER",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x1 with workspaces",
-  "colorCode" : "#e3e369",
-  "iconName" : "beer-stein",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1008,8 +958,6 @@
   "i18nKey" : "FURNITURE.CAULDRON",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with workspaces",
-  "colorCode" : "#ba4b1a",
-  "iconName" : "cauldron",
   "autoConstructed" : true,
   "requirements" : {
     "METAL" : [ {
@@ -1027,8 +975,6 @@
   "i18nKey" : "FURNITURE.CAULDRON",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with workspaces",
-  "colorCode" : "#ba4b1a",
-  "iconName" : "cauldron",
   "autoConstructed" : true,
   "requirements" : {
     "METAL" : [ {
@@ -1048,8 +994,6 @@
   "i18nKey" : "FURNITURE.MUSHROOM_SHOCK_TANK",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x1 with workspaces",
-  "colorCode" : "#25a2d0",
-  "iconName" : "drop",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -1073,8 +1017,6 @@
   "i18nKey" : "FURNITURE.RETTING_TANK",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x1 with workspaces",
-  "colorCode" : "#25a2d0",
-  "iconName" : "drop",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -1098,8 +1040,6 @@
   "i18nKey" : "FURNITURE.WATER_BARREL",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with workspaces",
-  "colorCode" : "#26e1ed",
-  "iconName" : "barrel",
   "autoConstructed" : true,
   "requirements" : {
     "WOOD" : [ {
@@ -1118,8 +1058,6 @@
   "i18nKey" : "FURNITURE.WELL",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x2 with lower workspaces",
-  "colorCode" : "#26e1ed",
-  "iconName" : "well",
   "showInGuiView" : "POWER_WATER_MENU",
   "autoConstructed" : false,
   "requirements" : {
@@ -1151,8 +1089,6 @@
   "i18nKey" : "FURNITURE.WATERWHEEL",
   "blocksMovement" : true,
   "defaultLayoutName" : "Waterwheel S side",
-  "colorCode" : "#8ee1da",
-  "iconName" : "water-mill",
   "showInGuiView" : "POWER_WATER_MENU",
   "autoConstructed" : false,
   "requirements" : {
@@ -1176,8 +1112,6 @@
   "i18nKey" : "FURNITURE.WATER_PUMP",
   "blocksMovement" : true,
   "defaultLayoutName" : "Water Pump WE Layout",
-  "colorCode" : "#26e1ed",
-  "iconName" : "tap",
   "showInGuiView" : "POWER_WATER_MENU",
   "autoConstructed" : false,
   "requirements" : {
@@ -1201,8 +1135,6 @@
   "i18nKey" : "FURNITURE.WINDMILL",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x3 no rotation",
-  "colorCode" : "#c14545",
-  "iconName" : "windmill",
   "showInGuiView" : "POWER_WATER_MENU",
   "autoConstructed" : false,
   "requirements" : {
@@ -1230,8 +1162,6 @@
   "i18nKey" : "FURNITURE.ARCHERY_TARGET",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with S workspace offset 6",
-  "colorCode" : "#E38B20",
-  "iconName" : "archery-target",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1252,8 +1182,6 @@
   "i18nKey" : "FURNITURE.TRAINING_DUMMY",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x1 with S workspace",
-  "colorCode" : "#3CC9C2",
-  "iconName" : "target-dummy",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1274,8 +1202,6 @@
   "i18nKey" : "FURNITURE.MUSHROOM_LOG",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x1EW with workspaces",
-  "colorCode" : "#963482",
-  "iconName" : "mushroom-gills",
   "autoConstructed" : true,
   "requirements" : {
     "SEED" : [ {
@@ -1293,8 +1219,6 @@
   "i18nKey" : "FURNITURE.MUSHROOM_LOG",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x1EW with workspaces",
-  "colorCode" : "#963482",
-  "iconName" : "mushroom-gills",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1312,8 +1236,6 @@
   "i18nKey" : "FURNITURE.MUSHROOM_LOG",
   "blocksMovement" : true,
   "defaultLayoutName" : "1x1EW with workspaces",
-  "colorCode" : "#963482",
-  "iconName" : "mushroom-gills",
   "autoConstructed" : true,
   "requirements" : {
     "SEED" : [ {
@@ -1332,8 +1254,6 @@
   "i18nKey" : "FURNITURE.PILLAR",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1",
-  "colorCode" : "#988568",
-  "iconName" : "ionic-column",
   "showInGuiView" : "BUILD_MENU",
   "autoConstructed" : false,
   "requirements" : {
@@ -1353,12 +1273,54 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
+  "name" : "EXPORT_PALLET",
+  "i18nKey" : "FURNITURE.EXPORT_PALLET",
+  "blocksMovement" : false,
+  "defaultLayoutName" : "1x1",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 2,
+      "liquid" : false
+    } ],
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 2,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "PRODUCTION_EXPORT" : [ "1" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "IMPORT_PALLET",
+  "i18nKey" : "FURNITURE.IMPORT_PALLET",
+  "blocksMovement" : false,
+  "defaultLayoutName" : "1x1",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 2,
+      "liquid" : false
+    } ],
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 2,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "PRODUCTION_IMPORT" : [ "1", "HAULING" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "Armour_Stand",
   "i18nKey" : "FURNITURE.ARMOUR_STAND",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1 with workspaces",
-  "colorCode" : "#E9B775",
-  "iconName" : "armor-vest",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1376,8 +1338,6 @@
   "i18nKey" : "FURNITURE.WEAPON_RACK",
   "blocksMovement" : false,
   "defaultLayoutName" : "1x1NS",
-  "colorCode" : "#E2C793",
-  "iconName" : "crossed-swords",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {
@@ -1396,8 +1356,6 @@
   "i18nKey" : "FURNITURE.FEASTING_TABLE",
   "blocksMovement" : true,
   "defaultLayoutName" : "4x2",
-  "colorCode" : "#e0a275",
-  "iconName" : "meal",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -1418,8 +1376,6 @@
   "i18nKey" : "FURNITURE.KITCHEN_WORKTOP",
   "blocksMovement" : true,
   "defaultLayoutName" : "2x1 with workspaces",
-  "colorCode" : "#f8981e",
-  "iconName" : "carrot",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {
@@ -1443,8 +1399,6 @@
   "i18nKey" : "FURNITURE.SERVING_TABLE",
   "blocksMovement" : true,
   "defaultLayoutName" : "4x1 with workspaces",
-  "colorCode" : "#ab8a49",
-  "iconName" : "chicken-oven",
   "autoConstructed" : false,
   "requirements" : {
     "STONE" : [ {

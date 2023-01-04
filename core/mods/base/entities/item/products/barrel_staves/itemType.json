@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 5,
   "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
+  "baseValuePerItem": 2,
   "hoursInInventoryUntilUnused" : 2.0,
   "stockpileGroupName" : "PRODUCTS",
   "i18nKey" : "PRODUCT.BARREL.STAVES"

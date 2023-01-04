@@ -3,8 +3,6 @@
   "i18nKey" : "FURNITURE.CARPENTRY_WORKBENCH",
   "blocksMovement" : true,
   "defaultLayoutName" : "carpentry-bench-layout",
-  "colorCode" : "#e7c467",
-  "iconName" : "planks",
   "requirements" : {
     "WOOD" : [ {
       "itemTypeName" : "Resource-Logs",

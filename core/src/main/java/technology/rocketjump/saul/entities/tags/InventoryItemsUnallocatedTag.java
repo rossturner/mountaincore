@@ -19,7 +19,7 @@ public class InventoryItemsUnallocatedTag extends Tag {
 	@Override
 	public void apply(Entity entity, TagProcessingUtils tagProcessingUtils, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		InventoryComponent inventoryComponent = entity.getOrCreateComponent(InventoryComponent.class);
-		inventoryComponent.setItemsUnallocated(true);
+		inventoryComponent.setAddAsAllocationPurpose(null);
 	}
 
 }

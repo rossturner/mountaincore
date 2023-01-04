@@ -3,6 +3,7 @@
   "maxStackSize" : 4,
   "materialTypes" : [ "STONE" ],
   "primaryMaterialType" : "STONE",
+  "baseValuePerItem": 3,
   "hoursInInventoryUntilUnused" : 1.0,
   "stockpileGroupName" : "PRODUCTS",
   "i18nKey" : "PRODUCT.STONE.PIPE"

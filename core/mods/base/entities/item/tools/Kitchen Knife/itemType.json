@@ -2,6 +2,7 @@
   "itemTypeName" : "Tool-Kitchen-Knife",
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 8,
   "holdPosition" : "RIGHT_HAND",
   "stockpileGroupName" : "TOOLS",
   "weaponInfo" : {

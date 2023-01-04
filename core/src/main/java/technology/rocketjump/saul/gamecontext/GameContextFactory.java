@@ -1,17 +1,12 @@
 package technology.rocketjump.saul.gamecontext;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.constants.SettlementConstants;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
-import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.environment.DailyWeatherTypeDictionary;
 import technology.rocketjump.saul.environment.GameClock;
@@ -21,13 +16,10 @@ import technology.rocketjump.saul.invasions.model.InvasionDefinition;
 import technology.rocketjump.saul.mapping.model.MapEnvironment;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
-import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.settlement.SettlementState;
-import technology.rocketjump.saul.settlement.production.ProductionQuota;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -42,8 +34,6 @@ public class GameContextFactory {
 	private final GameMaterialDictionary gameMaterialDictionary;
 	private final WeatherTypeDictionary weatherTypeDictionary;
 	private final DailyWeatherTypeDictionary dailyWeatherTypeDictionary;
-	private final JSONObject itemProductionDefaultsJson;
-	private final JSONObject liquidProductionDefaultsJson;
 	private final SettlementConstants settlementConstants;
 	private final UserPreferences userPreferences;
 	private final InvasionDefinitionDictionary invasionDefinitionDictionary;
@@ -59,10 +49,6 @@ public class GameContextFactory {
 		this.dailyWeatherTypeDictionary = dailyWeatherTypeDictionary;
 		this.userPreferences = userPreferences;
 		this.invasionDefinitionDictionary = invasionDefinitionDictionary;
-		FileHandle itemProductionDefaultsFile = new FileHandle("assets/definitions/crafting/itemProductionDefaults.json");
-		itemProductionDefaultsJson = JSON.parseObject(itemProductionDefaultsFile.readString());
-		FileHandle liquidProductionDefaultsFile = new FileHandle("assets/definitions/crafting/liquidProductionDefaults.json");
-		liquidProductionDefaultsJson = JSON.parseObject(liquidProductionDefaultsFile.readString());
 		settlementConstants = constantsRepo.getSettlementConstants();
 		this.settlerRace = raceDictionary.getByName("Dwarf"); // MODDING expose and test this
 	}
@@ -120,45 +106,6 @@ public class GameContextFactory {
 	}
 
 	private void initialise(SettlementState settlementState, Random random) {
-		for (String itemTypeString : itemProductionDefaultsJson.keySet()) {
-			ItemType itemType = itemTypeDictionary.getByName(itemTypeString);
-			if (itemType != null) {
-				JSONObject quotaJson = itemProductionDefaultsJson.getJSONObject(itemTypeString);
-				ProductionQuota quota = new ProductionQuota();
-				quota.setFixedAmount(quotaJson.getInteger("fixedAmount"));
-				quota.setPerSettler(quotaJson.getFloat("perSettler"));
-
-				if (quota.getFixedAmount() == null && quota.getPerSettler() == null) {
-					Logger.error("Can not parse " + quotaJson.toString() + " from productionDefaults for " + itemTypeString);
-				} else {
-					settlementState.itemTypeProductionQuotas.put(itemType, quota);
-					settlementState.itemTypeProductionAssignments.put(itemType, new HashMap<>());
-					settlementState.requiredItemCounts.put(itemType, 0);
-				}
-			} else {
-				Logger.error("Unrecognised item type name from itemProductionDefaults.json: " + itemTypeString);
-			}
-		}
-
-		for (String liquidMaterialName : liquidProductionDefaultsJson.keySet()) {
-			GameMaterial liquidMaterial = gameMaterialDictionary.getByName(liquidMaterialName);
-			if (liquidMaterial != null) {
-				JSONObject quotaJson = liquidProductionDefaultsJson.getJSONObject(liquidMaterialName);
-				ProductionQuota quota = new ProductionQuota();
-				quota.setFixedAmount(quotaJson.getInteger("fixedAmount"));
-				quota.setPerSettler(quotaJson.getFloat("perSettler"));
-
-				if (quota.getFixedAmount() == null && quota.getPerSettler() == null) {
-					Logger.error("Can not parse " + quotaJson.toString() + " from productionDefaults for " + liquidMaterialName);
-				} else {
-					settlementState.liquidProductionQuotas.put(liquidMaterial, quota);
-					settlementState.liquidProductionAssignments.put(liquidMaterial, new HashMap<>());
-					settlementState.requiredLiquidCounts.put(liquidMaterial, 0f);
-				}
-			} else {
-				Logger.error("Unrecognised material name from liquidProductionDefaults.json: " + liquidMaterialName);
-			}
-		}
 		if (!settlementState.isPeacefulMode()) {
 			initialise(settlementState.daysUntilNextInvasionCheck, random);
 		}

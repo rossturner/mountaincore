@@ -1,16 +1,25 @@
 {
-  "constructMechanismJobType" : "CONSTRUCT_MECHANISM",
   "numAnnualFish" : 120,
   "deconstructRoofingJobType" : "DECONSTRUCT_ROOFING",
   "fishAvailable" : [ "Carp", "Pike", "Perch" ],
-  "constructPipingJobType" : "CONSTRUCT_PIPING",
   "kitchenProfession" : "CHEF",
-  "deconstructPipingJobType" : "DECONSTRUCT_PIPING",
   "haulingJobType" : "HAULING",
+  "mushroomShockTimeHours" : 24.0,
+  "constructMechanismJobType" : "CONSTRUCT_MECHANISM",
+  "constructPipingJobType" : "CONSTRUCT_PIPING",
+  "deconstructPipingJobType" : "DECONSTRUCT_PIPING",
   "deconstructMechanismJobType" : "DECONSTRUCT_MECHANISM",
+  "currency" : [ {
+    "materialName" : "Gold",
+    "itemTypeName" : "Treasure-Coin",
+    "value" : 10
+  }, {
+    "materialName" : "Silver",
+    "itemTypeName" : "Treasure-Coin",
+    "value" : 1
+  } ],
   "fishingJobType" : "FISHING",
   "constructRoofingJobType" : "CONSTRUCT_ROOFING",
-  "mushroomShockTimeHours" : 24.0,
   "headerFont" : "GermaniaOne-Regular.ttf",
   "defaultFont" : "Roboto-Bold.ttf",
   "attachedLightSourceTogglePoint" : 0.75,

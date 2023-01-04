@@ -3,8 +3,6 @@
   "i18nKey": "FURNITURE.MASH_TUN",
   "blocksMovement": true,
   "defaultLayoutName": "mashtun layout",
-  "colorCode": "#ac7e28",
-  "iconName": "mashtun",
   "requirements": {
     "METAL": [
       {

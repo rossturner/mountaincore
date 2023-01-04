@@ -16,6 +16,7 @@ import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpi
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.model.physical.item.AmmoType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -50,7 +51,6 @@ import technology.rocketjump.saul.settlement.SettlementItemTracker;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
 @Singleton
@@ -346,11 +346,12 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			Entity itemToBeMoved = message.getEntityToBeMoved();
 			Entity containerEntity = itemToBeMoved.getLocationComponent().getContainerEntity();
 			if (containerEntity != null) {
-				FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(containerEntity, gameContext.getAreaMap());
+				FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(containerEntity, gameContext.getAreaMap());
 				if (navigableWorkspace != null) {
 					haulingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
 					haulingJob.setJobState(JobState.ASSIGNABLE);
-				} else if (containerEntity.getComponent(FurnitureStockpileComponent.class) != null) {
+				} else if (containerEntity.getComponent(FurnitureStockpileComponent.class) != null ||
+						!((FurnitureEntityAttributes)containerEntity.getPhysicalEntityComponent().getAttributes()).getFurnitureType().isBlocksMovement()) {
 					haulingJob.setJobLocation(VectorUtils.toGridPoint(containerEntity.getLocationComponent().getWorldPosition()));
 					haulingJob.setJobState(JobState.ASSIGNABLE);
 				} else {

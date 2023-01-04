@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.ui.eventlistener;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.ray3k.tenpatch.TenPatchDrawable;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -22,11 +24,13 @@ public class TooltipFactory {
 
 	private final Skin skin;
 	private final I18nTranslator i18nTranslator;
+	private final MessageDispatcher messageDispatcher;
 
 	@Inject
-	public TooltipFactory(GuiSkinRepository guiSkinRepository, I18nTranslator i18nTranslator) {
+	public TooltipFactory(GuiSkinRepository guiSkinRepository, I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher) {
 		this.skin = guiSkinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
+		this.messageDispatcher = messageDispatcher;
 	}
 
 	/**
@@ -59,7 +63,7 @@ public class TooltipFactory {
 			tooltipTable.add(new Image(skin.getDrawable("hover_state_label_arrow_down"))).size(76f, 40f).center().row();
 		}
 
-		parentActor.addListener(new TooltipHoverListener(parentActor, tooltipTable, () -> labelContainer.getHeight() / 2f, locationHint));
+		parentActor.addListener(new TooltipHoverListener(parentActor, tooltipTable, () -> labelContainer.getHeight() / 2f, locationHint, messageDispatcher));
 
 		tooltipTable.addListener(new InputListener() {
 			@Override
@@ -104,7 +108,7 @@ public class TooltipFactory {
 
 		tooltipTable.add(contentContainer).center().row();
 
-		parentActor.addListener(new TooltipHoverListener(parentActor, tooltipTable, () -> (contentContainer.getHeight() / 2f) - 20f, ABOVE));
+		parentActor.addListener(new TooltipHoverListener(parentActor, tooltipTable, () -> (contentContainer.getHeight() / 2f) - 20f, ABOVE, messageDispatcher));
 
 		tooltipTable.addListener(new InputListener() {
 			@Override
@@ -155,18 +159,24 @@ public class TooltipFactory {
 		private final TooltipTable tooltipTable;
 		private final TooltipLocationHint locationHint;
 		private final NonThrowingCallable<Float> yOffsetCallback;
+		private final MessageDispatcher messageDispatcher;
 
-		public TooltipHoverListener(Actor parentActor, TooltipTable tooltipTable, NonThrowingCallable<Float> yOffsetCallback, TooltipLocationHint locationHint) {
+		public TooltipHoverListener(Actor parentActor, TooltipTable tooltipTable, NonThrowingCallable<Float> yOffsetCallback, TooltipLocationHint locationHint, MessageDispatcher messageDispatcher) {
 			this.parentActor = parentActor;
 			this.tooltipTable = tooltipTable;
 			this.yOffsetCallback = yOffsetCallback;
 			this.locationHint = locationHint;
+			this.messageDispatcher = messageDispatcher;
 		}
 
 		@Override
 		public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 			if (pointer != -1) {
 				return;
+			}
+			// Remove other tooltips first
+			if (tooltipTable.getStage() == null) {
+				messageDispatcher.dispatchMessage(MessageType.GUI_REMOVE_ALL_TOOLTIPS);
 			}
 			// add to stage first or table size will be 0 (rarrrgghhh)
 			parentActor.getStage().addActor(tooltipTable);

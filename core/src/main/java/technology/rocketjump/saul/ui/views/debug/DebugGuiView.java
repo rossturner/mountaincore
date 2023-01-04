@@ -252,7 +252,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 		switch (currentAction) {
 			case SPAWN_ITEM: {
 
-				List<Entity> itemsInTile = tile.getEntities().stream().filter(e -> e.getType().equals(ITEM)).collect(Collectors.toList());
+				List<Entity> itemsInTile = tile.getEntities().stream().filter(e -> e.getType().equals(ITEM)).toList();
 
 				Optional<Entity> existingItemOfType = itemsInTile.stream()
 						.filter(e -> e.getType().equals(ITEM) &&

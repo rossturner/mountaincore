@@ -11,12 +11,10 @@
         "quantity": 4
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Ingredient-Malt-Sack",
-        "quantity": 3
-      }
-    ],
+    "output": {
+      "itemTypeName": "Ingredient-Malt-Sack",
+      "quantity": 3
+    },
     "materialTypesToCopyOver": ["VEGETABLE"],
     "extraGameHoursToComplete": 4,
     "minimumTimeToCompleteCrafting": 1.5,
@@ -32,12 +30,10 @@
         "quantity": 2
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Ingredient-Milled-Malt-Sack",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Ingredient-Milled-Malt-Sack",
+      "quantity": 1
+    },
     "materialTypesToCopyOver": ["VEGETABLE"],
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 8.5
@@ -54,16 +50,14 @@
       {
         "liquid": true,
         "materialName": "Water",
-        "quantity": 12
+        "quantity": 5
       }
     ],
-    "output": [
-      {
-        "liquid": true,
-        "materialName": "Wort",
-        "quantity": 12
-      }
-    ],
+    "output": {
+      "liquid": true,
+      "materialName": "Wort",
+      "quantity": 6
+    },
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 8.5
   },
@@ -79,16 +73,14 @@
       {
         "liquid": true,
         "materialName": "Wort",
-        "quantity": 12
+        "quantity": 6
       }
     ],
-    "output": [
-      {
-        "liquid": true,
-        "materialName": "Hopped Wort",
-        "quantity": 12
-      }
-    ],
+    "output": {
+      "liquid": true,
+      "materialName": "Hopped Wort",
+      "quantity": 6
+    },
     "extraGameHoursToComplete": 1,
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 8.5
@@ -101,16 +93,14 @@
       {
         "liquid": true,
         "materialName": "Hopped Wort",
-        "quantity": 6
+        "quantity": 3
       }
     ],
-    "output": [
-      {
-        "liquid": true,
-        "materialName": "Beer",
-        "quantity": 6
-      }
-    ],
+    "output": {
+      "liquid": true,
+      "materialName": "Beer",
+      "quantity": 6
+    },
     "extraGameHoursToComplete": 72,
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 8.5

@@ -50,6 +50,7 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 	private boolean interrupted; // For if the entire goal should be cancelled, but needs to deal with any cleanup
 
 	private transient List<Action> previousActions = new LinkedList<>(); // For debugging only right now
+	private transient AssignedGoal parentGoal;
 
 	public AssignedGoal() {
 
@@ -247,6 +248,19 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 
 	public void setInterrupted(boolean interrupted) {
 		this.interrupted = interrupted;
+	}
+
+	public void setParentGoal(AssignedGoal parentGoal) {
+		this.parentGoal = parentGoal;
+	}
+
+	public AssignedGoal getParentGoal() {
+		return parentGoal;
+	}
+
+	@Override
+	public String toString() {
+		return goal.toString();
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import technology.rocketjump.saul.assets.entities.EntityAssetTypeDictionary;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.cooking.CookingRecipeDictionary;
 import technology.rocketjump.saul.crafting.CraftingOutputQualityDictionary;
+import technology.rocketjump.saul.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
@@ -33,6 +34,7 @@ public class TagProcessingUtils {
 	public final SkillDictionary skillDictionary;
 	public final JobTypeDictionary jobTypeDictionary;
 	public final CraftingTypeDictionary craftingTypeDictionary;
+	public final CraftingRecipeDictionary craftingRecipeDictionary;
 	public final FurnitureTypeDictionary furnitureTypeDictionary;
 	public final SoundAssetDictionary soundAssetDictionary;
 	public final JobStore jobStore;
@@ -44,7 +46,7 @@ public class TagProcessingUtils {
 							  ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary materialDictionary, CraftingOutputQualityDictionary craftingOutputQualityDictionary, PlantSpeciesDictionary plantSpeciesDictionary,
 							  StockpileGroupDictionary stockpileGroupDictionary, CookingRecipeDictionary cookingRecipeDictionary,
 							  SkillDictionary skillDictionary, JobTypeDictionary jobTypeDictionary,
-							  CraftingTypeDictionary craftingTypeDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
+							  CraftingTypeDictionary craftingTypeDictionary, CraftingRecipeDictionary craftingRecipeDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
 							  SoundAssetDictionary soundAssetDictionary, JobStore jobStore,
 							  ParticleEffectTypeDictionary particleEffectTypeDictionary, StockpileComponentUpdater stockpileComponentUpdater) {
 		this.messageDispatcher = messageDispatcher;
@@ -59,6 +61,7 @@ public class TagProcessingUtils {
 		this.jobTypeDictionary = jobTypeDictionary;
 		this.skillDictionary = skillDictionary;
 		this.craftingTypeDictionary = craftingTypeDictionary;
+		this.craftingRecipeDictionary = craftingRecipeDictionary;
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.jobStore = jobStore;

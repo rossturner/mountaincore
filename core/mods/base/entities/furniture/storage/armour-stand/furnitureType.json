@@ -2,8 +2,6 @@
   "name" : "Armour_Stand",
   "i18nKey" : "FURNITURE.ARMOUR_STAND",
   "defaultLayoutName" : "1x1 with workspaces",
-  "colorCode" : "#E9B775",
-  "iconName" : "armor-vest",
   "requirements" : {
     "WOOD" : [ {
       "itemTypeName" : "Resource-Logs",

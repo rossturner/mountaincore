@@ -42,7 +42,6 @@ import technology.rocketjump.saul.modding.validation.*;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rooms.RoomType;
-import technology.rocketjump.saul.settlement.production.ProductionQuota;
 import technology.rocketjump.saul.sprites.model.BridgeType;
 import technology.rocketjump.saul.ui.hints.model.Hint;
 import technology.rocketjump.saul.ui.i18n.LanguageType;
@@ -88,10 +87,6 @@ public class ModArtifactListing {
 						"definitions/crafting", "craftingRecipes", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/crafting", "craftingTypes", JSON_ARRAY, CraftingType.class,
 						"definitions/crafting", "craftingTypes", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
-				def("definitions/crafting", "itemProductionDefaults.json", JSON_MAP, ProductionQuota.class,
-						"definitions/crafting", "itemProductionDefaults", JSON_MAP, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
-				def("definitions/crafting", "liquidProductionDefaults.json", JSON_MAP, ProductionQuota.class,
-						"definitions/crafting", "liquidProductionDefaults", JSON_MAP, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 				def("definitions/crafting", "craftingOutputQuality", JSON_ARRAY, CraftingOutputQuality.class,
 						"definitions/crafting", "craftingOutputQuality", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 

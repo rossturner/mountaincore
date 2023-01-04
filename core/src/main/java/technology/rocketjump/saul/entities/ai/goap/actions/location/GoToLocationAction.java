@@ -40,8 +40,6 @@ import java.util.List;
 
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getNearestNavigableWorkspace;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.misc.VectorUtils.toVector;
 
@@ -190,8 +188,7 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 					return null;
 				} else {
 					// Has workspaces
-					FurnitureLayout.Workspace navigableWorkspace = getNearestNavigableWorkspace(assignedFurniture, gameContext.getAreaMap(),
-							toGridPoint(parent.parentEntity.getLocationComponent().getWorldOrParentPosition()));
+					FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getNearestNavigableWorkspace(assignedFurniture, gameContext.getAreaMap(), toGridPoint(parent.parentEntity.getLocationComponent().getWorldOrParentPosition()));
 					if (navigableWorkspace == null) {
 						// Could not navigate to any workspaces
 						return null;
@@ -219,11 +216,14 @@ public class GoToLocationAction extends Action implements PathfindingCallback {
 			Entity targetFurniture = gameContext.getAreaMap().getTile(allocationPosition)
 					.getEntity(targetEntityId);
 			if (targetFurniture != null) {
-				FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(targetFurniture, gameContext.getAreaMap());
+				FurnitureEntityAttributes furnitureEntityAttributes = (FurnitureEntityAttributes)targetFurniture.getPhysicalEntityComponent().getAttributes();
+				FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(targetFurniture, gameContext.getAreaMap());
 				FurnitureStockpileComponent stockpileComponent = targetFurniture.getComponent(FurnitureStockpileComponent.class);
 				if (navigableWorkspace != null) {
 					return toVector(navigableWorkspace.getAccessedFrom());
 				} else if (stockpileComponent != null) {
+					return toVector(allocationPosition);
+				} else if (!furnitureEntityAttributes.getFurnitureType().isBlocksMovement()) {
 					return toVector(allocationPosition);
 				} else {
 					Logger.error("Could not navigate to any workspaces when picking destination");

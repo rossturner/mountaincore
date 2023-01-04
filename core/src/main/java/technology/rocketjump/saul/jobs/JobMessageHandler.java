@@ -490,8 +490,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 									messageDispatcher.dispatchMessage(MessageType.LIQUID_SPLASH, new LiquidSplashMessage(targetEntity, targetLiquidContainer.getTargetLiquidMaterial()));
 
 									if (targetEntity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
-										CraftingStationBehaviour craftingStationBehaviour = (CraftingStationBehaviour) targetEntity.getBehaviourComponent();
-										craftingStationBehaviour.liquidAdded(quantityToTransfer, gameContext.getAreaMap());
+										targetLiquidContainer.assignCraftingAllocation(quantityToTransfer);
 									}
 
 								} else {

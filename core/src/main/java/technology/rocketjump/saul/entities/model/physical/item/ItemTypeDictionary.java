@@ -77,6 +77,8 @@ public class ItemTypeDictionary {
 				craftingType.setDefaultItemType(getByName(craftingType.getDefaultItemTypeName()));
 			}
 		}
+
+		constantsRepo.initialise(this, materialDictionary);
 	}
 
 	public void add(ItemType itemType) {

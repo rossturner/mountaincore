@@ -2,6 +2,7 @@
   "itemTypeName" : "Weapon-Metal-Shield",
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 32,
   "holdPosition" : "LEFT_HAND",
   "stockpileGroupName" : "WEAPONS",
   "defenseInfo" : {

@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 30,
   "materialTypes" : [ "VEGETABLE", "WOOD" ],
   "primaryMaterialType" : "VEGETABLE",
+  "baseValuePerItem": 4,
   "hoursInInventoryUntilUnused" : 2.0,
   "stockpileGroupName" : "FOOD",
   "consumeSoundAssetName" : "EatFood",

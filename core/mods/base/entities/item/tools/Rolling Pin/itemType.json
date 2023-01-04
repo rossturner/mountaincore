@@ -2,6 +2,7 @@
   "itemTypeName" : "Tool-Rolling-Pin",
   "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
+  "baseValuePerItem": 3,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "DOUGH_PREPARATION" ],
   "stockpileGroupName" : "TOOLS",

@@ -23,6 +23,8 @@ import technology.rocketjump.saul.entities.ai.combat.CombatAction;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
+import technology.rocketjump.saul.entities.behaviour.furniture.ProductionExportFurnitureBehaviour;
+import technology.rocketjump.saul.entities.behaviour.furniture.ProductionImportFurnitureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
 import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
@@ -77,6 +79,8 @@ import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.*;
+import technology.rocketjump.saul.ui.widgets.furniture.ProductionExportFurnitureWidget;
+import technology.rocketjump.saul.ui.widgets.furniture.ProductionImportFurnitureWidget;
 import technology.rocketjump.saul.ui.widgets.rooms.PriorityWidget;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedString;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabel;
@@ -101,6 +105,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private final EntityStore entityStore;
 	private final JobStore jobStore;
 	private final TooltipFactory tooltipFactory;
+	private final ProductionImportFurnitureWidget productionImportFurnitureWidget;
+	private final ProductionExportFurnitureWidget productionExportFurnitureWidget;
 	private final MessageDispatcher messageDispatcher;
 	private final MainGameSkin mainGameSkin;
 	private final ManagementSkin managementSkin;
@@ -128,14 +134,15 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	@Inject
 	public EntitySelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
-	                             GameInteractionStateContainer gameInteractionStateContainer,
-	                             EntityStore entityStore, JobStore jobStore,
-	                             JobTypeDictionary jobTypeDictionary,
-	                             TooltipFactory tooltipFactory, DecoratedStringLabelFactory decoratedStringLabelFactory,
-	                             EntityRenderer entityRenderer, ButtonFactory buttonFactory, StockpileComponentUpdater stockpileComponentUpdater,
-	                             StockpileGroupDictionary stockpileGroupDictionary,
-	                             GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
-	                             ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary, SettlerManagementScreen settlerManagementScreen) {
+								 GameInteractionStateContainer gameInteractionStateContainer,
+								 EntityStore entityStore, JobStore jobStore,
+								 JobTypeDictionary jobTypeDictionary,
+								 TooltipFactory tooltipFactory,
+								 ProductionImportFurnitureWidget productionImportFurnitureWidget, ProductionExportFurnitureWidget productionExportFurnitureWidget, DecoratedStringLabelFactory decoratedStringLabelFactory,
+								 EntityRenderer entityRenderer, ButtonFactory buttonFactory, StockpileComponentUpdater stockpileComponentUpdater,
+								 StockpileGroupDictionary stockpileGroupDictionary,
+								 GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
+								 ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary, SettlerManagementScreen settlerManagementScreen) {
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.menuSkin = guiSkinRepository.getMenuSkin();
@@ -145,6 +152,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		this.jobStore = jobStore;
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
+		this.productionImportFurnitureWidget = productionImportFurnitureWidget;
+		this.productionExportFurnitureWidget = productionExportFurnitureWidget;
 		this.decoratedStringLabelFactory = decoratedStringLabelFactory;
 		this.entityRenderer = entityRenderer;
 		this.buttonFactory = buttonFactory;
@@ -187,6 +196,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				Updatable<Actor> settlerName = editableCreatureName(entity);
 				Updatable<Table> happinessIcons = happinessIcons(entity);
 				Updatable<Table> textSummary = textSummary(entity);
+				Updatable<Table> debugTextSummary = debugTextSummary(entity);
 				Table militaryToggle = settlerManagementScreen.militaryToggle(entity, false, s -> populate(containerTable));
 				Table weaponSelection = settlerManagementScreen.weaponSelection(entity, 0.8f, s -> populate(containerTable));
 				Table professionSelection = settlerManagementScreen.professions(entity, 0.8f, s -> update());
@@ -197,6 +207,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				updatables.add(textSummary);
 				updatables.add(needs);
 				updatables.add(inventory);
+				updatables.add(debugTextSummary);
 
 				//Top left first row - name and toggle
 				Table topLeftFirstRow = new Table();
@@ -212,7 +223,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				//Top Left Column - 2 rows
 				Table topLeftColumn = new Table();
 				topLeftColumn.add(topLeftFirstRow).left().fillX().spaceBottom(35f).row();
-				topLeftColumn.add(topLeftSecondRow).left().top().grow();
+				topLeftColumn.add(topLeftSecondRow).left().top().grow().row();
+				if (GlobalSettings.DEV_MODE) {
+					topLeftColumn.add(debugTextSummary.getActor()).left().top().grow().row();
+				}
 
 				//Top Row - 2 Cols
 				Table topRow = new Table();
@@ -292,6 +306,12 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					Updatable<Table> viewContentsUpdatable = Updatable.of(viewContents); //Absolutely despise what i've done here, essentially empty tables still pad things out
 					outerTable.add(viewContents).colspan(3).growY().padRight(67).padLeft(67).padTop(20).row();
 
+					if (entity.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour) {
+						productionImportFurnitureWidget.setFurnitureEntity(entity);
+					} else if (entity.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour) {
+						productionExportFurnitureWidget.setFurnitureEntity(entity);
+					}
+
 					viewContentsUpdatable.regularly(() -> {
 						viewContents.clear();
 
@@ -316,6 +336,12 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 						if (descriptions.getActor().hasChildren()) {
 							viewContents.add(descriptions.getActor()).center().row();
+						}
+
+						if (entity.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour) {
+							viewContents.add(productionImportFurnitureWidget).center().row();
+						} else if (entity.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour) {
+							viewContents.add(productionExportFurnitureWidget).center().row();
 						}
 
 						//TODO: test this
@@ -583,21 +609,22 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				}
 			}
 
-			if (GlobalSettings.DEV_MODE) {
-				if (itemAllocationComponent != null) {
-					List<ItemAllocation> itemAllocations = itemAllocationComponent.getAll();
-					for (ItemAllocation itemAllocation : itemAllocations) {
-						descriptions.add(itemAllocation.toString());
-					}
-				}
-
-			}
-
 			table.clear();
 			for (String description : descriptions) {
 				//TODO: Decide whether it wraps or just stretches
 				Label label = new Label(description, managementSkin, "default-font-18-label");
 				table.add(label).grow().row();
+			}
+			if (GlobalSettings.DEV_MODE) {
+				if (itemAllocationComponent != null) {
+					List<ItemAllocation> itemAllocations = itemAllocationComponent.getAll();
+					Label.LabelStyle debugStyle = new Label.LabelStyle(managementSkin.get("default-font-18-label", Label.LabelStyle.class));
+					debugStyle.fontColor = Color.PURPLE;
+					for (ItemAllocation itemAllocation : itemAllocations) {
+						Label label = new Label(itemAllocation.toString(), debugStyle);
+						table.add(label).grow().row();
+					}
+				}
 			}
 
 
@@ -829,6 +856,31 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		updatable.regularly(deadLabelUpdater);
 		updatable.regularly(factionLabelUpdater);
 		updatable.update();
+		return updatable;
+	}
+
+	private Updatable<Table> debugTextSummary(Entity entity) {
+		Table table = new Table();
+		Updatable<Table> updatable = Updatable.of(table);
+
+		if (GlobalSettings.DEV_MODE) {
+			Label.LabelStyle debugStyle = new Label.LabelStyle(managementSkin.get("default-font-18-label", Label.LabelStyle.class));
+			debugStyle.fontColor = Color.PURPLE;
+			updatable.regularly(() -> {
+				table.clearChildren();
+
+				if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+					if (creatureBehaviour.getCurrentGoal() != null) {
+						String debugText = creatureBehaviour.getCurrentGoal().goal.name;
+						if (creatureBehaviour.getCurrentGoal().getCurrentAction() != null) {
+							debugText += ": " + creatureBehaviour.getCurrentGoal().getCurrentAction().getSimpleName();
+						}
+						table.add(new Label(debugText, debugStyle)).left().row();
+					}
+				}
+			});
+		}
+
 		return updatable;
 	}
 

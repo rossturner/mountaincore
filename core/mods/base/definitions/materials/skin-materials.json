@@ -10,6 +10,7 @@
     "materialName": "Boar Hide",
     "materialType": "SKIN",
     "combustible": true,
+    "valueMultiplier": 2,
     "colorCode": "#A3938A"
   },
   {
@@ -23,6 +24,7 @@
     "materialName": "Elephant Hide",
     "materialType": "SKIN",
     "combustible": true,
+    "valueMultiplier": 4,
     "colorCode": "#f2eff0"
   }
 ]

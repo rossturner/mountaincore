@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 50,
   "materialTypes" : [ "FOODSTUFF" ],
   "primaryMaterialType" : "FOODSTUFF",
+  "baseValuePerItem": 2,
   "equippedWhileWorkingOnJob" : false,
   "hoursInInventoryUntilUnused" : 9.99999999E8,
   "stockpileGroupName" : "FOOD",

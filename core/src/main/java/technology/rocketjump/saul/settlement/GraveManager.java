@@ -8,6 +8,7 @@ import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureLayout;
 import technology.rocketjump.saul.entities.tags.DeceasedContainerTag;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
@@ -21,7 +22,6 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.HaulingAllocationBuilder;
 
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
 import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
@@ -99,7 +99,7 @@ public class GraveManager implements Updatable {
 			if (constructedEntityComponent != null && constructedEntityComponent.isBeingDeconstructed()) {
 				continue;
 			}
-			if (getAnyNavigableWorkspace(deceasedContainer, gameContext.getAreaMap()) != null) {
+			if (FurnitureLayout.getAnyNavigableWorkspace(deceasedContainer, gameContext.getAreaMap()) != null) {
 				return deceasedContainer;
 			}
 		}

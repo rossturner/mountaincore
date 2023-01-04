@@ -2,6 +2,7 @@
   "itemTypeName" : "Tool-Fishing-Rod",
   "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
+  "baseValuePerItem": 3,
   "holdPosition" : "RIGHT_HAND",
   "stockpileGroupName" : "TOOLS",
   "i18nKey" : "TOOL.FISHING.ROD"

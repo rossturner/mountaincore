@@ -3,6 +3,7 @@
   "maxStackSize" : 10,
   "materialTypes" : [ "BONE" ],
   "primaryMaterialType" : "BONE",
+  "baseValuePerItem": 5,
   "stockpileGroupName" : "RAW_MATERIALS",
   "i18nKey" : "RESOURCE.BONE.LARGE"
 }

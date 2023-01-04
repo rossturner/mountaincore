@@ -2,6 +2,7 @@
   "itemTypeName" : "Tool-Axe",
   "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 20,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "WOODCUTTING" ],
   "stockpileGroupName" : "TOOLS",

@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.getAnyNavigableWorkspace;
-
 public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prioritisable {
 
 	private List<Job> haulingJobs = new ArrayList<>();
@@ -101,7 +99,7 @@ public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prio
 		if (butcheryJob != null) {
 			boolean butcheryJobIsNavigable = gameContext.getAreaMap().getTile(butcheryJob.getJobLocation()).isNavigable(null);
 			if (!butcheryJobIsNavigable) {
-				FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
+				FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
 				if (navigableWorkspace != null) {
 					butcheryJob.setJobLocation(navigableWorkspace.getAccessedFrom());
 					butcheryJob.setSecondaryLocation(navigableWorkspace.getLocation());
@@ -129,7 +127,7 @@ public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prio
 	}
 
 	private void createButcheryJob(GameContext gameContext) {
-		FurnitureLayout.Workspace navigableWorkspace = getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
+		FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
 		Collection<Entity> decorationEntities = parentEntity.getComponent(DecorationInventoryComponent.class).getDecorationEntities();
 		if (navigableWorkspace == null) {
 			Logger.warn("Could not access workstation at " + parentEntity.getLocationComponent().getWorldPosition());

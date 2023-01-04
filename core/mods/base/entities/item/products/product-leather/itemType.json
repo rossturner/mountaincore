@@ -3,6 +3,7 @@
   "maxStackSize" : 10,
   "materialTypes" : [ "SKIN" ],
   "primaryMaterialType" : "SKIN",
+  "baseValuePerItem": 6,
   "relatedCraftingTypeNames" : [ "TANNING_HIDE" ],
   "stockpileGroupName" : "PRODUCTS",
   "i18nKey" : "PRODUCT.LEATHER"

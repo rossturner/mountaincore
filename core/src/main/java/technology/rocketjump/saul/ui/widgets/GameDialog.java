@@ -3,11 +3,14 @@ package technology.rocketjump.saul.ui.widgets;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.entities.SequentialIdGenerator;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
@@ -15,12 +18,14 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 
 public abstract class GameDialog implements Disposable {
 
+	private final long id;
 	private final Skin skin;
 	protected final MessageDispatcher messageDispatcher;
 	protected final SoundAssetDictionary soundAssetDictionary;
 	protected Dialog dialog;
 	protected Image fullScreenOverlay;
 	protected boolean addedCursorChangeListeners;
+	private boolean showWithAnimation = true;
 
 	protected final Table layoutTable = new Table();
 	protected final Table contentTable = new Table();
@@ -30,6 +35,7 @@ public abstract class GameDialog implements Disposable {
 	}
 	public GameDialog(I18nText titleText, Skin skin, MessageDispatcher messageDispatcher,
 					  Window.WindowStyle windowStyle, SoundAssetDictionary soundAssetDictionary) {
+		this.id = SequentialIdGenerator.nextId();
 		this.messageDispatcher = messageDispatcher;
 		this.soundAssetDictionary = soundAssetDictionary;
 		dialog = new Dialog("", skin) {
@@ -84,14 +90,27 @@ public abstract class GameDialog implements Disposable {
 		if (fullScreenOverlay != null) {
 			stage.addActor(fullScreenOverlay);
 		}
-		dialog.show(stage);
+
+		if (showWithAnimation) {
+			dialog.show(stage);
+		} else {
+			dialog.show(stage, Actions.alpha(1));
+			dialog.setPosition(Math.round((stage.getWidth() - dialog.getWidth()) / 2), Math.round((stage.getHeight() - dialog.getHeight()) / 2));
+		}
+		messageDispatcher.dispatchMessage(MessageType.DIALOG_SHOWN, this);
 	}
 
 	public void close() {
 		if (fullScreenOverlay != null) {
 			fullScreenOverlay.remove();
 		}
-		dialog.hide();
+
+		if (showWithAnimation) {
+			dialog.hide();
+		} else {
+			dialog.hide(Actions.alpha(0f));
+		}
+		messageDispatcher.dispatchMessage(MessageType.DIALOG_HIDDEN, this);
 		dispose();
 	}
 
@@ -120,4 +139,11 @@ public abstract class GameDialog implements Disposable {
 		return this;
 	}
 
+	public void setShowWithAnimation(boolean showWithAnimation) {
+		this.showWithAnimation = showWithAnimation;
+	}
+
+	public long getId() {
+		return id;
+	}
 }

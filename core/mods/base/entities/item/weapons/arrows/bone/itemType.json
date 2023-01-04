@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 50,
   "materialTypes" : [ "BONE", "WOOD" ],
   "primaryMaterialType" : "BONE",
+  "baseValuePerItem": 2,
   "hoursInInventoryUntilUnused" : 3.0,
   "stockpileGroupName" : "WEAPONS",
   "isAmmoType" : "ARROWS",

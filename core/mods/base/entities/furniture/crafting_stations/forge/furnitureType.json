@@ -3,8 +3,6 @@
   "i18nKey" : "FURNITURE.FORGE",
   "blocksMovement" : true,
   "defaultLayoutName" : "inverted-U",
-  "colorCode" : "#666666",
-  "iconName" : "anvil",
   "requirements" : {
     "STONE" : [ {
       "itemTypeName" : "Resource-Stone-Block",

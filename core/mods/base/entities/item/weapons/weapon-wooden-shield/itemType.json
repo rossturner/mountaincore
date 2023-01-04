@@ -2,6 +2,7 @@
   "itemTypeName" : "Weapon-Wooden-Shield",
   "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
+  "baseValuePerItem": 6,
   "holdPosition" : "LEFT_HAND",
   "stockpileGroupName" : "WEAPONS",
   "defenseInfo" : {

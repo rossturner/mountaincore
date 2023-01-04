@@ -8,12 +8,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Planks",
-        "quantity": 2
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Planks",
+      "quantity": 2
+    },
     "materialTypesToCopyOver": ["WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 5.5
@@ -27,114 +25,14 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Planks",
-        "quantity": 2
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Planks",
+      "quantity": 2
+    },
     "itemTypeRequiredName": "Tool-Axe",
     "materialTypesToCopyOver": ["WOOD"],
     "minimumTimeToCompleteCrafting": 1,
     "maximumTimeToCompleteCrafting": 3
-  },
-
-  {
-    "recipeName": "Cut stone blocks",
-    "craftingTypeName": "STONEMASONRY",
-    "input": [
-      {
-        "itemTypeName": "Resource-Stone-Unrefined",
-        "quantity": 1
-      }
-    ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Stone-Block",
-        "quantity": 2
-      }
-    ],
-    "itemTypeRequiredName": "Tool-Chisel",
-    "materialTypesToCopyOver": ["STONE"],
-    "minimumTimeToCompleteCrafting": 2.5,
-    "maximumTimeToCompleteCrafting": 6.5
-  },
-  {
-    "recipeName": "Cut gems",
-
-    "craftingTypeName": "STONEMASONRY",
-    "input": [
-      {
-        "itemTypeName": "Resource-Gems-Unrefined",
-        "quantity": 1
-      }
-    ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Gem",
-        "quantity": 4
-      }
-    ],
-    "materialTypesToCopyOver": ["GEM"],
-    "minimumTimeToCompleteCrafting": 2.5,
-    "maximumTimeToCompleteCrafting": 8.5
-  },
-  {
-    "recipeName": "Craft millstone",
-    "craftingTypeName": "STONEMASONRY",
-    "input": [
-      {
-        "itemTypeName": "Resource-Stone-Block",
-        "quantity": 3
-      }
-    ],
-    "output": [
-      {
-        "itemTypeName": "Product-Millstone",
-        "quantity": 1
-      }
-    ],
-    "materialTypesToCopyOver": ["STONE"],
-    "minimumTimeToCompleteCrafting": 2.5,
-    "maximumTimeToCompleteCrafting": 8.5
-  },
-  {
-    "recipeName": "Craft gear",
-    "craftingTypeName": "STONEMASONRY",
-    "input": [
-      {
-        "itemTypeName": "Resource-Stone-Block",
-        "quantity": 1
-      }
-    ],
-    "output": [
-      {
-        "itemTypeName": "Product-Stone-Gear",
-        "quantity": 1
-      }
-    ],
-    "materialTypesToCopyOver": ["STONE"],
-    "minimumTimeToCompleteCrafting": 2.5,
-    "maximumTimeToCompleteCrafting": 6.5
-  },
-  {
-    "recipeName": "Craft pipe",
-    "craftingTypeName": "STONEMASONRY",
-    "input": [
-      {
-        "itemTypeName": "Resource-Stone-Block",
-        "quantity": 1
-      }
-    ],
-    "output": [
-      {
-        "itemTypeName": "Product-Stone-Pipe",
-        "quantity": 1
-      }
-    ],
-    "materialTypesToCopyOver": ["STONE"],
-    "minimumTimeToCompleteCrafting": 2.5,
-    "maximumTimeToCompleteCrafting": 8.5
   },
 
   {
@@ -146,12 +44,10 @@
         "quantity": 2
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Barrel-Hoops",
-        "quantity": 3
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Barrel-Hoops",
+      "quantity": 3
+    },
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 8.5
@@ -165,12 +61,10 @@
         "quantity": 4
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Metal-Plate",
-        "quantity": 2
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Plate",
+      "quantity": 2
+    },
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -181,19 +75,17 @@
     "input": [
       {
         "itemTypeName": "Resource-Metal-Plate",
-        "quantity": 4
+        "quantity": 2
       },
       {
         "itemTypeName": "Product-Barrel-Hoops",
         "quantity": 2
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Liquid-Tank",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Liquid-Tank",
+      "quantity": 1
+    },
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -211,12 +103,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Cauldron",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Cauldron",
+      "quantity": 1
+    },
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 10.5
@@ -230,12 +120,10 @@
         "quantity": 8
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Anvil",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Anvil",
+      "quantity": 1
+    },
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 11.5
@@ -253,12 +141,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Tool-Axe",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Tool-Axe",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -277,12 +163,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Tool-Chisel",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Tool-Chisel",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -297,12 +181,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Tool-Kitchen-Knife",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Tool-Kitchen-Knife",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -321,12 +203,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Tool-Large-Hammer",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Tool-Large-Hammer",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -345,12 +225,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Tool-Pickaxe",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Tool-Pickaxe",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -369,12 +247,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Tool-Saw",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Tool-Saw",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -389,12 +265,10 @@
         "quantity": 2
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Tool-Small-Hammer",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Tool-Small-Hammer",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -409,12 +283,10 @@
         "quantity": 2
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Tool-Tongs",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Tool-Tongs",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -430,12 +302,10 @@
         "quantity": 3
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Barrel-Staves",
-        "quantity": 5
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Barrel-Staves",
+      "quantity": 5
+    },
     "materialTypesToCopyOver": ["WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -453,12 +323,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Barrel",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Barrel",
+      "quantity": 1
+    },
     "materialTypesToCopyOver": ["WOOD", "METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -476,12 +344,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Bucket",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Bucket",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Saw",
     "materialTypesToCopyOver": ["WOOD", "METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -496,12 +362,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Tool-Fishing-Rod",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Tool-Fishing-Rod",
+      "quantity": 1
+    },
     "materialTypesToCopyOver": ["WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -515,12 +379,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Tool-Plane",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Tool-Plane",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Saw",
     "materialTypesToCopyOver": ["WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -535,12 +397,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Tool-Rolling-Pin",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Tool-Rolling-Pin",
+      "quantity": 1
+    },
     "itemTypeRequiredName": "Tool-Plane",
     "materialTypesToCopyOver": ["WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -557,12 +417,10 @@
         "quantity": 2
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Flour-Sack",
-        "quantity": 3
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Flour-Sack",
+      "quantity": 3
+    },
     "materialTypesToCopyOver": ["VEGETABLE"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -578,12 +436,10 @@
         "quantity": 3
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Bread-Dough",
-        "quantity": 7
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Bread-Dough",
+      "quantity": 7
+    },
     "materialTypesToCopyOver": ["VEGETABLE"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -602,56 +458,13 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Ration-Dough",
-        "quantity": 4
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Ration-Dough",
+      "quantity": 4
+    },
     "materialTypesToCopyOver": ["VEGETABLE", "STONE"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
-  },
-
-  {
-    "recipeName": "Crush ore",
-    "craftingTypeName": "ORE_CRUSHING",
-    "input": [
-      {
-        "itemTypeName": "Resource-Ore-Unrefined",
-        "quantity": 2
-      }
-    ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Ore-Crushed",
-        "quantity": 5
-      }
-    ],
-    "materialTypesToCopyOver": ["ORE"],
-    "minimumTimeToCompleteCrafting": 2.5,
-    "maximumTimeToCompleteCrafting": 6.5
-  },
-  {
-    "recipeName": "Crush pyrite to iron sulfate / green vitriol",
-    "craftingTypeName": "ORE_CRUSHING",
-    "input": [
-      {
-        "itemTypeName": "Resource-Ore-Crushed",
-        "materialName": "Pyrite",
-        "quantity": 2
-      }
-    ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Crushed-Vitriol",
-        "materialName": "Green Vitriol",
-        "quantity": 2
-      }
-    ],
-    "itemTypeRequiredName": "Tool-Large-Hammer",
-    "minimumTimeToCompleteCrafting": 1.5,
-    "maximumTimeToCompleteCrafting": 4.5
   },
 
   {
@@ -665,16 +478,14 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Hematite",
-        "quantity": 5
+        "quantity": 6
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Metal-Bloom",
-        "materialName": "Iron",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Bloom",
+      "materialName": "Iron",
+      "quantity": 1
+    },
     "extraGameHoursToComplete": 3.0,
     "itemTypeRequiredName": "Tool-Tongs",
     "minimumTimeToCompleteCrafting": 1.5,
@@ -691,16 +502,14 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Cassiterite",
-        "quantity": 5
+        "quantity": 6
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Metal-Bloom",
-        "materialName": "Tin",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Bloom",
+      "materialName": "Tin",
+      "quantity": 1
+    },
     "extraGameHoursToComplete": 3.0,
     "itemTypeRequiredName": "Tool-Tongs",
     "minimumTimeToCompleteCrafting": 1.5,
@@ -717,16 +526,14 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Native Copper",
-        "quantity": 5
+        "quantity": 6
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Metal-Bloom",
-        "materialName": "Copper",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Bloom",
+      "materialName": "Copper",
+      "quantity": 1
+    },
     "extraGameHoursToComplete": 3.0,
     "itemTypeRequiredName": "Tool-Tongs",
     "minimumTimeToCompleteCrafting": 1.5,
@@ -743,16 +550,14 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Malachite",
-        "quantity": 5
+        "quantity": 6
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Metal-Bloom",
-        "materialName": "Copper",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Bloom",
+      "materialName": "Copper",
+      "quantity": 1
+    },
     "extraGameHoursToComplete": 3.0,
     "itemTypeRequiredName": "Tool-Tongs",
     "minimumTimeToCompleteCrafting": 1.5,
@@ -769,16 +574,14 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Chrysocolla",
-        "quantity": 5
+        "quantity": 6
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Metal-Bloom",
-        "materialName": "Copper",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Bloom",
+      "materialName": "Copper",
+      "quantity": 1
+    },
     "extraGameHoursToComplete": 3.0,
     "itemTypeRequiredName": "Tool-Tongs",
     "minimumTimeToCompleteCrafting": 1.5,
@@ -795,16 +598,14 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Native Gold",
-        "quantity": 5
+        "quantity": 6
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Metal-Bloom",
-        "materialName": "Gold",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Bloom",
+      "materialName": "Gold",
+      "quantity": 1
+    },
     "extraGameHoursToComplete": 3.0,
     "itemTypeRequiredName": "Tool-Tongs",
     "minimumTimeToCompleteCrafting": 1.5,
@@ -821,16 +622,14 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Galena",
-        "quantity": 5
+        "quantity": 6
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Metal-Bloom",
-        "materialName": "Silver",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Bloom",
+      "materialName": "Silver",
+      "quantity": 1
+    },
     "extraGameHoursToComplete": 3.0,
     "itemTypeRequiredName": "Tool-Tongs",
     "minimumTimeToCompleteCrafting": 1.5,
@@ -847,16 +646,14 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Native Silver",
-        "quantity": 5
+        "quantity": 6
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Metal-Bloom",
-        "materialName": "Silver",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Bloom",
+      "materialName": "Silver",
+      "quantity": 1
+    },
     "extraGameHoursToComplete": 4.0,
     "itemTypeRequiredName": "Tool-Tongs",
     "minimumTimeToCompleteCrafting": 1.5,
@@ -872,12 +669,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Resource-Metal-Ingot",
-        "quantity": 6
-      }
-    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Ingot",
+      "quantity": 6
+    },
     "itemTypeRequiredName": "Tool-Large-Hammer",
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
@@ -892,16 +687,14 @@
       {
         "itemTypeName": "Resource-Ore-Crushed",
         "materialName": "Bituminous Coal",
-        "quantity": 16
+        "quantity": 15
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Fuel-Sack",
-        "materialName": "Coke",
-        "quantity": 16
-      }
-    ],
+    "output": {
+      "itemTypeName": "Fuel-Sack",
+      "materialName": "Coke",
+      "quantity": 15
+    },
     "extraGameHoursToComplete": 28.0,
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 3.5
@@ -919,13 +712,11 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Rope",
-        "materialName": "Hemp-Rope",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Rope",
+      "materialName": "Hemp-Rope",
+      "quantity": 1
+    },
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 8.5
   },
@@ -940,13 +731,11 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Linen",
-        "materialName": "Hemp-Linen",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Linen",
+      "materialName": "Hemp-Linen",
+      "quantity": 1
+    },
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 8.5
   },
@@ -959,12 +748,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Leather",
-        "quantity": 1
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Leather",
+      "quantity": 1
+    },
     "materialTypesToCopyOver": ["SKIN"],
     "minimumTimeToCompleteCrafting": 1.5,
     "maximumTimeToCompleteCrafting": 15,
@@ -979,12 +766,10 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Product-Waterskin",
-        "quantity": 3
-      }
-    ],
+    "output": {
+      "itemTypeName": "Product-Waterskin",
+      "quantity": 3
+    },
     "itemTypeRequiredName": "Tool-Kitchen-Knife",
     "materialTypesToCopyOver": ["SKIN"],
     "minimumTimeToCompleteCrafting": 1.5,
@@ -999,54 +784,12 @@
         "quantity": 1
       }
     ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Metal-Arrow-Heads",
-        "quantity": 10
-      }
-    ],
+    "output": {
+      "itemTypeName": "Weapon-Metal-Arrow-Heads",
+      "quantity": 10
+    },
     "itemTypeRequiredName": "Tool-Large-Hammer",
     "materialTypesToCopyOver": ["METAL", "WOOD"],
-    "minimumTimeToCompleteCrafting": 2.5,
-    "maximumTimeToCompleteCrafting": 7.5
-  },
-  {
-    "recipeName": "Craft bone arrow heads",
-    "craftingTypeName": "BONE_CRAFTING",
-    "input": [
-      {
-        "itemTypeName": "Resource-Bone-Medium",
-        "quantity": 1
-      }
-    ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Bone-Arrow-Heads",
-        "quantity": 10
-      }
-    ],
-    "itemTypeRequiredName": "Tool-Chisel",
-    "materialTypesToCopyOver": ["BONE", "WOOD"],
-    "minimumTimeToCompleteCrafting": 2.5,
-    "maximumTimeToCompleteCrafting": 7.5
-  },
-  {
-    "recipeName": "Craft bone arrow heads from small bones",
-    "craftingTypeName": "BONE_CRAFTING",
-    "input": [
-      {
-        "itemTypeName": "Resource-Bone-Small",
-        "quantity": 3
-      }
-    ],
-    "output": [
-      {
-        "itemTypeName": "Weapon-Bone-Arrow-Heads",
-        "quantity": 10
-      }
-    ],
-    "itemTypeRequiredName": "Tool-Chisel",
-    "materialTypesToCopyOver": ["BONE", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
   }

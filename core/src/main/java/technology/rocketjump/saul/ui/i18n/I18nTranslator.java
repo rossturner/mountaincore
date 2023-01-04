@@ -48,7 +48,7 @@ import technology.rocketjump.saul.rooms.constructions.BridgeConstruction;
 import technology.rocketjump.saul.rooms.constructions.Construction;
 import technology.rocketjump.saul.rooms.constructions.FurnitureConstruction;
 import technology.rocketjump.saul.rooms.constructions.WallConstruction;
-import technology.rocketjump.saul.settlement.production.ProductionAssignment;
+import technology.rocketjump.saul.settlement.production.CraftingAssignment;
 import technology.rocketjump.saul.zones.Zone;
 import technology.rocketjump.saul.zones.ZoneClassification;
 
@@ -233,9 +233,9 @@ public class I18nTranslator {
 
 					if (targetEntity != null && targetEntity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
 						CraftingStationBehaviour craftingStationBehaviour = (CraftingStationBehaviour) targetEntity.getBehaviourComponent();
-						if (craftingStationBehaviour.getCurrentProductionAssignment() != null) {
-							ProductionAssignment assignment = craftingStationBehaviour.getCurrentProductionAssignment();
-							QuantifiedItemTypeWithMaterial output = assignment.targetRecipe.getOutput().get(0);
+						if (craftingStationBehaviour.getCurrentCraftingAssignment() != null) {
+							CraftingAssignment assignment = craftingStationBehaviour.getCurrentCraftingAssignment();
+							QuantifiedItemTypeWithMaterial output = assignment.getTargetRecipe().getOutput();
 							I18nText targetDescription;
 							// FIXME some duplication of the below
 							if (output.isLiquid()) {
@@ -247,8 +247,8 @@ public class I18nTranslator {
 							}
 							replacements.put("targetDescription", targetDescription);
 
-							if (assignment.targetRecipe.getVerbOverrideI18nKey() != null) {
-								replacements.put("profession", dictionary.getWord(assignment.targetRecipe.getVerbOverrideI18nKey()));
+							if (assignment.getTargetRecipe().getVerbOverrideI18nKey() != null) {
+								replacements.put("profession", dictionary.getWord(assignment.getTargetRecipe().getVerbOverrideI18nKey()));
 							}
 						}
 					}

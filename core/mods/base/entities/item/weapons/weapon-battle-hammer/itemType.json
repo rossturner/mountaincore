@@ -2,6 +2,7 @@
   "itemTypeName" : "Weapon-Battle-Hammer",
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
+  "baseValuePerItem": 28,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
@@ -16,5 +17,8 @@
     "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
     "animatedSpriteEffectName" : "Weapon slash"
   },
-  "i18nKey" : "WEAPON.BATTLE.HAMMER"
+  "i18nKey" : "WEAPON.BATTLE.HAMMER",
+  "tags": {
+    "EXTRA_MATERIAL_TYPES": [ "CLOTH" ]
+  }
 }

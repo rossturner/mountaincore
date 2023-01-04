@@ -1,0 +1,22 @@
+{
+  "name" : "ARTISAN_WORKSTATION",
+  "i18nKey" : "FURNITURE.ARTISAN_WORKSTATION",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "2x3L no rotation",
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 4
+    }, {
+      "itemTypeName" : "Tool-Small-Hammer",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Tool-Tongs",
+      "quantity" : 1
+    } ]
+  },
+  "tags" : {
+    "CRAFTING_STATION_BEHAVIOUR" : [ "FINE_DETAIL_CRAFTING", "CRAFT_ITEM", "HAULING" ],
+    "DECORATION_FROM_INPUT" : [ "Tool-Small-Hammer", "Tool-Tongs" ]
+  }
+}

@@ -56,7 +56,6 @@ public class DesktopLauncher {
         }
         config.fullscreen = fullscreenMode.equals(EXCLUSIVE_FULLSCREEN);
 
-
         Resolution displayResolution = getDisplayResolution(userPreferences);
         config.width = displayResolution.width;
         config.height = displayResolution.height;

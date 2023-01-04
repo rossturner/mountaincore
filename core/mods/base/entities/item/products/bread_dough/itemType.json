@@ -4,6 +4,7 @@
   "maxHauledAtOnce" : 7,
   "materialTypes" : [ "VEGETABLE" ],
   "primaryMaterialType" : "VEGETABLE",
+  "baseValuePerItem": 3,
   "equippedWhileWorkingOnJob" : false,
   "hoursInInventoryUntilUnused" : 1.0,
   "stockpileGroupName" : "FOOD",
