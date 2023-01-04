@@ -19,7 +19,7 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 import java.util.List;
 
 public class SelectItemDialog extends GameDialog {
-	private static final int ITEMS_PER_ROW = 6;
+	public static final int ITEMS_PER_ROW = 6;
 
 	public static abstract class Option {
 		private final I18nText tooltipText;
