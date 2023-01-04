@@ -6,6 +6,10 @@
     "WOOD" : [ {
       "itemTypeName" : "Resource-Planks",
       "quantity" : 2
+    } ],
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 2
     } ]
   },
   "tags" : {

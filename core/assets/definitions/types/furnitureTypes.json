@@ -1283,6 +1283,11 @@
       "itemTypeName" : "Resource-Planks",
       "quantity" : 2,
       "liquid" : false
+    } ],
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 2,
+      "liquid" : false
     } ]
   },
   "tags" : {
@@ -1298,6 +1303,11 @@
   "requirements" : {
     "WOOD" : [ {
       "itemTypeName" : "Resource-Planks",
+      "quantity" : 2,
+      "liquid" : false
+    } ],
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
       "quantity" : 2,
       "liquid" : false
     } ]
