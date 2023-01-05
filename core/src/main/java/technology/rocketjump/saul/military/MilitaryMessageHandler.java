@@ -152,7 +152,7 @@ public class MilitaryMessageHandler implements Telegraph, GameContextAware {
 		Squad squad = new Squad();
 		squad.setId(squadId);
 		squad.setName(i18nTranslator.getTranslatedString("MILITARY.SQUAD.DEFAULT_NAME") + " #" + squadId);
-		createSquad(squadId);
+		createSquad(squad);
 	}
 
 	private void createSquad(Squad squad) {
