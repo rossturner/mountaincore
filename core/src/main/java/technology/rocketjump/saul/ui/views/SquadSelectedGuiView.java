@@ -15,6 +15,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
+import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -23,6 +25,8 @@ import technology.rocketjump.saul.military.MilitaryMessageHandler;
 import technology.rocketjump.saul.military.model.MilitaryShift;
 import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.military.model.SquadOrderType;
+import technology.rocketjump.saul.screens.SettlerManagementScreen;
+import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
@@ -70,6 +74,8 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	private final TooltipFactory tooltipFactory;
 	private final SoundAssetDictionary soundAssetDictionary;
 	private final WidgetFactory widgetFactory;
+	private final SettlerTracker settlerTracker;
+	private final SettlerManagementScreen settlerManagementScreen; //TODO: this shouldn't be here
 
 	private GameContext gameContext;
 	private Tabs selectedTab = Tabs.SQUADS;
@@ -120,7 +126,8 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 	public SquadSelectedGuiView(GuiSkinRepository guiSkinRepository, GameInteractionStateContainer gameInteractionStateContainer,
 	                            I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher,
 	                            ButtonFactory buttonFactory,
-	                            TooltipFactory tooltipFactory, SoundAssetDictionary soundAssetDictionary, WidgetFactory widgetFactory) {
+	                            TooltipFactory tooltipFactory, SoundAssetDictionary soundAssetDictionary, WidgetFactory widgetFactory,
+	                            SettlerTracker settlerTracker, SettlerManagementScreen settlerManagementScreen) {
 
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
@@ -132,6 +139,8 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		this.tooltipFactory = tooltipFactory;
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.widgetFactory = widgetFactory;
+		this.settlerTracker = settlerTracker;
+		this.settlerManagementScreen = settlerManagementScreen;
 	}
 
 	@Override
@@ -167,6 +176,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 	private Updatable<Table> currentTab() {
 		Table squadTab = squadTab();
+		Table soldiersTab = soldiersTab();
 
 		Table currentTab = new Table();
 		Updatable<Table> updatable = Updatable.of(currentTab);
@@ -185,7 +195,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 							currentTab.add(squadTab).grow();
 						}
 						case DWARVES -> {
-
+							currentTab.add(soldiersTab).grow();
 						}
 						case TRAINED_CIVILIANS -> {
 						}
@@ -196,6 +206,59 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		});
 
 		return updatable;
+	}
+
+	private Table soldiersTab() {
+		Label subtitle = new Label(i18nTranslator.translate(Tabs.DWARVES.i18nKey), managementSkin, "military_subtitle_ribbon");
+		subtitle.setAlignment(Align.center);
+
+		Table subtitleLine = new Table();
+		subtitleLine.add(subtitle).padLeft(30).padRight(30);
+
+		Table soldiersTable = new Table();
+		soldiersTable.top();
+		soldiersTable.defaults().spaceTop(10).spaceBottom(140).padRight(20).padLeft(20);
+
+		Updatable<Table> updatable = Updatable.of(soldiersTable);
+
+		updatable.regularly(() -> {
+			soldiersTable.clear();
+			List<Entity> soldiers = settlerTracker.getLiving()
+					.stream()
+					.filter(SettlerManagementScreen.IS_MILITARY)
+					.sorted(SettlerManagementScreen.SORT_MILITARY_CIVILIAN)
+					.toList();
+
+			for (Entity soldier : soldiers) {
+				MilitaryComponent militaryComponent = soldier.getComponent(MilitaryComponent.class);
+				Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
+
+				Drawable emblemDrawable = managementSkin.getDrawable(getEmblemName(squad));
+				Image emblem = new Image(emblemDrawable);
+				emblem.setTouchable(Touchable.enabled);
+				tooltipFactory.simpleTooltip(emblem, new I18nText(squad.getName()), TooltipLocationHint.ABOVE);
+
+				//TODO: ashamed of not refactoring this properly
+				soldiersTable.add(settlerManagementScreen.mugshot(soldier)).spaceRight(50).spaceLeft(50);
+				soldiersTable.add(settlerManagementScreen.textSummary(soldier)).left().uniformX().spaceRight(50);
+				soldiersTable.add(emblem);
+				soldiersTable.row();
+			}
+		});
+
+		updatable.update();
+		updatables.add(updatable);
+
+		ScrollPane scrollPane = new EnhancedScrollPane(soldiersTable, menuSkin);
+		scrollPane.setFadeScrollBars(false);
+
+
+		Table table = new Table();
+		table.add(subtitleLine).padTop(30).padBottom(30f).row();
+		table.add(scrollPane).grow().width(1100).padBottom(30f).row();
+
+
+		return table;
 	}
 
 	private Table squadTab() {
@@ -223,8 +286,6 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 
 		squadCardsTable.top();
 		ScrollPane cardsScrollPane = new EnhancedScrollPane(squadCardsTable, menuSkin);
-		cardsScrollPane.setForceScroll(false, true);
-
 		cardsScrollPane.setFadeScrollBars(false);
 
 		Label ordersLabel = new Label(i18nTranslator.translate("GUI.MILITARY.ORDERS"), managementSkin, "military_subtitle_ribbon");

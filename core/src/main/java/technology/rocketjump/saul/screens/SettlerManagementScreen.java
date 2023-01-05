@@ -97,7 +97,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		}
 	});
 	private static final Comparator<Entity> SORT_NAME = Comparator.comparing(SettlerManagementScreen::getName);
-	private static final Comparator<Entity> SORT_MILITARY_CIVILIAN = Comparator.comparing((Function<Entity, Long>) settler -> {
+	public static final Comparator<Entity> SORT_MILITARY_CIVILIAN = Comparator.comparing((Function<Entity, Long>) settler -> {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 		if (militaryComponent != null && militaryComponent.getSquadId() != null) {
 			return militaryComponent.getSquadId();
@@ -982,7 +982,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return updatable;
 	}
 
-	private Table textSummary(Entity settler) {
+	public Table textSummary(Entity settler) {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 
 		String settlerName = getName(settler);
@@ -1027,7 +1027,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return table;
 	}
 
-	private Table mugshot(Entity settler) {
+	public Table mugshot(Entity settler) {
 		Table table = new Table();
 		float scaleFactor = 0.9f;
 		Drawable background = managementSkin.bgForExampleEntity(settler.getId());
