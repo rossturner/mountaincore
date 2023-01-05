@@ -239,9 +239,9 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 				tooltipFactory.simpleTooltip(emblem, new I18nText(squad.getName()), TooltipLocationHint.ABOVE);
 
 				//TODO: ashamed of not refactoring this properly
-				soldiersTable.add(settlerManagementScreen.mugshot(soldier)).spaceRight(50).spaceLeft(50);
-				soldiersTable.add(settlerManagementScreen.textSummary(soldier)).left().uniformX().spaceRight(50);
-				soldiersTable.add(emblem);
+				soldiersTable.add(settlerManagementScreen.mugshot(soldier)).top().spaceRight(50).spaceLeft(50);
+				soldiersTable.add(settlerManagementScreen.textSummary(soldier)).left().growX().spaceRight(50);
+				soldiersTable.add(emblem).top();
 				soldiersTable.row();
 			}
 		});

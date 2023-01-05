@@ -1019,7 +1019,13 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		table.add(professionLabel).growX().row();
 
 		for (String behaviourDescription : behaviourDescriptions) {
-			Label descriptionLabel = tableLabel(behaviourDescription);
+			Label descriptionLabel = new Label(behaviourDescription, managementSkin, "table_value_label") {
+				@Override
+				public float getWidth() {
+					return getParent().getWidth();
+				}
+			};
+			descriptionLabel.setWrap(true);
 			descriptionLabel.setAlignment(Align.left);
 			table.add(descriptionLabel).growX().row();
 		}
