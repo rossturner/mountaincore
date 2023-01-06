@@ -610,9 +610,13 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 			@Override
 			protected void setTableDefaults(Table selectionTable) {
 				selectionTable.center();
-				selectionTable.defaults().left().growX().uniformX();
-				selectionTable.columnDefaults(0).padLeft(200);
-				selectionTable.columnDefaults(1).padRight(200);
+				if (options.size() > 1) {
+					selectionTable.defaults().left().growX().uniformX();
+					selectionTable.columnDefaults(0).padLeft(200);
+					selectionTable.columnDefaults(1).padRight(200);
+				} else {
+					selectionTable.defaults().center();
+				}
 			}
 		};
 		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
