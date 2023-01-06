@@ -274,9 +274,12 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		subtitleLine.add(subtitle).padLeft(30).padRight(30);
 		subtitleLine.add(addSquadButton.getActor());
 
+
 		ButtonGroup<Button> squadCardButtonGroup = new ButtonGroup<>();
 		Table squadCardsTable = new Table();
 		squadCardsTable.defaults().spaceTop(10).spaceBottom(10).padRight(20);
+		ScrollPane cardsScrollPane = new EnhancedScrollPane(squadCardsTable, menuSkin);
+		cardsScrollPane.setFadeScrollBars(false);
 
 		for (Squad squad : getSquads()) {
 			Button squadCard = squadCard(squad);
@@ -284,9 +287,12 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 			squadCardsTable.add(squadCard).spaceTop(20).spaceBottom(20).row();
 		}
 
+		//TODO: why doesn't this want to scroll to the right place
+//		cardsScrollPane.layout();
+//		Button checkedSquadCard = squadCardButtonGroup.getChecked();
+//		cardsScrollPane.scrollTo(checkedSquadCard.getX(), checkedSquadCard.getY(), checkedSquadCard.getMinWidth(), checkedSquadCard.getMinHeight(), true, true);
+
 		squadCardsTable.top();
-		ScrollPane cardsScrollPane = new EnhancedScrollPane(squadCardsTable, menuSkin);
-		cardsScrollPane.setFadeScrollBars(false);
 
 		Label ordersLabel = new Label(i18nTranslator.translate("GUI.MILITARY.ORDERS"), managementSkin, "military_subtitle_ribbon");
 		ordersLabel.setAlignment(Align.center);
@@ -562,7 +568,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 						newSquad.setEmblemName(getEmblemName(newSquad));
 
 						messageDispatcher.dispatchMessage(MessageType.MILITARY_CREATE_SQUAD, newSquad);
-						populate(containerTable);
+						messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(newSquad));
 					}
 				}, messageDispatcher, soundAssetDictionary);
 				textInputDialog.setMaxLength(20);

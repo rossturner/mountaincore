@@ -13,9 +13,11 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.gamecontext.GameState;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.screens.ManagementScreenName;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.GameViewMode;
+import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
@@ -23,6 +25,8 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.maingame.TimeDateWidget;
+
+import java.util.Optional;
 
 @Singleton
 public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, DisplaysText {
@@ -78,6 +82,19 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 	@Override
 	public void rebuildUI() {
 		managementScreenButtonTable.clearChildren();
+
+		Button militaryButton = new Button(skin, "btn_top_military");
+		militaryButton.addListener(new ChangeCursorOnHover(militaryButton, GameCursor.SELECT, messageDispatcher));
+		militaryButton.addListener(new ClickListener() {
+			@Override
+			public void clicked (InputEvent event, float x, float y) {
+				Optional<Squad> optionalSquad = gameContext.getSquads().values().stream().findAny();
+				optionalSquad.ifPresentOrElse(squad -> messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(squad)),
+						() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SQUAD_SELECTED));
+			}
+		});
+		tooltipFactory.simpleTooltip(militaryButton, "GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY", TooltipLocationHint.BELOW);
+		managementScreenButtonTable.add(militaryButton).size(157f,170f);
 
 		for (ManagementScreenName managementScreen : ManagementScreenName.managementScreensOrderedForUI) {
 			Button screenButton = new Button(skin, managementScreen.buttonStyleName);
