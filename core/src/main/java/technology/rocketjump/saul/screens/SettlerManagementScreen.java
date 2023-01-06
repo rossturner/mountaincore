@@ -41,6 +41,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
@@ -830,12 +831,21 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		Image image = new Image(managementSkin.getDrawable("icon_military"));
 		ImageTextButton toggle = widgetFactory.createLeftLabelledToggle("GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY", managementSkin, image);
 		toggle.setChecked(IS_MILITARY.test(settler));
+		Consumer<Squad> assignSquadCallback = squad -> {
+			militaryComponent.addToMilitary(squad.getId());
+			onMilitaryChange.accept(settler);
+		};
 		toggle.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				boolean checked = toggle.isChecked();
+				//TODO: toggle not checking
 				if (checked) {
-					militaryComponent.addToMilitary(1L);
+					if (gameContext.getSquads().isEmpty()) {
+						messageDispatcher.dispatchMessage(MessageType.MILITARY_CREATE_SQUAD_DIALOG, new MessageType.MilitaryCreateSquadDialogMessage(assignSquadCallback));
+					} else {
+						messageDispatcher.dispatchMessage(MessageType.MILITARY_SELECT_SQUAD_DIALOG, new MessageType.MilitarySelectSquadDialogMessage(assignSquadCallback));
+					}
 				} else {
 					militaryComponent.removeFromMilitary();
 				}

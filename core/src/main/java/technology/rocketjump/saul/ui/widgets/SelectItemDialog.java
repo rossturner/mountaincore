@@ -44,13 +44,14 @@ public class SelectItemDialog extends GameDialog {
 
 
 		Table selectionTable = new Table();
-		selectionTable.top();
+		setTableDefaults(selectionTable);
 		ScrollPane scrollPane = new EnhancedScrollPane(selectionTable, skin);
 
 		int numAdded = 0;
 		int numRows = 0;
 		for (Option option : options) {
 			Table innerTable = new Table();
+			selectionTable.add(innerTable).spaceRight(40).spaceLeft(40);
 
 			option.addSelectionComponents(innerTable);
 
@@ -70,7 +71,6 @@ public class SelectItemDialog extends GameDialog {
 				tooltipFactory.simpleTooltip(innerTable, option.getTooltipText(), TooltipLocationHint.BELOW);
 			}
 
-			selectionTable.add(innerTable).spaceRight(40).spaceLeft(40);
 			numAdded++;
 
 			if (numAdded % optionsPerRow == 0) {
@@ -91,6 +91,10 @@ public class SelectItemDialog extends GameDialog {
 		} else {
 			cell.growY();
 		}
+	}
+
+	protected void setTableDefaults(Table selectionTable) {
+		selectionTable.top();
 	}
 
 	@Override

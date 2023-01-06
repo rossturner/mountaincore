@@ -219,6 +219,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		parent: default-font-16-label
 		fontColor: white
 	}
+	default-font-18-label-white: {
+		parent: default-font-18-label
+		fontColor: white
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
 	default-horizontal: {

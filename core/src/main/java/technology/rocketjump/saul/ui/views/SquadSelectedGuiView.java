@@ -1,6 +1,8 @@
 package technology.rocketjump.saul.ui.views;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -51,18 +53,7 @@ import java.util.function.Function;
 import static technology.rocketjump.saul.military.model.SquadOrderType.TRAINING;
 
 @Singleton
-public class SquadSelectedGuiView implements GuiView, GameContextAware {
-
-	private static final String[] DEFAULT_SQUAD_EMBLEMS = {
-			"icon_military_emblem_hammer",
-			"icon_military_emblem_snow",
-			"icon_military_emblem_wolf",
-			"icon_military_emblem_tree",
-			"icon_military_emblem_helmet",
-			"icon_military_emblem_fire",
-			"icon_military_emblem_arrow",
-			"icon_military_emblem_skull"
-	};
+public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegraph {
 
 	private final GameInteractionStateContainer gameInteractionStateContainer;
 	private final I18nTranslator i18nTranslator;
@@ -141,6 +132,9 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		this.widgetFactory = widgetFactory;
 		this.settlerTracker = settlerTracker;
 		this.settlerManagementScreen = settlerManagementScreen;
+
+		messageDispatcher.addListener(this, MessageType.MILITARY_CREATE_SQUAD_DIALOG);
+		messageDispatcher.addListener(this, MessageType.MILITARY_SELECT_SQUAD_DIALOG);
 	}
 
 	@Override
@@ -233,7 +227,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 				MilitaryComponent militaryComponent = soldier.getComponent(MilitaryComponent.class);
 				Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
 
-				Drawable emblemDrawable = managementSkin.getDrawable(getEmblemName(squad));
+				Drawable emblemDrawable = managementSkin.getDrawable(managementSkin.getEmblemName(squad));
 				Image emblem = new Image(emblemDrawable);
 				emblem.setTouchable(Touchable.enabled);
 				tooltipFactory.simpleTooltip(emblem, new I18nText(squad.getName()), TooltipLocationHint.ABOVE);
@@ -551,28 +545,88 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		return updatable;
 	}
 
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.MILITARY_CREATE_SQUAD_DIALOG -> {
+				handle((MessageType.MilitaryCreateSquadDialogMessage) msg.extraInfo);
+				return true;
+			}
+			case MessageType.MILITARY_SELECT_SQUAD_DIALOG -> {
+				handle((MessageType.MilitarySelectSquadDialogMessage) msg.extraInfo);
+				return true;
+			}
+			default ->
+					throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg);
+		}
+	}
+
+	private void handle(MessageType.MilitaryCreateSquadDialogMessage message) {
+		I18nText dialogTitle = i18nTranslator.getTranslatedString("GUI.MILITARY.DIALOG.ADD_SQUAD");
+		I18nText buttonText = i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
+		long nextSquadId = gameContext.getSquads().keySet().stream().mapToLong(Long::longValue).max().orElse(0) + 1;
+		String suggestedSquadName = i18nTranslator.getTranslatedString("MILITARY.SQUAD.DEFAULT_NAME") + " #" + nextSquadId;
+		TextInputDialog textInputDialog = new TextInputDialog(dialogTitle, suggestedSquadName, buttonText, menuSkin, (newName) -> {
+			if (!newName.isEmpty()) {
+				Squad newSquad = new Squad();
+				newSquad.setId(nextSquadId);
+				newSquad.setName(newName);
+				newSquad.setEmblemName(managementSkin.getEmblemName(newSquad));
+
+				messageDispatcher.dispatchMessage(MessageType.MILITARY_CREATE_SQUAD, newSquad);
+				message.callback().accept(newSquad);
+			}
+		}, messageDispatcher, soundAssetDictionary);
+		textInputDialog.setMaxLength(20);
+		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
+	}
+
+	private void handle(MessageType.MilitarySelectSquadDialogMessage message) {
+		List<? extends SelectItemDialog.Option> options = getSquads().stream()
+				.map(squad -> new SelectItemDialog.Option(I18nText.BLANK) {
+
+					@Override
+					public void addSelectionComponents(Table innerTable) {
+						innerTable.left();
+						String smallEmblemName = managementSkin.getSmallEmblemName(squad);
+						String squadName = squad.getName();
+
+						Image smallEmblem = new Image(managementSkin.getDrawable(smallEmblemName));
+						Label nameLabel = new Label(squadName, managementSkin, "default-font-18-label-white");
+
+						innerTable.add(smallEmblem).pad(15);
+						innerTable.add(nameLabel).spaceLeft(28).spaceRight(50f);
+					}
+
+					@Override
+					public void onSelect() {
+						message.callback().accept(squad);
+					}
+				})
+				.toList();
+
+		I18nText title = i18nTranslator.getTranslatedString("GUI.MILITARY.DIALOG.SELECT_SQUAD");
+		SelectItemDialog dialog = new SelectItemDialog(title, menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, 2) {
+			@Override
+			protected void setTableDefaults(Table selectionTable) {
+				selectionTable.center();
+				selectionTable.defaults().left().growX().uniformX();
+				selectionTable.columnDefaults(0).padLeft(200);
+				selectionTable.columnDefaults(1).padRight(200);
+			}
+		};
+		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+	}
+
 	private Updatable<TextButton> addSquadButton() {
 		TextButton addSquadButton = new TextButton(i18nTranslator.translate("GUI.MILITARY.NEW_SQUAD"), managementSkin, "military_text_button");
 		addSquadButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				I18nText dialogTitle = i18nTranslator.getTranslatedString("GUI.MILITARY.DIALOG.ADD_SQUAD");
-				I18nText buttonText = i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
-				long nextSquadId = gameContext.getSquads().keySet().stream().mapToLong(Long::longValue).max().orElse(0) + 1;
-				String suggestedSquadName = i18nTranslator.getTranslatedString("MILITARY.SQUAD.DEFAULT_NAME") + " #" + nextSquadId;
-				TextInputDialog textInputDialog = new TextInputDialog(dialogTitle, suggestedSquadName, buttonText, menuSkin, (newName) -> {
-					if (!newName.isEmpty()) {
-						Squad newSquad = new Squad();
-						newSquad.setId(nextSquadId);
-						newSquad.setName(newName);
-						newSquad.setEmblemName(getEmblemName(newSquad));
-
-						messageDispatcher.dispatchMessage(MessageType.MILITARY_CREATE_SQUAD, newSquad);
-						messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(newSquad));
-					}
-				}, messageDispatcher, soundAssetDictionary);
-				textInputDialog.setMaxLength(20);
-				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
+				MessageType.MilitaryCreateSquadDialogMessage message = new MessageType.MilitaryCreateSquadDialogMessage(newSquad -> {
+					messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(newSquad));
+				});
+				messageDispatcher.dispatchMessage(MessageType.MILITARY_CREATE_SQUAD_DIALOG, message);
 			}
 		});
 		buttonFactory.attachClickCursor(addSquadButton, GameCursor.SELECT);
@@ -588,9 +642,29 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 		return updatable;
 	}
 
+	public Table squadSummary(Squad squad, GameContext gameContext) {
+		String smallEmblemName = managementSkin.getSmallEmblemName(squad);
+		String squadName = squad.getName();
+		java.util.List<I18nText> descriptions = squad.getDescription(i18nTranslator, gameContext, messageDispatcher);
+
+		Image smallEmblem = new Image(managementSkin.getDrawable(smallEmblemName));
+
+		Table textTable = new Table();
+		textTable.defaults().left();
+		textTable.add(new Label(squadName, managementSkin, "default-font-18-label")).row();
+		for (I18nText i18nText : descriptions) {
+			textTable.add(new Label(i18nText.toString(), managementSkin, "default-font-18-label")).row();
+		}
+
+		Table table = new Table();
+		table.add(smallEmblem);
+		table.add(textTable).left().spaceLeft(10);
+
+		return table;
+	}
 
 	private Actor selectableEmblem(Squad squad) {
-		Drawable emblemDrawable = managementSkin.getDrawable(getEmblemName(squad));
+		Drawable emblemDrawable = managementSkin.getDrawable(managementSkin.getEmblemName(squad));
 		Image emblem = new Image(emblemDrawable);
 		emblem.setTouchable(Touchable.enabled);
 		buttonFactory.attachClickCursor(emblem, GameCursor.SELECT);
@@ -599,7 +673,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
-				List<EmblemOption> options = Arrays.stream(DEFAULT_SQUAD_EMBLEMS)
+				List<EmblemOption> options = Arrays.stream(ManagementSkin.DEFAULT_SQUAD_EMBLEMS)
 						.map(drawableName -> new EmblemOption(squad, drawableName, managementSkin))
 						.toList();
 
@@ -711,7 +785,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 			table.clear();
 			for (List<Squad> squadRow : Lists.partition(getSquads(), 3)) {
 				for (Squad squad : squadRow) {
-					Table summary = squadSummary(squad);
+					Table summary = squadSummary(squad, gameContext);
 					table.add(summary);
 				}
 				table.row();
@@ -727,45 +801,6 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware {
 			return squadMap.keySet().stream().sorted().map(squadMap::get).toList();
 		} else {
 			return Collections.emptyList();
-		}
-	}
-
-	private Table squadSummary(Squad squad) {
-		String smallEmblemName = getSmallEmblemName(squad);
-		String squadName = squad.getName();
-		List<I18nText> descriptions = squad.getDescription(i18nTranslator, gameContext, messageDispatcher);
-
-		Image smallEmblem = new Image(managementSkin.getDrawable(smallEmblemName));
-
-		Table textTable = new Table();
-		textTable.defaults().left();
-		textTable.add(new Label(squadName, managementSkin, "default-font-18-label")).row();
-		for (I18nText i18nText : descriptions) {
-			textTable.add(new Label(i18nText.toString(), managementSkin, "default-font-18-label")).row();
-		}
-
-		Table table = new Table();
-		table.add(smallEmblem);
-		table.add(textTable).left().spaceLeft(10);
-
-		return table;
-	}
-
-	private String getEmblemName(Squad squad) {
-		String emblemName = squad.getEmblemName();
-		if (emblemName != null) {
-			return emblemName;
-		} else {
-			return DEFAULT_SQUAD_EMBLEMS[(int) ((squad.getId() - 1) % DEFAULT_SQUAD_EMBLEMS.length)]; //code duplication, was tempted to set on the squad
-		}
-	}
-
-	private String getSmallEmblemName(Squad squad) {
-		String smallEmblemName = squad.getSmallEmblemName();
-		if (smallEmblemName != null) {
-			return smallEmblemName;
-		} else {
-			return DEFAULT_SQUAD_EMBLEMS[(int) ((squad.getId() - 1) % DEFAULT_SQUAD_EMBLEMS.length)] + "_small"; //code duplication, was tempted to set on the squad
 		}
 	}
 

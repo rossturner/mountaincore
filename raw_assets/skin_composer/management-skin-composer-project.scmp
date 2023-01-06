@@ -3319,6 +3319,33 @@ jsonData: {
 				deletable: true
 				parent: default-font-16-label
 			}
+			{
+				class: com.ray3k.skincomposer.data.StyleData
+				name: default-font-18-label-white
+				clazz: com.badlogic.gdx.scenes.scene2d.ui.Label
+				properties: {
+					font: {
+						type: com.badlogic.gdx.graphics.g2d.BitmapFont
+						name: font
+						optional: false
+						value: null
+					}
+					fontColor: {
+						type: com.badlogic.gdx.graphics.Color
+						name: fontColor
+						optional: true
+						value: white
+					}
+					background: {
+						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+						name: background
+						optional: true
+						value: null
+					}
+				}
+				deletable: true
+				parent: default-font-18-label
+			}
 		]
 		com.badlogic.gdx.scenes.scene2d.ui.Touchpad: [
 			{
