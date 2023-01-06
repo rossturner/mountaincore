@@ -764,21 +764,25 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					tooltipLines.add(DecoratedString.of(smiley, reason));
 				}
 
-				DecoratedString tooltipString = tooltipLines.get(0);
-				for (int i = 1; i < tooltipLines.size(); i++) {
-					tooltipString = DecoratedString.of(tooltipString, DecoratedString.linebreak(), tooltipLines.get(i));
-				}
-
-				DecoratedStringLabel infoContents = decoratedStringLabelFactory.create(tooltipString, "tooltip-text", mainGameSkin);
-				for (Cell<?> cell : infoContents.getCells()) {
-					if (cell.getActor() instanceof HorizontalGroup horizontalGroup) {
-						horizontalGroup.space(25f);
+				DecoratedString tooltipString = null;
+				if (!tooltipLines.isEmpty()) {
+					tooltipString = tooltipLines.get(0);
+					for (int i = 1; i < tooltipLines.size(); i++) {
+						tooltipString = DecoratedString.of(tooltipString, DecoratedString.linebreak(), tooltipLines.get(i));
 					}
-					cell.padTop(8f).padBottom(8f).padLeft(8f).padRight(8f);
 				}
 
 				happinessLabelTooltipContents.clear();
-				happinessLabelTooltipContents.add(infoContents);
+				if (tooltipString != null) {
+					DecoratedStringLabel infoContents = decoratedStringLabelFactory.create(tooltipString, "tooltip-text", mainGameSkin);
+					for (Cell<?> cell : infoContents.getCells()) {
+						if (cell.getActor() instanceof HorizontalGroup horizontalGroup) {
+							horizontalGroup.space(25f);
+						}
+						cell.padTop(8f).padBottom(8f).padLeft(8f).padRight(8f);
+					}
+					happinessLabelTooltipContents.add(infoContents);
+				}
 			} else {
 				happinessLabelTooltipContents.clear();
 				happinessLabel.setText("");

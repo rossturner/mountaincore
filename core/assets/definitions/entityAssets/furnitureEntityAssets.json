@@ -5921,10 +5921,10 @@
     }
   }
 }, {
-  "uniqueName" : "Tanning_Frame-2x2 with lower workspaces-Base_Layer-Wood",
+  "uniqueName" : "Tanning_Frame-1x1 with lower workspaces-Base_Layer-Wood",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "Tanning_Frame",
-  "furnitureLayoutName" : "2x2 with lower workspaces",
+  "furnitureLayoutName" : "1x1 with workspaces",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : { },
   "spriteDescriptors" : {
@@ -5935,7 +5935,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : -2.5,
+        "y" : 0.0,
         "unit" : false
       },
       "flipX" : false,
@@ -5953,10 +5953,10 @@
     }
   }
 }, {
-  "uniqueName" : "Tanning_Frame-2x2 with lower workspaces-Show_When_Inventory_Present-Wood",
+  "uniqueName" : "Tanning_Frame-1x1 with lower workspaces-Show_When_Inventory_Present-Wood",
   "type" : "SHOW_WHEN_INVENTORY_PRESENT",
   "furnitureTypeName" : "Tanning_Frame",
-  "furnitureLayoutName" : "2x2 with lower workspaces",
+  "furnitureLayoutName" : "1x1 with workspaces",
   "validMaterialTypes" : [ "WOOD" ],
   "tags" : { },
   "spriteDescriptors" : {

@@ -29,7 +29,7 @@ import static technology.rocketjump.saul.ui.views.GuiViewName.STOCKPILE_SELECTIO
 @Singleton
 public class RoomSelectionGuiView implements GuiView, DisplaysText {
 
-	private final int ITEMS_PER_ROW = 9;
+	private final int ITEMS_PER_ROW = 10;
 	private final Skin skin;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;

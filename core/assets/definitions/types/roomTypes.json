@@ -55,11 +55,18 @@
   "furnitureNames" : [ "Stonemason_Bench", "ORE_CRUSHING_STATION", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 }, {
-  "roomName" : "METALWORKS",
-  "i18nKey" : "ROOMS.METALWORKS",
+  "roomName" : "SMELTERY",
+  "i18nKey" : "ROOMS.SMELTERY",
   "drawableName" : "btn_room_metalworks",
   "colorCode" : "#909a87",
-  "furnitureNames" : [ "BLOOMERY_FURNACE", "FORGE", "IMPORT_PALLET", "EXPORT_PALLET" ],
+  "furnitureNames" : [ "BLOOMERY_FURNACE", "IMPORT_PALLET", "EXPORT_PALLET" ],
+  "tags" : { }
+}, {
+  "roomName" : "SMITHY",
+  "i18nKey" : "ROOMS.SMITHY",
+  "drawableName" : "btn_room_metalworks",
+  "colorCode" : "#909a87",
+  "furnitureNames" : [ "FORGE", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 }, {
   "roomName" : "BEDROOM",
@@ -80,7 +87,16 @@
   "i18nKey" : "ROOMS.KITCHEN",
   "drawableName" : "btn_room_kitchen",
   "colorCode" : "#b98da0",
-  "furnitureNames" : [ "WATER_BARREL", "BUTCHERY_WORKTOP", "KITCHEN_WORKTOP", "CHEFS_CAULDRON", "FLOUR_MILL", "BAKERS_WORKTOP", "BAKING_OVEN", "Dough_Proofing_Table", "IMPORT_PALLET", "EXPORT_PALLET" ],
+  "furnitureNames" : [ "WATER_BARREL", "BUTCHERY_WORKTOP", "KITCHEN_WORKTOP", "CHEFS_CAULDRON", "FLOUR_MILL", "IMPORT_PALLET", "EXPORT_PALLET" ],
+  "tags" : {
+    "KITCHEN_BEHAVIOUR" : [ ]
+  }
+}, {
+  "roomName" : "BAKERY",
+  "i18nKey" : "ROOMS.BAKERY",
+  "drawableName" : "btn_room_kitchen",
+  "colorCode" : "#b98da0",
+  "furnitureNames" : [ "BAKERS_WORKTOP", "BAKING_OVEN", "Dough_Proofing_Table", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : {
     "KITCHEN_BEHAVIOUR" : [ ]
   }
@@ -119,14 +135,14 @@
   "i18nKey" : "ROOMS.ARMOURY",
   "drawableName" : "btn_room_armory",
   "colorCode" : "#78362a",
-  "furnitureNames" : [ "FLETCHERS_WORKBENCH", "IMPORT_PALLET", "EXPORT_PALLET", "Armour_Stand", "Weapon_Rack" ],
+  "furnitureNames" : [ "Leatherworking_Station", "FLETCHERS_WORKBENCH", "IMPORT_PALLET", "EXPORT_PALLET", "Armour_Stand", "Weapon_Rack" ],
   "tags" : { }
 }, {
   "roomName" : "LEATHER_WORKSHOP",
   "i18nKey" : "ROOMS.LEATHER_WORKSHOP",
   "drawableName" : "btn_room_leather",
   "colorCode" : "#8c7952",
-  "furnitureNames" : [ "Tanning_Frame", "Leatherworking_Station", "IMPORT_PALLET", "EXPORT_PALLET" ],
+  "furnitureNames" : [ "Tanning_Frame", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
 }, {
   "roomName" : "ARTISAN_WORKSHOP",

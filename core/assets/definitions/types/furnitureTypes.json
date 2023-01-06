@@ -710,7 +710,7 @@
   "name" : "Tanning_Frame",
   "i18nKey" : "FURNITURE.TANNING_FRAME",
   "blocksMovement" : true,
-  "defaultLayoutName" : "2x2 with lower workspaces",
+  "defaultLayoutName" : "1x1 with workspaces",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {

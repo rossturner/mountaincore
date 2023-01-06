@@ -392,12 +392,17 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		ItemAllocationComponent inputAllocationComponent = inputItemInInventory.getComponent(ItemAllocationComponent.class);
 
 		inputAllocationComponent.cancelAll(ItemAllocation.Purpose.PRODUCTION_IMPORT);
-		HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(inputRequirement.getQuantity(), inputItemInInventory, parentEntity)
-				.toEntity(parentEntity);
+		int quantityRequired = inputRequirement.getQuantity();
+		while (quantityRequired > 0) {
+			int quantityToHaulThisAllocation = Math.min(quantityRequired, inputRequirement.getItemType().getMaxHauledAtOnce());
+			HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(quantityToHaulThisAllocation, inputItemInInventory, parentEntity)
+					.toEntity(parentEntity);
+			craftingAssignment.getInputAllocations().add(haulingAllocation);
+			quantityRequired -= quantityToHaulThisAllocation;
+		}
 		if (inputAllocationComponent.getNumUnallocated() > 0 && inputInventory.getAddAsAllocationPurpose() != null) {
 			inputAllocationComponent.createAllocation(inputAllocationComponent.getNumUnallocated(), matchedInputFurniture.getParentEntity(), inputInventory.getAddAsAllocationPurpose());
 		}
-		craftingAssignment.getInputAllocations().add(haulingAllocation);
 	}
 
 	private boolean inputIsAvailable(QuantifiedItemTypeWithMaterial requirement,

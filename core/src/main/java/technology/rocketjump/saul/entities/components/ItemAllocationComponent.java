@@ -40,6 +40,11 @@ public class ItemAllocationComponent implements ParentDependentEntityComponent, 
 		return other;
 	}
 
+	@Override
+	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+		cancelAll();
+	}
+
 	public ItemAllocation createAllocation(int numToAllocate, Entity requestingEntity, ItemAllocation.Purpose purpose) {
 		int quantity = 1;
 		if (parentEntity.getType().equals(EntityType.ITEM)) {
@@ -131,11 +136,6 @@ public class ItemAllocationComponent implements ParentDependentEntityComponent, 
 
 	public List<ItemAllocation> getAll() {
 		return this.allocations;
-	}
-
-	@Override
-	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-
 	}
 
 	@Override
