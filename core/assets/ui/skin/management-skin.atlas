@@ -69,6 +69,15 @@ asset_bg_miliatry_squad
   orig: 498, 59
   offset: 0, 0
   index: -1
+asset_bg_military_squad
+  rotate: false
+  xy: 2, 381
+  size: 498, 59
+  split: 0, 0, 0, 0
+  pad: 41, 41, 4, 21
+  orig: 498, 59
+  offset: 0, 0
+  index: -1
 asset_line
   rotate: false
   xy: 2, 4080

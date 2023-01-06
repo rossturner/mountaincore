@@ -389,6 +389,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table professionsColumn = professions(settler, 1f, rebuildSettlerView);
 			Table weaponSelectColumn = weaponSelection(settler, 1.0f, rebuildSettlerView);
 			Table militaryToggleColumn = militaryToggle(settler, true, rebuildSettlerView);
+			Table squadColumn = militarySquad(settler);
 
 			addGotoSettlerBehaviour(mugshotColumn, settler);
 
@@ -396,7 +397,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			settlersTable.add(mugshotColumn).spaceRight(50f);
 			settlersTable.add(textSummaryColumn).width(550).spaceRight(50f);
 			if (isMilitary) {
-				settlersTable.add(new Table()).width(500).spaceRight(50f);
+				settlersTable.add(squadColumn).width(500).spaceRight(50f);
 				settlersTable.add(needsColumn).spaceRight(50f);
 				settlersTable.add(weaponSelectColumn).spaceRight(50f).spaceBottom(76f).spaceTop(38f);
 			} else {
@@ -825,6 +826,25 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return null;
 	}
 
+	private Table militarySquad(Entity settler) {
+		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
+
+		Table table = new Table();
+		if (militaryComponent != null && militaryComponent.getSquadId() != null && gameContext.getSquads().containsKey(militaryComponent.getSquadId())) {
+			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
+
+			Drawable emblemDrawable = managementSkin.getDrawable(managementSkin.getEmblemName(squad));
+			Image emblem = new Image(emblemDrawable);
+
+			Label squadName = new Label(squad.getName(), managementSkin, "military_squad_name_ribbon");
+			squadName.setAlignment(Align.center);
+			table.add(squadName).padBottom(5).row();
+			table.add(emblem);
+		}
+
+		return table;
+	}
+
 	public Table militaryToggle(Entity settler, boolean includeRibbon, Consumer<Entity> onMilitaryChange) {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 
@@ -839,7 +859,6 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				boolean checked = toggle.isChecked();
-				//TODO: toggle not checking
 				if (checked) {
 					if (gameContext.getSquads().isEmpty()) {
 						messageDispatcher.dispatchMessage(MessageType.MILITARY_CREATE_SQUAD_DIALOG, new MessageType.MilitaryCreateSquadDialogMessage(assignSquadCallback));

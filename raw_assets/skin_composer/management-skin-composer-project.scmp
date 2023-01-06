@@ -2700,6 +2700,26 @@ atlasData: {
 			type: TEXTURE
 			hidden: false
 		}
+		{
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/asset_bg_military_squad.9.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: asset_bg_military_squad
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: NINE_PATCH
+			hidden: false
+		}
 	]
 	fontDrawables: []
 }
@@ -3345,6 +3365,33 @@ jsonData: {
 				}
 				deletable: true
 				parent: default-font-18-label
+			}
+			{
+				class: com.ray3k.skincomposer.data.StyleData
+				name: military_squad_name_ribbon
+				clazz: com.badlogic.gdx.scenes.scene2d.ui.Label
+				properties: {
+					font: {
+						type: com.badlogic.gdx.graphics.g2d.BitmapFont
+						name: font
+						optional: false
+						value: default-font-24
+					}
+					fontColor: {
+						type: com.badlogic.gdx.graphics.Color
+						name: fontColor
+						optional: true
+						value: primary_font_colour_red
+					}
+					background: {
+						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+						name: background
+						optional: true
+						value: asset_bg_military_squad
+					}
+				}
+				deletable: true
+				parent: null
 			}
 		]
 		com.badlogic.gdx.scenes.scene2d.ui.Touchpad: [
