@@ -72,7 +72,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 		return militaryComponent != null && militaryComponent.isInMilitary();
 	};
-	private static final Predicate<Entity> IS_CIVILIAN = IS_MILITARY.negate();
+	public static final Predicate<Entity> IS_CIVILIAN = IS_MILITARY.negate();
 
 	private record MatchesActiveProfession(Skill skill) implements Predicate<Entity> {
 
@@ -97,7 +97,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			return settler.getComponent(HappinessComponent.class).getNetModifier();
 		}
 	});
-	private static final Comparator<Entity> SORT_NAME = Comparator.comparing(SettlerManagementScreen::getName);
+	public static final Comparator<Entity> SORT_NAME = Comparator.comparing(SettlerManagementScreen::getName);
 	public static final Comparator<Entity> SORT_MILITARY_CIVILIAN = Comparator.comparing((Function<Entity, Long>) settler -> {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 		if (militaryComponent != null && militaryComponent.getSquadId() != null) {

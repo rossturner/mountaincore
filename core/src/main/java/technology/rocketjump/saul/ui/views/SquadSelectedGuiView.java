@@ -18,9 +18,13 @@ import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
+import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.jobs.SkillDictionary;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.SquadOrderChangeMessage;
 import technology.rocketjump.saul.military.MilitaryMessageHandler;
@@ -67,6 +71,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 	private final WidgetFactory widgetFactory;
 	private final SettlerTracker settlerTracker;
 	private final SettlerManagementScreen settlerManagementScreen; //TODO: this shouldn't be here
+	private final SkillDictionary skillDictionary;
 
 	private GameContext gameContext;
 	private Tabs selectedTab = Tabs.SQUADS;
@@ -118,7 +123,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 	                            I18nTranslator i18nTranslator, MessageDispatcher messageDispatcher,
 	                            ButtonFactory buttonFactory,
 	                            TooltipFactory tooltipFactory, SoundAssetDictionary soundAssetDictionary, WidgetFactory widgetFactory,
-	                            SettlerTracker settlerTracker, SettlerManagementScreen settlerManagementScreen) {
+	                            SettlerTracker settlerTracker, SettlerManagementScreen settlerManagementScreen, SkillDictionary skillDictionary) {
 
 		this.i18nTranslator = i18nTranslator;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
@@ -132,6 +137,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 		this.widgetFactory = widgetFactory;
 		this.settlerTracker = settlerTracker;
 		this.settlerManagementScreen = settlerManagementScreen;
+		this.skillDictionary = skillDictionary;
 
 		messageDispatcher.addListener(this, MessageType.MILITARY_CREATE_SQUAD_DIALOG);
 		messageDispatcher.addListener(this, MessageType.MILITARY_SELECT_SQUAD_DIALOG);
@@ -171,6 +177,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 	private Updatable<Table> currentTab() {
 		Table squadTab = squadTab();
 		Table soldiersTab = soldiersTab();
+		Table civiliansTab = civiliansTab();
 
 		Table currentTab = new Table();
 		Updatable<Table> updatable = Updatable.of(currentTab);
@@ -192,6 +199,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 							currentTab.add(soldiersTab).grow();
 						}
 						case TRAINED_CIVILIANS -> {
+							currentTab.add(civiliansTab).grow();
 						}
 					}
 
@@ -200,6 +208,77 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 		});
 
 		return updatable;
+	}
+
+	private Table civiliansTab() {
+		Label subtitle = new Label(i18nTranslator.translate(Tabs.TRAINED_CIVILIANS.i18nKey), managementSkin, "military_subtitle_ribbon");
+		subtitle.setAlignment(Align.center);
+
+		Table subtitleLine = new Table();
+		subtitleLine.add(subtitle).padLeft(30).padRight(30);
+
+		Table civiliansTable = new Table();
+		civiliansTable.top();
+		civiliansTable.defaults().spaceTop(10).spaceBottom(140);
+
+		Updatable<Table> updatable = Updatable.of(civiliansTable);
+
+		List<Entity> settlers = settlerTracker.getLiving()
+				.stream()
+				.filter(SettlerManagementScreen.IS_CIVILIAN)
+				.sorted(SettlerManagementScreen.SORT_NAME)
+				.toList();
+
+		updatable.regularly(() -> {
+			civiliansTable.clear();
+
+			for (Entity settler : settlers) {
+				//TODO: ashamed of not refactoring this properly
+				Table militaryExperienceColumn = new Table();
+				Table militaryToggle = settlerManagementScreen.militaryToggle(settler, false, s -> update());
+				militaryExperienceColumn.add(militaryToggle).top().row();
+
+				SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
+				if (skillsComponent != null) {
+					Skill unarmedCombatSkill = SkillDictionary.UNARMED_COMBAT_SKILL;
+					Skill combatProficiency = skillDictionary.getAllCombatSkills()
+							.stream()
+							.filter(skill -> skill != unarmedCombatSkill)
+							.filter(skill -> skillsComponent.getSkillLevel(skill) > 0)
+							.max(Comparator.comparingInt(skillsComponent::getSkillLevel))
+							.orElse(unarmedCombatSkill);
+
+					int skillLevel = skillsComponent.getSkillLevel(combatProficiency);
+
+					String militaryProficiencyText = i18nTranslator.getSkilledProfessionDescription(combatProficiency, skillLevel,
+							((CreatureEntityAttributes) settler.getPhysicalEntityComponent().getAttributes()).getGender()).toString();
+
+					militaryToggle.layout();
+					Label militaryProficiency = new Label(militaryProficiencyText, managementSkin, "military_highest_proficiency_label");
+					militaryProficiency.setAlignment(Align.center);
+					militaryExperienceColumn.add(militaryProficiency).minWidth(militaryToggle.getMinWidth());
+				}
+
+
+				civiliansTable.add(settlerManagementScreen.mugshot(settler)).top().spaceRight(20);
+				civiliansTable.add(settlerManagementScreen.textSummary(settler)).left().growX().spaceRight(20);
+				civiliansTable.add(militaryExperienceColumn).growY();
+				civiliansTable.row();
+			}
+		});
+
+		updatable.update();
+		updatables.add(updatable);
+
+		ScrollPane scrollPane = new EnhancedScrollPane(civiliansTable, menuSkin);
+		scrollPane.setFadeScrollBars(false);
+
+
+		Table table = new Table();
+		table.add(subtitleLine).padTop(30).padBottom(30f).row();
+		table.add(scrollPane).grow().padBottom(30f).row();
+
+		return table;
 	}
 
 	private Table soldiersTab() {
@@ -233,8 +312,8 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 				tooltipFactory.simpleTooltip(emblem, new I18nText(squad.getName()), TooltipLocationHint.ABOVE);
 
 				//TODO: ashamed of not refactoring this properly
-				soldiersTable.add(settlerManagementScreen.mugshot(soldier)).top().spaceRight(50).spaceLeft(50);
-				soldiersTable.add(settlerManagementScreen.textSummary(soldier)).left().growX().spaceRight(50);
+				soldiersTable.add(settlerManagementScreen.mugshot(soldier)).top().spaceRight(20).spaceLeft(20);
+				soldiersTable.add(settlerManagementScreen.textSummary(soldier)).left().growX().spaceRight(20);
 				soldiersTable.add(emblem).top();
 				soldiersTable.row();
 			}
@@ -250,7 +329,6 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 		Table table = new Table();
 		table.add(subtitleLine).padTop(30).padBottom(30f).row();
 		table.add(scrollPane).grow().width(1100).padBottom(30f).row();
-
 
 		return table;
 	}

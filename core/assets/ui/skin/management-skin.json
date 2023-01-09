@@ -118,6 +118,26 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
+	asset_bg_miliatry_skill_10patch: {
+		region: asset_bg_miliatry_skill
+		horizontalStretchAreas: [ 29, 539 ]
+		verticalStretchAreas: [ 0, 54 ]
+		tiling: false
+		minWidth: 569
+		minHeight: 55
+		rightWidth: 34
+		leftWidth: 34
+		bottomHeight: 0
+		topHeight: 0
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	info_button: {
@@ -195,7 +215,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	military_highest_proficiency_label: {
 		font: default-font-18
 		fontColor: primary_font_colour_red
-		background: asset_bg_miliatry_skill
+		background: asset_bg_miliatry_skill_10patch
 	}
 	default-font-18-label: {
 		font: default-font-18
