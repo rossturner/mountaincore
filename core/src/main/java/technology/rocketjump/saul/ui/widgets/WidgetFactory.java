@@ -88,6 +88,7 @@ public class WidgetFactory {
             }
         });
 
+        addClickCursor(selectBox);
         return selectBox;
     }
 
@@ -131,7 +132,7 @@ public class WidgetFactory {
 
         formationList.setAlignment(Align.center);
 
-
+        addClickCursor(selectBox);
         return selectBox;
     }
 
@@ -147,8 +148,7 @@ public class WidgetFactory {
         toggle.add(toggleImage);
         toggle.addActorBefore(toggle.getImage(), label);
 
-        toggle.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-        toggle.addListener(new ChangeCursorOnHover(toggle, GameCursor.SELECT, messageDispatcher));
+        addClickCursor(toggle);
         return toggle;
     }
 
@@ -163,8 +163,7 @@ public class WidgetFactory {
         checkbox.add(realLabel).growX().padRight(28f);
         checkbox.add(image);
 
-        checkbox.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-        checkbox.addListener(new ChangeCursorOnHover(checkbox, GameCursor.SELECT, messageDispatcher));
+        addClickCursor(checkbox);
 
         return checkbox;
     }
@@ -181,9 +180,14 @@ public class WidgetFactory {
         checkbox.add(realLabel).width(labelMaxWidth).padRight(28f);
         checkbox.add(image);
 
-        checkbox.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-        checkbox.addListener(new ChangeCursorOnHover(checkbox, GameCursor.SELECT, messageDispatcher));
+        addClickCursor(checkbox);
 
         return checkbox;
+    }
+
+
+    private void addClickCursor(Actor selectBox) {
+        selectBox.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+        selectBox.addListener(new ChangeCursorOnHover(selectBox, GameCursor.SELECT, messageDispatcher));
     }
 }

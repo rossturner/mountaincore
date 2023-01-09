@@ -477,6 +477,8 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 				select.getSelected().apply(gameInteractionStateContainer, messageDispatcher);
 			}
 		});
+
+		buttonFactory.attachClickCursor(select, GameCursor.SELECT);
 		Updatable<SelectBox<SquadCommand>> updatable = Updatable.of(select);
 		updatable.regularly(new Runnable() {
 			SquadOrderType previousOrder = null;
