@@ -1043,12 +1043,12 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		nameLabel.setAlignment(Align.left);
 		table.add(nameLabel).growX().row();
 
-		Label professionLabel = tableLabel(currentProfessionName);
+		Label professionLabel = new Label(currentProfessionName, managementSkin, "default-font-18-label");
 		professionLabel.setAlignment(Align.left);
 		table.add(professionLabel).growX().row();
 
 		for (String behaviourDescription : behaviourDescriptions) {
-			Label descriptionLabel = new Label(behaviourDescription, managementSkin, "table_value_label") {
+			Label descriptionLabel = new Label(behaviourDescription, managementSkin, "default-font-18-label") {
 				@Override
 				public float getWidth() {
 					return getParent().getWidth();

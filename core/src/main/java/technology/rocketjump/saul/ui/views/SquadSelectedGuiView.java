@@ -163,12 +163,12 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 
 		Table outerTable = new Table();
 		outerTable.setTouchable(Touchable.enabled);
-		outerTable.setBackground(managementSkin.getDrawable("trade_bg_left")); //Doesn't fill screen due to aspect ratio
+		outerTable.setBackground(managementSkin.getDrawable("bg_military")); //Doesn't fill screen due to aspect ratio
 
 		outerTable.add(title).padTop(40).width(800).row();
 		outerTable.add(squadSummaryGrid.getActor()).padTop(20).row();
 		outerTable.add(tabButtons).padTop(20).row();
-		outerTable.add(currentTab.getActor()).padTop(20).growY().row();
+		outerTable.add(currentTab.getActor()).padTop(20).grow().row();
 
 		containerTable.add(outerTable).growY();
 		update();
@@ -328,7 +328,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 
 		Table table = new Table();
 		table.add(subtitleLine).padTop(30).padBottom(30f).row();
-		table.add(scrollPane).grow().width(1100).padBottom(30f).row();
+		table.add(scrollPane).grow().padBottom(30f).row();
 
 		return table;
 	}
