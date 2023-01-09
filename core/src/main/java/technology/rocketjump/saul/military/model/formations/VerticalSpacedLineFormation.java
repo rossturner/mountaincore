@@ -12,6 +12,16 @@ public class VerticalSpacedLineFormation extends AbstractSpacedFormation {
 	}
 
 	@Override
+	public String getI18nKey() {
+		return "MILITARY.FORMATION.COLUMN_SINGLE";
+	}
+
+	@Override
+	public String getDrawableIconName() {
+		return "icon_formation_column_single";
+	}
+
+	@Override
 	protected List<CompassDirection> getFormationDirections() {
 		return List.of(CompassDirection.NORTH, CompassDirection.SOUTH);
 	}

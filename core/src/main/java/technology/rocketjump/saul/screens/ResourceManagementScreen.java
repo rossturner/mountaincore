@@ -187,7 +187,7 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 		Table stockpileButtons = new Table();
 		ButtonGroup<ImageButton> stockpileButtonGroup = new ButtonGroup<>();
 		for (StockpileGroup stockpileGroup : stockpileGroupDictionary.getAll()) {
-			ImageButton stockpileButton = buttonFactory.checkableButton(mainGameSkin.getDrawable(stockpileGroup.getDrawableName()));
+			ImageButton stockpileButton = buttonFactory.checkableButton(mainGameSkin.getDrawable(stockpileGroup.getDrawableName()), false);
 
 			stockpileButtonGroup.add(stockpileButton);
 			stockpileButton.addListener(new ChangeListener() {

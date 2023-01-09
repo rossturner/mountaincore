@@ -12,6 +12,16 @@ public class VerticalDoubleSpacedLineFormation extends AbstractSpacedFormation {
 	}
 
 	@Override
+	public String getI18nKey() {
+		return "MILITARY.FORMATION.COLUMN_DOUBLE";
+	}
+
+	@Override
+	public String getDrawableIconName() {
+		return "icon_formation_column_double";
+	}
+
+	@Override
 	protected List<CompassDirection> getFormationDirections() {
 		return List.of(CompassDirection.NORTH, CompassDirection.SOUTH);
 	}

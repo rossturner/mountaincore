@@ -41,6 +41,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
@@ -71,7 +72,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 		return militaryComponent != null && militaryComponent.isInMilitary();
 	};
-	private static final Predicate<Entity> IS_CIVILIAN = IS_MILITARY.negate();
+	public static final Predicate<Entity> IS_CIVILIAN = IS_MILITARY.negate();
 
 	private record MatchesActiveProfession(Skill skill) implements Predicate<Entity> {
 
@@ -96,8 +97,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			return settler.getComponent(HappinessComponent.class).getNetModifier();
 		}
 	});
-	private static final Comparator<Entity> SORT_NAME = Comparator.comparing(SettlerManagementScreen::getName);
-	private static final Comparator<Entity> SORT_MILITARY_CIVILIAN = Comparator.comparing((Function<Entity, Long>) settler -> {
+	public static final Comparator<Entity> SORT_NAME = Comparator.comparing(SettlerManagementScreen::getName);
+	public static final Comparator<Entity> SORT_MILITARY_CIVILIAN = Comparator.comparing((Function<Entity, Long>) settler -> {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 		if (militaryComponent != null && militaryComponent.getSquadId() != null) {
 			return militaryComponent.getSquadId();
@@ -319,7 +320,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 
 	private void professionFilterButton(ButtonGroup<ImageButton> professionButtonGroup, Table professionButtons, String drawableName, String i18nKey, Predicate<Entity> filter) {
 		Drawable drawable = managementSkin.getDrawable(drawableName);
-		ImageButton button = buttonFactory.checkableButton(drawable);
+		ImageButton button = buttonFactory.checkableButton(drawable, false);
 		button.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -388,6 +389,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			Table professionsColumn = professions(settler, 1f, rebuildSettlerView);
 			Table weaponSelectColumn = weaponSelection(settler, 1.0f, rebuildSettlerView);
 			Table militaryToggleColumn = militaryToggle(settler, true, rebuildSettlerView);
+			Table squadColumn = militarySquad(settler);
 
 			addGotoSettlerBehaviour(mugshotColumn, settler);
 
@@ -395,7 +397,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			settlersTable.add(mugshotColumn).spaceRight(50f);
 			settlersTable.add(textSummaryColumn).width(550).spaceRight(50f);
 			if (isMilitary) {
-				settlersTable.add(new Table()).width(500).spaceRight(50f);
+				settlersTable.add(squadColumn).width(500).spaceRight(50f);
 				settlersTable.add(needsColumn).spaceRight(50f);
 				settlersTable.add(weaponSelectColumn).spaceRight(50f).spaceBottom(76f).spaceTop(38f);
 			} else {
@@ -587,7 +589,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					});
 
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_WEAPON"),
-							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options));
+							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, 6));
 				}
 			});
 
@@ -610,7 +612,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					}, managementSkin));
 
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_SHIELD"),
-							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options));
+							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, 6));
 				}
 			});
 
@@ -636,7 +638,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					}, managementSkin));
 
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_ARMOUR"),
-							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options));
+							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, 6));
 				}
 			});
 
@@ -805,7 +807,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		public void onSelect() {
 			List<SelectItemDialog.Option> options = SelectItemOption.forMaterialAndQuality(subGroup, entityRenderer, messageDispatcher, i18nTranslator, onWeaponSelect, managementSkin);
 			messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_WEAPON"),
-					menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options));
+					menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, 6));
 		}
 	}
 
@@ -824,18 +826,45 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return null;
 	}
 
+	private Table militarySquad(Entity settler) {
+		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
+
+		Table table = new Table();
+		if (militaryComponent != null && militaryComponent.getSquadId() != null && gameContext.getSquads().containsKey(militaryComponent.getSquadId())) {
+			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
+
+			Drawable emblemDrawable = managementSkin.getDrawable(managementSkin.getEmblemName(squad));
+			Image emblem = new Image(emblemDrawable);
+
+			Label squadName = new Label(squad.getName(), managementSkin, "military_squad_name_ribbon");
+			squadName.setAlignment(Align.center);
+			table.add(squadName).padBottom(5).row();
+			table.add(emblem);
+		}
+
+		return table;
+	}
+
 	public Table militaryToggle(Entity settler, boolean includeRibbon, Consumer<Entity> onMilitaryChange) {
 		MilitaryComponent militaryComponent = settler.getComponent(MilitaryComponent.class);
 
 		Image image = new Image(managementSkin.getDrawable("icon_military"));
 		ImageTextButton toggle = widgetFactory.createLeftLabelledToggle("GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY", managementSkin, image);
 		toggle.setChecked(IS_MILITARY.test(settler));
+		Consumer<Squad> assignSquadCallback = squad -> {
+			militaryComponent.addToMilitary(squad.getId());
+			onMilitaryChange.accept(settler);
+		};
 		toggle.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				boolean checked = toggle.isChecked();
 				if (checked) {
-					militaryComponent.addToMilitary(1L);
+					if (gameContext.getSquads().isEmpty()) {
+						messageDispatcher.dispatchMessage(MessageType.MILITARY_CREATE_SQUAD_DIALOG, new MessageType.MilitaryCreateSquadDialogMessage(assignSquadCallback));
+					} else {
+						messageDispatcher.dispatchMessage(MessageType.MILITARY_SELECT_SQUAD_DIALOG, new MessageType.MilitarySelectSquadDialogMessage(assignSquadCallback));
+					}
 				} else {
 					militaryComponent.removeFromMilitary();
 				}
@@ -890,20 +919,32 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					progressBar.setDisabled(true);
 					progressBar.setWidth(318);
 					progressBar.setHeight(42);
-					Color progressBarColour;
-					if (needValue >= 55f) {
-						progressBarColour = ColorMixer.interpolate(55f, (float) NeedsComponent.MAX_NEED_VALUE, needValue.floatValue(), managementSkin.getColor("progress_bar_yellow"), managementSkin.getColor("progress_bar_green"));
-					} else {
-						progressBarColour = ColorMixer.interpolate((float) NeedsComponent.MIN_NEED_VALUE, 55f, needValue.floatValue(), managementSkin.getColor("progress_bar_red"), managementSkin.getColor("progress_bar_yellow"));
-					}
 					ProgressBar.ProgressBarStyle clonedStyle = new ProgressBar.ProgressBarStyle(progressBar.getStyle());
+
 					if (clonedStyle.knobBefore instanceof NinePatchDrawable ninePatchDrawable) {
+						Color progressBarColour;
+						if (needValue >= 55f) {
+							progressBarColour = ColorMixer.interpolate(55f, (float) NeedsComponent.MAX_NEED_VALUE, needValue.floatValue(), managementSkin.getColor("progress_bar_yellow"), managementSkin.getColor("progress_bar_green"));
+						} else {
+							progressBarColour = ColorMixer.interpolate((float) NeedsComponent.MIN_NEED_VALUE, 55f, needValue.floatValue(), managementSkin.getColor("progress_bar_red"), managementSkin.getColor("progress_bar_yellow"));
+						}
 						clonedStyle.knobBefore = ninePatchDrawable.tint(progressBarColour);
 					}
 					progressBar.setStyle(clonedStyle);
 
 					updatable.regularly(() -> {
-						progressBar.setValue(Math.round(needsComponent.getValue(need)));
+						Double newNeedValue = needsComponent.getValue(need);
+						progressBar.setValue(Math.round(newNeedValue));
+
+						if (clonedStyle.knobBefore instanceof NinePatchDrawable ninePatchDrawable) {
+							Color progressBarColour;
+							if (newNeedValue >= 55f) {
+								progressBarColour = ColorMixer.interpolate(55f, (float) NeedsComponent.MAX_NEED_VALUE, newNeedValue.floatValue(), managementSkin.getColor("progress_bar_yellow"), managementSkin.getColor("progress_bar_green"));
+							} else {
+								progressBarColour = ColorMixer.interpolate((float) NeedsComponent.MIN_NEED_VALUE, 55f, newNeedValue.floatValue(), managementSkin.getColor("progress_bar_red"), managementSkin.getColor("progress_bar_yellow"));
+							}
+							clonedStyle.knobBefore = ninePatchDrawable.tint(progressBarColour);
+						}
 					});
 
 					table.add(icon).right().spaceRight(28);
@@ -970,7 +1011,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return updatable;
 	}
 
-	private Table textSummary(Entity settler) {
+	public Table textSummary(Entity settler) {
 		SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 
 		String settlerName = getName(settler);
@@ -1002,12 +1043,18 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		nameLabel.setAlignment(Align.left);
 		table.add(nameLabel).growX().row();
 
-		Label professionLabel = tableLabel(currentProfessionName);
+		Label professionLabel = new Label(currentProfessionName, managementSkin, "default-font-18-label");
 		professionLabel.setAlignment(Align.left);
 		table.add(professionLabel).growX().row();
 
 		for (String behaviourDescription : behaviourDescriptions) {
-			Label descriptionLabel = tableLabel(behaviourDescription);
+			Label descriptionLabel = new Label(behaviourDescription, managementSkin, "default-font-18-label") {
+				@Override
+				public float getWidth() {
+					return getParent().getWidth();
+				}
+			};
+			descriptionLabel.setWrap(true);
 			descriptionLabel.setAlignment(Align.left);
 			table.add(descriptionLabel).growX().row();
 		}
@@ -1015,7 +1062,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return table;
 	}
 
-	private Table mugshot(Entity settler) {
+	public Table mugshot(Entity settler) {
 		Table table = new Table();
 		float scaleFactor = 0.9f;
 		Drawable background = managementSkin.bgForExampleEntity(settler.getId());

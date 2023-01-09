@@ -41,6 +41,7 @@ public class Squad implements Persistable, SelectableDescription {
 	private SquadOrderType currentOrderType = SquadOrderType.TRAINING;
 	private GridPoint2 guardingLocation;
 	private Set<Long> attackEntityIds = new HashSet<>();
+	private String emblemName;
 
 	public long getId() {
 		return id;
@@ -123,6 +124,21 @@ public class Squad implements Persistable, SelectableDescription {
 		return Math.max(0, memberEntityIds.indexOf(id));
 	}
 
+	public String getEmblemName() {
+		return emblemName;
+	}
+
+	public void setEmblemName(String emblemName) {
+		this.emblemName = emblemName;
+	}
+
+	public String getSmallEmblemName() {
+		if (getEmblemName() != null) {
+			return getEmblemName() + "_small";
+		}
+		return null;
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		if (savedGameStateHolder.squads.containsKey(id)) {
@@ -154,6 +170,10 @@ public class Squad implements Persistable, SelectableDescription {
 			asJson.put("attackEntityIds", attackEntityJson);
 		}
 
+		if (emblemName != null) {
+			asJson.put("emblemName", emblemName);
+		}
+
 		savedGameStateHolder.squadsJson.add(asJson);
 		savedGameStateHolder.squads.put(id, this);
 	}
@@ -177,6 +197,8 @@ public class Squad implements Persistable, SelectableDescription {
 
 		this.guardingLocation = JSONUtils.gridPoint2(asJson.getJSONObject("guardingLocation"));
 
+		this.emblemName = asJson.getString("emblemName");
+
 		JSONArray attackEntityJson = asJson.getJSONArray("attackEntityIds");
 		if (attackEntityJson != null) {
 			for (int cursor = 0; cursor < attackEntityJson.size(); cursor++) {
@@ -186,4 +208,5 @@ public class Squad implements Persistable, SelectableDescription {
 
 		savedGameStateHolder.squads.put(this.id, this);
 	}
+
 }

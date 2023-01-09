@@ -113,8 +113,8 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 	}
 	asset_bg_tooltip_patch_light: {
 		region: asset_bg_tooltip
-		horizontalStretchAreas: [ 0, 470, 531, 997 ]
-		verticalStretchAreas: [ 38, 239 ]
+		horizontalStretchAreas: [ 1, 290, 711, 996 ]
+		verticalStretchAreas: [ 40, 234 ]
 		tiling: false
 		minWidth: 998
 		minHeight: 240
@@ -129,7 +129,7 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		frameDuration: 0.03
 		regions: []
 		playMode: 2
-		crushMode: 0
+		crushMode: 3
 	}
 	asset_notifications_bg_patch: {
 		region: asset_notifications_bg_cropped

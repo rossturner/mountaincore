@@ -12,6 +12,16 @@ public class VerticalContinuousLineFormation extends AbstractSpacedFormation {
 	}
 
 	@Override
+	public String getI18nKey() {
+		return "MILITARY.FORMATION.COLUMN";
+	}
+
+	@Override
+	public String getDrawableIconName() {
+		return "icon_formation_column";
+	}
+
+	@Override
 	protected List<CompassDirection> getFormationDirections() {
 		return List.of(CompassDirection.NORTH, CompassDirection.SOUTH);
 	}

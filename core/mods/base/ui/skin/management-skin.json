@@ -98,6 +98,46 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 1
 	}
+	btn_oblong_small_10patch: {
+		region: btn_oblong_small
+		horizontalStretchAreas: [ 30, 101 ]
+		verticalStretchAreas: [ 30, 30 ]
+		tiling: false
+		minWidth: 132
+		minHeight: 61
+		rightWidth: 29
+		leftWidth: 30
+		bottomHeight: 6
+		topHeight: 6
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
+	asset_bg_miliatry_skill_10patch: {
+		region: asset_bg_miliatry_skill
+		horizontalStretchAreas: [ 29, 539 ]
+		verticalStretchAreas: [ 0, 54 ]
+		tiling: false
+		minWidth: 569
+		minHeight: 55
+		rightWidth: 34
+		leftWidth: 34
+		bottomHeight: 0
+		topHeight: 0
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	info_button: {
@@ -107,6 +147,16 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	toggle: {
 		up: btn_toggle_off
 		checked: btn_toggle_on
+	}
+	squad_card: {
+		up: asset_squad_menu_bg
+		checked: asset_squad_menu_bg_selected
+	}
+	remove_button: {
+		up: icon_remove_military
+	}
+	add_squad_button: {
+		up: btn_add_squad
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
@@ -168,7 +218,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	military_highest_proficiency_label: {
 		font: default-font-18
 		fontColor: primary_font_colour_red
-		background: asset_bg_miliatry_skill
+		background: asset_bg_miliatry_skill_10patch
 	}
 	default-font-18-label: {
 		font: default-font-18
@@ -177,6 +227,29 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default-font-16-label: {
 		font: default-font-16
 		fontColor: primary_font_colour_red
+	}
+	military_title_ribbon: {
+		font: header-font-36
+		fontColor: primary_font_colour_red
+		background: asset_title_ribbon
+	}
+	military_subtitle_ribbon: {
+		font: header-font-36
+		fontColor: primary_font_colour_red
+		background: Secondary_Ribbon_Military
+	}
+	default-font-16-label-white: {
+		parent: default-font-16-label
+		fontColor: white
+	}
+	default-font-18-label-white: {
+		parent: default-font-18-label
+		fontColor: white
+	}
+	military_squad_name_ribbon: {
+		font: default-font-24
+		fontColor: primary_font_colour_red
+		background: asset_bg_military_squad
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
@@ -194,6 +267,11 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		font: default-font-24
 		fontColor: white
 		up: btn_go_to_dwarf_info
+	}
+	military_text_button: {
+		font: default-font-16
+		fontColor: white
+		up: btn_oblong_small_10patch
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
