@@ -120,6 +120,26 @@ com.ray3k.tenpatch.TenPatchDrawable: {
 		playMode: 2
 		crushMode: 0
 	}
+	select_full_10patch: {
+		region: select_full
+		horizontalStretchAreas: [ 0, 653 ]
+		verticalStretchAreas: [ 0, 94 ]
+		tiling: false
+		minWidth: 654
+		minHeight: 95
+		rightWidth: 0
+		leftWidth: 10
+		bottomHeight: 0
+		topHeight: 0
+		offsetX: 0
+		offsetY: 0
+		offsetXspeed: 0
+		offsetYspeed: 0
+		frameDuration: 0.03
+		regions: []
+		playMode: 2
+		crushMode: 0
+	}
 }
 com.kotcrab.vis.ui.Sizes: {
 	default: {
@@ -215,6 +235,10 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 		up: transparent_selection_bg_patch_v2
 		checked: transparent_selected_bg_patch
 	}
+	thick_outline: {
+		up: transparent_selection_bg_patch_v2
+		checked: transparent_selected_bg_patch
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
@@ -298,7 +322,7 @@ com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 		font: default-font-16
 		fontColorSelected: primary_font_colour_yellow_alt
 		fontColorUnselected: white
-		selection: dropdown_body_hover
+		selection: btn_dropdown_body_hover_state
 		background: dropdown_body
 	}
 }
@@ -320,7 +344,14 @@ com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 	default: {
 		font: default-font-16
 		fontColor: white
-		background: select_full
+		background: select_full_10patch
+		scrollStyle: default
+		listStyle: default
+	}
+	select_narrow: {
+		font: default-font-16
+		fontColor: white
+		background: select_narrow_body
 		scrollStyle: default
 		listStyle: default
 	}

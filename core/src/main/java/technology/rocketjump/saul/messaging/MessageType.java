@@ -2,6 +2,9 @@ package technology.rocketjump.saul.messaging;
 
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.military.model.Squad;
+
+import java.util.function.Consumer;
 
 /**
  * This class stores all the message types in use by MessageDispatchers (i.e. the event system)
@@ -286,6 +289,10 @@ public class MessageType {
 	public static final int MILITARY_ASSIGNMENT_CHANGED = 2000;
 	public static final int MILITARY_SQUAD_SHIFT_CHANGED = 2001;
 	public static final int MILITARY_SQUAD_ORDERS_CHANGED = 2002;
+	public static final int MILITARY_CREATE_SQUAD = 2003;
+	public static final int MILITARY_REMOVE_SQUAD = 2004;
+	public static final int MILITARY_CREATE_SQUAD_DIALOG = 2005; public record MilitaryCreateSquadDialogMessage(Consumer<Squad> callback) {};
+	public static final int MILITARY_SELECT_SQUAD_DIALOG = 2006; public record MilitarySelectSquadDialogMessage(Consumer<Squad> callback) {};
 
 	// Invasion messages
 	public static final int TRIGGER_INVASION = 2100;

@@ -306,7 +306,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 		});
 
 		SelectItemDialog selectItemDialog = new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.PRODUCTION_IMPORT.CHOOSE_ITEM_TYPE"),
-				guiSkinRepository.getMenuSkin(), messageDispatcher, soundAssetDictionary, tooltipFactory, options);
+				guiSkinRepository.getMenuSkin(), messageDispatcher, soundAssetDictionary, tooltipFactory, options, SelectItemDialog.ITEMS_PER_ROW);
 		selectItemDialog.getContentTable().padLeft(60);
 		selectItemDialog.setShowWithAnimation(false);
 		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, selectItemDialog);
