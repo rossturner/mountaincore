@@ -338,7 +338,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 
 		Label subtitle = new Label(i18nTranslator.translate(Tabs.SQUADS.i18nKey), managementSkin, "military_subtitle_ribbon");
 		subtitle.setAlignment(Align.center);
-		Updatable<TextButton> addSquadButton = addSquadButton();
+		Updatable<Button> addSquadButton = addSquadButton();
 		updatables.add(addSquadButton);
 
 		Table subtitleLine = new Table();
@@ -448,13 +448,13 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_ORDERS"), managementSkin, "default-font-16-label-white")).padTop(24).row();
 		squadActionColumn.add(squadCommandSelect.getActor()).padTop(16f).growX();
 
-		card.add(personnelWidget).left().padLeft(20).padBottom(15);
-		card.add(new Container<>(titleWidget)).growX().padBottom(15);
-		card.add(removeSquadButton.getActor()).right().padRight(20).padBottom(15);
+		card.add(personnelWidget).left().top().padLeft(18).padTop(17).padBottom(15);
+		card.add(new Container<>(titleWidget)).growX().padBottom(15).padTop(17);
+		card.add(removeSquadButton.getActor()).right().padRight(18).padTop(17).padBottom(15);
 		card.row();
-		card.add(emblemColumn).uniformX().padLeft(38);
-		card.add(squadActionColumn).padLeft(30).padRight(30);
-		card.add(new Container<>()).uniformX().padRight(38);
+		card.add(emblemColumn).uniformX().expandY().padLeft(38);
+		card.add(squadActionColumn).padLeft(30).expandY().padRight(30);
+		card.add(new Container<>()).uniformX().expandY().padRight(38);
 		return card;
 	}
 
@@ -559,7 +559,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 
 		Table shiftWidget = new Table();
 		shiftWidget.add(dayShiftLabel);
-		shiftWidget.add(toggle);
+		shiftWidget.add(toggle).padLeft(8).padRight(8);
 		shiftWidget.add(nightShiftLabel);
 		return shiftWidget;
 	}
@@ -700,8 +700,8 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
 	}
 
-	private Updatable<TextButton> addSquadButton() {
-		TextButton addSquadButton = new TextButton(i18nTranslator.translate("GUI.MILITARY.NEW_SQUAD"), managementSkin, "military_text_button");
+	private Updatable<Button> addSquadButton() {
+		Button addSquadButton = new Button(managementSkin, "add_squad_button");
 		addSquadButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -711,8 +711,9 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 				messageDispatcher.dispatchMessage(MessageType.MILITARY_CREATE_SQUAD_DIALOG, message);
 			}
 		});
+		tooltipFactory.simpleTooltip(addSquadButton, "GUI.MILITARY.NEW_SQUAD", TooltipLocationHint.ABOVE);
 		buttonFactory.attachClickCursor(addSquadButton, GameCursor.SELECT);
-		Updatable<TextButton> updatable = Updatable.of(addSquadButton);
+		Updatable<Button> updatable = Updatable.of(addSquadButton);
 		updatable.regularly(() -> {
 			if (gameContext.getSquads().size() < MilitaryMessageHandler.MAX_SQUAD_COUNT) {
 				buttonFactory.enable(addSquadButton);

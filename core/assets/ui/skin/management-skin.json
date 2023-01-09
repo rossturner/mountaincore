@@ -155,6 +155,9 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	remove_button: {
 		up: icon_remove_military
 	}
+	add_squad_button: {
+		up: btn_add_squad
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	sort_by_button: {
