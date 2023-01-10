@@ -12,6 +12,16 @@ public class SingleSpacedGridFormation extends AbstractGridFormation {
 	}
 
 	@Override
+	public String getI18nKey() {
+		return "MILITARY.FORMATION.GRID_SINGLE";
+	}
+
+	@Override
+	public String getDrawableIconName() {
+		return "icon_formation_grid_single";
+	}
+
+	@Override
 	protected List<CompassDirection> getFormationDirections() {
 		return List.of(CompassDirection.values());
 	}

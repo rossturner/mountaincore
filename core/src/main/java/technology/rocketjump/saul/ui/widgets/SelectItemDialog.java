@@ -19,7 +19,7 @@ import technology.rocketjump.saul.ui.i18n.I18nText;
 import java.util.List;
 
 public class SelectItemDialog extends GameDialog {
-	private static final int ITEMS_PER_ROW = 6;
+	public static final int ITEMS_PER_ROW = 6;
 
 	public static abstract class Option {
 		private final I18nText tooltipText;
@@ -39,18 +39,19 @@ public class SelectItemDialog extends GameDialog {
 	}
 
 	public SelectItemDialog(I18nText titleText, Skin skin, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary,
-	                        TooltipFactory tooltipFactory, List<Option> options) {
+	                        TooltipFactory tooltipFactory, List<? extends Option> options, int optionsPerRow) {
 		super(titleText, skin, messageDispatcher, soundAssetDictionary);
 
 
 		Table selectionTable = new Table();
-		selectionTable.left().top();
+		setTableDefaults(selectionTable);
 		ScrollPane scrollPane = new EnhancedScrollPane(selectionTable, skin);
 
 		int numAdded = 0;
 		int numRows = 0;
 		for (Option option : options) {
 			Table innerTable = new Table();
+			selectionTable.add(innerTable).spaceRight(40).spaceLeft(40);
 
 			option.addSelectionComponents(innerTable);
 
@@ -66,12 +67,13 @@ public class SelectItemDialog extends GameDialog {
 
 			innerTable.addListener(new ChangeCursorOnHover(innerTable, GameCursor.SELECT, messageDispatcher));
 			innerTable.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
-			tooltipFactory.simpleTooltip(innerTable, option.getTooltipText(), TooltipLocationHint.BELOW);
+			if (option.getTooltipText() != I18nText.BLANK) {
+				tooltipFactory.simpleTooltip(innerTable, option.getTooltipText(), TooltipLocationHint.BELOW);
+			}
 
-			selectionTable.add(innerTable).spaceRight(40).spaceLeft(40);
 			numAdded++;
 
-			if (numAdded % ITEMS_PER_ROW == 0) {
+			if (numAdded % optionsPerRow == 0) {
 				selectionTable.row();
 				numRows++;
 			}
@@ -89,6 +91,10 @@ public class SelectItemDialog extends GameDialog {
 		} else {
 			cell.growY();
 		}
+	}
+
+	protected void setTableDefaults(Table selectionTable) {
+		selectionTable.top();
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
@@ -46,9 +47,11 @@ public class LanguageList extends List<LanguageType> {
     protected GlyphLayout drawItem (Batch batch, BitmapFont font, int index, LanguageType item, float x, float y, float width) {
         String string = toString(item);
         Sprite iconSprite = item.getIconSprite();
-
-        float itemHeight = getItemHeight();
-        batch.draw(iconSprite, x + 12, y - 40, itemHeight, itemHeight);
+        Drawable selection = getStyle().selection;
+        float middleHeight = selection.getMinHeight() - selection.getBottomHeight() - selection.getTopHeight();
+        float remainder = Math.max(middleHeight - font.getLineHeight(), 0);
+        float yOffset = font.getLineHeight() - (remainder / 2f);
+        batch.draw(iconSprite, x, y - yOffset, iconSprite.getWidth(), iconSprite.getHeight());
         return font.draw(batch, string, x, y, 0, string.length(), width, alignment, false, "...");
     }
 
