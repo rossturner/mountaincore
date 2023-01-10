@@ -267,13 +267,14 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				Logger.warn("Not yet implemented: crafting non-item output");
 				continue;
 			}
+			GameMaterial desiredMaterial = exportFurnitureBehaviour.getSelectedMaterial();
 			List<CraftingRecipe> potentialRecipes = new ArrayList<>(recipesForCraftingType.stream()
 					.filter(r -> desiredItemType.equals(r.getOutput().getItemType()))
+					.filter(r -> desiredMaterial == null || r.getOutput().getMaterial() == null || desiredMaterial.equals(r.getOutput().getMaterial()))
 					.toList());
 			Collections.shuffle(potentialRecipes, gameContext.getRandom());
 			for (CraftingRecipe craftingRecipe : potentialRecipes) {
 				int quantityRequired = getAmountRequired(exportFurnitureBehaviour);
-				GameMaterial desiredMaterial = exportFurnitureBehaviour.getSelectedMaterial();
 				if (quantityRequired > 0 && quantityRequired >= craftingRecipe.getOutput().getQuantity()) {
 					if (craftingRecipe.getInput().stream().allMatch(r -> inputIsAvailable(r, craftingRecipe, importFurniture, liquidContainers, desiredMaterial))) {
 						// This recipe can be crafted, so use this and create a CraftingAssignment

@@ -4180,6 +4180,123 @@
     }
   }
 }, {
+  "uniqueName" : "Weapon-Forge-A",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "WEAPON_FORGE",
+  "furnitureLayoutName" : "inverted-U",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Forge A.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 68.0,
+        "y" : 36.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Forge-B",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "WEAPON_FORGE",
+  "furnitureLayoutName" : "inverted-U",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Forge B.png",
+      "coloringLayer" : "ORE_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 67.5,
+        "y" : 13.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Weapon-Forge-C",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "WEAPON_FORGE",
+  "furnitureLayoutName" : "inverted-U",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Forge C.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 64.0,
+        "y" : -25.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 5.5,
+          "y" : 16.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 5.5,
+          "y" : 16.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_DECO_1",
+        "offsetPixels" : {
+          "x" : -58.0,
+          "y" : 28.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_2",
+        "offsetPixels" : {
+          "x" : 62.0,
+          "y" : -28.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_DECO_3",
+        "offsetPixels" : {
+          "x" : -58.0,
+          "y" : -28.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 28.0,
+          "unit" : false
+        }
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Leatherworking_Station-leatherwork-bench-layout-Base_Layer-Wood",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "Leatherworking_Station",

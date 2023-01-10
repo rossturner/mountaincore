@@ -174,6 +174,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 				}
 			});
 			leftButton.addListener(new ChangeCursorOnHover(leftButton, GameCursor.SELECT, messageDispatcher));
+			leftButton.setDisabled(false);
 			rightButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
@@ -181,6 +182,7 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 				}
 			});
 			rightButton.addListener(new ChangeCursorOnHover(rightButton, GameCursor.SELECT, messageDispatcher));
+			rightButton.setDisabled(false);
 		} else {
 			leftButton.setDisabled(true);
 			rightButton.setDisabled(true);
@@ -229,7 +231,9 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 		} else {
 			// specific materials only
 			availableMaterials.addAll(specifiedMaterials);
-			productionImportBehaviour.setSelectedMaterial(availableMaterials.get(0));
+			if (!availableMaterials.contains(productionImportBehaviour.getSelectedMaterial())) {
+				productionImportBehaviour.setSelectedMaterial(availableMaterials.get(0));
+			}
 		}
 	}
 

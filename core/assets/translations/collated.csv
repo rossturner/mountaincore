@@ -143,6 +143,7 @@ CRAFTING_TYPE.ORE_CRUSHING,Ore crushing,,Erz zerkleinern,,Frantumazione dei mine
 CRAFTING_TYPE.SMELTING,Smelting,,Schmelzen,,Fusione,Fundiendo,,,,Плавление металлов,Döküm,,,,,,,金属を製錬する,熔炼,
 CRAFTING_TYPE.STONEMASONRY,Stonemasonry,,Stein bearbeiten,,Muratura,Esculpiendo,,,,Работа с камнем,Taş Ustası,,,,,,,石を加工する,石雕,
 CRAFTING_TYPE.TANNING_HIDE,Hide tanning,,,,,,,,,,,,,,,,,,,
+CRAFTING_TYPE.WEAPONSMITHING,Weaponsmithing,,,,,,,,,,,,,,,,,,,
 CRAFTING_TYPE.WEAVING,Weaving,,Weben,,Tessitura,Tejiendo,,,,Ткачество,,,,,,,,布製品を製造する,纺织,
 CRAFTING_TYPE.WOODCUTTING,Woodcutting,,Holz hacken,,Taglio del legno,Talando,,,,Резьба по дереву,Doğramacı,,,,,,,丸太を加工する,伐木,
 CRAFTING_TYPE.WORT_BREWING,Brewing,,Brauen,,Preparazione del mosto,Elaborando,,,,Пивоварение,Mayalama,,,,,,,ビールを醸造する,酿制,

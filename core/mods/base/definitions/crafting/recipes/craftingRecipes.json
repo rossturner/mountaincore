@@ -70,33 +70,12 @@
     "maximumTimeToCompleteCrafting": 8.5
   },
   {
-    "recipeName": "Craft metal plates",
-    "craftingTypeName": "BLACKSMITHING",
-    "input": [
-      {
-        "itemTypeName": "Resource-Metal-Ingot",
-        "quantity": 4
-      }
-    ],
-    "output": {
-      "itemTypeName": "Resource-Metal-Plate",
-      "quantity": 2
-    },
-    "materialTypesToCopyOver": ["METAL"],
-    "minimumTimeToCompleteCrafting": 2.5,
-    "maximumTimeToCompleteCrafting": 7.5
-  },
-  {
     "recipeName": "Craft liquid tank",
     "craftingTypeName": "BLACKSMITHING",
     "input": [
       {
         "itemTypeName": "Resource-Metal-Plate",
-        "quantity": 2
-      },
-      {
-        "itemTypeName": "Product-Barrel-Hoops",
-        "quantity": 2
+        "quantity": 3
       }
     ],
     "output": {

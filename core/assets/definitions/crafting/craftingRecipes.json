@@ -17,7 +17,7 @@
   "maximumTimeToCompleteCrafting" : 8.5
 }, {
   "recipeName" : "Craft plate armour",
-  "craftingTypeName" : "BLACKSMITHING",
+  "craftingTypeName" : "WEAPONSMITHING",
   "itemTypeRequiredName" : "Tool-Tongs",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
@@ -250,29 +250,11 @@
   "minimumTimeToCompleteCrafting" : 2.5,
   "maximumTimeToCompleteCrafting" : 8.5
 }, {
-  "recipeName" : "Craft metal plates",
-  "craftingTypeName" : "BLACKSMITHING",
-  "input" : [ {
-    "itemTypeName" : "Resource-Metal-Ingot",
-    "quantity" : 4
-  } ],
-  "output" : {
-    "itemTypeName" : "Resource-Metal-Plate",
-    "quantity" : 2
-  },
-  "valueConversion" : "DEFAULT",
-  "materialTypesToCopyOver" : [ "METAL" ],
-  "minimumTimeToCompleteCrafting" : 2.5,
-  "maximumTimeToCompleteCrafting" : 7.5
-}, {
   "recipeName" : "Craft liquid tank",
   "craftingTypeName" : "BLACKSMITHING",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Plate",
-    "quantity" : 2
-  }, {
-    "itemTypeName" : "Product-Barrel-Hoops",
-    "quantity" : 2
+    "quantity" : 3
   } ],
   "output" : {
     "itemTypeName" : "Product-Liquid-Tank",
@@ -861,6 +843,174 @@
   "minimumTimeToCompleteCrafting" : 1.5,
   "maximumTimeToCompleteCrafting" : 3.5
 }, {
+  "recipeName" : "Smelt iron plates",
+  "craftingTypeName" : "SMELTING",
+  "itemTypeRequiredName" : "Tool-Tongs",
+  "input" : [ {
+    "itemTypeName" : "Fuel-Sack",
+    "quantity" : 1
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 6,
+    "materialName" : "Hematite"
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Metal-Plate",
+    "quantity" : 3,
+    "materialName" : "Iron"
+  },
+  "valueConversion" : "DEFAULT",
+  "extraGameHoursToComplete" : 3.0,
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 7.5
+}, {
+  "recipeName" : "Smelt tin plates",
+  "craftingTypeName" : "SMELTING",
+  "itemTypeRequiredName" : "Tool-Tongs",
+  "input" : [ {
+    "itemTypeName" : "Fuel-Sack",
+    "quantity" : 1
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 6,
+    "materialName" : "Cassiterite"
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Metal-Plate",
+    "quantity" : 3,
+    "materialName" : "Tin"
+  },
+  "valueConversion" : "DEFAULT",
+  "extraGameHoursToComplete" : 3.0,
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 7.5
+}, {
+  "recipeName" : "Smelt copper plates",
+  "craftingTypeName" : "SMELTING",
+  "itemTypeRequiredName" : "Tool-Tongs",
+  "input" : [ {
+    "itemTypeName" : "Fuel-Sack",
+    "quantity" : 1
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 6,
+    "materialName" : "Native Copper"
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Metal-Plate",
+    "quantity" : 3,
+    "materialName" : "Copper"
+  },
+  "valueConversion" : "DEFAULT",
+  "extraGameHoursToComplete" : 3.0,
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 7.5
+}, {
+  "recipeName" : "Smelt copper plates from malachite",
+  "craftingTypeName" : "SMELTING",
+  "itemTypeRequiredName" : "Tool-Tongs",
+  "input" : [ {
+    "itemTypeName" : "Fuel-Sack",
+    "quantity" : 1
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 6,
+    "materialName" : "Malachite"
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Metal-Plate",
+    "quantity" : 3,
+    "materialName" : "Copper"
+  },
+  "valueConversion" : "DEFAULT",
+  "extraGameHoursToComplete" : 3.0,
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 7.5
+}, {
+  "recipeName" : "Smelt copper plates from chrysocolla",
+  "craftingTypeName" : "SMELTING",
+  "itemTypeRequiredName" : "Tool-Tongs",
+  "input" : [ {
+    "itemTypeName" : "Fuel-Sack",
+    "quantity" : 1
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 6,
+    "materialName" : "Chrysocolla"
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Metal-Plate",
+    "quantity" : 3,
+    "materialName" : "Copper"
+  },
+  "valueConversion" : "DEFAULT",
+  "extraGameHoursToComplete" : 3.0,
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 7.5
+}, {
+  "recipeName" : "Smelt gold plates",
+  "craftingTypeName" : "SMELTING",
+  "itemTypeRequiredName" : "Tool-Tongs",
+  "input" : [ {
+    "itemTypeName" : "Fuel-Sack",
+    "quantity" : 1
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 6,
+    "materialName" : "Native Gold"
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Metal-Plate",
+    "quantity" : 3,
+    "materialName" : "Gold"
+  },
+  "valueConversion" : "DEFAULT",
+  "extraGameHoursToComplete" : 3.0,
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 7.5
+}, {
+  "recipeName" : "Smelt silver plates from galena",
+  "craftingTypeName" : "SMELTING",
+  "itemTypeRequiredName" : "Tool-Tongs",
+  "input" : [ {
+    "itemTypeName" : "Fuel-Sack",
+    "quantity" : 1
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 6,
+    "materialName" : "Galena"
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Metal-Plate",
+    "quantity" : 3,
+    "materialName" : "Silver"
+  },
+  "valueConversion" : "DEFAULT",
+  "extraGameHoursToComplete" : 3.0,
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 7.5
+}, {
+  "recipeName" : "Smelt silver plates from native",
+  "craftingTypeName" : "SMELTING",
+  "itemTypeRequiredName" : "Tool-Tongs",
+  "input" : [ {
+    "itemTypeName" : "Fuel-Sack",
+    "quantity" : 1
+  }, {
+    "itemTypeName" : "Resource-Ore-Crushed",
+    "quantity" : 6,
+    "materialName" : "Native Silver"
+  } ],
+  "output" : {
+    "itemTypeName" : "Resource-Metal-Plate",
+    "quantity" : 3,
+    "materialName" : "Silver"
+  },
+  "valueConversion" : "DEFAULT",
+  "extraGameHoursToComplete" : 3.0,
+  "minimumTimeToCompleteCrafting" : 2.5,
+  "maximumTimeToCompleteCrafting" : 7.5
+}, {
   "recipeName" : "Cut stone blocks",
   "craftingTypeName" : "STONEMASONRY",
   "itemTypeRequiredName" : "Tool-Chisel",
@@ -1007,7 +1157,7 @@
   "maximumTimeToCompleteCrafting" : 11.5
 }, {
   "recipeName" : "Forge Battle Axe",
-  "craftingTypeName" : "BLACKSMITHING",
+  "craftingTypeName" : "WEAPONSMITHING",
   "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Resource-Planks",
@@ -1026,7 +1176,7 @@
   "maximumTimeToCompleteCrafting" : 11.5
 }, {
   "recipeName" : "Forge Battle Hammer",
-  "craftingTypeName" : "BLACKSMITHING",
+  "craftingTypeName" : "WEAPONSMITHING",
   "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
@@ -1042,7 +1192,7 @@
   "maximumTimeToCompleteCrafting" : 11.5
 }, {
   "recipeName" : "Forge Sword",
-  "craftingTypeName" : "BLACKSMITHING",
+  "craftingTypeName" : "WEAPONSMITHING",
   "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
@@ -1058,7 +1208,7 @@
   "maximumTimeToCompleteCrafting" : 11.5
 }, {
   "recipeName" : "Craft Crossbow",
-  "craftingTypeName" : "BLACKSMITHING",
+  "craftingTypeName" : "WEAPONSMITHING",
   "itemTypeRequiredName" : "Tool-Large-Hammer",
   "input" : [ {
     "itemTypeName" : "Resource-Planks",
@@ -1092,7 +1242,7 @@
   "maximumTimeToCompleteCrafting" : 11.5
 }, {
   "recipeName" : "Craft metal shield",
-  "craftingTypeName" : "BLACKSMITHING",
+  "craftingTypeName" : "WEAPONSMITHING",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
     "quantity" : 4
