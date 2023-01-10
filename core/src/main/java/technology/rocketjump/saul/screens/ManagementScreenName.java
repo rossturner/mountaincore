@@ -16,6 +16,6 @@ public enum ManagementScreenName {
 		this.buttonStyleName = buttonStyleName;
 	}
 
-	public static List<ManagementScreenName> managementScreensOrderedForUI = List.of(RESOURCES, SETTLERS);
+	public static List<ManagementScreenName> managementScreensOrderedForUI = List.of(CRAFTING, SETTLERS, RESOURCES);
 
 }
