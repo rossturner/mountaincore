@@ -87,6 +87,7 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE);
 		messageDispatcher.addListener(this, MessageType.CANCEL_ITEM_ALLOCATION);
 		messageDispatcher.addListener(this, MessageType.LOOKUP_ITEM_TYPES_BY_STOCKPILE_GROUP);
+		messageDispatcher.addListener(this, MessageType.CHECK_ITEM_AVAILABILITY);
 	}
 
 	@Override
@@ -117,6 +118,9 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 				ItemAllocation itemAllocation = (ItemAllocation) msg.extraInfo;
 				cancelItemAllocation(itemAllocation);
 				return true;
+			}
+			case MessageType.CHECK_ITEM_AVAILABILITY: {
+				return handle((MessageType.CheckItemAvailabilityMessage)msg.extraInfo);
 			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
@@ -264,6 +268,23 @@ public class ItemEntityMessageHandler implements GameContextAware, Telegraph {
 			itemMaterialSelectionMessage.callback.accept(null);
 		}
 		return true;
+	}
+
+	private boolean handle(MessageType.CheckItemAvailabilityMessage message) {
+		if (message.requirement().getMaterial() != null) {
+			List<Entity> items = settlementItemTracker.getItemsByType(message.requirement().getItemType(), true);
+			message.callback().accept(countAvailability(items));
+		} else {
+			List<Entity> items = settlementItemTracker.getItemsByTypeAndMaterial(message.requirement().getItemType(), message.requirement().getMaterial(), true);
+			message.callback().accept(countAvailability(items));
+		}
+		return true;
+	}
+
+	private Integer countAvailability(List<Entity> items) {
+		return items.stream()
+				.map(e -> e.getComponent(ItemAllocationComponent.class).getNumUnallocated())
+				.reduce(0, Integer::sum);
 	}
 
 	public static HaulingAllocation findStockpileAllocation(TiledMap areaMap, Entity entity, Entity requestingEntity, MessageDispatcher messageDispatcher) {

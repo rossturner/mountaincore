@@ -10,7 +10,6 @@
     } ]
   },
   "tags": {
-    "COLLECT_ITEMS_BEHAVIOUR": ["COOKING_INGREDIENTS", "15", "CHEF", "ALLOW_DUPLICATES", "Product-Ration-Dough", "Product-Bread-Dough"],
-    "INVENTORY_ITEMS_UNALLOCATED": []
+    "PRODUCTION_EXPORT" : [ "1" ]
   }
 }

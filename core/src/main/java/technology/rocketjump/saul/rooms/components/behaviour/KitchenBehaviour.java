@@ -41,6 +41,7 @@ import technology.rocketjump.saul.rooms.RoomTile;
 import technology.rocketjump.saul.rooms.components.RoomComponent;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static technology.rocketjump.saul.jobs.model.JobState.REMOVED;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
@@ -120,17 +121,15 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 			if (isNotCooking) {
 				FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 				List<CookingRecipe> availableRecipes = byFurnitureType.get(attributes.getFurnitureType());
-				if (availableRecipes != null && !availableRecipes.isEmpty()) {
-					//TODO: think of a better planner for picking recipes
-					final CookingRecipe cookingRecipe;
-					if (availableRecipes.size() == 1) {
-						cookingRecipe = availableRecipes.get(0);
-					} else {
-						cookingRecipe = availableRecipes.get(gameContext.getRandom().nextInt(availableRecipes.size()));
+				if (availableRecipes != null) {
+					Collections.shuffle(availableRecipes, gameContext.getRandom());
+					for (CookingRecipe cookingRecipe : availableRecipes) {
+						if (ingredientsAreAvailable(cookingRecipe)) {
+							CookingSession cookingSession = new CookingSession(cookingRecipe, entity, gameTime);
+							cookingSessions.put(entity.getId(), cookingSession);
+							break;
+						}
 					}
-
-					CookingSession cookingSession = new CookingSession(cookingRecipe, entity, gameTime);
-					cookingSessions.put(entity.getId(), cookingSession);
 				}
 			}
 		}
@@ -163,6 +162,19 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 				}
 			}
 		}
+	}
+
+	private boolean ingredientsAreAvailable(CookingRecipe cookingRecipe) {
+		AtomicInteger numRequired = new AtomicInteger(cookingRecipe.getInputItemQuantity());
+		for (ItemTypeWithMaterial inputItemOption : cookingRecipe.getInputItemOptions()) {
+			messageDispatcher.dispatchMessage(MessageType.CHECK_ITEM_AVAILABILITY, new MessageType.CheckItemAvailabilityMessage(inputItemOption, (available) -> {
+				numRequired.set(numRequired.get() - available);
+			}));
+			if (numRequired.get() <= 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void refreshFurnitureEntities(GameContext gameContext) {
