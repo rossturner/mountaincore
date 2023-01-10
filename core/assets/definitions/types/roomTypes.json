@@ -96,7 +96,7 @@
   "i18nKey" : "ROOMS.BAKERY",
   "drawableName" : "btn_room_bakery",
   "colorCode" : "#b98da0",
-  "furnitureNames" : [ "BAKERS_WORKTOP", "BAKING_OVEN", "Dough_Proofing_Table", "IMPORT_PALLET", "EXPORT_PALLET" ],
+  "furnitureNames" : [ "BAKERS_WORKTOP", "BAKING_OVEN", "IMPORT_PALLET", "Dough_Proofing_Table" ],
   "tags" : {
     "KITCHEN_BEHAVIOUR" : [ ]
   }

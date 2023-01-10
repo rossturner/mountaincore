@@ -138,8 +138,12 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 
 				int amountToRequest = 0;
 				GameMaterial materialToRequest = selectedMaterial;
-				if (stackInInventory == null && incomingHaulingJobs.isEmpty()) {
-					// try to request entire stack to come in
+				if (stackInInventory == null) {
+					// reduce potential stack size by incoming hauling
+					for (Job incomingHaulingJob : incomingHaulingJobs) {
+						amountToRequest -= incomingHaulingJob.getHaulingAllocation().getItemAllocation().getAllocationAmount();
+					}
+					// request remaining amount
 					amountToRequest = selectedItemType.getMaxStackSize();
 				} else if (stackInInventory != null) {
 					ItemEntityAttributes attributes = (ItemEntityAttributes) stackInInventory.getPhysicalEntityComponent().getAttributes();
