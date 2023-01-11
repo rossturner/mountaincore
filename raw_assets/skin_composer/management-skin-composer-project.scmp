@@ -2870,7 +2870,7 @@ atlasData: {
 			hidden: false
 		}
 		{
-			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_water.png
+			file: C:/workspace/project-saul/raw_assets/skin_composer/management-skin-composer-project_data/icon_water_white.png
 			bgColor: {
 				r: 1
 				g: 1
@@ -2879,7 +2879,7 @@ atlasData: {
 			}
 			tint: null
 			tintName: null
-			name: icon_water
+			name: icon_water_white
 			tiled: false
 			minWidth: -1
 			minHeight: -1

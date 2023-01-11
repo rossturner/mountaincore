@@ -329,7 +329,7 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 		Stack entityStack = new Stack();
 
 		Drawable btnResourceItemBg = managementSkin.bgForExampleEntity(1);
-		Drawable icon = managementSkin.newDrawable("icon_water_greyscale", material.getColor());
+		Drawable icon = managementSkin.newDrawable("icon_water_white", material.getColor());
 
 		ImageButton imageButton = new ImageButton(icon);
 		imageButton.getStyle().up = btnResourceItemBg;
