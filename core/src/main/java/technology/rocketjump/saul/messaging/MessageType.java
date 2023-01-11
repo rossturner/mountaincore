@@ -2,6 +2,7 @@ package technology.rocketjump.saul.messaging;
 
 import technology.rocketjump.saul.entities.components.BehaviourComponent;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.saul.military.model.Squad;
 
 import java.util.function.Consumer;
@@ -159,6 +160,7 @@ public class MessageType {
 	public static final int LOOKUP_ITEM_TYPES_BY_STOCKPILE_GROUP = 706;
 	public static final int SELECT_AVAILABLE_MATERIAL_FOR_ITEM_TYPE = 707;
 	public static final int CANCEL_ITEM_ALLOCATION = 708;
+	public static final int CHECK_ITEM_AVAILABILITY = 709; public record CheckItemAvailabilityMessage(ItemTypeWithMaterial requirement, Consumer<Integer> callback) {}
 
 	// Furniture & doorway specific messages
 	public static final int CREATE_DOORWAY = 801;

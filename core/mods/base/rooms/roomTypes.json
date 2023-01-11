@@ -82,12 +82,22 @@
     ]
   },
   {
-    "roomName": "METALWORKS",
-    "i18nKey": "ROOMS.METALWORKS",
+    "roomName": "SMELTERY",
+    "i18nKey": "ROOMS.SMELTERY",
+    "colorCode": "#909a87",
+    "drawableName": "btn_room_smeltery",
+    "furnitureNames": [
+      "BLOOMERY_FURNACE",
+      "IMPORT_PALLET",
+      "EXPORT_PALLET"
+    ]
+  },
+  {
+    "roomName": "SMITHY",
+    "i18nKey": "ROOMS.SMITHY",
     "colorCode": "#909a87",
     "drawableName": "btn_room_metalworks",
     "furnitureNames": [
-      "BLOOMERY_FURNACE",
       "FORGE",
       "IMPORT_PALLET",
       "EXPORT_PALLET"
@@ -131,11 +141,23 @@
       "KITCHEN_WORKTOP",
       "CHEFS_CAULDRON",
       "FLOUR_MILL",
-      "BAKERS_WORKTOP",
-      "BAKING_OVEN",
-      "Dough_Proofing_Table",
       "IMPORT_PALLET",
       "EXPORT_PALLET"
+    ]
+  },
+  {
+    "roomName": "BAKERY",
+    "i18nKey": "ROOMS.BAKERY",
+    "colorCode": "#b98da0",
+    "drawableName": "btn_room_bakery",
+    "tags": {
+      "KITCHEN_BEHAVIOUR": []
+    },
+    "furnitureNames": [
+      "BAKERS_WORKTOP",
+      "BAKING_OVEN",
+      "IMPORT_PALLET",
+      "Dough_Proofing_Table"
     ]
   },
   {
@@ -202,7 +224,9 @@
     "tags": {
     },
     "furnitureNames": [
+      "Leatherworking_Station",
       "FLETCHERS_WORKBENCH",
+      "WEAPON_FORGE",
       "IMPORT_PALLET",
       "EXPORT_PALLET",
       "Armour_Stand",
@@ -216,7 +240,6 @@
     "drawableName": "btn_room_leather",
     "furnitureNames": [
       "Tanning_Frame",
-      "Leatherworking_Station",
       "IMPORT_PALLET",
       "EXPORT_PALLET"
     ]

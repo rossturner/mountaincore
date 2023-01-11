@@ -261,7 +261,16 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 				}
 
 
-				civiliansTable.add(settlerManagementScreen.mugshot(settler)).top().spaceRight(20);
+				Table mugshot = settlerManagementScreen.mugshot(settler);
+				mugshot.addListener(new ChangeCursorOnHover(mugshot, GameCursor.SELECT, messageDispatcher));
+				mugshot.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, settler.getLocationComponent().getWorldOrParentPosition());
+						messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(settler, 0));
+					}
+				});
+				civiliansTable.add(mugshot).top().spaceRight(20);
 				civiliansTable.add(settlerManagementScreen.textSummary(settler)).left().growX().spaceRight(20);
 				civiliansTable.add(militaryExperienceColumn).growY();
 				civiliansTable.row();
@@ -310,10 +319,25 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 				Drawable emblemDrawable = managementSkin.getDrawable(managementSkin.getEmblemName(squad));
 				Image emblem = new Image(emblemDrawable);
 				emblem.setTouchable(Touchable.enabled);
+				emblem.addListener(new ChangeCursorOnHover(emblem, GameCursor.SELECT, messageDispatcher));
+				emblem.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(squad));
+					}
+				});
 				tooltipFactory.simpleTooltip(emblem, new I18nText(squad.getName()), TooltipLocationHint.ABOVE);
 
-				//TODO: ashamed of not refactoring this properly
-				soldiersTable.add(settlerManagementScreen.mugshot(soldier)).top().spaceRight(20).spaceLeft(20);
+				Table mugshot = settlerManagementScreen.mugshot(soldier);
+				mugshot.addListener(new ChangeCursorOnHover(mugshot, GameCursor.SELECT, messageDispatcher));
+				mugshot.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, soldier.getLocationComponent().getWorldOrParentPosition());
+						messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(soldier, 0));
+					}
+				});
+				soldiersTable.add(mugshot).top().spaceRight(20).spaceLeft(20);
 				soldiersTable.add(settlerManagementScreen.textSummary(soldier)).left().growX().spaceRight(20);
 				soldiersTable.add(emblem).top();
 				soldiersTable.row();

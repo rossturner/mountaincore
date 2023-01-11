@@ -143,6 +143,7 @@ CRAFTING_TYPE.ORE_CRUSHING,,Ore crushing
 CRAFTING_TYPE.SMELTING,,Smelting
 CRAFTING_TYPE.STONEMASONRY,,Stonemasonry
 CRAFTING_TYPE.TANNING_HIDE,,Hide tanning
+CRAFTING_TYPE.WEAPONSMITHING,,Weaponsmithing
 CRAFTING_TYPE.WEAVING,,Weaving
 CRAFTING_TYPE.WOODCUTTING,,Woodcutting
 CRAFTING_TYPE.WORT_BREWING,,Brewing
@@ -1282,6 +1283,8 @@ ROOMS.ARMOURY,,Armoury
 ROOMS.ARMOURY.TOOLTIP,,Weapons and armour are created here
 ROOMS.ARTISAN_WORKSHOP,,Artisan workshop
 ROOMS.ARTISAN_WORKSHOP.TOOLTIP,,Craft intricate items using bone or gems
+ROOMS.BAKERY,,Bakery
+ROOMS.BAKERY.TOOLTIP,,Where bread dough is created and then baked into bread.
 ROOMS.BARRACKS,,Barracks
 ROOMS.BARRACKS.TOOLTIP,,A place for members of the military to sleep and train
 ROOMS.BEDROOM,,Bedroom
@@ -1303,12 +1306,14 @@ ROOMS.GRAVEYARD,,Graveyard
 ROOMS.GRAVEYARD.TOOLTIP,,Deceased settlers are laid to rest here.
 ROOMS.KITCHEN,,Kitchen
 ROOMS.KITCHEN.TOOLTIP,,Most food is prepared here before being served in a {{ROOMS.FEASTING_HALL}}.
-ROOMS.LEATHER_WORKSHOP,,Leather workshop
+ROOMS.LEATHER_WORKSHOP,,Leatherworks
 ROOMS.LEATHER_WORKSHOP.TOOLTIP,,Craft items out of animal hide
 ROOMS.MASONRY_WORKSHOP,,Masonry workshop
 ROOMS.MASONRY_WORKSHOP.TOOLTIP,,This workshop produces most items made out of stone.
-ROOMS.METALWORKS,,Metalworks
-ROOMS.METALWORKS.TOOLTIP,,Metal ore is refined and used in crafting here.
+ROOMS.SMELTERY,,Smeltery
+ROOMS.SMELTERY.TOOLTIP,,Metallic ore is refined into usable ingots here.
+ROOMS.SMITHY,,Smithy
+ROOMS.SMITHY.TOOLTIP,,Used to craft metal tools.
 ROOMS.MUSHROOM_FARM,,Mushroom farm
 ROOMS.MUSHROOM_FARM.TOOLTIP,,Mushrooms can be grown using {{INGREDIENT.MUSHROOM.SPAWN.NOUN}} and wooden {{RESOURCE.LOGS.PLURAL}}.
 ROOMS.SAWMILL,,Sawmill

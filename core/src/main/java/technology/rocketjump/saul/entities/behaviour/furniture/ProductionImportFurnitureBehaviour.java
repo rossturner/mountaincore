@@ -137,15 +137,24 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 				}
 
 				int amountToRequest = 0;
+				// reduce potential stack size by incoming hauling
 				GameMaterial materialToRequest = selectedMaterial;
-				if (stackInInventory == null && incomingHaulingJobs.isEmpty()) {
-					// try to request entire stack to come in
-					amountToRequest = selectedItemType.getMaxStackSize();
-				} else if (stackInInventory != null) {
+				for (Job incomingHaulingJob : incomingHaulingJobs) {
+					amountToRequest -= incomingHaulingJob.getHaulingAllocation().getItemAllocation().getAllocationAmount();
+					if (selectedMaterial == null) {
+						Entity targetItem = gameContext.getEntity(incomingHaulingJob.getHaulingAllocation().getItemAllocation().getTargetItemEntityId());
+						ItemEntityAttributes attributes = (ItemEntityAttributes) targetItem.getPhysicalEntityComponent().getAttributes();
+						materialToRequest = attributes.getPrimaryMaterial();
+					}
+				}
+				if (stackInInventory == null) {
+					// request remaining amount
+					amountToRequest += selectedItemType.getMaxStackSize();
+				} else {
 					ItemEntityAttributes attributes = (ItemEntityAttributes) stackInInventory.getPhysicalEntityComponent().getAttributes();
 					if (attributes.getQuantity() < attributes.getItemType().getMaxStackSize() && incomingHaulingJobs.isEmpty()) {
 						// try to request remainder of stack to come in
-						amountToRequest = attributes.getItemType().getMaxStackSize() - attributes.getQuantity();
+						amountToRequest += attributes.getItemType().getMaxStackSize() - attributes.getQuantity();
 						materialToRequest = attributes.getPrimaryMaterial();
 					}
 				}

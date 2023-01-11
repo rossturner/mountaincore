@@ -38,6 +38,15 @@
   "particleEffectNames" : [ "Blacksmith sparks" ],
   "mightStartFire" : 0.03
 }, {
+  "name" : "WEAPONSMITHING",
+  "i18nKey" : "CRAFTING_TYPE.WEAPONSMITHING",
+  "professionRequiredName" : "BLACKSMITH",
+  "defaultItemTypeName" : "Tool-Large-Hammer",
+  "constructsFurniture" : "METAL",
+  "usesWorkstationTool" : true,
+  "particleEffectNames" : [ "Blacksmith sparks" ],
+  "mightStartFire" : 0.03
+}, {
   "name" : "WEAVING",
   "i18nKey" : "CRAFTING_TYPE.WEAVING",
   "professionRequiredName" : "WEAVER",
