@@ -21,7 +21,7 @@
 
   {
     "recipeName": "Craft plate armour",
-    "craftingTypeName": "BLACKSMITHING",
+    "craftingTypeName": "WEAPONSMITHING",
     "input": [
       {
         "itemTypeName": "Resource-Metal-Ingot",

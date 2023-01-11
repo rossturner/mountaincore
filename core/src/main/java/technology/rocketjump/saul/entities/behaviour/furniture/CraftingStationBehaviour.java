@@ -267,13 +267,14 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				Logger.warn("Not yet implemented: crafting non-item output");
 				continue;
 			}
+			GameMaterial desiredMaterial = exportFurnitureBehaviour.getSelectedMaterial();
 			List<CraftingRecipe> potentialRecipes = new ArrayList<>(recipesForCraftingType.stream()
 					.filter(r -> desiredItemType.equals(r.getOutput().getItemType()))
+					.filter(r -> desiredMaterial == null || r.getOutput().getMaterial() == null || desiredMaterial.equals(r.getOutput().getMaterial()))
 					.toList());
 			Collections.shuffle(potentialRecipes, gameContext.getRandom());
 			for (CraftingRecipe craftingRecipe : potentialRecipes) {
 				int quantityRequired = getAmountRequired(exportFurnitureBehaviour);
-				GameMaterial desiredMaterial = exportFurnitureBehaviour.getSelectedMaterial();
 				if (quantityRequired > 0 && quantityRequired >= craftingRecipe.getOutput().getQuantity()) {
 					if (craftingRecipe.getInput().stream().allMatch(r -> inputIsAvailable(r, craftingRecipe, importFurniture, liquidContainers, desiredMaterial))) {
 						// This recipe can be crafted, so use this and create a CraftingAssignment
@@ -392,12 +393,17 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		ItemAllocationComponent inputAllocationComponent = inputItemInInventory.getComponent(ItemAllocationComponent.class);
 
 		inputAllocationComponent.cancelAll(ItemAllocation.Purpose.PRODUCTION_IMPORT);
-		HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(inputRequirement.getQuantity(), inputItemInInventory, parentEntity)
-				.toEntity(parentEntity);
+		int quantityRequired = inputRequirement.getQuantity();
+		while (quantityRequired > 0) {
+			int quantityToHaulThisAllocation = Math.min(quantityRequired, inputRequirement.getItemType().getMaxHauledAtOnce());
+			HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(quantityToHaulThisAllocation, inputItemInInventory, parentEntity)
+					.toEntity(parentEntity);
+			craftingAssignment.getInputAllocations().add(haulingAllocation);
+			quantityRequired -= quantityToHaulThisAllocation;
+		}
 		if (inputAllocationComponent.getNumUnallocated() > 0 && inputInventory.getAddAsAllocationPurpose() != null) {
 			inputAllocationComponent.createAllocation(inputAllocationComponent.getNumUnallocated(), matchedInputFurniture.getParentEntity(), inputInventory.getAddAsAllocationPurpose());
 		}
-		craftingAssignment.getInputAllocations().add(haulingAllocation);
 	}
 
 	private boolean inputIsAvailable(QuantifiedItemTypeWithMaterial requirement,

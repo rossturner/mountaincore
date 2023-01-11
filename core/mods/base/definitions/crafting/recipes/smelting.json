@@ -1,0 +1,388 @@
+[
+  {
+    "recipeName": "Smelt iron",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Hematite",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Iron",
+      "itemTypeName": "Resource-Metal-Ingot",
+      "quantity": 6
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 3.5
+  },
+  {
+    "recipeName": "Smelt tin",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Cassiterite",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Tin",
+      "itemTypeName": "Resource-Metal-Ingot",
+      "quantity": 6
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 3.5
+  },
+  {
+    "recipeName": "Smelt copper from native",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Native Copper",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Copper",
+      "itemTypeName": "Resource-Metal-Ingot",
+      "quantity": 6
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 3.5
+  },
+  {
+    "recipeName": "Smelt copper from malachite",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Malachite",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Copper",
+      "itemTypeName": "Resource-Metal-Ingot",
+      "quantity": 6
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 3.5
+  },
+  {
+    "recipeName": "Smelt copper from chrysocolla",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Chrysocolla",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Copper",
+      "itemTypeName": "Resource-Metal-Ingot",
+      "quantity": 6
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 3.5
+  },
+  {
+    "recipeName": "Smelt gold",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Native Gold",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Gold",
+      "itemTypeName": "Resource-Metal-Ingot",
+      "quantity": 6
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 3.5
+  },
+  {
+    "recipeName": "Smelt silver from Galena",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Galena",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Ingot",
+      "quantity": 6,
+      "materialName": "Silver"
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 3.5
+  },
+  {
+    "recipeName": "Smelt silver from native",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Native Silver",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "itemTypeName": "Resource-Metal-Ingot",
+      "quantity": 6,
+      "materialName": "Silver"
+    },
+    "extraGameHoursToComplete": 4.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 1.5,
+    "maximumTimeToCompleteCrafting": 3.5
+  },
+
+
+  {
+    "recipeName": "Smelt iron plates",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Hematite",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Iron",
+      "itemTypeName": "Resource-Metal-Plate",
+      "quantity": 3
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Smelt tin plates",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Cassiterite",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Tin",
+      "itemTypeName": "Resource-Metal-Plate",
+      "quantity": 3
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Smelt copper plates",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Native Copper",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Copper",
+      "itemTypeName": "Resource-Metal-Plate",
+      "quantity": 3
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Smelt copper plates from malachite",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Malachite",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Copper",
+      "itemTypeName": "Resource-Metal-Plate",
+      "quantity": 3
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Smelt copper plates from chrysocolla",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Chrysocolla",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Copper",
+      "itemTypeName": "Resource-Metal-Plate",
+      "quantity": 3
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Smelt gold plates",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Native Gold",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Gold",
+      "itemTypeName": "Resource-Metal-Plate",
+      "quantity": 3
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Smelt silver plates from galena",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Galena",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Silver",
+      "itemTypeName": "Resource-Metal-Plate",
+      "quantity": 3
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Smelt silver plates from native",
+    "craftingTypeName": "SMELTING",
+    "input": [
+      {
+        "itemTypeName": "Fuel-Sack",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Resource-Ore-Crushed",
+        "materialName": "Native Silver",
+        "quantity": 6
+      }
+    ],
+    "output": {
+      "materialName": "Silver",
+      "itemTypeName": "Resource-Metal-Plate",
+      "quantity": 3
+    },
+    "extraGameHoursToComplete": 3.0,
+    "itemTypeRequiredName": "Tool-Tongs",
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  }
+]

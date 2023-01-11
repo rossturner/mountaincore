@@ -199,7 +199,6 @@
   },
   "tags" : {
     "CRAFTING_STATION_BEHAVIOUR" : [ "SMELTING", "CRAFT_ITEM", "HAULING" ],
-    "CRAFTING_OVERRIDE" : [ "DO_NOT_HAUL_OUTPUT" ],
     "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Stone-Unrefined", "STONE_COLOR", "MISC_COLOR_1", "Resource-Stone-Block", "STONE_COLOR", "MISC_COLOR_2" ],
     "EXTRA_MATERIAL_TYPES" : [ "CLOTH", "METAL" ],
     "PARTICLE_EFFECTS_WHILE_PROCESSING" : [ "Smoking" ]
@@ -396,8 +395,7 @@
     } ]
   },
   "tags" : {
-    "COLLECT_ITEMS_BEHAVIOUR" : [ "COOKING_INGREDIENTS", "15", "CHEF", "ALLOW_DUPLICATES", "Product-Ration-Dough", "Product-Bread-Dough" ],
-    "INVENTORY_ITEMS_UNALLOCATED" : [ ]
+    "PRODUCTION_EXPORT" : [ "1" ]
   },
   "hiddenFromPlacementMenu" : false
 }, {
@@ -526,6 +524,40 @@
   },
   "tags" : {
     "CRAFTING_STATION_BEHAVIOUR" : [ "BLACKSMITHING", "FORGE_ITEM", "HAULING" ],
+    "DECORATION_FROM_INPUT" : [ "Product-Anvil", "Tool-Large-Hammer", "Tool-Tongs" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "WEAPON_FORGE",
+  "i18nKey" : "FURNITURE.FORGE",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "inverted-U",
+  "autoConstructed" : false,
+  "requirements" : {
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 15,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Fuel-Sack",
+      "quantity" : 2,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Product-Anvil",
+      "quantity" : 1,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Tool-Large-Hammer",
+      "quantity" : 1,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Tool-Tongs",
+      "quantity" : 1,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "CRAFTING_STATION_BEHAVIOUR" : [ "WEAPONSMITHING", "FORGE_ITEM", "HAULING" ],
     "DECORATION_FROM_INPUT" : [ "Product-Anvil", "Tool-Large-Hammer", "Tool-Tongs" ]
   },
   "hiddenFromPlacementMenu" : false
@@ -710,7 +742,7 @@
   "name" : "Tanning_Frame",
   "i18nKey" : "FURNITURE.TANNING_FRAME",
   "blocksMovement" : true,
-  "defaultLayoutName" : "2x2 with lower workspaces",
+  "defaultLayoutName" : "1x1 with workspaces",
   "autoConstructed" : false,
   "requirements" : {
     "WOOD" : [ {

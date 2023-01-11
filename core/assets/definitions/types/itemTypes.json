@@ -604,7 +604,7 @@
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
-  "baseValuePerItem" : 68,
+  "baseValuePerItem" : 75,
   "holdPosition" : "IN_FRONT",
   "impedesMovement" : false,
   "blocksMovement" : false,
@@ -980,23 +980,6 @@
   "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LOGS"
-}, {
-  "itemTypeName" : "Resource-Metal-Bloom",
-  "maxStackSize" : 1,
-  "maxHauledAtOnce" : 1,
-  "materialTypes" : [ "METAL" ],
-  "primaryMaterialType" : "METAL",
-  "baseValuePerItem" : 20,
-  "holdPosition" : "IN_FRONT",
-  "impedesMovement" : false,
-  "blocksMovement" : false,
-  "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
-  "relatedCraftingTypeNames" : [ ],
-  "tags" : { },
-  "specificMaterialNames" : [ ],
-  "describeAsMaterialOnly" : false,
-  "i18nKey" : "RESOURCE.METAL.BLOOM"
 }, {
   "itemTypeName" : "Resource-Metal-Plate",
   "maxStackSize" : 12,

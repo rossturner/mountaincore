@@ -1,7 +1,0 @@
-{
-  "itemTypeName" : "Resource-Metal-Bloom",
-  "materialTypes" : [ "METAL" ],
-  "primaryMaterialType" : "METAL",
-  "baseValuePerItem": 20,
-  "i18nKey" : "RESOURCE.METAL.BLOOM"
-}
