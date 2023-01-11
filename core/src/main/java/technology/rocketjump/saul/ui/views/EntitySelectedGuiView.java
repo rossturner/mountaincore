@@ -22,10 +22,7 @@ import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.ai.combat.CombatAction;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
-import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
-import technology.rocketjump.saul.entities.behaviour.furniture.ProductionExportFurnitureBehaviour;
-import technology.rocketjump.saul.entities.behaviour.furniture.ProductionImportFurnitureBehaviour;
-import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
+import technology.rocketjump.saul.entities.behaviour.furniture.*;
 import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
@@ -62,6 +59,7 @@ import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.Room;
+import technology.rocketjump.saul.screens.ManagementScreenName;
 import technology.rocketjump.saul.screens.SettlerManagementScreen;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
@@ -297,7 +295,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					//TODO duplication from above
 					outerTable.add(new Container<>()).left().width(actionButtons.getActor().getPrefWidth()).padTop(67).padLeft(67);
 					outerTable.add(name.getActor()).fillX().padTop(67);
-					outerTable.add(actionButtons.getActor()).right().padTop(67).padRight(67);
+					outerTable.add(actionButtons.getActor()).right().padTop(67).padRight(67).padLeft(18);
 					outerTable.row();
 
 					Table viewContents = new Table();
@@ -401,7 +399,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Table table = new Table();
 		Updatable<Table> updatable = Updatable.of(table);
 
-		table.defaults().pad(18);
+		table.defaults().space(18);
 
 		Runnable updater = () -> {
 			table.clear();
@@ -451,6 +449,23 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				tooltipFactory.simpleTooltip(deconstructButton, "GUI.DECONSTRUCT_LABEL", TooltipLocationHint.ABOVE);
 				deconstructContainer.setActor(deconstructButton);
 				table.add(deconstructContainer);
+			}
+
+			if (entity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
+				Container<Button> craftingButtonContainer = new Container<>();
+				Button craftingButton = new Button(managementSkin.getDrawable("btn_recipe"));
+				craftingButton.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						super.clicked(event, x, y);
+						messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, ManagementScreenName.CRAFTING.name());
+					}
+				});
+
+				buttonFactory.attachClickCursor(craftingButton, GameCursor.SELECT);
+				tooltipFactory.simpleTooltip(craftingButton, "GUI.CRAFTING_MANAGEMENT.TITLE", TooltipLocationHint.ABOVE);
+				craftingButtonContainer.setActor(craftingButton);
+				table.add(craftingButtonContainer);
 			}
 
 			if (isItemContainingLiquidOnGroundAndNoneAllocated(entity)) {
