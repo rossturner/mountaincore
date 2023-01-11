@@ -19,6 +19,7 @@ import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTyp
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.model.CraftingType;
+import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.SettlementItemTracker;
@@ -113,7 +114,13 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(stage);
-		inputMultiplexer.addProcessor(new ManagementScreenInputHandler(messageDispatcher));
+		inputMultiplexer.addProcessor(new ManagementScreenInputHandler(messageDispatcher) {
+			@Override
+			protected void closeScreen() {
+				super.closeScreen();
+				returnToSelectable();
+			}
+		});
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		rebuildUI();
 		stage.setKeyboardFocus(null);
@@ -153,12 +160,19 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+				returnToSelectable();
 			}
 		});
 		buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
 		table.add(exitButton).expandX().align(Align.topLeft).padLeft(257 + menuSkin.getDrawable("paper_texture_bg_pattern_large").getMinWidth() + 5f).padTop(5f).row();
 		table.add().grow();
 		return table;
+	}
+
+	private void returnToSelectable() {
+		if (gameInteractionStateContainer.getSelectable() != null) {
+			messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, gameInteractionStateContainer.getSelectable());
+		}
 	}
 
 	private Table buildPaperComponents() {
@@ -180,7 +194,7 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 
 
 		Table mainTable = new Table();
-		mainTable.add(headerRow).left().row();
+		mainTable.add(headerRow).left().padBottom(40).row();
 		mainTable.add(scrollPane).grow();
 
 		Table table = new Table();
@@ -270,13 +284,19 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 					output.getMaterial(),
 					output.getItemType(), null);
 		}
-		Entity exampleEntity = roomEditorItemMap.get(output.getItemType(), gameContext, output.getMaterial());
-
 		Label entityLabel = new Label(targetDescription.toString(), managementSkin, "item_type_name_label");
 		entityLabel.setWrap(true);
 		entityLabel.setAlignment(Align.center);
+
 		Table exampleEntityColumn = new Table();
-		exampleEntityColumn.add(buildEntityButton(exampleEntity, output.getQuantity())).size(205).row();
+
+		if (output.isLiquid()) {
+			exampleEntityColumn.add(buildLiquidButton(output.getMaterial(), output.getQuantity())).size(205).row();
+		} else {
+			Entity exampleEntity = roomEditorItemMap.get(output.getItemType(), gameContext, output.getMaterial());
+			exampleEntityColumn.add(buildEntityButton(exampleEntity, output.getQuantity())).size(205).row();
+		}
+
 		exampleEntityColumn.add(entityLabel).width(240);
 		return exampleEntityColumn;
 	}
@@ -298,6 +318,31 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 		amountTable.add(new Container<>()).colspan(2).height(btnResourceItemBg.getMinHeight()- QUANTITY_CIRCLE_OVERLAP).expandY();
 
 		entityStack.add(itemTypeButton);
+		if (quantity > 1) {
+			entityStack.add(amountTable);
+		}
+
+		return entityStack;
+	}
+
+	private Actor buildLiquidButton(GameMaterial material, int quantity) {
+		Stack entityStack = new Stack();
+
+		Drawable btnResourceItemBg = managementSkin.bgForExampleEntity(1);
+		Drawable icon = managementSkin.newDrawable("icon_water_greyscale", material.getColor());
+
+		ImageButton imageButton = new ImageButton(icon);
+		imageButton.getStyle().up = btnResourceItemBg;
+
+		Label amountLabel = new Label(String.valueOf(quantity), managementSkin, "entity_drawable_quantity_label");
+		amountLabel.setAlignment(Align.center);
+
+		Table amountTable = new Table();
+		amountTable.add(amountLabel).left().top();
+		amountTable.add(new Container<>()).width(btnResourceItemBg.getMinWidth()- QUANTITY_CIRCLE_OVERLAP).expandX().row();
+		amountTable.add(new Container<>()).colspan(2).height(btnResourceItemBg.getMinHeight()- QUANTITY_CIRCLE_OVERLAP).expandY();
+
+		entityStack.add(imageButton);
 		if (quantity > 1) {
 			entityStack.add(amountTable);
 		}
