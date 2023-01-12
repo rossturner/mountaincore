@@ -59,6 +59,7 @@ import static technology.rocketjump.saul.military.model.SquadOrderType.TRAINING;
 @Singleton
 public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegraph {
 
+	private static final int SQUAD_NAME_MAX_LENGTH = 12;
 	private final GameInteractionStateContainer gameInteractionStateContainer;
 	private final I18nTranslator i18nTranslator;
 	private final MessageDispatcher messageDispatcher;
@@ -260,7 +261,16 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 				}
 
 
-				civiliansTable.add(settlerManagementScreen.mugshot(settler)).top().spaceRight(20);
+				Table mugshot = settlerManagementScreen.mugshot(settler);
+				mugshot.addListener(new ChangeCursorOnHover(mugshot, GameCursor.SELECT, messageDispatcher));
+				mugshot.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, settler.getLocationComponent().getWorldOrParentPosition());
+						messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(settler, 0));
+					}
+				});
+				civiliansTable.add(mugshot).top().spaceRight(20);
 				civiliansTable.add(settlerManagementScreen.textSummary(settler)).left().growX().spaceRight(20);
 				civiliansTable.add(militaryExperienceColumn).growY();
 				civiliansTable.row();
@@ -309,10 +319,25 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 				Drawable emblemDrawable = managementSkin.getDrawable(managementSkin.getEmblemName(squad));
 				Image emblem = new Image(emblemDrawable);
 				emblem.setTouchable(Touchable.enabled);
+				emblem.addListener(new ChangeCursorOnHover(emblem, GameCursor.SELECT, messageDispatcher));
+				emblem.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(squad));
+					}
+				});
 				tooltipFactory.simpleTooltip(emblem, new I18nText(squad.getName()), TooltipLocationHint.ABOVE);
 
-				//TODO: ashamed of not refactoring this properly
-				soldiersTable.add(settlerManagementScreen.mugshot(soldier)).top().spaceRight(20).spaceLeft(20);
+				Table mugshot = settlerManagementScreen.mugshot(soldier);
+				mugshot.addListener(new ChangeCursorOnHover(mugshot, GameCursor.SELECT, messageDispatcher));
+				mugshot.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, soldier.getLocationComponent().getWorldOrParentPosition());
+						messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(soldier, 0));
+					}
+				});
+				soldiersTable.add(mugshot).top().spaceRight(20).spaceLeft(20);
 				soldiersTable.add(settlerManagementScreen.textSummary(soldier)).left().growX().spaceRight(20);
 				soldiersTable.add(emblem).top();
 				soldiersTable.row();
@@ -448,13 +473,21 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 		squadActionColumn.add(new Label(i18nTranslator.translate("GUI.MILITARY.SET_ORDERS"), managementSkin, "default-font-16-label-white")).padTop(24).row();
 		squadActionColumn.add(squadCommandSelect.getActor()).padTop(16f).growX();
 
-		card.add(personnelWidget).left().top().padLeft(18).padTop(17).padBottom(15);
-		card.add(new Container<>(titleWidget)).growX().padBottom(15).padTop(17);
-		card.add(removeSquadButton.getActor()).right().padRight(18).padTop(17).padBottom(15);
+
+		Table titleRow = new Table();
+		titleRow.add(personnelWidget).left().padLeft(18).padTop(17).padBottom(15);
+		titleRow.add(new Container<>(titleWidget)).growX().padBottom(15).padTop(17);
+		titleRow.add(removeSquadButton.getActor()).right().padRight(18).padTop(17).padBottom(15);
+
+		Table contentsRow = new Table();
+		contentsRow.add(emblemColumn).top().padTop(17).uniformX().expandY().padLeft(77);
+		contentsRow.add(squadActionColumn).top().padTop(17).padLeft(80).expandY().padRight(30);
+		contentsRow.add(new Container<>()).uniformX().expandY().padRight(38);
+
+		card.add(titleRow).top().growX();
 		card.row();
-		card.add(emblemColumn).uniformX().expandY().padLeft(38);
-		card.add(squadActionColumn).padLeft(30).expandY().padRight(30);
-		card.add(new Container<>()).uniformX().expandY().padRight(38);
+		card.add(contentsRow).top().left().expandY();
+
 		return card;
 	}
 
@@ -582,7 +615,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 						squad.setName(newName);
 					}
 				}, messageDispatcher, soundAssetDictionary);
-				textInputDialog.setMaxLength(20);
+				textInputDialog.setMaxLength(SQUAD_NAME_MAX_LENGTH);
 				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
 			}
 		});
@@ -657,7 +690,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 				message.callback().accept(newSquad);
 			}
 		}, messageDispatcher, soundAssetDictionary);
-		textInputDialog.setMaxLength(20);
+		textInputDialog.setMaxLength(SQUAD_NAME_MAX_LENGTH);
 		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
 	}
 

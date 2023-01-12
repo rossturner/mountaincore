@@ -228,7 +228,9 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 			} else {
 				availableMaterials.addAll(specificAllowedMaterials);
 				availableMaterials.sort(Comparator.comparing(m -> i18nTranslator.getTranslatedString(m.getI18nKey()).toString()));
-				productionExportBehaviour.setSelectedMaterial(availableMaterials.get(0));
+				if (!availableMaterials.contains(productionExportBehaviour.getSelectedMaterial())) {
+					productionExportBehaviour.setSelectedMaterial(availableMaterials.get(0));
+				}
 			}
 		}
 	}

@@ -22,10 +22,7 @@ import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.ai.combat.CombatAction;
 import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
-import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
-import technology.rocketjump.saul.entities.behaviour.furniture.ProductionExportFurnitureBehaviour;
-import technology.rocketjump.saul.entities.behaviour.furniture.ProductionImportFurnitureBehaviour;
-import technology.rocketjump.saul.entities.behaviour.furniture.SelectableDescription;
+import technology.rocketjump.saul.entities.behaviour.furniture.*;
 import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
@@ -62,6 +59,7 @@ import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.rooms.Room;
+import technology.rocketjump.saul.screens.ManagementScreenName;
 import technology.rocketjump.saul.screens.SettlerManagementScreen;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
@@ -88,7 +86,6 @@ import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabelFactory;
 
 import java.util.List;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
@@ -298,7 +295,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					//TODO duplication from above
 					outerTable.add(new Container<>()).left().width(actionButtons.getActor().getPrefWidth()).padTop(67).padLeft(67);
 					outerTable.add(name.getActor()).fillX().padTop(67);
-					outerTable.add(actionButtons.getActor()).right().padTop(67).padRight(67);
+					outerTable.add(actionButtons.getActor()).right().padTop(67).padRight(67).padLeft(18);
 					outerTable.row();
 
 					Table viewContents = new Table();
@@ -402,7 +399,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Table table = new Table();
 		Updatable<Table> updatable = Updatable.of(table);
 
-		table.defaults().pad(18);
+		table.defaults().space(18);
 
 		Runnable updater = () -> {
 			table.clear();
@@ -452,6 +449,23 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				tooltipFactory.simpleTooltip(deconstructButton, "GUI.DECONSTRUCT_LABEL", TooltipLocationHint.ABOVE);
 				deconstructContainer.setActor(deconstructButton);
 				table.add(deconstructContainer);
+			}
+
+			if (entity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
+				Container<Button> craftingButtonContainer = new Container<>();
+				Button craftingButton = new Button(managementSkin.getDrawable("btn_recipe"));
+				craftingButton.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						super.clicked(event, x, y);
+						messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, ManagementScreenName.CRAFTING.name());
+					}
+				});
+
+				buttonFactory.attachClickCursor(craftingButton, GameCursor.SELECT);
+				tooltipFactory.simpleTooltip(craftingButton, "GUI.CRAFTING_MANAGEMENT.TITLE", TooltipLocationHint.ABOVE);
+				craftingButtonContainer.setActor(craftingButton);
+				table.add(craftingButtonContainer);
 			}
 
 			if (isItemContainingLiquidOnGroundAndNoneAllocated(entity)) {
@@ -718,100 +732,42 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	}
 
 	private Updatable<Table> textSummary(Entity entity) {
-		HappinessComponent happinessComponent = entity.getComponent(HappinessComponent.class);
 		SkillsComponent skillsComponent = entity.getComponent(SkillsComponent.class);
 		FactionComponent factionComponent = entity.getComponent(FactionComponent.class);
 
 		Table table = new Table();
 		Updatable<Table> updatable = Updatable.of(table);
-		Label happinessLabel = new Label("", managementSkin, "default-font-18-label");
-		Table happinessLabelTooltipContents = new Table();
-		tooltipFactory.complexTooltip(happinessLabel, happinessLabelTooltipContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
 
-		Label militaryProfessionLabel = new Label("", managementSkin, "default-font-18-label");
-
-		Label deadLabel = new Label("", managementSkin, "default-font-18-label");
-		Label factionLabel = new Label("", managementSkin, "default-font-18-label");
-
-		HorizontalGroup headlineLabels = new HorizontalGroup();
-		headlineLabels.addActor(happinessLabel);
-		headlineLabels.addActor(militaryProfessionLabel);
-		headlineLabels.addActor(deadLabel);
-		headlineLabels.addActor(factionLabel);
-
-		table.add(headlineLabels).left().spaceBottom(5f).row();
+		Label headlineLabel = new Label("", managementSkin, "default-font-18-label");
+		table.add(headlineLabel).left().spaceBottom(5f).row();
 
 		Table behaviourTable = new Table();
 		table.add(behaviourTable).grow();
 
-		Runnable happinessUpdater = () -> {
-			boolean isNotDead = !(entity.getBehaviourComponent() instanceof CorpseBehaviour);
-			if (happinessComponent != null && !SettlerManagementScreen.IS_MILITARY.test(entity) && isNotDead) {
-				int netHappiness = happinessComponent.getNetModifier();
-				String netHappinessString = (netHappiness > 0 ? "+" : "") + netHappiness;
-				String happinessText = i18nTranslator.getTranslatedWordWithReplacements("GUI.SETTLER_MANAGEMENT.HAPPINESS", Map.of(
-						"happinessValue", new I18nWord(netHappinessString)
-				)).toString();
+		Runnable headlineLabelUpdater = () -> {
+			headlineLabel.setText("");
 
-				happinessLabel.setText(happinessText);
-
-				Set<HappinessComponent.HappinessModifier> currentModifiers = happinessComponent.currentModifiers();
-
-				List<DecoratedString> tooltipLines = new ArrayList<>();
-				for (HappinessComponent.HappinessModifier modifier : currentModifiers) {
-					DecoratedString smiley = DecoratedString.drawable(smileyDrawable(modifier.modifierAmount));
-					DecoratedString reason = DecoratedString.fromString(happinessReasonText(modifier).toString());
-					tooltipLines.add(DecoratedString.of(smiley, reason));
-				}
-
-				DecoratedString tooltipString = tooltipLines.get(0);
-				for (int i = 1; i < tooltipLines.size(); i++) {
-					tooltipString = DecoratedString.of(tooltipString, DecoratedString.linebreak(), tooltipLines.get(i));
-				}
-
-				DecoratedStringLabel infoContents = decoratedStringLabelFactory.create(tooltipString, "tooltip-text", mainGameSkin);
-				for (Cell<?> cell : infoContents.getCells()) {
-					if (cell.getActor() instanceof HorizontalGroup horizontalGroup) {
-						horizontalGroup.space(25f);
-					}
-					cell.padTop(8f).padBottom(8f).padLeft(8f).padRight(8f);
-				}
-
-				happinessLabelTooltipContents.clear();
-				happinessLabelTooltipContents.add(infoContents);
-			} else {
-				happinessLabelTooltipContents.clear();
-				happinessLabel.setText("");
-			}
-		};
-
-		Runnable militaryProfessionUpdater = () -> {
-			militaryProfessionLabel.setText("");
-			boolean isNotDead = !(entity.getBehaviourComponent() instanceof CorpseBehaviour);
-			if (skillsComponent != null && SettlerManagementScreen.IS_MILITARY.test(entity) && isNotDead) {
-				String assignedWeaponText = settlerManagementScreen.getAssignedWeaponText(entity, skillsComponent);
-				militaryProfessionLabel.setText(assignedWeaponText);
-			}
-		};
-
-		Runnable deadLabelUpdater = () -> {
-			deadLabel.setText("");
 			if (entity.getBehaviourComponent() instanceof CorpseBehaviour corpseBehaviour) {
 				String deadText = corpseBehaviour.getDescription(i18nTranslator, gameContext, messageDispatcher)
 						.stream()
 						.map(I18nText::toString)
 						.collect(Collectors.joining("\n"));
-				deadLabel.setText(deadText);
+				headlineLabel.setText(deadText);
+			} else if (factionComponent != null && (factionComponent.getFaction() == Faction.WILD_ANIMALS || factionComponent.getFaction() == Faction.MERCHANTS || factionComponent.getFaction() == Faction.MONSTERS)) {
+				headlineLabel.setText(i18nTranslator.translate(factionComponent.getFaction().i18nKey));
+			} else if (skillsComponent != null && SettlerManagementScreen.IS_MILITARY.test(entity)) {
+				String assignedWeaponText = settlerManagementScreen.getAssignedWeaponText(entity, skillsComponent);
+				headlineLabel.setText(assignedWeaponText);
+			} else if (skillsComponent != null && SettlerManagementScreen.IS_CIVILIAN.test(entity)) {
+				java.util.List<SkillsComponent.QuantifiedSkill> activeProfessions = skillsComponent.getActiveProfessions();
+				if (!activeProfessions.isEmpty()) {
+					SkillsComponent.QuantifiedSkill quantifiedSkill = activeProfessions.get(0);
+					headlineLabel.setText(i18nTranslator.getSkilledProfessionDescription(quantifiedSkill.getSkill(), quantifiedSkill.getLevel(),
+							((CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getGender()).toString());
+				}
 			}
 		};
 
-		Runnable factionLabelUpdater = () -> {
-			factionLabel.setText("");
-			boolean isNotDead = !(entity.getBehaviourComponent() instanceof CorpseBehaviour);
-			if (isNotDead && factionComponent != null && (factionComponent.getFaction() == Faction.WILD_ANIMALS || factionComponent.getFaction() == Faction.MERCHANTS || factionComponent.getFaction() == Faction.MONSTERS)) {
-				factionLabel.setText(i18nTranslator.translate(factionComponent.getFaction().i18nKey));
-			}
-		};
 
 		Runnable descriptionUpdater = () -> {
 			behaviourTable.clear();
@@ -849,12 +805,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 		};
 
-
-		updatable.regularly(happinessUpdater);
-		updatable.regularly(militaryProfessionUpdater);
+		updatable.regularly(headlineLabelUpdater);
 		updatable.regularly(descriptionUpdater);
-		updatable.regularly(deadLabelUpdater);
-		updatable.regularly(factionLabelUpdater);
 		updatable.update();
 		return updatable;
 	}
@@ -894,6 +846,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Table table = new Table();
 		table.defaults().spaceRight(8f);
 		Updatable<Table> updatable = Updatable.of(table);
+
 		Runnable updater = () -> {
 			table.clear();
 			boolean isMilitary = SettlerManagementScreen.IS_MILITARY.test(entity);
@@ -908,15 +861,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 			for (I18nText damageDescription : attributes.getBody().getDamageDescriptions(i18nTranslator)) {
 				ailments.add(damageDescription.toString());
-			}
-
-			final int MAX_SMILIES;
-			if (unknownHappiness) {
-				MAX_SMILIES = 0;
-			} else if (ailments.isEmpty()) {
-				MAX_SMILIES = 5;
-			} else {
-				MAX_SMILIES = 4;
 			}
 
 			if (!ailments.isEmpty()) {
@@ -936,44 +880,79 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 
 			if (happinessComponent != null && isSettlement) {
-				List<HappinessComponent.HappinessModifier> sorted = new ArrayList<>(happinessComponent.currentModifiers());
-				sorted.sort(Comparator.comparing((Function<HappinessComponent.HappinessModifier, Integer>) happinessModifier -> Math.abs(happinessModifier.modifierAmount)).reversed());
-				for (int i = 0; i < MAX_SMILIES; i++) {
-					if (i < sorted.size()) {
-						HappinessComponent.HappinessModifier happinessModifier = sorted.get(i);
-						int modifierAmount = happinessModifier.modifierAmount;
-						//TODO: not the best code, but should be optimal
-						String drawableName = smileyDrawable(modifierAmount);
-
-						I18nText happinessModifierText = happinessReasonText(happinessModifier);
-						Image smiley = new Image(mainGameSkin.getDrawable(drawableName));
-						tooltipFactory.simpleTooltip(smiley, happinessModifierText, TooltipLocationHint.BELOW);
-						table.add(smiley);
-					}
+				if (!unknownHappiness) {
+					String drawableName = overallSmileyDrawable(happinessComponent.getNetModifier());
+					Image smiley = new Image(mainGameSkin.getDrawable(drawableName));
+					tooltipFactory.complexTooltip(smiley, populateSmileyTooltip(entity, happinessComponent), TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
+					table.add(smiley);
 				}
-
 			}
+
+
 		};
 		updater.run();
 		updatable.regularly(updater);
 		return updatable;
 	}
 
+	private Table populateSmileyTooltip(Entity entity, HappinessComponent happinessComponent) {
+		Table tooltipTable = new Table();
+		boolean isNotDead = !(entity.getBehaviourComponent() instanceof CorpseBehaviour);
+		if (happinessComponent != null && !SettlerManagementScreen.IS_MILITARY.test(entity) && isNotDead) {
+			Set<HappinessComponent.HappinessModifier> currentModifiers = happinessComponent.currentModifiers();
+			List<DecoratedString> tooltipLines = new ArrayList<>();
+			for (HappinessComponent.HappinessModifier modifier : currentModifiers) {
+				DecoratedString smiley = DecoratedString.drawable(smileyDrawable(modifier.modifierAmount));
+				DecoratedString reason = DecoratedString.fromString(happinessReasonText(modifier).toString());
+				tooltipLines.add(DecoratedString.of(smiley, reason));
+			}
+
+			DecoratedString tooltipString = tooltipLines.get(0);
+			for (int i = 1; i < tooltipLines.size(); i++) {
+				tooltipString = DecoratedString.of(tooltipString, DecoratedString.linebreak(), tooltipLines.get(i));
+			}
+
+			DecoratedStringLabel infoContents = decoratedStringLabelFactory.create(tooltipString, "tooltip-text", mainGameSkin);
+			for (Cell<?> cell : infoContents.getCells()) {
+				if (cell.getActor() instanceof HorizontalGroup horizontalGroup) {
+					horizontalGroup.space(25f);
+				}
+				cell.padTop(8f).padBottom(8f).padLeft(8f).padRight(8f);
+			}
+
+			tooltipTable.clear();
+			tooltipTable.add(infoContents);
+		} else {
+			tooltipTable.clear();
+		}
+		return tooltipTable;
+	}
+
 	private String smileyDrawable(int modifierAmount) {
 		String drawableName;
-		if (modifierAmount <= -43) {
-			drawableName = MainGameSkin.MISERABLE;
-		} else if (modifierAmount <= -31) {
+		if (modifierAmount > 0) {
+			drawableName = MainGameSkin.HAPPY;
+		} else {
 			drawableName = MainGameSkin.SAD;
-		} else if (modifierAmount <= -19) {
+		}
+		return drawableName;
+	}
+
+	private String overallSmileyDrawable(int netModifierAmount) {
+		String drawableName;
+		if (netModifierAmount <= -43) {
+			drawableName = MainGameSkin.MISERABLE;
+		} else if (netModifierAmount <= -31) {
+			drawableName = MainGameSkin.SAD;
+		} else if (netModifierAmount <= -19) {
 			drawableName = MainGameSkin.DOWN;
-		} else if (modifierAmount <= 0) {
+		} else if (netModifierAmount <= 0) {
 			drawableName = MainGameSkin.NEUTRAL;
-		} else if (modifierAmount <= 12) {
+		} else if (netModifierAmount <= 12) {
 			drawableName = MainGameSkin.CHEERY;
-		} else if (modifierAmount <= 24) {
+		} else if (netModifierAmount <= 24) {
 			drawableName = MainGameSkin.JOLLY;
-		} else if (modifierAmount <= 36) {
+		} else if (netModifierAmount <= 36) {
 			drawableName = MainGameSkin.HAPPY;
 		} else {
 			drawableName = MainGameSkin.ECSTATIC;

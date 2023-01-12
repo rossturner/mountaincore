@@ -80,7 +80,7 @@
   },
   {
     "recipeName": "Forge Battle Axe",
-    "craftingTypeName": "BLACKSMITHING",
+    "craftingTypeName": "WEAPONSMITHING",
     "input": [
       {
         "itemTypeName": "Resource-Planks",
@@ -102,7 +102,7 @@
   },
   {
     "recipeName": "Forge Battle Hammer",
-    "craftingTypeName": "BLACKSMITHING",
+    "craftingTypeName": "WEAPONSMITHING",
     "input": [
       {
         "itemTypeName": "Resource-Metal-Ingot",
@@ -120,7 +120,7 @@
   },
   {
     "recipeName": "Forge Sword",
-    "craftingTypeName": "BLACKSMITHING",
+    "craftingTypeName": "WEAPONSMITHING",
     "input": [
       {
         "itemTypeName": "Resource-Metal-Ingot",
@@ -138,7 +138,7 @@
   },
   {
     "recipeName": "Craft Crossbow",
-    "craftingTypeName": "BLACKSMITHING",
+    "craftingTypeName": "WEAPONSMITHING",
     "input": [
       {
         "itemTypeName": "Resource-Planks",
@@ -178,7 +178,7 @@
   },
   {
     "recipeName": "Craft metal shield",
-    "craftingTypeName": "BLACKSMITHING",
+    "craftingTypeName": "WEAPONSMITHING",
     "input": [
       {
         "itemTypeName": "Resource-Metal-Ingot",

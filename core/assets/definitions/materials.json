@@ -650,7 +650,7 @@
   "materialName" : "Water",
   "materialId" : 34,
   "materialType" : "LIQUID",
-  "colorCode" : "#26e1ed",
+  "colorCode" : "#5695AC",
   "valueMultiplier" : 0.0,
   "alcoholic" : false,
   "combustible" : false,
