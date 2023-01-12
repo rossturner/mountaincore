@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -22,6 +23,7 @@ import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
+import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
@@ -149,6 +151,7 @@ public class ModsMenu implements Menu, DisplaysText {
 
 			Label draggableMod = new Label(mod.getInfo().getName(), menuSkin, "draggable_mod");
 			draggableMod.setAlignment(Align.center);
+
 			draggableMod.addListener(new ChangeCursorOnHover(draggableMod, GameCursor.REORDER_VERTICAL, messageDispatcher));
 			Label versionLabel = new Label(mod.getInfo().getVersion().toString(), menuSkin, "mod_table_value_label");
 			versionLabel.setAlignment(Align.center);
@@ -200,6 +203,18 @@ public class ModsMenu implements Menu, DisplaysText {
 			Container<Label> compatibleLabelContainer = new Container<>(compatibleLabel);
 			Container<Button> enabledCheckboxContainer = new Container<>(enabledCheckbox);
 			Container<Button> homepageButtonContainer = new Container<>(homepageButton);
+
+			if (menuSkin.getDrawable("btn_mods_draggable") instanceof NinePatchDrawable ninePatchDrawable) {
+				float middleWidth = ninePatchDrawable.getPatch().getMiddleWidth();
+
+				if (draggableModContainer.getPrefWidth() > middleWidth) {
+					draggableMod.setEllipsis(true);
+					draggableModContainer.width(middleWidth);
+					tooltipFactory.simpleTooltip(draggableMod, new I18nText(mod.getInfo().getName()), TooltipLocationHint.ABOVE);
+
+				}
+
+			}
 
 			draggableModContainer.padBottom(14);
 			enabledCheckboxContainer.padLeft(76);
