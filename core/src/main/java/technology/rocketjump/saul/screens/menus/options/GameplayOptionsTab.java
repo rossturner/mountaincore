@@ -97,7 +97,8 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 				.withAction(() -> {
 
 					BlurredBackgroundDialog dialog = new BlurredBackgroundDialog(I18nText.BLANK, skin, messageDispatcher, skin.get("square_dialog", Window.WindowStyle.class), soundAssetDictionary);
-					Label titleRibbon = new Label(i18nTranslator.translate("GUI.OPTIONS.KEY_BINDINGS"), skin, "title_ribbon");
+					Label titleRibbon = new Label(i18nTranslator.translate("GUI.OPTIONS.KEY_BINDINGS"), skin, "key_bindings_title_ribbon");
+					titleRibbon.setAlignment(Align.center);
 					Label gameplayLabel = new Label(i18nTranslator.translate(OptionsTabName.GAMEPLAY.getI18nKey()), skin, "secondary_banner_title");
 					gameplayLabel.setAlignment(Align.center);
 					KeyBindingUIWidget keyBindingUIWidget = new KeyBindingUIWidget(skin, userPreferences, i18nTranslator, messageDispatcher, soundAssetDictionary);
@@ -114,7 +115,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 					dialog.getContentTable().defaults().padLeft(120f).padRight(120f);
 					dialog.getContentTable().add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
 					dialog.getContentTable().add(gameplayLabel).align(Align.left).row();
-					dialog.getContentTable().add(scrollPane).fillX().height(1256f).padBottom(50f).row();
+					dialog.getContentTable().add(scrollPane).growX().height(1256f).padBottom(50f).row();
 					dialog.getContentTable().add(resetBindingsButton).padBottom(100f).row();
 
 

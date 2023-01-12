@@ -1,7 +1,6 @@
 package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
@@ -21,11 +20,6 @@ public class BlurredBackgroundDialog extends GameDialog {
 
 	public Dialog getDialog() {
 		return dialog;
-	}
-
-	@Override
-	public void show(Stage stage) {
-		super.show(stage);
 	}
 
 }
