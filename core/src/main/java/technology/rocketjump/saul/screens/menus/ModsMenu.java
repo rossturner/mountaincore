@@ -1,9 +1,13 @@
 package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.modding.LocalModRepository;
@@ -12,7 +16,9 @@ import technology.rocketjump.saul.modding.model.ParsedMod;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
+import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,19 +29,19 @@ import java.util.List;
 public class ModsMenu implements Menu, DisplaysText {
 
 	private final MenuSkin menuSkin;
+	private final ManagementSkin managementSkin;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
 	private final LocalModRepository modRepository;
 	private final ModCompatibilityChecker modCompatibilityChecker;
 	private final Stack stack = new Stack();
 
-	private List<ParsedMod> modsInOrder = new ArrayList<>();
-
 	@Inject
 	public ModsMenu(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 	                I18nTranslator i18nTranslator, LocalModRepository modRepository,
 	                ModCompatibilityChecker modCompatibilityChecker) {
 		this.menuSkin = guiSkinRepository.getMenuSkin();
+		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
 		this.modRepository = modRepository;
@@ -64,6 +70,47 @@ public class ModsMenu implements Menu, DisplaysText {
 
 	@Override
 	public void rebuildUI() {
+		stack.clear();
+
+		Label titleRibbon = new Label(i18nTranslator.translate("MENU.MODS"), menuSkin, "key_bindings_title_ribbon");
+		titleRibbon.setAlignment(Align.center);
+
+		Table modsTable = modsTable();
+		modsTable.top();
+		ScrollPane scrollPane = new EnhancedScrollPane(modsTable, menuSkin);
+		scrollPane.setForceScroll(false, true);
+		scrollPane.setFadeScrollBars(false);
+		scrollPane.setScrollbarsVisible(true);
+		scrollPane.setScrollBarPositions(true, true);
+
+		Table mainTable = new Table();
+		mainTable.defaults().padLeft(120f).padRight(120f);
+		mainTable.center();
+		mainTable.setBackground(menuSkin.getDrawable("asset_square_bg"));
+		mainTable.add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
+		mainTable.add(scrollPane).growX().height(1256f).spaceBottom(50f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
+
+		stack.add(mainTable);
+
+//		backButton = iconButtonFactory.create("GUI.BACK_LABEL", null, Color.LIGHT_GRAY, ButtonStyle.SMALL);
+//		backButton.setAction(() -> {
+//			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
+//			messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
+//			if (modRepository.hasChangesToApply()) {
+//				messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_INFO, InfoType.MOD_CHANGES_OUTSTANDING);
+//			}
+//		});
+
+
+//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.ORDERING")).pad(10);
+//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.ENABLED")).pad(10);
+//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.NAME")).pad(10);
+//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.VERSION")).pad(10);
+//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.COMPATIBILITY")).pad(10);
+	}
+
+	private Table modsTable() {
+		final List<ParsedMod> modsInOrder = new ArrayList<>();
 		modsInOrder.addAll(modRepository.getActiveMods());
 		List<ParsedMod> inactiveMods = new ArrayList<>();
 		for (ParsedMod mod : modRepository.getAll()) {
@@ -76,172 +123,149 @@ public class ModsMenu implements Menu, DisplaysText {
 		modsInOrder.addAll(inactiveMods);
 		Collections.reverse(modsInOrder);
 
-		stack.clear();
+		DragAndDrop dragAndDrop = new DragAndDrop();
 
-		Label titleRibbon = new Label(i18nTranslator.translate("MENU.MODS"), menuSkin, "title_ribbon");
+		Table table = new Table();
+
+		for (int i = 0; i < modsInOrder.size(); i++) {
+			final int index = i;
+			ParsedMod mod = modsInOrder.get(index);
+			final boolean isBaseMod = mod.getInfo().isBaseMod();
+
+			ModCompatibilityChecker.Compatibility compatibility = modCompatibilityChecker.checkCompatibility(mod);
+
+			Label draggableMod = new Label(mod.getInfo().getName(), menuSkin, "draggable_mod");
+			draggableMod.setAlignment(Align.center);
+			Label versionLabel = new Label(mod.getInfo().getVersion().toString(), menuSkin, "mod_table_value_label");
+			versionLabel.setAlignment(Align.center);
+			Label compatibleLabel = new Label(i18nTranslator.translate(compatibility.getI18nKey()), menuSkin, "mod_table_value_label");
+			compatibleLabel.setAlignment(Align.center);
+			Button enabledCheckbox = new Button(menuSkin, "checkbox");
+			enabledCheckbox.setChecked(modRepository.getActiveMods().contains(mod));
+			enabledCheckbox.addListener(new ChangeListener() {
+				@Override
+				public void changed(ChangeEvent event, Actor actor) {
+					if (enabledCheckbox.isChecked()) {
+						modRepository.getActiveMods().add(mod);
+					} else {
+						modRepository.getActiveMods().remove(mod);
+					}
+					orderChanged(modsInOrder);
+				}
+			});
+
+			if (isBaseMod || compatibility == ModCompatibilityChecker.Compatibility.INCOMPATIBLE) {
+				disable(draggableMod);
+				disable(enabledCheckbox);
+			}
+
+			Container<Label> draggableModContainer = new Container<>(draggableMod);
+			Container<Label> versionLabelContainer = new Container<>(versionLabel);
+			Container<Label> compatibleLabelContainer = new Container<>(compatibleLabel);
+			Container<Button> enabledCheckboxContainer = new Container<>(enabledCheckbox);
+
+			draggableModContainer.padBottom(14);
+			enabledCheckboxContainer.padLeft(76);
+			enabledCheckboxContainer.padRight(76);
+
+			List<Container<?>> rowTarget = List.of(draggableModContainer,
+					versionLabelContainer,
+					compatibleLabelContainer,
+					enabledCheckboxContainer);
+			dragAndDrop.addSource(new DraggableModSource(dragAndDrop, draggableMod, index));
+			rowTarget.forEach(t -> {
+				dragAndDrop.addTarget(new DraggableModTarget(t, rowTarget, modsInOrder, index));
+			});
 
 
-		Table mainTable = new Table();
-		mainTable.center();
-		mainTable.setBackground(menuSkin.getDrawable("asset_square_bg"));
-
-		mainTable.add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
-
-		stack.add(mainTable);
-
-
-//		outerTable = new Table(uiSkin);
-//		outerTable.setFillParent(false);
-//		outerTable.center();
-//		outerTable.background("default-rect");
-////		outerTable.setDebug(true);
-//
-//		modsTable = new Table(uiSkin);
-//
-
-//		backButton = iconButtonFactory.create("GUI.BACK_LABEL", null, Color.LIGHT_GRAY, ButtonStyle.SMALL);
-//		backButton.setAction(() -> {
-//			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
-//			messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-//			if (modRepository.hasChangesToApply()) {
-//				messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_INFO, InfoType.MOD_CHANGES_OUTSTANDING);
-//			}
-//		});
+			table.add(draggableModContainer).fill();
+			table.add(versionLabelContainer).fill().expandX();
+			table.add(compatibleLabelContainer).fill().expandX();
+			table.add(enabledCheckboxContainer).fill();
+			table.row();
+		}
 
 
-		//		outerTable.clearChildren();
-//
-//		modsTable.clearChildren();
-//
-//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.ORDERING")).pad(10);
-//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.ENABLED")).pad(10);
-//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.NAME")).pad(10);
-//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.VERSION")).pad(10);
-//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.COMPATIBILITY")).pad(10);
-//		modsTable.row();
-//
-//		for (int i = 0; i < modsInOrder.size(); i++) {
-//			final int index = i;
-//			ParsedMod mod = modsInOrder.get(index);
-//			final boolean isBaseMod = mod.getInfo().isBaseMod();
-//
-//			if (isBaseMod) {
-//				modsTable.add(new Container<>());
-//			} else {
-//				Table orderingTable = new Table(uiSkin);
-//				IconOnlyButton upButton = iconButtonFactory.create("arrow-up");
-//				upButton.setAction(() -> {
-//					Collections.swap(modsInOrder, index, index - 1);
-//					orderChanged();
-//				});
-//				IconOnlyButton downButton = iconButtonFactory.create("arrow-down");
-//				downButton.setAction(() -> {
-//					Collections.swap(modsInOrder, index, index + 1);
-//					orderChanged();
-//				});
-//
-//				if (index > 0) {
-//					orderingTable.add(upButton).pad(5);
-//				}
-//
-//				if (index < modsInOrder.size() - 2) {
-//					orderingTable.add(downButton).pad(5);
-//				}
-//
-//				modsTable.add(orderingTable);
-//			}
-//
-//			ModCompatibilityChecker.Compatibility compatibility = modCompatibilityChecker.checkCompatibility(mod);
-//
-//			CheckBox activeCheckbox = new CheckBox("", uiSkin);
-//			activeCheckbox.getLabelCell().padLeft(5f);
-//			activeCheckbox.setChecked(modRepository.getActiveMods().contains(mod));
-//			if (isBaseMod) {
-//				activeCheckbox.setDisabled(true);
-//			}
-//			activeCheckbox.addListener((event) -> {
-//				if (event instanceof ChangeListener.ChangeEvent) {
-//					boolean checked = activeCheckbox.isChecked();
-//					if (isBaseMod) {
-//						return true;
-//					} else if (checked) {
-//						modRepository.getActiveMods().add(mod);
-//						orderChanged();
-//					} else {
-//						modRepository.getActiveMods().remove(mod);
-//						orderChanged();
-//					}
-//				}
-//				return true;
-//			});
-//			if (compatibility.equals(INCOMPATIBLE)) {
-//				// Disabled unchecked box is unclear so just adding an empty cell
-//				modsTable.add(new Container<>());
-//			} else {
-//				modsTable.add(activeCheckbox);
-//			}
-//
-//			modsTable.add(new Label(mod.getInfo().getName(), uiSkin));
-//			modsTable.add(new Label(mod.getInfo().getVersion().toString(), uiSkin));
-//
-//			I18nLabel i18nLabel = i18NWidgetFactory.createLabel(compatibility.getI18nKey());
-//			// New label instance so it can be reused in the same stage/table
-//			modsTable.add(new Label(i18nLabel.getText(), uiSkin));
-//			modsTable.row();
-//		}
-//
-//		if (useScrollPane) {
-//			outerTable.add(scrollPane).colspan(2).pad(10).left().row();
-//		} else {
-//			outerTable.add(modsTable).colspan(2).pad(10).left().row();
-//		}
-//
-//
-//		outerTable.add(backButton).colspan(2).pad(10).left();
-//
-//		outerTable.row();
-
+		return table;
 	}
 
-//	private void orderChanged() {
-//		List<ParsedMod> currentActiveMods = modRepository.getActiveMods();
-//		List<ParsedMod> newActiveMods = new ArrayList<>();
-//
-//		for (ParsedMod mod : modsInOrder) {
-//			if (currentActiveMods.contains(mod)) {
-//				newActiveMods.add(mod);
-//			}
-//		}
-//
-//		Collections.reverse(newActiveMods);
-//		modRepository.setActiveMods(newActiveMods);
-//
-//		this.reset();
-//	}
+	class DraggableModSource extends DragAndDrop.Source {
+		private final DragAndDrop dragAndDrop;
+		private final Label originalLabel;
+		private final int index;
 
 
-	//		BlurredBackgroundDialog dialog = new BlurredBackgroundDialog(I18nText.BLANK, skin, messageDispatcher, skin.get("square_dialog", Window.WindowStyle.class), soundAssetDictionary);
-//		Label titleRibbon = new Label(i18nTranslator.translate("GUI.OPTIONS.KEY_BINDINGS"), skin, "title_ribbon");
-//		Label gameplayLabel = new Label(i18nTranslator.translate(OptionsTabName.GAMEPLAY.getI18nKey()), skin, "secondary_banner_title");
-//		gameplayLabel.setAlignment(Align.center);
-//		KeyBindingUIWidget keyBindingUIWidget = new KeyBindingUIWidget(skin, userPreferences, i18nTranslator, messageDispatcher, soundAssetDictionary);
-//		Container<TextButton> resetBindingsButton = menuButtonFactory.createButton("GUI.OPTIONS.RESET", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
-//				.withAction(() -> keyBindingUIWidget.resetToDefaultSettings())
-//				.build();
-//
-//		ScrollPane scrollPane = new EnhancedScrollPane(keyBindingUIWidget, skin);
-//		scrollPane.setForceScroll(false, true);
-//		scrollPane.setFadeScrollBars(false);
-//		scrollPane.setScrollbarsVisible(true);
-//		scrollPane.setScrollBarPositions(true, true);
-//
-//		dialog.getContentTable().defaults().padLeft(120f).padRight(120f);
-//		dialog.getContentTable().add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
-//		dialog.getContentTable().add(gameplayLabel).align(Align.left).row();
-//		dialog.getContentTable().add(scrollPane).fillX().height(1256f).padBottom(50f).row();
-//		dialog.getContentTable().add(resetBindingsButton).padBottom(100f).row();
-//
-//
-//		messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
+		DraggableModSource(DragAndDrop dragAndDrop, Label originalLabel, int index) {
+			super(originalLabel);
+			this.dragAndDrop = dragAndDrop;
+			this.originalLabel = originalLabel;
+			this.index = index;
+		}
+
+		@Override
+		public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
+			Label dragActor = new Label(originalLabel.getText(), originalLabel.getStyle());
+			dragActor.setAlignment(originalLabel.getLabelAlign());
+
+			DragAndDrop.Payload payload = new DragAndDrop.Payload();
+			payload.setDragActor(dragActor);
+			dragAndDrop.setDragActorPosition(originalLabel.getWidth() - x, -dragActor.getHeight() / 2);
+			return payload;
+		}
+	}
+
+	private class DraggableModTarget extends DragAndDrop.Target {
+		private final List<Container<?>> wholeRow;
+		private final List<ParsedMod> modsInOrder;
+		private final int index;
+
+		public DraggableModTarget(Actor actor, List<Container<?>> wholeRow, List<ParsedMod> modsInOrder, int index) {
+			super(actor);
+			this.wholeRow = wholeRow;
+			this.modsInOrder = modsInOrder;
+			this.index = index;
+		}
+
+		@Override
+		public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+			wholeRow.forEach(c -> c.setBackground(managementSkin.getDrawable("drag_over_tint")));
+			return true;
+		}
+
+		@Override
+		public void reset(DragAndDrop.Source source, DragAndDrop.Payload payload) {
+			super.reset(source, payload);
+			wholeRow.forEach(c -> c.setBackground(null));
+		}
+
+		@Override
+		public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+			if (source instanceof DraggableModSource draggableModSource) {
+				Collections.swap(modsInOrder, index, draggableModSource.index);
+				orderChanged(modsInOrder);
+			}
+		}
+	}
+
+	private void disable(Actor actor) {
+		actor.setTouchable(Touchable.disabled);
+		actor.getColor().a = 0.6f;
+	}
+
+	private void orderChanged(List<ParsedMod> modsInOrder) {
+		List<ParsedMod> currentActiveMods = modRepository.getActiveMods();
+		List<ParsedMod> newActiveMods = new ArrayList<>();
+
+		for (ParsedMod mod : modsInOrder) {
+			if (currentActiveMods.contains(mod)) {
+				newActiveMods.add(mod);
+			}
+		}
+
+		Collections.reverse(newActiveMods);
+		modRepository.setActiveMods(newActiveMods);
+
+		this.reset();
+	}
 
 }
