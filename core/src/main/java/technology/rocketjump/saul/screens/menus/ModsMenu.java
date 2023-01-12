@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.screens.menus;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -7,10 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.modding.LocalModRepository;
 import technology.rocketjump.saul.modding.ModCompatibilityChecker;
 import technology.rocketjump.saul.modding.model.ParsedMod;
@@ -158,6 +161,19 @@ public class ModsMenu implements Menu, DisplaysText {
 				}
 			});
 
+			Button homepageButton = new Button(menuSkin, "btn_homepage");
+			homepageButton.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					Gdx.net.openURI(mod.getInfo().getHomepageUrl());
+				}
+			});
+
+			if (StringUtils.isBlank(mod.getInfo().getHomepageUrl())) {
+				disable(homepageButton);
+			}
+
+
 			if (isBaseMod) {
 				disable(draggableMod);
 				disable(enabledCheckbox);
@@ -172,15 +188,18 @@ public class ModsMenu implements Menu, DisplaysText {
 			Container<Label> versionLabelContainer = new Container<>(versionLabel);
 			Container<Label> compatibleLabelContainer = new Container<>(compatibleLabel);
 			Container<Button> enabledCheckboxContainer = new Container<>(enabledCheckbox);
+			Container<Button> homepageButtonContainer = new Container<>(homepageButton);
 
 			draggableModContainer.padBottom(14);
 			enabledCheckboxContainer.padLeft(76);
 			enabledCheckboxContainer.padRight(76);
+			homepageButtonContainer.padRight(34);
 
 			List<Container<?>> rowTarget = List.of(draggableModContainer,
 					versionLabelContainer,
 					compatibleLabelContainer,
-					enabledCheckboxContainer);
+					enabledCheckboxContainer,
+					homepageButtonContainer);
 			dragAndDrop.addSource(new DraggableModSource(dragAndDrop, draggableMod, index));
 			rowTarget.forEach(t -> {
 				dragAndDrop.addTarget(new DraggableModTarget(t, rowTarget, modsInOrder, index));
@@ -191,6 +210,7 @@ public class ModsMenu implements Menu, DisplaysText {
 			table.add(versionLabelContainer).fill().expandX();
 			table.add(compatibleLabelContainer).fill().expandX();
 			table.add(enabledCheckboxContainer).fill();
+			table.add(homepageButtonContainer).fill();
 			table.row();
 		}
 
