@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
@@ -20,10 +21,9 @@ import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Singleton
 public class ModsMenu implements Menu, DisplaysText {
@@ -110,18 +110,22 @@ public class ModsMenu implements Menu, DisplaysText {
 	}
 
 	private Table modsTable() {
-		final List<ParsedMod> modsInOrder = new ArrayList<>();
-		modsInOrder.addAll(modRepository.getActiveMods());
-		List<ParsedMod> inactiveMods = new ArrayList<>();
+		final List<ParsedMod> activeMods = modRepository.getActiveMods();
+		Collections.reverse(activeMods);
+		final List<ParsedMod> inactiveMods = new ArrayList<>();
 		for (ParsedMod mod : modRepository.getAll()) {
-			if (!modsInOrder.contains(mod)) {
+			if (!activeMods.contains(mod)) {
 				inactiveMods.add(mod);
 			}
 		}
 		inactiveMods.sort(Comparator.comparing(o -> o.getInfo().getName()));
-		Collections.reverse(inactiveMods);
+
+		Map<Boolean, List<ParsedMod>> splitByBaseMod = activeMods.stream().collect(Collectors.partitioningBy(mod -> mod.getInfo().isBaseMod()));
+		final List<ParsedMod> modsInOrder = new ArrayList<>();
+		modsInOrder.addAll(splitByBaseMod.getOrDefault(false, Collections.emptyList()));
 		modsInOrder.addAll(inactiveMods);
-		Collections.reverse(modsInOrder);
+		modsInOrder.addAll(splitByBaseMod.getOrDefault(true, Collections.emptyList()));
+
 
 		DragAndDrop dragAndDrop = new DragAndDrop();
 
@@ -141,20 +145,25 @@ public class ModsMenu implements Menu, DisplaysText {
 			Label compatibleLabel = new Label(i18nTranslator.translate(compatibility.getI18nKey()), menuSkin, "mod_table_value_label");
 			compatibleLabel.setAlignment(Align.center);
 			Button enabledCheckbox = new Button(menuSkin, "checkbox");
-			enabledCheckbox.setChecked(modRepository.getActiveMods().contains(mod));
+			enabledCheckbox.setChecked(activeMods.contains(mod));
 			enabledCheckbox.addListener(new ChangeListener() {
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
 					if (enabledCheckbox.isChecked()) {
-						modRepository.getActiveMods().add(mod);
+						activeMods.add(mod);
 					} else {
-						modRepository.getActiveMods().remove(mod);
+						activeMods.remove(mod);
 					}
 					orderChanged(modsInOrder);
 				}
 			});
 
-			if (isBaseMod || compatibility == ModCompatibilityChecker.Compatibility.INCOMPATIBLE) {
+			if (isBaseMod) {
+				disable(draggableMod);
+				disable(enabledCheckbox);
+			} else if (!enabledCheckbox.isChecked()) {
+				disable(draggableMod);
+			} else if (compatibility == ModCompatibilityChecker.Compatibility.INCOMPATIBLE) {
 				disable(draggableMod);
 				disable(enabledCheckbox);
 			}
