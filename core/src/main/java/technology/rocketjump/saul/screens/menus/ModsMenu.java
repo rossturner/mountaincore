@@ -17,6 +17,10 @@ import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.modding.LocalModRepository;
 import technology.rocketjump.saul.modding.ModCompatibilityChecker;
 import technology.rocketjump.saul.modding.model.ParsedMod;
+import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
@@ -35,18 +39,20 @@ public class ModsMenu implements Menu, DisplaysText {
 	private final ManagementSkin managementSkin;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
+	private final TooltipFactory tooltipFactory;
 	private final LocalModRepository modRepository;
 	private final ModCompatibilityChecker modCompatibilityChecker;
 	private final Stack stack = new Stack();
 
 	@Inject
 	public ModsMenu(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-	                I18nTranslator i18nTranslator, LocalModRepository modRepository,
-	                ModCompatibilityChecker modCompatibilityChecker) {
+	                I18nTranslator i18nTranslator, TooltipFactory tooltipFactory,
+	                LocalModRepository modRepository, ModCompatibilityChecker modCompatibilityChecker) {
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
+		this.tooltipFactory = tooltipFactory;
 		this.modRepository = modRepository;
 		this.modCompatibilityChecker = modCompatibilityChecker;
 	}
@@ -91,7 +97,7 @@ public class ModsMenu implements Menu, DisplaysText {
 		mainTable.center();
 		mainTable.setBackground(menuSkin.getDrawable("asset_square_bg"));
 		mainTable.add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
-		mainTable.add(scrollPane).growX().height(1256f).spaceBottom(50f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
+		mainTable.add(scrollPane).width(1976).height(1256f).spaceBottom(50f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
 
 		stack.add(mainTable);
 
@@ -143,6 +149,7 @@ public class ModsMenu implements Menu, DisplaysText {
 
 			Label draggableMod = new Label(mod.getInfo().getName(), menuSkin, "draggable_mod");
 			draggableMod.setAlignment(Align.center);
+			draggableMod.addListener(new ChangeCursorOnHover(draggableMod, GameCursor.REORDER_VERTICAL, messageDispatcher));
 			Label versionLabel = new Label(mod.getInfo().getVersion().toString(), menuSkin, "mod_table_value_label");
 			versionLabel.setAlignment(Align.center);
 			Label compatibleLabel = new Label(i18nTranslator.translate(compatibility.getI18nKey()), menuSkin, "mod_table_value_label");
@@ -160,17 +167,21 @@ public class ModsMenu implements Menu, DisplaysText {
 					orderChanged(modsInOrder);
 				}
 			});
+			enabledCheckbox.addListener(new ChangeCursorOnHover(enabledCheckbox, GameCursor.SELECT, messageDispatcher));
 
 			Button homepageButton = new Button(menuSkin, "btn_homepage");
-			homepageButton.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					Gdx.net.openURI(mod.getInfo().getHomepageUrl());
-				}
-			});
 
 			if (StringUtils.isBlank(mod.getInfo().getHomepageUrl())) {
-				disable(homepageButton);
+				homepageButton.getColor().a = 0.6f;
+				tooltipFactory.simpleTooltip(homepageButton, "MODS.MISSING_HOMEPAGE_URL", TooltipLocationHint.ABOVE);
+			} else {
+				homepageButton.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						Gdx.net.openURI(mod.getInfo().getHomepageUrl());
+					}
+				});
+				homepageButton.addListener(new ChangeCursorOnHover(homepageButton, GameCursor.SELECT, messageDispatcher));
 			}
 
 
