@@ -1,0 +1,64 @@
+{
+  "name" : "Horse",
+  "i18nKey" : "RACE.HORSE",
+  "minStrength" : 9.0,
+  "maxStrength" : 17.0,
+  "bodyStructureName" : "hooved-quadruped",
+  "bodyShapes" : [ {
+    "value" : "AVERAGE",
+    "minStrength" : 9.0,
+    "maxStrength" : 17.0
+  } ],
+  "colors" : {
+    "SKIN_COLOR" : {
+      "swatch" : "horse-skin-swatch.png"
+    }
+  },
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "needs" : [ "SLEEP" ]
+  },
+  "genders" : {
+    "MALE" : {
+      "weighting" : 0.5
+    },
+    "FEMALE" : {
+      "weighting" : 0.5
+    }
+  },
+  "features" : {
+    "defense" : {
+      "maxDefensePoints" : 12,
+      "maxDefenseRegainedPerRound" : 2,
+      "damageReduction" : {
+        "STABBING" : 0,
+        "SLASHING" : 0,
+        "CRUSHING" : 0
+      }
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "CRUSHING",
+      "modifiedByStrength" : true,
+      "minDamage" : 2,
+      "maxDamage" : 7,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing"
+    },
+    "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 2,
+      "materialName" : "Horse Hide"
+    },
+    "meat" : {
+      "itemTypeName" : "Carcass-Meat-Medium",
+      "materialName" : "Horse Meat",
+      "quantity" : 3
+    },
+    "bones" : {
+      "materialName" : "Bone"
+    },
+    "blood" : { }
+  }
+}

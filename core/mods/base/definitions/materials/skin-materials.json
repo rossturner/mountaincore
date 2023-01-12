@@ -26,5 +26,12 @@
     "combustible": true,
     "valueMultiplier": 4,
     "colorCode": "#f2eff0"
+  },
+  {
+    "materialName": "Horse Hide",
+    "materialType": "SKIN",
+    "combustible": true,
+    "valueMultiplier": 2,
+    "colorCode": "#be986e"
   }
 ]

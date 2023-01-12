@@ -1,0 +1,190 @@
+[ {
+  "uniqueName" : "Horse-Body_Outline-Awake",
+  "type" : "HAIR_OUTLINE",
+  "raceName" : "Horse",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ "AWAKE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "HorseFrontLines.png"
+    },
+    "UP" : {
+      "filename" : "HorseBackLines.png"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "HorseFrontSideLines.png",
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "HorseFrontSideLines.png"
+    },
+    "UP_LEFT" : {
+      "filename" : "HorseBackSideLines.png"
+    },
+    "UP_RIGHT" : {
+      "filename" : "HorseBackSideLines.png",
+      "flipX" : true
+    }
+  },
+  "overrideRenderLayer" : 50
+}, {
+  "uniqueName" : "Horse-Creature_Body-Awake",
+  "type" : "CREATURE_BODY",
+  "raceName" : "Horse",
+  "bodyShape" : "AVERAGE",
+  "gender" : "ANY",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ "AWAKE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "HorseColourFront.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD"
+      }, {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "HAIR_OUTLINE",
+        "overrideRenderLayer" : 50
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "HorseColourFrontSide.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : 5.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD"
+      }, {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "HAIR_OUTLINE",
+        "overrideRenderLayer" : 50
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "HorseColourFrontSide.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "x" : -5.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD"
+      }, {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "HAIR_OUTLINE",
+        "overrideRenderLayer" : 50
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "HorseColourBackSide.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 5.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "overrideRenderLayer" : 10
+      }, {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "HAIR_OUTLINE",
+        "overrideRenderLayer" : 50
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "HorseColourBackSide.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 5.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "CREATURE_HEAD",
+        "overrideRenderLayer" : 10
+      }, {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "HAIR_OUTLINE",
+        "overrideRenderLayer" : 50
+      } ]
+    },
+    "UP" : {
+      "filename" : "HorseColourBack.png",
+      "coloringLayer" : "SKIN_COLOR",
+      "offsetPixels" : {
+        "y" : 4.0
+      },
+      "childAssets" : [ {
+        "type" : "CREATURE_BODYPAINT"
+      }, {
+        "type" : "HAIR_OUTLINE",
+        "overrideRenderLayer" : 50
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Horse-Creature_Bodypaint-Awake",
+  "type" : "CREATURE_BODYPAINT",
+  "raceName" : "Horse",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ "AWAKE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "HorseColourSpotsFront.png",
+      "coloringLayer" : "MARKING_COLOR"
+    },
+    "UP" : {
+      "filename" : "HorseColourSpotsBack.png",
+      "coloringLayer" : "MARKING_COLOR"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "HorseColourSpotsFrontSide.png",
+      "coloringLayer" : "MARKING_COLOR",
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "HorseColourSpotsFrontSide.png",
+      "coloringLayer" : "MARKING_COLOR"
+    },
+    "UP_LEFT" : {
+      "filename" : "HorseColourSpotsBackSide.png",
+      "coloringLayer" : "MARKING_COLOR"
+    },
+    "UP_RIGHT" : {
+      "filename" : "HorseColourSpotsBackSide.png",
+      "coloringLayer" : "MARKING_COLOR",
+      "flipX" : true
+    }
+  }
+}, {
+  "uniqueName" : "Horse-Creature_Head-Awake",
+  "type" : "CREATURE_HEAD",
+  "raceName" : "Horse",
+  "profession" : "NULL_PROFESSION",
+  "consciousnessList" : [ "AWAKE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "HorseColourNoseFront.png",
+      "coloringLayer" : "ACCESSORY_COLOR"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "HorseColourNoseFrontSide.png",
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "HorseColourNoseFrontSide.png"
+    },
+    "UP_LEFT" : {
+      "filename" : "HorseColourNoseBackSide.png"
+    },
+    "UP_RIGHT" : {
+      "filename" : "HorseColourNoseBackSide.png",
+      "flipX" : true
+    }
+  },
+  "overrideRenderLayer" : 10
+} ]

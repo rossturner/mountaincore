@@ -34,6 +34,13 @@
     "colorCode": "#ba9a94"
   },
   {
+    "materialName": "Horse Meat",
+    "materialType": "MEAT",
+    "combustible": true,
+    "valueMultiplier": 1.6,
+    "colorCode": "#ba9a94"
+  },
+  {
     "materialName": "Carp Meat",
     "materialType": "MEAT",
     "edible": true,
