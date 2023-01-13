@@ -457,6 +457,9 @@ GUI.CONSTRUCTION_LABEL,For the menu that further gives options for build and pow
 GUI.CHANGE_PROFESSION_LABEL,,Choose New Profession
 GUI.CHANGE_WEAPON_LABEL,,Select weapon
 GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items in stock,Maintaining
+GUI.CRAFTING_MANAGEMENT.SUBTITLE,,{{craftingType}} ({{profession}})
+GUI.CRAFTING_MANAGEMENT.TABLE.CRAFTED_WITH,,Crafted With
+GUI.CRAFTING_MANAGEMENT.TABLE.ITEM,,Item
 GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}}
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total)

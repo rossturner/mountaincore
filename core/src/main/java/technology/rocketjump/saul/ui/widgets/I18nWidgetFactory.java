@@ -33,10 +33,6 @@ public class I18nWidgetFactory implements DisplaysText {
 		return labels.computeIfAbsent(i18nKey, (key) -> new I18nLabel(key, i18nTranslator.getTranslatedString(key).toString(), uiSkin));
 	}
 
-	public I18nTextButton createTextButton(String i18nKey) {
-		return buttons.computeIfAbsent(i18nKey, (key) -> new I18nTextButton(key, i18nTranslator.getTranslatedString(key).toString(), uiSkin));
-	}
-
 	@Override
 	public void rebuildUI() {
 		for (I18nLabel i18nLabel : labels.values()) {

@@ -21,7 +21,7 @@ public class ManagementScreenInputHandler implements InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 		if (keycode == Input.Keys.ESCAPE) {
-			messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+			closeScreen();
 			return true;
 		}
 		return false;
@@ -40,7 +40,7 @@ public class ManagementScreenInputHandler implements InputProcessor {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		if (button == Input.Buttons.RIGHT) {
-			messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
+			closeScreen();
 			return true;
 		} else {
 			return false;
@@ -60,5 +60,9 @@ public class ManagementScreenInputHandler implements InputProcessor {
 	@Override
 	public boolean scrolled(float amountX, float amountY) {
 		return false;
+	}
+
+	protected void closeScreen() {
+		messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
 	}
 }
