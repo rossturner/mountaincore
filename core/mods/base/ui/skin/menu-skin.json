@@ -337,6 +337,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		font: default-font-23
 		fontColor: primary_font_colour_red
 	}
+	mod_table_header_label: {
+		font: header-font-32
+		fontColor: primary_font_colour_red
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {

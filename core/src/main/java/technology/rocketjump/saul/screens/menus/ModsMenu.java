@@ -88,18 +88,50 @@ public class ModsMenu implements Menu, DisplaysText {
 
 		Table modsTable = modsTable();
 		modsTable.top();
+
 		ScrollPane scrollPane = new EnhancedScrollPane(modsTable, menuSkin);
 		scrollPane.setForceScroll(false, true);
 		scrollPane.setFadeScrollBars(false);
 		scrollPane.setScrollbarsVisible(true);
 		scrollPane.setScrollBarPositions(true, true);
 
+
+
+
+		Label nameHeader = new Label(i18nTranslator.translate("MODS.TABLE.NAME"), menuSkin, "mod_table_header_label");
+		nameHeader.setAlignment(Align.center);
+		Label versionHeader = new Label(i18nTranslator.translate("MODS.TABLE.VERSION"), menuSkin, "mod_table_header_label");
+		versionHeader.setAlignment(Align.center);
+		Label compatibilityHeader = new Label(i18nTranslator.translate("MODS.TABLE.COMPATIBILITY"), menuSkin, "mod_table_header_label");
+		compatibilityHeader.setAlignment(Align.center);
+		Label enabledHeader = new Label(i18nTranslator.translate("MODS.TABLE.ENABLED"), menuSkin, "mod_table_header_label");
+		enabledHeader.setAlignment(Align.center);
+
+
+
+
+//		modsTable.layout();
+//		float firstColumnMinWidth = modsTable.getCells().get(0).getMinWidth();
+//		float secondColumnMinWidth = modsTable.getCells().get(1).getMinWidth();
+//		float thirdColumnMinWidth = modsTable.getCells().get(2).getMinWidth();
+//		float fourthAndFifthColumnMinWidth = modsTable.getCells().get(3).getMinWidth() +  modsTable.getCells().get(4).getMinWidth();
+
+		Table modsTableHeader = new Table();
+		modsTableHeader.setBackground(menuSkin.getDrawable("asset_long_banner"));
+		modsTableHeader.add(nameHeader);//.minWidth(firstColumnMinWidth);
+		modsTableHeader.add(versionHeader);//.minWidth(secondColumnMinWidth).spaceLeft(76).spaceRight(76);
+		modsTableHeader.add(compatibilityHeader);//.minWidth(thirdColumnMinWidth).spaceLeft(76).spaceRight(76);
+		modsTableHeader.add(enabledHeader);//.minWidth(fourthAndFifthColumnMinWidth);
+
+		modsTableHeader.debugAll();
+
 		Table mainTable = new Table();
 		mainTable.defaults().padLeft(120f).padRight(120f);
 		mainTable.center();
 		mainTable.setBackground(menuSkin.getDrawable("asset_square_bg"));
 		mainTable.add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
-		mainTable.add(scrollPane).width(1976).height(1256f).spaceBottom(50f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
+		mainTable.add(modsTableHeader).spaceBottom(32).row();
+		mainTable.add(scrollPane).width(modsTableHeader.getBackground().getMinWidth()).height(1256f).spaceBottom(50f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
 
 		stack.add(mainTable);
 
@@ -113,11 +145,6 @@ public class ModsMenu implements Menu, DisplaysText {
 //		});
 
 
-//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.ORDERING")).pad(10);
-//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.ENABLED")).pad(10);
-//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.NAME")).pad(10);
-//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.VERSION")).pad(10);
-//		modsTable.add(i18NWidgetFactory.createLabel("MODS.TABLE.COMPATIBILITY")).pad(10);
 	}
 
 	private Table modsTable() {
@@ -217,6 +244,8 @@ public class ModsMenu implements Menu, DisplaysText {
 			}
 
 			draggableModContainer.padBottom(14);
+			versionLabelContainer.padLeft(76);
+			versionLabelContainer.padRight(76);
 			enabledCheckboxContainer.padLeft(76);
 			enabledCheckboxContainer.padRight(76);
 			homepageButtonContainer.padRight(34);

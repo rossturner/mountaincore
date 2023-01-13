@@ -716,11 +716,7 @@ MODS.COMPATIBILITY.INCOMPATIBLE,,No,Nie
 MODS.COMPATIBILITY.UNKNOWN,,Unknown,Nieznany
 MODS.MISSING_MODS_DIALOG_TEXT,,This save file was last used while the following mods were active. These mods are now missing or disabled so the save may not load correctly.,"Ten plik zapisu był ostatnio używany, gdy następujące mody były aktywne. Te mody są teraz brakujące lub wyłączone, więc zapisz może nie ładować się poprawnie."
 MODS.MISSING_MODS_SAVE_EXCEPTION_DIALOG_TEXT,,"The save file could not be loaded because either it is incompatible with this version of the game, or because some mods have been disabled or removed since this save was last loaded. The following mods were expected but are no longer active:","Plik zapisu nie mógł zostać załadowany, ponieważ jest niezgodny z tą wersją gry lub dlatego, że niektóre mody zostały wyłączone lub usunięte od ostatniego załadowania tego zapisu. Oczekiwano następujące mody, ale nie są już aktywne:"
-MODS.TABLE.COMPATIBILITY,,Compatible?,Kompatybilny?
-MODS.TABLE.ENABLED,,Enabled?,Włączone?
-MODS.TABLE.NAME,,Mod Name,Nazwa modu
 MODS.TABLE.ORDERING,,Re-order,Ponowne zamówienie
-MODS.TABLE.VERSION,,Mod Version,Wersja modów
 
 MUSHROOM.DESCRIPTION,E.g. “Toadstool mushroom”,{{materialType.noun}},{{materialType.noun}}
 
