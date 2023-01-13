@@ -21,7 +21,6 @@ public class GuiSkinRepository implements Telegraph {
 	private static final String MANAGEMENT_SKIN_FILE_PATH = "assets/ui/skin/management-skin.json";
 	private static final int FONT_SCALE = 2;
 	private final OnDemandFontRepository onDemandFontRepository;
-	private final Skin uiSkin = new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")); // MODDING expose this or change uiskin.json
 	private final MenuSkin menuSkin;
 	private final MainGameSkin mainGameSkin;
 	private final ManagementSkin managementSkin;
@@ -69,11 +68,6 @@ public class GuiSkinRepository implements Telegraph {
 			case MessageType.FONTS_CHANGED -> fontChanged();
 			default -> throw new IllegalArgumentException("Unexpected message type handled: " + msg.message);
 		};
-	}
-
-	@Deprecated
-	public Skin getDefault() {
-		return uiSkin;
 	}
 
 	public MenuSkin getMenuSkin() {
