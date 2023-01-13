@@ -20,7 +20,6 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
 import java.util.ArrayList;
 
@@ -43,7 +42,7 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 	@Inject
 	public RoomSelectionGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 								RoomTypeDictionary roomTypeDictionary, I18nTranslator i18nTranslator,
-								TooltipFactory tooltipFactory, I18nWidgetFactory i18NWidgetFactory) {
+								TooltipFactory tooltipFactory) {
 
 		skin = guiSkinRepository.getMainGameSkin();
 		this.messageDispatcher = messageDispatcher;

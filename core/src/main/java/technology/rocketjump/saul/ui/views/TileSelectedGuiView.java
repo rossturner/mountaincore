@@ -21,7 +21,6 @@ import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
 
 import static technology.rocketjump.saul.mapping.tile.TileExploration.EXPLORED;
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.TILE;
@@ -43,7 +42,7 @@ public class TileSelectedGuiView implements GuiView {
 
 	@Inject
 	public TileSelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
-							   GameInteractionStateContainer gameInteractionStateContainer, IconButtonFactory iconButtonFactory) {
+							   GameInteractionStateContainer gameInteractionStateContainer) {
 		skin = guiSkinRepository.getMainGameSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
