@@ -37,6 +37,8 @@ import java.util.stream.Collectors;
 @Singleton
 public class ModsMenu implements Menu, DisplaysText {
 
+	private static final float VERSION_WIDTH = 240;
+	private static final float COMPATIBILITY_WIDTH = 280;
 	private final MenuSkin menuSkin;
 	private final ManagementSkin managementSkin;
 	private final MessageDispatcher messageDispatcher;
@@ -110,20 +112,17 @@ public class ModsMenu implements Menu, DisplaysText {
 
 
 
-//		modsTable.layout();
-//		float firstColumnMinWidth = modsTable.getCells().get(0).getMinWidth();
-//		float secondColumnMinWidth = modsTable.getCells().get(1).getMinWidth();
-//		float thirdColumnMinWidth = modsTable.getCells().get(2).getMinWidth();
-//		float fourthAndFifthColumnMinWidth = modsTable.getCells().get(3).getMinWidth() +  modsTable.getCells().get(4).getMinWidth();
+		modsTable.layout();
+		float firstColumnMinWidth = modsTable.getCells().get(0).getMinWidth();
 
 		Table modsTableHeader = new Table();
+		modsTableHeader.left();
 		modsTableHeader.setBackground(menuSkin.getDrawable("asset_long_banner"));
-		modsTableHeader.add(nameHeader);//.minWidth(firstColumnMinWidth);
-		modsTableHeader.add(versionHeader);//.minWidth(secondColumnMinWidth).spaceLeft(76).spaceRight(76);
-		modsTableHeader.add(compatibilityHeader);//.minWidth(thirdColumnMinWidth).spaceLeft(76).spaceRight(76);
-		modsTableHeader.add(enabledHeader);//.minWidth(fourthAndFifthColumnMinWidth);
+		modsTableHeader.add(nameHeader).minWidth(firstColumnMinWidth);
+		modsTableHeader.add(versionHeader).width(VERSION_WIDTH).spaceLeft(76).spaceRight(76);
+		modsTableHeader.add(compatibilityHeader).width(COMPATIBILITY_WIDTH).spaceLeft(76).padRight(76);
+		modsTableHeader.add(enabledHeader);
 
-		modsTableHeader.debugAll();
 
 		Table mainTable = new Table();
 		mainTable.defaults().padLeft(120f).padRight(120f);
@@ -131,7 +130,7 @@ public class ModsMenu implements Menu, DisplaysText {
 		mainTable.setBackground(menuSkin.getDrawable("asset_square_bg"));
 		mainTable.add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
 		mainTable.add(modsTableHeader).spaceBottom(32).row();
-		mainTable.add(scrollPane).width(modsTableHeader.getBackground().getMinWidth()).height(1256f).spaceBottom(50f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
+		mainTable.add(scrollPane).width(modsTableHeader.getBackground().getMinWidth()+20).height(1256f).spaceBottom(50f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
 
 		stack.add(mainTable);
 
@@ -182,6 +181,11 @@ public class ModsMenu implements Menu, DisplaysText {
 			draggableMod.addListener(new ChangeCursorOnHover(draggableMod, GameCursor.REORDER_VERTICAL, messageDispatcher));
 			Label versionLabel = new Label(mod.getInfo().getVersion().toString(), menuSkin, "mod_table_value_label");
 			versionLabel.setAlignment(Align.center);
+			versionLabel.layout();
+			if (versionLabel.getPrefWidth() > VERSION_WIDTH) {
+				tooltipFactory.simpleTooltip(versionLabel, new I18nText(mod.getInfo().getVersion().toString()), TooltipLocationHint.ABOVE);
+				versionLabel.setEllipsis(true);
+			}
 			Label compatibleLabel = new Label(i18nTranslator.translate(compatibility.getI18nKey()), menuSkin, "mod_table_value_label");
 			compatibleLabel.setAlignment(Align.center);
 			Button enabledCheckbox = new Button(menuSkin, "checkbox");
@@ -246,6 +250,10 @@ public class ModsMenu implements Menu, DisplaysText {
 			draggableModContainer.padBottom(14);
 			versionLabelContainer.padLeft(76);
 			versionLabelContainer.padRight(76);
+			versionLabelContainer.width(VERSION_WIDTH);
+
+			compatibleLabelContainer.width(COMPATIBILITY_WIDTH);
+
 			enabledCheckboxContainer.padLeft(76);
 			enabledCheckboxContainer.padRight(76);
 			homepageButtonContainer.padRight(34);
@@ -262,7 +270,7 @@ public class ModsMenu implements Menu, DisplaysText {
 
 
 			table.add(draggableModContainer).fill();
-			table.add(versionLabelContainer).fill().expandX();
+			table.add(versionLabelContainer).fill();
 			table.add(compatibleLabelContainer).fill().expandX();
 			table.add(enabledCheckboxContainer).fill();
 			table.add(homepageButtonContainer).fill();
