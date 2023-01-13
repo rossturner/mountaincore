@@ -519,5 +519,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 		background: asset_square_bg
 		titleFont: default-font-16
 	}
+	empty_dialog: {
+		titleFont: default-font-16
+	}
 }
 }

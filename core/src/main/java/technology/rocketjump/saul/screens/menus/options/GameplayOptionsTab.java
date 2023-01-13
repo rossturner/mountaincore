@@ -96,7 +96,7 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 		keyBindingsButton = menuButtonFactory.createButton("GUI.OPTIONS.KEY_BINDINGS", skin, MenuButtonFactory.ButtonStyle.BTN_OPTIONS_SECONDARY)
 				.withAction(() -> {
 
-					BlurredBackgroundDialog dialog = new BlurredBackgroundDialog(I18nText.BLANK, skin, messageDispatcher, skin.get("square_dialog", Window.WindowStyle.class), soundAssetDictionary);
+					BlurredBackgroundDialog dialog = new BlurredBackgroundDialog(I18nText.BLANK, skin, messageDispatcher, soundAssetDictionary);
 					Label titleRibbon = new Label(i18nTranslator.translate("GUI.OPTIONS.KEY_BINDINGS"), skin, "key_bindings_title_ribbon");
 					titleRibbon.setAlignment(Align.center);
 					Label gameplayLabel = new Label(i18nTranslator.translate(OptionsTabName.GAMEPLAY.getI18nKey()), skin, "secondary_banner_title");
@@ -112,12 +112,16 @@ public class GameplayOptionsTab implements OptionsTab, Telegraph, DisplaysText {
 					scrollPane.setScrollbarsVisible(true);
 					scrollPane.setScrollBarPositions(true, true);
 
-					dialog.getContentTable().defaults().padLeft(120f).padRight(120f);
-					dialog.getContentTable().add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
-					dialog.getContentTable().add(gameplayLabel).align(Align.left).row();
-					dialog.getContentTable().add(scrollPane).growX().height(1256f).padBottom(50f).row();
-					dialog.getContentTable().add(resetBindingsButton).padBottom(100f).row();
+					Table mainTable = new Table();
+					mainTable.setBackground(skin.getDrawable("asset_square_bg"));
 
+					mainTable.defaults().padLeft(120f).padRight(120f);
+					mainTable.add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
+					mainTable.add(gameplayLabel).align(Align.left).row();
+					mainTable.add(scrollPane).growX().height(1256f).padBottom(50f).row();
+					mainTable.add(resetBindingsButton).padBottom(100f).row();
+
+					dialog.getContentTable().add(mainTable);
 
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, dialog);
 				})

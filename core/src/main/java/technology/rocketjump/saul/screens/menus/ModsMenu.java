@@ -30,15 +30,15 @@ import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
+import technology.rocketjump.saul.ui.widgets.BlurredBackgroundDialog;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
-import technology.rocketjump.saul.ui.widgets.GameDialog;
 
 import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Singleton
-public class ModsMenu extends GameDialog implements DisplaysText {
+public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 
 	private static final float VERSION_WIDTH = 240;
 	private static final float COMPATIBILITY_WIDTH = 280;
@@ -49,13 +49,12 @@ public class ModsMenu extends GameDialog implements DisplaysText {
 	private final TooltipFactory tooltipFactory;
 	private final LocalModRepository modRepository;
 	private final ModCompatibilityChecker modCompatibilityChecker;
-//	private final Stack stack = new Stack();
 
 	@Inject
 	public ModsMenu(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 	                I18nTranslator i18nTranslator, TooltipFactory tooltipFactory, SoundAssetDictionary soundAssetDictionary,
 	                LocalModRepository modRepository, ModCompatibilityChecker modCompatibilityChecker) {
-		super(I18nText.BLANK, guiSkinRepository.getMenuSkin(), messageDispatcher, guiSkinRepository.getMenuSkin().get("square_dialog", Window.WindowStyle.class), soundAssetDictionary);
+		super(I18nText.BLANK, guiSkinRepository.getMenuSkin(), messageDispatcher, soundAssetDictionary);
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.messageDispatcher = messageDispatcher;
@@ -64,27 +63,6 @@ public class ModsMenu extends GameDialog implements DisplaysText {
 		this.modRepository = modRepository;
 		this.modCompatibilityChecker = modCompatibilityChecker;
 	}
-
-//	@Override
-//	public void show() {
-//		reset();
-//	}
-//
-//	@Override
-//	public void hide() {
-//
-//	}
-//
-//	@Override
-//	public void populate(Table containerTable) {
-//		containerTable.add(stack);
-//	}
-//
-//	@Override
-//	public void reset() {
-//		rebuildUI();
-//	}
-
 
 	@Override
 	public void dispose() {
@@ -134,7 +112,7 @@ public class ModsMenu extends GameDialog implements DisplaysText {
 		Table mainTable = new Table();
 		mainTable.defaults().padLeft(120f).padRight(120f);
 		mainTable.center();
-//		mainTable.setBackground(menuSkin.getDrawable("asset_square_bg"));
+		mainTable.setBackground(menuSkin.getDrawable("asset_square_bg"));
 		mainTable.add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
 		mainTable.add(modsTableHeader).spaceBottom(32).row();
 		mainTable.add(scrollPane).width(modsTableHeader.getBackground().getMinWidth()+20).height(1256f).spaceBottom(50f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
