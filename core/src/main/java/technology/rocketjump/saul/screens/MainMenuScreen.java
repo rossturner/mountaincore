@@ -33,7 +33,6 @@ import technology.rocketjump.saul.screens.menus.options.OptionsTabName;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +53,6 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 	private final ScreenWriter screenWriter;
 	private final TopLevelMenu topLevelMenu;
 	private final OptionsMenu optionsMenu;
-	private final ModsMenu modsMenu;
 	private final EmbarkMenu embarkMenu;
 	private final LoadGameMenu loadGameMenu;
 	private final Skin uiSkin;
@@ -79,8 +77,8 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 	public MainMenuScreen(MessageDispatcher messageDispatcher, ScreenWriter screenWriter, EmbarkMenu embarkMenu,
 						  LoadGameMenu loadGameMenu, GuiSkinRepository guiSkinRepository,
 						  UserPreferences userPreferences, TopLevelMenu topLevelMenu, OptionsMenu optionsMenu,
-						  PrivacyOptInMenu privacyOptInMenu, CrashHandler crashHandler, I18nWidgetFactory i18nWidgetFactory,
-						  ModsMenu modsMenu, TwitchDataStore twitchDataStore, I18nTranslator i18nTranslator) {
+						  PrivacyOptInMenu privacyOptInMenu, CrashHandler crashHandler,
+						  TwitchDataStore twitchDataStore, I18nTranslator i18nTranslator) {
 		this.messageDispatcher = messageDispatcher;
 		this.screenWriter = screenWriter;
 		this.embarkMenu = embarkMenu;
@@ -88,7 +86,6 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 		this.uiSkin = guiSkinRepository.getMenuSkin();
 		this.topLevelMenu = topLevelMenu;
 		this.optionsMenu = optionsMenu;
-		this.modsMenu = modsMenu;
 		this.userPreferences = userPreferences;
 		this.twitchDataStore = twitchDataStore;
 		this.i18nTranslator = i18nTranslator;
@@ -145,9 +142,6 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 							break;
 						case LOAD_GAME_MENU:
 							currentMenu = loadGameMenu;
-							break;
-						case MODS_MENU:
-							currentMenu = modsMenu;
 							break;
 						default:
 							throw new NotImplementedException("not yet implemented:" + targetMenuType.name());

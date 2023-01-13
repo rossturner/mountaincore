@@ -24,15 +24,19 @@ import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 public class TopLevelMenu extends BannerMenu implements DisplaysText {
     private final WidgetFactory widgetFactory;
     private final SavedGameStore savedGameStore;
+    private final ModsMenu modsMenu;
     private Container<TextButton> continueGameButton;
     private Container<TextButton> loadGameButton;
     protected boolean gameStarted = false;
 
     @Inject
-    public TopLevelMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory, WidgetFactory widgetFactory, MessageDispatcher messageDispatcher, SavedGameStore savedGameStore, I18nTranslator i18nTranslator) {
+    public TopLevelMenu(GuiSkinRepository skinRepository, MenuButtonFactory menuButtonFactory,
+                        WidgetFactory widgetFactory, MessageDispatcher messageDispatcher,
+                        SavedGameStore savedGameStore, I18nTranslator i18nTranslator, ModsMenu modsMenu) {
         super(skinRepository, menuButtonFactory, messageDispatcher, i18nTranslator);
         this.savedGameStore = savedGameStore;
         this.widgetFactory = widgetFactory;
+        this.modsMenu = modsMenu;
 
         rebuild();
     }
@@ -81,7 +85,7 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
         Container<TextButton> modsButton = menuButtonFactory.createButton("MENU.MODS", menuSkin, MenuButtonFactory.ButtonStyle.BTN_BANNER_2_47PT)
                 .withScaledToFitLabel(lesserImportanceWidth)
                 .withAction(() -> {
-                    messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.MODS_MENU);
+                    messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, modsMenu);
                 })
                 .build();
 

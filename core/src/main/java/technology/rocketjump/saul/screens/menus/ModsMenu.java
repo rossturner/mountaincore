@@ -5,7 +5,6 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -15,6 +14,9 @@ import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.lang3.StringUtils;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.messaging.InfoType;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.modding.LocalModRepository;
 import technology.rocketjump.saul.modding.ModCompatibilityChecker;
 import technology.rocketjump.saul.modding.model.ParsedMod;
@@ -29,13 +31,14 @@ import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.EnhancedScrollPane;
+import technology.rocketjump.saul.ui.widgets.GameDialog;
 
 import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Singleton
-public class ModsMenu implements Menu, DisplaysText {
+public class ModsMenu extends GameDialog implements DisplaysText {
 
 	private static final float VERSION_WIDTH = 240;
 	private static final float COMPATIBILITY_WIDTH = 280;
@@ -46,12 +49,13 @@ public class ModsMenu implements Menu, DisplaysText {
 	private final TooltipFactory tooltipFactory;
 	private final LocalModRepository modRepository;
 	private final ModCompatibilityChecker modCompatibilityChecker;
-	private final Stack stack = new Stack();
+//	private final Stack stack = new Stack();
 
 	@Inject
 	public ModsMenu(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-	                I18nTranslator i18nTranslator, TooltipFactory tooltipFactory,
+	                I18nTranslator i18nTranslator, TooltipFactory tooltipFactory, SoundAssetDictionary soundAssetDictionary,
 	                LocalModRepository modRepository, ModCompatibilityChecker modCompatibilityChecker) {
+		super(I18nText.BLANK, guiSkinRepository.getMenuSkin(), messageDispatcher, guiSkinRepository.getMenuSkin().get("square_dialog", Window.WindowStyle.class), soundAssetDictionary);
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.messageDispatcher = messageDispatcher;
@@ -61,29 +65,35 @@ public class ModsMenu implements Menu, DisplaysText {
 		this.modCompatibilityChecker = modCompatibilityChecker;
 	}
 
-	@Override
-	public void show() {
-		reset();
-	}
+//	@Override
+//	public void show() {
+//		reset();
+//	}
+//
+//	@Override
+//	public void hide() {
+//
+//	}
+//
+//	@Override
+//	public void populate(Table containerTable) {
+//		containerTable.add(stack);
+//	}
+//
+//	@Override
+//	public void reset() {
+//		rebuildUI();
+//	}
+
 
 	@Override
-	public void hide() {
+	public void dispose() {
 
-	}
-
-	@Override
-	public void populate(Table containerTable) {
-		containerTable.add(stack);
-	}
-
-	@Override
-	public void reset() {
-		rebuildUI();
 	}
 
 	@Override
 	public void rebuildUI() {
-		stack.clear();
+		contentTable.clear();
 
 		Label titleRibbon = new Label(i18nTranslator.translate("MENU.MODS"), menuSkin, "key_bindings_title_ribbon");
 		titleRibbon.setAlignment(Align.center);
@@ -109,9 +119,6 @@ public class ModsMenu implements Menu, DisplaysText {
 		Label enabledHeader = new Label(i18nTranslator.translate("MODS.TABLE.ENABLED"), menuSkin, "mod_table_header_label");
 		enabledHeader.setAlignment(Align.center);
 
-
-
-
 		modsTable.layout();
 		float firstColumnMinWidth = modsTable.getCells().get(0).getMinWidth();
 
@@ -127,23 +134,20 @@ public class ModsMenu implements Menu, DisplaysText {
 		Table mainTable = new Table();
 		mainTable.defaults().padLeft(120f).padRight(120f);
 		mainTable.center();
-		mainTable.setBackground(menuSkin.getDrawable("asset_square_bg"));
+//		mainTable.setBackground(menuSkin.getDrawable("asset_square_bg"));
 		mainTable.add(titleRibbon).spaceTop(28f).spaceBottom(50f).row();
 		mainTable.add(modsTableHeader).spaceBottom(32).row();
 		mainTable.add(scrollPane).width(modsTableHeader.getBackground().getMinWidth()+20).height(1256f).spaceBottom(50f).row(); //TODO: revisit this to use a 9-patch background and not explicitly set height
 
-		stack.add(mainTable);
+		contentTable.add(mainTable);
+	}
 
-//		backButton = iconButtonFactory.create("GUI.BACK_LABEL", null, Color.LIGHT_GRAY, ButtonStyle.SMALL);
-//		backButton.setAction(() -> {
-//			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
-//			messageDispatcher.dispatchMessage(MessageType.SWITCH_MENU, MenuType.TOP_LEVEL_MENU);
-//			if (modRepository.hasChangesToApply()) {
-//				messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_INFO, InfoType.MOD_CHANGES_OUTSTANDING);
-//			}
-//		});
-
-
+	@Override
+	public void close() {
+		super.close();
+		if (modRepository.hasChangesToApply()) {
+			messageDispatcher.dispatchMessage(MessageType.GUI_SHOW_INFO, InfoType.MOD_CHANGES_OUTSTANDING);
+		}
 	}
 
 	private Table modsTable() {
@@ -281,7 +285,8 @@ public class ModsMenu implements Menu, DisplaysText {
 		return table;
 	}
 
-	class DraggableModSource extends DragAndDrop.Source {
+
+	private class DraggableModSource extends DragAndDrop.Source {
 		private final DragAndDrop dragAndDrop;
 		private final Label originalLabel;
 		private final int index;
@@ -357,7 +362,7 @@ public class ModsMenu implements Menu, DisplaysText {
 		Collections.reverse(newActiveMods);
 		modRepository.setActiveMods(newActiveMods);
 
-		this.reset();
+		this.rebuildUI();
 	}
 
 }
