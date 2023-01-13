@@ -5,14 +5,12 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.kotcrab.vis.ui.VisUI;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.fonts.OnDemandFontRepository;
 
 @Singleton
@@ -22,7 +20,6 @@ public class GuiSkinRepository implements Telegraph {
 	private static final String MENU_SKIN_FILE_PATH = "assets/ui/skin/menu-skin.json";
 	private static final String MANAGEMENT_SKIN_FILE_PATH = "assets/ui/skin/management-skin.json";
 	private static final int FONT_SCALE = 2;
-	private final FontRepository fontRepository;
 	private final OnDemandFontRepository onDemandFontRepository;
 	private final Skin uiSkin = new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")); // MODDING expose this or change uiskin.json
 	private final MenuSkin menuSkin;
@@ -30,8 +27,7 @@ public class GuiSkinRepository implements Telegraph {
 	private final ManagementSkin managementSkin;
 
 	@Inject
-	public GuiSkinRepository(FontRepository fontRepository, OnDemandFontRepository onDemandFontRepository, MessageDispatcher messageDispatcher) {
-		this.fontRepository = fontRepository;
+	public GuiSkinRepository(OnDemandFontRepository onDemandFontRepository, MessageDispatcher messageDispatcher) {
 		this.onDemandFontRepository = onDemandFontRepository;
 
 		mainGameSkin = loadSkin(MAIN_GAME_SKIN_FILE_PATH, new MainGameSkin());
@@ -96,20 +92,6 @@ public class GuiSkinRepository implements Telegraph {
 		reassignFonts(mainGameSkin, MAIN_GAME_SKIN_FILE_PATH);
 		reassignFonts(menuSkin, MENU_SKIN_FILE_PATH);
 		reassignFonts(managementSkin, MANAGEMENT_SKIN_FILE_PATH);
-
-		// All of the following is for the now defunct UI skin
-		BitmapFont bitmapFont = fontRepository.getDefaultFontForUI().getBitmapFont();
-		uiSkin.add("default-font", bitmapFont);
-
-		uiSkin.get(TextField.TextFieldStyle.class).font = bitmapFont;
-		uiSkin.get(Label.LabelStyle.class).font = bitmapFont;
-		uiSkin.get(CheckBox.CheckBoxStyle.class).font = bitmapFont;
-		uiSkin.get(Window.WindowStyle.class).titleFont = bitmapFont;
-		uiSkin.get(List.ListStyle.class).font = bitmapFont;
-		uiSkin.get(SelectBox.SelectBoxStyle.class).font = bitmapFont;
-		uiSkin.get(SelectBox.SelectBoxStyle.class).listStyle.font = bitmapFont;
-		uiSkin.get(TextButton.TextButtonStyle.class).font = bitmapFont;
-
 		return true;
 	}
 
