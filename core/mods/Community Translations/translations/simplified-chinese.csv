@@ -716,11 +716,7 @@ MODS.COMPATIBILITY.INCOMPATIBLE,,No,否
 MODS.COMPATIBILITY.UNKNOWN,,Unknown,未知
 MODS.MISSING_MODS_DIALOG_TEXT,,This save file was last used while the following mods were active. These mods are now missing or disabled so the save may not load correctly.,该存档最近使用时应用了如下MOD。但现在缺失或禁用了这些MOD，导致无法正确加载存档。
 MODS.MISSING_MODS_SAVE_EXCEPTION_DIALOG_TEXT,,"The save file could not be loaded because either it is incompatible with this version of the game, or because some mods have been disabled or removed since this save was last loaded. The following mods were expected but are no longer active:",无法加载存档，可能不兼容游戏版本，或部分MOD遭到禁用或移除。无法生效的MOD如下：
-MODS.TABLE.COMPATIBILITY,,Compatible?,兼容？
-MODS.TABLE.ENABLED,,Enabled?,启用？
-MODS.TABLE.NAME,,Mod Name,MOD名
 MODS.TABLE.ORDERING,,Re-order,重新排序
-MODS.TABLE.VERSION,,Mod Version,MOD版本
 
 MUSHROOM.DESCRIPTION,E.g. “Toadstool mushroom”,{{materialType.noun}},{{materialType.noun}}
 

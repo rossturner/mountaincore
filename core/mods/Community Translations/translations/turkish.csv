@@ -716,11 +716,7 @@ MODS.COMPATIBILITY.INCOMPATIBLE,,No,Hayır
 MODS.COMPATIBILITY.UNKNOWN,,Unknown,Bilinmeyen
 MODS.MISSING_MODS_DIALOG_TEXT,,This save file was last used while the following mods were active. These mods are now missing or disabled so the save may not load correctly.,Bu kayıt dosyası en son kullanıldığında ekteki modlar etkindi. Şu anda bu modlar etkin değil veya kayıp. Bu nedenle kayıt düzgün yüklenemeyebilir.
 MODS.MISSING_MODS_SAVE_EXCEPTION_DIALOG_TEXT,,"The save file could not be loaded because either it is incompatible with this version of the game, or because some mods have been disabled or removed since this save was last loaded. The following mods were expected but are no longer active:","Kayıt dosyası en son yüklendiğinde bulunan bazı modların silinmesi, devredışı bırakılması veya versiyonlarının oyunun bu versiyonuna uygun olmamasından dolayı yüklenemedi. Ekteki modlar artık aktif değiller ancak aktif olmaları bekleniyor."
-MODS.TABLE.COMPATIBILITY,,Compatible?,Uyumlu?
-MODS.TABLE.ENABLED,,Enabled?,Devrede?
-MODS.TABLE.NAME,,Mod Name,Mod İsmi
 MODS.TABLE.ORDERING,,Re-order,Yeniden Sırala
-MODS.TABLE.VERSION,,Mod Version,Mod Versiyonu
 
 MUSHROOM.DESCRIPTION,E.g. “Toadstool mushroom”,{{materialType.noun}},{{materialType.noun}}
 

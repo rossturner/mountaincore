@@ -15,6 +15,7 @@ public class ModInfo {
 	private String description;
 	private Version version;
 	private Version gameVersion; // specifies which version of the game this was created against for compatibility
+	private String homepageUrl;
 
 	public String getName() {
 		if (name == null) {
@@ -68,6 +69,14 @@ public class ModInfo {
 
 	public void setGameVersion(String gameVersion) {
 		this.gameVersion = new Version(gameVersion);
+	}
+
+	public String getHomepageUrl() {
+		return homepageUrl;
+	}
+
+	public void setHomepageUrl(String homepageUrl) {
+		this.homepageUrl = homepageUrl;
 	}
 
 	@Override

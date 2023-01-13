@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -24,10 +25,7 @@ import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.*;
 import technology.rocketjump.saul.entities.components.*;
-import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
-import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
-import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
-import technology.rocketjump.saul.entities.components.creature.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
@@ -52,6 +50,7 @@ import technology.rocketjump.saul.jobs.model.JobType;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.production.StockpileComponentUpdater;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
@@ -199,6 +198,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				Table professionSelection = settlerManagementScreen.professions(entity, 0.8f, s -> update());
 				Updatable<Table> needs = settlerManagementScreen.needs(entity);
 				Updatable<Table> inventory = inventory(entity);
+				Table squadEmblem = squadEmblem(entity);
 				updatables.add(settlerName);
 				updatables.add(happinessIcons);
 				updatables.add(textSummary);
@@ -207,9 +207,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				updatables.add(debugTextSummary);
 
 				//Top left first row - name and toggle
-				Table topLeftFirstRow = new Table();
-				topLeftFirstRow.add(settlerName.getActor()).center();
-				topLeftFirstRow.add(militaryToggle).growX().center().spaceLeft(25f);
+//				Table topLeftFirstRow = new Table();
+//				topLeftFirstRow.add(settlerName.getActor()).left();
+//				topLeftFirstRow.add(militaryToggle).growX().center().spaceLeft(25f);
 
 				//Top left second row - Happiness and status for Civ / Squad for military
 				Table topLeftSecondRow = new Table();
@@ -219,10 +219,14 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				//Top Left Column - 2 rows
 				Table topLeftColumn = new Table();
-				topLeftColumn.add(topLeftFirstRow).left().fillX().spaceBottom(35f).row();
-				topLeftColumn.add(topLeftSecondRow).left().top().grow().row();
+				topLeftColumn.add(settlerName.getActor()).left().growX().spaceBottom(35f);
+				topLeftColumn.add(militaryToggle).center().growX().spaceBottom(35f);
+				topLeftColumn.row();
+				topLeftColumn.add(topLeftSecondRow).left().top().grow();
+				topLeftColumn.add(squadEmblem).center();
+				topLeftColumn.row();
 				if (GlobalSettings.DEV_MODE) {
-					topLeftColumn.add(debugTextSummary.getActor()).left().top().grow().row();
+					topLeftColumn.add(debugTextSummary.getActor()).left().top().grow().colspan(2).row();
 				}
 
 				//Top Row - 2 Cols
@@ -990,6 +994,28 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Container<Label> headerContainer = new Container<>(headerLabel);
 		headerContainer.setBackground(mainGameSkin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
 		return Updatable.of(headerContainer);
+	}
+
+	private Table squadEmblem(Entity entity) {
+		Table table = new Table();
+		if (SettlerManagementScreen.IS_MILITARY.test(entity)) {
+			MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
+			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
+			if (squad != null) {
+				Drawable emblem = managementSkin.getDrawable(managementSkin.getSmallEmblemName(squad));
+				ImageButton button = new ImageButton(emblem);
+				button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
+				button.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						super.clicked(event, x, y);
+						messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(squad));
+					}
+				});
+				table.add(button);
+			}
+		}
+		return table;
 	}
 
 	private Updatable<Actor> editableCreatureName(Entity entity) {
