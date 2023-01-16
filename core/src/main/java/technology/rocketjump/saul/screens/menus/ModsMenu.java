@@ -28,6 +28,7 @@ import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.BlurredBackgroundDialog;
@@ -43,6 +44,7 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 	private static final float VERSION_WIDTH = 240;
 	private static final float COMPATIBILITY_WIDTH = 280;
 	private final MenuSkin menuSkin;
+	private final MainGameSkin mainGameSkin;
 	private final ManagementSkin managementSkin;
 	private final MessageDispatcher messageDispatcher;
 	private final I18nTranslator i18nTranslator;
@@ -56,6 +58,7 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 	                LocalModRepository modRepository, ModCompatibilityChecker modCompatibilityChecker) {
 		super(I18nText.BLANK, guiSkinRepository.getMenuSkin(), messageDispatcher, soundAssetDictionary);
 		this.menuSkin = guiSkinRepository.getMenuSkin();
+		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
@@ -202,12 +205,12 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 
 
 			if (isBaseMod) {
-				disable(draggableMod);
+//				disable(draggableMod);
 				disable(enabledCheckbox);
-			} else if (!enabledCheckbox.isChecked()) {
-				disable(draggableMod);
+//			} else if (!enabledCheckbox.isChecked()) {
+//				disable(draggableMod);
 			} else if (compatibility == ModCompatibilityChecker.Compatibility.INCOMPATIBLE) {
-				disable(draggableMod);
+//				disable(draggableMod);
 				disable(enabledCheckbox);
 			}
 
@@ -223,11 +226,19 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 				if (draggableModContainer.getPrefWidth() > middleWidth) {
 					draggableMod.setEllipsis(true);
 					draggableModContainer.width(middleWidth);
-					tooltipFactory.simpleTooltip(draggableMod, new I18nText(mod.getInfo().getName()), TooltipLocationHint.ABOVE);
-
 				}
-
 			}
+
+			Table tooltipTable = new Table();
+			Label headerLabel = new Label(mod.getInfo().getName(), mainGameSkin.get("complex-tooltip-header", Label.LabelStyle.class));
+			headerLabel.setWrap(true);
+			tooltipTable.add(headerLabel).width(700).center().row();
+
+			Label descriptionLabel = new Label(mod.getInfo().getDescription(), mainGameSkin);
+			descriptionLabel.setWrap(true);
+			tooltipTable.add(descriptionLabel).width(700).center().row();
+
+			tooltipFactory.complexTooltip(draggableModContainer, tooltipTable, TooltipFactory.TooltipBackground.LARGE_PATCH_DARK);
 
 			draggableModContainer.padBottom(14);
 			versionLabelContainer.padLeft(76);
@@ -240,15 +251,22 @@ public class ModsMenu extends BlurredBackgroundDialog implements DisplaysText {
 			enabledCheckboxContainer.padRight(76);
 			homepageButtonContainer.padRight(34);
 
-			List<Container<?>> rowTarget = List.of(draggableModContainer,
-					versionLabelContainer,
-					compatibleLabelContainer,
-					enabledCheckboxContainer,
-					homepageButtonContainer);
-			dragAndDrop.addSource(new DraggableModSource(dragAndDrop, draggableMod, index));
-			rowTarget.forEach(t -> {
-				dragAndDrop.addTarget(new DraggableModTarget(t, rowTarget, modsInOrder, index));
-			});
+			//dirty bodge to show tooltip and pretend the mod is disabled
+			if (isBaseMod || !enabledCheckbox.isChecked() || compatibility == ModCompatibilityChecker.Compatibility.INCOMPATIBLE) {
+				draggableMod.getColor().a = 0.6f;
+			} else {
+
+				List<Container<?>> rowTarget = List.of(draggableModContainer,
+						versionLabelContainer,
+						compatibleLabelContainer,
+						enabledCheckboxContainer,
+						homepageButtonContainer);
+				dragAndDrop.addSource(new DraggableModSource(dragAndDrop, draggableMod, index));
+				rowTarget.forEach(t -> {
+					dragAndDrop.addTarget(new DraggableModTarget(t, rowTarget, modsInOrder, index));
+				});
+			}
+
 
 
 			table.add(draggableModContainer).fill();
