@@ -22,7 +22,6 @@ import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +38,6 @@ public class HintGuiView implements GuiView, GameContextAware {
 	private static final HintAction DISMISS_ACTION = new HintAction();
 	private final I18nTranslator i18nTranslator;
 	private final MessageDispatcher messageDispatcher;
-	private final I18nWidgetFactory i18nWidgetFactory;
 	private final HintDictionary hintDictionary;
 	private final HintProgressEvaluator hintProgressEvaluator;
 	private final Skin uiSkin;
@@ -60,9 +58,8 @@ public class HintGuiView implements GuiView, GameContextAware {
 	@Inject
 	public HintGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 					   I18nTranslator i18nTranslator,
-					   I18nWidgetFactory i18nWidgetFactory, HintDictionary hintDictionary,
+					   HintDictionary hintDictionary,
 					   HintProgressEvaluator hintProgressEvaluator) {
-		this.i18nWidgetFactory = i18nWidgetFactory;
 		this.messageDispatcher = messageDispatcher;
 		this.uiSkin = guiSkinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;

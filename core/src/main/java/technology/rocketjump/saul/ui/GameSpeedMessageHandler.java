@@ -13,7 +13,6 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.settlement.SettlerTracker;
-import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
 
 import static technology.rocketjump.saul.gamecontext.GameState.SELECT_SPAWN_LOCATION;
 import static technology.rocketjump.saul.gamecontext.GameState.STARTING_SPAWN;
@@ -21,7 +20,6 @@ import static technology.rocketjump.saul.gamecontext.GameState.STARTING_SPAWN;
 @Singleton
 public class GameSpeedMessageHandler implements Telegraph, GameContextAware {
 
-	private final IconButtonFactory iconButtonFactory;
 	private final SettlerTracker settlerTracker;
 	private final MessageDispatcher messageDispatcher;
 
@@ -30,8 +28,7 @@ public class GameSpeedMessageHandler implements Telegraph, GameContextAware {
 	private GameSpeed preOverrideSpeed;
 
 	@Inject
-	public GameSpeedMessageHandler(MessageDispatcher messageDispatcher, IconButtonFactory iconButtonFactory, SettlerTracker settlerTracker) {
-		this.iconButtonFactory = iconButtonFactory;
+	public GameSpeedMessageHandler(MessageDispatcher messageDispatcher, SettlerTracker settlerTracker) {
 		this.settlerTracker = settlerTracker;
 		this.messageDispatcher = messageDispatcher;
 

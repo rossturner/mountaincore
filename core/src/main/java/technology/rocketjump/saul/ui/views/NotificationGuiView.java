@@ -30,7 +30,6 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.GameDialogDictionary;
-import technology.rocketjump.saul.ui.widgets.IconButtonFactory;
 import technology.rocketjump.saul.ui.widgets.NotificationDialog;
 
 import java.util.ArrayList;
@@ -43,7 +42,6 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 
 	private static final float TIME_BETWEEN_UPDATES = 4f;
 	private final MessageDispatcher messageDispatcher;
-	private final IconButtonFactory iconButtonFactory;
 	private final GameDialogDictionary gameDialogDictionary;
 	private final CombatTracker combatTracker;
 	private final TooltipFactory tooltipFactory;
@@ -60,10 +58,9 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 
 	@Inject
 	public NotificationGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-							   IconButtonFactory iconButtonFactory, GameDialogDictionary gameDialogDictionary,
+	                           GameDialogDictionary gameDialogDictionary,
 							   CombatTracker combatTracker, SoundAssetDictionary soundAssetDictionary,
 							   TooltipFactory tooltipFactory) {
-		this.iconButtonFactory = iconButtonFactory;
 		this.messageDispatcher = messageDispatcher;
 		this.gameDialogDictionary = gameDialogDictionary;
 		this.combatTracker = combatTracker;

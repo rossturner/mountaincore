@@ -16,13 +16,11 @@ import technology.rocketjump.saul.ui.actions.ButtonAction;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
-import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 @Singleton
 public class MenuButtonFactory {
     private final I18nTranslator translator;
-    private final FontRepository fontRepository;
     private final MessageDispatcher messageDispatcher;
     private final SoundAssetDictionary soundAssetDictionary;
 
@@ -53,10 +51,9 @@ public class MenuButtonFactory {
 
 
     @Inject
-    public MenuButtonFactory(I18nTranslator translator, FontRepository fontRepository,
+    public MenuButtonFactory(I18nTranslator translator,
                              MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
         this.translator = translator;
-        this.fontRepository = fontRepository;
         this.messageDispatcher = messageDispatcher;
         this.soundAssetDictionary = soundAssetDictionary;
     }

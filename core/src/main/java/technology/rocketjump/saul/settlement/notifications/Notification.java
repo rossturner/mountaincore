@@ -12,7 +12,6 @@ import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nText;
-import technology.rocketjump.saul.ui.widgets.IconButton;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +23,6 @@ public class Notification implements ChildPersistable {
 	private NotificationType type;
 	private Vector2 worldPosition;
 	private Selectable selectableTarget;
-	private IconButton iconButton;
 	private final Map<String, I18nString> textReplacements = new HashMap<>();
 
 	public Notification() {
@@ -48,14 +46,6 @@ public class Notification implements ChildPersistable {
 
 	public long getNotificationId() {
 		return notificationId;
-	}
-
-	public IconButton getIconButton() {
-		return iconButton;
-	}
-
-	public void setIconButton(IconButton iconButton) {
-		this.iconButton = iconButton;
 	}
 
 	public void addTextReplacement(String key, I18nString value) {
