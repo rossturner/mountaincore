@@ -1,0 +1,11 @@
+{
+  "name" : "WAGON_PARKED",
+  "i18nKey" : "FURNITURE.WAGON_PARKED",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "wagon-left",
+  "autoConstructed" : true,
+  "requirements" : {
+    "WOOD" : [ ]
+  },
+  "hiddenFromPlacementMenu" : true
+}
