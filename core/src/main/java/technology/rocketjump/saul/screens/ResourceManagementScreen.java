@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.CollapsibleWidget;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -82,7 +83,8 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	public ResourceManagementScreen(MessageDispatcher messageDispatcher, GuiSkinRepository guiSkinRepository,
 	                                I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker,
 	                                EntityRenderer entityRenderer, StockpileGroupDictionary stockpileGroupDictionary,
-	                                LabelFactory labelFactory, ButtonFactory buttonFactory) {
+	                                LabelFactory labelFactory, ButtonFactory buttonFactory, ConstantsRepo constantsRepo) {
+		super(constantsRepo.getUiConstants());
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
 		this.settlementItemTracker = settlementItemTracker;

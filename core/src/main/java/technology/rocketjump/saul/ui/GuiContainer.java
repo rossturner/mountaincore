@@ -4,6 +4,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.gamecontext.GameState;
@@ -25,8 +27,6 @@ import technology.rocketjump.saul.ui.widgets.GameDialogMessageHandler;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 
 @Singleton
 public class GuiContainer implements Telegraph, GameContextAware {
@@ -59,10 +59,10 @@ public class GuiContainer implements Telegraph, GameContextAware {
 	@Inject
 	public GuiContainer(MessageDispatcher messageDispatcher, GameInteractionStateContainer interactionStateContainer,
 	                    GuiViewRepository guiViewRepository, TimeDateGuiView timeDateGuiView,
-						InfoWindow infoWindow, HintGuiView hintGuiView,
-						DebugGuiView debugGuiView, NotificationGuiView notificationGuiView,
-						GameDialogMessageHandler gameDialogMessageHandler,
-						MinimapGuiView minimapGuiView) {
+	                    InfoWindow infoWindow, HintGuiView hintGuiView,
+	                    DebugGuiView debugGuiView, NotificationGuiView notificationGuiView,
+	                    GameDialogMessageHandler gameDialogMessageHandler,
+	                    MinimapGuiView minimapGuiView, ConstantsRepo constantsRepo) {
 		this.infoWindow = infoWindow;
 		this.hintGuiView = hintGuiView;
 		this.debugGuiView = debugGuiView;
@@ -71,7 +71,8 @@ public class GuiContainer implements Telegraph, GameContextAware {
 		this.minimapGuiView = minimapGuiView;
 		this.interactionStateContainer = interactionStateContainer;
 
-		ExtendViewport viewport = new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y);
+		Vector2 viewportDimensions = constantsRepo.getUiConstants().calculateViewportDimensions();
+		ExtendViewport viewport = new ExtendViewport(viewportDimensions.x, viewportDimensions.y);
 
 		primaryStage = new Stage(viewport);
 		primaryStageInputHandler = new StageAreaOnlyInputHandler(primaryStage, interactionStateContainer, gameDialogMessageHandler);

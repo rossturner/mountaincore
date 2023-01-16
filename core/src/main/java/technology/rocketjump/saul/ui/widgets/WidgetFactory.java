@@ -61,7 +61,7 @@ public class WidgetFactory {
     }
 
     public CustomSelect<LanguageType> createLanguageSelectBox(Skin skin) {
-        BitmapFont guaranteedBoldFont = onDemandFontRepository.getGuaranteedBoldFont(18 * 2);
+        BitmapFont guaranteedBoldFont = onDemandFontRepository.getGuaranteedBoldFont(18);
         LanguageList languageList = new LanguageList(i18nRepo, userPreferences, skin, textureAtlasRepository, guaranteedBoldFont);
 
         SelectBox.SelectBoxStyle selectBoxStyle = new SelectBox.SelectBoxStyle(skin.get(SelectBox.SelectBoxStyle.class));

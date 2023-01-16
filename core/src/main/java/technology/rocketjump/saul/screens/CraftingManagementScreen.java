@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
+import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.saul.crafting.model.CraftingRecipe;
 import technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour;
@@ -75,7 +76,8 @@ public class CraftingManagementScreen extends AbstractGameScreen implements Game
 	                                I18nTranslator i18nTranslator, SettlementItemTracker settlementItemTracker,
 	                                EntityRenderer entityRenderer, CraftingRecipeDictionary craftingRecipeDictionary,
 	                                LabelFactory labelFactory, ButtonFactory buttonFactory, RoomEditorItemMap roomEditorItemMap,
-	                                GameInteractionStateContainer gameInteractionStateContainer) {
+	                                GameInteractionStateContainer gameInteractionStateContainer, ConstantsRepo constantsRepo) {
+		super(constantsRepo.getUiConstants());
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
 		this.settlementItemTracker = settlementItemTracker;
