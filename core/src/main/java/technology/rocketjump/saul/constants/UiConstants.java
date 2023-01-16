@@ -7,6 +7,8 @@ public class UiConstants {
 
 	private String defaultFont;
 	private String headerFont;
+	private float defaultFontScale = 2.0f;
+	private float headerFontScale = 2.0f;
 
 	public String getDefaultFont() {
 		return defaultFont;
@@ -22,5 +24,21 @@ public class UiConstants {
 
 	public void setHeaderFont(String headerFont) {
 		this.headerFont = headerFont;
+	}
+
+	public float getDefaultFontScale() {
+		return defaultFontScale;
+	}
+
+	public void setDefaultFontScale(float defaultFontScale) {
+		this.defaultFontScale = defaultFontScale;
+	}
+
+	public float getHeaderFontScale() {
+		return headerFontScale;
+	}
+
+	public void setHeaderFontScale(float headerFontScale) {
+		this.headerFontScale = headerFontScale;
 	}
 }

@@ -21,7 +21,6 @@ public class GuiSkinRepository implements Telegraph {
 	public static final String MAIN_GAME_SKIN_FILE_PATH = "assets/ui/skin/main-game-skin.json";
 	private static final String MENU_SKIN_FILE_PATH = "assets/ui/skin/menu-skin.json";
 	private static final String MANAGEMENT_SKIN_FILE_PATH = "assets/ui/skin/management-skin.json";
-	private static final int FONT_SCALE = 2;
 	private final FontRepository fontRepository;
 	private final OnDemandFontRepository onDemandFontRepository;
 	private final Skin uiSkin = new Skin(Gdx.files.internal("assets/ui/libgdx-default/uiskin.json")); // MODDING expose this or change uiskin.json
@@ -49,18 +48,18 @@ public class GuiSkinRepository implements Telegraph {
 		FileHandle menuSkinFile = Gdx.files.internal(skinJsonPath);
 		FileHandle menuSkinAtlasFile = menuSkinFile.sibling(menuSkinFile.nameWithoutExtension() + ".atlas");
 
-		skin.add("header-font-32", onDemandFontRepository.getHeaderFont(32 * FONT_SCALE));
-		skin.add("header-font-36", onDemandFontRepository.getHeaderFont(36 * FONT_SCALE));
-		skin.add("header-font-40", onDemandFontRepository.getHeaderFont(40 * FONT_SCALE));
-		skin.add("header-font-47", onDemandFontRepository.getHeaderFont(47 * FONT_SCALE));
-		skin.add("header-font-50", onDemandFontRepository.getHeaderFont(50 * FONT_SCALE));
-		skin.add("header-font-65", onDemandFontRepository.getHeaderFont(65 * FONT_SCALE));
-		skin.add("default-font-16", onDemandFontRepository.getDefaultFont(16 * FONT_SCALE));
-		skin.add("default-font-18", onDemandFontRepository.getDefaultFont(18 * FONT_SCALE));
-		skin.add("default-font-19", onDemandFontRepository.getDefaultFont(19 * FONT_SCALE));
-		skin.add("default-font-21", onDemandFontRepository.getDefaultFont(21 * FONT_SCALE));
-		skin.add("default-font-23", onDemandFontRepository.getDefaultFont(23 * FONT_SCALE));
-		skin.add("default-font-24", onDemandFontRepository.getDefaultFont(24 * FONT_SCALE));
+		skin.add("header-font-32", onDemandFontRepository.getHeaderFont(32));
+		skin.add("header-font-36", onDemandFontRepository.getHeaderFont(36));
+		skin.add("header-font-40", onDemandFontRepository.getHeaderFont(40));
+		skin.add("header-font-47", onDemandFontRepository.getHeaderFont(47));
+		skin.add("header-font-50", onDemandFontRepository.getHeaderFont(50));
+		skin.add("header-font-65", onDemandFontRepository.getHeaderFont(65));
+		skin.add("default-font-16", onDemandFontRepository.getDefaultFont(16));
+		skin.add("default-font-18", onDemandFontRepository.getDefaultFont(18));
+		skin.add("default-font-19", onDemandFontRepository.getDefaultFont(19));
+		skin.add("default-font-21", onDemandFontRepository.getDefaultFont(21));
+		skin.add("default-font-23", onDemandFontRepository.getDefaultFont(23));
+		skin.add("default-font-24", onDemandFontRepository.getDefaultFont(24));
 
 		skin.addRegions(new TextureAtlas(menuSkinAtlasFile));
 		skin.load(menuSkinFile);
@@ -114,17 +113,17 @@ public class GuiSkinRepository implements Telegraph {
 	}
 
 	private void reassignFonts(Skin currentSkin, String pathToSkin) {
-		currentSkin.add("header-font-32", onDemandFontRepository.getHeaderFont(32 * 2));
-		currentSkin.add("header-font-36", onDemandFontRepository.getHeaderFont(36 * 2));
-		currentSkin.add("header-font-40", onDemandFontRepository.getHeaderFont(40 * 2));
-		currentSkin.add("header-font-47", onDemandFontRepository.getHeaderFont(47 * 2));
-		currentSkin.add("header-font-50", onDemandFontRepository.getHeaderFont(50 * 2));
-		currentSkin.add("header-font-65", onDemandFontRepository.getHeaderFont(65 * 2));
-		currentSkin.add("default-font-16", onDemandFontRepository.getDefaultFont(16 * 2));
-		currentSkin.add("default-font-18", onDemandFontRepository.getDefaultFont(18 * 2));
-		currentSkin.add("default-font-19", onDemandFontRepository.getDefaultFont(19 * 2));
-		currentSkin.add("default-font-23", onDemandFontRepository.getDefaultFont(23 * 2));
-		currentSkin.add("default-font-24", onDemandFontRepository.getDefaultFont(24 * 2));
+		currentSkin.add("header-font-32", onDemandFontRepository.getHeaderFont(32));
+		currentSkin.add("header-font-36", onDemandFontRepository.getHeaderFont(36));
+		currentSkin.add("header-font-40", onDemandFontRepository.getHeaderFont(40));
+		currentSkin.add("header-font-47", onDemandFontRepository.getHeaderFont(47));
+		currentSkin.add("header-font-50", onDemandFontRepository.getHeaderFont(50));
+		currentSkin.add("header-font-65", onDemandFontRepository.getHeaderFont(65));
+		currentSkin.add("default-font-16", onDemandFontRepository.getDefaultFont(16));
+		currentSkin.add("default-font-18", onDemandFontRepository.getDefaultFont(18));
+		currentSkin.add("default-font-19", onDemandFontRepository.getDefaultFont(19));
+		currentSkin.add("default-font-23", onDemandFontRepository.getDefaultFont(23));
+		currentSkin.add("default-font-24", onDemandFontRepository.getDefaultFont(24));
 
 
 		currentSkin.load(Gdx.files.internal(pathToSkin));
