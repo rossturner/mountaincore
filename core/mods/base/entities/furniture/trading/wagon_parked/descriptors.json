@@ -8,26 +8,30 @@
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Down-Base_Layer-Wood_Down.png",
       "offsetPixels" : {
-        "x" : 32.0
+        "x" : 32.0,
+        "y" : -0.5
       },
       "childAssets" : [ {
         "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "y" : 0.5
+        },
         "overrideRenderLayer" : 150
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "y" : 28.0
+          "y" : 28.5
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
-          "y" : 58.0
+          "y" : 58.5
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
-          "y" : 88.0
+          "y" : 88.5
         }
       } ]
     }
@@ -41,7 +45,10 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Down-Furniture_Above_Layer_1-Wood_Down.png",
-      "coloringLayer" : "ROPE_COLOR"
+      "coloringLayer" : "ROPE_COLOR",
+      "offsetPixels" : {
+        "y" : 41.5
+      }
     }
   },
   "overrideRenderLayer" : 150
@@ -55,32 +62,40 @@
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Left-Base_Layer-Wood_Down.png",
       "offsetPixels" : {
-        "x" : 15.0,
-        "y" : 60.0
+        "x" : 28.0,
+        "y" : 51.5
       },
       "childAssets" : [ {
-        "type" : "FURNITURE_BELOW_LAYER_1"
+        "type" : "FURNITURE_BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : -13.0,
+          "y" : 8.5
+        }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : -13.0,
+          "y" : 8.5
+        },
         "overrideRenderLayer" : 150
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "x" : 50.0,
-          "y" : 54.0
+          "x" : 37.0,
+          "y" : 62.5
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
-          "x" : 116.0,
-          "y" : 54.0
+          "x" : 103.0,
+          "y" : 62.5
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
-          "x" : 82.0,
-          "y" : 54.0
+          "x" : 69.0,
+          "y" : 62.5
         }
       } ]
     }
@@ -94,7 +109,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Left-Furniture_Above_Layer_1-Wood_Down.png",
-      "coloringLayer" : "ROPE_COLOR"
+      "coloringLayer" : "ROPE_COLOR",
+      "offsetPixels" : {
+        "x" : 80.5,
+        "y" : 23.5
+      }
     }
   },
   "overrideRenderLayer" : 150
@@ -106,7 +125,11 @@
   "validMaterialTypes" : [ "WOOD" ],
   "spriteDescriptors" : {
     "DOWN" : {
-      "filename" : "Wagon_Parked-Wagon-Left-Furniture_Below_Layer_1-Wood_Down.png"
+      "filename" : "Wagon_Parked-Wagon-Left-Furniture_Below_Layer_1-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : -80.0,
+        "y" : -5.5
+      }
     }
   }
 }, {
@@ -119,33 +142,41 @@
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Left-Base_Layer-Wood_Down.png",
       "offsetPixels" : {
-        "x" : -15.0,
-        "y" : 60.0
+        "x" : -28.0,
+        "y" : 51.5
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "FURNITURE_BELOW_LAYER_1"
+        "type" : "FURNITURE_BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : 13.0,
+          "y" : 8.5
+        }
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 13.0,
+          "y" : 8.5
+        },
         "overrideRenderLayer" : 150
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "x" : -50.0,
-          "y" : 54.0
+          "x" : -37.0,
+          "y" : 62.5
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
-          "x" : -116.0,
-          "y" : 54.0
+          "x" : -103.0,
+          "y" : 62.5
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
-          "x" : -82.0,
-          "y" : 54.0
+          "x" : -69.0,
+          "y" : 62.5
         }
       } ]
     }
@@ -160,6 +191,10 @@
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Left-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "ROPE_COLOR",
+      "offsetPixels" : {
+        "x" : -80.5,
+        "y" : 23.5
+      },
       "flipX" : true
     }
   },
@@ -173,6 +208,10 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Left-Furniture_Below_Layer_1-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : 80.0,
+        "y" : -5.5
+      },
       "flipX" : true
     }
   }
@@ -187,26 +226,29 @@
       "filename" : "Wagon_Parked-Wagon-Up-Base_Layer-Wood_Down.png",
       "offsetPixels" : {
         "x" : 32.0,
-        "y" : 4.0
+        "y" : -3.0
       },
       "childAssets" : [ {
         "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "y" : 7.0
+        },
         "overrideRenderLayer" : 150
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
-          "y" : -18.0
+          "y" : -11.0
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
-          "y" : 6.0
+          "y" : 13.0
         }
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
-          "y" : 32.0
+          "y" : 39.0
         }
       } ]
     }
@@ -220,7 +262,11 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Up-Furniture_Above_Layer_1-Wood_Down.png",
-      "coloringLayer" : "ROPE_COLOR"
+      "coloringLayer" : "ROPE_COLOR",
+      "offsetPixels" : {
+        "y" : -1.0,
+        "unit" : true
+      }
     }
   },
   "overrideRenderLayer" : 150
