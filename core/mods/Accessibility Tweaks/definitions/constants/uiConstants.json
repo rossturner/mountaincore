@@ -1,4 +1,5 @@
 {
   "defaultFontScale": 2.5,
-  "headerFontScale": 2
+  "headerFontScale": 2,
+  "viewportScale": 0.9
 }
