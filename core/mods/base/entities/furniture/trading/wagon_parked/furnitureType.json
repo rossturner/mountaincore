@@ -7,5 +7,9 @@
   "requirements" : {
     "WOOD" : [ ]
   },
-  "hiddenFromPlacementMenu" : true
+  "hiddenFromPlacementMenu" : true,
+  "tags": {
+    "STARTING_RESOURCES_CONTAINER": ["16"],
+    "INVENTORY_ITEMS_UNALLOCATED": []
+  }
 }

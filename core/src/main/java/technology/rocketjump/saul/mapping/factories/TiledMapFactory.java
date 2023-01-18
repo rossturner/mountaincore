@@ -10,7 +10,6 @@ import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.cooking.CookingRecipeDictionary;
 import technology.rocketjump.saul.cooking.model.CookingRecipe;
 import technology.rocketjump.saul.entities.EntityStore;
-import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.factories.SettlerFactory;
@@ -31,15 +30,11 @@ import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.messaging.types.RoomPlacementMessage;
 import technology.rocketjump.saul.production.StockpileComponentUpdater;
 import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
-import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomTile;
-import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
-import technology.rocketjump.saul.rooms.components.StockpileRoomComponent;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -69,6 +64,7 @@ public class TiledMapFactory {
 	private final GameMaterialDictionary gameMaterialDictionary;
 	private final StockpileComponentUpdater stockpileComponentUpdater;
 	private final CreaturePopulator creaturePopulator;
+	private final EmbarkResourcesFactory embarkResourcesFactory;
 
 	@Inject
 	public TiledMapFactory(MapGenWrapper mapGenWrapper, ItemTypeDictionary itemTypeDictionary,
@@ -77,7 +73,7 @@ public class TiledMapFactory {
 						   RoomTypeDictionary roomTypeDictionary, EntityStore entityStore, SettlerFactory setterFactory,
 						   ItemEntityFactory itemEntityFactory, ItemEntityAttributesFactory itemEntityAttributesFactory,
 						   CookingRecipeDictionary cookingRecipeDictionary,
-						   StockpileComponentUpdater stockpileComponentUpdater, CreaturePopulator creaturePopulator) {
+						   StockpileComponentUpdater stockpileComponentUpdater, CreaturePopulator creaturePopulator, EmbarkResourcesFactory embarkResourcesFactory) {
 		this.mapGenWrapper = mapGenWrapper;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.materialDictionary = gameMaterialDictionary;
@@ -94,6 +90,7 @@ public class TiledMapFactory {
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.stockpileComponentUpdater = stockpileComponentUpdater;
 		this.creaturePopulator = creaturePopulator;
+		this.embarkResourcesFactory = embarkResourcesFactory;
 		this.baseFloorMaterial = materialDictionary.getByName("Granite");
 
 		for (PlantSpecies plantSpecies : plantSpeciesDictionary.getAll()) {
@@ -127,20 +124,14 @@ public class TiledMapFactory {
 		GridPoint2 embarkPoint = areaMap.getEmbarkPoint();
 		messageDispatcher.dispatchMessage(MessageType.FLOOD_FILL_EXPLORATION, embarkPoint);
 
-		Deque<QuantifiedItemTypeWithMaterial> initiallyHauledStartingItems = initInitiallyHauledStartingItems();
-		Deque<QuantifiedItemTypeWithMaterial> inventoryStartingItems = initInventoryStartingItems(professionList.size(), gameContext.getRandom());
-		List<Entity> allSettlers = new ArrayList<>();
+		List<QuantifiedItemTypeWithMaterial> embarkResources = new ArrayList<>();
+		embarkResources.addAll(initInitiallyHauledStartingItems());
+		embarkResources.addAll(initInventoryStartingItems(professionList.size(), gameContext.getRandom()));
 
 		for (Skill primaryProfession : professionList) {
 			Skill secondaryProfession = professionList.get(gameContext.getRandom().nextInt(professionList.size()));
-
-			Entity settler = createSettler(embarkPoint.x, embarkPoint.y, primaryProfession, secondaryProfession, gameContext, messageDispatcher);
-
-			addAnyHauledItems(settler, initiallyHauledStartingItems, gameContext, messageDispatcher);
-			allSettlers.add(settler);
+			createSettler(embarkPoint.x, embarkPoint.y, primaryProfession, secondaryProfession, gameContext, messageDispatcher);
 		}
-
-		addStartingInventory(inventoryStartingItems, allSettlers, gameContext, messageDispatcher);
 
 		ItemType plankItemType = itemTypeDictionary.getByName("Resource-Planks");
 		GameMaterial plankMaterialType = pickWoodMaterialType();
@@ -155,67 +146,47 @@ public class TiledMapFactory {
 		Map<GridPoint2, RoomTile> roomTiles = new HashMap<>();
 		Set<StockpileGroup> stockpileGroups = new HashSet<>();
 
-		createResources(embarkPoint.x - 1, embarkPoint.y - 1, plankItemType, plankMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
-		createResources(embarkPoint.x - 1, embarkPoint.y, plankItemType, plankMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
-		createResources(embarkPoint.x - 1, embarkPoint.y + 1, plankItemType, plankMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
+		embarkResources.add(describeStackOf(plankItemType, plankMaterialType));
+		embarkResources.add(describeStackOf(plankItemType, plankMaterialType));
+		embarkResources.add(describeStackOf(plankItemType, plankMaterialType));
 
-		createResources(embarkPoint.x, embarkPoint.y - 1, stoneBlockItemType, stoneBlockMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
-		createResources(embarkPoint.x, embarkPoint.y, stoneBlockItemType, stoneBlockMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
-		createResources(embarkPoint.x, embarkPoint.y + 1, stoneBlockItemType, stoneBlockMaterialType, gameContext, messageDispatcher, roomTiles, stockpileGroups);
+		embarkResources.add(describeStackOf(stoneBlockItemType, stoneBlockMaterialType));
+		embarkResources.add(describeStackOf(stoneBlockItemType, stoneBlockMaterialType));
+		embarkResources.add(describeStackOf(stoneBlockItemType, stoneBlockMaterialType));
 
-		createResources(embarkPoint.x + 1, embarkPoint.y - 1, hoopsItemType, pickMaterialType(METAL), gameContext, messageDispatcher, roomTiles, stockpileGroups);
-		createResources(embarkPoint.x + 1, embarkPoint.y, metalItemType, metalMaterial, gameContext, messageDispatcher, roomTiles, stockpileGroups);
-		createResources(embarkPoint.x + 1, embarkPoint.y + 1, plateItemType, pickMaterialType(METAL), gameContext, messageDispatcher, roomTiles, stockpileGroups);
+		embarkResources.add(describeStackOf(hoopsItemType, pickMaterialType(METAL)));
+		embarkResources.add(describeStackOf(metalItemType, metalMaterial));
+		embarkResources.add(describeStackOf(plateItemType, pickMaterialType(METAL)));
 
-		List<StockpileGroup> stockpileGroupList = new ArrayList<>(stockpileGroups);
-		RoomType stockpileRoomType = roomTypeDictionary.getByName("STOCKPILE");
+//		List<StockpileGroup> stockpileGroupList = new ArrayList<>(stockpileGroups);
+//		RoomType stockpileRoomType = roomTypeDictionary.getByName("STOCKPILE");
 
-		messageDispatcher.dispatchMessage(MessageType.ROOM_PLACEMENT, new RoomPlacementMessage(roomTiles, stockpileRoomType, stockpileGroupList.get(0)));
+//		messageDispatcher.dispatchMessage(MessageType.ROOM_PLACEMENT, new RoomPlacementMessage(roomTiles, stockpileRoomType, stockpileGroupList.get(0)));
 
-		Room placedRoom = gameContext.getAreaMap().getTile(embarkPoint).getRoomTile().getRoom();
-		StockpileRoomComponent stockpileRoomComponent = placedRoom.getComponent(StockpileRoomComponent.class);
-		for (StockpileGroup stockpileGroup : stockpileGroupList) {
-			stockpileComponentUpdater.toggleGroup(stockpileRoomComponent.getStockpileSettings(), stockpileGroup, false, true);
-		}
-		for (ItemType placedItemType : placedItems) {
-			if (!stockpileRoomComponent.getStockpileSettings().isEnabled(placedItemType)) {
-				stockpileComponentUpdater.toggleItem(stockpileRoomComponent.getStockpileSettings(), placedItemType, true, true, true);
-			}
-		}
+//		Room placedRoom = gameContext.getAreaMap().getTile(embarkPoint).getRoomTile().getRoom();
+//		StockpileRoomComponent stockpileRoomComponent = placedRoom.getComponent(StockpileRoomComponent.class);
+//		for (StockpileGroup stockpileGroup : stockpileGroupList) {
+//			stockpileComponentUpdater.toggleGroup(stockpileRoomComponent.getStockpileSettings(), stockpileGroup, false, true);
+//		}
+//		for (ItemType placedItemType : placedItems) {
+//			if (!stockpileRoomComponent.getStockpileSettings().isEnabled(placedItemType)) {
+//				stockpileComponentUpdater.toggleItem(stockpileRoomComponent.getStockpileSettings(), placedItemType, true, true, true);
+//			}
+//		}
+
+		embarkResourcesFactory.spawnEmbarkResources(embarkPoint, embarkResources, gameContext);
 
 		creaturePopulator.initialiseMap(gameContext);
 
 		messageDispatcher.dispatchMessage(MessageType.SETTLEMENT_SPAWNED);
 	}
 
-	private void addStartingInventory(Deque<QuantifiedItemTypeWithMaterial> inventoryStartingItems, List<Entity> allSettlers, GameContext gameContext, MessageDispatcher messageDispatcher) {
-		List<Entity> shuffledSettlers = new ArrayList<>(allSettlers);
-		Collections.shuffle(shuffledSettlers, gameContext.getRandom());
-		for (QuantifiedItemTypeWithMaterial inventoryStartingItem : inventoryStartingItems) {
-			Entity settler = shuffledSettlers.remove(0);
-
-			ItemEntityAttributes itemAttributes = new ItemEntityAttributes(gameContext.getRandom().nextLong());
-			itemAttributes.setItemType(inventoryStartingItem.getItemType());
-			for (GameMaterialType requiredMaterialType : inventoryStartingItem.getItemType().getMaterialTypes()) {
-				List<GameMaterial> materialsToPickFrom = gameMaterialDictionary.getByType(requiredMaterialType).stream()
-						.filter(GameMaterial::isUseInRandomGeneration).collect(Collectors.toList());
-				GameMaterial material = materialsToPickFrom.get(gameContext.getRandom().nextInt(materialsToPickFrom.size()));
-				itemAttributes.setMaterial(material);
-			}
-			itemAttributes.setMaterial(inventoryStartingItem.getMaterial());
-			itemAttributes.setQuantity(inventoryStartingItem.getQuantity() > 0 ? inventoryStartingItem.getQuantity() : 1);
-			Entity item = itemEntityFactory.create(itemAttributes, null, true, gameContext);
-
-			InventoryComponent inventoryComponent = settler.getOrCreateComponent(InventoryComponent.class);
-			InventoryComponent.InventoryEntry entry = inventoryComponent.add(item, settler, messageDispatcher, gameContext.getGameClock());
-			// Set items to be expired in inventory already
-			entry.setLastUpdateGameTime(0 - inventoryStartingItem.getItemType().getHoursInInventoryUntilUnused());
-
-			if (shuffledSettlers.isEmpty()) {
-				shuffledSettlers.addAll(allSettlers);
-				Collections.shuffle(shuffledSettlers, gameContext.getRandom());
-			}
-		}
+	private QuantifiedItemTypeWithMaterial describeStackOf(ItemType itemType, GameMaterial material) {
+		QuantifiedItemTypeWithMaterial quantifiedItemTypeWithMaterial = new QuantifiedItemTypeWithMaterial();
+		quantifiedItemTypeWithMaterial.setItemType(itemType);
+		quantifiedItemTypeWithMaterial.setMaterial(material);
+		quantifiedItemTypeWithMaterial.setQuantity(itemType.getMaxStackSize());
+		return quantifiedItemTypeWithMaterial;
 	}
 
 	private Entity createSettler(int tileX, int tileY, Skill primaryprofession, Skill secondaryProfession, GameContext gameContext, MessageDispatcher messageDispatcher) {
@@ -352,24 +323,6 @@ public class TiledMapFactory {
 		items.addAll(item("Ingredient-Seeds", 8, "Hemp Seed"));
 
 		return items;
-	}
-
-	private void addAnyHauledItems(Entity settler, Deque<QuantifiedItemTypeWithMaterial> initiallyHauledItems, GameContext gameContext, MessageDispatcher messageDispatcher) {
-		if (!initiallyHauledItems.isEmpty()) {
-			QuantifiedItemTypeWithMaterial quantifiedItemType = initiallyHauledItems.peek();
-
-			if (quantifiedItemType.getItemType() != null) {
-				Entity startingItem = itemEntityFactory.createByItemType(quantifiedItemType.getItemType(), gameContext, true);
-
-				HaulingComponent haulingComponent = settler.getOrCreateComponent(HaulingComponent.class);
-				haulingComponent.setHauledEntity(startingItem, messageDispatcher, settler);
-			}
-
-			quantifiedItemType.setQuantity(quantifiedItemType.getQuantity() - 1);
-			if (quantifiedItemType.getQuantity() <= 0) {
-				initiallyHauledItems.pop();
-			}
-		}
 	}
 
 	private List<QuantifiedItemTypeWithMaterial> item(String itemTypeName, int quantity) {

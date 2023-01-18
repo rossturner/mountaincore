@@ -1037,7 +1037,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 		DecorationInventoryComponent decorationInventoryComponent = entity.getComponent(DecorationInventoryComponent.class);
 
-		int maxSlots = 8;
+		final int MAX_SLOTS_PER_ROW = 8;
 		updatable.regularly(() -> {
 			table.clear();
 
@@ -1050,11 +1050,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 			Iterator<Entity> inventoryIterator = inventoryEntities.iterator();
 
-
-
-			for (int slotIndex = 0; slotIndex < maxSlots; slotIndex++) {
+			for (int slotIndex = 1; slotIndex <= inventoryEntities.size(); slotIndex++) {
 				Stack entityStack = new Stack();
-
 
 				Drawable emptyBackgroundDrawable = mainGameSkin.getDrawable("asset_dwarf_select_inventory_bg");
 
@@ -1101,6 +1098,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					table.add(entityStack).bottom().spaceLeft(8f);
 				} else {
 					table.add(entityStack).bottom().spaceLeft(18f);
+				}
+				if (slotIndex % MAX_SLOTS_PER_ROW == 0 && slotIndex < inventoryEntities.size()) {
+					table.row();
 				}
 			}
 		});
