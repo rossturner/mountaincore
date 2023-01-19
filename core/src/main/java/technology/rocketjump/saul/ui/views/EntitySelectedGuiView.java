@@ -1044,7 +1044,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			table.clear();
 
 			List<Entity> inventoryEntities = new ArrayList<>();
-			if (entity.getComponent(HaulingComponent.class) != null) {
+			if (entity.getComponent(HaulingComponent.class) != null && entity.getComponent(HaulingComponent.class).getHauledEntity() != null) {
 				inventoryEntities.add(entity.getComponent(HaulingComponent.class).getHauledEntity());
 			}
 			EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
@@ -1081,9 +1081,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 					ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryItem.getPhysicalEntityComponent().getAttributes();
 					int quantity = attributes.getQuantity();
-
-
-
 					EntityDrawable entityDrawable = new EntityDrawable(inventoryItem, entityRenderer, true, messageDispatcher);
 					entityDrawable.setMinSize(emptyBackgroundDrawable.getMinWidth(), emptyBackgroundDrawable.getMinHeight());
 
