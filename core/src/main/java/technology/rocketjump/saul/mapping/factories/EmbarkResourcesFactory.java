@@ -8,6 +8,7 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.behaviour.furniture.FurnitureBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
+import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.factories.FurnitureEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.FurnitureEntityFactory;
@@ -27,6 +28,7 @@ import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.ItemPrimaryMaterialChangedMessage;
 
 import java.util.*;
 
@@ -63,7 +65,6 @@ public class EmbarkResourcesFactory {
 		FurnitureType wagonFurnitureType = furnitureTypeDictionary.getAll()
 				.stream().filter(ft -> ft.getProcessedTags().stream().anyMatch(t -> t instanceof StartingResourcesContainerTag))
 				.findAny().orElseThrow();
-		Collections.shuffle(embarkResources, gameContext.getRandom());
 
 		StartingResourcesContainerTag containerTag = (StartingResourcesContainerTag) wagonFurnitureType.getProcessedTags().stream().filter(t -> t instanceof StartingResourcesContainerTag)
 				.findAny().orElseThrow();
@@ -105,9 +106,13 @@ public class EmbarkResourcesFactory {
 						if (material == null) {
 							material = pickMaterial(requirement.getItemType().getPrimaryMaterialType(), gameContext.getRandom());
 						}
-						ItemEntityAttributes itemAttributes = itemEntityAttributesFactory.createItemAttributes(requirement.getItemType(), requirement.getQuantity(), material);
-						Entity startingItem = itemEntityFactory.create(itemAttributes, null, true, gameContext);
-						wagonInventory.add(startingItem, wagonEntity, messageDispatcher, gameContext.getGameClock());
+						Entity item = itemEntityFactory.createByItemType(requirement.getItemType(), gameContext, true);
+						ItemEntityAttributes itemAttributes = (ItemEntityAttributes) item.getPhysicalEntityComponent().getAttributes();
+						GameMaterial oldPrimaryMaterial = itemAttributes.getMaterial(requirement.getItemType().getPrimaryMaterialType());
+						itemAttributes.setMaterial(material);
+						itemAttributes.setQuantity(requirement.getQuantity());
+						messageDispatcher.dispatchMessage(MessageType.ITEM_PRIMARY_MATERIAL_CHANGED, new ItemPrimaryMaterialChangedMessage(item, oldPrimaryMaterial));
+						wagonInventory.add(item, wagonEntity, messageDispatcher, gameContext.getGameClock());
 						itemsAdded++;
 					}
 				}
@@ -163,6 +168,9 @@ public class EmbarkResourcesFactory {
 		wagonAttributes.setCurrentLayout(layoutToUse);
 
 		Entity wagonEntity = furnitureEntityFactory.create(wagonAttributes, primaryLocation, new FurnitureBehaviour(), gameContext);
+		ConstructedEntityComponent constructedEntityComponent = new ConstructedEntityComponent();
+		constructedEntityComponent.init(wagonEntity, messageDispatcher, gameContext);
+		wagonEntity.addComponent(constructedEntityComponent);
 
 		entityStore.add(wagonEntity);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, wagonEntity);

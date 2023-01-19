@@ -1050,7 +1050,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 			Iterator<Entity> inventoryIterator = inventoryEntities.iterator();
 
-			for (int slotIndex = 1; slotIndex <= inventoryEntities.size(); slotIndex++) {
+			for (int slotIndex = 1; slotIndex <= numTotalCells(MAX_SLOTS_PER_ROW, inventoryEntities); slotIndex++) {
 				Stack entityStack = new Stack();
 
 				Drawable emptyBackgroundDrawable = mainGameSkin.getDrawable("asset_dwarf_select_inventory_bg");
@@ -1095,9 +1095,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						amountTable.add(new Container<>()).colspan(2).height(extraHeight).expandY();
 						entityStack.add(amountTable);
 					}
-					table.add(entityStack).bottom().spaceLeft(8f);
+					table.add(entityStack).bottom().spaceLeft(22f).spaceTop(slotIndex > MAX_SLOTS_PER_ROW ? 22f : 0f);
 				} else {
-					table.add(entityStack).bottom().spaceLeft(18f);
+					table.add(entityStack).bottom().spaceLeft(22f).spaceTop(slotIndex > MAX_SLOTS_PER_ROW ? 22f : 0f);
 				}
 				if (slotIndex % MAX_SLOTS_PER_ROW == 0 && slotIndex < inventoryEntities.size()) {
 					table.row();
@@ -1107,6 +1107,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		updatable.update();
 		return updatable;
+	}
+
+	private static int numTotalCells(int MAX_SLOTS_PER_ROW, List<Entity> inventoryEntities) {
+		return ((inventoryEntities.size() / MAX_SLOTS_PER_ROW) + (inventoryEntities.size() % MAX_SLOTS_PER_ROW == 0 ? 0 : 1)) * MAX_SLOTS_PER_ROW;
 	}
 
 	@Override
