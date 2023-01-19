@@ -38,6 +38,8 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -1042,6 +1044,21 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			table.clear();
 
 			List<Entity> inventoryEntities = new ArrayList<>();
+			if (entity.getComponent(HaulingComponent.class) != null) {
+				inventoryEntities.add(entity.getComponent(HaulingComponent.class).getHauledEntity());
+			}
+			EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
+			if (equippedItemComponent != null) {
+				if (equippedItemComponent.getMainHandItem() != null) {
+					inventoryEntities.add(equippedItemComponent.getMainHandItem());
+				}
+				if (equippedItemComponent.getOffHandItem() != null) {
+					inventoryEntities.add(equippedItemComponent.getOffHandItem());
+				}
+				if (equippedItemComponent.getEquippedClothing() != null) {
+					inventoryEntities.add(equippedItemComponent.getEquippedClothing());
+				}
+			}
 			if (inventoryComponent != null) {
 				inventoryEntities.addAll(inventoryComponent.getInventoryEntries().stream().map(entry -> entry.entity).toList());
 			}
