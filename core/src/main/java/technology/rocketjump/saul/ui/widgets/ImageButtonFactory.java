@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.TextureAtlasRepository;
-import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
@@ -31,7 +30,6 @@ public class ImageButtonFactory {
 	private final MessageDispatcher messageDispatcher;
 
 	private Map<String, ImageButton> byIconName = new HashMap<>();
-	private final Map<Long, ImageButton> entityButtonsByEntityId = new HashMap<>();
 	private final EntityRenderer entityRenderer;
 
 	@Inject
@@ -67,10 +65,6 @@ public class ImageButtonFactory {
 			}
 			return new ImageButton(iconSprite, buttonNinePatch, halfSize);
 		});
-	}
-
-	public ImageButton getOrCreate(Entity entity) {
-		return entityButtonsByEntityId.computeIfAbsent(entity.getId(), a -> new ImageButton(new EntityDrawable(entity, entityRenderer, true, messageDispatcher), buttonNinePatch, false));
 	}
 
 }

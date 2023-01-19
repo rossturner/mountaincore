@@ -716,11 +716,7 @@ MODS.COMPATIBILITY.INCOMPATIBLE,,No,- Nej
 MODS.COMPATIBILITY.UNKNOWN,,Unknown,Okänd
 MODS.MISSING_MODS_DIALOG_TEXT,,This save file was last used while the following mods were active. These mods are now missing or disabled so the save may not load correctly.,Den här sparfilen användes senast medan följande mods var aktiva. Dessa mods saknas nu eller inaktiveras så att spara kanske inte laddas korrekt.
 MODS.MISSING_MODS_SAVE_EXCEPTION_DIALOG_TEXT,,"The save file could not be loaded because either it is incompatible with this version of the game, or because some mods have been disabled or removed since this save was last loaded. The following mods were expected but are no longer active:","Spara filen kunde inte laddas eftersom den antingen är inkompatibel med den här versionen av spelet, eller eftersom vissa mods har inaktiverats eller tagits bort sedan den här sparningen senast laddades. Följande mods förväntades men är inte längre aktiva:"
-MODS.TABLE.COMPATIBILITY,,Compatible?,Kompatibel?
-MODS.TABLE.ENABLED,,Enabled?,Aktiverad?
-MODS.TABLE.NAME,,Mod Name,Mod Namn
 MODS.TABLE.ORDERING,,Re-order,Order om
-MODS.TABLE.VERSION,,Mod Version,Mod version
 
 MUSHROOM.DESCRIPTION,E.g. “Toadstool mushroom”,{{materialType.noun}},{{materialType.substantiv}}
 

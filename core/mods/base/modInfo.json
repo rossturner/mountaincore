@@ -2,5 +2,6 @@
   "name": "base",
   "version": "Early Access 1.0.5",
   "gameVersion": "Early Access 1.0.5",
-  "description": "Base mod for King under the Mountain - contains main game assets and definitions"
+  "description": "Base mod for King under the Mountain - contains main game assets and definitions",
+  "homepageUrl": "http://rocketjump.technology/"
 }

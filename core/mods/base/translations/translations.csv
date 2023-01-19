@@ -458,6 +458,9 @@ GUI.CONSTRUCTION_LABEL,For the menu that further gives options for build and pow
 GUI.CHANGE_PROFESSION_LABEL,,Choose New Profession
 GUI.CHANGE_WEAPON_LABEL,,Select weapon
 GUI.CRAFTING_MANAGEMENT.MAINTAINING_TEXT,As in keeping a fixed number of items in stock,Maintaining
+GUI.CRAFTING_MANAGEMENT.SUBTITLE,,{{craftingType}} ({{profession}})
+GUI.CRAFTING_MANAGEMENT.TABLE.CRAFTED_WITH,,Crafted With
+GUI.CRAFTING_MANAGEMENT.TABLE.ITEM,,Item
 GUI.CRAFTING_MANAGEMENT.TITLE,,Crafting
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_ACTUAL,,Current total: {{quantity}}
 GUI.CRAFTING_MANAGEMENT.TOTAL_QUANTITY_HINT,,({{quantity}} in total)
@@ -929,13 +932,14 @@ MODS.APPLY,,Apply
 MODS.COMPATIBILITY.COMPATIBLE,,Yes
 MODS.COMPATIBILITY.INCOMPATIBLE,,No
 MODS.COMPATIBILITY.UNKNOWN,,Unknown
+MODS.MISSING_HOMEPAGE_URL,,The author(s) of this mod have not included a website to visit
 MODS.MISSING_MODS_DIALOG_TEXT,,This save file was last used while the following mods were active. These mods are now missing or disabled so the save may not load correctly.
 MODS.MISSING_MODS_SAVE_EXCEPTION_DIALOG_TEXT,,"The save file could not be loaded because either it is incompatible with this version of the game, or because some mods have been disabled or removed since this save was last loaded. The following mods were expected but are no longer active:"
-MODS.TABLE.COMPATIBILITY,,Compatible?
-MODS.TABLE.ENABLED,,Enabled?
-MODS.TABLE.NAME,,Mod Name
+MODS.TABLE.COMPATIBILITY,,Compatible
+MODS.TABLE.ENABLED,,Enable
+MODS.TABLE.NAME,,Name
 MODS.TABLE.ORDERING,,Re-order
-MODS.TABLE.VERSION,,Mod Version
+MODS.TABLE.VERSION,,Version
 
 MUSHROOM.DESCRIPTION,E.g. “Toadstool mushroom”,{{materialType.noun}}
 

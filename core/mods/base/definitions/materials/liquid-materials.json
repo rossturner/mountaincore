@@ -3,7 +3,7 @@
     "materialName": "Water",
     "materialType": "LIQUID",
     "quenchesThirst": true,
-    "colorCode": "#26e1ed",
+    "colorCode": "#5695AC",
     "useAsExampleMaterialForMaterialType": true
   },
 
