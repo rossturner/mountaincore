@@ -76,6 +76,7 @@ public class FurnitureLayout {
 		this.specialTiles = specialTiles;
 	}
 
+	@JsonIgnore
 	public int getWidth() {
 		int minX = 0;
 		int maxX = 0;
@@ -90,6 +91,7 @@ public class FurnitureLayout {
 		return maxX - minX + 1;
 	}
 
+	@JsonIgnore
 	public int getHeight() {
 		int minY = 0;
 		int maxY = 0;
