@@ -294,6 +294,82 @@
   },
   "tags" : { }
 }, {
+  "name" : "Horse",
+  "i18nKey" : "RACE.HORSE",
+  "minStrength" : 9.0,
+  "maxStrength" : 17.0,
+  "bodyStructureName" : "hooved-quadruped",
+  "bodyShapes" : [ {
+    "value" : "AVERAGE",
+    "minStrength" : 9.0,
+    "maxStrength" : 17.0
+  } ],
+  "colors" : {
+    "SKIN_COLOR" : {
+      "swatch" : "horse-skin-swatch.png",
+      "hidden" : false
+    }
+  },
+  "mapPlacement" : "NONE",
+  "behaviour" : {
+    "behaviourName" : "Creature",
+    "scheduleName" : "Diurnal animal",
+    "needs" : [ "SLEEP" ],
+    "isSapient" : false
+  },
+  "genders" : {
+    "MALE" : {
+      "weighting" : 0.5,
+      "hideAssetTypes" : { }
+    },
+    "FEMALE" : {
+      "weighting" : 0.5,
+      "hideAssetTypes" : { }
+    }
+  },
+  "features" : {
+    "defense" : {
+      "type" : "RACIAL",
+      "maxDefensePoints" : 12,
+      "maxDefenseRegainedPerRound" : 2,
+      "damageReduction" : {
+        "STABBING" : 0,
+        "SLASHING" : 0,
+        "CRUSHING" : 0
+      },
+      "restrictedToRaceNames" : [ ]
+    },
+    "unarmedWeapon" : {
+      "range" : 1,
+      "damageType" : "CRUSHING",
+      "modifiedByStrength" : true,
+      "minDamage" : 2,
+      "maxDamage" : 7,
+      "armorNegation" : 0,
+      "twoHanded" : false,
+      "combatSkillName" : "UNARMED_COMBAT",
+      "weaponHitSoundAssetName" : "SFX_Hunting_Impact_Crushing",
+      "ranged" : false
+    },
+    "skin" : {
+      "itemTypeName" : "Carcass-Hide",
+      "quantity" : 2,
+      "materialName" : "Horse Hide"
+    },
+    "meat" : {
+      "itemTypeName" : "Carcass-Meat-Medium",
+      "materialName" : "Horse Meat",
+      "quantity" : 3
+    },
+    "bones" : {
+      "materialName" : "Bone"
+    },
+    "blood" : {
+      "colorCode" : "#e62d23"
+    }
+  },
+  "tags" : { }
+}, {
   "name" : "Dwarf",
   "i18nKey" : "RACE.DWARF",
   "nameGeneration" : "Dwarven",

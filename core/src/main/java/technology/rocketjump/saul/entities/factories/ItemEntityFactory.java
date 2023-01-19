@@ -74,6 +74,9 @@ public class ItemEntityFactory {
 	public Entity create(ItemEntityAttributes attributes, GridPoint2 tilePosition, boolean addToGameContext, GameContext gameContext) {
 		PhysicalEntityComponent physicalComponent = new PhysicalEntityComponent();
 		physicalComponent.setAttributes(attributes);
+		if (attributes.getPrimaryMaterial() == null) {
+			attributes.setMaterial(gameMaterialDictionary.getExampleMaterial(attributes.getItemType().getPrimaryMaterialType()));
+		}
 		BehaviourComponent behaviorComponent = new ItemBehaviour();
 		LocationComponent locationComponent = createLocationComponent(tilePosition, attributes.getSeed());
 

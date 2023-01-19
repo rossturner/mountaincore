@@ -33,6 +33,8 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -1078,11 +1080,26 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 		DecorationInventoryComponent decorationInventoryComponent = entity.getComponent(DecorationInventoryComponent.class);
 
-		int maxSlots = 8;
+		final int MAX_SLOTS_PER_ROW = 8;
 		updatable.regularly(() -> {
 			table.clear();
 
 			List<Entity> inventoryEntities = new ArrayList<>();
+			if (entity.getComponent(HaulingComponent.class) != null && entity.getComponent(HaulingComponent.class).getHauledEntity() != null) {
+				inventoryEntities.add(entity.getComponent(HaulingComponent.class).getHauledEntity());
+			}
+			EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
+			if (equippedItemComponent != null) {
+				if (equippedItemComponent.getMainHandItem() != null) {
+					inventoryEntities.add(equippedItemComponent.getMainHandItem());
+				}
+				if (equippedItemComponent.getOffHandItem() != null) {
+					inventoryEntities.add(equippedItemComponent.getOffHandItem());
+				}
+				if (equippedItemComponent.getEquippedClothing() != null) {
+					inventoryEntities.add(equippedItemComponent.getEquippedClothing());
+				}
+			}
 			if (inventoryComponent != null) {
 				inventoryEntities.addAll(inventoryComponent.getInventoryEntries().stream().map(entry -> entry.entity).toList());
 			}
@@ -1091,11 +1108,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 			Iterator<Entity> inventoryIterator = inventoryEntities.iterator();
 
-
-
-			for (int slotIndex = 0; slotIndex < maxSlots; slotIndex++) {
+			for (int slotIndex = 1; slotIndex <= numTotalCells(MAX_SLOTS_PER_ROW, inventoryEntities); slotIndex++) {
 				Stack entityStack = new Stack();
-
 
 				Drawable emptyBackgroundDrawable = mainGameSkin.getDrawable("asset_dwarf_select_inventory_bg");
 
@@ -1108,9 +1122,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 					ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryItem.getPhysicalEntityComponent().getAttributes();
 					int quantity = attributes.getQuantity();
-
-
-
 					EntityDrawable entityDrawable = new EntityDrawable(inventoryItem, entityRenderer, true, messageDispatcher);
 					entityDrawable.setMinSize(emptyBackgroundDrawable.getMinWidth(), emptyBackgroundDrawable.getMinHeight());
 
@@ -1139,15 +1150,22 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						amountTable.add(new Container<>()).colspan(2).height(extraHeight).expandY();
 						entityStack.add(amountTable);
 					}
-					table.add(entityStack).bottom().spaceLeft(8f);
+					table.add(entityStack).bottom().spaceLeft(22f).spaceTop(slotIndex > MAX_SLOTS_PER_ROW ? 22f : 0f);
 				} else {
-					table.add(entityStack).bottom().spaceLeft(18f);
+					table.add(entityStack).bottom().spaceLeft(22f).spaceTop(slotIndex > MAX_SLOTS_PER_ROW ? 22f : 0f);
+				}
+				if (slotIndex % MAX_SLOTS_PER_ROW == 0 && slotIndex < inventoryEntities.size()) {
+					table.row();
 				}
 			}
 		});
 
 		updatable.update();
 		return updatable;
+	}
+
+	private static int numTotalCells(int MAX_SLOTS_PER_ROW, List<Entity> inventoryEntities) {
+		return ((inventoryEntities.size() / MAX_SLOTS_PER_ROW) + (inventoryEntities.size() % MAX_SLOTS_PER_ROW == 0 ? 0 : 1)) * MAX_SLOTS_PER_ROW;
 	}
 
 	@Override

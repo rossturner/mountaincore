@@ -320,6 +320,7 @@ FURNITURE.WATER_BARREL.TOOLTIP,,"A water barrel is a place for your settlers to 
 FURNITURE.WATER_PUMP,,Water Pump
 FURNITURE.WATER_PUMP.PLURAL,,Water Pumps
 FURNITURE.WATER_PUMP.TOOLTIP,,Moves water from the river to a pipe system.
+FURNITURE.WAGON_PARKED,,Wagon
 FURNITURE.WEAPON_RACK,,Weapon Rack
 FURNITURE.WELL,,Well
 FURNITURE.WELL.TOOLTIP,,"A well provides a source of water, but must be connected to a working pipe system."

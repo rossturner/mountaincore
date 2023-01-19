@@ -48,6 +48,10 @@ public class EntityDrawable extends BaseDrawable {
             backgroundDrawable.draw(batch, x, y, width, height);
         }
 
+        if (entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes && attributes.getQuantity() <= 0) {
+            return;
+        }
+
         LocationComponent originalLocationComponent = entity.getLocationComponent();
         LocationComponent overrideLocationComponent = originalLocationComponent.clone(null, null);
         Vector2 screenPosition = new Vector2(x + (width / 2) + screenPositionOffset.x, y + (width / 2) + screenPositionOffset.y);
