@@ -5,10 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import technology.rocketjump.saul.rendering.RenderMode;
 
-import java.util.EnumMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SpriteDescriptor {
 
@@ -16,6 +13,7 @@ public class SpriteDescriptor {
 	private String filename; // Only to be used during data load, not during game loop
 	private ColoringLayer coloringLayer = null;
 	private boolean isAnimated;
+	private Map<String, AnimationScript> animationScripts = new HashMap<>();
 	@JsonIgnore
 	private Map<RenderMode, Sprite> renderModeSprites = new EnumMap<>(RenderMode.class);
 	@JsonIgnore
@@ -128,5 +126,13 @@ public class SpriteDescriptor {
 
 	public void setIsAnimated(boolean animated) {
 		isAnimated = animated;
+	}
+
+	public Map<String, AnimationScript> getAnimationScripts() {
+		return animationScripts;
+	}
+
+	public void setAnimationScripts(Map<String, AnimationScript> animationScripts) {
+		this.animationScripts = animationScripts;
 	}
 }
