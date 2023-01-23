@@ -48,6 +48,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 	private final CompleteAssetDictionary assetDictionary;
 	private final RenderLayerDictionary renderLayerDictionary;
 	private final RoomEditorItemMap roomEditorItemMap;
+	private final AnimationStudio animationStudio;
 
 	private boolean usingNormalMapInverseShader = false;
 	private ShaderProgram defaultShader;
@@ -56,11 +57,12 @@ public class EntityRenderer implements GameContextAware, Disposable {
 	private GameContext gameContext;
 
 	@Inject
-	public EntityRenderer(CompleteAssetDictionary completeAssetDictionary,
+	public EntityRenderer(CompleteAssetDictionary completeAssetDictionary, AnimationStudio animationStudio,
 						  RenderLayerDictionary renderLayerDictionary, RoomEditorItemMap roomEditorItemMap) {
 		this.assetDictionary = completeAssetDictionary;
 		this.renderLayerDictionary = renderLayerDictionary;
 		this.roomEditorItemMap = roomEditorItemMap;
+		this.animationStudio = animationStudio;
 
 		FileHandle defaultVertexShaderFile = ShaderLoader.DEFAULT_VERTEX_SHADER;
 		FileHandle fragmentShaderFile = Gdx.files.classpath("shaders/invert_normal_map_red_channel_fragment_shader.glsl");
@@ -157,13 +159,13 @@ public class EntityRenderer implements GameContextAware, Disposable {
 			Logger.error("Attempting to render null asset for " + entity);
 			return;
 		}
-		SpriteDescriptor spriteDescriptor = asset.getSpriteDescriptors().get(entity.getLocationComponent().getOrientation());
+		EntityAssetOrientation orientation = entity.getLocationComponent().getOrientation();
+		SpriteDescriptor spriteDescriptor = asset.getSpriteDescriptors().get(orientation);
 		if (spriteDescriptor == null) {
 			// FIXME no sprite descriptor when one was expected
 			return;
 		}
-		int renderLayer = renderLayerDictionary.getRenderingLayer(entity.getType(),
-				entity.getLocationComponent().getOrientation(), asset.getType());
+		int renderLayer = renderLayerDictionary.getRenderingLayer(entity.getType(), orientation, asset.getType());
 		if (asset.getOverrideRenderLayer() != null) {
 			renderLayer += asset.getOverrideRenderLayer();
 		}
@@ -175,6 +177,16 @@ public class EntityRenderer implements GameContextAware, Disposable {
 			// FIXME This is duplicated a little with the code below for parentEntityAssets
 			if (childAsset != null && !childAsset.getSpriteDescriptors().isEmpty()) {
 				Vector2 childOffset = childAssetDescriptor.getOffsetPixels().cpy().scl(spriteDescriptor.getScale() * (1f / PIXELS_PER_TILE));
+
+				SpriteDescriptor childSpriteDescriptor = childAsset.getSpriteDescriptors().get(orientation);
+				if (childSpriteDescriptor != null) {
+					for (String animationName : childAssetDescriptor.getInheritAnimations()) {
+						if (spriteDescriptor.getAnimationScripts().containsKey(animationName)) {
+							childSpriteDescriptor.getAnimationScripts().put(animationName, spriteDescriptor.getAnimationScripts().get(animationName));
+						}
+					}
+				}
+
 				addToRenderParts(childAsset, entity, parentPosition.cpy().add(childOffset), assetDictionary, parentEntity);
 			}
 		}
@@ -316,6 +328,9 @@ public class EntityRenderer implements GameContextAware, Disposable {
 					.rotate(locationComponent.getRotation());
 		}
 		affine.translate(-spriteWorldSize.x / 2, -spriteWorldSize.y / 2);
+
+		animationStudio.animate(affine, spriteDescriptor, renderStep.getEntity(), gameContext);
+
 		spriteBatch.draw(sprite, spriteWorldSize.x, spriteWorldSize.y, affine);
 
 		if (renderMode.equals(RenderMode.DIFFUSE) && snowRenderingEnabled() && isStaticEntityAndOutside(renderStep.getEntity())) {
@@ -368,6 +383,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 	@Override
 	public void dispose() {
 		inverseNormalShader.dispose();
+		animationStudio.dispose();
 	}
 
 	private boolean isStaticEntityAndOutside(Entity entity) {
