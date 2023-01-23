@@ -51,7 +51,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 				controller.setAnimation(currentAnimation, -1); //loop forever
 			}
 
-			if (!gameContext.getGameClock().isPaused()) {
+			if (gameContext == null || !gameContext.getGameClock().isPaused()) {
 				controller.update(Gdx.graphics.getDeltaTime());
 			}
 
@@ -147,11 +147,14 @@ public class AnimationStudio implements Disposable, GameContextAware {
 		return keyFrameTime;
 	}
 
-	public void rebuildAnimation() {
+	public void rebuildAnimation(String animationToPlay) {
 		HashMap<Key, AnimationController> clonedCurrentAnimationControllers = new HashMap<>(animationControllersForEntities);
 		dispose();//nuke option - ensures inherited animations are copied
 		for (Map.Entry<Key, AnimationController> entry : clonedCurrentAnimationControllers.entrySet()) {
-			getAnimationController(entry.getKey());
+			AnimationController animationController = getAnimationController(entry.getKey());
+			if (animationController.target.getAnimation(animationToPlay) != null) {
+				animationController.setAnimation(animationToPlay, -1);
+			}
 		}
 	}
 

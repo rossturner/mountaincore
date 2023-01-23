@@ -42,12 +42,15 @@ public class AnimationsWidget extends VisTable {
 			for (Map.Entry<String, AnimationScript> scriptEntry : scripts.entrySet()) {
 				String scriptName = scriptEntry.getKey();
 				AnimationScript script = scriptEntry.getValue();
-				add(new VisLabel("Name")).padRight(10);
-				add(new VisLabel(scriptName)).row();
+				add(new VisLabel(scriptName)).padRight(10);
+				add(WidgetBuilder.button("X", btn -> {
+					scripts.remove(scriptName);
+					reload();
+				})).row();
 				add(new VisLabel("Duration")).padRight(10);
 				add(WidgetBuilder.floatSpinner(script.getDuration(), 0, Float.MAX_VALUE, d -> {
 					script.setDuration(d);
-					animationStudio.rebuildAnimation();
+					animationStudio.rebuildAnimation(scriptName);
 				}, DURATION_STEP, DURATION_SCALE)).width(DURATION_WIDGET_WIDTH).row();
 
 
@@ -65,7 +68,7 @@ public class AnimationsWidget extends VisTable {
 				if (script.getRotations() != null) {
 					rotationFramesTable.clear();
 					for (AnimationScript.RotationFrame rotation : script.getRotations()) {
-						rotationFramesTable.add(rotationWidget(rotation, script)).row();
+						rotationFramesTable.add(rotationWidget(rotation, script, scriptName)).row();
 					}
 				}
 
@@ -88,7 +91,7 @@ public class AnimationsWidget extends VisTable {
 				if (script.getTranslations() != null) {
 					translationsFrameTable.clear();
 					for (AnimationScript.TranslationFrame translation : script.getTranslations()) {
-						translationsFrameTable.add(translationWidget(translation, script)).row();
+						translationsFrameTable.add(translationWidget(translation, script, scriptName)).row();
 					}
 				}
 			}
@@ -118,26 +121,27 @@ public class AnimationsWidget extends VisTable {
 		}
 	}
 
-	private Table translationWidget(AnimationScript.TranslationFrame translationFrame, AnimationScript script) {
+	private Table translationWidget(AnimationScript.TranslationFrame translationFrame, AnimationScript script, String scriptName) {
 		Table t = new Table();
 		t.add(new VisLabel("At Time")).padRight(10).padLeft(20);
 		t.add(WidgetBuilder.floatSpinner(translationFrame.getAtTime(), 0, Float.MAX_VALUE, d -> {
 			translationFrame.setAtTime(d);
-			animationStudio.rebuildAnimation();
+			animationStudio.rebuildAnimation(scriptName);
+			animationStudio.jumpToKeyFrameTime(translationFrame.getAtTime());
 		}, DURATION_STEP, DURATION_SCALE)).width(DURATION_WIDGET_WIDTH).padRight(50);
 
 		t.add(new VisLabel("X")).padRight(10);
 
 		t.add(WidgetBuilder.floatSpinner(translationFrame.getVector2().getX(), -Float.MAX_VALUE, Float.MAX_VALUE, i1 -> {
 			translationFrame.getVector2().x = i1;
-			animationStudio.rebuildAnimation();
+			animationStudio.rebuildAnimation(scriptName);
 			animationStudio.jumpToKeyFrameTime(translationFrame.getAtTime());
 		}, 0.001f, 5)).width(DURATION_WIDGET_WIDTH).padRight(50);
 
 		t.add(new VisLabel("Y")).padRight(10);
 		t.add(WidgetBuilder.floatSpinner(translationFrame.getVector2().getY(), -Float.MAX_VALUE, Float.MAX_VALUE, i -> {
 			translationFrame.getVector2().y  = i;
-			animationStudio.rebuildAnimation();
+			animationStudio.rebuildAnimation(scriptName);
 			animationStudio.jumpToKeyFrameTime(translationFrame.getAtTime());
 		}, 0.001f, 5)).width(DURATION_WIDGET_WIDTH).padRight(50);
 
@@ -146,7 +150,7 @@ public class AnimationsWidget extends VisTable {
 			if (script.getTranslations().isEmpty()) {
 				script.setTranslations(null);
 			}
-			animationStudio.rebuildAnimation();
+			animationStudio.rebuildAnimation(scriptName);
 			reload();
 		}));
 
@@ -154,17 +158,18 @@ public class AnimationsWidget extends VisTable {
 	}
 
 
-	private Table rotationWidget(AnimationScript.RotationFrame rotation, AnimationScript script) {
+	private Table rotationWidget(AnimationScript.RotationFrame rotation, AnimationScript script, String scriptName) {
 		Table t = new Table();
 		t.add(new VisLabel("At Time")).padRight(10).padLeft(20);
 		t.add(WidgetBuilder.floatSpinner(rotation.getAtTime(), 0, Float.MAX_VALUE, d -> {
 			rotation.setAtTime(d);
-			animationStudio.rebuildAnimation();
+			animationStudio.rebuildAnimation(scriptName);
+			animationStudio.jumpToKeyFrameTime(rotation.getAtTime());
 		}, DURATION_STEP, DURATION_SCALE)).width(DURATION_WIDGET_WIDTH).padRight(50);
 		t.add(new VisLabel("Roll")).padRight(10);
 		t.add(WidgetBuilder.intSpinner(rotation.getRoll(), -360, 360, i -> {
 			rotation.setRoll(i);
-			animationStudio.rebuildAnimation();
+			animationStudio.rebuildAnimation(scriptName);
 			animationStudio.jumpToKeyFrameTime(rotation.getAtTime());
 		})).padRight(50);
 
@@ -173,7 +178,7 @@ public class AnimationsWidget extends VisTable {
 			if (script.getRotations().isEmpty()) {
 				script.setRotations(null);
 			}
-			animationStudio.rebuildAnimation();
+			animationStudio.rebuildAnimation(scriptName);
 			reload();
 		}));
 		return t;
