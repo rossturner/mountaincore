@@ -15,14 +15,12 @@ import technology.rocketjump.saul.rendering.entities.AnimationStudio;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class AnimationsWidget extends VisTable {
 
 	private static final float DURATION_STEP = 0.1f;
 	private static final int DURATION_SCALE = 3;
 	private static final int DURATION_WIDGET_WIDTH = 80;
-	private static final Set<String> availableAnimations = Set.of(AnimationComponent.WORK_ON_JOB);
 	private final AnimationStudio animationStudio;
 	private final SpriteDescriptor spriteDescriptor;
 
@@ -98,7 +96,7 @@ public class AnimationsWidget extends VisTable {
 
 		row();
 
-		HashSet<String> available = new HashSet<>(availableAnimations);
+		HashSet<String> available = new HashSet<>(AnimationComponent.AVAILABLE_ANIMATIONS);
 		available.removeAll(scripts.keySet());
 
 		HorizontalGroup newAnimationGroup = new HorizontalGroup();

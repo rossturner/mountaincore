@@ -7,8 +7,11 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
+import java.util.Set;
+
 public class AnimationComponent implements EntityComponent {
 	public static final String WORK_ON_JOB = "work_on_job";
+	public static final Set<String> AVAILABLE_ANIMATIONS = Set.of(WORK_ON_JOB);
 	private String currentAnimation;
 
 

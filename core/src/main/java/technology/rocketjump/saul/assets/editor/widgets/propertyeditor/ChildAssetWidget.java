@@ -8,6 +8,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.entities.model.EntityChildAssetDescriptor;
+import technology.rocketjump.saul.entities.components.AnimationComponent;
 
 import java.util.Collection;
 
@@ -68,6 +69,11 @@ public class ChildAssetWidget extends VisTable {
 			}
 		});
 		this.add(specificNameField).left().expandX().fillX().colspan(2).row();
+
+		this.add(WidgetBuilder.label("Inherit Animations:")).left().row();
+		this.add(WidgetBuilder.checkboxes(childDescriptor.getInheritAnimations(), AnimationComponent.AVAILABLE_ANIMATIONS, childDescriptor.getInheritAnimations()::add, childDescriptor.getInheritAnimations()::remove));
+		this.row();
+
 
 		this.addSeparator().colspan(2).row();
 	}
