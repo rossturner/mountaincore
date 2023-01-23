@@ -3,6 +3,7 @@ package technology.rocketjump.saul.entities.ai.goap.actions;
 import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
+import technology.rocketjump.saul.entities.components.AnimationComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -49,11 +50,12 @@ public class WorkOnJobAction extends Action {
 		if (completionType == null && inPositionToWorkOnJob()) {
 			Job assignedJob = parent.getAssignedJob();
 			SkillsComponent skillsComponent = parent.parentEntity.getComponent(SkillsComponent.class);
+			EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
+			Entity equippedItem = null;
 
 			float workDone = deltaTime;
-			EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
 			if (equippedItemComponent != null && equippedItemComponent.getMainHandItem() != null) {
-				Entity equippedItem = equippedItemComponent.getMainHandItem();
+				equippedItem = equippedItemComponent.getMainHandItem();
 				if (equippedItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
 					workDone *= (1f / itemAttributes.getItemQuality().jobDurationMultiplier);
 				}
@@ -104,9 +106,21 @@ public class WorkOnJobAction extends Action {
 				}
 			}
 
+			AnimationComponent parentAnimationComponent = parent.parentEntity.getOrCreateComponent(AnimationComponent.class);
+			parentAnimationComponent.setCurrentAnimation(AnimationComponent.WORK_ON_JOB);
+
+			if (equippedItem != null) {
+				equippedItem.getOrCreateComponent(AnimationComponent.class).setCurrentAnimation(AnimationComponent.WORK_ON_JOB);
+			}
+
 			if (assignedJob.getTotalWorkToDo(skillsComponent) <= assignedJob.getWorkDoneSoFar()) {
 				parent.messageDispatcher.dispatchMessage(MessageType.JOB_COMPLETED, new JobCompletedMessage(assignedJob, skillsComponent, parent.parentEntity));
 				completionType = SUCCESS;
+
+				parentAnimationComponent.clearCurrentAnimation();
+				if (equippedItem != null) {
+					equippedItem.getOrCreateComponent(AnimationComponent.class).clearCurrentAnimation();
+				}
 			}
 
 		} else {
