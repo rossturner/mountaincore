@@ -40,7 +40,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 	 * @param gameContext
 	 */
 	public void animate(Affine2 affine, SpriteDescriptor spriteDescriptor, Entity entity, GameContext gameContext) {
-		AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class); //todo:revert
+		AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
 		if (animationComponent != null && !spriteDescriptor.getAnimationScripts().isEmpty()) {
 			String currentAnimation = animationComponent.getCurrentAnimation();
 			AnimationController controller = getAnimationController(new Key(entity.getId(), spriteDescriptor));
