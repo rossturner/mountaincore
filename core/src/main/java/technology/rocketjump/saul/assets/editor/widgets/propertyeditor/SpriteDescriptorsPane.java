@@ -28,6 +28,7 @@ import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
 import technology.rocketjump.saul.rendering.RenderMode;
+import technology.rocketjump.saul.rendering.entities.AnimationStudio;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -47,14 +48,18 @@ public class SpriteDescriptorsPane extends VisTable {
     private final NormalMapGenerator normalMapGenerator;
     private final EditorStateProvider editorStateProvider;
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
+    private final AnimationStudio animationStudio;
 
     @Inject
-    public SpriteDescriptorsPane(NativeFileChooser fileChooser, MessageDispatcher messageDispatcher, NormalMapGenerator normalMapGenerator, EditorStateProvider editorStateProvider, EntityAssetTypeDictionary entityAssetTypeDictionary) {
+    public SpriteDescriptorsPane(NativeFileChooser fileChooser, MessageDispatcher messageDispatcher,
+                                 NormalMapGenerator normalMapGenerator, EditorStateProvider editorStateProvider,
+                                 EntityAssetTypeDictionary entityAssetTypeDictionary, AnimationStudio animationStudio) {
         this.fileChooser = fileChooser;
         this.messageDispatcher = messageDispatcher;
         this.normalMapGenerator = normalMapGenerator;
         this.editorStateProvider = editorStateProvider;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
+        this.animationStudio = animationStudio;
     }
 
     public void showSpriteDescriptorControls(EntityAsset entityAsset, EntityType entityType, List<EntityAssetOrientation> orientations, List<ColoringLayer> coloringLayers) {
@@ -250,9 +255,12 @@ public class SpriteDescriptorsPane extends VisTable {
             addChildAssetsWidgets("Attachment points (click to show)", spriteDescriptor.getAttachmentPoints(), orientationTable, entityAssetTypeDictionary.getByEntityType(entityType));
             addChildAssetsWidgets("Parent entity assets (click to show)", spriteDescriptor.getParentEntityAssets(), orientationTable, entityAssetTypeDictionary.getAll());
 
+            orientationTable.add(new AnimationsWidget(animationStudio, spriteDescriptor)).left().colspan(2).row();
+
             this.add(collapsibleOrientation).expandX().fillX().row();
         }
     }
+
 
     private void displaySprite(FileHandle fileHandle, SpriteDescriptor spriteDescriptor) {
         Texture texture = new Texture(fileHandle);
