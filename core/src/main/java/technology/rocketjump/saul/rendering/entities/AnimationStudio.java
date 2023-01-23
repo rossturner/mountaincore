@@ -23,6 +23,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 @Singleton
 public class AnimationStudio implements Disposable, GameContextAware {
@@ -74,7 +75,6 @@ public class AnimationStudio implements Disposable, GameContextAware {
 	}
 
 	//For asset editing
-	//todo: do we need to know pause and resume for each controller
 	public void pauseAnimations() {
 		animationControllersForEntities.values().forEach(c -> c.paused = true);
 	}
@@ -83,12 +83,59 @@ public class AnimationStudio implements Disposable, GameContextAware {
 		animationControllersForEntities.values().forEach(c -> c.paused = false);
 	}
 
-	public void jumpToStartForAnimations() {
-		float keyFrameTime = 0;
-		jumpToKeyFrameTime(keyFrameTime);
+	public float jumpToStartForAnimations() {
+		return jumpToKeyFrameTime(0f);
 	}
 
-	public void jumpToKeyFrameTime(float keyFrameTime) {
+	public float nextKeyFrame() {
+		float nextKeyFrameTime = animationControllersForEntities.values()
+				.stream()
+				.flatMap(c -> {
+					if (c.current != null) {
+						return getKeyFrameTimes(c.current.animation).stream().filter(t -> t > c.current.time);
+					} else {
+						return Stream.empty();
+					}
+				})
+				.sorted()
+				.findFirst().orElse(0f);
+
+		return jumpToKeyFrameTime(nextKeyFrameTime);
+	}
+
+	//TODO: lots of duplication
+	public float previousKeyFrame() {
+		float nextKeyFrameTime = animationControllersForEntities.values()
+				.stream()
+				.flatMap(c -> {
+					if (c.current != null) {
+						return getKeyFrameTimes(c.current.animation).stream().filter(t -> t < c.current.time); //only line diff, bah
+					} else {
+						return Stream.empty();
+					}
+				})
+				.sorted()
+				.findFirst().orElse(0f);
+
+		return jumpToKeyFrameTime(nextKeyFrameTime);
+	}
+
+	public float jumpToEndForAnimations() {
+		float nextKeyFrameTime = animationControllersForEntities.values()
+				.stream()
+				.flatMap(c -> {
+					if (c.current != null) {
+						return getKeyFrameTimes(c.current.animation).stream();
+					} else {
+						return Stream.empty();
+					}
+				})
+				.max(Comparator.comparingDouble(Float::doubleValue)).orElse(0f);
+
+		return jumpToKeyFrameTime(nextKeyFrameTime);
+	}
+
+	public float jumpToKeyFrameTime(float keyFrameTime) {
 		resumeAnimations();
 		animationControllersForEntities.values().forEach(c -> {
 			if (c.current != null) {
@@ -97,39 +144,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 			}
 		});
 		pauseAnimations();
-	}
-
-	public void nextKeyFrame() {
-		resumeAnimations();
-		animationControllersForEntities.values().forEach(c -> {
-			AnimationController.AnimationDesc current = c.current;
-			if (current != null) {
-				c.current.time = getKeyFrameTimes(current.animation)
-						.stream()
-						.filter(t -> t > current.time)
-						.findFirst()
-						.orElse(0f);
-				c.update(0);
-			}
-		});
-		pauseAnimations();
-	}
-
-	//TODO: lots of duplication
-	public void previousKeyFrame() {
-		resumeAnimations();
-		animationControllersForEntities.values().forEach(c -> {
-			AnimationController.AnimationDesc current = c.current;
-			if (current != null) {
-				c.current.time = getKeyFrameTimes(current.animation)
-						.stream()
-						.filter(t -> t < current.time)
-						.findFirst()
-						.orElse(0f);
-				c.update(0);
-			}
-		});
-		pauseAnimations();
+		return keyFrameTime;
 	}
 
 	public void rebuildAnimation() {
