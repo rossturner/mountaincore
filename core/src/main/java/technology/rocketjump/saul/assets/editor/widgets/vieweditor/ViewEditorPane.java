@@ -13,6 +13,7 @@ import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBui
 import technology.rocketjump.saul.entities.components.AnimationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.entities.AnimationStudio;
 
@@ -80,7 +81,13 @@ public class ViewEditorPane extends VisTable {
         AnimationComponent animationComponent = currentEntity.getOrCreateComponent(AnimationComponent.class);
 
         table.add(WidgetBuilder.label("Animation Controls"));
-        table.add(WidgetBuilder.select(animationComponent.getCurrentAnimation(), AnimationComponent.AVAILABLE_ANIMATIONS, "-None-", animationComponent::setCurrentAnimation)).padRight(10);
+        table.add(WidgetBuilder.select(animationComponent.getCurrentAnimation(), AnimationComponent.AVAILABLE_ANIMATIONS, "-None-", a -> {
+            animationComponent.setCurrentAnimation(a);
+            EquippedItemComponent equippedItemComponent = currentEntity.getComponent(EquippedItemComponent.class);
+            if (equippedItemComponent != null && equippedItemComponent.getMainHandItem() != null) {
+                equippedItemComponent.getMainHandItem().getOrCreateComponent(AnimationComponent.class).setCurrentAnimation(a);
+            }
+        })).padRight(10);
 
         VisLabel durationLabel = new VisLabel("");
         Table playControls = new Table();

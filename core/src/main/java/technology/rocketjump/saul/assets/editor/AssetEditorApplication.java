@@ -27,6 +27,7 @@ import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
+import technology.rocketjump.saul.entities.components.AnimationComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -167,6 +168,11 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 								equippedItemComponent.setMainHandItem(currentEntity, itemHoldingDwarf, messageDispatcher);
 								renderEntityWithOrientation(itemHoldingDwarf, orientation, originalPosition, entityRenderer);
 								equippedItemComponent.clearMainHandItem();
+								if (currentEntity.getComponent(AnimationComponent.class) != null) {
+									AnimationComponent dwarfAnimationComponent = itemHoldingDwarf.getOrCreateComponent(AnimationComponent.class);
+									dwarfAnimationComponent.setCurrentAnimation(currentEntity.getComponent(AnimationComponent.class).getCurrentAnimation());
+
+								}
 							} else {
 								renderEntityWithOrientation(currentEntity, orientation, originalPosition, entityRenderer);
 							}
