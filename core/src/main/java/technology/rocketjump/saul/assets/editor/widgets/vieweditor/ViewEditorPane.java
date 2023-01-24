@@ -79,7 +79,7 @@ public class ViewEditorPane extends VisTable {
         VisTable table = new VisTable();
         AnimationComponent animationComponent = currentEntity.getOrCreateComponent(AnimationComponent.class);
 
-        table.add(WidgetBuilder.label("Animation Controls: "));
+        table.add(WidgetBuilder.label("Animation Controls"));
         table.add(WidgetBuilder.select(animationComponent.getCurrentAnimation(), AnimationComponent.AVAILABLE_ANIMATIONS, "-None-", animationComponent::setCurrentAnimation)).padRight(10);
 
         VisLabel durationLabel = new VisLabel("");
