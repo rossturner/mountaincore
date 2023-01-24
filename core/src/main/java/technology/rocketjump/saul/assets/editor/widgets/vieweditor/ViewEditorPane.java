@@ -81,7 +81,7 @@ public class ViewEditorPane extends VisTable {
         AnimationComponent animationComponent = currentEntity.getOrCreateComponent(AnimationComponent.class);
 
         table.add(WidgetBuilder.label("Animation Controls"));
-        table.add(WidgetBuilder.select(animationComponent.getCurrentAnimation(), AnimationComponent.AVAILABLE_ANIMATIONS, "-None-", a -> {
+        table.add(WidgetBuilder.select(animationComponent.getCurrentAnimation(), animationStudio.getAvailableAnimationNames(), null, a -> {
             animationComponent.setCurrentAnimation(a);
             EquippedItemComponent equippedItemComponent = currentEntity.getComponent(EquippedItemComponent.class);
             if (equippedItemComponent != null && equippedItemComponent.getMainHandItem() != null) {

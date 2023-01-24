@@ -107,10 +107,10 @@ public class WorkOnJobAction extends Action {
 			}
 
 			AnimationComponent parentAnimationComponent = parent.parentEntity.getOrCreateComponent(AnimationComponent.class);
-			parentAnimationComponent.setCurrentAnimation(AnimationComponent.WORK_ON_JOB);
+			parentAnimationComponent.setCurrentAnimation(getWorkOnJobAnimation());
 
 			if (equippedItem != null) {
-				equippedItem.getOrCreateComponent(AnimationComponent.class).setCurrentAnimation(AnimationComponent.WORK_ON_JOB);
+				equippedItem.getOrCreateComponent(AnimationComponent.class).setCurrentAnimation(getWorkOnJobAnimation());
 			}
 
 			if (assignedJob.getTotalWorkToDo(skillsComponent) <= assignedJob.getWorkDoneSoFar()) {
@@ -142,6 +142,7 @@ public class WorkOnJobAction extends Action {
 			}
 		}
 	}
+
 
 	public void updateProgressBarEffect() {
 		Job assignedJob = parent.getAssignedJob();
@@ -183,6 +184,14 @@ public class WorkOnJobAction extends Action {
 			}
 		}
 		return Optional.empty();
+	}
+
+	private String getWorkOnJobAnimation() {
+		if (parent.getAssignedJob().getCraftingRecipe() != null) {
+			return parent.getAssignedJob().getCraftingRecipe().getCraftingType().getWorkOnJobAnimation();
+		} else {
+			return parent.getAssignedJob().getType().getWorkOnJobAnimation();
+		}
 	}
 
 	private List<ParticleEffectType> getRelatedParticleEffectTypes() {

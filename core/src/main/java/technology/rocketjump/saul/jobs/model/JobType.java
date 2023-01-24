@@ -49,6 +49,7 @@ public class JobType {
 	private List<String> workOnJobParticleEffectNames;
 	@JsonIgnore
 	private List<ParticleEffectType> workOnJobParticleEffectTypes = new ArrayList<>();
+	private String workOnJobAnimation;
 
 	public String getName() {
 		return name;
@@ -219,6 +220,15 @@ public class JobType {
 		this.experienceAwardedOnCompletion = experienceAwardedOnCompletion;
 	}
 
+
+	public String getWorkOnJobAnimation() {
+		return workOnJobAnimation;
+	}
+
+	public void setWorkOnJobAnimation(String workOnJobAnimation) {
+		this.workOnJobAnimation = workOnJobAnimation;
+	}
+
 	@Override
 	public String toString() {
 		return name;
@@ -239,4 +249,5 @@ public class JobType {
 	public int hashCode() {
 		return new HashCodeBuilder(17, 37).append(name).toHashCode();
 	}
+
 }

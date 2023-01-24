@@ -9,7 +9,6 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import technology.rocketjump.saul.assets.entities.model.AnimationScript;
 import technology.rocketjump.saul.assets.entities.model.SpriteDescriptor;
 import technology.rocketjump.saul.assets.entities.model.StorableVector2;
-import technology.rocketjump.saul.entities.components.AnimationComponent;
 import technology.rocketjump.saul.rendering.entities.AnimationStudio;
 
 import java.util.ArrayList;
@@ -99,7 +98,7 @@ public class AnimationsWidget extends VisTable {
 
 		row();
 
-		HashSet<String> available = new HashSet<>(AnimationComponent.AVAILABLE_ANIMATIONS);
+		HashSet<String> available = new HashSet<>(animationStudio.getAvailableAnimationNames());
 		available.removeAll(scripts.keySet());
 
 		HorizontalGroup newAnimationGroup = new HorizontalGroup();

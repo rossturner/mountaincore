@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.entities.model.AnimationScript;
 import technology.rocketjump.saul.assets.entities.model.SpriteDescriptor;
@@ -21,15 +22,39 @@ import technology.rocketjump.saul.entities.components.AnimationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
+import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
+import technology.rocketjump.saul.jobs.JobTypeDictionary;
+import technology.rocketjump.saul.jobs.model.CraftingType;
+import technology.rocketjump.saul.jobs.model.JobType;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Singleton
 public class AnimationStudio implements Disposable, GameContextAware {
 
+	private final CraftingTypeDictionary craftingTypeDictionary;
+	private final JobTypeDictionary jobTypeDictionary;
 	private final Map<Key, AnimationController> animationControllersForEntities = new HashMap<>(); //todo: not convinced of this key type
 	private final Map<SpriteDescriptor, Model> modelCache = new HashMap<>();
+
+	@Inject
+	public AnimationStudio(CraftingTypeDictionary craftingTypeDictionary, JobTypeDictionary jobTypeDictionary) {
+		this.craftingTypeDictionary = craftingTypeDictionary;
+		this.jobTypeDictionary = jobTypeDictionary;
+	}
+
+	public Set<String> getAvailableAnimationNames() {
+		Stream<String> craftingTypeStream = craftingTypeDictionary.getAll()
+				.stream()
+				.map(CraftingType::getWorkOnJobAnimation);
+		Stream<String> jobTypeStream = jobTypeDictionary.getAll()
+				.stream()
+				.map(JobType::getWorkOnJobAnimation);
+
+		return Stream.concat(craftingTypeStream, jobTypeStream).filter(Objects::nonNull).collect(Collectors.toSet());
+	}
 
 	/**
 	 * Mutates affine transform based on available animation for given sprite descriptor

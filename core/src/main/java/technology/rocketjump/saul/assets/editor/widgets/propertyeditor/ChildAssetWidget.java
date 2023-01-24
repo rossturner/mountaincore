@@ -8,15 +8,15 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.entities.model.EntityChildAssetDescriptor;
-import technology.rocketjump.saul.entities.components.AnimationComponent;
 
 import java.util.Collection;
+import java.util.Set;
 
 import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.orderedArray;
 
 public class ChildAssetWidget extends VisTable {
 
-	public ChildAssetWidget(EntityChildAssetDescriptor childDescriptor, Collection<EntityAssetType> applicableTypes) {
+	public ChildAssetWidget(EntityChildAssetDescriptor childDescriptor, Collection<EntityAssetType> applicableTypes, Set<String> inheritableAnimationNames) {
 		VisSelectBox<EntityAssetType> assetTypeSelectBox = new VisSelectBox<>();
 		assetTypeSelectBox.setItems(orderedArray(applicableTypes));
 		if (childDescriptor.getType() == null) {
@@ -71,7 +71,7 @@ public class ChildAssetWidget extends VisTable {
 		this.add(specificNameField).left().expandX().fillX().colspan(2).row();
 
 		this.add(WidgetBuilder.label("Inherit Animations:")).left().row();
-		this.add(WidgetBuilder.checkboxes(childDescriptor.getInheritAnimations(), AnimationComponent.AVAILABLE_ANIMATIONS, childDescriptor.getInheritAnimations()::add, childDescriptor.getInheritAnimations()::remove));
+		this.add(WidgetBuilder.checkboxes(childDescriptor.getInheritAnimations(), inheritableAnimationNames, childDescriptor.getInheritAnimations()::add, childDescriptor.getInheritAnimations()::remove));
 		this.row();
 
 
