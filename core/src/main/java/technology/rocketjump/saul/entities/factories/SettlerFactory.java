@@ -24,6 +24,8 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.ItemPrimaryMaterialChangedMessage;
 
+import java.util.Random;
+
 import static technology.rocketjump.saul.entities.components.creature.HappinessComponent.HappinessModifier.NEW_SETTLEMENT_OPTIMISM;
 import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
@@ -52,6 +54,7 @@ public class SettlerFactory {
 	}
 
 	public Entity create(Vector2 worldPosition, Skill primaryProfession, Skill secondaryProfession, GameContext gameContext, boolean includeRations) {
+		Random random = gameContext.getRandom();
 		CreatureEntityAttributes attributes = settlerAttributesFactory.create(gameContext);
 
 		PhysicalEntityComponent physicalComponent = new PhysicalEntityComponent();
@@ -60,14 +63,16 @@ public class SettlerFactory {
 		CreatureBehaviour behaviourComponent = new CreatureBehaviour();
 		behaviourComponent.constructWith(goalDictionary);
 
+		Vector2 facing = new Vector2((random.nextFloat() * 2.0f) - 1.0f, (random.nextFloat() * 2.0f) - 1.0f);
 		LocationComponent locationComponent = new LocationComponent();
 		locationComponent.setWorldPosition(worldPosition, true);
+		locationComponent.setFacing(facing);
 
 		Entity entity = new Entity(EntityType.CREATURE, physicalComponent, behaviourComponent, locationComponent,
 				messageDispatcher, gameContext);
 		entity.addComponent(new HaulingComponent());
 		entity.addComponent(buildSkillsComponent(primaryProfession, secondaryProfession));
-		entity.addComponent(new NeedsComponent(attributes.getRace().getBehaviour().getNeeds(), gameContext.getRandom()));
+		entity.addComponent(new NeedsComponent(attributes.getRace().getBehaviour().getNeeds(), random));
 		entity.addComponent(new MemoryComponent());
 		entity.addComponent(new CombatStateComponent());
 		entity.addComponent(new StatusComponent());

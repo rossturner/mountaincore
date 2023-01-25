@@ -192,7 +192,6 @@ public class TiledMapFactory {
 	private Entity createSettler(int tileX, int tileY, Skill primaryprofession, Skill secondaryProfession, GameContext gameContext, MessageDispatcher messageDispatcher) {
 		Random random = new Random();
 		Vector2 worldPosition = new Vector2(tileX + 0.5f + (0.1f - (random.nextFloat() * 0.2f)), tileY + 0.5f+ (0.1f - (random.nextFloat() * 0.2f)));
-		Vector2 facing = new Vector2((random.nextFloat() * 2.0f) - 1.0f, (random.nextFloat() * 2.0f) - 1.0f);
 
 		Entity settler = setterFactory.create(worldPosition, primaryprofession, secondaryProfession, gameContext, true);
 
