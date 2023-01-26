@@ -12,10 +12,10 @@ import java.util.Random;
 
 public class ActiveSoundEffect implements Disposable {
 
+	private static final Random RANDOM = new RandomXS128();
 	private final Vector2 worldPosition;
 	private final SoundAsset asset;
 	private final OpenALSound resource; // or perhaps sounds ID
-	private final Random random;
 	private final long parentEntityId;
 	private float playedDuration;
 	private Long soundId; // LibGDX sound ID
@@ -33,8 +33,7 @@ public class ActiveSoundEffect implements Disposable {
 		this.worldPosition = worldPosition;
 		this.asset = asset;
 
-		random = new RandomXS128(parentEntityId);
-		String filename = asset.getFilenames().get(random.nextInt(asset.getFilenames().size()));
+		String filename = asset.getFilenames().get(RANDOM.nextInt(asset.getFilenames().size()));
 		this.resource = (OpenALSound) Gdx.audio.newSound(new FileHandle(filename));
 	}
 
@@ -42,7 +41,7 @@ public class ActiveSoundEffect implements Disposable {
 		if (soundId == null) {
 			soundId = resource.play();
 			currentVolume = 1f;
-			pitch = asset.getMinPitch() + (random.nextFloat() * (asset.getMaxPitch() - asset.getMinPitch()));
+			pitch = asset.getMinPitch() + (RANDOM.nextFloat() * (asset.getMaxPitch() - asset.getMinPitch()));
 			resource.setPitch(soundId, pitch);
 		} else {
 			Logger.error("Already playing sound " + asset.getName());
@@ -54,7 +53,7 @@ public class ActiveSoundEffect implements Disposable {
 			if (soundId == null) {
 				soundId = resource.loop(volume);
 				currentVolume = volume;
-				pitch = asset.getMinPitch() + (random.nextFloat() * (asset.getMaxPitch() - asset.getMinPitch()));
+				pitch = asset.getMinPitch() + (RANDOM.nextFloat() * (asset.getMaxPitch() - asset.getMinPitch()));
 				resource.setPitch(soundId, pitch);
 			}
 		} else {
