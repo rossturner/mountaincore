@@ -8,6 +8,8 @@ public class AnimationScript {
 	private float duration;
 	private List<RotationFrame> rotations;
 	private List<TranslationFrame> translations;
+	private List<SoundCueFrame> soundCues;
+	private List<ParticleEffectCueFrame> particleEffectCues;
 
 	public float getDuration() {
 		return duration;
@@ -33,7 +35,23 @@ public class AnimationScript {
 		this.translations = translations;
 	}
 
-	private static class Frame {
+	public List<SoundCueFrame> getSoundCues() {
+		return soundCues;
+	}
+
+	public void setSoundCues(List<SoundCueFrame> soundCues) {
+		this.soundCues = soundCues;
+	}
+
+	public List<ParticleEffectCueFrame> getParticleEffectCues() {
+		return particleEffectCues;
+	}
+
+	public void setParticleEffectCues(List<ParticleEffectCueFrame> particleEffectCues) {
+		this.particleEffectCues = particleEffectCues;
+	}
+
+	public abstract static class Frame {
 		private float atTime;
 
 		public float getAtTime() {
@@ -68,6 +86,31 @@ public class AnimationScript {
 
 		public void setVector2(StorableVector2 vector2) {
 			this.vector2 = vector2;
+		}
+	}
+
+	public static class SoundCueFrame extends Frame {
+		private String soundAssetName;
+
+		public String getSoundAssetName() {
+			return soundAssetName;
+		}
+
+		public void setSoundAssetName(String soundAssetName) {
+			this.soundAssetName = soundAssetName;
+		}
+	}
+
+	public static class ParticleEffectCueFrame extends Frame {
+
+		private String particleEffectName;
+
+		public String getParticleEffectName() {
+			return particleEffectName;
+		}
+
+		public void setParticleEffectName(String particleEffectName) {
+			this.particleEffectName = particleEffectName;
 		}
 	}
 }

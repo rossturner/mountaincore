@@ -26,6 +26,7 @@ import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
+import technology.rocketjump.saul.audio.AudioMessageHandler;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.components.AnimationComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
@@ -39,7 +40,9 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.guice.SaulGuiceModule;
 import technology.rocketjump.saul.logging.CrashHandler;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.CameraMovedMessage;
 import technology.rocketjump.saul.misc.VectorUtils;
+import technology.rocketjump.saul.particles.ParticleEffectUpdater;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.HexColors;
@@ -111,12 +114,18 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		ui = injector.getInstance(AssetEditorUI.class);
 		creatureUIFactory = injector.getInstance(CreatureUIFactory.class);
 		messageDispatcher = injector.getInstance(MessageDispatcher.class);
+		injector.getInstance(AudioMessageHandler.class); //This handles sound effects in animation scrips
+		injector.getInstance(ParticleEffectUpdater.class);
 		itemHoldingDwarf = creatureUIFactory.createEntityForRendering("Dwarf");
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(ui.getStage());
 		inputMultiplexer.addProcessor(injector.getInstance(ViewAreaInputHandler.class));
 		Gdx.input.setInputProcessor(inputMultiplexer);
+
+		messageDispatcher.dispatchMessage(MessageType.CAMERA_MOVED, new CameraMovedMessage(
+				camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom, camera.position, new Vector2(0,0),
+				13, 90)); //In order for sound effects to play, the audio system needs a camera placement
 
 		MessageDispatcher messageDispatcher = injector.getInstance(MessageDispatcher.class);
 		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED);

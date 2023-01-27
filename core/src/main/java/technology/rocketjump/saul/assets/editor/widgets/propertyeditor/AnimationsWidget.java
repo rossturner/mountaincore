@@ -9,10 +9,13 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import technology.rocketjump.saul.assets.entities.model.AnimationScript;
 import technology.rocketjump.saul.assets.entities.model.SpriteDescriptor;
 import technology.rocketjump.saul.assets.entities.model.StorableVector2;
+import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.rendering.entities.AnimationStudio;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 public class AnimationsWidget extends VisTable {
@@ -22,11 +25,14 @@ public class AnimationsWidget extends VisTable {
 	private static final int DURATION_WIDGET_WIDTH = 80;
 	private final AnimationStudio animationStudio;
 	private final SpriteDescriptor spriteDescriptor;
+	private final List<String> soundAssetNames;
 
 
-	public AnimationsWidget(AnimationStudio animationStudio, SpriteDescriptor spriteDescriptor) {
+	public AnimationsWidget(AnimationStudio animationStudio, SpriteDescriptor spriteDescriptor,
+	                        SoundAssetDictionary soundAssetDictionary) {
 		this.animationStudio = animationStudio;
 		this.spriteDescriptor = spriteDescriptor;
+		soundAssetNames = soundAssetDictionary.getAll().stream().map(SoundAsset::getName).sorted().toList();
 		reload();
 	}
 
@@ -71,8 +77,6 @@ public class AnimationsWidget extends VisTable {
 					}
 				}
 
-
-
 				add(new VisLabel("Translations")).padRight(10);
 				Table translationsFrameTable = new Table();
 				add(WidgetBuilder.button("Add", textButton -> {
@@ -85,12 +89,32 @@ public class AnimationsWidget extends VisTable {
 
 					this.reload();
 				})).row();
-
 				add(translationsFrameTable).colspan(2).row();
 				if (script.getTranslations() != null) {
 					translationsFrameTable.clear();
 					for (AnimationScript.TranslationFrame translation : script.getTranslations()) {
 						translationsFrameTable.add(translationWidget(translation, script, scriptName)).row();
+					}
+				}
+
+				//TODO: duplication
+				add(new VisLabel("Sound Cues")).padRight(10);
+				Table soundCueFrameTable = new Table();
+				add(WidgetBuilder.button("Add", textButton -> {
+					if (script.getSoundCues() == null) {
+						script.setSoundCues(new ArrayList<>());
+					}
+					AnimationScript.SoundCueFrame frame = new AnimationScript.SoundCueFrame();
+					frame.setSoundAssetName(soundAssetNames.get(0)); //ensure sound asset always there
+					script.getSoundCues().add(frame);
+
+					this.reload();
+				})).row();
+				add(soundCueFrameTable).colspan(2).row();
+				if (script.getSoundCues() != null) {
+					soundCueFrameTable.clear();
+					for (AnimationScript.SoundCueFrame soundCueFrame : script.getSoundCues()) {
+						soundCueFrameTable.add(soundWidget(soundCueFrame, script, scriptName)).row();
 					}
 				}
 			}
@@ -176,6 +200,32 @@ public class AnimationsWidget extends VisTable {
 			script.getRotations().remove(rotation);
 			if (script.getRotations().isEmpty()) {
 				script.setRotations(null);
+			}
+			animationStudio.rebuildAnimation(scriptName);
+			reload();
+		}));
+		return t;
+	}
+
+	private Table soundWidget(AnimationScript.SoundCueFrame soundCue, AnimationScript script, String scriptName) {
+		Table t = new Table();
+		t.add(new VisLabel("At Time")).padRight(10).padLeft(20);
+		t.add(WidgetBuilder.floatSpinner(soundCue.getAtTime(), 0, Float.MAX_VALUE, d -> {
+			soundCue.setAtTime(d);
+			animationStudio.rebuildAnimation(scriptName);
+			animationStudio.jumpToKeyFrameTime(soundCue.getAtTime());
+		}, DURATION_STEP, DURATION_SCALE)).width(DURATION_WIDGET_WIDTH).padRight(50);
+		t.add(new VisLabel("Sound Asset")).padRight(10);
+		t.add(WidgetBuilder.select(soundCue.getSoundAssetName(), soundAssetNames, null, sa -> {
+			soundCue.setSoundAssetName(sa);
+			animationStudio.rebuildAnimation(scriptName);
+			animationStudio.jumpToKeyFrameTime(soundCue.getAtTime());
+		}));
+
+		t.add(WidgetBuilder.button("X", textButton -> {
+			script.getSoundCues().remove(soundCue);
+			if (script.getSoundCues().isEmpty()) {
+				script.setSoundCues(null);
 			}
 			animationStudio.rebuildAnimation(scriptName);
 			reload();
