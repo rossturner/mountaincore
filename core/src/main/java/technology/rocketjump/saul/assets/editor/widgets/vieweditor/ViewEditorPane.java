@@ -1,5 +1,6 @@
 package technology.rocketjump.saul.assets.editor.widgets.vieweditor;
 
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
@@ -10,10 +11,12 @@ import com.kotcrab.vis.ui.widget.*;
 import technology.rocketjump.saul.assets.editor.factory.UIFactory;
 import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
+import technology.rocketjump.saul.audio.SoundEffectManager;
 import technology.rocketjump.saul.entities.components.AnimationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.entities.AnimationStudio;
 
@@ -27,14 +30,18 @@ public class ViewEditorPane extends VisTable {
     private final EditorStateProvider editorStateProvider;
     private final Map<EntityType, UIFactory> uiFactories;
     private final AnimationStudio animationStudio;
+    private final MessageDispatcher messageDispatcher;
     private boolean isCollapsed = true;
 
     @Inject
-    public ViewEditorPane(EditorStateProvider editorStateProvider, Map<EntityType, UIFactory> uiFactories, AnimationStudio animationStudio) {
+    public ViewEditorPane(EditorStateProvider editorStateProvider, Map<EntityType, UIFactory> uiFactories,
+                          AnimationStudio animationStudio, MessageDispatcher messageDispatcher) {
         super();
         this.editorStateProvider = editorStateProvider;
         this.uiFactories = uiFactories;
         this.animationStudio = animationStudio;
+        this.messageDispatcher = messageDispatcher;
+        messageDispatcher.dispatchMessage(MessageType.GUI_CHANGE_SOUND_EFFECT_VOLUME, 0.0);
     }
 
 
@@ -80,7 +87,11 @@ public class ViewEditorPane extends VisTable {
         VisTable table = new VisTable();
         AnimationComponent animationComponent = currentEntity.getOrCreateComponent(AnimationComponent.class);
 
-        table.add(WidgetBuilder.label("Animation Controls"));
+        table.add(WidgetBuilder.label("Animation Controls")).padRight(14);
+        table.add(WidgetBuilder.checkBox("Mute Sound", true,
+                checked -> messageDispatcher.dispatchMessage(MessageType.GUI_CHANGE_SOUND_EFFECT_VOLUME, 0.0f),
+                unchecked -> messageDispatcher.dispatchMessage(MessageType.GUI_CHANGE_SOUND_EFFECT_VOLUME, Float.parseFloat(SoundEffectManager.DEFAULT_SOUND_VOLUME_AS_STRING)))).padRight(12);
+
         table.add(WidgetBuilder.select(animationComponent.getCurrentAnimation(), animationStudio.getAvailableAnimationNames(), null, a -> {
             animationComponent.setCurrentAnimation(a);
             EquippedItemComponent equippedItemComponent = currentEntity.getComponent(EquippedItemComponent.class);
@@ -92,14 +103,6 @@ public class ViewEditorPane extends VisTable {
         VisLabel durationLabel = new VisLabel("");
         Table playControls = new Table();
 
-        VisTextButton jumpToStart = WidgetBuilder.button("|<", textButton -> {
-            float keyFrameTime = animationStudio.jumpToStartForAnimations();
-            durationLabel.setText("Duration " + keyFrameTime);
-        });
-        VisTextButton previousKeyFrame = WidgetBuilder.button("<", textButton -> {
-            float keyFrameTime = animationStudio.previousKeyFrame();
-            durationLabel.setText("Duration " + keyFrameTime);
-        });
         VisTextButton playPause = WidgetBuilder.button("> ||", textButton -> {
             if (textButton.isChecked()) {
                 animationStudio.resumeAnimations();
@@ -109,15 +112,30 @@ public class ViewEditorPane extends VisTable {
                 durationLabel.setText("Paused");
             }
         });
+        VisTextButton jumpToStart = WidgetBuilder.button("|<", textButton -> {
+            float keyFrameTime = animationStudio.jumpToStartForAnimations();
+            playPause.setChecked(true);
+            durationLabel.setText("Duration " + keyFrameTime);
+        });
+        VisTextButton previousKeyFrame = WidgetBuilder.button("<", textButton -> {
+            float keyFrameTime = animationStudio.previousKeyFrame();
+            playPause.setChecked(true);
+            durationLabel.setText("Duration " + keyFrameTime);
+        });
+
         VisTextButton nextKeyFrame = WidgetBuilder.button(">", textButton -> {
             float keyFrameTime = animationStudio.nextKeyFrame();
+            playPause.setChecked(true);
             durationLabel.setText("Duration " + keyFrameTime);
         });
 
         VisTextButton jumpToEnd = WidgetBuilder.button(">|", textButton -> {
             float keyFrameTime = animationStudio.jumpToEndForAnimations();
+            playPause.setChecked(true);
             durationLabel.setText("Duration " + keyFrameTime);
         });
+
+        playPause.setChecked(false);
 
         new Tooltip.Builder("Jump to start").target(jumpToStart).build();
         new Tooltip.Builder("Previous Key Frame").target(previousKeyFrame).build();

@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.rendering.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.model.Animation;
@@ -18,6 +19,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.entities.model.AnimationScript;
 import technology.rocketjump.saul.assets.entities.model.SpriteDescriptor;
+import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.components.AnimationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
@@ -26,6 +29,8 @@ import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.jobs.model.JobType;
+import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -34,15 +39,20 @@ import java.util.stream.Stream;
 @Singleton
 public class AnimationStudio implements Disposable, GameContextAware {
 
+	private final MessageDispatcher messageDispatcher;
 	private final CraftingTypeDictionary craftingTypeDictionary;
 	private final JobTypeDictionary jobTypeDictionary;
-	private final Map<Key, AnimationController> animationControllersForEntities = new HashMap<>(); //todo: not convinced of this key type
+	private final SoundAssetDictionary soundAssetDictionary;
+	private final Map<Key, NotifyingAnimationController> animationControllersForEntities = new HashMap<>(); //todo: not convinced of this key type
 	private final Map<SpriteDescriptor, Model> modelCache = new HashMap<>();
 
 	@Inject
-	public AnimationStudio(CraftingTypeDictionary craftingTypeDictionary, JobTypeDictionary jobTypeDictionary) {
+	public AnimationStudio(MessageDispatcher messageDispatcher, CraftingTypeDictionary craftingTypeDictionary,
+	                       JobTypeDictionary jobTypeDictionary, SoundAssetDictionary soundAssetDictionary) {
+		this.messageDispatcher = messageDispatcher;
 		this.craftingTypeDictionary = craftingTypeDictionary;
 		this.jobTypeDictionary = jobTypeDictionary;
+		this.soundAssetDictionary = soundAssetDictionary;
 	}
 
 	public Set<String> getAvailableAnimationNames() {
@@ -68,7 +78,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 		AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
 		if (animationComponent != null && !spriteDescriptor.getAnimationScripts().isEmpty()) {
 			String currentAnimation = animationComponent.getCurrentAnimation();
-			AnimationController controller = getAnimationController(new Key(entity.getId(), spriteDescriptor));
+			NotifyingAnimationController controller = getAnimationController(new Key(entity, spriteDescriptor));
 			ModelInstance modelInstance = controller.target;
 			if (currentAnimation == null) {
 				controller.setAnimation(null);
@@ -88,12 +98,60 @@ public class AnimationStudio implements Disposable, GameContextAware {
 		}
 	}
 
-	private AnimationController getAnimationController(Key key) {
-		AnimationController controller = animationControllersForEntities.get(key);
+	/**
+	 * Inspired by Unreal's Animation Notifications
+	 */
+	private static class NotifyingAnimationController extends AnimationController {
+
+		private final SpriteDescriptor spriteDescriptor;
+		private final MessageDispatcher messageDispatcher;
+		private final Entity entity;
+
+		/**
+		 * Construct a new AnimationController.
+		 *
+		 * @param target               The {@link ModelInstance} on which the animations will be performed.
+		 * @param messageDispatcher
+		 */
+		public NotifyingAnimationController(ModelInstance target, Key key, MessageDispatcher messageDispatcher) {
+			super(target);
+			this.entity = key.entity;
+			this.spriteDescriptor = key.spriteDescriptor;
+			this.messageDispatcher = messageDispatcher;
+		}
+
+		@Override
+		public void update(float delta) {
+			if (paused) {
+				return;
+			}
+
+			super.update(delta);
+			if (current != null) {
+				String id = current.animation.id;
+				float time = current.offset + current.time;
+				float previousTime = Math.max(time - delta, 0); //todo: is this safe? what about if animation has changed?
+				AnimationScript script = spriteDescriptor.getAnimationScripts().get(id);
+
+				if (script.getSoundCues() != null) {
+					List<AnimationScript.SoundCueFrame> toPlay = script.getSoundCues().stream()
+							.filter(cue -> cue.getAtTime() > previousTime && cue.getAtTime() < time).toList();
+
+					for (AnimationScript.SoundCueFrame soundCueFrame : toPlay) {
+						messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND,
+								new RequestSoundMessage(soundCueFrame.getSoundAsset(), entity.getId(), entity.getLocationComponent().getWorldOrParentPosition(), null));
+					}
+				}
+			}
+		}
+	}
+
+	private NotifyingAnimationController getAnimationController(Key key) {
+		NotifyingAnimationController controller = animationControllersForEntities.get(key);
 		if (controller == null) {
 			Model model = buildModel(key.spriteDescriptor);
 			ModelInstance modelInstance = new ModelInstance(model); //This is per entity sprite descriptor
-			controller = new AnimationController(modelInstance);
+			controller = new NotifyingAnimationController(modelInstance, key, messageDispatcher);
 			animationControllersForEntities.put(key, controller);
 		}
 		return controller;
@@ -260,13 +318,17 @@ public class AnimationStudio implements Disposable, GameContextAware {
 				}
 			}
 
+			if (script.getSoundCues() != null) {
+				for (AnimationScript.SoundCueFrame soundCue : script.getSoundCues()) {
+					SoundAsset soundAsset = soundAssetDictionary.getByName(soundCue.getSoundAssetName());
+					soundCue.setSoundAsset(soundAsset);
+				}
+			}
+
 			animation.nodeAnimations.add(nodeAnimation);
 
 			animations.add(animation);
 		}
-
-
-
 		return animations;
 	}
 
@@ -282,11 +344,11 @@ public class AnimationStudio implements Disposable, GameContextAware {
 
 
 	private static class Key {
-		private final long entityId;
+		private final Entity entity;
 		private final SpriteDescriptor spriteDescriptor;
 
-		private Key(long entityId, SpriteDescriptor spriteDescriptor) {
-			this.entityId = entityId;
+		private Key(Entity entity, SpriteDescriptor spriteDescriptor) {
+			this.entity = entity;
 			this.spriteDescriptor = spriteDescriptor;
 		}
 
@@ -295,12 +357,12 @@ public class AnimationStudio implements Disposable, GameContextAware {
 			if (this == o) return true;
 			if (o == null || getClass() != o.getClass()) return false;
 			Key key = (Key) o;
-			return entityId == key.entityId && Objects.equals(spriteDescriptor, key.spriteDescriptor);
+			return entity.equals(((Key) o).entity) && Objects.equals(spriteDescriptor, key.spriteDescriptor);
 		}
 
 		@Override
 		public int hashCode() {
-			return Objects.hash(entityId, spriteDescriptor);
+			return Objects.hash(entity.hashCode(), spriteDescriptor);
 		}
 	}
 

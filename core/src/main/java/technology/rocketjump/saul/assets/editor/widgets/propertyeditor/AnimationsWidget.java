@@ -97,26 +97,30 @@ public class AnimationsWidget extends VisTable {
 					}
 				}
 
-				//TODO: duplication
-				add(new VisLabel("Sound Cues")).padRight(10);
-				Table soundCueFrameTable = new Table();
-				add(WidgetBuilder.button("Add", textButton -> {
-					if (script.getSoundCues() == null) {
-						script.setSoundCues(new ArrayList<>());
-					}
-					AnimationScript.SoundCueFrame frame = new AnimationScript.SoundCueFrame();
-					frame.setSoundAssetName(soundAssetNames.get(0)); //ensure sound asset always there
-					script.getSoundCues().add(frame);
+				if (script.getRotations() != null || script.getTranslations() != null) {
+					//TODO: duplication
+					add(new VisLabel("Sound Cues")).padRight(10);
+					Table soundCueFrameTable = new Table();
+					add(WidgetBuilder.button("Add", textButton -> {
+						if (script.getSoundCues() == null) {
+							script.setSoundCues(new ArrayList<>());
+						}
+						AnimationScript.SoundCueFrame frame = new AnimationScript.SoundCueFrame();
+						frame.setSoundAssetName(soundAssetNames.get(0)); //ensure sound asset always there
+						script.getSoundCues().add(frame);
 
-					this.reload();
-				})).row();
-				add(soundCueFrameTable).colspan(2).row();
-				if (script.getSoundCues() != null) {
-					soundCueFrameTable.clear();
-					for (AnimationScript.SoundCueFrame soundCueFrame : script.getSoundCues()) {
-						soundCueFrameTable.add(soundWidget(soundCueFrame, script, scriptName)).row();
+						this.reload();
+					})).row();
+					add(soundCueFrameTable).colspan(2).row();
+					if (script.getSoundCues() != null) {
+						soundCueFrameTable.clear();
+						for (AnimationScript.SoundCueFrame soundCueFrame : script.getSoundCues()) {
+							soundCueFrameTable.add(soundWidget(soundCueFrame, script, scriptName)).row();
+						}
 					}
+
 				}
+
 			}
 		}
 

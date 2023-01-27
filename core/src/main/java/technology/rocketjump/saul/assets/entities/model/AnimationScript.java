@@ -1,6 +1,8 @@
 package technology.rocketjump.saul.assets.entities.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import technology.rocketjump.saul.audio.model.SoundAsset;
 
 import java.util.List;
 
@@ -91,6 +93,8 @@ public class AnimationScript {
 
 	public static class SoundCueFrame extends Frame {
 		private String soundAssetName;
+		@JsonIgnore
+		private SoundAsset soundAsset;
 
 		public String getSoundAssetName() {
 			return soundAssetName;
@@ -98,6 +102,14 @@ public class AnimationScript {
 
 		public void setSoundAssetName(String soundAssetName) {
 			this.soundAssetName = soundAssetName;
+		}
+
+		public SoundAsset getSoundAsset() {
+			return soundAsset;
+		}
+
+		public void setSoundAsset(SoundAsset soundAsset) {
+			this.soundAsset = soundAsset;
 		}
 	}
 
