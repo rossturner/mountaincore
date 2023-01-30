@@ -3,6 +3,7 @@ package technology.rocketjump.saul.assets.entities.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.particles.model.ParticleEffectType;
 
 import java.util.List;
 
@@ -116,6 +117,8 @@ public class AnimationScript {
 	public static class ParticleEffectCueFrame extends Frame {
 
 		private String particleEffectName;
+		@JsonIgnore
+		private ParticleEffectType particleEffectType;
 
 		public String getParticleEffectName() {
 			return particleEffectName;
@@ -123,6 +126,14 @@ public class AnimationScript {
 
 		public void setParticleEffectName(String particleEffectName) {
 			this.particleEffectName = particleEffectName;
+		}
+
+		public ParticleEffectType getParticleEffectType() {
+			return particleEffectType;
+		}
+
+		public void setParticleEffectType(ParticleEffectType particleEffectType) {
+			this.particleEffectType = particleEffectType;
 		}
 	}
 }

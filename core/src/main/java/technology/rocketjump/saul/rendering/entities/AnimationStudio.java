@@ -28,9 +28,13 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.JobTypeDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
+import technology.rocketjump.saul.jobs.model.JobTarget;
 import technology.rocketjump.saul.jobs.model.JobType;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.ParticleRequestMessage;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
+import technology.rocketjump.saul.particles.model.ParticleEffectType;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -43,16 +47,19 @@ public class AnimationStudio implements Disposable, GameContextAware {
 	private final CraftingTypeDictionary craftingTypeDictionary;
 	private final JobTypeDictionary jobTypeDictionary;
 	private final SoundAssetDictionary soundAssetDictionary;
+	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
 	private final Map<Key, NotifyingAnimationController> animationControllersForEntities = new HashMap<>(); //todo: not convinced of this key type
 	private final Map<SpriteDescriptor, Model> modelCache = new HashMap<>();
 
 	@Inject
 	public AnimationStudio(MessageDispatcher messageDispatcher, CraftingTypeDictionary craftingTypeDictionary,
-	                       JobTypeDictionary jobTypeDictionary, SoundAssetDictionary soundAssetDictionary) {
+	                       JobTypeDictionary jobTypeDictionary, SoundAssetDictionary soundAssetDictionary,
+	                       ParticleEffectTypeDictionary particleEffectTypeDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.craftingTypeDictionary = craftingTypeDictionary;
 		this.jobTypeDictionary = jobTypeDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
+		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
 	}
 
 	public Set<String> getAvailableAnimationNames() {
@@ -140,6 +147,22 @@ public class AnimationStudio implements Disposable, GameContextAware {
 					for (AnimationScript.SoundCueFrame soundCueFrame : toPlay) {
 						messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND,
 								new RequestSoundMessage(soundCueFrame.getSoundAsset(), entity.getId(), entity.getLocationComponent().getWorldOrParentPosition(), null));
+					}
+				}
+
+				if (script.getParticleEffectCues() != null) {
+					List<AnimationScript.ParticleEffectCueFrame> toPlay = script.getParticleEffectCues().stream()
+							.filter(cue -> cue.getAtTime() > previousTime && cue.getAtTime() < time).toList();
+
+					for (AnimationScript.ParticleEffectCueFrame particleEffectCueFrame : toPlay) {
+						messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST,
+								new ParticleRequestMessage(
+										particleEffectCueFrame.getParticleEffectType(),
+										Optional.of(entity),
+										Optional.of(new JobTarget.AnimationTarget(entity)),
+										instance -> {})
+						);
+
 					}
 				}
 			}
@@ -322,6 +345,13 @@ public class AnimationStudio implements Disposable, GameContextAware {
 				for (AnimationScript.SoundCueFrame soundCue : script.getSoundCues()) {
 					SoundAsset soundAsset = soundAssetDictionary.getByName(soundCue.getSoundAssetName());
 					soundCue.setSoundAsset(soundAsset);
+				}
+			}
+
+			if (script.getParticleEffectCues() != null) {
+				for (AnimationScript.ParticleEffectCueFrame particleEffectCue : script.getParticleEffectCues()) {
+					ParticleEffectType particleEffectType = particleEffectTypeDictionary.getByName(particleEffectCue.getParticleEffectName());
+					particleEffectCue.setParticleEffectType(particleEffectType);
 				}
 			}
 

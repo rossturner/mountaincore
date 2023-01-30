@@ -27,6 +27,7 @@ import technology.rocketjump.saul.assets.entities.model.*;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.persistence.FileUtils;
 import technology.rocketjump.saul.rendering.RenderMode;
 import technology.rocketjump.saul.rendering.entities.AnimationStudio;
@@ -50,13 +51,14 @@ public class SpriteDescriptorsPane extends VisTable {
     private final EditorStateProvider editorStateProvider;
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
     private final SoundAssetDictionary soundAssetDictionary;
+    private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
     private final AnimationStudio animationStudio;
 
     @Inject
     public SpriteDescriptorsPane(NativeFileChooser fileChooser, MessageDispatcher messageDispatcher,
                                  NormalMapGenerator normalMapGenerator, EditorStateProvider editorStateProvider,
                                  EntityAssetTypeDictionary entityAssetTypeDictionary, AnimationStudio animationStudio,
-                                 SoundAssetDictionary soundAssetDictionary) {
+                                 SoundAssetDictionary soundAssetDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
         this.fileChooser = fileChooser;
         this.messageDispatcher = messageDispatcher;
         this.normalMapGenerator = normalMapGenerator;
@@ -64,6 +66,7 @@ public class SpriteDescriptorsPane extends VisTable {
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
         this.animationStudio = animationStudio;
         this.soundAssetDictionary = soundAssetDictionary;
+        this.particleEffectTypeDictionary = particleEffectTypeDictionary;
     }
 
     public void showSpriteDescriptorControls(EntityAsset entityAsset, EntityType entityType, List<EntityAssetOrientation> orientations, List<ColoringLayer> coloringLayers) {
@@ -259,7 +262,7 @@ public class SpriteDescriptorsPane extends VisTable {
             addChildAssetsWidgets("Attachment points (click to show)", spriteDescriptor.getAttachmentPoints(), orientationTable, entityAssetTypeDictionary.getByEntityType(entityType));
             addChildAssetsWidgets("Parent entity assets (click to show)", spriteDescriptor.getParentEntityAssets(), orientationTable, entityAssetTypeDictionary.getAll());
 
-            orientationTable.add(new AnimationsWidget(animationStudio, spriteDescriptor, soundAssetDictionary)).left().colspan(2).row();
+            orientationTable.add(new AnimationsWidget(animationStudio, spriteDescriptor, soundAssetDictionary, particleEffectTypeDictionary)).left().colspan(2).row();
 
             this.add(collapsibleOrientation).expandX().fillX().row();
         }

@@ -260,6 +260,7 @@ public class MessageType {
 	public static final int GET_PROGRESS_BAR_EFFECT_TYPE = 1603;
 	public static final int GET_DEFENSE_POOL_EFFECT_TYPE = 1604;
 	public static final int PARTICLE_FORCE_REMOVE = 1605;
+	public static final int IDENTIFY_PARTICLE_REQUEST_TARGET = 1606;
 
 	// Weather and fire messages
 	public static final int SPREAD_FIRE_FROM_LOCATION = 1700;

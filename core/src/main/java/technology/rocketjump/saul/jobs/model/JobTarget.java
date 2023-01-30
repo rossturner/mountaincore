@@ -231,4 +231,11 @@ public class JobTarget {
 			return null;
 		}
 	}
+
+	public static class AnimationTarget extends JobTarget {
+
+		public AnimationTarget(Entity entity) {
+			super(entity);
+		}
+	}
 }

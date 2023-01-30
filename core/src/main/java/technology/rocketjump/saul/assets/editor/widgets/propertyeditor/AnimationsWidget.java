@@ -11,6 +11,8 @@ import technology.rocketjump.saul.assets.entities.model.SpriteDescriptor;
 import technology.rocketjump.saul.assets.entities.model.StorableVector2;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
+import technology.rocketjump.saul.particles.model.ParticleEffectType;
 import technology.rocketjump.saul.rendering.entities.AnimationStudio;
 
 import java.util.ArrayList;
@@ -26,13 +28,14 @@ public class AnimationsWidget extends VisTable {
 	private final AnimationStudio animationStudio;
 	private final SpriteDescriptor spriteDescriptor;
 	private final List<String> soundAssetNames;
-
+	private final List<String> particleEffectTypeNames;
 
 	public AnimationsWidget(AnimationStudio animationStudio, SpriteDescriptor spriteDescriptor,
-	                        SoundAssetDictionary soundAssetDictionary) {
+	                        SoundAssetDictionary soundAssetDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
 		this.animationStudio = animationStudio;
 		this.spriteDescriptor = spriteDescriptor;
 		soundAssetNames = soundAssetDictionary.getAll().stream().map(SoundAsset::getName).sorted().toList();
+		particleEffectTypeNames = particleEffectTypeDictionary.getAll().stream().map(ParticleEffectType::getName).sorted().toList();
 		reload();
 	}
 
@@ -119,8 +122,27 @@ public class AnimationsWidget extends VisTable {
 						}
 					}
 
-				}
 
+					add(new VisLabel("Particle Effects")).padRight(10);
+					Table particleEffectCueFrameTable = new Table();
+					add(WidgetBuilder.button("Add", textButton -> {
+						if (script.getParticleEffectCues() == null) {
+							script.setParticleEffectCues(new ArrayList<>());
+						}
+						AnimationScript.ParticleEffectCueFrame frame = new AnimationScript.ParticleEffectCueFrame();
+						frame.setParticleEffectName(particleEffectTypeNames.get(0)); //ensure particle effect is always there
+						script.getParticleEffectCues().add(frame);
+
+						this.reload();
+					})).row();
+					add(particleEffectCueFrameTable).colspan(2).row();
+					if (script.getParticleEffectCues() != null) {
+						particleEffectCueFrameTable.clear();
+						for (AnimationScript.ParticleEffectCueFrame particleEffectCueFrame : script.getParticleEffectCues()) {
+							particleEffectCueFrameTable.add(particleEffect(particleEffectCueFrame, script, scriptName)).row();
+						}
+					}
+				}
 			}
 		}
 
@@ -230,6 +252,32 @@ public class AnimationsWidget extends VisTable {
 			script.getSoundCues().remove(soundCue);
 			if (script.getSoundCues().isEmpty()) {
 				script.setSoundCues(null);
+			}
+			animationStudio.rebuildAnimation(scriptName);
+			reload();
+		}));
+		return t;
+	}
+
+	private Table particleEffect(AnimationScript.ParticleEffectCueFrame particleEffectCueFrame, AnimationScript script, String scriptName) {
+		Table t = new Table();
+		t.add(new VisLabel("At Time")).padRight(10).padLeft(20);
+		t.add(WidgetBuilder.floatSpinner(particleEffectCueFrame.getAtTime(), 0, Float.MAX_VALUE, d -> {
+			particleEffectCueFrame.setAtTime(d);
+			animationStudio.rebuildAnimation(scriptName);
+			animationStudio.jumpToKeyFrameTime(particleEffectCueFrame.getAtTime());
+		}, DURATION_STEP, DURATION_SCALE)).width(DURATION_WIDGET_WIDTH).padRight(50);
+		t.add(new VisLabel("Particle Effect")).padRight(10);
+		t.add(WidgetBuilder.select(particleEffectCueFrame.getParticleEffectName(), particleEffectTypeNames, null, pe -> {
+			particleEffectCueFrame.setParticleEffectName(pe);
+			animationStudio.rebuildAnimation(scriptName);
+			animationStudio.jumpToKeyFrameTime(particleEffectCueFrame.getAtTime());
+		}));
+
+		t.add(WidgetBuilder.button("X", textButton -> {
+			script.getParticleEffectCues().remove(particleEffectCueFrame);
+			if (script.getParticleEffectCues().isEmpty()) {
+				script.setParticleEffectCues(null);
 			}
 			animationStudio.rebuildAnimation(scriptName);
 			reload();
