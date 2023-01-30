@@ -22,7 +22,6 @@ import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
-import technology.rocketjump.saul.ui.fonts.FontRepository;
 import technology.rocketjump.saul.ui.fonts.OnDemandFontRepository;
 import technology.rocketjump.saul.ui.i18n.I18nRepo;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -39,7 +38,6 @@ public class WidgetFactory {
     private final I18nRepo i18nRepo;
     private final UserPreferences userPreferences;
     private final TextureAtlasRepository textureAtlasRepository;
-    private final FontRepository fontRepository;
     private final OnDemandFontRepository onDemandFontRepository;
     private final I18nTranslator i18nTranslator;
     private final SoundAssetDictionary soundAssetDictionary;
@@ -48,14 +46,13 @@ public class WidgetFactory {
 
     @Inject
     public WidgetFactory(MessageDispatcher messageDispatcher, I18nRepo i18nRepo, UserPreferences userPreferences,
-                         TextureAtlasRepository textureAtlasRepository, FontRepository fontRepository,
+                         TextureAtlasRepository textureAtlasRepository,
                          OnDemandFontRepository onDemandFontRepository, GuiSkinRepository guiSkinRepository,
                          I18nTranslator i18nTranslator, SoundAssetDictionary soundAssetDictionary, SquadFormationDictionary squadFormationDictionary) {
         this.messageDispatcher = messageDispatcher;
         this.i18nRepo = i18nRepo;
         this.userPreferences = userPreferences;
         this.textureAtlasRepository = textureAtlasRepository;
-        this.fontRepository = fontRepository;
         this.onDemandFontRepository = onDemandFontRepository;
         this.i18nTranslator = i18nTranslator;
         this.soundAssetDictionary = soundAssetDictionary;
@@ -64,7 +61,7 @@ public class WidgetFactory {
     }
 
     public CustomSelect<LanguageType> createLanguageSelectBox(Skin skin) {
-        BitmapFont guaranteedBoldFont = onDemandFontRepository.getGuaranteedBoldFont(18 * 2);
+        BitmapFont guaranteedBoldFont = onDemandFontRepository.getGuaranteedBoldFont(18);
         LanguageList languageList = new LanguageList(i18nRepo, userPreferences, skin, textureAtlasRepository, guaranteedBoldFont);
 
         SelectBox.SelectBoxStyle selectBoxStyle = new SelectBox.SelectBoxStyle(skin.get(SelectBox.SelectBoxStyle.class));
@@ -83,7 +80,6 @@ public class WidgetFactory {
                 LanguageType selectedLanguage = selectBox.getSelected();
                 userPreferences.setPreference(UserPreferences.PreferenceKey.LANGUAGE, selectedLanguage.getCode());
                 i18nRepo.setCurrentLanguage(selectedLanguage);
-                fontRepository.changeFonts(selectedLanguage);
                 messageDispatcher.dispatchMessage(MessageType.LANGUAGE_CHANGED);
             }
         });

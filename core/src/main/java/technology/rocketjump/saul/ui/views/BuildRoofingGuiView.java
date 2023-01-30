@@ -20,7 +20,6 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-import technology.rocketjump.saul.ui.widgets.I18nWidgetFactory;
 
 import static technology.rocketjump.saul.ui.GameInteractionMode.CANCEL;
 import static technology.rocketjump.saul.ui.GameInteractionMode.DECONSTRUCT;
@@ -42,7 +41,7 @@ public class BuildRoofingGuiView implements GuiView, DisplaysText {
 	@Inject
 	public BuildRoofingGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 							   RoomTypeDictionary roomTypeDictionary, I18nTranslator i18nTranslator,
-							   TooltipFactory tooltipFactory, I18nWidgetFactory i18NWidgetFactory) {
+							   TooltipFactory tooltipFactory) {
 
 		skin = guiSkinRepository.getMainGameSkin();
 		this.messageDispatcher = messageDispatcher;

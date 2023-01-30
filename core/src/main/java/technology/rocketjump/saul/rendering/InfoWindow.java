@@ -3,19 +3,19 @@ package technology.rocketjump.saul.rendering;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.skins.MainGameSkin;
-
-import static technology.rocketjump.saul.rendering.camera.DisplaySettings.GUI_DESIGN_SIZE;
 
 @Singleton
 public class InfoWindow implements Telegraph, DisplaysText {
@@ -28,11 +28,12 @@ public class InfoWindow implements Telegraph, DisplaysText {
 	private boolean isDisplayed = false;
 
 	@Inject
-	public InfoWindow(GuiSkinRepository guiSkinRepository,
+	public InfoWindow(GuiSkinRepository guiSkinRepository, ConstantsRepo constantsRepo,
 	                  MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator) {
 		this.i18nTranslator = i18nTranslator;
 		this.uiSkin = guiSkinRepository.getMainGameSkin();
-		ExtendViewport viewport = new ExtendViewport(GUI_DESIGN_SIZE.x, GUI_DESIGN_SIZE.y);
+		Vector2 viewportDimensions = constantsRepo.getUiConstants().calculateViewportDimensions();
+		ExtendViewport viewport = new ExtendViewport(viewportDimensions.x, viewportDimensions.y);
 		stage = new Stage(viewport);
 
 

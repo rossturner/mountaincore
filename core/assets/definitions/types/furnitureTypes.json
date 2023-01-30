@@ -1449,4 +1449,31 @@
     "INVENTORY_ITEMS_UNALLOCATED" : [ ]
   },
   "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "WAGON_PARKED",
+  "i18nKey" : "FURNITURE.WAGON_PARKED",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "wagon-left",
+  "showInGuiView" : "DEBUG",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 8,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Product-Barrel-Staves",
+      "quantity" : 4,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Product-Barrel-Hoops",
+      "quantity" : 4,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "STARTING_RESOURCES_CONTAINER" : [ "16" ],
+    "INVENTORY_ITEMS_UNALLOCATED" : [ ]
+  },
+  "hiddenFromPlacementMenu" : true
 } ]

@@ -63,18 +63,18 @@ public class OnDemandFontRepository implements Disposable {
 	}
 
 	public BitmapFont getGuaranteedBoldFont(int pointSize) {
-		return guaranteedFonts.computeIfAbsent(pointSize, a -> generateFont(UNICODE_BOLD_FONT_FILENAME, pointSize));
+		return guaranteedFonts.computeIfAbsent(pointSize, a -> generateFont(UNICODE_BOLD_FONT_FILENAME, pointSize, 2));
 	}
 
 	public BitmapFont getDefaultFont(int pointSize) {
-		return defaultFonts.computeIfAbsent(pointSize, a -> generateFont(defaultFontName, pointSize));
+		return defaultFonts.computeIfAbsent(pointSize, a -> generateFont(defaultFontName, pointSize, uiConstants.getDefaultFontScale()));
 	}
 
 	public BitmapFont getHeaderFont(int pointSize) {
-		return headerFonts.computeIfAbsent(pointSize, a -> generateFont(headerFontName, pointSize));
+		return headerFonts.computeIfAbsent(pointSize, a -> generateFont(headerFontName, pointSize, uiConstants.getHeaderFontScale()));
 	}
 
-	private BitmapFont generateFont(String fontName, int pointSize) {
+	private BitmapFont generateFont(String fontName, int pointSize, float scale) {
 		FileHandle fontFile = Gdx.files.internal("assets/ui/fonts/" + fontName);
 		if (!fontFile.exists()) {
 			Logger.error(fontFile + " does not exist");
@@ -82,7 +82,7 @@ public class OnDemandFontRepository implements Disposable {
 		}
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = pointSize;
+		parameter.size = Math.round(pointSize * scale);
 		parameter.genMipMaps = true;
 		parameter.minFilter = Texture.TextureFilter.MipMapLinearLinear;
 		parameter.magFilter = Texture.TextureFilter.MipMapLinearLinear;

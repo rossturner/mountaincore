@@ -76,6 +76,36 @@ public class FurnitureLayout {
 		this.specialTiles = specialTiles;
 	}
 
+	@JsonIgnore
+	public int getWidth() {
+		int minX = 0;
+		int maxX = 0;
+		for (GridPoint2 extraTile : extraTiles) {
+			if (extraTile.x < minX) {
+				minX = extraTile.x;
+			}
+			if (extraTile.x > maxX) {
+				maxX = extraTile.x;
+			}
+		}
+		return maxX - minX + 1;
+	}
+
+	@JsonIgnore
+	public int getHeight() {
+		int minY = 0;
+		int maxY = 0;
+		for (GridPoint2 extraTile : extraTiles) {
+			if (extraTile.y < minY) {
+				minY = extraTile.y;
+			}
+			if (extraTile.y > maxY) {
+				maxY = extraTile.y;
+			}
+		}
+		return maxY - minY + 1;
+	}
+
 	public static class Workspace {
 
 		private GridPoint2 location;

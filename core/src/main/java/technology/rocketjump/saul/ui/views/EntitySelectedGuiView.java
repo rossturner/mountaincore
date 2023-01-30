@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -24,10 +25,7 @@ import technology.rocketjump.saul.entities.behaviour.creature.CorpseBehaviour;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.furniture.*;
 import technology.rocketjump.saul.entities.components.*;
-import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
-import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
-import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
-import technology.rocketjump.saul.entities.components.creature.StatusComponent;
+import technology.rocketjump.saul.entities.components.creature.*;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
 import technology.rocketjump.saul.entities.components.furniture.FurnitureStockpileComponent;
@@ -35,6 +33,8 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
+import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.creature.status.StatusEffect;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
@@ -52,6 +52,7 @@ import technology.rocketjump.saul.jobs.model.JobType;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.production.StockpileComponentUpdater;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
@@ -199,6 +200,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				Table professionSelection = settlerManagementScreen.professions(entity, 0.8f, s -> update());
 				Updatable<Table> needs = settlerManagementScreen.needs(entity);
 				Updatable<Table> inventory = inventory(entity);
+				Table squadEmblem = squadEmblem(entity);
 				updatables.add(settlerName);
 				updatables.add(happinessIcons);
 				updatables.add(textSummary);
@@ -207,9 +209,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				updatables.add(debugTextSummary);
 
 				//Top left first row - name and toggle
-				Table topLeftFirstRow = new Table();
-				topLeftFirstRow.add(settlerName.getActor()).center();
-				topLeftFirstRow.add(militaryToggle).growX().center().spaceLeft(25f);
+//				Table topLeftFirstRow = new Table();
+//				topLeftFirstRow.add(settlerName.getActor()).left();
+//				topLeftFirstRow.add(militaryToggle).growX().center().spaceLeft(25f);
 
 				//Top left second row - Happiness and status for Civ / Squad for military
 				Table topLeftSecondRow = new Table();
@@ -219,10 +221,14 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				//Top Left Column - 2 rows
 				Table topLeftColumn = new Table();
-				topLeftColumn.add(topLeftFirstRow).left().fillX().spaceBottom(35f).row();
-				topLeftColumn.add(topLeftSecondRow).left().top().grow().row();
+				topLeftColumn.add(settlerName.getActor()).left().growX().spaceBottom(35f);
+				topLeftColumn.add(militaryToggle).center().growX().spaceBottom(35f);
+				topLeftColumn.row();
+				topLeftColumn.add(topLeftSecondRow).left().top().grow();
+				topLeftColumn.add(squadEmblem).center();
+				topLeftColumn.row();
 				if (GlobalSettings.DEV_MODE) {
-					topLeftColumn.add(debugTextSummary.getActor()).left().top().grow().row();
+					topLeftColumn.add(debugTextSummary.getActor()).left().top().grow().colspan(2).row();
 				}
 
 				//Top Row - 2 Cols
@@ -992,6 +998,28 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		return Updatable.of(headerContainer);
 	}
 
+	private Table squadEmblem(Entity entity) {
+		Table table = new Table();
+		if (SettlerManagementScreen.IS_MILITARY.test(entity)) {
+			MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
+			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
+			if (squad != null) {
+				Drawable emblem = managementSkin.getDrawable(managementSkin.getSmallEmblemName(squad));
+				ImageButton button = new ImageButton(emblem);
+				button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
+				button.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						super.clicked(event, x, y);
+						messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(squad));
+					}
+				});
+				table.add(button);
+			}
+		}
+		return table;
+	}
+
 	private Updatable<Actor> editableCreatureName(Entity entity) {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 		String headerText = attributes.getName().toString();
@@ -1052,11 +1080,26 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 		DecorationInventoryComponent decorationInventoryComponent = entity.getComponent(DecorationInventoryComponent.class);
 
-		int maxSlots = 8;
+		final int MAX_SLOTS_PER_ROW = 8;
 		updatable.regularly(() -> {
 			table.clear();
 
 			List<Entity> inventoryEntities = new ArrayList<>();
+			if (entity.getComponent(HaulingComponent.class) != null && entity.getComponent(HaulingComponent.class).getHauledEntity() != null) {
+				inventoryEntities.add(entity.getComponent(HaulingComponent.class).getHauledEntity());
+			}
+			EquippedItemComponent equippedItemComponent = entity.getComponent(EquippedItemComponent.class);
+			if (equippedItemComponent != null) {
+				if (equippedItemComponent.getMainHandItem() != null) {
+					inventoryEntities.add(equippedItemComponent.getMainHandItem());
+				}
+				if (equippedItemComponent.getOffHandItem() != null) {
+					inventoryEntities.add(equippedItemComponent.getOffHandItem());
+				}
+				if (equippedItemComponent.getEquippedClothing() != null) {
+					inventoryEntities.add(equippedItemComponent.getEquippedClothing());
+				}
+			}
 			if (inventoryComponent != null) {
 				inventoryEntities.addAll(inventoryComponent.getInventoryEntries().stream().map(entry -> entry.entity).toList());
 			}
@@ -1065,11 +1108,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 			Iterator<Entity> inventoryIterator = inventoryEntities.iterator();
 
-
-
-			for (int slotIndex = 0; slotIndex < maxSlots; slotIndex++) {
+			for (int slotIndex = 1; slotIndex <= numTotalCells(MAX_SLOTS_PER_ROW, inventoryEntities); slotIndex++) {
 				Stack entityStack = new Stack();
-
 
 				Drawable emptyBackgroundDrawable = mainGameSkin.getDrawable("asset_dwarf_select_inventory_bg");
 
@@ -1082,9 +1122,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 					ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryItem.getPhysicalEntityComponent().getAttributes();
 					int quantity = attributes.getQuantity();
-
-
-
 					EntityDrawable entityDrawable = new EntityDrawable(inventoryItem, entityRenderer, true, messageDispatcher);
 					entityDrawable.setMinSize(emptyBackgroundDrawable.getMinWidth(), emptyBackgroundDrawable.getMinHeight());
 
@@ -1113,15 +1150,22 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						amountTable.add(new Container<>()).colspan(2).height(extraHeight).expandY();
 						entityStack.add(amountTable);
 					}
-					table.add(entityStack).bottom().spaceLeft(8f);
+					table.add(entityStack).bottom().spaceLeft(22f).spaceTop(slotIndex > MAX_SLOTS_PER_ROW ? 22f : 0f);
 				} else {
-					table.add(entityStack).bottom().spaceLeft(18f);
+					table.add(entityStack).bottom().spaceLeft(22f).spaceTop(slotIndex > MAX_SLOTS_PER_ROW ? 22f : 0f);
+				}
+				if (slotIndex % MAX_SLOTS_PER_ROW == 0 && slotIndex < inventoryEntities.size()) {
+					table.row();
 				}
 			}
 		});
 
 		updatable.update();
 		return updatable;
+	}
+
+	private static int numTotalCells(int MAX_SLOTS_PER_ROW, List<Entity> inventoryEntities) {
+		return ((inventoryEntities.size() / MAX_SLOTS_PER_ROW) + (inventoryEntities.size() % MAX_SLOTS_PER_ROW == 0 ? 0 : 1)) * MAX_SLOTS_PER_ROW;
 	}
 
 	@Override

@@ -1,17 +1,20 @@
 package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 
+/**
+ * hacky dialog to allow the "X" to live outside the dialog contents
+ */
 public class BlurredBackgroundDialog extends GameDialog {
 
-	public BlurredBackgroundDialog(I18nText titleText, Skin uiSkin, MessageDispatcher messageDispatcher, Window.WindowStyle windowStyle, SoundAssetDictionary soundAssetDictionary) {
-		super(titleText, uiSkin, messageDispatcher, windowStyle, soundAssetDictionary);
+	public BlurredBackgroundDialog(I18nText titleText, Skin uiSkin, MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
+		super(titleText, uiSkin, messageDispatcher, uiSkin.get("empty_dialog", Window.WindowStyle.class), soundAssetDictionary);
+		dialog.setFillParent(true);
 	}
 
 	@Override
@@ -21,11 +24,6 @@ public class BlurredBackgroundDialog extends GameDialog {
 
 	public Dialog getDialog() {
 		return dialog;
-	}
-
-	@Override
-	public void show(Stage stage) {
-		super.show(stage);
 	}
 
 }

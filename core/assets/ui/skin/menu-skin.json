@@ -202,6 +202,13 @@ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	btn_embark_back: {
 		up: btn_embark_back
 	}
+	checkbox: {
+		up: btn_check_box_hover_state
+		checked: btn_check_box_ticked
+	}
+	btn_homepage: {
+		up: btn_homepage
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: {
@@ -315,6 +322,24 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	notification_button: {
 		font: default-font-23
 		fontColor: white
+	}
+	key_bindings_title_ribbon: {
+		font: header-font-40
+		fontColor: primary_font_colour_red
+		background: asset_key_bindings_banner_bg
+	}
+	draggable_mod: {
+		font: default-font-23
+		fontColor: white
+		background: btn_mods_draggable
+	}
+	mod_table_value_label: {
+		font: default-font-23
+		fontColor: primary_font_colour_red
+	}
+	mod_table_header_label: {
+		font: header-font-32
+		fontColor: primary_font_colour_red
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
@@ -492,6 +517,9 @@ com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	}
 	square_dialog: {
 		background: asset_square_bg
+		titleFont: default-font-16
+	}
+	empty_dialog: {
 		titleFont: default-font-16
 	}
 }

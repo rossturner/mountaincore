@@ -1182,10 +1182,11 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 		Collections.shuffle(targetPositions);
 
 		for (GridPoint2 targetPosition : targetPositions) {
-			gameContext.getAreaMap().getTile(targetPosition).setDesignation(null);
+			MapTile tile = gameContext.getAreaMap().getTile(targetPosition);
+			tile.setDesignation(null);
 
 			messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(deconstructParticleEffect,
-					Optional.empty(), Optional.of(new JobTarget(targetTile)), (p) -> {}));
+					Optional.empty(), Optional.of(new JobTarget(tile)), (p) -> {}));
 		}
 
 		messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, targetEntity);

@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.components.creature.*;
@@ -143,7 +144,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	                               WidgetFactory widgetFactory, SkillDictionary skillDictionary, SettlerTracker settlerTracker,
 	                               EntityRenderer entityRenderer, TooltipFactory tooltipFactory, SettlerProfessionFactory settlerProfessionFactory,
 	                               SettlementFurnitureTracker settlementFurnitureTracker, SettlementItemTracker settlementItemTracker,
-	                               SoundAssetDictionary soundAssetDictionary) {
+	                               SoundAssetDictionary soundAssetDictionary, ConstantsRepo constantsRepo) {
+		super(constantsRepo.getUiConstants());
 		this.menuSkin = guiSkinRepository.getMenuSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.i18nTranslator = i18nTranslator;
