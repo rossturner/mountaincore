@@ -33,6 +33,7 @@ public class ParticleEffectUpdater implements Telegraph, GameContextAware {
 
 	private final ParticleEffectStore store;
 	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
+	private final MessageDispatcher messageDispatcher;
 
 	private TileBoundingBox currentBoundingBox;
 	private GameContext gameContext;
@@ -42,6 +43,7 @@ public class ParticleEffectUpdater implements Telegraph, GameContextAware {
 	public ParticleEffectUpdater(ParticleEffectStore store, MessageDispatcher messageDispatcher, ParticleEffectTypeDictionary particleEffectTypeDictionary) {
 		this.store = store;
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
+		this.messageDispatcher = messageDispatcher;
 
 		messageDispatcher.addListener(this, MessageType.PARTICLE_REQUEST);
 		messageDispatcher.addListener(this, MessageType.PARTICLE_RELEASE);
@@ -126,6 +128,11 @@ public class ParticleEffectUpdater implements Telegraph, GameContextAware {
 				Logger.error("Could not find particle effect type with name " + particleRequestMessage.typeName);
 				return;
 			}
+		}
+
+		if (particleRequestMessage.effectTarget.isPresent() && particleRequestMessage.effectTarget.get() instanceof JobTarget.AnimationTarget) {
+			messageDispatcher.dispatchMessage(MessageType.IDENTIFY_PARTICLE_REQUEST_TARGET, particleRequestMessage); //Quit here and let another handler figure out the target
+			return;
 		}
 
 		Optional<Color> targetColor = Optional.ofNullable(particleRequestMessage.effectTarget.orElse(NULL_TARGET).getTargetColor());

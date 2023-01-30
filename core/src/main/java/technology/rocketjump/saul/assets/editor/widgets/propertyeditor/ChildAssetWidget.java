@@ -10,12 +10,13 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.entities.model.EntityChildAssetDescriptor;
 
 import java.util.Collection;
+import java.util.Set;
 
 import static technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder.orderedArray;
 
 public class ChildAssetWidget extends VisTable {
 
-	public ChildAssetWidget(EntityChildAssetDescriptor childDescriptor, Collection<EntityAssetType> applicableTypes) {
+	public ChildAssetWidget(EntityChildAssetDescriptor childDescriptor, Collection<EntityAssetType> applicableTypes, Set<String> inheritableAnimationNames) {
 		VisSelectBox<EntityAssetType> assetTypeSelectBox = new VisSelectBox<>();
 		assetTypeSelectBox.setItems(orderedArray(applicableTypes));
 		if (childDescriptor.getType() == null) {
@@ -68,6 +69,11 @@ public class ChildAssetWidget extends VisTable {
 			}
 		});
 		this.add(specificNameField).left().expandX().fillX().colspan(2).row();
+
+		this.add(WidgetBuilder.label("Inherit Animations:")).left().row();
+		this.add(WidgetBuilder.checkboxes(childDescriptor.getInheritAnimations(), inheritableAnimationNames, childDescriptor.getInheritAnimations()::add, childDescriptor.getInheritAnimations()::remove));
+		this.row();
+
 
 		this.addSeparator().colspan(2).row();
 	}

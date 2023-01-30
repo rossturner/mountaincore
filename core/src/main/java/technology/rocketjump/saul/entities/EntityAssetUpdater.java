@@ -45,6 +45,7 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.function.Function;
 
 import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
@@ -195,7 +196,7 @@ public class EntityAssetUpdater implements GameContextAware {
 			Logger.error("Base asset is null for " + attributes.toString());
 		} else {
 			entity.getPhysicalEntityComponent().getTypeMap().put(baseAsset.getType(), baseAsset);
-			addOtherCreatureAssetTypes(baseAsset.getType(), entity.getPhysicalEntityComponent(), attributes, primaryProfession);
+			addOtherCreatureAssetTypes(baseAsset.getType(), entity, attributes, primaryProfession);
 		}
 
 
@@ -214,38 +215,12 @@ public class EntityAssetUpdater implements GameContextAware {
 		}
 
 		if (entity.getLocationComponent().getContainerEntity() == null) {
-			addOtherCreatureAssetTypes(CREATURE_LEFT_HAND, entity.getPhysicalEntityComponent(), attributes, primaryProfession);
-			addOtherCreatureAssetTypes(CREATURE_RIGHT_HAND, entity.getPhysicalEntityComponent(), attributes, primaryProfession);
+			addOtherCreatureAssetTypes(CREATURE_LEFT_HAND, entity, attributes, primaryProfession);
+			addOtherCreatureAssetTypes(CREATURE_RIGHT_HAND, entity, attributes, primaryProfession);
 		}
 
 		// Tag processing
 		processTags(entity);
-	}
-
-	private void addOtherCreatureAssetTypes(EntityAssetType assetType, PhysicalEntityComponent physicalComponent, CreatureEntityAttributes attributes,
-											Skill primaryProfession) {
-		CreatureEntityAsset asset = creatureEntityAssetDictionary.getMatching(assetType, attributes, primaryProfession);
-
-		if (asset != null && asset.getType() != null) {
-			physicalComponent.getTypeMap().put(asset.getType(), asset);
-
-			Set<EntityAssetType> attachedTypes = new HashSet<>();
-			for (SpriteDescriptor spriteDescriptor : asset.getSpriteDescriptors().values()) {
-				for (EntityChildAssetDescriptor childAssetDescriptor : spriteDescriptor.getChildAssets()) {
-					if (childAssetDescriptor.getSpecificAssetName() == null) {
-						// FIXME https://github.com/RocketJumpTechnology/King-under-the-Mountain-Issue-Tracking/issues/3
-						// FIXME #110
-						// Specific assets should be found at setup time
-
-						attachedTypes.add(childAssetDescriptor.getType());
-					}
-				}
-			}
-
-			for (EntityAssetType attachedType : attachedTypes) {
-				addOtherCreatureAssetTypes(attachedType, physicalComponent, attributes, primaryProfession);
-			}
-		}
 	}
 
 	private void updatePlantAssets(Entity entity) {
@@ -305,57 +280,6 @@ public class EntityAssetUpdater implements GameContextAware {
 		tagProcessor.apply(attachedTags, entity);
 	}
 
-	private void addOtherItemAssetTypes(EntityAssetType assetType, Entity entity, ItemEntityAttributes attributes) {
-		ItemEntityAsset asset = itemEntityAssetDictionary.getItemEntityAsset(assetType, attributes);
-
-		if (asset != null) {
-			entity.getPhysicalEntityComponent().getTypeMap().put(asset.getType(), asset);
-
-			Set<EntityAssetType> attachedTypes = new HashSet<>();
-			for (SpriteDescriptor spriteDescriptor : asset.getSpriteDescriptors().values()) {
-				for (EntityChildAssetDescriptor childAssetDescriptor : spriteDescriptor.getChildAssets()) {
-					if (childAssetDescriptor.getSpecificAssetName() == null) {
-						// FIXME https://github.com/rossturner/king-under-the-mountain/issues/18
-						// Specific assets should be found at setup time
-
-						attachedTypes.add(childAssetDescriptor.getType());
-					}
-				}
-			}
-
-			for (EntityAssetType attachedType : attachedTypes) {
-				if (shouldAssetTypeApply(attachedType, entity)) {
-					addOtherItemAssetTypes(attachedType, entity, attributes);
-				}
-			}
-		}
-	}
-
-	private void addOtherMechanismAssetTypes(EntityAssetType assetType, Entity entity, MechanismEntityAttributes attributes) {
-		MechanismEntityAsset asset = mechanismEntityAssetDictionary.getMechanismEntityAsset(assetType, attributes);
-
-		if (asset != null) {
-			entity.getPhysicalEntityComponent().getTypeMap().put(asset.getType(), asset);
-
-			Set<EntityAssetType> attachedTypes = new HashSet<>();
-			for (SpriteDescriptor spriteDescriptor : asset.getSpriteDescriptors().values()) {
-				for (EntityChildAssetDescriptor childAssetDescriptor : spriteDescriptor.getChildAssets()) {
-					if (childAssetDescriptor.getSpecificAssetName() == null) {
-						// FIXME https://github.com/rossturner/king-under-the-mountain/issues/18
-						// Specific assets should be found at setup time
-
-						attachedTypes.add(childAssetDescriptor.getType());
-					}
-				}
-			}
-
-			for (EntityAssetType attachedType : attachedTypes) {
-				if (shouldAssetTypeApply(attachedType, entity)) {
-					addOtherMechanismAssetTypes(attachedType, entity, attributes);
-				}
-			}
-		}
-	}
 
 	private void updateFurnitureAssets(Entity entity) {
 		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
@@ -375,31 +299,70 @@ public class EntityAssetUpdater implements GameContextAware {
 		tagProcessor.apply(attachedTags, entity);
 	}
 
-	private void addOtherFurnitureAssetTypes(EntityAssetType assetType, Entity entity, FurnitureEntityAttributes attributes) {
-		FurnitureEntityAsset asset = furnitureEntityAssetDictionary.getFurnitureEntityAsset(assetType, attributes);
 
-		if (asset != null) {
+	private void addOtherCreatureAssetTypes(EntityAssetType assetType, Entity entity, CreatureEntityAttributes attributes, Skill primaryProfession) {
+		addOtherAssetTypes(assetType, entity, at -> creatureEntityAssetDictionary.getMatching(at, attributes, primaryProfession));
+	}
+
+	private void addOtherMechanismAssetTypes(EntityAssetType assetType, Entity entity, MechanismEntityAttributes attributes) {
+		addOtherAssetTypes(assetType, entity, at -> mechanismEntityAssetDictionary.getMechanismEntityAsset(at, attributes));
+	}
+
+	private void addOtherFurnitureAssetTypes(EntityAssetType assetType, Entity entity, FurnitureEntityAttributes attributes) {
+		addOtherAssetTypes(assetType, entity, at -> furnitureEntityAssetDictionary.getFurnitureEntityAsset(at, attributes));
+	}
+
+	private void addOtherItemAssetTypes(EntityAssetType assetType, Entity entity, ItemEntityAttributes attributes) {
+		addOtherAssetTypes(assetType, entity, at -> itemEntityAssetDictionary.getItemEntityAsset(at, attributes));
+	}
+
+	private void addOtherAssetTypes(EntityAssetType assetType, Entity entity, Function<EntityAssetType, EntityAsset> getAsset) {
+		EntityAsset asset = getAsset.apply(assetType);
+
+		if (asset != null && asset.getType() != null) {
 			entity.getPhysicalEntityComponent().getTypeMap().put(asset.getType(), asset);
 
+
 			Set<EntityAssetType> attachedTypes = new HashSet<>();
-			for (SpriteDescriptor spriteDescriptor : asset.getSpriteDescriptors().values()) {
+			for (EntityAssetOrientation orientation : asset.getSpriteDescriptors().keySet()) {
+				SpriteDescriptor spriteDescriptor = asset.getSpriteDescriptors().get(orientation);
 				for (EntityChildAssetDescriptor childAssetDescriptor : spriteDescriptor.getChildAssets()) {
+
 					if (childAssetDescriptor.getSpecificAssetName() == null) {
 						// FIXME https://github.com/rossturner/king-under-the-mountain/issues/18
 						// Specific assets should be found at setup time
 
 						attachedTypes.add(childAssetDescriptor.getType());
+
+						//bit of duplication from recursion
+						for (String animationName : childAssetDescriptor.getInheritAnimations()) {
+							if (spriteDescriptor.getAnimationScripts().containsKey(animationName)) {
+								EntityAsset childAsset = getAsset.apply(childAssetDescriptor.getType());
+								if (childAsset != null) {
+									SpriteDescriptor childSpriteDescriptor = childAsset.getSpriteDescriptors().get(orientation);
+									if (childSpriteDescriptor != null) {
+										AnimationScript parentScript = spriteDescriptor.getAnimationScripts().get(animationName);
+										AnimationScript inheritedScript = new AnimationScript();
+										inheritedScript.setDuration(parentScript.getDuration());
+										inheritedScript.setRotations(parentScript.getRotations());
+										inheritedScript.setTranslations(parentScript.getTranslations());
+										childSpriteDescriptor.getAnimationScripts().put(animationName, inheritedScript);
+									}
+								}
+							}
+						}
 					}
 				}
 			}
 
 			for (EntityAssetType attachedType : attachedTypes) {
 				if (shouldAssetTypeApply(attachedType, entity)) {
-					addOtherFurnitureAssetTypes(attachedType, entity, attributes);
+					addOtherAssetTypes(attachedType, entity, getAsset);
 				}
 			}
 		}
 	}
+
 
 	private Set<Tag> findAttachedTags(Entity entity) {
 		Set<Tag> attachedTags = new LinkedHashSet<>();
