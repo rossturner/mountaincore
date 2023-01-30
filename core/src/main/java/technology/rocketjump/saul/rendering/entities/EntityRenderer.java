@@ -177,16 +177,6 @@ public class EntityRenderer implements GameContextAware, Disposable {
 			// FIXME This is duplicated a little with the code below for parentEntityAssets
 			if (childAsset != null && !childAsset.getSpriteDescriptors().isEmpty()) {
 				Vector2 childOffset = childAssetDescriptor.getOffsetPixels().cpy().scl(spriteDescriptor.getScale() * (1f / PIXELS_PER_TILE));
-
-				SpriteDescriptor childSpriteDescriptor = childAsset.getSpriteDescriptors().get(orientation);
-				if (childSpriteDescriptor != null) {
-					for (String animationName : childAssetDescriptor.getInheritAnimations()) {
-						if (spriteDescriptor.getAnimationScripts().containsKey(animationName)) {
-							childSpriteDescriptor.getAnimationScripts().put(animationName, spriteDescriptor.getAnimationScripts().get(animationName));
-						}
-					}
-				}
-
 				addToRenderParts(childAsset, entity, parentPosition.cpy().add(childOffset), assetDictionary, parentEntity);
 			}
 		}
