@@ -9,8 +9,7 @@
   "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "MINER",
   "requiredItemTypeName" : "Tool-Pickaxe",
-  "activeSoundAssetName" : "Mining",
-  "workOnJobParticleEffectNames" : [ "Chipping rock" ],
+  "workOnJobAnimation" : "work_on_job_mining",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "DIGGING",
