@@ -1,0 +1,408 @@
+[ {
+  "uniqueName" : "Wagon-Vehicle_Above_Layer_1",
+  "vehicleTypeName" : "Wagon",
+  "type" : "VEHICLE_ABOVE_LAYER_1",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "LEFT" : {
+      "filename" : "Left_Wagon_Horse_Strap.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "RIGHT" : {
+      "filename" : "Left_Wagon_Horse_Strap.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Wagon-Vehicle_Above_Layer_6",
+  "vehicleTypeName" : "Wagon",
+  "type" : "VEHICLE_ABOVE_LAYER_6",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Wagon_Rope.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Wagon_Rope.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "LEFT" : {
+      "filename" : "Left_Wagon_Rope.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "RIGHT" : {
+      "filename" : "Left_Wagon_Rope.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  },
+  "overrideRenderLayer" : 150
+}, {
+  "uniqueName" : "Wagon-Vehicle_Base_Layer",
+  "vehicleTypeName" : "Wagon",
+  "type" : "VEHICLE_BASE_LAYER",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Wagon_Body_Down",
+      "isAnimated" : true,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "VEHICLE_ABOVE_LAYER_6",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "VEHICLE_ATTACHMENT_INVENTORY_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 12.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_INVENTORY_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 42.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_INVENTORY_3",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 82.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_DRIVER",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -30.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 150
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_DRAUGHT_ANIMAL",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -78.0,
+          "unit" : false
+        },
+        "overrideRenderLayer" : 200
+      } ],
+      "parentEntityAssets" : [ ]
+    },
+    "LEFT" : {
+      "filename" : "Left_Wagon_Body",
+      "isAnimated" : true,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -32.0,
+        "y" : 32.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "VEHICLE_ABOVE_LAYER_6",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "VEHICLE_ATTACHMENT_INVENTORY_1",
+        "offsetPixels" : {
+          "x" : 40.0,
+          "y" : 50.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_INVENTORY_2",
+        "offsetPixels" : {
+          "x" : 83.0,
+          "y" : 50.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_INVENTORY_3",
+        "offsetPixels" : {
+          "x" : 126.0,
+          "y" : 50.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_DRIVER",
+        "offsetPixels" : {
+          "x" : -8.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_DRAUGHT_ANIMAL",
+        "offsetPixels" : {
+          "x" : -100.0,
+          "y" : -18.0,
+          "unit" : false
+        }
+      } ],
+      "parentEntityAssets" : [ ]
+    },
+    "RIGHT" : {
+      "filename" : "Left_Wagon_Body",
+      "isAnimated" : true,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 32.0,
+        "y" : 32.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "VEHICLE_ABOVE_LAYER_6",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "VEHICLE_ATTACHMENT_INVENTORY_1",
+        "offsetPixels" : {
+          "x" : -40.0,
+          "y" : 50.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_INVENTORY_2",
+        "offsetPixels" : {
+          "x" : -83.0,
+          "y" : 50.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_INVENTORY_3",
+        "offsetPixels" : {
+          "x" : -126.0,
+          "y" : 50.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_DRIVER",
+        "offsetPixels" : {
+          "x" : 8.0,
+          "y" : 4.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_DRAUGHT_ANIMAL",
+        "offsetPixels" : {
+          "x" : 100.0,
+          "y" : -18.0,
+          "unit" : false
+        }
+      } ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Up_Wagon_Body",
+      "isAnimated" : true,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "VEHICLE_ABOVE_LAYER_6",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -48.0,
+          "unit" : false
+        }
+      } ],
+      "attachmentPoints" : [ {
+        "type" : "VEHICLE_ATTACHMENT_INVENTORY_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 32.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_INVENTORY_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 5.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_INVENTORY_3",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -22.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_DRIVER",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 39.0,
+          "unit" : false
+        }
+      }, {
+        "type" : "VEHICLE_ATTACHMENT_DRAUGHT_ANIMAL",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 70.0,
+          "unit" : false
+        }
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Wagon-Vehicle_Below_Layer_1",
+  "vehicleTypeName" : "Wagon",
+  "type" : "VEHICLE_BELOW_LAYER_1",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "LEFT" : {
+      "filename" : "Left_Wagon_Back_Plank.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "RIGHT" : {
+      "filename" : "Left_Wagon_Back_Plank.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+} ]

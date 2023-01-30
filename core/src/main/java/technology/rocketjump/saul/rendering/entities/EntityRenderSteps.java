@@ -5,6 +5,7 @@ import technology.rocketjump.saul.assets.entities.model.AttachmentDescriptor;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.entities.model.EntityChildAssetDescriptor;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
 
 import java.util.*;
@@ -58,8 +59,12 @@ public class EntityRenderSteps {
 		}
 	}
 
-	public void addAttachedEntity(AttachedEntity attachedEntity) {
-		attachedEntities.put(attachedEntity.holdPosition.getAttachmentType(), attachedEntity.entity);
+	public void addAttachedEntity(AttachedEntity attachedEntity, Entity parentEntity) {
+		if (parentEntity.getType().equals(EntityType.VEHICLE)) {
+			attachedEntities.put(attachedEntity.holdPosition.getVehicleAttachmentType(), attachedEntity.entity);
+		} else {
+			attachedEntities.put(attachedEntity.holdPosition.getAttachmentType(), attachedEntity.entity);
+		}
 	}
 
 	public Set<Map.Entry<EntityAssetType, Entity>> getAttachedEntities() {

@@ -3,7 +3,6 @@ package technology.rocketjump.saul.entities.components;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
-import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemHoldPosition;
@@ -37,14 +36,14 @@ public class AttachedEntitiesComponent implements ParentDependentEntityComponent
 		attachedEntities.add(new AttachedEntity(other, ItemHoldPosition.UNSPECIFIED));
 		other.getLocationComponent().setContainerEntity(parentEntity);
 		other.getLocationComponent().setWorldPosition(null, false);
-		other.getLocationComponent().setOrientation(EntityAssetOrientation.DOWN);
+		other.getLocationComponent().setOrientation(parentEntity.getLocationComponent().getOrientation());
 	}
 
 	public void addAttachedEntity(Entity other, ItemHoldPosition position) {
 		attachedEntities.add(new AttachedEntity(other, position));
 		other.getLocationComponent().setContainerEntity(parentEntity);
 		other.getLocationComponent().setWorldPosition(null, false);
-		other.getLocationComponent().setOrientation(EntityAssetOrientation.DOWN);
+		other.getLocationComponent().setOrientation(parentEntity.getLocationComponent().getOrientation());
 	}
 
 	public List<AttachedEntity> getAttachedEntities() {

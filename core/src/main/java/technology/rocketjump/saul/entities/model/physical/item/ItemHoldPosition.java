@@ -15,9 +15,9 @@ public enum ItemHoldPosition {
 	IN_FRONT("ATTACHMENT_FRONT_OF_BODY"),
 	ON_SHOULDER("ATTACHMENT_ON_RIGHT_SHOULDER"),
 
-	WORKSPACE_1("ATTACHMENT_WORKSPACE_1"),
-	WORKSPACE_2("ATTACHMENT_WORKSPACE_2"),
-	WORKSPACE_3("ATTACHMENT_WORKSPACE_3"),
+	WORKSPACE_1("ATTACHMENT_WORKSPACE_1", "VEHICLE_ATTACHMENT_INVENTORY_1"),
+	WORKSPACE_2("ATTACHMENT_WORKSPACE_2", "VEHICLE_ATTACHMENT_INVENTORY_2"),
+	WORKSPACE_3("ATTACHMENT_WORKSPACE_3", "VEHICLE_ATTACHMENT_INVENTORY_3"),
 	WORKSPACE_4("ATTACHMENT_WORKSPACE_4"),
 	WORKSPACE_5("ATTACHMENT_WORKSPACE_5"),
 	WORKSPACE_6("ATTACHMENT_WORKSPACE_6"),
@@ -26,20 +26,35 @@ public enum ItemHoldPosition {
 
 	DECORATION_1("ATTACHMENT_DECO_1"),
 	DECORATION_2("ATTACHMENT_DECO_2"),
-	DECORATION_3("ATTACHMENT_DECO_3");
+	DECORATION_3("ATTACHMENT_DECO_3"),
 
-	public static final List<ItemHoldPosition> WORKSPACES = Arrays.asList(
+	VEHICLE_DRIVER(null, "VEHICLE_ATTACHMENT_DRIVER"),
+	VEHICLE_DRAUGHT_ANIMAL(null, "VEHICLE_ATTACHMENT_DRAUGHT_ANIMAL");
+
+	public static final List<ItemHoldPosition> FURNITURE_WORKSPACES = Arrays.asList(
 			WORKSPACE_1, WORKSPACE_2, WORKSPACE_3, WORKSPACE_4,
 			WORKSPACE_5, WORKSPACE_6, WORKSPACE_7, WORKSPACE_8
 	);
 
 	private final EntityAssetType attachmentType;
+	private final EntityAssetType vehicleAttachmentType;
 
 	ItemHoldPosition(String attachmentTypeName) {
 		this.attachmentType = new EntityAssetType(attachmentTypeName);
+		this.vehicleAttachmentType = null;
+	}
+
+	ItemHoldPosition(String attachmentTypeName, String alternateName) {
+		this.attachmentType = new EntityAssetType(attachmentTypeName);
+		this.vehicleAttachmentType = new EntityAssetType(alternateName);
 	}
 
 	public EntityAssetType getAttachmentType() {
 		return attachmentType;
 	}
+
+	public EntityAssetType getVehicleAttachmentType() {
+		return vehicleAttachmentType;
+	}
+
 }

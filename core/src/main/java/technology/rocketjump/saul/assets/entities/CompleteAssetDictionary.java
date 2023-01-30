@@ -12,6 +12,8 @@ import technology.rocketjump.saul.assets.entities.mechanism.MechanismEntityAsset
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.plant.PlantEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
+import technology.rocketjump.saul.assets.entities.vehicle.VehicleEntityAssetDictionary;
+import technology.rocketjump.saul.assets.entities.vehicle.model.VehicleEntityAsset;
 import technology.rocketjump.saul.assets.entities.wallcap.WallCapAssetDictionary;
 
 import java.util.HashMap;
@@ -25,6 +27,7 @@ public class CompleteAssetDictionary {
 	private final Map<String, EntityAsset> allAssetsByName = new HashMap<>();
 	private final CreatureEntityAssetDictionary creatureEntityAssetDictionary;
 	private final FurnitureEntityAssetDictionary furnitureEntityAssetDictionary;
+	private final VehicleEntityAssetDictionary vehicleEntityAssetDictionary;
 	private final PlantEntityAssetDictionary plantEntityAssetDictionary;
 	private final ItemEntityAssetDictionary itemEntityAssetDictionary;
 	private final WallCapAssetDictionary wallCapAssetDictionary;
@@ -32,10 +35,11 @@ public class CompleteAssetDictionary {
 
 	@Inject
 	public CompleteAssetDictionary(CreatureEntityAssetDictionary creatureEntityAssetDictionary, FurnitureEntityAssetDictionary furnitureEntityAssetDictionary,
-								   PlantEntityAssetDictionary plantEntityAssetDictionary, ItemEntityAssetDictionary itemEntityAssetDictionary,
+								   VehicleEntityAssetDictionary vehicleEntityAssetDictionary, PlantEntityAssetDictionary plantEntityAssetDictionary, ItemEntityAssetDictionary itemEntityAssetDictionary,
 								   WallCapAssetDictionary wallCapAssetDictionary, MechanismEntityAssetDictionary mechanismEntityAssetDictionary) {
 		this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
 		this.furnitureEntityAssetDictionary = furnitureEntityAssetDictionary;
+		this.vehicleEntityAssetDictionary = vehicleEntityAssetDictionary;
 		this.plantEntityAssetDictionary = plantEntityAssetDictionary;
 		this.itemEntityAssetDictionary = itemEntityAssetDictionary;
 		this.wallCapAssetDictionary = wallCapAssetDictionary;
@@ -50,6 +54,7 @@ public class CompleteAssetDictionary {
 		allAssetsByName.putAll(plantEntityAssetDictionary.getAll());
 		allAssetsByName.putAll(itemEntityAssetDictionary.getAll());
 		allAssetsByName.putAll(furnitureEntityAssetDictionary.getAll());
+		allAssetsByName.putAll(vehicleEntityAssetDictionary.getAll());
 		allAssetsByName.putAll(wallCapAssetDictionary.getAll());
 		allAssetsByName.putAll(mechanismEntityAssetDictionary.getAll());
 		allAssetsByName.put(NULL_ASSET.getUniqueName(), NULL_ASSET);
@@ -71,6 +76,11 @@ public class CompleteAssetDictionary {
 
 	public void add(FurnitureEntityAsset furnitureEntityAsset) {
 		furnitureEntityAssetDictionary.add(furnitureEntityAsset);
+		rebuild();
+	}
+
+	public void add(VehicleEntityAsset vehicleEntityAsset) {
+		vehicleEntityAssetDictionary.add(vehicleEntityAsset);
 		rebuild();
 	}
 

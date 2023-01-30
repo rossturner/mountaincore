@@ -110,9 +110,9 @@ public class EntityRenderer implements GameContextAware, Disposable {
 			if (inventoryComponent != null && inventoryComponent.isEmpty() && itemDisplayBehaviour.getSelectedItemType() != null) {
 				Entity itemEntity = roomEditorItemMap.getByItemType(itemDisplayBehaviour.getSelectedItemType());
 				((ItemEntityAttributes)itemEntity.getPhysicalEntityComponent().getAttributes()).setQuantity(itemDisplayBehaviour.getSelectedItemType().getMaxStackSize());
-				AttachmentDescriptor attachmentPoint = entityRenderSteps.getAttachmentPoint(ItemHoldPosition.WORKSPACES.get(0).getAttachmentType());
+				AttachmentDescriptor attachmentPoint = entityRenderSteps.getAttachmentPoint(ItemHoldPosition.FURNITURE_WORKSPACES.get(0).getAttachmentType());
 				if (attachmentPoint == null) {
-					Logger.error("No attachment point for {} as expected on {} for {}", ItemHoldPosition.WORKSPACES.get(0).getAttachmentType(), entity, itemDisplayBehaviour.getClass().getSimpleName());
+					Logger.error("No attachment point for {} as expected on {} for {}", ItemHoldPosition.FURNITURE_WORKSPACES.get(0).getAttachmentType(), entity, itemDisplayBehaviour.getClass().getSimpleName());
 				} else {
 					Vector2 position = entity.getLocationComponent().getWorldOrParentPosition().cpy().add(attachmentPoint.getOffsetPosition());
 					itemEntity.getLocationComponent().setWorldPosition(position, false, false);
@@ -129,7 +129,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 
 	private void addAttachedEntitiesAsRenderSteps(Entity entity) {
 		for (AttachedEntity attachedEntity : entity.getAttachedEntities()) {
-			entityRenderSteps.addAttachedEntity(attachedEntity);
+			entityRenderSteps.addAttachedEntity(attachedEntity, entity);
 		}
 
 		for (Map.Entry<EntityAssetType, Entity> attached : entityRenderSteps.getAttachedEntities()) {

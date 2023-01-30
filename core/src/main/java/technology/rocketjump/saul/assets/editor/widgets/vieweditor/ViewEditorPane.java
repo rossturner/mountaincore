@@ -96,6 +96,6 @@ public class ViewEditorPane extends VisTable {
     }
 
     private VisTable buildSpritePaddingWidget() {
-        return WidgetBuilder.slider("Sprite padding", editorStateProvider.getState().getSpritePadding(), 1, 3, 1, value -> editorStateProvider.getState().setSpritePadding(value));
+        return WidgetBuilder.slider("Sprite padding", editorStateProvider.getState().getSpritePadding(), 1, 4, 1, value -> editorStateProvider.getState().setSpritePadding(value));
     }
 }

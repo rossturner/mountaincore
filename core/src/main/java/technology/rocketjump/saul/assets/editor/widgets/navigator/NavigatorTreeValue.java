@@ -38,7 +38,7 @@ public class NavigatorTreeValue {
 		try {
 			JSONObject descriptorJson = JSON.parseObject(fileText);
 
-			Field nameField = Arrays.stream(entityType.descriptorClass.getDeclaredFields())
+			Field nameField = Arrays.stream(entityType.typeDescriptorClass.getDeclaredFields())
 					.filter(field -> field.isAnnotationPresent(Name.class))
 					.findFirst()
 					.orElseThrow();

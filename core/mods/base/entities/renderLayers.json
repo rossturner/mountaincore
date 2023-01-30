@@ -341,6 +341,92 @@
       "sameAs": "DOWN"
     }
   },
+  "VEHICLE": {
+    "DOWN": {
+      "ordering": [
+        "VEHICLE_BELOW_LAYER_6",
+        "VEHICLE_BELOW_LAYER_5",
+        "VEHICLE_BELOW_LAYER_4",
+        "VEHICLE_BELOW_LAYER_3",
+        "VEHICLE_BELOW_LAYER_2",
+        "VEHICLE_BELOW_LAYER_1",
+        "VEHICLE_BASE_LAYER",
+        "VEHICLE_ABOVE_LAYER_1",
+        "VEHICLE_ABOVE_LAYER_2",
+        "VEHICLE_ABOVE_LAYER_3",
+        "VEHICLE_ABOVE_LAYER_4",
+        "VEHICLE_ABOVE_LAYER_5",
+        "VEHICLE_ATTACHMENT_INVENTORY_3",
+        "VEHICLE_ATTACHMENT_INVENTORY_2",
+        "VEHICLE_ATTACHMENT_INVENTORY_1",
+        "VEHICLE_ABOVE_LAYER_6",
+        "VEHICLE_ABOVE_LAYER_7",
+        "VEHICLE_ATTACHMENT_DRIVER",
+        "VEHICLE_ATTACHMENT_DRAUGHT_ANIMAL"
+      ]
+    },
+    "UP": {
+      "ordering": [
+        "VEHICLE_ATTACHMENT_DRAUGHT_ANIMAL",
+        "VEHICLE_ATTACHMENT_DRIVER",
+        "VEHICLE_BELOW_LAYER_6",
+        "VEHICLE_BELOW_LAYER_5",
+        "VEHICLE_BELOW_LAYER_4",
+        "VEHICLE_BELOW_LAYER_3",
+        "VEHICLE_BELOW_LAYER_2",
+        "VEHICLE_BELOW_LAYER_1",
+        "VEHICLE_BASE_LAYER",
+        "VEHICLE_ABOVE_LAYER_1",
+        "VEHICLE_ABOVE_LAYER_2",
+        "VEHICLE_ABOVE_LAYER_3",
+        "VEHICLE_ABOVE_LAYER_4",
+        "VEHICLE_ABOVE_LAYER_5",
+        "VEHICLE_ATTACHMENT_INVENTORY_1",
+        "VEHICLE_ATTACHMENT_INVENTORY_2",
+        "VEHICLE_ATTACHMENT_INVENTORY_3",
+        "VEHICLE_ABOVE_LAYER_6",
+        "VEHICLE_ABOVE_LAYER_7"
+      ]
+    },
+    "DOWN_LEFT": {
+      "sameAs": "LEFT"
+    },
+    "DOWN_RIGHT": {
+      "sameAs": "LEFT"
+    },
+    "UP_LEFT": {
+      "sameAs": "LEFT"
+    },
+    "UP_RIGHT": {
+      "sameAs": "LEFT"
+    },
+    "LEFT": {
+      "ordering": [
+        "VEHICLE_BELOW_LAYER_6",
+        "VEHICLE_BELOW_LAYER_5",
+        "VEHICLE_BELOW_LAYER_4",
+        "VEHICLE_BELOW_LAYER_3",
+        "VEHICLE_BELOW_LAYER_2",
+        "VEHICLE_BELOW_LAYER_1",
+        "VEHICLE_ATTACHMENT_DRAUGHT_ANIMAL",
+        "VEHICLE_BASE_LAYER",
+        "VEHICLE_ABOVE_LAYER_1",
+        "VEHICLE_ABOVE_LAYER_2",
+        "VEHICLE_ABOVE_LAYER_3",
+        "VEHICLE_ABOVE_LAYER_4",
+        "VEHICLE_ABOVE_LAYER_5",
+        "VEHICLE_ATTACHMENT_INVENTORY_2",
+        "VEHICLE_ATTACHMENT_INVENTORY_3",
+        "VEHICLE_ATTACHMENT_INVENTORY_1",
+        "VEHICLE_ABOVE_LAYER_6",
+        "VEHICLE_ABOVE_LAYER_7",
+        "VEHICLE_ATTACHMENT_DRIVER",
+      ]
+    },
+    "RIGHT": {
+      "sameAs": "LEFT"
+    }
+  },
   "MECHANISM": {
     "DOWN": {
       "ordering": [

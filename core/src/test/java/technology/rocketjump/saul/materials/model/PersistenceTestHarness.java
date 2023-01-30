@@ -17,6 +17,7 @@ import technology.rocketjump.saul.entities.components.ComponentDictionary;
 import technology.rocketjump.saul.entities.components.StatusEffectDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureLayoutDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
+import technology.rocketjump.saul.entities.dictionaries.vehicle.VehicleTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructureDictionary;
 import technology.rocketjump.saul.entities.model.physical.creature.body.organs.OrganDefinitionDictionary;
@@ -130,6 +131,8 @@ public class PersistenceTestHarness {
 	private SquadFormationDictionary mockSquadFormationDictionary;
 	@Mock
 	private InvasionDefinitionDictionary mockInvasionDefinitionDictionary;
+	@Mock
+	private VehicleTypeDictionary mockVehicleTypeDictionary;
 
 	@Before
 	public void setup() {
@@ -156,6 +159,7 @@ public class PersistenceTestHarness {
 				mockActionDictionary,
 				mockFurnitureTypeDictionary,
 				mockFurnitureLayoutDictionary,
+				mockVehicleTypeDictionary,
 				mockPlantSpeciesDictionary,
 				mockWallTypeDictionary,
 				mockRoomTypeDictionary,

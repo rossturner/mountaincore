@@ -16,6 +16,8 @@ import technology.rocketjump.saul.assets.entities.mechanism.model.MechanismEntit
 import technology.rocketjump.saul.assets.entities.model.*;
 import technology.rocketjump.saul.assets.entities.plant.PlantEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
+import technology.rocketjump.saul.assets.entities.vehicle.VehicleEntityAssetDictionary;
+import technology.rocketjump.saul.assets.entities.vehicle.model.VehicleEntityAsset;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.LiquidContainerComponent;
 import technology.rocketjump.saul.entities.components.creature.MilitaryComponent;
@@ -33,6 +35,7 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttribu
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesGrowthStage;
+import technology.rocketjump.saul.entities.model.physical.vehicle.VehicleEntityAttributes;
 import technology.rocketjump.saul.entities.tags.AssetOverrideBySkillTag;
 import technology.rocketjump.saul.entities.tags.Tag;
 import technology.rocketjump.saul.entities.tags.TagProcessor;
@@ -51,9 +54,11 @@ import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 @Singleton
 public class EntityAssetUpdater implements GameContextAware {
 
+
 	private final CreatureEntityAssetDictionary creatureEntityAssetDictionary;
 	private final ItemEntityAssetDictionary itemEntityAssetDictionary;
 	private final FurnitureEntityAssetDictionary furnitureEntityAssetDictionary;
+	private final VehicleEntityAssetDictionary vehicleEntityAssetDictionary;
 	private final PlantEntityAssetDictionary plantEntityAssetDictionary;
 	private final MechanismEntityAssetDictionary mechanismEntityAssetDictionary;
 	private final TagProcessor tagProcessor;
@@ -81,17 +86,19 @@ public class EntityAssetUpdater implements GameContextAware {
 	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT;
 	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT_2;
 	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT_3;
+	public final EntityAssetType VEHICLE_BASE_LAYER;
 	private final SkillDictionary skillDictionary;
 	private GameContext gameContext;
 	private Skill UNARMORED_MILITARY_OVERRIDE;
 
 	@Inject
 	public EntityAssetUpdater(ItemEntityAssetDictionary itemEntityAssetDictionary, FurnitureEntityAssetDictionary furnitureEntityAssetDictionary,
-							  PlantEntityAssetDictionary plantEntityAssetDictionary, MechanismEntityAssetDictionary mechanismEntityAssetDictionary,
+							  VehicleEntityAssetDictionary vehicleEntityAssetDictionary, PlantEntityAssetDictionary plantEntityAssetDictionary, MechanismEntityAssetDictionary mechanismEntityAssetDictionary,
 							  EntityAssetTypeDictionary entityAssetTypeDictionary,
 							  SkillDictionary skillDictionary, CreatureEntityAssetDictionary creatureEntityAssetDictionary,
 							  TagProcessor tagProcessor, SkillDictionary skillDictionary1) {
 		this.itemEntityAssetDictionary = itemEntityAssetDictionary;
+		this.vehicleEntityAssetDictionary = vehicleEntityAssetDictionary;
 		this.plantEntityAssetDictionary = plantEntityAssetDictionary;
 		this.furnitureEntityAssetDictionary = furnitureEntityAssetDictionary;
 		this.mechanismEntityAssetDictionary = mechanismEntityAssetDictionary;
@@ -126,6 +133,8 @@ public class EntityAssetUpdater implements GameContextAware {
 		SHOW_WHEN_INVENTORY_PRESENT_2 = entityAssetTypeDictionary.getByName("SHOW_WHEN_INVENTORY_PRESENT_2");
 		SHOW_WHEN_INVENTORY_PRESENT_3 = entityAssetTypeDictionary.getByName("SHOW_WHEN_INVENTORY_PRESENT_3");
 
+		VEHICLE_BASE_LAYER = entityAssetTypeDictionary.getByName("VEHICLE_BASE_LAYER");
+
 		UNARMORED_MILITARY_OVERRIDE = skillDictionary.getByName("UNARMORED_MILITARY");
 
 		this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
@@ -143,6 +152,9 @@ public class EntityAssetUpdater implements GameContextAware {
 				break;
 			case FURNITURE:
 				updateFurnitureAssets(entity);
+				break;
+			case VEHICLE:
+				updateVehicleAssets(entity);
 				break;
 			case PLANT:
 				updatePlantAssets(entity);
@@ -357,6 +369,46 @@ public class EntityAssetUpdater implements GameContextAware {
 		}
 	}
 
+	private void updateVehicleAssets(Entity entity) {
+		VehicleEntityAttributes attributes = (VehicleEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
+
+		VehicleEntityAsset baseAsset = vehicleEntityAssetDictionary.getVehicleEntityAsset(VEHICLE_BASE_LAYER, attributes);
+		entity.getPhysicalEntityComponent().setBaseAsset(baseAsset);
+		if (baseAsset != null) {
+			addOtherVehicleAssetTypes(baseAsset.getType(), entity, attributes);
+		}
+
+		Set<Tag> attachedTags = findAttachedTags(entity);
+		attachedTags.addAll(attributes.getVehicleType().getProcessedTags());
+		entity.setTags(attachedTags);
+		tagProcessor.apply(attachedTags, entity);
+	}
+
+	private void addOtherVehicleAssetTypes(EntityAssetType assetType, Entity entity, VehicleEntityAttributes attributes) {
+		VehicleEntityAsset asset = vehicleEntityAssetDictionary.getVehicleEntityAsset(assetType, attributes);
+
+		if (asset != null) {
+			entity.getPhysicalEntityComponent().getTypeMap().put(asset.getType(), asset);
+
+			Set<EntityAssetType> attachedTypes = new HashSet<>();
+			for (SpriteDescriptor spriteDescriptor : asset.getSpriteDescriptors().values()) {
+				for (EntityChildAssetDescriptor childAssetDescriptor : spriteDescriptor.getChildAssets()) {
+					if (childAssetDescriptor.getSpecificAssetName() == null) {
+						// FIXME Specific assets should be found at setup time
+
+						attachedTypes.add(childAssetDescriptor.getType());
+					}
+				}
+			}
+
+			for (EntityAssetType attachedType : attachedTypes) {
+				if (shouldAssetTypeApply(attachedType, entity)) {
+					addOtherVehicleAssetTypes(attachedType, entity, attributes);
+				}
+			}
+		}
+	}
+
 	private void updateFurnitureAssets(Entity entity) {
 		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 
@@ -385,8 +437,7 @@ public class EntityAssetUpdater implements GameContextAware {
 			for (SpriteDescriptor spriteDescriptor : asset.getSpriteDescriptors().values()) {
 				for (EntityChildAssetDescriptor childAssetDescriptor : spriteDescriptor.getChildAssets()) {
 					if (childAssetDescriptor.getSpecificAssetName() == null) {
-						// FIXME https://github.com/rossturner/king-under-the-mountain/issues/18
-						// Specific assets should be found at setup time
+						// FIXME Specific assets should be found at setup time
 
 						attachedTypes.add(childAssetDescriptor.getType());
 					}
@@ -422,6 +473,8 @@ public class EntityAssetUpdater implements GameContextAware {
 			attachedTags.addAll(ongoingEffectAttributes.getType().getProcessedTags());
 		} else if (entityAttributes instanceof CreatureEntityAttributes creatureAttributes) {
 			attachedTags.addAll(creatureAttributes.getRace().getProcessedTags());
+		} else if (entityAttributes instanceof VehicleEntityAttributes vehicleEntityAttributes) {
+			attachedTags.addAll(vehicleEntityAttributes.getVehicleType().getProcessedTags());
 		}
 
 		return attachedTags;

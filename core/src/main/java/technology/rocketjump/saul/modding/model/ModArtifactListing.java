@@ -8,6 +8,7 @@ import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.mechanism.model.MechanismEntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
+import technology.rocketjump.saul.assets.entities.vehicle.model.VehicleEntityAsset;
 import technology.rocketjump.saul.assets.entities.wallcap.model.WallCapAsset;
 import technology.rocketjump.saul.assets.model.ChannelType;
 import technology.rocketjump.saul.assets.model.FloorType;
@@ -29,6 +30,7 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureTyp
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismType;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
+import technology.rocketjump.saul.entities.model.physical.vehicle.VehicleType;
 import technology.rocketjump.saul.environment.model.DailyWeatherType;
 import technology.rocketjump.saul.environment.model.WeatherType;
 import technology.rocketjump.saul.invasions.model.InvasionDefinition;
@@ -112,6 +114,9 @@ public class ModArtifactListing {
 				def("entities/furniture", "**/descriptors", JSON_ARRAY, FurnitureEntityAsset.class,
 						"definitions/entityAssets", "furnitureEntityAssets", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class,
 						ReferencedImagesExist.class, UniqueNames.class),
+				def("entities/vehicle", "**/descriptors", JSON_ARRAY, VehicleEntityAsset.class,
+						"definitions/entityAssets", "vehicleEntityAssets", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class,
+						ReferencedImagesExist.class, UniqueNames.class),
 				def("entities/creature", "**/descriptors", JSON_ARRAY, CreatureEntityAsset.class,
 						"definitions/entityAssets", "creatureEntityAssets", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class,
 						ReferencedImagesExist.class, UniqueNames.class),
@@ -137,6 +142,8 @@ public class ModArtifactListing {
 						"definitions/types", "furnitureLayouts", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 				def("entities/furniture", "**/furnitureType.json", JSON_OBJECT, FurnitureType.class,
 						"definitions/types", "furnitureTypes", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
+				def("entities/vehicle", "**/vehicleType.json", JSON_OBJECT, VehicleType.class,
+						"definitions/types", "vehicleTypes", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 				def("entities/item", "**/itemType.json", JSON_OBJECT, ItemType.class,
 						"definitions/types", "itemTypes", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 				def("entities/plant", "**/plantSpecies.json", JSON_OBJECT, PlantSpecies.class,

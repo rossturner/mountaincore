@@ -59,8 +59,8 @@ public class PlaceFoodOrDrinkOnFurnitureAction extends Action {
 								.equals(parentTile.getTilePosition())) {
 							// This is a valid workspace
 							ItemHoldPosition preferredPosition = null;
-							if (workspaceIndex < ItemHoldPosition.WORKSPACES.size()) {
-								preferredPosition = ItemHoldPosition.WORKSPACES.get(workspaceIndex);
+							if (workspaceIndex < ItemHoldPosition.FURNITURE_WORKSPACES.size()) {
+								preferredPosition = ItemHoldPosition.FURNITURE_WORKSPACES.get(workspaceIndex);
 							}
 
 							InventoryComponent furnitureInventory = furnitureEntity.getOrCreateComponent(InventoryComponent.class);
