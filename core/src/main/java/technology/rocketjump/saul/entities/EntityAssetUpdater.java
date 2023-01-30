@@ -346,7 +346,7 @@ public class EntityAssetUpdater implements GameContextAware {
 										inheritedScript.setDuration(parentScript.getDuration());
 										inheritedScript.setRotations(parentScript.getRotations());
 										inheritedScript.setTranslations(parentScript.getTranslations());
-										childSpriteDescriptor.getAnimationScripts().put(animationName, inheritedScript);
+										childSpriteDescriptor.getInheritedAnimationScripts().put(animationName, inheritedScript);
 									}
 								}
 							}

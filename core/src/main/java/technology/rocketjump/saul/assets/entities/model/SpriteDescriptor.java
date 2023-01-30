@@ -15,6 +15,8 @@ public class SpriteDescriptor {
 	private boolean isAnimated;
 	private Map<String, AnimationScript> animationScripts = new HashMap<>();
 	@JsonIgnore
+	private Map<String, AnimationScript> inheritedAnimationScripts = new HashMap<>();
+	@JsonIgnore
 	private Map<RenderMode, Sprite> renderModeSprites = new EnumMap<>(RenderMode.class);
 	@JsonIgnore
 	private Map<RenderMode, Array<Sprite>> renderModeAnimatedSprites = new EnumMap<>(RenderMode.class);
@@ -128,11 +130,23 @@ public class SpriteDescriptor {
 		isAnimated = animated;
 	}
 
+	@JsonIgnore
+	public Map<String, AnimationScript> getEffectiveAnimationScripts() {
+		Map<String, AnimationScript> scripts = new HashMap<>(getAnimationScripts());
+		scripts.putAll(getInheritedAnimationScripts());
+		return scripts;
+	}
+
 	public Map<String, AnimationScript> getAnimationScripts() {
 		return animationScripts;
 	}
 
 	public void setAnimationScripts(Map<String, AnimationScript> animationScripts) {
 		this.animationScripts = animationScripts;
+	}
+
+	@JsonIgnore
+	public Map<String, AnimationScript> getInheritedAnimationScripts() {
+		return inheritedAnimationScripts;
 	}
 }

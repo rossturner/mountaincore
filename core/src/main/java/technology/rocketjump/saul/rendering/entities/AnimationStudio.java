@@ -83,7 +83,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 	 */
 	public void animate(Affine2 affine, SpriteDescriptor spriteDescriptor, Entity entity, GameContext gameContext) {
 		AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
-		if (animationComponent != null && !spriteDescriptor.getAnimationScripts().isEmpty()) {
+		if (animationComponent != null && !spriteDescriptor.getEffectiveAnimationScripts().isEmpty()) {
 			String currentAnimation = animationComponent.getCurrentAnimation();
 			NotifyingAnimationController controller = getAnimationController(new Key(entity, spriteDescriptor));
 			ModelInstance modelInstance = controller.target;
@@ -138,7 +138,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 				String id = current.animation.id;
 				float time = current.offset + current.time;
 				float previousTime = Math.max(time - delta, 0); //todo: is this safe? what about if animation has changed?
-				AnimationScript script = spriteDescriptor.getAnimationScripts().get(id);
+				AnimationScript script = spriteDescriptor.getEffectiveAnimationScripts().get(id);
 
 				if (script.getSoundCues() != null) {
 					List<AnimationScript.SoundCueFrame> toPlay = script.getSoundCues().stream()
@@ -211,6 +211,8 @@ public class AnimationStudio implements Disposable, GameContextAware {
 
 	//TODO: lots of duplication
 	public float previousKeyFrame() {
+		float lastTime = animationControllersForEntities.values().stream().filter(c -> c.current != null).flatMap(c -> getKeyFrameTimes(c.current.animation).stream()).max(Float::compareTo).orElse(0f);
+
 		float nextKeyFrameTime = animationControllersForEntities.values()
 				.stream()
 				.flatMap(c -> {
@@ -220,8 +222,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 						return Stream.empty();
 					}
 				})
-				.sorted()
-				.findFirst().orElse(0f);
+				.max(Float::compareTo).orElse(lastTime);
 
 		return jumpToKeyFrameTime(nextKeyFrameTime);
 	}
@@ -249,6 +250,11 @@ public class AnimationStudio implements Disposable, GameContextAware {
 				c.update(0);
 			}
 		});
+		animationControllersForEntities.values().forEach(c -> {
+			if (c.current != null) {
+				c.current.time = keyFrameTime;
+			}
+		});
 		pauseAnimations();
 		return keyFrameTime;
 	}
@@ -274,8 +280,8 @@ public class AnimationStudio implements Disposable, GameContextAware {
 	}
 
 
-	private Set<Float> getKeyFrameTimes(Animation animation) {
-		Set<Float> keyFrameTimes = new TreeSet<>();
+	private TreeSet<Float> getKeyFrameTimes(Animation animation) {
+		TreeSet<Float> keyFrameTimes = new TreeSet<>();
 		for (NodeAnimation nodeAnimation : animation.nodeAnimations) {
 			if (nodeAnimation.translation != null) {
 				for (NodeKeyframe<?> keyframe : nodeAnimation.translation) {
@@ -313,7 +319,8 @@ public class AnimationStudio implements Disposable, GameContextAware {
 
 	private Array<Animation> parseAnimations(Node node, SpriteDescriptor spriteDescriptor) {
 		Array<Animation> animations = new Array<>();
-		for (Map.Entry<String, AnimationScript> entry : spriteDescriptor.getAnimationScripts().entrySet()) {
+
+		for (Map.Entry<String, AnimationScript> entry : spriteDescriptor.getEffectiveAnimationScripts().entrySet()) {
 			AnimationScript script = entry.getValue();
 
 			Animation animation = new Animation();
