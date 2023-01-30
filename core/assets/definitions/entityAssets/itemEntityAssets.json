@@ -21065,7 +21065,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 9.0,
         "unit" : false
       },
       "flipX" : false,
@@ -21080,7 +21080,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : 12.0,
         "unit" : false
       },
       "flipX" : false,
@@ -21094,8 +21094,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -6.0,
+        "y" : 13.0,
         "unit" : false
       },
       "flipX" : true,
@@ -21236,7 +21236,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
-        "y" : 20.0,
+        "y" : 22.0,
         "unit" : false
       },
       "flipX" : false,
@@ -21265,7 +21265,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 15.0,
+        "x" : 8.0,
         "y" : 10.0,
         "unit" : false
       },
@@ -21275,8 +21275,8 @@
         "type" : "BELOW_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
-          "unit" : false
+          "y" : -1.0,
+          "unit" : true
         }
       }, {
         "type" : "ABOVE_LAYER_1",
@@ -21295,7 +21295,7 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -15.0,
+        "x" : -9.0,
         "y" : 10.0,
         "unit" : false
       },
@@ -21384,8 +21384,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -1.0,
+        "y" : 10.0,
         "unit" : false
       },
       "flipX" : false,
@@ -21400,8 +21400,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -2.0,
+        "y" : 13.0,
         "unit" : false
       },
       "flipX" : false,
@@ -21416,8 +21416,8 @@
       "isAnimated" : false,
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 1.0,
+        "y" : 12.0,
         "unit" : false
       },
       "flipX" : true,

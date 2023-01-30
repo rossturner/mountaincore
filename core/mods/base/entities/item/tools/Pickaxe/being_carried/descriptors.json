@@ -15,13 +15,23 @@
       "flipX" : true
     },
     "UP" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B.png"
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B.png",
+      "offsetPixels" : {
+        "y" : 9.0
+      }
     },
     "UP_RIGHT" : {
-      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B34.png"
+      "filename" : "Tool-Pickaxe-Extras-Being-Carried-B34.png",
+      "offsetPixels" : {
+        "y" : 12.0
+      }
     },
     "UP_LEFT" : {
       "filename" : "Tool-Pickaxe-Extras-Being-Carried-B34.png",
+      "offsetPixels" : {
+        "x" : -6.0,
+        "y" : 13.0
+      },
       "flipX" : true
     }
   }
@@ -100,7 +110,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
         "x" : 5.0,
-        "y" : 20.0
+        "y" : 22.0
       },
       "childAssets" : [ {
         "type" : "BELOW_LAYER_1"
@@ -112,11 +122,15 @@
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
-        "x" : 15.0,
+        "x" : 8.0,
         "y" : 10.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "offsetPixels" : {
+          "y" : -1.0,
+          "unit" : true
+        }
       }, {
         "type" : "ABOVE_LAYER_1"
       } ]
@@ -125,7 +139,7 @@
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
-        "x" : -15.0,
+        "x" : -9.0,
         "y" : 10.0
       },
       "flipX" : true,
@@ -157,15 +171,27 @@
     },
     "UP" : {
       "filename" : "Tool-Pickaxe-Head-Being-Carried-B.png",
-      "coloringLayer" : "METAL_COLOR"
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -1.0,
+        "y" : 10.0
+      }
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Pickaxe-Head-Being-Carried-B34.png",
-      "coloringLayer" : "METAL_COLOR"
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : 13.0
+      }
     },
     "UP_LEFT" : {
       "filename" : "Tool-Pickaxe-Head-Being-Carried-B34.png",
       "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : 12.0
+      },
       "flipX" : true
     }
   }

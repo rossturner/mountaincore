@@ -2,7 +2,7 @@
   "itemTypeName" : "Tool-Pickaxe",
   "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "METAL",
-  "baseValuePerItem": 20,
+  "baseValuePerItem" : 20,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "SMELTING" ],
   "stockpileGroupName" : "TOOLS",
