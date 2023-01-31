@@ -113,6 +113,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 		private final SpriteDescriptor spriteDescriptor;
 		private final MessageDispatcher messageDispatcher;
 		private final Entity entity;
+		private long frameId = 0l;
 
 		/**
 		 * Construct a new AnimationController.
@@ -131,6 +132,13 @@ public class AnimationStudio implements Disposable, GameContextAware {
 		public void update(float delta) {
 			if (paused) {
 				return;
+			}
+
+			long currentFrameId = Gdx.graphics.getFrameId();
+			if (currentFrameId == frameId) {
+				return;
+			} else {
+				frameId = currentFrameId;
 			}
 
 			super.update(delta);
