@@ -39,6 +39,9 @@
     "DOWN" : {
       "filename" : "Wagon_Body_Down",
       "isAnimated" : true,
+      "offsetPixels" : {
+        "y" : 32.0
+      },
       "childAssets" : [ {
         "type" : "VEHICLE_ABOVE_LAYER_6"
       } ],
@@ -76,7 +79,7 @@
       "isAnimated" : true,
       "offsetPixels" : {
         "x" : -32.0,
-        "y" : 32.0
+        "y" : 64.0
       },
       "childAssets" : [ {
         "type" : "VEHICLE_ABOVE_LAYER_6"
@@ -122,11 +125,11 @@
       } ]
     },
     "RIGHT" : {
-      "filename" : "Left_Wagon_Body",
+      "filename" : "Right_Wagon_Body",
       "isAnimated" : true,
       "offsetPixels" : {
         "x" : 32.0,
-        "y" : 32.0
+        "y" : 64.0
       },
       "flipX" : true,
       "childAssets" : [ {
@@ -175,6 +178,9 @@
     "UP" : {
       "filename" : "Up_Wagon_Body",
       "isAnimated" : true,
+      "offsetPixels" : {
+        "y" : 64.0
+      },
       "childAssets" : [ {
         "type" : "VEHICLE_ABOVE_LAYER_6",
         "offsetPixels" : {
