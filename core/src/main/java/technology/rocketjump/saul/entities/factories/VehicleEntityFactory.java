@@ -2,7 +2,6 @@ package technology.rocketjump.saul.entities.factories;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -17,8 +16,7 @@ import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
 import technology.rocketjump.saul.entities.model.physical.vehicle.VehicleEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
-
-import java.util.Random;
+import technology.rocketjump.saul.messaging.MessageType;
 
 @Singleton
 public class VehicleEntityFactory {
@@ -26,7 +24,6 @@ public class VehicleEntityFactory {
 	private static final float VEHICLE_RADIUS = 1f;
 	private final MessageDispatcher messageDispatcher;
 	private final EntityAssetUpdater entityAssetUpdater;
-	private final Random random = new RandomXS128();
 
 	@Inject
 	public VehicleEntityFactory(MessageDispatcher messageDispatcher, EntityAssetUpdater entityAssetUpdater) {
@@ -37,8 +34,9 @@ public class VehicleEntityFactory {
 	public Entity create(VehicleEntityAttributes attributes, GridPoint2 tilePosition, GameContext gameContext) {
 		PhysicalEntityComponent physicalComponent = createPhysicalComponent(attributes);
 		LocationComponent locationComponent = createLocationComponent(tilePosition);
+		VehicleBehaviour vehicleBehaviour = new VehicleBehaviour();
 
-		Entity entity = new Entity(EntityType.VEHICLE, physicalComponent, new VehicleBehaviour(), locationComponent, messageDispatcher, gameContext);
+		Entity entity = new Entity(EntityType.VEHICLE, physicalComponent, vehicleBehaviour, locationComponent, messageDispatcher, gameContext);
 
 		attributes.getMaterials().values().stream().filter(m -> m.getOxidisation() != null)
 				.findAny()
@@ -50,6 +48,7 @@ public class VehicleEntityFactory {
 
 
 		entityAssetUpdater.updateEntityAssets(entity);
+		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, entity);
 		return entity;
 	}
 

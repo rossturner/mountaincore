@@ -16,7 +16,7 @@ public class VehicleTypeDictionary {
 
 	public static VehicleType NULL_TYPE = new VehicleType();
 	static {
-		NULL_TYPE.setName("Null furniture type");
+		NULL_TYPE.setName("Null vehicle type");
 	}
 
 	@Inject

@@ -197,8 +197,8 @@
         "type" : "VEHICLE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
-          "unit" : false
+          "y" : -1.0,
+          "unit" : true
         }
       } ],
       "attachmentPoints" : [ {
@@ -232,7 +232,7 @@
       }, {
         "type" : "VEHICLE_ATTACHMENT_DRAUGHT_ANIMAL",
         "offsetPixels" : {
-          "x" : -100.0,
+          "x" : -102.0,
           "y" : -18.0,
           "unit" : false
         }
@@ -268,8 +268,8 @@
         "type" : "VEHICLE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
-          "unit" : false
+          "y" : -1.0,
+          "unit" : true
         }
       } ],
       "attachmentPoints" : [ {
@@ -303,7 +303,7 @@
       }, {
         "type" : "VEHICLE_ATTACHMENT_DRAUGHT_ANIMAL",
         "offsetPixels" : {
-          "x" : 100.0,
+          "x" : 102.0,
           "y" : -18.0,
           "unit" : false
         }
