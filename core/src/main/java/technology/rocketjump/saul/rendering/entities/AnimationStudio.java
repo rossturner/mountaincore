@@ -350,6 +350,16 @@ public class AnimationStudio implements Disposable, GameContextAware {
 				}
 			}
 
+			if (script.getScalings() != null) {
+				nodeAnimation.scaling = new Array<>();
+				script.getScalings().sort(Comparator.comparing(AnimationScript.Frame::getAtTime));
+				for (AnimationScript.ScalingFrame frame : script.getScalings()) {
+					Vector3 vector3 = new Vector3(frame.getVector2().getX(), frame.getVector2().getY(), 0f);
+					nodeAnimation.scaling.add(new NodeKeyframe<>(frame.getAtTime(), vector3));
+				}
+			}
+
+
 			if (script.getSoundCues() != null) {
 				for (AnimationScript.SoundCueFrame soundCue : script.getSoundCues()) {
 					SoundAsset soundAsset = soundAssetDictionary.getByName(soundCue.getSoundAssetName());

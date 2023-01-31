@@ -11,6 +11,7 @@ public class AnimationScript {
 	private float duration;
 	private List<RotationFrame> rotations;
 	private List<TranslationFrame> translations;
+	private List<ScalingFrame> scalings;
 	private List<SoundCueFrame> soundCues;
 	private List<ParticleEffectCueFrame> particleEffectCues;
 
@@ -36,6 +37,14 @@ public class AnimationScript {
 
 	public void setTranslations(List<TranslationFrame> translations) {
 		this.translations = translations;
+	}
+
+	public List<ScalingFrame> getScalings() {
+		return scalings;
+	}
+
+	public void setScalings(List<ScalingFrame> scalings) {
+		this.scalings = scalings;
 	}
 
 	public List<SoundCueFrame> getSoundCues() {
@@ -80,6 +89,19 @@ public class AnimationScript {
 	}
 
 	public static class TranslationFrame extends Frame {
+		@JsonUnwrapped
+		private StorableVector2 vector2;
+
+		public StorableVector2 getVector2() {
+			return vector2;
+		}
+
+		public void setVector2(StorableVector2 vector2) {
+			this.vector2 = vector2;
+		}
+	}
+
+	public static class ScalingFrame extends Frame {
 		@JsonUnwrapped
 		private StorableVector2 vector2;
 
