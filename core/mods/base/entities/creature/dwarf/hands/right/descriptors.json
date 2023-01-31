@@ -2,18 +2,68 @@
   "uniqueName" : "Basic dwarf right hand",
   "type" : "CREATURE_RIGHT_HAND",
   "raceName" : "Dwarf",
+  "consciousnessList" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "basic dwarf hand.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "animationScripts" : {
+        "work_on_job_mining" : {
+          "duration" : 0.8,
+          "scalings" : [ {
+            "x" : 1.0,
+            "y" : 1.0
+          }, {
+            "atTime" : 0.23,
+            "x" : 0.9,
+            "y" : 0.9
+          }, {
+            "atTime" : 0.3,
+            "x" : 1.2,
+            "y" : 1.2
+          }, {
+            "atTime" : 0.8,
+            "x" : 1.0,
+            "y" : 1.0
+          } ]
+        }
+      }
     },
     "DOWN_RIGHT" : {
       "filename" : "basic dwarf hand.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "animationScripts" : {
+        "work_on_job_mining" : {
+          "duration" : 0.8,
+          "translations" : [ { }, {
+            "atTime" : 0.23,
+            "x" : -0.101,
+            "y" : 0.056
+          }, {
+            "atTime" : 0.3
+          }, {
+            "atTime" : 0.8
+          } ]
+        }
+      }
     },
     "DOWN_LEFT" : {
       "filename" : "basic dwarf hand.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "animationScripts" : {
+        "work_on_job_mining" : {
+          "duration" : 0.8,
+          "translations" : [ { }, {
+            "atTime" : 0.23,
+            "x" : 0.056,
+            "y" : 0.056
+          }, {
+            "atTime" : 0.3
+          }, {
+            "atTime" : 0.8
+          } ]
+        }
+      }
     },
     "UP_RIGHT" : {
       "filename" : "basic dwarf hand.png",
@@ -27,5 +77,6 @@
       "filename" : "basic dwarf hand.png",
       "coloringLayer" : "SKIN_COLOR"
     }
-  }
+  },
+  "overrideRenderLayer" : 100
 } ]

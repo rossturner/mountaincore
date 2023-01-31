@@ -44,14 +44,67 @@
     "DOWN" : {
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-F.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_mining" : {
+          "duration" : 0.8,
+          "rotations" : [ { }, {
+            "atTime" : 0.23,
+            "roll" : -14
+          }, {
+            "atTime" : 0.3,
+            "roll" : 39
+          }, {
+            "atTime" : 0.45,
+            "roll" : 39
+          }, {
+            "atTime" : 0.8
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.23,
+            "y" : 0.106
+          }, {
+            "atTime" : 0.3,
+            "x" : 0.143,
+            "y" : -0.175
+          }, {
+            "atTime" : 0.45,
+            "x" : 0.143,
+            "y" : -0.175
+          }, {
+            "atTime" : 0.8
+          } ],
+          "scalings" : [ {
+            "x" : 1.0,
+            "y" : 1.0
+          }, {
+            "atTime" : 0.23,
+            "x" : 0.9,
+            "y" : 0.9
+          }, {
+            "atTime" : 0.3,
+            "x" : 1.2,
+            "y" : 1.2
+          }, {
+            "atTime" : 0.45,
+            "x" : 1.2,
+            "y" : 1.2
+          }, {
+            "atTime" : 0.8,
+            "x" : 1.0,
+            "y" : 1.0
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : -4.0,
         "y" : 10.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_mining" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_mining" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -65,14 +118,48 @@
     "DOWN_RIGHT" : {
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_mining" : {
+          "duration" : 0.8,
+          "rotations" : [ { }, {
+            "atTime" : 0.23,
+            "roll" : 23
+          }, {
+            "atTime" : 0.3,
+            "roll" : -17
+          }, {
+            "atTime" : 0.45,
+            "roll" : -17
+          }, {
+            "atTime" : 0.8
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.23,
+            "x" : -0.047,
+            "y" : 0.014
+          }, {
+            "atTime" : 0.3,
+            "x" : 0.015,
+            "y" : 0.048
+          }, {
+            "atTime" : 0.45,
+            "x" : 0.015,
+            "y" : 0.048
+          }, {
+            "atTime" : 0.8
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : 10.0,
         "y" : 10.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_mining" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_mining" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -86,15 +173,49 @@
     "DOWN_LEFT" : {
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_mining" : {
+          "duration" : 0.8,
+          "rotations" : [ { }, {
+            "atTime" : 0.23,
+            "roll" : -23
+          }, {
+            "atTime" : 0.3,
+            "roll" : 30
+          }, {
+            "atTime" : 0.45,
+            "roll" : 30
+          }, {
+            "atTime" : 0.8
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.23,
+            "x" : 0.021,
+            "y" : 0.216
+          }, {
+            "atTime" : 0.3,
+            "x" : 0.048,
+            "y" : -0.123
+          }, {
+            "atTime" : 0.45,
+            "x" : 0.048,
+            "y" : -0.123
+          }, {
+            "atTime" : 0.8
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : -10.0,
         "y" : 10.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_mining" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_mining" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -110,43 +231,81 @@
       "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
         "x" : 5.0,
-        "y" : 22.0
+        "y" : 10.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_mining" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_mining" ]
       } ]
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
-        "x" : 8.0,
-        "y" : 10.0
+        "x" : 2.0,
+        "y" : 5.0
       },
       "childAssets" : [ {
         "type" : "BELOW_LAYER_1",
         "offsetPixels" : {
           "y" : -1.0,
           "unit" : true
-        }
+        },
+        "inheritAnimations" : [ "work_on_job_mining" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_mining" ]
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "y" : -6.0
+        }
       } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_mining" : {
+          "duration" : 0.8,
+          "rotations" : [ { }, {
+            "atTime" : 0.23,
+            "roll" : -23
+          }, {
+            "atTime" : 0.3,
+            "roll" : 17
+          }, {
+            "atTime" : 0.45,
+            "roll" : 17
+          }, {
+            "atTime" : 0.8
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.23
+          }, {
+            "atTime" : 0.3
+          }, {
+            "atTime" : 0.45
+          }, {
+            "atTime" : 0.8
+          } ]
+        }
+      },
       "offsetPixels" : {
-        "x" : -9.0,
-        "y" : 10.0
+        "x" : 29.0,
+        "y" : 8.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_mining" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_mining" ]
       } ]
     }
   }
