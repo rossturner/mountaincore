@@ -331,6 +331,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 
 			if (script.getRotations() != null) {
 				nodeAnimation.rotation = new Array<>();
+				script.getRotations().sort(Comparator.comparing(AnimationScript.Frame::getAtTime));
 				for (AnimationScript.RotationFrame frame : script.getRotations()) {
 					Quaternion quaternion = new Quaternion();
 					quaternion.setEulerAngles(0, 0, frame.getRoll());
@@ -341,6 +342,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 
 			if (script.getTranslations() != null) {
 				nodeAnimation.translation = new Array<>();
+				script.getTranslations().sort(Comparator.comparing(AnimationScript.Frame::getAtTime));
 				for (AnimationScript.TranslationFrame frame : script.getTranslations()) {
 					Vector3 vector3 = new Vector3(frame.getVector2().getX(), frame.getVector2().getY(), 0);
 
