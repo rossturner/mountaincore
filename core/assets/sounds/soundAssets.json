@@ -241,11 +241,11 @@
 }, {
   "name" : "Mining",
   "soundAssetId" : 31,
-  "filenames" : [ "Mining (Loop).wav" ],
+  "filenames" : [ "Mining (A-FO).wav", "Mining (B-FO).wav", "Mining (C-FO).wav", "Mining (D).wav" ],
   "minPitch" : 0.8,
   "maxPitch" : 1.2,
   "volumeModifier" : 0.4,
-  "looping" : true
+  "looping" : false
 }, {
   "name" : "StonemasonChipping",
   "soundAssetId" : 32,

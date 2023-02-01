@@ -2,11 +2,14 @@
   {
     "name": "Mining",
     "filenames": [
-      "Mining (Loop).wav"
+      "Mining (A-FO).wav",
+      "Mining (B-FO).wav",
+      "Mining (C-FO).wav",
+      "Mining (D).wav"
     ],
     "minPitch": 0.8,
     "maxPitch": 1.2,
-    "looping": true,
+    "looping": false,
     "volumeModifier": 0.4
   }
 ]

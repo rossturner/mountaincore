@@ -79,6 +79,10 @@
             "x" : 1.0,
             "y" : 1.0
           } ],
+          "soundCues" : [ {
+            "atTime" : 0.23,
+            "soundAssetName" : "Mining"
+          } ],
           "particleEffectCues" : [ {
             "atTime" : 0.23,
             "particleEffectName" : "Chipping rock"
@@ -138,6 +142,10 @@
           }, {
             "atTime" : 0.8
           } ],
+          "soundCues" : [ {
+            "atTime" : 0.23,
+            "soundAssetName" : "Mining"
+          } ],
           "particleEffectCues" : [ {
             "atTime" : 0.23,
             "particleEffectName" : "Chipping rock"
@@ -192,6 +200,10 @@
             "atTime" : 0.45
           }, {
             "atTime" : 0.8
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.23,
+            "soundAssetName" : "Mining"
           } ],
           "particleEffectCues" : [ {
             "atTime" : 0.23,
@@ -258,6 +270,10 @@
             "x" : 1.0,
             "y" : 1.0
           } ],
+          "soundCues" : [ {
+            "atTime" : 0.23,
+            "soundAssetName" : "Mining"
+          } ],
           "particleEffectCues" : [ {
             "atTime" : 0.23,
             "particleEffectName" : "Chipping rock"
@@ -305,6 +321,10 @@
             "x" : 0.02
           }, {
             "atTime" : 0.8
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.23,
+            "soundAssetName" : "Mining"
           } ],
           "particleEffectCues" : [ {
             "atTime" : 0.23,
@@ -363,6 +383,10 @@
             "y" : -0.1
           }, {
             "atTime" : 0.8
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.23,
+            "soundAssetName" : "Mining"
           } ],
           "particleEffectCues" : [ {
             "atTime" : 0.23,
