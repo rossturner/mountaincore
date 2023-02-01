@@ -59,20 +59,6 @@
           }, {
             "atTime" : 0.8
           } ],
-          "translations" : [ { }, {
-            "atTime" : 0.23,
-            "y" : 0.106
-          }, {
-            "atTime" : 0.3,
-            "x" : 0.143,
-            "y" : -0.175
-          }, {
-            "atTime" : 0.45,
-            "x" : 0.143,
-            "y" : -0.175
-          }, {
-            "atTime" : 0.8
-          } ],
           "scalings" : [ {
             "x" : 1.0,
             "y" : 1.0
@@ -190,16 +176,14 @@
           } ],
           "translations" : [ { }, {
             "atTime" : 0.23,
-            "x" : 0.021,
-            "y" : 0.216
+            "x" : 0.043,
+            "y" : 0.014
           }, {
             "atTime" : 0.3,
-            "x" : 0.048,
-            "y" : -0.123
+            "x" : -0.015
           }, {
             "atTime" : 0.45,
-            "x" : 0.048,
-            "y" : -0.123
+            "x" : -0.015
           }, {
             "atTime" : 0.8
           } ]
@@ -244,6 +228,23 @@
     "UP_RIGHT" : {
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_mining" : {
+          "duration" : 0.8,
+          "rotations" : [ { }, {
+            "atTime" : 0.23,
+            "roll" : 25
+          }, {
+            "atTime" : 0.3,
+            "roll" : -40
+          }, {
+            "atTime" : 0.45,
+            "roll" : -40
+          }, {
+            "atTime" : 0.8
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : 2.0,
         "y" : 5.0
