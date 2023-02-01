@@ -283,6 +283,10 @@ public class AnimationStudio implements Disposable, GameContextAware {
 		for (Map.Entry<Key, AnimationController> entry : clonedCurrentAnimationControllers.entrySet()) {
 			AnimationController animationController = getAnimationController(entry.getKey());
 			if (animationController.target.getAnimation(animationToPlay) != null) {
+				Node clonedChild = entry.getValue().target.nodes.get(1);
+				Node targetChildNode = animationController.target.nodes.get(1);
+				targetChildNode.translation.set(clonedChild.translation);
+
 				animationController.setAnimation(animationToPlay, -1);
 			}
 		}
