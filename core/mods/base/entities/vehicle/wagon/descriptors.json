@@ -19,15 +19,15 @@
     "DOWN" : {
       "filename" : "Wagon_Rope.png"
     },
-    "UP" : {
-      "filename" : "Wagon_Rope.png"
-    },
     "LEFT" : {
       "filename" : "Left_Wagon_Rope.png"
     },
     "RIGHT" : {
       "filename" : "Left_Wagon_Rope.png",
       "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Wagon_Rope.png"
     }
   },
   "overrideRenderLayer" : 150
