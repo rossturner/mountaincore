@@ -57,7 +57,7 @@ public class MoveOutputToExportSpotAction extends Action implements Initialisabl
 					.map(entity -> (ProductionExportFurnitureBehaviour)entity.getBehaviourComponent())
 					.findFirst().orElse(null);
 
-			if (targetExportBehaviour != null) {
+			if (targetExportBehaviour != null && targetExportBehaviour.getSelectedItemType() != null) {
 				InventoryComponent inventoryComponent = craftingStation.getComponent(InventoryComponent.class);
 				InventoryComponent.InventoryEntry itemEntry = inventoryComponent.findByItemTypeAndMaterial(targetExportBehaviour.getSelectedItemType(), targetExportBehaviour.getSelectedMaterial(), gameContext.getGameClock());
 
