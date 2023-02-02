@@ -290,7 +290,7 @@ public class TiledMapFactory {
 		Deque<QuantifiedItemTypeWithMaterial> items = new ArrayDeque<>();
 		items.addAll(item("Product-Barrel", 2));
 		items.addAll(item("Product-Bucket", 2));
-		items.addAll(item("Product-Anvil", 1));
+		items.addAll(item("Product-Anvil", 2));
 		items.addAll(item("Product-Cauldron", 2));
 		return items;
 	}
