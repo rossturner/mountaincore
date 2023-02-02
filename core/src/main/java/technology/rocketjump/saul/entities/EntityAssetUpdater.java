@@ -45,9 +45,7 @@ import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 
@@ -86,8 +84,10 @@ public class EntityAssetUpdater implements GameContextAware {
 	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT;
 	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT_2;
 	public final EntityAssetType SHOW_WHEN_INVENTORY_PRESENT_3;
+	public final EntityAssetType VEHICLE_SHOW_WHEN_INVENTORY_PRESENT;
 	public final EntityAssetType VEHICLE_BASE_LAYER;
 	private final SkillDictionary skillDictionary;
+	private final List<EntityAssetType> SHOW_WHEN_INVENTORY_TYPES;
 	private GameContext gameContext;
 	private Skill UNARMORED_MILITARY_OVERRIDE;
 
@@ -132,10 +132,17 @@ public class EntityAssetUpdater implements GameContextAware {
 		SHOW_WHEN_INVENTORY_PRESENT = entityAssetTypeDictionary.getByName("SHOW_WHEN_INVENTORY_PRESENT");
 		SHOW_WHEN_INVENTORY_PRESENT_2 = entityAssetTypeDictionary.getByName("SHOW_WHEN_INVENTORY_PRESENT_2");
 		SHOW_WHEN_INVENTORY_PRESENT_3 = entityAssetTypeDictionary.getByName("SHOW_WHEN_INVENTORY_PRESENT_3");
+		VEHICLE_SHOW_WHEN_INVENTORY_PRESENT = entityAssetTypeDictionary.getByName("VEHICLE_SHOW_WHEN_INVENTORY_PRESENT");
 
 		VEHICLE_BASE_LAYER = entityAssetTypeDictionary.getByName("VEHICLE_BASE_LAYER");
 
 		UNARMORED_MILITARY_OVERRIDE = skillDictionary.getByName("UNARMORED_MILITARY");
+
+
+		SHOW_WHEN_INVENTORY_TYPES = Arrays.asList(
+				SHOW_WHEN_INVENTORY_PRESENT, SHOW_WHEN_INVENTORY_PRESENT_2, SHOW_WHEN_INVENTORY_PRESENT_3,
+				VEHICLE_SHOW_WHEN_INVENTORY_PRESENT
+		);
 
 		this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
 		this.tagProcessor = tagProcessor;
@@ -481,7 +488,7 @@ public class EntityAssetUpdater implements GameContextAware {
 	}
 
 	private boolean shouldAssetTypeApply(EntityAssetType attachedType, Entity entity) {
-		if (SHOW_WHEN_INVENTORY_PRESENT.equals(attachedType) || SHOW_WHEN_INVENTORY_PRESENT_2.equals(attachedType) || SHOW_WHEN_INVENTORY_PRESENT_3.equals(attachedType)) {
+		if (SHOW_WHEN_INVENTORY_TYPES.contains(attachedType)) {
 			InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 			return  inventoryComponent != null && !inventoryComponent.getInventoryEntries().isEmpty();
 		}

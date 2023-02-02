@@ -12,26 +12,6 @@
     }
   }
 }, {
-  "uniqueName" : "Wagon-Vehicle_Above_Layer_6",
-  "vehicleTypeName" : "Wagon",
-  "type" : "VEHICLE_ABOVE_LAYER_6",
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Wagon_Rope.png"
-    },
-    "LEFT" : {
-      "filename" : "Left_Wagon_Rope.png"
-    },
-    "RIGHT" : {
-      "filename" : "Left_Wagon_Rope.png",
-      "flipX" : true
-    },
-    "UP" : {
-      "filename" : "Wagon_Rope.png"
-    }
-  },
-  "overrideRenderLayer" : 150
-}, {
   "uniqueName" : "Wagon-Vehicle_Base_Layer",
   "vehicleTypeName" : "Wagon",
   "type" : "VEHICLE_BASE_LAYER",
@@ -43,7 +23,7 @@
         "y" : 32.0
       },
       "childAssets" : [ {
-        "type" : "VEHICLE_ABOVE_LAYER_6"
+        "type" : "VEHICLE_SHOW_WHEN_INVENTORY_PRESENT"
       } ],
       "attachmentPoints" : [ {
         "type" : "VEHICLE_ATTACHMENT_INVENTORY_1",
@@ -82,7 +62,7 @@
         "y" : 64.0
       },
       "childAssets" : [ {
-        "type" : "VEHICLE_ABOVE_LAYER_6"
+        "type" : "VEHICLE_SHOW_WHEN_INVENTORY_PRESENT"
       }, {
         "type" : "VEHICLE_BELOW_LAYER_1"
       }, {
@@ -133,7 +113,7 @@
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "VEHICLE_ABOVE_LAYER_6"
+        "type" : "VEHICLE_SHOW_WHEN_INVENTORY_PRESENT"
       }, {
         "type" : "VEHICLE_BELOW_LAYER_1"
       }, {
@@ -182,7 +162,7 @@
         "y" : 64.0
       },
       "childAssets" : [ {
-        "type" : "VEHICLE_ABOVE_LAYER_6",
+        "type" : "VEHICLE_SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
           "y" : -48.0
         }
@@ -228,4 +208,24 @@
       "flipX" : true
     }
   }
+}, {
+  "uniqueName" : "Wagon-Vehicle_Show_When_Inventory_Present",
+  "vehicleTypeName" : "Wagon",
+  "type" : "VEHICLE_SHOW_WHEN_INVENTORY_PRESENT",
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Wagon_Rope.png"
+    },
+    "LEFT" : {
+      "filename" : "Left_Wagon_Rope.png"
+    },
+    "RIGHT" : {
+      "filename" : "Left_Wagon_Rope.png",
+      "flipX" : true
+    },
+    "UP" : {
+      "filename" : "Wagon_Rope.png"
+    }
+  },
+  "overrideRenderLayer" : 150
 } ]

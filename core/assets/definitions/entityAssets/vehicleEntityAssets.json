@@ -36,74 +36,6 @@
     }
   }
 }, {
-  "uniqueName" : "Wagon-Vehicle_Above_Layer_6",
-  "vehicleTypeName" : "Wagon",
-  "type" : "VEHICLE_ABOVE_LAYER_6",
-  "tags" : { },
-  "spriteDescriptors" : {
-    "DOWN" : {
-      "filename" : "Wagon_Rope.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "LEFT" : {
-      "filename" : "Left_Wagon_Rope.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "RIGHT" : {
-      "filename" : "Left_Wagon_Rope.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : true,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    },
-    "UP" : {
-      "filename" : "Wagon_Rope.png",
-      "isAnimated" : false,
-      "scale" : 1.0,
-      "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "unit" : false
-      },
-      "flipX" : false,
-      "flipY" : false,
-      "childAssets" : [ ],
-      "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
-    }
-  },
-  "overrideRenderLayer" : 150
-}, {
   "uniqueName" : "Wagon-Vehicle_Base_Layer",
   "vehicleTypeName" : "Wagon",
   "type" : "VEHICLE_BASE_LAYER",
@@ -121,7 +53,7 @@
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ {
-        "type" : "VEHICLE_ABOVE_LAYER_6",
+        "type" : "VEHICLE_SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
@@ -180,7 +112,7 @@
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ {
-        "type" : "VEHICLE_ABOVE_LAYER_6",
+        "type" : "VEHICLE_SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
@@ -251,7 +183,7 @@
       "flipX" : true,
       "flipY" : false,
       "childAssets" : [ {
-        "type" : "VEHICLE_ABOVE_LAYER_6",
+        "type" : "VEHICLE_SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
@@ -322,7 +254,7 @@
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ {
-        "type" : "VEHICLE_ABOVE_LAYER_6",
+        "type" : "VEHICLE_SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -48.0,
@@ -405,4 +337,72 @@
       "parentEntityAssets" : [ ]
     }
   }
+}, {
+  "uniqueName" : "Wagon-Vehicle_Show_When_Inventory_Present",
+  "vehicleTypeName" : "Wagon",
+  "type" : "VEHICLE_SHOW_WHEN_INVENTORY_PRESENT",
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Wagon_Rope.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "LEFT" : {
+      "filename" : "Left_Wagon_Rope.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "RIGHT" : {
+      "filename" : "Left_Wagon_Rope.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : true,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    },
+    "UP" : {
+      "filename" : "Wagon_Rope.png",
+      "isAnimated" : false,
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  },
+  "overrideRenderLayer" : 150
 } ]
