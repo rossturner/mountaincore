@@ -77,6 +77,7 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 
 		messageDispatcher.addListener(this, MessageType.MOVE_CAMERA_TO);
 		messageDispatcher.addListener(this, MessageType.TRIGGER_SCREEN_SHAKE);
+		messageDispatcher.addListener(this, MessageType.DEV_MODE_CHANGED);
 	}
 
 	@Override
@@ -98,6 +99,10 @@ public class PrimaryCameraWrapper implements GameContextAware, Persistable, Tele
 				currentScreenShake = new Vector2();
 				screenShakingToRight = true;
 				screenShakeProgress = 0f;
+				return true;
+			}
+			case MessageType.DEV_MODE_CHANGED: {
+				recalculateZoomLimits();
 				return true;
 			}
 			default:
