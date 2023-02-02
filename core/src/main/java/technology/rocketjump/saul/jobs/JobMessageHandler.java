@@ -165,6 +165,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.addListener(this, MessageType.REMOVE_HAULING_JOBS_TO_POSITION);
 		messageDispatcher.addListener(this, MessageType.JOB_STATE_CHANGE);
 		messageDispatcher.addListener(this, MessageType.STOCKPILE_SETTING_UPDATED);
+		messageDispatcher.addListener(this, MessageType.IDENTIFY_PARTICLE_REQUEST_TARGET);
 	}
 
 	@Override
@@ -258,6 +259,9 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 			case MessageType.STOCKPILE_SETTING_UPDATED: {
 				stockpileSettingUpdated((StockpileSettingsUpdatedMessage) msg.extraInfo);
 				return true;
+			}
+			case MessageType.IDENTIFY_PARTICLE_REQUEST_TARGET: {
+				return identifyWorkOnJobTarget((ParticleRequestMessage) msg.extraInfo);
 			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
@@ -1304,6 +1308,37 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 			}
 		}
 		return null;
+	}
+
+	private boolean identifyWorkOnJobTarget(ParticleRequestMessage message) {
+		if (message.effectTarget.isPresent() && message.effectTarget.get() instanceof JobTarget.AnimationTarget animationTarget) {
+			Entity employedEntity = animationTarget.getEntity();
+			ItemAllocationComponent itemAllocationComponent = employedEntity.getComponent(ItemAllocationComponent.class);
+
+			if (itemAllocationComponent != null) { //is this an item equipped by the creature?
+				ItemAllocation allocation = itemAllocationComponent.getAllocationForPurpose(ItemAllocation.Purpose.EQUIPPED);
+				if (allocation != null && allocation.getOwningEntityId() != null && gameContext != null) {
+					employedEntity = gameContext.getEntities().get(allocation.getOwningEntityId());
+				}
+			}
+
+
+			if (employedEntity != null && employedEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+				if (creatureBehaviour.getCurrentGoal() != null && creatureBehaviour.getCurrentGoal().getAssignedJob() != null) {
+					JobTarget jobTarget = creatureBehaviour.getCurrentGoal().getAssignedJob().getTargetOfJob(gameContext);
+
+					messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(
+							message.type,
+							Optional.of(employedEntity),
+//							message.parentEntity,
+							Optional.of(jobTarget),
+							message.callback
+					));
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override

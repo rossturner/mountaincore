@@ -53,6 +53,7 @@ import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
+import technology.rocketjump.saul.rendering.entities.AnimationStudio;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 
 import java.nio.file.Path;
@@ -84,12 +85,13 @@ public class AssetEditorUI implements Telegraph {
 	private ColorPickerMessage.ColorPickerCallback colorPickerCallback;
 	private UIFactory currentUiFactory;
 	private final SpriteCropperPipeline spriteCropperPipeline;
+	private final AnimationStudio animationStudio;
 	//TODO: this class definitely getting big
 
 	@Inject
 	public AssetEditorUI(EntityBrowserContextMenu browserContextMenu, TopLevelMenu topLevelMenu, NavigatorPane navigatorPane,
 						 EntityBrowserPane entityBrowserPane, PropertyEditorPane propertyEditorPane,
-						 MessageDispatcher messageDispatcher, ViewEditorPane viewEditor,
+						 MessageDispatcher messageDispatcher, ViewEditorPane viewEditor, AnimationStudio animationStudio,
 						 SpriteDescriptorsPane spriteDescriptorsPane, EditorStateProvider editorStateProvider,
 						 Map<EntityType, UIFactory> uiFactories, SpriteCropperPipeline spriteCropperPipeline) {
 		this.browserContextMenu = browserContextMenu;
@@ -102,6 +104,7 @@ public class AssetEditorUI implements Telegraph {
 		this.editorStateProvider = editorStateProvider;
 		this.uiFactories = uiFactories;
 		this.spriteCropperPipeline = spriteCropperPipeline;
+		this.animationStudio = animationStudio;
 
 		stage = new Stage();
 		topLevelTable = new VisTable();
@@ -220,6 +223,7 @@ public class AssetEditorUI implements Telegraph {
 				return true;
 			}
 			case MessageType.EDITOR_ENTITY_SELECTION: {
+				animationStudio.dispose(); //clear caches to make key frame jumping easier
 				EditorEntitySelection selection = (EditorEntitySelection) msg.extraInfo;
 				Entity entity = null;
 				if (selection != null) {

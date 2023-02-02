@@ -83,26 +83,28 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		keyUpActions.put(CommandName.ROTATE, () -> messageDispatcher.dispatchMessage(MessageType.ROTATE_FURNITURE));
 
 		DebugRenderingOptions debug = renderingOptions.debug();
-		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_0, () -> debug.setFrameBufferIndex(0));
-		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_1, () -> debug.setFrameBufferIndex(1));
-		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_2, () -> debug.setFrameBufferIndex(2));
-		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_3, () -> debug.setFrameBufferIndex(3));
-		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_4, () -> debug.setFrameBufferIndex(4));
-		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_5, () -> debug.setFrameBufferIndex(5));
-		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_6, () -> debug.setFrameBufferIndex(6));
-		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_7, () -> debug.setFrameBufferIndex(7));
-		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_8, () -> debug.setFrameBufferIndex(8));
-		keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_9, () -> debug.setFrameBufferIndex(9));
-		keyUpActions.put(CommandName.DEBUG_SHOW_JOB_STATUS, () -> debug.setShowJobStatus(!debug.showJobStatus()));
-		keyUpActions.put(CommandName.DEBUG_TOGGLE_FLOOR_OVERLAP_RENDERING, renderingOptions::toggleFloorOverlapRenderingEnabled);
-		keyUpActions.put(CommandName.DEBUG_SHOW_INDIVIDUAL_LIGHTING_BUFFERS, debug::toggleShowIndividualLightingBuffers);
-		keyUpActions.put(CommandName.DEBUG_SHOW_LIQUID_FLOW, debug::toggleShowLiquidFlow);
-		keyUpActions.put(CommandName.DEBUG_SHOW_ZONES, debug::toggleShowZones);
-		keyUpActions.put(CommandName.DEBUG_SHOW_PATHFINDING_NODES, debug::toggleShowPathfindingNodes);
-		keyUpActions.put(CommandName.DEBUG_HIDE_GUI, () -> DisplaySettings.showGui = !DisplaySettings.showGui);
-		keyUpActions.put(CommandName.DEBUG_GAME_SPEED_ULTRA_FAST, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED5));
-		keyUpActions.put(CommandName.DEBUG_GAME_SPEED_SLOW, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.VERY_SLOW));
-		keyUpActions.put(CommandName.DEBUG_SHOW_MENU, () -> messageDispatcher.dispatchMessage(MessageType.TOGGLE_DEBUG_VIEW));
+		if (GlobalSettings.DEV_MODE) {
+			keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_0, () -> debug.setFrameBufferIndex(0));
+			keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_1, () -> debug.setFrameBufferIndex(1));
+			keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_2, () -> debug.setFrameBufferIndex(2));
+			keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_3, () -> debug.setFrameBufferIndex(3));
+			keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_4, () -> debug.setFrameBufferIndex(4));
+			keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_5, () -> debug.setFrameBufferIndex(5));
+			keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_6, () -> debug.setFrameBufferIndex(6));
+			keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_7, () -> debug.setFrameBufferIndex(7));
+			keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_8, () -> debug.setFrameBufferIndex(8));
+			keyUpActions.put(CommandName.DEBUG_FRAME_BUFFER_9, () -> debug.setFrameBufferIndex(9));
+			keyUpActions.put(CommandName.DEBUG_SHOW_JOB_STATUS, () -> debug.setShowJobStatus(!debug.showJobStatus()));
+			keyUpActions.put(CommandName.DEBUG_TOGGLE_FLOOR_OVERLAP_RENDERING, renderingOptions::toggleFloorOverlapRenderingEnabled);
+			keyUpActions.put(CommandName.DEBUG_SHOW_INDIVIDUAL_LIGHTING_BUFFERS, debug::toggleShowIndividualLightingBuffers);
+			keyUpActions.put(CommandName.DEBUG_SHOW_LIQUID_FLOW, debug::toggleShowLiquidFlow);
+			keyUpActions.put(CommandName.DEBUG_SHOW_ZONES, debug::toggleShowZones);
+			keyUpActions.put(CommandName.DEBUG_SHOW_PATHFINDING_NODES, debug::toggleShowPathfindingNodes);
+			keyUpActions.put(CommandName.DEBUG_HIDE_GUI, () -> DisplaySettings.showGui = !DisplaySettings.showGui);
+			keyUpActions.put(CommandName.DEBUG_GAME_SPEED_ULTRA_FAST, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.SPEED5));
+			keyUpActions.put(CommandName.DEBUG_GAME_SPEED_SLOW, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.VERY_SLOW));
+			keyUpActions.put(CommandName.DEBUG_SHOW_MENU, () -> messageDispatcher.dispatchMessage(MessageType.TOGGLE_DEBUG_VIEW));
+		}
 	}
 
 	@Override

@@ -26,6 +26,7 @@ public class CraftingType implements Comparable<CraftingType> {
 	@JsonIgnore
 	private List<ParticleEffectType> particleEffectTypes = new ArrayList<>();
 	private Float mightStartFire;
+	private String workOnJobAnimation;
 
 	public String getName() {
 		return name;
@@ -136,5 +137,13 @@ public class CraftingType implements Comparable<CraftingType> {
 
 	public void setMightStartFire(Float mightStartFire) {
 		this.mightStartFire = mightStartFire;
+	}
+
+	public String getWorkOnJobAnimation() {
+		return workOnJobAnimation;
+	}
+
+	public void setWorkOnJobAnimation(String workOnJobAnimation) {
+		this.workOnJobAnimation = workOnJobAnimation;
 	}
 }

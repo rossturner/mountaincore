@@ -9,16 +9,19 @@ import technology.rocketjump.saul.assets.entities.model.EntityChildAssetDescript
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class ChildAssetsWidget extends VisTable {
 
 	private final List<EntityChildAssetDescriptor> sourceData;
-	private Collection<EntityAssetType> applicableTypes;
+	private final Collection<EntityAssetType> applicableTypes;
 	private final VisTextButton addButton;
+	private final Set<String> animationNames;
 
-	public ChildAssetsWidget(List<EntityChildAssetDescriptor> sourceData, Collection<EntityAssetType> applicableTypes) {
+	public ChildAssetsWidget(List<EntityChildAssetDescriptor> sourceData, Collection<EntityAssetType> applicableTypes, Set<String> animationNames) {
 		this.sourceData = sourceData;
 		this.applicableTypes = applicableTypes;
+		this.animationNames = animationNames;
 
 		addButton = new VisTextButton("Add another");
 		addButton.addListener(new ClickListener() {
@@ -37,7 +40,7 @@ public class ChildAssetsWidget extends VisTable {
 		this.clearChildren();
 
 		for (EntityChildAssetDescriptor childDescriptor : sourceData) {
-			this.add(new ChildAssetWidget(childDescriptor, applicableTypes)).left().expandX().fillX().row();
+			this.add(new ChildAssetWidget(childDescriptor, applicableTypes, animationNames)).left().expandX().fillX().row();
 		}
 
 		this.add(addButton).left().row();

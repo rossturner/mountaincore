@@ -1,11 +1,15 @@
 package technology.rocketjump.saul.assets.entities.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class EntityChildAssetDescriptor {
 
 	private EntityAssetType type;
 	private String specificAssetName; // Rather than a type
 	private StorableVector2 offsetPixels;
 	private Integer overrideRenderLayer;
+	private Set<String> inheritAnimations = new HashSet<>();
 
 	public static final EntityChildAssetDescriptor UNSPECIFIED_CHILD_ASSET = new EntityChildAssetDescriptor();
 	static {
@@ -49,4 +53,11 @@ public class EntityChildAssetDescriptor {
 	}
 	// may need rotation from parentGoal
 
+	public Set<String> getInheritAnimations() {
+		return inheritAnimations;
+	}
+
+	public void setInheritAnimations(Set<String> inheritAnimations) {
+		this.inheritAnimations = inheritAnimations;
+	}
 }
