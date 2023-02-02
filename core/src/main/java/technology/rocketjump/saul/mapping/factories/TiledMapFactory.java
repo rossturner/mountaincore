@@ -41,6 +41,7 @@ import java.util.stream.Collectors;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesType.TREE;
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.materials.model.GameMaterialType.METAL;
 
 public class TiledMapFactory {
@@ -129,7 +130,7 @@ public class TiledMapFactory {
 		embarkResources.addAll(initInventoryStartingItems(professionList.size(), gameContext.getRandom()));
 
 		for (Skill primaryProfession : professionList) {
-			Skill secondaryProfession = professionList.get(gameContext.getRandom().nextInt(professionList.size()));
+			Skill secondaryProfession = primaryProfession.equals(NULL_PROFESSION) ? NULL_PROFESSION : professionList.get(gameContext.getRandom().nextInt(professionList.size()));
 			createSettler(embarkPoint.x, embarkPoint.y, primaryProfession, secondaryProfession, gameContext, messageDispatcher);
 		}
 
@@ -141,10 +142,6 @@ public class TiledMapFactory {
 		ItemType plateItemType = itemTypeDictionary.getByName("Resource-Metal-Plate");
 		ItemType hoopsItemType = itemTypeDictionary.getByName("Product-Barrel-Hoops");
 		GameMaterial metalMaterial = pickMaterialType(metalItemType);
-		List<ItemType> placedItems = Arrays.asList(plankItemType, stoneBlockItemType, metalItemType, plateItemType, hoopsItemType);
-
-		Map<GridPoint2, RoomTile> roomTiles = new HashMap<>();
-		Set<StockpileGroup> stockpileGroups = new HashSet<>();
 
 		embarkResources.add(describeStackOf(plankItemType, plankMaterialType));
 		embarkResources.add(describeStackOf(plankItemType, plankMaterialType));
