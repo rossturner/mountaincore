@@ -101,7 +101,7 @@ public class FurnitureAttributesPane extends AbstractAttributesPane {
         Arrays.fill(workspaceItemTypes, NULL_ITEM_TYPE);
         for (int i = 0; i < workspaceItemTypes.length; i++) {
             final int finalIndex = i; //Rocky - Maybe its Friday, or maybe i dislike Java's weird behaviour with lambdas
-            add(WidgetBuilder.selectField(ItemHoldPosition.WORKSPACES.get(i).name(), null, itemTypes, NULL_ITEM_TYPE, update(itemType -> {
+            add(WidgetBuilder.selectField(ItemHoldPosition.FURNITURE_WORKSPACES.get(i).name(), null, itemTypes, NULL_ITEM_TYPE, update(itemType -> {
 
                 setInventoryItems(inventoryComponent, workspaceItemTypes, itemType, finalIndex);
             })));

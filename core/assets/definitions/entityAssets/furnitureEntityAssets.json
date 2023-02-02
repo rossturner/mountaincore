@@ -11492,7 +11492,7 @@
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ {
-        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.5,
@@ -11527,7 +11527,7 @@
   }
 }, {
   "uniqueName" : "Wagon_Parked-wagon-down-Furniture_Above_Layer_1-Wood",
-  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT",
   "furnitureTypeName" : "WAGON_PARKED",
   "furnitureLayoutName" : "wagon-down",
   "validMaterialTypes" : [ "WOOD" ],
@@ -11578,7 +11578,7 @@
           "unit" : false
         }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
           "x" : -13.0,
           "y" : 8.5,
@@ -11613,7 +11613,7 @@
   }
 }, {
   "uniqueName" : "Wagon_Parked-wagon-left-Furniture_Above_Layer_1-Wood",
-  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT",
   "furnitureTypeName" : "WAGON_PARKED",
   "furnitureLayoutName" : "wagon-left",
   "validMaterialTypes" : [ "WOOD" ],
@@ -11688,7 +11688,7 @@
           "unit" : false
         }
       }, {
-        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
           "x" : 13.0,
           "y" : 8.5,
@@ -11723,7 +11723,7 @@
   }
 }, {
   "uniqueName" : "Wagon_Parked-wagon-right-Furniture_Above_Layer_1-Wood",
-  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT",
   "furnitureTypeName" : "WAGON_PARKED",
   "furnitureLayoutName" : "wagon-right",
   "validMaterialTypes" : [ "WOOD" ],
@@ -11791,7 +11791,7 @@
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ {
-        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "type" : "SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 7.0,
@@ -11826,7 +11826,7 @@
   }
 }, {
   "uniqueName" : "Wagon_Parked-wagon-up-Furniture_Above_Layer_1-Wood",
-  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "type" : "SHOW_WHEN_INVENTORY_PRESENT",
   "furnitureTypeName" : "WAGON_PARKED",
   "furnitureLayoutName" : "wagon-up",
   "validMaterialTypes" : [ "WOOD" ],

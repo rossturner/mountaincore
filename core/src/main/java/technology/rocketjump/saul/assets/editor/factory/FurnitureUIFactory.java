@@ -60,6 +60,7 @@ public class FurnitureUIFactory implements UIFactory {
     private final EditorStateProvider editorStateProvider;
     private final CompleteAssetDictionary completeAssetDictionary;
     private final EntityAssetTypeDictionary entityAssetTypeDictionary;
+    private final EntityAssetType FURNITURE_BASE_ASSET_TYPE;
 
     @Inject
     public FurnitureUIFactory(FurnitureEntityFactory furnitureEntityFactory, FurnitureTypeDictionary furnitureTypeDictionary,
@@ -75,6 +76,7 @@ public class FurnitureUIFactory implements UIFactory {
         this.editorStateProvider = editorStateProvider;
         this.completeAssetDictionary = completeAssetDictionary;
         this.entityAssetTypeDictionary = entityAssetTypeDictionary;
+        this.FURNITURE_BASE_ASSET_TYPE = entityAssetTypeDictionary.getByName("BASE_LAYER");
     }
 
     @Override
@@ -255,6 +257,7 @@ public class FurnitureUIFactory implements UIFactory {
 
         FurnitureEntityAsset asset = new FurnitureEntityAsset();
         asset.setFurnitureTypeName(furnitureType.getName());
+        asset.setType(FURNITURE_BASE_ASSET_TYPE);
         asset.setValidMaterialTypes(new ArrayList<>());
         asset.setFurnitureLayoutName(furnitureType.getDefaultLayoutName());
         Collection<EntityAssetType> entityAssetTypes = entityAssetTypeDictionary.getByEntityType(getEntityType());

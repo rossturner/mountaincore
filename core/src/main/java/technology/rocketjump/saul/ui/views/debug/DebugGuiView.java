@@ -25,6 +25,7 @@ import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.creature.HappinessComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.components.creature.NeedsComponent;
+import technology.rocketjump.saul.entities.dictionaries.vehicle.VehicleTypeDictionary;
 import technology.rocketjump.saul.entities.factories.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
@@ -40,6 +41,8 @@ import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttri
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesDictionary;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpeciesGrowthStage;
+import technology.rocketjump.saul.entities.model.physical.vehicle.VehicleEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.vehicle.VehicleType;
 import technology.rocketjump.saul.environment.WeatherManager;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
@@ -89,16 +92,20 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 	private final CreatureEntityAttributesFactory creatureEntityAttributesFactory;
 	private final PlantEntityAttributesFactory plantEntityAttributesFactory;
 	private final PlantEntityFactory plantEntityFactory;
+	private final VehicleEntityAttributesFactory vehicleEntityAttributesFactory;
+	private final VehicleEntityFactory vehicleEntityFactory;
 	private final CombatMessageHandler combatMessageHandler;
 	private final SelectBox<Race> raceSelect;
 	private final SelectBox<String> plantSpeciesSelect;
 	private final SelectBox<Integer> plantSpeciesGrowthStageSelect;
+	private final SelectBox<String> vehicleTypeSelect;
 	private final SelectBox<EntityNeed> needSelect;
 	private final SelectBox<Integer> needValueSelect;
 	private final SelectBox<String> bodyPartSelect;
 	private final Map<String, BodyPart> stringToBodyPart = new TreeMap<>();
 	private final ItemEntityFactory itemEntityFactory;
 	private final SettlerFactory settlerFactory;
+	private final VehicleTypeDictionary vehicleTypeDictionary;
 	private final WeatherManager weatherManager;
 	private final ImmigrationManager immigrationManager;
 	private final ParticleEffectTypeDictionary particleEffectTypeDictionary;
@@ -110,6 +117,7 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 
 	private DebugAction currentAction = DebugAction.NONE;
 	private ItemType itemTypeToSpawn;
+	private VehicleType vehicleTypeToSpawn;
 	private GameMaterial selectedMaterial = GameMaterial.NULL_MATERIAL;
 
 	@Inject
@@ -119,7 +127,8 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 						CreatureEntityFactory creatureEntityFactory, CreatureEntityAttributesFactory creatureEntityAttributesFactory,
 						RaceDictionary raceDictionary, PlantSpeciesDictionary plantSpeciesDictionary,
 						PlantEntityAttributesFactory plantEntityAttributesFactory, PlantEntityFactory plantEntityFactory,
-						CombatMessageHandler combatMessageHandler, ItemEntityFactory itemEntityFactory, SettlerFactory settlerFactory, WeatherManager weatherManager,
+						VehicleEntityAttributesFactory vehicleEntityAttributesFactory, VehicleEntityFactory vehicleEntityFactory, CombatMessageHandler combatMessageHandler, ItemEntityFactory itemEntityFactory, SettlerFactory settlerFactory,
+						VehicleTypeDictionary vehicleTypeDictionary, WeatherManager weatherManager,
 						ImmigrationManager immigrationManager, ParticleEffectTypeDictionary particleEffectTypeDictionary,
 						InvasionDefinitionDictionary invasionDefinitionDictionary) {
 		this.messageDispatcher = messageDispatcher;
@@ -131,9 +140,12 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 		this.creatureEntityAttributesFactory = creatureEntityAttributesFactory;
 		this.plantEntityAttributesFactory = plantEntityAttributesFactory;
 		this.plantEntityFactory = plantEntityFactory;
+		this.vehicleEntityAttributesFactory = vehicleEntityAttributesFactory;
+		this.vehicleEntityFactory = vehicleEntityFactory;
 		this.combatMessageHandler = combatMessageHandler;
 		this.itemEntityFactory = itemEntityFactory;
 		this.settlerFactory = settlerFactory;
+		this.vehicleTypeDictionary = vehicleTypeDictionary;
 		this.weatherManager = weatherManager;
 		this.immigrationManager = immigrationManager;
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
@@ -199,6 +211,21 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 		});
 		this.plantSpeciesSelect.setItems(plantSpeciesDictionary.getAll().stream().map(PlantSpecies::getSpeciesName).toArray(String[]::new));
 
+		this.vehicleTypeSelect = new SelectBox<>(skin);
+		this.vehicleTypeSelect.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				vehicleTypeToSpawn = DebugGuiView.this.vehicleTypeDictionary.getByName(vehicleTypeSelect.getSelected());
+			}
+		});
+		Array<String> vehicleTypes = new Array<>();
+		for (VehicleType vehicleType : this.vehicleTypeDictionary.getAll()) {
+			if (!vehicleType.equals(VehicleTypeDictionary.NULL_TYPE)) {
+				vehicleTypes.add(vehicleType.getName());
+			}
+		}
+		vehicleTypeSelect.setItems(vehicleTypes);
+		vehicleTypeSelect.setSelected(vehicleTypes.get(0));
 
 		Integer[] needValues = IntStream.rangeClosed((int) NeedsComponent.MIN_NEED_VALUE, (int) NeedsComponent.MAX_NEED_VALUE)
 				.filter(x -> x % 10 == 0)
@@ -295,6 +322,11 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				} else {
 					Logger.warn("Blocked spawning of plant in tile that already contains a plant");
 				}
+				break;
+			}
+			case SPAWN_VEHICLE: {
+				VehicleEntityAttributes attributes = vehicleEntityAttributesFactory.create(vehicleTypeToSpawn);
+				vehicleEntityFactory.create(attributes, tile.getTilePosition(), gameContext);
 				break;
 			}
 			case SPAWN_CREATURE:{
@@ -489,6 +521,8 @@ public class DebugGuiView implements GuiView, GameContextAware, Telegraph {
 				} else if (currentAction.equals(DebugAction.SPAWN_PLANT)) {
 					layoutTable.add(plantSpeciesSelect).pad(15).left().row();
 					layoutTable.add(plantSpeciesGrowthStageSelect).pad(15).left().row();
+				} else if (currentAction.equals(DebugAction.SPAWN_VEHICLE)) {
+					layoutTable.add(vehicleTypeSelect).pad(15).left().row();
 				}
 			} else {
 				layoutTable.setBackground((Drawable) null);

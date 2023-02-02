@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.ItemAllocation;
 import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
@@ -23,6 +24,7 @@ import technology.rocketjump.saul.messaging.types.RequestHaulingMessage;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.rooms.HaulingAllocation;
 
@@ -143,8 +145,12 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 					amountToRequest -= incomingHaulingJob.getHaulingAllocation().getItemAllocation().getAllocationAmount();
 					if (selectedMaterial == null) {
 						Entity targetItem = gameContext.getEntity(incomingHaulingJob.getHaulingAllocation().getItemAllocation().getTargetItemEntityId());
-						ItemEntityAttributes attributes = (ItemEntityAttributes) targetItem.getPhysicalEntityComponent().getAttributes();
-						materialToRequest = attributes.getPrimaryMaterial();
+						if (targetItem != null) {
+							ItemEntityAttributes attributes = (ItemEntityAttributes) targetItem.getPhysicalEntityComponent().getAttributes();
+							materialToRequest = attributes.getPrimaryMaterial();
+						} else if (GlobalSettings.DEV_MODE) {
+							Logger.error("Target item in " + getClass().getSimpleName() + " is null, investigate why");
+						}
 					}
 				}
 				if (stackInInventory == null) {

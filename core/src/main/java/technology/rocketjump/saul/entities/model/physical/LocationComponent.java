@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.Vector2;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.assets.entities.item.model.ItemPlacement;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.components.AttachedLightSourceComponent;
 import technology.rocketjump.saul.entities.components.ParentDependentEntityComponent;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.EntityPositionChangedMessage;
@@ -141,14 +143,28 @@ public class LocationComponent implements ParentDependentEntityComponent {
 
 	public void setFacing(Vector2 facing) {
 		this.facing = facing.nor();
-		setOrientation(EntityAssetOrientation.fromFacing(facing));
+		setOrientation(EntityAssetOrientation.fromFacing(facing, parentEntity != null ? parentEntity.getType() : null));
 	}
 
 	public void setOrientation(EntityAssetOrientation newOrientation) {
 		this.orientation = newOrientation;
+
+
 		if (parentEntity != null) {
-			for (AttachedEntity attachedItem : parentEntity.getAttachedEntities()) {
-				attachedItem.entity.getLocationComponent().setOrientation(newOrientation);
+			for (AttachedEntity attachedEntity : parentEntity.getAttachedEntities()) {
+				switch (attachedEntity.entity.getType()) {
+					case ITEM -> {
+						ItemEntityAttributes attributes = (ItemEntityAttributes) attachedEntity.entity.getPhysicalEntityComponent().getAttributes();
+						if (!attributes.getItemPlacement().equals(ItemPlacement.ON_GROUND)) {
+							// only update facing for items that are not on the ground
+							attachedEntity.entity.getLocationComponent().setFacing(newOrientation.toVector2());
+						}
+					}
+					case CREATURE -> {
+						attachedEntity.entity.getLocationComponent().setFacing(newOrientation.toVector2());
+					}
+					default -> Logger.error("Not yet implemented, updating attached entity orientation for " + attachedEntity.entity.getType());
+				}
 			}
 			AttachedLightSourceComponent attachedLightSourceComponent = parentEntity.getComponent(AttachedLightSourceComponent.class);
 			if (attachedLightSourceComponent != null) {

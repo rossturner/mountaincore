@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
@@ -117,6 +118,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 		messageDispatcher.addListener(this, MessageType.SAVED_GAMES_LIST_UPDATED);
 		messageDispatcher.addListener(this, MessageType.START_NEW_GAME);
 		messageDispatcher.addListener(this, MessageType.PERFORM_LOAD);
+		messageDispatcher.addListener(this, MessageType.DEV_MODE_CHANGED);
 	}
 
 	@Override
@@ -176,6 +178,10 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 				topLevelMenu.gameStarted();
 				return false;
 			}
+			case MessageType.DEV_MODE_CHANGED: {
+				resetVersionTable();
+				return true;
+			}
 			default:
 				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this + ", " + msg);
 		}
@@ -217,7 +223,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(stage);
-		inputMultiplexer.addProcessor(new MainMenuInputHandler());
+		inputMultiplexer.addProcessor(new MainMenuInputHandler(messageDispatcher));
 		Gdx.input.setInputProcessor(inputMultiplexer);
 
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -355,6 +361,12 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 
 	private static class MainMenuInputHandler implements InputProcessor {
 
+		private final MessageDispatcher messageDispatcher;
+
+		private MainMenuInputHandler(MessageDispatcher messageDispatcher) {
+			this.messageDispatcher = messageDispatcher;
+		}
+
 		@Override
 		public boolean keyDown(int keycode) {
 			return false;
@@ -362,6 +374,11 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 
 		@Override
 		public boolean keyUp(int keycode) {
+			if (keycode == Input.Keys.D && Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+				GlobalSettings.DEV_MODE = !GlobalSettings.DEV_MODE;
+				messageDispatcher.dispatchMessage(MessageType.DEV_MODE_CHANGED);
+				return true;
+			}
 			return false;
 		}
 

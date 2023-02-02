@@ -15,6 +15,7 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEnt
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.vehicle.VehicleEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
@@ -93,6 +94,8 @@ public class PhysicalEntityComponent implements EntityComponent {
 			asJson.put("entityType", ONGOING_EFFECT.name());
 		} else if (attributes instanceof MechanismEntityAttributes) {
 			asJson.put("entityType", MECHANISM.name());
+		} else if (attributes instanceof VehicleEntityAttributes) {
+			asJson.put("entityType", VEHICLE.name());
 		} else {
 			throw new NotImplementedException("Not yet implemented: " + attributes.getClass().getSimpleName());
 		}
@@ -141,6 +144,9 @@ public class PhysicalEntityComponent implements EntityComponent {
 				break;
 			case MECHANISM:
 				attributes = new MechanismEntityAttributes();
+				break;
+			case VEHICLE:
+				attributes = new VehicleEntityAttributes();
 				break;
 		}
 		JSONObject attributesJson = asJson.getJSONObject("attributes");
