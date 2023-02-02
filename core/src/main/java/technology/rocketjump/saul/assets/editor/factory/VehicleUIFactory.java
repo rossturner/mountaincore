@@ -34,10 +34,12 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionar
 import technology.rocketjump.saul.entities.model.physical.vehicle.VehicleEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.vehicle.VehicleType;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.persistence.FileUtils;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -146,6 +148,10 @@ public class VehicleUIFactory implements UIFactory {
 
         controls.add(WidgetBuilder.label("i18n Key"));
         controls.add(WidgetBuilder.textField(vehicleType.getI18nKey(), vehicleType::setI18nKey));
+        controls.row();
+
+        controls.add(WidgetBuilder.selectField("Material Type", vehicleType.getMaterialType(), Arrays.asList(GameMaterialType.values()),
+                GameMaterialType.OTHER, vehicleType::setMaterialType));
         controls.row();
 
         TagsWidget tagsWidget = new TagsWidget(vehicleType.getTags());

@@ -2,6 +2,7 @@ package technology.rocketjump.saul.entities.model.physical.vehicle;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import technology.rocketjump.saul.entities.tags.Tag;
+import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.Name;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class VehicleType {
 	@Name
 	private String name;
 	private String i18nKey;
+	private GameMaterialType materialType;
 
 	private Map<String, List<String>> tags = new HashMap<>();
 	@JsonIgnore
@@ -49,5 +51,13 @@ public class VehicleType {
 
 	public String getI18nKey() {
 		return i18nKey;
+	}
+
+	public GameMaterialType getMaterialType() {
+		return materialType;
+	}
+
+	public void setMaterialType(GameMaterialType materialType) {
+		this.materialType = materialType;
 	}
 }

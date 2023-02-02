@@ -155,6 +155,10 @@ public class VehicleEntityAttributes implements EntityAttributes {
 		return destructionCause;
 	}
 
+	public GameMaterial getPrimaryMaterial() {
+		return getMaterials().getOrDefault(vehicleType.getMaterialType(), GameMaterial.NULL_MATERIAL);
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		asJson.put("seed", seed);
@@ -223,5 +227,4 @@ public class VehicleEntityAttributes implements EntityAttributes {
 		damageAmount = asJson.getIntValue("damage");
 		destructionCause = EnumParser.getEnumValue(asJson, "destructionCause", EntityDestructionCause.class, null);
 	}
-
 }

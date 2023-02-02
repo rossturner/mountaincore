@@ -32,6 +32,7 @@ import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTyp
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.mechanism.MechanismType;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.vehicle.VehicleEntityAttributes;
 import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.SkillDictionary;
@@ -139,6 +140,8 @@ public class I18nTranslator {
 				return getDescription((PlantEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
 			case FURNITURE:
 				return getDescription((FurnitureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
+			case VEHICLE:
+				return getDescription((VehicleEntityAttributes) entity.getPhysicalEntityComponent().getAttributes());
 			default:
 				return new I18nText("Not yet implemented description for entity with type " + entity.getType());
 		}
@@ -649,6 +652,24 @@ public class I18nTranslator {
 		}
 
 		return applyReplacements(dictionary.getWord("FURNITURE.DESCRIPTION"), replacements, Gender.ANY);
+	}
+
+	private I18nText getDescription(VehicleEntityAttributes attributes) {
+		Map<String, I18nString> replacements = new HashMap<>();
+
+		GameMaterial gameMaterial = attributes.getPrimaryMaterial();
+		if (gameMaterial != null && !NULL_MATERIAL.equals(gameMaterial)) {
+			replacements.put("materialType", gameMaterial.getI18nValue());
+		} else {
+			replacements.put("materialType", I18nWord.BLANK);
+		}
+		if (attributes.getVehicleType() != null && attributes.getVehicleType().getI18nKey() != null) {
+			replacements.put("vehicleType", dictionary.getWord(attributes.getVehicleType().getI18nKey()));
+		} else {
+			replacements.put("vehicleType", I18nWord.BLANK);
+		}
+
+		return applyReplacements(dictionary.getWord("VEHICLE.DESCRIPTION"), replacements, Gender.ANY);
 	}
 
 	public I18nText getTranslatedWordWithReplacements(String i18nKey, Map<String, I18nString> replacements) {

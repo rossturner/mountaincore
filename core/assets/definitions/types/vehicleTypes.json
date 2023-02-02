@@ -1,4 +1,6 @@
 [ {
   "name" : "Wagon",
+  "i18nKey" : "FURNITURE.WAGON_PARKED",
+  "materialType" : "WOOD",
   "tags" : { }
 } ]
