@@ -36,9 +36,8 @@
   "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "LUMBERJACK",
   "requiredItemTypeName" : "Tool-Axe",
-  "activeSoundAssetName" : "ChoppingTree",
   "onCompletionSoundAssetName" : "TreeFall",
-  "workOnJobParticleEffectNames" : [ "Chipping wood" ],
+  "workOnJobAnimation" : "work_on_job_logging",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "SHOVELLING",

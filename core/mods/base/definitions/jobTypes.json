@@ -32,9 +32,8 @@
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "LUMBERJACK",
     "requiredItemTypeName": "Tool-Axe",
-    "activeSoundAssetName": "ChoppingTree",
     "onCompletionSoundAssetName": "TreeFall",
-    "workOnJobParticleEffectNames": ["Chipping wood"]
+    "workOnJobAnimation": "work_on_job_logging"
   },
 
 

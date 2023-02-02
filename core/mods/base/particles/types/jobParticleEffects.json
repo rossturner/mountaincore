@@ -19,7 +19,7 @@
     "particleFile": "woodchip.p",
     "scale": 1,
     "usingParentOrientation": "LEFT",
-    "isLooping": true,
+    "isLooping": false,
     "isAffectedByLighting": true,
     "usesTargetMaterialAsTintColor": true,
     "distanceFromParentEntityOrientation": 0.8,

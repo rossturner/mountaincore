@@ -225,7 +225,7 @@
 }, {
   "name" : "ChoppingTree",
   "soundAssetId" : 29,
-  "filenames" : [ "Chopping Tree.wav" ],
+  "filenames" : [ "Chopping Tree (A).wav", "Chopping Tree (B-FO).wav", "Chopping Tree (C-FO).wav", "Chopping Tree (D).wav" ],
   "minPitch" : 0.8,
   "maxPitch" : 1.2,
   "volumeModifier" : 0.4,

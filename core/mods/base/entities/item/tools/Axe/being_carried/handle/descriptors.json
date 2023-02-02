@@ -7,12 +7,58 @@
     "DOWN" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-F.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_logging" : {
+          "duration" : 0.8,
+          "rotations" : [ { }, {
+            "atTime" : 0.23,
+            "roll" : -14
+          }, {
+            "atTime" : 0.3,
+            "roll" : 39
+          }, {
+            "atTime" : 0.45,
+            "roll" : 39
+          }, {
+            "atTime" : 0.8
+          } ],
+          "scalings" : [ {
+            "x" : 1.0,
+            "y" : 1.0
+          }, {
+            "atTime" : 0.23,
+            "x" : 0.9,
+            "y" : 0.9
+          }, {
+            "atTime" : 0.3,
+            "x" : 1.2,
+            "y" : 1.2
+          }, {
+            "atTime" : 0.45,
+            "x" : 1.2,
+            "y" : 1.2
+          }, {
+            "atTime" : 0.8,
+            "x" : 1.0,
+            "y" : 1.0
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.23,
+            "soundAssetName" : "ChoppingTree"
+          } ],
+          "particleEffectCues" : [ {
+            "atTime" : 0.23,
+            "particleEffectName" : "Chipping wood"
+          } ]
+        }
+      },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : -4.0,
           "y" : 20.0
-        }
+        },
+        "inheritAnimations" : [ "work_on_job_logging" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -25,12 +71,53 @@
     "DOWN_RIGHT" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_logging" : {
+          "duration" : 0.8,
+          "rotations" : [ { }, {
+            "atTime" : 0.23,
+            "roll" : 23
+          }, {
+            "atTime" : 0.3,
+            "roll" : -17
+          }, {
+            "atTime" : 0.45,
+            "roll" : -17
+          }, {
+            "atTime" : 0.8
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.23,
+            "x" : -0.047,
+            "y" : 0.03
+          }, {
+            "atTime" : 0.3,
+            "x" : 0.015,
+            "y" : 0.048
+          }, {
+            "atTime" : 0.45,
+            "x" : 0.015,
+            "y" : 0.048
+          }, {
+            "atTime" : 0.8
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.23,
+            "soundAssetName" : "ChoppingTree"
+          } ],
+          "particleEffectCues" : [ {
+            "atTime" : 0.23,
+            "particleEffectName" : "Chipping wood"
+          } ]
+        }
+      },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 6.0,
           "y" : 18.0
-        }
+        },
+        "inheritAnimations" : [ "work_on_job_logging" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -43,13 +130,50 @@
     "DOWN_LEFT" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_logging" : {
+          "duration" : 0.8,
+          "rotations" : [ { }, {
+            "atTime" : 0.23,
+            "roll" : -23
+          }, {
+            "atTime" : 0.3,
+            "roll" : 30
+          }, {
+            "atTime" : 0.45,
+            "roll" : 30
+          }, {
+            "atTime" : 0.8
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.23,
+            "x" : 0.043,
+            "y" : 0.014
+          }, {
+            "atTime" : 0.3
+          }, {
+            "atTime" : 0.45
+          }, {
+            "atTime" : 0.8
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.23,
+            "soundAssetName" : "ChoppingTree"
+          } ],
+          "particleEffectCues" : [ {
+            "atTime" : 0.23,
+            "particleEffectName" : "Chipping wood"
+          } ]
+        }
+      },
       "flipX" : true,
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : -6.0,
           "y" : 18.0
-        }
+        },
+        "inheritAnimations" : [ "work_on_job_logging" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -62,6 +186,51 @@
     "UP" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_logging" : {
+          "duration" : 0.8,
+          "rotations" : [ { }, {
+            "atTime" : 0.23,
+            "roll" : 10
+          }, {
+            "atTime" : 0.3,
+            "roll" : -8
+          }, {
+            "atTime" : 0.45,
+            "roll" : -8
+          }, {
+            "atTime" : 0.8
+          } ],
+          "scalings" : [ {
+            "x" : 1.0,
+            "y" : 1.0
+          }, {
+            "atTime" : 0.23,
+            "x" : 1.1,
+            "y" : 1.1
+          }, {
+            "atTime" : 0.3,
+            "x" : 0.85,
+            "y" : 0.85
+          }, {
+            "atTime" : 0.45,
+            "x" : 0.85,
+            "y" : 0.85
+          }, {
+            "atTime" : 0.8,
+            "x" : 1.0,
+            "y" : 1.0
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.23,
+            "soundAssetName" : "ChoppingTree"
+          } ],
+          "particleEffectCues" : [ {
+            "atTime" : 0.23,
+            "particleEffectName" : "Chipping wood"
+          } ]
+        }
+      },
       "offsetPixels" : {
         "y" : 5.0
       },
@@ -69,12 +238,50 @@
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
           "y" : 16.0
-        }
+        },
+        "inheritAnimations" : [ "work_on_job_logging" ]
       } ]
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_logging" : {
+          "duration" : 0.8,
+          "rotations" : [ { }, {
+            "atTime" : 0.23,
+            "roll" : 13
+          }, {
+            "atTime" : 0.3,
+            "roll" : -40
+          }, {
+            "atTime" : 0.45,
+            "roll" : -40
+          }, {
+            "atTime" : 0.8
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.23,
+            "x" : -0.069
+          }, {
+            "atTime" : 0.3,
+            "x" : 0.02
+          }, {
+            "atTime" : 0.45,
+            "x" : 0.02
+          }, {
+            "atTime" : 0.8
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.23,
+            "soundAssetName" : "ChoppingTree"
+          } ],
+          "particleEffectCues" : [ {
+            "atTime" : 0.23,
+            "particleEffectName" : "Chipping wood"
+          } ]
+        }
+      },
       "offsetPixels" : {
         "y" : 5.0
       },
@@ -83,12 +290,50 @@
         "offsetPixels" : {
           "x" : 6.0,
           "y" : 16.0
-        }
+        },
+        "inheritAnimations" : [ "work_on_job_logging" ]
       } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_logging" : {
+          "duration" : 0.8,
+          "rotations" : [ { }, {
+            "atTime" : 0.23,
+            "roll" : -23
+          }, {
+            "atTime" : 0.3,
+            "roll" : 17
+          }, {
+            "atTime" : 0.45,
+            "roll" : 17
+          }, {
+            "atTime" : 0.8
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.23,
+            "y" : 0.08
+          }, {
+            "atTime" : 0.3,
+            "y" : -0.1
+          }, {
+            "atTime" : 0.45,
+            "y" : -0.1
+          }, {
+            "atTime" : 0.8
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.23,
+            "soundAssetName" : "ChoppingTree"
+          } ],
+          "particleEffectCues" : [ {
+            "atTime" : 0.23,
+            "particleEffectName" : "Chipping wood"
+          } ]
+        }
+      },
       "offsetPixels" : {
         "y" : 5.0
       },
@@ -98,7 +343,8 @@
         "offsetPixels" : {
           "x" : -6.0,
           "y" : 16.0
-        }
+        },
+        "inheritAnimations" : [ "work_on_job_logging" ]
       } ]
     }
   }

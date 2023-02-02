@@ -2,8 +2,8 @@ rockparticle
 - Delay -
 active: false
 - Duration - 
-lowMin: 200.0
-lowMax: 500.0
+lowMin: 2000.0
+lowMax: 2000.0
 - Count - 
 min: 1
 max: 3
