@@ -24,6 +24,7 @@ public class MessageType {
 	public static final int BEGIN_SPAWN_SETTLEMENT = 6;
 	public static final int INITIALISE_SPAWN_POINT = 7;
 	public static final int SETTLEMENT_SPAWNED = 8;
+	public static final int DEV_MODE_CHANGED = 9;
 
 	// Mouse & Input messages
 	public static final int MOUSE_DOWN = 200;
@@ -115,7 +116,9 @@ public class MessageType {
 	public static final int LOCATE_SETTLERS_IN_REGION = 349;
 	public static final int DESTROY_ENTITY = 350;
 	public static final int DESTROY_ENTITY_AND_ALL_INVENTORY = 351;
-	public static final int CHANGE_ENTITY_BEHAVIOUR = 352; public record ChangeEntityBehaviourMessage(Entity entity, BehaviourComponent newBehaviour) {}
+	public static final int CHANGE_ENTITY_BEHAVIOUR = 352;
+
+	public record ChangeEntityBehaviourMessage(Entity entity, BehaviourComponent newBehaviour) {}
 
 	// Assets and modding related messages
 	public static final int SHUTDOWN_IN_PROGRESS = 400;

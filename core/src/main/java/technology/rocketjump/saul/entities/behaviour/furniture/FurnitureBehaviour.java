@@ -14,6 +14,7 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureTyp
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.jobs.model.JobPriority;
+import technology.rocketjump.saul.jobs.model.JobState;
 import technology.rocketjump.saul.jobs.model.JobType;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.model.GameMaterial;
@@ -26,7 +27,6 @@ import technology.rocketjump.saul.rooms.Room;
 import technology.rocketjump.saul.rooms.RoomType;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -83,7 +83,10 @@ public class FurnitureBehaviour implements BehaviourComponent {
 
 		ConstructedEntityComponent constructedEntityComponent = parentEntity.getComponent(ConstructedEntityComponent.class);
 		if (constructedEntityComponent != null) {
-			if (!constructedEntityComponent.isBeingDeconstructed() && constructedEntityComponent.canBeDeconstructed()) {
+			if (constructedEntityComponent.getDeconstructionJob() != null && constructedEntityComponent.getDeconstructionJob().getJobState().equals(JobState.INACCESSIBLE)) {
+				List<GridPoint2> furnitureLocations = getFurnitureLocations();
+				constructedEntityComponent.getDeconstructionJob().setJobLocation(furnitureLocations.get(gameContext.getRandom().nextInt(furnitureLocations.size())));
+			} else if (!constructedEntityComponent.isBeingDeconstructed() && constructedEntityComponent.canBeDeconstructed()) {
 				// Check to see if this furniture is in an illegal placement
 
 				FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
@@ -92,12 +95,7 @@ public class FurnitureBehaviour implements BehaviourComponent {
 					Set<RoomType> validRoomTypes = attributes.getFurnitureType().getValidRoomTypes();
 
 					Room matchedRoom = null;
-					Set<GridPoint2> locationsToCheck = new HashSet<>();
-					GridPoint2 worldLocation = toGridPoint(locationComponent.getWorldPosition());
-					locationsToCheck.add(worldLocation);
-					for (GridPoint2 offset : attributes.getCurrentLayout().getExtraTiles()) {
-						locationsToCheck.add(worldLocation.cpy().add(offset));
-					}
+					List<GridPoint2> locationsToCheck = getFurnitureLocations();
 
 					for (GridPoint2 locationToCheck : locationsToCheck) {
 						MapTile tile = gameContext.getAreaMap().getTile(locationToCheck);
@@ -122,6 +120,17 @@ public class FurnitureBehaviour implements BehaviourComponent {
 			}
 		}
 
+	}
+
+	private List<GridPoint2> getFurnitureLocations() {
+		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
+		List<GridPoint2> locations = new ArrayList<>(attributes.getCurrentLayout().getExtraTiles().size() + 1);
+		GridPoint2 worldLocation = toGridPoint(locationComponent.getWorldPosition());
+		locations.add(worldLocation);
+		for (GridPoint2 offset : attributes.getCurrentLayout().getExtraTiles()) {
+			locations.add(worldLocation.cpy().add(offset));
+		}
+		return locations;
 	}
 
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.behaviour.furniture.FurnitureBehaviour;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
@@ -45,12 +46,13 @@ public class EmbarkResourcesFactory {
 	private final MessageDispatcher messageDispatcher;
 	private final ItemEntityFactory itemEntityFactory;
 	private final ItemEntityAttributesFactory itemEntityAttributesFactory;
+	private final EntityAssetUpdater entityAssetUpdater;
 
 	@Inject
 	public EmbarkResourcesFactory(FurnitureTypeDictionary furnitureTypeDictionary, GameMaterialDictionary gameMaterialDictionary,
 								  FurnitureEntityAttributesFactory furnitureEntityAttributesFactory, FurnitureEntityFactory furnitureEntityFactory,
 								  EntityStore entityStore, MessageDispatcher messageDispatcher, ItemEntityFactory itemEntityFactory,
-								  ItemEntityAttributesFactory itemEntityAttributesFactory) {
+								  ItemEntityAttributesFactory itemEntityAttributesFactory, EntityAssetUpdater entityAssetUpdater) {
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.furnitureEntityAttributesFactory = furnitureEntityAttributesFactory;
 		this.furnitureEntityFactory = furnitureEntityFactory;
@@ -59,6 +61,7 @@ public class EmbarkResourcesFactory {
 		this.messageDispatcher = messageDispatcher;
 		this.itemEntityFactory = itemEntityFactory;
 		this.itemEntityAttributesFactory = itemEntityAttributesFactory;
+		this.entityAssetUpdater = entityAssetUpdater;
 	}
 
 	public void spawnEmbarkResources(GridPoint2 embarkPoint, List<QuantifiedItemTypeWithMaterial> embarkResources, GameContext gameContext) {
@@ -116,6 +119,8 @@ public class EmbarkResourcesFactory {
 						itemsAdded++;
 					}
 				}
+
+				entityAssetUpdater.updateEntityAssets(wagonEntity);
 			}
 
 			attempts++;
