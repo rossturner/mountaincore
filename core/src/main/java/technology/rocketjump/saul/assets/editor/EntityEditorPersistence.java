@@ -11,6 +11,7 @@ import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.entities.CompleteAssetDictionary;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
+import technology.rocketjump.saul.entities.dictionaries.vehicle.VehicleTypeDictionary;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
@@ -35,13 +36,14 @@ public class EntityEditorPersistence {
 	private final ItemTypeDictionary itemTypeDictionary;
 	private final FurnitureTypeDictionary furnitureTypeDictionary;
 	private final MechanismTypeDictionary mechanismTypeDictionary;
+	private final VehicleTypeDictionary vehicleTypeDictionary;
 	private final ObjectWriter objectWriter;
 
 	@Inject
 	public EntityEditorPersistence(EditorStateProvider editorStateProvider, CompleteAssetDictionary assetDictionary,
 								   RaceDictionary raceDictionary, PlantSpeciesDictionary plantSpeciesDictionary,
 								   ItemTypeDictionary itemTypeDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
-								   MechanismTypeDictionary mechanismTypeDictionary) {
+								   MechanismTypeDictionary mechanismTypeDictionary, VehicleTypeDictionary vehicleTypeDictionary) {
 		this.editorStateProvider = editorStateProvider;
 		this.assetDictionary = assetDictionary;
 		this.raceDictionary = raceDictionary;
@@ -49,6 +51,7 @@ public class EntityEditorPersistence {
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
 		this.mechanismTypeDictionary = mechanismTypeDictionary;
+		this.vehicleTypeDictionary = vehicleTypeDictionary;
 
 		this.objectWriter = new ObjectMapper()
 				.setSerializationInclusion(JsonInclude.Include.NON_DEFAULT)
@@ -85,6 +88,7 @@ public class EntityEditorPersistence {
 			case ITEM -> itemTypeDictionary.getByName(typeName);
 			case FURNITURE -> furnitureTypeDictionary.getByName(typeName);
 			case MECHANISM -> mechanismTypeDictionary.getByName(typeName);
+			case VEHICLE -> vehicleTypeDictionary.getByName(typeName);
 			default -> "Not yet implemented";
 		};
 	}

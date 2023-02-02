@@ -889,7 +889,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				if (!unknownHappiness) {
 					String drawableName = overallSmileyDrawable(happinessComponent.getNetModifier());
 					Image smiley = new Image(mainGameSkin.getDrawable(drawableName));
-					tooltipFactory.complexTooltip(smiley, populateSmileyTooltip(entity, happinessComponent), TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
+					if (!happinessComponent.currentModifiers().isEmpty()) {
+						tooltipFactory.complexTooltip(smiley, populateSmileyTooltip(entity, happinessComponent), TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
+					}
 					table.add(smiley);
 				}
 			}

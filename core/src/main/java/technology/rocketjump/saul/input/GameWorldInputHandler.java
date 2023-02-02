@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.google.inject.Inject;
@@ -26,7 +28,7 @@ import java.util.*;
  * This class is for input directly in the game world, as compared to some input that was caught by the GUI instead
  */
 @Singleton
-public class GameWorldInputHandler implements InputProcessor, GameContextAware {
+public class GameWorldInputHandler implements InputProcessor, GameContextAware, Telegraph {
 
 	public static final int SCROLL_BORDER = 2;
 
@@ -40,8 +42,8 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 	private final Map<Integer, Boolean> buttonsPressed = new HashMap<>();
 	private float startX, startY;
 
-	private final Map<CommandName, Runnable> keyDownActions;
-	private final Map<CommandName, Runnable> keyUpActions;
+	private final Map<CommandName, Runnable> keyDownActions = new HashMap<>();
+	private final Map<CommandName, Runnable> keyUpActions = new HashMap<>();
 
 	@Inject
 	public GameWorldInputHandler(UserPreferences userPreferences, PrimaryCameraWrapper primaryCameraWrapper,
@@ -56,7 +58,6 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		buttonsPressed.put(Input.Buttons.FORWARD, false);
 		buttonsPressed.put(Input.Buttons.BACK, false);
 
-		keyDownActions = new HashMap<>();
 		keyDownActions.put(CommandName.PAN_CAMERA_LEFT, () -> primaryCameraWrapper.setMovementX(-1));
 		keyDownActions.put(CommandName.PAN_CAMERA_RIGHT, () -> primaryCameraWrapper.setMovementX(1));
 		keyDownActions.put(CommandName.PAN_CAMERA_UP, () -> primaryCameraWrapper.setMovementY(1));
@@ -67,7 +68,12 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 		keyDownActions.put(CommandName.QUICKSAVE, () -> messageDispatcher.dispatchMessage(MessageType.REQUEST_SAVE));
 		keyDownActions.put(CommandName.QUICKLOAD, () -> messageDispatcher.dispatchMessage(MessageType.TRIGGER_QUICKLOAD));
 
-		keyUpActions = new HashMap<>();
+		rebuildKeyupActions();
+		messageDispatcher.addListener(this, MessageType.DEV_MODE_CHANGED);
+	}
+
+	private Map<CommandName, Runnable> rebuildKeyupActions() {
+		keyUpActions.clear();
 		keyUpActions.put(CommandName.PAN_CAMERA_LEFT, () -> primaryCameraWrapper.setMovementX(0));
 		keyUpActions.put(CommandName.PAN_CAMERA_RIGHT, () -> primaryCameraWrapper.setMovementX(0));
 		keyUpActions.put(CommandName.PAN_CAMERA_UP, () -> primaryCameraWrapper.setMovementY(0));
@@ -105,6 +111,7 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 			keyUpActions.put(CommandName.DEBUG_GAME_SPEED_SLOW, () -> messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.VERY_SLOW));
 			keyUpActions.put(CommandName.DEBUG_SHOW_MENU, () -> messageDispatcher.dispatchMessage(MessageType.TOGGLE_DEBUG_VIEW));
 		}
+		return keyUpActions;
 	}
 
 	@Override
@@ -264,5 +271,16 @@ public class GameWorldInputHandler implements InputProcessor, GameContextAware {
 	@Override
 	public void clearContextRelatedState() {
 
+	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.DEV_MODE_CHANGED -> {
+				rebuildKeyupActions();
+				return true;
+			}
+			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + getClass().getSimpleName() + ", " + msg);
+		}
 	}
 }

@@ -17,6 +17,7 @@ import technology.rocketjump.saul.entities.components.ComponentDictionary;
 import technology.rocketjump.saul.entities.components.StatusEffectDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureLayoutDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
+import technology.rocketjump.saul.entities.dictionaries.vehicle.VehicleTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.creature.body.BodyStructureDictionary;
 import technology.rocketjump.saul.entities.model.physical.creature.body.organs.OrganDefinitionDictionary;
@@ -69,6 +70,7 @@ public class SavedGameDependentDictionaries {
 	public final ActionDictionary actionDictionary;
 	public final FurnitureTypeDictionary furnitureTypeDictionary;
 	public final FurnitureLayoutDictionary furnitureLayoutDictionary;
+	public final VehicleTypeDictionary vehicleTypeDictionary;
 	public final PlantSpeciesDictionary plantSpeciesDictionary;
 	public final WallTypeDictionary wallTypeDictionary;
 	public final RoomTypeDictionary roomTypeDictionary;
@@ -100,7 +102,7 @@ public class SavedGameDependentDictionaries {
 										  CraftingRecipeDictionary craftingRecipeDictionary, CompleteAssetDictionary completeAssetDictionary,
 										  GoalDictionary goalDictionary, ScheduleDictionary scheduleDictionary, RoomStore roomStore,
 										  ActionDictionary actionDictionary, FurnitureTypeDictionary furnitureTypeDictionary,
-										  FurnitureLayoutDictionary furnitureLayoutDictionary, PlantSpeciesDictionary plantSpeciesDictionary,
+										  FurnitureLayoutDictionary furnitureLayoutDictionary, VehicleTypeDictionary vehicleTypeDictionary, PlantSpeciesDictionary plantSpeciesDictionary,
 										  WallTypeDictionary wallTypeDictionary, RoomTypeDictionary roomTypeDictionary,
 										  RoomComponentDictionary roomComponentDictionary, DesignationDictionary designationDictionary,
 										  StockpileGroupDictionary stockpileGroupDictionary, TagDictionary tagDictionary,
@@ -130,6 +132,7 @@ public class SavedGameDependentDictionaries {
 		this.actionDictionary = actionDictionary;
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
 		this.furnitureLayoutDictionary = furnitureLayoutDictionary;
+		this.vehicleTypeDictionary = vehicleTypeDictionary;
 		this.plantSpeciesDictionary = plantSpeciesDictionary;
 		this.wallTypeDictionary = wallTypeDictionary;
 		this.roomTypeDictionary = roomTypeDictionary;

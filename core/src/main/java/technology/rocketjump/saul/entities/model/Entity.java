@@ -32,8 +32,7 @@ import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
 import java.util.*;
 
-import static technology.rocketjump.saul.entities.model.EntityType.CREATURE;
-import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
+import static technology.rocketjump.saul.entities.model.EntityType.*;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 
 public class Entity implements Persistable, Disposable {
@@ -180,7 +179,7 @@ public class Entity implements Persistable, Disposable {
 					}
 				}
 			}
-		} else if (type.equals(EntityType.FURNITURE)) {
+		} else if (type.equals(EntityType.FURNITURE) || type.equals(VEHICLE)) {
 			DecorationInventoryComponent decorationInventoryComponent = getComponent(DecorationInventoryComponent.class);
 			if (decorationInventoryComponent != null) {
 				List<Entity> decorationItems = new ArrayList<>(decorationInventoryComponent.getDecorationEntities());
@@ -204,7 +203,7 @@ public class Entity implements Persistable, Disposable {
 						workspaceItems.put(inventoryItem.getPreferredPosition(), new AttachedEntity(inventoryItem.entity, inventoryItem.getPreferredPosition()));
 					} else {
 						// Find free workspace
-						for (ItemHoldPosition workspaceHoldPosition : ItemHoldPosition.WORKSPACES) {
+						for (ItemHoldPosition workspaceHoldPosition : ItemHoldPosition.FURNITURE_WORKSPACES) {
 							if (!workspaceItems.containsKey(workspaceHoldPosition)) {
 								workspaceItems.put(workspaceHoldPosition, new AttachedEntity(inventoryItem.entity, workspaceHoldPosition));
 								break;

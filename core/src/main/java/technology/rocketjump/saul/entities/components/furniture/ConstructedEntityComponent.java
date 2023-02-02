@@ -90,4 +90,8 @@ public class ConstructedEntityComponent implements ParentDependentEntityComponen
 
 		this.isAutoConstructed = asJson.getBooleanValue("autoConstructed");
 	}
+
+	public Job getDeconstructionJob() {
+		return deconstructionJob;
+	}
 }

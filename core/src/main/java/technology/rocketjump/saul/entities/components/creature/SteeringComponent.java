@@ -182,6 +182,14 @@ public class SteeringComponent implements ChildPersistable {
 			}
 		}
 		Vector2 newVelocity = currentVelocity.cpy().mulAdd(steeringOutputForce, deltaTime).limit(maxSpeed);
+		if (parentEntity.getType().equals(EntityType.VEHICLE)) {
+			float animationProgress = parentEntity.getPhysicalEntityComponent().getAnimationProgress();
+			animationProgress += newVelocity.len() * deltaTime;
+			while (animationProgress > 1f) {
+				animationProgress -= 1f;
+			}
+			parentEntity.getPhysicalEntityComponent().setAnimationProgress(animationProgress);
+		}
 		Vector2 newPosition = currentPosition.cpy().mulAdd(newVelocity, deltaTime);
 
 		locationComponent.setLinearVelocity(newVelocity);

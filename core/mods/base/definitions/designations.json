@@ -8,14 +8,14 @@
   },
   {
     "designationName": "CHOP_WOOD",
-    "iconName": "logging",
+    "iconName": "preview_chop_icon",
     "createsJobTypeName": "LOGGING",
     "selectionColor": { "r": 1, "g": 1, "b": 0.6, "a": 0.4 },
     "designationColor": { "r": 1, "g": 1, "b": 1, "a": 0.4 }
   },
   {
     "designationName": "CLEAR_GROUND",
-    "iconName": "spade",
+    "iconName": "preview_clear_icon",
     "createsJobTypeName": "CLEAR_GROUND",
     "selectionColor": { "r": 1, "g": 1, "b": 0.6, "a": 0.4 },
     "designationColor": { "r": 1, "g": 1, "b": 1, "a": 0.4 }
@@ -28,7 +28,7 @@
   },
   {
     "designationName": "DECONSTRUCT",
-    "iconName": "demolish",
+    "iconName": "preview_demolish_icon",
     "selectionColor": { "r": 1, "g": 0.2, "b": 0.2, "a": 0.3 },
     "designationColor": { "r": 0.82, "g": 0.45, "b": 0.18, "a": 0.3 }
   },
@@ -41,7 +41,7 @@
   },
   {
     "designationName": "EXTINGUISH_FLAMES",
-    "iconName": "water-splash",
+    "iconName": "preview_extinguish_icon",
     "createsJobTypeName": "EXTINGUISH_FLAMES",
     "selectionColor": { "r": 1, "g": 1, "b": 0.6, "a": 0.4 },
     "designationColor": { "r": 1, "g": 1, "b": 1, "a": 0.4 },

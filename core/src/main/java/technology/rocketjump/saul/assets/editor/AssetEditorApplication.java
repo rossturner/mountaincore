@@ -104,6 +104,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 				uiFactoryMapBinder.addBinding(EntityType.CREATURE).to(CreatureUIFactory.class);
 				uiFactoryMapBinder.addBinding(EntityType.ITEM).to(ItemUIFactory.class);
 				uiFactoryMapBinder.addBinding(EntityType.FURNITURE).to(FurnitureUIFactory.class);
+				uiFactoryMapBinder.addBinding(EntityType.VEHICLE).to(VehicleUIFactory.class);
 				uiFactoryMapBinder.addBinding(EntityType.PLANT).to(PlantUIFactory.class);
 			}
 		});
@@ -151,7 +152,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 					//TODO: this isn't my best code, learn to do it properly - Rocky
 					//render boxes
 					for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
-						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
+						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && hasSpriteForRenderMode(baseAsset, currentRenderMode, orientation)) {
 							renderEntityWithOrientation(currentEntity, orientation, originalPosition, entity -> {
 								Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
 								shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -163,7 +164,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 					}
 
 					for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
-						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
+						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && hasSpriteForRenderMode(baseAsset, currentRenderMode, orientation)) {
 
 							Consumer<Entity> entityRenderer = entity -> {
 								spriteBatch.begin();
@@ -193,7 +194,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 					//TODO: sort duplication
 					//TODO: consider ui toggle for layout lines
 					for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
-						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null) {
+						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && hasSpriteForRenderMode(baseAsset, currentRenderMode, orientation)) {
 							renderEntityWithOrientation(itemHoldingDwarf, orientation, originalPosition, entity -> {
 								Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
 								shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -262,6 +263,14 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		} catch (Throwable e) {
 			CrashHandler.logCrash(e);
 			throw e;
+		}
+	}
+
+	private static boolean hasSpriteForRenderMode(EntityAsset baseAsset, RenderMode currentRenderMode, EntityAssetOrientation orientation) {
+		if (baseAsset.getSpriteDescriptors().get(orientation).getIsAnimated()) {
+			return baseAsset.getSpriteDescriptors().get(orientation).getAnimatedSprites(currentRenderMode) != null;
+		} else {
+			return baseAsset.getSpriteDescriptors().get(orientation).getSprite(currentRenderMode) != null;
 		}
 	}
 

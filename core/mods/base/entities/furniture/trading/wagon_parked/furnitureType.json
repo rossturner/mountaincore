@@ -5,24 +5,20 @@
   "defaultLayoutName" : "wagon-left",
   "showInGuiView" : "DEBUG",
   "requirements" : {
-    "WOOD" : [
-      {
-        "itemTypeName": "Resource-Planks",
-        "quantity": 8
-      },
-      {
-        "itemTypeName": "Product-Barrel-Staves",
-        "quantity": 4
-      },
-      {
-        "itemTypeName": "Product-Barrel-Hoops",
-        "quantity": 4
-      }
-    ]
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 8
+    }, {
+      "itemTypeName" : "Product-Barrel-Staves",
+      "quantity" : 4
+    }, {
+      "itemTypeName" : "Product-Barrel-Hoops",
+      "quantity" : 4
+    } ]
   },
-  "hiddenFromPlacementMenu" : true,
-  "tags": {
-    "STARTING_RESOURCES_CONTAINER": ["16"],
-    "INVENTORY_ITEMS_UNALLOCATED": []
-  }
+  "tags" : {
+    "STARTING_RESOURCES_CONTAINER" : [ "16" ],
+    "INVENTORY_ITEMS_UNALLOCATED" : [ ]
+  },
+  "hiddenFromPlacementMenu" : true
 }

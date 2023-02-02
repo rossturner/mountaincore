@@ -308,6 +308,10 @@
     "SKIN_COLOR" : {
       "swatch" : "horse-skin-swatch.png",
       "hidden" : false
+    },
+    "MARKING_COLOR" : {
+      "swatch" : "horse-nose-and-spots-swatch.png",
+      "hidden" : false
     }
   },
   "mapPlacement" : "NONE",
@@ -320,11 +324,15 @@
   "genders" : {
     "MALE" : {
       "weighting" : 0.5,
-      "hideAssetTypes" : { }
+      "hideAssetTypes" : {
+        "CREATURE_BODYPAINT" : 0.2
+      }
     },
     "FEMALE" : {
       "weighting" : 0.5,
-      "hideAssetTypes" : { }
+      "hideAssetTypes" : {
+        "CREATURE_BODYPAINT" : 0.2
+      }
     }
   },
   "features" : {

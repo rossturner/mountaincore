@@ -12,6 +12,7 @@ import technology.rocketjump.saul.assets.entities.furniture.FurnitureEntityAsset
 import technology.rocketjump.saul.assets.entities.item.ItemEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.mechanism.MechanismEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.plant.PlantEntityAssetDictionary;
+import technology.rocketjump.saul.assets.entities.vehicle.VehicleEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.wallcap.WallCapAssetDictionary;
 
 import java.util.Map;
@@ -34,6 +35,8 @@ public class CompleteAssetDictionaryTest {
     private WallCapAssetDictionary wallCapDictionary;
     @Mock
     private MechanismEntityAssetDictionary mechanismDictionary;
+    @Mock
+    private VehicleEntityAssetDictionary vehicleEntityAssetDictionary;
 
     @Test
     public void rebuild_GivenAssetHasChanged_ReturnsNewAsset() {
@@ -44,7 +47,7 @@ public class CompleteAssetDictionaryTest {
         Map<String, CreatureEntityAsset> secondMap = Map.of(assetName, secondAsset);
         when(creatureDictionary.getAll()).thenReturn(firstMap).thenReturn(secondMap);
 
-        CompleteAssetDictionary dictionary = new CompleteAssetDictionary(creatureDictionary, furnitureDictionary, plantDictionary, itemDictionary, wallCapDictionary, mechanismDictionary);
+        CompleteAssetDictionary dictionary = new CompleteAssetDictionary(creatureDictionary, furnitureDictionary, vehicleEntityAssetDictionary, plantDictionary, itemDictionary, wallCapDictionary, mechanismDictionary);
 
         assertThat(dictionary.getByUniqueName(assetName)).isSameAs(firstAsset);
 
