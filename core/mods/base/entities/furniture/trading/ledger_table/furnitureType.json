@@ -11,5 +11,8 @@
       "itemTypeName" : "Resource-Planks",
       "quantity" : 4
     } ]
+  },
+  "tags" : {
+    "EXTRA_MATERIAL_TYPES" : [ "METAL" ]
   }
 }

@@ -138,7 +138,7 @@ public class ModArtifactListing {
 						"definitions/creatureColorSwatches", null, PNG, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class, UniqueFilenames.class),
 				def("entities/creature", "**/race.json", JSON_OBJECT, Race.class,
 						"definitions/types", "races", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
-				def("entities/furniture", "furnitureLayouts.json", JSON_ARRAY, FurnitureLayout.class,
+				def("entities/furniture", "**/furnitureLayouts.json", JSON_ARRAY, FurnitureLayout.class,
 						"definitions/types", "furnitureLayouts", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),
 				def("entities/furniture", "**/furnitureType.json", JSON_OBJECT, FurnitureType.class,
 						"definitions/types", "furnitureTypes", JSON_ARRAY, SINGLE_FILE, ADDITIVE, GenericClassTypeProcessor.class),

@@ -1466,7 +1466,9 @@
       "liquid" : false
     } ]
   },
-  "tags" : { },
+  "tags" : {
+    "EXTRA_MATERIAL_TYPES" : [ "METAL" ]
+  },
   "hiddenFromPlacementMenu" : false
 }, {
   "name" : "WAGON_PARKED",
