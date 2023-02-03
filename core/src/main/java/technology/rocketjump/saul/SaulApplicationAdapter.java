@@ -2,6 +2,7 @@ package technology.rocketjump.saul;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.LifecycleListener;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -145,6 +146,8 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 		} catch (Throwable e) {
 			CrashHandler.logCrash(e);
 			Gdx.app.exit();
+			crashHappened = true;
+			submitErrorDialog(e);
 		}
 	}
 
@@ -165,6 +168,7 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 			CrashHandler.logCrash(e);
 			crashHappened = true;
 			onExit();
+			submitErrorDialog(e);
 		}
 	}
 
@@ -179,7 +183,7 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 
 	@Override
 	public void resize(int width, int height) {
-		if (width == 0 || height == 0) {
+		if (width == 0 || height == 0 || crashHappened) {
 			return;
 		}
 		try {
@@ -193,6 +197,25 @@ public class SaulApplicationAdapter extends ApplicationAdapter {
 			CrashHandler.logCrash(e);
 			throw e;
 		}
+	}
+
+	private void submitErrorDialog(Throwable e) {
+		Gdx.app.addLifecycleListener(new LifecycleListener() {
+			@Override
+			public void pause() {
+
+			}
+
+			@Override
+			public void resume() {
+
+			}
+
+			@Override
+			public void dispose() {
+				CrashHandler.displayCrashDialog(e);
+			}
+		});
 	}
 
 }
