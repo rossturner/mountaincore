@@ -283,6 +283,7 @@ FURNITURE.LANTERN.TOOLTIP,A lantern provides light – this does not currently h
 FURNITURE.LARGE_TABLE,Large table,,Esstisch,Grande table,Tavolo grande,Mesa grande,Mesa grande,Mesa grande,,Большой стол,Geniş masa,Stort bord,,Stort bord,,,,大食卓,桌子（大）,
 FURNITURE.LEATHERWORKING_STATION,Leatherworking station,,,,,,,,,,,,,,,,,,,
 FURNITURE.LEATHERWORKING_STATION.TOOLTIP,A workbench to produce leather goods like armour and waterskins,,,,,,,,,,,,,,,,,,,
+FURNITURE.LEDGER_TABLE,Ledger table,,,,,,,,,,,,,,,,,,,
 FURNITURE.LOOM,Loom,,Webstuhl,,Telaio,Telar,,,,"Ткацкий станок ",,,,,,,,織機,织布机,
 FURNITURE.MALTING_STATION,Malting station,,Malzstation,,Stazione del malto,Estación de malteado,,,,Солодовый аппарат,Maltlama istasyonu,,,,,,,麦汁製造台,发芽屋,
 FURNITURE.MALTING_STATION.TOOLTIP,"Here brewers steep barley and then dry it out using a kiln to produce malt. ",,"Hier weichen Brauer Gerste ein und lassen sie dann in einem Ofen trocknen, um Malz herzustellen.",,Qui i birrai mettono in infusione l'orzo e poi lo asciugano con un forno per produrre il malto.,Aquí los cerveceros germinan la cebada y luego la tuestan en un horno para producir malta,,,,"Здесь пивовары варят ячмень, а затем сушат его в печи для производства солода.",Bira yapımcısı burada önce arpayı ıslatır ardından malt üretmek için fırında kurutur.,,,,,,,醸造者が大麦を煮た後で乾燥させ、麦芽を作るための場所です,"酿酒师在这里将大麦浸泡在水中，等待出芽后迅速地加热干燥，最后就能获得麦芽了。 ",
