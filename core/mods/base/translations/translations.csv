@@ -279,6 +279,7 @@ FURNITURE.LANTERN.TOOLTIP,,A lantern provides light – this does not currently 
 FURNITURE.LARGE_TABLE,,Large table
 FURNITURE.LEATHERWORKING_STATION,,Leatherworking station
 FURNITURE.LEATHERWORKING_STATION.TOOLTIP,,A workbench to produce leather goods like armour and waterskins
+FURNITURE.LEDGER_TABLE,,Ledger table
 FURNITURE.LOOM,,Loom
 FURNITURE.MALTING_STATION,,Malting station
 FURNITURE.MALTING_STATION.TOOLTIP,,"Here brewers steep barley and then dry it out using a kiln to produce malt. "
@@ -1328,6 +1329,7 @@ ROOMS.STOCKPILE_WITH_GROUP_NAME,,{{stockpileGroupName}} {{roomTypeName}}
 ROOMS.ITERATIVE_NAMED_ROOM,,{{roomName}} #{{number}}
 ROOMS.TEXTILE_WORKSHOP,,Textile workshop
 ROOMS.TEXTILE_WORKSHOP.TOOLTIP,,Processes {{SEED.HEMP_SEED}} into textiles for a variety of uses.
+ROOMS.TRADING_DEPOT,,Trading depot
 
 ROPE.HEMP-ROPE,,Hemp
 ROPE.AGED_ROPE,,Aged

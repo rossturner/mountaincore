@@ -1348,6 +1348,7 @@ ROOMS.STOCKPILES.TOOLTIP,Unused items are placed in stockpiles for easy access.,
 ROOMS.STOCKPILE_WITH_GROUP_NAME,{{stockpileGroupName}} {{roomTypeName}},,,,,,,,,,,,,,,,,,,
 ROOMS.TEXTILE_WORKSHOP,Textile workshop,,,,Laboratorio tessile,Taller textil,,,,Швейная мастерская,,,,,,,,紡績場,纺织车间,
 ROOMS.TEXTILE_WORKSHOP.TOOLTIP,Processes {{SEED.HEMP_SEED}} into textiles for a variety of uses.,,Verarbeitet {{SEED.HEMP_SEED}} zu Textilien für eine Vielzahl von Anwendungen.,,Lavora {{SEED.HEMP_SEED}} in tessuti per una varietà di usi.,Aquí se procesa {{SEED.HEMP_SEED}} para obtener textiles para varios usos.,,,,Превращает {{SEED.HEMP_SEED}} в различные ткани,,,,,,,,{{SEED.HEMP_SEED}}を色々な用途に使える繊維に加工します。,将{{SEED.HEMP_SEED}}加工成用途广泛的纺织品。,
+ROOMS.TRADING_DEPOT,Trading depot,,,,,,,,,,,,,,,,,,,
 
 ROPE.AGED_ROPE,Aged,,,,,,,,,,,,,,,,,,,
 ROPE.BRONZED_ROPE,Bronzed,,,,,,,,,,,,,,,,,,,

@@ -255,5 +255,14 @@
       "IMPORT_PALLET",
       "EXPORT_PALLET"
     ]
+  },
+  {
+    "roomName": "TRADING_DEPOT",
+    "i18nKey": "ROOMS.TRADING_DEPOT",
+    "colorCode": "#e3e1e3",
+    "drawableName": "btn_room_trade_depot",
+    "furnitureNames": [
+      "LEDGER_TABLE"
+    ]
   }
 ]

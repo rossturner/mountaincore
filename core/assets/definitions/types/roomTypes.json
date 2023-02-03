@@ -151,4 +151,11 @@
   "colorCode" : "#96841d",
   "furnitureNames" : [ "BONE_CRAFTING_BENCH", "ARTISAN_WORKSTATION", "IMPORT_PALLET", "EXPORT_PALLET" ],
   "tags" : { }
+}, {
+  "roomName" : "TRADING_DEPOT",
+  "i18nKey" : "ROOMS.TRADING_DEPOT",
+  "drawableName" : "btn_room_trade_depot",
+  "colorCode" : "#e3e1e3",
+  "furnitureNames" : [ "LEDGER_TABLE" ],
+  "tags" : { }
 } ]

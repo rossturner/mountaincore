@@ -1,0 +1,15 @@
+{
+  "name" : "LEDGER_TABLE",
+  "i18nKey" : "FURNITURE.LEDGER_TABLE",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "trading-ledger-left",
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Product-Barrel",
+      "quantity" : 1
+    }, {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 4
+    } ]
+  }
+}

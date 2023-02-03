@@ -12,6 +12,7 @@
       "filename" : "bed-1x2N-frame.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -27,7 +28,8 @@
           "x" : 0.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "specificAssetName" : "bed-1x2N-pillows",
@@ -35,7 +37,8 @@
           "x" : 0.0,
           "y" : 42.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "specificAssetName" : "bed-1x2N-cover",
@@ -43,7 +46,8 @@
           "x" : 0.0,
           "y" : -23.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -61,6 +65,7 @@
       "filename" : "bed-1x2N-base-cover.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -86,6 +91,7 @@
       "filename" : "bed-1x2N-pillows.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -101,7 +107,8 @@
           "x" : 0.0,
           "y" : -12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -118,6 +125,7 @@
       "filename" : "bed-1x2N-cover.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -145,6 +153,7 @@
       "filename" : "bed-1x2S-base-cover.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -160,7 +169,8 @@
           "x" : 0.0,
           "y" : 14.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "specificAssetName" : "bed-1x2S-pillows",
@@ -168,7 +178,8 @@
           "x" : 0.0,
           "y" : -29.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "specificAssetName" : "bed-1x2S-frame",
@@ -176,7 +187,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -194,6 +206,7 @@
       "filename" : "bed-1x2S-cover.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -219,6 +232,7 @@
       "filename" : "bed-1x2S-pillows.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -234,7 +248,8 @@
           "x" : 0.0,
           "y" : 12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -251,6 +266,7 @@
       "filename" : "bed-1x2S-frame.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -278,6 +294,7 @@
       "filename" : "bed-2x1E-frame.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -293,7 +310,8 @@
           "x" : 23.5,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "specificAssetName" : "bed-2x1E-pillows",
@@ -301,7 +319,8 @@
           "x" : 38.0,
           "y" : 6.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "specificAssetName" : "bed-2x1E-cover",
@@ -309,7 +328,8 @@
           "x" : -13.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -327,6 +347,7 @@
       "filename" : "bed-2x1E-base-cover.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -352,6 +373,7 @@
       "filename" : "bed-2x1E-pillows.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -367,7 +389,8 @@
           "x" : -8.0,
           "y" : 4.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -384,6 +407,7 @@
       "filename" : "bed-2x1E-cover.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -411,6 +435,7 @@
       "filename" : "bed-2x1E-frame.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -426,7 +451,8 @@
           "x" : -23.5,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "specificAssetName" : "bed-2x1W-pillows",
@@ -434,7 +460,8 @@
           "x" : -38.0,
           "y" : 6.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "specificAssetName" : "bed-2x1W-cover",
@@ -442,7 +469,8 @@
           "x" : 13.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -460,6 +488,7 @@
       "filename" : "bed-2x1E-base-cover.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -485,6 +514,7 @@
       "filename" : "bed-2x1E-pillows.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -500,7 +530,8 @@
           "x" : 8.0,
           "y" : 4.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -517,6 +548,7 @@
       "filename" : "bed-2x1E-cover.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -544,6 +576,7 @@
     "DOWN" : {
       "filename" : "sleep_spot.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -571,6 +604,7 @@
       "filename" : "bed-1x2N-frame.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -586,7 +620,8 @@
           "x" : 0.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "specificAssetName" : "bed-1x2N-pillows",
@@ -594,7 +629,8 @@
           "x" : 0.0,
           "y" : 42.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "specificAssetName" : "bed-1x2N-cover",
@@ -602,7 +638,8 @@
           "x" : 0.0,
           "y" : -23.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -620,6 +657,7 @@
       "filename" : "bed-1x2N-base-cover.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -645,6 +683,7 @@
       "filename" : "bed-1x2N-pillows.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -660,7 +699,8 @@
           "x" : 0.0,
           "y" : -12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -677,6 +717,7 @@
       "filename" : "bed-1x2N-cover.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -704,6 +745,7 @@
       "filename" : "bed-1x2S-base-cover.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -719,7 +761,8 @@
           "x" : 0.0,
           "y" : 14.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "specificAssetName" : "bed-1x2S-pillows",
@@ -727,7 +770,8 @@
           "x" : 0.0,
           "y" : -29.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "specificAssetName" : "bed-1x2S-frame",
@@ -735,7 +779,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -753,6 +798,7 @@
       "filename" : "bed-1x2S-cover.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -778,6 +824,7 @@
       "filename" : "bed-1x2S-pillows.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -793,7 +840,8 @@
           "x" : 0.0,
           "y" : 12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -810,6 +858,7 @@
       "filename" : "bed-1x2S-frame.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -837,6 +886,7 @@
       "filename" : "bed-2x1E-frame.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -852,7 +902,8 @@
           "x" : 23.5,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "specificAssetName" : "bed-2x1E-pillows",
@@ -860,7 +911,8 @@
           "x" : 38.0,
           "y" : 6.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "specificAssetName" : "bed-2x1E-cover",
@@ -868,7 +920,8 @@
           "x" : -13.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -886,6 +939,7 @@
       "filename" : "bed-2x1E-base-cover.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -911,6 +965,7 @@
       "filename" : "bed-2x1E-pillows.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -926,7 +981,8 @@
           "x" : -8.0,
           "y" : 4.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -943,6 +999,7 @@
       "filename" : "bed-2x1E-cover.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -970,6 +1027,7 @@
       "filename" : "bed-2x1E-frame.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -985,7 +1043,8 @@
           "x" : -23.5,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "specificAssetName" : "bed-2x1W-pillows",
@@ -993,7 +1052,8 @@
           "x" : -38.0,
           "y" : 6.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "specificAssetName" : "bed-2x1W-cover",
@@ -1001,7 +1061,8 @@
           "x" : 13.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -1019,6 +1080,7 @@
       "filename" : "bed-2x1E-base-cover.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1044,6 +1106,7 @@
       "filename" : "bed-2x1E-pillows.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1059,7 +1122,8 @@
           "x" : 8.0,
           "y" : 4.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -1076,6 +1140,7 @@
       "filename" : "bed-2x1E-cover.png",
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1103,6 +1168,7 @@
     "DOWN" : {
       "filename" : "sleep_spot.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1130,6 +1196,7 @@
       "filename" : "chair-1x1N-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1157,6 +1224,7 @@
       "filename" : "chair-1x1EW-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1184,6 +1252,7 @@
       "filename" : "chair-1x1EW-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1211,6 +1280,7 @@
       "filename" : "chair-1x1S-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1238,6 +1308,7 @@
       "filename" : "chair-1x1N-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1265,6 +1336,7 @@
       "filename" : "chair-1x1EW-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1292,6 +1364,7 @@
       "filename" : "chair-1x1EW-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1319,6 +1392,7 @@
       "filename" : "chair-1x1S-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1343,6 +1417,7 @@
     "DOWN" : {
       "filename" : "Artisan_Workstation-2x3l no rotation-Base_Layer-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1357,14 +1432,16 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
@@ -1372,21 +1449,24 @@
           "x" : 0.0,
           "y" : -18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
           "x" : -57.0,
           "y" : -19.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 62.0,
           "y" : 38.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -1403,6 +1483,7 @@
       "filename" : "Artisan_Workstation-2x3l no rotation-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1427,6 +1508,7 @@
     "DOWN" : {
       "filename" : "Artisan_Workstation-2x3l no rotation-Furniture_Above_Layer_2-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1452,6 +1534,7 @@
       "filename" : "table-2x3L-metal.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -1467,28 +1550,32 @@
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -1505,6 +1592,7 @@
       "filename" : "table-2x3L-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -1520,28 +1608,32 @@
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -1558,6 +1650,7 @@
       "filename" : "table-2x3L-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -1573,28 +1666,32 @@
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -1611,6 +1708,7 @@
       "filename" : "table-2x3L1R-metal.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -1626,28 +1724,32 @@
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -1664,6 +1766,7 @@
       "filename" : "table-2x3L1R-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -1679,28 +1782,32 @@
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -1717,6 +1824,7 @@
       "filename" : "table-2x3L1R-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -1732,28 +1840,32 @@
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -1770,6 +1882,7 @@
       "filename" : "table-2x3L2R-metal.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -1785,28 +1898,32 @@
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -1823,6 +1940,7 @@
       "filename" : "table-2x3L2R-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -1838,28 +1956,32 @@
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -1876,6 +1998,7 @@
       "filename" : "table-2x3L2R-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -1891,28 +2014,32 @@
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -1929,6 +2056,7 @@
       "filename" : "table-2x3L3R-metal.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -1944,28 +2072,32 @@
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -1982,6 +2114,7 @@
       "filename" : "table-2x3L3R-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -1997,28 +2130,32 @@
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -2035,6 +2172,7 @@
       "filename" : "table-2x3L3R-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -2050,28 +2188,32 @@
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -2088,6 +2230,7 @@
       "filename" : "Stone oven.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -2113,6 +2256,7 @@
       "filename" : "Furnace F.png",
       "coloringLayer" : "MISC_COLOR_1",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 36.5,
@@ -2127,35 +2271,40 @@
           "x" : -46.5,
           "y" : -33.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : -46.5,
           "y" : -33.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_3",
         "offsetPixels" : {
           "x" : -46.5,
           "y" : -33.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_4",
         "offsetPixels" : {
           "x" : -46.5,
           "y" : -33.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_5",
         "offsetPixels" : {
           "x" : -46.5,
           "y" : -33.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2173,6 +2322,7 @@
       "filename" : "Furnace E.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -46.5,
@@ -2198,6 +2348,7 @@
       "filename" : "Furnace D.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -68.0,
@@ -2223,6 +2374,7 @@
       "filename" : "Furnace C.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -61.5,
@@ -2248,6 +2400,7 @@
       "filename" : "Furnace B.png",
       "coloringLayer" : "MISC_COLOR_2",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 46.5,
@@ -2273,6 +2426,7 @@
       "filename" : "Furnace A.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 38.0,
@@ -2298,6 +2452,7 @@
       "filename" : "table-2x3L-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -2313,28 +2468,32 @@
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -2351,6 +2510,7 @@
       "filename" : "table-2x3L3R-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -2366,28 +2526,32 @@
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -2404,6 +2568,7 @@
       "filename" : "table-2x3L2R-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -2419,28 +2584,32 @@
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -2457,6 +2626,7 @@
       "filename" : "table-2x3L1R-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -2472,28 +2642,32 @@
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -2510,6 +2684,7 @@
       "filename" : "Copper.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 28.0,
@@ -2524,7 +2699,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2542,6 +2718,7 @@
       "filename" : "Hopback whirlpool.png",
       "coloringLayer" : "MISC_COLOR_1",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -70.0,
@@ -2566,6 +2743,7 @@
     "DOWN" : {
       "filename" : "Butchery_Worktop-Blood-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -29.0,
@@ -2590,6 +2768,7 @@
     "DOWN" : {
       "filename" : "Butchery_Worktop-Meat-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 42.0,
@@ -2615,6 +2794,7 @@
       "filename" : "Butchery-Table-2x1-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 41.0,
@@ -2629,14 +2809,16 @@
           "x" : 20.0,
           "y" : 4.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 20.0,
           "y" : 4.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
@@ -2644,14 +2826,16 @@
           "x" : -39.0,
           "y" : 10.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_1",
         "offsetPixels" : {
           "x" : 31.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -2668,6 +2852,7 @@
       "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -0.5,
@@ -2682,28 +2867,32 @@
           "x" : -14.5,
           "y" : 96.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : -14.5,
           "y" : 96.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_3",
         "offsetPixels" : {
           "x" : -14.5,
           "y" : 96.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_1",
         "offsetPixels" : {
           "x" : -29.5,
           "y" : 96.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -2711,28 +2900,32 @@
           "x" : -70.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 6.0,
           "y" : 120.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -60.0,
           "y" : 120.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -2749,6 +2942,7 @@
       "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 13.5,
@@ -2774,6 +2968,7 @@
       "filename" : "Carpentry_Bench-1x1-Furniture_Above_Layer_2-Wood_Down.png",
       "coloringLayer" : "MISC_COLOR_1",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 11.0,
@@ -2799,6 +2994,7 @@
       "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Above_Layer_3-Wood_Down.png",
       "coloringLayer" : "MISC_COLOR_2",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 11.5,
@@ -2824,6 +3020,7 @@
       "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_1-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -100.5,
@@ -2838,35 +3035,40 @@
           "x" : 119.5,
           "y" : -12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_3",
         "offsetPixels" : {
           "x" : 109.5,
           "y" : -12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_4",
         "offsetPixels" : {
           "x" : 139.5,
           "y" : -12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_5",
         "offsetPixels" : {
           "x" : 109.5,
           "y" : -12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_6",
         "offsetPixels" : {
           "x" : 139.5,
           "y" : -12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -2884,6 +3086,7 @@
       "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_2-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -119.0,
@@ -2909,6 +3112,7 @@
       "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_3-Wood_Down.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -42.5,
@@ -2933,6 +3137,7 @@
     "DOWN" : {
       "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_4-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 78.5,
@@ -2958,6 +3163,7 @@
       "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_5-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -3.0,
@@ -2983,6 +3189,7 @@
       "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_6-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 78.0,
@@ -3008,6 +3215,7 @@
       "filename" : "Charcoal Clamp Wood.png",
       "coloringLayer" : "ORE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3033,6 +3241,7 @@
       "filename" : "Charcoal Clamp Earth.png",
       "coloringLayer" : "EARTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3058,6 +3267,7 @@
       "filename" : "Charcoal Clamp Wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3083,6 +3293,7 @@
       "filename" : "Coke Oven Stone Top.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3097,7 +3308,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -3115,6 +3327,7 @@
       "filename" : "Coke Oven Wood Door Bottom.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -15.0,
@@ -3140,6 +3353,7 @@
       "filename" : "Dough_Proofing_Table-1x1-Base_Layer-Stone_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3155,7 +3369,8 @@
           "x" : 0.0,
           "y" : 13.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3172,6 +3387,7 @@
       "filename" : "Stone tank.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3197,6 +3413,7 @@
       "filename" : "Metal tank.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3222,6 +3439,7 @@
       "filename" : "table-2x3L-metal.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3237,28 +3455,32 @@
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3275,6 +3497,7 @@
       "filename" : "table-2x3L-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3290,28 +3513,32 @@
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3328,6 +3555,7 @@
       "filename" : "table-2x3L-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3343,28 +3571,32 @@
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3381,6 +3613,7 @@
       "filename" : "table-2x3L1R-metal.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -3396,28 +3629,32 @@
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3434,6 +3671,7 @@
       "filename" : "table-2x3L1R-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -3449,28 +3687,32 @@
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3487,6 +3729,7 @@
       "filename" : "table-2x3L1R-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -3502,28 +3745,32 @@
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3540,6 +3787,7 @@
       "filename" : "table-2x3L2R-metal.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -3555,28 +3803,32 @@
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3593,6 +3845,7 @@
       "filename" : "table-2x3L2R-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -3608,28 +3861,32 @@
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3646,6 +3903,7 @@
       "filename" : "table-2x3L2R-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -3661,28 +3919,32 @@
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3699,6 +3961,7 @@
       "filename" : "table-2x3L3R-metal.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3714,28 +3977,32 @@
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3752,6 +4019,7 @@
       "filename" : "table-2x3L3R-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3767,28 +4035,32 @@
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3805,6 +4077,7 @@
       "filename" : "table-2x3L3R-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3820,28 +4093,32 @@
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3858,6 +4135,7 @@
       "filename" : "Mill 1x3 stone table.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3873,21 +4151,24 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 68.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -60.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3904,6 +4185,7 @@
       "filename" : "Mill 1x3 wood table.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -1.0,
@@ -3919,21 +4201,24 @@
           "x" : 0.0,
           "y" : 6.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 68.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -60.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3950,6 +4235,7 @@
       "filename" : "Mill 3x1 stone table.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -2.0,
@@ -3965,21 +4251,24 @@
           "x" : 0.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -3996,6 +4285,7 @@
       "filename" : "Mill 3x1 wood table.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4010,7 +4300,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -4018,21 +4309,24 @@
           "x" : 0.0,
           "y" : 32.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -4049,6 +4343,7 @@
       "filename" : "Mill 3x1 wood table rope top.png",
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 7.5,
@@ -4074,6 +4369,7 @@
       "filename" : "Forge A.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 68.0,
@@ -4099,6 +4395,7 @@
       "filename" : "Forge B.png",
       "coloringLayer" : "ORE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 67.5,
@@ -4124,6 +4421,7 @@
       "filename" : "Forge C.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -4138,14 +4436,16 @@
           "x" : 5.5,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 5.5,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -4153,28 +4453,32 @@
           "x" : -58.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 62.0,
           "y" : -28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_3",
         "offsetPixels" : {
           "x" : -58.0,
           "y" : -28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -4191,6 +4495,7 @@
       "filename" : "Forge A.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 68.0,
@@ -4216,6 +4521,7 @@
       "filename" : "Forge B.png",
       "coloringLayer" : "ORE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 67.5,
@@ -4241,6 +4547,7 @@
       "filename" : "Forge C.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -4255,14 +4562,16 @@
           "x" : 5.5,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 5.5,
           "y" : 16.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -4270,28 +4579,32 @@
           "x" : -58.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 62.0,
           "y" : -28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_3",
         "offsetPixels" : {
           "x" : -58.0,
           "y" : -28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -4308,6 +4621,7 @@
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Base_Layer-Wood_Down-Rocky.png",
       "coloringLayer" : "MISC_COLOR_3",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -84.0,
@@ -4322,49 +4636,56 @@
           "x" : -11.0,
           "y" : 38.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : -12.0,
           "y" : 38.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_3",
         "offsetPixels" : {
           "x" : 4.0,
           "y" : 38.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_4",
         "offsetPixels" : {
           "x" : 4.0,
           "y" : 38.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_5",
         "offsetPixels" : {
           "x" : 4.0,
           "y" : 38.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_6",
         "offsetPixels" : {
           "x" : 4.0,
           "y" : 38.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_7",
         "offsetPixels" : {
           "x" : 4.0,
           "y" : 38.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -4372,21 +4693,24 @@
           "x" : 88.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -82.0,
           "y" : -23.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -27.0,
           "y" : -24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -4403,6 +4727,7 @@
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -30.0,
@@ -4427,6 +4752,7 @@
     "DOWN" : {
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_2-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -9.5,
@@ -4452,6 +4778,7 @@
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_3-Wood_Down.png",
       "coloringLayer" : "MISC_COLOR_2",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 84.5,
@@ -4477,6 +4804,7 @@
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_4-Wood_Down.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 87.5,
@@ -4502,6 +4830,7 @@
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_5-Wood_Down.png",
       "coloringLayer" : "MISC_COLOR_3",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 52.0,
@@ -4527,6 +4856,7 @@
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_6-Wood_Down.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 68.5,
@@ -4552,6 +4882,7 @@
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_7-Wood_Down.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 16.0,
@@ -4577,6 +4908,7 @@
       "filename" : "Loom_Back_Empty.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -1.0,
@@ -4591,21 +4923,24 @@
           "x" : -21.0,
           "y" : 11.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : -21.0,
           "y" : 11.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_1",
         "offsetPixels" : {
           "x" : -21.0,
           "y" : 11.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4623,6 +4958,7 @@
       "filename" : "Loom_Back_Thread.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 21.5,
@@ -4648,6 +4984,7 @@
       "filename" : "Loom_Back_Cloth_Plain.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 20.5,
@@ -4672,6 +5009,7 @@
     "DOWN" : {
       "filename" : "Loom_Back_Shadow.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 19.0,
@@ -4697,6 +5035,7 @@
       "filename" : "Loom_Front_Empty.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4711,7 +5050,8 @@
           "x" : -22.0,
           "y" : 11.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4729,6 +5069,7 @@
       "filename" : "Loom_A_String2.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 22.5,
@@ -4744,7 +5085,8 @@
           "x" : -22.5,
           "y" : 15.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_1",
         "specificAssetName" : "Loom-Front-ShadowA",
@@ -4752,7 +5094,8 @@
           "x" : -22.5,
           "y" : 15.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4770,6 +5113,7 @@
       "filename" : "Loom_B_String2.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 22.5,
@@ -4785,7 +5129,8 @@
           "x" : -22.5,
           "y" : 15.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_1",
         "specificAssetName" : "Loom-Front-ShadowB",
@@ -4793,7 +5138,8 @@
           "x" : -22.5,
           "y" : 15.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4811,6 +5157,7 @@
       "filename" : "Loom_A_Weights.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 22.5,
@@ -4836,6 +5183,7 @@
       "filename" : "Loom_B_Weights.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 22.5,
@@ -4860,6 +5208,7 @@
     "DOWN" : {
       "filename" : "Loom_A_Shadow_Underneath.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 23.0,
@@ -4884,6 +5233,7 @@
     "DOWN" : {
       "filename" : "Loom_B_Shadow_Underneath.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 21.5,
@@ -4909,6 +5259,7 @@
       "filename" : "Loom_Side_Empty.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.5,
@@ -4923,21 +5274,24 @@
           "x" : -17.5,
           "y" : 12.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : -17.5,
           "y" : 12.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_1",
         "offsetPixels" : {
           "x" : -17.5,
           "y" : 12.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -4955,6 +5309,7 @@
       "filename" : "Side_Weights.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -20.5,
@@ -4980,6 +5335,7 @@
       "filename" : "Side_Loom_Thread Cloth.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 18.5,
@@ -5004,6 +5360,7 @@
     "DOWN" : {
       "filename" : "Loom_Side_Shadow.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 18.0,
@@ -5029,6 +5386,7 @@
       "filename" : "Loom_Side_Empty.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -1.5,
@@ -5043,21 +5401,24 @@
           "x" : 17.5,
           "y" : 12.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 17.5,
           "y" : 12.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_1",
         "offsetPixels" : {
           "x" : 17.5,
           "y" : 12.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5075,6 +5436,7 @@
       "filename" : "Side_Weights.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 20.5,
@@ -5100,6 +5462,7 @@
       "filename" : "Side_Loom_Thread Cloth.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -18.5,
@@ -5124,6 +5487,7 @@
     "DOWN" : {
       "filename" : "Loom_Side_Shadow.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -18.0,
@@ -5149,6 +5513,7 @@
       "filename" : "1x2 stone table.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5163,7 +5528,8 @@
           "x" : 0.0,
           "y" : -88.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -5171,21 +5537,24 @@
           "x" : 0.0,
           "y" : 96.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -5202,6 +5571,7 @@
       "filename" : "1x2 wood table.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5216,7 +5586,8 @@
           "x" : 0.0,
           "y" : -88.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -5224,21 +5595,24 @@
           "x" : 0.0,
           "y" : 96.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -5255,6 +5629,7 @@
       "filename" : "1x2 stone table.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5269,7 +5644,8 @@
           "x" : 0.0,
           "y" : 90.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -5277,21 +5653,24 @@
           "x" : 0.0,
           "y" : -88.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -5308,6 +5687,7 @@
       "filename" : "1x2 wood table.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5322,7 +5702,8 @@
           "x" : 0.0,
           "y" : 90.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -5330,21 +5711,24 @@
           "x" : 0.0,
           "y" : -88.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -5361,6 +5745,7 @@
       "filename" : "2x1 stone table.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -5375,7 +5760,8 @@
           "x" : 84.0,
           "y" : -10.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -5383,21 +5769,24 @@
           "x" : -80.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -24.0,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 24.0,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -5414,6 +5803,7 @@
       "filename" : "2x1 wood table.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -5428,7 +5818,8 @@
           "x" : 84.0,
           "y" : -10.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -5436,21 +5827,24 @@
           "x" : -80.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -24.0,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 24.0,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -5467,6 +5861,7 @@
       "filename" : "2x1 stone table.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -5481,7 +5876,8 @@
           "x" : -80.0,
           "y" : -10.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -5489,21 +5885,24 @@
           "x" : 84.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -24.0,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 24.0,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -5520,6 +5919,7 @@
       "filename" : "2x1 wood table.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -5534,7 +5934,8 @@
           "x" : -80.0,
           "y" : -10.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -5542,21 +5943,24 @@
           "x" : 84.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -24.0,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 24.0,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -5573,6 +5977,7 @@
       "filename" : "Kiln.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5598,6 +6003,7 @@
       "filename" : "Kiln.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5623,6 +6029,7 @@
       "filename" : "Mash tun wooden bottom.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 28.0,
@@ -5637,14 +6044,16 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5662,6 +6071,7 @@
       "filename" : "Mash tun metal top.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5687,6 +6097,7 @@
       "filename" : "Heated water tank.png",
       "coloringLayer" : "MISC_COLOR_1",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -70.0,
@@ -5712,6 +6123,7 @@
       "filename" : "Ore Crushing Station E.png",
       "coloringLayer" : "MISC_COLOR_1",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -5726,28 +6138,32 @@
           "x" : 2.0,
           "y" : -10.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 2.0,
           "y" : -10.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_3",
         "offsetPixels" : {
           "x" : 2.0,
           "y" : -10.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_4",
         "offsetPixels" : {
           "x" : 2.0,
           "y" : -10.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -5765,6 +6181,7 @@
       "filename" : "Ore Crushing Station D.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -20.5,
@@ -5790,6 +6207,7 @@
       "filename" : "Ore Crushing Station C.png",
       "coloringLayer" : "MISC_COLOR_2",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 9.5,
@@ -5815,6 +6233,7 @@
       "filename" : "Ore Crushing Station B.png",
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -19.5,
@@ -5840,6 +6259,7 @@
       "filename" : "Ore Crushing Station A.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5865,6 +6285,7 @@
       "filename" : "Stonemason_Bench-Stonemason-Bench-Layout-Base_Layer-Stone_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -95.5,
@@ -5880,7 +6301,8 @@
           "y" : 28.0,
           "unit" : false
         },
-        "overrideRenderLayer" : 100
+        "overrideRenderLayer" : 100,
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -5888,21 +6310,24 @@
           "y" : 28.0,
           "unit" : false
         },
-        "overrideRenderLayer" : 110
+        "overrideRenderLayer" : 110,
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_3",
         "offsetPixels" : {
           "x" : -0.5,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_4",
         "offsetPixels" : {
           "x" : -0.5,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -5910,28 +6335,32 @@
           "x" : 91.0,
           "y" : 12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -46.0,
           "y" : -52.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -33.0,
           "y" : 75.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 30.0,
           "y" : 75.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -5948,6 +6377,7 @@
       "filename" : "Stonemason_Bench-Stonemason-Bench-Layout-Furniture_Above_Layer_1-Stone_Down.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -54.0,
@@ -5974,6 +6404,7 @@
       "filename" : "Stonemason_Bench-Stonemason-Bench-Layout-Furniture_Above_Layer_2-Stone_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -82.5,
@@ -6000,6 +6431,7 @@
       "filename" : "Stonemason_Bench-Stonemason-Bench-Layout-Furniture_Above_Layer_3-Stone_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 8.5,
@@ -6024,6 +6456,7 @@
     "DOWN" : {
       "filename" : "Stonemason_Bench-Stonemason-Bench-Layout-Furniture_Above_Layer_4-Stone_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -0.5,
@@ -6049,6 +6482,7 @@
       "filename" : "Tanning_Frame-2x2 with lower workspaces-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6063,7 +6497,8 @@
           "x" : 0.0,
           "y" : 6.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -6081,6 +6516,7 @@
       "filename" : "Tanning_Frame-2x2 with lower workspaces-Show_When_Inventory_Present-Wood_Down.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -1.0,
@@ -6106,6 +6542,7 @@
       "filename" : "table-2x3L-metal.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -6121,28 +6558,32 @@
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6159,6 +6600,7 @@
       "filename" : "table-2x3L-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -6174,28 +6616,32 @@
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6212,6 +6658,7 @@
       "filename" : "table-2x3L-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -6227,28 +6674,32 @@
           "x" : 32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6265,6 +6716,7 @@
       "filename" : "table-2x3L1R-metal.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -6280,28 +6732,32 @@
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6318,6 +6774,7 @@
       "filename" : "table-2x3L1R-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -6333,28 +6790,32 @@
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6371,6 +6832,7 @@
       "filename" : "table-2x3L1R-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -6386,28 +6848,32 @@
           "x" : 64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6424,6 +6890,7 @@
       "filename" : "table-2x3L2R-metal.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -6439,28 +6906,32 @@
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6477,6 +6948,7 @@
       "filename" : "table-2x3L2R-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -6492,28 +6964,32 @@
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6530,6 +7006,7 @@
       "filename" : "table-2x3L2R-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -6545,28 +7022,32 @@
           "x" : -32.0,
           "y" : -46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 18.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 82.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6583,6 +7064,7 @@
       "filename" : "table-2x3L3R-metal.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -6598,28 +7080,32 @@
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6636,6 +7122,7 @@
       "filename" : "table-2x3L3R-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -6651,28 +7138,32 @@
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6689,6 +7180,7 @@
       "filename" : "table-2x3L3R-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -6704,28 +7196,32 @@
           "x" : -64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 64.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -64.0,
           "y" : 50.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -6742,6 +7238,7 @@
       "filename" : "door_metal_EW_anim",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6767,6 +7264,7 @@
       "filename" : "door_metal_NS_anim",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6792,6 +7290,7 @@
       "filename" : "door_stone_EW_anim",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6817,6 +7316,7 @@
       "filename" : "door_stone_NS_anim",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6842,6 +7342,7 @@
       "filename" : "door_wood_EW_anim",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6867,6 +7368,7 @@
       "filename" : "door_wood_NS_anim",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6892,6 +7394,7 @@
       "filename" : "door_metal_EW_anim_0.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6917,6 +7420,7 @@
       "filename" : "door_stone_EW_anim_0.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6942,6 +7446,7 @@
       "filename" : "door_wood_EW_anim_0.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6967,6 +7472,7 @@
       "filename" : "door_metal_EW_side-64.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6983,6 +7489,7 @@
       "filename" : "door_metal_EW_top-64.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7008,6 +7515,7 @@
       "filename" : "door_metal_NS_side-64.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7024,6 +7532,7 @@
       "filename" : "door_metal_NS_top-64.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7049,6 +7558,7 @@
       "filename" : "door_stone_EW_side-64.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7065,6 +7575,7 @@
       "filename" : "door_stone_EW_top-64.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7090,6 +7601,7 @@
       "filename" : "door_stone_NS_side-64.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7106,6 +7618,7 @@
       "filename" : "door_stone_NS_top-64.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7131,6 +7644,7 @@
       "filename" : "door_wood_EW_side-64.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7147,6 +7661,7 @@
       "filename" : "door_wood_EW_top-64.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7172,6 +7687,7 @@
       "filename" : "door_wood_NS_side-64.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7188,6 +7704,7 @@
       "filename" : "door_wood_NS_top-64.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7213,6 +7730,7 @@
       "filename" : "Dug Grave 1 x 2.png",
       "coloringLayer" : "EARTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7238,6 +7756,7 @@
       "filename" : "Dug Grave 2 x 1.png",
       "coloringLayer" : "EARTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -7263,6 +7782,7 @@
       "filename" : "Filled Grave 1 x 2.png",
       "coloringLayer" : "EARTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7288,6 +7808,7 @@
       "filename" : "Filled Grave 2 x 1.png",
       "coloringLayer" : "EARTH_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -7313,6 +7834,7 @@
       "filename" : "Sarcophagus 1 x 2.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7327,7 +7849,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7345,6 +7868,7 @@
       "filename" : "Sarcophagus 1 x 2.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7359,7 +7883,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7377,6 +7902,7 @@
       "filename" : "Sarcophagus 2 x 1.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -7391,7 +7917,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7409,6 +7936,7 @@
       "filename" : "Sarcophagus 2 x 1.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -7423,7 +7951,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7441,6 +7970,7 @@
       "filename" : "Sarcophagus 1 x 2 Statue.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7466,6 +7996,7 @@
       "filename" : "Sarcophagus 1 x 2 Statue.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7491,6 +8022,7 @@
       "filename" : "Sarcophagus 2 x 1 Statue.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7516,6 +8048,7 @@
       "filename" : "Sarcophagus 2 x 1 Statue.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7543,6 +8076,7 @@
       "filename" : "Campfire_placeholder.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7569,6 +8103,7 @@
     "DOWN" : {
       "filename" : "Lantern Side Front.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.5,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7594,6 +8129,7 @@
       "filename" : "2x1 beer tapper table.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.7,
       "offsetPixels" : {
         "x" : 32.0,
@@ -7608,7 +8144,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
@@ -7616,7 +8153,8 @@
           "x" : 34.0,
           "y" : 20.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -7633,6 +8171,7 @@
       "filename" : "2x1 beer tapper equipment.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.7,
       "offsetPixels" : {
         "x" : -32.0,
@@ -7658,6 +8197,7 @@
       "filename" : "1x2 beer tapper table.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7672,7 +8212,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
@@ -7680,7 +8221,8 @@
           "x" : 1.0,
           "y" : 45.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -7697,6 +8239,7 @@
       "filename" : "1x2 beer tapper equipment.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.7,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7722,6 +8265,7 @@
       "filename" : "Cauldron-Body-Floor.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7736,28 +8280,32 @@
           "x" : 0.0,
           "y" : 1.0,
           "unit" : true
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_LIQUID_LAYER",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 1.0,
           "unit" : true
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 1.0,
           "unit" : true
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 1.0,
           "unit" : true
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7775,6 +8323,7 @@
       "filename" : "Cauldron-Fireplace-Floor.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7800,6 +8349,7 @@
       "filename" : "Cauldron-Liquid-Floor.png",
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 2.5,
@@ -7825,6 +8375,7 @@
       "filename" : "Cauldron-Stand-Floor.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7850,6 +8401,7 @@
       "filename" : "Cauldron-Rope-Floor.png",
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -0.5,
@@ -7875,6 +8427,7 @@
       "filename" : "Cauldron-Body-Floor.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7889,28 +8442,32 @@
           "x" : 0.0,
           "y" : 1.0,
           "unit" : true
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_LIQUID_LAYER",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 1.0,
           "unit" : true
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 1.0,
           "unit" : true
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 1.0,
           "unit" : true
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -7928,6 +8485,7 @@
       "filename" : "Cauldron-Fireplace-Floor.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7953,6 +8511,7 @@
       "filename" : "Cauldron-Liquid-Floor.png",
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 2.5,
@@ -7978,6 +8537,7 @@
       "filename" : "Cauldron-Stand-Floor.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8003,6 +8563,7 @@
       "filename" : "Cauldron-Rope-Floor.png",
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -0.5,
@@ -8028,6 +8589,7 @@
       "filename" : "1x2 Stone tank trench.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8042,7 +8604,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8060,6 +8623,7 @@
       "filename" : "1x2 Wooden tank trench.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8074,7 +8638,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8092,6 +8657,7 @@
       "filename" : "1x2 Stone tank trench liquid.png",
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8117,6 +8683,7 @@
       "filename" : "1x2 Wooden tank trench liquid.png",
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8142,6 +8709,7 @@
       "filename" : "2x1 Stone tank trench.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -8156,7 +8724,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8174,6 +8743,7 @@
       "filename" : "2x1 Wooden tank trench.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -8188,7 +8758,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8206,6 +8777,7 @@
       "filename" : "2x1 Stone tank trench liquid.png",
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8231,6 +8803,7 @@
       "filename" : "2x1 Wooden tank trench liquid.png",
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8256,6 +8829,7 @@
       "filename" : "1x2 Stone tank trench.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8270,7 +8844,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8288,6 +8863,7 @@
       "filename" : "1x2 Wooden tank trench.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8302,7 +8878,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8320,6 +8897,7 @@
       "filename" : "1x2 Stone tank trench liquid.png",
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8345,6 +8923,7 @@
       "filename" : "1x2 Wooden tank trench liquid.png",
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8370,6 +8949,7 @@
       "filename" : "2x1 Stone tank trench.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -8384,7 +8964,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8402,6 +8983,7 @@
       "filename" : "2x1 Wooden tank trench.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -8416,7 +8998,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8434,6 +9017,7 @@
       "filename" : "2x1 Stone tank trench liquid.png",
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8459,6 +9043,7 @@
       "filename" : "2x1 Wooden tank trench liquid.png",
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8484,6 +9069,7 @@
       "filename" : "Barrel-Body-Floor.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8498,21 +9084,24 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_LIQUID_LAYER",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_COVER_LAYER",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8530,6 +9119,7 @@
       "filename" : "Barrel-Hoops-Floor.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8555,6 +9145,7 @@
       "filename" : "Barrel-Lid-Floor.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8580,6 +9171,7 @@
       "filename" : "Barrel-Contents-Floor.png",
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8605,6 +9197,7 @@
       "filename" : "well_0-64.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 37.0,
@@ -8619,28 +9212,32 @@
           "x" : 1.0,
           "y" : 12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 1.0,
           "y" : 12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_LIQUID_LAYER",
         "offsetPixels" : {
           "x" : 1.0,
           "y" : 12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_4",
         "offsetPixels" : {
           "x" : 1.0,
           "y" : 12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8658,6 +9255,7 @@
       "filename" : "well_1-64.png",
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -19.0,
@@ -8683,6 +9281,7 @@
       "filename" : "well_2-64.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.0,
@@ -8707,6 +9306,7 @@
     "DOWN" : {
       "filename" : "well_3-64.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -30.0,
@@ -8732,6 +9332,7 @@
       "filename" : "well_4-64.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -3.0,
@@ -8757,6 +9358,7 @@
       "filename" : "wheelhouse-wood-ew-64.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 31.5,
@@ -8771,14 +9373,16 @@
           "x" : 0.5,
           "y" : 0.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8796,6 +9400,7 @@
       "filename" : "wheelhouse-stone-ew-64.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -26.5,
@@ -8820,6 +9425,7 @@
     "DOWN" : {
       "filename" : "wheel-ew",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -8845,6 +9451,7 @@
       "filename" : "wheelhouse-wood-ew-64.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -31.5,
@@ -8859,14 +9466,16 @@
           "x" : -0.5,
           "y" : 0.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8884,6 +9493,7 @@
       "filename" : "wheelhouse-stone-ew-64.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 26.5,
@@ -8908,6 +9518,7 @@
     "DOWN" : {
       "filename" : "wheel-ew",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -8933,6 +9544,7 @@
       "filename" : "wheelhouse-wood-s-64.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -8947,14 +9559,16 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -42.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -8972,6 +9586,7 @@
       "filename" : "wheelhouse-stone-64.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8996,6 +9611,7 @@
     "DOWN" : {
       "filename" : "wheel-ns",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9021,6 +9637,7 @@
       "filename" : "wheelhouse-wood-n-64.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -9035,14 +9652,16 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 64.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -9060,6 +9679,7 @@
       "filename" : "wheelhouse-stone-64.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9084,6 +9704,7 @@
     "DOWN" : {
       "filename" : "wheel-ns",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9109,6 +9730,7 @@
       "filename" : "pump_ew_base.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -9123,14 +9745,16 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -9148,6 +9772,7 @@
       "filename" : "pump_ew_base.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -9162,14 +9787,16 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -9187,6 +9814,7 @@
       "filename" : "pump_n_base.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9201,14 +9829,16 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -9226,6 +9856,7 @@
       "filename" : "pump_s_base.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9240,14 +9871,16 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_BELOW_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -9264,6 +9897,7 @@
     "DOWN" : {
       "filename" : "pump_ew_mechanism",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -20.0,
@@ -9288,6 +9922,7 @@
     "DOWN" : {
       "filename" : "pump_ew_mechanism",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 20.0,
@@ -9312,6 +9947,7 @@
     "DOWN" : {
       "filename" : "pump_n_mechanism",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 17.0,
@@ -9336,6 +9972,7 @@
     "DOWN" : {
       "filename" : "pump_s_mechanism",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -15.0,
@@ -9361,6 +9998,7 @@
       "filename" : "pump_ew_pipe.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 17.5,
@@ -9386,6 +10024,7 @@
       "filename" : "pump_ew_pipe.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -17.5,
@@ -9411,6 +10050,7 @@
       "filename" : "pump_n_pipe.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -8.5,
@@ -9436,6 +10076,7 @@
       "filename" : "pump_s_pipe.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 10.0,
@@ -9461,6 +10102,7 @@
       "filename" : "windmill-0-64.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -9475,21 +10117,24 @@
           "x" : 0.0,
           "y" : 94.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 94.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_3",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 94.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -9507,6 +10152,7 @@
       "filename" : "windmill-1-64.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.5,
@@ -9532,6 +10178,7 @@
       "filename" : "windmill-2-64.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.5,
@@ -9556,6 +10203,7 @@
     "DOWN" : {
       "filename" : "windmill-3",
       "isAnimated" : true,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9581,6 +10229,7 @@
       "filename" : "Archery_Target-1x1 with w workspace offset 6-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -2.5,
@@ -9595,7 +10244,8 @@
           "x" : 2.5,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -9613,6 +10263,7 @@
       "filename" : "Archery_Target-1x1 with w workspace offset 6-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 6.0,
@@ -9638,6 +10289,7 @@
       "filename" : "Archery_Target-1x1 with n workspace offset 6-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9652,7 +10304,8 @@
           "x" : 0.0,
           "y" : 0.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -9670,6 +10323,7 @@
       "filename" : "Archery_Target-1x1 with n workspace offset 6-Furniture_Below_Layer_1-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9695,6 +10349,7 @@
       "filename" : "Archery_Target-1x1 with s workspace offset 6-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9709,7 +10364,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -9727,6 +10383,7 @@
       "filename" : "Archery_Target-1x1 with s workspace offset 6-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.5,
@@ -9752,6 +10409,7 @@
       "filename" : "Archery_Target-1x1 with w workspace offset 6-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 2.5,
@@ -9766,7 +10424,8 @@
           "x" : -2.5,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -9784,6 +10443,7 @@
       "filename" : "Archery_Target-1x1 with w workspace offset 6-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -6.0,
@@ -9809,6 +10469,7 @@
       "filename" : "Training_Dummy-1x1 with w workspace-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.25,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9834,6 +10495,7 @@
       "filename" : "Training_Dummy-1x1 with s workspace-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.25,
       "offsetPixels" : {
         "x" : -1.5,
@@ -9859,6 +10521,7 @@
       "filename" : "Training_Dummy-1x1 with s workspace-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.25,
       "offsetPixels" : {
         "x" : 1.5,
@@ -9884,6 +10547,7 @@
       "filename" : "Training_Dummy-1x1 with w workspace-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.25,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9909,6 +10573,7 @@
       "filename" : "Furniture-Log-EW02-Exterior.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9923,7 +10588,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -9941,6 +10607,7 @@
       "filename" : "Furniture-Log-EW-Interior.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9966,6 +10633,7 @@
       "filename" : "Furniture-Log-NS02-Exterior.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9980,7 +10648,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -9998,6 +10667,7 @@
       "filename" : "Furniture-Log-NS-Interior.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10023,6 +10693,7 @@
       "filename" : "Furniture-Log-EW02-Exterior.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10037,7 +10708,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -10055,6 +10727,7 @@
       "filename" : "Furniture-Log-EW-Interior.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10080,6 +10753,7 @@
       "filename" : "Furniture-Log-NS02-Exterior.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10094,7 +10768,8 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -10112,6 +10787,7 @@
       "filename" : "Furniture-Log-NS-Interior.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10137,6 +10813,7 @@
       "filename" : "Furniture-Log-EW02-Exterior.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10151,14 +10828,16 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -10166,14 +10845,16 @@
           "x" : -16.0,
           "y" : 12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 16.0,
           "y" : 12.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -10190,6 +10871,7 @@
       "filename" : "Furniture-Log-EW-Interior.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10215,6 +10897,7 @@
       "filename" : "Farmable-Mushroom-DetailEW.png",
       "coloringLayer" : "SEED_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10240,6 +10923,7 @@
       "filename" : "Furniture-Log-NS02-Exterior.png",
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10254,14 +10938,16 @@
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "FURNITURE_ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_DECO_1",
@@ -10269,14 +10955,16 @@
           "x" : 0.0,
           "y" : 28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_DECO_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -2.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -10293,6 +10981,7 @@
       "filename" : "Furniture-Log-NS-Interior.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10318,6 +11007,7 @@
       "filename" : "Farmable-Mushroom-DetailNS.png",
       "coloringLayer" : "SEED_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.7,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10343,6 +11033,7 @@
       "filename" : "Stone Pillar.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10368,6 +11059,7 @@
       "filename" : "Wood Pillar.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10393,6 +11085,7 @@
       "filename" : "Export_Pallet-1x1-Base_Layer-Stone_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : 3.0,
@@ -10408,7 +11101,8 @@
           "x" : -3.0,
           "y" : -4.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -10425,6 +11119,7 @@
       "filename" : "Export_Pallet-1x1-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : 4.0,
@@ -10440,7 +11135,8 @@
           "x" : -3.0,
           "y" : -2.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -10457,6 +11153,7 @@
       "filename" : "Import_Pallet-1x1-Base_Layer-Stone_Down.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : -3.0,
@@ -10472,7 +11169,8 @@
           "x" : 4.0,
           "y" : -4.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -10489,6 +11187,7 @@
       "filename" : "Import_Pallet-1x1-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : -3.0,
@@ -10504,7 +11203,8 @@
           "x" : 4.0,
           "y" : -4.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -10521,6 +11221,7 @@
       "filename" : "Armour-Stand-1x1-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10536,7 +11237,8 @@
           "x" : 0.0,
           "y" : 0.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -10553,6 +11255,7 @@
       "filename" : "Weapon-Rack-1x1ew-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10567,21 +11270,24 @@
           "x" : 0.0,
           "y" : 1.0,
           "unit" : true
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "SHOW_WHEN_INVENTORY_PRESENT_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 1.0,
           "unit" : true
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "SHOW_WHEN_INVENTORY_PRESENT_3",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 1.0,
           "unit" : true
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -10599,6 +11305,7 @@
       "filename" : "Weapon_Rack-1x1ew-Show_When_Inventory_Present-Wood_Down.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -0.5,
@@ -10623,6 +11330,7 @@
     "DOWN" : {
       "filename" : "Weapon_Rack-1x1ew-Show_When_Inventory_Present_2-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -2.5,
@@ -10647,6 +11355,7 @@
     "DOWN" : {
       "filename" : "Weapon_Rack-1x1ew-Show_When_Inventory_Present_3-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -5.5,
@@ -10672,6 +11381,7 @@
       "filename" : "Weapon-Rack-1x1ns-Base_Layer-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10686,21 +11396,24 @@
           "x" : 0.0,
           "y" : 0.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "SHOW_WHEN_INVENTORY_PRESENT_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "SHOW_WHEN_INVENTORY_PRESENT_3",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 0.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -10718,6 +11431,7 @@
       "filename" : "Weapon_Rack-1x1ns-Show_When_Inventory_Present-Wood_Down.png",
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.5,
@@ -10742,6 +11456,7 @@
     "DOWN" : {
       "filename" : "Weapon_Rack-1x1ns-Show_When_Inventory_Present_2-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -2.5,
@@ -10767,6 +11482,7 @@
       "filename" : "Weapon_Rack-1x1ns-Show_When_Inventory_Present_3-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
@@ -10792,6 +11508,7 @@
       "filename" : "table-2x4-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -10807,56 +11524,64 @@
           "x" : -32.0,
           "y" : -80.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : -80.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : -10.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_4",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : -10.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_5",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_6",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_7",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 100.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_8",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 100.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -10873,6 +11598,7 @@
       "filename" : "table-2x4-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -10888,56 +11614,64 @@
           "x" : -32.0,
           "y" : -80.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : -80.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : -10.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_4",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : -10.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_5",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_6",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_7",
         "offsetPixels" : {
           "x" : -32.0,
           "y" : 100.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_8",
         "offsetPixels" : {
           "x" : 32.0,
           "y" : 100.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -10954,6 +11688,7 @@
       "filename" : "table-4x2-stone.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -10969,56 +11704,64 @@
           "x" : -92.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -92.0,
           "y" : 40.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
           "x" : -30.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_4",
         "offsetPixels" : {
           "x" : -30.0,
           "y" : 40.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_5",
         "offsetPixels" : {
           "x" : 30.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_6",
         "offsetPixels" : {
           "x" : 30.0,
           "y" : 40.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_7",
         "offsetPixels" : {
           "x" : 94.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_8",
         "offsetPixels" : {
           "x" : 94.0,
           "y" : 40.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11035,6 +11778,7 @@
       "filename" : "table-4x2-wood.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -11050,56 +11794,64 @@
           "x" : -92.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -92.0,
           "y" : 40.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
           "x" : -30.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_4",
         "offsetPixels" : {
           "x" : -30.0,
           "y" : 40.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_5",
         "offsetPixels" : {
           "x" : 30.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_6",
         "offsetPixels" : {
           "x" : 30.0,
           "y" : 40.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_7",
         "offsetPixels" : {
           "x" : 94.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_8",
         "offsetPixels" : {
           "x" : 94.0,
           "y" : 40.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11116,6 +11868,7 @@
       "filename" : "1x2 stone table.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11131,14 +11884,16 @@
           "x" : 0.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11155,6 +11910,7 @@
       "filename" : "1x2 wood table.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11170,14 +11926,16 @@
           "x" : 0.0,
           "y" : -8.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 46.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11194,6 +11952,7 @@
       "filename" : "2x1 stone table.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -11209,14 +11968,16 @@
           "x" : -24.0,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 24.0,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11233,6 +11994,7 @@
       "filename" : "2x1 wood table.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -11248,14 +12010,16 @@
           "x" : -24.0,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 24.0,
           "y" : 24.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11272,6 +12036,7 @@
       "filename" : "1x4 stone table.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11287,28 +12052,32 @@
           "x" : 0.0,
           "y" : -28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 34.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -88.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_4",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 96.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11325,6 +12094,7 @@
       "filename" : "1x4 wooden table.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11340,28 +12110,32 @@
           "x" : 0.0,
           "y" : -28.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 34.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : -88.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_4",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 96.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11378,6 +12152,7 @@
       "filename" : "4x1 stone table.png",
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -11393,28 +12168,32 @@
           "x" : -30.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 30.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
           "x" : 92.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_4",
         "offsetPixels" : {
           "x" : -92.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11431,6 +12210,7 @@
       "filename" : "4x1 wooden table.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -11446,29 +12226,371 @@
           "x" : -30.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 30.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
           "x" : 92.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_4",
         "offsetPixels" : {
           "x" : -92.0,
           "y" : 14.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-down-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-down",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Down-Base_Layer-Wood_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 64.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-down-Furniture_Below_Layer_1-Wood",
+  "type" : "FURNITURE_BELOW_LAYER_1",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-down",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Down-Furniture_Below_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-left-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-left",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Left-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : -3.0,
+        "y" : 72.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-left-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-left",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Left-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-left-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-left",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Left-Furniture_Above_Layer_2-Wood_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-right-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-right",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Right-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 3.0,
+        "y" : 73.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-right-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-right",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Right-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-right-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-right",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Right-Furniture_Above_Layer_2-Wood_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-up-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-up",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Up-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : 0.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-up-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-up",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Up-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-up-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-up",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Up-Furniture_Above_Layer_2-Wood_Down.png",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 1.0,
+      "offsetPixels" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
     }
   }
@@ -11483,6 +12605,7 @@
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Down-Base_Layer-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -11498,7 +12621,8 @@
           "y" : 0.5,
           "unit" : false
         },
-        "overrideRenderLayer" : 150
+        "overrideRenderLayer" : 150,
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
@@ -11506,21 +12630,24 @@
           "x" : 0.0,
           "y" : 28.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 58.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 88.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11537,6 +12664,7 @@
       "filename" : "Wagon_Parked-Wagon-Down-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11562,6 +12690,7 @@
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Left-Base_Layer-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 28.0,
@@ -11576,7 +12705,8 @@
           "x" : -13.0,
           "y" : 8.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
@@ -11584,7 +12714,8 @@
           "y" : 8.5,
           "unit" : false
         },
-        "overrideRenderLayer" : 150
+        "overrideRenderLayer" : 150,
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
@@ -11592,21 +12723,24 @@
           "x" : 37.0,
           "y" : 62.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 103.0,
           "y" : 62.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
           "x" : 69.0,
           "y" : 62.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11623,6 +12757,7 @@
       "filename" : "Wagon_Parked-Wagon-Left-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 80.5,
@@ -11648,6 +12783,7 @@
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Left-Furniture_Below_Layer_1-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -80.0,
@@ -11672,6 +12808,7 @@
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Left-Base_Layer-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -28.0,
@@ -11686,7 +12823,8 @@
           "x" : 13.0,
           "y" : 8.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "SHOW_WHEN_INVENTORY_PRESENT",
         "offsetPixels" : {
@@ -11694,7 +12832,8 @@
           "y" : 8.5,
           "unit" : false
         },
-        "overrideRenderLayer" : 150
+        "overrideRenderLayer" : 150,
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
@@ -11702,21 +12841,24 @@
           "x" : -37.0,
           "y" : 62.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : -103.0,
           "y" : 62.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
           "x" : -69.0,
           "y" : 62.5,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11733,6 +12875,7 @@
       "filename" : "Wagon_Parked-Wagon-Left-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -80.5,
@@ -11758,6 +12901,7 @@
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Left-Furniture_Below_Layer_1-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 80.0,
@@ -11782,6 +12926,7 @@
     "DOWN" : {
       "filename" : "Wagon_Parked-Wagon-Up-Base_Layer-Wood_Down.png",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -11797,7 +12942,8 @@
           "y" : 7.0,
           "unit" : false
         },
-        "overrideRenderLayer" : 150
+        "overrideRenderLayer" : 150,
+        "inheritAnimations" : [ ]
       } ],
       "attachmentPoints" : [ {
         "type" : "ATTACHMENT_WORKSPACE_1",
@@ -11805,21 +12951,24 @@
           "x" : 0.0,
           "y" : -11.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_2",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 13.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       }, {
         "type" : "ATTACHMENT_WORKSPACE_3",
         "offsetPixels" : {
           "x" : 0.0,
           "y" : 39.0,
           "unit" : false
-        }
+        },
+        "inheritAnimations" : [ ]
       } ],
       "parentEntityAssets" : [ ]
     }
@@ -11836,6 +12985,7 @@
       "filename" : "Wagon_Parked-Wagon-Up-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
+      "animationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
