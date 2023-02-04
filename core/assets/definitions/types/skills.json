@@ -3,100 +3,125 @@
   "i18nKey" : "PROFESSION.CHEF",
   "type" : "PROFESSION",
   "icon" : "settlers_job_cook",
-  "draggableIcon" : "btn_drag_job_cook"
+  "draggableIcon" : "btn_drag_job_cook",
+  "selectableByPlayer" : true
 }, {
   "name" : "BLACKSMITH",
   "i18nKey" : "PROFESSION.BLACKSMITH",
   "type" : "PROFESSION",
   "icon" : "settlers_job_blacksmith",
-  "draggableIcon" : "btn_drag_job_blacksmith"
+  "draggableIcon" : "btn_drag_job_blacksmith",
+  "selectableByPlayer" : true
 }, {
   "name" : "CARPENTER",
   "i18nKey" : "PROFESSION.CARPENTER",
   "type" : "PROFESSION",
   "icon" : "settlers_job_carpenter",
-  "draggableIcon" : "btn_drag_job_carpenter"
+  "draggableIcon" : "btn_drag_job_carpenter",
+  "selectableByPlayer" : true
 }, {
   "name" : "FARMER",
   "i18nKey" : "PROFESSION.FARMER",
   "type" : "PROFESSION",
   "icon" : "settlers_job_farmer",
-  "draggableIcon" : "btn_drag_job_farmer"
+  "draggableIcon" : "btn_drag_job_farmer",
+  "selectableByPlayer" : true
 }, {
   "name" : "WEAVER",
   "i18nKey" : "PROFESSION.WEAVER",
   "type" : "PROFESSION",
   "icon" : "settlers_job_weaver",
-  "draggableIcon" : "btn_drag_job_weaver"
+  "draggableIcon" : "btn_drag_job_weaver",
+  "selectableByPlayer" : true
 }, {
   "name" : "LUMBERJACK",
   "i18nKey" : "PROFESSION.WOODCUTTER",
   "type" : "PROFESSION",
   "icon" : "settlers_job_woodcutter",
-  "draggableIcon" : "btn_drag_job_woodcutter"
+  "draggableIcon" : "btn_drag_job_woodcutter",
+  "selectableByPlayer" : true
 }, {
   "name" : "MINER",
   "i18nKey" : "PROFESSION.MINER",
   "type" : "PROFESSION",
   "icon" : "settlers_job_miner",
-  "draggableIcon" : "btn_drag_job_miner"
+  "draggableIcon" : "btn_drag_job_miner",
+  "selectableByPlayer" : true
 }, {
   "name" : "STONEMASON",
   "i18nKey" : "PROFESSION.STONEMASON",
   "type" : "PROFESSION",
   "icon" : "settlers_job_stonemason",
-  "draggableIcon" : "btn_drag_job_stonemason"
+  "draggableIcon" : "btn_drag_job_stonemason",
+  "selectableByPlayer" : true
 }, {
   "name" : "BREWER",
   "i18nKey" : "PROFESSION.BREWER",
   "type" : "PROFESSION",
   "icon" : "settlers_job_brewer",
-  "draggableIcon" : "btn_drag_job_brewer"
+  "draggableIcon" : "btn_drag_job_brewer",
+  "selectableByPlayer" : true
 }, {
   "name" : "FISHER",
   "i18nKey" : "PROFESSION.FISHER",
   "type" : "PROFESSION",
   "icon" : "settlers_job_fisher",
-  "draggableIcon" : "btn_drag_job_fisher"
+  "draggableIcon" : "btn_drag_job_fisher",
+  "selectableByPlayer" : true
 }, {
   "name" : "LEATHERWORKER",
   "i18nKey" : "PROFESSION.LEATHERWORKER",
   "type" : "PROFESSION",
   "icon" : "settlers_job_leatherworker",
-  "draggableIcon" : "btn_drag_job_leatherworker"
+  "draggableIcon" : "btn_drag_job_leatherworker",
+  "selectableByPlayer" : true
+}, {
+  "name" : "MERCHANT",
+  "i18nKey" : "PROFESSION.MERCHANT",
+  "type" : "PROFESSION",
+  "selectableByPlayer" : false
 }, {
   "name" : "ARCHERY",
   "i18nKey" : "SKILL.ARCHERY",
-  "type" : "COMBAT_SKILL"
+  "type" : "COMBAT_SKILL",
+  "selectableByPlayer" : true
 }, {
   "name" : "CROSSBOWS",
   "i18nKey" : "SKILL.CROSSBOWS",
-  "type" : "COMBAT_SKILL"
+  "type" : "COMBAT_SKILL",
+  "selectableByPlayer" : true
 }, {
   "name" : "SWORDSMANSHIP",
   "i18nKey" : "SKILL.SWORDSMANSHIP",
-  "type" : "COMBAT_SKILL"
+  "type" : "COMBAT_SKILL",
+  "selectableByPlayer" : true
 }, {
   "name" : "MACES",
   "i18nKey" : "SKILL.MACES",
-  "type" : "COMBAT_SKILL"
+  "type" : "COMBAT_SKILL",
+  "selectableByPlayer" : true
 }, {
   "name" : "AXES",
   "i18nKey" : "SKILL.AXES",
-  "type" : "COMBAT_SKILL"
+  "type" : "COMBAT_SKILL",
+  "selectableByPlayer" : true
 }, {
   "name" : "UNARMORED_MILITARY",
-  "type" : "ASSET_OVERRIDE"
+  "type" : "ASSET_OVERRIDE",
+  "selectableByPlayer" : true
 }, {
   "name" : "LIGHT_ARMOR",
-  "type" : "ASSET_OVERRIDE"
+  "type" : "ASSET_OVERRIDE",
+  "selectableByPlayer" : true
 }, {
   "name" : "HEAVY_ARMOR",
-  "type" : "ASSET_OVERRIDE"
+  "type" : "ASSET_OVERRIDE",
+  "selectableByPlayer" : true
 }, {
   "name" : "ARTISAN",
   "i18nKey" : "PROFESSION.ARTISAN",
   "type" : "PROFESSION",
   "icon" : "settlers_job_artisan",
-  "draggableIcon" : "btn_drag_job_artisan"
+  "draggableIcon" : "btn_drag_job_artisan",
+  "selectableByPlayer" : true
 } ]

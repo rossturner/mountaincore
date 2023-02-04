@@ -76,6 +76,12 @@
     "icon": "settlers_job_leatherworker",
     "draggableIcon": "btn_drag_job_leatherworker"
   },
+  {
+    "name": "MERCHANT",
+    "i18nKey": "PROFESSION.MERCHANT",
+    "type": "PROFESSION",
+    "selectableByPlayer": false
+  },
 
   {
     "name": "ARCHERY",

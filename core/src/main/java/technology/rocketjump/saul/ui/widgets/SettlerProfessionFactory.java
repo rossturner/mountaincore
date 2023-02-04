@@ -231,7 +231,7 @@ public class SettlerProfessionFactory {
 
 			int numAdded = 0;
 
-			List<Skill> professionsForSelection = new ArrayList<>(skillDictionary.getAllProfessions());
+			List<Skill> professionsForSelection = new ArrayList<>(skillDictionary.getSelectableProfessions());
 			SkillsComponent skillsComponent = settler.getComponent(SkillsComponent.class);
 			for (SkillsComponent.QuantifiedSkill quantifiedSkill : skillsComponent.getActiveProfessions()) {
 				professionsForSelection.remove(quantifiedSkill.getSkill());

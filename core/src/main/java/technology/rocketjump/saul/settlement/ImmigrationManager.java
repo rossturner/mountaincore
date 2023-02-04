@@ -258,7 +258,7 @@ public class ImmigrationManager implements Updatable, Telegraph {
 	}
 
 	private void createImmigrant(Vector2 spawnPosition) {
-		List<Skill> allProfessions = new ArrayList<>(skillDictionary.getAllProfessions());
+		List<Skill> allProfessions = new ArrayList<>(skillDictionary.getSelectableProfessions());
 		Skill primaryProfession = allProfessions.get(gameContext.getRandom().nextInt(allProfessions.size()));
 		Skill secondaryProfession = null;
 		if (!primaryProfession.getName().equals("VILLAGER")) {

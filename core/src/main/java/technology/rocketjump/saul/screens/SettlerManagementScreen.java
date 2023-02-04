@@ -249,7 +249,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		ButtonGroup<ImageButton> professionButtonGroup = new ButtonGroup<>();
 		professionFilterButton(professionButtonGroup, professionButtons, "settlers_all", "GUI.SETTLER_MANAGEMENT.PROFESSION.CIVILIAN", IS_CIVILIAN);
 		professionFilterButton(professionButtonGroup, professionButtons, "settlers_military", "GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY", IS_MILITARY);
-		for (Skill profession : skillDictionary.getAllProfessions()) {
+		for (Skill profession : skillDictionary.getSelectableProfessions()) {
 			professionFilterButton(professionButtonGroup, professionButtons, profession.getIcon(), profession.getI18nKey(), new MatchesActiveProfession(profession));
 		}
 		professionFilterButton(professionButtonGroup, professionButtons, "settlers_job_villager", "GUI.SETTLER_MANAGEMENT.PROFESSION.VILLAGER", new MatchesActiveProfession(SkillDictionary.NULL_PROFESSION));

@@ -1,7 +1,7 @@
 {
   "name" : "Dwarf",
   "i18nKey" : "RACE.DWARF",
-  "nameGeneration": "Dwarven",
+  "nameGeneration" : "Dwarven",
   "minStrength" : 7.0,
   "maxStrength" : 19.0,
   "bodyStructureName" : "Humanoid",
@@ -44,15 +44,15 @@
   "genders" : {
     "MALE" : {
       "weighting" : 0.5,
-      "hideAssetTypes": {
-        "CREATURE_HAIR": 0.4
+      "hideAssetTypes" : {
+        "CREATURE_HAIR" : 0.4
       }
     },
     "FEMALE" : {
       "weighting" : 0.5,
-      "hideAssetTypes": {
-        "CREATURE_EYEBROWS": 1,
-        "CREATURE_BEARD": 1
+      "hideAssetTypes" : {
+        "CREATURE_EYEBROWS" : 1.0,
+        "CREATURE_BEARD" : 1.0
       }
     }
   },

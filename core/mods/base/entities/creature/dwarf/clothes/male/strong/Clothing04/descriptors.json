@@ -5,6 +5,7 @@
   "bodyShape" : "STRONG",
   "gender" : "MALE",
   "profession" : "UNARMORED_MILITARY",
+  "consciousnessList" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Dwarf-Male-Strong-Clothing04-F.png"

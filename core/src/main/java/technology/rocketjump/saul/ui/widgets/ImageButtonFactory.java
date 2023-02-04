@@ -41,7 +41,7 @@ public class ImageButtonFactory {
 		this.entityRenderer = entityRenderer;
 		this.buttonNinePatch = textureAtlas.createPatch("button");
 
-		for (Skill profession : skillDictionary.getAllProfessions()) {
+		for (Skill profession : skillDictionary.getSelectableProfessions()) {
 			profession.setImageButton(getOrCreate(profession.getIcon()));
 		}
 		NULL_PROFESSION.setImageButton(getOrCreate(NULL_PROFESSION.getIcon()));
