@@ -22,5 +22,6 @@
     "Carrot Seed",
     "Hops Seed",
     "Corn Seed"
-  ]
+  ],
+  "isTradeable": true
 }

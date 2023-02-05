@@ -12595,6 +12595,142 @@
     }
   }
 }, {
+  "uniqueName" : "TRADING_EXPORT-1x1-Base_Layer-Stone",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRADING_EXPORT",
+  "furnitureLayoutName" : "1x1",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Export_Pallet-1x1-Base_Layer-Stone_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 0.9,
+      "offsetPixels" : {
+        "x" : 3.0,
+        "y" : 14.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : -3.0,
+          "y" : -4.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "TRADING_EXPORT-1x1-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRADING_EXPORT",
+  "furnitureLayoutName" : "1x1",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Export_Pallet-1x1-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 0.9,
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : 13.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : -3.0,
+          "y" : -2.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "TRADING_IMPORT-1x1-Base_Layer-Stone",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRADING_IMPORT",
+  "furnitureLayoutName" : "1x1",
+  "validMaterialTypes" : [ "STONE" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Import_Pallet-1x1-Base_Layer-Stone_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 0.9,
+      "offsetPixels" : {
+        "x" : -3.0,
+        "y" : 15.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 4.0,
+          "y" : -4.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
+  "uniqueName" : "TRADING_IMPORT-1x1-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRADING_IMPORT",
+  "furnitureLayoutName" : "1x1",
+  "validMaterialTypes" : [ "WOOD" ],
+  "tags" : { },
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Import_Pallet-1x1-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "isAnimated" : false,
+      "animationScripts" : { },
+      "scale" : 0.9,
+      "offsetPixels" : {
+        "x" : -3.0,
+        "y" : 13.0,
+        "unit" : false
+      },
+      "flipX" : false,
+      "flipY" : false,
+      "childAssets" : [ ],
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : 4.0,
+          "y" : -4.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ],
+      "parentEntityAssets" : [ ]
+    }
+  }
+}, {
   "uniqueName" : "Wagon_Parked-wagon-down-Base_Layer-Wood",
   "type" : "BASE_LAYER",
   "furnitureTypeName" : "WAGON_PARKED",

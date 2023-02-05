@@ -208,6 +208,9 @@ public class ItemUIFactory implements UIFactory {
         controls.add(WidgetBuilder.toggle(itemType.isDescribeAsMaterialOnly(), itemType::setDescribeAsMaterialOnly));
         controls.row();
 
+        controls.add(WidgetBuilder.label("Is Tradeable"));
+        controls.add(WidgetBuilder.toggle(itemType.getIsTradeable(), itemType::setIsTradeable));
+        controls.row();
 
         //Todo: nicer display name
         Map<GameMaterialType, VisCheckBox> materialTypeMap = new HashMap<>();

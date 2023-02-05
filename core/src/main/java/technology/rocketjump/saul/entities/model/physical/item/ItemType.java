@@ -2,7 +2,9 @@ package technology.rocketjump.saul.entities.model.physical.item;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.common.collect.Sets;
 import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.tags.Tag;
@@ -12,10 +14,8 @@ import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.Name;
 import technology.rocketjump.saul.production.StockpileGroup;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ItemType {
@@ -70,6 +70,8 @@ public class ItemType {
 	private WeaponInfo weaponInfo;
 	private AmmoType isAmmoType;
 	private DefenseInfo defenseInfo;
+
+	private boolean isTradeable; // all craftable items are tradeable, this is for non-craftable resources and other things
 
 	private boolean describeAsMaterialOnly;
 
@@ -325,6 +327,27 @@ public class ItemType {
 	@JsonIgnore
 	public boolean isStackable() {
 		return maxStackSize > 1 || maxHauledAtOnce > 1;
+	}
+
+	public boolean getIsTradeable() {
+		return isTradeable;
+	}
+
+	public void setIsTradeable(boolean tradeable) {
+		isTradeable = tradeable;
+	}
+
+	@JsonIgnore
+	public List<GameMaterial> getSpecificallyAllowedMaterials(CraftingRecipeDictionary craftingRecipeDictionary) {
+		Set<GameMaterial> allowedByCrafting = craftingRecipeDictionary.getAll().stream()
+				.filter(r -> this.equals(r.getOutput().getItemType()))
+				.map(r -> r.getOutput().getMaterial())
+				.collect(Collectors.toSet());
+		if (allowedByCrafting.isEmpty() || allowedByCrafting.contains(null)) {
+			return specificMaterials;
+		} else {
+			return new ArrayList<>(Sets.union(allowedByCrafting, new HashSet<>(specificMaterials)));
+		}
 	}
 
 }

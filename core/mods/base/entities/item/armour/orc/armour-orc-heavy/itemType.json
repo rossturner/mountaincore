@@ -18,5 +18,6 @@
     },
     "restrictedToRaceNames" : [ "Orc" ]
   },
-  "i18nKey" : "ARMOUR.ORC.HEAVY"
+  "i18nKey" : "ARMOUR.ORC.HEAVY",
+  "isTradeable": true
 }

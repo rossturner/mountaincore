@@ -27,11 +27,11 @@ import java.util.List;
 
 public class ProductionExportFurnitureBehaviour extends FurnitureBehaviour implements Prioritisable, DisplayGhostItemWhenInventoryEmpty {
 
-	private int maxNumItemStacks = 0;
-	private ItemType selectedItemType;
-	private GameMaterial selectedMaterial; // null == ANY
+	protected int maxNumItemStacks = 0;
+	protected ItemType selectedItemType;
+	protected GameMaterial selectedMaterial; // null == ANY
 
-	private List<CraftingAssignment> pendingAssignments = new ArrayList<>();
+	protected List<CraftingAssignment> pendingAssignments = new ArrayList<>();
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {

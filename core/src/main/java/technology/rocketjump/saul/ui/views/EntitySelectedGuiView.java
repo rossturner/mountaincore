@@ -341,7 +341,11 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 							viewContents.add(descriptions.getActor()).center().row();
 						}
 
-						if (entity.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour) {
+						if (entity.getBehaviourComponent() instanceof TradingImportFurnitureBehaviour) {
+							viewContents.add(productionExportFurnitureWidget).center().row();
+						} else if (entity.getBehaviourComponent() instanceof TradingExportFurnitureBehaviour) {
+							viewContents.add(productionImportFurnitureWidget).center().row();
+						} else if (entity.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour) {
 							viewContents.add(productionImportFurnitureWidget).center().row();
 						} else if (entity.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour) {
 							viewContents.add(productionExportFurnitureWidget).center().row();

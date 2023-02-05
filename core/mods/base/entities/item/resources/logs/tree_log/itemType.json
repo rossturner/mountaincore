@@ -8,5 +8,6 @@
   "impedesMovement" : true,
   "stockpileGroupName" : "RAW_MATERIALS",
   "placementSoundAssetName" : "HeavyWoodItem",
-  "i18nKey" : "RESOURCE.LOGS"
+  "i18nKey" : "RESOURCE.LOGS",
+  "isTradeable": true
 }

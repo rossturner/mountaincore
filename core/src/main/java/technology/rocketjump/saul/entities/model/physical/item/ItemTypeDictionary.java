@@ -38,6 +38,7 @@ public class ItemTypeDictionary {
 	private Map<String, ItemType> byName = new HashMap<>();
 	private List<ItemType> allTypesList = new ArrayList<>();
 	private List<ItemType> itemTypesWithWeaponInfo = new ArrayList<>();
+	private List<ItemType> tradeableItemTypes = new ArrayList<>();
 	private Map<CraftingType, List<ItemType>> byCraftingType = new HashMap<>();
 	private Map<AmmoType, List<ItemType>> byAmmoType = new HashMap<>();
 	private final Map<StockpileGroup, List<ItemType>> byStockpileGroup = new HashMap<>();
@@ -187,6 +188,9 @@ public class ItemTypeDictionary {
 				}
 			}
 		}
+		if (itemType.getIsTradeable()) {
+			tradeableItemTypes.add(itemType);
+		}
 	}
 
 	public ItemType getByName(String itemTypeName) {
@@ -229,4 +233,7 @@ public class ItemTypeDictionary {
 		return byAmmoType.getOrDefault(ammoType, List.of());
 	}
 
+	public List<ItemType> getTradeableItems() {
+		return tradeableItemTypes;
+	}
 }

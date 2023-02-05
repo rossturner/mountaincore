@@ -6,5 +6,6 @@
   "holdPosition" : "ON_SHOULDER",
   "impedesMovement" : true,
   "placementSoundAssetName" : "HeavyWoodItem",
-  "i18nKey" : "RESOURCE.MUSHROOM.LOG"
+  "i18nKey" : "RESOURCE.MUSHROOM.LOG",
+  "isTradeable": true
 }

@@ -1,0 +1,49 @@
+[ {
+  "uniqueName" : "TRADING_EXPORT-1x1-Base_Layer-Stone",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRADING_EXPORT",
+  "furnitureLayoutName" : "1x1",
+  "validMaterialTypes" : [ "STONE" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Export_Pallet-1x1-Base_Layer-Stone_Down.png",
+      "coloringLayer" : "STONE_COLOR",
+      "scale" : 0.9,
+      "offsetPixels" : {
+        "x" : 3.0,
+        "y" : 14.0
+      },
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : -3.0,
+          "y" : -4.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "TRADING_EXPORT-1x1-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "TRADING_EXPORT",
+  "furnitureLayoutName" : "1x1",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Export_Pallet-1x1-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.9,
+      "offsetPixels" : {
+        "x" : 4.0,
+        "y" : 13.0
+      },
+      "attachmentPoints" : [ {
+        "type" : "ATTACHMENT_WORKSPACE_1",
+        "offsetPixels" : {
+          "x" : -3.0,
+          "y" : -2.0
+        }
+      } ]
+    }
+  }
+} ]

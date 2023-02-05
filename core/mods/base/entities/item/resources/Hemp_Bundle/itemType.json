@@ -9,5 +9,6 @@
   "stockpileGroupName" : "GRANARY",
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.BUNDLE",
-  "specificMaterialNames": ["Hemp"]
+  "specificMaterialNames": ["Hemp"],
+  "isTradeable": true
 }

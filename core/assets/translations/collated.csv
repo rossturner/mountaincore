@@ -1427,6 +1427,7 @@ SKIN.BOAR_HIDE,Boar,,,,,,,,,,,,,,,,,,,
 SKIN.DEER_HIDE,Deer,,,,,,,,,,,,,,,,,,,
 SKIN.DWARF_HIDE,Dwarf,,,,,,,,,,,,,,,,,,,
 SKIN.ELEPHANT_HIDE,Elephant,,,,,,,,,,,,,,,,,,,
+SKIN.HORSE_HIDE,Horse,,,,,,,,,,,,,,,,,,,
 
 STATUS.ALCOHOL_WITHDRAWL,Alcohol withdrawl,,Alkohol-Entzug,,Ritiro dell'alcol,Síndrome de abstinencia de alcohol,,,,Отказ от алкоголя,,,,,,,,酔いが醒めた,酒精戒断症,
 STATUS.BLEEDING,Bleeding,,Blutet,,Sanguinamento,Sangrando,,,,"Кровотечение ",,,,,,,,出血,流血,

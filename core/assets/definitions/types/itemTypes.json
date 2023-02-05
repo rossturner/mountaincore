@@ -27,6 +27,7 @@
     },
     "restrictedToRaceNames" : [ "Dwarf" ]
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.LEATHER"
 }, {
@@ -58,6 +59,7 @@
     },
     "restrictedToRaceNames" : [ "Dwarf" ]
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.PLATE"
 }, {
@@ -89,6 +91,7 @@
     },
     "restrictedToRaceNames" : [ "Orc" ]
   },
+  "isTradeable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.ORC.HEAVY"
 }, {
@@ -120,6 +123,7 @@
     },
     "restrictedToRaceNames" : [ "Orc" ]
   },
+  "isTradeable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.ORC.LIGHT"
 }, {
@@ -138,6 +142,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.CARP.PREPARED"
 }, {
@@ -156,6 +161,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.MEAT.LARGE"
 }, {
@@ -174,6 +180,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.MEAT.MEDIUM"
 }, {
@@ -192,6 +199,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.MEAT.SMALL"
 }, {
@@ -210,6 +218,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.PERCH.PREPARED"
 }, {
@@ -228,6 +237,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.PIKE.PREPARED"
 }, {
@@ -246,6 +256,7 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "CARCASS.HIDE"
 }, {
@@ -264,6 +275,7 @@
   "stockpileGroupName" : "FUEL",
   "tags" : { },
   "specificMaterialNames" : [ "Coke", "Charcoal" ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "FUEL.SACK"
 }, {
@@ -282,6 +294,7 @@
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "specificMaterialNames" : [ "Barley" ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MALT.SACK"
 }, {
@@ -300,6 +313,7 @@
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "specificMaterialNames" : [ "Barley" ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MILLED.MALT.SACK"
 }, {
@@ -318,6 +332,7 @@
   "tags" : { },
   "consumeSoundAssetName" : "DrinkSoup",
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.SOUP.BOWL"
 }, {
@@ -336,6 +351,7 @@
   "tags" : { },
   "consumeSoundAssetName" : "DrinkSoup",
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.TANKARD"
 }, {
@@ -354,7 +370,8 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "consumeSoundAssetName" : "EatFood",
-  "specificMaterialNames" : [ ],
+  "specificMaterialNames" : [ "Carrot", "Tomato", "Berserker Mushroom", "Death Cap Mushroom", "Elfsbane Mushroom", "Fist Mushroom", "Glow Mushroom", "Sunglow Mushroom", "Miltonia Mushroom", "Purple Helmet Mushroom", "Rociomycota Mushroom", "Syrup Powder Mushroom" ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.VEGETABLE.CRATE"
 }, {
@@ -373,7 +390,8 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "consumeSoundAssetName" : "EatFood",
-  "specificMaterialNames" : [ ],
+  "specificMaterialNames" : [ "Hops", "Corn", "Potato" ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.VEGETABLE.SACK"
 }, {
@@ -391,6 +409,7 @@
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ASHES"
 }, {
@@ -408,6 +427,7 @@
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RUSTED_SCRAP"
 }, {
@@ -426,6 +446,7 @@
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.ANVIL"
 }, {
@@ -446,6 +467,7 @@
     "LIQUID_CONTAINER" : [ "6" ]
   },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BARREL"
 }, {
@@ -464,6 +486,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BARREL.HOOPS"
 }, {
@@ -482,6 +505,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BARREL.STAVES"
 }, {
@@ -500,6 +524,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ "Wheat" ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BREAD.DOUGH"
 }, {
@@ -519,6 +544,7 @@
   "tags" : { },
   "consumeSoundAssetName" : "EatFood",
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BREAD.LOAF"
 }, {
@@ -540,6 +566,7 @@
     "USAGE_SOUND" : [ "WaterCollect" ]
   },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BUCKET"
 }, {
@@ -560,6 +587,7 @@
     "LIQUID_CONTAINER" : [ "6" ]
   },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.CAULDRON"
 }, {
@@ -578,6 +606,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.STONE.GEAR"
 }, {
@@ -596,6 +625,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LINEN"
 }, {
@@ -614,6 +644,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LIQUID.TANK"
 }, {
@@ -632,6 +663,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.MILLSTONE"
 }, {
@@ -650,6 +682,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.STONE.PIPE"
 }, {
@@ -668,6 +701,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LEATHER"
 }, {
@@ -690,6 +724,7 @@
     "ITEM_ASSIGNMENT" : [ "PREFER_MILITARY" ]
   },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.WATERSKIN"
 }, {
@@ -708,6 +743,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.RATION"
 }, {
@@ -726,6 +762,7 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ "Wheat" ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.RATION.DOUGH"
 }, {
@@ -744,6 +781,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.ROPE"
 }, {
@@ -762,6 +800,7 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.BONE.LARGE"
 }, {
@@ -780,6 +819,7 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.BONE.MEDIUM"
 }, {
@@ -798,6 +838,7 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.BONE.SMALL"
 }, {
@@ -816,6 +857,7 @@
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "specificMaterialNames" : [ "Wheat" ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.FLOUR.SACK"
 }, {
@@ -834,6 +876,7 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.GEMS.UNREFINED"
 }, {
@@ -852,6 +895,7 @@
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "specificMaterialNames" : [ "Barley" ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.GRAIN.SACK"
 }, {
@@ -870,6 +914,7 @@
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "specificMaterialNames" : [ "Hemp" ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.BUNDLE"
 }, {
@@ -888,6 +933,7 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ "Hemp_Fibre" ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.FIBRE.BUNDLE"
 }, {
@@ -906,6 +952,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.INGOT"
 }, {
@@ -923,6 +970,7 @@
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LIQUID.EXAMPLE"
 }, {
@@ -941,6 +989,7 @@
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
   "specificMaterialNames" : [ ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.MUSHROOM.LOG"
 }, {
@@ -959,6 +1008,7 @@
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.SHOCKED.MUSHROOM.LOG"
 }, {
@@ -978,6 +1028,7 @@
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
   "specificMaterialNames" : [ ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LOGS"
 }, {
@@ -996,6 +1047,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.PLATE"
 }, {
@@ -1015,6 +1067,7 @@
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
   "specificMaterialNames" : [ "Fungiwood", "Barkshroom" ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.MUSHROOM.LUMBER"
 }, {
@@ -1033,6 +1086,7 @@
   "stockpileGroupName" : "SEEDS",
   "tags" : { },
   "specificMaterialNames" : [ "Purple Helmet Spawn", "Death Cap Spawn", "Fist Spawn", "Berserker Mushroom Spawn", "Rociomycota Mushroom Spawn", "Miltonia Spawn", "Elfsbane Spawn", "Sunglow Spawn", "Glow Spawn", "Syrup Powder Spawn" ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MUSHROOM.SPAWN"
 }, {
@@ -1051,6 +1105,7 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.ORE.CRUSHED"
 }, {
@@ -1069,6 +1124,7 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.ORE.UNREFINED"
 }, {
@@ -1088,6 +1144,7 @@
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.PLANKS"
 }, {
@@ -1106,6 +1163,7 @@
   "stockpileGroupName" : "SEEDS",
   "tags" : { },
   "specificMaterialNames" : [ "Wheat Seed", "Hemp Seed", "Barley Seed", "Tomato Seed", "Potato Seed", "Carrot Seed", "Hops Seed", "Corn Seed" ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.SEEDS"
 }, {
@@ -1124,6 +1182,7 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.STONE.BLOCK"
 }, {
@@ -1143,6 +1202,7 @@
   "tags" : { },
   "placementSoundAssetName" : "HeavyStoneItem",
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.STONE.UNREFINED"
 }, {
@@ -1161,6 +1221,7 @@
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "specificMaterialNames" : [ "Wheat" ],
+  "isTradeable" : true,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.WHEAT.SACK"
 }, {
@@ -1192,6 +1253,7 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.AXE"
 }, {
@@ -1212,6 +1274,7 @@
     "USAGE_SOUND" : [ "StonemasonChipping" ]
   },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.CHISEL"
 }, {
@@ -1230,6 +1293,7 @@
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.FISHING.ROD"
 }, {
@@ -1261,6 +1325,7 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.KITCHEN.KNIFE"
 }, {
@@ -1292,6 +1357,7 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.LARGE.HAMMER"
 }, {
@@ -1323,6 +1389,7 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PICKAXE"
 }, {
@@ -1343,6 +1410,7 @@
     "USAGE_SOUND" : [ "Sawing" ]
   },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PLANE"
 }, {
@@ -1361,6 +1429,7 @@
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.ROLLING.PIN"
 }, {
@@ -1381,6 +1450,7 @@
     "USAGE_SOUND" : [ "Sawing" ]
   },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.SAW"
 }, {
@@ -1399,6 +1469,7 @@
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.SMALL.HAMMER"
 }, {
@@ -1417,6 +1488,7 @@
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.TONGS"
 }, {
@@ -1435,6 +1507,7 @@
   "stockpileGroupName" : "TREASURE",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TREASURE.COIN"
 }, {
@@ -1453,6 +1526,7 @@
   "stockpileGroupName" : "TREASURE",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TREASURE.GEM"
 }, {
@@ -1472,6 +1546,7 @@
   "tags" : { },
   "specificMaterialNames" : [ ],
   "isAmmoType" : "ARROWS",
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BONE.ARROWS"
 }, {
@@ -1490,6 +1565,7 @@
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BONE.ARROW.HEADS"
 }, {
@@ -1508,6 +1584,7 @@
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.ARROW.HEADS"
 }, {
@@ -1527,6 +1604,7 @@
   "tags" : { },
   "specificMaterialNames" : [ ],
   "isAmmoType" : "ARROWS",
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.ARROWS"
 }, {
@@ -1546,6 +1624,7 @@
   "tags" : { },
   "specificMaterialNames" : [ ],
   "isAmmoType" : "BOLTS",
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.BOLTS"
 }, {
@@ -1579,6 +1658,7 @@
     "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow",
     "ranged" : true
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BOW"
 }, {
@@ -1610,6 +1690,7 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.AXE"
 }, {
@@ -1643,6 +1724,7 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.HAMMER"
 }, {
@@ -1676,6 +1758,7 @@
     "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow",
     "ranged" : true
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.CROSSBOW"
 }, {
@@ -1705,6 +1788,7 @@
     },
     "restrictedToRaceNames" : [ ]
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.SHIELD"
 }, {
@@ -1736,6 +1820,7 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.SWORD"
 }, {
@@ -1765,6 +1850,7 @@
     },
     "restrictedToRaceNames" : [ ]
   },
+  "isTradeable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.WOODEN.SHIELD"
 } ]

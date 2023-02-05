@@ -9,5 +9,6 @@
   "stockpileGroupName" : "GRANARY",
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.WHEAT.SACK",
-  "specificMaterialNames": ["Wheat"]
+  "specificMaterialNames": ["Wheat"],
+  "isTradeable": true
 }

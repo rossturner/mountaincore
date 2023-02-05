@@ -24,5 +24,6 @@
     "Sunglow Spawn",
     "Glow Spawn",
     "Syrup Powder Spawn"
-  ]
+  ],
+  "isTradeable": true
 }

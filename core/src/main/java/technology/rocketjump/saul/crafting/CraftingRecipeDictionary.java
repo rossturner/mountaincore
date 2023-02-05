@@ -16,10 +16,7 @@ import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static technology.rocketjump.saul.entities.behaviour.furniture.CraftingStationBehaviour.CRAFTING_BONUS_VALUE;
 
@@ -131,5 +128,9 @@ public class CraftingRecipeDictionary {
 
 	public CraftingRecipe getByName(String recipeName) {
 		return byName.get(recipeName);
+	}
+
+	public List<CraftingRecipe> getAll() {
+		return byCraftingType.values().stream().flatMap(Collection::stream).toList();
 	}
 }
