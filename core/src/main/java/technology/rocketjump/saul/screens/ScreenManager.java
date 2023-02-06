@@ -34,6 +34,7 @@ import technology.rocketjump.saul.ui.widgets.ModalDialog;
 import java.util.ArrayList;
 import java.util.List;
 
+import static technology.rocketjump.saul.jobs.SkillDictionary.NULL_PROFESSION;
 import static technology.rocketjump.saul.rendering.camera.GlobalSettings.DEV_MODE;
 
 @Singleton
@@ -132,7 +133,7 @@ public class ScreenManager implements Telegraph, GameContextAware {
 			add(professionList, "STONEMASON", 1);
 			add(professionList, "BLACKSMITH", 1);
 			add(professionList, "FARMER", 1);
-			add(professionList, "CHEF", 1);
+			add(professionList, NULL_PROFESSION.getName(), 1);
 		} else if (GlobalSettings.STRESS_TEST) {
 			List<Skill> allProfessions = new ArrayList<>(skillDictionary.getAllProfessions());
 			for (int cursor = 0; cursor < 1000; cursor++) {

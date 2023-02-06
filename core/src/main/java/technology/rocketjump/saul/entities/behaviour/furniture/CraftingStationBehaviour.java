@@ -227,13 +227,13 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 						return false;
 					} else {
 						if (!inputRequirement.getMaterial().equals(liquidContainerComponent.getTargetLiquidMaterial()) ||
-							liquidContainerComponent.getLiquidQuantity() < inputRequirement.getQuantity()) {
+								liquidContainerComponent.getLiquidQuantity() < inputRequirement.getQuantity()) {
 							return false;
 						}
 					}
 				} else {
 					InventoryComponent.InventoryEntry entry = inventoryComponent.findByItemTypeAndMaterial(inputRequirement.getItemType(), inputRequirement.getMaterial(), gameContext.getGameClock());
-					if (entry == null || ((ItemEntityAttributes)entry.entity.getPhysicalEntityComponent().getAttributes()).getQuantity() < inputRequirement.getQuantity()) {
+					if (entry == null || ((ItemEntityAttributes) entry.entity.getPhysicalEntityComponent().getAttributes()).getQuantity() < inputRequirement.getQuantity()) {
 						return false;
 					}
 				}
@@ -433,7 +433,8 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 						ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryEntry.entity.getPhysicalEntityComponent().getAttributes();
 
 						if (desiredMaterial != null && requirement.getItemType().getPrimaryMaterialType().equals(desiredMaterial.getMaterialType()) &&
-							craftingRecipe.getMaterialTypesToCopyOver().contains(desiredMaterial.getMaterialType())) {
+								craftingRecipe.getMaterialTypesToCopyOver() != null &&
+								craftingRecipe.getMaterialTypesToCopyOver().contains(desiredMaterial.getMaterialType())) {
 							if (attributes.getPrimaryMaterial().equals(desiredMaterial)) {
 								return importBehaviour;
 							}
@@ -455,7 +456,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	private LiquidContainerComponent getLiquidContainerForRequirement(QuantifiedItemTypeWithMaterial requirement, List<LiquidContainerComponent> liquidContainers) {
 		return liquidContainers.stream()
 				.filter(l -> requirement.getMaterial().equals(l.getTargetLiquidMaterial()))
-				.filter(l -> l.getNumUnallocated() >= (float)requirement.getQuantity())
+				.filter(l -> l.getNumUnallocated() >= (float) requirement.getQuantity())
 				.findAny().orElse(null);
 	}
 
@@ -464,7 +465,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		InventoryComponent inventoryComponent = exportFurnitureBehaviour.getParentEntity().getComponent(InventoryComponent.class);
 		int currentQuantity = 0;
 		for (InventoryComponent.InventoryEntry entry : inventoryComponent.getInventoryEntries()) {
-			currentQuantity += ((ItemEntityAttributes)entry.entity.getPhysicalEntityComponent().getAttributes()).getQuantity();
+			currentQuantity += ((ItemEntityAttributes) entry.entity.getPhysicalEntityComponent().getAttributes()).getQuantity();
 		}
 		int pendingQuantity = exportFurnitureBehaviour.getPendingAssignments().stream()
 				.map(a -> a.getTargetRecipe().getOutput().getQuantity())
@@ -789,7 +790,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	public void assignmentCompleted() {
-		if (extraTimeToProcess != null)	{
+		if (extraTimeToProcess != null) {
 			// still waiting for time to elapse, so don't mark as completed yet
 		} else {
 			craftingAssignment = null;
@@ -815,7 +816,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		if (targetExportFurniture == null) {
 			cancelAssignment();
 		} else {
-			GameMaterial desiredMaterial = ((ProductionExportFurnitureBehaviour)targetExportFurniture.getBehaviourComponent()).getSelectedMaterial();
+			GameMaterial desiredMaterial = ((ProductionExportFurnitureBehaviour) targetExportFurniture.getBehaviourComponent()).getSelectedMaterial();
 
 			QuantifiedItemTypeWithMaterial matchedRequirement = craftingAssignment.getTargetRecipe().getInput().stream()
 					.filter(q -> q.getItemType().equals(itemTypeRequired) && q.getQuantity() == amountRequired)
