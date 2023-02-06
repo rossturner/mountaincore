@@ -12306,7 +12306,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -6.5,
         "unit" : false
       },
       "flipX" : false,
@@ -12418,7 +12418,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -6.5,
         "unit" : false
       },
       "flipX" : true,

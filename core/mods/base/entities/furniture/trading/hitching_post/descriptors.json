@@ -26,7 +26,10 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Hitching_Post-Hitched-East-Furniture_Above_Layer_1-Wood_Down.png",
-      "coloringLayer" : "WOOD_COLOR"
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : -6.5
+      }
     }
   }
 }, {
@@ -91,6 +94,9 @@
     "DOWN" : {
       "filename" : "Hitching_Post-Hitched-East-Furniture_Above_Layer_1-Wood_Down.png",
       "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : -6.5
+      },
       "flipX" : true
     }
   }
