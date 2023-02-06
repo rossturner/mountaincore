@@ -1,0 +1,48 @@
+[ {
+  "name" : "handle-swing",
+  "orientations" : {
+    "DOWN" : {
+      "duration" : 0.8,
+      "soundCues" : [ {
+        "atTime" : 0.23,
+        "soundAssetName" : "__SOUND_NOTIFY_1__"
+      } ],
+      "scalings" : [ {
+        "x" : 1.0,
+        "y" : 1.0
+      }, {
+        "atTime" : 0.23,
+        "x" : 0.9,
+        "y" : 0.9
+      }, {
+        "atTime" : 0.3,
+        "x" : 1.2,
+        "y" : 1.2
+      }, {
+        "atTime" : 0.45,
+        "x" : 1.2,
+        "y" : 1.2
+      }, {
+        "atTime" : 0.8,
+        "x" : 1.0,
+        "y" : 1.0
+      } ],
+      "particleEffectCues" : [ {
+        "atTime" : 0.23,
+        "particleEffectName" : "__PARTICLE_EFFECT_NOTIFY_1__"
+      } ],
+      "rotations" : [ { }, {
+        "atTime" : 0.23,
+        "roll" : -14
+      }, {
+        "atTime" : 0.3,
+        "roll" : 39
+      }, {
+        "atTime" : 0.45,
+        "roll" : 39
+      }, {
+        "atTime" : 0.8
+      } ]
+    }
+  }
+} ]
