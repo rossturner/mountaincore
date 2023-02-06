@@ -33,6 +33,10 @@ public abstract class Tag {
 		throw new NotImplementedException(this.getClass().getSimpleName() + " does not apply to rooms");
 	}
 
+	public boolean appliesToParentEntity() {
+		return false;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

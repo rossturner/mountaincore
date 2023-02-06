@@ -58,4 +58,10 @@ public class AttachedLightSourceTag extends Tag {
 		}
 		return colors;
 	}
+
+	@Override
+	public boolean appliesToParentEntity() {
+		return true;
+	}
+
 }

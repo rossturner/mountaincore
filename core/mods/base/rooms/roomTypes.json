@@ -263,6 +263,7 @@
     "drawableName": "btn_room_trade_depot",
     "furnitureNames": [
       "LEDGER_TABLE",
+      "HITCHING_POST",
       "TRADING_IMPORT",
       "TRADING_EXPORT"
     ]

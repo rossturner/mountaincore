@@ -1450,6 +1450,23 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
+  "name" : "HITCHING_POST",
+  "i18nKey" : "FURNITURE.HITCHING_POST",
+  "blocksMovement" : false,
+  "defaultLayoutName" : "hitched-east",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Logs",
+      "quantity" : 2,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Logs", "WOOD_COLOR", "WOOD_COLOR", "Resource-Logs", "BRANCHES_COLOR", "OTHER_COLOR" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "LEDGER_TABLE",
   "i18nKey" : "FURNITURE.LEDGER_TABLE",
   "blocksMovement" : true,
