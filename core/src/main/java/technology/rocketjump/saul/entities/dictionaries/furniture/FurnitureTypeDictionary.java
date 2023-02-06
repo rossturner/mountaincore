@@ -8,6 +8,8 @@ import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureTyp
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemType;
+import technology.rocketjump.saul.entities.tags.CraftingStationBehaviourTag;
+import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.ui.views.GuiViewName;
 
 import java.io.IOException;
@@ -91,4 +93,12 @@ public class FurnitureTypeDictionary {
 		return byName.values();
 	}
 
+	public List<FurnitureType> getByCraftingType(CraftingType craftingType) {
+		return getAll().stream()
+				.filter(furnitureType -> {
+					List<String> rawTags = furnitureType.getTags().getOrDefault(CraftingStationBehaviourTag.CRAFTING_STATION_BEHAVIOUR_TAGNAME, Collections.emptyList());
+					return rawTags.contains(craftingType.getName());
+				})
+				.toList();
+	}
 }

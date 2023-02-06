@@ -129,6 +129,16 @@ public class CraftingRecipeDictionary {
 		return byCraftingType.get(craftingType);
 	}
 
+	public List<CraftingRecipe> getByOutputItemTypeAndMaterial(ItemType itemType, GameMaterial material) {
+		return byName.values().stream()
+				.filter(recipe -> {
+					QuantifiedItemTypeWithMaterial output = recipe.getOutput();
+					return itemType.equals(output.getItemType()) &&
+							(material == null || output.getMaterial() == null || material.equals(output.getMaterial()));
+				})
+				.toList();
+	}
+
 	public CraftingRecipe getByName(String recipeName) {
 		return byName.get(recipeName);
 	}
