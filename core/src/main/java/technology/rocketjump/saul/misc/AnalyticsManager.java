@@ -37,6 +37,10 @@ public class AnalyticsManager {
 
 		private AtomicBoolean running = new AtomicBoolean(true);
 
+		public AnalyticsThread() {
+			setDaemon(true);
+		}
+
 		@Override
 		public void run() {
 			while (running.get()) {
