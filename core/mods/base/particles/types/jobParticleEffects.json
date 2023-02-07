@@ -4,7 +4,7 @@
     "particleFile": "rockparticle.p",
     "scale": 0.4,
     "usingParentOrientation": "LEFT",
-    "isLooping": true,
+    "isLooping": false,
     "isAffectedByLighting": true,
     "usesTargetMaterialAsTintColor": true,
     "distanceFromParentEntityOrientation": 0.8,
