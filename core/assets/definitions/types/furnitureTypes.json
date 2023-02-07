@@ -1488,6 +1488,21 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
+  "name" : "TRADE_BANNER",
+  "i18nKey" : "FURNITURE.TRADE_BANNER",
+  "blocksMovement" : false,
+  "defaultLayoutName" : "1x1",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 1,
+      "liquid" : false
+    } ]
+  },
+  "tags" : { },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "TRADE_CHEST",
   "i18nKey" : "PRODUCT.CHEST",
   "blocksMovement" : true,

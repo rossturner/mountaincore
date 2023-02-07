@@ -265,6 +265,7 @@
       "LEDGER_TABLE",
       "TRADE_CHEST",
       "HITCHING_POST",
+      "TRADE_BANNER",
       "TRADING_IMPORT",
       "TRADING_EXPORT"
     ]

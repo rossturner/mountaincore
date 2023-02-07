@@ -156,6 +156,6 @@
   "i18nKey" : "ROOMS.TRADING_DEPOT",
   "drawableName" : "btn_room_trade_depot",
   "colorCode" : "#e3e1e3",
-  "furnitureNames" : [ "LEDGER_TABLE", "TRADE_CHEST", "HITCHING_POST", "TRADING_IMPORT", "TRADING_EXPORT" ],
+  "furnitureNames" : [ "LEDGER_TABLE", "TRADE_CHEST", "HITCHING_POST", "TRADE_BANNER", "TRADING_IMPORT", "TRADING_EXPORT" ],
   "tags" : { }
 } ]
