@@ -4,8 +4,8 @@ active: true
 lowMin: 200.0
 lowMax: 700.0
 - Duration - 
-lowMin: 3000.0
-lowMax: 3000.0
+lowMin: 800.0
+lowMax: 800.0
 - Count - 
 min: 0
 max: 3
@@ -146,11 +146,11 @@ spriteMode: single
 bounce
 - Delay -
 active: true
-lowMin: 1000.0
-lowMax: 1000.0
+lowMin: 200.0
+lowMax: 200.0
 - Duration - 
-lowMin: 2800.0
-lowMax: 2800.0
+lowMin: 800.0
+lowMax: 800.0
 - Count - 
 min: 0
 max: 5

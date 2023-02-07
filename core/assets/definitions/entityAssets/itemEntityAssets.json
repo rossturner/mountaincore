@@ -23519,6 +23519,20 @@
             "__SOUND_NOTIFY_1__" : "Mining",
             "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping rock"
           }
+        },
+        "work_on_job_digging" : {
+          "use" : "handle-swing-down",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Tilling",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Digging ground offset tile"
+          }
+        },
+        "work_on_job_digging_channel" : {
+          "use" : "handle-swing-down",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Tilling",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Digging ground offset tile"
+          }
         }
       },
       "scale" : 1.0,
@@ -23536,7 +23550,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_mining" ]
+        "inheritAnimations" : [ "work_on_job_mining", "work_on_job_digging", "work_on_job_digging_channel" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -23544,7 +23558,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_mining" ]
+        "inheritAnimations" : [ "work_on_job_mining", "work_on_job_digging", "work_on_job_digging_channel" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -23570,6 +23584,20 @@
             "__SOUND_NOTIFY_1__" : "Mining",
             "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping rock"
           }
+        },
+        "work_on_job_digging" : {
+          "use" : "handle-swing-down-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Tilling",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Digging ground offset tile"
+          }
+        },
+        "work_on_job_digging_channel" : {
+          "use" : "handle-swing-down-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Tilling",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Digging ground offset tile"
+          }
         }
       },
       "scale" : 1.0,
@@ -23587,7 +23615,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_mining" ]
+        "inheritAnimations" : [ "work_on_job_mining", "work_on_job_digging", "work_on_job_digging_channel" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -23595,7 +23623,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_mining" ]
+        "inheritAnimations" : [ "work_on_job_mining", "work_on_job_digging", "work_on_job_digging_channel" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -23621,6 +23649,20 @@
             "__SOUND_NOTIFY_1__" : "Mining",
             "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping rock"
           }
+        },
+        "work_on_job_digging" : {
+          "use" : "handle-swing-down-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Tilling",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Digging ground offset tile"
+          }
+        },
+        "work_on_job_digging_channel" : {
+          "use" : "handle-swing-down-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Tilling",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Digging ground offset tile"
+          }
         }
       },
       "scale" : 1.0,
@@ -23638,7 +23680,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_mining" ]
+        "inheritAnimations" : [ "work_on_job_mining", "work_on_job_digging", "work_on_job_digging_channel" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -23646,7 +23688,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_mining" ]
+        "inheritAnimations" : [ "work_on_job_mining", "work_on_job_digging", "work_on_job_digging_channel" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -23672,6 +23714,20 @@
             "__SOUND_NOTIFY_1__" : "Mining",
             "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping rock"
           }
+        },
+        "work_on_job_digging" : {
+          "use" : "handle-swing-up",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Tilling",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Digging ground offset tile"
+          }
+        },
+        "work_on_job_digging_channel" : {
+          "use" : "handle-swing-up",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Tilling",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Digging ground offset tile"
+          }
         }
       },
       "scale" : 1.0,
@@ -23689,7 +23745,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_mining" ]
+        "inheritAnimations" : [ "work_on_job_mining", "work_on_job_digging", "work_on_job_digging_channel" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -23697,7 +23753,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_mining" ]
+        "inheritAnimations" : [ "work_on_job_mining", "work_on_job_digging", "work_on_job_digging_channel" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -23713,6 +23769,20 @@
           "variables" : {
             "__SOUND_NOTIFY_1__" : "Mining",
             "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping rock"
+          }
+        },
+        "work_on_job_digging" : {
+          "use" : "handle-swing-up-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Tilling",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Digging ground offset tile"
+          }
+        },
+        "work_on_job_digging_channel" : {
+          "use" : "handle-swing-up-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Tilling",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Digging ground offset tile"
           }
         }
       },
@@ -23731,7 +23801,7 @@
           "y" : -1.0,
           "unit" : true
         },
-        "inheritAnimations" : [ "work_on_job_mining" ]
+        "inheritAnimations" : [ "work_on_job_mining", "work_on_job_digging", "work_on_job_digging_channel" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -23739,7 +23809,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_mining" ]
+        "inheritAnimations" : [ "work_on_job_mining", "work_on_job_digging", "work_on_job_digging_channel" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -23764,6 +23834,20 @@
             "__SOUND_NOTIFY_1__" : "Mining",
             "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping rock"
           }
+        },
+        "work_on_job_digging" : {
+          "use" : "handle-swing-up-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Tilling",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Digging ground offset tile"
+          }
+        },
+        "work_on_job_digging_channel" : {
+          "use" : "handle-swing-up-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Tilling",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Digging ground offset tile"
+          }
         }
       },
       "scale" : 1.0,
@@ -23781,7 +23865,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_mining" ]
+        "inheritAnimations" : [ "work_on_job_mining", "work_on_job_digging", "work_on_job_digging_channel" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -23789,7 +23873,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_mining" ]
+        "inheritAnimations" : [ "work_on_job_mining", "work_on_job_digging", "work_on_job_digging_channel" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]

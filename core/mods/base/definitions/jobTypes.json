@@ -20,8 +20,7 @@
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "MINER",
     "requiredItemTypeName": "Tool-Pickaxe",
-    "activeSoundAssetName": "Tilling",
-    "workOnJobParticleEffectNames": ["Digging ground offset tile"]
+    "workOnJobAnimation": "work_on_job_digging"
   },
   {
     "name": "LOGGING",
@@ -80,8 +79,7 @@
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "MINER",
     "requiredItemTypeName": "Tool-Pickaxe",
-    "activeSoundAssetName": "Tilling",
-    "workOnJobParticleEffectNames": ["Digging ground offset tile"]
+    "workOnJobAnimation": "work_on_job_digging_channel"
   },
   {
     "name": "PLANTING",

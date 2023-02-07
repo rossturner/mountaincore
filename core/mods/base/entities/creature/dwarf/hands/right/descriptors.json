@@ -9,7 +9,9 @@
       "coloringLayer" : "SKIN_COLOR",
       "templatedAnimationScripts": {
         "work_on_job_mining": { "use": "right-hand-swing-down" },
-        "work_on_job_logging": { "use": "right-hand-swing-down" }
+        "work_on_job_logging": { "use": "right-hand-swing-down" },
+        "work_on_job_digging": { "use": "right-hand-swing-down" },
+        "work_on_job_digging_channel": { "use": "right-hand-swing-down" }
       }
     },
     "DOWN_RIGHT" : {
@@ -17,7 +19,9 @@
       "coloringLayer" : "SKIN_COLOR",
       "templatedAnimationScripts": {
         "work_on_job_mining": { "use": "right-hand-swing-down-right" },
-        "work_on_job_logging": { "use": "right-hand-swing-down-right" }
+        "work_on_job_logging": { "use": "right-hand-swing-down-right" },
+        "work_on_job_digging": { "use": "right-hand-swing-down-right" },
+        "work_on_job_digging_channel": { "use": "right-hand-swing-down-right" }
       }
     },
     "DOWN_LEFT" : {
@@ -25,7 +29,9 @@
       "coloringLayer" : "SKIN_COLOR",
       "templatedAnimationScripts": {
         "work_on_job_mining": { "use": "right-hand-swing-down-left" },
-        "work_on_job_logging": { "use": "right-hand-swing-down-left" }
+        "work_on_job_logging": { "use": "right-hand-swing-down-left" },
+        "work_on_job_digging": { "use": "right-hand-swing-down-left" },
+        "work_on_job_digging_channel": { "use": "right-hand-swing-down-left" }
       }
     },
     "UP_RIGHT" : {
@@ -33,7 +39,9 @@
       "coloringLayer" : "SKIN_COLOR",
       "templatedAnimationScripts": {
         "work_on_job_mining": { "use": "right-hand-swing-up-right" },
-        "work_on_job_logging": { "use": "right-hand-swing-up-right" }
+        "work_on_job_logging": { "use": "right-hand-swing-up-right" },
+        "work_on_job_digging": { "use": "right-hand-swing-up-right" },
+        "work_on_job_digging_channel": { "use": "right-hand-swing-up-right" }
       }
     },
     "UP_LEFT" : {

@@ -33472,6 +33472,14 @@
         "work_on_job_logging" : {
           "use" : "right-hand-swing-down",
           "variables" : { }
+        },
+        "work_on_job_digging" : {
+          "use" : "right-hand-swing-down",
+          "variables" : { }
+        },
+        "work_on_job_digging_channel" : {
+          "use" : "right-hand-swing-down",
+          "variables" : { }
         }
       },
       "scale" : 1.0,
@@ -33497,6 +33505,14 @@
           "variables" : { }
         },
         "work_on_job_logging" : {
+          "use" : "right-hand-swing-down-right",
+          "variables" : { }
+        },
+        "work_on_job_digging" : {
+          "use" : "right-hand-swing-down-right",
+          "variables" : { }
+        },
+        "work_on_job_digging_channel" : {
           "use" : "right-hand-swing-down-right",
           "variables" : { }
         }
@@ -33526,6 +33542,14 @@
         "work_on_job_logging" : {
           "use" : "right-hand-swing-down-left",
           "variables" : { }
+        },
+        "work_on_job_digging" : {
+          "use" : "right-hand-swing-down-left",
+          "variables" : { }
+        },
+        "work_on_job_digging_channel" : {
+          "use" : "right-hand-swing-down-left",
+          "variables" : { }
         }
       },
       "scale" : 1.0,
@@ -33551,6 +33575,14 @@
           "variables" : { }
         },
         "work_on_job_logging" : {
+          "use" : "right-hand-swing-up-right",
+          "variables" : { }
+        },
+        "work_on_job_digging" : {
+          "use" : "right-hand-swing-up-right",
+          "variables" : { }
+        },
+        "work_on_job_digging_channel" : {
           "use" : "right-hand-swing-up-right",
           "variables" : { }
         }

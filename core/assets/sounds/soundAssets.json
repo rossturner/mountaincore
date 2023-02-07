@@ -257,7 +257,7 @@
 }, {
   "name" : "Tilling",
   "soundAssetId" : 33,
-  "filenames" : [ "Tilling.wav" ],
+  "filenames" : [ "Tilling (A).wav", "Tilling (B).wav", "Tilling (C).wav", "Tilling (D).wav" ],
   "minPitch" : 0.8,
   "maxPitch" : 1.2,
   "volumeModifier" : 0.3,

@@ -48,7 +48,7 @@
     "name": "Digging ground offset tile",
     "particleFile": "groundsplat.p",
     "scale": 0.8,
-    "isLooping": true,
+    "isLooping": false,
     "isAffectedByLighting": true,
     "usesTargetMaterialAsTintColor": false,
     "distanceFromParentEntityOrientation": 0.85,
