@@ -85,5 +85,164 @@
         "particleEffectName" : "__PARTICLE_EFFECT_NOTIFY_1__"
       } ]
     }
+  },
+  {
+    "name": "handle-swing-down-left",
+    "template": {
+      "duration" : 0.8,
+      "rotations" : [ { }, {
+        "atTime" : 0.23,
+        "roll" : -23
+      }, {
+        "atTime" : 0.3,
+        "roll" : 30
+      }, {
+        "atTime" : 0.45,
+        "roll" : 30
+      }, {
+        "atTime" : 0.8
+      } ],
+      "translations" : [ { }, {
+        "atTime" : 0.23,
+        "x" : 0.043,
+        "y" : 0.014
+      }, {
+        "atTime" : 0.3
+      }, {
+        "atTime" : 0.45
+      }, {
+        "atTime" : 0.8
+      } ],
+      "soundCues" : [ {
+        "atTime" : 0.23,
+        "soundAssetName" : "__SOUND_NOTIFY_1__"
+      } ],
+      "particleEffectCues" : [ {
+        "atTime" : 0.23,
+        "particleEffectName" : "__PARTICLE_EFFECT_NOTIFY_1__"
+      } ]
+    }
+  },
+  {
+    "name": "handle-swing-up",
+    "template": {
+      "duration" : 0.8,
+      "rotations" : [ { }, {
+        "atTime" : 0.23,
+        "roll" : 10
+      }, {
+        "atTime" : 0.3,
+        "roll" : -8
+      }, {
+        "atTime" : 0.45,
+        "roll" : -8
+      }, {
+        "atTime" : 0.8
+      } ],
+      "scalings" : [ {
+        "x" : 1.0,
+        "y" : 1.0
+      }, {
+        "atTime" : 0.23,
+        "x" : 1.1,
+        "y" : 1.1
+      }, {
+        "atTime" : 0.3,
+        "x" : 0.85,
+        "y" : 0.85
+      }, {
+        "atTime" : 0.45,
+        "x" : 0.85,
+        "y" : 0.85
+      }, {
+        "atTime" : 0.8,
+        "x" : 1.0,
+        "y" : 1.0
+      } ],
+      "soundCues" : [ {
+        "atTime" : 0.23,
+        "soundAssetName" : "__SOUND_NOTIFY_1__"
+      } ],
+      "particleEffectCues" : [ {
+        "atTime" : 0.23,
+        "particleEffectName" : "__PARTICLE_EFFECT_NOTIFY_1__"
+      } ]
+    }
+  },
+  {
+    "name": "handle-swing-up-right",
+    "template" : {
+      "duration" : 0.8,
+      "rotations" : [ { }, {
+        "atTime" : 0.23,
+        "roll" : 13
+      }, {
+        "atTime" : 0.3,
+        "roll" : -40
+      }, {
+        "atTime" : 0.45,
+        "roll" : -40
+      }, {
+        "atTime" : 0.8
+      } ],
+      "translations" : [ { }, {
+        "atTime" : 0.23,
+        "x" : -0.069
+      }, {
+        "atTime" : 0.3,
+        "x" : 0.02
+      }, {
+        "atTime" : 0.45,
+        "x" : 0.02
+      }, {
+        "atTime" : 0.8
+      } ],
+      "soundCues" : [ {
+        "atTime" : 0.23,
+        "soundAssetName" : "__SOUND_NOTIFY_1__"
+      } ],
+      "particleEffectCues" : [ {
+        "atTime" : 0.23,
+        "particleEffectName" : "__PARTICLE_EFFECT_NOTIFY_1__"
+      } ]
+    }
+  },
+  {
+    "name": "handle-swing-up-left",
+    "template" : {
+      "duration" : 0.8,
+      "rotations" : [ { }, {
+        "atTime" : 0.23,
+        "roll" : -23
+      }, {
+        "atTime" : 0.3,
+        "roll" : 17
+      }, {
+        "atTime" : 0.45,
+        "roll" : 17
+      }, {
+        "atTime" : 0.8
+      } ],
+      "translations" : [ { }, {
+        "atTime" : 0.23,
+        "y" : 0.08
+      }, {
+        "atTime" : 0.3,
+        "y" : -0.1
+      }, {
+        "atTime" : 0.45,
+        "y" : -0.1
+      }, {
+        "atTime" : 0.8
+      } ],
+      "soundCues" : [ {
+        "atTime" : 0.23,
+        "soundAssetName" : "__SOUND_NOTIFY_1__"
+      } ],
+      "particleEffectCues" : [ {
+        "atTime" : 0.23,
+        "particleEffectName" : "__PARTICLE_EFFECT_NOTIFY_1__"
+      } ]
+    }
   }
 ]

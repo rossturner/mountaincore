@@ -21365,62 +21365,16 @@
       "filename" : "Tool-Axe-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_logging" : {
-          "duration" : 0.8,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.23,
-            "roll" : -23
-          }, {
-            "atTime" : 0.3,
-            "roll" : 30
-          }, {
-            "atTime" : 0.45,
-            "roll" : 30
-          }, {
-            "atTime" : 0.8,
-            "roll" : 0
-          } ],
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.23,
-            "x" : 0.043,
-            "y" : 0.014,
-            "unit" : false
-          }, {
-            "atTime" : 0.3,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.45,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.8,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.23,
-            "soundAssetName" : "ChoppingTree"
-          } ],
-          "particleEffectCues" : [ {
-            "atTime" : 0.23,
-            "particleEffectName" : "Chipping wood"
-          } ]
+          "use" : "handle-swing-down-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "ChoppingTree",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping wood"
+          }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -21454,62 +21408,16 @@
       "filename" : "Tool-Axe-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_logging" : {
-          "duration" : 0.8,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.23,
-            "roll" : 10
-          }, {
-            "atTime" : 0.3,
-            "roll" : -8
-          }, {
-            "atTime" : 0.45,
-            "roll" : -8
-          }, {
-            "atTime" : 0.8,
-            "roll" : 0
-          } ],
-          "scalings" : [ {
-            "atTime" : 0.0,
-            "x" : 1.0,
-            "y" : 1.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.23,
-            "x" : 1.1,
-            "y" : 1.1,
-            "unit" : false
-          }, {
-            "atTime" : 0.3,
-            "x" : 0.85,
-            "y" : 0.85,
-            "unit" : false
-          }, {
-            "atTime" : 0.45,
-            "x" : 0.85,
-            "y" : 0.85,
-            "unit" : false
-          }, {
-            "atTime" : 0.8,
-            "x" : 1.0,
-            "y" : 1.0,
-            "unit" : false
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.23,
-            "soundAssetName" : "ChoppingTree"
-          } ],
-          "particleEffectCues" : [ {
-            "atTime" : 0.23,
-            "particleEffectName" : "Chipping wood"
-          } ]
+          "use" : "handle-swing-up",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "ChoppingTree",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping wood"
+          }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -21534,62 +21442,16 @@
       "filename" : "Tool-Axe-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_logging" : {
-          "duration" : 0.8,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.23,
-            "roll" : 13
-          }, {
-            "atTime" : 0.3,
-            "roll" : -40
-          }, {
-            "atTime" : 0.45,
-            "roll" : -40
-          }, {
-            "atTime" : 0.8,
-            "roll" : 0
-          } ],
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.23,
-            "x" : -0.069,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.3,
-            "x" : 0.02,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.45,
-            "x" : 0.02,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.8,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.23,
-            "soundAssetName" : "ChoppingTree"
-          } ],
-          "particleEffectCues" : [ {
-            "atTime" : 0.23,
-            "particleEffectName" : "Chipping wood"
-          } ]
+          "use" : "handle-swing-up-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "ChoppingTree",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping wood"
+          }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -21614,62 +21476,16 @@
       "filename" : "Tool-Axe-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_logging" : {
-          "duration" : 0.8,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.23,
-            "roll" : -23
-          }, {
-            "atTime" : 0.3,
-            "roll" : 17
-          }, {
-            "atTime" : 0.45,
-            "roll" : 17
-          }, {
-            "atTime" : 0.8,
-            "roll" : 0
-          } ],
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.23,
-            "x" : 0.0,
-            "y" : 0.08,
-            "unit" : false
-          }, {
-            "atTime" : 0.3,
-            "x" : 0.0,
-            "y" : -0.1,
-            "unit" : false
-          }, {
-            "atTime" : 0.45,
-            "x" : 0.0,
-            "y" : -0.1,
-            "unit" : false
-          }, {
-            "atTime" : 0.8,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.23,
-            "soundAssetName" : "ChoppingTree"
-          } ],
-          "particleEffectCues" : [ {
-            "atTime" : 0.23,
-            "particleEffectName" : "Chipping wood"
-          } ]
+          "use" : "handle-swing-up-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "ChoppingTree",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping wood"
+          }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -23797,62 +23613,16 @@
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_mining" : {
-          "duration" : 0.8,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.23,
-            "roll" : -23
-          }, {
-            "atTime" : 0.3,
-            "roll" : 30
-          }, {
-            "atTime" : 0.45,
-            "roll" : 30
-          }, {
-            "atTime" : 0.8,
-            "roll" : 0
-          } ],
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.23,
-            "x" : 0.043,
-            "y" : 0.014,
-            "unit" : false
-          }, {
-            "atTime" : 0.3,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.45,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.8,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.23,
-            "soundAssetName" : "Mining"
-          } ],
-          "particleEffectCues" : [ {
-            "atTime" : 0.23,
-            "particleEffectName" : "Chipping rock"
-          } ]
+          "use" : "handle-swing-down-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Mining",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping rock"
+          }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -10.0,
@@ -23894,62 +23664,16 @@
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_mining" : {
-          "duration" : 0.8,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.23,
-            "roll" : 10
-          }, {
-            "atTime" : 0.3,
-            "roll" : -8
-          }, {
-            "atTime" : 0.45,
-            "roll" : -8
-          }, {
-            "atTime" : 0.8,
-            "roll" : 0
-          } ],
-          "scalings" : [ {
-            "atTime" : 0.0,
-            "x" : 1.0,
-            "y" : 1.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.23,
-            "x" : 1.1,
-            "y" : 1.1,
-            "unit" : false
-          }, {
-            "atTime" : 0.3,
-            "x" : 0.85,
-            "y" : 0.85,
-            "unit" : false
-          }, {
-            "atTime" : 0.45,
-            "x" : 0.85,
-            "y" : 0.85,
-            "unit" : false
-          }, {
-            "atTime" : 0.8,
-            "x" : 1.0,
-            "y" : 1.0,
-            "unit" : false
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.23,
-            "soundAssetName" : "Mining"
-          } ],
-          "particleEffectCues" : [ {
-            "atTime" : 0.23,
-            "particleEffectName" : "Chipping rock"
-          } ]
+          "use" : "handle-swing-up",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Mining",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping rock"
+          }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
@@ -23982,62 +23706,16 @@
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_mining" : {
-          "duration" : 0.8,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.23,
-            "roll" : 13
-          }, {
-            "atTime" : 0.3,
-            "roll" : -40
-          }, {
-            "atTime" : 0.45,
-            "roll" : -40
-          }, {
-            "atTime" : 0.8,
-            "roll" : 0
-          } ],
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.23,
-            "x" : -0.069,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.3,
-            "x" : 0.02,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.45,
-            "x" : 0.02,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.8,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.23,
-            "soundAssetName" : "Mining"
-          } ],
-          "particleEffectCues" : [ {
-            "atTime" : 0.23,
-            "particleEffectName" : "Chipping rock"
-          } ]
+          "use" : "handle-swing-up-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Mining",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping rock"
+          }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 2.0,
@@ -24078,62 +23756,16 @@
       "filename" : "Tool-Pickaxe-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_mining" : {
-          "duration" : 0.8,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.23,
-            "roll" : -23
-          }, {
-            "atTime" : 0.3,
-            "roll" : 17
-          }, {
-            "atTime" : 0.45,
-            "roll" : 17
-          }, {
-            "atTime" : 0.8,
-            "roll" : 0
-          } ],
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.23,
-            "x" : 0.0,
-            "y" : 0.08,
-            "unit" : false
-          }, {
-            "atTime" : 0.3,
-            "x" : 0.0,
-            "y" : -0.1,
-            "unit" : false
-          }, {
-            "atTime" : 0.45,
-            "x" : 0.0,
-            "y" : -0.1,
-            "unit" : false
-          }, {
-            "atTime" : 0.8,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.23,
-            "soundAssetName" : "Mining"
-          } ],
-          "particleEffectCues" : [ {
-            "atTime" : 0.23,
-            "particleEffectName" : "Chipping rock"
-          } ]
+          "use" : "handle-swing-up-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Mining",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping rock"
+          }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 29.0,
