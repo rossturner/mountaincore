@@ -192,6 +192,7 @@
   "requiredProfessionName" : "FISHER",
   "requiredItemTypeName" : "Tool-Fishing-Rod",
   "activeSoundAssetName" : "Fishing_Cast",
+  "workOnJobAnimation" : "work_on_job_fishing",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "HAULING",

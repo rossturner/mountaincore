@@ -22077,7 +22077,27 @@
     "DOWN" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-F.png",
       "isAnimated" : false,
-      "animationScripts" : { },
+      "animationScripts" : {
+        "work_on_job_fishing" : {
+          "duration" : 2.0,
+          "rotations" : [ {
+            "atTime" : 0.0,
+            "roll" : 0
+          }, {
+            "atTime" : 0.6,
+            "roll" : -5
+          }, {
+            "atTime" : 1.0,
+            "roll" : 3
+          }, {
+            "atTime" : 1.4,
+            "roll" : -3
+          }, {
+            "atTime" : 2.0,
+            "roll" : 0
+          } ]
+        }
+      },
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
@@ -22094,13 +22114,13 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_fishing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : 5.0,
+          "x" : 3.0,
           "y" : -17.0,
           "unit" : false
         },
@@ -22111,7 +22131,27 @@
     "DOWN_RIGHT" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-F34.png",
       "isAnimated" : false,
-      "animationScripts" : { },
+      "animationScripts" : {
+        "work_on_job_fishing" : {
+          "duration" : 2.0,
+          "rotations" : [ {
+            "atTime" : 0.0,
+            "roll" : 0
+          }, {
+            "atTime" : 0.6,
+            "roll" : 5
+          }, {
+            "atTime" : 1.0,
+            "roll" : -3
+          }, {
+            "atTime" : 1.4,
+            "roll" : 3
+          }, {
+            "atTime" : 2.0,
+            "roll" : 0
+          } ]
+        }
+      },
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
@@ -22128,7 +22168,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_fishing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -22145,7 +22185,27 @@
     "DOWN_LEFT" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-F34.png",
       "isAnimated" : false,
-      "animationScripts" : { },
+      "animationScripts" : {
+        "work_on_job_fishing" : {
+          "duration" : 2.0,
+          "rotations" : [ {
+            "atTime" : 0.0,
+            "roll" : 0
+          }, {
+            "atTime" : 0.6,
+            "roll" : 5
+          }, {
+            "atTime" : 1.0,
+            "roll" : -3
+          }, {
+            "atTime" : 1.4,
+            "roll" : 3
+          }, {
+            "atTime" : 2.0,
+            "roll" : 0
+          } ]
+        }
+      },
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
@@ -22162,7 +22222,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_fishing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -22179,7 +22239,27 @@
     "UP" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-B.png",
       "isAnimated" : false,
-      "animationScripts" : { },
+      "animationScripts" : {
+        "work_on_job_fishing" : {
+          "duration" : 2.0,
+          "rotations" : [ {
+            "atTime" : 0.0,
+            "roll" : 0
+          }, {
+            "atTime" : 0.6,
+            "roll" : -5
+          }, {
+            "atTime" : 1.0,
+            "roll" : 3
+          }, {
+            "atTime" : 1.4,
+            "roll" : -3
+          }, {
+            "atTime" : 2.0,
+            "roll" : 0
+          } ]
+        }
+      },
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
@@ -22196,7 +22276,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_fishing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -22204,7 +22284,27 @@
     "UP_RIGHT" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-B34.png",
       "isAnimated" : false,
-      "animationScripts" : { },
+      "animationScripts" : {
+        "work_on_job_fishing" : {
+          "duration" : 2.0,
+          "rotations" : [ {
+            "atTime" : 0.0,
+            "roll" : 0
+          }, {
+            "atTime" : 0.6,
+            "roll" : 5
+          }, {
+            "atTime" : 1.0,
+            "roll" : -3
+          }, {
+            "atTime" : 1.4,
+            "roll" : 3
+          }, {
+            "atTime" : 2.0,
+            "roll" : 0
+          } ]
+        }
+      },
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
@@ -22221,7 +22321,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_fishing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -22229,7 +22329,27 @@
     "UP_LEFT" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-B34.png",
       "isAnimated" : false,
-      "animationScripts" : { },
+      "animationScripts" : {
+        "work_on_job_fishing" : {
+          "duration" : 2.0,
+          "rotations" : [ {
+            "atTime" : 0.0,
+            "roll" : 0
+          }, {
+            "atTime" : 0.6,
+            "roll" : 5
+          }, {
+            "atTime" : 1.0,
+            "roll" : -3
+          }, {
+            "atTime" : 1.4,
+            "roll" : 3
+          }, {
+            "atTime" : 2.0,
+            "roll" : 0
+          } ]
+        }
+      },
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
@@ -22246,7 +22366,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_fishing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]

@@ -151,7 +151,8 @@
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "FISHER",
     "requiredItemTypeName": "Tool-Fishing-Rod",
-    "activeSoundAssetName": "Fishing_Cast"
+    "activeSoundAssetName": "Fishing_Cast",
+    "workOnJobAnimation": "work_on_job_fishing"
   },
 
   {
