@@ -9,5 +9,5 @@
   "tags" : {
     "USAGE_SOUND" : [ "Sawing" ]
   },
-  "i18nKey" : "TOOL.PLANE"
+  "hoursInInventoryUntilUnused": 12
 }

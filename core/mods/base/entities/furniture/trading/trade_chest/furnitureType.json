@@ -1,0 +1,13 @@
+{
+  "name" : "TRADE_CHEST",
+  "i18nKey" : "PRODUCT.CHEST",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x1 with workspaces",
+  "autoConstructed" : true,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Product-Chest",
+      "quantity" : 1
+    } ]
+  }
+}

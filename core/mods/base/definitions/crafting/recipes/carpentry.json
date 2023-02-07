@@ -1,0 +1,119 @@
+[
+  {
+    "recipeName": "Craft barrel",
+    "craftingTypeName": "CARPENTRY",
+    "input": [
+      {
+        "itemTypeName": "Product-Barrel-Staves",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Product-Barrel-Hoops",
+        "quantity": 1
+      }
+    ],
+    "output": {
+      "itemTypeName": "Product-Barrel",
+      "quantity": 1
+    },
+    "materialTypesToCopyOver": ["WOOD", "METAL"],
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Craft chest",
+    "craftingTypeName": "CARPENTRY",
+    "input": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 4
+      },
+      {
+        "itemTypeName": "Product-Barrel-Hoops",
+        "quantity": 1
+      }
+    ],
+    "output": {
+      "itemTypeName": "Product-Chest",
+      "quantity": 1
+    },
+    "materialTypesToCopyOver": ["WOOD", "METAL"],
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Craft bucket",
+    "craftingTypeName": "CARPENTRY",
+    "input": [
+      {
+        "itemTypeName": "Product-Barrel-Staves",
+        "quantity": 1
+      },
+      {
+        "itemTypeName": "Product-Barrel-Hoops",
+        "quantity": 1
+      }
+    ],
+    "output": {
+      "itemTypeName": "Product-Bucket",
+      "quantity": 1
+    },
+    "itemTypeRequiredName": "Tool-Saw",
+    "materialTypesToCopyOver": ["WOOD", "METAL"],
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Craft tool fishing rod",
+    "craftingTypeName": "CARPENTRY",
+    "input": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 1
+      }
+    ],
+    "output": {
+      "itemTypeName": "Tool-Fishing-Rod",
+      "quantity": 1
+    },
+    "materialTypesToCopyOver": ["WOOD"],
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Craft tool plane",
+    "craftingTypeName": "CARPENTRY",
+    "input": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 1
+      }
+    ],
+    "output": {
+      "itemTypeName": "Tool-Plane",
+      "quantity": 1
+    },
+    "itemTypeRequiredName": "Tool-Saw",
+    "materialTypesToCopyOver": ["WOOD"],
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  },
+  {
+    "recipeName": "Craft tool rolling pin",
+    "craftingTypeName": "CARPENTRY",
+    "input": [
+      {
+        "itemTypeName": "Resource-Planks",
+        "quantity": 1
+      }
+    ],
+    "output": {
+      "itemTypeName": "Tool-Rolling-Pin",
+      "quantity": 1
+    },
+    "itemTypeRequiredName": "Tool-Plane",
+    "materialTypesToCopyOver": ["WOOD"],
+    "minimumTimeToCompleteCrafting": 2.5,
+    "maximumTimeToCompleteCrafting": 7.5
+  }
+]

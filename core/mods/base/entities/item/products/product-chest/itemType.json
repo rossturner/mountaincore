@@ -1,0 +1,7 @@
+{
+  "itemTypeName" : "Product-Chest",
+  "materialTypes" : [ "WOOD", "METAL" ],
+  "primaryMaterialType" : "WOOD",
+  "stockpileGroupName" : "PRODUCTS",
+  "baseValuePerItem": 21
+}

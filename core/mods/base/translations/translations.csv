@@ -314,7 +314,6 @@ FURNITURE.TANNING_FRAME,,Tanning frame
 FURNITURE.TANNING_FRAME.TOOLTIP,,Turn your Animal Skins into Leather.
 FURNITURE.TRAINING_DUMMY,,Training dummy
 FURNITURE.TRAINING_DUMMY.TOOLTIP,,Military settlers will practice their melee combat skills here
-FURNITURE.TRADE_CHEST,,Chest
 FURNITURE.WATERWHEEL,,Water Wheel
 FURNITURE.WATERWHEEL.PLURAL,,Water Wheels
 FURNITURE.WATERWHEEL.TOOLTIP,,Provides mechanical power to other contraptions via {{PRODUCT.STONE.GEAR.PLURAL}} and shafts. Must be built adjacent to a river.
@@ -1073,6 +1072,8 @@ PRODUCT.BUCKET.PLURAL,,Buckets
 PRODUCT.BUCKET.TOOLTIP,,A small container used to move liquids around by hand.
 PRODUCT.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron
 PRODUCT.CAULDRON.TOOLTIP,,"Used by a {{PROFESSION.CHEF}} to prepare soup in a {{ROOMS.KITCHEN}}, where it is then moved to a {{ROOMS.FEASTING_HALL}}."
+PRODUCT.CHEST.NOUN,,Chest
+PRODUCT.CHEST.PLURAL,,Chests
 PRODUCT.LEATHER,,Leather
 PRODUCT.LINEN.NOUN,,Linen
 PRODUCT.LINEN.PLURAL,,Linen
