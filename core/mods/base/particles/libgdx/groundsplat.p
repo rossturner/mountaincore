@@ -140,7 +140,7 @@ behind: false
 premultipliedAlpha: false
 spriteMode: single
 - Image Paths -
-/C:/workspace/king-under-the-mountain/core/mods/base/entities/particleSprites/groundsplat.png
+/C:/workspace/project-saul/core/mods/base/entities/particleSprites/groundsplat.png
 
 
 bounce
@@ -318,5 +318,5 @@ behind: false
 premultipliedAlpha: false
 spriteMode: single
 - Image Paths -
-/C:/workspace/king-under-the-mountain/core/mods/base/entities/particleSprites/drop.png
+/C:/workspace/project-saul/core/mods/base/entities/particleSprites/drop.png
 
