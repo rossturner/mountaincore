@@ -75,7 +75,7 @@ public class ModArtifactListing {
 						"ai", "goals", JSON_ARRAY, SINGLE_FILE, ADDITIVE, /* TODO Check Goal JSON */ UntypedJsonProcessor.class),
 
 				/////////// Animations //////////
-				def("entities/animation", "animations.json", JSON_ARRAY, TemplateAnimationScript.class,
+				def("entities/animation", "*.json", JSON_ARRAY, TemplateAnimationScript.class,
 						"definitions/animation", "animations", JSON_ARRAY, SINGLE_FILE, ADDITIVE, UntypedJsonProcessor.class),
 
 				////////// definitions //////////

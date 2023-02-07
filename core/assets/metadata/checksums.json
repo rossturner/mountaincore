@@ -1,7 +1,7 @@
 {
   "ai/goals.json" : -8411063102833859796,
   "ai/schedules.json" : 7401291134305884154,
-  "definitions/animation/animations.json" : 44202341957703466,
+  "definitions/animation/animations.json" : 3287735466573888380,
   "definitions/bodyStructures.json" : 1865404260865442176,
   "definitions/constants.json" : -6251302238383382159,
   "definitions/crafting/cookingRecipes.json" : 8993911908670867479,
@@ -10,7 +10,7 @@
   "definitions/crafting/craftingTypes.json" : -2877977176942735451,
   "definitions/creatureColorSwatches/*.png" : -7710441869861274477,
   "definitions/designations.json" : 9137667202029811527,
-  "definitions/entityAssets/creatureEntityAssets.json" : 8622793019474217954,
+  "definitions/entityAssets/creatureEntityAssets.json" : 8366039878635188485,
   "definitions/entityAssets/entityAssetTypes.json" : -7839389466161502999,
   "definitions/entityAssets/furnitureEntityAssets.json" : -3130252282104388921,
   "definitions/entityAssets/itemEntityAssets.json" : -3956197827540487839,
