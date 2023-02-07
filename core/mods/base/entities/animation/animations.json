@@ -1,8 +1,7 @@
 [
   {
-    "name": "handle-swing",
-    "orientations": {
-      "DOWN": {
+    "name": "handle-swing-down",
+    "template": {
         "duration" : 0.8,
         "rotations" : [ { }, {
           "atTime" : 0.23,
@@ -44,7 +43,6 @@
           "atTime" : 0.23,
           "particleEffectName" : "__PARTICLE_EFFECT_NOTIFY_1__"
         } ]
-      }
     }
   }
 ]

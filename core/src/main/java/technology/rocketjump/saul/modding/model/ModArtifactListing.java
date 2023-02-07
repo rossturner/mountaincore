@@ -6,7 +6,7 @@ import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityA
 import technology.rocketjump.saul.assets.entities.furniture.model.FurnitureEntityAsset;
 import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.mechanism.model.MechanismEntityAsset;
-import technology.rocketjump.saul.assets.entities.model.EntityAnimationScript;
+import technology.rocketjump.saul.assets.entities.model.TemplateAnimationScript;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
 import technology.rocketjump.saul.assets.entities.vehicle.model.VehicleEntityAsset;
@@ -75,7 +75,7 @@ public class ModArtifactListing {
 						"ai", "goals", JSON_ARRAY, SINGLE_FILE, ADDITIVE, /* TODO Check Goal JSON */ UntypedJsonProcessor.class),
 
 				/////////// Animations //////////
-				def("entities/animation", "animations.json", JSON_ARRAY, EntityAnimationScript.class,
+				def("entities/animation", "animations.json", JSON_ARRAY, TemplateAnimationScript.class,
 						"definitions/animation", "animations", JSON_ARRAY, SINGLE_FILE, ADDITIVE, UntypedJsonProcessor.class),
 
 				////////// definitions //////////

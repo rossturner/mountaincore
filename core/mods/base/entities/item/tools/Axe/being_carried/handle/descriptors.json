@@ -7,49 +7,13 @@
     "DOWN" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-F.png",
       "coloringLayer" : "WOOD_COLOR",
-      "animationScripts" : {
-        "work_on_job_logging" : {
-          "duration" : 0.8,
-          "rotations" : [ { }, {
-            "atTime" : 0.23,
-            "roll" : -14
-          }, {
-            "atTime" : 0.3,
-            "roll" : 39
-          }, {
-            "atTime" : 0.45,
-            "roll" : 39
-          }, {
-            "atTime" : 0.8
-          } ],
-          "scalings" : [ {
-            "x" : 1.0,
-            "y" : 1.0
-          }, {
-            "atTime" : 0.23,
-            "x" : 0.9,
-            "y" : 0.9
-          }, {
-            "atTime" : 0.3,
-            "x" : 1.2,
-            "y" : 1.2
-          }, {
-            "atTime" : 0.45,
-            "x" : 1.2,
-            "y" : 1.2
-          }, {
-            "atTime" : 0.8,
-            "x" : 1.0,
-            "y" : 1.0
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.23,
-            "soundAssetName" : "ChoppingTree"
-          } ],
-          "particleEffectCues" : [ {
-            "atTime" : 0.23,
-            "particleEffectName" : "Chipping wood"
-          } ]
+      "templatedAnimationScripts": {
+        "work_on_job_logging": {
+          "use": "handle-swing-down",
+          "variables": {
+            "__SOUND_NOTIFY_1__": "ChoppingTree",
+            "__PARTICLE_EFFECT_NOTIFY_1__": "Chipping wood"
+          }
         }
       },
       "childAssets" : [ {
