@@ -4,7 +4,6 @@
   "professionRequiredName" : "LUMBERJACK",
   "defaultItemTypeName" : "Tool-Saw",
   "usesWorkstationTool" : true,
-  "particleEffectNames" : [ "Wood shavings" ],
   "workOnJobAnimation" : "work_on_job_woodcutting"
 }, {
   "name" : "CARPENTRY",

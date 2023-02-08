@@ -1,7 +1,7 @@
 {
   "ai/goals.json" : -8411063102833859796,
   "ai/schedules.json" : 7401291134305884154,
-  "definitions/animation/animations.json" : -3378176071500524765,
+  "definitions/animation/animations.json" : -2290439274969183241,
   "definitions/bodyStructures.json" : 1865404260865442176,
   "definitions/constants.json" : -6251302238383382159,
   "definitions/crafting/cookingRecipes.json" : 8993911908670867479,
@@ -13,7 +13,7 @@
   "definitions/entityAssets/creatureEntityAssets.json" : -6225401830540487106,
   "definitions/entityAssets/entityAssetTypes.json" : -7839389466161502999,
   "definitions/entityAssets/furnitureEntityAssets.json" : -3130252282104388921,
-  "definitions/entityAssets/itemEntityAssets.json" : -1127693161525536323,
+  "definitions/entityAssets/itemEntityAssets.json" : 3202671797679465208,
   "definitions/entityAssets/mechanismEntityAssets.json" : -1599733005310671244,
   "definitions/entityAssets/plantEntityAssets.json" : -1651171262415761173,
   "definitions/entityAssets/renderLayers.json" : 5237121373127152239,

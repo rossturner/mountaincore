@@ -98,41 +98,13 @@
     "DOWN_RIGHT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
-      "animationScripts" : {
+      "templatedAnimationScripts" : {
         "work_on_job_woodcutting" : {
-          "duration" : 1.5,
-          "rotations" : [ { }, {
-            "atTime" : 0.1,
-            "roll" : 2
-          }, {
-            "atTime" : 0.3,
-            "roll" : -2
-          }, {
-            "atTime" : 1.2
-          }, {
-            "atTime" : 1.5
-          } ],
-          "translations" : [ { }, {
-            "atTime" : 0.1,
-            "x" : -0.04
-          }, {
-            "atTime" : 0.4,
-            "x" : 0.1
-          }, {
-            "atTime" : 0.7,
-            "x" : -0.03
-          }, {
-            "atTime" : 1.0,
-            "x" : 0.11
-          }, {
-            "atTime" : 1.2
-          }, {
-            "atTime" : 1.5
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.1,
-            "soundAssetName" : "Sawing"
-          } ]
+          "use" : "sawing-down-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
         }
       },
       "offsetPixels" : {
@@ -157,41 +129,13 @@
     "DOWN_LEFT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
-      "animationScripts" : {
+      "templatedAnimationScripts" : {
         "work_on_job_woodcutting" : {
-          "duration" : 1.5,
-          "rotations" : [ { }, {
-            "atTime" : 0.1,
-            "roll" : -2
-          }, {
-            "atTime" : 0.3,
-            "roll" : 2
-          }, {
-            "atTime" : 1.2
-          }, {
-            "atTime" : 1.5
-          } ],
-          "translations" : [ { }, {
-            "atTime" : 0.1,
-            "x" : 0.04
-          }, {
-            "atTime" : 0.4,
-            "x" : -0.1
-          }, {
-            "atTime" : 0.7,
-            "x" : 0.03
-          }, {
-            "atTime" : 1.0,
-            "x" : -0.11
-          }, {
-            "atTime" : 1.2
-          }, {
-            "atTime" : 1.5
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.1,
-            "soundAssetName" : "Sawing"
-          } ]
+          "use" : "sawing-down-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
         }
       },
       "offsetPixels" : {
@@ -217,73 +161,13 @@
     "UP" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
-      "animationScripts" : {
+      "templatedAnimationScripts" : {
         "work_on_job_woodcutting" : {
-          "duration" : 1.5,
-          "rotations" : [ { }, {
-            "atTime" : 0.1,
-            "roll" : 2
-          }, {
-            "atTime" : 0.3,
-            "roll" : -2
-          }, {
-            "atTime" : 1.2
-          }, {
-            "atTime" : 1.5
-          } ],
-          "translations" : [ { }, {
-            "atTime" : 0.1,
-            "x" : -0.05,
-            "y" : -0.05
-          }, {
-            "atTime" : 0.4,
-            "x" : 0.1,
-            "y" : 0.1
-          }, {
-            "atTime" : 0.7,
-            "x" : -0.05,
-            "y" : -0.05
-          }, {
-            "atTime" : 1.0,
-            "x" : 0.1,
-            "y" : 0.1
-          }, {
-            "atTime" : 1.2
-          }, {
-            "atTime" : 1.5
-          } ],
-          "scalings" : [ {
-            "x" : 1.0,
-            "y" : 1.0
-          }, {
-            "atTime" : 0.1,
-            "x" : 1.02,
-            "y" : 1.02
-          }, {
-            "atTime" : 0.4,
-            "x" : 0.85,
-            "y" : 0.85
-          }, {
-            "atTime" : 0.7,
-            "x" : 1.02,
-            "y" : 1.02
-          }, {
-            "atTime" : 1.0,
-            "x" : 0.85,
-            "y" : 0.85
-          }, {
-            "atTime" : 1.2,
-            "x" : 1.0,
-            "y" : 1.0
-          }, {
-            "atTime" : 1.5,
-            "x" : 1.0,
-            "y" : 1.0
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.1,
-            "soundAssetName" : "Sawing"
-          } ]
+          "use" : "sawing-up",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
         }
       },
       "offsetPixels" : {
@@ -305,41 +189,13 @@
     "UP_RIGHT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
-      "animationScripts" : {
+      "templatedAnimationScripts" : {
         "work_on_job_woodcutting" : {
-          "duration" : 1.5,
-          "rotations" : [ { }, {
-            "atTime" : 0.1,
-            "roll" : 2
-          }, {
-            "atTime" : 0.3,
-            "roll" : -2
-          }, {
-            "atTime" : 1.2
-          }, {
-            "atTime" : 1.5
-          } ],
-          "translations" : [ { }, {
-            "atTime" : 0.1,
-            "x" : -0.04
-          }, {
-            "atTime" : 0.4,
-            "x" : 0.1
-          }, {
-            "atTime" : 0.7,
-            "x" : -0.03
-          }, {
-            "atTime" : 1.0,
-            "x" : 0.11
-          }, {
-            "atTime" : 1.2
-          }, {
-            "atTime" : 1.5
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.1,
-            "soundAssetName" : "Sawing"
-          } ]
+          "use" : "sawing-up-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
         }
       },
       "offsetPixels" : {
@@ -356,41 +212,13 @@
     "UP_LEFT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
-      "animationScripts" : {
+      "templatedAnimationScripts" : {
         "work_on_job_woodcutting" : {
-          "duration" : 1.5,
-          "rotations" : [ { }, {
-            "atTime" : 0.1,
-            "roll" : 2
-          }, {
-            "atTime" : 0.3,
-            "roll" : -2
-          }, {
-            "atTime" : 1.2
-          }, {
-            "atTime" : 1.5
-          } ],
-          "translations" : [ { }, {
-            "atTime" : 0.1,
-            "x" : 0.04
-          }, {
-            "atTime" : 0.4,
-            "x" : -0.1
-          }, {
-            "atTime" : 0.7,
-            "x" : 0.03
-          }, {
-            "atTime" : 1.0,
-            "x" : -0.11
-          }, {
-            "atTime" : 1.2
-          }, {
-            "atTime" : 1.5
-          } ],
-          "soundCues" : [ {
-            "atTime" : 0.1,
-            "soundAssetName" : "Sawing"
-          } ]
+          "use" : "sawing-up-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
         }
       },
       "offsetPixels" : {
