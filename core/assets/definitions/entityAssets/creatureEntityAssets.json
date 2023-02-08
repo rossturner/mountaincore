@@ -33498,7 +33498,47 @@
       "filename" : "basic dwarf hand.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
-      "animationScripts" : { },
+      "animationScripts" : {
+        "work_on_job_woodcutting" : {
+          "duration" : 1.5,
+          "translations" : [ {
+            "atTime" : 0.0,
+            "x" : 0.0,
+            "y" : 0.0,
+            "unit" : false
+          }, {
+            "atTime" : 0.1,
+            "x" : -0.04,
+            "y" : 0.0,
+            "unit" : false
+          }, {
+            "atTime" : 0.4,
+            "x" : 0.1,
+            "y" : 0.0,
+            "unit" : false
+          }, {
+            "atTime" : 0.7,
+            "x" : -0.03,
+            "y" : 0.0,
+            "unit" : false
+          }, {
+            "atTime" : 1.0,
+            "x" : 0.11,
+            "y" : 0.0,
+            "unit" : false
+          }, {
+            "atTime" : 1.2,
+            "x" : 0.0,
+            "y" : 0.0,
+            "unit" : false
+          }, {
+            "atTime" : 1.5,
+            "x" : 0.0,
+            "y" : 0.0,
+            "unit" : false
+          } ]
+        }
+      },
       "templatedAnimationScripts" : {
         "work_on_job_mining" : {
           "use" : "right-hand-swing-down-right",
