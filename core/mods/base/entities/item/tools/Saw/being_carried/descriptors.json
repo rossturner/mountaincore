@@ -67,13 +67,84 @@
     "DOWN" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-F.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_woodcutting" : {
+          "duration" : 1.5,
+          "rotations" : [ { }, {
+            "atTime" : 0.1,
+            "roll" : 2
+          }, {
+            "atTime" : 0.3,
+            "roll" : -2
+          }, {
+            "atTime" : 1.2
+          }, {
+            "atTime" : 1.5
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.1,
+            "x" : 0.04,
+            "y" : -0.04
+          }, {
+            "atTime" : 0.4,
+            "x" : -0.06,
+            "y" : 0.06
+          }, {
+            "atTime" : 0.7,
+            "x" : 0.04,
+            "y" : -0.04
+          }, {
+            "atTime" : 1.0,
+            "x" : -0.06,
+            "y" : 0.06
+          }, {
+            "atTime" : 1.2
+          }, {
+            "atTime" : 1.5
+          } ],
+          "scalings" : [ {
+            "x" : 1.0,
+            "y" : 1.0
+          }, {
+            "atTime" : 0.1,
+            "x" : 0.85,
+            "y" : 0.85
+          }, {
+            "atTime" : 0.4,
+            "x" : 1.15,
+            "y" : 1.15
+          }, {
+            "atTime" : 0.7,
+            "x" : 0.9,
+            "y" : 0.9
+          }, {
+            "atTime" : 1.0,
+            "x" : 1.15,
+            "y" : 1.15
+          }, {
+            "atTime" : 1.2,
+            "x" : 1.0,
+            "y" : 1.0
+          }, {
+            "atTime" : 1.5,
+            "x" : 1.0,
+            "y" : 1.0
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.1,
+            "soundAssetName" : "Sawing"
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : -8.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -146,14 +217,53 @@
     "DOWN_LEFT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_woodcutting" : {
+          "duration" : 1.5,
+          "rotations" : [ { }, {
+            "atTime" : 0.1,
+            "roll" : -2
+          }, {
+            "atTime" : 0.3,
+            "roll" : 2
+          }, {
+            "atTime" : 1.2
+          }, {
+            "atTime" : 1.5
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.1,
+            "x" : 0.04
+          }, {
+            "atTime" : 0.4,
+            "x" : -0.1
+          }, {
+            "atTime" : 0.7,
+            "x" : 0.03
+          }, {
+            "atTime" : 1.0,
+            "x" : -0.11
+          }, {
+            "atTime" : 1.2
+          }, {
+            "atTime" : 1.5
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.1,
+            "soundAssetName" : "Sawing"
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : -10.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -167,6 +277,43 @@
     "UP" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_woodcutting" : {
+          "duration" : 1.5,
+          "rotations" : [ { }, {
+            "atTime" : 0.1,
+            "roll" : 2
+          }, {
+            "atTime" : 0.3,
+            "roll" : -2
+          }, {
+            "atTime" : 1.2
+          }, {
+            "atTime" : 1.5
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.1,
+            "x" : -0.04
+          }, {
+            "atTime" : 0.4,
+            "x" : 0.1
+          }, {
+            "atTime" : 0.7,
+            "x" : -0.03
+          }, {
+            "atTime" : 1.0,
+            "x" : 0.11
+          }, {
+            "atTime" : 1.2
+          }, {
+            "atTime" : 1.5
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.1,
+            "soundAssetName" : "Sawing"
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : 10.0,
         "y" : 5.0
@@ -176,34 +323,114 @@
         "offsetPixels" : {
           "x" : -10.0,
           "y" : -10.0
-        }
+        },
+        "inheritAnimations" : [ "work_on_job_woodcutting" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting" ]
       } ]
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_woodcutting" : {
+          "duration" : 1.5,
+          "rotations" : [ { }, {
+            "atTime" : 0.1,
+            "roll" : 2
+          }, {
+            "atTime" : 0.3,
+            "roll" : -2
+          }, {
+            "atTime" : 1.2
+          }, {
+            "atTime" : 1.5
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.1,
+            "x" : -0.04
+          }, {
+            "atTime" : 0.4,
+            "x" : 0.1
+          }, {
+            "atTime" : 0.7,
+            "x" : -0.03
+          }, {
+            "atTime" : 1.0,
+            "x" : 0.11
+          }, {
+            "atTime" : 1.2
+          }, {
+            "atTime" : 1.5
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.1,
+            "soundAssetName" : "Sawing"
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : 15.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting" ]
       } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_woodcutting" : {
+          "duration" : 1.5,
+          "rotations" : [ { }, {
+            "atTime" : 0.1,
+            "roll" : 2
+          }, {
+            "atTime" : 0.3,
+            "roll" : -2
+          }, {
+            "atTime" : 1.2
+          }, {
+            "atTime" : 1.5
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.1,
+            "x" : 0.04
+          }, {
+            "atTime" : 0.4,
+            "x" : -0.1
+          }, {
+            "atTime" : 0.7,
+            "x" : 0.03
+          }, {
+            "atTime" : 1.0,
+            "x" : -0.11
+          }, {
+            "atTime" : 1.2
+          }, {
+            "atTime" : 1.5
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.1,
+            "soundAssetName" : "Sawing"
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : -15.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting" ]
       } ]
     }
   }
