@@ -87,13 +87,52 @@
     "DOWN_RIGHT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "animationScripts" : {
+        "work_on_job_woodcutting" : {
+          "duration" : 1.5,
+          "rotations" : [ { }, {
+            "atTime" : 0.1,
+            "roll" : 2
+          }, {
+            "atTime" : 0.3,
+            "roll" : -2
+          }, {
+            "atTime" : 1.2
+          }, {
+            "atTime" : 1.5
+          } ],
+          "translations" : [ { }, {
+            "atTime" : 0.1,
+            "x" : -0.04
+          }, {
+            "atTime" : 0.4,
+            "x" : 0.1
+          }, {
+            "atTime" : 0.7,
+            "x" : -0.03
+          }, {
+            "atTime" : 1.0,
+            "x" : 0.11
+          }, {
+            "atTime" : 1.2
+          }, {
+            "atTime" : 1.5
+          } ],
+          "soundCues" : [ {
+            "atTime" : 0.1,
+            "soundAssetName" : "Sawing"
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : 10.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
