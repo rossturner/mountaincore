@@ -361,7 +361,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 				NodeAnimation nodeAnimation = new NodeAnimation();
 				nodeAnimation.node = node;
 
-				if (script.getRotations() != null) {
+				if (script.getRotations() != null && !script.getRotations().isEmpty()) {
 					nodeAnimation.rotation = new Array<>();
 					script.getRotations().sort(Comparator.comparing(AnimationScript.Frame::getAtTime));
 					for (AnimationScript.RotationFrame frame : script.getRotations()) {
@@ -372,7 +372,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 					}
 				}
 
-				if (script.getTranslations() != null) {
+				if (script.getTranslations() != null && !script.getTranslations().isEmpty()) {
 					nodeAnimation.translation = new Array<>();
 					script.getTranslations().sort(Comparator.comparing(AnimationScript.Frame::getAtTime));
 					for (AnimationScript.TranslationFrame frame : script.getTranslations()) {
@@ -382,7 +382,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 					}
 				}
 
-				if (script.getScalings() != null) {
+				if (script.getScalings() != null && !script.getScalings().isEmpty()) {
 					nodeAnimation.scaling = new Array<>();
 					script.getScalings().sort(Comparator.comparing(AnimationScript.Frame::getAtTime));
 					for (AnimationScript.ScalingFrame frame : script.getScalings()) {
