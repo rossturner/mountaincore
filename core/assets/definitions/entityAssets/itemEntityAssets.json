@@ -25384,23 +25384,23 @@
             "unit" : false
           }, {
             "atTime" : 0.1,
-            "x" : -0.04,
-            "y" : 0.0,
+            "x" : -0.05,
+            "y" : -0.05,
             "unit" : false
           }, {
             "atTime" : 0.4,
             "x" : 0.1,
-            "y" : 0.0,
+            "y" : 0.1,
             "unit" : false
           }, {
             "atTime" : 0.7,
-            "x" : -0.03,
-            "y" : 0.0,
+            "x" : -0.05,
+            "y" : -0.05,
             "unit" : false
           }, {
             "atTime" : 1.0,
-            "x" : 0.11,
-            "y" : 0.0,
+            "x" : 0.1,
+            "y" : 0.1,
             "unit" : false
           }, {
             "atTime" : 1.2,
@@ -25411,6 +25411,42 @@
             "atTime" : 1.5,
             "x" : 0.0,
             "y" : 0.0,
+            "unit" : false
+          } ],
+          "scalings" : [ {
+            "atTime" : 0.0,
+            "x" : 1.0,
+            "y" : 1.0,
+            "unit" : false
+          }, {
+            "atTime" : 0.1,
+            "x" : 1.02,
+            "y" : 1.02,
+            "unit" : false
+          }, {
+            "atTime" : 0.4,
+            "x" : 0.85,
+            "y" : 0.85,
+            "unit" : false
+          }, {
+            "atTime" : 0.7,
+            "x" : 1.02,
+            "y" : 1.02,
+            "unit" : false
+          }, {
+            "atTime" : 1.0,
+            "x" : 0.85,
+            "y" : 0.85,
+            "unit" : false
+          }, {
+            "atTime" : 1.2,
+            "x" : 1.0,
+            "y" : 1.0,
+            "unit" : false
+          }, {
+            "atTime" : 1.5,
+            "x" : 1.0,
+            "y" : 1.0,
             "unit" : false
           } ],
           "soundCues" : [ {
