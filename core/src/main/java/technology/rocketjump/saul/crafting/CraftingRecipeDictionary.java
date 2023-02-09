@@ -13,7 +13,6 @@ import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTyp
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
-import technology.rocketjump.saul.materials.model.GameMaterial;
 
 import java.io.IOException;
 import java.util.*;
@@ -93,33 +92,17 @@ public class CraftingRecipeDictionary {
 			}
 		}
 		for (QuantifiedItemTypeWithMaterial quantifiedItemType : craftingRecipe.getInput()) {
-			initialise(craftingRecipe, quantifiedItemType);
+			initialise(quantifiedItemType);
 		}
-		initialise(craftingRecipe, craftingRecipe.getOutput());
+		initialise(craftingRecipe.getOutput());
 
 		if (craftingRecipe.getInput().stream().filter(QuantifiedItemTypeWithMaterial::isLiquid).count() > 1) {
 			throw new RuntimeException("Crafting recipe can not have more than 1 input liquid, found in " + craftingRecipe.getRecipeName());
 		}
 	}
 
-	private void initialise(CraftingRecipe craftingRecipe, QuantifiedItemTypeWithMaterial quantifiedItemType) {
-		if (quantifiedItemType.getItemTypeName() != null) {
-			ItemType itemType = itemTypeDictionary.getByName(quantifiedItemType.getItemTypeName());
-			if (itemType != null) {
-				quantifiedItemType.setItemType(itemType);
-			} else {
-				Logger.error("Could not find item type with name {} for recipe {}", quantifiedItemType.getItemTypeName(), craftingRecipe.getRecipeName());
-			}
-		}
-
-		if (quantifiedItemType.getMaterialName() != null) {
-			GameMaterial material = materialDictionary.getByName(quantifiedItemType.getMaterialName());
-			if (material == null) {
-				Logger.error("Could not find material with name " + quantifiedItemType.getMaterialName() + " required for recipe " + craftingRecipe.getRecipeName());
-			} else {
-				quantifiedItemType.setMaterial(material);
-			}
-		}
+	private void initialise(QuantifiedItemTypeWithMaterial quantifiedItemType) {
+		quantifiedItemType.initialise(itemTypeDictionary, materialDictionary);
 	}
 
 	public List<CraftingRecipe> getByCraftingType(CraftingType craftingType) {

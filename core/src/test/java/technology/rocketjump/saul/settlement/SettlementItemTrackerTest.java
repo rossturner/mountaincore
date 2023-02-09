@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import technology.rocketjump.saul.assets.entities.item.ItemEntityAssetDictionary;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -73,7 +74,7 @@ public class SettlementItemTrackerTest {
 
 		ItemEntityAttributes itemAttributes = new ItemEntityAttributesFactory(mockItemEntityAssetDictionary, mockEntityAssetUpdater).createItemAttributes(itemType, 1, materialArray);
 		return new ItemEntityFactory(new MessageDispatcher(), gameMaterialDictionary, mockAssetUpdater).create(
-				itemAttributes, new GridPoint2(), true, mockContext
-		);
+				itemAttributes, new GridPoint2(), true, mockContext,
+				Faction.SETTLEMENT);
 	}
 }

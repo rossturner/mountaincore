@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.math.RandomXS128;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -39,7 +40,7 @@ public class RoomEditorItemMap {
 		fakeContext.setRandom(random);
 
 		for (ItemType itemType : itemTypeDictionary.getAll()) {
-			Entity entity = itemEntityFactory.createByItemType(itemType, fakeContext, false);
+			Entity entity = itemEntityFactory.createByItemType(itemType, fakeContext, false, Faction.SETTLEMENT);
 			byType.put(itemType, entity);
 		}
 	}

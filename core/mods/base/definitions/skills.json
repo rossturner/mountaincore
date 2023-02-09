@@ -77,6 +77,13 @@
     "draggableIcon": "btn_drag_job_leatherworker"
   },
   {
+    "name": "ARTISAN",
+    "i18nKey": "PROFESSION.ARTISAN",
+    "type": "PROFESSION",
+    "icon": "settlers_job_artisan",
+    "draggableIcon": "btn_drag_job_artisan"
+  },
+  {
     "name": "MERCHANT",
     "i18nKey": "PROFESSION.MERCHANT",
     "type": "PROFESSION",
@@ -120,12 +127,5 @@
   {
     "name": "HEAVY_ARMOR",
     "type": "ASSET_OVERRIDE"
-  },
-  {
-    "name": "ARTISAN",
-    "i18nKey": "PROFESSION.ARTISAN",
-    "type": "PROFESSION",
-    "icon": "settlers_job_artisan",
-    "draggableIcon": "btn_drag_job_artisan"
   }
 ]

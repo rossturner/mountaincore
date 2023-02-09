@@ -15,6 +15,7 @@ import technology.rocketjump.saul.entities.components.furniture.DecorationInvent
 import technology.rocketjump.saul.entities.model.physical.AttachedEntity;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.entities.model.physical.PhysicalEntityComponent;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.creature.EquippedItemComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.HaulingComponent;
 import technology.rocketjump.saul.entities.model.physical.creature.status.OnFireStatus;
@@ -287,7 +288,9 @@ public class Entity implements Persistable, Disposable {
 
 	public boolean isSettler() {
 		return getBehaviourComponent() instanceof CreatureBehaviour &&
-				getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT);
+				getOrCreateComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT) &&
+				(getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes attributes) &&
+				attributes.getRace().getBehaviour().getIsSapient();
 	}
 
 	public EntityType getType() {

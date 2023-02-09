@@ -9,10 +9,7 @@ import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.behaviour.items.ItemBehaviour;
-import technology.rocketjump.saul.entities.components.BehaviourComponent;
-import technology.rocketjump.saul.entities.components.FactionComponent;
-import technology.rocketjump.saul.entities.components.ItemAllocationComponent;
-import technology.rocketjump.saul.entities.components.OxidisationComponent;
+import technology.rocketjump.saul.entities.components.*;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
@@ -45,7 +42,7 @@ public class ItemEntityFactory {
 		this.entityAssetUpdater = entityAssetUpdater;
 	}
 	
-	public Entity createByItemType(ItemType itemType, GameContext gameContext, boolean addToGameContext) {
+	public Entity createByItemType(ItemType itemType, GameContext gameContext, boolean addToGameContext, Faction faction) {
 		ItemEntityAttributes attributes = new ItemEntityAttributes(gameContext.getRandom().nextLong());
 		attributes.setItemType(itemType);
 
@@ -67,11 +64,11 @@ public class ItemEntityFactory {
 		}
 		attributes.setQuantity(1);
 
-		return this.create(attributes, null, addToGameContext, gameContext);
+		return this.create(attributes, null, addToGameContext, gameContext, faction);
 	}
 
 
-	public Entity create(ItemEntityAttributes attributes, GridPoint2 tilePosition, boolean addToGameContext, GameContext gameContext) {
+	public Entity create(ItemEntityAttributes attributes, GridPoint2 tilePosition, boolean addToGameContext, GameContext gameContext, Faction faction) {
 		PhysicalEntityComponent physicalComponent = new PhysicalEntityComponent();
 		physicalComponent.setAttributes(attributes);
 		if (attributes.getPrimaryMaterial() == null) {
@@ -92,6 +89,8 @@ public class ItemEntityFactory {
 					oxidisationComponent.init(entity, messageDispatcher, gameContext);
 					entity.addComponent(oxidisationComponent);
 				});
+
+		entity.getOrCreateComponent(FactionComponent.class).setFaction(faction);
 
 		entityAssetUpdater.updateEntityAssets(entity);
 		if (addToGameContext) {

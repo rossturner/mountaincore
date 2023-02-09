@@ -765,6 +765,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				headlineLabel.setText(deadText);
 			} else if (factionComponent != null && (factionComponent.getFaction() == Faction.WILD_ANIMALS || factionComponent.getFaction() == Faction.MERCHANTS || factionComponent.getFaction() == Faction.MONSTERS)) {
 				headlineLabel.setText(i18nTranslator.translate(factionComponent.getFaction().i18nKey));
+			} else if (factionComponent != null && factionComponent.getFaction() == Faction.SETTLEMENT && !entity.isSettler()) {
+				headlineLabel.setText(i18nTranslator.translate("FACTION.SETTLEMENT.ANIMAL"));
 			} else if (skillsComponent != null && SettlerManagementScreen.IS_MILITARY.test(entity)) {
 				String assignedWeaponText = settlerManagementScreen.getAssignedWeaponText(entity, skillsComponent);
 				headlineLabel.setText(assignedWeaponText);
@@ -861,7 +863,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			table.clear();
 			boolean isMilitary = SettlerManagementScreen.IS_MILITARY.test(entity);
 			boolean isSettlement = factionComponent != null && factionComponent.getFaction() == Faction.SETTLEMENT;
-			boolean unknownHappiness = isMilitary || !isSettlement || entity.getBehaviourComponent() instanceof CorpseBehaviour; //Dead don't display happiness
+			boolean unknownHappiness = isMilitary || !entity.isSettler() || entity.getBehaviourComponent() instanceof CorpseBehaviour; //Dead don't display happiness
 
 			List<String> ailments = new ArrayList<>();
 			for (StatusEffect statusEffect : statusComponent.getAll()) {
@@ -880,11 +882,11 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				}
 				DecoratedStringLabel tooltipContents = decoratedStringLabelFactory.create(tooltipString, "tooltip-text", mainGameSkin);
 
-				Image injurySmiley = new Image(mainGameSkin.getInjuredSmiley(factionComponent));
+				Image injurySmiley = new Image(mainGameSkin.getInjuredSmiley(attributes, factionComponent));
 				tooltipFactory.complexTooltip(injurySmiley, tooltipContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
 				table.add(injurySmiley);
 			} else if (unknownHappiness) {
-				Image notInjuredSmiley = new Image(mainGameSkin.getNotInjuredSmiley(factionComponent));
+				Image notInjuredSmiley = new Image(mainGameSkin.getNotInjuredSmiley(attributes, factionComponent));
 				tooltipFactory.simpleTooltip(notInjuredSmiley, "BODY_STRUCTURE.DAMAGE.NOT_INJURED", TooltipLocationHint.BELOW);
 				table.add(notInjuredSmiley);
 			}

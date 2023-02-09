@@ -10,6 +10,7 @@ import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.cooking.CookingRecipeDictionary;
 import technology.rocketjump.saul.cooking.model.CookingRecipe;
 import technology.rocketjump.saul.entities.EntityStore;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.factories.SettlerFactory;
@@ -251,7 +252,7 @@ public class TiledMapFactory {
 				itemAttributes.setQuantity(itemAttributes.getItemType().getMaxStackSize());
 			}
 
-			Entity itemEntity = itemEntityFactory.create(itemAttributes, new GridPoint2(tileX, tileY), true, gameContext);
+			Entity itemEntity = itemEntityFactory.create(itemAttributes, new GridPoint2(tileX, tileY), true, gameContext, Faction.SETTLEMENT);
 			haulingComponent.setHauledEntity(itemEntity, messageDispatcher, settler);
 		}
 

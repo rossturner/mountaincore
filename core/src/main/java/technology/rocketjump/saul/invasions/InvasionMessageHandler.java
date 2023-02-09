@@ -81,7 +81,7 @@ public class InvasionMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private void triggerInvasion(InvasionDefinition invasionDefinition) {
-		Vector2 invasionLocation = selectInvasionWorldPosition();
+		Vector2 invasionLocation = selectInvasionWorldPosition(gameContext, settlerTracker);
 		if (invasionLocation == null) {
 			// Should only happen when all settlers are dead or map edge is not navigable
 			Logger.warn("Could not find a valid position to launch invasion from");
@@ -144,7 +144,7 @@ public class InvasionMessageHandler implements Telegraph, GameContextAware {
 		}
 	}
 
-	private Vector2 selectInvasionWorldPosition() {
+	public static Vector2 selectInvasionWorldPosition(GameContext gameContext, SettlerTracker settlerTracker) {
 		if (settlerTracker.getLiving().isEmpty()) {
 			return null;
 		}

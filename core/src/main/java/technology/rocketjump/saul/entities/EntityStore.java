@@ -229,7 +229,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 			// Check to see if we should merge into an existing item
 			Entity matchingItem = tile.getItemMatching(itemEntityAttributes);
 			if (matchingItem == null) {
-				itemEntityFactory.create(itemEntityAttributes, worldPosition, true, this.gameContext);
+				itemEntityFactory.create(itemEntityAttributes, worldPosition, true, this.gameContext, Faction.SETTLEMENT);
 			} else {
 				ItemEntityAttributes attributes = (ItemEntityAttributes) matchingItem.getPhysicalEntityComponent().getAttributes();
 				attributes.setQuantity(attributes.getQuantity() + itemEntityAttributes.getQuantity());

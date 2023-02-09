@@ -35,6 +35,7 @@ import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -132,7 +133,7 @@ public class ItemUIFactory implements UIFactory {
         attributes.setItemType(itemType);
         attributes.setSeed(random.nextLong());
         attributes.setQuantity(1);
-        return itemEntityFactory.create(attributes, new GridPoint2(), true, gameContext);
+        return itemEntityFactory.create(attributes, new GridPoint2(), true, gameContext, Faction.SETTLEMENT);
     }
 
     @Override

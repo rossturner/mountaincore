@@ -25,6 +25,7 @@ import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.FactionChangedMessage;
 import technology.rocketjump.saul.messaging.types.ItemCreationRequestMessage;
 import technology.rocketjump.saul.messaging.types.ItemPrimaryMaterialChangedMessage;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
@@ -263,7 +264,12 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			Entity pickedUpItem = entityToPickUp.clone(parent.messageDispatcher, gameContext);
 			pickedUpItem.getLocationComponent().clearWorldPosition();
 			pickedUpItem.getOrCreateComponent(ItemAllocationComponent.class).cancelAll();
-			pickedUpItem.getComponent(FactionComponent.class).setFaction(parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction());
+			FactionComponent itemFactionComponent = pickedUpItem.getComponent(FactionComponent.class);
+			if (!itemFactionComponent.getFaction().equals(parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction())) {
+				parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_FACTION_CHANGED, new FactionChangedMessage(
+						pickedUpItem, itemFactionComponent.getFaction(), parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction())
+				);
+			}
 
 			ItemEntityAttributes cloneAttributes = (ItemEntityAttributes) pickedUpItem.getPhysicalEntityComponent().getAttributes();
 			cloneAttributes.setQuantity(quantityToPick);

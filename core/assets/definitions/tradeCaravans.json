@@ -1,0 +1,58 @@
+[ {
+  "name" : "Default",
+  "vehicles" : {
+    "vehicleTypeName" : "Wagon",
+    "draughtAnimal" : "Horse",
+    "minQuantity" : 1,
+    "maxQuantity" : 2,
+    "maxInventoryPerVehicle" : 16,
+    "maxValuePerVehicleInventory" : 1000
+  },
+  "traders" : {
+    "raceName" : "Dwarf",
+    "professionName" : "MERCHANT",
+    "minQuantityPerVehicle" : 1,
+    "maxQuantityPerVehicle" : 2,
+    "inventoryItems" : [ {
+      "itemTypeName" : "Treasure-Coin",
+      "quantity" : 50,
+      "materialName" : "Gold"
+    }, {
+      "itemTypeName" : "Treasure-Coin",
+      "quantity" : 60,
+      "materialName" : "Silver"
+    }, {
+      "itemTypeName" : "Product-Ration",
+      "quantity" : 8,
+      "materialName" : "Rockbread"
+    }, {
+      "itemTypeName" : "Product-Waterskin",
+      "quantity" : 1,
+      "materialName" : "Deer Hide"
+    } ],
+    "minWeaponSkill" : 30,
+    "maxWeaponSkill" : 50,
+    "weaponItemTypes" : [ ],
+    "shieldItemTypes" : [ ],
+    "armorItemTypes" : [ ]
+  },
+  "guards" : {
+    "raceName" : "Dwarf",
+    "minQuantityPerVehicle" : 1,
+    "maxQuantityPerVehicle" : 4,
+    "inventoryItems" : [ {
+      "itemTypeName" : "Product-Ration",
+      "quantity" : 8,
+      "materialName" : "Rockbread"
+    }, {
+      "itemTypeName" : "Product-Waterskin",
+      "quantity" : 1,
+      "materialName" : "Deer Hide"
+    } ],
+    "minWeaponSkill" : 30,
+    "maxWeaponSkill" : 80,
+    "weaponItemTypes" : [ "Weapon-Sword", "Weapon-Battle-Axe", "Weapon-Battle-Hammer" ],
+    "shieldItemTypes" : [ null, "Weapon-Wooden-Shield", "Weapon-Metal-Shield" ],
+    "armorItemTypes" : [ null, "Armour-Leather", "Armour-Plate" ]
+  }
+} ]
