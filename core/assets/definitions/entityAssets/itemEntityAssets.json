@@ -23094,7 +23094,15 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_blacksmithing" : {
+          "use" : "handle-swing-down",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Metallic Hammering",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Blacksmith sparks"
+          }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -8.0,
@@ -23110,7 +23118,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -23118,7 +23126,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -23137,7 +23145,15 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_blacksmithing" : {
+          "use" : "handle-swing-down-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Metallic Hammering",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Blacksmith sparks"
+          }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 4.0,
@@ -23153,7 +23169,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -23161,7 +23177,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -23180,7 +23196,15 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_blacksmithing" : {
+          "use" : "handle-swing-down-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Metallic Hammering",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Blacksmith sparks"
+          }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -4.0,
@@ -23196,7 +23220,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -23204,7 +23228,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -23223,7 +23247,15 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_blacksmithing" : {
+          "use" : "handle-swing-up",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Metallic Hammering",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Blacksmith sparks"
+          }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
@@ -23239,7 +23271,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -23247,7 +23279,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -23257,7 +23289,15 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_blacksmithing" : {
+          "use" : "handle-swing-up-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Metallic Hammering",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Blacksmith sparks"
+          }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -23273,7 +23313,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -23281,7 +23321,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -23291,7 +23331,15 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_blacksmithing" : {
+          "use" : "handle-swing-up-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Metallic Hammering",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Blacksmith sparks"
+          }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -23307,7 +23355,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -23315,7 +23363,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]

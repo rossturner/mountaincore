@@ -20,6 +20,9 @@
         "work_on_job_digging_channel" : {
           "use" : "right-hand-swing-down"
         },
+        "work_on_job_blacksmithing" : {
+          "use" : "right-hand-swing-down"
+        },
         "work_on_job_woodcutting" : {
           "use" : "right-hand-sawing-down"
         },
@@ -45,6 +48,9 @@
           "use" : "right-hand-swing-down-right"
         },
         "work_on_job_digging_channel" : {
+          "use" : "right-hand-swing-down-right"
+        },
+        "work_on_job_blacksmithing" : {
           "use" : "right-hand-swing-down-right"
         },
         "work_on_job_woodcutting" : {
@@ -73,6 +79,9 @@
         },
         "work_on_job_digging_channel" : {
           "use" : "right-hand-swing-down-left"
+        },
+        "work_on_job_blacksmithing" : {
+          "use" : "right-hand-swing-down-left"
         }
       }
     },
@@ -90,6 +99,9 @@
           "use" : "right-hand-swing-up-right"
         },
         "work_on_job_digging_channel" : {
+          "use" : "right-hand-swing-up-right"
+        },
+        "work_on_job_blacksmithing" : {
           "use" : "right-hand-swing-up-right"
         },
         "work_on_job_construct_stone_furniture" : {

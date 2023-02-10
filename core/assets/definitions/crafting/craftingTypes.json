@@ -36,8 +36,8 @@
   "defaultItemTypeName" : "Tool-Large-Hammer",
   "constructsFurniture" : "METAL",
   "usesWorkstationTool" : true,
-  "particleEffectNames" : [ "Blacksmith sparks" ],
-  "mightStartFire" : 0.03
+  "mightStartFire" : 0.03,
+  "workOnJobAnimation" : "work_on_job_blacksmithing"
 }, {
   "name" : "WEAPONSMITHING",
   "i18nKey" : "CRAFTING_TYPE.WEAPONSMITHING",
@@ -45,8 +45,8 @@
   "defaultItemTypeName" : "Tool-Large-Hammer",
   "constructsFurniture" : "METAL",
   "usesWorkstationTool" : true,
-  "particleEffectNames" : [ "Blacksmith sparks" ],
-  "mightStartFire" : 0.03
+  "mightStartFire" : 0.03,
+  "workOnJobAnimation" : "work_on_job_blacksmithing"
 }, {
   "name" : "WEAVING",
   "i18nKey" : "CRAFTING_TYPE.WEAVING",

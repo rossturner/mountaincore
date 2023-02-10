@@ -209,11 +209,11 @@
 }, {
   "name" : "Metallic Hammering",
   "soundAssetId" : 27,
-  "filenames" : [ "Metallic Hammering (Loop).wav" ],
-  "minPitch" : 0.8,
-  "maxPitch" : 1.2,
+  "filenames" : [ "Metallic Hammering (A-FO).wav", "Metallic Hammering (B).wav", "Metallic Hammering (C).wav", "Metallic Hammering (D-FO).wav" ],
+  "minPitch" : 0.95,
+  "maxPitch" : 1.0,
   "volumeModifier" : 0.3,
-  "looping" : true
+  "looping" : false
 }, {
   "name" : "HarvestingCrops",
   "soundAssetId" : 28,

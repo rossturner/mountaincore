@@ -33481,6 +33481,10 @@
           "use" : "right-hand-swing-down",
           "variables" : { }
         },
+        "work_on_job_blacksmithing" : {
+          "use" : "right-hand-swing-down",
+          "variables" : { }
+        },
         "work_on_job_woodcutting" : {
           "use" : "right-hand-sawing-down",
           "variables" : { }
@@ -33525,6 +33529,10 @@
           "variables" : { }
         },
         "work_on_job_digging_channel" : {
+          "use" : "right-hand-swing-down-right",
+          "variables" : { }
+        },
+        "work_on_job_blacksmithing" : {
           "use" : "right-hand-swing-down-right",
           "variables" : { }
         },
@@ -33574,6 +33582,10 @@
         "work_on_job_digging_channel" : {
           "use" : "right-hand-swing-down-left",
           "variables" : { }
+        },
+        "work_on_job_blacksmithing" : {
+          "use" : "right-hand-swing-down-left",
+          "variables" : { }
         }
       },
       "scale" : 1.0,
@@ -33607,6 +33619,10 @@
           "variables" : { }
         },
         "work_on_job_digging_channel" : {
+          "use" : "right-hand-swing-up-right",
+          "variables" : { }
+        },
+        "work_on_job_blacksmithing" : {
           "use" : "right-hand-swing-up-right",
           "variables" : { }
         },
