@@ -1121,9 +1121,11 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				if (inventoryIterator.hasNext()) {
 					Entity inventoryItem = inventoryIterator.next();
+					int quantity = 1;
 
-					ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryItem.getPhysicalEntityComponent().getAttributes();
-					int quantity = attributes.getQuantity();
+					if (inventoryItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
+						quantity = attributes.getQuantity();
+					}
 					EntityDrawable entityDrawable = new EntityDrawable(inventoryItem, entityRenderer, true, messageDispatcher);
 					entityDrawable.setMinSize(emptyBackgroundDrawable.getMinWidth(), emptyBackgroundDrawable.getMinHeight());
 
