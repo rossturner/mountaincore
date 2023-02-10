@@ -40,7 +40,7 @@
     "DOWN" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-F.png",
       "templatedAnimationScripts": {
-        "work_on_job_construct_stone_furniture": {
+        "work_on_job_generic_wiggle": {
           "use": "tool-wiggle-down"
         }
       },
@@ -50,7 +50,7 @@
       },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
-        "inheritAnimations" : [ "work_on_job_construct_stone_furniture" ]
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -64,7 +64,7 @@
     "DOWN_RIGHT" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-F34.png",
       "templatedAnimationScripts": {
-        "work_on_job_construct_stone_furniture": {
+        "work_on_job_generic_wiggle": {
           "use": "tool-wiggle-down-right"
         }
       },
@@ -74,7 +74,7 @@
       },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
-        "inheritAnimations" : [ "work_on_job_construct_stone_furniture" ]
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -88,7 +88,7 @@
     "DOWN_LEFT" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-F34.png",
       "templatedAnimationScripts": {
-        "work_on_job_construct_stone_furniture": {
+        "work_on_job_generic_wiggle": {
           "use": "tool-wiggle-down-left"
         }
       },
@@ -99,7 +99,7 @@
       "flipX" : true,
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
-        "inheritAnimations" : [ "work_on_job_construct_stone_furniture" ]
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -113,7 +113,7 @@
     "UP" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-B.png",
       "templatedAnimationScripts": {
-        "work_on_job_construct_stone_furniture": {
+        "work_on_job_generic_wiggle": {
           "use": "tool-wiggle-up"
         }
       },
@@ -123,13 +123,13 @@
       },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
-        "inheritAnimations" : [ "work_on_job_construct_stone_furniture" ]
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ]
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-B34.png",
       "templatedAnimationScripts": {
-        "work_on_job_construct_stone_furniture": {
+        "work_on_job_generic_wiggle": {
           "use": "tool-wiggle-up-right"
         }
       },
@@ -139,7 +139,7 @@
       },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
-        "inheritAnimations" : [ "work_on_job_construct_stone_furniture" ]
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -152,7 +152,7 @@
     "UP_LEFT" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-B34.png",
       "templatedAnimationScripts": {
-        "work_on_job_construct_stone_furniture": {
+        "work_on_job_generic_wiggle": {
           "use": "tool-wiggle-up-left"
         }
       },
@@ -163,7 +163,7 @@
       "flipX" : true,
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
-        "inheritAnimations" : [ "work_on_job_construct_stone_furniture" ]
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ]
     }
   }

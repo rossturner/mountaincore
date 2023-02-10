@@ -33493,7 +33493,7 @@
           "use" : "right-hand-sawing-down",
           "variables" : { }
         },
-        "work_on_job_construct_stone_furniture" : {
+        "work_on_job_generic_wiggle" : {
           "use" : "right-hand-tool-wiggle-down",
           "variables" : { }
         }
@@ -33544,7 +33544,7 @@
           "use" : "right-hand-sawing-down-right",
           "variables" : { }
         },
-        "work_on_job_construct_stone_furniture" : {
+        "work_on_job_generic_wiggle" : {
           "use" : "right-hand-tool-wiggle-down-right",
           "variables" : { }
         }
@@ -33626,7 +33626,7 @@
           "use" : "right-hand-swing-up-right",
           "variables" : { }
         },
-        "work_on_job_construct_stone_furniture" : {
+        "work_on_job_generic_wiggle" : {
           "use" : "right-hand-tool-wiggle-up-right",
           "variables" : { }
         }

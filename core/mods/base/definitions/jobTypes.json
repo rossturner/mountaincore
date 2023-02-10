@@ -264,7 +264,7 @@
     "requiredProfessionName": "STONEMASON",
     "requiredItemTypeName": "Tool-Chisel",
     "workOnJobParticleEffectNames": ["Chipping stone"],
-    "workOnJobAnimation": "work_on_job_construct_stone_furniture"
+    "workOnJobAnimation": "work_on_job_generic_wiggle"
   },
   {
     "name": "CONSTRUCT",
@@ -378,6 +378,7 @@
     "overrideI18nKey": "ACTION.JOB.BUTCHER_CREATURE",
     "requiredProfessionName": "CHEF",
     "usesWorkstationTool": true,
-    "workOnJobParticleEffectNames": ["Bleeding"]
+    "workOnJobParticleEffectNames": ["Bleeding"],
+    "workOnJobAnimation": "work_on_job_generic_wiggle"
   }
 ]

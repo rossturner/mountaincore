@@ -28,7 +28,7 @@
   "constructsFurniture" : "STONE",
   "usesWorkstationTool" : true,
   "particleEffectNames" : [ "Chipping stone" ],
-  "workOnJobAnimation" : "work_on_job_construct_stone_furniture"
+  "workOnJobAnimation" : "work_on_job_generic_wiggle"
 }, {
   "name" : "BLACKSMITHING",
   "i18nKey" : "CRAFTING_TYPE.BLACKSMITHING",
@@ -111,14 +111,15 @@
   "i18nKey" : "CRAFTING_TYPE.LEATHERWORKING",
   "professionRequiredName" : "LEATHERWORKER",
   "defaultItemTypeName" : "Tool-Kitchen-Knife",
-  "usesWorkstationTool" : true
+  "usesWorkstationTool" : true,
+  "workOnJobAnimation" : "work_on_job_generic_wiggle"
 }, {
   "name" : "BONE_CRAFTING",
   "i18nKey" : "CRAFTING_TYPE.BONE_CRAFTING",
   "professionRequiredName" : "ARTISAN",
   "defaultItemTypeName" : "Tool-Chisel",
   "usesWorkstationTool" : true,
-  "workOnJobAnimation" : "work_on_job_construct_stone_furniture"
+  "workOnJobAnimation" : "work_on_job_generic_wiggle"
 }, {
   "name" : "FINE_DETAIL_CRAFTING",
   "i18nKey" : "CRAFTING_TYPE.FINE_DETAIL_CRAFTING",

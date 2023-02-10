@@ -39,12 +39,18 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Kitchen-Knife-Handle-Being-Carried-F.png",
+      "templatedAnimationScripts": {
+        "work_on_job_generic_wiggle": {
+          "use": "tool-wiggle-down"
+        }
+      },
       "offsetPixels" : {
         "x" : -5.0,
         "y" : 15.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -57,12 +63,18 @@
     },
     "DOWN_RIGHT" : {
       "filename" : "Tool-Kitchen-Knife-Handle-Being-Carried-F34.png",
+      "templatedAnimationScripts": {
+        "work_on_job_generic_wiggle": {
+          "use": "tool-wiggle-down-right"
+        }
+      },
       "offsetPixels" : {
         "x" : 4.0,
         "y" : 10.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -75,13 +87,19 @@
     },
     "DOWN_LEFT" : {
       "filename" : "Tool-Kitchen-Knife-Handle-Being-Carried-F34.png",
+      "templatedAnimationScripts": {
+        "work_on_job_generic_wiggle": {
+          "use": "tool-wiggle-down-left"
+        }
+      },
       "offsetPixels" : {
         "x" : -4.0,
         "y" : 10.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -94,33 +112,51 @@
     },
     "UP" : {
       "filename" : "Tool-Kitchen-Knife-Handle-Being-Carried-B.png",
+      "templatedAnimationScripts": {
+        "work_on_job_generic_wiggle": {
+          "use": "tool-wiggle-up"
+        }
+      },
       "offsetPixels" : {
         "x" : 5.0,
         "y" : 15.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ]
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Kitchen-Knife-Handle-Being-Carried-B.png",
+      "templatedAnimationScripts": {
+        "work_on_job_generic_wiggle": {
+          "use": "tool-wiggle-up-right"
+        }
+      },
       "offsetPixels" : {
         "x" : 5.0,
         "y" : 15.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Kitchen-Knife-Handle-Being-Carried-B.png",
+      "templatedAnimationScripts": {
+        "work_on_job_generic_wiggle": {
+          "use": "tool-wiggle-up-left"
+        }
+      },
       "offsetPixels" : {
         "x" : -5.0,
         "y" : 15.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ]
     }
   }
