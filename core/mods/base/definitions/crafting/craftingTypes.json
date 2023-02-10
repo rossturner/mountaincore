@@ -31,7 +31,8 @@
     "defaultItemTypeName": "Tool-Chisel",
     "constructsFurniture": "STONE",
     "usesWorkstationTool": true,
-    "particleEffectNames": ["Chipping stone"]
+    "particleEffectNames": ["Chipping stone"],
+    "workOnJobAnimation": "work_on_job_construct_stone_furniture"
   },
   {
     "name": "BLACKSMITHING",
@@ -125,7 +126,8 @@
     "i18nKey": "CRAFTING_TYPE.BONE_CRAFTING",
     "professionRequiredName": "ARTISAN",
     "usesWorkstationTool": true,
-    "defaultItemTypeName": "Tool-Chisel"
+    "defaultItemTypeName": "Tool-Chisel",
+    "workOnJobAnimation": "work_on_job_construct_stone_furniture"
   },
   {
     "name": "FINE_DETAIL_CRAFTING",
