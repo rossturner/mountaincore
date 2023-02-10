@@ -25021,6 +25021,13 @@
             "__SOUND_NOTIFY_1__" : "Sawing",
             "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
           }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "sawing-down",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
         }
       },
       "scale" : 1.0,
@@ -25038,7 +25045,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_woodcutting" ]
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -25046,7 +25053,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_woodcutting" ]
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -25072,6 +25079,13 @@
             "__SOUND_NOTIFY_1__" : "Sawing",
             "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
           }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "sawing-down-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
         }
       },
       "scale" : 1.0,
@@ -25089,7 +25103,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_woodcutting" ]
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -25097,7 +25111,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_woodcutting" ]
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -25123,6 +25137,13 @@
             "__SOUND_NOTIFY_1__" : "Sawing",
             "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
           }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "sawing-down-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
         }
       },
       "scale" : 1.0,
@@ -25140,7 +25161,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_woodcutting" ]
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -25148,7 +25169,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_woodcutting" ]
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -25174,6 +25195,13 @@
             "__SOUND_NOTIFY_1__" : "Sawing",
             "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
           }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "sawing-up",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
         }
       },
       "scale" : 1.0,
@@ -25191,7 +25219,7 @@
           "y" : -10.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_woodcutting" ]
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -25199,7 +25227,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_woodcutting" ]
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -25211,6 +25239,13 @@
       "animationScripts" : { },
       "templatedAnimationScripts" : {
         "work_on_job_woodcutting" : {
+          "use" : "sawing-up-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        },
+        "work_on_job_construct_wooden_furniture" : {
           "use" : "sawing-up-right",
           "variables" : {
             "__SOUND_NOTIFY_1__" : "Sawing",
@@ -25233,7 +25268,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_woodcutting" ]
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -25241,7 +25276,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_woodcutting" ]
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -25253,6 +25288,13 @@
       "animationScripts" : { },
       "templatedAnimationScripts" : {
         "work_on_job_woodcutting" : {
+          "use" : "sawing-up-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        },
+        "work_on_job_construct_wooden_furniture" : {
           "use" : "sawing-up-left",
           "variables" : {
             "__SOUND_NOTIFY_1__" : "Sawing",
@@ -25275,7 +25317,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_woodcutting" ]
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       }, {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
@@ -25283,7 +25325,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ "work_on_job_woodcutting" ]
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]

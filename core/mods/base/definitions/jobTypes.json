@@ -252,8 +252,8 @@
     "overrideI18nKey": "ACTION.JOB.CONSTRUCT_FURNITURE",
     "accessedFromAdjacentTile": true,
     "requiredProfessionName": "CARPENTER",
-    "requiredItemTypeName": "Tool-Plane",
-    "workOnJobParticleEffectNames" : [ "Wood shavings" ]
+    "requiredItemTypeName": "Tool-Saw",
+    "workOnJobAnimation": "work_on_job_construct_wooden_furniture"
   },
   {
     "name": "CONSTRUCT_STONE_FURNITURE",

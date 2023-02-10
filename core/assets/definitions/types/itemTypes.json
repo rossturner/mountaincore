@@ -1339,9 +1339,7 @@
   "hoursInInventoryUntilUnused" : 38.0,
   "relatedCraftingTypeNames" : [ "CARPENTRY" ],
   "stockpileGroupName" : "TOOLS",
-  "tags" : {
-    "USAGE_SOUND" : [ "Sawing" ]
-  },
+  "tags" : { },
   "specificMaterialNames" : [ ],
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PLANE"

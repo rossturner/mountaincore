@@ -311,8 +311,8 @@
   "maximumTimeToCompleteJob" : 9.25,
   "experienceAwardedOnCompletion" : 3,
   "requiredProfessionName" : "CARPENTER",
-  "requiredItemTypeName" : "Tool-Plane",
-  "workOnJobParticleEffectNames" : [ "Wood shavings" ],
+  "requiredItemTypeName" : "Tool-Saw",
+  "workOnJobAnimation" : "work_on_job_construct_wooden_furniture",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "CONSTRUCT_STONE_FURNITURE",
