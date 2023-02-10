@@ -326,6 +326,7 @@
   "requiredProfessionName" : "STONEMASON",
   "requiredItemTypeName" : "Tool-Chisel",
   "workOnJobParticleEffectNames" : [ "Chipping stone" ],
+  "workOnJobAnimation" : "work_on_job_construct_stone_furniture",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "CONSTRUCT",

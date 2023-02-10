@@ -33464,32 +33464,17 @@
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "animationScripts" : {
-        "work_on_job_woodcutting" : {
-          "duration" : 1.5,
+        "work_on_job_construct_stone_furniture" : {
+          "duration" : 2.4,
           "translations" : [ {
             "atTime" : 0.0,
             "x" : 0.0,
             "y" : 0.0,
             "unit" : false
           }, {
-            "atTime" : 0.1,
-            "x" : 0.04,
-            "y" : -0.04,
-            "unit" : false
-          }, {
-            "atTime" : 0.4,
-            "x" : -0.06,
-            "y" : 0.06,
-            "unit" : false
-          }, {
-            "atTime" : 0.7,
-            "x" : 0.04,
-            "y" : -0.04,
-            "unit" : false
-          }, {
-            "atTime" : 1.0,
-            "x" : -0.06,
-            "y" : 0.06,
+            "atTime" : 0.6,
+            "x" : 0.08,
+            "y" : 0.0,
             "unit" : false
           }, {
             "atTime" : 1.2,
@@ -33497,45 +33482,14 @@
             "y" : 0.0,
             "unit" : false
           }, {
-            "atTime" : 1.5,
-            "x" : 0.0,
+            "atTime" : 1.8,
+            "x" : 0.08,
             "y" : 0.0,
             "unit" : false
-          } ],
-          "scalings" : [ {
-            "atTime" : 0.0,
-            "x" : 1.0,
-            "y" : 1.0,
-            "unit" : false
           }, {
-            "atTime" : 0.1,
-            "x" : 0.85,
-            "y" : 0.85,
-            "unit" : false
-          }, {
-            "atTime" : 0.4,
-            "x" : 1.15,
-            "y" : 1.15,
-            "unit" : false
-          }, {
-            "atTime" : 0.7,
-            "x" : 0.9,
-            "y" : 0.9,
-            "unit" : false
-          }, {
-            "atTime" : 1.0,
-            "x" : 1.15,
-            "y" : 1.15,
-            "unit" : false
-          }, {
-            "atTime" : 1.2,
-            "x" : 1.0,
-            "y" : 1.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.5,
-            "x" : 1.0,
-            "y" : 1.0,
+            "atTime" : 2.4,
+            "x" : 0.0,
+            "y" : 0.0,
             "unit" : false
           } ]
         }
@@ -33555,6 +33509,14 @@
         },
         "work_on_job_digging_channel" : {
           "use" : "right-hand-swing-down",
+          "variables" : { }
+        },
+        "work_on_job_woodcutting" : {
+          "use" : "right-hand-sawing-down",
+          "variables" : { }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "right-hand-sawing-down",
           "variables" : { }
         }
       },
@@ -33575,40 +33537,25 @@
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "animationScripts" : {
-        "work_on_job_woodcutting" : {
-          "duration" : 1.5,
+        "work_on_job_construct_stone_furniture" : {
+          "duration" : 2.4,
           "translations" : [ {
             "atTime" : 0.0,
             "x" : 0.0,
             "y" : 0.0,
             "unit" : false
           }, {
-            "atTime" : 0.1,
-            "x" : -0.04,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.4,
-            "x" : 0.1,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.7,
-            "x" : -0.03,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.0,
-            "x" : 0.11,
-            "y" : 0.0,
-            "unit" : false
-          }, {
             "atTime" : 1.2,
-            "x" : 0.0,
-            "y" : 0.0,
+            "x" : -0.04,
+            "y" : 0.006,
             "unit" : false
           }, {
-            "atTime" : 1.5,
+            "atTime" : 2.0,
+            "x" : 0.015,
+            "y" : 0.001,
+            "unit" : false
+          }, {
+            "atTime" : 2.4,
             "x" : 0.0,
             "y" : 0.0,
             "unit" : false
@@ -33630,6 +33577,14 @@
         },
         "work_on_job_digging_channel" : {
           "use" : "right-hand-swing-down-right",
+          "variables" : { }
+        },
+        "work_on_job_woodcutting" : {
+          "use" : "right-hand-sawing-down-right",
+          "variables" : { }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "right-hand-sawing-down-right",
           "variables" : { }
         }
       },
@@ -33684,7 +33639,32 @@
       "filename" : "basic dwarf hand.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
-      "animationScripts" : { },
+      "animationScripts" : {
+        "work_on_job_construct_stone_furniture" : {
+          "duration" : 2.4,
+          "translations" : [ {
+            "atTime" : 0.0,
+            "x" : 0.0,
+            "y" : 0.0,
+            "unit" : false
+          }, {
+            "atTime" : 1.2,
+            "x" : -0.04,
+            "y" : 0.0,
+            "unit" : false
+          }, {
+            "atTime" : 2.0,
+            "x" : 0.0015,
+            "y" : 0.0,
+            "unit" : false
+          }, {
+            "atTime" : 2.4,
+            "x" : 0.0,
+            "y" : 0.0,
+            "unit" : false
+          } ]
+        }
+      },
       "templatedAnimationScripts" : {
         "work_on_job_mining" : {
           "use" : "right-hand-swing-up-right",
