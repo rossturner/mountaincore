@@ -395,14 +395,18 @@ public class AnimationStudio implements Disposable, GameContextAware {
 				if (script.getSoundCues() != null) {
 					for (AnimationScript.SoundCueFrame soundCue : script.getSoundCues()) {
 						SoundAsset soundAsset = soundAssetDictionary.getByName(soundCue.getSoundAssetName());
-						soundCue.setSoundAsset(soundAsset);
+						if (soundAsset != null) {
+							soundCue.setSoundAsset(soundAsset);
+						}
 					}
 				}
 
 				if (script.getParticleEffectCues() != null) {
 					for (AnimationScript.ParticleEffectCueFrame particleEffectCue : script.getParticleEffectCues()) {
 						ParticleEffectType particleEffectType = particleEffectTypeDictionary.getByName(particleEffectCue.getParticleEffectName());
-						particleEffectCue.setParticleEffectType(particleEffectType);
+						if (particleEffectType != null) {
+							particleEffectCue.setParticleEffectType(particleEffectType);
+						}
 					}
 				}
 
