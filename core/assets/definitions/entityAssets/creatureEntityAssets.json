@@ -33463,37 +33463,7 @@
       "filename" : "basic dwarf hand.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
-      "animationScripts" : {
-        "work_on_job_construct_stone_furniture" : {
-          "duration" : 2.4,
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.6,
-            "x" : 0.08,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.2,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.8,
-            "x" : 0.08,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.4,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ]
-        }
-      },
+      "animationScripts" : { },
       "templatedAnimationScripts" : {
         "work_on_job_mining" : {
           "use" : "right-hand-swing-down",
@@ -33517,6 +33487,10 @@
         },
         "work_on_job_construct_wooden_furniture" : {
           "use" : "right-hand-sawing-down",
+          "variables" : { }
+        },
+        "work_on_job_construct_stone_furniture" : {
+          "use" : "right-hand-tool-wiggle-down",
           "variables" : { }
         }
       },
@@ -33536,32 +33510,7 @@
       "filename" : "basic dwarf hand.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
-      "animationScripts" : {
-        "work_on_job_construct_stone_furniture" : {
-          "duration" : 2.4,
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.2,
-            "x" : -0.04,
-            "y" : 0.006,
-            "unit" : false
-          }, {
-            "atTime" : 2.0,
-            "x" : 0.015,
-            "y" : 0.001,
-            "unit" : false
-          }, {
-            "atTime" : 2.4,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ]
-        }
-      },
+      "animationScripts" : { },
       "templatedAnimationScripts" : {
         "work_on_job_mining" : {
           "use" : "right-hand-swing-down-right",
@@ -33585,6 +33534,10 @@
         },
         "work_on_job_construct_wooden_furniture" : {
           "use" : "right-hand-sawing-down-right",
+          "variables" : { }
+        },
+        "work_on_job_construct_stone_furniture" : {
+          "use" : "right-hand-tool-wiggle-down-right",
           "variables" : { }
         }
       },
@@ -33639,32 +33592,7 @@
       "filename" : "basic dwarf hand.png",
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
-      "animationScripts" : {
-        "work_on_job_construct_stone_furniture" : {
-          "duration" : 2.4,
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.2,
-            "x" : -0.04,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.0,
-            "x" : 0.0015,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.4,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ]
-        }
-      },
+      "animationScripts" : { },
       "templatedAnimationScripts" : {
         "work_on_job_mining" : {
           "use" : "right-hand-swing-up-right",
@@ -33680,6 +33608,10 @@
         },
         "work_on_job_digging_channel" : {
           "use" : "right-hand-swing-up-right",
+          "variables" : { }
+        },
+        "work_on_job_construct_stone_furniture" : {
+          "use" : "right-hand-tool-wiggle-up-right",
           "variables" : { }
         }
       },

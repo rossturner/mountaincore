@@ -141,5 +141,54 @@
         "atTime" : 1.5
       } ]
     }
+  },
+  {
+    "name": "right-hand-tool-wiggle-down",
+    "template" : {
+      "duration" : 2.4,
+      "translations" : [ { }, {
+        "atTime" : 0.6,
+        "x" : 0.08
+      }, {
+        "atTime" : 1.2
+      }, {
+        "atTime" : 1.8,
+        "x" : 0.08
+      }, {
+        "atTime" : 2.4
+      } ]
+    }
+  },
+  {
+    "name": "right-hand-tool-wiggle-down-right",
+    "template" : {
+      "duration" : 2.4,
+      "translations" : [ { }, {
+        "atTime" : 1.2,
+        "x" : -0.04,
+        "y" : 0.006
+      }, {
+        "atTime" : 2.0,
+        "x" : 0.015,
+        "y" : 0.001
+      }, {
+        "atTime" : 2.4
+      } ]
+    }
+  },
+  {
+    "name": "right-hand-tool-wiggle-up-right",
+    "template" : {
+      "duration" : 2.4,
+      "translations" : [ { }, {
+        "atTime" : 1.2,
+        "x" : -0.04
+      }, {
+        "atTime" : 2.0,
+        "x" : 0.0015
+      }, {
+        "atTime" : 2.4
+      } ]
+    }
   }
 ]

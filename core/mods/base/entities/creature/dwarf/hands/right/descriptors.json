@@ -7,22 +7,6 @@
     "DOWN" : {
       "filename" : "basic dwarf hand.png",
       "coloringLayer" : "SKIN_COLOR",
-      "animationScripts" : {
-        "work_on_job_construct_stone_furniture" : {
-          "duration" : 2.4,
-          "translations" : [ { }, {
-            "atTime" : 0.6,
-            "x" : 0.08
-          }, {
-            "atTime" : 1.2
-          }, {
-            "atTime" : 1.8,
-            "x" : 0.08
-          }, {
-            "atTime" : 2.4
-          } ]
-        }
-      },
       "templatedAnimationScripts" : {
         "work_on_job_mining" : {
           "use" : "right-hand-swing-down"
@@ -41,28 +25,15 @@
         },
         "work_on_job_construct_wooden_furniture" : {
           "use" : "right-hand-sawing-down"
+        },
+        "work_on_job_construct_stone_furniture" : {
+          "use" : "right-hand-tool-wiggle-down"
         }
       }
     },
     "DOWN_RIGHT" : {
       "filename" : "basic dwarf hand.png",
       "coloringLayer" : "SKIN_COLOR",
-      "animationScripts" : {
-        "work_on_job_construct_stone_furniture" : {
-          "duration" : 2.4,
-          "translations" : [ { }, {
-            "atTime" : 1.2,
-            "x" : -0.04,
-            "y" : 0.006
-          }, {
-            "atTime" : 2.0,
-            "x" : 0.015,
-            "y" : 0.001
-          }, {
-            "atTime" : 2.4
-          } ]
-        }
-      },
       "templatedAnimationScripts" : {
         "work_on_job_mining" : {
           "use" : "right-hand-swing-down-right"
@@ -81,6 +52,9 @@
         },
         "work_on_job_construct_wooden_furniture" : {
           "use" : "right-hand-sawing-down-right"
+        },
+        "work_on_job_construct_stone_furniture" : {
+          "use" : "right-hand-tool-wiggle-down-right"
         }
       }
     },
@@ -105,20 +79,6 @@
     "UP_RIGHT" : {
       "filename" : "basic dwarf hand.png",
       "coloringLayer" : "SKIN_COLOR",
-      "animationScripts" : {
-        "work_on_job_construct_stone_furniture" : {
-          "duration" : 2.4,
-          "translations" : [ { }, {
-            "atTime" : 1.2,
-            "x" : -0.04
-          }, {
-            "atTime" : 2.0,
-            "x" : 0.0015
-          }, {
-            "atTime" : 2.4
-          } ]
-        }
-      },
       "templatedAnimationScripts" : {
         "work_on_job_mining" : {
           "use" : "right-hand-swing-up-right"
@@ -131,6 +91,9 @@
         },
         "work_on_job_digging_channel" : {
           "use" : "right-hand-swing-up-right"
+        },
+        "work_on_job_construct_stone_furniture" : {
+          "use" : "right-hand-tool-wiggle-up-right"
         }
       }
     },

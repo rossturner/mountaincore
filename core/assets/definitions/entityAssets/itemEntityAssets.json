@@ -21824,66 +21824,13 @@
     "DOWN" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-F.png",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_construct_stone_furniture" : {
-          "duration" : 2.4,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.3,
-            "roll" : -40
-          }, {
-            "atTime" : 0.6,
-            "roll" : 0
-          }, {
-            "atTime" : 0.9,
-            "roll" : -38
-          }, {
-            "atTime" : 1.2,
-            "roll" : 0
-          }, {
-            "atTime" : 1.5,
-            "roll" : -40
-          }, {
-            "atTime" : 1.8,
-            "roll" : 0
-          }, {
-            "atTime" : 2.1,
-            "roll" : -37
-          }, {
-            "atTime" : 2.4,
-            "roll" : 0
-          } ],
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.6,
-            "x" : 0.08,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.2,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.8,
-            "x" : 0.08,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.4,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ]
+          "use" : "tool-wiggle-down",
+          "variables" : { }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -5.0,
@@ -21916,61 +21863,13 @@
     "DOWN_RIGHT" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-F34.png",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_construct_stone_furniture" : {
-          "duration" : 2.4,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.3,
-            "roll" : -25
-          }, {
-            "atTime" : 0.6,
-            "roll" : 0
-          }, {
-            "atTime" : 0.9,
-            "roll" : -20
-          }, {
-            "atTime" : 1.2,
-            "roll" : 0
-          }, {
-            "atTime" : 1.5,
-            "roll" : -22
-          }, {
-            "atTime" : 1.8,
-            "roll" : 0
-          }, {
-            "atTime" : 2.1,
-            "roll" : -20
-          }, {
-            "atTime" : 2.4,
-            "roll" : 0
-          } ],
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.2,
-            "x" : -0.04,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.0,
-            "x" : 0.015,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.4,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ]
+          "use" : "tool-wiggle-down-right",
+          "variables" : { }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 8.0,
@@ -22003,61 +21902,13 @@
     "DOWN_LEFT" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-F34.png",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_construct_stone_furniture" : {
-          "duration" : 2.4,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.3,
-            "roll" : 25
-          }, {
-            "atTime" : 0.6,
-            "roll" : 0
-          }, {
-            "atTime" : 0.9,
-            "roll" : 20
-          }, {
-            "atTime" : 1.2,
-            "roll" : 0
-          }, {
-            "atTime" : 1.5,
-            "roll" : 22
-          }, {
-            "atTime" : 1.8,
-            "roll" : 0
-          }, {
-            "atTime" : 2.1,
-            "roll" : 20
-          }, {
-            "atTime" : 2.4,
-            "roll" : 0
-          } ],
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.2,
-            "x" : 0.04,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.0,
-            "x" : -0.015,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.4,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ]
+          "use" : "tool-wiggle-down-left",
+          "variables" : { }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -8.0,
@@ -22090,66 +21941,13 @@
     "UP" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-B.png",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_construct_stone_furniture" : {
-          "duration" : 2.4,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.3,
-            "roll" : 25
-          }, {
-            "atTime" : 0.6,
-            "roll" : 0
-          }, {
-            "atTime" : 0.9,
-            "roll" : 20
-          }, {
-            "atTime" : 1.2,
-            "roll" : 0
-          }, {
-            "atTime" : 1.5,
-            "roll" : 22
-          }, {
-            "atTime" : 1.8,
-            "roll" : 0
-          }, {
-            "atTime" : 2.1,
-            "roll" : 24
-          }, {
-            "atTime" : 2.4,
-            "roll" : 0
-          } ],
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 0.6,
-            "x" : 0.08,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.2,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.8,
-            "x" : 0.08,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.4,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ]
+          "use" : "tool-wiggle-up",
+          "variables" : { }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 4.0,
@@ -22173,61 +21971,13 @@
     "UP_RIGHT" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-B34.png",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_construct_stone_furniture" : {
-          "duration" : 2.4,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.3,
-            "roll" : -25
-          }, {
-            "atTime" : 0.6,
-            "roll" : 0
-          }, {
-            "atTime" : 0.9,
-            "roll" : -20
-          }, {
-            "atTime" : 1.2,
-            "roll" : 0
-          }, {
-            "atTime" : 1.5,
-            "roll" : -22
-          }, {
-            "atTime" : 1.8,
-            "roll" : 0
-          }, {
-            "atTime" : 2.1,
-            "roll" : -20
-          }, {
-            "atTime" : 2.4,
-            "roll" : 0
-          } ],
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.2,
-            "x" : -0.04,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.0,
-            "x" : 0.015,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.4,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ]
+          "use" : "tool-wiggle-up-right",
+          "variables" : { }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 15.0,
@@ -22259,61 +22009,13 @@
     "UP_LEFT" : {
       "filename" : "Tool-Chisel-Handle-Being-Carried-B34.png",
       "isAnimated" : false,
-      "animationScripts" : {
+      "animationScripts" : { },
+      "templatedAnimationScripts" : {
         "work_on_job_construct_stone_furniture" : {
-          "duration" : 2.4,
-          "rotations" : [ {
-            "atTime" : 0.0,
-            "roll" : 0
-          }, {
-            "atTime" : 0.3,
-            "roll" : 25
-          }, {
-            "atTime" : 0.6,
-            "roll" : 0
-          }, {
-            "atTime" : 0.9,
-            "roll" : 20
-          }, {
-            "atTime" : 1.2,
-            "roll" : 0
-          }, {
-            "atTime" : 1.5,
-            "roll" : 22
-          }, {
-            "atTime" : 1.8,
-            "roll" : 0
-          }, {
-            "atTime" : 2.1,
-            "roll" : 20
-          }, {
-            "atTime" : 2.4,
-            "roll" : 0
-          } ],
-          "translations" : [ {
-            "atTime" : 0.0,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 1.2,
-            "x" : 0.04,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.0,
-            "x" : -0.015,
-            "y" : 0.0,
-            "unit" : false
-          }, {
-            "atTime" : 2.4,
-            "x" : 0.0,
-            "y" : 0.0,
-            "unit" : false
-          } ]
+          "use" : "tool-wiggle-up-left",
+          "variables" : { }
         }
       },
-      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -10.0,
