@@ -2,14 +2,14 @@ KEY,NOTES,ENGLISH
 
 ACTION.DRINK_FROM_RIVER,,from river
 ACTION.JOB.BUTCHER_CREATURE,,Butchering
-ACTION.JOB.CLEAR_GROUND,E.g. 'Clearing shrub',Clearing {{targetPlant}}
+ACTION.JOB.CLEAR_GROUND,E.g. “Clearing shrub”,Clearing {{targetPlant}}
 ACTION.JOB.CONSTRUCT_FLOORING,,Laying floor
-ACTION.JOB.CONSTRUCT_FURNITURE,E.g. 'Crafting furniture',{{profession.verb}} {{targetDescription}}
+ACTION.JOB.CONSTRUCT_FURNITURE,E.g. “Crafting furniture”,{{profession.verb}} {{targetDescription}}
 ACTION.JOB.CONSTRUCT_MECHANISM,,Placing mechanisms
 ACTION.JOB.CONSTRUCT_PIPING,,Placing pipe
 ACTION.JOB.CONSTRUCT_ROOFING,,Constructing roof
 ACTION.JOB.CREATE_GENERIC,,Producing {{targetDescription}}
-ACTION.JOB.DECONSTRUCT,E.g. 'Removing stone wall' 'Removing wooden wall',Removing {{targetDescription}}
+ACTION.JOB.DECONSTRUCT,E.g. “Removing stone wall” “Removing wooden wall”,Removing {{targetDescription}}
 ACTION.JOB.DECONSTRUCT_MECHANISM,,Removing mechanism
 ACTION.JOB.DECONSTRUCT_PIPING,,Removing pipe
 ACTION.JOB.DECONSTRUCT_ROOFING,,Removing roof
@@ -18,7 +18,7 @@ ACTION.JOB.DUMP_LIQUID_FROM_CONTAINER,For emptying the liquid contents out of a 
 ACTION.JOB.EXTINGUISH_FLAMES,,Putting out a fire
 ACTION.JOB.FILL_GRAVE,For filling a grave with dirt,Filling {{targetDescription}}
 ACTION.JOB.FISHING,,Fishing
-ACTION.JOB.GENERIC,"E.g. 'Smelting iron ore', 'Crafting wooden planks'",{{profession.verb}} {{targetDescription}}
+ACTION.JOB.GENERIC,"E.g. “Smelting iron ore”, “Crafting wooden planks”",{{profession.verb}} {{targetDescription}}
 ACTION.JOB.HARVESTING,,Harvesting {{targetPlant}}
 ACTION.JOB.INNOCULATE_MUSHROOM_LOG,,Injecting mushroom spawn
 ACTION.JOB.LOGGING,,{{profession.verb}} {{targetPlant}}
@@ -31,7 +31,7 @@ ACTION.KNOCKED_UNCONSCIOUS,,Knocked unconscious
 ACTION.MALTING.VERB,,Malting
 ACTION.PREPARATION.VERB,,Preparing
 ACTION.SELECT_JOB.DESCRIPTION,When looking for a job to work,Looking for work to do
-ACTION.SLEEP_ON_FLOOR.DESCRIPTION,E.g. 'Sleeping on rough stone floor',Sleeping on {{tileDescription}}
+ACTION.SLEEP_ON_FLOOR.DESCRIPTION,E.g. “Sleeping on rough stone floor”,Sleeping on {{tileDescription}}
 ACTION.STUNNED,,Stunned
 
 ARMOUR.LEATHER,,Leather armour
@@ -111,19 +111,21 @@ COMBAT.DESCRIPTION.FLEEING,,Fleeing from combat
 COMBAT.DESCRIPTION.GENERIC,,In combat
 COMBAT.DESCRIPTION.VERSUS_OPPONENT,,In combat with {{targetDescription}}
 
-CONSTRUCTION.DESCRIPTION,E.g. 'Construction of granite stonemason workbench',Construction of {{materialType.adjective}} {{furnitureType.noun}}
-CONSTRUCTION.REQUIREMENT_ALLOCATION,E.g. '1 of 3 marble blocks allocated' (or assigned),{{numRequired}} required{{\n}}{{numAvailable}} available{{\n}}{{numAssigned}} assigned
+CONSTRUCTION.DESCRIPTION,E.g. “Construction of granite stonemason workbench”,Construction of {{materialType.adjective}} {{furnitureType.noun}}
+CONSTRUCTION.REQUIREMENT_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{numRequired}} required{{\n}}{{numAvailable}} available{{\n}}{{numAssigned}} assigned
+CONSTRUCTION.REQUIREMENT_RECIPE_SINGULAR,,{{outputItemType}} are made from {{lastInputItemType}} at the {{furnitureType}} by {{profession}}.
+CONSTRUCTION.REQUIREMENT_RECIPE_MULTIPLE,,{{outputItemType}} are made from {{inputItemTypes}} and {{lastInputItemType}} at the {{furnitureType}} by {{profession}}.
 CONSTRUCTION.STATUS.CLEARING_WORK_SITE,This is to be displayed when other items need to be cleared out from an area that has something being built over it,Removing other items
 CONSTRUCTION.STATUS.CLEARING_WORK_SITE.TOOLTIP,,There are items that need to be removed from this furniture’s construction area before it can progress.
-CONSTRUCTION.STATUS.SELECTING_MATERIALS,E.g. 'Waiting for more wooden planks to be available',Waiting for more {{materialType}} {{itemDescription.plural}} to be available
+CONSTRUCTION.STATUS.SELECTING_MATERIALS,E.g. “Waiting for more wooden planks to be available”,Waiting for more {{materialType}} {{itemDescription.plural}} to be available
 CONSTRUCTION.STATUS.WAITING_FOR_COMPLETION,This is displayed once all resources are in place and the construction is being worked on,Under construction
 CONSTRUCTION.STATUS.WAITING_FOR_RESOURCES,This is displayed while a construction is waiting for resource items to be placed in the build area,Waiting for resources to arrive
 
-COOKING.BREAD.DESCRIPTION,E.g. 'Wheat bread',{{materialDescription}} bread
-COOKING.DUAL_INGREDIENT.DESCRIPTION,"E.g. 'Tomato and potato', to be used for for two ingredients together as below",{{materialOne}} and {{materialTwo}}
-COOKING.RATION.DESCRIPTION,E.g. 'Rockbread ration',{{materialDescription}} ration
-COOKING.SOUP.DESCRIPTION,"E.g. 'Tomato soup', 'Tomato and potato soup', 'Vegetable soup'",{{materialDescription}} soup
-COOKING.TRIPLE_INGREDIENT.DESCRIPTION,"E.g. 'Fish, tomato and potato', to be used for for three ingredients together as below","{{materialOne}}, {{materialTwo}} and {{materialThree}}"
+COOKING.BREAD.DESCRIPTION,E.g. “Wheat bread”,{{materialDescription}} bread
+COOKING.DUAL_INGREDIENT.DESCRIPTION,"E.g. “Tomato and potato”, to be used for for two ingredients together as below",{{materialOne}} and {{materialTwo}}
+COOKING.RATION.DESCRIPTION,E.g. “Rockbread ration”,{{materialDescription}} ration
+COOKING.SOUP.DESCRIPTION,"E.g. “Tomato soup”, “Tomato and potato soup”, “Vegetable soup”",{{materialDescription}} soup
+COOKING.TRIPLE_INGREDIENT.DESCRIPTION,"E.g. “Fish, tomato and potato”, to be used for for three ingredients together as below","{{materialOne}}, {{materialTwo}} and {{materialThree}}"
 
 CRAFTING_TYPE.BAKING,,Baking
 CRAFTING_TYPE.BLACKSMITHING,,Blacksmithing
@@ -157,7 +159,7 @@ CREATURE.STATUS.DEAD,,Dead
 CROP.AFFLICTED_BY_PESTS,For when a crop plant is infested with insects and other pests and needs some work to remove them,Afflicted by pests
 CROP.AFFLICTED_BY_PESTS.TOOLTIP,,This crop has been afflicted by an excessive number of aphids and other insects which need to be removed by a {{PROFESSION.FARMER}} before it can flourish again. Not removing the pests in time could mean that this crop dies!
 CROP.DESCRIPTION,,{{materialType.noun}} plant
-CROP.HARVEST_PROGRESS,E.g. 'Progress towards harvest: 30%',Progress towards harvest ({{progress}}%):
+CROP.HARVEST_PROGRESS,E.g. “Progress towards harvest: 30%”,Progress towards harvest ({{progress}}%):
 CROP.MOISTURE_STATE.DROUGHTED,,This plant has no access to water for a long time and has stopped growing
 CROP.MOISTURE_STATE.NEEDS_WATERING,,This plant has not been watered and is growing slowly
 CROP.MOISTURE_STATE.NEEDS_WATERING.TOOLTIP,,You can irrigate your crops with a channel containing water with 2 tiles.
@@ -214,8 +216,8 @@ FLOOR.UNEXPLORED,Used when the player clicks on an area they have not discovered
 FLOOR.WOODEN,,Wooden floorboards
 
 FOODSTUFF.ROCKBREAD,This is a made-up fantasy food,Rockbread
-FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer J. A. Moffatt once described eating it as 'akin to chewing gravel that has been dredged from a swamp'. Fortunately most dwarves don’t seem to mind.
-FOODSTUFF.WHEAT-BREAD,"Actually just to describe 'wheat' as a foodstuff, not specifically bread",Wheat
+FOODSTUFF.ROCKBREAD.TOOLTIP,,This is an infamously tough bread which is so hard and practically inedible that it takes a very long time to turn mouldy. The human explorer J. A. Moffatt once described eating it as “akin to chewing gravel that has been dredged from a swamp”. Fortunately most dwarves don’t seem to mind.
+FOODSTUFF.WHEAT-BREAD,"Actually just to describe “wheat” as a foodstuff, not specifically bread",Wheat
 
 FUEL.SACK,,Fuel
 FUEL.SACK.TOOLTIP,,"Fuel is required in the production of metal, both by the {{FURNITURE.BLOOMERY_FURNACE}} and the {{FURNITURE.FORGE}}."
@@ -251,7 +253,7 @@ FURNITURE.CHARCOAL_CLAMP,,Charcoal clamp
 FURNITURE.CHARCOAL_CLAMP.TOOLTIP,,"This is a pile of {{RESOURCE.LOGS.PLURAL}} covered with {{MATERIAL_TYPE.EARTH}} and slowly burned to produce {{ORE.CHARCOAL.NOUN}}, which can then be used as {{FUEL.SACK}}."
 FURNITURE.COKE_OVEN,,Coke oven
 FURNITURE.COKE_OVEN.TOOLTIP,,A coke oven converts {{ORE.BITUMINOUS_COAL.NOUN}} into {{ORE.COKE.NOUN}} so that it can be used as {{FUEL.SACK}}.
-FURNITURE.DESCRIPTION,E.g. 'Granite stonemason workbench',{{materialType.adjective}} {{furnitureType.noun}}
+FURNITURE.DESCRIPTION,E.g. “Granite stonemason workbench”,{{materialType.adjective}} {{furnitureType.noun}}
 FURNITURE.DESCRIPTION.GENERIC_PROGRESS,,Progress to completion: {{progress}}%
 FURNITURE.DESCRIPTION.MUSHROOM_INNOCULATION_IN_PROGRESS,,Progress to complete innoculation: {{progress}}%
 FURNITURE.DESCRIPTION.SHOCKING_IN_PROGRESS,,Progress: {{progress}}%
@@ -287,7 +289,7 @@ FURNITURE.MASH_TUN.TOOLTIP,,This is used to produce wort (unfermented beer) from
 FURNITURE.MUSHROOM_LOG,,Mushroom log
 FURNITURE.MUSHROOM_LOG.TOOLTIP,,"A log that has been injected with {{INGREDIENT.MUSHROOM.SPAWN.PLURAL}} to produce several harvests of delicious, juicy mushrooms."
 FURNITURE.MUSHROOM_SHOCK_TANK,This is a trough of water used to immerse mushroom logs in for a period of time,Shock tank
-FURNITURE.MUSHROOM_SHOCK_TANK.TOOLTIP,,"After innoculation, a {{FURNITURE.MUSHROOM_LOG}} is placed in this tank to 'shock' the mushroom colony and encourage it to grow mushrooms."
+FURNITURE.MUSHROOM_SHOCK_TANK.TOOLTIP,,"After innoculation, a {{FURNITURE.MUSHROOM_LOG}} is placed in this tank to “shock” the mushroom colony and encourage it to grow mushrooms."
 FURNITURE.ORE_CRUSHING_STATION,,Ore crushing station
 FURNITURE.ORE_CRUSHING_STATION.TOOLTIP,,Raw {{RESOURCE.ORE.UNREFINED.PLURAL}} is crushed to a more workable size so that it can be used in a {{FURNITURE.BLOOMERY_FURNACE}}.
 FURNITURE.PILLAR,A pillar used to support a roof,Pillar
@@ -338,7 +340,7 @@ GEM.AMETHYST.NOUN,,Amethyst
 GEM.AMETHYST.TOOLTIP,,A violet-hued variety of quartz. Ancient humans believed it could magically protect them from becoming too drunk. For this reason it is not very popular in dwarven culture.
 GEM.AMMOLITE.ADJECTIVE,,Ammolite
 GEM.AMMOLITE.NOUN,,Ammolite
-GEM.AMMOLITE.TOOLTIP,,An opal-like gemstone which has a red to green iridescence. It is known as the 'hunting stone' and amulets made from it are meant to bring good luck to a hunt.
+GEM.AMMOLITE.TOOLTIP,,An opal-like gemstone which has a red to green iridescence. It is known as the “hunting stone” and amulets made from it are meant to bring good luck to a hunt.
 GEM.AQUAMARINE.ADJECTIVE,,Aquamarine
 GEM.AQUAMARINE.NOUN,,Aquamarine
 GEM.AQUAMARINE.TOOLTIP,,A cyan-coloured variety of beryl. Some humans believe it offers magical protection against the dangers of the seas. This is because an ancient mage used a combination of sky and ice magic to protect trading ships during the age of darkness.
@@ -353,7 +355,7 @@ GEM.CITRINE.NOUN,,Citrine
 GEM.CITRINE.TOOLTIP,,"A yellowish variety of quartz. It is the gemstone most similar in colour to gold, so most dwarves think citrine is lucky."
 GEM.DIAMOND.ADJECTIVE,,Diamond
 GEM.DIAMOND.NOUN,,Diamond
-GEM.DIAMOND.TOOLTIP,,The hardest known material and one of the most important of the seven heavenly stones. Diamonds are the most condensed form of the neutral element known as 'spirit' or 'aether'.
+GEM.DIAMOND.TOOLTIP,,The hardest known material and one of the most important of the seven heavenly stones. Diamonds are the most condensed form of the neutral element known as “spirit” or “aether”.
 GEM.EMERALD.ADJECTIVE,,Emerald
 GEM.EMERALD.NOUN,,Emerald
 GEM.EMERALD.TOOLTIP,,A vibrant green variety of beryl. It is thought that engraving on an emerald brings great misfortune. Emeralds are closely related to elemental life and associated magic.
@@ -416,19 +418,19 @@ GEM.TURQUOISE.NOUN,,Turquoise
 GEM.TURQUOISE.TOOLTIP,,A blue-green mineral often used in decorations. It is thought to bring good luck to the bearer. It is often infused with the element of earth.
 
 GOAL.ABANDON_JOB.DESCRIPTION,,Abandoning task
-GOAL.ADD_TO_INVENTORY.DESCRIPTION,E.g. 'Collecting bag of wheat seeds',Collecting {{targetDescription}}
+GOAL.ADD_TO_INVENTORY.DESCRIPTION,E.g. “Collecting bag of wheat seeds”,Collecting {{targetDescription}}
 GOAL.COMBAT.DESCRIPTION,,Attacking {{targetDescription}}
 GOAL.DRINK.DESCRIPTION,,Drinking {{targetDescription}}
 GOAL.DUMP_LIQUID.DESCRIPTION,,Dumping contents of {{targetDescription}}
 GOAL.EAT.DESCRIPTION,,Eating {{targetDescription}}
 GOAL.EXTINGUISH_FIRE.DESCRIPTION,,Putting out a fire
 GOAL.FLEE_FROM_AGGRESSOR.DESCRIPTION,,Fleeing from {{targetDescription}}
-GOAL.HAULING.DESCRIPTION,E.g. 'Hauling granite stone',Hauling {{targetDescription}}
+GOAL.HAULING.DESCRIPTION,E.g. “Hauling granite stone”,Hauling {{targetDescription}}
 GOAL.IDLE.DESCRIPTION,When not doing anything,Idle
 GOAL.ON_FIRE.DESCRIPTION,,On fire!
 GOAL.REFILL_WATERSKIN.DESCRIPTION,,Refilling waterskin
 GOAL.SLEEP.DESCRIPTION,,Going to sleep
-GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes 'Transferring water',Transferring {{targetZoneMaterial}}
+GOAL.TRANSFER_LIQUID.DESCRIPTION,Becomes “Transferring water”,Transferring {{targetZoneMaterial}}
 GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION,,Moving into combat
 GOAL.MILITARY.STAND_IN_FORMATION.DESCRIPTION,,Guarding a position
 GOAL.MILITARY.TRAINING.DESCRIPTION,,Weapon training
@@ -757,15 +759,15 @@ HINT.WEAPON_SELECTION.1,,Use this view to select a type of weapon that the settl
 HINT.WEAPON_SELECTION.2,,It is strongly recommended you assign a ranged weapon such as a {{WEAPON.BOW}} or {{WEAPON.CROSSBOW}} to those settlers assigned as a {{PROFESSION.HUNTER}}.
 HINT.WEAPON_SELECTION.3,,Weapons which you do not have available are displayed in red.
 HINT.WELCOME.INTRO,,"Welcome to the world of King under the Mountain! This is an early alpha version of the game with many more features and gameplay elements still to be implemented. Your intrepid band of dwarven settlers have chosen this area to found a new colony of their kingdom. Provide food, shelter and prosperity for them and who knows, maybe one day this will be the capital of a kingdom of its own!"
-HINT.WELCOME.NEXT_STEPS,,"Click 'Tutorial' to be guided through the basics, 'Hints only' to skip the tutorial but be provided with info as you play, or 'Disable all hints' to stop showing these messages."
+HINT.WELCOME.NEXT_STEPS,,"Click “Tutorial” to be guided through the basics, “Hints only” to skip the tutorial but be provided with info as you play, or “Disable all hints” to stop showing these messages."
 HINT.WELCOME.PRE_SPAWN,,"Start the game by selecting a location on the map with open space near the river, and clicking the '{{GUI.EMBARK.START}}' button."
 
-HUMANOID.BROKEN.DESCRIPTION,"E.g. 'Urist McScrooge, insane dwarf'","{{name}}, {{madness.adjective}} {{race.noun}}"
-HUMANOID.DESCRIPTION,"E.g. 'Urist McScrooge, Dwarven miner'","{{name}}, {{race.adjective}} {{skillLevelDescription.adjective}} {{profession.noun}}"
+HUMANOID.BROKEN.DESCRIPTION,"E.g. “Urist McScrooge, insane dwarf”","{{name}}, {{madness.adjective}} {{race.noun}}"
+HUMANOID.DESCRIPTION,"E.g. “Urist McScrooge, Dwarven miner”","{{name}}, {{race.adjective}} {{skillLevelDescription.adjective}} {{profession.noun}}"
 
-INGREDIENT.DOUGH,To be combined with the above as 'bread dough',Dough
+INGREDIENT.DOUGH,To be combined with the above as “bread dough”,Dough
 INGREDIENT.FLOUR,,Flour
-INGREDIENT.LOAF,To be combined with the above as 'bread loaf',Loaf
+INGREDIENT.LOAF,To be combined with the above as “bread loaf”,Loaf
 INGREDIENT.LOAF.PLURAL,,Loaves
 INGREDIENT.MALT.SACK.NOUN,,Malt
 INGREDIENT.MALT.SACK.TOOLTIP,,This needs to be milled before it can be used further for brewing.
@@ -773,20 +775,20 @@ INGREDIENT.MILLED.MALT.SACK.NOUN,,Milled malt
 INGREDIENT.MILLED.MALT.SACK.TOOLTIP,,This is combined with water in a {{FURNITURE.MASH_TUN}} to produce {{LIQUID.WORT}}.
 INGREDIENT.MUSHROOM.SPAWN.NOUN,,Mushroom spawn
 INGREDIENT.MUSHROOM.SPAWN.PLURAL,,Mushroom spawn
-INGREDIENT.MUSHROOM.SPAWN.TOOLTIP,,"Also known as mycelium, this can be thought of as 'seeds' from which to grow mushrooms in a {{ROOMS.MUSHROOM_FARM}}."
-INGREDIENT.SEEDS.NOUN,E.g. 'Wheat seed',Seed
-INGREDIENT.SEEDS.PLURAL,E.g. '4 wheat seeds',Seeds
+INGREDIENT.MUSHROOM.SPAWN.TOOLTIP,,"Also known as mycelium, this can be thought of as “seeds” from which to grow mushrooms in a {{ROOMS.MUSHROOM_FARM}}."
+INGREDIENT.SEEDS.NOUN,E.g. “Wheat seed”,Seed
+INGREDIENT.SEEDS.PLURAL,E.g. “4 wheat seeds”,Seeds
 INGREDIENT.SEEDS.TOOLTIP,,Seeds of the right type are required for planting in a {{ROOMS.FARM}}. They also need to be available in a {{STOCKPILE.GRANARY}} stockpile.
 INGREDIENT.VEGETABLE.CRATE.NOUN,,Vegetable (crate)
 INGREDIENT.VEGETABLE.CRATE.PLURAL,,Vegetables (crate)
 INGREDIENT.VEGETABLE.SACK.NOUN,,Vegetable (sack)
 INGREDIENT.VEGETABLE.SACK.PLURAL,,Vegetables (sack)
 
-INVENTORY.CONTAINS.LABEL,This is the label of 'inventory' to go above a list of items contained within a piece of furniture or held by a character,Inventory:
+INVENTORY.CONTAINS.LABEL,This is the label of “inventory” to go above a list of items contained within a piece of furniture or held by a character,Inventory:
 
-ITEM.DESCRIPTION,"E.g. 'Iron axe', 'Beech wood fishing rod', '3 marble blocks'",{{quantity_if_multiple}} {{quality.adjective}} {{materialType.adjective}} {{itemType.noun_or_plural}}
-ITEM.INGREDIENT.DESCRIPTION,E.g. '2 potatoes',{{quantity_if_multiple}} {{materialType.noun_or_plural}}
-ITEM.AVAILABILITY.DESCRIPTION,E.g. '2 potatoes',{{quantity}} {{materialType.adjective}} {{itemType.noun_or_plural}} available
+ITEM.DESCRIPTION,"E.g. “Iron axe”, “Beech wood fishing rod”, “3 marble blocks”",{{quantity_if_multiple}} {{quality.adjective}} {{materialType.adjective}} {{itemType.noun_or_plural}}
+ITEM.INGREDIENT.DESCRIPTION,E.g. “2 potatoes”,{{quantity_if_multiple}} {{materialType.noun_or_plural}}
+ITEM.AVAILABILITY.DESCRIPTION,E.g. “2 potatoes”,{{quantity}} {{materialType.adjective}} {{itemType.noun_or_plural}} available
 ITEM.QUALITY.PREFIX.AWFUL.ADJECTIVE,,Awful
 ITEM.QUALITY.PREFIX.AWFUL.TOOLTIP,,"This item is terribly made, difficult to use, and would not be worth very much"
 ITEM.QUALITY.PREFIX.MASTERWORK.ADJECTIVE,,Masterwork
@@ -831,12 +833,12 @@ MATERIAL_TYPE.ORE.NOUN,This is only used as a noun,Ore
 MATERIAL_TYPE.OTHER.NOUN,This isn't actually used in-game yet so won't be combined with other words,Other
 MATERIAL_TYPE.ROPE.ADJECTIVE,," "
 MATERIAL_TYPE.ROPE.NOUN,," "
-MATERIAL_TYPE.SEED.NOUN,For saying something is 'made up of seed',Seed
+MATERIAL_TYPE.SEED.NOUN,For saying something is “made up of seed”,Seed
 MATERIAL_TYPE.SKIN.ADJECTIVE,," "
 MATERIAL_TYPE.SKIN.NOUN,," "
 MATERIAL_TYPE.STONE.ADJECTIVE,,
 MATERIAL_TYPE.STONE.NOUN,,Stone
-MATERIAL_TYPE.VEGETABLE.NOUN,Used to make up 'Vegetable soup',Vegetable
+MATERIAL_TYPE.VEGETABLE.NOUN,Used to make up “Vegetable soup”,Vegetable
 MATERIAL_TYPE.VITRIOL.ADJECTIVE,,Vitriol of
 MATERIAL_TYPE.VITRIOL.NOUN,,Vitriol
 MATERIAL_TYPE.WOOD.ADJECTIVE,,Wooden
@@ -941,7 +943,7 @@ MODS.TABLE.NAME,,Name
 MODS.TABLE.ORDERING,,Re-order
 MODS.TABLE.VERSION,,Version
 
-MUSHROOM.DESCRIPTION,E.g. 'Toadstool mushroom',{{materialType.noun}}
+MUSHROOM.DESCRIPTION,E.g. “Toadstool mushroom”,{{materialType.noun}}
 
 NEEDS.DRINK,,Drink
 NEEDS.FOOD,,Food
@@ -1049,6 +1051,7 @@ PRIVACY.OPT_IN.DATA_POINT.2,,• Your options settings
 PRIVACY.OPT_IN.DATA_POINT.3,,• The status of the game at the time of the crash, and about what caused the crash
 
 PRODUCT.ANVIL,,Anvil
+PRODUCT.ANVIL.PLURAL,,Anvils
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}}.
 PRODUCT.BARREL.HOOPS,,Barrel hoops
 PRODUCT.BARREL.HOOPS.TOOLTIP,,Metal hoops used to construct a {{PRODUCT.BARREL.NOUN}}. Also used in some machinery.
@@ -1058,7 +1061,8 @@ PRODUCT.BARREL.STAVES,,Barrel staves
 PRODUCT.BARREL.STAVES.TOOLTIP,,Curved wooden planks used to construct a {{PRODUCT.BARREL.NOUN}}.
 PRODUCT.BARREL.TOOLTIP,,A cylindrical container for liquids. The curved shape makes it easier to roll around.
 PRODUCT.BOWL,A bowl for eating from,Bowl
-PRODUCT.BOWL.DESCRIPTION,E.g. 'Bowl of vegetable soup',Bowl of {{cooking.soup.description}}
+PRODUCT.BOWL.DESCRIPTION,E.g. “Bowl of vegetable soup”,Bowl of {{cooking.soup.description}}
+PRODUCT.BOWL.PLURAL,,Bowls
 PRODUCT.BREAD.DOUGH.NOUN,,Dough
 PRODUCT.BREAD.DOUGH.PLURAL,,Dough
 PRODUCT.BREAD.DOUGH.TOOLTIP,,A mix of ingredients that can be baked into {{PRODUCT.BREAD.LOAF.PLURAL}} using an {{FURNITURE.BAKING_OVEN}}.
@@ -1069,14 +1073,17 @@ PRODUCT.BUCKET.NOUN,,Bucket
 PRODUCT.BUCKET.PLURAL,,Buckets
 PRODUCT.BUCKET.TOOLTIP,,A small container used to move liquids around by hand.
 PRODUCT.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron
+PRODUCT.CAULDRON.PLURAL,,Cauldrons
 PRODUCT.CAULDRON.TOOLTIP,,"Used by a {{PROFESSION.CHEF}} to prepare soup in a {{ROOMS.KITCHEN}}, where it is then moved to a {{ROOMS.FEASTING_HALL}}."
 PRODUCT.LEATHER,,Leather
 PRODUCT.LINEN.NOUN,,Linen
 PRODUCT.LINEN.PLURAL,,Linen
 PRODUCT.LINEN.TOOLTIP,,"A roll of fabric, primarily used for bedding."
 PRODUCT.LIQUID.TANK,,Tank
+PRODUCT.LIQUID.TANK.PLURAL,,Tanks
 PRODUCT.LIQUID.TANK.TOOLTIP,,"This is a metal container used to store liquids, which must be crafted at the {{FURNITURE.FORGE}}."
 PRODUCT.MILLSTONE,,Millstone
+PRODUCT.MILLSTONE.PLURAL,,Millstones
 PRODUCT.MILLSTONE.TOOLTIP,,Two large stone discs that are ground together to mill harvested crops. Used to construct a {{FURNITURE.FLOUR_MILL}}.
 PRODUCT.RATION.NOUN,,Ration
 PRODUCT.RATION.PLURAL,,Rations
@@ -1103,22 +1110,27 @@ PRODUCT.WOODEN.SHAFT.VERTICAL.TOOLTIP,,Used to connect mechanisms which produce 
 
 PROFESSION.ARTISAN.FEMALE_NOUN,,Artisan
 PROFESSION.ARTISAN.MALE_NOUN,,Artisan
+PROFESSION.ARTISAN.PLURAL,,Artisans
 PROFESSION.ARTISAN.VERB,,Fabricating
 PROFESSION.BAKER.VERB,,Baking
 PROFESSION.BLACKSMITH.FEMALE_NOUN,,Blacksmith
 PROFESSION.BLACKSMITH.MALE_NOUN,,Blacksmith
+PROFESSION.BLACKSMITH.PLURAL,,Blacksmiths
 PROFESSION.BLACKSMITH.TOOLTIP,,Crafts items using metal and also produces metal from ore.
 PROFESSION.BLACKSMITH.VERB,,Forging
 PROFESSION.BREWER.FEMALE_NOUN,,Brewer
 PROFESSION.BREWER.MALE_NOUN,,Brewer
+PROFESSION.BREWER.PLURAL,,Brewers
 PROFESSION.BREWER.TOOLTIP,,Produces beer in a {{ROOMS.BREWERY}}.
 PROFESSION.BREWER.VERB,,Brewing
 PROFESSION.CARPENTER.FEMALE_NOUN,,Carpenter
 PROFESSION.CARPENTER.MALE_NOUN,,Carpenter
+PROFESSION.CARPENTER.PLURAL,,Carpenters
 PROFESSION.CARPENTER.TOOLTIP,,Creates wooden furniture and items.
 PROFESSION.CARPENTER.VERB,,Crafting
 PROFESSION.CHEF.FEMALE_NOUN,,Chef
 PROFESSION.CHEF.MALE_NOUN,,Chef
+PROFESSION.CHEF.PLURAL,,Chefs
 PROFESSION.CHEF.TOOLTIP,,Prepares all of the food to be consumed by your settlers.
 PROFESSION.CHEF.VERB,,Cooking
 PROFESSION.DESCRIPTION,,{{skillLevelDescription.adjective}} {{profession.noun}}
@@ -1127,34 +1139,36 @@ PROFESSION.FARMER.MALE_NOUN,,Farmer
 PROFESSION.FARMER.PLURAL,,Farmers
 PROFESSION.FARMER.TOOLTIP,,"Plants, tends and harvests crops."
 PROFESSION.FARMER.VERB,,Farming
-PROFESSION.FISHER.FEMALE_NOUN,This could be 'fisherman' and 'fisherwoman',Fisher
+PROFESSION.FISHER.FEMALE_NOUN,This could be “fisherman” and “fisherwoman”,Fisher
 PROFESSION.FISHER.MALE_NOUN,,Fisher
 PROFESSION.FISHER.TOOLTIP,,Catches fish from bodies of water for use as food and resources.
 PROFESSION.FISHER.VERB,,Fishing
-PROFESSION.HUNTER.FEMALE_NOUN,This could be 'huntsman' and 'huntress',Hunter
+PROFESSION.HUNTER.FEMALE_NOUN,This could be “huntsman” and “huntress”,Hunter
 PROFESSION.HUNTER.MALE_NOUN,,Hunter
 PROFESSION.HUNTER.TOOLTIP,,Tracks and kills wild animals for their meat and pelts.
 PROFESSION.HUNTER.VERB,,Hunting
 PROFESSION.LEATHERWORKER.FEMALE_NOUN,,Leatherworker
 PROFESSION.LEATHERWORKER.MALE_NOUN,,Leatherworker
+PROFESSION.LEATHERWORKER.PLURAL,,Leatherworkers
 PROFESSION.LEATHERWORKER.TOOLTIP,,Treats the hides of creatures to produce leather goods.
 PROFESSION.LEATHERWORKER.VERB,,Leatherworking
-PROFESSION.MAYOR.FEMALE_NOUN,"In English at least, 'mayoress' is incorrect",Mayor
+PROFESSION.MAYOR.FEMALE_NOUN,"In English at least, “mayoress” is incorrect",Mayor
 PROFESSION.MAYOR.MALE_NOUN,,Mayor
 PROFESSION.MAYOR.VERB,,Governing
 PROFESSION.MERCHANT.FEMALE_NOUN,,Merchant
 PROFESSION.MERCHANT.MALE_NOUN,,Merchant
 PROFESSION.MERCHANT.VERB,,Trading
-PROFESSION.MILLER.VERB,"Not a fully implemented profession, just used to describe 'Milling flour'",Milling
+PROFESSION.MILLER.VERB,"Not a fully implemented profession, just used to describe “Milling flour”",Milling
 PROFESSION.MINER.FEMALE_NOUN,,Miner
 PROFESSION.MINER.MALE_NOUN,,Miner
+PROFESSION.MINER.PLURAL,,Miners
 PROFESSION.MINER.TOOLTIP,,Excavates new areas using a {{TOOL.PICKAXE}}.
 PROFESSION.MINER.VERB,,Mining
 PROFESSION.NOBLE.FEMALE_NOUN,,Noble
 PROFESSION.NOBLE.MALE_NOUN,,Noble
 PROFESSION.NOBLE.TOOLTIP,,"Nobles do not fulfil jobs in the same way as common settlers, but bring fame and prestige to your settlement."
 PROFESSION.NOBLE.VERB,,Reigning
-PROFESSION.RUNESMITH.FEMALE_NOUN,from 'runes' and 'blacksmith',Runesmith
+PROFESSION.RUNESMITH.FEMALE_NOUN,from “runes” and “blacksmith”,Runesmith
 PROFESSION.RUNESMITH.MALE_NOUN,"This is an invented term for the game, but should be derived",Runesmith
 PROFESSION.RUNESMITH.TOOLTIP,,"Enchants weapons, armour and items with magical runes to boost their abilities."
 PROFESSION.RUNESMITH.VERB,,Enchanting
@@ -1178,6 +1192,7 @@ PROFESSION.SKILL_LEVEL.9,,Grandmaster
 PROFESSION.SKILL_LEVEL.9.TOOLTIP,,There is nobody more skilled in their craft than a grandmaster.
 PROFESSION.STONEMASON.FEMALE_NOUN,,Stonemason
 PROFESSION.STONEMASON.MALE_NOUN,,Stonemason
+PROFESSION.STONEMASON.PLURAL,,Stonemasons
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.
 PROFESSION.STONEMASON.VERB,,Sculpting
 PROFESSION.VILLAGER.FEMALE_NOUN,,Villager
@@ -1189,8 +1204,9 @@ PROFESSION.WEAVER.MALE_NOUN,,Weaver
 PROFESSION.WEAVER.PLURAL,,Weavers
 PROFESSION.WEAVER.TOOLTIP,,Processes materials into clothing and other fabrics.
 PROFESSION.WEAVER.VERB,,Weaving
-PROFESSION.WOODCUTTER.FEMALE_NOUN,This could be 'lumberjack' and 'lumberjane',Woodcutter
+PROFESSION.WOODCUTTER.FEMALE_NOUN,This could be “lumberjack” and “lumberjane”,Woodcutter
 PROFESSION.WOODCUTTER.MALE_NOUN,,Woodcutter
+PROFESSION.WOODCUTTER.PLURAL,,Woodcutters
 PROFESSION.WOODCUTTER.TOOLTIP,,Cuts down trees as lumber that can be used in a {{ROOMS.SAWMILL}}.
 PROFESSION.WOODCUTTER.VERB,,Chopping
 
@@ -1207,7 +1223,7 @@ RACE.DWARF.FEMALE_NOUN,,Dwarf
 RACE.DWARF.FEMALE_PLURAL,,Dwarves
 RACE.DWARF.MALE_ADJECTIVE,,Dwarven
 RACE.DWARF.MALE_NOUN,The male and female forms are only for languages that need them,Dwarf
-RACE.DWARF.MALE_PLURAL,Note that I'm going with Tolkein's spelling of 'dwarves' rather than 'dwarfs',Dwarves
+RACE.DWARF.MALE_PLURAL,Note that I'm going with Tolkein's spelling of “dwarves” rather than “dwarfs”,Dwarves
 RACE.DWARF.TOOLTIP,,Dwarves are short and stocky humanoids. They are masters of working with stone and metal. Most dwarves distrust the sky and prefer to stay underground.
 RACE.ELEPHANT.NOUN,,Elephant
 RACE.FOX.FEMALE_NOUN,,Vixen
@@ -1271,7 +1287,7 @@ RESOURCE.PLANKS.PLURAL,,Planks
 RESOURCE.PLANKS.TOOLTIP,,Sections of wood of a fixed size so they can be easily used in constructions and crafting.
 RESOURCE.SHOCKED.MUSHROOM.LOG.NOUN,,Mushroom log
 RESOURCE.SHOCKED.MUSHROOM.LOG.PLURAL,,Mushroom logs
-RESOURCE.SHOCKED.MUSHROOM.LOG.TOOLTIP,,This mushroom-infused log has been 'shocked' in water to encourage the mushrooms to develop and should produce a harvest soon.
+RESOURCE.SHOCKED.MUSHROOM.LOG.TOOLTIP,,This mushroom-infused log has been “shocked” in water to encourage the mushrooms to develop and should produce a harvest soon.
 RESOURCE.STONE.BLOCK.NOUN,,Block
 RESOURCE.STONE.BLOCK.PLURAL,,Blocks
 RESOURCE.STONE.BLOCK.TOOLTIP,,Stone that has been shaped into a cube so that it can be easily used in construction or crafting.
@@ -1508,14 +1524,14 @@ TREASURE.GEM.NOUN,,Gem
 TREASURE.GEM.PLURAL,,Gems
 TREASURE.GEM.TOOLTIP,,Gems that have been cut and polished to enhance their beauty. Most commonly used as ornamentation.
 
-TREE.DESCRIPTION,E.g. 'Oak tree',{{materialType.noun}} tree
+TREE.DESCRIPTION,E.g. “Oak tree”,{{materialType.noun}} tree
 
 TUTORIAL.1.A,,"Your settlers have three basic needs to fulfil: food, drink and somewhere to sleep. Although they will complain about it for now, they can drink from the nearby river and sleep on the ground. What they can’t do is magic up some food from nowhere (at least, not without a mage around!) so we will focus on food to begin with."
 TUTORIAL.1.B,,"The first thing you should do each spring is ensure that enough crops have been planted for the harvest in autumn. Farming is a reliable and sustainable food source, but you need to make sure you have enough crops to feed your population between each annual harvest."
-TUTORIAL.1.C,,"A good rule of thumb to follow is to ensure you have 10 tiles of crops being sown for each settler in your population. Currently there are 7 settlers milling around, so go ahead and click '{{GUI.ROOMS_LABEL}}' > '{{ROOMS.FARM}}', and designate / drag out several farm plots on a grassy area."
+TUTORIAL.1.C,,"A good rule of thumb to follow is to ensure you have 10 tiles of crops being sown for each settler in your population. Currently there are 7 settlers milling around, so go ahead and click “{{GUI.ROOMS_LABEL}}” > “{{ROOMS.FARM}}”, and designate / drag out several farm plots on a grassy area."
 TUTORIAL.1.D,,Use right-click to cancel and go back in menus.
 TUTORIAL.2.A,,"With nothing else to do, your settlers will start preparing these {{ROOMS.FARM.PLURAL}} by tilling the earth to be ready for seeds to be sown. This doesn’t require any special tools or knowledge so everyone should get involved."
-TUTORIAL.2.B,,"This prepares the plot to be sown, but you need to select which crop to grow on each farm plot before a farmer will come and plant the relevant seeds. Your settlers have brought with them a selection of different seeds. You can click 'Resources' in the upper-right to get a breakdown of all the items in your settlement."
+TUTORIAL.2.B,,"This prepares the plot to be sown, but you need to select which crop to grow on each farm plot before a farmer will come and plant the relevant seeds. Your settlers have brought with them a selection of different seeds. You can click “Resources” in the upper-right to get a breakdown of all the items in your settlement."
 TUTORIAL.2.C,,"For the seeds to actually be available to your farmers, they need to be in a stockpile compared to being held in a dwarf’s inventory like they are currently. Click {{GUI.ZONES_LABEL}} > {{ROOMS.STOCKPILES}} > {{STOCKPILE.GROUP.SEEDS}} (you can right-click to go back up to a previous menu) and designate an area to be used for seeds to be stored."
 TUTORIAL.2.D,,Your settlers have also brought a bunch of tools with them what will need moving around. From {{ROOMS.STOCKPILES}} also choose {{STOCKPILE.GROUP.TOOLS}} and designate another area to be used to store tools.
 TUTORIAL.3.A,,"After some time your settlers should put items they are not using into stockpiles, like the seeds that are to be sown."
@@ -1525,7 +1541,7 @@ TUTORIAL.4.B,,"Clicking on a settler lets you see their name, professions, inven
 TUTORIAL.4.C,,"Note that some jobs require the settler to have a specific tool in their inventory, and if none are available in the settlement they won’t work on the jobs that require it. For example, you can assign more settlers as a {{PROFESSION.WOODCUTTER}}, but they can’t chop down trees without an available {{TOOL.AXE.NOUN}}."
 TUTORIAL.5.A,,"Your crops will now grow and eventually be harvested by your {{PROFESSION.FARMER.PLURAL}} in the {{SEASON.AUTUMN}}. Some crops can be planted again later in the year and survive through the {{SEASON.WINTER}}, but some do not. To get the most out of your crops, it is best to produce soup from the vegetables harvested, or bread from grain."
 TUTORIAL.5.B,,"Let’s get a {{ROOMS.KITCHEN}} set up to produce soup once your crops are ready. Go to the top level menu then {{GUI.ZONES_LABEL}} > {{ROOMS.KITCHEN}} and drag out a {{ROOMS.KITCHEN}} area. For now you can build this outside, but you will eventually want to move the majority of your work areas inside for protection from the elements."
-TUTORIAL.5.C,,"Unlike farm plots, kitchens (and most other rooms) need furniture to function. Click 'Furniture' when you have placed a kitchen zone and you’ll be presented with the furniture that can be added. To produce soup, you need to build a {{FURNITURE.WATER_BARREL}}, {{FURNITURE.KITCHEN_WORKTOP}} and {{FURNITURE.CAULDRON}} in the same kitchen zone. Also, designate a {{STOCKPILE.GROUP.FOOD}} {{ROOMS.STOCKPILE}} to store any harvested crops."
+TUTORIAL.5.C,,"Unlike farm plots, kitchens (and most other rooms) need furniture to function. Click “Furniture” when you have placed a kitchen zone and you’ll be presented with the furniture that can be added. To produce soup, you need to build a {{FURNITURE.WATER_BARREL}}, {{FURNITURE.KITCHEN_WORKTOP}} and {{FURNITURE.CAULDRON}} in the same kitchen zone. Also, designate a {{STOCKPILE.GROUP.FOOD}} {{ROOMS.STOCKPILE}} to store any harvested crops."
 TUTORIAL.6.A,,"When your crops have been harvested, cooks will bring vegetables to the {{FURNITURE.KITCHEN_WORKTOP}} before adding them to the {{FURNITURE.CAULDRON}} with water and producing soup! Making soup and baking bread means your food supplies will go much further - a single vegetable will feed a dwarf for a single meal, but 3 vegetables cooked into soup will provide 12 meals!"
 TUTORIAL.6.B,,"Eventually this kitchen will produce a cauldron full of steaming hot soup, but the cooks don’t like other dwarves getting in the way in their kitchen, so instead you need to have the soup brought to a feasting hall for the whole settlement to enjoy. Designate a feasting hall by clicking on {{GUI.ZONES_LABEL}} > {{ROOMS.FEASTING_HALL}}, then add a {{FURNITURE.CAULDRON}} to it. Note that a feasting hall cauldron won’t be placed until a cauldron containing thick, delicious soup is available."
 TUTORIAL.7.A,,Over time you will want to expand your food production but this will keep our small settlement nourished for the upcoming winter - your settlers have brought rations to sustain them while the first crops grow.
@@ -1535,8 +1551,8 @@ TUTORIAL.8.B,,Select {{GUI.ORDERS_LABEL}} > {{GUI.ORDERS.CHOP_WOOD}} and click-a
 TUTORIAL.8.C,,"Be careful with mining! A mined-out area of 7 by 7 tiles without a {{FURNITURE.PILLAR}} built within that area will collapse! "
 TUTORIAL.CAMERA.A,,"You can use the W, A, S and D keys or the arrow keys to pan the camera around. Moving the cursor to the edge of the screen also pans the camera, but this can be disabled in the options menu."
 TUTORIAL.CAMERA.B,,Scrolling the mouse wheel or pressing the Q and E keys zooms the camera in or out.
-TUTORIAL.CAMERA.C,,"In the lower-right section of the screen is the minimap, and you can click on this to jump the camera to that point. Click on the 'Minimap' label to show or hide the minimap."
-TUTORIAL.CAMERA.D,,Try out these camera controls and then click 'Next' to proceed.
+TUTORIAL.CAMERA.C,,"In the lower-right section of the screen is the minimap, and you can click on this to jump the camera to that point. Click on the “Minimap” label to show or hide the minimap."
+TUTORIAL.CAMERA.D,,Try out these camera controls and then click “Next” to proceed.
 TUTORIAL.FINAL.A,,"This covers the basics of playing King under the Mountain. For your next challenge, aim to set up a functioning {{ROOMS.METALWORKS}} with a {{FURNITURE.FORGE}} provided with fuel and refined metal ore. Refined metal ores are produced at the {{FURNITURE.ORE_CRUSHING_STATION}}, and fuel can be crushed from coal or produced out of {{MATERIAL_TYPE.WOOD.ADJECTIVE}} {{RESOURCE.LOGS.PLURAL}} with a {{FURNITURE.CHARCOAL_CLAMP}} in the {{ROOMS.FUEL_REFINERY}}. Good luck!"
 TUTORIAL.PROGRESS_DESCRIPTION.FARM_PLOT_SELECTIONS,Used to show a progress indicator for how many farm plots have a crop selected e.g. 2 of 10 farm plots with a crop assigned,{{ROOMS.FARM.PLURAL}} with a crop assigned
 TUTORIAL.PROGRESS_DESCRIPTION.PROFESSIONS_ASSIGNED,Used to show a progress indicator for how many of a certain profession have been assigned e.g. 2 of 10 farmers assigned,{{professionPlural}} assigned
@@ -1617,13 +1633,13 @@ VEGETABLE.WHEAT.PLURAL,,Wheat
 VEGETABLE.WHEAT.USAGE,,used to bake bread
 VEGETABLE.WHEAT.TOOLTIP,,"A cereal grain generally used for the production of bread. It can survive {{SEASON.WINTER}} but takes a while to grow, so it is either planted in {{SEASON.SPRING}} or {{SEASON.AUTUMN}}."
 
-VEHICLE.DESCRIPTION,E.g. 'Wagon',{{materialType.adjective}} {{vehicleType.noun}}
+VEHICLE.DESCRIPTION,E.g. “Wagon”,{{materialType.adjective}} {{vehicleType.noun}}
 
 VITRIOL.GREEN_VITRIOL.ADJECTIVE,,Green
 VITRIOL.GREEN_VITRIOL.NOUN,,Green
 VITRIOL.GREEN_VITRIOL.TOOLTIP,,"Also known as iron sulfate, this salt has several uses, including as a soil additive to improve crop farming. (Usages of vitriol are not yet implemented in King under the Mountain)"
 
-WALL.DESCRIPTION,"E.g. 'Granite rock wall', 'Granite smooth stone wall'",{{materialType.adjective}} {{wallType.noun}}
+WALL.DESCRIPTION,"E.g. “Granite rock wall”, “Granite smooth stone wall”",{{materialType.adjective}} {{wallType.noun}}
 WALL.GEMS.NOUN,,Gems
 WALL.ORE.NOUN,,Ore
 WALL.ROUGH_STONE.NOUN,,Rock wall

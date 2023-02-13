@@ -15,6 +15,7 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.i18n.I18nWordClass;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
+import technology.rocketjump.saul.ui.widgets.crafting.CraftingHintWidgetFactory;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedString;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringFactory;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabel;
@@ -39,16 +40,17 @@ public class ConstructionRequirementWidget extends Table {
 	private final Table tooltipTable;
 	private final EntityDrawable entityDrawable;
 	private final GameContext gameContext;
+	private final CraftingHintWidgetFactory craftingHintWidgetFactory;
 	private final DecoratedStringFactory decoratedStringFactory;
 	private final DecoratedStringLabelFactory decoratedStringLabelFactory;
 
 	private Label label;
 
 	public ConstructionRequirementWidget(QuantifiedItemTypeWithMaterial requirement, Construction construction, Entity itemEntity,
-										 Skin skin, MessageDispatcher messageDispatcher,
-										 ItemAvailabilityChecker itemAvailabilityChecker, I18nTranslator i18nTranslator, EntityRenderer entityRenderer,
-										 TooltipFactory tooltipFactory, GameContext gameContext,
-										 DecoratedStringFactory decoratedStringFactory, DecoratedStringLabelFactory decoratedStringLabelFactory) {
+	                                     Skin skin, MessageDispatcher messageDispatcher,
+	                                     ItemAvailabilityChecker itemAvailabilityChecker, I18nTranslator i18nTranslator, EntityRenderer entityRenderer,
+	                                     TooltipFactory tooltipFactory, GameContext gameContext, CraftingHintWidgetFactory craftingHintWidgetFactory,
+	                                     DecoratedStringFactory decoratedStringFactory, DecoratedStringLabelFactory decoratedStringLabelFactory) {
 		this.requirement = requirement;
 		this.construction = construction;
 		this.skin = skin;
@@ -57,6 +59,7 @@ public class ConstructionRequirementWidget extends Table {
 		this.i18nTranslator = i18nTranslator;
 		this.itemEntity = itemEntity;
 		this.gameContext = gameContext;
+		this.craftingHintWidgetFactory = craftingHintWidgetFactory;
 		this.decoratedStringFactory = decoratedStringFactory;
 		this.decoratedStringLabelFactory = decoratedStringLabelFactory;
 
@@ -113,6 +116,13 @@ public class ConstructionRequirementWidget extends Table {
 		descriptionLabel.setWrap(true);
 		tooltipTable.add(descriptionLabel).width(700).center().row();
 
+
+		for (String hint : craftingHintWidgetFactory.getCraftingRecipeDescriptions(requirement.getItemType(), requirement.getMaterial())) {
+			Label requirementLabel = new Label(hint, skin);
+			requirementLabel.setWrap(true);
+			tooltipTable.add(requirementLabel).width(700).center().row();
+		}
+
 		DecoratedString availabilityText = decoratedStringFactory.translate("CONSTRUCTION.REQUIREMENT_ALLOCATION", Map.of(
 				"numRequired", DecoratedString.fromString(String.valueOf(requirement.getQuantity())),
 				"numAssigned", DecoratedString.fromString(String.valueOf(construction.getAllocationAmount(requirement.getItemType(), gameContext))),
@@ -121,6 +131,7 @@ public class ConstructionRequirementWidget extends Table {
 		DecoratedStringLabel decoratedStringLabel = decoratedStringLabelFactory.create(availabilityText, "default", skin);
 		tooltipTable.add(decoratedStringLabel).center().row();
 	}
+
 
 	private void updateEntity() {
 		ItemEntityAttributes attributes = (ItemEntityAttributes) itemEntity.getPhysicalEntityComponent().getAttributes();

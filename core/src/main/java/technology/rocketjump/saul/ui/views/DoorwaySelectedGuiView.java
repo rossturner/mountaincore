@@ -21,6 +21,7 @@ import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.widgets.ButtonFactory;
+import technology.rocketjump.saul.ui.widgets.crafting.CraftingHintWidgetFactory;
 import technology.rocketjump.saul.ui.widgets.furniture.ProductionExportFurnitureWidget;
 import technology.rocketjump.saul.ui.widgets.furniture.ProductionImportFurnitureWidget;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabelFactory;
@@ -38,13 +39,13 @@ public class DoorwaySelectedGuiView extends EntitySelectedGuiView {
 								  EntityRenderer entityRenderer, ButtonFactory buttonFactory, StockpileComponentUpdater stockpileComponentUpdater,
 								  StockpileGroupDictionary stockpileGroupDictionary, GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
 								  ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary,
-								  SettlerManagementScreen settlerManagementScreen,
+								  SettlerManagementScreen settlerManagementScreen, CraftingHintWidgetFactory craftingHintWidgetFactory,
 								  ProductionImportFurnitureWidget productionImportFurnitureWidget,
 								  ProductionExportFurnitureWidget productionExportFurnitureWidget) {
 
 		super(guiSkinRepository, messageDispatcher, i18nTranslator, gameInteractionStateContainer, entityStore, jobStore, jobTypeDictionary, tooltipFactory,
 				productionImportFurnitureWidget, productionExportFurnitureWidget,
-				decoratedStringLabelFactory, entityRenderer, buttonFactory, stockpileComponentUpdater, stockpileGroupDictionary, gameMaterialDictionary,
+				decoratedStringLabelFactory, entityRenderer, buttonFactory, craftingHintWidgetFactory, stockpileComponentUpdater, stockpileGroupDictionary, gameMaterialDictionary,
 				raceDictionary, itemTypeDictionary, soundAssetDictionary, settlerManagementScreen);
 	}
 

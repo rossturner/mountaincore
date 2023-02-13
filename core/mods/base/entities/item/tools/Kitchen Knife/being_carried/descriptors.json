@@ -23,7 +23,11 @@
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-B34.png",
-      "coloringLayer" : "METAL_COLOR"
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : 8.0
+      }
     },
     "UP_LEFT" : {
       "filename" : "Tool-Kitchen-Knife-Blade-Being-Carried-B34.png",
@@ -139,6 +143,9 @@
       },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "y" : -5.0
+        },
         "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ]
     },
