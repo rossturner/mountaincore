@@ -25887,7 +25887,12 @@
       "filename" : "Tool-Tongs-Extra-Being-Carried-F.png",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-down",
+          "variables" : { }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -10.0,
@@ -25903,7 +25908,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -25921,7 +25926,12 @@
       "filename" : "Tool-Tongs-Extra-Being-Carried-F34.png",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-down-right",
+          "variables" : { }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 8.0,
@@ -25937,7 +25947,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -25955,7 +25965,12 @@
       "filename" : "Tool-Tongs-Extra-Being-Carried-F34.png",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-down-left",
+          "variables" : { }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -8.0,
@@ -25971,7 +25986,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -25989,7 +26004,12 @@
       "filename" : "Tool-Tongs-Extra-Being-Carried-B.png",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-up",
+          "variables" : { }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
@@ -26005,7 +26025,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -26014,7 +26034,12 @@
       "filename" : "Tool-Tongs-Extra-Being-Carried-B34.png",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-up-right",
+          "variables" : { }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
@@ -26030,7 +26055,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -26039,7 +26064,12 @@
       "filename" : "Tool-Tongs-Extra-Being-Carried-B34.png",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-up-left",
+          "variables" : { }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -5.0,
@@ -26055,7 +26085,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]

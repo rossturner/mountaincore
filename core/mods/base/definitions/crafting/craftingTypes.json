@@ -64,7 +64,8 @@
     "i18nKey": "CRAFTING_TYPE.SMELTING",
     "professionRequiredName": "BLACKSMITH",
     "defaultItemTypeName": "Tool-Tongs",
-    "mightStartFire": 0.02
+    "mightStartFire": 0.02,
+    "workOnJobAnimation": "work_on_job_generic_wiggle"
   },
   {
     "name": "ORE_CRUSHING",
@@ -136,6 +137,7 @@
     "i18nKey": "CRAFTING_TYPE.FINE_DETAIL_CRAFTING",
     "professionRequiredName": "ARTISAN",
     "usesWorkstationTool": true,
-    "defaultItemTypeName": "Tool-Tongs"
+    "defaultItemTypeName": "Tool-Tongs",
+    "workOnJobAnimation": "work_on_job_generic_wiggle"
   }
 ]
