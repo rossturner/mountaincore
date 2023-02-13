@@ -35,6 +35,8 @@ import technology.rocketjump.saul.ui.views.RoomEditorItemMap;
 
 import java.util.Map;
 
+import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.LEFT;
+import static technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation.RIGHT;
 import static technology.rocketjump.saul.assets.entities.model.NullEntityAsset.NULL_ASSET;
 import static technology.rocketjump.saul.entities.model.EntityType.STATIC_ENTITY_TYPES;
 import static technology.rocketjump.saul.mapping.tile.roof.TileRoofState.OPEN;
@@ -161,6 +163,12 @@ public class EntityRenderer implements GameContextAware, Disposable {
 		}
 		EntityAssetOrientation orientation = entity.getLocationComponent(true).getOrientation();
 		SpriteDescriptor spriteDescriptor = asset.getSpriteDescriptors().get(orientation);
+		// Special case for entities being rendered attached to vehicles (vehicles use UP, DOWN, LEFT, RIGHT orientations)
+		if (spriteDescriptor == null && orientation.equals(LEFT)) {
+			spriteDescriptor = asset.getSpriteDescriptors().get(EntityAssetOrientation.DOWN_LEFT);
+		} else if (spriteDescriptor == null && orientation.equals(RIGHT)) {
+			spriteDescriptor = asset.getSpriteDescriptors().get(EntityAssetOrientation.DOWN_RIGHT);
+		}
 		if (spriteDescriptor == null) {
 			// FIXME no sprite descriptor when one was expected
 			return;

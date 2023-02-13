@@ -292,10 +292,13 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 						} else {
 							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
 								settlerTracker.settlerAdded(entity);
-								for (InventoryComponent.InventoryEntry inventoryEntry : entity.getComponent(InventoryComponent.class).getInventoryEntries()) {
-									add(inventoryEntry.entity);
-									if (inventoryEntry.entity.getType().equals(ITEM)) {
-										settlementItemTracker.itemAdded(inventoryEntry.entity);
+								InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
+								if (inventoryComponent != null) {
+									for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
+										add(inventoryEntry.entity);
+										if (inventoryEntry.entity.getType().equals(ITEM)) {
+											settlementItemTracker.itemAdded(inventoryEntry.entity);
+										}
 									}
 								}
 								HaulingComponent haulingComponent = entity.getComponent(HaulingComponent.class);
