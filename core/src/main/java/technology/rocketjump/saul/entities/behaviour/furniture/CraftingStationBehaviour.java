@@ -140,10 +140,13 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 				jobCompletedByEntity = null;
 
 				InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
-				ProductionExportFurnitureBehaviour exportFurnitureBehaviour = gameContext.getAreaMap().getTile(craftingAssignment.getOutputLocation()).getEntities().stream()
-						.filter(e -> e.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour)
-						.map(e -> (ProductionExportFurnitureBehaviour) e.getBehaviourComponent())
-						.findFirst().orElse(null);
+				ProductionExportFurnitureBehaviour exportFurnitureBehaviour = null;
+				if (craftingAssignment != null) {
+					exportFurnitureBehaviour = gameContext.getAreaMap().getTile(craftingAssignment.getOutputLocation()).getEntities().stream()
+							.filter(e -> e.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour)
+							.map(e -> (ProductionExportFurnitureBehaviour) e.getBehaviourComponent())
+							.findFirst().orElse(null);
+				}
 				if (exportFurnitureBehaviour != null) {
 					InventoryComponent.InventoryEntry outputEntry = inventoryComponent.findByItemTypeAndMaterial(exportFurnitureBehaviour.getSelectedItemType(), exportFurnitureBehaviour.getSelectedMaterial(), gameContext.getGameClock());
 					ItemEntityAttributes attributes = (ItemEntityAttributes) outputEntry.entity.getPhysicalEntityComponent().getAttributes();
