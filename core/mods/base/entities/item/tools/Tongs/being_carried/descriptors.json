@@ -23,7 +23,10 @@
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Tongs-Body-Being-Carried-B34.png",
-      "coloringLayer" : "METAL_COLOR"
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -4.0
+      }
     },
     "UP_LEFT" : {
       "filename" : "Tool-Tongs-Body-Being-Carried-B34.png",

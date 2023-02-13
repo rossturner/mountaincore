@@ -129,7 +129,7 @@
       "filename" : "Tool-Saw-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
       "offsetPixels" : {
-        "x" : 10.0,
+        "x" : -4.0,
         "y" : 5.0
       },
       "childAssets" : [ {
