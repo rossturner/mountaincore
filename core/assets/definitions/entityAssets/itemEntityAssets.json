@@ -24469,7 +24469,15 @@
       "filename" : "Tool-Plane-Extra-Being-Carried-F.png",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_planing" : {
+          "use" : "sawing-down",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -5.0,
@@ -24485,7 +24493,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_planing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -24503,7 +24511,15 @@
       "filename" : "Tool-Plane-Extra-Being-Carried-F34.png",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_planing" : {
+          "use" : "sawing-down-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 15.0,
@@ -24519,7 +24535,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_planing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -24537,7 +24553,15 @@
       "filename" : "Tool-Plane-Extra-Being-Carried-F34.png",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_planing" : {
+          "use" : "sawing-down-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -15.0,
@@ -24553,7 +24577,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_planing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ {
@@ -24571,7 +24595,15 @@
       "filename" : "Tool-Plane-Extra-Being-Carried-B.png",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_planing" : {
+          "use" : "sawing-up",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
@@ -24587,7 +24619,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_planing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -24596,7 +24628,15 @@
       "filename" : "Tool-Plane-Extra-Being-Carried-B34.png",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_planing" : {
+          "use" : "sawing-up-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
@@ -24612,7 +24652,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_planing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]
@@ -24621,7 +24661,15 @@
       "filename" : "Tool-Plane-Extra-Being-Carried-B34.png",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_planing" : {
+          "use" : "sawing-up-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -5.0,
@@ -24637,7 +24685,7 @@
           "y" : 0.0,
           "unit" : false
         },
-        "inheritAnimations" : [ ]
+        "inheritAnimations" : [ "work_on_job_planing" ]
       } ],
       "attachmentPoints" : [ ],
       "parentEntityAssets" : [ ]

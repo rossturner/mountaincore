@@ -14,7 +14,7 @@
     "defaultItemTypeName": "Tool-Plane",
     "constructsFurniture": "WOOD",
     "usesWorkstationTool": true,
-    "particleEffectNames": ["Wood shavings"]
+    "workOnJobAnimation": "work_on_job_planing"
   },
   {
     "name": "FLETCHING",
@@ -22,7 +22,7 @@
     "professionRequiredName": "CARPENTER",
     "defaultItemTypeName": "Tool-Plane",
     "usesWorkstationTool": true,
-    "particleEffectNames": ["Wood shavings"]
+    "workOnJobAnimation": "work_on_job_planing"
   },
   {
     "name": "STONEMASONRY",

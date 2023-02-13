@@ -29,6 +29,9 @@
         "work_on_job_construct_wooden_furniture" : {
           "use" : "right-hand-sawing-down"
         },
+        "work_on_job_planing" : {
+          "use" : "right-hand-sawing-down"
+        },
         "work_on_job_generic_wiggle" : {
           "use" : "right-hand-tool-wiggle-down"
         }
@@ -57,6 +60,9 @@
           "use" : "right-hand-sawing-down-right"
         },
         "work_on_job_construct_wooden_furniture" : {
+          "use" : "right-hand-sawing-down-right"
+        },
+        "work_on_job_planing" : {
           "use" : "right-hand-sawing-down-right"
         },
         "work_on_job_generic_wiggle" : {
