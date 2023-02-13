@@ -2,7 +2,7 @@
   "itemTypeName" : "Tool-Saw",
   "materialTypes" : [ "METAL", "WOOD" ],
   "primaryMaterialType" : "METAL",
-  "baseValuePerItem": 18,
+  "baseValuePerItem" : 18,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "WOODCUTTING", "CARPENTRY" ],
   "stockpileGroupName" : "TOOLS",
