@@ -185,7 +185,16 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 
 		if (craftingAssignment != null) {
 
-			// TODO check if assignment should be cancelled (e.g. target output changed)
+			ProductionExportFurnitureBehaviour targetExportFurniture = gameContext.getAreaMap().getTile(craftingAssignment.getOutputLocation()).getEntities().stream()
+					.filter(e -> e.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour)
+					.map(e -> (ProductionExportFurnitureBehaviour) e.getBehaviourComponent())
+					.findFirst().orElse(null);
+
+			if (!outputMatches(craftingAssignment.getTargetRecipe().getOutput(), targetExportFurniture) ||
+					!inventoryMatches(craftingAssignment.getTargetRecipe().getInput())) {
+				cancelAssignment();
+				return;
+			}
 
 			if (poweredFurnitureComponent != null) {
 				adjustPoweredCraftingDuration(gameContext, poweredFurnitureComponent);
@@ -212,6 +221,36 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		}
 
 		selectCraftingAssignment();
+	}
+
+	private boolean inventoryMatches(List<QuantifiedItemTypeWithMaterial> inputRequirements) {
+		InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
+		for (InventoryComponent.InventoryEntry inventoryEntry : inventoryComponent.getInventoryEntries()) {
+			if (inventoryEntry.entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
+				boolean matchesToARequirement = inputRequirements.stream().anyMatch(inputRequirement -> inputRequirement.getItemType().equals(itemAttributes.getItemType()) &&
+						(inputRequirement.getMaterial() == null || inputRequirement.getMaterial().equals(itemAttributes.getPrimaryMaterial())));
+				if (!matchesToARequirement) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	private boolean outputMatches(QuantifiedItemTypeWithMaterial outputItem, ProductionExportFurnitureBehaviour outputFurniture) {
+		if (outputItem.isLiquid()) {
+			// Liquid production doesn't go to an output furniture
+			return true;
+		} else if (outputFurniture != null) {
+			if (outputFurniture.getSelectedMaterial() != null && outputItem.getMaterial() != null) {
+				return outputItem.getItemType().equals(outputFurniture.getSelectedItemType()) &&
+					outputItem.getMaterial().equals(outputFurniture.getSelectedMaterial());
+			} else {
+				return outputItem.getItemType().equals(outputFurniture.getSelectedItemType());
+			}
+		} else {
+			return false;
+		}
 	}
 
 	public boolean allCraftingRequirementsInInventory() {
@@ -439,9 +478,9 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 								return importBehaviour;
 							}
 						} else {
-							if (requirement.getMaterial() != null && attributes.getPrimaryMaterial().equals(requirement.getMaterial())) {
+							if (requirement.getMaterial() == null) {
 								return importBehaviour;
-							} else {
+							} else if (requirement.getMaterial() != null && attributes.getPrimaryMaterial().equals(requirement.getMaterial())) {
 								return importBehaviour;
 							}
 						}
@@ -775,12 +814,13 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 			}
 			descriptions.add(i18nTranslator.getTranslatedWordWithReplacements("ACTION.JOB.CREATE_GENERIC",
 					ImmutableMap.of("targetDescription", targetDescription)));
-		}
-		if (requiresExtraTime) {
-			Double totalExtraHours = craftingAssignment.getTargetRecipe().getExtraGameHoursToComplete();
-			double progress = (totalExtraHours - (extraTimeToProcess == null ? totalExtraHours : extraTimeToProcess)) / totalExtraHours;
-			descriptions.add(i18nTranslator.getTranslatedWordWithReplacements("FURNITURE.DESCRIPTION.GENERIC_PROGRESS",
-					ImmutableMap.of("progress", new I18nWord(oneDecimalFormat.format(100f * progress)))));
+
+			if (requiresExtraTime) {
+				Double totalExtraHours = craftingAssignment.getTargetRecipe().getExtraGameHoursToComplete();
+				double progress = (totalExtraHours - (extraTimeToProcess == null ? totalExtraHours : extraTimeToProcess)) / totalExtraHours;
+				descriptions.add(i18nTranslator.getTranslatedWordWithReplacements("FURNITURE.DESCRIPTION.GENERIC_PROGRESS",
+						ImmutableMap.of("progress", new I18nWord(oneDecimalFormat.format(100f * progress)))));
+			}
 		}
 		return descriptions;
 	}
