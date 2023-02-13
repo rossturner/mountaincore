@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
@@ -54,11 +56,13 @@ public class JobRequestHandler implements Updatable, Telegraph, Disposable {
 		switch (msg.message) {
 			case MessageType.JOB_REQUESTED: {
 				JobRequestMessage jobRequestMessage = (JobRequestMessage) msg.extraInfo;
-				gameContext.getJobRequestQueue().addLast(jobRequestMessage);
+				if (jobRequestMessage.getRequestingEntity().getComponent(FactionComponent.class).getFaction().equals(Faction.SETTLEMENT)) {
+					gameContext.getJobRequestQueue().addLast(jobRequestMessage);
+				}
 				return true;
 			}
 			default:
-				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.toString() + ", " + msg.toString());
+				throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this + ", " + msg);
 		}
 	}
 

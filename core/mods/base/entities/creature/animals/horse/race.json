@@ -13,8 +13,8 @@
     "SKIN_COLOR" : {
       "swatch" : "horse-skin-swatch.png"
     },
-    "MARKING_COLOR": {
-      "swatch": "horse-nose-and-spots-swatch.png"
+    "MARKING_COLOR" : {
+      "swatch" : "horse-nose-and-spots-swatch.png"
     }
   },
   "behaviour" : {
