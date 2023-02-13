@@ -41,7 +41,7 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 	}
 
 	public void settlerAdded(Entity entity) {
-		if (entity.getLocationComponent().isUntracked()) {
+		if (entity.getLocationComponent(true).isUntracked()) {
 			return;
 		}
 
@@ -101,7 +101,7 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 				LocateSettlersMessage message = (LocateSettlersMessage) msg.extraInfo;
 				List<Entity> foundSettlers = livingSettlers.values().stream()
 						.filter(entity -> {
-							Vector2 worldPosition = entity.getLocationComponent().getWorldOrParentPosition();
+							Vector2 worldPosition = entity.getLocationComponent(true).getWorldOrParentPosition();
 							MapTile mapTile = gameContext.getAreaMap().getTile(worldPosition);
 							if (mapTile != null) {
 								return mapTile.getRegionId() == message.regionId;

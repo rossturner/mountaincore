@@ -220,7 +220,7 @@ public class MechanismsViewModeRenderer {
 	private void renderPlacingEntity(int x, int y, MechanismType mechanismType, Batch spriteBatch, Color color) {
 		mechanismConstructionAttributes.setMechanismType(mechanismType);
 		entityAssetUpdater.updateEntityAssets(mechanismConstructionEntity);
-		mechanismConstructionEntity.getLocationComponent().setWorldPosition(new Vector2(x + 0.5f, y + 0.5f), false, false);
+		mechanismConstructionEntity.getLocationComponent(true).setWorldPosition(new Vector2(x + 0.5f, y + 0.5f), false, false);
 
 		entityRenderer.render(mechanismConstructionEntity, spriteBatch, RenderMode.DIFFUSE, null, color, null);
 	}

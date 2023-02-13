@@ -67,7 +67,7 @@ public class CollectItemFurnitureBehaviour extends FurnitureBehaviour implements
 			ItemTypeWithMaterial potentialItemTypeWithMaterial = itemsToCollect.get(gameContext.getRandom().nextInt(itemsToCollect.size()));
 			if (allowDuplicates || !inventoryAssignments.contains(potentialItemTypeWithMaterial)) {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
-						parentEntity, parentEntity.getLocationComponent().getWorldOrParentPosition(), potentialItemTypeWithMaterial.getItemType(), potentialItemTypeWithMaterial.getMaterial(),
+						parentEntity, parentEntity.getLocationComponent(true).getWorldOrParentPosition(), potentialItemTypeWithMaterial.getItemType(), potentialItemTypeWithMaterial.getMaterial(),
 						includeFromFurniture, null, null, allocation -> {
 							if (allocation != null) {
 								createHaulingJobForAllocation(potentialItemTypeWithMaterial, allocation);

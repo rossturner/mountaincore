@@ -123,7 +123,7 @@ public class FishingManager implements Updatable, Telegraph {
 		}
 
 		if (fisherSettler != null) {
-			MapTile location = gameContext.getAreaMap().getTile(fisherSettler.getLocationComponent().getWorldOrParentPosition());
+			MapTile location = gameContext.getAreaMap().getTile(fisherSettler.getLocationComponent(true).getWorldOrParentPosition());
 			int regionId = location.getRegionId();
 
 			List<Zone> zonesInRegion = new ArrayList<>(gameContext.getAreaMap().getZonesInRegion(regionId));

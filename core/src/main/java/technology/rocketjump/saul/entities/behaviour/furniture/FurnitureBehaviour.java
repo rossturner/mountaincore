@@ -48,7 +48,7 @@ public class FurnitureBehaviour implements BehaviourComponent {
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		this.locationComponent = parentEntity.getLocationComponent();
+		this.locationComponent = parentEntity.getLocationComponent(true);
 		this.messageDispatcher = messageDispatcher;
 		this.parentEntity = parentEntity;
 		this.gameContext = gameContext;

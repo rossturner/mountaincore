@@ -177,7 +177,7 @@ public class KitchenManager implements Telegraph, Updatable {
 			haulingJob.setHaulingAllocation(HaulingAllocationBuilder.createWithItemAllocation(itemAllocationComponent.getNumUnallocated(), matchingEntity, construction.getEntity())
 					.toConstruction(construction));
 
-			haulingJob.setJobLocation(toGridPoint(matchingEntity.getLocationComponent().getWorldOrParentPosition()));
+			haulingJob.setJobLocation(toGridPoint(matchingEntity.getLocationComponent(true).getWorldOrParentPosition()));
 		} else {
 			Logger.error("Unrecognised entity type in " + this.getClass().getSimpleName());
 			return null;

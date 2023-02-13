@@ -30,7 +30,7 @@ public class CreateCampfireAction extends Action {
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
-		MapTile targetTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldOrParentPosition());
+		MapTile targetTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition());
 		if (targetTile != null && targetTile.isEmpty()) {
 			parent.messageDispatcher.dispatchMessage(MessageType.LOOKUP_FURNITURE_TYPE, new LookupFurnitureMessage(CAMPFIRE_FURNITURE_TYPE_NAME, furnitureType -> {
 				if (furnitureType != null) {

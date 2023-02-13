@@ -40,7 +40,7 @@ public class RollAroundAction extends Action {
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
 		if (targetTilePosition == null) {
-			GridPoint2 parentTileLocation = toGridPoint(parent.parentEntity.getLocationComponent().getWorldOrParentPosition());
+			GridPoint2 parentTileLocation = toGridPoint(parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition());
 			List<CompassDirection> directions = new ArrayList<>(List.of(CompassDirection.values()));
 			Collections.shuffle(directions, gameContext.getRandom());
 			for (CompassDirection direction : directions) {
@@ -62,9 +62,9 @@ public class RollAroundAction extends Action {
 
 
 			if (gameContext.getRandom().nextBoolean()) {
-				parent.parentEntity.getLocationComponent().setRotation(80f + (gameContext.getRandom().nextFloat() * 20f));
+				parent.parentEntity.getLocationComponent(true).setRotation(80f + (gameContext.getRandom().nextFloat() * 20f));
 			} else {
-				parent.parentEntity.getLocationComponent().setRotation(260f + (gameContext.getRandom().nextFloat() * 20f));
+				parent.parentEntity.getLocationComponent(true).setRotation(260f + (gameContext.getRandom().nextFloat() * 20f));
 			}
 		}
 
@@ -74,16 +74,16 @@ public class RollAroundAction extends Action {
 
 		Vector2 newFacing = new Vector2(0, 1);
 		float rotation = spinAmount * 360;
-		if (parent.parentEntity.getLocationComponent().getLinearVelocity().y > 0) {
+		if (parent.parentEntity.getLocationComponent(true).getLinearVelocity().y > 0) {
 			// This is so the roll happens in a realistic direction
 			rotation = 360 - rotation;
 		}
 		newFacing.rotate(rotation);
 
-		parent.parentEntity.getLocationComponent().setFacing(newFacing);
+		parent.parentEntity.getLocationComponent(true).setFacing(newFacing);
 
 		if (reachedTarget() || timeElapsed > MAX_SECONDS_TO_ROLL_FOR) {
-			parent.parentEntity.getLocationComponent().setRotation(0);
+			parent.parentEntity.getLocationComponent(true).setRotation(0);
 			parent.parentEntity.getBehaviourComponent().getSteeringComponent().destinationReached();
 
 			if (gameContext.getRandom().nextFloat() < CHANCE_TO_PUT_OUT_FIRE) {
@@ -96,7 +96,7 @@ public class RollAroundAction extends Action {
 	}
 
 	private boolean reachedTarget() {
-		LocationComponent locationComponent = parent.parentEntity.getLocationComponent();
+		LocationComponent locationComponent = parent.parentEntity.getLocationComponent(true);
 		Vector2 targetPosition = toVector(targetTilePosition);
 		return (Math.abs(locationComponent.getWorldPosition().x - targetPosition.x) < WAYPOINT_TOLERANCE &&
 				Math.abs(locationComponent.getWorldPosition().y - targetPosition.y) < WAYPOINT_TOLERANCE);

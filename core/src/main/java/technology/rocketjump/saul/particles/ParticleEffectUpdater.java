@@ -141,7 +141,7 @@ public class ParticleEffectUpdater implements Telegraph, GameContextAware {
 		}
 		if (particleRequestMessage.parentEntity.isPresent()) {
 			Entity parentEntity = particleRequestMessage.parentEntity.get();
-			Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
+			Vector2 parentPosition = parentEntity.getLocationComponent(true).getWorldOrParentPosition();
 			if (insideBounds(parentPosition)) {
 				ParticleEffectInstance instance = store.create(particleRequestMessage.type, parentEntity, targetColor);
 				if (instance != null) {
@@ -163,7 +163,7 @@ public class ParticleEffectUpdater implements Telegraph, GameContextAware {
 
 		} else if (particleRequestMessage.effectTarget.isPresent() && particleRequestMessage.effectTarget.get().type.equals(JobTarget.JobTargetType.ENTITY)) {
 			// Target is entity but parentEntity is null, probably deleting parent entity, so attach to tile
-			Vector2 position = particleRequestMessage.effectTarget.get().getEntity().getLocationComponent().getWorldOrParentPosition();
+			Vector2 position = particleRequestMessage.effectTarget.get().getEntity().getLocationComponent(true).getWorldOrParentPosition();
 			MapTile targetTile = gameContext.getAreaMap().getTile(position);
 			if (insideBounds(position)) {
 				ParticleEffectInstance instance = store.create(particleRequestMessage.type, targetTile, targetColor);

@@ -40,7 +40,7 @@ public class SelectItemToStealAction extends Action implements ItemTypeLookupCal
 
 			for (ItemType itemType : itemTypes) {
 				parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
-						parent.parentEntity, parent.parentEntity.getLocationComponent().getWorldOrParentPosition(), itemType,
+						parent.parentEntity, parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition(), itemType,
 						null, true, itemType.getMaxStackSize(), null, this));
 
 				if (foundAllocation != null) {

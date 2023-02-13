@@ -52,7 +52,7 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 		this.parentEntity = parentEntity;
 		HOURS_TO_FULLY_DECAY = gameContext.getConstantsRepo().getWorldConstants().getCorpseDecayHours();
 		FULLY_DECAYED_COLOR = gameContext.getConstantsRepo().getWorldConstants().getCorpseDecayColorInstance();
-		steeringComponent.init(parentEntity, gameContext.getAreaMap(), parentEntity.getLocationComponent(), messageDispatcher);
+		steeringComponent.init(parentEntity, gameContext.getAreaMap(), messageDispatcher);
 	}
 
 	@Override
@@ -70,9 +70,9 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 			itemAllocationComponent.init(parentEntity, messageDispatcher, gameContext);
 			parentEntity.addComponent(itemAllocationComponent);
 		}
-		if (parentEntity.getLocationComponent().getWorldPosition() != null && itemAllocationComponent.getNumUnallocated() > 0) {
+		if (parentEntity.getLocationComponent(true).getWorldPosition() != null && itemAllocationComponent.getNumUnallocated() > 0) {
 			// Is unallocated
-			MapTile tile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
+			MapTile tile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
 			if (tile != null) {
 				boolean inStockpile = false;
 				if (tile.getRoomTile() != null) {

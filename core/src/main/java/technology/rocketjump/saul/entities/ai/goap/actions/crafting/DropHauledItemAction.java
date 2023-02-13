@@ -25,7 +25,7 @@ public class DropHauledItemAction extends Action {
 		HaulingAllocation haulingAllocation = parent.getAssignedHaulingAllocation();
 		haulingAllocation.setTargetId(parent.parentEntity.getComponent(HaulingComponent.class).getHauledEntity().getId());
 		haulingAllocation.setTargetPositionType(HaulingAllocation.AllocationPositionType.FLOOR);
-		haulingAllocation.setTargetPosition(toGridPoint(parent.parentEntity.getLocationComponent().getWorldOrParentPosition()));
+		haulingAllocation.setTargetPosition(toGridPoint(parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition()));
 
 		PlaceEntityAction subAction = new PlaceEntityAction(parent);
 		subAction.update(deltaTime, gameContext);

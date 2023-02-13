@@ -34,16 +34,16 @@ public class AttachedEntitiesComponent implements ParentDependentEntityComponent
 
 	public void addAttachedEntity(Entity other) {
 		attachedEntities.add(new AttachedEntity(other, ItemHoldPosition.UNSPECIFIED));
-		other.getLocationComponent().setContainerEntity(parentEntity);
-		other.getLocationComponent().setWorldPosition(null, false);
-		other.getLocationComponent().setOrientation(parentEntity.getLocationComponent().getOrientation());
+		other.getLocationComponent(false).setContainerEntity(parentEntity);
+		other.getLocationComponent(false).setWorldPosition(null, false);
+		other.getLocationComponent(false).setOrientation(parentEntity.getLocationComponent(true).getOrientation());
 	}
 
 	public void addAttachedEntity(Entity other, ItemHoldPosition position) {
 		attachedEntities.add(new AttachedEntity(other, position));
-		other.getLocationComponent().setContainerEntity(parentEntity);
-		other.getLocationComponent().setWorldPosition(null, false);
-		other.getLocationComponent().setOrientation(parentEntity.getLocationComponent().getOrientation());
+		other.getLocationComponent(false).setContainerEntity(parentEntity);
+		other.getLocationComponent(false).setWorldPosition(null, false);
+		other.getLocationComponent(false).setOrientation(parentEntity.getLocationComponent(true).getOrientation());
 	}
 
 	public List<AttachedEntity> getAttachedEntities() {

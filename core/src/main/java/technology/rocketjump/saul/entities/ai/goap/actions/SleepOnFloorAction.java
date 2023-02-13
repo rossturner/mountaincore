@@ -59,7 +59,7 @@ public class SleepOnFloorAction extends Action {
 		if (happinessComponent != null) {
 			happinessComponent.add(SLEPT_ON_GROUND);
 
-			MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldPosition());
+			MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent(true).getWorldPosition());
 			if (currentTile != null && currentTile.hasRoom() && currentTile.getRoomTile().getRoom().isFullyEnclosed()) {
 				happinessComponent.add(SLEPT_IN_ENCLOSED_BEDROOM);
 			}
@@ -84,7 +84,7 @@ public class SleepOnFloorAction extends Action {
 	}
 
 	protected void checkForWakingUp(GameContext gameContext) {
-		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldOrParentPosition());
+		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition());
 		if (currentTile == null) {
 			currentTile = NULL_TILE;
 		}
@@ -147,7 +147,7 @@ public class SleepOnFloorAction extends Action {
 
 	public static void changeToConsciousnessOnFloor(Entity entity, Consciousness consciousness,
 													GameContext gameContext, MessageDispatcher messageDispatcher) {
-		entity.getLocationComponent().setLinearVelocity(Vector2.Zero);
+		entity.getLocationComponent(true).setLinearVelocity(Vector2.Zero);
 		entity.getBehaviourComponent().getSteeringComponent().destinationReached();
 
 		Race race = ((CreatureEntityAttributes) entity.getPhysicalEntityComponent().getAttributes()).getRace();
@@ -165,19 +165,19 @@ public class SleepOnFloorAction extends Action {
 
 	public static void showAsRotatedOnSide(Entity entity, GameContext gameContext) {
 		if (gameContext.getRandom().nextBoolean()) {
-			entity.getLocationComponent().setRotation(80f + (gameContext.getRandom().nextFloat() * 20f));
+			entity.getLocationComponent(true).setRotation(80f + (gameContext.getRandom().nextFloat() * 20f));
 			if (gameContext.getRandom().nextBoolean()) {
-				entity.getLocationComponent().setFacing(DOWN_LEFT.toVector2());
+				entity.getLocationComponent(true).setFacing(DOWN_LEFT.toVector2());
 			} else {
-				entity.getLocationComponent().setFacing(DOWN.toVector2());
+				entity.getLocationComponent(true).setFacing(DOWN.toVector2());
 			}
 
 		} else {
-			entity.getLocationComponent().setRotation(260f + (gameContext.getRandom().nextFloat() * 20f));
+			entity.getLocationComponent(true).setRotation(260f + (gameContext.getRandom().nextFloat() * 20f));
 			if (gameContext.getRandom().nextBoolean()) {
-				entity.getLocationComponent().setFacing(DOWN_RIGHT.toVector2());
+				entity.getLocationComponent(true).setFacing(DOWN_RIGHT.toVector2());
 			} else {
-				entity.getLocationComponent().setFacing(DOWN.toVector2());
+				entity.getLocationComponent(true).setFacing(DOWN.toVector2());
 			}
 		}
 	}
@@ -186,7 +186,7 @@ public class SleepOnFloorAction extends Action {
 		CreatureEntityAttributes attributes = (CreatureEntityAttributes) parent.parentEntity.getPhysicalEntityComponent().getAttributes();
 
 		// Stop rotation
-		parent.parentEntity.getLocationComponent().setRotation(0);
+		parent.parentEntity.getLocationComponent(true).setRotation(0);
 
 		attributes.setConsciousness(Consciousness.AWAKE);
 		if (parent.parentEntity.isSettler()) {

@@ -182,7 +182,7 @@ public class GameMapConverter {
 		for (Entity replacerPlant : plantsThatReplaceAllInRegion) {
 			PlantSpecies replacementSpecies = ((PlantEntityAttributes)replacerPlant.getPhysicalEntityComponent().getAttributes()).getSpecies();
 			int numToReplace = replacementSpecies.getReplacesOtherPlantsInRegion();
-			MapTile originTile = targetMap.getTile(replacerPlant.getLocationComponent().getWorldPosition());
+			MapTile originTile = targetMap.getTile(replacerPlant.getLocationComponent(true).getWorldPosition());
 			GameMapTile sourceMapTile = generatedSourceMap.get(originTile.getTileX(), originTile.getTileY());
 
 			List<GameMapTile> regionTiles = new ArrayList<>(sourceMapTile.getSubRegion().getTiles());

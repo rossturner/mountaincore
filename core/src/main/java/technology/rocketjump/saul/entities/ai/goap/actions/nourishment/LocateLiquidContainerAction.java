@@ -41,7 +41,7 @@ public class LocateLiquidContainerAction extends Action implements RequestHaulin
 
 		for (ItemType itemType : itemTypes) {
 			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
-					parent.parentEntity, parent.parentEntity.getLocationComponent().getWorldOrParentPosition(),
+					parent.parentEntity, parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition(),
 					itemType, null, false, 1,
 					null, this));
 

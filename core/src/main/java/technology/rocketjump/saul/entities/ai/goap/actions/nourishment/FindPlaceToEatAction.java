@@ -31,7 +31,7 @@ public class FindPlaceToEatAction extends Action {
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
-		Vector2 parentPosition = parent.parentEntity.getLocationComponent().getWorldOrParentPosition();
+		Vector2 parentPosition = parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition();
 		MapTile parentTile = gameContext.getAreaMap().getTile(parentPosition);
 		if (parentTile == null || parentTile.getRoomTile() == null) {
 			completionType = FAILURE;

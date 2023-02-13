@@ -145,7 +145,7 @@ public class Selectable implements Comparable<Selectable> {
 
 	public Vector2 getPosition() {
 		return switch (type) {
-			case ENTITY -> entity.getLocationComponent().getWorldOrParentPosition();
+			case ENTITY -> entity.getLocationComponent(true).getWorldOrParentPosition();
 			case CONSTRUCTION -> toVector(construction.getPrimaryLocation());
 			case DOORWAY -> toVector(doorway.getTileLocation());
 			case BRIDGE -> bridge.getAvgWorldPosition();

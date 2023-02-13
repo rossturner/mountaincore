@@ -157,7 +157,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 					haulingJob.setJobPriority(getPriority());
 					haulingJob.setJobState(ASSIGNABLE);
 					haulingJob.setTargetId(outputEntry.entity.getId());
-					haulingJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
+					haulingJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent(true).getWorldOrParentPosition()));
 					updateJobLocationIfNotNavigable(haulingJob);
 					messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, haulingJob);
 				}
@@ -314,9 +314,9 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		}
 
 		if (craftingRecipe.getOutput().isLiquid()) {
-			craftingAssignment.setOutputLocation(toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
+			craftingAssignment.setOutputLocation(toGridPoint(parentEntity.getLocationComponent(true).getWorldOrParentPosition()));
 		} else {
-			craftingAssignment.setOutputLocation(toGridPoint(exportFurnitureBehaviour.getParentEntity().getLocationComponent().getWorldOrParentPosition()));
+			craftingAssignment.setOutputLocation(toGridPoint(exportFurnitureBehaviour.getParentEntity().getLocationComponent(true).getWorldOrParentPosition()));
 			exportFurnitureBehaviour.getPendingAssignments().add(craftingAssignment);
 		}
 
@@ -329,13 +329,13 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 		ItemType itemTypeRequired = Optional.ofNullable(craftingRecipe.getItemTypeRequired()).orElse(craftingRecipe.getCraftingType().getDefaultItemType());
 		craftingJob.setRequiredItemType(itemTypeRequired);
 		craftingJob.setRequiredProfession(craftingType.getProfessionRequired());
-		craftingJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
+		craftingJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent(true).getWorldOrParentPosition()));
 		updateJobLocationIfNotNavigable(craftingAssignment.getCraftingJob());
 		messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, craftingJob);
 	}
 
 	private List<ProductionImportFurnitureBehaviour> allImportFurniture() {
-		MapTile mapTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
+		MapTile mapTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
 		if (mapTile.getRoomTile() == null) {
 			Logger.error("{} for {} is not in a room", getClass().getSimpleName(), parentEntity);
 			return List.of();
@@ -354,7 +354,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	private List<LiquidContainerComponent> allLiquidContainers() {
-		MapTile mapTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
+		MapTile mapTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
 		if (mapTile.getRoomTile() == null) {
 			Logger.error("{} for {} is not in a room", getClass().getSimpleName(), parentEntity);
 			return List.of();
@@ -370,7 +370,7 @@ public class CraftingStationBehaviour extends FurnitureBehaviour
 	}
 
 	private List<ProductionExportFurnitureBehaviour> allExportFurniture() {
-		MapTile mapTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
+		MapTile mapTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
 		if (mapTile.getRoomTile() == null) {
 			Logger.error("{} for {} is not in a room", getClass().getSimpleName(), parentEntity);
 			return List.of();

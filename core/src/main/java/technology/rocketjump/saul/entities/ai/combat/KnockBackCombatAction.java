@@ -31,18 +31,18 @@ public class KnockBackCombatAction extends DefensiveCombatAction {
 
 		parentEntity.getBehaviourComponent().getSteeringComponent().destinationReached();
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
-		combatStateComponent.setHeldLocation(toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
+		combatStateComponent.setHeldLocation(toGridPoint(parentEntity.getLocationComponent(true).getWorldPosition()));
 
 		// Don't steer, just change location so we don't turn/face away
-		Vector2 currentLocation = parentEntity.getLocationComponent().getWorldOrParentPosition();
-		Vector2 moveThisFrame = targetLocation.cpy().sub(currentLocation).nor().scl(parentEntity.getLocationComponent().getMaxLinearSpeed()).scl(deltaTime);
+		Vector2 currentLocation = parentEntity.getLocationComponent(true).getWorldOrParentPosition();
+		Vector2 moveThisFrame = targetLocation.cpy().sub(currentLocation).nor().scl(parentEntity.getLocationComponent(true).getMaxLinearSpeed()).scl(deltaTime);
 
 		if (moveThisFrame.len2() > currentLocation.dst2(targetLocation)) {
 			// Going to move past target
-			parentEntity.getLocationComponent().setWorldPosition(targetLocation, false);
+			parentEntity.getLocationComponent(true).setWorldPosition(targetLocation, false);
 			completed = true;
 		} else {
-			parentEntity.getLocationComponent().setWorldPosition(currentLocation.cpy().add(moveThisFrame), false);
+			parentEntity.getLocationComponent(true).setWorldPosition(currentLocation.cpy().add(moveThisFrame), false);
 		}
 	}
 

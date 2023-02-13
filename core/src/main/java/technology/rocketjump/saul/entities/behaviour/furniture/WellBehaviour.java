@@ -30,7 +30,7 @@ public class WellBehaviour extends FurnitureBehaviour implements Destructible {
 
 	@Override
 	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
+		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
 		if (parentTile != null) {
 			UnderTile underTile = parentTile.getOrCreateUnderTile();
 			underTile.setLiquidConsumer(false);
@@ -47,7 +47,7 @@ public class WellBehaviour extends FurnitureBehaviour implements Destructible {
 			return;
 		}
 
-		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
+		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
 		if (parentTile != null) {
 			UnderTile underTile = parentTile.getOrCreateUnderTile();
 			underTile.setLiquidConsumer(true);

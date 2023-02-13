@@ -23,7 +23,7 @@ public class WaterPumpBehaviour extends FurnitureBehaviour implements Destructib
 		if (poweredFurnitureComponent != null) {
 			poweredFurnitureComponent.update(deltaTime, gameContext);
 
-			MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
+			MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
 			if (parentTile != null) {
 				UnderTile underTile = parentTile.getOrCreateUnderTile();
 				underTile.setLiquidSource(true);
@@ -48,7 +48,7 @@ public class WaterPumpBehaviour extends FurnitureBehaviour implements Destructib
 
 	@Override
 	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
+		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
 		if (parentTile != null) {
 			UnderTile underTile = parentTile.getUnderTile();
 			if (underTile != null) {

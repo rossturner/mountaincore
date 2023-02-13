@@ -83,23 +83,23 @@ public class MilitaryOrdersRenderer {
 			GridPoint2 formationPosition = squad.getFormation().getFormationPosition(cursor, centralLocation, gameContext, squad.getMemberEntityIds().size());
 			if (formationPosition != null && boundingBox.contains(formationPosition)) {
 				Entity squadMember = gameContext.getEntities().get(squad.getMemberEntityIds().get(cursor));
-				Vector2 currentWorldPosition = squadMember.getLocationComponent().getWorldPosition();
-				Vector2 currentFacing = squadMember.getLocationComponent().getFacing();
-				float currentRotation = squadMember.getLocationComponent().getRotation();
+				Vector2 currentWorldPosition = squadMember.getLocationComponent(true).getWorldPosition();
+				Vector2 currentFacing = squadMember.getLocationComponent(true).getFacing();
+				float currentRotation = squadMember.getLocationComponent(true).getRotation();
 
 				if (currentWorldPosition != null && !sameTile(formationPosition, currentWorldPosition)) {
-					squadMember.getLocationComponent().setWorldPosition(toVector(formationPosition), false, false);
-					squadMember.getLocationComponent().setFacing(EntityAssetOrientation.DOWN.toVector2());
-					squadMember.getLocationComponent().setRotation(0);
+					squadMember.getLocationComponent(true).setWorldPosition(toVector(formationPosition), false, false);
+					squadMember.getLocationComponent(true).setFacing(EntityAssetOrientation.DOWN.toVector2());
+					squadMember.getLocationComponent(true).setRotation(0);
 
 					MapTile formationTile = gameContext.getAreaMap().getTile(formationPosition);
 					overrideColor = formationTile.isNavigable(squadMember) ? overrideColor : HexColors.NEGATIVE_COLOR;
 
 					entityRenderer.render(squadMember, greyscaleSpriteBatch, RenderMode.DIFFUSE, null, overrideColor, null);
 
-					squadMember.getLocationComponent().setRotation(currentRotation);
-					squadMember.getLocationComponent().setFacing(currentFacing);
-					squadMember.getLocationComponent().setWorldPosition(currentWorldPosition, false, false);
+					squadMember.getLocationComponent(true).setRotation(currentRotation);
+					squadMember.getLocationComponent(true).setFacing(currentFacing);
+					squadMember.getLocationComponent(true).setWorldPosition(currentWorldPosition, false, false);
 				}
 			}
 		}

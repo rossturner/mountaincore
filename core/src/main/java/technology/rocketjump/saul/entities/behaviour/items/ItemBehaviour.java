@@ -32,7 +32,7 @@ public class ItemBehaviour implements BehaviourComponent {
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		this.locationComponent = parentEntity.getLocationComponent();
+		this.locationComponent = parentEntity.getLocationComponent(true);
 		this.messageDispatcher = messageDispatcher;
 		this.parentEntity = parentEntity;
 		this.gameContext = gameContext;
@@ -81,7 +81,7 @@ public class ItemBehaviour implements BehaviourComponent {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_ENTITY_HAULING, new RequestHaulingMessage(parentEntity, parentEntity, false, JobPriority.NORMAL, null));
 			}
 
-			Entity container = parentEntity.getLocationComponent().getContainerEntity();
+			Entity container = parentEntity.getLocationComponent(true).getContainerEntity();
 			if (container != null) {
 				boolean forceRemoval = false;
 				if (container.getComponent(FurnitureStockpileComponent.class) != null) {

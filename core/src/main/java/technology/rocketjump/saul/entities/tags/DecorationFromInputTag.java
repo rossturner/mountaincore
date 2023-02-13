@@ -44,7 +44,7 @@ public class DecorationFromInputTag extends Tag {
 				Entity match = getMatching(itemType, itemsRemovedFromConstruction);
 				if (match != null) {
 					Entity cloned = match.clone(messageDispatcher, gameContext);
-					cloned.getLocationComponent().setUntracked(true);
+					cloned.getLocationComponent(true).setUntracked(true);
 					decorationInventoryComponent.add(cloned);
 				} else {
 					Logger.error("Could not find matching " + itemType.getItemTypeName() + " while processing " + this.getClass().getSimpleName());

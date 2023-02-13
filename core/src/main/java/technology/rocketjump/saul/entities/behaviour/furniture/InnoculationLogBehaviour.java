@@ -114,7 +114,7 @@ public class InnoculationLogBehaviour extends FurnitureBehaviour implements Dest
 			case WAITING_TO_ASSIGN_MUSHROOM_SPAWN: {
 				// Try to requestAllocation mushroom spawn to this item
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
-						parentEntity, parentEntity.getLocationComponent().getWorldOrParentPosition(), getRelatedItemType(), null,
+						parentEntity, parentEntity.getLocationComponent(true).getWorldOrParentPosition(), getRelatedItemType(), null,
 						false, 1, null, allocation -> {
 					if (allocation != null) {
 						createHaulingJob(allocation);
@@ -193,7 +193,7 @@ public class InnoculationLogBehaviour extends FurnitureBehaviour implements Dest
 		innoculationJob = new Job(innoculationJobType);
 		innoculationJob.setJobPriority(priority);
 		innoculationJob.setTargetId(parentEntity.getId());
-		innoculationJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
+		innoculationJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent(true).getWorldPosition()));
 		messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, innoculationJob);
 
 		this.state = WAITING_FOR_INNOCULATION_JOB;

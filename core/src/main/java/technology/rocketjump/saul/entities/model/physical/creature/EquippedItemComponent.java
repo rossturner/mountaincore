@@ -179,11 +179,11 @@ public class EquippedItemComponent implements EntityComponent {
 	}
 
 	private void setContainerAndItemAllocations(Entity itemToEquip, Entity parentEntity, MessageDispatcher messageDispatcher) {
-		itemToEquip.getLocationComponent().setContainerEntity(parentEntity);
+		itemToEquip.getLocationComponent(true).setContainerEntity(parentEntity);
 
 		if (itemToEquip.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemAttributes) {
 			itemAttributes.setItemPlacement(ItemPlacement.BEING_CARRIED);
-			itemToEquip.getLocationComponent().setOrientation(parentEntity.getLocationComponent().getOrientation());
+			itemToEquip.getLocationComponent(true).setOrientation(parentEntity.getLocationComponent(true).getOrientation());
 			messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, itemToEquip);
 
 			ItemAllocationComponent itemAllocationComponent = itemToEquip.getOrCreateComponent(ItemAllocationComponent.class);
@@ -199,7 +199,7 @@ public class EquippedItemComponent implements EntityComponent {
 	}
 
 	private void clearContainerAndItemAllocations(Entity entity) {
-		entity.getLocationComponent().setContainerEntity(null);
+		entity.getLocationComponent(true).setContainerEntity(null);
 		if (entity.getType().equals(EntityType.ITEM)) {
 			ItemAllocationComponent itemAllocationComponent = entity.getOrCreateComponent(ItemAllocationComponent.class);
 			itemAllocationComponent.cancelAll(EQUIPPED);
@@ -222,13 +222,13 @@ public class EquippedItemComponent implements EntityComponent {
 	public EntityComponent clone(MessageDispatcher messageDispatcher, GameContext gameContext) {
 		EquippedItemComponent clonedComponent = new EquippedItemComponent();
 		if (mainHandItem != null) {
-			clonedComponent.setMainHandItem(mainHandItem.clone(messageDispatcher, gameContext), mainHandItem.getLocationComponent().getContainerEntity(), messageDispatcher);
+			clonedComponent.setMainHandItem(mainHandItem.clone(messageDispatcher, gameContext), mainHandItem.getLocationComponent(true).getContainerEntity(), messageDispatcher);
 		}
 		if (offHandItem != null) {
-			clonedComponent.setOffHandItem(offHandItem.clone(messageDispatcher, gameContext), offHandItem.getLocationComponent().getContainerEntity(), messageDispatcher);
+			clonedComponent.setOffHandItem(offHandItem.clone(messageDispatcher, gameContext), offHandItem.getLocationComponent(true).getContainerEntity(), messageDispatcher);
 		}
 		if (equippedClothing != null) {
-			clonedComponent.setEquippedClothing(equippedClothing.clone(messageDispatcher, gameContext), equippedClothing.getLocationComponent().getContainerEntity(), messageDispatcher);
+			clonedComponent.setEquippedClothing(equippedClothing.clone(messageDispatcher, gameContext), equippedClothing.getLocationComponent(true).getContainerEntity(), messageDispatcher);
 		}
 		clonedComponent.hideMainHandItem = this.hideMainHandItem;
 		clonedComponent.mainHandEnabled = this.mainHandEnabled;

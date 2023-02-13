@@ -84,7 +84,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		this.parentEntity = parentEntity;
 		this.messageDispatcher = messageDispatcher;
 		this.gameContext = gameContext;
-		steeringComponent.init(parentEntity, gameContext.getAreaMap(), parentEntity.getLocationComponent(), messageDispatcher);
+		steeringComponent.init(parentEntity, gameContext.getAreaMap(), messageDispatcher);
 		combatBehaviour.init(parentEntity, messageDispatcher, gameContext);
 
 		if (currentGoal != null) {
@@ -192,7 +192,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		boolean isInMilitary = militaryComponent != null && militaryComponent.isInMilitary();
 
 		if (happinessComponent != null && !isInMilitary) {
-			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
+			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
 			if (currentTile != null && currentTile.getRoof().getState().equals(TileRoofState.OPEN) &&
 					gameContext.getMapEnvironment().getCurrentWeather().getHappinessModifiers().containsKey(STANDING)) {
 				happinessComponent.add(gameContext.getMapEnvironment().getCurrentWeather().getHappinessModifiers().get(STANDING));
@@ -228,6 +228,10 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	}
 
 	protected AssignedGoal pickNextGoalFromQueue() throws EnteringCombatException {
+		if (inVehicleAndNotDriving()) {
+			return doNothingGoal(parentEntity, messageDispatcher, gameContext);
+		}
+
 		if (parentEntity.isOnFire()) {
 			return onFireGoal(parentEntity, messageDispatcher, gameContext);
 		}
@@ -387,7 +391,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		Faction myFaction = parentEntity.getOrCreateComponent(FactionComponent.class).getFaction();
 		HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
 
-		GridPoint2 parentPosition = toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition());
+		GridPoint2 parentPosition = toGridPoint(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
 		for (CompassDirection compassDirection : CompassDirection.values()) {
 			for (int distance = 1; distance <= DISTANCE_TO_LOOK_AROUND; distance++) {
 				GridPoint2 targetPosition = parentPosition.cpy().add(compassDirection.getXOffset() * distance, compassDirection.getYOffset() * distance);
@@ -434,7 +438,10 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 	}
 
 
-	//TODO: what if some creatures don't stun
+	private boolean inVehicleAndNotDriving() {
+		return parentEntity.getContainingVehicle() != null && !parentEntity.isDrivingVehicle();
+	}
+
 	public void applyStun(Random random) {
 		this.stunTime = 1f + (random.nextFloat() * 3f);
 	}

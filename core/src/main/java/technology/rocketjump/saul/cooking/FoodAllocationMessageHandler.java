@@ -164,7 +164,7 @@ public class FoodAllocationMessageHandler implements Telegraph, GameContextAware
 	}
 
 	private FoodAllocation findAvailableFeastingHallFood(Entity requestingEntity) {
-		Vector2 requesterPosition = requestingEntity.getLocationComponent().getWorldOrParentPosition();
+		Vector2 requesterPosition = requestingEntity.getLocationComponent(true).getWorldOrParentPosition();
 		MapTile requesterTile = gameContext.getAreaMap().getTile(requesterPosition);
 		if (requesterTile == null) {
 			Logger.error("Requesting food from null tile");
@@ -244,7 +244,7 @@ public class FoodAllocationMessageHandler implements Telegraph, GameContextAware
 	}
 
 	private FoodAllocation findAnyAvailableFood(Entity requestingEntity) {
-		Vector2 requesterPosition = requestingEntity.getLocationComponent().getWorldOrParentPosition();
+		Vector2 requesterPosition = requestingEntity.getLocationComponent(true).getWorldOrParentPosition();
 		MapTile requesterTile = gameContext.getAreaMap().getTile(requesterPosition);
 		if (requesterTile == null) {
 			Logger.error("Requesting food from null tile");
@@ -254,12 +254,12 @@ public class FoodAllocationMessageHandler implements Telegraph, GameContextAware
 
 		Optional<Entity> unallocatedEdibleItem = settlementItemTracker.getUnallocatedEdibleItems().stream()
 				.filter(item -> {
-					Vector2 position = item.getLocationComponent().getWorldOrParentPosition();
+					Vector2 position = item.getLocationComponent(true).getWorldOrParentPosition();
 					MapTile positionTile = gameContext.getAreaMap().getTile(position);
 					return positionTile != null && positionTile.getRegionId() == requesterRegionId;
 				})
 				.sorted((i1, i2) ->
-					Math.round(i1.getLocationComponent().getWorldOrParentPosition().dst2(requesterPosition) - i2.getLocationComponent().getWorldOrParentPosition().dst2(requesterPosition))
+					Math.round(i1.getLocationComponent(true).getWorldOrParentPosition().dst2(requesterPosition) - i2.getLocationComponent(true).getWorldOrParentPosition().dst2(requesterPosition))
 				)
 				.findFirst();
 

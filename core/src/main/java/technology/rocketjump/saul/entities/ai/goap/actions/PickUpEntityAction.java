@@ -62,7 +62,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 	}
 
 	private void updateForFoodAllocation(GameContext gameContext) {
-		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldPosition());
+		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent(true).getWorldPosition());
 		FoodAllocation foodAllocation = parent.getFoodAllocation();
 		switch (foodAllocation.getType()) {
 			case REQUESTER_INVENTORY:
@@ -102,7 +102,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			}
 			case FURNITURE_INVENTORY: {
 				Entity entityToPickUp = foodAllocation.getTargetEntity();
-				Entity containerEntity = foodAllocation.getTargetEntity().getLocationComponent().getContainerEntity();
+				Entity containerEntity = foodAllocation.getTargetEntity().getLocationComponent(true).getContainerEntity();
 				if (containerEntity != null) {
 					if (isAdjacent(containerEntity)) {
 						pickUpItemEntity(gameContext, currentTile, entityToPickUp, foodAllocation.getItemAllocaton());
@@ -117,7 +117,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			}
 			case LOOSE_ITEM: {
 				// Pick up as a normal item, but only if in same tile
-				Entity containerEntity = foodAllocation.getTargetEntity().getLocationComponent().getContainerEntity();
+				Entity containerEntity = foodAllocation.getTargetEntity().getLocationComponent(true).getContainerEntity();
 				if (containerEntity == null) {
 					boolean entityInCurrentTile = currentTile.getEntity(foodAllocation.getTargetEntity().getId()) != null;
 					if (entityInCurrentTile || isAdjacent(foodAllocation.getTargetEntity())) {
@@ -142,8 +142,8 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 	}
 
 	private boolean isAdjacent(Entity containerEntity) {
-		GridPoint2 parentPosition = toGridPoint(parent.parentEntity.getLocationComponent().getWorldPosition());
-		GridPoint2 containerPosition = toGridPoint(containerEntity.getLocationComponent().getWorldOrParentPosition());
+		GridPoint2 parentPosition = toGridPoint(parent.parentEntity.getLocationComponent(true).getWorldPosition());
+		GridPoint2 containerPosition = toGridPoint(containerEntity.getLocationComponent(true).getWorldOrParentPosition());
 		if (containerEntity.getType().equals(EntityType.FURNITURE)) {
 			if (adjacent(containerPosition, parentPosition)) {
 				return true;
@@ -171,7 +171,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 	}
 
 	private void updateForHaulingAllocation(GameContext gameContext) {
-		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldPosition());
+		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent(true).getWorldPosition());
 
 		// Target item entity should be in this tile
 		Entity entityToPickUp = null;
@@ -239,7 +239,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 		haulingComponent.setHauledEntity(entityToPickUp, parent.messageDispatcher, parent.parentEntity);
 		completionType = SUCCESS;
 
-		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldPosition());
+		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent(true).getWorldPosition());
 		if (currentTile.getRoomTile() != null && currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class) != null) {
 			StockpileRoomComponent stockpileRoomComponent = currentTile.getRoomTile().getRoom().getComponent(StockpileRoomComponent.class);
 			stockpileRoomComponent.itemOrCreaturePickedUp(currentTile);
@@ -262,7 +262,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			}
 
 			Entity pickedUpItem = entityToPickUp.clone(parent.messageDispatcher, gameContext);
-			pickedUpItem.getLocationComponent().clearWorldPosition();
+			pickedUpItem.getLocationComponent(true).clearWorldPosition();
 			pickedUpItem.getOrCreateComponent(ItemAllocationComponent.class).cancelAll();
 			FactionComponent itemFactionComponent = pickedUpItem.getComponent(FactionComponent.class);
 			if (!itemFactionComponent.getFaction().equals(parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction())) {
@@ -353,7 +353,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			if (requirements.size() == 1) {
 				messageDispatcher.dispatchMessage(MessageType.ITEM_CREATION_REQUEST, new ItemCreationRequestMessage(requirements.get(0).getItemType(), this));
 				if (createdItem != null) {
-					createdItem.getLocationComponent().setWorldPosition(furnitureEntity.getLocationComponent().getWorldPosition(), false);
+					createdItem.getLocationComponent(true).setWorldPosition(furnitureEntity.getLocationComponent(true).getWorldPosition(), false);
 					copyMaterialsAndContents(furnitureEntity, createdItem, messageDispatcher, gameContext);
 					messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, furnitureEntity);
 
@@ -364,7 +364,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 					furnitureEntity.replaceBehaviourComponent(null);
 
 					messageDispatcher.dispatchMessage(MessageType.FURNITURE_PLACEMENT, furnitureEntity); // Queue up new construction of furnitureEntity
-					Construction construction = gameContext.getAreaMap().getTile(furnitureEntity.getLocationComponent().getWorldPosition()).getConstruction();
+					Construction construction = gameContext.getAreaMap().getTile(furnitureEntity.getLocationComponent(true).getWorldPosition()).getConstruction();
 					removeMaterialsFromRequirements(construction);
 					construction.setPriority(JobPriority.HIGHER, messageDispatcher);
 

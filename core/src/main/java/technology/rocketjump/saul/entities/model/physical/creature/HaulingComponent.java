@@ -47,12 +47,12 @@ public class HaulingComponent implements EntityComponent, Destructible {
 		if (itemAllocationComponent != null) {
 			itemAllocationComponent.createAllocation(quantity, parentEntity, ItemAllocation.Purpose.HAULING);
 		}
-		hauledEntity.getLocationComponent().setWorldPosition(null, false);
-		hauledEntity.getLocationComponent().setContainerEntity(parentEntity);
+		hauledEntity.getLocationComponent(true).setWorldPosition(null, false);
+		hauledEntity.getLocationComponent(true).setContainerEntity(parentEntity);
 	}
 
 	public void clearHauledEntity() {
-		hauledEntity.getLocationComponent().setContainerEntity(null);
+		hauledEntity.getLocationComponent(true).setContainerEntity(null);
 		ItemAllocationComponent itemAllocationComponent = hauledEntity.getComponent(ItemAllocationComponent.class);
 		if (itemAllocationComponent != null) {
 			itemAllocationComponent.cancelAll(ItemAllocation.Purpose.HAULING);

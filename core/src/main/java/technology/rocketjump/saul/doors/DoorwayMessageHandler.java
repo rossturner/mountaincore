@@ -184,10 +184,10 @@ public class DoorwayMessageHandler implements GameContextAware, Telegraph {
 		WallCapAsset baseAsset = wallCapAssetDictionary.getMatching(doorway, attributes);
 		wallCapEntity.getPhysicalEntityComponent().setBaseAsset(baseAsset);
 		wallCapEntity.getPhysicalEntityComponent().getTypeMap().put(baseAsset.getType(), baseAsset);
-		wallCapEntity.getLocationComponent().setOrientation(assetOrientation);
+		wallCapEntity.getLocationComponent(true).setOrientation(assetOrientation);
 
 		// Wall cap should be bottom of tile  (+1 pixel) to overlap entities
-		wallCapEntity.getLocationComponent().setWorldPosition(toVector(doorway.getTileLocation()).add(0, positionYOffset), false, false);
+		wallCapEntity.getLocationComponent(true).setWorldPosition(toVector(doorway.getTileLocation()).add(0, positionYOffset), false, false);
 
 		tileAtPosition.update(gameContext.getAreaMap().getNeighbours(wallTileLocation), gameContext.getAreaMap().getVertices(wallTileLocation.x, wallTileLocation.y), messageDispatcher);
 		return wallCapEntity;
@@ -202,10 +202,10 @@ public class DoorwayMessageHandler implements GameContextAware, Telegraph {
 		attributes.setFurnitureType(furnitureTypeDictionary.getByName(selectFrameFurnitureTypeName(message)));
 		attributes.setCurrentLayout(pickFurnitureLayout(message));
 		Entity entity = furnitureEntityFactory.create(attributes, message.getTilePosition(), null, gameContext);
-		entity.getLocationComponent().setOrientation(orientation);
+		entity.getLocationComponent(true).setOrientation(orientation);
 
 		// Frame should be bottom of tile to overlap entities
-		entity.getLocationComponent().setWorldPosition(toVector(message.getTilePosition()).add(0, positionYOffset), false, false);
+		entity.getLocationComponent(true).setWorldPosition(toVector(message.getTilePosition()).add(0, positionYOffset), false, false);
 		return entity;
 	}
 
@@ -226,9 +226,9 @@ public class DoorwayMessageHandler implements GameContextAware, Telegraph {
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, entity);
 
 		// Remove from map
-		entity.getLocationComponent().setWorldPosition(null, false, true);
+		entity.getLocationComponent(true).setWorldPosition(null, false, true);
 		// Door should be top of tile so entities overlap it
-		entity.getLocationComponent().setWorldPosition(toVector(message.getTilePosition()).add(0, 0.5f - (1f/PIXELS_PER_TILE)), false, false);
+		entity.getLocationComponent(true).setWorldPosition(toVector(message.getTilePosition()).add(0, 0.5f - (1f/PIXELS_PER_TILE)), false, false);
 		return entity;
 	}
 

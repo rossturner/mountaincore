@@ -299,11 +299,11 @@ public class I18nTranslator {
 				}
 			}
 
-			if (entity.getLocationComponent().getContainerEntity() != null) {
-				replacements.put("containerDescription", getDescription(entity.getLocationComponent().getContainerEntity()));
-			} else if (entity.getLocationComponent().getWorldPosition() != null) {
+			if (entity.getLocationComponent(true).getContainerEntity() != null) {
+				replacements.put("containerDescription", getDescription(entity.getLocationComponent(true).getContainerEntity()));
+			} else if (entity.getLocationComponent(true).getWorldPosition() != null) {
 				// Not in container entity
-				MapTile currentTile = gameContext.getAreaMap().getTile(entity.getLocationComponent().getWorldPosition());
+				MapTile currentTile = gameContext.getAreaMap().getTile(entity.getLocationComponent(true).getWorldPosition());
 				replacements.put("tileDescription", getDescription(currentTile));
 			}
 

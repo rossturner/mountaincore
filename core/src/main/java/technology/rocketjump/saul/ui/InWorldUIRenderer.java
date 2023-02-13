@@ -208,7 +208,7 @@ public class InWorldUIRenderer {
 		} else {
 			color = Faction.SETTLEMENT.defensePoolBarColor;
 		}
-		LocationComponent locationComponent = selectableEntity.getLocationComponent();
+		LocationComponent locationComponent = selectableEntity.getLocationComponent(true);
 		if (locationComponent.getWorldPosition() != null) {
 			entityRenderer.render(selectableEntity, selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, color, null);
 		}
@@ -320,7 +320,7 @@ public class InWorldUIRenderer {
 			shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 			shapeRenderer.setColor(furnitureColor);
 
-			GridPoint2 furnitureGridPoint = toGridPoint(furnitureEntity.getLocationComponent().getWorldPosition());
+			GridPoint2 furnitureGridPoint = toGridPoint(furnitureEntity.getLocationComponent(true).getWorldPosition());
 
 			FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
 			for (FurnitureLayout.Workspace workspace : attributes.getCurrentLayout().getWorkspaces()) {
@@ -444,8 +444,8 @@ public class InWorldUIRenderer {
 					if (renderingOptions.debug().isShowPathfindingSlowdown()) {
 						for (Entity entity : mapTile.getEntities()) {
 							if (entity.getType().equals(EntityType.CREATURE)) {
-								Vector2 location = entity.getLocationComponent().getWorldPosition();
-								Vector2 velocity = entity.getLocationComponent().getLinearVelocity();
+								Vector2 location = entity.getLocationComponent(true).getWorldPosition();
+								Vector2 velocity = entity.getLocationComponent(true).getLinearVelocity();
 
 								SteeringComponent steeringComponent = entity.getBehaviourComponent().getSteeringComponent();
 

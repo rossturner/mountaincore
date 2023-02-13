@@ -58,7 +58,7 @@ public class MoveTowardsOpponent extends GoToLocationAction {
 			if (targetEntity.getType().equals(EntityType.FURNITURE)) {
 				return neatestTileToFurniture(targetEntity, parent.parentEntity, gameContext);
 			} else {
-				return targetEntity.getLocationComponent().getWorldOrParentPosition();
+				return targetEntity.getLocationComponent(true).getWorldOrParentPosition();
 			}
 		} else {
 			return null;
@@ -66,7 +66,7 @@ public class MoveTowardsOpponent extends GoToLocationAction {
 	}
 
 	public static Vector2 neatestTileToFurniture(Entity targetFurniture, Entity parentEntity, GameContext gameContext) {
-		List<GridPoint2> gridpointsBetween = getGridpointsBetween(targetFurniture.getLocationComponent().getWorldPosition(), parentEntity.getLocationComponent().getWorldOrParentPosition());
+		List<GridPoint2> gridpointsBetween = getGridpointsBetween(targetFurniture.getLocationComponent(true).getWorldPosition(), parentEntity.getLocationComponent(true).getWorldOrParentPosition());
 		for (GridPoint2 gridPoint : gridpointsBetween) {
 			MapTile tile = gameContext.getAreaMap().getTile(gridPoint);
 
@@ -107,8 +107,8 @@ public class MoveTowardsOpponent extends GoToLocationAction {
 					minimumRequiredDistance += 1f;
 				}
 
-				float distanceToTarget = parent.parentEntity.getLocationComponent().getWorldOrParentPosition().dst(
-						targetEntity.getLocationComponent().getWorldOrParentPosition()
+				float distanceToTarget = parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition().dst(
+						targetEntity.getLocationComponent(true).getWorldOrParentPosition()
 				);
 
 				if (distanceToTarget <= minimumRequiredDistance && hasLineOfSightBetween(parent.parentEntity, targetEntity, gameContext)) {
@@ -120,8 +120,8 @@ public class MoveTowardsOpponent extends GoToLocationAction {
 
 	public static boolean hasLineOfSightBetween(Entity parentEntity, Entity targetEntity, GameContext gameContext) {
 		List<GridPoint2> locationsToCheck = getGridpointsBetween(
-				parentEntity.getLocationComponent().getWorldOrParentPosition(),
-				targetEntity.getLocationComponent().getWorldOrParentPosition()
+				parentEntity.getLocationComponent(true).getWorldOrParentPosition(),
+				targetEntity.getLocationComponent(true).getWorldOrParentPosition()
 		);
 		return locationsToCheck.stream().noneMatch(p -> {
 			MapTile tile = gameContext.getAreaMap().getTile(p);

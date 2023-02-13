@@ -45,7 +45,7 @@ public class SettlementItemTracker implements GameContextAware {
 	}
 
 	public void itemAdded(Entity entity) {
-		if (entity.getLocationComponent().isUntracked()) {
+		if (entity.getLocationComponent(true).isUntracked()) {
 			return;
 		}
 		ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
@@ -78,7 +78,7 @@ public class SettlementItemTracker implements GameContextAware {
 	private static final Map<Long, Entity> alsoEmpty = new HashMap<>();
 
 	public void primaryMaterialChanged(Entity entity, GameMaterial oldPrimaryMaterial) {
-		if (entity.getLocationComponent().isUntracked()) {
+		if (entity.getLocationComponent(true).isUntracked()) {
 			return;
 		}
 		ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();

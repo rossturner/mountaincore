@@ -20,7 +20,7 @@ public class GoToCombatTargetAction extends GoToLocationAction {
 
 		Entity targetEntity = gameContext.getEntities().get(parent.getAssignedJob().getTargetId());
 		if (targetEntity != null) {
-			return targetEntity.getLocationComponent().getWorldOrParentPosition();
+			return targetEntity.getLocationComponent(true).getWorldOrParentPosition();
 		} else {
 			return null;
 		}

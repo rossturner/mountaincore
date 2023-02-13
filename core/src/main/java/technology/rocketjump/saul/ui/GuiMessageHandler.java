@@ -285,7 +285,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 
 		FurnitureEntityAttributes attributes = furnitureEntityAttributesFactory.byType(selectedFurnitureType, primaryMaterial);
 		Entity furnitureEntity = furnitureEntityFactory.create(attributes, new GridPoint2(), null, gameContext);
-		furnitureEntity.getLocationComponent().init(furnitureEntity, null, gameContext); // Remove messageDispatcher so position updates are not sent
+		furnitureEntity.getLocationComponent(true).init(furnitureEntity, null, gameContext); // Remove messageDispatcher so position updates are not sent
 		interactionStateContainer.setFurnitureEntityToPlace(furnitureEntity);
 	}
 
@@ -402,7 +402,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 		for (MapTile nearbyTile : gameContext.getAreaMap().getNearestTiles(worldClickPosition)) {
 			if (nearbyTile.getExploration().equals(EXPLORED)) {
 				for (Entity entity : nearbyTile.getEntities()) {
-					float distanceToEntity = Math.abs(entity.getLocationComponent().getWorldPosition().dst2(worldClickPosition) + (entity.getLocationComponent().getRadius() * entity.getLocationComponent().getRadius()));
+					float distanceToEntity = Math.abs(entity.getLocationComponent(true).getWorldPosition().dst2(worldClickPosition) + (entity.getLocationComponent(true).getRadius() * entity.getLocationComponent(true).getRadius()));
 					if (distanceToEntity < ENTITY_SELECTION_RADIUS) {
 						selectables.add(new Selectable(entity, distanceToEntity));
 					}
@@ -415,7 +415,7 @@ public class GuiMessageHandler implements Telegraph, GameContextAware {
 			if (clickedTile.getExploration().equals(EXPLORED)) {
 				// Adding all entities in clicked tile to cover multi-tile entities like furniture
 				for (Entity entity : clickedTile.getEntities()) {
-					float distanceToEntity = Math.abs(entity.getLocationComponent().getWorldPosition().dst2(worldClickPosition) + (entity.getLocationComponent().getRadius() * entity.getLocationComponent().getRadius()));
+					float distanceToEntity = Math.abs(entity.getLocationComponent(true).getWorldPosition().dst2(worldClickPosition) + (entity.getLocationComponent(true).getRadius() * entity.getLocationComponent(true).getRadius()));
 					Selectable selectableEntity = new Selectable(entity, distanceToEntity);
 					if (!selectables.contains(selectableEntity)) {
 						selectables.add(selectableEntity);

@@ -202,7 +202,7 @@ public class EntityAssetUpdater implements GameContextAware {
 
 
 		CreatureEntityAsset baseAsset;
-		if (gameContext != null && entity.getLocationComponent().getContainerEntity() != null && entity.isSettler()) {
+		if (gameContext != null && entity.getLocationComponent(true).getContainerEntity() != null && entity.isSettler()) {
 			// Only show head and above when inside a container
 			baseAsset = creatureEntityAssetDictionary.getMatching(CREATURE_HEAD, attributes, primaryProfession);
 		} else {
@@ -233,7 +233,7 @@ public class EntityAssetUpdater implements GameContextAware {
 			entity.getPhysicalEntityComponent().getTypeMap().remove(BODY_OUTLINE);
 		}
 
-		if (entity.getLocationComponent().getContainerEntity() == null) {
+		if (entity.getLocationComponent(true).getContainerEntity() == null) {
 			addOtherCreatureAssetTypes(CREATURE_LEFT_HAND, entity, attributes, primaryProfession);
 			addOtherCreatureAssetTypes(CREATURE_RIGHT_HAND, entity, attributes, primaryProfession);
 		}

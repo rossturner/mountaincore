@@ -110,7 +110,7 @@ public class ParticleEffectInstance {
 
 	public void setPositionToParent() {
 		if (attachedToEntity.isPresent()) {
-			this.setWorldPosition(attachedToEntity.get().getLocationComponent().getWorldOrParentPosition());
+			this.setWorldPosition(attachedToEntity.get().getLocationComponent(true).getWorldOrParentPosition());
 		} else if (attachedToTile.isPresent()) {
 			this.setWorldPosition(attachedToTile.get().getWorldPositionOfCenter());
 		}

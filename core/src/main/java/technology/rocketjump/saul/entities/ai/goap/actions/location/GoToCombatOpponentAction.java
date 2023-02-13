@@ -32,9 +32,9 @@ public class GoToCombatOpponentAction extends GoToLocationAction {
 		if (opponentEntity == null) {
 			return null;
 		}
-		Vector2 parentPosition = parent.parentEntity.getLocationComponent().getWorldOrParentPosition();
+		Vector2 parentPosition = parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition();
 		GridPoint2 parentTile = toGridPoint(parentPosition);
-		Vector2 opponentPosition = opponentEntity.getLocationComponent().getWorldOrParentPosition();
+		Vector2 opponentPosition = opponentEntity.getLocationComponent(true).getWorldOrParentPosition();
 		GridPoint2 opponentTile = toGridPoint(opponentPosition);
 
 		return gameContext.getAreaMap().getNeighbours(opponentTile)

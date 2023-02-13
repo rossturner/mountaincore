@@ -139,6 +139,15 @@
   "interruptedByCombat" : false,
   "initialActions" : [ "GoToDrinkLocation", "DouseSelf" ]
 }, {
+  "i18nDescription" : "GOAL.IDLE.DESCRIPTION",
+  "name" : "Do nothing goal",
+  "actionRelationships" : {
+    "Pause" : { }
+  },
+  "selectors" : [ ],
+  "initialActions" : [ "Pause" ],
+  "interruptedByLowNeeds" : true
+}, {
   "i18nDescription" : "GOAL.DRINK.DESCRIPTION",
   "creatureCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Drink goal",

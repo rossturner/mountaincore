@@ -90,7 +90,7 @@ public class ItemAssignmentTag extends Tag {
 
         @Override
         public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-            this.locationComponent = parentEntity.getLocationComponent();
+            this.locationComponent = parentEntity.getLocationComponent(true);
             this.messageDispatcher = messageDispatcher;
             this.parentEntity = parentEntity;
         }
@@ -177,9 +177,9 @@ public class ItemAssignmentTag extends Tag {
         }
 
 		private final Comparator<Entity> sortByDistance = ((o1, o2) -> {
-			Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
-			float o1Dist = o1.getLocationComponent().getWorldOrParentPosition().dst2(parentPosition);
-			float o2Dist = o2.getLocationComponent().getWorldOrParentPosition().dst2(parentPosition);
+			Vector2 parentPosition = parentEntity.getLocationComponent(true).getWorldOrParentPosition();
+			float o1Dist = o1.getLocationComponent(true).getWorldOrParentPosition().dst2(parentPosition);
+			float o2Dist = o2.getLocationComponent(true).getWorldOrParentPosition().dst2(parentPosition);
 			return (int)(1000f * (o2Dist - o1Dist));
 		});
 

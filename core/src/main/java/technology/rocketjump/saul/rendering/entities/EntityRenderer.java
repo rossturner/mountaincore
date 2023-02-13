@@ -94,7 +94,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 
 		entityRenderSteps.clear();
 
-		LocationComponent locationComponent = entity.getLocationComponent();
+		LocationComponent locationComponent = entity.getLocationComponent(true);
 
 		EntityAsset baseAsset = entity.getPhysicalEntityComponent().getBaseAsset();
 		if (baseAsset != NULL_ASSET) {
@@ -116,8 +116,8 @@ public class EntityRenderer implements GameContextAware, Disposable {
 				if (attachmentPoint == null) {
 					Logger.error("No attachment point for {} as expected on {} for {}", ItemHoldPosition.FURNITURE_WORKSPACES.get(0).getAttachmentType(), entity, itemDisplayBehaviour.getClass().getSimpleName());
 				} else {
-					Vector2 position = entity.getLocationComponent().getWorldOrParentPosition().cpy().add(attachmentPoint.getOffsetPosition());
-					itemEntity.getLocationComponent().setWorldPosition(position, false, false);
+					Vector2 position = entity.getLocationComponent(true).getWorldOrParentPosition().cpy().add(attachmentPoint.getOffsetPosition());
+					itemEntity.getLocationComponent(true).setWorldPosition(position, false, false);
 					render(itemEntity, basicSpriteBatch, renderMode, entity, itemDisplayBehaviour.getOverrideColor(), extraMultiplyColor);
 				}
 			}
@@ -143,7 +143,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 				attachedRenderStep.setOtherEntity(attached.getValue());
 
 				int renderLayer = renderLayerDictionary.getRenderingLayer(entity.getType(),
-						entity.getLocationComponent().getOrientation(), attached.getKey());
+						entity.getLocationComponent(true).getOrientation(), attached.getKey());
 				if (attachment.getOverrideRenderLayer() != null) {
 					renderLayer += attachment.getOverrideRenderLayer();
 				}
@@ -159,7 +159,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 			Logger.error("Attempting to render null asset for " + entity);
 			return;
 		}
-		EntityAssetOrientation orientation = entity.getLocationComponent().getOrientation();
+		EntityAssetOrientation orientation = entity.getLocationComponent(true).getOrientation();
 		SpriteDescriptor spriteDescriptor = asset.getSpriteDescriptors().get(orientation);
 		if (spriteDescriptor == null) {
 			// FIXME no sprite descriptor when one was expected
@@ -216,14 +216,14 @@ public class EntityRenderer implements GameContextAware, Disposable {
 						Color overrideColor, Color extraMultiplyColor) {
 		if (renderStep.isAnotherEntity()) {
 			Entity entity = renderStep.getEntity();
-			LocationComponent otherEntityLocation = renderStep.getOtherEntity().getLocationComponent();
-			Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
+			LocationComponent otherEntityLocation = renderStep.getOtherEntity().getLocationComponent(true);
+			Vector2 worldPosition = entity.getLocationComponent(true).getWorldPosition();
 			Vector2 offset = renderStep.getOffsetFromEntity();
 			float originalRotation = otherEntityLocation.getRotation();
 			Vector2 otherEntityLocationOriginalPosition = otherEntityLocation.getWorldPosition();
-			if (entity.getLocationComponent().getRotation() != 0) {
-				offset.cpy().rotate(entity.getLocationComponent().getRotation());
-				otherEntityLocation.setRotation(originalRotation + entity.getLocationComponent().getRotation());
+			if (entity.getLocationComponent(true).getRotation() != 0) {
+				offset.cpy().rotate(entity.getLocationComponent(true).getRotation());
+				otherEntityLocation.setRotation(originalRotation + entity.getLocationComponent(true).getRotation());
 			}
 			otherEntityLocation.setWorldPosition(worldPosition.cpy().add(offset), false, false);
 			EntityRenderSteps cloned = entityRenderSteps.clone();
@@ -377,8 +377,8 @@ public class EntityRenderer implements GameContextAware, Disposable {
 	}
 
 	private boolean isStaticEntityAndOutside(Entity entity) {
-		if (STATIC_ENTITY_TYPES.contains(entity.getType()) && (entity.getLocationComponent().getContainerEntity() == null)) {
-			MapTile mapTile = gameContext.getAreaMap().getTile(entity.getLocationComponent().getWorldPosition());
+		if (STATIC_ENTITY_TYPES.contains(entity.getType()) && (entity.getLocationComponent(true).getContainerEntity() == null)) {
+			MapTile mapTile = gameContext.getAreaMap().getTile(entity.getLocationComponent(true).getWorldPosition());
 			return mapTile != null && mapTile.getRoof().getState().equals(OPEN);
 		} else {
 			return false;

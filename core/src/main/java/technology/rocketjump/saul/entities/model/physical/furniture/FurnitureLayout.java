@@ -141,7 +141,7 @@ public class FurnitureLayout {
 		}
 		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
 
-		GridPoint2 furniturePosition = toGridPoint(furnitureEntity.getLocationComponent().getWorldPosition());
+		GridPoint2 furniturePosition = toGridPoint(furnitureEntity.getLocationComponent(true).getWorldPosition());
 		List<FurnitureLayout.Workspace> navigableWorkspaces = new ArrayList<>();
 		for (FurnitureLayout.Workspace workspace : attributes.getCurrentLayout().getWorkspaces()) {
 			GridPoint2 accessedFromLocation = furniturePosition.cpy().add(workspace.getAccessedFrom());
@@ -168,7 +168,7 @@ public class FurnitureLayout {
 	public static FurnitureLayout.Workspace getAnyNavigableWorkspace(Entity furnitureEntity, TiledMap areaMap) {
 		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
 
-		GridPoint2 furniturePosition = toGridPoint(furnitureEntity.getLocationComponent().getWorldPosition());
+		GridPoint2 furniturePosition = toGridPoint(furnitureEntity.getLocationComponent(true).getWorldPosition());
 		List<FurnitureLayout.Workspace> workspaces = attributes.getCurrentLayout().getWorkspaces();
 		Collections.shuffle(workspaces);
 		for (FurnitureLayout.Workspace workspace : workspaces) {

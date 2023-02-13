@@ -41,7 +41,7 @@ public class FillContainerAction extends Action {
 		// Assuming zone is defined as assigned allocation target
 		if (parent.getAssignedHaulingAllocation() != null && ZONE.equals(parent.getAssignedHaulingAllocation().getTargetPositionType())) {
 			GridPoint2 targetPosition = parent.getAssignedHaulingAllocation().getTargetPosition();
-			GridPoint2 parentEntityPosition = toGridPoint(parent.parentEntity.getLocationComponent().getWorldPosition());
+			GridPoint2 parentEntityPosition = toGridPoint(parent.parentEntity.getLocationComponent(true).getWorldPosition());
 			if (targetPosition.equals(parentEntityPosition)) {
 				// Find correct zone
 				MapTile currentTile = gameContext.getAreaMap().getTile(parentEntityPosition);
@@ -70,7 +70,7 @@ public class FillContainerAction extends Action {
 							if (itemUsageSoundTag != null && itemUsageSoundTag.getSoundAssetName() != null) {
 								parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND_ASSET, new RequestSoundAssetMessage(itemUsageSoundTag.getSoundAssetName(), (soundAsset) -> {
 									parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(
-											soundAsset, parent.parentEntity.getId(), parent.parentEntity.getLocationComponent().getWorldOrParentPosition(), null));
+											soundAsset, parent.parentEntity.getId(), parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition(), null));
 								}));
 							}
 

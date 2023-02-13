@@ -48,10 +48,10 @@ public class SelectOpponentAction extends Action {
 								}
 							})
 							.min((o1, o2) -> {
-								float o1Distance = parent.parentEntity.getLocationComponent().getWorldOrParentPosition().dst2(
-										o1.getLocationComponent().getWorldOrParentPosition());
-								float o2Distance = parent.parentEntity.getLocationComponent().getWorldOrParentPosition().dst2(
-										o2.getLocationComponent().getWorldOrParentPosition()
+								float o1Distance = parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition().dst2(
+										o1.getLocationComponent(true).getWorldOrParentPosition());
+								float o2Distance = parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition().dst2(
+										o2.getLocationComponent(true).getWorldOrParentPosition()
 								);
 								return (int) ((o1Distance - o2Distance) * 1000f);
 							});

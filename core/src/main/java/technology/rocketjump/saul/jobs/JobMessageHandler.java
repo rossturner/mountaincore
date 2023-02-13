@@ -206,7 +206,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 						JobTarget targetOfJob = cancelledJob.getTargetOfJob(gameContext);
 						if (targetOfJob.getEntity() != null) {
 							// May need to update location for entities as they can move around
-							cancelledJob.setJobLocation(toGridPoint(targetOfJob.getEntity().getLocationComponent().getWorldOrParentPosition()));
+							cancelledJob.setJobLocation(toGridPoint(targetOfJob.getEntity().getLocationComponent(true).getWorldOrParentPosition()));
 						}
 						jobStore.switchState(cancelledJob, JobState.POTENTIALLY_ACCESSIBLE);
 					}
@@ -300,7 +300,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 
 		if (completedJob.getType().getOnCompletionSoundAsset() != null) {
 			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(completedJob.getType().getOnCompletionSoundAsset(),
-					jobCompletedMessage.getCompletedByEntity().getId(), jobCompletedMessage.getCompletedByEntity().getLocationComponent().getWorldOrParentPosition(), null));
+					jobCompletedMessage.getCompletedByEntity().getId(), jobCompletedMessage.getCompletedByEntity().getLocationComponent(true).getWorldOrParentPosition(), null));
 		}
 
 		if (completedJob.getType().getMightStartFire() != null) {
@@ -351,10 +351,10 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				}
 
 				if (targetTree != null) {
-					Vector2 worldPositionOfChoppingEntity = jobCompletedMessage.getCompletedByEntity().getLocationComponent().getWorldPosition();
+					Vector2 worldPositionOfChoppingEntity = jobCompletedMessage.getCompletedByEntity().getLocationComponent(true).getWorldPosition();
 
 					boolean fallToWest = true;
-					if (worldPositionOfChoppingEntity.x < targetTree.getLocationComponent().getWorldPosition().x) {
+					if (worldPositionOfChoppingEntity.x < targetTree.getLocationComponent(true).getWorldPosition().x) {
 						fallToWest = false;
 					}
 
@@ -399,7 +399,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 					attributes.setGrowthStageProgress(0f);
 					Entity plant = plantEntityFactory.create(attributes, completedJob.getJobLocation(), gameContext);
 					// Fix to centre of tile
-					plant.getLocationComponent().getWorldPosition().set(completedJob.getJobLocation().x + 0.5f, completedJob.getJobLocation().y + 0.5f);
+					plant.getLocationComponent(true).getWorldPosition().set(completedJob.getJobLocation().x + 0.5f, completedJob.getJobLocation().y + 0.5f);
 
 					messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, plant);
 				}
@@ -770,8 +770,8 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							boolean entityMoved = false;
 							for (MapTile neighbourTile : gameContext.getAreaMap().getNeighbours(targetTile.getTilePosition()).values()) {
 								if (neighbourTile.isNavigable(null)) {
-									GridPoint2 originalPosition = toGridPoint(entity.getLocationComponent().getWorldPosition());
-									entity.getLocationComponent().setWorldPosition(neighbourTile.getWorldPositionOfCenter(), false);
+									GridPoint2 originalPosition = toGridPoint(entity.getLocationComponent(true).getWorldPosition());
+									entity.getLocationComponent(true).setWorldPosition(neighbourTile.getWorldPositionOfCenter(), false);
 
 									for (Job job : new ArrayList<>(jobStore.getJobsAtLocation(originalPosition))) {
 										if (job.getType().equals(haulingJobType)) {
@@ -989,7 +989,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 				CreatureEntityAttributes fishAttributes = creatureEntityAttributesFactory.create(fishType);
 				Entity fishEntity = creatureEntityFactory.create(fishAttributes, null, new Vector2(), gameContext, Faction.WILD_ANIMALS);
 				messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(fishEntity, DeathReason.SUFFOCATION, completedByEntity));
-				fishEntity.getLocationComponent().setRotation(0);
+				fishEntity.getLocationComponent(true).setRotation(0);
 
 				HaulingComponent haulingComponent = completedByEntity.getOrCreateComponent(HaulingComponent.class);
 				haulingComponent.setHauledEntity(fishEntity, messageDispatcher, completedByEntity);

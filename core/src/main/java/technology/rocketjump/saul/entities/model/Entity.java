@@ -263,7 +263,13 @@ public class Entity implements Persistable, Disposable {
 		return physicalEntityComponent;
 	}
 
-	public LocationComponent getLocationComponent() {
+	public LocationComponent getLocationComponent(boolean returnVehicleLocation) {
+		if (returnVehicleLocation) {
+			Entity vehicle = getContainingVehicle();
+			if (vehicle != null) {
+				return vehicle.getLocationComponent(true);
+			}
+		}
 		return locationComponent;
 	}
 
@@ -284,6 +290,21 @@ public class Entity implements Persistable, Disposable {
 	public boolean isOnFire() {
 		StatusComponent statusComponent = getComponent(StatusComponent.class);
 		return statusComponent != null && statusComponent.contains(OnFireStatus.class);
+	}
+
+	public Entity getContainingVehicle() {
+		if (locationComponent.getContainerEntity() != null
+				&& locationComponent.getContainerEntity().getType().equals(EntityType.VEHICLE)) {
+			return locationComponent.getContainerEntity();
+		} else {
+			return null;
+		}
+	}
+
+	public boolean isDrivingVehicle() {
+		Entity vehicleEntity = getContainingVehicle();
+		return vehicleEntity != null && vehicleEntity.getComponent(AttachedEntitiesComponent.class).getAttachedEntities().stream()
+				.anyMatch(a -> a.entity.equals(this) && a.holdPosition.equals(ItemHoldPosition.VEHICLE_DRIVER));
 	}
 
 	public boolean isSettler() {

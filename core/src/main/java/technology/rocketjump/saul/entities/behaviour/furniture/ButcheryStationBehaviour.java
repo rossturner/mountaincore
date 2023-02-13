@@ -73,7 +73,7 @@ public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prio
 		if (haulingJobs.isEmpty() && inventoryComponent.isEmpty()) {
 			// Try to create new incoming hauling assignment
 			messageDispatcher.dispatchMessage(MessageType.FIND_BUTCHERABLE_UNALLOCATED_CORPSE, new RequestCorpseMessage(
-					parentEntity, parentEntity.getLocationComponent().getWorldOrParentPosition(), entity -> {
+					parentEntity, parentEntity.getLocationComponent(true).getWorldOrParentPosition(), entity -> {
 				if (entity != null) {
 					createIncomingHaulingJob(entity);
 				}
@@ -130,7 +130,7 @@ public class ButcheryStationBehaviour extends FurnitureBehaviour implements Prio
 		FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(parentEntity, gameContext.getAreaMap());
 		Collection<Entity> decorationEntities = parentEntity.getComponent(DecorationInventoryComponent.class).getDecorationEntities();
 		if (navigableWorkspace == null) {
-			Logger.warn("Could not access workstation at " + parentEntity.getLocationComponent().getWorldPosition());
+			Logger.warn("Could not access workstation at " + parentEntity.getLocationComponent(true).getWorldPosition());
 			return;
 		}
 

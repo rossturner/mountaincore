@@ -253,7 +253,7 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 				for (ItemTypeWithMaterial inputLiquidOption : cookingSession.getRecipe().getInputLiquidOptions()) {
 					messageDispatcher.dispatchMessage(MessageType.REQUEST_LIQUID_TRANSFER, new RequestLiquidTransferMessage(
 							inputLiquidOption.getMaterial(), true, cookingSession.getAssignedFurnitureEntity(),
-							cookingSession.getAssignedFurnitureEntity().getLocationComponent().getWorldPosition(), inputLiquidOption.getItemType(),
+							cookingSession.getAssignedFurnitureEntity().getLocationComponent(true).getWorldPosition(), inputLiquidOption.getItemType(),
 							requiredProfession, priority, job ->
 					{
 						if (job != null) {
@@ -324,7 +324,7 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 			ItemTypeWithMaterial requirement = cookingSession.getRecipe().getInputItemOptions().get(gameContext.getRandom().nextInt(cookingSession.getRecipe().getInputItemOptions().size()));
 			messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
 					cookingSession.getAssignedFurnitureEntity(),
-					cookingSession.getAssignedFurnitureEntity().getLocationComponent().getWorldOrParentPosition(), requirement.getItemType(), requirement.getMaterial(), true, amountRequired, null, ingredientHaulingAllocation -> {
+					cookingSession.getAssignedFurnitureEntity().getLocationComponent(true).getWorldOrParentPosition(), requirement.getItemType(), requirement.getMaterial(), true, amountRequired, null, ingredientHaulingAllocation -> {
 						if (ingredientHaulingAllocation != null) {
 							Entity foundIngredientEntity = gameContext.getEntities().get(ingredientHaulingAllocation.getHauledEntityId());
 
@@ -342,15 +342,15 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 		haulingJob.setTargetId(foundIngredient.getId());
 		haulingJob.setHaulingAllocation(haulingAllocation);
 
-		if (foundIngredient.getLocationComponent().getContainerEntity() != null) {
-			FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(foundIngredient.getLocationComponent().getContainerEntity(), gameContext.getAreaMap());
+		if (foundIngredient.getLocationComponent(true).getContainerEntity() != null) {
+			FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(foundIngredient.getLocationComponent(true).getContainerEntity(), gameContext.getAreaMap());
 			if (navigableWorkspace == null) {
 				Logger.error("Could not find navigable workspace to create hauling job from");
 			} else {
 				haulingJob.setJobLocation(navigableWorkspace.getAccessedFrom());
 			}
 		} else {
-			haulingJob.setJobLocation(toGridPoint(foundIngredient.getLocationComponent().getWorldPosition()));
+			haulingJob.setJobLocation(toGridPoint(foundIngredient.getLocationComponent(true).getWorldPosition()));
 		}
 
 		if (haulingJob.getJobLocation() != null) {
@@ -436,7 +436,7 @@ public class KitchenBehaviour extends RoomBehaviourComponent implements Telegrap
 		Job cookingJob = new Job(cookingJobType);
 		cookingJob.setJobPriority(priority);
 		cookingJob.setCookingRecipe(cookingSession.getRecipe());
-		cookingJob.setJobLocation(toGridPoint(cookingSession.getAssignedFurnitureEntity().getLocationComponent().getWorldPosition()));
+		cookingJob.setJobLocation(toGridPoint(cookingSession.getAssignedFurnitureEntity().getLocationComponent(true).getWorldPosition()));
 		cookingJob.setTargetId(cookingSession.getAssignedFurnitureEntity().getId());
 
 		cookingSession.setCookingJob(cookingJob);

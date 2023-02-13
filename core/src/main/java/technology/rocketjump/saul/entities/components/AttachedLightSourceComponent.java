@@ -56,8 +56,8 @@ public class AttachedLightSourceComponent implements InfrequentlyUpdatableCompon
 			}
 		}
 
-		if (parentEntity.getLocationComponent().getWorldPosition() != null) {
-			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
+		if (parentEntity.getLocationComponent(true).getWorldPosition() != null) {
+			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
 			if (currentTile != null) {
 				EnumMap<CompassDirection, MapVertex> vertexNeighboursOfCell = gameContext.getAreaMap().getVertexNeighboursOfCell(currentTile);
 
@@ -91,9 +91,9 @@ public class AttachedLightSourceComponent implements InfrequentlyUpdatableCompon
 	}
 
 	public void updatePosition() {
-		if (parentEntity.getLocationComponent().getWorldOrParentPosition() != null) {
+		if (parentEntity.getLocationComponent(true).getWorldOrParentPosition() != null) {
 			// TODO adjust by light position offset based on orientation, currently glued to parent entity position + light radius in Y direction
-			light.setWorldPosition(parentEntity.getLocationComponent().getWorldOrParentPosition().cpy().add(0, parentEntity.getLocationComponent().getRadius()));
+			light.setWorldPosition(parentEntity.getLocationComponent(true).getWorldOrParentPosition().cpy().add(0, parentEntity.getLocationComponent(true).getRadius()));
 			setUpdateRequired();
 		}
 	}

@@ -43,7 +43,7 @@ public class FurnitureStockpile extends AbstractStockpile implements ChildPersis
         InventoryComponent inventoryComponent = parentEntity.getComponent(InventoryComponent.class);
         if (inventoryComponent != null && (inventoryComponent.getInventoryEntries().size() + allocationsByHaulingAllocationId.size()) < maxQuantity) {
             //if enough space then return one else return null
-            StockpileAllocation allocationToUse = new StockpileAllocation(VectorUtils.toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
+            StockpileAllocation allocationToUse = new StockpileAllocation(VectorUtils.toGridPoint(parentEntity.getLocationComponent(true).getWorldPosition()));
             allocationToUse.setItemType(itemType);
             allocationToUse.setGameMaterial(itemMaterial);
             allocationToUse.setRaceCorpse(corpseRace);

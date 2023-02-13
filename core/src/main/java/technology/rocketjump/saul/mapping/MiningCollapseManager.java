@@ -269,7 +269,7 @@ public class MiningCollapseManager implements Telegraph, Updatable {
 		for (Entity entity : entitiesStruckByCollapse) {
 			if (entity.getType().equals(EntityType.CREATURE)) {
 				messageDispatcher.dispatchMessage(MessageType.CREATURE_DEATH, new CreatureDeathMessage(entity, DeathReason.CRUSHED_BY_FALLING_DEBRIS, null));
-				MapTile deceasedTile = gameContext.getAreaMap().getTile(entity.getLocationComponent().getWorldOrParentPosition());
+				MapTile deceasedTile = gameContext.getAreaMap().getTile(entity.getLocationComponent(true).getWorldOrParentPosition());
 				if (deceasedTile == null || deceasedTile.hasWall()) {
 					messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, entity);
 				}

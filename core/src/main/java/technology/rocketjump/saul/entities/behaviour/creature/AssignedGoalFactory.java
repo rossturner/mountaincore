@@ -153,7 +153,7 @@ public class AssignedGoalFactory {
 	}
 
 	public static AssignedGoal tantrumGoal(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) throws EnteringCombatException {
-		GridPoint2 parentLocation = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition()).getTilePosition();
+		GridPoint2 parentLocation = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldOrParentPosition()).getTilePosition();
 
 		Entity target = null;
 		List<CompassDirection> directions = new ArrayList<>(List.of(CompassDirection.values()));
@@ -238,7 +238,7 @@ public class AssignedGoalFactory {
 
 			if (liquidAllocation.get().isPresent()) {
 				GridPoint2 accessLocation = liquidAllocation.get().get().getTargetZoneTile().getAccessLocation();
-				float distanceToLiquidAllocation = parentEntity.getLocationComponent().getWorldOrParentPosition().dst(toVector(accessLocation));
+				float distanceToLiquidAllocation = parentEntity.getLocationComponent(true).getWorldOrParentPosition().dst(toVector(accessLocation));
 				if (distanceToLiquidAllocation > MAX_DISTANCE_TO_LIQUID_FOR_DOUSE_FIRE && liquidAllocation.get().isPresent()) {
 					messageDispatcher.dispatchMessage(MessageType.LIQUID_ALLOCATION_CANCELLED, liquidAllocation.get().get());
 					liquidAllocation.set(Optional.empty());
@@ -255,6 +255,10 @@ public class AssignedGoalFactory {
 			return new AssignedGoal(ROLL_ON_FLOOR.getInstance(), parentEntity, messageDispatcher);
 		}
 		return new AssignedGoal(IDLE.getInstance(), parentEntity, messageDispatcher);
+	}
+
+	public static AssignedGoal doNothingGoal(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
+		return new AssignedGoal(DO_NOTHING.getInstance(), parentEntity, messageDispatcher);
 	}
 
 }

@@ -37,7 +37,7 @@ public class PlaceFoodOrDrinkOnFurnitureAction extends Action {
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
-		Vector2 parentPosition = parent.parentEntity.getLocationComponent().getWorldOrParentPosition();
+		Vector2 parentPosition = parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition();
 		MapTile parentTile = gameContext.getAreaMap().getTile(parentPosition);
 
 		EquippedItemComponent equippedItemComponent = parent.parentEntity.getComponent(EquippedItemComponent.class);
@@ -55,7 +55,7 @@ public class PlaceFoodOrDrinkOnFurnitureAction extends Action {
 					FurnitureEntityAttributes furnitureAttributes = (FurnitureEntityAttributes) furnitureEntity.getPhysicalEntityComponent().getAttributes();
 					int workspaceIndex = 0;
 					for (FurnitureLayout.Workspace workspace : furnitureAttributes.getCurrentLayout().getWorkspaces()) {
-						if (workspace.getAccessedFrom().cpy().add(toGridPoint(furnitureEntity.getLocationComponent().getWorldPosition()))
+						if (workspace.getAccessedFrom().cpy().add(toGridPoint(furnitureEntity.getLocationComponent(true).getWorldPosition()))
 								.equals(parentTile.getTilePosition())) {
 							// This is a valid workspace
 							ItemHoldPosition preferredPosition = null;
@@ -65,9 +65,9 @@ public class PlaceFoodOrDrinkOnFurnitureAction extends Action {
 
 							InventoryComponent furnitureInventory = furnitureEntity.getOrCreateComponent(InventoryComponent.class);
 							// Face towards location
-							parent.parentEntity.getLocationComponent().setFacing(
-									toVector(workspace.getLocation().cpy().add(toGridPoint(furnitureEntity.getLocationComponent().getWorldPosition()))).sub(
-											parent.parentEntity.getLocationComponent().getWorldPosition()
+							parent.parentEntity.getLocationComponent(true).setFacing(
+									toVector(workspace.getLocation().cpy().add(toGridPoint(furnitureEntity.getLocationComponent(true).getWorldPosition()))).sub(
+											parent.parentEntity.getLocationComponent(true).getWorldPosition()
 									)
 							);
 

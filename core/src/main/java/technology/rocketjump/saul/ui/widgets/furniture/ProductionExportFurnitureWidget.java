@@ -258,7 +258,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 	}
 
 	private void onClickItemType() {
-		MapTile tile = gameContext.getAreaMap().getTile(furnitureEntity.getLocationComponent().getWorldOrParentPosition());
+		MapTile tile = gameContext.getAreaMap().getTile(furnitureEntity.getLocationComponent(true).getWorldOrParentPosition());
 		if (tile == null || tile.getRoomTile() == null) {
 			Logger.error("No room tile found under furniture entity {}", furnitureEntity);
 			return;

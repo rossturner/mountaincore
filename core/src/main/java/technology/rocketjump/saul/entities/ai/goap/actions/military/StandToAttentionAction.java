@@ -34,7 +34,7 @@ public class StandToAttentionAction extends Action {
 			if (gameContext.getRandom().nextBoolean()) {
 				// 50/50 face a new direction
 				CompassDirection randomDirection = CompassDirection.values()[gameContext.getRandom().nextInt(CompassDirection.values().length)];
-				Vector2 facingTarget = parent.parentEntity.getLocationComponent().getWorldOrParentPosition().cpy().add(randomDirection.toVector());
+				Vector2 facingTarget = parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition().cpy().add(randomDirection.toVector());
 				faceTowardsLocationAction = new FaceTowardsLocationAction(parent); // push to head of queue
 				parent.setTargetLocation(facingTarget);
 			}

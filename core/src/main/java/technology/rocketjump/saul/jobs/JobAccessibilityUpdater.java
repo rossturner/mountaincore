@@ -73,7 +73,7 @@ public class JobAccessibilityUpdater implements Updatable {
 			// No entities to assign to
 			return;
 		}
-		Vector2 entityWorldPosition = assignableEntity.getLocationComponent().getWorldOrParentPosition();
+		Vector2 entityWorldPosition = assignableEntity.getLocationComponent(true).getWorldOrParentPosition();
 
 		List<GridPoint2> jobLocations = new ArrayList<>();
 

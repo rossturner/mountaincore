@@ -40,7 +40,7 @@ public class SettlementFurnitureTracker implements GameContextAware, Telegraph {
 	}
 
 	public void furnitureAdded(Entity entity) {
-		if (entity.getLocationComponent().isUntracked()) {
+		if (entity.getLocationComponent(true).isUntracked()) {
 			return;
 		}
 
@@ -107,14 +107,14 @@ public class SettlementFurnitureTracker implements GameContextAware, Telegraph {
 						.stream()
 						.filter(request.filter)
 						.toList();
-				Vector2 requesterPosition = request.requestingEntity.getLocationComponent().getWorldPosition();
+				Vector2 requesterPosition = request.requestingEntity.getLocationComponent(true).getWorldPosition();
 				long requesterRegionId = gameContext.getAreaMap().getTile(requesterPosition).getRegionId();
 				Entity nearest = null;
 				float nearestDistance2 = Float.MAX_VALUE;
 				for (Entity entity : matched) {
-					long entityRegionId = gameContext.getAreaMap().getTile(entity.getLocationComponent().getWorldPosition()).getRegionId();
+					long entityRegionId = gameContext.getAreaMap().getTile(entity.getLocationComponent(true).getWorldPosition()).getRegionId();
 					if (entityRegionId == requesterRegionId) {
-						float dst2 = entity.getLocationComponent().getWorldPosition().dst2(requesterPosition);
+						float dst2 = entity.getLocationComponent(true).getWorldPosition().dst2(requesterPosition);
 						if (dst2 < nearestDistance2) {
 							nearestDistance2 = dst2;
 							nearest = entity;

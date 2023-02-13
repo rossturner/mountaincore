@@ -1,0 +1,10 @@
+{
+  "name": "Do nothing goal",
+  "i18nDescription": "GOAL.IDLE.DESCRIPTION",
+  "interruptedByLowNeeds": true,
+  "selectors": [],
+  "initialActions": ["Pause"],
+  "actionRelationships": {
+    "Pause": {}
+  }
+}

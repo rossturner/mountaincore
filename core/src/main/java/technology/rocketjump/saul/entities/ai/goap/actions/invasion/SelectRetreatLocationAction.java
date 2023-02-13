@@ -34,7 +34,7 @@ public class SelectRetreatLocationAction extends Action {
 				completionType = CompletionType.SUCCESS;
 			} else {
 				// Set home location to nearest navigable map edge
-				MapTile parentEntityTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldOrParentPosition());
+				MapTile parentEntityTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition());
 				MapTile nearestTileToMapEdge = null;
 				float distance2ToNearest = Float.MAX_VALUE;
 

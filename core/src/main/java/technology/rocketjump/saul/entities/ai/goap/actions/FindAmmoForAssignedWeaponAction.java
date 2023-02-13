@@ -79,7 +79,7 @@ public class FindAmmoForAssignedWeaponAction extends Action implements ItemTypeL
 		parent.messageDispatcher.dispatchMessage(MessageType.LOOKUP_ITEM_TYPE, new LookupItemTypeMessage(requiredAmmoType.name(), this));
 
 		if (foundItemType != null) {
-			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(parent.parentEntity, parent.parentEntity.getLocationComponent().getWorldOrParentPosition(), foundItemType, null, true, amountRequired, null, (allocation) -> {
+			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(parent.parentEntity, parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition(), foundItemType, null, true, amountRequired, null, (allocation) -> {
 				if (allocation != null) {
 					parent.setAssignedHaulingAllocation(allocation);
 					completionType = SUCCESS;

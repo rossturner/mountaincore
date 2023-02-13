@@ -44,21 +44,21 @@ public class SelectableOutlineRenderer {
 	}
 
 	private void renderCircleAroundEntity(Entity selectedEntity, ShapeRenderer shapeRenderer, GameContext gameContext) {
-		Vector2 worldPosition = selectedEntity.getLocationComponent().getWorldPosition();
+		Vector2 worldPosition = selectedEntity.getLocationComponent(true).getWorldPosition();
 		if (worldPosition == null) {
 			return;
 		}
 		shapeRenderer.circle(worldPosition.x, worldPosition.y,
-				selectedEntity.getLocationComponent().getRadius() + 0.3f, 100);
+				selectedEntity.getLocationComponent(true).getRadius() + 0.3f, 100);
 		CombatStateComponent combatStateComponent = selectedEntity.getComponent(CombatStateComponent.class);
 		if (combatStateComponent != null && combatStateComponent.isInCombat() && combatStateComponent.getTargetedOpponentId() != null) {
 			Entity targetEntity = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
 			if (targetEntity != null) {
-				Vector2 targetPosition = targetEntity.getLocationComponent().getWorldPosition();
+				Vector2 targetPosition = targetEntity.getLocationComponent(true).getWorldPosition();
 				if (targetPosition != null) {
 					shapeRenderer.setColor(NEGATIVE_COLOR);
 					shapeRenderer.circle(targetPosition.x, targetPosition.y,
-							targetEntity.getLocationComponent().getRadius() + 0.3f, 100);
+							targetEntity.getLocationComponent(true).getRadius() + 0.3f, 100);
 					shapeRenderer.setColor(Color.WHITE);
 				}
 			}

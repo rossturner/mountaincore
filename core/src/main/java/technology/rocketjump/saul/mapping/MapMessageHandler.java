@@ -506,7 +506,7 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private static boolean isWithinBounds(Entity entity, Vector2 minPoint, Vector2 maxPoint) {
-		Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
+		Vector2 worldPosition = entity.getLocationComponent(true).getWorldPosition();
 		if (worldPosition != null) {
 			return minPoint.x <= worldPosition.x && worldPosition.x <= maxPoint.x &&
 					minPoint.y <= worldPosition.y && worldPosition.y <= maxPoint.y;

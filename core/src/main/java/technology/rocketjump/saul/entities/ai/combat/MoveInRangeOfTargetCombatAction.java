@@ -48,11 +48,11 @@ public class MoveInRangeOfTargetCombatAction extends CombatAction {
 		} else {
 			CreatureCombat combatStats = new CreatureCombat(parentEntity);
 			if (combatStats.getEquippedWeapon().isRanged()) {
-				Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
+				Vector2 parentPosition = parentEntity.getLocationComponent(true).getWorldOrParentPosition();
 				CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 				Entity opponentEntity = gameContext.getEntities().get(combatStateComponent.getTargetedOpponentId());
 				if (opponentEntity != null) {
-					Vector2 opponentPosition = opponentEntity.getLocationComponent().getWorldOrParentPosition();
+					Vector2 opponentPosition = opponentEntity.getLocationComponent(true).getWorldOrParentPosition();
 					float distanceToOpponent = parentPosition.dst(opponentPosition);
 					if (distanceToOpponent < ((float)combatStats.getEquippedWeapon().getRange()) * 0.8f) {
 						// Checking opponent is within 80% of range so that they don't just immediately move out of range again

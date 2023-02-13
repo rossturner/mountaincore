@@ -23,13 +23,13 @@ public class OffsetPositionTag extends Tag {
 		Vector2 offset = new Vector2(Float.valueOf(args.get(0)), Float.valueOf(args.get(1)));
 
 		// Reset offset in current tile by 0.5f + offset each time, so multiple applications do not accumulate
-		Vector2 worldPosition = entity.getLocationComponent().getWorldPosition().cpy();
+		Vector2 worldPosition = entity.getLocationComponent(true).getWorldPosition().cpy();
 		worldPosition.x = (float) Math.floor(worldPosition.x);
 		worldPosition.x = worldPosition.x + 0.5f + offset.x;
 		worldPosition.y = (float) Math.floor(worldPosition.y);
 		worldPosition.y = worldPosition.y + 0.5f + offset.y;
 
-		entity.getLocationComponent().setWorldPosition(worldPosition, false);
+		entity.getLocationComponent(true).setWorldPosition(worldPosition, false);
 	}
 
 }

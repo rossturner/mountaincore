@@ -77,7 +77,7 @@ public class DoorBehaviour implements BehaviourComponent {
 		PhysicalEntityComponent physicalEntityComponent = parentEntity.getPhysicalEntityComponent();
 		float currentAnimationProgress = physicalEntityComponent.getAnimationProgress();
 
-		MapTile doorTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
+		MapTile doorTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
 		boolean otherEntityInTile = doorTile.getEntities().size() > 1;
 
 		if (doorOpenRequested) {
@@ -137,14 +137,14 @@ public class DoorBehaviour implements BehaviourComponent {
 
 		if (previousState.equals(CLOSED) && newState.equals(OPENING)) {
 			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(openSound, parentEntity.getId(),
-					parentEntity.getLocationComponent().getWorldOrParentPosition(), null));
+					parentEntity.getLocationComponent(true).getWorldOrParentPosition(), null));
 		} else if (previousState.equals(OPEN) && newState.equals(CLOSING)) {
 			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(closeSound, parentEntity.getId(),
-					parentEntity.getLocationComponent().getWorldOrParentPosition(), null));
+					parentEntity.getLocationComponent(true).getWorldOrParentPosition(), null));
 		}
 
 		if (previousState.equals(CLOSED) || newState.equals(CLOSED)) {
-			messageDispatcher.dispatchMessage(MessageType.DOOR_OPENED_OR_CLOSED, toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
+			messageDispatcher.dispatchMessage(MessageType.DOOR_OPENED_OR_CLOSED, toGridPoint(parentEntity.getLocationComponent(true).getWorldPosition()));
 		}
 	}
 

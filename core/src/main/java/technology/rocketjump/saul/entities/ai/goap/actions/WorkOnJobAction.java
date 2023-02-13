@@ -66,7 +66,7 @@ public class WorkOnJobAction extends Action {
 				SoundAsset jobSoundAsset = getJobSoundAsset();
 				if (jobSoundAsset != null) {
 					parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(jobSoundAsset,
-							parent.parentEntity.getId(), parent.parentEntity.getLocationComponent().getWorldOrParentPosition(), null));
+							parent.parentEntity.getId(), parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition(), null));
 				}
 				activeSoundTriggered = true;
 			}
@@ -78,7 +78,7 @@ public class WorkOnJobAction extends Action {
 				}
 			}
 
-			MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldPosition());
+			MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent(true).getWorldPosition());
 			HappinessComponent happinessComponent = parent.parentEntity.getComponent(HappinessComponent.class);
 			if (currentTile != null && currentTile.hasRoom() && currentTile.getRoomTile().getRoom().isFullyEnclosed() && happinessComponent != null) {
 				happinessComponent.add(WORKED_IN_ENCLOSED_ROOM);
@@ -244,9 +244,9 @@ public class WorkOnJobAction extends Action {
 			return false;
 		} else if (parent.getAssignedJob().getType().isAccessedFromAdjacentTile()) {
 			// Tile distance must be one
-			return toGridPoint(parent.parentEntity.getLocationComponent().getWorldPosition()).dst2(parent.getAssignedJob().getJobLocation()) <= 1f;
+			return toGridPoint(parent.parentEntity.getLocationComponent(true).getWorldPosition()).dst2(parent.getAssignedJob().getJobLocation()) <= 1f;
 		} else {
-			return toGridPoint(parent.parentEntity.getLocationComponent().getWorldPosition()).equals(parent.getAssignedJob().getJobLocation());
+			return toGridPoint(parent.parentEntity.getLocationComponent(true).getWorldPosition()).equals(parent.getAssignedJob().getJobLocation());
 		}
 	}
 }

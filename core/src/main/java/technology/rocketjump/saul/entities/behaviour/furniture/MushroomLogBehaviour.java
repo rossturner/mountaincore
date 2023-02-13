@@ -155,7 +155,7 @@ public class MushroomLogBehaviour extends FurnitureBehaviour implements Destruct
 	private void createHarvestJob(GameContext gameContext) {
 		harvestJob = new Job(harvestJobType);
 		harvestJob.setJobPriority(priority);
-		harvestJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
+		harvestJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent(true).getWorldOrParentPosition()));
 		harvestJob.setTargetId(parentEntity.getId());
 
 		messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, harvestJob);
