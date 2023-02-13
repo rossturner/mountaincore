@@ -21454,8 +21454,8 @@
       },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 5.0,
+        "x" : 7.0,
+        "y" : -3.0,
         "unit" : false
       },
       "flipX" : false,
@@ -21470,7 +21470,15 @@
         "inheritAnimations" : [ "work_on_job_logging" ]
       } ],
       "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -2.0,
+          "y" : -6.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-B.png",
@@ -21597,8 +21605,8 @@
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : -2.0,
+        "y" : 10.0,
         "unit" : false
       },
       "flipX" : false,
@@ -21782,7 +21790,7 @@
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : 2.0,
         "y" : 0.0,
         "unit" : false
       },
@@ -22684,8 +22692,8 @@
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "x" : 1.0,
+        "y" : 8.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22852,8 +22860,8 @@
       },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 5.0,
-        "y" : 15.0,
+        "x" : 2.0,
+        "y" : 12.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22868,7 +22876,15 @@
         "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 1.0,
+          "y" : -10.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ]
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Kitchen-Knife-Handle-Being-Carried-B.png",
@@ -22883,7 +22899,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
-        "y" : 15.0,
+        "y" : 6.0,
         "unit" : false
       },
       "flipX" : false,
@@ -22892,13 +22908,21 @@
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
           "x" : 0.0,
-          "y" : 0.0,
+          "y" : -5.0,
           "unit" : false
         },
         "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -2.0,
+          "y" : -13.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Kitchen-Knife-Handle-Being-Carried-B.png",
@@ -22912,8 +22936,8 @@
       },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -5.0,
-        "y" : 15.0,
+        "x" : 32.0,
+        "y" : 12.0,
         "unit" : false
       },
       "flipX" : true,
@@ -23354,7 +23378,15 @@
         "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       } ],
       "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : -15.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Large-Hammer-Handle-Being-Carried-B.png",
@@ -24883,7 +24915,15 @@
       "flipY" : false,
       "childAssets" : [ ],
       "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 0.0,
+          "y" : -10.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ]
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Rolling-Pin-Being-Carried-B34.png",
@@ -24898,15 +24938,23 @@
       },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 5.0,
-        "y" : 10.0,
+        "x" : 11.0,
+        "y" : 7.0,
         "unit" : false
       },
       "flipX" : false,
       "flipY" : false,
       "childAssets" : [ ],
       "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -8.0,
+          "y" : -12.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Rolling-Pin-Being-Carried-B34.png",
@@ -25400,7 +25448,7 @@
       },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 10.0,
+        "x" : -4.0,
         "y" : 5.0,
         "unit" : false
       },
@@ -25450,7 +25498,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 15.0,
-        "y" : 0.0,
+        "y" : -5.0,
         "unit" : false
       },
       "flipX" : false,
@@ -25473,7 +25521,15 @@
         "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       } ],
       "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -9.0,
+          "y" : 1.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-B34.png",
@@ -25498,8 +25554,8 @@
       },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -15.0,
-        "y" : 0.0,
+        "x" : -9.0,
+        "y" : -2.0,
         "unit" : false
       },
       "flipX" : true,
@@ -25892,7 +25948,7 @@
       "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 0.0,
+        "x" : -4.0,
         "y" : 0.0,
         "unit" : false
       },
@@ -26090,8 +26146,8 @@
       },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 5.0,
-        "y" : 10.0,
+        "x" : 14.0,
+        "y" : -2.0,
         "unit" : false
       },
       "flipX" : false,
@@ -26106,7 +26162,15 @@
         "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ],
       "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -14.0,
+          "y" : -8.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Tongs-Extra-Being-Carried-B34.png",
@@ -26120,7 +26184,7 @@
       },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : -5.0,
+        "x" : -9.0,
         "y" : 10.0,
         "unit" : false
       },
@@ -26129,7 +26193,7 @@
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "offsetPixels" : {
-          "x" : 0.0,
+          "x" : 4.0,
           "y" : 0.0,
           "unit" : false
         },

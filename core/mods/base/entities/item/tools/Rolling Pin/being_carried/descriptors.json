@@ -7,9 +7,9 @@
     "DOWN" : {
       "filename" : "Tool-Rolling-Pin-Being-Carried-F.png",
       "coloringLayer" : "WOOD_COLOR",
-      "templatedAnimationScripts": {
-        "work_on_job_generic_wiggle": {
-          "use": "tool-wiggle-down"
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-down"
         }
       },
       "offsetPixels" : {
@@ -26,9 +26,9 @@
     "DOWN_RIGHT" : {
       "filename" : "Tool-Rolling-Pin-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
-      "templatedAnimationScripts": {
-        "work_on_job_generic_wiggle": {
-          "use": "tool-wiggle-down-right"
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-down-right"
         }
       },
       "offsetPixels" : {
@@ -47,9 +47,9 @@
     "DOWN_LEFT" : {
       "filename" : "Tool-Rolling-Pin-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
-      "templatedAnimationScripts": {
-        "work_on_job_generic_wiggle": {
-          "use": "tool-wiggle-down-left"
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-down-left"
         }
       },
       "offsetPixels" : {
@@ -69,35 +69,48 @@
     "UP" : {
       "filename" : "Tool-Rolling-Pin-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
-      "templatedAnimationScripts": {
-        "work_on_job_generic_wiggle": {
-          "use": "tool-wiggle-up"
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-up"
         }
       },
       "offsetPixels" : {
         "x" : 5.0,
         "y" : 14.0
-      }
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "y" : -10.0
+        }
+      } ]
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Rolling-Pin-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
-      "templatedAnimationScripts": {
-        "work_on_job_generic_wiggle": {
-          "use": "tool-wiggle-up-right"
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-up-right"
         }
       },
       "offsetPixels" : {
-        "x" : 5.0,
-        "y" : 10.0
-      }
+        "x" : 11.0,
+        "y" : 7.0
+      },
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -8.0,
+          "y" : -12.0
+        }
+      } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Rolling-Pin-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
-      "templatedAnimationScripts": {
-        "work_on_job_generic_wiggle": {
-          "use": "tool-wiggle-up-left"
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-up-left"
         }
       },
       "offsetPixels" : {

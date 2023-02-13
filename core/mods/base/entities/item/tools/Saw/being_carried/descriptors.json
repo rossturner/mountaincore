@@ -234,7 +234,8 @@
         }
       },
       "offsetPixels" : {
-        "x" : 15.0
+        "x" : 15.0,
+        "y" : -5.0
       },
       "childAssets" : [ {
         "type" : "BELOW_LAYER_1",
@@ -242,6 +243,13 @@
       }, {
         "type" : "ABOVE_LAYER_1",
         "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -9.0,
+          "y" : 1.0
+        }
       } ]
     },
     "UP_LEFT" : {
@@ -264,7 +272,8 @@
         }
       },
       "offsetPixels" : {
-        "x" : -15.0
+        "x" : -9.0,
+        "y" : -2.0
       },
       "flipX" : true,
       "childAssets" : [ {

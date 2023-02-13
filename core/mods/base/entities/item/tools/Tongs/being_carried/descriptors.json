@@ -137,12 +137,19 @@
         }
       },
       "offsetPixels" : {
-        "x" : 5.0,
-        "y" : 10.0
+        "x" : 14.0,
+        "y" : -2.0
       },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -14.0,
+          "y" : -8.0
+        }
       } ]
     },
     "UP_LEFT" : {
@@ -153,12 +160,15 @@
         }
       },
       "offsetPixels" : {
-        "x" : -5.0,
+        "x" : -9.0,
         "y" : 10.0
       },
       "flipX" : true,
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "x" : 4.0
+        },
         "inheritAnimations" : [ "work_on_job_generic_wiggle" ]
       } ]
     }

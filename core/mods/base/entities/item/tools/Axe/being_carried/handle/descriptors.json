@@ -7,12 +7,12 @@
     "DOWN" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-F.png",
       "coloringLayer" : "WOOD_COLOR",
-      "templatedAnimationScripts": {
-        "work_on_job_logging": {
-          "use": "handle-swing-down",
-          "variables": {
-            "__SOUND_NOTIFY_1__": "ChoppingTree",
-            "__PARTICLE_EFFECT_NOTIFY_1__": "Chipping wood"
+      "templatedAnimationScripts" : {
+        "work_on_job_logging" : {
+          "use" : "handle-swing-down",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "ChoppingTree",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping wood"
           }
         }
       },
@@ -35,12 +35,12 @@
     "DOWN_RIGHT" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
-      "templatedAnimationScripts": {
-        "work_on_job_logging": {
-          "use": "handle-swing-down-right",
-          "variables": {
-            "__SOUND_NOTIFY_1__": "ChoppingTree",
-            "__PARTICLE_EFFECT_NOTIFY_1__": "Chipping wood"
+      "templatedAnimationScripts" : {
+        "work_on_job_logging" : {
+          "use" : "handle-swing-down-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "ChoppingTree",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping wood"
           }
         }
       },
@@ -63,12 +63,12 @@
     "DOWN_LEFT" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
-      "templatedAnimationScripts": {
-        "work_on_job_logging": {
-          "use": "handle-swing-down-left",
-          "variables": {
-            "__SOUND_NOTIFY_1__": "ChoppingTree",
-            "__PARTICLE_EFFECT_NOTIFY_1__": "Chipping wood"
+      "templatedAnimationScripts" : {
+        "work_on_job_logging" : {
+          "use" : "handle-swing-down-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "ChoppingTree",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping wood"
           }
         }
       },
@@ -92,12 +92,12 @@
     "UP" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
-      "templatedAnimationScripts": {
-        "work_on_job_logging": {
-          "use": "handle-swing-up",
-          "variables": {
-            "__SOUND_NOTIFY_1__": "ChoppingTree",
-            "__PARTICLE_EFFECT_NOTIFY_1__": "Chipping wood"
+      "templatedAnimationScripts" : {
+        "work_on_job_logging" : {
+          "use" : "handle-swing-up",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "ChoppingTree",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping wood"
           }
         }
       },
@@ -115,17 +115,18 @@
     "UP_RIGHT" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
-      "templatedAnimationScripts": {
-        "work_on_job_logging": {
-          "use": "handle-swing-up-right",
-          "variables": {
-            "__SOUND_NOTIFY_1__": "ChoppingTree",
-            "__PARTICLE_EFFECT_NOTIFY_1__": "Chipping wood"
+      "templatedAnimationScripts" : {
+        "work_on_job_logging" : {
+          "use" : "handle-swing-up-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "ChoppingTree",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping wood"
           }
         }
       },
       "offsetPixels" : {
-        "y" : 5.0
+        "x" : 7.0,
+        "y" : -3.0
       },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
@@ -134,17 +135,24 @@
           "y" : 16.0
         },
         "inheritAnimations" : [ "work_on_job_logging" ]
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -2.0,
+          "y" : -6.0
+        }
       } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Axe-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
-      "templatedAnimationScripts": {
-        "work_on_job_logging": {
-          "use": "handle-swing-up-left",
-          "variables": {
-            "__SOUND_NOTIFY_1__": "ChoppingTree",
-            "__PARTICLE_EFFECT_NOTIFY_1__": "Chipping wood"
+      "templatedAnimationScripts" : {
+        "work_on_job_logging" : {
+          "use" : "handle-swing-up-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "ChoppingTree",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Chipping wood"
           }
         }
       },

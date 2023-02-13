@@ -33493,6 +33493,10 @@
           "use" : "right-hand-sawing-down",
           "variables" : { }
         },
+        "work_on_job_planing" : {
+          "use" : "right-hand-sawing-down",
+          "variables" : { }
+        },
         "work_on_job_generic_wiggle" : {
           "use" : "right-hand-tool-wiggle-down",
           "variables" : { }
@@ -33541,6 +33545,10 @@
           "variables" : { }
         },
         "work_on_job_construct_wooden_furniture" : {
+          "use" : "right-hand-sawing-down-right",
+          "variables" : { }
+        },
+        "work_on_job_planing" : {
           "use" : "right-hand-sawing-down-right",
           "variables" : { }
         },
@@ -33628,6 +33636,18 @@
         },
         "work_on_job_generic_wiggle" : {
           "use" : "right-hand-tool-wiggle-up-right",
+          "variables" : { }
+        },
+        "work_on_job_woodcutting" : {
+          "use" : "right-hand-sawing-up-right",
+          "variables" : { }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "right-hand-sawing-up-right",
+          "variables" : { }
+        },
+        "work_on_job_planing" : {
+          "use" : "right-hand-sawing-up-right",
           "variables" : { }
         }
       },

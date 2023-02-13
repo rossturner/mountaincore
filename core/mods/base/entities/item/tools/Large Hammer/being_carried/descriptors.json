@@ -173,6 +173,13 @@
       }, {
         "type" : "ABOVE_LAYER_1",
         "inheritAnimations" : [ "work_on_job_blacksmithing" ]
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : -15.0
+        }
       } ]
     },
     "UP_LEFT" : {
