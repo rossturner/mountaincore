@@ -107,7 +107,8 @@
     "i18nKey": "CRAFTING_TYPE.BAKING",
     "professionRequiredName": "CHEF",
     "defaultItemTypeName": "Tool-Rolling-Pin",
-    "usesWorkstationTool": true
+    "usesWorkstationTool": true,
+    "workOnJobAnimation": "work_on_job_generic_wiggle"
   },
   {
     "name": "TANNING_HIDE",

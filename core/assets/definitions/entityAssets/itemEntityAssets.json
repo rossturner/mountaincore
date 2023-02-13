@@ -24723,7 +24723,12 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-down",
+          "variables" : { }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -24750,7 +24755,12 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-down-right",
+          "variables" : { }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 7.0,
@@ -24777,7 +24787,12 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-down-left",
+          "variables" : { }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -7.0,
@@ -24804,7 +24819,12 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-up",
+          "variables" : { }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
@@ -24822,7 +24842,12 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-up-right",
+          "variables" : { }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
@@ -24840,7 +24865,12 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
-      "templatedAnimationScripts" : { },
+      "templatedAnimationScripts" : {
+        "work_on_job_generic_wiggle" : {
+          "use" : "tool-wiggle-up-left",
+          "variables" : { }
+        }
+      },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -5.0,
