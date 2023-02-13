@@ -24451,7 +24451,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_RIGHT" : {
-      "filename" : "Tool-Plane-Body-Being-Carried-B34.png",
+      "filename" : "Tool-Plane-Body-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
@@ -24469,7 +24469,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_LEFT" : {
-      "filename" : "Tool-Plane-Body-Being-Carried-B34.png",
+      "filename" : "Tool-Plane-Body-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
@@ -24639,7 +24639,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
-        "y" : 10.0,
+        "y" : 1.0,
         "unit" : false
       },
       "flipX" : false,
@@ -24657,7 +24657,7 @@
       "parentEntityAssets" : [ ]
     },
     "UP_RIGHT" : {
-      "filename" : "Tool-Plane-Extra-Being-Carried-B34.png",
+      "filename" : "Tool-Plane-Extra-Being-Carried-B.png",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : {
@@ -24671,8 +24671,8 @@
       },
       "scale" : 1.0,
       "offsetPixels" : {
-        "x" : 5.0,
-        "y" : -10.0,
+        "x" : 7.0,
+        "y" : -6.0,
         "unit" : false
       },
       "flipX" : false,
@@ -24687,10 +24687,18 @@
         "inheritAnimations" : [ "work_on_job_planing" ]
       } ],
       "attachmentPoints" : [ ],
-      "parentEntityAssets" : [ ]
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -5.0,
+          "y" : -2.0,
+          "unit" : false
+        },
+        "inheritAnimations" : [ ]
+      } ]
     },
     "UP_LEFT" : {
-      "filename" : "Tool-Plane-Extra-Being-Carried-B34.png",
+      "filename" : "Tool-Plane-Extra-Being-Carried-B.png",
       "isAnimated" : false,
       "animationScripts" : { },
       "templatedAnimationScripts" : {
@@ -24705,7 +24713,7 @@
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -5.0,
-        "y" : -10.0,
+        "y" : -6.0,
         "unit" : false
       },
       "flipX" : true,

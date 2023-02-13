@@ -22,11 +22,11 @@
       "coloringLayer" : "WOOD_COLOR"
     },
     "UP_RIGHT" : {
-      "filename" : "Tool-Plane-Body-Being-Carried-B34.png",
+      "filename" : "Tool-Plane-Body-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR"
     },
     "UP_LEFT" : {
-      "filename" : "Tool-Plane-Body-Being-Carried-B34.png",
+      "filename" : "Tool-Plane-Body-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
       "flipX" : true
     }
@@ -133,7 +133,7 @@
       },
       "offsetPixels" : {
         "x" : 5.0,
-        "y" : 10.0
+        "y" : 1.0
       },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
@@ -141,7 +141,7 @@
       } ]
     },
     "UP_RIGHT" : {
-      "filename" : "Tool-Plane-Extra-Being-Carried-B34.png",
+      "filename" : "Tool-Plane-Extra-Being-Carried-B.png",
       "templatedAnimationScripts" : {
         "work_on_job_planing" : {
           "use" : "sawing-up-right",
@@ -152,16 +152,23 @@
         }
       },
       "offsetPixels" : {
-        "x" : 5.0,
-        "y" : -10.0
+        "x" : 7.0,
+        "y" : -6.0
       },
       "childAssets" : [ {
         "type" : "ABOVE_LAYER_1",
         "inheritAnimations" : [ "work_on_job_planing" ]
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -5.0,
+          "y" : -2.0
+        }
       } ]
     },
     "UP_LEFT" : {
-      "filename" : "Tool-Plane-Extra-Being-Carried-B34.png",
+      "filename" : "Tool-Plane-Extra-Being-Carried-B.png",
       "templatedAnimationScripts" : {
         "work_on_job_planing" : {
           "use" : "sawing-up-left",
@@ -173,7 +180,7 @@
       },
       "offsetPixels" : {
         "x" : -5.0,
-        "y" : -10.0
+        "y" : -6.0
       },
       "flipX" : true,
       "childAssets" : [ {
