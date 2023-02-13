@@ -72,7 +72,7 @@ public class SettlementItemTrackerTest {
 			assertThat(materialArray[cursor]).isNotNull();
 		}
 
-		ItemEntityAttributes itemAttributes = new ItemEntityAttributesFactory(mockItemEntityAssetDictionary, mockEntityAssetUpdater).createItemAttributes(itemType, 1, materialArray);
+		ItemEntityAttributes itemAttributes = new ItemEntityAttributesFactory(mockItemEntityAssetDictionary, mockEntityAssetUpdater, gameMaterialDictionary).createItemAttributes(itemType, 1, materialArray);
 		return new ItemEntityFactory(new MessageDispatcher(), gameMaterialDictionary, mockAssetUpdater).create(
 				itemAttributes, new GridPoint2(), true, mockContext,
 				Faction.SETTLEMENT);

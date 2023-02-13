@@ -166,8 +166,14 @@ public class EntityRenderer implements GameContextAware, Disposable {
 		// Special case for entities being rendered attached to vehicles (vehicles use UP, DOWN, LEFT, RIGHT orientations)
 		if (spriteDescriptor == null && orientation.equals(LEFT)) {
 			spriteDescriptor = asset.getSpriteDescriptors().get(EntityAssetOrientation.DOWN_LEFT);
+			if (spriteDescriptor == null) {
+				spriteDescriptor = asset.getSpriteDescriptors().get(EntityAssetOrientation.DOWN);
+			}
 		} else if (spriteDescriptor == null && orientation.equals(RIGHT)) {
 			spriteDescriptor = asset.getSpriteDescriptors().get(EntityAssetOrientation.DOWN_RIGHT);
+			if (spriteDescriptor == null) {
+				spriteDescriptor = asset.getSpriteDescriptors().get(EntityAssetOrientation.DOWN);
+			}
 		}
 		if (spriteDescriptor == null) {
 			// FIXME no sprite descriptor when one was expected

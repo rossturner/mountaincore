@@ -82,7 +82,7 @@ public class TradeCaravanGenerator implements GameContextAware {
 		group.setHomeLocation(toGridPoint(tradeSpawnLocation));
 
 		TradeCaravanDefinition definition = tradeCaravanDefinitionDictionary.get();
-		int numVehicles = definition.getVehicles().getMinQuantity() + random.nextInt(definition.getVehicles().getMaxQuantity() - definition.getVehicles().getMinQuantity());
+		int numVehicles = definition.getVehicles().getMinQuantity() + random.nextInt(definition.getVehicles().getMaxQuantity() - definition.getVehicles().getMinQuantity() + 1);
 
 		for (int i = 0; i < numVehicles; i++) {
 			Entity vehicle = vehicleEntityFactory.create(vehicleEntityAttributesFactory.create(definition.getVehicles().getVehicleType()), toGridPoint(tradeSpawnLocation), gameContext, Faction.MERCHANTS);
@@ -96,8 +96,8 @@ public class TradeCaravanGenerator implements GameContextAware {
 			participants.add(draughtAnimal);
 			vehicleAttachedEntities.addAttachedEntity(draughtAnimal, ItemHoldPosition.VEHICLE_DRAUGHT_ANIMAL);
 
-			int numTraders = definition.getTraders().getMinQuantityPerVehicle() + random.nextInt(definition.getTraders().getMaxQuantityPerVehicle() - definition.getTraders().getMinQuantityPerVehicle());
-			int numGuards = definition.getGuards().getMinQuantityPerVehicle() + random.nextInt(definition.getGuards().getMaxQuantityPerVehicle() - definition.getGuards().getMinQuantityPerVehicle());
+			int numTraders = definition.getTraders().getMinQuantityPerVehicle() + random.nextInt(definition.getTraders().getMaxQuantityPerVehicle() - definition.getTraders().getMinQuantityPerVehicle() + 1);
+			int numGuards = definition.getGuards().getMinQuantityPerVehicle() + random.nextInt(definition.getGuards().getMaxQuantityPerVehicle() - definition.getGuards().getMinQuantityPerVehicle() + 1);
 			boolean driverAttached = false;
 			for (int counter = 0; counter < numTraders; counter++) {
 				Entity trader = createCreatureEntity(tradeSpawnLocation, definition.getTraders(), group);
@@ -109,7 +109,7 @@ public class TradeCaravanGenerator implements GameContextAware {
 				}
 			}
 			for (int counter = 0; counter < numGuards; counter++) {
-				Entity guard = createCreatureEntity(tradeSpawnLocation, definition.getTraders(), group);
+				Entity guard = createCreatureEntity(tradeSpawnLocation, definition.getGuards(), group);
 				participants.add(guard);
 			}
 
@@ -174,6 +174,7 @@ public class TradeCaravanGenerator implements GameContextAware {
 				inventoryComponent.add(weaponItem, entity, messageDispatcher, gameContext.getGameClock());
 
 				militaryComponent.setAssignedWeaponId(weaponItem.getId());
+				militaryComponent.addToMilitary(-1);
 
 				SkillsComponent skillsComponent = entity.getOrCreateComponent(SkillsComponent.class);
 				skillsComponent.setSkillLevel(itemType.getWeaponInfo().getCombatSkill(), creatureDescriptor.getMinWeaponSkill() +
@@ -199,10 +200,7 @@ public class TradeCaravanGenerator implements GameContextAware {
 				ItemType itemType = itemTypeDictionary.getByName(armorItemTypeName);
 				ItemEntityAttributes armorItemAttributes = itemEntityAttributesFactory.createItemAttributes(itemType, 1, pickMaterial(itemType.getPrimaryMaterialType()));
 				Entity armorItem = itemEntityFactory.create(armorItemAttributes, null, true, gameContext, Faction.MERCHANTS);
-				inventoryComponent.add(armorItem, entity, messageDispatcher, gameContext.getGameClock());
-
 				militaryComponent.setAssignedArmorId(armorItem.getId());
-
 				entity.getOrCreateComponent(EquippedItemComponent.class).setEquippedClothing(armorItem, entity, messageDispatcher);
 			}
 		}

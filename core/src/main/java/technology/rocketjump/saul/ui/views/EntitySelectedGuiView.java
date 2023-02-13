@@ -763,7 +763,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						.map(I18nText::toString)
 						.collect(Collectors.joining("\n"));
 				headlineLabel.setText(deadText);
-			} else if (factionComponent != null && (factionComponent.getFaction() == Faction.WILD_ANIMALS || factionComponent.getFaction() == Faction.MERCHANTS || factionComponent.getFaction() == Faction.MONSTERS)) {
+			} else if (factionComponent != null && (factionComponent.getFaction() == Faction.WILD_ANIMALS || factionComponent.getFaction() == Faction.MONSTERS)) {
 				headlineLabel.setText(i18nTranslator.translate(factionComponent.getFaction().i18nKey));
 			} else if (factionComponent != null && factionComponent.getFaction() == Faction.SETTLEMENT && !entity.isSettler()) {
 				headlineLabel.setText(i18nTranslator.translate("FACTION.SETTLEMENT.ANIMAL"));

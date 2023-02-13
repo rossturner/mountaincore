@@ -8,6 +8,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.apache.commons.lang3.NotImplementedException;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.environment.model.Season;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
@@ -16,6 +17,9 @@ import technology.rocketjump.saul.settlement.SettlerTracker;
 import technology.rocketjump.saul.settlement.notifications.Notification;
 import technology.rocketjump.saul.settlement.notifications.NotificationType;
 import technology.rocketjump.saul.settlement.trading.model.TraderInfo;
+import technology.rocketjump.saul.ui.Selectable;
+
+import java.util.List;
 
 import static technology.rocketjump.saul.invasions.InvasionMessageHandler.selectInvasionWorldPosition;
 import static technology.rocketjump.saul.messaging.MessageType.*;
@@ -99,9 +103,12 @@ public class TradingMessageHandler implements Telegraph, GameContextAware {
 			return;
 		}
 
-		tradeCaravanGenerator.generateTradeCaravan(tradeSpawnLocation, gameContext.getSettlementState().getTraderInfo());
+		List<Entity> participants = tradeCaravanGenerator.generateTradeCaravan(tradeSpawnLocation, gameContext.getSettlementState().getTraderInfo());
 
-		messageDispatcher.dispatchMessage(4.5f, POST_NOTIFICATION, new Notification(NotificationType.TRADER_ARRIVED, tradeSpawnLocation, null));
+		if (!participants.isEmpty()) {
+			messageDispatcher.dispatchMessage(4.5f, POST_NOTIFICATION, new Notification(NotificationType.TRADER_ARRIVED, tradeSpawnLocation,
+					new Selectable(participants.get(0), 0)));
+		}
 	}
 
 	@Override

@@ -454,7 +454,9 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		MilitaryComponent militaryComponent = parentEntity.getComponent(MilitaryComponent.class);
 		if (militaryComponent != null && militaryComponent.isInMilitary() && militaryComponent.getSquadId() != null) {
 			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
-			return ScheduleDictionary.getScheduleForSquadShift(squad.getShift());
+			if (squad != null) {
+				return ScheduleDictionary.getScheduleForSquadShift(squad.getShift());
+			}
 		}
 		if (parentEntity.getPhysicalEntityComponent().getAttributes() instanceof CreatureEntityAttributes attributes) {
 			return attributes.getRace().getBehaviour().getSchedule();
