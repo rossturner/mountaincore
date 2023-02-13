@@ -394,17 +394,18 @@ public class EntityAssetUpdater implements GameContextAware {
 
 						//bit of duplication from recursion
 						for (String animationName : childAssetDescriptor.getInheritAnimations()) {
-							if (spriteDescriptor.getAnimationScripts().containsKey(animationName)) {
+							if (spriteDescriptor.getEffectiveAnimationScripts().containsKey(animationName)) {
 								EntityAsset childAsset = getAsset.apply(childAssetDescriptor.getType());
 								if (childAsset != null) {
 									SpriteDescriptor childSpriteDescriptor = childAsset.getSpriteDescriptors().get(orientation);
 									if (childSpriteDescriptor != null) {
-										AnimationScript parentScript = spriteDescriptor.getAnimationScripts().get(animationName);
+										AnimationScript parentScript = spriteDescriptor.getEffectiveAnimationScripts().get(animationName);
 										AnimationScript inheritedScript = new AnimationScript();
 										inheritedScript.setDuration(parentScript.getDuration());
 										inheritedScript.setRotations(parentScript.getRotations());
 										inheritedScript.setTranslations(parentScript.getTranslations());
-										childSpriteDescriptor.getAnimationScripts().put(animationName, inheritedScript);
+										inheritedScript.setScalings(parentScript.getScalings());
+										childSpriteDescriptor.getInheritedAnimationScripts().put(animationName, inheritedScript);
 									}
 								}
 							}

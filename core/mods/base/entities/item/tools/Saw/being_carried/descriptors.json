@@ -67,13 +67,31 @@
     "DOWN" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-F.png",
       "coloringLayer" : "WOOD_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_woodcutting" : {
+          "use" : "sawing-down",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "sawing-down",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        }
+      },
       "offsetPixels" : {
         "x" : -8.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -87,13 +105,31 @@
     "DOWN_RIGHT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_woodcutting" : {
+          "use" : "sawing-down-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "sawing-down-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        }
+      },
       "offsetPixels" : {
         "x" : 10.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -107,14 +143,32 @@
     "DOWN_LEFT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_woodcutting" : {
+          "use" : "sawing-down-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "sawing-down-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        }
+      },
       "offsetPixels" : {
         "x" : -10.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -128,6 +182,22 @@
     "UP" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_woodcutting" : {
+          "use" : "sawing-up",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "sawing-up",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        }
+      },
       "offsetPixels" : {
         "x" : -4.0,
         "y" : 5.0
@@ -137,34 +207,81 @@
         "offsetPixels" : {
           "x" : -10.0,
           "y" : -10.0
-        }
+        },
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       } ]
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_woodcutting" : {
+          "use" : "sawing-up-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "sawing-up-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        }
+      },
       "offsetPixels" : {
-        "x" : 15.0
+        "x" : 15.0,
+        "y" : -5.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -9.0,
+          "y" : 1.0
+        }
       } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Saw-Handle-Being-Carried-B34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_woodcutting" : {
+          "use" : "sawing-up-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "sawing-up-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Sawing",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Wood shavings"
+          }
+        }
+      },
       "offsetPixels" : {
-        "x" : -15.0
+        "x" : -9.0,
+        "y" : -2.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_woodcutting", "work_on_job_construct_wooden_furniture" ]
       } ]
     }
   }

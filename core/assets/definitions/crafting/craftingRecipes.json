@@ -300,7 +300,6 @@
 }, {
   "recipeName" : "Craft tool axe",
   "craftingTypeName" : "BLACKSMITHING",
-  "itemTypeRequiredName" : "Tool-Tongs",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
     "quantity" : 2
@@ -319,7 +318,6 @@
 }, {
   "recipeName" : "Craft tool chisel",
   "craftingTypeName" : "BLACKSMITHING",
-  "itemTypeRequiredName" : "Tool-Tongs",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
     "quantity" : 1
@@ -338,7 +336,6 @@
 }, {
   "recipeName" : "Craft tool kitchen knife",
   "craftingTypeName" : "BLACKSMITHING",
-  "itemTypeRequiredName" : "Tool-Tongs",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
     "quantity" : 1
@@ -354,7 +351,6 @@
 }, {
   "recipeName" : "Craft tool large hammer",
   "craftingTypeName" : "BLACKSMITHING",
-  "itemTypeRequiredName" : "Tool-Tongs",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
     "quantity" : 2
@@ -373,7 +369,6 @@
 }, {
   "recipeName" : "Craft tool pickaxe",
   "craftingTypeName" : "BLACKSMITHING",
-  "itemTypeRequiredName" : "Tool-Tongs",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
     "quantity" : 2
@@ -392,7 +387,6 @@
 }, {
   "recipeName" : "Craft tool saw",
   "craftingTypeName" : "BLACKSMITHING",
-  "itemTypeRequiredName" : "Tool-Tongs",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
     "quantity" : 2
@@ -411,7 +405,6 @@
 }, {
   "recipeName" : "Craft tool small hammer",
   "craftingTypeName" : "BLACKSMITHING",
-  "itemTypeRequiredName" : "Tool-Tongs",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
     "quantity" : 2
@@ -427,7 +420,6 @@
 }, {
   "recipeName" : "Craft tool tongs",
   "craftingTypeName" : "BLACKSMITHING",
-  "itemTypeRequiredName" : "Tool-Tongs",
   "input" : [ {
     "itemTypeName" : "Resource-Metal-Ingot",
     "quantity" : 2

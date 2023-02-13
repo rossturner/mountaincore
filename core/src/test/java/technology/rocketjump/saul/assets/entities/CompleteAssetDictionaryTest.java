@@ -47,7 +47,7 @@ public class CompleteAssetDictionaryTest {
         Map<String, CreatureEntityAsset> secondMap = Map.of(assetName, secondAsset);
         when(creatureDictionary.getAll()).thenReturn(firstMap).thenReturn(secondMap);
 
-        CompleteAssetDictionary dictionary = new CompleteAssetDictionary(creatureDictionary, furnitureDictionary, vehicleEntityAssetDictionary, plantDictionary, itemDictionary, wallCapDictionary, mechanismDictionary);
+        CompleteAssetDictionary dictionary = new CompleteAssetDictionary(creatureDictionary, furnitureDictionary, vehicleEntityAssetDictionary, plantDictionary, itemDictionary, wallCapDictionary, mechanismDictionary, animationDictionary);
 
         assertThat(dictionary.getByUniqueName(assetName)).isSameAs(firstAsset);
 

@@ -2,22 +2,127 @@
   "uniqueName" : "Basic dwarf right hand",
   "type" : "CREATURE_RIGHT_HAND",
   "raceName" : "Dwarf",
+  "consciousnessList" : [ ],
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "basic dwarf hand.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_mining" : {
+          "use" : "right-hand-swing-down"
+        },
+        "work_on_job_logging" : {
+          "use" : "right-hand-swing-down"
+        },
+        "work_on_job_digging" : {
+          "use" : "right-hand-swing-down"
+        },
+        "work_on_job_digging_channel" : {
+          "use" : "right-hand-swing-down"
+        },
+        "work_on_job_blacksmithing" : {
+          "use" : "right-hand-swing-down"
+        },
+        "work_on_job_woodcutting" : {
+          "use" : "right-hand-sawing-down"
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "right-hand-sawing-down"
+        },
+        "work_on_job_planing" : {
+          "use" : "right-hand-sawing-down"
+        },
+        "work_on_job_generic_wiggle" : {
+          "use" : "right-hand-tool-wiggle-down"
+        }
+      }
     },
     "DOWN_RIGHT" : {
       "filename" : "basic dwarf hand.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_mining" : {
+          "use" : "right-hand-swing-down-right"
+        },
+        "work_on_job_logging" : {
+          "use" : "right-hand-swing-down-right"
+        },
+        "work_on_job_digging" : {
+          "use" : "right-hand-swing-down-right"
+        },
+        "work_on_job_digging_channel" : {
+          "use" : "right-hand-swing-down-right"
+        },
+        "work_on_job_blacksmithing" : {
+          "use" : "right-hand-swing-down-right"
+        },
+        "work_on_job_woodcutting" : {
+          "use" : "right-hand-sawing-down-right"
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "right-hand-sawing-down-right"
+        },
+        "work_on_job_planing" : {
+          "use" : "right-hand-sawing-down-right"
+        },
+        "work_on_job_generic_wiggle" : {
+          "use" : "right-hand-tool-wiggle-down-right"
+        }
+      }
     },
     "DOWN_LEFT" : {
       "filename" : "basic dwarf hand.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_mining" : {
+          "use" : "right-hand-swing-down-left"
+        },
+        "work_on_job_logging" : {
+          "use" : "right-hand-swing-down-left"
+        },
+        "work_on_job_digging" : {
+          "use" : "right-hand-swing-down-left"
+        },
+        "work_on_job_digging_channel" : {
+          "use" : "right-hand-swing-down-left"
+        },
+        "work_on_job_blacksmithing" : {
+          "use" : "right-hand-swing-down-left"
+        }
+      }
     },
     "UP_RIGHT" : {
       "filename" : "basic dwarf hand.png",
-      "coloringLayer" : "SKIN_COLOR"
+      "coloringLayer" : "SKIN_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_mining" : {
+          "use" : "right-hand-swing-up-right"
+        },
+        "work_on_job_logging" : {
+          "use" : "right-hand-swing-up-right"
+        },
+        "work_on_job_digging" : {
+          "use" : "right-hand-swing-up-right"
+        },
+        "work_on_job_digging_channel" : {
+          "use" : "right-hand-swing-up-right"
+        },
+        "work_on_job_blacksmithing" : {
+          "use" : "right-hand-swing-up-right"
+        },
+        "work_on_job_generic_wiggle" : {
+          "use" : "right-hand-tool-wiggle-up-right"
+        },
+        "work_on_job_woodcutting" : {
+          "use" : "right-hand-sawing-up-right"
+        },
+        "work_on_job_construct_wooden_furniture" : {
+          "use" : "right-hand-sawing-up-right"
+        },
+        "work_on_job_planing" : {
+          "use" : "right-hand-sawing-up-right"
+        }
+      }
     },
     "UP_LEFT" : {
       "filename" : "basic dwarf hand.png",
@@ -27,5 +132,6 @@
       "filename" : "basic dwarf hand.png",
       "coloringLayer" : "SKIN_COLOR"
     }
-  }
+  },
+  "overrideRenderLayer" : 100
 } ]

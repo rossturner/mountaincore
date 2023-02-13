@@ -34,14 +34,25 @@
     "DOWN" : {
       "filename" : "Tool-Large-Hammer-Handle-Being-Carried-F.png",
       "coloringLayer" : "WOOD_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_blacksmithing" : {
+          "use" : "handle-swing-down",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Metallic Hammering",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Blacksmith sparks"
+          }
+        }
+      },
       "offsetPixels" : {
         "x" : -8.0,
         "y" : 10.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -55,14 +66,25 @@
     "DOWN_RIGHT" : {
       "filename" : "Tool-Large-Hammer-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_blacksmithing" : {
+          "use" : "handle-swing-down-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Metallic Hammering",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Blacksmith sparks"
+          }
+        }
+      },
       "offsetPixels" : {
         "x" : 4.0,
         "y" : 10.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -76,15 +98,26 @@
     "DOWN_LEFT" : {
       "filename" : "Tool-Large-Hammer-Handle-Being-Carried-F34.png",
       "coloringLayer" : "WOOD_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_blacksmithing" : {
+          "use" : "handle-swing-down-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Metallic Hammering",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Blacksmith sparks"
+          }
+        }
+      },
       "offsetPixels" : {
         "x" : -4.0,
         "y" : 10.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -98,39 +131,79 @@
     "UP" : {
       "filename" : "Tool-Large-Hammer-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_blacksmithing" : {
+          "use" : "handle-swing-up",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Metallic Hammering",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Blacksmith sparks"
+          }
+        }
+      },
       "offsetPixels" : {
         "x" : 5.0,
         "y" : 15.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       } ]
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Large-Hammer-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_blacksmithing" : {
+          "use" : "handle-swing-up-right",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Metallic Hammering",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Blacksmith sparks"
+          }
+        }
+      },
       "offsetPixels" : {
         "y" : 10.0
       },
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 2.0,
+          "y" : -15.0
+        }
       } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Large-Hammer-Handle-Being-Carried-B.png",
       "coloringLayer" : "WOOD_COLOR",
+      "templatedAnimationScripts" : {
+        "work_on_job_blacksmithing" : {
+          "use" : "handle-swing-up-left",
+          "variables" : {
+            "__SOUND_NOTIFY_1__" : "Metallic Hammering",
+            "__PARTICLE_EFFECT_NOTIFY_1__" : "Blacksmith sparks"
+          }
+        }
+      },
       "offsetPixels" : {
         "y" : 10.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "BELOW_LAYER_1"
+        "type" : "BELOW_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       }, {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_blacksmithing" ]
       } ]
     }
   }

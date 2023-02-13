@@ -170,6 +170,6 @@ behind: false
 premultipliedAlpha: false
 spriteMode: random
 - Image Paths -
-/C:/workspace/king-under-the-mountain/core/mods/base/entities/particleSprites/woodchip1.png
-/C:/workspace/king-under-the-mountain/core/mods/base/entities/particleSprites/woodchip2.png
+/C:/workspace/project-saul/core/mods/base/entities/particleSprites/woodchip1.png
+/C:/workspace/project-saul/core/mods/base/entities/particleSprites/woodchip2.png
 

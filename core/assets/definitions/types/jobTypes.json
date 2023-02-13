@@ -9,8 +9,7 @@
   "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "MINER",
   "requiredItemTypeName" : "Tool-Pickaxe",
-  "activeSoundAssetName" : "Mining",
-  "workOnJobParticleEffectNames" : [ "Chipping rock" ],
+  "workOnJobAnimation" : "work_on_job_mining",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "DIGGING",
@@ -23,8 +22,7 @@
   "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "MINER",
   "requiredItemTypeName" : "Tool-Pickaxe",
-  "activeSoundAssetName" : "Tilling",
-  "workOnJobParticleEffectNames" : [ "Digging ground offset tile" ],
+  "workOnJobAnimation" : "work_on_job_digging",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "LOGGING",
@@ -37,9 +35,8 @@
   "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "LUMBERJACK",
   "requiredItemTypeName" : "Tool-Axe",
-  "activeSoundAssetName" : "ChoppingTree",
   "onCompletionSoundAssetName" : "TreeFall",
-  "workOnJobParticleEffectNames" : [ "Chipping wood" ],
+  "workOnJobAnimation" : "work_on_job_logging",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "SHOVELLING",
@@ -100,8 +97,7 @@
   "experienceAwardedOnCompletion" : 1,
   "requiredProfessionName" : "MINER",
   "requiredItemTypeName" : "Tool-Pickaxe",
-  "activeSoundAssetName" : "Tilling",
-  "workOnJobParticleEffectNames" : [ "Digging ground offset tile" ],
+  "workOnJobAnimation" : "work_on_job_digging_channel",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "PLANTING",
@@ -196,6 +192,7 @@
   "requiredProfessionName" : "FISHER",
   "requiredItemTypeName" : "Tool-Fishing-Rod",
   "activeSoundAssetName" : "Fishing_Cast",
+  "workOnJobAnimation" : "work_on_job_fishing",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "HAULING",
@@ -278,7 +275,6 @@
   "maximumTimeToCompleteJob" : 8.25,
   "experienceAwardedOnCompletion" : 4,
   "requiredProfessionName" : "CONTEXT_DEPENDENT_PROFESSION_REQUIRED",
-  "activeSoundAssetName" : "Metallic Hammering",
   "accessedFromAdjacentTile" : false
 }, {
   "name" : "CRAFT_ITEM",
@@ -314,8 +310,8 @@
   "maximumTimeToCompleteJob" : 9.25,
   "experienceAwardedOnCompletion" : 3,
   "requiredProfessionName" : "CARPENTER",
-  "requiredItemTypeName" : "Tool-Plane",
-  "workOnJobParticleEffectNames" : [ "Wood shavings" ],
+  "requiredItemTypeName" : "Tool-Saw",
+  "workOnJobAnimation" : "work_on_job_construct_wooden_furniture",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "CONSTRUCT_STONE_FURNITURE",
@@ -329,6 +325,7 @@
   "requiredProfessionName" : "STONEMASON",
   "requiredItemTypeName" : "Tool-Chisel",
   "workOnJobParticleEffectNames" : [ "Chipping stone" ],
+  "workOnJobAnimation" : "work_on_job_generic_wiggle",
   "accessedFromAdjacentTile" : true
 }, {
   "name" : "CONSTRUCT",
@@ -460,5 +457,6 @@
   "experienceAwardedOnCompletion" : 2,
   "requiredProfessionName" : "CHEF",
   "workOnJobParticleEffectNames" : [ "Bleeding" ],
+  "workOnJobAnimation" : "work_on_job_generic_wiggle",
   "accessedFromAdjacentTile" : false
 } ]

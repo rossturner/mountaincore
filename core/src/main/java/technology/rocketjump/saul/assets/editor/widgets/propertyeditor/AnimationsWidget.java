@@ -100,6 +100,28 @@ public class AnimationsWidget extends VisTable {
 					}
 				}
 
+				add(new VisLabel("Scalings")).padRight(10);
+				Table scalingsFrameTable = new Table();
+				add(WidgetBuilder.button("Add", textButton -> {
+					if (script.getScalings() == null) {
+						script.setScalings(new ArrayList<>());
+					}
+					AnimationScript.ScalingFrame frame = new AnimationScript.ScalingFrame();
+					frame.setVector2(new StorableVector2());
+					frame.getVector2().x = 1.0f;
+					frame.getVector2().y = 1.0f;
+					script.getScalings().add(frame);
+
+					this.reload();
+				})).row();
+				add(scalingsFrameTable).colspan(2).row();
+				if (script.getScalings() != null) {
+					scalingsFrameTable.clear();
+					for (AnimationScript.ScalingFrame scaling : script.getScalings()) {
+						scalingsFrameTable.add(scalingWidget(scaling, script, scriptName)).row();
+					}
+				}
+
 				if (script.getRotations() != null || script.getTranslations() != null) {
 					//TODO: duplication
 					add(new VisLabel("Sound Cues")).padRight(10);
@@ -198,6 +220,42 @@ public class AnimationsWidget extends VisTable {
 			script.getTranslations().remove(translationFrame);
 			if (script.getTranslations().isEmpty()) {
 				script.setTranslations(null);
+			}
+			animationStudio.rebuildAnimation(scriptName);
+			reload();
+		}));
+
+		return t;
+	}
+
+	private Table scalingWidget(AnimationScript.ScalingFrame scalingFrame, AnimationScript script, String scriptName) {
+		Table t = new Table();
+		t.add(new VisLabel("At Time")).padRight(10).padLeft(20);
+		t.add(WidgetBuilder.floatSpinner(scalingFrame.getAtTime(), 0, Float.MAX_VALUE, d -> {
+			scalingFrame.setAtTime(d);
+			animationStudio.rebuildAnimation(scriptName);
+			animationStudio.jumpToKeyFrameTime(scalingFrame.getAtTime());
+		}, DURATION_STEP, DURATION_SCALE)).width(DURATION_WIDGET_WIDTH).padRight(50);
+
+		t.add(new VisLabel("X")).padRight(10);
+
+		t.add(WidgetBuilder.floatSpinner(scalingFrame.getVector2().getX(), -Float.MAX_VALUE, Float.MAX_VALUE, i1 -> {
+			scalingFrame.getVector2().x = i1;
+			animationStudio.rebuildAnimation(scriptName);
+			animationStudio.jumpToKeyFrameTime(scalingFrame.getAtTime());
+		}, 0.05f, 3)).width(DURATION_WIDGET_WIDTH).padRight(50);
+
+		t.add(new VisLabel("Y")).padRight(10);
+		t.add(WidgetBuilder.floatSpinner(scalingFrame.getVector2().getY(), -Float.MAX_VALUE, Float.MAX_VALUE, i -> {
+			scalingFrame.getVector2().y  = i;
+			animationStudio.rebuildAnimation(scriptName);
+			animationStudio.jumpToKeyFrameTime(scalingFrame.getAtTime());
+		}, 0.05f, 3)).width(DURATION_WIDGET_WIDTH).padRight(50);
+
+		t.add(WidgetBuilder.button("X", textButton -> {
+			script.getScalings().remove(scalingFrame);
+			if (script.getScalings().isEmpty()) {
+				script.setScalings(null);
 			}
 			animationStudio.rebuildAnimation(scriptName);
 			reload();

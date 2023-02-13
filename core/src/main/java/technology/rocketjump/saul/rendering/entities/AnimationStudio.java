@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g3d.utils.AnimationController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.math.Quaternion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -23,6 +24,7 @@ import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.components.AnimationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.entities.model.physical.LocationComponent;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
@@ -78,12 +80,12 @@ public class AnimationStudio implements Disposable, GameContextAware {
 	 *
 	 * @param affine
 	 * @param spriteDescriptor
-	 * @param entity
 	 * @param gameContext
 	 */
-	public void animate(Affine2 affine, SpriteDescriptor spriteDescriptor, Entity entity, GameContext gameContext) {
+	public void animate(Affine2 affine, SpriteDescriptor spriteDescriptor, EntityPartRenderStep renderStep, GameContext gameContext, Vector2 spriteWorldSize, LocationComponent locationComponent) {
+		Entity entity = renderStep.getEntity();
 		AnimationComponent animationComponent = entity.getComponent(AnimationComponent.class);
-		if (animationComponent != null && !spriteDescriptor.getAnimationScripts().isEmpty()) {
+		if (animationComponent != null && !spriteDescriptor.getEffectiveAnimationScripts().isEmpty()) {
 			String currentAnimation = animationComponent.getCurrentAnimation();
 			NotifyingAnimationController controller = getAnimationController(new Key(entity, spriteDescriptor));
 			ModelInstance modelInstance = controller.target;
@@ -93,14 +95,22 @@ public class AnimationStudio implements Disposable, GameContextAware {
 				controller.setAnimation(currentAnimation, -1); //loop forever
 			}
 
+			Node node = modelInstance.nodes.get(0);
+			Node child = modelInstance.nodes.get(1);
+			child.translation.set(-spriteWorldSize.x/2, -spriteWorldSize.y/2, 0);
+			child.translation.add(renderStep.getOffsetFromEntity().x, renderStep.getOffsetFromEntity().y, 0);
+
 			if (gameContext == null || !gameContext.getGameClock().isPaused()) {
 				controller.update(Gdx.graphics.getDeltaTime());
 			}
 
+			Affine2 newAffine = new Affine2();
+			newAffine.idt();
+			newAffine.translate(locationComponent.getWorldPosition());
+
 			//feels bit sketchy but this assumes one node tree, mapping to the sprite descriptor
-			modelInstance.transform.set(affine); //set the general location of whole model instance
-			Node node = modelInstance.nodes.get(0);
-			modelInstance.transform.mul(node.localTransform); //transform the model with the single animated node
+			modelInstance.transform.set(newAffine); //set the general location of whole model instance
+			modelInstance.transform.mul(node.localTransform).mul(child.globalTransform); //transform the model with the single animated node
 			affine.set(modelInstance.transform);
 		}
 	}
@@ -113,6 +123,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 		private final SpriteDescriptor spriteDescriptor;
 		private final MessageDispatcher messageDispatcher;
 		private final Entity entity;
+		private long frameId = 0l;
 
 		/**
 		 * Construct a new AnimationController.
@@ -133,12 +144,19 @@ public class AnimationStudio implements Disposable, GameContextAware {
 				return;
 			}
 
+			long currentFrameId = Gdx.graphics.getFrameId();
+			if (currentFrameId == frameId) {
+				return;
+			} else {
+				frameId = currentFrameId;
+			}
+
 			super.update(delta);
 			if (current != null) {
 				String id = current.animation.id;
 				float time = current.offset + current.time;
 				float previousTime = Math.max(time - delta, 0); //todo: is this safe? what about if animation has changed?
-				AnimationScript script = spriteDescriptor.getAnimationScripts().get(id);
+				AnimationScript script = spriteDescriptor.getEffectiveAnimationScripts().get(id);
 
 				if (script.getSoundCues() != null) {
 					List<AnimationScript.SoundCueFrame> toPlay = script.getSoundCues().stream()
@@ -211,6 +229,8 @@ public class AnimationStudio implements Disposable, GameContextAware {
 
 	//TODO: lots of duplication
 	public float previousKeyFrame() {
+		float lastTime = animationControllersForEntities.values().stream().filter(c -> c.current != null).flatMap(c -> getKeyFrameTimes(c.current.animation).stream()).max(Float::compareTo).orElse(0f);
+
 		float nextKeyFrameTime = animationControllersForEntities.values()
 				.stream()
 				.flatMap(c -> {
@@ -220,8 +240,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 						return Stream.empty();
 					}
 				})
-				.sorted()
-				.findFirst().orElse(0f);
+				.max(Float::compareTo).orElse(lastTime);
 
 		return jumpToKeyFrameTime(nextKeyFrameTime);
 	}
@@ -249,6 +268,11 @@ public class AnimationStudio implements Disposable, GameContextAware {
 				c.update(0);
 			}
 		});
+		animationControllersForEntities.values().forEach(c -> {
+			if (c.current != null) {
+				c.current.time = keyFrameTime;
+			}
+		});
 		pauseAnimations();
 		return keyFrameTime;
 	}
@@ -259,6 +283,10 @@ public class AnimationStudio implements Disposable, GameContextAware {
 		for (Map.Entry<Key, AnimationController> entry : clonedCurrentAnimationControllers.entrySet()) {
 			AnimationController animationController = getAnimationController(entry.getKey());
 			if (animationController.target.getAnimation(animationToPlay) != null) {
+				Node clonedChild = entry.getValue().target.nodes.get(1);
+				Node targetChildNode = animationController.target.nodes.get(1);
+				targetChildNode.translation.set(clonedChild.translation);
+
 				animationController.setAnimation(animationToPlay, -1);
 			}
 		}
@@ -274,8 +302,8 @@ public class AnimationStudio implements Disposable, GameContextAware {
 	}
 
 
-	private Set<Float> getKeyFrameTimes(Animation animation) {
-		Set<Float> keyFrameTimes = new TreeSet<>();
+	private TreeSet<Float> getKeyFrameTimes(Animation animation) {
+		TreeSet<Float> keyFrameTimes = new TreeSet<>();
 		for (NodeAnimation nodeAnimation : animation.nodeAnimations) {
 			if (nodeAnimation.translation != null) {
 				for (NodeKeyframe<?> keyframe : nodeAnimation.translation) {
@@ -303,59 +331,88 @@ public class AnimationStudio implements Disposable, GameContextAware {
 			modelBuilder.begin();
 			Node node = modelBuilder.node();
 			node.id = "animation-node-" + spriteDescriptor.hashCode(); //TODO: whats the right thing here
+
+			Node child = modelBuilder.node();
+			child.id = "animation-node-child-" + spriteDescriptor.hashCode();
+			node.addChild(child);
+
+			Array<Animation> animations = parseAnimations(spriteDescriptor, node);
+
 			model = modelBuilder.end();
-			model.animations.addAll(parseAnimations(node, spriteDescriptor));
+			model.animations.addAll(animations);
 			modelCache.put(spriteDescriptor, model);
 		}
 
 		return model;
 	}
 
-	private Array<Animation> parseAnimations(Node node, SpriteDescriptor spriteDescriptor) {
+	private Array<Animation> parseAnimations(SpriteDescriptor spriteDescriptor, Node... nodes) {
 		Array<Animation> animations = new Array<>();
-		for (Map.Entry<String, AnimationScript> entry : spriteDescriptor.getAnimationScripts().entrySet()) {
+
+		for (Map.Entry<String, AnimationScript> entry : spriteDescriptor.getEffectiveAnimationScripts().entrySet()) {
 			AnimationScript script = entry.getValue();
 
 			Animation animation = new Animation();
 			animation.id = entry.getKey();
 			animation.duration = script.getDuration(); //seconds
-			NodeAnimation nodeAnimation = new NodeAnimation();
-			nodeAnimation.node = node;
 
-			if (script.getRotations() != null) {
-				nodeAnimation.rotation = new Array<>();
-				for (AnimationScript.RotationFrame frame : script.getRotations()) {
-					Quaternion quaternion = new Quaternion();
-					quaternion.setEulerAngles(0, 0, frame.getRoll());
+			for (Node node : nodes) {
 
-					nodeAnimation.rotation.add(new NodeKeyframe<>(frame.getAtTime(), quaternion));
+				NodeAnimation nodeAnimation = new NodeAnimation();
+				nodeAnimation.node = node;
+
+				if (script.getRotations() != null && !script.getRotations().isEmpty()) {
+					nodeAnimation.rotation = new Array<>();
+					script.getRotations().sort(Comparator.comparing(AnimationScript.Frame::getAtTime));
+					for (AnimationScript.RotationFrame frame : script.getRotations()) {
+						Quaternion quaternion = new Quaternion();
+						quaternion.setEulerAngles(0, 0, frame.getRoll());
+
+						nodeAnimation.rotation.add(new NodeKeyframe<>(frame.getAtTime(), quaternion));
+					}
 				}
+
+				if (script.getTranslations() != null && !script.getTranslations().isEmpty()) {
+					nodeAnimation.translation = new Array<>();
+					script.getTranslations().sort(Comparator.comparing(AnimationScript.Frame::getAtTime));
+					for (AnimationScript.TranslationFrame frame : script.getTranslations()) {
+						Vector3 vector3 = new Vector3(frame.getVector2().getX(), frame.getVector2().getY(), 0);
+
+						nodeAnimation.translation.add(new NodeKeyframe<>(frame.getAtTime(), vector3));
+					}
+				}
+
+				if (script.getScalings() != null && !script.getScalings().isEmpty()) {
+					nodeAnimation.scaling = new Array<>();
+					script.getScalings().sort(Comparator.comparing(AnimationScript.Frame::getAtTime));
+					for (AnimationScript.ScalingFrame frame : script.getScalings()) {
+						Vector3 vector3 = new Vector3(frame.getVector2().getX(), frame.getVector2().getY(), 0f);
+						nodeAnimation.scaling.add(new NodeKeyframe<>(frame.getAtTime(), vector3));
+					}
+				}
+
+
+				if (script.getSoundCues() != null) {
+					for (AnimationScript.SoundCueFrame soundCue : script.getSoundCues()) {
+						SoundAsset soundAsset = soundAssetDictionary.getByName(soundCue.getSoundAssetName());
+						if (soundAsset != null) {
+							soundCue.setSoundAsset(soundAsset);
+						}
+					}
+				}
+
+				if (script.getParticleEffectCues() != null) {
+					for (AnimationScript.ParticleEffectCueFrame particleEffectCue : script.getParticleEffectCues()) {
+						ParticleEffectType particleEffectType = particleEffectTypeDictionary.getByName(particleEffectCue.getParticleEffectName());
+						if (particleEffectType != null) {
+							particleEffectCue.setParticleEffectType(particleEffectType);
+						}
+					}
+				}
+
+				animation.nodeAnimations.add(nodeAnimation);
 			}
 
-			if (script.getTranslations() != null) {
-				nodeAnimation.translation = new Array<>();
-				for (AnimationScript.TranslationFrame frame : script.getTranslations()) {
-					Vector3 vector3 = new Vector3(frame.getVector2().getX(), frame.getVector2().getY(), 0);
-
-					nodeAnimation.translation.add(new NodeKeyframe<>(frame.getAtTime(), vector3));
-				}
-			}
-
-			if (script.getSoundCues() != null) {
-				for (AnimationScript.SoundCueFrame soundCue : script.getSoundCues()) {
-					SoundAsset soundAsset = soundAssetDictionary.getByName(soundCue.getSoundAssetName());
-					soundCue.setSoundAsset(soundAsset);
-				}
-			}
-
-			if (script.getParticleEffectCues() != null) {
-				for (AnimationScript.ParticleEffectCueFrame particleEffectCue : script.getParticleEffectCues()) {
-					ParticleEffectType particleEffectType = particleEffectTypeDictionary.getByName(particleEffectCue.getParticleEffectName());
-					particleEffectCue.setParticleEffectType(particleEffectType);
-				}
-			}
-
-			animation.nodeAnimations.add(nodeAnimation);
 
 			animations.add(animation);
 		}
