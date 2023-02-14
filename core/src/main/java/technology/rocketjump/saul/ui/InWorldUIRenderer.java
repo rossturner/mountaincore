@@ -200,6 +200,7 @@ public class InWorldUIRenderer {
 		}
 
 		Set<GridPoint2> squaresToDraw = Collections.emptySet();
+		Color squareColour = Faction.SETTLEMENT.defensePoolBarColor;
 		if (hasTileSelected) {
 			Selectable selectable = interactionStateContainer.getSelectable();
 			squaresToDraw = Set.of(selectable.getTile().getTilePosition());
@@ -218,13 +219,14 @@ public class InWorldUIRenderer {
 				CreatureGroup creatureGroup = creatureBehaviour.getCreatureGroup();
 				if (creatureGroup != null) {
 					squaresToDraw = Set.of(gameContext.getAreaMap().getTile(creatureGroup.getHomeLocation()).getTilePosition());
+					squareColour = getFactionColour(entity);
 				}
 			}
 		}
 
 		if (!squaresToDraw.isEmpty()) {
 			shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-			shapeRenderer.setColor(Faction.SETTLEMENT.defensePoolBarColor);
+			shapeRenderer.setColor(squareColour);
 			for (GridPoint2 toDraw : squaresToDraw) {
 				shapeRenderer.rect(toDraw.x, toDraw.y, 1, 1);
 			}
@@ -237,16 +239,18 @@ public class InWorldUIRenderer {
 	}
 
 	private void renderEntityWithFactionColor(Entity selectableEntity) {
-		Color color;
-		FactionComponent factionComponent = selectableEntity.getComponent(FactionComponent.class);
-		if (factionComponent != null) {
-			color = factionComponent.getFaction().defensePoolBarColor;
-		} else {
-			color = Faction.SETTLEMENT.defensePoolBarColor;
-		}
 		LocationComponent locationComponent = selectableEntity.getLocationComponent();
 		if (locationComponent.getWorldPosition() != null) {
-			entityRenderer.render(selectableEntity, selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, color, null);
+			entityRenderer.render(selectableEntity, selectedEntitySpriteBatch, RenderMode.DIFFUSE, null, getFactionColour(selectableEntity), null);
+		}
+	}
+
+	private Color getFactionColour(Entity selectableEntity) {
+		FactionComponent factionComponent = selectableEntity.getComponent(FactionComponent.class);
+		if (factionComponent != null) {
+			return factionComponent.getFaction().defensePoolBarColor;
+		} else {
+			return Faction.SETTLEMENT.defensePoolBarColor;
 		}
 	}
 
