@@ -21,7 +21,6 @@ import technology.rocketjump.saul.entities.behaviour.furniture.Prioritisable;
 import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.creature.SteeringComponent;
-import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.LocationComponent;
@@ -81,7 +80,6 @@ public class InWorldUIRenderer {
 	private final GameInteractionStateContainer interactionStateContainer;
 	private final EntityRenderer entityRenderer;
 	private final TerrainRenderer terrainRenderer;
-	private final SelectableOutlineRenderer selectableOutlineRenderer;
 	private final RoofingViewModeRenderer roofingViewModeRenderer;
 	private final PipingViewModeRenderer pipingViewModeRenderer;
 	private final MechanismsViewModeRenderer mechanismsViewModeRenderer;
@@ -107,8 +105,8 @@ public class InWorldUIRenderer {
 	@Inject
 	public InWorldUIRenderer(GameInteractionStateContainer interactionStateContainer, EntityRenderer entityRenderer,
 							 TerrainRenderer terrainRenderer, RoomRenderer roomRenderer, RenderingOptions renderingOptions, JobStore jobStore,
-							 FurnitureTypeDictionary furnitureTypeDictionary, IconSpriteCache iconSpriteCache,
-							 SelectableOutlineRenderer selectableOutlineRenderer, RoofingViewModeRenderer roofingViewModeRenderer,
+							 IconSpriteCache iconSpriteCache,
+							 RoofingViewModeRenderer roofingViewModeRenderer,
 							 PipingViewModeRenderer pipingViewModeRenderer, MechanismsViewModeRenderer mechanismsViewModeRenderer,
 							 DesignationDictionary designationDictionary, DiffuseTerrainSpriteCacheProvider diffuseTerrainSpriteCacheProvider,
 							 FloorTypeDictionary floorTypeDictionary) {
@@ -118,7 +116,6 @@ public class InWorldUIRenderer {
 		this.roomRenderer = roomRenderer;
 		this.renderingOptions = renderingOptions;
 		this.jobStore = jobStore;
-		this.selectableOutlineRenderer = selectableOutlineRenderer;
 		this.iconSpriteCache = iconSpriteCache;
 		this.roofingViewModeRenderer = roofingViewModeRenderer;
 		this.pipingViewModeRenderer = pipingViewModeRenderer;
@@ -152,10 +149,15 @@ public class InWorldUIRenderer {
 		boolean hasEntitySelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.ENTITY;
 		boolean hasConstructionSelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.CONSTRUCTION;
 		boolean hasSquadSelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.SQUAD;
+		boolean hasTileSelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.TILE;
+		boolean hasRoomSelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.ROOM;
+		boolean hasBridgeSelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.BRIDGE;
+		boolean hasDoorwaySelected = interactionStateContainer.getSelectable() != null && interactionStateContainer.getSelectable().type == Selectable.SelectableType.DOORWAY;
 		boolean hasTargets = !targetedCreatures.isEmpty() || !currentSquadTargetedCreatures.isEmpty();
 
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		boolean hasRendered = false;
 		if (hasEntitySelected || hasTargets || hasSquadSelected || hasConstructionSelected) {
 			selectedEntitySpriteBatch.setProjectionMatrix(camera.combined);
 			selectedEntitySpriteBatch.enableBlending();
@@ -194,10 +196,44 @@ public class InWorldUIRenderer {
 			}
 
 			selectedEntitySpriteBatch.end();
-			return true;
-		} else {
-			return false;
+			hasRendered = true;
 		}
+
+		Set<GridPoint2> squaresToDraw = Collections.emptySet();
+		if (hasTileSelected) {
+			Selectable selectable = interactionStateContainer.getSelectable();
+			squaresToDraw = Set.of(selectable.getTile().getTilePosition());
+		} else if (hasDoorwaySelected) {
+			Selectable selectable = interactionStateContainer.getSelectable();
+			squaresToDraw = Set.of(selectable.getDoorway().getTileLocation());
+		} else if (hasBridgeSelected) {
+			Selectable selectable = interactionStateContainer.getSelectable();
+			squaresToDraw = selectable.getBridge().getLocations();
+		} else if (hasRoomSelected) {
+			Selectable selectable = interactionStateContainer.getSelectable();
+			squaresToDraw = selectable.getRoom().getRoomTiles().keySet();
+		} else if (GlobalSettings.DEV_MODE && hasEntitySelected) {
+			Entity entity = interactionStateContainer.getSelectable().getEntity();
+			if (entity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+				CreatureGroup creatureGroup = creatureBehaviour.getCreatureGroup();
+				if (creatureGroup != null) {
+					squaresToDraw = Set.of(gameContext.getAreaMap().getTile(creatureGroup.getHomeLocation()).getTilePosition());
+				}
+			}
+		}
+
+		if (!squaresToDraw.isEmpty()) {
+			shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+			shapeRenderer.setColor(Faction.SETTLEMENT.defensePoolBarColor);
+			for (GridPoint2 toDraw : squaresToDraw) {
+				shapeRenderer.rect(toDraw.x, toDraw.y, 1, 1);
+			}
+
+			shapeRenderer.end();
+			hasRendered = true;
+		}
+
+		return hasRendered;
 	}
 
 	private void renderEntityWithFactionColor(Entity selectableEntity) {
@@ -294,16 +330,6 @@ public class InWorldUIRenderer {
 		if (interactionStateContainer.getGameViewMode().equals(GameViewMode.MECHANISMS)) {
 			mechanismsViewModeRenderer.render(map, camera, spriteBatch, shapeRenderer, blinkState);
 			return;
-		}
-
-
-		Selectable selectable = interactionStateContainer.getSelectable();
-		if (selectable != null) {
-			selectableOutlineRenderer.render(selectable, shapeRenderer, gameContext);
-
-			if (GlobalSettings.DEV_MODE) {
-				showCreatureGroupLocation(gameContext, selectable);
-			}
 		}
 
 		if (interactionStateContainer.getInteractionMode().equals(PLACE_FURNITURE)) {
@@ -640,19 +666,6 @@ public class InWorldUIRenderer {
 		shapeRenderer.rect(minDraggingPoint.x, minDraggingPoint.y,
 				(maxDraggingPoint.x - minDraggingPoint.x), (maxDraggingPoint.y - minDraggingPoint.y));
 		shapeRenderer.end();
-	}
-
-
-	private void showCreatureGroupLocation(GameContext gameContext, Selectable selectable) {
-		if (selectable.type.equals(Selectable.SelectableType.ENTITY)) {
-			Entity selectedEntity = selectable.getEntity();
-			if (selectedEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
-				CreatureGroup creatureGroup = ((CreatureBehaviour) selectedEntity.getBehaviourComponent()).getCreatureGroup();
-				if (creatureGroup != null) {
-					selectableOutlineRenderer.render(new Selectable(gameContext.getAreaMap().getTile(creatureGroup.getHomeLocation())), shapeRenderer, gameContext);
-				}
-			}
-		}
 	}
 
 }
