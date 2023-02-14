@@ -85,8 +85,8 @@ public class TerrainRenderer implements Disposable {
 		vertexColorSpriteBatch.begin();
 		vertexColorSpriteBatch.setColor(Color.WHITE);
 		for (MapTile terrainTile : mapTiles) {
-			if (terrainTile.hasFloor()) {
-				render(terrainTile, vertexColorSpriteBatch, spriteCache, renderMode);
+			if (!terrainTile.hasWall() || terrainTile.getWall().getTrueLayout().getId() != 255) {
+				renderFloor(terrainTile, vertexColorSpriteBatch, spriteCache, renderMode);
 			}
 		}
 		vertexColorSpriteBatch.end();
@@ -160,7 +160,7 @@ public class TerrainRenderer implements Disposable {
 		vertexColorSpriteBatch.setColor(Color.WHITE);
 		for (MapTile terrainTile : mapTiles) {
 			if (terrainTile.hasWall()) {
-				render(terrainTile, vertexColorSpriteBatch, spriteCache, renderMode);
+				renderWall(terrainTile, vertexColorSpriteBatch, spriteCache, renderMode);
 			}
 		}
 		vertexColorSpriteBatch.end();
@@ -195,8 +195,20 @@ public class TerrainRenderer implements Disposable {
 		vertexColorSpriteBatch.end();
 	}
 
-	public void render(MapTile mapTile, VertexColorSpriteBatch vertexColorSpriteBatch, TerrainSpriteCache spriteCache, RenderMode renderMode) {
+	public void renderFloor(MapTile mapTile, VertexColorSpriteBatch vertexColorSpriteBatch, TerrainSpriteCache spriteCache, RenderMode renderMode) {
+		if (renderMode.equals(RenderMode.DIFFUSE)) {
+			setColor(vertexColorSpriteBatch, mapTile);
+		}
 
+		Sprite spriteForFloor = spriteCache.getFloorSpriteForType(mapTile.getFloor().getFloorType(), mapTile.getSeed());
+		if (renderMode.equals(RenderMode.DIFFUSE)) {
+			vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, mapTile.getFloor().getVertexColors());
+		} else {
+			vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT);
+		}
+	}
+
+	public void renderWall(MapTile mapTile, VertexColorSpriteBatch vertexColorSpriteBatch, TerrainSpriteCache spriteCache, RenderMode renderMode) {
 		if (mapTile.hasWall()) {
 			Wall wall = mapTile.getWall();
 			renderWall(mapTile.getTileX(), mapTile.getTileY(), wall.getTrueLayout(), mapTile.getSeed(), wall.getWallType(), getWallMaterialColor(mapTile),
@@ -211,17 +223,6 @@ public class TerrainRenderer implements Disposable {
 							oreType.getOverlayWallType(), getWallMaterialColor(mapTile),
 							vertexColorSpriteBatch, spriteCache, renderMode);
 				}
-			}
-		} else {
-			if (renderMode.equals(RenderMode.DIFFUSE)) {
-				setColor(vertexColorSpriteBatch, mapTile);
-			}
-
-			Sprite spriteForFloor = spriteCache.getFloorSpriteForType(mapTile.getFloor().getFloorType(), mapTile.getSeed());
-			if (renderMode.equals(RenderMode.DIFFUSE)) {
-				vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, mapTile.getFloor().getVertexColors());
-			} else {
-				vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT);
 			}
 		}
 	}
