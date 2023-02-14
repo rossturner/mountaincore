@@ -220,7 +220,9 @@ public class DoorwayMessageHandler implements GameContextAware, Telegraph {
 		doorBehaviour.setSoundAssets(soundAssetDictionary.getByName("DoorOpen"), null/*soundAssetDictionary.getByName("DoorClose")*/);
 
 		Entity entity = furnitureEntityFactory.create(attributes, message.getTilePosition(), doorBehaviour, gameContext);
-		entity.addComponent(new ConstructedEntityComponent());
+		ConstructedEntityComponent constructedEntityComponent = new ConstructedEntityComponent();
+		constructedEntityComponent.init(entity, messageDispatcher, gameContext);
+		entity.addComponent(constructedEntityComponent);
 
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, entity);
 

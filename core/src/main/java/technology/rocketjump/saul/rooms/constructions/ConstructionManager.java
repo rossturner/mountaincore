@@ -248,10 +248,12 @@ public class ConstructionManager implements Updatable {
 			while (amountRequired > 0) {
 				Job haulingJobForNewAllocation = createNewIncomingHaulingAllocation(construction, requirement, amountRequired);
 				if (haulingJobForNewAllocation == null) {
-					// Not enough of this material available, cancel material selection and go back to selecting materials
-					requirement.setMaterial(null);
-					construction.setState(SELECTING_MATERIALS);
-					populateRequirementMaterials(construction);
+					if (!(construction instanceof BridgeConstruction)) {
+						// Not enough of this material available, cancel material selection and go back to selecting materials
+						requirement.setMaterial(null);
+						construction.setState(SELECTING_MATERIALS);
+						populateRequirementMaterials(construction);
+					}
 					break;
 				} else {
 					messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, haulingJobForNewAllocation);
