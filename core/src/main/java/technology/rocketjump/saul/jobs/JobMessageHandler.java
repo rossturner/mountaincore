@@ -1330,7 +1330,6 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 					messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(
 							message.type,
 							Optional.of(employedEntity),
-//							message.parentEntity,
 							Optional.of(jobTarget),
 							message.callback
 					));

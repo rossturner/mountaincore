@@ -113,6 +113,8 @@ COMBAT.DESCRIPTION.VERSUS_OPPONENT,,In combat with {{targetDescription}}
 
 CONSTRUCTION.DESCRIPTION,E.g. “Construction of granite stonemason workbench”,Construction of {{materialType.adjective}} {{furnitureType.noun}}
 CONSTRUCTION.REQUIREMENT_ALLOCATION,E.g. “1 of 3 marble blocks allocated” (or assigned),{{numRequired}} required{{\n}}{{numAvailable}} available{{\n}}{{numAssigned}} assigned
+CONSTRUCTION.REQUIREMENT_RECIPE_SINGULAR,,{{outputItemType}} are made from {{lastInputItemType}} at the {{furnitureType}} by {{profession}}.
+CONSTRUCTION.REQUIREMENT_RECIPE_MULTIPLE,,{{outputItemType}} are made from {{inputItemTypes}} and {{lastInputItemType}} at the {{furnitureType}} by {{profession}}.
 CONSTRUCTION.STATUS.CLEARING_WORK_SITE,This is to be displayed when other items need to be cleared out from an area that has something being built over it,Removing other items
 CONSTRUCTION.STATUS.CLEARING_WORK_SITE.TOOLTIP,,There are items that need to be removed from this furniture’s construction area before it can progress.
 CONSTRUCTION.STATUS.SELECTING_MATERIALS,E.g. “Waiting for more wooden planks to be available”,Waiting for more {{materialType}} {{itemDescription.plural}} to be available
@@ -1057,6 +1059,7 @@ PRIVACY.OPT_IN.DATA_POINT.2,,• Your options settings
 PRIVACY.OPT_IN.DATA_POINT.3,,• The status of the game at the time of the crash, and about what caused the crash
 
 PRODUCT.ANVIL,,Anvil
+PRODUCT.ANVIL.PLURAL,,Anvils
 PRODUCT.ANVIL.TOOLTIP,,A large block of metal used to hammer heated metal into shape. Required to construct a {{FURNITURE.FORGE}}.
 PRODUCT.BARREL.HOOPS,,Barrel hoops
 PRODUCT.BARREL.HOOPS.TOOLTIP,,Metal hoops used to construct a {{PRODUCT.BARREL.NOUN}}. Also used in some machinery.
@@ -1067,6 +1070,7 @@ PRODUCT.BARREL.STAVES.TOOLTIP,,Curved wooden planks used to construct a {{PRODUC
 PRODUCT.BARREL.TOOLTIP,,A cylindrical container for liquids. The curved shape makes it easier to roll around.
 PRODUCT.BOWL,A bowl for eating from,Bowl
 PRODUCT.BOWL.DESCRIPTION,E.g. “Bowl of vegetable soup”,Bowl of {{cooking.soup.description}}
+PRODUCT.BOWL.PLURAL,,Bowls
 PRODUCT.BREAD.DOUGH.NOUN,,Dough
 PRODUCT.BREAD.DOUGH.PLURAL,,Dough
 PRODUCT.BREAD.DOUGH.TOOLTIP,,A mix of ingredients that can be baked into {{PRODUCT.BREAD.LOAF.PLURAL}} using an {{FURNITURE.BAKING_OVEN}}.
@@ -1077,6 +1081,7 @@ PRODUCT.BUCKET.NOUN,,Bucket
 PRODUCT.BUCKET.PLURAL,,Buckets
 PRODUCT.BUCKET.TOOLTIP,,A small container used to move liquids around by hand.
 PRODUCT.CAULDRON,A large metal pot for cooking (common with Halloween),Cauldron
+PRODUCT.CAULDRON.PLURAL,,Cauldrons
 PRODUCT.CAULDRON.TOOLTIP,,"Used by a {{PROFESSION.CHEF}} to prepare soup in a {{ROOMS.KITCHEN}}, where it is then moved to a {{ROOMS.FEASTING_HALL}}."
 PRODUCT.CHEST.NOUN,,Chest
 PRODUCT.CHEST.PLURAL,,Chests
@@ -1085,8 +1090,10 @@ PRODUCT.LINEN.NOUN,,Linen
 PRODUCT.LINEN.PLURAL,,Linen
 PRODUCT.LINEN.TOOLTIP,,"A roll of fabric, primarily used for bedding."
 PRODUCT.LIQUID.TANK,,Tank
+PRODUCT.LIQUID.TANK.PLURAL,,Tanks
 PRODUCT.LIQUID.TANK.TOOLTIP,,"This is a metal container used to store liquids, which must be crafted at the {{FURNITURE.FORGE}}."
 PRODUCT.MILLSTONE,,Millstone
+PRODUCT.MILLSTONE.PLURAL,,Millstones
 PRODUCT.MILLSTONE.TOOLTIP,,Two large stone discs that are ground together to mill harvested crops. Used to construct a {{FURNITURE.FLOUR_MILL}}.
 PRODUCT.RATION.NOUN,,Ration
 PRODUCT.RATION.PLURAL,,Rations
@@ -1113,22 +1120,27 @@ PRODUCT.WOODEN.SHAFT.VERTICAL.TOOLTIP,,Used to connect mechanisms which produce 
 
 PROFESSION.ARTISAN.FEMALE_NOUN,,Artisan
 PROFESSION.ARTISAN.MALE_NOUN,,Artisan
+PROFESSION.ARTISAN.PLURAL,,Artisans
 PROFESSION.ARTISAN.VERB,,Fabricating
 PROFESSION.BAKER.VERB,,Baking
 PROFESSION.BLACKSMITH.FEMALE_NOUN,,Blacksmith
 PROFESSION.BLACKSMITH.MALE_NOUN,,Blacksmith
+PROFESSION.BLACKSMITH.PLURAL,,Blacksmiths
 PROFESSION.BLACKSMITH.TOOLTIP,,Crafts items using metal and also produces metal from ore.
 PROFESSION.BLACKSMITH.VERB,,Forging
 PROFESSION.BREWER.FEMALE_NOUN,,Brewer
 PROFESSION.BREWER.MALE_NOUN,,Brewer
+PROFESSION.BREWER.PLURAL,,Brewers
 PROFESSION.BREWER.TOOLTIP,,Produces beer in a {{ROOMS.BREWERY}}.
 PROFESSION.BREWER.VERB,,Brewing
 PROFESSION.CARPENTER.FEMALE_NOUN,,Carpenter
 PROFESSION.CARPENTER.MALE_NOUN,,Carpenter
+PROFESSION.CARPENTER.PLURAL,,Carpenters
 PROFESSION.CARPENTER.TOOLTIP,,Creates wooden furniture and items.
 PROFESSION.CARPENTER.VERB,,Crafting
 PROFESSION.CHEF.FEMALE_NOUN,,Chef
 PROFESSION.CHEF.MALE_NOUN,,Chef
+PROFESSION.CHEF.PLURAL,,Chefs
 PROFESSION.CHEF.TOOLTIP,,Prepares all of the food to be consumed by your settlers.
 PROFESSION.CHEF.VERB,,Cooking
 PROFESSION.DESCRIPTION,,{{skillLevelDescription.adjective}} {{profession.noun}}
@@ -1147,6 +1159,7 @@ PROFESSION.HUNTER.TOOLTIP,,Tracks and kills wild animals for their meat and pelt
 PROFESSION.HUNTER.VERB,,Hunting
 PROFESSION.LEATHERWORKER.FEMALE_NOUN,,Leatherworker
 PROFESSION.LEATHERWORKER.MALE_NOUN,,Leatherworker
+PROFESSION.LEATHERWORKER.PLURAL,,Leatherworkers
 PROFESSION.LEATHERWORKER.TOOLTIP,,Treats the hides of creatures to produce leather goods.
 PROFESSION.LEATHERWORKER.VERB,,Leatherworking
 PROFESSION.MAYOR.FEMALE_NOUN,"In English at least, “mayoress” is incorrect",Mayor
@@ -1158,6 +1171,7 @@ PROFESSION.MERCHANT.VERB,,Trading
 PROFESSION.MILLER.VERB,"Not a fully implemented profession, just used to describe “Milling flour”",Milling
 PROFESSION.MINER.FEMALE_NOUN,,Miner
 PROFESSION.MINER.MALE_NOUN,,Miner
+PROFESSION.MINER.PLURAL,,Miners
 PROFESSION.MINER.TOOLTIP,,Excavates new areas using a {{TOOL.PICKAXE}}.
 PROFESSION.MINER.VERB,,Mining
 PROFESSION.NOBLE.FEMALE_NOUN,,Noble
@@ -1188,6 +1202,7 @@ PROFESSION.SKILL_LEVEL.9,,Grandmaster
 PROFESSION.SKILL_LEVEL.9.TOOLTIP,,There is nobody more skilled in their craft than a grandmaster.
 PROFESSION.STONEMASON.FEMALE_NOUN,,Stonemason
 PROFESSION.STONEMASON.MALE_NOUN,,Stonemason
+PROFESSION.STONEMASON.PLURAL,,Stonemasons
 PROFESSION.STONEMASON.TOOLTIP,,Crafts furniture and items from stone.
 PROFESSION.STONEMASON.VERB,,Sculpting
 PROFESSION.VILLAGER.FEMALE_NOUN,,Villager
@@ -1201,6 +1216,7 @@ PROFESSION.WEAVER.TOOLTIP,,Processes materials into clothing and other fabrics.
 PROFESSION.WEAVER.VERB,,Weaving
 PROFESSION.WOODCUTTER.FEMALE_NOUN,This could be “lumberjack” and “lumberjane”,Woodcutter
 PROFESSION.WOODCUTTER.MALE_NOUN,,Woodcutter
+PROFESSION.WOODCUTTER.PLURAL,,Woodcutters
 PROFESSION.WOODCUTTER.TOOLTIP,,Cuts down trees as lumber that can be used in a {{ROOMS.SAWMILL}}.
 PROFESSION.WOODCUTTER.VERB,,Chopping
 

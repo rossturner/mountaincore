@@ -6,12 +6,13 @@ import com.google.inject.Singleton;
 import org.apache.commons.io.FileUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.jobs.model.CraftingType;
+import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
+import technology.rocketjump.saul.modding.exception.ModLoadingException;
 import technology.rocketjump.saul.particles.ParticleEffectTypeDictionary;
 import technology.rocketjump.saul.particles.model.ParticleEffectType;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 @Singleton
@@ -22,18 +23,22 @@ public class CraftingTypeDictionary {
 	private Map<GameMaterialType, CraftingType> byFurnitureConstruction = new HashMap<>();
 
 	@Inject
-	public CraftingTypeDictionary(SkillDictionary skillDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) throws IOException {
+	public CraftingTypeDictionary(SkillDictionary skillDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) throws Exception {
 		this(new File("assets/definitions/crafting/craftingTypes.json"), skillDictionary, particleEffectTypeDictionary);
 	}
 
-	public CraftingTypeDictionary(File craftingTypesJsonFile, SkillDictionary skillDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) throws IOException {
+	public CraftingTypeDictionary(File craftingTypesJsonFile, SkillDictionary skillDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary) throws Exception {
 		this.particleEffectTypeDictionary = particleEffectTypeDictionary;
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<CraftingType> craftingTypes = objectMapper.readValue(FileUtils.readFileToString(craftingTypesJsonFile, "UTF-8"),
 				objectMapper.getTypeFactory().constructParametrizedType(ArrayList.class, List.class, CraftingType.class));
 
 		for (CraftingType craftingType : craftingTypes) {
-			craftingType.setProfessionRequired(skillDictionary.getByName(craftingType.getProfessionRequiredName()));
+			Skill requiredProfession = skillDictionary.getByName(craftingType.getProfessionRequiredName());
+			if (requiredProfession == null) {
+				throw new ModLoadingException(String.format("The Crafting Type '%s' requires a valid professionRequired. Supplied '%s'", craftingType.getName(), craftingType.getProfessionRequiredName()));
+			}
+			craftingType.setProfessionRequired(requiredProfession);
 
 			if (craftingType.getParticleEffectNames() != null) {
 				for (String particleEffectName : craftingType.getParticleEffectNames()) {

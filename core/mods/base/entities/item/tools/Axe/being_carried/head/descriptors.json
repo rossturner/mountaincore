@@ -23,7 +23,11 @@
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Axe-Head-Being-Carried-B34.png",
-      "coloringLayer" : "METAL_COLOR"
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -2.0,
+        "y" : 10.0
+      }
     },
     "UP_LEFT" : {
       "filename" : "Tool-Axe-Head-Being-Carried-B34.png",

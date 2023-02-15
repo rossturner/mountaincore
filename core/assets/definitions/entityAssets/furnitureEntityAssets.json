@@ -13,6 +13,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -66,6 +67,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -92,6 +94,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -126,6 +129,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -154,6 +158,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -207,6 +212,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -233,6 +239,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -267,6 +274,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -295,6 +303,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -348,6 +357,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -374,6 +384,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -408,6 +419,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -436,6 +448,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -489,6 +502,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -515,6 +529,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -549,6 +564,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -577,6 +593,7 @@
       "filename" : "sleep_spot.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -605,6 +622,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -658,6 +676,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -684,6 +703,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -718,6 +738,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -746,6 +767,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -799,6 +821,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -825,6 +848,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -859,6 +883,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -887,6 +912,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -940,6 +966,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -966,6 +993,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1000,6 +1028,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1028,6 +1057,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -1081,6 +1111,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1107,6 +1138,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1141,6 +1173,7 @@
       "coloringLayer" : "ACCESSORY_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1169,6 +1202,7 @@
       "filename" : "sleep_spot.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1197,6 +1231,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1225,6 +1260,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1253,6 +1289,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1281,6 +1318,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1309,6 +1347,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1337,6 +1376,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1365,6 +1405,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1393,6 +1434,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1418,6 +1460,7 @@
       "filename" : "Artisan_Workstation-2x3l no rotation-Base_Layer-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1484,6 +1527,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1509,6 +1553,7 @@
       "filename" : "Artisan_Workstation-2x3l no rotation-Furniture_Above_Layer_2-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -1535,6 +1580,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -1593,6 +1639,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -1651,6 +1698,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -1709,6 +1757,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -1767,6 +1816,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -1825,6 +1875,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -1883,6 +1934,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -1941,6 +1993,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -1999,6 +2052,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -2057,6 +2111,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -2115,6 +2170,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -2173,6 +2229,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -2231,6 +2288,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -2257,6 +2315,7 @@
       "coloringLayer" : "MISC_COLOR_1",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 36.5,
@@ -2323,6 +2382,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -46.5,
@@ -2349,6 +2409,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -68.0,
@@ -2375,6 +2436,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -61.5,
@@ -2401,6 +2463,7 @@
       "coloringLayer" : "MISC_COLOR_2",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 46.5,
@@ -2427,6 +2490,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 38.0,
@@ -2453,6 +2517,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -2511,6 +2576,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -2569,6 +2635,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -2627,6 +2694,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -2685,6 +2753,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 28.0,
@@ -2719,6 +2788,7 @@
       "coloringLayer" : "MISC_COLOR_1",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -70.0,
@@ -2744,6 +2814,7 @@
       "filename" : "Butchery_Worktop-Blood-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -29.0,
@@ -2769,6 +2840,7 @@
       "filename" : "Butchery_Worktop-Meat-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 42.0,
@@ -2795,6 +2867,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 41.0,
@@ -2853,6 +2926,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -0.5,
@@ -2943,6 +3017,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 13.5,
@@ -2969,6 +3044,7 @@
       "coloringLayer" : "MISC_COLOR_1",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 11.0,
@@ -2995,6 +3071,7 @@
       "coloringLayer" : "MISC_COLOR_2",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 11.5,
@@ -3021,6 +3098,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -100.5,
@@ -3087,6 +3165,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -119.0,
@@ -3113,6 +3192,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -42.5,
@@ -3138,6 +3218,7 @@
       "filename" : "Carpentry_Bench-Carpentry-Bench-Layout-Furniture_Below_Layer_4-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 78.5,
@@ -3164,6 +3245,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -3.0,
@@ -3190,6 +3272,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 78.0,
@@ -3216,6 +3299,7 @@
       "coloringLayer" : "ORE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3242,6 +3326,7 @@
       "coloringLayer" : "EARTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3268,6 +3353,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3294,6 +3380,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3328,6 +3415,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -15.0,
@@ -3354,6 +3442,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3388,6 +3477,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3414,6 +3504,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -3440,6 +3531,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3498,6 +3590,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3556,6 +3649,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -3614,6 +3708,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -3672,6 +3767,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -3730,6 +3826,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -3788,6 +3885,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -3846,6 +3944,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -3904,6 +4003,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -3962,6 +4062,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4020,6 +4121,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4078,6 +4180,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4136,6 +4239,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4186,6 +4290,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -1.0,
@@ -4236,6 +4341,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -2.0,
@@ -4286,6 +4392,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -4344,6 +4451,7 @@
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 7.5,
@@ -4370,6 +4478,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 68.0,
@@ -4396,6 +4505,7 @@
       "coloringLayer" : "ORE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 67.5,
@@ -4422,6 +4532,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -4496,6 +4607,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 68.0,
@@ -4522,6 +4634,7 @@
       "coloringLayer" : "ORE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 67.5,
@@ -4548,6 +4661,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -4622,6 +4736,7 @@
       "coloringLayer" : "MISC_COLOR_3",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -84.0,
@@ -4728,6 +4843,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -30.0,
@@ -4753,6 +4869,7 @@
       "filename" : "Leatherworking_Station-Leatherwork-Bench-Layout-Furniture_Above_Layer_2-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -9.5,
@@ -4779,6 +4896,7 @@
       "coloringLayer" : "MISC_COLOR_2",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 84.5,
@@ -4805,6 +4923,7 @@
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 87.5,
@@ -4831,6 +4950,7 @@
       "coloringLayer" : "MISC_COLOR_3",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 52.0,
@@ -4857,6 +4977,7 @@
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 68.5,
@@ -4883,6 +5004,7 @@
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 16.0,
@@ -4909,6 +5031,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -1.0,
@@ -4959,6 +5082,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 21.5,
@@ -4985,6 +5109,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 20.5,
@@ -5010,6 +5135,7 @@
       "filename" : "Loom_Back_Shadow.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 19.0,
@@ -5036,6 +5162,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5070,6 +5197,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 22.5,
@@ -5114,6 +5242,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 22.5,
@@ -5158,6 +5287,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 22.5,
@@ -5184,6 +5314,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 22.5,
@@ -5209,6 +5340,7 @@
       "filename" : "Loom_A_Shadow_Underneath.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 23.0,
@@ -5234,6 +5366,7 @@
       "filename" : "Loom_B_Shadow_Underneath.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 21.5,
@@ -5260,6 +5393,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.5,
@@ -5310,6 +5444,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -20.5,
@@ -5336,6 +5471,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 18.5,
@@ -5361,6 +5497,7 @@
       "filename" : "Loom_Side_Shadow.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 18.0,
@@ -5387,6 +5524,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -1.5,
@@ -5437,6 +5575,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 20.5,
@@ -5463,6 +5602,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -18.5,
@@ -5488,6 +5628,7 @@
       "filename" : "Loom_Side_Shadow.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -18.0,
@@ -5514,6 +5655,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5572,6 +5714,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5630,6 +5773,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5688,6 +5832,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -5746,6 +5891,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -5804,6 +5950,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -5862,6 +6009,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -5920,6 +6068,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -5978,6 +6127,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6004,6 +6154,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6030,6 +6181,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 28.0,
@@ -6072,6 +6224,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6098,6 +6251,7 @@
       "coloringLayer" : "MISC_COLOR_1",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -70.0,
@@ -6124,6 +6278,7 @@
       "coloringLayer" : "MISC_COLOR_1",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -6182,6 +6337,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -20.5,
@@ -6208,6 +6364,7 @@
       "coloringLayer" : "MISC_COLOR_2",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 9.5,
@@ -6234,6 +6391,7 @@
       "coloringLayer" : "CLOTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -19.5,
@@ -6260,6 +6418,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6286,6 +6445,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -95.5,
@@ -6378,6 +6538,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -54.0,
@@ -6405,6 +6566,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -82.5,
@@ -6432,6 +6594,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 8.5,
@@ -6457,6 +6620,7 @@
       "filename" : "Stonemason_Bench-Stonemason-Bench-Layout-Furniture_Above_Layer_4-Stone_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -0.5,
@@ -6483,6 +6647,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -6517,6 +6682,7 @@
       "coloringLayer" : "SKIN_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -1.0,
@@ -6543,6 +6709,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -6601,6 +6768,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -6659,6 +6827,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -6717,6 +6886,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -6775,6 +6945,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -6833,6 +7004,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -64.0,
@@ -6891,6 +7063,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -6949,6 +7122,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -7007,6 +7181,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -7065,6 +7240,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -7123,6 +7299,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -7181,6 +7358,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 64.0,
@@ -7239,6 +7417,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7265,6 +7444,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7291,6 +7471,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7317,6 +7498,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7343,6 +7525,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7369,6 +7552,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7395,6 +7579,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7421,6 +7606,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7447,6 +7633,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7473,6 +7660,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7490,6 +7678,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7516,6 +7705,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7533,6 +7723,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7559,6 +7750,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7576,6 +7768,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7602,6 +7795,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7619,6 +7813,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7645,6 +7840,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7662,6 +7858,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7688,6 +7885,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7705,6 +7903,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7731,6 +7930,7 @@
       "coloringLayer" : "EARTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7757,6 +7957,7 @@
       "coloringLayer" : "EARTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -7783,6 +7984,7 @@
       "coloringLayer" : "EARTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7809,6 +8011,7 @@
       "coloringLayer" : "EARTH_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -7835,6 +8038,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7869,6 +8073,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7903,6 +8108,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -7937,6 +8143,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -7971,6 +8178,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -7997,6 +8205,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8023,6 +8232,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8049,6 +8259,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8077,6 +8288,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8104,6 +8316,7 @@
       "filename" : "Lantern Side Front.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.5,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8130,6 +8343,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.7,
       "offsetPixels" : {
         "x" : 32.0,
@@ -8172,6 +8386,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.7,
       "offsetPixels" : {
         "x" : -32.0,
@@ -8198,6 +8413,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8240,6 +8456,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.7,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8266,6 +8483,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8324,6 +8542,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8350,6 +8569,7 @@
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 2.5,
@@ -8376,6 +8596,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8402,6 +8623,7 @@
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -0.5,
@@ -8428,6 +8650,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8486,6 +8709,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8512,6 +8736,7 @@
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 2.5,
@@ -8538,6 +8763,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8564,6 +8790,7 @@
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -0.5,
@@ -8590,6 +8817,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8624,6 +8852,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8658,6 +8887,7 @@
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8684,6 +8914,7 @@
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8710,6 +8941,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -8744,6 +8976,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -8778,6 +9011,7 @@
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8804,6 +9038,7 @@
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8830,6 +9065,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8864,6 +9100,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8898,6 +9135,7 @@
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8924,6 +9162,7 @@
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -8950,6 +9189,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -8984,6 +9224,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -9018,6 +9259,7 @@
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9044,6 +9286,7 @@
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9070,6 +9313,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9120,6 +9364,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9146,6 +9391,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9172,6 +9418,7 @@
       "coloringLayer" : "LIQUID_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9198,6 +9445,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 37.0,
@@ -9256,6 +9504,7 @@
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -19.0,
@@ -9282,6 +9531,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.0,
@@ -9307,6 +9557,7 @@
       "filename" : "well_3-64.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -30.0,
@@ -9333,6 +9584,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -3.0,
@@ -9359,6 +9611,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 31.5,
@@ -9401,6 +9654,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -26.5,
@@ -9426,6 +9680,7 @@
       "filename" : "wheel-ew",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -9452,6 +9707,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -31.5,
@@ -9494,6 +9750,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 26.5,
@@ -9519,6 +9776,7 @@
       "filename" : "wheel-ew",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -9545,6 +9803,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -9587,6 +9846,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9612,6 +9872,7 @@
       "filename" : "wheel-ns",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9638,6 +9899,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -9680,6 +9942,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9705,6 +9968,7 @@
       "filename" : "wheel-ns",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9731,6 +9995,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -9773,6 +10038,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -9815,6 +10081,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9857,6 +10124,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -9898,6 +10166,7 @@
       "filename" : "pump_ew_mechanism",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -20.0,
@@ -9923,6 +10192,7 @@
       "filename" : "pump_ew_mechanism",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 20.0,
@@ -9948,6 +10218,7 @@
       "filename" : "pump_n_mechanism",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 17.0,
@@ -9973,6 +10244,7 @@
       "filename" : "pump_s_mechanism",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -15.0,
@@ -9999,6 +10271,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 17.5,
@@ -10025,6 +10298,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -17.5,
@@ -10051,6 +10325,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -8.5,
@@ -10077,6 +10352,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 10.0,
@@ -10103,6 +10379,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -10153,6 +10430,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.5,
@@ -10179,6 +10457,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.5,
@@ -10204,6 +10483,7 @@
       "filename" : "windmill-3",
       "isAnimated" : true,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10230,6 +10510,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -2.5,
@@ -10264,6 +10545,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 6.0,
@@ -10290,6 +10572,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10324,6 +10607,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10350,6 +10634,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10384,6 +10669,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.5,
@@ -10410,6 +10696,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 2.5,
@@ -10444,6 +10731,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -6.0,
@@ -10470,6 +10758,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.25,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10496,6 +10785,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.25,
       "offsetPixels" : {
         "x" : -1.5,
@@ -10522,6 +10812,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.25,
       "offsetPixels" : {
         "x" : 1.5,
@@ -10548,6 +10839,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.25,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10574,6 +10866,7 @@
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10608,6 +10901,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10634,6 +10928,7 @@
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10668,6 +10963,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10694,6 +10990,7 @@
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10728,6 +11025,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10754,6 +11052,7 @@
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10788,6 +11087,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10814,6 +11114,7 @@
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10872,6 +11173,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10898,6 +11200,7 @@
       "coloringLayer" : "SEED_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10924,6 +11227,7 @@
       "coloringLayer" : "BRANCHES_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -10982,6 +11286,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.8,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11008,6 +11313,7 @@
       "coloringLayer" : "SEED_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.7,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11034,6 +11340,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11060,6 +11367,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11086,6 +11394,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : 3.0,
@@ -11120,6 +11429,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : 4.0,
@@ -11154,6 +11464,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : -3.0,
@@ -11188,6 +11499,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : -3.0,
@@ -11222,6 +11534,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11256,6 +11569,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11306,6 +11620,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -0.5,
@@ -11331,6 +11646,7 @@
       "filename" : "Weapon_Rack-1x1ew-Show_When_Inventory_Present_2-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -2.5,
@@ -11356,6 +11672,7 @@
       "filename" : "Weapon_Rack-1x1ew-Show_When_Inventory_Present_3-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -5.5,
@@ -11382,6 +11699,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11432,6 +11750,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.5,
@@ -11457,6 +11776,7 @@
       "filename" : "Weapon_Rack-1x1ns-Show_When_Inventory_Present_2-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -2.5,
@@ -11483,6 +11803,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 5.0,
@@ -11509,6 +11830,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -11599,6 +11921,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -11689,6 +12012,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -11779,6 +12103,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -11869,6 +12194,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11911,6 +12237,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -11953,6 +12280,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -11995,6 +12323,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -12037,6 +12366,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -12095,6 +12425,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -12153,6 +12484,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -12211,6 +12543,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -12269,6 +12602,7 @@
       "coloringLayer" : "OTHER_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -23.0,
@@ -12303,6 +12637,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -12329,6 +12664,7 @@
       "coloringLayer" : "OTHER_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -12355,6 +12691,7 @@
       "coloringLayer" : "OTHER_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -32.0,
@@ -12381,6 +12718,7 @@
       "coloringLayer" : "OTHER_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 23.0,
@@ -12415,6 +12753,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -12440,6 +12779,7 @@
       "filename" : "Ledger_Table-Trading-Ledger-Down-Base_Layer-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 1.0,
@@ -12474,6 +12814,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -12500,6 +12841,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -3.0,
@@ -12542,6 +12884,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 53.5,
@@ -12567,6 +12910,7 @@
       "filename" : "Ledger_Table-Trading-Ledger-Left-Furniture_Above_Layer_2-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -3.0,
@@ -12593,6 +12937,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 3.0,
@@ -12635,6 +12980,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -53.5,
@@ -12660,6 +13006,7 @@
       "filename" : "Ledger_Table-Trading-Ledger-Right-Furniture_Above_Layer_2-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 3.0,
@@ -12686,6 +13033,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -12728,6 +13076,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -2.5,
@@ -12753,6 +13102,7 @@
       "filename" : "Ledger_Table-Trading-Ledger-Up-Furniture_Above_Layer_2-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.5,
@@ -12779,6 +13129,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -12812,6 +13163,7 @@
       "filename" : "Trade_Banner-1x1-Furniture_Above_Layer_1-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -12838,6 +13190,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -12896,6 +13249,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -12922,6 +13276,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -12948,6 +13303,7 @@
       "coloringLayer" : "METAL_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -12974,6 +13330,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : 3.0,
@@ -13008,6 +13365,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : 4.0,
@@ -13042,6 +13400,7 @@
       "coloringLayer" : "STONE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : -3.0,
@@ -13076,6 +13435,7 @@
       "coloringLayer" : "WOOD_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 0.9,
       "offsetPixels" : {
         "x" : -3.0,
@@ -13109,6 +13469,7 @@
       "filename" : "Wagon_Parked-Wagon-Down-Base_Layer-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -13168,6 +13529,7 @@
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,
@@ -13194,6 +13556,7 @@
       "filename" : "Wagon_Parked-Wagon-Left-Base_Layer-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 28.0,
@@ -13261,6 +13624,7 @@
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 80.5,
@@ -13287,6 +13651,7 @@
       "filename" : "Wagon_Parked-Wagon-Left-Furniture_Below_Layer_1-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -80.0,
@@ -13312,6 +13677,7 @@
       "filename" : "Wagon_Parked-Wagon-Left-Base_Layer-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -28.0,
@@ -13379,6 +13745,7 @@
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : -80.5,
@@ -13405,6 +13772,7 @@
       "filename" : "Wagon_Parked-Wagon-Left-Furniture_Below_Layer_1-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 80.0,
@@ -13430,6 +13798,7 @@
       "filename" : "Wagon_Parked-Wagon-Up-Base_Layer-Wood_Down.png",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 32.0,
@@ -13489,6 +13858,7 @@
       "coloringLayer" : "ROPE_COLOR",
       "isAnimated" : false,
       "animationScripts" : { },
+      "templatedAnimationScripts" : { },
       "scale" : 1.0,
       "offsetPixels" : {
         "x" : 0.0,

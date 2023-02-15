@@ -2,12 +2,10 @@
   "itemTypeName" : "Tool-Plane",
   "materialTypes" : [ "WOOD" ],
   "primaryMaterialType" : "WOOD",
-  "baseValuePerItem": 4,
+  "baseValuePerItem" : 4,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "CARPENTRY" ],
   "stockpileGroupName" : "TOOLS",
-  "tags" : {
-    "USAGE_SOUND" : [ "Sawing" ]
-  },
+  "i18nKey" : "TOOL.PLANE",
   "hoursInInventoryUntilUnused": 12
 }

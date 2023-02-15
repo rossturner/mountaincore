@@ -111,10 +111,12 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 		}
 
 		public void apply(GameInteractionStateContainer gameInteractionStateContainer, MessageDispatcher messageDispatcher) {
-			Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
 			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DEFAULT);
-			if (squad != null) {
-				messageDispatcher.dispatchMessage(messageType, messageF.apply(squad));
+			if (gameInteractionStateContainer.getSelectable() != null) {
+				Squad squad = gameInteractionStateContainer.getSelectable().getSquad();
+				if (squad != null) {
+					messageDispatcher.dispatchMessage(messageType, messageF.apply(squad));
+				}
 			}
 		}
 	}

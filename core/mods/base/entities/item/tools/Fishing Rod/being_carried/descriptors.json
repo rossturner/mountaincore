@@ -6,17 +6,35 @@
   "spriteDescriptors" : {
     "DOWN" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-F.png",
+      "animationScripts" : {
+        "work_on_job_fishing" : {
+          "duration" : 2.0,
+          "rotations" : [ { }, {
+            "atTime" : 0.6,
+            "roll" : -5
+          }, {
+            "atTime" : 1.0,
+            "roll" : 3
+          }, {
+            "atTime" : 1.4,
+            "roll" : -3
+          }, {
+            "atTime" : 2.0
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : -5.0,
         "y" : 15.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_fishing" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
         "offsetPixels" : {
-          "x" : 5.0,
+          "x" : 3.0,
           "y" : -17.0
         },
         "overrideRenderLayer" : 100
@@ -24,12 +42,30 @@
     },
     "DOWN_RIGHT" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-F34.png",
+      "animationScripts" : {
+        "work_on_job_fishing" : {
+          "duration" : 2.0,
+          "rotations" : [ { }, {
+            "atTime" : 0.6,
+            "roll" : 5
+          }, {
+            "atTime" : 1.0,
+            "roll" : -3
+          }, {
+            "atTime" : 1.4,
+            "roll" : 3
+          }, {
+            "atTime" : 2.0
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : 15.0,
         "y" : 10.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_fishing" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -42,13 +78,31 @@
     },
     "DOWN_LEFT" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-F34.png",
+      "animationScripts" : {
+        "work_on_job_fishing" : {
+          "duration" : 2.0,
+          "rotations" : [ { }, {
+            "atTime" : 0.6,
+            "roll" : 5
+          }, {
+            "atTime" : 1.0,
+            "roll" : -3
+          }, {
+            "atTime" : 1.4,
+            "roll" : 3
+          }, {
+            "atTime" : 2.0
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : -15.0,
         "y" : 10.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_fishing" ]
       } ],
       "parentEntityAssets" : [ {
         "type" : "CREATURE_RIGHT_HAND",
@@ -61,33 +115,87 @@
     },
     "UP" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-B.png",
+      "animationScripts" : {
+        "work_on_job_fishing" : {
+          "duration" : 2.0,
+          "rotations" : [ { }, {
+            "atTime" : 0.6,
+            "roll" : -5
+          }, {
+            "atTime" : 1.0,
+            "roll" : 3
+          }, {
+            "atTime" : 1.4,
+            "roll" : -3
+          }, {
+            "atTime" : 2.0
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : 5.0,
         "y" : 15.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_fishing" ]
       } ]
     },
     "UP_RIGHT" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-B34.png",
+      "animationScripts" : {
+        "work_on_job_fishing" : {
+          "duration" : 2.0,
+          "rotations" : [ { }, {
+            "atTime" : 0.6,
+            "roll" : 5
+          }, {
+            "atTime" : 1.0,
+            "roll" : -3
+          }, {
+            "atTime" : 1.4,
+            "roll" : 3
+          }, {
+            "atTime" : 2.0
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : 15.0,
         "y" : 10.0
       },
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_fishing" ]
       } ]
     },
     "UP_LEFT" : {
       "filename" : "Tool-Fishing-Rod-Handle-Being-Carried-B34.png",
+      "animationScripts" : {
+        "work_on_job_fishing" : {
+          "duration" : 2.0,
+          "rotations" : [ { }, {
+            "atTime" : 0.6,
+            "roll" : 5
+          }, {
+            "atTime" : 1.0,
+            "roll" : -3
+          }, {
+            "atTime" : 1.4,
+            "roll" : 3
+          }, {
+            "atTime" : 2.0
+          } ]
+        }
+      },
       "offsetPixels" : {
         "x" : -15.0,
         "y" : 10.0
       },
       "flipX" : true,
       "childAssets" : [ {
-        "type" : "ABOVE_LAYER_1"
+        "type" : "ABOVE_LAYER_1",
+        "inheritAnimations" : [ "work_on_job_fishing" ]
       } ]
     }
   }

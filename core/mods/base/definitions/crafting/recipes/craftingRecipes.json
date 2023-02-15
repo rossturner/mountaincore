@@ -141,7 +141,6 @@
       "itemTypeName": "Tool-Axe",
       "quantity": 1
     },
-    "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -163,7 +162,6 @@
       "itemTypeName": "Tool-Chisel",
       "quantity": 1
     },
-    "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -181,7 +179,6 @@
       "itemTypeName": "Tool-Kitchen-Knife",
       "quantity": 1
     },
-    "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -203,7 +200,6 @@
       "itemTypeName": "Tool-Large-Hammer",
       "quantity": 1
     },
-    "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -225,7 +221,6 @@
       "itemTypeName": "Tool-Pickaxe",
       "quantity": 1
     },
-    "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -247,7 +242,6 @@
       "itemTypeName": "Tool-Saw",
       "quantity": 1
     },
-    "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL", "WOOD"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -265,7 +259,6 @@
       "itemTypeName": "Tool-Small-Hammer",
       "quantity": 1
     },
-    "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5
@@ -283,7 +276,6 @@
       "itemTypeName": "Tool-Tongs",
       "quantity": 1
     },
-    "itemTypeRequiredName": "Tool-Tongs",
     "materialTypesToCopyOver": ["METAL"],
     "minimumTimeToCompleteCrafting": 2.5,
     "maximumTimeToCompleteCrafting": 7.5

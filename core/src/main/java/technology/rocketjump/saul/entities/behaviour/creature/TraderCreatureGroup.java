@@ -43,7 +43,6 @@ public class TraderCreatureGroup extends CreatureGroup {
 		if (stage.equals(ARRIVING)) {
 			this.stage = TraderGroupStage.MOVING_TO_TRADE_DEPOT;
 			this.hoursInCurrentStage = 0;
-			this.pendingSpecialGoal = SpecialGoal.MOVE_GROUP_TO_TRADE_DEPOT;
 		} else if (stage.equals(MOVING_TO_TRADE_DEPOT)) {
 			this.stage = TraderGroupStage.ARRIVED_AT_TRADE_DEPOT;
 			this.hoursInCurrentStage = 0;

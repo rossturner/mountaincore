@@ -2,7 +2,7 @@
   "itemTypeName" : "Tool-Tongs",
   "materialTypes" : [ "METAL" ],
   "primaryMaterialType" : "METAL",
-  "baseValuePerItem": 15,
+  "baseValuePerItem" : 15,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "BLACKSMITHING", "SMELTING" ],
   "stockpileGroupName" : "TOOLS",

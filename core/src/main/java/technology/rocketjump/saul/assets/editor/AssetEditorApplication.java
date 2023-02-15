@@ -132,6 +132,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		messageDispatcher.addListener(this, MessageType.ENTITY_CREATED);
 		messageDispatcher.addListener(this, MessageType.ENTITY_ASSET_UPDATE_REQUIRED);
 		messageDispatcher.addListener(this, MessageType.EDITOR_RELOAD);
+		messageDispatcher.addListener(this, MessageType.IDENTIFY_PARTICLE_REQUEST_TARGET);
 	}
 
 	@Override
@@ -346,6 +347,10 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 	public boolean handleMessage(Telegram msg) {
 		switch (msg.message) {
 			case MessageType.ENTITY_CREATED: {
+				//do nothing
+				return true;
+			}
+			case MessageType.IDENTIFY_PARTICLE_REQUEST_TARGET: {
 				//do nothing
 				return true;
 			}

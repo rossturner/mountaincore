@@ -9,7 +9,7 @@ import technology.rocketjump.saul.assets.entities.furniture.model.FurnitureEntit
 import technology.rocketjump.saul.assets.entities.item.ItemEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.mechanism.MechanismEntityAssetDictionary;
-import technology.rocketjump.saul.assets.entities.model.EntityAsset;
+import technology.rocketjump.saul.assets.entities.model.*;
 import technology.rocketjump.saul.assets.entities.plant.PlantEntityAssetDictionary;
 import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
 import technology.rocketjump.saul.assets.entities.vehicle.VehicleEntityAssetDictionary;
@@ -32,11 +32,12 @@ public class CompleteAssetDictionary {
 	private final ItemEntityAssetDictionary itemEntityAssetDictionary;
 	private final WallCapAssetDictionary wallCapAssetDictionary;
 	private final MechanismEntityAssetDictionary mechanismEntityAssetDictionary;
+	private final AnimationDictionary animationDictionary;
 
 	@Inject
 	public CompleteAssetDictionary(CreatureEntityAssetDictionary creatureEntityAssetDictionary, FurnitureEntityAssetDictionary furnitureEntityAssetDictionary,
 								   VehicleEntityAssetDictionary vehicleEntityAssetDictionary, PlantEntityAssetDictionary plantEntityAssetDictionary, ItemEntityAssetDictionary itemEntityAssetDictionary,
-								   WallCapAssetDictionary wallCapAssetDictionary, MechanismEntityAssetDictionary mechanismEntityAssetDictionary) {
+								   WallCapAssetDictionary wallCapAssetDictionary, MechanismEntityAssetDictionary mechanismEntityAssetDictionary, AnimationDictionary animationDictionary) {
 		this.creatureEntityAssetDictionary = creatureEntityAssetDictionary;
 		this.furnitureEntityAssetDictionary = furnitureEntityAssetDictionary;
 		this.vehicleEntityAssetDictionary = vehicleEntityAssetDictionary;
@@ -44,6 +45,7 @@ public class CompleteAssetDictionary {
 		this.itemEntityAssetDictionary = itemEntityAssetDictionary;
 		this.wallCapAssetDictionary = wallCapAssetDictionary;
 		this.mechanismEntityAssetDictionary = mechanismEntityAssetDictionary;
+		this.animationDictionary = animationDictionary;
 
 		rebuild();
 	}
@@ -62,6 +64,8 @@ public class CompleteAssetDictionary {
 		itemEntityAssetDictionary.rebuild();
 		furnitureEntityAssetDictionary.rebuild();
 		plantEntityAssetDictionary.rebuild();
+
+		populateAnimationsFromTemplates();
 	}
 
 	public void add(CreatureEntityAsset asset) {
@@ -91,5 +95,21 @@ public class CompleteAssetDictionary {
 
 	public EntityAsset getByUniqueName(String uniqueAssetName) {
 		return allAssetsByName.get(uniqueAssetName);
+	}
+
+
+	private void populateAnimationsFromTemplates() {
+		for (EntityAsset entityAsset : allAssetsByName.values()) {
+			if (entityAsset.getSpriteDescriptors() != null) {
+				for (SpriteDescriptor spriteDescriptor : entityAsset.getSpriteDescriptors().values()) {
+					Map<String, TemplateAnimationScript.Variables> templates = spriteDescriptor.getTemplatedAnimationScripts();
+					for (String animationName : templates.keySet()) {
+						TemplateAnimationScript.Variables templateVariables = templates.get(animationName);
+						AnimationScript templateInstance = animationDictionary.newInstance(templateVariables);
+						spriteDescriptor.getInheritedAnimationScripts().put(animationName, templateInstance);
+					}
+				}
+			}
+		}
 	}
 }

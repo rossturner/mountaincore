@@ -82,6 +82,8 @@ public class EntityMessageHandlerTest {
 	private CreatureTracker mockCreatureTracker;
 	@Mock
 	private DesignationDictionary mockDesignationDictionary;
+	@Mock
+	private VehicleTracker mockVehicleTracker;
 
 	@Before
 	public void setUp() throws Exception {
@@ -90,7 +92,7 @@ public class EntityMessageHandlerTest {
 		entityMessageHandler = new EntityMessageHandler(messageDispatcher, mockAssetUpdater, mockJobFactory,
 				mockEntityStore, mockSettlementItemTracker, mockSettlementFurnitureTracker, mockSettlerTracker, mockCreatureTracker, mockOngoingEffectTracker, mockRoomStore,
 				mockItemEntityAttributesFactory, mockItemEntityFactory, mockItemTypeDictionary, mockI18nTranslator, mockJobStore,
-				mockMaterialDictionary, mockSoundAssetDictionary, vehicleTracker, mockParticleEffectDictionary, mockDesignationDictionary);
+				mockMaterialDictionary, mockSoundAssetDictionary, mockVehicleTracker, mockParticleEffectDictionary, mockDesignationDictionary);
 
 		gameContext = new GameContext();
 		gameContext.setAreaMap(mockAreaMap);

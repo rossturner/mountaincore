@@ -1,0 +1,217 @@
+[
+  {
+    "name": "right-hand-swing-down",
+    "template" : {
+      "duration" : 0.8,
+      "scalings" : [ {
+        "x" : 1.0,
+        "y" : 1.0
+      }, {
+        "atTime" : 0.23,
+        "x" : 0.9,
+        "y" : 0.9
+      }, {
+        "atTime" : 0.3,
+        "x" : 1.2,
+        "y" : 1.2
+      }, {
+        "atTime" : 0.8,
+        "x" : 1.0,
+        "y" : 1.0
+      } ]
+    }
+  },
+  {
+    "name": "right-hand-swing-down-right",
+    "template" : {
+      "duration" : 0.8,
+      "translations" : [ { }, {
+        "atTime" : 0.23,
+        "x" : -0.037,
+        "y" : 0.056
+      }, {
+        "atTime" : 0.3
+      }, {
+        "atTime" : 0.8
+      } ]
+    }
+  },
+  {
+    "name": "right-hand-swing-down-left",
+    "template" : {
+      "duration" : 0.8,
+      "translations" : [ { }, {
+        "atTime" : 0.23,
+        "x" : 0.056,
+        "y" : 0.056
+      }, {
+        "atTime" : 0.3
+      }, {
+        "atTime" : 0.8
+      } ]
+    }
+  },
+  {
+    "name": "right-hand-swing-up-right",
+    "template" : {
+      "duration" : 0.8,
+      "translations" : [ { }, {
+        "atTime" : 0.23,
+        "x" : -0.043
+      }, {
+        "atTime" : 0.3
+      }, {
+        "atTime" : 0.8
+      } ]
+    }
+  },
+  {
+    "name": "right-hand-sawing-down",
+    "template" : {
+      "duration" : 1.5,
+      "translations" : [ { }, {
+        "atTime" : 0.1,
+        "x" : 0.04,
+        "y" : -0.04
+      }, {
+        "atTime" : 0.4,
+        "x" : -0.06,
+        "y" : 0.06
+      }, {
+        "atTime" : 0.7,
+        "x" : 0.04,
+        "y" : -0.04
+      }, {
+        "atTime" : 1.0,
+        "x" : -0.06,
+        "y" : 0.06
+      }, {
+        "atTime" : 1.2
+      }, {
+        "atTime" : 1.5
+      } ],"scalings" : [ {
+        "x" : 1.0,
+        "y" : 1.0
+      }, {
+        "atTime" : 0.1,
+        "x" : 0.85,
+        "y" : 0.85
+      }, {
+        "atTime" : 0.4,
+        "x" : 1.15,
+        "y" : 1.15
+      }, {
+        "atTime" : 0.7,
+        "x" : 0.9,
+        "y" : 0.9
+      }, {
+        "atTime" : 1.0,
+        "x" : 1.15,
+        "y" : 1.15
+      }, {
+        "atTime" : 1.2,
+        "x" : 1.0,
+        "y" : 1.0
+      }, {
+        "atTime" : 1.5,
+        "x" : 1.0,
+        "y" : 1.0
+      } ]
+    }
+  },
+  {
+    "name": "right-hand-sawing-down-right",
+    "template" : {
+      "duration" : 1.5,
+      "translations" : [ { }, {
+        "atTime" : 0.1,
+        "x" : -0.04
+      }, {
+        "atTime" : 0.4,
+        "x" : 0.1
+      }, {
+        "atTime" : 0.7,
+        "x" : -0.03
+      }, {
+        "atTime" : 1.0,
+        "x" : 0.11
+      }, {
+        "atTime" : 1.2
+      }, {
+        "atTime" : 1.5
+      } ]
+    }
+  },
+  {
+    "name": "right-hand-sawing-up-right",
+    "template" : {
+      "duration" : 1.5,
+      "translations" : [ { }, {
+        "atTime" : 0.1,
+        "x" : -0.04
+      }, {
+        "atTime" : 0.4,
+        "x" : 0.1
+      }, {
+        "atTime" : 0.7,
+        "x" : -0.03
+      }, {
+        "atTime" : 1.0,
+        "x" : 0.11
+      }, {
+        "atTime" : 1.2
+      }, {
+        "atTime" : 1.5
+      } ]
+    }
+  },
+  {
+    "name": "right-hand-tool-wiggle-down",
+    "template" : {
+      "duration" : 2.4,
+      "translations" : [ { }, {
+        "atTime" : 0.6,
+        "x" : 0.08
+      }, {
+        "atTime" : 1.2
+      }, {
+        "atTime" : 1.8,
+        "x" : 0.08
+      }, {
+        "atTime" : 2.4
+      } ]
+    }
+  },
+  {
+    "name": "right-hand-tool-wiggle-down-right",
+    "template" : {
+      "duration" : 2.4,
+      "translations" : [ { }, {
+        "atTime" : 1.2,
+        "x" : -0.04,
+        "y" : 0.006
+      }, {
+        "atTime" : 2.0,
+        "x" : 0.015,
+        "y" : 0.001
+      }, {
+        "atTime" : 2.4
+      } ]
+    }
+  },
+  {
+    "name": "right-hand-tool-wiggle-up-right",
+    "template" : {
+      "duration" : 2.4,
+      "translations" : [ { }, {
+        "atTime" : 1.2,
+        "x" : -0.04
+      }, {
+        "atTime" : 2.0,
+        "x" : 0.0015
+      }, {
+        "atTime" : 2.4
+      } ]
+    }
+  }
+]

@@ -333,7 +333,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 		}
 		affine.translate(-spriteWorldSize.x / 2, -spriteWorldSize.y / 2);
 
-		animationStudio.animate(affine, spriteDescriptor, renderStep.getEntity(), gameContext);
+		animationStudio.animate(affine, spriteDescriptor, renderStep, gameContext, spriteWorldSize, locationComponent);
 
 		spriteBatch.draw(sprite, spriteWorldSize.x, spriteWorldSize.y, affine);
 

@@ -78,6 +78,7 @@ import technology.rocketjump.saul.ui.skins.MainGameSkin;
 import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 import technology.rocketjump.saul.ui.widgets.*;
+import technology.rocketjump.saul.ui.widgets.crafting.CraftingHintWidgetFactory;
 import technology.rocketjump.saul.ui.widgets.furniture.ProductionExportFurnitureWidget;
 import technology.rocketjump.saul.ui.widgets.furniture.ProductionImportFurnitureWidget;
 import technology.rocketjump.saul.ui.widgets.rooms.PriorityWidget;
@@ -113,6 +114,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private final EntityRenderer entityRenderer;
 	private final JobType haulingJobType;
 	private final ButtonFactory buttonFactory;
+	private final CraftingHintWidgetFactory craftingHintWidgetFactory;
 
 	private Table outerTable;
 	private List<Updatable<?>> updatables;
@@ -132,15 +134,17 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 	@Inject
 	public EntitySelectedGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher, I18nTranslator i18nTranslator,
-								 GameInteractionStateContainer gameInteractionStateContainer,
-								 EntityStore entityStore, JobStore jobStore,
-								 JobTypeDictionary jobTypeDictionary,
-								 TooltipFactory tooltipFactory,
-								 ProductionImportFurnitureWidget productionImportFurnitureWidget, ProductionExportFurnitureWidget productionExportFurnitureWidget, DecoratedStringLabelFactory decoratedStringLabelFactory,
-								 EntityRenderer entityRenderer, ButtonFactory buttonFactory, StockpileComponentUpdater stockpileComponentUpdater,
-								 StockpileGroupDictionary stockpileGroupDictionary,
-								 GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
-								 ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary, SettlerManagementScreen settlerManagementScreen) {
+	                             GameInteractionStateContainer gameInteractionStateContainer,
+	                             EntityStore entityStore, JobStore jobStore,
+	                             JobTypeDictionary jobTypeDictionary,
+	                             TooltipFactory tooltipFactory,
+	                             ProductionImportFurnitureWidget productionImportFurnitureWidget, ProductionExportFurnitureWidget productionExportFurnitureWidget,
+	                             DecoratedStringLabelFactory decoratedStringLabelFactory,
+	                             EntityRenderer entityRenderer, ButtonFactory buttonFactory, CraftingHintWidgetFactory craftingHintWidgetFactory,
+	                             StockpileComponentUpdater stockpileComponentUpdater,
+	                             StockpileGroupDictionary stockpileGroupDictionary,
+	                             GameMaterialDictionary gameMaterialDictionary, RaceDictionary raceDictionary,
+	                             ItemTypeDictionary itemTypeDictionary, SoundAssetDictionary soundAssetDictionary, SettlerManagementScreen settlerManagementScreen) {
 		this.mainGameSkin = guiSkinRepository.getMainGameSkin();
 		this.managementSkin = guiSkinRepository.getManagementSkin();
 		this.menuSkin = guiSkinRepository.getMenuSkin();
@@ -155,6 +159,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		this.decoratedStringLabelFactory = decoratedStringLabelFactory;
 		this.entityRenderer = entityRenderer;
 		this.buttonFactory = buttonFactory;
+		this.craftingHintWidgetFactory = craftingHintWidgetFactory;
 		this.stockpileComponentUpdater = stockpileComponentUpdater;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.gameMaterialDictionary = gameMaterialDictionary;
@@ -631,6 +636,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				if (item.isDestroyed()) {
 					descriptions.add(i18nTranslator.getTranslatedString(item.getDestructionCause().i18nKey).toString());
 				}
+
+				descriptions.addAll(craftingHintWidgetFactory.getCraftingRecipeDescriptions(item.getItemType(), item.getPrimaryMaterial()));
 			}
 
 			table.clear();
@@ -1093,6 +1100,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			table.clear();
 
 			List<Entity> inventoryEntities = new ArrayList<>();
+			AttachedEntitiesComponent attachedEntitiesComponent = entity.getComponent(AttachedEntitiesComponent.class);
+			if (attachedEntitiesComponent != null) {
+				inventoryEntities.addAll(attachedEntitiesComponent.getAttachedEntities().stream().map(entry -> entry.entity).toList());
+			}
 			if (entity.getComponent(HaulingComponent.class) != null && entity.getComponent(HaulingComponent.class).getHauledEntity() != null) {
 				inventoryEntities.add(entity.getComponent(HaulingComponent.class).getHauledEntity());
 			}
@@ -1127,9 +1138,11 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 				if (inventoryIterator.hasNext()) {
 					Entity inventoryItem = inventoryIterator.next();
+					int quantity = 1;
 
-					ItemEntityAttributes attributes = (ItemEntityAttributes) inventoryItem.getPhysicalEntityComponent().getAttributes();
-					int quantity = attributes.getQuantity();
+					if (inventoryItem.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes attributes) {
+						quantity = attributes.getQuantity();
+					}
 					EntityDrawable entityDrawable = new EntityDrawable(inventoryItem, entityRenderer, true, messageDispatcher);
 					entityDrawable.setMinSize(emptyBackgroundDrawable.getMinWidth(), emptyBackgroundDrawable.getMinHeight());
 

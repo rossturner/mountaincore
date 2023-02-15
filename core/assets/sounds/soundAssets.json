@@ -193,11 +193,11 @@
 }, {
   "name" : "Sawing",
   "soundAssetId" : 25,
-  "filenames" : [ "Woodcutter Sawing (Loop).wav" ],
-  "minPitch" : 0.8,
-  "maxPitch" : 1.2,
+  "filenames" : [ "Woodcutter Sawing (A-FO).wav", "Woodcutter Sawing (B-FO).wav", "Woodcutter Sawing (C-FO).wav" ],
+  "minPitch" : 0.9,
+  "maxPitch" : 1.0,
   "volumeModifier" : 0.2,
-  "looping" : true
+  "looping" : false
 }, {
   "name" : "Fishing_Cast",
   "soundAssetId" : 26,
@@ -209,11 +209,11 @@
 }, {
   "name" : "Metallic Hammering",
   "soundAssetId" : 27,
-  "filenames" : [ "Metallic Hammering (Loop).wav" ],
-  "minPitch" : 0.8,
-  "maxPitch" : 1.2,
+  "filenames" : [ "Metallic Hammering (A-FO).wav", "Metallic Hammering (B).wav", "Metallic Hammering (C).wav", "Metallic Hammering (D-FO).wav" ],
+  "minPitch" : 0.95,
+  "maxPitch" : 1.0,
   "volumeModifier" : 0.3,
-  "looping" : true
+  "looping" : false
 }, {
   "name" : "HarvestingCrops",
   "soundAssetId" : 28,
@@ -225,7 +225,7 @@
 }, {
   "name" : "ChoppingTree",
   "soundAssetId" : 29,
-  "filenames" : [ "Chopping Tree.wav" ],
+  "filenames" : [ "Chopping Tree (A).wav", "Chopping Tree (B-FO).wav", "Chopping Tree (C-FO).wav", "Chopping Tree (D).wav" ],
   "minPitch" : 0.8,
   "maxPitch" : 1.2,
   "volumeModifier" : 0.4,
@@ -241,11 +241,11 @@
 }, {
   "name" : "Mining",
   "soundAssetId" : 31,
-  "filenames" : [ "Mining (Loop).wav" ],
+  "filenames" : [ "Mining (A-FO).wav", "Mining (B-FO).wav", "Mining (C-FO).wav", "Mining (D).wav" ],
   "minPitch" : 0.8,
   "maxPitch" : 1.2,
   "volumeModifier" : 0.4,
-  "looping" : true
+  "looping" : false
 }, {
   "name" : "StonemasonChipping",
   "soundAssetId" : 32,
@@ -257,7 +257,7 @@
 }, {
   "name" : "Tilling",
   "soundAssetId" : 33,
-  "filenames" : [ "Tilling.wav" ],
+  "filenames" : [ "Tilling (A).wav", "Tilling (B).wav", "Tilling (C).wav", "Tilling (D).wav" ],
   "minPitch" : 0.8,
   "maxPitch" : 1.2,
   "volumeModifier" : 0.3,

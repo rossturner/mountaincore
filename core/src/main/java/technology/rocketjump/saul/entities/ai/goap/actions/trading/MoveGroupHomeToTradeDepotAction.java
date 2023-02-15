@@ -22,15 +22,33 @@ import java.util.Collections;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.FAILURE;
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
 
-public class MoveGroupHomeTowardTradeDepotAction extends Action {
+public class MoveGroupHomeToTradeDepotAction extends Action {
 
-	public MoveGroupHomeTowardTradeDepotAction(AssignedGoal parent) {
+	public MoveGroupHomeToTradeDepotAction(AssignedGoal parent) {
 		super(parent);
 	}
 
 	@Override
-	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
+	public boolean isApplicable(GameContext gameContext) {
 		if (parent.parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+			CreatureGroup creatureGroup = creatureBehaviour.getCreatureGroup();
+			if (creatureGroup.getHomeLocation() == null) {
+				return true;
+			}
+			RoomTile roomTile = gameContext.getAreaMap().getTile(creatureGroup.getHomeLocation()).getRoomTile();
+			if (roomTile == null) {
+				return true;
+			}
+			if (roomTile.getRoom().getComponent(TradeDepotBehaviour.class) == null) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
+		if (isApplicable(gameContext) && parent.parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
 			CreatureGroup creatureGroup = creatureBehaviour.getCreatureGroup();
 
 			parent.messageDispatcher.dispatchMessage(MessageType.GET_ROOMS_BY_COMPONENT,

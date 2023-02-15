@@ -23,6 +23,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import technology.rocketjump.saul.SaulApplicationAdapter;
+import technology.rocketjump.saul.logging.CrashHandler;
 
 import java.awt.*;
 import java.io.File;
@@ -118,6 +119,7 @@ public class SaulLwjglApplication implements Application {
 					if (audio != null) audio.dispose();
 					Gdx.input.setCursorCatched(false);
 					Display.destroy(); //bug fix - without this, ApplicationShutdownHooks can hang indefinitely
+					CrashHandler.displayCrashDialog(t);
 					if (t instanceof RuntimeException)
 						throw (RuntimeException)t;
 					else

@@ -51,7 +51,9 @@ public class AttachedEntitiesComponent implements ParentDependentEntityComponent
 	}
 
 	public void remove(Entity removedEntity) {
-		attachedEntities.removeIf(attachedEntity -> attachedEntity.entity.getId() == removedEntity.getId());
+		if (attachedEntities.removeIf(attachedEntity -> attachedEntity.entity.getId() == removedEntity.getId())) {
+			removedEntity.getLocationComponent(false).setContainerEntity(null);
+		}
 	}
 
 	@Override

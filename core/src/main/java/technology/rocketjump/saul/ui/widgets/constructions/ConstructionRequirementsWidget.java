@@ -16,6 +16,7 @@ import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 import technology.rocketjump.saul.ui.views.RoomEditorItemMap;
+import technology.rocketjump.saul.ui.widgets.crafting.CraftingHintWidgetFactory;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringFactory;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabelFactory;
 
@@ -30,6 +31,7 @@ public class ConstructionRequirementsWidget extends Table implements DisplaysTex
 	private final ItemAvailabilityChecker itemAvailabilityChecker;
 	private final I18nTranslator i18nTranslator;
 	private final RoomEditorItemMap roomEditorItemMap;
+	private final CraftingHintWidgetFactory craftingHintWidgetFactory;
 	private final EntityRenderer entityRenderer;
 	private final TooltipFactory tooltipFactory;
 	private final DecoratedStringFactory dedecoratedStringFactory;
@@ -43,15 +45,16 @@ public class ConstructionRequirementsWidget extends Table implements DisplaysTex
 
 	@Inject
 	public ConstructionRequirementsWidget(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-										  ItemAvailabilityChecker itemAvailabilityChecker, I18nTranslator i18nTranslator,
-										  RoomEditorItemMap roomEditorItemMap,
-										  EntityRenderer entityRenderer, TooltipFactory tooltipFactory,
-										  DecoratedStringFactory dedecoratedStringFactory, DecoratedStringLabelFactory decoratedStringLabelFactory) {
+	                                      ItemAvailabilityChecker itemAvailabilityChecker, I18nTranslator i18nTranslator,
+	                                      RoomEditorItemMap roomEditorItemMap, CraftingHintWidgetFactory craftingHintWidgetFactory,
+	                                      EntityRenderer entityRenderer, TooltipFactory tooltipFactory,
+	                                      DecoratedStringFactory dedecoratedStringFactory, DecoratedStringLabelFactory decoratedStringLabelFactory) {
 		this.skin = guiSkinRepository.getMainGameSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.itemAvailabilityChecker = itemAvailabilityChecker;
 		this.i18nTranslator = i18nTranslator;
 		this.roomEditorItemMap = roomEditorItemMap;
+		this.craftingHintWidgetFactory = craftingHintWidgetFactory;
 		this.entityRenderer = entityRenderer;
 		this.tooltipFactory = tooltipFactory;
 		this.decoratedStringLabelFactory = decoratedStringLabelFactory;
@@ -100,7 +103,7 @@ public class ConstructionRequirementsWidget extends Table implements DisplaysTex
 
 			ConstructionRequirementWidget constructionRequirementWidget = new ConstructionRequirementWidget(requirement, selectedConstruction, roomEditorItemMap.getByItemType(requirement.getItemType()),
 					skin, messageDispatcher, itemAvailabilityChecker, i18nTranslator, entityRenderer,
-					tooltipFactory, gameContext, dedecoratedStringFactory, decoratedStringLabelFactory);
+					tooltipFactory, gameContext, craftingHintWidgetFactory, dedecoratedStringFactory, decoratedStringLabelFactory);
 			widgets.add(constructionRequirementWidget);
 
 			requirementsSection.add(constructionRequirementWidget);

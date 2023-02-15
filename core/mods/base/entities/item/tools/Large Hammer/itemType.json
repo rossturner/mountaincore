@@ -2,7 +2,7 @@
   "itemTypeName" : "Tool-Large-Hammer",
   "materialTypes" : [ "WOOD", "METAL" ],
   "primaryMaterialType" : "METAL",
-  "baseValuePerItem": 19,
+  "baseValuePerItem" : 19,
   "holdPosition" : "RIGHT_HAND",
   "relatedCraftingTypeNames" : [ "STONEMASONRY", "BLACKSMITHING" ],
   "stockpileGroupName" : "TOOLS",

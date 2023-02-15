@@ -129,8 +129,9 @@ public class ConsumeLiquidFromContainerAction extends Action {
 	}
 
 	protected void effectsOfDrinkConsumption(GameMaterial consumedLiquid, LiquidAllocation liquidAllocation, GameContext gameContext) {
-		if (liquidAllocation != null && FROM_RIVER.equals(liquidAllocation.getType())) {
-			parent.parentEntity.getComponent(HappinessComponent.class).add(DRANK_FROM_RIVER);
+		HappinessComponent happinessComponent = parent.parentEntity.getComponent(HappinessComponent.class);
+		if (liquidAllocation != null && FROM_RIVER.equals(liquidAllocation.getType()) && happinessComponent != null) {
+			happinessComponent.add(DRANK_FROM_RIVER);
 		}
 
 		if (consumedLiquid == null) {
@@ -146,7 +147,6 @@ public class ConsumeLiquidFromContainerAction extends Action {
 		}
 
 		if (consumedLiquid.isAlcoholic()) {
-			HappinessComponent happinessComponent = parent.parentEntity.getComponent(HappinessComponent.class);
 			if (happinessComponent != null) {
 				happinessComponent.add(HappinessComponent.HappinessModifier.DRANK_ALCOHOL);
 			}

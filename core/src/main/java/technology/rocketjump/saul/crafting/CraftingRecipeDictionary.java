@@ -13,6 +13,7 @@ import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTyp
 import technology.rocketjump.saul.jobs.CraftingTypeDictionary;
 import technology.rocketjump.saul.jobs.model.CraftingType;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
+import technology.rocketjump.saul.materials.model.GameMaterial;
 
 import java.io.IOException;
 import java.util.*;
@@ -107,6 +108,16 @@ public class CraftingRecipeDictionary {
 
 	public List<CraftingRecipe> getByCraftingType(CraftingType craftingType) {
 		return byCraftingType.get(craftingType);
+	}
+
+	public List<CraftingRecipe> getByOutputItemTypeAndMaterial(ItemType itemType, GameMaterial material) {
+		return byName.values().stream()
+				.filter(recipe -> {
+					QuantifiedItemTypeWithMaterial output = recipe.getOutput();
+					return itemType.equals(output.getItemType()) &&
+							(material == null || output.getMaterial() == null || material.equals(output.getMaterial()));
+				})
+				.toList();
 	}
 
 	public CraftingRecipe getByName(String recipeName) {

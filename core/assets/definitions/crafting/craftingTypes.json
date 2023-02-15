@@ -4,7 +4,7 @@
   "professionRequiredName" : "LUMBERJACK",
   "defaultItemTypeName" : "Tool-Saw",
   "usesWorkstationTool" : true,
-  "particleEffectNames" : [ "Wood shavings" ]
+  "workOnJobAnimation" : "work_on_job_woodcutting"
 }, {
   "name" : "CARPENTRY",
   "i18nKey" : "CRAFTING_TYPE.CARPENTRY",
@@ -12,14 +12,14 @@
   "defaultItemTypeName" : "Tool-Plane",
   "constructsFurniture" : "WOOD",
   "usesWorkstationTool" : true,
-  "particleEffectNames" : [ "Wood shavings" ]
+  "workOnJobAnimation" : "work_on_job_planing"
 }, {
   "name" : "FLETCHING",
   "i18nKey" : "CRAFTING_TYPE.FLETCHING",
   "professionRequiredName" : "CARPENTER",
   "defaultItemTypeName" : "Tool-Plane",
   "usesWorkstationTool" : true,
-  "particleEffectNames" : [ "Wood shavings" ]
+  "workOnJobAnimation" : "work_on_job_planing"
 }, {
   "name" : "STONEMASONRY",
   "i18nKey" : "CRAFTING_TYPE.STONEMASONRY",
@@ -27,7 +27,8 @@
   "defaultItemTypeName" : "Tool-Chisel",
   "constructsFurniture" : "STONE",
   "usesWorkstationTool" : true,
-  "particleEffectNames" : [ "Chipping stone" ]
+  "particleEffectNames" : [ "Chipping stone" ],
+  "workOnJobAnimation" : "work_on_job_generic_wiggle"
 }, {
   "name" : "BLACKSMITHING",
   "i18nKey" : "CRAFTING_TYPE.BLACKSMITHING",
@@ -35,8 +36,8 @@
   "defaultItemTypeName" : "Tool-Large-Hammer",
   "constructsFurniture" : "METAL",
   "usesWorkstationTool" : true,
-  "particleEffectNames" : [ "Blacksmith sparks" ],
-  "mightStartFire" : 0.03
+  "mightStartFire" : 0.03,
+  "workOnJobAnimation" : "work_on_job_blacksmithing"
 }, {
   "name" : "WEAPONSMITHING",
   "i18nKey" : "CRAFTING_TYPE.WEAPONSMITHING",
@@ -44,8 +45,8 @@
   "defaultItemTypeName" : "Tool-Large-Hammer",
   "constructsFurniture" : "METAL",
   "usesWorkstationTool" : true,
-  "particleEffectNames" : [ "Blacksmith sparks" ],
-  "mightStartFire" : 0.03
+  "mightStartFire" : 0.03,
+  "workOnJobAnimation" : "work_on_job_blacksmithing"
 }, {
   "name" : "WEAVING",
   "i18nKey" : "CRAFTING_TYPE.WEAVING",
@@ -57,7 +58,8 @@
   "professionRequiredName" : "BLACKSMITH",
   "defaultItemTypeName" : "Tool-Tongs",
   "usesWorkstationTool" : false,
-  "mightStartFire" : 0.02
+  "mightStartFire" : 0.02,
+  "workOnJobAnimation" : "work_on_job_generic_wiggle"
 }, {
   "name" : "ORE_CRUSHING",
   "i18nKey" : "CRAFTING_TYPE.ORE_CRUSHING",
@@ -99,7 +101,8 @@
   "i18nKey" : "CRAFTING_TYPE.BAKING",
   "professionRequiredName" : "CHEF",
   "defaultItemTypeName" : "Tool-Rolling-Pin",
-  "usesWorkstationTool" : true
+  "usesWorkstationTool" : true,
+  "workOnJobAnimation" : "work_on_job_generic_wiggle"
 }, {
   "name" : "TANNING_HIDE",
   "i18nKey" : "CRAFTING_TYPE.TANNING_HIDE",
@@ -110,17 +113,20 @@
   "i18nKey" : "CRAFTING_TYPE.LEATHERWORKING",
   "professionRequiredName" : "LEATHERWORKER",
   "defaultItemTypeName" : "Tool-Kitchen-Knife",
-  "usesWorkstationTool" : true
+  "usesWorkstationTool" : true,
+  "workOnJobAnimation" : "work_on_job_generic_wiggle"
 }, {
   "name" : "BONE_CRAFTING",
   "i18nKey" : "CRAFTING_TYPE.BONE_CRAFTING",
   "professionRequiredName" : "ARTISAN",
   "defaultItemTypeName" : "Tool-Chisel",
-  "usesWorkstationTool" : true
+  "usesWorkstationTool" : true,
+  "workOnJobAnimation" : "work_on_job_generic_wiggle"
 }, {
   "name" : "FINE_DETAIL_CRAFTING",
   "i18nKey" : "CRAFTING_TYPE.FINE_DETAIL_CRAFTING",
   "professionRequiredName" : "ARTISAN",
   "defaultItemTypeName" : "Tool-Tongs",
-  "usesWorkstationTool" : true
+  "usesWorkstationTool" : true,
+  "workOnJobAnimation" : "work_on_job_generic_wiggle"
 } ]

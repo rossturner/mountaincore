@@ -519,20 +519,24 @@
   "initialActions" : [ "MoveGroupHomeTowardSettlers" ]
 }, {
   "creatureCategories" : [ "MERCHANT" ],
-  "name" : "Move group to trade depot",
+  "name" : "Move to trade depot",
   "actionRelationships" : {
-    "ProgressTraderStage" : { },
-    "GoToGoalTargetLocation" : {
-      "fail" : [ "ProgressTraderStage" ],
-      "pass" : [ "ProgressTraderStage" ]
-    },
-    "MoveGroupHomeTowardTradeDepot" : {
+    "GoToRoomWithGroupHome" : {
       "fail" : [ ],
-      "pass" : [ "GoToGoalTargetLocation" ]
-    }
+      "pass" : [ "ProgressTraderStageToArrived" ]
+    },
+    "MoveGroupHomeToTradeDepot" : { },
+    "ProgressTraderStageToArrived" : { }
   },
-  "selectors" : [ ],
-  "initialActions" : [ "MoveGroupHomeTowardTradeDepot" ]
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "stage" : "MOVING_TO_TRADE_DEPOT",
+      "type" : "TRADERS_IN_STAGE"
+    } ],
+    "priority" : "HIGHEST"
+  } ],
+  "initialActions" : [ "MoveGroupHomeToTradeDepot", "GoToRoomWithGroupHome" ]
 }, {
   "i18nDescription" : "GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION",
   "creatureCategories" : [ "MILITARY" ],

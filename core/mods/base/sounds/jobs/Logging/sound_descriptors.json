@@ -2,10 +2,14 @@
   {
     "name": "ChoppingTree",
     "filenames": [
-      "Chopping Tree.wav"
+      "Chopping Tree (A).wav",
+      "Chopping Tree (B-FO).wav",
+      "Chopping Tree (C-FO).wav",
+      "Chopping Tree (D).wav"
     ],
     "minPitch": 0.8,
     "maxPitch": 1.2,
+    "looping": false,
     "volumeModifier": 0.4
   },
   {
