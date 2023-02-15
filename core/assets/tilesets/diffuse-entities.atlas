@@ -8907,49 +8907,49 @@ Right_Wagon_Body
   size: 314, 187
   orig: 314, 187
   offset: 0, 0
-  index: 3
-Left_Wagon_Body
-  rotate: false
-  xy: 2, 3426
-  size: 314, 187
-  orig: 314, 187
-  offset: 0, 0
-  index: 1
-Right_Wagon_Body
-  rotate: false
-  xy: 2, 3426
-  size: 314, 187
-  orig: 314, 187
-  offset: 0, 0
-  index: 2
-Left_Wagon_Body
-  rotate: false
-  xy: 636, 3907
-  size: 314, 187
-  orig: 314, 187
-  offset: 0, 0
-  index: 2
-Right_Wagon_Body
-  rotate: false
-  xy: 636, 3907
-  size: 314, 187
-  orig: 314, 187
-  offset: 0, 0
-  index: 1
-Left_Wagon_Body
-  rotate: false
-  xy: 2, 3237
-  size: 314, 187
-  orig: 314, 187
-  offset: 0, 0
-  index: 3
-Right_Wagon_Body
-  rotate: false
-  xy: 2, 3237
-  size: 314, 187
-  orig: 314, 187
-  offset: 0, 0
   index: 0
+Left_Wagon_Body
+  rotate: false
+  xy: 2, 3426
+  size: 314, 187
+  orig: 314, 187
+  offset: 0, 0
+  index: 1
+Right_Wagon_Body
+  rotate: false
+  xy: 2, 3426
+  size: 314, 187
+  orig: 314, 187
+  offset: 0, 0
+  index: 1
+Left_Wagon_Body
+  rotate: false
+  xy: 636, 3907
+  size: 314, 187
+  orig: 314, 187
+  offset: 0, 0
+  index: 2
+Right_Wagon_Body
+  rotate: false
+  xy: 636, 3907
+  size: 314, 187
+  orig: 314, 187
+  offset: 0, 0
+  index: 2
+Left_Wagon_Body
+  rotate: false
+  xy: 2, 3237
+  size: 314, 187
+  orig: 314, 187
+  offset: 0, 0
+  index: 3
+Right_Wagon_Body
+  rotate: false
+  xy: 2, 3237
+  size: 314, 187
+  orig: 314, 187
+  offset: 0, 0
+  index: 3
 Left_Wagon_Horse_Strap
   rotate: false
   xy: 952, 3907

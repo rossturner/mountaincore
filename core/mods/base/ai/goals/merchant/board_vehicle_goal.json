@@ -1,0 +1,34 @@
+{
+  "name": "Board vehicle",
+  "creatureCategories": ["MERCHANT"],
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "TRADERS_IN_STAGE",
+          "stage": "PREPARING_TO_LEAVE"
+        },
+        {
+          "type": "SKILL",
+          "skillName": "MERCHANT",
+          "operator": "GREATER_THAN",
+          "value": 0
+        }
+      ],
+      "priority": "HIGHEST",
+      "scheduleCategory": "ANY"
+    }
+  ],
+  "initialActions": ["LocateVehicle"],
+  "actionRelationships": {
+    "LocateVehicle": {
+      "pass": ["GoToGoalTargetLocation"],
+      "fail": []
+    },
+    "GoToGoalTargetLocation": {
+      "pass": ["BoardVehicle"],
+      "fail": []
+    },
+    "BoardVehicle": {}
+  }
+}

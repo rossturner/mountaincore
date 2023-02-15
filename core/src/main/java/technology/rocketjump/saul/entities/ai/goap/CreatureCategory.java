@@ -9,11 +9,14 @@ public enum CreatureCategory {
 
 	CIVILIAN,
 	MILITARY,
+	MERCHANT,
 	INVADER;
 
 	public static CreatureCategory getCategoryFor(Entity entity) {
 		FactionComponent factionComponent = entity.getOrCreateComponent(FactionComponent.class);
-		if (factionComponent.getFaction().equals(Faction.HOSTILE_INVASION)) {
+		if (factionComponent.getFaction().equals(Faction.MERCHANTS)) {
+			return MERCHANT;
+		} else if (factionComponent.getFaction().equals(Faction.HOSTILE_INVASION)) {
 			return INVADER;
 		} else {
 			MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);

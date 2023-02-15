@@ -149,7 +149,7 @@
   "interruptedByLowNeeds" : true
 }, {
   "i18nDescription" : "GOAL.DRINK.DESCRIPTION",
-  "creatureCategories" : [ "CIVILIAN", "MILITARY" ],
+  "creatureCategories" : [ "CIVILIAN", "MILITARY", "MERCHANT" ],
   "name" : "Drink goal",
   "actionRelationships" : {
     "LocateDrink" : {
@@ -390,7 +390,7 @@
   "creatureCategories" : [ "INVADER" ],
   "name" : "Create camp fire",
   "actionRelationships" : {
-    "SelectInvasionCampLocation" : {
+    "MoveGroupHomeTowardSettlers" : {
       "pass" : [ "GoToGoalTargetLocation" ]
     },
     "GoToGoalTargetLocation" : {
@@ -399,7 +399,7 @@
     "CreateCampfire" : { }
   },
   "selectors" : [ ],
-  "initialActions" : [ "SelectInvasionCampLocation" ]
+  "initialActions" : [ "MoveGroupHomeTowardSettlers" ]
 }, {
   "i18nDescription" : "GOAL.INVADER.RETREAT.DESCRIPTION",
   "creatureCategories" : [ "INVADER" ],
@@ -454,6 +454,85 @@
     "priority" : "JOB_NORMAL"
   } ],
   "initialActions" : [ "SelectItemToSteal" ]
+}, {
+  "creatureCategories" : [ "MERCHANT" ],
+  "name" : "Board vehicle",
+  "actionRelationships" : {
+    "BoardVehicle" : { },
+    "GoToGoalTargetLocation" : {
+      "fail" : [ ],
+      "pass" : [ "BoardVehicle" ]
+    },
+    "LocateVehicle" : {
+      "fail" : [ ],
+      "pass" : [ "GoToGoalTargetLocation" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "stage" : "PREPARING_TO_LEAVE",
+      "type" : "TRADERS_IN_STAGE"
+    }, {
+      "skillName" : "MERCHANT",
+      "type" : "SKILL",
+      "value" : 0,
+      "operator" : "GREATER_THAN"
+    } ],
+    "priority" : "HIGHEST"
+  } ],
+  "initialActions" : [ "LocateVehicle" ]
+}, {
+  "creatureCategories" : [ "MERCHANT" ],
+  "name" : "Exit vehicle",
+  "actionRelationships" : {
+    "ExitVehicle" : { }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "stage" : "ARRIVED_AT_TRADE_DEPOT",
+      "type" : "TRADERS_IN_STAGE"
+    } ],
+    "priority" : "HIGHEST"
+  } ],
+  "initialActions" : [ "ExitVehicle" ]
+}, {
+  "creatureCategories" : [ "MERCHANT" ],
+  "name" : "Move group towards settlement",
+  "actionRelationships" : {
+    "ProgressTraderStage" : { },
+    "MerchantNotificationToPlayer" : {
+      "fail" : [ ],
+      "pass" : [ "ProgressTraderStage" ]
+    },
+    "MoveGroupHomeTowardSettlers" : {
+      "fail" : [ "MerchantNotificationToPlayer" ],
+      "pass" : [ "GoToGoalTargetLocation" ]
+    },
+    "GoToGoalTargetLocation" : {
+      "fail" : [ "MerchantNotificationToPlayer" ],
+      "pass" : [ "MerchantNotificationToPlayer" ]
+    }
+  },
+  "selectors" : [ ],
+  "initialActions" : [ "MoveGroupHomeTowardSettlers" ]
+}, {
+  "creatureCategories" : [ "MERCHANT" ],
+  "name" : "Move group to trade depot",
+  "actionRelationships" : {
+    "ProgressTraderStage" : { },
+    "GoToGoalTargetLocation" : {
+      "fail" : [ "ProgressTraderStage" ],
+      "pass" : [ "ProgressTraderStage" ]
+    },
+    "MoveGroupHomeTowardTradeDepot" : {
+      "fail" : [ ],
+      "pass" : [ "GoToGoalTargetLocation" ]
+    }
+  },
+  "selectors" : [ ],
+  "initialActions" : [ "MoveGroupHomeTowardTradeDepot" ]
 }, {
   "i18nDescription" : "GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION",
   "creatureCategories" : [ "MILITARY" ],
@@ -664,7 +743,7 @@
   "initialActions" : [ "GoToLocation" ]
 }, {
   "i18nDescription" : "GOAL.REFILL_WATERSKIN.DESCRIPTION",
-  "creatureCategories" : [ "CIVILIAN", "MILITARY" ],
+  "creatureCategories" : [ "CIVILIAN", "MILITARY", "MERCHANT" ],
   "name" : "Refill inventory liquid containers",
   "actionRelationships" : {
     "RefillInventoryLiquidContainers" : {

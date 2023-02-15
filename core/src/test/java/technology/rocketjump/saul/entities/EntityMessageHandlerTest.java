@@ -90,7 +90,7 @@ public class EntityMessageHandlerTest {
 		entityMessageHandler = new EntityMessageHandler(messageDispatcher, mockAssetUpdater, mockJobFactory,
 				mockEntityStore, mockSettlementItemTracker, mockSettlementFurnitureTracker, mockSettlerTracker, mockCreatureTracker, mockOngoingEffectTracker, mockRoomStore,
 				mockItemEntityAttributesFactory, mockItemEntityFactory, mockItemTypeDictionary, mockI18nTranslator, mockJobStore,
-				mockMaterialDictionary, mockSoundAssetDictionary, mockParticleEffectDictionary, mockDesignationDictionary);
+				mockMaterialDictionary, mockSoundAssetDictionary, vehicleTracker, mockParticleEffectDictionary, mockDesignationDictionary);
 
 		gameContext = new GameContext();
 		gameContext.setAreaMap(mockAreaMap);

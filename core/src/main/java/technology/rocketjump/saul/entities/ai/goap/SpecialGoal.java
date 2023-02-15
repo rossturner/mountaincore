@@ -16,6 +16,8 @@ public enum SpecialGoal {
 	DOUSE_SELF("Douse self goal"),
 	EXTINGUISH_FIRE("Extinguish fire goal"),
 	CREATE_CAMPFIRE("Create camp fire"),
+	MOVE_GROUP_TOWARDS_SETTLEMENT("Move group towards settlement"),
+	MOVE_GROUP_TO_TRADE_DEPOT("Move group to trade depot"),
 	CRAFTING_JOB("Crafting job goal"),
 	ABANDON_JOB("Abandon job goal");
 

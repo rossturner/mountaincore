@@ -1,0 +1,17 @@
+{
+  "name": "Move group to trade depot",
+  "creatureCategories": ["MERCHANT"],
+  "selectors": [],
+  "initialActions": ["MoveGroupHomeTowardTradeDepot"],
+  "actionRelationships": {
+    "MoveGroupHomeTowardTradeDepot": {
+      "pass": ["GoToGoalTargetLocation"],
+      "fail": []
+    },
+    "GoToGoalTargetLocation": {
+      "pass": ["ProgressTraderStage"],
+      "fail": ["ProgressTraderStage"]
+    },
+    "ProgressTraderStage": {}
+  }
+}

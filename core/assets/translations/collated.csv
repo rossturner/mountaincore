@@ -986,6 +986,10 @@ NOTIFICATION.SETTLER_MENTAL_BREAK.DESCRIPTION,The gruelling hardship has proven 
 NOTIFICATION.SETTLER_MENTAL_BREAK.TITLE,Mental Break,,Nervenzusammenbruch,Pause mentale,Pausa mentale,Colapso mental,Intervalo mental,,,Нервный срыв,Ruhsal Çöküntü,Mental pause,,Mental paus,,,,精神崩壊,精神崩溃,
 NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,{{character}} has become so unhappy that they are throwing a tantrum!,,"{{character}} ist so unglücklich geworden, dass sie einen Wutanfall bekommen!",,{{character}} è diventato così infelice che sta facendo i irritato!,¡Uno de tus colonos es tan infeliz que se ha pillado un berrinche!,,,,"{{character}} стал так недоволен, что впал в ярость!",,,,,,,,{{character}}はあまりにも不幸を感じたため、やけになってかんしゃくを起こしています！,{{character}}变得闷闷不乐，在乱发脾气！,
 NOTIFICATION.SETTLER_TANTRUM.TITLE,Tantrum!,,Wutanfall!,,Ira!,¡Berrinche!,,,,Ярость!,,,,,,,,かんしゃく！,发脾气！,
+NOTIFICATION.TRADER_ARRIVED.DESCRIPTION,They are heading to your Trading Depot to buy and sell goods.,,,,,,,,,,,,,,,,,,,
+NOTIFICATION.TRADER_ARRIVED.TITLE,Traders have arrived!,,,,,,,,,,,,,,,,,,,
+NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.DESCRIPTION,You must construct a Trading Depot to buy and sell goods.,,,,,,,,,,,,,,,,,,,
+NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.TITLE,Traders have arrived!,,,,,,,,,,,,,,,,,,,
 
 ORE.BAUXITE.ADJECTIVE,Bauxite,,Bauxit,Bauxite,Bauxite,de bauxita,Bauxita,,,Бокситовый,Boksit,- Bauxit,,Bauxit,,,,ボーキサイトの,铝土矿,
 ORE.BAUXITE.NOUN,Bauxite,,Bauxit,Bauxite,Bauxite,Bauxita,Bauxita,,,Боксит,Boksit,- Bauxit,,Bauxit,,,,ボーキサイト,铝土矿,

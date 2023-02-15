@@ -1,7 +1,7 @@
 {
   "name": "Drink goal",
   "i18nDescription": "GOAL.DRINK.DESCRIPTION",
-  "creatureCategories": ["CIVILIAN", "MILITARY"],
+  "creatureCategories": ["CIVILIAN", "MILITARY", "MERCHANT"],
   "selectors": [
     {
       "conditions": [

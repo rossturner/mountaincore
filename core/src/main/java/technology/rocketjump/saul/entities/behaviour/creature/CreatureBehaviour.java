@@ -281,6 +281,11 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 			if (specialGoal != null) {
 				return new AssignedGoal(specialGoal.getInstance(), parentEntity, messageDispatcher);
 			}
+		} else if (creatureGroup != null && creatureGroup instanceof TraderCreatureGroup traderCreatureGroup) {
+			SpecialGoal specialGoal = traderCreatureGroup.popSpecialGoal();
+			if (specialGoal != null) {
+				return new AssignedGoal(specialGoal.getInstance(), parentEntity, messageDispatcher);
+			}
 		}
 
 		List<ScheduleCategory> currentScheduleCategories = getCurrentSchedule().getCurrentApplicableCategories(gameContext.getGameClock());

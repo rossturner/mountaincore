@@ -1,0 +1,20 @@
+{
+  "name": "Exit vehicle",
+  "creatureCategories": ["MERCHANT"],
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "TRADERS_IN_STAGE",
+          "stage": "ARRIVED_AT_TRADE_DEPOT"
+        }
+      ],
+      "priority": "HIGHEST",
+      "scheduleCategory": "ANY"
+    }
+  ],
+  "initialActions": ["ExitVehicle"],
+  "actionRelationships": {
+    "ExitVehicle": {}
+  }
+}

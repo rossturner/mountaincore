@@ -28,10 +28,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.misc.Destructible;
-import technology.rocketjump.saul.settlement.CreatureTracker;
-import technology.rocketjump.saul.settlement.SettlementFurnitureTracker;
-import technology.rocketjump.saul.settlement.SettlementItemTracker;
-import technology.rocketjump.saul.settlement.SettlerTracker;
+import technology.rocketjump.saul.settlement.*;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -60,6 +57,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 	private final SettlementItemTracker settlementItemTracker;
 	private final SettlerTracker settlerTracker;
 	private final CreatureTracker creatureTracker;
+	private final VehicleTracker vehicleTracker;
 	private final CombatTracker combatTracker;
 	private final ConstantsRepo constantsRepo;
 
@@ -69,7 +67,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 					   ItemTypeDictionary itemTypeDictionary, ItemEntityFactory itemEntityFactory,
 					   SettlementFurnitureTracker settlementFurnitureTracker,
 					   SettlementItemTracker settlementItemTracker, SettlerTracker settlerTracker, CreatureTracker creatureTracker,
-					   CombatTracker combatTracker, ConstantsRepo constantsRepo) {
+					   VehicleTracker vehicleTracker, CombatTracker combatTracker, ConstantsRepo constantsRepo) {
 		this.settlerCreatureAttributesFactory = settlerCreatureAttributesFactory;
 		this.plantEntityAttributesFactory = plantEntityAttributesFactory;
 		this.plantEntityFactory = plantEntityFactory;
@@ -79,6 +77,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 		this.settlementItemTracker = settlementItemTracker;
 		this.settlerTracker = settlerTracker;
 		this.creatureTracker = creatureTracker;
+		this.vehicleTracker = vehicleTracker;
 		this.combatTracker = combatTracker;
 		this.constantsRepo = constantsRepo;
 	}
@@ -282,7 +281,6 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 						}
 						break;
 					case CREATURE:
-
 						if (entity.getBehaviourComponent() instanceof CorpseBehaviour) {
 							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
 								settlerTracker.settlerDied(entity);
@@ -312,7 +310,9 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 								creatureTracker.creatureAdded(entity);
 							}
 						}
-
+						break;
+					case VEHICLE:
+						vehicleTracker.vehicleAdded(entity);
 						break;
 				}
 			}

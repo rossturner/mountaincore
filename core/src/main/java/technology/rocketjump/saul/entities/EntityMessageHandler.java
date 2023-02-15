@@ -111,6 +111,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 	private final JobStore jobStore;
 	private final GameMaterialDictionary materialDictionary;
 	private final SoundAssetDictionary soundAssetDictionary;
+	private final VehicleTracker vehicleTracker;
 	private final SoundAsset treeFallSoundEffect;
 	private GameContext gameContext;
 	private ParticleEffectType leafExplosionParticleType;
@@ -128,7 +129,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 								ItemEntityAttributesFactory itemEntityAttributesFactory, ItemEntityFactory itemEntityFactory,
 								ItemTypeDictionary itemTypeDictionary, I18nTranslator i18nTranslator, JobStore jobStore,
 								GameMaterialDictionary materialDictionary, SoundAssetDictionary soundAssetDictionary,
-								ParticleEffectTypeDictionary particleEffectTypeDictionary, DesignationDictionary designationDictionary) {
+								VehicleTracker vehicleTracker, ParticleEffectTypeDictionary particleEffectTypeDictionary, DesignationDictionary designationDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.entityAssetUpdater = entityAssetUpdater;
 		this.jobFactory = jobFactory;
@@ -146,6 +147,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		this.jobStore = jobStore;
 		this.materialDictionary = materialDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
+		this.vehicleTracker = vehicleTracker;
 		this.deconstructDesignation = designationDictionary.getByName("DECONSTRUCT");
 
 
@@ -215,6 +217,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					settlementFurnitureTracker.furnitureAdded(createdEntity);
 				} else if (createdEntity.getType().equals(ONGOING_EFFECT)) {
 					ongoingEffectTracker.entityAdded(createdEntity);
+				} else if (createdEntity.getType().equals(VEHICLE)) {
+					vehicleTracker.vehicleAdded(createdEntity);
 				}
 
 				return true;
@@ -269,6 +273,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						settlementFurnitureTracker.furnitureRemoved(removedEntity);
 					} else if (removedEntity.getType().equals(ONGOING_EFFECT)) {
 						ongoingEffectTracker.entityRemoved(removedEntity);
+					} else if (removedEntity.getType().equals(VEHICLE)) {
+						vehicleTracker.vehicleRemoved(removedEntity);
 					} else if (removedEntity.getBehaviourComponent() instanceof CreatureBehaviour) {
 						if (removedEntity.isSettler()) {
 							settlerTracker.settlerRemoved(removedEntity);

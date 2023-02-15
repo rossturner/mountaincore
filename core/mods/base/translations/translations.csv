@@ -977,6 +977,10 @@ NOTIFICATION.SETTLER_TANTRUM.DESCRIPTION,,{{character}} has become so unhappy th
 NOTIFICATION.SETTLER_TANTRUM.TITLE,,Tantrum!
 NOTIFICATION.INVASION.DESCRIPTION,,A raiding party of orcs has arrived. Prepare yourselves! They will attack after preparing for a while.
 NOTIFICATION.INVASION.TITLE,,You are being invaded!
+NOTIFICATION.TRADER_ARRIVED.TITLE,,Traders have arrived!
+NOTIFICATION.TRADER_ARRIVED.DESCRIPTION,,They are heading to your Trading Depot to buy and sell goods.
+NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.TITLE,,Traders have arrived!
+NOTIFICATION.TRADER_ARRIVED_NO_DEPOT.DESCRIPTION,,You must construct a Trading Depot to buy and sell goods.
 
 ORE.BAUXITE.ADJECTIVE,,Bauxite
 ORE.BAUXITE.NOUN,,Bauxite

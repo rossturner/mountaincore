@@ -15,11 +15,13 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 		@JsonSubTypes.Type(value = GoalSelectionByItemAssignment.class, name = "ITEM_ASSIGNED"),
 		@JsonSubTypes.Type(value = HasLiquidContainerNeedingFilling.class, name = "HAS_LIQUID_CONTAINER_NEEDING_FILLING"),
 		@JsonSubTypes.Type(value = GoalSelectionByInventory.class, name = "INVENTORY"),
+		@JsonSubTypes.Type(value = GoalSelectionBySkill.class, name = "SKILL"),
 		@JsonSubTypes.Type(value = GoalSelectionBySquadOrders.class, name = "SQUAD_HAS_ORDERS"),
 		@JsonSubTypes.Type(value = GoalSelectionByCombatSkillLevel.class, name = "COMBAT_SKILL_LEVEL"),
 		@JsonSubTypes.Type(value = GoalSelectionByWeaponAmmo.class, name = "ASSIGNED_WEAPON_REQUIRES_AMMO"),
 		@JsonSubTypes.Type(value = GoalSelectionByBodyPartFunction.class, name = "BODY_PART_FUNCTION"),
 		@JsonSubTypes.Type(value = GoalSelectionByInvasionStage.class, name = "INVASION_IN_STAGE"),
+		@JsonSubTypes.Type(value = GoalSelectionByTradersStage.class, name = "TRADERS_IN_STAGE"),
 })
 public interface GoalSelectionCondition {
 
