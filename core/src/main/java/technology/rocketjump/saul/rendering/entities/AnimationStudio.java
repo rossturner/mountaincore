@@ -164,7 +164,7 @@ public class AnimationStudio implements Disposable, GameContextAware {
 
 					for (AnimationScript.SoundCueFrame soundCueFrame : toPlay) {
 						messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND,
-								new RequestSoundMessage(soundCueFrame.getSoundAsset(), entity.getId(), entity.getLocationComponent(true).getWorldOrParentPosition(), null));
+								new RequestSoundMessage(soundCueFrame.getSoundAsset(), entity.getId(), entity.getLocationComponent().getWorldOrParentPosition(), null));
 					}
 				}
 

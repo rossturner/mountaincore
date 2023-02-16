@@ -263,12 +263,14 @@ public class Entity implements Persistable, Disposable {
 		return physicalEntityComponent;
 	}
 
-	public LocationComponent getLocationComponent(boolean returnVehicleLocation) {
-		if (returnVehicleLocation) {
-			Entity vehicle = getContainingVehicle();
-			if (vehicle != null) {
-				return vehicle.getLocationComponent(true);
-			}
+	public LocationComponent getLocationComponent() {
+		return locationComponent;
+	}
+
+	public LocationComponent getOwnOrVehicleLocationComponent() {
+		Entity vehicle = getContainingVehicle();
+		if (vehicle != null) {
+			return vehicle.getLocationComponent();
 		}
 		return locationComponent;
 	}

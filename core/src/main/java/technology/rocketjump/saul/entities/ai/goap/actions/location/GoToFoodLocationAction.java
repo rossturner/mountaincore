@@ -30,7 +30,7 @@ public class GoToFoodLocationAction extends GoToLocationAction {
 			}
 			case FURNITURE_INVENTORY:
 			case LOOSE_ITEM: {
-				Entity containerEntity = targetEntity.getLocationComponent(true).getContainerEntity();
+				Entity containerEntity = targetEntity.getLocationComponent().getContainerEntity();
 				if (containerEntity != null) {
 					// Item is in a container
 					if (containerEntity.getType().equals(EntityType.FURNITURE)) {
@@ -44,7 +44,7 @@ public class GoToFoodLocationAction extends GoToLocationAction {
 					}
 				} else {
 					// Not in a container
-					return targetEntity.getLocationComponent(true).getWorldPosition();
+					return targetEntity.getLocationComponent().getWorldPosition();
 				}
 			}
 			case REQUESTER_INVENTORY: {
@@ -59,7 +59,7 @@ public class GoToFoodLocationAction extends GoToLocationAction {
 	}
 
 	private Vector2 getNavigableWorkspace(Entity targetEntity, GameContext gameContext) {
-		FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getNearestNavigableWorkspace(targetEntity, gameContext.getAreaMap(), toGridPoint(parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition()));
+		FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getNearestNavigableWorkspace(targetEntity, gameContext.getAreaMap(), toGridPoint(parent.parentEntity.getLocationComponent().getWorldOrParentPosition()));
 		if (navigableWorkspace == null) {
 			// Could not navigate to any workspaces
 			return null;

@@ -105,7 +105,7 @@ public class StockpileRoomComponentTest {
 		LocationComponent mockLocationComponent = Mockito.mock(LocationComponent.class);
 		when(mockItem.getOrCreateComponent(ItemAllocationComponent.class)).thenReturn(mockItemAllocationComponent);
 		when(mockItemAllocationComponent.createAllocation(anyInt(), any(), any())).thenReturn(mockItemAllocation);
-		when(mockItem.getLocationComponent(true)).thenReturn(mockLocationComponent);
+		when(mockItem.getLocationComponent()).thenReturn(mockLocationComponent);
 
 
 		for (int i = 1; i <= 10; i++) {

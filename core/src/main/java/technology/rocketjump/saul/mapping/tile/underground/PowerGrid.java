@@ -66,7 +66,7 @@ public class PowerGrid implements Persistable {
 				// entity type null during loading
 				if (entity.getType().equals(EntityType.FURNITURE)) {
 					PoweredFurnitureComponent poweredFurnitureComponent = entity.getComponent(PoweredFurnitureComponent.class);
-					if (poweredFurnitureComponent != null && toGridPoint(entity.getLocationComponent(true).getWorldPosition()).equals(tile.getTilePosition())) {
+					if (poweredFurnitureComponent != null && toGridPoint(entity.getLocationComponent().getWorldPosition()).equals(tile.getTilePosition())) {
 						// Only if this is furniture's main position
 						BehaviourComponent behaviourComponent = entity.getBehaviourComponent();
 						if (behaviourComponent instanceof PowerSourceBehaviour) {

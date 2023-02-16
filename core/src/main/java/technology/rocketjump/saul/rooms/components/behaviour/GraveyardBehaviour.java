@@ -128,7 +128,7 @@ public class GraveyardBehaviour extends RoomBehaviourComponent implements Priori
 	}
 
 	private void createFillingJobIfNoneExisting(Entity deceasedContainer) {
-		GridPoint2 location = toGridPoint(deceasedContainer.getLocationComponent(true).getWorldOrParentPosition());
+		GridPoint2 location = toGridPoint(deceasedContainer.getLocationComponent().getWorldOrParentPosition());
 		for (Job jobAtLocation : jobStore.getJobsAtLocation(location)) {
 			if (jobAtLocation.getType().equals(fillGraveJobType)) {
 				return;

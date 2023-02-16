@@ -74,7 +74,7 @@ public class LiquidContainerComponent implements ParentDependentEntityComponent,
 					liquidContainerAccessZone = new Zone(new ZoneClassification(ZoneClassification.ZoneType.LIQUID_SOURCE, true, targetLiquidMaterial,
 							maxLiquidCapacity >= MIN_CAPACITY_TO_CLASS_AS_HIGH_CAPACITY));
 
-					GridPoint2 furniturePosition = toGridPoint(parentEntity.getLocationComponent(true).getWorldPosition());
+					GridPoint2 furniturePosition = toGridPoint(parentEntity.getLocationComponent().getWorldPosition());
 					MapTile furnitureTile = gameContext.getAreaMap().getTile(furniturePosition);
 					for (FurnitureLayout.Workspace workspace : attributes.getCurrentLayout().getWorkspaces()) {
 						GridPoint2 workspaceLocation = furniturePosition.cpy().add(workspace.getAccessedFrom());
@@ -197,7 +197,7 @@ public class LiquidContainerComponent implements ParentDependentEntityComponent,
 		if (getNumUnallocated() < amountRequired) {
 			return null;
 		} else {
-			MapTile targetTile = gameContext.getAreaMap().getTile(requestingEntity.getLocationComponent(true).getWorldPosition());
+			MapTile targetTile = gameContext.getAreaMap().getTile(requestingEntity.getLocationComponent().getWorldPosition());
 			LiquidAllocation allocation = new LiquidAllocation(REQUESTER_INVENTORY, new ZoneTile(targetTile, targetTile), amountRequired, targetLiquidMaterial);
 			allocation.setTargetContainerId(parentEntity.getId());
 			allocation.setRequesterEntityId(requestingEntity.getId());

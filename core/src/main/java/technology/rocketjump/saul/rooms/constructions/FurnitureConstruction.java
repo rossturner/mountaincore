@@ -39,7 +39,7 @@ public class FurnitureConstruction extends Construction {
 		this.constructionId = SequentialIdGenerator.nextId();
 		this.furnitureEntityToBePlaced = furnitureEntityToBePlaced;
 
-		GridPoint2 location = toGridPoint(furnitureEntityToBePlaced.getLocationComponent(true).getWorldPosition());
+		GridPoint2 location = toGridPoint(furnitureEntityToBePlaced.getLocationComponent().getWorldPosition());
 		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) furnitureEntityToBePlaced.getPhysicalEntityComponent().getAttributes();
 		for (GridPoint2 extraTileOffset : attributes.getCurrentLayout().getExtraTiles()) {
 			tileLocations.add(location.cpy().add(extraTileOffset));

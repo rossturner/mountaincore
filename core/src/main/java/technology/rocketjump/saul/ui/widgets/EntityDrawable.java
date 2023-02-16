@@ -52,7 +52,7 @@ public class EntityDrawable extends BaseDrawable {
             return;
         }
 
-        LocationComponent originalLocationComponent = entity.getLocationComponent(false);
+        LocationComponent originalLocationComponent = entity.getLocationComponent();
         LocationComponent overrideLocationComponent = originalLocationComponent.clone(null, null);
         Vector2 screenPosition = new Vector2(x + (width / 2) + screenPositionOffset.x, y + (width / 2) + screenPositionOffset.y);
         overrideLocationComponent.setWorldPosition(screenPosition, false);

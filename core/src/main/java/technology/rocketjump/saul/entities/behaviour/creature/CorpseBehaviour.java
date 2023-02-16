@@ -70,9 +70,9 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 			itemAllocationComponent.init(parentEntity, messageDispatcher, gameContext);
 			parentEntity.addComponent(itemAllocationComponent);
 		}
-		if (parentEntity.getLocationComponent(true).getWorldPosition() != null && itemAllocationComponent.getNumUnallocated() > 0) {
+		if (parentEntity.getLocationComponent().getWorldPosition() != null && itemAllocationComponent.getNumUnallocated() > 0) {
 			// Is unallocated
-			MapTile tile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
+			MapTile tile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
 			if (tile != null) {
 				boolean inStockpile = false;
 				if (tile.getRoomTile() != null) {

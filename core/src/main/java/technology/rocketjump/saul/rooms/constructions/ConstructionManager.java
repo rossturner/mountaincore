@@ -274,7 +274,7 @@ public class ConstructionManager implements Updatable {
 												   int amountRequired) {
 		final Vector2 constructionLocation = toVector(construction.getPrimaryLocation());
 		if (construction.getEntity() != null) {
-			constructionLocation.set(construction.getEntity().getLocationComponent(true).getWorldPosition());
+			constructionLocation.set(construction.getEntity().getLocationComponent().getWorldPosition());
 		}
 
 		tempAllocation = null;

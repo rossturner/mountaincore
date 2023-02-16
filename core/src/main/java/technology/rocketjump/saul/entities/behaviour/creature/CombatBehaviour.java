@@ -148,7 +148,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 					if (attackAction.getFollowUpKnockbackTo() != null) {
 						CombatAction previousAction = currentAction;
 						KnockBackCombatAction newAction = new KnockBackCombatAction(parentEntity);
-						newAction.setStartLocation(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+						newAction.setStartLocation(parentEntity.getLocationComponent().getWorldOrParentPosition());
 						newAction.setTargetLocation(attackAction.getFollowUpKnockbackTo());
 						this.currentAction = newAction;
 						messageDispatcher.dispatchMessage(MessageType.COMBAT_ACTION_CHANGED, new CombatActionChangedMessage(
@@ -174,7 +174,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		CombatAction previousAction = currentAction;
 
 		KnockBackCombatAction newAction = new KnockBackCombatAction(parentEntity);
-		newAction.setStartLocation(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+		newAction.setStartLocation(parentEntity.getLocationComponent().getWorldOrParentPosition());
 		newAction.setTargetLocation(targetTile);
 
 		this.currentAction = newAction;
@@ -213,7 +213,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 	private boolean tooFarFromCombatStartingPosition() {
 		CombatStateComponent combatStateComponent = parentEntity.getComponent(CombatStateComponent.class);
 		Vector2 startingPosition = combatStateComponent.getEnteredCombatAtPosition();
-		Vector2 currentPosition = parentEntity.getLocationComponent(true).getWorldOrParentPosition();
+		Vector2 currentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
 
 		return startingPosition.dst2(currentPosition) > MAX_DISTANCE_FROM_COMBAT_START_SQUARED;
 	}
@@ -227,7 +227,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		if (pendingKnockback != null) {
 			KnockBackCombatAction knockBackCombatAction = new KnockBackCombatAction(parentEntity);
 			knockBackCombatAction.setTargetLocation(pendingKnockback);
-			knockBackCombatAction.setStartLocation(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+			knockBackCombatAction.setStartLocation(parentEntity.getLocationComponent().getWorldOrParentPosition());
 			this.pendingKnockback = null;
 			return knockBackCombatAction;
 		} else if (getAggressionResponse().equals(ATTACK)) {
@@ -247,7 +247,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 			if (combatStateComponent.getOpponentEntityIds().isEmpty()) {
 				return new FleeFromCombatAction(parentEntity);
 			} else {
-				Vector2 parentPosition = parentEntity.getLocationComponent(true).getWorldOrParentPosition();
+				Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
 				Optional<Entity> nearestOpponent = combatStateComponent.getOpponentEntityIds().stream()
 						.map(entityId -> gameContext.getEntities().get(entityId))
 						.filter(Objects::nonNull)
@@ -258,7 +258,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 								return false;
 							}
 						})
-						.min(Comparator.comparingInt(e -> (int)(100f * e.getLocationComponent(true).getWorldOrParentPosition().dst2(parentPosition))));
+						.min(Comparator.comparingInt(e -> (int)(100f * e.getLocationComponent().getWorldOrParentPosition().dst2(parentPosition))));
 				if (nearestOpponent.isPresent()) {
 					combatStateComponent.setTargetedOpponentId(nearestOpponent.get().getId());
 				} else {
@@ -268,7 +268,7 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		}
 
 		if (previousAction instanceof MoveInRangeOfTargetCombatAction) {
-			combatStateComponent.setHeldLocation(toGridPoint(parentEntity.getLocationComponent(true).getWorldOrParentPosition()));
+			combatStateComponent.setHeldLocation(toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition()));
 		}
 
 		if (seriouslyInjured() || needsSeriouslyLow()) {
@@ -323,13 +323,13 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 		int mostOpponentsInView = 0;
 		Long opponentKeepingMostOpponentsInView = null;
 		for (Entity cursorOpponent : opponentsInMelee) {
-			EntityAssetOrientation orientationToOpponent = EntityAssetOrientation.fromFacingTo8Directions(parentEntity.getLocationComponent(true).getWorldOrParentPosition().cpy()
-					.sub(cursorOpponent.getLocationComponent(true).getWorldOrParentPosition()));
+			EntityAssetOrientation orientationToOpponent = EntityAssetOrientation.fromFacingTo8Directions(parentEntity.getLocationComponent().getWorldOrParentPosition().cpy()
+					.sub(cursorOpponent.getLocationComponent().getWorldOrParentPosition()));
 
 			int opponentsInView = 0;
 			for (Entity otherOpponent : opponentsInMelee) {
-				EntityAssetOrientation orientationToOtherOpponent = EntityAssetOrientation.fromFacingTo8Directions(parentEntity.getLocationComponent(true).getWorldOrParentPosition().cpy()
-						.sub(otherOpponent.getLocationComponent(true).getWorldOrParentPosition()));
+				EntityAssetOrientation orientationToOtherOpponent = EntityAssetOrientation.fromFacingTo8Directions(parentEntity.getLocationComponent().getWorldOrParentPosition().cpy()
+						.sub(otherOpponent.getLocationComponent().getWorldOrParentPosition()));
 				if (!getOrientationsOppositeTo(orientationToOpponent).contains(orientationToOtherOpponent)) {
 					opponentsInView++;
 				}
@@ -348,12 +348,12 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 
 	public static List<Entity> getOpponentsInMelee(Entity entityInCombat, GameContext gameContext) {
 		CombatStateComponent combatStateComponent = entityInCombat.getComponent(CombatStateComponent.class);
-		GridPoint2 parentTilePosition = toGridPoint(entityInCombat.getLocationComponent(true).getWorldOrParentPosition());
+		GridPoint2 parentTilePosition = toGridPoint(entityInCombat.getLocationComponent().getWorldOrParentPosition());
 		List<Entity> opponentsInMelee = new ArrayList<>();
 		for (Long opponentEntityId : combatStateComponent.getOpponentEntityIds()) {
 			Entity opponentEntity = gameContext.getEntities().get(opponentEntityId);
 			if (opponentEntity != null) {
-				GridPoint2 opponentTilePosition = toGridPoint(opponentEntity.getLocationComponent(true).getWorldOrParentPosition());
+				GridPoint2 opponentTilePosition = toGridPoint(opponentEntity.getLocationComponent().getWorldOrParentPosition());
 				if (Math.abs(parentTilePosition.x - opponentTilePosition.x) <= 1 &&
 						Math.abs(parentTilePosition.y - opponentTilePosition.y) <= 1) {
 					opponentsInMelee.add(opponentEntity);
@@ -436,8 +436,8 @@ public class CombatBehaviour implements ParentDependentEntityComponent, Particle
 
 		CreatureCombat combatStats = new CreatureCombat(parentEntity);
 		float range = (float) combatStats.getEquippedWeapon().getRange();
-		float distanceToOpponent = parentEntity.getLocationComponent(true).getWorldOrParentPosition().dst(targetedOpponent.getLocationComponent(true).getWorldOrParentPosition());
-		float tileSeparationToOpponent = getTileDistanceBetween(parentEntity.getLocationComponent(true).getWorldOrParentPosition(), targetedOpponent.getLocationComponent(true).getWorldOrParentPosition());
+		float distanceToOpponent = parentEntity.getLocationComponent().getWorldOrParentPosition().dst(targetedOpponent.getLocationComponent().getWorldOrParentPosition());
+		float tileSeparationToOpponent = getTileDistanceBetween(parentEntity.getLocationComponent().getWorldOrParentPosition(), targetedOpponent.getLocationComponent().getWorldOrParentPosition());
 
 		if (tileSeparationToOpponent <= 1) {
 			return true;

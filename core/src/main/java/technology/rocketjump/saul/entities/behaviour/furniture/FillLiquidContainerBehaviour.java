@@ -71,7 +71,7 @@ public class FillLiquidContainerBehaviour extends FurnitureBehaviour implements 
 				// Create new job
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_LIQUID_TRANSFER, new RequestLiquidTransferMessage(
 						liquidContainerComponent.getTargetLiquidMaterial(), false, parentEntity,
-						parentEntity.getLocationComponent(true).getWorldPosition(), relatedItemTypes.get(0), NULL_PROFESSION, priority, this));
+						parentEntity.getLocationComponent().getWorldPosition(), relatedItemTypes.get(0), NULL_PROFESSION, priority, this));
 			}
 		}
 	}

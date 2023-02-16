@@ -69,7 +69,7 @@ public class OnFireStatus extends StatusEffect {
 			itemAllocationComponent.cancelAll();
 		}
 
-		messageDispatcher.dispatchMessage(MessageType.FIRE_REMOVED, toGridPoint(parentEntity.getLocationComponent(true).getWorldPosition()));
+		messageDispatcher.dispatchMessage(MessageType.FIRE_REMOVED, toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
 	}
 
 	@Override

@@ -22,7 +22,7 @@ public class CreatureTracker implements GameContextAware {
 	private final Map<Long, Entity> deadCreatures = new HashMap<>();
 
 	public void creatureAdded(Entity entity) {
-		if (entity.getLocationComponent(true).isUntracked()) {
+		if (entity.getLocationComponent().isUntracked()) {
 			return;
 		}
 

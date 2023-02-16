@@ -289,9 +289,9 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						removeFromSquadOrders(removedEntity);
 					}
 
-					if (removedEntity.getLocationComponent(true).getWorldPosition() != null) {
+					if (removedEntity.getLocationComponent().getWorldPosition() != null) {
 						List<MapTile> allTiles = new ArrayList<>();
-						MapTile mapTile = gameContext.getAreaMap().getTile(removedEntity.getLocationComponent(true).getWorldPosition());
+						MapTile mapTile = gameContext.getAreaMap().getTile(removedEntity.getLocationComponent().getWorldPosition());
 						if (mapTile != null) {
 							mapTile.removeEntity(removedEntity.getId());
 						}
@@ -312,7 +312,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 							}
 						}
 					}
-					Entity containerEntity = removedEntity.getLocationComponent(true).getContainerEntity();
+					Entity containerEntity = removedEntity.getLocationComponent().getContainerEntity();
 					if (containerEntity != null) {
 						InventoryComponent containerInventory = containerEntity.getComponent(InventoryComponent.class);
 						EquippedItemComponent equippedItemComponent = containerEntity.getComponent(EquippedItemComponent.class);
@@ -346,7 +346,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					}
 				} else {
 					// Might be an untracked entity like a pipe
-					MapTile parentTile = gameContext.getAreaMap().getTile(entity.getLocationComponent(true).getWorldOrParentPosition());
+					MapTile parentTile = gameContext.getAreaMap().getTile(entity.getLocationComponent().getWorldOrParentPosition());
 					if (parentTile != null && parentTile.hasPipe() && parentTile.getUnderTile().getPipeEntity().equals(entity)) {
 						parentTile.getUnderTile().setPipeEntity(null);
 					}
@@ -355,7 +355,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			}
 			case MessageType.ENTITY_DO_NOT_TRACK: {
 				Entity entity = (Entity) msg.extraInfo;
-				entity.getLocationComponent(true).setUntracked(true);
+				entity.getLocationComponent().setUntracked(true);
 
 				if (entity.getType().equals(ITEM)) {
 					settlementItemTracker.itemRemoved(entity);
@@ -448,7 +448,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			case MessageType.REQUEST_FURNITURE_REMOVAL: {
 				Entity entity = (Entity) msg.extraInfo;
 				ConstructedEntityComponent constructedEntityComponent = entity.getComponent(ConstructedEntityComponent.class);
-				MapTile entityTile = gameContext.getAreaMap().getTile(entity.getLocationComponent(true).getWorldPosition());
+				MapTile entityTile = gameContext.getAreaMap().getTile(entity.getLocationComponent().getWorldPosition());
 				if (entityTile != null) {
 					if (constructedEntityComponent.isAutoConstructed()) {
 						// FIXME This and its shared usage would be better dealt with by a ACTUALLY_DO_THE_DECONSTRUCT type message
@@ -658,7 +658,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 
 	private boolean handleSettlerTantrum(Entity tantrumEntity) {
 		Notification tantrumNotification = new Notification(NotificationType.SETTLER_TANTRUM,
-				tantrumEntity.getLocationComponent(true).getWorldOrParentPosition(), new Selectable(tantrumEntity, 0));
+				tantrumEntity.getLocationComponent().getWorldOrParentPosition(), new Selectable(tantrumEntity, 0));
 		tantrumNotification.addTextReplacement("character", i18nTranslator.getDescription(tantrumEntity));
 		messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, tantrumNotification);
 		return true;
@@ -821,7 +821,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		corpseBehaviour.setOriginalSkinColor(attributes.getColor(SKIN_COLOR));
 		entityStore.changeBehaviour(deceased, corpseBehaviour, messageDispatcher);
 
-		Vector2 deceasedPosition = deceased.getLocationComponent(true).getWorldOrParentPosition();
+		Vector2 deceasedPosition = deceased.getLocationComponent().getWorldOrParentPosition();
 
 		HistoryComponent historyComponent = deceased.getOrCreateComponent(HistoryComponent.class);
 		DeathReason deathReason = deathMessage.reason;
@@ -919,7 +919,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		entityStore.changeBehaviour(entity, brokenDwarfBehaviour, messageDispatcher);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, entity);
 
-		Vector2 entityPosition = entity.getLocationComponent(true).getWorldOrParentPosition();
+		Vector2 entityPosition = entity.getLocationComponent().getWorldOrParentPosition();
 		dropEquippedItems(entity, entityPosition);
 
 		Notification brokenNotification = new Notification(NotificationType.SETTLER_MENTAL_BREAK, null, new Selectable(entity, 0));
@@ -1006,7 +1006,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			liquidContainerComponent.destroy(message.targetEntity, messageDispatcher, gameContext);
 		}
 
-		message.targetEntity.getLocationComponent(true).setRotation(slightRotation());
+		message.targetEntity.getLocationComponent().setRotation(slightRotation());
 
 		return true;
 	}
@@ -1067,11 +1067,11 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 						showNotificationOxidisationDestroyedSomething(message.targetEntity);
 
 						// If this is within DecorationInventoryComponent, set furniture as destroyed
-						if (message.targetEntity.getLocationComponent(true).getContainerEntity() != null) {
-							DecorationInventoryComponent decorationInventoryComponent = message.targetEntity.getLocationComponent(true).getContainerEntity().getComponent(DecorationInventoryComponent.class);
+						if (message.targetEntity.getLocationComponent().getContainerEntity() != null) {
+							DecorationInventoryComponent decorationInventoryComponent = message.targetEntity.getLocationComponent().getContainerEntity().getComponent(DecorationInventoryComponent.class);
 							if (decorationInventoryComponent != null && decorationInventoryComponent.getDecorationEntities().stream().anyMatch(e -> e.equals(message.targetEntity))) {
 								messageDispatcher.dispatchMessage(MessageType.DAMAGE_FURNITURE, new FurnitureDamagedMessage(
-										message.targetEntity.getLocationComponent(true).getContainerEntity(), OXIDISED, null,
+										message.targetEntity.getLocationComponent().getContainerEntity(), OXIDISED, null,
 										message.oxidisedMaterial.getColor(), null
 								));
 							}
@@ -1114,7 +1114,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		Map<Float, Entity> eligibleCorpsesByDistance = new TreeMap<>();
 
 		for (Entity deadCreatureEntity : creatureTracker.getDead()) {
-			MapTile corpseTile = gameContext.getAreaMap().getTile(deadCreatureEntity.getLocationComponent(true).getWorldPosition());
+			MapTile corpseTile = gameContext.getAreaMap().getTile(deadCreatureEntity.getLocationComponent().getWorldPosition());
 			if (corpseTile == null || corpseTile.getRegionId() != requesterRegionId) {
 				continue;
 			}
@@ -1125,7 +1125,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			}
 
 			// else this is unallocated and in same region
-			float distanceToCorpse = deadCreatureEntity.getLocationComponent(true).getWorldOrParentPosition().dst2(requestCorpseMessage.requesterPosition);
+			float distanceToCorpse = deadCreatureEntity.getLocationComponent().getWorldOrParentPosition().dst2(requestCorpseMessage.requesterPosition);
 			eligibleCorpsesByDistance.put(distanceToCorpse, deadCreatureEntity);
 		}
 
@@ -1162,8 +1162,8 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 			itemAttributes.setItemPlacement(ItemPlacement.ON_GROUND);
 		}
 
-		hauledEntity.getLocationComponent(true).setWorldPosition(position, false);
-		hauledEntity.getLocationComponent(true).setFacing(DOWN.toVector2());
+		hauledEntity.getLocationComponent().setWorldPosition(position, false);
+		hauledEntity.getLocationComponent().setFacing(DOWN.toVector2());
 		hauledEntity.getOrCreateComponent(FactionComponent.class).setFaction(SETTLEMENT);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, hauledEntity);
 	}

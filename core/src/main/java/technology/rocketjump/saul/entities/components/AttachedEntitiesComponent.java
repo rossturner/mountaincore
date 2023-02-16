@@ -34,16 +34,16 @@ public class AttachedEntitiesComponent implements ParentDependentEntityComponent
 
 	public void addAttachedEntity(Entity other) {
 		attachedEntities.add(new AttachedEntity(other, ItemHoldPosition.UNSPECIFIED));
-		other.getLocationComponent(false).setContainerEntity(parentEntity);
-		other.getLocationComponent(false).setWorldPosition(null, false);
-		other.getLocationComponent(false).setOrientation(parentEntity.getLocationComponent(true).getOrientation());
+		other.getLocationComponent().setContainerEntity(parentEntity);
+		other.getLocationComponent().setWorldPosition(null, false);
+		other.getLocationComponent().setOrientation(parentEntity.getLocationComponent().getOrientation());
 	}
 
 	public void addAttachedEntity(Entity other, ItemHoldPosition position) {
 		attachedEntities.add(new AttachedEntity(other, position));
-		other.getLocationComponent(false).setContainerEntity(parentEntity);
-		other.getLocationComponent(false).setWorldPosition(null, false);
-		other.getLocationComponent(false).setOrientation(parentEntity.getLocationComponent(true).getOrientation());
+		other.getLocationComponent().setContainerEntity(parentEntity);
+		other.getLocationComponent().setWorldPosition(null, false);
+		other.getLocationComponent().setOrientation(parentEntity.getLocationComponent().getOrientation());
 	}
 
 	public List<AttachedEntity> getAttachedEntities() {
@@ -52,7 +52,7 @@ public class AttachedEntitiesComponent implements ParentDependentEntityComponent
 
 	public void remove(Entity removedEntity) {
 		if (attachedEntities.removeIf(attachedEntity -> attachedEntity.entity.getId() == removedEntity.getId())) {
-			removedEntity.getLocationComponent(false).setContainerEntity(null);
+			removedEntity.getLocationComponent().setContainerEntity(null);
 		}
 	}
 

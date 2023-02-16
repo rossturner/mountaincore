@@ -34,7 +34,7 @@ public class PourIntoTargetAction extends Action {
 			LiquidContainerComponent hauledLiquidContainer = haulingComponent.getHauledEntity().getComponent(LiquidContainerComponent.class);
 			if (hauledLiquidContainer != null && hauledLiquidContainer.getLiquidQuantity() > 0) {
 
-				GridPoint2 parentPosition = toGridPoint(parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+				GridPoint2 parentPosition = toGridPoint(parent.parentEntity.getLocationComponent().getWorldOrParentPosition());
 				Job assignedJob = parent.getParentGoal().getAssignedJob();
 				if (parentPosition.equals(assignedJob.getJobLocation())) {
 					Entity targetEntity = gameContext.getEntities().get(assignedJob.getTargetId());
@@ -70,7 +70,7 @@ public class PourIntoTargetAction extends Action {
 		if (itemUsageSoundTag != null && itemUsageSoundTag.getSoundAssetName() != null) {
 			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND_ASSET, new RequestSoundAssetMessage(itemUsageSoundTag.getSoundAssetName(), (soundAsset) -> {
 				parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(
-						soundAsset, parent.parentEntity.getId(), parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition(), null));
+						soundAsset, parent.parentEntity.getId(), parent.parentEntity.getLocationComponent().getWorldOrParentPosition(), null));
 			}));
 		}
 

@@ -65,10 +65,10 @@ public class FleeFromCombatAction extends CombatAction {
 		if (opponentEntities.isEmpty()) {
 			completed = true;
 		} else {
-			Vector2 parentPosition = parentEntity.getLocationComponent(true).getWorldOrParentPosition();
+			Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
 			float dist2ToNearestOpponent = LARGE_DISTANCE_AWAY_FROM_OPPONENTS * LARGE_DISTANCE_AWAY_FROM_OPPONENTS;
 			for (Entity opponentEntity : opponentEntities) {
-				float distance2ToOpponent = opponentEntity.getLocationComponent(true).getWorldOrParentPosition().dst2(parentPosition);
+				float distance2ToOpponent = opponentEntity.getLocationComponent().getWorldOrParentPosition().dst2(parentPosition);
 				if (distance2ToOpponent < dist2ToNearestOpponent) {
 					dist2ToNearestOpponent = distance2ToOpponent;
 				}
@@ -86,9 +86,9 @@ public class FleeFromCombatAction extends CombatAction {
 			return null;
 		} else {
 			Vector2 directionOfOpponents = new Vector2();
-			Vector2 parentPosition = parentEntity.getLocationComponent(true).getWorldOrParentPosition();
+			Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
 			for (Entity opponentEntity : getOpponents(gameContext)) {
-				Vector2 parentToOpponent = opponentEntity.getLocationComponent(true).getWorldOrParentPosition().cpy().sub(parentPosition);
+				Vector2 parentToOpponent = opponentEntity.getLocationComponent().getWorldOrParentPosition().cpy().sub(parentPosition);
 				directionOfOpponents.add(parentToOpponent);
 			}
 
@@ -123,7 +123,7 @@ public class FleeFromCombatAction extends CombatAction {
 
 	private GridPoint2 pickDestinationInDirection(Vector2 directionToFlee, GameContext gameContext) {
 		int parentRegion = -1;
-		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
 		if (parentTile != null) {
 			parentRegion = parentTile.getRegionId();
 		}

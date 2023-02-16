@@ -53,7 +53,7 @@ public class DecorationInventoryComponent implements InfrequentlyUpdatableCompon
 
 	public void clear() {
 		for (Entity decorationEntity : decorationEntities.values()) {
-			decorationEntity.getLocationComponent(true).setContainerEntity(null);
+			decorationEntity.getLocationComponent().setContainerEntity(null);
 		}
 		decorationEntities.clear();
 		// Only expecting this to be used to lose any reference to decoration entities
@@ -61,9 +61,9 @@ public class DecorationInventoryComponent implements InfrequentlyUpdatableCompon
 
 	public void add(Entity entity) {
 		decorationEntities.put(entity.getId(), entity);
-		entity.getLocationComponent(true).setWorldPosition(null, false, false);
-		entity.getLocationComponent(true).setContainerEntity(parentEntity);
-		entity.getLocationComponent(true).setOrientation(EntityAssetOrientation.DOWN);
+		entity.getLocationComponent().setWorldPosition(null, false, false);
+		entity.getLocationComponent().setContainerEntity(parentEntity);
+		entity.getLocationComponent().setOrientation(EntityAssetOrientation.DOWN);
 	}
 
 	public Collection<Entity> getDecorationEntities() {
@@ -99,7 +99,7 @@ public class DecorationInventoryComponent implements InfrequentlyUpdatableCompon
 		if (removed == null) {
 			return null;
 		} else {
-			removed.getLocationComponent(true).setContainerEntity(null);
+			removed.getLocationComponent().setContainerEntity(null);
 			if (removed.getType().equals(ITEM)) {
 				ItemAllocationComponent itemAllocationComponent = removed.getOrCreateComponent(ItemAllocationComponent.class);
 				itemAllocationComponent.cancelAll();

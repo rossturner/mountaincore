@@ -52,7 +52,7 @@ public class SleepInBedAction extends SleepOnFloorAction {
 				completionType = FAILURE;
 				return;
 			}
-			MapTile bedTile = gameContext.getAreaMap().getTile(bedEntity.getLocationComponent(true).getWorldPosition());
+			MapTile bedTile = gameContext.getAreaMap().getTile(bedEntity.getLocationComponent().getWorldPosition());
 			Room bedroom = null;
 			if (bedTile != null && bedTile.getRoomTile() != null) {
 				bedroom = bedTile.getRoomTile().getRoom();
@@ -116,7 +116,7 @@ public class SleepInBedAction extends SleepOnFloorAction {
 		if (isAsleep()) {
 			changeToAwake(gameContext);
 		}
-		if (parent.parentEntity.getLocationComponent(true).getContainerEntity() != null) {
+		if (parent.parentEntity.getLocationComponent().getContainerEntity() != null) {
 			getOutOfBed(gameContext);
 		}
 		completionType = SUCCESS;
@@ -169,13 +169,13 @@ public class SleepInBedAction extends SleepOnFloorAction {
 			InventoryComponent inventoryComponent = assignedFurniture.getOrCreateComponent(InventoryComponent.class);
 			inventoryComponent.remove(parent.parentEntity.getId());
 
-			Vector2 furnitureLocation = assignedFurniture.getLocationComponent(true).getWorldPosition().cpy();
-			parent.parentEntity.getLocationComponent(true).setWorldPosition(furnitureLocation, false);
+			Vector2 furnitureLocation = assignedFurniture.getLocationComponent().getWorldPosition().cpy();
+			parent.parentEntity.getLocationComponent().setWorldPosition(furnitureLocation, false);
 
 			FurnitureLayout.Workspace navigableWorkspace = FurnitureLayout.getAnyNavigableWorkspace(assignedFurniture, gameContext.getAreaMap());
 			if (navigableWorkspace != null) {
 				Vector2 workspaceLocation = toVector(navigableWorkspace.getAccessedFrom());
-				parent.parentEntity.getLocationComponent(true).setWorldPosition(workspaceLocation, true);
+				parent.parentEntity.getLocationComponent().setWorldPosition(workspaceLocation, true);
 			} //  Else we can no longer get out of bed into a workspace, place onto bed tile instead
 			parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, parent.parentEntity);
 		}
@@ -185,23 +185,23 @@ public class SleepInBedAction extends SleepOnFloorAction {
 		SleepingPositionComponent sleepingPositionComponent = assignedFurniture.getComponent(SleepingPositionComponent.class);
 		EntityAssetOrientation sleepingOrientation = sleepingPositionComponent.getSleepingOrientation();
 
-		parent.parentEntity.getLocationComponent(true).setFacing(sleepingOrientation.toVector2());
+		parent.parentEntity.getLocationComponent().setFacing(sleepingOrientation.toVector2());
 		if (sleepingOrientation.toVector2().x > 0) {
-			parent.parentEntity.getLocationComponent(true).setRotation(260f + (gameContext.getRandom().nextFloat() * 20f));
+			parent.parentEntity.getLocationComponent().setRotation(260f + (gameContext.getRandom().nextFloat() * 20f));
 		} else if (sleepingOrientation.toVector2().x < 0) {
-			parent.parentEntity.getLocationComponent(true).setRotation(80f + (gameContext.getRandom().nextFloat() * 20f));
+			parent.parentEntity.getLocationComponent().setRotation(80f + (gameContext.getRandom().nextFloat() * 20f));
 		} else if (sleepingOrientation.equals(EntityAssetOrientation.UP)) {
-			parent.parentEntity.getLocationComponent(true).setRotation(180);
-			parent.parentEntity.getLocationComponent(true).setFacing(DOWN.toVector2());
+			parent.parentEntity.getLocationComponent().setRotation(180);
+			parent.parentEntity.getLocationComponent().setFacing(DOWN.toVector2());
 		} else {
-			parent.parentEntity.getLocationComponent(true).setRotation(0);
+			parent.parentEntity.getLocationComponent().setRotation(0);
 		}
 		parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, parent.parentEntity);
 	}
 
 	private boolean locatedInFurnitureWorkspace(Entity assignedFurniture) {
-		Vector2 parentEntityPosition = parent.parentEntity.getLocationComponent(true).getWorldPosition();
-		Vector2 furniturePosition = assignedFurniture.getLocationComponent(true).getWorldPosition();
+		Vector2 parentEntityPosition = parent.parentEntity.getLocationComponent().getWorldPosition();
+		Vector2 furniturePosition = assignedFurniture.getLocationComponent().getWorldPosition();
 		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) assignedFurniture.getPhysicalEntityComponent().getAttributes();
 		for (FurnitureLayout.Workspace workspace : attributes.getCurrentLayout().getWorkspaces()) {
 			Vector2 workspacePosition = furniturePosition.cpy().add(workspace.getAccessedFrom().x, workspace.getAccessedFrom().y);

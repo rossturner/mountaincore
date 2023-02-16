@@ -107,7 +107,7 @@ public class NotificationGuiView implements GuiView, GameContextAware, Telegraph
 			public void clicked(InputEvent event, float x, float y) {
 				Entity entity = getNextEntityInCombat();
 				if (entity != null) {
-					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, entity.getLocationComponent(true).getWorldOrParentPosition());
+					messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, entity.getLocationComponent().getWorldOrParentPosition());
 					messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(entity, 0));
 				}
 			}

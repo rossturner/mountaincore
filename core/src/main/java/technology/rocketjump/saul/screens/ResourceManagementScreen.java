@@ -613,10 +613,10 @@ public class ResourceManagementScreen extends AbstractGameScreen implements Game
 	}
 
 	private void gotoEntity(Entity target) {
-		while (target.getLocationComponent(true).getContainerEntity() != null) {
-			target = target.getLocationComponent(true).getContainerEntity();
+		while (target.getLocationComponent().getContainerEntity() != null) {
+			target = target.getLocationComponent().getContainerEntity();
 		}
-		Vector2 position = target.getLocationComponent(true).getWorldOrParentPosition();
+		Vector2 position = target.getLocationComponent().getWorldOrParentPosition();
 
 		if (position != null) {
 			messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");

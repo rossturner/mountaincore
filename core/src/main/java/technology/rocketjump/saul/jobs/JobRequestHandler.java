@@ -83,7 +83,7 @@ public class JobRequestHandler implements Updatable, Telegraph, Disposable {
 
 	private boolean handle(JobRequestMessage jobRequestMessage) {
 		SkillsComponent skillsComponent = jobRequestMessage.getRequestingEntity().getComponent(SkillsComponent.class);
-		Vector2 entityWorldPosition = jobRequestMessage.getRequestingEntity().getLocationComponent(true).getWorldPosition();
+		Vector2 entityWorldPosition = jobRequestMessage.getRequestingEntity().getLocationComponent().getWorldPosition();
 		GridPoint2 requesterLocation = new GridPoint2((int)Math.floor(entityWorldPosition.x), (int)Math.floor(entityWorldPosition.y));
 
 		List<PotentialJob> allPotentialJobs = new ArrayList<>();

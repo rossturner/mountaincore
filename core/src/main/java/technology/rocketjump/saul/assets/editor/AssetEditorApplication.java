@@ -154,7 +154,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 					for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
 						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && hasSpriteForRenderMode(baseAsset, currentRenderMode, orientation)) {
 							renderEntityWithOrientation(currentEntity, orientation, originalPosition, entity -> {
-								Vector2 worldPosition = entity.getLocationComponent(true).getWorldPosition();
+								Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
 								shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 								shapeRenderer.setColor(ENTITY_OUTLINE_COLOR);
 								shapeRenderer.rect(worldPosition.x - 0.5f, worldPosition.y - 0.5f,1, 1);
@@ -196,7 +196,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 					for (EntityAssetOrientation orientation : EntityAssetOrientation.values()) {
 						if (baseAsset.getSpriteDescriptors().containsKey(orientation) && hasSpriteForRenderMode(baseAsset, currentRenderMode, orientation)) {
 							renderEntityWithOrientation(itemHoldingDwarf, orientation, originalPosition, entity -> {
-								Vector2 worldPosition = entity.getLocationComponent(true).getWorldPosition();
+								Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
 								shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 								shapeRenderer.setColor(ENTITY_OUTLINE_COLOR);
 
@@ -238,9 +238,9 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 //										);
 										shapeRenderer.end();
 
-										entity.getLocationComponent(true).setWorldPosition(VectorUtils.toVector(accessedTile), false, false);
-										entity.getLocationComponent(true).setWorldPosition(VectorUtils.toVector(workspaceTile), true, false);
-										entity.getLocationComponent(true).setWorldPosition(VectorUtils.toVector(accessedTile), false, false);
+										entity.getLocationComponent().setWorldPosition(VectorUtils.toVector(accessedTile), false, false);
+										entity.getLocationComponent().setWorldPosition(VectorUtils.toVector(workspaceTile), true, false);
+										entity.getLocationComponent().setWorldPosition(VectorUtils.toVector(accessedTile), false, false);
 
 										spriteBatch.begin();
 										spriteBatch.setProjectionMatrix(camera.combined);
@@ -248,7 +248,7 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 										spriteBatch.end();
 
 										// Reset position
-										entity.getLocationComponent(true).setWorldPosition(originalPosition, false, false);
+										entity.getLocationComponent().setWorldPosition(originalPosition, false, false);
 
 									}
 								}
@@ -300,14 +300,14 @@ public class AssetEditorApplication extends ApplicationAdapter implements Telegr
 		float offsetY = Math.max(orientation.asOriginalVector.y, 0) * spritePadding;
 
 		// Set orientation
-		entity.getLocationComponent(true).setWorldPosition(originalPosition.cpy().add(orientation.asOriginalVector), true, false);
+		entity.getLocationComponent().setWorldPosition(originalPosition.cpy().add(orientation.asOriginalVector), true, false);
 		// Set position
-		entity.getLocationComponent(true).setWorldPosition(originalPosition.cpy().add(offsetX, offsetY), false, false);
+		entity.getLocationComponent().setWorldPosition(originalPosition.cpy().add(offsetX, offsetY), false, false);
 
 		renderBehavior.accept(entity);
 
 		// Reset position
-		entity.getLocationComponent(true).setWorldPosition(originalPosition, false, false);
+		entity.getLocationComponent().setWorldPosition(originalPosition, false, false);
 	}
 
 	@Override

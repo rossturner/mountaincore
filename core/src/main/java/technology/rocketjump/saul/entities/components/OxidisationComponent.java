@@ -51,7 +51,7 @@ public class OxidisationComponent implements InfrequentlyUpdatableComponent {
 	@Override
 	public void infrequentUpdate(double elapsedTime) {
 		if (gameContext.getMapEnvironment().getCurrentWeather().isOxidises()) {
-			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
 			if (currentTile == null ||  !currentTile.getRoof().getState().equals(TileRoofState.OPEN)) {
 				// Don't oxidise unless outside
 				return;
@@ -62,8 +62,8 @@ public class OxidisationComponent implements InfrequentlyUpdatableComponent {
 			if (attributes instanceof ItemEntityAttributes) {
 				parentMaterials = ((ItemEntityAttributes)attributes).getAllMaterials();
 
-				if (parentEntity.getLocationComponent(true).getContainerEntity() != null) {
-					InventoryComponent inventoryComponent = parentEntity.getLocationComponent(true).getContainerEntity().getComponent(InventoryComponent.class);
+				if (parentEntity.getLocationComponent().getContainerEntity() != null) {
+					InventoryComponent inventoryComponent = parentEntity.getLocationComponent().getContainerEntity().getComponent(InventoryComponent.class);
 					if (inventoryComponent != null &&inventoryComponent.getById(parentEntity.getId()) != null) {
 						// This item is within a parent's InventoryComponent, so for now will not oxidise
 						// Note that this doesn't apply to HaulingComponent, EquippedItemComponent or DecorationInventoryComponent

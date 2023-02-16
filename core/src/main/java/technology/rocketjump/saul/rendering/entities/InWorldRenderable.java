@@ -26,8 +26,8 @@ public class InWorldRenderable {
 	public static class YDepthEntityComparator implements Comparator<InWorldRenderable> {
 		@Override
 		public int compare(InWorldRenderable o1, InWorldRenderable o2) {
-			float o1Position = (o1.entity != null ? o1.entity.getLocationComponent(true).getWorldPosition() : o1.particleEffect.getWorldPosition()).y;
-			float o2Position = (o2.entity != null ? o2.entity.getLocationComponent(true).getWorldPosition() : o2.particleEffect.getWorldPosition()).y;
+			float o1Position = (o1.entity != null ? o1.entity.getLocationComponent().getWorldPosition() : o1.particleEffect.getWorldPosition()).y;
+			float o2Position = (o2.entity != null ? o2.entity.getLocationComponent().getWorldPosition() : o2.particleEffect.getWorldPosition()).y;
 
 
 			if (o1.entity != null && (o1.entity.getType().equals(ITEM) || o1.entity.getType().equals(PLANT))) {

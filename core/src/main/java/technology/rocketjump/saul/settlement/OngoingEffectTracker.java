@@ -63,13 +63,13 @@ public class OngoingEffectTracker implements GameContextAware {
 		}
 
 		if (entity.getBehaviourComponent() instanceof FireEffectBehaviour) {
-			if (entity.getLocationComponent(true).getContainerEntity() != null) {
-				StatusComponent statusComponent = entity.getLocationComponent(true).getContainerEntity().getComponent(StatusComponent.class);
+			if (entity.getLocationComponent().getContainerEntity() != null) {
+				StatusComponent statusComponent = entity.getLocationComponent().getContainerEntity().getComponent(StatusComponent.class);
 				if (statusComponent != null) {
 					statusComponent.remove(OnFireStatus.class);
 				}
 			}
-			messageDispatcher.dispatchMessage(MessageType.FIRE_REMOVED, toGridPoint(entity.getLocationComponent(true).getWorldPosition()));
+			messageDispatcher.dispatchMessage(MessageType.FIRE_REMOVED, toGridPoint(entity.getLocationComponent().getWorldPosition()));
 		}
 	}
 

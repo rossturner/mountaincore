@@ -97,8 +97,8 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 		if (entity.isJobAssignable()) {
 			jobAssignableEntities.put(entity.getId(), entity);
 		}
-		if (addToMap && entity.getLocationComponent(true).getWorldPosition() != null) {
-			GridPoint2 entityTilePosition = toGridPoint(entity.getLocationComponent(true).getWorldPosition());
+		if (addToMap && entity.getLocationComponent().getWorldPosition() != null) {
+			GridPoint2 entityTilePosition = toGridPoint(entity.getLocationComponent().getWorldPosition());
 			gameContext.getAreaMap().getTile(entityTilePosition).addEntity(entity);
 
 			for (GridPoint2 extraTilePosition : entity.calculateOtherTilePositions()) {
@@ -124,8 +124,8 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 				updateInfrequentlyEntities.remove(entityToRemove);
 			}
 
-			if (removeFromWorld && entityToRemove.getLocationComponent(true).getWorldPosition() != null) {
-				GridPoint2 entityTilePosition = toGridPoint(entityToRemove.getLocationComponent(true).getWorldPosition());
+			if (removeFromWorld && entityToRemove.getLocationComponent().getWorldPosition() != null) {
+				GridPoint2 entityTilePosition = toGridPoint(entityToRemove.getLocationComponent().getWorldPosition());
 				gameContext.getAreaMap().getTile(entityTilePosition).removeEntity(entityId);
 
 				for (GridPoint2 extraTilePosition : entityToRemove.calculateOtherTilePositions()) {

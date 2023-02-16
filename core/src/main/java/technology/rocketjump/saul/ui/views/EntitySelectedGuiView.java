@@ -682,7 +682,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 	private Map<I18nText, Integer> getHaulingTargetDescriptions(Entity itemEntity) {
 		Map<I18nText, Integer> haulingTargetDescriptions = new LinkedHashMap<>();
 
-		List<Job> jobsAtLocation = jobStore.getJobsAtLocation(toGridPoint(itemEntity.getLocationComponent(true).getWorldOrParentPosition()));
+		List<Job> jobsAtLocation = jobStore.getJobsAtLocation(toGridPoint(itemEntity.getLocationComponent().getWorldOrParentPosition()));
 		for (Job jobAtLocation : jobsAtLocation) {
 			if (jobAtLocation.getType().equals(haulingJobType) && jobAtLocation.getHaulingAllocation() != null &&
 					jobAtLocation.getHaulingAllocation().getHauledEntityId() == itemEntity.getId()) {

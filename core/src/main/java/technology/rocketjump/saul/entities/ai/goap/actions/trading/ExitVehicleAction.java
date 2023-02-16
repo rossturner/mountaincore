@@ -24,7 +24,7 @@ public class ExitVehicleAction extends Action {
 			AttachedEntitiesComponent vehicleAttachedEntities = vehicle.getComponent(AttachedEntitiesComponent.class);
 			vehicleAttachedEntities.remove(parent.parentEntity);
 
-			parent.parentEntity.getLocationComponent(false).setWorldPosition(vehicle.getLocationComponent(true).getWorldPosition(), false);
+			parent.parentEntity.getLocationComponent().setWorldPosition(vehicle.getLocationComponent().getWorldPosition(), false);
 
 			completionType = CompletionType.SUCCESS;
 		} else {

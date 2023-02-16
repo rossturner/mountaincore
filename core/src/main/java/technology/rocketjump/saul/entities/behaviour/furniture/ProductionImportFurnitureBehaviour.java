@@ -169,7 +169,7 @@ public class ProductionImportFurnitureBehaviour extends FurnitureBehaviour imple
 
 				if (amountToRequest > 0) {
 					messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
-							parentEntity, parentEntity.getLocationComponent(true).getWorldOrParentPosition(), selectedItemType, materialToRequest,
+							parentEntity, parentEntity.getLocationComponent().getWorldOrParentPosition(), selectedItemType, materialToRequest,
 							true, amountToRequest, null, this::createHaulingJobForAllocation));
 				}
 			}

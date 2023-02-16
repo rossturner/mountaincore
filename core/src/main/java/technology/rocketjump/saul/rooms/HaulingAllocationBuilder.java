@@ -29,12 +29,12 @@ public class HaulingAllocationBuilder {
 		builder.allocation.setHauledEntityId(entityToHaul.getId());
 		builder.allocation.setHauledEntityType(entityToHaul.getType()); // Note that this is usually an ITEM but might be a CREATURE
 
-		Entity containerEntity = entityToHaul.getLocationComponent(true).getContainerEntity();
+		Entity containerEntity = entityToHaul.getLocationComponent().getContainerEntity();
 		if (containerEntity != null) {
 			return builder.fromContainer(containerEntity);
 		} else {
 			builder.allocation.setSourcePositionType(HaulingAllocation.AllocationPositionType.FLOOR);
-			builder.allocation.setSourcePosition(toGridPoint(entityToHaul.getLocationComponent(true).getWorldPosition()));
+			builder.allocation.setSourcePosition(toGridPoint(entityToHaul.getLocationComponent().getWorldPosition()));
 			return builder;
 		}
 	}
@@ -45,7 +45,7 @@ public class HaulingAllocationBuilder {
 			builder.allocation.setHauledEntityType(EntityType.FURNITURE);
 			builder.allocation.setHauledEntityId(furnitureToBeHauled.getId());
 			builder.allocation.setSourcePositionType(FURNITURE);
-			builder.allocation.setSourcePosition(toGridPoint(furnitureToBeHauled.getLocationComponent(true).getWorldPosition()));
+			builder.allocation.setSourcePosition(toGridPoint(furnitureToBeHauled.getLocationComponent().getWorldPosition()));
 			return builder;
 		} else {
 			throw new IllegalArgumentException(furnitureToBeHauled + " is not furniture");
@@ -61,7 +61,7 @@ public class HaulingAllocationBuilder {
 			builder.allocation.setHauledEntityId(creatureEntity.getId());
 			// assuming always collecting from floor - should probably extend to include from container
 			builder.allocation.setSourcePositionType(HaulingAllocation.AllocationPositionType.FLOOR);
-			builder.allocation.setSourcePosition(toGridPoint(creatureEntity.getLocationComponent(true).getWorldPosition()));
+			builder.allocation.setSourcePosition(toGridPoint(creatureEntity.getLocationComponent().getWorldPosition()));
 			return builder;
 		} else {
 			throw new IllegalArgumentException(creatureEntity + " is not a creature");
@@ -77,7 +77,7 @@ public class HaulingAllocationBuilder {
 		if (containerEntity.getType().equals(EntityType.FURNITURE)) {
 			allocation.setSourceContainerId(containerEntity.getId());
 			allocation.setSourcePositionType(FURNITURE);
-			allocation.setSourcePosition(toGridPoint(containerEntity.getLocationComponent(true).getWorldPosition()));
+			allocation.setSourcePosition(toGridPoint(containerEntity.getLocationComponent().getWorldPosition()));
 			return this;
 		} else if (containerEntity.getType().equals(EntityType.CREATURE)) {
 			allocation.setSourceContainerId(containerEntity.getId());
@@ -90,7 +90,7 @@ public class HaulingAllocationBuilder {
 
 	public HaulingAllocation toEntity(Entity targetEntity) {
 		allocation.setTargetId(targetEntity.getId());
-		allocation.setTargetPosition(toGridPoint(targetEntity.getLocationComponent(true).getWorldOrParentPosition()));
+		allocation.setTargetPosition(toGridPoint(targetEntity.getLocationComponent().getWorldOrParentPosition()));
 
 		// might be able to eliminate hauling to item
 		switch (targetEntity.getType()) {

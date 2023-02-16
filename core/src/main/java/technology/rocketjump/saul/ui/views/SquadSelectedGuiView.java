@@ -268,7 +268,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 				mugshot.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
-						messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, settler.getLocationComponent(true).getWorldOrParentPosition());
+						messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, settler.getLocationComponent().getWorldOrParentPosition());
 						messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(settler, 0));
 					}
 				});
@@ -335,7 +335,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 				mugshot.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
-						messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, soldier.getLocationComponent(true).getWorldOrParentPosition());
+						messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, soldier.getLocationComponent().getWorldOrParentPosition());
 						messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(soldier, 0));
 					}
 				});

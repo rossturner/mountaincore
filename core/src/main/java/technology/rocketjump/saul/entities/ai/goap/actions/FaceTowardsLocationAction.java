@@ -29,8 +29,8 @@ public class FaceTowardsLocationAction extends Action {
 		if (target == null) {
 			completionType = FAILURE;
 		} else {
-			Vector2 vectorToTarget = target.sub(parent.parentEntity.getLocationComponent(true).getWorldPosition());
-			parent.parentEntity.getLocationComponent(true).setFacing(vectorToTarget);
+			Vector2 vectorToTarget = target.sub(parent.parentEntity.getLocationComponent().getWorldPosition());
+			parent.parentEntity.getLocationComponent().setFacing(vectorToTarget);
 			completionType = SUCCESS;
 		}
 	}

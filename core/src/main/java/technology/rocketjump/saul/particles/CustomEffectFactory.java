@@ -72,7 +72,7 @@ public class CustomEffectFactory {
 			}
 
 
-			EntityAssetOrientation parentOrientation = EntityAssetOrientation.fromFacingTo8Directions(parentEntity.getLocationComponent(true).getFacing());
+			EntityAssetOrientation parentOrientation = EntityAssetOrientation.fromFacingTo8Directions(parentEntity.getLocationComponent().getFacing());
 			if (type.getUsingParentOrientation() != null) {
 				EntityAssetOrientation effectDefaultOrientation = type.getUsingParentOrientation();
 

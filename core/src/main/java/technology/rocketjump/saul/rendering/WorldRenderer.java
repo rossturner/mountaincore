@@ -158,7 +158,7 @@ public class WorldRenderer implements Disposable {
 				});
 				for (Entity entity : mapTile.getEntities()) {
 					if (entity.getType().equals(EntityType.CREATURE)) {
-						creatureLocations.add(toGridPoint(entity.getLocationComponent(true).getWorldOrParentPosition()));
+						creatureLocations.add(toGridPoint(entity.getLocationComponent().getWorldOrParentPosition()));
 					}
 				}
 				if (mapTile.hasDoorway()) {
@@ -335,7 +335,7 @@ public class WorldRenderer implements Disposable {
 	private boolean isPlantOccludingCreature(Entity entity) {
 		PlantEntityAttributes attributes = (PlantEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
 		if (attributes.getSpecies().getPlantType().equals(PlantSpeciesType.TREE)) {
-			GridPoint2 treePosition = toGridPoint(entity.getLocationComponent(true).getWorldOrParentPosition());
+			GridPoint2 treePosition = toGridPoint(entity.getLocationComponent().getWorldOrParentPosition());
 
 			PlantSpeciesGrowthStage growthStage = attributes.getSpecies().getGrowthStages().get(attributes.getGrowthStageCursor());
 			for (int checkX = treePosition.x - 1; checkX <= treePosition.x + 1; checkX++) {

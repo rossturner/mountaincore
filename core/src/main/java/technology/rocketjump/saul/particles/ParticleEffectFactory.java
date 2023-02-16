@@ -116,7 +116,7 @@ public class ParticleEffectFactory {
 			instance = new ParticleEffectInstance(SequentialIdGenerator.nextId(), type, clonedInstance, parentEntity.get());
 			instance.setPositionToParent();
 
-			EntityAssetOrientation parentOrientation = parentEntity.get().getLocationComponent(true).getOrientation().toOrthogonal();
+			EntityAssetOrientation parentOrientation = parentEntity.get().getLocationComponent().getOrientation().toOrthogonal();
 			if (type.getUsingParentOrientation() != null) {
 				adjustForParentOrientation(instance, parentOrientation);
 			}
@@ -152,7 +152,7 @@ public class ParticleEffectFactory {
 
 			instance.setPositionToParent();
 
-			EntityAssetOrientation parentOrientation = parentEntity.get().getLocationComponent(true).getOrientation().toOrthogonal();
+			EntityAssetOrientation parentOrientation = parentEntity.get().getLocationComponent().getOrientation().toOrthogonal();
 			if (type.getUsingParentOrientation() != null) {
 				adjustForParentOrientation(instance, parentOrientation);
 			}

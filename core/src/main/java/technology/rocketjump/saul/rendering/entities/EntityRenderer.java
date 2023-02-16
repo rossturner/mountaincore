@@ -96,7 +96,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 
 		entityRenderSteps.clear();
 
-		LocationComponent locationComponent = entity.getLocationComponent(false);
+		LocationComponent locationComponent = entity.getLocationComponent();
 
 		EntityAsset baseAsset = entity.getPhysicalEntityComponent().getBaseAsset();
 		if (baseAsset != NULL_ASSET) {
@@ -118,8 +118,8 @@ public class EntityRenderer implements GameContextAware, Disposable {
 				if (attachmentPoint == null) {
 					Logger.error("No attachment point for {} as expected on {} for {}", ItemHoldPosition.FURNITURE_WORKSPACES.get(0).getAttachmentType(), entity, itemDisplayBehaviour.getClass().getSimpleName());
 				} else {
-					Vector2 position = entity.getLocationComponent(true).getWorldOrParentPosition().cpy().add(attachmentPoint.getOffsetPosition());
-					itemEntity.getLocationComponent(true).setWorldPosition(position, false, false);
+					Vector2 position = entity.getLocationComponent().getWorldPosition().cpy().add(attachmentPoint.getOffsetPosition());
+					itemEntity.getLocationComponent().setWorldPosition(position, false, false);
 					render(itemEntity, basicSpriteBatch, renderMode, entity, itemDisplayBehaviour.getOverrideColor(), extraMultiplyColor);
 				}
 			}
@@ -145,7 +145,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 				attachedRenderStep.setOtherEntity(attached.getValue());
 
 				int renderLayer = renderLayerDictionary.getRenderingLayer(entity.getType(),
-						entity.getLocationComponent(true).getOrientation(), attached.getKey());
+						entity.getLocationComponent().getOrientation(), attached.getKey());
 				if (attachment.getOverrideRenderLayer() != null) {
 					renderLayer += attachment.getOverrideRenderLayer();
 				}
@@ -161,7 +161,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 			Logger.error("Attempting to render null asset for " + entity);
 			return;
 		}
-		EntityAssetOrientation orientation = entity.getLocationComponent(true).getOrientation();
+		EntityAssetOrientation orientation = entity.getLocationComponent().getOrientation();
 		SpriteDescriptor spriteDescriptor = asset.getSpriteDescriptors().get(orientation);
 		// Special case for entities being rendered attached to vehicles (vehicles use UP, DOWN, LEFT, RIGHT orientations)
 		if (spriteDescriptor == null && orientation.equals(LEFT)) {
@@ -230,14 +230,14 @@ public class EntityRenderer implements GameContextAware, Disposable {
 						Color overrideColor, Color extraMultiplyColor) {
 		if (renderStep.isAnotherEntity()) {
 			Entity entity = renderStep.getEntity();
-			LocationComponent otherEntityLocation = renderStep.getOtherEntity().getLocationComponent(false);
-			Vector2 worldPosition = entity.getLocationComponent(false).getWorldPosition();
+			LocationComponent otherEntityLocation = renderStep.getOtherEntity().getLocationComponent();
+			Vector2 worldPosition = entity.getLocationComponent().getWorldPosition();
 			Vector2 offset = renderStep.getOffsetFromEntity();
 			float originalRotation = otherEntityLocation.getRotation();
 			Vector2 otherEntityLocationOriginalPosition = otherEntityLocation.getWorldPosition();
-			if (entity.getLocationComponent(false).getRotation() != 0) {
-				offset.cpy().rotate(entity.getLocationComponent(false).getRotation());
-				otherEntityLocation.setRotation(originalRotation + entity.getLocationComponent(false).getRotation());
+			if (entity.getLocationComponent().getRotation() != 0) {
+				offset.cpy().rotate(entity.getLocationComponent().getRotation());
+				otherEntityLocation.setRotation(originalRotation + entity.getLocationComponent().getRotation());
 			}
 			otherEntityLocation.setWorldPosition(worldPosition.cpy().add(offset), false, false);
 			EntityRenderSteps cloned = entityRenderSteps.clone();
@@ -323,11 +323,11 @@ public class EntityRenderer implements GameContextAware, Disposable {
 		);
 		affine.idt(); // Reset affine transformation
 		if (locationComponent.getRotation() == 0) {
-			affine.translate(locationComponent.getWorldOrParentPosition())
+			affine.translate(locationComponent.getWorldPosition())
 					.translate(renderStep.getOffsetFromEntity());
 		} else {
 			Vector2 offsetFromEntity = renderStep.getOffsetFromEntity().cpy().rotate(locationComponent.getRotation());
-			affine.translate(locationComponent.getWorldOrParentPosition())
+			affine.translate(locationComponent.getWorldPosition())
 					.translate(offsetFromEntity)
 					.rotate(locationComponent.getRotation());
 		}
@@ -391,8 +391,8 @@ public class EntityRenderer implements GameContextAware, Disposable {
 	}
 
 	private boolean isStaticEntityAndOutside(Entity entity) {
-		if (STATIC_ENTITY_TYPES.contains(entity.getType()) && (entity.getLocationComponent(true).getContainerEntity() == null)) {
-			MapTile mapTile = gameContext.getAreaMap().getTile(entity.getLocationComponent(true).getWorldPosition());
+		if (STATIC_ENTITY_TYPES.contains(entity.getType()) && (entity.getLocationComponent().getContainerEntity() == null)) {
+			MapTile mapTile = gameContext.getAreaMap().getTile(entity.getLocationComponent().getWorldPosition());
 			return mapTile != null && mapTile.getRoof().getState().equals(OPEN);
 		} else {
 			return false;

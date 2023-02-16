@@ -182,11 +182,11 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 	}
 
 	private void createProjectile(CombatAttackMessage attackMessage) {
-		Vector2 attackerLocation = attackMessage.attackerEntity.getLocationComponent(true).getWorldOrParentPosition();
+		Vector2 attackerLocation = attackMessage.attackerEntity.getLocationComponent().getWorldOrParentPosition();
 		ItemEntityAttributes ammoAttributes = attackMessage.ammoAttributes.clone();
 		ammoAttributes.setItemPlacement(ItemPlacement.PROJECTILE);
 		Entity projectileEntity = itemEntityFactory.create(ammoAttributes, toGridPoint(attackerLocation), false, gameContext, Faction.SETTLEMENT);
-		projectileEntity.getLocationComponent(true).setWorldPosition(attackerLocation, false);
+		projectileEntity.getLocationComponent().setWorldPosition(attackerLocation, false);
 		ProjectileBehaviour projectileBehaviour = new ProjectileBehaviour();
 		projectileBehaviour.setAttackerEntity(attackMessage.attackerEntity);
 		projectileBehaviour.setDefenderEntity(attackMessage.defenderEntity);
@@ -328,10 +328,10 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 
 	private void handleKnockback(CombatAttackMessage attackMessage) {
 		if (attackMessage.defenderEntity.getBehaviourComponent() instanceof CreatureBehaviour defenderBehaviour && shouldApplyKnockback(defenderBehaviour)) {
-			GridPoint2 defenderTilePosition = toGridPoint(attackMessage.defenderEntity.getLocationComponent(true).getWorldOrParentPosition());
+			GridPoint2 defenderTilePosition = toGridPoint(attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition());
 			List<CompassDirection> pushbackDirections = CompassDirection.fromNormalisedVector(
-					attackMessage.defenderEntity.getLocationComponent(true).getWorldOrParentPosition().cpy()
-							.sub(attackMessage.attackerEntity.getLocationComponent(true).getWorldOrParentPosition()).nor()
+					attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition().cpy()
+							.sub(attackMessage.attackerEntity.getLocationComponent().getWorldOrParentPosition()).nor()
 			).withNeighbours();
 
 			List<MapTile> navigablePushbackTiles = new ArrayList<>();
@@ -357,7 +357,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 										if (combatStateComponent == null || !combatStateComponent.isInCombat() || combatStateComponent.getHeldLocation() == null) {
 											return false;
 										} else {
-											return combatStateComponent.getHeldLocation().equals(toGridPoint(entity.getLocationComponent(true).getWorldOrParentPosition()));
+											return combatStateComponent.getHeldLocation().equals(toGridPoint(entity.getLocationComponent().getWorldOrParentPosition()));
 										}
 									})
 					).toList();
@@ -420,9 +420,9 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 			}
 		}
 
-		EntityAssetOrientation defenderOrientation = EntityAssetOrientation.fromFacingTo8Directions(attackMessage.defenderEntity.getLocationComponent(true).getFacing());
-		EntityAssetOrientation attackerRelativeToDefender = EntityAssetOrientation.fromFacingTo8Directions(attackMessage.attackerEntity.getLocationComponent(true).getWorldOrParentPosition().cpy()
-				.sub(attackMessage.defenderEntity.getLocationComponent(true).getWorldOrParentPosition())
+		EntityAssetOrientation defenderOrientation = EntityAssetOrientation.fromFacingTo8Directions(attackMessage.defenderEntity.getLocationComponent().getFacing());
+		EntityAssetOrientation attackerRelativeToDefender = EntityAssetOrientation.fromFacingTo8Directions(attackMessage.attackerEntity.getLocationComponent().getWorldOrParentPosition().cpy()
+				.sub(attackMessage.defenderEntity.getLocationComponent().getWorldOrParentPosition())
 				.nor());
 
 		// This ! operator might be confusing, but it's simpler to describe which orientations aren't covered

@@ -90,7 +90,7 @@ public class LocationComponent implements ParentDependentEntityComponent {
 
 	public Vector2 getWorldOrParentPosition() {
 		if (containerEntity != null) {
-			return containerEntity.getLocationComponent(true).getWorldOrParentPosition();
+			return containerEntity.getLocationComponent().getWorldOrParentPosition();
 		} else {
 			return worldPosition;
 		}
@@ -156,11 +156,11 @@ public class LocationComponent implements ParentDependentEntityComponent {
 						ItemEntityAttributes attributes = (ItemEntityAttributes) attachedEntity.entity.getPhysicalEntityComponent().getAttributes();
 						if (!attributes.getItemPlacement().equals(ItemPlacement.ON_GROUND)) {
 							// only update facing for items that are not on the ground
-							attachedEntity.entity.getLocationComponent(false).setFacing(newOrientation.toVector2());
+							attachedEntity.entity.getLocationComponent().setFacing(newOrientation.toVector2());
 						}
 					}
 					case CREATURE -> {
-						attachedEntity.entity.getLocationComponent(false).setFacing(newOrientation.toVector2());
+						attachedEntity.entity.getLocationComponent().setFacing(newOrientation.toVector2());
 					}
 					default -> Logger.error("Not yet implemented, updating attached entity orientation for " + attachedEntity.entity.getType());
 				}

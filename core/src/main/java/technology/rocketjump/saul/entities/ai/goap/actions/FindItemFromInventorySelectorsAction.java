@@ -73,7 +73,7 @@ public class FindItemFromInventorySelectorsAction extends Action implements Item
 		if (foundItemType != null) {
 			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
 					parent.parentEntity,
-					parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition(), foundItemType,
+					parent.parentEntity.getLocationComponent().getWorldOrParentPosition(), foundItemType,
 					null,
 					true, amountRequired, null, (allocation) -> {
 				if (allocation != null) {

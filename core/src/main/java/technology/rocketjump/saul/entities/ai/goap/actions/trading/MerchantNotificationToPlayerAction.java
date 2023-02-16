@@ -29,12 +29,12 @@ public class MerchantNotificationToPlayerAction extends Action {
 				new GetRoomsByComponentMessage(TradeDepotBehaviour.class, (rooms -> {
 					if (rooms.isEmpty()) {
 						parent.messageDispatcher.dispatchMessage(4.5f, POST_NOTIFICATION, new Notification(NotificationType.TRADER_ARRIVED_NO_DEPOT,
-								parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition(),
+								parent.parentEntity.getLocationComponent().getWorldOrParentPosition(),
 								new Selectable(parent.parentEntity, 0)));
 						completionType = CompletionType.FAILURE;
 					} else {
 						parent.messageDispatcher.dispatchMessage(4.5f, POST_NOTIFICATION, new Notification(NotificationType.TRADER_ARRIVED,
-								parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition(),
+								parent.parentEntity.getLocationComponent().getWorldOrParentPosition(),
 								new Selectable(parent.parentEntity, 0)));
 						completionType = CompletionType.SUCCESS;
 					}

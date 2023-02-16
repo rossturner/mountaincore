@@ -152,7 +152,7 @@ public class InvasionMessageHandler implements Telegraph, GameContextAware {
 		MapTile randomSettlerTile = null;
 		while (randomSettlerTile == null) {
 			Entity randomSettler = new ArrayList<>(settlerTracker.getLiving()).get(gameContext.getRandom().nextInt(settlerTracker.getLiving().size()));
-			randomSettlerTile = gameContext.getAreaMap().getTile(randomSettler.getLocationComponent(true).getWorldOrParentPosition());
+			randomSettlerTile = gameContext.getAreaMap().getTile(randomSettler.getLocationComponent().getWorldOrParentPosition());
 		}
 
 		int targetRegionId = randomSettlerTile.getRegionId();

@@ -46,7 +46,7 @@ public class PowerSourceBehaviour extends FurnitureBehaviour implements Destruct
 
 	@Override
 	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
+		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
 		if (parentTile != null) {
 			UnderTile underTile = parentTile.getUnderTile();
 			if (underTile != null) {
@@ -75,7 +75,7 @@ public class PowerSourceBehaviour extends FurnitureBehaviour implements Destruct
 
 	private boolean isOutside(GameContext gameContext) {
 		Set<MapTile> locationsToCheck = new HashSet<>();
-		GridPoint2 parentLocation = toGridPoint(parentEntity.getLocationComponent(true).getWorldPosition());
+		GridPoint2 parentLocation = toGridPoint(parentEntity.getLocationComponent().getWorldPosition());
 		locationsToCheck.add(gameContext.getAreaMap().getTile(parentLocation));
 		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		for (GridPoint2 extraTile : attributes.getCurrentLayout().getExtraTiles()) {

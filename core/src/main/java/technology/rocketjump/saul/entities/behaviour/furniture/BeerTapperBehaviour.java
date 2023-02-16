@@ -80,7 +80,7 @@ public class BeerTapperBehaviour extends FurnitureBehaviour implements Destructi
 		switch (state) {
 			case IDLE: {
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
-								parentEntity, parentEntity.getLocationComponent(true).getWorldPosition(), relatedItemTypes.get(0), null, true, 1,
+								parentEntity, parentEntity.getLocationComponent().getWorldPosition(), relatedItemTypes.get(0), null, true, 1,
 								relatedMaterials.get(0), haulingAllocation -> {
 							if (haulingAllocation != null) {
 								createHaulingJob(haulingAllocation);

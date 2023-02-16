@@ -63,9 +63,9 @@ public class FallingTreeBehaviour implements BehaviourComponent {
 		absoluteRotationAmount += extraRotation;
 
 		if (fallToWest) {
-			parentEntity.getLocationComponent(true).setRotation(absoluteRotationAmount);
+			parentEntity.getLocationComponent().setRotation(absoluteRotationAmount);
 		} else {
-			parentEntity.getLocationComponent(true).setRotation(-absoluteRotationAmount);
+			parentEntity.getLocationComponent().setRotation(-absoluteRotationAmount);
 		}
 
 		if (absoluteRotationAmount > 85f) {
@@ -85,7 +85,7 @@ public class FallingTreeBehaviour implements BehaviourComponent {
 				harvestedItems = emptyList();
 			}
 			messageDispatcher.dispatchMessage(MessageType.TREE_FELLED, new TreeFallenMessage(
-					parentEntity.getLocationComponent(true).getWorldPosition(), attributes.getColor(ColoringLayer.BRANCHES_COLOR),
+					parentEntity.getLocationComponent().getWorldPosition(), attributes.getColor(ColoringLayer.BRANCHES_COLOR),
 					Optional.ofNullable(leafColor),
 					fallToWest, harvestedItems));
 		}

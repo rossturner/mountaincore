@@ -51,7 +51,7 @@ public class ConsumeFoodAction extends Action {
 			SoundAsset consumptionSoundAsset = itemEntityAttributes.getItemType().getConsumeSoundAsset();
 			if (consumptionSoundAsset != null) {
 				parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(consumptionSoundAsset,
-						parent.parentEntity.getId(), parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition(), null));
+						parent.parentEntity.getId(), parent.parentEntity.getLocationComponent().getWorldOrParentPosition(), null));
 			}
 			activeSoundTriggered = true;
 		}
@@ -94,7 +94,7 @@ public class ConsumeFoodAction extends Action {
 			parent.parentEntity.removeComponent(EquippedItemComponent.class);
 			parentInventory.add(targetEntity, parent.parentEntity, parent.messageDispatcher, gameContext.getGameClock());
 		} else {
-			Entity containerEntity = targetEntity.getLocationComponent(true).getContainerEntity();
+			Entity containerEntity = targetEntity.getLocationComponent().getContainerEntity();
 			if (containerEntity != null && !containerEntity.equals(parent.parentEntity)) {
 				// Currently within a different inventory
 				InventoryComponent otherInventoryComponent = containerEntity.getComponent(InventoryComponent.class);

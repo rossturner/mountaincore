@@ -53,7 +53,7 @@ public class InventoryComponent implements EntityComponent, Destructible {
 				ItemEntityAttributes itemAttributes = (ItemEntityAttributes) inventoryEntry.entity.getPhysicalEntityComponent().getAttributes();
 				// Dump out items to floor
 				List<MapTile> parentTiles = new ArrayList<>();
-				MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+				MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
 				if (parentTile == null) {
 					// Not on a valid tile, just destroy inventory entity
 					messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, inventoryEntry.entity);
@@ -75,8 +75,8 @@ public class InventoryComponent implements EntityComponent, Destructible {
 					Entity matchingInTile = targetTile.getItemMatching(itemAttributes);
 					if (matchingInTile == null) {
 						// Just place into tile
-						inventoryEntry.entity.getLocationComponent(true).setWorldPosition(targetTile.getWorldPositionOfCenter().cpy(), false);
-						inventoryEntry.entity.getLocationComponent(true).setFacing(DOWN.toVector2());
+						inventoryEntry.entity.getLocationComponent().setWorldPosition(targetTile.getWorldPositionOfCenter().cpy(), false);
+						inventoryEntry.entity.getLocationComponent().setFacing(DOWN.toVector2());
 						itemAttributes.setItemPlacement(ItemPlacement.ON_GROUND);
 						messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, inventoryEntry.entity);
 					} else {
@@ -213,7 +213,7 @@ public class InventoryComponent implements EntityComponent, Destructible {
 		if (removed == null) {
 			return null;
 		} else {
-			removed.entity.getLocationComponent(true).setContainerEntity(null);
+			removed.entity.getLocationComponent().setContainerEntity(null);
 			if (removed.entity.getType().equals(ITEM)) {
 				ItemAllocationComponent itemAllocationComponent = removed.entity.getOrCreateComponent(ItemAllocationComponent.class);
 				itemAllocationComponent.cancelAll();
@@ -255,9 +255,9 @@ public class InventoryComponent implements EntityComponent, Destructible {
 
 	// Private function to deal with steps that should be applied to any entity
 	private InventoryEntry addEntity(Entity entityToAdd, Entity parentEntity, MessageDispatcher messageDispatcher, GameClock gameClock, ItemHoldPosition preferredPosition) {
-		entityToAdd.getLocationComponent(true).setWorldPosition(null, false);
-		entityToAdd.getLocationComponent(true).setContainerEntity(parentEntity);
-		entityToAdd.getLocationComponent(true).setOrientation(EntityAssetOrientation.DOWN);
+		entityToAdd.getLocationComponent().setWorldPosition(null, false);
+		entityToAdd.getLocationComponent().setContainerEntity(parentEntity);
+		entityToAdd.getLocationComponent().setOrientation(EntityAssetOrientation.DOWN);
 		entityToAdd.getOrCreateComponent(FactionComponent.class).setFaction(parentEntity.getOrCreateComponent(FactionComponent.class).getFaction());
 		InventoryEntry entry = new InventoryEntry(entityToAdd, gameClock, preferredPosition);
 		inventoryEntries.put(entityToAdd.getId(), entry);

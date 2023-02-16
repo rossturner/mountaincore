@@ -141,7 +141,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 				// Try to assign bucket for filling
 				messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
 						message.requesterEntity,
-						message.requesterEntity.getLocationComponent(true).getWorldOrParentPosition(), message.liquidContainerItemType,
+						message.requesterEntity.getLocationComponent().getWorldOrParentPosition(), message.liquidContainerItemType,
 						null, // any material
 						true, null, null, (allocation) -> {
 							if (allocation != null) {
@@ -200,7 +200,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 						.createWithItemAllocation(itemAllocationComponent.getNumUnallocated(), itemEntity, message.requesterEntity)
 								.toEntity(message.requesterEntity);
 
-				Entity containerEntity = itemEntity.getLocationComponent(true).getContainerEntity();
+				Entity containerEntity = itemEntity.getLocationComponent().getContainerEntity();
 				if (containerEntity != null) {
 					if (!containerEntity.getType().equals(EntityType.FURNITURE)) {
 						Logger.error("Not yet implemented: Hauling out of non-furniture container entity");
@@ -230,7 +230,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 
 	private boolean handle(RequestLiquidAllocationMessage message) {
 		Entity requestingEntity = message.requestingEntity;
-		Vector2 requesterPosition = requestingEntity.getLocationComponent(true).getWorldPosition();
+		Vector2 requesterPosition = requestingEntity.getLocationComponent().getWorldPosition();
 
 		MapTile requesterTile = gameContext.getAreaMap().getTile(requesterPosition);
 		if (requesterTile == null) {
@@ -301,13 +301,13 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 
 	private void requestDumpLiquidContents(Entity entity) {
 		if (entity.getType().equals(EntityType.ITEM)) {
-			if (entity.getLocationComponent(true).getContainerEntity() != null) {
+			if (entity.getLocationComponent().getContainerEntity() != null) {
 				Logger.error("Not yet implemented - dumping liquid contents from item within a container");
 				return;
 			}
 
 			ItemEntityAttributes attributes = (ItemEntityAttributes) entity.getPhysicalEntityComponent().getAttributes();
-			GridPoint2 tileLocation = toGridPoint(entity.getLocationComponent(true).getWorldPosition());
+			GridPoint2 tileLocation = toGridPoint(entity.getLocationComponent().getWorldPosition());
 
 			HaulingAllocation haulingAllocation = HaulingAllocationBuilder.createWithItemAllocation(attributes.getQuantity(), entity, entity)
 							.toEntity(entity);
@@ -409,7 +409,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 		}
 
 		messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(message.requesterEntity,
-				message.requesterEntity.getLocationComponent(true).getWorldPosition(),
+				message.requesterEntity.getLocationComponent().getWorldPosition(),
 				message.containerItemType, null, true, 1, null, haulingAllocation -> {
 			Job job = null;
 			if (haulingAllocation != null) {

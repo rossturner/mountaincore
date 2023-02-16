@@ -48,12 +48,12 @@ public class UnequipItemForJobAction extends Action {
 						DecorationInventoryComponent decorationInventoryComponent = furniture.getOrCreateComponent(DecorationInventoryComponent.class);
 						decorationInventoryComponent.add(currentItem);
 						((ItemEntityAttributes)currentItem.getPhysicalEntityComponent().getAttributes()).setItemPlacement(ItemPlacement.ON_GROUND);
-						currentItem.getLocationComponent(true).setOrientation(EntityAssetOrientation.DOWN);
+						currentItem.getLocationComponent().setOrientation(EntityAssetOrientation.DOWN);
 						parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, currentItem);
 					}, () -> {
 						unequipItemToInventory(currentItem, gameContext);
 						// Change entity to be tracked and add to own inventory
-						currentItem.getLocationComponent(true).setUntracked(false);
+						currentItem.getLocationComponent().setUntracked(false);
 						parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, currentItem);
 					});
 		}

@@ -145,7 +145,7 @@ public class CombatTracker implements Updatable, Telegraph {
 		if (!combatStateComponent.isInCombat()) {
 			combatStateComponent.setInCombat(true);
 			combatStateComponent.setDefensePool(combatStats.maxDefensePool());
-			combatStateComponent.setEnteredCombatAtPosition(entity.getLocationComponent(true).getWorldOrParentPosition());
+			combatStateComponent.setEnteredCombatAtPosition(entity.getLocationComponent().getWorldOrParentPosition());
 		}
 
 		if (combatStateComponent.getTargetedOpponentId() != null) {
@@ -167,11 +167,11 @@ public class CombatTracker implements Updatable, Telegraph {
 			}
 
 			boolean combatantInMeleeRange = false;
-			Vector2 combatantPosition = entity.getLocationComponent(true).getWorldOrParentPosition();
+			Vector2 combatantPosition = entity.getLocationComponent().getWorldOrParentPosition();
 			for (Long opponentEntityId : combatStateComponent.getOpponentEntityIds()) {
 				Entity opponentEntity = gameContext.getEntities().get(opponentEntityId);
 				if (opponentEntity != null) {
-					Vector2 opponentPosition = opponentEntity.getLocationComponent(true).getWorldOrParentPosition();
+					Vector2 opponentPosition = opponentEntity.getLocationComponent().getWorldOrParentPosition();
 					if (Math.abs(combatantPosition.x - opponentPosition.x) <= 1 && Math.abs(combatantPosition.y - opponentPosition.y) <= 1) {
 						combatantInMeleeRange = true;
 						break;

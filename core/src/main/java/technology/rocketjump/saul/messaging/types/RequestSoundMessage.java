@@ -34,7 +34,7 @@ public class RequestSoundMessage {
 	}
 
 	public RequestSoundMessage(SoundAsset soundAsset, Entity entity, SoundRequestCallback callback) {
-		this(soundAsset, entity.getId(), entity.getLocationComponent(true).getWorldOrParentPosition(), callback);
+		this(soundAsset, entity.getId(), entity.getLocationComponent().getWorldOrParentPosition(), callback);
 	}
 
 	public interface SoundRequestCallback {

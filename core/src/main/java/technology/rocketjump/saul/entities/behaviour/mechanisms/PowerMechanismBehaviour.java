@@ -31,7 +31,7 @@ public class PowerMechanismBehaviour implements BehaviourComponent {
 
 	@Override
 	public void update(float deltaTime) {
-		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
+		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
 		PowerGrid powerGrid = parentTile.getUnderTile().getPowerGrid();
 
 		if (powerGrid != null && powerGrid.getTotalPowerAvailable() > 0) {

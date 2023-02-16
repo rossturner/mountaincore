@@ -132,7 +132,7 @@ public class FireMessageHandler implements GameContextAware, Telegraph {
 			case ADD_FIRE_TO_ENTITY:
 				Entity targetEntity = (Entity) msg.extraInfo;
 				OngoingEffectAttributes attributes = ongoingEffectAttributesFactory.createByTypeName("Fire");
-				Entity fireEntity = ongoingEffectEntityFactory.create(attributes, targetEntity.getLocationComponent(true).getWorldOrParentPosition(), gameContext);
+				Entity fireEntity = ongoingEffectEntityFactory.create(attributes, targetEntity.getLocationComponent().getWorldOrParentPosition(), gameContext);
 
 				AttachedEntitiesComponent attachedEntitiesComponent = targetEntity.getOrCreateComponent(AttachedEntitiesComponent.class);
 				attachedEntitiesComponent.init(targetEntity, messageDispatcher, gameContext);

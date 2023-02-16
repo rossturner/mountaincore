@@ -36,7 +36,7 @@ public class ProjectileBehaviour implements BehaviourComponent {
 
 	@Override
 	public void init(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
-		this.locationComponent = parentEntity.getLocationComponent(true);
+		this.locationComponent = parentEntity.getLocationComponent();
 		this.messageDispatcher = messageDispatcher;
 		this.parentEntity = parentEntity;
 		this.gameContext = gameContext;
@@ -56,8 +56,8 @@ public class ProjectileBehaviour implements BehaviourComponent {
 	@Override
 	public void update(float deltaTime) {
 		// move towards target and set rotation to target
-		Vector2 parentPosition = parentEntity.getLocationComponent(true).getWorldOrParentPosition();
-		Vector2 targetPosition = defenderEntity.getLocationComponent(true).getWorldOrParentPosition();
+		Vector2 parentPosition = parentEntity.getLocationComponent().getWorldOrParentPosition();
+		Vector2 targetPosition = defenderEntity.getLocationComponent().getWorldOrParentPosition();
 
 		float separation = parentPosition.dst(targetPosition);
 		Vector2 targetVector = targetPosition.cpy().sub(parentPosition);
@@ -68,8 +68,8 @@ public class ProjectileBehaviour implements BehaviourComponent {
 			impactWith(defenderEntity);
 		} else {
 			Vector2 newPosition = parentPosition.cpy().add(targetVector);
-			parentEntity.getLocationComponent(true).setWorldPosition(newPosition, false);
-			parentEntity.getLocationComponent(true).setRotation(targetVector.angle());
+			parentEntity.getLocationComponent().setWorldPosition(newPosition, false);
+			parentEntity.getLocationComponent().setRotation(targetVector.angle());
 
 			MapTile tile = gameContext.getAreaMap().getTile(newPosition);
 			if (tile != null) {
@@ -81,8 +81,8 @@ public class ProjectileBehaviour implements BehaviourComponent {
 						continue;
 					}
 
-					if (otherEntity.getLocationComponent(true).getWorldOrParentPosition().dst(newPosition) <
-						otherEntity.getLocationComponent(true).getRadius()) {
+					if (otherEntity.getLocationComponent().getWorldOrParentPosition().dst(newPosition) <
+						otherEntity.getLocationComponent().getRadius()) {
 						if (gameContext.getRandom().nextFloat() < chanceToHitOtherEntity(otherEntity)) {
 							impactWith(otherEntity);
 							break;

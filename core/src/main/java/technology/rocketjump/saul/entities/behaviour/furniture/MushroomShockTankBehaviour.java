@@ -144,7 +144,7 @@ public class MushroomShockTankBehaviour extends FillLiquidContainerBehaviour imp
 		}
 		ItemType targetItemType = relatedItemTypes.get(1);
 		messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
-				parentEntity, parentEntity.getLocationComponent(true).getWorldPosition(), targetItemType, null,
+				parentEntity, parentEntity.getLocationComponent().getWorldPosition(), targetItemType, null,
 				false, 1, null, haulingAllocation -> {
 					if (haulingAllocation != null) {
 						Job haulingJob = new Job(relatedJobTypes.get(0));

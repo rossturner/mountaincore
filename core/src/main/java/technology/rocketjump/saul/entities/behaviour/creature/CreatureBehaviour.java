@@ -192,7 +192,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		boolean isInMilitary = militaryComponent != null && militaryComponent.isInMilitary();
 
 		if (happinessComponent != null && !isInMilitary) {
-			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
+			MapTile currentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
 			if (currentTile != null && currentTile.getRoof().getState().equals(TileRoofState.OPEN) &&
 					gameContext.getMapEnvironment().getCurrentWeather().getHappinessModifiers().containsKey(STANDING)) {
 				happinessComponent.add(gameContext.getMapEnvironment().getCurrentWeather().getHappinessModifiers().get(STANDING));
@@ -396,7 +396,7 @@ public class CreatureBehaviour implements BehaviourComponent, Destructible, Sele
 		Faction myFaction = parentEntity.getOrCreateComponent(FactionComponent.class).getFaction();
 		HappinessComponent happinessComponent = parentEntity.getComponent(HappinessComponent.class);
 
-		GridPoint2 parentPosition = toGridPoint(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+		GridPoint2 parentPosition = toGridPoint(parentEntity.getLocationComponent().getWorldOrParentPosition());
 		for (CompassDirection compassDirection : CompassDirection.values()) {
 			for (int distance = 1; distance <= DISTANCE_TO_LOOK_AROUND; distance++) {
 				GridPoint2 targetPosition = parentPosition.cpy().add(compassDirection.getXOffset() * distance, compassDirection.getYOffset() * distance);

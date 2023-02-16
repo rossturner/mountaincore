@@ -136,7 +136,7 @@ public class FurnitureEntityMessageHandler implements GameContextAware, Telegrap
 		}
 
 		// Fudge to update attached lightsource position
-		createdFurnitureEntity.getLocationComponent(true).setWorldPosition(toVector(message.primarylocation), false);
+		createdFurnitureEntity.getLocationComponent().setWorldPosition(toVector(message.primarylocation), false);
 
 		tagProcessor.apply(createdFurnitureEntity.getTags(), createdFurnitureEntity);
 		DecorationFromInputTag decorationFromInputTag = createdFurnitureEntity.getTag(DecorationFromInputTag.class);

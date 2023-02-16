@@ -46,7 +46,7 @@ public class MoveGroupHomeTowardSettlersAction extends Action {
 			gameContext.getEntities().values().stream()
 					.filter(Entity::isSettler)
 					.forEach(settler -> {
-						averageSettlerLocation.add(settler.getLocationComponent(true).getWorldOrParentPosition());
+						averageSettlerLocation.add(settler.getLocationComponent().getWorldOrParentPosition());
 						numSettlers.set(numSettlers.get() + 1);
 					});
 			averageSettlerLocation.scl(1 / (float) numSettlers.get());

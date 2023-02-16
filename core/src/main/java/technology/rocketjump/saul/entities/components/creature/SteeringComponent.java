@@ -65,8 +65,8 @@ public class SteeringComponent implements ChildPersistable {
 
 		Vector2 steeringOutputForce = new Vector2();
 		// Get current position and vector to target destination
-		Vector2 currentPosition = parentEntity.getLocationComponent(true).getWorldPosition();
-		Vector2 currentVelocity = parentEntity.getLocationComponent(true).getLinearVelocity();
+		Vector2 currentPosition = parentEntity.getOwnOrVehicleLocationComponent().getWorldPosition();
+		Vector2 currentVelocity = parentEntity.getOwnOrVehicleLocationComponent().getLinearVelocity();
 
 		if (currentPosition == null) {
 			Logger.error("Attempting to update null position in " + this.getClass().getSimpleName());
@@ -106,7 +106,7 @@ public class SteeringComponent implements ChildPersistable {
 				rotateFacingAndApplyVelocity(deltaTime, currentVelocity, nextWaypointRelativeNormalised);
 			}
 
-			float maxSpeed = parentEntity.getLocationComponent(true).getMaxLinearSpeed();
+			float maxSpeed = parentEntity.getOwnOrVehicleLocationComponent().getMaxLinearSpeed();
 			isSlowed = false;
 			Vector2 entityAvoidanceForce = new Vector2();
 			Vector2 wallAvoidanceForce = new Vector2();
@@ -126,14 +126,14 @@ public class SteeringComponent implements ChildPersistable {
 						if (!AWAKE.equals(((CreatureEntityAttributes) otherEntity.getPhysicalEntityComponent().getAttributes()).getConsciousness())) {
 							continue;
 						}
-						Vector2 separation = currentPosition.cpy().sub(otherEntity.getLocationComponent(true).getWorldPosition());
-						float totalRadii = parentEntity.getLocationComponent(true).getRadius() + otherEntity.getLocationComponent(true).getRadius();
+						Vector2 separation = currentPosition.cpy().sub(otherEntity.getOwnOrVehicleLocationComponent().getWorldPosition());
+						float totalRadii = parentEntity.getOwnOrVehicleLocationComponent().getRadius() + otherEntity.getOwnOrVehicleLocationComponent().getRadius();
 						float separationDistance = separation.len();
 						if (separationDistance < totalRadii) {
 							// Overlapping
 							isSlowed = true;
 						}
-						if (separationDistance < totalRadii + parentEntity.getLocationComponent(true).getRadius()) {
+						if (separationDistance < totalRadii + parentEntity.getOwnOrVehicleLocationComponent().getRadius()) {
 							entityAvoidanceForce.add(separation.nor());
 						}
 					}
@@ -189,12 +189,12 @@ public class SteeringComponent implements ChildPersistable {
 			}
 			Vector2 newPosition = currentPosition.cpy().mulAdd(newVelocity, deltaTime);
 
-			parentEntity.getLocationComponent(true).setLinearVelocity(newVelocity);
-			parentEntity.getLocationComponent(true).setWorldPosition(newPosition, updateFacing);
+			parentEntity.getOwnOrVehicleLocationComponent().setLinearVelocity(newVelocity);
+			parentEntity.getOwnOrVehicleLocationComponent().setWorldPosition(newPosition, updateFacing);
 
 			if (nextWaypoint != null && nextWaypoint.equals(destination)) {
 
-				if (parentEntity.getLocationComponent(true).getWorldPosition().dst(destination) < MAX_DISTANCE_WITHIN_TILE_TO_ARRIVE) {
+				if (parentEntity.getOwnOrVehicleLocationComponent().getWorldPosition().dst(destination) < MAX_DISTANCE_WITHIN_TILE_TO_ARRIVE) {
 					nextWaypoint = null;
 					destination = null;
 				}
@@ -242,15 +242,15 @@ public class SteeringComponent implements ChildPersistable {
 	}
 
 	private void repelFromImpassableCollisions(float deltaTime, MapTile currentTile) {
-		Vector2 currentPosition = parentEntity.getLocationComponent(true).getWorldPosition().cpy();
+		Vector2 currentPosition = parentEntity.getOwnOrVehicleLocationComponent().getWorldPosition().cpy();
 		Vector2 adjustmentForce = new Vector2();
 		for (MapTile tileNearNewPosition : areaMap.getNearestTiles(currentPosition)) {
 			if (!tileNearNewPosition.isNavigable(parentEntity, currentTile) && !tileNearNewPosition.equals(currentTile)) {
 				// if overlapping wall
 				Vector2 wallToPosition = currentPosition.cpy().sub(tileNearNewPosition.getWorldPositionOfCenter());
 
-				if (Math.abs(wallToPosition.x) < 0.5f + parentEntity.getLocationComponent(true).getRadius() &&
-						Math.abs(wallToPosition.y) < 0.5f + parentEntity.getLocationComponent(true).getRadius()) {
+				if (Math.abs(wallToPosition.x) < 0.5f + parentEntity.getOwnOrVehicleLocationComponent().getRadius() &&
+						Math.abs(wallToPosition.y) < 0.5f + parentEntity.getOwnOrVehicleLocationComponent().getRadius()) {
 					// We are overlapping the wall
 					adjustmentForce.add(wallToPosition.nor());
 				}
@@ -259,7 +259,7 @@ public class SteeringComponent implements ChildPersistable {
 		}
 		// Each force is a 1 tile/second speed, could do with being proportional to nearness of wall
 		currentPosition.mulAdd(adjustmentForce, deltaTime);
-		parentEntity.getLocationComponent(true).setWorldPosition(currentPosition, false);
+		parentEntity.getOwnOrVehicleLocationComponent().setWorldPosition(currentPosition, false);
 	}
 
 	/**
@@ -268,7 +268,7 @@ public class SteeringComponent implements ChildPersistable {
 	public void checkToPauseForOtherEntities() {
 		if (pauseTime <= 0) {
 			boolean forceBreak = false;
-			Vector2 currentPosition = parentEntity.getLocationComponent(true).getWorldPosition();
+			Vector2 currentPosition = parentEntity.getOwnOrVehicleLocationComponent().getWorldPosition();
 			MapTile currentTile = areaMap.getTile(currentPosition);
 			for (MapTile tileNearPosition : areaMap.getNearestTiles(currentPosition)) {
 				if (pauseTime > 0) {
@@ -285,14 +285,14 @@ public class SteeringComponent implements ChildPersistable {
 							break;
 						}
 
-						Vector2 thisToOther = currentPosition.cpy().sub(otherEntity.getLocationComponent(true).getWorldPosition());
-						float totalRadii = this.parentEntity.getLocationComponent(true).getRadius() + otherEntity.getLocationComponent(true).getRadius();
+						Vector2 thisToOther = currentPosition.cpy().sub(otherEntity.getOwnOrVehicleLocationComponent().getWorldPosition());
+						float totalRadii = this.parentEntity.getOwnOrVehicleLocationComponent().getRadius() + otherEntity.getOwnOrVehicleLocationComponent().getRadius();
 						float separationDistance = thisToOther.len();
 						if (separationDistance < totalRadii * 2) {
 							// Overlapping
 
-							boolean similarFacing = this.parentEntity.getLocationComponent(true).getLinearVelocity().cpy().dot(otherEntity.getLocationComponent(true).getLinearVelocity()) > 0;
-							boolean otherEntityInFront = thisToOther.cpy().dot(otherEntity.getLocationComponent(true).getLinearVelocity()) < 0;
+							boolean similarFacing = this.parentEntity.getOwnOrVehicleLocationComponent().getLinearVelocity().cpy().dot(otherEntity.getOwnOrVehicleLocationComponent().getLinearVelocity()) > 0;
+							boolean otherEntityInFront = thisToOther.cpy().dot(otherEntity.getOwnOrVehicleLocationComponent().getLinearVelocity()) < 0;
 							if (similarFacing && otherEntityInFront) {
 								pauseTime = DEFAULT_PAUSE_TIME;
 								break;

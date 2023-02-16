@@ -104,7 +104,7 @@ public class PlantBehaviour implements BehaviourComponent, SelectableDescription
 
 		PlantEntityAttributes attributes = (PlantEntityAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
 		PlantSpecies species = attributes.getSpecies();
-		MapTile parentEntityTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+		MapTile parentEntityTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
 
 		if (!EARTH.equals(parentEntityTile.getFloor().getFloorType().getMaterialType())) {
 			messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, this.parentEntity);
@@ -185,7 +185,7 @@ public class PlantBehaviour implements BehaviourComponent, SelectableDescription
 				removePestsJob.setJobPriority(((Prioritisable)parentEntityTile.getRoomTile().getRoom().getBehaviourComponent()).getPriority());
 			}
 			removePestsJob.setTargetId(parentEntity.getId());
-			removePestsJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent(true).getWorldPosition()));
+			removePestsJob.setJobLocation(toGridPoint(parentEntity.getLocationComponent().getWorldPosition()));
 			messageDispatcher.dispatchMessage(MessageType.JOB_CREATED, removePestsJob);
 
 			gameTimeToApplyPests = null;
@@ -224,7 +224,7 @@ public class PlantBehaviour implements BehaviourComponent, SelectableDescription
 			switch (onCompletion) {
 				case DISPERSE_SEEDS:
 					messageDispatcher.dispatchMessage(MessageType.PLANT_SEED_DISPERSED,
-							new PlantSeedDispersedMessage(species, parentEntity.getLocationComponent(true).getWorldPosition(), growthStage.isShowFruit()));
+							new PlantSeedDispersedMessage(species, parentEntity.getLocationComponent().getWorldPosition(), growthStage.isShowFruit()));
 					break;
 				case DESTROY_PLANT:
 					messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, parentEntity);
@@ -261,7 +261,7 @@ public class PlantBehaviour implements BehaviourComponent, SelectableDescription
 	 * Returns true if there is too much
 	 */
 	private boolean checkForCompetition(GameContext gameContext) {
-		Vector2 worldPosition = parentEntity.getLocationComponent(true).getWorldPosition();
+		Vector2 worldPosition = parentEntity.getLocationComponent().getWorldPosition();
 		GridPoint2 tilePosition = new GridPoint2((int) Math.floor(worldPosition.x), (int) Math.floor(worldPosition.y));
 
 		TileNeighbours tileNeighbours = gameContext.getAreaMap().getNeighbours(tilePosition.x, tilePosition.y);

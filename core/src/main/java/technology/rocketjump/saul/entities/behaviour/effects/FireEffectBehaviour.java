@@ -69,17 +69,17 @@ public class FireEffectBehaviour extends BaseOngoingEffectBehaviour {
 				FireContinuationAction continuation = rollForContinuation();
 				switch (continuation) {
 					case SPREAD_TO_OTHER_TILES:
-						messageDispatcher.dispatchMessage(MessageType.SPREAD_FIRE_FROM_LOCATION, parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+						messageDispatcher.dispatchMessage(MessageType.SPREAD_FIRE_FROM_LOCATION, parentEntity.getLocationComponent().getWorldOrParentPosition());
 						this.state = ACTIVE; // reset to active state again
 						break;
 					case CONTINUE_BURNING:
 						this.state = ACTIVE;
 						break;
 					case CONSUME_PARENT:
-						if (parentEntity.getLocationComponent(true).getContainerEntity() != null) {
-							messageDispatcher.dispatchMessage(MessageType.CONSUME_ENTITY_BY_FIRE, parentEntity.getLocationComponent(true).getContainerEntity());
+						if (parentEntity.getLocationComponent().getContainerEntity() != null) {
+							messageDispatcher.dispatchMessage(MessageType.CONSUME_ENTITY_BY_FIRE, parentEntity.getLocationComponent().getContainerEntity());
 						} else {
-							messageDispatcher.dispatchMessage(MessageType.CONSUME_TILE_BY_FIRE, parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+							messageDispatcher.dispatchMessage(MessageType.CONSUME_TILE_BY_FIRE, parentEntity.getLocationComponent().getWorldOrParentPosition());
 						}
 						this.state = FADING;
 						break;
@@ -97,7 +97,7 @@ public class FireEffectBehaviour extends BaseOngoingEffectBehaviour {
 	}
 
 	private FireContinuationAction rollForContinuation() {
-		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldOrParentPosition());
 		if (parentTile != null && parentTile.getRoof().getState().equals(TileRoofState.OPEN) && gameContext.getMapEnvironment().getCurrentWeather().getChanceToExtinguishFire() != null) {
 			if (gameContext.getRandom().nextFloat() < gameContext.getMapEnvironment().getCurrentWeather().getChanceToExtinguishFire()) {
 				return DIE_OUT;

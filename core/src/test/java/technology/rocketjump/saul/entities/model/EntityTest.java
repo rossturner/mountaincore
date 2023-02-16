@@ -64,9 +64,9 @@ public class EntityTest {
 		PriorityQueue<InWorldRenderable> renderingSort = new PriorityQueue<>(new InWorldRenderable.YDepthEntityComparator());
 		renderingSort.addAll(testData.stream().map(InWorldRenderable::new).collect(toList()));
 
-		assertThat(renderingSort.poll().entity.getLocationComponent(true).getWorldPosition().y).isEqualTo(10f);
-		assertThat(renderingSort.poll().entity.getLocationComponent(true).getWorldPosition().y).isEqualTo(5f);
-		assertThat(renderingSort.poll().entity.getLocationComponent(true).getWorldPosition().y).isEqualTo(1f);
+		assertThat(renderingSort.poll().entity.getLocationComponent().getWorldPosition().y).isEqualTo(10f);
+		assertThat(renderingSort.poll().entity.getLocationComponent().getWorldPosition().y).isEqualTo(5f);
+		assertThat(renderingSort.poll().entity.getLocationComponent().getWorldPosition().y).isEqualTo(1f);
 		assertThat(renderingSort).isEmpty();
 	}
 
@@ -97,18 +97,18 @@ public class EntityTest {
 		Entity original = new Entity(EntityType.ITEM, originalPhysicalComponent, itemBehaviour, originalLocation, mockMessageDispatcher, mockGameContext);
 		HaulingComponent otherComponent = new HaulingComponent();
 		when(mockItem.getPhysicalEntityComponent()).thenReturn(mockPhysicalComponent);
-		when(mockItem.getLocationComponent(true)).thenReturn(new LocationComponent());
+		when(mockItem.getLocationComponent()).thenReturn(new LocationComponent());
 		when(mockPhysicalComponent.getAttributes()).thenReturn(mockAttributes);
 		otherComponent.setHauledEntity(mockItem, mockMessageDispatcher, parentEntity);
 		original.addComponent(otherComponent);
-		original.getLocationComponent(true).setContainerEntity(parentEntity);
+		original.getLocationComponent().setContainerEntity(parentEntity);
 
 		Entity cloned = original.clone(mockMessageDispatcher, mockGameContext);
 
-		original.getLocationComponent(true).setWorldPosition(new Vector2(1, 1), false);
+		original.getLocationComponent().setWorldPosition(new Vector2(1, 1), false);
 
-		assertThat(cloned.getLocationComponent(true).getWorldPosition()).isNotEqualTo(original.getLocationComponent(true).getWorldPosition());
-		assertThat(cloned.getLocationComponent(true).getContainerEntity()).isEqualTo(parentEntity);
+		assertThat(cloned.getLocationComponent().getWorldPosition()).isNotEqualTo(original.getLocationComponent().getWorldPosition());
+		assertThat(cloned.getLocationComponent().getContainerEntity()).isEqualTo(parentEntity);
 
 		assertThat(((ItemEntityAttributes)cloned.getPhysicalEntityComponent().getAttributes()).getMaterial(GameMaterialType.STONE)).isEqualTo(mockMaterial);
 

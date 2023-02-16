@@ -1160,7 +1160,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
-				Vector2 position = settler.getLocationComponent(true).getWorldOrParentPosition();
+				Vector2 position = settler.getLocationComponent().getWorldOrParentPosition();
 				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, "MAIN_GAME");
 				messageDispatcher.dispatchMessage(MessageType.MOVE_CAMERA_TO, position);
 				messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(settler, 0));

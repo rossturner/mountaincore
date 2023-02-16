@@ -46,7 +46,7 @@ public class PlaceEntityAction extends Action {
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
 		// Should already be in correct tile
-		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent(true).getWorldPosition());
+		MapTile currentTile = gameContext.getAreaMap().getTile(parent.parentEntity.getLocationComponent().getWorldPosition());
 		HaulingAllocation haulingAllocation = parent.getAssignedHaulingAllocation();
 
 		EntityComponent containerComponent = pickContainerComponent(haulingAllocation);
@@ -91,10 +91,10 @@ public class PlaceEntityAction extends Action {
 	}
 
 	private boolean adjacentTo(Entity targetFurniture) {
-		GridPoint2 parentPosition = toGridPoint(parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition());
+		GridPoint2 parentPosition = toGridPoint(parent.parentEntity.getLocationComponent().getWorldOrParentPosition());
 
 		List<GridPoint2> furnitureLocations = new LinkedList<>();
-		GridPoint2 furniturePosition = toGridPoint(targetFurniture.getLocationComponent(true).getWorldOrParentPosition());
+		GridPoint2 furniturePosition = toGridPoint(targetFurniture.getLocationComponent().getWorldOrParentPosition());
 		furnitureLocations.add(furniturePosition);
 
 		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) targetFurniture.getPhysicalEntityComponent().getAttributes();
@@ -207,8 +207,8 @@ public class PlaceEntityAction extends Action {
 				} else {
 					// Place item into tile, including if it is a construction
 					removeTargetFrom(containerComponent);
-					entityToPlace.getLocationComponent(true).setWorldPosition(currentTile.getWorldPositionOfCenter().cpy(), false);
-					entityToPlace.getLocationComponent(true).setFacing(DOWN.toVector2());
+					entityToPlace.getLocationComponent().setWorldPosition(currentTile.getWorldPositionOfCenter().cpy(), false);
+					entityToPlace.getLocationComponent().setFacing(DOWN.toVector2());
 
 					itemToPlaceAttributes.setItemPlacement(ItemPlacement.ON_GROUND);
 
@@ -232,8 +232,8 @@ public class PlaceEntityAction extends Action {
 
 			// Place entity into tile regardless
 			removeTargetFrom(containerComponent);
-			entityToPlace.getLocationComponent(true).setWorldPosition(currentTile.getWorldPositionOfCenter().cpy(), false);
-			entityToPlace.getLocationComponent(true).setFacing(DOWN.toVector2());
+			entityToPlace.getLocationComponent().setWorldPosition(currentTile.getWorldPositionOfCenter().cpy(), false);
+			entityToPlace.getLocationComponent().setFacing(DOWN.toVector2());
 			parent.parentEntity.removeComponent(HaulingComponent.class);
 			completionType = SUCCESS;
 

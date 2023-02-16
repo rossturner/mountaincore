@@ -239,7 +239,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 					screenWriter.printLine(materialTypeHint.toString());
 				}
 
-				furnitureEntityToPlace.getLocationComponent(true).setWorldPosition(toVector(tilePosition), false);
+				furnitureEntityToPlace.getLocationComponent().setWorldPosition(toVector(tilePosition), false);
 
 				validFurniturePlacement = isFurniturePlacementValid(map, tilePosition, attributes);
 			}
@@ -450,7 +450,7 @@ public class GameInteractionStateContainer implements GameContextAware {
 
 		List<Entity> unallocatedItems = settlementItemTracker.getItemsByType(bridgeTypeToPlace.getBuildingRequirement().getItemType(), false);
 		for (Entity unallocatedItem : unallocatedItems) {
-			MapTile itemTile = gameContext.getAreaMap().getTile(unallocatedItem.getLocationComponent(true).getWorldOrParentPosition());
+			MapTile itemTile = gameContext.getAreaMap().getTile(unallocatedItem.getLocationComponent().getWorldOrParentPosition());
 			if (itemTile != null) {
 				int itemRegion = itemTile.getRegionId();
 				List<MapTile> bridgeTilesInRegion = tilesByLandRegion.get(itemRegion);

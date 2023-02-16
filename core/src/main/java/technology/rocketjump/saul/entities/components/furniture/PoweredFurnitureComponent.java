@@ -61,7 +61,7 @@ public class PoweredFurnitureComponent implements ParentDependentEntityComponent
 	public void destroy(Entity parentEntity, MessageDispatcher messageDispatcher, GameContext gameContext) {
 		setPowerAmount(0);
 		updatePowerGridAtParentLocation();
-		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
+		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
 		parentTile.getOrCreateUnderTile().setPowerSource(false);
 		parentTile.getOrCreateUnderTile().setPowerConsumer(false);
 	}
@@ -102,7 +102,7 @@ public class PoweredFurnitureComponent implements ParentDependentEntityComponent
 	}
 
 	public UnderTile getParentUnderTile(GameContext gameContext) {
-		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
+		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
 		UnderTile underTile = parentTile.getOrCreateUnderTile();
 		return underTile;
 	}
@@ -143,7 +143,7 @@ public class PoweredFurnitureComponent implements ParentDependentEntityComponent
 	}
 
 	public void updatePowerGridAtParentLocation() {
-		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition());
+		MapTile parentTile = gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition());
 		if (parentTile != null && parentTile.getUnderTile() != null && parentTile.getUnderTile().getPowerGrid() != null) {
 			parentTile.getUnderTile().getPowerGrid().update(gameContext);
 		}
@@ -156,7 +156,7 @@ public class PoweredFurnitureComponent implements ParentDependentEntityComponent
 			if (!currentLayout.getSpecialTiles().isEmpty()) {
 				FurnitureLayout.SpecialTile specialTile = currentLayout.getSpecialTiles().get(0);
 				if (specialTile.getRequirement().equals(IS_RIVER)) {
-					GridPoint2 specialTileLocation = toGridPoint(parentEntity.getLocationComponent(true).getWorldPosition()).add(specialTile.getLocation());
+					GridPoint2 specialTileLocation = toGridPoint(parentEntity.getLocationComponent().getWorldPosition()).add(specialTile.getLocation());
 					MapVertex[] vertices = gameContext.getAreaMap().getVertices(specialTileLocation.x, specialTileLocation.y);
 					Vector2 averageWaterFlow = new Vector2();
 					for (MapVertex vertex : vertices) {

@@ -59,7 +59,7 @@ public class GraveManager implements Updatable {
 			timeSinceLastUpdate = 0f;
 
 			for (Entity deceased : settlerTracker.getDead()) {
-				if (deceased.getLocationComponent(true).getContainerEntity() == null && !hasCorpseHaulingJob(deceased) && isUnallocated(deceased)) {
+				if (deceased.getLocationComponent().getContainerEntity() == null && !hasCorpseHaulingJob(deceased) && isUnallocated(deceased)) {
 					Entity deceasedContainer = findAvailableDeceasedContainer();
 
 					if (deceasedContainer == null) {
@@ -79,7 +79,7 @@ public class GraveManager implements Updatable {
 	}
 
 	private boolean hasCorpseHaulingJob(Entity deceased) {
-		GridPoint2 location = toGridPoint(deceased.getLocationComponent(true).getWorldOrParentPosition());
+		GridPoint2 location = toGridPoint(deceased.getLocationComponent().getWorldOrParentPosition());
 		if (location == null) {
 			// FIXME When does this happen? Returning true for now so nothing else tries to access this corpse
 			return true;
@@ -108,7 +108,7 @@ public class GraveManager implements Updatable {
 
 	private void assignAndCreateHaulingJob(Entity deceased, Entity deceasedContainer) {
 
-		GridPoint2 deceasedPosition = toGridPoint(deceased.getLocationComponent(true).getWorldPosition());
+		GridPoint2 deceasedPosition = toGridPoint(deceased.getLocationComponent().getWorldPosition());
 		MapTile deceasedTile = gameContext.getAreaMap().getTile(deceasedPosition);
 		if (deceasedTile == null || !deceasedTile.isNavigable(null)) {
 			// Skip while not navigable

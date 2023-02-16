@@ -69,7 +69,7 @@ public class MoveLiquidInputToCraftingStationAction extends Action implements In
 
 			// need a hauling allocation of an item to carry the liquid in
 			parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_HAULING_ALLOCATION, new RequestHaulingAllocationMessage(
-					parent.parentEntity, parent.parentEntity.getLocationComponent(true).getWorldOrParentPosition(), itemType,
+					parent.parentEntity, parent.parentEntity.getLocationComponent().getWorldOrParentPosition(), itemType,
 					null, // any material
 					true, null, null, (allocation) -> {
 				if (allocation != null) {

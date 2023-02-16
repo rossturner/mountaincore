@@ -58,7 +58,7 @@ public class BaseOngoingEffectBehaviour implements BehaviourComponent, Destructi
 	@Override
 	public void update(float deltaTime) {
 		OngoingEffectAttributes attributes = (OngoingEffectAttributes) parentEntity.getPhysicalEntityComponent().getAttributes();
-		Entity containerEntity = parentEntity.getLocationComponent(true).getContainerEntity();
+		Entity containerEntity = parentEntity.getLocationComponent().getContainerEntity();
 		if (state.equals(STARTING) && containerEntity != null && containerEntity.getType().equals(EntityType.CREATURE)) {
 			nextState();
 		}
@@ -114,8 +114,8 @@ public class BaseOngoingEffectBehaviour implements BehaviourComponent, Destructi
 			Optional<JobTarget> particleTarget = Optional.empty();
 			if (containerEntity != null) {
 				particleTarget = Optional.of(new JobTarget(containerEntity));
-			} else if (parentEntity.getLocationComponent(true).getWorldPosition() != null) {
-				particleTarget = Optional.of(new JobTarget(gameContext.getAreaMap().getTile(parentEntity.getLocationComponent(true).getWorldPosition())));
+			} else if (parentEntity.getLocationComponent().getWorldPosition() != null) {
+				particleTarget = Optional.of(new JobTarget(gameContext.getAreaMap().getTile(parentEntity.getLocationComponent().getWorldPosition())));
 			}
 			particleEffectsComponent.triggerProcessingEffects(particleTarget);
 		}
