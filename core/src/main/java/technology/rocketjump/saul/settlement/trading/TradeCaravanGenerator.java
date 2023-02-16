@@ -113,13 +113,22 @@ public class TradeCaravanGenerator implements GameContextAware {
 				participants.add(guard);
 			}
 
+			InventoryComponent vehicleInventory = vehicle.getOrCreateComponent(InventoryComponent.class);
 			int totalGoodsValue = 0;
 			int totalItemStacks = 0;
 			while (totalGoodsValue < definition.getVehicles().getMaxValuePerVehicleInventory() && totalItemStacks < definition.getVehicles().getMaxInventoryPerVehicle()) {
-				// TODO add trade goods to vehicle
+
+				// FIXME just getting random tradeables right now, should be driven from player's settlement
+
+				ItemType itemType = itemTypeDictionary.getTradeableItems().get(random.nextInt(itemTypeDictionary.getTradeableItems().size()));
+				ItemEntityAttributes itemAttributes = itemEntityAttributesFactory.createItemAttributes(itemType, itemType.getMaxStackSize());
+				Entity itemEntity = itemEntityFactory.create(itemAttributes, null, true, gameContext, Faction.MERCHANTS);
+
+				vehicleInventory.add(itemEntity, vehicle, messageDispatcher, gameContext.getGameClock());
+				totalGoodsValue += itemAttributes.getTotalValue();
+				totalItemStacks++;
 				break;
 			}
-			// TODO add trade goods to caravan
 		}
 		return participants;
 	}

@@ -96,7 +96,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 
 		entityRenderSteps.clear();
 
-		LocationComponent locationComponent = entity.getLocationComponent(true);
+		LocationComponent locationComponent = entity.getLocationComponent(false);
 
 		EntityAsset baseAsset = entity.getPhysicalEntityComponent().getBaseAsset();
 		if (baseAsset != NULL_ASSET) {
@@ -230,14 +230,14 @@ public class EntityRenderer implements GameContextAware, Disposable {
 						Color overrideColor, Color extraMultiplyColor) {
 		if (renderStep.isAnotherEntity()) {
 			Entity entity = renderStep.getEntity();
-			LocationComponent otherEntityLocation = renderStep.getOtherEntity().getLocationComponent(true);
-			Vector2 worldPosition = entity.getLocationComponent(true).getWorldPosition();
+			LocationComponent otherEntityLocation = renderStep.getOtherEntity().getLocationComponent(false);
+			Vector2 worldPosition = entity.getLocationComponent(false).getWorldPosition();
 			Vector2 offset = renderStep.getOffsetFromEntity();
 			float originalRotation = otherEntityLocation.getRotation();
 			Vector2 otherEntityLocationOriginalPosition = otherEntityLocation.getWorldPosition();
-			if (entity.getLocationComponent(true).getRotation() != 0) {
-				offset.cpy().rotate(entity.getLocationComponent(true).getRotation());
-				otherEntityLocation.setRotation(originalRotation + entity.getLocationComponent(true).getRotation());
+			if (entity.getLocationComponent(false).getRotation() != 0) {
+				offset.cpy().rotate(entity.getLocationComponent(false).getRotation());
+				otherEntityLocation.setRotation(originalRotation + entity.getLocationComponent(false).getRotation());
 			}
 			otherEntityLocation.setWorldPosition(worldPosition.cpy().add(offset), false, false);
 			EntityRenderSteps cloned = entityRenderSteps.clone();
@@ -323,11 +323,11 @@ public class EntityRenderer implements GameContextAware, Disposable {
 		);
 		affine.idt(); // Reset affine transformation
 		if (locationComponent.getRotation() == 0) {
-			affine.translate(locationComponent.getWorldPosition())
+			affine.translate(locationComponent.getWorldOrParentPosition())
 					.translate(renderStep.getOffsetFromEntity());
 		} else {
 			Vector2 offsetFromEntity = renderStep.getOffsetFromEntity().cpy().rotate(locationComponent.getRotation());
-			affine.translate(locationComponent.getWorldPosition())
+			affine.translate(locationComponent.getWorldOrParentPosition())
 					.translate(offsetFromEntity)
 					.rotate(locationComponent.getRotation());
 		}
