@@ -19,6 +19,8 @@ public class GlobalSettings {
 	public static final Version VERSION;
 	public static boolean STRESS_TEST = false;
 
+	public static boolean WEATHER_EFFECTS = true;
+
 	static {
 		String loadedVersion = "UNKNOWN 0";
 		try {
