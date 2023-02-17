@@ -3,6 +3,7 @@ package technology.rocketjump.saul.screens.menus.options;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -17,13 +18,17 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.persistence.UserPreferences;
 import technology.rocketjump.saul.rendering.camera.DisplaySettings;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.screens.menus.Resolution;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.WidgetFactory;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -42,9 +47,12 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 	private final UserPreferences userPreferences;
 	private final Skin skin;
 	private final SoundAsset clickSoundAsset;
+	private final WidgetFactory widgetFactory;
+	private final TooltipFactory tooltipFactory;
 
 	private SelectBox<Resolution> resolutionSelect;
 	private SelectBox<String> fullscreenSelect;
+	private CheckBox weatherEffectsCheckbox;
 	private EventListener fullscreenSelectListener;
 	private boolean restartRequiredNotified;
 
@@ -52,13 +60,15 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 
 	@Inject
 	public GraphicsOptionsTab(UserPreferences userPreferences, GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-							  SoundAssetDictionary soundAssetDictionary, I18nTranslator i18nTranslator) {
+							  SoundAssetDictionary soundAssetDictionary, I18nTranslator i18nTranslator, WidgetFactory widgetFactory, TooltipFactory tooltipFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.soundAssetDictionary = soundAssetDictionary;
 		this.i18nTranslator = i18nTranslator;
 		this.userPreferences = userPreferences;
 		this.skin = guiSkinRepository.getMenuSkin();
 		this.clickSoundAsset = soundAssetDictionary.getByName("MenuClick");
+		this.widgetFactory = widgetFactory;
+		this.tooltipFactory = tooltipFactory;
 
 		rebuildUI();
 	}
@@ -67,6 +77,7 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 	public void populate(Table menuTable) {
 		menuTable.add(fullscreenSelect).padBottom(48f).row();
 		menuTable.add(resolutionSelect).padBottom(48f).row();
+		menuTable.add(weatherEffectsCheckbox).padBottom(48f).row();
 	}
 
 	@Override
@@ -148,5 +159,19 @@ public class GraphicsOptionsTab implements OptionsTab, DisplaysText {
 		resolutionSelect.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		resolutionSelect.addListener(new ChangeCursorOnHover(resolutionSelect, GameCursor.SELECT, messageDispatcher));
 
+
+		weatherEffectsCheckbox = widgetFactory.createLeftLabelledCheckboxNoBackground("GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS", skin, 428f);
+		GlobalSettings.WEATHER_EFFECTS = Boolean.parseBoolean(userPreferences.getPreference(UserPreferences.PreferenceKey.WEATHER_EFFECTS, "true"));;
+		weatherEffectsCheckbox.setChecked(GlobalSettings.WEATHER_EFFECTS);
+		weatherEffectsCheckbox.addListener((event) -> {
+			if (event instanceof ChangeListener.ChangeEvent) {
+				messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(clickSoundAsset));
+				GlobalSettings.WEATHER_EFFECTS = weatherEffectsCheckbox.isChecked();
+				userPreferences.setPreference(UserPreferences.PreferenceKey.WEATHER_EFFECTS, String.valueOf(GlobalSettings.WEATHER_EFFECTS));
+			}
+			return true;
+		});
+
+		tooltipFactory.simpleTooltip(weatherEffectsCheckbox, "GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS_TOOLTIP", TooltipLocationHint.ABOVE);
 	}
 }

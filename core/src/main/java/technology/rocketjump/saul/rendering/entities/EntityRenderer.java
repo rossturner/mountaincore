@@ -30,6 +30,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.rendering.RenderMode;
+import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 import technology.rocketjump.saul.rendering.custom_libgdx.ShaderLoader;
 import technology.rocketjump.saul.ui.views.RoomEditorItemMap;
 
@@ -366,7 +367,7 @@ public class EntityRenderer implements GameContextAware, Disposable {
 	private Vector2 spriteWorldSize = new Vector2(); // Private member to avoid new instance on every render call
 
 	private boolean snowRenderingEnabled() {
-		return gameContext != null && gameContext.getMapEnvironment().getFallenSnow() > 0;
+		return GlobalSettings.WEATHER_EFFECTS && gameContext != null && gameContext.getMapEnvironment().getFallenSnow() > 0;
 	}
 
 	private Affine2 affine = new Affine2(); // Private member to avoid new instance on every render call
