@@ -35,6 +35,7 @@ import technology.rocketjump.saul.sprites.model.BridgeTileLayout;
 import technology.rocketjump.saul.sprites.model.QuadrantSprites;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -217,12 +218,34 @@ public class TerrainRenderer implements Disposable {
 				setColor(vertexColorSpriteBatch, mapTile);
 			}
 
-			Sprite spriteForFloor = spriteCache.getFloorSpriteForType(mapTile.getFloor().getFloorType(), mapTile.getSeed());
+			TileFloor floor = mapTile.getActualFloor();
+			Sprite spriteForFloor = spriteCache.getFloorSpriteForType(floor.getFloorType(), mapTile.getSeed());
 			if (renderMode.equals(RenderMode.DIFFUSE)) {
-				vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, mapTile.getFloor().getVertexColors());
+				vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, floor.getVertexColors());
 			} else {
 				vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT);
 			}
+
+			//Overlay transitory floor, like snow covering
+			TileFloor transitoryFloor = mapTile.getTransitoryFloor();
+			if (transitoryFloor != null) {
+				Sprite spriteForTransitoryFloor = spriteCache.getFloorSpriteForType(transitoryFloor.getFloorType(), mapTile.getSeed());
+
+				Color[] floorColors = Arrays.stream(transitoryFloor.vertexColors)
+						.map(c -> {
+							Color semiTransparentColor = c.cpy();
+							semiTransparentColor.a = mapTile.getTransitoryFloorAlpha();
+							return semiTransparentColor;
+						})
+						.toArray(Color[]::new);
+
+				if (renderMode.equals(RenderMode.DIFFUSE)) {
+					vertexColorSpriteBatch.draw(spriteForTransitoryFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, floorColors);
+				} else {
+					vertexColorSpriteBatch.draw(spriteForTransitoryFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT);
+				}
+			}
+
 		}
 	}
 

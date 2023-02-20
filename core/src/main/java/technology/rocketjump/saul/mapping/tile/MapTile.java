@@ -68,6 +68,9 @@ public class MapTile implements Persistable {
 	private TileRoof roof;
 	private Wall wall = null;
 	private Doorway doorway = null;
+	//A temporary overlapping floor, like snow covered ground. This is separate for rendering on top of the floor, with effects like transparency
+	private float transitoryFloorAlpha = 0.0f;
+	private TileFloor transitoryFloor = null;
 	private final Deque<TileFloor> floors = new ArrayDeque<>();
 	private UnderTile underTile;
 
@@ -256,8 +259,16 @@ public class MapTile implements Persistable {
 		return seed;
 	}
 
-	public TileFloor getFloor() {
+	public TileFloor getActualFloor() {
 		return floors.peek();
+	}
+
+	public TileFloor getFloor() {
+		if (transitoryFloor != null) {
+			return transitoryFloor;
+		}
+
+		return getActualFloor();
 	}
 
 	public int getTileX() {
@@ -515,6 +526,14 @@ public class MapTile implements Persistable {
 		roof.writeTo(roofJson, savedGameStateHolder);
 		asJson.put("roof", roofJson);
 
+		asJson.put("transitoryFloorAlpha", transitoryFloorAlpha);
+
+		if (transitoryFloor != null) {
+			JSONObject floorJson = new JSONObject(true);
+			transitoryFloor.writeTo(floorJson, savedGameStateHolder);
+			asJson.put("transitoryFloor", floorJson);
+		}
+
 		if (!floors.isEmpty()) {
 			JSONArray floorsArray = new JSONArray();
 			Iterator<TileFloor> descendingIterator = floors.descendingIterator();
@@ -596,6 +615,15 @@ public class MapTile implements Persistable {
 			throw new InvalidSaveException("Map tile roof is old version");
 		}
 
+		transitoryFloorAlpha = asJson.getFloatValue("transitoryFloorAlpha");
+
+		JSONObject transitoryFloorJson = asJson.getJSONObject("transitoryFloor");
+		if (transitoryFloorJson != null) {
+			TileFloor floor = new TileFloor();
+			floor.readFrom(transitoryFloorJson, savedGameStateHolder, relatedStores);
+			transitoryFloor = floor;
+		}
+
 		JSONArray floorsJson = asJson.getJSONArray("floors");
 		this.floors.clear();
 		if (floorsJson != null) {
@@ -661,7 +689,7 @@ public class MapTile implements Persistable {
 			}
 		}
 
-		this.exploration = EnumParser.getEnumValue(asJson, "exploration", TileExploration.class, TileExploration.EXPLORED);
+		this.exploration = EnumParser.getEnumValue(asJson, "exploration", TileExploration.class, EXPLORED);
 
 		savedGameStateHolder.tiles.put(tilePosition, this);
 	}
@@ -684,6 +712,27 @@ public class MapTile implements Persistable {
 
 	public void popFloor() {
 		this.floors.pop();
+	}
+
+	public TileFloor getTransitoryFloor() {
+		return transitoryFloor;
+	}
+
+	public void setTransitoryFloor(TileFloor transitoryFloor) {
+		this.transitoryFloor = transitoryFloor;
+	}
+
+	public void removeTransitoryFloor() {
+		this.transitoryFloor = null;
+	}
+
+
+	public float getTransitoryFloorAlpha() {
+		return transitoryFloorAlpha;
+	}
+
+	public void setTransitoryFloorAlpha(float transitoryFloorAlpha) {
+		this.transitoryFloorAlpha = transitoryFloorAlpha;
 	}
 
 	public UnderTile getUnderTile() {

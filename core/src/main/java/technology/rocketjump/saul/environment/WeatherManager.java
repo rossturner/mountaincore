@@ -158,6 +158,27 @@ public class WeatherManager implements Updatable, Telegraph {
 					removeSnowFromGround(percentileToRemove);
 				}
 			}
+
+			for (int percentile = 0; percentile < 100; percentile++) { //TODO: optimize me
+				for (MapTile mapTile : gameContext.getAreaMap().getTilesForPercentile(percentile)) {
+					if (mapTile.getTransitoryFloor() != null && mapTile.getTransitoryFloor().getFloorType().equals(snowFloorType)) {
+
+						//Mike: I'm a math newbie, but this is `y = mx + c`
+						float x1 = percentile / 100.0f;
+						float x2 = 1.0f;
+						float y1 = 0;
+						float y2 = 1.0f;
+
+						float m = (y2 - y1) / (x2 - x1);
+						float c = y2 - (m * x2);
+
+
+						float alpha = Math.min( (m * (float) currentSnow) + c, 1.0f);
+
+						mapTile.setTransitoryFloorAlpha(alpha);
+					}
+				}
+			}
 		}
 
 		gameContext.getMapEnvironment().setFallenSnow(newSnow);
@@ -167,7 +188,7 @@ public class WeatherManager implements Updatable, Telegraph {
 		for (MapTile mapTile : gameContext.getAreaMap().getTilesForPercentile(percentileToAdd)) {
 			if (mapTile.getRoof().getState().equals(TileRoofState.OPEN) && !mapTile.getFloor().getFloorType().equals(snowFloorType) &&
 				!mapTile.hasWall() && !mapTile.getFloor().isRiverTile() & !mapTile.getFloor().hasBridge()) {
-				messageDispatcher.dispatchMessage(MessageType.REPLACE_FLOOR, new ReplaceFloorMessage(mapTile.getTilePosition(), snowFloorType, snowMaterialType));
+				messageDispatcher.dispatchMessage(MessageType.SET_TRANSITORY_FLOOR, new ReplaceFloorMessage(mapTile.getTilePosition(), snowFloorType, snowMaterialType));
 			}
 		}
 	}
@@ -175,7 +196,7 @@ public class WeatherManager implements Updatable, Telegraph {
 	private void removeSnowFromGround(int percentileToRemove) {
 		for (MapTile mapTile : gameContext.getAreaMap().getTilesForPercentile(percentileToRemove)) {
 			if (mapTile.getFloor().getFloorType().equals(snowFloorType)) {
-				messageDispatcher.dispatchMessage(MessageType.UNDO_REPLACE_FLOOR, mapTile.getTilePosition());
+				messageDispatcher.dispatchMessage(MessageType.REMOVE_TRANSITORY_FLOOR, mapTile.getTilePosition());
 			}
 		}
 	}
@@ -260,16 +281,8 @@ public class WeatherManager implements Updatable, Telegraph {
 		}
 	}
 
-	private static final double MIN_SNOW_TO_TRIGGER_PERCENTILE = 0.3;
-	private static final double MAX_SNOW_TO_TRIGGER_PERCENTILE = 0.7;
-
 	private int toSnowPercentile(double snowAmount) {
-		snowAmount -= MIN_SNOW_TO_TRIGGER_PERCENTILE;
-		if (snowAmount < 0) {
-			return 0;
-		} else {
-			return Math.min((int) (snowAmount / ((MAX_SNOW_TO_TRIGGER_PERCENTILE - MIN_SNOW_TO_TRIGGER_PERCENTILE) / 100.0)), 100);
-		}
+		return (int) (snowAmount * 100);
 	}
 
 	private void triggerLightningStrike() {
