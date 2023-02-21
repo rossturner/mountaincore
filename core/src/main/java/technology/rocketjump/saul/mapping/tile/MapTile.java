@@ -48,6 +48,7 @@ import technology.rocketjump.saul.zones.Zone;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 import static technology.rocketjump.saul.entities.model.Entity.NULL_ENTITY;
 import static technology.rocketjump.saul.mapping.tile.TileExploration.EXPLORED;
@@ -115,43 +116,54 @@ public class MapTile implements Persistable {
 
 		// Always update FloorOverlaps for all tiles
 		// ================= Actual Floor Overlaps ================
-		Set<FloorOverlap> overlaps = new TreeSet<>(new FloorType.FloorDefinitionComparator());
-		int thisLayer = getActualFloor().getFloorType().getLayer();
-		if (this.hasWall()) {
-			thisLayer = Integer.MIN_VALUE;
-		}
-		for (MapTile neighbour : neighbours.values()) {
-			TileFloor neighbourFloor = neighbour.getActualFloor();
-			if (neighbour.hasFloor() && neighbourFloor.getFloorType().getLayer() > thisLayer) {
-				OverlapLayout layout = OverlapLayout.fromNeighbours(neighbours, neighbourFloor.getFloorType());
-				overlaps.add(new FloorOverlap(layout, neighbourFloor.getFloorType(), neighbourFloor.getMaterial(), vertexNeighboursOfCell));
-			}
-		}
+		updateFloorOverlaps(neighbours, vertexNeighboursOfCell, MapTile::getActualFloor);
 
-		getFloor().getOverlaps().clear();
-		// For sort
-		for (FloorOverlap overlap : overlaps) {
-			getFloor().getOverlaps().add(overlap);
-		}
+		// ================== Transitory floor overlaps ===================
+		// Keep these separate, so that they can be overlapped after the transitory tiles are rendered
 
-		if (getFloor().getFloorType().isUseMaterialColor()) {
-			Color floorMaterialColor = getFloor().getMaterial().getColor();
-			getFloor().vertexColors[0] = floorMaterialColor;
-			getFloor().vertexColors[1] = floorMaterialColor;
-			getFloor().vertexColors[2] = floorMaterialColor;
-			getFloor().vertexColors[3] = floorMaterialColor;
-		} else {
-			getFloor().vertexColors[0] = getFloor().getFloorType().getColorForHeightValue(vertexNeighboursOfCell[0].getHeightmapValue());
-			getFloor().vertexColors[1] = getFloor().getFloorType().getColorForHeightValue(vertexNeighboursOfCell[1].getHeightmapValue());
-			getFloor().vertexColors[2] = getFloor().getFloorType().getColorForHeightValue(vertexNeighboursOfCell[2].getHeightmapValue());
-			getFloor().vertexColors[3] = getFloor().getFloorType().getColorForHeightValue(vertexNeighboursOfCell[3].getHeightmapValue());
-		}
+
+
 
 		if (hasConstruction()) {
 			if (construction.getConstructionType().equals(ConstructionType.WALL_CONSTRUCTION)) {
 				WallConstruction wallConstruction = (WallConstruction) construction;
 				wallConstruction.setLayout(new WallConstructionLayout(neighbours));
 			}
+		}
+	}
+
+	private void updateFloorOverlaps(TileNeighbours neighbours, MapVertex[] vertexNeighboursOfCell, Function<MapTile, TileFloor> floorFunction) {
+		TileFloor floor = floorFunction.apply(this);
+
+		Set<FloorOverlap> overlaps = new TreeSet<>(new FloorType.FloorDefinitionComparator());
+		int thisLayer = floor.getFloorType().getLayer();
+		if (this.hasWall()) {
+			thisLayer = Integer.MIN_VALUE;
+		}
+		for (MapTile neighbour : neighbours.values()) {
+			TileFloor neighbourFloor = floorFunction.apply(neighbour);
+			if (neighbour.hasFloor() && neighbourFloor.getFloorType().getLayer() > thisLayer) {
+				OverlapLayout layout = OverlapLayout.fromNeighbours(neighbours, neighbourFloor.getFloorType());
+				overlaps.add(new FloorOverlap(layout, neighbourFloor.getFloorType(), neighbourFloor.getMaterial(), vertexNeighboursOfCell));
+			}
+		}
+		floor.getOverlaps().clear();
+		// For sort
+		for (FloorOverlap overlap : overlaps) {
+			floor.getOverlaps().add(overlap);
+		}
+
+		if (floor.getFloorType().isUseMaterialColor()) {
+			Color floorMaterialColor = floor.getMaterial().getColor();
+			floor.vertexColors[0] = floorMaterialColor;
+			floor.vertexColors[1] = floorMaterialColor;
+			floor.vertexColors[2] = floorMaterialColor;
+			floor.vertexColors[3] = floorMaterialColor;
+		} else {
+			floor.vertexColors[0] = floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[0].getHeightmapValue());
+			floor.vertexColors[1] = floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[1].getHeightmapValue());
+			floor.vertexColors[2] = floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[2].getHeightmapValue());
+			floor.vertexColors[3] = floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[3].getHeightmapValue());
 		}
 	}
 

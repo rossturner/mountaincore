@@ -19,6 +19,7 @@ import technology.rocketjump.saul.sprites.TerrainSpriteCache;
 import technology.rocketjump.saul.sprites.model.QuadrantSprites;
 
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 
 public class FloorOverlapRenderer implements Disposable {
@@ -42,15 +43,24 @@ public class FloorOverlapRenderer implements Disposable {
 	}
 
 
-	public void render(List<MapTile> tilesToRender, OrthographicCamera camera, RenderMode renderMode, TerrainSpriteCache spriteCache) {
+	public void render(List<MapTile> tilesToRender, OrthographicCamera camera, RenderMode renderMode, TerrainSpriteCache spriteCache, TerrainRenderer.FloorSource floorSource) {
 		alphaMaskSpriteBatch.setProjectionMatrix(camera.combined);
 		alphaMaskSpriteBatch.begin();
 		alphaMaskSpriteBatch.setColor(Color.WHITE);
 
 		for (MapTile mapTile : tilesToRender) {
-			if (!mapTile.getFloor().getOverlaps().isEmpty()) {
+			List<FloorOverlap> toRender;
+			if (floorSource == TerrainRenderer.FloorSource.ACTUAL) {
+				toRender = mapTile.getActualFloor().getOverlaps();
+			} else if (floorSource == TerrainRenderer.FloorSource.TRANSITORY && mapTile.getTransitoryFloor() != null) {
+				toRender = mapTile.getTransitoryFloor().getOverlaps();
+			} else {
+				toRender = Collections.emptyList();
+			}
 
-				for (FloorOverlap floorOverlap : mapTile.getFloor().getOverlaps()) {
+			if (!toRender.isEmpty()) {
+
+				for (FloorOverlap floorOverlap : toRender) {
 					IntArray overlapQuadrants = overlapQuadrantDictionary.getOverlapQuadrants(floorOverlap.getLayout().getId());
 					QuadrantSprites quadrantAlphaSprites = masksSpriteCache.getMasksForOverlap(floorOverlap.getFloorType().getOverlapType(), floorOverlap.getLayout(), mapTile.getSeed());
 					Sprite overlapSprite = spriteCache.getFloorSpriteForType(floorOverlap.getFloorType(), mapTile.getSeed());
