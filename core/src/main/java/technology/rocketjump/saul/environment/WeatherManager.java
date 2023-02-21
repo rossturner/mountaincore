@@ -15,9 +15,12 @@ import technology.rocketjump.saul.environment.model.WeatherType;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.jobs.model.JobTarget;
+import technology.rocketjump.saul.mapping.MapMessageHandler;
 import technology.rocketjump.saul.mapping.model.TiledMap;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.mapping.tile.TileExploration;
+import technology.rocketjump.saul.mapping.tile.TileNeighbours;
+import technology.rocketjump.saul.mapping.tile.floor.FloorOverlap;
 import technology.rocketjump.saul.mapping.tile.roof.TileRoofState;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
@@ -175,7 +178,27 @@ public class WeatherManager implements Updatable, Telegraph {
 
 						float alpha = Math.min( (m * (float) currentSnow) + c, 1.0f);
 
-						mapTile.setTransitoryFloorAlpha(alpha);
+						if (alpha != mapTile.getTransitoryFloorAlpha()) {
+							mapTile.setTransitoryFloorAlpha(alpha); //TODO: can we defer computation of this to rendering time
+						}
+					}
+
+					TileNeighbours neighbours = gameContext.getAreaMap().getNeighbours(mapTile.getTileX(), mapTile.getTileY());
+					float neighbourAlphas = 0.0f;
+					int neighbourCount = 0;
+					for (MapTile neighbour : neighbours.values()) {
+						if (neighbour.getTransitoryFloor() != null) {
+							neighbourAlphas += neighbour.getTransitoryFloorAlpha();
+							neighbourCount++;
+						}
+					}
+					float averageNeighbourAlpha = neighbourAlphas / neighbourCount;
+					for (FloorOverlap transitoryOverlap : mapTile.getFloor().getTransitoryOverlaps()) {
+						if (snowFloorType.equals(transitoryOverlap.getFloorType())) {
+							for (Color vertexColor : transitoryOverlap.getVertexColors()) {
+								vertexColor.a = averageNeighbourAlpha;
+							}
+						}
 					}
 				}
 			}

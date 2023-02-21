@@ -130,9 +130,6 @@ public class MapTile implements Persistable {
 		// Keep these separate, so that they can be overlapped after the transitory tiles are rendered
 		updateFloorOverlaps(neighbours, vertexNeighboursOfCell, MapTile::getFloor, MapTile::getFloor, TileFloor::getTransitoryOverlaps);
 
-
-
-
 		if (hasConstruction()) {
 			if (construction.getConstructionType().equals(ConstructionType.WALL_CONSTRUCTION)) {
 				WallConstruction wallConstruction = (WallConstruction) construction;
