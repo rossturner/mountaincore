@@ -114,15 +114,17 @@ public class MapTile implements Persistable {
 		}
 
 		// Always update FloorOverlaps for all tiles
+		// ================= Actual Floor Overlaps ================
 		Set<FloorOverlap> overlaps = new TreeSet<>(new FloorType.FloorDefinitionComparator());
-		int thisLayer = getFloor().getFloorType().getLayer();
+		int thisLayer = getActualFloor().getFloorType().getLayer();
 		if (this.hasWall()) {
 			thisLayer = Integer.MIN_VALUE;
 		}
 		for (MapTile neighbour : neighbours.values()) {
-			if (neighbour.hasFloor() && neighbour.getFloor().getFloorType().getLayer() > thisLayer) {
-				OverlapLayout layout = OverlapLayout.fromNeighbours(neighbours, neighbour.getFloor().getFloorType());
-				overlaps.add(new FloorOverlap(layout, neighbour.getFloor().getFloorType(), neighbour.getFloor().getMaterial(), vertexNeighboursOfCell));
+			TileFloor neighbourFloor = neighbour.getActualFloor();
+			if (neighbour.hasFloor() && neighbourFloor.getFloorType().getLayer() > thisLayer) {
+				OverlapLayout layout = OverlapLayout.fromNeighbours(neighbours, neighbourFloor.getFloorType());
+				overlaps.add(new FloorOverlap(layout, neighbourFloor.getFloorType(), neighbourFloor.getMaterial(), vertexNeighboursOfCell));
 			}
 		}
 

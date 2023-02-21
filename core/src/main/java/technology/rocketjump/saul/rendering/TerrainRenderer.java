@@ -66,6 +66,10 @@ public class TerrainRenderer implements Disposable {
 	private ChannelType channelMaskType;
 	private GameMaterial dirtMaterial;
 
+	enum FloorSource {
+		ACTUAL, TRANSITORY
+	}
+
 	@Inject
 	public TerrainRenderer(FloorOverlapRenderer floorOverlapRenderer, WaterRenderer waterRenderer, ChannelTypeDictionary channelTypeDictionary,
 						   GameMaterialDictionary gameMaterialDictionary, DiffuseTerrainSpriteCacheProvider diffuseTerrainSpriteCacheProvider,
@@ -80,18 +84,19 @@ public class TerrainRenderer implements Disposable {
 		this.interactionStateContainer = interactionStateContainer;
 	}
 
-	public void renderFloors(List<MapTile> mapTiles, Camera camera, TerrainSpriteCache spriteCache, RenderMode renderMode) {
+	public void renderFloors(List<MapTile> mapTiles, Camera camera, TerrainSpriteCache spriteCache, RenderMode renderMode, FloorSource floorSource) {
 		vertexColorSpriteBatch.setProjectionMatrix(camera.combined);
 		vertexColorSpriteBatch.enableBlending();
 		vertexColorSpriteBatch.begin();
 		vertexColorSpriteBatch.setColor(Color.WHITE);
 		for (MapTile terrainTile : mapTiles) {
 			if (terrainTile.hasFloor()) {
-				render(terrainTile, vertexColorSpriteBatch, spriteCache, renderMode);
+				render(terrainTile, vertexColorSpriteBatch, spriteCache, renderMode, floorSource);
 			}
 		}
 		vertexColorSpriteBatch.end();
 	}
+
 
 	public void renderChannels(TiledMap map, List<MapTile> terrainTiles, OrthographicCamera camera, TerrainSpriteCache spriteCache, RenderMode renderMode) {
 		List<MapTile> tilesToShowWater = terrainTiles.stream()
@@ -161,7 +166,7 @@ public class TerrainRenderer implements Disposable {
 		vertexColorSpriteBatch.setColor(Color.WHITE);
 		for (MapTile terrainTile : mapTiles) {
 			if (terrainTile.hasWall()) {
-				render(terrainTile, vertexColorSpriteBatch, spriteCache, renderMode);
+				render(terrainTile, vertexColorSpriteBatch, spriteCache, renderMode, FloorSource.ACTUAL); //todo not sure?
 			}
 		}
 		vertexColorSpriteBatch.end();
@@ -196,7 +201,7 @@ public class TerrainRenderer implements Disposable {
 		vertexColorSpriteBatch.end();
 	}
 
-	public void render(MapTile mapTile, VertexColorSpriteBatch vertexColorSpriteBatch, TerrainSpriteCache spriteCache, RenderMode renderMode) {
+	public void render(MapTile mapTile, VertexColorSpriteBatch vertexColorSpriteBatch, TerrainSpriteCache spriteCache, RenderMode renderMode, FloorSource floorSource) {
 
 		if (mapTile.hasWall()) {
 			Wall wall = mapTile.getWall();
@@ -218,33 +223,37 @@ public class TerrainRenderer implements Disposable {
 				setColor(vertexColorSpriteBatch, mapTile);
 			}
 
-			TileFloor floor = mapTile.getActualFloor();
-			Sprite spriteForFloor = spriteCache.getFloorSpriteForType(floor.getFloorType(), mapTile.getSeed());
-			if (renderMode.equals(RenderMode.DIFFUSE)) {
-				vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, floor.getVertexColors());
-			} else {
-				vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT);
-			}
-
-			//Overlay transitory floor, like snow covering
-			TileFloor transitoryFloor = mapTile.getTransitoryFloor();
-			if (transitoryFloor != null) {
-				Sprite spriteForTransitoryFloor = spriteCache.getFloorSpriteForType(transitoryFloor.getFloorType(), mapTile.getSeed());
-
-				Color[] floorColors = Arrays.stream(transitoryFloor.vertexColors)
-						.map(c -> {
-							Color semiTransparentColor = c.cpy();
-							semiTransparentColor.a = mapTile.getTransitoryFloorAlpha();
-							return semiTransparentColor;
-						})
-						.toArray(Color[]::new);
-
+			if (floorSource == FloorSource.ACTUAL) {
+				TileFloor floor = mapTile.getActualFloor();
+				Sprite spriteForFloor = spriteCache.getFloorSpriteForType(floor.getFloorType(), mapTile.getSeed());
 				if (renderMode.equals(RenderMode.DIFFUSE)) {
-					vertexColorSpriteBatch.draw(spriteForTransitoryFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, floorColors);
+					vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, floor.getVertexColors());
 				} else {
-					vertexColorSpriteBatch.draw(spriteForTransitoryFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT);
+					vertexColorSpriteBatch.draw(spriteForFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT);
+				}
+			} else if (floorSource == FloorSource.TRANSITORY) {
+				//Overlay transitory floor, like snow covering
+				TileFloor transitoryFloor = mapTile.getTransitoryFloor();
+				if (transitoryFloor != null) {
+					Sprite spriteForTransitoryFloor = spriteCache.getFloorSpriteForType(transitoryFloor.getFloorType(), mapTile.getSeed());
+
+					Color[] floorColors = Arrays.stream(transitoryFloor.vertexColors)
+							.map(c -> {
+								Color semiTransparentColor = c.cpy();
+								semiTransparentColor.a = mapTile.getTransitoryFloorAlpha();
+								return semiTransparentColor;
+							})
+							.toArray(Color[]::new);
+
+					if (renderMode.equals(RenderMode.DIFFUSE)) {
+						vertexColorSpriteBatch.draw(spriteForTransitoryFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, floorColors);
+					} else {
+						vertexColorSpriteBatch.draw(spriteForTransitoryFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT);
+					}
 				}
 			}
+
+
 
 		}
 	}
