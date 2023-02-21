@@ -26,6 +26,7 @@ public class TileFloor implements ChildPersistable {
 	private BridgeTile bridgeTile;
 
 	private final List<FloorOverlap> overlaps = new ArrayList<>();
+	private final List<FloorOverlap> transitoryOverlaps = new ArrayList<>();
 
 	public final Color[] vertexColors = new Color[4]; // Affected by floor/wall type
 
@@ -60,6 +61,10 @@ public class TileFloor implements ChildPersistable {
 
 	public List<FloorOverlap> getOverlaps() {
 		return overlaps;
+	}
+
+	public List<FloorOverlap> getTransitoryOverlaps() {
+		return transitoryOverlaps;
 	}
 
 	public GameMaterial getMaterial() {
@@ -133,6 +138,17 @@ public class TileFloor implements ChildPersistable {
 			asJson.put("overlaps", overlapsJson);
 		}
 
+
+		if (!transitoryOverlaps.isEmpty()) {
+			JSONArray transitoryOverlapsJson = new JSONArray();
+			for (FloorOverlap overlap : transitoryOverlaps) {
+				JSONObject overlapJson = new JSONObject(true);
+				overlap.writeTo(overlapJson, savedGameStateHolder);
+				transitoryOverlapsJson.add(overlapJson);
+			}
+			asJson.put("transitoryOverlaps", transitoryOverlapsJson);
+		}
+
 		if (vertexColors[0].equals(vertexColors[1]) && vertexColors[0].equals(vertexColors[2]) && vertexColors[0].equals(vertexColors[3])) {
 			// All vertexColors are same
 			if (!vertexColors[0].equals(Color.WHITE)) {
@@ -182,6 +198,16 @@ public class TileFloor implements ChildPersistable {
 				FloorOverlap overlap = new FloorOverlap();
 				overlap.readFrom(overlapJson, savedGameStateHolder, relatedStores);
 				this.overlaps.add(overlap);
+			}
+		}
+
+		JSONArray transitoryOverlaps = asJson.getJSONArray("transitoryOverlaps");
+		if (transitoryOverlaps != null) {
+			for (int cursor = 0; cursor < transitoryOverlaps.size(); cursor++) {
+				JSONObject overlapJson = transitoryOverlaps.getJSONObject(cursor);
+				FloorOverlap overlap = new FloorOverlap();
+				overlap.readFrom(overlapJson, savedGameStateHolder, relatedStores);
+				this.transitoryOverlaps.add(overlap);
 			}
 		}
 

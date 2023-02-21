@@ -116,10 +116,19 @@ public class MapTile implements Persistable {
 
 		// Always update FloorOverlaps for all tiles
 		// ================= Actual Floor Overlaps ================
-		updateFloorOverlaps(neighbours, vertexNeighboursOfCell, MapTile::getActualFloor);
+		for (TileFloor floor : floors) {
+			floor.getOverlaps().clear();
+			floor.getTransitoryOverlaps().clear();
+		}
+		if (getTransitoryFloor() != null) {
+			getTransitoryFloor().getOverlaps().clear();
+			getTransitoryFloor().getTransitoryOverlaps().clear();
+		}
+		updateFloorOverlaps(neighbours, vertexNeighboursOfCell, MapTile::getActualFloor, MapTile::getActualFloor, TileFloor::getOverlaps);
 
 		// ================== Transitory floor overlaps ===================
 		// Keep these separate, so that they can be overlapped after the transitory tiles are rendered
+		updateFloorOverlaps(neighbours, vertexNeighboursOfCell, MapTile::getFloor, MapTile::getFloor, TileFloor::getTransitoryOverlaps);
 
 
 
@@ -132,8 +141,11 @@ public class MapTile implements Persistable {
 		}
 	}
 
-	private void updateFloorOverlaps(TileNeighbours neighbours, MapVertex[] vertexNeighboursOfCell, Function<MapTile, TileFloor> floorFunction) {
-		TileFloor floor = floorFunction.apply(this);
+	private void updateFloorOverlaps(TileNeighbours neighbours, MapVertex[] vertexNeighboursOfCell,
+									 Function<MapTile, TileFloor> myFloorFunction, Function<MapTile, TileFloor> neighbourFloorFunction,
+									 Function<TileFloor, List<FloorOverlap>> overlapFunction) {
+		TileFloor floor = myFloorFunction.apply(this);
+		List<FloorOverlap> toReplace = overlapFunction.apply(floor);
 
 		Set<FloorOverlap> overlaps = new TreeSet<>(new FloorType.FloorDefinitionComparator());
 		int thisLayer = floor.getFloorType().getLayer();
@@ -141,17 +153,14 @@ public class MapTile implements Persistable {
 			thisLayer = Integer.MIN_VALUE;
 		}
 		for (MapTile neighbour : neighbours.values()) {
-			TileFloor neighbourFloor = floorFunction.apply(neighbour);
-			if (neighbour.hasFloor() && neighbourFloor.getFloorType().getLayer() > thisLayer) {
+			TileFloor neighbourFloor = neighbourFloorFunction.apply(neighbour);
+			if (neighbourFloor != null && neighbour.hasFloor() && neighbourFloor.getFloorType().getLayer() > thisLayer) {
 				OverlapLayout layout = OverlapLayout.fromNeighbours(neighbours, neighbourFloor.getFloorType());
 				overlaps.add(new FloorOverlap(layout, neighbourFloor.getFloorType(), neighbourFloor.getMaterial(), vertexNeighboursOfCell));
 			}
 		}
-		floor.getOverlaps().clear();
-		// For sort
-		for (FloorOverlap overlap : overlaps) {
-			floor.getOverlaps().add(overlap);
-		}
+		toReplace.clear();
+		toReplace.addAll(overlaps);
 
 		if (floor.getFloorType().isUseMaterialColor()) {
 			Color floorMaterialColor = floor.getMaterial().getColor();

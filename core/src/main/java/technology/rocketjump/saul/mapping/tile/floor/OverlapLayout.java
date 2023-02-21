@@ -48,7 +48,11 @@ public class OverlapLayout {
 		int layoutId = 0;
 		for (Map.Entry<CompassDirection, MapTile> entry : neighbours.entrySet()) {
 			if (entry.getValue() != null && entry.getValue().hasFloor()
-					&& entry.getValue().getActualFloor().getFloorType().getFloorTypeId() == targetType.getFloorTypeId()) {
+					&& (
+							entry.getValue().getFloor().getFloorType().getFloorTypeId() == targetType.getFloorTypeId()
+							|| entry.getValue().getActualFloor().getFloorType().getFloorTypeId() == targetType.getFloorTypeId()
+						)
+			) {
 				layoutId |= entry.getKey().getBinaryMask();
 			}
 		}

@@ -52,8 +52,8 @@ public class FloorOverlapRenderer implements Disposable {
 			List<FloorOverlap> toRender;
 			if (floorSource == TerrainRenderer.FloorSource.ACTUAL) {
 				toRender = mapTile.getActualFloor().getOverlaps();
-			} else if (floorSource == TerrainRenderer.FloorSource.TRANSITORY && mapTile.getTransitoryFloor() != null) {
-				toRender = mapTile.getTransitoryFloor().getOverlaps();
+			} else if (floorSource == TerrainRenderer.FloorSource.TRANSITORY) {
+				toRender = mapTile.getActualFloor().getTransitoryOverlaps();
 			} else {
 				toRender = Collections.emptyList();
 			}
