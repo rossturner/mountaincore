@@ -165,11 +165,10 @@ public class WeatherManager implements Updatable, Telegraph {
 
 
 
+		TiledMap areaMap = gameContext.getAreaMap();
 		for (int percentile = 0; percentile <= 100; percentile++) { //TODO: optimize me
-			TiledMap areaMap = gameContext.getAreaMap();
 			for (MapTile mapTile : areaMap.getTilesForPercentile(percentile)) {
 				if (mapTile.getTransitoryFloor() != null && mapTile.getTransitoryFloor().getFloorType().equals(snowFloorType)) {
-
 					//Mike: I'm a math newbie, but this is `y = mx + c`
 					float x1 = percentile / 100.0f;
 					float x2 = 1.0f;
@@ -188,8 +187,13 @@ public class WeatherManager implements Updatable, Telegraph {
 					}
 				}
 			}
+		}
 
-			for (MapTile mapTile : areaMap.getTilesForPercentile(percentile)) {
+
+		for (int y = 0; y < areaMap.getHeight(); y++) {
+			for (int x = 0; x < areaMap.getWidth(); x++) {
+				MapTile mapTile = areaMap.getTile(x, y);
+
 				TileFloor transitoryFloor = mapTile.getTransitoryFloor();
 				EnumMap<CompassDirection, MapVertex> vertices = areaMap.getVertexNeighboursOfCell(mapTile);
 
@@ -208,31 +212,29 @@ public class WeatherManager implements Updatable, Telegraph {
 					bottomRight.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.SOUTH_EAST)).values());
 				}
 
+
+
 				//TODO: calc overlaps properly too
 				for (FloorOverlap transitoryOverlap : mapTile.getFloor().getTransitoryOverlaps()) {
 					if (snowFloorType.equals(transitoryOverlap.getFloorType())) {
-
-
 						Color[] vertexColors = transitoryOverlap.getVertexColors();
 						Color bottomLeft = vertexColors[0];
 						Color topLeft = vertexColors[1];
 						Color topRight = vertexColors[2];
 						Color bottomRight = vertexColors[3];
 
+
+
 						bottomLeft.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.SOUTH_WEST)).values());
 						topLeft.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.NORTH_WEST)).values());
 						topRight.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.NORTH_EAST)).values());
 						bottomRight.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.SOUTH_EAST)).values());
+
+						topLeft.a = 1; topLeft.r = 1; topLeft.g = 0; topLeft.b = 0;
 					}
 				}
 			}
 		}
-
-
-
-
-
-
 
 
 		gameContext.getMapEnvironment().setFallenSnow(newSnow);
@@ -243,8 +245,11 @@ public class WeatherManager implements Updatable, Telegraph {
 		int count = 0;
 		for (MapTile mapTile : mapTiles) {
 			if (mapTile != null) {
-				acc = acc.add(BigDecimal.valueOf(mapTile.getTransitoryFloorAlpha()));
-				count++;
+				float transitoryFloorAlpha = mapTile.getTransitoryFloorAlpha();
+				acc = acc.add(BigDecimal.valueOf(transitoryFloorAlpha));
+				if (transitoryFloorAlpha > 0) {
+					count++;
+				}
 			}
 		}
 

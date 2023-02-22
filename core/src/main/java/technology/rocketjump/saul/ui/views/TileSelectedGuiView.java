@@ -13,6 +13,7 @@ import com.ray3k.tenpatch.TenPatchDrawable;
 import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.mapping.tile.MapTile;
+import technology.rocketjump.saul.mapping.tile.floor.FloorOverlap;
 import technology.rocketjump.saul.mapping.tile.underground.UnderTile;
 import technology.rocketjump.saul.production.StockpileAllocation;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
@@ -21,6 +22,8 @@ import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+
+import java.util.List;
 
 import static technology.rocketjump.saul.mapping.tile.TileExploration.EXPLORED;
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.TILE;
@@ -132,6 +135,12 @@ public class TileSelectedGuiView implements GuiView {
 					descriptionTable.add(new Label("Region: " + tile.getRegionId(), devModeLabelStyle)).center().row();
 					descriptionTable.add(new Label("Transitory Alpha: " + tile.getTransitoryFloorAlpha(), devModeLabelStyle)).center().row();
 					descriptionTable.add(new Label("Verticies: " + StringUtils.join(tile.getFloor().getVertexColors(), ", "), devModeLabelStyle)).center().row();
+
+					List<FloorOverlap> transitoryOverlaps = tile.getFloor().getTransitoryOverlaps();
+					for (FloorOverlap overlap : transitoryOverlaps) {
+
+						descriptionTable.add(new Label( overlap.getMaterial().toString() + " overlap verticies: " + StringUtils.join(overlap.getVertexColors(), ", "), devModeLabelStyle)).center().row();
+					}
 					descriptionTable.add(new Label("Zones: " + StringUtils.join(tile.getZones(), ", "), devModeLabelStyle)).center().row();
 					if (tile.getUnderTile() != null) {
 						descriptionTable.add(new Label("UnderTile: " + tile.getUnderTile().toString(), devModeLabelStyle)).center().row();
