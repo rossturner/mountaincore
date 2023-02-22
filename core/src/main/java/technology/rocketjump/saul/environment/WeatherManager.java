@@ -5,6 +5,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import technology.rocketjump.saul.assets.FloorTypeDictionary;
 import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.audio.model.SoundAsset;
@@ -17,10 +18,9 @@ import technology.rocketjump.saul.gamecontext.Updatable;
 import technology.rocketjump.saul.jobs.model.JobTarget;
 import technology.rocketjump.saul.mapping.MapMessageHandler;
 import technology.rocketjump.saul.mapping.model.TiledMap;
-import technology.rocketjump.saul.mapping.tile.MapTile;
-import technology.rocketjump.saul.mapping.tile.TileExploration;
-import technology.rocketjump.saul.mapping.tile.TileNeighbours;
+import technology.rocketjump.saul.mapping.tile.*;
 import technology.rocketjump.saul.mapping.tile.floor.FloorOverlap;
+import technology.rocketjump.saul.mapping.tile.floor.TileFloor;
 import technology.rocketjump.saul.mapping.tile.roof.TileRoofState;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
@@ -33,9 +33,9 @@ import technology.rocketjump.saul.particles.model.ParticleEffectType;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Singleton
@@ -161,50 +161,98 @@ public class WeatherManager implements Updatable, Telegraph {
 					removeSnowFromGround(percentileToRemove);
 				}
 			}
-
-			for (int percentile = 0; percentile < 100; percentile++) { //TODO: optimize me
-				for (MapTile mapTile : gameContext.getAreaMap().getTilesForPercentile(percentile)) {
-					if (mapTile.getTransitoryFloor() != null && mapTile.getTransitoryFloor().getFloorType().equals(snowFloorType)) {
-
-						//Mike: I'm a math newbie, but this is `y = mx + c`
-						float x1 = percentile / 100.0f;
-						float x2 = 1.0f;
-						float y1 = 0;
-						float y2 = 1.0f;
-
-						float m = (y2 - y1) / (x2 - x1);
-						float c = y2 - (m * x2);
+		}
 
 
-						float alpha = Math.min( (m * (float) currentSnow) + c, 1.0f);
 
-						if (alpha != mapTile.getTransitoryFloorAlpha()) {
-							mapTile.setTransitoryFloorAlpha(alpha); //TODO: can we defer computation of this to rendering time
-						}
+		for (int percentile = 0; percentile <= 100; percentile++) { //TODO: optimize me
+			TiledMap areaMap = gameContext.getAreaMap();
+			for (MapTile mapTile : areaMap.getTilesForPercentile(percentile)) {
+				if (mapTile.getTransitoryFloor() != null && mapTile.getTransitoryFloor().getFloorType().equals(snowFloorType)) {
+
+					//Mike: I'm a math newbie, but this is `y = mx + c`
+					float x1 = percentile / 100.0f;
+					float x2 = 1.0f;
+					float y1 = 0;
+					float y2 = 1.0f;
+
+					float m = (y2 - y1) / (x2 - x1);
+					float c = y2 - (m * x2);
+
+					BigDecimal bd = BigDecimal.valueOf((m * currentSnow) + c);
+					bd = bd.setScale(2, RoundingMode.HALF_UP);
+					float alpha = bd.floatValue();
+
+					if (alpha != mapTile.getTransitoryFloorAlpha()) {
+						mapTile.setTransitoryFloorAlpha(alpha); //TODO: can we defer computation of this to rendering time
 					}
+				}
+			}
 
-					TileNeighbours neighbours = gameContext.getAreaMap().getNeighbours(mapTile.getTileX(), mapTile.getTileY());
-					float neighbourAlphas = 0.0f;
-					int neighbourCount = 0;
-					for (MapTile neighbour : neighbours.values()) {
-						if (neighbour.getTransitoryFloor() != null) {
-							neighbourAlphas += neighbour.getTransitoryFloorAlpha();
-							neighbourCount++;
-						}
-					}
-					float averageNeighbourAlpha = neighbourAlphas / neighbourCount;
-					for (FloorOverlap transitoryOverlap : mapTile.getFloor().getTransitoryOverlaps()) {
-						if (snowFloorType.equals(transitoryOverlap.getFloorType())) {
-							for (Color vertexColor : transitoryOverlap.getVertexColors()) {
-								vertexColor.a = averageNeighbourAlpha;
-							}
-						}
+			for (MapTile mapTile : areaMap.getTilesForPercentile(percentile)) {
+				TileFloor transitoryFloor = mapTile.getTransitoryFloor();
+				EnumMap<CompassDirection, MapVertex> vertices = areaMap.getVertexNeighboursOfCell(mapTile);
+
+				if (transitoryFloor != null && transitoryFloor.getFloorType().equals(snowFloorType)) {
+					//set the alphas based on neighbours
+					Color[] vertexColors = transitoryFloor.getVertexColors();
+					Color bottomLeft = vertexColors[0];
+					Color topLeft = vertexColors[1];
+					Color topRight = vertexColors[2];
+					Color bottomRight = vertexColors[3];
+
+
+					bottomLeft.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.SOUTH_WEST)).values());
+					topLeft.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.NORTH_WEST)).values());
+					topRight.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.NORTH_EAST)).values());
+					bottomRight.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.SOUTH_EAST)).values());
+				}
+
+				//TODO: calc overlaps properly too
+				for (FloorOverlap transitoryOverlap : mapTile.getFloor().getTransitoryOverlaps()) {
+					if (snowFloorType.equals(transitoryOverlap.getFloorType())) {
+
+
+						Color[] vertexColors = transitoryOverlap.getVertexColors();
+						Color bottomLeft = vertexColors[0];
+						Color topLeft = vertexColors[1];
+						Color topRight = vertexColors[2];
+						Color bottomRight = vertexColors[3];
+
+						bottomLeft.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.SOUTH_WEST)).values());
+						topLeft.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.NORTH_WEST)).values());
+						topRight.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.NORTH_EAST)).values());
+						bottomRight.a = averageAlphas(areaMap.getTileNeighboursOfVertex(vertices.get(CompassDirection.SOUTH_EAST)).values());
 					}
 				}
 			}
 		}
 
+
+
+
+
+
+
+
 		gameContext.getMapEnvironment().setFallenSnow(newSnow);
+	}
+
+	private float averageAlphas(Collection<MapTile> mapTiles) {
+		BigDecimal acc = BigDecimal.ZERO;
+		int count = 0;
+		for (MapTile mapTile : mapTiles) {
+			if (mapTile != null) {
+				acc = acc.add(BigDecimal.valueOf(mapTile.getTransitoryFloorAlpha()));
+				count++;
+			}
+		}
+
+		if (count > 0) {
+			return acc.divide(BigDecimal.valueOf(count), RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP).floatValue();
+		} else {
+			return 0.0f;
+		}
 	}
 
 	private void addSnowToGround(int percentileToAdd) {

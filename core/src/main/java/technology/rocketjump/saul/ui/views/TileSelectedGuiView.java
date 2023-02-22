@@ -130,6 +130,8 @@ public class TileSelectedGuiView implements GuiView {
 					descriptionTable.add(new Label("Location: " + tile.getTilePosition(), devModeLabelStyle)).center().row();
 					descriptionTable.add(new Label("Roof: " + tile.getRoof().getState(), devModeLabelStyle)).center().row();
 					descriptionTable.add(new Label("Region: " + tile.getRegionId(), devModeLabelStyle)).center().row();
+					descriptionTable.add(new Label("Transitory Alpha: " + tile.getTransitoryFloorAlpha(), devModeLabelStyle)).center().row();
+					descriptionTable.add(new Label("Verticies: " + StringUtils.join(tile.getFloor().getVertexColors(), ", "), devModeLabelStyle)).center().row();
 					descriptionTable.add(new Label("Zones: " + StringUtils.join(tile.getZones(), ", "), devModeLabelStyle)).center().row();
 					if (tile.getUnderTile() != null) {
 						descriptionTable.add(new Label("UnderTile: " + tile.getUnderTile().toString(), devModeLabelStyle)).center().row();

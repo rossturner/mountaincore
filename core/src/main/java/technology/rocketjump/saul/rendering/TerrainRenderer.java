@@ -237,13 +237,7 @@ public class TerrainRenderer implements Disposable {
 				if (transitoryFloor != null) {
 					Sprite spriteForTransitoryFloor = spriteCache.getFloorSpriteForType(transitoryFloor.getFloorType(), mapTile.getSeed());
 
-					Color[] floorColors = Arrays.stream(transitoryFloor.vertexColors)
-							.map(c -> {
-								Color semiTransparentColor = c.cpy();
-								semiTransparentColor.a = mapTile.getTransitoryFloorAlpha();
-								return semiTransparentColor;
-							})
-							.toArray(Color[]::new);
+					Color[] floorColors = transitoryFloor.getVertexColors();
 
 					if (renderMode.equals(RenderMode.DIFFUSE)) {
 						vertexColorSpriteBatch.draw(spriteForTransitoryFloor, mapTile.getTileX(), mapTile.getTileY(), TILE_WIDTH_HEIGHT, TILE_WIDTH_HEIGHT, floorColors);
