@@ -27,6 +27,7 @@ public class MapVertex implements Persistable {
 	private final int vertexX;
 	private final int vertexY;
 	private float explorationVisibility = 0f; // 0 to 1 for unexplored to explored
+	private float transitoryFloorAlpha;
 
 	public MapVertex(int vertexX, int vertexY) {
 		this.vertexX = vertexX;
@@ -95,6 +96,14 @@ public class MapVertex implements Persistable {
 		this.averageWaterDepth = averageWaterDepth;
 	}
 
+	public float getTransitoryFloorAlpha() {
+		return transitoryFloorAlpha;
+	}
+
+	public void setTransitoryFloorAlpha(float transitoryFloorAlpha) {
+		this.transitoryFloorAlpha = transitoryFloorAlpha;
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		// Not checking if this is already in stateHolder
@@ -117,6 +126,10 @@ public class MapVertex implements Persistable {
 			asJson.put("exploration", explorationVisibility);
 		}
 
+		if (transitoryFloorAlpha > 0) {
+			asJson.put("transitoryFloorAlpha", transitoryFloorAlpha);
+		}
+
 
 		savedGameStateHolder.vertices.put(new GridPoint2(vertexX, vertexY), this);
 		savedGameStateHolder.vertexJson.add(asJson);
@@ -133,7 +146,9 @@ public class MapVertex implements Persistable {
 		this.averageWaterDepth = asJson.getFloatValue("depth");
 
 		this.explorationVisibility = asJson.getFloatValue("exploration");
+		this.transitoryFloorAlpha = asJson.getFloatValue("transitoryFloorAlpha");
 
 		savedGameStateHolder.vertices.put(new GridPoint2(vertexX, vertexY), this);
 	}
+
 }

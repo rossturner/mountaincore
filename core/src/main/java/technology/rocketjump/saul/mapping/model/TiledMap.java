@@ -63,7 +63,7 @@ public class TiledMap {
 			for (int y = 0; y < height; y++) {
 				MapTile mapTile = new MapTile(random.nextLong(), x, y, defaultFloor, defaultFloorMaterial);
 				column.add(mapTile);
-				tilesByPercentile.computeIfAbsent((int)Math.abs(mapTile.getSeed() % 100), a -> new ArrayList<>()).add(mapTile);
+				tilesByPercentile.computeIfAbsent(mapTile.getTilePercentile(), a -> new ArrayList<>()).add(mapTile);
 				vertexColumn.add(new MapVertex(x, y));
 			}
 			vertexColumn.add(new MapVertex(x, height));

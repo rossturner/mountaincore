@@ -69,8 +69,8 @@ public class MapTile implements Persistable {
 	private TileRoof roof;
 	private Wall wall = null;
 	private Doorway doorway = null;
+	private final int tilePercentile;
 	//A temporary overlapping floor, like snow covered ground. This is separate for rendering on top of the floor, with effects like transparency
-	private float transitoryFloorAlpha = 0.0f;
 	private TileFloor transitoryFloor = null;
 	private final Deque<TileFloor> floors = new ArrayDeque<>();
 	private UnderTile underTile;
@@ -85,6 +85,7 @@ public class MapTile implements Persistable {
 
 	public MapTile(long seed, int tileX, int tileY, FloorType floorType, GameMaterial floorMaterial) {
 		this.seed = seed;
+		this.tilePercentile = (int) Math.abs(seed % 100);
 		this.tilePosition = new GridPoint2(tileX, tileY);
 		floors.push(new TileFloor(floorType, floorMaterial));
 		this.roof = new TileRoof();
@@ -277,6 +278,10 @@ public class MapTile implements Persistable {
 
 	public long getSeed() {
 		return seed;
+	}
+
+	public int getTilePercentile() {
+		return tilePercentile;
 	}
 
 	public TileFloor getActualFloor() {
@@ -546,8 +551,6 @@ public class MapTile implements Persistable {
 		roof.writeTo(roofJson, savedGameStateHolder);
 		asJson.put("roof", roofJson);
 
-		asJson.put("transitoryFloorAlpha", transitoryFloorAlpha);
-
 		if (transitoryFloor != null) {
 			JSONObject floorJson = new JSONObject(true);
 			transitoryFloor.writeTo(floorJson, savedGameStateHolder);
@@ -634,8 +637,6 @@ public class MapTile implements Persistable {
 			// Old save version
 			throw new InvalidSaveException("Map tile roof is old version");
 		}
-
-		transitoryFloorAlpha = asJson.getFloatValue("transitoryFloorAlpha");
 
 		JSONObject transitoryFloorJson = asJson.getJSONObject("transitoryFloor");
 		if (transitoryFloorJson != null) {
@@ -746,13 +747,18 @@ public class MapTile implements Persistable {
 		this.transitoryFloor = null;
 	}
 
+	//TODO: this feels out of place now
+	public float getTransitoryFloorAlpha(double val) { //slow due to big decimal
+		//Mike: I'm a math newbie, but this is `y = mx + c`
+		float x1 = tilePercentile / 100.0f;
+		float x2 = 1.0f;
+		float y1 = 0;
+		float y2 = 1.0f;
 
-	public float getTransitoryFloorAlpha() {
-		return transitoryFloorAlpha;
-	}
+		float m = (y2 - y1) / (x2 - x1);
+		float c = y2 - (m * x2);
 
-	public void setTransitoryFloorAlpha(float transitoryFloorAlpha) {
-		this.transitoryFloorAlpha = transitoryFloorAlpha;
+		return (m * (float) val) + c;
 	}
 
 	public UnderTile getUnderTile() {
