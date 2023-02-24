@@ -30,6 +30,7 @@ import java.util.List;
 public class FloorOverlapRenderer implements Disposable, GameContextAware {
 
 	public static final Color[] WHITE_ARRAY = {Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE};
+	public static final Color[] WHITE_QUADRANT_COLORS = {Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE};
 	private final AlphaMaskSpriteBatch alphaMaskSpriteBatch = new AlphaMaskSpriteBatch();
 	private final DualAlphaMaskSpriteBatch dualAlphaMaskSpriteBatch = new DualAlphaMaskSpriteBatch();
 
@@ -55,7 +56,10 @@ public class FloorOverlapRenderer implements Disposable, GameContextAware {
 		alphaMaskSpriteBatch.setColor(Color.WHITE);
 
 		for (MapTile mapTile : tilesToRender) {
+			MapVertex[] vertices = gameContext.getAreaMap().getVertices(mapTile.getTileX(), mapTile.getTileY());
 			List<FloorOverlap> toRender;
+
+
 			if (floorSource == TerrainRenderer.FloorSource.ACTUAL) {
 				toRender = mapTile.getActualFloor().getOverlaps();
 			} else if (floorSource == TerrainRenderer.FloorSource.TRANSITORY) {
@@ -65,7 +69,6 @@ public class FloorOverlapRenderer implements Disposable, GameContextAware {
 			}
 
 			if (!toRender.isEmpty()) {
-
 				for (FloorOverlap floorOverlap : toRender) {
 					IntArray overlapQuadrants = overlapQuadrantDictionary.getOverlapQuadrants(floorOverlap.getLayout().getId());
 					QuadrantSprites quadrantAlphaSprites = masksSpriteCache.getMasksForOverlap(floorOverlap.getFloorType().getOverlapType(), floorOverlap.getLayout(), mapTile.getSeed());
@@ -75,10 +78,10 @@ public class FloorOverlapRenderer implements Disposable, GameContextAware {
 					if (renderMode.equals(RenderMode.DIFFUSE)) {
 						alphaMaskSpriteBatch.setColors(vertexColors);
 					} else {
-						alphaMaskSpriteBatch.setColors(new Color[] {Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE});
+						alphaMaskSpriteBatch.setColors(WHITE_QUADRANT_COLORS);
 					}
 
-					MapVertex[] vertices = gameContext.getAreaMap().getVertices(mapTile.getTileX(), mapTile.getTileY());
+
 
 					float bottomLeft = vertices[0].getTransitoryFloorAlpha();
 					float topLeft = vertices[1].getTransitoryFloorAlpha();

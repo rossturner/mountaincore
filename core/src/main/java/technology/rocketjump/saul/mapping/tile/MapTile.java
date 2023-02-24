@@ -129,7 +129,7 @@ public class MapTile implements Persistable {
 
 		// ================== Transitory floor overlaps ===================
 		// Keep these separate, so that they can be overlapped after the transitory tiles are rendered
-		updateFloorOverlaps(neighbours, vertexNeighboursOfCell, MapTile::getFloor, MapTile::getFloor, TileFloor::getTransitoryOverlaps);
+		updateFloorOverlaps(neighbours, vertexNeighboursOfCell, MapTile::getFloor, MapTile::getTransitoryFloor, TileFloor::getTransitoryOverlaps);
 
 		if (hasConstruction()) {
 			if (construction.getConstructionType().equals(ConstructionType.WALL_CONSTRUCTION)) {
@@ -162,15 +162,14 @@ public class MapTile implements Persistable {
 
 		if (floor.getFloorType().isUseMaterialColor()) {
 			Color floorMaterialColor = floor.getMaterial().getColor();
-			floor.vertexColors[0] = floorMaterialColor;
-			floor.vertexColors[1] = floorMaterialColor;
-			floor.vertexColors[2] = floorMaterialColor;
-			floor.vertexColors[3] = floorMaterialColor;
+			floor.setVertexColors(floorMaterialColor, floorMaterialColor, floorMaterialColor, floorMaterialColor);
 		} else {
-			floor.vertexColors[0] = floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[0].getHeightmapValue());
-			floor.vertexColors[1] = floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[1].getHeightmapValue());
-			floor.vertexColors[2] = floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[2].getHeightmapValue());
-			floor.vertexColors[3] = floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[3].getHeightmapValue());
+			floor.setVertexColors(
+				floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[0].getHeightmapValue()),
+				floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[1].getHeightmapValue()),
+				floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[2].getHeightmapValue()),
+				floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[3].getHeightmapValue())
+			);
 		}
 	}
 

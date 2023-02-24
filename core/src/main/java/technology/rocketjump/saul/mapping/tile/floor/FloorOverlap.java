@@ -29,15 +29,14 @@ public class FloorOverlap implements ChildPersistable {
 
 		if (floorType.isUseMaterialColor()) {
 			Color floorMaterialColor = material.getColor();
-			vertexColors[0] = floorMaterialColor;
-			vertexColors[1] = floorMaterialColor;
-			vertexColors[2] = floorMaterialColor;
-			vertexColors[3] = floorMaterialColor;
+			setVertexColors(floorMaterialColor, floorMaterialColor, floorMaterialColor, floorMaterialColor);
 		} else {
-			vertexColors[0] = floorType.getColorForHeightValue(vertexNeighboursOfCell[0].getHeightmapValue());
-			vertexColors[1] = floorType.getColorForHeightValue(vertexNeighboursOfCell[1].getHeightmapValue());
-			vertexColors[2] = floorType.getColorForHeightValue(vertexNeighboursOfCell[2].getHeightmapValue());
-			vertexColors[3] = floorType.getColorForHeightValue(vertexNeighboursOfCell[3].getHeightmapValue());
+			setVertexColors(
+					floorType.getColorForHeightValue(vertexNeighboursOfCell[0].getHeightmapValue()),
+					floorType.getColorForHeightValue(vertexNeighboursOfCell[1].getHeightmapValue()),
+					floorType.getColorForHeightValue(vertexNeighboursOfCell[2].getHeightmapValue()),
+					floorType.getColorForHeightValue(vertexNeighboursOfCell[3].getHeightmapValue())
+			);
 		}
 	}
 
@@ -56,6 +55,14 @@ public class FloorOverlap implements ChildPersistable {
 	public Color[] getVertexColors() {
 		return vertexColors;
 	}
+
+	public void setVertexColors(Color first, Color second, Color third, Color fourth) {
+		vertexColors[0] = first.cpy();
+		vertexColors[1] = second.cpy();
+		vertexColors[2] = third.cpy();
+		vertexColors[3] = fourth.cpy();
+	}
+
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
@@ -87,16 +94,15 @@ public class FloorOverlap implements ChildPersistable {
 
 		String singleColorHex = asJson.getString("color");
 		if (singleColorHex == null) {
-			vertexColors[0] = HexColors.get(asJson.getString("color0"));
-			vertexColors[1] = HexColors.get(asJson.getString("color1"));
-			vertexColors[2] = HexColors.get(asJson.getString("color2"));
-			vertexColors[3] = HexColors.get(asJson.getString("color3"));
+			setVertexColors(
+					HexColors.get(asJson.getString("color0")),
+					HexColors.get(asJson.getString("color1")),
+					HexColors.get(asJson.getString("color2")),
+					HexColors.get(asJson.getString("color3"))
+			);
 		} else {
 			Color singleColor = HexColors.get(singleColorHex);
-			vertexColors[0] = singleColor;
-			vertexColors[1] = singleColor;
-			vertexColors[2] = singleColor;
-			vertexColors[3] = singleColor;
+			setVertexColors(singleColor, singleColor, singleColor, singleColor);
 		}
 	}
 }

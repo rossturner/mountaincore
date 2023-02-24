@@ -28,23 +28,16 @@ public class TileFloor implements ChildPersistable {
 	private final List<FloorOverlap> overlaps = new ArrayList<>();
 	private final List<FloorOverlap> transitoryOverlaps = new ArrayList<>();
 
-	public final Color[] vertexColors = new Color[4]; // Affected by floor/wall type
+	private final Color[] vertexColors = new Color[4]; // Affected by floor/wall type
 
 	public TileFloor() {
-		vertexColors[0] = Color.WHITE;
-		vertexColors[1] = Color.WHITE;
-		vertexColors[2] = Color.WHITE;
-		vertexColors[3] = Color.WHITE;
+		setVertexColors(Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
 	}
 
 	public TileFloor(FloorType type, GameMaterial material) {
+		this();
 		this.type = type;
 		this.material = material;
-
-		vertexColors[0] = Color.WHITE;
-		vertexColors[1] = Color.WHITE;
-		vertexColors[2] = Color.WHITE;
-		vertexColors[3] = Color.WHITE;
 	}
 
 	public FloorType getFloorType() {
@@ -107,6 +100,13 @@ public class TileFloor implements ChildPersistable {
 
 	public Color[] getVertexColors() {
 		return vertexColors;
+	}
+
+	public void setVertexColors(Color first, Color second, Color third, Color fourth) {
+		vertexColors[0] = first.cpy();
+		vertexColors[1] = second.cpy();
+		vertexColors[2] = third.cpy();
+		vertexColors[3] = fourth.cpy();
 	}
 
 	@Override
@@ -214,16 +214,16 @@ public class TileFloor implements ChildPersistable {
 		String vertexColorHex = asJson.getString("vertexColor");
 		if (vertexColorHex != null) {
 			Color vertexColor = HexColors.get(vertexColorHex);
-			vertexColors[0] = vertexColor;
-			vertexColors[1] = vertexColor;
-			vertexColors[2] = vertexColor;
-			vertexColors[3] = vertexColor;
+			setVertexColors(vertexColor, vertexColor, vertexColor, vertexColor);
 		} else {
 			JSONArray vertexColorJson = asJson.getJSONArray("vertexColors");
 			if (vertexColorJson != null) {
-				for (int cursor = 0; cursor < vertexColors.length; cursor++) {
-					vertexColors[cursor] = HexColors.get(vertexColorJson.getString(cursor));
-				}
+				setVertexColors(
+						HexColors.get(vertexColorJson.getString(0)),
+						HexColors.get(vertexColorJson.getString(1)),
+						HexColors.get(vertexColorJson.getString(2)),
+						HexColors.get(vertexColorJson.getString(3))
+				);
 			}
 		}
 
