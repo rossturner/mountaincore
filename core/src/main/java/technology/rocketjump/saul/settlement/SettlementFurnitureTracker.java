@@ -107,7 +107,7 @@ public class SettlementFurnitureTracker implements GameContextAware, Telegraph {
 						.stream()
 						.filter(request.filter)
 						.toList();
-				Vector2 requesterPosition = request.requestingEntity.getLocationComponent().getWorldPosition();
+				Vector2 requesterPosition = request.requestingEntity.getLocationComponent().getWorldOrParentPosition();
 				long requesterRegionId = gameContext.getAreaMap().getTile(requesterPosition).getRegionId();
 				Entity nearest = null;
 				float nearestDistance2 = Float.MAX_VALUE;

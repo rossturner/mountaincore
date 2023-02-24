@@ -59,6 +59,7 @@ public class TradeCaravanDefinition {
 		private Race draughtAnimalRace;
 		private int minQuantity;
 		private int maxQuantity;
+		private int importInventoryPerVehicle;
 		private int maxInventoryPerVehicle;
 		private int maxValuePerVehicleInventory;
 
@@ -124,6 +125,14 @@ public class TradeCaravanDefinition {
 
 		public void setMaxValuePerVehicleInventory(int maxValuePerVehicleInventory) {
 			this.maxValuePerVehicleInventory = maxValuePerVehicleInventory;
+		}
+
+		public int getImportInventoryPerVehicle() {
+			return importInventoryPerVehicle;
+		}
+
+		public void setImportInventoryPerVehicle(int importInventoryPerVehicle) {
+			this.importInventoryPerVehicle = importInventoryPerVehicle;
 		}
 	}
 

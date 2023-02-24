@@ -1,5 +1,8 @@
 {
 com.badlogic.gdx.graphics.Color: {
+	debug_purple: {
+		hex: a020f0ff
+	}
 	primary_font_colour_red: {
 		hex: 913614ff
 	}
@@ -356,6 +359,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	white_text_default-font-19: {
 		font: default-font-19
 		fontColor: white
+	}
+	debug-label: {
+		font: default-font-16
+		fontColor: debug_purple
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {

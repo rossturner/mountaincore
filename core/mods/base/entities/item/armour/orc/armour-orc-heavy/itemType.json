@@ -19,5 +19,5 @@
     "restrictedToRaceNames" : [ "Orc" ]
   },
   "i18nKey" : "ARMOUR.ORC.HEAVY",
-  "isTradeable": true
+  "tradeExportable": true
 }

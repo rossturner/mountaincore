@@ -5,7 +5,8 @@
     "draughtAnimal": "Horse",
     "minQuantity": 1,
     "maxQuantity": 2,
-    "maxInventoryPerVehicle": 16,
+    "importInventoryPerVehicle": 6,
+    "maxInventoryPerVehicle": 14,
     "maxValuePerVehicleInventory": 1000
   },
   "traders": {

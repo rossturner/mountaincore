@@ -7,5 +7,5 @@
   "primaryMaterialType" : "BONE",
   "stockpileGroupName" : "RAW_MATERIALS",
   "i18nKey" : "RESOURCE.BONE.SMALL",
-  "isTradeable": true
+  "tradeExportable": true
 }

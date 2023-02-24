@@ -9,5 +9,6 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "placementSoundAssetName" : "HeavyWoodItem",
   "i18nKey" : "RESOURCE.LOGS",
-  "isTradeable": true
+  "tradeExportable": true,
+  "tradeImportable": true
 }

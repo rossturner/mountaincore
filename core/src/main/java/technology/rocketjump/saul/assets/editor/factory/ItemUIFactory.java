@@ -209,8 +209,12 @@ public class ItemUIFactory implements UIFactory {
         controls.add(WidgetBuilder.toggle(itemType.isDescribeAsMaterialOnly(), itemType::setDescribeAsMaterialOnly));
         controls.row();
 
-        controls.add(WidgetBuilder.label("Is Tradeable"));
-        controls.add(WidgetBuilder.toggle(itemType.getIsTradeable(), itemType::setIsTradeable));
+        controls.add(WidgetBuilder.label("Trade Exportable"));
+        controls.add(WidgetBuilder.toggle(itemType.isTradeExportable(), itemType::setTradeExportable));
+        controls.row();
+
+        controls.add(WidgetBuilder.label("Trade Importable"));
+        controls.add(WidgetBuilder.toggle(itemType.isTradeImportable(), itemType::setTradeImportable));
         controls.row();
 
         //Todo: nicer display name

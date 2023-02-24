@@ -2,6 +2,9 @@ package technology.rocketjump.saul.constants;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -13,12 +16,14 @@ import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionar
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.materials.GameMaterialDictionary;
+import technology.rocketjump.saul.messaging.MessageType;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.function.Consumer;
 
 @Singleton
-public class ConstantsRepo implements GameContextAware {
+public class ConstantsRepo implements GameContextAware, Telegraph {
 
 	private final WorldConstants worldConstants;
 	private final UiConstants uiConstants;
@@ -28,7 +33,7 @@ public class ConstantsRepo implements GameContextAware {
 	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Inject
-	public ConstantsRepo() throws IOException {
+	public ConstantsRepo(MessageDispatcher messageDispatcher) throws IOException {
 		File jsonFile = new File("assets/definitions/constants.json");
 		String rawFileContents = FileUtils.readFileToString(jsonFile);
 		this.rawJson = JSON.parseObject(rawFileContents);
@@ -36,6 +41,8 @@ public class ConstantsRepo implements GameContextAware {
 		this.worldConstants = objectMapper.readValue(rawFileContents, WorldConstants.class);
 		this.uiConstants = objectMapper.readValue(rawFileContents, UiConstants.class);
 		this.settlementConstants = objectMapper.readValue(rawFileContents, SettlementConstants.class);
+
+		messageDispatcher.addListener(this, MessageType.GET_SETTLEMENT_CONSTANTS);
 	}
 
 	public void initialise(ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary materialDictionary) {
@@ -59,6 +66,19 @@ public class ConstantsRepo implements GameContextAware {
 			} else {
 				this.settlementConstants.getFishRacesAvailable().add(fishRace);
 			}
+		}
+	}
+
+	@Override
+	public boolean handleMessage(Telegram msg) {
+		switch (msg.message) {
+			case MessageType.GET_SETTLEMENT_CONSTANTS -> {
+				Consumer<SettlementConstants> callback = (Consumer<SettlementConstants>) msg.extraInfo;
+				callback.accept(settlementConstants);
+				return true;
+			}
+			default ->
+					throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + getClass().getSimpleName() + ", " + msg);
 		}
 	}
 

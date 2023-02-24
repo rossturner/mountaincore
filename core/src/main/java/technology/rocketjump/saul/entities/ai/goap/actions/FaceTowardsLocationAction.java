@@ -2,7 +2,9 @@ package technology.rocketjump.saul.entities.ai.goap.actions;
 
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.math.Vector2;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
+import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -20,22 +22,29 @@ public class FaceTowardsLocationAction extends Action {
 
 	@Override
 	public boolean isApplicable(GameContext gameContext) {
-		return selectTargetLocation() != null;
+		return selectTargetLocation(gameContext) != null;
 	}
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) {
-		Vector2 target = selectTargetLocation();
+		Vector2 target = selectTargetLocation(gameContext);
 		if (target == null) {
 			completionType = FAILURE;
 		} else {
-			Vector2 vectorToTarget = target.sub(parent.parentEntity.getLocationComponent().getWorldPosition());
-			parent.parentEntity.getLocationComponent().setFacing(vectorToTarget);
+			Vector2 vectorToTarget = target.sub(parent.parentEntity.getLocationComponent().getWorldOrParentPosition());
+			parent.parentEntity.getOwnOrVehicleLocationComponent().setFacing(vectorToTarget);
 			completionType = SUCCESS;
 		}
 	}
 
-	private Vector2 selectTargetLocation() {
+	private Vector2 selectTargetLocation(GameContext gameContext) {
+		if (parent.getAssignedFurnitureId() != null) {
+			Entity entity = gameContext.getEntities().get(parent.getAssignedFurnitureId());
+			if (entity != null) {
+				return entity.getLocationComponent().getWorldPosition().cpy();
+			}
+			Logger.error("Entity ID assigned does not exist in gameContext");
+		}
 		if (parent.getAssignedJob() != null) {
 			if (parent.getAssignedJob().getType().isAccessedFromAdjacentTile()) {
 				return toVector(parent.getAssignedJob().getJobLocation());

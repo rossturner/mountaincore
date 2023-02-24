@@ -27,7 +27,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static technology.rocketjump.saul.entities.FurnitureEntityMessageHandler.otherColorsToCopy;
@@ -133,7 +132,7 @@ public class ItemEntityAttributesFactory {
 		newItemAttributes.setQuantity(quantityToCreate);
 		for (GameMaterialType materialType : itemTypeToCreate.getMaterialTypes()) {
 			if (materials.stream().noneMatch(m -> m.getMaterialType().equals(materialType))) {
-				newItemAttributes.setMaterial(pickMaterial(materialType, random));
+				newItemAttributes.setMaterial(pickMaterial(itemTypeToCreate, materialType, random));
 			}
 		}
 		for (GameMaterial material : materials) {
@@ -142,10 +141,13 @@ public class ItemEntityAttributesFactory {
 		return newItemAttributes;
 	}
 
-	private GameMaterial pickMaterial(GameMaterialType materialType, Random random) {
+	private GameMaterial pickMaterial(ItemType itemTypeToCreate, GameMaterialType materialType, Random random) {
+		if (materialType.equals(itemTypeToCreate.getPrimaryMaterialType()) && !itemTypeToCreate.getSpecificMaterials().isEmpty()) {
+			return itemTypeToCreate.getSpecificMaterials().get(random.nextInt(itemTypeToCreate.getSpecificMaterials().size()));
+		}
 		List<GameMaterial> materialsToPickFrom = gameMaterialDictionary.getByType(materialType).stream()
 				.filter(GameMaterial::isUseInRandomGeneration)
-				.collect(Collectors.toList());
+				.toList();
 		if (materialsToPickFrom.isEmpty()) {
 			return gameMaterialDictionary.getExampleMaterial(materialType);
 		} else {

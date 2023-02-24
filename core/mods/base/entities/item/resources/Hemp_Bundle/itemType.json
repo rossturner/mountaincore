@@ -10,5 +10,6 @@
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.BUNDLE",
   "specificMaterialNames": ["Hemp"],
-  "isTradeable": true
+  "tradeExportable": true,
+  "tradeImportable": true
 }

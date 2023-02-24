@@ -7,5 +7,6 @@
   "baseValuePerItem": 5,
   "stockpileGroupName" : "PRODUCTS",
   "i18nKey" : "RESOURCE.CRUSHED.VITRIOL",
-  "isTradeable": true
+  "tradeExportable": true,
+  "tradeImportable": true
 }

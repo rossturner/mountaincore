@@ -71,7 +71,8 @@ public class ItemType {
 	private AmmoType isAmmoType;
 	private DefenseInfo defenseInfo;
 
-	private boolean isTradeable; // all craftable items are tradeable, this is for non-craftable resources and other things
+	private boolean tradeExportable;
+	private boolean tradeImportable;
 
 	private boolean describeAsMaterialOnly;
 
@@ -329,12 +330,20 @@ public class ItemType {
 		return maxStackSize > 1 || maxHauledAtOnce > 1;
 	}
 
-	public boolean getIsTradeable() {
-		return isTradeable;
+	public boolean isTradeExportable() {
+		return tradeExportable;
 	}
 
-	public void setIsTradeable(boolean tradeable) {
-		isTradeable = tradeable;
+	public void setTradeExportable(boolean tradeable) {
+		tradeExportable = tradeable;
+	}
+
+	public boolean isTradeImportable() {
+		return tradeImportable;
+	}
+
+	public void setTradeImportable(boolean tradeImportable) {
+		this.tradeImportable = tradeImportable;
 	}
 
 	@JsonIgnore

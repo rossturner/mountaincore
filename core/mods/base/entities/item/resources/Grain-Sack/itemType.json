@@ -10,5 +10,6 @@
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.GRAIN.SACK",
   "specificMaterialNames": ["Barley"],
-  "isTradeable": true
+  "tradeExportable": true,
+  "tradeImportable": true
 }

@@ -6,5 +6,6 @@
   "baseValuePerItem" : 4,
   "stockpileGroupName" : "RAW_MATERIALS",
   "i18nKey" : "CARCASS.HIDE",
-  "isTradeable": true
+  "tradeExportable": true,
+  "tradeImportable": true
 }

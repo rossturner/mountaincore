@@ -8,6 +8,10 @@ public enum TraderGroupStage {
 		ARRIVED_AT_TRADE_DEPOT,
 		TRADING,
 		PREPARING_TO_LEAVE,
-		LEAVING
+		LEAVING;
+
+		public TraderGroupStage nextStage() {
+			return values()[(this.ordinal() + 1) % values().length];
+		}
 
 }

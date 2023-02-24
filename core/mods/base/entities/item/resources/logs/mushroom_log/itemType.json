@@ -1,11 +1,12 @@
 {
   "itemTypeName" : "Resource-Mushroom-Log",
   "materialTypes" : [ "WOOD", "SEED" ],
-  "primaryMaterialType" : "SEED",
+  "primaryMaterialType" : "WOOD",
   "baseValuePerItem": 7,
   "holdPosition" : "ON_SHOULDER",
   "impedesMovement" : true,
   "placementSoundAssetName" : "HeavyWoodItem",
   "i18nKey" : "RESOURCE.MUSHROOM.LOG",
-  "isTradeable": true
+  "specificMaterialNames" : [ "Fungiwood", "Barkshroom" ],
+  "tradeExportable": true
 }

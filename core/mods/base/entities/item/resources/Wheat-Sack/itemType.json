@@ -10,5 +10,6 @@
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.WHEAT.SACK",
   "specificMaterialNames": ["Wheat"],
-  "isTradeable": true
+  "tradeExportable": true,
+  "tradeImportable": true
 }

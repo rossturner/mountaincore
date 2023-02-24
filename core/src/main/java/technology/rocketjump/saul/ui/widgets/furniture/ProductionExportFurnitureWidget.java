@@ -308,7 +308,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 								.map(CraftingRecipe::getOutput)
 								.map(QuantifiedItemTypeWithMaterial::getItemType)
 								.filter(Objects::nonNull),
-						itemTypeDictionary.getTradeableItems().stream()
+						itemTypeDictionary.getTradeImports().stream()
 					)
 					.collect(Collectors.toSet()).stream()
 					.sorted(Comparator.comparing(a -> i18nTranslator.getTranslatedString(a.getI18nKey()).toString()))

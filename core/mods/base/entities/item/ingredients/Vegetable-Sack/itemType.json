@@ -11,5 +11,6 @@
   "consumeSoundAssetName" : "EatFood",
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.VEGETABLE.SACK",
-  "isTradeable": true
+  "tradeExportable": true,
+  "tradeImportable": true
 }

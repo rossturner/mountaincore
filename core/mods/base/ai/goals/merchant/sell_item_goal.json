@@ -1,0 +1,50 @@
+{
+  "name": "Sell item as merchant",
+  "creatureCategories": ["MERCHANT"],
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "TRADERS_IN_STAGE",
+          "stage": "TRADING"
+        }
+      ],
+      "priority": "JOB_NORMAL",
+      "scheduleCategory": "ANY"
+    }
+  ],
+  "initialActions": ["PlanMerchantSale"],
+  "actionRelationships": {
+    "PlanMerchantSale": {
+      "pass": ["GoToWagonWithItem"],
+      "fail": []
+    },
+    "GoToWagonWithItem": {
+      "pass": ["PickUpEntity"],
+      "fail": ["CancelTrade"]
+    },
+    "PickUpEntity": {
+      "pass": ["GoToTradeFurnitureLocation"],
+      "fail": ["CancelTrade"]
+    },
+    "GoToTradeFurnitureLocation": {
+      "pass": ["PlaceEntity"],
+      "fail": ["CancelTrade"]
+    },
+    "PlaceEntity": {
+      "pass": ["GoToPaymentLocation"],
+      "fail": ["CancelTrade"]
+    },
+    "GoToPaymentLocation": {
+      "pass": ["PickUpPayment"],
+      "fail": ["CancelTrade"]
+    },
+    "PickUpPayment": {
+      "pass": ["TradeCompleted", "RequeueThisGoal"],
+      "fail": ["CancelTrade"]
+    },
+    "TradeCompleted": {},
+    "RequeueThisGoal": {},
+    "CancelTrade": {}
+  }
+}

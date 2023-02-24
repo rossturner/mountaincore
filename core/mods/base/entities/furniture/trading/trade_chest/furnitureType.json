@@ -9,5 +9,8 @@
       "itemTypeName" : "Product-Chest",
       "quantity" : 1
     } ]
+  },
+  "tags" : {
+    "STOCKPILE" : [ "1", "ItemType_Treasure-Coin" ]
   }
 }

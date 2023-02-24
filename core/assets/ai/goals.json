@@ -484,19 +484,38 @@
   "initialActions" : [ "LocateVehicle" ]
 }, {
   "creatureCategories" : [ "MERCHANT" ],
-  "name" : "Exit vehicle",
+  "name" : "Dock trade wagon",
   "actionRelationships" : {
-    "ExitVehicle" : { }
+    "CheckAllGroupVehiclesEmpty" : {
+      "fail" : [ ],
+      "pass" : [ "ProgressTraderStageToTrading" ]
+    },
+    "LocateHitchingPostSpace" : {
+      "fail" : [ "ExitVehicle" ],
+      "pass" : [ "GoToGoalTargetLocation" ]
+    },
+    "ProgressTraderStageToTrading" : { },
+    "ExitVehicle" : {
+      "fail" : [ "CheckAllGroupVehiclesEmpty" ],
+      "pass" : [ "CheckAllGroupVehiclesEmpty" ]
+    },
+    "GoToGoalTargetLocation" : {
+      "fail" : [ "ExitVehicle" ],
+      "pass" : [ "FaceTowardsLocation", "ExitVehicle" ]
+    },
+    "FaceTowardsLocation" : { }
   },
   "selectors" : [ {
     "scheduleCategory" : "ANY",
     "conditions" : [ {
       "stage" : "ARRIVED_AT_TRADE_DEPOT",
       "type" : "TRADERS_IN_STAGE"
+    }, {
+      "type" : "IS_DRIVING_VEHICLE"
     } ],
     "priority" : "HIGHEST"
   } ],
-  "initialActions" : [ "ExitVehicle" ]
+  "initialActions" : [ "LocateHitchingPostSpace" ]
 }, {
   "creatureCategories" : [ "MERCHANT" ],
   "name" : "Move group towards settlement",
@@ -537,6 +556,51 @@
     "priority" : "HIGHEST"
   } ],
   "initialActions" : [ "MoveGroupHomeToTradeDepot", "GoToRoomWithGroupHome" ]
+}, {
+  "creatureCategories" : [ "MERCHANT" ],
+  "name" : "Sell item as merchant",
+  "actionRelationships" : {
+    "GoToWagonWithItem" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "PickUpEntity" ]
+    },
+    "PlaceEntity" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "GoToPaymentLocation" ]
+    },
+    "TradeCompleted" : { },
+    "GoToPaymentLocation" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "PickUpPayment" ]
+    },
+    "RequeueThisGoal" : { },
+    "PickUpPayment" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "TradeCompleted", "RequeueThisGoal" ]
+    },
+    "CancelTrade" : { },
+    "PickUpEntity" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "GoToTradeFurnitureLocation" ]
+    },
+    "PlanMerchantSale" : {
+      "fail" : [ ],
+      "pass" : [ "GoToWagonWithItem" ]
+    },
+    "GoToTradeFurnitureLocation" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "PlaceEntity" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "stage" : "TRADING",
+      "type" : "TRADERS_IN_STAGE"
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "initialActions" : [ "PlanMerchantSale" ]
 }, {
   "i18nDescription" : "GOAL.MILITARY.ATTACK_TARGET.DESCRIPTION",
   "creatureCategories" : [ "MILITARY" ],

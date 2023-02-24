@@ -9,6 +9,7 @@
     } ]
   },
   "tags" : {
+    "HITCHING_POST" : [],
     "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Logs", "WOOD_COLOR", "WOOD_COLOR", "Resource-Logs", "BRANCHES_COLOR", "OTHER_COLOR" ]
   }
 }

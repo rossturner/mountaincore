@@ -1463,6 +1463,7 @@
     } ]
   },
   "tags" : {
+    "HITCHING_POST" : [ ],
     "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Logs", "WOOD_COLOR", "WOOD_COLOR", "Resource-Logs", "BRANCHES_COLOR", "OTHER_COLOR" ]
   },
   "hiddenFromPlacementMenu" : false
@@ -1515,7 +1516,9 @@
       "liquid" : false
     } ]
   },
-  "tags" : { },
+  "tags" : {
+    "STOCKPILE" : [ "1", "ItemType_Treasure-Coin" ]
+  },
   "hiddenFromPlacementMenu" : false
 }, {
   "name" : "TRADING_EXPORT",

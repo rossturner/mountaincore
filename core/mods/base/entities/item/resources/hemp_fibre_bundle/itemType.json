@@ -10,5 +10,6 @@
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.FIBRE.BUNDLE",
   "specificMaterialNames": ["Hemp_Fibre"],
-  "isTradeable": true
+  "tradeExportable": true,
+  "tradeImportable": true
 }

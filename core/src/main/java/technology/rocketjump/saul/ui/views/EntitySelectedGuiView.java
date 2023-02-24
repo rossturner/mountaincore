@@ -267,18 +267,22 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					Updatable<Actor> creatureName = creatureName(entity);
 					Updatable<Table> happinessIcons = happinessIcons(entity);
 					Updatable<Table> textSummary = textSummary(entity);
+					Updatable<Table> debugTextSummary = debugTextSummary(entity);
 
 					updatables.add(creatureName);
 					updatables.add(happinessIcons);
 					updatables.add(textSummary);
+					updatables.add(debugTextSummary);
 
 					Table middleRow = new Table();
-					middleRow.add(happinessIcons.getActor()).top().right();
-					middleRow.add(textSummary.getActor()).left().spaceLeft(25f).grow();
-
+					middleRow.add(happinessIcons.getActor()).top().left();
+					middleRow.add(textSummary.getActor()).left().spaceLeft(25f).grow().row();
 					outerTable.add(creatureName.getActor()).fillX().padTop(67).padBottom(20).row();
 					Cell<Table> middleRowCell = outerTable.add(middleRow).expandY().fillX();
 					middleRowCell.row();
+					if (GlobalSettings.DEV_MODE) {
+						outerTable.add(debugTextSummary.getActor()).left().row();
+					}
 					if (entity.getComponent(InventoryComponent.class) != null) {
 						Updatable<Table> inventory = inventory(entity);
 						updatables.add(inventory);
@@ -649,10 +653,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			if (GlobalSettings.DEV_MODE) {
 				if (itemAllocationComponent != null) {
 					List<ItemAllocation> itemAllocations = itemAllocationComponent.getAll();
-					Label.LabelStyle debugStyle = new Label.LabelStyle(managementSkin.get("default-font-18-label", Label.LabelStyle.class));
-					debugStyle.fontColor = Color.PURPLE;
 					for (ItemAllocation itemAllocation : itemAllocations) {
-						Label label = new Label(itemAllocation.toString(), debugStyle);
+						Label label = new Label(itemAllocation.toString(), mainGameSkin.get("debug-label", Label.LabelStyle.class));
 						table.add(label).grow().row();
 					}
 				}
@@ -835,8 +837,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Updatable<Table> updatable = Updatable.of(table);
 
 		if (GlobalSettings.DEV_MODE) {
-			Label.LabelStyle debugStyle = new Label.LabelStyle(managementSkin.get("default-font-18-label", Label.LabelStyle.class));
-			debugStyle.fontColor = Color.PURPLE;
 			updatable.regularly(() -> {
 				table.clearChildren();
 
@@ -846,7 +846,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						if (creatureBehaviour.getCurrentGoal().getCurrentAction() != null) {
 							debugText += ": " + creatureBehaviour.getCurrentGoal().getCurrentAction().getSimpleName();
 						}
-						table.add(new Label(debugText, debugStyle)).left().row();
+						table.add(new Label(debugText, mainGameSkin.get("debug-label", Label.LabelStyle.class))).left().row();
 					}
 				}
 			});
@@ -1148,6 +1148,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 					Image entityImage = new Image(entityDrawable);
 					tooltipFactory.simpleTooltip(entityImage, i18nTranslator.getDescription(inventoryItem), TooltipLocationHint.BELOW); //TODO: need to do something to prevent sticky tooltips
+					entityImage.addListener(new ChangeCursorOnHover(entityImage, GameCursor.SELECT, messageDispatcher));
+					entityImage.addListener(new ClickListener() {
+						@Override
+						public void clicked(InputEvent event, float x, float y) {
+							messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(inventoryItem, 0));
+						}
+					});
 
 					Container<Image> entityImageContainer = new Container<>(entityImage);
 					entityImageContainer.bottom().right();

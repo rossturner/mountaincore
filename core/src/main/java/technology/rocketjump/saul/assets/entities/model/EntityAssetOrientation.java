@@ -75,18 +75,18 @@ public enum EntityAssetOrientation {
 	public static EntityAssetOrientation fromFacingTo4Directions(Vector2 facing) {
 		if (facing.x > 0) {
 			// Facing is to east/right side
-			if (facing.y > 0.6f) {
+			if (facing.y > 0.8f) {
 				return UP;
-			} else if (facing.y > -0.6f) {
+			} else if (facing.y > -0.8f) {
 				return RIGHT;
 			} else {
 				return DOWN;
 			}
 		} else {
 			// Facing is to west/left side
-			if (facing.y > 0.6f) {
+			if (facing.y > 0.8f) {
 				return UP;
-			} else if (facing.y > -0.6f) {
+			} else if (facing.y > -0.8f) {
 				return LEFT;
 			} else {
 				return DOWN;

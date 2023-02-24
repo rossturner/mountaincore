@@ -1,7 +1,9 @@
 package technology.rocketjump.saul.entities.behaviour.creature;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
+import technology.rocketjump.saul.entities.ai.goap.PlannedTrade;
 import technology.rocketjump.saul.entities.ai.goap.SpecialGoal;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.persistence.EnumParser;
@@ -9,13 +11,19 @@ import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-import static technology.rocketjump.saul.entities.behaviour.creature.TraderGroupStage.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static technology.rocketjump.saul.entities.behaviour.creature.TraderGroupStage.SPAWNED;
 
 public class TraderCreatureGroup extends CreatureGroup {
 
+	private static final double MAX_HOURS_IN_ANY_STAGE = 18.0;
 	private TraderGroupStage stage = SPAWNED;
 	private SpecialGoal pendingSpecialGoal;
 	private double hoursInCurrentStage;
+
+	private List<PlannedTrade> plannedTrades = new ArrayList<>();
 
 	@Override
 	public void infrequentUpdate(GameContext gameContext, MessageDispatcher messageDispatcher) {
@@ -28,25 +36,27 @@ public class TraderCreatureGroup extends CreatureGroup {
 		hoursInCurrentStage += elapsed;
 
 		// TODO leave after spending too long in current stage
+		if (hoursInCurrentStage > MAX_HOURS_IN_ANY_STAGE) {
+			progressToNextStage();
+		}
 
 		switch (stage) {
 			case SPAWNED -> {
 				this.pendingSpecialGoal = SpecialGoal.MOVE_GROUP_TOWARDS_SETTLEMENT;
-				this.stage = TraderGroupStage.ARRIVING;
-				this.hoursInCurrentStage = 0;
+				progressToNextStage();
 			}
+
 
 		}
 	}
 
+	public List<PlannedTrade> getPlannedTrades() {
+		return plannedTrades;
+	}
+
 	public void progressToNextStage() {
-		if (stage.equals(ARRIVING)) {
-			this.stage = TraderGroupStage.MOVING_TO_TRADE_DEPOT;
-			this.hoursInCurrentStage = 0;
-		} else if (stage.equals(MOVING_TO_TRADE_DEPOT)) {
-			this.stage = TraderGroupStage.ARRIVED_AT_TRADE_DEPOT;
-			this.hoursInCurrentStage = 0;
-		}
+		this.stage = this.stage.nextStage();
+		this.hoursInCurrentStage = 0;
 	}
 
 	public SpecialGoal popSpecialGoal() {
@@ -77,6 +87,16 @@ public class TraderCreatureGroup extends CreatureGroup {
 			if (pendingSpecialGoal != null) {
 				asJson.put("pendingSpecialGoal", pendingSpecialGoal.name());
 			}
+
+			if (!plannedTrades.isEmpty()) {
+				JSONArray plannedTradesJson = new JSONArray();
+				for (PlannedTrade plannedTrade : plannedTrades) {
+					JSONObject plannedTradeJson = new JSONObject(true);
+					plannedTrade.writeTo(plannedTradeJson, savedGameStateHolder);
+					plannedTradesJson.add(plannedTradeJson);
+				}
+				asJson.put("plannedTrades", plannedTradesJson);
+			}
 		}
 	}
 
@@ -88,5 +108,15 @@ public class TraderCreatureGroup extends CreatureGroup {
 		this.hoursInCurrentStage = asJson.getDoubleValue("hoursInCurrentStage");
 
 		this.pendingSpecialGoal = EnumParser.getEnumValue(asJson, "pendingSpecialGoal", SpecialGoal.class, null);
+
+		JSONArray plannedTradesJson = asJson.getJSONArray("plannedTrades");
+		if (plannedTradesJson != null) {
+			for (int i = 0; i < plannedTradesJson.size(); i++) {
+				JSONObject plannedTradeJson = plannedTradesJson.getJSONObject(i);
+				PlannedTrade plannedTrade = new PlannedTrade();
+				plannedTrade.readFrom(plannedTradeJson, savedGameStateHolder, relatedStores);
+				plannedTrades.add(plannedTrade);
+			}
+		}
 	}
 }

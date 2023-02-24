@@ -6,5 +6,5 @@
   "baseValuePerItem": 5,
   "stockpileGroupName" : "RAW_MATERIALS",
   "i18nKey" : "RESOURCE.BONE.LARGE",
-  "isTradeable": true
+  "tradeExportable": true
 }

@@ -22,6 +22,7 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 		@JsonSubTypes.Type(value = GoalSelectionByBodyPartFunction.class, name = "BODY_PART_FUNCTION"),
 		@JsonSubTypes.Type(value = GoalSelectionByInvasionStage.class, name = "INVASION_IN_STAGE"),
 		@JsonSubTypes.Type(value = GoalSelectionByTradersStage.class, name = "TRADERS_IN_STAGE"),
+		@JsonSubTypes.Type(value = GoalSelectionByDrivingVehicle.class, name = "IS_DRIVING_VEHICLE"),
 })
 public interface GoalSelectionCondition {
 
