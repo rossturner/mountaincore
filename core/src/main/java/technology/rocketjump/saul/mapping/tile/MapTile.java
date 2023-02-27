@@ -747,9 +747,8 @@ public class MapTile implements Persistable {
 		this.transitoryFloor = null;
 	}
 
-	//TODO: this feels out of place now
-	public float getTransitoryFloorAlpha(double val) { //slow due to big decimal
-		//Mike: I'm a math newbie, but this is `y = mx + c`
+	public float getTransitoryFloorAlpha(double val) {
+//		Mike: I'm a math newbie, but this is `y = mx + c`
 		float x1 = tilePercentile / 100.0f;
 		float x2 = 1.0f;
 		float y1 = 0;
