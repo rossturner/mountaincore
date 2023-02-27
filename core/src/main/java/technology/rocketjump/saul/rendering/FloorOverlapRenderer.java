@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 @Singleton
 public class FloorOverlapRenderer implements Disposable, GameContextAware {
@@ -56,14 +57,68 @@ public class FloorOverlapRenderer implements Disposable, GameContextAware {
 		alphaMaskSpriteBatch.setColor(Color.WHITE);
 
 		for (MapTile mapTile : tilesToRender) {
-			MapVertex[] vertices = gameContext.getAreaMap().getVertices(mapTile.getTileX(), mapTile.getTileY());
-			List<FloorOverlap> toRender;
+			final List<FloorOverlap> toRender;
+			//TODO: hate this design
+			BiConsumer<FloorOverlap, AlphaMaskSpriteBatch> quadrant0Adjuster = (floorOverlap, alphaMaskSpriteBatch) -> { };
+			BiConsumer<FloorOverlap, AlphaMaskSpriteBatch> quadrant1Adjuster = (floorOverlap, alphaMaskSpriteBatch) -> { };
+			BiConsumer<FloorOverlap, AlphaMaskSpriteBatch> quadrant2Adjuster = (floorOverlap, alphaMaskSpriteBatch) -> { };
+			BiConsumer<FloorOverlap, AlphaMaskSpriteBatch> quadrant3Adjuster = (floorOverlap, alphaMaskSpriteBatch) -> { };
 
 
 			if (floorSource == TerrainRenderer.FloorSource.ACTUAL) {
 				toRender = mapTile.getActualFloor().getOverlaps();
 			} else if (floorSource == TerrainRenderer.FloorSource.TRANSITORY) {
 				toRender = mapTile.getActualFloor().getTransitoryOverlaps();
+				MapVertex[] vertices =  gameContext.getAreaMap().getVertices(mapTile.getTileX(), mapTile.getTileY());
+				float bottomLeft = vertices[0].getTransitoryFloorAlpha();
+				float topLeft = vertices[1].getTransitoryFloorAlpha();
+				float topRight = vertices[2].getTransitoryFloorAlpha();
+				float bottomRight = vertices[3].getTransitoryFloorAlpha();
+
+				float leftMiddle = (topLeft + bottomLeft)/2.0f;
+				float topMiddle = (topLeft + topRight)/2.0f;
+				float rightMiddle = (topRight + bottomRight)/2.0f;
+				float bottomMiddle = (bottomLeft + bottomRight)/2.0f;
+
+				float middle = (bottomLeft + bottomRight + topLeft + topRight) / 4.0f;
+
+
+				quadrant0Adjuster = (floorOverlap, alphaMaskSpriteBatch) -> {
+					Color[] vertexColors = floorOverlap.getVertexColors();
+					vertexColors[0].a = leftMiddle;
+					vertexColors[1].a = topLeft;
+					vertexColors[2].a = topMiddle;
+					vertexColors[3].a = middle;
+					alphaMaskSpriteBatch.setColors(vertexColors);
+				};
+
+				quadrant1Adjuster = (floorOverlap, alphaMaskSpriteBatch) -> {
+					Color[] vertexColors = floorOverlap.getVertexColors();
+					vertexColors[0].a = middle;
+					vertexColors[1].a = topMiddle;
+					vertexColors[2].a = topRight;
+					vertexColors[3].a = rightMiddle;
+					alphaMaskSpriteBatch.setColors(vertexColors);
+				};
+
+				quadrant2Adjuster = (floorOverlap, alphaMaskSpriteBatch) -> {
+					Color[] vertexColors = floorOverlap.getVertexColors();
+					vertexColors[0].a = bottomLeft;
+					vertexColors[1].a = leftMiddle;
+					vertexColors[2].a = middle;
+					vertexColors[3].a = bottomMiddle;
+					alphaMaskSpriteBatch.setColors(vertexColors);
+				};
+
+				quadrant3Adjuster = (floorOverlap, alphaMaskSpriteBatch) -> {
+					Color[] vertexColors = floorOverlap.getVertexColors();
+					vertexColors[0].a = bottomMiddle;
+					vertexColors[1].a = middle;
+					vertexColors[2].a = rightMiddle;
+					vertexColors[3].a = bottomRight;
+					alphaMaskSpriteBatch.setColors(vertexColors);
+				};
+
 			} else {
 				toRender = Collections.emptyList();
 			}
@@ -74,68 +129,27 @@ public class FloorOverlapRenderer implements Disposable, GameContextAware {
 					QuadrantSprites quadrantAlphaSprites = masksSpriteCache.getMasksForOverlap(floorOverlap.getFloorType().getOverlapType(), floorOverlap.getLayout(), mapTile.getSeed());
 					Sprite overlapSprite = spriteCache.getFloorSpriteForType(floorOverlap.getFloorType(), mapTile.getSeed());
 
-					Color[] vertexColors = floorOverlap.getVertexColors();
 					if (renderMode.equals(RenderMode.DIFFUSE)) {
-						alphaMaskSpriteBatch.setColors(vertexColors);
+						alphaMaskSpriteBatch.setColors(floorOverlap.getVertexColors());
 					} else {
 						alphaMaskSpriteBatch.setColors(WHITE_QUADRANT_COLORS);
 					}
 
-
-
-					float bottomLeft = vertices[0].getTransitoryFloorAlpha();
-					float topLeft = vertices[1].getTransitoryFloorAlpha();
-					float topRight = vertices[2].getTransitoryFloorAlpha();
-					float bottomRight = vertices[3].getTransitoryFloorAlpha();
-
-					float leftMiddle = (topLeft + bottomLeft)/2.0f;
-					float topMiddle = (topLeft + topRight)/2.0f;
-					float rightMiddle = (topRight + bottomRight)/2.0f;
-					float bottomMiddle = (bottomLeft + bottomRight)/2.0f;
-
-					float middle = (bottomLeft + bottomRight + topLeft + topRight) / 4.0f;
-
-					if (floorSource == TerrainRenderer.FloorSource.ACTUAL) {
-						bottomLeft = 1;
-						topLeft = 1;
-						topRight = 1;
-						bottomRight = 1;
-						leftMiddle = 1;
-						topMiddle = 1;
-						rightMiddle = 1;
-						bottomMiddle = 1;
-						middle = 1;
-					}
-
+					//TODO: optimize me so don't need to run in actual floor
 					if (overlapQuadrants.get(0) != 0) {
-						vertexColors[0].a = leftMiddle;
-						vertexColors[1].a = topLeft;
-						vertexColors[2].a = topMiddle;
-						vertexColors[3].a = middle;
-
+						quadrant0Adjuster.accept(floorOverlap, alphaMaskSpriteBatch);
 						alphaMaskSpriteBatch.draw(overlapSprite, quadrantAlphaSprites.getA(), mapTile.getTileX(), mapTile.getTileY(), 0, 0.5f, 0.5f, 0.5f);
 					}
 					if (overlapQuadrants.get(1) != 0) {
-						vertexColors[0].a = middle;
-						vertexColors[1].a = topMiddle;
-						vertexColors[2].a = topRight;
-						vertexColors[3].a = rightMiddle;
-
+						quadrant1Adjuster.accept(floorOverlap, alphaMaskSpriteBatch);
 						alphaMaskSpriteBatch.draw(overlapSprite, quadrantAlphaSprites.getB(), mapTile.getTileX(), mapTile.getTileY(), 0.5f, 0.5f, 0.5f, 0.5f);
 					}
 					if (overlapQuadrants.get(2) != 0) {
-						vertexColors[0].a = bottomLeft;
-						vertexColors[1].a = leftMiddle;
-						vertexColors[2].a = middle;
-						vertexColors[3].a = bottomMiddle;
-
+						quadrant2Adjuster.accept(floorOverlap, alphaMaskSpriteBatch);
 						alphaMaskSpriteBatch.draw(overlapSprite, quadrantAlphaSprites.getC(), mapTile.getTileX(), mapTile.getTileY(), 0, 0f, 0.5f, 0.5f);
 					}
 					if (overlapQuadrants.get(3) != 0) {
-						vertexColors[0].a = bottomMiddle;
-						vertexColors[1].a = middle;
-						vertexColors[2].a = rightMiddle;
-						vertexColors[3].a = bottomRight;
+						quadrant3Adjuster.accept(floorOverlap, alphaMaskSpriteBatch);
 						alphaMaskSpriteBatch.draw(overlapSprite, quadrantAlphaSprites.getD(), mapTile.getTileX(), mapTile.getTileY(), 0.5f, 0f, 0.5f, 0.5f);
 					}
 				}
@@ -145,6 +159,8 @@ public class FloorOverlapRenderer implements Disposable, GameContextAware {
 
 		alphaMaskSpriteBatch.end();
 	}
+
+
 
 
 	public void renderWithChannelMasks(List<MapTile> tilesToRender, OrthographicCamera camera, RenderMode renderMode, TerrainSpriteCache spriteCache) {
