@@ -494,10 +494,11 @@
       "fail" : [ "ExitVehicle" ],
       "pass" : [ "GoToGoalTargetLocation" ]
     },
+    "GoToRandomLocation" : { },
     "ProgressTraderStageToTrading" : { },
     "ExitVehicle" : {
       "fail" : [ "CheckAllGroupVehiclesEmpty" ],
-      "pass" : [ "CheckAllGroupVehiclesEmpty" ]
+      "pass" : [ "CheckAllGroupVehiclesEmpty", "GoToRandomLocation" ]
     },
     "GoToGoalTargetLocation" : {
       "fail" : [ "ExitVehicle" ],
@@ -556,6 +557,55 @@
     "priority" : "HIGHEST"
   } ],
   "initialActions" : [ "MoveGroupHomeToTradeDepot", "GoToRoomWithGroupHome" ]
+}, {
+  "creatureCategories" : [ "MERCHANT" ],
+  "name" : "Purchase item as merchant",
+  "actionRelationships" : {
+    "GoToWagonWithItem" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "PlaceEntity" ]
+    },
+    "PlaceEntity" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "GoToPaymentLocation" ]
+    },
+    "GoToRandomLocation" : {
+      "fail" : [ "PlacePayment" ],
+      "pass" : [ "PlacePayment" ]
+    },
+    "TradeCompleted" : { },
+    "GoToPaymentLocation" : {
+      "fail" : [ "GoToRandomLocation" ],
+      "pass" : [ "PlacePayment" ]
+    },
+    "RequeueThisGoal" : { },
+    "PlacePayment" : {
+      "fail" : [ "GoToRandomLocation" ],
+      "pass" : [ "TradeCompleted", "RequeueThisGoal" ]
+    },
+    "CancelTrade" : { },
+    "PlanMerchantPurchase" : {
+      "fail" : [ ],
+      "pass" : [ "GoToTradeFurnitureLocation" ]
+    },
+    "PickUpEntity" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "GoToWagonWithItem" ]
+    },
+    "GoToTradeFurnitureLocation" : {
+      "fail" : [ "CancelTrade" ],
+      "pass" : [ "PickUpEntity" ]
+    }
+  },
+  "selectors" : [ {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "stage" : "TRADING",
+      "type" : "TRADERS_IN_STAGE"
+    } ],
+    "priority" : "JOB_NORMAL"
+  } ],
+  "initialActions" : [ "PlanMerchantPurchase" ]
 }, {
   "creatureCategories" : [ "MERCHANT" ],
   "name" : "Sell item as merchant",

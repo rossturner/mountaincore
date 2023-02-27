@@ -1596,6 +1596,7 @@
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "TREASURE",
   "tags" : { },
+  "placementSoundAssetName" : "CoinsAllSizes",
   "specificMaterialNames" : [ ],
   "tradeExportable" : false,
   "tradeImportable" : false,

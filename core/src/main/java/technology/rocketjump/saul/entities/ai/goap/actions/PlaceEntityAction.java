@@ -37,6 +37,7 @@ import static technology.rocketjump.saul.entities.ai.goap.actions.Action.Complet
 import static technology.rocketjump.saul.entities.ai.goap.actions.Action.CompletionType.SUCCESS;
 import static technology.rocketjump.saul.misc.VectorUtils.toGridPoint;
 import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.FURNITURE;
+import static technology.rocketjump.saul.rooms.HaulingAllocation.AllocationPositionType.VEHICLE;
 
 public class PlaceEntityAction extends Action {
 	public PlaceEntityAction(AssignedGoal parent) {
@@ -57,7 +58,7 @@ public class PlaceEntityAction extends Action {
 		}
 
 		if (haulingAllocation != null) {
-			if (FURNITURE.equals(haulingAllocation.getTargetPositionType())) {
+			if (FURNITURE.equals(haulingAllocation.getTargetPositionType()) || VEHICLE.equals(haulingAllocation.getTargetPositionType())) {
 				// Target position should be a workspace of furniture
 				Entity targetFurniture = gameContext.getAreaMap().getTile(haulingAllocation.getTargetPosition()).getEntity(haulingAllocation.getTargetId());
 				if (targetFurniture == null) {
@@ -69,10 +70,22 @@ public class PlaceEntityAction extends Action {
 						Logger.error("Not in nearest workspace for furniture to place item into");
 						completionType = FAILURE;
 					} else {
-						placeEntityInFurniture(containerComponent, targetFurniture, gameContext, haulingAllocation);
+						Entity itemToPlace = getTargetFrom(containerComponent);
+						if (itemToPlace != null) {
+							removeTargetFrom(containerComponent);
+							placeEntityInFurniture(itemToPlace, targetFurniture, gameContext, haulingAllocation);
+						} else {
+							completionType = FAILURE;
+						}
 					}
 				} else if (adjacentTo(targetFurniture)) {
-					placeEntityInFurniture(containerComponent, targetFurniture, gameContext, haulingAllocation);
+					Entity itemToPlace = getTargetFrom(containerComponent);
+					if (itemToPlace != null) {
+						removeTargetFrom(containerComponent);
+						placeEntityInFurniture(itemToPlace, targetFurniture, gameContext, haulingAllocation);
+					} else {
+						completionType = FAILURE;
+					}
 				} else {
 					// Not adjacent or not in workspace
 					completionType = FAILURE;
@@ -82,24 +95,25 @@ public class PlaceEntityAction extends Action {
 				completionType = FAILURE;
 			} else {
 				// In correct tile to place item
-				placeEntityIntoTile(containerComponent, currentTile);
+				placeEntityIntoTile(getTargetFrom(containerComponent), containerComponent, currentTile);
 			}
 		} else {
 			// No item allocation, just place item down
-			placeEntityIntoTile(containerComponent, currentTile);
+			placeEntityIntoTile(getTargetFrom(containerComponent), containerComponent, currentTile);
 		}
 	}
 
-	private boolean adjacentTo(Entity targetFurniture) {
+	protected boolean adjacentTo(Entity targetFurniture) {
 		GridPoint2 parentPosition = toGridPoint(parent.parentEntity.getLocationComponent().getWorldOrParentPosition());
 
 		List<GridPoint2> furnitureLocations = new LinkedList<>();
 		GridPoint2 furniturePosition = toGridPoint(targetFurniture.getLocationComponent().getWorldOrParentPosition());
 		furnitureLocations.add(furniturePosition);
 
-		FurnitureEntityAttributes attributes = (FurnitureEntityAttributes) targetFurniture.getPhysicalEntityComponent().getAttributes();
-		for (GridPoint2 extraTileOffset : attributes.getCurrentLayout().getExtraTiles()) {
-			furnitureLocations.add(furniturePosition.cpy().add(extraTileOffset));
+		if (targetFurniture.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes furnitureEntityAttributes) {
+			for (GridPoint2 extraTileOffset : furnitureEntityAttributes.getCurrentLayout().getExtraTiles()) {
+				furnitureLocations.add(furniturePosition.cpy().add(extraTileOffset));
+			}
 		}
 
 		for (GridPoint2 furnitureLocation : furnitureLocations) {
@@ -110,9 +124,12 @@ public class PlaceEntityAction extends Action {
 		return false;
 	}
 
-	private boolean hasWorkspaces(Entity targetFurniture) {
-		FurnitureEntityAttributes furnitureEntityAttributes = (FurnitureEntityAttributes) targetFurniture.getPhysicalEntityComponent().getAttributes();
-		return !furnitureEntityAttributes.getCurrentLayout().getWorkspaces().isEmpty();
+	protected boolean hasWorkspaces(Entity targetFurniture) {
+		if (targetFurniture.getPhysicalEntityComponent().getAttributes() instanceof FurnitureEntityAttributes furnitureEntityAttributes) {
+			return !furnitureEntityAttributes.getCurrentLayout().getWorkspaces().isEmpty();
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -130,12 +147,10 @@ public class PlaceEntityAction extends Action {
 		// No state to read
 	}
 
-	private void placeEntityInFurniture(EntityComponent currentContainer, Entity targetFurniture, GameContext gameContext, HaulingAllocation haulingAllocation) {
-		Entity itemToPlace = getTargetFrom(currentContainer);
+	protected void placeEntityInFurniture(Entity itemToPlace, Entity targetFurniture, GameContext gameContext, HaulingAllocation haulingAllocation) {
 		if (targetFurniture == null) {
 			completionType = FAILURE; // Could not find furniture to place item into
 		} else {
-			removeTargetFrom(currentContainer);
 			InventoryComponent targetInventory = targetFurniture.getOrCreateComponent(InventoryComponent.class);
 			targetInventory.add(itemToPlace, targetFurniture, parent.messageDispatcher, gameContext.getGameClock());
 			CopyGameMaterialsFromInventoryComponent copyColorComponent = targetFurniture.getComponent(CopyGameMaterialsFromInventoryComponent.class);
@@ -160,8 +175,7 @@ public class PlaceEntityAction extends Action {
 		}
 	}
 
-	private void placeEntityIntoTile(EntityComponent containerComponent, MapTile currentTile) {
-		Entity entityToPlace = getTargetFrom(containerComponent);
+	protected void placeEntityIntoTile(Entity entityToPlace, EntityComponent containerComponent, MapTile currentTile) {
 		if (entityToPlace.getType().equals(EntityType.ITEM)) {
 			ItemEntityAttributes itemToPlaceAttributes = (ItemEntityAttributes) entityToPlace.getPhysicalEntityComponent().getAttributes();
 			int quantityToPlace = itemToPlaceAttributes.getQuantity();
@@ -191,7 +205,6 @@ public class PlaceEntityAction extends Action {
 					itemToPlaceAttributes.setQuantity(itemToPlaceAttributes.getQuantity() - quantityToPlace);
 
 					if (itemToPlaceAttributes.getQuantity() <= 0) {
-						removeTargetFrom(containerComponent);
 						parent.messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, entityToPlace);
 					} else if (parent.getAssignedHaulingAllocation() != null) {
 						// decrement allocation amount
@@ -211,6 +224,12 @@ public class PlaceEntityAction extends Action {
 					entityToPlace.getLocationComponent().setFacing(DOWN.toVector2());
 
 					itemToPlaceAttributes.setItemPlacement(ItemPlacement.ON_GROUND);
+
+					if (itemToPlaceAttributes.getItemType().getPlacementSoundAsset() != null) {
+						parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(
+								itemToPlaceAttributes.getItemType().getPlacementSoundAsset(), parent.parentEntity
+						));
+					}
 
 					if (currentTile.hasConstruction() && currentTile.getConstruction().isItemUsedInConstruction(entityToPlace) &&
 							parent.getAssignedHaulingAllocation() != null) {

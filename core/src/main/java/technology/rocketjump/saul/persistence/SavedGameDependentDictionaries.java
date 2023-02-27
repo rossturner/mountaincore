@@ -42,6 +42,7 @@ import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
 import technology.rocketjump.saul.rooms.components.RoomComponentDictionary;
+import technology.rocketjump.saul.settlement.trading.TradeCaravanDefinitionDictionary;
 import technology.rocketjump.saul.sprites.BridgeTypeDictionary;
 
 /**
@@ -91,6 +92,7 @@ public class SavedGameDependentDictionaries {
 	public final RaceDictionary raceDictionary;
 	public final SquadFormationDictionary squadFormationDictionary;
 	public final InvasionDefinitionDictionary invasionDefinitionDictionary;
+	public final TradeCaravanDefinitionDictionary tradeCaravanDefinitionDictionary;
 
 	@Inject
 	public SavedGameDependentDictionaries(DynamicMaterialFactory dynamicMaterialFactory, GameMaterialDictionary gameMaterialDictionary,
@@ -111,7 +113,9 @@ public class SavedGameDependentDictionaries {
 										  OngoingEffectTypeDictionary ongoingEffectTypeDictionary,
 										  WeatherTypeDictionary weatherTypeDictionary, DailyWeatherTypeDictionary dailyWeatherTypeDictionary,
 										  MechanismTypeDictionary mechanismTypeDictionary, BodyStructureDictionary bodyStructureDictionary,
-										  OrganDefinitionDictionary organDefinitionDictionary, RaceDictionary raceDictionary, SquadFormationDictionary squadFormationDictionary, InvasionDefinitionDictionary invasionDefinitionDictionary) {
+										  OrganDefinitionDictionary organDefinitionDictionary, RaceDictionary raceDictionary,
+										  SquadFormationDictionary squadFormationDictionary, InvasionDefinitionDictionary invasionDefinitionDictionary,
+										  TradeCaravanDefinitionDictionary tradeCaravanDefinitionDictionary) {
 		this.dynamicMaterialFactory = dynamicMaterialFactory;
 		this.gameMaterialDictionary = gameMaterialDictionary;
 		this.craftingOutputQualityDictionary = craftingOutputQualityDictionary;
@@ -153,5 +157,6 @@ public class SavedGameDependentDictionaries {
 		this.raceDictionary = raceDictionary;
 		this.squadFormationDictionary = squadFormationDictionary;
 		this.invasionDefinitionDictionary = invasionDefinitionDictionary;
+		this.tradeCaravanDefinitionDictionary = tradeCaravanDefinitionDictionary;
 	}
 }

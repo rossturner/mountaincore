@@ -80,8 +80,9 @@ public class TradeCaravanGenerator implements GameContextAware {
 		TraderCreatureGroup group = new TraderCreatureGroup();
 		group.setGroupId(SequentialIdGenerator.nextId());
 		group.setHomeLocation(toGridPoint(tradeSpawnLocation));
-
 		TradeCaravanDefinition definition = tradeCaravanDefinitionDictionary.get();
+		group.setCaravanDefinition(definition);
+
 		int numVehicles = definition.getVehicles().getMinQuantity() + random.nextInt(definition.getVehicles().getMaxQuantity() - definition.getVehicles().getMinQuantity() + 1);
 
 		for (int i = 0; i < numVehicles; i++) {
@@ -160,7 +161,7 @@ public class TradeCaravanGenerator implements GameContextAware {
 
 		for (QuantifiedItemTypeWithMaterial inventoryRequirement : creatureDescriptor.getInventoryItems()) {
 			ItemEntityAttributes itemAttributes = itemEntityAttributesFactory.createItemAttributes(inventoryRequirement.getItemType(), inventoryRequirement.getQuantity(), inventoryRequirement.getMaterial());
-			Entity inventoryItem = itemEntityFactory.create(itemAttributes, null, true, gameContext, Faction.SETTLEMENT);
+			Entity inventoryItem = itemEntityFactory.create(itemAttributes, null, true, gameContext, Faction.MERCHANTS);
 
 			LiquidContainerComponent liquidContainerComponent = inventoryItem.getComponent(LiquidContainerComponent.class);
 			if (liquidContainerComponent != null) {
@@ -205,7 +206,7 @@ public class TradeCaravanGenerator implements GameContextAware {
 		}
 
 		if (!creatureDescriptor.getArmorItemTypes().isEmpty()) {
-			String armorItemTypeName = creatureDescriptor.getShieldItemTypes().get(gameContext.getRandom().nextInt(creatureDescriptor.getShieldItemTypes().size()));
+			String armorItemTypeName = creatureDescriptor.getArmorItemTypes().get(gameContext.getRandom().nextInt(creatureDescriptor.getArmorItemTypes().size()));
 			if (armorItemTypeName != null) {
 				ItemType itemType = itemTypeDictionary.getByName(armorItemTypeName);
 				ItemEntityAttributes armorItemAttributes = itemEntityAttributesFactory.createItemAttributes(itemType, 1, pickMaterial(itemType.getPrimaryMaterialType()));

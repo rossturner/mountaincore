@@ -10,6 +10,7 @@ import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
+import technology.rocketjump.saul.settlement.trading.model.TradeCaravanDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class TraderCreatureGroup extends CreatureGroup {
 	private double hoursInCurrentStage;
 
 	private List<PlannedTrade> plannedTrades = new ArrayList<>();
+	private TradeCaravanDefinition caravanDefinition;
 
 	@Override
 	public void infrequentUpdate(GameContext gameContext, MessageDispatcher messageDispatcher) {
@@ -73,6 +75,14 @@ public class TraderCreatureGroup extends CreatureGroup {
 		return stage;
 	}
 
+	public void setCaravanDefinition(TradeCaravanDefinition caravanDefinition) {
+		this.caravanDefinition = caravanDefinition;
+	}
+
+	public TradeCaravanDefinition getCaravanDefinition() {
+		return caravanDefinition;
+	}
+
 	@Override
 	public void writeTo(SavedGameStateHolder savedGameStateHolder) {
 		super.writeTo(savedGameStateHolder);
@@ -108,6 +118,7 @@ public class TraderCreatureGroup extends CreatureGroup {
 		this.hoursInCurrentStage = asJson.getDoubleValue("hoursInCurrentStage");
 
 		this.pendingSpecialGoal = EnumParser.getEnumValue(asJson, "pendingSpecialGoal", SpecialGoal.class, null);
+		this.caravanDefinition = relatedStores.tradeCaravanDefinitionDictionary.get();
 
 		JSONArray plannedTradesJson = asJson.getJSONArray("plannedTrades");
 		if (plannedTradesJson != null) {
@@ -119,4 +130,5 @@ public class TraderCreatureGroup extends CreatureGroup {
 			}
 		}
 	}
+
 }

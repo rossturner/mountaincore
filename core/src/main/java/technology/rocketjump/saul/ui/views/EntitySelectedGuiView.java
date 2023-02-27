@@ -360,7 +360,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 							viewContents.add(productionExportFurnitureWidget).center().row();
 						}
 
-						//TODO: test this
 						if (entity.getComponent(InventoryComponent.class) != null) {
 							viewContents.add(inventory.getActor()).row();
 						} else {
@@ -654,7 +653,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				if (itemAllocationComponent != null) {
 					List<ItemAllocation> itemAllocations = itemAllocationComponent.getAll();
 					for (ItemAllocation itemAllocation : itemAllocations) {
-						Label label = new Label(itemAllocation.toString(), mainGameSkin.get("debug-label", Label.LabelStyle.class));
+						Label.LabelStyle debugLabelStyle = mainGameSkin.get("debug-label", Label.LabelStyle.class);
+						Label label = new Label(itemAllocation.toString(), debugLabelStyle);
 						table.add(label).grow().row();
 					}
 				}
@@ -846,7 +846,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						if (creatureBehaviour.getCurrentGoal().getCurrentAction() != null) {
 							debugText += ": " + creatureBehaviour.getCurrentGoal().getCurrentAction().getSimpleName();
 						}
-						table.add(new Label(debugText, mainGameSkin.get("debug-label", Label.LabelStyle.class))).left().row();
+						Label.LabelStyle debugLabelStyle = mainGameSkin.get("debug-label", Label.LabelStyle.class);
+						table.add(new Label(debugText, debugLabelStyle)).left().row();
 					}
 				}
 			});

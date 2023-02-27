@@ -31,6 +31,9 @@ public class CancelTradeAction extends Action {
 				traderCreatureGroup.getPlannedTrades().remove(plannedTrade);
 			}
 		}
+		if (parent.getAssignedHaulingAllocation() != null) {
+			parent.messageDispatcher.dispatchMessage(MessageType.HAULING_ALLOCATION_CANCELLED, parent.getAssignedHaulingAllocation());
+		}
 		completionType = CompletionType.SUCCESS;
 	}
 
