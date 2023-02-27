@@ -149,7 +149,7 @@ public class WeatherManager implements Updatable, Telegraph {
 				for (int percentileToAdd = currentSnowPercentile; percentileToAdd < newSnowPercentile || percentileToAdd == 100; percentileToAdd++) {
 					addSnowToGround(percentileToAdd);
 				}
-			} else if (newSnowPercentile < currentSnowPercentile) {
+			} else {
 				// Decreasing snowfall
 				for (int percentileToRemove = currentSnowPercentile; percentileToRemove > newSnowPercentile || percentileToRemove == 0; percentileToRemove--) {
 					removeSnowFromGround(percentileToRemove);
