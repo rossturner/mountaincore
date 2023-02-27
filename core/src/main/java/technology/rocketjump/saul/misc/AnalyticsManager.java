@@ -5,6 +5,10 @@ import com.brsanthu.googleanalytics.GoogleAnalytics;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AnalyticsManager {
@@ -14,7 +18,11 @@ public class AnalyticsManager {
 	private static final GoogleAnalytics ga;
 	private static String clientId = "Unknown";
 	public static String languageCode = "en-gb";
-	private static AnalyticsThread thread;
+	private static final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(r -> {
+		Thread t = new Thread(r, "AnalyticsThread");
+		t.setDaemon(true);
+		return t;
+	});
 
 	static {
 		ga = GoogleAnalytics.builder()
@@ -24,40 +32,12 @@ public class AnalyticsManager {
 
 	public static void startAnalytics(String clientId) {
 		AnalyticsManager.clientId = clientId;
-		thread = new AnalyticsThread();
-		thread.start();
+		executor.scheduleAtFixedRate(AnalyticsManager::postAnalyticsInfo, 0, PERIOD_IN_SECONDS, TimeUnit.SECONDS);
 	}
 
 	public static void stopAnalytics() {
-		thread.requestStop();
-		thread.interrupt();
+		executor.shutdownNow();
 	}
-
-	public static class AnalyticsThread extends Thread {
-
-		private AtomicBoolean running = new AtomicBoolean(true);
-
-		public AnalyticsThread() {
-			setDaemon(true);
-		}
-
-		@Override
-		public void run() {
-			while (running.get()) {
-				postAnalyticsInfo();
-				try {
-					Thread.sleep(1000L * PERIOD_IN_SECONDS);
-				} catch (InterruptedException e) {
-					break;
-				}
-			}
-		}
-
-		public void requestStop() {
-			running.set(false);
-		}
-	}
-
 
 	private static void postAnalyticsInfo() {
 		try {

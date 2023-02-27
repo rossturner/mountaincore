@@ -26,24 +26,18 @@ public class TileFloor implements ChildPersistable {
 	private BridgeTile bridgeTile;
 
 	private final List<FloorOverlap> overlaps = new ArrayList<>();
+	private final List<FloorOverlap> transitoryOverlaps = new ArrayList<>();
 
-	public final Color[] vertexColors = new Color[4]; // Affected by floor/wall type
+	private final Color[] vertexColors = new Color[4]; // Affected by floor/wall type
 
 	public TileFloor() {
-		vertexColors[0] = Color.WHITE;
-		vertexColors[1] = Color.WHITE;
-		vertexColors[2] = Color.WHITE;
-		vertexColors[3] = Color.WHITE;
+		setVertexColors(Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE);
 	}
 
 	public TileFloor(FloorType type, GameMaterial material) {
+		this();
 		this.type = type;
 		this.material = material;
-
-		vertexColors[0] = Color.WHITE;
-		vertexColors[1] = Color.WHITE;
-		vertexColors[2] = Color.WHITE;
-		vertexColors[3] = Color.WHITE;
 	}
 
 	public FloorType getFloorType() {
@@ -60,6 +54,10 @@ public class TileFloor implements ChildPersistable {
 
 	public List<FloorOverlap> getOverlaps() {
 		return overlaps;
+	}
+
+	public List<FloorOverlap> getTransitoryOverlaps() {
+		return transitoryOverlaps;
 	}
 
 	public GameMaterial getMaterial() {
@@ -104,6 +102,13 @@ public class TileFloor implements ChildPersistable {
 		return vertexColors;
 	}
 
+	public void setVertexColors(Color first, Color second, Color third, Color fourth) {
+		vertexColors[0] = first.cpy();
+		vertexColors[1] = second.cpy();
+		vertexColors[2] = third.cpy();
+		vertexColors[3] = fourth.cpy();
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		asJson.put("type", type.getFloorTypeName());
@@ -131,6 +136,17 @@ public class TileFloor implements ChildPersistable {
 				overlapsJson.add(overlapJson);
 			}
 			asJson.put("overlaps", overlapsJson);
+		}
+
+
+		if (!transitoryOverlaps.isEmpty()) {
+			JSONArray transitoryOverlapsJson = new JSONArray();
+			for (FloorOverlap overlap : transitoryOverlaps) {
+				JSONObject overlapJson = new JSONObject(true);
+				overlap.writeTo(overlapJson, savedGameStateHolder);
+				transitoryOverlapsJson.add(overlapJson);
+			}
+			asJson.put("transitoryOverlaps", transitoryOverlapsJson);
 		}
 
 		if (vertexColors[0].equals(vertexColors[1]) && vertexColors[0].equals(vertexColors[2]) && vertexColors[0].equals(vertexColors[3])) {
@@ -185,19 +201,29 @@ public class TileFloor implements ChildPersistable {
 			}
 		}
 
+		JSONArray transitoryOverlaps = asJson.getJSONArray("transitoryOverlaps");
+		if (transitoryOverlaps != null) {
+			for (int cursor = 0; cursor < transitoryOverlaps.size(); cursor++) {
+				JSONObject overlapJson = transitoryOverlaps.getJSONObject(cursor);
+				FloorOverlap overlap = new FloorOverlap();
+				overlap.readFrom(overlapJson, savedGameStateHolder, relatedStores);
+				this.transitoryOverlaps.add(overlap);
+			}
+		}
+
 		String vertexColorHex = asJson.getString("vertexColor");
 		if (vertexColorHex != null) {
 			Color vertexColor = HexColors.get(vertexColorHex);
-			vertexColors[0] = vertexColor;
-			vertexColors[1] = vertexColor;
-			vertexColors[2] = vertexColor;
-			vertexColors[3] = vertexColor;
+			setVertexColors(vertexColor, vertexColor, vertexColor, vertexColor);
 		} else {
 			JSONArray vertexColorJson = asJson.getJSONArray("vertexColors");
 			if (vertexColorJson != null) {
-				for (int cursor = 0; cursor < vertexColors.length; cursor++) {
-					vertexColors[cursor] = HexColors.get(vertexColorJson.getString(cursor));
-				}
+				setVertexColors(
+						HexColors.get(vertexColorJson.getString(0)),
+						HexColors.get(vertexColorJson.getString(1)),
+						HexColors.get(vertexColorJson.getString(2)),
+						HexColors.get(vertexColorJson.getString(3))
+				);
 			}
 		}
 

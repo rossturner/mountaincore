@@ -48,6 +48,7 @@ import technology.rocketjump.saul.zones.Zone;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 import static technology.rocketjump.saul.entities.model.Entity.NULL_ENTITY;
 import static technology.rocketjump.saul.mapping.tile.TileExploration.EXPLORED;
@@ -68,6 +69,9 @@ public class MapTile implements Persistable {
 	private TileRoof roof;
 	private Wall wall = null;
 	private Doorway doorway = null;
+	private final int tilePercentile;
+	//A temporary overlapping floor, like snow covered ground. This is separate for rendering on top of the floor, with effects like transparency
+	private TileFloor transitoryFloor = null;
 	private final Deque<TileFloor> floors = new ArrayDeque<>();
 	private UnderTile underTile;
 
@@ -81,6 +85,7 @@ public class MapTile implements Persistable {
 
 	public MapTile(long seed, int tileX, int tileY, FloorType floorType, GameMaterial floorMaterial) {
 		this.seed = seed;
+		this.tilePercentile = (int) Math.abs(seed % 100);
 		this.tilePosition = new GridPoint2(tileX, tileY);
 		floors.push(new TileFloor(floorType, floorMaterial));
 		this.roof = new TileRoof();
@@ -111,42 +116,61 @@ public class MapTile implements Persistable {
 		}
 
 		// Always update FloorOverlaps for all tiles
-		Set<FloorOverlap> overlaps = new TreeSet<>(new FloorType.FloorDefinitionComparator());
-		int thisLayer = getFloor().getFloorType().getLayer();
-		if (this.hasWall()) {
-			thisLayer = Integer.MIN_VALUE;
+		// ================= Actual Floor Overlaps ================
+		for (TileFloor floor : floors) {
+			floor.getOverlaps().clear();
+			floor.getTransitoryOverlaps().clear();
 		}
-		for (MapTile neighbour : neighbours.values()) {
-			if (neighbour.hasFloor() && neighbour.getFloor().getFloorType().getLayer() > thisLayer) {
-				OverlapLayout layout = OverlapLayout.fromNeighbours(neighbours, neighbour.getFloor().getFloorType());
-				overlaps.add(new FloorOverlap(layout, neighbour.getFloor().getFloorType(), neighbour.getFloor().getMaterial(), vertexNeighboursOfCell));
-			}
+		if (getTransitoryFloor() != null) {
+			getTransitoryFloor().getOverlaps().clear();
+			getTransitoryFloor().getTransitoryOverlaps().clear();
 		}
+		updateFloorOverlaps(neighbours, vertexNeighboursOfCell, MapTile::getActualFloor, MapTile::getActualFloor, TileFloor::getOverlaps);
 
-		getFloor().getOverlaps().clear();
-		// For sort
-		for (FloorOverlap overlap : overlaps) {
-			getFloor().getOverlaps().add(overlap);
-		}
-
-		if (getFloor().getFloorType().isUseMaterialColor()) {
-			Color floorMaterialColor = getFloor().getMaterial().getColor();
-			getFloor().vertexColors[0] = floorMaterialColor;
-			getFloor().vertexColors[1] = floorMaterialColor;
-			getFloor().vertexColors[2] = floorMaterialColor;
-			getFloor().vertexColors[3] = floorMaterialColor;
-		} else {
-			getFloor().vertexColors[0] = getFloor().getFloorType().getColorForHeightValue(vertexNeighboursOfCell[0].getHeightmapValue());
-			getFloor().vertexColors[1] = getFloor().getFloorType().getColorForHeightValue(vertexNeighboursOfCell[1].getHeightmapValue());
-			getFloor().vertexColors[2] = getFloor().getFloorType().getColorForHeightValue(vertexNeighboursOfCell[2].getHeightmapValue());
-			getFloor().vertexColors[3] = getFloor().getFloorType().getColorForHeightValue(vertexNeighboursOfCell[3].getHeightmapValue());
-		}
+		// ================== Transitory floor overlaps ===================
+		// Keep these separate, so that they can be overlapped after the transitory tiles are rendered
+		updateFloorOverlaps(neighbours, vertexNeighboursOfCell, MapTile::getFloor, MapTile::getTransitoryFloor, TileFloor::getTransitoryOverlaps);
 
 		if (hasConstruction()) {
 			if (construction.getConstructionType().equals(ConstructionType.WALL_CONSTRUCTION)) {
 				WallConstruction wallConstruction = (WallConstruction) construction;
 				wallConstruction.setLayout(new WallConstructionLayout(neighbours));
 			}
+		}
+	}
+
+	//TODO Optimize
+	private void updateFloorOverlaps(TileNeighbours neighbours, MapVertex[] vertexNeighboursOfCell,
+									 Function<MapTile, TileFloor> myFloorFunction, Function<MapTile, TileFloor> neighbourFloorFunction,
+									 Function<TileFloor, List<FloorOverlap>> overlapFunction) {
+		TileFloor floor = myFloorFunction.apply(this);
+		List<FloorOverlap> toReplace = overlapFunction.apply(floor);
+
+		Set<FloorOverlap> overlaps = new TreeSet<>(new FloorType.FloorDefinitionComparator());
+		int thisLayer = floor.getFloorType().getLayer();
+		if (this.hasWall()) {
+			thisLayer = Integer.MIN_VALUE;
+		}
+		for (MapTile neighbour : neighbours.values()) {
+			TileFloor neighbourFloor = neighbourFloorFunction.apply(neighbour);
+			if (neighbourFloor != null && neighbour.hasFloor() && neighbourFloor.getFloorType().getLayer() > thisLayer) {
+				OverlapLayout layout = OverlapLayout.fromNeighbours(neighbours, neighbourFloor.getFloorType());
+				overlaps.add(new FloorOverlap(layout, neighbourFloor.getFloorType(), neighbourFloor.getMaterial(), vertexNeighboursOfCell));
+			}
+		}
+		toReplace.clear();
+		toReplace.addAll(overlaps);
+
+		if (floor.getFloorType().isUseMaterialColor()) {
+			Color floorMaterialColor = floor.getMaterial().getColor();
+			floor.setVertexColors(floorMaterialColor, floorMaterialColor, floorMaterialColor, floorMaterialColor);
+		} else {
+			floor.setVertexColors(
+				floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[0].getHeightmapValue()),
+				floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[1].getHeightmapValue()),
+				floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[2].getHeightmapValue()),
+				floor.getFloorType().getColorForHeightValue(vertexNeighboursOfCell[3].getHeightmapValue())
+			);
 		}
 	}
 
@@ -256,8 +280,20 @@ public class MapTile implements Persistable {
 		return seed;
 	}
 
-	public TileFloor getFloor() {
+	public int getTilePercentile() {
+		return tilePercentile;
+	}
+
+	public TileFloor getActualFloor() {
 		return floors.peek();
+	}
+
+	public TileFloor getFloor() {
+		if (transitoryFloor != null) {
+			return transitoryFloor;
+		}
+
+		return getActualFloor();
 	}
 
 	public int getTileX() {
@@ -515,6 +551,12 @@ public class MapTile implements Persistable {
 		roof.writeTo(roofJson, savedGameStateHolder);
 		asJson.put("roof", roofJson);
 
+		if (transitoryFloor != null) {
+			JSONObject floorJson = new JSONObject(true);
+			transitoryFloor.writeTo(floorJson, savedGameStateHolder);
+			asJson.put("transitoryFloor", floorJson);
+		}
+
 		if (!floors.isEmpty()) {
 			JSONArray floorsArray = new JSONArray();
 			Iterator<TileFloor> descendingIterator = floors.descendingIterator();
@@ -596,6 +638,13 @@ public class MapTile implements Persistable {
 			throw new InvalidSaveException("Map tile roof is old version");
 		}
 
+		JSONObject transitoryFloorJson = asJson.getJSONObject("transitoryFloor");
+		if (transitoryFloorJson != null) {
+			TileFloor floor = new TileFloor();
+			floor.readFrom(transitoryFloorJson, savedGameStateHolder, relatedStores);
+			transitoryFloor = floor;
+		}
+
 		JSONArray floorsJson = asJson.getJSONArray("floors");
 		this.floors.clear();
 		if (floorsJson != null) {
@@ -661,7 +710,7 @@ public class MapTile implements Persistable {
 			}
 		}
 
-		this.exploration = EnumParser.getEnumValue(asJson, "exploration", TileExploration.class, TileExploration.EXPLORED);
+		this.exploration = EnumParser.getEnumValue(asJson, "exploration", TileExploration.class, EXPLORED);
 
 		savedGameStateHolder.tiles.put(tilePosition, this);
 	}
@@ -684,6 +733,31 @@ public class MapTile implements Persistable {
 
 	public void popFloor() {
 		this.floors.pop();
+	}
+
+	public TileFloor getTransitoryFloor() {
+		return transitoryFloor;
+	}
+
+	public void setTransitoryFloor(TileFloor transitoryFloor) {
+		this.transitoryFloor = transitoryFloor;
+	}
+
+	public void removeTransitoryFloor() {
+		this.transitoryFloor = null;
+	}
+
+	public float getTransitoryFloorAlpha(double val) {
+//		Mike: I'm a math newbie, but this is `y = mx + c`
+		float x1 = tilePercentile / 100.0f;
+		float x2 = 1.0f;
+		float y1 = 0;
+		float y2 = 1.0f;
+
+		float m = (y2 - y1) / (x2 - x1);
+		float c = y2 - (m * x2);
+
+		return (m * (float) val) + c;
 	}
 
 	public UnderTile getUnderTile() {

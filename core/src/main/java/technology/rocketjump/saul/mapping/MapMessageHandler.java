@@ -140,7 +140,9 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 		messageDispatcher.addListener(this, MessageType.REMOVE_ROOM);
 		messageDispatcher.addListener(this, MessageType.REMOVE_ROOM_TILES);
 		messageDispatcher.addListener(this, MessageType.REPLACE_FLOOR);
+		messageDispatcher.addListener(this, MessageType.SET_TRANSITORY_FLOOR);
 		messageDispatcher.addListener(this, MessageType.UNDO_REPLACE_FLOOR);
+		messageDispatcher.addListener(this, MessageType.REMOVE_TRANSITORY_FLOOR);
 		messageDispatcher.addListener(this, MessageType.REPLACE_REGION);
 		messageDispatcher.addListener(this, MessageType.FLOORING_CONSTRUCTED);
 		messageDispatcher.addListener(this, MessageType.ADD_CHANNEL);
@@ -200,9 +202,19 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 				this.replaceFloor(message.targetLocation, message.newFloorType, message.newMaterial);
 				return true;
 			}
+			case MessageType.SET_TRANSITORY_FLOOR: {
+				ReplaceFloorMessage message = (ReplaceFloorMessage) msg.extraInfo;
+				this.setTransitoryFloor(message.targetLocation, message.newFloorType, message.newMaterial);
+				return true;
+			}
 			case MessageType.UNDO_REPLACE_FLOOR: {
 				GridPoint2 location = (GridPoint2) msg.extraInfo;
 				this.undoReplaceFloor(location);
+				return true;
+			}
+			case MessageType.REMOVE_TRANSITORY_FLOOR: {
+				GridPoint2 location = (GridPoint2) msg.extraInfo;
+				this.removeTransitoryFloor(location);
 				return true;
 			}
 			case MessageType.REPLACE_REGION: {
@@ -951,6 +963,22 @@ public class MapMessageHandler implements Telegraph, GameContextAware {
 	public void undoReplaceFloor(GridPoint2 location) {
 		MapTile mapTile = gameContext.getAreaMap().getTile(location);
 		mapTile.popFloor();
+
+		updateTile(mapTile, gameContext, messageDispatcher);
+	}
+
+	public void setTransitoryFloor(GridPoint2 location, FloorType floorType, GameMaterial material) {
+		MapTile mapTile = gameContext.getAreaMap().getTile(location);
+
+		TileFloor newFloor = new TileFloor(floorType, material);
+		mapTile.setTransitoryFloor(newFloor);
+
+		updateTile(mapTile, gameContext, messageDispatcher);
+	}
+
+	public void removeTransitoryFloor(GridPoint2 location) {
+		MapTile mapTile = gameContext.getAreaMap().getTile(location);
+		mapTile.removeTransitoryFloor();
 
 		updateTile(mapTile, gameContext, messageDispatcher);
 	}

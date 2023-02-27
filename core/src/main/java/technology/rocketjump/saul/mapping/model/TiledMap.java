@@ -32,8 +32,8 @@ public class TiledMap {
 		return height;
 	}
 
-	private Array<Array<MapTile>> cells;
-	private Array<Array<MapVertex>> mapVertices;
+	private final MapTile[][] cells;
+	private final MapVertex[][] mapVertices;
 
 	private Map<Integer, List<MapTile>> tilesByPercentile = new HashMap<>();
 
@@ -53,29 +53,23 @@ public class TiledMap {
 		this.defaultFloor = defaultFloor;
 		this.defaultFloorMaterial = defaultFloorMaterial;
 
-		cells = new Array<>(width);
-		mapVertices = new Array<>(width + 1);
+		cells = new MapTile[width][height];
+		mapVertices = new MapVertex[width+1][height+1];
 
 		Random random = new Random(seed);
 		for (int x = 0; x < width; x++) {
-			Array<MapTile> column = new Array<>(height);
-			Array<MapVertex> vertexColumn = new Array<>(height + 1);
 			for (int y = 0; y < height; y++) {
 				MapTile mapTile = new MapTile(random.nextLong(), x, y, defaultFloor, defaultFloorMaterial);
-				column.add(mapTile);
-				tilesByPercentile.computeIfAbsent((int)Math.abs(mapTile.getSeed() % 100), a -> new ArrayList<>()).add(mapTile);
-				vertexColumn.add(new MapVertex(x, y));
+				cells[x][y] = mapTile;
+				tilesByPercentile.computeIfAbsent(mapTile.getTilePercentile(), a -> new ArrayList<>()).add(mapTile);
+				mapVertices[x][y] = new MapVertex(x, y);
 			}
-			vertexColumn.add(new MapVertex(x, height));
-			cells.add(column);
-			mapVertices.add(vertexColumn);
+			mapVertices[x][height] = new MapVertex(x, height);
 		}
 
-		Array<MapVertex> vertexColumn = new Array<>(height + 1);
 		for (int y = 0; y < height + 1; y++) {
-			vertexColumn.add(new MapVertex(width, y));
+			mapVertices[width][y] = new MapVertex(width, y);
 		}
-		mapVertices.add(vertexColumn);
 
 	}
 
@@ -97,7 +91,7 @@ public class TiledMap {
 		} else if (tileY < 0 || tileY >= height) {
 			return null;
 		} else {
-			return cells.get(tileX).get(tileY);
+			return cells[tileX][tileY];
 		}
 	}
 
@@ -151,7 +145,7 @@ public class TiledMap {
 	}
 
 	public MapVertex getVertex(int vertexX, int vertexY) {
-		return mapVertices.get(vertexX).get(vertexY);
+		return mapVertices[vertexX][vertexY];
 	}
 
 	public MapVertex getVertex(MapTile cell, CompassDirection vertexDirectionFromCell) {
