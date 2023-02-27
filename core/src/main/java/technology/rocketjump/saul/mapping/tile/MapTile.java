@@ -139,6 +139,7 @@ public class MapTile implements Persistable {
 		}
 	}
 
+	//TODO Optimize
 	private void updateFloorOverlaps(TileNeighbours neighbours, MapVertex[] vertexNeighboursOfCell,
 									 Function<MapTile, TileFloor> myFloorFunction, Function<MapTile, TileFloor> neighbourFloorFunction,
 									 Function<TileFloor, List<FloorOverlap>> overlapFunction) {

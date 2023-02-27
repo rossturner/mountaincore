@@ -29,8 +29,6 @@ import technology.rocketjump.saul.particles.model.ParticleEffectType;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -158,28 +156,53 @@ public class WeatherManager implements Updatable, Telegraph {
 				}
 			}
 
-			TiledMap areaMap = gameContext.getAreaMap();
-			for (int y = 0; y <= areaMap.getHeight(); y++) {
-				for (int x = 0; x <= areaMap.getWidth(); x++) {
-					MapVertex vertex = areaMap.getVertex(x, y);
-					TileNeighbours neighbours = areaMap.getTileNeighboursOfVertex(vertex);
-					vertex.setTransitoryFloorAlpha(averageAlphas(neighbours.values(), currentSnow));
-				}
-			}
+			calculateTransitoryFloorAlphas(currentSnow, gameContext.getAreaMap());
 		}
 		gameContext.getMapEnvironment().setFallenSnow(newSnow);
 	}
 
-	private float averageAlphas(Collection<MapTile> mapTiles, double currentSnow) {
+	public static void calculateTransitoryFloorAlphas(double currentSnow, TiledMap areaMap) {
+		for (int y = 0; y <= areaMap.getHeight(); y++) {
+			for (int x = 0; x <= areaMap.getWidth(); x++) {
+				MapVertex vertex = areaMap.getVertex(x, y);
+				MapTile sw = areaMap.getTile(vertex, CompassDirection.SOUTH_WEST);
+				MapTile nw = areaMap.getTile(vertex, CompassDirection.NORTH_WEST);
+				MapTile se = areaMap.getTile(vertex, CompassDirection.SOUTH_EAST);
+				MapTile ne = areaMap.getTile(vertex, CompassDirection.NORTH_EAST);
+				vertex.setTransitoryFloorAlpha(averageAlphas(currentSnow, sw, nw, se, ne));
+			}
+		}
+	}
+
+	private static float averageAlphas(double currentSnow, MapTile sw, MapTile nw, MapTile se, MapTile ne) {
 		float acc = 0.0f;
 		int count = 0;
-		for (MapTile mapTile : mapTiles) {
-			if (mapTile != null) {
-				float transitoryFloorAlpha = mapTile.getTransitoryFloorAlpha(currentSnow);
-				if (transitoryFloorAlpha > 0) {
-					acc += transitoryFloorAlpha;
-					count++;
-				}
+		if (sw != null) {
+			float transitoryFloorAlpha = sw.getTransitoryFloorAlpha(currentSnow);
+			if (transitoryFloorAlpha > 0) {
+				acc += transitoryFloorAlpha;
+				count++;
+			}
+		}
+		if (nw != null) {
+			float transitoryFloorAlpha = nw.getTransitoryFloorAlpha(currentSnow);
+			if (transitoryFloorAlpha > 0) {
+				acc += transitoryFloorAlpha;
+				count++;
+			}
+		}
+		if (se != null) {
+			float transitoryFloorAlpha = se.getTransitoryFloorAlpha(currentSnow);
+			if (transitoryFloorAlpha > 0) {
+				acc += transitoryFloorAlpha;
+				count++;
+			}
+		}
+		if (ne != null) {
+			float transitoryFloorAlpha = ne.getTransitoryFloorAlpha(currentSnow);
+			if (transitoryFloorAlpha > 0) {
+				acc += transitoryFloorAlpha;
+				count++;
 			}
 		}
 
