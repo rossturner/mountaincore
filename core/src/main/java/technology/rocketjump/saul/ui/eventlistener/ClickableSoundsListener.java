@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import technology.rocketjump.saul.audio.model.ActiveSoundEffect;
 import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.messaging.MessageType;
@@ -17,6 +18,7 @@ public class ClickableSoundsListener extends ClickListener {
     private final SoundAsset onEnterSoundAsset;
     private final SoundAsset onClickSoundAsset;
     private boolean entered = false;
+    private static volatile ActiveSoundEffect activeSoundEffect;
 
     public ClickableSoundsListener(MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
         this(messageDispatcher, soundAssetDictionary, DEFAULT_MENU_HOVER, DEFAULT_MENU_CLICK);
@@ -33,7 +35,13 @@ public class ClickableSoundsListener extends ClickListener {
         super.enter(event, x, y, pointer, fromActor);
         if (!entered) {
             entered = true;
-            messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onEnterSoundAsset));
+
+            //TODO: check with Ross on this, if he's happy. Done to prevent premature cut off of currently playing hover sound to play new sound
+            if (activeSoundEffect == null || activeSoundEffect.completed()) {
+                messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onEnterSoundAsset, activeSoundEffect ->
+                        ClickableSoundsListener.activeSoundEffect = activeSoundEffect));
+
+            }
         }
     }
 

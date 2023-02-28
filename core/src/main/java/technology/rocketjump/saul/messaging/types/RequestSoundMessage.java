@@ -23,10 +23,14 @@ public class RequestSoundMessage {
 	 * This constructor is to be used for UI sounds and other sounds that should always be played
 	 */
 	public RequestSoundMessage(SoundAsset soundAsset) {
+		this(soundAsset, (SoundRequestCallback) null);
+	}
+
+	public RequestSoundMessage(SoundAsset soundAsset, SoundRequestCallback callback) {
 		this.soundAsset = soundAsset;
 		this.requesterId = null;
 		this.fixedPosition = null;
-		this.callback = null;
+		this.callback = callback;
 	}
 
 	public RequestSoundMessage(SoundAsset soundAsset, Entity entity) {
