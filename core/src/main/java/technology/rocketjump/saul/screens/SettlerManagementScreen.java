@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.inject.Inject;
 import technology.rocketjump.saul.assets.entities.tags.BedSleepingPositionTag;
+import technology.rocketjump.saul.audio.model.SoundAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.ai.goap.EntityNeed;
@@ -42,6 +43,7 @@ import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.jobs.SkillDictionary;
 import technology.rocketjump.saul.jobs.model.Skill;
 import technology.rocketjump.saul.messaging.MessageType;
+import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 import technology.rocketjump.saul.military.model.Squad;
 import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rendering.utils.ColorMixer;
@@ -74,7 +76,6 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		return militaryComponent != null && militaryComponent.isInMilitary();
 	};
 	public static final Predicate<Entity> IS_CIVILIAN = IS_MILITARY.negate();
-
 	private record MatchesActiveProfession(Skill skill) implements Predicate<Entity> {
 
 		@Override
@@ -127,6 +128,8 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 	private final SettlementFurnitureTracker settlementFurnitureTracker;
 	private final SettlementItemTracker settlementItemTracker;
 	private final SoundAssetDictionary soundAssetDictionary;
+	private final SoundAsset conscriptSoundAsset;
+
 
 	private GameContext gameContext;
 	private Stack stack;
@@ -161,6 +164,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		this.settlementFurnitureTracker = settlementFurnitureTracker;
 		this.settlementItemTracker = settlementItemTracker;
 		this.soundAssetDictionary = soundAssetDictionary;
+		this.conscriptSoundAsset = soundAssetDictionary.getByName("ConfirmConscript");
 	}
 
 	@Override
@@ -855,6 +859,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		toggle.setChecked(IS_MILITARY.test(settler));
 		Consumer<Squad> assignSquadCallback = squad -> {
 			militaryComponent.addToMilitary(squad.getId());
+			messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(conscriptSoundAsset));
 			onMilitaryChange.accept(settler);
 		};
 		toggle.addListener(new ChangeListener() {

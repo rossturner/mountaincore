@@ -15,6 +15,15 @@
     "minPitch": 1.0,
     "maxPitch": 1.0,
     "volumeModifier": 1.0
+  },
+  {
+    "name": "ConfirmConscript",
+    "filenames": [
+      "SFX_UI_Global_Conscript.wav"
+    ],
+    "minPitch": 1.0,
+    "maxPitch": 1.0,
+    "volumeModifier": 1.0
   }
 
 ]
