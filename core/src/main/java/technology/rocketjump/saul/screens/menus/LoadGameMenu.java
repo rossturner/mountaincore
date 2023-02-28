@@ -89,9 +89,11 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 	public void savedGamesUpdated() {
 		for (Table slot : slots) {
 			slot.clearChildren();
+			slot.clearListeners();
 			slot.setBackground(skin.getDrawable("save_greyed_out_bg"));
 		}
 		for (Table slotOverlay : slotOverlays) {
+			slotOverlay.clearListeners();
 			slotOverlay.clearChildren();
 		}
 
@@ -153,7 +155,7 @@ public class LoadGameMenu extends PaperMenu implements GameContextAware, Display
 		saveSlot.clearListeners();
 
 		saveSlot.addListener(new ChangeCursorOnHover(saveSlot, GameCursor.SELECT, messageDispatcher));
-		saveSlot.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		saveSlot.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "HeavyHover", ClickableSoundsListener.DEFAULT_MENU_CLICK));
 		saveSlot.addListener(new ClickListener() {
 
 			@Override
