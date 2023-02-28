@@ -14,6 +14,7 @@ public class ClickableSoundsListener extends ClickListener {
 
     private final SoundAsset onEnterSoundAsset;
     private final SoundAsset onClickSoundAsset;
+    private boolean entered = false;
 
     public ClickableSoundsListener(MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
         this(messageDispatcher, soundAssetDictionary, "MenuClick");
@@ -29,7 +30,25 @@ public class ClickableSoundsListener extends ClickListener {
     @Override
     public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
         super.enter(event, x, y, pointer, fromActor);
-        messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onEnterSoundAsset));
+        if (!entered) {
+            entered = true;
+            messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onEnterSoundAsset));
+        }
+    }
+
+    @Override
+    public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+        super.exit(event, x, y, pointer, toActor);
+        Actor toCheck = toActor;
+        entered = false;
+        while (toCheck != null) {
+            boolean thisListenerStillOver = toCheck.getListeners().contains(this, true);
+            if (thisListenerStillOver) {
+                entered = true;
+                break;
+            }
+            toCheck = toCheck.getParent();
+        }
     }
 
     @Override
