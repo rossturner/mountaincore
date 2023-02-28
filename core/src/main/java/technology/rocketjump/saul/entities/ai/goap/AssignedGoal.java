@@ -46,6 +46,7 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 	private LiquidAllocation liquidAllocation;
 	private PlannedTrade plannedTrade;
 	private Long assignedFurnitureId;
+	private Long assignedVehicleId;
 	private Vector2 targetLocation; // Only used for facing toward currently
 	private Memory relevantMemory;
 	private boolean interrupted; // For if the entire goal should be cancelled, but needs to deal with any cleanup
@@ -311,6 +312,9 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 		if (assignedFurnitureId != null) {
 			asJson.put("assignedFurnitureId", assignedFurnitureId);
 		}
+		if (assignedVehicleId != null) {
+			asJson.put("assignedVehicleId", assignedVehicleId);
+		}
 
 		if (targetLocation != null) {
 			asJson.put("targetLocation", JSONUtils.toJSON(targetLocation));
@@ -386,6 +390,7 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 		}
 
 		this.assignedFurnitureId = asJson.getLong("assignedFurnitureId");
+		this.assignedVehicleId = asJson.getLong("assignedVehicleId");
 
 		JSONObject targetLocationJson = asJson.getJSONObject("targetLocation");
 		if (targetLocationJson != null) {
@@ -410,4 +415,11 @@ public class AssignedGoal implements ChildPersistable, Destructible {
 		interrupted = asJson.getBooleanValue("interrupted");
 	}
 
+	public void setAssignedVehicleId(Long assignedVehicleId) {
+		this.assignedVehicleId = assignedVehicleId;
+	}
+
+	public Long getAssignedVehicleId() {
+		return assignedVehicleId;
+	}
 }

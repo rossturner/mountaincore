@@ -18,17 +18,19 @@ public class RemoveFromMapAction extends Action {
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
-		parent.messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY_AND_ALL_INVENTORY, parent.parentEntity);
+		if (parent.parentEntity.getLocationComponent().getContainerEntity() != null) {
+			parent.messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY_AND_ALL_INVENTORY, parent.parentEntity.getLocationComponent().getContainerEntity());
+		} else {
+			parent.messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY_AND_ALL_INVENTORY, parent.parentEntity);
+		}
 		completionType = CompletionType.SUCCESS;
 	}
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-		super.writeTo(asJson, savedGameStateHolder);
 	}
 
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-		super.readFrom(asJson, savedGameStateHolder, relatedStores);
 	}
 }

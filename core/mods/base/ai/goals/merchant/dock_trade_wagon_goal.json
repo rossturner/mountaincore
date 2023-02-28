@@ -9,7 +9,8 @@
           "stage": "ARRIVED_AT_TRADE_DEPOT"
         },
         {
-          "type": "IS_DRIVING_VEHICLE"
+          "type": "IS_DRIVING_VEHICLE",
+          "value": true
         }
       ],
       "priority": "HIGHEST",

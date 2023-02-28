@@ -13,6 +13,10 @@
           "skillName": "MERCHANT",
           "operator": "GREATER_THAN",
           "value": 0
+        },
+        {
+          "type": "IS_DRIVING_VEHICLE",
+          "value": false
         }
       ],
       "priority": "HIGHEST",
@@ -29,6 +33,14 @@
       "pass": ["BoardVehicle"],
       "fail": []
     },
-    "BoardVehicle": {}
+    "BoardVehicle": {
+      "pass": ["CheckAllVehiclesBoarded"],
+      "fail": []
+    },
+    "CheckAllVehiclesBoarded": {
+      "pass": ["ProgressTraderStage"],
+      "fail": []
+    },
+    "ProgressTraderStage": {}
   }
 }

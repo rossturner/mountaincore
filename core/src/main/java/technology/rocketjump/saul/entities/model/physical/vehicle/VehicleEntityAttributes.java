@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.graphics.Color;
 import org.apache.commons.lang3.EnumUtils;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.entities.model.physical.EntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.EntityDestructionCause;
@@ -132,6 +133,9 @@ public class VehicleEntityAttributes implements EntityAttributes {
 	}
 
 	public void setAssignedToEntityId(Long assignedToEntityId) {
+		if (this.assignedToEntityId != null && assignedToEntityId != null && !this.assignedToEntityId.equals(assignedToEntityId)) {
+			Logger.error("Vehicle already assigned to " + this.assignedToEntityId + " but trying to assign to " + assignedToEntityId);
+		}
 		this.assignedToEntityId = assignedToEntityId;
 	}
 

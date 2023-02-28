@@ -88,6 +88,7 @@ public class TradeCaravanGenerator implements GameContextAware {
 		for (int i = 0; i < numVehicles; i++) {
 			Entity vehicle = vehicleEntityFactory.create(vehicleEntityAttributesFactory.create(definition.getVehicles().getVehicleType()), toGridPoint(tradeSpawnLocation), gameContext, Faction.MERCHANTS);
 			participants.add(vehicle);
+			group.addMemberId(vehicle.getId());
 
 			AttachedEntitiesComponent vehicleAttachedEntities = new AttachedEntitiesComponent();
 			vehicleAttachedEntities.init(vehicle, messageDispatcher, gameContext);

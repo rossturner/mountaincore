@@ -225,12 +225,6 @@ public class PlaceEntityAction extends Action {
 
 					itemToPlaceAttributes.setItemPlacement(ItemPlacement.ON_GROUND);
 
-					if (itemToPlaceAttributes.getItemType().getPlacementSoundAsset() != null) {
-						parent.messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(
-								itemToPlaceAttributes.getItemType().getPlacementSoundAsset(), parent.parentEntity
-						));
-					}
-
 					if (currentTile.hasConstruction() && currentTile.getConstruction().isItemUsedInConstruction(entityToPlace) &&
 							parent.getAssignedHaulingAllocation() != null) {
 						// This item is used as part of this construction, so set it to be fully allocated

@@ -247,6 +247,10 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 					return true;
 				}
 
+				AttachedEntitiesComponent attachedEntitiesComponent = entity.getComponent(AttachedEntitiesComponent.class);
+				if (attachedEntitiesComponent != null) {
+					attachedEntitiesComponent.destroyAllEntities(messageDispatcher);
+				}
 				InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 				if (inventoryComponent != null) {
 					inventoryComponent.destroyAllEntities(messageDispatcher);
@@ -834,7 +838,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		}
 		historyComponent.setDeathReason(deathReason);
 
-		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
+		if (attributes.getRace().getBehaviour().getIsSapient() && deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
 			Notification deathNotification = new Notification(NotificationType.DEATH, deceasedPosition, new Selectable(deceased, 0));
 			deathNotification.addTextReplacement("character", i18nTranslator.getDescription(deceased));
 			deathNotification.addTextReplacement("reason", i18nTranslator.getDictionary().getWord(deathReason.getI18nKey()));

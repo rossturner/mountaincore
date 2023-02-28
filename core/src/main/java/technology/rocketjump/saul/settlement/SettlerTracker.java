@@ -51,7 +51,6 @@ public class SettlerTracker implements GameContextAware, Telegraph {
 		} else {
 			livingSettlers.put(entity.getId(), entity);
 		}
-		byId.put(entity.getId(), entity);
 	}
 
 	public void settlerRemoved(Entity entity) {

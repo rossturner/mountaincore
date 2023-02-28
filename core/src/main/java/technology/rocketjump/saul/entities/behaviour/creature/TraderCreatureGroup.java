@@ -5,7 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.entities.ai.goap.PlannedTrade;
 import technology.rocketjump.saul.entities.ai.goap.SpecialGoal;
+import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.gamecontext.GameContext;
+import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.persistence.EnumParser;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -19,7 +22,7 @@ import static technology.rocketjump.saul.entities.behaviour.creature.TraderGroup
 
 public class TraderCreatureGroup extends CreatureGroup {
 
-	private static final double MAX_HOURS_IN_ANY_STAGE = 18.0;
+	private static final double MAX_HOURS_IN_ANY_STAGE = 8.0;
 	private TraderGroupStage stage = SPAWNED;
 	private SpecialGoal pendingSpecialGoal;
 	private double hoursInCurrentStage;
@@ -47,9 +50,26 @@ public class TraderCreatureGroup extends CreatureGroup {
 				this.pendingSpecialGoal = SpecialGoal.MOVE_GROUP_TOWARDS_SETTLEMENT;
 				progressToNextStage();
 			}
-
-
+			case PREPARING_TO_LEAVE -> {
+				removeFurnitureAssignments(gameContext);
+			}
 		}
+	}
+
+	private void removeFurnitureAssignments(GameContext gameContext) {
+		MapTile homeTile = gameContext.getAreaMap().getTile(homeLocation);
+		if (homeTile != null && homeTile.getRoomTile() != null) {
+			homeTile.getRoomTile().getRoom().getRoomTiles().values().stream()
+					.flatMap(roomTile -> roomTile.getTile().getEntities().stream())
+					.filter(entity -> entity.getType().equals(EntityType.FURNITURE))
+					.map(e -> (FurnitureEntityAttributes)e.getPhysicalEntityComponent().getAttributes())
+					.forEach(a -> {
+						if (a.getAssignedToEntityId() != null && memberEntityIds.contains(a.getAssignedToEntityId())) {
+							a.setAssignedToEntityId(null);
+						}
+					});
+		}
+
 	}
 
 	public List<PlannedTrade> getPlannedTrades() {

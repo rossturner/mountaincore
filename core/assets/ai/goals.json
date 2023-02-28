@@ -402,7 +402,7 @@
   "initialActions" : [ "MoveGroupHomeTowardSettlers" ]
 }, {
   "i18nDescription" : "GOAL.INVADER.RETREAT.DESCRIPTION",
-  "creatureCategories" : [ "INVADER" ],
+  "creatureCategories" : [ "INVADER", "MERCHANT" ],
   "name" : "Invasion retreat",
   "actionRelationships" : {
     "SelectRetreatLocation" : {
@@ -418,6 +418,13 @@
     "conditions" : [ {
       "invasionStage" : "RETREATING",
       "type" : "INVASION_IN_STAGE"
+    } ],
+    "priority" : "HIGHEST"
+  }, {
+    "scheduleCategory" : "ANY",
+    "conditions" : [ {
+      "stage" : "LEAVING",
+      "type" : "TRADERS_IN_STAGE"
     } ],
     "priority" : "HIGHEST"
   } ],
@@ -458,7 +465,15 @@
   "creatureCategories" : [ "MERCHANT" ],
   "name" : "Board vehicle",
   "actionRelationships" : {
-    "BoardVehicle" : { },
+    "CheckAllVehiclesBoarded" : {
+      "fail" : [ ],
+      "pass" : [ "ProgressTraderStage" ]
+    },
+    "BoardVehicle" : {
+      "fail" : [ ],
+      "pass" : [ "CheckAllVehiclesBoarded" ]
+    },
+    "ProgressTraderStage" : { },
     "GoToGoalTargetLocation" : {
       "fail" : [ ],
       "pass" : [ "BoardVehicle" ]
@@ -478,6 +493,9 @@
       "type" : "SKILL",
       "value" : 0,
       "operator" : "GREATER_THAN"
+    }, {
+      "type" : "IS_DRIVING_VEHICLE",
+      "value" : false
     } ],
     "priority" : "HIGHEST"
   } ],
@@ -512,7 +530,8 @@
       "stage" : "ARRIVED_AT_TRADE_DEPOT",
       "type" : "TRADERS_IN_STAGE"
     }, {
-      "type" : "IS_DRIVING_VEHICLE"
+      "type" : "IS_DRIVING_VEHICLE",
+      "value" : true
     } ],
     "priority" : "HIGHEST"
   } ],
@@ -861,7 +880,7 @@
   "initialActions" : [ "GoToLocation" ]
 }, {
   "i18nDescription" : "GOAL.REFILL_WATERSKIN.DESCRIPTION",
-  "creatureCategories" : [ "CIVILIAN", "MILITARY", "MERCHANT" ],
+  "creatureCategories" : [ "CIVILIAN", "MILITARY" ],
   "name" : "Refill inventory liquid containers",
   "actionRelationships" : {
     "RefillInventoryLiquidContainers" : {

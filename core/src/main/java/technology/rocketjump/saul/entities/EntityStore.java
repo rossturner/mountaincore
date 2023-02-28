@@ -288,7 +288,7 @@ public class EntityStore implements GameContextAware, AssetDisposable {
 								creatureTracker.creatureDied(entity);
 							}
 						} else {
-							if (entity.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
+							if (entity.isSettler()) {
 								settlerTracker.settlerAdded(entity);
 								InventoryComponent inventoryComponent = entity.getComponent(InventoryComponent.class);
 								if (inventoryComponent != null) {

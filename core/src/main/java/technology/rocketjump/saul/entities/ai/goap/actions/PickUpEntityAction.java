@@ -25,7 +25,6 @@ import technology.rocketjump.saul.jobs.model.JobPriority;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.messaging.types.FactionChangedMessage;
 import technology.rocketjump.saul.messaging.types.ItemCreationRequestMessage;
 import technology.rocketjump.saul.messaging.types.ItemPrimaryMaterialChangedMessage;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
@@ -203,7 +202,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			entityToPickUp = currentTile.getEntity(haulingAllocation.getHauledEntityId());
 		}
 
-		if (entityToPickUp == null) {
+		if (entityToPickUp == null || currentTile == null) {
 			completionType = FAILURE;
 		} else if (haulingAllocation.getHauledEntityType().equals(EntityType.CREATURE)) {
 			pickUpCreatureEntity(entityToPickUp, gameContext);
@@ -266,11 +265,7 @@ public class PickUpEntityAction extends Action implements EntityCreatedCallback 
 			pickedUpItem.getLocationComponent().clearWorldPosition();
 			pickedUpItem.getOrCreateComponent(ItemAllocationComponent.class).cancelAll();
 			FactionComponent itemFactionComponent = pickedUpItem.getComponent(FactionComponent.class);
-			if (!itemFactionComponent.getFaction().equals(parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction())) {
-				parent.messageDispatcher.dispatchMessage(MessageType.ENTITY_FACTION_CHANGED, new FactionChangedMessage(
-						pickedUpItem, itemFactionComponent.getFaction(), parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction())
-				);
-			}
+			itemFactionComponent.setFaction(parent.parentEntity.getOrCreateComponent(FactionComponent.class).getFaction());
 
 			ItemEntityAttributes cloneAttributes = (ItemEntityAttributes) pickedUpItem.getPhysicalEntityComponent().getAttributes();
 			cloneAttributes.setQuantity(quantityToPick);

@@ -4,35 +4,35 @@ import com.alibaba.fastjson.JSONObject;
 import technology.rocketjump.saul.entities.ai.goap.AssignedGoal;
 import technology.rocketjump.saul.entities.ai.goap.SwitchGoalException;
 import technology.rocketjump.saul.entities.ai.goap.actions.Action;
-import technology.rocketjump.saul.entities.components.AttachedEntitiesComponent;
-import technology.rocketjump.saul.entities.model.Entity;
-import technology.rocketjump.saul.entities.model.physical.vehicle.VehicleEntityAttributes;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
+import technology.rocketjump.saul.entities.behaviour.creature.CreatureGroup;
+import technology.rocketjump.saul.entities.model.EntityType;
+import technology.rocketjump.saul.entities.model.physical.item.ItemHoldPosition;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
 import technology.rocketjump.saul.persistence.model.SavedGameStateHolder;
 
-public class ExitVehicleAction extends Action {
+public class CheckAllVehiclesBoardedAction extends Action {
 
-	public ExitVehicleAction(AssignedGoal parent) {
+	public CheckAllVehiclesBoardedAction(AssignedGoal parent) {
 		super(parent);
 	}
 
 	@Override
 	public void update(float deltaTime, GameContext gameContext) throws SwitchGoalException {
-		Entity vehicle = parent.parentEntity.getContainingVehicle();
-		if (vehicle != null) {
-			AttachedEntitiesComponent vehicleAttachedEntities = vehicle.getComponent(AttachedEntitiesComponent.class);
-			VehicleEntityAttributes vehicleEntityAttributes = (VehicleEntityAttributes) vehicle.getPhysicalEntityComponent().getAttributes();
-			if (vehicleEntityAttributes.getAssignedToEntityId() != null && vehicleEntityAttributes.getAssignedToEntityId() == parent.parentEntity.getId()) {
-				vehicleEntityAttributes.setAssignedToEntityId(null);
+		if (parent.parentEntity.getBehaviourComponent() instanceof CreatureBehaviour creatureBehaviour) {
+			CreatureGroup creatureGroup = creatureBehaviour.getCreatureGroup();
+			if (creatureGroup != null) {
+				completionType = creatureGroup.getMemberIds().stream()
+						.map(gameContext::getEntity)
+						.filter(e -> e != null && e.getType().equals(EntityType.VEHICLE))
+						.allMatch(e -> e.getAttachedEntities().stream().anyMatch(a -> a.holdPosition.equals(ItemHoldPosition.VEHICLE_DRIVER)))
+				? CompletionType.SUCCESS : CompletionType.FAILURE;
 			}
-			vehicleAttachedEntities.remove(parent.parentEntity);
+		}
 
-			parent.parentEntity.getLocationComponent().setWorldPosition(vehicle.getLocationComponent().getWorldPosition(), false);
-
-			completionType = CompletionType.SUCCESS;
-		} else {
+		if (completionType == null) {
 			completionType = CompletionType.FAILURE;
 		}
 	}
@@ -46,5 +46,4 @@ public class ExitVehicleAction extends Action {
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
 		super.readFrom(asJson, savedGameStateHolder, relatedStores);
 	}
-
 }
