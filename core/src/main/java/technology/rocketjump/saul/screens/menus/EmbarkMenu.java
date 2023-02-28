@@ -171,7 +171,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		});
 
 		Button startButton = new Button(skin, "btn_embark_next");
-		startButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "GameStart"));
+		startButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "HeavyHover", "GameStart"));
 		startButton.addListener(new ChangeCursorOnHover(startButton, GameCursor.SELECT, messageDispatcher));
 
 		startButton.addListener(new ClickListener() {

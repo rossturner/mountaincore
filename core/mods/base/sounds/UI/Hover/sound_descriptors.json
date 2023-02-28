@@ -1,0 +1,32 @@
+[{
+  "name": "HeavyHover",
+  "filenames": [
+    "SFX_UI_Global_Hover_Heavy_1.wav",
+    "SFX_UI_Global_Hover_Heavy_2.wav",
+    "SFX_UI_Global_Hover_Heavy_3.wav"
+  ],
+  "minPitch": 1.0,
+  "maxPitch": 1.0,
+  "volumeModifier": 1.0
+},
+  {
+    "name": "LightHover",
+    "filenames": [
+      "SFX_UI_Global_Hover_Light_1.wav",
+      "SFX_UI_Global_Hover_Light_2.wav",
+      "SFX_UI_Global_Hover_Light_3.wav"
+    ],
+    "minPitch": 1.0,
+    "maxPitch": 1.0,
+    "volumeModifier": 1.0
+  },
+  {
+    "name": "VeryLightHover",
+    "filenames": [
+      "SFX_UI_Global_Hover_VeryLight.wav"
+    ],
+    "minPitch": 1.0,
+    "maxPitch": 1.0,
+    "volumeModifier": 1.0
+  }
+]

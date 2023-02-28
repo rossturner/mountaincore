@@ -10,6 +10,8 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.messaging.types.RequestSoundMessage;
 
 public class ClickableSoundsListener extends ClickListener {
+    public static final String DEFAULT_MENU_HOVER = "LightHover";
+    public static final String DEFAULT_MENU_CLICK = "ConfirmLight";
     private final MessageDispatcher messageDispatcher;
 
     private final SoundAsset onEnterSoundAsset;
@@ -17,15 +19,14 @@ public class ClickableSoundsListener extends ClickListener {
     private boolean entered = false;
 
     public ClickableSoundsListener(MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary) {
-        this(messageDispatcher, soundAssetDictionary, "MenuClick");
+        this(messageDispatcher, soundAssetDictionary, DEFAULT_MENU_HOVER, DEFAULT_MENU_CLICK);
     }
 
-    public ClickableSoundsListener(MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary, String clickSoundName) {
+    public ClickableSoundsListener(MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary, String hoverSoundName, String clickSoundName) {
         this.messageDispatcher = messageDispatcher;
-        this.onEnterSoundAsset = soundAssetDictionary.getByName("MenuHover");
+        this.onEnterSoundAsset = soundAssetDictionary.getByName(hoverSoundName);
         this.onClickSoundAsset = soundAssetDictionary.getByName(clickSoundName);
     }
-
 
     @Override
     public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
