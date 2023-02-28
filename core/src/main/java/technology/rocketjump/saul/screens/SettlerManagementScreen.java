@@ -618,7 +618,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					}, managementSkin));
 
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_SHIELD"),
-							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, 6));
+							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, 6, "EquipShield"));
 				}
 			});
 
@@ -644,7 +644,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 					}, managementSkin));
 
 					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_ARMOUR"),
-							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, 6));
+							menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, 6, "EquipArmor"));
 				}
 			});
 
@@ -813,7 +813,7 @@ public class SettlerManagementScreen extends AbstractGameScreen implements Displ
 		public void onSelect() {
 			List<SelectItemDialog.Option> options = SelectItemOption.forMaterialAndQuality(subGroup, entityRenderer, messageDispatcher, i18nTranslator, onWeaponSelect, managementSkin);
 			messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, new SelectItemDialog(i18nTranslator.getTranslatedString("GUI.SETTLER_MANAGEMENT.CHOOSE_WEAPON"),
-					menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, 6));
+					menuSkin, messageDispatcher, soundAssetDictionary, tooltipFactory, options, 6, "EquipWeapon"));
 		}
 	}
 
