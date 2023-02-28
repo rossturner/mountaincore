@@ -30,6 +30,7 @@ import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
@@ -170,6 +171,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 				}
 			});
 			leftButton.addListener(new ChangeCursorOnHover(leftButton, GameCursor.SELECT, messageDispatcher));
+			leftButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
 			leftButton.setDisabled(false);
 			rightButton.addListener(new ClickListener() {
 				@Override
@@ -179,6 +181,7 @@ public class ProductionExportFurnitureWidget extends Table implements DisplaysTe
 			});
 			rightButton.addListener(new ChangeCursorOnHover(rightButton, GameCursor.SELECT, messageDispatcher));
 			rightButton.setDisabled(false);
+			rightButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
 		} else {
 			leftButton.setDisabled(true);
 			rightButton.setDisabled(true);

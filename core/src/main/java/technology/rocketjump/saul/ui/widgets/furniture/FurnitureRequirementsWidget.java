@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureType;
@@ -42,6 +43,7 @@ public class FurnitureRequirementsWidget extends Table implements DisplaysText {
 	private final EntityRenderer entityRenderer;
 	private final TooltipFactory tooltipFactory;
 	private final GameMaterialDictionary gameMaterialDictionary;
+	private final SoundAssetDictionary soundAssetDictionary;
 
 	private FurnitureType selectedFurnitureType;
 	private GameMaterialType selectedMaterialType;
@@ -56,7 +58,8 @@ public class FurnitureRequirementsWidget extends Table implements DisplaysText {
 	public FurnitureRequirementsWidget(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 									   ItemAvailabilityChecker itemAvailabilityChecker, I18nTranslator i18nTranslator,
 									   RoomEditorFurnitureMap roomEditorFurnitureMap, RoomEditorItemMap roomEditorItemMap,
-									   EntityRenderer entityRenderer, TooltipFactory tooltipFactory, GameMaterialDictionary gameMaterialDictionary) {
+									   EntityRenderer entityRenderer, TooltipFactory tooltipFactory, GameMaterialDictionary gameMaterialDictionary,
+									   SoundAssetDictionary soundAssetDictionary) {
 		this.skin = guiSkinRepository.getMainGameSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.itemAvailabilityChecker = itemAvailabilityChecker;
@@ -66,6 +69,7 @@ public class FurnitureRequirementsWidget extends Table implements DisplaysText {
 		this.entityRenderer = entityRenderer;
 		this.tooltipFactory = tooltipFactory;
 		this.gameMaterialDictionary = gameMaterialDictionary;
+		this.soundAssetDictionary = soundAssetDictionary;
 	}
 
 	public void changeSelectedFurniture(FurnitureType furnitureType) {
@@ -139,7 +143,7 @@ public class FurnitureRequirementsWidget extends Table implements DisplaysText {
 
 			FurnitureRequirementWidget furnitureRequirementWidget = new FurnitureRequirementWidget(requirement, roomEditorItemMap.getByItemType(requirement.getItemType()),
 					skin, messageDispatcher, itemAvailabilityChecker, i18nTranslator, entityRenderer,
-					tooltipFactory, gameMaterialDictionary.getExampleMaterial(requirement.getItemType().getPrimaryMaterialType()));
+					tooltipFactory, gameMaterialDictionary.getExampleMaterial(requirement.getItemType().getPrimaryMaterialType()), soundAssetDictionary);
 			furnitureRequirementWidget.onMaterialSelection(material -> {
 				List<ItemTypeWithMaterial> otherMaterialSelections = new ArrayList<>(materialSelections.stream()
 						.filter(s -> !s.getItemType().equals(requirement.getItemType()))
