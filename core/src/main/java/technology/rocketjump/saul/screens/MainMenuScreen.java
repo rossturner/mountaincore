@@ -57,6 +57,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 	private final OptionsMenu optionsMenu;
 	private final EmbarkMenu embarkMenu;
 	private final LoadGameMenu loadGameMenu;
+	private final CreditsMenu creditsMenu;
 	private final Skin uiSkin;
 	private final SpriteBatch basicSpriteBatch = new SpriteBatch();
 
@@ -77,10 +78,11 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 
 	@Inject
 	public MainMenuScreen(MessageDispatcher messageDispatcher, ScreenWriter screenWriter, EmbarkMenu embarkMenu,
-	                      LoadGameMenu loadGameMenu, GuiSkinRepository guiSkinRepository,
-	                      UserPreferences userPreferences, TopLevelMenu topLevelMenu, OptionsMenu optionsMenu,
-	                      PrivacyOptInMenu privacyOptInMenu, CrashHandler crashHandler,
-	                      TwitchDataStore twitchDataStore, I18nTranslator i18nTranslator, ConstantsRepo constantsRepo) {
+						  LoadGameMenu loadGameMenu, GuiSkinRepository guiSkinRepository,
+						  UserPreferences userPreferences, TopLevelMenu topLevelMenu, OptionsMenu optionsMenu,
+						  PrivacyOptInMenu privacyOptInMenu, CrashHandler crashHandler,
+						  TwitchDataStore twitchDataStore, I18nTranslator i18nTranslator, ConstantsRepo constantsRepo,
+						  CreditsMenu creditsMenu) {
 		super(constantsRepo.getUiConstants());
 		this.messageDispatcher = messageDispatcher;
 		this.screenWriter = screenWriter;
@@ -92,6 +94,7 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 		this.userPreferences = userPreferences;
 		this.twitchDataStore = twitchDataStore;
 		this.i18nTranslator = i18nTranslator;
+		this.creditsMenu = creditsMenu;
 
 		containerTable = new Table(uiSkin);
 		containerTable.setFillParent(true);
@@ -146,6 +149,9 @@ public class MainMenuScreen extends AbstractGameScreen implements Telegraph, Dis
 							break;
 						case LOAD_GAME_MENU:
 							currentMenu = loadGameMenu;
+							break;
+						case CREDITS_MENU:
+							currentMenu = creditsMenu;
 							break;
 						default:
 							throw new NotImplementedException("not yet implemented:" + targetMenuType.name());
