@@ -40,7 +40,6 @@ import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
@@ -66,7 +65,6 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final FurnitureTypeDictionary furnitureTypeDictionary;
 	private final RoomEditorFurnitureMap furnitureMap;
 	private final EntityRenderer entityRenderer;
-	private final RoomStore roomStore;
 	private final RoomEditorItemMap itemMap;
 	private final PlantSpeciesDictionary plantSpeciesDictionary;
 	private final Table headerContainer;
@@ -76,9 +74,10 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 	private final RoomFactory roomFactory;
 	private final GameMaterialDictionary materialDictionary;
 	private final GameDialogDictionary gameDialogDictionary;
+	private final ButtonFactory buttonFactory;
 	private GameContext gameContext;
 
-	private final Button backButton;
+	private Button backButton;
 	private final Table mainTable;
 	private boolean displayed;
 
@@ -95,7 +94,9 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 						   FurnitureTypeDictionary furnitureTypeDictionary, RoomEditorFurnitureMap furnitureMap,
 						   EntityRenderer entityRenderer, RoomStore roomStore, RoomEditorItemMap itemMap,
 						   PlantSpeciesDictionary plantSpeciesDictionary, FurnitureRequirementsWidget furnitureRequirementsWidget,
-						   RoomFactory roomFactory, GameMaterialDictionary materialDictionary, GameDialogDictionary gameDialogDictionary, StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary, ItemTypeDictionary itemTypeDictionary, RaceDictionary raceDictionary, SoundAssetDictionary soundAssetDictionary) {
+						   RoomFactory roomFactory, GameMaterialDictionary materialDictionary, GameDialogDictionary gameDialogDictionary,
+						   ButtonFactory buttonFactory, StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
+						   ItemTypeDictionary itemTypeDictionary, RaceDictionary raceDictionary, SoundAssetDictionary soundAssetDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
@@ -104,20 +105,19 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		this.furnitureMap = furnitureMap;
 		this.furnitureTypeDictionary = furnitureTypeDictionary;
 		this.entityRenderer = entityRenderer;
-		this.roomStore = roomStore;
 		this.itemMap = itemMap;
 		this.plantSpeciesDictionary = plantSpeciesDictionary;
 		this.furnitureRequirementsWidget = furnitureRequirementsWidget;
 		this.roomFactory = roomFactory;
 		this.materialDictionary = materialDictionary;
 		this.gameDialogDictionary = gameDialogDictionary;
+		this.buttonFactory = buttonFactory;
 		this.stockpileComponentUpdater = stockpileComponentUpdater;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
 		this.itemTypeDictionary = itemTypeDictionary;
 		this.raceDictionary = raceDictionary;
 		this.soundAssetDictionary = soundAssetDictionary;
 
-		backButton = new Button(skin.getDrawable("btn_back"));
 		mainTable = new Table();
 		mainTable.setTouchable(Touchable.enabled);
 		mainTable.setBackground(skin.getDrawable("asset_dwarf_select_bg"));
@@ -129,43 +129,36 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 		headerContainer = new Table();
 		headerContainer.setBackground(skin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
 
-		changeRoomNameButton = new Button(skin.getDrawable("icon_edit"));
-		changeRoomNameButton.addListener(new ClickListener() {
+		changeRoomNameButton = buttonFactory.buildDrawableButton("icon_edit", "GUI.DIALOG.RENAME_ROOM_TITLE", () -> {
+			if (getSelectedRoom() != null) {
+				// Grabbing translations here so they're always for the correct language
+				I18nText renameRoomDialogTitle = i18nTranslator.getTranslatedString("GUI.DIALOG.RENAME_ROOM_TITLE");
+				I18nText buttonText = i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
 
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				if (getSelectedRoom() != null) {
-					// Grabbing translations here so they're always for the correct language
-					I18nText renameRoomDialogTitle = i18nTranslator.getTranslatedString("GUI.DIALOG.RENAME_ROOM_TITLE");
-					I18nText buttonText = i18nTranslator.getTranslatedString("GUI.DIALOG.OK_BUTTON");
+				final boolean performPause = !gameContext.getGameClock().isPaused();
+				if (performPause) {
+					messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
+				}
 
-					final boolean performPause = !gameContext.getGameClock().isPaused();
+				String originalRoomName = getSelectedRoom().getRoomName();
+
+				TextInputDialog textInputDialog = new TextInputDialog(renameRoomDialogTitle, originalRoomName, buttonText, skinRepository.getMenuSkin(), (newRoomName) -> {
 					if (performPause) {
 						messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
 					}
-
-					String originalRoomName = getSelectedRoom().getRoomName();
-
-					TextInputDialog textInputDialog = new TextInputDialog(renameRoomDialogTitle, originalRoomName, buttonText, skinRepository.getMenuSkin(), (newRoomName) -> {
-						if (performPause) {
-							messageDispatcher.dispatchMessage(MessageType.SET_GAME_SPEED, GameSpeed.PAUSED);
+					if (!originalRoomName.equals(newRoomName)) {
+						try {
+							roomStore.rename(getSelectedRoom(), newRoomName);
+							rebuildUI();
+						} catch (RoomStore.RoomNameCollisionException e) {
+							ModalDialog errorDialog = RoomEditingView.this.gameDialogDictionary.getErrorDialog(ErrorType.ROOM_NAME_ALREADY_EXISTS);
+							messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, errorDialog);
 						}
-						if (!originalRoomName.equals(newRoomName)) {
-							try {
-								roomStore.rename(getSelectedRoom(), newRoomName);
-								rebuildUI();
-							} catch (RoomStore.RoomNameCollisionException e) {
-								ModalDialog errorDialog = RoomEditingView.this.gameDialogDictionary.getErrorDialog(ErrorType.ROOM_NAME_ALREADY_EXISTS);
-								messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, errorDialog);
-							}
-						}
-					}, messageDispatcher, RoomEditingView.this.soundAssetDictionary);
-					messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
-				}
+					}
+				}, messageDispatcher, RoomEditingView.this.soundAssetDictionary);
+				messageDispatcher.dispatchMessage(MessageType.SHOW_DIALOG, textInputDialog);
 			}
 		});
-		tooltipFactory.simpleTooltip(changeRoomNameButton, "GUI.DIALOG.RENAME_ROOM_TITLE", TooltipLocationHint.ABOVE);
-		changeRoomNameButton.addListener(new ChangeCursorOnHover(changeRoomNameButton, GameCursor.SELECT, messageDispatcher));
 
 		sizingButtons = new Table();
 
@@ -200,16 +193,10 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 
 	@Override
 	public void rebuildUI() {
-		backButton.clearListeners();
-		backButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
+		backButton = buttonFactory.buildDrawableButton("btn_back", "GUI.BACK_LABEL", () -> {
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName());
 				interactionStateContainer.setSelectable(null);
-			}
 		});
-		backButton.addListener(new ChangeCursorOnHover(backButton, GameCursor.SELECT, messageDispatcher));
-		tooltipFactory.simpleTooltip(backButton, "GUI.BACK_LABEL", TooltipLocationHint.ABOVE);
 
 		mainTable.clearChildren();
 
@@ -352,6 +339,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 				furnitureMap.getByFurnitureType(furnitureType), entityRenderer, true, messageDispatcher
 		).withBackground(background));
 		buttonContainer.size(background.getMinWidth(), background.getMinHeight());
+		buttonFactory.attachClickCursor(furnitureButton, GameCursor.SELECT);
 		furnitureButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -363,7 +351,6 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_FURNITURE);
 			}
 		});
-		furnitureButton.addListener(new ChangeCursorOnHover(furnitureButton, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(furnitureButton, furnitureType.getI18nKey(), TooltipLocationHint.ABOVE);
 
 		buttonContainer.setActor(furnitureButton);
@@ -379,15 +366,7 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 				stockpileSettingsContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
 			}
 			stockpileSettingsContainer.pad(18);
-			Button stockpileSettingsButton = new Button(skin.getDrawable("btn_settings"));
-			stockpileSettingsButton.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					toggleStockpileSettings();
-				}
-			});
-			stockpileSettingsButton.addListener(new ChangeCursorOnHover(stockpileSettingsButton, GameCursor.SELECT, messageDispatcher));
-			tooltipFactory.simpleTooltip(stockpileSettingsButton, "GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE", TooltipLocationHint.ABOVE);
+			Button stockpileSettingsButton = buttonFactory.buildDrawableButton("btn_settings", "GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE", this::toggleStockpileSettings);
 			stockpileSettingsContainer.setActor(stockpileSettingsButton);
 			sizingButtons.add(stockpileSettingsContainer);
 		}
@@ -397,16 +376,10 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			addTilesContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
 		}
 		addTilesContainer.pad(18);
-		Button addTilesButton = new Button(skin.getDrawable("btn_add_tile"));
-		addTilesButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_ROOM);
-				interactionStateContainer.getInteractionMode().setRoomType(getSelectedRoomType());
-			}
+		Button addTilesButton = buttonFactory.buildDrawableButton("btn_add_tile", "GUI.ADD_TILES", () -> {
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.PLACE_ROOM);
+			interactionStateContainer.getInteractionMode().setRoomType(getSelectedRoomType());
 		});
-		addTilesButton.addListener(new ChangeCursorOnHover(addTilesContainer, GameCursor.SELECT, messageDispatcher));
-		tooltipFactory.simpleTooltip(addTilesButton, "GUI.ADD_TILES", TooltipLocationHint.ABOVE);
 		addTilesContainer.setActor(addTilesButton);
 		sizingButtons.add(addTilesContainer);
 
@@ -415,15 +388,9 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 			removeTilesContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
 		}
 		removeTilesContainer.pad(18);
-		Button removeTilesButton = new Button(skin.getDrawable("btn_remove_tile"));
-		removeTilesButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.REMOVE_ROOMS);
-			}
+		Button removeTilesButton = buttonFactory.buildDrawableButton("btn_remove_tile", "GUI.REMOVE_TILES", () -> {
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.REMOVE_ROOMS);
 		});
-		removeTilesButton.addListener(new ChangeCursorOnHover(removeTilesContainer, GameCursor.SELECT, messageDispatcher));
-		tooltipFactory.simpleTooltip(removeTilesButton, "GUI.REMOVE_TILES", TooltipLocationHint.ABOVE);
 		removeTilesContainer.setActor(removeTilesButton);
 		sizingButtons.add(removeTilesContainer).padRight(20);
 	}

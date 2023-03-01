@@ -26,12 +26,12 @@ import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.GameViewMode;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.EntityDrawable;
 import technology.rocketjump.saul.ui.widgets.furniture.FurnitureRequirementsWidget;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedString;
@@ -57,7 +57,6 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	private final GameInteractionStateContainer interactionStateContainer;
 	private final FurnitureRequirementsWidget furnitureRequirementsWidget;
 	private final GameMaterialDictionary materialDictionary;
-	private final FurnitureType doorFurnitureType;
 	private final List<FurnitureType> furnitureTypes;
 	private Table furnitureTable;
 	private final Table cancelDeconstructButtons = new Table();
@@ -65,6 +64,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 	private final DecoratedStringLabelFactory decoratedStringLabelFactory;
 	private final EntityRenderer entityRenderer;
 	private final RoomEditorFurnitureMap furnitureMap;
+	private final ButtonFactory buttonFactory;
 	private boolean displayed;
 
 	@Inject
@@ -73,7 +73,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 								 FurnitureRequirementsWidget furnitureRequirementsWidget,
 								 GameMaterialDictionary materialDictionary, DecoratedStringFactory decoratedStringFactory,
 								 DecoratedStringLabelFactory decoratedStringLabelFactory,
-								 FurnitureTypeDictionary furnitureTypeDictionary, EntityRenderer entityRenderer, RoomEditorFurnitureMap furnitureMap) {
+								 FurnitureTypeDictionary furnitureTypeDictionary, EntityRenderer entityRenderer, RoomEditorFurnitureMap furnitureMap, ButtonFactory buttonFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		skin = skinRepository.getMainGameSkin();
@@ -85,6 +85,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		this.decoratedStringLabelFactory = decoratedStringLabelFactory;
 		this.entityRenderer = entityRenderer;
 		this.furnitureMap = furnitureMap;
+		this.buttonFactory = buttonFactory;
 
 		backButton = new Button(skin.getDrawable("btn_back"));
 		mainTable = new Table();
@@ -100,7 +101,6 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		headerContainer.setBackground(skin.get("asset_bg_ribbon_title_patch", TenPatchDrawable.class));
 
 		// MODDING move the selection of door furniture types to be based on an "IS_DOOR" tag
-		doorFurnitureType = furnitureTypeDictionary.getByName("SINGLE_DOOR");
 		furnitureTypes = furnitureTypeDictionary.getForGuiView(getName());
 
 		messageDispatcher.addListener(this, MessageType.INTERACTION_MODE_CHANGED);
@@ -118,13 +118,13 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 			return;
 		}
 		backButton.clearListeners();
+		buttonFactory.attachClickCursor(backButton, GameCursor.SELECT);
 		backButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName());
 			}
 		});
-		backButton.addListener(new ChangeCursorOnHover(backButton, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(backButton, "GUI.BACK_LABEL", TooltipLocationHint.ABOVE);
 
 		mainTable.clearChildren();
@@ -240,15 +240,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 		}
 		buttonContainer.pad(18);
 
-		Button button = new Button(skin.getDrawable(drawableName));
-		button.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				onClick.run();
-			}
-		});
-		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
-		tooltipFactory.simpleTooltip(button, i18nKey, TooltipLocationHint.ABOVE);
+		Button button = buttonFactory.buildDrawableButton(drawableName, i18nKey, onClick);
 
 		buttonContainer.setActor(button);
 		return buttonContainer;
@@ -266,6 +258,7 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 				furnitureMap.getByFurnitureType(furnitureType), entityRenderer, true, messageDispatcher
 		).withBackground(background));
 		buttonContainer.size(background.getMinWidth(), background.getMinHeight());
+		buttonFactory.attachClickCursor(furnitureButton, GameCursor.SELECT);
 		furnitureButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -277,7 +270,6 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.DEFAULT);
 			}
 		});
-		furnitureButton.addListener(new ChangeCursorOnHover(furnitureButton, GameCursor.SELECT, messageDispatcher));
 		tooltipFactory.simpleTooltip(furnitureButton, furnitureType.getI18nKey(), TooltipLocationHint.ABOVE);
 
 		buttonContainer.setActor(furnitureButton);
@@ -321,15 +313,9 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 			deconstructContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
 		}
 		deconstructContainer.pad(18);
-		Button deconstructButton = new Button(skin.getDrawable("btn_demolish_small"));
-		deconstructButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DECONSTRUCT);
-			}
+		Button deconstructButton = buttonFactory.buildDrawableButton("btn_demolish_small", "GUI.DECONSTRUCT_LABEL", () -> {
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DECONSTRUCT);
 		});
-		deconstructButton.addListener(new ChangeCursorOnHover(deconstructContainer, GameCursor.SELECT, messageDispatcher));
-		tooltipFactory.simpleTooltip(deconstructButton, "GUI.DECONSTRUCT_LABEL", TooltipLocationHint.ABOVE);
 		deconstructContainer.setActor(deconstructButton);
 		cancelDeconstructButtons.add(deconstructContainer);
 
@@ -338,15 +324,9 @@ public class PowerWaterMenuGuiView implements GuiView, DisplaysText, Telegraph {
 			cancelContainer.setBackground(skin.getDrawable("asset_selection_bg_cropped"));
 		}
 		cancelContainer.pad(18);
-		Button cancelButton = new Button(skin.getDrawable("btn_cancel_small"));
-		cancelButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, CANCEL);
-			}
+		Button cancelButton = buttonFactory.buildDrawableButton("btn_cancel_small", "GUI.CANCEL_LABEL", () -> {
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, CANCEL);
 		});
-		cancelButton.addListener(new ChangeCursorOnHover(cancelContainer, GameCursor.SELECT, messageDispatcher));
-		tooltipFactory.simpleTooltip(cancelButton, "GUI.CANCEL_LABEL", TooltipLocationHint.ABOVE);
 		cancelContainer.setActor(cancelButton);
 		cancelDeconstructButtons.add(cancelContainer).padRight(20);
 	}
