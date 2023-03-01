@@ -15,7 +15,7 @@ public class TraderInfo implements ChildPersistable {
 
 	private Double hostilityCooldownInHours; // after being attacked *by settlement*, waits a number of years before visiting again
 
-	private Integer nextVisitDayOfYear; // when null, initialise to a day near the start of 2 seasons from now
+	private Integer nextVisitDayOfYear; // when null, initialise to a day near the start of next season from now (not winter)
 	private Double hoursUntilTraderArrives;
 
 	private final List<ItemEntityAttributes> requestedItemsForNextVisit = new ArrayList<>();

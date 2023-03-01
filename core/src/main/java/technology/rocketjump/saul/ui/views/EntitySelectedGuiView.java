@@ -85,6 +85,7 @@ import technology.rocketjump.saul.ui.widgets.rooms.PriorityWidget;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedString;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabel;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabelFactory;
+import technology.rocketjump.saul.ui.widgets.text.ItemValueLabel;
 
 import java.util.List;
 import java.util.*;
@@ -344,6 +345,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 						if (progressBars.getActor().hasChildren()) {
 							viewContents.add(progressBars.getActor()).center().row();
+						}
+
+						if (entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemEntityAttributes) {
+							viewContents.add(new ItemValueLabel(itemEntityAttributes.getTotalValue(), "table_value_label", managementSkin)).center().row();
 						}
 
 						if (descriptions.getActor().hasChildren()) {

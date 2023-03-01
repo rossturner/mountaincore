@@ -6,8 +6,8 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.math.Vector2;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.apache.commons.lang3.NotImplementedException;
 import org.pmw.tinylog.Logger;
+import technology.rocketjump.saul.environment.GameClock;
 import technology.rocketjump.saul.environment.model.Season;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
@@ -21,7 +21,6 @@ import static technology.rocketjump.saul.messaging.MessageType.*;
 @Singleton
 public class TradingMessageHandler implements Telegraph, GameContextAware {
 
-	private static final int MIN_SETTLERS_TO_TRIGGER_POPULATION_INVASION = 20;
 	private final MessageDispatcher messageDispatcher;
 	private final SettlerTracker settlerTracker;
 	private final TradeCaravanGenerator tradeCaravanGenerator;
@@ -53,7 +52,8 @@ public class TradingMessageHandler implements Telegraph, GameContextAware {
 				triggerTradeCaravan();
 				return true;
 			}
-			default -> throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg);
+			default ->
+					throw new IllegalArgumentException("Unexpected message type " + msg.message + " received by " + this.getClass().getSimpleName() + ", " + msg);
 		}
 	}
 
@@ -78,15 +78,33 @@ public class TradingMessageHandler implements Telegraph, GameContextAware {
 			setupNextTraderArrival();
 		} else if (traderInfo.getNextVisitDayOfYear() == gameContext.getGameClock().getDayOfYear()) {
 			pickNextTraderArrivalTime();
+			traderInfo.setNextVisitDayOfYear(null);
 		}
 	}
 
 	private void setupNextTraderArrival() {
-		Season currentSeason = gameContext.getGameClock().getCurrentSeason();
+		GameClock clock = gameContext.getGameClock();
+		Season currentSeason = clock.getCurrentSeason();
+		Season nextSeason = currentSeason.getNext();
+		if (nextSeason.equals(Season.WINTER)) {
+			nextSeason = Season.SPRING;
+		}
+
+		int targetDayOfYear = 1;
+		for (Season seasonCounter = Season.SPRING; seasonCounter != nextSeason; seasonCounter = seasonCounter.getNext()) {
+			targetDayOfYear += clock.DAYS_IN_SEASON;
+		}
+		targetDayOfYear += gameContext.getRandom().nextInt(1, (clock.DAYS_IN_SEASON / 2) + 1);
+		gameContext.getSettlementState().getTraderInfo().setNextVisitDayOfYear(targetDayOfYear);
 	}
 
 	private void pickNextTraderArrivalTime() {
-		throw new NotImplementedException("TODO");
+		gameContext.getSettlementState().getTraderInfo().setHoursUntilTraderArrives(
+				gameContext.getRandom().nextDouble(
+						0.25 * gameContext.getGameClock().HOURS_IN_DAY,
+						0.4 * gameContext.getGameClock().HOURS_IN_DAY
+				)
+		);
 	}
 
 	private void triggerTradeCaravan() {

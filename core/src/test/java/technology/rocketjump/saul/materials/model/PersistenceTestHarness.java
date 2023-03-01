@@ -44,6 +44,7 @@ import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.rooms.RoomStore;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
 import technology.rocketjump.saul.rooms.components.RoomComponentDictionary;
+import technology.rocketjump.saul.settlement.trading.TradeCaravanDefinitionDictionary;
 import technology.rocketjump.saul.sprites.BridgeTypeDictionary;
 
 public class PersistenceTestHarness {
@@ -133,6 +134,8 @@ public class PersistenceTestHarness {
 	private InvasionDefinitionDictionary mockInvasionDefinitionDictionary;
 	@Mock
 	private VehicleTypeDictionary mockVehicleTypeDictionary;
+	@Mock
+	private TradeCaravanDefinitionDictionary mockTradeCaravanDefinitionDictionary;
 
 	@Before
 	public void setup() {
@@ -179,7 +182,8 @@ public class PersistenceTestHarness {
 				mockOrganDefinitionDictionary,
 				mockRaceDictionary,
 				mockSquadFormationDictionary,
-				mockInvasionDefinitionDictionary);
+				mockInvasionDefinitionDictionary,
+				mockTradeCaravanDefinitionDictionary);
 
 	}
 

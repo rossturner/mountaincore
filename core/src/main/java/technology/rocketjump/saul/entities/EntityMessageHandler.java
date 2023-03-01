@@ -873,16 +873,7 @@ public class EntityMessageHandler implements GameContextAware, Telegraph {
 		removeFromSquadOrders(deceased);
 
 		if (deceased.getOrCreateComponent(FactionComponent.class).getFaction().equals(SETTLEMENT)) {
-			boolean allDead = true;
-			for (Entity settler : settlerTracker.getAll()) {
-				CreatureEntityAttributes otherSettlerAttributes = (CreatureEntityAttributes) settler.getPhysicalEntityComponent().getAttributes();
-				if (!otherSettlerAttributes.getConsciousness().equals(DEAD)) {
-					allDead = false;
-					break;
-				}
-			}
-
-			if (allDead) {
+			if (settlerTracker.getLiving().isEmpty()) {
 				Notification gameOverNotification = new Notification(NotificationType.GAME_OVER, null, null);
 				messageDispatcher.dispatchMessage(MessageType.POST_NOTIFICATION, gameOverNotification);
 				gameContext.getSettlementState().setGameState(GameState.GAME_OVER);
