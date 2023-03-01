@@ -2,14 +2,22 @@ package technology.rocketjump.saul.ui.widgets;
 
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
+import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
+import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.skins.MainGameSkin;
+import technology.rocketjump.saul.ui.skins.ManagementSkin;
 import technology.rocketjump.saul.ui.skins.MenuSkin;
 
 import javax.inject.Inject;
@@ -20,13 +28,19 @@ public class ButtonFactory {
 
 	private final MessageDispatcher messageDispatcher;
 	private final SoundAssetDictionary soundAssetDictionary;
+	private final TooltipFactory tooltipFactory;
 	private final MenuSkin menuSkin;
+	private final MainGameSkin mainGameSkin;
+	private final ManagementSkin managementSkin;
 
 	@Inject
-	public ButtonFactory(MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary, GuiSkinRepository skinRepository) {
+	public ButtonFactory(MessageDispatcher messageDispatcher, SoundAssetDictionary soundAssetDictionary, TooltipFactory tooltipFactory, GuiSkinRepository skinRepository) {
 		this.messageDispatcher = messageDispatcher;
 		this.soundAssetDictionary = soundAssetDictionary;
+		this.tooltipFactory = tooltipFactory;
 		this.menuSkin = skinRepository.getMenuSkin();
+		this.mainGameSkin = skinRepository.getMainGameSkin();
+		this.managementSkin = skinRepository.getManagementSkin();
 	}
 
 	/**
@@ -39,6 +53,33 @@ public class ButtonFactory {
 		ImageButton button = new ImageButton(clonedStyle);
 		attachClickCursor(button, GameCursor.SELECT);
 		return button;
+	}
+
+
+	public Button buildDrawableButton(String drawableName, String tooltipI18nKey, Runnable onClick) {
+		return buildDrawableButton(drawableName, tooltipI18nKey, TooltipLocationHint.ABOVE, onClick);
+	}
+	public Button buildDrawableButton(String drawableName, String tooltipI18nKey, TooltipLocationHint tooltipLocationHint, Runnable onClick) {
+		Button button = new Button(getDrawable(drawableName));
+		attachClickCursor(button, GameCursor.SELECT);
+		button.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				onClick.run();
+			}
+		});
+		tooltipFactory.simpleTooltip(button, tooltipI18nKey, tooltipLocationHint);
+		return button;
+	}
+
+	private Drawable getDrawable(String drawableName) {
+
+		try {
+			return mainGameSkin.getDrawable(drawableName);
+		} catch (GdxRuntimeException ignored) {
+
+		}
+		return managementSkin.getDrawable(drawableName);
 	}
 
 	public void attachClickCursor(Actor button, GameCursor cursor) {
@@ -55,4 +96,5 @@ public class ButtonFactory {
 		button.getColor().a = 0.5f;
 		button.setTouchable(Touchable.disabled);
 	}
+
 }

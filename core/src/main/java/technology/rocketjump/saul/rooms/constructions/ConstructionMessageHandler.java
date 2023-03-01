@@ -81,7 +81,7 @@ public class ConstructionMessageHandler implements GameContextAware, Telegraph {
 		dustCloudParticleEffect = particleEffectTypeDictionary.getByName("Dust cloud above"); // MODDING expose this
 		this.furnitureRequirementsWidget = furnitureRequirementsWidget;
 		// FIXME this is also duplicated in FurnitureMessageHandler
-		completionSoundMapping.put(GameMaterialType.WOOD, soundAssetDictionary.getByName("HeavyWoodItem")); // MODDING Expose this
+		completionSoundMapping.put(GameMaterialType.WOOD, soundAssetDictionary.getByName("PaletteConstruct")); // MODDING Expose this
 		completionSoundMapping.put(GameMaterialType.STONE, soundAssetDictionary.getByName("HeavyStoneItem")); // MODDING Expose this
 
 		messageDispatcher.addListener(this, MessageType.FURNITURE_PLACEMENT);

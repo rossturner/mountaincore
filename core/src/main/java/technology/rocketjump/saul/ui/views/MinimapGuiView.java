@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.mapping.minimap.MinimapContainer;
@@ -24,6 +25,7 @@ import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.rendering.camera.PrimaryCameraWrapper;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
 import static technology.rocketjump.saul.mapping.minimap.MinimapContainer.MINIMAP_FRAME_BORDER_SIZE;
@@ -48,7 +50,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 
 	@Inject
 	public MinimapGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-						  MinimapManager minimapManager, PrimaryCameraWrapper primaryCameraWrapper) {
+						  MinimapManager minimapManager, PrimaryCameraWrapper primaryCameraWrapper, SoundAssetDictionary soundAssetDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.minimapManager = minimapManager;
 		this.primaryCameraWrapper = primaryCameraWrapper;
@@ -58,6 +60,7 @@ public class MinimapGuiView implements GuiView, GameContextAware {
 		Skin mainGameSkin = guiSkinRepository.getMainGameSkin();
 		Drawable resizeButtonDrawable = mainGameSkin.getDrawable("btn_map_resize");
 		resizeButton = new Button(resizeButtonDrawable);
+		resizeButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 		resizeButton.addListener(new ChangeCursorOnHover(resizeButton, GameCursor.RESIZE, messageDispatcher));
 
 		minimapSelectionTexture = new Texture("assets/ui/minimapSelection.png");

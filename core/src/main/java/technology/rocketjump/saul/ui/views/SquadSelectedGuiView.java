@@ -38,7 +38,6 @@ import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.Updatable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nText;
@@ -264,7 +263,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 
 
 				Table mugshot = settlerManagementScreen.mugshot(settler);
-				mugshot.addListener(new ChangeCursorOnHover(mugshot, GameCursor.SELECT, messageDispatcher));
+				buttonFactory.attachClickCursor(mugshot, GameCursor.SELECT);
 				mugshot.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -321,7 +320,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 				Drawable emblemDrawable = managementSkin.getDrawable(managementSkin.getEmblemName(squad));
 				Image emblem = new Image(emblemDrawable);
 				emblem.setTouchable(Touchable.enabled);
-				emblem.addListener(new ChangeCursorOnHover(emblem, GameCursor.SELECT, messageDispatcher));
+				buttonFactory.attachClickCursor(emblem, GameCursor.SELECT);
 				emblem.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -331,7 +330,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 				tooltipFactory.simpleTooltip(emblem, new I18nText(squad.getName()), TooltipLocationHint.ABOVE);
 
 				Table mugshot = settlerManagementScreen.mugshot(soldier);
-				mugshot.addListener(new ChangeCursorOnHover(mugshot, GameCursor.SELECT, messageDispatcher));
+				buttonFactory.attachClickCursor(mugshot, GameCursor.SELECT);
 				mugshot.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -604,6 +603,7 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 	private Actor renameSquadButton(Squad squad) {
 		Drawable changeButtonDrawable = mainGameSkin.getDrawable("icon_edit");
 		Button changeNameButton = new Button(changeButtonDrawable);
+		buttonFactory.attachClickCursor(changeNameButton, GameCursor.SELECT);
 		changeNameButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -622,7 +622,6 @@ public class SquadSelectedGuiView implements GuiView, GameContextAware, Telegrap
 			}
 		});
 		tooltipFactory.simpleTooltip(changeNameButton, "GUI.MILITARY.DIALOG.RENAME_SQUAD", TooltipLocationHint.ABOVE);
-		changeNameButton.addListener(new ChangeCursorOnHover(changeNameButton, GameCursor.SELECT, messageDispatcher));
 		return changeNameButton;
 	}
 

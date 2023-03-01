@@ -15,12 +15,12 @@ import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.production.StockpileGroupDictionary;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 
 import java.util.ArrayList;
 
@@ -33,6 +33,7 @@ public class StockpileSelectionGuiView implements GuiView, DisplaysText {
 	private final I18nTranslator i18nTranslator;
 	private final TooltipFactory tooltipFactory;
 	private final StockpileGroupDictionary stockpileGroupDictionary;
+	private final ButtonFactory buttonFactory;
 
 	private Button backButton;
 	private Table mainTable;
@@ -41,25 +42,20 @@ public class StockpileSelectionGuiView implements GuiView, DisplaysText {
 	@Inject
 	public StockpileSelectionGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 									 StockpileGroupDictionary stockpileGroupDictionary, I18nTranslator i18nTranslator,
-									 TooltipFactory tooltipFactory) {
+									 TooltipFactory tooltipFactory, ButtonFactory buttonFactory) {
 		skin = guiSkinRepository.getMainGameSkin();
 		this.messageDispatcher = messageDispatcher;
 		this.i18nTranslator = i18nTranslator;
 		this.tooltipFactory = tooltipFactory;
 		this.stockpileGroupDictionary = stockpileGroupDictionary;
+		this.buttonFactory = buttonFactory;
 	}
 
 	@Override
 	public void rebuildUI() {
-		backButton = new Button(skin.getDrawable("btn_back"));
-		backButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName());
-			}
+		backButton = buttonFactory.buildDrawableButton("btn_back", "GUI.BACK_LABEL", () -> {
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName());
 		});
-		backButton.addListener(new ChangeCursorOnHover(backButton, GameCursor.SELECT, messageDispatcher));
-		tooltipFactory.simpleTooltip(backButton, "GUI.BACK_LABEL", TooltipLocationHint.ABOVE);
 
 		mainTable = new Table();
 		mainTable.setTouchable(Touchable.enabled);
@@ -93,6 +89,7 @@ public class StockpileSelectionGuiView implements GuiView, DisplaysText {
 				drawable = skin.getDrawable("placeholder");
 			}
 			Button stockpileGroupButton = new Button(drawable);
+			buttonFactory.attachClickCursor(stockpileGroupButton, GameCursor.SELECT);
 			stockpileGroupButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
@@ -101,7 +98,6 @@ public class StockpileSelectionGuiView implements GuiView, DisplaysText {
 					messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.ROOM_EDITING);
 				}
 			});
-			stockpileGroupButton.addListener(new ChangeCursorOnHover(stockpileGroupButton, GameCursor.SELECT, messageDispatcher));
 			tooltipFactory.simpleTooltip(stockpileGroupButton, stockpileGroup.getI18nKey(), TooltipLocationHint.ABOVE);
 
 			Container<Button> buttonContainer = new Container<>();

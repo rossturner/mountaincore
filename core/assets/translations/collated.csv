@@ -609,6 +609,8 @@ GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.BORDERLESS_FULLSCREEN,Borderless,,Ohne Fenst
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.EXCLUSIVE_FULLSCREEN,Exclusive fullscreen,,Exklusiver Vollbildmodus,,Schermo intero esclusivo,Pantalla completa exclusiva,,,,"Эксклюзивный полноэкранный режим ",,,,,,,,排他的フルスクリーン,独占全屏,
 GUI.OPTIONS.GRAPHICS.FULLSCREENMODE.WINDOWED,Windowed,,Fensermodus,,Finestrato,En ventana,,,,В окне,,,,,,,,ウインドウモード,窗口化,
 GUI.OPTIONS.GRAPHICS.TITLE,"Graphics Options ",,"Grafikeinstellungen ","Options graphiques ","Opzioni grafiche ","Ajustes de vídeo ","Opções Gráficas ","Opções Gráficas ",,"Настройки графики ",Grafik Ayarları,Grafikindstillinger,,"Grafikinställningar ",,,,グラフィックオプション,"图像设置 ",
+GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS,Weather Effects,,,,,,,,,,,,,,,,,,,
+GUI.OPTIONS.GRAPHICS.WEATHER_EFFECTS_TOOLTIP,Show weather effects like snow on furniture,,,,,,,,,,,,,,,,,,,
 GUI.OPTIONS.KEY_BINDINGS,Key Bindings,,,,,,,,,,,,,,,,,,,
 GUI.OPTIONS.MISC.CRASH_REPORTING_ENABLED,Opt In For Crash Reports,,,,,,,,,,,,,,,,,,,
 GUI.OPTIONS.MISC.HINTS_ENABLED,Show hints in-game,,Zeige Hinweise und Tutorials im Spiel,,Mostra suggerimenti nel gioco,Mostrar consejos y tutorial durante la partida,,,,"Показывать подсказки в игре ",Oyun içinde ipucu ve öğreticilere izin ver.,,,,,,,ゲーム中にヒントを表示する,显示游戏中的提示,

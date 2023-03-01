@@ -14,7 +14,6 @@ import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.hints.HintDictionary;
 import technology.rocketjump.saul.ui.hints.HintProgressEvaluator;
 import technology.rocketjump.saul.ui.hints.model.*;
@@ -22,6 +21,7 @@ import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +40,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 	private final MessageDispatcher messageDispatcher;
 	private final HintDictionary hintDictionary;
 	private final HintProgressEvaluator hintProgressEvaluator;
+	private final ButtonFactory buttonFactory;
 	private final Skin uiSkin;
 	private Table layoutTable;
 	private GameContext gameContext;
@@ -59,12 +60,13 @@ public class HintGuiView implements GuiView, GameContextAware {
 	public HintGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 					   I18nTranslator i18nTranslator,
 					   HintDictionary hintDictionary,
-					   HintProgressEvaluator hintProgressEvaluator) {
+					   HintProgressEvaluator hintProgressEvaluator, ButtonFactory buttonFactory) {
 		this.messageDispatcher = messageDispatcher;
 		this.uiSkin = guiSkinRepository.getMainGameSkin();
 		this.i18nTranslator = i18nTranslator;
 		this.hintDictionary = hintDictionary;
 		this.hintProgressEvaluator = hintProgressEvaluator;
+		this.buttonFactory = buttonFactory;
 
 		layoutTable = new Table(uiSkin);
 		defaultLabelStyle = uiSkin.get("white_text_default-font-19", Label.LabelStyle.class);
@@ -111,14 +113,15 @@ public class HintGuiView implements GuiView, GameContextAware {
 			wrapperTable.setBackground(uiSkin.get("asset_notifications_bg_patch", TenPatchDrawable.class));
 			wrapperTable.setTouchable(Touchable.enabled);
 
+
 			Button exitButton = new Button(uiSkin.getDrawable("btn_exit"));
+			buttonFactory.attachClickCursor(exitButton, GameCursor.SELECT);
 			exitButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					messageDispatcher.dispatchMessage(MessageType.HINT_ACTION_TRIGGERED, DISMISS_ACTION);
 				}
 			});
-			exitButton.addListener(new ChangeCursorOnHover(exitButton, GameCursor.SELECT, messageDispatcher));
 			wrapperTable.add(exitButton).pad(10).left().top();
 
 			Table hintTable = new Table();
@@ -281,7 +284,7 @@ public class HintGuiView implements GuiView, GameContextAware {
 		Button button = new Button(uiSkin.getDrawable("btn_01"));
 		Label label = new Label(i18nTranslator.getTranslatedString(i18nKey).toString(), defaultLabelStyle);
 		button.add(label).padBottom(12).center();
-		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
+		buttonFactory.attachClickCursor(button, GameCursor.SELECT);
 		button.addListener(new ClickListener() {
 
 			boolean triggeredOnce = false;

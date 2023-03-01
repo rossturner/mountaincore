@@ -154,6 +154,8 @@ public class MessageType {
 	public static final int FISH_HARVESTED_FROM_RIVER = 622;
 	public static final int STOCKPILE_SETTING_UPDATED = 623;
 	public static final int FIND_BUTCHERABLE_UNALLOCATED_CORPSE = 624;
+	public static final int SET_TRANSITORY_FLOOR = 625;
+	public static final int REMOVE_TRANSITORY_FLOOR = 626;
 
 	// Item-specific messages
 	public static final int HAULING_ALLOCATION_CANCELLED = 700;

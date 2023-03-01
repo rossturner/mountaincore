@@ -9,6 +9,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 public class GlobalSettings {
+
 	public static final boolean MAP_REVEALED = false;
 	public static boolean DEV_MODE = true;
 	public static final boolean CHOOSE_SPAWN_LOCATION = true;
@@ -18,6 +19,8 @@ public class GlobalSettings {
 	public static boolean TREE_TRANSPARENCY_ENABLED = true;
 	public static final Version VERSION;
 	public static boolean STRESS_TEST = false;
+
+	public static boolean WEATHER_EFFECTS = true;
 
 	static {
 		String loadedVersion = "UNKNOWN 0";

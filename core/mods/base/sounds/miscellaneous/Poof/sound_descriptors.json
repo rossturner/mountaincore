@@ -1,0 +1,11 @@
+[{
+  "name": "Poof",
+  "filenames": [
+    "SFX_UI_Object_General_Poof_Air.wav"
+  ],
+  "minPitch": 1.0,
+  "maxPitch": 1.0,
+  "volumeModifier": 1.0
+}
+
+]

@@ -161,7 +161,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		});
 
 		Button backButton = new Button(skin, "btn_embark_back");
-		backButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		backButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "HeavyHover", ClickableSoundsListener.DEFAULT_MENU_CLICK));
 		backButton.addListener(new ChangeCursorOnHover(backButton, GameCursor.SELECT, messageDispatcher));
 		backButton.addListener(new ClickListener() {
 			@Override
@@ -171,7 +171,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 		});
 
 		Button startButton = new Button(skin, "btn_embark_next");
-		startButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "GameStart"));
+		startButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "HeavyHover", "GameStart"));
 		startButton.addListener(new ChangeCursorOnHover(startButton, GameCursor.SELECT, messageDispatcher));
 
 		startButton.addListener(new ClickListener() {
@@ -253,7 +253,7 @@ public class EmbarkMenu extends PaperMenu implements DisplaysText {
 	private Table buildMapButton(ButtonGroup<ImageButton> mapRadioSelectionGroup, String labelI18nKey, String mapDrawableName, float scale, int mapWidth, int mapHeight) {
 		Label sizeLabel = new Label(i18nTranslator.getTranslatedString(labelI18nKey).toString(), skin, "map_size_label");
 		ImageButton mapButton = new ImageButton(skin, mapDrawableName);
-		mapButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		mapButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "HeavyHover", ClickableSoundsListener.DEFAULT_MENU_CLICK));
 		mapButton.addListener(new ChangeCursorOnHover(mapButton, GameCursor.SELECT, messageDispatcher));
 		mapButton.addListener(new ChangeListener() {
 			@Override

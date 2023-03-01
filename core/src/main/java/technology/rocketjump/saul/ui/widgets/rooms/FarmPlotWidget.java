@@ -3,6 +3,7 @@ package technology.rocketjump.saul.ui.widgets.rooms;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
 import technology.rocketjump.saul.entities.model.physical.plant.PlantSpecies;
@@ -40,7 +41,8 @@ public class FarmPlotWidget extends Table {
 
 	public FarmPlotWidget(Room selectedRoom, FarmPlotComponent farmPlotComponent, Skin skin, TooltipFactory tooltipFactory,
 						  MessageDispatcher messageDispatcher, PlantSpeciesDictionary plantSpeciesDictionary,
-						  RoomEditorItemMap itemMap, EntityRenderer entityRenderer, I18nTranslator i18nTranslator) {
+						  RoomEditorItemMap itemMap, EntityRenderer entityRenderer, I18nTranslator i18nTranslator,
+						  SoundAssetDictionary soundAssetDictionary) {
 		this.selectedRoom = selectedRoom;
 		this.farmPlotComponent = farmPlotComponent;
 		this.skin = skin;
@@ -56,7 +58,7 @@ public class FarmPlotWidget extends Table {
 				((ItemEntityAttributes) seedItem.getPhysicalEntityComponent().getAttributes()).setMaterial(plantSpecies.getSeed().getSeedMaterial());
 				messageDispatcher.dispatchMessage(MessageType.ENTITY_ASSET_UPDATE_REQUIRED, seedItem);
 				SeedButton seedButton = new SeedButton(plantSpecies, seedItem, skin, tooltipFactory, messageDispatcher,
-						this.entityRenderer, this.i18nTranslator);
+						this.entityRenderer, this.i18nTranslator, soundAssetDictionary);
 				seedButton.onClick(() -> seedSelected(seedButton.isChecked() ? plantSpecies : null));
 				seedButtons.add(seedButton);
 			}

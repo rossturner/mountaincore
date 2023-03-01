@@ -1,0 +1,28 @@
+[{
+  "name": "EquipArmor",
+  "filenames": [
+    "SFX_UI_Global_Equip_Armor.wav"
+  ],
+  "minPitch": 1.0,
+  "maxPitch": 1.0,
+  "volumeModifier": 1.0
+},
+  {
+    "name": "EquipShield",
+    "filenames": [
+      "SFX_UI_Global_Equip_Shield.wav"
+    ],
+    "minPitch": 1.0,
+    "maxPitch": 1.0,
+    "volumeModifier": 1.0
+  },
+  {
+    "name": "EquipWeapon",
+    "filenames": [
+      "SFX_UI_Global_Equip_Weapon.wav"
+    ],
+    "minPitch": 1.0,
+    "maxPitch": 1.0,
+    "volumeModifier": 1.0
+  }
+]

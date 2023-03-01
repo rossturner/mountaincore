@@ -190,14 +190,22 @@ public class WorldRenderer implements Disposable {
 			waterRenderer.render(tiledMap, riverTiles, camera, renderMode);
 		}
 
-		terrainRenderer.renderFloors(terrainTiles, camera, spriteCache, renderMode);
+		terrainRenderer.renderFloors(terrainTiles, camera, spriteCache, renderMode, TerrainRenderer.FloorSource.ACTUAL);
 		if (renderingOptions.isFloorOverlapRenderingEnabled()) {
-			floorOverlapRenderer.render(riverTiles, camera, renderMode, spriteCache);
-			floorOverlapRenderer.render(terrainTiles, camera, renderMode, spriteCache);
+			floorOverlapRenderer.render(riverTiles, camera, renderMode, spriteCache, TerrainRenderer.FloorSource.ACTUAL);
+			floorOverlapRenderer.render(terrainTiles, camera, renderMode, spriteCache, TerrainRenderer.FloorSource.ACTUAL);
 		}
+
+
+		//Render snow covered floor
+		terrainRenderer.renderFloors(terrainTiles, camera, spriteCache, renderMode, TerrainRenderer.FloorSource.TRANSITORY);
+		if (renderingOptions.isFloorOverlapRenderingEnabled()) {
+			floorOverlapRenderer.render(riverTiles, camera, renderMode, spriteCache, TerrainRenderer.FloorSource.TRANSITORY);
+			floorOverlapRenderer.render(terrainTiles, camera, renderMode, spriteCache, TerrainRenderer.FloorSource.TRANSITORY);
+		}
+
 		terrainRenderer.renderChannels(tiledMap, terrainTiles, camera, spriteCache, renderMode);
 		terrainRenderer.renderWalls(terrainTiles, camera, spriteCache, renderMode);
-
 
 		// Also need to pick up entities up to X tiles below minX due to tree heights
 		for (int worldY = bounds.minY; worldY >= bounds.minY - 4; worldY--) {

@@ -26,26 +26,32 @@ public class MenuButtonFactory {
 
 
     public enum ButtonStyle {
-        BTN_DIALOG_1("btn_dialog_1"),
-        BTN_DIALOG_2("btn_dialog_2"),
-        BTN_OPTIONS_SECONDARY("btn_options_secondary"),
-        BTN_SCALABLE_50PT("btn_scalable_header-font-50"),
-        BTN_SMALL_1_50PT("btn_small_1_header-font-50"),
-        BTN_BANNER_1_47PT("btn_banner_1_header-font-47"),
-        BTN_BANNER_2_47PT("btn_banner_2_header-font-47"),
-        BTN_BANNER_3_36PT("btn_banner_3_header-font-36"),
-        BTN_BANNER_3_47PT("btn_banner_3_header-font-47"),
-        BTN_BANNER_4_36PT("btn_banner_4_header-font-36"),
-        BTN_BANNER_4_47PT("btn_banner_4_header-font-47");
+        BTN_DIALOG_1("btn_dialog_1", "LightHover"),
+        BTN_DIALOG_2("btn_dialog_2", "LightHover"),
+        BTN_OPTIONS_SECONDARY("btn_options_secondary", "LightHover"),
+        BTN_SCALABLE_50PT("btn_scalable_header-font-50", "HeavyHover"),
+        BTN_SMALL_1_50PT("btn_small_1_header-font-50", "HeavyHover"),
+        BTN_BANNER_1_47PT("btn_banner_1_header-font-47", "HeavyHover"),
+        BTN_BANNER_2_47PT("btn_banner_2_header-font-47", "HeavyHover"),
+        BTN_BANNER_3_36PT("btn_banner_3_header-font-36", "HeavyHover"),
+        BTN_BANNER_3_47PT("btn_banner_3_header-font-47", "HeavyHover"),
+        BTN_BANNER_4_36PT("btn_banner_4_header-font-36", "HeavyHover"),
+        BTN_BANNER_4_47PT("btn_banner_4_header-font-47", "HeavyHover");
 
         private final String styleName;
+        private final String hoverSoundName;
 
-        ButtonStyle(String styleName) {
+        ButtonStyle(String styleName, String hoverSoundName) {
             this.styleName = styleName;
+            this.hoverSoundName = hoverSoundName;
         }
 
         public String getStyleName() {
             return styleName;
+        }
+
+        public String getHoverSoundName() {
+            return hoverSoundName;
         }
     }
 
@@ -73,7 +79,7 @@ public class MenuButtonFactory {
             buttonContainer.setTransform(true);
             buttonContainer.setOrigin(button.getPrefWidth() / 2, button.getPrefHeight() / 2);
 
-            button.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+            button.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, buttonStyle.getHoverSoundName(), ClickableSoundsListener.DEFAULT_MENU_CLICK));
             button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
         }
 

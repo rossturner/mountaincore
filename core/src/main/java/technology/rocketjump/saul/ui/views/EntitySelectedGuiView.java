@@ -340,7 +340,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 											.collect(Collectors.joining()));
 						} else if (prioritisables.size() == 1) {
 							Prioritisable prioritisable = prioritisables.get(0);
-							viewContents.add(new PriorityWidget(prioritisable, mainGameSkin, tooltipFactory, messageDispatcher)).center().row();
+							viewContents.add(new PriorityWidget(prioritisable, mainGameSkin, tooltipFactory, messageDispatcher, soundAssetDictionary)).center().row();
 						}
 
 						if (progressBars.getActor().hasChildren()) {
@@ -379,7 +379,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					if (entity.getComponent(FurnitureStockpileComponent.class) != null) {
 						StockpileManagementTree stockpileManagementTree = new StockpileManagementTree(mainGameSkin, messageDispatcher,
 								stockpileComponentUpdater, stockpileGroupDictionary, i18nTranslator, itemTypeDictionary, gameMaterialDictionary, raceDictionary,
-								gameContext.getSettlementState().getSettlerRace(), entity.getId(), HaulingAllocation.AllocationPositionType.FURNITURE, entity.getComponent(FurnitureStockpileComponent.class).getStockpileSettings());
+								gameContext.getSettlementState().getSettlerRace(), entity.getId(), HaulingAllocation.AllocationPositionType.FURNITURE, entity.getComponent(FurnitureStockpileComponent.class).getStockpileSettings(), soundAssetDictionary);
 						stockpileManagementTree.setSize(1700, 600);
 
 						CollapsibleWidget stockpileTreeCollapsible = new CollapsibleWidget(stockpileManagementTree, true);
@@ -433,16 +433,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					stockpileSettingsContainer.setBackground(mainGameSkin.getDrawable("asset_selection_bg_cropped"));
 				}
 
-				Button stockpileSettingsButton = new Button(mainGameSkin.getDrawable("btn_settings"));
-				stockpileSettingsButton.addListener(new ClickListener() {
-					@Override
-					public void clicked(InputEvent event, float x, float y) {
-						showStockpileSettings = !showStockpileSettings;
-						update();
-					}
+				Button stockpileSettingsButton = buttonFactory.buildDrawableButton("btn_settings", "GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE", () -> {
+					showStockpileSettings = !showStockpileSettings;
+					update();
 				});
-				buttonFactory.attachClickCursor(stockpileSettingsButton, GameCursor.SELECT);
-				tooltipFactory.simpleTooltip(stockpileSettingsButton, "GUI.DIALOG.STOCKPILE_MANAGEMENT.TITLE", TooltipLocationHint.ABOVE);
 				stockpileSettingsContainer.setActor(stockpileSettingsButton);
 				table.add(stockpileSettingsContainer);
 			}
@@ -453,40 +447,25 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					deconstructContainer.setBackground(mainGameSkin.getDrawable("asset_selection_bg_cropped"));
 				}
 
-				Button deconstructButton = new Button(mainGameSkin.getDrawable("btn_demolish_small"));
-				deconstructButton.addListener(new ClickListener() {
-					@Override
-					public void clicked(InputEvent event, float x, float y) {
-						super.clicked(event, x, y);
-						if (!constructedEntityComponent.isBeingDeconstructed()) {
-							messageDispatcher.dispatchMessage(MessageType.REQUEST_FURNITURE_REMOVAL, entity);
-							update();
-						}
+				Button deconstructButton = buttonFactory.buildDrawableButton("btn_demolish_small", "GUI.DECONSTRUCT_LABEL", () -> {
+					if (!constructedEntityComponent.isBeingDeconstructed()) {
+						messageDispatcher.dispatchMessage(MessageType.REQUEST_FURNITURE_REMOVAL, entity);
+						update();
 					}
 				});
 
 				if (constructedEntityComponent.isBeingDeconstructed()) {
 					buttonFactory.disable(deconstructButton);
 				}
-				buttonFactory.attachClickCursor(deconstructButton, GameCursor.SELECT);
-				tooltipFactory.simpleTooltip(deconstructButton, "GUI.DECONSTRUCT_LABEL", TooltipLocationHint.ABOVE);
 				deconstructContainer.setActor(deconstructButton);
 				table.add(deconstructContainer);
 			}
 
 			if (entity.getBehaviourComponent() instanceof CraftingStationBehaviour) {
 				Container<Button> craftingButtonContainer = new Container<>();
-				Button craftingButton = new Button(managementSkin.getDrawable("btn_recipe"));
-				craftingButton.addListener(new ClickListener() {
-					@Override
-					public void clicked(InputEvent event, float x, float y) {
-						super.clicked(event, x, y);
-						messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, ManagementScreenName.CRAFTING.name());
-					}
+				Button craftingButton = buttonFactory.buildDrawableButton("btn_recipe", "GUI.CRAFTING_MANAGEMENT.TITLE", () -> {
+					messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, ManagementScreenName.CRAFTING.name());
 				});
-
-				buttonFactory.attachClickCursor(craftingButton, GameCursor.SELECT);
-				tooltipFactory.simpleTooltip(craftingButton, "GUI.CRAFTING_MANAGEMENT.TITLE", TooltipLocationHint.ABOVE);
 				craftingButtonContainer.setActor(craftingButton);
 				table.add(craftingButtonContainer);
 			}
@@ -1025,9 +1004,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			MilitaryComponent militaryComponent = entity.getComponent(MilitaryComponent.class);
 			Squad squad = gameContext.getSquads().get(militaryComponent.getSquadId());
 			if (squad != null) {
+
 				Drawable emblem = managementSkin.getDrawable(managementSkin.getSmallEmblemName(squad));
 				ImageButton button = new ImageButton(emblem);
-				button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
+				buttonFactory.attachClickCursor(button, GameCursor.SELECT);
 				button.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -1047,6 +1027,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 		Drawable changeButtonDrawable = mainGameSkin.getDrawable("icon_edit");
 		Button changeNameButton = new Button(changeButtonDrawable);
+		buttonFactory.attachClickCursor(changeNameButton, GameCursor.SELECT);
 		changeNameButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -1073,7 +1054,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			}
 		});
 		tooltipFactory.simpleTooltip(changeNameButton, "GUI.DIALOG.RENAME_SETTLER_TITLE", TooltipLocationHint.ABOVE);
-		changeNameButton.addListener(new ChangeCursorOnHover(changeNameButton, GameCursor.SELECT, messageDispatcher));
 
 		Drawable background = mainGameSkin.getDrawable("Dwarf_Name_Banner");
 		float pencilWidth = changeButtonDrawable.getMinWidth();
