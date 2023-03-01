@@ -36,7 +36,6 @@ public class ClickableSoundsListener extends ClickListener {
         if (!entered) {
             entered = true;
 
-            //TODO: check with Ross on this, if he's happy. Done to prevent premature cut off of currently playing hover sound to play new sound
             if (activeSoundEffect == null || activeSoundEffect.completed()) {
                 messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(onEnterSoundAsset, activeSoundEffect ->
                         ClickableSoundsListener.activeSoundEffect = activeSoundEffect));
