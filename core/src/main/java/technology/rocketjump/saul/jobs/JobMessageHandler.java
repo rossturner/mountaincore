@@ -10,6 +10,8 @@ import com.google.inject.Singleton;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.model.FloorType;
+import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.cooking.model.CookingRecipe;
 import technology.rocketjump.saul.doors.Doorway;
@@ -110,6 +112,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 	private final GameInteractionStateContainer gameInteractionStateContainer;
 	private final List<Race> fishRacesAvailable;
 	private GameContext gameContext;
+	private final SoundAsset poofSoundAsset;
 	private ParticleEffectType deconstructParticleEffect;
 	private final ItemType largeBone;
 	private final ItemType mediumBone;
@@ -124,7 +127,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							 ItemTypeDictionary itemTypeDictionary, JobTypeDictionary jobTypeDictionary,
 							 DesignationDictionary designationDictionary, ParticleEffectTypeDictionary particleEffectTypeDictionary,
 							 GameInteractionStateContainer gameInteractionStateContainer, RaceDictionary raceDictionary,
-							 ConstantsRepo constantsRepo) {
+							 ConstantsRepo constantsRepo, SoundAssetDictionary soundAssetDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.jobStore = jobStore;
 		this.itemEntityFactory = itemEntityFactory;
@@ -146,6 +149,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 
 		this.leafExplosionParticleEffectType = particleEffectTypeDictionary.getByName("Leaf explosion"); // MODDING expose this
 		this.deconstructParticleEffect = particleEffectTypeDictionary.getByName("Dust cloud above"); // MODDING expose this
+		this.poofSoundAsset = soundAssetDictionary.getByName("Poof");
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
 		constantsRepo.initialise(raceDictionary);
 		this.fishRacesAvailable = constantsRepo.getSettlementConstants().getFishRacesAvailable();
@@ -686,7 +690,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 					if (targetEntity == null) {
 						Logger.error("Could not find furniture entity to deconstruct in " + targetTile);
 					} else {
-						deconstructFurniture(targetEntity, targetTile, messageDispatcher, gameContext, itemTypeDictionary, itemEntityAttributesFactory, itemEntityFactory, deconstructParticleEffect);
+						deconstructFurniture(targetEntity, targetTile, messageDispatcher, gameContext, itemTypeDictionary, itemEntityAttributesFactory, itemEntityFactory, deconstructParticleEffect, poofSoundAsset);
 					}
 				} else if (targetTile.hasFloor() && targetTile.getFloor().getFloorType().isConstructed()) {
 					messageDispatcher.dispatchMessage(MessageType.UNDO_REPLACE_FLOOR, targetTile.getTilePosition());
@@ -759,7 +763,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 					for (Entity entity : targetTile.getEntities()) {
 						if (entity.getType().equals(FURNITURE)) {
 							deconstructFurniture(entity, targetTile, messageDispatcher, gameContext,
-									itemTypeDictionary, itemEntityAttributesFactory, itemEntityFactory, deconstructParticleEffect);
+									itemTypeDictionary, itemEntityAttributesFactory, itemEntityFactory, deconstructParticleEffect, poofSoundAsset);
 						}
 					}
 					// then shift any items or plants
@@ -1153,7 +1157,8 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 
 	public static void deconstructFurniture(Entity targetEntity, MapTile targetTile, MessageDispatcher messageDispatcher,
 											GameContext gameContext, ItemTypeDictionary itemTypeDictionary,
-											ItemEntityAttributesFactory itemEntityAttributesFactory, ItemEntityFactory itemEntityFactory, ParticleEffectType deconstructParticleEffect) {
+											ItemEntityAttributesFactory itemEntityAttributesFactory, ItemEntityFactory itemEntityFactory,
+											ParticleEffectType deconstructParticleEffect, SoundAsset poofSoundAsset) {
 		// Extra check to see deconstruction is allowed
 		ConstructedEntityComponent constructedEntityComponent = targetEntity.getComponent(ConstructedEntityComponent.class);
 		if (constructedEntityComponent != null && !constructedEntityComponent.canBeDeconstructed()) {
@@ -1192,6 +1197,8 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 			messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(deconstructParticleEffect,
 					Optional.empty(), Optional.of(new JobTarget(tile)), (p) -> {}));
 		}
+
+		messageDispatcher.dispatchMessage(MessageType.REQUEST_SOUND, new RequestSoundMessage(poofSoundAsset,  targetEntity));
 
 		messageDispatcher.dispatchMessage(MessageType.DESTROY_ENTITY, targetEntity);
 		for (ItemEntityAttributes itemAttributes : itemAttributeList) {

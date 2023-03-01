@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.physical.creature.Gender;
 import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
@@ -15,6 +16,7 @@ import technology.rocketjump.saul.rendering.utils.HexColors;
 import technology.rocketjump.saul.settlement.ItemAvailabilityChecker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.i18n.I18nString;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -52,7 +54,7 @@ public class FurnitureRequirementWidget extends Table {
 
 	public FurnitureRequirementWidget(QuantifiedItemType requirement, Entity itemEntity, Skin skin, MessageDispatcher messageDispatcher,
 									  ItemAvailabilityChecker itemAvailabilityChecker, I18nTranslator i18nTranslator, EntityRenderer entityRenderer,
-									  TooltipFactory tooltipFactory, GameMaterial defaultDisplayMaterial) {
+									  TooltipFactory tooltipFactory, GameMaterial defaultDisplayMaterial, SoundAssetDictionary soundAssetDictionary) {
 		this.requirement = requirement;
 		this.skin = skin;
 		this.messageDispatcher = messageDispatcher;
@@ -69,25 +71,27 @@ public class FurnitureRequirementWidget extends Table {
 
 		leftButton = new Button(skin.get("btn_arrow_small_left", Button.ButtonStyle.class));
 		if (materials.size() > 1) {
+			leftButton.addListener(new ChangeCursorOnHover(leftButton, GameCursor.SELECT, messageDispatcher));
+			leftButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
 			leftButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					changeSelectionIndex(-1);
 				}
 			});
-			leftButton.addListener(new ChangeCursorOnHover(leftButton, GameCursor.SELECT, messageDispatcher));
 		} else {
 			leftButton.setDisabled(true);
 		}
 		rightButton = new Button(skin.get("btn_arrow_small_right", Button.ButtonStyle.class));
 		if (materials.size() > 1) {
+			rightButton.addListener(new ChangeCursorOnHover(rightButton, GameCursor.SELECT, messageDispatcher));
+			rightButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
 			rightButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					changeSelectionIndex(1);
 				}
 			});
-			rightButton.addListener(new ChangeCursorOnHover(rightButton, GameCursor.SELECT, messageDispatcher));
 		} else {
 			rightButton.setDisabled(true);
 		}

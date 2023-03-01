@@ -25,5 +25,14 @@
     "minPitch": 0.8,
     "maxPitch": 1.2,
     "volumeModifier": 1
+  },
+  {
+    "name": "PaletteConstruct",
+    "filenames": [
+      "SFX_UI_Object_Palette_Construct.wav"
+    ],
+    "minPitch": 0.8,
+    "maxPitch": 1.2,
+    "volumeModifier": 1
   }
 ]

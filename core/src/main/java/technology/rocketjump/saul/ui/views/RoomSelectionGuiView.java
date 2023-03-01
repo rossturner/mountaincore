@@ -14,12 +14,12 @@ import technology.rocketjump.saul.rooms.RoomType;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 
 import java.util.ArrayList;
 
@@ -34,6 +34,7 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 	private final I18nTranslator i18nTranslator;
 	private final TooltipFactory tooltipFactory;
 	private final RoomTypeDictionary roomTypeDictionary;
+	private final ButtonFactory buttonFactory;
 
 	private Button backButton;
 	private Table mainTable;
@@ -42,7 +43,7 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 	@Inject
 	public RoomSelectionGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
 								RoomTypeDictionary roomTypeDictionary, I18nTranslator i18nTranslator,
-								TooltipFactory tooltipFactory) {
+								TooltipFactory tooltipFactory, ButtonFactory buttonFactory) {
 
 		skin = guiSkinRepository.getMainGameSkin();
 		this.messageDispatcher = messageDispatcher;
@@ -50,19 +51,14 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 		this.tooltipFactory = tooltipFactory;
 		this.roomTypeDictionary = roomTypeDictionary;
 
+		this.buttonFactory = buttonFactory;
 	}
 
 	@Override
 	public void rebuildUI() {
-		backButton = new Button(skin.getDrawable("btn_back"));
-		backButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName());
-			}
+		backButton = buttonFactory.buildDrawableButton("btn_back", "GUI.BACK_LABEL", () -> {
+			messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, getParentViewName());
 		});
-		backButton.addListener(new ChangeCursorOnHover(backButton, GameCursor.SELECT, messageDispatcher));
-		tooltipFactory.simpleTooltip(backButton, "GUI.BACK_LABEL", TooltipLocationHint.ABOVE);
 
 		mainTable = new Table();
 		mainTable.setTouchable(Touchable.enabled);
@@ -96,6 +92,7 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 				drawable = skin.getDrawable("placeholder");
 			}
 			Button roomButton = new Button(drawable);
+			buttonFactory.attachClickCursor(roomButton, GameCursor.SELECT);
 			roomButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
@@ -108,7 +105,6 @@ public class RoomSelectionGuiView implements GuiView, DisplaysText {
 					}
 				}
 			});
-			roomButton.addListener(new ChangeCursorOnHover(roomButton, GameCursor.SELECT, messageDispatcher));
 			tooltipFactory.simpleTooltip(roomButton, roomType.getI18nKey(), TooltipLocationHint.ABOVE);
 
 			Container<Button> buttonContainer = new Container<>();

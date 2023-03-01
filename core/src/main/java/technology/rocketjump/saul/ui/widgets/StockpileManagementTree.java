@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.model.physical.creature.Race;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
@@ -22,6 +23,7 @@ import technology.rocketjump.saul.rooms.HaulingAllocation;
 import technology.rocketjump.saul.ui.Scene2DUtils;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 
 import java.util.List;
@@ -36,12 +38,13 @@ public class StockpileManagementTree extends Table {
 	private final long haulingTargetId;
 	private final HaulingAllocation.AllocationPositionType haulingTargetPositionType;
 	private final StockpileSettings stockpileSettings;
+	private final SoundAssetDictionary soundAssetDictionary;
 
 	public StockpileManagementTree(Skin uiSkin, MessageDispatcher messageDispatcher,
 								   StockpileComponentUpdater stockpileComponentUpdater, StockpileGroupDictionary stockpileGroupDictionary,
 								   I18nTranslator i18nTranslator, ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary gameMaterialDictionary,
 								   RaceDictionary raceDictionary, Race settlerRace, long haulingTargetId, HaulingAllocation.AllocationPositionType haulingTargetPositionType,
-								   StockpileSettings stockpileSettings) {
+								   StockpileSettings stockpileSettings, SoundAssetDictionary soundAssetDictionary) {
 		this.uiSkin = uiSkin;
 		this.stockpileComponentUpdater = stockpileComponentUpdater;
 		this.i18nTranslator = i18nTranslator;
@@ -49,6 +52,7 @@ public class StockpileManagementTree extends Table {
 		this.stockpileSettings = stockpileSettings;
 		this.haulingTargetPositionType = haulingTargetPositionType;
 		this.haulingTargetId = haulingTargetId;
+		this.soundAssetDictionary = soundAssetDictionary;
 
 		Tree<StockpileTreeNode, String> treeRoot = new Tree<>(uiSkin);
 
@@ -176,6 +180,7 @@ public class StockpileManagementTree extends Table {
 		checkbox.setProgrammaticChangeEvents(false);
 		checkbox.addListener(new StockpileTreeNodeEventListener(node));
 		checkbox.addListener(new ChangeCursorOnHover(checkbox, GameCursor.SELECT, messageDispatcher));
+		checkbox.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
 		node.setActor(checkbox);
 		updateCheckedState(node);
 	}
@@ -321,6 +326,6 @@ public class StockpileManagementTree extends Table {
 	}
 
 	public static class StockpileTreeNode extends Tree.Node<StockpileTreeNode, StockpileTreeValue, CheckBox> {
-
+		
 	}
 }
