@@ -73,16 +73,7 @@ public class BuildRoofingGuiView implements GuiView, DisplaysText {
 	}
 
 	private Button buildButton(String drawableName, String tooltipI18nKey, Runnable onClick) {
-		Button button = new Button(skin.getDrawable(drawableName));
-		buttonFactory.attachClickCursor(button, GameCursor.SELECT);
-		button.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				onClick.run();
-			}
-		});
-		tooltipFactory.simpleTooltip(button, tooltipI18nKey, TooltipLocationHint.ABOVE);
-		return button;
+		return buttonFactory.buildDrawableButton(drawableName, tooltipI18nKey, onClick);
 	}
 
 	@Override
