@@ -334,7 +334,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 											.collect(Collectors.joining()));
 						} else if (prioritisables.size() == 1) {
 							Prioritisable prioritisable = prioritisables.get(0);
-							viewContents.add(new PriorityWidget(prioritisable, mainGameSkin, tooltipFactory, messageDispatcher)).center().row();
+							viewContents.add(new PriorityWidget(prioritisable, mainGameSkin, tooltipFactory, messageDispatcher, soundAssetDictionary)).center().row();
 						}
 
 						if (progressBars.getActor().hasChildren()) {

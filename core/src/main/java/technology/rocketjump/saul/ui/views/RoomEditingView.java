@@ -253,13 +253,13 @@ public class RoomEditingView implements GuiView, GameContextAware, DisplaysText,
 					}
 				}
 				if (roomComponent instanceof Prioritisable prioritisableComponent) {
-					mainTable.add(new PriorityWidget(prioritisableComponent, skin, tooltipFactory, messageDispatcher)).center().row();
+					mainTable.add(new PriorityWidget(prioritisableComponent, skin, tooltipFactory, messageDispatcher, soundAssetDictionary)).center().row();
 				}
 			}
 
 			if (farmPlotComponent != null) {
 				FarmPlotWidget farmPlotWidget = new FarmPlotWidget(selectedRoom, farmPlotComponent, skin, tooltipFactory, messageDispatcher,
-						plantSpeciesDictionary, itemMap, entityRenderer, i18nTranslator);
+						plantSpeciesDictionary, itemMap, entityRenderer, i18nTranslator, soundAssetDictionary);
 				farmPlotWidget.setOnSeedChange(farmPlotDescriptionWidget::cropChanged);
 				mainTable.add(farmPlotWidget).center().row();
 			}

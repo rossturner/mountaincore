@@ -20,6 +20,7 @@ import technology.rocketjump.saul.rendering.entities.EntityRenderer;
 import technology.rocketjump.saul.settlement.ItemAvailabilityChecker;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
@@ -113,13 +114,15 @@ public class FurnitureRequirementsWidget extends Table implements DisplaysText {
 			}
 			materialTypeButton.add(new Label(materialType.getI18nValue().toString(), skin.get("default", Label.LabelStyle.class)));
 
+
+			materialTypeButton.addListener(new ChangeCursorOnHover(materialTypeButton, GameCursor.SELECT, messageDispatcher));
+			materialTypeButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 			materialTypeButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					materialTypeChanged(materialType);
 				}
 			});
-			materialTypeButton.addListener(new ChangeCursorOnHover(materialTypeButton, GameCursor.SELECT, messageDispatcher));
 
 			materialTypeGroup.add(materialTypeButton);
 			materialTypeSelection.add(materialTypeButton).pad(5);

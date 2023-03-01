@@ -92,6 +92,7 @@ public class SettlerProfessionFactory {
 			clickingCursorWidget.setHeight(draggableImage.getHeight());
 
 			Table draggableCursors = new Table();
+			draggableCursors.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
 			draggableCursors.add(draggingCursorWidget);
 			draggableCursors.add(clickingCursorWidget);
 

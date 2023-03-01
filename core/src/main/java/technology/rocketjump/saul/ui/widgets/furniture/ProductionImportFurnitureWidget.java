@@ -152,13 +152,15 @@ public class ProductionImportFurnitureWidget extends Table implements DisplaysTe
 			tooltipFactory.simpleTooltip(button, selectedItemType.getI18nKey(), TooltipLocationHint.ABOVE);
 		}
 
+
+		button.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary));
+		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				ProductionImportFurnitureWidget.this.onClickItemType();
 			}
 		});
-		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
 		buttonContainer.setActor(button);
 
 		this.add(buttonContainer).center().row();
