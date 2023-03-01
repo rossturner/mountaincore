@@ -2,7 +2,7 @@ package technology.rocketjump.saul.settlement.trading.model;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import technology.rocketjump.saul.entities.model.physical.item.ItemEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.saul.persistence.SavedGameDependentDictionaries;
 import technology.rocketjump.saul.persistence.model.ChildPersistable;
 import technology.rocketjump.saul.persistence.model.InvalidSaveException;
@@ -18,7 +18,7 @@ public class TraderInfo implements ChildPersistable {
 	private Integer nextVisitDayOfYear; // when null, initialise to a day near the start of next season from now (not winter)
 	private Double hoursUntilTraderArrives;
 
-	private final List<ItemEntityAttributes> requestedItemsForNextVisit = new ArrayList<>();
+	private final List<ItemTypeWithMaterial> requestedItemsForNextVisit = new ArrayList<>();
 
 	public Double getHostilityCooldownInHours() {
 		return hostilityCooldownInHours;
@@ -44,6 +44,10 @@ public class TraderInfo implements ChildPersistable {
 		this.hoursUntilTraderArrives = hoursUntilTraderArrives;
 	}
 
+	public List<ItemTypeWithMaterial> getRequestedItemsForNextVisit() {
+		return requestedItemsForNextVisit;
+	}
+
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
 		if (hostilityCooldownInHours != null) {
@@ -59,10 +63,10 @@ public class TraderInfo implements ChildPersistable {
 		}
 
 		JSONArray requestedItemsForNextVisitJson = new JSONArray();
-		for (ItemEntityAttributes attributes : requestedItemsForNextVisit) {
-			JSONObject attributesJson = new JSONObject(true);
-			attributes.writeTo(attributesJson, savedGameStateHolder);
-			requestedItemsForNextVisitJson.add(attributesJson);
+		for (ItemTypeWithMaterial itemTypeWithMaterial : requestedItemsForNextVisit) {
+			JSONObject itemJson = new JSONObject(true);
+			itemTypeWithMaterial.writeTo(itemJson, savedGameStateHolder);
+			requestedItemsForNextVisitJson.add(itemJson);
 		}
 		asJson.put("requestedItemsForNextVisit", requestedItemsForNextVisitJson);
 	}
@@ -76,9 +80,9 @@ public class TraderInfo implements ChildPersistable {
 		JSONArray requestedItemsForNextVisitJson = asJson.getJSONArray("requestedItemsForNextVisit");
 		for (int index = 0; index < requestedItemsForNextVisitJson.size(); index++) {
 			JSONObject attributesJson = requestedItemsForNextVisitJson.getJSONObject(index);
-			ItemEntityAttributes attributes = new ItemEntityAttributes();
-			attributes.readFrom(attributesJson, savedGameStateHolder, relatedStores);
-			this.requestedItemsForNextVisit.add(attributes);
+			ItemTypeWithMaterial itemTypeWithMaterial = new ItemTypeWithMaterial();
+			itemTypeWithMaterial.readFrom(attributesJson, savedGameStateHolder, relatedStores);
+			this.requestedItemsForNextVisit.add(itemTypeWithMaterial);
 		}
 	}
 }

@@ -31,6 +31,7 @@ import technology.rocketjump.saul.settlement.trading.model.TradeCaravanDefinitio
 import technology.rocketjump.saul.settlement.trading.model.TraderInfo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -119,12 +120,24 @@ public class TradeCaravanGenerator implements GameContextAware {
 			vehicleInventory.setAddAsAllocationPurpose(null); // Add items as not allocated to be sold later
 			int totalGoodsValue = 0;
 			int totalItemStacks = 0;
+
+			List<ItemTypeWithMaterial> requestedItems = new ArrayList<>();
+			// double up on requested items
+			requestedItems.addAll(traderInfo.getRequestedItemsForNextVisit());
+			requestedItems.addAll(traderInfo.getRequestedItemsForNextVisit());
+
 			while (totalGoodsValue < definition.getVehicles().getMaxValuePerVehicleInventory() && totalItemStacks < definition.getVehicles().getImportInventoryPerVehicle()) {
 
-				// FIXME just getting random tradeables right now, should be driven from player's settlement
+				ItemEntityAttributes itemAttributes;
+				if (requestedItems.isEmpty()) {
+					ItemType itemType = itemTypeDictionary.getTradeImports().get(random.nextInt(itemTypeDictionary.getTradeImports().size()));
+					itemAttributes = itemEntityAttributesFactory.createItemAttributes(itemType, itemType.getMaxStackSize());
+				} else {
+					Collections.shuffle(requestedItems);
+					ItemTypeWithMaterial requested = requestedItems.remove(0);
 
-				ItemType itemType = itemTypeDictionary.getTradeImports().get(random.nextInt(itemTypeDictionary.getTradeImports().size()));
-				ItemEntityAttributes itemAttributes = itemEntityAttributesFactory.createItemAttributes(itemType, itemType.getMaxStackSize());
+					itemAttributes = itemEntityAttributesFactory.createItemAttributes(requested.getItemType(), requested.getItemType().getMaxStackSize(), requested.getMaterial());
+				}
 				Entity itemEntity = itemEntityFactory.create(itemAttributes, null, true, gameContext, Faction.MERCHANTS);
 
 				vehicleInventory.add(itemEntity, vehicle, messageDispatcher, gameContext.getGameClock());

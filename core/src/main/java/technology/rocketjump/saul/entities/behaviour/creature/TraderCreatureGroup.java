@@ -5,8 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.badlogic.gdx.ai.msg.MessageDispatcher;
 import technology.rocketjump.saul.entities.ai.goap.PlannedTrade;
 import technology.rocketjump.saul.entities.ai.goap.SpecialGoal;
+import technology.rocketjump.saul.entities.behaviour.furniture.TradingImportFurnitureBehaviour;
 import technology.rocketjump.saul.entities.model.EntityType;
 import technology.rocketjump.saul.entities.model.physical.furniture.FurnitureEntityAttributes;
+import technology.rocketjump.saul.entities.model.physical.item.ItemTypeWithMaterial;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.mapping.tile.MapTile;
 import technology.rocketjump.saul.persistence.EnumParser;
@@ -51,12 +53,12 @@ public class TraderCreatureGroup extends CreatureGroup {
 				progressToNextStage();
 			}
 			case PREPARING_TO_LEAVE -> {
-				removeFurnitureAssignments(gameContext);
+				removeFurnitureAssignmentsAndUpdateItemsForNextVisit(gameContext);
 			}
 		}
 	}
 
-	private void removeFurnitureAssignments(GameContext gameContext) {
+	private void removeFurnitureAssignmentsAndUpdateItemsForNextVisit(GameContext gameContext) {
 		MapTile homeTile = gameContext.getAreaMap().getTile(homeLocation);
 		if (homeTile != null && homeTile.getRoomTile() != null) {
 			homeTile.getRoomTile().getRoom().getRoomTiles().values().stream()
@@ -66,6 +68,24 @@ public class TraderCreatureGroup extends CreatureGroup {
 					.forEach(a -> {
 						if (a.getAssignedToEntityId() != null && memberEntityIds.contains(a.getAssignedToEntityId())) {
 							a.setAssignedToEntityId(null);
+						}
+					});
+
+			List<ItemTypeWithMaterial> nextVisitItems = gameContext.getSettlementState().getTraderInfo().getRequestedItemsForNextVisit();
+			nextVisitItems.clear();
+
+			homeTile.getRoomTile().getRoom().getRoomTiles().values().stream()
+					.flatMap(roomTile -> roomTile.getTile().getEntities().stream())
+					.forEach(entity -> {
+						if (entity.getBehaviourComponent() instanceof TradingImportFurnitureBehaviour importBehaviour) {
+							if (importBehaviour.getSelectedItemType() != null) {
+								ItemTypeWithMaterial request = new ItemTypeWithMaterial();
+								request.setItemType(importBehaviour.getSelectedItemType());
+								if (importBehaviour.getSelectedMaterial() != null) {
+									request.setMaterial(importBehaviour.getSelectedMaterial());
+								}
+								nextVisitItems.add(request);
+							}
 						}
 					});
 		}

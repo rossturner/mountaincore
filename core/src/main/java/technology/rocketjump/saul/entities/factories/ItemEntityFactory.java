@@ -34,6 +34,7 @@ public class ItemEntityFactory {
 	private final MessageDispatcher messageDispatcher;
 	private final GameMaterialDictionary gameMaterialDictionary;
 	private final EntityAssetUpdater entityAssetUpdater;
+	private float MERCHANT_VALUE_MULTIPLIER = 1.3f;
 
 	@Inject
 	public ItemEntityFactory(MessageDispatcher messageDispatcher, GameMaterialDictionary gameMaterialDictionary, EntityAssetUpdater entityAssetUpdater) {
@@ -91,6 +92,9 @@ public class ItemEntityFactory {
 				});
 
 		entity.getOrCreateComponent(FactionComponent.class).setFaction(faction);
+		if (faction.equals(Faction.MERCHANTS)) {
+			attributes.setValuePerItem((Math.round(attributes.getValuePerItem() * MERCHANT_VALUE_MULTIPLIER)));
+		}
 
 		entityAssetUpdater.updateEntityAssets(entity);
 		if (addToGameContext) {
