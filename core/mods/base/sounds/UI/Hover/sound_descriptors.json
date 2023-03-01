@@ -10,6 +10,16 @@
   "volumeModifier": 1.0
 },
   {
+    "name": "MediumHover",
+    "filenames": [
+      "SFX_UI_Global_Hover_Medium_1.wav",
+      "SFX_UI_Global_Hover_Medium_2.wav"
+    ],
+    "minPitch": 1.0,
+    "maxPitch": 1.0,
+    "volumeModifier": 1.0
+  },
+  {
     "name": "LightHover",
     "filenames": [
       "SFX_UI_Global_Hover_Light_1.wav",

@@ -57,6 +57,9 @@ public class ButtonFactory {
 
 
 	public Button buildDrawableButton(String drawableName, String tooltipI18nKey, Runnable onClick) {
+		return buildDrawableButton(drawableName, tooltipI18nKey, TooltipLocationHint.ABOVE, onClick);
+	}
+	public Button buildDrawableButton(String drawableName, String tooltipI18nKey, TooltipLocationHint tooltipLocationHint, Runnable onClick) {
 		Button button = new Button(getDrawable(drawableName));
 		attachClickCursor(button, GameCursor.SELECT);
 		button.addListener(new ClickListener() {
@@ -65,7 +68,7 @@ public class ButtonFactory {
 				onClick.run();
 			}
 		});
-		tooltipFactory.simpleTooltip(button, tooltipI18nKey, TooltipLocationHint.ABOVE);
+		tooltipFactory.simpleTooltip(button, tooltipI18nKey, tooltipLocationHint);
 		return button;
 	}
 

@@ -1,12 +1,21 @@
 [{
-  "name": "ConfirmLight",
+  "name": "ConfirmMedium",
   "filenames": [
-    "SFX_UI_Global_Confirm_Light.wav"
+    "SFX_UI_Global_Confirm_Medium.wav"
   ],
   "minPitch": 1.0,
   "maxPitch": 1.0,
   "volumeModifier": 1.0
 },
+  {
+    "name": "ConfirmLight",
+    "filenames": [
+      "SFX_UI_Global_Confirm_Light.wav"
+    ],
+    "minPitch": 1.0,
+    "maxPitch": 1.0,
+    "volumeModifier": 1.0
+  },
   {
     "name": "ConfirmVeryLight",
     "filenames": [

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.gamecontext.GameContext;
 import technology.rocketjump.saul.gamecontext.GameContextAware;
 import technology.rocketjump.saul.gamecontext.GameState;
@@ -20,10 +21,12 @@ import technology.rocketjump.saul.ui.GameViewMode;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
 import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
+import technology.rocketjump.saul.ui.eventlistener.ClickableSoundsListener;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 import technology.rocketjump.saul.ui.widgets.maingame.TimeDateWidget;
 
 import java.util.Optional;
@@ -38,20 +41,25 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 	private final Table managementScreenButtonTable;
 	private final Table viewModeButtons;
 	private final GameInteractionStateContainer gameInteractionStateContainer;
+	private final ButtonFactory buttonFactory;
+	private final SoundAssetDictionary soundAssetDictionary;
 	private GameContext gameContext;
 
 	private final TimeDateWidget timeDateWidget;
 
 	@Inject
 	public TimeDateGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-						   TimeDateWidget timeDateWidget,
-						   TooltipFactory tooltipFactory, GameInteractionStateContainer gameInteractionStateContainer) {
+						   TimeDateWidget timeDateWidget, TooltipFactory tooltipFactory,
+						   GameInteractionStateContainer gameInteractionStateContainer,
+						   ButtonFactory buttonFactory, SoundAssetDictionary soundAssetDictionary) {
 		this.messageDispatcher = messageDispatcher;
 		this.tooltipFactory = tooltipFactory;
 		this.gameInteractionStateContainer = gameInteractionStateContainer;
 		this.skin = guiSkinRepository.getMainGameSkin();
 
 		this.timeDateWidget = timeDateWidget;
+		this.buttonFactory = buttonFactory;
+		this.soundAssetDictionary = soundAssetDictionary;
 
 		managementScreenButtonTable = new Table();
 		managementScreenButtonTable.padTop(38);
@@ -83,31 +91,17 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 	public void rebuildUI() {
 		managementScreenButtonTable.clearChildren();
 
-		Button militaryButton = new Button(skin, "btn_top_military");
-		militaryButton.addListener(new ChangeCursorOnHover(militaryButton, GameCursor.SELECT, messageDispatcher));
-		militaryButton.addListener(new ClickListener() {
-			@Override
-			public void clicked (InputEvent event, float x, float y) {
-				Optional<Squad> optionalSquad = gameContext.getSquads().values().stream().findAny();
-				optionalSquad.ifPresentOrElse(squad -> messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(squad)),
-						() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SQUAD_SELECTED));
-			}
+		Button militaryButton = buttonFactory.buildDrawableButton("btn_top_military", "GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY", TooltipLocationHint.BELOW, () -> {
+			Optional<Squad> optionalSquad = gameContext.getSquads().values().stream().findAny();
+			optionalSquad.ifPresentOrElse(squad -> messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(squad)),
+					() -> messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW, GuiViewName.SQUAD_SELECTED));
 		});
-		tooltipFactory.simpleTooltip(militaryButton, "GUI.SETTLER_MANAGEMENT.PROFESSION.MILITARY", TooltipLocationHint.BELOW);
 		managementScreenButtonTable.add(militaryButton).size(157f,170f);
 
 		for (ManagementScreenName managementScreen : ManagementScreenName.managementScreensOrderedForUI) {
-			Button screenButton = new Button(skin, managementScreen.buttonStyleName);
-
-			screenButton.addListener(new ChangeCursorOnHover(screenButton, GameCursor.SELECT, messageDispatcher));
-
-			screenButton.addListener(new ClickListener() {
-				@Override
-				public void clicked (InputEvent event, float x, float y) {
-					messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, managementScreen.name());
-				}
+			Button screenButton = buttonFactory.buildDrawableButton(managementScreen.buttonStyleName, managementScreen.titleI18nKey, TooltipLocationHint.BELOW, () -> {
+				messageDispatcher.dispatchMessage(MessageType.SWITCH_SCREEN, managementScreen.name());
 			});
-			tooltipFactory.simpleTooltip(screenButton, managementScreen.titleI18nKey, TooltipLocationHint.BELOW);
 			managementScreenButtonTable.add(screenButton).size(157f,170f);
 		}
 
@@ -119,6 +113,9 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 			if (viewMode.equals(gameInteractionStateContainer.getGameViewMode())) {
 				viewModeButton.setChecked(true);
 			}
+
+			viewModeButton.addListener(new ChangeCursorOnHover(viewModeButton, GameCursor.SELECT, messageDispatcher));
+			viewModeButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "MediumHover", "ConfirmMedium"));
 			viewModeButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
@@ -126,7 +123,7 @@ public class TimeDateGuiView implements GuiView, GameContextAware, Telegraph, Di
 					rebuildUI();
 				}
 			});
-			viewModeButton.addListener(new ChangeCursorOnHover(viewModeButton, GameCursor.SELECT, messageDispatcher));
+
 			tooltipFactory.simpleTooltip(viewModeButton, viewMode.getI18nKey(), TooltipLocationHint.BELOW);
 
 			viewModeGroup.add(viewModeButton);

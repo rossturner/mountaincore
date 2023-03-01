@@ -311,8 +311,16 @@
   "volumeModifier" : 0.7,
   "looping" : false
 }, {
-  "name" : "ConfirmLight",
+  "name" : "ConfirmMedium",
   "soundAssetId" : 40,
+  "filenames" : [ "SFX_UI_Global_Confirm_Medium.wav" ],
+  "minPitch" : 1.0,
+  "maxPitch" : 1.0,
+  "volumeModifier" : 1.0,
+  "looping" : false
+}, {
+  "name" : "ConfirmLight",
+  "soundAssetId" : 41,
   "filenames" : [ "SFX_UI_Global_Confirm_Light.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -320,7 +328,7 @@
   "looping" : false
 }, {
   "name" : "ConfirmVeryLight",
-  "soundAssetId" : 41,
+  "soundAssetId" : 42,
   "filenames" : [ "SFX_UI_Global_Confirm_VeryLight.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -328,7 +336,7 @@
   "looping" : false
 }, {
   "name" : "ConfirmConscript",
-  "soundAssetId" : 42,
+  "soundAssetId" : 43,
   "filenames" : [ "SFX_UI_Global_Conscript.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -336,7 +344,7 @@
   "looping" : false
 }, {
   "name" : "DragArea",
-  "soundAssetId" : 43,
+  "soundAssetId" : 44,
   "filenames" : [ "UI_DragArea.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -344,7 +352,7 @@
   "looping" : false
 }, {
   "name" : "EquipArmor",
-  "soundAssetId" : 44,
+  "soundAssetId" : 45,
   "filenames" : [ "SFX_UI_Global_Equip_Armor.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -352,7 +360,7 @@
   "looping" : false
 }, {
   "name" : "EquipShield",
-  "soundAssetId" : 45,
+  "soundAssetId" : 46,
   "filenames" : [ "SFX_UI_Global_Equip_Shield.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -360,7 +368,7 @@
   "looping" : false
 }, {
   "name" : "EquipWeapon",
-  "soundAssetId" : 46,
+  "soundAssetId" : 47,
   "filenames" : [ "SFX_UI_Global_Equip_Weapon.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -368,7 +376,7 @@
   "looping" : false
 }, {
   "name" : "GameStart",
-  "soundAssetId" : 47,
+  "soundAssetId" : 48,
   "filenames" : [ "UI_GameStart.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -376,15 +384,23 @@
   "looping" : false
 }, {
   "name" : "HeavyHover",
-  "soundAssetId" : 48,
+  "soundAssetId" : 49,
   "filenames" : [ "SFX_UI_Global_Hover_Heavy_1.wav", "SFX_UI_Global_Hover_Heavy_2.wav", "SFX_UI_Global_Hover_Heavy_3.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
   "volumeModifier" : 1.0,
   "looping" : false
 }, {
+  "name" : "MediumHover",
+  "soundAssetId" : 50,
+  "filenames" : [ "SFX_UI_Global_Hover_Medium_1.wav", "SFX_UI_Global_Hover_Medium_2.wav" ],
+  "minPitch" : 1.0,
+  "maxPitch" : 1.0,
+  "volumeModifier" : 1.0,
+  "looping" : false
+}, {
   "name" : "LightHover",
-  "soundAssetId" : 49,
+  "soundAssetId" : 51,
   "filenames" : [ "SFX_UI_Global_Hover_Light_1.wav", "SFX_UI_Global_Hover_Light_2.wav", "SFX_UI_Global_Hover_Light_3.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -392,7 +408,7 @@
   "looping" : false
 }, {
   "name" : "VeryLightHover",
-  "soundAssetId" : 50,
+  "soundAssetId" : 52,
   "filenames" : [ "SFX_UI_Global_Hover_VeryLight.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -400,7 +416,7 @@
   "looping" : false
 }, {
   "name" : "MenuClick",
-  "soundAssetId" : 51,
+  "soundAssetId" : 53,
   "filenames" : [ "UI_MenuClick.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -408,7 +424,7 @@
   "looping" : false
 }, {
   "name" : "MenuHover",
-  "soundAssetId" : 52,
+  "soundAssetId" : 54,
   "filenames" : [ "UI_MenuHover.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -416,7 +432,7 @@
   "looping" : false
 }, {
   "name" : "NewNotification",
-  "soundAssetId" : 53,
+  "soundAssetId" : 55,
   "filenames" : [ "UI_NewNotification.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -424,7 +440,7 @@
   "looping" : false
 }, {
   "name" : "NextNotification",
-  "soundAssetId" : 54,
+  "soundAssetId" : 56,
   "filenames" : [ "UI_NextNotification.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -432,7 +448,7 @@
   "looping" : false
 }, {
   "name" : "NotificationClose",
-  "soundAssetId" : 55,
+  "soundAssetId" : 57,
   "filenames" : [ "UI_NotificationClose.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -440,7 +456,7 @@
   "looping" : false
 }, {
   "name" : "NotificationOpen",
-  "soundAssetId" : 56,
+  "soundAssetId" : 58,
   "filenames" : [ "UI_NotificationOpen.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
@@ -448,7 +464,7 @@
   "looping" : false
 }, {
   "name" : "Slider",
-  "soundAssetId" : 57,
+  "soundAssetId" : 59,
   "filenames" : [ "UI_Slider.wav" ],
   "minPitch" : 1.0,
   "maxPitch" : 1.0,
