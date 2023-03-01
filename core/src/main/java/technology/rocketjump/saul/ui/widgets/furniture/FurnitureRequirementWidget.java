@@ -71,27 +71,27 @@ public class FurnitureRequirementWidget extends Table {
 
 		leftButton = new Button(skin.get("btn_arrow_small_left", Button.ButtonStyle.class));
 		if (materials.size() > 1) {
+			leftButton.addListener(new ChangeCursorOnHover(leftButton, GameCursor.SELECT, messageDispatcher));
+			leftButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
 			leftButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					changeSelectionIndex(-1);
 				}
 			});
-			leftButton.addListener(new ChangeCursorOnHover(leftButton, GameCursor.SELECT, messageDispatcher));
-			leftButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
 		} else {
 			leftButton.setDisabled(true);
 		}
 		rightButton = new Button(skin.get("btn_arrow_small_right", Button.ButtonStyle.class));
 		if (materials.size() > 1) {
+			rightButton.addListener(new ChangeCursorOnHover(rightButton, GameCursor.SELECT, messageDispatcher));
+			rightButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
 			rightButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					changeSelectionIndex(1);
 				}
 			});
-			rightButton.addListener(new ChangeCursorOnHover(rightButton, GameCursor.SELECT, messageDispatcher));
-			rightButton.addListener(new ClickableSoundsListener(messageDispatcher, soundAssetDictionary, "VeryLightHover", "ConfirmVeryLight"));
 		} else {
 			rightButton.setDisabled(true);
 		}

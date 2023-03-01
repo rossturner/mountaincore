@@ -10,16 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import technology.rocketjump.saul.messaging.MessageType;
-import technology.rocketjump.saul.rooms.RoomTypeDictionary;
 import technology.rocketjump.saul.ui.GameInteractionMode;
 import technology.rocketjump.saul.ui.GameViewMode;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
-import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
+import technology.rocketjump.saul.ui.widgets.ButtonFactory;
 
 import static technology.rocketjump.saul.ui.GameInteractionMode.CANCEL;
 import static technology.rocketjump.saul.ui.GameInteractionMode.DECONSTRUCT;
@@ -31,23 +29,19 @@ public class BuildRoofingGuiView implements GuiView, DisplaysText {
 
 	private final Skin skin;
 	private final MessageDispatcher messageDispatcher;
-	private final I18nTranslator i18nTranslator;
 	private final TooltipFactory tooltipFactory;
-	private final RoomTypeDictionary roomTypeDictionary;
+	private final ButtonFactory buttonFactory;
 
-	private boolean displayed;
 	private final Table layoutTable = new Table();
 
 	@Inject
 	public BuildRoofingGuiView(GuiSkinRepository guiSkinRepository, MessageDispatcher messageDispatcher,
-							   RoomTypeDictionary roomTypeDictionary, I18nTranslator i18nTranslator,
-							   TooltipFactory tooltipFactory) {
+							   TooltipFactory tooltipFactory, ButtonFactory buttonFactory) {
 
 		skin = guiSkinRepository.getMainGameSkin();
 		this.messageDispatcher = messageDispatcher;
-		this.i18nTranslator = i18nTranslator;
 		this.tooltipFactory = tooltipFactory;
-		this.roomTypeDictionary = roomTypeDictionary;
+		this.buttonFactory = buttonFactory;
 
 		layoutTable.setTouchable(Touchable.enabled);
 		layoutTable.defaults().padRight(28f);
@@ -80,7 +74,7 @@ public class BuildRoofingGuiView implements GuiView, DisplaysText {
 
 	private Button buildButton(String drawableName, String tooltipI18nKey, Runnable onClick) {
 		Button button = new Button(skin.getDrawable(drawableName));
-		button.addListener(new ChangeCursorOnHover(button, GameCursor.SELECT, messageDispatcher));
+		buttonFactory.attachClickCursor(button, GameCursor.SELECT);
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -108,14 +102,12 @@ public class BuildRoofingGuiView implements GuiView, DisplaysText {
 
 	@Override
 	public void onShow() {
-		this.displayed = true;
 		messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.ROOFING_INFO);
 		messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DESIGNATE_ROOFING);
 	}
 
 	@Override
 	public void onHide() {
-		this.displayed = false;
 		messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_VIEW_MODE, GameViewMode.DEFAULT);
 		messageDispatcher.dispatchMessage(MessageType.GUI_SWITCH_INTERACTION_MODE, GameInteractionMode.DEFAULT);
 	}
