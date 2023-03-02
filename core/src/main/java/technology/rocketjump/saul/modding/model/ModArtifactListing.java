@@ -6,8 +6,8 @@ import technology.rocketjump.saul.assets.entities.creature.model.CreatureEntityA
 import technology.rocketjump.saul.assets.entities.furniture.model.FurnitureEntityAsset;
 import technology.rocketjump.saul.assets.entities.item.model.ItemEntityAsset;
 import technology.rocketjump.saul.assets.entities.mechanism.model.MechanismEntityAsset;
-import technology.rocketjump.saul.assets.entities.model.TemplateAnimationScript;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
+import technology.rocketjump.saul.assets.entities.model.TemplateAnimationScript;
 import technology.rocketjump.saul.assets.entities.plant.model.PlantEntityAsset;
 import technology.rocketjump.saul.assets.entities.vehicle.model.VehicleEntityAsset;
 import technology.rocketjump.saul.assets.entities.wallcap.model.WallCapAsset;
@@ -238,6 +238,8 @@ public class ModArtifactListing {
 						"terrain", "wallLayoutQuadrants", JSON_OBJECT, SINGLE_FILE, REPLACES_EXISTING, UntypedJsonProcessor.class),
 
 				////////// text //////////
+				def("text/credits", "*.csv", CSV, null,
+						"text/credits", null, CSV, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
 				def("text/names/csv", "*.csv", CSV, null,
 						"text/csv", null, CSV, COPY_ORIGINAL_FILES, ADDITIVE, CopyFilesProcessor.class),
 				def("text/names", "**/descriptor.json", JSON_OBJECT, NameGenerationDescriptor.class,

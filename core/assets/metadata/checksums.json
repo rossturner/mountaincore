@@ -58,6 +58,7 @@
   "terrain/doorwayEdges.json" : -7761290850010702003,
   "terrain/wallEdges.json" : -8220616538592415223,
   "terrain/wallLayoutQuadrants.json" : 1422769581893051723,
+  "text/credits/*.csv" : -9101287069408814555,
   "text/csv/*.csv" : 1189452816727260482,
   "text/name-descriptors.json" : -717090505746191325,
   "tilesets/entities.atlas" : 4744168123783723565,

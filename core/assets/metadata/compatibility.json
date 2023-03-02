@@ -62,6 +62,7 @@
   "terrain/doorwayClosedEdges.json" : "Alpha 7",
   "terrain/wallEdges.json" : "Alpha 3",
   "terrain/wallLayoutQuadrants.json" : "Alpha 3",
+  "text/credits/*.csv" : "Early Access 1.0.13",
   "text/csv/*.csv" : "Early Access 1.0.4",
   "text/name-descriptors.json" : "Early Access 1.0.4",
   "translations/languages.json" : "Alpha 3",
