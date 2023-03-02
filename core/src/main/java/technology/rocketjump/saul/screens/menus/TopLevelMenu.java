@@ -151,6 +151,10 @@ public class TopLevelMenu extends BannerMenu implements DisplaysText {
     }
 
 
+    public boolean hasGameStarted() {
+        return this.gameStarted;
+    }
+
     public void gameStarted() {
         this.gameStarted = true;
     }
