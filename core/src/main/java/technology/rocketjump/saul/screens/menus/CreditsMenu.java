@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.screens.menus;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import technology.rocketjump.saul.ui.i18n.DisplaysText;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
 
@@ -12,6 +13,7 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
     @Inject
     public CreditsMenu(GuiSkinRepository skinRepository) {
         super(skinRepository);
+//        FileHandle foundingBackers = Gdx.files.internal("core/assets/text/credits/founding_backers.txt");
     }
 
     @Override
@@ -26,7 +28,12 @@ public class CreditsMenu extends PaperMenu implements DisplaysText {
 
     @Override
     protected Actor buildComponentLayer() {
-        return null;
+
+        Table foundingBackers =  new Table();
+
+        Table table = new Table();
+        table.add(foundingBackers);
+        return table;
     }
 
     @Override
