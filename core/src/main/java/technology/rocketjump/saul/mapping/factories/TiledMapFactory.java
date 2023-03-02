@@ -10,6 +10,7 @@ import technology.rocketjump.saul.assets.model.FloorType;
 import technology.rocketjump.saul.cooking.CookingRecipeDictionary;
 import technology.rocketjump.saul.cooking.model.CookingRecipe;
 import technology.rocketjump.saul.entities.EntityStore;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.factories.ItemEntityAttributesFactory;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.factories.SettlerFactory;
@@ -31,9 +32,7 @@ import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.messaging.MessageType;
 import technology.rocketjump.saul.production.StockpileComponentUpdater;
-import technology.rocketjump.saul.production.StockpileGroup;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
-import technology.rocketjump.saul.rooms.RoomTile;
 import technology.rocketjump.saul.rooms.RoomTypeDictionary;
 
 import java.util.*;
@@ -127,11 +126,24 @@ public class TiledMapFactory {
 
 		List<QuantifiedItemTypeWithMaterial> embarkResources = new ArrayList<>();
 		embarkResources.addAll(initInitiallyHauledStartingItems());
-		embarkResources.addAll(initInventoryStartingItems(professionList.size(), gameContext.getRandom()));
+		embarkResources.addAll(initInventoryStartingItems());
+
+		int xOffset = -1;
+		int yOffset = -1;
 
 		for (Skill primaryProfession : professionList) {
 			Skill secondaryProfession = primaryProfession.equals(NULL_PROFESSION) ? NULL_PROFESSION : professionList.get(gameContext.getRandom().nextInt(professionList.size()));
-			createSettler(embarkPoint.x, embarkPoint.y, primaryProfession, secondaryProfession, gameContext, messageDispatcher);
+
+			createSettler(embarkPoint.x + xOffset, embarkPoint.y + yOffset, primaryProfession, secondaryProfession, gameContext, messageDispatcher);
+
+			xOffset++;
+			if (xOffset > 1) {
+				xOffset = -1;
+				yOffset++;
+			}
+			if (yOffset > 1) {
+				yOffset = -1;
+			}
 		}
 
 		ItemType plankItemType = itemTypeDictionary.getByName("Resource-Planks");
@@ -190,6 +202,22 @@ public class TiledMapFactory {
 		Random random = new Random();
 		Vector2 worldPosition = new Vector2(tileX + 0.5f + (0.1f - (random.nextFloat() * 0.2f)), tileY + 0.5f+ (0.1f - (random.nextFloat() * 0.2f)));
 
+		MapTile tile = gameContext.getAreaMap().getTile(tileX, tileY);
+		if (tile.hasWall()) {
+			messageDispatcher.dispatchMessage(MessageType.REMOVE_WALL, tile.getTilePosition());
+		}
+		List<Long> entitiesToRemove = new LinkedList<>();
+		for (Entity entity : tile.getEntities()) {
+			if (!entity.getType().equals(EntityType.CREATURE)) {
+				entitiesToRemove.add(entity.getId());
+			}
+		}
+		// Separate loop to avoid ConcurrentModificationException
+		for (Long entityId : entitiesToRemove) {
+			entityStore.remove(entityId);
+			tile.removeEntity(entityId);
+		}
+
 		Entity settler = setterFactory.create(worldPosition, primaryprofession, secondaryProfession, gameContext, true);
 
 		if (GlobalSettings.DEV_MODE) {
@@ -224,45 +252,11 @@ public class TiledMapFactory {
 				itemAttributes.setQuantity(itemAttributes.getItemType().getMaxStackSize());
 			}
 
-			Entity itemEntity = itemEntityFactory.create(itemAttributes, new GridPoint2(tileX, tileY), true, gameContext);
+			Entity itemEntity = itemEntityFactory.create(itemAttributes, new GridPoint2(tileX, tileY), true, gameContext, Faction.SETTLEMENT);
 			haulingComponent.setHauledEntity(itemEntity, messageDispatcher, settler);
 		}
 
 		return settler;
-	}
-
-	private void createResources(int x, int y, ItemType itemType, GameMaterial materialToUse,
-								 GameContext gameContext, MessageDispatcher messageDispatcher, Map<GridPoint2, RoomTile> roomTiles, Set<StockpileGroup> stockpileGroups) {
-		TiledMap areaMap = gameContext.getAreaMap();
-
-		MapTile tile = areaMap.getTile(x, y);
-		if (tile == null) {
-			return; // FIXME looks like we're embarking on edge of map
-		}
-		if (tile.hasWall()) {
-			messageDispatcher.dispatchMessage(MessageType.REMOVE_WALL, tile.getTilePosition());
-		}
-		List<Long> entitiesToRemove = new LinkedList<>();
-		for (Entity entity : tile.getEntities()) {
-			if (!entity.getType().equals(EntityType.CREATURE)) {
-				entitiesToRemove.add(entity.getId());
-			}
-		}
-		// Separate loop to avoid ConcurrentModificationException
-		for (Long entityId : entitiesToRemove) {
-			entityStore.remove(entityId);
-			tile.removeEntity(entityId);
-		}
-
-		ItemEntityAttributes itemEntityAttributes = itemEntityAttributesFactory.createItemAttributes(itemType, itemType.getMaxStackSize(), materialToUse);
-		GridPoint2 location = new GridPoint2(x, y);
-		entityStore.createResourceItem(itemEntityAttributes, location);
-		stockpileGroups.add(itemType.getStockpileGroup());
-
-		RoomTile roomTile = new RoomTile();
-		roomTile.setTile(gameContext.getAreaMap().getTile(location));
-		roomTile.setTilePosition(location);
-		roomTiles.put(location, roomTile);
 	}
 
 	private GameMaterial pickWoodMaterialType() {
@@ -295,7 +289,7 @@ public class TiledMapFactory {
 		return items;
 	}
 
-	private Deque<QuantifiedItemTypeWithMaterial> initInventoryStartingItems(int numSettlers, Random random) {
+	private Deque<QuantifiedItemTypeWithMaterial> initInventoryStartingItems() {
 		Deque<QuantifiedItemTypeWithMaterial> items = new ArrayDeque<>();
 		items.addAll(item("Tool-Axe", 4));
 		items.addAll(item("Tool-Chisel", 4));

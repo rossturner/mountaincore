@@ -16,6 +16,7 @@ public class Skill {
 	private String draggableIcon;
 	@JsonIgnore
 	private ImageButton imageButton;
+	private boolean selectableByPlayer = true;
 
 	public String getName() {
 		return name;
@@ -81,5 +82,13 @@ public class Skill {
 
 	public void setDraggableIcon(String draggableIcon) {
 		this.draggableIcon = draggableIcon;
+	}
+
+	public boolean isSelectableByPlayer() {
+		return selectableByPlayer;
+	}
+
+	public void setSelectableByPlayer(boolean selectableByPlayer) {
+		this.selectableByPlayer = selectableByPlayer;
 	}
 }

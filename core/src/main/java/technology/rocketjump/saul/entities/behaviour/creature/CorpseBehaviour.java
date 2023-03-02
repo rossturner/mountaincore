@@ -52,7 +52,7 @@ public class CorpseBehaviour implements BehaviourComponent, SelectableDescriptio
 		this.parentEntity = parentEntity;
 		HOURS_TO_FULLY_DECAY = gameContext.getConstantsRepo().getWorldConstants().getCorpseDecayHours();
 		FULLY_DECAYED_COLOR = gameContext.getConstantsRepo().getWorldConstants().getCorpseDecayColorInstance();
-		steeringComponent.init(parentEntity, gameContext.getAreaMap(), parentEntity.getLocationComponent(), messageDispatcher);
+		steeringComponent.init(parentEntity, gameContext.getAreaMap(), messageDispatcher);
 	}
 
 	@Override

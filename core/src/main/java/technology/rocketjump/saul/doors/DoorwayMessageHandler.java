@@ -14,6 +14,7 @@ import technology.rocketjump.saul.assets.entities.wallcap.model.WallCapAsset;
 import technology.rocketjump.saul.audio.model.SoundAssetDictionary;
 import technology.rocketjump.saul.entities.SequentialIdGenerator;
 import technology.rocketjump.saul.entities.behaviour.furniture.DoorBehaviour;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.furniture.ConstructedEntityComponent;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureLayoutDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
@@ -96,7 +97,7 @@ public class DoorwayMessageHandler implements GameContextAware, Telegraph {
 					Doorway doorway = targetTile.getDoorway();
 
 					ItemEntityAttributes itemAttributes = itemEntityAttributesFactory.resourceFromDoorway(doorway);
-					itemEntityFactory.create(itemAttributes, target.getTileLocation(), true, gameContext);
+					itemEntityFactory.create(itemAttributes, target.getTileLocation(), true, gameContext, Faction.SETTLEMENT);
 
 					messageDispatcher.dispatchMessage(MessageType.PARTICLE_REQUEST, new ParticleRequestMessage(dustCloudParticleEffect,
 							Optional.empty(), Optional.of(new JobTarget(targetTile)), (p) -> {}));

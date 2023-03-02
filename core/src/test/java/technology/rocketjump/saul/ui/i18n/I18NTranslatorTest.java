@@ -22,6 +22,7 @@ import technology.rocketjump.saul.constants.ConstantsRepo;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.EntityStore;
 import technology.rocketjump.saul.entities.ai.goap.GoalDictionary;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureLayoutDictionary;
 import technology.rocketjump.saul.entities.dictionaries.furniture.FurnitureTypeDictionary;
 import technology.rocketjump.saul.entities.factories.*;
@@ -174,7 +175,7 @@ public class I18NTranslatorTest {
 		attributes.setItemType(itemTypeDictionary.getByName("Product-Ration"));
 		attributes.setMaterial(gameMaterialDictionary.getByName("Rockbread"));
 
-		Entity entity = new ItemEntityFactory(mockMessageDispatcher, gameMaterialDictionary, mockEntityAssetUpdater).create(attributes, new GridPoint2(), true, mockGameContext);
+		Entity entity = new ItemEntityFactory(mockMessageDispatcher, gameMaterialDictionary, mockEntityAssetUpdater).create(attributes, new GridPoint2(), true, mockGameContext, Faction.SETTLEMENT);
 
 		I18nText description = translator.getDescription(entity);
 
@@ -188,7 +189,7 @@ public class I18NTranslatorTest {
 		attributes.setItemType(itemTypeDictionary.getByName("Ingredient-Vegetable-Sack"));
 		attributes.setMaterial(gameMaterialDictionary.getByName("Potato"));
 
-		Entity entity = new ItemEntityFactory(mockMessageDispatcher, gameMaterialDictionary, mockEntityAssetUpdater).create(attributes, new GridPoint2(), true, mockGameContext);
+		Entity entity = new ItemEntityFactory(mockMessageDispatcher, gameMaterialDictionary, mockEntityAssetUpdater).create(attributes, new GridPoint2(), true, mockGameContext, Faction.SETTLEMENT);
 
 		I18nText description = translator.getDescription(entity);
 
@@ -504,7 +505,7 @@ public class I18NTranslatorTest {
 		attributes.setItemType(itemTypeDictionary.getByName("Resource-Logs"));
 		attributes.setMaterial(gameMaterialDictionary.getByName("Oak"));
 
-		return new ItemEntityFactory(mockMessageDispatcher, gameMaterialDictionary, mockEntityAssetUpdater).create(attributes, new GridPoint2(), true, mockGameContext);
+		return new ItemEntityFactory(mockMessageDispatcher, gameMaterialDictionary, mockEntityAssetUpdater).create(attributes, new GridPoint2(), true, mockGameContext, Faction.SETTLEMENT);
 	}
 
 	private WallConstruction createWallConstruction(GameMaterial material) {

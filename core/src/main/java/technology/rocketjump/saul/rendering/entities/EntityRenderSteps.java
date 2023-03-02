@@ -61,9 +61,13 @@ public class EntityRenderSteps {
 
 	public void addAttachedEntity(AttachedEntity attachedEntity, Entity parentEntity) {
 		if (parentEntity.getType().equals(EntityType.VEHICLE)) {
-			attachedEntities.put(attachedEntity.holdPosition.getVehicleAttachmentType(), attachedEntity.entity);
+			if (attachedEntity.holdPosition.getVehicleAttachmentType() != null) {
+				attachedEntities.put(attachedEntity.holdPosition.getVehicleAttachmentType(), attachedEntity.entity);
+			}
 		} else {
-			attachedEntities.put(attachedEntity.holdPosition.getAttachmentType(), attachedEntity.entity);
+			if (attachedEntity.holdPosition.getAttachmentType() != null) {
+				attachedEntities.put(attachedEntity.holdPosition.getAttachmentType(), attachedEntity.entity);
+			}
 		}
 	}
 

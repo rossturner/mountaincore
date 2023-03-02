@@ -95,6 +95,10 @@ public class SkillsComponent implements EntityComponent {
 		return skillLevels.getOrDefault(profession, 0);
 	}
 
+	public Set<Map.Entry<Skill, Integer>> getAll() {
+		return skillLevels.entrySet();
+	}
+
 	public void experienceGained(int experiencePointsAmount, Skill profession) {
 		int currentSkillLevel = getSkillLevel(profession);
 		int currentExperience = experiencePoints.getOrDefault(profession, 0);

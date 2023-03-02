@@ -1,0 +1,21 @@
+{
+  "name": "Move group towards settlement",
+  "creatureCategories": ["MERCHANT"],
+  "selectors": [],
+  "initialActions": ["MoveGroupHomeTowardSettlers"],
+  "actionRelationships": {
+    "MoveGroupHomeTowardSettlers": {
+      "pass": ["GoToGoalTargetLocation"],
+      "fail": ["MerchantNotificationToPlayer"]
+    },
+    "GoToGoalTargetLocation": {
+      "pass": ["MerchantNotificationToPlayer"],
+      "fail": ["MerchantNotificationToPlayer"]
+    },
+    "MerchantNotificationToPlayer": {
+      "pass": ["ProgressTraderStage"],
+      "fail": []
+    },
+    "ProgressTraderStage": {}
+  }
+}

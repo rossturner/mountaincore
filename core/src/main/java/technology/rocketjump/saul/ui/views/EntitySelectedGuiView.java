@@ -66,6 +66,7 @@ import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.Updatable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
+import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nString;
@@ -84,6 +85,7 @@ import technology.rocketjump.saul.ui.widgets.rooms.PriorityWidget;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedString;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabel;
 import technology.rocketjump.saul.ui.widgets.text.DecoratedStringLabelFactory;
+import technology.rocketjump.saul.ui.widgets.text.ItemValueLabel;
 
 import java.util.List;
 import java.util.*;
@@ -266,18 +268,22 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 					Updatable<Actor> creatureName = creatureName(entity);
 					Updatable<Table> happinessIcons = happinessIcons(entity);
 					Updatable<Table> textSummary = textSummary(entity);
+					Updatable<Table> debugTextSummary = debugTextSummary(entity);
 
 					updatables.add(creatureName);
 					updatables.add(happinessIcons);
 					updatables.add(textSummary);
+					updatables.add(debugTextSummary);
 
 					Table middleRow = new Table();
-					middleRow.add(happinessIcons.getActor()).top().right();
-					middleRow.add(textSummary.getActor()).left().spaceLeft(25f).grow();
-
+					middleRow.add(happinessIcons.getActor()).top().left();
+					middleRow.add(textSummary.getActor()).left().spaceLeft(25f).grow().row();
 					outerTable.add(creatureName.getActor()).fillX().padTop(67).padBottom(20).row();
 					Cell<Table> middleRowCell = outerTable.add(middleRow).expandY().fillX();
 					middleRowCell.row();
+					if (GlobalSettings.DEV_MODE) {
+						outerTable.add(debugTextSummary.getActor()).left().row();
+					}
 					if (entity.getComponent(InventoryComponent.class) != null) {
 						Updatable<Table> inventory = inventory(entity);
 						updatables.add(inventory);
@@ -341,17 +347,24 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 							viewContents.add(progressBars.getActor()).center().row();
 						}
 
+						if (entity.getPhysicalEntityComponent().getAttributes() instanceof ItemEntityAttributes itemEntityAttributes) {
+							viewContents.add(new ItemValueLabel(itemEntityAttributes.getTotalValue(), "table_value_label", managementSkin)).center().row();
+						}
+
 						if (descriptions.getActor().hasChildren()) {
 							viewContents.add(descriptions.getActor()).center().row();
 						}
 
-						if (entity.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour) {
+						if (entity.getBehaviourComponent() instanceof TradingImportFurnitureBehaviour) {
+							viewContents.add(productionExportFurnitureWidget).center().row();
+						} else if (entity.getBehaviourComponent() instanceof TradingExportFurnitureBehaviour) {
+							viewContents.add(productionImportFurnitureWidget).center().row();
+						} else if (entity.getBehaviourComponent() instanceof ProductionImportFurnitureBehaviour) {
 							viewContents.add(productionImportFurnitureWidget).center().row();
 						} else if (entity.getBehaviourComponent() instanceof ProductionExportFurnitureBehaviour) {
 							viewContents.add(productionExportFurnitureWidget).center().row();
 						}
 
-						//TODO: test this
 						if (entity.getComponent(InventoryComponent.class) != null) {
 							viewContents.add(inventory.getActor()).row();
 						} else {
@@ -623,10 +636,9 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			if (GlobalSettings.DEV_MODE) {
 				if (itemAllocationComponent != null) {
 					List<ItemAllocation> itemAllocations = itemAllocationComponent.getAll();
-					Label.LabelStyle debugStyle = new Label.LabelStyle(managementSkin.get("default-font-18-label", Label.LabelStyle.class));
-					debugStyle.fontColor = Color.PURPLE;
 					for (ItemAllocation itemAllocation : itemAllocations) {
-						Label label = new Label(itemAllocation.toString(), debugStyle);
+						Label.LabelStyle debugLabelStyle = mainGameSkin.get("debug-label", Label.LabelStyle.class);
+						Label label = new Label(itemAllocation.toString(), debugLabelStyle);
 						table.add(label).grow().row();
 					}
 				}
@@ -744,8 +756,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						.map(I18nText::toString)
 						.collect(Collectors.joining("\n"));
 				headlineLabel.setText(deadText);
-			} else if (factionComponent != null && (factionComponent.getFaction() == Faction.WILD_ANIMALS || factionComponent.getFaction() == Faction.MERCHANTS || factionComponent.getFaction() == Faction.MONSTERS)) {
+			} else if (factionComponent != null && (factionComponent.getFaction() == Faction.WILD_ANIMALS || factionComponent.getFaction() == Faction.MONSTERS)) {
 				headlineLabel.setText(i18nTranslator.translate(factionComponent.getFaction().i18nKey));
+			} else if (factionComponent != null && factionComponent.getFaction() == Faction.SETTLEMENT && !entity.isSettler()) {
+				headlineLabel.setText(i18nTranslator.translate("FACTION.SETTLEMENT.ANIMAL"));
 			} else if (skillsComponent != null && SettlerManagementScreen.IS_MILITARY.test(entity)) {
 				String assignedWeaponText = settlerManagementScreen.getAssignedWeaponText(entity, skillsComponent);
 				headlineLabel.setText(assignedWeaponText);
@@ -807,8 +821,6 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 		Updatable<Table> updatable = Updatable.of(table);
 
 		if (GlobalSettings.DEV_MODE) {
-			Label.LabelStyle debugStyle = new Label.LabelStyle(managementSkin.get("default-font-18-label", Label.LabelStyle.class));
-			debugStyle.fontColor = Color.PURPLE;
 			updatable.regularly(() -> {
 				table.clearChildren();
 
@@ -818,7 +830,8 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 						if (creatureBehaviour.getCurrentGoal().getCurrentAction() != null) {
 							debugText += ": " + creatureBehaviour.getCurrentGoal().getCurrentAction().getSimpleName();
 						}
-						table.add(new Label(debugText, debugStyle)).left().row();
+						Label.LabelStyle debugLabelStyle = mainGameSkin.get("debug-label", Label.LabelStyle.class);
+						table.add(new Label(debugText, debugLabelStyle)).left().row();
 					}
 				}
 			});
@@ -842,7 +855,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			table.clear();
 			boolean isMilitary = SettlerManagementScreen.IS_MILITARY.test(entity);
 			boolean isSettlement = factionComponent != null && factionComponent.getFaction() == Faction.SETTLEMENT;
-			boolean unknownHappiness = isMilitary || !isSettlement || entity.getBehaviourComponent() instanceof CorpseBehaviour; //Dead don't display happiness
+			boolean unknownHappiness = isMilitary || !entity.isSettler() || entity.getBehaviourComponent() instanceof CorpseBehaviour; //Dead don't display happiness
 
 			List<String> ailments = new ArrayList<>();
 			for (StatusEffect statusEffect : statusComponent.getAll()) {
@@ -861,11 +874,11 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 				}
 				DecoratedStringLabel tooltipContents = decoratedStringLabelFactory.create(tooltipString, "tooltip-text", mainGameSkin);
 
-				Image injurySmiley = new Image(mainGameSkin.getInjuredSmiley(factionComponent));
+				Image injurySmiley = new Image(mainGameSkin.getInjuredSmiley(attributes, factionComponent));
 				tooltipFactory.complexTooltip(injurySmiley, tooltipContents, TooltipFactory.TooltipBackground.LARGE_PATCH_LIGHT);
 				table.add(injurySmiley);
 			} else if (unknownHappiness) {
-				Image notInjuredSmiley = new Image(mainGameSkin.getNotInjuredSmiley(factionComponent));
+				Image notInjuredSmiley = new Image(mainGameSkin.getNotInjuredSmiley(attributes, factionComponent));
 				tooltipFactory.simpleTooltip(notInjuredSmiley, "BODY_STRUCTURE.DAMAGE.NOT_INJURED", TooltipLocationHint.BELOW);
 				table.add(notInjuredSmiley);
 			}
@@ -1073,6 +1086,10 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 			table.clear();
 
 			List<Entity> inventoryEntities = new ArrayList<>();
+			AttachedEntitiesComponent attachedEntitiesComponent = entity.getComponent(AttachedEntitiesComponent.class);
+			if (attachedEntitiesComponent != null) {
+				inventoryEntities.addAll(attachedEntitiesComponent.getAttachedEntities().stream().map(entry -> entry.entity).toList());
+			}
 			if (entity.getComponent(HaulingComponent.class) != null && entity.getComponent(HaulingComponent.class).getHauledEntity() != null) {
 				inventoryEntities.add(entity.getComponent(HaulingComponent.class).getHauledEntity());
 			}
@@ -1117,6 +1134,13 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 					Image entityImage = new Image(entityDrawable);
 					tooltipFactory.simpleTooltip(entityImage, i18nTranslator.getDescription(inventoryItem), TooltipLocationHint.BELOW); //TODO: need to do something to prevent sticky tooltips
+					entityImage.addListener(new ChangeCursorOnHover(entityImage, GameCursor.SELECT, messageDispatcher));
+					entityImage.addListener(new ClickListener() {
+						@Override
+						public void clicked(InputEvent event, float x, float y) {
+							messageDispatcher.dispatchMessage(MessageType.CHOOSE_SELECTABLE, new Selectable(inventoryItem, 0));
+						}
+					});
 
 					Container<Image> entityImageContainer = new Container<>(entityImage);
 					entityImageContainer.bottom().right();

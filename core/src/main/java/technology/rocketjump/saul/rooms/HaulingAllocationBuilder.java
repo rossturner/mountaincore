@@ -24,6 +24,10 @@ public class HaulingAllocationBuilder {
 		ItemAllocationComponent itemAllocationComponent = entityToHaul.getOrCreateComponent(ItemAllocationComponent.class);
 		ItemAllocation itemAllocation = itemAllocationComponent.createAllocation(quantity, requestingEntity, ItemAllocation.Purpose.DUE_TO_BE_HAULED);
 
+		return createWithItemAllocation(entityToHaul, itemAllocation);
+	}
+
+	public static HaulingAllocationBuilder createWithItemAllocation(Entity entityToHaul, ItemAllocation itemAllocation) {
 		HaulingAllocationBuilder builder = new HaulingAllocationBuilder();
 		builder.allocation.setItemAllocation(itemAllocation);
 		builder.allocation.setHauledEntityId(entityToHaul.getId());
@@ -74,7 +78,7 @@ public class HaulingAllocationBuilder {
 	}
 
 	private HaulingAllocationBuilder fromContainer(Entity containerEntity) {
-		if (containerEntity.getType().equals(EntityType.FURNITURE)) {
+		if (containerEntity.getType().equals(EntityType.FURNITURE) || containerEntity.getType().equals(EntityType.VEHICLE)) {
 			allocation.setSourceContainerId(containerEntity.getId());
 			allocation.setSourcePositionType(FURNITURE);
 			allocation.setSourcePosition(toGridPoint(containerEntity.getLocationComponent().getWorldPosition()));
@@ -95,6 +99,7 @@ public class HaulingAllocationBuilder {
 		// might be able to eliminate hauling to item
 		switch (targetEntity.getType()) {
 			case FURNITURE -> allocation.setTargetPositionType(FURNITURE);
+			case VEHICLE -> allocation.setTargetPositionType(VEHICLE);
 			case CREATURE -> allocation.setTargetPositionType(CREATURE);
 			case ITEM -> allocation.setTargetPositionType(FLOOR);
 			default -> throw new NotImplementedException(targetEntity.getType() + " not implemented in " + getClass().getSimpleName() + ".toEntity()");

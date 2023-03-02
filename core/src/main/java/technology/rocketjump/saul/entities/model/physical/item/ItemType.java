@@ -2,7 +2,9 @@ package technology.rocketjump.saul.entities.model.physical.item;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.common.collect.Sets;
 import technology.rocketjump.saul.audio.model.SoundAsset;
+import technology.rocketjump.saul.crafting.CraftingRecipeDictionary;
 import technology.rocketjump.saul.entities.model.physical.combat.DefenseInfo;
 import technology.rocketjump.saul.entities.model.physical.combat.WeaponInfo;
 import technology.rocketjump.saul.entities.tags.Tag;
@@ -12,15 +14,13 @@ import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.misc.Name;
 import technology.rocketjump.saul.production.StockpileGroup;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ItemType {
 
-	public static final double DEFAULT_HOURS_FOR_ITEM_TO_BECOME_UNUSED = 38.0;
+	public static final double DEFAULT_HOURS_FOR_ITEM_TO_BECOME_UNUSED = 12.0;
 	public static final ItemType UNARMED_WEAPON = new ItemType();
 	static {
 		UNARMED_WEAPON.setItemTypeName("UNARMED_WEAPON");
@@ -70,6 +70,9 @@ public class ItemType {
 	private WeaponInfo weaponInfo;
 	private AmmoType isAmmoType;
 	private DefenseInfo defenseInfo;
+
+	private boolean tradeExportable;
+	private boolean tradeImportable;
 
 	private boolean describeAsMaterialOnly;
 
@@ -325,6 +328,35 @@ public class ItemType {
 	@JsonIgnore
 	public boolean isStackable() {
 		return maxStackSize > 1 || maxHauledAtOnce > 1;
+	}
+
+	public boolean isTradeExportable() {
+		return tradeExportable;
+	}
+
+	public void setTradeExportable(boolean tradeable) {
+		tradeExportable = tradeable;
+	}
+
+	public boolean isTradeImportable() {
+		return tradeImportable;
+	}
+
+	public void setTradeImportable(boolean tradeImportable) {
+		this.tradeImportable = tradeImportable;
+	}
+
+	@JsonIgnore
+	public List<GameMaterial> getSpecificallyAllowedMaterials(CraftingRecipeDictionary craftingRecipeDictionary) {
+		Set<GameMaterial> allowedByCrafting = craftingRecipeDictionary.getAll().stream()
+				.filter(r -> this.equals(r.getOutput().getItemType()))
+				.map(r -> r.getOutput().getMaterial())
+				.collect(Collectors.toSet());
+		if (allowedByCrafting.isEmpty() || allowedByCrafting.contains(null)) {
+			return specificMaterials;
+		} else {
+			return new ArrayList<>(Sets.union(allowedByCrafting, new HashSet<>(specificMaterials)));
+		}
 	}
 
 }

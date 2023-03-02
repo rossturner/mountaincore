@@ -152,7 +152,7 @@ public class VehicleAttributesPane extends AbstractAttributesPane {
 		decorationComponent.clear();
 		for (ItemType decoration : decorations) {
 			if (NULL_ITEM_TYPE != decoration) {
-				decorationComponent.add(itemEntityFactory.createByItemType(decoration, fakeContext, false));
+				decorationComponent.add(itemEntityFactory.createByItemType(decoration, fakeContext, false, Faction.SETTLEMENT));
 			}
 		}
 	}
@@ -166,7 +166,7 @@ public class VehicleAttributesPane extends AbstractAttributesPane {
 
 		for (ItemType decoration : inventoryItems) {
 			if (NULL_ITEM_TYPE != decoration) {
-				Entity inventoryEntity = itemEntityFactory.createByItemType(decoration, fakeContext, false);
+				Entity inventoryEntity = itemEntityFactory.createByItemType(decoration, fakeContext, false, Faction.SETTLEMENT);
 				inventoryEntities.push(inventoryEntity);
 				inventoryComponent.add(inventoryEntity, editorStateProvider.getState().getCurrentEntity(), messageDispatcher, gameClock);
 			}

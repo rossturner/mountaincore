@@ -11,18 +11,21 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import static technology.rocketjump.saul.jobs.model.SkillType.PROFESSION;
+
 @Singleton
 public class SkillDictionary {
 
 	private Map<String, Skill> byName = new HashMap<>();
 	private Map<SkillType, List<Skill>> byType = new HashMap<>();
+	private List<Skill> selectableProfessions = new ArrayList<>();
 
 	public static Skill NULL_PROFESSION = new Skill();
 	public static Skill UNARMED_COMBAT_SKILL = new Skill();
 	public static Skill CONTEXT_DEPENDENT_PROFESSION_REQUIRED = new Skill();
 	static {
 		NULL_PROFESSION.setName("NULL_PROFESSION");
-		NULL_PROFESSION.setType(SkillType.PROFESSION);
+		NULL_PROFESSION.setType(PROFESSION);
 		NULL_PROFESSION.setI18nKey("PROFESSION.VILLAGER");
 		NULL_PROFESSION.setIcon("settlers_job_villager");
 		NULL_PROFESSION.setDraggableIcon("btn_drag_job_villager");
@@ -48,15 +51,21 @@ public class SkillDictionary {
 		for (Skill skill : skills) {
 			byName.put(skill.getName(), skill);
 			byType.computeIfAbsent(skill.getType(), a -> new ArrayList<>()).add(skill);
+			if (PROFESSION.equals(skill.getType()) && skill.isSelectableByPlayer()) {
+				selectableProfessions.add(skill);
+			}
 		}
 	}
 
 	public Skill getByName(Object name) {
 		return byName.get(name);
 	}
-
 	public List<Skill> getAllProfessions() {
-		return byType.get(SkillType.PROFESSION);
+		return byType.get(PROFESSION);
+	}
+
+	public List<Skill> getSelectableProfessions() {
+		return selectableProfessions;
 	}
 
 	public List<Skill> getAllCombatSkills() {

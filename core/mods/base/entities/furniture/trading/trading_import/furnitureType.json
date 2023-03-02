@@ -1,0 +1,18 @@
+{
+  "name" : "TRADING_IMPORT",
+  "i18nKey" : "FURNITURE.IMPORT_PALLET",
+  "defaultLayoutName" : "1x1",
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 2
+    } ],
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 2
+    } ]
+  },
+  "tags" : {
+    "TRADING_IMPORT" : [ "1", "HAULING" ]
+  }
+}

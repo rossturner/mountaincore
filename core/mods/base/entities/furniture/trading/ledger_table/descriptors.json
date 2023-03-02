@@ -1,0 +1,202 @@
+[ {
+  "uniqueName" : "Ledger_Table-trading-ledger-down-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-down",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Down-Base_Layer-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : 1.0,
+        "y" : 73.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_BELOW_LAYER_1",
+        "offsetPixels" : {
+          "x" : -1.0,
+          "y" : -9.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-down-Furniture_Below_Layer_1-Wood",
+  "type" : "FURNITURE_BELOW_LAYER_1",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-down",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Down-Furniture_Below_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : -3.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-left-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-left",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Left-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : -3.0,
+        "y" : 33.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "y" : 39.0
+        }
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "y" : 39.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-left-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-left",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Left-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : 53.5,
+        "y" : -10.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-left-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-left",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Left-Furniture_Above_Layer_2-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : -3.0,
+        "y" : 20.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-right-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-right",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Right-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "x" : 3.0,
+        "y" : 34.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1",
+        "offsetPixels" : {
+          "y" : 39.0
+        }
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2",
+        "offsetPixels" : {
+          "y" : 39.0
+        }
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-right-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-right",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Right-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -53.5,
+        "y" : -10.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-right-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-right",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Right-Furniture_Above_Layer_2-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : 3.0,
+        "y" : 20.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-up-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-up",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Up-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      }, {
+        "type" : "FURNITURE_ABOVE_LAYER_2"
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-up-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-up",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Up-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "offsetPixels" : {
+        "x" : -2.5,
+        "y" : -66.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Ledger_Table-trading-ledger-up-Furniture_Above_Layer_2-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_2",
+  "furnitureTypeName" : "LEDGER_TABLE",
+  "furnitureLayoutName" : "trading-ledger-up",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Ledger_Table-Trading-Ledger-Up-Furniture_Above_Layer_2-Wood_Down.png",
+      "offsetPixels" : {
+        "x" : 0.5,
+        "y" : 13.0
+      }
+    }
+  }
+} ]

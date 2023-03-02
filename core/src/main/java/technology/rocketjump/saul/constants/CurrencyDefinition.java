@@ -1,6 +1,7 @@
 package technology.rocketjump.saul.constants;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.base.MoreObjects;
 import technology.rocketjump.saul.entities.model.physical.item.ItemType;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 
@@ -52,5 +53,14 @@ public class CurrencyDefinition {
 
 	public void setValue(int value) {
 		this.value = value;
+	}
+
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+				.add("itemType", itemType)
+				.add("material", material)
+				.add("value", value)
+				.toString();
 	}
 }

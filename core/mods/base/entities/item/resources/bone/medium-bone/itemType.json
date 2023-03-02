@@ -6,5 +6,6 @@
   "baseValuePerItem": 3,
   "primaryMaterialType" : "BONE",
   "stockpileGroupName" : "RAW_MATERIALS",
-  "i18nKey" : "RESOURCE.BONE.MEDIUM"
+  "i18nKey" : "RESOURCE.BONE.MEDIUM",
+  "tradeExportable": true
 }

@@ -8,6 +8,7 @@ import technology.rocketjump.saul.assets.editor.model.EditorStateProvider;
 import technology.rocketjump.saul.assets.editor.widgets.ToStringDecorator;
 import technology.rocketjump.saul.assets.editor.widgets.propertyeditor.WidgetBuilder;
 import technology.rocketjump.saul.assets.model.FloorType;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.InventoryComponent;
 import technology.rocketjump.saul.entities.components.furniture.DecorationInventoryComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
@@ -130,7 +131,7 @@ public class FurnitureAttributesPane extends AbstractAttributesPane {
         decorationComponent.clear();
         for (ItemType decoration : decorations) {
             if (NULL_ITEM_TYPE != decoration) {
-                decorationComponent.add(itemEntityFactory.createByItemType(decoration, fakeContext, false));
+                decorationComponent.add(itemEntityFactory.createByItemType(decoration, fakeContext, false, Faction.SETTLEMENT));
             }
         }
     }
@@ -144,7 +145,7 @@ public class FurnitureAttributesPane extends AbstractAttributesPane {
 
         for (ItemType decoration : inventoryItems) {
             if (NULL_ITEM_TYPE != decoration) {
-                Entity inventoryEntity = itemEntityFactory.createByItemType(decoration, fakeContext, false);
+                Entity inventoryEntity = itemEntityFactory.createByItemType(decoration, fakeContext, false, Faction.SETTLEMENT);
                 inventoryEntities.push(inventoryEntity);
                 inventoryComponent.add(inventoryEntity, editorStateProvider.getState().getCurrentEntity(), messageDispatcher, gameClock);
             }

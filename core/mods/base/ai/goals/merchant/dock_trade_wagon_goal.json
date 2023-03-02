@@ -1,0 +1,42 @@
+{
+  "name": "Dock trade wagon",
+  "creatureCategories": ["MERCHANT"],
+  "selectors": [
+    {
+      "conditions": [
+        {
+          "type": "TRADERS_IN_STAGE",
+          "stage": "ARRIVED_AT_TRADE_DEPOT"
+        },
+        {
+          "type": "IS_DRIVING_VEHICLE",
+          "value": true
+        }
+      ],
+      "priority": "HIGHEST",
+      "scheduleCategory": "ANY"
+    }
+  ],
+  "initialActions": ["LocateHitchingPostSpace"],
+  "actionRelationships": {
+    "LocateHitchingPostSpace": {
+      "pass": ["GoToGoalTargetLocation"],
+      "fail": ["ExitVehicle"]
+    },
+    "GoToGoalTargetLocation": {
+      "pass": ["FaceTowardsLocation", "ExitVehicle"],
+      "fail": ["ExitVehicle"]
+    },
+    "ExitVehicle": {
+      "pass": ["CheckAllGroupVehiclesEmpty", "GoToRandomLocation"],
+      "fail": ["CheckAllGroupVehiclesEmpty"]
+    },
+    "GoToRandomLocation": {},
+    "CheckAllGroupVehiclesEmpty": {
+      "pass": ["ProgressTraderStageToTrading"],
+      "fail": []
+    },
+    "FaceTowardsLocation": {},
+    "ProgressTraderStageToTrading": {}
+  }
+}

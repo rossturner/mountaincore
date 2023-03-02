@@ -18,6 +18,7 @@ import technology.rocketjump.saul.entities.ai.memory.Memory;
 import technology.rocketjump.saul.entities.ai.memory.MemoryType;
 import technology.rocketjump.saul.entities.behaviour.creature.CreatureBehaviour;
 import technology.rocketjump.saul.entities.behaviour.items.ProjectileBehaviour;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.creature.CombatStateComponent;
 import technology.rocketjump.saul.entities.components.creature.MemoryComponent;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
@@ -184,7 +185,7 @@ public class CombatMessageHandler implements Telegraph, GameContextAware {
 		Vector2 attackerLocation = attackMessage.attackerEntity.getLocationComponent().getWorldOrParentPosition();
 		ItemEntityAttributes ammoAttributes = attackMessage.ammoAttributes.clone();
 		ammoAttributes.setItemPlacement(ItemPlacement.PROJECTILE);
-		Entity projectileEntity = itemEntityFactory.create(ammoAttributes, toGridPoint(attackerLocation), false, gameContext);
+		Entity projectileEntity = itemEntityFactory.create(ammoAttributes, toGridPoint(attackerLocation), false, gameContext, Faction.SETTLEMENT);
 		projectileEntity.getLocationComponent().setWorldPosition(attackerLocation, false);
 		ProjectileBehaviour projectileBehaviour = new ProjectileBehaviour();
 		projectileBehaviour.setAttackerEntity(attackMessage.attackerEntity);

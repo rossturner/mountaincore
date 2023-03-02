@@ -9,6 +9,7 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.WallTypeDictionary;
 import technology.rocketjump.saul.assets.model.WallType;
 import technology.rocketjump.saul.entities.ai.pathfinding.Map2DCollection;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -253,7 +254,7 @@ public class MiningCollapseManager implements Telegraph, Updatable {
 						attributes.setMaterial(tile.getRoof().getRoofMaterial());
 						attributes.setQuantity(1);
 
-						itemEntityFactory.create(attributes, tile.getTilePosition(), true, gameContext);
+						itemEntityFactory.create(attributes, tile.getTilePosition(), true, gameContext, Faction.SETTLEMENT);
 					}
 				} else {
 					// Do nothing

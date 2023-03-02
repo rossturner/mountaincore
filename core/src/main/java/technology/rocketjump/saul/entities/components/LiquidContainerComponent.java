@@ -197,7 +197,7 @@ public class LiquidContainerComponent implements ParentDependentEntityComponent,
 		if (getNumUnallocated() < amountRequired) {
 			return null;
 		} else {
-			MapTile targetTile = gameContext.getAreaMap().getTile(requestingEntity.getLocationComponent().getWorldPosition());
+			MapTile targetTile = gameContext.getAreaMap().getTile(requestingEntity.getLocationComponent().getWorldOrParentPosition());
 			LiquidAllocation allocation = new LiquidAllocation(REQUESTER_INVENTORY, new ZoneTile(targetTile, targetTile), amountRequired, targetLiquidMaterial);
 			allocation.setTargetContainerId(parentEntity.getId());
 			allocation.setRequesterEntityId(requestingEntity.getId());

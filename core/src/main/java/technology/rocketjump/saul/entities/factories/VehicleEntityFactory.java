@@ -8,6 +8,8 @@ import com.google.inject.Singleton;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetOrientation;
 import technology.rocketjump.saul.entities.EntityAssetUpdater;
 import technology.rocketjump.saul.entities.behaviour.vehicle.VehicleBehaviour;
+import technology.rocketjump.saul.entities.components.Faction;
+import technology.rocketjump.saul.entities.components.FactionComponent;
 import technology.rocketjump.saul.entities.components.OxidisationComponent;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.entities.model.EntityType;
@@ -31,7 +33,7 @@ public class VehicleEntityFactory {
 		this.entityAssetUpdater = entityAssetUpdater;
 	}
 
-	public Entity create(VehicleEntityAttributes attributes, GridPoint2 tilePosition, GameContext gameContext) {
+	public Entity create(VehicleEntityAttributes attributes, GridPoint2 tilePosition, GameContext gameContext, Faction faction) {
 		PhysicalEntityComponent physicalComponent = createPhysicalComponent(attributes);
 		LocationComponent locationComponent = createLocationComponent(tilePosition);
 		VehicleBehaviour vehicleBehaviour = new VehicleBehaviour();
@@ -46,6 +48,10 @@ public class VehicleEntityFactory {
 					entity.addComponent(oxidisationComponent);
 				});
 
+		FactionComponent factionComponent = new FactionComponent();
+		factionComponent.init(entity, messageDispatcher, gameContext);
+		entity.addComponent(factionComponent);
+		factionComponent.setFaction(faction);
 
 		entityAssetUpdater.updateEntityAssets(entity);
 		messageDispatcher.dispatchMessage(MessageType.ENTITY_CREATED, entity);

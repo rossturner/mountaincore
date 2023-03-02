@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.FactionComponent;
+import technology.rocketjump.saul.entities.model.physical.creature.CreatureEntityAttributes;
 
 public class MainGameSkin extends Skin {
 	public static final String MISERABLE = "icon_happiness_and_injury_happiness_0";
@@ -26,12 +27,12 @@ public class MainGameSkin extends Skin {
 	public static final String MONSTER_NOT_INJURED = "icon_happiness_and_injury_monster_not_injured";
 
 
-	public Drawable getInjuredSmiley(FactionComponent factionComponent) {
+	public Drawable getInjuredSmiley(CreatureEntityAttributes attributes, FactionComponent factionComponent) {
 		String drawableName = INJURED;
 		if (factionComponent != null) {
 			Faction faction = factionComponent.getFaction();
 			drawableName = switch (faction) {
-				case SETTLEMENT -> INJURED;
+				case SETTLEMENT -> attributes.getRace().getBehaviour().getIsSapient() ? INJURED : ANIMAL_INJURED;
 				case WILD_ANIMALS -> ANIMAL_INJURED;
 				case MONSTERS -> MONSTER_INJURED;
 				case HOSTILE_INVASION -> INVADER_INJURED;
@@ -41,12 +42,12 @@ public class MainGameSkin extends Skin {
 		return getDrawable(drawableName);
 	}
 
-	public Drawable getNotInjuredSmiley(FactionComponent factionComponent) {
+	public Drawable getNotInjuredSmiley(CreatureEntityAttributes attributes, FactionComponent factionComponent) {
 		String drawableName = NOT_INJURED;
 		if (factionComponent != null) {
 			Faction faction = factionComponent.getFaction();
 			drawableName = switch (faction) {
-				case SETTLEMENT -> NOT_INJURED;
+				case SETTLEMENT -> attributes.getRace().getBehaviour().getIsSapient() ? NOT_INJURED : ANIMAL_NOT_INJURED;
 				case WILD_ANIMALS -> ANIMAL_NOT_INJURED;
 				case MONSTERS -> MONSTER_NOT_INJURED;
 				case HOSTILE_INVASION -> INVADER_NOT_INJURED;

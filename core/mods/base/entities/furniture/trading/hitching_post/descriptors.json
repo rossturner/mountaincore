@@ -1,0 +1,103 @@
+[ {
+  "uniqueName" : "Hitching_Post-hitched-east-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "HITCHING_POST",
+  "furnitureLayoutName" : "hitched-east",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Hitching_Post-Hitched-East-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "OTHER_COLOR",
+      "offsetPixels" : {
+        "x" : -23.0,
+        "y" : -32.0
+      },
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Hitching_Post-hitched-east-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "HITCHING_POST",
+  "furnitureLayoutName" : "hitched-east",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Hitching_Post-Hitched-East-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : -6.5
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Hitching_Post-hitched-north-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "HITCHING_POST",
+  "furnitureLayoutName" : "hitched-north",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Hitching_Post-Hitched-South-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "OTHER_COLOR",
+      "offsetPixels" : {
+        "x" : 32.0,
+        "y" : -16.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Hitching_Post-hitched-south-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "HITCHING_POST",
+  "furnitureLayoutName" : "hitched-south",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Hitching_Post-Hitched-South-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "OTHER_COLOR",
+      "offsetPixels" : {
+        "x" : -32.0,
+        "y" : 32.0
+      }
+    }
+  }
+}, {
+  "uniqueName" : "Hitching_Post-hitched-west-Base_Layer-Wood",
+  "type" : "BASE_LAYER",
+  "furnitureTypeName" : "HITCHING_POST",
+  "furnitureLayoutName" : "hitched-west",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Hitching_Post-Hitched-East-Base_Layer-Wood_Down.png",
+      "coloringLayer" : "OTHER_COLOR",
+      "offsetPixels" : {
+        "x" : 23.0,
+        "y" : 32.0
+      },
+      "flipX" : true,
+      "childAssets" : [ {
+        "type" : "FURNITURE_ABOVE_LAYER_1"
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Hitching_Post-hitched-west-Furniture_Above_Layer_1-Wood",
+  "type" : "FURNITURE_ABOVE_LAYER_1",
+  "furnitureTypeName" : "HITCHING_POST",
+  "furnitureLayoutName" : "hitched-west",
+  "validMaterialTypes" : [ "WOOD" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Hitching_Post-Hitched-East-Furniture_Above_Layer_1-Wood_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "offsetPixels" : {
+        "y" : -6.5
+      },
+      "flipX" : true
+    }
+  }
+} ]

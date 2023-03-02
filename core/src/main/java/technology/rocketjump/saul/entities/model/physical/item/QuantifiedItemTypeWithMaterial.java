@@ -3,7 +3,9 @@ package technology.rocketjump.saul.entities.model.physical.item;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.model.Entity;
+import technology.rocketjump.saul.materials.GameMaterialDictionary;
 import technology.rocketjump.saul.materials.model.GameMaterial;
 import technology.rocketjump.saul.materials.model.GameMaterialType;
 import technology.rocketjump.saul.persistence.EnumParser;
@@ -20,8 +22,8 @@ import static technology.rocketjump.saul.entities.model.EntityType.ITEM;
 
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class QuantifiedItemTypeWithMaterial implements ChildPersistable {
-
 	private String itemTypeName;
+
 	@JsonIgnore
 	private ItemType itemType;
 
@@ -32,6 +34,26 @@ public class QuantifiedItemTypeWithMaterial implements ChildPersistable {
 	private GameMaterial material;
 
 	private boolean liquid = false;
+
+	public void initialise(ItemTypeDictionary itemTypeDictionary, GameMaterialDictionary materialDictionary) {
+		if (itemTypeName != null) {
+			ItemType itemType = itemTypeDictionary.getByName(itemTypeName);
+			if (itemType != null) {
+				setItemType(itemType);
+			} else {
+				Logger.error("Could not find item type with name {}", itemTypeName);
+			}
+		}
+
+		if (materialName != null) {
+			GameMaterial material = materialDictionary.getByName(materialName);
+			if (material != null) {
+				setMaterial(material);
+			} else {
+				Logger.error("Could not find material with name " + materialName + " required");
+			}
+		}
+	}
 
 	public QuantifiedItemTypeWithMaterial clone() {
 		QuantifiedItemTypeWithMaterial clone = new QuantifiedItemTypeWithMaterial();

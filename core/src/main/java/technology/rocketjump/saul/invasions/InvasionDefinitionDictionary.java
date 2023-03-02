@@ -7,7 +7,6 @@ import org.apache.commons.io.FileUtils;
 import org.pmw.tinylog.Logger;
 import technology.rocketjump.saul.entities.model.physical.creature.RaceDictionary;
 import technology.rocketjump.saul.entities.model.physical.item.ItemTypeDictionary;
-import technology.rocketjump.saul.entities.model.physical.item.QuantifiedItemTypeWithMaterial;
 import technology.rocketjump.saul.invasions.model.InvasionDefinition;
 import technology.rocketjump.saul.invasions.model.InvasionEquipmentDescriptor;
 import technology.rocketjump.saul.invasions.model.InvasionParticipant;
@@ -60,19 +59,7 @@ public class InvasionDefinitionDictionary {
 				Logger.error(String.format("Could not find race with name %s for participant in invasion %s", participant.getRaceName(), definition.getName()));
 			}
 
-			for (QuantifiedItemTypeWithMaterial inventoryItem : participant.getFixedInventory()) {
-				inventoryItem.setItemType(itemTypeDictionary.getByName(inventoryItem.getItemTypeName()));
-				if (inventoryItem.getItemType() == null) {
-					Logger.error(String.format("Could not find item type with name %s for participant %s of invasion %s", inventoryItem.getItemTypeName(), participant.getRaceName(), definition.getName()));
-				}
-
-				if (inventoryItem.getMaterialName() != null) {
-					inventoryItem.setMaterial(materialDictionary.getByName(inventoryItem.getMaterialName()));
-					if (inventoryItem.getMaterial() == null) {
-						Logger.error(String.format("Could not find material with name %s for participant %s of invasion %s", inventoryItem.getMaterialName(), participant.getRaceName(), definition.getName()));
-					}
-				}
-			}
+			participant.getFixedInventory().forEach(item -> item.initialise(itemTypeDictionary, materialDictionary));
 
 			for (List<InvasionEquipmentDescriptor> equipmentOption : List.of(
 					participant.getEquipmentOptions().getWeapons(),

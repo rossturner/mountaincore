@@ -13,7 +13,6 @@ import com.ray3k.tenpatch.TenPatchDrawable;
 import org.apache.commons.lang3.StringUtils;
 import technology.rocketjump.saul.entities.model.Entity;
 import technology.rocketjump.saul.mapping.tile.MapTile;
-import technology.rocketjump.saul.mapping.tile.floor.FloorOverlap;
 import technology.rocketjump.saul.mapping.tile.underground.UnderTile;
 import technology.rocketjump.saul.production.StockpileAllocation;
 import technology.rocketjump.saul.rendering.camera.GlobalSettings;
@@ -22,8 +21,6 @@ import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.i18n.I18nTranslator;
 import technology.rocketjump.saul.ui.skins.GuiSkinRepository;
-
-import java.util.List;
 
 import static technology.rocketjump.saul.mapping.tile.TileExploration.EXPLORED;
 import static technology.rocketjump.saul.ui.Selectable.SelectableType.TILE;

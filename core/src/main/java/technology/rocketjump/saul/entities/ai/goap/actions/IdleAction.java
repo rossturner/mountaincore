@@ -48,7 +48,7 @@ public class IdleAction extends Action {
 					target = parent.parentEntity.getLocationComponent().getWorldPosition();
 				}
 			}
-			if (gameContext.getRandom().nextBoolean()) {
+			if (gameContext.getRandom().nextBoolean() && !parent.parentEntity.isDrivingVehicle()) {
 				// 50/50 face a new direction
 				CompassDirection randomDirection = CompassDirection.values()[gameContext.getRandom().nextInt(CompassDirection.values().length)];
 				Vector2 facingTarget = target.cpy().add(randomDirection.toVector());

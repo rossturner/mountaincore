@@ -120,7 +120,7 @@ public class GameMaterial implements Comparable<GameMaterial>, Persistable {
 		this.rockGroup = rockGroup;
 		this.prevalence = prevalence;
 		this.oreNames = oreNames;
-		this.valueMultiplier = valueMultiplier;
+		this.valueMultiplier = valueMultiplier == 0 ? 1 : valueMultiplier;
 		this.alcoholic = alcoholic;
 		this.combustible = combustible;
 		this.edible = edible;

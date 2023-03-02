@@ -22,5 +22,7 @@
     "Carrot Seed",
     "Hops Seed",
     "Corn Seed"
-  ]
+  ],
+  "tradeExportable": true,
+  "tradeImportable": true
 }

@@ -3,6 +3,7 @@ package technology.rocketjump.saul.entities.ai.goap;
 public enum SpecialGoal {
 
 	IDLE("Idle goal"),
+	DO_NOTHING("Do nothing goal"),
 	HAUL_ITEM("Haul item goal"),
 	DUMP_ITEM("Dump item goal"),
 	TRANSFER_LIQUID("Transfer liquid goal"),
@@ -15,6 +16,7 @@ public enum SpecialGoal {
 	DOUSE_SELF("Douse self goal"),
 	EXTINGUISH_FIRE("Extinguish fire goal"),
 	CREATE_CAMPFIRE("Create camp fire"),
+	MOVE_GROUP_TOWARDS_SETTLEMENT("Move group towards settlement"),
 	CRAFTING_JOB("Crafting job goal"),
 	ABANDON_JOB("Abandon job goal");
 

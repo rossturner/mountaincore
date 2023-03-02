@@ -9,5 +9,7 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.FIBRE.BUNDLE",
-  "specificMaterialNames": ["Hemp_Fibre"]
+  "specificMaterialNames": ["Hemp_Fibre"],
+  "tradeExportable": true,
+  "tradeImportable": true
 }

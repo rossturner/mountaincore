@@ -3,9 +3,9 @@
   "i18nDescription": "GOAL.INVADER.CREATE_CAMP.DESCRIPTION",
   "creatureCategories": ["INVADER"],
   "selectors": [],
-  "initialActions": ["SelectInvasionCampLocation"],
+  "initialActions": ["MoveGroupHomeTowardSettlers"],
   "actionRelationships": {
-    "SelectInvasionCampLocation": {
+    "MoveGroupHomeTowardSettlers": {
       "pass": ["GoToGoalTargetLocation"]
     },
     "GoToGoalTargetLocation": {

@@ -1450,6 +1450,121 @@
   },
   "hiddenFromPlacementMenu" : false
 }, {
+  "name" : "HITCHING_POST",
+  "i18nKey" : "FURNITURE.HITCHING_POST",
+  "blocksMovement" : false,
+  "defaultLayoutName" : "hitched-east",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Logs",
+      "quantity" : 2,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "HITCHING_POST" : [ ],
+    "REQUIREMENT_TO_COLOR_MAPPINGS" : [ "Resource-Logs", "WOOD_COLOR", "WOOD_COLOR", "Resource-Logs", "BRANCHES_COLOR", "OTHER_COLOR" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "LEDGER_TABLE",
+  "i18nKey" : "FURNITURE.LEDGER_TABLE",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "trading-ledger-left",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Product-Barrel",
+      "quantity" : 1,
+      "liquid" : false
+    }, {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 4,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "EXTRA_MATERIAL_TYPES" : [ "METAL" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "TRADE_BANNER",
+  "i18nKey" : "FURNITURE.TRADE_BANNER",
+  "blocksMovement" : false,
+  "defaultLayoutName" : "1x1",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 1,
+      "liquid" : false
+    } ]
+  },
+  "tags" : { },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "TRADE_CHEST",
+  "i18nKey" : "PRODUCT.CHEST",
+  "blocksMovement" : true,
+  "defaultLayoutName" : "1x1 with workspaces",
+  "autoConstructed" : true,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Product-Chest",
+      "quantity" : 1,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "STOCKPILE" : [ "1", "ItemType_Treasure-Coin" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "TRADING_EXPORT",
+  "i18nKey" : "FURNITURE.EXPORT_PALLET",
+  "blocksMovement" : false,
+  "defaultLayoutName" : "1x1",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 2,
+      "liquid" : false
+    } ],
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 2,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "TRADING_EXPORT" : [ "1", "HAULING" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
+  "name" : "TRADING_IMPORT",
+  "i18nKey" : "FURNITURE.IMPORT_PALLET",
+  "blocksMovement" : false,
+  "defaultLayoutName" : "1x1",
+  "autoConstructed" : false,
+  "requirements" : {
+    "WOOD" : [ {
+      "itemTypeName" : "Resource-Planks",
+      "quantity" : 2,
+      "liquid" : false
+    } ],
+    "STONE" : [ {
+      "itemTypeName" : "Resource-Stone-Block",
+      "quantity" : 2,
+      "liquid" : false
+    } ]
+  },
+  "tags" : {
+    "TRADING_IMPORT" : [ "1", "HAULING" ]
+  },
+  "hiddenFromPlacementMenu" : false
+}, {
   "name" : "WAGON_PARKED",
   "i18nKey" : "FURNITURE.WAGON_PARKED",
   "blocksMovement" : true,

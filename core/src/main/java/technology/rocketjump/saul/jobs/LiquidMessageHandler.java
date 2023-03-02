@@ -230,7 +230,7 @@ public class LiquidMessageHandler implements GameContextAware, Telegraph {
 
 	private boolean handle(RequestLiquidAllocationMessage message) {
 		Entity requestingEntity = message.requestingEntity;
-		Vector2 requesterPosition = requestingEntity.getLocationComponent().getWorldPosition();
+		Vector2 requesterPosition = requestingEntity.getLocationComponent().getWorldOrParentPosition();
 
 		MapTile requesterTile = gameContext.getAreaMap().getTile(requesterPosition);
 		if (requesterTile == null) {

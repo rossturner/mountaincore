@@ -9,7 +9,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : {
@@ -27,6 +27,8 @@
     },
     "restrictedToRaceNames" : [ "Dwarf" ]
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.LEATHER"
 }, {
@@ -40,7 +42,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : {
@@ -58,6 +60,8 @@
     },
     "restrictedToRaceNames" : [ "Dwarf" ]
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.PLATE"
 }, {
@@ -71,7 +75,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : {
@@ -89,6 +93,8 @@
     },
     "restrictedToRaceNames" : [ "Orc" ]
   },
+  "tradeExportable" : true,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.ORC.HEAVY"
 }, {
@@ -102,7 +108,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : {
@@ -120,6 +126,8 @@
     },
     "restrictedToRaceNames" : [ "Orc" ]
   },
+  "tradeExportable" : true,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ARMOUR.ORC.LIGHT"
 }, {
@@ -133,11 +141,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.CARP.PREPARED"
 }, {
@@ -151,11 +161,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.MEAT.LARGE"
 }, {
@@ -169,11 +181,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.MEAT.MEDIUM"
 }, {
@@ -187,11 +201,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.MEAT.SMALL"
 }, {
@@ -205,11 +221,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.PERCH.PREPARED"
 }, {
@@ -223,11 +241,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "CARCASS.PIKE.PREPARED"
 }, {
@@ -241,11 +261,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : true,
+  "tradeImportable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "CARCASS.HIDE"
 }, {
@@ -259,11 +281,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "FUEL",
   "tags" : { },
   "specificMaterialNames" : [ "Coke", "Charcoal" ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "FUEL.SACK"
 }, {
@@ -282,6 +306,8 @@
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "specificMaterialNames" : [ "Barley" ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MALT.SACK"
 }, {
@@ -300,6 +326,8 @@
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "specificMaterialNames" : [ "Barley" ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MILLED.MALT.SACK"
 }, {
@@ -318,6 +346,8 @@
   "tags" : { },
   "consumeSoundAssetName" : "DrinkSoup",
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.SOUP.BOWL"
 }, {
@@ -336,6 +366,8 @@
   "tags" : { },
   "consumeSoundAssetName" : "DrinkSoup",
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.TANKARD"
 }, {
@@ -354,7 +386,9 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "consumeSoundAssetName" : "EatFood",
-  "specificMaterialNames" : [ ],
+  "specificMaterialNames" : [ "Carrot", "Tomato", "Berserker Mushroom", "Death Cap Mushroom", "Elfsbane Mushroom", "Fist Mushroom", "Glow Mushroom", "Sunglow Mushroom", "Miltonia Mushroom", "Purple Helmet Mushroom", "Rociomycota Mushroom", "Syrup Powder Mushroom" ],
+  "tradeExportable" : true,
+  "tradeImportable" : true,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.VEGETABLE.CRATE"
 }, {
@@ -373,7 +407,9 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "consumeSoundAssetName" : "EatFood",
-  "specificMaterialNames" : [ ],
+  "specificMaterialNames" : [ "Hops", "Corn", "Potato" ],
+  "tradeExportable" : true,
+  "tradeImportable" : true,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "INGREDIENT.VEGETABLE.SACK"
 }, {
@@ -391,6 +427,8 @@
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "ASHES"
 }, {
@@ -408,6 +446,8 @@
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RUSTED_SCRAP"
 }, {
@@ -426,6 +466,8 @@
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.ANVIL"
 }, {
@@ -446,6 +488,8 @@
     "LIQUID_CONTAINER" : [ "6" ]
   },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BARREL"
 }, {
@@ -464,6 +508,8 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BARREL.HOOPS"
 }, {
@@ -482,6 +528,8 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BARREL.STAVES"
 }, {
@@ -500,6 +548,8 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ "Wheat" ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BREAD.DOUGH"
 }, {
@@ -519,6 +569,8 @@
   "tags" : { },
   "consumeSoundAssetName" : "EatFood",
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BREAD.LOAF"
 }, {
@@ -540,6 +592,8 @@
     "USAGE_SOUND" : [ "WaterCollect" ]
   },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.BUCKET"
 }, {
@@ -560,6 +614,8 @@
     "LIQUID_CONTAINER" : [ "6" ]
   },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.CAULDRON"
 }, {
@@ -578,6 +634,8 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.STONE.GEAR"
 }, {
@@ -596,6 +654,8 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LINEN"
 }, {
@@ -614,6 +674,8 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LIQUID.TANK"
 }, {
@@ -632,6 +694,8 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.MILLSTONE"
 }, {
@@ -650,8 +714,30 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.STONE.PIPE"
+}, {
+  "itemTypeName" : "Product-Chest",
+  "maxStackSize" : 1,
+  "maxHauledAtOnce" : 1,
+  "materialTypes" : [ "WOOD", "METAL" ],
+  "primaryMaterialType" : "WOOD",
+  "baseValuePerItem" : 21,
+  "holdPosition" : "IN_FRONT",
+  "impedesMovement" : false,
+  "blocksMovement" : false,
+  "equippedWhileWorkingOnJob" : true,
+  "hoursInInventoryUntilUnused" : 12.0,
+  "relatedCraftingTypeNames" : [ ],
+  "stockpileGroupName" : "PRODUCTS",
+  "tags" : { },
+  "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
+  "describeAsMaterialOnly" : false,
+  "i18nKey" : "PRODUCT.CHEST"
 }, {
   "itemTypeName" : "Product-Leather",
   "maxStackSize" : 10,
@@ -663,11 +749,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "TANNING_HIDE" ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.LEATHER"
 }, {
@@ -681,7 +769,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "LEATHERWORKING" ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : {
@@ -690,6 +778,8 @@
     "ITEM_ASSIGNMENT" : [ "PREFER_MILITARY" ]
   },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.WATERSKIN"
 }, {
@@ -708,6 +798,8 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.RATION"
 }, {
@@ -726,6 +818,8 @@
   "stockpileGroupName" : "FOOD",
   "tags" : { },
   "specificMaterialNames" : [ "Wheat" ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.RATION.DOUGH"
 }, {
@@ -744,6 +838,8 @@
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "PRODUCT.ROPE"
 }, {
@@ -757,11 +853,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : true,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.BONE.LARGE"
 }, {
@@ -775,11 +873,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : true,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.BONE.MEDIUM"
 }, {
@@ -793,11 +893,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : true,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.BONE.SMALL"
 }, {
@@ -816,6 +918,8 @@
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "specificMaterialNames" : [ "Wheat" ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.FLOUR.SACK"
 }, {
@@ -829,11 +933,13 @@
   "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.GEMS.UNREFINED"
 }, {
@@ -852,6 +958,8 @@
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "specificMaterialNames" : [ "Barley" ],
+  "tradeExportable" : true,
+  "tradeImportable" : true,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.GRAIN.SACK"
 }, {
@@ -870,6 +978,8 @@
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "specificMaterialNames" : [ "Hemp" ],
+  "tradeExportable" : true,
+  "tradeImportable" : true,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.BUNDLE"
 }, {
@@ -888,6 +998,8 @@
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ "Hemp_Fibre" ],
+  "tradeExportable" : true,
+  "tradeImportable" : true,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.HEMP.FIBRE.BUNDLE"
 }, {
@@ -901,11 +1013,13 @@
   "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.INGOT"
 }, {
@@ -919,10 +1033,12 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LIQUID.EXAMPLE"
 }, {
@@ -930,17 +1046,19 @@
   "maxStackSize" : 1,
   "maxHauledAtOnce" : 1,
   "materialTypes" : [ "WOOD", "SEED" ],
-  "primaryMaterialType" : "SEED",
+  "primaryMaterialType" : "WOOD",
   "baseValuePerItem" : 7,
   "holdPosition" : "ON_SHOULDER",
   "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
-  "specificMaterialNames" : [ ],
+  "specificMaterialNames" : [ "Fungiwood", "Barkshroom" ],
+  "tradeExportable" : true,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.MUSHROOM.LOG"
 }, {
@@ -954,11 +1072,13 @@
   "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.SHOCKED.MUSHROOM.LOG"
 }, {
@@ -972,12 +1092,14 @@
   "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
   "specificMaterialNames" : [ ],
+  "tradeExportable" : true,
+  "tradeImportable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.LOGS"
 }, {
@@ -991,11 +1113,13 @@
   "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.METAL.PLATE"
 }, {
@@ -1009,12 +1133,14 @@
   "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
   "specificMaterialNames" : [ "Fungiwood", "Barkshroom" ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.MUSHROOM.LUMBER"
 }, {
@@ -1033,6 +1159,8 @@
   "stockpileGroupName" : "SEEDS",
   "tags" : { },
   "specificMaterialNames" : [ "Purple Helmet Spawn", "Death Cap Spawn", "Fist Spawn", "Berserker Mushroom Spawn", "Rociomycota Mushroom Spawn", "Miltonia Spawn", "Elfsbane Spawn", "Sunglow Spawn", "Glow Spawn", "Syrup Powder Spawn" ],
+  "tradeExportable" : true,
+  "tradeImportable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.MUSHROOM.SPAWN"
 }, {
@@ -1046,11 +1174,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.ORE.CRUSHED"
 }, {
@@ -1064,11 +1194,13 @@
   "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.ORE.UNREFINED"
 }, {
@@ -1082,12 +1214,14 @@
   "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "placementSoundAssetName" : "HeavyWoodItem",
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.PLANKS"
 }, {
@@ -1106,6 +1240,8 @@
   "stockpileGroupName" : "SEEDS",
   "tags" : { },
   "specificMaterialNames" : [ "Wheat Seed", "Hemp Seed", "Barley Seed", "Tomato Seed", "Potato Seed", "Carrot Seed", "Hops Seed", "Corn Seed" ],
+  "tradeExportable" : true,
+  "tradeImportable" : true,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "INGREDIENT.SEEDS"
 }, {
@@ -1119,11 +1255,13 @@
   "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "PRODUCTS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.STONE.BLOCK"
 }, {
@@ -1137,12 +1275,14 @@
   "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "RAW_MATERIALS",
   "tags" : { },
   "placementSoundAssetName" : "HeavyStoneItem",
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "RESOURCE.STONE.UNREFINED"
 }, {
@@ -1161,6 +1301,8 @@
   "stockpileGroupName" : "GRANARY",
   "tags" : { },
   "specificMaterialNames" : [ "Wheat" ],
+  "tradeExportable" : true,
+  "tradeImportable" : true,
   "describeAsMaterialOnly" : true,
   "i18nKey" : "RESOURCE.WHEAT.SACK"
 }, {
@@ -1174,7 +1316,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "WOODCUTTING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
@@ -1192,6 +1334,8 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.AXE"
 }, {
@@ -1205,13 +1349,15 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "STONEMASONRY", "SMELTING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : {
     "USAGE_SOUND" : [ "StonemasonChipping" ]
   },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.CHISEL"
 }, {
@@ -1225,11 +1371,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.FISHING.ROD"
 }, {
@@ -1243,7 +1391,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
@@ -1261,6 +1409,8 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.KITCHEN.KNIFE"
 }, {
@@ -1274,7 +1424,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "STONEMASONRY", "BLACKSMITHING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
@@ -1292,6 +1442,8 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.LARGE.HAMMER"
 }, {
@@ -1305,7 +1457,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "SMELTING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
@@ -1323,6 +1475,8 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PICKAXE"
 }, {
@@ -1336,11 +1490,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "CARPENTRY" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.PLANE"
 }, {
@@ -1354,11 +1510,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "DOUGH_PREPARATION" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.ROLLING.PIN"
 }, {
@@ -1372,13 +1530,15 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "WOODCUTTING", "CARPENTRY" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : {
     "USAGE_SOUND" : [ "Sawing" ]
   },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.SAW"
 }, {
@@ -1392,11 +1552,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "CARPENTRY", "STONEMASONRY", "BLACKSMITHING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.SMALL.HAMMER"
 }, {
@@ -1410,11 +1572,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "BLACKSMITHING", "SMELTING" ],
   "stockpileGroupName" : "TOOLS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TOOL.TONGS"
 }, {
@@ -1428,11 +1592,14 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : false,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "TREASURE",
   "tags" : { },
+  "placementSoundAssetName" : "CoinsAllSizes",
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TREASURE.COIN"
 }, {
@@ -1446,11 +1613,13 @@
   "impedesMovement" : true,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "TREASURE",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "TREASURE.GEM"
 }, {
@@ -1470,6 +1639,8 @@
   "tags" : { },
   "specificMaterialNames" : [ ],
   "isAmmoType" : "ARROWS",
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BONE.ARROWS"
 }, {
@@ -1483,11 +1654,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BONE.ARROW.HEADS"
 }, {
@@ -1501,11 +1674,13 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "specificMaterialNames" : [ ],
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.ARROW.HEADS"
 }, {
@@ -1525,6 +1700,8 @@
   "tags" : { },
   "specificMaterialNames" : [ ],
   "isAmmoType" : "ARROWS",
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.ARROWS"
 }, {
@@ -1538,12 +1715,14 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "FLETCHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
   "specificMaterialNames" : [ ],
   "isAmmoType" : "BOLTS",
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.BOLTS"
 }, {
@@ -1577,6 +1756,8 @@
     "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow",
     "ranged" : true
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BOW"
 }, {
@@ -1590,7 +1771,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
@@ -1608,6 +1789,8 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.AXE"
 }, {
@@ -1621,7 +1804,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : {
@@ -1641,6 +1824,8 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.BATTLE.HAMMER"
 }, {
@@ -1654,7 +1839,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
@@ -1674,6 +1859,8 @@
     "weaponMissSoundAssetName" : "SFX_Hunting_Miss_Bow",
     "ranged" : true
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.CROSSBOW"
 }, {
@@ -1687,7 +1874,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
@@ -1703,6 +1890,8 @@
     },
     "restrictedToRaceNames" : [ ]
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.METAL.SHIELD"
 }, {
@@ -1716,7 +1905,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ "BLACKSMITHING" ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
@@ -1734,6 +1923,8 @@
     "animatedSpriteEffectName" : "Weapon slash",
     "ranged" : false
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.SWORD"
 }, {
@@ -1747,7 +1938,7 @@
   "impedesMovement" : false,
   "blocksMovement" : false,
   "equippedWhileWorkingOnJob" : true,
-  "hoursInInventoryUntilUnused" : 38.0,
+  "hoursInInventoryUntilUnused" : 12.0,
   "relatedCraftingTypeNames" : [ ],
   "stockpileGroupName" : "WEAPONS",
   "tags" : { },
@@ -1763,6 +1954,8 @@
     },
     "restrictedToRaceNames" : [ ]
   },
+  "tradeExportable" : false,
+  "tradeImportable" : false,
   "describeAsMaterialOnly" : false,
   "i18nKey" : "WEAPON.WOODEN.SHIELD"
 } ]

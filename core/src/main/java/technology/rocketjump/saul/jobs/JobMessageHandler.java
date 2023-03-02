@@ -582,7 +582,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 							attributes.setItemType(recipe.getOutputItemType());
 							attributes.setQuantity(recipe.getOutputQuantity());
 							attributes.setMaterial(outputMaterial);
-							Entity outputItem = itemEntityFactory.create(attributes, null, true, gameContext);
+							Entity outputItem = itemEntityFactory.create(attributes, null, true, gameContext, Faction.SETTLEMENT);
 
 							inventoryComponent.add(outputItem, targetFurnitureEntity, messageDispatcher, gameContext.getGameClock());
 
@@ -669,7 +669,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 					if (wall.getWallType().isConstructed()) {
 						ItemEntityAttributes itemAttributes = itemEntityAttributesFactory.resourceFromWall(wall);
 						if (itemAttributes != null) {
-							itemEntityFactory.create(itemAttributes, targetTile.getTilePosition(), true, gameContext);
+							itemEntityFactory.create(itemAttributes, targetTile.getTilePosition(), true, gameContext, Faction.SETTLEMENT);
 						}
 					}
 				} else if (targetTile.hasDoorway()) {
@@ -1015,7 +1015,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 						MeatFeature meatFeature = attributes.getRace().getFeatures().getMeat();
 						if (meatFeature != null) {
 							ItemEntityAttributes meatItemAttributes = itemEntityAttributesFactory.createItemAttributes(meatFeature.getItemType(), meatFeature.getQuantity(), meatFeature.getMaterial());
-							Entity meatItem = itemEntityFactory.create(meatItemAttributes, null, true, gameContext);
+							Entity meatItem = itemEntityFactory.create(meatItemAttributes, null, true, gameContext, Faction.SETTLEMENT);
 							inventoryComponent.add(meatItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
 							meatItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
 						}
@@ -1024,7 +1024,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 						if (skinFeature != null && skinFeature.getItemType() != null) {
 							ItemEntityAttributes skinItemAttributes = itemEntityAttributesFactory.createItemAttributes(skinFeature.getItemType(), skinFeature.getQuantity(), skinFeature.getMaterial());
 							skinItemAttributes.setColor(ColoringLayer.SKIN_COLOR, attributes.getColor(ColoringLayer.SKIN_COLOR));
-							Entity skinItem = itemEntityFactory.create(skinItemAttributes, null, true, gameContext);
+							Entity skinItem = itemEntityFactory.create(skinItemAttributes, null, true, gameContext, Faction.SETTLEMENT);
 							inventoryComponent.add(skinItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
 							skinItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
 						}
@@ -1052,7 +1052,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 
 								if (boneItemType != null && quantity > 0) {
 									ItemEntityAttributes boneItemAttributes = itemEntityAttributesFactory.createItemAttributes(boneItemType, quantity, bonesFeature.getMaterial());
-									Entity boneItem = itemEntityFactory.create(boneItemAttributes, null, true, gameContext);
+									Entity boneItem = itemEntityFactory.create(boneItemAttributes, null, true, gameContext, Faction.SETTLEMENT);
 									inventoryComponent.add(boneItem, furnitureEntity, messageDispatcher, gameContext.getGameClock());
 									boneItem.getComponent(ItemAllocationComponent.class).cancelAll(HELD_IN_INVENTORY);
 								}
@@ -1121,7 +1121,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 			return;
 		}
 
-		Entity createdItem = itemEntityFactory.createByItemType(harvestedItem.getItemType(), gameContext, true);
+		Entity createdItem = itemEntityFactory.createByItemType(harvestedItem.getItemType(), gameContext, true, Faction.SETTLEMENT);
 		ItemEntityAttributes createdAttributes = (ItemEntityAttributes) createdItem.getPhysicalEntityComponent().getAttributes();
 		GameMaterial oldPrimaryMaterial = createdAttributes.getPrimaryMaterial();
 		createdAttributes.setQuantity(harvestedItem.getQuantity());
@@ -1206,7 +1206,7 @@ public class JobMessageHandler implements GameContextAware, Telegraph {
 			if (!targetPositions.isEmpty()) {
 				targetPosition = targetPositions.remove(0);
 			}
-			itemEntityFactory.create(itemAttributes, targetPosition, true, gameContext);
+			itemEntityFactory.create(itemAttributes, targetPosition, true, gameContext, Faction.SETTLEMENT);
 		}
 
 		// Check for collapse after removal

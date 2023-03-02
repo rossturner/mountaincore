@@ -1,0 +1,194 @@
+[ {
+  "uniqueName" : "Product-Chest-Above_Layer_1-Being_Carried",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Product-Chest",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Product-Chest-Above_Layer_1-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "scale" : 0.7
+    },
+    "UP" : {
+      "filename" : "Product-Chest-Above_Layer_1-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "scale" : 0.7
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Product-Chest-Above_Layer_1-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "scale" : 0.7
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Product-Chest-Above_Layer_1-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "scale" : 0.7
+    },
+    "UP_LEFT" : {
+      "filename" : "Product-Chest-Above_Layer_1-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "scale" : 0.7
+    },
+    "UP_RIGHT" : {
+      "filename" : "Product-Chest-Above_Layer_1-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR",
+      "scale" : 0.7
+    }
+  }
+}, {
+  "uniqueName" : "Product-Chest-Above_Layer_1-On_Ground",
+  "type" : "ABOVE_LAYER_1",
+  "itemTypeName" : "Product-Chest",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Product-Chest-Above_Layer_1-On_Ground_Down.png",
+      "coloringLayer" : "METAL_COLOR"
+    }
+  }
+}, {
+  "uniqueName" : "Product-Chest-Item_Base_Layer-Being_Carried",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Product-Chest",
+  "itemPlacements" : [ "BEING_CARRIED" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Product-Chest-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -7.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 28.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -28.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP" : {
+      "filename" : "Product-Chest-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "y" : -4.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 28.0
+        },
+        "overrideRenderLayer" : 100
+      }, {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -28.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Product-Chest-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 7.0,
+        "y" : -7.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : 26.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Product-Chest-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -7.0,
+        "y" : -7.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : -26.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_LEFT" : {
+      "filename" : "Product-Chest-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : 7.0,
+        "y" : -4.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_LEFT_HAND",
+        "offsetPixels" : {
+          "x" : -20.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    },
+    "UP_RIGHT" : {
+      "filename" : "Product-Chest-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "scale" : 0.7,
+      "offsetPixels" : {
+        "x" : -7.0,
+        "y" : -4.0
+      },
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ],
+      "parentEntityAssets" : [ {
+        "type" : "CREATURE_RIGHT_HAND",
+        "offsetPixels" : {
+          "x" : 20.0
+        },
+        "overrideRenderLayer" : 100
+      } ]
+    }
+  }
+}, {
+  "uniqueName" : "Product-Chest-Item_Base_Layer-On_Ground",
+  "type" : "ITEM_BASE_LAYER",
+  "itemTypeName" : "Product-Chest",
+  "itemPlacements" : [ "ON_GROUND" ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Product-Chest-Item_Base_Layer-On_Ground_Down.png",
+      "coloringLayer" : "WOOD_COLOR",
+      "childAssets" : [ {
+        "type" : "ABOVE_LAYER_1"
+      } ]
+    }
+  }
+} ]

@@ -25,6 +25,7 @@ import technology.rocketjump.saul.assets.entities.model.ColoringLayer;
 import technology.rocketjump.saul.assets.entities.model.EntityAsset;
 import technology.rocketjump.saul.assets.entities.model.EntityAssetType;
 import technology.rocketjump.saul.assets.model.FloorType;
+import technology.rocketjump.saul.entities.components.Faction;
 import technology.rocketjump.saul.entities.components.creature.SkillsComponent;
 import technology.rocketjump.saul.entities.factories.ItemEntityFactory;
 import technology.rocketjump.saul.entities.model.Entity;
@@ -171,7 +172,7 @@ public class CreatureAttributesPane extends AbstractAttributesPane {
 					List<ItemType> itemTypes = itemTypeDictionary.getAll();
 					equippedItemTable.add(WidgetBuilder.selectField("", itemTypes.get(fakeContext.getRandom().nextInt(itemTypes.size())),
 							itemTypes, null, itemType -> {
-								Entity itemEntity = itemEntityFactory.createByItemType(itemType, fakeContext, false);
+								Entity itemEntity = itemEntityFactory.createByItemType(itemType, fakeContext, false, Faction.SETTLEMENT);
 								equippedItemComponent.clearMainHandItem();
 								equippedItemComponent.setMainHandItem(itemEntity, currentEntity, messageDispatcher);
 							}));
@@ -204,7 +205,7 @@ public class CreatureAttributesPane extends AbstractAttributesPane {
 							.toList();
 					offHandItemTable.add(WidgetBuilder.selectField("", itemTypes.get(fakeContext.getRandom().nextInt(itemTypes.size())),
 							itemTypes, null, itemType -> {
-								Entity itemEntity = itemEntityFactory.createByItemType(itemType, fakeContext, false);
+								Entity itemEntity = itemEntityFactory.createByItemType(itemType, fakeContext, false, Faction.SETTLEMENT);
 								equippedItemComponent.clearOffHandItem();
 								equippedItemComponent.setOffHandItem(itemEntity, currentEntity, messageDispatcher);
 							}));

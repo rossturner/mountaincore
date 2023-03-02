@@ -1,0 +1,31 @@
+[ {
+  "uniqueName" : "Dwarf-Female-Strong-Merchant-Body_Clothing",
+  "type" : "BODY_CLOTHING",
+  "raceName" : "Dwarf",
+  "bodyShape" : "STRONG",
+  "gender" : "FEMALE",
+  "profession" : "MERCHANT",
+  "consciousnessList" : [ ],
+  "spriteDescriptors" : {
+    "DOWN" : {
+      "filename" : "Dwarf-Female-Strong-Merchant-Body_Clothing_Down.png"
+    },
+    "UP" : {
+      "filename" : "Dwarf-Female-Strong-Merchant-Body_Clothing_Up.png"
+    },
+    "DOWN_LEFT" : {
+      "filename" : "Dwarf-Female-Strong-Merchant-Body_Clothing_Down_Left.png",
+      "flipX" : true
+    },
+    "DOWN_RIGHT" : {
+      "filename" : "Dwarf-Female-Strong-Merchant-Body_Clothing_Down_Left.png"
+    },
+    "UP_LEFT" : {
+      "filename" : "Dwarf-Female-Strong-Merchant-Body_Clothing_Up_Left.png",
+      "flipX" : true
+    },
+    "UP_RIGHT" : {
+      "filename" : "Dwarf-Female-Strong-Merchant-Body_Clothing_Up_Left.png"
+    }
+  }
+} ]
