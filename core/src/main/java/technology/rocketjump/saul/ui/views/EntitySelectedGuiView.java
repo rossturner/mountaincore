@@ -66,7 +66,6 @@ import technology.rocketjump.saul.ui.GameInteractionStateContainer;
 import technology.rocketjump.saul.ui.Selectable;
 import technology.rocketjump.saul.ui.Updatable;
 import technology.rocketjump.saul.ui.cursor.GameCursor;
-import technology.rocketjump.saul.ui.eventlistener.ChangeCursorOnHover;
 import technology.rocketjump.saul.ui.eventlistener.TooltipFactory;
 import technology.rocketjump.saul.ui.eventlistener.TooltipLocationHint;
 import technology.rocketjump.saul.ui.i18n.I18nString;
@@ -1134,7 +1133,7 @@ public class EntitySelectedGuiView implements GuiView, GameContextAware {
 
 					Image entityImage = new Image(entityDrawable);
 					tooltipFactory.simpleTooltip(entityImage, i18nTranslator.getDescription(inventoryItem), TooltipLocationHint.BELOW); //TODO: need to do something to prevent sticky tooltips
-					entityImage.addListener(new ChangeCursorOnHover(entityImage, GameCursor.SELECT, messageDispatcher));
+					buttonFactory.attachClickCursor(entityImage, GameCursor.SELECT);
 					entityImage.addListener(new ClickListener() {
 						@Override
 						public void clicked(InputEvent event, float x, float y) {
