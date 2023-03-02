@@ -39,11 +39,9 @@ public class CheckAllVehiclesBoardedAction extends Action {
 
 	@Override
 	public void writeTo(JSONObject asJson, SavedGameStateHolder savedGameStateHolder) {
-		super.writeTo(asJson, savedGameStateHolder);
 	}
 
 	@Override
 	public void readFrom(JSONObject asJson, SavedGameStateHolder savedGameStateHolder, SavedGameDependentDictionaries relatedStores) throws InvalidSaveException {
-		super.readFrom(asJson, savedGameStateHolder, relatedStores);
 	}
 }
